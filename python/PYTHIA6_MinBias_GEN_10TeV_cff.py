@@ -6,8 +6,8 @@ source = cms.Source("PythiaSource",
     maxEventsToPrint = cms.untracked.int32(0),
     pythiaPylistVerbosity = cms.untracked.int32(0),
     filterEfficiency = cms.untracked.double(1.0),
-    comEnergy = cms.untracked.double(14000.0),
-    crossSection = cms.untracked.double(-1.0),
+    comEnergy = cms.untracked.double(10000.0),
+    crossSection = cms.untracked.double(55000000000.),
     PythiaParameters = cms.PSet(
         pythiaUESettingsBlock,
         processParameters = cms.vstring('MSEL=0         ! User defined processes', 
@@ -28,8 +28,8 @@ source = cms.Source("PythiaSource",
 )
 
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.1 $'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_MinBias_GEN_14TeV_cff.py,v $'),
-    annotation = cms.untracked.string('PYTHIA6-MinBias at 14TeV')
+    version = cms.untracked.string('$Revision: $'),
+    name = cms.untracked.string('$Source: $'),
+    annotation = cms.untracked.string('PYTHIA6-MinBias at 10TeV')
 )
 
