@@ -1,7 +1,7 @@
 # Auto generated configuration file
 # using: 
 # $Revision: 1.1 $
-# $Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_MinBias_GEN_10TeV_cff_py__GEN_SIM_DIGI_L1_DIGI2RAW_HLT.py,v $
+# $Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_MinBias_10TeV_cff_py__GEN_SIM_DIGI_L1_DIGI2RAW_HLT.py,v $
 import FWCore.ParameterSet.Config as cms
 
 process = cms.Process('GENSIMDIGIL1DIGI2RAWHLT')
@@ -30,9 +30,9 @@ process.ReleaseValidation = cms.untracked.PSet(
     eventsPerJob = cms.untracked.int32(250)
 )
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: $'),
+    version = cms.untracked.string('$Revision: 1.1 $'),
     annotation = cms.untracked.string('PYTHIA6-MinBias at 10TeV'),
-    name = cms.untracked.string('$Source: $')
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_MinBias_10TeV_cff_py__GEN_SIM_DIGI_L1_DIGI2RAW_HLT.py,v $')
 )
 process.maxEvents = cms.untracked.PSet(
     input = cms.untracked.int32(10)
@@ -41,8 +41,6 @@ process.options = cms.untracked.PSet(
     wantSummary = cms.untracked.bool(True),
     Rethrow = cms.untracked.vstring('ProductNotFound')
 )
-
-process.Timing = cms.Service("Timing")
 
 # Input source
 process.source = cms.Source("PythiaSource",
