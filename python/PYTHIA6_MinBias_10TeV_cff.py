@@ -1,5 +1,6 @@
 import FWCore.ParameterSet.Config as cms
 
+
 from Configuration.GenProduction.PythiaUESettings_cfi import *
 source = cms.Source("PythiaSource",
     pythiaHepMCVerbosity = cms.untracked.bool(False),
@@ -28,7 +29,7 @@ source = cms.Source("PythiaSource",
 )
 
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.3 $'),
+    version = cms.untracked.string('$Revision: 1.4 $'),
     name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_MinBias_10TeV_cff.py,v $'),
     annotation = cms.untracked.string('PYTHIA6-MinBias at 10TeV')
 )
