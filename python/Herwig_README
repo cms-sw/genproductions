@@ -1,0 +1,51 @@
+
+
+Here are Fred Stober's comments Re: the Herwig configs -- he should get any
+credit/accolades for successes, 
+D. Mason should be assigned any blame for bad things that might manifest.
+
+Python configs tested in CMSSW_2_1_0_pre6
+
+The script Herwig_mkrun.sh was used to produce the final config files,
+using Herwig_minkt.txt as an input.
+
+Fred's notes below, DAM added "Herwig_" ahead of any of the original 
+filenames to identify them more clearly:
+
+
+----
+
+Dear Dave,
+
+Included in this email are all necessary config files for the Summer 08 
+production. So far I did not see any crashes during the test runs.
+
+Attached to this mail is also a script called "mkrun" which uses the cross 
+section and min pt settings from the file "minkt" to produce from the 
+template "Herwigpp_base_cff.py" a config fragment QCD_Pt_XY.py . This file is 
+processed by the cmsDriver application to create the final config file. Since 
+the default cms particle listing is based on pythia it it necessary to add 
+the following line is added to the config file by "mkrun":
+process.genParticles.abortOnUnknownPDGCode = False
+
+The cross section for the config files was computed with 1mio events and is 
+given in picobarn in the "minkt" data file.
+
+The current settings for cmsDriver will commission cmsRun to do 300.000 events 
+for each ptmin cut to reach the requested 3mio events. This can be adjusted 
+in the "minkt" file
+
+For some reason the cmsDriver.py can not cope with the files being in the 
+Configuration/GenProduction directory like described on the 
+ProductionSummer2008 wiki. There is also an additional "scramv1 b" run 
+necessary in order for cmsDriver to work.
+
+Another thing I noticed was that while the Production is supposed to be for an 
+early 10TeV run, the magnetic field is set to 4.0T instead of 3.8T when 
+following the twiki page.
+
+I will add some timing and space information to the twiki page today...
+
+Sincerely,
+
+-- Fred-Markus Stober stober@cern.ch Institut fuer experimentelle Kernphysik, Universitaet Karlsruhe
