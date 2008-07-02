@@ -22,27 +22,15 @@ source = cms.Source("ThePEGSource",
 			'set /Herwig/Shower/Evolver:IntrinsicPtGaussian 2.1*GeV',
 		),
 
-		pdfCTEQ6l = cms.vstring(
-			'mkdir /LHAPDF',
-			'cd /LHAPDF',
-			'create ThePEG::LHAPDF CTEQ6l',
-			'set CTEQ6l:PDFName cteq6l.LHpdf',
-			'set CTEQ6l:RemnantHandler /Herwig/Partons/HadronRemnants',
-			'cp CTEQ6l cmsPDFSet',
-			'cd /',
-		),
-
 		QCDCSAParameters = cms.vstring(
 			'cd /Herwig/MatrixElements/',
 			'insert SimpleQCD:MatrixElements[0] MEQCD2to2',
-			'set /Herwig/Cuts/JetKtCut:MinKT __MINKT__*GeV',
-			'set /Herwig/UnderlyingEvent/MPIHandler:Algorithm 1'
 			'cd /',
+			'set /Herwig/Cuts/JetKtCut:MinKT __MINKT__*GeV',
+			'set /Herwig/UnderlyingEvent/MPIHandler:Algorithm 1',
 		),
 
 		basicSetup = cms.vstring(
-			'set /Herwig/Particles/p+:PDF /LHAPDF/cmsPDFSet',
-			'set /Herwig/Particles/pbar-:PDF /LHAPDF/cmsPDFSet',
 			'cd /Herwig/Generators',
 			'set LHCGenerator:NumberOfEvents 10000000',
 			'set LHCGenerator:DebugLevel 1',
@@ -232,7 +220,6 @@ source = cms.Source("ThePEGSource",
 
 		parameterSets = cms.vstring(
 			'cm10TeV',
-			'pdfCTEQ6l',
 			'QCDCSAParameters',
 			'basicSetup',
 			'disableCtau10mmDecays',
