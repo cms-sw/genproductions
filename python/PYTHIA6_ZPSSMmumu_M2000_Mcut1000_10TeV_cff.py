@@ -7,7 +7,7 @@ source = cms.Source("PythiaSource",
     pythiaPylistVerbosity = cms.untracked.int32(1),
     filterEfficiency = cms.untracked.double(1.0),
     comEnergy = cms.untracked.double(10000.0),
-    crossSection = cms.untracked.double(9.28e-3),
+    crossSection = cms.untracked.double(7.95e-3),
     PythiaParameters = cms.PSet(
         pythiaUESettingsBlock,
         processParameters = cms.vstring(
@@ -49,7 +49,7 @@ source = cms.Source("PythiaSource",
 
 configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string("$Revision: 1.1 $"),
-    name = cms.untracked.string("$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_ZPSSMmumu_M1000_Mcut400_10TeV_cff.py,v $"),
+    name = cms.untracked.string("$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_ZPSSMmumu_M2000_Mcut1000_10TeV_cff.py,v $"),
     annotation = cms.untracked.string("2 TeV Z' SSM  at sqrt{s} = 10 TeV")
 )
 

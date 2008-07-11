@@ -25,14 +25,14 @@ process.load('Configuration/StandardSequences/FrontierConditions_GlobalTag_cff')
 process.load('Configuration/EventContent/EventContent_cff')
 
 process.ReleaseValidation = cms.untracked.PSet(
-    primaryDatasetName = cms.untracked.string('RelValConfiguration/GenProduction/python/PYTHIA6_DYmumu_M500_filter_10TeV_cff_py'),
+    primaryDatasetName = cms.untracked.string('RelValConfiguration/GenProduction/python/PYTHIA6_DYmumu_M200_filter_10TeV_cff_py'),
     totalNumberOfEvents = cms.untracked.int32(5000),
     eventsPerJob = cms.untracked.int32(250)
 )
 process.configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.1 $'),
-    annotation = cms.untracked.string('Drell-Yan -> mumu w/ Mmumu > 500 GeV at sqrt{s} = 10 TeV'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_DYmumu_M500_filter_10TeV_cff.py,v $')
+    annotation = cms.untracked.string('Drell-Yan -> mumu w/ Mmumu > 200 GeV at sqrt{s} = 10 TeV'),
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_DYmumu_M200_filter_10TeV_cff.py,v $')
 )
 process.maxEvents = cms.untracked.PSet(
     input = cms.untracked.int32(10)
@@ -43,10 +43,10 @@ process.options = cms.untracked.PSet(
 # Input source
 process.source = cms.Source("PythiaSource",
     pythiaPylistVerbosity = cms.untracked.int32(1),
-    filterEfficiency = cms.untracked.double(0.828),
+    filterEfficiency = cms.untracked.double(0.66),
     pythiaHepMCVerbosity = cms.untracked.bool(False),
     comEnergy = cms.untracked.double(10000.0),
-    crossSection = cms.untracked.double(0.0549),
+    crossSection = cms.untracked.double(1.62),
     maxEventsToPrint = cms.untracked.int32(0),
     PythiaParameters = cms.PSet(
         pythiaUESettings = cms.vstring('MSTJ(11)=3     ! Choice of the fragmentation function', 
@@ -75,7 +75,7 @@ process.source = cms.Source("PythiaSource",
         processParameters = cms.vstring('MSEL        = 0   ! user defined processes', 
             "MSUB(1)     = 1   ! ff -> gamma*/Z0/Z\'", 
             'MSTP(43)    = 3   ! complete Z0/gamma* interference', 
-            'CKIN(1)     = 500 ! min sqrt(s hat) (GeV)', 
+            'CKIN(1)     = 200 ! min sqrt(s hat) (GeV)', 
             'CKIN(2)     = -1  ! (no) max sqrt(s hat) (GeV)', 
             'MDME(174,1) = 0   !Z decay into d dbar', 
             'MDME(175,1) = 0   !Z decay into u ubar', 
@@ -97,7 +97,7 @@ process.source = cms.Source("PythiaSource",
 # Output definition
 process.output = cms.OutputModule("PoolOutputModule",
     outputCommands = process.RAWSIMEventContent.outputCommands,
-    fileName = cms.untracked.string('PYTHIA6_DYmumu_M500_filter_10TeV_cff_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT.root'),
+    fileName = cms.untracked.string('PYTHIA6_DYmumu_M200_filter_10TeV_cff_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT.root'),
     dataset = cms.untracked.PSet(
         dataTier = cms.untracked.string('GEN-SIM-RAW'),
         filterName = cms.untracked.string('STARTUP_V1')
