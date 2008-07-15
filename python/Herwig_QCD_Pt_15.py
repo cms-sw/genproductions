@@ -1,9 +1,9 @@
 import FWCore.ParameterSet.Config as cms
 
 configurationMetadata = cms.untracked.PSet(
-	version = cms.untracked.string('$Revision: 1.3 $'),
-	name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Attic/Herwig_QCD_Pt_15.py,v $'),
-	annotation = cms.untracked.string('Summer08 CSA: Herwig++ generation of QCD events, CTEQ6L used, MinKT=15 GeV')
+	version = cms.untracked.string('$Revision: 1.5 $'),
+	name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Herwigpp_base_cff.py,v $'),
+	annotation = cms.untracked.string('Summer08 CSA: Herwig++ generation of QCD events, MRST2001 used, MinKT=15 GeV')
 )
 
 source = cms.Source("ThePEGSource",

@@ -1,7 +1,7 @@
 # Auto generated configuration file
 # using: 
-# $Revision: 1.3 $
-# $Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Attic/Herwig_QCD_Pt_300_py__GEN_SIM_DIGI_L1_DIGI2RAW_HLT.py,v $
+# $Revision: 1.31 $
+# $Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/PyReleaseValidation/python/ConfigBuilder.py,v $
 import FWCore.ParameterSet.Config as cms
 
 process = cms.Process('HLT')
@@ -30,9 +30,9 @@ process.ReleaseValidation = cms.untracked.PSet(
     eventsPerJob = cms.untracked.int32(250)
 )
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.3 $'),
-    annotation = cms.untracked.string('Summer08 CSA: Herwig++ generation of QCD events, CTEQ6L used, MinKT=300 GeV'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Attic/Herwig_QCD_Pt_300_py__GEN_SIM_DIGI_L1_DIGI2RAW_HLT.py,v $')
+    version = cms.untracked.string('$Revision: 1.5 $'),
+    annotation = cms.untracked.string('Summer08 CSA: Herwig++ generation of QCD events, MRST2001 used, MinKT=300 GeV'),
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Herwigpp_base_cff.py,v $')
 )
 process.maxEvents = cms.untracked.PSet(
     input = cms.untracked.int32(300000)

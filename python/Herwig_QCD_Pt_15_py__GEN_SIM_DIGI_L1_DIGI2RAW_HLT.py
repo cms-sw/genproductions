@@ -31,7 +31,7 @@ process.ReleaseValidation = cms.untracked.PSet(
 )
 process.configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.5 $'),
-    annotation = cms.untracked.string('Summer08 CSA: Herwig++ generation of QCD events, CTEQ6L used, MinKT=15 GeV'),
+    annotation = cms.untracked.string('Summer08 CSA: Herwig++ generation of QCD events, MRST2001 used, MinKT=15 GeV'),
     name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Herwigpp_base_cff.py,v $')
 )
 process.maxEvents = cms.untracked.PSet(
