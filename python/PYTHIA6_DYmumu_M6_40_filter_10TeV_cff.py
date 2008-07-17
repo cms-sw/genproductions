@@ -5,9 +5,9 @@ source = cms.Source("PythiaSource",
     pythiaHepMCVerbosity = cms.untracked.bool(False),
     maxEventsToPrint = cms.untracked.int32(0),
     pythiaPylistVerbosity = cms.untracked.int32(0),
-    filterEfficiency = cms.untracked.double(0.509),
+    filterEfficiency = cms.untracked.double(0.309),
     comEnergy = cms.untracked.double(10000.0),
-    crossSection = cms.untracked.double(1232.),
+    crossSection = cms.untracked.double(12900),
     PythiaParameters = cms.PSet(
         pythiaUESettingsBlock,
         processParameters = cms.vstring('MSEL=0            !User defined processes', 
@@ -44,8 +44,8 @@ mumugenfilter = cms.EDFilter("MCParticlePairFilter",
 )
 
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.3 $'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_DYmumu_filter_M6_40_10TeV_cff.py,v $'),
+    version = cms.untracked.string('$Revision: 1.1 $'),
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_DYmumu_M6_40_filter_10TeV_cff.py,v $'),
     annotation = cms.untracked.string('Z/gamma* to mumu sample, 6 < M(mumu) < 40 GeV -- sqrt(s) = 10TeV')
 )
 
