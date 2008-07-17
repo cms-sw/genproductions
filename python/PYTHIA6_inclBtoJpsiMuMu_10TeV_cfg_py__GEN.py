@@ -1,24 +1,72 @@
+# Auto generated configuration file
+# using: 
+# $Revision: 1.31 $
+# $Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/PyReleaseValidation/python/ConfigBuilder.py,v $
 import FWCore.ParameterSet.Config as cms
-from Configuration.GenProduction.PythiaUESettings_cfi import *
 
+process = cms.Process('GEN')
 
-options = cms.untracked.PSet(
+# import of standard configurations
+process.load('Configuration/StandardSequences/Services_cff')
+process.load('Configuration/StandardSequences/Geometry_cff')
+process.load('FWCore/MessageService/MessageLogger_cfi')
+process.load('Configuration/StandardSequences/Generator_cff')
+process.load('Configuration/StandardSequences/MixingNoPileUp_cff')
+process.load('Configuration/StandardSequences/MagneticField_cff')
+process.load('Configuration/StandardSequences/Generator_cff')
+process.load('Configuration/StandardSequences/VtxSmearedEarly10TeVCollision_cff')
+process.load('Configuration/StandardSequences/FrontierConditions_GlobalTag_cff')
+process.load('Configuration/EventContent/EventContent_cff')
+
+process.ReleaseValidation = cms.untracked.PSet(
+    primaryDatasetName = cms.untracked.string('RelValPYTHIA6_inclBtoJpsiMuMu_10TeV_cfg.pyGEN'),
+    totalNumberOfEvents = cms.untracked.int32(5000),
+    eventsPerJob = cms.untracked.int32(250)
+)
+process.configurationMetadata = cms.untracked.PSet(
+    version = cms.untracked.string('$Revision: $'),
+    annotation = cms.untracked.string('incl_BtoJpsi_mumu'),
+    name = cms.untracked.string('$Source: $')
+)
+process.maxEvents = cms.untracked.PSet(
+    input = cms.untracked.int32(500000)
+)
+process.options = cms.untracked.PSet(
     wantSummary = cms.untracked.bool(True),
     Rethrow = cms.untracked.vstring('ProductNotFound')
 )
-
-
-source = cms.Source("PythiaSource",
+# Input source
+process.source = cms.Source("PythiaSource",
     pythiaPylistVerbosity = cms.untracked.int32(0),
-    pythiaHepMCVerbosity = cms.untracked.bool(False),
-    maxEventsToPrint = cms.untracked.int32(0),
     filterEfficiency = cms.untracked.double(0.000644),
+    pythiaHepMCVerbosity = cms.untracked.bool(False),
+    comEnergy = cms.untracked.double(10000.0),
     crossSection = cms.untracked.double(1213478),
-    comEnergy = cms.untracked.double(10000.0),  # center of mass energy in GeV
-
-                    
+    maxEventsToPrint = cms.untracked.int32(0),
     PythiaParameters = cms.PSet(
-        pythiaUESettingsBlock,
+        pythiaUESettings = cms.vstring('MSTJ(11)=3     ! Choice of the fragmentation function', 
+            'MSTJ(22)=2     ! Decay those unstable particles', 
+            'PARJ(71)=10 .  ! for which ctau  10 mm', 
+            'MSTP(2)=1      ! which order running alphaS', 
+            'MSTP(33)=0     ! no K factors in hard cross sections', 
+            'MSTP(51)=10042     ! CTEQ6L1 structure function chosen', 
+            'MSTP(52)=2     ! work with LHAPDF', 
+            'MSTP(81)=1     ! multiple parton interactions 1 is Pythia default', 
+            'MSTP(82)=4     ! Defines the multi-parton model', 
+            'MSTU(21)=1     ! Check on possible errors during program execution', 
+            'PARP(82)=1.8387   ! pt cutoff for multiparton interactions', 
+            'PARP(89)=1960. ! sqrts for which PARP82 is set', 
+            'PARP(83)=0.5   ! Multiple interactions: matter distrbn parameter', 
+            'PARP(84)=0.4   ! Multiple interactions: matter distribution parameter', 
+            'PARP(90)=0.16  ! Multiple interactions: rescaling power', 
+            'PARP(67)=2.5    ! amount of initial-state radiation', 
+            'PARP(85)=1.0  ! gluon prod. mechanism in MI', 
+            'PARP(86)=1.0  ! gluon prod. mechanism in MI', 
+            'PARP(62)=1.25   ! ', 
+            'PARP(64)=0.2    ! ', 
+            'MSTP(91)=1     !', 
+            'PARP(91)=2.1   ! kt distribution', 
+            'PARP(93)=15.0  ! '),
         processParameters = cms.vstring('MDCY(134,1) = 0', 
             'MDCY(137,1) = 0', 
             'MDCY(138,1) = 0', 
@@ -161,17 +209,33 @@ source = cms.Source("PythiaSource",
             'MDCY(277,1) = 0', 
             'MDCY(293,1) = 0', 
             'MDCY(105,1) = 0', 
-            'MSEL=1         ! b-bbar'),                  # xxx Change this to MSEL=1
-            parameterSets = cms.vstring('pythiaUESettings', 
-                'processParameters')
+            'MSEL=1         ! b-bbar'),
+        parameterSets = cms.vstring('pythiaUESettings', 
+            'processParameters')
     )
 )
 
+# Output definition
+process.output = cms.OutputModule("PoolOutputModule",
+    dataset = cms.untracked.PSet(
+        dataTier = cms.untracked.string('GEN')
+    ),
+    fileName = cms.untracked.string('PYTHIA6_inclBtoJpsiMuMu_10TeV_cfg_py__GEN.root'),
+    SelectEvents = cms.untracked.PSet(
+        SelectEvents = cms.vstring('generation_step')
+    ),
+    outputCommands = process.RAWSIMEventContent.outputCommands
+)
 
-evtgenproducer = cms.EDProducer("EvtGenProducer",
+# Other statements
+process.GlobalTag.globaltag = 'STARTUP_V1::All'
+process.bfilter = cms.EDFilter("PythiaFilter",
+    ParticleID = cms.untracked.int32(5)
+)
+process.evtgenproducer = cms.EDProducer("EvtGenProducer",
     use_default_decay = cms.untracked.bool(False),
-    particle_property_file = cms.FileInPath('GeneratorInterface/EvtGenInterface/data/evt.pdl'),
     decay_table = cms.FileInPath('GeneratorInterface/EvtGenInterface/data/DECAY_NOPHOTOS.DEC'),
+    particle_property_file = cms.FileInPath('GeneratorInterface/EvtGenInterface/data/evt.pdl'),
     user_decay_file = cms.FileInPath('GeneratorInterface/EvtGenInterface/data/incl_BtoJpsi_mumu.dec'),
     list_forced_decays = cms.vstring('MyB0', 
         'Myanti-B0', 
@@ -323,38 +387,28 @@ evtgenproducer = cms.EDProducer("EvtGenProducer",
         'MDCY(277,1) = 0', 
         'MDCY(293,1) = 0', 
         'MDCY(105,1) = 0', 
-        'MSEL=1         ! b-bbar')               # xxx Change this to MSEL=1
+        'MSEL=1         ! b-bbar')
 )
-
-
-# if you need some filter modules define and configure them here
-
-bfilter = cms.EDFilter("PythiaFilter",
-    ParticleID = cms.untracked.int32(5)
-)
-
-mumugenfilter = cms.EDFilter("MCParticlePairFilter",
+process.mumugenfilter = cms.EDFilter("MCParticlePairFilter",
     Status = cms.untracked.vint32(1, 1),
     MinPt = cms.untracked.vdouble(2.5, 2.5),
     MaxEta = cms.untracked.vdouble(2.5, 2.5),
+    moduleLabel = cms.untracked.string('evtgenproducer'),
     MinEta = cms.untracked.vdouble(-2.5, -2.5),
     ParticleCharge = cms.untracked.int32(0),
-    ParticleID1 = cms.untracked.vint32(13),
-    ParticleID2 = cms.untracked.vint32(13),
-    MinInvMass = cms.untracked.double(3.05),
     MaxInvMass = cms.untracked.double(3.15),
-    moduleLabel = cms.untracked.string("evtgenproducer")                                     
+    MinInvMass = cms.untracked.double(3.05),
+    ParticleID1 = cms.untracked.vint32(13),
+    ParticleID2 = cms.untracked.vint32(13)
 )
 
-# enter below the configuration metadata (only a description is needed, the rest is filled in by cvs)
-configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: $'),
-    name = cms.untracked.string('$Source: $'),
-    annotation = cms.untracked.string('incl_BtoJpsi_mumu')
-)
+process.output.outputCommands.append("keep *_evtgenproducer_*_*")
 
-#process.output.outputCommands.append("keep *_evtgenproducer_*_*")                 # xxx add after conversion 
+process.ProductionFilterSequence = cms.Sequence(process.bfilter*process.evtgenproducer*process.mumugenfilter)
 
-# add your filters to this sequence
-ProductionFilterSequence = cms.Sequence(bfilter*evtgenproducer*mumugenfilter)
+# Path and EndPath definitions
+process.generation_step = cms.Path(process.ProductionFilterSequence*process.pgen)
+process.out_step = cms.EndPath(process.output)
 
+# Schedule definition
+process.schedule = cms.Schedule(process.generation_step,process.out_step)
