@@ -1,6 +1,6 @@
 # Auto generated configuration file
 # using: 
-# $Revision: 1.31 $
+# $Revision: 1.45 $
 # $Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/PyReleaseValidation/python/ConfigBuilder.py,v $
 import FWCore.ParameterSet.Config as cms
 
@@ -12,27 +12,26 @@ process.load('Configuration/StandardSequences/Geometry_cff')
 process.load('FWCore/MessageService/MessageLogger_cfi')
 process.load('Configuration/StandardSequences/Generator_cff')
 process.load('Configuration/StandardSequences/MixingNoPileUp_cff')
-process.load('Configuration/StandardSequences/MagneticField_cff')
+process.load('Configuration/StandardSequences/MagneticField_38T_cff')
 process.load('Configuration/StandardSequences/Generator_cff')
 process.load('Configuration/StandardSequences/VtxSmearedEarly10TeVCollision_cff')
 process.load('Configuration/StandardSequences/FrontierConditions_GlobalTag_cff')
 process.load('Configuration/EventContent/EventContent_cff')
 
 process.ReleaseValidation = cms.untracked.PSet(
-    primaryDatasetName = cms.untracked.string('RelValHerwig_QCD_Pt_30.pyGEN'),
+    primaryDatasetName = cms.untracked.string('RelValConfiguration/GenProduction/python/Herwigpp_QCD_Pt_80_py'),
     totalNumberOfEvents = cms.untracked.int32(5000),
     eventsPerJob = cms.untracked.int32(250)
 )
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.5 $'),
-    annotation = cms.untracked.string('Summer08 CSA: Herwig++ generation of QCD events, MRST2001 used, MinKT=30 GeV'),
+    version = cms.untracked.string('$Revision: 1.6 $'),
+    annotation = cms.untracked.string('Summer08 CSA: Herwig++ generation of QCD events, MRST2001 used, MinKT=80 GeV'),
     name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Herwigpp_base_cff.py,v $')
 )
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(600000)
+    input = cms.untracked.int32(500000)
 )
 process.options = cms.untracked.PSet(
-    wantSummary = cms.untracked.bool(True),
     Rethrow = cms.untracked.vstring('ProductNotFound')
 )
 # Input source
@@ -44,7 +43,7 @@ process.source = cms.Source("ThePEGSource",
     QCDCSAParameters = cms.vstring('cd /Herwig/MatrixElements/', 
         'insert SimpleQCD:MatrixElements[0] MEQCD2to2', 
         'cd /', 
-        'set /Herwig/Cuts/JetKtCut:MinKT 30*GeV', 
+        'set /Herwig/Cuts/JetKtCut:MinKT 80*GeV', 
         'set /Herwig/UnderlyingEvent/MPIHandler:Algorithm 1'),
     dataLocation = cms.string('${HERWIGPATH}'),
     filterEfficiency = cms.untracked.double(1.0),
@@ -139,7 +138,7 @@ process.source = cms.Source("ThePEGSource",
         'set Xi-/Xi-->Lambda0,pi-;:OnOff Off', 
         'cd /'),
     generatorModule = cms.string('/Herwig/Generators/LHCGenerator'),
-    crossSection = cms.untracked.double(111.746),
+    crossSection = cms.untracked.double(2.03883),
     eventHandlers = cms.string('/Herwig/EventHandlers'),
     parameterSets = cms.vstring('cm10TeV', 
         'QCDCSAParameters', 
@@ -155,14 +154,15 @@ process.source = cms.Source("ThePEGSource",
 
 # Output definition
 process.output = cms.OutputModule("PoolOutputModule",
+    outputCommands = process.RAWSIMEventContent.outputCommands,
+    fileName = cms.untracked.string('Herwigpp_QCD_Pt_80_py_GEN.root'),
     dataset = cms.untracked.PSet(
-        dataTier = cms.untracked.string('GEN')
+        dataTier = cms.untracked.string('GEN'),
+        filterName = cms.untracked.string('STARTUP_V1')
     ),
-    fileName = cms.untracked.string('Herwig_QCD_Pt_30_py__GEN.root'),
     SelectEvents = cms.untracked.PSet(
         SelectEvents = cms.vstring('generation_step')
-    ),
-    outputCommands = process.RAWSIMEventContent.outputCommands
+    )
 )
 
 # Other statements
