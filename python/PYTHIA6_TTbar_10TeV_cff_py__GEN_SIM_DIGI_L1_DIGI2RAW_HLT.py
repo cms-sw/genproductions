@@ -1,7 +1,7 @@
 # Auto generated configuration file
 # using: 
-# $Revision: 1.2 $
-# $Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Attic/PYTHIA6_TTbar_10TeV_cff_py__GEN_SIM_DIGI_L1_DIGI2RAW_HLT.py,v $
+# $Revision: 1.4 $
+# $Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_TTbar_10TeV_cff_py__GEN_SIM_DIGI_L1_DIGI2RAW_HLT.py,v $
 import FWCore.ParameterSet.Config as cms
 
 
@@ -31,9 +31,9 @@ process.ReleaseValidation = cms.untracked.PSet(
     eventsPerJob = cms.untracked.int32(250)
 )
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.2 $'),
+    version = cms.untracked.string('$Revision: 1.4 $'),
     annotation = cms.untracked.string('PYTHIA6-TTbar at 10TeV'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Attic/PYTHIA6_TTbar_10TeV_cff_py__GEN_SIM_DIGI_L1_DIGI2RAW_HLT.py,v $')
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_TTbar_10TeV_cff_py__GEN_SIM_DIGI_L1_DIGI2RAW_HLT.py,v $')
 )
 process.maxEvents = cms.untracked.PSet(
     input = cms.untracked.int32(10)
@@ -78,7 +78,7 @@ process.source = cms.Source("PythiaSource",
             'MSUB(81)  = 1     ! qqbar to QQbar', 
             'MSUB(82)  = 1     ! gg to QQbar', 
             'MSTP(7)   = 6     ! flavor = top', 
-            'PMAS(6,1) = 175.  ! top quark mass'),
+            'PMAS(6,1) = 172.6  ! top quark mass'),
         parameterSets = cms.vstring('pythiaUESettings', 
             'processParameters')
     )
