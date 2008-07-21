@@ -1,38 +1,37 @@
 # Auto generated configuration file
 # using: 
-# $Revision: 1.1 $
-# $Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Attic/MadGraph_XQCUT60_10TeV_cff_py__GEN.py,v $
+# $Revision: 1.52 $
+# $Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/PyReleaseValidation/python/ConfigBuilder.py,v $
 import FWCore.ParameterSet.Config as cms
 
 process = cms.Process('GEN')
 
 # import of standard configurations
 process.load('Configuration/StandardSequences/Services_cff')
-process.load('Configuration/StandardSequences/Geometry_cff')
 process.load('FWCore/MessageService/MessageLogger_cfi')
 process.load('Configuration/StandardSequences/Generator_cff')
 process.load('Configuration/StandardSequences/MixingNoPileUp_cff')
-process.load('Configuration/StandardSequences/MagneticField_cff')
+process.load('Configuration/StandardSequences/GeometryPilot2_cff')
+process.load('Configuration/StandardSequences/MagneticField_38T_cff')
 process.load('Configuration/StandardSequences/Generator_cff')
 process.load('Configuration/StandardSequences/VtxSmearedEarly10TeVCollision_cff')
 process.load('Configuration/StandardSequences/FrontierConditions_GlobalTag_cff')
 process.load('Configuration/EventContent/EventContent_cff')
 
 process.ReleaseValidation = cms.untracked.PSet(
-    primaryDatasetName = cms.untracked.string('RelValMadGraph_XQCUT60_10TeV_cff.pyGEN'),
+    primaryDatasetName = cms.untracked.string('RelValConfiguration/GenProduction/python/MadGraph_XQCUT60_10TeV_cff_py'),
     totalNumberOfEvents = cms.untracked.int32(5000),
     eventsPerJob = cms.untracked.int32(250)
 )
 process.configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.1 $'),
     annotation = cms.untracked.string('MadGraph-PYTHIA6 at 10TeV'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Attic/MadGraph_XQCUT60_10TeV_cff_py__GEN.py,v $')
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/MadGraph_XQCUT60_10TeV_cff.py,v $')
 )
 process.maxEvents = cms.untracked.PSet(
     input = cms.untracked.int32(1000)
 )
 process.options = cms.untracked.PSet(
-    wantSummary = cms.untracked.bool(True),
     Rethrow = cms.untracked.vstring('ProductNotFound')
 )
 # Input source
@@ -86,18 +85,19 @@ process.source = cms.Source("MadGraphSource",
 
 # Output definition
 process.output = cms.OutputModule("PoolOutputModule",
+    outputCommands = process.RAWSIMEventContent.outputCommands,
+    fileName = cms.untracked.string('MadGraph_XQCUT60_10TeV_cff_py_GEN.root'),
     dataset = cms.untracked.PSet(
-        dataTier = cms.untracked.string('GEN')
+        dataTier = cms.untracked.string('GEN'),
+        filterName = cms.untracked.string('STARTUP_V4')
     ),
-    fileName = cms.untracked.string('MadGraph_XQCUT60_10TeV_cff_py__GEN.root'),
     SelectEvents = cms.untracked.PSet(
         SelectEvents = cms.vstring('generation_step')
-    ),
-    outputCommands = process.RAWSIMEventContent.outputCommands
+    )
 )
 
 # Other statements
-process.GlobalTag.globaltag = 'STARTUP_V1::All'
+process.GlobalTag.globaltag = 'STARTUP_V4::All'
 
 # Path and EndPath definitions
 process.generation_step = cms.Path(process.pgen)
