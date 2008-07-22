@@ -19,17 +19,17 @@ process.load('Configuration/StandardSequences/FrontierConditions_GlobalTag_cff')
 process.load('Configuration/EventContent/EventContent_cff')
 
 process.ReleaseValidation = cms.untracked.PSet(
-    primaryDatasetName = cms.untracked.string('RelValConfiguration/GenProduction/python/Herwigpp_QCD_Pt_15_py'),
+    primaryDatasetName = cms.untracked.string('RelValConfiguration/GenProduction/python/Herwigpp_QCD_Pt_2200_py'),
     totalNumberOfEvents = cms.untracked.int32(5000),
     eventsPerJob = cms.untracked.int32(250)
 )
 process.configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.6 $'),
-    annotation = cms.untracked.string('Summer08 CSA: Herwig++ generation of QCD events, MRST2001 used, MinKT=15 GeV'),
+    annotation = cms.untracked.string('Summer08 CSA: Herwig++ generation of QCD events, MRST2001 used, MinKT=2200 GeV'),
     name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Herwigpp_base_cff.py,v $')
 )
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(750000)
+    input = cms.untracked.int32(50000)
 )
 process.options = cms.untracked.PSet(
     Rethrow = cms.untracked.vstring('ProductNotFound')
@@ -43,7 +43,7 @@ process.source = cms.Source("ThePEGSource",
     QCDCSAParameters = cms.vstring('cd /Herwig/MatrixElements/', 
         'insert SimpleQCD:MatrixElements[0] MEQCD2to2', 
         'cd /', 
-        'set /Herwig/Cuts/JetKtCut:MinKT 15*GeV', 
+        'set /Herwig/Cuts/JetKtCut:MinKT 2200*GeV', 
         'set /Herwig/UnderlyingEvent/MPIHandler:Algorithm 1'),
     dataLocation = cms.string('${HERWIGPATH}'),
     filterEfficiency = cms.untracked.double(1.0),
@@ -138,7 +138,7 @@ process.source = cms.Source("ThePEGSource",
         'set Xi-/Xi-->Lambda0,pi-;:OnOff Off', 
         'cd /'),
     generatorModule = cms.string('/Herwig/Generators/LHCGenerator'),
-    crossSection = cms.untracked.double(1475.5),
+    crossSection = cms.untracked.double(1.49576e-09),
     eventHandlers = cms.string('/Herwig/EventHandlers'),
     parameterSets = cms.vstring('cm10TeV', 
         'QCDCSAParameters', 
@@ -155,10 +155,10 @@ process.source = cms.Source("ThePEGSource",
 # Output definition
 process.output = cms.OutputModule("PoolOutputModule",
     outputCommands = process.RAWSIMEventContent.outputCommands,
-    fileName = cms.untracked.string('Herwigpp_QCD_Pt_15_py_GEN.root'),
+    fileName = cms.untracked.string('Herwigpp_QCD_Pt_2200_py_GEN.root'),
     dataset = cms.untracked.PSet(
         dataTier = cms.untracked.string('GEN'),
-        filterName = cms.untracked.string('STARTUP_V1')
+        filterName = cms.untracked.string('IDEAL_V5')
     ),
     SelectEvents = cms.untracked.PSet(
         SelectEvents = cms.vstring('generation_step')
@@ -166,7 +166,7 @@ process.output = cms.OutputModule("PoolOutputModule",
 )
 
 # Other statements
-process.GlobalTag.globaltag = 'STARTUP_V1::All'
+process.GlobalTag.globaltag = 'IDEAL_V5::All'
 
 # Path and EndPath definitions
 process.generation_step = cms.Path(process.pgen)
@@ -174,4 +174,3 @@ process.out_step = cms.EndPath(process.output)
 
 # Schedule definition
 process.schedule = cms.Schedule(process.generation_step,process.out_step)
-process.genParticles.abortOnUnknownPDGCode = False

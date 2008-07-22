@@ -158,7 +158,7 @@ process.output = cms.OutputModule("PoolOutputModule",
     fileName = cms.untracked.string('Herwigpp_QCD_Pt_1400_py_GEN.root'),
     dataset = cms.untracked.PSet(
         dataTier = cms.untracked.string('GEN'),
-        filterName = cms.untracked.string('STARTUP_V1')
+        filterName = cms.untracked.string('IDEAL_V5')
     ),
     SelectEvents = cms.untracked.PSet(
         SelectEvents = cms.vstring('generation_step')
@@ -166,7 +166,7 @@ process.output = cms.OutputModule("PoolOutputModule",
 )
 
 # Other statements
-process.GlobalTag.globaltag = 'STARTUP_V1::All'
+process.GlobalTag.globaltag = 'IDEAL_V5::All'
 
 # Path and EndPath definitions
 process.generation_step = cms.Path(process.pgen)
@@ -174,4 +174,3 @@ process.out_step = cms.EndPath(process.output)
 
 # Schedule definition
 process.schedule = cms.Schedule(process.generation_step,process.out_step)
-process.genParticles.abortOnUnknownPDGCode = False
