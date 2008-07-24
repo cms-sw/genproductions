@@ -174,3 +174,4 @@ process.out_step = cms.EndPath(process.output)
 
 # Schedule definition
 process.schedule = cms.Schedule(process.generation_step,process.out_step)
+process.genParticles.abortOnUnknownPDGCode = False
