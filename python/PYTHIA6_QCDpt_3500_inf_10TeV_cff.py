@@ -7,7 +7,7 @@ source = cms.Source("PythiaSource",
     pythiaPylistVerbosity = cms.untracked.int32(0),
     filterEfficiency = cms.untracked.double(1.0000),
     comEnergy = cms.untracked.double(10000.0),
-    crossSection = cms.untracked.double(0000.00010),
+    crossSection = cms.untracked.double(0.00000018146),
     PythiaParameters = cms.PSet(
         pythiaUESettingsBlock,
 	processParameters = cms.vstring(
@@ -25,7 +25,7 @@ source = cms.Source("PythiaSource",
     )
 )
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.1 $'),
+    version = cms.untracked.string('$Revision: 1.2 $'),
     name = cms.untracked.string
 ('$Source: /local/projects/CMSSW/rep/CMSSW/Configuration/GenProduction/python/PYTHIA6_QCDpt_3500_inf_10TeV_cff.py,v $'),
     annotation = cms.untracked.string('QCDpt-3500-inf at 10TeV')

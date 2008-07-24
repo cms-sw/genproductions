@@ -24,7 +24,7 @@ processParameters = cms.vstring(
     )
 )
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.1 $'),
+    version = cms.untracked.string('$Revision: 1.2 $'),
     name = cms.untracked.string
 ('$Source: /local/projects/CMSSW/rep/CMSSW/Configuration/GenProduction/python/PYTHIA6_PhotonJetpt_300_10TeV_cff.py,v $'),
     annotation = cms.untracked.string('PhotonJetpt-300 at 10TeV')

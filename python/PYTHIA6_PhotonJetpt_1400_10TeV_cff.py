@@ -7,7 +7,7 @@ source = cms.Source("PythiaSource",
     pythiaPylistVerbosity = cms.untracked.int32(0),
     filterEfficiency = cms.untracked.double(1.0),
     comEnergy = cms.untracked.double(10000.0),
-    crossSection = cms.untracked.double(0.00026),
+    crossSection = cms.untracked.double(0.000268),
     PythiaParameters = cms.PSet(
         pythiaUESettingsBlock,
 processParameters = cms.vstring(
@@ -24,7 +24,7 @@ processParameters = cms.vstring(
     )
 )
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.1 $'),
+    version = cms.untracked.string('$Revision: 1.2 $'),
     name = cms.untracked.string
 ('$Source: /local/projects/CMSSW/rep/CMSSW/Configuration/GenProduction/python/PYTHIA6_PhotonJetpt_1400_10TeV_cff.py,v $'),
     annotation = cms.untracked.string('PhotonJetpt-1400 at 10TeV')
