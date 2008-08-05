@@ -1,32 +1,27 @@
 # Auto generated configuration file
 # using: 
-# $Revision: 1.45 $
-# $Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/PyReleaseValidation/python/ConfigBuilder.py,v $
+# Revision: 1.57 
+# Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/PyReleaseValidation/python/ConfigBuilder.py,v 
 import FWCore.ParameterSet.Config as cms
 
 process = cms.Process('GEN')
 
 # import of standard configurations
 process.load('Configuration/StandardSequences/Services_cff')
-process.load('Configuration/StandardSequences/Geometry_cff')
 process.load('FWCore/MessageService/MessageLogger_cfi')
 process.load('Configuration/StandardSequences/Generator_cff')
 process.load('Configuration/StandardSequences/MixingNoPileUp_cff')
-process.load('Configuration/StandardSequences/MagneticField_38T_cff')
+process.load('Configuration/StandardSequences/GeometryPilot2_cff')
+process.load('Configuration/StandardSequences/MagneticField_cff')
 process.load('Configuration/StandardSequences/Generator_cff')
 process.load('Configuration/StandardSequences/VtxSmearedEarly10TeVCollision_cff')
 process.load('Configuration/StandardSequences/FrontierConditions_GlobalTag_cff')
 process.load('Configuration/EventContent/EventContent_cff')
 
-process.ReleaseValidation = cms.untracked.PSet(
-    primaryDatasetName = cms.untracked.string('RelValConfiguration/GenProduction/python/PYTHIA6_DYmumu_M200_filter_10TeV_cff_py'),
-    totalNumberOfEvents = cms.untracked.int32(5000),
-    eventsPerJob = cms.untracked.int32(250)
-)
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.1 $'),
-    annotation = cms.untracked.string('Drell-Yan -> mumu w/ Mmumu > 200 GeV at sqrt{s} = 10 TeV'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_DYmumu_M200_filter_10TeV_cff.py,v $')
+    version = cms.untracked.string('$Revision: 1.2 $'),
+    annotation = cms.untracked.string("1 TeV Z\' SSM  at sqrt{s} = 10 TeV"),
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_ZPSSMmumu_M1000_Mcut400_10TeV_cff.py,v $')
 )
 process.maxEvents = cms.untracked.PSet(
     input = cms.untracked.int32(50000)
@@ -37,10 +32,10 @@ process.options = cms.untracked.PSet(
 # Input source
 process.source = cms.Source("PythiaSource",
     pythiaPylistVerbosity = cms.untracked.int32(1),
-    filterEfficiency = cms.untracked.double(0.66),
+    filterEfficiency = cms.untracked.double(1.0),
     pythiaHepMCVerbosity = cms.untracked.bool(False),
     comEnergy = cms.untracked.double(10000.0),
-    crossSection = cms.untracked.double(1.62),
+    crossSection = cms.untracked.double(0.314),
     maxEventsToPrint = cms.untracked.int32(0),
     PythiaParameters = cms.PSet(
         pythiaUESettings = cms.vstring('MSTJ(11)=3     ! Choice of the fragmentation function', 
@@ -66,23 +61,34 @@ process.source = cms.Source("PythiaSource",
             'MSTP(91)=1     !', 
             'PARP(91)=2.1   ! kt distribution', 
             'PARP(93)=15.0  ! '),
-        processParameters = cms.vstring('MSEL        = 0   ! user defined processes', 
-            "MSUB(1)     = 1   ! ff -> gamma*/Z0/Z\'", 
-            'MSTP(43)    = 3   ! complete Z0/gamma* interference', 
-            'CKIN(1)     = 200 ! min sqrt(s hat) (GeV)', 
-            'CKIN(2)     = -1  ! (no) max sqrt(s hat) (GeV)', 
-            'MDME(174,1) = 0   !Z decay into d dbar', 
-            'MDME(175,1) = 0   !Z decay into u ubar', 
-            'MDME(176,1) = 0   !Z decay into s sbar', 
-            'MDME(177,1) = 0   !Z decay into c cbar', 
-            'MDME(178,1) = 0   !Z decay into b bbar', 
-            'MDME(179,1) = 0   !Z decay into t tbar', 
-            'MDME(182,1) = 0   !Z decay into e- e+', 
-            'MDME(183,1) = 0   !Z decay into nu_e nu_ebar', 
-            'MDME(184,1) = 1   !Z decay into mu- mu+', 
-            'MDME(185,1) = 0   !Z decay into nu_mu nu_mubar', 
-            'MDME(186,1) = 0   !Z decay into tau- tau+', 
-            'MDME(187,1) = 0   !Z decay into nu_tau nu_taubar'),
+        processParameters = cms.vstring('MSEL=0             ! User defined processes', 
+            "MSUB(141)   = 1    ! ff -> gamma/Z0/Z\'", 
+            'MSTP(44)    = 7    ! complete Zprime/Z/gamma interference', 
+            "PMAS(32,1)  = 1000 ! Z\' mass (GeV)", 
+            'CKIN(1)     = 400  ! lower invariant mass cutoff (GeV)', 
+            'CKIN(2)     = -1   ! no upper invariant mass cutoff', 
+            'MDME(289,1) = 0    ! d dbar', 
+            'MDME(290,1) = 0    ! u ubar', 
+            'MDME(291,1) = 0    ! s sbar', 
+            'MDME(292,1) = 0    ! c cbar', 
+            'MDME(293,1) = 0    ! b bar', 
+            'MDME(294,1) = 0    ! t tbar', 
+            'MDME(295,1) = -1   ! 4th gen q qbar', 
+            'MDME(296,1) = -1   ! 4th gen q qbar', 
+            'MDME(297,1) = 0    ! e-     e+', 
+            'MDME(298,1) = 0    ! nu_e   nu_ebar', 
+            'MDME(299,1) = 1    ! mu-    mu+', 
+            'MDME(300,1) = 0    ! nu_mu  nu_mubar', 
+            'MDME(301,1) = 0    ! tau    tau', 
+            'MDME(302,1) = 0    ! nu_tau nu_taubar', 
+            'MDME(303,1) = -1   ! 4th gen l- l+', 
+            'MDME(304,1) = -1   ! 4th gen nu nubar', 
+            'MDME(305,1) = -1   ! W+ W-', 
+            'MDME(306,1) = -1   ! H+ H-', 
+            'MDME(307,1) = -1   ! Z0 gamma', 
+            'MDME(308,1) = -1   ! Z0 h0', 
+            'MDME(309,1) = -1   ! h0 A0', 
+            'MDME(310,1) = -1   ! H0 A0'),
         parameterSets = cms.vstring('pythiaUESettings', 
             'processParameters')
     )
@@ -91,10 +97,10 @@ process.source = cms.Source("PythiaSource",
 # Output definition
 process.output = cms.OutputModule("PoolOutputModule",
     outputCommands = process.RAWSIMEventContent.outputCommands,
-    fileName = cms.untracked.string('PYTHIA6_DYmumu_M200_filter_10TeV_cff_py_GEN.root'),
+    fileName = cms.untracked.string('PYTHIA6_ZPSSMmumu_M1000_Mcut400_10TeV_cff_py_GEN.root'),
     dataset = cms.untracked.PSet(
         dataTier = cms.untracked.string('GEN'),
-        filterName = cms.untracked.string('STARTUP_V1')
+        filterName = cms.untracked.string('')
     ),
     SelectEvents = cms.untracked.PSet(
         SelectEvents = cms.vstring('generation_step')
@@ -102,20 +108,10 @@ process.output = cms.OutputModule("PoolOutputModule",
 )
 
 # Other statements
-process.GlobalTag.globaltag = 'STARTUP_V1::All'
-process.mumugenfilter = cms.EDFilter("MCParticlePairFilter",
-    Status = cms.untracked.vint32(1, 1),
-    MinPt = cms.untracked.vdouble(0.0, 0.0),
-    MaxEta = cms.untracked.vdouble(2.5, 2.5),
-    MinEta = cms.untracked.vdouble(-2.5, -2.5),
-    ParticleCharge = cms.untracked.int32(0),
-    ParticleID1 = cms.untracked.vint32(13),
-    ParticleID2 = cms.untracked.vint32(13)
-)
-process.ProductionFilterSequence = cms.Sequence(process.mumugenfilter)
+process.GlobalTag.globaltag = 'STARTUP_V4::All'
 
 # Path and EndPath definitions
-process.generation_step = cms.Path(process.ProductionFilterSequence*process.pgen)
+process.generation_step = cms.Path(process.pgen)
 process.out_step = cms.EndPath(process.output)
 
 # Schedule definition

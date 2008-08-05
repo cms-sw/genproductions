@@ -1,32 +1,27 @@
 # Auto generated configuration file
 # using: 
-# $Revision: 1.45 $
-# $Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/PyReleaseValidation/python/ConfigBuilder.py,v $
+# Revision: 1.57 
+# Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/PyReleaseValidation/python/ConfigBuilder.py,v 
 import FWCore.ParameterSet.Config as cms
 
 process = cms.Process('GEN')
 
 # import of standard configurations
 process.load('Configuration/StandardSequences/Services_cff')
-process.load('Configuration/StandardSequences/Geometry_cff')
 process.load('FWCore/MessageService/MessageLogger_cfi')
 process.load('Configuration/StandardSequences/Generator_cff')
 process.load('Configuration/StandardSequences/MixingNoPileUp_cff')
-process.load('Configuration/StandardSequences/MagneticField_38T_cff')
+process.load('Configuration/StandardSequences/GeometryPilot2_cff')
+process.load('Configuration/StandardSequences/MagneticField_cff')
 process.load('Configuration/StandardSequences/Generator_cff')
 process.load('Configuration/StandardSequences/VtxSmearedEarly10TeVCollision_cff')
 process.load('Configuration/StandardSequences/FrontierConditions_GlobalTag_cff')
 process.load('Configuration/EventContent/EventContent_cff')
 
-process.ReleaseValidation = cms.untracked.PSet(
-    primaryDatasetName = cms.untracked.string('RelValConfiguration/GenProduction/python/PYTHIA6_ZPSSMmumu_M1500_Mcut600_10TeV_cff_py'),
-    totalNumberOfEvents = cms.untracked.int32(5000),
-    eventsPerJob = cms.untracked.int32(250)
-)
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.1 $'),
-    annotation = cms.untracked.string("1.5 TeV Z\' SSM  at sqrt{s} = 10 TeV"),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_ZPSSMmumu_M1500_Mcut600_10TeV_cff.py,v $')
+    version = cms.untracked.string('$Revision: 1.2 $'),
+    annotation = cms.untracked.string("2 TeV Z\' SSM  at sqrt{s} = 10 TeV"),
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_ZPSSMmumu_M2000_Mcut1000_10TeV_cff.py,v $')
 )
 process.maxEvents = cms.untracked.PSet(
     input = cms.untracked.int32(50000)
@@ -40,7 +35,7 @@ process.source = cms.Source("PythiaSource",
     filterEfficiency = cms.untracked.double(1.0),
     pythiaHepMCVerbosity = cms.untracked.bool(False),
     comEnergy = cms.untracked.double(10000.0),
-    crossSection = cms.untracked.double(0.0516),
+    crossSection = cms.untracked.double(0.00795),
     maxEventsToPrint = cms.untracked.int32(0),
     PythiaParameters = cms.PSet(
         pythiaUESettings = cms.vstring('MSTJ(11)=3     ! Choice of the fragmentation function', 
@@ -69,8 +64,8 @@ process.source = cms.Source("PythiaSource",
         processParameters = cms.vstring('MSEL=0             ! User defined processes', 
             "MSUB(141)   = 1    ! ff -> gamma/Z0/Z\'", 
             'MSTP(44)    = 7    ! complete Zprime/Z/gamma interference', 
-            "PMAS(32,1)  = 1500 ! Z\' mass (GeV)", 
-            'CKIN(1)     = 600  ! lower invariant mass cutoff (GeV)', 
+            "PMAS(32,1)  = 2000 ! Z\' mass (GeV)", 
+            'CKIN(1)     = 1000 ! lower invariant mass cutoff (GeV)', 
             'CKIN(2)     = -1   ! no upper invariant mass cutoff', 
             'MDME(289,1) = 0    ! d dbar', 
             'MDME(290,1) = 0    ! u ubar', 
@@ -102,10 +97,10 @@ process.source = cms.Source("PythiaSource",
 # Output definition
 process.output = cms.OutputModule("PoolOutputModule",
     outputCommands = process.RAWSIMEventContent.outputCommands,
-    fileName = cms.untracked.string('PYTHIA6_ZPSSMmumu_M1500_Mcut600_10TeV_cff_py_GEN.root'),
+    fileName = cms.untracked.string('PYTHIA6_ZPSSMmumu_M2000_Mcut1000_10TeV_cff_py_GEN.root'),
     dataset = cms.untracked.PSet(
         dataTier = cms.untracked.string('GEN'),
-        filterName = cms.untracked.string('STARTUP_V1')
+        filterName = cms.untracked.string('')
     ),
     SelectEvents = cms.untracked.PSet(
         SelectEvents = cms.vstring('generation_step')
@@ -113,7 +108,7 @@ process.output = cms.OutputModule("PoolOutputModule",
 )
 
 # Other statements
-process.GlobalTag.globaltag = 'STARTUP_V1::All'
+process.GlobalTag.globaltag = 'STARTUP_V4::All'
 
 # Path and EndPath definitions
 process.generation_step = cms.Path(process.pgen)
