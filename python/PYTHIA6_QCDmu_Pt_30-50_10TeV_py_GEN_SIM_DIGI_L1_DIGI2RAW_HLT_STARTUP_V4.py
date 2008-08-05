@@ -31,7 +31,7 @@ process.ReleaseValidation = cms.untracked.PSet(
 )
 process.configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.5 $'),
-    annotation = cms.untracked.string('PYTHIA6-QCD->mu pthat20up at 10TeV with Muon preselection (pt > 5 |eta| < 2.5)')
+    annotation = cms.untracked.string('PYTHIA6-QCD->mu pthat=30-50 at 10TeV with Muon preselection (pt > 5 |eta| < 2.5)')
 )
 process.maxEvents = cms.untracked.PSet(
     input = cms.untracked.int32(10)
@@ -42,10 +42,10 @@ process.options = cms.untracked.PSet(
 # Input source
 process.source = cms.Source("PythiaSource",
     pythiaPylistVerbosity = cms.untracked.int32(0),
-    filterEfficiency = cms.untracked.double(0.0079),
+    filterEfficiency = cms.untracked.double(0.01),
     pythiaHepMCVerbosity = cms.untracked.bool(False),
     comEnergy = cms.untracked.double(10000.0),
-    crossSection = cms.untracked.double(497200000.0),
+    crossSection = cms.untracked.double(91780000.0),
     maxEventsToPrint = cms.untracked.int32(0),
     PythiaParameters = cms.PSet(
         pythiaUESettings = cms.vstring('MSTJ(11)=3     ! Choice of the fragmentation function', 

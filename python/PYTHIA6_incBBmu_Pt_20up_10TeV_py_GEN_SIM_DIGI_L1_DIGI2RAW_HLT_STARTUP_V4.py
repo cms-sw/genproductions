@@ -30,7 +30,7 @@ process.ReleaseValidation = cms.untracked.PSet(
     eventsPerJob = cms.untracked.int32(250)
 )
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.5 $'),
+    version = cms.untracked.string('$Revision: 1.1 $'),
     annotation = cms.untracked.string('PYTHIA6-inclusive BB->mu pthat20up at 10TeV with Muon preselection (pt > 5 |eta| < 2.5)')
 )
 process.maxEvents = cms.untracked.PSet(
