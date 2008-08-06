@@ -29,7 +29,7 @@ process.configurationMetadata = cms.untracked.PSet(
     name = cms.untracked.string('$Source: $')
 )
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(100000)
+    input = cms.untracked.int32(1000)
 )
 process.options = cms.untracked.PSet(
     Rethrow = cms.untracked.vstring('ProductNotFound')
@@ -40,7 +40,7 @@ process.source = cms.Source("PythiaSource",
     filterEfficiency = cms.untracked.double(0.000644),
     pythiaHepMCVerbosity = cms.untracked.bool(False),
     comEnergy = cms.untracked.double(10000.0),
-    crossSection = cms.untracked.double(38280000),
+    crossSection = cms.untracked.double(1213478),
     maxEventsToPrint = cms.untracked.int32(0),
     PythiaParameters = cms.PSet(
         pythiaUESettings = cms.vstring('MSTJ(11)=3     ! Choice of the fragmentation function', 
@@ -220,7 +220,7 @@ process.output = cms.OutputModule("PoolOutputModule",
     fileName = cms.untracked.string('PYTHIA6_inclBtoJpsiMuMu_10TeV_cfg_py_GEN.root'),
     dataset = cms.untracked.PSet(
         dataTier = cms.untracked.string('GEN'),
-        filterName = cms.untracked.string('IDEAL_V5')
+        filterName = cms.untracked.string('STARTUP_V4')
     ),
     SelectEvents = cms.untracked.PSet(
         SelectEvents = cms.vstring('generation_step')
@@ -228,7 +228,7 @@ process.output = cms.OutputModule("PoolOutputModule",
 )
 
 # Other statements
-process.GlobalTag.globaltag = 'IDEAL_V5::All'
+process.GlobalTag.globaltag = 'STARTUP_V4::All'
 process.bfilter = cms.EDFilter("PythiaFilter",
     ParticleID = cms.untracked.int32(5)
 )
