@@ -2,8 +2,8 @@ import FWCore.ParameterSet.Config as cms
 
 from Configuration.Generator.PythiaUESettings_cfi import *
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.1 $'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Attic/PYTHIA6_Psi2S_10TeV_cff.py,v $'),
+    version = cms.untracked.string('$Revision: 1.3 $'),
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_Psi2S_10TeV_cff.py,v $'),
     annotation = cms.untracked.string('generation of prompt Psi2S COM+CSM')
 )
 source = cms.Source("PythiaSource",
@@ -20,9 +20,9 @@ source = cms.Source("PythiaSource",
             'PMAS(362,1)  = 3.70000   ! change cc~ mass larger than Psi(2S) 3.68600', 
             'PMAS(363,1)  = 3.70000   ! change cc~ mass larger than Psi(2S) 3.68600', 
             'PMAS(364,1)  = 3.70000   ! change cc~ mass larger than Psi(2S) 3.68600', 
-            'KFDP(4285,1) = 100443    ! cc~ -> Psi(2S)', 
-            'KFDP(4286,1) = 100443    ! cc~ -> Psi(2S)', 
-            'KFDP(4287,1) = 100443    ! cc~ -> Psi(2S)', 
+            'KFDP(4211,1) = 100443    ! cc~ -> Psi(2S)', 
+            'KFDP(4212,1) = 100443    ! cc~ -> Psi(2S)', 
+            'KFDP(4213,1) = 100443    ! cc~ -> Psi(2S)', 
             'PARP(141)=0.76   ! New values for COM matrix elements', 
             'PARP(142)=0.0050 ! New values for COM matrix elements', 
             'PARP(143)=0.0042 ! New values for COM matrix elements', 

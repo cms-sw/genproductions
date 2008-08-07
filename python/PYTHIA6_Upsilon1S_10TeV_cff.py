@@ -10,7 +10,8 @@ source = cms.Source("PythiaSource",
     maxEventsToPrint = cms.untracked.int32(0),
     PythiaParameters = cms.PSet(
         pythiaUESettingsBlock,
-        processParameters = cms.vstring('MSEL=62          ! Quarkonia NRQCD ', 
+        processParameters = cms.vstring(
+            'MSEL=62          ! Quarkonia NRQCD ', 
             'MDME(1034,1)=0   ! 0.025200    e- e+', 
             'MDME(1035,1)=1   ! 0.024800    mu- mu+', 
             'MDME(1036,1)=0   ! 0.026700    tau- tau+', 
@@ -66,8 +67,8 @@ mumugenfilter = cms.EDFilter("MCParticlePairFilter",
 )
 
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.1 $'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Attic/PYTHIA6_Upsilon1S_10TeV_cff.py,v $'),
+    version = cms.untracked.string('$Revision: 1.3 $'),
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_Upsilon1S_10TeV_cff.py,v $'),
     annotation = cms.untracked.string('generation of prompt Upsilon COM+CSM, CTEQ6L1 used')
 )
 ProductionFilterSequence = cms.Sequence(oniafilter*mumugenfilter)

@@ -1,32 +1,27 @@
 # Auto generated configuration file
 # using: 
-# $Revision: 1.1 $
-# $Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Attic/PYTHIA6_Upsilon3S_10TeV_cff_py_GEN_STARTUP_V1.py,v $
+# Revision: 1.57 
+# Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/PyReleaseValidation/python/ConfigBuilder.py,v 
 import FWCore.ParameterSet.Config as cms
 
 process = cms.Process('GEN')
 
 # import of standard configurations
 process.load('Configuration/StandardSequences/Services_cff')
-process.load('Configuration/StandardSequences/Geometry_cff')
 process.load('FWCore/MessageService/MessageLogger_cfi')
 process.load('Configuration/StandardSequences/Generator_cff')
 process.load('Configuration/StandardSequences/MixingNoPileUp_cff')
+process.load('Configuration/StandardSequences/GeometryPilot2_cff')
 process.load('Configuration/StandardSequences/MagneticField_cff')
 process.load('Configuration/StandardSequences/Generator_cff')
 process.load('Configuration/StandardSequences/VtxSmearedEarly10TeVCollision_cff')
 process.load('Configuration/StandardSequences/FrontierConditions_GlobalTag_cff')
 process.load('Configuration/EventContent/EventContent_cff')
 
-process.ReleaseValidation = cms.untracked.PSet(
-    primaryDatasetName = cms.untracked.string('RelValConfiguration/GenProduction/python/PYTHIA6_Upsilon3S_10TeV_cff_py'),
-    totalNumberOfEvents = cms.untracked.int32(5000),
-    eventsPerJob = cms.untracked.int32(250)
-)
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.1 $'),
-    annotation = cms.untracked.string('generation of prompt Upsilon 3S COM+CSM'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Attic/PYTHIA6_Upsilon3S_10TeV_cff_py_GEN_STARTUP_V1.py,v $')
+    version = cms.untracked.string('$Revision: 1.3 $'),
+    annotation = cms.untracked.string('generation of prompt Psi2S COM+CSM'),
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_Psi2S_10TeV_cff.py,v $')
 )
 process.maxEvents = cms.untracked.PSet(
     input = cms.untracked.int32(10)
@@ -37,10 +32,10 @@ process.options = cms.untracked.PSet(
 # Input source
 process.source = cms.Source("PythiaSource",
     pythiaPylistVerbosity = cms.untracked.int32(0),
-    filterEfficiency = cms.untracked.double(0.431),
+    filterEfficiency = cms.untracked.double(0.0433),
     pythiaHepMCVerbosity = cms.untracked.bool(False),
     comEnergy = cms.untracked.double(10000.0),
-    crossSection = cms.untracked.double(1781.0),
+    crossSection = cms.untracked.double(2169.0),
     maxEventsToPrint = cms.untracked.int32(0),
     PythiaParameters = cms.PSet(
         pythiaUESettings = cms.vstring('MSTJ(11)=3     ! Choice of the fragmentation function', 
@@ -65,34 +60,30 @@ process.source = cms.Source("PythiaSource",
             'MSTP(91)=1     !', 
             'PARP(91)=2.1   ! kt distribution', 
             'PARP(93)=15.0  ! '),
-        processParameters = cms.vstring('MSEL=62          ! Quarkonia NRQCD ', 
-            'PMAS(296,1)  = 10.3552    ! change Upsilon(2S) mass to Upsoilon(3S) PDG2006', 
-            'KFPR(461,1)  = 100553     ! change 461 to Upsilon(2S) + g', 
-            'PMAS(365,1)  = 10.4000   ! change bb~ mass larger than Upsilon(3S)', 
-            'PMAS(366,1)  = 10.4000   ! change bb~ mass larger than Upsilon(3S)', 
-            'PMAS(367,1)  = 10.4000   ! change bb~ mass larger than Upsilon(3S)', 
-            'KFDP(4288,1) = 100553     ! bb~ -> Upsilon(2S)', 
-            'KFDP(4289,1) = 100553     ! bb~ -> Upsilon(2S)', 
-            'KFDP(4290,1) = 100553     ! bb~ -> Upsilon(2S)', 
-            'PARP(146)=3.54   ! New values for COM matrix elements', 
-            'PARP(147)=0.075  ! New values for COM matrix elements', 
-            'PARP(148)=0.01   ! New values for COM matrix elements', 
-            'PARP(149)=0.01   ! New values for COM matrix elements', 
-            'PARP(150)=0.0    ! New values for COM matrix elements', 
-            'MDME(1578,1) = 0 ! 0.014000    e-              e+', 
-            'MDME(1579,1) = 1 ! 0.014000    mu-             mu+', 
-            'MDME(1580,1) = 0 ! 0.014000    tau-            tau+', 
-            'MDME(1581,1) = 0 ! 0.008000    d               dbar', 
-            'MDME(1582,1) = 0 ! 0.024000    u               ubar', 
-            'MDME(1583,1) = 0 ! 0.008000    s               sbar', 
-            'MDME(1584,1) = 0 ! 0.024000    c               cbar', 
-            'MDME(1585,1) = 0 ! 0.425000    g               g            g', 
-            'MDME(1586,1) = 0 ! 0.020000    gamma           g            g', 
-            'MDME(1587,1) = 0 ! 0.185000    Upsilon         pi+          pi-', 
-            'MDME(1588,1) = 0 ! 0.088000    Upsilon         pi0          pi0', 
-            'MDME(1589,1) = 0 ! 0.043000    chi_0b          gamma', 
-            'MDME(1590,1) = 0 ! 0.067000    chi_1b          gamma', 
-            'MDME(1591,1) = 0 ! 0.066000    chi_2b          gamma', 
+        processParameters = cms.vstring('MSEL=61          ! Quarkonia', 
+            'KFPR(421,1)  = 100443    ! change 421 to Psi(2S) + g', 
+            'PMAS(362,1)  = 3.70000   ! change cc~ mass larger than Psi(2S) 3.68600', 
+            'PMAS(363,1)  = 3.70000   ! change cc~ mass larger than Psi(2S) 3.68600', 
+            'PMAS(364,1)  = 3.70000   ! change cc~ mass larger than Psi(2S) 3.68600', 
+            'KFDP(4211,1) = 100443    ! cc~ -> Psi(2S)', 
+            'KFDP(4212,1) = 100443    ! cc~ -> Psi(2S)', 
+            'KFDP(4213,1) = 100443    ! cc~ -> Psi(2S)', 
+            'PARP(141)=0.76   ! New values for COM matrix elements', 
+            'PARP(142)=0.0050 ! New values for COM matrix elements', 
+            'PARP(143)=0.0042 ! New values for COM matrix elements', 
+            'PARP(144)=0.0042 ! New values for COM matrix elements', 
+            'PARP(145)=0      ! New values for COM matrix elements', 
+            'MDME(1567,1) = 0 ! 0.008300    e-              e+', 
+            'MDME(1568,1) = 1 ! 0.008300    mu-             mu+', 
+            'MDME(1569,1) = 0 ! 0.186600    rndmflav        rndmflavbar', 
+            'MDME(1570,1) = 0 ! 0.324000    J/psi           pi+             pi-', 
+            'MDME(1571,1) = 0 ! 0.184000    J/psi           pi0             pi0', 
+            'MDME(1572,1) = 0 ! 0.027000    J/psi           eta', 
+            'MDME(1573,1) = 0 ! 0.001000    J/psi           pi0', 
+            'MDME(1574,1) = 0 ! 0.093000    chi_0c          gamma', 
+            'MDME(1575,1) = 0 ! 0.087000    chi_1c          gamma', 
+            'MDME(1576,1) = 0 ! 0.078000    chi_2c          gamma', 
+            'MDME(1577,1) = 0 ! 0.002800    eta_c           gamma', 
             'MSTP(142)=2      ! turns on the PYEVWT Pt re-weighting routine', 
             'PARJ(13)=0.750   ! probability that a c or b meson has S=1', 
             'PARJ(14)=0.162   ! probability that a meson with S=0 is produced with L=1, J=1', 
@@ -113,10 +104,10 @@ process.source = cms.Source("PythiaSource",
 # Output definition
 process.output = cms.OutputModule("PoolOutputModule",
     outputCommands = process.RAWSIMEventContent.outputCommands,
-    fileName = cms.untracked.string('PYTHIA6_Upsilon3S_10TeV_cff_py_GEN.root'),
+    fileName = cms.untracked.string('PYTHIA6_Psi2S_10TeV_cff_py_GEN.root'),
     dataset = cms.untracked.PSet(
         dataTier = cms.untracked.string('GEN'),
-        filterName = cms.untracked.string('STARTUP_V1')
+        filterName = cms.untracked.string('')
     ),
     SelectEvents = cms.untracked.PSet(
         SelectEvents = cms.vstring('generation_step')
@@ -124,13 +115,13 @@ process.output = cms.OutputModule("PoolOutputModule",
 )
 
 # Other statements
-process.GlobalTag.globaltag = 'STARTUP_V1::All'
+process.GlobalTag.globaltag = 'STARTUP_V4::All'
 process.oniafilter = cms.EDFilter("PythiaFilter",
     MaxEta = cms.untracked.double(1000.0),
     Status = cms.untracked.int32(2),
     MinEta = cms.untracked.double(-1000.0),
     MinPt = cms.untracked.double(0.0),
-    ParticleID = cms.untracked.int32(100553)
+    ParticleID = cms.untracked.int32(100443)
 )
 process.mumugenfilter = cms.EDFilter("MCParticlePairFilter",
     Status = cms.untracked.vint32(1, 1),

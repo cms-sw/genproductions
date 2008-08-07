@@ -12,12 +12,12 @@ source = cms.Source("PythiaSource",
         pythiaUESettingsBlock,
         processParameters = cms.vstring('MSEL=62          ! Quarkonia NRQCD ', 
             'KFPR(461,1)  = 100553     ! change 461 to Upsilon(2S) + g', 
-            'PMAS(365,1)  = 10.0600   ! change bb~ mass larger than Upsilon(2S) 10.02330', 
-            'PMAS(366,1)  = 10.0600   ! change bb~ mass larger than Upsilon(2S) 10.02330', 
-            'PMAS(367,1)  = 10.0600   ! change bb~ mass larger than Upsilon(2S) 10.02330', 
-            'KFDP(4288,1) = 100553     ! bb~ -> Upsilon(2S)', 
-            'KFDP(4289,1) = 100553     ! bb~ -> Upsilon(2S)', 
-            'KFDP(4290,1) = 100553     ! bb~ -> Upsilon(2S)', 
+            'PMAS(365,1)  = 10.0300   ! change bb~ mass larger than Upsilon(2S) 10.02330',
+            'PMAS(366,1)  = 10.0300   ! change bb~ mass larger than Upsilon(2S) 10.02330',
+            'PMAS(367,1)  = 10.0300   ! change bb~ mass larger than Upsilon(2S) 10.02330',
+            'KFDP(4214,1) = 100553     ! bb~ -> Upsilon(2S)',
+            'KFDP(4215,1) = 100553     ! bb~ -> Upsilon(2S)',
+            'KFDP(4216,1) = 100553     ! bb~ -> Upsilon(2S)',
             'PMAS(278,1)  = 10.23250   ! change chi_0b(1P) mass to chi_0b(2P)', 
             'KFDP(1520,1) = 100553     ! chi_0b(2P) -> Upsilon(2S)', 
             'BRAT(1520)   = 0.046      ! br of chi_0b(2P) -> Upsilon(2S)', 
@@ -85,8 +85,8 @@ mumugenfilter = cms.EDFilter("MCParticlePairFilter",
 )
 
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.1 $'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Attic/PYTHIA6_Upsilon2S_10TeV_cff.py,v $'),
+    version = cms.untracked.string('$Revision: 1.3 $'),
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_Upsilon2S_10TeV_cff.py,v $'),
     annotation = cms.untracked.string('generation of prompt Upsilon 2S COM+CSM')
 )
 ProductionFilterSequence = cms.Sequence(oniafilter*mumugenfilter)
