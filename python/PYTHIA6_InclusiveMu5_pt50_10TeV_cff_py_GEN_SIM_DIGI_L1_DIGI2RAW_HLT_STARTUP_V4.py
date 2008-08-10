@@ -30,7 +30,7 @@ process.ReleaseValidation = cms.untracked.PSet(
     eventsPerJob = cms.untracked.int32(250)
 )
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.1 $'),
+    version = cms.untracked.string('$Revision: 1.2 $'),
     annotation = cms.untracked.string('PYTHIA6-MinBias at 10TeV, pthat>50, with INCLUSIVE muon preselection (pt(mu) > 5)'),
     name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_InclusiveMu5_pt50_10TeV_cff.py,v $')
 )
@@ -43,10 +43,10 @@ process.options = cms.untracked.PSet(
 # Input source
 process.source = cms.Source("PythiaSource",
     pythiaPylistVerbosity = cms.untracked.int32(1),
-    filterEfficiency = cms.untracked.double(0.04),
+    filterEfficiency = cms.untracked.double(0.02),
     pythiaHepMCVerbosity = cms.untracked.bool(False),
     comEnergy = cms.untracked.double(10000.0),
-    crossSection = cms.untracked.double(700000.0),
+    crossSection = cms.untracked.double(14000000),
     maxEventsToPrint = cms.untracked.int32(0),
     PythiaParameters = cms.PSet(
         pythiaUESettings = cms.vstring('MSTJ(11)=3     ! Choice of the fragmentation function', 
