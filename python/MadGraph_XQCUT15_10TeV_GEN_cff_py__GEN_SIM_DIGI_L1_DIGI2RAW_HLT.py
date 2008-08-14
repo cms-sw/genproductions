@@ -1,7 +1,7 @@
 # Auto generated configuration file
 # using: 
-# $Revision: 1.1 $
-# $Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Attic/MadGraph_XQCUT15_10TeV_GEN_cff_py__GEN_SIM_DIGI_L1_DIGI2RAW_HLT.py,v $
+# $Revision: 1.3 $
+# $Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/MadGraph_XQCUT15_10TeV_GEN_cff_py__GEN_SIM_DIGI_L1_DIGI2RAW_HLT.py,v $
 import FWCore.ParameterSet.Config as cms
 
 process = cms.Process('HLT')
@@ -30,9 +30,9 @@ process.ReleaseValidation = cms.untracked.PSet(
     eventsPerJob = cms.untracked.int32(250)
 )
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.1 $'),
+    version = cms.untracked.string('$Revision: 1.3 $'),
     annotation = cms.untracked.string('MadGraph-PYTHIA6 at 10TeV'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Attic/MadGraph_XQCUT15_10TeV_GEN_cff_py__GEN_SIM_DIGI_L1_DIGI2RAW_HLT.py,v $')
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/MadGraph_XQCUT15_10TeV_GEN_cff_py__GEN_SIM_DIGI_L1_DIGI2RAW_HLT.py,v $')
 )
 process.maxEvents = cms.untracked.PSet(
     input = cms.untracked.int32(10)
@@ -103,7 +103,7 @@ process.output = cms.OutputModule("PoolOutputModule",
 )
 
 # Other statements
-process.GlobalTag.globaltag = 'STARTUP_V1::All'
+process.GlobalTag.globaltag = 'STARTUP_V5::All'
 
 # Path and EndPath definitions
 process.generation_step = cms.Path(process.pgen)

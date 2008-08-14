@@ -1,38 +1,37 @@
 # Auto generated configuration file
 # using: 
 # $Revision: 1.1 $
-# $Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_inclBtoJpsiMuMu_10TeV_cfg_py__GEN.py,v $
+# $Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_inclBtoJpsiMuMu_10TeV_cfg_py_GEN_STARTUP_V5.py,v $
 import FWCore.ParameterSet.Config as cms
 
 process = cms.Process('GEN')
 
 # import of standard configurations
 process.load('Configuration/StandardSequences/Services_cff')
-process.load('Configuration/StandardSequences/Geometry_cff')
 process.load('FWCore/MessageService/MessageLogger_cfi')
 process.load('Configuration/StandardSequences/Generator_cff')
 process.load('Configuration/StandardSequences/MixingNoPileUp_cff')
-process.load('Configuration/StandardSequences/MagneticField_cff')
+process.load('Configuration/StandardSequences/GeometryPilot2_cff')
+process.load('Configuration/StandardSequences/MagneticField_38T_cff')
 process.load('Configuration/StandardSequences/Generator_cff')
 process.load('Configuration/StandardSequences/VtxSmearedEarly10TeVCollision_cff')
 process.load('Configuration/StandardSequences/FrontierConditions_GlobalTag_cff')
 process.load('Configuration/EventContent/EventContent_cff')
 
 process.ReleaseValidation = cms.untracked.PSet(
-    primaryDatasetName = cms.untracked.string('RelValPYTHIA6_inclBtoJpsiMuMu_10TeV_cfg.pyGEN'),
+    primaryDatasetName = cms.untracked.string('RelValConfiguration/GenProduction/python/PYTHIA6_inclBtoJpsiMuMu_10TeV_cfg_py'),
     totalNumberOfEvents = cms.untracked.int32(5000),
     eventsPerJob = cms.untracked.int32(250)
 )
 process.configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.1 $'),
     annotation = cms.untracked.string('incl_BtoJpsi_mumu'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_inclBtoJpsiMuMu_10TeV_cfg_py__GEN.py,v $')
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_inclBtoJpsiMuMu_10TeV_cfg_py_GEN_STARTUP_V5.py,v $')
 )
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(500000)
+    input = cms.untracked.int32(1000)
 )
 process.options = cms.untracked.PSet(
-    wantSummary = cms.untracked.bool(True),
     Rethrow = cms.untracked.vstring('ProductNotFound')
 )
 # Input source
@@ -217,14 +216,15 @@ process.source = cms.Source("PythiaSource",
 
 # Output definition
 process.output = cms.OutputModule("PoolOutputModule",
+    outputCommands = process.RAWSIMEventContent.outputCommands,
+    fileName = cms.untracked.string('PYTHIA6_inclBtoJpsiMuMu_10TeV_cfg_py_GEN.root'),
     dataset = cms.untracked.PSet(
-        dataTier = cms.untracked.string('GEN')
+        dataTier = cms.untracked.string('GEN'),
+        filterName = cms.untracked.string('STARTUP_V5')
     ),
-    fileName = cms.untracked.string('PYTHIA6_inclBtoJpsiMuMu_10TeV_cfg_py__GEN.root'),
     SelectEvents = cms.untracked.PSet(
         SelectEvents = cms.vstring('generation_step')
-    ),
-    outputCommands = process.RAWSIMEventContent.outputCommands
+    )
 )
 
 # Other statements
@@ -401,10 +401,9 @@ process.mumugenfilter = cms.EDFilter("MCParticlePairFilter",
     ParticleID1 = cms.untracked.vint32(13),
     ParticleID2 = cms.untracked.vint32(13)
 )
+process.ProductionFilterSequence = cms.Sequence(process.bfilter*process.evtgenproducer*process.mumugenfilter)
 
 process.output.outputCommands.append("keep *_evtgenproducer_*_*")
-
-process.ProductionFilterSequence = cms.Sequence(process.bfilter*process.evtgenproducer*process.mumugenfilter)
 
 # Path and EndPath definitions
 process.generation_step = cms.Path(process.ProductionFilterSequence*process.pgen)
