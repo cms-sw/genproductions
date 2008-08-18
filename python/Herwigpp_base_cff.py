@@ -1,7 +1,7 @@
 import FWCore.ParameterSet.Config as cms
 
 configurationMetadata = cms.untracked.PSet(
-	version = cms.untracked.string('$Revision: 1.5 $'),
+	version = cms.untracked.string('$Revision: 1.6 $'),
 	name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Herwigpp_base_cff.py,v $'),
 	annotation = cms.untracked.string('Summer08 CSA: Herwig++ generation of QCD events, MRST2001 used, MinKT=__MINKT__ GeV')
 )
@@ -104,7 +104,6 @@ source = cms.Source("ThePEGSource",
 			'set Omega-/Omega-->Xi-,pi0;:OnOff Off',
 			'set pi-/pi-->nu_ebar,e-;:OnOff Off',
 			'set pi+/pi+->nu_e,e+;:OnOff Off',
-			'set pi-/pi-->nu_mubar,mu-;:OnOff Off'
 			'set pi-/pi-->nu_mubar,mu-;:OnOff Off',
 			'set pi+/pi+->nu_mu,mu+;:OnOff Off',
 			'set Sigmabar+/Sigmabar+->nbar0,nu_e,e+;:OnOff Off',

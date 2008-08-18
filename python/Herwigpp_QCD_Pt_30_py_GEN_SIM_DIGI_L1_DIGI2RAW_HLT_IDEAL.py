@@ -1,6 +1,6 @@
 # Auto generated configuration file
 # using: 
-# Revision: 1.57 
+# Revision: 1.71 
 # Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/PyReleaseValidation/python/ConfigBuilder.py,v 
 import FWCore.ParameterSet.Config as cms
 
@@ -12,7 +12,7 @@ process.load('FWCore/MessageService/MessageLogger_cfi')
 process.load('Configuration/StandardSequences/Generator_cff')
 process.load('Configuration/StandardSequences/MixingNoPileUp_cff')
 process.load('Configuration/StandardSequences/GeometryPilot2_cff')
-process.load('Configuration/StandardSequences/MagneticField_cff')
+process.load('Configuration/StandardSequences/MagneticField_38T_cff')
 process.load('Configuration/StandardSequences/Generator_cff')
 process.load('Configuration/StandardSequences/VtxSmearedEarly10TeVCollision_cff')
 process.load('Configuration/StandardSequences/Sim_cff')
@@ -25,9 +25,9 @@ process.load('Configuration/StandardSequences/FrontierConditions_GlobalTag_cff')
 process.load('Configuration/EventContent/EventContent_cff')
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.1 $'),
+    version = cms.untracked.string('$Revision: 1.6 $'),
     annotation = cms.untracked.string('Summer08 CSA: Herwig++ generation of QCD events, MRST2001 used, MinKT=30 GeV'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Herwigpp_QCD_Pt_30_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT.py,v $')
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Herwigpp_base_cff.py,v $')
 )
 process.maxEvents = cms.untracked.PSet(
     input = cms.untracked.int32(600000)
@@ -113,7 +113,7 @@ process.source = cms.Source("ThePEGSource",
         'set Omega-/Omega-->Xi-,pi0;:OnOff Off', 
         'set pi-/pi-->nu_ebar,e-;:OnOff Off', 
         'set pi+/pi+->nu_e,e+;:OnOff Off', 
-        'set pi-/pi-->nu_mubar,mu-;:OnOff Offset pi-/pi-->nu_mubar,mu-;:OnOff Off', 
+        'set pi-/pi-->nu_mubar,mu-;:OnOff Off', 
         'set pi+/pi+->nu_mu,mu+;:OnOff Off', 
         'set Sigmabar+/Sigmabar+->nbar0,nu_e,e+;:OnOff Off', 
         'set Sigmabar+/Sigmabar+->nbar0,pi+,gamma;:OnOff Off', 
@@ -165,6 +165,8 @@ process.output = cms.OutputModule("PoolOutputModule",
         SelectEvents = cms.vstring('generation_step')
     )
 )
+
+# Additional output definition
 
 # Other statements
 process.GlobalTag.globaltag = 'IDEAL_V6::All'

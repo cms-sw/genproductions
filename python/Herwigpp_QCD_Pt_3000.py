@@ -104,7 +104,6 @@ source = cms.Source("ThePEGSource",
 			'set Omega-/Omega-->Xi-,pi0;:OnOff Off',
 			'set pi-/pi-->nu_ebar,e-;:OnOff Off',
 			'set pi+/pi+->nu_e,e+;:OnOff Off',
-			'set pi-/pi-->nu_mubar,mu-;:OnOff Off'
 			'set pi-/pi-->nu_mubar,mu-;:OnOff Off',
 			'set pi+/pi+->nu_mu,mu+;:OnOff Off',
 			'set Sigmabar+/Sigmabar+->nbar0,nu_e,e+;:OnOff Off',
