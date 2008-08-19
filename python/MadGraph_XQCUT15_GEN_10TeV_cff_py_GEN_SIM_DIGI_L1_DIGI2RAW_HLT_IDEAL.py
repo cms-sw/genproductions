@@ -1,7 +1,7 @@
 # Auto generated configuration file
 # using: 
-# $Revision: 1.1 $
-# $Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_MinBias_10TeV_cff_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT_STARTUP.py,v $
+# Revision: 1.57 
+# Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/PyReleaseValidation/python/ConfigBuilder.py,v 
 import FWCore.ParameterSet.Config as cms
 
 process = cms.Process('HLT')
@@ -12,7 +12,7 @@ process.load('FWCore/MessageService/MessageLogger_cfi')
 process.load('Configuration/StandardSequences/Generator_cff')
 process.load('Configuration/StandardSequences/MixingNoPileUp_cff')
 process.load('Configuration/StandardSequences/GeometryPilot2_cff')
-process.load('Configuration/StandardSequences/MagneticField_38T_cff')
+process.load('Configuration/StandardSequences/MagneticField_cff')
 process.load('Configuration/StandardSequences/Generator_cff')
 process.load('Configuration/StandardSequences/VtxSmearedEarly10TeVCollision_cff')
 process.load('Configuration/StandardSequences/Sim_cff')
@@ -24,15 +24,10 @@ process.load('HLTrigger/Configuration/HLT_2E30_cff')
 process.load('Configuration/StandardSequences/FrontierConditions_GlobalTag_cff')
 process.load('Configuration/EventContent/EventContent_cff')
 
-process.ReleaseValidation = cms.untracked.PSet(
-    primaryDatasetName = cms.untracked.string('RelValConfiguration/GenProduction/python/PYTHIA6_MinBias_10TeV_cff_py'),
-    totalNumberOfEvents = cms.untracked.int32(5000),
-    eventsPerJob = cms.untracked.int32(250)
-)
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.1 $'),
-    annotation = cms.untracked.string('PYTHIA6-MinBias at 10TeV'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_MinBias_10TeV_cff_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT_STARTUP.py,v $')
+    version = cms.untracked.string(''),
+    annotation = cms.untracked.string('MadGraph-PYTHIA6 at 10TeV, qcut 15'),
+    name = cms.untracked.string('')
 )
 process.maxEvents = cms.untracked.PSet(
     input = cms.untracked.int32(10)
@@ -41,13 +36,19 @@ process.options = cms.untracked.PSet(
     Rethrow = cms.untracked.vstring('ProductNotFound')
 )
 # Input source
-process.source = cms.Source("PythiaSource",
-    pythiaPylistVerbosity = cms.untracked.int32(1),
-    filterEfficiency = cms.untracked.double(1.0),
+process.source = cms.Source("MadGraphSource",
+    produceEventTreeFile = cms.untracked.bool(False),
+    MEMAIN_iexcfile = cms.untracked.uint32(0),
+    fileNames = cms.untracked.vstring('file:events.lhe'),
+    MEMAIN_qcut = cms.untracked.double(15.0),
     pythiaHepMCVerbosity = cms.untracked.bool(False),
-    comEnergy = cms.untracked.double(10000.0),
-    crossSection = cms.untracked.double(55000000000.0),
-    maxEventsToPrint = cms.untracked.int32(0),
+    MEMAIN_etaclmax = cms.untracked.double(5.0),
+    firstEvent = cms.untracked.uint32(0),
+    minimalLH = cms.untracked.bool(False),
+    pythiaPylistVerbosity = cms.untracked.int32(0),
+    getInputFromMCDB = cms.untracked.bool(False),
+    maxEventsToPrint = cms.untracked.int32(5),
+    MCDBArticleID = cms.int32(0),
     PythiaParameters = cms.PSet(
         pythiaUESettings = cms.vstring('MSTJ(11)=3     ! Choice of the fragmentation function', 
             'MSTJ(22)=2     ! Decay those unstable particles', 
@@ -72,29 +73,24 @@ process.source = cms.Source("PythiaSource",
             'MSTP(91)=1     !', 
             'PARP(91)=2.1   ! kt distribution', 
             'PARP(93)=15.0  ! '),
-        processParameters = cms.vstring('MSEL=0         ! User defined processes', 
-            'MSUB(11)=1     ! Min bias process', 
-            'MSUB(12)=1     ! Min bias process', 
-            'MSUB(13)=1     ! Min bias process', 
-            'MSUB(28)=1     ! Min bias process', 
-            'MSUB(53)=1     ! Min bias process', 
-            'MSUB(68)=1     ! Min bias process', 
-            'MSUB(92)=1     ! Min bias process, single diffractive', 
-            'MSUB(93)=1     ! Min bias process, single diffractive', 
-            'MSUB(94)=1     ! Min bias process, double diffractive', 
-            'MSUB(95)=1     ! Min bias process'),
+        pythiaCMSDefaults = cms.vstring('PMAS(5,1)=4.4  ! b quarks mass', 
+            'PMAS(6,1)=175  ! t quarks mass', 
+            'MSTJ(1)=1      !...Fragmentation/hadronization on or off', 
+            'MSTP(61)=1     ! Parton showering on or off', 
+            'MSTP(143)=1    ! MUST BE 1 FOR THE MATCHING ROUTINE TO RUN!!!!', 
+            'MSEL=0         ! User defined processes/Full user control'),
         parameterSets = cms.vstring('pythiaUESettings', 
-            'processParameters')
+            'pythiaCMSDefaults')
     )
 )
 
 # Output definition
 process.output = cms.OutputModule("PoolOutputModule",
     outputCommands = process.RAWSIMEventContent.outputCommands,
-    fileName = cms.untracked.string('PYTHIA6_MinBias_10TeV_cff_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT.root'),
+    fileName = cms.untracked.string('MadGraph_XQCUT15_GEN_10TeV_cff_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT.root'),
     dataset = cms.untracked.PSet(
         dataTier = cms.untracked.string('GEN-SIM-RAW'),
-        filterName = cms.untracked.string('IDEAL_V6')
+        filterName = cms.untracked.string('')
     ),
     SelectEvents = cms.untracked.PSet(
         SelectEvents = cms.vstring('generation_step')
