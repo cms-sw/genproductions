@@ -1,7 +1,7 @@
 # Auto generated configuration file
 # using: 
 # $Revision: 1.1 $
-# $Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/MadGraph_XQCUT15_GEN_10TeV_cff_py_GEN.py,v $
+# $Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/MadGraph_XQCUT15_GEN_10TeV_cff_py_GEN_IDEAL.py,v $
 import FWCore.ParameterSet.Config as cms
 
 process = cms.Process('GEN')
@@ -73,7 +73,7 @@ process.source = cms.Source("MadGraphSource",
             'PARP(91)=2.1   ! kt distribution', 
             'PARP(93)=15.0  ! '),
         pythiaCMSDefaults = cms.vstring('PMAS(5,1)=4.4  ! b quarks mass', 
-            'PMAS(6,1)=175  ! t quarks mass', 
+            'PMAS(6,1)=172.6  ! t quarks mass', 
             'MSTJ(1)=1      !...Fragmentation/hadronization on or off', 
             'MSTP(61)=1     ! Parton showering on or off', 
             'MSTP(143)=1    ! MUST BE 1 FOR THE MATCHING ROUTINE TO RUN!!!!', 
