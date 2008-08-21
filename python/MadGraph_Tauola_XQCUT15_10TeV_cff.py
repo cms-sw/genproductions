@@ -36,7 +36,7 @@ source = cms.Source("MadGraphSource", ## DEFAULT SETTINGS
     PythiaParameters = cms.PSet(
         pythiaUESettingsBlock,
         pythiaCMSDefaults = cms.vstring('PMAS(5,1)=4.4  ! b quarks mass', 
-            'PMAS(6,1)=172.6  ! t quarks mass', 
+            'PMAS(6,1)=172.4  ! t quarks mass', 
             'MSTJ(1)=1      !...Fragmentation/hadronization on or off', 
             'MSTP(61)=1     ! Parton showering on or off', 
             'MSTP(143)=1    ! MUST BE 1 FOR THE MATCHING ROUTINE TO RUN!!!!', 
@@ -49,7 +49,7 @@ source = cms.Source("MadGraphSource", ## DEFAULT SETTINGS
 )
 
 configurationMetadata = cms.untracked.PSet(
-        version = cms.untracked.string('$Revision: 1.1 $'),
+        version = cms.untracked.string('$Revision: 1.2 $'),
         name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/MadGraph_Tauola_XQCUT15_10TeV_cff.py,v $'),
         annotation = cms.untracked.string('MadGraph-PYTHIA6 with TAUOLA at 10TeV')
 )

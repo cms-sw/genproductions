@@ -24,7 +24,7 @@ source = cms.Source("PythiaSource",
             'MSUB(81)  = 1     ! qqbar to QQbar',
             'MSUB(82)  = 1     ! gg to QQbar',
             'MSTP(7)   = 6     ! flavor = top',
-            'PMAS(6,1) = 172.6  ! top quark mass'),
+            'PMAS(6,1) = 172.4  ! top quark mass'),
         # This is a vector of ParameterSet names to be read, in this order
         parameterSets = cms.vstring('pythiaUESettings', 
             'processParameters')
