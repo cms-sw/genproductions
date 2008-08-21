@@ -1,7 +1,7 @@
 # Auto generated configuration file
 # using: 
 # $Revision: 1.1 $
-# $Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_QCDmu_Pt_20up_10TeV_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT_STARTUP.py,v $
+# $Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_QCDmu_Pt_20up_10TeV_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT_IDEAL.py,v $
 import FWCore.ParameterSet.Config as cms
 
 process = cms.Process('HLT')
@@ -88,7 +88,7 @@ process.output = cms.OutputModule("PoolOutputModule",
     fileName = cms.untracked.string('PYTHIA6_QCDmu_Pt_20up_10TeV_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT.root'),
     dataset = cms.untracked.PSet(
         dataTier = cms.untracked.string('GEN-SIM-RAW'),
-        filterName = cms.untracked.string('IDEAL_V6')
+        filterName = cms.untracked.string('')
     ),
     SelectEvents = cms.untracked.PSet(
         SelectEvents = cms.vstring('generation_step')

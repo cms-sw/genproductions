@@ -1,7 +1,7 @@
 # Auto generated configuration file
 # using: 
 # $Revision: 1.1 $
-# $Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA8_PhotonJetpt25_30_10TeV_cff_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT_STARTUP.py,v $
+# $Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA8_PhotonJetpt25_30_10TeV_cff_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT_IDEAL.py,v $
 import FWCore.ParameterSet.Config as cms
 
 process = cms.Process('HLT')
@@ -32,7 +32,7 @@ process.ReleaseValidation = cms.untracked.PSet(
 process.configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.1 $'),
     annotation = cms.untracked.string('PYTHIA8 Photon + Jet for 25 < pT < 30 at 10TeV'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA8_PhotonJetpt25_30_10TeV_cff_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT_STARTUP.py,v $')
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA8_PhotonJetpt25_30_10TeV_cff_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT_IDEAL.py,v $')
 )
 process.maxEvents = cms.untracked.PSet(
     input = cms.untracked.int32(10)
@@ -66,7 +66,7 @@ process.output = cms.OutputModule("PoolOutputModule",
     fileName = cms.untracked.string('PYTHIA8_PhotonJetpt25_30_10TeV_cff_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT.root'),
     dataset = cms.untracked.PSet(
         dataTier = cms.untracked.string('GEN-SIM-RAW'),
-        filterName = cms.untracked.string('IDEAL_V6')
+        filterName = cms.untracked.string('')
     ),
     SelectEvents = cms.untracked.PSet(
         SelectEvents = cms.vstring('generation_step')

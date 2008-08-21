@@ -1,7 +1,7 @@
 # Auto generated configuration file
 # using: 
 # $Revision: 1.1 $
-# $Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_QCD_Pt_30_80_10TeV_EMEnrichingFilter_cff_py__GEN_SIM_DIGI_L1_DIGI2RAW_HLT_STARTUP.py,v $
+# $Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_QCD_Pt_30_80_10TeV_EMEnrichingFilter_cff_py__GEN_SIM_DIGI_L1_DIGI2RAW_HLT_IDEAL.py,v $
 import FWCore.ParameterSet.Config as cms
 
 process = cms.Process('HLT')
@@ -32,7 +32,7 @@ process.ReleaseValidation = cms.untracked.PSet(
 process.configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.1 $'),
     annotation = cms.untracked.string('em-enriching filtered QCD pthat 30-80, 10 TeV'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_QCD_Pt_30_80_10TeV_EMEnrichingFilter_cff_py__GEN_SIM_DIGI_L1_DIGI2RAW_HLT_STARTUP.py,v $')
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_QCD_Pt_30_80_10TeV_EMEnrichingFilter_cff_py__GEN_SIM_DIGI_L1_DIGI2RAW_HLT_IDEAL.py,v $')
 )
 process.maxEvents = cms.untracked.PSet(
     input = cms.untracked.int32(10)
@@ -85,7 +85,7 @@ process.source = cms.Source("PythiaSource",
 process.output = cms.OutputModule("PoolOutputModule",
     dataset = cms.untracked.PSet(
         dataTier = cms.untracked.string('GEN-SIM-RAW'),
-        filterName = cms.untracked.string('IDEAL_V6')
+        filterName = cms.untracked.string('')
     ),
     fileName = cms.untracked.string('PYTHIA6_QCD_Pt_30_80_10TeV_EMEnrichingFilter_cff_py__GEN_SIM_DIGI_L1_DIGI2RAW_HLT.root'),
     SelectEvents = cms.untracked.PSet(

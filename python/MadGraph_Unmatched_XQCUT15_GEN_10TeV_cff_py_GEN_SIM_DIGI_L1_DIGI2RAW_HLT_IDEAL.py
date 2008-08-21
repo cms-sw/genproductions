@@ -1,6 +1,6 @@
 # Auto generated configuration file
 # using:
-# $Revision: 1.1 $
+# $Revision: 1.2 $
 # $Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/MadGraph_Unmatched_XQCUT15_GEN_10TeV_cff_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT_IDEAL.py,v $
 import FWCore.ParameterSet.Config as cms
 
@@ -95,7 +95,7 @@ process.output = cms.OutputModule("PoolOutputModule",
     fileName = cms.untracked.string('MadGraph_Unmatched_XQCUT15_GEN_10TeV_cff_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT.root'),
     dataset = cms.untracked.PSet(
         dataTier = cms.untracked.string('GEN-SIM-RAW'),
-        filterName = cms.untracked.string('IDEAL_V6')
+        filterName = cms.untracked.string('')
     ),
     SelectEvents = cms.untracked.PSet(
         SelectEvents = cms.vstring('generation_step')
