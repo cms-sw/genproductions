@@ -15,7 +15,7 @@ source = cms.Source("PythiaSource",
             'MSUB(81)  = 1     ! qqbar to QQbar',
             'MSUB(82)  = 1     ! gg to QQbar',
             'MSTP(7)   = 6     ! flavor = top',
-            'PMAS(6,1) = 172.4  ! top quark mass'),
+            'PMAS(6,1) = 172.6  ! top quark mass'),
         # This is a vector of ParameterSet names to be read, in this order
         parameterSets = cms.vstring('pythiaUESettings', 
             'processParameters')
@@ -23,8 +23,8 @@ source = cms.Source("PythiaSource",
 )
 
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.1 $'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_TTbar_10TeV_cff.py,v $'),
+    version = cms.untracked.string('$Revision: 1.7 $'),
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_MinBias_10TeV_cff.py,v $'),
     annotation = cms.untracked.string('PYTHIA6-MinBias at 10TeV')
 )
 

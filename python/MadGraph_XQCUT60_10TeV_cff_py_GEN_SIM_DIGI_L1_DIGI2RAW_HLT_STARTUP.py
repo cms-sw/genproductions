@@ -1,7 +1,7 @@
 # Auto generated configuration file
 # using: 
-# $Revision: 1.2 $
-# $Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/MadGraph_XQCUT60_10TeV_cff_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT_STARTUP.py,v $
+# $Revision: 1.1 $
+# $Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/MadGraph_XQCUT60_10TeV_cff_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT.py,v $
 import FWCore.ParameterSet.Config as cms
 
 process = cms.Process('HLT')
@@ -30,9 +30,9 @@ process.ReleaseValidation = cms.untracked.PSet(
     eventsPerJob = cms.untracked.int32(250)
 )
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.2 $'),
+    version = cms.untracked.string('$Revision: 1.1 $'),
     annotation = cms.untracked.string('MadGraph-PYTHIA6 at 10TeV'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/MadGraph_XQCUT60_10TeV_cff_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT_STARTUP.py,v $')
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/MadGraph_XQCUT60_10TeV_cff_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT.py,v $')
 )
 process.maxEvents = cms.untracked.PSet(
     input = cms.untracked.int32(10)
@@ -79,7 +79,7 @@ process.source = cms.Source("MadGraphSource",
             'PARP(91)=2.1   ! kt distribution', 
             'PARP(93)=15.0  ! '),
         pythiaCMSDefaults = cms.vstring('PMAS(5,1)=4.4  ! b quarks mass', 
-            'PMAS(6,1)=172.4  ! t quarks mass', 
+            'PMAS(6,1)=175  ! t quarks mass', 
             'MSTJ(1)=1      !...Fragmentation/hadronization on or off', 
             'MSTP(61)=1     ! Parton showering on or off', 
             'MSTP(143)=1    ! MUST BE 1 FOR THE MATCHING ROUTINE TO RUN!!!!', 

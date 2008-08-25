@@ -1,7 +1,7 @@
 # Auto generated configuration file
 # using: 
 # $Revision: 1.1 $
-# $Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_TTbar_10TeV_cff_py_GEN_STARTUP.py,v $
+# $Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_TTbar_10TeV_cff_py_GEN.py,v $
 import FWCore.ParameterSet.Config as cms
 
 process = cms.Process('GEN')
@@ -26,7 +26,7 @@ process.ReleaseValidation = cms.untracked.PSet(
 process.configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.1 $'),
     annotation = cms.untracked.string('PYTHIA6-MinBias at 10TeV'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_TTbar_10TeV_cff_py_GEN_STARTUP.py,v $')
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_TTbar_10TeV_cff_py_GEN.py,v $')
 )
 process.maxEvents = cms.untracked.PSet(
     input = cms.untracked.int32(1000)
@@ -70,7 +70,7 @@ process.source = cms.Source("PythiaSource",
             'MSUB(81)  = 1     ! qqbar to QQbar', 
             'MSUB(82)  = 1     ! gg to QQbar', 
             'MSTP(7)   = 6     ! flavor = top', 
-            'PMAS(6,1) = 172.4  ! top quark mass'),
+            'PMAS(6,1) = 172.6  ! top quark mass'),
         parameterSets = cms.vstring('pythiaUESettings', 
             'processParameters')
     )
