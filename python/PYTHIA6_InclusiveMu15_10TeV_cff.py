@@ -8,12 +8,15 @@ source = cms.Source("PythiaSource",
     filterEfficiency = cms.untracked.double(0.000289),
     comEnergy = cms.untracked.double(10000.0),
     crossSection = cms.untracked.double(509100000.),
+    imposeProperTimes = cms.untracked.bool(True), 
     PythiaParameters = cms.PSet(
         pythiaUESettingsBlock,
         processParameters = cms.vstring(
             'MSEL=1           ! User defined processes', 
             'CKIN(3)=20.      ! minimum pt hat for hard interactions',
-            'PARJ(71)=20000.  ! max. proper lifetime time ctau in mm',
+            'MSTJ(22)=4       ! Decay unstable particles inside a cylinder',
+            'PARJ(73)=1500.   ! max. radius for MSTJ(22)=4',
+            'PARJ(74)=3000.   ! max. Z for MSTJ(22)=4',
             'MDCY(C130,1)=1   ! decay k0-longs',
             'MDCY(C211,1)=1   ! decay pions',
             'MDCY(C321,1)=1   ! decay kaons'),
@@ -39,7 +42,7 @@ mugenfilter = cms.EDFilter("MCSmartSingleParticleFilter",
 
 configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.1 $'),
-    name = cms.untracked.string('$Source: /local/projects/CMSSW/rep/CMSSW/Configuration/GenProduction/python/PYTHIA6_InclusiveMu15_10TeV_cff.py,v $'),
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_InclusiveMu15_10TeV_cff.py,v $'),
     annotation = cms.untracked.string('PYTHIA6-MinBias at 10TeV, pthat>20, with INCLUSIVE muon preselection (pt(mu) > 15)')
 )
 
