@@ -1,6 +1,6 @@
 # Auto generated configuration file
 # using: 
-# Revision: 1.57 
+# Revision: 1.71 
 # Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/PyReleaseValidation/python/ConfigBuilder.py,v 
 import FWCore.ParameterSet.Config as cms
 
@@ -12,7 +12,7 @@ process.load('FWCore/MessageService/MessageLogger_cfi')
 process.load('Configuration/StandardSequences/Generator_cff')
 process.load('Configuration/StandardSequences/MixingNoPileUp_cff')
 process.load('Configuration/StandardSequences/GeometryPilot2_cff')
-process.load('Configuration/StandardSequences/MagneticField_cff')
+process.load('Configuration/StandardSequences/MagneticField_38T_cff')
 process.load('Configuration/StandardSequences/Generator_cff')
 process.load('Configuration/StandardSequences/VtxSmearedEarly10TeVCollision_cff')
 process.load('Configuration/StandardSequences/Sim_cff')
@@ -25,9 +25,9 @@ process.load('Configuration/StandardSequences/FrontierConditions_GlobalTag_cff')
 process.load('Configuration/EventContent/EventContent_cff')
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.1 $'),
+    version = cms.untracked.string('$Revision: 1.2 $'),
     annotation = cms.untracked.string('PYTHIA6-MinBias at 10TeV, pthat>20, with INCLUSIVE muon preselection (pt(mu) > 15)'),
-    name = cms.untracked.string('$Source: /local/projects/CMSSW/rep/CMSSW/Configuration/GenProduction/python/PYTHIA6_InclusiveMu15_10TeV_cff.py,v $')
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_InclusiveMu15_10TeV_cff.py,v $')
 )
 process.maxEvents = cms.untracked.PSet(
     input = cms.untracked.int32(10)
@@ -43,6 +43,7 @@ process.source = cms.Source("PythiaSource",
     comEnergy = cms.untracked.double(10000.0),
     crossSection = cms.untracked.double(509100000.0),
     maxEventsToPrint = cms.untracked.int32(0),
+    imposeProperTimes = cms.untracked.bool(True),
     PythiaParameters = cms.PSet(
         pythiaUESettings = cms.vstring('MSTJ(11)=3     ! Choice of the fragmentation function', 
             'MSTJ(22)=2     ! Decay those unstable particles', 
@@ -69,7 +70,9 @@ process.source = cms.Source("PythiaSource",
             'PARP(93)=15.0  ! '),
         processParameters = cms.vstring('MSEL=1           ! User defined processes', 
             'CKIN(3)=20.      ! minimum pt hat for hard interactions', 
-            'PARJ(71)=20000.  ! max. proper lifetime time ctau in mm', 
+            'MSTJ(22)=4       ! Decay unstable particles inside a cylinder', 
+            'PARJ(73)=1500.   ! max. radius for MSTJ(22)=4', 
+            'PARJ(74)=3000.   ! max. Z for MSTJ(22)=4', 
             'MDCY(C130,1)=1   ! decay k0-longs', 
             'MDCY(C211,1)=1   ! decay pions', 
             'MDCY(C321,1)=1   ! decay kaons'),
@@ -91,8 +94,10 @@ process.output = cms.OutputModule("PoolOutputModule",
     )
 )
 
+# Additional output definition
+
 # Other statements
-process.GlobalTag.globaltag = 'STARTUP_V4::All'
+process.GlobalTag.globaltag = 'IDEAL_V6::All'
 process.mugenfilter = cms.EDFilter("MCSmartSingleParticleFilter",
     MaxDecayRadius = cms.untracked.vdouble(1500.0, 1500.0),
     Status = cms.untracked.vint32(1, 1),
