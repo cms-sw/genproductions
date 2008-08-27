@@ -8,7 +8,6 @@ source = cms.Source("PythiaSource",
     filterEfficiency = cms.untracked.double(0.000239),
     comEnergy = cms.untracked.double(10000.0),
     crossSection = cms.untracked.double(509100000.),
-    imposeProperTimes = cms.untracked.bool(True), 
     PythiaParameters = cms.PSet(
         pythiaUESettingsBlock,
         processParameters = cms.vstring(
@@ -41,7 +40,7 @@ mugenfilter = cms.EDFilter("MCSmartSingleParticleFilter",
 
 
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.1 $'),
+    version = cms.untracked.string('$Revision: 1.3 $'),
     name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_InclusiveMu15_10TeV_cff.py,v $'),
     annotation = cms.untracked.string('PYTHIA6-MinBias at 10TeV, pthat>20, with INCLUSIVE muon preselection (pt(mu) > 15)')
 )
