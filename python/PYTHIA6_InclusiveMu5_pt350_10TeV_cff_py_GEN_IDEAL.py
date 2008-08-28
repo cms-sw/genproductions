@@ -1,6 +1,6 @@
 # Auto generated configuration file
 # using: 
-# Revision: 1.57 
+# Revision: 1.71 
 # Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/PyReleaseValidation/python/ConfigBuilder.py,v 
 import FWCore.ParameterSet.Config as cms
 
@@ -12,7 +12,7 @@ process.load('FWCore/MessageService/MessageLogger_cfi')
 process.load('Configuration/StandardSequences/Generator_cff')
 process.load('Configuration/StandardSequences/MixingNoPileUp_cff')
 process.load('Configuration/StandardSequences/GeometryPilot2_cff')
-process.load('Configuration/StandardSequences/MagneticField_cff')
+process.load('Configuration/StandardSequences/MagneticField_38T_cff')
 process.load('Configuration/StandardSequences/Generator_cff')
 process.load('Configuration/StandardSequences/VtxSmearedEarly10TeVCollision_cff')
 process.load('Configuration/StandardSequences/FrontierConditions_GlobalTag_cff')
@@ -21,7 +21,7 @@ process.load('Configuration/EventContent/EventContent_cff')
 process.configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.1 $'),
     annotation = cms.untracked.string('PYTHIA6-MinBias at 10TeV, pthat>350, with INCLUSIVE muon preselection (pt(mu) > 5)'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_InclusiveMu5_pt350_10TeV_cff_py_GEN_STARTUP.py,v $')
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_InclusiveMu5_pt350_10TeV_cff.py,v $')
 )
 process.maxEvents = cms.untracked.PSet(
     input = cms.untracked.int32(10000)
@@ -63,7 +63,9 @@ process.source = cms.Source("PythiaSource",
             'PARP(93)=15.0  ! '),
         processParameters = cms.vstring('MSEL=1           ! User defined processes', 
             'CKIN(3)=350.      ! minimum pt hat for hard interactions', 
-            'PARJ(71)=20000.  ! max. proper lifetime time ctau in mm', 
+            'MSTJ(22)=4       ! Decay unstable particles inside a cylinder', 
+            'PARJ(73)=1500.   ! max. radius for MSTJ(22)=4', 
+            'PARJ(74)=3000.   ! max. Z for MSTJ(22)=4', 
             'MDCY(C130,1)=1   ! decay k0-longs', 
             'MDCY(C211,1)=1   ! decay pions', 
             'MDCY(C321,1)=1   ! decay kaons'),
@@ -84,6 +86,8 @@ process.output = cms.OutputModule("PoolOutputModule",
         SelectEvents = cms.vstring('generation_step')
     )
 )
+
+# Additional output definition
 
 # Other statements
 process.GlobalTag.globaltag = 'IDEAL_V6::All'
