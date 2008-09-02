@@ -1,7 +1,8 @@
 # Auto generated configuration file
 # using: 
-# Revision: 1.71 
+# Revision: 1.77 
 # Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/PyReleaseValidation/python/ConfigBuilder.py,v 
+# with command line options: Configuration/GenProduction/python/Herwigpp_QCD_Pt_80.py -s GEN --eventcontent RAWSIM --datatier GEN --conditions FrontierConditions_GlobalTag,IDEAL_V9::All -n 500000 --no_exec
 import FWCore.ParameterSet.Config as cms
 
 process = cms.Process('GEN')
@@ -9,7 +10,6 @@ process = cms.Process('GEN')
 # import of standard configurations
 process.load('Configuration/StandardSequences/Services_cff')
 process.load('FWCore/MessageService/MessageLogger_cfi')
-process.load('Configuration/StandardSequences/Generator_cff')
 process.load('Configuration/StandardSequences/MixingNoPileUp_cff')
 process.load('Configuration/StandardSequences/GeometryPilot2_cff')
 process.load('Configuration/StandardSequences/MagneticField_38T_cff')
@@ -19,7 +19,7 @@ process.load('Configuration/StandardSequences/FrontierConditions_GlobalTag_cff')
 process.load('Configuration/EventContent/EventContent_cff')
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.6 $'),
+    version = cms.untracked.string('$Revision: 1.7 $'),
     annotation = cms.untracked.string('Summer08 CSA: Herwig++ generation of QCD events, MRST2001 used, MinKT=80 GeV'),
     name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Herwigpp_base_cff.py,v $')
 )
@@ -163,7 +163,7 @@ process.output = cms.OutputModule("PoolOutputModule",
 # Additional output definition
 
 # Other statements
-process.GlobalTag.globaltag = 'IDEAL_V6::All'
+process.GlobalTag.globaltag = 'IDEAL_V9::All'
 
 # Path and EndPath definitions
 process.generation_step = cms.Path(process.pgen)
