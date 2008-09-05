@@ -1,7 +1,7 @@
 # Auto generated configuration file
 # using: 
 # $Revision: 1.1 $
-# $Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_QCD_Pt_80_170_10TeV_EMEnrichingFilter_cff_py_GEN_STARTUP.py,v $
+# $Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_QCD_Pt_80_170_10TeV_EMEnrichingFilter_cff_py_GEN_IDEAL.py,v $
 import FWCore.ParameterSet.Config as cms
 
 process = cms.Process('GEN')
@@ -26,7 +26,7 @@ process.ReleaseValidation = cms.untracked.PSet(
 process.configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.1 $'),
     annotation = cms.untracked.string('em-enriching filtered QCD pthat 80-170, 10 TeV'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_QCD_Pt_80_170_10TeV_EMEnrichingFilter_cff_py_GEN_STARTUP.py,v $')
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_QCD_Pt_80_170_10TeV_EMEnrichingFilter_cff_py_GEN_IDEAL.py,v $')
 )
 process.maxEvents = cms.untracked.PSet(
     output = cms.untracked.int32(10)
@@ -80,7 +80,7 @@ process.output = cms.OutputModule("PoolOutputModule",
     fileName = cms.untracked.string('PYTHIA6_QCD_Pt_80_170_10TeV_EMEnrichingFilter_cff_py_GEN.root'),
     dataset = cms.untracked.PSet(
         dataTier = cms.untracked.string('GEN'),
-        filterName = cms.untracked.string('IDEAL_V6')
+        filterName = cms.untracked.string('IDEAL_V9')
     ),
     SelectEvents = cms.untracked.PSet(
         SelectEvents = cms.vstring('generation_step')
@@ -88,7 +88,7 @@ process.output = cms.OutputModule("PoolOutputModule",
 )
 
 # Other statements
-process.GlobalTag.globaltag = 'IDEAL_V6::All'
+process.GlobalTag.globaltag = 'IDEAL_V9::All'
 process.bctoefilter = cms.EDFilter("BCToEFilter",
     filterAlgoPSet = cms.PSet(
         genParSource = cms.InputTag("genParticlesForFilter"),

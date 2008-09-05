@@ -21,7 +21,7 @@ process.load('Configuration/EventContent/EventContent_cff')
 process.configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.1 $'),
     annotation = cms.untracked.string('POMWIG SD minus Z->mumu Mmin 40 GeV at 10TeV'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/POMWIG_SingleDiffractiveZmumuMinus_10TeV_M40_cff_py_GEN_STARTUP.py,v $')
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/POMWIG_SingleDiffractiveZmumuMinus_10TeV_M40_cff_py_GEN_IDEAL.py,v $')
 )
 process.maxEvents = cms.untracked.PSet(
     input = cms.untracked.int32(1000)
@@ -71,7 +71,7 @@ process.output = cms.OutputModule("PoolOutputModule",
 )
 
 # Other statements
-process.GlobalTag.globaltag = 'IDEAL_V6::All'
+process.GlobalTag.globaltag = 'IDEAL_V9::All'
 process.pomwigfilter = cms.EDFilter("PomwigFilter")
 process.ProductionFilterSequence = cms.Sequence(process.pomwigfilter)
 

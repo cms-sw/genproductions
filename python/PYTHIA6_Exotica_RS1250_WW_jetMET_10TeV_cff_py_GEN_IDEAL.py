@@ -98,7 +98,7 @@ process.output = cms.OutputModule("PoolOutputModule",
 # Additional output definition
 
 # Other statements
-process.GlobalTag.globaltag = 'IDEAL_V6::All'
+process.GlobalTag.globaltag = 'IDEAL_V9::All'
 
 # Path and EndPath definitions
 process.generation_step = cms.Path(process.pgen)

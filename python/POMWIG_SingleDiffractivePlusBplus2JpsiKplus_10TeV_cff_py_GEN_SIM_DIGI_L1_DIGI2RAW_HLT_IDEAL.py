@@ -25,9 +25,9 @@ process.load('Configuration/StandardSequences/FrontierConditions_GlobalTag_cff')
 process.load('Configuration/EventContent/EventContent_cff')
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: $'),
+    version = cms.untracked.string('$Revision: 1.1 $'),
     annotation = cms.untracked.string('POMWIG SD Plus Bplus to Jpsi Kplus  10TeV'),
-    name = cms.untracked.string('$Source: $')
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/POMWIG_SingleDiffractivePlusBplus2JpsiKplus_10TeV_cff_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT_IDEAL.py,v $')
 )
 process.maxEvents = cms.untracked.PSet(
     input = cms.untracked.int32(5000)
@@ -87,7 +87,7 @@ process.output = cms.OutputModule("PoolOutputModule",
 )
 
 # Other statements
-process.GlobalTag.globaltag = 'IDEAL_V6::All'
+process.GlobalTag.globaltag = 'IDEAL_V9::All'
 process.pomwigfilter = cms.EDFilter("PomwigFilter")
 process.jpsifilter = cms.EDFilter("MCSingleParticleFilter",
     MaxEta = cms.untracked.vdouble(15.0),

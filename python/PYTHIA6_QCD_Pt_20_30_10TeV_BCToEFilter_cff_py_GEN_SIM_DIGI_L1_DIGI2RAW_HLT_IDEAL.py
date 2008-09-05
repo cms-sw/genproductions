@@ -1,6 +1,6 @@
 # Auto generated configuration file
 # using: 
-# $Revision: 1.1 $
+# $Revision: 1.2 $
 # $Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_QCD_Pt_20_30_10TeV_BCToEFilter_cff_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT_IDEAL.py,v $
 import FWCore.ParameterSet.Config as cms
 
@@ -30,7 +30,7 @@ process.ReleaseValidation = cms.untracked.PSet(
     eventsPerJob = cms.untracked.int32(250)
 )
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.1 $'),
+    version = cms.untracked.string('$Revision: 1.2 $'),
     annotation = cms.untracked.string('b/c->e filtered QCD pthat 20-30, 10 TeV'),
     name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_QCD_Pt_20_30_10TeV_BCToEFilter_cff_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT_IDEAL.py,v $')
 )
@@ -94,7 +94,7 @@ process.output = cms.OutputModule("PoolOutputModule",
 )
 
 # Other statements
-process.GlobalTag.globaltag = 'IDEAL_V6::All'
+process.GlobalTag.globaltag = 'IDEAL_V9::All'
 process.bctoefilter = cms.EDFilter("BCToEFilter",
     filterAlgoPSet = cms.PSet(
         genParSource = cms.InputTag("genParticlesForFilter"),

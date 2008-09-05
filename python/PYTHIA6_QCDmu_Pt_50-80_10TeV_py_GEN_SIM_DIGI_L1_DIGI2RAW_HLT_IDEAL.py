@@ -1,6 +1,6 @@
 # Auto generated configuration file
 # using: 
-# $Revision: 1.1 $
+# $Revision: 1.2 $
 # $Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_QCDmu_Pt_50-80_10TeV_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT_IDEAL.py,v $
 import FWCore.ParameterSet.Config as cms
 
@@ -30,7 +30,7 @@ process.ReleaseValidation = cms.untracked.PSet(
     eventsPerJob = cms.untracked.int32(250)
 )
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.1 $'),
+    version = cms.untracked.string('$Revision: 1.2 $'),
     annotation = cms.untracked.string('PYTHIA6-QCD->mu pthat=50-80 at 10TeV with Muon preselection (pt > 5 |eta| < 2.5)')
 )
 process.maxEvents = cms.untracked.PSet(
@@ -97,7 +97,7 @@ process.output = cms.OutputModule("PoolOutputModule",
 )
 
 # Other statements
-process.GlobalTag.globaltag = 'IDEAL_V6::All'
+process.GlobalTag.globaltag = 'IDEAL_V9::All'
 process.mugenfilter = cms.EDFilter("MCSmartSingleParticleFilter",
     MaxDecayRadius = cms.untracked.vdouble(1500.0, 1500.0),
     Status = cms.untracked.vint32(1, 1),

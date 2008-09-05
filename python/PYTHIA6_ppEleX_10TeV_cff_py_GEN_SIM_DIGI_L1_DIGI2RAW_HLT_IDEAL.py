@@ -27,7 +27,7 @@ process.load('Configuration/EventContent/EventContent_cff')
 process.configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.1 $'),
     annotation = cms.untracked.string('PYTHIA6-MinBias at 10TeV with Electron preselection (pt > 2.5)'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_ppEleX_10TeV_cff_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT_STARTUP.py,v $')
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_ppEleX_10TeV_cff_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT_IDEAL.py,v $')
 )
 process.maxEvents = cms.untracked.PSet(
     input = cms.untracked.int32(10)
@@ -94,7 +94,7 @@ process.output = cms.OutputModule("PoolOutputModule",
 )
 
 # Other statements
-process.GlobalTag.globaltag = 'IDEAL_V6::All'
+process.GlobalTag.globaltag = 'IDEAL_V9::All'
 process.elegenfilter = cms.EDFilter("MCSingleParticleFilter",
     MaxEta = cms.untracked.vdouble(2.7, 2.7),
     MinEta = cms.untracked.vdouble(-2.7, -2.7),

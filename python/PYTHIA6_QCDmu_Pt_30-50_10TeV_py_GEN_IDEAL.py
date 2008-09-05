@@ -1,7 +1,7 @@
 # Auto generated configuration file
 # using: 
 # $Revision: 1.1 $
-# $Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_QCDmu_Pt_30-50_10TeV_py_GEN_STARTUP.py,v $
+# $Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_QCDmu_Pt_30-50_10TeV_py_GEN_IDEAL.py,v $
 import FWCore.ParameterSet.Config as cms
 
 process = cms.Process('GEN')
@@ -83,7 +83,7 @@ process.output = cms.OutputModule("PoolOutputModule",
     fileName = cms.untracked.string('PYTHIA6_QCDmu_Pt_30-50_10TeV_py_GEN.root'),
     dataset = cms.untracked.PSet(
         dataTier = cms.untracked.string(''),
-        filterName = cms.untracked.string('IDEAL_V6')
+        filterName = cms.untracked.string('IDEAL_V9')
     ),
     SelectEvents = cms.untracked.PSet(
         SelectEvents = cms.vstring('generation_step')
@@ -91,7 +91,7 @@ process.output = cms.OutputModule("PoolOutputModule",
 )
 
 # Other statements
-process.GlobalTag.globaltag = 'IDEAL_V6::All'
+process.GlobalTag.globaltag = 'IDEAL_V9::All'
 process.mugenfilter = cms.EDFilter("MCSmartSingleParticleFilter",
     MaxDecayRadius = cms.untracked.vdouble(1500.0, 1500.0),
     Status = cms.untracked.vint32(1, 1),

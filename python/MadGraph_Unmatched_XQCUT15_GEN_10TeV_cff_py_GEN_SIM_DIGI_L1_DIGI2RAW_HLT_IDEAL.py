@@ -1,6 +1,6 @@
 # Auto generated configuration file
 # using:
-# $Revision: 1.3 $
+# $Revision: 1.4 $
 # $Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/MadGraph_Unmatched_XQCUT15_GEN_10TeV_cff_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT_IDEAL.py,v $
 import FWCore.ParameterSet.Config as cms
 
@@ -103,7 +103,7 @@ process.output = cms.OutputModule("PoolOutputModule",
 )
 
 # Other statements
-process.GlobalTag.globaltag = 'IDEAL_V6::All'
+process.GlobalTag.globaltag = 'IDEAL_V9::All'
 
 # Path and EndPath definitions
 process.generation_step = cms.Path(process.pgen)

@@ -1,6 +1,6 @@
 # Auto generated configuration file
 # using: 
-# $Revision: 1.2 $
+# $Revision: 1.3 $
 # $Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/MadGraph_XQCUT60_10TeV_cff_py_GEN_IDEAL.py,v $
 import FWCore.ParameterSet.Config as cms
 
@@ -24,7 +24,7 @@ process.ReleaseValidation = cms.untracked.PSet(
     eventsPerJob = cms.untracked.int32(250)
 )
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.2 $'),
+    version = cms.untracked.string('$Revision: 1.3 $'),
     annotation = cms.untracked.string('MadGraph-PYTHIA6 at 10TeV'),
     name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/MadGraph_XQCUT60_10TeV_cff_py_GEN_IDEAL.py,v $')
 )
@@ -89,7 +89,7 @@ process.output = cms.OutputModule("PoolOutputModule",
     fileName = cms.untracked.string('MadGraph_XQCUT60_10TeV_cff_py_GEN.root'),
     dataset = cms.untracked.PSet(
         dataTier = cms.untracked.string('GEN'),
-        filterName = cms.untracked.string('IDEAL_V6')
+        filterName = cms.untracked.string('IDEAL_V9')
     ),
     SelectEvents = cms.untracked.PSet(
         SelectEvents = cms.vstring('generation_step')
@@ -97,7 +97,7 @@ process.output = cms.OutputModule("PoolOutputModule",
 )
 
 # Other statements
-process.GlobalTag.globaltag = 'IDEAL_V6::All'
+process.GlobalTag.globaltag = 'IDEAL_V9::All'
 
 # Path and EndPath definitions
 process.generation_step = cms.Path(process.pgen)
