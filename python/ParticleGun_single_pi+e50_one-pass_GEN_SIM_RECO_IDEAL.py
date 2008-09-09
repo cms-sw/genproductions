@@ -15,6 +15,11 @@ process.load("Configuration.StandardSequences.Reconstruction_cff")
 process.load("Configuration.StandardSequences.FrontierConditions_GlobalTag_cff")
 process.GlobalTag.globaltag = 'IDEAL_V9::All'
 
+configurationMetadata = cms.untracked.PSet(
+    version = cms.untracked.string('$Revision: 1.7 $'),
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_MinBias_10TeV_cff.py,v $'),
+    annotation = cms.untracked.string('Single Pion events with E > 50 GeV for DPG')
+)
 
 process.maxEvents = cms.untracked.PSet(
     input = cms.untracked.int32(1000)
