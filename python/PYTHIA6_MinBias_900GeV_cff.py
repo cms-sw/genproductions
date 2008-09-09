@@ -8,7 +8,7 @@ source = cms.Source("PythiaSource",
     pythiaPylistVerbosity = cms.untracked.int32(1),
     filterEfficiency = cms.untracked.double(1.0),
     comEnergy = cms.untracked.double(900.0),
-    crossSection = cms.untracked.double(55000000000.),
+    crossSection = cms.untracked.double(52410000000.),
     PythiaParameters = cms.PSet(
         pythiaUESettingsBlock,
         processParameters = cms.vstring('MSEL=0         ! User defined processes', 
@@ -29,8 +29,8 @@ source = cms.Source("PythiaSource",
 )
 
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.7 $'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_MinBias_10TeV_cff.py,v $'),
+    version = cms.untracked.string('$Revision: 1.1 $'),
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_MinBias_900GeV_cff.py,v $'),
     annotation = cms.untracked.string('PYTHIA6-MinBias at 900GeV')
 )
 
