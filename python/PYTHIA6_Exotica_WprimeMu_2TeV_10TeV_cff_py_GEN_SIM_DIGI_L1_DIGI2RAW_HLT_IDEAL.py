@@ -27,7 +27,7 @@ process.load('Configuration/EventContent/EventContent_cff')
 process.configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.1 $'),
     annotation = cms.untracked.string('PYTHIA6-Wprime of 2 TeV mass decaying into muon and neutrino at 10TeV  '),
-    name = cms.untracked.string('$Source: /local/projects/CMSSW/rep/CMSSW/Configuration/GenProduction/python/PYTHIA6_WprimeMu_2TeV_10TeV_cff.py,v $')
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_Exotica_WprimeMu_2TeV_10TeV_cff_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT_IDEAL.py,v $')
 )
 process.maxEvents = cms.untracked.PSet(
     input = cms.untracked.int32(1000)
@@ -41,7 +41,7 @@ process.source = cms.Source("PythiaSource",
     filterEfficiency = cms.untracked.double(1.0),
     pythiaHepMCVerbosity = cms.untracked.bool(False),
     comEnergy = cms.untracked.double(10000.0),
-    crossSection = cms.untracked.double(51600000000.0),
+    crossSection = cms.untracked.double(0.348),
     maxEventsToPrint = cms.untracked.int32(0),
     PythiaParameters = cms.PSet(
         pythiaUESettings = cms.vstring('MSTJ(11)=3     ! Choice of the fragmentation function', 
@@ -104,7 +104,7 @@ process.output = cms.OutputModule("PoolOutputModule",
 # Additional output definition
 
 # Other statements
-process.GlobalTag.globaltag = 'IDEAL_V6::All'
+process.GlobalTag.globaltag = 'IDEAL_V9::All'
 
 # Path and EndPath definitions
 process.generation_step = cms.Path(process.pgen)
