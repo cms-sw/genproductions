@@ -36,8 +36,7 @@ process.load("Configuration.StandardSequences.Generator_cff")
 ##process.load('Configuration.StandardSequences.Digi_cff')
 process.load("Configuration.StandardSequences.DigiToRaw_cff")
 
-#process.load('Configuration.EventContent.EventContentCosmics_cff')
-process.load('Configuration.EventContent.EventContent_cff')
+process.load('Configuration.EventContent.EventContentCosmics_cff')
 
 
 #--- random number generator (new in 21x) 
