@@ -25,9 +25,9 @@ process.load('Configuration/StandardSequences/FrontierConditions_GlobalTag_cff')
 process.load('Configuration/EventContent/EventContent_cff')
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.1 $'),
+    version = cms.untracked.string('$Revision: 1.2 $'),
     annotation = cms.untracked.string('POMWIG SD plus Z->mumu Mmin 40 GeV at 10TeV'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/POMWIG_SingleDiffractiveZmumuPlus_10TeV_M40_cff.py,v $')
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/POMWIG_SingleDiffractiveZmumuPlus_10TeV_M40_cff_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT_STARTUP.py,v $')
 )
 process.maxEvents = cms.untracked.PSet(
     input = cms.untracked.int32(10)
@@ -60,6 +60,8 @@ process.source = cms.Source("PomwigSource",
     maxEventsToPrint = cms.untracked.int32(2),
     diffTopology = cms.int32(1)
 )
+
+process.genParticles.abortOnUnknownPDGCode = False
 
 # Output definition
 process.output = cms.OutputModule("PoolOutputModule",

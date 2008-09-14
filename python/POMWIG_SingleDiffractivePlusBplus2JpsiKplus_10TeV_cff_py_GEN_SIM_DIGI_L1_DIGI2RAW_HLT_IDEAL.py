@@ -25,8 +25,8 @@ process.load('Configuration/StandardSequences/FrontierConditions_GlobalTag_cff')
 process.load('Configuration/EventContent/EventContent_cff')
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.1 $'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/POMWIG_SingleDiffractivePlusBplus2JpsiKplus_10TeV_cff.py,v $'),
+    version = cms.untracked.string('$Revision: 1.3 $'),
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/POMWIG_SingleDiffractivePlusBplus2JpsiKplus_10TeV_cff_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT_IDEAL.py,v $'),
     annotation = cms.untracked.string('POMWIG SD Plus Bplus to JPsi Kplus at 10TeV')
 )
 process.maxEvents = cms.untracked.PSet(
@@ -70,6 +70,8 @@ process.source = cms.Source("PomwigSource",
     maxEventsToPrint = cms.untracked.int32(2),
     diffTopology = cms.int32(1)
 )
+
+process.genParticles.abortOnUnknownPDGCode = False
 
 # Output definition
 process.output = cms.OutputModule("PoolOutputModule",
