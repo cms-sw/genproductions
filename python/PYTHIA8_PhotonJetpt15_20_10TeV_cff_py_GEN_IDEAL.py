@@ -2,7 +2,7 @@
 # using: 
 # Revision: 1.77 
 # Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/PyReleaseValidation/python/ConfigBuilder.py,v 
-# with command line options: Configuration/GenProduction/python/PYTHIA8_PhotonJetpt15_20_10TeV_cff.py -s GEN --eventcontent RAWSIM --datatier GEN --conditions FrontierConditions_GlobalTag,IDEAL_V9::All -n 100 --no_exec
+# with command line options: Configuration/GenProduction/python/PYTHIA8_PhotonJetpt15_20_10TeV_cff.py -s GEN:ProductionFilterSequence --eventcontent RAWSIM --datatier GEN --conditions FrontierConditions_GlobalTag,IDEAL_V9::All -n 10 --no_exec
 import FWCore.ParameterSet.Config as cms
 
 process = cms.Process('GEN')
@@ -24,7 +24,7 @@ process.configurationMetadata = cms.untracked.PSet(
     name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA8_PhotonJetpt15_20_10TeV_cff.py,v $')
 )
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(100)
+    input = cms.untracked.int32(10)
 )
 process.options = cms.untracked.PSet(
     Rethrow = cms.untracked.vstring('ProductNotFound')
@@ -51,7 +51,7 @@ process.source = cms.Source("Pythia8Source",
 # Output definition
 process.output = cms.OutputModule("PoolOutputModule",
     outputCommands = process.RAWSIMEventContent.outputCommands,
-    fileName = cms.untracked.string('PYTHIA8_PhotonJetpt15_20_10TeV_cff_py_GEN.root'),
+    fileName = cms.untracked.string('PYTHIA8_PhotonJetpt15_20_10TeV_cff_GEN.root'),
     dataset = cms.untracked.PSet(
         dataTier = cms.untracked.string('GEN'),
         filterName = cms.untracked.string('')
@@ -65,9 +65,16 @@ process.output = cms.OutputModule("PoolOutputModule",
 
 # Other statements
 process.GlobalTag.globaltag = 'IDEAL_V9::All'
+process.photonfilter = cms.EDFilter("MCSingleParticleFilter",
+    MaxEta = cms.untracked.vdouble(2.4),
+    MinEta = cms.untracked.vdouble(-2.4),
+    MinPt = cms.untracked.vdouble(15.0),
+    ParticleID = cms.untracked.vint32(22)
+)
+process.ProductionFilterSequence = cms.Sequence(process.photonfilter)
 
 # Path and EndPath definitions
-process.generation_step = cms.Path(process.pgen)
+process.generation_step = cms.Path(process.ProductionFilterSequence*process.pgen)
 process.out_step = cms.EndPath(process.output)
 
 # Schedule definition
