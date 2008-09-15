@@ -1,8 +1,8 @@
 # Auto generated configuration file
 # using: 
-# Revision: 1.77 
+# Revision: 1.77.2.1 
 # Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/PyReleaseValidation/python/ConfigBuilder.py,v 
-# with command line options: Configuration/GenProduction/python/PYTHIA8_PhotonJetpt35_10TeV_cff.py -s GEN:ProductionFilterSequence --eventcontent RAWSIM --datatier GEN --conditions FrontierConditions_GlobalTag,IDEAL_V9::All -n 10 --no_exec
+# with command line options: Configuration/GenProduction/python/PYTHIA8_PhotonJetpt35_10TeV_cff.py -s GEN:ProductionFilterSequence --eventcontent RAWSIM --datatier GEN --conditions FrontierConditions_GlobalTag,IDEAL_V9::All -n 10 --no_exec --customise Configuration/GenProduction/PYTHIA8_custom.py
 import FWCore.ParameterSet.Config as cms
 
 process = cms.Process('GEN')
@@ -78,4 +78,17 @@ process.out_step = cms.EndPath(process.output)
 
 # Schedule definition
 process.schedule = cms.Schedule(process.generation_step,process.out_step)
-process.genParticles.abortOnUnknownPDGCode = False
+
+
+# Automatic addition of the customisation function
+
+def customise(process):
+
+	process.genParticles.abortOnUnknownPDGCode = False
+
+	return(process)
+
+
+# End of customisation function definition
+
+process = customise(process)

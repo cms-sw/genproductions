@@ -14,14 +14,14 @@ cat Herwigpp_mkrun.table | while read MINKT XS EVTS; do
 	cmsDriver.py Configuration/GenProduction/python/Herwigpp_QCD_Pt_$MINKT.py \
 		-s GEN \
 		--eventcontent RAWSIM --datatier GEN \
-		--conditions $CONDITION -n $EVTS --no_exec
-	echo "process.genParticles.abortOnUnknownPDGCode = False" >> Herwigpp_QCD_Pt_${MINKT}_py_GEN_IDEAL.py
+		--conditions $CONDITION -n $EVTS --no_exec \
+		--customise Configuration/GenProduction/Herwigpp_custom.py
 	sed -i -e "s/_py_/_/" Herwigpp_QCD_Pt_${MINKT}_py_GEN_IDEAL.py
 
 	cmsDriver.py Configuration/GenProduction/python/Herwigpp_QCD_Pt_$MINKT.py \
 		-s GEN,SIM,DIGI,L1,DIGI2RAW,HLT \
 		--eventcontent RAWSIM --datatier GEN-SIM-RAW \
-		--conditions $CONDITION -n $EVTS --no_exec
-	echo "process.genParticles.abortOnUnknownPDGCode = False" >> Herwigpp_QCD_Pt_${MINKT}_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT_IDEAL.py
+		--conditions $CONDITION -n $EVTS --no_exec \
+		--customise Configuration/GenProduction/Herwigpp_custom.py
 	sed -i -e "s/_py_/_/" Herwigpp_QCD_Pt_${MINKT}_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT_IDEAL.py
 done
