@@ -35,7 +35,6 @@ source = cms.Source("PythiaSource",
 configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.2 $'),
     annotation = cms.untracked.string('PYTHIA6-RS1250 to WW to jet+MET at 10TeV'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_Exotica_RS1250_WW_jetMET_10TeV_cff_py_GEN_IDEAL.py,v $')
-
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Configuration/GenProduction/python/PYTHIA6_Exotica_RS1250_WW_jetMET_10TeV_cff.py,v $')
 )
 

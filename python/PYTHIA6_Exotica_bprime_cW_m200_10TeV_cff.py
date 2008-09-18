@@ -89,7 +89,6 @@ source = cms.Source("PythiaSource",
 configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.2 $'),
     annotation = cms.untracked.string('PYTHIA6_Exotica_bprime_cW_m200 at 10TeV'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_Exotica_bprime_cW_m200_10TeV_cff_py_GEN_IDEAL.py,v $')
-
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Configuration/GenProduction/python/PYTHIA6_Exotica_bprime_cW_m200_10TeV_cff.py,v $')
 )
 

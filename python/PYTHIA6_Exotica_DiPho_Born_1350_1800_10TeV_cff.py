@@ -23,7 +23,6 @@ source = cms.Source("PythiaSource",
 configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.2 $'),
     annotation = cms.untracked.string('qq -> gamma gamma (1350-1800 GeV)  at sqrt{s} = 10 TeV'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_Exotica_DiPho_Born_1350_1800_10TeV_cff_py_GEN_IDEAL.py,v $')
-
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Configuration/GenProduction/python/PYTHIA6_Exotica_DiPho_Born_1350_1800_10TeV_cff.py,v $')
 )
 

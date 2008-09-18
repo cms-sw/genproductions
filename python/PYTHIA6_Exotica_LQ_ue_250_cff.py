@@ -25,7 +25,6 @@ source = cms.Source("PythiaSource",
 configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.1. %'),
     annotation = cms.untracked.string('default documentation string for LQ_ue_250_cff.py'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_Exotica_LQ_ue_250_cff_py_GEN_IDEAL.py,v $')
-
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Configuration/GenProduction/python/PYTHIA6_Exotica_LQ_ue_250_cff.py,v $')
 )
 
