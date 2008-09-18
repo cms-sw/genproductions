@@ -25,9 +25,9 @@ process.load('Configuration/StandardSequences/FrontierConditions_GlobalTag_cff')
 process.load('Configuration/EventContent/EventContent_cff')
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.3 $'),
+    version = cms.untracked.string('$Revision: 1.4 $'),
     annotation = cms.untracked.string('incl_BtoJpsi_mumu'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_inclBtoJpsiMuMu_10TeV_cfg.py,v $')
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_inclBtoJpsiMuMu_10TeV_cfg_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT_IDEAL.py,v $')
 )
 process.maxEvents = cms.untracked.PSet(
     input = cms.untracked.int32(10)
@@ -228,7 +228,9 @@ process.output = cms.OutputModule("PoolOutputModule",
     )
 )
 
+
 # Additional output definition
+process.output.outputCommands.append("keep *_evtgenproducer_*_*")
 
 # Other statements
 process.GlobalTag.globaltag = 'IDEAL_V9::All'
@@ -404,6 +406,13 @@ process.mumugenfilter = cms.EDFilter("MCParticlePairFilter",
     ParticleID1 = cms.untracked.vint32(13),
     ParticleID2 = cms.untracked.vint32(13)
 )
+
+# "custom" corrections, to make the chain pick evtgen-made generator record
+#
+process.VtxSmeared.src = 'evtgenproducer'
+process.genParticleCandidates.src = 'evtgenproducer'
+process.g4SimHits.Generator.HepMCProductLabel = 'evtgenproducer'
+
 process.ProductionFilterSequence = cms.Sequence(process.bfilter*process.evtgenproducer*process.mumugenfilter)
 
 # Path and EndPath definitions
