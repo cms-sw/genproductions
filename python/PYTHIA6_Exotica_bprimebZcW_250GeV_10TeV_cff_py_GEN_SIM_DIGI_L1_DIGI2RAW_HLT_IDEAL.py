@@ -1,8 +1,8 @@
 # Auto generated configuration file
 # using: 
-# Revision: 1.77 
+# Revision: 1.90 
 # Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/PyReleaseValidation/python/ConfigBuilder.py,v 
-# with command line options: Configuration/GenProduction/PYTHIA6_Exotica_bprimebZcW_250GeV_10TeV_cff -s GEN,SIM,DIGI,L1,DIGI2RAW,HLT --eventcontent RAWSIM --datatier GEN-SIM-RAW --conditions FrontierConditions_GlobalTag,IDEAL_V9::All -n 10 --no_exec
+# with command line options: Configuration/GenProduction/python/PYTHIA6_Exotica_bprimebZcW_250GeV_10TeV_cff.py -s GEN,SIM,DIGI,L1,DIGI2RAW,HLT --eventcontent RAWSIM --datatier GEN-SIM-RAW --conditions FrontierConditions_GlobalTag,IDEAL_V9::All -n 10 --no_exec
 import FWCore.ParameterSet.Config as cms
 
 process = cms.Process('HLT')
@@ -25,9 +25,9 @@ process.load('Configuration/StandardSequences/FrontierConditions_GlobalTag_cff')
 process.load('Configuration/EventContent/EventContent_cff')
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.1 $'),
-    annotation = cms.untracked.string('PYTHIA6-bprimebZcW_250GeV at 10TeV'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_Exotica_bprimebZcW_250GeV_10TeV_cff.py,v $')
+    version = cms.untracked.string('$Revision: 1.2 $'),
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Configuration/GenProduction/python/PYTHIA6_Exotica_bprimebZcW_250GeV_10TeV_cff.py,v $'),
+    annotation = cms.untracked.string('PYTHIA6-bprimebZcW_250GeV at 10TeV')
 )
 process.maxEvents = cms.untracked.PSet(
     input = cms.untracked.int32(10)
@@ -121,14 +121,6 @@ process.source = cms.Source("PythiaSource",
             'MDME(191,1)=1           !W decay into c dbar', 
             'MDME(192,1)=1           !W decay into t dbar', 
             'MDME(193,1)=-1          !W decay into t4 dbar', 
-            'MDME(194,1)=1           !W decay into u sbar', 
-            'MDME(195,1)=1           !W decay into c sbar', 
-            'MDME(196,1)=1           !W decay into t sbar', 
-            'MDME(197,1)=-1          !W decay into t4 sbar', 
-            'MDME(198,1)=1           !W decay into u bbar', 
-            'MDME(199,1)=1           !W decay into c bbar', 
-            'MDME(200,1)=1           !W decay into t bbar', 
-            'MDME(201,1)=-1          !W decay into t4 bbar', 
             'MDME(202,1)=-1          !W decay into u b4bar', 
             'MDME(203,1)=-1          !W decay into c b4bar', 
             'MDME(204,1)=-1          !W decay into t b4bar', 
@@ -145,7 +137,7 @@ process.source = cms.Source("PythiaSource",
 # Output definition
 process.output = cms.OutputModule("PoolOutputModule",
     outputCommands = process.RAWSIMEventContent.outputCommands,
-    fileName = cms.untracked.string('PYTHIA6_Exotica_bprimebZcW_250GeV_10TeV_cff_GEN_SIM_DIGI_L1_DIGI2RAW_HLT.root'),
+    fileName = cms.untracked.string('PYTHIA6_Exotica_bprimebZcW_250GeV_10TeV_cff_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT.root'),
     dataset = cms.untracked.PSet(
         dataTier = cms.untracked.string('GEN-SIM-RAW'),
         filterName = cms.untracked.string('')

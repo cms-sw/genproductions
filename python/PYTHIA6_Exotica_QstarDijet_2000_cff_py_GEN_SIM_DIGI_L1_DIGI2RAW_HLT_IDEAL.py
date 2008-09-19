@@ -2,7 +2,7 @@
 # using: 
 # Revision: 1.90 
 # Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/PyReleaseValidation/python/ConfigBuilder.py,v 
-# with command line options: Configuration/GenProduction/python/PYTHIA6_Exotica_RS1250_ZZ_jetMET_10TeV_cff.py -s GEN,SIM,DIGI,L1,DIGI2RAW,HLT --eventcontent RAWSIM --datatier GEN-SIM-RAW --conditions FrontierConditions_GlobalTag,IDEAL_V9::All -n 10 --no_exec
+# with command line options: Configuration/GenProduction/python/PYTHIA6_Exotica_QstarDijet_2000_cff.py -s GEN,SIM,DIGI,L1,DIGI2RAW,HLT --eventcontent RAWSIM --datatier GEN-SIM-RAW --conditions FrontierConditions_GlobalTag,IDEAL_V9::All -n 10 --no_exec
 import FWCore.ParameterSet.Config as cms
 
 process = cms.Process('HLT')
@@ -25,9 +25,9 @@ process.load('Configuration/StandardSequences/FrontierConditions_GlobalTag_cff')
 process.load('Configuration/EventContent/EventContent_cff')
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.2 $'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Configuration/GenProduction/python/PYTHIA6_Exotica_RS1250_ZZ_jetMET_10TeV_cff.py,v $'),
-    annotation = cms.untracked.string('PYTHIA6-RS1250 to ZZ to jet+MET at 10TeV')
+    version = cms.untracked.string('$Revision: 1.1. %'),
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Configuration/GenProduction/python/PYTHIA6_Exotica_QstarDijet_2000_cff.py,v $'),
+    annotation = cms.untracked.string('default documentation string for QstarDijet_2000_cff.py')
 )
 process.maxEvents = cms.untracked.PSet(
     input = cms.untracked.int32(10)
@@ -41,7 +41,7 @@ process.source = cms.Source("PythiaSource",
     filterEfficiency = cms.untracked.double(1.0),
     pythiaHepMCVerbosity = cms.untracked.bool(False),
     comEnergy = cms.untracked.double(10000.0),
-    crossSection = cms.untracked.double(0.1068),
+    crossSection = cms.untracked.double(6.87),
     maxEventsToPrint = cms.untracked.int32(0),
     PythiaParameters = cms.PSet(
         pythiaUESettings = cms.vstring('MSTJ(11)=3     ! Choice of the fragmentation function', 
@@ -67,22 +67,20 @@ process.source = cms.Source("PythiaSource",
             'MSTP(91)=1     !', 
             'PARP(91)=2.1   ! kt distribution', 
             'PARP(93)=15.0  ! '),
-        processParameters = cms.vstring('PMAS(6,1)=172.3 ! t quark mass', 
-            'PMAS(347,1)= 1250.0 ! graviton mass', 
-            'PARP(50)=0.54  ! c(k/Mpl) * 5.4', 
-            'MSEL=0         ! User defined processes', 
-            'MSUB(391)=1    ! ffbar->G*', 
-            'MSUB(392)=1    ! gg->G*', 
-            '5000039:ALLOFF ! Turn off graviton decays', 
-            '5000039:ONIFANY 23 ! graviton decays into Z0', 
-            '23:ALLOFF ! Turn off Z decays', 
-            '23:ONIFANY 1 2 3 4 5 6 12 14 16 ! Z decays to q and nu', 
-            'CKIN(3)=25.    ! Pt hat lower cut', 
-            'CKIN(4)=-1.    ! Pt hat upper cut', 
-            'CKIN(13)=-10.  ! etamin', 
-            'CKIN(14)=10.   ! etamax', 
-            'CKIN(15)=-10.  ! -etamax', 
-            'CKIN(16)=10.   ! -etamin'),
+        processParameters = cms.vstring('MSEL=0                    !(D=1) to select between full user control (0, then use MSUB) and some preprogrammed alternative', 
+            'MSTP(6)=1                 ! excited quarks', 
+            'MSUB(147)=1               ! dstar production', 
+            'MSUB(148)=1               ! ustar production', 
+            'PMAS(343,1)=2000.0         ! d* mass', 
+            'PMAS(344,1)=2000.0         ! u* mass', 
+            'RTCM(41)=2000.0            ! Lambda Scale equals qstar mass', 
+            'RTCM(43)=1.0              ! f=1   SM coupling', 
+            'RTCM(44)=1.0              ! fprime=1  SM coupling', 
+            'RTCM(45)=1.0              ! f_s=1 SM coupling', 
+            '4000001:ALLOFF            !Turn off all u* decays', 
+            '4000001:ONIFMATCH 1 21    !Turn on u*->u g', 
+            '4000002:ALLOFF            !Turn off all d* decays', 
+            '4000002:ONIFMATCH 2 21    !Turn on d*->d g'),
         parameterSets = cms.vstring('pythiaUESettings', 
             'processParameters')
     )
@@ -91,7 +89,7 @@ process.source = cms.Source("PythiaSource",
 # Output definition
 process.output = cms.OutputModule("PoolOutputModule",
     outputCommands = process.RAWSIMEventContent.outputCommands,
-    fileName = cms.untracked.string('PYTHIA6_Exotica_RS1250_ZZ_jetMET_10TeV_cff_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT.root'),
+    fileName = cms.untracked.string('PYTHIA6_Exotica_QstarDijet_2000_cff_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT.root'),
     dataset = cms.untracked.PSet(
         dataTier = cms.untracked.string('GEN-SIM-RAW'),
         filterName = cms.untracked.string('')

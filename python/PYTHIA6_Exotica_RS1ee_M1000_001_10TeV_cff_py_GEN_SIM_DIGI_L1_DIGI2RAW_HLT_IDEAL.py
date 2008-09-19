@@ -1,6 +1,6 @@
 # Auto generated configuration file
 # using: 
-# Revision: 1.77.2.1 
+# Revision: 1.90 
 # Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/PyReleaseValidation/python/ConfigBuilder.py,v 
 # with command line options: Configuration/GenProduction/python/PYTHIA6_Exotica_RS1ee_M1000_001_10TeV_cff.py -s GEN,SIM,DIGI,L1,DIGI2RAW,HLT --eventcontent RAWSIM --datatier GEN-SIM-RAW --conditions FrontierConditions_GlobalTag,IDEAL_V9::All -n 10 --no_exec
 import FWCore.ParameterSet.Config as cms
@@ -25,8 +25,8 @@ process.load('Configuration/StandardSequences/FrontierConditions_GlobalTag_cff')
 process.load('Configuration/EventContent/EventContent_cff')
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.3 $'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_Exotica_RS1ee_M1000_001_10TeV_cff_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT_IDEAL.py,v $'),
+    version = cms.untracked.string('$Revision: 1.2 $'),
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Configuration/GenProduction/python/PYTHIA6_Exotica_RS1ee_M1000_001_10TeV_cff.py,v $'),
     annotation = cms.untracked.string("1 TeV Z\' SSM  at sqrt{s} = 10 TeV")
 )
 process.maxEvents = cms.untracked.PSet(

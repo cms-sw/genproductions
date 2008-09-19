@@ -2,7 +2,7 @@
 # using: 
 # Revision: 1.90 
 # Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/PyReleaseValidation/python/ConfigBuilder.py,v 
-# with command line options: Configuration/GenProduction/python/PYTHIA6_Exotica_RS1250_ZZ_jetMET_10TeV_cff.py -s GEN,SIM,DIGI,L1,DIGI2RAW,HLT --eventcontent RAWSIM --datatier GEN-SIM-RAW --conditions FrontierConditions_GlobalTag,IDEAL_V9::All -n 10 --no_exec
+# with command line options: Configuration/GenProduction/python/PYTHIA6_Exotica_ZprimeDijet_5000_cff.py -s GEN,SIM,DIGI,L1,DIGI2RAW,HLT --eventcontent RAWSIM --datatier GEN-SIM-RAW --conditions FrontierConditions_GlobalTag,IDEAL_V9::All -n 10 --no_exec
 import FWCore.ParameterSet.Config as cms
 
 process = cms.Process('HLT')
@@ -25,9 +25,9 @@ process.load('Configuration/StandardSequences/FrontierConditions_GlobalTag_cff')
 process.load('Configuration/EventContent/EventContent_cff')
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.2 $'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Configuration/GenProduction/python/PYTHIA6_Exotica_RS1250_ZZ_jetMET_10TeV_cff.py,v $'),
-    annotation = cms.untracked.string('PYTHIA6-RS1250 to ZZ to jet+MET at 10TeV')
+    version = cms.untracked.string('$Revision: 1.1. %'),
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Configuration/GenProduction/python/PYTHIA6_Exotica_ZprimeDijet_5000_cff.py,v $'),
+    annotation = cms.untracked.string('default documentation string for ZprimeDijet_5000_cff.py')
 )
 process.maxEvents = cms.untracked.PSet(
     input = cms.untracked.int32(10)
@@ -41,7 +41,7 @@ process.source = cms.Source("PythiaSource",
     filterEfficiency = cms.untracked.double(1.0),
     pythiaHepMCVerbosity = cms.untracked.bool(False),
     comEnergy = cms.untracked.double(10000.0),
-    crossSection = cms.untracked.double(0.1068),
+    crossSection = cms.untracked.double(0.000352),
     maxEventsToPrint = cms.untracked.int32(0),
     PythiaParameters = cms.PSet(
         pythiaUESettings = cms.vstring('MSTJ(11)=3     ! Choice of the fragmentation function', 
@@ -67,22 +67,32 @@ process.source = cms.Source("PythiaSource",
             'MSTP(91)=1     !', 
             'PARP(91)=2.1   ! kt distribution', 
             'PARP(93)=15.0  ! '),
-        processParameters = cms.vstring('PMAS(6,1)=172.3 ! t quark mass', 
-            'PMAS(347,1)= 1250.0 ! graviton mass', 
-            'PARP(50)=0.54  ! c(k/Mpl) * 5.4', 
-            'MSEL=0         ! User defined processes', 
-            'MSUB(391)=1    ! ffbar->G*', 
-            'MSUB(392)=1    ! gg->G*', 
-            '5000039:ALLOFF ! Turn off graviton decays', 
-            '5000039:ONIFANY 23 ! graviton decays into Z0', 
-            '23:ALLOFF ! Turn off Z decays', 
-            '23:ONIFANY 1 2 3 4 5 6 12 14 16 ! Z decays to q and nu', 
-            'CKIN(3)=25.    ! Pt hat lower cut', 
-            'CKIN(4)=-1.    ! Pt hat upper cut', 
-            'CKIN(13)=-10.  ! etamin', 
-            'CKIN(14)=10.   ! etamax', 
-            'CKIN(15)=-10.  ! -etamax', 
-            'CKIN(16)=10.   ! -etamin'),
+        processParameters = cms.vstring('PMAS(32,1)= 5000.           !mass of Zprime', 
+            'MSEL=0                    !(D=1) to select between full user control (0, then use MSUB) and some preprogrammed alternative', 
+            'MSTP(44) = 3              !only select the Z process', 
+            'MSUB(141) = 1             !ff  gamma z0 Z0', 
+            'MDME(289,1)= 1            !d dbar', 
+            'MDME(290,1)= 1            !u ubar', 
+            'MDME(291,1)= 1            !s sbar', 
+            'MDME(292,1)= 1            !c cbar', 
+            'MDME(293,1)= 0            !b bar', 
+            'MDME(294,1)= 0            !t tbar', 
+            'MDME(295,1)= 0            !4th gen Q Qbar', 
+            'MDME(296,1)= 0            !4th gen Q Qbar', 
+            'MDME(297,1)= 0            !e e', 
+            'MDME(298,1)= 0            !neutrino e e', 
+            'MDME(299,1)= 0            ! mu mu', 
+            'MDME(300,1)= 0            !neutrino mu mu', 
+            'MDME(301,1)= 0            !tau tau', 
+            'MDME(302,1)= 0            !neutrino tau tau', 
+            'MDME(303,1)= 0            !4th generation lepton', 
+            'MDME(304,1)= 0            !4th generation neutrino', 
+            'MDME(305,1)= 0            !W W', 
+            'MDME(306,1)= 0            !H  charged higgs', 
+            'MDME(307,1)= 0            !Z', 
+            'MDME(308,1)= 0            !Z', 
+            'MDME(309,1)= 0            !sm higgs', 
+            'MDME(310,1)= 0            !weird neutral higgs HA'),
         parameterSets = cms.vstring('pythiaUESettings', 
             'processParameters')
     )
@@ -91,7 +101,7 @@ process.source = cms.Source("PythiaSource",
 # Output definition
 process.output = cms.OutputModule("PoolOutputModule",
     outputCommands = process.RAWSIMEventContent.outputCommands,
-    fileName = cms.untracked.string('PYTHIA6_Exotica_RS1250_ZZ_jetMET_10TeV_cff_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT.root'),
+    fileName = cms.untracked.string('PYTHIA6_Exotica_ZprimeDijet_5000_cff_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT.root'),
     dataset = cms.untracked.PSet(
         dataTier = cms.untracked.string('GEN-SIM-RAW'),
         filterName = cms.untracked.string('')
