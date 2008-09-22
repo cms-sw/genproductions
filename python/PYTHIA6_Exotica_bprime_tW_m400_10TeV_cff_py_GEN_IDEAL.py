@@ -19,7 +19,7 @@ process.load('Configuration/StandardSequences/FrontierConditions_GlobalTag_cff')
 process.load('Configuration/EventContent/EventContent_cff')
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.1 $'),
+    version = cms.untracked.string('$Revision: 1.2 $'),
     annotation = cms.untracked.string('PYTHIA6_Exotica_bprime_tW_m400 at 10TeV'),
     name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_Exotica_bprime_tW_m400_10TeV_cff_py_GEN_IDEAL.py,v $')
 )
@@ -64,7 +64,7 @@ process.source = cms.Source("PythiaSource",
         processParameters = cms.vstring('MSTP(1) = 4', 
             'MSEL = 7', 
             'PMAS(5,1) = 4.7D0    ! b quarks mass', 
-            'PMAS(6,1) = 170.9D0  ! t quarks mass', 
+            'PMAS(6,1) = 172.4D0  ! t quarks mass', 
             'PMAS(7,1) = 400.0D0  ! bprime quarks mass', 
             'PMAS(7,2) = 1.0D0', 
             'PMAS(7,3) = 10.0D0', 
