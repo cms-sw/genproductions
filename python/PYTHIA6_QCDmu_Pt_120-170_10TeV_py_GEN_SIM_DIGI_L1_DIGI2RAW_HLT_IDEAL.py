@@ -2,7 +2,7 @@
 # using: 
 # Revision: 1.77 
 # Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/PyReleaseValidation/python/ConfigBuilder.py,v 
-# with command line options: Configuration/GenProduction/PYTHIA6_QCDmu_Pt_120-170_10TeV -s GEN:ProductionFilterSequence,SIM,DIGI,L1,DIGI2RAW,HLT --eventcontent RAWSIM --datatier GEN-SIM-RAW --conditions FrontierConditions_GlobalTag,IDEAL_V9::All -n 10 --no_exec
+# with command line options: Configuration/GenProduction/python/PYTHIA6_QCDmu_Pt_120-170_10TeV.py -s GEN:ProductionFilterSequence,SIM,DIGI,L1,DIGI2RAW,HLT --eventcontent RAWSIM --datatier GEN-SIM-RAW --conditions FrontierConditions_GlobalTag,IDEAL_V9::All -n 10 --no_exec
 import FWCore.ParameterSet.Config as cms
 
 process = cms.Process('HLT')
@@ -25,11 +25,11 @@ process.load('Configuration/StandardSequences/FrontierConditions_GlobalTag_cff')
 process.load('Configuration/EventContent/EventContent_cff')
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.5 $'),
+    version = cms.untracked.string('$Revision: 1.6 $'),
     annotation = cms.untracked.string('PYTHIA6-QCD->mu pthat=120-170 at 10TeV with Muon preselection (pt > 5 |eta| < 2.5)')
 )
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(10)
+    input = cms.untracked.int32(1000)
 )
 process.options = cms.untracked.PSet(
     Rethrow = cms.untracked.vstring('ProductNotFound')
@@ -69,7 +69,9 @@ process.source = cms.Source("PythiaSource",
         processParameters = cms.vstring('MSEL=1         ! QCD', 
             'CKIN(3)=120     ! pthat min.', 
             'CKIN(4)=170     ! pthat max.', 
-            'PARJ(71)=20000.  ! max. proper lifetime time ctau in mm', 
+            'MSTJ(22)=4       ! Decay unstable particles inside a cylinder', 
+            'PARJ(73)=1500.   ! max. radius for MSTJ(22)=4', 
+            'PARJ(74)=3000.   ! max. Z for MSTJ(22)=4', 
             'MDCY(C130,1)=1   ! decay k0-longs', 
             'MDCY(C211,1)=1   ! decay pions', 
             'MDCY(C321,1)=1   ! decay kaons'),
@@ -81,7 +83,7 @@ process.source = cms.Source("PythiaSource",
 # Output definition
 process.output = cms.OutputModule("PoolOutputModule",
     outputCommands = process.RAWSIMEventContent.outputCommands,
-    fileName = cms.untracked.string('PYTHIA6_QCDmu_Pt_120-170_10TeV_GEN_SIM_DIGI_L1_DIGI2RAW_HLT.root'),
+    fileName = cms.untracked.string('PYTHIA6_QCDmu_Pt_120-170_10TeV_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT.root'),
     dataset = cms.untracked.PSet(
         dataTier = cms.untracked.string('GEN-SIM-RAW'),
         filterName = cms.untracked.string('')

@@ -1,7 +1,8 @@
 # Auto generated configuration file
 # using: 
-# $Revision: 1.1 $
-# $Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_QCDmu_Pt_50-80_10TeV_py_GEN_IDEAL.py,v $
+# Revision: 1.77 
+# Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/PyReleaseValidation/python/ConfigBuilder.py,v 
+# with command line options: Configuration/GenProduction/python/PYTHIA6_QCDmu_Pt_50-80_10TeV.py -s GEN:ProductionFilterSequence --eventcontent RAWSIM --datatier GEN --conditions FrontierConditions_GlobalTag,IDEAL_V9::All -n 1000 --no_exec
 import FWCore.ParameterSet.Config as cms
 
 process = cms.Process('GEN')
@@ -9,7 +10,6 @@ process = cms.Process('GEN')
 # import of standard configurations
 process.load('Configuration/StandardSequences/Services_cff')
 process.load('FWCore/MessageService/MessageLogger_cfi')
-process.load('Configuration/StandardSequences/Generator_cff')
 process.load('Configuration/StandardSequences/MixingNoPileUp_cff')
 process.load('Configuration/StandardSequences/GeometryPilot2_cff')
 process.load('Configuration/StandardSequences/MagneticField_38T_cff')
@@ -18,17 +18,12 @@ process.load('Configuration/StandardSequences/VtxSmearedEarly10TeVCollision_cff'
 process.load('Configuration/StandardSequences/FrontierConditions_GlobalTag_cff')
 process.load('Configuration/EventContent/EventContent_cff')
 
-process.ReleaseValidation = cms.untracked.PSet(
-    primaryDatasetName = cms.untracked.string('RelValConfiguration/GenProduction/python/PYTHIA6_QCDmu_Pt_50-80_10TeV_py'),
-    totalNumberOfEvents = cms.untracked.int32(5000),
-    eventsPerJob = cms.untracked.int32(250)
-)
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.1 $'),
+    version = cms.untracked.string('$Revision: 1.6 $'),
     annotation = cms.untracked.string('PYTHIA6-QCD->mu pthat=50-80 at 10TeV with Muon preselection (pt > 5 |eta| < 2.5)')
 )
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(10000)
+    input = cms.untracked.int32(1000)
 )
 process.options = cms.untracked.PSet(
     Rethrow = cms.untracked.vstring('ProductNotFound')
@@ -68,7 +63,9 @@ process.source = cms.Source("PythiaSource",
         processParameters = cms.vstring('MSEL=1         ! QCD', 
             'CKIN(3)=50     ! pthat min.', 
             'CKIN(4)=80     ! pthat max.', 
-            'PARJ(71)=20000.  ! max. proper lifetime time ctau in mm', 
+            'MSTJ(22)=4       ! Decay unstable particles inside a cylinder', 
+            'PARJ(73)=1500.   ! max. radius for MSTJ(22)=4', 
+            'PARJ(74)=3000.   ! max. Z for MSTJ(22)=4', 
             'MDCY(C130,1)=1   ! decay k0-longs', 
             'MDCY(C211,1)=1   ! decay pions', 
             'MDCY(C321,1)=1   ! decay kaons'),
@@ -79,16 +76,18 @@ process.source = cms.Source("PythiaSource",
 
 # Output definition
 process.output = cms.OutputModule("PoolOutputModule",
-    outputCommands = process.FEVTDEBUGEventContent.outputCommands,
+    outputCommands = process.RAWSIMEventContent.outputCommands,
     fileName = cms.untracked.string('PYTHIA6_QCDmu_Pt_50-80_10TeV_py_GEN.root'),
     dataset = cms.untracked.PSet(
-        dataTier = cms.untracked.string(''),
-        filterName = cms.untracked.string('IDEAL_V9')
+        dataTier = cms.untracked.string('GEN'),
+        filterName = cms.untracked.string('')
     ),
     SelectEvents = cms.untracked.PSet(
         SelectEvents = cms.vstring('generation_step')
     )
 )
+
+# Additional output definition
 
 # Other statements
 process.GlobalTag.globaltag = 'IDEAL_V9::All'
