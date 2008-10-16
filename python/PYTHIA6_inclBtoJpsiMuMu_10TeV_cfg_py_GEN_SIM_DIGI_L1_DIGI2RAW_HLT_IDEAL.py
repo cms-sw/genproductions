@@ -28,13 +28,12 @@ process.MessageLogger = cms.Service("MessageLogger",
     destinations = cms.untracked.vstring('test',
         'cout'),
     test = cms.untracked.PSet(
-        threshold = cms.untracked.string('INFO')
+        threshold = cms.untracked.string('ERROR')
     )
 )
 
-
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.5 $'),
+    version = cms.untracked.string('$Revision: 1.6 $'),
     annotation = cms.untracked.string('incl_BtoJpsi_mumu'),
     name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_inclBtoJpsiMuMu_10TeV_cfg_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT_IDEAL.py,v $')
 )
@@ -595,5 +594,6 @@ process.schedule = cms.Schedule(process.generation_step,process.simulation_step,
 process.VtxSmeared.src = 'evtgenproducer'
 process.genParticleCandidates.src = 'evtgenproducer'
 process.g4SimHits.Generator.HepMCProductLabel = 'evtgenproducer'
-process.genParticles.src = 'evtgenproducer:'
+process.genParticles.src = 'evtgenproducer'
 process.genParticles.abortOnUnknownPDGCode = False
+
