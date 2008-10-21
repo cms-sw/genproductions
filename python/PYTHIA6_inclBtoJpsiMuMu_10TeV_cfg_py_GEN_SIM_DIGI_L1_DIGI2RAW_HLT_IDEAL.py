@@ -24,16 +24,20 @@ process.load('HLTrigger/Configuration/HLT_2E30_cff')
 process.load('Configuration/StandardSequences/FrontierConditions_GlobalTag_cff')
 process.load('Configuration/EventContent/EventContent_cff')
 
-process.MessageLogger = cms.Service("MessageLogger",
-    destinations = cms.untracked.vstring('test',
-        'cout'),
-    test = cms.untracked.PSet(
-        threshold = cms.untracked.string('ERROR')
-    )
-)
+#  JY: apparently this custom configuration of MessageLogger
+#      is a left-over from testing;
+#      standard one will be taken via MessageLogger_cff load
+#
+#process.MessageLogger = cms.Service("MessageLogger",
+#    destinations = cms.untracked.vstring('test',
+#        'cout'),
+#    test = cms.untracked.PSet(
+#        threshold = cms.untracked.string('ERROR')
+#    )
+#)
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.6 $'),
+    version = cms.untracked.string('$Revision: 1.7 $'),
     annotation = cms.untracked.string('incl_BtoJpsi_mumu'),
     name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_inclBtoJpsiMuMu_10TeV_cfg_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT_IDEAL.py,v $')
 )
