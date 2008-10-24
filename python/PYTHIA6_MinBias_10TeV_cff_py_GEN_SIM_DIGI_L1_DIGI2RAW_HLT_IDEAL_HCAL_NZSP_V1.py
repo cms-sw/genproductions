@@ -29,7 +29,7 @@ process.configurationMetadata = cms.untracked.PSet(
     name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_MinBias_10TeV_cff_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT_IDEAL.py,v $')
 )
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(100)
+    input = cms.untracked.int32(1000)
 )
 process.options = cms.untracked.PSet(
     Rethrow = cms.untracked.vstring('ProductNotFound')
@@ -81,6 +81,7 @@ process.source = cms.Source("PythiaSource",
             'processParameters')
     )
 )
+
 
 ### HLT for NZSP HCAL
 
@@ -508,7 +509,7 @@ process.output = cms.OutputModule("PoolOutputModule",
         filterName = cms.untracked.string('')
     ),
     SelectEvents = cms.untracked.PSet(
-        SelectEvents = cms.vstring('generation_step')
+        SelectEvents = cms.vstring('AlCa_HcalPhiSym')
     )
 )
 
