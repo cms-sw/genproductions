@@ -25,9 +25,9 @@ process.load('Configuration/StandardSequences/FrontierConditions_GlobalTag_cff')
 process.load('Configuration/EventContent/EventContent_cff')
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.2 $'),
+    version = cms.untracked.string('$Revision: 1.4 $'),
     annotation = cms.untracked.string('QCDpt-3500-inf at 10TeV'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_QCDpt_3500_inf_10TeV_cff.py,v $')
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_QCDpt_3500_inf_10TeV_cff_py_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT_IDEAL.py,v $')
 )
 process.maxEvents = cms.untracked.PSet(
     input = cms.untracked.int32(10)
@@ -69,7 +69,7 @@ process.source = cms.Source("PythiaSource",
             'PARP(93)=15.0  ! '),
         processParameters = cms.vstring('MSEL=1   ! QCD hight pT processes', 
             'CKIN(3)=3500  ! minimum pt hat for hard interactions', 
-            'CKIN(4)=inf  ! maximum pt hat for hard interactions'),
+            'CKIN(4)=-1  ! maximum pt hat for hard interactions'),
         parameterSets = cms.vstring('pythiaUESettings', 
             'processParameters')
     )

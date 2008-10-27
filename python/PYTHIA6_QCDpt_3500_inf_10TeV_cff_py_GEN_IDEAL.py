@@ -1,6 +1,6 @@
 # Auto generated configuration file
 # using: 
-# $Revision: 1.1 $
+# $Revision: 1.2 $
 # $Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_QCDpt_3500_inf_10TeV_cff_py_GEN_IDEAL.py,v $
 import FWCore.ParameterSet.Config as cms
 
@@ -24,7 +24,7 @@ process.ReleaseValidation = cms.untracked.PSet(
     eventsPerJob = cms.untracked.int32(250)
 )
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.1 $'),
+    version = cms.untracked.string('$Revision: 1.2 $'),
     annotation = cms.untracked.string('QCDpt-3500-inf at 10TeV'),
     name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_QCDpt_3500_inf_10TeV_cff_py_GEN_IDEAL.py,v $')
 )
@@ -68,7 +68,7 @@ process.source = cms.Source("PythiaSource",
             'PARP(93)=15.0  ! '),
         processParameters = cms.vstring('MSEL=1   ! QCD hight pT processes', 
             'CKIN(3)=3500  ! minimum pt hat for hard interactions', 
-            'CKIN(4)=inf  ! maximum pt hat for hard interactions'),
+            'CKIN(4)=-1  ! maximum pt hat for hard interactions'),
         parameterSets = cms.vstring('pythiaUESettings', 
             'processParameters')
     )
