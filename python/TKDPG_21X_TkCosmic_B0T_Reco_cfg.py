@@ -34,15 +34,15 @@ process.FEVT = cms.OutputModule("PoolOutputModule",
     dataset = cms.untracked.PSet(
         dataTier = cms.untracked.string('RECO')
     ),
-    fileName = cms.untracked.string('Reco_TKCosmicMC_BOFF_21110.root')
+    fileName = cms.untracked.string('Reco_TKCosmicMC_BOFF_2112.root')
 )
 
 
 #--- Metadata
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.2 $'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/Examples/data/RecoCosmicsMC__RECOALCARECO.cfg,v $'),
+    version = cms.untracked.string('$Revision: 1.1 $'),
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/TKDPG_21X_TkCosmic_B0T_Reco_cfg.py,v $'),
     annotation = cms.untracked.string('MC Cosmic Reco at zero tesla')
 )
 
