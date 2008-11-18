@@ -1,6 +1,6 @@
 # Auto generated configuration file
 # using: 
-# Revision: 1.77.2.1 
+# Revision: 1.77 
 # Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/PyReleaseValidation/python/ConfigBuilder.py,v 
 # with command line options: Configuration/GenProduction/MadGraph_SingleTop_LHEProducer_t_15_84_10TeV_cff.py -s GEN:ProducerSourceSequence --eventcontent RAWSIM --datatier GEN --conditions FrontierConditions_GlobalTag,IDEAL_V9::All -n 100 --no_exec --customise=Configuration/GenProduction/generatorProducer.py
 import FWCore.ParameterSet.Config as cms
@@ -19,9 +19,9 @@ process.load('Configuration/StandardSequences/FrontierConditions_GlobalTag_cff')
 process.load('Configuration/EventContent/EventContent_cff')
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.5 $'),
+    version = cms.untracked.string('$Revision: 1.1 $'),
     annotation = cms.untracked.string('MadGraph single top t-channel at 10TeV'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/MadGraph_XQCUT15_10TeV_GEN_cff.py,v $')
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/MadGraph_SingleTop_LHEProducer_t_15_84_10TeV_cff.py,v $')
 )
 process.maxEvents = cms.untracked.PSet(
     input = cms.untracked.int32(100)
@@ -134,6 +134,10 @@ def customise(process):
 	process.genEventWeight.src = 'generator'
 	process.genEventScale.src = 'generator'
 	process.genEventPdfInfo.src = 'generator'
+	try:
+		process.genEventProcID.src = 'generator'
+	except:
+		pass
 
 	process.VtxSmeared.src = 'generator'
 
