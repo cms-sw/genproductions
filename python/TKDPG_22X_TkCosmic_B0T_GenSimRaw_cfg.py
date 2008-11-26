@@ -90,5 +90,5 @@ process.FEVT = cms.OutputModule("PoolOutputModule",
 #---------------------------------------
 # paths 
 #---------------------------------------
-process.c = cms.Path(process.cosmicInTracker*process.sim*process.pdigi*process.SimL1Emulator*process.DigiToRaw)
+process.c = cms.Path(process.cosmicInTracker*process.psim*process.pdigi*process.SimL1Emulator*process.DigiToRaw)
 process.outpath = cms.EndPath(process.FEVT)
