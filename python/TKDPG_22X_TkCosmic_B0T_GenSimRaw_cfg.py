@@ -3,7 +3,7 @@ import FWCore.ParameterSet.Config as cms
 process = cms.Process("GenSimRaw")
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.5 $'),
+    version = cms.untracked.string('$Revision: 1.2 $'),
     name = cms.untracked.string('$Source:/cvs_server/repositories/CMSSW/CMSSW/Configuration/Spring08Production/data/CosmicMC_BON_217_4to10GeV_cfg.py'),
     annotation = cms.untracked.string('Simulation of cosmic muons in Tracker with B field off')
     )
@@ -46,7 +46,7 @@ process.CosMuoGenSource.MinP = 4.
 #--- Conditions
 
 process.load("Configuration.StandardSequences.FrontierConditions_GlobalTag_cff")
-process.GlobalTag.globaltag =  'COSMMC_21X_v1::All'
+process.GlobalTag.globaltag =  'COSMMC_21X_V1::All'
 
 #--------- Magnetic field Field should be OFF for this sample
 process.load("Configuration.StandardSequences.MagneticField_0T_cff")

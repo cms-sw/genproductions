@@ -18,7 +18,7 @@ process.load('Configuration/StandardSequences/FrontierConditions_GlobalTag_cff')
 process.load('Configuration/EventContent/EventContent_cff')
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.1 $'),
+    version = cms.untracked.string('$Revision: 1.2 $'),
     annotation = cms.untracked.string('step3 nevts:1'),
     name = cms.untracked.string('PyReleaseValidation')
 )
@@ -52,7 +52,7 @@ process.ALCARECOStreamTkAlCosmics = cms.OutputModule("PoolOutputModule",
 )
 
 # Other statements
-process.GlobalTag.globaltag = 'COSMMC_21X_v1::All'
+process.GlobalTag.globaltag = 'COSMMC_21X_V1::All'
 
 # Path and EndPath definitions
 process.pathALCARECOTkAlCosmicsCTFHLT = cms.Path(process.seqALCARECOTkAlCosmicsCTFHLT)

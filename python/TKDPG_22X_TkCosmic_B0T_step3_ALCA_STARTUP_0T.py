@@ -51,7 +51,7 @@ process.ALCARECOStreamTkAlCosmics0T = cms.OutputModule("PoolOutputModule",
 )
 
 # Other statements
-process.GlobalTag.globaltag = 'COSMMC_21X_v1::All'
+process.GlobalTag.globaltag = 'COSMMC_21X_V1::All'
 
 # Path and EndPath definitions
 process.pathALCARECOTkAlCosmicsCTFHLT = cms.Path(process.seqALCARECOTkAlCosmicsCTFHLT)
