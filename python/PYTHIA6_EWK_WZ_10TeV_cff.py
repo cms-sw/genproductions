@@ -7,7 +7,7 @@ source = cms.Source("PythiaSource",
     pythiaPylistVerbosity = cms.untracked.int32(0),
     filterEfficiency = cms.untracked.double(1.),
     comEnergy = cms.untracked.double(10000.0),
-    crossSection = cms.untracked.double(11960.),
+    crossSection = cms.untracked.double(17.4),
     PythiaParameters = cms.PSet(
         pythiaUESettingsBlock,
         processParameters = cms.vstring('MSEL        = 0    !User defined processes', 
