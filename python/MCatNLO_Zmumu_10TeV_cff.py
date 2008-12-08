@@ -30,7 +30,7 @@ source = cms.Source("MCatNLOSource",
             'HGGWIDTH=1.04', 
             'IBORNHGG=1', 
             'V1GAMMAX=-1', 
-            'V1MASSINF=40', 
+            'V1MASSINF=20', 
             'V1MASSSUP=10000', 
             'V2GAMMAX=30', 
             'V2MASSINF=0', 
@@ -87,6 +87,6 @@ ProductionFilterSequence = cms.Sequence(mcatnlofilter)
 
 configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.1 $'),
-    name = cms.untracked.string('$Source: /local/projects/CMSSW/rep/CMSSW/Configuration/GenProduction/python/MCatNLO_Zmumu_10TeV_cff.py,v $'),
-    annotation = cms.untracked.string('MCatNLO Zmumu M(mumu)> 40 GeV at 10TeV')
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/MCatNLO_Zmumu_10TeV_cff.py,v $'),
+    annotation = cms.untracked.string('MCatNLO Zmumu M(mumu)> 20 GeV at 10TeV')
 )
