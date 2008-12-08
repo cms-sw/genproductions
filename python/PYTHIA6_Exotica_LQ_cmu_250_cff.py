@@ -8,11 +8,11 @@ source = cms.Source("PythiaSource",
     pythiaPylistVerbosity = cms.untracked.int32(1),
     filterEfficiency = cms.untracked.double(1.0),
     comEnergy = cms.untracked.double(10000.0),
-    crossSection  = cms.untracked.double(5.880),
+    crossSection  = cms.untracked.double(5.822000),
     PythiaParameters = cms.PSet(
         pythiaUESettingsBlock,
         processParameters = cms.vstring('MSEL=0                  !(D=1) to select between full user control (0,\\ then use MSUB) and some preprogrammed alternative', 
-            'PMAS(42,1)=250.0        !LQ mass', 
+            'PMAS(42,1)=250.0         !LQ mass', 
             'KFDP(539,1)=4           !LQ-> mu+c', 
             'KFDP(539,2)=13          !mu', 
             'MSUB(163)=1             !g+g->LQ+LQbar', 
@@ -25,6 +25,6 @@ source = cms.Source("PythiaSource",
 configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.1. %'),
     annotation = cms.untracked.string('default documentation string for LQ_cmu_250_cff.py'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Configuration/GenProduction/python/PYTHIA6_Exotica_LQ_cmu_250_cff.py,v $')
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_Exotica_LQ_cmu_250_cff.py,v $')
 )
 
