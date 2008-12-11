@@ -6,9 +6,9 @@ process = cms.Process('LHE')
 process.load('FWCore/MessageService/MessageLogger_cfi')
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.5 $'),
+    version = cms.untracked.string('$Revision: 1.1 $'),
     annotation = cms.untracked.string('MadGraph single top s channel at 10TeV'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/MadGraph_XQCUT15_10TeV_GEN_cff.py,v $')
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/MCDBSource_SingleTop_s_10TeV_cff.py,v $')
 )
 
 process.maxEvents = cms.untracked.PSet(
@@ -35,7 +35,7 @@ process.source = cms.Source("MCDBSource",
 process.output = cms.OutputModule("PoolOutputModule",
     fileName = cms.untracked.string('MCDBSource_SingleTop_s_10TeV_cff_py_LHE.root'),
     dataset = cms.untracked.PSet(
-        dataTier = cms.untracked.string('LHE'),
+        dataTier = cms.untracked.string('USER'),
         filterName = cms.untracked.string('')
     )
 )
