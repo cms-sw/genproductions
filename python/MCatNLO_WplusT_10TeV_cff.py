@@ -59,7 +59,7 @@ source = cms.Source("MCatNLOSource",
             'IL2CODE=1', 
             'PDFGROUP=LHAPDF', 
             'PDFSET=10050', #CTEQ6M PDFs
-            'LAMBDAFIVE=1', 
+            'LAMBDAFIVE=-1', 
             'SCHEMEOFPDF=MS', 
             'LAMBDAHERW=-1', 
             'FPREFIX=wplusT', 
@@ -87,6 +87,6 @@ ProductionFilterSequence = cms.Sequence(mcatnlofilter)
 
 configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.1 $'),
-    name = cms.untracked.string('$Source: /local/projects/CMSSW/rep/CMSSW/Configuration/GenProduction/python/MCatNLO_WplusT_10TeV_cff.py,v $'),
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/MCatNLO_WplusT_10TeV_cff.py,v $'),
     annotation = cms.untracked.string('MCatNLO W+ -> taunu  at 10TeV')
 )

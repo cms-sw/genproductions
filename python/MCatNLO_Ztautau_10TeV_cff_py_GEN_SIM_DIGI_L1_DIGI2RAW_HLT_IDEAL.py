@@ -25,7 +25,7 @@ process.load('Configuration/StandardSequences/FrontierConditions_GlobalTag_cff')
 process.load('Configuration/EventContent/EventContent_cff')
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.1 $'),
+    version = cms.untracked.string('$Revision: 1.2 $'),
     annotation = cms.untracked.string('MCatNLO Ztautau M(tautau)> 20 GeV at 10TeV'),
     name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/MCatNLO_Ztautau_10TeV_cff_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT_IDEAL.py,v $')
 )
@@ -90,7 +90,7 @@ process.source = cms.Source("MCatNLOSource",
             'IL2CODE=1', 
             'PDFGROUP=LHAPDF', 
             'PDFSET=10050', 
-            'LAMBDAFIVE=1', 
+            'LAMBDAFIVE=-1', 
             'SCHEMEOFPDF=MS', 
             'LAMBDAHERW=-1', 
             'FPREFIX=ztautau', 

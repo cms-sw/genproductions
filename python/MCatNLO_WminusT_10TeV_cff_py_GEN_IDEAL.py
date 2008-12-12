@@ -2,7 +2,7 @@
 # using: 
 # Revision: 1.77 
 # Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/PyReleaseValidation/python/ConfigBuilder.py,v 
-# with command line options: Configuration/GenProduction/python/MCatNLO_WplusM_10TeV_cff.py -s GEN:ProductionFilterSequence --eventcontent RAWSIM --datatier GEN --conditions FrontierConditions_GlobalTag,IDEAL_V9::All -n 1000 --no_exec
+# with command line options: Configuration/GenProduction/python/MCatNLO_WminusT_10TeV_cff.py -s GEN:ProductionFilterSequence --eventcontent RAWSIM --datatier GEN --conditions FrontierConditions_GlobalTag,IDEAL_V9::All -n 1000 --no_exec
 import FWCore.ParameterSet.Config as cms
 
 process = cms.Process('GEN')
@@ -20,8 +20,8 @@ process.load('Configuration/EventContent/EventContent_cff')
 
 process.configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.1 $'),
-    annotation = cms.untracked.string('MCatNLO W+ -> munu  at 10TeV'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/MCatNLO_WplusM_10TeV_cff_py_GEN_IDEAL.py,v $')
+    annotation = cms.untracked.string('MCatNLO W- -> taunu  at 10TeV'),
+    name = cms.untracked.string('$Source: /local/projects/CMSSW/rep/CMSSW/Configuration/GenProduction/python/MCatNLO_WminusT_10TeV_cff.py,v $')
 )
 process.maxEvents = cms.untracked.PSet(
     input = cms.untracked.int32(1000)
@@ -87,8 +87,8 @@ process.source = cms.Source("MCatNLOSource",
             'LAMBDAFIVE=-1', 
             'SCHEMEOFPDF=MS', 
             'LAMBDAHERW=-1', 
-            'FPREFIX=wplusM', 
-            'EVPREFIX=wplusM', 
+            'FPREFIX=wminusT', 
+            'EVPREFIX=wminusT', 
             'WGTTYPE=1', 
             'PDFLIBRARY=HWLHAPDF', 
             'HERPDF=EXTPDF', 
@@ -102,7 +102,7 @@ process.source = cms.Source("MCatNLOSource",
     numHardEvents = cms.untracked.int32(1),
     maxEventsToPrint = cms.untracked.int32(0),
     herwigHepMCVerbosity = cms.untracked.bool(False),
-    processNumber = cms.untracked.int32(-1462)
+    processNumber = cms.untracked.int32(-1473)
 )
 
 process.source.numHardEvents = process.maxEvents.input
@@ -111,7 +111,7 @@ process.genParticles.abortOnUnknownPDGCode = False
 # Output definition
 process.output = cms.OutputModule("PoolOutputModule",
     outputCommands = process.RAWSIMEventContent.outputCommands,
-    fileName = cms.untracked.string('MCatNLO_WplusM_10TeV_cff_py_GEN.root'),
+    fileName = cms.untracked.string('MCatNLO_WminusT_10TeV_cff_py_GEN.root'),
     dataset = cms.untracked.PSet(
         dataTier = cms.untracked.string('GEN'),
         filterName = cms.untracked.string('')

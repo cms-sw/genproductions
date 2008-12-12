@@ -60,7 +60,7 @@ source = cms.Source("MCatNLOSource",
             'IL2CODE=1', 
             'PDFGROUP=LHAPDF', 
             'PDFSET=10050', #CTEQ6M PDFs
-            'LAMBDAFIVE=1', 
+            'LAMBDAFIVE=-1', 
             'SCHEMEOFPDF=MS', 
             'LAMBDAHERW=-1', 
             'FPREFIX=zee', 
@@ -87,7 +87,7 @@ mcatnlofilter = cms.EDFilter("MCatNLOFilter")
 ProductionFilterSequence = cms.Sequence(mcatnlofilter)
 
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.1 $'),
+    version = cms.untracked.string('$Revision: 1.2 $'),
     name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/MCatNLO_Zee_10TeV_cff.py,v $'),
     annotation = cms.untracked.string('MCatNLO Zee M(ee)> 20 GeV at 10TeV')
 )

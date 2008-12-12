@@ -59,7 +59,7 @@ source = cms.Source("MCatNLOSource",
             'IL2CODE=3', 
             'PDFGROUP=LHAPDF', 
             'PDFSET=10050', #CTEQ6M PDFs
-            'LAMBDAFIVE=1', 
+            'LAMBDAFIVE=-1', 
             'SCHEMEOFPDF=MS', 
             'LAMBDAHERW=-1', 
             'FPREFIX=zmumu', 
@@ -86,7 +86,7 @@ mcatnlofilter = cms.EDFilter("MCatNLOFilter")
 ProductionFilterSequence = cms.Sequence(mcatnlofilter)
 
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.1 $'),
+    version = cms.untracked.string('$Revision: 1.2 $'),
     name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/MCatNLO_Zmumu_10TeV_cff.py,v $'),
     annotation = cms.untracked.string('MCatNLO Zmumu M(mumu)> 20 GeV at 10TeV')
 )
