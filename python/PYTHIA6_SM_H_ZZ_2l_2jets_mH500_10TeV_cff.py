@@ -21,12 +21,9 @@ source = cms.Source("PythiaSource",
             'MSTJ(41)=1       ! Switch off Pythia QED bremsshtrahlung', 
             
             'CKIN(45)=5.      ! high mass cut on m2 in 2 to 2 process',   
-            'CKIN(46)=150.    ! high mass cut on secondary resonance    
-                              ! m1 in 2->1->2 process',
-            'CKIN(47)=5.      ! low mass cut on secondary resonance     
-                              ! m2 in 2->1->2 process',
-            'CKIN(48)=150.    ! high mass cut on secondary resonance    
-	                      ! m2 in 2->1->2 process',
+            'CKIN(46)=150.    ! high mass cut on secondary resonance m1 in 2->1->2 process',
+            'CKIN(47)=5.      ! low mass cut on secondary resonance m2 in 2->1->2 process',
+            'CKIN(48)=150.    ! high mass cut on secondary resonance m2 in 2->1->2 process',
 # Higgs boson decays
             'MDME(210,1)=0    ! Higgs decay into dd', 		       
             'MDME(211,1)=0    ! Higgs decay into uu', 		       
@@ -45,8 +42,7 @@ source = cms.Source("PythiaSource",
             'MDME(224,1)=0    ! Higgs decay into gam Z', 	       
             'MDME(225,1)=1    ! Higgs decay into Z Z', 		       
             'MDME(226,1)=0    ! Higgs decay into W W', 		       
-            'MSTP(128)=2      ! dec.prods out of doc section,	       
-	                      ! point at parents in the main section', 
+            'MSTP(128)=2      ! dec.prods out of doc section, point at parents in the main section', 
 # Z boson decays: Z->q qbar
             'MDME(174,1)=4           ! Z decay into d dbar', 		       
             'MDME(175,1)=4           ! Z decay into u ubar', 		       
@@ -69,6 +65,6 @@ source = cms.Source("PythiaSource",
 )									       
 configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.1 $'),
-    name = cms.untracked.string('$Source: /local/projects/CMSSW/rep/CMSSW/Configuration/GenProduction/python/PYTHIA6_SM_H_ZZ_2l_2jets_mH500_10TeV_cff.py,v $'),
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_SM_H_ZZ_2l_2jets_mH500_10TeV_cff.py,v $'),
     annotation = cms.untracked.string('PYTHIA6 SM H->ZZ->2l2jets at 10TeV with mH=500 GeV')
 )
