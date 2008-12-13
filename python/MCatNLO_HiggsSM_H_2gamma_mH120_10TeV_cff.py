@@ -19,7 +19,7 @@ source = cms.Source("MCatNLOSource",
        #Higgs production = -1600; Higgs decay to 2 tau = -12  
        processNumber        = cms.untracked.int32(-1612),
        doHardEvents         = cms.untracked.bool(True),
-       numHardEvents        = cms.untracked.int32(1000),
+       numHardEvents        = cms.untracked.int32(10000),
        doMPInteraction      = cms.untracked.bool(True),
        #Must update for H--->gamma gamma
        crossSection         = cms.untracked.double(0.0399),
@@ -50,7 +50,7 @@ source = cms.Source("MCatNLOSource",
                      'ZWIDTH=2.495', # Z width
                      'HGGMASS=120',  # Higgs mass
        # Must update width as function of mass               
-                     'HGGWIDTH=1.04',# Higgs width
+                     'HGGWIDTH=0.00363',# Higgs width
                      'IBORNHGG=1',   # IBORNHGG=1 --> exact M_top dependence,
                                      # IBORNHGG=2 --> M_top -> infinity
                      # If the Higgs, Z or W mass is distributed according to
@@ -130,7 +130,8 @@ source = cms.Source("MCatNLOSource",
                      # WARNING: negative entries may lead to inconsistent
                      # results when using PDFLIB or LHAPDF: use a positive
                      # entry when in doubt
-                     'LAMBDAFIVE=1', #'LAMBDAFIVE=0.2262'
+                     #'LAMBDAFIVE=-1',
+                     'LAMBDAFIVE=0.2262',
                      # Scheme
                      'SCHEMEOFPDF=MS',
                      # Lambda_5, used by HERWIG. A negative entry returns the
@@ -155,7 +156,7 @@ filterMCatNLO = cms.EDFilter("MCatNLOFilter")
 ProductionFilterSequence = cms.Sequence(filterMCatNLO)
 
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 0.1 $'),
+    version = cms.untracked.string('$Revision: 1.1 $'),
     name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/MCatNLO_HiggsSM_H_2gamma_mH120_10TeV_cff.py,v $'),
     annotation = cms.untracked.string(
     'MC@NLO HiggsSM H 2gamma mH120 at 10TeV')
