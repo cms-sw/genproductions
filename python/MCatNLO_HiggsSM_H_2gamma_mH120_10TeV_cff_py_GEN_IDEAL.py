@@ -1,8 +1,8 @@
 # Auto generated configuration file
 # using: 
-# Revision: 1.77 
+# Revision: 1.77.2.1 
 # Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/PyReleaseValidation/python/ConfigBuilder.py,v 
-# with command line options: Configuration/GenProduction/python/MCatNLO_HiggsSM_H_2gamma_mH120_10TeV_cff.py -s GEN:ProductionFilterSequence --eventcontent RAWSIM --datatier GEN --conditions FrontierConditions_GlobalTag,IDEAL_V9::All -n 1000 --no_exec --customise Configuration/GenProduction/MCatNLO_custom.py
+# with command line options: Configuration/GenProduction/python/MCatNLO_HiggsSM_H_2gamma_mH120_10TeV_cff.py -s GEN --eventcontent RAWSIM --datatier GEN --conditions FrontierConditions_GlobalTag,IDEAL_V9::All -n 1000 --no_exec
 import FWCore.ParameterSet.Config as cms
 
 process = cms.Process('GEN')
@@ -123,27 +123,10 @@ process.output = cms.OutputModule("PoolOutputModule",
 
 # Other statements
 process.GlobalTag.globaltag = 'IDEAL_V9::All'
-process.filterMCatNLO = cms.EDFilter("MCatNLOFilter")
-process.ProductionFilterSequence = cms.Sequence(process.filterMCatNLO)
 
 # Path and EndPath definitions
-process.generation_step = cms.Path(process.ProductionFilterSequence*process.pgen)
+process.generation_step = cms.Path(process.pgen)
 process.out_step = cms.EndPath(process.output)
 
 # Schedule definition
 process.schedule = cms.Schedule(process.generation_step,process.out_step)
-
-
-# Automatic addition of the customisation function
-
-def customise(process):
-
-	process.genParticles.abortOnUnknownPDGCode = False
-	process.source.numHardEvents = process.maxEvents.input
-
-	return(process)
-
-
-# End of customisation function definition
-
-process = customise(process)

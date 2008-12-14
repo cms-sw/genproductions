@@ -2,7 +2,7 @@
 # using: 
 # Revision: 1.77.2.1 
 # Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/PyReleaseValidation/python/ConfigBuilder.py,v 
-# with command line options: Configuration/GenProduction/python/MCatNLO_HiggsSM_H_2gamma_mH130_10TeV_cff.py -s GEN,SIM,DIGI,L1,DIGI2RAW,HLT --eventcontent RAWSIM --datatier GEN-SIM-RAW --conditions FrontierConditions_GlobalTag,IDEAL_V9::All -n 10 --no_exec
+# with command line options: Configuration/GenProduction/python/PYTHIA6_SM_ZZ_2l_2jets_10TeV_cff.py -s GEN,SIM,DIGI,L1,DIGI2RAW,HLT --eventcontent RAWSIM --datatier GEN-SIM-RAW --conditions FrontierConditions_GlobalTag,IDEAL_V9::All -n 10 --no_exec
 import FWCore.ParameterSet.Config as cms
 
 process = cms.Process('HLT')
@@ -25,9 +25,9 @@ process.load('Configuration/StandardSequences/FrontierConditions_GlobalTag_cff')
 process.load('Configuration/EventContent/EventContent_cff')
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.2 $'),
-    annotation = cms.untracked.string('MC@NLO HiggsSM H 2gamma mH130 at 10TeV'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/MCatNLO_HiggsSM_H_2gamma_mH130_10TeV_cff.py,v $')
+    version = cms.untracked.string('$Revision: 1.1 $'),
+    annotation = cms.untracked.string('PYTHIA6 SM ZZ->2l2jets at 10TeV'),
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_SM_ZZ_2l_2jets_10TeV_cff.py,v $')
 )
 process.maxEvents = cms.untracked.PSet(
     input = cms.untracked.int32(10)
@@ -36,86 +36,61 @@ process.options = cms.untracked.PSet(
     Rethrow = cms.untracked.vstring('ProductNotFound')
 )
 # Input source
-process.source = cms.Source("MCatNLOSource",
-    HerwigParameters = cms.PSet(
-        defaultHerwig = cms.vstring(),
-        parameterSets = cms.vstring('defaultHerwig')
-    ),
-    doMPInteraction = cms.untracked.bool(True),
-    useJimmy = cms.untracked.bool(True),
-    stringFileName = cms.untracked.string('stringInput.txt'),
-    processNumber = cms.untracked.int32(-1612),
+process.source = cms.Source("PythiaSource",
+    pythiaPylistVerbosity = cms.untracked.int32(0),
     filterEfficiency = cms.untracked.double(1.0),
-    doHardEvents = cms.untracked.bool(True),
-    herwigVerbosity = cms.untracked.int32(0),
-    MCatNLOParameters = cms.PSet(
-        mcatnloReadin = cms.vstring('ECM=10000', 
-            'FREN=1', 
-            'FFACT=1', 
-            'HVQMASS=175', 
-            'TWIDTH=1.4', 
-            'WMASS=80.41', 
-            'WWIDTH=2.124', 
-            'ZMASS=91.17', 
-            'ZWIDTH=2.495', 
-            'HGGMASS=130', 
-            'HGGWIDTH=0.00497', 
-            'IBORNHGG=1', 
-            'V1GAMMAX=30', 
-            'V1MASSINF=0', 
-            'V1MASSSUP=0', 
-            'V2GAMMAX=30', 
-            'V2MASSINF=0', 
-            'V2MASSSUP=0', 
-            'HGAMMAX=30', 
-            'HMASSINF=0', 
-            'HMASSSUP=0', 
-            'UMASS=0.32', 
-            'DMASS=0.32', 
-            'SMASS=0.5', 
-            'CMASS=1.55', 
-            'BMASS=4.8', 
-            'GMASS=0.75', 
-            'VUD=0.9748', 
-            'VUS=0.2225', 
-            'VUB=0.0036', 
-            'VCD=0.2225', 
-            'VCS=0.9740', 
-            'VCB=0.041 ', 
-            'VTD=0.009 ', 
-            'VTS=0.0405', 
-            'VTB=0.9992', 
-            'AEMRUN=YES', 
-            'IVCODE=1', 
-            'IL1CODE=1', 
-            'IL2CODE=1', 
-            'PDFGROUP=LHAPDF', 
-            'PDFSET=10050', 
-            'LAMBDAFIVE=0.2262', 
-            'SCHEMEOFPDF=MS', 
-            'LAMBDAHERW=-1', 
-            'FPREFIX=Hgg130', 
-            'EVPREFIX=Hgg130', 
-            'WGTTYPE=1', 
-            'PDFLIBRARY=HWLHAPDF', 
-            'HERPDF=EXTPDF', 
-            'LHAPATH="/afs/cern.ch/sw/lcg/external/MCGenerators/lhapdf/5.4.0/share/PDFsets"', 
-            'LHAOFL=FREEZE'),
-        parameterSets = cms.vstring('mcatnloReadin')
-    ),
+    pythiaHepMCVerbosity = cms.untracked.bool(False),
     comEnergy = cms.untracked.double(10000.0),
-    crossSection = cms.untracked.double(0.0334),
-    printCards = cms.untracked.bool(False),
-    numHardEvents = cms.untracked.int32(10000),
     maxEventsToPrint = cms.untracked.int32(0),
-    herwigHepMCVerbosity = cms.untracked.bool(False),
-    mcatnloVerbosity = cms.untracked.int32(0)
+    PythiaParameters = cms.PSet(
+        pythiaUESettings = cms.vstring('MSTJ(11)=3     ! Choice of the fragmentation function', 
+            'MSTJ(22)=2     ! Decay those unstable particles', 
+            'PARJ(71)=10 .  ! for which ctau  10 mm', 
+            'MSTP(2)=1      ! which order running alphaS', 
+            'MSTP(33)=0     ! no K factors in hard cross sections', 
+            'MSTP(51)=10042     ! CTEQ6L1 structure function chosen', 
+            'MSTP(52)=2     ! work with LHAPDF', 
+            'MSTP(81)=1     ! multiple parton interactions 1 is Pythia default', 
+            'MSTP(82)=4     ! Defines the multi-parton model', 
+            'MSTU(21)=1     ! Check on possible errors during program execution', 
+            'PARP(82)=1.8387   ! pt cutoff for multiparton interactions', 
+            'PARP(89)=1960. ! sqrts for which PARP82 is set', 
+            'PARP(83)=0.5   ! Multiple interactions: matter distrbn parameter', 
+            'PARP(84)=0.4   ! Multiple interactions: matter distribution parameter', 
+            'PARP(90)=0.16  ! Multiple interactions: rescaling power', 
+            'PARP(67)=2.5    ! amount of initial-state radiation', 
+            'PARP(85)=1.0  ! gluon prod. mechanism in MI', 
+            'PARP(86)=1.0  ! gluon prod. mechanism in MI', 
+            'PARP(62)=1.25   ! ', 
+            'PARP(64)=0.2    ! ', 
+            'MSTP(91)=1     !', 
+            'PARP(91)=2.1   ! kt distribution', 
+            'PARP(93)=15.0  ! '),
+        processParameters = cms.vstring('MSEL=0              ! 0=full user control (then use MSUB)', 
+            'MSUB(22)=1          ! ffbar->Z/gamma Z/gamma', 
+            'PMAS(23,1)=91.188   ! Z mass', 
+            'PMAS(24,1)=80.450   ! W mass', 
+            'MDME(174,1)=4           ! Z decay into d dbar', 
+            'MDME(175,1)=4           ! Z decay into u ubar', 
+            'MDME(176,1)=4           ! Z decay into s sbar', 
+            'MDME(177,1)=4           ! Z decay into c cbar', 
+            'MDME(178,1)=4           ! Z decay into b bbar', 
+            'MDME(179,1)=0           ! Z decay into t tbar', 
+            'MDME(182,1)=5           ! Z decay into e- e+', 
+            'MDME(183,1)=0           ! Z decay into nu_e nu_ebar', 
+            'MDME(184,1)=5           ! Z decay into mu- mu+', 
+            'MDME(185,1)=0           ! Z decay into nu_mu nu_mubar', 
+            'MDME(186,1)=0           ! Z decay into tau- tau+', 
+            'MDME(187,1)=0           ! Z decay into nu_tau nu_taubar'),
+        parameterSets = cms.vstring('pythiaUESettings', 
+            'processParameters')
+    )
 )
 
 # Output definition
 process.output = cms.OutputModule("PoolOutputModule",
     outputCommands = process.RAWSIMEventContent.outputCommands,
-    fileName = cms.untracked.string('MCatNLO_HiggsSM_H_2gamma_mH130_10TeV_cff_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT.root'),
+    fileName = cms.untracked.string('PYTHIA6_SM_ZZ_2l_2jets_10TeV_cff_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT.root'),
     dataset = cms.untracked.PSet(
         dataTier = cms.untracked.string('GEN-SIM-RAW'),
         filterName = cms.untracked.string('')
