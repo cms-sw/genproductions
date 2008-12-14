@@ -15,9 +15,7 @@ source = cms.Source("PythiaSource",
     ExternalGenerators = cms.PSet(
            Tauola = cms.untracked.PSet(
                        TauolaPolar,
-                       TauolaDefaultInputCards = cms.PSet(
-                            InputCards = cms.vstring('TAUOLA = 1 2 0 ! TAUOLA ')
-                            )
+                       InputCards = cms.vstring('TAUOLA = 0 0 120 ! TAUOLA ')
            ),
            parameterSets = cms.vstring('Tauola')
     ),
@@ -125,7 +123,7 @@ source = cms.Source("PythiaSource",
 )
 
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.2 $'),
+    version = cms.untracked.string('$Revision: 1.1 $'),
     name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_Tauola_MSSM_A_2tau_2l_mA160_10TeV_cff.py,v $'),
     annotation = cms.untracked.string('PYTHIA6 A->tautau->2l mA=160GeV with TAUOLA at 10TeV')
 )

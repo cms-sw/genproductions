@@ -38,9 +38,7 @@ process.source = cms.Source("PythiaSource",
     ExternalGenerators = cms.PSet(
         Tauola = cms.untracked.PSet(
             UseTauolaPolarization = cms.bool(True),
-            TauolaDefaultInputCards = cms.PSet(
-                InputCards = cms.vstring('TAUOLA = 1 2 0 ! TAUOLA ')
-            )
+            InputCards = cms.vstring('TAUOLA = 0 0 120 ! TAUOLA ')
         ),
         parameterSets = cms.vstring('Tauola')
     ),
