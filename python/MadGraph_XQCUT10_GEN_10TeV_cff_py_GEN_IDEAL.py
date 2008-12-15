@@ -1,7 +1,7 @@
 # Auto generated configuration file
 # using: 
-# $Revision: 1.3 $
-# $Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/MadGraph_XQCUT10_GEN_10TeV_cff_py_GEN_IDEAL.py,v $
+# Revision: 1.71 
+# Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/PyReleaseValidation/python/ConfigBuilder.py,v 
 import FWCore.ParameterSet.Config as cms
 
 process = cms.Process('GEN')
@@ -12,24 +12,19 @@ process.load('FWCore/MessageService/MessageLogger_cfi')
 process.load('Configuration/StandardSequences/Generator_cff')
 process.load('Configuration/StandardSequences/MixingNoPileUp_cff')
 process.load('Configuration/StandardSequences/GeometryPilot2_cff')
-process.load('Configuration/StandardSequences/MagneticField_cff')
+process.load('Configuration/StandardSequences/MagneticField_38T_cff')
 process.load('Configuration/StandardSequences/Generator_cff')
 process.load('Configuration/StandardSequences/VtxSmearedEarly10TeVCollision_cff')
 process.load('Configuration/StandardSequences/FrontierConditions_GlobalTag_cff')
 process.load('Configuration/EventContent/EventContent_cff')
 
-process.ReleaseValidation = cms.untracked.PSet(
-    primaryDatasetName = cms.untracked.string('RelValConfiguration/GenProduction/python/MadGraph_XQCUT10_GEN_10TeV_cff_py'),
-    totalNumberOfEvents = cms.untracked.int32(5000),
-    eventsPerJob = cms.untracked.int32(250)
-)
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.3 $'),
+    version = cms.untracked.string(''),
     annotation = cms.untracked.string('MadGraph-PYTHIA6 at 10TeV, qcut 10'),
     name = cms.untracked.string('')
 )
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(100)
+    input = cms.untracked.int32(1000)
 )
 process.options = cms.untracked.PSet(
     Rethrow = cms.untracked.vstring('ProductNotFound')
@@ -38,7 +33,8 @@ process.options = cms.untracked.PSet(
 process.source = cms.Source("MadGraphSource",
     produceEventTreeFile = cms.untracked.bool(False),
     MEMAIN_iexcfile = cms.untracked.uint32(0),
-    fileNames = cms.untracked.vstring('file:events.lhe'),
+   # fileNames = cms.untracked.vstring('file:/tmp/events_ajets_40_100_100k.lhe'),
+    fileNames = cms.untracked.vstring('file:/tmp/events_aajets_2500_pt10_mgg40.lhe'),
     MEMAIN_qcut = cms.untracked.double(10.0),
     pythiaHepMCVerbosity = cms.untracked.bool(False),
     MEMAIN_etaclmax = cms.untracked.double(5.0),
@@ -73,7 +69,7 @@ process.source = cms.Source("MadGraphSource",
             'PARP(91)=2.1   ! kt distribution', 
             'PARP(93)=15.0  ! '),
         pythiaCMSDefaults = cms.vstring('PMAS(5,1)=4.4  ! b quarks mass', 
-            'PMAS(6,1)=172.4  ! t quarks mass', 
+            'PMAS(6,1)=175  ! t quarks mass', 
             'MSTJ(1)=1      !...Fragmentation/hadronization on or off', 
             'MSTP(61)=1     ! Parton showering on or off', 
             'MSTP(143)=1    ! MUST BE 1 FOR THE MATCHING ROUTINE TO RUN!!!!', 
@@ -86,7 +82,7 @@ process.source = cms.Source("MadGraphSource",
 # Output definition
 process.output = cms.OutputModule("PoolOutputModule",
     outputCommands = process.RAWSIMEventContent.outputCommands,
-    fileName = cms.untracked.string('MadGraph_XQCUT10_GEN_10TeV_cff_py_GEN.root'),
+    fileName = cms.untracked.string('/tmp/MadGraph_XQCUT10_GEN_10TeV_cff_py_GEN.root'),
     dataset = cms.untracked.PSet(
         dataTier = cms.untracked.string('GEN'),
         filterName = cms.untracked.string('')
@@ -96,8 +92,10 @@ process.output = cms.OutputModule("PoolOutputModule",
     )
 )
 
+# Additional output definition
+
 # Other statements
-process.GlobalTag.globaltag = 'IDEAL_V9::All'
+process.GlobalTag.globaltag = 'IDEAL_V6::All'
 
 # Path and EndPath definitions
 process.generation_step = cms.Path(process.pgen)

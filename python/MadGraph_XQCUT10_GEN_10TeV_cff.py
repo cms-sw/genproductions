@@ -8,7 +8,8 @@ source = cms.Source("MadGraphSource", ## DEFAULT SETTINGS
                         produceEventTreeFile = cms.untracked.bool(False),
                         pythiaPylistVerbosity = cms.untracked.int32(0),
                         # turn to standard sources way of inputting filename
-                        fileNames = cms.untracked.vstring('file:events.lhe'),
+                        #fileNames = cms.untracked.vstring('file:events.lhe'),
+                        fileNames = cms.untracked.vstring('file:/tmp/events_ajets_40_100_100k.lhe'),
                         MEMAIN_qcut = cms.untracked.double(10.0),
                         pythiaHepMCVerbosity = cms.untracked.bool(False),
                         # values for the MEMAIN routine (matching). if set to 0. default values will be chosen from the interface
@@ -27,7 +28,7 @@ source = cms.Source("MadGraphSource", ## DEFAULT SETTINGS
                         PythiaParameters = cms.PSet(
             pythiaUESettingsBlock,
                     pythiaCMSDefaults = cms.vstring('PMAS(5,1)=4.4  ! b quarks mass',
-                                                                'PMAS(6,1)=172.4  ! t quarks mass',
+                                                                'PMAS(6,1)=175  ! t quarks mass',
                                                                 'MSTJ(1)=1      !...Fragmentation/hadronization on or off',
                                                                 'MSTP(61)=1     ! Parton showering on or off',
                                                                 'MSTP(143)=1    ! MUST BE 1 FOR THE MATCHING ROUTINE TO RUN!!!!',
