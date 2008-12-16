@@ -22,8 +22,8 @@ process.load('Configuration/StandardSequences/FrontierConditions_GlobalTag_cff')
 process.load('Configuration/EventContent/EventContent_cff')
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.97 $'),
-    annotation = cms.untracked.string('UndergroundCosmicMu_cfi.py nevts:10'),
+    version = cms.untracked.string('$Revision: 1.1 $'),
+    annotation = cms.untracked.string(''),
     name = cms.untracked.string('PyReleaseValidation')
 )
 process.maxEvents = cms.untracked.PSet(

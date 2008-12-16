@@ -28,7 +28,7 @@ process.GlobalTag.globaltag = 'STARTUP_V7::All'
 
 process.out_step = cms.OutputModule("PoolOutputModule",
     fileName = cms.untracked.string(
-'MuPt11_cfi_RECO.root'
+'Muons_cfi_RECO.root'
     ),
 dataset = cms.untracked.PSet(
         filterName = cms.untracked.string('STARTUP_V7'),

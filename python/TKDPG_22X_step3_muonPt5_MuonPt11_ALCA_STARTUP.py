@@ -19,7 +19,7 @@ process.load('Configuration/StandardSequences/FrontierConditions_GlobalTag_cff')
 process.load('Configuration/EventContent/EventContent_cff')
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.97 $'),
+    version = cms.untracked.string('$Revision: 1.1 $'),
     annotation = cms.untracked.string(''),
     name = cms.untracked.string('PyReleaseValidation')
 )
@@ -29,7 +29,7 @@ process.options = cms.untracked.PSet(
 )
 # Input source
 process.source = cms.Source("PoolSource",
-    fileNames = cms.untracked.vstring('file:MuPt11_cfi_RECO.root')
+    fileNames = cms.untracked.vstring('file:Muons_cfi_RECO.root')
 )
 
 # Additional output definition
