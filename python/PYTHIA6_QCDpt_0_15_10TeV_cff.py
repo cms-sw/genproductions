@@ -27,7 +27,16 @@ source = cms.Source("PythiaSource",
 configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.2 $'),
     name = cms.untracked.string
-('$Source: /local/projects/CMSSW/rep/CMSSW/Configuration/GenProduction/python/PYTHIA6_QCDpt_0_15_10TeV_cff.py,v $'),
+('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_QCDpt_0_15_10TeV_cff.py,v $'),
     annotation = cms.untracked.string('QCDpt-0-15 at 10TeV')
 )
 
+pthat_filter = cms.EDFilter("MCProcessFilter",
+    MaxPthat = cms.untracked.vdouble(15., 15.0, 15.0, 15.0, 15.0,
+        15.0),
+    ProcessID = cms.untracked.vint32(11, 12, 13, 68, 28,
+        53),
+    MinPthat = cms.untracked.vdouble(0.0, 0.0, 0.0, 0.0, 0.0,
+        0.0)
+)
+ProductionFilterSequence = cms.Sequence(pthat_filter)
