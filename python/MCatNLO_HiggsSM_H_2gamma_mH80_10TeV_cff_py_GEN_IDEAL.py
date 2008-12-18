@@ -2,7 +2,7 @@
 # using: 
 # Revision: 1.77.2.1 
 # Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/PyReleaseValidation/python/ConfigBuilder.py,v 
-# with command line options: Configuration/GenProduction/python/MCatNLO_HiggsSM_H_2gamma_mH80_10TeV_cff.py -s GEN --eventcontent RAWSIM --datatier GEN --conditions FrontierConditions_GlobalTag,IDEAL_V9::All -n 1000 --no_exec
+# with command line options: Configuration/GenProduction/python/MCatNLO_HiggsSM_H_2gamma_mH80_10TeV_cff.py -s GEN:ProductionFilterSequence --eventcontent RAWSIM --datatier GEN --conditions FrontierConditions_GlobalTag,IDEAL_V9::All -n 1000 --no_exec
 import FWCore.ParameterSet.Config as cms
 
 process = cms.Process('GEN')
@@ -120,12 +120,14 @@ process.output = cms.OutputModule("PoolOutputModule",
 )
 
 # Additional output definition
-
+process.genParticles.abortOnUnknownPDGCode = False
 # Other statements
 process.GlobalTag.globaltag = 'IDEAL_V9::All'
+process.filterMCatNLO = cms.EDFilter("MCatNLOFilter")
+process.ProductionFilterSequence = cms.Sequence(process.filterMCatNLO)
 
 # Path and EndPath definitions
-process.generation_step = cms.Path(process.pgen)
+process.generation_step = cms.Path(process.ProductionFilterSequence*process.pgen)
 process.out_step = cms.EndPath(process.output)
 
 # Schedule definition
