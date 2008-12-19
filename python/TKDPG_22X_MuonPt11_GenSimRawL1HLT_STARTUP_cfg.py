@@ -22,7 +22,7 @@ process.load('Configuration/StandardSequences/FrontierConditions_GlobalTag_cff')
 process.load('Configuration/EventContent/EventContent_cff')
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.1 $'),
+    version = cms.untracked.string('$Revision: 1.2 $'),
     annotation = cms.untracked.string(''),
     name = cms.untracked.string('PyReleaseValidation')
 )
@@ -100,11 +100,11 @@ process.GlobalTag.globaltag = 'STARTUP_V7::All'
 # Path and EndPath definitions
 process.ProductionFilterSequence = cms.Sequence(process.generatorFilter)
 
-process.generation_step = cms.Path(process.ProductionFilterSequence*(process.ProductionFilterSequence*process.pgen))
-process.simulation_step = cms.Path(process.ProductionFilterSequence*(process.ProductionFilterSequence*process.psim))
-process.digitisation_step = cms.Path(process.ProductionFilterSequence*(process.ProductionFilterSequence*process.pdigi))
-process.L1simulation_step = cms.Path(process.ProductionFilterSequence*(process.ProductionFilterSequence*process.SimL1Emulator))
-process.digi2raw_step = cms.Path(process.ProductionFilterSequence*(process.ProductionFilterSequence*process.DigiToRaw))
+process.generation_step = cms.Path(process.ProductionFilterSequence*process.pgen)
+process.simulation_step = cms.Path(process.ProductionFilterSequence*process.psim)
+process.digitisation_step = cms.Path(process.ProductionFilterSequence*process.pdigi)
+process.L1simulation_step = cms.Path(process.ProductionFilterSequence*process.SimL1Emulator)
+process.digi2raw_step = cms.Path(process.ProductionFilterSequence*process.DigiToRaw)
 process.endjob_step = cms.Path(process.endOfProcess)
 process.out_step = cms.EndPath(process.output)
 
