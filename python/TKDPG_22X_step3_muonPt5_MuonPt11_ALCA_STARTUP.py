@@ -1,8 +1,8 @@
 # Auto generated configuration file
 # using: 
-# Revision: 1.97 
+# Revision: 1.99.2.3 
 # Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/PyReleaseValidation/python/ConfigBuilder.py,v 
-# with command line options: step3 -sALCA:TkAlMuonIsolated+DQM -n 100 --no_exec --conditions FrontierConditions_GlobalTag,STARTUP_V7::ALL --mc --datatier ALCARECO --eventcontent RECO
+# with command line options: step3 -sALCA:TkAlMuonIsolated+DQM -n 100 --no_exec --conditions FrontierConditions_GlobalTag,STARTUP_V7::ALL --mc --datatier ALCARECO --eventcontent FEVTSIM --magField=3.8T --filein reco.root
 import FWCore.ParameterSet.Config as cms
 
 process = cms.Process('ALCA')
@@ -19,17 +19,19 @@ process.load('Configuration/StandardSequences/FrontierConditions_GlobalTag_cff')
 process.load('Configuration/EventContent/EventContent_cff')
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.1 $'),
-    annotation = cms.untracked.string(''),
+    version = cms.untracked.string('$Revision: 1.99.2.3 $'),
+    annotation = cms.untracked.string('step3 nevts:100'),
     name = cms.untracked.string('PyReleaseValidation')
 )
-
+process.maxEvents = cms.untracked.PSet(
+    input = cms.untracked.int32(100)
+)
 process.options = cms.untracked.PSet(
     Rethrow = cms.untracked.vstring('ProductNotFound')
 )
 # Input source
 process.source = cms.Source("PoolSource",
-    fileNames = cms.untracked.vstring('file:Muons_cfi_RECO.root')
+    fileNames = cms.untracked.vstring('reco.root')
 )
 
 # Additional output definition
@@ -48,7 +50,7 @@ process.ALCARECOStreamTkAlMuonIsolated = cms.OutputModule("PoolOutputModule",
 )
 
 # Other statements
-process.GlobalTag.globaltag = 'STARTUP_V7::All'
+process.GlobalTag.globaltag = 'STARTUP_V7::ALL'
 
 # Path and EndPath definitions
 process.pathALCARECOTkAlCosmicsCTFHLT = cms.Path(process.seqALCARECOTkAlCosmicsCTFHLT)
