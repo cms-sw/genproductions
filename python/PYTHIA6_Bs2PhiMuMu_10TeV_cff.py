@@ -1,82 +1,17 @@
 import FWCore.ParameterSet.Config as cms
 
-process = cms.Process("PROD")
-
 from Configuration.Generator.PythiaUESettings_cfi import *
-process.load("FastSimulation.Configuration.FamosSequences_cff")
-
-process.load("IOMC.RandomEngine.IOMC_cff")
-
-process.load("Configuration.StandardSequences.MagneticField_40T_cff")
-
-process.load("Geometry.TrackerGeometryBuilder.trackerGeometry_cfi")
-
-process.load("Configuration.StandardSequences.FakeConditions_cff")
-
-process.load("FastSimulation.Configuration.Geometries_cff")
-
-process.load("FastSimulation.Configuration.CommonInputsFake_cff")
-
-process.MessageLogger = cms.Service("MessageLogger",
-    cout = cms.untracked.PSet(
-        threshold = cms.untracked.string('ERROR')
-    ),
-    destinations = cms.untracked.vstring('pythiaevtgen.log', 
-        'cout')
-)
-process.Timing = cms.Service("Timing")
-
-process.randomEngineStateProducer = cms.EDProducer("RandomEngineStateProducer")
-
-process.RandomNumberGeneratorService = cms.Service("RandomNumberGeneratorService",
-    saveFileName = cms.untracked.string(''),
-    initialSeed = cms.untracked.uint32(123456789),
-    moduleSeeds = cms.PSet(
-        g4SimHits = cms.untracked.uint32(11),
-        evtgenproducer = cms.untracked.uint32(1234566),
-        mix = cms.untracked.uint32(12345),
-        VtxSmeared = cms.untracked.uint32(98765432),
-        l1ParamMuons = cms.untracked.uint32(54525),
-        MuonSimHits = cms.untracked.uint32(97531),
-        caloRecHits = cms.untracked.uint32(654321),
-        muonCSCDigis = cms.untracked.uint32(525432),
-        muonDTDigis = cms.untracked.uint32(67673876),
-        famosSimHits = cms.untracked.uint32(13934),
-        paramMuons = cms.untracked.uint32(54525),
-        famosPileUp = cms.untracked.uint32(91827),
-        muonRPCDigis = cms.untracked.uint32(524964),
-        siTrackerGaussianSmearingRecHits = cms.untracked.uint32(24680)
-    ),
-
-      moduleEngines = cms.PSet(
-        l1ParamMuons = cms.untracked.string('TRandom3'),
-        caloRecHits = cms.untracked.string('TRandom3'),
-        MuonSimHits = cms.untracked.string('TRandom3'),
-        muonCSCDigis = cms.untracked.string('TRandom3'),
-        muonDTDigis = cms.untracked.string('TRandom3'),
-        famosSimHits = cms.untracked.string('TRandom3'),
-        paramMuons = cms.untracked.string('TRandom3'),
-        famosPileUp = cms.untracked.string('TRandom3'),
-        VtxSmeared = cms.untracked.string('TRandom3'),
-        muonRPCDigis = cms.untracked.string('TRandom3'),
-        siTrackerGaussianSmearingRecHits = cms.untracked.string('TRandom3')
-    ),
-                                 
-    sourceSeed = cms.untracked.uint32(123456789)
-)
-
-process.load("Configuration.Generator.PythiaUESettings_cfi")
-
-process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(100000)
-)
-process.source = cms.Source("PythiaSource",
+source = cms.Source("PythiaSource",
     pythiaHepMCVerbosity = cms.untracked.bool(True),
     maxEventsToPrint = cms.untracked.int32(4),
     pythiaPylistVerbosity = cms.untracked.int32(0),
+    filterEfficiency = cms.untracked.double(1.0000),
+    comEnergy = cms.untracked.double(10000.0),
+    crossSection = cms.untracked.double(12195900.),
     PythiaParameters = cms.PSet(
         process.pythiaUESettingsBlock,
-        processParameters = cms.vstring('MDCY(134,1) = 0', 
+        processParameters = cms.vstring(
+            'MDCY(134,1) = 0', 
             'MDCY(137,1) = 0', 
             'MDCY(138,1) = 0', 
             'MDCY(135,1) = 0', 
@@ -224,7 +159,7 @@ process.source = cms.Source("PythiaSource",
     )
 )
 
-process.evtgenproducer = cms.EDProducer("EvtGenProducer",
+evtgenproducer = cms.EDProducer("EvtGenProducer",
      use_default_decay = cms.untracked.bool(False),
      decay_table = cms.FileInPath('GeneratorInterface/EvtGenInterface//data/DECAY.DEC'),
      particle_property_file = cms.FileInPath('GeneratorInterface/EvtGenInterface/data/evt.pdl'),
@@ -378,20 +313,11 @@ list_forced_decays = cms.vstring('MyB_s0','Myanti-B_s0'),
             'MDCY(105,1) = 0')
  )
 
-process.myout = cms.OutputModule("PoolOutputModule",
-    fileName = cms.untracked.string('Bs2phimumu_Evt_FastSim.root'),
-    outputCommands = cms.untracked.vstring(
-
-            'keep *'
-         )
+configurationMetadata = cms.untracked.PSet(
+     version = cms.untracked.string('$Revision: 1.2 $'),
+     name = cms.untracked.string
+('$Source:
+/cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_Bs2PhiMuMu_10TeV_cff.py,v
+$'),
+     annotation = cms.untracked.string('Bs to phi mu mu at 10TeV')
 )
-
-process.p1 = cms.Path(process.evtgenproducer*process.famosWithMuons*process.randomEngineStateProducer)
-
-process.outpath = cms.EndPath(process.myout)
-process.famosSimHits.SimulateCalorimetry = True
-process.famosSimHits.SimulateTracking = True
-process.famosSimHits.SourceLabel = "evtgenproducer"
-process.VolumeBasedMagneticFieldESProducer.useParametrizedTrackerField = True
-process.famosPileUp.PileUpSimulator.averageNumber = 5.0
-
