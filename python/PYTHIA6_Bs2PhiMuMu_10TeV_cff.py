@@ -9,7 +9,7 @@ source = cms.Source("PythiaSource",
     comEnergy = cms.untracked.double(10000.0),
     crossSection = cms.untracked.double(12195900.),
     PythiaParameters = cms.PSet(
-        process.pythiaUESettingsBlock,
+        pythiaUESettingsBlock,
         processParameters = cms.vstring(
             'MDCY(134,1) = 0', 
             'MDCY(137,1) = 0', 
@@ -161,11 +161,11 @@ source = cms.Source("PythiaSource",
 
 evtgenproducer = cms.EDProducer("EvtGenProducer",
      use_default_decay = cms.untracked.bool(False),
-     decay_table = cms.FileInPath('GeneratorInterface/EvtGenInterface//data/DECAY.DEC'),
+     decay_table = cms.FileInPath('GeneratorInterface/EvtGenInterface/data/DECAY.DEC'),
      particle_property_file = cms.FileInPath('GeneratorInterface/EvtGenInterface/data/evt.pdl'),
 #     user_decay_file = cms.FileInPath('GeneratorInterface/EvtGenInterface/data/Bd_Kstarmumu_Kpi.dec'),
-user_decay_file = cms.FileInPath('GeneratorInterface/EvtGenInterface/data/Bs_phimumu_KK.dec'),
-list_forced_decays = cms.vstring('MyB_s0','Myanti-B_s0'),
+     user_decay_file = cms.FileInPath('GeneratorInterface/EvtGenInterface/data/Bs_phimumu_KK.dec'),
+     list_forced_decays = cms.vstring('MyB_s0','Myanti-B_s0'),
 
 #     list_forced_decays = cms.vstring(),
      processParameters = cms.vstring('MSEL=1     ! All included', 
@@ -316,8 +316,6 @@ list_forced_decays = cms.vstring('MyB_s0','Myanti-B_s0'),
 configurationMetadata = cms.untracked.PSet(
      version = cms.untracked.string('$Revision: 1.2 $'),
      name = cms.untracked.string
-('$Source:
-/cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_Bs2PhiMuMu_10TeV_cff.py,v
-$'),
+('$Source:/cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_Bs2PhiMuMu_10TeV_cff.py,v$'),
      annotation = cms.untracked.string('Bs to phi mu mu at 10TeV')
 )
