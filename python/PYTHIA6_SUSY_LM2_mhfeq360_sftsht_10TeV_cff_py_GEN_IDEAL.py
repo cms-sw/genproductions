@@ -2,8 +2,7 @@
 # using: 
 # Revision: 1.77 
 # Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/PyReleaseValidation/python/ConfigBuilder.py,v 
-# with command line options: Configuration/GenProduction/python/PYTHIA6_SUSY_LM2_mhfeq360_sftsht_10TeV_cff.py -s 
-GEN --eventcontent RAWSIM --datatier GEN --conditions FrontierConditions_GlobalTag,IDEAL_V9::All -n 1000 --no_exec
+# with command line options: Configuration/GenProduction/python/PYTHIA6_SUSY_LM2_mhfeq360_sftsht_10TeV_cff.py -s GEN --eventcontent RAWSIM --datatier GEN --conditions FrontierConditions_GlobalTag,IDEAL_V9::All -n 1000 --no_exec
 import FWCore.ParameterSet.Config as cms
 
 process = cms.Process('GEN')
@@ -22,9 +21,8 @@ process.load('Configuration/EventContent/EventContent_cff')
 process.configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.1 $'),
     annotation = cms.untracked.string('PYTHIA6-SUSY-LM2_mhfeq360-sftsht at 10TeV'),
-    name = cms.untracked.string('$Source: 
-/cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_SUSY_LM2_mhfeq360_sftsht_10TeV_cff_py_GEN_IDEAL.py,v 
-$') )
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_SUSY_LM2_mhfeq360_sftsht_10TeV_cff_py_GEN_IDEAL.py,v $') 
+)
 process.maxEvents = cms.untracked.PSet(
     input = cms.untracked.int32(1000)
 )
