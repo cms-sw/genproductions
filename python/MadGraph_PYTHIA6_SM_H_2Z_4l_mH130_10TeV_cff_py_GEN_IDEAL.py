@@ -1,6 +1,6 @@
 # Auto generated configuration file
 # using: 
-# Revision: 1.77.2.1 
+# Revision: 1.77 
 # Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/PyReleaseValidation/python/ConfigBuilder.py,v 
 # with command line options: Configuration/GenProduction/python/MadGraph_PYTHIA6_SM_H_2Z_4l_mH130_10TeV_cff.py -s GEN --eventcontent RAWSIM --datatier GEN --conditions FrontierConditions_GlobalTag,IDEAL_V9::All -n 1000 --no_exec
 import FWCore.ParameterSet.Config as cms
@@ -34,7 +34,7 @@ process.source = cms.Source("MadGraphSource",
     minimalLH = cms.untracked.bool(False),
     produceEventTreeFile = cms.untracked.bool(False),
     MEMAIN_iexcfile = cms.untracked.uint32(0),
-    fileNames = cms.untracked.vstring('file:/path_to_specific_madgraph/ggH_10TeV_unweighted_events.lhe'),
+    fileNames = cms.untracked.vstring('file:events.lhe'),
     pythiaHepMCVerbosity = cms.untracked.bool(False),
     firstEvent = cms.untracked.uint32(0),
     pythiaPylistVerbosity = cms.untracked.int32(0),

@@ -2,7 +2,7 @@
 # using: 
 # Revision: 1.77 
 # Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/PyReleaseValidation/python/ConfigBuilder.py,v 
-# with command line options: Configuration/GenProduction/python/MadGraph_PYTHIA6_SM_ZNjets_incl_10TeV_cff.py -s GEN,SIM,DIGI,L1,DIGI2RAW,HLT --eventcontent RAWSIM --datatier GEN-SIM-RAW --conditions FrontierConditions_GlobalTag,IDEAL_V9::All -n 10 --no_exec
+# with command line options: Configuration/GenProduction/python/MadGraph_PYTHIA6_SM_EWK_Vjj_QED4_10TeV_cff.py -s GEN,SIM,DIGI,L1,DIGI2RAW,HLT --eventcontent RAWSIM --datatier GEN-SIM-RAW --conditions FrontierConditions_GlobalTag,IDEAL_V9::All -n 10 --no_exec
 import FWCore.ParameterSet.Config as cms
 
 process = cms.Process('HLT')
@@ -26,8 +26,8 @@ process.load('Configuration/EventContent/EventContent_cff')
 
 process.configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.1 $'),
-    annotation = cms.untracked.string('MadGraph Pythia6 SM ZNjets->incl. at 10TeV'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/MadGraph_PYTHIA6_SM_ZNjets_incl_10TeV_cff.py,v $')
+    annotation = cms.untracked.string('MadGraph Pythia6 SM EWK Z2jets->2l2jets QED=4 at 10TeV'),
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/MadGraph_PYTHIA6_SM_EWK_Z2jets_2l2jets_QED4_10TeV_cff.py,v $')
 )
 process.maxEvents = cms.untracked.PSet(
     input = cms.untracked.int32(10)
@@ -85,7 +85,7 @@ process.source = cms.Source("MadGraphSource",
 # Output definition
 process.output = cms.OutputModule("PoolOutputModule",
     outputCommands = process.RAWSIMEventContent.outputCommands,
-    fileName = cms.untracked.string('MadGraph_PYTHIA6_SM_ZNjets_incl_10TeV_cff_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT.root'),
+    fileName = cms.untracked.string('MadGraph_PYTHIA6_SM_EWK_Vjj_QED4_10TeV_cff_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT.root'),
     dataset = cms.untracked.PSet(
         dataTier = cms.untracked.string('GEN-SIM-RAW'),
         filterName = cms.untracked.string('')
