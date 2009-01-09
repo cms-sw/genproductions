@@ -17,6 +17,11 @@ process.source = cms.Source("PoolSource",
 'MuPtX_GEN_SIM_DIGI_L1_DIGI2RAW_HLT.root')
 )
 
+process.configurationMetadata = cms.untracked.PSet(
+    version = cms.untracked.string('$Revision: 1.2 $'),
+    name = cms.untracked.string('$Source:/cvs_server/repositories/CMSSW/CMSSW/Configuration/Spring08Production/data/CosmicMC_BON_217_4to10GeV_cfg.py'),
+    annotation = cms.untracked.string('')
+    )
 
 
 process.GlobalTag.connect = "frontier://FrontierProd/CMS_COND_21X_GLOBALTAG"
