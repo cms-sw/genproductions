@@ -22,6 +22,12 @@ def customise(process):
 	except:
 		pass
 
+	try: 
+		process.famosSimHits.SourceLabel = 'generator'
+
+	except: 
+		pass
+	
 	process.output.outputCommands.append('keep *_source_*_*')
 	process.output.outputCommands.append('keep *_generator_*_*')
 
