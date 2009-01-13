@@ -2,7 +2,7 @@
 # using: 
 # Revision: 1.99.2.3 
 # Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/PyReleaseValidation/python/ConfigBuilder.py,v 
-# with command line options: Configuration/GenProduction/python/TKDPG_22X_MuonPt11_cff.py -s RAW2DIGI,RECO --filein file:TKDPG_22X_MuonPt5_cff_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT.root --eventcontent RECO --datatier RECO --conditions FrontierConditions_GlobalTag,STARTUP_V8::All -n -1 --no_exec --mc
+# with command line options: Configuration/GenProduction/python/TKDPG_22X_MuonPt11_cff.py -s RAW2DIGI,RECO --filein file:TKDPG_22X_MuonPt11_cff_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT.root --eventcontent RECO --datatier RECO --conditions FrontierConditions_GlobalTag,STARTUP_V8::All -n -1 --no_exec --mc
 import FWCore.ParameterSet.Config as cms
 
 process = cms.Process('RECO')
@@ -20,7 +20,7 @@ process.load('Configuration/StandardSequences/FrontierConditions_GlobalTag_cff')
 process.load('Configuration/EventContent/EventContent_cff')
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.99.2.3 $'),
+    version = cms.untracked.string('$Revision: 1.1 $'),
     annotation = cms.untracked.string('Configuration/GenProduction/python/TKDPG_22X_MuonPt11_cff.py nevts:-1'),
     name = cms.untracked.string('PyReleaseValidation')
 )
@@ -32,7 +32,7 @@ process.options = cms.untracked.PSet(
 )
 # Input source
 process.source = cms.Source("PoolSource",
-    fileNames = cms.untracked.vstring('file:TKDPG_22X_MuonPt5_cff_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT.root')
+    fileNames = cms.untracked.vstring('file:TKDPG_22X_MuonPt11_cff_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT.root')
 )
 
 # Output definition
