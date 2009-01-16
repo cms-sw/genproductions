@@ -21,7 +21,7 @@ process.load('Configuration/EventContent/EventContent_cff')
 process.configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.1 $'),
     annotation = cms.untracked.string('MCatNLO ttbar  at 10TeV'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/MCatNLO_TTbar_10TeV_cff.py,v $')
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/MCatNLO_TTbar_10TeV_cff_py_GEN_IDEAL.py,v $')
 )
 process.maxEvents = cms.untracked.PSet(
     input = cms.untracked.int32(1000)
@@ -98,7 +98,7 @@ process.source = cms.Source("MCatNLOSource",
     comEnergy = cms.untracked.double(10000.0),
     lhapdfSetPath = cms.untracked.string(''),
     printCards = cms.untracked.bool(False),
-    numHardEvents = cms.untracked.int32(1),
+    numHardEvents = cms.untracked.int32(10000),
     maxEventsToPrint = cms.untracked.int32(0),
     herwigHepMCVerbosity = cms.untracked.bool(False),
     processNumber = cms.untracked.int32(-1706)
@@ -137,7 +137,6 @@ process.schedule = cms.Schedule(process.generation_step,process.out_step)
 def customise(process):
 
 	process.genParticles.abortOnUnknownPDGCode = False
-	process.source.numHardEvents = process.maxEvents.input
 
 	return(process)
 
