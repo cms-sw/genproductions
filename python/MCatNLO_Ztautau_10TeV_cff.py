@@ -74,7 +74,7 @@ source = cms.Source("MCatNLOSource",
     mcatnloVerbosity = cms.untracked.int32(0),
     lhapdfSetPath = cms.untracked.string(''),
     printCards = cms.untracked.bool(False),
-    numHardEvents = cms.untracked.int32(1),
+    numHardEvents = cms.untracked.int32(10000),
     maxEventsToPrint = cms.untracked.int32(0),
     stringFileName = cms.untracked.string('stringInput.txt'),
     useJimmy = cms.untracked.bool(True)
@@ -86,7 +86,7 @@ mcatnlofilter = cms.EDFilter("MCatNLOFilter")
 ProductionFilterSequence = cms.Sequence(mcatnlofilter)
 
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.2 $'),
+    version = cms.untracked.string('$Revision: 1.3 $'),
     name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/MCatNLO_Ztautau_10TeV_cff.py,v $'),
     annotation = cms.untracked.string('MCatNLO Ztautau M(tautau)> 20 GeV at 10TeV')
 )

@@ -19,7 +19,7 @@ process.load('Configuration/StandardSequences/FrontierConditions_GlobalTag_cff')
 process.load('Configuration/EventContent/EventContent_cff')
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.2 $'),
+    version = cms.untracked.string('$Revision: 1.3 $'),
     annotation = cms.untracked.string('MCatNLO Zmumu M(mumu)> 20 GeV at 10TeV'),
     name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/MCatNLO_Zmumu_10TeV_cff_py_GEN_IDEAL.py,v $')
 )
@@ -99,13 +99,12 @@ process.source = cms.Source("MCatNLOSource",
     comEnergy = cms.untracked.double(10000.0),
     lhapdfSetPath = cms.untracked.string(''),
     printCards = cms.untracked.bool(False),
-    numHardEvents = cms.untracked.int32(1),
+    numHardEvents = cms.untracked.int32(10000),
     maxEventsToPrint = cms.untracked.int32(0),
     herwigHepMCVerbosity = cms.untracked.bool(False),
     processNumber = cms.untracked.int32(-1353)
 )
 
-process.source.numHardEvents = process.maxEvents.input
 process.genParticles.abortOnUnknownPDGCode = False
 
 # Output definition
