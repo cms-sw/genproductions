@@ -33,7 +33,7 @@ source = cms.Source("MadGraphSource", ## DEFAULT SETTINGS
                                                                 'MSTP(61)=1     ! Parton showering on or off',
                                                                 'MSTP(143)=1    ! MUST BE 1 FOR THE MATCHING ROUTINE TO RUN!!!!',
                                                                 'MSEL=0         ! User defined processes/Full user control',
-								'PARP(64)=4',
+								'PARP(64)=4.',
 								'PARP(72)=0.125'),
                     # This is a vector of ParameterSet names to be read, in this order
                     # The first is general default pythia parameters, the second are own additions
