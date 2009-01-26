@@ -43,7 +43,7 @@ mugenfilter = cms.EDFilter("MCDecayingPionKaonFilter",
                            ParticleID = cms.untracked.vint32(0, 211, -211, 321, -321, 130),
                            MinDecayRadius = cms.untracked.vdouble(0.0, 10.0, 10.0, 10.0, 10.0, 10.0),
                            MaxDecayRadius = cms.untracked.vdouble(10.0, 1500.0, 1500.0, 1500.0, 1500.0, 1500.0),
-                           MinPt = cms.untracked.vdouble(5.0, 5.0, 5.0, 5.0, 5.0, 5.0),
+                           MinPt = cms.untracked.vdouble(15.0, 15.0, 15.0, 15.0, 15.0, 15.0),
                            MinEta = cms.untracked.vdouble(-2.5 ,-2.5, -2.5, -2.5, -2.5, -2.5),
                            MaxEta = cms.untracked.vdouble(2.5 ,2.5, 2.5, 2.5, 2.5, 2.5),
                            MinDecayZ = cms.untracked.vdouble(-3000.0, -3000.0, -3000.0, -3000.0, -3000.0, -3000.0),
@@ -51,7 +51,7 @@ mugenfilter = cms.EDFilter("MCDecayingPionKaonFilter",
                            )
 
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.4 $'),
+    version = cms.untracked.string('$Revision: 1.1 $'),
     name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_InclusiveMu15_10TeV_FastSim_cff.py,v $'),
     annotation = cms.untracked.string('PYTHIA6-MinBias at 10TeV, pthat>20, with INCLUSIVE muon preselection (pt(mu) > 15) - FastSim Version')
 )
