@@ -45,7 +45,7 @@ source = cms.Source("PythiaSource",
 configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.0. %'),
     annotation = cms.untracked.string('default documentation string for ZprimeTautau_3000_cff.py'),
-    name = cms.untracked.string('$Source:/cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_Exotica_ZprimeTautau_3000_cff.py,v $')
+    name = cms.untracked.string('$Source: /local/projects/CMSSW/rep/CMSSW/Configuration/GenProduction/python/PYTHIA6_Exotica_ZprimeTautau_3000_cff.py,v $')
 )
 
 

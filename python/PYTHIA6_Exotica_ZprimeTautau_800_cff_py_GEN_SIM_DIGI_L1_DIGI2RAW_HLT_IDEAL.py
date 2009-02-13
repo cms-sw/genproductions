@@ -27,7 +27,7 @@ process.load('Configuration/EventContent/EventContent_cff')
 
 process.configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.0. %'),
-    name = cms.untracked.string('$Source:/cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_Exotica_ZprimeTautau_800_cff.py,v $'),
+    name = cms.untracked.string('$Source: /local/projects/CMSSW/rep/CMSSW/Configuration/GenProduction/python/PYTHIA6_Exotica_ZprimeTautau_800_cff_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT_IDEAL.py,v $'),
     annotation = cms.untracked.string('default documentation string for ZprimeTautau_800_cff.py')
 )
 process.maxEvents = cms.untracked.PSet(
