@@ -25,7 +25,7 @@ process.load('Configuration/StandardSequences/FrontierConditions_GlobalTag_cff')
 process.load('Configuration/EventContent/EventContent_cff')
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.2 $'),
+    version = cms.untracked.string('$Revision: 1.3 $'),
     annotation = cms.untracked.string('MCatNLO W- -> munu  at 10TeV'),
     name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/MCatNLO_WminusM_10TeV_cff_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT_IDEAL.py,v $')
 )
@@ -93,7 +93,7 @@ process.source = cms.Source("MCatNLOSource",
             'LAMBDAFIVE=-1', 
             'SCHEMEOFPDF=MS', 
             'LAMBDAHERW=-1', 
-            'FPREFIX=wminuM', 
+            'FPREFIX=wminusM', 
             'EVPREFIX=wminusM', 
             'WGTTYPE=1', 
             'PDFLIBRARY=HWLHAPDF', 
