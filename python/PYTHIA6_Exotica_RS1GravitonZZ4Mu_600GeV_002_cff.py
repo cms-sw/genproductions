@@ -24,7 +24,7 @@ source = cms.Source("PythiaSource",
             '5000039:ALLOFF           ',
             '5000039:ONIFMATCH 23 23  ',
             '23:ALLOFF                ',
-            '23:ONIFANY 13 15         '),
+            '23:ONIFMATCH 13 13         '),
         parameterSets = cms.vstring('pythiaUESettings',
             'processParameters')
     )
