@@ -2,7 +2,7 @@
 # using: 
 # Revision: 1.99.2.3 
 # Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/PyReleaseValidation/python/ConfigBuilder.py,v 
-# with command line options: Configuration/GenProduction/python/sherpa_Wlept_0j3incl_10TeV_OEW2_opt_cff.py -s GEN,SIM,DIGI,L1,DIGI2RAW,HLT --eventcontent RAWSIM --datatier GEN-SIM-RAW --conditions FrontierConditions_GlobalTag,IDEAL_V9::All -n 10 --no_exec --customise Configuration/GenProduction/sherpa_custom.py
+# with command line options: Configuration/GenProduction/python/sherpa_Wlept_0j3incl_10TeV_OEW2_opt_cff.py -s GEN,SIM,DIGI,L1,DIGI2RAW,HLT --eventcontent RAWSIM --datatier GEN-SIM-RAW --conditions FrontierConditions_GlobalTag,IDEAL_V11::All -n 10 --no_exec --customise Configuration/GenProduction/sherpa_custom.py
 import FWCore.ParameterSet.Config as cms
 
 process = cms.Process('HLT')
@@ -59,7 +59,7 @@ process.output = cms.OutputModule("PoolOutputModule",
 # Additional output definition
 
 # Other statements
-process.GlobalTag.globaltag = 'IDEAL_V9::All'
+process.GlobalTag.globaltag = 'IDEAL_V11::All'
 
 # Path and EndPath definitions
 process.generation_step = cms.Path(process.pgen)
