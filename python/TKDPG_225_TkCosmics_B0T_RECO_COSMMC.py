@@ -11,7 +11,7 @@ process.load("Configuration.StandardSequences.RawToDigi_cff")
 #--- Conditions
 
 process.load("Configuration.StandardSequences.FrontierConditions_GlobalTag_cff")
-process.GlobalTag.globaltag = 'COSMMC_21X_V1::All'
+process.GlobalTag.globaltag = 'COSMMC_22X_TK::All'
 
 #--------- Magnetic field Field should be OFF for this sample
 process.load("Configuration.StandardSequences.MagneticField_0T_cff")
@@ -50,8 +50,8 @@ process.FEVT = cms.OutputModule("PoolOutputModule",
 #--- Metadata
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.2 $'),
-    name = cms.untracked.string('$Source: /local/projects/CMSSW/rep/CMSSW/Configuration/GenProduction/python/TKDPG_22X_TkCosmic_B38T_Reco_cfg.py,v $'),
+    version = cms.untracked.string('$Revision: 1.1 $'),
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/TKDPG_225_TkCosmics_B0T_RECO_COSMMC.py,v $'),
     annotation = cms.untracked.string('MC Cosmic ReReco at 0 tesla')
 )
 
