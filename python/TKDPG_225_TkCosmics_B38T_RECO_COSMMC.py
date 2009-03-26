@@ -22,13 +22,15 @@ process.myeventcontent = cms.PSet(
      outputCommands = cms.untracked.vstring(
      'keep *_trackingtruthprod_*_*', 
          'keep *_electrontruth_*_*', 
-         'keep *_mergedtruth_MergedTrackTruth_*'
+         'keep *_mergedtruth_MergedTrackTruth_*',
+	 'keep *_simSiPixelDigis_*_*',
+         'keep *_simSiStripDigis_*_*'
 	 )
  ) 
 process.RECOSIMEventContent.outputCommands.extend(process.myeventcontent.outputCommands)
 
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(-1)
+    input = cms.untracked.int32(1)
 )
 process.source = cms.Source("PoolSource",
     firstFreeID = cms.untracked.uint32(131072),
@@ -51,7 +53,7 @@ process.FEVT = cms.OutputModule("PoolOutputModule",
 #--- Metadata
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.1 $'),
+    version = cms.untracked.string('$Revision: 1.2 $'),
     name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/TKDPG_225_TkCosmics_B38T_RECO_COSMMC.py,v $'),
     annotation = cms.untracked.string('MC Cosmic Reco at 3.8 tesla')
 )
