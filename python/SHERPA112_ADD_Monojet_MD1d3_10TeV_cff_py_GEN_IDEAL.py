@@ -1,8 +1,8 @@
 # Auto generated configuration file
 # using: 
-# Revision: 1.99.2.3 
+# Revision: 1.99.2.8 
 # Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/PyReleaseValidation/python/ConfigBuilder.py,v 
-# with command line options: Configuration/GenProduction/python/SHERPA112_ADD_Monojet_MD1d3_10TeV_cff.py -s GEN --eventcontent RAWSIM --datatier GEN --conditions FrontierConditions_GlobalTag,IDEAL_V9::All -n 10000 --no_exec
+# with command line options: Configuration/GenProduction/python/SHERPA112_ADD_Monojet_MD1d3_10TeV_cff.py -s GEN --eventcontent RAWSIM --datatier GEN --conditions FrontierConditions_GlobalTag,IDEAL_V12::All -n 10000 --no_exec
 import FWCore.ParameterSet.Config as cms
 
 process = cms.Process('GEN')
@@ -20,7 +20,7 @@ process.load('Configuration/StandardSequences/FrontierConditions_GlobalTag_cff')
 process.load('Configuration/EventContent/EventContent_cff')
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.99.2.3 $'),
+    version = cms.untracked.string('$Revision: 1.99.2.8 $'),
     annotation = cms.untracked.string('Configuration/GenProduction/python/SHERPA112_ADD_Monojet_MD1d3_10TeV_cff.py nevts:10000'),
     name = cms.untracked.string('PyReleaseValidation')
 )
@@ -53,7 +53,7 @@ process.output = cms.OutputModule("PoolOutputModule",
 # Additional output definition
 
 # Other statements
-process.GlobalTag.globaltag = 'IDEAL_V9::All'
+process.GlobalTag.globaltag = 'IDEAL_V12::All'
 
 # Path and EndPath definitions
 process.generation_step = cms.Path(process.pgen)

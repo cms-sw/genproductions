@@ -1,8 +1,8 @@
 # Auto generated configuration file
 # using: 
-# Revision: 1.99.2.3 
+# Revision: 1.99.2.8 
 # Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/PyReleaseValidation/python/ConfigBuilder.py,v 
-# with command line options: Configuration/GenProduction/python/SHERPA112_ADD_Monophoton_MD1d3_10TeV_cff.py -s GEN,SIM,DIGI,L1,DIGI2RAW,HLT --eventcontent RAWSIM --datatier GEN-SIM-RAW --conditions FrontierConditions_GlobalTag,IDEAL_V9::All -n 10000 --no_exec
+# with command line options: Configuration/GenProduction/python/SHERPA112_ADD_Monophoton_MD1d3_10TeV_cff.py -s GEN,SIM,DIGI,L1,DIGI2RAW,HLT --eventcontent RAWSIM --datatier GEN-SIM-RAW --conditions FrontierConditions_GlobalTag,IDEAL_V12::All -n 10000 --no_exec
 import FWCore.ParameterSet.Config as cms
 
 process = cms.Process('HLT')
@@ -17,8 +17,8 @@ process.load('Configuration/StandardSequences/Generator_cff')
 process.load('Configuration/StandardSequences/VtxSmearedEarly10TeVCollision_cff')
 process.load('Configuration/StandardSequences/Sim_cff')
 process.load('Configuration/StandardSequences/Digi_cff')
-process.load('Configuration/StandardSequences/SimL1Emulator_cff')
-process.load('Configuration/StandardSequences/L1TriggerDefaultMenu_cff')
+process.load('L1Trigger/Configuration/SimL1Emulator_cff')
+process.load('L1TriggerConfig/L1GtConfigProducers/Luminosity/lumi1030/L1Menu_2008MC_2E30_Unprescaled_cff')
 process.load('Configuration/StandardSequences/DigiToRaw_cff')
 process.load('HLTrigger/Configuration/HLT_2E30_cff')
 process.load('Configuration/StandardSequences/EndOfProcess_cff')
@@ -26,7 +26,7 @@ process.load('Configuration/StandardSequences/FrontierConditions_GlobalTag_cff')
 process.load('Configuration/EventContent/EventContent_cff')
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.99.2.3 $'),
+    version = cms.untracked.string('$Revision: 1.99.2.8 $'),
     annotation = cms.untracked.string('Configuration/GenProduction/python/SHERPA112_ADD_Monophoton_MD1d3_10TeV_cff.py nevts:10000'),
     name = cms.untracked.string('PyReleaseValidation')
 )
@@ -59,7 +59,7 @@ process.output = cms.OutputModule("PoolOutputModule",
 # Additional output definition
 
 # Other statements
-process.GlobalTag.globaltag = 'IDEAL_V9::All'
+process.GlobalTag.globaltag = 'IDEAL_V12::All'
 
 # Path and EndPath definitions
 process.generation_step = cms.Path(process.pgen)
