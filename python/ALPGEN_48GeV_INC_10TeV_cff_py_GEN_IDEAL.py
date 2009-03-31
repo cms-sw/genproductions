@@ -1,8 +1,8 @@
 # Auto generated configuration file
 # using: 
-# Revision: 1.99.2.3 
+# Revision: 1.99.2.8 
 # Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/PyReleaseValidation/python/ConfigBuilder.py,v 
-# with command line options: Configuration/GenProduction/ALPGEN_basic_cff.py -s GEN --eventcontent RAWSIM --datatier GEN --conditions FrontierConditions_GlobalTag,IDEAL_V11::All -n 1000 --no_exec
+# with command line options: Configuration/GenProduction/python/ALPGEN_48GeV_INC_10TeV_cff.py -s GEN --eventcontent RAWSIM --datatier GEN --conditions FrontierConditions_GlobalTag,IDEAL_V12::All -n 1000 --no_exec
 import FWCore.ParameterSet.Config as cms
 
 process = cms.Process('GEN')
@@ -20,8 +20,8 @@ process.load('Configuration/StandardSequences/FrontierConditions_GlobalTag_cff')
 process.load('Configuration/EventContent/EventContent_cff')
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.99.2.3 $'),
-    annotation = cms.untracked.string('Configuration/GenProduction/ALPGEN_basic_cff.py nevts:1000'),
+    version = cms.untracked.string('$Revision: 1.99.2.8 $'),
+    annotation = cms.untracked.string('Configuration/GenProduction/python/ALPGEN_48GeV_INC_10TeV_cff.py nevts:1000'),
     name = cms.untracked.string('PyReleaseValidation')
 )
 process.maxEvents = cms.untracked.PSet(
@@ -35,7 +35,7 @@ process.source = cms.Source("AlpgenSource",
     GeneratorParameters = cms.PSet(
         parameterSets = cms.vstring('generator'),
         generator = cms.vstring('IXpar(2) = 0   ! inclus./exclus. sample: 0/1', 
-            'RXpar(1) = 48.0 ! ETCLUS : minET(CLUS)', 
+            'RXpar(1) = 48. ! ETCLUS : minET(CLUS)', 
             'RXpar(2) = 0.7 ! RCLUS  : deltaR(CLUS)')
     ),
     pythiaHepMCVerbosity = cms.untracked.bool(False),
@@ -75,7 +75,7 @@ process.source = cms.Source("AlpgenSource",
 # Output definition
 process.output = cms.OutputModule("PoolOutputModule",
     outputCommands = process.RAWSIMEventContent.outputCommands,
-    fileName = cms.untracked.string('ALPGEN_basic_cff_py_GEN.root'),
+    fileName = cms.untracked.string('ALPGEN_48GeV_INC_10TeV_cff_py_GEN.root'),
     dataset = cms.untracked.PSet(
         dataTier = cms.untracked.string('GEN'),
         filterName = cms.untracked.string('')
@@ -88,7 +88,7 @@ process.output = cms.OutputModule("PoolOutputModule",
 # Additional output definition
 
 # Other statements
-process.GlobalTag.globaltag = 'IDEAL_V11::All'
+process.GlobalTag.globaltag = 'IDEAL_V12::All'
 
 # Path and EndPath definitions
 process.generation_step = cms.Path(process.pgen)
