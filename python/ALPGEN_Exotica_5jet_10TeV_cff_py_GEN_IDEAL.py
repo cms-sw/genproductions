@@ -1,8 +1,8 @@
 # Auto generated configuration file
 # using: 
-# Revision: 1.77.2.1 
+# Revision: 1.99.2.8 
 # Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/PyReleaseValidation/python/ConfigBuilder.py,v 
-# with command line options: Configuration/GenProduction/python/ALPGEN_Exotica_5jet_10TeV_cff.py -s GEN --eventcontent RAWSIM --datatier GEN --conditions FrontierConditions_GlobalTag,IDEAL_V9::All -n 1000 --no_exec
+# with command line options: Configuration/GenProduction/python/ALPGEN_Exotica_5jet_10TeV_cff.py -s GEN --eventcontent RAWSIM --datatier GEN --conditions FrontierConditions_GlobalTag,IDEAL_V12::All -n 1000 --no_exec
 import FWCore.ParameterSet.Config as cms
 
 process = cms.Process('GEN')
@@ -15,13 +15,14 @@ process.load('Configuration/StandardSequences/GeometryPilot2_cff')
 process.load('Configuration/StandardSequences/MagneticField_38T_cff')
 process.load('Configuration/StandardSequences/Generator_cff')
 process.load('Configuration/StandardSequences/VtxSmearedEarly10TeVCollision_cff')
+process.load('Configuration/StandardSequences/EndOfProcess_cff')
 process.load('Configuration/StandardSequences/FrontierConditions_GlobalTag_cff')
 process.load('Configuration/EventContent/EventContent_cff')
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.1 $'),
-    annotation = cms.untracked.string('default documentation string for ALPGEN_Exotica_5jet_10TeV_cff.py'),
-    name = cms.untracked.string('$Source: /local/projects/CMSSW/rep/CMSSW/Configuration/GenProduction/python/ALPGEN_Exotica_5jet_10TeV_cff_py_GEN_IDEAL.py,v $')
+    version = cms.untracked.string('$Revision: 1.3 $'),
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/ALPGEN_Exotica_5jet_10TeV_cff_py_GEN_IDEAL.py,v $'),
+    annotation = cms.untracked.string('default documentation string for ALPGEN_Exotica_5jet_10TeV_cff.py')
 )
 process.maxEvents = cms.untracked.PSet(
     input = cms.untracked.int32(1000)
@@ -77,16 +78,6 @@ process.source = cms.Source("AlpgenSource",
 	)
     )
 )
-process.filter = cms.EDFilter("AlpgenEmptyEventFilter")
-
-process.AlpgenEventContent = cms.PSet(
-  outputCommands = cms.untracked.vstring(
-    'keep edmAlpgenInfoProduct_source_*_*',
-    'keep edmAlpWgtFileInfoProduct_source_*_*'
-  )
-)
-process.RAWSIMEventContent.outputCommands.extend(process.AlpgenEventContent.outputCommands)
-
 # Output definition
 process.output = cms.OutputModule("PoolOutputModule",
     outputCommands = process.RAWSIMEventContent.outputCommands,
@@ -100,16 +91,25 @@ process.output = cms.OutputModule("PoolOutputModule",
     )
 )
 # Additional output definition
-
-# Other statements
-process.GlobalTag.globaltag = 'IDEAL_V9::All'
+process.AlpgenEventContent = cms.PSet(
+  outputCommands = cms.untracked.vstring(
+    'keep edmAlpgenInfoProduct_source_*_*',
+    'keep edmAlpWgtFileInfoProduct_source_*_*'
+  )
+)
+process.RAWSIMEventContent.outputCommands.extend(process.AlpgenEventContent.outputCommands)
 
 # Sequence definition
+process.filter = cms.EDFilter("AlpgenEmptyEventFilter")
 process.ProductionFilterSequence = cms.Sequence(process.filter)
+
+# Other statements
+process.GlobalTag.globaltag = 'IDEAL_V12::All'
 
 # Path and EndPath definitions
 process.generation_step = cms.Path(process.ProductionFilterSequence*process.pgen)
+process.endjob_step = cms.Path(process.endOfProcess)
 process.output_step = cms.EndPath(process.output)
 
 # Schedule definition
-process.schedule = cms.Schedule(process.generation_step,process.output_step)
+process.schedule = cms.Schedule(process.generation_step,process.endjob_step,process.output_step)
