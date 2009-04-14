@@ -323,14 +323,14 @@ processParameters = cms.vstring('MDCY(134,1) = 0',
 # if you need some filter modules define and configure them here
 
 bfilter = cms.EDFilter("PythiaFilter",
-    ParticleID = cms.untracked.int32(5)
+    ParticleID = cms.untracked.int32(531)
 )
 
 mumugenfilter = cms.EDFilter("MCParticlePairFilter",
     Status = cms.untracked.vint32(1, 1),
     MinPt = cms.untracked.vdouble(2.5, 2.5),
-    MaxEta = cms.untracked.vdouble(2.6, 2.6),
-    MinEta = cms.untracked.vdouble(-2.6, -2.6),
+    MaxEta = cms.untracked.vdouble(2.5, 2.5),
+    MinEta = cms.untracked.vdouble(-2.5, -2.5),
     ParticleCharge = cms.untracked.int32(-1),
     ParticleID1 = cms.untracked.vint32(13),
     ParticleID2 = cms.untracked.vint32(13),
@@ -341,8 +341,8 @@ mumugenfilter = cms.EDFilter("MCParticlePairFilter",
 
 # enter below the configuration metadata (only a description is needed, the rest is filled in by cvs)
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.3 $'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_Bs2PhiMuMu_10TeV_cfg.py,v $'),
+    version = cms.untracked.string('$Revision: 1.4 $'),
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_Bs2PhiMuMu_10TeV_cff.py,v $'),
     annotation = cms.untracked.string('BstoPhi_mumu')
 )
 
