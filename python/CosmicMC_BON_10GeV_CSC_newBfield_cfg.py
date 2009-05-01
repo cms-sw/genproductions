@@ -53,7 +53,8 @@ process.load("GeneratorInterface.CosmicMuonGenerator.CMSCGENsource_cfi")
 process.CosMuoGenSource.MinP = 10.
 process.CosMuoGenSource.RadiusOfTarget = 8000.
 process.CosMuoGenSource.ZCentrOfTarget = 8000.
-    
+process.CosMuoGenSource.MaxTheta = 84.
+
 #--- Conditions
 
 process.load("Configuration.StandardSequences.FrontierConditions_GlobalTag_cff")
