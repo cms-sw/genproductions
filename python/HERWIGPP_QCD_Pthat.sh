@@ -6,13 +6,13 @@ PREFIX="HERWIGPP_QCD_Pthat"
 
 (
 cat << EOF
-15		1.4755000e+09
-30		1.1174600e+08
-80		2.0388300e+06
-170		6.7980200e+04
-300		4.0603200e+03
-470		3.5432800e+02
-800		1.3268500e+01
+15	1.4755000e+09
+30	1.1174600e+08
+80	2.0388300e+06
+170	6.7980200e+04
+300	4.0603200e+03
+470	3.5432800e+02
+800	1.3268500e+01
 1400	1.8450500e-01
 2200	1.4957600e-03
 3000	9.3023000e-06
@@ -24,7 +24,7 @@ import FWCore.ParameterSet.Config as cms
 
 configurationMetadata = cms.untracked.PSet(
 	version = cms.untracked.string('$Revision: 1.1 $'),
-	name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Herwigpp_QCD_kt.template,v $'),
+	name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/HERWIGPP_QCD_Pthat.sh,v $'),
 	annotation = cms.untracked.string('Summer09: Herwig++ generation of QCD events, 10TeV, MRST2001, pthat > __MINCUT__ GeV')
 )
 
@@ -63,6 +63,6 @@ EOF
 	CONDITION="FrontierConditions_GlobalTag,IDEAL_31X::All"
 	cmsDriver.py Configuration/GenProduction/python/${PREFIX}_${MINCUT}_10TeV_cff.py \
 		-s GEN:ProductionFilterSequence --eventcontent RAWSIM --datatier GEN --mc \
-		--customise Configuration/GenProduction/Herwigpp_custom.py \
+		--customise Configuration/GenProduction/HERWIGPP_custom.py \
 		--conditions $CONDITION -n 1000 --no_exec
 done

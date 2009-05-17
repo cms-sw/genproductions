@@ -6,13 +6,13 @@ PREFIX="PYTHIA6_QCD_Pthat"
 
 (
 cat << EOF
-15		1.457159248e+09
-30		1.090572204e+08
-80		1.934639567e+06
-170		6.256287713e+04
-300		3.664608301e+03
-470		3.155131272e+02
-800		1.194197450e+01
+15	1.457159248e+09
+30	1.090572204e+08
+80	1.934639567e+06
+170	6.256287713e+04
+300	3.664608301e+03
+470	3.155131272e+02
+800	1.194197450e+01
 1400	1.720187180e-01
 2200	1.420777800e-03
 3000	8.600800000e-06
@@ -24,7 +24,7 @@ import FWCore.ParameterSet.Config as cms
 
 configurationMetadata = cms.untracked.PSet(
 	version = cms.untracked.string('$Revision: 1.1 $'),
-	name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Pythia6_QCD_pthat.template,v $'),
+	name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_QCD_Pthat.sh,v $'),
 	annotation = cms.untracked.string('Summer09: Pythia6 generation of QCD events, 10TeV, D6T tune, pthat > __MINCUT__ GeV')
 )
 
