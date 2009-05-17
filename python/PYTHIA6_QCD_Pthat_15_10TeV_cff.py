@@ -1,17 +1,17 @@
 import FWCore.ParameterSet.Config as cms
 
 configurationMetadata = cms.untracked.PSet(
-	version = cms.untracked.string('$Revision$'),
-	name = cms.untracked.string('$Source$'),
-	annotation = cms.untracked.string('Summer09: Pythia6 generation of QCD events, 10TeV, pthat > 30 GeV')
+	version = cms.untracked.string(': 1.1 $'),
+	name = cms.untracked.string(': /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Pythia6_QCD_pthat.template,v $'),
+	annotation = cms.untracked.string('Summer09: Pythia6 generation of QCD events, 10TeV, D6T tune, pthat > 15 GeV')
 )
 
 from Configuration.GenProduction.PythiaUESettings_cfi import *
 
 source = cms.Source("EmptySource")
 generator = cms.EDFilter("Pythia6GeneratorFilter",
-	comEnergy = cms.untracked.double(10000.0),
-	crossSection = cms.untracked.double(1.090572204e+08),
+	comEnergy = cms.double(10000.0),
+	crossSection = cms.untracked.double(1.457159248e+09),
 	filterEfficiency = cms.untracked.double(1.0000),
 	maxEventsToPrint = cms.untracked.int32(0),
 	pythiaHepMCVerbosity = cms.untracked.bool(False),
@@ -20,7 +20,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
 		pythiaUESettingsBlock,
 		processParameters = cms.vstring(
 			'MSEL=1   ! QCD hight pT processes',
-			'CKIN(3)=30  ! minimum pt hat for hard interactions',
+			'CKIN(3)=15  ! minimum pt hat for hard interactions',
 		),
 		parameterSets = cms.vstring(
 			'pythiaUESettings',

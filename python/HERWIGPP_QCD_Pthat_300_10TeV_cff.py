@@ -1,9 +1,9 @@
 import FWCore.ParameterSet.Config as cms
 
 configurationMetadata = cms.untracked.PSet(
-	version = cms.untracked.string('$Revision$'),
-	name = cms.untracked.string('$Source$'),
-	annotation = cms.untracked.string('Summer09: Herwig++ generation of QCD events, 10TeV, MRST2001, MinKT=__MINCUT__ GeV')
+	version = cms.untracked.string(': 1.1 $'),
+	name = cms.untracked.string(': /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Herwigpp_QCD_kt.template,v $'),
+	annotation = cms.untracked.string('Summer09: Herwig++ generation of QCD events, 10TeV, MRST2001, pthat > 300 GeV')
 )
 
 from Configuration.GenProduction.HerwigppDefaults_cfi import *
@@ -26,11 +26,11 @@ generator = cms.EDFilter("ThePEGGeneratorFilter",
 		'insert SimpleQCD:MatrixElements[0] MEQCD2to2',
 
 		'cd /',
-		'set /Herwig/Cuts/JetKtCut:MinKT __MINCUT__*GeV',
+		'set /Herwig/Cuts/JetKtCut:MinKT 300*GeV',
 		'set /Herwig/UnderlyingEvent/MPIHandler:Algorithm 1',
 	),
 
-	crossSection = cms.untracked.double(__XS__),
+	crossSection = cms.untracked.double(4.0603200e+03),
 	filterEfficiency = cms.untracked.double(1.0),
 )
 

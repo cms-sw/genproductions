@@ -1,9 +1,9 @@
 import FWCore.ParameterSet.Config as cms
 
 configurationMetadata = cms.untracked.PSet(
-	version = cms.untracked.string('$Revision$'),
-	name = cms.untracked.string('$Source$'),
-	annotation = cms.untracked.string('Summer09: Herwig++ generation of QCD events, 10TeV, MRST2001, MinKT=15 GeV')
+	version = cms.untracked.string(': 1.1 $'),
+	name = cms.untracked.string(': /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Herwigpp_QCD_kt.template,v $'),
+	annotation = cms.untracked.string('Summer09: Herwig++ generation of QCD events, 10TeV, MRST2001, pthat > 15 GeV')
 )
 
 from Configuration.GenProduction.HerwigppDefaults_cfi import *
