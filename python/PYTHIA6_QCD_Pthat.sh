@@ -24,8 +24,8 @@ cat << EOF
 import FWCore.ParameterSet.Config as cms
 
 configurationMetadata = cms.untracked.PSet(
-	version = cms.untracked.string('$ Revision $'),
-	name = cms.untracked.string('$ Source $'),
+	version = cms.untracked.string('\$Revision$'),
+	name = cms.untracked.string('\$Source$'),
 	annotation = cms.untracked.string('Summer09: Pythia6 generation of QCD events, 10TeV, D6T tune, pthat > __MINCUT__ GeV')
 )
 
@@ -55,7 +55,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
 ProductionFilterSequence = cms.Sequence(generator)
 EOF
 ) | sed -e "s/__MINCUT__/$MINCUT/;s/__XS__/$XS/" > ${PREFIX}_${MINCUT}_10TeV_cff.py
-
+continue
 	CONDITION="FrontierConditions_GlobalTag,IDEAL_31X::All"
 	# GEN config files
 	cmsDriver.py Configuration/GenProduction/python/${PREFIX}_${MINCUT}_10TeV_cff.py \

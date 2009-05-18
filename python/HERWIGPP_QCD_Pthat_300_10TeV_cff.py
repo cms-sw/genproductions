@@ -1,8 +1,8 @@
 import FWCore.ParameterSet.Config as cms
 
 configurationMetadata = cms.untracked.PSet(
-	version = cms.untracked.string('$ Revision $'),
-	name = cms.untracked.string('$ Source $'),
+	version = cms.untracked.string('$Revision$'),
+	name = cms.untracked.string('$Source$'),
 	annotation = cms.untracked.string('Summer09: Herwig++ generation of QCD events, 10TeV, MRST2001, pthat > 300 GeV')
 )
 
