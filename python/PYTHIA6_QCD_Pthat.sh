@@ -1,6 +1,7 @@
 #!/bin/sh
 
 cd $CMSSW_BASE/src/Configuration/GenProduction/python/
+[ ! -f "__init__.py" ] && touch "__init__.py"
 
 PREFIX="PYTHIA6_QCD_Pthat"
 
@@ -23,7 +24,7 @@ cat << EOF
 import FWCore.ParameterSet.Config as cms
 
 configurationMetadata = cms.untracked.PSet(
-	version = cms.untracked.string('$Revision: 1.1 $'),
+	version = cms.untracked.string('$Revision: 1.2 $'),
 	name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_QCD_Pthat.sh,v $'),
 	annotation = cms.untracked.string('Summer09: Pythia6 generation of QCD events, 10TeV, D6T tune, pthat > __MINCUT__ GeV')
 )
@@ -56,7 +57,14 @@ EOF
 ) | sed -e "s/__MINCUT__/$MINCUT/;s/__XS__/$XS/" > ${PREFIX}_${MINCUT}_10TeV_cff.py
 
 	CONDITION="FrontierConditions_GlobalTag,IDEAL_31X::All"
+	# GEN config files
 	cmsDriver.py Configuration/GenProduction/python/${PREFIX}_${MINCUT}_10TeV_cff.py \
-		-s GEN:ProductionFilterSequence --eventcontent RAWSIM --datatier GEN --mc \
-		--conditions $CONDITION -n 1000 --no_exec
+		-s GEN:ProductionFilterSequence \
+		--mc --eventcontent RAWSIM --datatier GEN \
+		--conditions $CONDITION --no_exec -n 1000
+	# GEN-HLT config files
+	cmsDriver.py Configuration/GenProduction/python/${PREFIX}_${MINCUT}_10TeV_cff.py \
+		-s GEN:ProductionFilterSequence,SIM,DIGI,L1,DIGI2RAW,HLT:1E31 \
+		--mc --eventcontent RAWSIM --datatier GEN-SIM-RAW \
+		--conditions $CONDITION --no_exec -n 10
 done
