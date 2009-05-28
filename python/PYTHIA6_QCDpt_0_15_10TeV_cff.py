@@ -28,6 +28,15 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
 
     )
 )
+pthat_filter = cms.EDFilter("MCProcessFilter",
+    MaxPthat = cms.untracked.vdouble(15., 15.0, 15.0, 15.0, 15.0,
+        15.0),
+    ProcessID = cms.untracked.vint32(11, 12, 13, 68, 28,
+        53),
+    MinPthat = cms.untracked.vdouble(0.0, 0.0, 0.0, 0.0, 0.0,
+        0.0)
+)
+
 configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.1 $'),
     name = cms.untracked.string
@@ -35,4 +44,4 @@ configurationMetadata = cms.untracked.PSet(
     annotation = cms.untracked.string('QCDpt-0-15 at 10TeV')
 )
 
-ProductionFilterSequence = cms.Sequence(generator)
+ProductionFilterSequence = cms.Sequence(generator*pthat_filter)
