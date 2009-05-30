@@ -11,11 +11,12 @@ from Configuration.GenProduction.PythiaUESettings_cfi import *
 source = cms.Source("EmptySource")
 generator = cms.EDFilter("Pythia6GeneratorFilter",
 	comEnergy = cms.double(10000.0),
-	crossSection = cms.untracked.double(6.256287713e+04),
+	crossSection = cms.untracked.double(6.2508776856e+04),
 	filterEfficiency = cms.untracked.double(1.0000),
 	maxEventsToPrint = cms.untracked.int32(0),
 	pythiaHepMCVerbosity = cms.untracked.bool(False),
 	pythiaPylistVerbosity = cms.untracked.int32(0),
+
 	PythiaParameters = cms.PSet(
 		pythiaUESettingsBlock,
 		processParameters = cms.vstring(

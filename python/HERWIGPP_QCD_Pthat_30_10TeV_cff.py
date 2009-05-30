@@ -27,10 +27,10 @@ generator = cms.EDFilter("ThePEGGeneratorFilter",
 
 		'cd /',
 		'set /Herwig/Cuts/JetKtCut:MinKT 30*GeV',
-		'set /Herwig/UnderlyingEvent/MPIHandler:Algorithm 1',
+		'set /Herwig/UnderlyingEvent/MPIHandler:IdenticalToUE 0',
 	),
 
-	crossSection = cms.untracked.double(1.1174600e+08),
+	crossSection = cms.untracked.double(1.1173461704e+08),
 	filterEfficiency = cms.untracked.double(1.0),
 )
 
