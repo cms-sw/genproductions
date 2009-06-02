@@ -16,8 +16,8 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
         pythiaUESettingsBlock,
 processParameters = cms.vstring(
             'MSEL=10',
-            'CKIN(3)=500  ! minimum pt hat for hard interactions',
-	    'CKIN(4)=inf  ! maximum pt hat for hard interactions'),
+            'CKIN(3)=500  ! minimum pt hat for hard interactions'),
+#	    'CKIN(4)=inf  ! maximum pt hat for hard interactions'),
    # This is a vector of ParameterSet names to be read, in this order
         parameterSets = cms.vstring('pythiaUESettings', 
             'processParameters')
