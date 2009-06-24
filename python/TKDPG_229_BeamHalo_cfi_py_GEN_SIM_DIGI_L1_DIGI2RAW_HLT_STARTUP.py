@@ -14,7 +14,7 @@ process.load('Configuration/StandardSequences/MixingNoPileUp_cff')
 process.load('Configuration/StandardSequences/GeometryPilot2_cff')
 process.load('Configuration/StandardSequences/MagneticField_38T_cff')
 process.load('Configuration/StandardSequences/Generator_cff')
-process.load('Configuration/StandardSequences/VtxSmearedEarly10TeVCollision_cff')
+process.load('Configuration/StandardSequences/VtxSmearedGauss_cff')
 process.load('Configuration/StandardSequences/Sim_cff')
 process.load('Configuration/StandardSequences/Digi_cff')
 process.load('L1Trigger/Configuration/SimL1Emulator_cff')
@@ -38,7 +38,7 @@ process.psim = cms.Sequence(cms.SequencePlaceholder("randomEngineStateProducer")
 
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.99.2.8 $'),
+    version = cms.untracked.string('$Revision: 1.2 $'),
     annotation = cms.untracked.string('Configuration/Generator/python/BeamHalo_cfi.py nevts:10'),
     name = cms.untracked.string('TKDPG BH Muons samples')
 )
