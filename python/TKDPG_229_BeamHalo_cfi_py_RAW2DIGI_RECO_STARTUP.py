@@ -24,13 +24,14 @@ process.myeventcontent = cms.PSet(
          'keep *_mergedtruth_MergedTrackTruth_*',
 	 'keep *_simSiPixelDigis_*_*',
          'keep *_simSiStripDigis_*_*',
-	 'keep *_siStripClusters_*_*'
+	 'keep *_siStripClusters_*_*',
+	 'keep *_siPixelClusters_*_*'
 	 	 	 )
  ) 
 process.RecoTrackerRECO.outputCommands.extend(process.myeventcontent.outputCommands)
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.99.2.8 $'),
+    version = cms.untracked.string('$Revision: 1.1 $'),
     annotation = cms.untracked.string('Configuration/Generator/python/BeamHalo_cfi.py nevts:-1'),
     name = cms.untracked.string('TKDPG BH Muons sample')
 )
@@ -42,7 +43,7 @@ process.options = cms.untracked.PSet(
 )
 # Input source
 process.source = cms.Source("PoolSource",
-    fileNames = cms.untracked.vstring('BeamHalo_cfi_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT.root')
+    fileNames = cms.untracked.vstring('file:BeamHalo_cfi_py_GEN_SIM_DIGI_L1_DIGI2RAW_HLT.root')
 )
 
 # Output definition
