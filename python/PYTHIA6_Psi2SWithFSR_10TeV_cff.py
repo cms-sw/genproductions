@@ -1,8 +1,8 @@
 import FWCore.ParameterSet.Config as cms
 
 configurationMetadata = cms.untracked.PSet(
-        version = cms.untracked.string('$Revision: 1.6 $'),
-        name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Attic/PYTHIA6_Psi2S_10TeV_cff.py,v $'),
+        version = cms.untracked.string('$Revision: 1.1 $'),
+        name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_Psi2SWithFSR_10TeV_cff.py,v $'),
         annotation = cms.untracked.string('Summer09: Pythia6 generation of prompt Psi2S, 10TeV, D6T tune')
 )
 
@@ -27,7 +27,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
              particle_property_file = cms.FileInPath('GeneratorInterface/ExternalDecays/data/evt.pdl'),
              user_decay_file = cms.FileInPath('GeneratorInterface/ExternalDecays/data/Onia_mumu.dec'),
              # user_decay_file = cms.FileInPath('GeneratorInterface/ExternalDecays/data/incl_BtoJpsi_mumu.dec'),
-             LIST_FORCED_DECAYS = CMs.vstring('Mypsi(2S)'),
+             LIST_FORCED_DECAYS = cms.vstring('Mypsi(2S)'),
              ),
         parameterSets = cms.vstring('EvtGen')
     ),                             
