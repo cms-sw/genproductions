@@ -27,6 +27,7 @@ generator = cms.EDFilter("ThePEGGeneratorFilter",
 
 		'cd /',
 		'set /Herwig/Cuts/JetKtCut:MinKT 2200*GeV',
+		'set /Herwig/Cuts/QCDCuts:MHatMin 0.0*GeV',
 		'set /Herwig/UnderlyingEvent/MPIHandler:IdenticalToUE 0',
 	),
 
