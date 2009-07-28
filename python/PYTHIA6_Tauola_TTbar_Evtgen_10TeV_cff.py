@@ -10,7 +10,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
     pythiaPylistVerbosity = cms.untracked.int32(1),
     filterEfficiency = cms.untracked.double(1.0),
     comEnergy = cms.double(10000.0),
-    crossSection = cms.untracked.double(55000000000.),
+    crossSection = cms.untracked.double(242.8),
     ExternalDecays = cms.PSet(
         Tauola = cms.untracked.PSet(
             TauolaPolar,
@@ -48,7 +48,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
 ProductionFilterSequence = cms.Sequence(generator)
 
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.1 $'),
+    version = cms.untracked.string('$Revision: 1.2 $'),
     name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_Tauola_TTbar_Evtgen_10TeV_cff.py,v $'),
     annotation = cms.untracked.string('PYTHIA6-MinBias with TAUOLA + EVTGEN at 10TeV')
 )
