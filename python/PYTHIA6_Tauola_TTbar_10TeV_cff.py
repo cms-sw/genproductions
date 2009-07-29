@@ -25,7 +25,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
             'MSUB(81)  = 1     ! qqbar to QQbar',
             'MSUB(82)  = 1     ! gg to QQbar',
             'MSTP(7)   = 6     ! flavor = top',
-            'PMAS(6,1) = 173.1  ! top quark mass'),
+            'PMAS(6,1) = 172.5  ! top quark mass'),
         # This is a vector of ParameterSet names to be read, in this order
         parameterSets = cms.vstring('pythiaUESettings', 
             'processParameters')
@@ -35,7 +35,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
 ProductionFilterSequence = cms.Sequence(generator)
 
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.6 $'),
+    version = cms.untracked.string('$Revision: 1.7 $'),
     name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_Tauola_TTbar_10TeV_cff.py,v $'),
     annotation = cms.untracked.string('PYTHIA6-MinBias with TAUOLA at 10TeV')
 )
