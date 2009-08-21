@@ -1,7 +1,7 @@
 import FWCore.ParameterSet.Config as cms
 
 configurationMetadata = cms.untracked.PSet(
-	version = cms.untracked.string('$Revision: 1.2 $'),
+	version = cms.untracked.string('$Revision: 1.3 $'),
 	name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_QCDpt_0_15_7TeV_cff.py,v $'),
 	annotation = cms.untracked.string('Summer09: Pythia6 generation of QCD events, 7TeV, D6T tune, pthat = 0 .. 15 GeV')
 )
@@ -12,7 +12,7 @@ source = cms.Source("EmptySource")
 generator = cms.EDFilter("Pythia6GeneratorFilter",
 	comEnergy = cms.double(7000.0),
 	crossSection = cms.untracked.double(4.84450e+10),
-	filterEfficiency = cms.untracked.double(0.95),
+	filterEfficiency = cms.untracked.double(0.981),
 	maxEventsToPrint = cms.untracked.int32(0),
 	pythiaHepMCVerbosity = cms.untracked.bool(False),
 	pythiaPylistVerbosity = cms.untracked.int32(0),
