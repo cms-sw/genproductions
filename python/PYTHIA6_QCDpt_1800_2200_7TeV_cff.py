@@ -22,7 +22,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
 		processParameters = cms.vstring(
 			'MSEL=1   ! QCD hight pT processes',
 			'CKIN(3)=1800  ! minimum pt hat for hard interactions',
-            'CKIN(4)=2200  ! minimum pt hat for hard interactions',
+			'CKIN(4)=2200  ! maximum pt hat for hard interactions',
 		),
 		parameterSets = cms.vstring(
 			'pythiaUESettings',
