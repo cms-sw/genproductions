@@ -9,7 +9,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
     pythiaPylistVerbosity = cms.untracked.int32(0),
     filterEfficiency = cms.untracked.double(1.),
     comEnergy = cms.double(7000.0),
-    crossSection = cms.untracked.double(2.8),
+    crossSection = cms.untracked.double(28),
     PythiaParameters = cms.PSet(
         pythiaUESettingsBlock,
         processParameters = cms.vstring('MSEL        = 0    !User defined processes', 
@@ -23,8 +23,8 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
 ProductionFilterSequence = cms.Sequence(generator)
 
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.5 $'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Attic/PYTHIA6_EWK_WW_7TeV_cff.py,v $'),
+    version = cms.untracked.string('$Revision: 1.1 $'),
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_EWK_WW_7TeV_cff.py,v $'),
     annotation = cms.untracked.string('PYTHIA6-EWK WW at 7TeV')
 )
 
