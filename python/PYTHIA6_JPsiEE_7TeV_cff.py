@@ -8,7 +8,7 @@ source = cms.Source('EmptySource')
 from Configuration.GenProduction.PythiaUESettings_cfi import *
 generator = cms.EDFilter('Pythia6GeneratorFilter',   
     pythiaPylistVerbosity = cms.untracked.int32(0),
-    crossSection = cms.untracked.double(226000000.0),                     
+    crossSection = cms.untracked.double(13420000.0),                     
     filterEfficiency = cms.untracked.double(0.00285),   
     pythiaHepMCVerbosity = cms.untracked.bool(False),   
     comEnergy = cms.double(7000.0),   
