@@ -41,9 +41,10 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
 
 ProductionFilterSequence = cms.Sequence(generator)
 
+
 configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.1 $'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_TTbar_Evtgen_7TeV_cff.py,v $'),
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_TTbar_7TeV_cff.py,v $'),
     annotation = cms.untracked.string('PYTHIA6-TTbar with EVTGEN at 7TeV')
 )
 
