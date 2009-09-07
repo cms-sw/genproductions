@@ -26,7 +26,7 @@ process.load('Configuration/StandardSequences/FrontierConditions_GlobalTag_cff')
 process.load('Configuration/EventContent/EventContent_cff')
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.138 $'),
+    version = cms.untracked.string('$Revision: 1.1 $'),
     annotation = cms.untracked.string('SingleMuPt100_cfi nevts:1000'),
     name = cms.untracked.string('PyReleaseValidation')
 )
@@ -57,7 +57,7 @@ process.output = cms.OutputModule("PoolOutputModule",
 # Additional output definition
 
 # Other statements
-process.GlobalTag.globaltag = 'MC_31X_V5::All'
+process.GlobalTag.globaltag = 'MC_31X_V8::All'
 process.generator = cms.EDProducer("FlatRandomOneOverPtGunProducer",
                                    PGunParameters = cms.PSet(
     PartID = cms.vint32(13),
