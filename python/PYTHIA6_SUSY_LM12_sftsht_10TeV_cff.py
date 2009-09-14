@@ -8,7 +8,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
     maxEventsToPrint = cms.untracked.int32(0),
     pythiaPylistVerbosity = cms.untracked.int32(1),
     filterEfficiency = cms.untracked.double(1.0),
-    crossSection = cms.untracked.double(14.09),
+    crossSection = cms.untracked.double(7.90),
     comEnergy = cms.double(10000.0),
     PythiaParameters = cms.PSet(
         pythiaUESettingsBlock,
@@ -26,7 +26,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
 )
 
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.11 $'),
+    version = cms.untracked.string('$Revision: 1.1 $'),
     name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_SUSY_LM12_sftsht_10TeV_cff.py,v $'),
     annotation = cms.untracked.string('PYTHIA6_SUSY_LM12_sftsht at 10TeV')
 )
