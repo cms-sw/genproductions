@@ -1,10 +1,5 @@
 import FWCore.ParameterSet.Config as cms
 
-source = cms.Source("MCDBSource",
-        articleID = cms.uint32(327),
-        supportedProtocols = cms.untracked.vstring('rfio')
-        #filter = cms.untracked.string('\\.lhe$')
-)
 
 from Configuration.Generator.PythiaUESettings_cfi import *
 
