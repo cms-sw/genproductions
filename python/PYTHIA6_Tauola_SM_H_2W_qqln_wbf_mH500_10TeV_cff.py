@@ -59,7 +59,8 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
             'MDME(223,1)=0           !Higgs decay into gam gam', 
             'MDME(224,1)=0           !Higgs decay into gam Z', 
             'MDME(225,1)=0           !Higgs decay into Z Z', 
-            'MDME(226,1)=1           !Higgs decay into W W'),
+            'MDME(226,1)=1           !Higgs decay into W W',
+	    'CKIN(3)=50  ! minimum pt hat for hard interactions'),
         # This is a vector of ParameterSet names to be read, in this order
         parameterSets = cms.vstring('pythiaUESettings', 
             'processParameters')
