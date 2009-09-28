@@ -22,9 +22,9 @@ process.load('RecoTracker/Configuration/RecoTrackerBHM_cff')
 process.load('RecoTracker/Configuration/RecoTrackerBHM_EventContent_cff')
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.123 $'),
+    version = cms.untracked.string('$Revision: 1.1 $'),
     annotation = cms.untracked.string('BeamHalo_cfi_py_RAW2DIGI_RECO_STARTUP31X nevts:-1'),
-    name = cms.untracked.string('PyReleaseValidation')
+    name = cms.untracked.string('TKDPG BeamHalo Production (BSC Selection)')
 )
 process.maxEvents = cms.untracked.PSet(
     input = cms.untracked.int32(-1)
