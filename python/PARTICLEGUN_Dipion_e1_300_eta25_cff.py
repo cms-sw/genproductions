@@ -1,6 +1,7 @@
 import FWCore.ParameterSet.Config as cms
 
 source = cms.Source("EmptySource")
+from Configuration.GenProduction.PythiaUESettings_cfi import *
 
 generator = cms.EDProducer("FlatRandomEGunProducer",
     PGunParameters = cms.PSet(
@@ -17,22 +18,14 @@ generator = cms.EDProducer("FlatRandomEGunProducer",
     AddAntiParticle = cms.bool(True) 
 )
 
-VtxSmeared = cms.EDFilter("GaussEvtVtxGenerator",
-    MeanX = cms.double(0.0),
-    MeanY = cms.double(0.0),
-    MeanZ = cms.double(0.0),
-    SigmaY = cms.double(0.0001),
-    SigmaX = cms.double(0.0001),
-    SigmaZ = cms.double(0.0001),
-    TimeOffset = cms.double(0.0),
-    src = cms.InputTag("generator")
-)
+
 
 # enter below the configuration metadata (only a description is needed, the rest is filled in by cvs)
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.0 $'),
-    name = cms.untracked.string('$Source: /local/projects/CMSSW/rep/CMSSW/Configuration/GenProduction/python/Attic/PARTICLEGUN_Dipion_e1_300_eta25_cff.py,v $'),
+    version = cms.untracked.string('$Revision: 1.1 $'),
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PARTICLEGUN_Dipion_e1_300_eta25_cff.py,v $'),
     annotation = cms.untracked.string('di-pions of 1-300 GeV randomly distributed in the Tracker acceptance')
-)
+) 
+ProductionFilterSequence = cms.Sequence(generator)
 
 
