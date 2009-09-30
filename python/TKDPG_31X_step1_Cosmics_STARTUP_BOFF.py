@@ -26,7 +26,7 @@ process.load('Configuration/StandardSequences/FrontierConditions_GlobalTag_cff')
 process.load('Configuration/EventContent/EventContentCosmics_cff')
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.123 $'),
+    version = cms.untracked.string('$Revision: 1.1 $'),
     annotation = cms.untracked.string('Tkcosmics_cfi.py nevts:1000'),
     name = cms.untracked.string('Simulation of cosmic muons in Tracker with B field OFF')
 )
@@ -38,6 +38,11 @@ process.options = cms.untracked.PSet(
 )
 # Input source
 process.source = cms.Source("EmptySource")
+# supress warning message
+process.SteppingHelixPropagatorAny.SetVBFPointer = True
+process.SteppingHelixPropagatorAlong.SetVBFPointer = True
+process.SteppingHelixPropagatorOpposite.SetVBFPointer = True
+process.VolumeBasedMagneticFieldESProducer.label = 'VolumeBasedMagneticField'
 
 # Output definition
 process.output = cms.OutputModule("PoolOutputModule",
