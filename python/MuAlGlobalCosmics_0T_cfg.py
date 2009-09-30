@@ -19,9 +19,9 @@ process.load('Configuration/StandardSequences/FrontierConditions_GlobalTag_cff')
 process.load('Configuration/EventContent/EventContentCosmics_cff')
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.123 $'),
+    version = cms.untracked.string('$Revision: 1.1 $'),
     annotation = cms.untracked.string('step3 nevts:1'),
-    name = cms.untracked.string('PyReleaseValidation')
+    name = cms.untracked.string('step3 MuAlGlobalCosmics')
 )
 process.maxEvents = cms.untracked.PSet(
     input = cms.untracked.int32(-1)
@@ -30,10 +30,9 @@ process.options = cms.untracked.PSet(
     Rethrow = cms.untracked.vstring('ProductNotFound')
 )
 # Input source
-#process.source = cms.Source("PoolSource",
-#    fileNames = cms.untracked.vstring('step3_RECO.root')
-#)
-process.load('inputCosm_cff')
+process.source = cms.Source("PoolSource",
+    fileNames = cms.untracked.vstring('step3_RECO.root')
+)
 
 # Additional output definition
 process.ALCARECOStreamMuAlGlobalCosmics = cms.OutputModule("PoolOutputModule",
