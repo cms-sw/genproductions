@@ -1,21 +1,18 @@
 import FWCore.ParameterSet.Config as cms
 
+from Configuration.GenProduction.HerwigUESettings_cfi import *
 
 source = cms.Source("EmptySource")
 
 generator = cms.EDFilter("Herwig6GeneratorFilter",
     HerwigParameters = cms.PSet(
+        herwigUESettingsBlock,
         herwigQCDjets = cms.vstring(
             'IPROC      = 1500       ! QCD 2->2 processes', 
-            'PTMIN      = 30.       ! minimum pt in hadronic jet',
-            'MODPDF(1)  = 10041      ! PDF set according to LHAGLUE', 
-            'MODPDF(2)  = 10041      ! CTEQ6L', 
-            'JMUEO      = 1          ! multiparton interaction model',
-            'PTJIM      = 4.449      ! 2.8x(sqrt(s)/1.8TeV)^0.27 @ 10 TeV',
-            'JMRAD(73)  = 1.8        ! inverse proton radius squared',
-            'PRSOF      = 0.0        ! prob. of a soft underlying event',
-            'MAXER      = 1000000    ! max error'),
-        parameterSets = cms.vstring('herwigQCDjets')
+            'PTMIN      = 30.       ! minimum pt in hadronic jet'),
+            parameterSets = cms.vstring(
+                'herwigUESettings',
+		'herwigQCDjets')
     ),
     doMPInteraction = cms.bool(True),
     useJimmy = cms.bool(True),
