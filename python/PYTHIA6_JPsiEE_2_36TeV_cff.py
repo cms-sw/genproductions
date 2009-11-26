@@ -9,7 +9,7 @@ from Configuration.GenProduction.PythiaUESettings_cfi import *
 generator = cms.EDFilter('Pythia6GeneratorFilter',   
     pythiaPylistVerbosity = cms.untracked.int32(0),
     crossSection = cms.untracked.double(5790000),                     
-    filterEfficiency = cms.untracked.double(0.013),   
+    filterEfficiency = cms.untracked.double(0.089),   
     pythiaHepMCVerbosity = cms.untracked.bool(False),   
     comEnergy = cms.double(2360.0),   
     maxEventsToPrint = cms.untracked.int32(0),   
@@ -116,7 +116,7 @@ elelgenfilter = cms.EDFilter('MCParticlePairFilter',
     ParticleID1 = cms.untracked.vint32(11),
     ParticleID2 = cms.untracked.vint32(11),
     Status = cms.untracked.vint32(1, 1),
-    MinPt = cms.untracked.vdouble(2.0, 2.0),
+    MinPt = cms.untracked.vdouble(1.0, 1.0),
     MaxEta = cms.untracked.vdouble(2.5, 2.5),
     MinEta = cms.untracked.vdouble(-2.5, -2.5)
 )
