@@ -1,5 +1,6 @@
 import FWCore.ParameterSet.Config as cms
 
+source = cms.Source("EmptySource")
 
 from Configuration.GenProduction.PythiaUESettings_cfi import *
 generator = cms.EDFilter("Pythia6GeneratorFilter",
@@ -8,10 +9,10 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
     pythiaPylistVerbosity = cms.untracked.int32(0),
     filterEfficiency = cms.untracked.double(0.5),
     comEnergy = cms.double(7000.0),
-    crossSection = cms.untracked.double(0.11),
+    crossSection = cms.untracked.double(0.023),
     PythiaParameters = cms.PSet(
         pythiaUESettingsBlock,
-        processParameters = cms.vstring('PMAS(42,1)=400.0        ! LQ mass', 
+        processParameters = cms.vstring('PMAS(42,1)=500.0        ! LQ mass', 
             'IMSS(21)=33             ! LUN number for SLHA File (must be 33)', 
             'IMSS(22)=33             ! Read-in SLHA decay table', 
             'MDCY(C111,1)=0          ! ', 
@@ -25,7 +26,6 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
         SLHAParameters = cms.vstring('SLHAFILE = UserCode/Leptoquarks/LQGenFilter/data/LQ_uednue_beta0.5.out')
     )
 )
-
 #munumujjFilter = cms.EDFilter("LQGenFilter",
 #    src        = cms.untracked.InputTag("generator"),
 #    eejj       = cms.bool(False),

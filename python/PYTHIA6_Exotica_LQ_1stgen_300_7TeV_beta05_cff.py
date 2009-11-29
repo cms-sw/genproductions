@@ -10,7 +10,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
     pythiaPylistVerbosity = cms.untracked.int32(0),
     filterEfficiency = cms.untracked.double(0.5),
     comEnergy = cms.double(7000.0),
-    crossSection = cms.untracked.double(2.191),
+    crossSection = cms.untracked.double(0.64),
     PythiaParameters = cms.PSet(
         pythiaUESettingsBlock,
         processParameters = cms.vstring('PMAS(42,1)=300.0        ! LQ mass', 
@@ -28,4 +28,13 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
     )
 )
 
-ProductionFilterSequence = cms.Sequence(generator)
+munumujjFilter = cms.EDFilter("LQGenFilter",
+    src        = cms.untracked.InputTag("generator"),
+    eejj       = cms.bool(False),
+    enuejj     = cms.bool(False),
+    nuenuejj   = cms.bool(False),
+    mumujj     = cms.bool(False),
+    munumujj   = cms.bool(True),
+    numunumujj = cms.bool(False)
+)
+ProductionFilterSequence = cms.Sequence(generator*munumujjFilter)
