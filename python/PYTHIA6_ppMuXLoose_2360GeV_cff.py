@@ -32,14 +32,14 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
 )
 
 mugenfilter = cms.EDFilter("MCSmartSingleParticleFilter",
-    Status = cms.untracked.vint32(     1,    1,   1,   1,   1,    1,     1,    1,    1,    1),
-    ParticleID = cms.untracked.vint32(13,  -13,  13,  -13,  13,  -13,   13,  -13,   13,  -13),
-    MinPt = cms.untracked.vdouble(    0.4, 0.4,  0.4,  0.4, 1.0, 1.0,  1.0,  1.0,  1.5,  1.5),
-    MaxEta = cms.untracked.vdouble(   2.5, 2.5, -1.7, -1.7, 1.7, 1.7, -1.2, -1.2,  1.2,  1.2),
-    MinEta = cms.untracked.vdouble(   1.7, 1.7, -2.5, -2.5, 1.2, 1.2, -1.7, -1.7, -1.2, -1.2),
-    MaxDecayRadius = cms.untracked.vdouble(2000.0, 2000.0, 2000.0, 2000.0, 2000.0, 2000.0, 2000.0, 2000.0, 2000.0, 2000.0),
-    MaxDecayZ = cms.untracked.vdouble(4000.0, 4000.0, 4000.0, 4000.0, 4000.0, 4000.0, 4000.0, 4000.0, 4000.0, 4000.0, 4000.0, 4000.0),
-    MinDecayZ = cms.untracked.vdouble(-4000.0, -4000.0, -4000.0, -4000.0, -4000.0, -4000.0, -4000.0, -4000.0, -4000.0, -4000.0, -4000.0, -4000.0)
+    Status = cms.untracked.vint32(     1,    1,    1,   1,    1,   1,    1,    1,   1,   1,    1,    1,    1,    1),
+    ParticleID = cms.untracked.vint32(13,  -13,   13,  -13,  13, -13,   13,  -13,  13, -13,   13,  -13,   13,  -13),
+    MinPt = cms.untracked.vdouble(    0.5, 0.5,  0.5,  0.5, 1.0, 1.0,  1.0,  1.0, 2.0, 2.0,  2.0,  2.0,  3.0,  3.0),
+    MinEta = cms.untracked.vdouble(   1.6, 1.6, -2.5, -2.5, 1.2, 1.2, -1.6, -1.6, 0.9, 0.9, -1.2, -1.2, -0.9, -0.9),
+    MaxEta = cms.untracked.vdouble(   2.5, 2.5, -1.6, -1.6, 1.6, 1.6, -1.2, -1.2, 1.2, 1.2, -0.9, -0.9,  0.9,  0.9),
+    MaxDecayRadius = cms.untracked.vdouble(2000.0,2000.0,2000.0,2000.0, 2000.0,2000.0,2000.0,2000.0, 2000.0,2000.0,2000.0,2000.0, 2000.0,2000.0),
+    MaxDecayZ = cms.untracked.vdouble(4000.0,4000.0,4000.0,4000.0, 4000.0,4000.0,4000.0,4000.0, 4000.0,4000.0,4000.0,4000.0, 4000.0,4000.0),
+    MinDecayZ = cms.untracked.vdouble(-4000.0,-4000.0,-4000.0,-4000.0, -4000.0,-4000.0,-4000.0,-4000.0, -4000.0,-4000.0,-4000.0,-4000.0, -4000.0,-4000.0)
 )
 
 ProductionFilterSequence = cms.Sequence(generator*mugenfilter)
