@@ -27,7 +27,7 @@ process.load('Configuration.EventContent.EventContent_cff')
 process.configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.1 $'),
     annotation = cms.untracked.string('PYTHIA6-MinBias at 2200GeV'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_MinBias_2360GeV_cff.py,v $')
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_MinBias_2360GeV_Summer09-STARTUP3X_V8L_2360GeV.py,v $')
 )
 process.maxEvents = cms.untracked.PSet(
     input = cms.untracked.int32(10)
@@ -134,12 +134,12 @@ process.ProductionFilterSequence = cms.Sequence(process.generator)
 from IOMC.EventVertexGenerators.VtxSmearedParameters_cfi import *
 process.VtxSmeared = cms.EDFilter("GaussEvtVtxGenerator",
     VtxSmearedCommon,                                                  
-    MeanX = cms.double(0.174562),                              
-    MeanY = cms.double(0.144887),                              
-    MeanZ = cms.double(0.),                              
+    MeanX = cms.double(0.201),                              
+    MeanY = cms.double(0.164),                              
+    MeanZ = cms.double(-0.46),                              
     SigmaY = cms.double(0.04),                                 
     SigmaX = cms.double(0.04),                                 
-    SigmaZ = cms.double(4.51152),                              
+    SigmaZ = cms.double(2.67),                              
     TimeOffset = cms.double(0.0)                               
 )                                                          
 
