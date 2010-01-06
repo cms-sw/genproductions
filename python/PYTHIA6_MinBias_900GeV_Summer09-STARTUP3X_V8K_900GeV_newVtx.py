@@ -25,9 +25,9 @@ process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 process.load('Configuration.EventContent.EventContent_cff')
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.2 $'),
+    version = cms.untracked.string('$Revision: 1.1 $'),
     annotation = cms.untracked.string('PYTHIA6-MinBias at 900GeV'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_MinBias_900GeV_Summer09-STARTUP3X_V8K_900GeV.py,v $')
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_MinBias_900GeV_Summer09-STARTUP3X_V8K_900GeV_newVtx.py,v $')
 )
 process.maxEvents = cms.untracked.PSet(
     input = cms.untracked.int32(10)
@@ -133,16 +133,17 @@ process.ProductionFilterSequence = cms.Sequence(process.generator)
 
 from IOMC.EventVertexGenerators.VtxSmearedParameters_cfi import *
 process.VtxSmeared = cms.EDFilter("BetafuncEvtVtxGenerator",
-    VtxSmearedCommon,                                                  
-    MeanX = cms.double(0.1936),                              
-    MeanY = cms.double(0.168),                              
-    MeanZ = cms.double(-0.29),                              
-    SigmaY = cms.double(0.04),                                 
-    SigmaX = cms.double(0.04),                                 
-    SigmaZ = cms.double(4.51152),                              
-    TimeOffset = cms.double(0.0)                               
-)                                                          
-
+    VtxSmearedCommon,
+    Phi = cms.double(0.0),
+    BetaStar = cms.double(1100.0),
+    Emittance = cms.double(7.82e-07),
+    Alpha = cms.double(0.0),
+    SigmaZ = cms.double(4.51152),
+    TimeOffset = cms.double(0.0),
+    Y0 = cms.double(0.029),
+    X0 = cms.double(0.1066),
+    Z0 = cms.double(-0.63)
+)
 
 # Path and EndPath definitions
 process.generation_step = cms.Path(process.pgen)
