@@ -25,7 +25,7 @@ process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 process.load('Configuration.EventContent.EventContent_cff')
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.2 $'),
+    version = cms.untracked.string('$Revision: 1.3 $'),
     annotation = cms.untracked.string('PYTHIA6-MinBias at 900GeV'),
     name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_MinBias_900GeV_Summer09-STARTUP3X_V8K_900GeV_newVtx.py,v $')
 )
@@ -140,8 +140,8 @@ process.VtxSmeared = cms.EDFilter("BetafuncEvtVtxGenerator",
     Alpha = cms.double(0.0),
     SigmaZ = cms.double(3.91833),
     TimeOffset = cms.double(0.0),
-    Y0 = cms.double(0.2542),
-    X0 = cms.double(0.4082),
+    X0 = cms.double(0.2542),
+    Y0 = cms.double(0.4082),
     Z0 = cms.double(-0.6569)
 )
 
