@@ -25,7 +25,7 @@ process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 process.load('Configuration.EventContent.EventContent_cff')
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.4 $'),
+    version = cms.untracked.string('$Revision: 1.1 $'),
     annotation = cms.untracked.string('PYTHIA6-MinBias at 900GeV'),
     name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_MinBias_900GeV_Summer09-STARTUP3X_V8N_900GeV.py,v $')
 )
@@ -175,13 +175,6 @@ def customise(process):
 
     process.EcalTrigPrimESProducer.DatabaseFile = cms.untracked.string('TPG_beamv0_MC.txt.gz')
     
-    # ECAL SRP settings for 2009 beam commissioning
-
-    process.simEcalDigis.ecalDccZs1stSample = cms.int32(3)
-    process.simEcalDigis.dccNormalizedWeights = cms.vdouble(-1.1865, 0.0195, 0.2900, 0.3477, 0.3008, 0.2266)
-    process.simEcalDigis.srpBarrelLowInterestChannelZS = cms.double(2.25*.035)
-    process.simEcalDigis.srpEndcapLowInterestChannelZS = cms.double(3.75*0.06)
-
     return(process)
 
 

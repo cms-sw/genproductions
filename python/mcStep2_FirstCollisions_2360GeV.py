@@ -2,7 +2,7 @@
 # using: 
 # Revision: 1.155 
 # Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/PyReleaseValidation/python/ConfigBuilder.py,v 
-# with command line options: step2 -s RAW2DIGI,L1Reco,RECO:reconstruction_withPixellessTk --datatier GEN-SIM-RECO --eventcontent RECOSIM --conditions STARTUP3X_V8L::All --no_exec
+# with command line options: step2 -s RAW2DIGI,L1Reco,RECO:reconstruction_withPixellessTk --datatier GEN-SIM-RECO --eventcontent RECOSIM --conditions STARTUP3X_V8K::All --no_exec
 import FWCore.ParameterSet.Config as cms
 
 process = cms.Process('RECO')
@@ -21,7 +21,7 @@ process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 process.load('Configuration.EventContent.EventContent_cff')
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.1 $'),
+    version = cms.untracked.string('$Revision: 1.4 $'),
     annotation = cms.untracked.string('step2 nevts:1'),
     name = cms.untracked.string('PyReleaseValidation')
 )
@@ -85,6 +85,11 @@ process.secTriplets.ClusterCheckPSet.MaxNumberOfPixelClusters=1000
 process.fifthSeeds.ClusterCheckPSet.MaxNumberOfCosmicClusters = 5000
 process.fourthPLSeeds.ClusterCheckPSet.MaxNumberOfCosmicClusters=10000
 
+process.dedxTruncated40.UsePixel = cms.bool(False)
+process.dedxMedian.UsePixel = cms.bool(False)
+process.dedxHarmonic2.UsePixel = cms.bool(False)
+
+
 ## Primary Vertex
 process.offlinePrimaryVerticesWithBS.PVSelParameters.maxDistanceToBeam = 2
 process.offlinePrimaryVerticesWithBS.TkFilterParameters.maxNormalizedChi2 = 20
@@ -101,29 +106,14 @@ process.offlinePrimaryVertices.TkClusParameters.zSeparation = 10
 
 ## ECAL
 process.load('RecoLocalCalo.EcalRecProducers.ecalFixedAlphaBetaFitUncalibRecHit_cfi')
-process.ecalLocalRecoSequence.replace(process.ecalGlobalUncalibRecHit,process.ecalFixedAlphaBetaFitUncalibRecHit)
-process.ecalFixedAlphaBetaFitUncalibRecHit.alphaEB = 1.138
-process.ecalFixedAlphaBetaFitUncalibRecHit.betaEB = 1.655
-process.ecalFixedAlphaBetaFitUncalibRecHit.alphaEE = 1.138
-process.ecalFixedAlphaBetaFitUncalibRecHit.betaEE = 1.655
-process.ecalRecHit.EBuncalibRecHitCollection = 'ecalFixedAlphaBetaFitUncalibRecHit:EcalUncalibRecHitsEB'
-process.ecalRecHit.EEuncalibRecHitCollection = 'ecalFixedAlphaBetaFitUncalibRecHit:EcalUncalibRecHitsEE'
 process.ecalRecHit.ChannelStatusToBeExcluded = [ 1, 2, 3, 4, 8, 9, 10, 11, 12, 13, 14, 78, 142 ]
-
-##Preshower
-process.ecalPreshowerRecHit.ESGain = 2
-process.ecalPreshowerRecHit.ESBaseline = 0
-process.ecalPreshowerRecHit.ESMIPADC = 55
 
 ##only for 34X
 #process.ecalPreshowerRecHit.ESRecoAlgo = 1
 
 ## HCAL temporary fixes
-process.hfreco.firstSample  = 3
+process.hfreco.firstSample  = 1
 process.hfreco.samplesToAdd = 4
-
-process.hbhereco.firstSample = 1
-process.hbhereco.samplesToAdd = 8
 
 process.zdcreco.firstSample = 4
 process.zdcreco.samplesToAdd = 3
@@ -162,7 +152,7 @@ process.trackerOnlyConversions.DeltaPhi = cms.double(.2)
 # Additional output definition
 
 # Other statements
-process.GlobalTag.globaltag = 'STARTUP3X_V8L::All'
+process.GlobalTag.globaltag = 'STARTUP3X_V8O::All'
 
 # Path and EndPath definitions
 process.raw2digi_step = cms.Path(process.RawToDigi)
