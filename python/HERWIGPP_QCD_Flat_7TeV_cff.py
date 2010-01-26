@@ -1,8 +1,8 @@
 import FWCore.ParameterSet.Config as cms
 
 configurationMetadata = cms.untracked.PSet(
-	version = cms.untracked.string('$Revision$'),
-	name = cms.untracked.string('$Source$'),
+	version = cms.untracked.string('$Revision: 1.1 $'),
+	name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/HERWIGPP_QCD_Flat_7TeV_cff.py,v $'),
 	annotation = cms.untracked.string('Summer09: Herwig++ generation of QCD events, 7TeV, MRST2001, weighted events')
 )
 
@@ -38,6 +38,6 @@ generator = cms.EDFilter("ThePEGGeneratorFilter",
 		'set /Herwig/UnderlyingEvent/MPIHandler:IdenticalToUE 0',
 	),
 
-	crossSection = cms.untracked.double(8.91912e+08),
+	crossSection = cms.untracked.double(2.22609e+10),
 	filterEfficiency = cms.untracked.double(1.0),
 )
