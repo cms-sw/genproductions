@@ -178,7 +178,7 @@ process.trackerOnlyConversions.DeltaPhi = cms.double(.2)
 # Additional output definition
 
 # Other statements
-process.GlobalTag.globaltag = 'STARTUP3X_V8P::All'
+process.GlobalTag.globaltag = 'STARTUP3X_V8O::All'
 
 # Path and EndPath definitions
 process.raw2digi_step = cms.Path(process.RawToDigi)
