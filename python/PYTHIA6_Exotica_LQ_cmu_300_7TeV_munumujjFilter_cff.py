@@ -23,7 +23,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
         parameterSets = cms.vstring('pythiaUESettings', 
             'processParameters',
             'SLHAParameters'),
-        SLHAParameters = cms.vstring('SLHAFILE = UserCode/Leptoquarks/LQGenFilter/data/LQ_cmusnumu_beta0.5.out')
+        SLHAParameters = cms.vstring('SLHAFILE = LQ_cmusnumu_beta0.5.out')
     )
 )
 
