@@ -1,6 +1,5 @@
 import FWCore.ParameterSet.Config as cms
 
-source = cms.Source("EmptySource")
 
 from Configuration.GenProduction.PythiaUESettings_cfi import *
 generator = cms.EDFilter("Pythia6GeneratorFilter",
