@@ -2,7 +2,7 @@
 # using: 
 # Revision: 1.155 
 # Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/PyReleaseValidation/python/ConfigBuilder.py,v 
-# with command line options: Configuration/GenProduction/python/PYTHIA6_MinBias_2360GeV_cff.py -s GEN,SIM,DIGI,L1,DIGI2RAW,HLT:GRun -n 10 --conditions STARTUP3X_V8L::All --datatier GEN-SIM-RAW --eventcontent RAWSIM --beamspot Early900GeVCollision --no_exec --customise SimCalorimetry/Configuration/SimCalorimetry_EcalSelectiveReadoutProducers_setBeamcom09_cff.py
+# with command line options: Configuration/GenProduction/python/Py6HadFilter_mgmatching_cfg_frag_2360GeV.py -s GEN,SIM,DIGI,L1,DIGI2RAW,HLT:GRun -n 10 --conditions STARTUP3X_V8O::All --datatier GEN-SIM-RAW --eventcontent RAWSIM --beamspot Early900GeVCollision --no_exec --customise SimCalorimetry/Configuration/SimCalorimetry_EcalSelectiveReadoutProducers_setBeamcom09_cff.py
 import FWCore.ParameterSet.Config as cms
 
 process = cms.Process('HLT')
@@ -25,9 +25,9 @@ process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 process.load('Configuration.EventContent.EventContent_cff')
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.2 $'),
-    annotation = cms.untracked.string('PYTHIA6-MinBias at 2200GeV'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_MinBias_2360GeV_Summer09-STARTUP3X_V8O_2360GeV.py,v $')
+    version = cms.untracked.string('$Revision: 1.1 $'),
+    annotation = cms.untracked.string('MadGraph QCD at 2360GeV'),
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/MadGraph_QCD_2360GeV_Summer09-STARTUP3X_V8O_2360GeV.py,v $')
 )
 process.maxEvents = cms.untracked.PSet(
     input = cms.untracked.int32(10)
