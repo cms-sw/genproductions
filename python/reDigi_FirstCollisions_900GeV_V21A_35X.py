@@ -23,7 +23,7 @@ process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 process.load('Configuration.EventContent.EventContent_cff')
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.164 $'),
+    version = cms.untracked.string('$Revision: 1.1 $'),
     annotation = cms.untracked.string('REDIGI nevts:10'),
     name = cms.untracked.string('PyReleaseValidation')
 )
@@ -105,10 +105,6 @@ def customise(process):
     # Signal in Deconvolution Mode
     process.simSiStripDigis.APVpeakmode = cms.bool(True)
     process.simSiStripDigis.electronPerAdc = cms.double(262.0) #this is the value measured in peak... should we add 15%?
-
-    # ECAL TPG with 2009 beam commissioning TTF thresholds
-
-    process.EcalTrigPrimESProducer.DatabaseFile = cms.untracked.string('TPG_beamv0_MC.txt.gz')
 
     return(process)
 
