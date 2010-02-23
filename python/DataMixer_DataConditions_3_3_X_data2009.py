@@ -24,7 +24,7 @@ def customise(process):
         ),                                                                                            
              cms.PSet(                                                                                
         record = cms.string('EcalGainRatiosRcd'),                                                     
-        tag = cms.string('EcalGainRatios_TestPulse2009_offline')                                      
+        tag = cms.string('EcalGainRatio_TestPulse2009_offline')                                      
         ),                                                                                            
              cms.PSet(                                                                                
         record = cms.string('EcalIntercalibConstantsRcd'),                                            
