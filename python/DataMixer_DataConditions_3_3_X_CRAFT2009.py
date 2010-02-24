@@ -133,7 +133,7 @@ def customise(process):
     try: 
         process.ecalRecHit.ChannelStatusToBeExcluded = [ 1, 2, 3, 4, 8, 9, 10, 11, 12, 13, 14, 78, 142 ]  
     except:
-        print "ecalRecHit not loaded"
+#        print "ecalRecHit not loaded"
 
     return(process)
     
