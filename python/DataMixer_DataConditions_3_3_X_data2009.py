@@ -68,72 +68,71 @@ def customise(process):
               authenticationMethod = cms.untracked.uint32(0)                                          
     )                                                                                                 
 
-        process.ecalConditions3 = cms.ESSource("PoolDBESSource",
-                                                process.CondDBSetup,
-                                                timetype = cms.string('runnumber'),
-                                                toGet = cms.VPSet(
-           cms.PSet(
-            record = cms.string('EcalTPGCrystalStatusRcd'),
-            tag = cms.string('EcalTPGCrystalStatus_v2_hlt')
-            ),
-           cms.PSet(
-            record = cms.string('EcalTPGFineGrainEBGroupRcd'),
-            tag = cms.string('EcalTPGFineGrainEBGroup_v2_hlt')
-            ),
-           cms.PSet(
-            record = cms.string('EcalTPGFineGrainEBIdMapRcd'),
-            tag = cms.string('EcalTPGFineGrainEBIdMap_v2_hlt')
-            ),
-           cms.PSet(
-            record = cms.string('EcalTPGFineGrainStripEERcd'),
-            tag = cms.string('EcalTPGFineGrainStripEE_v2_hlt')
-            ),
-           cms.PSet(
-            record = cms.string('EcalTPGFineGrainTowerEERcd'),
-            tag = cms.string('EcalTPGFineGrainTowerEE_v2_hlt')
-            ),
-           cms.PSet(
-            record = cms.string('EcalTPGLinearizationConstRcd'),
-            tag = cms.string('EcalTPGLinearizationConst_v2_hlt')
-            ),
-           cms.PSet(
-            record = cms.string('EcalTPGLutGroupRcd'),
-            tag = cms.string('EcalTPGLutGroup_v2_hlt')
-            ),
-           cms.PSet(
-            record = cms.string('EcalTPGLutIdMapRcd'),
-            tag = cms.string('EcalTPGLutIdMap_v2_hlt')
-            ),
-           cms.PSet(
-            record = cms.string('EcalTPGPedestalsRcd'),
-            tag = cms.string('EcalTPGPedestals_v2_hlt')
-            ),
-           cms.PSet(
-            record = cms.string('EcalTPGPhysicsConstRcd'),
-            tag = cms.string('EcalTPGPhysicsConst_v2_hlt')
-            ),
-           cms.PSet(
-            record = cms.string('EcalTPGSlidingWindowRcd'),
-            tag = cms.string('EcalTPGSlidingWindow_v2_hlt')
-            ),
-           cms.PSet(
-            record = cms.string('EcalTPGTowerStatusRcd'),
-            tag = cms.string('EcalTPGTowerStatus_v2_hlt')
-            ),
-           cms.PSet(
-            record = cms.string('EcalTPGWeightGroupRcd'),
-            tag = cms.string('EcalTPGWeightGroup_v2_hlt')
-            ),
-           cms.PSet(
-            record = cms.string('EcalTPGWeightIdMapRcd'),
-            tag = cms.string('EcalTPGWeightIdMap_v2_hlt')
-            ),
-           ),
-          connect = cms.string('frontier://FrontierProd/CMS_COND_34X_ECAL'),
+    process.ecalConditions3 = cms.ESSource("PoolDBESSource",
+                                           process.CondDBSetup,
+                                           timetype = cms.string('runnumber'),
+                                           toGet = cms.VPSet(
+        cms.PSet(
+        record = cms.string('EcalTPGCrystalStatusRcd'),
+        tag = cms.string('EcalTPGCrystalStatus_v2_hlt')
+        ),
+        cms.PSet(
+        record = cms.string('EcalTPGFineGrainEBGroupRcd'),
+        tag = cms.string('EcalTPGFineGrainEBGroup_v2_hlt')
+        ),
+        cms.PSet(
+        record = cms.string('EcalTPGFineGrainEBIdMapRcd'),
+        tag = cms.string('EcalTPGFineGrainEBIdMap_v2_hlt')
+        ),
+        cms.PSet(
+        record = cms.string('EcalTPGFineGrainStripEERcd'),
+        tag = cms.string('EcalTPGFineGrainStripEE_v2_hlt')
+        ),
+        cms.PSet(
+        record = cms.string('EcalTPGFineGrainTowerEERcd'),
+        tag = cms.string('EcalTPGFineGrainTowerEE_v2_hlt')
+        ),
+        cms.PSet(
+        record = cms.string('EcalTPGLinearizationConstRcd'),
+        tag = cms.string('EcalTPGLinearizationConst_v2_hlt')
+        ),
+        cms.PSet(
+        record = cms.string('EcalTPGLutGroupRcd'),
+        tag = cms.string('EcalTPGLutGroup_v2_hlt')
+        ),
+        cms.PSet(
+        record = cms.string('EcalTPGLutIdMapRcd'),
+        tag = cms.string('EcalTPGLutIdMap_v2_hlt')
+        ),
+        cms.PSet(
+        record = cms.string('EcalTPGPedestalsRcd'),
+        tag = cms.string('EcalTPGPedestals_v2_hlt')
+        ),
+        cms.PSet(
+        record = cms.string('EcalTPGPhysicsConstRcd'),
+        tag = cms.string('EcalTPGPhysicsConst_v2_hlt')
+        ),
+        cms.PSet(
+        record = cms.string('EcalTPGSlidingWindowRcd'),
+        tag = cms.string('EcalTPGSlidingWindow_v2_hlt')
+        ),
+        cms.PSet(
+        record = cms.string('EcalTPGTowerStatusRcd'),
+        tag = cms.string('EcalTPGTowerStatus_v2_hlt')
+        ),
+        cms.PSet(
+        record = cms.string('EcalTPGWeightGroupRcd'),
+        tag = cms.string('EcalTPGWeightGroup_v2_hlt')
+        ),
+        cms.PSet(
+        record = cms.string('EcalTPGWeightIdMapRcd'),
+        tag = cms.string('EcalTPGWeightIdMap_v2_hlt')
+        ),
+        ),
+        connect = cms.string('frontier://FrontierProd/CMS_COND_34X_ECAL'),
                authenticationMethod = cms.untracked.uint32(0)
-        )
+    )
 
-                                                                                                      
     process.es_prefer_ecal1 = cms.ESPrefer("PoolDBESSource","ecalConditions1")                        
     process.es_prefer_ecal2 = cms.ESPrefer("PoolDBESSource","ecalConditions2")                        
     process.es_prefer_ecal3 = cms.ESPrefer("PoolDBESSource","ecalConditions3")
@@ -200,6 +199,6 @@ def customise(process):
     try: 
         process.ecalRecHit.ChannelStatusToBeExcluded = [ 1, 2, 3, 4, 8, 9, 10, 11, 12, 13, 14, 78, 142 ]  
     except:
-        #print "ecalRecHit not loaded"
+        return(process)
  
     return(process)
