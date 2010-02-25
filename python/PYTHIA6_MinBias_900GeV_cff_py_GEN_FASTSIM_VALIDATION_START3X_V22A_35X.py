@@ -25,9 +25,9 @@ process.load('FastSimulation.Configuration.CommonInputs_cff')
 process.load('FastSimulation.Configuration.EventContent_cff')
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.5 $'),
+    version = cms.untracked.string('$Revision: 1.1 $'),
     annotation = cms.untracked.string('PYTHIA6-MinBias at 900GeV'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_MinBias_900GeV_cff.py,v $')
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_MinBias_900GeV_cff_py_GEN_FASTSIM_VALIDATION_START3X_V22A_35X.py,v $')
 )
 process.maxEvents = cms.untracked.PSet(
     input = cms.untracked.int32(10)
@@ -41,7 +41,7 @@ process.source = cms.Source("EmptySource")
 # Output definition
 process.output = cms.OutputModule("PoolOutputModule",
     splitLevel = cms.untracked.int32(0),
-    outputCommands = process.FEVTDEBUGHLTEventContent.outputCommands,
+    outputCommands = process.AODSIMEventContent.outputCommands,
     fileName = cms.untracked.string('PYTHIA6_MinBias_900GeV_cff_py_GEN_FASTSIM_VALIDATION.root'),
     dataset = cms.untracked.PSet(
         dataTier = cms.untracked.string('GEN-SIM-DIGI-RECO'),
