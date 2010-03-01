@@ -1,9 +1,9 @@
 import FWCore.ParameterSet.Config as cms
 
 configurationMetadata = cms.untracked.PSet(
-	version = cms.untracked.string('$Revision: 1.1 $'),
+	version = cms.untracked.string('$Revision: 1.2 $'),
 	name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_JPsiWithFSR_7TeV_cff.py,v $'),
-	annotation = cms.untracked.string('Summer09: Pythia6 generation of prompt JPsi, 10TeV, D6T tune')
+	annotation = cms.untracked.string('Summer09: Pythia6 generation of prompt JPsi, 7TeV, D6T tune')
 )
 
 from Configuration.GenProduction.PythiaUESettings_cfi import *
@@ -13,22 +13,26 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
     pythiaPylistVerbosity = cms.untracked.int32(0),
     pythiaHepMCVerbosity = cms.untracked.bool(False),
     comEnergy = cms.double(7000.0),
-    crossSection = cms.untracked.double(12570000.0),
-    filterEfficiency = cms.untracked.double(0.0739),
+    # I N:o Type                         I    Generated         Tried I  Sigma(mb) I Br(mumu) I
+    # I   0 All included subprocesses    I       100000       1859623 I  2.116E-01 I   0.0593 I
+    crossSection = cms.untracked.double(12550000.0),
+    # TrigReport  Trig Bit#    Visited     Passed     Failed      Error Name
+    # TrigReport     1    0     100000     100000          0          0 generator
+    # TrigReport     1    0     100000      27448      72552          0 oniafilter
+    # TrigReport     1    0      27448       4333      23115          0 mumugenfilter
+    filterEfficiency = cms.untracked.double(0.0433),
     maxEventsToPrint = cms.untracked.int32(0),
     ExternalDecays = cms.PSet(
         EvtGen = cms.untracked.PSet(
-             operates_on_particles = cms.vint32( 0 ), # 0 (zero) means default list (hardcoded)
-                                                      # you can put here the list of particles (PDG IDs)
-                                                      # that you want decayed by EvtGen
-             use_default_decay = cms.untracked.bool(False),
-             decay_table = cms.FileInPath('GeneratorInterface/ExternalDecays/data/DECAY_NOLONGLIFE.DEC'),
-             # decay_table = cms.FileInPath('GeneratorInterface/ExternalDecays/data/DECAY.DEC'),
-             particle_property_file = cms.FileInPath('GeneratorInterface/ExternalDecays/data/evt.pdl'),
-             user_decay_file = cms.FileInPath('GeneratorInterface/ExternalDecays/data/Onia_mumu.dec'),
-             # user_decay_file = cms.FileInPath('GeneratorInterface/ExternalDecays/data/incl_BtoJpsi_mumu.dec'),
-             list_forced_decays = cms.vstring('MyJ/psi'),
-             ),
+            operates_on_particles = cms.vint32( 0 ), # 0 (zero) means default list (hardcoded)
+                                                     # you can put here the list of particles (PDG IDs)
+                                                     # that you want decayed by EvtGen
+            use_default_decay = cms.untracked.bool(False),
+            decay_table = cms.FileInPath('GeneratorInterface/ExternalDecays/data/DECAY_NOLONGLIFE.DEC'),
+            particle_property_file = cms.FileInPath('GeneratorInterface/ExternalDecays/data/evt.pdl'),
+            user_decay_file = cms.FileInPath('GeneratorInterface/ExternalDecays/data/Onia_mumu.dec'),
+            list_forced_decays = cms.vstring('MyJ/psi'),
+        ),
         parameterSets = cms.vstring('EvtGen')
     ),                             
     PythiaParameters = cms.PSet(
@@ -72,15 +76,15 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
 
 oniafilter = cms.EDFilter("PythiaFilter",
     Status = cms.untracked.int32(2),
-    MaxEta = cms.untracked.double(1000.0),
-    MinEta = cms.untracked.double(-1000.0),
+    MaxEta = cms.untracked.double(1e100),
+    MinEta = cms.untracked.double(-1e100),
     MinPt = cms.untracked.double(0.0),
     ParticleID = cms.untracked.int32(443)
 )
 
 mumugenfilter = cms.EDFilter("MCParticlePairFilter",
     Status = cms.untracked.vint32(1, 1),
-    MinPt = cms.untracked.vdouble(0.0, 0.0),
+    MinP = cms.untracked.vdouble(2.5, 2.5),
     MaxEta = cms.untracked.vdouble(2.5, 2.5),
     MinEta = cms.untracked.vdouble(-2.5, -2.5),
     ParticleCharge = cms.untracked.int32(-1),
@@ -88,16 +92,5 @@ mumugenfilter = cms.EDFilter("MCParticlePairFilter",
     ParticleID2 = cms.untracked.vint32(13)
 )
 
-mugenfilter = cms.EDFilter("MCSmartSingleParticleFilter",
-    MaxDecayRadius = cms.untracked.vdouble(1500.0, 1500.0),
-    Status = cms.untracked.vint32(1, 1),
-    MinPt = cms.untracked.vdouble(2.5, 2.5),
-    ParticleID = cms.untracked.vint32(13, -13),
-    MaxEta = cms.untracked.vdouble(2.5, 2.5),
-    MinEta = cms.untracked.vdouble(-2.5, -2.5),
-    MaxDecayZ = cms.untracked.vdouble(3000.0, 3000.0),
-    MinDecayZ = cms.untracked.vdouble(-3000.0, -3000.0)
-)
-
-ProductionFilterSequence = cms.Sequence(generator*oniafilter*mumugenfilter*mugenfilter)
+ProductionFilterSequence = cms.Sequence(generator*oniafilter*mumugenfilter)
 
