@@ -1,9 +1,9 @@
 import FWCore.ParameterSet.Config as cms
 
 configurationMetadata = cms.untracked.PSet(
-        version = cms.untracked.string('$Revision: 1.1 $'),
+        version = cms.untracked.string('$Revision: 1.2 $'),
         name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_Upsilon3S_7TeV_cff.py,v $'),
-        annotation = cms.untracked.string('Summer09: Pythia6 generation of Upsilon(3S), 10TeV, D6T tune')
+        annotation = cms.untracked.string('Summer09: Pythia6 generation of Upsilon(3S), 7TeV, D6T tune')
 )
 
 from Configuration.GenProduction.PythiaUESettings_cfi import *
@@ -13,8 +13,14 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
     pythiaPylistVerbosity = cms.untracked.int32(0),
     pythiaHepMCVerbosity = cms.untracked.bool(False),
     comEnergy = cms.double(7000.0),
+    # I N:o Type                         I    Generated         Tried I  Sigma(mb)   I Br(mumu) I
+    # I   0 All included subprocesses    I        50000        877625 I  1.307E-04   I   0.0218 I
     crossSection = cms.untracked.double(2850.0),
-    filterEfficiency = cms.untracked.double(0.567),
+    # TrigReport  Trig Bit#    Visited     Passed     Failed      Error Name
+    # TrigReport     1    0      50000      50000          0          0 generator
+    # TrigReport     1    0      50000      50000          0          0 oniafilter
+    # TrigReport     1    0      50000      28552      21448          0 mumugenfilter
+    filterEfficiency = cms.untracked.double(0.571),
     maxEventsToPrint = cms.untracked.int32(0),
     PythiaParameters = cms.PSet(
         pythiaUESettingsBlock,
@@ -65,8 +71,8 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
 
 oniafilter = cms.EDFilter("PythiaFilter",
     Status = cms.untracked.int32(2),
-    MaxEta = cms.untracked.double(1000.0),
-    MinEta = cms.untracked.double(-1000.0),
+    MaxEta = cms.untracked.double(1e100),
+    MinEta = cms.untracked.double(-1e100),
     MinPt = cms.untracked.double(0.0),
     ParticleID = cms.untracked.int32(100553)
 )
@@ -80,15 +86,4 @@ mumugenfilter = cms.EDFilter("MCParticlePairFilter",
     ParticleID2 = cms.untracked.vint32(13)
 )
 
-mugenfilter = cms.EDFilter("MCSmartSingleParticleFilter",
-    MaxDecayRadius = cms.untracked.vdouble(1500.0, 1500.0),
-    Status = cms.untracked.vint32(1, 1),
-    MinPt = cms.untracked.vdouble(2.5, 2.5),
-    ParticleID = cms.untracked.vint32(13, -13),
-    MaxEta = cms.untracked.vdouble(2.5, 2.5),
-    MinEta = cms.untracked.vdouble(-2.5, -2.5),
-    MaxDecayZ = cms.untracked.vdouble(3000.0, 3000.0),
-    MinDecayZ = cms.untracked.vdouble(-3000.0, -3000.0)
-)
-
-ProductionFilterSequence = cms.Sequence(generator*oniafilter*mumugenfilter*mugenfilter)
+ProductionFilterSequence = cms.Sequence(generator*oniafilter*mumugenfilter)
