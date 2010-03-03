@@ -64,7 +64,7 @@ process.source = cms.Source("PoolSource",
 # Output definition
 process.output = cms.OutputModule("PoolOutputModule",
     splitLevel = cms.untracked.int32(0),
-    outputCommands = process.RECOSIMEventContent.outputCommands,
+    outputCommands = process.RECODEBUGventContent.outputCommands,
     fileName = cms.untracked.string('step2_RAW2DIGI_L1Reco_RECO.root'),
     dataset = cms.untracked.PSet(
         dataTier = cms.untracked.string('GEN-SIM-RECO'),
