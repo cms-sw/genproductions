@@ -3,7 +3,7 @@ import FWCore.ParameterSet.Config as cms
 pythiaUESettingsBlock = cms.PSet(
    pythiaUESettings = cms.vstring('MSTJ(11)=3     ! Choice of the fragmentation function', 
     'MSTJ(22)=2     ! Decay those unstable particles', 
-    'PARJ(71)=10 .  ! for which ctau  10 mm', 
+    'PARJ(71)=10.   ! for which ctau  10 mm', 
     'MSTP(2)=1      ! which order running alphaS', 
     'MSTP(33)=0     ! no K factors in hard cross sections', 
     'MSTP(51)=10042     ! CTEQ6L1 structure function chosen', 
