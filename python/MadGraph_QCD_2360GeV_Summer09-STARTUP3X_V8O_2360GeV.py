@@ -25,7 +25,7 @@ process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 process.load('Configuration.EventContent.EventContent_cff')
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.1 $'),
+    version = cms.untracked.string('$Revision: 1.2 $'),
     annotation = cms.untracked.string('MadGraph QCD at 2360GeV'),
     name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/MadGraph_QCD_2360GeV_Summer09-STARTUP3X_V8O_2360GeV.py,v $')
 )
@@ -95,12 +95,12 @@ process.generator = cms.EDFilter("Pythia6HadronizerFilter",
     ),
     pythiaPylistVerbosity = cms.untracked.int32(1),
     pythiaHepMCVerbosity = cms.untracked.bool(True),
-    comEnergy = cms.double(1180.0),
+    comEnergy = cms.double(2360.0),
     maxEventsToPrint = cms.untracked.int32(0),
     PythiaParameters = cms.PSet(
         pythiaUESettings = cms.vstring('MSTJ(11)=3     ! Choice of the fragmentation function', 
             'MSTJ(22)=2     ! Decay those unstable particles', 
-            'PARJ(71)=10 .  ! for which ctau  10 mm', 
+            'PARJ(71)=10.   ! for which ctau  10 mm', 
             'MSTP(2)=1      ! which order running alphaS', 
             'MSTP(33)=0     ! no K factors in hard cross sections', 
             'MSTP(51)=10042 ! structure function chosen (external PDF CTEQ6L1)', 
