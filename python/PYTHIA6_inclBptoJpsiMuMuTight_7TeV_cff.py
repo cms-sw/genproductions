@@ -2,7 +2,7 @@
 import FWCore.ParameterSet.Config as cms
 
 configurationMetadata = cms.untracked.PSet(
-        version = cms.untracked.string('$Revision: 1.2 $'),
+        version = cms.untracked.string('$Revision: 1.1 $'),
         name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_inclBptoJpsiMuMuTight_7TeV_cff.py,v $'),
         annotation = cms.untracked.string('Summer09: Pythia6+EvtGen generation of Bp->Jpsi->MuMu, 7TeV, D6T tune')
 )
@@ -14,7 +14,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
     pythiaPylistVerbosity = cms.untracked.int32(0),
     pythiaHepMCVerbosity = cms.untracked.bool(False),
     comEnergy = cms.double(7000.0),
-    crossSection = cms.untracked.double(2870000000.0),
+    crossSection = cms.untracked.double(29700000.0),
     filterEfficiency = cms.untracked.double(0.000282),
     maxEventsToPrint = cms.untracked.int32(0),
     ExternalDecays = cms.PSet(
