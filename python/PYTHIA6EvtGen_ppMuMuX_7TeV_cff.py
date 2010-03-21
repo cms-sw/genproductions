@@ -1,7 +1,7 @@
 import FWCore.ParameterSet.Config as cms
 
 configurationMetadata = cms.untracked.PSet(
-        version = cms.untracked.string('$Revision: 1.1 $'),
+        version = cms.untracked.string('$Revision: 1.2 $'),
         name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6EvtGen_ppMuMuX_7TeV_cff.py,v $'),
         annotation = cms.untracked.string('Winter10: Pythia6-MinBias at 7TeV + EvtGen with 2 Muon preselection')
 )
@@ -9,8 +9,8 @@ configurationMetadata = cms.untracked.PSet(
 from Configuration.GenProduction.PythiaUESettings_cfi import *
 
 
-process.source = cms.Source("EmptySource")
-process.generator = cms.EDFilter("Pythia6GeneratorFilter",
+source = cms.Source("EmptySource")
+generator = cms.EDFilter("Pythia6GeneratorFilter",
     pythiaPylistVerbosity = cms.untracked.int32(0),
     pythiaHepMCVerbosity = cms.untracked.bool(False),
     comEnergy = cms.double(7000.0),
@@ -46,7 +46,7 @@ process.generator = cms.EDFilter("Pythia6GeneratorFilter",
     )
 )
 
-process.mumugenfilter = cms.EDFilter("MCParticlePairFilter",
+mumugenfilter = cms.EDFilter("MCParticlePairFilter",
     Status = cms.untracked.vint32(1, 1),
     MinPt = cms.untracked.vdouble(2.5, 2.5),
     MaxEta = cms.untracked.vdouble(2.5, 2.5),
