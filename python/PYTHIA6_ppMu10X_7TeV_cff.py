@@ -2,7 +2,7 @@ import FWCore.ParameterSet.Config as cms
 
 configurationMetadata = cms.untracked.PSet(
         version = cms.untracked.string('$Revision: 1.1 $'),
-        name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_ppMuX_7TeV_cff.py,v $'),
+        name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_ppMu10X_7TeV_cff.py,v $'),
         annotation = cms.untracked.string('Summer09: Pythia6-MinBias at 10TeV with Muon preselection (Loose cut), +decay-inflight, 10TeV, D6T tune')
 )
 
@@ -14,7 +14,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
     pythiaHepMCVerbosity = cms.untracked.bool(False),
     comEnergy = cms.double(7000.0),
     crossSection = cms.untracked.double(48440000000.0),
-    filterEfficiency = cms.untracked.double(0.000002),
+    filterEfficiency = cms.untracked.double(0.000006),
     maxEventsToPrint = cms.untracked.int32(0),
     PythiaParameters = cms.PSet(
         pythiaUESettingsBlock,
