@@ -9,10 +9,10 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
     pythiaPylistVerbosity = cms.untracked.int32(0),
     filterEfficiency = cms.untracked.double(0.5),
     comEnergy = cms.double(7000.0),
-    crossSection = cms.untracked.double(0.024),
+    crossSection = cms.untracked.double(0.107),
     PythiaParameters = cms.PSet(
         pythiaUESettingsBlock,
-        processParameters = cms.vstring('PMAS(42,1)=500.0        ! LQ mass', 
+        processParameters = cms.vstring('PMAS(42,1)=400.0        ! LQ mass', 
             'IMSS(21)=33             ! LUN number for SLHA File (must be 33)', 
             'IMSS(22)=33             ! Read-in SLHA decay table', 
             'MDCY(C111,1)=0          ! ', 
@@ -23,24 +23,24 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
         parameterSets = cms.vstring('pythiaUESettings', 
             'processParameters',
             'SLHAParameters'),
-        SLHAParameters = cms.vstring('SLHAFILE = Configuration/Generator/data/LQ_cmusnumu_beta0.5.out')
+        SLHAParameters = cms.vstring('SLHAFILE = Configuration/Generator/data/LQ_uednue_beta0.5.out')
     )
 )
 
-munumujjFilter = cms.EDFilter("LQGenFilter",
+enuejjFilter = cms.EDFilter("LQGenFilter",
     src        = cms.untracked.InputTag("generator"),
     eejj       = cms.bool(False),
-    enuejj     = cms.bool(False),
+    enuejj     = cms.bool(True),
     nuenuejj   = cms.bool(False),
     mumujj     = cms.bool(False),
-    munumujj   = cms.bool(True),
+    munumujj   = cms.bool(False),
     numunumujj = cms.bool(False)
 )
 
 configurationMetadata = cms.untracked.PSet(
         version = cms.untracked.string('$Revision: 1.3 $'),
-        name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/Configuration/GenProduction/python/PYTHIA6_Exotica_LQ_cmu_500_7TeV_munumujjFilter_cff.py,v $'),
-        annotation = cms.untracked.string('default documentation string for PYTHIA6_Exotica_LQ_cmu_500_7TeV_munumujjFilter_cff.py')
+        name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/Configuration/GenProduction/python/PYTHIA6_Exotica_LQ_ue_400_7TeV_enuejjFilter_cff.py,v $'),
+        annotation = cms.untracked.string('default documentation string for PYTHIA6_Exotica_LQ_ue_400_7TeV_enuejjFilter_cff.py')
 )
 
-ProductionFilterSequence = cms.Sequence(generator*munumujjFilter)
+ProductionFilterSequence = cms.Sequence(generator*enuejjFilter)

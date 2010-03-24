@@ -7,7 +7,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
     pythiaHepMCVerbosity = cms.untracked.bool(False),
     maxEventsToPrint = cms.untracked.int32(0),
     pythiaPylistVerbosity = cms.untracked.int32(0),
-    filterEfficiency = cms.untracked.double(0.5),
+    filterEfficiency = cms.untracked.double(1.0),
     comEnergy = cms.double(7000.0),
     crossSection = cms.untracked.double(0.024),
     PythiaParameters = cms.PSet(
@@ -23,24 +23,15 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
         parameterSets = cms.vstring('pythiaUESettings', 
             'processParameters',
             'SLHAParameters'),
-        SLHAParameters = cms.vstring('SLHAFILE = Configuration/Generator/data/LQ_cmusnumu_beta0.5.out')
+        SLHAParameters = cms.vstring('SLHAFILE = Configuration/Generator/data/LQ_cmu_beta1.0.out')
     )
 )
 
-munumujjFilter = cms.EDFilter("LQGenFilter",
-    src        = cms.untracked.InputTag("generator"),
-    eejj       = cms.bool(False),
-    enuejj     = cms.bool(False),
-    nuenuejj   = cms.bool(False),
-    mumujj     = cms.bool(False),
-    munumujj   = cms.bool(True),
-    numunumujj = cms.bool(False)
-)
-
 configurationMetadata = cms.untracked.PSet(
-        version = cms.untracked.string('$Revision: 1.3 $'),
-        name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/Configuration/GenProduction/python/PYTHIA6_Exotica_LQ_cmu_500_7TeV_munumujjFilter_cff.py,v $'),
-        annotation = cms.untracked.string('default documentation string for PYTHIA6_Exotica_LQ_cmu_500_7TeV_munumujjFilter_cff.py')
+        version = cms.untracked.string('$Revision: 1.2 $'),
+        name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/Configuration/GenProduction/python/PYTHIA6_Exotica_LQ_cmu_500_7TeV_mumujj_cff.py,v $')
+,
+        annotation = cms.untracked.string('default documentation string for PYTHIA6_Exotica_LQ_cmu_500_7TeV_mumujj_cff.py')
 )
 
-ProductionFilterSequence = cms.Sequence(generator*munumujjFilter)
+ProductionFilterSequence = cms.Sequence(generator)
