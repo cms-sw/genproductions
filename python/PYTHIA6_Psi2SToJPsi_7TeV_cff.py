@@ -1,7 +1,7 @@
 import FWCore.ParameterSet.Config as cms
 
 configurationMetadata = cms.untracked.PSet(
-        version = cms.untracked.string('$Revision: 1.1 $'),
+        version = cms.untracked.string('$Revision: 1.2 $'),
         name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_Psi2SToJPsi_7TeV_cff.py,v $'),
         annotation = cms.untracked.string('Summer09: Pythia6 generation of prompt Psi2S, 10TeV, D6T tune')
 )
@@ -13,7 +13,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
     pythiaPylistVerbosity = cms.untracked.int32(0),
     pythiaHepMCVerbosity = cms.untracked.bool(False),
     comEnergy = cms.double(7000.0),
-    filterEfficiency = cms.untracked.double(0.191),
+    filterEfficiency = cms.untracked.double(0.017),
     crossSection = cms.untracked.double(175450.0),
     maxEventsToPrint = cms.untracked.int32(0),
     PythiaParameters = cms.PSet(
@@ -72,7 +72,7 @@ oniafilter = cms.EDFilter("PythiaFilter",
 
 mumugenfilter = cms.EDFilter("MCParticlePairFilter",
     Status = cms.untracked.vint32(1, 1),
-    MinPt = cms.untracked.vdouble(0.0, 0.0),
+    MinP = cms.untracked.vdouble(2.5, 2.5),
     MaxEta = cms.untracked.vdouble(2.5, 2.5),
     MinEta = cms.untracked.vdouble(-2.5, -2.5),
     ParticleCharge = cms.untracked.int32(-1),
@@ -80,16 +80,5 @@ mumugenfilter = cms.EDFilter("MCParticlePairFilter",
     ParticleID2 = cms.untracked.vint32(13)
 )
 
-mugenfilter = cms.EDFilter("MCSmartSingleParticleFilter",
-    MaxDecayRadius = cms.untracked.vdouble(1500.0, 1500.0),
-    Status = cms.untracked.vint32(1, 1),
-    MinPt = cms.untracked.vdouble(2.5, 2.5),
-    ParticleID = cms.untracked.vint32(13, -13),
-    MaxEta = cms.untracked.vdouble(2.5, 2.5),
-    MinEta = cms.untracked.vdouble(-2.5, -2.5),
-    MaxDecayZ = cms.untracked.vdouble(3000.0, 3000.0),
-    MinDecayZ = cms.untracked.vdouble(-3000.0, -3000.0)
-)
-
-ProductionFilterSequence = cms.Sequence(generator*oniafilter*mumugenfilter*mugenfilter)
+ProductionFilterSequence = cms.Sequence(generator*oniafilter*mumugenfilter)
 
