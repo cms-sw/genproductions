@@ -60,12 +60,13 @@ generator = cms.EDFilter("Pythia6HadronizerFilter",
             'MDME(1024,1) = 3', 
             'MDME(1025,1) = 3', 
             'MDME(1026,1) = 3', 
-            'MDME(1027,1) = 3', 
+            'MDME(1027,1) = 3'), 
             parameterSets = cms.vstring('pythiaUESettings', 
             'processParameters'),
       
             )
-)
+
+)         
 oniafilter = cms.EDFilter("PythiaFilter",
     MaxEta = cms.untracked.double(1000.0),
     Status = cms.untracked.int32(2),
@@ -98,6 +99,6 @@ ProducerSourceSequence = cms.Sequence(generator*oniafilter*mumugenfilter*mugenfi
 configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.1 $'),
     annotation = cms.untracked.string('Bcvegpy BctoJpsimunu channel at 7Tev'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Bcvegpy_BctoJPsiMuNu_LHEProducer_7Tev_cff.py, v $')
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Bcvegpy_BctoJPsiMuNu_LHEProducer_7Tev_cff.py,v $')
 )
 
