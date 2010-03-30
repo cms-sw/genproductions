@@ -1,8 +1,5 @@
 import FWCore.ParameterSet.Config as cms
 
-#Tauola
-from GeneratorInterface.ExternalDecays.TauolaSettings_cff import *
-
 generator = cms.EDFilter(
     "Herwig6HadronizerFilter",
     comEnergy = cms.double(7000.0),
