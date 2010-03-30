@@ -23,7 +23,7 @@ generator = cms.EDFilter("Pythia6HadronizerFilter",
             'BRAT(997)   = 1.       ! BRANCHING FRACTION', 
             'KFDP(997,1) = -13       ! Mu-', 
             'KFDP(997,2) = 443      ! J/psi', 
-            'KFDP(997,3) = -14       ! NuMu', 
+            'KFDP(997,3) = 14       ! NuMu', 
             'KFDP(997,4) = 0        ! nada', 
             'KFDP(997,5) = 0        ! nada', 
             'PMAS(143,1) = 6.276', 
@@ -98,7 +98,7 @@ mumugenfilter = cms.EDFilter("MCParticlePairFilter",
 ProductionFilterSequence = cms.Sequence(generator*oniafilter*mumugenfilter)
 
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.3 $'),
+    version = cms.untracked.string('$Revision: 1.4 $'),
     annotation = cms.untracked.string('Bcvegpy BctoJpsimunu channel at 7Tev'),
     name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Bcvegpy_BctoJPsiMuNu_LHEProducer_7Tev_cff.py,v $')
 )
