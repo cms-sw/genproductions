@@ -3,7 +3,7 @@ import FWCore.ParameterSet.Config as cms
 generator = cms.EDFilter(
     "Herwig6HadronizerFilter",
     comEnergy = cms.double(7000.0),
-    crossSection = cms.untracked.double(0.0957),
+    crossSection = cms.untracked.double(0.1914),
     doMPInteraction = cms.bool(True),
     emulatePythiaStatusCodes = cms.untracked.bool(True),
     filterEfficiency = cms.untracked.double(1.0),
@@ -37,7 +37,7 @@ generator = cms.EDFilter(
     )
 
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.2 $'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/POWHEG_HERWIG6_H150_WW_lnujj_7TeV_cff.py,v $'),
+    version = cms.untracked.string('$Revision: 1.1 $'),
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/POWHEG_HERWIG6_qqH150_WW_lnujj_7TeV_cff.py,v $'),
     annotation = cms.untracked.string('POWHEG + HERWIG6 - VBF Higgs -> WW -> lnujj at 7TeV')
     )
