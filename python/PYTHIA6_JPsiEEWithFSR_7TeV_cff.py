@@ -1,8 +1,8 @@
 import FWCore.ParameterSet.Config as cms
 
 configurationMetadata = cms.untracked.PSet(
-	version = cms.untracked.string('$Revision: 1.3 $'),
-	name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_JPsiWithFSR_7TeV_cff.py,v $'),
+	version = cms.untracked.string('$Revision: 1.1 $'),
+	name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_JPsiEEWithFSR_7TeV_cff.py,v $'),
 	annotation = cms.untracked.string('Summer09: Pythia6 generation of prompt JPsi, 7TeV, D6T tune')
 )
 
@@ -13,8 +13,8 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
     pythiaPylistVerbosity = cms.untracked.int32(0),
     pythiaHepMCVerbosity = cms.untracked.bool(False),
     comEnergy = cms.double(7000.0),
-    crossSection = cms.untracked.double(12550000.0),
-    filterEfficiency = cms.untracked.double(0.0028),
+    crossSection = cms.untracked.double(12740000.0),
+    filterEfficiency = cms.untracked.double(0.00322),
     maxEventsToPrint = cms.untracked.int32(0),
     ExternalDecays = cms.PSet(
         EvtGen = cms.untracked.PSet(
