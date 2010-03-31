@@ -4,7 +4,6 @@ import FWCore.ParameterSet.Config as cms
 from Configuration.Generator.PythiaUEP0Settings_cfi import *
 
 # Includes for Tauola
-from Configuration.Generator.PythiaUESettings_cfi import *
 from GeneratorInterface.ExternalDecays.TauolaSettings_cff import *
 
 generator = cms.EDFilter(
