@@ -13,7 +13,6 @@ generator = cms.EDFilter(
     maxEventsToPrint = cms.untracked.int32(5),
     printCards = cms.untracked.bool(False),
     useJimmy = cms.bool(True),
-    UseExternalGenerators = cms.untracked.bool(True),
     HerwigParameters = cms.PSet(
         herwigUEsettings = cms.vstring(
             'JMUEO     = 1         ! multiparton interaction model',
@@ -36,7 +35,7 @@ generator = cms.EDFilter(
     )
 
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.2 $'),
+    version = cms.untracked.string('$Revision: 1.3 $'),
     name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/POWHEG_HERWIG6_qqH200_WW_taunujj_7TeV_cff.py,v $'),
     annotation = cms.untracked.string('POWHEG + HERWIG6 - VBF Higgs -> WW -> taunujj at 7TeV')
     )
