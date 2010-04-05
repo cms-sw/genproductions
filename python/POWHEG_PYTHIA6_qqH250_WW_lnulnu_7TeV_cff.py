@@ -17,8 +17,6 @@ generator = cms.EDFilter(
             'MSEL=0           ! User defined processes', 
             'MSTJ(1)=1        ! Fragmentation/hadronization on or off', 
             'MSTP(61)=1       ! Parton showering on or off', 
-            'MSTP(51)=10050   ! structure function chosen (external PDF CTEQ6m)', 
-            'MSTP(52)=2       ! work with LHAPDF', 
             'PMAS(5,1)=4.75   ! b quark mass', 
             'PMAS(6,1)=172.5  ! t quark mass' 
             

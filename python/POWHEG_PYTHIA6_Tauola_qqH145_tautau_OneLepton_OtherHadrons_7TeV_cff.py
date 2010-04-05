@@ -31,8 +31,6 @@ generator = cms.EDFilter(
             'MSEL=0           ! User defined processes',
             'MSTJ(1)=1        ! Fragmentation/hadronization on or off',
             'MSTP(61)=1       ! Parton showering on or off',
-            'MSTP(51)=10050   ! structure function chosen (external PDF CTEQ6m)',
-            'MSTP(52)=2       ! work with LHAPDF',
             'PMAS(5,1)=4.75   ! b quark mass',
             'PMAS(6,1)=172.5  ! t quark mass'
             
@@ -62,7 +60,7 @@ generator = cms.EDFilter(
     )
 
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.1 $'),
+    version = cms.untracked.string('$Revision: 1.2 $'),
     name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/POWHEG_PYTHIA6_Tauola_qqH145_tautau_OneLepton_OtherHadrons_7TeV_cff.py,v $'),
     annotation = cms.untracked.string('POWHEG + PYTHIA6 + Tauola - VBF Higgs -> tautau at 7TeV')
     )
