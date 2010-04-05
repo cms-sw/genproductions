@@ -20,8 +20,6 @@ generator = cms.EDFilter(
             'JMRAD(73) = 1.8       ! inverse proton radius squared',
             'PRSOF     = 0.0       ! prob. of a soft underlying event',
             'MAXER     = 1000000   ! max error',
-            'MODPDF(1) = 10050     ! PDF set according to LHAPDF',
-            'MODPDF(2) = 10050     ! CTEQ6m',
             'MODBOS(1) = 4         ! first  W -> tau',
             'MODBOS(2) = 4         ! second W -> tau ',
             ),
