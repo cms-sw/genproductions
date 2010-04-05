@@ -21,8 +21,6 @@ generator = cms.EDFilter(
             'JMRAD(73) = 1.8       ! inverse proton radius squared',
             'PRSOF     = 0.0       ! prob. of a soft underlying event',
             'MAXER     = 1000000   ! max error',
-            'MODPDF(1) = 10050     ! PDF set according to LHAPDF',
-            'MODPDF(2) = 10050     ! CTEQ6m',
             'MODBOS(1) = 4         ! first  W -> tau',
             'MODBOS(2) = 1         ! second W -> qq ',
             ),
@@ -38,7 +36,7 @@ generator = cms.EDFilter(
     )
 
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.1 $'),
+    version = cms.untracked.string('$Revision: 1.2 $'),
     name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/POWHEG_HERWIG6_qqH250_WW_taunujj_7TeV_cff.py,v $'),
     annotation = cms.untracked.string('POWHEG + HERWIG6 - VBF Higgs -> WW -> taunujj at 7TeV')
     )
