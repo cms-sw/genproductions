@@ -2,13 +2,14 @@ import FWCore.ParameterSet.Config as cms
 
 
 from Configuration.GenProduction.PythiaUESettings_cfi import *
+
 generator = cms.EDFilter("Pythia6GeneratorFilter",
     pythiaHepMCVerbosity = cms.untracked.bool(False),
     maxEventsToPrint = cms.untracked.int32(0),
     pythiaPylistVerbosity = cms.untracked.int32(0),
     filterEfficiency = cms.untracked.double(0.5),
     comEnergy = cms.double(7000.0),
-    crossSection = cms.untracked.double(0.11),
+    crossSection = cms.untracked.double(0.107),
     PythiaParameters = cms.PSet(
         pythiaUESettingsBlock,
         processParameters = cms.vstring('PMAS(42,1)=400.0        ! LQ mass', 
@@ -26,14 +27,5 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
     )
 )
 
-#munumujjFilter = cms.EDFilter("LQGenFilter",
-#    src        = cms.untracked.InputTag("generator"),
-#    eejj       = cms.bool(False),
-#    enuejj     = cms.bool(False),
-#    nuenuejj   = cms.bool(False),
-#    mumujj     = cms.bool(False),
-#    munumujj   = cms.bool(True),
-#    numunumujj = cms.bool(False)
-#)
-#ProductionFilterSequence = cms.Sequence(generator*munumujjFilter)
+
 ProductionFilterSequence = cms.Sequence(generator)
