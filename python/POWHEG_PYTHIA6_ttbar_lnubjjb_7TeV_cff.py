@@ -1,7 +1,7 @@
 import FWCore.ParameterSet.Config as cms
 
 # tune for pT-ordered showers
-from Configuration.Generator.PythiaUEP0Settings_cfi import *
+from Configuration.GenProduction.PythiaUEP0Settings_cfi import *
 
 generator = cms.EDFilter(
     "Pythia6HadronizerFilter",
@@ -29,7 +29,7 @@ generator = cms.EDFilter(
 
 configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.1 $'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/POWHEG_PYTHIA6_ttba_lnubjjb_7TeV_cff.py,v $'),
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/POWHEG_PYTHIA6_ttbar_lnubjjb_7TeV_cff.py,v $'),
     annotation = cms.untracked.string('POWHEG + PYTHIA6 - ttbar -> lnubjjb at 7TeV')
     )
 

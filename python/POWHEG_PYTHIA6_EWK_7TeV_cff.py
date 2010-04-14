@@ -1,7 +1,7 @@
 import FWCore.ParameterSet.Config as cms
 
 # tune for pT-ordered showers
-from Configuration.Generator.PythiaUEP0Settings_cfi import *
+from Configuration.GenProduction.PythiaUEP0Settings_cfi import *
 
 generator = cms.EDFilter("Pythia6HadronizerFilter",
     pythiaHepMCVerbosity = cms.untracked.bool(False),

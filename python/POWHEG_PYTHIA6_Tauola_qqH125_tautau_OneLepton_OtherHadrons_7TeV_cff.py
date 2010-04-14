@@ -1,7 +1,7 @@
 import FWCore.ParameterSet.Config as cms
 
 # tune for pT-ordered showers
-from Configuration.Generator.PythiaUEP0Settings_cfi import *
+from Configuration.GenProduction.PythiaUEP0Settings_cfi import *
 
 # Includes for Tauola
 from GeneratorInterface.ExternalDecays.TauolaSettings_cff import *
@@ -60,7 +60,7 @@ generator = cms.EDFilter(
     )
 
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.2 $'),
+    version = cms.untracked.string('$Revision: 1.3 $'),
     name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/POWHEG_PYTHIA6_Tauola_qqH125_tautau_OneLepton_OtherHadrons_7TeV_cff.py,v $'),
     annotation = cms.untracked.string('POWHEG + PYTHIA6 + Tauola - VBF Higgs -> tautau at 7TeV')
     )
