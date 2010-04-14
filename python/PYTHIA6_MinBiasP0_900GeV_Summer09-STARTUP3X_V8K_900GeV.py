@@ -25,9 +25,9 @@ process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 process.load('Configuration.EventContent.EventContent_cff')
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.2 $'),
+    version = cms.untracked.string('$Revision: 1.1 $'),
     annotation = cms.untracked.string('PYTHIA6-MinBias at 900GeV'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6P0_MinBias_900GeV_Summer09-STARTUP3X_V8K_900GeV.py,v $')
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_MinBiasP0_900GeV_Summer09-STARTUP3X_V8K_900GeV.py,v $')
 )
 process.maxEvents = cms.untracked.PSet(
     input = cms.untracked.int32(10)
@@ -106,6 +106,7 @@ process.generator = cms.EDFilter("Pythia6GeneratorFilter",
             'PARJ(25)=0.63  ! FLAV (Tuned by Professor on LEP data)', 
             'PARJ(26)=0.12  ! FLAV (Tuned by Professor on LEP data)', 
             'MSTJ(11)=5     ! HAD Choice of the fragmentation function', 
+            'MSTJ(41)=12    ! explicit pt ordered radiation', 
             'PARJ(21)=0.313 ! HAD', 
             'PARJ(41)=0.49  ! HAD', 
             'PARJ(42)=1.2   ! HAD', 
@@ -127,8 +128,8 @@ process.generator = cms.EDFilter("Pythia6GeneratorFilter",
             'PARP(83)=1.7   ! MPI matter distrbn parameter', 
             'PARP(90)=0.26  ! MPI rescaling power', 
             'MSTP(95)=6     ! CR (color reconnection parameters)', 
-            'PARP(77)=0.33  ! CR', 
-            'PARP(78)=0.9   ! CR', 
+            'PARP(77)=0.9  ! CR', 
+            'PARP(78)=0.33   ! CR', 
             'MSTP(88)=0     ! BR', 
             'PARP(79)=2.0   ! BR', 
             'PARP(80)=0.05  ! BR', 
