@@ -2,11 +2,11 @@ import FWCore.ParameterSet.Config as cms
 
 configurationMetadata = cms.untracked.PSet(
 	version = cms.untracked.string('$Revision: 1.1 $'),
-	name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_QCD_Pthat_470_7TeV_cff.py,v $'),
+	name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_QCD_tuneCWA_Pthat_470_7TeV_cff.py,v $'),
 	annotation = cms.untracked.string('Summer09: Pythia6 generation of QCD events, 7TeV, D6T tune, pthat > 470 GeV')
 )
 
-from Configuration.Generator.PythiaUECW900ASettings_cfi import *
+from Configuration.GenProduction.PythiaUECW900ASettings_cfi import *
 
 source = cms.Source("EmptySource")
 generator = cms.EDFilter("Pythia6GeneratorFilter",
