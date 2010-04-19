@@ -7,11 +7,11 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
     pythiaHepMCVerbosity = cms.untracked.bool(False),
     comEnergy = cms.double(7000.0),
     maxEventsToPrint = cms.untracked.int32(0),
-    crossSection  = cms.untracked.double(0.823),
+    crossSection  = cms.untracked.double(0.00101),
     PythiaParameters = cms.PSet(
         pythiaUESettingsBlock,
-        processParameters = cms.vstring('PMAS(347,1)= 250.         !mass of RS Graviton', 
-            'PARP(50) = .054         ! 0.054 == c=0.01 (k/M_PL=0.01)', 
+        processParameters = cms.vstring('PMAS(347,1)= 1500.         !mass of RS Graviton', 
+            'PARP(50) = .27         ! 0.054 == c=0.01 (k/M_PL=0.01)', 
             'MSEL=0                    !(D=1) to select between full user control (0, then use MSUB) and some preprogrammed alternative', 
             'MSUB(391)=1               ! q qbar -> G* ', 
             'MSUB(392)=1               ! g g -> G*', 
@@ -23,9 +23,9 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
             'MDME(4089,1)=0            ! t tbar', 
             'MDME(4090,1)=-1            ! bprime bprimebar', 
             'MDME(4091,1)=-1            ! tprime tprimebar', 
-            'MDME(4092,1)=1            ! e+ e-', 
+            'MDME(4092,1)=0            ! e+ e-', 
             'MDME(4093,1)=0            ! nu_e nu_ebar', 
-            'MDME(4094,1)=0            ! mu- mu+', 
+            'MDME(4094,1)=1            ! mu- mu+', 
             'MDME(4095,1)=0            ! nu_mu nu_mubar', 
             'MDME(4096,1)=0            ! tau- tau+', 
             'MDME(4097,1)=0            ! nu_tau  nu_taubar', 
@@ -45,8 +45,8 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
 
 configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.1 $'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_EXOTICA_RSGravEE_kMpl001_M250_7TeV_cff.py,v $'),
-    annotation = cms.untracked.string('PYTHIA6 RS Graviton to ee, k/Mpl = 0.01, mass = 250 at sqrt(s) = 7TeV')
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_EXOTICA_RSGravMuMu_kMpl005_M1500_7TeV_cff.py,v $'),
+    annotation = cms.untracked.string('PYTHIA6 RS Graviton to ee, k/Mpl = 0.05, mass = 1500 at sqrt(s) = 7TeV')
 )
 
 ProductionFilterSequence = cms.Sequence(generator)
