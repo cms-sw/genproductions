@@ -28,7 +28,7 @@ process.generator = cms.EDFilter("Pythia8GeneratorFilter",
 					       '5000039:mMin = 1.',
 					       '5000039:mMax = 13990.',
 					       'PhaseSpace:pTHatMin = 50.',
-                                               'PartonLevel:MI = off',
+                                               'PartonLevel:MI = on',
                                                'PartonLevel:ISR = on',
                                                'PartonLevel:FSR = on'
                                         ), 
