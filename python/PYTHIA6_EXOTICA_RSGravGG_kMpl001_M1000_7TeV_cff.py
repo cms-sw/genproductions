@@ -23,7 +23,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
             'MDME(4089,1)=0            ! t tbar', 
             'MDME(4090,1)=-1            ! bprime bprimebar', 
             'MDME(4091,1)=-1            ! tprime tprimebar', 
-            'MDME(4092,1)=1            ! e+ e-', 
+            'MDME(4092,1)=0            ! e+ e-', 
             'MDME(4093,1)=0            ! nu_e nu_ebar', 
             'MDME(4094,1)=0            ! mu- mu+', 
             'MDME(4095,1)=0            ! nu_mu nu_mubar', 
@@ -32,7 +32,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
             'MDME(4098,1)=-1            ! tauprime- tauprime+ ', 
             'MDME(4099,1)=-1            ! nuprime_tau nuprime_taubar ', 
             'MDME(4100,1)=0            ! g  g  ', 
-            'MDME(4101,1)=0            ! gamma gamma ', 
+            'MDME(4101,1)=1            ! gamma gamma ', 
             'MDME(4102,1)=0            ! Z Z', 
             'MDME(4103,1)=0            ! W W', 
             'CKIN(3)=-1.          ! minimum pt hat for hard interactions', 
@@ -48,3 +48,5 @@ configurationMetadata = cms.untracked.PSet(
     name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_EXOTICA_RSGravEE_kMpl001_M1000_7TeV_cff.py,v $'),
     annotation = cms.untracked.string('PYTHIA6 RS Graviton to ee, k/Mpl = 0.01, mass = 1000 at sqrt(s) = 7TeV')
 )
+
+ProductionFilterSequence = cms.Sequence(generator)
