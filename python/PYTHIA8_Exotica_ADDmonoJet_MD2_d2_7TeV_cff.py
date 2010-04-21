@@ -25,12 +25,4 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
                                         parameterSets = cms.vstring('pythia8_monojet')
                                  ) 
                          )
-
-
-	
-
-  genParticles = cms.EDProducer(
-    "GenParticleProducer",
-                  src = cms.InputTag("generator"),
-    abortOnUnknownPDGCode = cms.untracked.bool(False)
- )      
+      
