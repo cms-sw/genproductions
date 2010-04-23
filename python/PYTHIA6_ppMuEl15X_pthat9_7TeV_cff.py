@@ -1,7 +1,7 @@
 import FWCore.ParameterSet.Config as cms
 
 configurationMetadata = cms.untracked.PSet(
-        version = cms.untracked.string('$Revision: 1.2 $'),
+        version = cms.untracked.string('$Revision: 1.1 $'),
         name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_ppMuEl15X_pthat9_7TeV_cff.py,v $'),
         annotation = cms.untracked.string('Summer09: Pythia6-MinBias at 7TeV with Muon preselection , +decay-inflight, 7TeV, D6T tune')
 )
@@ -33,7 +33,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
 )
 
 
-process.muelgenfilter = cms.EDFilter("MCSmartSingleParticleFilter",
+muelgenfilter = cms.EDFilter("MCSmartSingleParticleFilter",
     MaxDecayRadius = cms.untracked.vdouble(2000.0, 2000.0, 1.e5, 1.e5),
     Status = cms.untracked.vint32(1, 1, 1, 1),
     MinPt = cms.untracked.vdouble(15, 15, 15, 15),
