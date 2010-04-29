@@ -4,7 +4,7 @@ def customise(process):
 
         process.VtxSmeared.Phi = cms.double(0.0)
         process.VtxSmeared.BetaStar = cms.double(200.0)
-        process.VtxSmeared.Emittance = cms.double(1.0e-07)
+        process.VtxSmeared.Emittance = cms.double(0.536e-07)
         process.VtxSmeared.Alpha = cms.double(0.0)
         process.VtxSmeared.SigmaZ = cms.double(2.87)
         process.VtxSmeared.TimeOffset = cms.double(0.0)
