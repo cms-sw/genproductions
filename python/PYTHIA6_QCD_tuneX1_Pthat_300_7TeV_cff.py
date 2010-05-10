@@ -1,9 +1,9 @@
 import FWCore.ParameterSet.Config as cms
 
 configurationMetadata = cms.untracked.PSet(
-	version = cms.untracked.string('$Revision: 1.2 $'),
+	version = cms.untracked.string('$Revision: 1.1 $'),
 	name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_QCD_tuneX1_Pthat_300_7TeV_cff.py,v $'),
-	annotation = cms.untracked.string('Summer09: Pythia6 generation of QCD events, 7TeV, D6T tune, pthat > 300 GeV')
+	annotation = cms.untracked.string('Summer09: Pythia6 generation of QCD events, 7TeV, X1 tune, pthat > 300 GeV')
 )
 
 from Configuration.GenProduction.PythiaUEX1Settings_cfi import *
