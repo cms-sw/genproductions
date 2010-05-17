@@ -28,10 +28,10 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
 )
 
 configurationMetadata = cms.untracked.PSet(
-        version = cms.untracked.string('$Revision: 1.1 $'),
+        version = cms.untracked.string('$Revision: 1.2 $'),
         name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_Exotica_LQ_ue_150_7TeV_eejj_cff.py,v $')
 ,
-        annotation = cms.untracked.string('default documentation string for PYTHIA6_Exotica_LQ_cmu_150_7TeV_mumujj_cff.py')
+        annotation = cms.untracked.string('default documentation string for PYTHIA6_Exotica_LQ_cmu_150_7TeV_eejj_cff.py')
 )
 
 ProductionFilterSequence = cms.Sequence(generator)
