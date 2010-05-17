@@ -23,13 +23,13 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
         parameterSets = cms.vstring('pythiaUESettings', 
             'processParameters',
             'SLHAParameters'),
-        SLHAParameters = cms.vstring('SLHAFILE = Configuration/Generator/data/LQ_cmu_beta1.0.out')
+        SLHAParameters = cms.vstring('SLHAFILE = Configuration/Generator/data/LQ_ue_beta1.0.out')
     )
 )
 
 configurationMetadata = cms.untracked.PSet(
-        version = cms.untracked.string('$Revision: 1.2 $'),
-        name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/Configuration/GenProduction/python/PYTHIA6_Exotica_LQ_cmu_150_7TeV_mumujj_cff.py,v $')
+        version = cms.untracked.string('$Revision: 1.1 $'),
+        name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_Exotica_LQ_ue_150_7TeV_eejj_cff.py,v $')
 ,
         annotation = cms.untracked.string('default documentation string for PYTHIA6_Exotica_LQ_cmu_150_7TeV_mumujj_cff.py')
 )
