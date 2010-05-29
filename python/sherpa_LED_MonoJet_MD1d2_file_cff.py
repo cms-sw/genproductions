@@ -7,15 +7,7 @@ generator = cms.EDFilter("SherpaGeneratorFilter",
   libDir    = cms.untracked.string('SherpaRun'),
   resultDir = cms.untracked.string('Result'),
   SherpaParameters = cms.PSet(parameterSets = cms.vstring(
-                             "Analysis",
                              "Run"),
-                              Analysis = cms.vstring(
-				" BEGIN_ANALYSIS {",
-				" LEVEL Hadron;",
-				" PATH_PIECE Norm/;",
-				" Statistics FinalState;",
-				"} END_ANALYSIS;"
-                                                  ),
                               Run = cms.vstring(
 				"(run){",
 				" EVENTS          = 10000",
