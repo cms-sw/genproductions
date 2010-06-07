@@ -5,10 +5,10 @@ source = cms.Source("EmptySource")
 from Configuration.Generator.PythiaUESettings_cfi import *
 generator = cms.EDFilter("Pythia6GeneratorFilter",
     pythiaPylistVerbosity = cms.untracked.int32(0),
-    filterEfficiency = cms.untracked.double(0.0074),
+    filterEfficiency = cms.untracked.double(0.0352),
     pythiaHepMCVerbosity = cms.untracked.bool(False),
     comEnergy = cms.double(7000.0),
-    crossSection = cms.untracked.double(127206.0),
+    crossSection = cms.untracked.double(12545800.0),
     maxEventsToPrint = cms.untracked.int32(0),
     PythiaParameters = cms.PSet(
         pythiaUESettingsBlock,
@@ -68,8 +68,8 @@ eegenfilter = cms.EDFilter("MCParticlePairFilter",
 )
 
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.3 $'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_JPsi_10TeV_cff.py,v $'),
+    version = cms.untracked.string('$Revision: 1.4 $'),
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_JPsiEE_7TeV_cff.py,v $'),
     annotation = cms.untracked.string('generation of inclusive J/psi COM+CSM')
 )
 ProductionFilterSequence = cms.Sequence(generator*oniafilter*eegenfilter)
