@@ -37,10 +37,6 @@ def customise(process):
     process.simHcalDigis.HOlevel = cms.int32(-999)
     process.simHcalDigis.HFlevel = cms.int32(-999)
     process.simHcalDigis.useConfigZSvalues = cms.int32(1)
-    
-    process.hbhereco.dropZSmarkedPassed = cms.bool(False)
-    process.hfreco.dropZSmarkedPassed   = cms.bool(False)
-    process.horeco.dropZSmarkedPassed   = cms.bool(False)                                    
 
     # REDO the GenJets etc. in case labels have been changed
     process.load('Configuration/StandardSequences/Generator_cff')

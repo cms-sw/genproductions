@@ -29,10 +29,6 @@ def customise(process):
     process.simHcalDigis.HOlevel = cms.int32(-999)
     process.simHcalDigis.HFlevel = cms.int32(-999)
     process.simHcalDigis.useConfigZSvalues = cms.int32(1)
-    
-    process.hbhereco.dropZSmarkedPassed = cms.bool(False)
-    process.hfreco.dropZSmarkedPassed   = cms.bool(False)
-    process.horeco.dropZSmarkedPassed   = cms.bool(False)                                    
 
     # Remove the old RNGState product on output
     RNGStateCleaning= cms.PSet(
