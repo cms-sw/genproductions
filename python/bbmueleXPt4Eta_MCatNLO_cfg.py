@@ -12,7 +12,7 @@ muelegenfilter = cms.EDFilter("MCSmartSingleParticleFilter",
     MinPt = cms.untracked.vdouble(4, 4, 4, 4),
     ParticleID = cms.untracked.vint32(13, -13, 11, -11),
     MaxEta = cms.untracked.vdouble(2.1, 2.1, 2.1, 2.1),
-    MinEta = cms.untracked.vdouble(-2.1, -2.1, 2.1, -2.1),
+    MinEta = cms.untracked.vdouble(-2.1, -2.1, -2.1, -2.1),
     MaxDecayZ = cms.untracked.vdouble(4000.0, 4000.0, 4000.0, 4000.0),
     MinDecayZ = cms.untracked.vdouble(-4000.0, -4000.0, -4000.0, -4000.0)
 )
