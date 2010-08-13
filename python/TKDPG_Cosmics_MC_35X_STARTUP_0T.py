@@ -23,9 +23,9 @@ process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 process.load('Configuration.EventContent.EventContentCosmics_cff')
 
 process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.168 $'),
+    version = cms.untracked.string('$Revision: 1.1 $'),
     annotation = cms.untracked.string('Tkcosmics_cfi.py nevts:-1'),
-    name = cms.untracked.string('Cosmic muons in Tracker with B field ON')
+    name = cms.untracked.string('Cosmic muons in Tracker with B field OFF')
 )
 process.maxEvents = cms.untracked.PSet(
     input = cms.untracked.int32(-1)
