@@ -1,6 +1,6 @@
 import FWCore.ParameterSet.Config as cms
 
-from Configuration.Generator.PythiaUESettings_cfi import *
+from Configuration.Generator.PythiaUEP0Settings_cfi import *
 
 generator = cms.EDFilter("Pythia6GeneratorFilter",
     pythiaHepMCVerbosity = cms.untracked.bool(False),
@@ -31,7 +31,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
 configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.1 $'),
     name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/MinBias_TuneD6T_7TeV_pythia6_cff.py,v $'),
-    annotation = cms.untracked.string('PYTHIA6-MinBias TuneD6T at 7TeV')
+    annotation = cms.untracked.string('PYTHIA6-MinBias TuneP0 at 7TeV')
 )
 
 ProductionFilterSequence = cms.Sequence(generator)
