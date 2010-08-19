@@ -4,11 +4,11 @@ source = cms.Source("EmptySource")
 
 from Configuration.Generator.PythiaUEZ2Settings_cfi import *
 generator = cms.EDFilter("Pythia6GeneratorFilter",
-    crossSection = cms.untracked.double(53100000),
+    crossSection = cms.untracked.double(812800000),
     pythiaHepMCVerbosity = cms.untracked.bool(False),
     maxEventsToPrint = cms.untracked.int32(0),
     pythiaPylistVerbosity = cms.untracked.int32(0),
-    filterEfficiency = cms.untracked.double(0.06720),
+    filterEfficiency = cms.untracked.double(0.04760),
     comEnergy = cms.double(7000.0),
     ExternalDecays = cms.PSet(
         EvtGen = cms.untracked.PSet(
@@ -35,8 +35,8 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
 )
 
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.3 $'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/QCD_Pt_30to50_TuneD6T_7TeV_pythia6_cff.py,v $'),
+    version = cms.untracked.string('$Revision: 1.1 $'),
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/QCD_Pt_15to30_bEnriched_TuneD6T_7TeV_pythia6_cff.py,v $'),
     annotation = cms.untracked.string('b-enriched QCD Pt [15,30] at 7 TeV')
 )
 
