@@ -39,7 +39,7 @@ generator = cms.EDFilter('Pythia6GeneratorFilter',
 )
 
 configurationMetadata = cms.untracked.PSet(
-	version = cms.untracked.string('\$Revision$'),
-	name = cms.untracked.string('\$Source$'),
+	version = cms.untracked.string('\$Revision: 1.1 $'),
+	name = cms.untracked.string('\$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/ZmumuJet_Pt_0to15_TuneZ2_7TeV_pythia6_cff.py,v $'),
 	annotation = cms.untracked.string('Fall2010 sample with PYTHIA6: Z + Jet production, Z -> mumu + Jet, pThat = 0 .. 15 GeV, TuneZ2')
 )

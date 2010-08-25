@@ -4,7 +4,7 @@ from Configuration.Generator.PythiaUEZ2Settings_cfi import *
 
 generator = cms.EDFilter('Pythia6GeneratorFilter',
 	comEnergy = cms.double(7000.0),
-	crossSection = cms.untracked.double(1.451071e+02),
+	crossSection = cms.untracked.double(4.941984e+05),
 	filterEfficiency = cms.untracked.double(1),
 	maxEventsToPrint = cms.untracked.int32(0),
 	pythiaHepMCVerbosity = cms.untracked.bool(False),
@@ -29,17 +29,23 @@ generator = cms.EDFilter('Pythia6GeneratorFilter',
 			'MDME(186,1) = 0 ! Z decay into tau- tau+',
 			'MDME(187,1) = 0 ! Z decay into nu_tau nu_taubar' ,
 			'CKIN(3) = 15    ! minimum pt hat for hard interactions',
-			'CKIN(4) = 20    ! maximum pt hat for hard interactions',
+			'CKIN(4) = 3000  ! maximum pt hat for hard interactions',
+			'MSTP(142) = 2   ! Turns on the PYWEVT Pt reweighting routine',
+		),
+		CSAParameters = cms.vstring(
+			'CSAMODE = 7     ! towards a flat QCD spectrum',
+			'PTPOWER = 4.5   ! reweighting of the pt spectrum',
 		),
 		parameterSets = cms.vstring(
 			'pythiaUESettings',
 			'processParameters',
+			'CSAParameters',
 		)
 	)
 )
 
 configurationMetadata = cms.untracked.PSet(
-	version = cms.untracked.string('\$Revision$'),
-	name = cms.untracked.string('\$Source$'),
-	annotation = cms.untracked.string('Fall2010 sample with PYTHIA6: Z + Jet production, Z -> mumu + Jet, pThat = 15 .. 20 GeV, TuneZ2')
+	version = cms.untracked.string('\$Revision: 1.1 $'),
+	name = cms.untracked.string('\$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/ZmumuJet_FlatPt_15to3000_TuneZ2_7TeV_pythia6_cff.py,v $'),
+	annotation = cms.untracked.string('Fall2010 sample with PYTHIA6: Z + Jet production, Z -> mumu + Jet, pThat = 15 .. 3000 GeV, TuneZ2')
 )
