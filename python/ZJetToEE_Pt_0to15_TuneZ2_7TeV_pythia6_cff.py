@@ -4,8 +4,8 @@ from Configuration.Generator.PythiaUEZ2Settings_cfi import *
 
 generator = cms.EDFilter('Pythia6GeneratorFilter',
 	comEnergy = cms.double(7000.0),
-	crossSection = cms.untracked.double(7.583247e-02),
-	filterEfficiency = cms.untracked.double(1),
+	crossSection = cms.untracked.double(1.0),
+	filterEfficiency = cms.untracked.double(-1.0),
 	maxEventsToPrint = cms.untracked.int32(0),
 	pythiaHepMCVerbosity = cms.untracked.bool(False),
 	pythiaPylistVerbosity = cms.untracked.int32(0),
@@ -28,7 +28,8 @@ generator = cms.EDFilter('Pythia6GeneratorFilter',
 			'MDME(185,1) = 0 ! Z decay into nu_mu nu_mubar',
 			'MDME(186,1) = 0 ! Z decay into tau- tau+',
 			'MDME(187,1) = 0 ! Z decay into nu_tau nu_taubar' ,
-			'CKIN(3) = 300   ! minimum pt hat for hard interactions',
+			'CKIN(3) = 0     ! minimum pt hat for hard interactions',
+			'CKIN(4) = 15    ! maximum pt hat for hard interactions',
 		),
 		parameterSets = cms.vstring(
 			'pythiaUESettings',
@@ -40,5 +41,5 @@ generator = cms.EDFilter('Pythia6GeneratorFilter',
 configurationMetadata = cms.untracked.PSet(
 	version = cms.untracked.string('\$Revision$'),
 	name = cms.untracked.string('\$Source$'),
-	annotation = cms.untracked.string('Fall2010 sample with PYTHIA6: Z + Jet production, Z -> ee + Jet, pThat > 300 GeV, TuneZ2')
+	annotation = cms.untracked.string('Fall2010 sample with PYTHIA6: Z + Jet production, Z -> ee, pThat = 0 .. 15 GeV, TuneZ2')
 )

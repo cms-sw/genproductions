@@ -11,12 +11,12 @@ generator = cms.EDProducer('FlatRandomEGunProducer',
 		MaxE = cms.double(100 ),
 	),
 	Verbosity = cms.untracked.int32(0),
-	psethack = cms.string('single pi E 1-100'),
+	psethack = cms.string('single pi E 1   -100 '),
 	AddAntiParticle = cms.bool(True),
 )
 
 configurationMetadata = cms.untracked.PSet(
 	version = cms.untracked.string('\$Revision$'),
 	name = cms.untracked.string('\$Source$'),
-	annotation = cms.untracked.string('Fall2010 sample with PYTHIA6: Flat random DiPion gun, E = 1..100 GeV, TuneZ2')
+	annotation = cms.untracked.string('Fall2010 sample with GUN: Flat random DiPion gun, E = 1 .. 100 GeV, ')
 )
