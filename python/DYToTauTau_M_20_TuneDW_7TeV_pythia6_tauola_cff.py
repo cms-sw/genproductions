@@ -2,7 +2,7 @@ import FWCore.ParameterSet.Config as cms
 
 source = cms.Source("EmptySource")
 
-from Configuration.Generator.PythiaUEP0Settings_cfi import *
+from Configuration.Generator.PythiaUEDWSettings_cfi import *
 from GeneratorInterface.ExternalDecays.TauolaSettings_cff import *
 generator = cms.EDFilter("Pythia6GeneratorFilter",
     pythiaHepMCVerbosity = cms.untracked.bool(False),
@@ -44,9 +44,9 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
 )
 
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.2 $'),
-    name = cms.untracked.string('$Source: /local/projects/CMSSW/rep/CMSSW/Configuration/GenProduction/python/Attic/PYTHIA6_Tauola_EWK_Ztautau_7TeV_cff.py,v $'),
-    annotation = cms.untracked.string('PYTHIA6 Z/gamma* to tau tau, M(tau+tau-) > 20 GeV at sqrt(s) = 7TeV, Tune P0')
+    version = cms.untracked.string('$Revision: 1.1 $'),
+    name = cms.untracked.string('$Source: $'),
+    annotation = cms.untracked.string('PYTHIA6 Z/gamma* to tau tau, M(tau+tau-) > 20 GeV at sqrt(s) = 7TeV, Tune DW')
 )
 
 ProductionFilterSequence = cms.Sequence(generator)

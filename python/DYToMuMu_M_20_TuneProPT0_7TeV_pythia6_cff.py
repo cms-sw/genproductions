@@ -3,7 +3,6 @@ import FWCore.ParameterSet.Config as cms
 source = cms.Source("EmptySource")
 
 from Configuration.Generator.PythiaUEProPT0Settings_cfi import *
-from GeneratorInterface.ExternalDecays.TauolaSettings_cff import *
 generator = cms.EDFilter("Pythia6GeneratorFilter",
     pythiaHepMCVerbosity = cms.untracked.bool(False),
     maxEventsToPrint = cms.untracked.int32(0),
@@ -11,14 +10,6 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
     filterEfficiency = cms.untracked.double(1.0),
     crossSection = cms.untracked.double(1300.),
     comEnergy = cms.double(7000.0),
-    ExternalDecays = cms.PSet(
-        Tauola = cms.untracked.PSet(
-            TauolaPolar,
-            TauolaDefaultInputCards
-        ),
-        parameterSets = cms.vstring('Tauola')
-    ),
-    UseExternalGenerators = cms.untracked.bool(True),
     PythiaParameters = cms.PSet(
         pythiaUESettingsBlock,
         processParameters = cms.vstring('MSEL=0            !User defined processes', 
@@ -32,9 +23,9 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
                                         'MDME(179,1)=0     !Z decay into t tbar', 
                                         'MDME(182,1)=0     !Z decay into e- e+', 
                                         'MDME(183,1)=0     !Z decay into nu_e nu_ebar', 
-                                        'MDME(184,1)=0     !Z decay into mu- mu+', 
+                                        'MDME(184,1)=1     !Z decay into mu- mu+', 
                                         'MDME(185,1)=0     !Z decay into nu_mu nu_mubar', 
-                                        'MDME(186,1)=1     !Z decay into tau- tau+', 
+                                        'MDME(186,1)=0     !Z decay into tau- tau+', 
                                         'MDME(187,1)=0     !Z decay into nu_tau nu_taubar', 
                                         'CKIN(1)=20.       !Minimum sqrt(s_hat) value (=Z mass)'),
         # This is a vector of ParameterSet names to be read, in this order
@@ -44,9 +35,9 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
 )
 
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.2 $'),
-    name = cms.untracked.string('$Source: /local/projects/CMSSW/rep/CMSSW/Configuration/GenProduction/python/Attic/PYTHIA6_Tauola_EWK_Ztautau_7TeV_cff.py,v $'),
-    annotation = cms.untracked.string('PYTHIA6 Z/gamma* to tau tau, M(tau+tau-) > 20 GeV at sqrt(s) = 7TeV, Tune ProPT0')
+    version = cms.untracked.string('$Revision: 1.1 $'),
+    name = cms.untracked.string('$Source: $'),
+    annotation = cms.untracked.string('PYTHIA6 Z/gamma* to mumu, M(mu+mu-) > 20 GeV at sqrt(s) = 7TeV, Tune ProPT0')
 )
 
 ProductionFilterSequence = cms.Sequence(generator)

@@ -2,7 +2,7 @@ import FWCore.ParameterSet.Config as cms
 
 source = cms.Source("EmptySource")
 
-from Configuration.Generator.PythiaUEDWSettings_cfi import *
+from Configuration.Generator.PythiaUEP0Settings_cfi import *
 generator = cms.EDFilter("Pythia6GeneratorFilter",
     pythiaHepMCVerbosity = cms.untracked.bool(False),
     maxEventsToPrint = cms.untracked.int32(0),
@@ -21,9 +21,9 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
                                         'MDME(177,1)=0     !Z decay into c cbar', 
                                         'MDME(178,1)=0     !Z decay into b bbar', 
                                         'MDME(179,1)=0     !Z decay into t tbar', 
-                                        'MDME(182,1)=0     !Z decay into e- e+', 
+                                        'MDME(182,1)=1     !Z decay into e- e+', 
                                         'MDME(183,1)=0     !Z decay into nu_e nu_ebar', 
-                                        'MDME(184,1)=1     !Z decay into mu- mu+', 
+                                        'MDME(184,1)=0     !Z decay into mu- mu+', 
                                         'MDME(185,1)=0     !Z decay into nu_mu nu_mubar', 
                                         'MDME(186,1)=0     !Z decay into tau- tau+', 
                                         'MDME(187,1)=0     !Z decay into nu_tau nu_taubar', 
@@ -35,9 +35,9 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
 )
 
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.2 $'),
-    name = cms.untracked.string('$Source: /local/projects/CMSSW/rep/CMSSW/Configuration/GenProduction/python/Attic/PYTHIA6_EWK_Zmumu_7TeV_cff.py,v $'),
-    annotation = cms.untracked.string('PYTHIA6 Z/gamma* to mumu, M(mu+mu-) > 20 GeV at sqrt(s) = 7TeV, Tune DW')
+    version = cms.untracked.string('$Revision: 1.1 $'),
+    name = cms.untracked.string('$Source: $'),
+    annotation = cms.untracked.string('PYTHIA6 Z/gamma* to ee, M(e+e-) > 20 GeV at sqrt(s) = 7TeV, Tune P0')
 )
 
 ProductionFilterSequence = cms.Sequence(generator)
