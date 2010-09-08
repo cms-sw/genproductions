@@ -1,11 +1,10 @@
 # imports as needed
 import FWCore.ParameterSet.Config as cms
 
-# since a source is still needed   
-source = cms.Source('EmptySource')    
-
 # the definition of the generator filter
-from Configuration.GenProduction.PythiaUESettings_cfi import *
+from Configuration.Generator.PythiaUEZ2Settings_cfi import *
+
+
 generator = cms.EDFilter('Pythia6GeneratorFilter',   
     pythiaPylistVerbosity = cms.untracked.int32(0),   
     crossSection = cms.untracked.double(95900.0),
