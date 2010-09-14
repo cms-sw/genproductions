@@ -7,7 +7,14 @@ generator = cms.EDFilter("Pythia6HadronizerFilter",
     pythiaHepMCVerbosity = cms.untracked.bool(True),
     maxEventsToPrint = cms.untracked.int32(0),
     comEnergy = cms.double(7000.0),
-
+    ExternalDecays = cms.PSet(
+        Tauola = cms.untracked.PSet(
+            TauolaPolar,
+            TauolaDefaultInputCards
+        ),
+        parameterSets = cms.vstring('Tauola')
+    ),
+    UseExternalGenerators = cms.untracked.bool(True),
     PythiaParameters = cms.PSet(
         pythiaUESettingsBlock,
         processParameters = cms.vstring('MSEL=0          ! User defined processes',
