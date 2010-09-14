@@ -21,13 +21,14 @@ hiSignal = cms.EDFilter("PyquenGeneratorFilter",
                                                     ),
                         cFlag = cms.int32(0), ## centrality flag
                         bMin = cms.double(0.0), ## min impact param (fm); valid only if cflag_!=0
-                        bMax = cms.double(0.0) ## max impact param (fm); valid only if cflag_!=0
+                        bMax = cms.double(0.0), ## max impact param (fm); valid only if cflag_!=0
+                        maxTries = cms.untracked.int32(5000) ## number of times to try genfilter before skipping event
                         )
 
 hiSignal.embeddingMode = True
 
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.1 $'),
+    version = cms.untracked.string('$Revision: 1.3 $'),
     name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Pyquen_DiJetEnrichedEM_Pt30_cfi.py,v $'),
     annotation = cms.untracked.string('PYQUEN quenched EM-enriched dijets (pt-hat > 30 GeV) at sqrt(s) = 2.76TeV')
     )
