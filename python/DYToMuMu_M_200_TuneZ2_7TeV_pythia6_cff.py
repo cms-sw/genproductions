@@ -7,7 +7,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
     maxEventsToPrint = cms.untracked.int32(0),
     pythiaPylistVerbosity = cms.untracked.int32(1),
     filterEfficiency = cms.untracked.double(1.0),
-    crossSection = cms.untracked.double(2659.),
+    crossSection = cms.untracked.double(0.9662),
     comEnergy = cms.double(7000.0),
     PythiaParameters = cms.PSet(
         pythiaUESettingsBlock,
@@ -26,8 +26,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
                                         'MDME(185,1)=0     !Z decay into nu_mu nu_mubar', 
                                         'MDME(186,1)=0     !Z decay into tau- tau+', 
                                         'MDME(187,1)=0     !Z decay into nu_tau nu_taubar', 
-                                        'CKIN(1)=10.       !Minimum sqrt(s_hat) value (=Z mass)',
-                                        'CKIN(2)=20.       !Maximum sqrt(s_hat) value (=Z mass)'),
+                                        'CKIN(1)=200.       !Minimum sqrt(s_hat) value (=Z mass)'),
         # This is a vector of ParameterSet names to be read, in this order
         parameterSets = cms.vstring('pythiaUESettings', 
             'processParameters')
@@ -36,6 +35,9 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
 
 configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.1 $'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/DYToMuMu_M_10To20_TuneD6T_7TeV_pythia6_cff.py,v $'),
-    annotation = cms.untracked.string('PYTHIA6 Z/gamma* to mumu, 10 < M(mu+mu-) < 20 GeV at sqrt(s) = 7TeV, Tune Z2')
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/DYToMuMu_M_200_TuneZ2_7TeV_pythia6_cff.py,v $'),
+    annotation = cms.untracked.string('PYTHIA6 Z/gamma* to mumu, M(mu+mu-) > 200 GeV at sqrt(s) = 7TeV, Tune Z2')
 )
+
+ProductionFilterSequence = cms.Sequence(generator)
+
