@@ -10,7 +10,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
     pythiaPylistVerbosity = cms.untracked.int32(0),
     filterEfficiency = cms.untracked.double(1.),
     comEnergy = cms.double(7000.0),
-    crossSection = cms.untracked.double(7.3),
+    crossSection = cms.untracked.double(14.3),
     PythiaParameters = cms.PSet(
         pythiaUESettingsBlock,
         processParameters = cms.vstring('MSEL        = 0    !User defined processes',
@@ -40,7 +40,7 @@ ProductionFilterSequence = cms.Sequence(generator)
 
 configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.1 $'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/ZGtoLLG_TuneZ2_7TeV_pythia6_tauola_cff.py,v $'),
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/ZGtoLLG_Pt_5_M_20_TuneZ2_7TeV_pythia6_cff.py,v $'),
     annotation = cms.untracked.string('PYTHIA6-EWK Zgamma at 7TeV')
 )
 
