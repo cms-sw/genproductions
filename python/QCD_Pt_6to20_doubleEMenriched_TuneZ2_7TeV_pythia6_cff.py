@@ -6,8 +6,8 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
     pythiaHepMCVerbosity = cms.untracked.bool(False),
     maxEventsToPrint = cms.untracked.int32(0),
     pythiaPylistVerbosity = cms.untracked.int32(1),
-    filterEfficiency = cms.untracked.double(0.0227),
-    crossSection = cms.untracked.double(20800000000.),
+    filterEfficiency = cms.untracked.double(0.0161),
+    crossSection = cms.untracked.double(20750000000.),
     comEnergy = cms.double(7000.0),  # center of mass energy in GeV
     PythiaParameters = cms.PSet(
         pythiaUESettingsBlock,
@@ -46,7 +46,7 @@ doubleEMenrichingfilter = cms.EDFilter("doubleEMEnrichingFilter",
 # enter below the configuration metadata (only a description is needed, the rest is filled in by cvs)
 configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.1 $'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Attic/PYTHIA6_QCD_Pt_6_20_7TeV_doubleEMEnrichFilter_cff.py,v $'),
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/QCD_Pt_6to20_doubleEMenriched_TuneZ2_7TeV_pythia6_cff.py,v $'),
     annotation = cms.untracked.string('double em-enriching filtered QCD pthat 6-20, 7 TeV')
 )
 
