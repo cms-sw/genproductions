@@ -4,7 +4,7 @@ source = cms.Source("EmptySource")
 
 from Configuration.Generator.PythiaUESettings_cfi import *
 generator = cms.EDFilter("Pythia6GeneratorFilter",
-    crossSection = cms.untracked.double(112400), 
+    crossSection = cms.untracked.double(114600), 
     pythiaHepMCVerbosity = cms.untracked.bool(False),
     maxEventsToPrint = cms.untracked.int32(0),
     pythiaPylistVerbosity = cms.untracked.int32(0),
@@ -22,7 +22,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
 )
 
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.3 $'),
+    version = cms.untracked.string('$Revision: 1.1 $'),
     name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/QCD_Pt_120to170_TuneD6T_7TeV_pythia6_cff.py,v $'),
     annotation = cms.untracked.string('QCD Pt [120,170] at 7 TeV')
 )
