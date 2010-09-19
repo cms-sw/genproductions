@@ -2,14 +2,14 @@ import FWCore.ParameterSet.Config as cms
 
 configurationMetadata = cms.untracked.PSet(
 	version = cms.untracked.string('$Revision: 1.1 $'),
-	name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/QCD_Pt_30to50_CTEQ6L1_7TeV_herwig6_cff.py,v $'),
-	annotation = cms.untracked.string('Herwig+Jimmy generation of QCD events, 7TeV, CTEQ6L1, pthat [30,50] GeV')
+	name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/QCD_Pt_120to170_CTEQ6L1_7TeV_herwig6_cff.py,v $'),
+	annotation = cms.untracked.string('Herwig+Jimmy generation of QCD events, 7TeV, CTEQ6L1, pthat [120,170] GeV')
 )
 
 source = cms.Source("EmptySource")
 generator = cms.EDFilter("Herwig6GeneratorFilter",
 	comEnergy = cms.double(7000.0),
-	crossSection = cms.untracked.double(4.2464E+07),
+	crossSection = cms.untracked.double(9.3495E+04),
 	doMPInteraction = cms.bool(True),
 	emulatePythiaStatusCodes = cms.untracked.bool(True),
 	filterEfficiency = cms.untracked.double(1.0),
@@ -23,8 +23,8 @@ generator = cms.EDFilter("Herwig6GeneratorFilter",
 	HerwigParameters = cms.PSet(
 		herwigQCDjets = cms.vstring(
 			'IPROC     = 1500    ! QCD 2->2 processes', 
-			'PTMIN     = 30.    ! minimum pt in hadronic jet',
-			'PTMAX     = 50.    ! minimum pt in hadronic jet',
+			'PTMIN     = 120.    ! minimum pt in hadronic jet',
+			'PTMAX     = 170.    ! minimum pt in hadronic jet',
 			'MODPDF(1) = 10042   ! PDF set according to LHAGLUE', 
 			'MODPDF(2) = 10042   ! CTEQ6L1', 
 			'JMUEO     = 1       ! multiparton interaction model',
