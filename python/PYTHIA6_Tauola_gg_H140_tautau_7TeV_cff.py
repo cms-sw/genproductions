@@ -3,7 +3,7 @@ import FWCore.ParameterSet.Config as cms
 # Define the source (empty for Multipurpose Generators)
 source = cms.Source("EmptySource")
 # Import settings for modules
-from Configuration.Generator.PythiaUESettings_cfi import *
+from Configuration.Generator.PythiaUEZ2Settings_cfi import *
 from GeneratorInterface.ExternalDecays.TauolaSettings_cff import *
 
 # Define the generator module
@@ -139,7 +139,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
 ProductionFilterSequence = cms.Sequence(generator)
 
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.2 $'),
+    version = cms.untracked.string('$Revision: 1.1 $'),
     name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_Tauola_gg_H140_tautau_7TeV_cff.py,v $'),
     annotation = cms.untracked.string('PYTHIA6-TTbar Hplus80 To TauNu, with Tauola at 10TeV')
     )

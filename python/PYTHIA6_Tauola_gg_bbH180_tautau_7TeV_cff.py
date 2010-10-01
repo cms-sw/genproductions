@@ -3,43 +3,43 @@ import FWCore.ParameterSet.Config as cms
 # Define the source (empty for Multipurpose Generators)
 source = cms.Source("EmptySource")
 # Import settings for modules
-from Configuration.Generator.PythiaUESettings_cfi import *
-from GeneratorInterface.ExternalDecays.TauolaSettings_cff import *
+	from Configuration.Generator.PythiaUEZ2Settings_cfi import *
+	from GeneratorInterface.ExternalDecays.TauolaSettings_cff import *
 
-# Define the generator module
-generator = cms.EDFilter("Pythia6GeneratorFilter",
-    pythiaHepMCVerbosity = cms.untracked.bool(False),
-    maxEventsToPrint = cms.untracked.int32(0),
-    pythiaPylistVerbosity = cms.untracked.int32(1),
-    filterEfficiency = cms.untracked.double(1.0),
-    comEnergy = cms.double(7000.0),
-    crossSection = cms.untracked.double(1.1),
-    ExternalDecays = cms.PSet(
-        Tauola = cms.untracked.PSet(
-            TauolaPolar, # tau polarisation switch on
-            TauolaDefaultInputCards #set default TAUOLA input card
-        ),
-        parameterSets = cms.vstring('Tauola')
-    ),
-    UseExternalGenerators = cms.untracked.bool(True),
-    PythiaParameters = cms.PSet(
-        pythiaUESettingsBlock,
-        processParameters = cms.vstring('MSEL=0         ! User defined processes',
-            'MSUB(186)= 1   ! gg->QQbarH (MSSM)', 
-            'KFPR(186,2)= 5 ! Q = b Registered by Alexandre.Nikitenko@cern.ch', 
-            # MSSM settings
-            'IMSS(1)= 1     ! MSSM with parameters',
-            'RMSS(5)= 30.   ! tan beta', 
-            'RMSS(19)= 180. ! m_A', 
-            'RMSS(1)= 100.  ! M1',   
-            'RMSS(2)= 200.  ! M2',   
-            'RMSS(3)= 800.  ! Mg',   
-            'RMSS(4)= 200.  ! mu',   
-            'RMSS(6)= 1000.  ! MS',
-            'RMSS(7)= 1000.  ! MS',
-            'RMSS(8)= 1000.  ! MS',
-            'RMSS(9)= 1000.  ! MS',
-            'RMSS(10)= 1000.  ! MS',
+	# Define the generator module
+	generator = cms.EDFilter("Pythia6GeneratorFilter",
+	    pythiaHepMCVerbosity = cms.untracked.bool(False),
+	    maxEventsToPrint = cms.untracked.int32(0),
+	    pythiaPylistVerbosity = cms.untracked.int32(1),
+	    filterEfficiency = cms.untracked.double(1.0),
+	    comEnergy = cms.double(7000.0),
+	    crossSection = cms.untracked.double(1.1),
+	    ExternalDecays = cms.PSet(
+		Tauola = cms.untracked.PSet(
+		    TauolaPolar, # tau polarisation switch on
+		    TauolaDefaultInputCards #set default TAUOLA input card
+		),
+		parameterSets = cms.vstring('Tauola')
+	    ),
+	    UseExternalGenerators = cms.untracked.bool(True),
+	    PythiaParameters = cms.PSet(
+		pythiaUESettingsBlock,
+		processParameters = cms.vstring('MSEL=0         ! User defined processes',
+		    'MSUB(186)= 1   ! gg->QQbarH (MSSM)', 
+		    'KFPR(186,2)= 5 ! Q = b Registered by Alexandre.Nikitenko@cern.ch', 
+		    # MSSM settings
+		    'IMSS(1)= 1     ! MSSM with parameters',
+		    'RMSS(5)= 30.   ! tan beta', 
+		    'RMSS(19)= 180. ! m_A', 
+		    'RMSS(1)= 100.  ! M1',   
+		    'RMSS(2)= 200.  ! M2',   
+		    'RMSS(3)= 800.  ! Mg',   
+		    'RMSS(4)= 200.  ! mu',   
+		    'RMSS(6)= 1000.  ! MS',
+		    'RMSS(7)= 1000.  ! MS',
+		    'RMSS(8)= 1000.  ! MS',
+		    'RMSS(9)= 1000.  ! MS',
+		    'RMSS(10)= 1000.  ! MS',
             'RMSS(11)= 1000.  ! MS',
             'RMSS(12)= 1000.  ! MS',
             'RMSS(13)= 1000.  ! MS',
@@ -140,8 +140,8 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
 ProductionFilterSequence = cms.Sequence(generator)
 
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.2 $'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_Tauola_gg_bbH140_tautau_7TeV_cff.py,v $'),
+    version = cms.untracked.string('$Revision: 1.1 $'),
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_Tauola_gg_bbH180_tautau_7TeV_cff.py,v $'),
     annotation = cms.untracked.string('PYTHIA6-TTbar Hplus80 To TauNu, with Tauola at 10TeV')
     )
 
