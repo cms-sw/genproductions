@@ -139,8 +139,8 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
 ProductionFilterSequence = cms.Sequence(generator)
 
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.1 $'),
+    version = cms.untracked.string('$Revision: 1.3 $'),
     name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_Tauola_gg_H100_tautau_7TeV_cff.py,v $'),
-    annotation = cms.untracked.string('PYTHIA6-TTbar Hplus80 To TauNu, with Tauola at 10TeV')
+    annotation = cms.untracked.string('PYTHIA6 - SUSY gg->H(100)->2tau, with Tauola at 7TeV')
     )
 
