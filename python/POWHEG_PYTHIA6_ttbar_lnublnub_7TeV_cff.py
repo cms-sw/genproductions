@@ -15,8 +15,6 @@ generator = cms.EDFilter(
         pythiaUESettingsBlock, 
         processParameters = cms.vstring(
             'MSEL=0           ! User defined processes', 
-            'MSTJ(1)=1        ! Fragmentation/hadronization on or off', 
-            'MSTP(61)=1       ! Parton showering on or off', 
             'PMAS(5,1)=4.75   ! b quark mass', 
             'PMAS(6,1)=172.5  ! t quark mass' 
             ),
