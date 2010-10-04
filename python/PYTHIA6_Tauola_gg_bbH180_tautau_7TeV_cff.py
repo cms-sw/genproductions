@@ -1,13 +1,13 @@
 # General Import
 import FWCore.ParameterSet.Config as cms
-# Define the source (empty for Multipurpose Generators)
-source = cms.Source("EmptySource")
+
 # Import settings for modules
-	from Configuration.Generator.PythiaUEZ2Settings_cfi import *
-	from GeneratorInterface.ExternalDecays.TauolaSettings_cff import *
+
+from Configuration.Generator.PythiaUEZ2Settings_cfi import *
+from GeneratorInterface.ExternalDecays.TauolaSettings_cff import *
 
 	# Define the generator module
-	generator = cms.EDFilter("Pythia6GeneratorFilter",
+generator = cms.EDFilter("Pythia6GeneratorFilter",
 	    pythiaHepMCVerbosity = cms.untracked.bool(False),
 	    maxEventsToPrint = cms.untracked.int32(0),
 	    pythiaPylistVerbosity = cms.untracked.int32(1),
