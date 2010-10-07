@@ -27,12 +27,15 @@ generator = cms.EDFilter("Pythia6HadronizerFilter",
        MEMAIN_qcut = cms.double(-1),
        MEMAIN_minjets = cms.int32(-1),
        MEMAIN_maxjets = cms.int32(-1),
+       MEMAIN_showerkt = cms.double(0),   
+       MEMAIN_excres = cms.string(""),
+       outTree_flag = cms.int32(0)    
     )
 )
 
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.2 $'),
-    name = cms.untracked.string ('$Source: Configuration/Generator/python/MadGraph_Pythia6_Vgamma_cff.py,v $'),
+    version = cms.untracked.string('$Revision: 1.1 $'),
+    name = cms.untracked.string ('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/MadGraph_Pythia6_Exotica_ZinvGamma_cff.py,v $'),
     annotation = cms.untracked.string('runs Pythia6 on Madgraph MC output, without QED radiation for Vgamma')
 )
 

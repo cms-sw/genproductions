@@ -91,11 +91,14 @@ generator = cms.EDFilter("Pythia6HadronizerFilter",
        MEMAIN_qcut = cms.double(30.0),
        MEMAIN_minjets = cms.int32(0),
        MEMAIN_maxjets = cms.int32(2),
+       MEMAIN_showerkt = cms.double(0),   
+       MEMAIN_excres = cms.string(""),
+       outTree_flag = cms.int32(0)    
     )
 )
 
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.123.4.4 $'),
+    version = cms.untracked.string('$Revision: 1.1 $'),
     name = cms.untracked.string('Configuration/Generator/python/TPrime_tZtZ_300GeV_MadGraph_7TeV_cff.py'),
     annotation = cms.untracked.string('MadGraph tprime -> tZ')
 )
