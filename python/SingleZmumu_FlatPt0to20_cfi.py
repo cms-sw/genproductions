@@ -28,3 +28,5 @@ configurationMetadata = cms.untracked.PSet(
     name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/SingleZmumu_FlatPt0to20_cfi.py,v $'),
     annotation = cms.untracked.string('Pythia Gun Z -> mu mu')
     )
+
+ProductionFilterSequence = cms.Sequence(hiSignal)

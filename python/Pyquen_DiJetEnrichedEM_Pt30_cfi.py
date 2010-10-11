@@ -32,3 +32,5 @@ configurationMetadata = cms.untracked.PSet(
     name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Pyquen_DiJetEnrichedEM_Pt30_cfi.py,v $'),
     annotation = cms.untracked.string('PYQUEN quenched EM-enriched dijets (pt-hat > 30 GeV) at sqrt(s) = 2.76TeV')
     )
+
+ProductionFilterSequence = cms.Sequence(hiSignal)
