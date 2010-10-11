@@ -24,9 +24,7 @@ hiSignal = cms.EDFilter("PyquenGeneratorFilter",
 hiSignal.embeddingMode = True
 
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.1 $'),
+    version = cms.untracked.string('$Revision: 1.3 $'),
     name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Pyquen_UnquenchedDiJet_Pt50_cfi.py,v $'),
     annotation = cms.untracked.string('PYQUEN un-quenched dijets (pt-hat > 50 GeV) at sqrt(s) = 2.76TeV')
     )
-
-ProductionFilterSequence = cms.Sequence(hiSignal)
