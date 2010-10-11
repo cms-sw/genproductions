@@ -4,7 +4,7 @@ from Configuration.Generator.PyquenDefaultSettings_cff import *
 hiSignal = cms.EDProducer("Pythia6PtYDistGun",
     PGunParameters = cms.PSet(
         ParticleID = cms.vint32(23),
-        kinematicsFile = cms.FileInPath('Configuration/GenProduction/test/flatYPt.root'),
+        kinematicsFile = cms.FileInPath('GeneratorInterface/HiGenCommon/data/flatYPt.root'),
         PtBinning = cms.int32(100000),
         YBinning = cms.int32(500),
         MaxPt = cms.double(20.0),
@@ -24,7 +24,7 @@ hiSignal = cms.EDProducer("Pythia6PtYDistGun",
 )
 
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.1 $'),
+    version = cms.untracked.string('$Revision: 1.2 $'),
     name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/SingleZmumu_FlatPt0to20_cfi.py,v $'),
     annotation = cms.untracked.string('Pythia Gun Z -> mu mu')
     )
