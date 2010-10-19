@@ -1,6 +1,8 @@
+##############################################################################
 def customise(process):
-	## HCAL switches to turn off Zero Suppression
-	process.hbhereco.dropZSmarkedPassed = cms.bool(False)
-	process.hfreco.dropZSmarkedPassed   = cms.bool(False)
-	process.horeco.dropZSmarkedPassed   = cms.bool(False)
-    return (process)
+    process.hcalRawData.HBHE = cms.untracked.InputTag("simHcalUnsuppressedDigis")
+    process.hcalRawData.HF = cms.untracked.InputTag("simHcalUnsuppressedDigis")
+    process.hcalRawData.HO = cms.untracked.InputTag("simHcalUnsuppressedDigis")
+    process.hcalRawData.ZDC = cms.untracked.InputTag("simHcalUnsuppressedDigis")
+
+    return process
