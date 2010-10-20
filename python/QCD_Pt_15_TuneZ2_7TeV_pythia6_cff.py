@@ -1,6 +1,6 @@
 import FWCore.ParameterSet.Config as cms
 
-from Configuration.Generator.PythiaUEZ2Settings_cfi import *
+from Configuration.GenProduction.PythiaUEZ2Settings_cfi import *
 
 generator = cms.EDFilter('Pythia6GeneratorFilter',
 	comEnergy = cms.double(7000.0),
@@ -24,7 +24,7 @@ generator = cms.EDFilter('Pythia6GeneratorFilter',
 )
 
 configurationMetadata = cms.untracked.PSet(
-	version = cms.untracked.string('\$Revision: 1.2 $'),
-	name = cms.untracked.string('\$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/QCD_Pt_15to30_TuneZ2_7TeV_pythia6_cff.py,v $'),
+	version = cms.untracked.string('\$Revision: 1.1 $'),
+	name = cms.untracked.string('\$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/QCD_Pt_15_TuneZ2_7TeV_pythia6_cff.py,v $'),
 	annotation = cms.untracked.string('Fall2010 sample with PYTHIA6: QCD dijet production, pThat = 15 .. 30 GeV, TuneZ2')
 )
