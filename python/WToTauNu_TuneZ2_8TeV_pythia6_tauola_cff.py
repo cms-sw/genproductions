@@ -2,6 +2,7 @@ import FWCore.ParameterSet.Config as cms
 
 from Configuration.Generator.PythiaUEZ2Settings_cfi import *
 
+from GeneratorInterface.ExternalDecays.TauolaSettings_cff import *
 generator = cms.EDFilter("Pythia6GeneratorFilter",
     pythiaHepMCVerbosity = cms.untracked.bool(False),
     maxEventsToPrint = cms.untracked.int32(0),
@@ -9,6 +10,14 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
     filterEfficiency = cms.untracked.double(1),
     crossSection = cms.untracked.double(9160.),
     comEnergy = cms.double(8000.0),
+    ExternalDecays = cms.PSet(
+        Tauola = cms.untracked.PSet(
+            TauolaPolar,
+            TauolaDefaultInputCards
+        ),
+        parameterSets = cms.vstring('Tauola')
+    ),
+    UseExternalGenerators = cms.untracked.bool(True),                         
     PythiaParameters = cms.PSet(
         pythiaUESettingsBlock,
         processParameters = cms.vstring('MSEL        = 0    !User defined processes', 
@@ -23,9 +32,9 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
                                         'MDME(199,1) = 0    !W decay into bbar c', 
                                         'MDME(200,1) = 0    !W decay into bbar t', 
                                         'MDME(205,1) = 0    !W decay into bbar tp', 
-                                        'MDME(206,1) = 1    !W decay into e+ nu_e', 
+                                        'MDME(206,1) = 0    !W decay into e+ nu_e', 
                                         'MDME(207,1) = 0    !W decay into mu+ nu_mu', 
-                                        'MDME(208,1) = 0    !W decay into tau+ nu_tau'),
+                                        'MDME(208,1) = 1    !W decay into tau+ nu_tau'),
         # This is a vector of ParameterSet names to be read, in this order
         parameterSets = cms.vstring('pythiaUESettings', 
             'processParameters')
@@ -35,7 +44,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
 
 configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.1 $'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/WToENu_TuneZ2_8TeV_pythia6_cff.py,v $'),
-    annotation = cms.untracked.string('PYTHIA6-Wenu Tune Z2 at 8TeV')
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/WToTauNu_TuneZ2_7TeV_pythia6_tauola_cff.py,v $'),
+    annotation = cms.untracked.string('PYTHIA6/Tauola-Wtaunu Tune Z2 at 8TeV')
 )
 
