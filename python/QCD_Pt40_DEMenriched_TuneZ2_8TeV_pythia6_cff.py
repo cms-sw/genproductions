@@ -9,9 +9,9 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
                    pythiaHepMCVerbosity = cms.untracked.bool(False),
                    maxEventsToPrint = cms.untracked.int32(0),
                    pythiaPylistVerbosity = cms.untracked.int32(0),
-                   filterEfficiency = cms.untracked.double(0.00216),
+                   filterEfficiency = cms.untracked.double(0.00196),
                    comEnergy = cms.double(8000.0),
-                   crossSection = cms.untracked.double(1.87e+07),
+                   crossSection = cms.untracked.double(2.37e+07),
      PythiaParameters = cms.PSet(
             pythiaUESettingsBlock,
             processParameters = cms.vstring(
