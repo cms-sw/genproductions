@@ -1,9 +1,9 @@
 import FWCore.ParameterSet.Config as cms
 
-def exohscp_evecont(process):
+def customise(process):
 	SpecifiedEvenetContent = cms.PSet(
 		outputCommands = cms.untracked.vstring(
 		"keep *_g4SimHits_StoppedParticles*_*",)
 		)
-	process.RECOSIMoutput.outputCommands.extend(SpecifiedEvenetContent.outputCommands)
+	process.output.outputCommands.extend(SpecifiedEvenetContent.outputCommands)
 	return process
