@@ -18,5 +18,5 @@ generator = cms.EDProducer('FlatRandomEGunProducer',
 configurationMetadata = cms.untracked.PSet(
 	version = cms.untracked.string('\$Revision$'),
 	name = cms.untracked.string('\$Source$'),
-	annotation = cms.untracked.string('Fall2010 sample with GUN: Flat random antiproton gun, E = 1 .. 100 GeV, ')
+	annotation = cms.untracked.string('Summer2011 sample with GUN: Flat random antiproton gun, E = 1 .. 100 GeV, no tune')
 )

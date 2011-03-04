@@ -4,8 +4,8 @@ from Configuration.Generator.HerwigppDefaults_cfi import *
 
 generator = cms.EDFilter("ThePEGGeneratorFilter",
 	herwigDefaultsBlock,
-	crossSection = cms.untracked.double(1.0),
-	filterEfficiency = cms.untracked.double(-1.0),
+	crossSection = cms.untracked.double(3.378290e+10),
+	filterEfficiency = cms.untracked.double(1),
 
 	configFiles = cms.vstring(),
 	parameterSets = cms.vstring(
@@ -37,5 +37,5 @@ generator = cms.EDFilter("ThePEGGeneratorFilter",
 configurationMetadata = cms.untracked.PSet(
 	version = cms.untracked.string('\$Revision$'),
 	name = cms.untracked.string('\$Source$'),
-	annotation = cms.untracked.string('Fall2010 sample with HERWIGPP: QCD dijet production, pThat = 15 .. 3000 GeV, weighted, Tune')
+	annotation = cms.untracked.string('Summer2011 sample with HERWIGPP: QCD dijet production, pThat = 15 .. 3000 GeV, weighted, Tune23')
 )

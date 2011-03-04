@@ -2,6 +2,7 @@ import FWCore.ParameterSet.Config as cms
 
 from Configuration.Generator.PythiaUEZ2Settings_cfi import *
 
+
 generator = cms.EDFilter('Pythia6GeneratorFilter',
 	comEnergy = cms.double(7000.0),
 	crossSection = cms.untracked.double(3.674572e+10),
@@ -35,5 +36,5 @@ ProductionFilterSequence = cms.Sequence(generator * pthat_filter)
 configurationMetadata = cms.untracked.PSet(
 	version = cms.untracked.string('\$Revision$'),
 	name = cms.untracked.string('\$Source$'),
-	annotation = cms.untracked.string('Fall2010 sample with PYTHIA6: QCD dijet production, pThat = 5 .. 15 GeV, TuneZ2')
+	annotation = cms.untracked.string('Summer2011 sample with PYTHIA6: QCD dijet production, pThat = 5 .. 15 GeV, TuneZ2')
 )
