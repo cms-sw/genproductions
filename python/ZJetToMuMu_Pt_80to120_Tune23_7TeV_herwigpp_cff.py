@@ -4,8 +4,8 @@ from Configuration.Generator.HerwigppDefaults_cfi import *
 
 generator = cms.EDFilter("ThePEGGeneratorFilter",
 	herwigDefaultsBlock,
-	crossSection = cms.untracked.double(1.0),
-	filterEfficiency = cms.untracked.double(-1.0),
+	crossSection = cms.untracked.double(1.142038e+01),
+	filterEfficiency = cms.untracked.double(1),
 
 	configFiles = cms.vstring(),
 	parameterSets = cms.vstring(
@@ -19,16 +19,16 @@ generator = cms.EDFilter("ThePEGGeneratorFilter",
 		'cd /Herwig/MatrixElements/',
 		'create Herwig::MEPP2ZJet MEZJet',
 		'insert SimpleQCD:MatrixElements[0] MEZJet',
-		'set /Herwig/MatrixElements/MEZJet:ZDecay 5',
+		'set /Herwig/MatrixElements/MEZJet:ZDecay 6',
 
 		'cd /',
-		'set /Herwig/Cuts/JetKtCut:MinKT 0   *GeV',
-		'set /Herwig/Cuts/JetKtCut:MaxKT 15  *GeV',
+		'set /Herwig/Cuts/JetKtCut:MinKT 80  *GeV',
+		'set /Herwig/Cuts/JetKtCut:MaxKT 120 *GeV',
 	),
 )
 
 configurationMetadata = cms.untracked.PSet(
 	version = cms.untracked.string('\$Revision$'),
 	name = cms.untracked.string('\$Source$'),
-	annotation = cms.untracked.string('Summer2011 sample with HERWIGPP: Z + Jet production, Z -> ee, pThat = 0 .. 15 GeV, Tune23')
+	annotation = cms.untracked.string('Summer2011 sample with HERWIGPP: Z + Jet production, Z -> mumu, pThat = 80 .. 120 GeV, Tune23')
 )
