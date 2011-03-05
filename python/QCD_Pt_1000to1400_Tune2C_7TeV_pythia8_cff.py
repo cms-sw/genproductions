@@ -2,7 +2,7 @@ import FWCore.ParameterSet.Config as cms
 
 generator = cms.EDFilter("Pythia8GeneratorFilter",
 	comEnergy = cms.double(7000.0),
-	crossSection = cms.untracked.double(3.613403e-01),
+	crossSection = cms.untracked.double(3.612297e-01),
 	filterEfficiency = cms.untracked.double(1),
 	maxEventsToPrint = cms.untracked.int32(0),
 	pythiaHepMCVerbosity = cms.untracked.bool(False),
