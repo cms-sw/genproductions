@@ -4,8 +4,8 @@ from Configuration.Generator.HerwigppDefaults_cfi import *
 
 generator = cms.EDFilter("ThePEGGeneratorFilter",
 	herwigDefaultsBlock,
-	crossSection = cms.untracked.double(1.142912e+01),
-	filterEfficiency = cms.untracked.double(1),
+	crossSection = cms.untracked.double(1.0),
+	filterEfficiency = cms.untracked.double(-1.0),
 
 	configFiles = cms.vstring(),
 	parameterSets = cms.vstring(
@@ -22,6 +22,7 @@ generator = cms.EDFilter("ThePEGGeneratorFilter",
 		'set /Herwig/MatrixElements/MEZJet:ZDecay 5',
 
 		'cd /',
+		'set /Herwig/Cuts/QCDCuts:MHatMin 0.0*GeV',
 		'set /Herwig/Cuts/JetKtCut:MinKT 80  *GeV',
 		'set /Herwig/Cuts/JetKtCut:MaxKT 120 *GeV',
 	),

@@ -19,17 +19,17 @@ generator = cms.EDFilter("ThePEGGeneratorFilter",
 		'cd /Herwig/MatrixElements/',
 		'create Herwig::MEPP2ZJet MEZJet',
 		'insert SimpleQCD:MatrixElements[0] MEZJet',
-		'set /Herwig/MatrixElements/MEZJet:ZDecay 6',
+		'set /Herwig/MatrixElements/MEZJet:ZDecay 5',
 
 		'cd /',
 		'set /Herwig/Cuts/QCDCuts:MHatMin 0.0*GeV',
-		'set /Herwig/Cuts/JetKtCut:MinKT 15  *GeV',
-		'set /Herwig/Cuts/JetKtCut:MaxKT 20  *GeV',
+		'set /Herwig/Cuts/JetKtCut:MinKT 5   *GeV',
+		'set /Herwig/Cuts/JetKtCut:MaxKT 15  *GeV',
 	),
 )
 
 configurationMetadata = cms.untracked.PSet(
 	version = cms.untracked.string('\$Revision$'),
 	name = cms.untracked.string('\$Source$'),
-	annotation = cms.untracked.string('Summer2011 sample with HERWIGPP: Z + Jet production, Z -> mumu, pThat = 15 .. 20 GeV, Tune23')
+	annotation = cms.untracked.string('Summer2011 sample with HERWIGPP: Z + Jet production, Z -> ee, pThat = 5 .. 15 GeV, Tune23')
 )

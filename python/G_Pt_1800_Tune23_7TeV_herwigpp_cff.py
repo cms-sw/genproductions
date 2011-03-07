@@ -4,7 +4,7 @@ from Configuration.Generator.HerwigppDefaults_cfi import *
 
 generator = cms.EDFilter("ThePEGGeneratorFilter",
 	herwigDefaultsBlock,
-	crossSection = cms.untracked.double(3.129191e-07),
+	crossSection = cms.untracked.double(3.128079e-07),
 	filterEfficiency = cms.untracked.double(1),
 
 	configFiles = cms.vstring(),
