@@ -25,14 +25,14 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
            'PhaseSpace:mHatMin = 50',
            'PhaseSpace:mHatMax = 130',
            '23:onMode = off',  #turn off all Z decays
-           '23:onIfAny = 11'   # turn ON Z->mumu
+           '23:onIfAny = 13'   # turn ON Z->mumu
        ),
        parameterSets = cms.vstring('processParameters')
    )
 )
 
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.1 $'),
-    name = cms.untracked.string('$Source: /cvs/CMSSW/CMSSW/Configuration/GenProduction/python/DYToMuMu_M_50To130_Tune4C-MPIturnedoff_7TeV_pythia8_cff.py,v $'),
-    annotation = cms.untracked.string('PYTHIA8 Z/gamma* to ee, 50 < M(e+e-) < 130 GeV at sqrt(s) = 7TeV, Tune 4c MPI turned off')
+    version = cms.untracked.string('$Revision: 1.2 $'),
+    name = cms.untracked.string('$Source: /cvs/CMSSW/CMSSW/Configuration/GenProduction/python/DYToMuMu_M_50To130_Tune4C_MPIturnedoff_7TeV_pythia8_cff.py,v $'),
+    annotation = cms.untracked.string('PYTHIA8 Z/gamma* to mumu, 50 < M(mu+mu-) < 130 GeV at sqrt(s) = 7TeV, Tune 4C MPI turned off')
 )
