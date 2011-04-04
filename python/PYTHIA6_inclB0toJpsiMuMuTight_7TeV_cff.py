@@ -1,8 +1,8 @@
 import FWCore.ParameterSet.Config as cms
 
 configurationMetadata = cms.untracked.PSet(
-        version = cms.untracked.string('$Revision: 1.6 $'),
-        name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_inclB0toJpsiMuMuTight_7TeV_cff.py,v $'),
+        version = cms.untracked.string('$Revision: 1.7 $'),
+        name = cms.untracked.string('$Source: /cvs/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_inclB0toJpsiMuMuTight_7TeV_cff.py,v $'),
         annotation = cms.untracked.string('Summer09: Pythia6+EvtGen generation of B0->Jpsi->MuMu, 7TeV, D6T tune')
 )
 
@@ -13,7 +13,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
     pythiaHepMCVerbosity = cms.untracked.bool(False),
     comEnergy = cms.double(7000.0),
     crossSection = cms.untracked.double(26500000.0),
-    filterEfficiency = cms.untracked.double(0.000286),
+    filterEfficiency = cms.untracked.double(0.000340),
     maxEventsToPrint = cms.untracked.int32(0),
     ExternalDecays = cms.PSet(
         EvtGen = cms.untracked.PSet(
@@ -45,12 +45,20 @@ b0filter = cms.EDFilter("PythiaFilter",
     ParticleID = cms.untracked.int32(511)
 )
 
-oniafilter = cms.EDFilter("PythiaFilter",
-    Status = cms.untracked.int32(2),
-    MaxEta = cms.untracked.double(1000.0),
-    MinEta = cms.untracked.double(-1000.0),
-    MinPt = cms.untracked.double(0.0),
-    ParticleID = cms.untracked.int32(443)
+## oniafilter = cms.EDFilter("PythiaFilter",
+##    Status = cms.untracked.int32(2),
+##    MaxEta = cms.untracked.double(1000.0),
+##    MinEta = cms.untracked.double(-1000.0),
+##    MinPt = cms.untracked.double(0.0),
+##    ParticleID = cms.untracked.int32(443)
+##)
+
+oniafilter = cms.EDFilter("MCSingleParticleFilter",
+    Status = cms.untracked.vint32(     2,    2),
+    ParticleID = cms.untracked.vint32(443, 100443),
+    MinPt = cms.untracked.vdouble(    0.0, 0.0),
+    MaxEta = cms.untracked.vdouble(   1000.0, 1000.0),
+    MinEta = cms.untracked.vdouble(   -1000.0, -1000.0),
 )
 
 mumugenfilter = cms.EDFilter("MCParticlePairFilter",
