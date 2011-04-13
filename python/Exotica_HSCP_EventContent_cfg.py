@@ -5,5 +5,5 @@ def customise(process):
 		outputCommands = cms.untracked.vstring(
 		"keep *_g4SimHits_StoppedParticles*_*",)
 		)
-	process.output.outputCommands.extend(SpecifiedEvenetContent.outputCommands)
+	process.RECOSIMoutput.outputCommands.extend(SpecifiedEvenetContent.outputCommands)
 	return process
