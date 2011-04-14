@@ -7,9 +7,9 @@ import FWCore.ParameterSet.Config as cms
 
 
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.0 $'),
+    version = cms.untracked.string('$Revision: 1.1 $'),
     annotation = cms.untracked.string('September 2010: Pythia6 generation of prompt X3872, 7TeV, withEvtGen'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_X3872SToJPsi_7TeV_Singlet_cff.py,v $')
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_X3872ToJPsi_7TeV_Singlet_cff.py,v $')
 )
 
 #from Configuration.GenProduction.PythiaUESettings_cfi import *
@@ -39,8 +39,8 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
          #particle_property_file = cms.FileInPath('MCGenerator/evt2.pdl'),
          particle_property_file = cms.FileInPath('GeneratorInterface/ExternalDecays/data/evt.pdl'),
          #user_decay_file = cms.FileInPath('MCGenerator/X3872.dec'),
-         user_decay_file = cms.FileInPath('GeneratorInterface/ExternalDecays/data/X3872.dec'),
-         list_forced_decays = cms.vstring('X3872'),
+         user_decay_file = cms.FileInPath('GeneratorInterface/ExternalDecays/data/Onia_mumu.dec'),
+         list_forced_decays = cms.vstring('myX3872'),
      ),
         parameterSets = cms.vstring('EvtGen')
     ),

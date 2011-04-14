@@ -1,8 +1,8 @@
 import FWCore.ParameterSet.Config as cms
 
 configurationMetadata = cms.untracked.PSet(
-        version = cms.untracked.string('$Revision: 1.7 $'),
-        name = cms.untracked.string('$Source: /local/projects/CMSSW/rep/CMSSW/Configuration/GenProduction/python/PYTHIA6_X3872_From_B_7TeV_cff.py,v $'),
+        version = cms.untracked.string('$Revision: 1.1 $'),
+        name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_X3872_From_B_7TeV_cff.py,v $'),
         annotation = cms.untracked.string('Fall10: Pythia6 generation of non prompt X3872, 7TeV, D6T tune')
 )
 
@@ -32,7 +32,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
          use_default_decay = cms.untracked.bool(False),
          decay_table = cms.FileInPath('GeneratorInterface/ExternalDecays/data/DECAY_NOLONGLIFE.DEC'),
          particle_property_file = cms.FileInPath('GeneratorInterface/ExternalDecays/data/evt.pdl'),
-         user_decay_file = cms.FileInPath('GeneratorInterface/ExternalDecays/data/X3872_fromB.dec'),
+         user_decay_file = cms.FileInPath('GeneratorInterface/ExternalDecays/data/incl_BtoX3872_Jpsipipi.dec'),
          list_forced_decays = cms.vstring('MyB+','MyB0','Myanti-B0'),
      ),
         parameterSets = cms.vstring('EvtGen')
