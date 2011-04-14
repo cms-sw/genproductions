@@ -315,7 +315,7 @@ if __name__ == '__main__':
   logger.addHandler(ch)
   logger.addHandler(fh)
 
-  logger.info('version 1.8')
+  logger.info('version 1.9')
   logger.info('full debugging output in '+logfilename)
 
   #create the parameter scan
@@ -330,13 +330,23 @@ if __name__ == '__main__':
   infile += 'request ID\tRelease\tEventcontent\tPriority\tEvents\ttime\tsize\tfilterEff\tmatchingEff\tdatasetName\tGlobalTag\tconfigurations\n'
   infos = []
   key = 0
+  totevts=0
   for requestId in options.prepids:
     reqInfo = requestInfo(requestId, str(key))
     ret = reqInfo.execute(outputdir, reqInfo, infos)
     if ret[1]:
       infile += ret[0]
       infos.append(reqInfo)
+      my_line=ret[0]
+      my_list = my_line.split('\t')
+      totevts=totevts+int(my_list[4])
     key = key+1
+
+  #add the total events
+  infile += '\n Total evts = ' + str(totevts)
+
+  #add the summary to the log
+  logger.info(infile)
 
   #wrap up  
   summary.write(infile)
