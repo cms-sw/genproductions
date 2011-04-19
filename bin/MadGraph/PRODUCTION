@@ -1,0 +1,8 @@
+In order to produce gridpacks with LSF:
+
+1) replace in the Template/bin subdirectory the standard qsub with the python wrapper around LSF bsub
+
+2) replace the queue name in Template/Source/run_config.inc and in Template/Source/run_config.inc
+
+3) in case of starter special settings, add them in create_gridpacks_template.sh
+
