@@ -6,7 +6,6 @@ from optparse import OptionParser, Option
 
 import urllib, random, json
 
-
 def getIdsFromCampaign(campaign):
 
   #get the logger
@@ -103,51 +102,55 @@ if __name__ == '__main__':
   key = 0 
   host = 'https://cmsweb.cern.ch'
   for requestId in prepids:
-    reqInfo = requestInfo(requestId, str(key))
-    query='dataset=/'
-    query+=reqInfo.dataset+'/'
-    query+=reqInfo.campaign+'-' 
-    query+=reqInfo.gt+'-v*/'
-    query+=options.data_tier
-    logger.info('Executing query: '+query)
-    data = get_data(host, query, 1, 999999, False)
-    jsondict = json.loads(data)
-    logger.debug(json.dumps(jsondict, sort_keys=True, indent=4))
-    mongo_query = jsondict['mongo_query']
-    rows = []
-    if  mongo_query.has_key('fields'):
-      filters = mongo_query['fields']
-      data = jsondict['data']
-      if isinstance(data, list):
-        for row in data:
-          rows = [r for r in get_value(row, filters)]
-  
-    matches = []
-    for row in rows:
-      rowsplit = row.split(',')  
-      datasetname = rowsplit[3].lstrip('u\'name\': u\'').rstrip('\',')
-      matches.append(datasetname)
+    try:
+      reqInfo = requestInfo(requestId, str(key))
+      query='dataset=/'
+      query+=reqInfo.dataset+'/'
+      query+=reqInfo.campaign+'-' 
+      query+=reqInfo.gt+'-v*/'
+      query+=options.data_tier
+      logger.info('Executing query: '+query)
+      data = get_data(host, query, 1, 999999, False)
+      jsondict = json.loads(data)
+      logger.debug(json.dumps(jsondict, sort_keys=True, indent=4))
+      mongo_query = jsondict['mongo_query']
+      rows = []
+      if  mongo_query.has_key('fields'):
+        filters = mongo_query['fields']
+        data = jsondict['data']
+        if isinstance(data, list):
+          for row in data:
+            rows = [r for r in get_value(row, filters)]
+    
+      matches = []
+      for row in rows:
+        rowsplit = row.split(',')  
+        datasetname = rowsplit[3].lstrip('u\'name\': u\'').rstrip('\',')
+        matches.append(datasetname)
 
-    if len(matches) > 0:
-      logger.info('matches found for '+requestId+': '+' '.join(matches)) 
-    else: 
-      logger.info('no dataset found for id '+requestId)
-      continue
-  
-    #if more than one match look for the latest version
-    largestversion = 0 
-    choice = 0
-    for matchindex in range(len(matches)):
-      #take the second part of the dataset name
-      datasetpart2 = matches[matchindex].split('/')[2]
-      version = int(datasetpart2.split('-')[2].lstrip('v')) 
-      if version > largestversion:
-        choice = matchindex
+      if len(matches) > 0:
+        logger.info('matches found for '+requestId+': '+' '.join(matches)) 
+      else: 
+        logger.info('no dataset found for id '+requestId)
+        continue
+    
+      #if more than one match look for the latest version
+      largestversion = 0 
+      choice = 0
+      for matchindex in range(len(matches)):
+        #take the second part of the dataset name
+        datasetpart2 = matches[matchindex].split('/')[2]
+        version = int(datasetpart2.split('-')[2].lstrip('v')) 
+        if version > largestversion:
+          choice = matchindex
 
-    logger.info(requestId+' '+matches[choice])
-    buffer += requestId+' '+matches[choice]+'\n'
+      logger.info(requestId+' '+matches[choice])
+      buffer += requestId+' '+matches[choice]+'\n'
 
-    key += 1
+      key += 1
+    except KeyboardInterrupt:
+      print 'you issued ctrl-c, trying to exit gracefully'
+      break;
 
   dbfile = open(options.dbfilename, 'w')
   dbfile.write(buffer)
