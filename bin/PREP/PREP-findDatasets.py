@@ -90,11 +90,15 @@ if __name__ == '__main__':
     logger.error("error downloading %s: %s" % (options.www_cli, e))
     sys.exit(1)
 
+  
+
   prepids = []
   if options.prepids != None:
     prepids = options.prepids
   else :
     prepids = getIdsFromCampaign(options.campid) 
+
+  buffer = ''
 
   key = 0 
   host = 'https://cmsweb.cern.ch'
@@ -140,7 +144,11 @@ if __name__ == '__main__':
       if version > largestversion:
         choice = matchindex
 
-    logger.info(requestId+' '+matches[choice])     
+    logger.info(requestId+' '+matches[choice])
+    buffer += requestId+' '+matches[choice]+'\n'
 
     key += 1
 
+  dbfile = open(options.dbfilename, 'w')
+  dbfile.write(buffer)
+  dbfile.close()
