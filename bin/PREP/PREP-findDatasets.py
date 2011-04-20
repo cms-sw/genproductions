@@ -7,6 +7,25 @@ from optparse import OptionParser, Option
 import urllib, random, json
 
 
+def getIdsFromCampaign(campaign):
+
+  #get the logger
+  logger = logging.getLogger("logger")
+  #get the full campaign in xml format
+  url = 'http://cms.cern.ch/iCMS/prep/requestxml?campid='+campaign
+  dom = minidom.parse(urllib2.urlopen(url))
+  #parse for the element "request"
+  requests = dom.getElementsByTagName('request')
+  logger.info( 'Campaing %s currently consists of %d requests' % (campaign, len(requests))) 
+  #prepare the container for output
+  outputIds = []
+
+  for request in requests:
+    #code = request.getElementByTagName('code')
+    outputIds.append(request.attributes['code'].value)
+
+  return outputIds
+
 #
 # main
 #
@@ -15,6 +34,7 @@ if __name__ == '__main__':
   usage = 'usage: %prog [options]\n'
   parser = OptionParser(usage=usage,option_class=MyOption)
   parser.add_option("-p", "--prepids", action="extend", help="comma separated list of PREP-IDs, REQUIRED", default=None)
+  parser.add_option('-c', '--campid', action='store', help='execute for all requests in the specidied camapign', default=None)
   parser.add_option('-t', '--data-tier', action="store", help='which data tier, REQUIRED', default=None)
   parser.add_option('-d', "--dbfilename", action="store", help="dbfilename", default='ID-DatasetName_Mapping.txt' )
   parser.add_option("-f", "--force", action="store_true", help="overwrite old results (default=False)", default=False)
@@ -23,8 +43,13 @@ if __name__ == '__main__':
 
   (options, args) = parser.parse_args()
 
-  if (options.prepids is None):
-    print "\n[Config error] option -p or --prepids is required\n"
+  if (options.prepids is None and options.campid is None):
+    print "\n[Config error] option --prepids or --campid is required\n"
+    parser.print_help()
+    sys.exit(1)
+
+  if (options.prepids != None and options.campid != None):  
+    print "\n[Config error] only one between --prepids and --campid is allowed\n"
     parser.print_help()
     sys.exit(1)
 
@@ -33,9 +58,9 @@ if __name__ == '__main__':
     parser.print_help()
     sys.exit(1)
 
-  if (len(options.prepids) == 0):
-     parser.print_help()
-     sys.exit(1)
+  #if (len(options.prepids) == 0):
+  #   parser.print_help()
+  #   sys.exit(1)
 
 
   # create logger
@@ -65,10 +90,15 @@ if __name__ == '__main__':
     logger.error("error downloading %s: %s" % (options.www_cli, e))
     sys.exit(1)
 
+  prepids = []
+  if options.prepids != None:
+    prepids = options.prepids
+  else :
+    prepids = getIdsFromCampaign(options.campid) 
 
   key = 0 
   host = 'https://cmsweb.cern.ch'
-  for requestId in options.prepids:
+  for requestId in prepids:
     reqInfo = requestInfo(requestId, str(key))
     query='dataset=/'
     query+=reqInfo.dataset+'/'
