@@ -100,7 +100,8 @@ if __name__ == '__main__':
   buffer = ''
 
   key = 0 
-  host = 'https://cmsweb.cern.ch'
+  #host = 'https://cmsweb.cern.ch'
+  host = 'https://dastest.cern.ch'
   for requestId in prepids:
     try:
       reqInfo = requestInfo(requestId, str(key))
