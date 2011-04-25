@@ -31,7 +31,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
 
 configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.1 $'),
-    name = cms.untracked.string('$Source: ... $'),
+    name = cms.untracked.string('$Source: /cvs/CMSSW/CMSSW/Configuration/GenProduction/python/GMSB_Lambda180_CTau250_7TeV_pythia6_cff.py,v $'),
     annotation = cms.untracked.string('GMSB Lambda=180TeV and ctau=250 at 7 TeV')
 )
 

@@ -1,9 +1,9 @@
 import FWCore.ParameterSet.Config as cms
 
-from Configuration.Generator.PythiaUEZ2Settings_cfi import *
-#from Configuration.Generator.PythiaUED6TSettings_cfi import *
 
-generator = cms.EDFilter("Pythia6GeneratorFilter",
+from Configuration.Generator.PythiaUEZ2Settings_cfi import *
+
+generator = cms.EDFilter("Pythia6HadronizerFilter",
     pythiaHepMCVerbosity = cms.untracked.bool(False),
     maxEventsToPrint = cms.untracked.int32(0),
     pythiaPylistVerbosity = cms.untracked.int32(0),
@@ -31,8 +31,8 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
 
 configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.1 $'),
-    name = cms.untracked.string('$Source: ... $'),
+    name = cms.untracked.string('$Source: /cvs/CMSSW/CMSSW/Configuration/GenProduction/python/GMSB_Lambda100_CTau250_7TeV_pythia6_cff.py,v $'),
     annotation = cms.untracked.string('GMSB Lambda=100TeV and ctau=250 at 7 TeV')
 )
 
-ProductionFilterSequence = cms.Sequence(generator)
+#ProductionFilterSequence = cms.Sequence(generator)
