@@ -8,15 +8,15 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
                          filterEfficiency = cms.untracked.double(1.0),
                          pythiaHepMCVerbosity = cms.untracked.bool(False),
                          comEnergy = cms.double(7000.),
-                         crossSection = cms.untracked.double(2.770e-1),
+                         crossSection = cms.untracked.double(1.077e-3),
                          PythiaParameters = cms.PSet(
     pythia8_monophoton = cms.vstring( ## see details on http://home.thep.lu.se/~torbjorn/php8135/ExtraDimensionalProcesses.php?filepath=files/
     'ExtraDimensionsLED:ffbar2Ggamma = on',
     'ExtraDimensionsLED:CutOffmode = 1',
     'ExtraDimensionsLED:t = 0.5',
-    'ExtraDimensionsLED:n = 4',
-    'ExtraDimensionsLED:MD = 1000.',
-    'ExtraDimensionsLED:LambdaT = 1000.',
+    'ExtraDimensionsLED:n = 5',
+    'ExtraDimensionsLED:MD = 3000.',
+    'ExtraDimensionsLED:LambdaT = 3000.',
     '5000039:m0 = 1200.',
     '5000039:mWidth = 1000.',
     '5000039:mMin = 1.',
@@ -24,10 +24,10 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
     'PhaseSpace:pTHatMin = 80.',
     'PartonLevel:MI = on',
     'PartonLevel:ISR = on',
-    'PartonLevel:FSR = on'					       
+                                               'PartonLevel:FSR = on'					       
     ), 
     parameterSets = cms.vstring('pythia8_monophoton')
-    ) 
+                                 ) 
                          )
 
 
