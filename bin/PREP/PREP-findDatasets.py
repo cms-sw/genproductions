@@ -102,6 +102,7 @@ if __name__ == '__main__':
   key = 0 
   #host = 'https://cmsweb.cern.ch'
   host = 'https://dastest.cern.ch'
+  totEvents = 0
   for requestId in prepids:
     try:
       reqInfo = requestInfo(requestId, str(key))
@@ -111,7 +112,8 @@ if __name__ == '__main__':
       query+=reqInfo.gt+'-v*/'
       query+=options.data_tier
       logger.info('Executing query: '+query)
-      data = get_data(host, query, 1, 999999, False)
+      data = get_data(host, query, 0, 10, False)
+      #print data
       jsondict = json.loads(data)
       logger.debug(json.dumps(jsondict, sort_keys=True, indent=4))
       mongo_query = jsondict['mongo_query']
@@ -124,10 +126,13 @@ if __name__ == '__main__':
             rows = [r for r in get_value(row, filters)]
     
       matches = []
+      events  = []
       for row in rows:
-        rowsplit = row.split(',')  
+        rowsplit = row.split(',') 
         datasetname = rowsplit[3].lstrip('u\'name\': u\'').rstrip('\',')
+        cevents = rowsplit[1].lstrip('u\'nevents\': u\'').rstrip('\',')
         matches.append(datasetname)
+        events.append(cevents)
 
       if len(matches) > 0:
         logger.info('matches found for '+requestId+': '+' '.join(matches)) 
@@ -145,13 +150,17 @@ if __name__ == '__main__':
         if version > largestversion:
           choice = matchindex
 
-      logger.info(requestId+' '+matches[choice])
-      buffer += requestId+' '+matches[choice]+'\n'
+      logger.info(requestId+' '+matches[choice]+' '+events[choice])
+      buffer += requestId+' '+matches[choice]+' '+events[choice]+'\n'
+      totEvents += int(events[choice])
 
       key += 1
     except KeyboardInterrupt:
       print 'you issued ctrl-c, trying to exit gracefully'
       break;
+
+  buffer += 'total events = %d' % (totEvents) 
+      
 
   dbfile = open(options.dbfilename, 'w')
   dbfile.write(buffer)
