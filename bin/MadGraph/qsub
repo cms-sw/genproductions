@@ -79,6 +79,11 @@ if __name__ == '__main__':
         lsfCommand += ' -e '+options.error_file
     if options.queue != '':
         lsfCommand += ' -q '+options.queue
+
+    # trick in order to avoid unwanted e-mails
+    if options.output_file == '':
+        lsfCommand += ' -o '+args[0]+'.log'
+
     lsfCommand += ' '+args[0]
 
     manipulate_script(args[0])
