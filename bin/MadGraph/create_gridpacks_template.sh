@@ -24,7 +24,7 @@ source $VO_CMS_SW_DIR/cmsset_default.sh
 
 # location of the madgraph tarball and of the output main storage directory
 
-export SOURCE=${PRODHOME}/MG5v1.tar.gz
+export SOURCE=${PRODHOME}/MG5v1.1.tar.gz
 
 
 scram project -n ${name}_gridpack CMSSW ${RELEASE} ; cd ${name}_gridpack ; mkdir -p work ; cd work
@@ -36,7 +36,7 @@ ln -s `which gfortran` f77
 ln -s `which gfortran` g77
 export PATH=`pwd`:${PATH}
 
-cp ${SOURCE} . ; tar xzf ${SOURCE} ; rm -f `basename ${SOURCE}` ; mv MG5v1 ${name}_gridpack ; cd ${name}_gridpack
+cp ${SOURCE} . ; tar xzf ${SOURCE} ; rm -f `basename ${SOURCE}` ; mv MG5v1.1 ${name}_gridpack ; cd ${name}_gridpack
 
 # set the run cards with the appropriate initial seed
 

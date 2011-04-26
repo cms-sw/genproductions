@@ -41,7 +41,6 @@ cp ${SOURCE} . ; tar xzf ${name}_gridpack.tar.gz ; rm -f ${name}_gridpack.tar.gz
 # run the production stage
 
 ./bin/compile
-rm -f Cards/ident_card.dat ; mv Source/MODEL/ident_card.dat Cards
 ./bin/clean4grid
 cd ..
 ./run.sh ${nevt} ${rnum}
