@@ -82,7 +82,7 @@ if __name__ == '__main__':
 
     # trick in order to avoid unwanted e-mails
     if options.output_file == '':
-        lsfCommand += ' -o '+args[0]+'.log'
+        lsfCommand += ' -o L'+args[0]+'.log'
 
     lsfCommand += ' '+args[0]
 
