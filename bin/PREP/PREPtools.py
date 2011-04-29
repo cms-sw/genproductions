@@ -359,10 +359,13 @@ class requestInfo:
     logger.info(self.reqId+" OK")
     if self.command0 != None:
       summarystring += '\t'+step0
+      self.name0 = step0  #fix with the final decision
     if self.command1 != None:  
       summarystring += '\t'+step1
+      self.name1 = step1
     if self.command2 != None:  
       summarystring += '\t'+step2
+      self.name2 = step2
     if self.inputDataset != None:
       summarystring += '\t'+self.inputDataset
     return summarystring+'\n',True 
