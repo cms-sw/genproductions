@@ -17,6 +17,7 @@ if __name__ == '__main__':
   parser.add_option("-p", "--prepids", action="extend", help="comma separated list of PREP-IDs, REQUIRED", default=None)
   parser.add_option("-o", "--outputdir", action="store", help="output directory (default=randomstring)", default=''.join(random.choice(string.ascii_uppercase + string.digits) for x in range(10)))
   parser.add_option("-f", "--force", action="store_true", help="overwrite old results (default=False)", default=False)
+  parser.add_option("-u", "--url", action="store", help="the url of the DB, (default=http://cms.cern.ch/iCMS/prep/)", default='http://cms.cern.ch/iCMS/prep/')
 
 
   (options, args) = parser.parse_args()
@@ -66,13 +67,24 @@ if __name__ == '__main__':
   summary = open(outputdir+'/summary.txt', 'w')
   infile='' 
   infile += 'request ID\tRelease\tEventcontent\tPriority\tEvents\ttime\tsize\tfilterEff\tmatchingEff\tdatasetName\tGlobalTag\tconfigurations\n'
+
+  injectionScript = open(outputdir+'/upload_configs.sh', 'w')
+  inInjectionFile = '#!/bin/sh\n'  
+
+  submissionScript = open(outputdir+'/injectAndApprove.sh', 'w')
+  inSubmissionScript = '#!/bin/sh\n' 
+
   infos = []
   key = 0
   totevts=0
   for requestId in options.prepids:
-    reqInfo = requestInfo(requestId, str(key))
+    reqInfo = requestInfo(requestId, str(key), options.url)
     ret = reqInfo.execute(outputdir, reqInfo, infos)
     if ret[1]:
+      injectionCommand = reqInfo.prepareCouchDBInject()
+      inInjectionFile += injectionCommand
+      submissionCommand = reqInfo.prepareRequestAndApprove()
+      inSubmissionScript += submissionCommand
       infile += ret[0]
       infos.append(reqInfo)
       my_line=ret[0]
@@ -89,6 +101,10 @@ if __name__ == '__main__':
   #wrap up  
   summary.write(infile)
   summary.close()
+  injectionScript.write(inInjectionFile)
+  injectionScript.close()
+  submissionScript.write(inSubmissionScript)
+  submissionScript.close()
   tarfilename=options.outputdir+'.tgz'
   os.system('rm setup.sh') 
   os.system('cd '+workingdir+'; tar -czf '+tarfilename+' '+options.outputdir);

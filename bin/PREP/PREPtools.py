@@ -34,6 +34,7 @@ class requestInfo:
     self.mother=None
     self.priority=-99
     self.campaign=None 
+    self.inputDataset=None
 
     self.url=serverurl+'/requestxml?code='+self.reqId
     self.name0='config_'+self.key+"_0_cfg.py"
@@ -42,8 +43,13 @@ class requestInfo:
     self.campaign = self.executeQuery(self.url,'campaign_id', True)
 
     self.type       = self.executeQuery(self.url,'campaign_type', True) 
-    self.gt         = self.executeQuery(self.url,'request_conditions', True)  
-    self.genProdTag = self.executeQuery(self.url,'request_genproductiontag', True)  
+    self.gt         = self.executeQuery(self.url,'request_conditions', True) 
+    if self.type == 'Prod':
+      self.genProdTag = self.executeQuery(self.url,'request_genproductiontag', True) 
+      self.inputDataset= self.executeQuery(self.url,'request_inputfilename', False)
+    else :
+      self.genProdTag = self.executeQuery(self.url,'request_genproductiontag', False)
+      self.inputDataset= self.executeQuery(self.url,'request_inputfilename', True)
 
     self.sequence1 = self.executeQuery(self.url,'request_sequence1', False)
     if self.sequence1 != '':
@@ -81,6 +87,50 @@ class requestInfo:
     if self.mother == None:
       return None
     return requestInfo(self.mother)
+  
+
+  def prepareCouchDBInject(self):
+    couchUrl="http://cmst1:3AlpesLos@128.142.194.21:5984"
+    database_name="wmagent_configcache"
+    user_name="cmsdataops"
+    group_name="cmsdataops"
+
+    command=''
+    if self.command0 != None:
+      command += 'inject-to-config-cache %s %s %s %s %s ciao \"ciao\" | grep DocID | awk \'{print \"%s \"$2}\'\n' %(couchUrl, database_name, user_name,group_name,self.name0,self.name0)
+    if self.command1 != None:
+      command += 'inject-to-config-cache %s %s %s %s %s ciao \"ciao\" | grep DocID | awk \'{print \"%s \"$2}\'\n' %(couchUrl, database_name, user_name,group_name,self.name1,self.name1)
+    if self.command2 != None:
+      command += 'inject-to-config-cache %s %s %s %s %s ciao \"ciao\" | grep DocID | awk \'{print \"%s \"$2}\'\n' %(couchUrl, database_name, user_name,group_name,self.name2,self.name2)  
+  
+    return command
+  def prepareRequestAndApprove(self):
+    #extract step1 data tier
+    datatier1 = '' 
+    datatier2 = ''
+    commandsplit1 = self.command1.split()
+    for i1 in range(len(commandsplit1)):
+      if commandsplit1[i1] == '--datatier':
+        datatier1 = commandsplit1[i1+1]
+        break;
+    commandsplit2 = self.command2.split()
+    for i2 in range(len(commandsplit2)):
+      if commandsplit2[i2] == '--datatier':
+        datatier2 = commandsplit2[i2+1]
+        break;     
+    command =  'python MakeReqMgrRequest.py --release %s' %(self.release)
+    command += ' --conditions %s' %(self.gt)
+    command += ' --request-id %s' %(self.reqId)
+    command += ' --input-ds %s' %(self.inputDataset) 
+    command += ' --pileup-ds /MinBias_TuneZ2_7TeV-pythia6/Summer11-START311_V2-v1/GEN-SIM' 
+    command += ' --step1-cfg %s' %(self.name1)
+    command += ' --step1-output %s' %(datatier1)
+    command += ' --step2-cfg %s' %(self.name2)
+    command += ' --step2-output %s\n' %(datatier2)
+    #comamnd += ' --step3-cfg %s'
+    #comamnd += ' --step3-output %s'
+    #comamnd += ' --keep-raw ' 
+    return command
 
   def executeQuery(self,url, parameter, mandatory):
     logger = logging.getLogger("logger")
@@ -255,6 +305,8 @@ class requestInfo:
       summarystring += '\t'+step1
     if self.command2 != None:  
       summarystring += '\t'+step2
+    if self.inputDataset != None:
+      summarystring += '\t'+self.inputDataset
     return summarystring+'\n',True 
 
 #allows comma separated options to optparser
