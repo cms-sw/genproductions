@@ -75,6 +75,7 @@ class requestInfo:
     self.name0='config_'+self.key+"_0_cfg.py"
     self.name1='config_'+self.key+"_1_cfg.py"
     self.name2='config_'+self.key+"_2_cfg.py"
+    self.name3='config_'+self.key+"_3_cfg.py"
     self.campaign = self.executeQuery(self.url,'campaign_id', True)
 
     #self.customisename1=self.executeQuery(self.url,'request_customizename1',False)
@@ -129,6 +130,9 @@ class requestInfo:
     self.command2 = self.hackCustomise(self.command2) #,self.customisename2, self.customisefunc2)
 
 
+    #add a dedicated step3, another hack
+    self.command3 = 'cmsDriver.py step3 --step NONE --conditions '+self.gt+'::All --datatier AODSIM --eventcontent AODSIM --no_exec -n 1 --filein file:step2.root --fileout step3.root'
+
   def mother(self):
     if self.mother == None:
       return None
@@ -147,7 +151,9 @@ class requestInfo:
     if self.command1 != None:
       command += 'inject-to-config-cache %s %s %s %s %s ciao \"ciao\" | grep DocID | awk \'{print \"%s \"$2}\'\n' %(couchUrl, database_name, user_name,group_name,self.name1,self.name1)
     if self.command2 != None:
-      command += 'inject-to-config-cache %s %s %s %s %s ciao \"ciao\" | grep DocID | awk \'{print \"%s \"$2}\'\n' %(couchUrl, database_name, user_name,group_name,self.name2,self.name2)  
+      command += 'inject-to-config-cache %s %s %s %s %s ciao \"ciao\" | grep DocID | awk \'{print \"%s \"$2}\'\n' %(couchUrl, database_name, user_name,group_name,self.name2,self.name2) 
+    if self.command3 != None:
+      command += 'inject-to-config-cache %s %s %s %s %s ciao \"ciao\" | grep DocID | awk \'{print \"%s \"$2}\'\n' %(couchUrl, database_name, user_name,group_name,self.name3,self.name3)
   
     return command
   def prepareRequestAndApprove(self):
@@ -184,10 +190,10 @@ class requestInfo:
     command += ' --step1-cfg %s' %(self.name1)
     command += ' --step1-output %s' %(eventcontent1)
     command += ' --step2-cfg %s' %(self.name2)
-    command += ' --step2-output %s\n' %(eventcontent2)
-    #comamnd += ' --step3-cfg %s'
-    #comamnd += ' --step3-output %s'
-    #comamnd += ' --keep-raw ' 
+    command += ' --step2-output %s' %(eventcontent2)
+    command += ' --step3-cfg %s' %(self.name3)
+    command += ' --step3-output AODSIMoutput'
+    command += ' --keep-raw False\n' 
     return command
 
   def executeQuery(self,url, parameter, mandatory):
@@ -240,6 +246,8 @@ class requestInfo:
         return self.command1 == reqInfo.command1
       elif commandId ==2:
         return self.command2 == reqInfo.command2
+      elif commandId ==3:
+        return self.command3 == reqInfo.command3
       else :
         print "unknown step "+str(commandId) 
     return False      
@@ -265,6 +273,7 @@ class requestInfo:
     step0 = ''
     step1 = ''
     step2 = ''
+    step3 = ''
     for info in infos:
       if self.compareConfig(info, 0):
         logger.debug("found existing step0 for request "+self.reqId+": "+info.reqId)
@@ -280,8 +289,13 @@ class requestInfo:
         logger.debug("found existing step2 for request "+self.reqId+": "+info.reqId)
         step2 = info.name2
         break
+    for info in infos:
+      if self.compareConfig(info, 3):
+        logger.debug("found existing step3 for request "+self.reqId+": "+info.reqId)
+        step3 = info.name3
+        break     
 
-    if step0 == '' or step1 == '' or step2 == '':      
+    if step0 == '' or step1 == '' or step2 == '' or step3 == '':      
       try:
         script = open('setup.sh', 'w')
         infile=''
@@ -302,6 +316,7 @@ class requestInfo:
         run0 = ''
         run1 = ''
         run2 = ''
+        run3 = ''
         if step0 == '':
           if self.command0 != None:
             run0 = self.command0+' --python_filename '+self.name0+' --fileout step0.root --no_exec --dump_python'
@@ -320,6 +335,11 @@ class requestInfo:
             run2 = self.command2+' --python_filename '+self.name2+' --fileout step2.root --filein file:step1.root --no_exec --dump_python'
             logger.debug(run2)
           step2 = self.name2
+        if step3 == '':
+          if self.command3 != None:
+            run3 = self.command3+' --no_exec --dump_python --python_filename '+self.name3
+            logger.debug(run3)
+          step3 = self.name3 
         script.write(infile)
         os.chmod('setup.sh', 0755)
         script.close()
@@ -330,6 +350,8 @@ class requestInfo:
           fullcommand += '&&'+run1
         if run2 != '':
           fullcommand += '&&'+run2
+        if run3 != '':
+          fullcommand += '&&'+run3
         logger.debug('\n'+fullcommand+'\n')
         p = Popen([fullcommand], stdout=PIPE, stderr=PIPE, shell=True)
         p.wait()
@@ -366,6 +388,9 @@ class requestInfo:
     if self.command2 != None:  
       summarystring += '\t'+step2
       self.name2 = step2
+    if self.command3 != None: 
+      summarystring += '\t'+step3
+      self.name3= step3 
     if self.inputDataset != None:
       summarystring += '\t'+self.inputDataset
     return summarystring+'\n',True 
