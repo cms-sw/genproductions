@@ -152,27 +152,39 @@ class requestInfo:
     return command
   def prepareRequestAndApprove(self):
     #extract step1 data tier
-    datatier1 = '' 
-    datatier2 = ''
+    eventcontent1 = '' 
+    eventcontent2 = ''
     commandsplit1 = self.command1.split()
     for i1 in range(len(commandsplit1)):
-      if commandsplit1[i1] == '--datatier':
-        datatier1 = commandsplit1[i1+1]
+      if commandsplit1[i1] == '--eventcontent':
+        eventcontent1 = commandsplit1[i1+1]
         break;
+    eventcontent1split = eventcontent1.split(',')
+    eventcontent1 = ''
+    for item in eventcontent1split:
+      eventcontent1 += item+'output,'
+    eventcontent1 = eventcontent1.rstrip(',')  
+        
     commandsplit2 = self.command2.split()
     for i2 in range(len(commandsplit2)):
-      if commandsplit2[i2] == '--datatier':
-        datatier2 = commandsplit2[i2+1]
+      if commandsplit2[i2] == '--eventcontent':
+        eventcontent2 = commandsplit2[i2+1]
         break;     
+    eventcontent2split = eventcontent2.split(',')
+    eventcontent2 = ''
+    for item in eventcontent2split:
+      eventcontent2 += item+'output,'
+    eventcontent2 = eventcontent2.rstrip(',') 
+
     command =  'python MakeReqMgrRequest.py --release %s' %(self.release)
     command += ' --conditions %s' %(self.gt)
     command += ' --request-id %s' %(self.reqId)
     command += ' --input-ds %s' %(self.inputDataset) 
     command += ' --pileup-ds /MinBias_TuneZ2_7TeV-pythia6/Summer11-START311_V2-v1/GEN-SIM' 
     command += ' --step1-cfg %s' %(self.name1)
-    command += ' --step1-output %s' %(datatier1)
+    command += ' --step1-output %s' %(eventcontent1)
     command += ' --step2-cfg %s' %(self.name2)
-    command += ' --step2-output %s\n' %(datatier2)
+    command += ' --step2-output %s\n' %(eventcontent2)
     #comamnd += ' --step3-cfg %s'
     #comamnd += ' --step3-output %s'
     #comamnd += ' --keep-raw ' 
