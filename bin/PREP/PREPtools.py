@@ -8,6 +8,36 @@ from optparse import OptionParser, Option
 
 class requestInfo:
 
+  #temporary hack to for new cmsDriver customise syntax
+  def hackCustomise(self,command): #, custFile, custFunction):
+    commandsplit = command.split()
+    #remove the genfragment from step1 in reprocessing campaign
+    if self.type == 'MCReproc' and 'GenProduction' in commandsplit[1]:
+      commandsplit[1] = 'REDIGI'
+    cust = ''
+    func = ''
+    custidx = -1
+    funcidx = -1
+    for i in range(len(commandsplit)):
+      if commandsplit[i] == '--customise':
+        cust = commandsplit[i+1]
+        custidx = i
+      if commandsplit[i] == '--cust_function':
+        func = commandsplit[i+1]
+        funcidx = i
+    if cust == '' and funcidx == '':
+      return command
+    
+    commandsplit[funcidx] = ''
+    commandsplit[funcidx+1] = ''
+
+    newcustomise = cust.rstrip('py')
+    newcustomise += func
+    commandsplit[custidx+1] = newcustomise
+
+    command = ' '.join(commandsplit)
+    return command   
+
   def __init__(self, requestId, key, serverurl='http://cms.cern.ch/iCMS/prep/'):
     self.errorState=False
     self.key=key
@@ -35,12 +65,22 @@ class requestInfo:
     self.priority=-99
     self.campaign=None 
     self.inputDataset=None
+    #needed to hack customise in 4_2
+    #self.customisename1=None
+    #self.customisefunc1=None
+    #self.customisename2=None
+    #self.customisefunc2=None
 
     self.url=serverurl+'/requestxml?code='+self.reqId
     self.name0='config_'+self.key+"_0_cfg.py"
     self.name1='config_'+self.key+"_1_cfg.py"
     self.name2='config_'+self.key+"_2_cfg.py"
     self.campaign = self.executeQuery(self.url,'campaign_id', True)
+
+    #self.customisename1=self.executeQuery(self.url,'request_customizename1',False)
+    #self.customisefunc1=self.executeQuery(self.url,'request_customizefunction1',False)
+    #self.customisename2=self.executeQuery(self.url,'request_customizename2',False)
+    #self.customisefunc2=self.executeQuery(self.url,'request_customizefunction2',False)
 
     self.type       = self.executeQuery(self.url,'campaign_type', True) 
     self.gt         = self.executeQuery(self.url,'request_conditions', True) 
@@ -83,11 +123,17 @@ class requestInfo:
     #if this is a clone, then this is the ID of the original request
     self.mother    = self.executeQuery(self.url,'request_cloneof', False)
 
+    #hacks
+    #if 'CMSSW_4_1' not in self.release:
+    self.command1 = self.hackCustomise(self.command1) #,self.customisename1, self.customisefunc1)
+    self.command2 = self.hackCustomise(self.command2) #,self.customisename2, self.customisefunc2)
+
+
   def mother(self):
     if self.mother == None:
       return None
     return requestInfo(self.mother)
-  
+
 
   def prepareCouchDBInject(self):
     couchUrl="http://cmst1:3AlpesLos@128.142.194.21:5984"
