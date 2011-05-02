@@ -43,8 +43,8 @@ ls -l
 chmod 755 upload_configs.sh
 chmod 755 injectAndApprove.sh
 
-#./upload_configs.sh > configs.txt
+./upload_configs.sh > configs.txt
 
-#./injectAndApprove.sh
+./injectAndApprove.sh
 
 exit 0

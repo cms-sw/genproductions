@@ -181,5 +181,5 @@ params = {"CMSSWVersion": release,
           "Group": group}                                                                   
 
 
-#workflow = makeRequest(url,params)
-#approveRequest(url,workflow)
+workflow = makeRequest(url,params)
+approveRequest(url,workflow)
