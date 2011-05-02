@@ -168,16 +168,18 @@ class requestInfo:
     #extract step1 data tier
     eventcontent1 = '' 
     eventcontent2 = ''
+    #according to Oli, the output module to be put here is the one that is input to the next workflow.
+    #I don't have ways to determine this so for the moment I just take the first one
     commandsplit1 = self.command1.split()
     for i1 in range(len(commandsplit1)):
       if commandsplit1[i1] == '--eventcontent':
         eventcontent1 = commandsplit1[i1+1]
         break;
     eventcontent1split = eventcontent1.split(',')
-    eventcontent1 = ''
-    for item in eventcontent1split:
-      eventcontent1 += item+'output,'
-    eventcontent1 = eventcontent1.rstrip(',')  
+    eventcontent1 = eventcontent1split[0]+'output'
+    #for item in eventcontent1split:
+    #  eventcontent1 += item+'output,'
+    #eventcontent1 = eventcontent1.rstrip(',')  
         
     commandsplit2 = self.command2.split()
     for i2 in range(len(commandsplit2)):
@@ -185,10 +187,10 @@ class requestInfo:
         eventcontent2 = commandsplit2[i2+1]
         break;     
     eventcontent2split = eventcontent2.split(',')
-    eventcontent2 = ''
-    for item in eventcontent2split:
-      eventcontent2 += item+'output,'
-    eventcontent2 = eventcontent2.rstrip(',') 
+    eventcontent2 = eventcontent2split[0]+'output'
+    #for item in eventcontent2split:
+    #  eventcontent2 += item+'output,'
+    #eventcontent2 = eventcontent2.rstrip(',') 
 
     command =  'python MakeReqMgrRequest.py --release %s' %(self.release)
     command += ' --conditions %s::All' %(self.gt)
