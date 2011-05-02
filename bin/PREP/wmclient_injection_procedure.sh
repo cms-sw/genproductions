@@ -22,6 +22,6 @@ source /tmp/wmclient_${USER}/projects/wmclient/etc/wmclient.sh
 
 ./upload_configs.sh > configs.txt
 
-python make_requests.py
+./injectAndApprove.sh
 
 exit 0
