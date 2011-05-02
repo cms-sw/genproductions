@@ -7,12 +7,12 @@ cd /tmp/wmclient_${USER}
 
 # download the WMAgent client 
 
-svn co  svn+ssh://svn.cern.ch/reps/CMSDMWM/Infrastructure -r HEAD
+svn co  svn+ssh://svn.cern.ch/reps/CMSDMWM/Infrastructure/trunk/Deployment
 
-cd Infrastructure/trunk/Deployment
-./Deploy  -s prep /tmp/wmclient WMClient
-./Deploy  -s sw /tmp/wmclient WMClient
-./Deploy  -s post /tmp/wmclient WMClient
+cd Deployment
+./Deploy  -s prep -t v01 /tmp/wmclient WMClient
+./Deploy  -s sw -t v01 /tmp/wmclient WMClient
+./Deploy  -s post -t v01 /tmp/wmclient WMClient
 
 # setup the needed environment
 
