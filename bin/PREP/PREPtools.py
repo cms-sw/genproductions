@@ -130,8 +130,9 @@ class requestInfo:
     self.command2 = self.hackCustomise(self.command2) #,self.customisename2, self.customisefunc2)
 
 
-    #add a dedicated step3, another hack
-    self.command3 = 'cmsDriver.py step3 --step NONE --conditions '+self.gt+'::All --datatier AODSIM --eventcontent AODSIM --no_exec -n 1 --filein file:step2.root --fileout step3.root'
+    #add a dedicated step3 in MCReproc, another hack
+    if self.type == 'MCReproc':
+      self.command3 = 'cmsDriver.py step3 --step NONE --conditions '+self.gt+'::All --datatier AODSIM --eventcontent AODSIM --no_exec -n 1 --filein file:step2.root --fileout step3.root'
 
   def mother(self):
     if self.mother == None:
@@ -145,15 +146,22 @@ class requestInfo:
     user_name="cmsdataops"
     group_name="cmsdataops"
 
+    namestrings = []
+    namestrings.append('MCDBConversion_'+self.campaign)
+    namestrings.append('step1_'+self.campaign)
+    namestrings.append('step2_'+self.campaign)
+    namestrings.append('step3_'+self.campaign)
+
+
     command=''
     if self.command0 != None:
-      command += 'inject-to-config-cache %s %s %s %s %s ciao \"ciao\" | grep DocID | awk \'{print \"%s \"$2}\'\n' %(couchUrl, database_name, user_name,group_name,self.name0,self.name0)
+      command += 'inject-to-config-cache %s %s %s %s %s %s \"%s\" | grep DocID | awk \'{print \"%s \"$2}\'\n' %(couchUrl, database_name, user_name,group_name,self.name0,namestrings[0], namestrings[0],self.name0)
     if self.command1 != None:
-      command += 'inject-to-config-cache %s %s %s %s %s ciao \"ciao\" | grep DocID | awk \'{print \"%s \"$2}\'\n' %(couchUrl, database_name, user_name,group_name,self.name1,self.name1)
+      command += 'inject-to-config-cache %s %s %s %s %s %s \"%s\" | grep DocID | awk \'{print \"%s \"$2}\'\n' %(couchUrl, database_name, user_name,group_name,self.name1,namestrings[1], namestrings[1],self.name1)
     if self.command2 != None:
-      command += 'inject-to-config-cache %s %s %s %s %s ciao \"ciao\" | grep DocID | awk \'{print \"%s \"$2}\'\n' %(couchUrl, database_name, user_name,group_name,self.name2,self.name2) 
+      command += 'inject-to-config-cache %s %s %s %s %s %s \"%s\" | grep DocID | awk \'{print \"%s \"$2}\'\n' %(couchUrl, database_name, user_name,group_name,self.name2,namestrings[2], namestrings[2],self.name2) 
     if self.command3 != None:
-      command += 'inject-to-config-cache %s %s %s %s %s ciao \"ciao\" | grep DocID | awk \'{print \"%s \"$2}\'\n' %(couchUrl, database_name, user_name,group_name,self.name3,self.name3)
+      command += 'inject-to-config-cache %s %s %s %s %s %s \"%s\" | grep DocID | awk \'{print \"%s \"$2}\'\n' %(couchUrl, database_name, user_name,group_name,self.name3,namestrings[3], namestrings[3],self.name3)
   
     return command
   def prepareRequestAndApprove(self):
@@ -183,7 +191,7 @@ class requestInfo:
     eventcontent2 = eventcontent2.rstrip(',') 
 
     command =  'python MakeReqMgrRequest.py --release %s' %(self.release)
-    command += ' --conditions %s' %(self.gt)
+    command += ' --conditions %s::All' %(self.gt)
     command += ' --request-id %s' %(self.reqId)
     command += ' --input-ds %s' %(self.inputDataset) 
     command += ' --pileup-ds /MinBias_TuneZ2_7TeV-pythia6/Summer11-START311_V2-v1/GEN-SIM' 

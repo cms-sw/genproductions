@@ -69,7 +69,7 @@ if __name__ == '__main__':
   infile += 'request ID\tRelease\tEventcontent\tPriority\tEvents\ttime\tsize\tfilterEff\tmatchingEff\tdatasetName\tGlobalTag\tconfigurations\n'
 
   injectionScript = open(outputdir+'/upload_configs.sh', 'w')
-  inInjectionFile = '#!/bin/sh\n'  
+  inInjectionFileLines = []
 
   submissionScript = open(outputdir+'/injectAndApprove.sh', 'w')
   inSubmissionScript = '#!/bin/sh\n' 
@@ -82,9 +82,12 @@ if __name__ == '__main__':
     ret = reqInfo.execute(outputdir, reqInfo, infos)
     if ret[1]:
       injectionCommand = reqInfo.prepareCouchDBInject()
-      inInjectionFile += injectionCommand
+      #inInjectionFile += injectionCommand
+      if not injectionCommand in inInjectionFileLines:
+        inInjectionFileLines.append(injectionCommand)
       submissionCommand = reqInfo.prepareRequestAndApprove()
       inSubmissionScript += submissionCommand
+
       infile += ret[0]
       infos.append(reqInfo)
       my_line=ret[0]
@@ -101,6 +104,8 @@ if __name__ == '__main__':
   #wrap up  
   summary.write(infile)
   summary.close()
+  inInjectionFile = '#!/bin/sh\n'  
+  inInjectionFile += ''.join(inInjectionFileLines)
   injectionScript.write(inInjectionFile)
   injectionScript.close()
   submissionScript.write(inSubmissionScript)
