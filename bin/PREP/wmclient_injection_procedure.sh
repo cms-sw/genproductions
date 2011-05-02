@@ -8,6 +8,8 @@ export INPUT=${1}
 export NAME=`basename ${INPUT} | cut -f 1 -d'.'`
 export RELEASE=${2}
 
+SCRIPTDIR=`pwd`
+
 # create a non AFS based temporary area
 
 mkdir /tmp/wmclient_${USER}
@@ -34,12 +36,15 @@ source /tmp/wmclient_${USER}/v01/etc/wmclient.sh
 # get the scripts to be run
 
 cp ${INPUT} . ; tar xvzf `basename ${INPUT}` ; cd ${NAME}
+cp ${SCRIPTDIR}/MakeReqMgrRequest.py .
 ls -l
 
 # run the upload script
+chmod 755 upload_configs.sh
+chmod 755 injectAndApprove.sh
 
-./upload_configs.sh > configs.txt
+#./upload_configs.sh > configs.txt
 
-./injectAndApprove.sh
+#./injectAndApprove.sh
 
 exit 0
