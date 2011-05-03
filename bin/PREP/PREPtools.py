@@ -202,8 +202,8 @@ class requestInfo:
     command += ' --step2-cfg %s' %(self.name2)
     command += ' --step2-output %s' %(eventcontent2)
     command += ' --step3-cfg %s' %(self.name3)
-    command += ' --step3-output AODSIMoutput'
-    command += ' --keep-raw False\n' 
+    command += ' --step3-output AODSIMoutput\n'
+    #command += ' --keep-raw False\n' 
     return command
 
   def executeQuery(self,url, parameter, mandatory):
