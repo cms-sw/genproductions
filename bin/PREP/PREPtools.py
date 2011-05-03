@@ -126,8 +126,8 @@ class requestInfo:
 
     #hacks
     #if 'CMSSW_4_1' not in self.release:
-    self.command1 = self.hackCustomise(self.command1) #,self.customisename1, self.customisefunc1)
-    self.command2 = self.hackCustomise(self.command2) #,self.customisename2, self.customisefunc2)
+    #self.command1 = self.hackCustomise(self.command1) #,self.customisename1, self.customisefunc1)
+    #self.command2 = self.hackCustomise(self.command2) #,self.customisename2, self.customisefunc2)
 
 
     #add a dedicated step3 in MCReproc, another hack
