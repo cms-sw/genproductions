@@ -1,13 +1,18 @@
 import FWCore.ParameterSet.Config as cms
 
-from GeneratorInterface.Pythia6Interface.pythiaDefault_cff import *
+from Configuration.Generator.PythiaUEZ2Settings_cfi import *
+
 generator = cms.EDFilter("Pythia6GeneratorFilter",
-    pythiaVerbosity = cms.untracked.bool(False),
+    pythiaHepMCVerbosity = cms.untracked.bool(False),
+    maxEventsToPrint = cms.untracked.int32(0),
+    pythiaPylistVerbosity = cms.untracked.int32(1),
+    filterEfficiency = cms.untracked.double(1.0),
     comEnergy = cms.double(7000.0),
     PythiaParameters = cms.PSet(
         # Default (mostly empty - to keep PYTHIA default) card file
         # Name of the set is "pythiaDefault"
-        pythiaDefaultBlock,
+        # pythiaDefaultBlock,
+        pythiaUESettingsBlock,
         # User cards - name is "myParameters"
         myParameters = cms.vstring('PMAS(32,1)= 750.            !mass of Zprime', 
             'MSEL=0                      !(D=1) to select between full user control (0, then use MSUB) and some preprogrammed alternative', 
@@ -17,7 +22,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
             'MSTJ(22)=2                 !Decay those unstable particles', 
             'MSTP(2)=1                  !which order running alphaS', 
             'MSTP(33)=0                 !(D=0) inclusion of K factors in (=0: none, i.e. K=1)', 
-            'MSTP(51)=7                 !structure function chosen', 
+            'MSTP(51)=10042             !structure function chosen', 
             'MSTP(81)=1                 !multiple parton interactions 1 is Pythia default', 
             'MSTP(82)=4                 !Defines the multi-parton model', 
             'MSTU(21)=1                 !Check on possible errors during program execution', 
@@ -55,7 +60,9 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
         # This is a vector of ParameterSet names to be read, in this order
         # The first two are in the include files below
         # The last one are simply my additional parameters
-        parameterSets = cms.vstring('pythiaDefault', 
+        parameterSets = cms.vstring('pythiaUESettings', 
             'myParameters')
     )
 )
+
+ProductionFilterSequence = cms.Sequence(generator)
