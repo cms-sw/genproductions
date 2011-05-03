@@ -123,8 +123,12 @@ if __name__ == '__main__':
         data = jsondict['data']
         if isinstance(data, list):
           for row in data:
-            rows = [r for r in get_value(row, filters)]
-    
+            rows.extend([r for r in get_value(row, filters)])
+  
+      #print '*****************'
+      #print rows
+      #print '*****************'
+
       matches = []
       events  = []
       for row in rows:
@@ -146,9 +150,11 @@ if __name__ == '__main__':
       for matchindex in range(len(matches)):
         #take the second part of the dataset name
         datasetpart2 = matches[matchindex].split('/')[2]
-        version = int(datasetpart2.split('-')[2].lstrip('v')) 
+        version = int(datasetpart2.split('-')[2].lstrip('v'))
+        logger.info("version %d, matching index %d" %(version, matchindex))
         if version > largestversion:
           choice = matchindex
+          largestversion = version
 
       logger.info(requestId+' '+matches[choice]+' '+events[choice])
       buffer += requestId+' '+matches[choice]+' '+events[choice]+'\n'
