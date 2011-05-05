@@ -7,8 +7,9 @@ from Configuration.Generator.PythiaUEZ2Settings_cfi import *
 generator = cms.EDFilter(
     "Pythia6GeneratorFilter",
     comEnergy = cms.double(7000.0),
-    crossSection = cms.untracked.double(48440000000.),
-    filterEfficiency = cms.untracked.double(1.2e-3),
+    #crossSection = cms.untracked.double(48440000000.),
+    crossSection = cms.untracked.double(2422000.),
+    filterEfficiency = cms.untracked.double(7.2e-4),
     pythiaHepMCVerbosity = cms.untracked.bool(False),
     maxEventsToPrint = cms.untracked.int32(0),
     pythiaPylistVerbosity = cms.untracked.int32(0),
@@ -64,7 +65,7 @@ decayfilter = cms.EDFilter("PythiaDauFilter",
 configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.1 $'),
     name = cms.untracked.string
-    ('$Source: /local/projects/CMSSW/rep/CMSSW/Configuration/GenProduction/python/PYTHIA6_LambdaB2PK_TuneZ2_7TeV_cff.py,v $'),
+    ('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_LambdaB2PK_TuneZ2_7TeV_cff.py,v $'),
     annotation = cms.untracked.string('Lambda_b -> p+ K- at 7TeV')
     )
 
