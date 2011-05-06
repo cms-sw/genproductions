@@ -97,7 +97,7 @@ class requestInfo:
       self.command1 = self.executeQuery(serverurl+'/cmsdriverrequest?code='+self.reqId+'&step=1&xml=yes', 'cmsDriver', True).replace('\n', ' ').replace('\\', ' ')   
     self.sequence2 = self.executeQuery(self.url,'request_sequence2', False)
     #this is fragile
-    if self.sequence2 != '': #',ALCA:NONE':
+    if self.sequence2 != '' and self.sequence2 != None: #',ALCA:NONE':
       self.command2 = self.executeQuery(serverurl+'/cmsdriverrequest?code='+self.reqId+'&step=2&xml=yes', 'cmsDriver', True).replace('\n', ' ').replace('\\', ' ').replace(',ALCA:NONE', '')
    
     #this should be set only for production campaigns
@@ -131,8 +131,10 @@ class requestInfo:
 
 
     #add a dedicated step3 in MCReproc, another hack
-    if self.type == 'MCReproc':
+    if self.command2 != '' and self.command2 != None:
       self.command3 = 'cmsDriver.py step3 --step NONE --conditions '+self.gt+'::All --datatier AODSIM --eventcontent AODSIM --no_exec -n 1 --filein file:step2.root --fileout step3.root'
+    else:
+      self.command3 = None
 
   def mother(self):
     if self.mother == None:
@@ -180,14 +182,15 @@ class requestInfo:
     #for item in eventcontent1split:
     #  eventcontent1 += item+'output,'
     #eventcontent1 = eventcontent1.rstrip(',')  
-        
-    commandsplit2 = self.command2.split()
-    for i2 in range(len(commandsplit2)):
-      if commandsplit2[i2] == '--eventcontent':
-        eventcontent2 = commandsplit2[i2+1]
-        break;     
-    eventcontent2split = eventcontent2.split(',')
-    eventcontent2 = eventcontent2split[0]+'output'
+
+    if self.command2 != '' and self.command2 != None:
+      commandsplit2 = self.command2.split()
+      for i2 in range(len(commandsplit2)):
+        if commandsplit2[i2] == '--eventcontent':
+          eventcontent2 = commandsplit2[i2+1]
+          break;     
+        eventcontent2split = eventcontent2.split(',')
+        eventcontent2 = eventcontent2split[0]+'output'
     #for item in eventcontent2split:
     #  eventcontent2 += item+'output,'
     #eventcontent2 = eventcontent2.rstrip(',') 
@@ -199,11 +202,14 @@ class requestInfo:
     command += ' --pileup-ds /MinBias_TuneZ2_7TeV-pythia6/Summer11-START311_V2-v2/GEN-SIM' 
     command += ' --step1-cfg %s' %(self.name1)
     command += ' --step1-output %s' %(eventcontent1)
-    command += ' --step2-cfg %s' %(self.name2)
-    command += ' --step2-output %s' %(eventcontent2)
-    command += ' --step3-cfg %s' %(self.name3)
-    command += ' --step3-output AODSIMoutput\n'
+    if self.command2:
+      command += ' --step2-cfg %s' %(self.name2)
+      command += ' --step2-output %s' %(eventcontent2)
+    if self.command3:  
+      command += ' --step3-cfg %s' %(self.name3)
+      command += ' --step3-output AODSIMoutput'
     #command += ' --keep-raw False\n' 
+    command += '\n'
     return command
 
   def executeQuery(self,url, parameter, mandatory):
@@ -263,6 +269,7 @@ class requestInfo:
     return False      
 
   def execute(self, dir, summaryfile, infos):
+
     logger = logging.getLogger('logger')
     #if at this stage we are in error condition it meas something went wrong with the parsing of requests  
     if self.errorState:
