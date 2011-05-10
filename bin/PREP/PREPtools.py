@@ -66,9 +66,11 @@ class requestInfo:
     self.campaign=None 
     self.inputDataset=None
     #needed to hack customise in 4_2
-    #self.customisename1=None
+    self.customisename1=None
+    self.getcust1=None
     #self.customisefunc1=None
-    #self.customisename2=None
+    self.customisename2=None
+    self.getcust2=None
     #self.customisefunc2=None
 
     self.url=serverurl+'/requestxml?code='+self.reqId
@@ -78,9 +80,21 @@ class requestInfo:
     self.name3='config_'+self.key+"_3_cfg.py"
     self.campaign = self.executeQuery(self.url,'campaign_id', True)
 
-    #self.customisename1=self.executeQuery(self.url,'request_customizename1',False)
+    self.customisename1=self.executeQuery(self.url,'request_customizename1',False)
+    if self.customisename1 != None:
+      custsplit1 = self.customisename1.split('/')
+      if 'GenProduction' in custsplit1[1]:
+        self.genProdTag = self.executeQuery(self.url,'request_genproductiontag', True) 
+        realname1 = 'Configuration/GenProduction/python/'+custsplit1[-1]
+        self.getcust1 = 'cvs co -r '+self.genProdTag+' '+realname1
     #self.customisefunc1=self.executeQuery(self.url,'request_customizefunction1',False)
-    #self.customisename2=self.executeQuery(self.url,'request_customizename2',False)
+    self.customisename2=self.executeQuery(self.url,'request_customizename2',False)
+    if self.customisename2 != None:
+      custsplit2 = self.customisename2.split('/')
+      if 'GenProduction' in custsplit2[1]:
+        self.genProdTag = self.executeQuery(self.url,'request_genproductiontag', True) 
+        realname2 = 'Configuration/GenProduction/python/'+custsplit2[-1]
+        self.getcust2 = 'cvs co -r '+self.genProdTag+' '+realname2
     #self.customisefunc2=self.executeQuery(self.url,'request_customizefunction2',False)
 
     self.type       = self.executeQuery(self.url,'campaign_type', True) 
@@ -328,6 +342,10 @@ class requestInfo:
         infile += 'eval `scram runtime -sh`\n'
         if self.genFragment != None:
           infile += 'cvs co -r '+self.genProdTag+' '+self.genFragment+'\n'
+        if self.getcust1 != None:
+          infile += self.getcust1+'\n'
+        if self.getcust2 != None:
+          infile += self.getcust2+'\n'
         infile += 'scram b\n'
         infile += 'cd ../../\n'
         run0 = ''
