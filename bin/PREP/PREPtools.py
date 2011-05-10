@@ -189,8 +189,8 @@ class requestInfo:
         if commandsplit2[i2] == '--eventcontent':
           eventcontent2 = commandsplit2[i2+1]
           break;     
-        eventcontent2split = eventcontent2.split(',')
-        eventcontent2 = eventcontent2split[0]+'output'
+    eventcontent2split = eventcontent2.split(',')
+    eventcontent2 = eventcontent2split[0]+'output'
     #for item in eventcontent2split:
     #  eventcontent2 += item+'output,'
     #eventcontent2 = eventcontent2.rstrip(',') 
