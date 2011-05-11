@@ -3,6 +3,7 @@ import FWCore.ParameterSet.Config as cms
 source = cms.Source("EmptySource")
 
 from Configuration.Generator.PythiaUEZ2Settings_cfi import *
+from GeneratorInterface.ExternalDecays.TauolaSettings_cff import *
 generator = cms.EDFilter("Pythia6GeneratorFilter",
     pythiaHepMCVerbosity = cms.untracked.bool(False),
     maxEventsToPrint = cms.untracked.int32(0),
@@ -44,7 +45,7 @@ ProductionFilterSequence = cms.Sequence(generator)
 
 configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.1 $'),
-    name = cms.untracked.string('$Source: /cvs/CMSSW/CMSSW/Configuration/GenProduction/python/WWto2L2Nu_TuneZ2_7TeV_pythia6_cff.py,v $'),
+    name = cms.untracked.string('$Source: /cvs/CMSSW/CMSSW/Configuration/GenProduction/python/WWTo2L2Nu_TuneZ2_7TeV_pythia6_tauola_cff.py,v $'),
     annotation = cms.untracked.string('PYTHIA6-EWK WW to 2l 2v at 7TeV')
 )
 
