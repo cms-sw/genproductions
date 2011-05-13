@@ -113,6 +113,11 @@ parser.add_option('--keep-raw',
                   default=False,
                   action='store_true',
                   dest='keep_raw')
+parser.add_option('--priority',
+                  help='priority flag' ,
+                  default=1,
+                  action='store_true',
+                  dest='priority')
 
 (options,args) = parser.parse_args()
 
@@ -141,6 +146,7 @@ requestor='cmsdataops'
 
 # Request ID string
 identifier = options.req_id
+prioid = options.priority
 
 workflow_params = {
 "inputdataset": options.input_name,
@@ -168,7 +174,7 @@ params = {"CMSSWVersion": release,
           "BlockBlacklist": [],                                                             
           "GlobalTag": globaltag,                                                           
           "RequestString": identifier,                                                      
-          "RequestPriority": 1,                                                             
+          "RequestPriority": prioid,                                                             
           "ScramArch": scramarch,                                                           
           "DataPileup": "",                                                                 
           "MCPileup": workflow_params['pileupdataset'],                                     

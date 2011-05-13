@@ -222,7 +222,9 @@ class requestInfo:
     if self.command3:  
       command += ' --step3-cfg %s' %(self.name3)
       command += ' --step3-output AODSIMoutput'
-    #command += ' --keep-raw False\n' 
+    if self.priority >= 1:
+      command += ' --priority %s' %(self.priority)
+    #command += ' --keep-raw False\n'
     command += '\n'
     return command
 
