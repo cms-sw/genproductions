@@ -1,7 +1,7 @@
 import FWCore.ParameterSet.Config as cms
 
 configurationMetadata = cms.untracked.PSet(
-        version = cms.untracked.string('$Revision: 1.1 $'),
+        version = cms.untracked.string('$Revision: 1.2 $'),
         name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_X3872_From_B_7TeV_cff.py,v $'),
         annotation = cms.untracked.string('Fall10: Pythia6 generation of non prompt X3872, 7TeV, D6T tune')
 )
@@ -12,7 +12,7 @@ oniafilter = cms.EDFilter("PythiaFilter",
     Status = cms.untracked.int32(2),                               
     MaxEta = cms.untracked.double(1000.0),
     MinEta = cms.untracked.double(-1000.0),
-    MinPt = cms.untracked.double(0.0),
+    MinPt = cms.untracked.double(6.0),
     ParticleID = cms.untracked.int32(9120443) ## X(3872) from EvtGen
 )
 generator = cms.EDFilter("Pythia6GeneratorFilter",
