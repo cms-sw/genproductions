@@ -10,10 +10,14 @@ def manipulate_script(script_name):
     script_file=open(script_name,'r')
     new_script_name = 'new_'+script_name
     new_script_file=open(new_script_name,'w') 
-    
+
     for line in script_file:
         line = line[:-1] # no \n
         line_content_list = line.split(' ')
+
+        if re.search("PBS_O_WORKDIR",line) != None:
+            newline = re.sub("PBS_O_WORKDIR","LS_SUBCWD",line)
+            line = newline
 
         if line_content_list[0]!='#PBS':
             new_script_file.write(line+'\n')
