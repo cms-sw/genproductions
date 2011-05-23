@@ -47,6 +47,7 @@ class requestInfo:
     self.size=0
     self.filterEff=0
     self.matchEff=0
+    self.status=None
     self.dataset=None
     self.release=None
     self.genProdTag=None 
@@ -126,6 +127,7 @@ class requestInfo:
       self.inputDataset = self.executeQuery(self.url,'request_inputfilename', True)
     else:
       self.inputDataset = self.executeQuery(self.url,'request_inputfilename', False)
+    self.status    = self.executeQuery(self.url,'request_status', True)
     self.events    = self.executeQuery(self.url,'request_nbEvent', True)
     self.time      = self.executeQuery(self.url,'request_timeEvent', True)
     self.size      = self.executeQuery(self.url,'request_sizeEvent', True)
@@ -254,6 +256,7 @@ class requestInfo:
     logger.debug('Request '+str(self.reqId))
     summary = ''
     summary += 'requestId:\t'+str(self.reqId)+'\n'
+    summary += 'status:\t'+str(self.status)+'\n'
     summary += 'key in batch:\t'+str(self.key)+'\n'
     summary += 'events:\t'+str(self.events)+'\n'
     summary += 'time:\t'+str(self.time)+'\n'
