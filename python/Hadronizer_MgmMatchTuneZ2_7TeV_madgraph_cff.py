@@ -21,6 +21,7 @@ generator = cms.EDFilter("Pythia6HadronizerFilter",
     jetMatching = cms.untracked.PSet(
        scheme = cms.string("Madgraph"),
        mode = cms.string("auto"),	# soup, or "inclusive" / "exclusive"
+       MEMAIN_nqmatch = cms.int32(5),
        MEMAIN_etaclmax = cms.double(-1),
        MEMAIN_qcut = cms.double(-1),
        MEMAIN_minjets = cms.int32(-1),
