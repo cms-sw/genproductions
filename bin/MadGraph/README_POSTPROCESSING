@@ -14,11 +14,11 @@ rename_files.sh    		--- Template on how to rename files to desired format to be
 replace.pl.txt     	   	--- NEVER touch this, unless if you know what you are doing
 upload2mcdb.pl.txt     		--- Script for uploading to MCDB side...
 copy_from_castor.sh		--- Template to copy recursively files from CASTOR area usign a list
-DECAY.tar.gz              	--- A needed tarballs needed for proper DECAY of top files 
-get_cross_nevts.sh  		--- Script that obtains the x-sec and number of files file by file from LHE source Do "> . get_cross_nevts.sh help"  to get instructions
+DECAY.tar.gz              	--- A tarball needed for proper DECAY of top files 
+get_cross_nevts.sh  		--- Script that obtains the x-sec and number of events file by file from LHE source Do "> . get_cross_nevts.sh help"  to get instructions
 README_POSTPROCESSING  		--- Yep, is this file
 rename_files.sh			--- Template to copy the files in the acceptable format for post-processing
-replace_card1.dat  		--- Needed for REPLACE script -- defines which particles to be replaced with others
+replace_card1.dat  		--- Needed for replace.pl script -- defines which particles to be replaced with what
 upload.sh			--- Script to upload to mcbd side -- Do "> . upload.sh help"  to get instructions
 
 
