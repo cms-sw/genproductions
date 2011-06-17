@@ -1,3 +1,7 @@
+###This script is the v2 of the post-Processing python tool
+# 20/5/2011 - Alexis Kalogeropoulos - Added the -j == max jet flavor switch - If is set to 4, then you apply cuts on the b's, while if is set to 5 you do not
+# 14/5/2011 - Alexis Kalogeropoulos - Add the seed information, nqmatch and number of events in the banner information -- Pythia fragments from CMSSW > 41x can use MEMAIN_nqmatch=('-1') and read this value directly from the LHE file
+
 #!/usr/bin/env python
 import sys, math, getopt
 from copy import deepcopy
