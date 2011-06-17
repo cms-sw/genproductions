@@ -1,0 +1,43 @@
+#Written by Alexis Kalogeropoulos on 16/6/2011
+#Last revision 16/6/2011
+
+
+Some instructions on what is what for the Post-Processing tools
+
+
+check_seed.sh 	   		--- File to be used for checking if the seed number inside the LHE file is the same following the name of the input
+copy_from_pnfs.sh  		--- Template to copy recursively files from local SE stored .LHE files
+doPostProcess.sh   		--- Wrapper/script needed to do the post-processing -- Do "> . doPostProcess help"  to get instructions
+mgPostProcv2.py    		--- PostProcessing python script -- NEVER touch this, unless if you know what you are doing
+process_report     		--- File needed for the get_cross_nevnts.sh script , should be empty file
+rename_files.sh    		--- Template on how to rename files to desired format to be used with the post-processing tools
+replace.pl.txt     	   	--- NEVER touch this, unless if you know what you are doing
+upload2mcdb.pl.txt     		--- Script for uploading to MCDB side...
+copy_from_castor.sh		--- Template to copy recursively files from CASTOR area usign a list
+DECAY.tar.gz              	--- A needed tarballs needed for proper DECAY of top files 
+get_cross_nevts.sh  		--- Script that obtains the x-sec and number of files file by file from LHE source Do "> . get_cross_nevts.sh help"  to get instructions
+README_POSTPROCESSING  		--- Yep, is this file
+rename_files.sh			--- Template to copy the files in the acceptable format for post-processing
+replace_card1.dat  		--- Needed for REPLACE script -- defines which particles to be replaced with others
+upload.sh			--- Script to upload to mcbd side -- Do "> . upload.sh help"  to get instructions
+
+
+So, correct steps for post-processing and uploading to mcdb should follow this order
+
+First, get from CVS all the files, and do not forget to 
+>  tar -zxvf upload2mcdb_replace.tar.gz
+
+Then, 
+1- Copy your files from your SE area or CASTOR (use / adapt copy_from_pnfs.sh and copy_from_castor.sh for this and rename_files.sh for correctly renaming the files for the post-processing scripts)
+
+2- Get the x-sec and number of events per file -- For this , use the get_cross_nevts.sh and inspect the output for any anomalies
+
+3- Do the actual post-processing with the doPostProcess.sh script
+
+4- Create a new mcdb article with upload2mcdb.pl
+
+5- Upload all the lhe post-processed files using upload.sh script  
+
+6- For any questions/comments/bugs found  do not hesitate to contact the CMS MC team
+
+7- Do not forget to have fun!!!
