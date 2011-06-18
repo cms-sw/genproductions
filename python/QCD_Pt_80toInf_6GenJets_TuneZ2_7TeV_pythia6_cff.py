@@ -5,7 +5,7 @@ from Configuration.Generator.PythiaUEZ2Settings_cfi import *
 generator = cms.EDFilter('Pythia6GeneratorFilter',
 	comEnergy = cms.double(7000.0),
 	crossSection = cms.untracked.double(9.249159573e+5),
-	filterEfficiency = cms.untracked.double(1),
+	filterEfficiency = cms.untracked.double(0.0549867),
 	maxEventsToPrint = cms.untracked.int32(0),
 	pythiaHepMCVerbosity = cms.untracked.bool(False),
 	pythiaPylistVerbosity = cms.untracked.int32(0),
@@ -24,9 +24,9 @@ generator = cms.EDFilter('Pythia6GeneratorFilter',
 )
 
 configurationMetadata = cms.untracked.PSet(
-	version = cms.untracked.string('\$Revision: 1.2 $'),
-	name = cms.untracked.string('\$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/QCD_Pt_80toInf_6GenJets_TuneZ2_7TeV_pythia6_cff.py,v $'),
-	annotation = cms.untracked.string('Fall2010 sample with PYTHIA6: QCD multijet production, pThat > 80 GeV, >= 6 ak5GenJets (pt > 15, |eta| < 3) , TuneZ2')
+	version = cms.untracked.string('\$Revision: 1.1 $'),
+	name = cms.untracked.string('\$Source: /cvs/CMSSW/CMSSW/Configuration/GenProduction/python/QCD_Pt_80toInf_6GenJets_TuneZ2_7TeV_pythia6_cff.py,v $'),
+	annotation = cms.untracked.string('Summer2011 sample with PYTHIA6: QCD multijet production, pThat > 80 GeV, >= 6 ak5GenJets (pt > 15, |eta| < 3) , TuneZ2')
 )
 
 from PhysicsTools.HepMCCandAlgos.genParticles_cfi import genParticles
