@@ -5,8 +5,8 @@
 #Last revision 16/6/2011
 
 
-mkdir Uploaded_${4}
-mkdir Fewer_Events_${4}
+mkdir Uploaded_${5}
+mkdir Fewer_Events_${5}
 
 if [ ${1} == help ] ;then
 	echo You asked for help...
