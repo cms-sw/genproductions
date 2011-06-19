@@ -11,8 +11,8 @@ doPostProcess.sh   		--- Wrapper/script needed to do the post-processing -- Do "
 mgPostProcv2.py    		--- PostProcessing python script -- NEVER touch this, unless if you know what you are doing
 process_report     		--- File needed for the get_cross_nevnts.sh script , should be empty file
 rename_files.sh    		--- Template on how to rename files to desired format to be used with the post-processing tools
-replace.pl.txt     	   	--- NEVER touch this, unless if you know what you are doing
-upload2mcdb.pl.txt     		--- Script for uploading to MCDB side...
+replace.pl	     	   	--- NEVER touch this, unless if you know what you are doing
+upload2mcdb.pl    		--- Script for uploading to MCDB side...
 copy_from_castor.sh		--- Template to copy recursively files from CASTOR area usign a list
 DECAY.tar.gz              	--- A tarball needed for doing properly the DECAY of ttbar LHE files 
 get_cross_nevts.sh  		--- Script that obtains the x-sec and number of events file by file from LHE source Do "> . get_cross_nevts.sh help"  to get instructions
