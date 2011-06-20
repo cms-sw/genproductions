@@ -19,11 +19,11 @@ if [ ${1} == help ] ;then
 	echo
 	echo '$5' = true or false, if you want to replace el and vel with el/mu/tau and vel/vmu/vtau -usually processes of V+jets where we generate only 1 flavor- Please inspect the proc_card to decide if you need this or not...
 	echo
-	echo '$6' = the max jet flavor parameter - If you want cuts applied on the b-quarks, like for example V+HF processes, you should use 4 otherwise use 5 
+	echo '$6' = the max jet flavor parameter - If you do want to apply cuts on the b-quarks, like for example V+HF processes like Zbb+jets, you should use 4 otherwise use 5-example, tt~+jets
 	echo
 	echo '$7' = should be wjets, zjets, qcd, ttbar -- This is a really important switch, as it initializes the proper arguments for the actual post-processing python script -ie adding masses, restoring w/z in history of the event etc etc-- Be very carefull how to use this and always consult the proc_card you used.
 	echo
-	echo '$8' = if is set to true, then DECAY will be run to decay tops -- Take care, as if you do that, you should have already DECAY dir in 'pwd'/DECAY/DECAY and have put the correct DECAY parameters in there - By default, once this is used for the first time, the script will untar the latest DECAY pckg and assume that you want to do a full-decay of t and t~ as well
+	echo '$8' = if is true, then DECAY will be run for decaying the tops -- Take care, as if you do that, you should have DECAY dir in 'pwd'/DECAY/DECAY and have already put the correct DECAY parameters in there -- Use it with care
 	echo
 	echo '$9' = the mcdb article -- Once a file is postprocessed will be copied to a dir named mgPostv2 and then you should upload them to mcdb -- So, if you use the upload.sh script, once a file is uploaded, it will be moved to a folder name after mgPostv2/Uploaded_'$9' -- So, this '$9' checks if a file is there, which normally means that is already uploaded to mcdb --If this is case the postprocessing will be skipped for this file - However, use '$9'=-1 if you want to bypass this and have your file processed anyway -- 
 	echo
