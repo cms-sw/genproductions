@@ -39,7 +39,7 @@ if [ -f ${file} ];then
 	grep "ERROR" ${file}
 
 	sed -i '/ERROR/ d' ${file}
-	sed  -i     '/! Random seed number/ d' ${file}
+	#sed  -i     '/! Random seed number/ d' ${file}
 	grep -c "<event>" ${file} > count_events
 
 status=`head -n 1 count_events`

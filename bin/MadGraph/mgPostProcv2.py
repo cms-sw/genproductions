@@ -418,8 +418,8 @@ MGParamCMSDescr = {
 	'maxjets': 	'Largest number (inclusive ktMLM matching multipl.)',
 	'etaclmax':	'Maximum pseudorapidity for particles to cluster',
 	'qcut': 	'Jet matching threshold for ktMLM scheme',
-	'nqmatch': 	'Max Jet Flavor',
-	'seed': 	'Random seed number'
+	'nqmatch': 	'Max Jet Flavor'
+	#'seed': 	'Random seed number'
 }
 
 def headerXfrm(headers, nEvents, minJets, maxJets,addn = {}, strip = False):
@@ -523,9 +523,9 @@ def headerXfrm(headers, nEvents, minJets, maxJets,addn = {}, strip = False):
 		if 'nqmatch' not in addn:
 			addn['nqmatch'] = int(mgParams['maxjetflavor'])
 
-	if 'gseed' in gridParams:
-		if 'seed' not in addn:
-		   addn['seed'] = int(gridParams['gseed'])
+	#if 'gseed' in gridParams:
+	#	if 'seed' not in addn:
+	#	   addn['seed'] = int(gridParams['gseed'])
 
 
 	if len(addn):
