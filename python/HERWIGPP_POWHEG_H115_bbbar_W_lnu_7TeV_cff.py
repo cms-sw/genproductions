@@ -1,6 +1,6 @@
 import FWCore.ParameterSet.Config as cms
 
-from Configuration.GenProduction.HerwigppDefaults_cfi import *
+from Configuration.Generator.HerwigppDefaults_cfi import *
 
 generator = cms.EDFilter(
     "ThePEGGeneratorFilter",
@@ -95,6 +95,6 @@ generator = cms.EDFilter(
 
 configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('\$Revision: 1.1 $'),
-    name = cms.untracked.string('\$Source: /cvs_server/repositories/CMSSW/UserCode/SchieferD/GenProduction/python/HERWIGPP_POWHEG_H115_bbbar_W_lnu_7TeV_cff.py,v $'),
+    name = cms.untracked.string('\$Source: /cvs/CMSSW/CMSSW/Configuration/GenProduction/python/HERWIGPP_POWHEG_H115_bbbar_W_lnu_7TeV_cff.py,v $'),
 	annotation = cms.untracked.string('HERWIGPP/POWHEG: (H->bb)(W->lnu), m(H)=115 GeV, l=e or mu or tau')
 )

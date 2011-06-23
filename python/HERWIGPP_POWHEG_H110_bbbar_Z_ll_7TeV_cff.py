@@ -1,6 +1,6 @@
 import FWCore.ParameterSet.Config as cms
 
-from Configuration.GenProduction.HerwigppDefaults_cfi import *
+from Configuration.Generator.HerwigppDefaults_cfi import *
 
 generator = cms.EDFilter(
     "ThePEGGeneratorFilter",

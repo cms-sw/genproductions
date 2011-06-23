@@ -40,7 +40,7 @@ generator = cms.EDFilter(
     'set GGtoHHardGenerator:ShowerAlpha AlphaQCD',
     'insert PowhegEvolver:HardGenerator 0 GGtoHHardGenerator',
     ),
-    
+
     pdfCTEQ6M = cms.vstring(
     'mkdir /LHAPDF',
     'cd /LHAPDF',
@@ -56,9 +56,9 @@ generator = cms.EDFilter(
     'insert SimpleQCD:MatrixElements[0] PowhegMEPP2ZH',
     'set /Herwig/Cuts/JetKtCut:MinKT 0.0*GeV',
     
-    'set /Herwig/Particles/h0:NominalMass 130.*GeV',
+    'set /Herwig/Particles/h0:NominalMass 100.*GeV',
     'set /Herwig/Particles/h0/h0->b,bbar;:OnOff On',
-    'set /Herwig/Particles/h0/h0->b,bbar;:BranchingRatio 0.5118',
+    'set /Herwig/Particles/h0/h0->b,bbar;:BranchingRatio 0.7195',
     'set /Herwig/Particles/h0/h0->W+,W-;:OnOff Off',
     'set /Herwig/Particles/h0/h0->tau-,tau+;:OnOff Off',
     'set /Herwig/Particles/h0/h0->g,g;:OnOff Off',
@@ -81,13 +81,13 @@ generator = cms.EDFilter(
     'set /Herwig/Particles/Z0/Z0->tau-,tau+;:OnOff Off',
     ),
     
-    crossSection     = cms.untracked.double(0.0271),
+    crossSection     = cms.untracked.double(0.0573),
     filterEfficiency = cms.untracked.double(1.0)
     )
 
 
 configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('\$Revision: 1.1 $'),
-    name = cms.untracked.string('\$Source: /cvs/CMSSW/CMSSW/Configuration/GenProduction/python/HERWIGPP_POWHEG_H130_bbbar_Z_nunu_7TeV_cff.py,v $'),
-	annotation = cms.untracked.string('HERWIGPP/POWHEG: (H->bb)(Z->nunu), m(H)=130 GeV, nu=nu_e or nu_mu or nu_tau')
+    name = cms.untracked.string('\$Source: /cvs/CMSSW/CMSSW/Configuration/GenProduction/python/HERWIGPP_POWHEG_H110_bbbar_Z_nunu_7TeV_cff.py,v $'),
+	annotation = cms.untracked.string('HERWIGPP/POWHEG: (H->bb)(Z->nunu), m(H)=100 GeV, nu=nu_e or nu_mu or nu_tau')
 )

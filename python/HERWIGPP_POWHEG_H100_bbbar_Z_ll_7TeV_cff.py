@@ -10,11 +10,11 @@ generator = cms.EDFilter(
     parameterSets = cms.vstring(
     'cm7TeV',
     'powhegDefaults',
-    'HbbZnunuParameters',
+    'HbbZllParameters',
     'basicSetup',
     'setParticlesStableForDetector',
     ),
-    
+
     powhegDefaults = cms.vstring(
     '# Need to use an NLO PDF',
     'cp /Herwig/Partons/MRST-NLO /cmsPDFSet',
@@ -51,14 +51,14 @@ generator = cms.EDFilter(
     'cd /'
     ),
     
-    HbbZnunuParameters = cms.vstring(
+    HbbZllParameters = cms.vstring(
     'cd /Herwig/MatrixElements/',
     'insert SimpleQCD:MatrixElements[0] PowhegMEPP2ZH',
     'set /Herwig/Cuts/JetKtCut:MinKT 0.0*GeV',
     
-    'set /Herwig/Particles/h0:NominalMass 130.*GeV',
+    'set /Herwig/Particles/h0:NominalMass 100.*GeV',
     'set /Herwig/Particles/h0/h0->b,bbar;:OnOff On',
-    'set /Herwig/Particles/h0/h0->b,bbar;:BranchingRatio 0.5118',
+    'set /Herwig/Particles/h0/h0->b,bbar;:BranchingRatio 0.7195',
     'set /Herwig/Particles/h0/h0->W+,W-;:OnOff Off',
     'set /Herwig/Particles/h0/h0->tau-,tau+;:OnOff Off',
     'set /Herwig/Particles/h0/h0->g,g;:OnOff Off',
@@ -73,21 +73,23 @@ generator = cms.EDFilter(
     'set /Herwig/Particles/Z0/Z0->b,bbar;:OnOff Off',
     'set /Herwig/Particles/Z0/Z0->u,ubar;:OnOff Off',
     'set /Herwig/Particles/Z0/Z0->c,cbar;:OnOff Off',
-    'set /Herwig/Particles/Z0/Z0->nu_e,nu_ebar;:OnOff On',
-    'set /Herwig/Particles/Z0/Z0->nu_mu,nu_mubar;:OnOff On',
-    'set /Herwig/Particles/Z0/Z0->nu_tau,nu_taubar;:OnOff On',
-    'set /Herwig/Particles/Z0/Z0->e-,e+;:OnOff Off',
-    'set /Herwig/Particles/Z0/Z0->mu-,mu+;:OnOff Off',
-    'set /Herwig/Particles/Z0/Z0->tau-,tau+;:OnOff Off',
+    'set /Herwig/Particles/Z0/Z0->nu_e,nu_ebar;:OnOff Off',
+    'set /Herwig/Particles/Z0/Z0->nu_mu,nu_mubar;:OnOff Off',
+    'set /Herwig/Particles/Z0/Z0->nu_tau,nu_taubar;:OnOff Off',
+    'set /Herwig/Particles/Z0/Z0->e-,e+;:OnOff On',
+    'set /Herwig/Particles/Z0/Z0->mu-,mu+;:OnOff On',
+    'set /Herwig/Particles/Z0/Z0->tau-,tau+;:OnOff On',
     ),
     
-    crossSection     = cms.untracked.double(0.0271),
+    crossSection     = cms.untracked.double(0.0288),
     filterEfficiency = cms.untracked.double(1.0)
     )
 
 
 configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('\$Revision: 1.1 $'),
-    name = cms.untracked.string('\$Source: /cvs/CMSSW/CMSSW/Configuration/GenProduction/python/HERWIGPP_POWHEG_H130_bbbar_Z_nunu_7TeV_cff.py,v $'),
-	annotation = cms.untracked.string('HERWIGPP/POWHEG: (H->bb)(Z->nunu), m(H)=130 GeV, nu=nu_e or nu_mu or nu_tau')
+    name = cms.untracked.string('\$Source: /cvs/CMSSW/CMSSW/Configuration/GenProduction/python/HERWIGPP_POWHEG_H110_bbbar_Z_ll_7TeV_cff.py,v $'),
+	annotation = cms.untracked.string('HERWIGPP/POWHEG: (H->bb)(Z->ll), m(H)=100 GeV, l=e or mu')
 )
+
+
