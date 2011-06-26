@@ -24,8 +24,6 @@ fi
 for i in `seq $1 $2`; do
 
 file=7TeV_${3}_run${i}_unweighted_events.lhe
-file_ban="$TTPATH"/${3}_run${i}_banner.txt
-
 
 if [  -f ${file}.gz ]; then
 	gzip -d ${file}.gz
