@@ -7,9 +7,9 @@ echo "Running on " `uname -a`
 echo "System release " `cat /etc/redhat-release`
 
 seed=$1
-process="Z"
-card="/afs/cern.ch/user/l/lenzip/scratch0/powheg/Configuration/GenProduction/bin/Powheg/powheg.input" 
-store="/castor/cern.ch/user/l/lenzip/powheg/leshouches/Z/tevatron/muon/"
+process="Dijet"
+card="/afs/cern.ch/user/l/lenzip/scratch0/powheg/dijet-pthat250-lhc-powheg.input" 
+store="/castor/cern.ch/user/l/lenzip/powheg/leshouches/dijet/lhc/pthat250/"
 
 # Release to be used to define the environment and the compiler needed
 
@@ -50,7 +50,8 @@ oldinstallationdirlha=`cat lhapdf-config.orig | grep prefix | head -n 1 | cut -d
 sed -e "s#prefix=${oldinstallationdirlha}#prefix=${newinstallationdirlha}#g" lhapdf-config.orig > lhapdf-config
 chmod +x lhapdf-config
 
-svn checkout --username anonymous --password anonymous svn://powhegbox.mib.infn.it/trunk/POWHEG-BOX
+#svn checkout --username anonymous --password anonymous svn://powhegbox.mib.infn.it/trunk/POWHEG-BOX
+cp -r /afs/cern.ch/user/l/lenzip/scratch0/powheg/POWHEG-BOX .
 cd POWHEG-BOX/${process}
 mv Makefile Makefile.orig
 cat Makefile.orig | sed -e "s#STATIC[ \t]*=[ \t]*-static#STATIC=-dynamic#g" | sed -e "s#PDF[ \t]*=[ \t]*native#PDF=lhapdf#g"> Makefile
@@ -60,9 +61,10 @@ cd workdir
 cat ${card} | sed -e "s#SEED#${seed}#g" > powheg.input
 ls 
 cat powheg.input
-../pwhg_main
+../pwhg_main &> log_${seed}.txt
 mv pwgevents.lhe pwgevents_${seed}.lhe
 rfcp pwgevents_${seed}.lhe ${store}
+rfcp log_${seed}.txt ${store}
 
 echo "End of job on " `date`
 exit 0;
