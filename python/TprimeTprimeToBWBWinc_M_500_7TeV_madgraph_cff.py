@@ -2,7 +2,7 @@ import FWCore.ParameterSet.Config as cms
 
 #source = cms.Source("LHESource",
 #    fileNames = cms.untracked.vstring(
-#    'file:/nasdata/cmsdata/lhe/fromAlexis/7TeV_tptpbar_500_5._run3648_unweighted_events_mgPost.lhe'
+#    'file:/nasdata/cmsdata/lhe/fromAlexis/forSummer11_v2_Jun30/tp_500/7TeV_tptpbar_500_5._run1462_unweighted_events_qcut60_mgPostv2.lhe'
 #    ),
 #    skipEvents=cms.untracked.uint32(0)
 #)
@@ -106,8 +106,8 @@ generator = cms.EDFilter("Pythia6HadronizerFilter",
        scheme = cms.string("Madgraph"),
        mode = cms.string("auto"),       # soup, or "inclusive" / "exclusive"
        MEMAIN_etaclmax = cms.double(5.0),
-       MEMAIN_qcut = cms.double(30.0),
-       MEMAIN_nqmatch = cms.int32(5),
+       MEMAIN_qcut = cms.double(-1),
+       MEMAIN_nqmatch = cms.int32(-1),
        MEMAIN_minjets = cms.int32(0),
        MEMAIN_maxjets = cms.int32(2),
        MEMAIN_showerkt = cms.double(0),
