@@ -72,7 +72,7 @@ file2=7TeV_${name}_run${i}_unweighted_events
 
 if [ "$8" == true ] ; then
 	if [ -d DECAY ]; then
-		gzip -zxvf DECAY.tar.gz
+		tar -zxvf DECAY.tar.gz
 	fi
 
 	echo will do the DECAY...Please make sure that you have used the desired parameters/switches in the MGxx/DECAY dir - Also, this script will do decay top with a mass of b_quark=4.7GeV
