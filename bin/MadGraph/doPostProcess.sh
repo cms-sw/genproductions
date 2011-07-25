@@ -71,7 +71,7 @@ file2=7TeV_${name}_run${i}_unweighted_events
 	if  [ -f  ${file2}.lhe ] ; then
 
 if [ "$8" == true ] ; then
-	if [ -d DECAY ]; then
+	if [ ! -d DECAY ]; then
 		tar -zxvf DECAY.tar.gz
 	fi
 
