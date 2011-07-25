@@ -413,7 +413,7 @@ def writeEvent(g, idprup, wgt, scale, aqedup, aqcdup, particles):
 
 
 MGParamCMSDescr = {
-	'nevts': 	'Number of events',
+	#'nevts': 	'Number of events',
 	'minjets': 	'Smallest number of additional light flavour jets',
 	'maxjets': 	'Largest number (inclusive ktMLM matching multipl.)',
 	'etaclmax':	'Maximum pseudorapidity for particles to cluster',
@@ -512,8 +512,8 @@ def headerXfrm(headers, nEvents, minJets, maxJets,addn = {}, strip = False):
 
 	if 'ickkw' in mgParams:
 	#	if int(mgParams['ickkw']) == 1:
-			if 'nevts' not in addn:
-				addn['nevts'] = nEvents
+			#if 'nevts' not in addn:
+			#	addn['nevts'] = nEvents
 			if 'minjets' not in addn:
 				addn['minjets'] = minJets
 			if 'maxjets' not in addn:
