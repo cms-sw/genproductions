@@ -7,9 +7,11 @@ you need to have in the same dir the following files
 --merge-pl --> the actual merging script
 --extract_banner-pl --> script to be used to extract banner from a LHE file
 
+the last 2 perl script are tarred in the merging_script.tar file
+
 In general, while merging, you must make sure that the following condition are met :
 
-1- You are merging some processes, for example qcd with qcd not qcd with ttbar
+1- You are merging same processes, for example qcd with qcd not qcd with ttbar
 
 2-The <init> block should carry the same number of processes and the same processes -- That said, you should NOT mix/merge files including different number of jet multiplicities - In case you try something like this, the merging script with abort
 
