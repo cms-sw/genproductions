@@ -100,7 +100,7 @@ if [ ! -d Merged_Files ] ;then
 mkdir Merged_Files
 fi
 gzip -d 7TeV_${name}_run${1}to${2}_${ref_num}processes_unweighted_events.lhe.gz
-mv 7TeV_${name}_run${1}to${2}_${ref_num}processes_unweighted_events.lhe.gz Merged_Files/.
+mv 7TeV_${name}_run${1}to${2}_${ref_num}processes_unweighted_events.lhe Merged_Files/.
 
 if [ ! -d Merged_Files/run${1}to${2}_${ref_num}processes ]; then
 mkdir Merged_Files/run${1}to${2}_${ref_num}processes
