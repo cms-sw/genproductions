@@ -1,14 +1,19 @@
 import FWCore.ParameterSet.Config as cms
 
-from SimGeneral.MixingModule.mix_E7TeV_FlatDist10_2011EarlyData_50ns_PoissonOOT import *
 
 def customise(process):
+    process.load('SimGeneral.MixingModule.mix_E7TeV_FlatDist10_2011EarlyData_50ns_PoissonOOT')
     REDIGIInputEventSkimming= cms.PSet(
         inputCommands=cms.untracked.vstring('drop *')
         )
 
-    REDIGIInputEventSkimming.inputCommands.extend(process.SimG4CoreRAW.outputCommands) 
-    REDIGIInputEventSkimming.inputCommands.extend(process.GeneratorInterfaceRAW.outputCommands) 
+    GeneratorInterfaceRAWNoGenParticles = process.GeneratorInterfaceRAW.outputCommands
+    for item in GeneratorInterfaceRAWNoGenParticles:
+      if 'genParticles' in item:
+        GeneratorInterfaceRAWNoGenParticles.remove(item) 
+
+    REDIGIInputEventSkimming.inputCommands.extend(process.SimG4CoreRAW.outputCommands)
+    REDIGIInputEventSkimming.inputCommands.extend(GeneratorInterfaceRAWNoGenParticles)
     REDIGIInputEventSkimming.inputCommands.extend(process.IOMCRAW.outputCommands) 
 
     process.source.inputCommands = REDIGIInputEventSkimming.inputCommands
@@ -26,14 +31,14 @@ def customise(process):
 
     # REDO the GenJets etc. in case labels have been changed
     process.load('Configuration/StandardSequences/Generator_cff')
-    process.fixGenInfo = cms.Path(process.genJetMET)
+    process.fixGenInfo = cms.Path(process.GeneInfo * process.genJetMET)
     process.schedule.append(process.fixGenInfo)
 
     process.mix.minBunch = cms.int32(-3)
     process.mix.maxBunch = cms.int32(2)
     process.mix.bunchspace = cms.int32(50)
 
-    process.mix.input.nbPileupEvents.probFunctionVariable = cms.vint32(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49),
+    process.mix.input.nbPileupEvents.probFunctionVariable = cms.vint32(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49)
     process.mix.input.nbPileupEvents.probValue = cms.vdouble(
         0,
         9.31651e-08,
