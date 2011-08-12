@@ -20,7 +20,7 @@ generator = cms.EDFilter("Pythia6HadronizerFilter",
         pythiaUESettingsBlock,
         processParameters = cms.vstring('MSEL=0         ! User defined processes', 
                         'PMAS(5,1)=4.8   ! b quark mass',
-                        'PMAS(6,1)=178.5 ! t quark mass',
+                        'PMAS(6,1)=184.5 ! t quark mass',
 			'MSTJ(1)=1       ! Fragmentation/hadronization on or off',
 			'MSTP(61)=1      ! Parton showering on or off'),
         # This is a vector of ParameterSet names to be read, in this order
@@ -37,6 +37,6 @@ generator = cms.EDFilter("Pythia6HadronizerFilter",
        MEMAIN_maxjets = cms.int32(-1),
        MEMAIN_showerkt = cms.double(0),   
        MEMAIN_excres = cms.string(""),
-       outTree_flag = cms.int32(0)
+       outTree_flag = cms.int32(0)    
     )    
 )
