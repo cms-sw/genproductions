@@ -2,7 +2,7 @@ import FWCore.ParameterSet.Config as cms
 
 generator = cms.EDProducer("FlatRandomPtGunProducer",
     PGunParameters = cms.PSet(
-        MaxPt = cms.double(25.),
+        MaxPt = cms.double(250.),
         MinPt = cms.double(2.),
         PartID = cms.vint32(22),
         MaxEta = cms.double(2.5),
@@ -20,6 +20,6 @@ generator = cms.EDProducer("FlatRandomPtGunProducer",
 
 configurationMetadata = cms.untracked.PSet(
         version = cms.untracked.string('\$Revision: 1.1 $'),
-        name = cms.untracked.string('\$Source: /cvs/CMSSW/CMSSW/Configuration/GenProduction/python/SingleGammaFlatPt10To100_cff.py,v $'),
+        name = cms.untracked.string('\$Source: /cvs/CMSSW/CMSSW/Configuration/GenProduction/python/SingleGamma_Pt_2To250_cff.py,v $'),
         annotation = cms.untracked.string('Summer2011 sample with GUN: Flat Gamma gun, pt = 2 .. 250 GeV, ')
 )
