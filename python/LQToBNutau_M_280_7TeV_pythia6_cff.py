@@ -28,8 +28,8 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
 
 configurationMetadata = cms.untracked.PSet(
         version = cms.untracked.string('$Revision: 1.1 $'),
-        name = cms.untracked.string('$Source: /cvs/CMSSW/CMSSW/Configuration/GenProduction/python/LQToBNutau_M_200_7TeV_pythia6_cff.py,v $'),
-        annotation = cms.untracked.string('default documentation string for LQToBNutau_M_200_7TeV_pythia6_cff.py')
+        name = cms.untracked.string('$Source: /cvs/CMSSW/CMSSW/Configuration/GenProduction/python/LQToBNutau_M_280_7TeV_pythia6_cff.py,v $'),
+        annotation = cms.untracked.string('default documentation string for LQToBNutau_M_280_7TeV_pythia6_cff.py')
 )
 
 ProductionFilterSequence = cms.Sequence(generator)
