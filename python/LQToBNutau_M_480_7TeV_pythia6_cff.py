@@ -9,7 +9,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
     pythiaPylistVerbosity = cms.untracked.int32(0),
     filterEfficiency = cms.untracked.double(1.0),
     comEnergy = cms.double(7000.0),
-    crossSection = cms.untracked.double(6.751),
+    crossSection = cms.untracked.double(0.0309),
     PythiaParameters = cms.PSet(
         pythiaUESettingsBlock,
         processParameters = cms.vstring('PMAS(42,1)=480.0        ! LQ mass', 
@@ -27,7 +27,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
 )
 
 configurationMetadata = cms.untracked.PSet(
-        version = cms.untracked.string('$Revision: 1.1 $'),
+        version = cms.untracked.string('$Revision: 1.2 $'),
         name = cms.untracked.string('$Source: /cvs/CMSSW/CMSSW/Configuration/GenProduction/python/LQToBNutau_M_480_7TeV_pythia6_cff.py,v $'),
         annotation = cms.untracked.string('default documentation string for LQToBNutau_M_480_7TeV_pythia6_cff.py')
 )
