@@ -16,7 +16,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
             'MSUB(157)=1',  #  gluon initiated production of MSSM pseudoscalar higgs ,
             'IMSS(1)=1',    #  a general MSSM simulation 
             'RMSS(5)=10.    ! tan beta', 
-            'RMSS(19)= 10.   ! m_A', 
+            'RMSS(19)= 13.   ! m_A', 
             'MDME(420,1)=0  ! Higgs(H) decay into d              dbar', 
             'MDME(421,1)=0  ! Higgs(H) decay into u              ubar', 
             'MDME(422,1)=0  ! Higgs(H) decay into s              sbar', 
@@ -108,7 +108,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
 
 configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.1 $'),
-    name = cms.untracked.string('$Source: /cvs/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_Tauola_nMSSM_a_mumu_m13_7TeV_cff.py ,v $'),
+    name = cms.untracked.string('$Source: /cvs/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_Tauola_nMSSM_a_mumu_m13_7TeV_cff.py,v $'),
     annotation = cms.untracked.string('nMSSM a->mumu, mA0=13 GeV')
 )
 
