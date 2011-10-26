@@ -1,23 +1,23 @@
 import FWCore.ParameterSet.Config as cms
 
 configurationMetadata = cms.untracked.PSet(
-	version = cms.untracked.string('$Revision: 1.2 $'),
-	name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Attic/MCatNLO_LHE_TTinc_7TeV_cff.py,v $'),
-	annotation = cms.untracked.string('Summer09: Showering of MC@NLO 3.4 TTbar events with Herwig+Jimmy, 7 TeV')
+	version    = cms.untracked.string('$Revision: 1.1 $'),
+	name       = cms.untracked.string('$Source: /cvs/CMSSW/CMSSW/Configuration/GenProduction/python/TT_7TeV_mcatnlo_cff.py,v $'),
+	annotation = cms.untracked.string('Showering of MC@NLO 3.4 TTbar events with Herwig+Jimmy, 7 TeV, CTEQ6M')
 )
 
 generator = cms.EDFilter("Herwig6HadronizerFilter",
-	comEnergy = cms.double(7000.0),
-	crossSection = cms.untracked.double(149.8),
-	doMPInteraction = cms.bool(True),
+	comEnergy                = cms.double(7000.0),
+	crossSection             = cms.untracked.double(148.4),
+	doMPInteraction          = cms.bool(True),
 	emulatePythiaStatusCodes = cms.untracked.bool(True),
-	filterEfficiency = cms.untracked.double(1.0),
-	herwigHepMCVerbosity = cms.untracked.bool(False),
-	herwigVerbosity = cms.untracked.int32(0),
-	lhapdfSetPath = cms.untracked.string(''),
-	maxEventsToPrint = cms.untracked.int32(0),
-	printCards = cms.untracked.bool(False),
-	useJimmy = cms.bool(True),
+	filterEfficiency         = cms.untracked.double(1.0),
+	herwigHepMCVerbosity     = cms.untracked.bool(False),
+	herwigVerbosity          = cms.untracked.int32(0),
+	lhapdfSetPath            = cms.untracked.string(''),
+	maxEventsToPrint         = cms.untracked.int32(0),
+	printCards               = cms.untracked.bool(False),
+	useJimmy                 = cms.bool(True),
 
 	HerwigParameters = cms.PSet(
 		herwigUEsettings = cms.vstring(
