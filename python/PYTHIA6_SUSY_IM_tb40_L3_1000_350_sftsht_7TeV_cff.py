@@ -19,7 +19,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
             'IMSS(21) = 33            ! LUN number for SLHA File (must be 33)',
             'IMSS(22) = 33            ! Read-in SLHA decay table'),
 	SLHAParameters = cms.vstring(
-	    'SLHAFILE = Configuration/Generator/data/tb10_L2_175_450.slha'),
+	    'SLHAFILE = Configuration/Generator/data/tb40_L3_1000_350.slha'),
         # This is a vector of ParameterSet names to be read, in this order
         parameterSets = cms.vstring('pythiaUESettings', 
             'processParameters', 'SLHAParameters')
@@ -28,8 +28,8 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
 
 configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.3 $'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_SUSY_IM_tb10_L2_175_450_sftsht_7TeV_cff.py,v $'),
-    annotation = cms.untracked.string('PYTHIA6_SUSY_IM_tb10_L2_175_450_sftsht at 7TeV')
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/PYTHIA6_SUSY_IM_tb40_L3_1000_350_sftsht_7TeV_cff.py,v $'),
+    annotation = cms.untracked.string('PYTHIA6_SUSY_IM_tb40_L3_1000_350_sftsht at 7TeV')
 )
 
 ProductionFilterSequence = cms.Sequence(generator)

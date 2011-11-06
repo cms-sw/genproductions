@@ -19,7 +19,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
             'IMSS(21) = 33            ! LUN number for SLHA File (must be 33)',
             'IMSS(22) = 33            ! Read-in SLHA decay table'),
 	SLHAParameters = cms.vstring(
-	    'SLHAFILE = Configuration/Generator/data/tb10_L_950_450.slha'),
+	    'SLHAFILE = Configuration/Generator/data/tb10_L4_950_450.slha'),
         # This is a vector of ParameterSet names to be read, in this order
         parameterSets = cms.vstring('pythiaUESettings', 
             'processParameters', 'SLHAParameters')
