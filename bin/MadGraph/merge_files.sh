@@ -95,12 +95,12 @@ done
 	#mv ${ref_file} ${name}_${ref_num}_processes/.
 	mv ${ref_file} temp_dir/.
 ls temp_dir/* -ltrh
-perl merge-pl temp_dir/*  7TeV_${name}_run${1}to${2}_${ref_num}processes_unweighted_events.lhe.gz  banner.txt
+perl merge-pl temp_dir/*  7TeV_${name}_run${1}to${2}_${ref_num}processes_unweighted_events_qcut${4}_mgPostv2.lhe.gz  banner.txt
 if [ ! -d Merged_Files ] ;then
 mkdir Merged_Files
 fi
-gzip -d 7TeV_${name}_run${1}to${2}_${ref_num}processes_unweighted_events.lhe.gz
-mv 7TeV_${name}_run${1}to${2}_${ref_num}processes_unweighted_events.lhe Merged_Files/.
+#gzip -d 7TeV_${name}_run${1}to${2}_${ref_num}processes_unweighted_events_qcut${4}_mgPostv2.lhe.gz
+#mv 7TeV_${name}_run${1}to${2}_${ref_num}processes_unweighted_events_qcut${4}_mgPostv2.lhe Merged_Files/.
 
 if [ ! -d Merged_Files/run${1}to${2}_${ref_num}processes ]; then
 mkdir Merged_Files/run${1}to${2}_${ref_num}processes
