@@ -2,7 +2,7 @@ import FWCore.ParameterSet.Config as cms
 
 #source = cms.Source("LHESource",
 #    fileNames = cms.untracked.vstring(
-#    'file:/nasdata/cmsdata/lhe/fromAlexis/7TeV_tptpbar_400_4_run10161_unweighted_events_mgPost.lhe'
+#    'file:/nasdata/cmsdata/lhe/fromAlexis/7TeV_tptpbar_350_3.5_run15680_unweighted_events_mgPost.lhe'
 #    ),
 #    skipEvents=cms.untracked.uint32(0)
 #)
@@ -23,10 +23,10 @@ generator = cms.EDFilter("Pythia6HadronizerFilter",
             'MSTP(61)=1      ! Parton showering on or off',
             'PMAS(5,1)=4.8   ! b quark mass', #from Spring11 4000040
             'PMAS(6,1)=172.5 ! t quark mass', #from Spring11 4000040
-            'PMAS(25,1)=120.0! h0 masss',
-            'PMAS(8,1) = 400.0D0  ! tprime quarks mass',
-            'PMAS(8,2) = 4.0D0',
-            'PMAS(8,3) = 40.0D0',
+            'PMAS(25,1)=120.0! h0 masss',    
+            'PMAS(8,1) = 725.0D0  ! tprime quarks mass',
+            'PMAS(8,2) = 7.25D0',
+            'PMAS(8,3) = 72.5D0',
  'VCKM(1,1) = 0.97414000D0',
  'VCKM(1,2) = 0.22450000D0',
  'VCKM(1,3) = 0.00420000D0',
