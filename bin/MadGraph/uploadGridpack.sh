@@ -60,7 +60,7 @@ if [ ! "$PROCESS" ]; then
   exit 1
 fi
 
-if [ ! "$@" ]; then
+if [[ "$(echo $@| wc -w)" == 0 ]]; then
   echo "$NAME: error: no files provided for upload"
   exit 1
 fi  
