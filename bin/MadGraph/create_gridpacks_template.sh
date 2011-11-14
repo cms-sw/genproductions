@@ -54,6 +54,16 @@ cd Source/CERNLIB/
 make
 cd ../..
 
+#find the proper param_card and replace it
+model=`grep "import model" Cards/proc_card_mg5.dat | gawk '{print $3}'`
+if [ -f Cards/param_card_${model}.dat ]; then
+  cp Cards/param_card_${model}.dat Cards/param_card.dat
+else
+  echo Cards/param_card_${model}.dat not found
+  exit 1
+fi
+
+
 # run the production stage - here you can select for running on multicore or not...
 
 # sequential run

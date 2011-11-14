@@ -47,9 +47,6 @@ chmod +x Template/bin/run_combine
 
 rm Template/Cards/param_card.dat
 
-#echo "waiting..."
-#read ciao
-
 # set the run cards with the appropriate initial seed
 
 cp ${PRODHOME}/run_card_send.dat Template/Cards/run_card.dat ; dos2unix Template/Cards/run_card.dat
@@ -66,9 +63,6 @@ cd Source/CERNLIB/
 make
 cd ../..
 
-#echo "waiting..."
-#read ciao1
-
 #find the proper param_card and replace it
 model=`grep "import model" Cards/proc_card_mg5.dat | gawk '{print $3}'`
 if [ -f Cards/param_card_${model}.dat ]; then
@@ -77,9 +71,6 @@ else
   echo Cards/param_card_${model}.dat not found
   exit 1
 fi  
-
-#echo waiting...
-#read ciao3
 
 # run the production stage - here you can select for running on multicore or not...
 
