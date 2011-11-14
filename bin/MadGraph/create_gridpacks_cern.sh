@@ -6,8 +6,8 @@ echo "Starting job on " `date`
 echo "Running on " `uname -a`
 echo "System release " `cat /etc/redhat-release`
 
-export name=zjets_smzerobmass_M-10To50
-export queue=cmscaf1nd
+export name=W1jet
+export queue=1nd
 
 # system specific settings, for instance:
 # export USE_LSF_STARTER=no
@@ -25,8 +25,7 @@ export RELEASE=CMSSW_4_1_7
 
 # location of the madgraph tarball and of the output main storage directory
 
-#export SOURCE=${PRODHOME}/MG5v1.3.1-cms1.tar.gz
-export SOURCE=${PRODHOME}/MG5v1.1.tar.gz
+export SOURCE=${PRODHOME}/MG5v1.3.27_CERN20111114.tgz
 
 scram project -n ${name}_gridpack CMSSW ${RELEASE} ; cd ${name}_gridpack ; mkdir -p work ; cd work
 eval `scram runtime -sh`
@@ -37,17 +36,19 @@ ln -s `which gfortran` f77
 ln -s `which gfortran` g77
 export PATH=`pwd`:${PATH}
 
-#cp ${SOURCE} . ; tar xzf ${SOURCE} ; rm -f `basename ${SOURCE}` ; mv MG5v1.3.1 ${name}_gridpack ; cd ${name}_gridpack
-cp ${SOURCE} . ; tar xzf ${SOURCE} ; rm -f `basename ${SOURCE}` ; mv MG5v1.1 ${name}_gridpack ; cd ${name}_gridpack
+cp ${SOURCE} . ; tar xzf ${SOURCE} ; rm -f `basename ${SOURCE}` ; mv MG5v1.3.27 ${name}_gridpack ; cd ${name}_gridpack
 
-cp ${PRODHOME}/qsub Template/bin
-mv Template/bin/addmasses.py Template/bin/addmasses.py.no
-cat Template/Source/run_config.inc | sed -e "s#PBS_QUE = 'madgraph'#PBS_QUE = '${queue}'#g" > Template/Source/run_config_tmp.inc
+cat Template/Source/run_config.inc | sed -e "s#PBS_QUE = '1nd'#PBS_QUE = '${queue}'#g" > Template/Source/run_config_tmp.inc
 mv Template/Source/run_config_tmp.inc Template/Source/run_config.inc
 
-cat Template/bin/run_combine | sed -e "s#-q madgraph#-q ${queue}#g" > Template/bin/run_combine_tmp
+cat Template/bin/run_combine | sed -e "s#-q 1nd#-q ${queue}#g" > Template/bin/run_combine_tmp
 mv Template/bin/run_combine_tmp Template/bin/run_combine
 chmod +x Template/bin/run_combine
+
+rm Template/Cards/param_card.dat
+
+#echo "waiting..."
+#read ciao
 
 # set the run cards with the appropriate initial seed
 
@@ -65,12 +66,28 @@ cd Source/CERNLIB/
 make
 cd ../..
 
+#echo "waiting..."
+#read ciao1
+
+#find the proper param_card and replace it
+model=`grep "import model" Cards/proc_card_mg5.dat | gawk '{print $3}'`
+if [ -f Cards/param_card_${model}.dat ]; then
+  cp Cards/param_card_${model}.dat Cards/param_card.dat
+else
+  echo Cards/param_card_${model}.dat not found
+  exit 1
+fi  
+
+#echo waiting...
+#read ciao3
+
 # run the production stage - here you can select for running on multicore or not...
 
 # sequential run
 #./bin/generate_events 0 gridpack_${name}
 
 export PATH=`pwd`/bin:${PATH}
+
 
 # batch run
 ./bin/generate_events 1 gridpack_${name} gridpack_${name}
