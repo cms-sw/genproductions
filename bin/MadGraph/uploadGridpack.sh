@@ -70,6 +70,10 @@ for file in "$@"; do
     echo "$NAME: error: file $file does not exist"
     exit 1
   fi
+  if [[ "$(basename $file| sed -e 's#\.[a-z\.]\+##g')" != "${PROCESS}_gridpack" ]]; then
+    echo "$NAME: error: file $file had wrong basename"
+    exit 1;
+  fi  
 done
 
 
