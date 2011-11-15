@@ -1,6 +1,6 @@
 #! /bin/bash
 
-rootdir=/afs/cern.ch/user/l/lenzip/scratch0/madgraph/repo
+rootdir=/afs/cern.ch/cms/generators/www/slc5_ia32_gcc434/madgraph/V5_1.3.27/8TeV_Summer12/
 
 function preparepath() {
   local PROCESS=${rootdir}/${1}

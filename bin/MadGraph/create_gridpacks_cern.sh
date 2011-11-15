@@ -1,12 +1,12 @@
 #!/bin/bash
 
-#set -o verbose
+set -o verbose
 
 echo "Starting job on " `date`
 echo "Running on " `uname -a`
 echo "System release " `cat /etc/redhat-release`
 
-export name=W1jet
+export name=QCD_HT-100To250_8TeV-madgraph
 export queue=1nd
 
 # system specific settings, for instance:
