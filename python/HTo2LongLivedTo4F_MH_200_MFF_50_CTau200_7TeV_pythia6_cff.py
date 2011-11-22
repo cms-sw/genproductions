@@ -43,6 +43,9 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
           'PARJ(73)=7000. ! radius (mm) of CMS cylinder',
           'PARJ(74)=9000. ! half (mm) length of CMS cylinder',
 
+# Disable colour reconnection, since it can put colour strings between widely separated partons.
+          'MSTP(95)=0',
+
           'MSEL=0',
           
 # Request gg -> H0 production

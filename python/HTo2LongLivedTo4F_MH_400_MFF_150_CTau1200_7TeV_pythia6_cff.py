@@ -8,7 +8,7 @@
 E_BEAM     = 7000 # GeV (beam energy)
 MASS_HIGGS = 400 # GeV (mass of resonance that decays to long-lived particle pair)
 MASS_LL    = '150GeV' # (mass with units of long-lived particle)
-CTAU_LL    = '400mm' # (c*tau with units of long-lived particle)
+CTAU_LL    = '1200mm' # (c*tau with units of long-lived particle)
 FERMION    = 'F' # type of fermions produced when long-lived exotic decays
 PYUPDA_CARDS = 'Configuration/Generator/data/HTo2LongLivedTo4%s_%iGeV_%s_%s.pyupda' % (FERMION, MASS_HIGGS, MASS_LL, CTAU_LL)
 
