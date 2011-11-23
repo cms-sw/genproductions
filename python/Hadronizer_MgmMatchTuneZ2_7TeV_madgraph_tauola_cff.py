@@ -4,6 +4,7 @@ from Configuration.Generator.PythiaUEZ2Settings_cfi import *
 from GeneratorInterface.ExternalDecays.TauolaSettings_cff import *
 
 generator = cms.EDFilter("Pythia6HadronizerFilter",
+    src = cms.InputTag("generator"),
     pythiaHepMCVerbosity = cms.untracked.bool(True),
     maxEventsToPrint = cms.untracked.int32(0),
     pythiaPylistVerbosity = cms.untracked.int32(1),
