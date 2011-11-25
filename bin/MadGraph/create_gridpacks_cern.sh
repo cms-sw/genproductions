@@ -25,7 +25,7 @@ export RELEASE=CMSSW_4_1_7
 
 # location of the madgraph tarball and of the output main storage directory
 
-export SOURCE=${PRODHOME}/MG5v1.3.27_CERN20111114.tgz
+export SOURCE=${PRODHOME}/MG5v1.3.30_CERN20111121.tgz  
 
 scram project -n ${name}_gridpack CMSSW ${RELEASE} ; cd ${name}_gridpack ; mkdir -p work ; cd work
 eval `scram runtime -sh`
@@ -36,7 +36,7 @@ ln -s `which gfortran` f77
 ln -s `which gfortran` g77
 export PATH=`pwd`:${PATH}
 
-cp ${SOURCE} . ; tar xzf ${SOURCE} ; rm -f `basename ${SOURCE}` ; mv MG5v1.3.27 ${name}_gridpack ; cd ${name}_gridpack
+cp ${SOURCE} . ; tar xzf ${SOURCE} ; rm -f `basename ${SOURCE}` ; mv MG5v1.3.30 ${name}_gridpack ; cd ${name}_gridpack
 
 cat Template/Source/run_config.inc | sed -e "s#PBS_QUE = '1nd'#PBS_QUE = '${queue}'#g" > Template/Source/run_config_tmp.inc
 mv Template/Source/run_config_tmp.inc Template/Source/run_config.inc

@@ -1,6 +1,6 @@
 #! /bin/bash
 
-rootdir=/afs/cern.ch/cms/generators/www/slc5_ia32_gcc434/madgraph/V5_1.3.27/8TeV_Summer12/
+rootdir=/afs/cern.ch/cms/generators/www/slc5_ia32_gcc434/madgraph/V5_1.3.30/8TeV_Summer12/
 
 function preparepath() {
   local PROCESS=${rootdir}/${1}
@@ -24,7 +24,7 @@ function preparepath() {
 
 # parse command line arguments and options
 NAME=$(basename $0)
-OPTS=$(getopt -n "$NAME" -o "np:" -l "dryrun,process:" -- "$@")
+OPTS=$(getopt -n "$NAME" -o "hnp:" -l "help,dryrun,process:" -- "$@")
 
 # check for invalid options
 if [ $? != 0 ]; then 
@@ -46,6 +46,10 @@ while true; do
     "-n" | "--dryrun" )
       DRYRUN="1"
       shift
+      ;;
+    "-h" | "--help" )
+      echo "usage: ./${NAME} --process <process name> file1 file2..."
+      exit 0
       ;;
     "--" )
       # inserted by getopt to singal the end of options
