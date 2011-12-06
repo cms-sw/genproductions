@@ -14,7 +14,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
     pythiaPylistVerbosity = cms.untracked.int32(0),
     filterEfficiency = cms.untracked.double(0.1695),
     comEnergy = cms.double(7000.0),
-    crossSection = cms.untracked.double(10.5),
+    crossSection = cms.untracked.double(0.08347),
     ExternalDecays = cms.PSet(
         Tauola = cms.untracked.PSet(
             TauolaPolar,
