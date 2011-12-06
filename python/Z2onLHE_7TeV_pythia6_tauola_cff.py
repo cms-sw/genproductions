@@ -19,8 +19,8 @@ generator = cms.EDFilter("Pythia6HadronizerFilter",
     PythiaParameters = cms.PSet(
         pythiaUESettingsBlock,
         processParameters = cms.vstring('MSEL=0          ! User defined processes',
-                                        'PMAS(5,1)=4.4   ! b quark mass',
-                                        'PMAS(6,1)=172.4 ! t quark mass'),
+										'PMAS(5,1)=4.8   ! b quark mass',
+										'PMAS(6,1)=172.5 ! t quark mass'),
         # This is a vector of ParameterSet names to be read, in this order
         parameterSets = cms.vstring('pythiaUESettings',
                                     'processParameters'
@@ -29,8 +29,8 @@ generator = cms.EDFilter("Pythia6HadronizerFilter",
 )
 
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.2 $'),
-    name = cms.untracked.string ('$Source: /local/projects/CMSSW/rep/CMSSW/Configuration/GenProduction/python/Attic/WtoLNu_7TeV_powheg_pythia6_cff.py, v $'),
+    version = cms.untracked.string('$Revision: 1.1 $'),
+    name = cms.untracked.string ('$Source: /cvs/CMSSW/CMSSW/Configuration/GenProduction/python/Z2onLHE_7TeV_pythia6_tauola_cff.py,v $'),
     annotation = cms.untracked.string('runs Z2 Pythia6')
 )
 
