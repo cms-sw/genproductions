@@ -5,6 +5,18 @@ process = cms.Process("ScriptExample")
 
 process.load("IOMC.RandomEngine.IOMC_cff")
 process.load("FWCore.MessageService.MessageLogger_cfi")
+process.MessageLogger.categories=cms.untracked.vstring('FwkJob'
+                                                           ,'FwkReport'
+                                                           ,'FwkSummary'
+                                                           ,'Root_NoDictionary'
+                                                           ,'Generator'
+                                                           ,'LHEInterface'
+                                                           )
+process.MessageLogger.cerr.INFO = cms.untracked.PSet(limit = cms.untracked.int32(-1))
+process.MessageLogger.cerr.Generator = cms.untracked.PSet(limit = cms.untracked.int32(0))
+process.MessageLogger.cerr.LHEInterface = cms.untracked.PSet(limit = cms.untracked.int32(0))
+process.MessageLogger.cerr.FwkReport.reportEvery = cms.untracked.int32(10000)
+
 process.load('Configuration.EventContent.EventContent_cff')
 process.load("GeneratorInterface.LHEInterface.ExternalLHEAsciiDumper_cfi")
 #the following two parameters need to be changed on a job by job basis
@@ -21,7 +33,8 @@ process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(50000) )
 process.externalLHEProducer = cms.EDProducer('ExternalLHEProducer',
     scriptName = cms.FileInPath("GeneratorInterface/LHEInterface/data/run_madgraph_gridpack.sh"),
     outputFile = cms.string("events_final.lhe"),
-    args = cms.vstring('slc5_ia32_gcc434/madgraph/V5_1.3.30/8TeV_Summer12/DYJetsToLL_HT-200To400_8TeV-madgraph','false','true','zjets','5','20','true','0','4'),
+    args = cms.vstring('slc5_ia32_gcc434/madgraph/V5_1.3.30/8TeV_Summer12/DYJetsToLL_HT-200To400_8TeV-madgraph/v1', 
+      'DYJetsToLL_HT-200To400_8TeV-madgraph', 'false','true','zjets','5','20','true','0','4'),
     nEvents = cms.uint32(process.maxEvents.input.value())
 )
 
