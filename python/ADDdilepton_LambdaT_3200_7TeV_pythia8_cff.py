@@ -5,8 +5,8 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
    crossSection = cms.untracked.double(0.2141),
    filterEfficiency = cms.untracked.double(1),
    maxEventsToPrint = cms.untracked.int32(0),
-   pythiaHepMCVerbosity = cms.untracked.bool(False),
-   pythiaPylistVerbosity = cms.untracked.int32(0),
+   pythiaHepMCVerbosity = cms.untracked.bool(True),
+   pythiaPylistVerbosity = cms.untracked.int32(1),
 
    PythiaParameters = cms.PSet(
       processParameters = cms.vstring(
@@ -28,6 +28,6 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
 
 configurationMetadata = cms.untracked.PSet(
    version = cms.untracked.string('\$Revision: 1.1 $'),
-   name = cms.untracked.string('\$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/ADD_Dilepton_LambdaT_3200_7TeV_pythia8_cff.py,v $'),
+   name = cms.untracked.string('\$Source: /cvs/CMSSW/CMSSW/Configuration/GenProduction/python/ADDdilepton_LambdaT_3200_7TeV_pythia8_cff.py,v $'),
    annotation = cms.untracked.string('Summer2011 sample with PYTHIA8: ADD Dilepton samples with LambdaT = 3200 GeV, Tune4C, pdf: MSTW 2008 LO')
 )
