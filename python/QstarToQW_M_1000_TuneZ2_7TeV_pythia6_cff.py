@@ -35,7 +35,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
 )
 
 configurationMetadata = cms.untracked.PSet(
-	version = cms.untracked.string('\$Revision: 1.1 $'),
-	name = cms.untracked.string('\$Source: /cvs/CMSSW/CMSSW/Configuration/GenProduction/python/Attic/QstarToQW_M_1000_TuneZ2_7TeV_pythia6_cff.py,v $'),
+	version = cms.untracked.string('\$Revision: 1.2 $'),
+	name = cms.untracked.string('\$Source: /cvs/CMSSW/UserCode/hinzmann/production/QstarToQW_M_1000_TuneZ2_7TeV_pythia6_cff.py,v $'),
 	annotation = cms.untracked.string('Fall2011 sample with PYTHIA6: Qstar -> qW, TuneZ2')
 )
