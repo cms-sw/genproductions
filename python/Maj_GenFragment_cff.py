@@ -1,8 +1,5 @@
 import FWCore.ParameterSet.Config as cms
 
-process.source = cms.Source("LHESource",
-    fileNames = cms.untracked.vstring('file:MajGen_test.lhe')
-)
 
 process.generator = cms.EDFilter("Pythia6HadronizerFilter",
             pythiaHepMCVerbosity = cms.untracked.bool(True),
