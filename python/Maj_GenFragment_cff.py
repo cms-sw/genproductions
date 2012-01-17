@@ -1,7 +1,7 @@
 import FWCore.ParameterSet.Config as cms
 
 
-process.generator = cms.EDFilter("Pythia6HadronizerFilter",
+generator = cms.EDFilter("Pythia6HadronizerFilter",
             pythiaHepMCVerbosity = cms.untracked.bool(True),
             maxEventsToPrint = cms.untracked.int32(0),
             pythiaPylistVerbosity = cms.untracked.int32(1),
@@ -38,8 +38,8 @@ process.generator = cms.EDFilter("Pythia6HadronizerFilter",
             )
 )
 
-process.configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.1 $'),
+configurationMetadata = cms.untracked.PSet(
+    version = cms.untracked.string('$Revision: 1.2 $'),
     name = cms.untracked.string('$Maj_GenFragment_cff.py,v $'),
     annotation = cms.untracked.string('Majorana neutrino 7TeV')
             )
