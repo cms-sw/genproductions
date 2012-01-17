@@ -1,11 +1,9 @@
 import FWCore.ParameterSet.Config as cms
 
 configurationMetadata = cms.untracked.PSet(
-        version = cms.untracked.string('$Revision: 1.5 $'),
-        name = cms.untracked.string('$Source: /cvs/CMSSW/CMSSW/Configuration/GenProduction/python/Attic/PYTHIA6_ppMuMuX_7TeV_c
-ff.py,v $'),
-        annotation = cms.untracked.string('Summer09: Pythia6-MinBias at 10TeV with Muon preselection (Loose cut), +decay-infli
-ght, 10TeV, D6T tune')
+        version = cms.untracked.string('$Revision: 1.2 $'),
+        name = cms.untracked.string('$Source: /cvs/CMSSW/CMSSW/Configuration/GenProduction/python/Attic/PYTHIA6_ppMuMuX_7TeV_cff.py,v $'),
+        annotation = cms.untracked.string('Summer09: Pythia6-MinBias at 10TeV with Muon preselection (Loose cut), +decay-inflight, 10TeV, D6T tune')
 )
 
 from Configuration.Generator.PythiaUEZ2Settings_cfi import *
