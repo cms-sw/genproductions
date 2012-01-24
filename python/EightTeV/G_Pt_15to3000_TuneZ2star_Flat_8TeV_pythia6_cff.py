@@ -1,6 +1,6 @@
 import FWCore.ParameterSet.Config as cms
 
-from Configuration.Generator.PythiaUEZ2Settings_cfi import *
+from Configuration.Generator.PythiaUEZ2starSettings_cfi import *
 
 
 generator = cms.EDFilter('Pythia6GeneratorFilter',
@@ -32,7 +32,7 @@ generator = cms.EDFilter('Pythia6GeneratorFilter',
 )
 
 configurationMetadata = cms.untracked.PSet(
-	version = cms.untracked.string('\$Revision$'),
-	name = cms.untracked.string('\$Source$'),
+	version = cms.untracked.string('\$Revision: 1.1 $'),
+	name = cms.untracked.string('\$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/EightTeV/G_Pt_15to3000_TuneZ2star_Flat_8TeV_pythia6_cff.py,v $'),
 	annotation = cms.untracked.string('Summer2012-Z2star sample with PYTHIA6: Prompt photon production, pThat = 15 .. 3000 GeV, weighted, TuneZ2star')
 )
