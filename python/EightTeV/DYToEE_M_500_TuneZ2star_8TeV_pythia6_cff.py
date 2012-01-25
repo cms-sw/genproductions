@@ -8,7 +8,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
     pythiaPylistVerbosity = cms.untracked.int32(1),
     filterEfficiency = cms.untracked.double(1.0),
     crossSection = cms.untracked.double(1300.),
-    comenergy = cms.double(8000.0),
+    comEnergy = cms.double(8000.0),
     PythiaParameters = cms.PSet(
         pythiaUESettingsBlock,
         processParameters = cms.vstring('MSEL=0            !User defined processes', 
@@ -35,6 +35,6 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
 
 configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.1 $'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Attic/DYToEE_M_500_TuneZ2*_8TeV_pythia6_cff.py,v $'),
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/EightTeV/DYToEE_M_500_TuneZ2star_8TeV_pythia6_cff.py,v $'),
     annotation = cms.untracked.string('PYTHIA6 Z/gamma* to ee, M(e+e-) > 20 GeV at sqrt(s) = 8TeV, Tune Z2*')
 )
