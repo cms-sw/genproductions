@@ -8,7 +8,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
     maxEventsToPrint = cms.untracked.int32(0),
     pythiaPylistVerbosity = cms.untracked.int32(1),
     filterEfficiency = cms.untracked.double(1.0),
-    crossSection = cms.untracked.double(2659.),
+    crossSection = cms.untracked.double(2931.),
     comEnergy = cms.double(8000.0),
     ExternalDecays = cms.PSet(
         Tauola = cms.untracked.PSet(
@@ -44,6 +44,6 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
 
 configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.1 $'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Attic/DYToTauTau_M_10To20_TuneZ2_7TeV_pythia6_tauola_cff.py,v $'),
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/EightTeV/DYToTauTau_M_10To20_TuneZ2star_8TeV_pythia6_tauola_cff.py,v $'),
     annotation = cms.untracked.string('PYTHIA6/Tauola Z/gamma* to tautau, 10 < M(tau+tau-) < 20 GeV at sqrt(s) = 8 TeV, Tune Z2*')
 )

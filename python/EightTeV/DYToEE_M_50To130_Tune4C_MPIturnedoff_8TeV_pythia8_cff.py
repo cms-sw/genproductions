@@ -1,7 +1,7 @@
 import FWCore.ParameterSet.Config as cms
 
 generator = cms.EDFilter("Pythia8GeneratorFilter",
-   crossSection = cms.untracked.double(760),
+   crossSection = cms.untracked.double(897),
    maxEventsToPrint = cms.untracked.int32(0),
    pythiaPylistVerbosity = cms.untracked.int32(1),
    filterEfficiency = cms.untracked.double(1.0),
@@ -33,6 +33,6 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
 
 configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.1 $'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Attic/DYToEE_M_50To130_Tune4C_MPIturnedoff_7TeV_pythia8_cff.py,v $'),
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/EightTeV/DYToEE_M_50To130_Tune4C_MPIturnedoff_8TeV_pythia8_cff.py,v $'),
     annotation = cms.untracked.string('PYTHIA8 Z/gamma* to ee, 50 < M(e+e-) < 130 GeV at sqrt(s) = 8TeV, Tune 4C MPI turned off')
 )
