@@ -34,7 +34,7 @@ pthat_filter = cms.EDFilter('MCProcessFilter',
 ProductionFilterSequence = cms.Sequence(generator * pthat_filter)
 
 configurationMetadata = cms.untracked.PSet(
-	version = cms.untracked.string('\$Revision: 1.1 $'),
-	name = cms.untracked.string('\$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/EightTeV/QCD_Pt_0to5_TuneZ2star_8TeV_pythia6_cff.py,v $'),
+	version = cms.untracked.string('\$Revision$'),
+	name = cms.untracked.string('\$Source$'),
 	annotation = cms.untracked.string('Summer2012-Z2star sample with PYTHIA6: QCD dijet production, pThat = 0 .. 5 GeV, TuneZ2star')
 )

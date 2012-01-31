@@ -2,7 +2,7 @@ import FWCore.ParameterSet.Config as cms
 
 generator = cms.EDFilter("Pythia8GeneratorFilter",
 	comEnergy = cms.double(8000.0),
-	crossSection = cms.untracked.double(75000000),
+	crossSection = cms.untracked.double(7.621067e+07),
 	filterEfficiency = cms.untracked.double(1),
 	maxEventsToPrint = cms.untracked.int32(0),
 	pythiaHepMCVerbosity = cms.untracked.bool(False),
@@ -14,7 +14,7 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
 			'ParticleDecays:limitTau0 = on',
 			'ParticleDecays:tauMax = 10',
 			'HardQCD:all = on',
-			'PhaseSpace:pTHatMin = 30   ',
+			'PhaseSpace:pTHatMin = 30  ',
 			'PhaseSpace:pTHatMax = 50  ',
 			'Tune:pp 5',
 			'Tune:ee 3',
@@ -25,7 +25,7 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
 )
 
 configurationMetadata = cms.untracked.PSet(
-	version = cms.untracked.string('\$Revision: 1.1 $'),
-	name = cms.untracked.string('\$Source: /afs/cern.ch/project/cvs/reps/CMSSW/CMSSW/Configuration/GenProduction/python/EightTeV/QCD_Pt_30to50_Tune4C_8TeV_pythia8_cff.py,v $'),
-	annotation = cms.untracked.string('PYTHIA8: QCD dijet production at 8TeV, pThat = 30 .. 50 GeV, Tune4C')
+	version = cms.untracked.string('\$Revision$'),
+	name = cms.untracked.string('\$Source$'),
+	annotation = cms.untracked.string('Summer2012 sample with PYTHIA8: QCD dijet production, pThat = 30 .. 50 GeV, Tune4C')
 )
