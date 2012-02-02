@@ -1,7 +1,7 @@
 import FWCore.ParameterSet.Config as cms
 
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.0 $'),
+    version = cms.untracked.string('$Revision: 1.1 $'),
     name = cms.untracked.string('$Source: /cvs/CMSSW/CMSSW/Configuration/GenProduction/python/SevenTeV/DYToMuMu_M_60_7TeV_pythia6_filt_cff.py,v $'),
     annotation = cms.untracked.string('PYTHIA6 Z/gamma* to mumu, M(mu+mu-) > 60 GeV at sqrt(s) = 7TeV')
 )
@@ -57,12 +57,16 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
                 )
 )
 
+ZpTFilter = cms.EDFilter("PythiaFilter",
+                         ParticleID = cms.untracked.int32(23),
+                         MinPt = cms.untracked.double(5.0)
+)
 
 zmumugenfilter = cms.EDFilter("MCZll",
                               leptonFlavour = cms.untracked.int32(13),
                               leptonPtMin = cms.untracked.double(10.0),
                               leptonEtaMax = cms.untracked.double(2.1),
                               zMassMax = cms.untracked.double(99999.)
-                              )
+)
 
-ProductionFilterSequence = cms.Sequence(generator*zmumugenfilter)
+ProductionFilterSequence = cms.Sequence(generator*ZpTFilter*zmumugenfilter)
