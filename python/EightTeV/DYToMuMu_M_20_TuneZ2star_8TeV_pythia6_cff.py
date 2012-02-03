@@ -7,7 +7,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
     maxEventsToPrint = cms.untracked.int32(0),
     pythiaPylistVerbosity = cms.untracked.int32(1),
     filterEfficiency = cms.untracked.double(1.0),
-    crossSection = cms.untracked.double(1300.),
+    crossSection = cms.untracked.double(1507.),
     comEnergy = cms.double(8000.0),
     PythiaParameters = cms.PSet(
         pythiaUESettingsBlock,
@@ -34,7 +34,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
 )
 
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.3 $'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Attic/DYToMuMu_M_20_TuneZ2_7TeV_pythia6_cff.py,v $'),
+    version = cms.untracked.string('$Revision: 1.1 $'),
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/EightTeV/DYToMuMu_M_20_TuneZ2star_8TeV_pythia6_cff.py,v $'),
     annotation = cms.untracked.string('PYTHIA6 Z/gamma* to mumu, M(mu+mu-) > 20 GeV at sqrt(s) = 8 TeV, Tune Z2*')
 )
