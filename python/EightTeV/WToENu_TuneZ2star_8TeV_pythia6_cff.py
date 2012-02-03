@@ -7,7 +7,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
     maxEventsToPrint = cms.untracked.int32(0),
     pythiaPylistVerbosity = cms.untracked.int32(1),
     filterEfficiency = cms.untracked.double(1.),
-    crossSection = cms.untracked.double(9.181e3.),
+    crossSection = cms.untracked.double(9.181e3),
     comEnergy = cms.double(8000.0),
     PythiaParameters = cms.PSet(
         pythiaUESettingsBlock,
@@ -34,7 +34,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
 
 
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.1 $'),
+    version = cms.untracked.string('$Revision: 1.2 $'),
     name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/EightTeV/WToENu_TuneZ2star_8TeV_pythia6_cff.py,v $'),
     annotation = cms.untracked.string('PYTHIA6-Wenu Tune Z2* at 8 TeV')
 )
