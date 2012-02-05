@@ -1,10 +1,11 @@
 import FWCore.ParameterSet.Config as cms
 
-from SimG4Core.Application.hectorParameter_cfi import *
+#from SimG4Core.Application.g4SimHits_cfi import *
 
-def customise(Physics):
+def customise(process):
 
-    Physics = cms.PSet(
+     process.load("SimG4Core.Application.g4SimHits_cfi")
+     process.g4SimHits.Physics = cms.PSet(
         # NOTE : if you want EM Physics only,
         #        please select "SimG4Core/Physics/DummyPhysics" for type
         #        and turn ON DummyEMPhysics
@@ -38,5 +39,6 @@ def customise(Physics):
             GflashHadronShowerModel = cms.bool(False)
         )
     )
-    return(Physics)
+
+    return(process)
 
