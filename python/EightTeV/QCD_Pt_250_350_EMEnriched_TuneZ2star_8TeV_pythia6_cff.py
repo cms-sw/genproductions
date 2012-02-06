@@ -8,7 +8,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
     maxEventsToPrint = cms.untracked.int32(0),
     pythiaPylistVerbosity = cms.untracked.int32(1),
     filterEfficiency = cms.untracked.double(0.131),
-    crossSection = cms.untracked.double(4.25e3.),
+    crossSection = cms.untracked.double(4.25e3),
     comEnergy = cms.double(8000.0),  # center of mass energy in GeV
     PythiaParameters = cms.PSet(
         pythiaUESettingsBlock,
@@ -51,7 +51,7 @@ emenrichingfilter = cms.EDFilter("EMEnrichingFilter",
 # enter below the configuration metadata (only a description is needed, the rest is filled in by cvs)
 configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.1 $'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Attic/QCD_Pt_80_170_EMEnriched_TuneZ2_8TeV_pythia6_cff.py,v $'),
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/EightTeV/QCD_Pt_250_350_EMEnriched_TuneZ2star_8TeV_pythia6_cff.py,v $'),
     annotation = cms.untracked.string('em-enriching filtered QCD pthat 80-170, 8 TeV')
 )
 
