@@ -10,7 +10,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
     pythiaPylistVerbosity = cms.untracked.int32(0),
     filterEfficiency = cms.untracked.double(1.),
     comEnergy = cms.double(8000.0),
-    crossSection = cms.untracked.double(2.93),
+    crossSection = cms.untracked.double(3.53),
     ExternalDecays = cms.PSet(
         Tauola = cms.untracked.PSet(
             TauolaPolar,
@@ -44,8 +44,8 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
 ProductionFilterSequence = cms.Sequence(generator)
 
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.2 $'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Attic/WWTo2L2Nu_TuneZ2_7TeV_pythia6_tauola_cff.py,v $'),
+    version = cms.untracked.string('$Revision: 1.1 $'),
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/EightTeV/WWTo2L2Nu_TuneZ2star_8TeV_pythia6_tauola_cff.py,v $'),
     annotation = cms.untracked.string('PYTHIA6-EWK WW to 2l 2v at 8 TeV')
 )
 
