@@ -22,7 +22,7 @@ process.externalLHEProducer.nEvents = process.maxEvents.input.value()
 
 process.externalLHEProducer.scriptName = cms.FileInPath("GeneratorInterface/LHEInterface/data/create_lhe_powheg.sh")
 process.externalLHEProducer.args = cms.vstring('slc5_ia32_gcc434/powheg/V1.0/src',
-                                               'powhegboxv1.1_Feb2012',
+                                               'powhegboxv1.0_DYlowmass_Fev2012',
                                                'Z',
                                                'slc5_ia32_gcc434/powheg/V1.0/8TeV_Summer12/DYToEE_M-10To20_CT10_8TeV-powheg/v2/DYToEE_M-10To20_CT10_8TeV-powheg.input')
 
