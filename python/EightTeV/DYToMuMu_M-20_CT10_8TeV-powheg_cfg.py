@@ -11,7 +11,7 @@ process.source = cms.Source("EmptySource",
     numberEventsInLuminosityBlock = cms.untracked.uint32(10)
 )                            
 
-process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(10) )
+process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(100000) )
 
 #############
 # LHE
@@ -24,7 +24,7 @@ process.externalLHEProducer.scriptName = cms.FileInPath("GeneratorInterface/LHEI
 process.externalLHEProducer.args = cms.vstring('slc5_ia32_gcc434/powheg/V1.0/src',
                                                'powhegboxv1.1_Feb2012',
                                                'Z',
-                                               'slc5_ia32_gcc434/powheg/V1.0/8TeV_Summer12/DYToMuMu_M-20_CT10_8TeV-powheg/v1/DYToMuMu_M-20_CT10_8TeV-powheg.input')
+                                               'slc5_ia32_gcc434/powheg/V1.0/8TeV_Summer12/DYToMuMu_M-20_CT10_8TeV-powheg/v2/DYToMuMu_M-20_CT10_8TeV-powheg.input')
 
 
 #############
