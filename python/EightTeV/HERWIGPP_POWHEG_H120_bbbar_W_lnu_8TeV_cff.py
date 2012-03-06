@@ -9,13 +9,13 @@ generator = cms.EDFilter(
 
     parameterSets = cms.vstring(
     'cm8TeV',
-    'powhegDefaults',
+    'powhegNewDefaults',
     'HbbWlnuParameters',
     'basicSetup',
     'setParticlesStableForDetector',
     ),
 
-    powhegDefaults = cms.vstring(
+    powhegNewDefaults = cms.vstring(
     '# Need to use an NLO PDF',
     'cp /Herwig/Partons/MRST-NLO /cmsPDFSet',
     '# and strong coupling',
@@ -94,7 +94,7 @@ generator = cms.EDFilter(
 
 
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('\$Revision: 1.3 $'),
-    name = cms.untracked.string('\$Source: /afs/cern.ch/project/cvs/reps/CMSSW/CMSSW/Configuration/GenProduction/python/Attic/HERWIGPP_POWHEG_H120_bbbar_W_lnu_8TeV_cff.py,v $'),
+    version = cms.untracked.string('\$Revision: 1.1 $'),
+    name = cms.untracked.string('\$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/EightTeV/HERWIGPP_POWHEG_H120_bbbar_W_lnu_8TeV_cff.py,v $'),
 	annotation = cms.untracked.string('HERWIGPP/POWHEG: (H->bb)(W->lnu), m(H)=120 GeV, l=e or mu or tau')
 )
