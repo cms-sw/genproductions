@@ -13,7 +13,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
     maxEventsToPrint = cms.untracked.int32(0),
     pythiaPylistVerbosity = cms.untracked.int32(1),
     filterEfficiency = cms.untracked.double(1.0),
-    comEnergy = cms.double(7000.0),
+    comEnergy = cms.double(8000.0),
     crossSection = cms.untracked.double(1.1),
     ExternalDecays = cms.PSet(
         Tauola = cms.untracked.PSet(
@@ -142,7 +142,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
 #####   filter mu from b-decay  #####
 #####################################
 mugenfilter = cms.EDFilter("MCSmartSingleParticleFilter",
-    MinPt       = cms.untracked.vdouble(8., 8.),
+    MinPt       = cms.untracked.vdouble(10., 10.),
     MinEta      = cms.untracked.vdouble(-2.5, -2.5),
     MaxEta      = cms.untracked.vdouble(2.5, 2.5),
     ParticleID  = cms.untracked.vint32(13, -13),
@@ -154,7 +154,7 @@ ProductionFilterSequence = cms.Sequence(generator * mugenfilter)
 
 configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.1 $'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/SevenTeV/PYTHIA6_Tauola_gg_bbH120_bb_MuEnrichedPt8_7TeV_cff.py,v $'),
-    annotation = cms.untracked.string('PYTHIA6 - SUSY gg->bbH(120)->bb MuEnriched pT>=8 and |eta|<=2.5, with Tauola at 7TeV')
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/EightTeV/PYTHIA6_Tauola_gg_bbH120_bb_MuEnrichedPt10_8TeV_cff.py,v $'),
+    annotation = cms.untracked.string('PYTHIA6 - SUSY gg->bbH(120)->bb MuEnriched pT>=10 |eta|<=2.5 , with Tauola at 8TeV')
     )
 

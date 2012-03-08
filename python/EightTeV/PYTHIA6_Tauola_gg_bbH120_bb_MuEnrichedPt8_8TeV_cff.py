@@ -143,6 +143,8 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
 #####################################
 mugenfilter = cms.EDFilter("MCSmartSingleParticleFilter",
     MinPt       = cms.untracked.vdouble(8., 8.),
+    MinEta      = cms.untracked.vdouble(-2.5, -2.5),
+    MaxEta      = cms.untracked.vdouble(2.5, 2.5),
     ParticleID  = cms.untracked.vint32(13, -13),
     Status      = cms.untracked.vint32(1, 1)
 )
@@ -152,7 +154,7 @@ ProductionFilterSequence = cms.Sequence(generator * mugenfilter)
 
 configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.1 $'),
-    name = cms.untracked.string('$Source: /cvs/CMSSW/CMSSW/Configuration/GenProduction/python/Attic/PYTHIA6_Tauola_gg_bbH120_bb_7TeV_cff.py,v $'),
-    annotation = cms.untracked.string('PYTHIA6 - SUSY gg->bbH(120)->2tau, with Tauola at 7TeV')
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/EightTeV/PYTHIA6_Tauola_gg_bbH120_bb_MuEnrichedPt8_8TeV_cff.py,v $'),
+    annotation = cms.untracked.string('PYTHIA6 - SUSY gg->bbH(120)->bb MuEnriched pT>=8 |eta|<=2.5 , with Tauola at 8TeV')
     )
 
