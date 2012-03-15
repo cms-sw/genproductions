@@ -21,12 +21,6 @@ generator = cms.EDFilter(
     ),
 )
 
-singleTopFilter  = cms.EDFilter("ComphepSingletopFilter",
-    pTSep = cms.double(28)
-)
-
-ProductionFilterSequence = cms.Sequence(generator * singleTopFilter)
-
 configurationMetadata = cms.untracked.PSet(
 	version = cms.untracked.string('$Revision: 1.1 $'),
 	name = cms.untracked.string('$Source: /cvs/CMSSW/CMSSW/Configuration/GenProduction/python/EightTeV/TToBLNu_schannel_TuneZ2star_8TeV_comphep_cff.py,v $'),
