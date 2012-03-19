@@ -23,7 +23,7 @@ process.externalLHEProducer.scriptName = cms.FileInPath("GeneratorInterface/LHEI
 process.externalLHEProducer.args = cms.vstring('slc5_ia32_gcc434/powheg/V1.0/src',
                                                'powhegboxv1.2_Feb2012',
                                                'Z',
-                                               'slc5_ia32_gcc434/powheg/V1.0/8TeV_Summer12/DYToEE_M-700_CT10_8TeV-powheg/v2/DYToEE_M-700_CT10_8TeV-powheg.input')
+                                               'slc5_ia32_gcc434/powheg/V1.0/8TeV_Summer12/DYToEE_M-200_CT10_8TeV-powheg/v2/DYToEE_M-200_CT10_8TeV-powheg.input')
 
 
 #############
