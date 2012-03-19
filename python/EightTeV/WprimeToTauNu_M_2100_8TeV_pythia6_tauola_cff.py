@@ -22,7 +22,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
         parameterSets = cms.vstring('Tauola')
     ),
     UseExternalGenerators = cms.untracked.bool(True),        
-    comEnergy = cms.double(7000.0),
+    comEnergy = cms.double(8000.0),
     PythiaParameters = cms.PSet(
         pythiaUESettingsBlock,
         processParameters = cms.vstring('MSEL        = 0    !User defined processes', 
