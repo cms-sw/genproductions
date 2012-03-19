@@ -41,7 +41,21 @@ generator = cms.EDFilter(
             'MDME(223,1)=0    ! Higgs decay into gam gam',
             'MDME(224,1)=1    ! Higgs decay into gam Z',
             'MDME(225,1)=0    ! Higgs decay into Z Z',
-            'MDME(226,1)=0    ! Higgs decay into W W'
+            'MDME(226,1)=0    ! Higgs decay into W W',
+
+            'MDME(174,1)=0           !Z decay into d dbar',
+            'MDME(175,1)=0           !Z decay into u ubar',
+            'MDME(176,1)=0           !Z decay into s sbar',
+            'MDME(177,1)=0           !Z decay into c cbar',
+            'MDME(178,1)=0           !Z decay into b bbar',
+            'MDME(179,1)=0           !Z decay into t tbar',
+            'MDME(182,1)=1           !Z decay into e- e+',
+            'MDME(183,1)=0           !Z decay into nu_e nu_ebar',
+            'MDME(184,1)=1           !Z decay into mu- mu+',
+            'MDME(185,1)=0           !Z decay into nu_mu nu_mubar',
+            'MDME(186,1)=1           !Z decay into tau- tau+',
+            'MDME(187,1)=0           !Z decay into nu_tau nu_taubar'
+
             ),
         parameterSets = cms.vstring(
             'pythiaUESettings', 
@@ -52,6 +66,6 @@ generator = cms.EDFilter(
 
 configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.1 $'),
-    name = cms.untracked.string('$Source: /afs/cern.ch/project/cvs/reps/CMSSW/CMSSW/Configuration/GenProduction/python/Attic/POWHEG_PYTHIA6_Tauola_H_Zgamma_8TeV_cff.py,v $'),
+    name = cms.untracked.string('$Source: /cvs/CMSSW/CMSSW/Configuration/GenProduction/python/EightTeV/POWHEG_PYTHIA6_Tauola_H_Zgamma_8TeV_cff.py,v $'),
     annotation = cms.untracked.string('POWHEG + PYTHIA6 + Tauola - Higgs -> Zgamma at 8TeV')
     )
