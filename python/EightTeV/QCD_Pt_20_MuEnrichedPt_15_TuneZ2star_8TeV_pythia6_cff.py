@@ -9,7 +9,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
     pythiaPylistVerbosity = cms.untracked.int32(1),
     filterEfficiency = cms.untracked.double(0.0002855),
     crossSection = cms.untracked.double(296600000),                         
-    comEnergy = cms.double(7000.0),
+    comEnergy = cms.double(8000.0),
     PythiaParameters = cms.PSet(
         pythiaUESettingsBlock,
         processParameters = cms.vstring(
@@ -43,8 +43,8 @@ mugenfilter = cms.EDFilter("MCSmartSingleParticleFilter",
 
 configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.1 $'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Attic/QCD_Pt_20_MuEnrichedPt_15_TuneZ2_7TeV_pythia6_cff.py,v $'),
-    annotation = cms.untracked.string('PYTHIA6-MinBias at 7TeV, pthat>20, with INCLUSIVE muon preselection (pt(mu) > 15)')
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/EightTeV/QCD_Pt_20_MuEnrichedPt_15_TuneZ2star_8TeV_pythia6_cff.py,v $'),
+    annotation = cms.untracked.string('PYTHIA6-MinBias at 8TeV, pthat>20, with INCLUSIVE muon preselection (pt(mu) > 15)')
 )
 
 ProductionFilterSequence = cms.Sequence(generator*mugenfilter)
