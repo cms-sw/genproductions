@@ -9,6 +9,7 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
                          crossSection = cms.untracked.double(3.523),
                          PythiaParameters = cms.PSet(
     processParameters = cms.vstring(
+    'Tune:pp 5',
     'ExcitedFermion:qqbar2muStarmu = on',
     'ExcitedFermion:Lambda= 10000',
     '4000013:onMode = off',
