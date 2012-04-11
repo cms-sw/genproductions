@@ -27,7 +27,7 @@ process.source = cms.Source("EmptySource",
     numberEventsInLuminosityBlock = cms.untracked.uint32(10)
 )                            
 
-process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(50000) )
+process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(20000) )
 
 process.externalLHEProducer = cms.EDProducer('ExternalLHEProducer',
     scriptName = cms.FileInPath("GeneratorInterface/LHEInterface/data/run_madgraph_gridpack.sh"),
