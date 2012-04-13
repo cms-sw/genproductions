@@ -23,7 +23,7 @@ generator = cms.EDFilter(
         processParameters = cms.vstring(
             'MSEL=0           ! User defined processes', 
             'PMAS(5,1)=4.75   ! b quark mass', 
-            'PMAS(6,1)=172.5  ! t quark mass' 
+            'PMAS(6,1)=172.5  ! t quark mass',
             
             'MDME(210,1)=0    ! Higgs decay into dd',
             'MDME(211,1)=0    ! Higgs decay into uu',
@@ -52,6 +52,6 @@ generator = cms.EDFilter(
 
 configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.1 $'),
-    name = cms.untracked.string('$Source: /afs/cern.ch/project/cvs/reps/CMSSW/CMSSW/Configuration/GenProduction/python/Attic/POWHEG_PYTHIA6_Tauola_H_2gamma_8TeV_cff.py,v $'),
+    name = cms.untracked.string('$Source: /cvs/CMSSW/CMSSW/Configuration/GenProduction/python/EightTeV/POWHEG_PYTHIA6_Tauola_H_2gamma_8TeV_cff.py,v $'),
     annotation = cms.untracked.string('POWHEG + PYTHIA6 + Tauola - Higgs -> 2gamma at 8TeV')
     )
