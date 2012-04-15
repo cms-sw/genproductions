@@ -10,7 +10,10 @@ process.source = cms.Source("EmptySource",
     firstLuminosityBlock = cms.untracked.uint32(23456),
     numberEventsInLuminosityBlock = cms.untracked.uint32(10)
 )                            
-
+process.load("GeneratorInterface.LHEInterface.ExternalLHEAsciiDumper_cfi")
+#the following two parameters need to be changed on a job by job basis
+process.externalLHEAsciiDumper.lheFileName = cms.string('output.lhe')
+process.RandomNumberGeneratorService.externalLHEProducer.initialSeed = 1111111 
 process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(100000) )
 
 #############
@@ -29,7 +32,7 @@ process.externalLHEProducer.args = cms.vstring('slc5_ia32_gcc434/powheg/V1.0/src
 #############
 # Output
 #############
-process.out = cms.OutputModule("PoolOutputModule",
+process.externalLHEAsciiDumper = cms.OutputModule("PoolOutputModule",
     splitLevel = cms.untracked.int32(0),
     eventAutoFlushCompressedSize = cms.untracked.int32(5242880),
     outputCommands = process.LHEEventContent.outputCommands,
@@ -42,4 +45,4 @@ process.out = cms.OutputModule("PoolOutputModule",
 
 process.p = cms.Path(process.externalLHEProducer)
 
-process.e = cms.EndPath(process.out)
+process.e = cms.EndPath(process.externalLHEAsciiDumper)
