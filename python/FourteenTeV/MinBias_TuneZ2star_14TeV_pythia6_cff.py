@@ -61,8 +61,8 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
 
 configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.1 $'),
-    name = cms.untracked.string('$Source: /cvs/CMSSW/CMSSW/Configuration/GenProduction/python/EightTeV/MinBias_TuneZ2star_8TeV_pythia6_cff.py,v $'),
-    annotation = cms.untracked.string('PYTHIA6-MinBias TuneZ2star at 8TeV')
+    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/FourteenTeV/MinBias_TuneZ2star_14TeV_pythia6_cff.py,v $'),
+    annotation = cms.untracked.string('PYTHIA6-MinBias TuneZ2star at 14TeV')
 )
 
 ProductionFilterSequence = cms.Sequence(generator)
