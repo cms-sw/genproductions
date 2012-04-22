@@ -32,7 +32,7 @@ process.externalLHEProducer.args = cms.vstring('slc5_ia32_gcc434/powheg/V1.0/src
 #############
 # Output
 #############
-process.externalLHEAsciiDumper = cms.OutputModule("PoolOutputModule",
+process.out = cms.OutputModule("PoolOutputModule",
     splitLevel = cms.untracked.int32(0),
     eventAutoFlushCompressedSize = cms.untracked.int32(5242880),
     outputCommands = process.LHEEventContent.outputCommands,
