@@ -24,7 +24,7 @@ process.externalLHEProducer = cms.EDProducer('ExternalLHEProducer',
                                                                  'true', #REPLACE
                                                                  'zjets', #process
                                                                  '4', #maxjetflavour
-                                                                 '40', #qcut
+                                                                 '28', #qcut
                                                                  'true', #minmaxjet
                                                                  '0', #minjet
                                                                  '2', #maxjet
