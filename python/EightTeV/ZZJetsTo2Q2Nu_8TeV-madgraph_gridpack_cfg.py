@@ -30,7 +30,7 @@ process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(100000) )
 
 process.externalLHEProducer = cms.EDProducer('ExternalLHEProducer',
                                              scriptName = cms.FileInPath("GeneratorInterface/LHEInterface/data/run_madgraph_gridpack.sh"),
-                                             outputFile = cms.string("events_final.lhe"),
+                                             outputFile = cms.string("ZZJetsTo2Q2Nu_8TeV-madgraph_unweighted_events_final.lhe"),
                                              args = cms.vstring('/slc5_ia32_gcc434/madgraph/V5_1.3.30/8TeV_Summer12/ZZJetsTo2Q2Nu_8TeV-madgraph/v1/', #gridpack path
                                                                 'ZZJetsTo2Q2Nu_8TeV-madgraph', #gridpack name, without _gridpack.tar.gz
                                                                 'false', #DECAY
