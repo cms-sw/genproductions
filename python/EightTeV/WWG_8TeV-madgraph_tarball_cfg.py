@@ -31,7 +31,7 @@ process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(10000) )
 
 process.externalLHEProducer = cms.EDProducer('ExternalLHEProducer',
     scriptName = cms.FileInPath("GeneratorInterface/LHEInterface/data/run_madgraph_tarball.sh"),
-    outputFile = cms.string("TTJets_8TeV-madgraph_unweighted_events_final.lhe"),
+    outputFile = cms.string("WWG_8TeV-madgraph_unweighted_events_final.lhe"),
     args = cms.vstring('slc5_ia32_gcc434/madgraph/V5_1.3.30/8TeV_Summer12/WWG_8TeV-madgraph_tarball/v1',
     'WWG_8TeV-madgraph','false','false','wjets','5','9','false','0','1'),
     nEvents = cms.uint32(process.maxEvents.input.value())
