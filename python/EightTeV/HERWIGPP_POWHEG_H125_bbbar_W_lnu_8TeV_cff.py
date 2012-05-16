@@ -16,29 +16,28 @@ generator = cms.EDFilter(
     ),
 
     powhegNewDefaults = cms.vstring(
-    '# Need to use an NLO PDF',
-    'cp /Herwig/Partons/MRST-NLO /cmsPDFSet',
-    '# and strong coupling',
+    '#  Need to use an NLO PDF',
+    '#  and strong coupling',
+    'cp /Herwig/Partons/MRST-NLO /Herwig/Partons/cmsPDFSet',
     'create Herwig::O2AlphaS O2AlphaS',
     'set /Herwig/Generators/LHCGenerator:StandardModelParameters:QCD/RunningAlphaS O2AlphaS',
-    '# Setup the POWHEG shower',
+    '#  Setup the POWHEG shower',
     'cd /Herwig/Shower',
-    '# use the general recon for now',
-    'set KinematicsReconstructor:ReconstructionOption General',
-    '# create the Powheg evolver and use it instead of the default one',
-    'create Herwig::PowhegEvolver PowhegEvolver HwPowhegShower.so',
-    'set ShowerHandler:Evolver PowhegEvolver',
-    'set PowhegEvolver:ShowerModel ShowerModel',
-    'set PowhegEvolver:SplittingGenerator SplittingGenerator',
-    'set PowhegEvolver:MECorrMode 0',
-    '# create and use the Drell-yan hard emission generator',
-    'create Herwig::DrellYanHardGenerator DrellYanHardGenerator',
-    'set DrellYanHardGenerator:ShowerAlpha AlphaQCD',
-    'insert PowhegEvolver:HardGenerator 0 DrellYanHardGenerator',
-    '# create and use the gg->H hard emission generator',
-    'create Herwig::GGtoHHardGenerator GGtoHHardGenerator',
-    'set GGtoHHardGenerator:ShowerAlpha AlphaQCD',
-    'insert PowhegEvolver:HardGenerator 0 GGtoHHardGenerator',
+    'set Evolver:HardEmissionMode POWHEG',
+
+    '# higgs + W (N.B. if considering all W decay modes useful to set )',
+    '#           (jet pT cut to zero so no cut on W decay products    )',
+    '# insert SimpleQCD:MatrixElements[0] PowhegMEPP2WH',
+    '# set /Herwig/Cuts/JetKtCut:MinKT 0.0*GeV',
+    '# higgs + Z (N.B. if considering all Z decay modes useful to set )',
+    '#           (jet pT cut to zero so no cut on Z decay products    )',
+    '# insert SimpleQCD:MatrixElements[0] PowhegMEPP2ZH',
+    '# set /Herwig/Cuts/JetKtCut:MinKT 0.0*GeV',
+    '# gg/qqbar -> Higgs',
+    '# insert SimpleQCD:MatrixElements[0] PowhegMEHiggs',
+    '# Weak boson pair production: WW / ZZ / WZ / W+Z [WpZ] / W-Z [WmZ]',
+    '# insert SimpleQCD:MatrixElements[0] PowhegMEPP2VV',
+    '# set PowhegMEPP2VV:Process WpZ'
     ),
     
     pdfCTEQ6M = cms.vstring(
@@ -94,7 +93,7 @@ generator = cms.EDFilter(
 
 
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('\$Revision: 1.1 $'),
-    name = cms.untracked.string('\$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/EightTeV/HERWIGPP_POWHEG_H125_bbbar_W_lnu_8TeV_cff.py,v $'),
+    version = cms.untracked.string('\$Revision: 1.2 $'),
+    name = cms.untracked.string('\$Source: /local/reps/CMSSW/CMSSW/Configuration/GenProduction/python/EightTeV/HERWIGPP_POWHEG_H125_bbbar_W_lnu_8TeV_cff.py,v $'),
 	annotation = cms.untracked.string('HERWIGPP/POWHEG: (H->bb)(W->lnu), m(H)=125 GeV, l=e or mu or tau')
 )
