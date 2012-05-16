@@ -18,7 +18,7 @@ import FWCore.ParameterSet.Config as cms
 #=== This sets up most of the Pythia parameters for this production
 #
 
-from E_BEAM_DUMMY     = -1 # GeV (beam energy)
+E_BEAM_DUMMY     = -1 # GeV (beam energy)
 MASS_HIGGS_DUMMY = -1 # GeV (mass of resonance that decays to long-lived particle pair)
 MASS_LL_DUMMY    = 'dummy' # (mass with units of long-lived particle)
 CTAU_LL_DUMMY    = 'dummy' # (c*tau with units of long-lived particle)
