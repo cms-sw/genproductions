@@ -166,12 +166,13 @@ XtoFFbarFilter.idDaughterF = cms.vint32(5)
 XtoFFbarFilter.idDaughterG = cms.vint32(13)
 
 threemuFilter = cms.EDFilter("MCMultiParticleFilter",
-                             src = cms.untracked.InputTag("generator"),
-                             ParticleID = cms.untracked.vint32(13),
-                             Status = cms.untracked.vint32(1),
-                             PtMin = cms.untracked.vdouble(3.0),
-                             EtaMax = cms.untracked.vdouble(2.5),
-                             NumRequired = cms.untracked.int32(3)
+                             src = cms.InputTag("generator"),
+                             ParticleID = cms.vint32(13),
+                             Status = cms.vint32(1),
+                             PtMin = cms.vdouble(3.0),
+                             EtaMax = cms.vdouble(2.5),
+                             NumRequired = cms.int32(3),
+			     AcceptMore = cms.bool(True)
                              )
 
 ProductionFilterSequence = cms.Sequence(generator*genParticlesForFilter*XtoFFbarFilter*threemuFilter)
