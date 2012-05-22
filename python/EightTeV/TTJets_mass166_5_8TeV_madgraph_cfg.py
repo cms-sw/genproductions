@@ -52,6 +52,3 @@ process.p = cms.Path(process.externalLHEProducer)
 
 process.e = cms.EndPath(process.externalLHEAsciiDumper)
 #+process.out)
-
-process.Timing=cms.Service("Timing",
-        summaryOnly=cms.untracked.bool(True))
