@@ -1,7 +1,7 @@
 import FWCore.ParameterSet.Config as cms
 
 generator = cms.EDFilter("Pythia8GeneratorFilter",
-    crossSection = cms.untracked.double(8.269e-06),
+    crossSection = cms.untracked.double(8269),
     maxEventsToPrint = cms.untracked.int32(0),
     pythiaPylistVerbosity = cms.untracked.int32(1),
     filterEfficiency = cms.untracked.double(1.0),
@@ -33,7 +33,7 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
 
 configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.1 $'),
-    name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/SevenTeV/WToMuNu_7TeV-pythia8_cff.py,v $'),
+    name = cms.untracked.string('$Source: /local/reps/CMSSW/CMSSW/Configuration/GenProduction/python/SevenTeV/WtoMuNu_7TeV-pythia8_cff.py,v $'),
     annotation = cms.untracked.string('PYTHIA8 WToMuNu 7TeV')
 )
 
