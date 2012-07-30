@@ -71,8 +71,10 @@ Filter = cms.EDFilter("CandViewCountFilter",
     minNumber = cms.uint32(1)
 )               
 
+ProductionFilterSequence = cms.Sequence(generator*genParticles*genParticlesForJets*ak5GenJets*jetfilter*Filter)
+
 configurationMetadata = cms.untracked.PSet(
-	version = cms.untracked.string('\$Revision: 1.9 $'),
-	name = cms.untracked.string('\$Source: /local/reps/CMSSW/CMSSW/Configuration/GenProduction/python/Attic/QCD_Pt_10to25_fwdJet_TuneZ2star_7TeV_pythia6_cff.py,v $'),
+	version = cms.untracked.string('\$Revision: 1.1 $'),
+	name = cms.untracked.string('\$Source: /local/reps/CMSSW/CMSSW/Configuration/GenProduction/python/SevenTeV/QCD_Pt_10to25_fwdJet_TuneZ2star_7TeV_pythia6_cff.py,v $'),
 	annotation = cms.untracked.string('LowPU2010 sample with PYTHIA6: QCD dijet production, fwd jet preselection, pThat = 10 .. 25 GeV, TuneZ2star')
 )
