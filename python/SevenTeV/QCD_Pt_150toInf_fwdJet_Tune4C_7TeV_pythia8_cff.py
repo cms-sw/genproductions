@@ -28,19 +28,17 @@ from PhysicsTools.HepMCCandAlgos.genParticles_cfi import genParticles
 from RecoJets.Configuration.GenJetParticles_cff import genParticlesForJets
 from RecoJets.JetProducers.ak5GenJets_cfi import ak5GenJets
                 
-jetfilter = cms.EDFilter("EtaPtMinCandViewSelector",
-    src = cms.InputTag("ak5GenJets"), 
-    ptMin = cms.double( 15.0 ),
-    etaMin = cms.double( 3.0),
-    etaMax = cms.double( 5.0 )
-)
-                  
-Filter = cms.EDFilter("CandViewCountFilter",
-    src = cms.InputTag("jetfilter"),
-    minNumber = cms.uint32(1)
-)
-         
-ProductionFilterSequence = cms.Sequence(generator*genParticles*genParticlesForJets*ak5GenJets*jetfilter*Filter)
+fwdJetSelector = cms.EDFilter("CandViewSelector",
+    src = cms.InputTag("ak5GenJets"),
+    cut = cms.string("pt > 15 & abs( eta ) < 5 & abs( eta ) > 3")
+  )
+                
+fwdJetFilter = cms.EDFilter("CandViewCountFilter",
+     src = cms.InputTag("fwdJetSelector"),
+     minNumber = cms.uint32(1),
+  )
+                
+ProductionFilterSequence = cms.Sequence(generator*genParticles*genParticlesForJets*ak5GenJets*fwdJetSelector*fwdJetFilter)
 
 configurationMetadata = cms.untracked.PSet(
 	version = cms.untracked.string('\$Revision: 1.1 $'),
