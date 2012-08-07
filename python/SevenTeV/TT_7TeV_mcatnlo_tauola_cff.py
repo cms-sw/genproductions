@@ -1,8 +1,10 @@
 import FWCore.ParameterSet.Config as cms
 
+from GeneratorInterface.ExternalDecays.TauolaSettings_cff import *
+
 configurationMetadata = cms.untracked.PSet(
-	version    = cms.untracked.string('$Revision: 1.2 $'),
-	name       = cms.untracked.string('$Source: /local/reps/CMSSW/CMSSW/Configuration/GenProduction/python/Attic/TT_7TeV_mcatnlo_cff.py,v $'),
+	version    = cms.untracked.string('$Revision: 1.1 $'),
+	name       = cms.untracked.string('$Source: /local/reps/CMSSW/CMSSW/Configuration/GenProduction/python/SevenTeV/TT_7TeV_mcatnlo_tauola_cff.py,v $'),
 	annotation = cms.untracked.string('Showering of MC@NLO 3.4 TTbar events with Herwig+Jimmy, 7 TeV, CTEQ6M')
 )
 
