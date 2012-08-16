@@ -1,6 +1,6 @@
 import FWCore.ParameterSet.Config as cms
 
-def customise(process):
+def stoppedHSCP(process):
 	SpecifiedEvenetContent = cms.PSet(
 		outputCommands = cms.untracked.vstring(
 		"keep *_g4SimHits_StoppedParticles*_*",)
