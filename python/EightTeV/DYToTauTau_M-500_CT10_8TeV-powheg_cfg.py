@@ -14,7 +14,7 @@ process.load("GeneratorInterface.LHEInterface.ExternalLHEAsciiDumper_cfi")
 #the following two parameters need to be changed on a job by job basis
 process.externalLHEAsciiDumper.lheFileName = cms.string('output.lhe')
 process.RandomNumberGeneratorService.externalLHEProducer.initialSeed = 1111111 
-process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(100000) )
+process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(10000) )
 
 #############
 # LHE
@@ -26,7 +26,7 @@ process.externalLHEProducer.scriptName = cms.FileInPath("GeneratorInterface/LHEI
 process.externalLHEProducer.args = cms.vstring('slc5_ia32_gcc434/powheg/V1.0/src',
                                                'powhegboxv1.3_Feb2012',
                                                'Z',
-                                               'slc5_ia32_gcc434/powheg/V1.0/8TeV_Summer12/DYToTauTau_M-500_CT10_8TeV-powheg/v2/DYToTauTau_M-500_CT10_8TeV-powheg.input')
+                                               'slc5_ia32_gcc434/powheg/V1.0/8TeV_Summer12/DYToTauTau_M-500_CT10_8TeV-powheg/v1/DYToTauTau_M-500_CT10_8TeV-powheg.input')
 
 
 #############
