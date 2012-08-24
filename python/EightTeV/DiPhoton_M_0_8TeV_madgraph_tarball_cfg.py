@@ -29,10 +29,11 @@ process.source = cms.Source("EmptySource",
 
 process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(50000) )
 
+process_name = 'DiPhoton_M0_8TeV_madgraph'
 process.externalLHEProducer = cms.EDProducer('ExternalLHEProducer',
     scriptName = cms.FileInPath("GeneratorInterface/LHEInterface/data/run_madgraph_tarball.sh"),
-    outputFile = cms.string("events_final.lhe"),
-    args = cms.vstring('slc5_ia32_gcc434/madgraph/V5_1.3.30/8TeV_Summer12/DiPhoton_M0_8TeV_madgraph/v4', 'DiPhoton_M0_8TeV_madgraph', 'false','false','zjets','5','5','false','0','3'),
+    outputFile = cms.string(process_name + '_unweighted_events_final.lhe'),
+    args = cms.vstring('slc5_ia32_gcc434/madgraph/V5_1.3.30/8TeV_Summer12/' + process_name + '/v4', process_name, 'false','false','zjets','5','5','false','0','3'),
     nEvents = cms.uint32(process.maxEvents.input.value())
 )
 
