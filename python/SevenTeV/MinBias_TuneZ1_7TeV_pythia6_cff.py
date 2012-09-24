@@ -7,16 +7,17 @@ pythiaUESettingsBlock = cms.PSet(
 		'PARJ(71)=10 .  ! for which ctau  10 mm', 
 		'MSTP(33)=0     ! no K factors in hard cross sections', 
 		'MSTP(2)=1      ! which order running alphaS', 
-                'MSTP(51)=10042 ! structure function chosen (external PDF CTEQ6L1)',
-                'MSTP(52)=2     ! work with LHAPDF',
 
-		'PARP(82)=1.921 ! pt cutoff for multiparton interactions', 
+		'MSTP(51)=7     ! structure function chosen (internal PDF CTEQ5L)',
+		'MSTP(52)=1     ! work with internal PDFs',
+
+		'PARP(82)=1.932 ! pt cutoff for multiparton interactions', 
 		'PARP(89)=1800. ! sqrts for which PARP82 is set', 
-		'PARP(90)=0.227 ! Multiple interactions: rescaling power', 
+		'PARP(90)=0.275 ! Multiple interactions: rescaling power', 
 
-        	'MSTP(95)=6     ! CR (color reconnection parameters)',
-       		'PARP(77)=1.016 ! CR',
-        	'PARP(78)=0.538 ! CR',
+        'MSTP(95)=6     ! CR (color reconnection parameters)',
+        'PARP(77)=1.016 ! CR',
+        'PARP(78)=0.538 ! CR',
 
 		'PARP(80)=0.1   ! Prob. colored parton from BBR',
 
@@ -60,7 +61,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
 )
 
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.1 $'),
+    version = cms.untracked.string('$Revision: 1.2 $'),
     name = cms.untracked.string('$Source: /local/reps/CMSSW/CMSSW/Configuration/GenProduction/python/SevenTeV/MinBias_TuneZ1_7TeV_pythia6_cff.py,v $'),
     annotation = cms.untracked.string('PYTHIA6-MinBias TuneZ1 at 7TeV')
 )
