@@ -42,21 +42,20 @@ process.externalLHEProducer = cms.EDProducer('ExternalLHEProducer',
                                                                 'true', #minmaxjet
                                                                 '0', #minjet
                                                                 '4', #maxjet
-                                                                '50000' #nevents
                                                                 ),
-                                             nEvents = cms.uint32(50000)
+                                             nEvents = cms.uint32(process.maxEvents.input.value())
                                              )
 
 
 process.out = cms.OutputModule("PoolOutputModule",
-                                   splitLevel = cms.untracked.int32(0),
-                                   eventAutoFlushCompressedSize = cms.untracked.int32(5242880),
-                                   outputCommands = process.LHEEventContent.outputCommands,
-                                   fileName = cms.untracked.string('myOutputFile.root'),
-                                   dataset = cms.untracked.PSet(
-            filterName = cms.untracked.string(''),
-                    dataTier = cms.untracked.string('LHE')
-                )
+                               splitLevel = cms.untracked.int32(0),
+                               eventAutoFlushCompressedSize = cms.untracked.int32(5242880),
+                               outputCommands = process.LHEEventContent.outputCommands,
+                               fileName = cms.untracked.string('myOutputFile.root'),
+                               dataset = cms.untracked.PSet(
+    filterName = cms.untracked.string(''),
+    dataTier = cms.untracked.string('LHE')
+    )
                                )
 
 process.p = cms.Path(process.externalLHEProducer)
