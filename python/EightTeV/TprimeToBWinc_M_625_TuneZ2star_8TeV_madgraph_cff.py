@@ -10,7 +10,7 @@ generator = cms.EDFilter("Pythia6HadronizerFilter",
         pythiaUESettingsBlock,
         processParameters = cms.vstring(
             'MSTP(1) = 4',
-            'MSEL=7         ! User defined processes',
+            'MSEL=8         ! User defined processes',
 	    			'MWID(8)=2 !use width of tprime as defined by PMAS',
             'MSTJ(1)=1       ! Fragmentation/hadronization on or off',
             'MSTP(61)=1      ! Parton showering on or off',
