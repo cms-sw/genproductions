@@ -10,3 +10,6 @@ def customise(process): # Using SL instead GFlash
     process.g4SimHits.HFShower.ApplyFiducialCut = cms.bool(False)
 
     return(process)
+
+
+
