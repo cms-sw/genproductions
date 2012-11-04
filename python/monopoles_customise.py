@@ -7,6 +7,8 @@ def monopoles_customise(process):
              parsplit=par.split('=')
              mass = parsplit[1].rstrip(' ').rstrip('\n').lstrip(' ')
              break;
-        print mass     
+     
+	process.g4SimHits.Physics.MonopoleMass = cms.untracked.double(mass)
+
         return(process)
 
