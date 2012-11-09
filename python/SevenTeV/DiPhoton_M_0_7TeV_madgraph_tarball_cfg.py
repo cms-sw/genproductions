@@ -27,7 +27,7 @@ process.source = cms.Source("EmptySource",
     numberEventsInLuminosityBlock = cms.untracked.uint32(10)
 )                            
 
-process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(1000) )
+process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(10000) )
 
 process_name = 'diPhoton_M0_7TeV_madgraph'
 process.externalLHEProducer = cms.EDProducer('ExternalLHEProducer',
