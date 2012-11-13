@@ -32,6 +32,7 @@ process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(50000) )
 process.externalLHEProducer = cms.EDProducer('ExternalLHEProducer',
     scriptName = cms.FileInPath("GeneratorInterface/LHEInterface/data/run_madgraph_gridpack.sh"),
     outputFile = cms.string("Zbb_4F_7TeV-madgraph_final.lhe"),
+    numberOfParameters = cms.uint32(10),
     args = cms.vstring('slc5_ia32_gcc434/madgraph/V5_1.4.8/8TeV_Summer12/Zbb_4F_7TeV-madgraph/v1', 'Zbb_4F_7TeV-madgraph', 'false','true','zjets','4','40','false','0','2'),
     nEvents = cms.uint32(process.maxEvents.input.value())
 )
