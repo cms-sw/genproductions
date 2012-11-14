@@ -34,6 +34,7 @@ process.externalLHEProducer = cms.EDProducer('ExternalLHEProducer',
     outputFile = cms.string("WJetsToLNu_HT-200To250_8TeV-madgraph_final.lhe"),
     args = cms.vstring('slc5_ia32_gcc434/madgraph/V5_1.4.8/8TeV_Summer12/WJetsToLNu_HT-200To250_8TeV-madgraph/v1',
     'WJetsToLNu_HT-200To250_8TeV-madgraph', 'false','true','wjets','5','20','true','1','4'),
+    numberOfParameters=cms.uint32(10),
     nEvents = cms.uint32(process.maxEvents.input.value())
 )
 
