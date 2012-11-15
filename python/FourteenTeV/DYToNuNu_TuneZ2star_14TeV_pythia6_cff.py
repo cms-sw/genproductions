@@ -23,9 +23,9 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
                                         'MDME(182,1)=0     !Z decay into e- e+', 
                                         'MDME(183,1)=1     !Z decay into nu_e nu_ebar', 
                                         'MDME(184,1)=0     !Z decay into mu- mu+', 
-                                        'MDME(185,1)=0     !Z decay into nu_mu nu_mubar', 
+                                        'MDME(185,1)=1     !Z decay into nu_mu nu_mubar', 
                                         'MDME(186,1)=0     !Z decay into tau- tau+', 
-                                        'MDME(187,1)=0     !Z decay into nu_tau nu_taubar', 
+                                        'MDME(187,1)=1     !Z decay into nu_tau nu_taubar', 
                                         'CKIN(1)=20.       !Minimum sqrt(s_hat) value (=Z mass)'),
         # This is a vector of ParameterSet names to be read, in this order
         parameterSets = cms.vstring('pythiaUESettings', 
@@ -34,7 +34,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
 )
 
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.2 $'),
-    name = cms.untracked.string('$Source: /local/reps/CMSSW/CMSSW/Configuration/GenProduction/python/EightTeV/DYToEE_M_20_TuneZ2star_8TeV_pythia6_cff.py,v $'),
+    version = cms.untracked.string('$Revision: 1.1 $'),
+    name = cms.untracked.string('$Source: /local/reps/CMSSW/CMSSW/Configuration/GenProduction/python/FourteenTeV/DYToNuNu_TuneZ2star_14TeV_pythia6_cff.py,v $'),
     annotation = cms.untracked.string('PYTHIA6 Z/gamma* to ee, M(e+e-) > 20 GeV at sqrt(s) = 8 TeV, Tune Z2*')
 )
