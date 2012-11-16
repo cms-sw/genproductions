@@ -35,7 +35,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
 
 configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.1 $'),
-    name = cms.untracked.string('$Source: /local/reps/CMSSW/CMSSW/Configuration/GenProduction/python/FourteenTeV/WToLNu_TuneZ2star_14TeV_pythia6_cff.py,v $'),
+    name = cms.untracked.string('$Source: /local/reps/CMSSW/CMSSW/Configuration/GenProduction/python/FourteenTeV/WToLNu_TuneZ2star_pythia6_cff.py,v $'),
     annotation = cms.untracked.string('PYTHIA6-Wlnu Tune Z2* at 8 TeV')
 )
 
