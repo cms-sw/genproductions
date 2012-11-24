@@ -1,4 +1,3 @@
-
 import FWCore.ParameterSet.Config as cms
 
 process = cms.Process("ScriptExample")
@@ -6,12 +5,12 @@ process = cms.Process("ScriptExample")
 process.load("IOMC.RandomEngine.IOMC_cff")
 process.load("FWCore.MessageService.MessageLogger_cfi")
 process.MessageLogger.categories=cms.untracked.vstring('FwkJob'
-                                                                                                                  ,'FwkReport'
-                                                                                                                  ,'FwkSummary'
-                                                                                                                  ,'Root_NoDictionary'
-                                                                                                                  ,'Generator'
-                                                                                                                  ,'LHEInterface'
-                                                                                                                  )
+                                                       ,'FwkReport'
+                                                       ,'FwkSummary'
+                                                       ,'Root_NoDictionary'
+                                                       ,'Generator'
+                                                       ,'LHEInterface'
+                                                       )
 process.MessageLogger.cerr.INFO = cms.untracked.PSet(limit = cms.untracked.int32(-1))
 process.MessageLogger.cerr.Generator = cms.untracked.PSet(limit = cms.untracked.int32(0))
 process.MessageLogger.cerr.LHEInterface = cms.untracked.PSet(limit = cms.untracked.int32(0))
@@ -23,17 +22,18 @@ process.externalLHEAsciiDumper.lheFileName = cms.string('output.lhe')
 process.RandomNumberGeneratorService.externalLHEProducer.initialSeed = 1111111
 
 process.source = cms.Source("EmptySource",
-                                firstLuminosityBlock = cms.untracked.uint32(23456),
-                                numberEventsInLuminosityBlock = cms.untracked.uint32(10)
+                            firstLuminosityBlock = cms.untracked.uint32(23456),
+                            numberEventsInLuminosityBlock = cms.untracked.uint32(10)
                             )
 
 process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(50000) )
 
 process.externalLHEProducer = cms.EDProducer('ExternalLHEProducer',
-                                             scriptName = cms.FileInPath("GeneratorInterface/LHEInterface/data/run_madgraph_tarball.sh"),
-                                             outputFile = cms.string("ZJetsToNuNu_PtZ-100_8TeV-madgraph_final.lhe"),
-                                             args = cms.vstring('/slc5_ia32_gcc434/madgraph/V5_1.3.30/8TeV_Summer12/ZJetsToNuNu_PtZ-100_8TeV-madgraph/v2/', #gridpack path
-                                                                'ZJetsToNuNu_PtZ-100_8TeV-madgraph', #gridpack name, without _tarball.tar.gz
+                                             scriptName = cms.FileInPath("GeneratorInterface/LHEInterface/data/run_madgraph_gridpack.sh"),
+                                             outputFile = cms.string("events_final.lhe"),
+                                             numberOfParameters = cms.uint32(10),
+                                             args = cms.vstring('/slc5_ia32_gcc434/madgraph/V5_1.4.8/8TeV_Summer12/ZJetsToNuNu_PtZ-100_8TeV-madgraph/v2/', #gridpack path
+                                                                'ZJetsToNuNu_PtZ-100_8TeV-madgraph', #gridpack name, without _gridpack.tar.gz
                                                                 'false', #DECAY
                                                                 'false', #REPLACE
                                                                 'zjets', #process
@@ -44,6 +44,7 @@ process.externalLHEProducer = cms.EDProducer('ExternalLHEProducer',
                                                                 '4', #maxjet
                                                                 ),
                                              nEvents = cms.uint32(process.maxEvents.input.value())
+                                            
                                              )
 
 
@@ -51,11 +52,11 @@ process.out = cms.OutputModule("PoolOutputModule",
                                splitLevel = cms.untracked.int32(0),
                                eventAutoFlushCompressedSize = cms.untracked.int32(5242880),
                                outputCommands = process.LHEEventContent.outputCommands,
-                               fileName = cms.untracked.string('myOutputFile.root'),
+                                                              fileName = cms.untracked.string('myOutputFile.root'),
                                dataset = cms.untracked.PSet(
     filterName = cms.untracked.string(''),
     dataTier = cms.untracked.string('LHE')
-    )
+            )
                                )
 
 process.p = cms.Path(process.externalLHEProducer)
