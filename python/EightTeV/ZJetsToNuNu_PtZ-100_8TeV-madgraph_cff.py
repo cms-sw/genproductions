@@ -15,7 +15,7 @@ externalLHEProducer = cms.EDProducer('ExternalLHEProducer',
                                                                 '0', #minjet
                                                                 '4', #maxjet
                                                                 ),
-                                             nEvents = cms.uint32(process.maxEvents.input.value())
+                                             nEvents = cms.uint32(50000)
                                             
                                              )
 
