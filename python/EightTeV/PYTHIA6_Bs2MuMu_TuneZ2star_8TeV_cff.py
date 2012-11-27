@@ -7,8 +7,8 @@ from Configuration.Generator.PythiaUEZ2starSettings_cfi import *
 generator = cms.EDFilter(
     "Pythia6GeneratorFilter",
     comEnergy = cms.double(8000.0),
-    crossSection = cms.untracked.double(2082.8),
-    filterEfficiency = cms.untracked.double(2.514e-3),
+    crossSection = cms.untracked.double(48440000000.),
+    filterEfficiency = cms.untracked.double(1.38e-3),
     pythiaHepMCVerbosity = cms.untracked.bool(False),
     maxEventsToPrint = cms.untracked.int32(0),
     pythiaPylistVerbosity = cms.untracked.int32(0),
@@ -38,27 +38,20 @@ generator = cms.EDFilter(
        
     )
     )
-MuFromBs = cms.EDFilter("PythiaFilter",
-    MaxEta = cms.untracked.double(2.5),
-    Status = cms.untracked.int32(1),
-    MinEta = cms.untracked.double(-2.5),
-    MotherID = cms.untracked.int32(531),
-    ParticleID = cms.untracked.int32(13)
-)
-mumugenfilter = cms.EDFilter("MCParticlePairFilter",
-    MaxEta = cms.untracked.vdouble(2.5, 2.5),
-    Status = cms.untracked.vint32(1, 1),
-    MinEta = cms.untracked.vdouble(-2.5, -2.5),
-    ParticleID1 = cms.untracked.vint32(-13, 13),
-    ParticleID2 = cms.untracked.vint32(-13, 13)
-)
-
+bfilter = cms.EDFilter(
+        "PythiaFilter",
+        MaxEta = cms.untracked.double(9999.),
+        MinEta = cms.untracked.double(-9999.),
+        ParticleID = cms.untracked.int32(531)
+        )
 
 configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.1 $'),
     name = cms.untracked.string
-    ('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Attic/PYTHIA6_Bs2MuMu_TuneZ2_7TeV_cff.py,v $'),
-    annotation = cms.untracked.string('Bs -> mu mu at 7TeV')
+    ('$Source: /local/projects/CMSSW/rep/CMSSW/Configuration/GenProduction/python/PYTHIA6_Bs2MuMu_TuneZ2star_8TeV_cff.py,v $'),
+    annotation = cms.untracked.string('Bs -> mu mu at 8TeV')
     )
 
-ProductionFilterSequence = cms.Sequence(generator*MuFromBs*mumugenfilter)
+ProductionFilterSequence = cms.Sequence(generator*bfilter)
+
+
