@@ -15,8 +15,8 @@ generator = cms.EDFilter("HijingGeneratorFilter",
                          )
 
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision: 1.1 $'),
+    version = cms.untracked.string('$Revision: 1.2 $'),
     annotation = cms.untracked.string('HIJING generator'),
     name = cms.untracked.string('$Source: /local/reps/CMSSW/CMSSW/Configuration/GenProduction/python/HI/Hijing_PPb_MinimumBias_cfi.py,v $')
     )
-)
+
