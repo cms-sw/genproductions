@@ -1,9 +1,9 @@
 import FWCore.ParameterSet.Config as cms
 
 configurationMetadata = cms.untracked.PSet(
-        version = cms.untracked.string('$Revision: 1.9 $'),
-        name = cms.untracked.string('$Source: /cvs_server/repositories/CMSSW/CMSSW/Configuration/GenProduction/python/Attic/PYTHIA6_inclLambdaBtoJpsiMuMuTight_7TeV_cff.py,v $'),
-        annotation = cms.untracked.string('Summer09: Pythia6+EvtGen generation of Lambda_B->Jpsi->MuMu, 7TeV, D6T tune')
+        version = cms.untracked.string('$Revision: 1.1 $'),
+        name = cms.untracked.string('$Source: /local/reps/CMSSW/CMSSW/Configuration/GenProduction/python/EightTeV/PYTHIA6_inclLambdaBtoJpsiMuMu_8TeV_cff.py,v $'),
+        annotation = cms.untracked.string('Summer12: Pythia6+EvtGen generation of Lambda_B->Jpsi->MuMu, 8TeV, Z2star tune')
 )
 
 from Configuration.Generator.PythiaUEZ2starSettings_cfi import *
@@ -24,7 +24,8 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
              use_default_decay = cms.untracked.bool(False),
              decay_table = cms.FileInPath('GeneratorInterface/ExternalDecays/data/DECAY_NOLONGLIFE.DEC'),
              #decay_table = cms.FileInPath('GeneratorInterface/ExternalDecays/data/DECAY.DEC'),
-             particle_property_file = cms.FileInPath('GeneratorInterface/ExternalDecays/data/evt.pdl'),
+             #particle_property_file = cms.FileInPath('GeneratorInterface/ExternalDecays/data/evt.pdl'),
+             particle_property_file = cms.FileInPath('GeneratorInterface/ExternalDecays/data/evtLbB0Pdg11.pdl'),
              #user_decay_file = cms.FileInPath('GeneratorInterface/ExternalDecays/data/Validation.dec'),
              user_decay_file = cms.FileInPath('GeneratorInterface/ExternalDecays/data/incl_BtoJpsi_mumu.dec'),
              list_forced_decays = cms.vstring('MyLambda_b0',
