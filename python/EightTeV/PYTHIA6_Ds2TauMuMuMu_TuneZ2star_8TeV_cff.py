@@ -2,14 +2,16 @@ import FWCore.ParameterSet.Config as cms
 
 source = cms.Source("EmptySource")
 
-generator = cms.EDFilter("Pythia6GeneratorFilter",
+from Configuration.Generator.PythiaUEZ2starSettings_cfi import *
+
+generator = cms.EDFilter(
+    "Pythia6GeneratorFilter",
     pythiaPylistVerbosity = cms.untracked.int32(1),
     filterEfficiency = cms.untracked.double(1.0),
     pythiaHepMCVerbosity = cms.untracked.bool(False),
     comEnergy = cms.double(8000.0),
     crossSection = cms.untracked.double(71260000000.0),
     maxEventsToPrint = cms.untracked.int32(0),
-   
     PythiaParameters = cms.PSet(
         pythiaUESettings = cms.vstring(
 	    'MSTU(21)=1     ! Check on possible errors during program execution', 
@@ -62,31 +64,47 @@ configurationMetadata = cms.untracked.PSet(
 
 
 # filter to select events with a Ds
-Dfilter = cms.EDFilter("PythiaFilter",
+DsFilter = cms.EDFilter("PythiaFilter",
        Status = cms.untracked.int32(2),
        MaxEta = cms.untracked.double(3),
        MinEta = cms.untracked.double(-3),
        MinPt = cms.untracked.double(5.0),
        ParticleID = cms.untracked.int32(431)  #D_s 
-     
-)
+   )
 
-muonParticlesInAcc = cms.EDFilter("GenParticleSelector",
+
+
+
+# ask 3 muons in the acceptance
+
+genParticlesForFilter = cms.EDProducer(
+    "GenParticleProducer",
+    saveBarCodes = cms.untracked.bool(True),
+    src = cms.InputTag("generator"),
+    abortOnUnknownPDGCode = cms.untracked.bool(False)
+    )
+
+
+muonParticlesInAcc = cms.EDFilter(
+    "GenParticleSelector",
     filter = cms.bool(False),
     src = cms.InputTag("genParticlesForFilter"),
     cut = cms.string('pt > 1. && abs(pdgId) == 13 && abs(eta) < 2.4'),
     stableOnly = cms.bool(True)
-)
+    )
+
 
 twoMuonFilter = cms.EDFilter("CandViewCountFilter",
     src = cms.InputTag("muonParticlesInAcc"),
     minNumber = cms.uint32(2)
 )
 
-genParticlesForFilter = cms.EDProducer("GenParticleProducer",
-    saveBarCodes = cms.untracked.bool(True),
-    src = cms.InputTag("generator"),
-    abortOnUnknownPDGCode = cms.untracked.bool(False)
+# Production Info
+configurationMetadata = cms.untracked.PSet(
+    version = cms.untracked.string('$Revision: 1.1 $'),
+    annotation = cms.untracked.string('PYTHIA6_Ds2TauMuMuMu_TuneZ2star_8TeV_cff.py nevts:1'),
+    name = cms.untracked.string('PyReleaseValidation')
 )
 
-ProductionFilterSequence = cms.Sequence(generator+DFilter+genParticlesForFilter+muonParticlesInAcc+twoMuonFilter)
+ProductionFilterSequence = cms.Sequence(generator * DsFilter * genParticlesForFilter * muonParticlesInAcc * twoMuonFilter)
+
