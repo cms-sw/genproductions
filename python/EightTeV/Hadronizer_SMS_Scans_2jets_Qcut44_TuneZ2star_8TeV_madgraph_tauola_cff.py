@@ -24,8 +24,11 @@ generator = cms.EDFilter("Pythia6HadronizerFilter",
 			'MSTJ(1)=1       ! Fragmentation/hadronization on or off',
 			'MSTP(61)=1      ! Parton showering on or off'),
         # This is a vector of ParameterSet names to be read, in this order
-        parameterSets = cms.vstring('pythiaUESettings', 
-            'processParameters')
+        SLHAParameters = cms.vstring(
+                'SLHAFILE = Configuration/GenProduction/python/EightTeV/stable_neutralino.txt'),
+        parameterSets = cms.vstring('pythiaUESettings',
+            'processParameters','SLHAParameters')
+
     ),
     jetMatching = cms.untracked.PSet(
        scheme = cms.string("Madgraph"),
