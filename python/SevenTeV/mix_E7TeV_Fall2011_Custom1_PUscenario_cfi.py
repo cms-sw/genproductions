@@ -1,6 +1,6 @@
 import FWCore.ParameterSet.Config as cms
 
-def customise(process):
+def customisePU(process):
 
           process.mix.input.nbPileupEvents.probFunctionVariable=cms.vint32(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24)
 
