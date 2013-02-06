@@ -15,19 +15,15 @@ name=${1}
 queue=$2
 
 #________________________________________
-# to be set for USER SPECIFIC
+# to be set for user spesific
 # Release to be used to define the environment and the compiler needed
 
 # working directory
-AFSFOLD=/afs/cern.ch/work/b/bortigno//MadGraph/8TeV_Summer_12/mg5v1.4.8/${name}
-AFS_GEN_FOLDER=/afs/cern.ch/work/b/bortigno//MadGraph/8TeV_Summer_12/mg5v1.4.8/${name}
-CARDSDIR=/afs/cern.ch/work/b/bortigno//MadGraph/8TeVCards/
-MGDIR=/afs/cern.ch/work/b/bortigno//MadGraph/
+AFSFOLD=/afs/cern.ch/user/a/alkaloge/www/8TeV_Winter12/${name}
 
-
-#_________________
-# MADGRAPH VERSION
-MG=MG5v1.4.8_CERN_30102012.tar.gz
+AFS_GEN_FOLDER=/afs/cern.ch/cms/CAF/CMSPHYS/PHYS_GENERATOR/alkaloge/${name}
+#AFS_GEN_FOLDER=/afs/cern.ch/work/a/alkaloge/${name}
+#AFS_GEN_FOLDER=/tmp/alkaloge/${name}
 
 if [ ! -d ${AFS_GEN_FOLDER} ];then
 mkdir ${AFS_GEN_FOLDER}
@@ -36,11 +32,11 @@ cd $AFS_GEN_FOLDER
 
 export PRODHOME=`pwd`
 
-#export SCRAM_ARCH=slc5_amd64_gcc434
-#export RELEASE=CMSSW_4_1_8_patch4
+export SCRAM_ARCH=slc5_amd64_gcc434
+export RELEASE=CMSSW_4_1_8_patch4
 
-export SCRAM_ARCH=slc5_amd64_gcc462
-export RELEASE=CMSSW_5_3_6
+#export SCRAM_ARCH=slc5_amd64_gcc462
+#export RELEASE=CMSSW_5_1_2
 
 
 # initialize the CMS environment 
@@ -50,32 +46,18 @@ source $VO_CMS_SW_DIR/cmsset_default.sh
 # clean the area the working area
 if [  -d ${name}_gridpack ] ;then
 	rm -rf ${name}_gridpack
-	echo "gridpack ${name}_gridpack exists..."
-	exit 1;
 fi
 #________________________________________
 # location of the madgraph tarball
 
-if [ ! -e $MGDIR/$MG ]; then
-	echo "$MGDIR/$MG does not exit"
-	exit 1;
-else
-	cp $MGDIR/$MG .	
-fi
+#HTTP_DOWNLOAD="https://cms-project-generators.web.cern.ch/cms-project-generators/slc5_ia32_gcc434/madgraph/V5_1.1/7TeV_Summer11"
+HTTP_DOWNLOAD="https://cms-project-generators.web.cern.ch/cms-project-generators/slc5_ia32_gcc434/madgraph/V5_1.4.8/"
+#HTTP_DOWNLOAD="http://mon.iihe.ac.be/~alkaloge/Files/"
+#wget --no-check-certificate  ${HTTP_DOWNLOAD}/MG5v1.3.30_CERN20111121.tgz
+wget --no-check-certificate  ${HTTP_DOWNLOAD}/MG5v1.4.8_CERN_21082012.tar.gz
+wget --no-check-certificate http://mon.iihe.ac.be/~alkaloge/8TeV/Cards/${name}_proc_card_mg5.dat
+wget --no-check-certificate http://mon.iihe.ac.be/~alkaloge/8TeV/Cards/${name}_run_card.dat
 
-if [ ! -e $CARDSDIR/${name}_proc_card_mg5.dat ]; then
-	echo $CARDSDIR/${name}_proc_card_mg5.dat " does not exist!"
-	exit 1;
-else
-	cp $CARDSDIR/${name}_proc_card_mg5.dat ${name}_proc_card_mg5.dat
-fi	
-
-if [ ! -e $CARDSDIR/${name}_run_card.dat ]; then
-	echo $CARDSDIR/${name}_run_card.dat " does not exist!"
-	exit 1;
-else
-	cp $CARDSDIR/${name}_run_card.dat   ${name}_run_card.dat
-fi	
 
 #________________________________________
 # Create a workplace to work
@@ -89,6 +71,7 @@ ln -s `which gfortran` g77
 export PATH=`pwd`:${PATH}
 
 # Copy, Unzip and Delete the MadGraph tarball.
+MG=MG5v1.4.8_CERN_21082012.tar.gz 
 MGSOURCE=${AFS_GEN_FOLDER}/${MG}
 
 mv ${MGSOURCE} . ; tar xzf ${MG} ; cd MG5v1.4.8
@@ -149,6 +132,7 @@ cat Cards/proc_card_mg5.dat
 echo "==============================================================================="
 cat Cards/run_card.dat
 
+
 # sequential run
 #./bin/generate_events 0 gridpack_${name}
 
@@ -159,7 +143,6 @@ cat Cards/run_card.dat
 
 # multicore run
 #./bin/generate_events 2 6 ${name} 
-
 
 ls  -ltrh
 
@@ -198,41 +181,13 @@ echo missing xsec $xsec for $line >> missing_xsec_report
 fi
 done<dirs
 
-############# BEGIN - COMPILATION ###############
-version=`cat MGMEVersion.txt | grep -c "1.4"`
-if [ "$version" -eq "0" ] ; then
-echo "Version of MG is < 1.4 Will compile"
-   ./bin/compile
-   ./bin/clean4grid
-   mv bin/addmasses.py bin/addmasses.py.no
-elif [ "$version" -eq "1" ] ; then
-   ./bin/change_compiler.py
-   ./bin/compile
-   ./bin/clean4grid
-   mv bin/internal/addmasses.py bin/internal/addmasses.py.no
-fi
-############# END - COMPILATION ###############
-
-
-####BEGIN - DECAY compilation ##################################
 cd ..
-echo `pwd`
-tar -zxf ./madevent/bin/internal/DECAY.tar.gz
-tar -zxf ./madevent/bin/internal/HELAS.tar.gz
-#cd HELAS ; make clean ;make ; cd ..
-cd DECAY ;
-sed -i 's/DATA WRITEOUT \/.TRUE./DATA WRITEOUT \/.FALSE./g' decay.f
-make clean ;make ; cd ..
-cd madevent
-#### END - DECAYS compilation ##################################
-
-
-cd ..
-tar -cf ${name}_gridpack.tar madevent/ run.sh DECAY HELAS
+tar -cf ${name}_gridpack.tar madevent/ run.sh
 gzip ${name}_gridpack.tar
-mv ${name}_gridpack.tar.gz ../.
+mv ${name}_gridpack.tar ../.
 	
 fi
 
 echo "End of job on " `date`
+
 
