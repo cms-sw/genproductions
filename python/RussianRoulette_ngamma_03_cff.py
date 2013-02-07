@@ -1,5 +1,5 @@
 import FWCore.ParameterSet.Config as cms
-def customiseGeant4(process):
+def customise(process):
 
     process.g4SimHits.Physics.RusRoEcalGamma = cms.double(0.3)
     process.g4SimHits.Physics.RusRoEcalGammaLimit = cms.double(5.)
