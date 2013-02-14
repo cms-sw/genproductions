@@ -1,6 +1,6 @@
 import FWCore.ParameterSet.Config as cms
 
-process.externalLHEProducer = cms.EDProducer('ExternalLHEProducer',
+externalLHEProducer = cms.EDProducer('ExternalLHEProducer',
     scriptName = cms.FileInPath("GeneratorInterface/LHEInterface/data/run_madgraph_gridpack.sh"),
     outputFile = cms.string("events_final.lhe"),
     numberOfParameters = cms.uint32(10),
