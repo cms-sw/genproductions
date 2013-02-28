@@ -3,7 +3,7 @@ import FWCore.ParameterSet.Config as cms
 from Configuration.Generator.PythiaUEZ2starSettings_cfi import *
 from GeneratorInterface.ExternalDecays.TauolaSettings_cff import *
 
-process.generator = cms.EDFilter("Herwig6HadronizerFilter",
+generator = cms.EDFilter("Herwig6HadronizerFilter",
         comEnergy = cms.double(8000.0),
         doMPInteraction = cms.bool(False),
         emulatePythiaStatusCodes = cms.untracked.bool(True),
@@ -42,4 +42,10 @@ process.generator = cms.EDFilter("Herwig6HadronizerFilter",
                 parameterSets = cms.vstring('herwigUEsettings',
                                             'herwigMcatnlo')
         )
+)
+
+configurationMetadata = cms.untracked.PSet(
+    version = cms.untracked.string('$Revision$'),
+    name = cms.untracked.string ('$Source$'),
+    annotation = cms.untracked.string('Runs Z2* Herwig6 and Tauola')
 )
