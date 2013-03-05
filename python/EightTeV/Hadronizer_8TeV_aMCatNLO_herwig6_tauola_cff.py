@@ -19,10 +19,12 @@ generator = cms.EDFilter("Herwig6HadronizerFilter",
         inclusiveMatching = cms.untracked.bool(True),
         matchingScale = cms.untracked.double(0.0), 
         ExternalDecays = cms.PSet(
-            Photos = cms.untracked.PSet(),
-            parameterSets = cms.vstring( "Photos" )
+            Tauola = cms.untracked.PSet(
+                TauolaPolar,
+                TauolaDefaultInputCards
+            ),
+            parameterSets = cms.vstring('Tauola')
         ),
-
         HerwigParameters = cms.PSet(
                 herwigUEsettings = cms.vstring(
                        'JMUEO     = 1       ! multiparton interaction model',
@@ -43,7 +45,7 @@ generator = cms.EDFilter("Herwig6HadronizerFilter",
 )
 
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision$'),
-    name = cms.untracked.string ('$Source$'),
-    annotation = cms.untracked.string('Runs Z2* Herwig6 and Photos')
+    version = cms.untracked.string('$Revision: 1.2 $'),
+    name = cms.untracked.string ('$Source: /local/reps/CMSSW/CMSSW/Configuration/GenProduction/python/EightTeV/Hadronizer_TuneZ2star_8TeV_aMCatNLO_herwig6_tauola_cff.py,v $'),
+    annotation = cms.untracked.string('Runs Z2* Herwig6 and Tauola')
 )

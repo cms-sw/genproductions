@@ -37,7 +37,7 @@ generator = cms.EDFilter("Herwig6HadronizerFilter",
 )
 
 configurationMetadata = cms.untracked.PSet(
-    version = cms.untracked.string('$Revision$'),
-    name = cms.untracked.string ('$Source$'),
+    version = cms.untracked.string('$Revision: 1.2 $'),
+    name = cms.untracked.string ('$Source: /local/reps/CMSSW/CMSSW/Configuration/GenProduction/python/EightTeV/Hadronizer_TuneZ2star_8TeV_aMCatNLO_herwig6_cff.py,v $'),
     annotation = cms.untracked.string('Runs Z2* Herwig6')
 )
