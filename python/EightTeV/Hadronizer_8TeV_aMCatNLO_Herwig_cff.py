@@ -3,12 +3,11 @@ import FWCore.ParameterSet.Config as cms
 configurationMetadata = cms.untracked.PSet(
 	version    = cms.untracked.string('$Revision: 1.1 $'),
 	name       = cms.untracked.string('$Source: /local/reps/CMSSW/CMSSW/Configuration/GenProduction/python/EightTeV/Hadronizer_8TeV_aMCatNLO_Herwig_cff.py,v $'),
-	annotation = cms.untracked.string('Showering of generic aMCatNLO events with Herwig, 8 TeV, NNPDF21')
+	annotation = cms.untracked.string('Showering of generic aMCatNLO events with Herwig, 8 TeV')
 )
 
 generator = cms.EDFilter("Herwig6HadronizerFilter",
         comEnergy = cms.double(8000.0),
-        crossSection = cms.untracked.double(0.1835),
         doMPInteraction = cms.bool(False),
         emulatePythiaStatusCodes = cms.untracked.bool(True),
         filterEfficiency = cms.untracked.double(1.0),
