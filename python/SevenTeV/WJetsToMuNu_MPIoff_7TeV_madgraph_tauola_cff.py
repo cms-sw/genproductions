@@ -3,10 +3,10 @@ import FWCore.ParameterSet.Config as cms
 from Configuration.Generator.PythiaUEZ2Settings_cfi import *
 from GeneratorInterface.ExternalDecays.TauolaSettings_cff import *
 
-muonFilter = cms.EDFilter( "PythiaFilter",
-        MaxEta = cms.untracked.double(9999.),
-        MinEta = cms.untracked.double(-9999.),
-        ParticleID = cms.untracked.int32(521)
+process.muonFilter = cms.EDFilter("MCSingleParticleFilter",
+    MaxEta = cms.untracked.vdouble(9999.0, 9999.0),
+    MinEta = cms.untracked.vdouble(-9999.0, -9999.0),
+    ParticleID = cms.untracked.vint32(13,-13)
 )
 
 
