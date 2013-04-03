@@ -27,16 +27,18 @@ generator = cms.EDFilter("Pythia6HadronizerFilter",
         parameterSets = cms.vstring('pythiaUESettings', 
             'processParameters')
     ),
-    jetMatching = cms.untracked.PSet(
-       scheme = cms.string("Madgraph"),
-       mode = cms.string("auto"),	# soup, or "inclusive" / "exclusive"
-       MEMAIN_nqmatch = cms.int32(5),
-       MEMAIN_etaclmax = cms.double(-1),
-       MEMAIN_qcut = cms.double(-1),
-       MEMAIN_minjets = cms.int32(-1),
-       MEMAIN_maxjets = cms.int32(-1),
-       MEMAIN_showerkt = cms.double(0),   
-       MEMAIN_excres = cms.string(""),
-       outTree_flag = cms.int32(0)    
-    )    
+
+jetMatching = cms.untracked.PSet(
+    MEMAIN_showerkt = cms.double(0),
+    MEMAIN_maxjets = cms.int32(1),
+    MEMAIN_minjets = cms.int32(0),
+    MEMAIN_qcut = cms.double(20),
+    MEMAIN_excres = cms.string(''),
+    MEMAIN_etaclmax = cms.double(2.5),
+
+    MEMAIN_nqmatch = cms.int32(5),
+    outTree_flag = cms.int32(0),
+    scheme = cms.string('Madgraph'),
+    mode = cms.string('auto')
+    )
 )
