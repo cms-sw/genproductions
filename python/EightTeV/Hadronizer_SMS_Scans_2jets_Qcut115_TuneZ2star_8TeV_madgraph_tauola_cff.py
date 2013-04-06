@@ -21,13 +21,11 @@ generator = cms.EDFilter("Pythia6HadronizerFilter",
         processParameters = cms.vstring('MSEL=0         ! User defined processes', 
                         'PMAS(5,1)=4.8   ! b quark mass',
                         'PMAS(6,1)=172.5 ! t quark mass',
-                        'MDCY(C1000022,1)=0  ! stable neutralino',
 			'MSTJ(1)=1       ! Fragmentation/hadronization on or off',
 			'MSTP(61)=1      ! Parton showering on or off'),
         # This is a vector of ParameterSet names to be read, in this order
-        parameterSets = cms.vstring('pythiaUESettings',
+        parameterSets = cms.vstring('pythiaUESettings', 
             'processParameters')
-
     ),
     jetMatching = cms.untracked.PSet(
        scheme = cms.string("Madgraph"),
