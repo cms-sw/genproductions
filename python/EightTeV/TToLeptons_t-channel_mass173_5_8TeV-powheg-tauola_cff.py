@@ -9,7 +9,7 @@ externalLHEProducer = cms.EDProducer('ExternalLHEProducer',
                                      'ST_tch',
                                      '/slc5_ia32_gcc434/powheg/V1.0/8TeV_Summer12/TToLeptons_t-channel_mass173_5_8TeV-powheg/v1/TToLeptons_t-channel_mass173_5_8TeV-powheg.input',
                                      ),
-    nEvents = cms.uint32(3000000)
+    nEvents = cms.uint32(10000)
                                             
                                              )
 
