@@ -1,7 +1,7 @@
 import FWCore.ParameterSet.Config as cms
 
 configurationMetadata = cms.untracked.PSet(
-	version    = cms.untracked.string('$Revision: 1.2 $'),
+	version    = cms.untracked.string('$Revision: 1.3 $'),
 	name       = cms.untracked.string('$Source: /local/reps/CMSSW/CMSSW/Configuration/GenProduction/python/SevenTeV/TT_7TeV_powheg_herwig_cff.py,v $'),
 	annotation = cms.untracked.string('Showering of Powheg TTbar events with Herwig+Jimmy, 7 TeV, AUET2')
 )
@@ -10,6 +10,7 @@ generator = cms.EDFilter("Herwig6HadronizerFilter",
     HerwigParameters = cms.PSet(
         parameterSets = cms.vstring('herwigParams', 'herwigAUET2settings'),
         herwigParams  = cms.vstring(
+            'RMASS(5) = 4.8       ! Set b mass.',
             'RMASS(6) = 172.5     ! Set top mass.',
             'SOFTME   = 0         ! Do not use soft matrix-element corrections.',
         ),
