@@ -7,5 +7,5 @@ externalLHEProducer = cms.EDProducer('ExternalLHEProducer',
     outputFile = cms.string("Z_VBF_Lept_mqq_120_inf_noaddpart_8TeV_madgraph_final.lhe"),
     args = cms.vstring('slc5_ia32_gcc434/madgraph/V5_1.4.8/8TeV_Summer12/Z_VBF_Lept_mqq_120_inf_noaddpart_8TeV_madgraph/v3',
                        'Z_VBF_Lept_mqq_120_inf_noaddpart_8TeV_madgraph','false','true','wjets','5','20','false','0','0'),
-    nEvents = cms.uint32(50000)
+    nEvents = cms.uint32(20000)
 )
