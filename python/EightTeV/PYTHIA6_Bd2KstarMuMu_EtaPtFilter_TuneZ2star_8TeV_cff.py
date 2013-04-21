@@ -7,12 +7,13 @@ import FWCore.ParameterSet.Config as cms
 
 
 configurationMetadata = cms.untracked.PSet(
-	version = cms.untracked.string('$Revision: 1.6 $'),
+	version = cms.untracked.string('$Revision: 1.1 $'),
 	name = cms.untracked.string('PYTHIA6_Bd2KstarMuMu_EtaPtFilter_TuneZ2star_8TeV_cff.py'),
 	annotation = cms.untracked.string('Summer12: Pythia6+EvtGen generation of B0d --> K*0(K pi) Mu+Mu-, 8TeV'))
 
 
-from Configuration.Generator.PythiaUEZ2Settings_cfi import *
+#from Configuration.Generator.PythiaUEZ2Settings_cfi import *
+from Configuration.Generator.PythiaUEZ2starSettings_cfi import *
 
 
 generator = cms.EDFilter("Pythia6GeneratorFilter",
