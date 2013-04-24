@@ -49,7 +49,7 @@ b0filter = cms.EDFilter("PythiaFilter", ParticleID = cms.untracked.int32(511))
 # Filter on final state muons
 mumugenfilter = cms.EDFilter("MCParticlePairFilter",
 			     Status = cms.untracked.vint32(1, 1),
-			     MinPt = cms.untracked.vdouble(2.8, 2.8),
+			     MinPt = cms.untracked.vdouble(3.3, 3.3),
 			     MaxEta = cms.untracked.vdouble(2.3, 2.3),
 			     MinEta = cms.untracked.vdouble(-2.3, -2.3),
 			     ParticleCharge = cms.untracked.int32(-1),
