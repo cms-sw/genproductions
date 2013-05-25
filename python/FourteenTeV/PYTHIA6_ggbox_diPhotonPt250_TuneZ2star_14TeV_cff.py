@@ -45,10 +45,10 @@ generator = cms.EDFilter('Pythia6GeneratorFilter',
 	PythiaParameters = cms.PSet(
 		pythiaUESettingsBlock,
 		processParameters = cms.vstring(
-                'MSEL=0 ',
-                'MSUB(114)=1       ',
-                'CKIN(3)=25.          ! minimum pt hat for hard interactions', 
-                'CKIN(4)=250.          ! maximum pt hat for hard interactions'),                
+               'MSEL=0 ',
+               'MSUB(114)=1       ',
+               'CKIN(3)=250.          ! minimum pt hat for hard interactions', 
+               'CKIN(4)=-1          ! maximum pt hat for hard interactions'),                
 		parameterSets = cms.vstring(
 			'pythiaUESettings',
 			'processParameters',
