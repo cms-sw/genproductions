@@ -9,7 +9,7 @@ externalLHEProducer = cms.EDProducer('ExternalLHEProducer',
                                      'ZZ',
                                      '/slc5_ia32_gcc434/powheg/V1.0/7TeV_Summer12/ZZ_2e2mu_mll8_7TeV-powheg/v1/ZZ_2e2mu_mll8_7TeV-powheg.input',
                                      ),
-    nEvents = cms.uint32(7875000)
+    nEvents = cms.uint32(50000)
                                             
                                              )
 
