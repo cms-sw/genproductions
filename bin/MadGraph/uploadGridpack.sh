@@ -1,9 +1,9 @@
 #! /bin/bash
 
-rootdir=/afs/cern.ch/cms/generators/www/slc5_ia32_gcc434/madgraph/V5_1.3.30/8TeV_Summer12/
+rootdir=/afs/cern.ch/cms/generators/www/slc5_ia32_gcc434/madgraph/V5_1.4.8/
 
 function preparepath() {
-  local PROCESS=${rootdir}/${1}
+  local PROCESS=${rootdir}/${1}/${2}
   local lastv=-1
   local newv=-1
   if [ -d $PROCESS ]; then
@@ -24,7 +24,7 @@ function preparepath() {
 
 # parse command line arguments and options
 NAME=$(basename $0)
-OPTS=$(getopt -n "$NAME" -o "hnp:" -l "help,dryrun,process:" -- "$@")
+OPTS=$(getopt -n "$NAME" -o "hnp:e:" -l "help,dryrun,process:,energy:" -- "$@")
 
 # check for invalid options
 if [ $? != 0 ]; then 
@@ -35,6 +35,7 @@ fi
 eval set -- "$OPTS"
 
 # parse options
+ENERGY=""
 PROCESS=""
 DRYRUN=""
 while true; do
@@ -42,13 +43,20 @@ while true; do
     "-p" | "--process" )
       PROCESS="$2"
       shift 2
+      echo PROCESS=$PROCESS
+      ;;
+    "-e" | "--energy" )
+      ENERGY="$2"
+      shift 2
+      echo ENERGY=$ENERGY
       ;;
     "-n" | "--dryrun" )
       DRYRUN="1"
       shift
+      echo dryrun
       ;;
     "-h" | "--help" )
-      echo "usage: ./${NAME} --process <process name> file1 file2..."
+      echo "usage: ./${NAME} --energy [8TeV_Summer12,13TeV] --process <process name> <process name>_gridpack.tar.gz"
       exit 0
       ;;
     "--" )
@@ -58,6 +66,11 @@ while true; do
       ;;
   esac
 done
+
+if [ ! "$ENERGY" ]; then
+  echo "$NAME: error: the --energy option is required"
+  exit 1
+fi
 
 if [ ! "$PROCESS" ]; then
   echo "$NAME: error: the --process option is required"
@@ -81,7 +94,7 @@ for file in "$@"; do
 done
 
 
-path="$(preparepath "$PROCESS")"
+path="$(preparepath "$ENERGY" "$PROCESS")"
 echo "new path ${path}"
 
 if [ ! "$DRYRUN" ]; then
