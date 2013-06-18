@@ -22,9 +22,7 @@ generator = cms.EDFilter("Pythia6HadronizerFilter",
 
 configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.1 $'),
-    name = cms.untracked.string ('$Source: 
-/local/reps/CMSSW/CMSSW/Configuration/GenProduction/python/EightTeV/Hadronizer_TuneZ2star_8TeV_generic_LHE_SUSY_pythia_cff.py,v 
-$'),
+    name = cms.untracked.string ('$Source:/local/reps/CMSSW/CMSSW/Configuration/GenProduction/python/EightTeV/Hadronizer_TuneZ2star_8TeV_generic_LHE_SUSY_pythia_cff.py,v$'),
     annotation = cms.untracked.string('runs Z2* Pythia6')
 )
 
