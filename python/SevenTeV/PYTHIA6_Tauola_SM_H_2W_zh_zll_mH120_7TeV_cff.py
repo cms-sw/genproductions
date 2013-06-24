@@ -43,7 +43,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
             'MDME(185,1)=0           !Z decay into nu_mu nu_mubar', 
             'MDME(186,1)=1           !Z decay into tau- tau+', 
             'MDME(187,1)=0           !Z decay into nu_tau nu_taubar', 	    
-	    'MDME(210,1)=0	     !Higgs decay into dd', 
+	    'MDME(210,1)=0           !Higgs decay into dd', 
             'MDME(211,1)=0           !Higgs decay into uu', 
             'MDME(212,1)=0           !Higgs decay into ss', 
             'MDME(213,1)=0           !Higgs decay into cc', 
@@ -68,7 +68,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
 
 configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.1 $'),
-    name = cms.untracked.string('$Source: /local/reps/CMSSW/CMSSW/Configuration/GenProduction/python/EightTeV/PYTHIA6_Tauola_SM_H_2W_zh_zll_mH120_7TeV_cff.py,v $'),
+    name = cms.untracked.string('$Source: /local/reps/CMSSW/CMSSW/Configuration/GenProduction/python/SevenTeV/PYTHIA6_Tauola_SM_H_2W_zh_zll_mH120_7TeV_cff.py,v $'),
     annotation = cms.untracked.string('PYTHIA6 WH/ZH/ttH, H->WW mH=120GeV with TAUOLA at 7TeV')
 )
 
