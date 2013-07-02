@@ -22,7 +22,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
     ),
     PythiaParameters = cms.PSet(
         pythiaUESettingsBlock,
-        processParameters = cms.vstring('PMAS(25,1)=110.0        !mass of Higgs', 
+        processParameters = cms.vstring('PMAS(25,1)=105.0        !mass of Higgs', 
             'MSEL=0                  ! user selection for process', 
             'MSUB(102)=0             !ggH', 
             'MSUB(123)=0             !ZZ fusion to H', 
@@ -83,8 +83,8 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
 
 configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.1 $'),
-    name = cms.untracked.string('$Source: /local/reps/CMSSW/CMSSW/Configuration/GenProduction/python/SevenTeV/PYTHIA6_Tauola_SM_H_2tau_zh_mH110_lepdecay_7TeV_cff.py,v $'),
-    annotation = cms.untracked.string('PYTHIA6 WH/ZH/ttH, H->tautau mH=110GeV with TAUOLA at 8TeV')
+    name = cms.untracked.string('$Source: /local/reps/CMSSW/CMSSW/Configuration/GenProduction/python/SevenTeV/PYTHIA6_Tauola_SM_H_2tau_zh_mH105_lepdecay_7TeV_cff.py,v $'),
+    annotation = cms.untracked.string('PYTHIA6 WH/ZH/ttH, H->tautau mH=105GeV with TAUOLA at 8TeV')
 )
 
 ProductionFilterSequence = cms.Sequence(generator)
