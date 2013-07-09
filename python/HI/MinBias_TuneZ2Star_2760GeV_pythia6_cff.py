@@ -30,8 +30,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
 
 configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.1 $'),
-    name = cms.untracked.string('$Source: /afs/cern.ch/project/cvs/reps/CMSSW/CMSSW/Configuration/GenProduction/python/HI/MinBias_TuneZ2star_2760GeV_pythia6_cff.py,v 
-$'),
+    name = cms.untracked.string('$Source: /afs/cern.ch/project/cvs/reps/CMSSW/CMSSW/Configuration/GenProduction/python/HI/MinBias_TuneZ2Star_2760GeV_pythia6_cff.py,v $'),
     annotation = cms.untracked.string('PYTHIA6-MinBias TuneZ2star at 8TeV')
 )
 
