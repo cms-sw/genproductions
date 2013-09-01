@@ -1,3 +1,5 @@
+# Pythia8 fragment for minbias with tune A2MB-MSTW2008LO
+
 import FWCore.ParameterSet.Config as cms
 
 source = cms.Source("EmptySource")
