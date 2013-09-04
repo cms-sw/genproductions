@@ -5,7 +5,7 @@ import FWCore.ParameterSet.Config as cms
 source = cms.Source("EmptySource")
 
 generator = cms.EDFilter("Pythia8GeneratorFilter",
-#    crossSection = cms.untracked.double(xxxx),      # to be determined with a test run
+   crossSection = cms.untracked.double(78400000000),     
    maxEventsToPrint = cms.untracked.int32(0),
    pythiaPylistVerbosity = cms.untracked.int32(1),
    filterEfficiency = cms.untracked.double(1.0),
