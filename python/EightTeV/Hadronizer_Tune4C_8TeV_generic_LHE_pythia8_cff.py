@@ -1,3 +1,5 @@
+# generic hadronizer for LHE files
+
 import FWCore.ParameterSet.Config as cms
 
 generator = cms.EDFilter("Pythia8HadronizerFilter",
