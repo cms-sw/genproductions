@@ -26,4 +26,4 @@ generator = cms.EDFilter('Pythia6GeneratorFilter',
 )
 
 
-ProductionFilterSequence = cms.Sequence(generator * pthat_filter)
+ProductionFilterSequence = cms.Sequence(generator)
