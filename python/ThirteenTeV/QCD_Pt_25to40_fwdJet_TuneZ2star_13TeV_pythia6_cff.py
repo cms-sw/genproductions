@@ -35,8 +35,8 @@ pythiaUESettingsBlock = cms.PSet(
 
 generator = cms.EDFilter('Pythia6GeneratorFilter',
 	comEnergy = cms.double(13000.0),
-	crossSection = cms.untracked.double(8.159128e+08),
-	filterEfficiency = cms.untracked.double(1),
+	crossSection = cms.untracked.double(2.739e-1),
+	filterEfficiency = cms.untracked.double(0.3829),
 	maxEventsToPrint = cms.untracked.int32(0),
 	pythiaHepMCVerbosity = cms.untracked.bool(False),
 	pythiaPylistVerbosity = cms.untracked.int32(0),
