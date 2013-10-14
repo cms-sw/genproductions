@@ -7,8 +7,8 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
     pythiaHepMCVerbosity = cms.untracked.bool(False),
     maxEventsToPrint = cms.untracked.int32(0),
     pythiaPylistVerbosity = cms.untracked.int32(1),
-    filterEfficiency = cms.untracked.double(0),#still to update
-    crossSection = cms.untracked.double(0),#still to update
+    filterEfficiency = cms.untracked.double(1),
+    crossSection = cms.untracked.double(1.945e9),
     comEnergy = cms.double(13000.0),  # center of mass energy in GeV
     PythiaParameters = cms.PSet(
         pythiaUESettingsBlock,
