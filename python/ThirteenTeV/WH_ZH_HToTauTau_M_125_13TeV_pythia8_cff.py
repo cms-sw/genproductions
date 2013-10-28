@@ -12,14 +12,15 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
     comEnergy = cms.double(13000.),
  	PythiaParameters = cms.PSet(
 	py8HDecaySettings = cms.vstring(  
-			 		 
-			       	   	 'HiggsSM:all = off'      # turn OFF all H production mode
-			       		 'HiggsSM:ffbar2HW = on'  # Turn ON WH production mode
-			       		 'HiggsSM:ffbar2HZ = on'  # Turn ON ZH production mode
+			 		  '25:m0 = 125.0',   # Mass of The Higgs 
+			       	   	  'HiggsSM:all = off',      # turn OFF all H production mode
+			       		  'HiggsSM:ffbar2HW = on',  # Turn ON WH production mode
+			       		  'HiggsSM:ffbar2HZ = on',  # Turn ON ZH production mode
 					  '25:onMode = off', # turn OFF all H decays
 			#		  '25:onIfAny = 5'  # turn ON H->bbbar
-			                  '25:onIfAny = 15 15' #turn ON H->tautau
-					  'ParticleDecays:sophisticatedTau = 1' 	# interface to Tauola for the tau decay 
+			                  '25:onIfAny = 15 15', #turn ON H->tautau
+					  'ParticleDecays:sophisticatedTau = 1', 	# interface to Tauola for the tau decay  
+			       		  'Tune:pp 5'   # UE tune
 			 ),
         parameterSets = cms.vstring('py8HDecaySettings')
     )
