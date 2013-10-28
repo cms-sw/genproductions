@@ -11,10 +11,12 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
     pythiaHepMCVerbosity = cms.untracked.bool(True),
     comEnergy = cms.double(13000.),
  	PythiaParameters = cms.PSet(
-	py8HDecaySettings = cms.vstring(  '25:onMode = off', # turn OFF all H decays
+	py8HDecaySettings = cms.vstring(  
+			 		  '25:onMode = off', # turn OFF all H decays
 			#		  '25:onIfAny = 5'  # turn ON H->bbbar
-			                  '25:onIfAny = 15 15' #turn ON H->tautau
-					  'ParticleDecays:sophisticatedTau = 1' 	# interface to Tauola for the tau decay 
+			                  '25:onIfAny = 15 15', #turn ON H->tautau
+					  'ParticleDecays:sophisticatedTau = 1', 	# interface to Tauola for the tau decay 
+			       		  'Tune:pp 5'   # UE tune
 			 ),
         parameterSets = cms.vstring('py8HDecaySettings')
     )
