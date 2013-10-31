@@ -2,8 +2,8 @@ import FWCore.ParameterSet.Config as cms
 
 generator = cms.EDFilter("Pythia8GeneratorFilter",
 	comEnergy = cms.double(13000.0),
-	crossSection = cms.untracked.double(1.158202e+09),
-	filterEfficiency = cms.untracked.double(1),
+	crossSection = cms.untracked.double(1.859e+08),
+	filterEfficiency = cms.untracked.double(0.056),
 	maxEventsToPrint = cms.untracked.int32(0),
 	pythiaHepMCVerbosity = cms.untracked.bool(False),
 	pythiaPylistVerbosity = cms.untracked.int32(0),
@@ -14,8 +14,8 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
 			'ParticleDecays:limitTau0 = on',
 			'ParticleDecays:tauMax = 10',
 			'HardQCD:all = on',
-			'PhaseSpace:pTHatMin = 10  ',
-			'PhaseSpace:pTHatMax = 15  ',
+			'PhaseSpace:pTHatMin = 30  ',
+			'PhaseSpace:pTHatMax = 80  ',
 			'Tune:pp 5',
 			'Tune:ee 3',
 
@@ -24,12 +24,10 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
 	)
 )
 
-
-
 genParticlesForFilter = cms.EDProducer("GenParticleProducer",
     saveBarCodes = cms.untracked.bool(True),
     src = cms.InputTag("generator"),
-    abortOnUnknownPDGCode = cms.untracked.bool(True)
+    abortOnUnknownPDGCode = cms.untracked.bool(False)
 )
 
 bctoefilter = cms.EDFilter("BCToEFilter",
@@ -39,9 +37,9 @@ bctoefilter = cms.EDFilter("BCToEFilter",
                            )
 
 emenrichingfilter = cms.EDFilter("EMEnrichingFilter",
-                                 filterAlgoPSet = cms.PSet(isoGenParETMin=cms.double(5.),
+                                 filterAlgoPSet = cms.PSet(isoGenParETMin=cms.double(20.),
                                                            isoGenParConeSize=cms.double(0.1),
-                                                           clusterThreshold=cms.double(5.),
+                                                           clusterThreshold=cms.double(20.),
                                                            isoConeSize=cms.double(0.2),
                                                            hOverEMax=cms.double(0.5),
                                                            tkIsoMax=cms.double(5.),

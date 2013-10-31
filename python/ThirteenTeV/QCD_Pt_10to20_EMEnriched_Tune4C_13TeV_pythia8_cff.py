@@ -2,8 +2,8 @@ import FWCore.ParameterSet.Config as cms
 
 generator = cms.EDFilter("Pythia8GeneratorFilter",
 	comEnergy = cms.double(13000.0),
-	crossSection = cms.untracked.double(1.158202e+09),
-	filterEfficiency = cms.untracked.double(1),
+	crossSection = cms.untracked.double(8.838e+00),
+	filterEfficiency = cms.untracked.double(0.143),
 	maxEventsToPrint = cms.untracked.int32(0),
 	pythiaHepMCVerbosity = cms.untracked.bool(False),
 	pythiaPylistVerbosity = cms.untracked.int32(0),
@@ -14,8 +14,8 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
 			'ParticleDecays:limitTau0 = on',
 			'ParticleDecays:tauMax = 10',
 			'HardQCD:all = on',
-			'PhaseSpace:pTHatMin = 15  ',
-			'PhaseSpace:pTHatMax = 30  ',
+			'PhaseSpace:pTHatMin = 10  ',
+			'PhaseSpace:pTHatMax = 20  ',
 			'Tune:pp 5',
 			'Tune:ee 3',
 
@@ -27,7 +27,7 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
 genParticlesForFilter = cms.EDProducer("GenParticleProducer",
     saveBarCodes = cms.untracked.bool(True),
     src = cms.InputTag("generator"),
-    abortOnUnknownPDGCode = cms.untracked.bool(True)
+    abortOnUnknownPDGCode = cms.untracked.bool(False)
 )
 
 bctoefilter = cms.EDFilter("BCToEFilter",
