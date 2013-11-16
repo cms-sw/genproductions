@@ -15,7 +15,7 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
 			'Main:timesAllowErrors    = 10000',
 			'ParticleDecays:limitTau0 = on',
 			'ParticleDecays:tauMax = 10',
-			'Tune:pp 8',
+			'Tune:pp 5',
 			'Tune:ee 3',
 
 			'ExcitedFermion:dg2dStar = on',
