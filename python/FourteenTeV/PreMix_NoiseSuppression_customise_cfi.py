@@ -8,11 +8,17 @@ def customise(process):
                                                    tag = cms.string('EcalSRSettings_fullreadout_v01_mc'),
                                                    connect = cms.untracked.string("frontier://FrontierProd/CMS_COND_34X_ECAL")
                                       ))
+
     # Turn off noise generation:
-    process.hcalDigitizer.doNoise = cms.bool(False)
-    process.ecalDigitizer.doNoise = cms.bool(False)
-    process.pixelDigitizer.AddNoise = cms.bool(False)
-    process.stripDigitizer.AddNoise = cms.bool(False)
+    process.mix.digitizers.hcal.doNoise = cms.bool(False)
+    process.mix.digitizers.hcal.doEmpty = False
+    process.mix.digitizers.hcal.doHPDNoise = False
+    process.mix.digitizers.hcal.doIonFeedback = False
+    process.mix.digitizers.hcal.doThermalNoise = False
+
+    process.mix.digitizers.ecal.doNoise = cms.bool(False)
+    process.mix.digitizers.pixel.AddNoise = cms.bool(False)
+    process.mix.digitizers.strip.AddNoise = cms.bool(False)
     process.simMuonCSCDigis.strips.doNoise = False
     process.simMuonCSCDigis.wires.doNoise = False
     process.simMuonDTDigis.onlyMuHits = True
@@ -23,4 +29,6 @@ def customise(process):
     process.simHcalDigis.HElevel = -10000
     process.simHcalDigis.HOlevel = -10000
     process.simHcalDigis.HFlevel = -10000
+    process.simHcalDigis.useConfigZSvalues = 1
+    
     return(process)
