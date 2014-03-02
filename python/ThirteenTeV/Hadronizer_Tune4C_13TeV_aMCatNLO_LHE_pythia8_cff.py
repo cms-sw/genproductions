@@ -10,7 +10,7 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
         processParameters = cms.vstring(
 	    'Main:timesAllowErrors    = 10000', 
         'ParticleDecays:limitTau0 = on',
-	    'ParticleDecays:tauMax = 10',
+	    'ParticleDecays:tau0Max = 10',
         'Tune:ee 3',
         'Tune:pp 5',
         'SpaceShower:pTmaxMatch = 1',
@@ -24,7 +24,9 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
         'TimeShower:nMaxGlobalRecoil = 1',
         'TimeShower:globalRecoilMode = 2',
         'TimeShower:nMaxGlobalBranch = 1',
-        'Check:epTolErr = 0.001',
+        'SLHA:keepSM = off',
+        'SLHA:minMassSM = 80.', #reset masses/widths/branching ratios for W/Z/top to match internal madgraph/madspin values        
+        'Check:epTolErr = 0.01',
         ),
         parameterSets = cms.vstring('processParameters')
     )
