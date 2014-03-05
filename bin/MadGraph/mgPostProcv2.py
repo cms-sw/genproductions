@@ -22,7 +22,8 @@ massDict = {
 	11: 0.000510998910,
 	13: 0.1056583668,
 	15: 1.77684,
-         5: 4.80000  
+         5: 4.80000,
+         4: 1.50000
 }
 tolerance = 1.0e-4
 
@@ -277,9 +278,69 @@ def fixMasses(particles):
 	while len(needsFixing):
 		n = nodes[needsFixing.pop()]
 		if len(n.mothers) >= 1 and n.mothers[0].particle.status < 1:
-			# FIXME: We could steal momentum from the z component
-			#        of the beam particles here
-			pass
+			ref = FiveVector(0.0,0.0,0.0,0.0)
+			# Define boost to rest frame
+			for ip,p in enumerate(particles):
+				if p.status == -1: continue
+				if particles[p.mothers[0]-1].status < 1:
+					ref += p.p5
+					
+			roots = ref._m()
+			ref.vec[4] = roots
+			# The recoil does NOT include the particle to be fixed
+			prec = ref - n.particle.p5
+			mrec = prec._m()
+			prec.vec[4] = mrec
+
+			# Boost a copy of the particle momentum to the rest frame
+			ptmp = deepcopy(n.particle.p5)
+			ptmp.boost(ref, -1)
+			rsh = roots
+			# new mass, energy, momentum
+			mnew=massDict[abs(n.particle.pdgId)]
+			ptmp.vec[3] = (rsh**2 + mnew**2 - mrec**2) \
+			              / (2.0 * rsh)
+
+			pmagOld = ptmp.p()
+			pmagNew = math.sqrt(max(0.,
+					ptmp.e()**2 - mnew**2))
+			ptmp.reScale(pmagOld, pmagNew)
+			ptmp.vec[4] = ptmp._m()
+
+			# update recoil energy in CMS
+			erecs = rsh - ptmp.e()
+			# boost corrected parton back to lab frame
+			ptmp.boost(ref, +1)
+			n.particle.p5 = ptmp
+
+			# Find new momentum to match energy of sum recoil
+			pxNew = erecs**2 - mrec**2
+			if pxNew>0:
+				pxNew=math.sqrt(pxNew)
+			else:
+				pxNew=0
+				print("problem with recoil kinematics\n")
+
+			prec.boost(ref, -1)
+			psave = deepcopy(prec)
+			pxOld = prec.p()
+			prec.reScale(pxOld,pxNew)
+			prec.vec[3] = math.sqrt(prec.p2()+mrec**2)
+
+			# Determine boost to new rest frame (velocity addition rule)
+			pbop = deepcopy(prec)
+			for i in range(0,3):
+				pbop.vec[i] -= psave.vec[i]*prec.vec[3]/psave.vec[3]
+
+			pbop.vec[3] -= pxOld*pxNew/psave.vec[3]
+
+			# Fix individual components of the recoil
+			for ip,p in enumerate(particles):
+				if p.status == -1: continue
+				if ip == n.index: continue
+				p.p5.boost(ref, -1)
+				p.p5.boost(pbop, +1)
+				p.p5.boost(ref, +1)
 
 		elif len(n.mothers) == 1:
 			p = n.particle
