@@ -1,13 +1,5 @@
 import FWCore.ParameterSet.Config as cms
 
-#######################################################################################################
-### The following lines are important for powheg LHE production, 8 arguments must be specified
-process.externalLHEProducer.scriptName = cms.FileInPath("GeneratorInterface/LHEInterface/data/create_lhe_powheg_all.sh")
-process.externalLHEProducer.numberOfParameters = cms.uint32(8)
-process.externalLHEProducer.outputFile = cms.string('events_final.lhe')
-process.externalLHEProducer.args = 
-################################################################################################
-
 externalLHEProducer = cms.EDProducer('ExternalLHEProducer',
                                      scriptName = cms.FileInPath("GeneratorInterface/LHEInterface/data/create_lhe_powheg_all.sh"),
                                      outputFile = cms.string("events_final.lhe"),
