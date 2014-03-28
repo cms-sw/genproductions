@@ -21,7 +21,7 @@ generator = cms.EDFilter("Pythia8175HadronizerFilter",
             'ParticleDecays:limitTau0 = on',
 	    'ParticleDecays:tauMax = 10',
             'Tune:ee 3',
-            'Tune:pp 5'
+            'Tune:pp 5',
             'SpaceShower:pTmaxMatch = 2',
             'TimeShower:pTmaxMatch  = 2',
             "TimeShower:pTminChgL = 1e-10", # BARZE to lower Pythia EWK cutoff
