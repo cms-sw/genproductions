@@ -68,7 +68,8 @@ MGDIR=${PRODHOME}/
 #MG=MG5v1.5.11_CERN_23082013_patched19092013.tar.gz
 #https://launchpad.net/mg5amcnlo/2.0/2.1.0/+download/MG5_aMC_v2.1.0.tar.gz
 MG=MG5_aMC_v2.1.0.tar.gz
-MGSOURCE=https://launchpad.net/mg5amcnlo/2.0/2.1.0/+download/${MG}
+#MGSOURCE=https://launchpad.net/mg5amcnlo/2.0/2.1.0/+download/${MG}
+MGSOURCE=/afs/cern.ch/cms/generators/${MG}
 MGBASEDIR=MG5_aMC_v2_1_0
 
 if [ ! -d ${AFS_GEN_FOLDER} ];then
@@ -77,7 +78,7 @@ fi
 cd $AFS_GEN_FOLDER
 
 export SCRAM_ARCH=slc5_amd64_gcc472 #Here one should select the correct architechture corresponding with the CMSSW release
-export RELEASE=CMSSW_6_2_7 #Here one should select the desired CMSSW release in correspondance with the line below
+export RELEASE=CMSSW_6_2_8 #Here one should select the desired CMSSW release in correspondance with the line below
 
 ################################
 #Initialize the CMS environment#
@@ -172,7 +173,8 @@ export PATH=`pwd`:${PATH}
 #MGSOURCE=${AFS_GEN_FOLDER}/${MG}
 
 #mv ${MGSOURCE} . ; tar xzf ${MG} ; cd MG5v1.5.11 #Here you have to put the correct name of the folder will be created when the MG tarball is untared, in this specific case "MG5v1.4.8" but if you use another release this may be different
-wget --no-check-certificate ${MGSOURCE}
+#wget --no-check-certificate ${MGSOURCE}
+cp ${MGSOURCE} .
 tar xzf ${MG}
 patch -l -p0 -i $PRODHOME/patches/mgfixes.patch
 #cd MG5_aMC_v2_0_2
