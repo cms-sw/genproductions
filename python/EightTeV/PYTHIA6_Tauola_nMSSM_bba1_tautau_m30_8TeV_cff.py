@@ -1,8 +1,9 @@
 import FWCore.ParameterSet.Config as cms
-
 from Configuration.Generator.PythiaUEZ2starSettings_cfi import *
 
-source = cms.Source("EmptySource")
+#from Configuration.Generator.PythiaUESettings_cfi import *
+### from GeneratorInterface.Pythia6Interface.TauolaSettings_cff import *
+from GeneratorInterface.ExternalDecays.TauolaSettings_cff import *
 generator = cms.EDFilter("Pythia6GeneratorFilter",
     pythiaHepMCVerbosity = cms.untracked.bool(False),
     maxEventsToPrint = cms.untracked.int32(1),
@@ -27,15 +28,15 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
         pythiaUESettingsBlock,
         processParameters = cms.vstring('MSEL=0         ! User defined processes',
             'MSUB(186)= 1   ! gg->QQbarH (MSSM)',
-            'KFPR(186,2)= 5 ! Q = b', 
+            'KFPR(186,2)= 5 ! Q = b',
             # MSSM settings
             'IMSS(4)= 2     ! masses fixed by user',
             'RMSS(5)= 30.   ! tan beta',
             'RMSS(19)= 80. ! m_A',
-            'RMSS(1)= 100.  ! M1',  
-            'RMSS(2)= 200.  ! M2',  
-            'RMSS(3)= 800.  ! Mg',  
-            'RMSS(4)= 200.  ! mu',  
+            'RMSS(1)= 100.  ! M1', 
+            'RMSS(2)= 200.  ! M2', 
+            'RMSS(3)= 800.  ! Mg', 
+            'RMSS(4)= 200.  ! mu', 
             'RMSS(6)= 1000.  ! MS',
             'RMSS(7)= 1000.  ! MS',
             'RMSS(8)= 1000.  ! MS',
@@ -142,4 +143,6 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
     )
 )
 
-ProductionFilterSequence = cms.Sequence(generator)
+
+
+
