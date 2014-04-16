@@ -17,7 +17,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
      InputCards = cms.PSet(
                pjak1 = cms.int32(0),
                pjak2 = cms.int32(0),
-               mdtau = cms.int32(116)
+               mdtau = cms.int32(0)
              )
         ),
         parameterSets = cms.vstring('Tauola')
