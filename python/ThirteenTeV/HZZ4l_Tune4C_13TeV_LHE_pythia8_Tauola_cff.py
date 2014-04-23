@@ -22,6 +22,8 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
 	'ParticleDecays:tau0Max = 10',
         'Tune:ee 3',
         'Tune:pp 5',
+        'SLHA:keepSM = on',
+        'SLHA:minMassSM = 1000.', 
         '25:onMode = off',      # turn OFF all H decays
         '25:onIfMatch = 23 23',      # turn ON H->ZZ
         '23:onMode = off',      # turn OFF all Z decays
