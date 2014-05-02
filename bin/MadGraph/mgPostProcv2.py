@@ -434,16 +434,21 @@ def getEvent(f, g = None, headerXfrm = None):
 
 		particles = []
 		comments = []
-
+		
 		while True:
 			line = f.readline()
+			if line.find('<clus') >= 0:
+				break
+			if line.find('</clus') >= 0:
+				break
+			
 			if line.find('</event') >= 0:
 				break
 
 			if line[0] == '#':
 				comments.append(line)
 				continue
-				
+			
 			id, status, mo1, mo2, col1, col2, px, py, pz, e, m, time, spin = format('iiiiiifffffff', line)
 			p = Particle(id, col1, col2, px, py, pz, e, m)
 			p.status = status
@@ -460,7 +465,7 @@ def getEvent(f, g = None, headerXfrm = None):
 		        elif len(comments) == 0:
 				print >> g, line,
 
-
+				
 def writeEvent(g, idprup, wgt, scale, aqedup, aqcdup, particles):
 	print >> g, ' %d %d %14.7E %14.7E %14.7E %14.7E' % \
 			(len(particles), idprup, wgt, scale, aqedup, aqcdup)
