@@ -1,6 +1,7 @@
 import FWCore.ParameterSet.Config as cms
 
-from Configuration.GenProduction.HI.PyquenTuneZ2Settings_cff import *
+from Configuration.Generator.PyquenDefaultSettings_cff import *
+from Configuration.Generator.PythiaUEZ2Settings_cfi import *
 
 hiSignal = cms.EDFilter("PyquenGeneratorFilter",
                         collisionParameters,
@@ -23,29 +24,30 @@ hiSignal = cms.EDFilter("PyquenGeneratorFilter",
                         maxTries = cms.untracked.int32(5000),
 
                         PythiaParameters = cms.PSet(
-    customProcesses = cms.vstring('MSEL=0   ! User processes'),
-    allQCDPhotonChannel = cms.vstring(    'MSUB(11)=1', # q+q->q+q
-                                          'MSUB(12)=1', # q+qbar->q+qbar
-                                          'MSUB(13)=1', # q+qbar->g+g
-                                          'MSUB(28)=1', # q+g->q+g
-                                          'MSUB(53)=1', # g+g->q+qbar
-                                          'MSUB(68)=1', # g+g->g+g
-                                          # Leading order photons
-                                          'MSUB(14)=1', # q+qbar->g+gamma
-                                          'MSUB(18)=1', # q+qbar->gamma+gamma
-                                          'MSUB(29)=1', # q+g->q+gamma
-                                          'MSUB(114)=1', # g+g->gamma+gamma
-                                          'MSUB(115)=1' # g+g->g+gamma
-                                          ),
-    parameterSets = cms.vstring('pythiaUESettings',
-                                'customProcesses',
-                                'allQCDPhotonChannel',
-                                'kinematics'),
-    kinematics = cms.vstring('CKIN(3)=170',
-                             'CKIN(4)=9999'
-                             )
-    )
+                            pythiaUESettingsBlock
+                            customProcesses = cms.vstring('MSEL=0   ! User processes'),
+                            allQCDPhotonChannel = cms.vstring(    'MSUB(11)=1', # q+q->q+q
+                                                                  'MSUB(12)=1', # q+qbar->q+qbar
+                                                                  'MSUB(13)=1', # q+qbar->g+g
+                                                                  'MSUB(28)=1', # q+g->q+g
+                                                                  'MSUB(53)=1', # g+g->q+qbar
+                                                                  'MSUB(68)=1', # g+g->g+g
+                                                                  # Leading order photons
+                                                                  'MSUB(14)=1', # q+qbar->g+gamma
+                                                                  'MSUB(18)=1', # q+qbar->gamma+gamma
+                                                                  'MSUB(29)=1', # q+g->q+gamma
+                                                                  'MSUB(114)=1', # g+g->gamma+gamma
+                                                                  'MSUB(115)=1' # g+g->g+gamma
+                                                              ),
+                            parameterSets = cms.vstring('pythiaUESettings',
+                                                        'customProcesses',
+                                                        'allQCDPhotonChannel',
+                                                        'kinematics'),
+                            kinematics = cms.vstring('CKIN(3)=170',
+                                                     'CKIN(4)=9999'
+                                                 )
                         )
+)
 
 
 hiSignal.embeddingMode = True
