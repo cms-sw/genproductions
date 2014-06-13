@@ -24,7 +24,7 @@ hiSignal = cms.EDFilter("PyquenGeneratorFilter",
                         maxTries = cms.untracked.int32(5000),
 
                         PythiaParameters = cms.PSet(
-                            pythiaUESettingsBlock
+                            pythiaUESettingsBlock,
                             customProcesses = cms.vstring('MSEL=0   ! User processes'),
                             allQCDPhotonChannel = cms.vstring(    'MSUB(11)=1', # q+q->q+q
                                                                   'MSUB(12)=1', # q+qbar->q+qbar
