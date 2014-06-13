@@ -1,11 +1,13 @@
 import FWCore.ParameterSet.Config as cms
 
-from Configuration.GenProduction.HI.PyquenTuneZ2Settings_cff import *
+from Configuration.Generator.PyquenDefaultSettings_cff import *
+from Configuration.Generator.PythiaUEZ2Settings_cfi import *
 
 hiSignal = cms.EDFilter("PyquenGeneratorFilter",
-                        collisionParameters5020GeV,
                         qgpParameters,
                         pyquenParameters,
+                        aBeamTarget = cms.double(208.0), ## beam/target atomic number
+                        comEnergy = cms.double(5020.0),
                         doQuench = cms.bool(False),
                         bFixed = cms.double(0.0), ## fixed impact param (fm); valid only if cflag_=0
                         cFlag = cms.int32(0), ## centrality flag
