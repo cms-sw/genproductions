@@ -1,6 +1,7 @@
 import FWCore.ParameterSet.Config as cms
 
-from Configuration.GenProduction.HI.PyquenTuneZ2Settings_cff import *
+from Configuration.Generator.PyquenDefaultSettings_cff import *
+from Configuration.Generator.PythiaUEZ2Settings_cfi import *
 
 hiSignal = cms.EDFilter("PyquenGeneratorFilter",
                         collisionParameters,
@@ -33,11 +34,11 @@ hiSignal = cms.EDFilter("PyquenGeneratorFilter",
                         maxTries = cms.untracked.int32(5000),
 
                         PythiaParameters = cms.PSet(
-                            pyquenPythiaDefaultBlock,
+                            pythiaUESettingsBlock,
+                            ppJets = cms.vstring('MSEL=1   ! QCD hight pT processes'),
                             parameterSets = cms.vstring('pythiaUESettings',
                                                         'ppJets',
                                                         'kinematics'),
-
                             kinematics = cms.vstring('CKIN(3)=80',
                                                      'CKIN(4)=9999'
                                                  )

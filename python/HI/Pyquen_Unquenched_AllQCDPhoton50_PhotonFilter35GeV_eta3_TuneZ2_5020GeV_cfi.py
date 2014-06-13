@@ -26,7 +26,7 @@ hiSignal = cms.EDFilter("PyquenGeneratorFilter",
                         protonSide = cms.untracked.int32(2), #pPb direction
 
                         PythiaParameters = cms.PSet(
-                            pyquenPythiaDefaultBlock,
+                            pythiaUESettingsBlock,
                             customProcesses = cms.vstring('MSEL=0   ! User processes'),
                             allQCDPhotonChannel = cms.vstring(    'MSUB(11)=1', # q+q->q+q
                                                                   'MSUB(12)=1', # q+qbar->q+qbar
