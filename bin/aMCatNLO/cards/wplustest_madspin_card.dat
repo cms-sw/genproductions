@@ -10,19 +10,18 @@
 #************************************************************
 #Some options (uncomment to apply)
 #
+#directory for gridpack mode
 set ms_dir ./madspingrid
-# set seed 1
- set Nevents_for_max_weigth 1000 # number of events for the estimate of the max. weight
+
+#initialization parameters
+ set Nevents_for_max_weigth 250 # number of events for the estimate of the max. weight
 # set BW_cut 15                # cut on how far the particle can be off-shell
  set max_weight_ps_point 400  # number of PS to estimate the maximum for each event
-
-#workaround for jumbled masses in output 
- set zeromass_for_max_weight 0
-
 # 
+
 # specify the decay for the final state particles
-decay t > w+ all, w+ > all all
-decay t~ > w- all, w- > all all
+decay t > w+ b, w+ > all all
+decay t~ > w- b~, w- > all all
 decay w+ > all all
 decay w- > all all
 decay z > all all

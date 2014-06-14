@@ -10,7 +10,7 @@
 
 ##########################################################################################
 #DISCLAIMER:                                                                             #
-#This script has been tested in CMSSW_6_2_0_patch1 and there is no guarantee it should work in   #
+#This script has been tested in CMSSW_6_2_11 on slc6 and there is no guarantee it should work in   #
 #another releases.                                                                       #
 #To try in another releases you should adapt it taking into account to put the correct   #
 #parameters as the architechture, the release names and compatibility issues as decribed #
@@ -30,6 +30,7 @@
 #for example if the cards are bb_100_250_proc_card_mg5.dat and bb_100_250_run_card.dat   #
 #NAME_OF_PRODUCTION should be bb_100_250                                                 #
 #for QUEUE_SELECTION is commonly used 1nd, but you can take another choice from bqueues  #
+#If QUEUE_SELECTION is omitted, then run on local machine only (using multiple cores)    #
 ##########################################################################################
 
 #set -o verbose
@@ -45,8 +46,6 @@ name=${1}
 
 # which queue
 queue=$2
-
-domadspin=0
 
 #________________________________________
 # to be set for user spesific
@@ -67,18 +66,18 @@ MGDIR=${PRODHOME}/
 # madgraph distribution, that has been downloaded
 #MG=MG5v1.5.11_CERN_23082013_patched19092013.tar.gz
 #https://launchpad.net/mg5amcnlo/2.0/2.1.0/+download/MG5_aMC_v2.1.0.tar.gz
-MG=MG5_aMC_v2.1.0.tar.gz
+MG=MG5_aMC_v2.1.1.tar.gz
 #MGSOURCE=https://launchpad.net/mg5amcnlo/2.0/2.1.0/+download/${MG}
 MGSOURCE=/afs/cern.ch/cms/generators/${MG}
-MGBASEDIR=MG5_aMC_v2_1_0
+MGBASEDIR=MG5_aMC_v2_1_1
 
 if [ ! -d ${AFS_GEN_FOLDER} ];then
 mkdir ${AFS_GEN_FOLDER}
 fi
 cd $AFS_GEN_FOLDER
 
-export SCRAM_ARCH=slc5_amd64_gcc472 #Here one should select the correct architechture corresponding with the CMSSW release
-export RELEASE=CMSSW_6_2_8 #Here one should select the desired CMSSW release in correspondance with the line below
+export SCRAM_ARCH=slc6_amd64_gcc472 #Here one should select the correct architechture corresponding with the CMSSW release
+export RELEASE=CMSSW_6_2_11 #Here one should select the desired CMSSW release in correspondance with the line below
 
 ################################
 #Initialize the CMS environment#
@@ -95,61 +94,6 @@ if [  -d ${name}_gridpack ] ;then
 	exit 1;
 fi
 
-##################################
-#Location of the madgraph tarball#
-##################################
-#if [ ! -e $MGDIR/$MG ]; then
-#	echo "$MGDIR/$MG does not exit"
-#	exit 1;
-#else
-#	cp $MGDIR/$MG .	
-#fi
-
-########################
-#Locating the proc card#
-########################
-if [ ! -e $CARDSDIR/${name}_proc_card_mg5.dat ]; then
-	echo $CARDSDIR/${name}_proc_card_mg5.dat " does not exist!"
-	#exit 1;
-else
-	cp $CARDSDIR/${name}_proc_card_mg5.dat ${name}_proc_card_mg5.dat
-fi
-	
-#######################
-#Locating the run card#
-#######################
-if [ ! -e $CARDSDIR/${name}_run_card.dat ]; then
-	echo $CARDSDIR/${name}_run_card.dat " does not exist!"
-	#exit 1;
-else
-	cp $CARDSDIR/${name}_run_card.dat   ${name}_run_card.dat
-fi	
-
-#######################
-#Locating the madspin card#
-#######################
-if [ ! -e $CARDSDIR/${name}_madspin_card_default.dat ]; then
-        echo $CARDSDIR/${name}_madspin_card_default.dat " does not exist! MadSpin will be disabled."
-        #cp $SCRIPTDIR/cards/madspin_card_default.dat ${name}_madspin_card_default.dat
-        #domadspin=1
-        #exit 1;
-else
-        cp $CARDSDIR/${name}_madspin_card_default.dat   ${name}_madspin_card_default.dat
-        echo "Enabling MadSpin"
-        domadspin=1
-fi
-
-
-#########################
-#Locating the param card#
-#########################
-#if [ ! -e $CARDSDIR/${name}_param_card.dat ]; then
-#	echo $CARDSDIR/${name}_param_card.dat " does not exist!"
-#	exit 1;
-#else
-#	cp $CARDSDIR/${name}_param_card.dat   ${name}_param_card.dat
-#fi	
-
 
 ############################
 #Create a workplace to work#
@@ -158,14 +102,6 @@ scram project -n ${name}_gridpack CMSSW ${RELEASE} ; cd ${name}_gridpack ; mkdir
 WORKDIR=`pwd`
 eval `scram runtime -sh`
 
-#echo $CMSSW_BASE
-
-#exit 0
-
-# force the f77 compiler to be the CMSSW defined ones
-ln -s `which gfortran` f77
-ln -s `which gfortran` g77
-export PATH=`pwd`:${PATH}
 
 #############################################
 #Copy, Unzip and Delete the MadGraph tarball#
@@ -177,102 +113,75 @@ export PATH=`pwd`:${PATH}
 cp ${MGSOURCE} .
 tar xzf ${MG}
 patch -l -p0 -i $PRODHOME/patches/mgfixes.patch
-#cd MG5_aMC_v2_0_2
-#cd MG5_aMC_v2_1_0
 cd $MGBASEDIR
 
-#disable non-batch-suitable behaviour
-#echo "mg5_path = ./" >> ./input/mg5_configuration.txt
-echo "auto_update = 0" >> ./input/mg5_configuration.txt
-echo "automatic_html_opening = False" >> ./input/mg5_configuration.txt
 
-#set lhapdf path correctly
-echo "lhapdf = ${LHAPATH}/../../../bin/lhapdf-config" >> ./input/mg5_configuration.txt
+echo "set auto_update 0" > mgconfigscript
+echo "set automatic_html_opening False" >> mgconfigscript
+echo "set lhapdf `echo "$LHAPATH/../../../full/bin/lhapdf-config"`" >> mgconfigscript
 
 if [ -n "$queue" ]; then
-    echo "run_mode = 1" >> ./input/mg5_configuration.txt
-    echo "cluster_type = lsf" >> ./input/mg5_configuration.txt
-    echo "cluster_queue = $queue" >> ./input/mg5_configuration.txt
+    echo "set run_mode  1" >> mgconfigscript
+    echo "set cluster_type lsf" >> mgconfigscript
+    echo "set cluster_queue $queue" >> mgconfigscript
+    echo "set cluster_status_update 60 30" >> mgconfigscript
+    echo "set cluster_nb_retry 3" >> mgconfigscript
 else
-    echo "run_mode = 2" >> ./input/mg5_configuration.txt
+    echo "set run_mode 2" >> mgconfigscript
 fi
 
+echo "save options" >> mgconfigscript
 
 
-#cp -p mgPostProcv2.py ${PRODHOME}/.
-#________________________________________
-# Some settings for cern caf batch job submission
+./bin/mg5_aMC mgconfigscript
 
-#exit 0
 
-#cat ${AFS_GEN_FOLDER}/${name}_run_card.dat | sed 's/  .false.     = gridpack  !True = setting up the grid pack/  .true.     = gridpack  !True = setting up the grid pack/g' > Template/Cards/run_card.dat
-
-#sed -i 's/100000       = nevents ! Number of unweighted events requested/1000       = nevents ! Number of unweighted events requested/g'  Template/Cards/run_card.dat
 
 echo `pwd`
-#echo cp ${AFS_GEN_FOLDER}/${name}_proc_card_mg5.dat Template/Cards/proc_card_mg5.dat
-#cp ${AFS_GEN_FOLDER}/${name}_proc_card_mg5.dat Template/Cards/proc_card_mg5.dat
-#cp ${AFS_GEN_FOLDER}/${name}_param_card.dat Template/Cards/param_card.dat
-cp ${AFS_GEN_FOLDER}/${name}_run_card.dat Template/NLO/Cards/run_card.dat
-cp ${AFS_GEN_FOLDER}/${name}_madspin_card_default.dat Template/Common/Cards/madspin_card_default.dat
 
 
-#mv Template/bin/internal/addmasses.py.no Template/bin/internal/addmasses.py
-
-#________________________________________
-# set the run cards with the appropriate initial seed
-
-#cd Template ; /bin/echo 5 | ./bin/newprocess_mg5 
-#cp symmetry.f SubProcesses/
-
-./bin/mg5_aMC ${AFS_GEN_FOLDER}/${name}_proc_card_mg5.dat
-cd $name
-
-#echo "lhapdf = ${LHAPATH}/../../../bin/lhapdf-config" > ./Cards/amcatnlo_configuration.txt
-#echo "mg5_path = ../" >> ./Cards/amcatnlo_configuration.txt
-#echo "mg5_path = ./" >> ./Cards/amcatnlo_configuration.txt
-
-
-####################################################
-#Modify the cluster to run on lsf with custom queue#
-####################################################
-#Cluster mode: Uncomment to use it
-#sed -e 's/run_mode = 0/run_mode = 1/g' -e 's/cluster_type = condor/cluster_type = lsf/g'  -e 's/cluster_queue = madgraph/cluster_queue = '${queue}'/g' ../input/mg5_configuration.txt > me5_temp ; mv me5_temp Cards/me5_configuration.txt
-
-#Multicore mode: Uncomment to use it
-#sed -e 's/run_mode = 0/run_mode = 2/g' -e 's/nb_core = None/nb_core = 8/g'  ../input/mg5_configuration.txt > me5_temp ; mv me5_temp Cards/me5_configuration.txt
-
-###################################################################################
-#Run the production stage - here you can select for running on multicore or not...#
-###################################################################################
-export PATH=`pwd`/bin:${PATH}
-
-if [ "$domadspin" -gt "0" ] ; then
-  cp Cards/madspin_card_default.dat Cards/madspin_card.dat
+########################
+#Locating the proc card#
+########################
+if [ ! -e $CARDSDIR/${name}_proc_card_mg5.dat ]; then
+	echo $CARDSDIR/${name}_proc_card_mg5.dat " does not exist!"
+	#exit 1;
+else
+	cp $CARDSDIR/${name}_proc_card_mg5.dat ${name}_proc_card_mg5.dat
 fi
 
-rm Cards/shower_card.dat
+./bin/mg5_aMC ${name}_proc_card_mg5.dat
 
-# copy the run card, proc card and param card to afs web folder.
-#cp -rf Cards/run_card.dat ${AFSFOLD}
-#cp -rf Cards/proc_card_mg5.dat ${AFSFOLD}
-#cp -rf Cards/param_card.dat ${AFSFOLD}
-echo "==============================================================================="
-cat Cards/proc_card_mg5.dat
+cd $name
 
-echo "==============================================================================="
-cat Cards/run_card.dat
+#######################
+#Locating the run card#
+#######################
+if [ ! -e $CARDSDIR/${name}_run_card.dat ]; then
+echo $CARDSDIR/${name}_run_card.dat " does not exist!"
+#exit 1;
+else
+cp $CARDSDIR/${name}_run_card.dat ./Cards/run_card.dat
+fi      
 
-echo "==============================================================================="
-cat Cards/param_card.dat
+#######################
+#Locating the madspin card#
+#######################
+if [ ! -e $CARDSDIR/${name}_madspin_card.dat ]; then
+        echo $CARDSDIR/${name}_madspin_card.dat " does not exist! MadSpin will not be run."
+else
+        cp $CARDSDIR/${name}_madspin_card.dat ./Cards/madspin_card.dat
+fi
 
-echo "==============================================================================="
-pwd
-echo "==============================================================================="
+echo "shower=OFF" > makegrid.dat
+echo "done" >> makegrid.dat
+if [ -e $CARDSDIR/${name}_customizecards.dat ]; then
+        cat $CARDSDIR/${name}_customizecards.dat >> makegrid.dat
+        echo "" >> makegrid.dat
+fi
+echo "done" >> makegrid.dat
 
-./bin/generate_events -f -n pilotrun
-
-ls  -ltrh
+cat makegrid.dat | ./bin/generate_events -n pilotrun
 
 #set to single core mode
 echo "mg5_path = ../" >> ./Cards/amcatnlo_configuration.txt

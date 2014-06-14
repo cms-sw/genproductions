@@ -25,7 +25,7 @@
 # (relative) accuracy on the Xsec.                                     *
 # These values are ignored for fixed order runs                        *
 #***********************************************************************
-  1000 = nevents ! Number of unweighted events requested 
+  250 = nevents ! Number of unweighted events requested 
  0.001 = req_acc ! Required accuracy (-1=auto determined from nevents)
     -1 = nevt_job! Max number of events per job in event generation. 
                  !  (-1= no split).
@@ -92,7 +92,7 @@ average = event_norm ! Normalize events to sum or average to the X sect.
   2.0     = rw_Rscale_up     ! upper bound for ren scale variations
   0.5     = rw_Fscale_down   ! lower bound for fact scale variations
   2.0     = rw_Fscale_up     ! upper bound for fact scale variations
- .false.  = reweight_PDF     ! reweight to get PDF uncertainty
+ .true.   = reweight_PDF     ! reweight to get PDF uncertainty
   10801   = PDF_set_min      ! First of the error PDF sets 
   10852   = PDF_set_max      ! Last of the error PDF sets
 #***********************************************************************
