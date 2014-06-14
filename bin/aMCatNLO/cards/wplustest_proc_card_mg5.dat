@@ -1,5 +1,7 @@
-import model loop_sm-lepton_masses_ckm
-#switch to diagonal ckm matrix to reduce number of diagrams for complex processes, or in case there are problems with on shell tops in the corrections
-#import model loop_sm-lepton-masses
+import model loop_sm
+#compute_widths 6
+#switch to non-diagonal ckm matrix if relevant
+#import model loop_sm-ckm
 generate p p > w+ [QCD]
 output wplustest
+

@@ -17,10 +17,10 @@ find ./ -wholename "*SubProcesses/*/*.o" >> cleanlist.txt
 #find ./ -name "*.pyo" >> cleanlist.txt
 
 
-cat cleanlist.txt
+#cat cleanlist.txt
 
 for i in `cat cleanlist.txt` ; do
-  echo "$i"
+  #echo "$i"
   rm -f "$i" >& /dev/null
 done
 rm -f cleanlist.txt >& /dev/null

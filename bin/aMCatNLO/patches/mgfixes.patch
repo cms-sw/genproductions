@@ -1,261 +1,90 @@
-diff -ur MG5_aMC_v2_1_0_orig/models/loop_sm/parameters.py MG5_aMC_v2_1_0/models/loop_sm/parameters.py
---- MG5_aMC_v2_1_0_orig/models/loop_sm/parameters.py    2014-02-07 19:34:30.000000000 +0100
-+++ MG5_aMC_v2_1_0/models/loop_sm/parameters.py 2014-02-12 19:56:51.627384800 +0100
-@@ -209,7 +209,7 @@
-                lhablock = 'MASS',
-                lhacode = [ 11 ])
+diff -ur mgbare/MG5_aMC_v2_1_1/madgraph/interface/madgraph_interface.py MG5_aMC_v2_1_1/madgraph/interface/madgraph_interface.py
+--- mgbare/MG5_aMC_v2_1_1/madgraph/interface/madgraph_interface.py      2014-04-01 09:44:13.000000001 +0200
++++ MG5_aMC_v2_1_1/madgraph/interface/madgraph_interface.py     2014-05-29 20:12:08.000000001 +0200
+@@ -4290,12 +4290,14 @@
+                 ld_path = misc.Popen([self.options['lhapdf'], '--libdir'],
+                                      stdout=subprocess.PIPE).communicate()[0]
+                 ld_path = ld_path.replace('\n','')
+-                if 'LD_LIBRARY_PATH' not in os.environ:
+-                    os.environ['LD_LIBRARY_PATH'] = ld_path
+-                elif not os.environ['LD_LIBRARY_PATH']:
+-                    os.environ['LD_LIBRARY_PATH'] = ld_path
+-                elif 1:#ld_path not in os.environ['LD_LIBRARY_PATH']:
+-                    os.environ['LD_LIBRARY_PATH'] += ';%s' % ld_path
++                lhaincludes = misc.Popen([self.options['lhapdf'], '--incdir'],
++                                     stdout=subprocess.PIPE).communicate()[0]
++                lhaincludes = lhaincludes.replace('\n','')                    
++                path = os.path.join(MG5DIR, 'SysCalc', 'src', 'Makefile')
++                text = open(path).read()
++                text = text.replace('INCLUDES =  -I../include','INCLUDES =  -I../include -I%s' % (lhaincludes))
++                text = text.replace('LIBS = -lLHAPDF','LIBS = %s/libLHAPDF.a -lgfortran' % (ld_path))
++                open(path, 'w').writelines(text)                    
+             else:
+                 raise self.InvalidCmd('lhapdf is required to compile/use SysCalc')
  
--MM = Parameter(name = 'MM',
-+Mass_Muon = Parameter(name = 'Mass_Muon',
-                nature = 'external',
-                type = 'real',
-                value = 0.10566,
-
-diff -ur MG5_aMC_v2_1_0_orig/models/loop_sm/particles.py MG5_aMC_v2_1_0/models/loop_sm/particles.py
---- MG5_aMC_v2_1_0_orig/models/loop_sm/particles.py     2014-02-07 19:34:30.000000000 +0100
-+++ MG5_aMC_v2_1_0/models/loop_sm/particles.py  2014-02-12 19:57:26.894836051 +0100
-@@ -254,7 +254,7 @@
-                       antiname = 'm+',
-                       spin = 2,
-                       color = 1,
--                      mass = Param.MM,
-+                      mass = Param.Mass_Muon,
-                       width = Param.ZERO,
-                       texname = 'm-',
-                       antitexname = 'm-',
-
-diff -ur MG5_aMC_v2_1_0_orig/MadSpin/interface_madspin.py MG5_aMC_v2_1_0/MadSpin/interface_madspin.py
---- MG5_aMC_v2_1_0_orig/MadSpin/interface_madspin.py    2014-02-21 18:14:13.000000000 +0100
-+++ MG5_aMC_v2_1_0/MadSpin/interface_madspin.py 2014-02-25 09:41:56.000000000 +0100
-@@ -510,6 +510,14 @@
-         generate_all.pid2width = lambda pid: generate_all.banner.get('param_card', 'decay', abs(pid)).value
-         generate_all.pid2mass = lambda pid: generate_all.banner.get('param_card', 'mass', abs(pid)).value
+diff -ur mgbare/MG5_aMC_v2_1_1/madgraph/various/cluster.py MG5_aMC_v2_1_1/madgraph/various/cluster.py
+--- mgbare/MG5_aMC_v2_1_1/madgraph/various/cluster.py   2014-04-01 09:44:13.000000001 +0200
++++ MG5_aMC_v2_1_1/madgraph/various/cluster.py  2014-05-29 15:29:28.000000001 +0200
+@@ -206,8 +206,8 @@
+         while 1: 
+             nb_iter += 1
+             idle, run, finish, fail = self.control(me_dir)
+-            if fail:
+-                raise ClusterManagmentError('Some Jobs are in a Hold/... state. Please try to investigate or contact the IT team')
++#            if fail:
++#                raise ClusterManagmentError('Some Jobs are in a Hold/... state. Please try to investigate or contact the IT team')
+             if idle + run == 0:
+                 #time.sleep(20) #security to ensure that the file are really written on the disk
+                 logger.info('All jobs finished')
+@@ -1273,6 +1273,9 @@
+         if log is None:
+             log = '/dev/null'
          
-+        if generate_all.path_me != self.options['ms_dir']:
-+          for decay in generate_all.all_ME.values():
-+            decay['path'] = decay['path'].replace(generate_all.path_me, self.options['ms_dir'])
-+            for decay2 in decay['decays']:
-+              decay2['path'] = decay2['path'].replace(generate_all.path_me, self.options['ms_dir'])
-+          generate_all.path_me = self.options['ms_dir'] # directory can have been move
-+          generate_all.ms_dir = generate_all.path_me
-+
-         if not hasattr(self.banner, 'param_card'):
-             self.banner.charge_card('slha')
-         for name, block in self.banner.param_card.items():
++        text += 'OLDPWD=$PWD;'
++        text += 'if [ -n $CMSSW_BASE ]; then cd $CMSSW_BASE; eval `scramv1 runtime -sh`; cd $OLDPWD; fi;'
++        
+         text += prog
+         if argument:
+             text += ' ' + ' '.join(argument)
 
-diff -urN MG5_aMC_v2_1_0_orig/models/loop_sm/restrict_lepton_masses_ckm.dat MG5_aMC_v2_1_0/models/loop_sm/restrict_lepton_masses_ckm.dat
---- MG5_aMC_v2_1_0_orig/models/loop_sm/restrict_lepton_masses_ckm.dat   1970-01-01 01:00:00.000000000 +0100
-+++ MG5_aMC_v2_1_0/models/loop_sm/restrict_lepton_masses_ckm.dat        2014-02-12 19:43:17.937975500 +0100
-@@ -0,0 +1,63 @@
-+######################################################################
-+## PARAM_CARD AUTOMATICALY GENERATED BY THE UFO  #####################
-+######################################################################
-+
-+###################################
-+### INFORMATION FOR LOOP
-+####################################
-+Block loop
-+  1 9.118800e+01 # MU_R
-+
-+###################################
-+## INFORMATION FOR SMINPUTS
-+###################################
-+Block SMINPUTS 
-+    1 1.325070e+02 # aEWM1 
-+    2 1.166390e-05 # Gf 
-+    3 1.180000e-01 # aS 
-+
-+###################################
-+## INFORMATION FOR MASS
-+###################################
-+Block MASS 
-+    4 0.000000e+00 # MC 
-+    5 4.700000e+00 # MB 
-+    6 1.730000e+02 # MT 
-+   11 5.110000e-04 # Me 
-+   13 1.056600e-01 # MM 
-+   15 1.777000e+00 # MTA 
-+   23 9.118800e+01 # MZ 
-+   25 1.250000e+02 # MH 
-+
-+###################################
-+## INFORMATION FOR DECAY
-+###################################
-+DECAY   6 1.491500E+00
-+DECAY  15 2.270000e-12
-+DECAY  23 2.441404e+00 
-+DECAY  24 2.047600e+00 
-+DECAY  25 6.38233934e-03 
-+
-+###################################
-+## INFORMATION FOR WOLFENSTEIN
-+###################################
-+Block Wolfenstein 
-+#    1 0.000000e+00 # lamWS 
-+#    2 0.000000e+00 # AWS 
-+#    3 0.000000e+00 # rhoWS 
-+#    4 0.000000e+00 # etaWS 
-+    1 2.253000e-01 # lamWS 
-+    2 8.080000e-01 # AWS 
-+    3 1.320000e-01 # rhoWS 
-+    4 3.410000e-01 # etaWS    
-+
-+###################################
-+## INFORMATION FOR YUKAWA
-+###################################
-+Block YUKAWA 
-+    4 0.000000e+00 # ymc 
-+    5 4.700000e+00 # ymb
-+    6 1.730000e+02 # ymt
-+   11 5.110000e-04 # yme
-+   13 1.056600e-01 # ymm
-+   15 1.777000e+00 # ymtau 
+=== modified file 'Template/NLO/Source/ranmar.f'
+--- MG5_aMC_v2_1_1/Template/NLO/Source/ranmar.f	2012-08-30 14:59:00 +0000
++++ MG5_aMC_v2_1_1/Template/NLO/Source/ranmar.f	2014-06-12 08:28:28 +0000
+@@ -50,7 +50,12 @@
+       if (init .eq. 1) then
+          init = 0
+          call get_offset(ioffset)
+-         if (iseed .eq. 0) call get_base(iseed)
++cRF : always read the seed from the randinit file (this file is updated
++c by amcatnlo_run_interface every time a run starts). This makes sure
++c that the code does not need any remcompilation when only the seed is
++c changed (useful for NLO gridpack mode).
++c$$$         if (iseed .eq. 0) call get_base(iseed)
++         call get_base(iseed)
+ c
+ c     TJS 3/13/2008
+ c     Modified to allow for more sequences 
 
-diff -urN MG5_aMC_v2_1_0_orig/models/loop_sm/restrict_lepton_masses_ckm.dat MG5_aMC_v2_1_0/models/loop_sm/restrict_lepton_masses_no_b_mass_ckm.dat
---- MG5_aMC_v2_1_0_orig/models/loop_sm/restrict_lepton_masses_no_b_mass_ckm.dat   1970-01-01 01:00:00.000000000 +0100
-+++ MG5_aMC_v2_1_0/models/loop_sm/restrict_lepton_masses_no_b_mass_ckm.dat        2014-02-12 19:43:17.937975500 +0100
-@@ -0,0 +1,63 @@
-+######################################################################
-+## PARAM_CARD AUTOMATICALY GENERATED BY THE UFO  #####################
-+######################################################################
-+
-+###################################
-+### INFORMATION FOR LOOP
-+####################################
-+Block loop
-+  1 9.118800e+01 # MU_R
-+
-+###################################
-+## INFORMATION FOR SMINPUTS
-+###################################
-+Block SMINPUTS 
-+    1 1.325070e+02 # aEWM1 
-+    2 1.166390e-05 # Gf 
-+    3 1.180000e-01 # aS 
-+
-+###################################
-+## INFORMATION FOR MASS
-+###################################
-+Block MASS 
-+    4 0.000000e+00 # MC 
-+    5 0.000000e+00 # MB 
-+    6 1.730000e+02 # MT 
-+   11 5.110000e-04 # Me 
-+   13 1.056600e-01 # MM 
-+   15 1.777000e+00 # MTA 
-+   23 9.118800e+01 # MZ 
-+   25 1.250000e+02 # MH 
-+
-+###################################
-+## INFORMATION FOR DECAY
-+###################################
-+DECAY   6 1.491500E+00
-+DECAY  15 2.270000e-12
-+DECAY  23 2.441404e+00 
-+DECAY  24 2.047600e+00 
-+DECAY  25 6.38233934e-03 
-+
-+###################################
-+## INFORMATION FOR WOLFENSTEIN
-+###################################
-+Block Wolfenstein 
-+#    1 0.000000e+00 # lamWS 
-+#    2 0.000000e+00 # AWS 
-+#    3 0.000000e+00 # rhoWS 
-+#    4 0.000000e+00 # etaWS 
-+    1 2.253000e-01 # lamWS 
-+    2 8.080000e-01 # AWS 
-+    3 1.320000e-01 # rhoWS 
-+    4 3.410000e-01 # etaWS    
-+
-+###################################
-+## INFORMATION FOR YUKAWA
-+###################################
-+Block YUKAWA 
-+    4 0.000000e+00 # ymc 
-+    5 0.000000e+00 # ymb
-+    6 1.730000e+02 # ymt
-+   11 5.110000e-04 # yme
-+   13 1.056600e-01 # ymm
-+   15 1.777000e+00 # ymtau 
-
-diff -urN MG5_aMC_v2_1_0_orig/models/loop_sm/restrict_lepton_masses_ckm.dat MG5_aMC_v2_1_0/models/loop_sm/restrict_lepton_masses_no_b_mass.dat
---- MG5_aMC_v2_1_0_orig/models/loop_sm/restrict_lepton_masses_no_b_mass.dat   1970-01-01 01:00:00.000000000 +0100
-+++ MG5_aMC_v2_1_0/models/loop_sm/restrict_lepton_masses_no_b_mass.dat        2014-02-12 19:43:17.937975500 +0100
-@@ -0,0 +1,63 @@
-+######################################################################
-+## PARAM_CARD AUTOMATICALY GENERATED BY THE UFO  #####################
-+######################################################################
-+
-+###################################
-+### INFORMATION FOR LOOP
-+####################################
-+Block loop
-+  1 9.118800e+01 # MU_R
-+
-+###################################
-+## INFORMATION FOR SMINPUTS
-+###################################
-+Block SMINPUTS 
-+    1 1.325070e+02 # aEWM1 
-+    2 1.166390e-05 # Gf 
-+    3 1.180000e-01 # aS 
-+
-+###################################
-+## INFORMATION FOR MASS
-+###################################
-+Block MASS 
-+    4 0.000000e+00 # MC 
-+    5 0.000000e+00 # MB 
-+    6 1.730000e+02 # MT 
-+   11 5.110000e-04 # Me 
-+   13 1.056600e-01 # MM 
-+   15 1.777000e+00 # MTA 
-+   23 9.118800e+01 # MZ 
-+   25 1.250000e+02 # MH 
-+
-+###################################
-+## INFORMATION FOR DECAY
-+###################################
-+DECAY   6 1.491500E+00
-+DECAY  15 2.270000e-12
-+DECAY  23 2.441404e+00 
-+DECAY  24 2.047600e+00 
-+DECAY  25 6.38233934e-03 
-+
-+###################################
-+## INFORMATION FOR WOLFENSTEIN
-+###################################
-+Block Wolfenstein 
-+    1 0.000000e+00 # lamWS 
-+    2 0.000000e+00 # AWS 
-+    3 0.000000e+00 # rhoWS 
-+    4 0.000000e+00 # etaWS 
-+#    1 2.253000e-01 # lamWS 
-+#    2 8.080000e-01 # AWS 
-+#    3 1.320000e-01 # rhoWS 
-+#    4 3.410000e-01 # etaWS    
-+
-+###################################
-+## INFORMATION FOR YUKAWA
-+###################################
-+Block YUKAWA 
-+    4 0.000000e+00 # ymc 
-+    5 0.000000e+00 # ymb
-+    6 1.730000e+02 # ymt
-+   11 5.110000e-04 # yme
-+   13 1.056600e-01 # ymm
-+   15 1.777000e+00 # ymtau 
-
-diff -ur MG5_aMC_v2_1_0_orig/Template/NLO/SubProcesses/makefile_fks_dir MG5_aMC_v2_1_0/Template/NLO/SubProcesses/makefile_fks_dir
---- MG5_aMC_v2_1_0_orig/Template/NLO/SubProcesses/makefile_fks_dir      2014-02-07 19:34:30.000000000 +0100
-+++ MG5_aMC_v2_1_0/Template/NLO/SubProcesses/makefile_fks_dir   2014-02-14 19:00:29.000000000 +0100
-@@ -19,7 +19,7 @@
- # Uncomment the line below to compile with MadLoop without setting the environnement
- # variables 'by hand'
- # NLOLIBS= -L. -lMadLoop -L$(LIBDIR) -lcts
--LINKLIBS = -L$(LIBDIR) -ldhelas -lgeneric -lmodel -lpdf -lcernlib $(lhapdf)
-+LINKLIBS = -L$(LIBDIR) -ldhelas -lgeneric -lmodel -lpdf -lcernlib $(lhapdf) -lz
- LIBS = $(LIBDIR)libdhelas.a $(LIBDIR)libgeneric.a $(LIBDIR)libmodel.a  \
- $(LIBDIR)libpdf.a $(LIBDIR)libcernlib.a
-
+=== modified file 'Template/NLO/SubProcesses/ajob_template'
+--- MG5_aMC_v2_1_1/Template/NLO/SubProcesses/ajob_template	2014-03-13 18:02:02 +0000
++++ MG5_aMC_v2_1_1/Template/NLO/SubProcesses/ajob_template	2014-06-12 08:34:09 +0000
+@@ -62,12 +62,13 @@
+             fi
+         fi
+     fi
+-    if  [[ ! -e randinit ]] ; then
+-        if [[ -e ../randinit ]] ; then
+-            cp ../randinit .
+-        else
+-            cp ../../randinit .
+-        fi
++    if  [[ -e randinit ]] ; then
++	rm -f randinit
++    fi
++    if [[ -e ../randinit ]] ; then
++        ln -sf ../randinit .
++    else
++        ln -sf ../../randinit .
+     fi
+     if  [[ ! -e symfact.dat ]] ; then
+     	if [[  -e ../symfact.dat ]] ; then
