@@ -135,14 +135,14 @@ pwd
 cp ${file}_final.lhe ${WORKDIR}/.
 
 
-cp -p *grid*.dat ${WORKDIR}/.
-cp -p pwgubound.dat ${WORKDIR}/.
+cp -p pwg*.dat ${WORKDIR}/.
 cd ${WORKDIR}
 gunzip ${tarball}_temp.tar.gz
-tar rf ${tarball}_temp.tar *grid*.dat pwgubound.dat
+tar rf ${tarball}_temp.tar pwg*.dat
 gzip ${tarball}_temp.tar
 mv ${tarball}_temp.tar.gz ${tarball}.tar.gz
-echo "Copy the grid file pwggrid.dat and the upper bound file pwgubound.dat to the  tar ball $tarball.tar.gz "
+tar tvf ${tarball}.tar.gz
+echo "Copy the required grid files pwg*.dat to the tar ball $tarball.tar.gz "
 
 echo "Tarball ${tarball}.tar.gz ready with log_${process}_${seed}.txt and ${file}_final.lhe at `pwd` and $WORKDIR"
 echo "End of job on " `date`
