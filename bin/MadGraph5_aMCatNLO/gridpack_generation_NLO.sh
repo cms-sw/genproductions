@@ -190,7 +190,7 @@ echo "run_mode = 0" >> ./Cards/amcatnlo_configuration.txt
 cd $WORKDIR/$MGBASEDIR
 
 #clean unneeded files for generation
-$PRODHOME/clean4grid.sh
+$PRODHOME/clean4grid_NLO.sh
 
 cd $WORKDIR
 mv $MGBASEDIR mgbasedir
