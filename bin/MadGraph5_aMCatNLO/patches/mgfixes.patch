@@ -1,27 +1,3 @@
-diff -ur mgbare/MG5_aMC_v2_1_1/madgraph/interface/madgraph_interface.py MG5_aMC_v2_1_1/madgraph/interface/madgraph_interface.py
---- mgbare/MG5_aMC_v2_1_1/madgraph/interface/madgraph_interface.py      2014-04-01 09:44:13.000000001 +0200
-+++ MG5_aMC_v2_1_1/madgraph/interface/madgraph_interface.py     2014-05-29 20:12:08.000000001 +0200
-@@ -4290,12 +4290,14 @@
-                 ld_path = misc.Popen([self.options['lhapdf'], '--libdir'],
-                                      stdout=subprocess.PIPE).communicate()[0]
-                 ld_path = ld_path.replace('\n','')
--                if 'LD_LIBRARY_PATH' not in os.environ:
--                    os.environ['LD_LIBRARY_PATH'] = ld_path
--                elif not os.environ['LD_LIBRARY_PATH']:
--                    os.environ['LD_LIBRARY_PATH'] = ld_path
--                elif 1:#ld_path not in os.environ['LD_LIBRARY_PATH']:
--                    os.environ['LD_LIBRARY_PATH'] += ';%s' % ld_path
-+                lhaincludes = misc.Popen([self.options['lhapdf'], '--incdir'],
-+                                     stdout=subprocess.PIPE).communicate()[0]
-+                lhaincludes = lhaincludes.replace('\n','')                    
-+                path = os.path.join(MG5DIR, 'SysCalc', 'src', 'Makefile')
-+                text = open(path).read()
-+                text = text.replace('INCLUDES =  -I../include','INCLUDES =  -I../include -I%s' % (lhaincludes))
-+                text = text.replace('LIBS = -lLHAPDF','LIBS = %s/libLHAPDF.a -lgfortran' % (ld_path))
-+                open(path, 'w').writelines(text)                    
-             else:
-                 raise self.InvalidCmd('lhapdf is required to compile/use SysCalc')
- 
 diff -ur mgbare/MG5_aMC_v2_1_1/madgraph/various/cluster.py MG5_aMC_v2_1_1/madgraph/various/cluster.py
 --- mgbare/MG5_aMC_v2_1_1/madgraph/various/cluster.py   2014-04-01 09:44:13.000000001 +0200
 +++ MG5_aMC_v2_1_1/madgraph/various/cluster.py  2014-05-29 15:29:28.000000001 +0200
@@ -88,3 +64,71 @@ diff -ur mgbare/MG5_aMC_v2_1_1/madgraph/various/cluster.py MG5_aMC_v2_1_1/madgra
      fi
      if  [[ ! -e symfact.dat ]] ; then
      	if [[  -e ../symfact.dat ]] ; then
+diff -ur ../old/MG5_aMC_v2_1_1/Template/LO/bin/internal/Gridpack/run.sh MG5_aMC_v2_1_1/Template/LO/bin/internal/Gridpack/run.sh
+--- ../old/MG5_aMC_v2_1_1/Template/LO/bin/internal/Gridpack/run.sh      2014-04-01 09:44:13.000000001 +0200
++++ MG5_aMC_v2_1_1/Template/LO/bin/internal/Gridpack/run.sh     2014-06-29 18:34:42.000000001 +0200
+@@ -78,37 +78,5 @@
+     cd ..
+ fi
+ 
+-if [[ -e ./DECAY/decay ]]; then
+-    cd DECAY
+-    echo -$seed > iseed.dat
+-    for ((i = 1 ;  i <= 20;  i++)) ; do
+-       if [[ -e decay_$i\.in ]]; then
+-           echo "Decaying events..."
+-           mv ../events.lhe ../events_in.lhe
+-           ./decay < decay_$i\.in
+-       fi
+-    done
+-    cd ..
+-fi
+-
+-if [[ -e ./REPLACE/replace.pl ]]; then
+-    for ((i = 1 ;  i <= 20;  i++)) ; do
+-       if [[ -e ./REPLACE/replace_card$i\.dat ]];then
+-           echo "Adding flavors..."
+-           mv ./events.lhe ./events_in.lhe
+-           cd ./REPLACE
+-           ./replace.pl ../events_in.lhe ../events.lhe < replace_card$i\.dat
+-           cd ..
+-       fi
+-    done
+-fi
+-
+-# part added by Stephen Mrenna to correct the kinematics of the replaced
+-#  particles
+-if [[ -e ./madevent/bin/internal/addmasses.py ]]; then
+-  mv ./events.lhe ./events.lhe.0
+-  python ./madevent/bin/internal/addmasses.py ./events.lhe.0 ./events.lhe
+-fi  
+-
+ gzip -f events.lhe
+ exit
+diff -ur ../old/MG5_aMC_v2_1_1/madgraph/various/misc.py MG5_aMC_v2_1_1/madgraph/various/misc.py
+--- ../old/MG5_aMC_v2_1_1/madgraph/various/misc.py      2014-04-01 09:44:13.000000001 +0200
++++ MG5_aMC_v2_1_1/madgraph/various/misc.py     2014-06-29 18:40:32.000000001 +0200
+@@ -647,12 +647,21 @@
+     """
+ 
+     def __init__(self, suffix='', prefix='tmp', dir=None):
++        self.nb_try_remove = 0
+         import tempfile   
+         self.path = tempfile.mkdtemp(suffix, prefix, dir)
+ 
+-
++    
+     def __exit__(self, ctype, value, traceback ):
+-        shutil.rmtree(self.path)
++        try:
++            shutil.rmtree(self.path)
++        except OSError:
++            self.nb_try_remove += 1
++            if self.nb_try_remove < 3:
++                time.sleep(10)
++                self.__exit__(ctype, value, traceback)
++            else:
++                logger.warning("Directory %s not completely cleaned. This directory can be removed manually" % self.path)
+         
+     def __enter__(self):
+         return self.path

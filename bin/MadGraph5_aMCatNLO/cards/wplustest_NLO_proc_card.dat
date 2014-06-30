@@ -1,7 +1,6 @@
 import model loop_sm
-#compute_widths 6
 #switch to non-diagonal ckm matrix if relevant
 #import model loop_sm-ckm
 generate p p > w+ [QCD]
-output wplustest
+output wplustest_NLO
 
