@@ -1,0 +1,5 @@
+import model sm
+#switch to non-diagonal ckm matrix if relevant
+#import model sm-ckm
+generate p p > w+
+output wplustest_LO
