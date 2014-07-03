@@ -37,6 +37,12 @@ export WORKDIR=`pwd`
 myDir=powhegbox_${process}
 card=${WORKDIR}/powheg.input
 
+if [[ -e ${myDir} ]]; then
+  echo -e "The directory ${myDir} exists! Move the directory to old_${myDir}\n"
+  mv ${myDir} old_${myDir}
+  mv cmsgrid_final.lhe old_cmsgrid_final.lhe
+fi
+
 mkdir ${myDir}; cd ${myDir} ;  
 
 # force the f77 compiler to be the CMS defined one
@@ -45,10 +51,10 @@ mkdir ${myDir}; cd ${myDir} ;
 export PATH=`pwd`:${PATH}
 
 if [[ -e ${WORKDIR}/pwggrid.dat ]]; then
-    mv ${WORKDIR}/pwg*.dat .
+    cp -p ${WORKDIR}/pwg*.dat .
 fi
 if [ -e  ${WORKDIR}/vbfnlo.input ]; then
-    mv ${WORKDIR}/vbfnlo.input .
+    cp -p ${WORKDIR}/vbfnlo.input .
 fi
 
 if [[ ! -e ${card} ]]; then
@@ -74,6 +80,7 @@ lhrwgt_group_name 'scale_variation'
 lhrwgt_group_combine 'envelope'
 EOF
 else
+    echo -e "\nWarning!! The output will not contain weights!\n"
     produceWeights="false"
 fi
 
@@ -89,45 +96,44 @@ then
     grep -q "storeinfo_rwgt 0" powheg.input.tmp ; test $? -eq 0 || fail_exit "Weights will be re-written!"
     grep -q "compute_rwgt 1" powheg.input.tmp ; test $? -eq 0 || fail_exit "Weights are not calculated!"
 
-    echo -e "\ncomputing weights for 7 scale variation\n"
+    echo -e "\ncomputing weights for 9 scale variations\n"
     iteration=-1
     lastfile=2
+    array=(1 2 0.5)
     counter=1000
     while [ $iteration -lt $lastfile ];
       do
       iteration=$(( iteration + 1 ))
-      power1=`echo "2^$iteration" | bc`
-      scale1=`echo "0.5*$power1" | bc`
+      scale1=${array[$iteration]}
 
       iter=-1
       last=2
       while [ $iter -lt $last ];
 	do
 	iter=$(( iter + 1 ))
-	power2=`echo "2^$iter" | bc`
-	scale2=`echo "0.5*$power2" | bc`
+	scale2=${array[$iter]}
 	rm -rf powheg.input	      
-	if (( $(bc <<< "$scale1 <= 2*$scale2") == 1 && $(bc <<< "$scale1 >= 0.5*$scale2") == 1 )); 
-	    then 
-	    echo -e "\n doing scale ${scale1}, ${scale2}\n"
-	    sed -e 's/.*renscfact.*/renscfact '$scale1'd0/ ; s/.*facscfact.*/facscfact '$scale2'd0/' powheg.input.tmp > powheg.input
+#	if (( $(bc <<< "$scale1 <= 2*$scale2") == 1 && $(bc <<< "$scale1 >= 0.5*$scale2") == 1 )); 
+#	    then 
+	echo -e "\n doing scale ${scale1}, ${scale2}\n"
+	sed -e 's/.*renscfact.*/renscfact '$scale1'd0/ ; s/.*facscfact.*/facscfact '$scale2'd0/' powheg.input.tmp > powheg.input
 
-	    counter=$(( counter + 1 ))
-	    echo -e "\nlhrwgt_id '${counter}'" >> powheg.input
-	    echo -e "lhrwgt_descr 'muR=${scale1} muF=${scale2}'" >> powheg.input
-	    echo -e "lhrwgt_group_name 'scale_variation'" >> powheg.input
-	    echo -e "lhrwgt_group_combine 'envelope'" >> powheg.input
-
-	    ../pwhg_main &>> reweightlog_${process}_${seed}.txt  
-	    mv pwgevents-rwgt.lhe pwgevents.lhe
-	    mv powheg.input powheg.input.${scale1}_${scale2}
-	fi;      
+	counter=$(( counter + 1 ))
+	echo -e "\nlhrwgt_id '${counter}'" >> powheg.input
+	echo -e "lhrwgt_descr 'muR=${scale1} muF=${scale2}'" >> powheg.input
+	echo -e "lhrwgt_group_name 'scale_variation'" >> powheg.input
+	echo -e "lhrwgt_group_combine 'envelope'" >> powheg.input
+	
+	../pwhg_main &>> reweightlog_${process}_${seed}.txt  
+	mv pwgevents-rwgt.lhe pwgevents.lhe
+	mv powheg.input powheg.input.${scale1}_${scale2}
+#      fi;      
       done
     done
 
-    echo -e "\ncomputing weights for 52 CT10 PDF variation\n"
-    iteration=11000
-    lastfile=11052
+    echo -e "\ncomputing weights for 52 CT10 PDF variations\n"
+    iteration=10800
+    lastfile=10852
     counter=2000
     while [ $iteration -lt $lastfile ];
       do
