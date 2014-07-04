@@ -1,72 +1,46 @@
-diff -ur mgbare/MG5_aMC_v2_1_1/madgraph/various/cluster.py MG5_aMC_v2_1_1/madgraph/various/cluster.py
---- mgbare/MG5_aMC_v2_1_1/madgraph/various/cluster.py   2014-04-01 09:44:13.000000001 +0200
-+++ MG5_aMC_v2_1_1/madgraph/various/cluster.py  2014-05-29 15:29:28.000000001 +0200
+--- ../old/MG5_aMC_v2_1_2/madgraph/various/banner.py    2014-07-03 15:37:56.000000001 +0200
++++ MG5_aMC_v2_1_2/madgraph/various/banner.py   2014-07-04 15:46:18.000000001 +0200
+@@ -1116,9 +1116,11 @@
+             # update the counter to pass to the next element
+             nline -= 1
+         
+-    def __getattr__(self, tag):
++    def __getattr__(self, tag, default=None):
+         if isinstance(tag, int):
+             list.__getattr__(self, tag)
++        elif tag == 'info' or tag == "__setstate__":
++            return default #for pickle
+         else:
+             return self.info[tag]
+             
+diff -ur ../old/MG5_aMC_v2_1_2/madgraph/various/cluster.py MG5_aMC_v2_1_2/madgraph/various/cluster.py
+--- ../old/MG5_aMC_v2_1_2/madgraph/various/cluster.py   2014-07-03 15:37:56.000000001 +0200
++++ MG5_aMC_v2_1_2/madgraph/various/cluster.py  2014-07-03 18:19:17.000000001 +0200
 @@ -206,8 +206,8 @@
          while 1: 
              nb_iter += 1
              idle, run, finish, fail = self.control(me_dir)
 -            if fail:
 -                raise ClusterManagmentError('Some Jobs are in a Hold/... state. Please try to investigate or contact the IT team')
-+#            if fail:
-+#                raise ClusterManagmentError('Some Jobs are in a Hold/... state. Please try to investigate or contact the IT team')
++            #if fail:
++                #raise ClusterManagmentError('Some Jobs are in a Hold/... state. Please try to investigate or contact the IT team')
              if idle + run == 0:
                  #time.sleep(20) #security to ensure that the file are really written on the disk
                  logger.info('All jobs finished')
-@@ -1273,6 +1273,9 @@
+@@ -1274,6 +1274,9 @@
          if log is None:
              log = '/dev/null'
          
 +        text += 'OLDPWD=$PWD;'
-+        text += 'if [ -n $CMSSW_BASE ]; then cd $CMSSW_BASE; eval `scramv1 runtime -sh`; cd $OLDPWD; fi;'
++        text += 'if [ -n $CMSSW_BASE ]; then cd $CMSSW_BASE; eval `scramv1 runtime -sh`; cd $OLDPWD; fi;'        
 +        
          text += prog
          if argument:
              text += ' ' + ' '.join(argument)
 
-=== modified file 'Template/NLO/Source/ranmar.f'
---- MG5_aMC_v2_1_1/Template/NLO/Source/ranmar.f	2012-08-30 14:59:00 +0000
-+++ MG5_aMC_v2_1_1/Template/NLO/Source/ranmar.f	2014-06-12 08:28:28 +0000
-@@ -50,7 +50,12 @@
-       if (init .eq. 1) then
-          init = 0
-          call get_offset(ioffset)
--         if (iseed .eq. 0) call get_base(iseed)
-+cRF : always read the seed from the randinit file (this file is updated
-+c by amcatnlo_run_interface every time a run starts). This makes sure
-+c that the code does not need any remcompilation when only the seed is
-+c changed (useful for NLO gridpack mode).
-+c$$$         if (iseed .eq. 0) call get_base(iseed)
-+         call get_base(iseed)
- c
- c     TJS 3/13/2008
- c     Modified to allow for more sequences 
-
-=== modified file 'Template/NLO/SubProcesses/ajob_template'
---- MG5_aMC_v2_1_1/Template/NLO/SubProcesses/ajob_template	2014-03-13 18:02:02 +0000
-+++ MG5_aMC_v2_1_1/Template/NLO/SubProcesses/ajob_template	2014-06-12 08:34:09 +0000
-@@ -62,12 +62,13 @@
-             fi
-         fi
-     fi
--    if  [[ ! -e randinit ]] ; then
--        if [[ -e ../randinit ]] ; then
--            cp ../randinit .
--        else
--            cp ../../randinit .
--        fi
-+    if  [[ -e randinit ]] ; then
-+	rm -f randinit
-+    fi
-+    if [[ -e ../randinit ]] ; then
-+        ln -sf ../randinit .
-+    else
-+        ln -sf ../../randinit .
-     fi
-     if  [[ ! -e symfact.dat ]] ; then
-     	if [[  -e ../symfact.dat ]] ; then
-diff -ur ../old/MG5_aMC_v2_1_1/Template/LO/bin/internal/Gridpack/run.sh MG5_aMC_v2_1_1/Template/LO/bin/internal/Gridpack/run.sh
---- ../old/MG5_aMC_v2_1_1/Template/LO/bin/internal/Gridpack/run.sh      2014-04-01 09:44:13.000000001 +0200
-+++ MG5_aMC_v2_1_1/Template/LO/bin/internal/Gridpack/run.sh     2014-06-29 18:34:42.000000001 +0200
+diff -ur ../old/MG5_aMC_v2_1_2/Template/LO/bin/internal/Gridpack/run.sh MG5_aMC_v2_1_2/Template/LO/bin/internal/Gridpack/run.sh
+--- ../old/MG5_aMC_v2_1_2/Template/LO/bin/internal/Gridpack/run.sh      2014-04-01 09:44:13.000000001 +0200
++++ MG5_aMC_v2_1_2/Template/LO/bin/internal/Gridpack/run.sh     2014-06-29 18:34:42.000000001 +0200
 @@ -78,37 +78,5 @@
      cd ..
  fi
@@ -105,30 +79,3 @@ diff -ur ../old/MG5_aMC_v2_1_1/Template/LO/bin/internal/Gridpack/run.sh MG5_aMC_
 -
  gzip -f events.lhe
  exit
-diff -ur ../old/MG5_aMC_v2_1_1/madgraph/various/misc.py MG5_aMC_v2_1_1/madgraph/various/misc.py
---- ../old/MG5_aMC_v2_1_1/madgraph/various/misc.py      2014-04-01 09:44:13.000000001 +0200
-+++ MG5_aMC_v2_1_1/madgraph/various/misc.py     2014-06-29 18:40:32.000000001 +0200
-@@ -647,12 +647,21 @@
-     """
- 
-     def __init__(self, suffix='', prefix='tmp', dir=None):
-+        self.nb_try_remove = 0
-         import tempfile   
-         self.path = tempfile.mkdtemp(suffix, prefix, dir)
- 
--
-+    
-     def __exit__(self, ctype, value, traceback ):
--        shutil.rmtree(self.path)
-+        try:
-+            shutil.rmtree(self.path)
-+        except OSError:
-+            self.nb_try_remove += 1
-+            if self.nb_try_remove < 3:
-+                time.sleep(10)
-+                self.__exit__(ctype, value, traceback)
-+            else:
-+                logger.warning("Directory %s not completely cleaned. This directory can be removed manually" % self.path)
-         
-     def __enter__(self):
-         return self.path

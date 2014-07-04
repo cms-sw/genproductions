@@ -16,10 +16,13 @@ cd process
 #make sure lhapdf points to local cmssw installation area
 echo "lhapdf = `echo "$LHAPATH/../../../full/bin/lhapdf-config"`" >> ./Cards/amcatnlo_configuration.txt
 
-if [ "$ncpu" -gt "1" ]; then
-  echo "run_mode = 2" >> ./Cards/amcatnlo_configuration.txt
-  echo "nb_core = $ncpu" >> ./Cards/amcatnlo_configuration.txt
-fi
+# if [ "$ncpu" -gt "1" ]; then
+#   echo "run_mode = 2" >> ./Cards/amcatnlo_configuration.txt
+#   echo "nb_core = $ncpu" >> ./Cards/amcatnlo_configuration.txt
+# fi
+
+echo "run_mode = 2" >> ./Cards/amcatnlo_configuration.txt
+echo "nb_core = $ncpu" >> ./Cards/amcatnlo_configuration.txt
 
 echo "done" > runscript.dat
 echo "set nevents $nevt" >> runscript.dat
