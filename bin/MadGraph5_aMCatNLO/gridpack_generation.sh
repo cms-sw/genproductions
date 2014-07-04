@@ -64,13 +64,13 @@ CARDSDIR=${PRODHOME}/cards
 # where to find the madgraph tarred distribution
 MGDIR=${PRODHOME}/
 
-MG=MG5_aMC_v2.1.1.tar.gz
+MG=MG5_aMC_v2.1.2.tar.gz
 MGSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$MG
 
 SYSCALC=SysCalc_V1.1.0.tar.gz
 SYSCALCSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$SYSCALC
 
-MGBASEDIR=MG5_aMC_v2_1_1
+MGBASEDIR=MG5_aMC_v2_1_2
 
 if [ ! -d ${AFS_GEN_FOLDER} ];then
 mkdir ${AFS_GEN_FOLDER}
@@ -81,7 +81,7 @@ export SCRAM_ARCH=slc6_amd64_gcc472 #Here one should select the correct architec
 export RELEASE=CMSSW_6_2_11 #Here one should select the desired CMSSW release in correspondance with the line below
 
 # export SCRAM_ARCH=slc6_amd64_gcc481
-# export RELEASE=CMSSW_7_1_0_pre9
+# export RELEASE=CMSSW_7_2_X_2014-07-03-0200
 
 #################################
 #Clean the area the working area#
@@ -232,7 +232,7 @@ if [ "$isnlo" -gt "0" ]; then
 
   #set to single core mode
   echo "mg5_path = ../$MGBASEDIR" >> ./Cards/amcatnlo_configuration.txt
-  echo "run_mode = 0" >> ./Cards/amcatnlo_configuration.txt
+  #echo "run_mode = 0" >> ./Cards/amcatnlo_configuration.txt
 
   cd $WORKDIR
 
