@@ -89,7 +89,7 @@ tar xzf ${name}.tar.gz
 cd POWHEG-BOX/${process}
 
 mv Makefile Makefile.orig
-cat Makefile.orig | sed -e "s#STATIC[ \t]*=[ \t]*-static#STATIC=-dynamic#g" | sed -e "s#PDF[ \t]*=[ \t]*native#PDF=lhapdf#g"> Makefile
+cat Makefile.orig | sed -e "s#STATIC[ \t]*=[ \t]*-static#STATIC=-dynamic#g" | sed -e "s#PDF[ \t]*=[ \t]*native#PDF=lhapdf#g"  | sed -e '/FJCXXFLAGS/s=--cxxflags)=--cxxflags) -std\=c++11='> Makefile
 echo "LIBS+=-lz -lstdc++" >> Makefile
 
 
