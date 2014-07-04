@@ -48,7 +48,7 @@ gzip -d events_presys.lhe.gz
 echo "
 # Central scale factors
 scalefact:
-0.5 1 2
+1 2 0.5
 # choice of correlation scheme between muF and muR
 scalecorrelation:
 -1
