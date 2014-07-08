@@ -68,7 +68,6 @@ produceWeights="true"
 grep -q "storeinfo_rwgt 1" powheg.input ; test $? -eq 0  || produceWeights="false"
 grep -q "pdfreweight 1" powheg.input ; test $? -eq 0 || produceWeights="false"
 
-grep -q "withnegweights 1" powheg.input ; test $? -eq 0 || produceWeights="false"
 if [ "$produceWeights" == "true" ];
 then
     cp -p powheg.input powheg.input.orig
