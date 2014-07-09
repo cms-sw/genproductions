@@ -136,7 +136,6 @@ fi
 cd ${WORKDIR}/${myDir}
 cp -p ${card} .
 
-curl https://raw2.github.com/cms-sw/genproductions/master/bin/Powheg/runcmsgrid_powheg.sh -o ${WORKDIR}/runcmsgrid_powheg.sh
 if [ ! -e  ${WORKDIR}/runcmsgrid_powheg.sh ]; then
  fail_exit "Did not find " ${WORKDIR}/runcmsgrid_powheg.sh 
 fi
