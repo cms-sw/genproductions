@@ -29,7 +29,7 @@ cardinput=${4}
 echo "%MSG-POWHEG location of the card = $cardinput"
 
 tarball=${5}
-echo "%MSG-POWHEG tar ball file name = $tarball"
+echo "%MSG-POWHEG tar ball file name = $tarball_tarball.tar.gz"
 
 nevt=${6}
 echo "%MSG-POWHEG number of events requested = $nevt"
@@ -51,7 +51,7 @@ if [[ -e ${name} ]]; then
   mv output.lhe old_output.lhe
   rm -rf ${myDir}
   echo -e "Move the tar ball to old_${tarball}.tar.gz\n"
-  mv ${tarball}.tar.gz old_${tarball}.tar.gz
+  mv ${tarball}_tarball.tar.gz old_${tarball}_tarball.tar.gz
 fi
 
 scram project -n ${name} CMSSW ${RELEASE}; cd ${name} ; mkdir -p work ; 
@@ -89,7 +89,7 @@ tar xzf ${name}.tar.gz
 cd POWHEG-BOX/${process}
 
 mv Makefile Makefile.orig
-cat Makefile.orig | sed -e "s#STATIC[ \t]*=[ \t]*-static#STATIC=-dynamic#g" | sed -e "s#PDF[ \t]*=[ \t]*native#PDF=lhapdf#g"> Makefile
+cat Makefile.orig | sed -e "s#STATIC[ \t]*=[ \t]*-static#STATIC=-dynamic#g" | sed -e "s#PDF[ \t]*=[ \t]*native#PDF=lhapdf#g" > Makefile
 echo "LIBS+=-lz -lstdc++" >> Makefile
 
 
@@ -136,18 +136,19 @@ fi
 cd ${WORKDIR}/${myDir}
 cp -p ${card} .
 
+curl https://raw2.github.com/cms-sw/genproductions/master/bin/Powheg/runcmsgrid_powheg.sh -o ${WORKDIR}/runcmsgrid_powheg.sh
 if [ ! -e  ${WORKDIR}/runcmsgrid_powheg.sh ]; then
  fail_exit "Did not find " ${WORKDIR}/runcmsgrid_powheg.sh 
 fi
 
 sed -e 's/PROCESS/'${process}'/g' ${WORKDIR}/runcmsgrid_powheg.sh > runcmsgrid.sh
 chmod 755 runcmsgrid.sh
-tar cpzsf ${tarball}.tar.gz *
-mv ${tarball}.tar.gz ${WORKDIR}/.
+tar cpzsf ${tarball}_tarball.tar.gz *
+mv ${tarball}_tarball.tar.gz ${WORKDIR}/.
 cd ${WORKDIR}
-tar tvf ${tarball}.tar.gz
+tar tvf ${tarball}_tarball.tar.gz
 rm -rf ${myDir}
 
-echo "Tarball ${tarball}.tar.gz ready with log_${process}_${seed}.txt and ${file}_final.lhe at ${localDir}"
+echo "Tarball ${tarball}_tarball.tar.gz ready with log_${process}_${seed}.txt and ${file}_final.lhe at ${localDir}"
 echo "End of job on " `date`
 exit 0;
