@@ -689,7 +689,7 @@ def main(args):
 		lightJets = dict([(x, True) for x in \
 	                 	(-1, 1, -2, 2, -3, 3, -4, 4,  21)])
 		
-        if MaxJetFlavor >3: 
+        if MaxJetFlavor !=0: 
 		for idprup, wgt, scale, aqedup, aqcdup, particles in getEvent(f):
 			nEvents += 1
 			beams = []
@@ -705,7 +705,7 @@ def main(args):
 			if maxJets < 0 or nlJets > maxJets:
 				maxJets = nlJets
 									
-				nevts=nEvents
+		nevts=nEvents
 									
 	f.seek(0, 0)
 									
