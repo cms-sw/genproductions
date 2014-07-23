@@ -697,17 +697,17 @@ def main(args):
 			for i, p in enumerate(particles):
 				if p.status < 0:
 					beams.append(i + 1)
-					if p.mothers[0] in beams:
-						if p.pdgId in lightJets:
-							nlJets += 1
-							if minJets < 0 or nlJets < minJets:
-								minJets = nlJets
-								if maxJets < 0 or nlJets > maxJets:
-									maxJets = nlJets
+				if p.mothers[0] in beams:
+					if p.pdgId in lightJets:
+						nlJets += 1
+			if minJets < 0 or nlJets < minJets:
+				minJets = nlJets
+			if maxJets < 0 or nlJets > maxJets:
+				maxJets = nlJets
 									
-									nevts=nEvents
+				nevts=nEvents
 									
-									f.seek(0, 0)
+	f.seek(0, 0)
 									
 	def xfrm(headers):
 		return headerXfrm(headers, nEvents, minJets, maxJets, addn, strip)
