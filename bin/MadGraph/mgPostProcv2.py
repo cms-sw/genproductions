@@ -688,26 +688,27 @@ def main(args):
 	elif MaxJetFlavor ==4:
 		lightJets = dict([(x, True) for x in \
 	                 	(-1, 1, -2, 2, -3, 3, -4, 4,  21)])
-
-	for idprup, wgt, scale, aqedup, aqcdup, particles in getEvent(f):
-		nEvents += 1
-		beams = []
-		nlJets = 0
-		for i, p in enumerate(particles):
-			if p.status < 0:
-				beams.append(i + 1)
-			if p.mothers[0] in beams:
-				if p.pdgId in lightJets:
-					nlJets += 1
-		if minJets < 0 or nlJets < minJets:
-			minJets = nlJets
-		if maxJets < 0 or nlJets > maxJets:
-			maxJets = nlJets
-
-			nevts=nEvents
-	
-	f.seek(0, 0)
-
+		
+        if MaxJetFlavor >3: 
+		for idprup, wgt, scale, aqedup, aqcdup, particles in getEvent(f):
+			nEvents += 1
+			beams = []
+			nlJets = 0
+			for i, p in enumerate(particles):
+				if p.status < 0:
+					beams.append(i + 1)
+					if p.mothers[0] in beams:
+						if p.pdgId in lightJets:
+							nlJets += 1
+							if minJets < 0 or nlJets < minJets:
+								minJets = nlJets
+								if maxJets < 0 or nlJets > maxJets:
+									maxJets = nlJets
+									
+									nevts=nEvents
+									
+									f.seek(0, 0)
+									
 	def xfrm(headers):
 		return headerXfrm(headers, nEvents, minJets, maxJets, addn, strip)
 
