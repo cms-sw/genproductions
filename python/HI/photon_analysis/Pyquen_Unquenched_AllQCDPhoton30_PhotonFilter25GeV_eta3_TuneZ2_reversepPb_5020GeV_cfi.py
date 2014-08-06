@@ -13,17 +13,17 @@ hiSignal = cms.EDFilter("PyquenGeneratorFilter",
                         cFlag = cms.int32(0), ## centrality flag
                         bMin = cms.double(0.0), ## min impact param (fm); valid only if cflag_!=0
                         bMax = cms.double(0.0), ## max impact param (fm); valid only if cflag_!=0
-                        
+
                         filterType     = cms.untracked.string('EcalGenEvtSelectorFrag'),
-                        particlePt     = cms.vdouble(35),
+                        particlePt     = cms.vdouble(25),
                         particleStatus = cms.vint32(1),
                         particles      = cms.vint32(22),
                         etaMax         = cms.double(3),   # Photon eta cut
                         partonStatus = cms.vint32(2, 2, 2, 2, 2, 2, 2, 1),
                         partonPt = cms.vdouble(0,0,0,0,0,0,0,0),
-                        partons = cms.vint32(1, 2, 3, 4, 5, 6, 21, 22), # parton cut is not functioning 
+                        partons = cms.vint32(1, 2, 3, 4, 5, 6, 21, 22), # parton cut is not functioning
                         maxTries = cms.untracked.int32(5000),
-                        protonSide = cms.untracked.int32(2), #pPb direction
+                        protonSide = cms.untracked.int32(1), #reverse pPb direction
 
                         PythiaParameters = cms.PSet(
                             pythiaUESettingsBlock,
