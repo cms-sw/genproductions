@@ -26,4 +26,4 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
         parameterSets = cms.vstring('pythia8CUEP8S1herapdfSettings',
                                     'processParameters')
         )
- )
+)
