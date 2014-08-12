@@ -18,7 +18,7 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
                          pythiaHepMCVerbosity = cms.untracked.bool(False),
                          comEnergy = cms.double(8000.),
                          PythiaParameters = cms.PSet(
-        pythia8CUEP8S1herapdfSettingsBlock
+        pythia8CUEP8S1herapdfSettingsBlock,
         processParameters = cms.vstring(
             'Main:timesAllowErrors = 10000',
             'ParticleDecays:tauMax = 10',
