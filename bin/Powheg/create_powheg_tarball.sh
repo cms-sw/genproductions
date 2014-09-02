@@ -58,40 +58,57 @@ scram project -n ${name} CMSSW ${RELEASE}; cd ${name} ; mkdir -p work ;
 eval `scram runtime -sh`
 cd work
 export PATH=`pwd`:${PATH}
-
+ 
 # FastJet and LHAPDF
 #fastjet-config comes with the paths used at build time.
 #we need this to replace with the correct paths obtained from scram tool info fastjet
-
+ 
 newinstallationdir=`scram tool info fastjet | grep FASTJET_BASE |cut -d "=" -f2`
 cp ${newinstallationdir}/bin/fastjet-config ./fastjet-config.orig
-
+ 
 oldinstallationdir=`cat fastjet-config.orig | grep installationdir | head -n 1 | cut -d"=" -f2`
 sed -e "s#${oldinstallationdir}#${newinstallationdir}#g" fastjet-config.orig > fastjet-config 
 chmod +x fastjet-config
-
+ 
 #same for lhapdf
 newinstallationdirlha=`scram tool info lhapdf | grep LHAPDF_BASE |cut -d "=" -f2`
 cp ${newinstallationdirlha}/bin/lhapdf-config ./lhapdf-config.orig
 oldinstallationdirlha=`cat lhapdf-config.orig | grep prefix | head -n 1 | cut -d"=" -f2`
 sed -e "s#prefix=${oldinstallationdirlha}#prefix=${newinstallationdirlha}#g" lhapdf-config.orig > lhapdf-config
 chmod +x lhapdf-config
-
+#
 # Get the input card
 wget --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/${cardinput} -O powheg.input  || fail_exit "Failed to obtain input card" ${cardinput}
 myDir=`pwd`
 card=${myDir}/powheg.input
 
 ### retrieve the powheg source tar ball
+
 wget --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/${repo}/${name}.tar.gz  -O ${name}.tar.gz || fail_exit "Failed to get powheg tar ball " ${name}
 tar xzf ${name}.tar.gz
-
+#
 cd POWHEG-BOX/${process}
 
+### Corrections needed
+# This is just to please gcc 4.8.1
+mkdir include
+# Use dynamic linking and lhapdf
 mv Makefile Makefile.orig
 cat Makefile.orig | sed -e "s#STATIC[ \t]*=[ \t]*-static#STATIC=-dynamic#g" | sed -e "s#PDF[ \t]*=[ \t]*native#PDF=lhapdf#g" > Makefile
+# Add histo booking (somehow needed at linking stage)
+mv Makefile Makefile.interm
+cat Makefile.interm | sed -e "s#pwhg_bookhist-multi.o# #g" | sed -e "s#pwhg_bookhist-new.o# #g" > Makefile
+mv Makefile Makefile.interm
+cat Makefile.interm | sed -e "s#=pwhg_analysis-dummy.o#=pwhg_bookhist-multi.o pwhg_analysis-dummy.o#g" > Makefile
+# Remove ANY kind of analysis with parton shower
+mv Makefile Makefile.interm
+cat Makefile.interm | sed -e "s#ANALYSIS=#\#ANALYSIS=#g" > Makefile
+echo "ANALYSIS=none" >> tmpfile
+mv Makefile Makefile.interm
+cat tmpfile Makefile.interm > Makefile
+rm -f Makefile.interm tmpfile
+# Add libraries
 echo "LIBS+=-lz -lstdc++" >> Makefile
-
 
 LHA_BASE="`readlink -f "$LHAPATH/../../../"`"
 
