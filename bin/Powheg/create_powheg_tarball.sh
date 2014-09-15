@@ -8,7 +8,7 @@ EXPECTED_ARGS=7
 if [ $# -ne $EXPECTED_ARGS ]
 then
     echo "Usage: `basename $0` source_repository source_tarball_name process card tarballName Nevents RandomSeed"
-    echo "Example: ./create_powheg_tarball.sh slc6_amd64_gcc481/powheg/V1.0/src powhegboxv1.0_Oct2013 Z slc6_amd64_gcc481/powheg/V1.0/8TeV_Summer12/DYToEE_M-20_8TeV-powheg/v1/DYToEE_M-20_8TeV-powheg.input Z_local 1000 1212" 
+    echo "Example: `basename $0` slc6_amd64_gcc481/powheg/V1.0/src powhegboxv1.0_Oct2013 Z slc6_amd64_gcc481/powheg/V1.0/8TeV_Summer12/DYToEE_M-20_8TeV-powheg/v1/DYToEE_M-20_8TeV-powheg.input Z_local 1000 1212" 
     exit 1
 fi
 
@@ -29,7 +29,7 @@ cardinput=${4}
 echo "%MSG-POWHEG location of the card = $cardinput"
 
 tarball=${5}
-echo "%MSG-POWHEG tar ball file name = $tarball_tarball.tar.gz"
+echo "%MSG-POWHEG tar ball file name = ${tarball}_tarball.tar.gz"
 
 nevt=${6}
 echo "%MSG-POWHEG number of events requested = $nevt"
@@ -78,9 +78,11 @@ sed -e "s#prefix=${oldinstallationdirlha}#prefix=${newinstallationdirlha}#g" lha
 chmod +x lhapdf-config
 #
 ## Get the input card
-wget --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/${cardinput} -O powheg.input  || fail_exit "Failed to obtain input card" ${cardinput}
+wget --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/${cardinput} -O powheg.input  || cp -p ${cardinput} powheg.input || fail_exit "Failed to get powheg input card " ${card}
+
 myDir=`pwd`
 card=${myDir}/powheg.input
+
 
 ### retrieve the powheg source tar ball
 wget --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/${repo}/${name}.tar.gz  -O ${name}.tar.gz || fail_exit "Failed to get powheg tar ball " ${name}
