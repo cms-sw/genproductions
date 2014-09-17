@@ -8,7 +8,7 @@ EXPECTED_ARGS=3
 if [ $# -ne $EXPECTED_ARGS ]
 then
     echo "Usage: `basename $0` Nevents RandomSeed cpu"
-    echo "Example: ./runcmsgrid_powheg.sh 1000 1212 cpu" 
+    echo "Example: `basename $0` 1000 1212 cpu" 
     exit 1
 fi
 

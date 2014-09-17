@@ -8,7 +8,7 @@ EXPECTED_ARGS=7
 if [ $# -ne $EXPECTED_ARGS ]
 then
     echo "Usage: `basename $0` source_repository source_tarball_name process card tarballName Nevents RandomSeed"
-    echo "Example: ./create_powheg_tarball.sh slc6_amd64_gcc481/powheg/V1.0/src powhegboxv1.0_Oct2013 Z slc6_amd64_gcc481/powheg/V1.0/8TeV_Summer12/DYToEE_M-20_8TeV-powheg/v1/DYToEE_M-20_8TeV-powheg.input Z_local 1000 1212" 
+    echo "Example: `basename $0` slc6_amd64_gcc481/powheg/V1.0/src powhegboxv1.0_Oct2013 Z slc6_amd64_gcc481/powheg/V1.0/8TeV_Summer12/DYToEE_M-20_8TeV-powheg/v1/DYToEE_M-20_8TeV-powheg.input Z_local 1000 1212" 
     exit 1
 fi
 
@@ -29,7 +29,7 @@ cardinput=${4}
 echo "%MSG-POWHEG location of the card = $cardinput"
 
 tarball=${5}
-echo "%MSG-POWHEG tar ball file name = $tarball_tarball.tar.gz"
+echo "%MSG-POWHEG tar ball file name = ${tarball}_tarball.tar.gz"
 
 nevt=${6}
 echo "%MSG-POWHEG number of events requested = $nevt"
@@ -58,44 +58,79 @@ scram project -n ${name} CMSSW ${RELEASE}; cd ${name} ; mkdir -p work ;
 eval `scram runtime -sh`
 cd work
 export PATH=`pwd`:${PATH}
-
+ 
 # FastJet and LHAPDF
 #fastjet-config comes with the paths used at build time.
 #we need this to replace with the correct paths obtained from scram tool info fastjet
-
-newinstallationdir=`scram tool info fastjet | grep FASTJET_BASE |cut -d "=" -f2`
-cp ${newinstallationdir}/bin/fastjet-config ./fastjet-config.orig
-
-oldinstallationdir=`cat fastjet-config.orig | grep installationdir | head -n 1 | cut -d"=" -f2`
-sed -e "s#${oldinstallationdir}#${newinstallationdir}#g" fastjet-config.orig > fastjet-config 
-chmod +x fastjet-config
-
+ 
+#newinstallationdir=`scram tool info fastjet | grep FASTJET_BASE |cut -d "=" -f2`
+#cp ${newinstallationdir}/bin/fastjet-config ./fastjet-config.orig
+ 
+#oldinstallationdir=`cat fastjet-config.orig | grep installationdir | head -n 1 | cut -d"=" -f2`
+#sed -e "s#${oldinstallationdir}#${newinstallationdir}#g" fastjet-config.orig > fastjet-config 
+#chmod +x fastjet-config
+ 
 #same for lhapdf
 newinstallationdirlha=`scram tool info lhapdf | grep LHAPDF_BASE |cut -d "=" -f2`
 cp ${newinstallationdirlha}/bin/lhapdf-config ./lhapdf-config.orig
 oldinstallationdirlha=`cat lhapdf-config.orig | grep prefix | head -n 1 | cut -d"=" -f2`
 sed -e "s#prefix=${oldinstallationdirlha}#prefix=${newinstallationdirlha}#g" lhapdf-config.orig > lhapdf-config
 chmod +x lhapdf-config
+#
+## Get the input card
+wget --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/${cardinput} -O powheg.input  || cp -p ${cardinput} powheg.input || fail_exit "Failed to get powheg input card " ${card}
 
-# Get the input card
-wget --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/${cardinput} -O powheg.input  || fail_exit "Failed to obtain input card" ${cardinput}
 myDir=`pwd`
 card=${myDir}/powheg.input
+
 
 ### retrieve the powheg source tar ball
 wget --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/${repo}/${name}.tar.gz  -O ${name}.tar.gz || fail_exit "Failed to get powheg tar ball " ${name}
 tar xzf ${name}.tar.gz
-
+#
 cd POWHEG-BOX/${process}
 
+### Corrections needed
+
+# This is just to please gcc 4.8.1
+mkdir -p include
+
+# Use dynamic linking and lhapdf
 mv Makefile Makefile.orig
 cat Makefile.orig | sed -e "s#STATIC[ \t]*=[ \t]*-static#STATIC=-dynamic#g" | sed -e "s#PDF[ \t]*=[ \t]*native#PDF=lhapdf#g" > Makefile
+
+#Use gfortran, not other compilers which are not free/licensed
+mv Makefile Makefile.interm
+cat Makefile.interm | sed -e "s#COMPILER[ \t]*=[ \t]*ifort#COMPILER=gfortran#g" > Makefile
+
+# Find proper histo booking routine (two of them exist)
+BOOK_HISTO="pwhg_bookhist-multi.o"
+if [ `echo ${name} | cut -d "_" -f 1` = "powhegboxV1" ]; then
+   BOOK_HISTO="pwhg_bookhist.o"
+fi 
+if [ "$process" = "trijet" ]; then 
+   BOOK_HISTO+=" observables.o"
+fi  
+
+# Remove ANY kind of analysis with parton shower
+if [ `grep particle_identif pwhg_analysis-dummy.f` = ""]; then
+   cp ../pwhg_analysis-dummy.f .
+fi
+mv Makefile Makefile.interm
+cat Makefile.interm | sed -e "s#PWHGANAL[ \t]*=[ \t]*#\#PWHGANAL=#g" | sed -e "s#ANALYSIS[ \t]*=[ \t]*#\#ANALYSIS=#g" > Makefile
+mv Makefile Makefile.interm
+cat Makefile.interm | sed -e "s#pwhg_bookhist.o# #g" | sed -e "s#pwhg_bookhist-new.o# #g" | sed -e "s#pwhg_bookhist-multi.o# #g" > Makefile
+  
+echo "ANALYSIS=none 
+PWHGANAL=$BOOK_HISTO pwhg_analysis-dummy.o" >> tmpfile
+mv Makefile Makefile.interm
+cat tmpfile Makefile.interm > Makefile
+rm -f Makefile.interm tmpfile
+
+# Add libraries
 echo "LIBS+=-lz -lstdc++" >> Makefile
 
-
 LHA_BASE="`readlink -f "$LHAPATH/../../../"`"
-
-
 LHA_BASE_OLD="`$LHA_BASE/bin/lhapdf-config --prefix`"
 cat > lhapdf-config-wrap <<EOF
 #!/bin/bash

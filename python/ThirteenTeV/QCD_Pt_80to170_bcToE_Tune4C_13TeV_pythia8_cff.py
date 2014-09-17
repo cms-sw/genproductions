@@ -3,7 +3,7 @@ import FWCore.ParameterSet.Config as cms
 generator = cms.EDFilter("Pythia8GeneratorFilter",
 	comEnergy = cms.double(13000.0),
 	crossSection = cms.untracked.double(3.529e+06),
-	filterEfficiency = cms.untracked.double(0.158),
+	filterEfficiency = cms.untracked.double(0.0112),
 	maxEventsToPrint = cms.untracked.int32(0),
 	pythiaHepMCVerbosity = cms.untracked.bool(False),
 	pythiaPylistVerbosity = cms.untracked.int32(0),
@@ -35,21 +35,8 @@ bctoefilter = cms.EDFilter("BCToEFilter",
                                                      genParSource = cms.InputTag("genParticlesForFilter")
                                                      )
                            )
-
-emenrichingfilter = cms.EDFilter("EMEnrichingFilter",
-                                 filterAlgoPSet = cms.PSet(isoGenParETMin=cms.double(20),
-                                                           isoGenParConeSize=cms.double(0.1),
-                                                           clusterThreshold=cms.double(20),
-                                                           isoConeSize=cms.double(0.2),
-                                                           hOverEMax=cms.double(0.5),
-                                                           tkIsoMax=cms.double(5.),
-                                                           caloIsoMax=cms.double(10.),
-                                                           requireTrackMatch=cms.bool(False),
-                                                           genParSource = cms.InputTag("genParticlesForFilter")
-                                                           )
-                                 )
     
 
 # add your filters to this sequence
-ProductionFilterSequence = cms.Sequence(generator * (genParticlesForFilter + ~bctoefilter + emenrichingfilter))
+ProductionFilterSequence = cms.Sequence(generator * (genParticlesForFilter + bctoefilter ))
 
