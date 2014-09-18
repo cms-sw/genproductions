@@ -2,8 +2,8 @@ import FWCore.ParameterSet.Config as cms
 
 generator = cms.EDFilter("Pythia8GeneratorFilter",
 	comEnergy = cms.double(13000.0),
-	crossSection = cms.untracked.double(3.495e+06),
-	filterEfficiency = cms.untracked.double(0.01225),
+	crossSection = cms.untracked.double(1.285e+05),
+	filterEfficiency = cms.untracked.double(0.0406),
 	maxEventsToPrint = cms.untracked.int32(0),
 	pythiaHepMCVerbosity = cms.untracked.bool(False),
 	pythiaPylistVerbosity = cms.untracked.int32(0),
@@ -14,8 +14,8 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
 			'ParticleDecays:limitTau0 = on',
 			'ParticleDecays:tau0Max = 10',
 			'HardQCD:all = on',
-			'PhaseSpace:pTHatMin = 80',
-			'PhaseSpace:pTHatMax = 170',
+			'PhaseSpace:pTHatMin = 170',
+			#'PhaseSpace:pTHatMax = 170',#no upper limit
 			'Tune:pp 5',
 			'Tune:ee 3',
 
@@ -39,7 +39,7 @@ bctoefilter = cms.EDFilter("BCToEFilter",
 configurationMetadata = cms.untracked.PSet(
        version = cms.untracked.string('\$Revision$'),
        name = cms.untracked.string('\$Source$'),
-       annotation = cms.untracked.string('b/c->e filtered QCD pthat 80-170 GeV, 14 TeV, Tune4C')
+       annotation = cms.untracked.string('b/c->e filtered QCD pthat >170 GeV, 14 TeV, Tune4C')
 )
 
 # add your filters to this sequence
