@@ -25,7 +25,7 @@ process.externalLHEProducer.nEvents = process.maxEvents.input.value()
 process.externalLHEProducer.scriptName = cms.FileInPath("GeneratorInterface/LHEInterface/data/run_generic_tarball.sh")
 
 process.externalLHEProducer.numberOfParameters = cms.uint32(2)
-process.externalLHEProducer.outputFile = cms.string('events_final.lhe')
+process.externalLHEProducer.outputFile = cms.string('eiko_ZZ_final.lhe')
 
 process.externalLHEProducer.args = cms.vstring(
                                                'slc6_amd64_gcc481/powheg/tarball/',
