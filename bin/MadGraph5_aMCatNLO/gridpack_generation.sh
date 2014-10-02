@@ -64,27 +64,32 @@ CARDSDIR=${PRODHOME}/cards
 # where to find the madgraph tarred distribution
 MGDIR=${PRODHOME}/
 
-MG=MG5_aMC_v2.1.2.tar.gz
+MG=MG5_aMC_v2.2.1.tar.gz
 MGSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$MG
+# MG=MG5_aMC_v2.2.0_prebzr.tar.gz
+# MGSOURCE=bendavid.web.cern.ch/bendavid/$MG
 
 SYSCALC=SysCalc_V1.1.0.tar.gz
 SYSCALCSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$SYSCALC
 
-MGBASEDIR=MG5_aMC_v2_1_2
+MGBASEDIR=MG5_aMC_v2_2_1
 
 if [ ! -d ${AFS_GEN_FOLDER} ];then
 mkdir ${AFS_GEN_FOLDER}
 fi
 cd $AFS_GEN_FOLDER
 
-export SCRAM_ARCH=slc6_amd64_gcc472 #Here one should select the correct architechture corresponding with the CMSSW release
-export RELEASE=CMSSW_5_3_20
+# export SCRAM_ARCH=slc6_amd64_gcc472 #Here one should select the correct architechture corresponding with the CMSSW release
+# export RELEASE=CMSSW_5_3_20
 
 #export SCRAM_ARCH=slc6_amd64_gcc481
 #export RELEASE=CMSSW_7_1_2 #Here one should select the desired CMSSW release in correspondance with the line below
 
 # export SCRAM_ARCH=slc6_amd64_gcc481
-# export RELEASE=CMSSW_7_2_X_2014-07-03-0200
+# export RELEASE=CMSSW_7_2_0_pre6
+
+export SCRAM_ARCH=slc6_amd64_gcc481
+export RELEASE=CMSSW_7_3_X_2014-09-25-1400
 
 #################################
 #Clean the area the working area#
@@ -129,8 +134,19 @@ cd $MGBASEDIR
 
 
 LHAPDFCONFIG=`echo "$LHAPATH/../../../full/bin/lhapdf-config"`
+
+#if lhapdf6 external is available then above points to lhapdf5 and needs to be overridden
+LHAPDF6TOOLFILE=$CMSSW_BASE/config/toolbox/$SCRAM_ARCH/tools/available/lhapdf6.xml
+if [ -e $LHAPDF6TOOLFILE ]; then
+  LHAPDFCONFIG=`cat $LHAPDF6TOOLFILE | grep "<environment name=\"LHAPDF6_BASE\"" | cut -d \" -f 4`/bin/lhapdf-config
+fi
+
+#make sure env variable for pdfsets points to the right place
+export LHAPDF_DATA_PATH=`$LHAPDFCONFIG --datadir`
+
 LHAPDFINCLUDES=`$LHAPDFCONFIG --incdir`
 LHAPDFLIBS=`$LHAPDFCONFIG --libdir`
+BOOSTINCLUDES=`scram tool tag boost INCLUDE`
 
 echo "set auto_update 0" > mgconfigscript
 echo "set automatic_html_opening False" >> mgconfigscript
@@ -153,14 +169,13 @@ echo "save options" >> mgconfigscript
 ./bin/mg5_aMC mgconfigscript
 
 #get syscalc and compile
-#cp ${SYSCALCSOURCE} .
 wget --no-check-certificate ${SYSCALCSOURCE}
 tar xzf ${SYSCALC}
 rm $SYSCALC
 
 cd SysCalc
-sed -i "s#INCLUDES =  -I../include#INCLUDES =  -I../include -I${LHAPDFINCLUDES}#g" src/Makefile
-sed -i "s#LIBS = -lLHAPDF#LIBS = ${LHAPDFLIBS}/libLHAPDF.a -lgfortran#g" src/Makefile
+sed -i "s#INCLUDES =  -I../include#INCLUDES =  -I../include -I${LHAPDFINCLUDES} -I${BOOSTINCLUDES}#g" src/Makefile
+sed -i "s#LIBS = -lLHAPDF#LIBS = ${LHAPDFLIBS}/libLHAPDF.a #g" src/Makefile
 make
 
 cd $WORKDIR
@@ -205,13 +220,13 @@ fi
 #######################
 #Locating the madspin card#
 #######################
-domadspin=0
-if [ ! -e $CARDSDIR/${name}_madspin_card.dat ]; then
-        echo $CARDSDIR/${name}_madspin_card.dat " does not exist! MadSpin will not be run."
-else
-        cp $CARDSDIR/${name}_madspin_card.dat ./Cards/madspin_card.dat
-        domadspin=1
-fi
+# domadspin=0
+# if [ ! -e $CARDSDIR/${name}_madspin_card.dat ]; then
+#         echo $CARDSDIR/${name}_madspin_card.dat " does not exist! MadSpin will not be run."
+# else
+#         #cp $CARDSDIR/${name}_madspin_card.dat ./Cards/madspin_card.dat
+#         domadspin=1
+# fi
 
 #automatically detect NLO mode or LO mode from output directory
 isnlo=0
@@ -225,6 +240,10 @@ if [ "$isnlo" -gt "0" ]; then
   #Run the integration and generate the grid
   #######################
 
+  if [ -e $CARDSDIR/${name}_madspin_card.dat ]; then
+    cp $CARDSDIR/${name}_madspin_card.dat ./Cards/madspin_card.dat
+  fi
+  
   echo "shower=OFF" > makegrid.dat
   echo "done" >> makegrid.dat
   if [ -e $CARDSDIR/${name}_customizecards.dat ]; then
@@ -260,6 +279,7 @@ else
   #Run the integration and generate the grid
   #######################
 
+  #echo "madspin=OFF" > makegrid.dat
   echo "done" > makegrid.dat
   echo "set gridpack true" >> makegrid.dat
   if [ -e $CARDSDIR/${name}_customizecards.dat ]; then
@@ -276,12 +296,14 @@ else
   tar -xzvf $WORKDIR/$name/pilotrun_gridpack.tar.gz
   
   #prepare madspin grids if necessary
-  if [ "$domadspin" -gt "0" ]; then
+  if [ -e $CARDSDIR/${name}_madspin_card.dat ]; then
     echo "import $WORKDIR/$name/Events/pilotrun/unweighted_events.lhe.gz" > madspinrun.dat
-    cat ./madevent/Cards/madspin_card.dat >> madspinrun.dat
+    #cat ./madevent/Cards/madspin_card.dat >> madspinrun.dat
+    cat $CARDSDIR/${name}_madspin_card.dat >> madspinrun.dat
     cat madspinrun.dat | $WORKDIR/$MGBASEDIR/MadSpin/madspin
     rm madspinrun.dat
     rm -rf tmp*
+    cp $CARDSDIR/${name}_madspin_card.dat $WORKDIR/process/madspin_card.dat
   fi
 
   #set to single core mode  

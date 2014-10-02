@@ -14,7 +14,18 @@ LHEWORKDIR=`pwd`
 cd process
 
 #make sure lhapdf points to local cmssw installation area
-echo "lhapdf = `echo "$LHAPATH/../../../full/bin/lhapdf-config"`" >> ./madevent/Cards/me5_configuration.txt
+LHAPDFCONFIG=`echo "$LHAPATH/../../../full/bin/lhapdf-config"`
+
+#if lhapdf6 external is available then above points to lhapdf5 and needs to be overridden
+LHAPDF6TOOLFILE=$CMSSW_BASE/config/toolbox/$SCRAM_ARCH/tools/available/lhapdf6.xml
+if [ -e $LHAPDF6TOOLFILE ]; then
+  LHAPDFCONFIG=`cat $LHAPDF6TOOLFILE | grep "<environment name=\"LHAPDF6_BASE\"" | cut -d \" -f 4`/bin/lhapdf-config
+fi
+
+#make sure env variable for pdfsets points to the right place
+export LHAPDF_DATA_PATH=`$LHAPDFCONFIG --datadir`
+
+echo "lhapdf = $LHAPDFCONFIG" >> ./madevent/Cards/me5_configuration.txt
 
 if [ "$ncpu" -gt "1" ]; then
   echo "run_mode = 2" >> ./madevent/Cards/me5_configuration.txt
@@ -25,12 +36,12 @@ fi
 ./run.sh $nevt $rnum
 
 domadspin=0
-if [ -f ./madevent/Cards/madspin_card.dat ] ;then
+if [ -f ./madspin_card.dat ] ;then
     domadspin=1
     echo "import events.lhe.gz" > madspinrun.dat
     rnum2=$(($rnum+1000000))
     echo `echo "set seed $rnum2"` >> madspinrun.dat
-    cat ./madevent/Cards/madspin_card.dat >> madspinrun.dat
+    cat ./madspin_card.dat >> madspinrun.dat
     cat madspinrun.dat | $LHEWORKDIR/mgbasedir/MadSpin/madspin
 fi
 
@@ -43,6 +54,7 @@ else
 fi
 
 gzip -d events_presys.lhe.gz
+
 
 #run syscalc to populate pdf and scale variation weights
 echo "

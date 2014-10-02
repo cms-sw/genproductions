@@ -25,8 +25,8 @@
 # (relative) accuracy on the Xsec.                                     *
 # These values are ignored for fixed order runs                        *
 #***********************************************************************
-   250 = nevents ! Number of unweighted events requested 
- 0.001 = req_acc ! Required accuracy (-1=auto determined from nevents)
+  1500 = nevents ! Number of unweighted events requested 
+  0.01 = req_acc ! Required accuracy (-1=auto determined from nevents)
     -1 = nevt_job! Max number of events per job in event generation. 
                  !  (-1= no split).
 average = event_norm ! Normalize events to sum or average to the X sect.
@@ -100,7 +100,7 @@ average = event_norm ! Normalize events to sum or average to the X sect.
 # After showering an MLM-type merging should be applied as well.       *
 # See http://amcatnlo.cern.ch/FxFx_merging.htm for more details.       *
 #***********************************************************************
- 0        = ickkw            ! 0 no merging, 3 FxFx merging
+ 3        = ickkw            ! 0 no merging, 3 FxFx merging
 #***********************************************************************
 #
 #***********************************************************************
@@ -115,7 +115,7 @@ average = event_norm ! Normalize events to sum or average to the X sect.
 # (more specific cuts can be specified in SubProcesses/cuts.f)         *
 #***********************************************************************
    1  = jetalgo   ! FastJet jet algorithm (1=kT, 0=C/A, -1=anti-kT)
- 0.7  = jetradius ! The radius parameter for the jet algorithm
+ 1.0  = jetradius ! The radius parameter for the jet algorithm
   10  = ptj       ! Min jet transverse momentum
   -1  = etaj      ! Max jet abs(pseudo-rap) (a value .lt.0 means no cut)
 #***********************************************************************
@@ -142,5 +142,5 @@ average = event_norm ! Normalize events to sum or average to the X sect.
 # Maximal PDG code for quark to be considered a jet when applying cuts.*
 # At least all massless quarks of the model should be included here.   *
 #***********************************************************************
- 4 = maxjetflavor
+ 5 = maxjetflavor
 #***********************************************************************
