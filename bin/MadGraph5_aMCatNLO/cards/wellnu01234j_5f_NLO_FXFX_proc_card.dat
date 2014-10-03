@@ -7,9 +7,7 @@ define wpm = w+ w-
 
 generate p p > wpm [QCD] @0
 add process p p > wpm j [QCD] @1
-#add process p p > wpm j j [QCD] @2
-#add process p p > wpm j j j [QCD] @3
-#add process p p > wpm j j j j [QCD] @4
+add process p p > wpm j j [QCD] @2
 
 output wellnu01234j_5f_NLO_FXFX
 

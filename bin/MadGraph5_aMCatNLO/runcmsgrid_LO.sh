@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 nevt=${1}
 echo "%MSG-MG5 number of events requested = $nevt"
@@ -14,7 +14,7 @@ LHEWORKDIR=`pwd`
 cd process
 
 #make sure lhapdf points to local cmssw installation area
-LHAPDFCONFIG=`echo "$LHAPATH/../../../full/bin/lhapdf-config"`
+LHAPDFCONFIG=`echo "$LHAPDF_DATA_PATH/../../bin/lhapdf-config"`
 
 #if lhapdf6 external is available then above points to lhapdf5 and needs to be overridden
 LHAPDF6TOOLFILE=$CMSSW_BASE/config/toolbox/$SCRAM_ARCH/tools/available/lhapdf6.xml
@@ -66,9 +66,14 @@ scalecorrelation:
 -1
 # PDF sets and number of members (0 or none for all members)
 PDF:
+NNPDF23_lo_as_0130_qed.LHgrid
+NNPDF23_lo_as_0119_qed.LHgrid 1
+cteq6l1.LHgrid 1
+HERAPDF15LO_EIG.LHgrid
 CT10nlo.LHgrid
-#MSTW2008nlo68cl.LHgrid 1
+MSTW2008nlo68cl.LHgrid 1
 NNPDF23_nlo_as_0119.LHgrid 1
+NNPDF30_nlo_as_0118.LHgrid 1
 " > syscalc_card.dat
 
 ./mgbasedir/SysCalc/sys_calc events_presys.lhe syscalc_card.dat cmsgrid_final.lhe
