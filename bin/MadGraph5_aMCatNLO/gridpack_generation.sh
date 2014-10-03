@@ -80,16 +80,10 @@ fi
 cd $AFS_GEN_FOLDER
 
 # export SCRAM_ARCH=slc6_amd64_gcc472 #Here one should select the correct architechture corresponding with the CMSSW release
-# export RELEASE=CMSSW_5_3_20
-
-#export SCRAM_ARCH=slc6_amd64_gcc481
-#export RELEASE=CMSSW_7_1_2 #Here one should select the desired CMSSW release in correspondance with the line below
-
-# export SCRAM_ARCH=slc6_amd64_gcc481
-# export RELEASE=CMSSW_7_2_0_pre6
+# export RELEASE=CMSSW_5_3_21
 
 export SCRAM_ARCH=slc6_amd64_gcc481
-export RELEASE=CMSSW_7_3_X_2014-09-25-1400
+export RELEASE=CMSSW_7_3_X_2014-10-03-0200
 
 #################################
 #Clean the area the working area#
