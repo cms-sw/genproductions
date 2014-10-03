@@ -1,0 +1,6 @@
+import model sm-ckm_lepton_masses
+#switch to diagonal ckm matrix if relevant for speed
+#import model sm-lepton_masses
+
+generate p p > w+
+output wplustest_4f_LO

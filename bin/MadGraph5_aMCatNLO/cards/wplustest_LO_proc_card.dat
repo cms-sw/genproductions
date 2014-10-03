@@ -1,5 +1,0 @@
-import model sm-lepton_masses
-#switch to non-diagonal ckm matrix if relevant
-#import model sm-ckm_lepton_masses
-generate p p > w+
-output wplustest_LO

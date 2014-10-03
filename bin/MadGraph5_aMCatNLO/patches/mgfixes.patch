@@ -1,46 +1,18 @@
---- ../old/MG5_aMC_v2_1_2/madgraph/various/banner.py    2014-07-03 15:37:56.000000001 +0200
-+++ MG5_aMC_v2_1_2/madgraph/various/banner.py   2014-07-04 15:46:18.000000001 +0200
-@@ -1116,9 +1116,11 @@
-             # update the counter to pass to the next element
-             nline -= 1
-         
--    def __getattr__(self, tag):
-+    def __getattr__(self, tag, default=None):
-         if isinstance(tag, int):
-             list.__getattr__(self, tag)
-+        elif tag == 'info' or tag == "__setstate__":
-+            return default #for pickle
-         else:
-             return self.info[tag]
-             
-diff -ur ../old/MG5_aMC_v2_1_2/madgraph/various/cluster.py MG5_aMC_v2_1_2/madgraph/various/cluster.py
---- ../old/MG5_aMC_v2_1_2/madgraph/various/cluster.py   2014-07-03 15:37:56.000000001 +0200
-+++ MG5_aMC_v2_1_2/madgraph/various/cluster.py  2014-07-03 18:19:17.000000001 +0200
-@@ -206,8 +206,8 @@
-         while 1: 
-             nb_iter += 1
-             idle, run, finish, fail = self.control(me_dir)
--            if fail:
--                raise ClusterManagmentError('Some Jobs are in a Hold/... state. Please try to investigate or contact the IT team')
-+            #if fail:
-+                #raise ClusterManagmentError('Some Jobs are in a Hold/... state. Please try to investigate or contact the IT team')
-             if idle + run == 0:
-                 #time.sleep(20) #security to ensure that the file are really written on the disk
-                 logger.info('All jobs finished')
-@@ -1274,6 +1274,9 @@
+diff -ur old/MG5_aMC_v2_2_1/madgraph/various/cluster.py ./MG5_aMC_v2_2_1/madgraph/various/cluster.py
+--- old/MG5_aMC_v2_2_1/madgraph/various/cluster.py      2014-09-25 16:56:11.000000000 +0200
++++ ./MG5_aMC_v2_2_1/madgraph/various/cluster.py        2014-09-26 02:09:13.305419805 +0200
+@@ -1304,6 +1304,8 @@
          if log is None:
              log = '/dev/null'
          
-+        text += 'OLDPWD=$PWD;'
-+        text += 'if [ -n $CMSSW_BASE ]; then cd $CMSSW_BASE; eval `scramv1 runtime -sh`; cd $OLDPWD; fi;'        
++        text += 'if [ -n $CMSSW_BASE ]; then cd $CMSSW_BASE; eval `scramv1 runtime -sh`; cd -; fi;'           
 +        
          text += prog
          if argument:
              text += ' ' + ' '.join(argument)
-
-diff -ur ../old/MG5_aMC_v2_1_2/Template/LO/bin/internal/Gridpack/run.sh MG5_aMC_v2_1_2/Template/LO/bin/internal/Gridpack/run.sh
---- ../old/MG5_aMC_v2_1_2/Template/LO/bin/internal/Gridpack/run.sh      2014-04-01 09:44:13.000000001 +0200
-+++ MG5_aMC_v2_1_2/Template/LO/bin/internal/Gridpack/run.sh     2014-06-29 18:34:42.000000001 +0200
+diff -ur old/MG5_aMC_v2_2_1/Template/LO/bin/internal/Gridpack/run.sh ./MG5_aMC_v2_2_1/Template/LO/bin/internal/Gridpack/run.sh
+--- old/MG5_aMC_v2_2_1/Template/LO/bin/internal/Gridpack/run.sh 2014-09-25 16:56:11.000000000 +0200
++++ ./MG5_aMC_v2_2_1/Template/LO/bin/internal/Gridpack/run.sh   2014-09-26 02:14:50.115432890 +0200
 @@ -78,37 +78,5 @@
      cd ..
  fi
@@ -79,117 +51,21 @@ diff -ur ../old/MG5_aMC_v2_1_2/Template/LO/bin/internal/Gridpack/run.sh MG5_aMC_
 -
  gzip -f events.lhe
  exit
-=== modified file 'MadSpin/decay.py'
---- old/MadSpin/decay.py	2014-07-02 21:28:23 +0000
-+++ MG5_aMC_v2_1_2/MadSpin/decay.py	2014-07-11 00:25:51 +0000
-@@ -72,10 +72,11 @@
-     """ class to read an event, record the information, write down the event in the lhe format.
-             This class is used both for production and decayed events"""
- 
--    def __init__(self, inputfile=None):
-+    def __init__(self, inputfile=None, banner=None):
-         """Store the name of the event file """
-         self.inputfile=inputfile
-         self.particle={}
-+        self.banner = banner
- 
-     def give_momenta(self, map_event=None):
-         """ return the set of external momenta of the event, 
-@@ -166,14 +167,27 @@
-         line1=' %2d %6d %+13.7e %14.8e %14.8e %14.8e' % \
-         (self.nexternal,self.ievent,self.wgt,self.scale,self.aqed,self.aqcd)
-         line+=line1+"\n"
-+        scales= []
-         for item in range(1,len(self.event2mg.keys())+1):
-             part=self.event2mg[item]
-             if part>0:
-                 particle_line=self.get_particle_line(self.particle[part])
-+                if abs(self.particle[part]["istup"]) == 1:
-+                    if "pt_scale" in self.particle[part]:
-+                        scales.append(self.particle[part]["pt_scale"])
-+                    else:
-+                        scales.append(None)
-             else:
-                 particle_line=self.get_particle_line(self.resonance[part])
-             line+=particle_line        
--
-+        
-+        if any(scales):
-+            sqrts = self.particle[1]["pt_scale"]
-+            line += "<scales %s></scales>\n" % ' '.join(['pt_clust_%i=\"%s\"' 
-+                                                        %(i+1,s if s else sqrts)
-+                                                       for i,s in enumerate(scales)
-+                                                       if i>1])
-+        
-         if self.diese:
-             line += self.diese
-         if self.rwgt:
-@@ -290,6 +304,9 @@
-             elif line_type == 'rwgt' and 'wgt' in line:
-                 # force to continue to be in rwgt line up to </rwgt>
-                 line_type = 'rwgt'
-+            elif "pt_clust_" in line:
-+                line_type="clusteringv3" 
-+            
-             elif '<' in line:
-                 line_type = 'other_block'
-             
-@@ -347,6 +364,17 @@
-                     "mothup2":mothup2,"colup1":colup1,"colup2":colup2,"momentum":mom,"mass":mass,"helicity":helicity}
-                 else: 
-                     logger.warning('unknown status in lhe file')
-+            elif line_type == "clusteringv3":
-+                scales = re.findall(r"""pt_clust_(\d+)=\"([e\+\-.\d]+)\"""", line)
-+                scales = sorted(scales, key= lambda x: -1*int(x[0]))
-+                for index in range(1,len(self.particle)+1):
-+                    if self.particle[index]["istup"] == 1:
-+                        self.particle[index]["pt_scale"] = scales.pop()[1]
-+                if not self.banner:
-+                    self.particle[1]["pt_scale"] = self.particle[1]["momentum"].E + self.particle[2]["momentum"].E
-+                else:
-+                    self.particle[1]["pt_scale"] = float(self.banner.get('run_card', 'ebeam1'))+float(self.banner.get('run_card', 'ebeam2'))
-+                
-         return "no_event"
- 
- class pid2label(dict):
-@@ -1882,7 +1910,7 @@
-         self.model = ms_interface.model
-         self.banner = banner
-         self.evtfile = inputfile
--        self.curr_event = Event(self.evtfile) 
-+        self.curr_event = Event(self.evtfile, banner) 
-         self.inverted_decay_mapping={}
-                
-         self.curr_dir = os.getcwd()
-=== modified file 'MadSpin/interface_madspin.py'
---- MadSpin/interface_madspin.py        2014-05-14 11:25:11 +0000
-+++ MG5_aMC_v2_1_2/MadSpin/interface_madspin.py        2014-07-11 22:21:22 +0000
-@@ -285,7 +285,6 @@
-         if not self.list_branches.has_key(init_part):
-             self.list_branches[init_part] = []
-         self.list_branches[init_part].append(decay_process)
--        print decay_process
-         del decay_process, init_part
-
-
-@@ -503,7 +502,7 @@
-         generate_all = save_load_object.load_from_file(pjoin(self.options['ms_dir'], 'madspin.pkl'))
-         # Re-create information which are not save in the pickle.
-         generate_all.evtfile = self.events_file
--        generate_all.curr_event = madspin.Event(self.events_file)
-+        generate_all.curr_event = madspin.Event(self.events_file, self.banner )
-         generate_all.mgcmd = self.mg5cmd
-         generate_all.mscmd = self
-         generate_all.pid2width = lambda pid: generate_all.banner.get('param_card', 'decay', abs(pid)).value
-
-=== modified file 'madgraph/interface/common_run_interface.py'
---- madgraph/interface/common_run_interface.py  2014-07-07 12:59:46 +0000
-+++ MG5_aMC_v2_1_2/madgraph/interface/common_run_interface.py  2014-07-11 22:29:46 +0000
-@@ -1591,6 +1591,7 @@
-             self.results.add_detail('run_mode', current['run_mode'])
-
-         self.run_name = new_run
-+        self.banner = madspin_cmd.banner
-         self.banner.add(path)
-         self.banner.write(pjoin(self.me_dir,'Events',self.run_name, '%s_%s_banner.txt' %
-                                 (self.run_name, self.run_tag)))
+diff -ur orig/MG5_aMC_v2_2_1/MadSpin/decay.py MG5_aMC_v2_2_1/MadSpin/decay.py
+--- orig/MG5_aMC_v2_2_1/MadSpin/decay.py        2014-09-25 16:56:11.000000000 +0200
++++ MG5_aMC_v2_2_1/MadSpin/decay.py     2014-10-02 18:28:47.000000000 +0200
+@@ -2160,10 +2160,11 @@
+                 stdin_text+=p_str
+                 # here I also need to specify the Monte Carlo Masses
+                 stdin_text+=" %s \n" % nb_mc_masses
++                                 
++                decay = self.all_ME[production_tag]['decays'][0]
++                decay_me=self.all_ME.get_decay_from_tag(production_tag, decay['decay_tag'])
++                mepath = decay_me['path']
+                 
+-                mepath = self.all_ME[production_tag]['path']
+-                mepath = mepath.replace('production_me','full_me');
+-                                
+                 trial_nb, BWvalue, weight, momenta, failed, use_mc_masses, helicities = self.loadfortran( 'unweighting', mepath, stdin_text)
+                                 
+                 self.reset_helicityonly_in_prod_event(event_map, helicities)
