@@ -69,3 +69,34 @@ diff -ur orig/MG5_aMC_v2_2_1/MadSpin/decay.py MG5_aMC_v2_2_1/MadSpin/decay.py
                  trial_nb, BWvalue, weight, momenta, failed, use_mc_masses, helicities = self.loadfortran( 'unweighting', mepath, stdin_text)
                                  
                  self.reset_helicityonly_in_prod_event(event_map, helicities)
+diff -ur orig/MG5_aMC_v2_2_1/madgraph/interface/madevent_interface.py MG5_aMC_v2_2_1/madgraph/interface/madevent_interface.py
+--- orig/MG5_aMC_v2_2_1/madgraph/interface/madevent_interface.py        2014-09-25 16:56:11.000000000 +0200
++++ MG5_aMC_v2_2_1/madgraph/interface/madevent_interface.py     2014-10-10 10:56:51.000000000 +0200
+@@ -34,6 +34,7 @@
+ import sys
+ import traceback
+ import time
++import tempfile
+ 
+ try:
+     import readline
+@@ -4064,11 +4065,17 @@
+             
+ 
+             logfile = pjoin(Pdir, 'gen_ximprove.log')
++
++            procin = tempfile.SpooledTemporaryFile()      
++            procin.write('%s 1 F\n' % (precision))
++            procin.seek(0)
+             proc = misc.Popen([pjoin(bindir, 'gen_ximprove')],
+-                                    stdin=subprocess.PIPE,
++                                    stdin=procin,
+                                     stdout=open(logfile,'w'),
+                                     cwd=Pdir)
+-            proc.communicate('%s 1 F\n' % (precision))
++            proc.wait()
++            procin.close()
++#            proc.communicate('%s 1 F\n' % (precision))
+ 
+             if os.path.exists(pjoin(Pdir, 'ajob1')):
+                 alljobs = glob.glob(pjoin(Pdir,'ajob*'))
