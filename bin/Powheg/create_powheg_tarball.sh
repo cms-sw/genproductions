@@ -145,10 +145,13 @@ chmod a+x lhapdf-config-wrap
 
 make LHAPDF_CONFIG="`pwd`/lhapdf-config-wrap" pwhg_main || fail_exit "Failed to compile pwhg_main"
 
-
 mkdir workdir
 cd workdir
 localDir=`pwd`
+
+if [ -e  ${WORKDIR}/vbfnlo.input ]; then
+    cp -p ${WORKDIR}/vbfnlo.input .
+fi 
 
 cat ${card} | sed -e "s#SEED#${seed}#g" | sed -e "s#NEVENTS#${nevt}#g" > powheg.input
 cat powheg.input
