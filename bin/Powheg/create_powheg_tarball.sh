@@ -120,6 +120,10 @@ mv Makefile Makefile.interm
 cat Makefile.interm | sed -e "s#PWHGANAL[ \t]*=[ \t]*#\#PWHGANAL=#g" | sed -e "s#ANALYSIS[ \t]*=[ \t]*#\#ANALYSIS=#g" > Makefile
 mv Makefile Makefile.interm
 cat Makefile.interm | sed -e "s#pwhg_bookhist.o# #g" | sed -e "s#pwhg_bookhist-new.o# #g" | sed -e "s#pwhg_bookhist-multi.o# #g" > Makefile
+if [ "$process" = "ttJ" ]; then
+  mv Makefile Makefile.interm
+  cat Makefile.interm | sed -e "s#_PATH) -L#_PATH) #g" | sed -e "s# -lvirtual#/libvirtual.so.1.0.0#g" > Makefile
+fi
   
 echo "ANALYSIS=none 
 PWHGANAL=$BOOK_HISTO pwhg_analysis-dummy.o" >> tmpfile
@@ -146,12 +150,12 @@ mkdir workdir
 cd workdir
 localDir=`pwd`
 
-if [ -e  ${WORKDIR}/vbfnlo.input ]; then
-    cp -p ${WORKDIR}/vbfnlo.input .
-fi
-
 cat ${card} | sed -e "s#SEED#${seed}#g" | sed -e "s#NEVENTS#${nevt}#g" > powheg.input
 cat powheg.input
+if [[ -e ../pwhg_main-gnu ]]; then
+  mv ../pwhg_main-gnu ../pwhg_main
+  chmod a+x ../pwhg_main
+fi
 ../pwhg_main &> log_${process}_${seed}.txt
 
 #remove the spurious random seed output that is non LHE standard 
