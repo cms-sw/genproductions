@@ -78,8 +78,7 @@ sed -e "s#prefix=${oldinstallationdirlha}#prefix=${newinstallationdirlha}#g" lha
 chmod +x lhapdf-config
 #
 ## Get the input card
-wget --no-check-certificate 
-http://cms-project-generators.web.cern.ch/cms-project-generators/${cardinput} -O powheg.input  || cp -p ../../${cardinput} powheg.input || fail_exit "Failed to get powheg input card " ${card}
+wget --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/${cardinput} -O powheg.input  || cp -p ${cardinput} powheg.input || fail_exit "Failed to get powheg input card " ${card}
 
 myDir=`pwd`
 card=${myDir}/powheg.input
