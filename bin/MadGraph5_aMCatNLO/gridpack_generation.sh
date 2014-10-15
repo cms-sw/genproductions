@@ -83,7 +83,7 @@ cd $AFS_GEN_FOLDER
 # export RELEASE=CMSSW_5_3_21
 
 export SCRAM_ARCH=slc6_amd64_gcc481
-export RELEASE=CMSSW_7_3_X_2014-10-03-0200
+export RELEASE=CMSSW_7_3_0_pre1
 
 #################################
 #Clean the area the working area#
