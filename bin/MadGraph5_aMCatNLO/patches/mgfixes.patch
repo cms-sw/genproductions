@@ -62,52 +62,80 @@ diff -ur old/MG5_aMC_v2_2_1/Template/LO/bin/internal/Gridpack/run.sh ./MG5_aMC_v
 -
  gzip -f events.lhe
  exit
-diff -ur orig/MG5_aMC_v2_2_1/MadSpin/decay.py MG5_aMC_v2_2_1/MadSpin/decay.py
---- orig/MG5_aMC_v2_2_1/MadSpin/decay.py        2014-09-25 16:56:11.000000000 +0200
-+++ MG5_aMC_v2_2_1/MadSpin/decay.py     2014-10-02 18:28:47.000000000 +0200
-@@ -2160,10 +2160,11 @@
-                 stdin_text+=p_str
-                 # here I also need to specify the Monte Carlo Masses
-                 stdin_text+=" %s \n" % nb_mc_masses
-+                                 
-+                decay = self.all_ME[production_tag]['decays'][0]
-+                decay_me=self.all_ME.get_decay_from_tag(production_tag, decay['decay_tag'])
-+                mepath = decay_me['path']
-                 
--                mepath = self.all_ME[production_tag]['path']
--                mepath = mepath.replace('production_me','full_me');
--                                
-                 trial_nb, BWvalue, weight, momenta, failed, use_mc_masses, helicities = self.loadfortran( 'unweighting', mepath, stdin_text)
-                                 
-                 self.reset_helicityonly_in_prod_event(event_map, helicities)
-diff -ur orig/MG5_aMC_v2_2_1/madgraph/interface/madevent_interface.py MG5_aMC_v2_2_1/madgraph/interface/madevent_interface.py
---- orig/MG5_aMC_v2_2_1/madgraph/interface/madevent_interface.py        2014-09-25 16:56:11.000000000 +0200
-+++ MG5_aMC_v2_2_1/madgraph/interface/madevent_interface.py     2014-10-10 10:56:51.000000000 +0200
-@@ -34,6 +34,7 @@
- import sys
- import traceback
- import time
-+import tempfile
+=== modified file 'MG5_aMC_v2_2_1/MadSpin/decay.py'
+--- MadSpin/decay.py    2014-09-17 09:53:23 +0000
++++ MG5_aMC_v2_2_1/MadSpin/decay.py    2014-10-14 11:29:10 +0000
+@@ -1185,7 +1185,7 @@
+             decaying_base = [id for id in final if abs(id) in self.decay_ids]
+             decaying_base.sort()
+             topo['base_order'] = (initial , final)
+-            topo['matrix_element'] = me
++#            topo['matrix_element'] = me
+             tags = []
+             topo['tag2order'] = {}
+              
+@@ -2791,11 +2791,11 @@
+                                          'processes': matrix_element.get('processes'),
+                                          'tag': me.shell_string(pdg_order=True)}
+         #
+-        if __debug__:
+-            #check that all decay matrix element correspond to a decay only
+-            for prod in self.all_ME.values():
+-                for decay in prod['matrix_element']['base_amplitude']['process']['decay_chains']:
+-                    assert decay.shell_string() in self.all_decay
++#        if __debug__:
++#            #check that all decay matrix element correspond to a decay only
++#            for prod in self.all_ME.values():
++#                for decay in prod['matrix_element']['base_amplitude']['process']['decay_chains']:
++#                    assert decay.shell_string() in self.all_decay
+             
+         
+     def get_branching_ratio(self):
+
+=== modified file 'MG5_aMC_v2_2_1/MadSpin/decay.py'
+--- MadSpin/decay.py    2014-09-17 09:53:23 +0000
++++ MG5_aMC_v2_2_1/MadSpin/decay.py    2014-10-16 13:08:38 +0000
+@@ -3221,14 +3221,23 @@
+             helicities=[lastline[i] for i in range(len(lastline))]
+             output = trials, BWvalue, weight, momenta, failed, use_mc_masses, helicities
  
- try:
-     import readline
-@@ -4064,11 +4065,17 @@
+-        if len(self.calculator) > 100:
+-            logger.debug('more than 100 calculator. Perform cleaning')
++        if len(self.calculator) > self.options['max_running_process']:
++            logger.debug('more than %s calculators. Perform cleaning' % self.options['max_running_process'])
+             nb_calls = self.calculator_nbcall.values()
+             nb_calls.sort()
+             cut = max([nb_calls[len(nb_calls)//2], 0.001 * nb_calls[-1]])
+             for key, external in list(self.calculator.items()):
+                 nb = self.calculator_nbcall[key]
+                 if nb < cut:
++                    if key[0]=='full':
++                      path=key[1]
++                      end_signal="5 0 0 0 \n"  # before closing, write down the seed 
++                      external.stdin.write(end_signal)
++                      ranmar_state=external.stdout.readline()
++                      ranmar_file=pjoin(path,'ranmar_state.dat')
++                      ranmar=open(ranmar_file, 'w')
++                      ranmar.write(ranmar_state)
++                      ranmar.close()
+                     external.stdin.close()
+                     external.stdout.close()
+                     external.terminate()
+
+
+=== modified file 'MG5_aMC_v2_2_1/madgraph/interface/madevent_interface.py'
+--- madgraph/interface/madevent_interface.py    2014-09-24 19:41:18 +0000
++++ MG5_aMC_v2_2_1/madgraph/interface/madevent_interface.py    2014-10-17 15:57:21 +0000
+@@ -4064,11 +4064,10 @@
              
  
              logfile = pjoin(Pdir, 'gen_ximprove.log')
-+
-+            procin = tempfile.SpooledTemporaryFile()      
-+            procin.write('%s 1 F\n' % (precision))
-+            procin.seek(0)
-             proc = misc.Popen([pjoin(bindir, 'gen_ximprove')],
--                                    stdin=subprocess.PIPE,
-+                                    stdin=procin,
+-            proc = misc.Popen([pjoin(bindir, 'gen_ximprove')],
++            misc.call([pjoin(bindir, 'gen_ximprove')],
+                                     stdin=subprocess.PIPE,
                                      stdout=open(logfile,'w'),
                                      cwd=Pdir)
 -            proc.communicate('%s 1 F\n' % (precision))
-+            proc.wait()
-+            procin.close()
-+#            proc.communicate('%s 1 F\n' % (precision))
  
              if os.path.exists(pjoin(Pdir, 'ajob1')):
                  alljobs = glob.glob(pjoin(Pdir,'ajob*'))
