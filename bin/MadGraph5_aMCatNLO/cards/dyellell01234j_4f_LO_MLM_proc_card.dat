@@ -11,5 +11,5 @@ add process p p > ell+ ell- j j @2
 add process p p > ell+ ell- j j j @3
 add process p p > ell+ ell- j j j j @4
 
-output dyellell01234j_4f_LO_MLM 
+output dyellell01234j_4f_LO_MLM -nojpeg
 

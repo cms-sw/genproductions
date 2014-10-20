@@ -10,5 +10,5 @@ generate p p > wpm [QCD] @0
 add process p p > wpm j [QCD] @1
 add process p p > wpm j j [QCD] @2
 
-output wellnu012j_5f_NLO_FXFX
+output wellnu012j_5f_NLO_FXFX -nojpeg
 
