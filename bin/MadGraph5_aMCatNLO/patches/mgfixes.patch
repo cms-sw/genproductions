@@ -1,17 +1,15 @@
-diff -ur orig/MG5_aMC_v2_2_1/madgraph/various/cluster.py MG5_aMC_v2_2_1/madgraph/various/cluster.py
---- orig/MG5_aMC_v2_2_1/madgraph/various/cluster.py     2014-09-25 16:56:11.000000000 +0200
-+++ MG5_aMC_v2_2_1/madgraph/various/cluster.py  2014-10-05 18:14:52.000000000 +0200
-@@ -213,8 +213,8 @@
-             old_mode = mode
-             nb_iter += 1
-             idle, run, finish, fail = self.control(me_dir)
--            if fail:
--                raise ClusterManagmentError('Some Jobs are in a Hold/... state. Please try to investigate or contact the IT team')
-+            #if fail:
-+                #raise ClusterManagmentError('Some Jobs are in a Hold/... state. Please try to investigate or contact the IT team')
-             if idle + run == 0:
-                 #time.sleep(20) #security to ensure that the file are really written on the disk
-                 logger.info('All jobs finished')
+diff -ur ../orig/MG5_aMC_v2_2_1/madgraph/various/cluster.py ./MG5_aMC_v2_2_1/madgraph/various/cluster.py
+--- ../orig/MG5_aMC_v2_2_1/madgraph/various/cluster.py  2014-09-25 16:56:11.000000001 +0200
++++ ./MG5_aMC_v2_2_1/madgraph/various/cluster.py        2014-10-20 19:21:21.000000001 +0200
+@@ -1290,7 +1290,7 @@
+             me_dir = 'a' + me_dir[1:]
+         
+         text = ""
+-        command = ['bsub', '-J', me_dir]
++        command = ['bsub', '-C0', '-J', me_dir]
+         if cwd is None:
+             cwd = os.getcwd()
+         else: 
 @@ -1303,6 +1303,8 @@
              pass
          if log is None:
@@ -21,6 +19,45 @@ diff -ur orig/MG5_aMC_v2_2_1/madgraph/various/cluster.py MG5_aMC_v2_2_1/madgraph
          
          text += prog
          if argument:
+@@ -1364,7 +1366,7 @@
+         cmd = "bjobs " + ' '.join(self.submitted_ids) 
+         status = misc.Popen([cmd], shell=True, stdout=subprocess.PIPE)
+ 
+-        idle, run, fail = 0, 0, 0
++        jobstatus = {}
+         for line in status.stdout:
+             line = line.strip()
+             if 'JOBID' in line:
+@@ -1374,18 +1376,26 @@
+             if id not in self.submitted_ids:
+                 continue
+             status = splitline[2]
++            jobstatus[id] = status
++
++                
++        idle, run, fail = 0, 0, 0
++        for id in self.submitted_ids:
++            if id in jobstatus:
++                status = jobstatus[id]
++            else:
++                status = 'MISSING'
++                
+             if status == 'RUN':
+                 run += 1
+             elif status == 'PEND':
+                 idle += 1
+-            elif status == 'DONE':
++            else:
+                 status = self.check_termination(id)
+                 if status == 'wait':
+                     run += 1
+                 elif status == 'resubmit':
+                     idle += 1
+-            else:
+-                fail += 1
+ 
+         return idle, run, self.submitted - (idle+run+fail), fail
+
 diff -ur old/MG5_aMC_v2_2_1/Template/LO/bin/internal/Gridpack/run.sh ./MG5_aMC_v2_2_1/Template/LO/bin/internal/Gridpack/run.sh
 --- old/MG5_aMC_v2_2_1/Template/LO/bin/internal/Gridpack/run.sh 2014-09-25 16:56:11.000000000 +0200
 +++ ./MG5_aMC_v2_2_1/Template/LO/bin/internal/Gridpack/run.sh   2014-09-26 02:14:50.115432890 +0200
