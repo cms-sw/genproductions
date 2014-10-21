@@ -176,3 +176,63 @@ diff -ur old/MG5_aMC_v2_2_1/Template/LO/bin/internal/Gridpack/run.sh ./MG5_aMC_v
  
              if os.path.exists(pjoin(Pdir, 'ajob1')):
                  alljobs = glob.glob(pjoin(Pdir,'ajob*'))
+diff -ur ../orig/MG5_aMC_v2_2_1/madgraph/interface/amcatnlo_run_interface.py MG5_aMC_v2_2_1/madgraph/interface/amcatnlo_run_interface.py
+--- ../orig/MG5_aMC_v2_2_1/madgraph/interface/amcatnlo_run_interface.py 2014-09-25 16:56:11.000000001 +0200
++++ MG5_aMC_v2_2_1/madgraph/interface/amcatnlo_run_interface.py 2014-10-21 21:18:38.000000001 +0200
+@@ -3250,7 +3250,7 @@
+             output_files.append('scale_pdf_dependence.dat')
+ 
+             return self.cluster.submit2(exe, args, cwd=cwd, 
+-                             input_files=input_files, output_files=output_files) 
++                             input_files=input_files, output_files=output_files, required_output=output_files) 
+ 
+         elif 'ajob' in exe:
+             # the 'standard' amcatnlo job
+@@ -3259,11 +3259,12 @@
+                 input_files, output_files, args = self.getIO_ajob(exe,cwd, args)
+                 #submitting
+                 self.cluster.submit2(exe, args, cwd=cwd, 
+-                             input_files=input_files, output_files=output_files)
++                             input_files=input_files, output_files=output_files, required_output=output_files)
+ 
+                 # keep track of folders and arguments for splitted evt gen
+-                if len(args) == 4 and '_' in output_files[-1]:
+-                    self.split_folders[pjoin(cwd,output_files[-1])] = [exe] + args
++                subfolder=output_files[-1].split('/')[0]
++                if len(args) == 4 and '_' in subfolder:
++                    self.split_folders[pjoin(cwd,subfolder)] = [exe] + args
+ 
+         elif 'shower' in exe:
+             # a shower job
+@@ -3397,12 +3398,13 @@
+             input_files.append(pjoin(cwd, 'madevent_mintMC'))
+             if args[2] in ['0','2']:
+                 input_files.append(pjoin(self.me_dir, 'SubProcesses','madinMMC_%s.2' % args[1]))
++                
++
+ 
+             for i in subdir:
+                 current = 'G%s%s' % (args[1], i)
+                 if os.path.exists(pjoin(cwd,current)):
+                     input_files.append(pjoin(cwd, current))
+-                output_files.append(current)
+                 if len(args) == 4 and args[3] in ['H','S','V','B','F']:
+                     # use a grid train on another part
+                     base = '%s_%s' % (args[3],i)
+@@ -3413,7 +3415,15 @@
+                 elif len(args) ==4:
+                     keep_fourth_arg = True
+                     # this is for the split event generation
+-                    output_files.append('G%s%s_%s' % (args[1], i, args[3]))
++                    current = 'G%s%s_%s' % (args[1], i, args[3])
++                    
++                output_files.append('%s/log_MINT%s.txt' % (current,args[2]))
++                if args[2] in ['0','1']:
++                    output_files.append('%s/res_%s' % (current,args[2]))
++                if args[2] == '1':
++                    output_files.append('%s/results.dat' % current)
++                elif args[2] == '2':
++                    output_files.append('%s/events.lhe' % current)                
+ 
+         else:
+             raise aMCatNLOError, 'not valid arguments: %s' %(', '.join(args))
