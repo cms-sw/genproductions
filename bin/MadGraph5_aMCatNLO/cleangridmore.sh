@@ -21,5 +21,5 @@ find ./ -wholename "*SubProcesses/*/*.o" | xargs -r rm
 
 echo "stripping symbols from NLO binaries"
 
-find ./ -name "madevent_mintMC" | xargs strip -s
-find ./ -name "reweight_xsec_events" | xargs strip -s
+find ./ -name "madevent_mintMC" | xargs -r strip -s
+find ./ -name "reweight_xsec_events" | xargs -r strip -s
