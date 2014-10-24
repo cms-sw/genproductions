@@ -1,6 +1,6 @@
-diff -ur ../orig/MG5_aMC_v2_2_1/madgraph/various/cluster.py ./MG5_aMC_v2_2_1/madgraph/various/cluster.py
+diff -ur ../orig/MG5_aMC_v2_2_1/madgraph/various/cluster.py MG5_aMC_v2_2_1/madgraph/various/cluster.py
 --- ../orig/MG5_aMC_v2_2_1/madgraph/various/cluster.py  2014-09-25 16:56:11.000000001 +0200
-+++ ./MG5_aMC_v2_2_1/madgraph/various/cluster.py        2014-10-20 19:21:21.000000001 +0200
++++ MG5_aMC_v2_2_1/madgraph/various/cluster.py  2014-10-23 21:35:59.000000001 +0200
 @@ -1290,7 +1290,7 @@
              me_dir = 'a' + me_dir[1:]
          
@@ -28,20 +28,18 @@ diff -ur ../orig/MG5_aMC_v2_2_1/madgraph/various/cluster.py ./MG5_aMC_v2_2_1/mad
          for line in status.stdout:
              line = line.strip()
              if 'JOBID' in line:
-@@ -1374,18 +1376,26 @@
+@@ -1374,18 +1376,24 @@
              if id not in self.submitted_ids:
                  continue
              status = splitline[2]
 +            jobstatus[id] = status
 +
++        for id in self.submitted_ids:
++            if not id in jobstatus:
++                jobstatus[id] = 'MISSING'
 +                
 +        idle, run, fail = 0, 0, 0
-+        for id in self.submitted_ids:
-+            if id in jobstatus:
-+                status = jobstatus[id]
-+            else:
-+                status = 'MISSING'
-+                
++        for id,status in jobstatus.iteritems():                
              if status == 'RUN':
                  run += 1
              elif status == 'PEND':
