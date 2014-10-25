@@ -17,7 +17,7 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
             pythia8CUEP8M1SettingsBlock,
 	    processParameters = cms.vstring(
 			'HardQCD:all = on',
-			'PhaseSpace:pTHatMin = 300  ',
+			'PhaseSpace:pTHatMin = 170  ',
 			'PhaseSpace:pTHatMax = 300  ',
 	    ),
             parameterSets = cms.vstring('pythia8CommonSettings',
@@ -30,5 +30,5 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
 configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('\$Revision$'),
     name = cms.untracked.string('\$Source$'),
-    annotation = cms.untracked.string('QCD pthat 300to300 GeV, 13 TeV, TuneCUETP8M1')
+    annotation = cms.untracked.string('QCD pthat 170to300 GeV, 13 TeV, TuneCUETP8M1')
 )
