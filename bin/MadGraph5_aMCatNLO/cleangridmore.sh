@@ -17,6 +17,8 @@ find ./ -name "*.ps" | xargs -r rm
 find ./ -name "gensym" | xargs -r rm
 find ./ -name "ftn25" | xargs -r rm
 find ./ -name "ftn26" | xargs -r rm
+find ./ -name "core.*" | xargs -r rm
+find ./ -name "LSFJOB_*" | xargs -r rm -r
 find ./ -wholename "*SubProcesses/*/*.o" | xargs -r rm
 
 echo "stripping symbols from NLO binaries"
