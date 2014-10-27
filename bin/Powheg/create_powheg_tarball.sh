@@ -59,23 +59,24 @@ eval `scram runtime -sh`
 cd work
 export PATH=`pwd`:${PATH}
  
-# FastJet and LHAPDF
-#fastjet-config comes with the paths used at build time.
-#we need this to replace with the correct paths obtained from scram tool info fastjet
+# LHAPDF
+# lhapdf-config comes with the paths used at build time.
+# we need this to replace with the correct paths obtained from scram tool info fastjet
  
-#newinstallationdir=`scram tool info fastjet | grep FASTJET_BASE |cut -d "=" -f2`
-#cp ${newinstallationdir}/bin/fastjet-config ./fastjet-config.orig
- 
-#oldinstallationdir=`cat fastjet-config.orig | grep installationdir | head -n 1 | cut -d"=" -f2`
-#sed -e "s#${oldinstallationdir}#${newinstallationdir}#g" fastjet-config.orig > fastjet-config 
-#chmod +x fastjet-config
- 
-#same for lhapdf
 newinstallationdirlha=`scram tool info lhapdf | grep LHAPDF_BASE |cut -d "=" -f2`
 cp ${newinstallationdirlha}/bin/lhapdf-config ./lhapdf-config.orig
 oldinstallationdirlha=`cat lhapdf-config.orig | grep prefix | head -n 1 | cut -d"=" -f2`
 sed -e "s#prefix=${oldinstallationdirlha}#prefix=${newinstallationdirlha}#g" lhapdf-config.orig > lhapdf-config
+
+# if LHAPDF6 exists, use this
+LHAPDF6TOOLFILE=$CMSSW_BASE/config/toolbox/$SCRAM_ARCH/tools/available/lhapdf6.xml
+if [ -e $LHAPDF6TOOLFILE ]; then
+   LHAPDFCONFIG=`cat $LHAPDF6TOOLFILE | grep "<environment name=\"LHAPDF6_BASE\"" | cut -d \" -f 4`/bin/lhapdf-config
+   cp $LHAPDFCONFIG .
+fi
+
 chmod +x lhapdf-config
+
 #
 ## Get the input card
 wget --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/${cardinput} -O powheg.input  || cp -p ${cardinput} powheg.input || fail_exit "Failed to get powheg input card " ${card}
@@ -117,7 +118,7 @@ if [ `grep particle_identif pwhg_analysis-dummy.f` = ""]; then
    cp ../pwhg_analysis-dummy.f .
 fi
 mv Makefile Makefile.interm
-cat Makefile.interm | sed -e "s#PWHGANAL[ \t]*=[ \t]*#\#PWHGANAL=#g" | sed -e "s#ANALYSIS[ \t]*=[ \t]*#\#ANALYSIS=#g" > Makefile
+cat Makefile.interm | sed -e "s#PWHGANAL[ \t]*=[ \t]*#\#PWHGANAL=#g" | sed -e "s#ANALYSIS[ \t]*=[ \t]*#\#ANALYSIS=#g" | sed -e "s#LHAPDF_CONFIG[ \t]*=[ \t]*#\#LHAPDF_CONFIG=#g" > Makefile
 mv Makefile Makefile.interm
 cat Makefile.interm | sed -e "s#pwhg_bookhist.o# #g" | sed -e "s#pwhg_bookhist-new.o# #g" | sed -e "s#pwhg_bookhist-multi.o# #g" > Makefile
 if [ "$process" = "ttJ" ]; then
@@ -126,7 +127,8 @@ if [ "$process" = "ttJ" ]; then
 fi
   
 echo "ANALYSIS=none 
-PWHGANAL=$BOOK_HISTO pwhg_analysis-dummy.o" >> tmpfile
+PWHGANAL=$BOOK_HISTO pwhg_analysis-dummy.o
+LHAPDF_CONFIG=${myDir}/lhapdf-config" >> tmpfile
 mv Makefile Makefile.interm
 cat tmpfile Makefile.interm > Makefile
 rm -f Makefile.interm tmpfile
@@ -134,16 +136,18 @@ rm -f Makefile.interm tmpfile
 # Add libraries
 echo "LIBS+=-lz -lstdc++" >> Makefile
 
-LHA_BASE="`readlink -f "$LHAPATH/../../../"`"
-LHA_BASE_OLD="`$LHA_BASE/bin/lhapdf-config --prefix`"
-cat > lhapdf-config-wrap <<EOF
-#!/bin/bash
-"$LHA_BASE/bin/lhapdf-config" "\$@" | sed "s|$LHA_BASE_OLD|$LHA_BASE|g"
-EOF
+## ???
+#LHA_BASE="`readlink -f "$LHAPATH/../../../"`"
+#LHA_BASE_OLD="`$LHA_BASE/bin/lhapdf-config --prefix`"
+#cat > lhapdf-config-wrap <<EOF
+##!/bin/bash
+#"$LHA_BASE/bin/lhapdf-config" "\$@" | sed "s|$LHA_BASE_OLD|$LHA_BASE|g"
+#EOF
 
-chmod a+x lhapdf-config-wrap
+#chmod a+x lhapdf-config-wrap
 
-make LHAPDF_CONFIG="`pwd`/lhapdf-config-wrap" pwhg_main || fail_exit "Failed to compile pwhg_main"
+#make LHAPDF_CONFIG="`pwd`/lhapdf-config-wrap" pwhg_main || fail_exit "Failed to compile pwhg_main"
+make pwhg_main || fail_exit "Failed to compile pwhg_main"
 
 mkdir workdir
 cd workdir
