@@ -163,6 +163,9 @@ if [[ -e ../pwhg_main-gnu ]]; then
   mv ../pwhg_main-gnu ../pwhg_main
   chmod a+x ../pwhg_main
 fi
+
+#make sure env variable for pdfsets points to the right place
+export LHAPDF_DATA_PATH=`${myDir}/lhapdf-config --datadir`
 ../pwhg_main &> log_${process}_${seed}.txt
 
 #remove the spurious random seed output that is non LHE standard 
