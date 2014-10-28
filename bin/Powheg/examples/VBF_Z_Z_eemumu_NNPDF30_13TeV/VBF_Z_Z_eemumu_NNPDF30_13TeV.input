@@ -1,0 +1,97 @@
+! Production parameter for VBF ZZ production 
+vdecaymodeZ1 11  ! PDG code for charged decay product of Z vector boson (11:e;13 mu ...)  
+vdecaymodeZ2 13  ! PDG code for charged decay product of Z vector boson (11:e;13:mu;...)  
+hmass 125.d0    ! mass of the HIggs boson [GeV]
+hwidth 0.00498d0   ! width of the Higgs boson [GeV]
+wmass 80.419d0    ! mass of the W boson [GeV]
+wwidth 2.099d0   ! width of the W boson [GeV]
+zmass 91.188d0    ! mass of the Z boson [GeV]
+zwidth 2.51d0   ! width of the Z boson [GeV]
+
+zerowidth 0       ! default 0 (offshell Ws); if 1 generate Ws on shell
+higgsonly 0       ! default 0 (all contributions); if 1 keep only H->WW graphs
+numevts NEVENTS   ! number of events to be generated
+ih1   1           ! hadron 1 (1 for protons, -1 for antiprotons)
+ih2   1           ! hadron 2 (1 for protons, -1 for antiprotons)
+!ndns1 131        ! pdf set for hadron 1 (mlm numbering)
+!ndns2 131        ! pdf set for hadron 2 (mlm numbering)
+ebeam1 6500d0     ! energy of beam 1
+ebeam2 6500d0     ! energy of beam 2
+! To be set only if using LHA pdfs
+! 10050 cteq6m
+! 10042 cteq6l with LO alphas (corr. to vbfnlo LO set)
+! 10041 cteq6l with NLO alphas
+! 21000 MSTW2008 LO
+! 21100 MSTW2008 NLO
+lhans1  260000     ! pdf set for hadron 1 (LHA numbering)
+lhans2  260000     ! pdf set for hadron 2 (LHA numbering)
+! To be set only if using different pdf sets for the two incoming hadrons
+! QCDLambda5  0.25 ! for not equal pdf sets 
+
+! Parameters to allow or not the use of stored data
+use-old-grid    1 ! if 1 use old grid if file pwggrids.dat is present (<> 1 regenerate)
+use-old-ubound  1 ! if 1 use norm of upper bounding function stored in pwgubound.dat, if present; <> 1 regenerate
+skipbtlgrid 0     ! default 0; if 1 skip calculation of btlgrid  
+skiprmngrid 0     ! default 0; if 1 skip calculation of rmngrid  
+
+ncall1  10000 ! number of calls for initializing the integration grid
+itmx1    1      ! number of iterations for initializing the integration grid
+ncall2 10000
+itmx2    1      ! number of iterations for computing the integral and finding upper bound
+foldcsi   2     ! number of folds on csi integration
+foldy     2     ! number of folds on  y  integration
+foldphi   2    ! number of folds on phi integration
+nubound 5000       ! number of bbarra calls to setup norm of upper bounding function
+icsimax  1      ! <= 100, number of csi subdivision when computing the upper bounds
+iymax    1      ! <= 100, number of y subdivision when computing the upper bounds
+xupbound 2d0    ! increase upper bound for radiation generation
+
+! OPTIONAL PARAMETERS
+
+channel_type  0   ! Channels can be found in init_processes.f
+renscfact  1d0   ! (default 1d0) ren scale factor: muren  = muref * renscfact 
+facscfact  1d0   ! (default 1d0) fac scale factor: mufact = muref * facscfact 
+bornonly   0      ! (default 0) if 1 do Born only
+smartsig   1      ! (default 1) remember equal amplitudes (0 do not remember)
+withdamp    1      ! (default 0, do not use) use Born-zero damping factor
+bornsuppfact 1     ! (default 0, do not use) use Born suppression factor
+mll_gencut  20d0   ! mll generation cut
+testplots  1      ! (default 0, do not) do NLO and PWHG distributions
+
+iseed    SEED     ! initialize random number sequence 
+#rand1     -1      ! initialize random number sequence 
+#rand2     -1      ! initialize random number sequence 
+
+#manyseeds  1      ! Used to perform multiple runs with different random
+                   ! seeds in the same directory.
+                   ! If set to 1, the program asks for an integer j;
+                   ! The file pwgseeds.dat at line j is read, and the
+                   ! integer at line j is used to initialize the random
+                   ! sequence for the generation of the event.
+                   ! The event file is called pwgevents-'j'.lhe
+
+
+fakevirt 0	   ! uses Born for determining virt. grid
+
+runningscales  0   ! default 0 (no running scales); 1 use running scales
+btlscalereal   1   ! flag for running scales
+btlscalect     1   ! flag for running scales
+zz_res_type    1   ! 1:ZZ continuum; 2:Higgs resonance
+storeinfo_rwgt 1   ! store info for reweighting events 
+
+pdfreweight 1
+withnegweights 0
+
+xgriditeration 1   ! identifier for grid generation
+#parallelstage  1   ! identifier for parallel running stages
+
+higgs_analysis 0   ! 0 analysis for ZZ continuum;  1 analysis for Higgs resonance 
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!Anomalous parameters for dim6 operators
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+CWWWL2 0d0 !SM = 0D0
+CWL2 0d0 !SM = 0D0
+CBL2 0d0 !SM = 0D0
+CPWWWL2 0d0 !SM = 0D0
+CPWL2 0d0 !SM = 0D0
