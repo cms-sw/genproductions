@@ -15,9 +15,9 @@ ndns1 131            ! pdf set for hadron 1 (mlm numbering)
 ndns2 131            ! pdf set for hadron 2 (mlm numbering)
 
 ! To be set only if using LHA pdfs
-! 10800 CT10
-lhans1  10800      ! pdf set for hadron 1 (LHA numbering)
-lhans2  10800      ! pdf set for hadron 2 (LHA numbering)	
+! 11000 CT10
+lhans1  11000      ! pdf set for hadron 1 (LHA numbering)
+lhans2  11000      ! pdf set for hadron 2 (LHA numbering)	
 
 ! To be set only if using different pdf sets for the two incoming hadrons
 #QCDLambda5  0.25    ! for not equal pdf sets 

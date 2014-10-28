@@ -50,8 +50,8 @@ ebeam2 6500d0     ! energy of beam 2
 ! 21000 MSTW2008 (LO central)
 ! 21100 MSTW2008 (NLO central)
 
-lhans1  10800       ! pdf set for hadron 1 (LHA numbering)
-lhans2  10800       ! pdf set for hadron 2 (LHA numbering)	
+lhans1  11000       ! pdf set for hadron 1 (LHA numbering)
+lhans2  11000       ! pdf set for hadron 2 (LHA numbering)	
 
 ! Parameters to allow or not the use of stored data
 use-old-grid    1 ! if 1 use old grid if file pwggrids.dat is present (<> 1 regenerate)

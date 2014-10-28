@@ -4,8 +4,8 @@ ih1   1           ! hadron 1 (1 for protons, -1 for antiprotons)
 ih2   1           ! hadron 2 (1 for protons, -1 for antiprotons)
 #ndns1 131         ! pdf set for hadron 1 (mlm numbering)
 #ndns2 131         ! pdf set for hadron 2 (mlm numbering)
-lhans1 10800
-lhans2 10800
+lhans1 11000
+lhans2 11000
 ebeam1 6500d0     ! energy of beam 1
 ebeam2 6500d0     ! energy of beam 2
 

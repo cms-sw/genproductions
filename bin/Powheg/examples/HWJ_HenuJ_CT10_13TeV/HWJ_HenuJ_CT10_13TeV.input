@@ -34,8 +34,8 @@ bornsuppfact 0d0 ! (default 0d0)  mass param for Born suppression factor. If < 0
 ! 19170 cteq4l
 ! 10050 cteq6m
 ! 21100 MSTW 2008 (NLO central)
-lhans1  10800         ! pdf set for hadron 1 (LHA numbering)
-lhans2  10800         ! pdf set for hadron 2 (LHA numbering)	
+lhans1  11000         ! pdf set for hadron 1 (LHA numbering)
+lhans2  11000         ! pdf set for hadron 2 (LHA numbering)	
 ! To be set only if using different pdf sets for the two incoming hadrons
 #QCDLambda5  0.25 ! for not equal pdf sets 
 

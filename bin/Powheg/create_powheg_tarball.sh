@@ -81,6 +81,13 @@ chmod +x lhapdf-config
 ## Get the input card
 wget --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/${cardinput} -O powheg.input  || cp -p ${cardinput} powheg.input || fail_exit "Failed to get powheg input card " ${card}
 
+
+if [ -e $LHAPDF6TOOLFILE ]; then
+    sed -e 's/.*lhans1.*/lhans1 260000/ ; s/.*lhans2.*/lhans2 260000/' powheg.input > powheg.input.tmp
+    mv powheg.input.tmp powheg.input
+fi
+
+
 myDir=`pwd`
 card=${myDir}/powheg.input
 
@@ -189,7 +196,12 @@ if [ ! -e  ${WORKDIR}/runcmsgrid_powheg.sh ]; then
  fail_exit "Did not find " ${WORKDIR}/runcmsgrid_powheg.sh 
 fi
 
-sed -e 's/PROCESS/'${process}'/g' ${WORKDIR}/runcmsgrid_powheg.sh > runcmsgrid.sh
+
+
+templhapdf=`echo $LHAPDF_DATA_PATH/ | sed -e 's/\//\\\//g'`
+sed -e 's/PROCESS/'${process}'/g' -e 's/LHAPDF_PATH/'${templhapdf}'/g' ${WORKDIR}/runcmsgrid_powheg.sh > runcmsgrid.sh
+
+
 chmod 755 runcmsgrid.sh
 tar cpzsf ${tarball}_tarball.tar.gz *
 mv ${tarball}_tarball.tar.gz ${WORKDIR}/.
