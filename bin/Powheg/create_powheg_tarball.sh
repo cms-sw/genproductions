@@ -197,8 +197,7 @@ if [ ! -e  ${WORKDIR}/runcmsgrid_powheg.sh ]; then
 fi
 
 
-
-templhapdf=`echo $LHAPDF_DATA_PATH/ | sed -e 's/\//\\\//g'`
+templhapdf=$(echo $LHAPDF_DATA_PATH | sed 's/\//\\\//g')
 sed -e 's/PROCESS/'${process}'/g' -e 's/LHAPDF_PATH/'${templhapdf}'/g' ${WORKDIR}/runcmsgrid_powheg.sh > runcmsgrid.sh
 
 
