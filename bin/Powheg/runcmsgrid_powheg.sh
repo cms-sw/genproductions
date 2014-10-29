@@ -164,6 +164,7 @@ then
     echo -e "\ncomputing weights for 52+1 CT10 PDF variations\n"
     iteration=10999
     lastfile=11052
+    counter=3000
     while [ $iteration -lt $lastfile ];
     do
 	iteration=$(( iteration + 1 ))
@@ -183,6 +184,7 @@ then
     echo -e "\ncomputing weights for 16 CT10 alphas variations\n"
     iteration=11061
     lastfile=11077
+    counter=4000
     while [ $iteration -lt $lastfile ];
     do
 	iteration=$(( iteration + 1 ))
@@ -201,6 +203,7 @@ then
 
     echo -e "\ncomputing weights for MSTW central values\n"
     iteration=21100
+    counter=5000
     echo -e "\n PDF set ${iteration}"
     sed -e 's/.*lhans1.*/lhans1 '$iteration'/ ; s/.*lhans2.*/lhans2 '$iteration'/' powheg.input.tmp > powheg.input
     counter=$(( counter + 1 ))
@@ -215,6 +218,7 @@ then
 
     echo -e "\ncomputing weights for NNPDF 2.3 central values\n"
     iteration=244600
+    counter=6000
     echo -e "\n PDF set ${iteration}"
     sed -e 's/.*lhans1.*/lhans1 '$iteration'/ ; s/.*lhans2.*/lhans2 '$iteration'/' powheg.input.tmp > powheg.input
     counter=$(( counter + 1 ))
