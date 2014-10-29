@@ -7,8 +7,8 @@ ih2   1           ! hadron 2 (1 for protons, -1 for antiprotons)
 ebeam1 6500d0     ! energy of beam 1
 ebeam2 6500d0     ! energy of beam 2
 ! To be set only if using LHA pdfs
-lhans1   10800    ! pdf set for hadron 1 (LHA numbering)
-lhans2   10800    ! pdf set for hadron 2 (LHA numbering)
+lhans1   11000    ! pdf set for hadron 1 (LHA numbering)
+lhans2   11000    ! pdf set for hadron 2 (LHA numbering)
 ! To be set only if using internal mlm pdf
 #ndns1 131         ! pdf set for hadron 1 (mlm numbering)
 #ndns2 131         ! pdf set for hadron 2 (mlm numbering)

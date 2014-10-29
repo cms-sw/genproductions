@@ -23,8 +23,8 @@ ebeam2 6500d0     ! energy of beam 2
 ! 10041 cteq6l with NLO alphas
 ! 21000 MSTW2008 LO
 ! 21100 MSTW2008 NLO
-lhans1  10800     ! pdf set for hadron 1 (LHA numbering)
-lhans2  10800     ! pdf set for hadron 2 (LHA numbering)
+lhans1  11000     ! pdf set for hadron 1 (LHA numbering)
+lhans2  11000     ! pdf set for hadron 2 (LHA numbering)
 ! To be set only if using different pdf sets for the two incoming hadrons
 ! QCDLambda5  0.25 ! for not equal pdf sets 
 

@@ -18,8 +18,8 @@ bornktmin  5d0     ! (default 0d0) generation cut. Minimum kt in underlying Born
 ! 19150 cteq4m
 ! 19170 cteq4l
 ! 10050 cteq6m
-lhans1  10800         ! pdf set for hadron 1 (LHA numbering)
-lhans2  10800         ! pdf set for hadron 2 (LHA numbering)	
+lhans1  11000         ! pdf set for hadron 1 (LHA numbering)
+lhans2  11000         ! pdf set for hadron 2 (LHA numbering)	
 
 ! Parameters to allow or not the use of stored data
 use-old-grid    1 ! if 1 use old grid if file pwggrids.dat is present (<> 1 regenerate)
