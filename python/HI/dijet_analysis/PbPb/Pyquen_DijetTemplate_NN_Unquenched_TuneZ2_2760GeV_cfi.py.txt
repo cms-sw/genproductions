@@ -13,7 +13,7 @@ hiSignal = cms.EDFilter("PyquenGeneratorFilter",
                         numQuarkFlavor = cms.int32(0), ## to be removed
                         
                         angularSpectrumSelector = cms.int32(0), ## angular emitted gluon spectrum :
-                        embeddingMode = cms.bool(False),
+                        embeddingMode = cms.bool(True),
                         backgroundLabel = cms.InputTag("generator"), ## ineffective in no mixing
                         
                         doQuench = cms.bool(False),
@@ -53,7 +53,7 @@ hiSignal = cms.EDFilter("PyquenGeneratorFilter",
                                                                                    'MSTP(82)=4     ! Defines the multi-parton model',
                                                                                    ),
                                                     ppJets = cms.vstring('MSEL=1   ! QCD hight pT processes'),
-                                                    kinematics = cms.vstring ("CKIN(3)=120",  #min pthat
+                                                    kinematics = cms.vstring ("CKIN(3)=123456789",  #min pthat
                                                                               "CKIN(4)=9999" #max pthat
                                                                               )
                                                     ),
@@ -63,7 +63,7 @@ hiSignal = cms.EDFilter("PyquenGeneratorFilter",
                         )
 
 configurationMetadata = cms.untracked.PSet(
-    annotation = cms.untracked.string('PYTHIA (unquenched) dijets in NN (pt-hat > 120 GeV) at sqrt(s) = 2.76TeV')
+    annotation = cms.untracked.string('PYTHIA (unquenched) dijets in NN (pt-hat > 123456789 GeV) at sqrt(s) = 2.76TeV')
     )
 
 ProductionFilterSequence = cms.Sequence(hiSignal)
