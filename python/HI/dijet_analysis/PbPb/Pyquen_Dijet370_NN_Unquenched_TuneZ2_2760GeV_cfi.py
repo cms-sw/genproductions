@@ -13,7 +13,7 @@ hiSignal = cms.EDFilter("PyquenGeneratorFilter",
                         numQuarkFlavor = cms.int32(0), ## to be removed
                         
                         angularSpectrumSelector = cms.int32(0), ## angular emitted gluon spectrum :
-                        embeddingMode = cms.bool(True),
+                        embeddingMode = cms.bool(False),
                         backgroundLabel = cms.InputTag("generator"), ## ineffective in no mixing
                         
                         doQuench = cms.bool(False),

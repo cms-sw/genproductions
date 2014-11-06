@@ -24,7 +24,7 @@ hiSignal = cms.EDFilter("PyquenGeneratorFilter",
                         bMax = cms.double(0.0) ## max impact param (fm); valid only if cflag_!=0
                         )
 
-hiSignal.embeddingMode = True
+hiSignal.embeddingMode = False
 
 configurationMetadata = cms.untracked.PSet(
     annotation = cms.untracked.string('PYTHIA (unquenched) dijets in NN (pt-hat > 123456789 GeV) at sqrt(s) = 2.76TeV')
