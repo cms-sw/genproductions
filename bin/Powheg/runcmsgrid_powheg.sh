@@ -38,7 +38,7 @@ LHAPDFCONFIG=`echo "$LHAPDF_DATA_PATH/../../bin/lhapdf-config"`
 #if lhapdf6 external is available then above points to lhapdf5 and needs to be overridden
 LHAPDF6TOOLFILE=$CMSSW_BASE/config/toolbox/$SCRAM_ARCH/tools/available/lhapdf6.xml
 if [ -e $LHAPDF6TOOLFILE ]; then
-LHAPDFCONFIG=`cat $LHAPDF6TOOLFILE | grep "<environment name=\"LHAPDF6_BASE\"" | cut -d \" -f 4`/bin/lhapdf-config
+  LHAPDFCONFIG=`cat $LHAPDF6TOOLFILE | grep "<environment name=\"LHAPDF6_BASE\"" | cut -d \" -f 4`/bin/lhapdf-config
 fi
 #make sure env variable for pdfsets points to the right place
 export LHAPDF_DATA_PATH=`$LHAPDFCONFIG --datadir`
@@ -59,6 +59,7 @@ mkdir ${myDir}; cd ${myDir} ;
 #ln -s `which gfortran` f77
 #ln -s `which gfortran` g77
 export PATH=`pwd`:${PATH}
+export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:${LD_LIBRARY_PATH}
 
 if [[ -e ${WORKDIR}/pwggrid.dat ]]; then
     cp -p ${WORKDIR}/pwg*.dat .
@@ -66,6 +67,13 @@ fi
 if [ -e  ${WORKDIR}/vbfnlo.input ]; then
     cp -p ${WORKDIR}/vbfnlo.input .
 fi
+if [ -e ${WORKDIR}/br.a3_2HDM ]; then
+  cp -p ${WORKDIR}/br*2HDM .
+fi
+if [ -e  ${WORKDIR}/powheg-fh.in ]; then
+  cp -p ${WORKDIR}/powheg-fh.in .
+fi
+
 
 if [[ ! -e ${card} ]]; then
  fail_exit "powheg.input not found!"
