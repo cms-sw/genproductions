@@ -20,7 +20,7 @@ repo=${1}
 echo "%MSG-POWHEG source repository = $repo"
 
 name=${2} 
-echo "%%MSG-POWHEG source tarball name = $name"
+echo "%MSG-POWHEG source tarball name = $name"
 
 process=${3}
 echo "%MSG-POWHEG process = $process"
@@ -77,21 +77,20 @@ fi
 
 chmod +x lhapdf-config
 
-#
 ## Get the input card
 wget --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/${cardinput} -O powheg.input  || cp -p ${cardinput} powheg.input || fail_exit "Failed to get powheg input card " ${card}
 
+mv powheg.input powheg.input.temp
+cat powheg.input.temp | sed -e "s#--#-#g" > powheg.input
+
 myDir=`pwd`
 card=${myDir}/powheg.input
-
 
 ### retrieve the powheg source tar ball
 wget --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/${repo}/${name}.tar.gz  -O ${name}.tar.gz || fail_exit "Failed to get powheg tar ball " ${name}
 tar xzf ${name}.tar.gz
 #
 cd POWHEG-BOX/${process}
-
-### Corrections needed
 
 # This is just to please gcc 4.8.1
 mkdir -p include
@@ -100,7 +99,7 @@ mkdir -p include
 mv Makefile Makefile.orig
 cat Makefile.orig | sed -e "s#STATIC[ \t]*=[ \t]*-static#STATIC=-dynamic#g" | sed -e "s#PDF[ \t]*=[ \t]*native#PDF=lhapdf#g" > Makefile
 
-#Use gfortran, not other compilers which are not free/licensed
+# Use gfortran, not other compilers which are not free/licensed
 mv Makefile Makefile.interm
 cat Makefile.interm | sed -e "s#COMPILER[ \t]*=[ \t]*ifort#COMPILER=gfortran#g" > Makefile
 
@@ -136,25 +135,47 @@ rm -f Makefile.interm tmpfile
 # Add libraries
 echo "LIBS+=-lz -lstdc++" >> Makefile
 
-## ???
-#LHA_BASE="`readlink -f "$LHAPATH/../../../"`"
-#LHA_BASE_OLD="`$LHA_BASE/bin/lhapdf-config --prefix`"
-#cat > lhapdf-config-wrap <<EOF
-##!/bin/bash
-#"$LHA_BASE/bin/lhapdf-config" "\$@" | sed "s|$LHA_BASE_OLD|$LHA_BASE|g"
-#EOF
+# Add extra packages
+if [ "$process" = "gg_H_2HDM" ] || [ "$process" = "gg_H_MSSM" ]; then
+  echo "Adding CHAPLIN 1.2 library"
+  wget http://chaplin.hepforge.org/code/chaplin-1.2.tar
+  tar xvf chaplin-1.2.tar
+  cd chaplin-1.2
+  ./configure --prefix=`pwd`/..
+  make install
+  cd .. 
+  echo "LIBS+=-L`pwd`/lib/ -L`pwd`/lib64/" >> Makefile   # be safe
+  export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:${LD_LIBRARY_PATH}
+  if [ "$process" = "gg_H_MSSM" ]; then
+    echo "Adding FeynHiggs 2.10 library"
+    wget http://wwwth.mpp.mpg.de/members/heinemey/feynhiggs/newversion/FeynHiggs-2.10.2.tar.gz
+    tar xvf FeynHiggs-2.10.2.tar.gz
+    cd FeynHiggs-2.10.2
+    ./configure --prefix=`pwd`/..
+    make 
+    make install
+    cd ..
+  fi
+fi  
 
-#chmod a+x lhapdf-config-wrap
-
-#make LHAPDF_CONFIG="`pwd`/lhapdf-config-wrap" pwhg_main || fail_exit "Failed to compile pwhg_main"
 make pwhg_main || fail_exit "Failed to compile pwhg_main"
 
 mkdir workdir
 cd workdir
 localDir=`pwd`
 
+# Copy additional files
 if [ -e  ${WORKDIR}/vbfnlo.input ]; then
-    cp -p ${WORKDIR}/vbfnlo.input .
+  cp -p ${WORKDIR}/vbfnlo.input .
+fi 
+if [ -e ${WORKDIR}/br.a3_2HDM ]; then
+  cp -p ${WORKDIR}/br*2HDM .
+fi
+if [ -e  ${WORKDIR}/powheg-fh.in ]; then
+  cp -p ${WORKDIR}/powheg-fh.in .
+fi
+if [ -e  ${WORKDIR}/cteq6m ]; then
+    cp -p ${WORKDIR}/cteq6m .
 fi 
 
 cat ${card} | sed -e "s#SEED#${seed}#g" | sed -e "s#NEVENTS#${nevt}#g" > powheg.input
@@ -171,16 +192,19 @@ export LHAPDF_DATA_PATH=`${myDir}/lhapdf-config --datadir`
 #remove the spurious random seed output that is non LHE standard 
 cat pwgevents.lhe | grep -v "Random number generator exit values" > ${file}_final.lhe
 ls -l ${file}_final.lhe
+sed -i 's/Input file powheg.input contained:/Process: '$process'\nInput file powheg.input contained:/g' ${file}_final.lhe
 pwd
 cp ${file}_final.lhe ${WORKDIR}/.
 
 myDir=powhegbox_${process}
 mkdir ${WORKDIR}/${myDir}
 cp -p ../pwhg_main ${WORKDIR}/${myDir}/.
+cp -pr ../lib ${WORKDIR}/${myDir}/.
 cp -p pwg*.dat ${WORKDIR}/${myDir}/.
-if [ -e  ${WORKDIR}/vbfnlo.input ]; then
-    cp -p ${WORKDIR}/vbfnlo.input ${WORKDIR}/${myDir}/.
-fi
+cp -p ${WORKDIR}/vbfnlo.* ${WORKDIR}/${myDir}/.
+cp -p ${WORKDIR}/br.* ${WORKDIR}/${myDir}/.
+cp -p ${WORKDIR}/*fh.in ${WORKDIR}/${myDir}/.
+cp -p ${WORKDIR}/cteq6m ${WORKDIR}/${myDir}/.
 
 cd ${WORKDIR}/${myDir}
 cp -p ${card} .
