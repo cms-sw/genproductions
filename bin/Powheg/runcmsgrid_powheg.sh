@@ -38,7 +38,7 @@ LHAPDFCONFIG=`echo "$LHAPDF_DATA_PATH/../../bin/lhapdf-config"`
 #if lhapdf6 external is available then above points to lhapdf5 and needs to be overridden
 LHAPDF6TOOLFILE=$CMSSW_BASE/config/toolbox/$SCRAM_ARCH/tools/available/lhapdf6.xml
 if [ -e $LHAPDF6TOOLFILE ]; then
-LHAPDFCONFIG=`cat $LHAPDF6TOOLFILE | grep "<environment name=\"LHAPDF6_BASE\"" | cut -d \" -f 4`/bin/lhapdf-config
+  LHAPDFCONFIG=`cat $LHAPDF6TOOLFILE | grep "<environment name=\"LHAPDF6_BASE\"" | cut -d \" -f 4`/bin/lhapdf-config
 fi
 #make sure env variable for pdfsets points to the right place
 export LHAPDF_DATA_PATH=`$LHAPDFCONFIG --datadir`
@@ -53,6 +53,7 @@ if [[ -e ${myDir} ]]; then
   mv cmsgrid_final.lhe old_cmsgrid_final.lhe
 fi
 
+export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:${LD_LIBRARY_PATH}
 mkdir ${myDir}; cd ${myDir} ;  
 
 # force the f77 compiler to be the CMS defined one
@@ -65,6 +66,16 @@ if [[ -e ${WORKDIR}/pwggrid.dat ]]; then
 fi
 if [ -e  ${WORKDIR}/vbfnlo.input ]; then
     cp -p ${WORKDIR}/vbfnlo.input .
+fi
+if [ -e ${WORKDIR}/br.a3_2HDM ]; then
+  cp -p ${WORKDIR}/br*2HDM .
+fi
+if [ -e  ${WORKDIR}/powheg-fh.in ]; then
+  cp -p ${WORKDIR}/powheg-fh.in .
+fi
+### For the W process
+if [ -e  ${WORKDIR}/cteq6m ]; then
+    cp -p ${WORKDIR}/cteq6m .
 fi
 
 if [[ ! -e ${card} ]]; then
@@ -270,6 +281,7 @@ fi
 cat pwgevents.lhe | grep -v "Random number generator exit values" > ${file}_final.lhe
 
 ls -l ${file}_final.lhe
+sed -i 's/Input file powheg.input contained:/Process: '$process'\nInput file powheg.input contained:/g' ${file}_final.lhe
 pwd
 cp ${file}_final.lhe ${WORKDIR}/.
 
