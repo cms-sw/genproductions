@@ -200,6 +200,7 @@ myDir=powhegbox_${process}
 mkdir ${WORKDIR}/${myDir}
 cp -p ../pwhg_main ${WORKDIR}/${myDir}/.
 cp -pr ../lib ${WORKDIR}/${myDir}/.
+cp -pr ../lib64 ${WORKDIR}/${myDir}/.
 cp -p pwg*.dat ${WORKDIR}/${myDir}/.
 cp -p ${WORKDIR}/vbfnlo.* ${WORKDIR}/${myDir}/.
 cp -p ${WORKDIR}/br.* ${WORKDIR}/${myDir}/.
