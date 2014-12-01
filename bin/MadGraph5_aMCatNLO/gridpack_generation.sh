@@ -66,7 +66,7 @@ MGDIR=${PRODHOME}/
 
 MGBASEDIR=mgbasedir
 
-MG=MG5_aMC_v2.2.1.tar.gz
+MG=MG5_aMC_v2.2.2.tar.gz
 MGSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$MG
 # MG=MG5_aMC_v2.2.0_prebzr.tar.gz
 # MGSOURCE=bendavid.web.cern.ch/bendavid/$MG
@@ -74,7 +74,7 @@ MGSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$MG
 SYSCALC=SysCalc_V1.1.0.tar.gz
 SYSCALCSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$SYSCALC
 
-MGBASEDIRORIG=MG5_aMC_v2_2_1
+MGBASEDIRORIG=MG5_aMC_v2_2_2
 
 if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ];then
   #directory doesn't exist, create it and set up environment
@@ -86,10 +86,10 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ];then
   cd $AFS_GEN_FOLDER
 
 #   export SCRAM_ARCH=slc6_amd64_gcc472 #Here one should select the correct architechture corresponding with the CMSSW release
-#   export RELEASE=CMSSW_5_3_22
+#   export RELEASE=CMSSW_5_3_23
 
   export SCRAM_ARCH=slc6_amd64_gcc481
-  export RELEASE=CMSSW_7_1_11
+  export RELEASE=CMSSW_7_1_12
 
   #################################
   #Clean the area the working area#
