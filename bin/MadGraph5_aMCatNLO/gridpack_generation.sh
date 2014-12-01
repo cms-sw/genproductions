@@ -239,7 +239,7 @@ if [ -d processtmp ]; then
   rm -rf processtmp
 fi
 
-rsync -a $name/ processtmp
+cp -a $name/ processtmp
 
 cd processtmp
 
@@ -289,15 +289,17 @@ if [ "$isnlo" -gt "0" ]; then
 
   mv processtmp gridpack/process
 
-  rsync -a $MGBASEDIRORIG/ gridpack/mgbasedir
+  cp -a $MGBASEDIRORIG/ gridpack/mgbasedir
   
   cd gridpack
   #clean unneeded files for generation
   $PRODHOME/cleangridmore.sh
   cp $PRODHOME/runcmsgrid_NLO.sh ./runcmsgrid.sh
-  tar -czpsf ${name}_tarball.tar.gz mgbasedir process runcmsgrid.sh
+  
+  echo "Creating tarball"
+  XZ_OPT=-9 tar -cJpsf ${name}_tarball.tar.xz mgbasedir process runcmsgrid.sh
 
-  mv ${name}_tarball.tar.gz ${PRODHOME}/${name}_tarball.tar.gz
+  mv ${name}_tarball.tar.xz ${PRODHOME}/${name}_tarball.tar.xz
 
   echo "End of job"
 
@@ -322,7 +324,7 @@ else
   cd $WORKDIR
   mkdir process
   cd process
-  tar -xzvf $WORKDIR/processtmp/pilotrun_gridpack.tar.gz
+  tar -xzf $WORKDIR/processtmp/pilotrun_gridpack.tar.gz
   
   #prepare madspin grids if necessary
   if [ -e $CARDSDIR/${name}_madspin_card.dat ]; then
@@ -343,16 +345,18 @@ else
   
   mkdir gridpack
   mv process gridpack/process
-  rsync -a $MGBASEDIRORIG/ gridpack/mgbasedir
+  cp -a $MGBASEDIRORIG/ gridpack/mgbasedir
 
   cd gridpack
   
   #clean unneeded files for generation
   $PRODHOME/cleangridmore.sh
   cp $PRODHOME/runcmsgrid_LO.sh ./runcmsgrid.sh
-  tar -czpsf ${name}_tarball.tar.gz mgbasedir process runcmsgrid.sh
   
-  mv ${name}_tarball.tar.gz ${PRODHOME}/${name}_tarball.tar.gz
+  echo "Creating tarball"
+  XZ_OPT=-9 tar -cJpsf ${name}_tarball.tar.xz mgbasedir process runcmsgrid.sh
+  
+  mv ${name}_tarball.tar.xz ${PRODHOME}/${name}_tarball.tar.xz
   
   echo "End of job"
   
