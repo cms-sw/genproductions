@@ -60,7 +60,7 @@ AFS_GEN_FOLDER=${PRODHOME}/${name}
 # where to search for datacards, that have to follow a naming code: 
 #   ${name}_proc_card_mg5.dat
 #   ${name}_run_card.dat
-CARDSDIR=${PRODHOME}/cards
+CARDSDIR=${PRODHOME}/cards/${name}
 # where to find the madgraph tarred distribution
 MGDIR=${PRODHOME}/
 
