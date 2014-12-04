@@ -1,5 +1,8 @@
 import FWCore.ParameterSet.Config as cms
 
+from Configuration.Generator.Pythia8CommonSettings_cfi import *
+from Configuration.Generator.Pythia8CUEP8M1Settings_cfi import *
+
 generator = cms.EDFilter("Pythia8GeneratorFilter",
     pythiaPylistVerbosity = cms.untracked.int32(1),
     filterEfficiency = cms.untracked.double(1),
@@ -8,21 +11,19 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
     crossSection = cms.untracked.double(0.057843500), # pb
     maxEventsToPrint = cms.untracked.int32(0),
     PythiaParameters = cms.PSet(
+        pythia8CommonSettingsBlock,
+        pythia8CUEP8M1SettingsBlock,
         processParameters = cms.vstring(
-            'Main:timesAllowErrors    = 10000', 
-            'ParticleDecays:limitTau0 = on', 
-            'ParticleDecays:tauMax = 10', 
-            'Tune:pp 5', # Tune 4C
-            'Tune:ee 3', 
             'ExtraDimensionsLED:ffbar2gammagamma = on', 
             'ExtraDimensionsLED:CutOffmode = 0',
             'ExtraDimensionsLED:LambdaT = 3000.',
             'PhaseSpace:pTHatMin = 500.',
             'PhaseSpace:pTHatMax = -1.',
-            'PartonLevel:MI = on', 
-            'PartonLevel:ISR = on', 
-            'PartonLevel:FSR = on'
         ),
-        parameterSets = cms.vstring('processParameters')
+        parameterSets = cms.vstring(
+            'pythia8CommonSettings',
+            'pythia8CUEP8M1Settings',
+            'processParameters'
+        )
     )
 )
