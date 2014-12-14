@@ -9,29 +9,8 @@ comEnergy = cms.double(8000.0),
 PythiaParameters = cms.PSet(
 pythiaUESettingsBlock,
 pythiaEtab = cms.vstring(
-# 'Bottomonium:gg2QQbar[3S1(1)]g = on', #Upsilon(1S) Process
-# 'Bottomonium:gg2QQbar[3P0(1)]g = on ', #Turns on Chi_0b Process(10551)
-# 'Bottomonium:qg2QQbar[3P0(1)]q = on', (3=2S+1, P=L, 0 = J(Total Angular Mom.), 1=Color)
-# 'Bottomonium:qqbar2QQbar[3P0(1)]g = on',
-# '10551:addChannel 1 1.00 100 443 443', #Chi_0b -> JpsiJpsi
-# '10551:m0 = 8.',
-# '10551:mMin = 6.0',
-# '10551:mMax = 9.5',
-# '10551:mWidth = 4',
-# '10551:oneChannel = 1 1.00 100 443 223',
-# ' Bottomonium:gg2QQbar[3P1(1)]g = on', #Turns on (chi_1b) Process (20551)
-# 'Bottomonium:qg2QQbar[3P1(1)]q = on',
-# 'Bottomonium:qqbar2QQbar[3P1(1)]g = on',
-# 'Bottomonium:gg2QQbar[3P2(1)]g = on', #Turns on (chi_2b) Process(555)
-# 'Bottomonium:qg2QQbar[3P2(1)]q = on',
-# 'Bottomonium:qqbar2QQbar[3P2(1)]g = on',
-# 'Bottomonium:gg2QQbar[3S1(8)]g = on',
-# 'Charmonium:gg2QQbar[3P0(1)]g = on',
-# 'Bottomonium:qg2QQbar[1S0(8)]q = on',
-# 'Bottomonium:qqbar2QQbar[1S0(8)]g = on',
 'Higgs:useBSM = on',
 'HiggsBSM:gg2H2 = on',
-#'HiggsBSM:ffbar2H2 = on',
 'HiggsH2:coup2d = 10.0',
 'HiggsH2:coup2u = 10.0',
 'HiggsH2:coup2Z = 0.0',
@@ -43,36 +22,16 @@ pythiaEtab = cms.vstring(
 '443:onIfMatch 13 13',
 '333:onMode = off',
 '333:onIfMatch 13 13',
-#'223:onMode = off',
-#'223:onIfMatch 13 13',
 '553:onMode = off',
 '553:onIfMatch 13 13',
-############### For Floating Mass Distribution#######
-# '35:mMin = 15',
-# '35:mMax = 25',
-# '35:m0 = 23. ! Higgs mass',
-# '35:mWidth = 10 !Higgs Width',
 ############# For Fixed Mass Distribution#############
 '35:mMin = 0',
 '35:mMax = 25',
 '35:m0 = 11.0',
 '35:mWidth = 0.00',
-# '35:addChannel 1 1.00 100 443 443',
 '35:addChannel 1 1.00 100 13 -13 553',
-# '35:addChannel 1 1.00 100 443 333',
-# '35:addChannel 1 1.00 100 443 223',
-# '35:addChannel 1 1.00 100 443 553',
-# '35:addChannel 1 1.00 100 333 553',
-# '35:addChannel 1 1.00 100 223 553',
 '35:onMode = off',
-#'35:onIfMatch 443 333'), ##Jpsi Phi decay channel!
 '35:onIfMatch 13 -13 553'), ## Y(1S) mumu
-# '35:onIfMatch 443 443'), ##Jpsi Jpsi decay channel!
-# '35:onIfMatch 443 223'), ##Jpsi Omega decay channel!
-# '35:onIfMatch 443 553'), ##Jpsi Upsilon decay channel!
-# '35:onIfMatch 333 553'), ##Phi Upsilon decay channel!
-# '35:onIfMatch 223 553'), ##Omega Upsilon decay channel!
-# This is a vector of ParameterSet names to be read, in this order
 parameterSets = cms.vstring(
 'pythiaEtab')
 )
