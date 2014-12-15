@@ -1,6 +1,6 @@
-import model loop_sm
-#switch to non-diagonal ckm matrix if relevant
-#import model loop_sm-ckm
+import model loop_sm-ckm
+#switch to diagonal ckm matrix if needed for speed
+#import model loop_sm
 
 generate p p > w+ [QCD]
 output wplustest_4f_NLO -nojpeg
