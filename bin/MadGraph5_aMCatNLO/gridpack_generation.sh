@@ -345,7 +345,7 @@ else
 fi
 
 #clean unneeded files for generation
-#$PRODHOME/cleangridmore.sh
+$PRODHOME/cleangridmore.sh
 
 #create tarball with very aggressive xz settings (trade memory and cpu usage for compression ratio)
 echo "Creating tarball"
