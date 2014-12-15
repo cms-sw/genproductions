@@ -8,17 +8,6 @@
 #Important: Param card is not mandatory for this script                                  #
 ##########################################################################################
 
-##########################################################################################
-#DISCLAIMER:                                                                             #
-#This script has been tested in CMSSW_6_2_11 on slc6 and there is no guarantee it should work in   #
-#another releases.                                                                       #
-#To try in another releases you should adapt it taking into account to put the correct   #
-#parameters as the architechture, the release names and compatibility issues as decribed #
-#in the comments in this script                                                          #
-#Additionally, this script depends on the well behaviour of the lxplus machines, so if   #
-#one job fails the full set of jobs will fail and then you have to try again             #
-#Any issues should be addressed to: cms-madgraph-support-team_at_cernSPAMNOT.ch          #
-##########################################################################################
 
 ##########################################################################################
 #For runnning, the following command should be used                                      #
@@ -41,11 +30,14 @@ echo "System release " `cat /etc/redhat-release` #And the system release
 
 #First you need to set couple of settings:
 
+carddir=${1}
+
 # name of the run
-name=${1}
+name=${2}
 
 # which queue
-queue=$2
+queue=${3}
+
 
 #________________________________________
 # to be set for user spesific
@@ -53,16 +45,19 @@ queue=$2
 
 #For correct running you should place at least the run and proc card in a folder under the name "cards" in the same folder where you are going to run the script
 
-export PRODHOME=`pwd`
+if [ -z "$PRODHOME" ]; then
+  PRODHOME=`pwd`
+fi 
+
+RUNHOME=`pwd`
 AFSFOLD=${PRODHOME}/${name}
 # the folder where the script works, I guess
-AFS_GEN_FOLDER=${PRODHOME}/${name}
+AFS_GEN_FOLDER=${RUNHOME}/${name}
 # where to search for datacards, that have to follow a naming code: 
 #   ${name}_proc_card_mg5.dat
 #   ${name}_run_card.dat
-CARDSDIR=${PRODHOME}/cards/${name}
+CARDSDIR=${PRODHOME}/${carddir}/${name}
 # where to find the madgraph tarred distribution
-MGDIR=${PRODHOME}/
 
 MGBASEDIR=mgbasedir
 
@@ -86,10 +81,10 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ];then
   cd $AFS_GEN_FOLDER
 
 #   export SCRAM_ARCH=slc6_amd64_gcc472 #Here one should select the correct architechture corresponding with the CMSSW release
-#   export RELEASE=CMSSW_5_3_23
+#   export RELEASE=CMSSW_5_3_23_patch1
 
   export SCRAM_ARCH=slc6_amd64_gcc481
-  export RELEASE=CMSSW_7_1_12
+  export RELEASE=CMSSW_7_1_12_patch1
 
   #################################
   #Clean the area the working area#
@@ -155,6 +150,10 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ];then
       echo "set cluster_status_update 60 30" >> mgconfigscript
       echo "set cluster_nb_retry 3" >> mgconfigscript
       echo "set cluster_retry_wait 300" >> mgconfigscript 
+      if [[ ! "$RUNHOME" =~ ^/afs/.* ]]; then
+          echo "local path is not an afs path"
+          echo "set cluster_temp_path `echo $RUNHOME`" >> mgconfigscript 
+      fi      
   else
       echo "set run_mode 2" >> mgconfigscript
   fi
@@ -278,6 +277,8 @@ if [ "$isnlo" -gt "0" ]; then
   echo "done" >> makegrid.dat
 
   cat makegrid.dat | ./bin/generate_events -n pilotrun
+  
+  cat rsyncd.log
 
   #set to single core mode
   echo "mg5_path = ../mgbasedir" >> ./Cards/amcatnlo_configuration.txt
@@ -292,18 +293,8 @@ if [ "$isnlo" -gt "0" ]; then
   cp -a $MGBASEDIRORIG/ gridpack/mgbasedir
   
   cd gridpack
-  #clean unneeded files for generation
-  $PRODHOME/cleangridmore.sh
+
   cp $PRODHOME/runcmsgrid_NLO.sh ./runcmsgrid.sh
-  
-  echo "Creating tarball"
-  XZ_OPT=-9 tar -cJpsf ${name}_tarball.tar.xz mgbasedir process runcmsgrid.sh
-
-  mv ${name}_tarball.tar.xz ${PRODHOME}/${name}_tarball.tar.xz
-
-  echo "End of job"
-
-  exit 0
   
 else
   #LO mode
@@ -349,17 +340,19 @@ else
 
   cd gridpack
   
-  #clean unneeded files for generation
-  $PRODHOME/cleangridmore.sh
   cp $PRODHOME/runcmsgrid_LO.sh ./runcmsgrid.sh
   
-  echo "Creating tarball"
-  XZ_OPT=-9 tar -cJpsf ${name}_tarball.tar.xz mgbasedir process runcmsgrid.sh
-  
-  mv ${name}_tarball.tar.xz ${PRODHOME}/${name}_tarball.tar.xz
-  
-  echo "End of job"
-  
-  exit 0
-
 fi
+
+#clean unneeded files for generation
+#$PRODHOME/cleangridmore.sh
+
+#create tarball with very aggressive xz settings (trade memory and cpu usage for compression ratio)
+echo "Creating tarball"
+XZ_OPT="--lzma2=preset=9,dict=512MiB" tar -cJpsf ${name}_tarball.tar.xz mgbasedir process runcmsgrid.sh
+
+mv ${name}_tarball.tar.xz ${PRODHOME}/${name}_tarball.tar.xz
+
+echo "End of job"
+
+exit 0

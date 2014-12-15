@@ -1,3 +1,305 @@
+diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/interface/amcatnlo_run_interface.py MG5_aMC_v2_2_2/madgraph/interface/amcatnlo_run_interface.py
+--- ../orig/MG5_aMC_v2_2_2/madgraph/interface/amcatnlo_run_interface.py	2014-11-06 17:28:34.000000001 +0100
++++ MG5_aMC_v2_2_2/madgraph/interface/amcatnlo_run_interface.py	2014-12-02 03:33:16.000000001 +0100
+@@ -1518,9 +1518,7 @@
+                     nevents_unweighted = []
+ 
+                 split = i == 2 and \
+-                        int(self.run_card['nevt_job']) > 0 and \
+-                        any([int(l.split()[1]) > int(self.run_card['nevt_job']) \
+-                            for l in nevents_unweighted if l])
++                        int(self.run_card['nevt_job']) > 0
+ 
+                 if i == 2 or not options['only_generation']:
+                     # if the number of events requested is zero,
+diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/interface/madevent_interface.py MG5_aMC_v2_2_2/madgraph/interface/madevent_interface.py
+--- ../orig/MG5_aMC_v2_2_2/madgraph/interface/madevent_interface.py	2014-11-06 17:28:34.000000001 +0100
++++ MG5_aMC_v2_2_2/madgraph/interface/madevent_interface.py	2014-12-02 18:51:36.000000001 +0100
+@@ -2508,10 +2508,14 @@
+             os.remove(pjoin(self.me_dir,'SubProcesses', 'combine.log'))
+         except Exception:
+             pass
+-        self.cluster.launch_and_wait('../bin/internal/run_combine', 
++        #run_combinel locally rather than on cluster
++        misc.call(['../bin/internal/run_combine'], 
+                                         cwd=pjoin(self.me_dir,'SubProcesses'),
+-                                        stdout=pjoin(self.me_dir,'SubProcesses', 'combine.log'),
+-                                        required_output=[pjoin(self.me_dir,'SubProcesses', 'combine.log')])
++                                        stdout=open(pjoin(self.me_dir,'SubProcesses', 'combine.log'),'w'))
++        #self.cluster.launch_and_wait('../bin/internal/run_combine', 
++                                        #cwd=pjoin(self.me_dir,'SubProcesses'),
++                                        #stdout=pjoin(self.me_dir,'SubProcesses', 'combine.log'),
++                                        #required_output=[pjoin(self.me_dir,'SubProcesses', 'combine.log')])
+         
+         output = misc.mult_try_open(pjoin(self.me_dir,'SubProcesses','combine.log')).read()
+         # Store the number of unweighted events for the results object
+diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/various/cluster.py MG5_aMC_v2_2_2/madgraph/various/cluster.py
+--- ../orig/MG5_aMC_v2_2_2/madgraph/various/cluster.py	2014-11-06 17:28:34.000000001 +0100
++++ MG5_aMC_v2_2_2/madgraph/various/cluster.py	2014-12-15 03:35:13.000000001 +0100
+@@ -18,6 +18,11 @@
+ import re
+ import glob
+ import inspect
++import platform
++import signal
++import uuid
++import socket
++import atexit
+ 
+ logger = logging.getLogger('madgraph.cluster') 
+ 
+@@ -73,6 +78,9 @@
+         return deco_f_store
+     return deco_store
+ 
++def cleansubproc(subproc):
++    #print "killing %s" % subproc
++    subproc.terminate()
+ 
+ class Cluster(object):
+     """Basic Class for all cluster type submission"""
+@@ -322,7 +330,7 @@
+             #self.remove()
+         else:
+             args['nb_submit'] += 1            
+-            logger.warning('resubmit job (for the %s times)' % args['nb_submit'])
++            logger.warning('resubmit job %s (for the %s times)' % (id,args['nb_submit']))
+             del self.retry_args[job_id]
+             self.submitted_ids.remove(job_id)
+             if 'time_check' in args: 
+@@ -1279,6 +1287,80 @@
+     name = 'lsf'
+     job_id = 'LSB_JOBID'
+ 
++    def __init__(self,*args, **opts):
++        """Init the cluster"""
++        Cluster.__init__(self,*args, **opts)
++
++        if self.temp_dir!=None:
++            self.dorsync = True
++            #print "starting rsync"
++          
++            cwd = os.getcwd()
++
++            self.rsyncroot = cwd
++            
++            self.rsyncmodule = str(uuid.uuid4())
++            
++            #get free port number for rsyncd
++            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
++            sock.bind(('localhost', 0))
++            addr, port = sock.getsockname()
++            sock.close()    
++            
++            self.rsyncport = port
++            #print self.rsyncport
++            
++            rsynclog = os.path.join(cwd, 'rsyncd_%i.log' % self.rsyncport)
++            rsynclock = os.path.join(cwd, 'rsyncd_%i.lock' % self.rsyncport)
++            rsyncpid = os.path.join(cwd, 'rsyncd_%i.pid' % self.rsyncport)
++
++            rsyncpasswd = str(uuid.uuid4())
++            
++            self.rsyncuser = 'madgraph'
++            
++            rsyncsecrets = "%s:%s" % (self.rsyncuser,rsyncpasswd)
++            rsyncsecretsfile = os.path.join(cwd, 'rsyncsecrets_%i' % self.rsyncport)
++            secretsh = open(rsyncsecretsfile,'w')
++            os.chmod(rsyncsecretsfile, 0600)
++            secretsh.write(rsyncsecrets)
++          
++            os.environ["MADGRAPHRSYNCPASSWD_%i" % self.rsyncport] = rsyncpasswd
++            #print rsyncpasswd
++
++            rsyncconf = """
++              port = %(rsyncport)s
++              pid file = %(rsyncpid)s
++              log file = %(rsynclog)s
++             
++                [%(rsyncmodule)s]
++                  comment = Random things available for download
++                  lock file = %(rsynclock)s
++                  secrets file = %(rsyncsecrets)s
++                  path = %(path)s
++                  read only = yes
++                  list = yes 
++                  use chroot = false
++                  read only = false
++                  auth users = %(rsyncuser)s
++            """ % {'rsyncport': self.rsyncport,
++                   'rsyncmodule': self.rsyncmodule,
++                   'path': cwd,
++                  'rsynclog' : rsynclog,
++                  'rsynclock' : rsynclock,
++                  'rsyncpid' : rsyncpid,
++                  'rsyncsecrets' : rsyncsecretsfile,
++                  'rsyncuser' : self.rsyncuser,
++                  }
++            
++            rsyncconffile = os.path.join(cwd, 'rsyncd_%i.conf' % self.rsyncport)
++            open(rsyncconffile,'w').write(rsyncconf)
++            
++            self.rsyncd = subprocess.Popen(['rsync','--daemon', '--no-detach', '--config=%s' % rsyncconffile],cwd=cwd,stdout=subprocess.PIPE,stdin=subprocess.PIPE,stderr=subprocess.PIPE)
++            atexit.register(cleansubproc,self.rsyncd)
++            
++        else:
++            self.dorsync = False
++
+     @multiple_try()
+     def submit(self, prog, argument=[], cwd=None, stdout=None, stderr=None, log=None,
+                required_output=[], nb_submit=0):
+@@ -1304,6 +1386,8 @@
+         if log is None:
+             log = '/dev/null'
+         
++        text += 'if [ -n $CMSSW_BASE ]; then cd $CMSSW_BASE; eval `scramv1 runtime -sh`; cd -; fi;'
++        
+         text += prog
+         if argument:
+             text += ' ' + ' '.join(argument)
+@@ -1330,6 +1414,142 @@
+         return id        
+         
+         
++    @store_input()
++    @multiple_try()
++    def submit2(self, prog, argument=[], cwd=None, stdout=None, stderr=None,
++            log=None, input_files=[], output_files=[], required_output=[],nb_submit=0):
++        """How to make one submission. Return status id on the cluster.
++        NO SHARE DISK"""
++
++        #print "running lsf submit2"
++
++        if cwd is None:
++            cwd = os.getcwd()
++        if not os.path.exists(prog):
++            prog = os.path.join(cwd, prog)
++
++        if not required_output and output_files:
++            required_output = output_files
++
++        if not self.dorsync or (not input_files and not output_files):
++            # not input/output so not using submit2
++            return self.submit(prog, argument, cwd, stdout, stderr, log,
++        required_output=required_output, nb_submit=nb_submit)
++
++        if self.rsyncd.poll()!=None:
++            raise RuntimeError("rsyncd not running")
++
++        if cwd is None:
++            cwd = os.getcwd()
++        if not os.path.exists(prog):
++            prog = os.path.join(cwd, prog)
++        temp_file_name = "sub." + os.path.basename(prog) + '.'.join(argument)
++               
++        input_files.append(prog)                
++               
++        hostname = platform.node()
++               
++        rsynccwd = cwd
++        if rsynccwd.startswith(self.rsyncroot):
++            rsynccwd = rsynccwd[len(self.rsyncroot):]                   
++               
++        infilelist = ""
++        for input_file in input_files:
++            #make sure input_files are absolute paths
++            if not input_file.startswith('/'):
++                input_file = os.path.join(cwd,input_file)
++            #convert to paths relative to rsyncd root
++            if input_file.startswith(self.rsyncroot):
++                input_file = input_file[len(self.rsyncroot):]
++            infilelist += "%s@%s::%s/%s " % (self.rsyncuser,hostname,self.rsyncmodule, input_file)
++        infilelist += "./"
++        
++        outfilelist = ""
++        for output_file in output_files:
++            outfilelist += "%s " % (output_file)
++        outfilelist += "%s@%s::%s/%s" % (self.rsyncuser,hostname,self.rsyncmodule,rsynccwd)
++            
++        text = """#!/bin/bash
++
++            SUBMITTERHOST=%(hostname)s            
++
++            if [ -n $CMSSW_VERSION ]
++            then
++              scramv1 project CMSSW $CMSSW_VERSION
++              cd $CMSSW_VERSION
++              eval `scramv1 runtime -sh`
++              cd -
++            fi
++                             
++            export RSYNC_PASSWORD=$MADGRAPHRSYNCPASSWD_%(rsyncport)s
++                 
++            rsync --port %(rsyncport)s -r %(infilelist)s
++
++            echo "setting up program"
++
++            echo '%(arguments)s' > arguments
++            chmod +x ./%(script)s
++            cat arguments
++            echo "running program"
++            echo $PWD
++            pwd
++            echo $HOME
++            ls -lh            
++            %(program)s ./%(script)s %(arguments)s
++            
++            rsync --port %(rsyncport)s -r %(outfilelist)s
++            
++            """
++        dico = {'script': os.path.basename(prog),
++        'hostname': hostname,
++        'infilelist': infilelist,
++        'outfilelist': outfilelist,
++        'output_files': ' '.join(output_files),
++        'rsyncport': self.rsyncport,
++        'arguments': ' '.join([str(a) for a in argument]),
++        'program': ' ' if '.py' in prog else 'bash'}
++
++        me_dir = os.path.realpath(os.path.join(cwd,prog)).rsplit('/SubProcesses',1)[0]
++        me_dir = misc.digest(me_dir)[-14:]
++        if not me_dir[0].isalpha():
++            me_dir = 'a' + me_dir[1:]
++
++        text = text % dico
++        command = ['bsub', '-R', '"select[!noturbo &! fullsmt &! smt &! plus &! spacecharge && type==SLC6_64 &&!(model==a6_48_1091h17_1333 || model==i6_8_61a5h23_1066 || model==ai_intel_8) ]"', '-C0', '-J', me_dir]
++        if cwd is None:
++            cwd = os.getcwd()
++        #else:
++            #text += " cd %s;" % cwd
++        if stdout and isinstance(stdout, str):
++            command.extend(['-o', stdout])
++        if stderr and isinstance(stdout, str):
++            command.extend(['-e', stderr])
++        elif stderr == -2: # -2 is subprocess.STDOUT
++            pass
++        if log is None:
++            log = '/dev/null'
++
++        if self.cluster_queue and self.cluster_queue != 'None':
++            command.extend(['-q', self.cluster_queue])
++
++        a = misc.Popen(command, stdout=subprocess.PIPE,
++        stderr=subprocess.STDOUT,
++        stdin=subprocess.PIPE, cwd=cwd)
++
++        output = a.communicate(text)[0]
++        #Job <nnnn> is submitted to default queue <normal>.
++        try:
++            id = output.split('>',1)[0].split('<')[1]
++        except:
++            raise ClusterManagmentError, 'fail to submit to the cluster: \n%s' \
++            % output
++        if not id.isdigit():
++            raise ClusterManagmentError, 'fail to submit to the cluster: \n%s' \
++            % output
++        self.submitted += 1
++        self.submitted_ids.append(id)
++        return id        
++        
+     @multiple_try()
+     def control_one_job(self, id):
+         """ control the status of a single job with it's cluster id """
 diff -ur ../orig/MG5_aMC_v2_2_2/MadSpin/decay.py MG5_aMC_v2_2_2/MadSpin/decay.py
 --- ../orig/MG5_aMC_v2_2_2/MadSpin/decay.py	2014-11-06 17:28:34.000000001 +0100
 +++ MG5_aMC_v2_2_2/MadSpin/decay.py	2014-12-01 01:50:11.000000001 +0100
@@ -79,15 +381,3 @@ diff -ur ../orig/MG5_aMC_v2_2_2/Template/LO/bin/internal/Gridpack/run.sh MG5_aMC
 -
  gzip -f events.lhe
  exit
-diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/various/cluster.py MG5_aMC_v2_2_2/madgraph/various/cluster.py
---- ../orig/MG5_aMC_v2_2_2/madgraph/various/cluster.py	2014-11-06 17:28:34.000000001 +0100
-+++ MG5_aMC_v2_2_2/madgraph/various/cluster.py	2014-12-01 01:36:55.000000001 +0100
-@@ -1304,6 +1304,8 @@
-         if log is None:
-             log = '/dev/null'
-         
-+        text += 'if [ -n $CMSSW_BASE ]; then cd $CMSSW_BASE; eval `scramv1 runtime -sh`; cd -; fi;'
-+        
-         text += prog
-         if argument:
-             text += ' ' + ' '.join(argument)
