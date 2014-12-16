@@ -35,7 +35,7 @@ diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/interface/madevent_interface.py MG5_aMC
          # Store the number of unweighted events for the results object
 diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/various/cluster.py MG5_aMC_v2_2_2/madgraph/various/cluster.py
 --- ../orig/MG5_aMC_v2_2_2/madgraph/various/cluster.py	2014-11-06 17:28:34.000000001 +0100
-+++ MG5_aMC_v2_2_2/madgraph/various/cluster.py	2014-12-15 03:35:13.000000001 +0100
++++ MG5_aMC_v2_2_2/madgraph/various/cluster.py	2014-12-16 16:18:35.000000001 +0100
 @@ -18,6 +18,11 @@
  import re
  import glob
@@ -157,7 +157,7 @@ diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/various/cluster.py MG5_aMC_v2_2_2/madgr
          text += prog
          if argument:
              text += ' ' + ' '.join(argument)
-@@ -1330,6 +1414,142 @@
+@@ -1330,6 +1414,137 @@
          return id        
          
          
@@ -230,21 +230,15 @@ diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/various/cluster.py MG5_aMC_v2_2_2/madgr
 +                             
 +            export RSYNC_PASSWORD=$MADGRAPHRSYNCPASSWD_%(rsyncport)s
 +                 
-+            rsync --port %(rsyncport)s -r %(infilelist)s
-+
-+            echo "setting up program"
++            #dereference symlinks for input
++            rsync --port %(rsyncport)s -rL %(infilelist)s
 +
 +            echo '%(arguments)s' > arguments
-+            chmod +x ./%(script)s
-+            cat arguments
-+            echo "running program"
-+            echo $PWD
-+            pwd
-+            echo $HOME
-+            ls -lh            
++            chmod +x ./%(script)s        
 +            %(program)s ./%(script)s %(arguments)s
 +            
-+            rsync --port %(rsyncport)s -r %(outfilelist)s
++            #copy symlinks as symlinks for output
++            rsync --port %(rsyncport)s -rl %(outfilelist)s
 +            
 +            """
 +        dico = {'script': os.path.basename(prog),
@@ -263,6 +257,7 @@ diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/various/cluster.py MG5_aMC_v2_2_2/madgr
 +
 +        text = text % dico
 +        command = ['bsub', '-R', '"select[!noturbo &! fullsmt &! smt &! plus &! spacecharge && type==SLC6_64 &&!(model==a6_48_1091h17_1333 || model==i6_8_61a5h23_1066 || model==ai_intel_8) ]"', '-C0', '-J', me_dir]
++        #command = ['bsub', '-R', '"select[qa && type==SLC6_64]"', '-C0', '-J', me_dir]
 +        if cwd is None:
 +            cwd = os.getcwd()
 +        #else:
@@ -340,6 +335,19 @@ diff -ur ../orig/MG5_aMC_v2_2_2/MadSpin/decay.py MG5_aMC_v2_2_2/MadSpin/decay.py
                      external.stdin.close()
                      external.stdout.close()
                      external.terminate()
+diff -ur ../orig/MG5_aMC_v2_2_2/MadSpin/interface_madspin.py MG5_aMC_v2_2_2/MadSpin/interface_madspin.py
+--- ../orig/MG5_aMC_v2_2_2/MadSpin/interface_madspin.py	2014-11-06 17:28:34.000000001 +0100
++++ MG5_aMC_v2_2_2/MadSpin/interface_madspin.py	2014-12-16 02:18:34.000000001 +0100
+@@ -533,6 +533,9 @@
+                 %s""" \
+                 % (self.options['ms_dir'], name, orig_block, block)
+         
++        #replace init information
++        generate_all.banner['init'] = self.banner['init']
++        
+         # NOW we have all the information available for RUNNING
+         
+         if self.seed:
 diff -ur ../orig/MG5_aMC_v2_2_2/Template/LO/bin/internal/Gridpack/run.sh MG5_aMC_v2_2_2/Template/LO/bin/internal/Gridpack/run.sh
 --- ../orig/MG5_aMC_v2_2_2/Template/LO/bin/internal/Gridpack/run.sh	2014-11-06 17:28:34.000000001 +0100
 +++ MG5_aMC_v2_2_2/Template/LO/bin/internal/Gridpack/run.sh	2014-12-01 01:53:43.000000001 +0100

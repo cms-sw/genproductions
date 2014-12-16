@@ -278,8 +278,6 @@ if [ "$isnlo" -gt "0" ]; then
 
   cat makegrid.dat | ./bin/generate_events -n pilotrun
   
-  cat rsyncd.log
-
   #set to single core mode
   echo "mg5_path = ../mgbasedir" >> ./Cards/amcatnlo_configuration.txt
   #echo "run_mode = 0" >> ./Cards/amcatnlo_configuration.txt
