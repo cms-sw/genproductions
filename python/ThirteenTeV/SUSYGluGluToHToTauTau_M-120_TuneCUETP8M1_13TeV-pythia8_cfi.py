@@ -19,7 +19,7 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
 					'HiggsBSM:gg2A3 = on', 
                                         '36:m0 = 120',		
 					'36:onMode = off',
-					'36:onIfAny = 15'
+					'36:onIfMatch = 15 -15'
 					
                                         ),
 
