@@ -1,20 +1,21 @@
 import FWCore.ParameterSet.Config as cms
 
-from Configuration.Generator.PythiaUESettings_cfi import *
+from Configuration.Generator.Pythia8CommonSettings_cfi import *
+from Configuration.Generator.Pythia8CUEP8M1Settings_cfi import *
 
 
 generator = cms.EDFilter("Pythia8GeneratorFilter",
-    pythiaHepMCVerbosity = cms.untracked.bool(False),
     maxEventsToPrint = cms.untracked.int32(1),
     pythiaPylistVerbosity = cms.untracked.int32(1),
-    displayPythiaCards = cms.untracked.bool(False),
-    comEnergy = cms.double(8000.0),
+    filterEfficiency = cms.untracked.double(1.0),
+    pythiaHepMCVerbosity = cms.untracked.bool(False),
+    comEnergy = cms.double(8000.),
     PythiaParameters = cms.PSet(
-        pythiaUESettingsBlock,
+        pythia8CommonSettingsBlock,
+        pythia8CUEP8M1SettingsBlock,
         pythiaEtab = cms.vstring(
         'Higgs:useBSM = on',
         'HiggsBSM:gg2H2 = on',
-        #'HiggsBSM:ffbar2H2 = on',
         'HiggsH2:coup2d = 10.0',
         'HiggsH2:coup2u = 10.0',
         'HiggsH2:coup2Z = 0.0',
@@ -36,10 +37,12 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
         '35:addChannel 1 1.00 100 13 -13 553',
         '35:onMode = off',
         '35:onIfMatch 13 -13 553'), ## Y(1S) mumu
-        parameterSets = cms.vstring(
-            'pythiaEtab')
+        parameterSets = cms.vstring('pythia8CommonSettings',
+                                    'pythia8CUEP8M1Settings',
+                                    'pythiaEtab')
     )
 )
+
 
 etafilter = cms.EDFilter("PythiaFilter",
     MaxEta = cms.untracked.double(9999.0),
