@@ -7,14 +7,18 @@ define j = j b b~
 
 define ell+ = e+ mu+ ta+
 define ell- = e- mu- ta-
-define ellpm = ell+ ell-
-define vlvl~ = vl vl~
 
-generate p p > ellpm vlvl~ @0
-add process p p > ellpm vlvl~ j @1
-add process p p > ellpm vlvl~ j j @2
-add process p p > ellpm vlvl~ j j j @3
-add process p p > ellpm vlvl~ j j j j @4
+generate p p > w+, w+ > ell+ vl @0
+add process p p > w+ j, w+ > ell+ vl @1
+add process p p > w+ j j, w+ > ell+ vl @2
+add process p p > w+ j j j, w+ > ell+ vl @3
+add process p p > w+ j j j j, w+ > ell+ vl @4
+
+add process p p > w-, w- > ell- vl~ @5
+add process p p > w- j, w- > ell- vl~ @6
+add process p p > w- j j, w- > ell- vl~ @7
+add process p p > w- j j j, w- > ell- vl~ @8
+add process p p > w- j j j j, w- > ell- vl~ @9
 
 output wellnu01234j_5f_LO_MLM -nojpeg
 
