@@ -3,7 +3,7 @@
 fail_exit() { echo "$@" 1>&2; exit 1; }
 
 #set -o verbose
-EXPECTED_ARGS=7
+EXPECTED_ARGS=8
 
 if [ $# -ne $EXPECTED_ARGS ]
 then
@@ -31,10 +31,13 @@ echo "%MSG-POWHEG location of the card = $cardinput"
 tarball=${5}
 echo "%MSG-POWHEG tar ball file name = ${tarball}_tarball.tar.gz"
 
-nevt=${6}
+usejhugen=${6}
+echo "%MSG-POWHEG JHUGen datacard for decays = ${usejhugen}"
+
+nevt=${7}
 echo "%MSG-POWHEG number of events requested = $nevt"
 
-rnum=${7}
+rnum=${8}
 echo "%MSG-POWHEG random seed used for the run = $rnum"
 
 seed=$rnum
@@ -85,6 +88,16 @@ cat powheg.input.temp | sed -e "s#--#-#g" > powheg.input
 
 myDir=`pwd`
 card=${myDir}/powheg.input
+cardj=${myDir}/JHUGen.input
+
+## Try to get the JHUGen card
+wget --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/${usejhugen} -O JHUGen.input || cp -p ${usejhugen} JHUGen.input
+
+jhugen=0
+if [[ -s ./JHUGen.input ]]; then
+  jhugen=$(expr $jhugen + 1)
+  echo "JHUGen activated!"
+fi
 
 ### retrieve the powheg source tar ball
 wget --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/${repo}/${name}.tar.gz  -O ${name}.tar.gz || fail_exit "Failed to get powheg tar ball " ${name}
@@ -136,6 +149,15 @@ rm -f Makefile.interm tmpfile
 echo "LIBS+=-lz -lstdc++" >> Makefile
 
 # Add extra packages
+if [ $jhugen = 1 ]; then
+  wget --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/slc6_amd64_gcc481/JHUGenerator.v4.9.5.tar.gz
+  tar xzf JHUGenerator.v4.9.5.tar.gz
+  cd JHUGenerator
+  mv makefile makefile.interm
+  cat makefile.interm | sed -e "s#Comp = ifort#Comp = gfort#g" > makefile
+  make
+  cd ..
+fi
 if [ "$process" = "gg_H_2HDM" ] || [ "$process" = "gg_H_MSSM" ]; then
   echo "Adding CHAPLIN 1.2 library"
   wget http://chaplin.hepforge.org/code/chaplin-1.2.tar
@@ -207,14 +229,25 @@ cp -p ${WORKDIR}/br.* ${WORKDIR}/${myDir}/.
 cp -p ${WORKDIR}/*fh.in ${WORKDIR}/${myDir}/.
 cp -p ${WORKDIR}/cteq6m ${WORKDIR}/${myDir}/.
 
+cp -p ../JHUGenerator/JHUGen ${WORKDIR}/${myDir}/.
+cp -pr ../JHUGenerator/pdfs ${WORKDIR}/${myDir}/.
+
 cd ${WORKDIR}/${myDir}
 cp -p ${card} .
 
-if [ ! -e  ${WORKDIR}/runcmsgrid_powheg.sh ]; then
- fail_exit "Did not find " ${WORKDIR}/runcmsgrid_powheg.sh 
+if [ $jhugen = 1 ]; then
+  cp -p ${cardj} .
+  if [ ! -e  ${WORKDIR}/runcmsgrid_powhegjhugen.sh ]; then
+   fail_exit "Did not find " ${WORKDIR}/runcmsgrid_powhegjhugen.sh 
+  fi
+  sed -e 's/PROCESS/'${process}'/g' ${WORKDIR}/runcmsgrid_powhegjhugen.sh > runcmsgrid.sh
+else
+  if [ ! -e  ${WORKDIR}/runcmsgrid_powheg.sh ]; then
+   fail_exit "Did not find " ${WORKDIR}/runcmsgrid_powheg.sh 
+  fi
+  sed -e 's/PROCESS/'${process}'/g' ${WORKDIR}/runcmsgrid_powheg.sh > runcmsgrid.sh
 fi
 
-sed -e 's/PROCESS/'${process}'/g' ${WORKDIR}/runcmsgrid_powheg.sh > runcmsgrid.sh
 chmod 755 runcmsgrid.sh
 tar cpzsf ${tarball}_tarball.tar.gz *
 mv ${tarball}_tarball.tar.gz ${WORKDIR}/.
