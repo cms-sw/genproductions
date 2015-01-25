@@ -80,11 +80,11 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ];then
 
   cd $AFS_GEN_FOLDER
 
-#   export SCRAM_ARCH=slc6_amd64_gcc472 #Here one should select the correct architechture corresponding with the CMSSW release
-#   export RELEASE=CMSSW_5_3_23_patch1
+  export SCRAM_ARCH=slc6_amd64_gcc472 #Here one should select the correct architechture corresponding with the CMSSW release
+  export RELEASE=CMSSW_5_3_23_patch1
 
-  export SCRAM_ARCH=slc6_amd64_gcc481
-  export RELEASE=CMSSW_7_1_12_patch1
+#  export SCRAM_ARCH=slc6_amd64_gcc481
+#  export RELEASE=CMSSW_7_1_12_patch1
 
   #################################
   #Clean the area the working area#
@@ -175,7 +175,9 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ];then
   cd $WORKDIR
 
   if [ "$name" == "interactive" ]; then
-    exit 0
+    #echo "eval `scramv1 runtime -sh`" > $WORKDIR/envscript.sh
+    #echo "export LHAPDF_DATA_PATH=`echo $LHAPDF_DATA_PATH`" >> $WORKDIR/envscript.sh
+    return 0
   fi
 
   echo `pwd`
@@ -225,7 +227,7 @@ else
   
 
   if [ "$name" == "interactive" ]; then
-    exit 0
+    return 0
   fi
 
 fi  
@@ -348,8 +350,10 @@ $PRODHOME/cleangridmore.sh
 #create tarball with very aggressive xz settings (trade memory and cpu usage for compression ratio)
 echo "Creating tarball"
 XZ_OPT="--lzma2=preset=9,dict=512MiB" tar -cJpsf ${name}_tarball.tar.xz mgbasedir process runcmsgrid.sh
+#tar -czpsf ${name}_tarball.tar.gz mgbasedir process runcmsgrid.sh
 
 mv ${name}_tarball.tar.xz ${PRODHOME}/${name}_tarball.tar.xz
+#mv ${name}_tarball.tar.gz ${PRODHOME}/${name}_tarball.tar.gz
 
 echo "End of job"
 

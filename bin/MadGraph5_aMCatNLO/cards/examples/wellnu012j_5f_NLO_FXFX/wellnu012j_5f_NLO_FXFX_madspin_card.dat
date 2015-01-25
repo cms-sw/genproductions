@@ -21,12 +21,16 @@ set ms_dir ./madspingrid
 
 set max_running_process 1
 
-define ell+ = e+ mu+ ta+
-define ell- = e- mu- ta-
+#define ell+ = e+ mu+ ta+
+#define ell- = e- mu- ta-
 
 # specify the decay for the final state particles
-decay w+ > ell+ vl
-decay w- > ell- vl~
+#decay w+ > ell+ vl
+#decay w- > ell- vl~
+
+#dummy decay
+decay w+ > ta+ vt
+
 
 # running the actual code
 launch

@@ -1,6 +1,6 @@
 diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/interface/amcatnlo_run_interface.py MG5_aMC_v2_2_2/madgraph/interface/amcatnlo_run_interface.py
 --- ../orig/MG5_aMC_v2_2_2/madgraph/interface/amcatnlo_run_interface.py	2014-11-06 17:28:34.000000001 +0100
-+++ MG5_aMC_v2_2_2/madgraph/interface/amcatnlo_run_interface.py	2014-12-02 03:33:16.000000001 +0100
++++ MG5_aMC_v2_2_2/madgraph/interface/amcatnlo_run_interface.py	2015-01-08 11:30:34.000000001 +0100
 @@ -1518,9 +1518,7 @@
                      nevents_unweighted = []
  
@@ -12,6 +12,16 @@ diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/interface/amcatnlo_run_interface.py MG5
  
                  if i == 2 or not options['only_generation']:
                      # if the number of events requested is zero,
+@@ -3436,7 +3434,8 @@
+                 elif len(args) ==4:
+                     keep_fourth_arg = True
+                     # this is for the split event generation
+-                    output_files.append('G%s%s_%s' % (args[1], i, args[3]))
++                    current = 'G%s%s_%s' % (args[1], i, args[3])
++                    output_files.append(current)
+                 required_output.append('%s/log_MINT%s.txt' % (current,args[2]))
+                 if args[2] in ['0','1']:
+                     required_output.append('%s/results.dat' % current)
 diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/interface/madevent_interface.py MG5_aMC_v2_2_2/madgraph/interface/madevent_interface.py
 --- ../orig/MG5_aMC_v2_2_2/madgraph/interface/madevent_interface.py	2014-11-06 17:28:34.000000001 +0100
 +++ MG5_aMC_v2_2_2/madgraph/interface/madevent_interface.py	2014-12-02 18:51:36.000000001 +0100
@@ -33,9 +43,60 @@ diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/interface/madevent_interface.py MG5_aMC
          
          output = misc.mult_try_open(pjoin(self.me_dir,'SubProcesses','combine.log')).read()
          # Store the number of unweighted events for the results object
+diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/iolibs/export_fks.py MG5_aMC_v2_2_2/madgraph/iolibs/export_fks.py
+--- ../orig/MG5_aMC_v2_2_2/madgraph/iolibs/export_fks.py	2014-11-06 17:28:34.000000001 +0100
++++ MG5_aMC_v2_2_2/madgraph/iolibs/export_fks.py	2015-01-07 14:37:20.000000001 +0100
+@@ -630,7 +630,7 @@
+ 
+         #import nexternal/leshouches in Source
+         ln('nexternal.inc', '../../Source', log=False)
+-        ln('leshouche_decl.inc', '../../Source', log=False)
++        ln('born_leshouche.inc', '../../Source', log=False)
+ 
+ 
+         # Return to SubProcesses dir
+@@ -2599,19 +2599,34 @@
+                 for initial_state in init_states:
+                     if initial_state in pdf_codes.keys():
+                         if subproc_group:
+-                            pdf_lines = pdf_lines + \
+-                                        ("%s%d=PDG2PDF(ABS(LPP(IB(%d))),%d*LP," + \
++                            if abs(pdgtopdf[initial_state]) <= 7:  
++                                pdf_lines = pdf_lines + \
++                                    ("%s%d=PDG2PDF(ABS(LPP(IB(%d))),%d*LP," + \
+                                          "XBK(IB(%d)),DSQRT(Q2FACT(%d)))\n") % \
+                                          (pdf_codes[initial_state],
+                                           i + 1, ibeam, pdgtopdf[initial_state],
+                                           ibeam, ibeam)
++                            else:
++                                # setting other partons flavours outside quark, gluon, photon to be 0d0
++                                pdf_lines = pdf_lines + \
++                                    ("c settings other partons flavours outside quark, gluon, photon to 0d0\n" + \
++                                     "%s%d=0d0\n") % \
++                                         (pdf_codes[initial_state],i + 1)                                
+                         else:
+-                            pdf_lines = pdf_lines + \
+-                                        ("%s%d=PDG2PDF(ABS(LPP(%d)),%d*LP," + \
++                            if abs(pdgtopdf[initial_state]) <= 7:  
++                                pdf_lines = pdf_lines + \
++                                    ("%s%d=PDG2PDF(ABS(LPP(%d)),%d*LP," + \
+                                          "XBK(%d),DSQRT(Q2FACT(%d)))\n") % \
+                                          (pdf_codes[initial_state],
+                                           i + 1, ibeam, pdgtopdf[initial_state],
+                                           ibeam, ibeam)
++                            else:
++                                # setting other partons flavours outside quark, gluon, photon to be 0d0
++                                pdf_lines = pdf_lines + \
++                                    ("c settings other partons flavours outside quark, gluon, photon to 0d0\n" + \
++                                     "%s%d=0d0\n") % \
++                                         (pdf_codes[initial_state],i + 1)                                
++
+                 pdf_lines = pdf_lines + "ENDIF\n"
+ 
+             # Add up PDFs for the different initial state particles
 diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/various/cluster.py MG5_aMC_v2_2_2/madgraph/various/cluster.py
 --- ../orig/MG5_aMC_v2_2_2/madgraph/various/cluster.py	2014-11-06 17:28:34.000000001 +0100
-+++ MG5_aMC_v2_2_2/madgraph/various/cluster.py	2014-12-16 16:18:35.000000001 +0100
++++ MG5_aMC_v2_2_2/madgraph/various/cluster.py	2015-01-07 13:44:19.000000001 +0100
 @@ -18,6 +18,11 @@
  import re
  import glob
@@ -157,7 +218,7 @@ diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/various/cluster.py MG5_aMC_v2_2_2/madgr
          text += prog
          if argument:
              text += ' ' + ' '.join(argument)
-@@ -1330,6 +1414,137 @@
+@@ -1330,6 +1414,138 @@
          return id        
          
          
@@ -256,8 +317,9 @@ diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/various/cluster.py MG5_aMC_v2_2_2/madgr
 +            me_dir = 'a' + me_dir[1:]
 +
 +        text = text % dico
-+        command = ['bsub', '-R', '"select[!noturbo &! fullsmt &! smt &! plus &! spacecharge && type==SLC6_64 &&!(model==a6_48_1091h17_1333 || model==i6_8_61a5h23_1066 || model==ai_intel_8) ]"', '-C0', '-J', me_dir]
++        #command = ['bsub', '-R', '"select[!noturbo &! fullsmt &! smt &! plus &! spacecharge && type==SLC6_64 &&!(model==a6_48_1091h17_1333 || model==i6_8_61a5h23_1066 || model==ai_intel_8) ]"', '-C0', '-J', me_dir]
 +        #command = ['bsub', '-R', '"select[qa && type==SLC6_64]"', '-C0', '-J', me_dir]
++        command = ['bsub', '-C0', '-J', me_dir]
 +        if cwd is None:
 +            cwd = os.getcwd()
 +        #else:
@@ -389,3 +451,45 @@ diff -ur ../orig/MG5_aMC_v2_2_2/Template/LO/bin/internal/Gridpack/run.sh MG5_aMC
 -
  gzip -f events.lhe
  exit
+diff -ur ../orig/MG5_aMC_v2_2_2/Template/NLO/Source/setrun.f MG5_aMC_v2_2_2/Template/NLO/Source/setrun.f
+--- ../orig/MG5_aMC_v2_2_2/Template/NLO/Source/setrun.f	2014-11-06 17:28:34.000000001 +0100
++++ MG5_aMC_v2_2_2/Template/NLO/Source/setrun.f	2015-01-07 14:37:08.000000001 +0100
+@@ -56,7 +56,6 @@
+      &     xmaxup(maxpup),lprup(maxpup)
+ c
+       include 'nexternal.inc'
+-      include 'leshouche_decl.inc'
+       logical gridrun,gridpack
+       integer          iseed
+       common /to_seed/ iseed
+@@ -65,6 +64,13 @@
+       common /event_normalisation/event_norm
+       integer iappl
+       common /for_applgrid/ iappl
++C      
++      integer    maxflow
++      parameter (maxflow=999)
++      integer idup(nexternal,maxproc)
++      integer mothup(2,nexternal,maxproc)
++      integer icolup(2,nexternal,maxflow)
++      include 'born_leshouche.inc'
+ c
+ c----------
+ c     start
+@@ -74,7 +80,6 @@
+ c MZ add the possibility to have shower_MC input lowercase
+       call to_upper(shower_MC)
+ C
+-      call read_leshouche_info(idup_d,mothup_d,icolup_d)
+ 
+ c merging cuts
+       xqcut=0d0
+@@ -160,7 +165,7 @@
+         elseif(lpp(i).eq.-3) then
+           idbmup(i)=-11
+         elseif(lpp(i).eq.0) then
+-          idbmup(i)=idup_d(1,i,1)
++          idbmup(i)=idup(i,1)
+         else
+           idbmup(i)=lpp(i)
+         endif

@@ -76,6 +76,14 @@ NNPDF23_nlo_as_0119.LHgrid 1
 NNPDF30_nlo_as_0118.LHgrid 1
 " > syscalc_card.dat
 
+if [ -d "${LHAPDF_DATA_PATH}/NNPDF30_lo_as_0130" ]; then
+  echo "NNPDF30_lo_as_0130.LHgrid" >> syscalc_card.dat
+fi
+
+if [ -d "${LHAPDF_DATA_PATH}/NNPDF30_lo_as_0118" ]; then
+  echo "NNPDF30_lo_as_0118.LHgrid 1" >> syscalc_card.dat
+fi
+
 ./mgbasedir/SysCalc/sys_calc events_presys.lhe syscalc_card.dat cmsgrid_final.lhe
 
 
