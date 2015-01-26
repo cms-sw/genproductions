@@ -11,10 +11,7 @@
 
 ##########################################################################################
 #For runnning, the following command should be used                                      #
-#bash create_gridpack_template.sh NAME_OF_PRODCUTION QUEUE_SELECTION                     #
-#Or you can make this script as an executable and the launch it with                     #
-#chmod +x create_gridpack_template.sh                                                    #
-#./create_gridpack_template.sh NAME_OF_PRODCUTION QUEUE_SELECTION                        #
+#./create_gridpack_template.sh NAME_OF_PRODCUTION RELATIVE_PATH_TO_CARDS QUEUE_SELECTION #
 #by NAME_OF_PRODUCTION you should use the names of run and proc card                     #
 #for example if the cards are bb_100_250_proc_card_mg5.dat and bb_100_250_run_card.dat   #
 #NAME_OF_PRODUCTION should be bb_100_250                                                 #
@@ -30,13 +27,18 @@ echo "System release " `cat /etc/redhat-release` #And the system release
 
 #First you need to set couple of settings:
 
-carddir=${1}
+name=${1}
 
 # name of the run
-name=${2}
+carddir=${2}
 
 # which queue
 queue=${3}
+
+if [ -z ${name} ]; then
+  echo "Process/card name not provided"
+  return 1>/dev/null || exit 1
+fi
 
 
 #________________________________________
@@ -56,49 +58,45 @@ AFS_GEN_FOLDER=${RUNHOME}/${name}
 # where to search for datacards, that have to follow a naming code: 
 #   ${name}_proc_card_mg5.dat
 #   ${name}_run_card.dat
-CARDSDIR=${PRODHOME}/${carddir}/${name}
+CARDSDIR=${PRODHOME}/${carddir}
 # where to find the madgraph tarred distribution
+
 
 MGBASEDIR=mgbasedir
 
 MG=MG5_aMC_v2.2.2.tar.gz
 MGSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$MG
-# MG=MG5_aMC_v2.2.0_prebzr.tar.gz
-# MGSOURCE=bendavid.web.cern.ch/bendavid/$MG
 
 SYSCALC=SysCalc_V1.1.0.tar.gz
 SYSCALCSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$SYSCALC
 
 MGBASEDIRORIG=MG5_aMC_v2_2_2
 
-if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ];then
+if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   #directory doesn't exist, create it and set up environment
-
-  if [ ! -d ${AFS_GEN_FOLDER} ];then
+  
+  if [ ! -d ${AFS_GEN_FOLDER} ]; then
     mkdir ${AFS_GEN_FOLDER}
   fi
 
   cd $AFS_GEN_FOLDER
 
-  export SCRAM_ARCH=slc6_amd64_gcc472 #Here one should select the correct architechture corresponding with the CMSSW release
-  export RELEASE=CMSSW_5_3_23_patch1
+#  export SCRAM_ARCH=slc6_amd64_gcc472 #Here one should select the correct architechture corresponding with the CMSSW release
+#  export RELEASE=CMSSW_5_3_23_patch1
 
-#  export SCRAM_ARCH=slc6_amd64_gcc481
-#  export RELEASE=CMSSW_7_1_12_patch1
+  export SCRAM_ARCH=slc6_amd64_gcc481
+  export RELEASE=CMSSW_7_1_12_patch1
 
-  #################################
-  #Clean the area the working area#
-  #################################
-  if [  -d ${name}_gridpack ] ;then
-          rm -rf ${name}_gridpack
-          echo "gridpack ${name}_gridpack exists..."
-          exit 1;
-  fi
 
   ############################
   #Create a workplace to work#
   ############################
-  scram project -n ${name}_gridpack CMSSW ${RELEASE} ; cd ${name}_gridpack ; mkdir -p work ; cd work
+  scram project -n ${name}_gridpack CMSSW ${RELEASE} ;
+  if [ ! -d ${name}_gridpack ]; then  
+    return 1>/dev/null || exit 1
+  fi
+  
+  cd ${name}_gridpack ; mkdir -p work ; cd work
   WORKDIR=`pwd`
   eval `scram runtime -sh`
 
@@ -106,10 +104,6 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ];then
   #############################################
   #Copy, Unzip and Delete the MadGraph tarball#
   #############################################
-  #MGSOURCE=${AFS_GEN_FOLDER}/${MG}
-
-  #wget --no-check-certificate ${MGSOURCE}
-  #cp ${MGSOURCE} .
   wget --no-check-certificate ${MGSOURCE}
   tar xzf ${MG}
   rm $MG
@@ -173,25 +167,39 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ];then
   make
 
   cd $WORKDIR
-
+  
   if [ "$name" == "interactive" ]; then
-    #echo "eval `scramv1 runtime -sh`" > $WORKDIR/envscript.sh
-    #echo "export LHAPDF_DATA_PATH=`echo $LHAPDF_DATA_PATH`" >> $WORKDIR/envscript.sh
-    return 0
+    return 0>/dev/null && exit 0
   fi
 
   echo `pwd`
 
 
+  if [ -z ${carddir} ]; then
+    echo "Card directory not provided"
+    return 1>/dev/null || exit 1
+  fi
+
+  if [ ! -d $CARDSDIR ]; then
+    echo $CARDSDIR " does not exist!"
+    return 1>/dev/null || exit 1
+  fi  
+  
   ########################
   #Locating the proc card#
   ########################
   if [ ! -e $CARDSDIR/${name}_proc_card.dat ]; then
-          echo $CARDSDIR/${name}_proc_card.dat " does not exist!"
-          #exit 1;
-  else
-          cp $CARDSDIR/${name}_proc_card.dat ${name}_proc_card.dat
+    echo $CARDSDIR/${name}_proc_card.dat " does not exist!"
+    return 1>/dev/null || exit 1
   fi
+
+  if [ ! -e $CARDSDIR/${name}_run_card.dat ]; then
+    echo $CARDSDIR/${name}_run_card.dat " does not exist!"
+    return 1>/dev/null || exit 1
+  fi  
+  
+  cp $CARDSDIR/${name}_proc_card.dat ${name}_proc_card.dat
+  
 
   ########################
   #Run the code-generation step to create the process directory
@@ -208,7 +216,7 @@ else
   WORKDIR=$AFS_GEN_FOLDER/${name}_gridpack/work/
   if [ ! -d ${WORKDIR} ]; then
     echo "Existing directory does not contain expected folder $WORKDIR"
-    exit 1
+    return 1>/dev/null || exit 1
   fi
   cd $WORKDIR
 
@@ -227,8 +235,23 @@ else
   
 
   if [ "$name" == "interactive" ]; then
-    return 0
+    return 0>/dev/null && exit 0
   fi
+  
+  if [ -z ${carddir} ]; then
+    echo "Card directory not provided"
+    return 1>/dev/null || exit 1
+  fi
+
+  if [ ! -d $CARDSDIR ]; then
+    echo $CARDSDIR " does not exist!"
+    return 1>/dev/null || exit 1
+  fi
+  
+  if [ ! -e $CARDSDIR/${name}_run_card.dat ]; then
+    echo $CARDSDIR/${name}_run_card.dat " does not exist!"
+    return 1>/dev/null || exit 1
+  fi  
 
 fi  
 
@@ -240,6 +263,10 @@ if [ -d processtmp ]; then
   rm -rf processtmp
 fi
 
+if [ ! -d ${name} ]; then
+  echo "Process output directory ${name} not found.  Either process generation failed, or the name of the output did not match the process name ${name} provided to the script."
+fi
+
 cp -a $name/ processtmp
 
 cd processtmp
@@ -247,12 +274,9 @@ cd processtmp
 #######################
 #Locating the run card#
 #######################
-if [ ! -e $CARDSDIR/${name}_run_card.dat ]; then
-  echo $CARDSDIR/${name}_run_card.dat " does not exist!"
-  #exit 1;
-else
-  cp $CARDSDIR/${name}_run_card.dat ./Cards/run_card.dat
-fi      
+
+cp $CARDSDIR/${name}_run_card.dat ./Cards/run_card.dat
+
 
 #automatically detect NLO mode or LO mode from output directory
 isnlo=0
@@ -280,9 +304,7 @@ if [ "$isnlo" -gt "0" ]; then
 
   cat makegrid.dat | ./bin/generate_events -n pilotrun
   
-  #set to single core mode
   echo "mg5_path = ../mgbasedir" >> ./Cards/amcatnlo_configuration.txt
-  #echo "run_mode = 0" >> ./Cards/amcatnlo_configuration.txt
 
   cd $WORKDIR
   
@@ -320,7 +342,6 @@ else
   #prepare madspin grids if necessary
   if [ -e $CARDSDIR/${name}_madspin_card.dat ]; then
     echo "import $WORKDIR/processtmp/Events/pilotrun/unweighted_events.lhe.gz" > madspinrun.dat
-    #cat ./madevent/Cards/madspin_card.dat >> madspinrun.dat
     cat $CARDSDIR/${name}_madspin_card.dat >> madspinrun.dat
     cat madspinrun.dat | $WORKDIR/$MGBASEDIRORIG/MadSpin/madspin
     rm madspinrun.dat
@@ -350,11 +371,9 @@ $PRODHOME/cleangridmore.sh
 #create tarball with very aggressive xz settings (trade memory and cpu usage for compression ratio)
 echo "Creating tarball"
 XZ_OPT="--lzma2=preset=9,dict=512MiB" tar -cJpsf ${name}_tarball.tar.xz mgbasedir process runcmsgrid.sh
-#tar -czpsf ${name}_tarball.tar.gz mgbasedir process runcmsgrid.sh
 
 mv ${name}_tarball.tar.xz ${PRODHOME}/${name}_tarball.tar.xz
-#mv ${name}_tarball.tar.gz ${PRODHOME}/${name}_tarball.tar.gz
 
 echo "End of job"
 
-exit 0
+return 0>/dev/null && exit 0
