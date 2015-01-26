@@ -20,8 +20,3 @@ find ./ -name "ftn26" | xargs -r rm
 find ./ -name "core.*" | xargs -r rm
 find ./ -name "LSFJOB_*" | xargs -r rm -r
 find ./ -wholename "*SubProcesses/*/*.o" | xargs -r rm
-
-echo "stripping symbols from NLO binaries"
-
-find ./ -name "madevent_mintMC" | xargs -r strip -s
-find ./ -name "reweight_xsec_events" | xargs -r strip -s

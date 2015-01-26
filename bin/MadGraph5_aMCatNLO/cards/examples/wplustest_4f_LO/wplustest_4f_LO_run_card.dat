@@ -29,7 +29,7 @@
 # Warning: Do not generate more than 1M events in a single run       *
 # If you want to run Pythia, avoid more than 50k events in a run.    *
 #*********************************************************************
-  1000 = nevents ! Number of unweighted events requested 
+  250 = nevents ! Number of unweighted events requested 
       0       = iseed   ! rnd seed (0=assigned automatically=default))
 #*********************************************************************
 # Collider type and energy                                           *
@@ -48,7 +48,8 @@
 #*********************************************************************
 # PDF CHOICE: this automatically fixes also alpha_s and its evol.    *
 #*********************************************************************
- 'nn23lo1'    = pdlabel     ! PDF set                                     
+ 'lhapdf'    = pdlabel     ! PDF set                                  
+  247000    = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number 
 #*********************************************************************
 # Renormalization and factorization scales                           *
 #*********************************************************************
@@ -61,12 +62,12 @@
 #*********************************************************************
 # Matching - Warning! ickkw > 1 is still beta
 #*********************************************************************
- 1        = ickkw            ! 0 no matching, 1 MLM, 2 CKKW matching
+ 0        = ickkw            ! 0 no matching, 1 MLM, 2 CKKW matching
  1        = highestmult      ! for ickkw=2, highest mult group
  1        = ktscheme         ! for ickkw=1, 1 Durham kT, 2 Pythia pTE
  1        = alpsfact         ! scale factor for QCD emission vx
  F        = chcluster        ! cluster only according to channel diag
- T        = pdfwgt           ! for ickkw=1, perform pdf reweighting
+ F        = pdfwgt           ! for ickkw=1, perform pdf reweighting
  5        = asrwgtflavor     ! highest quark flavor for a_s reweight
  T        = clusinfo         ! include clustering tag in output
  3.0      = lhe_version       ! Change the way clustering information pass to shower.        
@@ -83,7 +84,7 @@
 #**********************************
 # BW cutoff (M+/-bwcutoff*Gamma)
 #**********************************
-  15  = bwcutoff      ! (M+/-bwcutoff*Gamma)
+  15000  = bwcutoff      ! (M+/-bwcutoff*Gamma)
 #**********************************************************
 # Apply pt/E/eta/dr/mij cuts on decay products or not
 # (note that etmiss/ptll/ptheavy/ht/sorted cuts always apply)
@@ -103,7 +104,7 @@
 #*********************************************************************
 # Minimum and maximum pt's (for max, -1 means no cut)                *
 #*********************************************************************
-  0  = ptj       ! minimum pt for the jets 
+ 10  = ptj       ! minimum pt for the jets 
   0  = ptb       ! minimum pt for the b 
  10  = pta       ! minimum pt for the photons 
   0  = ptl       ! minimum pt for the charged leptons 
@@ -141,7 +142,7 @@
 #*********************************************************************
 # Minimum and maximum DeltaR distance                                *
 #*********************************************************************
- 0   = drjj    ! min distance between jets 
+ 0.1 = drjj    ! min distance between jets 
  0   = drbb    ! min distance between b's 
  0   = drll    ! min distance between leptons 
  0   = draa    ! min distance between gammas 
@@ -169,7 +170,7 @@
  0   = mmjj    ! min invariant mass of a jet pair 
  0   = mmbb    ! min invariant mass of a b pair 
  0   = mmaa    ! min invariant mass of gamma gamma pair
-50   = mmll    ! min invariant mass of l+l- (same flavour) lepton pair
+ 0   = mmll    ! min invariant mass of l+l- (same flavour) lepton pair
  -1  = mmjjmax ! max invariant mass of a jet pair
  -1  = mmbbmax ! max invariant mass of a b pair
  -1  = mmaamax ! max invariant mass of gamma gamma pair
@@ -251,11 +252,11 @@
 # maximal pdg code for quark to be considered as a light jet         *
 # (otherwise b cuts are applied)                                     *
 #*********************************************************************
- 5 = maxjetflavor    ! Maximum jet pdg code
+ 4 = maxjetflavor    ! Maximum jet pdg code
 #*********************************************************************
 # Jet measure cuts                                                   *
 #*********************************************************************
- 10   = xqcut   ! minimum kt jet measure between partons
+ 0   = xqcut   ! minimum kt jet measure between partons
 #*********************************************************************
 #
 #*********************************************************************

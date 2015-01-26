@@ -25,9 +25,9 @@
 # (relative) accuracy on the Xsec.                                     *
 # These values are ignored for fixed order runs                        *
 #***********************************************************************
-  1500 = nevents ! Number of unweighted events requested 
+   250 = nevents ! Number of unweighted events requested 
  0.001 = req_acc ! Required accuracy (-1=auto determined from nevents)
-    -1 = nevt_job! Max number of events per job in event generation. 
+    10 = nevt_job! Max number of events per job in event generation. 
                  !  (-1= no split).
 average = event_norm ! Normalize events to sum or average to the X sect.
 #***********************************************************************
@@ -55,7 +55,7 @@ average = event_norm ! Normalize events to sum or average to the X sect.
 # PDF choice: this automatically fixes also alpha_s(MZ) and its evol.  *
 #***********************************************************************
  lhapdf    = pdlabel   ! PDF set                                     
- 260000    = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number
+ 260400    = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number
 #***********************************************************************
 # Include the NLO Monte Carlo subtr. terms for the following parton    *
 # shower (HERWIG6 | HERWIGPP | PYTHIA6Q | PYTHIA6PT | PYTHIA8)         *
@@ -93,14 +93,14 @@ average = event_norm ! Normalize events to sum or average to the X sect.
   0.5     = rw_Fscale_down   ! lower bound for fact scale variations
   2.0     = rw_Fscale_up     ! upper bound for fact scale variations
  .true.  = reweight_PDF     ! reweight to get PDF uncertainty
- 260001   = PDF_set_min      ! First of the error PDF sets 
- 260100   = PDF_set_max      ! Last of the error PDF sets
+ 260401   = PDF_set_min      ! First of the error PDF sets 
+ 260500   = PDF_set_max      ! Last of the error PDF sets
 #***********************************************************************
 # Merging - WARNING! Applies merging only at the hard-event level.     *
 # After showering an MLM-type merging should be applied as well.       *
 # See http://amcatnlo.cern.ch/FxFx_merging.htm for more details.       *
 #***********************************************************************
- 3        = ickkw            ! 0 no merging, 3 FxFx merging
+ 0        = ickkw            ! 0 no merging, 3 FxFx merging
 #***********************************************************************
 #
 #***********************************************************************
@@ -115,7 +115,7 @@ average = event_norm ! Normalize events to sum or average to the X sect.
 # (more specific cuts can be specified in SubProcesses/cuts.f)         *
 #***********************************************************************
    1  = jetalgo   ! FastJet jet algorithm (1=kT, 0=C/A, -1=anti-kT)
- 1.0  = jetradius ! The radius parameter for the jet algorithm
+ 0.7  = jetradius ! The radius parameter for the jet algorithm
   10  = ptj       ! Min jet transverse momentum
   -1  = etaj      ! Max jet abs(pseudo-rap) (a value .lt.0 means no cut)
 #***********************************************************************
@@ -142,5 +142,5 @@ average = event_norm ! Normalize events to sum or average to the X sect.
 # Maximal PDG code for quark to be considered a jet when applying cuts.*
 # At least all massless quarks of the model should be included here.   *
 #***********************************************************************
- 5 = maxjetflavor
+ 4 = maxjetflavor
 #***********************************************************************

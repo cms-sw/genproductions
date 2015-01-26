@@ -2,5 +2,9 @@ import model sm-ckm_lepton_masses
 #switch to diagonal ckm matrix if relevant for speed
 #import model sm-lepton_masses
 
-generate p p > w+
+define ell+ = e+ mu+ ta+
+define ell- = e- mu- ta-
+
+generate p p > w+, w+ > ell+ vl @0
+
 output wplustest_4f_LO -nojpeg

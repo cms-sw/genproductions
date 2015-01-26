@@ -1,146 +1,395 @@
-diff -ur ../orig/MG5_aMC_v2_2_1/madgraph/various/cluster.py MG5_aMC_v2_2_1/madgraph/various/cluster.py
---- ../orig/MG5_aMC_v2_2_1/madgraph/various/cluster.py  2014-09-25 16:56:11.000000001 +0200
-+++ MG5_aMC_v2_2_1/madgraph/various/cluster.py  2014-10-23 21:35:59.000000001 +0200
-@@ -1290,7 +1290,7 @@
-             me_dir = 'a' + me_dir[1:]
-         
-         text = ""
--        command = ['bsub', '-J', me_dir]
-+        command = ['bsub', '-C0', '-J', me_dir]
-         if cwd is None:
-             cwd = os.getcwd()
-         else: 
-@@ -1303,6 +1303,8 @@
+diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/interface/amcatnlo_run_interface.py MG5_aMC_v2_2_2/madgraph/interface/amcatnlo_run_interface.py
+--- ../orig/MG5_aMC_v2_2_2/madgraph/interface/amcatnlo_run_interface.py	2014-11-06 17:28:34.000000001 +0100
++++ MG5_aMC_v2_2_2/madgraph/interface/amcatnlo_run_interface.py	2015-01-08 11:30:34.000000001 +0100
+@@ -1518,9 +1518,7 @@
+                     nevents_unweighted = []
+ 
+                 split = i == 2 and \
+-                        int(self.run_card['nevt_job']) > 0 and \
+-                        any([int(l.split()[1]) > int(self.run_card['nevt_job']) \
+-                            for l in nevents_unweighted if l])
++                        int(self.run_card['nevt_job']) > 0
+ 
+                 if i == 2 or not options['only_generation']:
+                     # if the number of events requested is zero,
+@@ -3436,7 +3434,8 @@
+                 elif len(args) ==4:
+                     keep_fourth_arg = True
+                     # this is for the split event generation
+-                    output_files.append('G%s%s_%s' % (args[1], i, args[3]))
++                    current = 'G%s%s_%s' % (args[1], i, args[3])
++                    output_files.append(current)
+                 required_output.append('%s/log_MINT%s.txt' % (current,args[2]))
+                 if args[2] in ['0','1']:
+                     required_output.append('%s/results.dat' % current)
+diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/interface/madevent_interface.py MG5_aMC_v2_2_2/madgraph/interface/madevent_interface.py
+--- ../orig/MG5_aMC_v2_2_2/madgraph/interface/madevent_interface.py	2014-11-06 17:28:34.000000001 +0100
++++ MG5_aMC_v2_2_2/madgraph/interface/madevent_interface.py	2014-12-02 18:51:36.000000001 +0100
+@@ -2508,10 +2508,14 @@
+             os.remove(pjoin(self.me_dir,'SubProcesses', 'combine.log'))
+         except Exception:
              pass
+-        self.cluster.launch_and_wait('../bin/internal/run_combine', 
++        #run_combinel locally rather than on cluster
++        misc.call(['../bin/internal/run_combine'], 
+                                         cwd=pjoin(self.me_dir,'SubProcesses'),
+-                                        stdout=pjoin(self.me_dir,'SubProcesses', 'combine.log'),
+-                                        required_output=[pjoin(self.me_dir,'SubProcesses', 'combine.log')])
++                                        stdout=open(pjoin(self.me_dir,'SubProcesses', 'combine.log'),'w'))
++        #self.cluster.launch_and_wait('../bin/internal/run_combine', 
++                                        #cwd=pjoin(self.me_dir,'SubProcesses'),
++                                        #stdout=pjoin(self.me_dir,'SubProcesses', 'combine.log'),
++                                        #required_output=[pjoin(self.me_dir,'SubProcesses', 'combine.log')])
+         
+         output = misc.mult_try_open(pjoin(self.me_dir,'SubProcesses','combine.log')).read()
+         # Store the number of unweighted events for the results object
+diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/iolibs/export_fks.py MG5_aMC_v2_2_2/madgraph/iolibs/export_fks.py
+--- ../orig/MG5_aMC_v2_2_2/madgraph/iolibs/export_fks.py	2014-11-06 17:28:34.000000001 +0100
++++ MG5_aMC_v2_2_2/madgraph/iolibs/export_fks.py	2015-01-07 14:37:20.000000001 +0100
+@@ -630,7 +630,7 @@
+ 
+         #import nexternal/leshouches in Source
+         ln('nexternal.inc', '../../Source', log=False)
+-        ln('leshouche_decl.inc', '../../Source', log=False)
++        ln('born_leshouche.inc', '../../Source', log=False)
+ 
+ 
+         # Return to SubProcesses dir
+@@ -2599,19 +2599,34 @@
+                 for initial_state in init_states:
+                     if initial_state in pdf_codes.keys():
+                         if subproc_group:
+-                            pdf_lines = pdf_lines + \
+-                                        ("%s%d=PDG2PDF(ABS(LPP(IB(%d))),%d*LP," + \
++                            if abs(pdgtopdf[initial_state]) <= 7:  
++                                pdf_lines = pdf_lines + \
++                                    ("%s%d=PDG2PDF(ABS(LPP(IB(%d))),%d*LP," + \
+                                          "XBK(IB(%d)),DSQRT(Q2FACT(%d)))\n") % \
+                                          (pdf_codes[initial_state],
+                                           i + 1, ibeam, pdgtopdf[initial_state],
+                                           ibeam, ibeam)
++                            else:
++                                # setting other partons flavours outside quark, gluon, photon to be 0d0
++                                pdf_lines = pdf_lines + \
++                                    ("c settings other partons flavours outside quark, gluon, photon to 0d0\n" + \
++                                     "%s%d=0d0\n") % \
++                                         (pdf_codes[initial_state],i + 1)                                
+                         else:
+-                            pdf_lines = pdf_lines + \
+-                                        ("%s%d=PDG2PDF(ABS(LPP(%d)),%d*LP," + \
++                            if abs(pdgtopdf[initial_state]) <= 7:  
++                                pdf_lines = pdf_lines + \
++                                    ("%s%d=PDG2PDF(ABS(LPP(%d)),%d*LP," + \
+                                          "XBK(%d),DSQRT(Q2FACT(%d)))\n") % \
+                                          (pdf_codes[initial_state],
+                                           i + 1, ibeam, pdgtopdf[initial_state],
+                                           ibeam, ibeam)
++                            else:
++                                # setting other partons flavours outside quark, gluon, photon to be 0d0
++                                pdf_lines = pdf_lines + \
++                                    ("c settings other partons flavours outside quark, gluon, photon to 0d0\n" + \
++                                     "%s%d=0d0\n") % \
++                                         (pdf_codes[initial_state],i + 1)                                
++
+                 pdf_lines = pdf_lines + "ENDIF\n"
+ 
+             # Add up PDFs for the different initial state particles
+diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/various/cluster.py MG5_aMC_v2_2_2/madgraph/various/cluster.py
+--- ../orig/MG5_aMC_v2_2_2/madgraph/various/cluster.py	2014-11-06 17:28:34.000000001 +0100
++++ MG5_aMC_v2_2_2/madgraph/various/cluster.py	2015-01-26 00:22:09.000000001 +0100
+@@ -18,6 +18,11 @@
+ import re
+ import glob
+ import inspect
++import platform
++import signal
++import uuid
++import socket
++import atexit
+ 
+ logger = logging.getLogger('madgraph.cluster') 
+ 
+@@ -73,6 +78,9 @@
+         return deco_f_store
+     return deco_store
+ 
++def cleansubproc(subproc):
++    #print "killing %s" % subproc
++    subproc.terminate()
+ 
+ class Cluster(object):
+     """Basic Class for all cluster type submission"""
+@@ -312,14 +320,14 @@
+             with option: %s
+             file missing: %s.
+             Stopping all runs.''' % (job_id, args, path))
+-            #self.remove()
++            self.remove()
+         elif args['nb_submit'] >= self.nb_retry:
+             logger.critical('''Fail to run correctly job %s.
+             with option: %s
+             file missing: %s
+             Fails %s times
+             No resubmition. ''' % (job_id, args, path, args['nb_submit']))
+-            #self.remove()
++            self.remove()
+         else:
+             args['nb_submit'] += 1            
+             logger.warning('resubmit job (for the %s times)' % args['nb_submit'])
+@@ -1279,6 +1287,80 @@
+     name = 'lsf'
+     job_id = 'LSB_JOBID'
+ 
++    def __init__(self,*args, **opts):
++        """Init the cluster"""
++        Cluster.__init__(self,*args, **opts)
++
++        if self.temp_dir!=None:
++            self.dorsync = True
++            #print "starting rsync"
++          
++            cwd = os.getcwd()
++
++            self.rsyncroot = cwd
++            
++            self.rsyncmodule = str(uuid.uuid4())
++            
++            #get free port number for rsyncd
++            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
++            sock.bind(('localhost', 0))
++            addr, port = sock.getsockname()
++            sock.close()    
++            
++            self.rsyncport = port
++            #print self.rsyncport
++            
++            rsynclog = os.path.join(cwd, 'rsyncd_%i.log' % self.rsyncport)
++            rsynclock = os.path.join(cwd, 'rsyncd_%i.lock' % self.rsyncport)
++            rsyncpid = os.path.join(cwd, 'rsyncd_%i.pid' % self.rsyncport)
++
++            rsyncpasswd = str(uuid.uuid4())
++            
++            self.rsyncuser = 'madgraph'
++            
++            rsyncsecrets = "%s:%s" % (self.rsyncuser,rsyncpasswd)
++            rsyncsecretsfile = os.path.join(cwd, 'rsyncsecrets_%i' % self.rsyncport)
++            secretsh = open(rsyncsecretsfile,'w')
++            os.chmod(rsyncsecretsfile, 0600)
++            secretsh.write(rsyncsecrets)
++          
++            os.environ["MADGRAPHRSYNCPASSWD_%i" % self.rsyncport] = rsyncpasswd
++            #print rsyncpasswd
++
++            rsyncconf = """
++              port = %(rsyncport)s
++              pid file = %(rsyncpid)s
++              log file = %(rsynclog)s
++             
++                [%(rsyncmodule)s]
++                  comment = Random things available for download
++                  lock file = %(rsynclock)s
++                  secrets file = %(rsyncsecrets)s
++                  path = %(path)s
++                  read only = yes
++                  list = yes 
++                  use chroot = false
++                  read only = false
++                  auth users = %(rsyncuser)s
++            """ % {'rsyncport': self.rsyncport,
++                   'rsyncmodule': self.rsyncmodule,
++                   'path': cwd,
++                  'rsynclog' : rsynclog,
++                  'rsynclock' : rsynclock,
++                  'rsyncpid' : rsyncpid,
++                  'rsyncsecrets' : rsyncsecretsfile,
++                  'rsyncuser' : self.rsyncuser,
++                  }
++            
++            rsyncconffile = os.path.join(cwd, 'rsyncd_%i.conf' % self.rsyncport)
++            open(rsyncconffile,'w').write(rsyncconf)
++            
++            self.rsyncd = subprocess.Popen(['rsync','--daemon', '--no-detach', '--config=%s' % rsyncconffile],cwd=cwd,stdout=subprocess.PIPE,stdin=subprocess.PIPE,stderr=subprocess.PIPE)
++            atexit.register(cleansubproc,self.rsyncd)
++            
++        else:
++            self.dorsync = False
++
+     @multiple_try()
+     def submit(self, prog, argument=[], cwd=None, stdout=None, stderr=None, log=None,
+                required_output=[], nb_submit=0):
+@@ -1304,6 +1386,8 @@
          if log is None:
              log = '/dev/null'
-+
-+        text += 'if [ -n $CMSSW_BASE ]; then cd $CMSSW_BASE; eval `scramv1 runtime -sh`; cd -; fi;'
          
++        text += 'if [ -n $CMSSW_BASE ]; then cd $CMSSW_BASE; eval `scramv1 runtime -sh`; cd -; fi;'
++        
          text += prog
          if argument:
-@@ -1364,7 +1366,7 @@
-         cmd = "bjobs " + ' '.join(self.submitted_ids) 
-         status = misc.Popen([cmd], shell=True, stdout=subprocess.PIPE)
- 
--        idle, run, fail = 0, 0, 0
-+        jobstatus = {}
-         for line in status.stdout:
-             line = line.strip()
-             if 'JOBID' in line:
-@@ -1374,18 +1376,24 @@
-             if id not in self.submitted_ids:
-                 continue
-             status = splitline[2]
-+            jobstatus[id] = status
-+
-+        for id in self.submitted_ids:
-+            if not id in jobstatus:
-+                jobstatus[id] = 'MISSING'
-+                
-+        idle, run, fail = 0, 0, 0
-+        for id,status in jobstatus.iteritems():                
-             if status == 'RUN':
-                 run += 1
-             elif status == 'PEND':
-                 idle += 1
--            elif status == 'DONE':
-+            else:
-                 status = self.check_termination(id)
-                 if status == 'wait':
-                     run += 1
-                 elif status == 'resubmit':
-                     idle += 1
--            else:
--                fail += 1
- 
-         return idle, run, self.submitted - (idle+run+fail), fail
-
-diff -ur old/MG5_aMC_v2_2_1/Template/LO/bin/internal/Gridpack/run.sh ./MG5_aMC_v2_2_1/Template/LO/bin/internal/Gridpack/run.sh
---- old/MG5_aMC_v2_2_1/Template/LO/bin/internal/Gridpack/run.sh 2014-09-25 16:56:11.000000000 +0200
-+++ ./MG5_aMC_v2_2_1/Template/LO/bin/internal/Gridpack/run.sh   2014-09-26 02:14:50.115432890 +0200
-@@ -78,37 +78,5 @@
-     cd ..
- fi
- 
--if [[ -e ./DECAY/decay ]]; then
--    cd DECAY
--    echo -$seed > iseed.dat
--    for ((i = 1 ;  i <= 20;  i++)) ; do
--       if [[ -e decay_$i\.in ]]; then
--           echo "Decaying events..."
--           mv ../events.lhe ../events_in.lhe
--           ./decay < decay_$i\.in
--       fi
--    done
--    cd ..
--fi
--
--if [[ -e ./REPLACE/replace.pl ]]; then
--    for ((i = 1 ;  i <= 20;  i++)) ; do
--       if [[ -e ./REPLACE/replace_card$i\.dat ]];then
--           echo "Adding flavors..."
--           mv ./events.lhe ./events_in.lhe
--           cd ./REPLACE
--           ./replace.pl ../events_in.lhe ../events.lhe < replace_card$i\.dat
--           cd ..
--       fi
--    done
--fi
--
--# part added by Stephen Mrenna to correct the kinematics of the replaced
--#  particles
--if [[ -e ./madevent/bin/internal/addmasses.py ]]; then
--  mv ./events.lhe ./events.lhe.0
--  python ./madevent/bin/internal/addmasses.py ./events.lhe.0 ./events.lhe
--fi  
--
- gzip -f events.lhe
- exit
-=== modified file 'MG5_aMC_v2_2_1/MadSpin/decay.py'
---- MadSpin/decay.py    2014-09-17 09:53:23 +0000
-+++ MG5_aMC_v2_2_1/MadSpin/decay.py    2014-10-14 11:29:10 +0000
-@@ -1185,7 +1185,7 @@
-             decaying_base = [id for id in final if abs(id) in self.decay_ids]
-             decaying_base.sort()
-             topo['base_order'] = (initial , final)
--            topo['matrix_element'] = me
-+#            topo['matrix_element'] = me
-             tags = []
-             topo['tag2order'] = {}
-              
-@@ -2791,11 +2791,11 @@
-                                          'processes': matrix_element.get('processes'),
-                                          'tag': me.shell_string(pdg_order=True)}
-         #
--        if __debug__:
--            #check that all decay matrix element correspond to a decay only
--            for prod in self.all_ME.values():
--                for decay in prod['matrix_element']['base_amplitude']['process']['decay_chains']:
--                    assert decay.shell_string() in self.all_decay
-+#        if __debug__:
-+#            #check that all decay matrix element correspond to a decay only
-+#            for prod in self.all_ME.values():
-+#                for decay in prod['matrix_element']['base_amplitude']['process']['decay_chains']:
-+#                    assert decay.shell_string() in self.all_decay
-             
+             text += ' ' + ' '.join(argument)
+@@ -1330,6 +1414,138 @@
+         return id        
          
-     def get_branching_ratio(self):
-
-=== modified file 'MG5_aMC_v2_2_1/MadSpin/decay.py'
---- MadSpin/decay.py    2014-09-17 09:53:23 +0000
-+++ MG5_aMC_v2_2_1/MadSpin/decay.py    2014-10-16 13:08:38 +0000
-@@ -3221,14 +3221,23 @@
+         
++    @store_input()
++    @multiple_try()
++    def submit2(self, prog, argument=[], cwd=None, stdout=None, stderr=None,
++            log=None, input_files=[], output_files=[], required_output=[],nb_submit=0):
++        """How to make one submission. Return status id on the cluster.
++        NO SHARE DISK"""
++
++        #print "running lsf submit2"
++
++        if cwd is None:
++            cwd = os.getcwd()
++        if not os.path.exists(prog):
++            prog = os.path.join(cwd, prog)
++
++        if not required_output and output_files:
++            required_output = output_files
++
++        if not self.dorsync or (not input_files and not output_files):
++            # not input/output so not using submit2
++            return self.submit(prog, argument, cwd, stdout, stderr, log,
++        required_output=required_output, nb_submit=nb_submit)
++
++        if self.rsyncd.poll()!=None:
++            raise RuntimeError("rsyncd not running")
++
++        if cwd is None:
++            cwd = os.getcwd()
++        if not os.path.exists(prog):
++            prog = os.path.join(cwd, prog)
++        temp_file_name = "sub." + os.path.basename(prog) + '.'.join(argument)
++               
++        input_files.append(prog)                
++               
++        hostname = platform.node()
++               
++        rsynccwd = cwd
++        if rsynccwd.startswith(self.rsyncroot):
++            rsynccwd = rsynccwd[len(self.rsyncroot):]                   
++               
++        infilelist = ""
++        for input_file in input_files:
++            #make sure input_files are absolute paths
++            if not input_file.startswith('/'):
++                input_file = os.path.join(cwd,input_file)
++            #convert to paths relative to rsyncd root
++            if input_file.startswith(self.rsyncroot):
++                input_file = input_file[len(self.rsyncroot):]
++            infilelist += "%s@%s::%s/%s " % (self.rsyncuser,hostname,self.rsyncmodule, input_file)
++        infilelist += "./"
++        
++        outfilelist = ""
++        for output_file in output_files:
++            outfilelist += "%s " % (output_file)
++        outfilelist += "%s@%s::%s/%s" % (self.rsyncuser,hostname,self.rsyncmodule,rsynccwd)
++            
++        text = """#!/bin/bash
++
++            SUBMITTERHOST=%(hostname)s            
++
++            if [ -n $CMSSW_VERSION ]
++            then
++              scramv1 project CMSSW $CMSSW_VERSION
++              cd $CMSSW_VERSION
++              eval `scramv1 runtime -sh`
++              cd -
++            fi
++                             
++            export RSYNC_PASSWORD=$MADGRAPHRSYNCPASSWD_%(rsyncport)s
++                 
++            #dereference symlinks for input
++            rsync --port %(rsyncport)s -rL %(infilelist)s
++
++            echo '%(arguments)s' > arguments
++            chmod +x ./%(script)s        
++            %(program)s ./%(script)s %(arguments)s
++            
++            #copy symlinks as symlinks for output
++            rsync --port %(rsyncport)s -rl %(outfilelist)s
++            
++            """
++        dico = {'script': os.path.basename(prog),
++        'hostname': hostname,
++        'infilelist': infilelist,
++        'outfilelist': outfilelist,
++        'output_files': ' '.join(output_files),
++        'rsyncport': self.rsyncport,
++        'arguments': ' '.join([str(a) for a in argument]),
++        'program': ' ' if '.py' in prog else 'bash'}
++
++        me_dir = os.path.realpath(os.path.join(cwd,prog)).rsplit('/SubProcesses',1)[0]
++        me_dir = misc.digest(me_dir)[-14:]
++        if not me_dir[0].isalpha():
++            me_dir = 'a' + me_dir[1:]
++
++        text = text % dico
++        #command = ['bsub', '-R', '"select[!noturbo &! fullsmt &! smt &! plus &! spacecharge && type==SLC6_64 &&!(model==a6_48_1091h17_1333 || model==i6_8_61a5h23_1066 || model==ai_intel_8) ]"', '-C0', '-J', me_dir]
++        #command = ['bsub', '-R', '"select[qa && type==SLC6_64]"', '-C0', '-J', me_dir]
++        command = ['bsub', '-C0', '-J', me_dir]
++        if cwd is None:
++            cwd = os.getcwd()
++        #else:
++            #text += " cd %s;" % cwd
++        if stdout and isinstance(stdout, str):
++            command.extend(['-o', stdout])
++        if stderr and isinstance(stdout, str):
++            command.extend(['-e', stderr])
++        elif stderr == -2: # -2 is subprocess.STDOUT
++            pass
++        if log is None:
++            log = '/dev/null'
++
++        if self.cluster_queue and self.cluster_queue != 'None':
++            command.extend(['-q', self.cluster_queue])
++
++        a = misc.Popen(command, stdout=subprocess.PIPE,
++        stderr=subprocess.STDOUT,
++        stdin=subprocess.PIPE, cwd=cwd)
++
++        output = a.communicate(text)[0]
++        #Job <nnnn> is submitted to default queue <normal>.
++        try:
++            id = output.split('>',1)[0].split('<')[1]
++        except:
++            raise ClusterManagmentError, 'fail to submit to the cluster: \n%s' \
++            % output
++        if not id.isdigit():
++            raise ClusterManagmentError, 'fail to submit to the cluster: \n%s' \
++            % output
++        self.submitted += 1
++        self.submitted_ids.append(id)
++        return id        
++        
+     @multiple_try()
+     def control_one_job(self, id):
+         """ control the status of a single job with it's cluster id """
+diff -ur ../orig/MG5_aMC_v2_2_2/MadSpin/decay.py MG5_aMC_v2_2_2/MadSpin/decay.py
+--- ../orig/MG5_aMC_v2_2_2/MadSpin/decay.py	2014-11-06 17:28:34.000000001 +0100
++++ MG5_aMC_v2_2_2/MadSpin/decay.py	2014-12-01 01:50:11.000000001 +0100
+@@ -2161,8 +2161,9 @@
+                 # here I also need to specify the Monte Carlo Masses
+                 stdin_text+=" %s \n" % nb_mc_masses
+                 
+-                mepath = self.all_ME[production_tag]['path']
+-                mepath = mepath.replace('production_me','full_me');
++                decay = self.all_ME[production_tag]['decays'][0]
++                decay_me=self.all_ME.get_decay_from_tag(production_tag, decay['decay_tag'])
++                mepath = decay_me['path']
+                                 
+                 trial_nb, BWvalue, weight, momenta, failed, use_mc_masses, helicities = self.loadfortran( 'unweighting', mepath, stdin_text)
+                                 
+@@ -3223,7 +3224,7 @@
              helicities=[lastline[i] for i in range(len(lastline))]
              output = trials, BWvalue, weight, momenta, failed, use_mc_masses, helicities
  
 -        if len(self.calculator) > 100:
--            logger.debug('more than 100 calculator. Perform cleaning')
 +        if len(self.calculator) > self.options['max_running_process']:
-+            logger.debug('more than %s calculators. Perform cleaning' % self.options['max_running_process'])
+             logger.debug('more than 100 calculator. Perform cleaning')
              nb_calls = self.calculator_nbcall.values()
              nb_calls.sort()
-             cut = max([nb_calls[len(nb_calls)//2], 0.001 * nb_calls[-1]])
+@@ -3231,6 +3232,15 @@
              for key, external in list(self.calculator.items()):
                  nb = self.calculator_nbcall[key]
                  if nb < cut:
@@ -156,103 +405,99 @@ diff -ur old/MG5_aMC_v2_2_1/Template/LO/bin/internal/Gridpack/run.sh ./MG5_aMC_v
                      external.stdin.close()
                      external.stdout.close()
                      external.terminate()
-
-
-=== modified file 'MG5_aMC_v2_2_1/madgraph/interface/madevent_interface.py'
---- madgraph/interface/madevent_interface.py    2014-09-24 19:41:18 +0000
-+++ MG5_aMC_v2_2_1/madgraph/interface/madevent_interface.py    2014-10-17 15:57:21 +0000
-@@ -4064,11 +4064,10 @@
-             
- 
-             logfile = pjoin(Pdir, 'gen_ximprove.log')
--            proc = misc.Popen([pjoin(bindir, 'gen_ximprove')],
-+            misc.call([pjoin(bindir, 'gen_ximprove')],
-                                     stdin=subprocess.PIPE,
-                                     stdout=open(logfile,'w'),
-                                     cwd=Pdir)
--            proc.communicate('%s 1 F\n' % (precision))
- 
-             if os.path.exists(pjoin(Pdir, 'ajob1')):
-                 alljobs = glob.glob(pjoin(Pdir,'ajob*'))
-diff -ur ../orig/MG5_aMC_v2_2_1/madgraph/interface/amcatnlo_run_interface.py ./MG5_aMC_v2_2_1/madgraph/interface/amcatnlo_run_interface.py
---- ../orig/MG5_aMC_v2_2_1/madgraph/interface/amcatnlo_run_interface.py 2014-09-25 16:56:11.000000001 +0200
-+++ ./MG5_aMC_v2_2_1/madgraph/interface/amcatnlo_run_interface.py       2014-10-25 15:34:30.000000001 +0200
-@@ -3250,20 +3250,21 @@
-             output_files.append('scale_pdf_dependence.dat')
- 
-             return self.cluster.submit2(exe, args, cwd=cwd, 
--                             input_files=input_files, output_files=output_files) 
-+                             input_files=input_files, output_files=output_files, required_output=output_files) 
- 
-         elif 'ajob' in exe:
-             # the 'standard' amcatnlo job
-             # check if args is a list of string 
-             if type(args[0]) == str:
--                input_files, output_files, args = self.getIO_ajob(exe,cwd, args)
-+                input_files, output_files, required_output, args = self.getIO_ajob(exe,cwd, args)
-                 #submitting
-                 self.cluster.submit2(exe, args, cwd=cwd, 
--                             input_files=input_files, output_files=output_files)
-+                             input_files=input_files, output_files=output_files, required_output=required_output)
- 
-                 # keep track of folders and arguments for splitted evt gen
--                if len(args) == 4 and '_' in output_files[-1]:
--                    self.split_folders[pjoin(cwd,output_files[-1])] = [exe] + args
-+                subfolder=output_files[-1].split('/')[0]
-+                if len(args) == 4 and '_' in subfolder:
-+                    self.split_folders[pjoin(cwd,subfolder)] = [exe] + args
- 
-         elif 'shower' in exe:
-             # a shower job
-@@ -3328,6 +3329,7 @@
+diff -ur ../orig/MG5_aMC_v2_2_2/MadSpin/interface_madspin.py MG5_aMC_v2_2_2/MadSpin/interface_madspin.py
+--- ../orig/MG5_aMC_v2_2_2/MadSpin/interface_madspin.py	2014-11-06 17:28:34.000000001 +0100
++++ MG5_aMC_v2_2_2/MadSpin/interface_madspin.py	2014-12-16 02:18:34.000000001 +0100
+@@ -533,6 +533,9 @@
+                 %s""" \
+                 % (self.options['ms_dir'], name, orig_block, block)
          
-         keep_fourth_arg = False
-         output_files = []
-+        required_output = []
-         input_files = [pjoin(self.me_dir, 'MGMEVersion.txt'),
-                      pjoin(self.me_dir, 'SubProcesses', 'randinit'),
-                      pjoin(cwd, 'symfact.dat'),
-@@ -3397,12 +3399,13 @@
-             input_files.append(pjoin(cwd, 'madevent_mintMC'))
-             if args[2] in ['0','2']:
-                 input_files.append(pjoin(self.me_dir, 'SubProcesses','madinMMC_%s.2' % args[1]))
-+                
-+
++        #replace init information
++        generate_all.banner['init'] = self.banner['init']
++        
+         # NOW we have all the information available for RUNNING
+         
+         if self.seed:
+diff -ur ../orig/MG5_aMC_v2_2_2/Template/LO/bin/internal/Gridpack/run.sh MG5_aMC_v2_2_2/Template/LO/bin/internal/Gridpack/run.sh
+--- ../orig/MG5_aMC_v2_2_2/Template/LO/bin/internal/Gridpack/run.sh	2014-11-06 17:28:34.000000001 +0100
++++ MG5_aMC_v2_2_2/Template/LO/bin/internal/Gridpack/run.sh	2014-12-01 01:53:43.000000001 +0100
+@@ -78,37 +78,5 @@
+     cd ..
+ fi
  
-             for i in subdir:
-                 current = 'G%s%s' % (args[1], i)
-                 if os.path.exists(pjoin(cwd,current)):
-                     input_files.append(pjoin(cwd, current))
--                output_files.append(current)
-                 if len(args) == 4 and args[3] in ['H','S','V','B','F']:
-                     # use a grid train on another part
-                     base = '%s_%s' % (args[3],i)
-@@ -3413,7 +3416,18 @@
-                 elif len(args) ==4:
-                     keep_fourth_arg = True
-                     # this is for the split event generation
--                    output_files.append('G%s%s_%s' % (args[1], i, args[3]))
-+                    current = 'G%s%s_%s' % (args[1], i, args[3])
-+                    
-+                output_files.append('%s/log_MINT%s.txt' % (current,args[2]))
-+                required_output.append('%s/log_MINT%s.txt' % (current,args[2]))
-+                if args[2] in ['0','1']:
-+                    output_files.append('%s/res_%s' % (current,args[2]))
-+                    required_output.append('%s/res_%s' % (current,args[2]))
-+                if args[2] == '1':
-+                    output_files.append('%s/results.dat' % current)
-+                    required_output.append('%s/results.dat' % current)
-+                elif args[2] == '2':
-+                    output_files.append('%s/events.lhe' % current)                
+-if [[ -e ./DECAY/decay ]]; then
+-    cd DECAY
+-    echo -$seed > iseed.dat
+-    for ((i = 1 ;  i <= 20;  i++)) ; do
+-	if [[ -e decay_$i\.in ]]; then
+-	    echo "Decaying events..."
+-	    mv ../events.lhe ../events_in.lhe
+-	    ./decay < decay_$i\.in
+-	fi
+-    done
+-    cd ..
+-fi
+-
+-if [[ -e ./REPLACE/replace.pl ]]; then
+-    for ((i = 1 ;  i <= 20;  i++)) ; do
+-	if [[ -e ./REPLACE/replace_card$i\.dat ]];then
+-	    echo "Adding flavors..."
+-	    mv ./events.lhe ./events_in.lhe
+-	    cd ./REPLACE
+-	    ./replace.pl ../events_in.lhe ../events.lhe < replace_card$i\.dat
+-	    cd ..
+-	fi
+-    done
+-fi
+-
+-# part added by Stephen Mrenna to correct the kinematics of the replaced
+-#  particles
+-if [[ -e ./madevent/bin/internal/addmasses.py ]]; then
+-  mv ./events.lhe ./events.lhe.0
+-  python ./madevent/bin/internal/addmasses.py ./events.lhe.0 ./events.lhe
+-fi  
+-
+ gzip -f events.lhe
+ exit
+diff -ur ../orig/MG5_aMC_v2_2_2/Template/NLO/Source/setrun.f MG5_aMC_v2_2_2/Template/NLO/Source/setrun.f
+--- ../orig/MG5_aMC_v2_2_2/Template/NLO/Source/setrun.f	2014-11-06 17:28:34.000000001 +0100
++++ MG5_aMC_v2_2_2/Template/NLO/Source/setrun.f	2015-01-07 14:37:08.000000001 +0100
+@@ -56,7 +56,6 @@
+      &     xmaxup(maxpup),lprup(maxpup)
+ c
+       include 'nexternal.inc'
+-      include 'leshouche_decl.inc'
+       logical gridrun,gridpack
+       integer          iseed
+       common /to_seed/ iseed
+@@ -65,6 +64,13 @@
+       common /event_normalisation/event_norm
+       integer iappl
+       common /for_applgrid/ iappl
++C      
++      integer    maxflow
++      parameter (maxflow=999)
++      integer idup(nexternal,maxproc)
++      integer mothup(2,nexternal,maxproc)
++      integer icolup(2,nexternal,maxflow)
++      include 'born_leshouche.inc'
+ c
+ c----------
+ c     start
+@@ -74,7 +80,6 @@
+ c MZ add the possibility to have shower_MC input lowercase
+       call to_upper(shower_MC)
+ C
+-      call read_leshouche_info(idup_d,mothup_d,icolup_d)
  
-         else:
-             raise aMCatNLOError, 'not valid arguments: %s' %(', '.join(args))
-@@ -3426,7 +3440,7 @@
-         if len(args) == 4 and not keep_fourth_arg:
-             args = args[:3]
-             
--        return input_files, output_files, args
-+        return input_files, output_files, required_output, args
-             
-     def write_madinMMC_file(self, path, run_mode, mint_mode):
-         """writes the madinMMC_?.2 file"""
+ c merging cuts
+       xqcut=0d0
+@@ -160,7 +165,7 @@
+         elseif(lpp(i).eq.-3) then
+           idbmup(i)=-11
+         elseif(lpp(i).eq.0) then
+-          idbmup(i)=idup_d(1,i,1)
++          idbmup(i)=idup(i,1)
+         else
+           idbmup(i)=lpp(i)
+         endif
