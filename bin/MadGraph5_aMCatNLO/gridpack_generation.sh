@@ -40,6 +40,12 @@ if [ -z ${name} ]; then
   return 1>/dev/null || exit 1
 fi
 
+if [ ! -z ${CMSSW_BASE} ]; then
+  echo "Error: This script must be run in a clean environment as it sets up CMSSW itself.  You already have a CMSSW environment set up for ${CMSSW_VERSION}."
+  echo "Please try again from a clean shell."
+  return 1>/dev/null || exit 1
+fi
+
 
 #________________________________________
 # to be set for user spesific
