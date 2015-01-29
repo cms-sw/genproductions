@@ -1,0 +1,70 @@
+=== modified file 'include/SysCalc.h'
+--- old/include/SysCalc.h	2014-03-10 02:55:31 +0000
++++ new/include/SysCalc.h	2015-01-12 13:23:06 +0000
+@@ -111,7 +111,7 @@
+   // alpha_s emission scale cross-section (ratio)
+   vector<double> _alpsxsec;
+   // PDF cross-section (ratio)
+-  vector<double> _pdfxsec;
++  vector< vector<double> > _pdfxsec;
+   // QCUT cross-section (ratio)
+   vector<double> _matchxsec;
+ 
+
+=== modified file 'src/SysCalc.cc'
+--- old/src/SysCalc.cc	2014-03-13 16:16:14 +0000
++++ new/src/SysCalc.cc	2015-01-12 13:22:49 +0000
+@@ -43,6 +43,7 @@
+ 
+ void SysCalc::write_xsec(){
+ 	double min,max;
++	double one_set_min, one_set_max;
+ 	//min = 0.;
+ 	//max = 0.;
+ 	  for (int i=0; i < _scalexsec.size(); i++) {
+@@ -61,12 +62,21 @@
+   	//  	  	cout << "min/max:"<< min<< " " << max << endl;
+   	  	min=0.;
+   	  	max =0.;
+-  	  	  	  	  for (int i=0; i < _pdfxsec.size(); i++) {
+-  	  	  	  	  	  	  cout <<"pdf reweighted cross-section  :"<< i <<" "<< _pdfxsec[i] <<endl;
+-	  	  	  	  	  	  if (min == 0. or _pdfxsec[i] < min) min =  _pdfxsec[i];
+-	  	  	  	  	  	  if (max == 0. or _pdfxsec[i] > max) max =  _pdfxsec[i];
++		int weight_id = 0;
++		for (int i=0; i < _pdfxsec.size(); i++){
++		  one_set_min = 0.;
++		  one_set_max = 0.;
++		  for (int j=0; j < _pdfxsec[i].size(); j++) {
++  	  	  	  	  	  	  cout <<"pdf reweighted cross-section  :"<< weight_id++ <<" "<< _pdfxsec[i][j] <<endl;
++	  	  	  	  	  	  if (min == 0. or _pdfxsec[i][j] < min) min =  _pdfxsec[i][j];
++	  	  	  	  	  	  if (max == 0. or _pdfxsec[i][j] > max) max =  _pdfxsec[i][j];
++	  	  	  	  	  	  if (one_set_min == 0. or _pdfxsec[i][j] < one_set_min) one_set_min =  _pdfxsec[i][j];
++	  	  	  	  	  	  if (one_set_max == 0. or _pdfxsec[i][j] > one_set_max) one_set_max =  _pdfxsec[i][j];
+     	  	  	  	  	  }
+-  	  	  	  	cout << "min/max:"<< min<< " " << max << endl;
++  	  	  	  	cout << "min/max for the set:"<< one_set_min<< " " << one_set_max << endl;
++		  }
++		if(_pdfxsec.size() >1) 	cout << "min/max for all set:"<< min<< " " << max << endl;
++
+ 	  for (int i=0; i < _matchxsec.size(); i++) {
+ 	    cout <<"nb of event for qcut :"<< i <<" " << _matchscales[i] <<" "<< _matchxsec[i] <<endl;
+ 	//  	  	  	  	  	  if (min == 0. or _scalexsec[i] < min) min =  _scalexsec[i];
+@@ -725,10 +735,14 @@
+       if (DEBUG) cout << "Total PDF factor: " << pdf_fact << endl;
+       pdffacts->push_back(pdf_fact/org_weight * _event_weight);
+       if (DEBUG) cout << "PDF weight: " << (*pdffacts)[pdffacts->size()-1] << endl;
+-      if (pdffacts->size() -1 == _pdfxsec.size()){
+-         	_pdfxsec.push_back(pdf_fact/org_weight * _event_weight);
++      if (_pdfxsec.size() == i){
++	vector<double> tmp; 
++	_pdfxsec.push_back(tmp);
++      }
++      if (pdffacts->size() -1 == _pdfxsec[i].size()){
++         	_pdfxsec[i].push_back(pdf_fact/org_weight * _event_weight);
+       }else{
+-         	_pdfxsec[pdffacts->size() -1] += pdf_fact/org_weight * _event_weight;
++         	_pdfxsec[i][pdffacts->size() -1] += pdf_fact/org_weight * _event_weight;
+       }
+ 
+ 
+
