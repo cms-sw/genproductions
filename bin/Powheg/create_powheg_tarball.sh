@@ -7,8 +7,8 @@ EXPECTED_ARGS=8
 
 if [ $# -ne $EXPECTED_ARGS ]
 then
-    echo "Usage: `basename $0` source_repository source_tarball_name process card tarballName Nevents RandomSeed"
-    echo "Example: `basename $0` slc6_amd64_gcc481/powheg/V1.0/src powhegboxv1.0_Oct2013 Z slc6_amd64_gcc481/powheg/V1.0/8TeV_Summer12/DYToEE_M-20_8TeV-powheg/v1/DYToEE_M-20_8TeV-powheg.input Z_local 1000 1212" 
+    echo "Usage: `basename $0` source_repository source_tarball_name process card tarballName othercard Nevents RandomSeed"
+    echo "Example: `basename $0` slc6_amd64_gcc481/powheg/V1.0/src powhegboxv1.0_Oct2013 Z slc6_amd64_gcc481/powheg/V1.0/8TeV_Summer12/DYToEE_M-20_8TeV-powheg/v1/DYToEE_M-20_8TeV-powheg.input none Z_local 1000 1212" 
     exit 1
 fi
 
@@ -124,6 +124,10 @@ fi
 if [ "$process" = "trijet" ]; then 
    BOOK_HISTO+=" observables.o"
 fi  
+if [ "$process" = "VBF_HJJJ" ]; then 
+  mv pwhg_analysis-dummy.f pwhg_analysis-dummy.f.orig
+  sed 's/..\/pwhg_book.h/pwhg_book.h/g' pwhg_analysis-dummy.f.orig > pwhg_analysis-dummy.f
+fi  
 
 # Remove ANY kind of analysis with parton shower
 if [ `grep particle_identif pwhg_analysis-dummy.f` = ""]; then
@@ -137,6 +141,12 @@ if [ "$process" = "ttJ" ]; then
   mv Makefile Makefile.interm
   cat Makefile.interm | sed -e "s#_PATH) -L#_PATH) #g" | sed -e "s# -lvirtual#/libvirtual.so.1.0.0#g" > Makefile
 fi
+if [ "$process" = "gg_H_MSSM" ]; then 
+  mv nloreal.F nloreal.F.orig
+  sed 's/leq/le/g' nloreal.F.orig > nloreal.F
+  cp -p ../gg_H_quark-mass-effects/SLHA.h .
+  cp -p ../gg_H_quark-mass-effects/SLHADefs.h .
+fi  
   
 echo "ANALYSIS=none 
 PWHGANAL=$BOOK_HISTO pwhg_analysis-dummy.o

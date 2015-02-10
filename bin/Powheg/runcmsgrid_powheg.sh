@@ -172,6 +172,39 @@ then
 	mv pwgevents-rwgt.lhe pwgevents.lhe
 	mv powheg.input powheg.input.${iteration}
     done
+
+
+
+    echo -e "\ncomputing weights for NNPDF 3.0 alphas=0.117 variation\n"
+    iteration=265000
+    echo -e "\n PDF set ${iteration}"
+    sed -e 's/.*lhans1.*/lhans1 '$iteration'/ ; s/.*lhans2.*/lhans2 '$iteration'/' powheg.input.tmp > powheg.input
+    counter=$(( counter + 1 ))
+    echo -e "\nlhrwgt_id '${counter}'" >> powheg.input
+    echo -e "lhrwgt_descr 'PDF set = ${iteration}'" >> powheg.input
+    echo -e "lhrwgt_group_name 'PDF_variation'" >> powheg.input
+    echo -e "lhrwgt_group_combine 'hessian'" >> powheg.input
+
+    ../pwhg_main &>> reweightlog_${process}_${seed}.txt  
+    mv pwgevents-rwgt.lhe pwgevents.lhe
+    mv powheg.input powheg.input.${iteration}
+
+
+    echo -e "\ncomputing weights for NNPDF 3.0 alphas=0.119 variation\n"
+    iteration=266000
+    echo -e "\n PDF set ${iteration}"
+    sed -e 's/.*lhans1.*/lhans1 '$iteration'/ ; s/.*lhans2.*/lhans2 '$iteration'/' powheg.input.tmp > powheg.input
+    counter=$(( counter + 1 ))
+    echo -e "\nlhrwgt_id '${counter}'" >> powheg.input
+    echo -e "lhrwgt_descr 'PDF set = ${iteration}'" >> powheg.input
+    echo -e "lhrwgt_group_name 'PDF_variation'" >> powheg.input
+    echo -e "lhrwgt_group_combine 'hessian'" >> powheg.input
+
+    ../pwhg_main &>> reweightlog_${process}_${seed}.txt  
+    mv pwgevents-rwgt.lhe pwgevents.lhe
+    mv powheg.input powheg.input.${iteration}
+
+
     echo -e "\ncomputing weights for 52+1 CT10 PDF variations\n"
     iteration=10999
     lastfile=11052
@@ -192,9 +225,38 @@ then
 	mv powheg.input powheg.input.${iteration}
     done
 
-    echo -e "\ncomputing weights for 16 CT10 alphas variations\n"
-    iteration=11061
-    lastfile=11077
+    echo -e "\ncomputing weights for CT10 alphas=0.117 variation\n"
+    iteration=11067
+    echo -e "\n PDF set ${iteration}"
+    sed -e 's/.*lhans1.*/lhans1 '$iteration'/ ; s/.*lhans2.*/lhans2 '$iteration'/' powheg.input.tmp > powheg.input
+    counter=$(( counter + 1 ))
+    echo -e "\nlhrwgt_id '${counter}'" >> powheg.input
+    echo -e "lhrwgt_descr 'PDF set = ${iteration}'" >> powheg.input
+    echo -e "lhrwgt_group_name 'PDF_variation'" >> powheg.input
+    echo -e "lhrwgt_group_combine 'hessian'" >> powheg.input
+
+    ../pwhg_main &>> reweightlog_${process}_${seed}.txt  
+    mv pwgevents-rwgt.lhe pwgevents.lhe
+    mv powheg.input powheg.input.${iteration}
+
+    echo -e "\ncomputing weights for CT10 alphas=0.119 variation\n"
+    iteration=11069
+    echo -e "\n PDF set ${iteration}"
+    sed -e 's/.*lhans1.*/lhans1 '$iteration'/ ; s/.*lhans2.*/lhans2 '$iteration'/' powheg.input.tmp > powheg.input
+    counter=$(( counter + 1 ))
+    echo -e "\nlhrwgt_id '${counter}'" >> powheg.input
+    echo -e "lhrwgt_descr 'PDF set = ${iteration}'" >> powheg.input
+    echo -e "lhrwgt_group_name 'PDF_variation'" >> powheg.input
+    echo -e "lhrwgt_group_combine 'hessian'" >> powheg.input
+
+    ../pwhg_main &>> reweightlog_${process}_${seed}.txt  
+    mv pwgevents-rwgt.lhe pwgevents.lhe
+    mv powheg.input powheg.input.${iteration}
+ 
+
+    echo -e "\ncomputing weights for 50+1 MMHT2014nlo68clas118 PDF variations\n"
+    iteration=25199
+    lastfile=25250
     counter=4000
     while [ $iteration -lt $lastfile ];
     do
@@ -212,64 +274,26 @@ then
 	mv powheg.input powheg.input.${iteration}
     done
 
-    echo -e "\ncomputing weights for MSTW central values\n"
-    iteration=21100
-    counter=5000
-    echo -e "\n PDF set ${iteration}"
-    sed -e 's/.*lhans1.*/lhans1 '$iteration'/ ; s/.*lhans2.*/lhans2 '$iteration'/' powheg.input.tmp > powheg.input
-    counter=$(( counter + 1 ))
-    echo -e "\nlhrwgt_id '${counter}'" >> powheg.input
-    echo -e "lhrwgt_descr 'PDF set = ${iteration}'" >> powheg.input
-    echo -e "lhrwgt_group_name 'PDF_variation'" >> powheg.input
-    echo -e "lhrwgt_group_combine 'hessian'" >> powheg.input
 
-    ../pwhg_main &>> reweightlog_${process}_${seed}.txt  
-    mv pwgevents-rwgt.lhe pwgevents.lhe
-    mv powheg.input powheg.input.${iteration}
+    echo -e "\ncomputing weights for 5 MMHT2014nlo68cl 5 alphas variations\n"
+    iteration=25259
+    lastfile=25264
+    while [ $iteration -lt $lastfile ];
+    do
+	iteration=$(( iteration + 1 ))
+	echo -e "\n PDF set ${iteration}"
+	sed -e 's/.*lhans1.*/lhans1 '$iteration'/ ; s/.*lhans2.*/lhans2 '$iteration'/' powheg.input.tmp > powheg.input
+	counter=$(( counter + 1 ))
+	echo -e "\nlhrwgt_id '${counter}'" >> powheg.input
+	echo -e "lhrwgt_descr 'PDF set = ${iteration}'" >> powheg.input
+	echo -e "lhrwgt_group_name 'PDF_variation'" >> powheg.input
+	echo -e "lhrwgt_group_combine 'hessian'" >> powheg.input
 
-    echo -e "\ncomputing weights for NNPDF 2.3 central values\n"
-    iteration=244600
-    counter=6000
-    echo -e "\n PDF set ${iteration}"
-    sed -e 's/.*lhans1.*/lhans1 '$iteration'/ ; s/.*lhans2.*/lhans2 '$iteration'/' powheg.input.tmp > powheg.input
-    counter=$(( counter + 1 ))
-    echo -e "\nlhrwgt_id '${counter}'" >> powheg.input
-    echo -e "lhrwgt_descr 'PDF set = ${iteration}'" >> powheg.input
-    echo -e "lhrwgt_group_name 'PDF_variation'" >> powheg.input
-    echo -e "lhrwgt_group_combine 'hessian'" >> powheg.input
+	../pwhg_main &>> reweightlog_${process}_${seed}.txt  
+	mv pwgevents-rwgt.lhe pwgevents.lhe
+	mv powheg.input powheg.input.${iteration}
+    done
 
-    ../pwhg_main &>> reweightlog_${process}_${seed}.txt  
-    mv pwgevents-rwgt.lhe pwgevents.lhe
-    mv powheg.input powheg.input.${iteration}
-
-
-    echo -e "\ncomputing weights for NNPDF 2.3 two alphas variation\n"
-    iteration=244400
-    echo -e "\n PDF set ${iteration}"
-    sed -e 's/.*lhans1.*/lhans1 '$iteration'/ ; s/.*lhans2.*/lhans2 '$iteration'/' powheg.input.tmp > powheg.input
-    counter=$(( counter + 1 ))
-    echo -e "\nlhrwgt_id '${counter}'" >> powheg.input
-    echo -e "lhrwgt_descr 'PDF set = ${iteration}'" >> powheg.input
-    echo -e "lhrwgt_group_name 'PDF_variation'" >> powheg.input
-    echo -e "lhrwgt_group_combine 'hessian'" >> powheg.input
-
-    ../pwhg_main &>> reweightlog_${process}_${seed}.txt  
-    mv pwgevents-rwgt.lhe pwgevents.lhe
-    mv powheg.input powheg.input.${iteration}
-
-
-    iteration=244800
-    echo -e "\n PDF set ${iteration}"
-    sed -e 's/.*lhans1.*/lhans1 '$iteration'/ ; s/.*lhans2.*/lhans2 '$iteration'/' powheg.input.tmp > powheg.input
-    counter=$(( counter + 1 ))
-    echo -e "\nlhrwgt_id '${counter}'" >> powheg.input
-    echo -e "lhrwgt_descr 'PDF set = ${iteration}'" >> powheg.input
-    echo -e "lhrwgt_group_name 'PDF_variation'" >> powheg.input
-    echo -e "lhrwgt_group_combine 'hessian'" >> powheg.input
-
-    ../pwhg_main &>> reweightlog_${process}_${seed}.txt  
-    mv pwgevents-rwgt.lhe pwgevents.lhe
-    mv powheg.input powheg.input.${iteration}
 
     rm -rf powheg.input*
     sed -e "/#new weight/d" -e "/<wgt id='c'>/d" -e "/<weight id='c'>/d" pwgevents.lhe > pwgevents.lhe.tmp
