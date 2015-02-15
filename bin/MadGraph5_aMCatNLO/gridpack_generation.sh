@@ -19,11 +19,8 @@
 #If QUEUE_SELECTION is omitted, then run on local machine only (using multiple cores)    #
 ##########################################################################################
 
-#set -o verbose
-
-echo "Starting job on " `date` #Only to display the starting of production date
-echo "Running on " `uname -a` #Only to display the machine where the job is running
-echo "System release " `cat /etc/redhat-release` #And the system release
+#exit on first error
+set -e
 
 #First you need to set couple of settings:
 
@@ -35,15 +32,22 @@ carddir=${2}
 # which queue
 queue=${3}
 
-if [ -z ${name} ]; then
-  echo "Process/card name not provided"
-  return 1>/dev/null || exit 1
-fi
+if [ -z "$PRODHOME" ]; then
+  PRODHOME=`pwd`
+fi 
 
 if [ ! -z ${CMSSW_BASE} ]; then
   echo "Error: This script must be run in a clean environment as it sets up CMSSW itself.  You already have a CMSSW environment set up for ${CMSSW_VERSION}."
   echo "Please try again from a clean shell."
-  return 1>/dev/null || exit 1
+  if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
+fi
+
+#catch unset variables
+set -u
+
+if [ -z ${name} ]; then
+  echo "Process/card name not provided"
+  if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
 fi
 
 
@@ -53,11 +57,23 @@ fi
 
 #For correct running you should place at least the run and proc card in a folder under the name "cards" in the same folder where you are going to run the script
 
-if [ -z "$PRODHOME" ]; then
-  PRODHOME=`pwd`
-fi 
-
 RUNHOME=`pwd`
+
+LOGFILE=${RUNHOME}/${name}.log
+exec > >(tee ${LOGFILE})
+exec 2>&1
+
+echo "Starting job on " `date` #Only to display the starting of production date
+echo "Running on " `uname -a` #Only to display the machine where the job is running
+echo "System release " `cat /etc/redhat-release` #And the system release
+
+cd $PRODHOME
+git status
+echo "Current git revision is:"
+git rev-parse HEAD
+git diff
+cd -
+
 AFSFOLD=${PRODHOME}/${name}
 # the folder where the script works, I guess
 AFS_GEN_FOLDER=${RUNHOME}/${name}
@@ -87,11 +103,11 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
 
   cd $AFS_GEN_FOLDER
 
-#  export SCRAM_ARCH=slc6_amd64_gcc472 #Here one should select the correct architechture corresponding with the CMSSW release
-#  export RELEASE=CMSSW_5_3_23_patch1
+#   export SCRAM_ARCH=slc6_amd64_gcc472 #Here one should select the correct architechture corresponding with the CMSSW release
+#   export RELEASE=CMSSW_5_3_23_patch1
 
   export SCRAM_ARCH=slc6_amd64_gcc481
-  export RELEASE=CMSSW_7_1_12_patch1
+  export RELEASE=CMSSW_7_1_14
 
 
   ############################
@@ -99,7 +115,7 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   ############################
   scram project -n ${name}_gridpack CMSSW ${RELEASE} ;
   if [ ! -d ${name}_gridpack ]; then  
-    return 1>/dev/null || exit 1
+    if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
   fi
   
   cd ${name}_gridpack ; mkdir -p work ; cd work
@@ -123,12 +139,13 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
 
   cd $MGBASEDIRORIG
 
-  LHAPDFCONFIG=`echo "$LHAPDF_DATA_PATH/../../bin/lhapdf-config"`
-
   #if lhapdf6 external is available then above points to lhapdf5 and needs to be overridden
   LHAPDF6TOOLFILE=$CMSSW_BASE/config/toolbox/$SCRAM_ARCH/tools/available/lhapdf6.xml
+    
   if [ -e $LHAPDF6TOOLFILE ]; then
     LHAPDFCONFIG=`cat $LHAPDF6TOOLFILE | grep "<environment name=\"LHAPDF6_BASE\"" | cut -d \" -f 4`/bin/lhapdf-config
+  else
+    LHAPDFCONFIG=`echo "$LHAPDF_DATA_PATH/../../bin/lhapdf-config"`
   fi
 
   #make sure env variable for pdfsets points to the right place
@@ -148,7 +165,7 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
       echo "set cluster_type lsf" >> mgconfigscript
       echo "set cluster_queue $queue" >> mgconfigscript
       echo "set cluster_status_update 60 30" >> mgconfigscript
-      echo "set cluster_nb_retry 3" >> mgconfigscript
+      echo "set cluster_nb_retry 5" >> mgconfigscript
       echo "set cluster_retry_wait 300" >> mgconfigscript 
       if [[ ! "$RUNHOME" =~ ^/afs/.* ]]; then
           echo "local path is not an afs path"
@@ -175,7 +192,9 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   cd $WORKDIR
   
   if [ "$name" == "interactive" ]; then
-    return 0>/dev/null && exit 0
+    set +e
+    set +u
+    if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 0; else exit 0; fi
   fi
 
   echo `pwd`
@@ -183,12 +202,12 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
 
   if [ -z ${carddir} ]; then
     echo "Card directory not provided"
-    return 1>/dev/null || exit 1
+    if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
   fi
 
   if [ ! -d $CARDSDIR ]; then
     echo $CARDSDIR " does not exist!"
-    return 1>/dev/null || exit 1
+    if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
   fi  
   
   ########################
@@ -196,12 +215,12 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   ########################
   if [ ! -e $CARDSDIR/${name}_proc_card.dat ]; then
     echo $CARDSDIR/${name}_proc_card.dat " does not exist!"
-    return 1>/dev/null || exit 1
+    if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
   fi
 
   if [ ! -e $CARDSDIR/${name}_run_card.dat ]; then
     echo $CARDSDIR/${name}_run_card.dat " does not exist!"
-    return 1>/dev/null || exit 1
+    if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
   fi  
   
   cp $CARDSDIR/${name}_proc_card.dat ${name}_proc_card.dat
@@ -222,18 +241,20 @@ else
   WORKDIR=$AFS_GEN_FOLDER/${name}_gridpack/work/
   if [ ! -d ${WORKDIR} ]; then
     echo "Existing directory does not contain expected folder $WORKDIR"
-    return 1>/dev/null || exit 1
+    if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
   fi
   cd $WORKDIR
 
   eval `scram runtime -sh`
 
-  LHAPDFCONFIG=`echo "$LHAPDF_DATA_PATH/../../bin/lhapdf-config"`
+  #LHAPDFCONFIG=`echo "$LHAPDF_DATA_PATH/../../bin/lhapdf-config"`
 
   #if lhapdf6 external is available then above points to lhapdf5 and needs to be overridden
   LHAPDF6TOOLFILE=$CMSSW_BASE/config/toolbox/$SCRAM_ARCH/tools/available/lhapdf6.xml
   if [ -e $LHAPDF6TOOLFILE ]; then
     LHAPDFCONFIG=`cat $LHAPDF6TOOLFILE | grep "<environment name=\"LHAPDF6_BASE\"" | cut -d \" -f 4`/bin/lhapdf-config
+  else
+    LHAPDFCONFIG=`echo "$LHAPDF_DATA_PATH/../../bin/lhapdf-config"`
   fi
 
   #make sure env variable for pdfsets points to the right place
@@ -241,22 +262,24 @@ else
   
 
   if [ "$name" == "interactive" ]; then
-    return 0>/dev/null && exit 0
+    set +e
+    set +u  
+    if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 0; else exit 0; fi
   fi
   
   if [ -z ${carddir} ]; then
     echo "Card directory not provided"
-    return 1>/dev/null || exit 1
+    if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
   fi
 
   if [ ! -d $CARDSDIR ]; then
     echo $CARDSDIR " does not exist!"
-    return 1>/dev/null || exit 1
+    if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
   fi
   
   if [ ! -e $CARDSDIR/${name}_run_card.dat ]; then
     echo $CARDSDIR/${name}_run_card.dat " does not exist!"
-    return 1>/dev/null || exit 1
+    if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
   fi  
 
 fi  
@@ -267,6 +290,10 @@ fi
 
 if [ -d processtmp ]; then
   rm -rf processtmp
+fi
+
+if [ -d process ]; then
+  rm -rf process
 fi
 
 if [ ! -d ${name} ]; then
@@ -374,12 +401,17 @@ fi
 #clean unneeded files for generation
 $PRODHOME/cleangridmore.sh
 
+echo "Saving log file"
+#copy log file
+cp ${LOGFILE} ./gridpack_generation.log
+
 #create tarball with very aggressive xz settings (trade memory and cpu usage for compression ratio)
 echo "Creating tarball"
-XZ_OPT="--lzma2=preset=9,dict=512MiB" tar -cJpsf ${name}_tarball.tar.xz mgbasedir process runcmsgrid.sh
+XZ_OPT="--lzma2=preset=9,dict=512MiB" tar -cJpsf ${name}_tarball.tar.xz mgbasedir process runcmsgrid.sh gridpack_generation.log
 
 mv ${name}_tarball.tar.xz ${PRODHOME}/${name}_tarball.tar.xz
 
+echo "Gridpack created successfully at ${PRODHOME}/${name}_tarball.tar.xz"
 echo "End of job"
 
-return 0>/dev/null && exit 0
+if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 0; else exit 0; fi

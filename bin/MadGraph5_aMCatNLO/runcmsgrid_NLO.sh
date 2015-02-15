@@ -27,24 +27,21 @@ export LHAPDF_DATA_PATH=`$LHAPDFCONFIG --datadir`
 
 echo "lhapdf = $LHAPDFCONFIG" >> ./Cards/amcatnlo_configuration.txt
 
-
-# if [ "$ncpu" -gt "1" ]; then
-#   echo "run_mode = 2" >> ./Cards/amcatnlo_configuration.txt
-#   echo "nb_core = $ncpu" >> ./Cards/amcatnlo_configuration.txt
-# fi
-
 echo "run_mode = 2" >> ./Cards/amcatnlo_configuration.txt
 echo "nb_core = $ncpu" >> ./Cards/amcatnlo_configuration.txt
 
 echo "done" > runscript.dat
 echo "set nevents $nevt" >> runscript.dat
 echo "set iseed $rnum" >> runscript.dat
+
 #set job splitting for worker processes
-if [ "$ncpu" -gt "1" ]; then
-  echo "set nevt_job $[$nevt/$ncpu]" >> runscript.dat
-else
-  echo "set nevt_job -1" >> runscript.dat
+nevtjob=$[$nevt/$ncpu]
+if [ "$nevtjob" -lt "10" ]; then
+  nevtjob=10
 fi
+
+echo "set nevt_job ${nevtjob}" >> runscript.dat
+
 echo "done" >> runscript.dat
 
 domadspin=0

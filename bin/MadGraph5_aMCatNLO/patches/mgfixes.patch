@@ -96,7 +96,7 @@ diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/iolibs/export_fks.py MG5_aMC_v2_2_2/mad
              # Add up PDFs for the different initial state particles
 diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/various/cluster.py MG5_aMC_v2_2_2/madgraph/various/cluster.py
 --- ../orig/MG5_aMC_v2_2_2/madgraph/various/cluster.py	2014-11-06 17:28:34.000000001 +0100
-+++ MG5_aMC_v2_2_2/madgraph/various/cluster.py	2015-01-26 00:22:09.000000001 +0100
++++ MG5_aMC_v2_2_2/madgraph/various/cluster.py	2015-02-08 21:38:27.000000001 +0100
 @@ -18,6 +18,11 @@
  import re
  import glob
@@ -124,7 +124,7 @@ diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/various/cluster.py MG5_aMC_v2_2_2/madgr
              file missing: %s.
              Stopping all runs.''' % (job_id, args, path))
 -            #self.remove()
-+            self.remove()
++            raise ClusterManagmentError('Job exhausted all retries.')
          elif args['nb_submit'] >= self.nb_retry:
              logger.critical('''Fail to run correctly job %s.
              with option: %s
@@ -132,7 +132,7 @@ diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/various/cluster.py MG5_aMC_v2_2_2/madgr
              Fails %s times
              No resubmition. ''' % (job_id, args, path, args['nb_submit']))
 -            #self.remove()
-+            self.remove()
++            raise ClusterManagmentError('Job exhausted all retries.')
          else:
              args['nb_submit'] += 1            
              logger.warning('resubmit job (for the %s times)' % args['nb_submit'])
@@ -286,7 +286,7 @@ diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/various/cluster.py MG5_aMC_v2_2_2/madgr
 +        outfilelist += "%s@%s::%s/%s" % (self.rsyncuser,hostname,self.rsyncmodule,rsynccwd)
 +            
 +        text = """#!/bin/bash
-+
++        
 +            SUBMITTERHOST=%(hostname)s            
 +
 +            if [ -n $CMSSW_VERSION ]
