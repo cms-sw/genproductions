@@ -66,23 +66,20 @@ scalecorrelation:
 -1
 # PDF sets and number of members (0 or none for all members)
 PDF:
+NNPDF30_lo_as_0130.LHgrid
+NNPDF30_lo_as_0130_nf_4.LHgrid
+NNPDF30_lo_as_0118.LHgrid 1
 NNPDF23_lo_as_0130_qed.LHgrid
 NNPDF23_lo_as_0119_qed.LHgrid 1
-cteq6l1.LHgrid 1
+cteq6l1.LHgrid
+MMHT2014lo68cl.LHgrid
+MMHT2014lo_asmzsmallrange.LHgrid
 HERAPDF15LO_EIG.LHgrid
-CT10nlo.LHgrid
-MSTW2008nlo68cl.LHgrid 1
-NNPDF23_nlo_as_0119.LHgrid 1
 NNPDF30_nlo_as_0118.LHgrid 1
+NNPDF23_nlo_as_0119.LHgrid 1
+CT10nlo.LHgrid
+MMHT2014nlo68cl.LHgrid 1
 " > syscalc_card.dat
-
-if [ -d "${LHAPDF_DATA_PATH}/NNPDF30_lo_as_0130" ]; then
-  echo "NNPDF30_lo_as_0130.LHgrid" >> syscalc_card.dat
-fi
-
-if [ -d "${LHAPDF_DATA_PATH}/NNPDF30_lo_as_0118" ]; then
-  echo "NNPDF30_lo_as_0118.LHgrid 1" >> syscalc_card.dat
-fi
 
 ./mgbasedir/SysCalc/sys_calc events_presys.lhe syscalc_card.dat cmsgrid_final.lhe
 

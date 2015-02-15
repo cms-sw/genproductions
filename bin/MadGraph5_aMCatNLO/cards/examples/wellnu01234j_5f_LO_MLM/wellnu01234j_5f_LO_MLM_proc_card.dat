@@ -1,6 +1,6 @@
-import model sm-ckm_lepton_masses_no_b_mass
+import model sm-ckm_no_b_mass
 #switch to diagonal ckm matrix if needed for speed
-#import model sm-lepton_masses_no_b_mass
+#import model sm-no_b_mass
 
 define p = p b b~
 define j = j b b~
