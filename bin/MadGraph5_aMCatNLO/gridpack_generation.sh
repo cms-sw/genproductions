@@ -67,6 +67,10 @@ echo "Starting job on " `date` #Only to display the starting of production date
 echo "Running on " `uname -a` #Only to display the machine where the job is running
 echo "System release " `cat /etc/redhat-release` #And the system release
 
+echo "name: ${name}"
+echo "carddir: ${carddir}"
+echo "queue: ${queue}"
+
 cd $PRODHOME
 git status
 echo "Current git revision is:"
@@ -89,8 +93,15 @@ MGBASEDIR=mgbasedir
 MG=MG5_aMC_v2.2.2.tar.gz
 MGSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$MG
 
+#syscalc is a helper tool for madgraph to add scale and pdf variation weights for LO processes
 SYSCALC=SysCalc_V1.1.0.tar.gz
 SYSCALCSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$SYSCALC
+
+#higgs characterization model NLO, needed for gluon-gluon-higgs effective vertex for gluon fusion production
+#or for non-scalar production
+HCNLO=HC_NLO_X0_UFO.zip
+HCNLOSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$HCNLO
+
 
 MGBASEDIRORIG=MG5_aMC_v2_2_2
 
@@ -188,7 +199,14 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   sed -i "s#INCLUDES =  -I../include#INCLUDES =  -I../include -I${LHAPDFINCLUDES} -I${BOOSTINCLUDES}#g" src/Makefile
   sed -i "s#LIBS = -lLHAPDF#LIBS = ${LHAPDFLIBS}/libLHAPDF.a #g" src/Makefile
   make
-
+  cd ..
+  
+  #get HC nlo model
+  wget --no-check-certificate ${HCNLOSOURCE}
+  cd models
+  unzip ../${HCNLO}
+  cd ..
+  
   cd $WORKDIR
   
   if [ "$name" == "interactive" ]; then
@@ -265,6 +283,9 @@ else
     set +e
     set +u  
     if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 0; else exit 0; fi
+  else
+    echo "Reusing an existing process directory ${name} is not actually supported in production at the moment.  Please clean or move the directory and start from scratch."
+    if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
   fi
   
   if [ -z ${carddir} ]; then
@@ -298,6 +319,7 @@ fi
 
 if [ ! -d ${name} ]; then
   echo "Process output directory ${name} not found.  Either process generation failed, or the name of the output did not match the process name ${name} provided to the script."
+  if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
 fi
 
 cp -a $name/ processtmp
