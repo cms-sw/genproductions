@@ -67,6 +67,10 @@ echo "Starting job on " `date` #Only to display the starting of production date
 echo "Running on " `uname -a` #Only to display the machine where the job is running
 echo "System release " `cat /etc/redhat-release` #And the system release
 
+echo "name: ${name}"
+echo "carddir: ${carddir}"
+echo "queue: ${queue}"
+
 cd $PRODHOME
 git status
 echo "Current git revision is:"
