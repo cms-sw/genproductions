@@ -265,6 +265,9 @@ else
     set +e
     set +u  
     if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 0; else exit 0; fi
+  else
+    echo "Reusing an existing process directory ${name} is not actually supported in production at the moment.  Please clean or move the directory and start from scratch."
+    if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
   fi
   
   if [ -z ${carddir} ]; then
