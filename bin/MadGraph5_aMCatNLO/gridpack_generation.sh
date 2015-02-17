@@ -334,6 +334,20 @@ cd processtmp
 
 cp $CARDSDIR/${name}_run_card.dat ./Cards/run_card.dat
 
+#copy provided custom fks params or cuts
+if [ -e $CARDSDIR/${name}_cuts.f ]; then
+  echo "copying custom cuts.f file"
+  cp $CARDSDIR/${name}_cuts.f ./SubProcesses/cuts.f
+fi
+
+if [ -e $CARDSDIR/${name}_FKS_params.dat ]; then
+  echo "copying custom FKS_params.dat file"
+  cp $CARDSDIR/${name}_FKS_params.dat ./Cards/FKS_params.dat
+fi
+
+
+
+
 
 #automatically detect NLO mode or LO mode from output directory
 isnlo=0
