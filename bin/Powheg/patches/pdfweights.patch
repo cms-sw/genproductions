@@ -1,5 +1,5 @@
 --- POWHEG-BOX/include/pwhg_lhrwgt.h	2015-01-30 09:54:31.845227920 +0100
-+++ ../roberto_powheg/POWHEG-BOX/include/pwhg_lhrwgt.h	2015-02-16 18:33:36.000000000 +0100
++++ ../roberto/POWHEG-BOX/include/pwhg_lhrwgt.h	2015-02-18 14:29:12.772549580 +0100
 @@ -2,7 +2,7 @@
  
  c Maximum number of weights
@@ -9,55 +9,9 @@
        integer  lhrwgt_max_header_columns
        parameter ( lhrwgt_max_header_columns=200)
        character * (lhrwgt_max_header_columns)
-@@ -11,28 +11,6 @@
-      1     lhrwgt_group_combine
-       integer lhrwgt_nheader
-       character * 400 lhrwgt_descr
--
--      integer maxgroups
--      parameter (maxgroups=20)
--      integer maxids
--      parameter (maxids=200)
--      integer lhrwgt_ngroups,lhrwgt_nids
--      character * 100 lhrwgt_group_name_arr(maxgroups),
--     1                lhrwgt_group_combine_arr(maxgroups),
--     2                lhrwgt_id_arr(maxids)
--      character * 400 lhrwgt_descr_arr(maxids)
--      real * 8 lhrwgt_weights(maxids)
--      integer lhrwgt_group_ptr(maxids)
--
--
-       common/pwhg_lhrwgt/lhrwgt_nheader,lhrwgt_header,
-      1     lhrwgt_id,lhrwgt_descr,lhrwgt_group_name,
--     2     lhrwgt_group_combine,
--     3     lhrwgt_weights,lhrwgt_ngroups,lhrwgt_nids,
--     4     lhrwgt_group_ptr,lhrwgt_group_name_arr,
--     5     lhrwgt_group_combine_arr,lhrwgt_id_arr,lhrwgt_descr_arr
--
--
--
--
--      
-+     2     lhrwgt_group_combine
 --- POWHEG-BOX/lhefwrite.f	2015-01-30 09:54:34.455177186 +0100
-+++ ../roberto_powheg/POWHEG-BOX/lhefwrite.f	2015-02-10 12:03:58.000000000 +0100
-@@ -60,15 +60,6 @@
-       include 'pwhg_flg.h'
-       include 'pwhg_lhrwgt.h'
-       integer i,j
--      integer, save :: counter=0
--      if(flg_noevents) then
--c do not write events, write only the event count
--         counter = counter + 1
--         if((counter/1000)*1000.eq.counter) then
--            write(nlf,*) counter
--         endif
--         return
--      endif
-       write(nlf,'(a)')'<event>'
-       write(nlf,210) nup,idprup,xwgtup,scalup,aqedup,aqcdup
-       do 200 i=1,nup
-@@ -76,6 +67,7 @@
++++ ../roberto/POWHEG-BOX/lhefwrite.f	2015-02-18 14:25:40.806725996 +0100
+@@ -76,6 +76,7 @@
       & mothup(2,i),icolup(1,i),icolup(2,i),(pup(j,i),j=1,5),
       & vtimup(i),spinup(i)
   200  continue
@@ -65,7 +19,7 @@
        if(flg_reweight) then
           call lhefwriteevrw(nlf)
           if(lhrwgt_id.ne.' ') then
-@@ -84,7 +76,6 @@
+@@ -84,7 +85,6 @@
              write(nlf,'(a)')'</rwgt>'
           endif
        endif
