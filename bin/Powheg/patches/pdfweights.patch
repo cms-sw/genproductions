@@ -1,0 +1,29 @@
+--- POWHEG-BOX/include/pwhg_lhrwgt.h	2015-01-30 09:54:31.845227920 +0100
++++ ../roberto/POWHEG-BOX/include/pwhg_lhrwgt.h	2015-02-18 14:29:12.772549580 +0100
+@@ -2,7 +2,7 @@
+ 
+ c Maximum number of weights
+       integer lhrwgt_maxnheader
+-      parameter (lhrwgt_maxnheader=200)
++      parameter (lhrwgt_maxnheader=300)
+       integer  lhrwgt_max_header_columns
+       parameter ( lhrwgt_max_header_columns=200)
+       character * (lhrwgt_max_header_columns)
+--- POWHEG-BOX/lhefwrite.f	2015-01-30 09:54:34.455177186 +0100
++++ ../roberto/POWHEG-BOX/lhefwrite.f	2015-02-18 14:25:40.806725996 +0100
+@@ -76,6 +76,7 @@
+      & mothup(2,i),icolup(1,i),icolup(2,i),(pup(j,i),j=1,5),
+      & vtimup(i),spinup(i)
+  200  continue
++      if(flg_pdfreweight) call lhefwritepdfrw(nlf)
+       if(flg_reweight) then
+          call lhefwriteevrw(nlf)
+          if(lhrwgt_id.ne.' ') then
+@@ -84,7 +85,6 @@
+             write(nlf,'(a)')'</rwgt>'
+          endif
+       endif
+-      if(flg_pdfreweight) call lhefwritepdfrw(nlf)
+       if(flg_debug) call lhefwritextra(nlf)
+       write(nlf,'(a)')'</event>'      
+  210  format(1p,2(1x,i6),4(1x,e12.5))
