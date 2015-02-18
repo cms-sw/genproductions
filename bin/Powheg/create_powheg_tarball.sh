@@ -103,6 +103,7 @@ fi
 wget --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/${repo}/${name}.tar.gz  -O ${name}.tar.gz || fail_exit "Failed to get powheg tar ball " ${name}
 tar xzf ${name}.tar.gz
 #
+patch -l -p0 -i ${WORKDIR}/patches/pdfweights.patch
 cd POWHEG-BOX/${process}
 
 # This is just to please gcc 4.8.1
