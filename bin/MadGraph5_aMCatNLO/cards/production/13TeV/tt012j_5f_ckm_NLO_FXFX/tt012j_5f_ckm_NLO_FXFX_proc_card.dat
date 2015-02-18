@@ -1,0 +1,14 @@
+import model loop_sm-ckm_no_b_mass
+#switch to non-diagonal ckm matrix if relevant
+#import model loop_sm-no_b_mass
+
+#include b quark in proton and jet definition for consistent 5 flavour scheme treatment
+define p = p b b~
+define j = j b b~
+
+generate p p > t t~ [QCD] @0
+add process p p > t t~ j [QCD] @1
+add process p p > t t~ j j [QCD] @2
+
+output tt012j_5f_ckm_NLO_FXFX -nojpeg
+
