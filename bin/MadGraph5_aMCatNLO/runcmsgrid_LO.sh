@@ -62,8 +62,9 @@ echo "
 scalefact:
 1 2 0.5
 # choice of correlation scheme between muF and muR
+# set here to reproduce aMC@NLO order
 scalecorrelation:
--1
+0 3 6 1 4 7 2 5 8
 # PDF sets and number of members (0 or none for all members)
 PDF:
 NNPDF30_lo_as_0130.LHgrid
