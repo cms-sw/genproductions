@@ -27,7 +27,7 @@
 #***********************************************************************
   1500 = nevents ! Number of unweighted events requested 
  0.001 = req_acc ! Required accuracy (-1=auto determined from nevents)
-    -1 = nevt_job! Max number of events per job in event generation. 
+    20 = nevt_job! Max number of events per job in event generation. 
                  !  (-1= no split).
 average = event_norm ! Normalize events to sum or average to the X sect.
 #***********************************************************************
