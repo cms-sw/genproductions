@@ -78,7 +78,7 @@
 # Automatic ptj and mjj cuts if xqcut > 0
 # (turn off for VBF and single top processes)
 #**********************************************************
-   F  = auto_ptj_mjj  ! Automatic setting of ptj and mjj
+   T  = auto_ptj_mjj  ! Automatic setting of ptj and mjj
 #**********************************************************
 #                                                                    
 #**********************************
@@ -104,7 +104,7 @@
 #*********************************************************************
 # Minimum and maximum pt's (for max, -1 means no cut)                *
 #*********************************************************************
- 0.01  = ptj       ! minimum pt for the jets 
+  0  = ptj       ! minimum pt for the jets 
   0  = ptb       ! minimum pt for the b 
  10  = pta       ! minimum pt for the photons 
   0  = ptl       ! minimum pt for the charged leptons 
@@ -256,7 +256,7 @@
 #*********************************************************************
 # Jet measure cuts                                                   *
 #*********************************************************************
- 10   = xqcut   ! minimum kt jet measure between partons
+ 20   = xqcut   ! minimum kt jet measure between partons
 #*********************************************************************
 #
 #*********************************************************************
