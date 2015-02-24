@@ -1,0 +1,12 @@
+--- old/MG5_aMC_v2_2_2/madgraph/various/lhe_parser.py 2014-12-10 18:36:11 +0000
++++ MG5_aMC_v2_2_2/madgraph/various/lhe_parser.py 2015-01-29 16:27:25 +0000
+@@ -227,8 +227,8 @@
+         self.reweight_order = []
+         start, stop = self.tag.find('<rwgt>'), self.tag.find('</rwgt>')
+         if start != -1 != stop :
+-            pattern = re.compile(r'''<\s*wgt id=\'(?P<id>[^\']+)\'\s*>\s*(?P<val>[\ded+-.]*)\s*</wgt>''')
++            pattern = re.compile(r'''<\s*wgt id=(?:\'|\")(?P<id>[^\'\"]+)(?:\'|\")\s*>\s*(?P<val>[\ded+-.]*)\s*</wgt>''')
+             data = pattern.findall(self.tag)
+             try:
+                 self.reweight_data = dict([(pid, float(value)) for (pid, value) in data
+                                            if not self.reweight_order.append(pid)])
