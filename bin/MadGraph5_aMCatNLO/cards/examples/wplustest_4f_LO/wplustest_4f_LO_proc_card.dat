@@ -1,4 +1,4 @@
-import model sm-ckm_lepton_masses
+import model sm-ckm
 #switch to diagonal ckm matrix if relevant for speed
 #import model sm-lepton_masses
 
