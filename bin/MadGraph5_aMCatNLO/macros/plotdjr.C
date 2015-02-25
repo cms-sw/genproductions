@@ -121,7 +121,7 @@ void makeplot(const char *name, TTree *tree, TCut weight, const char *drawstring
   legend->Draw();
 }
 
-void plotdjrorig(const TString & infile, const TString & outfile) {
+void plotdjr(const TString & infile, const TString & outfile) {
  
   TH1::SetDefaultSumw2();
   
