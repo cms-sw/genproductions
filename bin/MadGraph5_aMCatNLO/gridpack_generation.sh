@@ -354,7 +354,7 @@ fi
 
 if [ -e $CARDSDIR/${name}_reweight_xsec.f ]; then
   echo "copying custom reweight_xsec.f file"
-  cp $CARDSDIR/${name}_reweight_xsec.f ./Cards/reweight_xsec.f
+  cp $CARDSDIR/${name}_reweight_xsec.f ./SubProcesses/reweight_xsec.f
 fi
 
 
