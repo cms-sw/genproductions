@@ -1,3 +1,12 @@
+c                                                                                                                                 
+c The recommended scale for factorization & renormalization for the single top t-channel in the 4 flavour scheme
+c is given by mu = 4 sqrt(m_b^2 + p_T,b^2 ) where b is the spectator quark
+c (see e.g. http://arxiv.org/pdf/1207.5391v2.pdf)
+c This is implemented here for the global scale (i.e. also for the QES scale)       
+c
+
+
+
 c Functions that set the scales and compute alphaS
 c
 c The renormalization, the two factorization, and the Ellis-Sexton scales
