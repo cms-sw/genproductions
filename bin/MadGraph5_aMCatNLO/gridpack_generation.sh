@@ -332,6 +332,7 @@ cd processtmp
 #Locating the run card#
 #######################
 
+echo "copying run_card.dat file"
 cp $CARDSDIR/${name}_run_card.dat ./Cards/run_card.dat
 
 #copy provided custom fks params or cuts
@@ -345,9 +346,10 @@ if [ -e $CARDSDIR/${name}_FKS_params.dat ]; then
   cp $CARDSDIR/${name}_FKS_params.dat ./Cards/FKS_params.dat
 fi
 
-
-
-
+if [ -e $CARDSDIR/${name}_MadLoopParams.dat ]; then
+  echo "copying custom MadLoopParams.dat file"
+  cp $CARDSDIR/${name}_MadLoopParams.dat ./Cards/MadLoopParams.dat
+fi
 
 #automatically detect NLO mode or LO mode from output directory
 isnlo=0
