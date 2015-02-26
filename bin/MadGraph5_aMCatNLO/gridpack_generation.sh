@@ -334,7 +334,9 @@ cd processtmp
 
 cp $CARDSDIR/${name}_run_card.dat ./Cards/run_card.dat
 
-#copy provided custom fks params or cuts
+ 
+
+#copy provided custom fks params or cuts or scales
 if [ -e $CARDSDIR/${name}_cuts.f ]; then
   echo "copying custom cuts.f file"
   cp $CARDSDIR/${name}_cuts.f ./SubProcesses/cuts.f
@@ -345,8 +347,15 @@ if [ -e $CARDSDIR/${name}_FKS_params.dat ]; then
   cp $CARDSDIR/${name}_FKS_params.dat ./Cards/FKS_params.dat
 fi
 
+if [ -e $CARDSDIR/${name}_setscales.f ]; then
+  echo "copying custom setscales.f file"
+  cp $CARDSDIR/${name}_setscales.f ./SubProcesses/setscales.f
+fi
 
-
+if [ -e $CARDSDIR/${name}_reweight_xsec.f ]; then
+  echo "copying custom reweight_xsec.f file"
+  cp $CARDSDIR/${name}_reweight_xsec.f ./Cards/reweight_xsec.f
+fi
 
 
 #automatically detect NLO mode or LO mode from output directory
