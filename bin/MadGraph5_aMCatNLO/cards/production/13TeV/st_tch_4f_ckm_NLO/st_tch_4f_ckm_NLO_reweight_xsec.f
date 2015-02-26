@@ -1,3 +1,9 @@
+c
+c Due to the custom scale in single top t-channel (in the 4FS), numerical, but harmless problems can occur. Removing three stop statements from the code to prevent the reweighting to stop 
+c See here https://answers.launchpad.net/mg5amcnlo/+question/256312
+c
+
+
 c This file contains the routines relevant to reweighting 
 c NLO and aMC@NLO results, for the computation of scale 
 c and PDF uncertainties
