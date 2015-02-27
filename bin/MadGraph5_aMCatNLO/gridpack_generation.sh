@@ -351,6 +351,16 @@ if [ -e $CARDSDIR/${name}_MadLoopParams.dat ]; then
   cp $CARDSDIR/${name}_MadLoopParams.dat ./Cards/MadLoopParams.dat
 fi
 
+if [ -e $CARDSDIR/${name}_setscales.f ]; then
+  echo "copying custom setscales.f file"
+  cp $CARDSDIR/${name}_setscales.f ./SubProcesses/setscales.f
+fi
+
+if [ -e $CARDSDIR/${name}_reweight_xsec.f ]; then
+  echo "copying custom reweight_xsec.f file"
+  cp $CARDSDIR/${name}_reweight_xsec.f ./SubProcesses/reweight_xsec.f
+fi
+
 #automatically detect NLO mode or LO mode from output directory
 isnlo=0
 if [ -e ./MCatNLO ]; then
