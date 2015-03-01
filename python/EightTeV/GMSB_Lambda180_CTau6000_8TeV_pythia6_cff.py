@@ -16,7 +16,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
             'IMSS(11) = 1             ! keeps gravitino mass from being overwritten',
             'IMSS(21) = 33            ! LUN number for SLHA File (must be 33)', 
             'IMSS(22) = 33            ! Read-in SLHA decay table',
-            'PARJ(71) = 6000.         ! for which ctau 6000 mm', 
+            'PARJ(71)=6000.            ! for which ctau  6000 mm', 
             'RMSS(21) = 0             ! The gravitino mass'),    
    
         parameterSets = cms.vstring('pythiaUESettings', 
@@ -24,13 +24,14 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
                                 'SLHAParameters'),
     
         SLHAParameters = cms.vstring('SLHAFILE = Configuration/Generator/data/GMSB_Lambda180_CTau6000_pythia6.slha')
+        #SLHAParameters = cms.vstring('SLHAFILE = GMSB-8-TeV/8-TeV-Samples/python/GMSB_Lambda180_CTau6000_pythia6.slha')
 
         )
  )
 
 configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.1 $'),
-    name = cms.untracked.string('$Source: /cvs/CMSSW/CMSSW/Configuration/GenProduction/python/GMSB_Lambda180_CTau6000_8TeV_pythia6_cff.py,v $'),
+    name = cms.untracked.string('$Source: Configuration/GenProduction/python/EightTeV/GMSB_Lambda180_CTau6000_8TeV_pythia6_cff.py,v $'),
     annotation = cms.untracked.string('GMSB Lambda=180TeV and ctau=6000 at 8 TeV')
 )
 
