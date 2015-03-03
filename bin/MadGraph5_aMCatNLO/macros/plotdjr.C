@@ -129,7 +129,8 @@ void plotdjr(const TString & infile, const TString & outfile) {
   tree->Add(infile);
   
   tree->SetAlias("GenEvent","GenEventInfoProduct_generator__GEN.obj");
-  
+  tree->SetAlias("LHEEvent","LHEEventProduct_externalLHEProducer__GEN.obj");
+ 
   TCut weight = "GenEvent.weight()";
   int nbins = 50.;
   double djrmin = -0.5;
