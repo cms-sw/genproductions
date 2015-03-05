@@ -4,7 +4,7 @@ import model sm-ckm_no_b_mass
 
 define p = p b b~
 define j = j b b~
-define q = j b b~
+define q = j 
 
 define ell+ = e+ mu+ ta+
 define ell- = e- mu- ta-
