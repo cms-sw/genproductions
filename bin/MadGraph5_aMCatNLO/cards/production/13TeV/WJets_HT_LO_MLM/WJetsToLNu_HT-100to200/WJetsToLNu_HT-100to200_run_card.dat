@@ -142,11 +142,7 @@
 #*********************************************************************
 # Minimum and maximum DeltaR distance                                *
 #*********************************************************************
-<<<<<<< HEAD
  0   = drjj    ! min distance between jets 
-=======
- 0.001   = drjj    ! min distance between jets 
->>>>>>> f126f7f291d8749c0dd4fba078265712b1784185
  0   = drbb    ! min distance between b's 
  0   = drll    ! min distance between leptons 
  0   = draa    ! min distance between gammas 
