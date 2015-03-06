@@ -42,4 +42,4 @@ add process p p > a j j @1
 add process p p > a j j j @2
 add process p p > a j j j j @3
 # Output processes to MadEvent directory
-output GJets_HT -nojpeg
+output GJets_HT-400to600 -nojpeg
