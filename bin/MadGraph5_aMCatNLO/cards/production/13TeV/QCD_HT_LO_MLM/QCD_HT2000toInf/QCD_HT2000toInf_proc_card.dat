@@ -29,13 +29,12 @@ define l- = e- mu-
 define vl = ve vm vt
 define vl~ = ve~ vm~ vt~
 # Define multiparticle labels
-define p u c s d b u~ c~ s~ d~ b~ g
-define j  = p
+define p = u c s d b u~ c~ s~ d~ b~ g
+define j = u c s d b u~ c~ s~ d~ b~ g
+define l = e+ e- mu+ mu- ta+ ta-
 # Specify process(es) to run
-generate p p > ve ve~ / h @0
-add process p p > ve ve~ j / h @1
-add process p p > ve ve~ j j / h @2
-add process p p > ve ve~ j j j / h @3
-add process p p > ve ve~ j j j j / h @4
+generate p p > j j @0
+add process p p > j j j @1
+add process p p > j j j j @2
 # Output processes to MadEvent directory
-output ZJetsToNuNu_HT200to400 -nojpeg
+output QCD_HT2000toInf -nojpeg

@@ -20,5 +20,5 @@ add process p p > w- j j, w- > ell- vl~ $$ t t~ h @7
 add process p p > w- j j j, w- > ell- vl~ $$ t t~ h @8
 add process p p > w- j j j j, w- > ell- vl~ $$ t t~ h @9
 
-output wellnu01234j_HT_5f_LO_MLM -nojpeg
+output WJetsToLNu_HT-100to200 -nojpeg
 

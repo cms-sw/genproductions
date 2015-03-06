@@ -38,4 +38,4 @@ add process p p > ve ve~ j j / h @2
 add process p p > ve ve~ j j j / h @3
 add process p p > ve ve~ j j j j / h @4
 # Output processes to MadEvent directory
-output ZJetsToNuNu_HT400-600 -nojpeg
+output ZJetsToNuNu_HT100to200 -nojpeg
