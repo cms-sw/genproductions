@@ -129,6 +129,9 @@ if [ "$process" = "VBF_HJJJ" ]; then
   mv pwhg_analysis-dummy.f pwhg_analysis-dummy.f.orig
   sed 's/..\/pwhg_book.h/pwhg_book.h/g' pwhg_analysis-dummy.f.orig > pwhg_analysis-dummy.f
 fi  
+if [ "$process" = "VBF_H" ]; then 
+  sed -i '/pwhginihist/d' pwhg_analysis-dummy.f 
+fi  
 
 # Remove ANY kind of analysis with parton shower
 if [ `grep particle_identif pwhg_analysis-dummy.f` = ""]; then
