@@ -1,0 +1,19 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set gauge unitary
+set complex_mass_scheme False
+import model sm
+define p = g u c d s u~ c~ d~ s~
+define j = g u c d s u~ c~ d~ s~
+define l+ = e+ mu+
+define l- = e- mu-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+import model topBSM_UFO-ckm_no_b_mass
+define p = g u c d s b u~ c~ d~ s~ b~ 
+define j = g u c d s b u~ c~ d~ s~ b~
+generate p p > s1 > t t~ QCD=0 QED=2 QS1=2 @0
+add process p p > s1 > t t~ j QCD=1 QED=2 QS1=2 @1
+add process p p > s1 > t t~ j j QCD=2 QED=2 QS1=2 @2
+add process p p > s1 > t t~ j j j QCD=3 QED=2 QS1=2 @3
+output ZPrimeToTTJets_M2500GeV_W25GeV -nojpeg
