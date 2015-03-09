@@ -42,6 +42,7 @@ echo "%MSG-POWHEG random seed used for the run = $rnum"
 
 seed=$rnum
 file="events"
+jhugenversion="v5.2.3"
 
 # Release to be used to define the environment and the compiler needed
 export RELEASE=${CMSSW_VERSION}
@@ -164,8 +165,8 @@ echo "LIBS+=-lz -lstdc++" >> Makefile
 
 # Add extra packages
 if [ $jhugen = 1 ]; then
-  wget --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/slc6_amd64_gcc481/JHUGenerator.v4.9.5.tar.gz
-  tar xzf JHUGenerator.v4.9.5.tar.gz
+  wget --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/slc6_amd64_gcc481/JHUGenerator.${jhugenversion}.tar.gz
+  tar xzf JHUGenerator.${jhugenversion}.tar.gz
   cd JHUGenerator
   mv makefile makefile.interm
   cat makefile.interm | sed -e "s#Comp = ifort#Comp = gfort#g" > makefile
