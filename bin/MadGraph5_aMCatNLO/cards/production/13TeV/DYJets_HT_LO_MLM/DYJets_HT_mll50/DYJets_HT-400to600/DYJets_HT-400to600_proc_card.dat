@@ -40,4 +40,4 @@ add process p p > l+ l- j j / h @2
 add process p p > l+ l- j j j / h @3
 add process p p > l+ l- j j j j / h @4
 # Output processes to MadEvent directory
-output DYJets_HT_600-Inf -nojpeg
+output DYJets_HT-400to600 -nojpeg
