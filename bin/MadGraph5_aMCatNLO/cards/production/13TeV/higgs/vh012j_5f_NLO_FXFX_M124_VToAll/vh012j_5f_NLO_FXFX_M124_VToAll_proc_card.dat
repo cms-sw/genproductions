@@ -11,4 +11,4 @@ generate p p > V h [QCD] @0
 add process p p > V h j [QCD] @1
 add process p p > V h j j [QCD] @2
 
-output vh012j_5f_NLO_FXFX -nojpeg
+output vh012j_5f_NLO_FXFX_M124_VToAll -nojpeg

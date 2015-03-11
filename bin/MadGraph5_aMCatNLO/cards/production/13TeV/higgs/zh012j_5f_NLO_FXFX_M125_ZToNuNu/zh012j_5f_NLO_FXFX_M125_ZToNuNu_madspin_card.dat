@@ -23,7 +23,7 @@ set max_running_process 1
 
 # specify the decay for the final state particles
 #(inclusive w and z decays in this case)
-decay z > all all
+decay z > vl vl~
 
 
 # running the actual code
