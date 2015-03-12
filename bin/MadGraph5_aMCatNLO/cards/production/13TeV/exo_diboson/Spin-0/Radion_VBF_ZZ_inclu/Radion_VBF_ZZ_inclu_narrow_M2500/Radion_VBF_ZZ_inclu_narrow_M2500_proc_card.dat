@@ -1,13 +1,12 @@
 set group_subprocesses Auto
 set ignore_six_quark_processes False
-output Radion_VBF_ZZ_inclu_narrow_M2500 -nojpeg
-
+set loop_optimized_output True
 set complex_mass_scheme False
 define vl = ve vm vt
 define vl~ = ve~ vm~ vt~
 import model heft_radion
 define p = u c d s u~ c~ d~ s~
-define j = u c d s b u~ c~ d~ s~ b~
+define j = p
 define ferm = u c d s b u~ c~ d~ s~ b~ e- mu- ta- e+ mu+ ta+ vl vl~
 generate p p > h2 j j $$ z w+ w- / g a h , ( h2 > z z , z > ferm ferm )
 output Radion_VBF_ZZ_inclu_narrow_M2500 -nojpeg
