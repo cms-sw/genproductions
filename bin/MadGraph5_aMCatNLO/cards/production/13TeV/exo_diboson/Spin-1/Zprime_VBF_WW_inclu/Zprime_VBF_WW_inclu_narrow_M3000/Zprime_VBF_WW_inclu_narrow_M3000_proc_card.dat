@@ -1,4 +1,4 @@
-set group_subprocesses Auto
+B1;2cset group_subprocesses Auto
 set ignore_six_quark_processes False
 set gauge unitary
 set complex_mass_scheme False
@@ -8,5 +8,5 @@ define j = p
 define vl = ve vm vt
 define vl~ = ve~ vm~ vt~
 define ferm = u c d s b u~ c~ d~ s~ b~ e- mu- ta- e+ mu+ ta+ vl vl~
-generate p p > vz j j $$ z w+ w- / g a h , ( vz > w+ w- , w+ > ferm ferm , w- ferm ferm )
+generate p p > vz j j $$ z w+ w- / g a h , ( vz > w+ w- , w+ > ferm ferm , w- > ferm ferm )
 output Zprime_VBF_WW_inclu_narrow_M3000 -nojpeg
