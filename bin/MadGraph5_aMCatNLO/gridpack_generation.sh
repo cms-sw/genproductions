@@ -184,7 +184,7 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
       echo "set cluster_nb_retry 5" >> mgconfigscript
       echo "set cluster_retry_wait 300" >> mgconfigscript 
       if [[ ! "$RUNHOME" =~ ^/afs/.* ]]; then
-          echo "local path is not an afs path"
+          echo "local path is not an afs path, batch jobs will use worker node scratch space instead of afs"
           echo "set cluster_temp_path `echo $RUNHOME`" >> mgconfigscript 
       fi      
   else
