@@ -96,7 +96,7 @@ diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/iolibs/export_fks.py MG5_aMC_v2_2_2/mad
              # Add up PDFs for the different initial state particles
 diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/various/cluster.py MG5_aMC_v2_2_2/madgraph/various/cluster.py
 --- ../orig/MG5_aMC_v2_2_2/madgraph/various/cluster.py	2014-11-06 17:28:34.000000001 +0100
-+++ MG5_aMC_v2_2_2/madgraph/various/cluster.py	2015-03-14 03:03:24.000000001 +0100
++++ MG5_aMC_v2_2_2/madgraph/various/cluster.py	2015-03-14 03:43:28.000000001 +0100
 @@ -18,6 +18,11 @@
  import re
  import glob
@@ -226,7 +226,7 @@ diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/various/cluster.py MG5_aMC_v2_2_2/madgr
          text += prog
          if argument:
              text += ' ' + ' '.join(argument)
-@@ -1330,6 +1414,136 @@
+@@ -1330,6 +1414,139 @@
          return id        
          
          
@@ -325,7 +325,7 @@ diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/various/cluster.py MG5_aMC_v2_2_2/madgr
 +            me_dir = 'a' + me_dir[1:]
 +
 +        text = text % dico
-+        command = ['TMPDIR=/tmp/$USER', 'bsub', '-cwd', '/tmp/$USER', '-C0', '-J', me_dir]
++        command = ['bsub', '-cwd', '/tmp/$USER', '-C0', '-J', me_dir]
 +        if cwd is None:
 +            cwd = os.getcwd()
 +        #else:
@@ -342,9 +342,12 @@ diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/various/cluster.py MG5_aMC_v2_2_2/madgr
 +        if self.cluster_queue and self.cluster_queue != 'None':
 +            command.extend(['-q', self.cluster_queue])
 +
++        submitenv = os.environ.copy()
++        submitenv["TMPDIR"] = "/tmp/" + submitenv.get("USER", '')
 +        a = misc.Popen(command, stdout=subprocess.PIPE,
 +        stderr=subprocess.STDOUT,
-+        stdin=subprocess.PIPE, cwd=cwd)
++        stdin=subprocess.PIPE, cwd=cwd,
++        env=submitenv)
 +
 +        output = a.communicate(text)[0]
 +        #Job <nnnn> is submitted to default queue <normal>.
