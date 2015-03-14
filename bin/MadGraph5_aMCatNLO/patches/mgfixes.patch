@@ -1,6 +1,6 @@
 diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/interface/amcatnlo_run_interface.py MG5_aMC_v2_2_2/madgraph/interface/amcatnlo_run_interface.py
 --- ../orig/MG5_aMC_v2_2_2/madgraph/interface/amcatnlo_run_interface.py	2014-11-06 17:28:34.000000001 +0100
-+++ MG5_aMC_v2_2_2/madgraph/interface/amcatnlo_run_interface.py	2015-01-08 11:30:34.000000001 +0100
++++ MG5_aMC_v2_2_2/madgraph/interface/amcatnlo_run_interface.py	2015-03-14 00:03:54.000000001 +0100
 @@ -1518,9 +1518,7 @@
                      nevents_unweighted = []
  
@@ -24,7 +24,7 @@ diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/interface/amcatnlo_run_interface.py MG5
                      required_output.append('%s/results.dat' % current)
 diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/interface/madevent_interface.py MG5_aMC_v2_2_2/madgraph/interface/madevent_interface.py
 --- ../orig/MG5_aMC_v2_2_2/madgraph/interface/madevent_interface.py	2014-11-06 17:28:34.000000001 +0100
-+++ MG5_aMC_v2_2_2/madgraph/interface/madevent_interface.py	2014-12-02 18:51:36.000000001 +0100
++++ MG5_aMC_v2_2_2/madgraph/interface/madevent_interface.py	2015-03-14 00:03:54.000000001 +0100
 @@ -2508,10 +2508,14 @@
              os.remove(pjoin(self.me_dir,'SubProcesses', 'combine.log'))
          except Exception:
@@ -45,7 +45,7 @@ diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/interface/madevent_interface.py MG5_aMC
          # Store the number of unweighted events for the results object
 diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/iolibs/export_fks.py MG5_aMC_v2_2_2/madgraph/iolibs/export_fks.py
 --- ../orig/MG5_aMC_v2_2_2/madgraph/iolibs/export_fks.py	2014-11-06 17:28:34.000000001 +0100
-+++ MG5_aMC_v2_2_2/madgraph/iolibs/export_fks.py	2015-01-07 14:37:20.000000001 +0100
++++ MG5_aMC_v2_2_2/madgraph/iolibs/export_fks.py	2015-03-14 00:03:54.000000001 +0100
 @@ -630,7 +630,7 @@
  
          #import nexternal/leshouches in Source
@@ -96,7 +96,7 @@ diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/iolibs/export_fks.py MG5_aMC_v2_2_2/mad
              # Add up PDFs for the different initial state particles
 diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/various/cluster.py MG5_aMC_v2_2_2/madgraph/various/cluster.py
 --- ../orig/MG5_aMC_v2_2_2/madgraph/various/cluster.py	2014-11-06 17:28:34.000000001 +0100
-+++ MG5_aMC_v2_2_2/madgraph/various/cluster.py	2015-02-08 21:38:27.000000001 +0100
++++ MG5_aMC_v2_2_2/madgraph/various/cluster.py	2015-03-14 03:03:24.000000001 +0100
 @@ -18,6 +18,11 @@
  import re
  import glob
@@ -226,7 +226,7 @@ diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/various/cluster.py MG5_aMC_v2_2_2/madgr
          text += prog
          if argument:
              text += ' ' + ' '.join(argument)
-@@ -1330,6 +1414,138 @@
+@@ -1330,6 +1414,136 @@
          return id        
          
          
@@ -325,9 +325,7 @@ diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/various/cluster.py MG5_aMC_v2_2_2/madgr
 +            me_dir = 'a' + me_dir[1:]
 +
 +        text = text % dico
-+        #command = ['bsub', '-R', '"select[!noturbo &! fullsmt &! smt &! plus &! spacecharge && type==SLC6_64 &&!(model==a6_48_1091h17_1333 || model==i6_8_61a5h23_1066 || model==ai_intel_8) ]"', '-C0', '-J', me_dir]
-+        #command = ['bsub', '-R', '"select[qa && type==SLC6_64]"', '-C0', '-J', me_dir]
-+        command = ['bsub', '-C0', '-J', me_dir]
++        command = ['TMPDIR=/tmp/$USER', 'bsub', '-cwd', '/tmp/$USER', '-C0', '-J', me_dir]
 +        if cwd is None:
 +            cwd = os.getcwd()
 +        #else:
@@ -367,7 +365,7 @@ diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/various/cluster.py MG5_aMC_v2_2_2/madgr
          """ control the status of a single job with it's cluster id """
 diff -ur ../orig/MG5_aMC_v2_2_2/MadSpin/decay.py MG5_aMC_v2_2_2/MadSpin/decay.py
 --- ../orig/MG5_aMC_v2_2_2/MadSpin/decay.py	2014-11-06 17:28:34.000000001 +0100
-+++ MG5_aMC_v2_2_2/MadSpin/decay.py	2014-12-01 01:50:11.000000001 +0100
++++ MG5_aMC_v2_2_2/MadSpin/decay.py	2015-03-14 00:03:54.000000001 +0100
 @@ -2161,8 +2161,9 @@
                  # here I also need to specify the Monte Carlo Masses
                  stdin_text+=" %s \n" % nb_mc_masses
@@ -407,7 +405,7 @@ diff -ur ../orig/MG5_aMC_v2_2_2/MadSpin/decay.py MG5_aMC_v2_2_2/MadSpin/decay.py
                      external.terminate()
 diff -ur ../orig/MG5_aMC_v2_2_2/MadSpin/interface_madspin.py MG5_aMC_v2_2_2/MadSpin/interface_madspin.py
 --- ../orig/MG5_aMC_v2_2_2/MadSpin/interface_madspin.py	2014-11-06 17:28:34.000000001 +0100
-+++ MG5_aMC_v2_2_2/MadSpin/interface_madspin.py	2014-12-16 02:18:34.000000001 +0100
++++ MG5_aMC_v2_2_2/MadSpin/interface_madspin.py	2015-03-14 00:03:54.000000001 +0100
 @@ -533,6 +533,9 @@
                  %s""" \
                  % (self.options['ms_dir'], name, orig_block, block)
@@ -420,7 +418,7 @@ diff -ur ../orig/MG5_aMC_v2_2_2/MadSpin/interface_madspin.py MG5_aMC_v2_2_2/MadS
          if self.seed:
 diff -ur ../orig/MG5_aMC_v2_2_2/Template/LO/bin/internal/Gridpack/run.sh MG5_aMC_v2_2_2/Template/LO/bin/internal/Gridpack/run.sh
 --- ../orig/MG5_aMC_v2_2_2/Template/LO/bin/internal/Gridpack/run.sh	2014-11-06 17:28:34.000000001 +0100
-+++ MG5_aMC_v2_2_2/Template/LO/bin/internal/Gridpack/run.sh	2014-12-01 01:53:43.000000001 +0100
++++ MG5_aMC_v2_2_2/Template/LO/bin/internal/Gridpack/run.sh	2015-03-14 00:03:54.000000001 +0100
 @@ -78,37 +78,5 @@
      cd ..
  fi
@@ -461,7 +459,7 @@ diff -ur ../orig/MG5_aMC_v2_2_2/Template/LO/bin/internal/Gridpack/run.sh MG5_aMC
  exit
 diff -ur ../orig/MG5_aMC_v2_2_2/Template/NLO/Source/setrun.f MG5_aMC_v2_2_2/Template/NLO/Source/setrun.f
 --- ../orig/MG5_aMC_v2_2_2/Template/NLO/Source/setrun.f	2014-11-06 17:28:34.000000001 +0100
-+++ MG5_aMC_v2_2_2/Template/NLO/Source/setrun.f	2015-01-07 14:37:08.000000001 +0100
++++ MG5_aMC_v2_2_2/Template/NLO/Source/setrun.f	2015-03-14 00:03:54.000000001 +0100
 @@ -56,7 +56,6 @@
       &     xmaxup(maxpup),lprup(maxpup)
  c
