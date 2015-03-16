@@ -110,6 +110,8 @@ VVSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$VVMO
 
 MGBASEDIRORIG=MG5_aMC_v2_2_2
 
+isscratchspace=0
+
 if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   #directory doesn't exist, create it and set up environment
   
@@ -186,6 +188,7 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
       if [[ ! "$RUNHOME" =~ ^/afs/.* ]]; then
           echo "local path is not an afs path, batch jobs will use worker node scratch space instead of afs"
           echo "set cluster_temp_path `echo $RUNHOME`" >> mgconfigscript 
+          isscratchspace=1
       fi      
   else
       echo "set run_mode 2" >> mgconfigscript
@@ -333,7 +336,14 @@ if [ ! -d ${name} ]; then
   if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
 fi
 
-cp -a $name/ processtmp
+#make copy of process directory for reuse only if not running on temp scratch space
+if [ "$isscratchspace" -gt "0" ]; then
+  echo "moving generated process to working directory"
+  mv $name processtmp
+else
+  echo "copying generated process to working directory"
+  cp -a $name/ processtmp
+fi
 
 cd processtmp
 
@@ -425,11 +435,17 @@ else
   echo "done" >> makegrid.dat
 
   cat makegrid.dat | ./bin/generate_events pilotrun
-
+  
   cd $WORKDIR
+  mv $WORKDIR/processtmp/pilotrun_gridpack.tar.gz $WORKDIR/
+  echo "cleaning temporary output"
+  rm -r processtmp
   mkdir process
   cd process
-  tar -xzf $WORKDIR/processtmp/pilotrun_gridpack.tar.gz
+  echo "unpacking temporary gridpack"
+  tar -xzf $WORKDIR/pilotrun_gridpack.tar.gz
+  echo "cleaning temporary gridpack"
+  rm $WORKDIR/pilotrun_gridpack.tar.gz
   
   #prepare madspin grids if necessary
   if [ -e $CARDSDIR/${name}_madspin_card.dat ]; then
@@ -441,7 +457,9 @@ else
     cp $CARDSDIR/${name}_madspin_card.dat $WORKDIR/process/madspin_card.dat
   fi
 
-  #set to single core mode  
+  echo "preparing final gridpack"
+  
+  #set to single core mode
   echo "mg5_path = ../../mgbasedir" >> ./madevent/Cards/me5_configuration.txt
   echo "run_mode = 0" >> ./madevent/Cards/me5_configuration.txt  
     
