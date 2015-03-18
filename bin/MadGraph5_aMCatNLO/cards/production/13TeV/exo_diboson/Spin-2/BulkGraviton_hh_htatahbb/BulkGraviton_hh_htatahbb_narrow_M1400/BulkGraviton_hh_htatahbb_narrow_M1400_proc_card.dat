@@ -3,7 +3,6 @@ set ignore_six_quark_processes False
 set gauge unitary
 set complex_mass_scheme False
 import model RS_bulk_ktilda
-define p = g u c d s u~ c~ d~ s~
 generate p p > y , ( y > H H, H > ta+ ta- , H > b b~)
 output BulkGraviton_hh_htatahbb_narrow_M1400 -nojpeg
 
