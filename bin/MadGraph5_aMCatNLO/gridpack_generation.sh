@@ -437,8 +437,9 @@ else
   cat makegrid.dat | ./bin/generate_events pilotrun
   
   cd $WORKDIR
-  mv $WORKDIR/processtmp/pilotrun_gridpack.tar.gz $WORKDIR/
   echo "cleaning temporary output"
+  mv $WORKDIR/processtmp/pilotrun_gridpack.tar.gz $WORKDIR/
+  mv $WORKDIR/processtmp/Events/pilotrun/unweighted_events.lhe.gz $WORKDIR/
   rm -r processtmp
   mkdir process
   cd process
@@ -449,10 +450,11 @@ else
   
   #prepare madspin grids if necessary
   if [ -e $CARDSDIR/${name}_madspin_card.dat ]; then
-    echo "import $WORKDIR/processtmp/Events/pilotrun/unweighted_events.lhe.gz" > madspinrun.dat
+    echo "import $WORKDIR/unweighted_events.lhe.gz" > madspinrun.dat
     cat $CARDSDIR/${name}_madspin_card.dat >> madspinrun.dat
     cat madspinrun.dat | $WORKDIR/$MGBASEDIRORIG/MadSpin/madspin
     rm madspinrun.dat
+    rm $WORKDIR/unweighted_events.lhe.gz
     rm -rf tmp*
     cp $CARDSDIR/${name}_madspin_card.dat $WORKDIR/process/madspin_card.dat
   fi
