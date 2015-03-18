@@ -8,7 +8,9 @@ generator = cms.EDFilter("ReggeGribovPartonMCGeneratorFilter",
                     targetmomentum = cms.double(-6500),
                     beamid = cms.int32(1),
                     targetid = cms.int32(1),
-                    model = cms.int32(7)
+                    model = cms.int32(7),
+                    crossSection = cms.untracked.double(73110000000.0),
+                    filterEfficiency = cms.untracked.double(1.0)
                     )
 
 
