@@ -3,7 +3,6 @@ set ignore_six_quark_processes False
 set gauge unitary
 set complex_mass_scheme False
 import model heft_radion
-define p = g u c d s u~ c~ d~ s~
 generate p p > h2, ( h2 > H H, H > ta+ ta- , H > b b~)
 output Radion_hh_htatahbb_narrow_M700 -nojpeg
 
