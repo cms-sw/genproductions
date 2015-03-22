@@ -96,7 +96,7 @@ diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/iolibs/export_fks.py MG5_aMC_v2_2_2/mad
              # Add up PDFs for the different initial state particles
 diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/various/cluster.py MG5_aMC_v2_2_2/madgraph/various/cluster.py
 --- ../orig/MG5_aMC_v2_2_2/madgraph/various/cluster.py	2014-11-06 17:28:34.000000001 +0100
-+++ MG5_aMC_v2_2_2/madgraph/various/cluster.py	2015-03-20 18:08:41.000000001 +0100
++++ MG5_aMC_v2_2_2/madgraph/various/cluster.py	2015-03-21 23:43:28.000000001 +0100
 @@ -18,6 +18,11 @@
  import re
  import glob
@@ -136,7 +136,7 @@ diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/various/cluster.py MG5_aMC_v2_2_2/madgr
          else:
              args['nb_submit'] += 1            
              logger.warning('resubmit job (for the %s times)' % args['nb_submit'])
-@@ -1279,6 +1287,81 @@
+@@ -1279,6 +1287,80 @@
      name = 'lsf'
      job_id = 'LSB_JOBID'
  
@@ -190,11 +190,10 @@ diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/various/cluster.py MG5_aMC_v2_2_2/madgr
 +                  lock file = %(rsynclock)s
 +                  secrets file = %(rsyncsecrets)s
 +                  path = %(path)s
-+                  read only = yes
 +                  list = yes 
-+                  use chroot = false
-+                  munge symlinks = false
-+                  read only = false
++                  use chroot = no
++                  munge symlinks = no
++                  read only = no
 +                  auth users = %(rsyncuser)s
 +            """ % {'rsyncport': self.rsyncport,
 +                   'rsyncmodule': self.rsyncmodule,
@@ -218,7 +217,7 @@ diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/various/cluster.py MG5_aMC_v2_2_2/madgr
      @multiple_try()
      def submit(self, prog, argument=[], cwd=None, stdout=None, stderr=None, log=None,
                 required_output=[], nb_submit=0):
-@@ -1304,6 +1387,8 @@
+@@ -1304,6 +1386,8 @@
          if log is None:
              log = '/dev/null'
          
@@ -227,7 +226,7 @@ diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/various/cluster.py MG5_aMC_v2_2_2/madgr
          text += prog
          if argument:
              text += ' ' + ' '.join(argument)
-@@ -1330,6 +1415,139 @@
+@@ -1330,6 +1414,139 @@
          return id        
          
          
@@ -301,14 +300,14 @@ diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/various/cluster.py MG5_aMC_v2_2_2/madgr
 +            export RSYNC_PASSWORD=$MADGRAPHRSYNCPASSWD_%(rsyncport)s
 +                 
 +            #dereference symlinks for input
-+            rsync -vvv --timeout=60 --contimeout=60 --port %(rsyncport)s -rL %(infilelist)s
++            rsync -vvv --timeout=60 --contimeout=60 --port %(rsyncport)s -rptL %(infilelist)s
 +
 +            echo '%(arguments)s' > arguments
 +            chmod +x ./%(script)s        
 +            %(program)s ./%(script)s %(arguments)s
 +            
-+            #copy symlinks as symlinks for output
-+            rsync -vvv --timeout=60 --contimeout=60 --port %(rsyncport)s -rl %(outfilelist)s
++            #copy symlinks as symlinks for output and don't overwrite existing files unless updated
++            rsync -vvv --timeout=60 --contimeout=60 --port %(rsyncport)s -rptul %(outfilelist)s
 +            
 +            """
 +        dico = {'script': os.path.basename(prog),
