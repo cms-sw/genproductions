@@ -14,9 +14,9 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
         pythia8CommonSettingsBlock,
         pythia8CUEP8M1SettingsBlock,
         processParameters = cms.vstring(
-            'Main:timesAllowErrors = 10000',
-            'Tune:ee 3',
-            'Tune:pp 5',
+            
+            
+            
             'LeptoQuark:gg2LQLQbar = on',
             'LeptoQuark:qqbar2LQLQbar = on',
             '42:m0 = 1500 ! LQ mass',
