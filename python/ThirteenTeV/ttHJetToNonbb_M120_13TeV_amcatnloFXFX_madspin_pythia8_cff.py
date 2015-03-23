@@ -29,8 +29,6 @@ pythia8aMCatNLOSettingsBlock,
   '25:m0 = 120.0',
   '25:onMode = on', 	# Allow all higgs decays 
   '25:offIfAny = 5 5',    # Switch decays of b quarks off
-  'Higgs:clipWings = off',  # Do not clip higgs width
-  'HiggsSM:NLOWidths = on' # On by default, mentioned for documentation
   ),
 parameterSets = cms.vstring('pythia8CommonSettings',
 'pythia8CUEP8M1Settings',
