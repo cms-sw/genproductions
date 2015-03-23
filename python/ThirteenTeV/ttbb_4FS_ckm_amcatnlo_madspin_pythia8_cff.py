@@ -1,3 +1,4 @@
+
 import FWCore.ParameterSet.Config as cms
 from Configuration.Generator.Pythia8CommonSettings_cfi import *
 from Configuration.Generator.Pythia8CUEP8M1Settings_cfi import *
@@ -12,21 +13,9 @@ PythiaParameters = cms.PSet(
 pythia8CommonSettingsBlock,
 pythia8CUEP8M1SettingsBlock,
 pythia8aMCatNLOSettingsBlock,
-  processParameters = cms.vstring(
-  'JetMatching:setMad = off',
-  'JetMatching:scheme = 1',
-  'JetMatching:merge = on',
-  'JetMatching:jetAlgorithm = 2',
-  'JetMatching:etaJetMax = 999.',
-  'JetMatching:coneRadius = 1.',
-  'JetMatching:slowJetPower = 1',
-  'JetMatching:qCut = 40.', #this is the actual merging scale
-  'JetMatching:doFxFx = on',
-  'JetMatching:qCutME = 10.',#this must match the ptj cut in the lhe generation step
-  'JetMatching:nQmatch = 4', #4 corresponds to 4-flavour scheme (no matching of b-quarks), 5 for 5-flavour scheme
-  'JetMatching:nJetMax = 0', #number of partons in born matrix element for highest multiplicity, only tt+bb is produced on lhe level
-  'SLHA:useDecayTable = off',  # Use pythia8s own decay mode instead of decays defined in LH accord
-  ),
+processParameters = cms.vstring(
+'TimeShower:nPartonsInBorn = 4', #number of coloured particles (before resonance decays) in born matrix element
+),
 parameterSets = cms.vstring('pythia8CommonSettings',
 'pythia8CUEP8M1Settings',
 'pythia8aMCatNLOSettings',
