@@ -108,6 +108,10 @@ HCNLOSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$H
 VVMODEL=dibosonResonanceModel.tar.gz
 VVSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$VVMODEL
 
+# Model for search for Z' resonances
+ZPRIMEMODEL=topBSM_UFO.zip
+ZPRIMESOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${ZPRIMEMODEL}
+
 MGBASEDIRORIG=MG5_aMC_v2_2_2
 
 isscratchspace=0
@@ -219,6 +223,12 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   wget --no-check-certificate ${VVSOURCE}
   cd models
   tar xvzf ../${VVMODEL}
+  cd ..
+
+  #get Z' model
+  wget --no-check-certificate -O ${ZPRIMEMODEL} ${ZPRIMESOURCE}
+  cd models
+  unzip ../${ZPRIMEMODEL}
   cd ..
   
   cd $WORKDIR
