@@ -42,7 +42,7 @@ echo "%MSG-POWHEG random seed used for the run = $rnum"
 
 seed=$rnum
 file="events"
-jhugenversion="v5.2.3"
+jhugenversion="v5.2.5"
 
 # Release to be used to define the environment and the compiler needed
 export RELEASE=${CMSSW_VERSION}
