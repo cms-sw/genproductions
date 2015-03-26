@@ -112,6 +112,11 @@ VVSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$VVMO
 ZPRIMEMODEL=topBSM_UFO.zip
 ZPRIMESOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${ZPRIMEMODEL}
 
+# Model for search for Majoranan Neutrinos
+MNEUTRINOMODEL=typeI.tar.gz
+MNEUTRINOSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${MNEUTRINOMODEL}
+
+
 MGBASEDIRORIG=MG5_aMC_v2_2_2
 
 isscratchspace=0
@@ -229,6 +234,12 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   wget --no-check-certificate -O ${ZPRIMEMODEL} ${ZPRIMESOURCE}
   cd models
   unzip ../${ZPRIMEMODEL}
+  cd ..
+
+  #get Majorana Neutrino model
+  wget --no-check-certificate -O ${MNEUTRINOMODEL} ${MNEUTRINOSOURCE}
+  cd models
+  unzip ../${MNEUTRINOMODEL}
   cd ..
   
   cd $WORKDIR
