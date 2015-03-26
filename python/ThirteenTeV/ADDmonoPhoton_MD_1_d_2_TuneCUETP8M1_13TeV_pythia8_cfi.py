@@ -24,9 +24,7 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
     '5000039:mWidth = 1000.',
     '5000039:mMin = 1.',
     '5000039:mMax = 13990.',
-    'PhaseSpace:pTHatMin = 130.',
-    'PartonLevel:ISR = on',
-    'PartonLevel:FSR = on'					       
+    'PhaseSpace:pTHatMin = 130.'
     ), 
     parameterSets = cms.vstring('pythia8CommonSettings',
                                 'pythia8CUEP8M1Settings',
