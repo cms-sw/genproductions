@@ -113,7 +113,7 @@ ZPRIMEMODEL=topBSM_UFO.zip
 ZPRIMESOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${ZPRIMEMODEL}
 
 # Model for search for Majoranan Neutrinos
-MNEUTRINOMODEL=typeI.tar.gz
+MNEUTRINOMODEL=typeISeeSaw_MajNeutrino_UFO.tar.gz
 MNEUTRINOSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${MNEUTRINOMODEL}
 
 
