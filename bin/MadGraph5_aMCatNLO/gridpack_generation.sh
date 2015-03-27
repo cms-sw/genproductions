@@ -112,6 +112,7 @@ VVSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$VVMO
 ZPRIMEMODEL=topBSM_UFO.zip
 ZPRIMESOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${ZPRIMEMODEL}
 
+
 MGBASEDIRORIG=MG5_aMC_v2_2_2
 
 isscratchspace=0
@@ -230,7 +231,7 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   cd models
   unzip ../${ZPRIMEMODEL}
   cd ..
-  
+
   cd $WORKDIR
   
   if [ "$name" == "interactive" ]; then
