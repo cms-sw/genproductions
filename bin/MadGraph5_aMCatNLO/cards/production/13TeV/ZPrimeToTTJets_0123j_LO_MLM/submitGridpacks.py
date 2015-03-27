@@ -18,4 +18,4 @@ for mass in MASSES:
 
         sampleName = formatName(mass, widthToString(mass * width))
 
-        print("./submit_gridpack_generation_local.sh 30000 2nd {0} cards/production/13TeV/ZPrimeToTTJets_0123j_LO_MLM/{0}/ 8nh".format(sampleName))
+        print("./submit_gridpack_generation_local.sh 30000 2nd {0} cards/production/13TeV/ZPrimeToTTJets_0123j_LO_MLM/{0}/ 1nd".format(sampleName))

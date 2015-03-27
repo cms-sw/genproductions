@@ -41,7 +41,6 @@ for mass in MASSES:
         # Copy cards
         copyCard("proc_card", REFERENCE_DIR, sampleName)
         copyCard("run_card", REFERENCE_DIR, sampleName)
-        copyCard("madspin_card", REFERENCE_DIR, sampleName)
         copyCard("customizecards", REFERENCE_DIR, sampleName)
 
         # Overwrite customizecards with correct mass and width
