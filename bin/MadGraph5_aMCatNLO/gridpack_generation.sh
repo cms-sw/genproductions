@@ -230,7 +230,7 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   cd models
   unzip ../${ZPRIMEMODEL}
   cd ..
-
+  
   cd $WORKDIR
   
   if [ "$name" == "interactive" ]; then
