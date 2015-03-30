@@ -13,10 +13,10 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
                                      pythia8CommonSettingsBlock,
                                      pythia8CUEP8M1SettingsBlock,
                                      processParameters = cms.vstring(
-                                             'Main:timesAllowErrors = 10000',
+                                             
                                              'ExtraDimensionsUnpart:ffbar2UZ = on',
-                                             'ParticleDecays:limitTau0 = on',
-                                             'ParticleDecays:tau0Max = 10.',
+                                             
+                                             
                                              'ExtraDimensionsUnpart:spinU = 0',
                                              'ExtraDimensionsUnpart:dU = 1.60',
                                              'ExtraDimensionsUnpart:LambdaU = 15000.000000',
