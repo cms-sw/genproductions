@@ -31,10 +31,11 @@ use-old-ubound  1 ! if 1 use norm of upper bounding function stored in pwgubound
 
 ncall1  500000  ! number of calls for initializing the integration grid
 itmx1    2     ! number of iterations for initializing the integration grid
-ncall2  500000  ! number of calls for computing the integral and finding upper bound
+#ncall2  500000  ! number of calls for computing the integral and finding upper bound
+ncall2   0  ! number of calls for computing the integral and finding upper bound
 itmx2    1     ! number of iterations for computing the integral and finding upper bound
 foldcsi   1    ! number of folds on csi integration
-foldy     1    ! number of folds on  y  integration
+foldy      1    ! number of folds on  y  integration
 foldphi   1    ! number of folds on phi integration
 nubound 50000  ! number of bbarra calls to setup norm of upper bounding function
 icsimax  1     ! <= 100, number of csi subdivision when computing the upper bounds
