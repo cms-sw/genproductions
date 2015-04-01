@@ -1,3 +1,4 @@
+c *This file contains maximum cuts(M<50) on the dilepton mass: line 136-142*
 c
 c This file contains the default cuts (as defined in the run_card.dat)
 c and can easily be extended by the user to include other.  This
