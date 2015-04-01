@@ -146,6 +146,9 @@ if [ "$process" = "ttJ" ]; then
   mv Makefile Makefile.interm
   cat Makefile.interm | sed -e "s#_PATH) -L#_PATH) #g" | sed -e "s# -lvirtual#/libvirtual.so.1.0.0#g" > Makefile
 fi
+if [ "$process" = "ttH" ]; then
+    sed -i 's/O2/O0/g' Makefile
+fi
 if [ "$process" = "gg_H_MSSM" ]; then 
   mv nloreal.F nloreal.F.orig
   sed 's/leq/le/g' nloreal.F.orig > nloreal.F
