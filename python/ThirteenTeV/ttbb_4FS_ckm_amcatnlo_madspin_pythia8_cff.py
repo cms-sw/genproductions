@@ -14,7 +14,7 @@ pythia8CommonSettingsBlock,
 pythia8CUEP8M1SettingsBlock,
 pythia8aMCatNLOSettingsBlock,
 processParameters = cms.vstring(
-'TimeShower:nPartonsInBorn = 4', #number of coloured particles (before resonance decays) in born matrix element
+'TimeShower:nPartonsInBorn = 0', #number of coloured particles (before resonance decays) in born matrix element
 ),
 parameterSets = cms.vstring('pythia8CommonSettings',
 'pythia8CUEP8M1Settings',
