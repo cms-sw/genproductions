@@ -31,8 +31,8 @@ use-old-ubound  1 ! if 1 use norm of upper bounding function stored in pwgubound
 
 ncall1  500000  ! number of calls for initializing the integration grid
 itmx1    2     ! number of iterations for initializing the integration grid
-#ncall2  500000  ! number of calls for computing the integral and finding upper bound
-ncall2   0  ! number of calls for computing the integral and finding upper bound
+ncall2  500000  ! number of calls for computing the integral and finding upper bound
+#ncall2   0  ! number of calls for computing the integral and finding upper bound
 itmx2    1     ! number of iterations for computing the integral and finding upper bound
 foldcsi   1    ! number of folds on csi integration
 foldy      1    ! number of folds on  y  integration
@@ -48,7 +48,7 @@ facscfact 1d0   ! (default 1d0) fac scale factor: mufact = muref * facscfact
 testplots  1       ! (default 0, do not) do NLO and PWHG distributions
 
 #bornonly   1      ! (default 0) if 1 do Born only
-fakevirt   1      ! (default 0) if 1 use Born for virtuals
+#fakevirt   1      ! (default 0) if 1 use Born for virtuals
 
 iseed    SEED
 
