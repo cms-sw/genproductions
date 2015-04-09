@@ -19,6 +19,7 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
             'POWHEG:nFinal = 3',   ## Number of final state particles
                                    ## (BEFORE THE DECAYS) in the LHE
                                    ## other than emitted extra parton
+            '25:m0 = 120.0',
             '25:onMode = off',
             '25:onIfMatch = 22 22',
           ),
