@@ -1,0 +1,18 @@
+README
+
+
+With these cards, you are able to generate the single top + Higgs process in the tW-channel (four-flavour-scheme) at LO.
+
+However, the gridpack_generation.sh scripts will not work, for we employ a reweighting technique to scan the 2dimensional plane spanned by the Yukawa coupling to the top and the coupling of the Higgs to vector bosons. Because of the latter, we need to use the Higgs characterization model, which allows to modify this coupling which in other models (e.g. the model sm) would be fixed. Have a look at the reweight_card! This reweighting is currently (as of Apr 09, 2015) not supported by the generation scripts.
+
+Therefore we generated the LHEs by hand and also modified the model a little (hence the extension of the model name in the proc_card) in the sense that all non-diagonal CKM matrix elements in the 3rd generation are zero.
+
+Additionally, this process needs to be modified a little in the sense that you remove double-resonant diagrams before launching the generation. This needs to be done by setting their amplitudes to 0 in the corresponding matrix*.f of the various SubProcesses.
+This is also the MadSpin cannot be used here, for it would re-add those diagrams that had been removed. The top is hence decayed via the decay chain syntax. 
+
+These are for the requests found in lines 18/19 of https://docs.google.com/spreadsheets/d/16Z3rgM7XZzUMBxZr3DUXMldvGipeHwjDolUW5GSKn_s/edit#gid=0.
+
+For questions, please contact me:
+
+benedikt.maier@cern.ch
+  
