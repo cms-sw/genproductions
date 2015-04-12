@@ -148,6 +148,7 @@ if [ "$process" = "ttJ" ]; then
 fi
 if [ "$process" = "ttH" ]; then
     sed -i 's/O2/O0/g' Makefile
+    sed -i 's/4.5d0/4.75d0/g' init_couplings.f
 fi
 if [ "$process" = "gg_H_MSSM" ]; then 
   mv nloreal.F nloreal.F.orig
