@@ -104,11 +104,23 @@ SYSCALCSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/
 HCNLO=HC_NLO_X0_UFO.zip
 HCNLOSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$HCNLO
 
+<<<<<<< HEAD
 SINGLEVLQ=STP_UFO_freeWidth.tar.gz
 SINGLEVLQSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$SINGLEVLQ
 
+=======
+## Models for searches of diboson resonances
+VVMODEL=dibosonResonanceModel.tar.gz
+VVSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$VVMODEL
+
+# Model for search for Z' resonances
+ZPRIMEMODEL=topBSM_UFO.zip
+ZPRIMESOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${ZPRIMEMODEL}
+>>>>>>> c3a07d77854ccaf12dd88ea20eaa49aeab414426
 
 MGBASEDIRORIG=MG5_aMC_v2_2_2
+
+isscratchspace=0
 
 if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   #directory doesn't exist, create it and set up environment
@@ -185,8 +197,9 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
       echo "set cluster_nb_retry 5" >> mgconfigscript
       echo "set cluster_retry_wait 300" >> mgconfigscript 
       if [[ ! "$RUNHOME" =~ ^/afs/.* ]]; then
-          echo "local path is not an afs path"
+          echo "local path is not an afs path, batch jobs will use worker node scratch space instead of afs"
           echo "set cluster_temp_path `echo $RUNHOME`" >> mgconfigscript 
+          isscratchspace=1
       fi      
   else
       echo "set run_mode 2" >> mgconfigscript
@@ -213,6 +226,18 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   cd models
   unzip ../${HCNLO}
   tar -zxvf ../${SINGLEVLQ}
+  cd ..
+
+  #get Diboson model
+  wget --no-check-certificate ${VVSOURCE}
+  cd models
+  tar xvzf ../${VVMODEL}
+  cd ..
+
+  #get Z' model
+  wget --no-check-certificate -O ${ZPRIMEMODEL} ${ZPRIMESOURCE}
+  cd models
+  unzip ../${ZPRIMEMODEL}
   cd ..
   
   cd $WORKDIR
@@ -330,7 +355,14 @@ if [ ! -d ${name} ]; then
   if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
 fi
 
-cp -a $name/ processtmp
+#make copy of process directory for reuse only if not running on temp scratch space
+if [ "$isscratchspace" -gt "0" ]; then
+  echo "moving generated process to working directory"
+  mv $name processtmp
+else
+  echo "copying generated process to working directory"
+  cp -a $name/ processtmp
+fi
 
 cd processtmp
 
@@ -425,23 +457,33 @@ else
   echo "done" >> makegrid.dat
 
   cat makegrid.dat | ./bin/generate_events pilotrun
-
+  
   cd $WORKDIR
+  echo "cleaning temporary output"
+  mv $WORKDIR/processtmp/pilotrun_gridpack.tar.gz $WORKDIR/
+  mv $WORKDIR/processtmp/Events/pilotrun/unweighted_events.lhe.gz $WORKDIR/
+  rm -r processtmp
   mkdir process
   cd process
-  tar -xzf $WORKDIR/processtmp/pilotrun_gridpack.tar.gz
+  echo "unpacking temporary gridpack"
+  tar -xzf $WORKDIR/pilotrun_gridpack.tar.gz
+  echo "cleaning temporary gridpack"
+  rm $WORKDIR/pilotrun_gridpack.tar.gz
   
   #prepare madspin grids if necessary
   if [ -e $CARDSDIR/${name}_madspin_card.dat ]; then
-    echo "import $WORKDIR/processtmp/Events/pilotrun/unweighted_events.lhe.gz" > madspinrun.dat
+    echo "import $WORKDIR/unweighted_events.lhe.gz" > madspinrun.dat
     cat $CARDSDIR/${name}_madspin_card.dat >> madspinrun.dat
     cat madspinrun.dat | $WORKDIR/$MGBASEDIRORIG/MadSpin/madspin
     rm madspinrun.dat
+    rm $WORKDIR/unweighted_events.lhe.gz
     rm -rf tmp*
     cp $CARDSDIR/${name}_madspin_card.dat $WORKDIR/process/madspin_card.dat
   fi
 
-  #set to single core mode  
+  echo "preparing final gridpack"
+  
+  #set to single core mode
   echo "mg5_path = ../../mgbasedir" >> ./madevent/Cards/me5_configuration.txt
   echo "run_mode = 0" >> ./madevent/Cards/me5_configuration.txt  
     

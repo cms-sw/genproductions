@@ -63,7 +63,8 @@ iseed    SEED    ! initialize random number sequence
 ! **** Mandatory parameters for ALL models ****
 massren 0           ! Mass renormalization scheme. 0 = OS, 1 = MSBAR , 2 = DRBAR
 zerowidth 1         ! Control if the Higgs boson is to be produced on-shell or not: 1 = On-Shell; 0 = Off-shell with Breit-Wigner
-ew 0                ! ew = 0 disable EW corrections - ew = 1 enable EW corrections
+ew 1                ! ew = 0 disable EW corrections - ew = 1 enable EW corrections
+bwshape 3
 model 0
 gfermi 0.116637D-04        ! GF
 hdecaymode -1      ! PDG code for first decay product of the higgs

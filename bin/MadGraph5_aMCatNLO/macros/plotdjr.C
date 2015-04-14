@@ -123,13 +123,15 @@ void makeplot(const char *name, TTree *tree, TCut weight, const char *drawstring
 
 void plotdjr(const TString & infile, const TString & outfile) {
  
+  gSystem->Load("libFWCoreFWLite.so");  
+  AutoLibraryLoader::enable();  
   TH1::SetDefaultSumw2();
   
   TChain *tree = new TChain("Events");
   tree->Add(infile);
   
   tree->SetAlias("GenEvent","GenEventInfoProduct_generator__GEN.obj");
-  tree->SetAlias("LHEEvent","LHEEventProduct_externalLHEProducer__GEN.obj");
+  tree->SetAlias("LHEEvent","LHEEventProduct_externalLHEProducer__LHE.obj");
  
   TCut weight = "GenEvent.weight()";
   int nbins = 50.;
