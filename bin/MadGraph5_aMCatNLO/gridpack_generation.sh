@@ -104,6 +104,9 @@ SYSCALCSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/
 HCNLO=HC_NLO_X0_UFO.zip
 HCNLOSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$HCNLO
 
+SINGLEVLQ=STP_UFO_freeWidth.tar.gz
+SINGLEVLQSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$SINGLEVLQ
+
 
 MGBASEDIRORIG=MG5_aMC_v2_2_2
 
@@ -111,6 +114,7 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   #directory doesn't exist, create it and set up environment
   
   if [ ! -d ${AFS_GEN_FOLDER} ]; then
+    echo "Making dir '${AFS_GEN_FOLDER}'"
     mkdir ${AFS_GEN_FOLDER}
   fi
 
@@ -205,8 +209,10 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   
   #get HC nlo model
   wget --no-check-certificate ${HCNLOSOURCE}
+  wget --no-check-certificate ${SINGLEVLQSOURCE}
   cd models
   unzip ../${HCNLO}
+  tar -zxvf ../${SINGLEVLQ}
   cd ..
   
   cd $WORKDIR
@@ -334,6 +340,9 @@ cd processtmp
 
 echo "copying run_card.dat file"
 cp $CARDSDIR/${name}_run_card.dat ./Cards/run_card.dat
+
+#echo "copying param_card.dat file"
+#cp $CARDSDIR/${name}_param_card.dat ./Cards/param_card.dat
 
 #copy provided custom fks params or cuts
 if [ -e $CARDSDIR/${name}_cuts.f ]; then
