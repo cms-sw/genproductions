@@ -104,11 +104,9 @@ SYSCALCSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/
 HCNLO=HC_NLO_X0_UFO.zip
 HCNLOSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$HCNLO
 
-<<<<<<< HEAD
 SINGLEVLQ=STP_UFO_freeWidth.tar.gz
 SINGLEVLQSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$SINGLEVLQ
 
-=======
 ## Models for searches of diboson resonances
 VVMODEL=dibosonResonanceModel.tar.gz
 VVSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$VVMODEL
@@ -116,7 +114,6 @@ VVSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$VVMO
 # Model for search for Z' resonances
 ZPRIMEMODEL=topBSM_UFO.zip
 ZPRIMESOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${ZPRIMEMODEL}
->>>>>>> c3a07d77854ccaf12dd88ea20eaa49aeab414426
 
 MGBASEDIRORIG=MG5_aMC_v2_2_2
 
