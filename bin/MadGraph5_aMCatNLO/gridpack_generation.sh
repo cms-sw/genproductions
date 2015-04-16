@@ -104,6 +104,10 @@ SYSCALCSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/
 HCNLO=HC_NLO_X0_UFO.zip
 HCNLOSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$HCNLO
 
+## Single VLQ model
+SINGLEVLQ=STP_UFO_freeWidth.tar.gz
+SINGLEVLQSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$SINGLEVLQ
+
 ## Models for searches of diboson resonances
 VVMODEL=dibosonResonanceModel.tar.gz
 VVSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$VVMODEL
@@ -215,8 +219,10 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   
   #get HC nlo model
   wget --no-check-certificate ${HCNLOSOURCE}
+  wget --no-check-certificate ${SINGLEVLQSOURCE}
   cd models
   unzip ../${HCNLO}
+  tar -zxvf ../${SINGLEVLQ}
   cd ..
 
   #get Diboson model
