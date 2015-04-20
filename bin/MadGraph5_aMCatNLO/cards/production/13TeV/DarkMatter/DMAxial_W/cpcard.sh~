@@ -1,0 +1,19 @@
+#!/bin/bash
+
+dir=$1
+label=$2
+id=`  echo $dir | sed "s@_@ @g" | sed "s@MonoW@@g" | sed "s@MonoZ@@g" | awk '{print $1}'`
+med=` echo $dir | sed "s@_@ @g" | awk '{print $2}'`
+mass=`echo $dir | sed "s@_@ @g" | awk '{print $3}'`
+label="DM"$id"_"$label"012j_mphi_"$med"_mchi_"$mass"_gSM_1p0_gDM_1p0"
+echo $label
+cd $dir
+run=`ls    | grep run_card`
+param=`ls  | grep param_card`
+custom=`ls | grep custom`
+proc=`ls   | grep proc`
+echo mv $proc   ${label}_proc_card.dat
+echo mv $param  ${label}_param_card.dat
+echo mv $custom ${label}_customizecards.dat
+echo mv $run    ${label}_run_cad.dat
+cd ..
