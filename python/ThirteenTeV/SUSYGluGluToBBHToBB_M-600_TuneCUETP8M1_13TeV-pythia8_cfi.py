@@ -12,12 +12,13 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
     PythiaParameters = cms.PSet(                                                                                                 
             pythia8CommonSettingsBlock,                                                                                          
             pythia8CUEP8M1SettingsBlock, 
-                    processParameters = cms.vstring('Higgs:useBSM = on',                                                                     
+                    processParameters = cms.vstring(                                                                     
+                                                    'PhaseSpace:mHatMin = 350',
+                                                    'Higgs:useBSM = on',
                                                     'HiggsBSM:gg2A3bbbar = on',                                                                   
                                                     '36:m0 = 600',                                                                           
                                                     '36:onMode = off',                                                                       
-                                                    '36:onIfMatch = 5 -5'                                                                        
-                                                                                                                                 
+                                                    '36:onIfMatch = 5 -5',                                                                                                        
             ),                                                                                                                   
                                                                                                                                  
         parameterSets = cms.vstring('pythia8CommonSettings',                                                                     
