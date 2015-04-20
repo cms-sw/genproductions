@@ -1,0 +1,7 @@
+import model loop_sm
+define tt = t t~
+define bb = b b~
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
+generate p p > tt bb j l+ l- $$ w+ w- [QCD]
+output tzq_4f_NLO -nojpeg
