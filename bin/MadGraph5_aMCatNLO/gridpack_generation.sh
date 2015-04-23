@@ -244,7 +244,7 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   #get t* model
   wget --no-check-certificate -O ${TOP32MODEL} ${TOP32SOURCE}
   cd models
-  unzip ../${TOP32MODEL}
+  tar -xaf ../${TOP32MODEL}
   cd ..
   
   cd $WORKDIR
