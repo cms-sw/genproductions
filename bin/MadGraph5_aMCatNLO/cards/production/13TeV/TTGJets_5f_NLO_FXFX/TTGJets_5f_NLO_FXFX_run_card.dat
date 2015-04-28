@@ -133,8 +133,8 @@ average = event_norm ! Normalize events to sum or average to the X sect.
 # When ptgmin=0, all the other parameters are ignored                  *
 #***********************************************************************
   10  = ptgmin    ! Min photon transverse momentum
- 2.5  = etagamma  ! Max photon abs(pseudo-rap)
- 0.4  = R0gamma   ! Radius of isolation code
+ 2.6  = etagamma  ! Max photon abs(pseudo-rap)
+ 0.05  = R0gamma   ! Radius of isolation code
  1.0  = xn        ! n parameter of eq.(3.4) in hep-ph/9801442
  1.0  = epsgamma  ! epsilon_gamma parameter of eq.(3.4) in hep-ph/9801442
  .true.  = isoEM  ! isolate photons from EM energy (photons and leptons)
