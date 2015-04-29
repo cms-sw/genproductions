@@ -115,6 +115,10 @@ VVSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$VVMO
 ZPRIMEMODEL=topBSM_UFO.zip
 ZPRIMESOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${ZPRIMEMODEL}
 
+# Model for search for excited top quark (t*) 
+TOP32MODEL=top32.tgz
+TOP32SOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${TOP32MODEL}
+
 MGBASEDIRORIG=MG5_aMC_v2_2_2
 
 isscratchspace=0
@@ -235,6 +239,12 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   wget --no-check-certificate -O ${ZPRIMEMODEL} ${ZPRIMESOURCE}
   cd models
   unzip ../${ZPRIMEMODEL}
+  cd ..
+
+  #get t* model
+  wget --no-check-certificate -O ${TOP32MODEL} ${TOP32SOURCE}
+  cd models
+  tar -xaf ../${TOP32MODEL}
   cd ..
   
   cd $WORKDIR
