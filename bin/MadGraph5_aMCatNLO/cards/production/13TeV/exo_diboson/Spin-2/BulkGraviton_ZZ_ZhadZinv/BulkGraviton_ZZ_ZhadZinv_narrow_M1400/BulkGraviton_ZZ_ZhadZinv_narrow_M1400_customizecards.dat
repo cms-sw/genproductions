@@ -1,10 +1,3 @@
-set group_subprocesses Auto
-set ignore_six_quark_processes False
-set gauge unitary
-set complex_mass_scheme False
-import model RS_bulk_ktilda
-define vl = ve vm vt
-define vl~ = ve~ vm~ vt~
-define q = u c d s b u~ c~ d~ s~ b~
-generate p p > y, ( y > z z > q q vl vl~)
-output BulkGraviton_ZZ_ZhadZinv
+set param_card mass 39 1400
+set param_card decay 39 1.000000e-03
+
