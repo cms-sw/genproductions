@@ -104,6 +104,10 @@ SYSCALCSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/
 HCNLO=HC_NLO_X0_UFO.zip
 HCNLOSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$HCNLO
 
+## Single VLQ model
+SINGLEVLQ=STP_UFO_freeWidth.tar.gz
+SINGLEVLQSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$SINGLEVLQ
+
 ## Models for searches of diboson resonances
 VVMODEL=dibosonResonanceModel.tar.gz
 VVSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$VVMODEL
@@ -111,6 +115,10 @@ VVSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$VVMO
 # Model for search for Z' resonances
 ZPRIMEMODEL=topBSM_UFO.zip
 ZPRIMESOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${ZPRIMEMODEL}
+
+# Model for search for excited top quark (t*) 
+TOP32MODEL=top32.tgz
+TOP32SOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${TOP32MODEL}
 
 MGBASEDIRORIG=MG5_aMC_v2_2_2
 
@@ -215,8 +223,10 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   
   #get HC nlo model
   wget --no-check-certificate ${HCNLOSOURCE}
+  wget --no-check-certificate ${SINGLEVLQSOURCE}
   cd models
   unzip ../${HCNLO}
+  tar -zxvf ../${SINGLEVLQ}
   cd ..
 
   #get Diboson model
@@ -229,6 +239,12 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   wget --no-check-certificate -O ${ZPRIMEMODEL} ${ZPRIMESOURCE}
   cd models
   unzip ../${ZPRIMEMODEL}
+  cd ..
+
+  #get t* model
+  wget --no-check-certificate -O ${TOP32MODEL} ${TOP32SOURCE}
+  cd models
+  tar -xaf ../${TOP32MODEL}
   cd ..
   
   cd $WORKDIR
