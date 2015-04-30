@@ -5,7 +5,7 @@ import os, shutil, subprocess
 REFERENCE_DIR = "ZPrimeToTTJets_M500GeV_W5GeV"
 
 MASSES = [500, 750, 1000, 1250, 1500, 2000, 2500, 2750, 3000, 3250, 3500, 3750, 4000]
-WIDTHS = [0.01, 0.10]
+WIDTHS = [0.01, 0.10, 0.30]
 
 def widthToString(width):
     return ("%g" % width).replace('.', 'p')
@@ -29,6 +29,9 @@ for mass in MASSES:
 
         # Ignore 500 GeV narrow as it's our reference cards
         if mass == 500 and width == 0.01:
+            continue
+
+        if width == 0.30 and not mass == 1000 and not mass == 2000 and not mass == 4000:
             continue
 
         sampleName = formatName(mass, widthToString(mass * width))
