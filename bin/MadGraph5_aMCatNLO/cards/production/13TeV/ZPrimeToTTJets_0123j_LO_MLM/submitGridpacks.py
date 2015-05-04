@@ -16,7 +16,7 @@ def formatName(mass, width):
 for mass in MASSES:
     for width in WIDTHS:
 
-        if width == 0.30 and not mass == 1000 and not mass == 2000 and not mass == 4000:
+        if width == 0.30 and not mass == 1000 and not mass == 2000 and not mass == 3000 and not mass == 4000:
             continue
 
         sampleName = formatName(mass, widthToString(mass * width))
