@@ -33,5 +33,5 @@ cat ${file}_tail                                       >> cmsgrid.lhe
 rm ${file}
 rm ${file}_tail
 rm ${file}_tail_dec
-mv cmsgrid.lhe ../
+mv cmsgrid_final.lhe ../
 cd ..
