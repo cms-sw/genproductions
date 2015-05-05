@@ -314,7 +314,7 @@ head=`cat   cmsgrid_final.lhe | grep -in "<init>" | sed "s@:@ @g" | awk '{print 
 tail=`wc -l cmsgrid_final.lhe | awk -v tmp="$head" '{print $1-2-tmp}'`
 tail -${tail} cmsgrid_final.lhe                           >  cmsgrid_final.lhe_tail
 head -${head} cmsgrid_final.lhe                           >  cmsgrid_final.lhe_F
-echo "  "$XSECTION"   "$XSECUNC"  1.00000000000E-00 100" >>  cmsgrid_final.lhe_F
+echo "  "$XSECTION"   "$XSECUNC"  1.00000000000E-00 10001" >>  cmsgrid_final.lhe_F
 echo "</init>"                                           >>  cmsgrid_final.lhe_F
 cat cmsgrid_final.lhe_tail                               >>  cmsgrid_final.lhe_F
 #Replace the negative so pythia will work
