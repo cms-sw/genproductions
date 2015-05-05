@@ -27,7 +27,7 @@ sed "s@\*\*\*@1.000@g"     ${file}_tail_dec              > ${file}_tail
 ./boltdmdec ${file}_tail
 sed "s@-1000022@1000022@g" ${file}_tail_dec             >  ${file}_tail
 head -$head $file                                       > cmsgrid.lhe
-echo "  "XSECTION"   "XSECUNC"  1.00000000000E-00 100" >> cmsgrid.lhe
+echo "  "XSECTION"   "XSECUNC"  1.00000000000E-00 10001" >> cmsgrid.lhe
 echo "</init>"                                         >> cmsgrid.lhe
 cat ${file}_tail                                       >> cmsgrid.lhe
 rm ${file}
