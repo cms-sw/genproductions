@@ -166,6 +166,7 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
 
   patch -l -p0 -i $PRODHOME/patches/mgfixes.patch
   patch -l -p0 -i $PRODHOME/patches/models.patch
+  patch -l -p0 -i $PRODHOME/patches/reweight.patch
 
   cd $MGBASEDIRORIG
 
@@ -214,6 +215,7 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   wget --no-check-certificate ${SYSCALCSOURCE}
   tar xzf ${SYSCALC}
   rm $SYSCALC
+  patch -l -p0 -i $PRODHOME/patches/multiple_pdf.patch
 
   cd SysCalc
   sed -i "s#INCLUDES =  -I../include#INCLUDES =  -I../include -I${LHAPDFINCLUDES} -I${BOOSTINCLUDES}#g" src/Makefile
