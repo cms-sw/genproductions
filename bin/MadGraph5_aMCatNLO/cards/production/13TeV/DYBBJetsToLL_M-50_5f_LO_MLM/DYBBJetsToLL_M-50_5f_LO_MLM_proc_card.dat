@@ -7,7 +7,7 @@ define l+ = e+ mu+ ta+
 define l- = e- mu- ta-
 
 # Specify process(es) to run
-add process p p > l+ l- bb bb / h @0
+generate p p > l+ l- bb bb / h @0
 add process p p > l+ l- bb bb j / h @1
 add process p p > l+ l- bb bb j j / h @2
 
