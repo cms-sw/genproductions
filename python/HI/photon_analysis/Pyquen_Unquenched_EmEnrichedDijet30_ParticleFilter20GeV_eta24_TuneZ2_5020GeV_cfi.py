@@ -3,7 +3,7 @@ import FWCore.ParameterSet.Config as cms
 from Configuration.Generator.PyquenDefaultSettings_cff import *
 from Configuration.Generator.PythiaUEZ2Settings_cfi import *
 
-hiSignal = cms.EDFilter("PyquenGeneratorFilter",
+generator = cms.EDFilter("PyquenGeneratorFilter",
                         qgpParameters,
                         pyquenParameters,
                         aBeamTarget = cms.double(208.0),
@@ -48,5 +48,5 @@ hiSignal = cms.EDFilter("PyquenGeneratorFilter",
 )
 
 
-hiSignal.embeddingMode = False
-ProductionFilterSequence = cms.Sequence(hiSignal)
+generator.embeddingMode = False
+ProductionFilterSequence = cms.Sequence(generator)
