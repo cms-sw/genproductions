@@ -15,10 +15,10 @@ hiSignal = cms.EDFilter("PyquenGeneratorFilter",
                         bMax = cms.double(0.0), ## max impact param (fm); valid only if cflag_!=0
 
                         filterType     = cms.untracked.string('EcalGenEvtSelectorFrag'),
-                        particlePt     = cms.vdouble(20),
+                        particlePt     = cms.vdouble(0),
                         particleStatus = cms.vint32(1),
                         particles      = cms.vint32(22),
-                        etaMax         = cms.double(3),   # Photon eta cut
+                        etaMax         = cms.double(2.4),   # Photon eta cut
                         partonStatus = cms.vint32(2, 2, 2, 2, 2, 2, 2, 1),
                         partonPt = cms.vdouble(0,0,0,0,0,0,0,0),
                         partons = cms.vint32(1, 2, 3, 4, 5, 6, 21, 22), # parton cut is not functioning
@@ -44,13 +44,13 @@ hiSignal = cms.EDFilter("PyquenGeneratorFilter",
                                                         'customProcesses',
                                                         'allQCDPhotonChannel',
                                                         'kinematics'),
-                            kinematics = cms.vstring('CKIN(3)=30',
+                            kinematics = cms.vstring('CKIN(3)=10',
                                                      'CKIN(4)=9999'
                                                  )
                         )
 )
 
 
-hiSignal.embeddingMode = True
+hiSignal.embeddingMode = False
 
 ProductionFilterSequence = cms.Sequence(hiSignal)
