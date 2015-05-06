@@ -466,7 +466,7 @@ else
   echo "cleaning temporary output"
   mv $WORKDIR/processtmp/pilotrun_gridpack.tar.gz $WORKDIR/
   mv $WORKDIR/processtmp/Events/pilotrun/unweighted_events.lhe.gz $WORKDIR/
-  rm -r processtmp
+  rm -rf processtmp
   mkdir process
   cd process
   echo "unpacking temporary gridpack"
