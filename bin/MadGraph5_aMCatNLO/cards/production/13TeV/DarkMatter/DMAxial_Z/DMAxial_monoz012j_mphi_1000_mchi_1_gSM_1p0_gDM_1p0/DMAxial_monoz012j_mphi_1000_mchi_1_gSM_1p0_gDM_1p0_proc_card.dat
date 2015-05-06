@@ -1,0 +1,6 @@
+import axial_monoW_model_1000_1
+generate    p p  > Zp z,     Zp >  ~n1 Xn1
+add process p p  > Zp z j,   Zp >  ~n1 Xn1
+add process p p  > Zp z j j, Zp >  ~n1 Xn1
+output AxialMonoZ_1000_1 -nojpeg
+
