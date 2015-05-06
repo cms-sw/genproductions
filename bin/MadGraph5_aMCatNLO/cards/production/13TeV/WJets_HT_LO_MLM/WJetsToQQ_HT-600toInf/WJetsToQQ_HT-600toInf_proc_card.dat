@@ -13,13 +13,11 @@ generate p p > w+, w+ > q q $$ t t~ h @0
 add process p p > w+ j, w+ > q q $$ t t~ h @1
 add process p p > w+ j j, w+ > q q $$ t t~ h @2
 add process p p > w+ j j j, w+ > q q $$ t t~ h @3
-add process p p > w+ j j j j, w+ > q q $$ t t~ h @4
 
-add process p p > w-, w- > q q $$ t t~ h @5
-add process p p > w- j, w- > q q $$ t t~ h @6
-add process p p > w- j j, w- > q q $$ t t~ h @7
-add process p p > w- j j j, w- > q q $$ t t~ h @8
-add process p p > w- j j j j, w- > q q $$ t t~ h @9
+add process p p > w-, w- > q q $$ t t~ h @4
+add process p p > w- j, w- > q q $$ t t~ h @5
+add process p p > w- j j, w- > q q $$ t t~ h @6
+add process p p > w- j j j, w- > q q $$ t t~ h @7
 
 output WJetsToQQ_HT-600toInf -nojpeg
 
