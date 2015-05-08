@@ -40,6 +40,9 @@ echo "%MSG-POWHEG number of events requested = $nevt"
 rnum=${8}
 echo "%MSG-POWHEG random seed used for the run = $rnum"
 
+skipgen=${9}
+echo "%MSG-POWHEG if not null skip generation = $skipgen"
+
 seed=$rnum
 file="events"
 jhugenversion="v5.2.5"
@@ -201,6 +204,15 @@ fi
 
 make pwhg_main || fail_exit "Failed to compile pwhg_main"
 
+if [[ -e ../pwhg_main-gnu ]]; then
+  mv ../pwhg_main-gnu ../pwhg_main
+  chmod a+x ../pwhg_main
+fi
+
+if [ ! -z $skipgen ]; then
+    exit 0
+fi
+
 mkdir workdir
 cd workdir
 localDir=`pwd`
@@ -221,10 +233,6 @@ fi
 
 cat ${card} | sed -e "s#SEED#${seed}#g" | sed -e "s#NEVENTS#${nevt}#g" > powheg.input
 cat powheg.input
-if [[ -e ../pwhg_main-gnu ]]; then
-  mv ../pwhg_main-gnu ../pwhg_main
-  chmod a+x ../pwhg_main
-fi
 
 #make sure env variable for pdfsets points to the right place
 export LHAPDF_DATA_PATH=`${myDir}/lhapdf-config --datadir`
