@@ -108,6 +108,10 @@ HCNLOSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$H
 SINGLEVLQ=STP_UFO_freeWidth.tar.gz
 SINGLEVLQSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$SINGLEVLQ
 
+## Pair VLQ model
+PAIRVLQ=STP_UFO_freeWidth_diagCKM.zip
+PAIRVLQSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$PAIRVLQ
+
 ## Models for searches of diboson resonances
 VVMODEL=dibosonResonanceModel.tar.gz
 VVSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$VVMODEL
@@ -224,9 +228,11 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   #get HC nlo model
   wget --no-check-certificate ${HCNLOSOURCE}
   wget --no-check-certificate ${SINGLEVLQSOURCE}
+  wget --no-check-certificate ${PAIRVLQSOURCE}
   cd models
   unzip ../${HCNLO}
   tar -zxvf ../${SINGLEVLQ}
+  unzip ../${PAIRVLQ}
   cd ..
 
   #get Diboson model
