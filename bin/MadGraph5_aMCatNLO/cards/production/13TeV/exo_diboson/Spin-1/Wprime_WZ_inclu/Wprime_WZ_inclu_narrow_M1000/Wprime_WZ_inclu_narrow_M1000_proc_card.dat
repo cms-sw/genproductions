@@ -1,0 +1,13 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set gauge unitary
+set complex_mass_scheme False
+import model Vector_Triplet_free_Width_UFO
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+define ferm = u c d s b u~ c~ d~ s~ b~ e- mu- ta- e+ mu+ ta+ vl vl~
+define vc = vc+ vc-
+define vw = w+ w-
+generate p p > vc, (vc > vw z, vw > ferm ferm, z > ferm ferm)
+output Wprime_WZ_inclu_narrow_M1000 -nojpeg
+
