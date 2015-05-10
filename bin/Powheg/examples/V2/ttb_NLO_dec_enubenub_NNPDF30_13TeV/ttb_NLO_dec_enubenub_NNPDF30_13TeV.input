@@ -60,7 +60,7 @@ facscfact  1d0   ! (default 1d0) fac scale factor: mufact = muref * facscfact
      
 pdfreweight 1       ! PDF reweighting
 storeinfo_rwgt 1    ! store weight information
-withnegweights 1 ! default 0, 
+withnegweights 0 ! default 0, 
 
 #pyMEC 0      ! Discussion with Pythia developers has led us to try this
               ! flag if we generate the corrections in decays (our default setting)
