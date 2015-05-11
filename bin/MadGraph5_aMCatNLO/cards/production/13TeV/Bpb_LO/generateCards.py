@@ -4,7 +4,7 @@ import os, shutil, subprocess
 
 REFERENCE_DIR = "Bpb_conf"
 
-FinalStates = ["tW"]
+FinalStates = ["tW","Zb","Hb"]
 Chirality =["LH","RH"]
 MASSES = [700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800]
 WIDTHS = [0.01]
