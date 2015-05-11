@@ -41,6 +41,7 @@ xupbound 2d0   ! increase upper bound for radiation generation
 # nlowhich 0    ! default is 0; set to 1 for no NLO corrections in decay
 
 # allrad 1      ! default is 1; set to 0 for standard POWHEG behaviour (see reference paper)
+iseed     SEED    ! initialize random number sequence
 
 
 # hdamp has the same meaning as in POWHEG (old) hvq generator.
