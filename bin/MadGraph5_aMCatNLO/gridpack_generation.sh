@@ -121,7 +121,11 @@ VVSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$VVMO
 ZPRIMEMODEL=topBSM_UFO.zip
 ZPRIMESOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${ZPRIMEMODEL}
 
-# Model for search for excited top quark (t*) 
+## DM Model Vector Mediator
+SimplifiedVDM=SimplifiedDM_VectorMediator_UFO.tar.gz
+SimplifiedVDMSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${SimplifiedVDM}
+
+# Model for search for excited top quark (t*)
 TOP32MODEL=top32.tgz
 TOP32SOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${TOP32MODEL}
 
@@ -234,6 +238,12 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   unzip ../${HCNLO}
   tar -zxvf ../${SINGLEVLQ}
   unzip ../${SINGLEVLQ_diagCKM}
+  cd ..
+
+  ## DM Model Vector Mediator
+  wget --no-check-certificate ${SimplifiedVDMSOURCE}
+  cd models
+  tar -zxvf ../${SimplifiedVDM}
   cd ..
 
   #get Diboson model
