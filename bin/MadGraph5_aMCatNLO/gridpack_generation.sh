@@ -108,6 +108,11 @@ HCNLOSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$H
 SINGLEVLQ=STP_UFO_freeWidth.tar.gz
 SINGLEVLQSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$SINGLEVLQ
 
+#diagonal CKM 
+SINGLEVLQ_diagCKM=STP_UFO_freeWidth_diagCKM.zip
+SINGLEVLQSOURCE_diagCKM=https://cms-project-generators.web.cern.ch/cms-project-generators/$SINGLEVLQ_diagCKM
+
+
 ## Models for searches of diboson resonances
 VVMODEL=dibosonResonanceModel.tar.gz
 VVSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$VVMODEL
@@ -116,7 +121,11 @@ VVSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$VVMO
 ZPRIMEMODEL=topBSM_UFO.zip
 ZPRIMESOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${ZPRIMEMODEL}
 
-# Model for search for excited top quark (t*) 
+## DM Model Vector Mediator
+SimplifiedVDM=SimplifiedDM_VectorMediator_UFO.tar.gz
+SimplifiedVDMSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${SimplifiedVDM}
+
+# Model for search for excited top quark (t*)
 TOP32MODEL=top32.tgz
 TOP32SOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${TOP32MODEL}
 
@@ -221,12 +230,20 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   make
   cd ..
   
-  #get HC nlo model
+  #get HC nlo & single VLQ models
   wget --no-check-certificate ${HCNLOSOURCE}
   wget --no-check-certificate ${SINGLEVLQSOURCE}
+  wget --no-check-certificate ${SINGLEVLQSOURCE_diagCKM}
   cd models
   unzip ../${HCNLO}
   tar -zxvf ../${SINGLEVLQ}
+  unzip ../${SINGLEVLQ_diagCKM}
+  cd ..
+
+  ## DM Model Vector Mediator
+  wget --no-check-certificate ${SimplifiedVDMSOURCE}
+  cd models
+  tar -zxvf ../${SimplifiedVDM}
   cd ..
 
   #get Diboson model
@@ -466,7 +483,7 @@ else
   echo "cleaning temporary output"
   mv $WORKDIR/processtmp/pilotrun_gridpack.tar.gz $WORKDIR/
   mv $WORKDIR/processtmp/Events/pilotrun/unweighted_events.lhe.gz $WORKDIR/
-  rm -r processtmp
+  rm -rf processtmp
   mkdir process
   cd process
   echo "unpacking temporary gridpack"
