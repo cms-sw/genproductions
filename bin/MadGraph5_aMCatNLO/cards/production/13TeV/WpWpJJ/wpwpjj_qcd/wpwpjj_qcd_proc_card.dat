@@ -32,6 +32,11 @@ define vl = ve vm vt
 define vl~ = ve~ vm~ vt~
 define l+ = e+ mu+ ta+
 define l- = e- mu- ta-
+<<<<<<< HEAD
 generate p p > w+ w+ j j QED=2 QCD=99, w+ > l+ vl @0
 add process p p > w- w- j j QED=2 QCD=99, w- > l- vl~ @1
+=======
+generate p p > w+ w+ j j QED=2 QCD=99, w+ > l+ vl
+add process p p > w- w- j j QED=2 QCD=99, w- > l- vl~
+>>>>>>> origin/master
 output wpwpjj_qcd
