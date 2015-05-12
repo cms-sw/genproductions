@@ -22,6 +22,7 @@ def completed(name,medrange,dmrange,basedir,carddir,resubmit):
                 os.chmod('runcmsgrid.sh',0777)
                 os.system('tar czvf  JHUGen_%s_%s_%s.tgz  JHUGen_%s_%s_%s runcmsgrid.sh' % (name,med,dm,name,med,dm))
                 os.system('rm -r JHUGen_%s_%s_%s ' % (name,med,dm))
+                os.system('mv JHUGen_%s_%s_%s.tgz ../' % (name,med,dm))
             else:
                 if not os.path.isfile('JHUGen_%s_%s_%s.tgz' % (name,med,dm)):
                     completed = False

@@ -1,4 +1,4 @@
-1;2c#!/bin/bash
+#!/bin/bash
 
 nevt=${1}
 echo "%MSG-MG5 number of events requested = $nevt"
@@ -33,5 +33,5 @@ cat ${file}_tail                                       >> cmsgrid.lhe
 rm ${file}
 rm ${file}_tail
 rm ${file}_tail_dec
-mv cmsgrid_final.lhe ../
+mv cmsgrid.lhe ../cmsgrid_final.lhe
 cd ..
