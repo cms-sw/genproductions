@@ -10,7 +10,7 @@ define ell- = e- mu- ta-
 define V = w+ w-
 
 generate p p > V ell+ ell- [QCD] @0
-add process p p > V ell+ ell- [QCD] @1
+add process p p > V ell+ ell- j [QCD] @1
 
 output WZTo3LNu01j_5f_NLO_FXFX -nojpeg
 
