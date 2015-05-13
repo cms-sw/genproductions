@@ -116,6 +116,10 @@ VVSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$VVMO
 ZPRIMEMODEL=topBSM_UFO.zip
 ZPRIMESOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${ZPRIMEMODEL}
 
+# Model for searches for monotops
+MONOTOPMODEL=monotops_UFO.tgz
+MONOTOPSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${MONOTOPMODEL}
+
 # Model for search for excited top quark (t*) 
 TOP32MODEL=top32.tgz
 TOP32SOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${TOP32MODEL}
@@ -229,10 +233,14 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   tar -zxvf ../${SINGLEVLQ}
   cd ..
 
+
   #get Diboson model
   wget --no-check-certificate ${VVSOURCE}
+  #get Monotop model
+  wget --no-check-certificate ${MONOTOPSOURCE}
   cd models
   tar xvzf ../${VVMODEL}
+  tar xvzf ../${MONOTOPMODEL}
   cd ..
 
   #get Z' model
