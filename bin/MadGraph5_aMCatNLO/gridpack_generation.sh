@@ -104,8 +104,14 @@ SYSCALCSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/
 HCNLO=HC_NLO_X0_UFO.zip
 HCNLOSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$HCNLO
 
+## Single VLQ model
 SINGLEVLQ=STP_UFO_freeWidth.tar.gz
 SINGLEVLQSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$SINGLEVLQ
+
+#diagonal CKM 
+SINGLEVLQ_diagCKM=STP_UFO_freeWidth_diagCKM.zip
+SINGLEVLQSOURCE_diagCKM=https://cms-project-generators.web.cern.ch/cms-project-generators/$SINGLEVLQ_diagCKM
+
 
 ## Models for searches of diboson resonances
 VVMODEL=dibosonResonanceModel.tar.gz
@@ -115,6 +121,10 @@ VVSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$VVMO
 ZPRIMEMODEL=topBSM_UFO.zip
 ZPRIMESOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${ZPRIMEMODEL}
 
+# Model for search for excited top quark (t*) 
+TOP32MODEL=top32.tgz
+TOP32SOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${TOP32MODEL}
+
 MGBASEDIRORIG=MG5_aMC_v2_2_2
 
 isscratchspace=0
@@ -123,7 +133,6 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   #directory doesn't exist, create it and set up environment
   
   if [ ! -d ${AFS_GEN_FOLDER} ]; then
-    echo "Making dir '${AFS_GEN_FOLDER}'"
     mkdir ${AFS_GEN_FOLDER}
   fi
 
@@ -217,12 +226,14 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   make
   cd ..
   
-  #get HC nlo model
+  #get HC nlo & single VLQ models
   wget --no-check-certificate ${HCNLOSOURCE}
   wget --no-check-certificate ${SINGLEVLQSOURCE}
+  wget --no-check-certificate ${SINGLEVLQSOURCE_diagCKM}
   cd models
   unzip ../${HCNLO}
   tar -zxvf ../${SINGLEVLQ}
+  unzip ../${SINGLEVLQ_diagCKM}
   cd ..
 
   #get Diboson model
@@ -235,6 +246,12 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   wget --no-check-certificate -O ${ZPRIMEMODEL} ${ZPRIMESOURCE}
   cd models
   unzip ../${ZPRIMEMODEL}
+  cd ..
+
+  #get t* model
+  wget --no-check-certificate -O ${TOP32MODEL} ${TOP32SOURCE}
+  cd models
+  tar -xaf ../${TOP32MODEL}
   cd ..
   
   cd $WORKDIR
@@ -370,9 +387,6 @@ cd processtmp
 echo "copying run_card.dat file"
 cp $CARDSDIR/${name}_run_card.dat ./Cards/run_card.dat
 
-#echo "copying param_card.dat file"
-#cp $CARDSDIR/${name}_param_card.dat ./Cards/param_card.dat
-
 #copy provided custom fks params or cuts
 if [ -e $CARDSDIR/${name}_cuts.f ]; then
   echo "copying custom cuts.f file"
@@ -459,7 +473,7 @@ else
   echo "cleaning temporary output"
   mv $WORKDIR/processtmp/pilotrun_gridpack.tar.gz $WORKDIR/
   mv $WORKDIR/processtmp/Events/pilotrun/unweighted_events.lhe.gz $WORKDIR/
-  rm -r processtmp
+  rm -rf processtmp
   mkdir process
   cd process
   echo "unpacking temporary gridpack"
