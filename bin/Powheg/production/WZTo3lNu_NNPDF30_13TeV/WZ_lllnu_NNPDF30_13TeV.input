@@ -65,7 +65,7 @@ lll 1
 #tevscale   2d0      ! Form-factor scale, in TeV
 
 pdfreweight 1
-
 storeinfo_rwgt 1   ! store info to allow for reweighting
-withnegweights 0
+
+withnegweights 1
 
