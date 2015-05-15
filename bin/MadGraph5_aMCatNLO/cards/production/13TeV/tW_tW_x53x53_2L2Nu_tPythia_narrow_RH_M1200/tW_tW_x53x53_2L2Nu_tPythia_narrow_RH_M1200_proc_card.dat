@@ -1,0 +1,44 @@
+#************************************************************
+#*                     MadGraph5_aMC@NLO                    *
+#*                                                          *
+#*                *                       *                 *
+#*                  *        * *        *                   *
+#*                    * * * * 5 * * * *                     *
+#*                  *        * *        *                   *
+#*                *                       *                 *
+#*                                                          *
+#*                                                          *
+#*         VERSION 2.2.1                 2014-09-25         *
+#*                                                          *
+#*    The MadGraph5_aMC@NLO Development Team - Find us at   *
+#*    https://server06.fynu.ucl.ac.be/projects/madgraph     *
+#*                                                          *
+#************************************************************
+#*                                                          *
+#*               Command File for MadGraph5_aMC@NLO         *
+#*                                                          *
+#*     run as ./bin/mg5_aMC  filename                       *
+#*                                                          *
+#************************************************************
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set loop_optimized_output True
+set complex_mass_scheme False
+import model sm
+define p = g u c d s u~ c~ d~ s~
+define j = g u c d s u~ c~ d~ s~
+import model STP_UFO_freeWidth
+define Topo = x53 x53~
+define bb = b b~
+define tt = t t~
+define WW = w+ w-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+define k+ = e+ mu+ ta+
+define k- = e- mu- ta-
+define all =  g a ve vm vt ve~ vm~ vt~ u c t d s b u~ c~ t~ d~ s~ b~ e- mu- ta- e+ mu+ ta+
+define ferm =  ve vm vt ve~ vm~ vt~ u c d s b u~ c~ d~ s~ b~ e- mu- ta- e+ mu+ ta+
+generate    p p > x53 x53~   , (x53  > t  w+ , (t > w+ b)), (x53~ > t~ w-, (t~ > w- b~, w- > k- vl~), (w- > k- vl~))
+add process p p > x53 x53~   , (x53~ > t~ w- , (t~ > w- b~)), (x53  > t  w+, (t  > w+ b , w+ > k+ vl ), (w+ > k+ vl ))
+output tW_tW_x53x53_2L2Nu_tPythia_narrow_RH_M1200 -nojpeg
+
