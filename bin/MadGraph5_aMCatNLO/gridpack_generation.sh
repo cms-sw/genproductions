@@ -128,6 +128,10 @@ SimplifiedVDMSOURCE=https://cms-project-generators.web.cern.ch/cms-project-gener
 TOP32MODEL=top32.tgz
 TOP32SOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${TOP32MODEL}
 
+# Model for Z' > VLQ
+ZPTOVLQMODEL=onerho.tar.gz
+ZPTOVLQSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${ZPTOVLQMODEL}
+
 MGBASEDIRORIG=MG5_aMC_v2_2_2
 
 isscratchspace=0
@@ -262,6 +266,13 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   cd models
   tar -xaf ../${TOP32MODEL}
   cd ..
+
+  #get Z' > VLQ model
+  wget --no-check-certificate ${ZPTOVLQSOURCE}
+  cd models
+  tar xvzf ../${ZPTOVLQMODEL}
+  cd ..
+
   
   cd $WORKDIR
   
