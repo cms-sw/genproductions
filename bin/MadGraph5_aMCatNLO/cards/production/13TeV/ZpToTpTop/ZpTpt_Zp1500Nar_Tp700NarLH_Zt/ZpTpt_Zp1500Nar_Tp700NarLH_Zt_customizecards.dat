@@ -1,0 +1,8 @@
+set param_card bsm 32 1.000000e-01
+set param_card bsm 33 0.000000e-01
+set param_card bsm 55 1.000000e-01
+set param_card bsm 56 0.000000e-01
+set param_card mass 8000001 7.000000e+02
+set param_card mass 9900113 1.500000e+03
+set param_card decay 9900113 1.500000e+01
+set param_card decay 8000001 1.000000e-03
