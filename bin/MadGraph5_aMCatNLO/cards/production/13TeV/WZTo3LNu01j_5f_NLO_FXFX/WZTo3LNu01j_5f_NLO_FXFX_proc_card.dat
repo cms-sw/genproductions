@@ -12,7 +12,7 @@ define vl = ve vm vt
 define vl~ = ve~ vm~ vt~
 
 generate p p > ell- vl~ ell+ ell- [QCD] @0
-add process p p > ell+ vl ell+ ell- j [QCD] @1
+add process p p > ell+ vl ell+ ell- [QCD] @1
 add process p p > ell- vl~ ell+ ell- j [QCD] @2
 add process p p > ell+ vl ell+ ell- j [QCD] @3
 
