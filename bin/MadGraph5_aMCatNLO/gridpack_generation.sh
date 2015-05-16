@@ -112,7 +112,6 @@ SINGLEVLQSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generator
 SINGLEVLQ_diagCKM=STP_UFO_freeWidth_diagCKM.zip
 SINGLEVLQSOURCE_diagCKM=https://cms-project-generators.web.cern.ch/cms-project-generators/$SINGLEVLQ_diagCKM
 
-
 ## Models for searches of diboson resonances
 VVMODEL=dibosonResonanceModel.tar.gz
 VVSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$VVMODEL
