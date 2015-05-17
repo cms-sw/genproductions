@@ -1,6 +1,6 @@
-set param_card bsm 38 1.000000e-01
-set param_card bsm 39 0.000000e-01
-set param_card bsm 49 1.000000e-01
+set param_card frblock 38 1.000000e-01
+set param_card frblock 39 0.000000e-01
+set param_card frblock 49 1.000000e-01
 
 set param_card mass 8000001 1.900000e+03
 set param_card mass 9900113 2.500000e+03
