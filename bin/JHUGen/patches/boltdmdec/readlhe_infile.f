@@ -10,7 +10,7 @@
       double precision pm(4)
       integer nlf,idmed
       integer i,j,nu
-      character*7 tag
+      character*20 tag
       character*8 tag2
       integer ios
       integer idmedx
