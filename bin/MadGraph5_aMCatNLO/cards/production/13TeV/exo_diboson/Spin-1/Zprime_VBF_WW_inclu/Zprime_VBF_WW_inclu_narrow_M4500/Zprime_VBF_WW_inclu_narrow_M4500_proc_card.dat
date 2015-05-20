@@ -1,0 +1,13 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set gauge unitary
+set complex_mass_scheme False
+import model Vector_Triplet_free_Width_UFO_VBF
+define p = u c d s u~ c~ d~ s~
+define j = p
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+define ferm = u c d s b u~ c~ d~ s~ b~ e- mu- ta- e+ mu+ ta+ vl vl~
+generate p p > vz j j $$ z w+ w- vz / g a h vc+ vc- , ( vz > w+ w- , w+ > ferm ferm , w- > ferm ferm )
+output Zprime_VBF_WW_inclu_narrow_M4500 -nojpeg
+

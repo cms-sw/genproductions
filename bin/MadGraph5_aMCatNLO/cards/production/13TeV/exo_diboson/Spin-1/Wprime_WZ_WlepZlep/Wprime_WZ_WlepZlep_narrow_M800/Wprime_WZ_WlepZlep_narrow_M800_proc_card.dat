@@ -1,0 +1,17 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set gauge unitary
+set complex_mass_scheme False
+import model Vector_Triplet_free_Width_UFO
+define p = g u c d s u~ c~ d~ s~
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+define vc = vc+ vc-
+define vw = w+ w-
+define lep = l+ l-
+define neu = vl vl~
+generate p p > vc, (vc > vw z, vw > lep neu, z > l+ l-)
+output Wprime_WZ_WlepZlep_narrow_M800 -nojpeg
+

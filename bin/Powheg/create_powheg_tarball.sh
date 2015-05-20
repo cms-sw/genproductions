@@ -40,8 +40,12 @@ echo "%MSG-POWHEG number of events requested = $nevt"
 rnum=${8}
 echo "%MSG-POWHEG random seed used for the run = $rnum"
 
+skipgen=${9}
+echo "%MSG-POWHEG if not null skip generation = $skipgen"
+
 seed=$rnum
 file="events"
+jhugenversion="v5.2.5"
 
 # Release to be used to define the environment and the compiler needed
 export RELEASE=${CMSSW_VERSION}
@@ -129,6 +133,9 @@ if [ "$process" = "VBF_HJJJ" ]; then
   mv pwhg_analysis-dummy.f pwhg_analysis-dummy.f.orig
   sed 's/..\/pwhg_book.h/pwhg_book.h/g' pwhg_analysis-dummy.f.orig > pwhg_analysis-dummy.f
 fi  
+if [ "$process" = "VBF_H" ]; then 
+  sed -i '/pwhginihist/d' pwhg_analysis-dummy.f 
+fi  
 
 # Remove ANY kind of analysis with parton shower
 if [ `grep particle_identif pwhg_analysis-dummy.f` = ""]; then
@@ -141,6 +148,10 @@ cat Makefile.interm | sed -e "s#pwhg_bookhist.o# #g" | sed -e "s#pwhg_bookhist-n
 if [ "$process" = "ttJ" ]; then
   mv Makefile Makefile.interm
   cat Makefile.interm | sed -e "s#_PATH) -L#_PATH) #g" | sed -e "s# -lvirtual#/libvirtual.so.1.0.0#g" > Makefile
+fi
+if [ "$process" = "ttH" ]; then
+    sed -i 's/O2/O0/g' Makefile
+    sed -i 's/4.5d0/4.75d0/g' init_couplings.f
 fi
 if [ "$process" = "gg_H_MSSM" ]; then 
   mv nloreal.F nloreal.F.orig
@@ -161,8 +172,8 @@ echo "LIBS+=-lz -lstdc++" >> Makefile
 
 # Add extra packages
 if [ $jhugen = 1 ]; then
-  wget --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/slc6_amd64_gcc481/JHUGenerator.v4.9.5.tar.gz
-  tar xzf JHUGenerator.v4.9.5.tar.gz
+  wget --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/slc6_amd64_gcc481/JHUGenerator.${jhugenversion}.tar.gz
+  tar xzf JHUGenerator.${jhugenversion}.tar.gz
   cd JHUGenerator
   mv makefile makefile.interm
   cat makefile.interm | sed -e "s#Comp = ifort#Comp = gfort#g" > makefile
@@ -193,6 +204,15 @@ fi
 
 make pwhg_main || fail_exit "Failed to compile pwhg_main"
 
+if [[ -e ../pwhg_main-gnu ]]; then
+  mv ../pwhg_main-gnu ../pwhg_main
+  chmod a+x ../pwhg_main
+fi
+
+if [ ! -z $skipgen ]; then
+    exit 0
+fi
+
 mkdir workdir
 cd workdir
 localDir=`pwd`
@@ -213,10 +233,6 @@ fi
 
 cat ${card} | sed -e "s#SEED#${seed}#g" | sed -e "s#NEVENTS#${nevt}#g" > powheg.input
 cat powheg.input
-if [[ -e ../pwhg_main-gnu ]]; then
-  mv ../pwhg_main-gnu ../pwhg_main
-  chmod a+x ../pwhg_main
-fi
 
 #make sure env variable for pdfsets points to the right place
 export LHAPDF_DATA_PATH=`${myDir}/lhapdf-config --datadir`
