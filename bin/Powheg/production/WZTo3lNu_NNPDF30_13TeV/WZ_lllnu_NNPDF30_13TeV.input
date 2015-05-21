@@ -1,5 +1,5 @@
 ! WZ boson production parameters
-mllmin 12d0         ! default 0.1 GeV this is minimum invar mass for Z leptons
+mllmin 4d0         ! default 0.1 GeV this is minimum invar mass for Z leptons
 
 numevts NEVENTS   ! number of events to be generated
 ih1   1           ! hadron 1 (1 for protons, -1 for antiprotons)
@@ -67,5 +67,5 @@ lll 1
 pdfreweight 1
 storeinfo_rwgt 1   ! store info to allow for reweighting
 
-withnegweights 1
+withnegweights 0
 
