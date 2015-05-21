@@ -1,0 +1,5 @@
+import model loop_sm-ckm
+define tt = t t~
+define bb = b b~
+generate p p > tt bb j vl vl~ $$ w+ w- [QCD]
+output tzq_nunu_4f_ckm_NLO -nojpeg
