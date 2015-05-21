@@ -1,8 +1,8 @@
-idvecbos          24    !    24:    W+  boson,    -24:    W-  boson
+idvecbos          -24   !    24:    W+  boson,    -24:    W-  boson
 vdecaymode        10    !    1:    e-nu,    2:    mu-nu,    3:    tau-nu,    0:    had,    10:    inc
 hdecaymode        -1    ! undecayed Higgs boson (for PYTHIA and HERWIG)
 
-hmass  125d0        ! Higgs boson mass 
+hmass  120d0        ! Higgs boson mass 
 hwidth 0.407d-2     ! Higgs boson width 
 
 min_h_mass    10d0      
