@@ -77,7 +77,7 @@ cd $PRODHOME
 git status
 echo "Current git revision is:"
 git rev-parse HEAD
-git diff
+git diff | cat
 cd -
 
 AFSFOLD=${PRODHOME}/${name}
@@ -92,11 +92,11 @@ CARDSDIR=${PRODHOME}/${carddir}
 
 MGBASEDIR=mgbasedir
 
-MG=MG5_aMC_v2.2.2.tar.gz
+MG=MG5_aMC_v2.3.0.beta.tar.gz
 MGSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$MG
 
 #syscalc is a helper tool for madgraph to add scale and pdf variation weights for LO processes
-SYSCALC=SysCalc_V1.1.0.tar.gz
+SYSCALC=SysCalc_V1.1.2.tar.gz
 SYSCALCSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$SYSCALC
 
 #higgs characterization model NLO, needed for gluon-gluon-higgs effective vertex for gluon fusion production
@@ -156,7 +156,7 @@ CHSOURCE=/afs/cern.ch/cms/generators/www/
 EWKDMMODEL=EWModel_FermionDM_UFO.tar
 EWKDMSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${EWKDMMODEL}
 
-MGBASEDIRORIG=MG5_aMC_v2_2_2
+MGBASEDIRORIG=MG5_aMC_v2_3_0_beta
 
 #activate this to avoid thousands of mails from CERN LSF
 LSFMAIL=no
@@ -174,10 +174,10 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   cd $AFS_GEN_FOLDER
 
 #   export SCRAM_ARCH=slc6_amd64_gcc472 #Here one should select the correct architechture corresponding with the CMSSW release
-#   export RELEASE=CMSSW_5_3_23_patch1
+#   export RELEASE=CMSSW_5_3_28
 
   export SCRAM_ARCH=slc6_amd64_gcc481
-  export RELEASE=CMSSW_7_1_14
+  export RELEASE=CMSSW_7_1_16
 
 
   ############################
@@ -227,19 +227,21 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
 
   echo "set auto_update 0" > mgconfigscript
   echo "set automatic_html_opening False" >> mgconfigscript
-  echo "set output_dependencies internal" >> mgconfigscript
+#  echo "set output_dependencies internal" >> mgconfigscript
   echo "set lhapdf $LHAPDFCONFIG" >> mgconfigscript
 
   if [ -n "$queue" ]; then
       echo "set run_mode  1" >> mgconfigscript
       echo "set cluster_type lsf" >> mgconfigscript
       echo "set cluster_queue $queue" >> mgconfigscript
-      echo "set cluster_status_update 300 30" >> mgconfigscript
+      echo "set cluster_status_update 60 30" >> mgconfigscript
       echo "set cluster_nb_retry 3" >> mgconfigscript
       echo "set cluster_retry_wait 300" >> mgconfigscript 
+#       echo "set cluster_local_path `${LHAPDFCONFIG} --datadir`" >> mgconfigscript 
       if [[ ! "$RUNHOME" =~ ^/afs/.* ]]; then
           echo "local path is not an afs path, batch jobs will use worker node scratch space instead of afs"
           echo "set cluster_temp_path `echo $RUNHOME`" >> mgconfigscript 
+          echo "set cluster_retry_wait 30" >> mgconfigscript 
           isscratchspace=1
       fi      
   else
@@ -260,9 +262,8 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   rm $SYSCALC
 
   cd SysCalc
-  sed -i "s#INCLUDES =  -I../include#INCLUDES =  -I../include -I${LHAPDFINCLUDES} -I${BOOSTINCLUDES}#g" src/Makefile
-  sed -i "s#LIBS = -lLHAPDF#LIBS = ${LHAPDFLIBS}/libLHAPDF.a #g" src/Makefile
-  make
+  sed -i "s#INCLUDES = -I../include#INCLUDES = -I../include -I${BOOSTINCLUDES}#g" src/Makefile  
+  PATH=`${LHAPDFCONFIG} --prefix`/bin:${PATH} make
   cd ..
   
   #get HC nlo & single VLQ models
@@ -551,9 +552,19 @@ else
   fi
   echo "done" >> makegrid.dat
 
+#   set +e
   cat makegrid.dat | ./bin/generate_events pilotrun
   
   cd $WORKDIR
+  
+#   echo "creating debug tarball"
+#   cp ${LOGFILE} ./gridpack_generation.log
+#   DEBUGTARBALL=${name}_debug_tarball.tar.gz
+#   tar -czps --ignore-failed-read -f ${DEBUGTARBALL} processtmp gridpack_generation.log
+#   echo "moving tarball to ${PRODHOME}/${DEBUGTARBALL}"
+#   mv ${DEBUGTARBALL} ${PRODHOME}/${DEBUGTARBALL}
+#   set -e
+  
   echo "cleaning temporary output"
   mv $WORKDIR/processtmp/pilotrun_gridpack.tar.gz $WORKDIR/
   mv $WORKDIR/processtmp/Events/pilotrun/unweighted_events.lhe.gz $WORKDIR/
@@ -581,7 +592,12 @@ else
   #set to single core mode
   echo "mg5_path = ../../mgbasedir" >> ./madevent/Cards/me5_configuration.txt
   echo "run_mode = 0" >> ./madevent/Cards/me5_configuration.txt  
-    
+  
+  #temporary workaround for uncompiled gridpack executables
+#   echo "compiling remaining executables"
+#   cd madevent/Source
+#   make ../bin/internal/gen_ximprove
+  
   cd $WORKDIR
   
   mkdir gridpack
