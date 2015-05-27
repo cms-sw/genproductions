@@ -1,0 +1,16 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set loop_optimized_output True
+set complex_mass_scheme False
+import model sm
+define p = g u c d s u~ c~ d~ s~ b b~
+define j = g u c d s u~ c~ d~ s~ b b~
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+define  l+  = e+ mu+ ta+
+define l- = e- mu- ta-
+import model tqAandG_UFO
+generate p p > t a, (t > w+ b, w+ > l+ vl)
+add process  p p > t~ a, (t~ > w- b~, w- > l- vl~)
+output tuphotonandg_LO
+
