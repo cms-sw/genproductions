@@ -31,4 +31,7 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
         )
                          )
 
-ProductionFilterSequence = cms.Sequence(generator)
+
+HZZ2l2nu_analysisfilter = cms.EDFilter("HZZ2l2nuFilter")
+
+ProductionFilterSequence = cms.Sequence(generator*HZZ2l2nu_analysisfilter)
