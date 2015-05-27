@@ -128,6 +128,11 @@ SimplifiedVDMSOURCE=https://cms-project-generators.web.cern.ch/cms-project-gener
 TOP32MODEL=top32.tgz
 TOP32SOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${TOP32MODEL}
 
+## Model for tGamma FCNC
+TGAMMAMODEL=tqAandG_UFO.zip
+TGAMMASOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${TGAMMAMODEL}
+
+
 MGBASEDIRORIG=MG5_aMC_v2_2_2
 
 isscratchspace=0
@@ -261,6 +266,12 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   wget --no-check-certificate -O ${TOP32MODEL} ${TOP32SOURCE}
   cd models
   tar -xaf ../${TOP32MODEL}
+  cd ..
+
+  #get tGamma FCNC model
+  wget --no-check-certificate -O ${TGAMMAMODEL} ${TGAMMASOURCE}
+  cd models
+  unzip ../${TGAMMAMODEL}
   cd ..
   
   cd $WORKDIR
