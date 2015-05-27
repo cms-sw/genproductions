@@ -124,6 +124,10 @@ ZPRIMESOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$
 SimplifiedVDM=SimplifiedDM_VectorMediator_UFO.tar.gz
 SimplifiedVDMSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${SimplifiedVDM}
 
+## Type I See Saw Majorana Neutrino
+TypeIMajNeutrinoMODEL=typeISeeSaw_MajNeutrino_UFO.tar.gz
+TypeIMajNeutrinoSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${TypeIMajNeutrinoMODEL}
+
 # Model for search for excited top quark (t*)
 TOP32MODEL=top32.tgz
 TOP32SOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${TOP32MODEL}
@@ -247,6 +251,12 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   wget --no-check-certificate ${SimplifiedVDMSOURCE}
   cd models
   tar -zxvf ../${SimplifiedVDM}
+  cd ..
+
+  ## Type I See Saw Majorana Neutrino
+  wget --no-check-certificate ${TypeIMajNeutrinoSOURCE}
+  cd models
+  tar -zxvf ../${TypeIMajNeutrinoMODEL}
   cd ..
 
   #get Diboson model
