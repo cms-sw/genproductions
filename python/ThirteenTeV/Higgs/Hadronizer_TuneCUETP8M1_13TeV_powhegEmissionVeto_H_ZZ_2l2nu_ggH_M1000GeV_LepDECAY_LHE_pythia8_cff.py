@@ -14,10 +14,7 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
         pythia8CUEP8M1SettingsBlock,
         pythia8PowhegEmissionVetoSettingsBlock,
         processParameters = cms.vstring(
-            'POWHEG:nFinal = 3',           ## Number of final state particles
-                                           ## (BEFORE THE DECAYS) in the LHE
-                                           ## other than emitted extra parton
-            '25:m0 = 400.0',               # Higgs Mass
+            '25:m0 = 1000.0',              # Higgs Mass
             '25:onMode = off',             # turn OFF all H decays
             '25:onIfMatch = 23 23',        # turn ON H->ZZ
             '23:onMode = off',             # turn OFF all Z decays
