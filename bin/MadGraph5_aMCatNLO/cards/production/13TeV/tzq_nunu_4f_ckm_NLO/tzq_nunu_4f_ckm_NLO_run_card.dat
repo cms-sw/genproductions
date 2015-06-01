@@ -68,11 +68,11 @@ average = event_norm ! Normalize events to sum or average to the X sect.
 # the transverse masses of all final state particles and partons. This *
 # can be changed in SubProcesses/set_scales.f)                         *
 #***********************************************************************
- T        = fixed_ren_scale  ! if .true. use fixed ren scale
- T        = fixed_fac_scale  ! if .true. use fixed fac scale
- 75.0     = muR_ref_fixed    ! fixed ren reference scale 
- 75.0     = muF1_ref_fixed   ! fixed fact reference scale for pdf1
- 75.0     = muF2_ref_fixed   ! fixed fact reference scale for pdf2
+ F        = fixed_ren_scale  ! if .true. use fixed ren scale
+ F        = fixed_fac_scale  ! if .true. use fixed fac scale
+ 91.188     = muR_ref_fixed    ! fixed ren reference scale 
+ 91.188     = muF1_ref_fixed   ! fixed fact reference scale for pdf1
+ 91.188     = muF2_ref_fixed   ! fixed fact reference scale for pdf2
 #***********************************************************************
 # Renormalization and factorization scales (advanced and NLO options)  *
 #***********************************************************************
