@@ -8,5 +8,5 @@ define j = j b b~
 
 generate p p > t t~ [QCD] @0
 
-output tt0j_5f_ckm_NLO_Herwigpp -nojpeg
+output tt0j_5f_ckm_NLO_Pythia8 -nojpeg
 
