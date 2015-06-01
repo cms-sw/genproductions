@@ -61,7 +61,7 @@ average = event_norm ! Normalize events to sum or average to the X sect.
 # shower (HERWIG6 | HERWIGPP | PYTHIA6Q | PYTHIA6PT | PYTHIA8)         *
 # WARNING: PYTHIA6PT works only for processes without FSR!!!!          *
 #***********************************************************************
-  HERWIGPP   = parton_shower
+  PYTHIA8   = parton_shower
 #***********************************************************************
 # Renormalization and factorization scales                             *
 # (Default functional form for the non-fixed scales is the sum of      *
