@@ -41,7 +41,7 @@ facscfact  1   ! (default 1d0) fac scale factor: mufact = muref * facscfact
 #charmthr   1.5    ! (default 1.5 GeV) charm treshold for gluon splitting 
 #bottomthr  5.0    ! (default 5.0 GeV) bottom treshold for gluon splitting
 testplots  1      ! (default 0, do not) do NLO and PWHG distributions
-hfact    104.16d0    ! (default no dumping factor) dump factor for high-pt radiation: > 0 dumpfac=h**2/(pt2+h**2)
+hfact    50.0d0    ! (default no dumping factor) dump factor for high-pt radiation: > 0 dumpfac=h**2/(pt2+h**2)
 #testsuda  1       ! (default 0, do not test) test Sudakov form factor
 #radregion 1       ! (default all regions) only generate radiation in the selected singular region  
 #charmthrpdf  1.5  ! (default 1.5 GeV) pdf charm treshold
@@ -62,7 +62,7 @@ iseed    SEED    ! initialize random number sequence
 ! GGF_H production:
 ! **** Mandatory parameters for ALL models ****
 massren 0           ! Mass renormalization scheme. 0 = OS, 1 = MSBAR , 2 = DRBAR
-zerowidth 1         ! Control if the Higgs boson is to be produced on-shell or not: 1 = On-Shell; 0 = Off-shell with Breit-Wigner
+zerowidth 0         ! Control if the Higgs boson is to be produced on-shell or not: 1 = On-Shell; 0 = Off-shell with Breit-Wigner
 ew 1                ! ew = 0 disable EW corrections - ew = 1 enable EW corrections
 model 0
 gfermi 0.116637D-04        ! GF
