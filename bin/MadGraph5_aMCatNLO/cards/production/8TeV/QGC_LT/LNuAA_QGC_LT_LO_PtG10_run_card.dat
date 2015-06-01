@@ -29,7 +29,7 @@
 # Warning: Do not generate more than 1M events in a single run       *
 # If you want to run Pythia, avoid more than 50k events in a run.    *
 #*********************************************************************
-  1000   = nevents ! Number of unweighted events requested 
+  10000   = nevents ! Number of unweighted events requested 
       0       = iseed   ! rnd seed (0=assigned automatically=default))
 #*********************************************************************
 # Collider type and energy                                           *
@@ -62,7 +62,7 @@
 #*********************************************************************
 # Matching - Warning! ickkw > 1 is still beta
 #*********************************************************************
- 0        = ickkw            ! 0 no matching, 1 MLM, 2 CKKW matching
+ 1        = ickkw            ! 0 no matching, 1 MLM, 2 CKKW matching
  1        = highestmult      ! for ickkw=2, highest mult group
  1        = ktscheme         ! for ickkw=1, 1 Durham kT, 2 Pythia pTE
  1        = alpsfact         ! scale factor for QCD emission vx
@@ -103,7 +103,7 @@
 #*********************************************************************
 # Minimum and maximum pt's (for max, -1 means no cut)                *
 #*********************************************************************
- 20  = ptj       ! minimum pt for the jets 
+ 10  = ptj       ! minimum pt for the jets 
   0  = ptb       ! minimum pt for the b 
  10  = pta       ! minimum pt for the photons 
   0  = ptl       ! minimum pt for the charged leptons 
@@ -129,10 +129,10 @@
 #*********************************************************************
 # Maximum and minimum absolute rapidity (for max, -1 means no cut)   *
 #*********************************************************************
-   5  = etaj    ! max rap for the jets 
+  -1  = etaj    ! max rap for the jets 
   -1  = etab    ! max rap for the b
  3.0  = etaa    ! max rap for the photons 
- 3.0  = etal    ! max rap for the charged leptons 
+  -1  = etal    ! max rap for the charged leptons 
  0.6  = etaonium ! max rap for the quarkonium states
    0  = etajmin ! min rap for the jets
    0  = etabmin ! min rap for the b
@@ -230,7 +230,7 @@
 # When ptgmin=0, all the other parameters are ignored                  *
 # When ptgmin>0, pta and draj are not going to be used                 *
 #***********************************************************************
-  10 = ptgmin ! Min photon transverse momentum
+ 10 = ptgmin ! Min photon transverse momentum
  0.05 = R0gamma ! Radius of isolation code
  1.0 = xn ! n parameter of eq.(3.4) in hep-ph/9801442
  1.0 = epsgamma ! epsilon_gamma parameter of eq.(3.4) in hep-ph/9801442
@@ -253,7 +253,7 @@
 #*********************************************************************
 # Jet measure cuts                                                   *
 #*********************************************************************
- 0   = xqcut   ! minimum kt jet measure between partons
+ 10   = xqcut   ! minimum kt jet measure between partons
 #*********************************************************************
 #
 #*********************************************************************
