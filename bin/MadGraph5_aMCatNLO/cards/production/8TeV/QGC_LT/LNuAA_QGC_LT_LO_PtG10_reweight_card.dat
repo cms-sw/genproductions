@@ -23,39 +23,39 @@ set anoinputs 11 10.0e-12
 
 #Weight 4
 launch
-set anoinputs 11 20.0e-12
+set anoinputs 11 15.0e-12
 
 #Weight 5
 launch
-set anoinputs 11 30.0e-12
+set anoinputs 11 20.0e-12
 
 #Weight 6
 launch
-set anoinputs 11 40.0e-12
+set anoinputs 11 25.0e-12
 
 #Weight 7
 launch
-set anoinputs 11 50.0e-12
+set anoinputs 11 30.0e-12
 
 #Weight 8
 launch
-set anoinputs 11 60.0e-12
+set anoinputs 11 35.0e-12
 
 #Weight 9
 launch
-set anoinputs 11 70.0e-12
+set anoinputs 11 40.0e-12
 
 #Weight 10
 launch
-set anoinputs 11 80.0e-12
+set anoinputs 11 45.0e-12
 
 #Weight 11
 launch
-set anoinputs 11 90.0e-12
+set anoinputs 11 50.0e-12
 
 #Weight 12
 launch
-set anoinputs 11 100.0e-12
+set anoinputs 11 62.5e-12
 
 #Weight 13
 launch
@@ -71,39 +71,43 @@ set anoinputs 11 -10.0e-12
 
 #Weight 16
 launch
-set anoinputs 11 -20.0e-12
+set anoinputs 11 -15.0e-12
 
 #Weight 17
 launch
-set anoinputs 11 -30.0e-12
+set anoinputs 11 -20.0e-12
 
 #Weight 18
 launch
-set anoinputs 11 -40.0e-12
+set anoinputs 11 -25.0e-12
 
 #Weight 19
 launch
-set anoinputs 11 -50.0e-12
+set anoinputs 11 -30.0e-12
 
 #Weight 20
 launch
-set anoinputs 11 -60.0e-12
+set anoinputs 11 -35.0e-12
 
 #Weight 21
 launch
-set anoinputs 11 -70.0e-12
+set anoinputs 11 -40.0e-12
 
 #Weight 22
 launch
-set anoinputs 11 -80.0e-12
+set anoinputs 11 -45.0e-12
 
 #Weight 23
 launch
-set anoinputs 11 -90.0e-12
+set anoinputs 11 -50.0e-12
 
 #Weight 24
 launch
-set anoinputs 11 -100.0e-12
+set anoinputs 11 -62.5e-12
+
+#
+# FT1
+#
 
 #Weight 25
 launch
@@ -128,47 +132,47 @@ set anoinputs 12 10.0e-12
 #Weight 29
 launch
 set anoinputs 11 0.0e-12
-set anoinputs 12 20.0e-12
+set anoinputs 12 15.0e-12
 
 #Weight 30
 launch
 set anoinputs 11 0.0e-12
-set anoinputs 12 30.0e-12
+set anoinputs 12 20.0e-12
 
 #Weight 31
 launch
 set anoinputs 11 0.0e-12
-set anoinputs 12 40.0e-12
+set anoinputs 12 25.0e-12
 
 #Weight 32
 launch
 set anoinputs 11 0
-set anoinputs 12 50.0e-12
+set anoinputs 12 30.0e-12
 
 #Weight 33
 launch
 set anoinputs 11 0
-set anoinputs 12 60.0e-12
+set anoinputs 12 35.0e-12
 
 #Weight 34
 launch
 set anoinputs 11 0
-set anoinputs 12 70.0e-12
+set anoinputs 12 40.0e-12
 
 #Weight 35
 launch
 set anoinputs 11 0
-set anoinputs 12 80.0e-12
+set anoinputs 12 45.0e-12
 
 #Weight 36
 launch
 set anoinputs 11 0
-set anoinputs 12 90.0e-12
+set anoinputs 12 50.0e-12
 
 #Weight 37
 launch
 set anoinputs 11 0
-set anoinputs 12 100.0e-12
+set anoinputs 12 62.5e-12
 
 #Weight 38
 launch
@@ -188,47 +192,51 @@ set anoinputs 12 -10.0e-12
 #Weight 41
 launch
 set anoinputs 11 0
-set anoinputs 12 -20.0e-12
+set anoinputs 12 -15.0e-12
 
 #Weight 42
 launch
 set anoinputs 11 0
-set anoinputs 12 -30.0e-12
+set anoinputs 12 -20.0e-12
 
 #Weight 43
 launch
 set anoinputs 11 0
-set anoinputs 12 -40.0e-12
+set anoinputs 12 -25.0e-12
 
 #Weight 44
 launch
 set anoinputs 11 0
-set anoinputs 12 -50.0e-12
+set anoinputs 12 -30.0e-12
 
 #Weight 45
 launch
 set anoinputs 11 0
-set anoinputs 12 -60.0e-12
+set anoinputs 12 -35.0e-12
 
 #Weight 46
 launch
 set anoinputs 11 0
-set anoinputs 12 -70.0e-12
+set anoinputs 12 -40.0e-12
 
 #Weight 47
 launch
 set anoinputs 11 0
-set anoinputs 12 -80.0e-12
+set anoinputs 12 -45.0e-12
 
 #Weight 48
 launch
 set anoinputs 11 0
-set anoinputs 12 -90.0e-12
+set anoinputs 12 -50.0e-12
 
 #Weight 49
 launch
 set anoinputs 11 0
-set anoinputs 12 -100.0e-12
+set anoinputs 12 -62.5e-12
+
+#
+# FT2
+#
 
 #Weight 50
 launch
@@ -253,47 +261,47 @@ set anoinputs 13 10.0e-12
 #Weight 54
 launch
 set anoinputs 11 0
-set anoinputs 13 20.0e-12
+set anoinputs 13 15.0e-12
 
 #Weight 55
 launch
 set anoinputs 11 0
-set anoinputs 13 30.0e-12
+set anoinputs 13 20.0e-12
 
 #Weight 56
 launch
 set anoinputs 11 0
-set anoinputs 13 40.0e-12
+set anoinputs 13 25.0e-12
 
 #Weight 57
 launch
 set anoinputs 11 0
-set anoinputs 13 50.0e-12
+set anoinputs 13 30.0e-12
 
 #Weight 58
 launch
 set anoinputs 11 0
-set anoinputs 13 60.0e-12
+set anoinputs 13 35.0e-12
 
 #Weight 59
 launch
 set anoinputs 11 0
-set anoinputs 13 70.0e-12
+set anoinputs 13 40.0e-12
 
 #Weight 60
 launch
 set anoinputs 11 0
-set anoinputs 13 80.0e-12
+set anoinputs 13 45.0e-12
 
 #Weight 61
 launch
 set anoinputs 11 0
-set anoinputs 13 90.0e-12
+set anoinputs 13 50.0e-12
 
 #Weight 62
 launch
 set anoinputs 11 0
-set anoinputs 13 100.0e-12
+set anoinputs 13 62.5e-12
 
 #Weight 63
 launch
@@ -313,68 +321,46 @@ set anoinputs 13 -10.0e-12
 #Weight 66
 launch
 set anoinputs 11 0
-set anoinputs 13 -20.0e-12
+set anoinputs 13 -15.0e-12
 
 #Weight 67
 launch
 set anoinputs 11 0
-set anoinputs 13 -30.0e-12
+set anoinputs 13 -20.0e-12
 
 #Weight 68
 launch
 set anoinputs 11 0
-set anoinputs 13 -40.0e-12
+set anoinputs 13 -25.0e-12
 
 #Weight 69
 launch
 set anoinputs 11 0
-set anoinputs 13 -50.0e-12
+set anoinputs 13 -30.0e-12
 
 #Weight 70
 launch
 set anoinputs 11 0
-set anoinputs 13 -60.0e-12
+set anoinputs 13 -35.0e-12
 
 #Weight 71
 launch
 set anoinputs 11 0
-set anoinputs 13 -70.0e-12
+set anoinputs 13 -40.0e-12
 
 #Weight 72
 launch
 set anoinputs 11 0
-set anoinputs 13 -80.0e-12
+set anoinputs 13 -45.0e-12
 
 #Weight 73
 launch
 set anoinputs 11 0
-set anoinputs 13 -90.0e-12
+set anoinputs 13 -50.0e-12
 
 #Weight 74
 launch
 set anoinputs 11 0
-set anoinputs 13 -100.0e-12
-
-
-
-#* Use the set command to specify the new set of parameter 
-#* Or specify a path to a valid param_card/banner
-#* Example of valid command:
-#*     set aewm1 137
-#*     ~/param_card.dat
-#*
-#* Note: 
-#*   1) the value of alphas will be used from the event
-#*      so the value of the param_card is not taken into account.
-#*   2) It is dangerous to change a mass of any particle. 
-
-
-#* If you want to compute the weight for more than one hyppothesis
-#* you need first to uncomment the following line:
-# launch
-# and then use the set command to specify your parameter.
-# All modification will start from the ORIGINAL card not from the 
-# last define one.
-#* You can have as many weight as you want.
+set anoinputs 13 -62.5e-12
 
 
