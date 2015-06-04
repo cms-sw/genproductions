@@ -24,7 +24,7 @@ set max_running_process 1
 
 define ell+ = e+ mu+ ta+
 define ell- = e- mu- ta-
-define q = u u~	d d~ c c~ s s~ b b~
+define q = u u~ d d~ c c~ s s~ b b~
 
 # specify the decay for the final state particles
 decay t > w+ b, w+ > q q
