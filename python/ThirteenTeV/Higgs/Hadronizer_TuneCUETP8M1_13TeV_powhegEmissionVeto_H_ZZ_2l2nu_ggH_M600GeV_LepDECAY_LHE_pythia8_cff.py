@@ -14,11 +14,11 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
         pythia8CUEP8M1SettingsBlock,
         pythia8PowhegEmissionVetoSettingsBlock,
         processParameters = cms.vstring(
-            '25:m0 = 600.0',              # Higgs Mass
-            '25:onMode = off',             # turn OFF all H decays
-            '25:onIfMatch = 23 23',        # turn ON H->ZZ
-            '23:onMode = off',             # turn OFF all Z decays
-            '23:onIfAny = 11 13 12 14 16', # turn ON Z->ll
+            '25:m0 = 600.0',                  # Higgs Mass
+            '25:onMode = off',                # turn OFF all H decays
+            '25:onIfMatch = 23 23',           # turn ON H->ZZ
+            '23:onMode = off',                # turn OFF all Z decays
+            '23:onIfAny = 11 13 15 12 14 16', # turn ON Z->ll
           ),
         parameterSets = cms.vstring('pythia8CommonSettings',
                                     'pythia8CUEP8M1Settings',
@@ -40,8 +40,8 @@ VisLep = cms.EDFilter("MCParticlePairFilter",
     ParticleCharge = cms.untracked.int32(-1),
     MaxInvMass = cms.untracked.double(1000.0),
     MinInvMass = cms.untracked.double(40.0),
-    ParticleID1 = cms.untracked.vint32(11, 13),
-    ParticleID2 = cms.untracked.vint32(11, 13)
+    ParticleID1 = cms.untracked.vint32(11, 13, 15),
+    ParticleID2 = cms.untracked.vint32(11, 13, 15)
 )
 
 #Filter to select 2 neutrinos
