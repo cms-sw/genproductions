@@ -30,9 +30,8 @@ define vl~ = ve~ vm~ vt~
 #(inclusive top decays in this case)
 decay t > w+ b, w+ > l+ vl
 decay t~ > w- b~, w- > l- vl~
-decay w+ > l+ vl
-decay w- > l- vl~
-decay x0 > b b~
+#decay w+ > l+ vl
+#decay w- > l- vl~
 
 # running the actual code
 launch

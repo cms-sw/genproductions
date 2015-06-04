@@ -31,7 +31,7 @@ define l+ = e+ mu+
 define l- = e- mu-
 define vl = ve vm vt
 define vl~ = ve~ vm~ vt~
-import model HC_NLO_X0_UFO-no-3rd-gen-transitions
+import model HC_NLO_X0_UFO
 define tt = t t~
 define bb = b b~
 define ww = w+ w-
