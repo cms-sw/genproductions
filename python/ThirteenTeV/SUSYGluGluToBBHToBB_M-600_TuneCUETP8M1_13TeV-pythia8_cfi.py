@@ -13,7 +13,6 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
             pythia8CommonSettingsBlock,                                                                                          
             pythia8CUEP8M1SettingsBlock, 
                     processParameters = cms.vstring(                                                                     
-                                                    'PhaseSpace:mHatMin = 350',
                                                     'Higgs:useBSM = on',
                                                     'HiggsBSM:gg2A3bbbar = on',                                                                   
                                                     '36:m0 = 600',                                                                           
