@@ -41,7 +41,7 @@ facscfact  1   ! (default 1d0) fac scale factor: mufact = muref * facscfact
 #charmthr   1.5    ! (default 1.5 GeV) charm treshold for gluon splitting 
 #bottomthr  5.0    ! (default 5.0 GeV) bottom treshold for gluon splitting
 testplots  1      ! (default 0, do not) do NLO and PWHG distributions
-hfact    50.0d0    ! (default no dumping factor) dump factor for high-pt radiation: > 0 dumpfac=h**2/(pt2+h**2)
+hfact    60.0d0    ! (default no dumping factor) dump factor for high-pt radiation: > 0 dumpfac=h**2/(pt2+h**2)
 #testsuda  1       ! (default 0, do not test) test Sudakov form factor
 #radregion 1       ! (default all regions) only generate radiation in the selected singular region  
 #charmthrpdf  1.5  ! (default 1.5 GeV) pdf charm treshold
