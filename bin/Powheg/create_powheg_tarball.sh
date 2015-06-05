@@ -47,7 +47,7 @@ seed=$rnum
 file="events"
 jhugenversion="v5.2.5"
 
-temp1=${cardinput%%.*}
+temp1=${cardinput%%.input*}
 temp2=${temp1##*/}
 jobfolder=${name}_${temp2}_${tarball}
 
