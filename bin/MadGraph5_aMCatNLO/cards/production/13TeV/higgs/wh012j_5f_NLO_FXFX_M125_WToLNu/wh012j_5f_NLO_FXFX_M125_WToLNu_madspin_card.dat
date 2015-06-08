@@ -23,10 +23,10 @@ set max_running_process 1
 
 # specify the decay for the final state particles
 #(inclusive w and z decays in this case)
-define ell+ = e+ mu+ ta+
-define ell- = e- mu- ta-
-decay w+ > ell+ vl
-decay w- > ell- vl~
+# define ell+ = e+ mu+ ta+
+# define ell- = e- mu- ta-
+# decay w+ > ell+ vl
+# decay w- > ell- vl~
 
 
 # running the actual code
