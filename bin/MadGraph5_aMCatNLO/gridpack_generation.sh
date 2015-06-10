@@ -297,6 +297,12 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   unzip ../${TGAMMAMODEL}
   cd ..
 
+  # get ttDM model
+  cp ${EFFDMSOURCE}/${EFFDM} .
+  cd models
+  tar xvf ../${EFFDM}
+  cd ..
+
   
   cd $WORKDIR
   
