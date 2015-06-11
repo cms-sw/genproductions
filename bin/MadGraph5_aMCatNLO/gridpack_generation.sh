@@ -121,19 +121,15 @@ VVSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$VVMO
 ZPRIMEMODEL=topBSM_UFO.zip
 ZPRIMESOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${ZPRIMEMODEL}
 
-<<<<<<< HEAD
 # Model for searches for monotops
 MONOTOPMODEL=monotops_UFO.tgz
 MONOTOPSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${MONOTOPMODEL}
 
-# Model for search for excited top quark (t*) 
-=======
 ## DM Model Vector Mediator
 SimplifiedVDM=SimplifiedDM_VectorMediator_UFO.tar.gz
 SimplifiedVDMSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${SimplifiedVDM}
 
 # Model for search for excited top quark (t*)
->>>>>>> 776054b321262289aad74180f609de8ad464f8e3
 TOP32MODEL=top32.tgz
 TOP32SOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${TOP32MODEL}
 
