@@ -120,6 +120,10 @@ VVSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$VVMO
 ZPRIMEMODEL=topBSM_UFO.zip
 ZPRIMESOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${ZPRIMEMODEL}
 
+# Model for searches for monotops
+MONOTOPMODEL=monotops_UFO.tgz
+MONOTOPSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${MONOTOPMODEL}
+
 ## DM Model Vector Mediator
 SimplifiedVDM=SimplifiedDM_VectorMediator_UFO.tar.gz
 SimplifiedVDMSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${SimplifiedVDM}
@@ -269,8 +273,11 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
 
   #get Diboson model
   wget --no-check-certificate ${VVSOURCE}
+  #get Monotop model
+  wget --no-check-certificate ${MONOTOPSOURCE}
   cd models
   tar xvzf ../${VVMODEL}
+  tar xvzf ../${MONOTOPMODEL}
   cd ..
 
   #get Z' model
