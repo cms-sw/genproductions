@@ -47,7 +47,10 @@ seed=$rnum
 file="events"
 jhugenversion="v5.2.5"
 
-jobfolder=${tarball}_${name}
+temp1=${cardinput%%.input*}
+temp2=${temp1##*/}
+jobfolder=${name}_${temp2}_${tarball}
+
 echo "%MSG-POWHEG creating sub work directory ${jobfolder}"
 
 # Release to be used to define the environment and the compiler needed
