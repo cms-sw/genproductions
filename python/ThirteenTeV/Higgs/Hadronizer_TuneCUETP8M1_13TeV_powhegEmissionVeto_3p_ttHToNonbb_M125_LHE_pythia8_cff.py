@@ -21,8 +21,8 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
                                    ## other than emitted extra parton
 	    '24:mMin = 0.05',      # Solve problem with mW cut
             '25:m0 = 125.0',
-            '25:onMode = off',
-            '25:onIfMatch = 5 -5',
+            '25:onMode = on',	   # Allow all higgs decays
+            '25:offIfAny = 5 5',   # Switch decay to b quarks off
           ),
         parameterSets = cms.vstring('pythia8CommonSettings',
                                     'pythia8CUEP8M1Settings',
