@@ -1,0 +1,19 @@
+#put card customizations here (change top and higgs mass for example)
+# 5flavour scheme treatment of jets
+set param_card sminputs 1 1.325070e+02
+set param_card sminputs 2 1.166390e-05
+set param_card sminputs 3 1.180000e-01
+set param_card mass 6 172.5
+set param_card mass 15 1.777000e+00
+set param_card mass 23 9.118760e+01
+set param_card mass 24 80.419000
+set param_card mass 25 125.0
+set param_card mass 1000022 500.0
+set param_card mass 9000001 0.000000
+set param_card mass 9000003 79.824360
+set param_card mass 9000004 79.824360
+set param_card mass 9000005 0.000000
+set param_card yukawa 6 172.5
+set param_card yukawa 15 1.777000e+00
+set param_card dmblock 1 1.000000e+03
+set param_card dmblock 16 500.0

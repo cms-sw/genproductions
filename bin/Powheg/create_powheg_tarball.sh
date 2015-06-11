@@ -47,21 +47,28 @@ seed=$rnum
 file="events"
 jhugenversion="v5.2.5"
 
+temp1=${cardinput%%.input*}
+temp2=${temp1##*/}
+jobfolder=${name}_${temp2}_${tarball}
+
+echo "%MSG-POWHEG creating sub work directory ${jobfolder}"
+
 # Release to be used to define the environment and the compiler needed
 export RELEASE=${CMSSW_VERSION}
 export WORKDIR=`pwd`
 
+
 # initialize the CMS environment 
-if [[ -e ${name} ]]; then
-  echo -e "The directory ${name} exists! Move the directory to old_${name}\n"
-  mv ${name} old_${name}
+if [[ -e ${jobfolder} ]]; then
+  echo -e "The directory ${jobfolder} exists! Move the directory to old_${jobfolder}\n"
+  mv ${jobfolder} old_${jobfolder}
   mv output.lhe old_output.lhe
   rm -rf ${myDir}
   echo -e "Move the tar ball to old_${tarball}.tar.gz\n"
   mv ${tarball}_tarball.tar.gz old_${tarball}_tarball.tar.gz
 fi
 
-scram project -n ${name} CMSSW ${RELEASE}; cd ${name} ; mkdir -p work ; 
+scram project -n ${jobfolder} CMSSW ${RELEASE}; cd ${jobfolder} ; mkdir -p work ; 
 eval `scram runtime -sh`
 cd work
 export PATH=`pwd`:${PATH}

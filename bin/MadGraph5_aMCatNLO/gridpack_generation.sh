@@ -112,7 +112,6 @@ SINGLEVLQSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generator
 SINGLEVLQ_diagCKM=STP_UFO_freeWidth_diagCKM.zip
 SINGLEVLQSOURCE_diagCKM=https://cms-project-generators.web.cern.ch/cms-project-generators/$SINGLEVLQ_diagCKM
 
-
 ## Models for searches of diboson resonances
 VVMODEL=dibosonResonanceModel.tar.gz
 VVSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$VVMODEL
@@ -129,9 +128,25 @@ MONOTOPSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/
 SimplifiedVDM=SimplifiedDM_VectorMediator_UFO.tar.gz
 SimplifiedVDMSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${SimplifiedVDM}
 
+## Type I See Saw Majorana Neutrino
+TypeIMajNeutrinoMODEL=typeISeeSaw_MajNeutrino_UFO.tar.gz
+TypeIMajNeutrinoSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${TypeIMajNeutrinoMODEL}
+
 # Model for search for excited top quark (t*)
 TOP32MODEL=top32.tgz
 TOP32SOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${TOP32MODEL}
+
+# Model for Z' > VLQ
+ZPTOVLQMODEL=onerho.tar.gz
+ZPTOVLQSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${ZPTOVLQMODEL}
+
+## Model for tGamma FCNC                                                                                                                              
+TGAMMAMODEL=tqAandG_UFO.zip
+TGAMMASOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${TGAMMAMODEL}
+
+#ttDM EFT model, needed for ttDM production
+EFFDM=EffDM_222_restricted.tar
+EFFDMSOURCE= /afs/cern.ch/cms/generators/www/
 
 MGBASEDIRORIG=MG5_aMC_v2_2_2
 
@@ -250,6 +265,11 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   tar -zxvf ../${SimplifiedVDM}
   cd ..
 
+  ## Type I See Saw Majorana Neutrino
+  wget --no-check-certificate ${TypeIMajNeutrinoSOURCE}
+  cd models
+  tar -zxvf ../${TypeIMajNeutrinoMODEL}
+  cd ..
 
   #get Diboson model
   wget --no-check-certificate ${VVSOURCE}
@@ -271,6 +291,25 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   cd models
   tar -xaf ../${TOP32MODEL}
   cd ..
+
+  #get Z' > VLQ model
+  wget --no-check-certificate ${ZPTOVLQSOURCE}
+  cd models
+  tar xvzf ../${ZPTOVLQMODEL}
+  cd ..
+  
+  #get tGamma FCNC model                                                                                                                              
+  wget --no-check-certificate -O ${TGAMMAMODEL} ${TGAMMASOURCE}
+  cd models
+  unzip ../${TGAMMAMODEL}
+  cd ..
+
+  # get ttDM model
+  cp ${EFFDMSOURCE}/${EFFDM} .
+  cd models
+  tar xvf ../${EFFDM}
+  cd ..
+
   
   cd $WORKDIR
   
