@@ -1,4 +1,5 @@
 // g++ -Wall -o mergeLheFiles mergeLheFiles.cpp
+//
 
 #include <iostream>
 #include <fstream>
