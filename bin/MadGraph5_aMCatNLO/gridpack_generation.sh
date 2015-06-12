@@ -142,7 +142,7 @@ TGAMMASOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$
 
 #ttDM EFT model, needed for ttDM production
 EFFDM=EffDM_222_restricted.tar
-EFFDMSOURCE= /afs/cern.ch/cms/generators/www/
+EFFDMSOURCE=/afs/cern.ch/cms/generators/www/
 
 MGBASEDIRORIG=MG5_aMC_v2_2_2
 
