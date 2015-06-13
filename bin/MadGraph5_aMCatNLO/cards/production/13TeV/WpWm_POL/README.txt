@@ -1,4 +1,4 @@
-			**Summary of Generation Method and Explanations:**
+			Summary of Generation Method and Explanations:
 
 Our Aim is to generate samples with pp ->  W+W- -> lnujj keeping the polarization of w's intact for further analysis.
 
@@ -16,7 +16,7 @@ The motivation for using DECAY has been described later in this file.[a]
 
 
 
-			**[a] Motivation to use DECAY Package:**
+			[a] Motivation to use DECAY Package:
 
 Our signal is longitudinally polarized WW. So, spin information becomes crucial for us. But, MadSpin does not preserve the spin information for the intermediate particles while the DECAY package is preserving this info. We discussed this problem with MadGraph authors and they suggested to use the DECAY package for this. The discussion link is:
 https://answers.launchpad.net/mg5amcnlo/+question/257782.
@@ -29,7 +29,7 @@ https://launchpad.net/mg5amcnlo/trunk/1.5.0/+download/MadGraph5_v1.5.14.tar.gz
 
 
 
-		**Other Changes made in DECAY package to make it compatible with the latest version of Madgraph:**
+		Other Changes made in DECAY package to make it compatible with the latest version of Madgraph:
 
 
 We are using DECAY package from the older version of MadGraph (MadGraph5_v1_5_14). This is because MadGraph authors does not support DECAY now. This was not compatible with the latest version of madgraph because of change in format of LHE file. So, we made two minor changes in the DECAY package which are explained here:
