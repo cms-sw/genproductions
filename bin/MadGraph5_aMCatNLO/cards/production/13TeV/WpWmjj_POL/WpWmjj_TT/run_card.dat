@@ -168,7 +168,7 @@
 # WARNING: for four lepton final state mmll cut require to have      *
 #          different lepton masses for each flavor!                  *           
 #*********************************************************************
- 0   = mmjj    ! min invariant mass of a jet pair 
+ 100   = mmjj    ! min invariant mass of a jet pair 
  0   = mmbb    ! min invariant mass of a b pair 
  0   = mmaa    ! min invariant mass of gamma gamma pair
  0   = mmll    ! min invariant mass of l+l- (same flavour) lepton pair
@@ -242,8 +242,8 @@
 #*********************************************************************
 # WBF cuts                                                           *
 #*********************************************************************
- 0   = xetamin ! minimum rapidity for two jets in the WBF case  
- 0   = deltaeta ! minimum rapidity for two jets in the WBF case 
+ 0     = xetamin ! minimum rapidity for two jets in the WBF case  
+ 1.5   = deltaeta ! minimum rapidity for two jets in the WBF case 
 #*********************************************************************
 # KT DURHAM CUT                                                      *
 #*********************************************************************
