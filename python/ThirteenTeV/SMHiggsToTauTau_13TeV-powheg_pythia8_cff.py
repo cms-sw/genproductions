@@ -19,7 +19,8 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
             'ParticleDecays:limitTau0 = on',
             'ParticleDecays:tau0Max = 10',
             '25:onMode = off', # turn OFF all H decays
-            '25:onIfAny = 15', # turn ON H->tautau      
+            '25:onIfMatch = 15 -15', # turn ON H->tautau      
+            '25:m0 = 125.0'
             ),
         parameterSets = cms.vstring('pythia8CommonSettings',
                                     'pythia8CUEP8M1Settings',
