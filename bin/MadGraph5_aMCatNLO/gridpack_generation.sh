@@ -239,13 +239,18 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   echo "set lhapdf $LHAPDFCONFIG" >> mgconfigscript
 
   if [ -n "$queue" ]; then
+      #suppress lsf emails
+      export LSB_JOB_REPORT_MAIL="N"
+  
       echo "set run_mode  1" >> mgconfigscript
       echo "set cluster_type lsf" >> mgconfigscript
       echo "set cluster_queue $queue" >> mgconfigscript
       echo "set cluster_status_update 60 30" >> mgconfigscript
       echo "set cluster_nb_retry 3" >> mgconfigscript
       echo "set cluster_retry_wait 300" >> mgconfigscript 
+#       echo "set cluster_retry_wait 30" >> mgconfigscript 
 #       echo "set cluster_local_path `${LHAPDFCONFIG} --datadir`" >> mgconfigscript 
+#       echo "set stdout_level DEBUG" >> mgconfigscript
       if [[ ! "$RUNHOME" =~ ^/afs/.* ]]; then
           echo "local path is not an afs path, batch jobs will use worker node scratch space instead of afs"
           echo "set cluster_temp_path `echo $RUNHOME`" >> mgconfigscript 
@@ -554,6 +559,7 @@ if [ "$isnlo" -gt "0" ]; then
   cat makegrid.dat | ./bin/generate_events -n pilotrun
   
   echo "mg5_path = ../mgbasedir" >> ./Cards/amcatnlo_configuration.txt
+  echo "cluster_temp_path = None" >> ./Cards/amcatnlo_configuration.txt
 
   cd $WORKDIR
   
@@ -574,7 +580,7 @@ else
   #######################
 
   echo "done" > makegrid.dat
-  echo "set gridpack true" >> makegrid.dat
+  echo "set gridpack True" >> makegrid.dat
   if [ -e $CARDSDIR/${name}_customizecards.dat ]; then
           cat $CARDSDIR/${name}_customizecards.dat >> makegrid.dat
           echo "" >> makegrid.dat
@@ -620,6 +626,7 @@ else
   
   #set to single core mode
   echo "mg5_path = ../../mgbasedir" >> ./madevent/Cards/me5_configuration.txt
+  echo "cluster_temp_path = None" >> ./madevent/Cards/me5_configuration.txt
   echo "run_mode = 0" >> ./madevent/Cards/me5_configuration.txt  
   
   #temporary workaround for uncompiled gridpack executables
