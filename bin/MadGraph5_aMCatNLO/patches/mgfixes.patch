@@ -12,7 +12,7 @@ diff -ur ../orig/MG5_aMC_v2_3_0_beta/madgraph/interface/common_run_interface.py 
          
 diff -ur ../orig/MG5_aMC_v2_3_0_beta/madgraph/interface/madevent_interface.py MG5_aMC_v2_3_0_beta/madgraph/interface/madevent_interface.py
 --- ../orig/MG5_aMC_v2_3_0_beta/madgraph/interface/madevent_interface.py	2015-04-10 11:56:28.000000001 +0200
-+++ MG5_aMC_v2_3_0_beta/madgraph/interface/madevent_interface.py	2015-05-22 17:52:24.000000001 +0200
++++ MG5_aMC_v2_3_0_beta/madgraph/interface/madevent_interface.py	2015-05-27 21:50:34.000000001 +0200
 @@ -3099,6 +3099,8 @@
          """Advanced commands: Create gridpack from present run"""
  
@@ -22,9 +22,20 @@ diff -ur ../orig/MG5_aMC_v2_3_0_beta/madgraph/interface/madevent_interface.py MG
          args = self.split_arg(line)
          self.check_combine_events(args)
          if not self.run_tag: self.run_tag = 'tag_1'
+diff -ur ../orig/MG5_aMC_v2_3_0_beta/madgraph/madevent/gen_ximprove.py MG5_aMC_v2_3_0_beta/madgraph/madevent/gen_ximprove.py
+--- ../orig/MG5_aMC_v2_3_0_beta/madgraph/madevent/gen_ximprove.py	2015-04-10 11:56:28.000000001 +0200
++++ MG5_aMC_v2_3_0_beta/madgraph/madevent/gen_ximprove.py	2015-06-09 12:21:07.000000001 +0200
+@@ -414,6 +414,7 @@
+             fsock  = misc.mult_try_open(pjoin(path, 'grid_information'))
+             grid_calculator.add_one_grid_information(fsock)
+             fsock.close()
++            os.remove(pjoin(path, 'results.dat'))
+              
+         #2. combine the information about the total crossection / error
+         # start by keep the interation in memory
 diff -ur ../orig/MG5_aMC_v2_3_0_beta/madgraph/various/cluster.py MG5_aMC_v2_3_0_beta/madgraph/various/cluster.py
 --- ../orig/MG5_aMC_v2_3_0_beta/madgraph/various/cluster.py	2015-04-10 11:56:28.000000001 +0200
-+++ MG5_aMC_v2_3_0_beta/madgraph/various/cluster.py	2015-04-28 20:29:30.000000001 +0200
++++ MG5_aMC_v2_3_0_beta/madgraph/various/cluster.py	2015-06-17 18:48:02.000000001 +0200
 @@ -19,6 +19,11 @@
  import glob
  import inspect
@@ -48,6 +59,15 @@ diff -ur ../orig/MG5_aMC_v2_3_0_beta/madgraph/various/cluster.py MG5_aMC_v2_3_0_
  class Cluster(object):
      """Basic Class for all cluster type submission"""
      name = 'mother class'
+@@ -106,7 +115,7 @@
+         for key,value in opts.items():
+             self.options[key] = value
+         self.nb_retry = opts['cluster_nb_retry'] if 'cluster_nb_retry' in opts else 0
+-        self.cluster_retry_wait = opts['cluster_retry_wait'] if 'cluster_retry_wait' in opts else 300
++        self.cluster_retry_wait = float(opts['cluster_retry_wait']) if 'cluster_retry_wait' in opts else 300
+         self.options = dict(opts)
+         self.retry_args = {}
+         # controlling jobs in controlled type submision
 @@ -412,6 +421,7 @@
              file missing: %s.
              Stopping all runs.''' % (job_id, args, path))
@@ -56,7 +76,7 @@ diff -ur ../orig/MG5_aMC_v2_3_0_beta/madgraph/various/cluster.py MG5_aMC_v2_3_0_
          elif args['nb_submit'] >= self.nb_retry:
              logger.critical('''Fail to run correctly job %s.
              with option: %s
-@@ -419,6 +429,7 @@
+@@ -419,14 +429,22 @@
              Fails %s times
              No resubmition. ''' % (job_id, args, path, args['nb_submit']))
              #self.remove()
@@ -64,7 +84,24 @@ diff -ur ../orig/MG5_aMC_v2_3_0_beta/madgraph/various/cluster.py MG5_aMC_v2_3_0_
          else:
              args['nb_submit'] += 1            
              logger.warning('resubmit job (for the %s times)' % args['nb_submit'])
-@@ -1325,6 +1336,80 @@
+             del self.retry_args[job_id]
+             self.submitted_ids.remove(job_id)
+             if 'time_check' in args: 
+-                del args['time_check']
+-            self.submit2(**args)
++                del args['time_check']            
++            if job_id in self.id_to_packet:
++                self.id_to_packet[job_id].remove_one()
++                args['packet_member'] = self.id_to_packet[job_id]
++                del self.id_to_packet[job_id]
++                self.cluster_submit(**args)
++            else:
++                self.submit2(**args)
++                
+             return 'resubmit'
+         return 'done'
+             
+@@ -1325,6 +1343,80 @@
      name = 'lsf'
      job_id = 'LSB_JOBID'
  
@@ -145,7 +182,7 @@ diff -ur ../orig/MG5_aMC_v2_3_0_beta/madgraph/various/cluster.py MG5_aMC_v2_3_0_
      @multiple_try()
      def submit(self, prog, argument=[], cwd=None, stdout=None, stderr=None, log=None,
                 required_output=[], nb_submit=0):
-@@ -1348,6 +1433,8 @@
+@@ -1348,6 +1440,8 @@
          if log is None:
              log = '/dev/null'
          
@@ -154,7 +191,7 @@ diff -ur ../orig/MG5_aMC_v2_3_0_beta/madgraph/various/cluster.py MG5_aMC_v2_3_0_
          text += prog
          if argument:
              text += ' ' + ' '.join(argument)
-@@ -1373,6 +1460,135 @@
+@@ -1373,6 +1467,136 @@
          self.submitted_ids.append(id)
          return id        
          
@@ -228,14 +265,14 @@ diff -ur ../orig/MG5_aMC_v2_3_0_beta/madgraph/various/cluster.py MG5_aMC_v2_3_0_
 +            export RSYNC_PASSWORD=$MADGRAPHRSYNCPASSWD_%(rsyncport)s
 +                 
 +            #dereference symlinks for input
-+            rsync -vvv --timeout=60 --contimeout=60 --port %(rsyncport)s -rptL %(infilelist)s
++            rsync -vvv --timeout=600 --contimeout=600 --port %(rsyncport)s -rptL %(infilelist)s
 +
 +            echo '%(arguments)s' > arguments
 +            chmod +x ./%(script)s        
 +            %(program)s ./%(script)s %(arguments)s
 +            
 +            #copy symlinks as symlinks for output and don't overwrite existing files unless updated
-+            rsync -vvv --timeout=60 --contimeout=60 --port %(rsyncport)s -rptul %(outfilelist)s
++            rsync -vvv --timeout=600 --contimeout=600 --port %(rsyncport)s -rptul %(outfilelist)s
 +            
 +            """
 +        dico = {'script': os.path.basename(prog),
@@ -250,7 +287,8 @@ diff -ur ../orig/MG5_aMC_v2_3_0_beta/madgraph/various/cluster.py MG5_aMC_v2_3_0_
 +        me_dir = self.get_jobs_identifier(cwd, prog)
 +
 +        text = text % dico
-+        command = ['bsub', '-cwd', '/tmp/$USER', '-C0', '-J', me_dir]
++        cwdpath = "/tmp/" + os.environ.get("USER", '')
++        command = ['bsub', '-cwd', cwdpath, '-C0', '-J', me_dir]
 +        if cwd is None:
 +            cwd = os.getcwd()
 +        #else:
@@ -356,3 +394,29 @@ diff -ur ../orig/MG5_aMC_v2_3_0_beta/Template/LO/bin/internal/Gridpack/run.sh MG
 -
  gzip -f events.lhe
  exit
+diff -ur ../orig/MG5_aMC_v2_3_0_beta/Template/NLO/SubProcesses/pythia_unlops.f MG5_aMC_v2_3_0_beta/Template/NLO/SubProcesses/pythia_unlops.f
+--- ../orig/MG5_aMC_v2_3_0_beta/Template/NLO/SubProcesses/pythia_unlops.f	2015-04-10 11:56:28.000000001 +0200
++++ MG5_aMC_v2_3_0_beta/Template/NLO/SubProcesses/pythia_unlops.f	2015-06-17 18:44:59.000000001 +0200
+@@ -26,8 +26,11 @@
+       double precision pin(5,nexternal)
+       integer id(nexternal),ist(nexternal)
+ c Born momenta
+-      double precision p_born(0:3,nexternal-1)
+-      common/pborn/p_born
++      double precision p1_cnt(0:3,nexternal,-2:2)
++      double precision wgt_cnt(-2:2)
++      double precision pswgt_cnt(-2:2)
++      double precision jac_cnt(-2:2)
++      common/counterevnts/p1_cnt,wgt_cnt,pswgt_cnt,jac_cnt
+       integer i_fks,j_fks
+       common/fks_indices/i_fks,j_fks
+ c cut
+@@ -92,7 +95,7 @@
+             if (i.eq.i_fks) cycle
+             npart=npart+1
+             do j=1,4
+-               pin(j,npart)=p_born(mod(j,4),npart)
++               pin(j,npart)=p1_cnt(mod(j,4),i,0)
+             enddo
+             pin(5,npart)=pmass(i)
+             if (i.le.nincoming) then
