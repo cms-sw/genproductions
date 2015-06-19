@@ -15,9 +15,6 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
         pythia8PowhegEmissionVetoSettingsBlock,      
         processParameters = cms.vstring(
             'POWHEG:nFinal = 1',
-            'Main:timesAllowErrors = 10000',
-            'ParticleDecays:limitTau0 = on',
-            'ParticleDecays:tau0Max = 10',
             '25:onMode = off', # turn OFF all H decays
             '25:onIfMatch = 15 -15', # turn ON H->tautau      
             '25:m0 = 125.0'
