@@ -1,0 +1,86 @@
+    CompHEP kinematics module 
+ The session parameters:
+
+#Subprocess 37 (S,u -> ne,E,b,B)
+#Session_number 37
+#Model_number 11
+#Initial_state 
+  SQRT(S) 1.300000E+04
+  Rapidity(c.m.s) 0.000000E+00
+  StrFun1: PDF:cteq6m:4:57(proton)
+  StrFun2: PDF:cteq6m:4:57(proton)
+
+#Physical_Parameters 
+        EE = 3.134500000000000E-01
+        SW = 4.807600000000000E-01
+       s12 = 2.229000000000000E-01
+       s23 = 4.120000000000000E-02
+       s13 = 3.600000000000000E-03
+        MZ = 9.118760000000000E+01
+        wW = 2.028146000000000E+00
+        Mm = 1.056600000000000E-01
+      Mtau = 1.776990000000000E+00
+        Mc = 1.650000000000000E+00
+        Ms = 1.170000000000000E-01
+      Mtop = 1.725000000000000E+02
+      wtop = 1.490000000000000E+00
+        Mb = 4.850000000000000E+00
+      MWpr = 2.000000000000000E+03
+      wWpr = 6.746612000000000E+01
+        gl = 0.000000000000000E+00
+        gr = 1.000000000000000E+00
+
+#Constraints 
+        CW = 8.768522238096907E-01
+       c12 = 9.748413152918787E-01
+       c23 = 9.991509195311787E-01
+       c13 = 9.999935199790047E-01
+       Vud = 9.748349982996884E-01
+       Vus = 2.228985556033201E-01
+       Vcd = -2.228553284273838E-01
+       Vcs = 9.739805360428643E-01
+       Vtb = 9.991444450122426E-01
+        MW = 7.995804984386857E+01
+
+#Width_scheme  0
+
+#Kinematical_scheme 
+12 -> 6 , 345
+345 -> 5 , 34
+34 -> 3 , 4
+
+#Cuts 
+*** Table ***
+ Cuts  
+  Parameter  |> Min bound <|> Max bound <|> Exclusive <|
+========================================================
+
+#Regularization 
+*** Table ***
+ Regularization 
+ Momentum    |> Mass  <|> Width <| Power|
+34           |MW       |wW       |2      
+34           |MWpr     |wWpr     |2      
+345          |Mtop     |wtop     |2      
+=========================================
+
+#QCD Lambda6 = 2.262000E-01  Scale = 2000
+#Vegas_calls 368640x5
+#END
+===================================
+#IT   Cross section [pb]  Error %    nCall   chi**2
+  1      3.9580E-04       1.12E+01   368640 
+  2      4.2238E-04       1.76E+00   368640 
+  3      4.1954E-04       2.72E-01   368640 
+  4      4.1860E-04       1.48E-01   368640 
+  5      4.1839E-04       1.33E-01   368640 
+ < >     4.1862E-04       9.26E-02  1843200      0.3
+#Max
+  Search in 1000 cubes (500 points per cube) DONE
+  Expected efficiency 0.062400
+#Event generation
+  1827 events are stored in 'events_37.txt'
+  Statistic: eff. = 3.2E-02
+  Max = 2.4E+00
+  Mult.evt. = 0.0E+00
+  Neg.evt = 0.0E+00
