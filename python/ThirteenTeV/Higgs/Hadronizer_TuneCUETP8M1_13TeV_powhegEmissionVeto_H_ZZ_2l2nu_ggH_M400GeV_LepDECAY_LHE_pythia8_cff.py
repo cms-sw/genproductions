@@ -15,6 +15,7 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
         pythia8PowhegEmissionVetoSettingsBlock,
         processParameters = cms.vstring(
             '25:m0 = 400.0',                  # Higgs Mass
+            '23:mMin = 0.05',                 # Solve problem with mZ cut
             '25:onMode = off',                # turn OFF all H decays
             '25:onIfMatch = 23 23',           # turn ON H->ZZ
             '23:onMode = off',                # turn OFF all Z decays
