@@ -53,9 +53,9 @@ ncall2 400000      ! Number of calls for the computation of the upper bounding e
                   ! for the generation of radiation
 itmx2 1           ! Number of iterations for the above
 ! Notice: the total number of calls is ncall2*itmx2*foldcsi*foldy*foldphi
-foldcsi 1         ! number of folds on csi integration
-foldy   1         ! number of folds on  y  integration
-foldphi 1         ! number of folds on phi integration
+foldcsi 2         ! number of folds on csi integration
+foldy   5         ! number of folds on  y  integration
+foldphi 2         ! number of folds on phi integration
 
 nubound 600000 ! number of calls to set up the upper bounding norms for radiation
                ! This is performed using only the Born cross section (fast)

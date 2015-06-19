@@ -3,13 +3,13 @@ import FWCore.ParameterSet.Config as cms
 from Configuration.Generator.PythiaUEZ2starSettings_cfi import *
 
 generator = cms.EDFilter("Pythia6GeneratorFilter",
-    pythia6HepMCVerbosity = cms.untracked.bool(False),
+    pythiaHepMCVerbosity = cms.untracked.bool(False),
     maxEventsToPrint = cms.untracked.int32(0),
-    pythia6PylistVerbosity = cms.untracked.int32(0),
+    pythiaPylistVerbosity = cms.untracked.int32(0),
     filterEfficiency = cms.untracked.double(1.0),
     comEnergy = cms.double(8000.0),
     PythiaParameters = cms.PSet(
-        pythia6UESettingsBlock,
+        pythiaUESettingsBlock,
         processParameters = cms.vstring(
             'MSEL=39                  ! All SUSY processes', 
             'IMSS(1) = 11             ! Spectrum from external SLHA file', 
@@ -19,7 +19,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
             'PARJ(71)=1000.            ! for which ctau  1000 mm', 
             'RMSS(21) = 0             ! The gravitino mass'),    
    
-        parameterSets = cms.vstring('pythia6UESettings', 
+        parameterSets = cms.vstring('pythiaUESettings', 
                                 'processParameters',
                                 'SLHAParameters'),
     

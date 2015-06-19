@@ -1,0 +1,21 @@
+#import model EffDM_UFO --modelname 
+import model EffDM_UFO-no_b_mass 
+# Define multiparticle labels
+#include b quark in proton and jet definition for consistent 5 flavour scheme treatment
+define p = p b b~
+define j = j b b~
+#define p u c s d b u~ c~ s~ d~ b~ g
+#define j = p
+define l+ e+ mu+
+define l- e- mu-
+define vl ve vm
+define vl~ ve~ vm~
+define lept l+ l- vl vl~
+
+# Specify process(es) to run
+generate p p > t t~ n1 chi~ D1=1 D2=0 D3=0 D4=0 D5=0 D6=0 D7=0 D8=0 D9=0 D10=0 D11=0 D12=0 D13=0 D14=0 @0
+#add process p p > t t~ n1 chi~ j D1=1 D2=0 D3=0 D4=0 D5=0 D6=0 D7=0 D8=0 D9=0 D10=0 D11=0 D12=0 D13=0 D14=0 @1
+#add process p p > t t~ n1 chi~ j j D1=1 D2=0 D3=0 D4=0 D5=0 D6=0 D7=0 D8=0 D9=0 D10=0 D11=0 D12=0 D13=0 D14=0 @2
+
+# Output processes to MadEvent directory
+output ttDM_EffDM_mDM50_01jets -nojpeg
