@@ -1,0 +1,45 @@
+************************************************************
+#*                        MadGraph 5                        *
+#*                                                          *
+#*                *                       *                 *
+#*                  *        * *        *                   *
+#*                    * * * * 5 * * * *                     *
+#*                  *        * *        *                   *
+#*                *                       *                 *
+#*                                                          *
+#*                                                          *
+#*    The MadGraph Development Team - Please visit us at    *
+#*    https://server06.fynu.ucl.ac.be/projects/madgraph     *
+#*                                                          *
+#************************************************************
+#*                                                          *
+#*               Command File for MadGraph 5                *
+#*                                                          *
+#*     run as ./bin/mg5  filename                           *
+#*                                                          *
+#************************************************************
+import model DMScalar_bbbar01j_gSM_1p0_gDM_1p0
+# Define multiparticle labels
+define p = g u c d s u~ c~ d~ s~
+define j = g u c d s u~ c~ d~ s~
+define l+ = e+ mu+
+define l- = e- mu-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+# Specify process(es) to run
+#generate p p > t t~ chi chi~
+
+generate p p > b b~ chi chi~ @0
+add process  p p > b b~ chi chi~ j @1
+#add process  p p > b b~ chi chi~ j j @2 
+# KH, phim is implicit.  MadSpin chokes if explicit
+
+
+# Output processes to MadEvent directory
+output 
+# This will create a directory PROC_$MODELNAME_$X
+# If you want to specify the path/name of the directory use
+output DMScalar_bbbar01j_mphi_95_mchi_50_gSM_1p0_gDM_1p0
+
+# To generate events, you can go to the created directory and 
+# run ./bin/generate_events
