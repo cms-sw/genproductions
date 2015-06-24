@@ -1,0 +1,1034 @@
+<LesHouchesEvents version="1.0">
+<!-- File generated with CompHEP 4.5.2rc10 -->
+<!-- 
+     This file is compatible with the Les Houches event file
+     format (hep-ph/0609017), but contains extra HepML tags.
+-->
+<header>
+<samples xmlns="http://mcdb.cern.ch/hepml/0.2/"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://mcdb.cern.ch/hepml/0.2/ file:/home/user/MCDB/hepml/schemas/0.2/hepml.xsd">
+    <files>
+        <file>
+            <eventsNumber>    439049</eventsNumber>
+            <crossSection unit="pb" errorMinus=" 1.9363E-02" errorPlus=" 1.9363E-02"> 3.8876E+00</crossSection>
+            <fileSize>    363952785</fileSize>
+            <checksum type="md5">8c99d2ba0183628224657f9ede995014</checksum>
+            <comments></comments>
+            <location>
+              <path/>
+            </location>
+        </file>
+    </files>
+    <description>
+        <title></title>
+        <abstract></abstract>
+        <authorComments></authorComments>
+        <experimentGroup>
+            <experiment></experiment>
+            <group></group>
+            <responsiblePerson></responsiblePerson>
+            <description></description>
+        </experimentGroup>
+        <generator>
+            <name>CompHEP</name>
+            <version>4.5.2rc10</version>
+            <homepage>http://comphep.sinp.msu.ru</homepage>
+            <description>
+
+                CompHEP: a package for evaluation of Feynman diagrams, integration over multi-particle 
+                phase space and event generation (supported in part by RFBR grants 96-02-19773-a, 
+                99-02-04011-a, 01-02-16710-a, 04-02-17448-a). CompHEP Collaboration: 
+                E.Boos, V.Bunichev, M.Dubinin, L.Dudko, V.Edneral, V.ILyin, A.Kryukov, V.Savrin 
+                (SINP MSU, Moscow, Russia), A.Semenov (JINR, Dubna, Russia), A.Sherstnev 
+                (SINP MSU, Moscow, Russia and University of Cambridge, UK) 
+            
+            </description>
+        </generator>
+        <process>
+            <beam1>
+                <particle pdgcode="2212">proton</particle>
+                <energy unit="GeV">6500.000000</energy>
+                <pdf name="CTEQ" version="6m" PDFLIBset="57" PDFLIBgroup="4" LHAPDFset="0" LHAPDFmember="0" LHAPDFfile="" />
+                <QCDCoupling>
+                    <Lambda unit="GeV">0.226200</Lambda>
+                    <NFlavours>6</NFlavours>
+                    <NLoopsAlphaS>2</NLoopsAlphaS>
+                </QCDCoupling>
+            </beam1>
+            <beam2>
+                <particle pdgcode="2212">proton</particle>
+                <energy unit="GeV">6500.000000</energy>
+                <pdf name="CTEQ" version="6m" PDFLIBset="57" PDFLIBgroup="4" LHAPDFset="0" LHAPDFmember="0" LHAPDFfile="" />
+                <QCDCoupling>
+                    <Lambda unit="GeV">0.226200</Lambda>
+                    <NFlavours>6</NFlavours>
+                    <NLoopsAlphaS>2</NLoopsAlphaS>
+                </QCDCoupling>
+            </beam2>
+            <finalState>
+                <state>Ne,e,b,B</state>
+                <notation>
+                    <plain>Ne,e,b,B</plain>
+                    <Latex></Latex>
+                </notation>
+            </finalState>
+            <crossSection unit="pb"> 6.3024E-03</crossSection>
+            <subprocesses>
+                <subprocess cutset_id="1">
+                    <notation>d,C -> Ne,e,b,B</notation>
+                    <crossSection unit="pb" errorMinus=" 4.1794E-06" errorPlus=" 4.1794E-06"> 6.3024E-03</crossSection>
+                    <FactorisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </FactorisationScale>
+                    <RenormalisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </RenormalisationScale>
+                </subprocess>
+                <subprocess cutset_id="2">
+                    <notation>d,C -> Nm,m,b,B</notation>
+                    <crossSection unit="pb" errorMinus=" 4.1794E-06" errorPlus=" 4.1794E-06"> 6.3023E-03</crossSection>
+                    <FactorisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </FactorisationScale>
+                    <RenormalisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </RenormalisationScale>
+                </subprocess>
+                <subprocess cutset_id="3">
+                    <notation>d,C -> Nl,l,b,B</notation>
+                    <crossSection unit="pb" errorMinus=" 4.1759E-06" errorPlus=" 4.1759E-06"> 6.2976E-03</crossSection>
+                    <FactorisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </FactorisationScale>
+                    <RenormalisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </RenormalisationScale>
+                </subprocess>
+                <subprocess cutset_id="4">
+                    <notation>U,d -> Ne,e,b,B</notation>
+                    <crossSection unit="pb" errorMinus=" 1.3848E-04" errorPlus=" 1.3848E-04"> 1.8704E-01</crossSection>
+                    <FactorisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </FactorisationScale>
+                    <RenormalisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </RenormalisationScale>
+                </subprocess>
+                <subprocess cutset_id="5">
+                    <notation>U,d -> Nm,m,b,B</notation>
+                    <crossSection unit="pb" errorMinus=" 1.3835E-04" errorPlus=" 1.3835E-04"> 1.8704E-01</crossSection>
+                    <FactorisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </FactorisationScale>
+                    <RenormalisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </RenormalisationScale>
+                </subprocess>
+                <subprocess cutset_id="6">
+                    <notation>U,d -> Nl,l,b,B</notation>
+                    <crossSection unit="pb" errorMinus=" 1.3540E-04" errorPlus=" 1.3540E-04"> 1.8690E-01</crossSection>
+                    <FactorisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </FactorisationScale>
+                    <RenormalisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </RenormalisationScale>
+                </subprocess>
+                <subprocess cutset_id="7">
+                    <notation>U,s -> Ne,e,b,B</notation>
+                    <crossSection unit="pb" errorMinus=" 1.8745E-06" errorPlus=" 1.8745E-06"> 2.4758E-03</crossSection>
+                    <FactorisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </FactorisationScale>
+                    <RenormalisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </RenormalisationScale>
+                </subprocess>
+                <subprocess cutset_id="8">
+                    <notation>U,s -> Nm,m,b,B</notation>
+                    <crossSection unit="pb" errorMinus=" 1.8745E-06" errorPlus=" 1.8745E-06"> 2.4757E-03</crossSection>
+                    <FactorisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </FactorisationScale>
+                    <RenormalisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </RenormalisationScale>
+                </subprocess>
+                <subprocess cutset_id="9">
+                    <notation>U,s -> Nl,l,b,B</notation>
+                    <crossSection unit="pb" errorMinus=" 1.8917E-06" errorPlus=" 1.8917E-06"> 2.4732E-03</crossSection>
+                    <FactorisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </FactorisationScale>
+                    <RenormalisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </RenormalisationScale>
+                </subprocess>
+                <subprocess cutset_id="10">
+                    <notation>D,u -> ne,E,b,B</notation>
+                    <crossSection unit="pb" errorMinus=" 2.4256E-04" errorPlus=" 2.4256E-04"> 3.7893E-01</crossSection>
+                    <FactorisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </FactorisationScale>
+                    <RenormalisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </RenormalisationScale>
+                </subprocess>
+                <subprocess cutset_id="11">
+                    <notation>u,D -> ne,E,b,B</notation>
+                    <crossSection unit="pb" errorMinus=" 2.8899E-04" errorPlus=" 2.8899E-04"> 3.7907E-01</crossSection>
+                    <FactorisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </FactorisationScale>
+                    <RenormalisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </RenormalisationScale>
+                </subprocess>
+                <subprocess cutset_id="12">
+                    <notation>D,u -> nm,M,b,B</notation>
+                    <crossSection unit="pb" errorMinus=" 2.4256E-04" errorPlus=" 2.4256E-04"> 3.7893E-01</crossSection>
+                    <FactorisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </FactorisationScale>
+                    <RenormalisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </RenormalisationScale>
+                </subprocess>
+                <subprocess cutset_id="13">
+                    <notation>D,u -> nl,L,b,B</notation>
+                    <crossSection unit="pb" errorMinus=" 2.4233E-04" errorPlus=" 2.4233E-04"> 3.7865E-01</crossSection>
+                    <FactorisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </FactorisationScale>
+                    <RenormalisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </RenormalisationScale>
+                </subprocess>
+                <subprocess cutset_id="14">
+                    <notation>D,c -> ne,E,b,B</notation>
+                    <crossSection unit="pb" errorMinus=" 1.5709E-06" errorPlus=" 1.5709E-06"> 2.1711E-03</crossSection>
+                    <FactorisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </FactorisationScale>
+                    <RenormalisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </RenormalisationScale>
+                </subprocess>
+                <subprocess cutset_id="15">
+                    <notation>D,c -> nm,M,b,B</notation>
+                    <crossSection unit="pb" errorMinus=" 1.5705E-06" errorPlus=" 1.5705E-06"> 2.1711E-03</crossSection>
+                    <FactorisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </FactorisationScale>
+                    <RenormalisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </RenormalisationScale>
+                </subprocess>
+                <subprocess cutset_id="16">
+                    <notation>D,c -> nl,L,b,B</notation>
+                    <crossSection unit="pb" errorMinus=" 1.5581E-06" errorPlus=" 1.5581E-06"> 2.1696E-03</crossSection>
+                    <FactorisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </FactorisationScale>
+                    <RenormalisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </RenormalisationScale>
+                </subprocess>
+                <subprocess cutset_id="17">
+                    <notation>s,U -> Ne,e,b,B</notation>
+                    <crossSection unit="pb" errorMinus=" 1.6434E-06" errorPlus=" 1.6434E-06"> 2.4752E-03</crossSection>
+                    <FactorisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </FactorisationScale>
+                    <RenormalisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </RenormalisationScale>
+                </subprocess>
+                <subprocess cutset_id="18">
+                    <notation>s,U -> Nm,m,b,B</notation>
+                    <crossSection unit="pb" errorMinus=" 1.6424E-06" errorPlus=" 1.6424E-06"> 2.4752E-03</crossSection>
+                    <FactorisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </FactorisationScale>
+                    <RenormalisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </RenormalisationScale>
+                </subprocess>
+                <subprocess cutset_id="19">
+                    <notation>s,U -> Nl,l,b,B</notation>
+                    <crossSection unit="pb" errorMinus=" 1.6412E-06" errorPlus=" 1.6412E-06"> 2.4733E-03</crossSection>
+                    <FactorisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </FactorisationScale>
+                    <RenormalisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </RenormalisationScale>
+                </subprocess>
+                <subprocess cutset_id="20">
+                    <notation>s,C -> Ne,e,b,B</notation>
+                    <crossSection unit="pb" errorMinus=" 1.9530E-05" errorPlus=" 1.9530E-05"> 2.8215E-02</crossSection>
+                    <FactorisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </FactorisationScale>
+                    <RenormalisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </RenormalisationScale>
+                </subprocess>
+                <subprocess cutset_id="21">
+                    <notation>s,C -> Nm,m,b,B</notation>
+                    <crossSection unit="pb" errorMinus=" 1.9532E-05" errorPlus=" 1.9532E-05"> 2.8215E-02</crossSection>
+                    <FactorisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </FactorisationScale>
+                    <RenormalisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </RenormalisationScale>
+                </subprocess>
+                <subprocess cutset_id="22">
+                    <notation>u,D -> nm,M,b,B</notation>
+                    <crossSection unit="pb" errorMinus=" 2.8900E-04" errorPlus=" 2.8900E-04"> 3.7907E-01</crossSection>
+                    <FactorisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </FactorisationScale>
+                    <RenormalisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </RenormalisationScale>
+                </subprocess>
+                <subprocess cutset_id="23">
+                    <notation>s,C -> Nl,l,b,B</notation>
+                    <crossSection unit="pb" errorMinus=" 1.9530E-05" errorPlus=" 1.9530E-05"> 2.8196E-02</crossSection>
+                    <FactorisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </FactorisationScale>
+                    <RenormalisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </RenormalisationScale>
+                </subprocess>
+                <subprocess cutset_id="24">
+                    <notation>c,D -> ne,E,b,B</notation>
+                    <crossSection unit="pb" errorMinus=" 1.7351E-06" errorPlus=" 1.7351E-06"> 2.1726E-03</crossSection>
+                    <FactorisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </FactorisationScale>
+                    <RenormalisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </RenormalisationScale>
+                </subprocess>
+                <subprocess cutset_id="25">
+                    <notation>c,D -> nm,M,b,B</notation>
+                    <crossSection unit="pb" errorMinus=" 1.7353E-06" errorPlus=" 1.7353E-06"> 2.1726E-03</crossSection>
+                    <FactorisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </FactorisationScale>
+                    <RenormalisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </RenormalisationScale>
+                </subprocess>
+                <subprocess cutset_id="26">
+                    <notation>c,D -> nl,L,b,B</notation>
+                    <crossSection unit="pb" errorMinus=" 1.7374E-06" errorPlus=" 1.7374E-06"> 2.1710E-03</crossSection>
+                    <FactorisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </FactorisationScale>
+                    <RenormalisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </RenormalisationScale>
+                </subprocess>
+                <subprocess cutset_id="27">
+                    <notation>c,S -> ne,E,b,B</notation>
+                    <crossSection unit="pb" errorMinus=" 2.2125E-05" errorPlus=" 2.2125E-05"> 2.8229E-02</crossSection>
+                    <FactorisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </FactorisationScale>
+                    <RenormalisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </RenormalisationScale>
+                </subprocess>
+                <subprocess cutset_id="28">
+                    <notation>c,S -> nm,M,b,B</notation>
+                    <crossSection unit="pb" errorMinus=" 2.2131E-05" errorPlus=" 2.2131E-05"> 2.8229E-02</crossSection>
+                    <FactorisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </FactorisationScale>
+                    <RenormalisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </RenormalisationScale>
+                </subprocess>
+                <subprocess cutset_id="29">
+                    <notation>c,S -> nl,L,b,B</notation>
+                    <crossSection unit="pb" errorMinus=" 2.2137E-05" errorPlus=" 2.2137E-05"> 2.8207E-02</crossSection>
+                    <FactorisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </FactorisationScale>
+                    <RenormalisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </RenormalisationScale>
+                </subprocess>
+                <subprocess cutset_id="30">
+                    <notation>S,u -> ne,E,b,B</notation>
+                    <crossSection unit="pb" errorMinus=" 9.4366E-06" errorPlus=" 9.4366E-06"> 1.4644E-02</crossSection>
+                    <FactorisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </FactorisationScale>
+                    <RenormalisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </RenormalisationScale>
+                </subprocess>
+                <subprocess cutset_id="31">
+                    <notation>S,u -> nm,M,b,B</notation>
+                    <crossSection unit="pb" errorMinus=" 9.4368E-06" errorPlus=" 9.4368E-06"> 1.4644E-02</crossSection>
+                    <FactorisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </FactorisationScale>
+                    <RenormalisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </RenormalisationScale>
+                </subprocess>
+                <subprocess cutset_id="32">
+                    <notation>S,u -> nl,L,b,B</notation>
+                    <crossSection unit="pb" errorMinus=" 9.4308E-06" errorPlus=" 9.4308E-06"> 1.4633E-02</crossSection>
+                    <FactorisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </FactorisationScale>
+                    <RenormalisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </RenormalisationScale>
+                </subprocess>
+                <subprocess cutset_id="33">
+                    <notation>u,D -> nl,L,b,B</notation>
+                    <crossSection unit="pb" errorMinus=" 2.8860E-04" errorPlus=" 2.8860E-04"> 3.7879E-01</crossSection>
+                    <FactorisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </FactorisationScale>
+                    <RenormalisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </RenormalisationScale>
+                </subprocess>
+                <subprocess cutset_id="34">
+                    <notation>S,c -> ne,E,b,B</notation>
+                    <crossSection unit="pb" errorMinus=" 1.9530E-05" errorPlus=" 1.9530E-05"> 2.8215E-02</crossSection>
+                    <FactorisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </FactorisationScale>
+                    <RenormalisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </RenormalisationScale>
+                </subprocess>
+                <subprocess cutset_id="35">
+                    <notation>S,c -> nm,M,b,B</notation>
+                    <crossSection unit="pb" errorMinus=" 1.9532E-05" errorPlus=" 1.9532E-05"> 2.8215E-02</crossSection>
+                    <FactorisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </FactorisationScale>
+                    <RenormalisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </RenormalisationScale>
+                </subprocess>
+                <subprocess cutset_id="36">
+                    <notation>S,c -> nl,L,b,B</notation>
+                    <crossSection unit="pb" errorMinus=" 1.9530E-05" errorPlus=" 1.9530E-05"> 2.8196E-02</crossSection>
+                    <FactorisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </FactorisationScale>
+                    <RenormalisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </RenormalisationScale>
+                </subprocess>
+                <subprocess cutset_id="37">
+                    <notation>C,d -> Ne,e,b,B</notation>
+                    <crossSection unit="pb" errorMinus=" 4.6788E-06" errorPlus=" 4.6788E-06"> 6.3027E-03</crossSection>
+                    <FactorisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </FactorisationScale>
+                    <RenormalisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </RenormalisationScale>
+                </subprocess>
+                <subprocess cutset_id="38">
+                    <notation>C,d -> Nm,m,b,B</notation>
+                    <crossSection unit="pb" errorMinus=" 4.6790E-06" errorPlus=" 4.6790E-06"> 6.3027E-03</crossSection>
+                    <FactorisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </FactorisationScale>
+                    <RenormalisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </RenormalisationScale>
+                </subprocess>
+                <subprocess cutset_id="39">
+                    <notation>C,d -> Nl,l,b,B</notation>
+                    <crossSection unit="pb" errorMinus=" 4.6796E-06" errorPlus=" 4.6796E-06"> 6.2981E-03</crossSection>
+                    <FactorisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </FactorisationScale>
+                    <RenormalisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </RenormalisationScale>
+                </subprocess>
+                <subprocess cutset_id="40">
+                    <notation>C,s -> Ne,e,b,B</notation>
+                    <crossSection unit="pb" errorMinus=" 2.2125E-05" errorPlus=" 2.2125E-05"> 2.8229E-02</crossSection>
+                    <FactorisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </FactorisationScale>
+                    <RenormalisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </RenormalisationScale>
+                </subprocess>
+                <subprocess cutset_id="41">
+                    <notation>C,s -> Nm,m,b,B</notation>
+                    <crossSection unit="pb" errorMinus=" 2.2131E-05" errorPlus=" 2.2131E-05"> 2.8229E-02</crossSection>
+                    <FactorisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </FactorisationScale>
+                    <RenormalisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </RenormalisationScale>
+                </subprocess>
+                <subprocess cutset_id="42">
+                    <notation>C,s -> Nl,l,b,B</notation>
+                    <crossSection unit="pb" errorMinus=" 2.2137E-05" errorPlus=" 2.2137E-05"> 2.8207E-02</crossSection>
+                    <FactorisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </FactorisationScale>
+                    <RenormalisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </RenormalisationScale>
+                </subprocess>
+                <subprocess cutset_id="43">
+                    <notation>u,S -> ne,E,b,B</notation>
+                    <crossSection unit="pb" errorMinus=" 1.0907E-05" errorPlus=" 1.0907E-05"> 1.4651E-02</crossSection>
+                    <FactorisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </FactorisationScale>
+                    <RenormalisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </RenormalisationScale>
+                </subprocess>
+                <subprocess cutset_id="44">
+                    <notation>u,S -> nm,M,b,B</notation>
+                    <crossSection unit="pb" errorMinus=" 1.0904E-05" errorPlus=" 1.0904E-05"> 1.4651E-02</crossSection>
+                    <FactorisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </FactorisationScale>
+                    <RenormalisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </RenormalisationScale>
+                </subprocess>
+                <subprocess cutset_id="45">
+                    <notation>u,S -> nl,L,b,B</notation>
+                    <crossSection unit="pb" errorMinus=" 1.0864E-05" errorPlus=" 1.0864E-05"> 1.4640E-02</crossSection>
+                    <FactorisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </FactorisationScale>
+                    <RenormalisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </RenormalisationScale>
+                </subprocess>
+                <subprocess cutset_id="46">
+                    <notation>d,U -> Ne,e,b,B</notation>
+                    <crossSection unit="pb" errorMinus=" 1.2021E-04" errorPlus=" 1.2021E-04"> 1.8705E-01</crossSection>
+                    <FactorisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </FactorisationScale>
+                    <RenormalisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </RenormalisationScale>
+                </subprocess>
+                <subprocess cutset_id="47">
+                    <notation>d,U -> Nm,m,b,B</notation>
+                    <crossSection unit="pb" errorMinus=" 1.2021E-04" errorPlus=" 1.2021E-04"> 1.8705E-01</crossSection>
+                    <FactorisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </FactorisationScale>
+                    <RenormalisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </RenormalisationScale>
+                </subprocess>
+                <subprocess cutset_id="48">
+                    <notation>d,U -> Nl,l,b,B</notation>
+                    <crossSection unit="pb" errorMinus=" 1.2014E-04" errorPlus=" 1.2014E-04"> 1.8691E-01</crossSection>
+                    <FactorisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </FactorisationScale>
+                    <RenormalisationScale>
+                        <plain>1100</plain>
+                        <Latex></Latex>
+                    </RenormalisationScale>
+                </subprocess>
+            </subprocesses>
+        </process>
+        <model>
+             <name></name>
+             <description></description>
+            <parameters>
+                <parameter>
+                    <name>Sqrt(S)</name>
+                    <value>13000.000000</value>
+                    <notation>
+                        <plain>Sqrt(S)</plain>
+                        <Latex></Latex>
+                    </notation>
+                    <description></description>
+                </parameter>
+                <parameter>
+                    <name>EE</name>
+                    <value>0.313450</value>
+                    <notation>
+                        <plain>EE</plain>
+                        <Latex></Latex>
+                    </notation>
+                    <description></description>
+                </parameter>
+                <parameter>
+                    <name>SW</name>
+                    <value>0.480760</value>
+                    <notation>
+                        <plain>SW</plain>
+                        <Latex></Latex>
+                    </notation>
+                    <description></description>
+                </parameter>
+                <parameter>
+                    <name>s12</name>
+                    <value>0.222900</value>
+                    <notation>
+                        <plain>s12</plain>
+                        <Latex></Latex>
+                    </notation>
+                    <description></description>
+                </parameter>
+                <parameter>
+                    <name>s23</name>
+                    <value>0.041200</value>
+                    <notation>
+                        <plain>s23</plain>
+                        <Latex></Latex>
+                    </notation>
+                    <description></description>
+                </parameter>
+                <parameter>
+                    <name>s13</name>
+                    <value>0.003600</value>
+                    <notation>
+                        <plain>s13</plain>
+                        <Latex></Latex>
+                    </notation>
+                    <description></description>
+                </parameter>
+                <parameter>
+                    <name>MZ</name>
+                    <value>91.187600</value>
+                    <notation>
+                        <plain>MZ</plain>
+                        <Latex></Latex>
+                    </notation>
+                    <description></description>
+                </parameter>
+                <parameter>
+                    <name>wW</name>
+                    <value>2.028146</value>
+                    <notation>
+                        <plain>wW</plain>
+                        <Latex></Latex>
+                    </notation>
+                    <description></description>
+                </parameter>
+                <parameter>
+                    <name>Mm</name>
+                    <value>0.105660</value>
+                    <notation>
+                        <plain>Mm</plain>
+                        <Latex></Latex>
+                    </notation>
+                    <description></description>
+                </parameter>
+                <parameter>
+                    <name>Mtau</name>
+                    <value>1.776990</value>
+                    <notation>
+                        <plain>Mtau</plain>
+                        <Latex></Latex>
+                    </notation>
+                    <description></description>
+                </parameter>
+                <parameter>
+                    <name>Mc</name>
+                    <value>1.650000</value>
+                    <notation>
+                        <plain>Mc</plain>
+                        <Latex></Latex>
+                    </notation>
+                    <description></description>
+                </parameter>
+                <parameter>
+                    <name>Ms</name>
+                    <value>0.117000</value>
+                    <notation>
+                        <plain>Ms</plain>
+                        <Latex></Latex>
+                    </notation>
+                    <description></description>
+                </parameter>
+                <parameter>
+                    <name>Mtop</name>
+                    <value>172.500000</value>
+                    <notation>
+                        <plain>Mtop</plain>
+                        <Latex></Latex>
+                    </notation>
+                    <description></description>
+                </parameter>
+                <parameter>
+                    <name>wtop</name>
+                    <value>1.490000</value>
+                    <notation>
+                        <plain>wtop</plain>
+                        <Latex></Latex>
+                    </notation>
+                    <description></description>
+                </parameter>
+                <parameter>
+                    <name>Mb</name>
+                    <value>4.850000</value>
+                    <notation>
+                        <plain>Mb</plain>
+                        <Latex></Latex>
+                    </notation>
+                    <description></description>
+                </parameter>
+                <parameter>
+                    <name>MWpr</name>
+                    <value>1100.000000</value>
+                    <notation>
+                        <plain>MWpr</plain>
+                        <Latex></Latex>
+                    </notation>
+                    <description></description>
+                </parameter>
+                <parameter>
+                    <name>wWpr</name>
+                    <value>36.866860</value>
+                    <notation>
+                        <plain>wWpr</plain>
+                        <Latex></Latex>
+                    </notation>
+                    <description></description>
+                </parameter>
+                <parameter>
+                    <name>gl</name>
+                    <value>1.000000</value>
+                    <notation>
+                        <plain>gl</plain>
+                        <Latex></Latex>
+                    </notation>
+                    <description></description>
+                </parameter>
+                <parameter>
+                    <name>gr</name>
+                    <value>0.000000</value>
+                    <notation>
+                        <plain>gr</plain>
+                        <Latex></Latex>
+                    </notation>
+                    <description></description>
+                </parameter>
+                <parameter>
+                    <name>CW</name>
+                    <value>0.876852</value>
+                    <notation>
+                        <plain>CW</plain>
+                        <Latex></Latex>
+                    </notation>
+                    <description></description>
+                </parameter>
+                <parameter>
+                    <name>c12</name>
+                    <value>0.974841</value>
+                    <notation>
+                        <plain>c12</plain>
+                        <Latex></Latex>
+                    </notation>
+                    <description></description>
+                </parameter>
+                <parameter>
+                    <name>c23</name>
+                    <value>0.999151</value>
+                    <notation>
+                        <plain>c23</plain>
+                        <Latex></Latex>
+                    </notation>
+                    <description></description>
+                </parameter>
+                <parameter>
+                    <name>c13</name>
+                    <value>0.999994</value>
+                    <notation>
+                        <plain>c13</plain>
+                        <Latex></Latex>
+                    </notation>
+                    <description></description>
+                </parameter>
+                <parameter>
+                    <name>Vud</name>
+                    <value>0.974835</value>
+                    <notation>
+                        <plain>Vud</plain>
+                        <Latex></Latex>
+                    </notation>
+                    <description></description>
+                </parameter>
+                <parameter>
+                    <name>Vus</name>
+                    <value>0.222899</value>
+                    <notation>
+                        <plain>Vus</plain>
+                        <Latex></Latex>
+                    </notation>
+                    <description></description>
+                </parameter>
+                <parameter>
+                    <name>Vcd</name>
+                    <value>-0.222855</value>
+                    <notation>
+                        <plain>Vcd</plain>
+                        <Latex></Latex>
+                    </notation>
+                    <description></description>
+                </parameter>
+                <parameter>
+                    <name>Vcs</name>
+                    <value>0.973981</value>
+                    <notation>
+                        <plain>Vcs</plain>
+                        <Latex></Latex>
+                    </notation>
+                    <description></description>
+                </parameter>
+                <parameter>
+                    <name>Vtb</name>
+                    <value>0.999144</value>
+                    <notation>
+                        <plain>Vtb</plain>
+                        <Latex></Latex>
+                    </notation>
+                    <description></description>
+                </parameter>
+                <parameter>
+                    <name>MW</name>
+                    <value>79.958050</value>
+                    <notation>
+                        <plain>MW</plain>
+                        <Latex></Latex>
+                    </notation>
+                    <description></description>
+                </parameter>
+            </parameters>
+        </model>
+        <cuts>
+            <cutSet cutset_id="1">
+            </cutSet>
+            <cutSet cutset_id="2">
+            </cutSet>
+            <cutSet cutset_id="3">
+            </cutSet>
+            <cutSet cutset_id="4">
+            </cutSet>
+            <cutSet cutset_id="5">
+            </cutSet>
+            <cutSet cutset_id="6">
+            </cutSet>
+            <cutSet cutset_id="7">
+            </cutSet>
+            <cutSet cutset_id="8">
+            </cutSet>
+            <cutSet cutset_id="9">
+            </cutSet>
+            <cutSet cutset_id="10">
+            </cutSet>
+            <cutSet cutset_id="11">
+            </cutSet>
+            <cutSet cutset_id="12">
+            </cutSet>
+            <cutSet cutset_id="13">
+            </cutSet>
+            <cutSet cutset_id="14">
+            </cutSet>
+            <cutSet cutset_id="15">
+            </cutSet>
+            <cutSet cutset_id="16">
+            </cutSet>
+            <cutSet cutset_id="17">
+            </cutSet>
+            <cutSet cutset_id="18">
+            </cutSet>
+            <cutSet cutset_id="19">
+            </cutSet>
+            <cutSet cutset_id="20">
+            </cutSet>
+            <cutSet cutset_id="21">
+            </cutSet>
+            <cutSet cutset_id="22">
+            </cutSet>
+            <cutSet cutset_id="23">
+            </cutSet>
+            <cutSet cutset_id="24">
+            </cutSet>
+            <cutSet cutset_id="25">
+            </cutSet>
+            <cutSet cutset_id="26">
+            </cutSet>
+            <cutSet cutset_id="27">
+            </cutSet>
+            <cutSet cutset_id="28">
+            </cutSet>
+            <cutSet cutset_id="29">
+            </cutSet>
+            <cutSet cutset_id="30">
+            </cutSet>
+            <cutSet cutset_id="31">
+            </cutSet>
+            <cutSet cutset_id="32">
+            </cutSet>
+            <cutSet cutset_id="33">
+            </cutSet>
+            <cutSet cutset_id="34">
+            </cutSet>
+            <cutSet cutset_id="35">
+            </cutSet>
+            <cutSet cutset_id="36">
+            </cutSet>
+            <cutSet cutset_id="37">
+            </cutSet>
+            <cutSet cutset_id="38">
+            </cutSet>
+            <cutSet cutset_id="39">
+            </cutSet>
+            <cutSet cutset_id="40">
+            </cutSet>
+            <cutSet cutset_id="41">
+            </cutSet>
+            <cutSet cutset_id="42">
+            </cutSet>
+            <cutSet cutset_id="43">
+            </cutSet>
+            <cutSet cutset_id="44">
+            </cutSet>
+            <cutSet cutset_id="45">
+            </cutSet>
+            <cutSet cutset_id="46">
+            </cutSet>
+            <cutSet cutset_id="47">
+            </cutSet>
+            <cutSet cutset_id="48">
+            </cutSet>
+        </cuts>
+        <authors>
+            <author>
+                <firstName>Maxim PERFILOV ()</firstName>
+                <lastName>Maxim PERFILOV ()</lastName>
+                <email></email>
+                <experiment></experiment>
+                <group></group>
+                <organization></organization>
+            </author>
+        </authors>
+        <relatedPapers></relatedPapers>
+    </description>
+</samples>
+</header>
