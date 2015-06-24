@@ -1,0 +1,6 @@
+import vector_monoW_model
+generate    p p  > Zp z,     Zp >  ~n1 Xn1
+add process p p  > Zp z j,   Zp >  ~n1 Xn1
+add process p p  > Zp z j j, Zp >  ~n1 Xn1
+output VectorMonoZ_200_150 -nojpeg
+
