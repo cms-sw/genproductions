@@ -50,7 +50,7 @@
 #*********************************************************************
  'lhapdf'    = pdlabel     ! PDF set                                     
 # 263400      = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number
- 292200  = lhaid  
+ 263000  = lhaid  
 #*********************************************************************** 
 # Reweight flags to get scale dependence and PDF uncertainty           *
 # For scale dependence: factor rw_scale_up/down around central scale   *
@@ -62,8 +62,8 @@
 0.5     = rw_Fscale_down   ! lower bound for fact scale variations
 2.0     = rw_Fscale_up     ! upper bound for fact scale variations
 .true.  = reweight_PDF     ! reweight to get PDF uncertainty
-292201   = PDF_set_min      ! First of the error PDF sets 
-292302   = PDF_set_max      ! Last of the error PDF sets             
+263001   = PDF_set_min      ! First of the error PDF sets 
+263002   = PDF_set_max      ! Last of the error PDF sets             
              
 #*********************************************************************
 # Renormalization and factorization scales                           *
