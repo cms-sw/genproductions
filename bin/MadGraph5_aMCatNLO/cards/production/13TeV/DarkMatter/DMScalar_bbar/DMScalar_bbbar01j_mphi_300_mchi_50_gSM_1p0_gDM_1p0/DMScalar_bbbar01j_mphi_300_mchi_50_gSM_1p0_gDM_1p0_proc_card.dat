@@ -1,4 +1,4 @@
-************************************************************
+#************************************************************
 #*                        MadGraph 5                        *
 #*                                                          *
 #*                *                       *                 *
@@ -18,7 +18,7 @@
 #*     run as ./bin/mg5  filename                           *
 #*                                                          *
 #************************************************************
-import model DMScalar_bbbar01j_gSM_1p0_gDM_1p0
+import model DMScalar_bbbar01j_mphi_300_mchi_50_gSM_1p0_gDM_1p0
 # Define multiparticle labels
 define p = g u c d s u~ c~ d~ s~
 define j = g u c d s u~ c~ d~ s~
@@ -33,6 +33,10 @@ generate p p > b b~ chi chi~ @0
 add process  p p > b b~ chi chi~ j @1
 #add process  p p > b b~ chi chi~ j j @2 
 # KH, phim is implicit.  MadSpin chokes if explicit
+
+#generate p p > t t~ phim, (phim > chi chi~) @0
+#add process p p > t t~ phim j, (phim > chi chi~) @1
+#add process p p > t t~ phim j j, (phim > chi chi~) @2
 
 
 # Output processes to MadEvent directory
