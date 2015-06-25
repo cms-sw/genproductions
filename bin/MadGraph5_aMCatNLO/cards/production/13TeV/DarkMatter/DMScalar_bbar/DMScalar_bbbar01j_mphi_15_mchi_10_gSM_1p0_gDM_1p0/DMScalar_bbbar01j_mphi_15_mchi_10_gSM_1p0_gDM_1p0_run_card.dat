@@ -30,7 +30,7 @@
 # If you want to run Pythia, avoid more than 50k events in a run.    *
 #*********************************************************************
   1000 = nevents ! Number of unweighted events requested 
-      11242       = iseed   ! rnd seed (0=assigned automatically=default))
+      3886       = iseed   ! rnd seed (0=assigned automatically=default))
 #*********************************************************************
 # Collider type and energy                                           *
 # lpp: 0=No PDF, 1=proton, -1=antiproton, 2=photon from proton,      *
@@ -50,7 +50,9 @@
 #*********************************************************************
 # 'nn23lo1'    = pdlabel     ! PDF set                                     
  'lhapdf'    = pdlabel     ! PDF set                                     
- 263000      = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number
+# 263000      = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number
+# bb
+ 262400      = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number
 #*********************************************************************
 # Renormalization and factorization scales                           *
 #*********************************************************************
@@ -69,7 +71,7 @@
  1        = alpsfact         ! scale factor for QCD emission vx
  F        = chcluster        ! cluster only according to channel diag
  F        = pdfwgt           ! for ickkw=1, perform pdf reweighting
- 5        = asrwgtflavor     ! highest quark flavor for a_s reweight
+ 4        = asrwgtflavor     ! highest quark flavor for a_s reweight
  T        = clusinfo         ! include clustering tag in output
  3.0      = lhe_version       ! Change the way clustering information pass to shower.        
 #*********************************************************************
@@ -253,7 +255,7 @@
 # maximal pdg code for quark to be considered as a light jet         *
 # (otherwise b cuts are applied)                                     *
 #*********************************************************************
- 5 = maxjetflavor    ! Maximum jet pdg code
+ 4 = maxjetflavor    ! Maximum jet pdg code
 #*********************************************************************
 # Jet measure cuts                                                   *
 #*********************************************************************
