@@ -49,7 +49,7 @@
 # PDF CHOICE: this automatically fixes also alpha_s and its evol.    *
 #*********************************************************************
  'lhapdf'    = pdlabel     ! PDF set                                     
-  263400     = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number
+  263000     = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number
 #*********************************************************************
 # Renormalization and factorization scales                           *
 #*********************************************************************
@@ -252,7 +252,7 @@
 # maximal pdg code for quark to be considered as a light jet         *
 # (otherwise b cuts are applied)                                     *
 #*********************************************************************
- 4 = maxjetflavor    ! Maximum jet pdg code
+ 5 = maxjetflavor    ! Maximum jet pdg code
 #*********************************************************************
 # Jet measure cuts                                                   *
 #*********************************************************************
