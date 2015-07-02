@@ -508,23 +508,52 @@ def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag) :
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
 def createTarBall(parstage, folderName, prcName, keepTop) :
-    print 'Creating tarball distribution for ' + args.folderName + '_' + prcName
+    print 'Creating tarball distribution for '+args.folderName+'_'+prcName+'.tgz'
     print
 
     runCommand('cd ' + rootfolder)
     runCommand('rm -rf ' + folderName + '_' + prcName + '.tgz')
 
     runCommand('cp -p ' + rootfolder + '/run_pwg.py ' + rootfolder + '/' + folderName + '/.')
-    runCommand('cp -p ' + rootfolder + '/runcmsgrid*.sh ' + rootfolder + '/' + folderName + '/.')
+
+    runCommand('cp -p '+folderName+'/pwggrid-0001.dat '+folderName+'/pwggrid.dat') # for passing runcmsgrid.sh check
+    runCommand('cp -p '+folderName+'/pwg-0001-stat.dat '+folderName+'/pwg-stat.dat')
+
+    if not 'NEVENTS' in open(folderName+'/powheg.input').read():
+        runCommand('sed -i "s/^numevts.*/numevts NEVENTS/g" '+folderName+'/powheg.input')
+    if not 'SEED' in open(folderName+'/powheg.input').read():
+        runCommand('sed -i "s/iseed.*/iseed SEED/g" '+folderName+'/powheg.input')
+
+    if not 'manyseeds' in open(folderName+'/powheg.input').read():
+        runCommand('echo "manyseeds 1" >> '+folderName+'/powheg.input')
+    if not 'parallelstage' in open(folderName+'/powheg.input').read():
+        runCommand('echo "parallelstage 4" >> '+folderName+'/powheg.input')
+    if not 'xgriditeration' in open(folderName+'/powheg.input').read():
+        runCommand('echo "xgriditeration 1" >> '+folderName+'/powheg.input')
+
+    # turn into single run mode
+    runCommand('sed -i "s/^manyseeds.*/#manyseeds 1/g" '+folderName+'/powheg.input')
+    runCommand('sed -i "s/^parallelstage.*/#parallelstage 4/g" '+folderName+'/powheg.input')
+    runCommand('sed -i "s/^xgriditeration/#xgriditeration 1/g" '+folderName+'powheg.input')
+
+    if os.path.exists('JHUGen.input') :
+        runCommand('sed -e "s/PROCESS/'+prcName+'/g" runcmsgrid_powhegjhugen.sh > '+folderName+'/runcmsgrid.sh')
+    else :
+        runCommand('sed -e "s/PROCESS/'+prcName+'/g" runcmsgrid_powheg.sh > '+folderName+'/runcmsgrid.sh')
+
+    runCommand("sed -i 's/pwggrid.dat ]]/pwggrid.dat ]] || [ -e \${WORKDIR}\/pwggrid-0001.dat ]/g' "+folderName+"/runcmsgrid.sh")
+
+    runCommand("chmod 755 "+folderName+"/runcmsgrid.sh")
 
     if keepTop == '1' :
       print 'Keeping validation plots.'
-      print
+      print 'Packing...'
       runCommand('tar zcvf ' + rootfolder + '/' + folderName + '_' + prcName + '.tgz ' + folderName +' --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.lhe --exclude=run_*.sh --exclude=*.log --exclude=*temp', printIt = False)
     else :
+      print 'Packing...'
       runCommand('tar zcvf ' + rootfolder + '/' + folderName + '_' + prcName + '.tgz ' + folderName +' --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.top --exclude=*.lhe --exclude=run_*.sh --exclude=*.log --exclude=*temp', printIt = False)
 
-    print
+    #print
     print 'Done.'
 
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
@@ -640,6 +669,9 @@ if __name__ == "__main__":
         runSingleXgrid(args.parstage, args.xgrid, args.folderName,
                        args.numEvents, powInputName, args.rndSeed)
     elif args.parstage == '9' :
+        # overwriting with original
+        os.system('cp -p '+args.inputTemplate+' '+
+                  args.folderName+'/powheg.input')
         createTarBall(args.parstage, args.folderName, args.prcName,
                       args.keepTop)
     else                    :
