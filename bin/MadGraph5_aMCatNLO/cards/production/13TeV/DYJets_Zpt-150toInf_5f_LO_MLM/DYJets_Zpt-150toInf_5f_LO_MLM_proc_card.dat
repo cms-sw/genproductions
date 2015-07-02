@@ -40,8 +40,5 @@ add process p p > l+ l- j j / h @2
 add process p p > l+ l- j j j / h @3
 add process p p > l+ l- j j j j / h @4
 # Output processes to MadEvent directory
-<<<<<<< HEAD
 output DYJets_Zpt-150toInf_5f_LO_MLM -nojpeg
-=======
-output DYJets_Zpt-150toInf -nojpeg
->>>>>>> 17d8c2b576b36e0783307fd4d839b793f995862d
+
