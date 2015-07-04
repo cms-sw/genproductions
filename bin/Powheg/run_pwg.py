@@ -111,7 +111,7 @@ def runParallelXgrid(parstage, xgrid, folderName, nEvents, njobs, powInputName, 
 
     inputName = folderName + "/powheg.input"
 
-    sedcommand = 'sed -i "s/NEVENTS/' + nEvents + '/ ; s/SEED/'+rndSeed+'/ ; s/parallelstage.*/parallelstage '+parstage+'/ ; s/xgriditeration.*/xgriditeration '+xgrid+'/ ; s/fakevirt.*// " '+inputName
+    sedcommand = 'sed -i "s/NEVENTS/' + nEvents + '/ ; s/SEED/'+rndSeed+'/ ; s/.parallelstage.*/parallelstage '+parstage+'/ ; s/.xgriditeration.*/xgriditeration '+xgrid+'/ ; s/.manyseeds.*/manyseeds 1/ ; s/fakevirt.*// " '+inputName
 
     #print sedcommand
     runCommand(sedcommand)
@@ -267,16 +267,23 @@ if [[ -s ./JHUGen.input ]]; then
 fi
 
 ### retrieve the powheg source tar ball
-export POWHEGSRC=powhegboxV2_Feb2015.tar.gz
+export POWHEGSRC=powhegboxV2_Jun2015.tar.gz 
 
 echo 'D/L POWHEG source...'
 
 if [ ! -f ${POWHEGSRC} ]; then
-  wget --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/${SCRAM_ARCH}/powheg/V2.0/src/powhegboxV2_Feb2015.tar.gz || fail_exit "Failed to get powheg tar ball "
+  wget --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/${SCRAM_ARCH}/powheg/V2.0/src/${POWHEGSRC} || fail_exit "Failed to get powheg tar ball "
 fi
 
 tar zxf ${POWHEGSRC}
 #
+
+if [ -e POWHEG-BOX/${process}.tgz ]; then
+  cd POWHEG-BOX/
+  tar xvf ${process}.tgz
+  cd -
+fi
+
 patch -l -p0 -i ${WORKDIR}/patches/pdfweights.patch
 cd POWHEG-BOX/${process}
 
