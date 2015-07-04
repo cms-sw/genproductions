@@ -426,7 +426,7 @@ fi
 #export LHAPDF_DATA_PATH=`${myDir}/lhapdf-config --datadir`
 #../pwhg_main &> log_${process}_${seed}.txt
 
-cp -p ../runcms*.sh .
+#cp -p ../runcms*.sh .
 
 cd ${WORKDIR}
 
@@ -551,6 +551,28 @@ def createTarBall(parstage, folderName, prcName, keepTop) :
     runCommand("sed -i 's/pwggrid.dat ]]/pwggrid.dat ]] || [ -e \${WORKDIR}\/pwggrid-0001.dat ]/g' "+folderName+"/runcmsgrid.sh")
 
     runCommand("chmod 755 "+folderName+"/runcmsgrid.sh")
+
+    my_par = open(folderName+"/runcmsgrid_par.sh", 'w')
+    m_content = open(folderName+"/runcmsgrid.sh").read().replace("../pwhg_main &>> reweightlog_${process}_${seed}.txt",
+                                                                 '''cat <<EOF | ../pwhg_main &>> reweightlog_${process}_${seed}.txt
+${seed}
+pwgevents.lhe
+EOF
+''')
+    my_par.write(m_content)
+    my_par.close()
+
+    runCommand("sed -i 's/# Check if /sed -i \"s#.manyseeds.*#manyseeds 1#g\" powheg.input\\n# Check if /g' "+folderName+"/runcmsgrid_par.sh")
+    runCommand("sed -i 's/# Check if /sed -i \"s#.parallelstage.*#parallelstage 4#g\" powheg.input\\n# Check if /g' "+folderName+"/runcmsgrid_par.sh")
+    runCommand("sed -i 's/# Check if /sed -i \"s#.xgriditeration.*#xgriditeration 1#g\" powheg.input\\n\\n# Check if /g' "+folderName+"/runcmsgrid_par.sh")
+
+    runCommand("sed -i 's/^..\/pwhg_main/echo \${seed} | ..\/pwhg_main/g' "+folderName+"/runcmsgrid_par.sh")
+
+    runCommand("sed -i 's/\.lhe/\${idx}.lhe/g' "+folderName+"/runcmsgrid_par.sh")
+
+    runCommand('sed -i "s/^process/idx=-\`echo \${seed} | awk \'{printf \\"%04d\\", \$1}\'\` \\nprocess/g" '+folderName+"/runcmsgrid_par.sh")
+
+    runCommand("chmod 755 "+folderName+"/runcmsgrid_par.sh")
 
     if keepTop == '1' :
       print 'Keeping validation plots.'
