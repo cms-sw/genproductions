@@ -39,4 +39,4 @@ define j = j b b~
 define tt = t t~
 define ww = w+ w-
 generate p p > x0 tt ww
-output /storage/jbod/bmaier/Run-II/tWH/superfinal_5fs_LO
+output thw_5f_ckm_LO
