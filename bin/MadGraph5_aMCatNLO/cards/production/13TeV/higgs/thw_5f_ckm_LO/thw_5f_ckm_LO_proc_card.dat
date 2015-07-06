@@ -39,4 +39,4 @@ define j = j b b~
 define tt = t t~
 define ww = w+ w-
 generate p p > x0 tt ww
-output thw_5f_ckm_LO
+output thw_5f_ckm_LO -nojpeg
