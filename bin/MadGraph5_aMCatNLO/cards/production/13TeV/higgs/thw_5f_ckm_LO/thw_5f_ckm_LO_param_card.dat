@@ -1,13 +1,13 @@
 ######################################################################
-##  Process generated with '-default' model restrictions            ##
-##  4F scheme (MB>0)                                                ##
+##  Process generated with '-no_b_mass' model restrictions          ##
+##  5F scheme (MB=0)                                                ##
 ##  no gluon fusion                                                 ##
 ##                                                                  ##
 ##  NB: Please check that before generating this process,           ##
 ##  you have correctly set the content of the multiparticles        ##
 ##  'p' (proton) and 'j' (jet) inside MG5_aMC,                      ##
 ##  accordingly to the massless flavour scheme                      ##
-##  4F: p, j = g d d~ u u~ s s~ c c~                                ##
+##  5F: p, j = g d d~ u u~ s s~ c c~ b b~                           ##
 ######################################################################
 
 ###################################
@@ -19,8 +19,6 @@ Block frblock
     3 1.000000e+00 # kSM 
     4 1.000000e+00 # kHtt 
     5 1.000000e+00 # kAtt 
-    6 1.000000e+00 # kHbb
-    7 1.000000e+00 # hAbb
     8 1.000000e+00 # kHll 
     9 1.000000e+00 # kAll 
    10 1.000000e+00 # kHaa 
@@ -43,15 +41,6 @@ Block loop
   1 9.118800e+01 # MU_R
 
 ###################################
-## INFORMATION FOR WOLFENSTEIN
-###################################
-Block Wolfenstein
-    1 2.253000e-01 # lamWS
-    2 0.000000e+00 # AWS
-    3 1.320000e-01 # rhoWS
-    4 3.410000e-01 # etaWS
-
-###################################
 ## INFORMATION FOR SMINPUTS
 ###################################
 Block SMINPUTS 
@@ -62,11 +51,8 @@ Block SMINPUTS
 ###################################
 ## INFORMATION FOR MASS
 ###################################
-Block MASS
-    5 4.700000e+00 # MB  
+Block MASS  
     6 1.725000e+02 # MT 
-   11 0.000511e+00 # Me
-   13 0.105660e+00 # MM
    15 1.777000e+00 # MTA 
    23 9.118800e+01 # MZ 
    25 1.250000e+02 # MX0 
@@ -79,9 +65,10 @@ Block MASS
   2 0.000000 # u : 0.0 
   3 0.000000 # s : 0.0 
   4 0.000000 # c : 0.0 
-##  11 0.000000 # e- : 0.0 
+  5 0.000000 # b : 0.0 
+  11 0.000000 # e- : 0.0 
   12 0.000000 # ve : 0.0 
-##  13 0.000000 # mu- : 0.0 
+  13 0.000000 # mu- : 0.0 
   14 0.000000 # vm : 0.0 
   16 0.000000 # vt : 0.0 
   21 0.000000 # g : 0.0 
@@ -93,19 +80,25 @@ Block MASS
 ## INFORMATION FOR YUKAWA
 ###################################
 Block YUKAWA 
-    5 4.700000e+00 # ymb
     6 -1.725000e+02 # ymt 
-   11 0.000000e+00 # yme
-   13 0.000000e+00 # ymmuon
    15 1.777000e+00 # ymtau 
 
 ###################################
-## INFORMATION FOR DECAY
+## INFORMATION FOR WOLFENSTEIN
 ###################################
-DECAY   6 1.491500e+00 # WT 
-DECAY  23 2.441404e+00 # WZ 
-DECAY  24 2.047600e+00 # WW 
-DECAY  25 4.070000e-03 # WX0 
+Block Wolfenstein
+    1 2.253000e-01 # lamWS
+    2 0.000000e+00 # AWS
+    3 1.320000e-01 # rhoWS
+    4 3.410000e-01 # etaWS
+
+###################################
+## INFORMATION FOR DECAY 
+###################################
+DECAY   6 1.491500e+00 	# top width
+DECAY  23 2.441404e+00  # Z width
+DECAY  24 2.047600e+00 	# W width
+DECAY  25 4.070000e-03  # X0 width
 ## Dependent parameters, given by model restrictions.
 ## Those values should be edited following the 
 ## analytical expression. MG5 ignores those values 
