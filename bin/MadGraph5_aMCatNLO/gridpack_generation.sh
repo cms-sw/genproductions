@@ -148,6 +148,11 @@ TGAMMASOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$
 EFFDM=EffDM_222_restricted.tar
 EFFDMSOURCE=/afs/cern.ch/cms/generators/www/
 
+# 2HDM model, needed for the charged Higgs analysis
+CHMODEL=2HDMtypeII.tar.gz
+CHSOURCE=/afs/cern.ch/cms/generators/www/
+
+
 MGBASEDIRORIG=MG5_aMC_v2_2_2
 
 isscratchspace=0
@@ -308,6 +313,12 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   cp ${EFFDMSOURCE}/${EFFDM} .
   cd models
   tar xvf ../${EFFDM}
+  cd ..
+
+  # get ttDM model
+  cp ${CHSOURCE}/${CHMODEL} .
+  cd models
+  tar xvf ../${CHMODEL}
   cd ..
 
   
