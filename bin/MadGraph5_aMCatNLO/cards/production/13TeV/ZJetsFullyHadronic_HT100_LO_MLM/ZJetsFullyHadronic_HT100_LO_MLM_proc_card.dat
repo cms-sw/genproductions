@@ -32,4 +32,4 @@ add process p p > z j j  , z > qz qz / h @1
 add process p p > z j j j , z > qz qz / h @2
 add process p p > z j j j j , z > qz qz / h @3
 # Output processes to MadEvent directory
-output ZJetsFullyHadronic_HT100 -nojpeg
+output ZJetsFullyHadronic_HT100_LO_MLM -nojpeg
