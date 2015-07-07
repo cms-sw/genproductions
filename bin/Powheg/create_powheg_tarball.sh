@@ -108,7 +108,6 @@ wget --no-check-certificate http://cms-project-generators.web.cern.ch/cms-projec
 tar xzf ${name}.tar.gz
 #
 patch -l -p0 -i ${WORKDIR}/patches/pdfweights.patch
-tar xzf ${process}.tar.gz
 cd POWHEG-BOX/${process}
 
 # This is just to please gcc 4.8.1
