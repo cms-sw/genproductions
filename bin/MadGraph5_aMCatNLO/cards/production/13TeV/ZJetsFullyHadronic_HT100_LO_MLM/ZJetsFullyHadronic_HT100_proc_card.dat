@@ -30,5 +30,6 @@ define qz = u c s d b u~ c~ s~ d~ b~
 generate p p > z j  , z > qz qz / h @0
 add process p p > z j j  , z > qz qz / h @1
 add process p p > z j j j , z > qz qz / h @2
+add process p p > z j j j j , z > qz qz / h @3
 # Output processes to MadEvent directory
 output ZJetsFullyHadronic_HT100 -nojpeg
