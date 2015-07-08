@@ -85,7 +85,7 @@
 #**********************************
 # BW cutoff (M+/-bwcutoff*Gamma)
 #**********************************
-  15.0  = bwcutoff      ! (M+/-bwcutoff*Gamma)
+  40.0  = bwcutoff      ! (M+/-bwcutoff*Gamma)
 #**********************************************************
 # Apply pt/E/eta/dr/mij cuts on decay products or not
 # (note that etmiss/ptll/ptheavy/ht/sorted cuts always apply)
