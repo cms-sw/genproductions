@@ -44,15 +44,6 @@ output
 # To generate events, you can go to the created directory and 
 # run ./bin/generate_events
 
-launch
-
-madspin=ON
-shower=OFF
-
-set nevents 10000
 set mhc 200
-set iseed 518
-set ebeam1 6500
-set ebeam2 6500
 
 output ChargedHiggs_heavy -nojpeg
