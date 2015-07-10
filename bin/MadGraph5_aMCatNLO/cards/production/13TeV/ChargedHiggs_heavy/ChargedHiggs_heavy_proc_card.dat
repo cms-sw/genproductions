@@ -33,8 +33,6 @@ define vl~ = ve~ vm~ vt~
 #add process p p > t t~ @3
 generate p p > t~ b h+ [QCD]
 
-set lhapdf /afs/cern.ch/user/e/epekkari/programs/LHAPDF-6.1.5/lhapdf-config
-
 # Output processes to MadEvent directory
 output
 # This will create a directory PROC_$MODELNAME_$X
