@@ -191,8 +191,8 @@
 #*********************************************************************
 # Control the pt's of the jets sorted by pt                          *
 #*********************************************************************
- 50   = ptj1min ! minimum pt for the leading jet in pt
- 30   = ptj2min ! minimum pt for the second jet in pt
+ 70   = ptj1min ! minimum pt for the leading jet in pt
+ 50   = ptj2min ! minimum pt for the second jet in pt
  0   = ptj3min ! minimum pt for the third jet in pt
  0   = ptj4min ! minimum pt for the fourth jet in pt
  1d5  = ptj1max ! maximum pt for the leading jet in pt 
@@ -214,7 +214,7 @@
 #*********************************************************************
 # Control the Ht(k)=Sum of k leading jets                            *
 #*********************************************************************
- 100  = htjmin ! minimum jet HT=Sum(jet pt)
+ 180  = htjmin ! minimum jet HT=Sum(jet pt)
  1d5 = htjmax ! maximum jet HT=Sum(jet pt)
  0   = ihtmin  !inclusive Ht for all partons (including b)
  1d5 = ihtmax  !inclusive Ht for all partons (including b)
