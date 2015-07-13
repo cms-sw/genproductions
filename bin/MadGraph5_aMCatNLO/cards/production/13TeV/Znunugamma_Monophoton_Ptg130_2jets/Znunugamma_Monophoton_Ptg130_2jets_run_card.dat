@@ -49,7 +49,7 @@
 # PDF CHOICE: this automatically fixes also alpha_s and its evol.    *
 #*********************************************************************
   'lhapdf'	=  pdlabel      ! PDF set                                     
-   263400	=  lhaid      ! if pdlabel=lhapdf, this is the lhapdf number
+   263000	=  lhaid      ! if pdlabel=lhapdf, this is the lhapdf number
 #*********************************************************************
 # Renormalization and factorization scales                           *
 #*********************************************************************
@@ -62,12 +62,12 @@
 #*********************************************************************
 # Matching - Warning! ickkw > 1 is still beta
 #*********************************************************************
-  0	=  ickkw             ! 0 no matching, 1 MLM, 2 CKKW matching
+  1	=  ickkw             ! 0 no matching, 1 MLM, 2 CKKW matching
   1	=  highestmult       ! for ickkw=2, highest mult group
   1	=  ktscheme          ! for ickkw=1, 1 Durham kT, 2 Pythia pTE
   1	=  alpsfact          ! scale factor for QCD emission vx
   F	=  chcluster         ! cluster only according to channel diag
-  T	=  pdfwgt            ! for ickkw=1, perform pdf reweighting
+  F	=  pdfwgt            ! for ickkw=1, perform pdf reweighting
   5	=  asrwgtflavor      ! highest quark flavor for a_s reweight
   T	=  clusinfo          ! include clustering tag in output
   3.0	=  lhe_version        ! Change the way clustering information pass to shower.        
@@ -78,7 +78,7 @@
 # Automatic ptj and mjj cuts if xqcut > 0
 # (turn off for VBF and single top processes)
 #**********************************************************
-  T	=  auto_ptj_mjj   ! Automatic setting of ptj and mjj
+  F	=  auto_ptj_mjj   ! Automatic setting of ptj and mjj
 #**********************************************************
 #                                                                    
 #**********************************
@@ -89,7 +89,7 @@
 # Apply pt/E/eta/dr/mij cuts on decay products or not
 # (note that etmiss/ptll/ptheavy/ht/sorted cuts always apply)
 #**********************************************************
-  T	=  cut_decays     ! Cut decay products 
+  F	=  cut_decays     ! Cut decay products 
 #*************************************************************
 # Number of helicities to sum per event (0 = all helicities)
 # 0 gives more stable result, but longer run time (needed for
@@ -265,7 +265,7 @@
 #          meaningful ONLY if plotted taking matchscale              *
 #          reweighting into account!                                 *
 #*********************************************************************
-  F	=  use_syst       ! Enable systematics studies
+ T	=  use_syst       ! Enable systematics studies
 #
 #**************************************
 # Parameter of the systematics study
