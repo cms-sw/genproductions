@@ -15,5 +15,5 @@ define WW = w+ w-
 define tt = t t~
 define ferm = vl~ vl u c d s b u~ c~ d~ s~ b~ e- mu- ta- e+ mu+ ta+
 define sb13 = b13 b13~
-generate p p > jet tt sb13 /h, ( sb13 > H bb )
+generate p p > jet tt sb13 /h,  sb13 > H bb, (tt > WW bb, WW > ferm ferm )
 output Bpt_M1600GeV_W16GeV_Hb_RH
