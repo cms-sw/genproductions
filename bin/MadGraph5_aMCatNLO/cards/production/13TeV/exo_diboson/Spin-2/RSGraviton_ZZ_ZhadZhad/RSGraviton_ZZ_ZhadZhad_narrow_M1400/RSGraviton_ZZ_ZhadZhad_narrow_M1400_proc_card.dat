@@ -1,0 +1,9 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set gauge unitary
+set complex_mass_scheme False
+import model RS
+define q = u c d s b u~ c~ d~ s~ b~
+generate p p > y, ( y > z z, z > q q)
+output RSGraviton_ZZ_ZhadZhad_narrow_M1400 -nojpeg
+
