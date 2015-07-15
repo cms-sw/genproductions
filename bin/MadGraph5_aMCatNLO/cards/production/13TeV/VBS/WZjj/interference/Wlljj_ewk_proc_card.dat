@@ -33,6 +33,6 @@ define l- = e- mu- ta-
 define vl = ve vm vt
 define vl~ = ve~ vm~ vt~
 
-generate    p p > w+ z j j QED=2 QCD=99, w+ > l+ vl, z > l+ l- @ 1
-add process p p > w- z j j QED=2 QCD=99, w- > l- vl~, z > l+ l- @ 2
-output WZjj_qcd
+generate    p p > w+ l+ l- j j QED=5 QCD=0, w+ > l+ vl  @ 1
+add process p p > w- l+ l- j j QED=5 QCD=0, w- > l- vl~  @ 2
+output Wlljj_ewk
