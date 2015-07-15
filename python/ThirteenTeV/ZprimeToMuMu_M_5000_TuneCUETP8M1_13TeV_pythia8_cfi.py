@@ -23,8 +23,8 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
                         '32:onMode = off', # switch off all of the Z' decay
                         '32:onIfAny = 13', # switch on the Z'->mu-mu+
                 ),
-                parameterSets = cms.vstring('pythia8CommonSettingsBlock',
-                                            'pythia8CUEP8M1SettingsBlock',
+                parameterSets = cms.vstring('pythia8CommonSettings',
+                                            'pythia8CUEP8M1Settings',
                                             'processParameters')
               )
 )
