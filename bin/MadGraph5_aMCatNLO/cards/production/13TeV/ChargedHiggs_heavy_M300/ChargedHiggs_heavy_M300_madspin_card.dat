@@ -24,6 +24,7 @@ set ms_dir ./madspingrid
 set max_running_process 1
 
 decay h+ > ta+ vt
+decay t~ > w- b~
 
 # running the actual code
 launch

@@ -34,7 +34,7 @@ define vl~ = ve~ vm~ vt~
 generate p p > t t~ [QCD]
 
 # Output processes to MadEvent directory
-output
+# output
 # This will create a directory PROC_$MODELNAME_$X
 # If you want to specify the path/name of the directory use
 # output PATH
