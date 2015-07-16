@@ -1,0 +1,18 @@
+import model sm-ckm_no_b_mass
+#switch to non-diagonal ckm matrix for speed
+#import model sm-lepton_masses_no_b_mass
+
+define p = p b b~
+define j = j b b~
+
+generate p p > t j $$ w+ w- @0
+add process p p > t j j $$ w+ w- @1
+add process p p > t j j j $$ w+ w- @2
+add process p p > t j j j j $$ w+ w- @3
+add process p p > t~ j $$ w+ w- @4
+add process p p > t~ j j $$ w+ w- @5
+add process p p > t~ j j j $$ w+ w- @6
+add process p p > t~ j j j j $$ w+ w- @7
+
+output st_tch_5f_ckm_LO_MLM -nojpeg
+
