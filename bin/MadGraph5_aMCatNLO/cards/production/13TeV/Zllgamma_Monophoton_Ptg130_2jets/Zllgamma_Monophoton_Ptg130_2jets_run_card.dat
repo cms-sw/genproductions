@@ -107,7 +107,7 @@
   10	=  ptj        ! minimum pt for the jets 
   0	=  ptb        ! minimum pt for the b 
   130	=  pta        ! minimum pt for the photons 
-  10	=  ptl        ! minimum pt for the charged leptons 
+  0	=  ptl        ! minimum pt for the charged leptons 
   0	=  misset     ! minimum missing Et (sum of neutrino's momenta)
   0	=  ptheavy    ! minimum pt for one heavy final state
   1.0	=  ptonium    ! minimum pt for the quarkonium states
@@ -133,7 +133,7 @@
   5	=  etaj     ! max rap for the jets 
   -1	=  etab     ! max rap for the b
   3.5	=  etaa     ! max rap for the photons 
-  2.5	=  etal     ! max rap for the charged leptons 
+  0.0	=  etal     ! max rap for the charged leptons 
   0.6	=  etaonium  ! max rap for the quarkonium states
   0	=  etajmin  ! min rap for the jets
   0	=  etabmin  ! min rap for the b
@@ -252,7 +252,7 @@
 # maximal pdg code for quark to be considered as a light jet         *
 # (otherwise b cuts are applied)                                     *
 #*********************************************************************
-  4	=  maxjetflavor     ! Maximum jet pdg code
+  5	=  maxjetflavor     ! Maximum jet pdg code
 #*********************************************************************
 # Jet measure cuts                                                   *
 #*********************************************************************
