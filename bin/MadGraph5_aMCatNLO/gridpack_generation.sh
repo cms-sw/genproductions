@@ -152,6 +152,9 @@ EFFDMSOURCE=/afs/cern.ch/cms/generators/www/
 CHMODEL=2HDMtypeII.tar.gz
 CHSOURCE=/afs/cern.ch/cms/generators/www/
 
+# Model for EWK DM model
+EWKDMMODEL=EWModel_FermionDM_UFO.tar
+EWKDMSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${EWKDMMODEL}
 
 MGBASEDIRORIG=MG5_aMC_v2_2_2
 
@@ -321,7 +324,12 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   tar xvf ../${CHMODEL}
   cd ..
 
-  
+  #get EWK DM model
+  wget --no-check-certificate -O ${EWKDMMODEL} ${EWKDMSOURCE}
+  cd models
+  tar  -xf ../${EWKDMMODEL}
+  cd ..
+
   cd $WORKDIR
   
   if [ "$name" == "interactive" ]; then
