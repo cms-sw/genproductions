@@ -52,7 +52,7 @@ fi
 
 
 #________________________________________
-# to be set for user spesific
+# to be set for user specific
 # Release to be used to define the environment and the compiler needed
 
 #For correct running you should place at least the run and proc card in a folder under the name "cards" in the same folder where you are going to run the script
@@ -158,6 +158,10 @@ EWKDMSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${
 
 MGBASEDIRORIG=MG5_aMC_v2_2_2
 
+#activate this to avoid thousands of mails from CERN LSF
+LSFMAIL=no
+#LSFMAIL=yes
+
 isscratchspace=0
 
 if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
@@ -230,8 +234,8 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
       echo "set run_mode  1" >> mgconfigscript
       echo "set cluster_type lsf" >> mgconfigscript
       echo "set cluster_queue $queue" >> mgconfigscript
-      echo "set cluster_status_update 60 30" >> mgconfigscript
-      echo "set cluster_nb_retry 5" >> mgconfigscript
+      echo "set cluster_status_update 300 30" >> mgconfigscript
+      echo "set cluster_nb_retry 3" >> mgconfigscript
       echo "set cluster_retry_wait 300" >> mgconfigscript 
       if [[ ! "$RUNHOME" =~ ^/afs/.* ]]; then
           echo "local path is not an afs path, batch jobs will use worker node scratch space instead of afs"
@@ -243,6 +247,10 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   fi
 
   echo "save options" >> mgconfigscript
+
+  if [ "${LSFMAIL}" == "no" ]; then
+     export LSB_JOB_REPORT_MAIL="N"
+  fi
 
   ./bin/mg5_aMC mgconfigscript
 
