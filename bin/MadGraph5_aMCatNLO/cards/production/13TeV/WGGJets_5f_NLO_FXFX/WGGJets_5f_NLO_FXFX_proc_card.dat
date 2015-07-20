@@ -7,8 +7,10 @@ define j = j b b~
 
 # exclude s-channel top contribution to avoid
 # overlap with TTG sample
-generate p p > w+ a a j $$ t t~ [QCD] @0
-add process p p > w- a a j $$ t t~ [QCD] @1
+generate p p > w+ a a $$ t t~ [QCD] @0
+add process p p > w- a a $$ t t~ [QCD] @1
+add process p p > w+ a a j $$ t t~ [QCD] @2
+add process p p > w- a a j $$ t t~ [QCD] @3
 
 output WGGJets_5f_NLO_FXFX -nojpeg
 
