@@ -33,6 +33,5 @@ define l- = e- mu- ta-
 define vl = ve vm vt
 define vl~ = ve~ vm~ vt~
 
-generate    p p > w+ l+ l- j j QED=5 QCD=0, w+ > l+ vl  @ 1
-add process p p > w- l+ l- j j QED=5 QCD=0, w- > l- vl~  @ 2
-output Wlljj_ewk
+generate p p > w+ w- j j $ h t t~ QED=4 QCD=99, w+ > l+ vl, w- > l- vl~
+output WWjj_OS_noHiggs_noTop_ewk_qcd

@@ -25,7 +25,7 @@ set group_subprocesses Auto
 set ignore_six_quark_processes False
 set loop_optimized_output True
 set complex_mass_scheme False
-import model sm-ckm_no_b_mass
+import model sm-ckm_lepton_masses_no_b_mass
 define p = g u c d s b u~ c~ d~ s~ b~
 define j = p
 define l+ = e+ mu+ ta+
@@ -33,5 +33,6 @@ define l- = e- mu- ta-
 define vl = ve vm vt
 define vl~ = ve~ vm~ vt~
 
-generate p p > w+ w- j j $ h QED=4 QCD=99, w+ > l+ vl, w- > l- vl~
-output WWjj_OS_ewk_qcd_noHiggs
+generate    p p > w+ l+ l- j j QED=5 QCD=99, w+ > l+ vl  @ 1
+add process p p > w- l+ l- j j QED=5 QCD=99, w- > l- vl~  @ 2
+output Wlljj_ewk_qcd
