@@ -1,0 +1,21 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set loop_optimized_output True
+set complex_mass_scheme False
+import model sm
+define p = g u c d s u~ c~ d~ s~
+define jet = u c d s u~ c~ d~ s~
+define l+ = e+ mu+
+define l- = e- mu-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+import model STP_UFO_freeWidth_diagCKM
+define bb = b b~
+define WW = w+ w-
+define tt = t t~
+define ferm = vl~ vl u c d s b u~ c~ d~ s~ b~ e- mu- ta- e+ mu+ ta+
+define sb13 = b13 b13~
+#generate p p >  tt sb13 jet /h, (sb13 > tt WW , tt > ferm ferm bb, WW > ferm ferm)
+generate p p >  b13 > tt tt WW jet 
+add process p p > b13~ > tt tt WW jet
+output Bpt_M1600GeV_W16GeV_tW_LH
