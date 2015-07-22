@@ -299,6 +299,33 @@ diff -ur ../orig/MG5_aMC_v2_3_0/MadSpin/interface_madspin.py MG5_aMC_v2_3_0/MadS
          # NOW we have all the information available for RUNNING
          
          if self.seed:
+diff -ur ../orig/MG5_aMC_v2_3_0/models/check_param_card.py MG5_aMC_v2_3_0/models/check_param_card.py
+--- ../orig/MG5_aMC_v2_3_0/models/check_param_card.py	2015-07-02 04:18:10.000000001 +0200
++++ MG5_aMC_v2_3_0/models/check_param_card.py	2015-07-22 02:08:40.000000001 +0200
+@@ -978,7 +978,10 @@
+     # Td
+     yd = card['yd'].get([3, 3]).value
+     td = card['td'].get([3, 3]).value
+-    card.mod_param('td', [3,3], 'ad', [3,3], value= td/yd, comment='A_b(Q) DRbar')
++    if td:
++        card.mod_param('td', [3,3], 'ad', [3,3], value= td/yd, comment='A_b(Q) DRbar')
++    else:
++        card.mod_param('td', [3,3], 'ad', [3,3], value= 0., comment='A_b(Q) DRbar')
+     card.add_param('ad', [1,1], 0, 'A_d(Q) DRbar')
+     card.add_param('ad', [2,2], 0, 'A_s(Q) DRbar')
+     card['ad'].scale = scale
+diff -ur ../orig/MG5_aMC_v2_3_0/models/mssm/restrict_no_b_mass.dat MG5_aMC_v2_3_0/models/mssm/restrict_no_b_mass.dat
+--- ../orig/MG5_aMC_v2_3_0/models/mssm/restrict_no_b_mass.dat	2015-07-02 04:18:10.000000001 +0200
++++ MG5_aMC_v2_3_0/models/mssm/restrict_no_b_mass.dat	2015-07-22 02:06:56.000000001 +0200
+@@ -235,7 +235,7 @@
+ ## INFORMATION FOR TD
+ ###################################
+ Block TD 
+-    3   3 -1.106937e+02 # Rtd33 
++    3   3 0.000000e+00 # Rtd33 
+ 
+ ###################################
+ ## INFORMATION FOR TE
 diff -ur ../orig/MG5_aMC_v2_3_0/Template/LO/bin/internal/Gridpack/run.sh MG5_aMC_v2_3_0/Template/LO/bin/internal/Gridpack/run.sh
 --- ../orig/MG5_aMC_v2_3_0/Template/LO/bin/internal/Gridpack/run.sh	2015-07-02 04:18:10.000000001 +0200
 +++ MG5_aMC_v2_3_0/Template/LO/bin/internal/Gridpack/run.sh	2015-07-07 16:53:02.000000001 +0200
