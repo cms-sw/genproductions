@@ -1,0 +1,4 @@
+#Change bstar mass and width
+set param_card mass 1005 2800
+set param_card DECAY 1005  138.199
+set param_card mass 5 0 # MB 
