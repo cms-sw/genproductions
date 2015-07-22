@@ -1,0 +1,15 @@
+#!/bin/bash
+
+for x in `ls  | grep -v template | grep -v sh`; do 
+    dir=`echo $x | sed "s@/@ @g" | awk '{print $1}' `
+    cd $dir
+    med=`echo $dir   | sed "s@_@ @g" | awk '{print $4}'`
+    dm=` echo $dir   | sed "s@_@ @g" | awk '{print $6}'`
+    echo "Dir :"$dir" - "$dm" - "$med
+    #for y in `ls *`; do
+    #fix=`echo $y | sed "s@_gSM_1p0_gDM_1p0@_gSM_1p0_gDM_1p0_@g"`
+    #mv $y $fix
+    #done
+    cat ../template/MonoW_proc_card.dat | sed "s@MED@$med@g" | sed "s@XMASS@$dm@g" > $dir/${dir}_MonoW_proc_card.dat
+    cd ..
+ done
