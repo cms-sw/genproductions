@@ -17,6 +17,7 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
             'POWHEG:nFinal = 3',              ## Number of final state particles
                                               ## (BEFORE THE DECAYS) in the LHE
                                               ## other than emitted extra parton
+            '23:mMin = 0.05',                 # Solve problem with mZ cut
             '25:m0 = 400.0',                  # Higgs Mass
             '25:onMode = off',                # turn OFF all H decays
             '25:onIfMatch = 23 23',           # turn ON H->ZZ

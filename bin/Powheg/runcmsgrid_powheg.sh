@@ -308,8 +308,8 @@ ls -l ${file}_final.lhe
 sed -i 's/Input file powheg.input contained:/Process: '$process'\nInput file powheg.input contained:/g' ${file}_final.lhe
 pwd
 
-XSECTION=`cat pwg-stat.dat | grep Total | awk '{print $4}'`
-XSECUNC=` cat pwg-stat.dat | grep Total | awk '{print $6}'`
+XSECTION=`cat pwg-stat.dat | grep total | awk '{print $7}'`
+XSECUNC=` cat pwg-stat.dat | grep total | awk '{print $9}'`
 head=`cat   cmsgrid_final.lhe | grep -in "<init>" | sed "s@:@ @g" | awk '{print $1+1}' | tail -1`
 tail=`wc -l cmsgrid_final.lhe | awk -v tmp="$head" '{print $1-2-tmp}'`
 tail -${tail} cmsgrid_final.lhe                           >  cmsgrid_final.lhe_tail

@@ -115,7 +115,9 @@ wget --no-check-certificate http://cms-project-generators.web.cern.ch/cms-projec
 tar xzf ${name}.tar.gz
 #
 patch -l -p0 -i ${WORKDIR}/patches/pdfweights.patch
-cd POWHEG-BOX/${process}
+cd POWHEG-BOX
+tar xvzf ${process}.tgz
+cd ${process}
 
 # This is just to please gcc 4.8.1
 mkdir -p include
@@ -167,12 +169,17 @@ if [ "$process" = "gg_H_MSSM" ]; then
   cp -p ../gg_H_quark-mass-effects/SLHADefs.h .
 fi  
   
-echo "ANALYSIS=none 
-PWHGANAL=$BOOK_HISTO pwhg_analysis-dummy.o
-LHAPDF_CONFIG=${myDir}/lhapdf-config" >> tmpfile
+echo "ANALYSIS=none " >> tmpfile
+if [ "$process" = "Wgamma" ]; then
+    echo "PWHGANAL=$BOOK_HISTO pwhg_analysis-dummy.o uti.o " >> tmpfile
+else
+    echo "PWHGANAL=$BOOK_HISTO pwhg_analysis-dummy.o " >> tmpfile
+fi
+echo "LHAPDF_CONFIG=${myDir}/lhapdf-config" >> tmpfile
 mv Makefile Makefile.interm
 cat tmpfile Makefile.interm > Makefile
 rm -f Makefile.interm tmpfile
+
 
 # Add libraries
 echo "LIBS+=-lz -lstdc++" >> Makefile
@@ -258,6 +265,7 @@ cp -p ../pwhg_main ${WORKDIR}/${myDir}/.
 cp -pr ../lib ${WORKDIR}/${myDir}/.
 cp -pr ../lib64 ${WORKDIR}/${myDir}/.
 cp -p pwg*.dat ${WORKDIR}/${myDir}/.
+cp -p *.top ${WORKDIR}/${myDir}/.
 cp -p ${WORKDIR}/vbfnlo.* ${WORKDIR}/${myDir}/.
 cp -p ${WORKDIR}/br.* ${WORKDIR}/${myDir}/.
 cp -p ${WORKDIR}/*fh.in ${WORKDIR}/${myDir}/.
