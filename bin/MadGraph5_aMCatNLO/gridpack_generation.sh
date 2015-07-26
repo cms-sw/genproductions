@@ -265,12 +265,19 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   make
   cd ..
   
-  #get HC nlo & single VLQ models
+  #get HC nlo model
   wget --no-check-certificate ${HCNLOSOURCE}
-  wget --no-check-certificate ${SINGLEVLQSOURCE}
-  wget --no-check-certificate ${SINGLEVLQSOURCE_diagCKM}
   cd models
   unzip ../${HCNLO}
+ # adding restrict files for massive muons
+  cp $PRODHOME/patches/restrict_heft_muelmass.dat  ./HC_NLO_X0_UFO/
+  cp $PRODHOME/patches/paramcard_heft_muelmass.dat  ./HC_NLO_X0_UFO/
+  cd ..  
+  
+  #get single VLQ models
+  wget --no-check-certificate ${SINGLEVLQSOURCE}
+  wget --no-check-certificate ${SINGLEVLQSOURCE_diagCKM}  
+  cd models
   tar -zxvf ../${SINGLEVLQ}
   unzip ../${SINGLEVLQ_diagCKM}
   cd ..
