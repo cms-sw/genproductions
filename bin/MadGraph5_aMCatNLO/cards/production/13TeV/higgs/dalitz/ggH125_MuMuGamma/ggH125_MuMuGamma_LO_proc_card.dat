@@ -6,4 +6,4 @@ define j = j b b~
 
 generate p p > x0 > mu+ mu- a
 
-output dalitz-LO-ggH125 -nojpeg
+output ggH125_MuMuGamma_LO -nojpeg
