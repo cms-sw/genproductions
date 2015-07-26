@@ -1,4 +1,5 @@
-import model loop_sm-ckm
+# import model loop_sm-ckm
+import model loop_sm
 #switch to diagonal ckm matrix if needed for speed
 #import model loop_sm-no_b_mass
 
