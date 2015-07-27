@@ -126,7 +126,7 @@ c Masses of external particles
 c PDG codes of particles
       integer maxflow
       parameter (maxflow=999)
-      integer idup(nexternal,maxproc),mothup(2,nexternal,maxproc),
+      integer idup(nexternal,maxproc),mothup(2,nexternal,maxproc)
       integer icolup(2,nexternal,maxflow)
       common /c_leshouche_inc/idup,mothup,icolup
       logical passcuts_user
