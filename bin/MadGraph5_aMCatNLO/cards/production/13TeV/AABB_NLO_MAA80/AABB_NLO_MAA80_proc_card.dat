@@ -21,7 +21,7 @@
 #*                                                          *
 #************************************************************
 
-import model sm-ckm
+import model loop_sm-ckm
 
 # Define multiparticle labels
 define bb = b b~
