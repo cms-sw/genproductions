@@ -1,22 +1,22 @@
 c
-    logical function passcuts_user(p,istatus,ipdg)
-    implicit none
+      logical function passcuts_user(p,istatus,ipdg)
+      implicit none
 c This includes the 'nexternal' parameter that labels the number of
 c particles in the (n+1)-body process
-    include 'nexternal.inc'
+      include 'nexternal.inc'
 c This include file contains common blocks filled with the cuts defined
 c in the run_card.dat
-    include 'cuts.inc'
+      include 'cuts.inc'
 c
 c This is an array which is '-1' for initial state and '1' for final
 c state particles
-    integer istatus(nexternal)
+      integer istatus(nexternal)
 c This is an array with (simplified) PDG codes for the particles. Note
 c that channels that are combined (i.e. they have the same matrix
 c elements) are given only 1 set of PDG codes. This means, e.g., that
 c when using a 5-flavour scheme calculation (massless b quark), no
 c b-tagging can be applied.
-    integer iPDG(nexternal)
+      integer iPDG(nexternal)
 c The array of the momenta and masses of the initial and final state
 c particles in the lab frame. The format is "E, px, py, pz, mass", while
 c the second dimension loops over the particles in the process. Note
@@ -24,42 +24,42 @@ c that these are the (n+1)-body particles; for the n-body there is one
 c momenta equal to all zero's (this is not necessarily the last particle
 c in the list). If one uses IR-safe obserables only, there should be no
 c difficulty in using this.
-    double precision p(0:4,nexternal)
+      double precision p(0:4,nexternal)
 c
 C external functions that can be used. Some are defined in this
 C file, others are in ./Source/kin_functions.f
-    REAL*8 R2_04,invm2_04,pt_04,eta_04,pt,eta
-    external R2_04,invm2_04,pt_04,eta_04,pt,eta
+      REAL*8 R2_04,invm2_04,pt_04,eta_04,pt,eta
+      external R2_04,invm2_04,pt_04,eta_04,pt,eta
 c local integers
-    integer i,j
+      integer i,j
 c jet cluster algorithm
-    integer nQCD,NJET,JET(nexternal)
-    double precision pQCD(0:3,nexternal),PJET(0:3,nexternal)
-    double precision rfj,sycut,palg,amcatnlo_fastjetdmerge
-    integer njet_eta
-    integer mm
+      integer nQCD,NJET,JET(nexternal)
+      double precision pQCD(0:3,nexternal),PJET(0:3,nexternal)
+      double precision rfj,sycut,palg,amcatnlo_fastjetdmerge
+      integer njet_eta
+      integer mm
 c Photon isolation
-    integer nph,nem,k,nin
-    double precision ptg,chi_gamma_iso,iso_getdrv40
-    double precision Etsum(0:nexternal)
-    real drlist(nexternal)
-    double precision pgamma(0:3,nexternal),pem(0:3,nexternal)
-    logical alliso
+      integer nph,nem,k,nin
+      double precision ptg,chi_gamma_iso,iso_getdrv40
+      double precision Etsum(0:nexternal)
+      real drlist(nexternal)
+      double precision pgamma(0:3,nexternal),pem(0:3,nexternal)
+      logical alliso
 c Sort array of results: ismode>0 for real, isway=0 for ascending order
-    integer ismode,isway,izero,isorted(nexternal)
-    parameter (ismode=1)
-    parameter (isway=0)
-    parameter (izero=0)
+      integer ismode,isway,izero,isorted(nexternal)
+      parameter (ismode=1)
+      parameter (isway=0)
+      parameter (izero=0)
 c The UNLOPS cut
-    double precision p_unlops(0:3,nexternal)
-    include "run.inc" ! includes the ickkw parameter
-    logical passUNLOPScuts
+      double precision p_unlops(0:3,nexternal)
+      include "run.inc" ! includes the ickkw parameter
+      logical passUNLOPScuts
 c logicals that define if particles are leptons, jets or photons. These
 c are filled from the PDG codes (iPDG array) in this function.
-    logical is_a_lp(nexternal),is_a_lm(nexternal),is_a_j(nexternal)
-    $ ,is_a_ph(nexternal)
+      logical is_a_lp(nexternal),is_a_lm(nexternal),is_a_j(nexternal),
+     $ is_a_ph(nexternal)
 
-    passcuts_user=.true. ! event is okay; otherwise it is changed
+      passcuts_user=.true. ! event is okay; otherwise it is changed
 
 C***************************************************************
 C***************************************************************
@@ -97,8 +97,8 @@ c    Mgg cut
         endif
       enddo
 
-return
-end
+      return
+      end
 
 
 C***************************************************************
@@ -106,89 +106,89 @@ C***************************************************************
 C NO NEED TO CHANGE ANY OF THE FUNCTIONS BELOW
 C***************************************************************
 C***************************************************************
-    logical function passcuts(p,rwgt)
-    implicit none
-    include "nexternal.inc"
-    include 'run.inc'
-    include 'genps.inc'
-    REAL*8 P(0:3,nexternal),rwgt
-    integer i,j,istatus(nexternal),iPDG(nexternal)
+      logical function passcuts(p,rwgt)
+      implicit none
+      include "nexternal.inc"
+      include 'run.inc'
+      include 'genps.inc'
+      REAL*8 P(0:3,nexternal),rwgt
+      integer i,j,istatus(nexternal),iPDG(nexternal)
 c For boosts
-    double precision ybst_til_tolab,ybst_til_tocm,sqrtshat,shat
-    common/parton_cms_stuff/ybst_til_tolab,ybst_til_tocm,
-    #     sqrtshat,shat
-    double precision chybst,shybst,chybstmo
-    double precision xd(1:3)
-    data (xd(i),i=1,3)/0,0,1/
+      double precision ybst_til_tolab,ybst_til_tocm,sqrtshat,shat
+      common/parton_cms_stuff/ybst_til_tolab,ybst_til_tocm,
+     &     sqrtshat,shat
+      double precision chybst,shybst,chybstmo
+      double precision xd(1:3)
+      data (xd(i),i=1,3)/0,0,1/
 c Momenta of the particles
-    double precision plab(0:3, nexternal),pp(0:4, nexternal)
+      double precision plab(0:3, nexternal),pp(0:4, nexternal)
 c Masses of external particles
-    double precision pmass(nexternal)
-    common/to_mass/pmass
+      double precision pmass(nexternal)
+      common/to_mass/pmass
 c PDG codes of particles
-    integer maxflow
-    parameter (maxflow=999)
-    integer idup(nexternal,maxproc),mothup(2,nexternal,maxproc),
-    & icolup(2,nexternal,maxflow)
-    common /c_leshouche_inc/idup,mothup,icolup
-    logical passcuts_user
-    external passcuts_user
+      integer maxflow
+      parameter (maxflow=999)
+      integer idup(nexternal,maxproc),mothup(2,nexternal,maxproc)
+      integer icolup(2,nexternal,maxflow)
+      common /c_leshouche_inc/idup,mothup,icolup
+      logical passcuts_user
+      external passcuts_user
 c Make sure have reasonable 4-momenta
-    if (p(0,1) .le. 0d0) then
-       passcuts=.false.
-       return
-    endif
+      if (p(0,1) .le. 0d0) then
+         passcuts=.false.
+         return
+      endif
 c Also make sure there's no INF or NAN
-    do i=1,nexternal
-       do j=0,3
-          if(p(j,i).gt.1d32.or.p(j,i).ne.p(j,i))then
-             passcuts=.false.
-             return
-          endif
-       enddo
-    enddo
-    rwgt=1d0
+      do i=1,nexternal
+         do j=0,3
+            if(p(j,i).gt.1d32.or.p(j,i).ne.p(j,i))then
+               passcuts=.false.
+               return
+            endif
+         enddo
+      enddo
+      rwgt=1d0
 c Boost the momenta p(0:3,nexternal) to the lab frame plab(0:3,nexternal)
-    chybst=cosh(ybst_til_tolab)
-    shybst=sinh(ybst_til_tolab)
-    chybstmo=chybst-1.d0
-    do i=1,nexternal
-       call boostwdir2(chybst,shybst,chybstmo,xd,
-    &           p(0,i),plab(0,i))
-    enddo
+      chybst=cosh(ybst_til_tolab)
+      shybst=sinh(ybst_til_tolab)
+      chybstmo=chybst-1.d0
+      do i=1,nexternal
+         call boostwdir2(chybst,shybst,chybstmo,xd,
+     &           p(0,i),plab(0,i))
+      enddo
 c Fill the arrays (momenta, status and PDG):
-    do i=1,nexternal
-       if (i.le.nincoming) then
-          istatus(i)=-1
-       else
-          istatus(i)=1
-       endif
-       do j=0,3
-          pp(j,i)=plab(j,i)
-       enddo
-       pp(4,i)=pmass(i)
-       ipdg(i)=idup(i,1)
-    enddo
+      do i=1,nexternal
+         if (i.le.nincoming) then
+            istatus(i)=-1
+         else
+            istatus(i)=1
+         endif
+         do j=0,3
+            pp(j,i)=plab(j,i)
+         enddo
+         pp(4,i)=pmass(i)
+         ipdg(i)=idup(i,1)
+      enddo
 c Call the actual cuts function
-    passcuts = passcuts_user(pp,istatus,ipdg)
-    RETURN
-    END
+      passcuts = passcuts_user(pp,istatus,ipdg)
+      RETURN
+      END
 
 
-    function chi_gamma_iso(dr,R0,xn,epsgamma,pTgamma)
+      function chi_gamma_iso(dr,R0,xn,epsgamma,pTgamma)
 c Eq.(3.4) of Phys.Lett. B429 (1998) 369-374 [hep-ph/9801442]
-    implicit none
-    real*8 chi_gamma_iso,dr,R0,xn,epsgamma,pTgamma
-    real*8 tmp,axn
+      implicit none
+      real*8 chi_gamma_iso,dr,R0,xn,epsgamma,pTgamma
+      real*8 tmp,axn
 c
-    axn=abs(xn)
-    tmp=epsgamma*pTgamma
-    if(axn.ne.0.d0)then
-       tmp=tmp*( (1-cos(dr))/(1-cos(R0)) )**axn
-    endif
-    chi_gamma_iso=tmp
-    return
-    end
+      axn=abs(xn)
+      tmp=epsgamma*pTgamma
+      if(axn.ne.0.d0)then
+         tmp=tmp*( (1-cos(dr))/(1-cos(R0)) )**axn
+      endif
+      chi_gamma_iso=tmp
+      return
+      end
 
 
 *
@@ -385,7 +385,7 @@ C     ICMPCH=+1 IF HEX VALUES OF IC1 IS GREATER THAN IC2
       real*8 iso_getdr
 c
       iso_getdrv40=iso_getdr(p1(0),p1(1),p1(2),p1(3),
-      #              p2(0),p2(1),p2(2),p2(3))
+     &             p2(0),p2(1),p2(2),p2(3))
       return
       end
 
@@ -393,11 +393,11 @@ c
       function iso_getdr(en1,ptx1,pty1,pl1,en2,ptx2,pty2,pl2)
       implicit none
       real*8 iso_getdr,en1,ptx1,pty1,pl1,en2,ptx2,pty2,pl2,deta,dphi,
-      # iso_getpseudorap,iso_getdelphi
+     & iso_getpseudorap,iso_getdelphi
 c
 
       deta=iso_getpseudorap(en1,ptx1,pty1,pl1)-
-      # iso_getpseudorap(en2,ptx2,pty2,pl2)
+     & iso_getpseudorap(en2,ptx2,pty2,pl2)
       dphi=iso_getdelphi(ptx1,pty1,ptx2,pty2)
       iso_getdr=sqrt(dphi**2+deta**2)
       return
@@ -565,8 +565,8 @@ c-----
       include 'nexternal.inc'
       integer maxflow
       parameter (maxflow=999)
-      integer idup(nexternal,maxproc),mothup(2,nexternal,maxproc),
-      & icolup(2,nexternal,maxflow)
+      integer idup(nexternal,maxproc),mothup(2,nexternal,maxproc)
+      integer icolup(2,nexternal,maxflow)
 c     include 'leshouche.inc'
       common /c_leshouche_inc/idup,mothup,icolup
       integer IDUP_tmp(nexternal),i
