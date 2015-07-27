@@ -435,7 +435,6 @@ c PDG codes of particles
       common /c_leshouche_inc/idup,mothup,icolup
       logical passcuts_user
       external passcuts_user
-      call cpu_time(tBefore)
 c Make sure have reasonable 4-momenta
       if (p(0,1) .le. 0d0) then
          passcuts=.false.
@@ -474,8 +473,6 @@ c Fill the arrays (momenta, status and PDG):
       enddo
 c Call the actual cuts function  
       passcuts = passcuts_user(pp,istatus,ipdg)
-      call cpu_time(tAfter)
-      t_cuts=t_cuts+(tAfter-tBefore)
       RETURN
       END
 
