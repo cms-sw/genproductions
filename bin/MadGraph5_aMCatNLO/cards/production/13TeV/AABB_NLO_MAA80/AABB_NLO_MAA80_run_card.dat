@@ -11,6 +11,20 @@
 #                                                                      *
 #   mind the format:   value    = variable     ! comment               *
 #***********************************************************************
+#*********************************************************************
+#                       MadGraph/MadEvent                            *
+#                  http://madgraph.hep.uiuc.edu                      *
+#                                                                    *
+#                        run_card.dat                                *
+#                                                                    *
+#  This file is used to set the parameters of the run.               *
+#                                                                    *
+#  Some notation/conventions:                                        *
+#                                                                    *
+#   Lines starting with a '# ' are info or comments                  *
+#                                                                    *
+#   mind the format:   value    = variable     ! comment             *
+#*********************************************************************
 #
 #*******************                                                 
 # Running parameters

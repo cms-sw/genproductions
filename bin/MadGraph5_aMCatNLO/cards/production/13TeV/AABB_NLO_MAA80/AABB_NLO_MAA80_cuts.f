@@ -100,7 +100,6 @@ c    Mgg cut
       return
       end
 
-
 C***************************************************************
 C***************************************************************
 C NO NEED TO CHANGE ANY OF THE FUNCTIONS BELOW
@@ -189,8 +188,6 @@ c
       chi_gamma_iso=tmp
       return
       end
-
-
 *
 * $Id: sortzv.F,v 1.1.1.1 1996/02/15 17:49:50 mclareni Exp $
 *
@@ -398,6 +395,8 @@ c
 
       deta=iso_getpseudorap(en1,ptx1,pty1,pl1)-
      & iso_getpseudorap(en2,ptx2,pty2,pl2)
+c
+
       dphi=iso_getdelphi(ptx1,pty1,ptx2,pty2)
       iso_getdr=sqrt(dphi**2+deta**2)
       return
