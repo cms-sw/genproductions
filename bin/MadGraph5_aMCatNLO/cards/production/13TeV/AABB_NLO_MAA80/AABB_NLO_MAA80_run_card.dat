@@ -71,7 +71,7 @@
 #***********************************************************************
 # PDF choice: this automatically fixes also alpha_s(MZ) and its evol.  *
 #***********************************************************************
- nn23nlo   = pdlabel   ! PDF set
+ lhapdf   = pdlabel   ! PDF set
  292200    = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number
 #***********************************************************************
 # Include the NLO Monte Carlo subtr. terms for the following parton    *
