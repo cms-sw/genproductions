@@ -389,8 +389,8 @@ c
 
       function iso_getdr(en1,ptx1,pty1,pl1,en2,ptx2,pty2,pl2)
       implicit none
-      real*8 iso_getdr,en1,ptx1,pty1,pl1,en2,ptx2,pty2,pl2,deta,dphi,
-     & iso_getpseudorap,iso_getdelphi
+      real*8 iso_getdr,en1,ptx1,pty1,pl1,en2,ptx2,pty2,pl2,deta,dphi
+      real*8 iso_getpseudorap,iso_getdelphi
 c
 
       deta=iso_getpseudorap(en1,ptx1,pty1,pl1)-
