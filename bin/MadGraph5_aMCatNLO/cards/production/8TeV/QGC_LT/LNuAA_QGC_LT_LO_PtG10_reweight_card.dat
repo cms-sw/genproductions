@@ -1,0 +1,366 @@
+#******************************************************************
+#                       Reweight Module                           *
+#******************************************************************
+
+#
+# FT0
+#
+#Weight 0
+launch
+set anoinputs 11 0.0e-12
+
+#Weight 1
+launch
+set anoinputs 11 2.5e-12
+
+#Weight 2
+launch
+set anoinputs 11 5.0e-12
+
+#Weight 3
+launch
+set anoinputs 11 10.0e-12
+
+#Weight 4
+launch
+set anoinputs 11 15.0e-12
+
+#Weight 5
+launch
+set anoinputs 11 20.0e-12
+
+#Weight 6
+launch
+set anoinputs 11 25.0e-12
+
+#Weight 7
+launch
+set anoinputs 11 30.0e-12
+
+#Weight 8
+launch
+set anoinputs 11 35.0e-12
+
+#Weight 9
+launch
+set anoinputs 11 40.0e-12
+
+#Weight 10
+launch
+set anoinputs 11 45.0e-12
+
+#Weight 11
+launch
+set anoinputs 11 50.0e-12
+
+#Weight 12
+launch
+set anoinputs 11 62.5e-12
+
+#Weight 13
+launch
+set anoinputs 11 -2.5e-12
+
+#Weight 14
+launch
+set anoinputs 11 -5.0e-12
+
+#Weight 15
+launch
+set anoinputs 11 -10.0e-12
+
+#Weight 16
+launch
+set anoinputs 11 -15.0e-12
+
+#Weight 17
+launch
+set anoinputs 11 -20.0e-12
+
+#Weight 18
+launch
+set anoinputs 11 -25.0e-12
+
+#Weight 19
+launch
+set anoinputs 11 -30.0e-12
+
+#Weight 20
+launch
+set anoinputs 11 -35.0e-12
+
+#Weight 21
+launch
+set anoinputs 11 -40.0e-12
+
+#Weight 22
+launch
+set anoinputs 11 -45.0e-12
+
+#Weight 23
+launch
+set anoinputs 11 -50.0e-12
+
+#Weight 24
+launch
+set anoinputs 11 -62.5e-12
+
+#
+# FT1
+#
+
+#Weight 25
+launch
+set anoinputs 11 0.0e-12
+set anoinputs 12 0.0e-12
+
+#Weight 26
+launch
+set anoinputs 11 0.0e-12
+set anoinputs 12 2.5e-12
+
+#Weight 27
+launch
+set anoinputs 11 0.0
+set anoinputs 12 5.0e-12
+
+#Weight 28
+launch
+set anoinputs 11 0.0e-12
+set anoinputs 12 10.0e-12
+
+#Weight 29
+launch
+set anoinputs 11 0.0e-12
+set anoinputs 12 15.0e-12
+
+#Weight 30
+launch
+set anoinputs 11 0.0e-12
+set anoinputs 12 20.0e-12
+
+#Weight 31
+launch
+set anoinputs 11 0.0e-12
+set anoinputs 12 25.0e-12
+
+#Weight 32
+launch
+set anoinputs 11 0
+set anoinputs 12 30.0e-12
+
+#Weight 33
+launch
+set anoinputs 11 0
+set anoinputs 12 35.0e-12
+
+#Weight 34
+launch
+set anoinputs 11 0
+set anoinputs 12 40.0e-12
+
+#Weight 35
+launch
+set anoinputs 11 0
+set anoinputs 12 45.0e-12
+
+#Weight 36
+launch
+set anoinputs 11 0
+set anoinputs 12 50.0e-12
+
+#Weight 37
+launch
+set anoinputs 11 0
+set anoinputs 12 62.5e-12
+
+#Weight 38
+launch
+set anoinputs 11 0
+set anoinputs 12 -2.5e-12
+
+#Weight 39
+launch
+set anoinputs 11 0
+set anoinputs 12 -5.0e-12
+
+#Weight 40
+launch
+set anoinputs 11 0
+set anoinputs 12 -10.0e-12
+
+#Weight 41
+launch
+set anoinputs 11 0
+set anoinputs 12 -15.0e-12
+
+#Weight 42
+launch
+set anoinputs 11 0
+set anoinputs 12 -20.0e-12
+
+#Weight 43
+launch
+set anoinputs 11 0
+set anoinputs 12 -25.0e-12
+
+#Weight 44
+launch
+set anoinputs 11 0
+set anoinputs 12 -30.0e-12
+
+#Weight 45
+launch
+set anoinputs 11 0
+set anoinputs 12 -35.0e-12
+
+#Weight 46
+launch
+set anoinputs 11 0
+set anoinputs 12 -40.0e-12
+
+#Weight 47
+launch
+set anoinputs 11 0
+set anoinputs 12 -45.0e-12
+
+#Weight 48
+launch
+set anoinputs 11 0
+set anoinputs 12 -50.0e-12
+
+#Weight 49
+launch
+set anoinputs 11 0
+set anoinputs 12 -62.5e-12
+
+#
+# FT2
+#
+
+#Weight 50
+launch
+set anoinputs 11 0
+set anoinputs 13 0
+
+#Weight 51
+launch
+set anoinputs 11 0
+set anoinputs 13 2.5e-12
+
+#Weight 52
+launch
+set anoinputs 11 0
+set anoinputs 13 5.0e-12
+
+#Weight 53
+launch
+set anoinputs 11 0
+set anoinputs 13 10.0e-12
+
+#Weight 54
+launch
+set anoinputs 11 0
+set anoinputs 13 15.0e-12
+
+#Weight 55
+launch
+set anoinputs 11 0
+set anoinputs 13 20.0e-12
+
+#Weight 56
+launch
+set anoinputs 11 0
+set anoinputs 13 25.0e-12
+
+#Weight 57
+launch
+set anoinputs 11 0
+set anoinputs 13 30.0e-12
+
+#Weight 58
+launch
+set anoinputs 11 0
+set anoinputs 13 35.0e-12
+
+#Weight 59
+launch
+set anoinputs 11 0
+set anoinputs 13 40.0e-12
+
+#Weight 60
+launch
+set anoinputs 11 0
+set anoinputs 13 45.0e-12
+
+#Weight 61
+launch
+set anoinputs 11 0
+set anoinputs 13 50.0e-12
+
+#Weight 62
+launch
+set anoinputs 11 0
+set anoinputs 13 62.5e-12
+
+#Weight 63
+launch
+set anoinputs 11 0
+set anoinputs 13 -2.5e-12
+
+#Weight 64
+launch
+set anoinputs 11 0
+set anoinputs 13 -5.0e-12
+
+#Weight 65
+launch
+set anoinputs 11 0
+set anoinputs 13 -10.0e-12
+
+#Weight 66
+launch
+set anoinputs 11 0
+set anoinputs 13 -15.0e-12
+
+#Weight 67
+launch
+set anoinputs 11 0
+set anoinputs 13 -20.0e-12
+
+#Weight 68
+launch
+set anoinputs 11 0
+set anoinputs 13 -25.0e-12
+
+#Weight 69
+launch
+set anoinputs 11 0
+set anoinputs 13 -30.0e-12
+
+#Weight 70
+launch
+set anoinputs 11 0
+set anoinputs 13 -35.0e-12
+
+#Weight 71
+launch
+set anoinputs 11 0
+set anoinputs 13 -40.0e-12
+
+#Weight 72
+launch
+set anoinputs 11 0
+set anoinputs 13 -45.0e-12
+
+#Weight 73
+launch
+set anoinputs 11 0
+set anoinputs 13 -50.0e-12
+
+#Weight 74
+launch
+set anoinputs 11 0
+set anoinputs 13 -62.5e-12
+
+
