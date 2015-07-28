@@ -380,18 +380,24 @@ c$$$            endif
 c$$$         endif
 c$$$      enddo
 c
+      logical maa = .false.
       do i=1,nexternal          ! loop over all external particles
          if (abs(ipdg(i)).eq.22) then
             do j=1,nexternal
-               if (abs(ipdg(j)).eq.22) then
-                  if (invm2_04(p(0,i),p(0,j),1d0).lt.80d0**2) then
-                     passcuts_user=.false.
-                     return
+               if ( i.ne.j ) then
+                  if (abs(ipdg(j)).eq.22) then
+                     if (invm2_04(p(0,i),p(0,j),1d0).gt.80d0**2) then
+                        maa = .true.
+                     endif
                   endif
                endif
             enddo
          endif
       enddo
+      if ( maa .eq. .false. ) then
+         passcuts_user=.false.
+         return
+      endif
 
       return
       end
