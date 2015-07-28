@@ -380,18 +380,19 @@ c$$$            endif
 c$$$         endif
 c$$$      enddo
 c
-c    Mgg cut
-      do i=1,nexternal ! loop over all external particles
-        if (abs(ipdg(i)).eq.22) then
-           do j=1,nexternal
-               if (abs(ipdg(j)).eq.22) then
-                  if (invm2_04(p(0,i),p(0,j),1d0).lt.80d0**2) then
-                     passcuts_user=.false.
-                     return
+      do i=1,nexternal          ! loop over all external particles
+         if (abs(ipdg(i)).eq.22) then
+            do j=1,nexternal
+               if ( i.ne.j ) then
+                  if (abs(ipdg(j)).eq.22) then
+                     if (invm2_04(p(0,i),p(0,j),1d0).lt.80d0**2) then
+                        passcuts_user=.false.
+                        return
+                     endif
                   endif
                endif
             enddo
-        endif
+         endif
       enddo
 
       return
@@ -419,7 +420,11 @@ C***************************************************************
 c For boosts
       double precision ybst_til_tolab,ybst_til_tocm,sqrtshat,shat
       common/parton_cms_stuff/ybst_til_tolab,ybst_til_tocm,
+<<<<<<< HEAD
      #                        sqrtshat,shat
+=======
+     &     sqrtshat,shat
+>>>>>>> newbranch
       double precision chybst,shybst,chybstmo
       double precision xd(1:3)
       data (xd(i),i=1,3)/0,0,1/
@@ -436,7 +441,10 @@ c PDG codes of particles
       common /c_leshouche_inc/idup,mothup,icolup
       logical passcuts_user
       external passcuts_user
+<<<<<<< HEAD
       call cpu_time(tBefore)
+=======
+>>>>>>> newbranch
 c Make sure have reasonable 4-momenta
       if (p(0,1) .le. 0d0) then
          passcuts=.false.
@@ -475,8 +483,11 @@ c Fill the arrays (momenta, status and PDG):
       enddo
 c Call the actual cuts function  
       passcuts = passcuts_user(pp,istatus,ipdg)
+<<<<<<< HEAD
       call cpu_time(tAfter)
       t_cuts=t_cuts+(tAfter-tBefore)
+=======
+>>>>>>> newbranch
       RETURN
       END
 
@@ -691,18 +702,30 @@ C     ICMPCH=+1 IF HEX VALUES OF IC1 IS GREATER THAN IC2
       real*8 iso_getdr
 c
       iso_getdrv40=iso_getdr(p1(0),p1(1),p1(2),p1(3),
+<<<<<<< HEAD
      #                       p2(0),p2(1),p2(2),p2(3))
+=======
+     &                       p2(0),p2(1),p2(2),p2(3))
+>>>>>>> newbranch
       return
       end
 
 
       function iso_getdr(en1,ptx1,pty1,pl1,en2,ptx2,pty2,pl2)
       implicit none
+<<<<<<< HEAD
       real*8 iso_getdr,en1,ptx1,pty1,pl1,en2,ptx2,pty2,pl2,deta,dphi,
      # iso_getpseudorap,iso_getdelphi
 c
       deta=iso_getpseudorap(en1,ptx1,pty1,pl1)-
      #     iso_getpseudorap(en2,ptx2,pty2,pl2)
+=======
+      real*8 iso_getdr,en1,ptx1,pty1,pl1,en2,ptx2,pty2,pl2,deta,dphi
+      real*8 iso_getpseudorap,iso_getdelphi
+c
+      deta=iso_getpseudorap(en1,ptx1,pty1,pl1)-
+     &     iso_getpseudorap(en2,ptx2,pty2,pl2)
+>>>>>>> newbranch
       dphi=iso_getdelphi(ptx1,pty1,ptx2,pty2)
       iso_getdr=sqrt(dphi**2+deta**2)
       return
