@@ -1,0 +1,8 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set gauge unitary
+set complex_mass_scheme False
+import model RS
+generate p p > y, ( y > H H, H > b b~)
+output RSGraviton_hh_hbbhbb_narrow_M1400 -nojpeg
+

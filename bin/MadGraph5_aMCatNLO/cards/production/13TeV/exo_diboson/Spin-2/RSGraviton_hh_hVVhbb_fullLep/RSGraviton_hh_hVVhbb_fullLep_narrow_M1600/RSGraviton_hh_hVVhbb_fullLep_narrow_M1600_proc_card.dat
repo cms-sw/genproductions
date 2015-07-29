@@ -1,0 +1,10 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set gauge unitary
+set complex_mass_scheme False
+import model RS
+define lep = e+ e- mu+ mu-
+define nus = ve~ vm~ ve vm
+generate p p > y , ( y > H H , H > lep lep nus nus, H > b b~)
+output RSGraviton_hh_hVVhbb_fullLep_narrow_M1600 -nojpeg
+
