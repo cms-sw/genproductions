@@ -40,6 +40,4 @@ define vl = ve vm vt
 define vl~ = ve~ vm~ vt~
 generate p p > w+ w- / t h QED=6 , w+ > l+ vl , w- > j j
 add process p p > w+ w- / t h QED=6 , w+ > j j  , w- > l- vl~ @2
-add process p p > w+ w- j / t h QED=6 , w+ > l+ vl , w- > j j    @3
-add process p p > w+ w- j / t h QED=6 , w+ > j j , w- > l- vl~    @4
-output WW_aTGC_semilep
+output WW_aTGC_semilep_nomatch

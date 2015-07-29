@@ -40,10 +40,6 @@ define vl = ve vm vt
 define vl~ = ve~ vm~ vt~
 generate p p > w+ z / t h QED=6 , w+ > l+ vl , z > j j
 add process p p > w- z / t h QED=6 , w- > l- vl~ , z > j j @2
-add process p p > w+ z j / t h QED=6 , w+ > l+ vl , z > j j @3
-add process p p > w- z j / t h QED=6 , w- > l- vl~ , z > j j @4
 add process p p > w+ z / t h QED=6 , w+ > j j , z > l+ l- @5
 add process p p > w- z / t h QED=6 , w- > j j  , z > l+ l- @6
-add process p p > w+ z j / t h QED=6 , w+ > j j  , z > l+ l- @7
-add process p p > w- z j / t h QED=6 , w- > j j  , z > l+ l- @8
-output WZ_aTGC_semilep
+output WZ_aTGC_semilep_nomatch
