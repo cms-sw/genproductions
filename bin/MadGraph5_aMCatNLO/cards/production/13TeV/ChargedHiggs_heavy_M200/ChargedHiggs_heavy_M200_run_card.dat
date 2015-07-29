@@ -25,7 +25,7 @@
 # (relative) accuracy on the Xsec.                                     *
 # These values are ignored for fixed order runs                        *
 #***********************************************************************
-   250 = nevents ! Number of unweighted events requested 
+   1500 = nevents ! Number of unweighted events requested 
  0.001 = req_acc ! Required accuracy (-1=auto determined from nevents)
     20 = nevt_job! Max number of events per job in event generation. 
                  !  (-1= no split).
