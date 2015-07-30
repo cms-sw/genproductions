@@ -320,6 +320,84 @@ cat cmsgrid_final.lhe_tail                               >>  cmsgrid_final.lhe_F
 #Replace the negative so pythia will work
 sed "s@-1000021@ 1000022@g" cmsgrid_final.lhe_F           > cmsgrid_final.lhe_F1
 sed "s@1000021@1000022@g"   cmsgrid_final.lhe_F1          > cmsgrid_final.lhe
+
+
+#Check if MadSpin is planned, if so, apply it
+
+if [ -f  ${WORKDIR}/madspin_card.dat ]; then
+
+
+    MGBASEDIR=mgbasedir
+
+    MG=MG5_aMC_v2.2.2.tar.gz
+    MGSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$MG
+    MGBASEDIRORIG=MG5_aMC_v2_2_2
+
+#activate this to avoid thousands of mails from CERN LSF
+    LSFMAIL=no
+#LSFMAIL=yes
+
+
+#############################################
+#Copy, Unzip and Delete the MadGraph tarball#
+#############################################
+    wget --no-check-certificate ${MGSOURCE}
+    tar xzf ${MG}
+    rm $MG
+    
+    cd $MGBASEDIRORIG
+
+    echo "set auto_update 0" > mgconfigscript
+    echo "set automatic_html_opening False" >> mgconfigscript
+    echo "set output_dependencies internal" >> mgconfigscript
+    echo "set lhapdf $LHAPDFCONFIG" >> mgconfigscript
+    
+    echo "save options" >> mgconfigscript
+    
+    if [ "${LSFMAIL}" == "no" ]; then
+	export LSB_JOB_REPORT_MAIL="N"
+    fi
+    
+    ./bin/mg5_aMC mgconfigscript
+
+    cd ..
+
+## Prepare the Powheg LHE so that it can be read by MadGraph
+# Needed is a block for <MG5ProcCard>, <MGRunCard> and <slha>. 
+# All these should be contained in the proc_card that you hand over.
+
+    cp ${WORKDIR}/proc_card.dat .
+    cp ${WORKDIR}/madspin_card.dat .
+
+# Make sure that MadSpin operates with the correct number of events, given by the numevts in the cmsgrid_final.lhe    
+    NEVENTS_POWHEG=`grep 'numevts' cmsgrid_final.lhe | awk '{print $2}'` 
+    NEVENTS_PROCCARD=`grep 'nevents' proc_card.dat | awk '{print $1}'`
+    sed -i "s/${NEVENTS_PROCCARD}/${NEVENTS_POWHEG}/" proc_card.dat
+
+# Splice proc_card.dat into Powheg header
+    sed '/-->/ r proc_card.dat'  cmsgrid_final.lhe > cmsgrid_final_tmp.lhe
+    mv cmsgrid_final_tmp.lhe cmsgrid_final.lhe
+
+    echo "import cmsgrid_final.lhe" > madspinrun.dat
+    cat ${WORKDIR}/madspin_card.dat >> madspinrun.dat
+    echo "exit" >> madspinrun.dat
+    cat madspinrun.dat | $MGBASEDIRORIG/MadSpin/madspin
+   
+    # cleaning up the directory
+    rm py.py
+    rm nsqso_born.inc
+    rm param_card.dat
+    rm seeds.dat
+    rm madspinrun.dat
+    rm -rf MG5_aMC_v2_2_2
+    
+    # Unzip files
+    gunzip cmsgrid_final.lhe.gz
+    gunzip cmsgrid_final_decayed.lhe.gz
+    mv cmsgrid_final_decayed.lhe cmsgrid_final.lhe
+
+fi
+
 cp ${file}_final.lhe ${WORKDIR}/.
 
 echo "Output ready with ${file}_final.lhe at $WORKDIR"
