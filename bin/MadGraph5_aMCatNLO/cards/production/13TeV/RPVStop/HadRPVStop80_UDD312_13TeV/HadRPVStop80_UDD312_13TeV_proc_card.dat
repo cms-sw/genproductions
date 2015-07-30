@@ -21,14 +21,8 @@
 #*                                                          *
 #************************************************************
 set group_subprocesses Auto
-import model sm
-define p = g u c d s u~ c~ d~ s~ b b~
-define j = g u c d s u~ c~ d~ s~ b b~
-define l+ = e+ mu+
-define l- = e- mu-
-define vl = ve vm vt
-define vl~ = ve~ vm~ vt~
 import model RPVMSSM_UFO -modelname
+define p = g u c d s u~ c~ d~ s~ b b~
 define j = g u c d s u~ c~ d~ s~ b b~
 generate p p > su1 su1~ /su2 QED=0 @0
 add process p p > su1 su1~ j /su2 QED=0 @1
