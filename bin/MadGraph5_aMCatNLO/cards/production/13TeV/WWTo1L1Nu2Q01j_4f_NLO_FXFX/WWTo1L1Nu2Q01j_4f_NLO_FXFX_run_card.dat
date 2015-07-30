@@ -55,7 +55,7 @@ average = event_norm ! Normalize events to sum or average to the X sect.
 # PDF choice: this automatically fixes also alpha_s(MZ) and its evol.  *
 #***********************************************************************
  lhapdf    = pdlabel   ! PDF set                                     
- 292200    = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number
+ 292000    = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number
 #***********************************************************************
 # Include the NLO Monte Carlo subtr. terms for the following parton    *
 # shower (HERWIG6 | HERWIGPP | PYTHIA6Q | PYTHIA6PT | PYTHIA8)         *
@@ -93,8 +93,8 @@ average = event_norm ! Normalize events to sum or average to the X sect.
   0.5     = rw_Fscale_down   ! lower bound for fact scale variations
   2.0     = rw_Fscale_up     ! upper bound for fact scale variations
  .true.  = reweight_PDF     ! reweight to get PDF uncertainty
- 292201   = PDF_set_min      ! First of the error PDF sets 
- 292302   = PDF_set_max      ! Last of the error PDF sets
+ 292001   = PDF_set_min      ! First of the error PDF sets 
+ 292102   = PDF_set_max      ! Last of the error PDF sets
 #***********************************************************************
 # Merging - WARNING! Applies merging only at the hard-event level.     *
 # After showering an MLM-type merging should be applied as well.       *
@@ -127,7 +127,7 @@ average = event_norm ! Normalize events to sum or average to the X sect.
    0  = drll    ! Min distance between opposite sign lepton pairs
    0  = drll_sf ! Min distance between opp. sign same-flavor lepton pairs
    0  = mll     ! Min inv. mass of all opposite sign lepton pairs
-   4  = mll_sf  ! Min inv. mass of all opp. sign same-flavor lepton pairs
+   0  = mll_sf  ! Min inv. mass of all opp. sign same-flavor lepton pairs
 #***********************************************************************
 # Photon-isolation cuts, according to hep-ph/9801442                   *
 # When ptgmin=0, all the other parameters are ignored                  *
@@ -142,5 +142,5 @@ average = event_norm ! Normalize events to sum or average to the X sect.
 # Maximal PDG code for quark to be considered a jet when applying cuts.*
 # At least all massless quarks of the model should be included here.   *
 #***********************************************************************
- 5 = maxjetflavor
+ 4 = maxjetflavor
 #***********************************************************************
