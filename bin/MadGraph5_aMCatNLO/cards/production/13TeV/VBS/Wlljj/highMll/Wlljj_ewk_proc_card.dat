@@ -21,11 +21,11 @@
 #*                                                          *
 #************************************************************
 
-set group_subprocesses False
+set group_subprocesses Auto
 set ignore_six_quark_processes False
 set loop_optimized_output True
 set complex_mass_scheme False
-import model sm-ckm_no_b_mass
+import model sm-ckm_lepton_masses_no_b_mass
 define p = g u c d s b u~ c~ d~ s~ b~
 define j = p
 define l+ = e+ mu+ ta+
