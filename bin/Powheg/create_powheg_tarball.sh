@@ -22,6 +22,9 @@ echo "%MSG-POWHEG source repository = $repo"
 name=${2} 
 echo "%MSG-POWHEG source tarball name = $name"
 
+if [ "$name" != "powhegboxV2_July2015" ]; then
+    fail_exit "You must use powhegboxV2_July2015 with the current version of $0"
+fi    
 process=${3}
 echo "%MSG-POWHEG process = $process"
 
@@ -60,12 +63,7 @@ export WORKDIR=`pwd`
 
 # initialize the CMS environment 
 if [[ -e ${jobfolder} ]]; then
-  echo -e "The directory ${jobfolder} exists! Move the directory to old_${jobfolder}\n"
-  mv ${jobfolder} old_${jobfolder}
-  mv output.lhe old_output.lhe
-  rm -rf ${myDir}
-  echo -e "Move the tar ball to old_${tarball}.tar.gz\n"
-  mv ${tarball}_tarball.tar.gz old_${tarball}_tarball.tar.gz
+  fail_exit "The directory ${jobfolder} exists! Please clean up your work directory before running!! \n"
 fi
 
 scram project -n ${jobfolder} CMSSW ${RELEASE}; cd ${jobfolder} ; mkdir -p work ; 
@@ -137,6 +135,7 @@ if [ `echo ${name} | cut -d "_" -f 1` = "powhegboxV1" ]; then
 fi 
 if [ "$process" = "trijet" ]; then 
    BOOK_HISTO+=" observables.o"
+   rm -rf ../progress/bbinit.f
 fi  
 if [ "$process" = "VBF_HJJJ" ]; then 
   mv pwhg_analysis-dummy.f pwhg_analysis-dummy.f.orig
@@ -145,6 +144,12 @@ fi
 if [ "$process" = "VBF_H" ]; then 
   sed -i '/pwhginihist/d' pwhg_analysis-dummy.f 
 fi  
+if [ "$process" = "Wgamma" ] || [ "$process" = "W_ew-BMNNP" ]; then
+    patch -l -p0 -i ${WORKDIR}/patches/pwhg_analysis_driver.patch 
+fi
+if [ "$process" = "ttb_NLO_dec" ]; then
+    patch -l -p0 -i ${WORKDIR}/patches/pwhg_analysis_driver_offshellmap.patch
+fi
 
 # Remove ANY kind of analysis with parton shower
 if [ `grep particle_identif pwhg_analysis-dummy.f` = ""]; then
