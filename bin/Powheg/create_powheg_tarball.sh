@@ -248,9 +248,85 @@ fi
 cat ${card} | sed -e "s#SEED#${seed}#g" | sed -e "s#NEVENTS#${nevt}#g" > powheg.input
 cat powheg.input
 
-#make sure env variable for pdfsets points to the right place
-export LHAPDF_DATA_PATH=`${myDir}/lhapdf-config --datadir`
-../pwhg_main &> log_${process}_${seed}.txt
+ 
+# Use one stage procedure by default and two stage procedure if ttH process is used
+if [ "$process" != "ttH" ]; then
+	echo "Default one stage procedure is used"
+	#make sure env variable for pdfsets points to the right place
+	export LHAPDF_DATA_PATH=`${myDir}/lhapdf-config --datadir`
+	../pwhg_main &> log_${process}_${seed}.txt
+else
+	# Save powheg input before starting two stage
+	cp powheg.input powheg.input.original
+	echo "Two stage procedure is used for ttH process"
+
+	# Check if required options are set in input card, otherwise set them
+	## use-old-grid must be set to 1
+	if grep -Fq "use-old-grid" powheg.input; then
+		echo "use-old-grid was already set, making sure it is set to 1"
+		sed -i '/use-old-grid/c\use-old-grid    1 ! if 1 use old grid if file pwggrids.dat is present (<> 1 regenerate)' powheg.input
+	else
+		echo "Inserted use-old-grid 1 needed for the two stage procedure."
+		echo -e "use-old-grid    1 ! if 1 use old grid if file pwggrids.dat is present (<> 1 regenerate)" >> powheg.input
+	fi
+	## use-old-ubound must be set to 1
+	if grep -Fq "use-old-ubound" powheg.input; then
+		echo "use-old-ubound was already set, making sure it is set to 1"
+		sed -i '/use-old-ubound/c\use-old-ubound  1 ! if 1 use norm of upper bounding function stored in pwgubound.dat, if present; <> 1 regenerate' powheg.input
+	else
+		echo "Inserted use-old-ubound 1 needed for the two stage procedure."
+		echo -e "use-old-ubound  1 ! if 1 use norm of upper bounding function stored in pwgubound.dat, if present; <> 1 regenerate" >> powheg.input
+	fi
+
+	# Preparation for first stage, ncall2 = 0 and fakevirt =1 must be set
+	## ncall2 must be set to 0, but before a value must be defined for the second stage
+	if grep -Fq "ncall2" powheg.input; then
+		ncallTwoOriginal=$(grep "^ncall2 " powheg.input | cut -d' ' -f2-3)
+		echo "ncall2 was set to $ncallTwoOriginal, set it to 0 for first stage." 
+		sed -i '/ncall2/c\ncall2  0  ! number of calls for computing the integral and finding upper bound' powheg.input
+	else
+		cp powheg.input.orginal powheg.input
+		fail_exit "Required ncall2 value was not defined"
+	fi
+	## fakevirt must be set to 1
+	if grep -Fq "fakevirt" powheg.input; then
+		echo "fakevirt was already set, making sure it is set to 1"
+		sed -i '/fakevirt/c\fakevirt   1      ! (default 0) if 1 use Born for virtuals' powheg.input
+	else
+		echo "Inserted fakevirt 1 needed for first stage."
+		echo -e "fakevirt   1      ! (default 0) if 1 use Born for virtuals" >> powheg.input
+	fi
+
+	# Save first stage powheg.input to allow a check later
+	cp powheg.input powheg.input.stage1
+
+	#make sure env variable for pdfsets points to the right place before starting first stage
+	export LHAPDF_DATA_PATH=`${myDir}/lhapdf-config --datadir`
+	../pwhg_main &> log_${process}_${seed}_stage1.txt
+
+	# Preparation for second stage, ncall2 = [OriginalValue] and fakevirt = 0 must be set
+	## Revert ncall2 to original value
+	if grep -Fq "ncall2" powheg.input; then
+		echo "ncall2 was set back to $ncallTwoOriginal as required for second stage." 
+		sed -i "/ncall2/c\ncall2  $ncallTwoOriginal  ! number of calls for computing the integral and finding upper bound" powheg.input
+	else
+		fail_exit "Something strange happened, ncall2 parameter was not found in second stage."
+	fi
+	## fakevirt must be set to 1
+	if grep -Fq "fakevirt" powheg.input; then
+		echo "fakevirt set to 0 as required for second stage."
+		sed -i '/fakevirt/c\fakevirt   0      ! (default 0) if 1 use Born for virtuals' powheg.input
+	else
+		fail_exit "Something strange happened, fakevirt parameter was not found in second stage."
+	fi
+
+	# Save second stage powheg.input to allow a check later
+	cp powheg.input powheg.input.stage2
+
+	#make sure env variable for pdfsets points to the right place before starting first stage
+	export LHAPDF_DATA_PATH=`${myDir}/lhapdf-config --datadir`
+	../pwhg_main &> log_${process}_${seed}_stage2.txt
+fi
 
 #remove the spurious random seed output that is non LHE standard 
 cat pwgevents.lhe | grep -v "Random number generator exit values" > ${file}_final.lhe
