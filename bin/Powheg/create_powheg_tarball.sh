@@ -3,12 +3,12 @@
 fail_exit() { echo "$@" 1>&2; exit 1; }
 
 #set -o verbose
-EXPECTED_ARGS=8
+EXPECTED_ARGS=5
 
 if [ $# -ne $EXPECTED_ARGS ]
 then
-    echo "Usage: `basename $0` source_repository source_tarball_name process card tarballName othercard Nevents RandomSeed"
-    echo "Example: `basename $0` slc6_amd64_gcc481/powheg/V1.0/src powhegboxv1.0_Oct2013 Z slc6_amd64_gcc481/powheg/V1.0/8TeV_Summer12/DYToEE_M-20_8TeV-powheg/v1/DYToEE_M-20_8TeV-powheg.input none Z_local 1000 1212" 
+    echo "Usage: `basename $0` process card othercard Nevents RandomSeed"
+    echo "Example: `basename $0` Z slc6_amd64_gcc481/powheg/V1.0/8TeV_Summer12/DYToEE_M-20_8TeV-powheg/v1/DYToEE_M-20_8TeV-powheg.input none 1000 1212" 
     exit 1
 fi
 
@@ -16,34 +16,31 @@ echo "   ______________________________________________________    "
 echo "         Running Powheg  create_powheg_tarball.sh            "
 echo "   ______________________________________________________    "
 
-repo=${1}
+repo=slc6_amd64_gcc481/powheg/V2.0/src
 echo "%MSG-POWHEG source repository = $repo"
 
-name=${2} 
+name=powhegboxV2_July2015
 echo "%MSG-POWHEG source tarball name = $name"
 
-if [ "$name" != "powhegboxV2_July2015" ]; then
-    fail_exit "You must use powhegboxV2_July2015 with the current version of $0"
-fi    
-process=${3}
+process=${1}
 echo "%MSG-POWHEG process = $process"
 
-cardinput=${4}
+cardinput=${2}
 echo "%MSG-POWHEG location of the card = $cardinput"
 
-tarball=${5}
+tarball=${process}
 echo "%MSG-POWHEG tar ball file name = ${tarball}_tarball.tar.gz"
 
-usejhugen=${6}
+usejhugen=${3}
 echo "%MSG-POWHEG JHUGen datacard for decays = ${usejhugen}"
 
-nevt=${7}
+nevt=${4}
 echo "%MSG-POWHEG number of events requested = $nevt"
 
-rnum=${8}
+rnum=${5}
 echo "%MSG-POWHEG random seed used for the run = $rnum"
 
-skipgen=${9}
+skipgen=${6}
 echo "%MSG-POWHEG if not null skip generation = $skipgen"
 
 seed=$rnum
@@ -63,7 +60,15 @@ export WORKDIR=`pwd`
 
 # initialize the CMS environment 
 if [[ -e ${jobfolder} ]]; then
-  fail_exit "The directory ${jobfolder} exists! Please clean up your work directory before running!! \n"
+  fail_exit "The directory ${jobfolder} exists! Please clean up your work directory before running!!"
+fi
+
+if [[ -e ${tarball}_tarball.tar.gz ]]; then
+  fail_exit "The tarball ${tarball}_tarball.tar.gz exists! Please rename it or move it somewhere else before running!!"
+fi
+
+if [[ -e events_final.lhe ]]; then
+  fail_exit "The LHE file events_final.lhe exists! Please remove this file before running!!"
 fi
 
 scram project -n ${jobfolder} CMSSW ${RELEASE}; cd ${jobfolder} ; mkdir -p work ; 
