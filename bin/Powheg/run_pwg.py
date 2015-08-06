@@ -103,7 +103,7 @@ def prepareJobForEvents (tag, i, folderName, EOSfolder) :
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
 
-def runParallelXgrid(parstage, xgrid, folderName, nEvents, njobs, powInputName, jobtag, rndSeed) :
+def runParallelXgrid(parstage, xgrid, folderName, nEvents, njobs, powInputName, jobtag, rndSeed, process) :
     # parstage, xgrid are strings!
 
     print 'running jobs for grid'
@@ -127,6 +127,12 @@ def runParallelXgrid(parstage, xgrid, folderName, nEvents, njobs, powInputName, 
 
         if not 'fakevirt' in open(inputName).read() :
             runCommand("echo \'fakevirt 1\' >> "+inputName)
+
+        if process == 'ttH' :
+            if not 'ncall2' in open(inputName).read() :
+                runCommand("echo \'ncall2 0\' >> "+inputName)
+            else :
+                runCommand("sed -i \'s/ncall2.*/ncall2 0/g\' "+inputName)
 
     #runCommand('cp -p powheg.input ' + folderName)
 
@@ -159,7 +165,7 @@ def runParallelXgrid(parstage, xgrid, folderName, nEvents, njobs, powInputName, 
 
 
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-def runSingleXgrid(parstage, xgrid, folderName, nEvents, powInputName, seed) :
+def runSingleXgrid(parstage, xgrid, folderName, nEvents, powInputName, seed, process) :
 
     print 'Running single job for Xgrid'
     print folderName
@@ -181,7 +187,17 @@ def runSingleXgrid(parstage, xgrid, folderName, nEvents, powInputName, seed) :
 
     f = open(filename, 'a')
     f.write('cd '+rootfolder+'/'+folderName+'/ \n')
+
+    if process == 'ttH' :
+        f.write('sed -i "s/ncall2.*/ncall2 0/g" '+inputName+' \n')
+        f.write('sed -i "s/fakevirt.*/fakevirt 1  ! number of calls for computing the integral and finding upper bound/g" '+inputName+' \n')
+
     f.write('./pwhg_main \n')
+
+    if process == 'ttH' :
+        f.write('sed -i "s/ncall2.*/ncall2 500000  ! number of calls for computing the integral and finding upper bound/g" '+inputName+' \n')
+        f.write('sed -i "s/fakevirt.*/fakevirt 0/g" '+inputName+' \n')
+        f.write('./pwhg_main \n')
 
     f.write('echo "\nEnd of job on " `date` \n')
     f.close()
@@ -478,7 +494,7 @@ chmod 755 runcmsgrid.sh
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
 
-def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag) :
+def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag, process) :
     print 'run : submitting jobs'
     #runCommand('rm -f ' + folderName + 'powheg.input')
 
@@ -697,10 +713,11 @@ if __name__ == "__main__":
     elif args.parstage == '1' :
         runParallelXgrid(args.parstage, args.xgrid, args.folderName,
                          args.numEvents, njobs, powInputName, jobtag,
-                         args.rndSeed)
+                         args.rndSeed, args.prcName)
     elif args.parstage == '123' :
         runSingleXgrid(args.parstage, args.xgrid, args.folderName,
-                       args.numEvents, powInputName, args.rndSeed)
+                       args.numEvents, powInputName, args.rndSeed,
+                       args.prcName)
     elif args.parstage == '9' :
         # overwriting with original
         os.system('cp -p '+args.inputTemplate+' '+
@@ -709,4 +726,5 @@ if __name__ == "__main__":
                       args.keepTop)
     else                    :
         runEvents(args.parstage, args.folderName,
-                  args.eosFolder + '/' + EOSfolder, njobs, powInputName, jobtag)
+                  args.eosFolder + '/' + EOSfolder, njobs, powInputName,
+                  jobtag, args.prcName)
