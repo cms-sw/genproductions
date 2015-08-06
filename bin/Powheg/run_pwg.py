@@ -283,7 +283,7 @@ if [[ -s ./JHUGen.input ]]; then
 fi
 
 ### retrieve the powheg source tar ball
-export POWHEGSRC=powhegboxV2_Jun2015.tar.gz 
+export POWHEGSRC=powhegboxV2_July2015.tar.gz 
 
 echo 'D/L POWHEG source...'
 
@@ -320,6 +320,7 @@ if [ `echo ${name} | cut -d "_" -f 1` = "powhegboxV1" ]; then
 fi 
 if [ "$process" = "trijet" ]; then 
    BOOK_HISTO+=" observables.o"
+   rm -rf ../progress/bbinit.f
 fi  
 if [ "$process" = "VBF_HJJJ" ]; then 
   sed -i 's/..\/pwhg_book.h/pwhg_book.h/g' pwhg_analysis-dummy.f
@@ -327,6 +328,12 @@ fi
 if [ "$process" = "VBF_H" ]; then 
   sed -i '/pwhginihist/d' pwhg_analysis-dummy.f 
 fi  
+if [ "$process" = "Wgamma" ] || [ "$process" = "W_ew-BMNNP" ]; then
+    patch -l -p0 -i ${WORKDIR}/patches/pwhg_analysis_driver.patch 
+fi
+if [ "$process" = "ttb_NLO_dec" ]; then
+    patch -l -p0 -i ${WORKDIR}/patches/pwhg_analysis_driver_offshellmap.patch
+fi
 
 # Remove ANY kind of analysis with parton shower
 if [ `grep particle_identif pwhg_analysis-dummy.f` = ""]; then
