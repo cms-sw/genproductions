@@ -336,9 +336,13 @@ if [ "$process" = "gg_H_MSSM" ]; then
   cp -p ../gg_H_quark-mass-effects/SLHADefs.h .
 fi  
   
-echo "ANALYSIS=none 
-PWHGANAL=$BOOK_HISTO pwhg_analysis-dummy.o
-LHAPDF_CONFIG=${LHAPDF6_BASE}/bin/lhapdf-config" >> tmpfile
+echo "ANALYSIS=none " >> tmpfile
+if [ "$process" = "Wgamma" ]; then
+  echo "PWHGANAL=$BOOK_HISTO pwhg_analysis-dummy.o uti.o " >> tmpfile
+else
+  echo "PWHGANAL=$BOOK_HISTO pwhg_analysis-dummy.o " >> tmpfile
+fi
+echo LHAPDF_CONFIG=${LHAPDF6_BASE}/bin/lhapdf-config" >> tmpfile
 mv Makefile Makefile.interm
 cat tmpfile Makefile.interm > Makefile
 rm -f Makefile.interm tmpfile
