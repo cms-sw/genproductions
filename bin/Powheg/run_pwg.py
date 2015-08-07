@@ -691,8 +691,8 @@ if __name__ == "__main__":
                 os.system('cp -p JHUGen '+args.folderName+'/.')
 
         if not os.path.exists(args.inputTemplate) :
-            os.system('wget --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate+' -O '+args.folderName+'/powheg.input')
-            os.system('wget --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate)
+            os.system('wget --quiet --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate+' -O '+args.folderName+'/powheg.input')
+            os.system('wget --quiet --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate)
 
             os.system('sed -i "s/^numevts.*/numevts '+args.numEvents+'/" '+
                       args.folderName+'/powheg.input')
@@ -732,7 +732,7 @@ if __name__ == "__main__":
     if args.parstage == '0' :
         #runCommand('cp -p JHUGen.input '+args.folderName+'/.')
         if not os.path.exists(args.inputTemplate) :
-            os.system('wget --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate)
+            os.system('wget --quiet --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate)
         runGetSource(args.parstage, args.xgrid, args.folderName,
                      powInputName, args.prcName)
     elif args.parstage == '1' :
