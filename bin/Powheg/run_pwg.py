@@ -718,6 +718,9 @@ if __name__ == "__main__":
 
     jobtag = args.parstage + '_' + args.xgrid
 
+    if len(sys.argv) <= 1 :
+        exit()
+
     if args.parstage == '0' :
         #runCommand('cp -p JHUGen.input '+args.folderName+'/.')
         runGetSource(args.parstage, args.xgrid, args.folderName,
