@@ -128,11 +128,11 @@ def runParallelXgrid(parstage, xgrid, folderName, nEvents, njobs, powInputName, 
         if not 'fakevirt' in open(inputName).read() :
             runCommand("echo \'fakevirt 1\' >> "+inputName)
 
-        if process == 'ttH' :
-            if not 'ncall2' in open(inputName).read() :
-                runCommand("echo \'ncall2 0\' >> "+inputName)
-            else :
-                runCommand("sed -i \'s/ncall2.*/ncall2 0/g\' "+inputName)
+        #if process == 'ttH' :
+        #    if not 'ncall2' in open(inputName).read() :
+        #        runCommand("echo \'ncall2 0\' >> "+inputName)
+        #    else :
+        #        runCommand("sed -i \'s/ncall2.*/ncall2 0/g\' "+inputName)
 
     #runCommand('cp -p powheg.input ' + folderName)
 
@@ -188,14 +188,20 @@ def runSingleXgrid(parstage, xgrid, folderName, nEvents, powInputName, seed, pro
     f = open(filename, 'a')
     f.write('cd '+rootfolder+'/'+folderName+'/ \n')
 
+    m_ncall2 = 500000
     if process == 'ttH' :
+        for line in open(inputName) :
+            if 'ncall2' in line :
+                m_ncall2 = line.split(" ")[2]
+                print "The original ncall2 is :", m_ncall2
+
         f.write('sed -i "s/ncall2.*/ncall2 0/g" '+inputName+' \n')
         f.write('sed -i "s/fakevirt.*/fakevirt 1  ! number of calls for computing the integral and finding upper bound/g" '+inputName+' \n')
 
     f.write('./pwhg_main \n')
 
     if process == 'ttH' :
-        f.write('sed -i "s/ncall2.*/ncall2 500000  ! number of calls for computing the integral and finding upper bound/g" '+inputName+' \n')
+        f.write('sed -i "s/ncall2.*/ncall2 '+m_ncall2+'  ! number of calls for computing the integral and finding upper bound/g" '+inputName+' \n')
         f.write('sed -i "s/fakevirt.*/fakevirt 0/g" '+inputName+' \n')
         f.write('./pwhg_main \n')
 
@@ -365,7 +371,7 @@ if [ "$process" = "Wgamma" ]; then
 else
   echo "PWHGANAL=$BOOK_HISTO pwhg_analysis-dummy.o " >> tmpfile
 fi
-echo LHAPDF_CONFIG=${LHAPDF6_BASE}/bin/lhapdf-config" >> tmpfile
+echo "LHAPDF_CONFIG=${LHAPDF6_BASE}/bin/lhapdf-config" >> tmpfile
 mv Makefile Makefile.interm
 cat tmpfile Makefile.interm > Makefile
 rm -f Makefile.interm tmpfile
@@ -686,6 +692,8 @@ if __name__ == "__main__":
 
         if not os.path.exists(args.inputTemplate) :
             os.system('wget --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate+' -O '+args.folderName+'/powheg.input')
+            os.system('wget --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate)
+
             os.system('sed -i "s/^numevts.*/numevts '+args.numEvents+'/" '+
                       args.folderName+'/powheg.input')
 
@@ -723,6 +731,8 @@ if __name__ == "__main__":
 
     if args.parstage == '0' :
         #runCommand('cp -p JHUGen.input '+args.folderName+'/.')
+        if not os.path.exists(args.inputTemplate) :
+            os.system('wget --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate)
         runGetSource(args.parstage, args.xgrid, args.folderName,
                      powInputName, args.prcName)
     elif args.parstage == '1' :
