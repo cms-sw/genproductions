@@ -57,13 +57,13 @@ def prepareJob(tag, i, folderName) :
     f.write('export LHAPDF_BASE=`scram tool info lhapdf | grep LHAPDF_BASE | sed -e s%LHAPDF_BASE=%%`    \n')
     f.write('export PATH=$LHAPDF_BASE/bin/:$PATH \n')
     f.write('export LHAPATH=`scram tool info lhapdf | grep LHAPATH | sed -e s%LHAPATH=%%`\n')
+    f.write('export LHAPDF_DATA_PATH=`$LHAPDF_BASE/bin/lhapdf-config --datadir` \n')
+#    f.write('export LHAPDF6TOOLFILE=$CMSSW_BASE/config/toolbox/$SCRAM_ARCH/tools/available/lhapdf6.xml \n\n')
 
-    f.write('export LHAPDF6TOOLFILE=$CMSSW_BASE/config/toolbox/$SCRAM_ARCH/tools/available/lhapdf6.xml \n\n')
-
-    f.write('if [ -e $LHAPDF6TOOLFILE ]; then \n')
-    f.write('    export LHAPDF6_BASE=`grep LHAPDF6_BASE $CMSSW_BASE/config/toolbox/$SCRAM_ARCH/tools/available/lhapdf6.xml | head -1 | cut -d \\" -f 4 `\n')
-    f.write('    export LHAPDF_DATA_PATH=`$LHAPDF6_BASE/bin/lhapdf-config --datadir` \n')
-    f.write('fi \n\n')
+#    f.write('if [ -e $LHAPDF6TOOLFILE ]; then \n')
+#    f.write('    export LHAPDF6_BASE=`grep LHAPDF6_BASE $CMSSW_BASE/config/toolbox/$SCRAM_ARCH/tools/available/lhapdf6.xml | head -1 | cut -d \\" -f 4 `\n')
+#    f.write('    export LHAPDF_DATA_PATH=`$LHAPDF6_BASE/bin/lhapdf-config --datadir` \n')
+#    f.write('fi \n\n')
 #    f.write('cd ' + rootfolder + '/' + folderName + '\n')
 #    f.write('echo ' + str (i) + ' | ../pwhg_main > log_' + tag + '.log 2>&1' + '\n')
 
@@ -371,7 +371,7 @@ if [ "$process" = "Wgamma" ]; then
 else
   echo "PWHGANAL=$BOOK_HISTO pwhg_analysis-dummy.o " >> tmpfile
 fi
-echo "LHAPDF_CONFIG=${LHAPDF6_BASE}/bin/lhapdf-config" >> tmpfile
+echo "LHAPDF_CONFIG=${LHAPDF_BASE}/bin/lhapdf-config" >> tmpfile
 mv Makefile Makefile.interm
 cat tmpfile Makefile.interm > Makefile
 rm -f Makefile.interm tmpfile
