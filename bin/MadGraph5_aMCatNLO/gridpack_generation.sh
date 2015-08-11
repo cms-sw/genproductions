@@ -152,6 +152,10 @@ EFFDMSOURCE=/afs/cern.ch/cms/generators/www/
 CHMODEL=2HDMtypeII.tar.gz
 CHSOURCE=/afs/cern.ch/cms/generators/www/
 
+# model for non resonant HH
+NONRESHHMODEL=BSM_gg_hh.tar
+NONRESHHSOURCE=/afs/cern.ch/cms/generators/www/
+
 # Model for EWK DM model
 EWKDMMODEL=EWModel_FermionDM_UFO.tar
 EWKDMSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${EWKDMMODEL}
@@ -337,6 +341,12 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   cp ${CHSOURCE}/${CHMODEL} .
   cd models
   tar xvf ../${CHMODEL}
+  cd ..
+
+  # get non res hh model
+  cp ${NONRESHHSOURCE}/${NONRESHHMODEL} .
+  cd models
+  tar xvf ../${NONRESHHMODEL}
   cd ..
 
   #get EWK DM model
