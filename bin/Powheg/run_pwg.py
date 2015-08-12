@@ -220,7 +220,7 @@ def runSingleXgrid(parstage, xgrid, folderName, nEvents, powInputName, seed, pro
         
     else:
         print 'Submitting to queue: '+QUEUE+' \n'
-        runCommand ('cd '+rootfolder+'/'+folderName+';bsub -J ' + jobID + ' -u $USER -q ' + QUEUE + ' run_Xgrid.sh ', TESTING == 0)
+        runCommand ('cd '+rootfolder+'/'+folderName+';bsub -J ' + process + ' -u $USER -q ' + QUEUE + ' run_Xgrid.sh ', TESTING == 0)
 
 
 
