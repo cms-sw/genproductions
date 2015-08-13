@@ -207,14 +207,14 @@ def runSingleXgrid(parstage, xgrid, folderName, nEvents, powInputName, seed, pro
                 m_ncall2 = line.split(" ")[2]
                 print "The original ncall2 is :", m_ncall2
 
-        f.write('sed -i "s/ncall2.*/ncall2 0/g" '+inputName+' \n')
-        f.write('sed -i "s/fakevirt.*/fakevirt 1  ! number of calls for computing the integral and finding upper bound/g" '+inputName+' \n')
+        f.write('sed -i "s/ncall2.*/ncall2 0/g powheg.input \n')
+        f.write('sed -i "s/fakevirt.*/fakevirt 1  ! number of calls for computing the integral and finding upper bound/g" powheg.input \n')
 
     f.write('./pwhg_main \n')
 
     if process == 'ttH' :
-        f.write('sed -i "s/ncall2.*/ncall2 '+m_ncall2+'  ! number of calls for computing the integral and finding upper bound/g" '+inputName+' \n')
-        f.write('sed -i "s/fakevirt.*/fakevirt 0/g" '+inputName+' \n')
+        f.write('sed -i "s/ncall2.*/ncall2 '+m_ncall2+'  ! number of calls for computing the integral and finding upper bound/g" powheg.input \n')
+        f.write('sed -i "s/fakevirt.*/fakevirt 0/g" powheg.input \n')
         f.write('./pwhg_main \n')
 
     f.write('echo "\nEnd of job on " `date` \n"')
