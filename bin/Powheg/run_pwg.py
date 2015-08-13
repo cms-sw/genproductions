@@ -55,8 +55,9 @@ def prepareJob(tag, i, folderName) :
     f.write('### Prepare environments for LHAPDF ### \n\n')
 
     f.write('export LHAPDF_BASE=`scram tool info lhapdf | grep LHAPDF_BASE | sed -e s%LHAPDF_BASE=%%`    \n')
+    f.write('echo "LHAPDF_BASE is set to:" $LHAPDF_BASE \n')
     f.write('export PATH=$LHAPDF_BASE/bin/:$PATH \n')
-    f.write('export LHAPATH=`scram tool info lhapdf | grep LHAPATH | sed -e s%LHAPATH=%%`\n')
+#    f.write('export LHAPATH=`scram tool info lhapdf | grep LHAPATH | sed -e s%LHAPATH=%%`\n')
     f.write('export LHAPDF_DATA_PATH=`$LHAPDF_BASE/bin/lhapdf-config --datadir` \n')
 #    f.write('export LHAPDF6TOOLFILE=$CMSSW_BASE/config/toolbox/$SCRAM_ARCH/tools/available/lhapdf6.xml \n\n')
 
@@ -66,6 +67,9 @@ def prepareJob(tag, i, folderName) :
 #    f.write('fi \n\n')
 #    f.write('cd ' + rootfolder + '/' + folderName + '\n')
 #    f.write('echo ' + str (i) + ' | ../pwhg_main > log_' + tag + '.log 2>&1' + '\n')
+    # for gg_H with libchaplin
+    f.write('\n')
+    f.write('export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:${LD_LIBRARY_PATH}\n')
 
     f.close()
     return filename
@@ -106,8 +110,8 @@ def prepareJobForEvents (tag, i, folderName, EOSfolder) :
 def runParallelXgrid(parstage, xgrid, folderName, nEvents, njobs, powInputName, jobtag, rndSeed, process) :
     # parstage, xgrid are strings!
 
-    print 'running jobs for grid'
-    print folderName
+    print 'Running parallel jobs for grid'
+    #print folderName
 
     inputName = folderName + "/powheg.input"
 
@@ -165,10 +169,10 @@ def runParallelXgrid(parstage, xgrid, folderName, nEvents, njobs, powInputName, 
 
 
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-def runSingleXgrid(parstage, xgrid, folderName, nEvents, powInputName, seed, process) :
+def runSingleXgrid(parstage, xgrid, folderName, nEvents, powInputName, seed, process, scriptName) :
 
-    print 'Running single job for Xgrid'
-    print folderName
+    print 'Running single job for grid'
+    #print folderName
 
     inputName = folderName + "/powheg.input"
 
@@ -178,12 +182,13 @@ def runSingleXgrid(parstage, xgrid, folderName, nEvents, powInputName, seed, pro
 
     runCommand(sedcommand)
 
-    prepareJob('Xgrid', '', folderName)
+    #prepareJob('Xgrid', '', folderName)
 
     #runCommand('rm -f ' + folderName + '/run_Xgrid.sh')
     #runCommand('cp -p run_Xgrid.sh ' + folderName + '/.')
 
-    filename = folderName + '/run_Xgrid.sh'
+    #filename = folderName + '/run_Xgrid.sh'
+    filename = scriptName
 
     f = open(filename, 'a')
     f.write('cd '+rootfolder+'/'+folderName+'/ \n')
@@ -212,32 +217,19 @@ def runSingleXgrid(parstage, xgrid, folderName, nEvents, powInputName, seed, pro
 
     #runCommand ('bsub -J ' + jobID + ' -u pippopluto -q ' + QUEUE + ' < ' + jobname, 1, TESTING == 0)
 
-    if QUEUE == '':
-        print 'Direct running... \n'
-        #runCommand ('cd ' + folderName + '/; bash run_Xgrid.sh', TESTING == 0)
-        os.system('cd '+rootfolder+'/'+folderName+';bash run_Xgrid.sh >& run_Xgrid.log &')
-        #print "Issue 'bash run_Xgrid.sh >& run_Xgrid.log &' to generate grid..."
-        
-    else:
-        print 'Submitting to queue: '+QUEUE+' \n'
-        runCommand ('cd '+rootfolder+'/'+folderName+';bsub -J ' + process + ' -u $USER -q ' + QUEUE + ' run_Xgrid.sh ', TESTING == 0)
-
-
-
-
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-def runGetSource(parstage, xgrid, folderName, powInputName, process) :
+def runGetSource(parstage, xgrid, folderName, powInputName, process, tagName) :
     # parstage, xgrid are strings!
 
     print 'Getting and compiling POWHEG source...'
 
-    prepareJob('source', '', '.')
+    #prepareJob(tagName, '', '.')
 
-    filename = 'run_source.sh'
+    filename = './run_'+tagName+'.sh'
     f = open (filename, 'a')
 
     f.write('export name='+folderName+'\n\n')
-#    f.write('set process='+rootfolder+'\n\n')
+#    f.write('export process='+rootfolder+'\n\n')
     f.write('export cardInput='+powInputName+'\n\n')
     f.write('export process='+process+'\n\n')
     f.write('export WORKDIR='+os.getcwd()+'\n\n')
@@ -248,6 +240,7 @@ export RELEASE=${CMSSW_VERSION}
 export jhugenversion="v5.2.5"
 
 cd $WORKDIR
+pwd
 
 # initialize the CMS environment 
 
@@ -302,7 +295,7 @@ tar zxf ${POWHEGSRC}
 
 if [ -e POWHEG-BOX/${process}.tgz ]; then
   cd POWHEG-BOX/
-  tar xvf ${process}.tgz
+  tar zxf ${process}.tgz
   cd -
 fi
 
@@ -383,7 +376,7 @@ if [ $jhugen = 1 ]; then
     wget --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/slc6_amd64_gcc481/JHUGenerator.${jhugenversion}.tar.gz || fail_exit "Failed to get JHUGen tar ball "
   fi
 
-  tar xzf JHUGenerator.${jhugenversion}.tar.gz
+  tar zxf JHUGenerator.${jhugenversion}.tar.gz
   cd JHUGenerator
   sed -i -e "s#Comp = ifort#Comp = gfort#g" makefile
   make
@@ -421,11 +414,15 @@ if [ "$process" = "gg_H_2HDM" ] || [ "$process" = "gg_H_MSSM" ]; then
 fi  
 
 echo 'Compiling pwhg_main...'
+pwd
 
 make pwhg_main || fail_exit "Failed to compile pwhg_main"
 
 mkdir -p ${WORKDIR}/${name}
 cp -p pwhg_main ${WORKDIR}/${name}/.
+cp -a lib ${WORKDIR}/${name}/.
+cp -a lib64 ${WORKDIR}/${name}/.
+
 cd ${WORKDIR}/${name}
 
 #mkdir -p workdir
@@ -484,18 +481,7 @@ chmod 755 runcmsgrid.sh
 
     f.close()
 
-    os.system('chmod 755 run_source.sh')
-
-    if QUEUE == '':
-        print 'Direct compiling... \n'
-        #runCommand ('bash run_source.sh ', TESTING == 1)
-        os.system('bash run_source.sh >& run_source.log &')
-        #print "Issue 'bash run_source.sh >& run.log &' to compile powheg..."
-        
-    else:
-        print 'Submitting to queue: '+QUEUE+' \n'
-        runCommand ('bsub -J compile_pwg -u $USER -q ' + QUEUE + ' run_source.sh ', TESTING == 0)
-
+    os.system('chmod 755 '+filename)
 
     #print "Source done..."
     #runCommand ('mv *.sh ' + folderName)
@@ -727,22 +713,120 @@ if __name__ == "__main__":
     jobtag = args.parstage + '_' + args.xgrid
 
     if len(sys.argv) <= 1 :
+        print "\t argument '-p', '--parstage'      , default= '0'"
+        print "\t argument '-x', '--xgrid'         , default= '1'"
+        print "\t argument '-f', '--folderName'    , default='testProd'"
+        print "\t argument '-e', '--eosFolder'     , default='NONE'"
+        print "\t argument '-t', '--totEvents'     , default= '10000"
+        print "\t argument '-n', '--numEvents'     , default= '2000'"
+        print "\t argument '-i', '--inputTemplate' , default= 'powheg.input'"
+        print "\t argument '-q', '--lsfQueue'      , default= ''"
+        print "\t argument '-s', '--rndSeed'       , default= '42'"
+        print "\t argument '-m', '--prcName'       , default= 'DMGG'"
+        print "\t argument '-k', '--keepTop'       , default= '0'"
+        print ""
+
         exit()
 
     if args.parstage == '0' :
         #runCommand('cp -p JHUGen.input '+args.folderName+'/.')
+
+        tagName = 'src_'+args.folderName
+        filename = './run_'+tagName+'.sh'
+
+        prepareJob(tagName, '', '.')
+
         if not os.path.exists(args.inputTemplate) :
             os.system('wget --quiet --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate)
+        os.system('mkdir -p '+rootfolder+'/'+args.folderName)
+        os.system('cp -p '+args.inputTemplate.split('/')[-1]+' '+args.folderName+'/powheg.input')
         runGetSource(args.parstage, args.xgrid, args.folderName,
-                     powInputName, args.prcName)
+                     powInputName, args.prcName, tagName)
+
+        if QUEUE == '':
+            print 'Direct compiling... \n'
+            #runCommand ('bash run_source.sh ', TESTING == 1)
+            os.system('bash '+filename+' >& '+filename.split('.sh')[0]+'.log &')
+            #print "Issue 'bash run_source.sh >& run.log &' to compile powheg..."
+        
+        else:
+            print 'Submitting to queue: '+QUEUE+' \n'
+            runCommand ('bsub -J compile_pwg -u $USER -q ' + QUEUE + ' '+rootfolder + '/' +filename, TESTING == 0)
+
     elif args.parstage == '1' :
         runParallelXgrid(args.parstage, args.xgrid, args.folderName,
                          args.numEvents, njobs, powInputName, jobtag,
                          args.rndSeed, args.prcName)
+
     elif args.parstage == '123' :
+        tagName = 'grid_'+args.folderName
+        scriptName = args.folderName + '/run_'+tagName+'.sh'
+
+        prepareJob(tagName, '', args.folderName)
         runSingleXgrid(args.parstage, args.xgrid, args.folderName,
                        args.numEvents, powInputName, args.rndSeed,
-                       args.prcName)
+                       args.prcName, scriptName)
+
+        if QUEUE == '':
+            print 'Direct running single grid... \n'
+            #runCommand ('bash run_source.sh ', TESTING == 1)
+            os.system('bash '+scriptName+' >& '+scriptName.split('.sh')[0]+'.log &')
+            #print "Issue 'bash run_source.sh >& run.log &' to compile powheg..."
+        
+        else:
+            print 'Submitting to queue: '+QUEUE+' \n'
+            runCommand ('bsub -J '+args.folderName+' -u $USER -q ' + QUEUE + ' '+scriptName, TESTING == 0)
+
+    elif args.parstage == '0123' :
+        tagName = 'all_'+args.folderName
+        scriptName = './run_'+tagName+'.sh'
+
+        if not os.path.exists(args.inputTemplate) :
+            os.system('wget --quiet --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate)
+        os.system('mkdir -p '+rootfolder+'/'+args.folderName)
+        os.system('cp -p '+args.inputTemplate.split('/')[-1]+' '+args.folderName+'/powheg.input')
+        prepareJob(tagName, '', '.')
+        runGetSource(args.parstage, args.xgrid, args.folderName,
+                     powInputName, args.prcName, tagName)
+
+        runSingleXgrid(args.parstage, args.xgrid, args.folderName,
+                       args.numEvents, powInputName, args.rndSeed,
+                       args.prcName, scriptName)
+
+        if QUEUE == '':
+            print 'Direct compiling and running... \n'
+            #runCommand ('bash run_source.sh ', TESTING == 1)
+            os.system('bash '+scriptName+' >& '+scriptName.split('.sh')[0]+'.log &')
+            #print "Issue 'bash run_source.sh >& run.log &' to compile powheg..."
+        
+        else:
+            print 'Submitting to queue: '+QUEUE+' \n'
+            runCommand ('bsub -J all_'+args.folderName+' -u $USER -q ' + QUEUE + ' '+rootfolder + '/' +scriptName, TESTING == 0)
+
+    elif args.parstage == '01239' :
+        tagName = 'all_'+args.folderName
+        scriptName = './run_'+tagName+'.sh'
+
+        if not os.path.exists(args.inputTemplate) :
+            os.system('wget --quiet --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate)
+        os.system('mkdir -p '+rootfolder+'/'+args.folderName)
+        os.system('cp -p '+args.inputTemplate.split('/')[-1]+' '+args.folderName+'/powheg.input')
+        runGetSource(args.parstage, args.xgrid, args.folderName,
+                     powInputName, args.prcName, tagName)
+
+        runSingleXgrid(args.parstage, args.xgrid, args.folderName,
+                       args.numEvents, powInputName, args.rndSeed,
+                       args.prcName, scriptName)
+
+        print 'One shot... Please wait!\n'
+        #runCommand ('bash run_source.sh ', TESTING == 1)
+        os.system('bash '+scriptName+' >& '+scriptName.split('.sh')[0]+'.log ')
+
+        os.system('cp -p '+args.inputTemplate+' '+
+                  args.folderName+'/powheg.input')
+        createTarBall(args.parstage, args.folderName, args.prcName,
+                      args.keepTop)
+
     elif args.parstage == '9' :
         # overwriting with original
         os.system('cp -p '+args.inputTemplate+' '+
