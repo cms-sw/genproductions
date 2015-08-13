@@ -195,6 +195,11 @@ def runSingleXgrid(parstage, xgrid, folderName, nEvents, powInputName, seed, pro
     f.write('export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:${LD_LIBRARY_PATH} \n\n')
     #f.write('echo $LD_LIBRARY_PATH \n')
 
+    if process == 'gg_H_2HDM' :
+        f.write('wget --quiet --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/'+'/'.join(powInputName.split('/')[0:-1])+'/br.a3_2HDM \n')
+        f.write('wget --quiet --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/'+'/'.join(powInputName.split('/')[0:-1])+'/br.h3_2HDM \n')
+        f.write('wget --quiet --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/'+'/'.join(powInputName.split('/')[0:-1])+'/br.l3_2HDM \n')
+
     m_ncall2 = 500000
     if process == 'ttH' :
         for line in open(inputName) :
@@ -212,7 +217,7 @@ def runSingleXgrid(parstage, xgrid, folderName, nEvents, powInputName, seed, pro
         f.write('sed -i "s/fakevirt.*/fakevirt 0/g" '+inputName+' \n')
         f.write('./pwhg_main \n')
 
-    f.write('echo "\nEnd of job on " `date` \n')
+    f.write('echo "\nEnd of job on " `date` \n"')
     f.close()
 
     os.system('chmod 755 '+filename)
