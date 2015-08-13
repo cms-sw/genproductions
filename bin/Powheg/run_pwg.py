@@ -69,7 +69,6 @@ def prepareJob(tag, i, folderName) :
 #    f.write('echo ' + str (i) + ' | ../pwhg_main > log_' + tag + '.log 2>&1' + '\n')
     # for gg_H with libchaplin
     f.write('\n')
-    f.write('export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:${LD_LIBRARY_PATH}\n')
 
     f.close()
     return filename
@@ -178,7 +177,7 @@ def runSingleXgrid(parstage, xgrid, folderName, nEvents, powInputName, seed, pro
 
 #    runCommand('mv -f powheg.input powheg.input.temp')
 #    sedcommand = 'sed "s/parallelstage.*/parallelstage ' + parstage + '/ ; s/xgriditeration.*/xgriditeration ' + xgrid + '/" ' + powInputName + ' > ' + folderName + '/powheg.input'
-    sedcommand = 'sed "s/NEVENTS/' + nEvents + '/ ; s/SEED/' + seed + '/" ' + powInputName + ' > ' + folderName + '/powheg.input'
+    sedcommand = 'sed "s/NEVENTS/' + nEvents + '/ ; s/SEED/' + seed + '/" ' + powInputName.split('/')[-1] + ' > ' + folderName + '/powheg.input'
 
     runCommand(sedcommand)
 
@@ -192,6 +191,9 @@ def runSingleXgrid(parstage, xgrid, folderName, nEvents, powInputName, seed, pro
 
     f = open(filename, 'a')
     f.write('cd '+rootfolder+'/'+folderName+'/ \n')
+
+    f.write('export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:${LD_LIBRARY_PATH} \n\n')
+    #f.write('echo $LD_LIBRARY_PATH \n')
 
     m_ncall2 = 500000
     if process == 'ttH' :
@@ -762,6 +764,11 @@ if __name__ == "__main__":
         tagName = 'grid_'+args.folderName
         scriptName = args.folderName + '/run_'+tagName+'.sh'
 
+
+        os.system('cp -p '+args.inputTemplate.split('/')[-1]+' '+args.folderName+'/powheg.input')
+        os.system('sed -i "s/^numevts.*/numevts '+args.totEvents+'/" '+
+                  args.folderName+'/powheg.input')
+
         prepareJob(tagName, '', args.folderName)
         runSingleXgrid(args.parstage, args.xgrid, args.folderName,
                        args.numEvents, powInputName, args.rndSeed,
@@ -789,6 +796,9 @@ if __name__ == "__main__":
         runGetSource(args.parstage, args.xgrid, args.folderName,
                      powInputName, args.prcName, tagName)
 
+        os.system('cp -p '+args.inputTemplate.split('/')[-1]+' '+args.folderName+'/powheg.input')
+        os.system('sed -i "s/^numevts.*/numevts '+args.numEvents+'/" '+
+                  args.folderName+'/powheg.input')
         runSingleXgrid(args.parstage, args.xgrid, args.folderName,
                        args.numEvents, powInputName, args.rndSeed,
                        args.prcName, scriptName)
