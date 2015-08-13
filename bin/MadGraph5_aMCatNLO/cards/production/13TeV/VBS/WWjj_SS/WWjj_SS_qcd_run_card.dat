@@ -130,7 +130,7 @@
 #*********************************************************************
 # Maximum and minimum absolute rapidity (for max, -1 means no cut)   *
 #*********************************************************************
- 5.5  = etaj    ! max rap for the jets 
+ 6.5  = etaj    ! max rap for the jets 
   -1  = etab    ! max rap for the b
  2.5  = etaa    ! max rap for the photons 
   -1  = etal    ! max rap for the charged leptons 
