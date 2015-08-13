@@ -557,12 +557,13 @@ def createTarBall(parstage, folderName, prcName, keepTop) :
     if not 'SEED' in open(folderName+'/powheg.input').read():
         runCommand('sed -i "s/iseed.*/iseed SEED/g" '+folderName+'/powheg.input')
 
+    runCommand('echo "\n\n" >> '+folderName+'/powheg.input')
     if not 'manyseeds' in open(folderName+'/powheg.input').read():
-        runCommand('echo "manyseeds 1" >> '+folderName+'/powheg.input')
+        runCommand('echo "\nmanyseeds 1\n" >> '+folderName+'/powheg.input')
     if not 'parallelstage' in open(folderName+'/powheg.input').read():
-        runCommand('echo "parallelstage 4" >> '+folderName+'/powheg.input')
+        runCommand('echo "\nparallelstage 4\n" >> '+folderName+'/powheg.input')
     if not 'xgriditeration' in open(folderName+'/powheg.input').read():
-        runCommand('echo "xgriditeration 1" >> '+folderName+'/powheg.input')
+        runCommand('echo "\nxgriditeration 1\n" >> '+folderName+'/powheg.input')
 
     # turn into single run mode
     runCommand('sed -i "s/^manyseeds.*/#manyseeds 1/g" '+folderName+'/powheg.input')
