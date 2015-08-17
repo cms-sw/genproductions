@@ -195,10 +195,21 @@ def runSingleXgrid(parstage, xgrid, folderName, nEvents, powInputName, seed, pro
     f.write('export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:${LD_LIBRARY_PATH} \n\n')
     #f.write('echo $LD_LIBRARY_PATH \n')
 
+    if process == 'gg_H_MSSM' :
+        if os.path.exists(powInputName) :
+            f.write('cp -p '+'/'.join(powInputName.split('/')[0:-1])+'/powheg-fh.in . \n')
+        else :
+            f.write('wget --quiet --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/'+'/'.join(powInputName.split('/')[0:-1])+'/powheg-fh.in \n')
+
     if process == 'gg_H_2HDM' :
-        f.write('wget --quiet --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/'+'/'.join(powInputName.split('/')[0:-1])+'/br.a3_2HDM \n')
-        f.write('wget --quiet --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/'+'/'.join(powInputName.split('/')[0:-1])+'/br.h3_2HDM \n')
-        f.write('wget --quiet --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/'+'/'.join(powInputName.split('/')[0:-1])+'/br.l3_2HDM \n')
+        if os.path.exists(powInputName) :
+            f.write('cp -p '+'/'.join(powInputName.split('/')[0:-1])+'/br.a3_2HDM . \n')
+            f.write('cp -p '+'/'.join(powInputName.split('/')[0:-1])+'/br.l3_2HDM . \n')
+            f.write('cp -p '+'/'.join(powInputName.split('/')[0:-1])+'/br.h3_2HDM . \n')
+        else :
+            f.write('wget --quiet --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/'+'/'.join(powInputName.split('/')[0:-1])+'/br.a3_2HDM \n')
+            f.write('wget --quiet --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/'+'/'.join(powInputName.split('/')[0:-1])+'/br.h3_2HDM \n')
+            f.write('wget --quiet --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/'+'/'.join(powInputName.split('/')[0:-1])+'/br.l3_2HDM \n')
 
     m_ncall2 = 500000
     if process == 'ttH' :
@@ -748,6 +759,16 @@ if __name__ == "__main__":
             os.system('wget --quiet --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate)
         os.system('mkdir -p '+rootfolder+'/'+args.folderName)
         os.system('cp -p '+args.inputTemplate.split('/')[-1]+' '+args.folderName+'/powheg.input')
+
+        os.system('rm -rf JHUGen.input')
+        inputJHUGen = '/'.join(powInputName.split('/')[0:-1])+'/JHUGen.input'
+        if not os.path.exists(inputJHUGen) :
+            os.system('wget --quiet --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/'+inputJHUGen)
+            if os.path.exists('JHUGen.input') :
+                os.system('cp -p JHUGen.input '+args.folderName+'/.')
+        else :
+            os.system('cp -p '+inputJHUGen+' '+args.folderName+'/.')
+
         runGetSource(args.parstage, args.xgrid, args.folderName,
                      powInputName, args.prcName, tagName)
 
