@@ -161,7 +161,7 @@ def runParallelXgrid(parstage, xgrid, folderName, nEvents, njobs, powInputName, 
             os.system('cd '+rootfolder+'/'+folderName+';bash run_'+jobID+'.sh &')
         else:
             print 'Submitting to queue: '+QUEUE+' #'+str(i)+' \n'
-            runCommand ('cd '+rootfolder+'/'+folderName+';bsub -J ' + jobID + ' -u $USER -q ' + QUEUE + ' run_'+jobID+'.sh ', TESTING == 0)
+            runCommand ('bsub -J ' + jobID + ' -u $USER -q ' + QUEUE + ' '+rootfolder+'/run_'+jobID+'.sh ', TESTING == 0)
 
 
     #runCommand ('mv *.sh ' + folderName)
@@ -533,7 +533,7 @@ def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag, proc
 
         else:
             print 'Submitting to queue: '+QUEUE+' #'+str(i)+' \n'
-            runCommand ('cd '+rootfolder+'/'+folderName+';bsub -J ' + jobID + ' -u $USER -q ' + QUEUE + ' run_'+tag+'.sh', TESTING == 0)
+            runCommand ('bsub -J ' + jobID + ' -u $USER -q ' + QUEUE + ' ' + rootfolder + '/run_'+tag+'.sh', TESTING == 0)
 
     #runCommand('mv *.sh ' + folderName)
 
@@ -788,7 +788,7 @@ if __name__ == "__main__":
         
         else:
             print 'Submitting to queue: '+QUEUE+' \n'
-            runCommand ('bsub -J '+args.folderName+' -u $USER -q ' + QUEUE + ' '+scriptName, TESTING == 0)
+            runCommand ('bsub -J '+args.folderName+' -u $USER -q ' + QUEUE + ' '+rootfolder+'/'+scriptName, TESTING == 0)
 
     elif args.parstage == '0123' :
         tagName = 'all_'+args.folderName
