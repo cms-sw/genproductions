@@ -49,8 +49,8 @@ average = event_norm ! Normalize events to sum or average to the X sect.
 #***********************************************************************
     1   = lpp1    ! beam 1 type (0 = no PDF)
     1   = lpp2    ! beam 2 type (0 = no PDF)
- 6500   = ebeam1  ! beam 1 energy in GeV
- 6500   = ebeam2  ! beam 2 energy in GeV
+ 4000   = ebeam1  ! beam 1 energy in GeV
+ 4000   = ebeam2  ! beam 2 energy in GeV
 #***********************************************************************
 # PDF choice: this automatically fixes also alpha_s(MZ) and its evol.  *
 #***********************************************************************
@@ -100,7 +100,7 @@ average = event_norm ! Normalize events to sum or average to the X sect.
 # After showering an MLM-type merging should be applied as well.       *
 # See http://amcatnlo.cern.ch/FxFx_merging.htm for more details.       *
 #***********************************************************************
- 3        = ickkw            ! 0 no merging, 3 FxFx merging
+ 0        = ickkw            ! 0 no merging, 3 FxFx merging
 #***********************************************************************
 #
 #***********************************************************************
@@ -115,7 +115,7 @@ average = event_norm ! Normalize events to sum or average to the X sect.
 # (more specific cuts can be specified in SubProcesses/cuts.f)         *
 #***********************************************************************
    1  = jetalgo   ! FastJet jet algorithm (1=kT, 0=C/A, -1=anti-kT)
- 1.0  = jetradius ! The radius parameter for the jet algorithm
+ 0.7  = jetradius ! The radius parameter for the jet algorithm
   15  = ptj       ! Min jet transverse momentum
   -1  = etaj      ! Max jet abs(pseudo-rap) (a value .lt.0 means no cut)
 #***********************************************************************
