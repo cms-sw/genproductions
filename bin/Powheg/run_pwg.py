@@ -228,7 +228,7 @@ def runSingleXgrid(parstage, xgrid, folderName, nEvents, powInputName, seed, pro
         f.write('sed -i "s/fakevirt.*/fakevirt 0/g" powheg.input \n')
         f.write('./pwhg_main \n')
 
-    f.write('echo "\nEnd of job on " `date` \n"')
+    f.write('echo "\nEnd of job on " `date` "\n"')
     f.close()
 
     os.system('chmod 755 '+filename)
