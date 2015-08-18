@@ -8,7 +8,7 @@
 #*                *                       *                 *
 #*                                                          *
 #*                                                          *
-#*         VERSION 2.2.3                 2015-02-10         *
+#*         VERSION 2.2.1                 2014-09-25         *
 #*                                                          *
 #*    The MadGraph5_aMC@NLO Development Team - Find us at   *
 #*    https://server06.fynu.ucl.ac.be/projects/madgraph     *
@@ -20,19 +20,19 @@
 #*     run as ./bin/mg5_aMC  filename                       *
 #*                                                          *
 #************************************************************
-import model sm-no_b_mass
+
 set group_subprocesses Auto
 set ignore_six_quark_processes False
 set loop_optimized_output True
 set complex_mass_scheme False
+import model sm-ckm_no_b_mass
 define p = g u c d s b u~ c~ d~ s~ b~
-define j = g u c d s b u~ c~ d~ s~ b~
-define l+ = e+ mu+
-define l- = e- mu-
-define vl = ve vm vt
-define vl~ = ve~ vm~ vt~
+define j = p
 define l+ = e+ mu+ ta+
 define l- = e- mu- ta-
-generate p p > w+ w+ j j QED=4 QCD=0, w+ > l+ vl @0
-add process p p > w- w- j j QED=4 QCD=0, w- > l- vl~ @1
-output wpwpjj_ewk
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+
+generate p p > w+ w+ j j QED=4 QCD=99, w+ > l+ vl @ 1
+add process p p > w- w- j j QED=4 QCD=99, w- > l- vl~ @ 2
+output WWjj_SS_ewk_qcd
