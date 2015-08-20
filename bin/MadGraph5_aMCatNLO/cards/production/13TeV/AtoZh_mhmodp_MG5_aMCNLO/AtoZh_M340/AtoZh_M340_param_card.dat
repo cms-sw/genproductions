@@ -1,0 +1,227 @@
+##################################################################
+#                                                                #
+#                 2HDM MG5 parameter card                        #
+#                 Based on 2HDMC: http://2hdmc.hepforge.org      #
+#		    By David Eriksson,Johan Rathsman and Oscar Stal  #
+#		    						   #
+#                 Adapted by DLV david.lopezval@uclouvain.be     #
+#                 				                   #
+#                 Please cite the original Ref. ARXIV:0902.0851  #
+#                  VERSION UNDER DEVELOPMENT                     #
+#                 				                   #
+##################################################################
+Block SMINPUTS  # Standard Model inputs
+    1        1.27934000e+02   # 1/alpha_em(MZ) SM MSbar
+    2        1.16637000e-05   # G Fermi
+    3        1.19000000e-01   # alpha_s(MZ) SM MSbar
+####### CKM matrix (assumed to be real) 
+Block ckmblock 
+    1         2.27736000e-01  # cabi
+########################## 
+Block higgs   # potential parameters in the Higgs basis 
+   1       -1.54152789e+00   # lambda_2
+   2       -2.61144051e+00   # lambda_3
+   3        2.10744914e+00   # Re(lambda_7)
+   4        0.00000000e+00   # Im(lambda_7)
+   5       -7.03523910e-02   # mixh
+   6        0.00000000e+00   # mixh2
+   7        0.00000000e+00   # mixh3
+################################################################################### 
+# INFORMATION FOR LOOP 
+################################################################################### 
+Block loop  
+    1        9.11880000e+01   # MU_R  
+    2        9.62379106e-01 # ytrs1, rescaling of top quark Yukawa for h1 
+    3       -5.69057517e-01 # ytrs2, rescaling of top quark Yukawa for h2 
+    4        5.00000000e-01 # ytrs3, rescaling of top quark Yukawa for h3 
+    5        5.00000000e-01 # ytrHp, rescaling of top quark Yukawa for charged Higgs 
+    6        1.13811503e+00 # ybrs1, rescaling of bottom quark Yukawa for h1 
+    7        1.92475821e+00 # ybrs2, rescaling of bottom quark Yukawa for h2 
+    8        2.00000000e+00 # ybrs3, rescaling of bottom quark Yukawa for h3 
+    9        2.00000000e+00 # ybrHp, rescaling of bottom quark Yukawa for charged Higgs 
+   10        9.97526291e-01 # yh1vv, rescaling of h1 coupling to the gauge bosons
+   11       -7.02943710e-02 # yh2vv, rescaling of h2 coupling to the gauge bosons
+   12        6.77875358e+02 # h1h+h- trilinear 
+   13        4.72415122e+02 # h2h+h- trilinear 
+#################################################################################### 
+# PARTICLE MASSES 
+Block mass # Mass spectrum 
+# PDG Code                mass    particle 
+# SM PARTICLES 
+    1         0.00000000e+00  # Md
+    2         0.00000000e+00  # Mu
+    3         0.00000000e+00  # Ms
+    4         0.00000000e+00  # Mc
+    5         4.78000000e+00  # Mb
+    6         1.73070000e+02  # Mt
+    11        5.10998918e-04  # Me
+    13        1.05658367e-01  # Mmu
+    15        1.77684000e+00  # Mta
+    23        9.11880000e+01  # MZ
+    24        8.03850000e+01  # MW
+    12        0.00000000e+00  # mnue
+    14        0.00000000e+00  # mnumu
+    16        0.00000000e+00  # mnutau
+    21        0.00000000e+00  # g
+    22        0.00000000e+00  # a
+# Higgs bosons 
+    25        1.25000000e+02  # Mh1, lightest CP-even Higgs
+    35        3.52500000e+02  # Mh2, heaviest CP-even Higgs
+    36        3.40000000e+02  # Mh3, CP-odd Higgs
+    37        3.49700000e+02  # Mhc
+########################## 
+Block yukawa 
+    1         0.00000000e+00  # ymdo
+    2         0.00000000e+00  # ymup
+    3         0.00000000e+00  # yms
+    4         0.00000000e+00  # ymc
+    5         4.78000000e+00  # ymb
+    6         1.73070000e+02  # ymt
+   11         0.00000000e+00  # yme
+   13         0.00000000e+00  # ymm
+   15         1.77684000e+00  # ymtau
+Block yukawaglr 
+    1     1        0.00000000e+00   # GLR11 
+    1     2        0.00000000e+00   # GLR12 
+    1     3        0.00000000e+00   # GLR13 
+    2     1        0.00000000e+00   # GLR21 
+    2     2        0.00000000e+00   # GLR21 
+    2     3        0.00000000e+00   # GLR23 
+    3     1        0.00000000e+00   # GLR31 
+    3     2        0.00000000e+00   # GLR32 
+    3     3       -2.04112210e-02   # GLR33 
+Block yukawagli 
+    1     1        0.00000000e+00   # GLI11 
+    1     2        0.00000000e+00   # GLI12 
+    1     3        0.00000000e+00   # GLI13 
+    2     1        0.00000000e+00   # GLI21 
+    2     2        0.00000000e+00   # GLI22 
+    2     3        0.00000000e+00   # GLI23 
+    3     1        0.00000000e+00   # GLI31 
+    3     2        0.00000000e+00   # GLI32 
+    3     3        0.00000000e+00   # GLI33 
+Block yukawagdr 
+    1     1        0.00000000e+00   # GDR11 
+    1     2        0.00000000e+00   # GDR12 
+    1     3        0.00000000e+00   # GDR13 
+    2     1        0.00000000e+00   # GDR21 
+    2     2        0.00000000e+00   # GDR21 
+    2     3        0.00000000e+00   # GDR23 
+    3     1        0.00000000e+00   # GDR31 
+    3     2        0.00000000e+00   # GDR32 
+    3     3       -5.49096353e-02   # GDR33 
+Block yukawagdi 
+    1     1        0.00000000e+00   # GDI11 
+    1     2        0.00000000e+00   # GDI12 
+    1     3        0.00000000e+00   # GDI13 
+    2     1        0.00000000e+00   # GDI21 
+    2     2        0.00000000e+00   # GDI22 
+    2     3        0.00000000e+00   # GDI23 
+    3     1        0.00000000e+00   # GDI31 
+    3     2        0.00000000e+00   # GDI32 
+    3     3        0.00000000e+00   # GDI33 
+Block yukawagur 
+    1     1        0.00000000e+00   # GUR11 
+    1     2        0.00000000e+00   # GUR12 
+    1     3        0.00000000e+00   # GUR13 
+    2     1        0.00000000e+00   # GUR21 
+    2     2        0.00000000e+00   # GUR21 
+    2     3        0.00000000e+00   # GUR23 
+    3     1        0.00000000e+00   # GUR31 
+    3     2        0.00000000e+00   # GUR32 
+    3     3        4.97029842e-01   # GUR33 
+Block yukawagui 
+    1     1        0.00000000e+00   # GUI11 
+    1     2        0.00000000e+00   # GUI12 
+    1     3        0.00000000e+00   # GUI13 
+    2     1        0.00000000e+00   # GUI21 
+    2     2        0.00000000e+00   # GUI22 
+    2     3        0.00000000e+00   # GUI23 
+    3     1        0.00000000e+00   # GUI31 
+    3     2        0.00000000e+00   # GUI32 
+    3     3        0.00000000e+00   # GUI33 
+## INFORMATION ON DECAYS ####### 
+#     PDG   Width
+DECAY  6     1.49119361e+00   # top decays
+#            BR          NDA    ID1   ID2
+       1.00000000e+00     2      24     5
+#     PDG   Width
+DECAY  23     2.4126275103422E+00      # z width (non SM decays not yet implemented)
+#     PDG   Width
+DECAY  24     2.0028844418592E+00      # w width (non SM decays not yet implemented)
+DECAY  25     5.20883369e-03   # h1 decays, lightest CP-even Higgs
+#            BR          NDA    ID1   ID2
+       2.41913266e-04     2       3    -3
+       2.13335726e-02     2       4    -4
+       6.74207753e-01     2       5    -5
+       5.32712983e-09     2      11   -11
+       2.27750451e-04     2      13   -13
+       6.43314344e-02     2      15   -15
+       1.97497525e-03     2      22    22
+       2.00445866e-02     2      23    23
+       1.60941211e-01     2      24   -24
+       1.23119867e-03     2      23    22
+       5.54655994e-02     2      21    21
+#     PDG   Width
+DECAY  35     1.00582435e+00   # h2 decays, heaviest CP-even Higgs
+#            BR          NDA    ID1   ID2
+       8.01122645e-06     2       3    -3
+       8.94013756e-05     2       4    -4
+       2.30371947e-02     2       5    -5
+       9.86116713e-02     2       6    -6
+       2.22505513e-10     2      11   -11
+       9.51280008e-06     2      13   -13
+       2.68986973e-03     2      15   -15
+       1.17603932e-05     2      22    22
+       2.31642470e-02     2      23    23
+       5.06416436e-02     2      24   -24
+       5.24556954e-06     2      23    22
+       4.53657385e-03     2      21    21
+       7.97194713e-01     2      25    25
+       1.55679534e-07     2      23    36
+DECAY  36     1.09329924e-01   # h3 decays, CP-odd Higgs
+#            BR          NDA    ID1   ID2
+       7.87918079e-05     2       3    -3
+       6.21918363e-04     2       4    -4
+       2.23738190e-01     2       5    -5
+       3.91093448e-01     2       6    -6
+       2.13182379e-09     2      11   -11
+       9.11421034e-05     2      13   -13
+       2.57741448e-02     2      15   -15
+       2.68742243e-04     2      22    22
+       6.41280825e-05     2      23    22
+       9.42199466e-02     2      21    21
+       2.64049545e-01     2      23    25
+DECAY  37     2.97106493e+00   # Charged Higgs decays
+#            BR          NDA    ID1   ID2
+       1.45601271e-07     2       2    -3
+       1.01061942e-07     2       2    -5
+       1.13289385e-06     2       4    -1
+       2.38796343e-05     2       4    -3
+       1.39614059e-05     2       4    -5
+       7.37421678e-05     2       6    -1
+       1.60393737e-03     2       6    -3
+       9.85230803e-01     2       6    -5
+       8.06853933e-11     2     -11    12
+       3.44955178e-06     2     -13    14
+       9.75504281e-04     2     -15    16
+       1.20733063e-02     2      24    25
+       3.67617273e-08     2      24    36
+#=========================================================== 
+# QUANTUM NUMBERS OF NEW STATE(S) (NON SM PDG CODE)
+#=========================================================== 
+Block QNUMBERS 37  # h+ 
+	1 3  # 3 times electric charge 
+	2 1  # number of spin states (2S+1) 
+	3 1  # colour rep (1: singlet, 3: triplet, 8: octet)
+	4 1  # Particle/Antiparticle distinction (0=own anti) 
+Block QNUMBERS 35  # h2
+      1 0  # 3 times electric charge 
+      2 1  # number of spin states (2S+1) 
+      3 1  # colour rep (1: singlet, 3: triplet, 8: octet)
+      4 0  # Particle/Antiparticle distinction (0=own anti) 
+Block QNUMBERS 36  # h3  
+      1 0  # 3 times electric charge 
+      2 1  # number of spin states (2S+1) 
+      3 1  # colour rep (1: singlet, 3: triplet, 8: octet) 
+      4 0  # Particle/Antiparticle distinction (0=own anti) 
