@@ -1,0 +1,10 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set gauge unitary
+set complex_mass_scheme False
+import model Vector_Triplet_free_Width_UFO
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+generate p p > vz, (vz > h z, h > b b~, z > vl vl~)
+output Zprime_Zh_Zinvhbb_narrow_M4500 -nojpeg
+

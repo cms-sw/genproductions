@@ -17,7 +17,7 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
             'POWHEG:nFinal = 3',   ## Number of final state particles
                                    ## (BEFORE THE DECAYS) in the LHE
                                    ## other than emitted extra parton
-            '25:m0 = 1000.0'        # Higgs Mass
+            '25:m0 = 1000.0'       # Higgs Mass
           ),
         parameterSets = cms.vstring('pythia8CommonSettings',
                                     'pythia8CUEP8M1Settings',

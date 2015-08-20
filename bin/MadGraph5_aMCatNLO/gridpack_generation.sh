@@ -52,7 +52,7 @@ fi
 
 
 #________________________________________
-# to be set for user spesific
+# to be set for user specific
 # Release to be used to define the environment and the compiler needed
 
 #For correct running you should place at least the run and proc card in a folder under the name "cards" in the same folder where you are going to run the script
@@ -120,6 +120,10 @@ VVSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$VVMO
 ZPRIMEMODEL=topBSM_UFO.zip
 ZPRIMESOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${ZPRIMEMODEL}
 
+# Model for searches for monotops
+MONOTOPMODEL=monotops_UFO.tgz
+MONOTOPSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${MONOTOPMODEL}
+
 ## DM Model Vector Mediator
 SimplifiedVDM=SimplifiedDM_VectorMediator_UFO.tar.gz
 SimplifiedVDMSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${SimplifiedVDM}
@@ -144,7 +148,19 @@ TGAMMASOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$
 EFFDM=EffDM_222_restricted.tar
 EFFDMSOURCE=/afs/cern.ch/cms/generators/www/
 
+# 2HDM model, needed for the charged Higgs analysis
+CHMODEL=2HDMtypeII.tar.gz
+CHSOURCE=/afs/cern.ch/cms/generators/www/
+
+# Model for EWK DM model
+EWKDMMODEL=EWModel_FermionDM_UFO.tar
+EWKDMSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${EWKDMMODEL}
+
 MGBASEDIRORIG=MG5_aMC_v2_2_2
+
+#activate this to avoid thousands of mails from CERN LSF
+LSFMAIL=no
+#LSFMAIL=yes
 
 isscratchspace=0
 
@@ -218,8 +234,8 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
       echo "set run_mode  1" >> mgconfigscript
       echo "set cluster_type lsf" >> mgconfigscript
       echo "set cluster_queue $queue" >> mgconfigscript
-      echo "set cluster_status_update 60 30" >> mgconfigscript
-      echo "set cluster_nb_retry 5" >> mgconfigscript
+      echo "set cluster_status_update 300 30" >> mgconfigscript
+      echo "set cluster_nb_retry 3" >> mgconfigscript
       echo "set cluster_retry_wait 300" >> mgconfigscript 
       if [[ ! "$RUNHOME" =~ ^/afs/.* ]]; then
           echo "local path is not an afs path, batch jobs will use worker node scratch space instead of afs"
@@ -231,6 +247,10 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   fi
 
   echo "save options" >> mgconfigscript
+
+  if [ "${LSFMAIL}" == "no" ]; then
+     export LSB_JOB_REPORT_MAIL="N"
+  fi
 
   ./bin/mg5_aMC mgconfigscript
 
@@ -245,12 +265,19 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   make
   cd ..
   
-  #get HC nlo & single VLQ models
+  #get HC nlo model
   wget --no-check-certificate ${HCNLOSOURCE}
-  wget --no-check-certificate ${SINGLEVLQSOURCE}
-  wget --no-check-certificate ${SINGLEVLQSOURCE_diagCKM}
   cd models
   unzip ../${HCNLO}
+ # adding restrict files for massive muons
+  cp $PRODHOME/patches/restrict_heft_muelmass.dat  ./HC_NLO_X0_UFO/
+  cp $PRODHOME/patches/paramcard_heft_muelmass.dat  ./HC_NLO_X0_UFO/
+  cd ..  
+  
+  #get single VLQ models
+  wget --no-check-certificate ${SINGLEVLQSOURCE}
+  wget --no-check-certificate ${SINGLEVLQSOURCE_diagCKM}  
+  cd models
   tar -zxvf ../${SINGLEVLQ}
   unzip ../${SINGLEVLQ_diagCKM}
   cd ..
@@ -269,8 +296,11 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
 
   #get Diboson model
   wget --no-check-certificate ${VVSOURCE}
+  #get Monotop model
+  wget --no-check-certificate ${MONOTOPSOURCE}
   cd models
   tar xvzf ../${VVMODEL}
+  tar xvzf ../${MONOTOPMODEL}
   cd ..
 
   #get Z' model
@@ -303,7 +333,18 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   tar xvf ../${EFFDM}
   cd ..
 
-  
+  # get ttDM model
+  cp ${CHSOURCE}/${CHMODEL} .
+  cd models
+  tar xvf ../${CHMODEL}
+  cd ..
+
+  #get EWK DM model
+  wget --no-check-certificate -O ${EWKDMMODEL} ${EWKDMSOURCE}
+  cd models
+  tar  -xf ../${EWKDMMODEL}
+  cd ..
+
   cd $WORKDIR
   
   if [ "$name" == "interactive" ]; then
