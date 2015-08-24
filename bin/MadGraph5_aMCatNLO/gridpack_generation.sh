@@ -32,8 +32,9 @@ carddir=${2}
 # which queue
 queue=${3}
 
-# if there is an exotic model
+# if there are (up to two) BSM models
 model=${4}
+model2=${5}
 
 if [ -z "$PRODHOME" ]; then
   PRODHOME=`pwd`
@@ -54,12 +55,20 @@ if [ -z ${name} ]; then
 fi
 
 ismodel=0
+ismodel2=0
 
 if [ -z ${model} ]; then
-  echo "No exotic model provided"
+  echo "No BSM model provided"
 else
-  echo "Using exotic model " ${model}
+  echo "Using BSM model" ${model}
   ismodel=1
+fi
+
+if [ -z ${model2} ]; then
+  echo "No other BSM model provided"
+else
+  echo "Using also BSM model" ${model2}
+  ismodel2=1
 fi
 
 
@@ -112,10 +121,6 @@ SYSCALC=SysCalc_V1.1.2.tar.gz
 SYSCALCSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$SYSCALC
 
 MGBASEDIRORIG=MG5_aMC_v2_3_0
-
-#activate this to avoid thousands of mails from CERN LSF
-LSFMAIL=no
-#LSFMAIL=yes
 
 isscratchspace=0
 
@@ -185,7 +190,9 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
 #  echo "set output_dependencies internal" >> mgconfigscript
   echo "set lhapdf $LHAPDFCONFIG" >> mgconfigscript
 
-  if [ -n "$queue" ]; then
+  if [ "$queue" == "local" ]; then
+      echo "set run_mode 2" >> mgconfigscript
+  else
       #suppress lsf emails
       export LSB_JOB_REPORT_MAIL="N"
   
@@ -202,15 +209,9 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
           echo "set cluster_retry_wait 30" >> mgconfigscript 
           isscratchspace=1
       fi      
-  else
-      echo "set run_mode 2" >> mgconfigscript
   fi
 
   echo "save options" >> mgconfigscript
-
-  if [ "${LSFMAIL}" == "no" ]; then
-     export LSB_JOB_REPORT_MAIL="N"
-  fi
 
   ./bin/mg5_aMC mgconfigscript
 
@@ -225,7 +226,7 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   cd ..
   
   if [ "$ismodel" -gt "0" ]; then
-    #get needed exotic model
+    #get needed BSM model
     wget --no-check-certificate https://cms-project-generators.web.cern.ch/cms-project-generators/$model
     cd models
     if [[ $model == *".zip"* ]]; then
@@ -235,7 +236,23 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
     elif [[ $model == *".tar"* ]]; then
       tar xvf ../$model
     else 
-      echo "An exotic model is specified but it is not in a standard archive (.zip or .tar)"; exit 1
+      echo "A BSM model is specified but it is not in a standard archive (.zip or .tar)"; exit 1
+    fi
+    cd ..
+  fi
+
+  if [ "$ismodel2" -gt "0" ]; then
+    #get second needed BSM model
+    wget --no-check-certificate https://cms-project-generators.web.cern.ch/cms-project-generators/$model2
+    cd models
+    if [[ $model2 == *".zip"* ]]; then
+      unzip ../$model2
+    elif [[ $model2 == *".tgz"* || $model2 == *".tar.gz"* ]]; then
+      tar zxvf ../$model2
+    elif [[ $model2 == *".tar"* ]]; then
+      tar xvf ../$model2
+    else 
+      echo "A BSM model is specified but it is not in a standard archive (.zip or .tar)"; exit 1
     fi
     cd ..
   fi
