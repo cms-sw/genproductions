@@ -1,0 +1,45 @@
+#higgs characterization model NLO, needed for gluon-gluon-higgs effective vertex for gluon fusion production
+#or for non-scalar production
+HC_NLO_X0_UFO.zip
+
+## Single VLQ model
+STP_UFO_freeWidth.tar.gz
+
+# same with diagonal CKM 
+STP_UFO_freeWidth_diagCKM.zip
+
+## Models for searches of diboson resonances
+dibosonResonanceModel.tar.gz
+
+# Model for search for Z' resonances
+topBSM_UFO.zip
+
+# Model for searches for monotops
+monotops_UFO.tgz
+
+## DM Model Vector Mediator
+SimplifiedDM_VectorMediator_UFO.tar.gz
+
+## Type I See Saw Majorana Neutrino
+typeISeeSaw_MajNeutrino_UFO.tar.gz
+
+# Model for search for excited top quark (t*)
+top32.tgz
+
+# Model for Z' > VLQ
+onerho.tar.gz
+
+## Model for tGamma FCNC                                                                                                                              
+tqAandG_UFO.zip
+
+#ttDM EFT model, needed for ttDM production
+EffDM_222_restricted.tar
+
+# 2HDM model, needed for the charged Higgs analysis
+2HDMtypeII.tar.gz
+
+# Model for EWK DM model
+EWModel_FermionDM_UFO.tar
+
+# 2HDM model for A->Zh->lltautau
+2HDM4MG5-may15.tar.gz

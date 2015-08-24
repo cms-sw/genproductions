@@ -32,6 +32,9 @@ carddir=${2}
 # which queue
 queue=${3}
 
+# if there is an exotic model
+model=${4}
+
 if [ -z "$PRODHOME" ]; then
   PRODHOME=`pwd`
 fi 
@@ -48,6 +51,15 @@ set -u
 if [ -z ${name} ]; then
   echo "Process/card name not provided"
   if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
+fi
+
+ismodel=0
+
+if [ -z ${model} ]; then
+  echo "No exotic model provided"
+else
+  echo "Using exotic model " ${model}
+  ismodel=1
 fi
 
 
@@ -98,63 +110,6 @@ MGSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$MG
 #syscalc is a helper tool for madgraph to add scale and pdf variation weights for LO processes
 SYSCALC=SysCalc_V1.1.2.tar.gz
 SYSCALCSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$SYSCALC
-
-#higgs characterization model NLO, needed for gluon-gluon-higgs effective vertex for gluon fusion production
-#or for non-scalar production
-HCNLO=HC_NLO_X0_UFO.zip
-HCNLOSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$HCNLO
-
-## Single VLQ model
-SINGLEVLQ=STP_UFO_freeWidth.tar.gz
-SINGLEVLQSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$SINGLEVLQ
-
-#diagonal CKM 
-SINGLEVLQ_diagCKM=STP_UFO_freeWidth_diagCKM.zip
-SINGLEVLQSOURCE_diagCKM=https://cms-project-generators.web.cern.ch/cms-project-generators/$SINGLEVLQ_diagCKM
-
-## Models for searches of diboson resonances
-VVMODEL=dibosonResonanceModel.tar.gz
-VVSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$VVMODEL
-
-# Model for search for Z' resonances
-ZPRIMEMODEL=topBSM_UFO.zip
-ZPRIMESOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${ZPRIMEMODEL}
-
-# Model for searches for monotops
-MONOTOPMODEL=monotops_UFO.tgz
-MONOTOPSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${MONOTOPMODEL}
-
-## DM Model Vector Mediator
-SimplifiedVDM=SimplifiedDM_VectorMediator_UFO.tar.gz
-SimplifiedVDMSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${SimplifiedVDM}
-
-## Type I See Saw Majorana Neutrino
-TypeIMajNeutrinoMODEL=typeISeeSaw_MajNeutrino_UFO.tar.gz
-TypeIMajNeutrinoSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${TypeIMajNeutrinoMODEL}
-
-# Model for search for excited top quark (t*)
-TOP32MODEL=top32.tgz
-TOP32SOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${TOP32MODEL}
-
-# Model for Z' > VLQ
-ZPTOVLQMODEL=onerho.tar.gz
-ZPTOVLQSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${ZPTOVLQMODEL}
-
-## Model for tGamma FCNC                                                                                                                              
-TGAMMAMODEL=tqAandG_UFO.zip
-TGAMMASOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${TGAMMAMODEL}
-
-#ttDM EFT model, needed for ttDM production
-EFFDM=EffDM_222_restricted.tar
-EFFDMSOURCE=/afs/cern.ch/cms/generators/www/
-
-# 2HDM model, needed for the charged Higgs analysis
-CHMODEL=2HDMtypeII.tar.gz
-CHSOURCE=/afs/cern.ch/cms/generators/www/
-
-# Model for EWK DM model
-EWKDMMODEL=EWModel_FermionDM_UFO.tar
-EWKDMSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${EWKDMMODEL}
 
 MGBASEDIRORIG=MG5_aMC_v2_3_0
 
@@ -269,78 +224,21 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   PATH=`${LHAPDFCONFIG} --prefix`/bin:${PATH} make
   cd ..
   
-  #get HC nlo & single VLQ models
-  wget --no-check-certificate ${HCNLOSOURCE}
-  wget --no-check-certificate ${SINGLEVLQSOURCE}
-  wget --no-check-certificate ${SINGLEVLQSOURCE_diagCKM}
-  cd models
-  unzip ../${HCNLO}
-  tar -zxvf ../${SINGLEVLQ}
-  unzip ../${SINGLEVLQ_diagCKM}
-  cd ..
-
-  ## DM Model Vector Mediator
-  wget --no-check-certificate ${SimplifiedVDMSOURCE}
-  cd models
-  tar -zxvf ../${SimplifiedVDM}
-  cd ..
-
-  ## Type I See Saw Majorana Neutrino
-  wget --no-check-certificate ${TypeIMajNeutrinoSOURCE}
-  cd models
-  tar -zxvf ../${TypeIMajNeutrinoMODEL}
-  cd ..
-
-  #get Diboson model
-  wget --no-check-certificate ${VVSOURCE}
-  #get Monotop model
-  wget --no-check-certificate ${MONOTOPSOURCE}
-  cd models
-  tar xvzf ../${VVMODEL}
-  tar xvzf ../${MONOTOPMODEL}
-  cd ..
-
-  #get Z' model
-  wget --no-check-certificate -O ${ZPRIMEMODEL} ${ZPRIMESOURCE}
-  cd models
-  unzip ../${ZPRIMEMODEL}
-  cd ..
-
-  #get t* model
-  wget --no-check-certificate -O ${TOP32MODEL} ${TOP32SOURCE}
-  cd models
-  tar -xaf ../${TOP32MODEL}
-  cd ..
-
-  #get Z' > VLQ model
-  wget --no-check-certificate ${ZPTOVLQSOURCE}
-  cd models
-  tar xvzf ../${ZPTOVLQMODEL}
-  cd ..
-  
-  #get tGamma FCNC model                                                                                                                              
-  wget --no-check-certificate -O ${TGAMMAMODEL} ${TGAMMASOURCE}
-  cd models
-  unzip ../${TGAMMAMODEL}
-  cd ..
-
-  # get ttDM model
-  cp ${EFFDMSOURCE}/${EFFDM} .
-  cd models
-  tar xvf ../${EFFDM}
-  cd ..
-
-  # get ttDM model
-  cp ${CHSOURCE}/${CHMODEL} .
-  cd models
-  tar xvf ../${CHMODEL}
-  cd ..
-
-  #get EWK DM model
-  wget --no-check-certificate -O ${EWKDMMODEL} ${EWKDMSOURCE}
-  cd models
-  tar  -xf ../${EWKDMMODEL}
-  cd ..
+  if [ "$ismodel" -gt "0" ]; then
+    #get needed exotic model
+    wget --no-check-certificate https://cms-project-generators.web.cern.ch/cms-project-generators/$model
+    cd models
+    if [[ $model == *".zip"* ]]; then
+      unzip ../$model
+    elif [[ $model == *".tgz"* || $model == *".tar.gz"* ]]; then
+      tar zxvf ../$model
+    elif [[ $model == *".tar"* ]]; then
+      tar xvf ../$model
+    else 
+      echo "An exotic model is specified but it is not in a standard archive (.zip or .tar)"; exit 1
+    fi
+    cd ..
+  fi
 
   cd $WORKDIR
   
