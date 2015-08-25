@@ -13,14 +13,15 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
         pythia8CommonSettingsBlock,
         pythia8CUEP8M1SettingsBlock,
         processParameters = cms.vstring(
-            'ExcitedFermion:qqbar2eStare = on',
+            'ExcitedFermion:qqbar2tauStartau = on',
             'ExcitedFermion:Lambda= 10000',
-            '4000011:onMode = off',
-            '4000011:onIfMatch = 11 22',
-            '4000011:m0 = 500'),
+            '4000015:onMode = off',
+            '4000015:onIfMatch = 15 22',
+            '4000015:m0 = 2750'),
         ),
                          parameterSets = cms.vstring('pythia8CommonSettings',
                                                      'pythia8CUEP8M1Settings',
                                                      'processParameters',
                                                      )
                          )
+)
