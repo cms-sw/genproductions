@@ -119,7 +119,7 @@ def runParallelXgrid(parstage, xgrid, folderName, nEvents, njobs, powInputName, 
     #print sedcommand
     runCommand(sedcommand)
 
-    if(parstage == '1' and xgrid == '1') :
+    if(parstage == '1') :
         if not 'parallelstage' in open(inputName).read() :
             runCommand("echo \'\n\nparallelstage "+parstage+"\' >> "+inputName)
         if not 'xgriditeration' in open(inputName).read() :
