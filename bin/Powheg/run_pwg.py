@@ -809,7 +809,7 @@ if __name__ == "__main__":
                          args.numEvents, njobs, powInputName, jobtag,
                          args.rndSeed, args.prcName)
 
-    elif args.parstage == '123' :
+    elif args.parstage == '123' or args.parstage == 's' : # single grid proc
         tagName = 'grid_'+args.folderName
         scriptName = args.folderName + '/run_'+tagName+'.sh'
 
@@ -833,7 +833,7 @@ if __name__ == "__main__":
             print 'Submitting to queue: '+QUEUE+' \n'
             runCommand ('bsub -J '+args.folderName+' -u $USER -q ' + QUEUE + ' '+rootfolder+'/'+scriptName, TESTING == 0)
 
-    elif args.parstage == '0123' :
+    elif args.parstage == '0123' or args.parstage == 'a' : # compile & run
         tagName = 'all_'+args.folderName
         scriptName = './run_'+tagName+'.sh'
 
@@ -863,7 +863,7 @@ if __name__ == "__main__":
             runCommand ('bsub -J all_'+args.folderName+' -u $USER -q ' +
                         QUEUE + ' '+rootfolder + '/' +scriptName, TESTING == 0)
 
-    elif args.parstage == '01239' :
+    elif args.parstage == '01239' or args.parstage == 'one' or args.parstage == 'f' : # full single grid in oneshot 
         tagName = 'full_'+args.folderName
         scriptName = './run_'+tagName+'.sh'
 
@@ -888,7 +888,7 @@ if __name__ == "__main__":
                       scriptName.split('.sh')[0]+'.log &')
         else:
             print 'Submitting to queue: '+QUEUE+' \n'
-            runCommand ('bsub -J all_'+args.folderName+' -u $USER -q ' + 
+            runCommand ('bsub -J full_'+args.folderName+' -u $USER -q ' + 
                         QUEUE + ' '+rootfolder + '/' +scriptName, TESTING == 0)
 
     elif args.parstage == '9' :
