@@ -573,13 +573,15 @@ def createTarBall(parstage, folderName, prcName, keepTop, seed, scriptName) :
 '''
 
 cd $WORKDIR/$folderName
+echo "Processing folder: "
 pwd
 
-rm -rf $folderName'_'$process
+rm -f $WORKDIR/$folderName'_'$process'.tgz'
+
 cp -p $WORKDIR/run_pwg.py $WORKDIR/$folderName
 
-cp -p $WORKDIR/$folderNamepwggrid-0001.dat $WORKDIR/$folderNamepwggrid.dat
-cp -p $WORKDIR/$folderNamepwg-001-stat.dat $WORKDIR/$folderNamepwg-stat.dat
+cp -p $WORKDIR/$folderName/pwggrid-0001.dat $WORKDIR/$folderName/pwggrid.dat
+cp -p $WORKDIR/$folderName/pwg-0001-stat.dat $WORKDIR/$folderName/pwg-stat.dat
 
 grep -q "NEVENTS" powheg.input; test $? -eq 0 || sed -i "s/^numevts.*/numevts NEVENTS/g" powheg.input
 grep -q "SEED" powheg.input; test $? -eq 0 || sed -i "s/^iseed.*/iseed SEED/g" powheg.input
@@ -589,38 +591,31 @@ grep -q "parallelstage" powheg.input; test $? -eq 0 || echo "\nparallelstage 4 \
 grep -q "xgriditeration" powheg.input; test $? -eq 0 || echo "\nxgriditeration 1\n" >> powheg.input
 
 # turn into single run mode
-sed -i "s/^manyseeds.*/#manyseeds 1/g powheg.input
-sed -i "s/^parallelstage.*/#parallelstage 4/g powheg.input
-sed -i "s/^xgriditeration/#xgriditeration 1/g powheg.input
+sed -i "s/^manyseeds.*/#manyseeds 1/g" powheg.input
+sed -i "s/^parallelstage.*/#parallelstage 4/g" powheg.input
+sed -i "s/^xgriditeration/#xgriditeration 1/g" powheg.input
 
 if [ -e  ${WORKDIR}/$folderName/cteq6m ]; then
     cp -p ${WORKDIR}/cteq6m .
 fi
 
 if [ -e  ${WORKDIR}/$folderName/JHUGen.input ]; then
-    sed -e "s/PROCESS/${process}/g" runcmsgrid_powhegjhugen.sh > runcmsgrid.sh
+    sed -e "s/PROCESS/${process}/g" ${WORKDIR}/runcmsgrid_powhegjhugen.sh > runcmsgrid.sh
 else
-    sed -e "s/PROCESS/${process}/g" runcmsgrid.sh > runcmsgrid.sh
+    sed -e "s/PROCESS/${process}/g" ${WORKDIR}/runcmsgrid_powheg.sh > runcmsgrid.sh
 fi
 
-chmod 755 runcmsgrid.sh
-
-sed -i 's/pwggrid.dat ]]/pwggrid.dat ]] || [ -e ${WORKDIR}/pwggrid-0001.dat ]/g' runcmsgrid.sh
+sed -i 's/pwggrid.dat ]]/pwggrid.dat ]] || [ -e ${WORKDIR}\/pwggrid-0001.dat ]/g' runcmsgrid.sh
 
 chmod 755 runcmsgrid.sh
 
 cp -p runcmsgrid.sh runcmsgrid_par.sh
 
-sed -i '/ reweightlog_/a\
-\n
-cat <<EOF | ../pwhg_main &>> reweightlog_${process}_${seed}.txt\n
-${seed}\n
-pwgevents.lhe\n
-EOF\n' runcmsgrid_par.sh
+sed -i '/ reweightlog_/c cat <<EOF | ../pwhg_main &>> reweightlog_${process}_${seed}.txt\\n${seed}\\npwgevents.lhe\\nEOF\\n' runcmsgrid_par.sh
 
-sed -i 's/# Check if /sed -i \"s#.manyseeds.*#manyseeds 1#g\" powheg.input\\n# Check if /g' runcmsgrid_par.sh
-sed -i 's/# Check if /sed -i \"s#.parallelstage.*#parallelstage 4#g\" powheg.input\\n# Check if /g' runcmsgrid_par.sh
-sed -i 's/# Check if /sed -i \"s#.xgriditeration.*#xgriditeration 1#g\" powheg.input\\n\\n# Check if /g' runcmsgrid_par.sh
+sed -i 's/# Check if /sed -i \"s#.*manyseeds.*#manyseeds 1#g\" powheg.input\\n# Check if /g' runcmsgrid_par.sh
+sed -i 's/# Check if /sed -i \"s#.*parallelstage.*#parallelstage 4#g\" powheg.input\\n# Check if /g' runcmsgrid_par.sh
+sed -i 's/# Check if /sed -i \"s#.*xgriditeration.*#xgriditeration 1#g\" powheg.input\\n\\n# Check if /g' runcmsgrid_par.sh
 
 sed -i 's/^..\/pwhg_main/echo \${seed} | ..\/pwhg_main/g' runcmsgrid_par.sh
 
@@ -630,13 +625,16 @@ sed -i "s/^process/idx=-\`echo \${seed} | awk \'{printf \\"%04d\\", \$1}\'\` \\n
 
 chmod 755 runcmsgrid_par.sh
 
-if [$keepTop == '1']; then
+cd ${WORKDIR}
+
+if [ $keepTop == '1' ]; then
     echo 'Keeping validation plots.'
     echo 'Packing...'
-    tar zcvf $WORKDIR/$folderName'_'$process'.tgz ./$folderName --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.lhe --exclude=run_*.sh --exclude=*.log --exclude=*temp
+    tar zcf $WORKDIR/$folderName'_'$process'.tgz' ./$folderName --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.lhe --exclude=run_*.sh --exclude=*.log --exclude=*temp
 else
     echo 'Packing...'
-    tar zcvf $WORKDIR/$folderName'_'$process'.tgz ./$folderName --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.top --exclude=*.lhe --exclude=run_*.sh --exclude=*.log --exclude=*temp'
+    tar zcf $WORKDIR/$folderName'_'$process'.tgz' ./$folderName --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.top --exclude=*.lhe --exclude=run_*.sh --exclude=*.log --exclude=*temp
+fi
 
 date
 echo 'Done.'
@@ -883,14 +881,6 @@ if __name__ == "__main__":
         createTarBall(args.parstage, args.folderName, args.prcName,
                       args.keepTop, args.rndSeed, scriptName)
 
-        #print 'One shot... Please wait!\n'
-        #runCommand ('bash run_source.sh ', TESTING == 1)
-        #os.system('bash '+scriptName+' >& '+scriptName.split('.sh')[0]+'.log ')
-
-        #os.system('cp -p '+args.inputTemplate+' '+
-        #          args.folderName+'/powheg.input')
-        #createTarBall(args.parstage, args.folderName, args.prcName,
-        #              args.keepTop)
         if QUEUE == '':
             print 'Direct running in one shot... \n'
             #runCommand ('bash run_source.sh ', TESTING == 1)
@@ -903,16 +893,14 @@ if __name__ == "__main__":
 
     elif args.parstage == '9' :
         # overwriting with original
-        #os.system('cp -p '+args.inputTemplate+' '+
-        #          args.folderName+'/powheg.input')
-        #createTarBall(args.parstage, args.folderName, args.prcName,
-        #              args.keepTop)
-        createTarBall(args.parstage, args.folderName, args.prcName,
-                      args.keepTop, args.rndSeed,
-                      'run_tar_'+args.folderName+'.sh')
+        scriptName = './run_tar_'+args.folderName+'.sh'
 
-        os.system('cd '+rootfolder+'/'+folderName+
-                  ';bash run_tar_'+args.folderName+'.sh')
+        os.system('rm -rf '+scriptName)
+
+        createTarBall(args.parstage, args.folderName, args.prcName,
+                      args.keepTop, args.rndSeed, scriptName)
+
+        os.system('cd '+rootfolder+';bash '+scriptName)
 
     else                    :
         runEvents(args.parstage, args.folderName,
