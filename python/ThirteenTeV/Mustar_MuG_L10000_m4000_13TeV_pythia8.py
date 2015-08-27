@@ -18,9 +18,9 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
             '4000013:onMode = off',
             '4000013:onIfMatch = 13 22',
             '4000013:m0 = 4000'),
-        ),
                          parameterSets = cms.vstring('pythia8CommonSettings',
                                                      'pythia8CUEP8M1Settings',
                                                      'processParameters',
                                                      )
                          )
+)
