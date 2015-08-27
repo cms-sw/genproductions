@@ -189,6 +189,8 @@ def runSingleXgrid(parstage, xgrid, folderName, nEvents, powInputName, seed, pro
     f.write('export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:${LD_LIBRARY_PATH} \n\n')
     #f.write('echo $LD_LIBRARY_PATH \n')
 
+    f.write('sed -i "s/NEVENTS/'+nEvents+'/ ; s/SEED/'+seed+'/" powheg.input\n\n')
+
     if process == 'gg_H_MSSM' :
         if os.path.exists(powInputName) :
             f.write('cp -p '+'/'.join(powInputName.split('/')[0:-1])+'/powheg-fh.in . \n')
@@ -222,7 +224,7 @@ def runSingleXgrid(parstage, xgrid, folderName, nEvents, powInputName, seed, pro
         f.write('sed -i "s/fakevirt.*/fakevirt 0/g" powheg.input \n')
         f.write('./pwhg_main \n')
 
-    f.write('echo "\nEnd of job on " `date` "\n"')
+    f.write('echo "\\nEnd of job on " `date` "\\n" \n')
     f.close()
 
     os.system('chmod 755 '+filename)
@@ -580,9 +582,9 @@ cp -p $WORKDIR/$folderName/pwg-0001-stat.dat $WORKDIR/$folderName/pwg-stat.dat
 grep -q "NEVENTS" powheg.input; test $? -eq 0 || sed -i "s/^numevts.*/numevts NEVENTS/g" powheg.input
 grep -q "SEED" powheg.input; test $? -eq 0 || sed -i "s/^iseed.*/iseed SEED/g" powheg.input
 
-grep -q "manyseeds" powheg.input; test $? -eq 0 || echo "\nmanyseeds 1\n" >> powheg.input
-grep -q "parallelstage" powheg.input; test $? -eq 0 || echo "\nparallelstage 4 \n" >> powheg.input
-grep -q "xgriditeration" powheg.input; test $? -eq 0 || echo "\nxgriditeration 1\n" >> powheg.input
+grep -q "manyseeds" powheg.input; test $? -eq 0 || echo "\\nmanyseeds 1\\n" >> powheg.input
+grep -q "parallelstage" powheg.input; test $? -eq 0 || echo "\\nparallelstage 4 \\n" >> powheg.input
+grep -q "xgriditeration" powheg.input; test $? -eq 0 || echo "\\nxgriditeration 1\\n" >> powheg.input
 
 # turn into single run mode
 sed -i "s/^manyseeds.*/#manyseeds 1/g" powheg.input
@@ -623,11 +625,11 @@ cd ${WORKDIR}
 
 if [ $keepTop == '1' ]; then
     echo 'Keeping validation plots.'
-    echo 'Packing...'
-    tar zcf $WORKDIR/$folderName'_'$process'.tgz' ./$folderName --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.lhe --exclude=run_*.sh --exclude=*.log --exclude=*temp
+    echo 'Packing...' ${WORKDIR}'/'${folderName}'_'${process}'.tgz'
+    tar zcf ${WORKDIR}'/'${folderName}'_'${process}'.tgz' ${folderName} --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.lhe --exclude=run_*.sh --exclude=*.log --exclude=*temp
 else
-    echo 'Packing...'
-    tar zcf $WORKDIR/$folderName'_'$process'.tgz' ./$folderName --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.top --exclude=*.lhe --exclude=run_*.sh --exclude=*.log --exclude=*temp
+    echo 'Packing...' ${WORKDIR}'/'${folderName}'_'${process}'.tgz'
+    tar zcf ${WORKDIR}'/'${folderName}'_'${process}'.tgz' ${folderName} --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.top --exclude=*.lhe --exclude=run_*.sh --exclude=*.log --exclude=*temp
 fi
 
 date
