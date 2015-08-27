@@ -60,14 +60,8 @@ def prepareJob(tag, i, folderName) :
 #    f.write('export LHAPATH=`scram tool info lhapdf | grep LHAPATH | sed -e s%LHAPATH=%%`\n')
     f.write('export LHAPDF_DATA_PATH=`$LHAPDF_BASE/bin/lhapdf-config --datadir` \n')
 #    f.write('export LHAPDF6TOOLFILE=$CMSSW_BASE/config/toolbox/$SCRAM_ARCH/tools/available/lhapdf6.xml \n\n')
-
-#    f.write('if [ -e $LHAPDF6TOOLFILE ]; then \n')
-#    f.write('    export LHAPDF6_BASE=`grep LHAPDF6_BASE $CMSSW_BASE/config/toolbox/$SCRAM_ARCH/tools/available/lhapdf6.xml | head -1 | cut -d \\" -f 4 `\n')
-#    f.write('    export LHAPDF_DATA_PATH=`$LHAPDF6_BASE/bin/lhapdf-config --datadir` \n')
-#    f.write('fi \n\n')
 #    f.write('cd ' + rootfolder + '/' + folderName + '\n')
-#    f.write('echo ' + str (i) + ' | ../pwhg_main > log_' + tag + '.log 2>&1' + '\n')
-    # for gg_H with libchaplin
+
     f.write('\n')
 
     f.close()
@@ -871,6 +865,7 @@ if __name__ == "__main__":
             os.system('wget --quiet --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate)
         os.system('mkdir -p '+rootfolder+'/'+args.folderName)
         os.system('cp -p '+args.inputTemplate.split('/')[-1]+' '+args.folderName+'/powheg.input')
+        prepareJob(tagName, '', '.')
         runGetSource(args.parstage, args.xgrid, args.folderName,
                      powInputName, args.prcName, tagName)
 
