@@ -582,9 +582,9 @@ cp -p $WORKDIR/$folderName/pwg-0001-stat.dat $WORKDIR/$folderName/pwg-stat.dat
 grep -q "NEVENTS" powheg.input; test $? -eq 0 || sed -i "s/^numevts.*/numevts NEVENTS/g" powheg.input
 grep -q "SEED" powheg.input; test $? -eq 0 || sed -i "s/^iseed.*/iseed SEED/g" powheg.input
 
-grep -q "manyseeds" powheg.input; test $? -eq 0 || echo "\\nmanyseeds 1\\n" >> powheg.input
-grep -q "parallelstage" powheg.input; test $? -eq 0 || echo "\\nparallelstage 4 \\n" >> powheg.input
-grep -q "xgriditeration" powheg.input; test $? -eq 0 || echo "\\nxgriditeration 1\\n" >> powheg.input
+grep -q "manyseeds" powheg.input; test $? -eq 0 || printf "\\n\\nmanyseeds 1\\n" >> powheg.input
+grep -q "parallelstage" powheg.input; test $? -eq 0 || printf "\\nparallelstage 4\\n" >> powheg.input
+grep -q "xgriditeration" powheg.input; test $? -eq 0 || printf "\\nxgriditeration 1\\n" >> powheg.input
 
 # turn into single run mode
 sed -i "s/^manyseeds.*/#manyseeds 1/g" powheg.input
@@ -675,8 +675,9 @@ if __name__ == "__main__":
     EOSfolder = args.folderName
 
     print
-    print 'RUNNING PARAMS: args.parstage = ' + args.parstage + ' , args.xgrid = ' + args.xgrid  + ' , args.folderName = ' + args.folderName 
-    print '                args.totEvents = ' + args.totEvents 
+    print 'RUNNING PARAMS: parstage = ' + args.parstage + ' , xgrid = ' + args.xgrid  + ' , folderName = ' + args.folderName 
+    print '                Total Events = ' + args.totEvents 
+    print '                Number of Events = ' + args.numEvents 
     print '                powheg input cfg file : ' + args.inputTemplate 
     print '                powheg process name : ' + args.prcName
     print '                working folder : ' + args.folderName
