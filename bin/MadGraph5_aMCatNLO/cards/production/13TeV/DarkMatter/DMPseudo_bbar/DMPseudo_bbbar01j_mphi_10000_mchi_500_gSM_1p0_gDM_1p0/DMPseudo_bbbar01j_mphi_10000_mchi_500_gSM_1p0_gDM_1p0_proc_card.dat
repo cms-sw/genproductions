@@ -1,0 +1,49 @@
+#************************************************************
+#*                        MadGraph 5                        *
+#*                                                          *
+#*                *                       *                 *
+#*                  *        * *        *                   *
+#*                    * * * * 5 * * * *                     *
+#*                  *        * *        *                   *
+#*                *                       *                 *
+#*                                                          *
+#*                                                          *
+#*    The MadGraph Development Team - Please visit us at    *
+#*    https://server06.fynu.ucl.ac.be/projects/madgraph     *
+#*                                                          *
+#************************************************************
+#*                                                          *
+#*               Command File for MadGraph 5                *
+#*                                                          *
+#*     run as ./bin/mg5  filename                           *
+#*                                                          *
+#************************************************************
+import model DMPseudo_bbbar01j_mphi_10000_mchi_500_gSM_1p0_gDM_1p0
+# Define multiparticle labels
+define p = g u c d s u~ c~ d~ s~
+define j = g u c d s u~ c~ d~ s~
+define l+ = e+ mu+
+define l- = e- mu-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+# Specify process(es) to run
+#generate p p > t t~ chi chi~
+
+generate p p > b b~ chi chi~ @0
+add process  p p > b b~ chi chi~ j @1
+#add process  p p > b b~ chi chi~ j j @2 
+# KH, phim is implicit.  MadSpin chokes if explicit
+
+#generate p p > t t~ phim, (phim > chi chi~) @0
+#add process p p > t t~ phim j, (phim > chi chi~) @1
+#add process p p > t t~ phim j j, (phim > chi chi~) @2
+
+
+# Output processes to MadEvent directory
+output 
+# This will create a directory PROC_$MODELNAME_$X
+# If you want to specify the path/name of the directory use
+output DMPseudo_bbbar01j_mphi_10000_mchi_500_gSM_1p0_gDM_1p0
+
+# To generate events, you can go to the created directory and 
+# run ./bin/generate_events

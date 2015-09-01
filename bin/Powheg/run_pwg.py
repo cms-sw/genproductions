@@ -18,7 +18,7 @@ QUEUE = ''
 rootfolder = os.getcwd()
 
 
-def runCommand(command, printIt = 0, doIt = 1, TESTING = 0) :
+def runCommand(command, printIt = False, doIt = 1, TESTING = 0) :
     if TESTING : 
         printIt = 1
         doIt = 0
@@ -40,6 +40,9 @@ def prepareJob(tag, i, folderName) :
     f.write('#!/bin/bash \n\n')
 
     f.write('echo "Start of job on " `date`\n\n')
+
+    f.write('cd '+os.getcwd()+'\n\n')
+#    f.write('pwd \n\n')
 
     f.write('source /cvmfs/cms.cern.ch/cmsset_default.sh\n\n')
     f.write('eval `scramv1 runtime -sh`\n\n')
@@ -86,7 +89,7 @@ def prepareJobForEvents (tag, i, folderName, EOSfolder) :
 
     f.write ('pwd' + '\n')
     f.write ('ls' + '\n')
-    f.write ('echo ' + str (i) + ' | ' + rootfolder + '/pwhg_main > log_' + tag + '.log 2>&1' + '\n')
+    f.write ('echo ' + str (i) + ' | ' + rootfolder + '/pwhg_main &> log_' + tag + '.log &' + '\n')
     f.write ('cp -p log_' + tag + '.log ' + rootfolder + '/' + folderName + '/. \n')
     #lhefilename = 'pwgevents-{:04d}.lhe'.format(i) 
 
@@ -108,7 +111,7 @@ def runParallelXgrid(parstage, xgrid, folderName, nEvents, njobs, powInputName, 
 
     inputName = folderName + "/powheg.input"
 
-    sedcommand = 'sed -i "s/NEVENTS/' + nEvents + '/ ; s/SEED/'+rndSeed+'/ ; s/parallelstage.*/parallelstage '+parstage+'/ ; s/xgriditeration.*/xgriditeration '+xgrid+'/ ; s/fakevirt.*// " '+inputName
+    sedcommand = 'sed -i "s/NEVENTS/' + nEvents + '/ ; s/SEED/'+rndSeed+'/ ; s/.parallelstage.*/parallelstage '+parstage+'/ ; s/.xgriditeration.*/xgriditeration '+xgrid+'/ ; s/.manyseeds.*/manyseeds 1/ ; s/fakevirt.*// " '+inputName
 
     #print sedcommand
     runCommand(sedcommand)
@@ -135,17 +138,21 @@ def runParallelXgrid(parstage, xgrid, folderName, nEvents, njobs, powInputName, 
 
         filename = folderName+'/run_' + jobID + '.sh'
         f = open(filename, 'a')
-        f.write('echo ' + str (i) + ' | ./pwhg_main > run_' + jobID + '.log 2>&1' + '\n')
+        f.write('cd '+rootfolder+'/'+folderName+'/ \n')
+        f.write('echo ' + str (i) + ' | ./pwhg_main &> run_' + jobID + '.log &' + '\n')
         f.close()
+
+        os.system('chmod 755 '+filename)
 
         #runCommand('bsub -J ' + jobID + ' -u pippopluto -q ' + QUEUE + ' < ' + jobname, 1, TESTING == 0)
 
         if QUEUE == '':
             print 'Direct running... #'+str(i)+' \n'
-            os.system('cd '+folderName+';bash run_'+jobID+'.sh &')
+            #print 'cd '+rootfolder+'/'+folderName
+            os.system('cd '+rootfolder+'/'+folderName+';bash run_'+jobID+'.sh &')
         else:
             print 'Submitting to queue: '+QUEUE+' #'+str(i)+' \n'
-            runCommand ('bsub -J ' + jobID + ' -u $USER -q ' + QUEUE + ' ' + folderName + '/run_'+jobID+'.sh ', TESTING == 0)
+            runCommand ('cd '+rootfolder+'/'+folderName+';bsub -J ' + jobID + ' -u $USER -q ' + QUEUE + ' run_'+jobID+'.sh ', TESTING == 0)
 
 
     #runCommand ('mv *.sh ' + folderName)
@@ -173,23 +180,25 @@ def runSingleXgrid(parstage, xgrid, folderName, nEvents, powInputName, seed) :
     filename = folderName + '/run_Xgrid.sh'
 
     f = open(filename, 'a')
-    #f.write('./pwhg_main > run_Xgrid.log 2>&1' + '\n')
+    f.write('cd '+rootfolder+'/'+folderName+'/ \n')
     f.write('./pwhg_main \n')
 
     f.write('echo "\nEnd of job on " `date` \n')
     f.close()
+
+    os.system('chmod 755 '+filename)
 
     #runCommand ('bsub -J ' + jobID + ' -u pippopluto -q ' + QUEUE + ' < ' + jobname, 1, TESTING == 0)
 
     if QUEUE == '':
         print 'Direct running... \n'
         #runCommand ('cd ' + folderName + '/; bash run_Xgrid.sh', TESTING == 0)
-        os.system('cd '+folderName+';bash run_Xgrid.sh >& run_Xgrid.log &')
+        os.system('cd '+rootfolder+'/'+folderName+';bash run_Xgrid.sh >& run_Xgrid.log &')
         #print "Issue 'bash run_Xgrid.sh >& run_Xgrid.log &' to generate grid..."
         
     else:
         print 'Submitting to queue: '+QUEUE+' \n'
-        runCommand ('bsub -J ' + jobID + ' -u $USER -q ' + QUEUE + ' ' + folderName + '/run_Xgrid.sh ', TESTING == 0)
+        runCommand ('cd '+rootfolder+'/'+folderName+';bsub -J ' + jobID + ' -u $USER -q ' + QUEUE + ' run_Xgrid.sh ', TESTING == 0)
 
 
 
@@ -209,13 +218,14 @@ def runGetSource(parstage, xgrid, folderName, powInputName, process) :
 #    f.write('set process='+rootfolder+'\n\n')
     f.write('export cardInput='+powInputName+'\n\n')
     f.write('export process='+process+'\n\n')
+    f.write('export WORKDIR='+os.getcwd()+'\n\n')
     f.write(
 '''
 # Release to be used to define the environment and the compiler needed
 export RELEASE=${CMSSW_VERSION}
-export WORKDIR=`pwd`
 export jhugenversion="v5.2.5"
 
+cd $WORKDIR
 
 # initialize the CMS environment 
 
@@ -257,16 +267,23 @@ if [[ -s ./JHUGen.input ]]; then
 fi
 
 ### retrieve the powheg source tar ball
-export POWHEGSRC=powhegboxV2_Feb2015.tar.gz
+export POWHEGSRC=powhegboxV2_Jun2015.tar.gz 
 
 echo 'D/L POWHEG source...'
 
 if [ ! -f ${POWHEGSRC} ]; then
-  wget --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/${SCRAM_ARCH}/powheg/V2.0/src/powhegboxV2_Feb2015.tar.gz || fail_exit "Failed to get powheg tar ball "
+  wget --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/${SCRAM_ARCH}/powheg/V2.0/src/${POWHEGSRC} || fail_exit "Failed to get powheg tar ball "
 fi
 
 tar zxf ${POWHEGSRC}
 #
+
+if [ -e POWHEG-BOX/${process}.tgz ]; then
+  cd POWHEG-BOX/
+  tar xvf ${process}.tgz
+  cd -
+fi
+
 patch -l -p0 -i ${WORKDIR}/patches/pdfweights.patch
 cd POWHEG-BOX/${process}
 
@@ -337,6 +354,10 @@ if [ $jhugen = 1 ]; then
   cd JHUGenerator
   sed -i -e "s#Comp = ifort#Comp = gfort#g" makefile
   make
+
+  mkdir -p ${WORKDIR}/${name}
+  cp -p JHUGen ${WORKDIR}/${name}/.
+
   cd ..
 fi
 if [ "$process" = "gg_H_2HDM" ] || [ "$process" = "gg_H_MSSM" ]; then
@@ -405,7 +426,7 @@ fi
 #export LHAPDF_DATA_PATH=`${myDir}/lhapdf-config --datadir`
 #../pwhg_main &> log_${process}_${seed}.txt
 
-cp -p ../runcms*.sh .
+#cp -p ../runcms*.sh .
 
 cd ${WORKDIR}
 
@@ -430,6 +451,8 @@ chmod 755 runcmsgrid.sh
 
     f.close()
 
+    os.system('chmod 755 run_source.sh')
+
     if QUEUE == '':
         print 'Direct compiling... \n'
         #runCommand ('bash run_source.sh ', TESTING == 1)
@@ -438,7 +461,7 @@ chmod 755 runcmsgrid.sh
         
     else:
         print 'Submitting to queue: '+QUEUE+' \n'
-        runCommand ('bsub -J ' + jobID + ' -u $USER -q ' + QUEUE + ' run_source.sh ', TESTING == 0)
+        runCommand ('bsub -J compile_pwg -u $USER -q ' + QUEUE + ' run_source.sh ', TESTING == 0)
 
 
     #print "Source done..."
@@ -454,6 +477,7 @@ chmod 755 runcmsgrid.sh
 def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag) :
     print 'run : submitting jobs'
     #runCommand('rm -f ' + folderName + 'powheg.input')
+
     sedcommand = 'sed -i "s/parallelstage.*/parallelstage ' + parstage + '/ ; s/xgriditeration.*/xgriditeration 1/" '+folderName+'/powheg.input'
 
     runCommand(sedcommand)
@@ -471,17 +495,19 @@ def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag) :
 
         filename = folderName+'/run_' + tag + '.sh'
         f = open (filename, 'a')
-        f.write('echo ' + str (i) + ' | ./pwhg_main > run_' + tag + '.log 2>&1' + '\n')
+        f.write('cd '+rootfolder+'/'+folderName+'/ \n')
+        f.write('echo ' + str (i) + ' | ./pwhg_main &> run_' + tag + '.log &' + '\n')
         f.close()
 
+        os.system('chmod 755 '+filename)
 
         if QUEUE == '':
             print 'Direct running... #'+str(i)+' \n'
-            os.system('cd '+folderName+';bash run_'+tag+'.sh &')
+            os.system('cd '+rootfolder+'/'+folderName+';bash run_'+tag+'.sh &')
 
         else:
             print 'Submitting to queue: '+QUEUE+' #'+str(i)+' \n'
-            runCommand ('cd '+folderName+';bsub -J ' + jobID + ' -u $USER -q ' + QUEUE + ' ' + folderName + '/run_'+tag+'.sh', TESTING == 0)
+            runCommand ('cd '+rootfolder+'/'+folderName+';bsub -J ' + jobID + ' -u $USER -q ' + QUEUE + ' run_'+tag+'.sh', TESTING == 0)
 
     #runCommand('mv *.sh ' + folderName)
 
@@ -489,23 +515,74 @@ def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag) :
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
 def createTarBall(parstage, folderName, prcName, keepTop) :
-    print 'Creating tarball distribution for ' + args.folderName + '_' + prcName
+    print 'Creating tarball distribution for '+args.folderName+'_'+prcName+'.tgz'
     print
 
     runCommand('cd ' + rootfolder)
     runCommand('rm -rf ' + folderName + '_' + prcName + '.tgz')
 
     runCommand('cp -p ' + rootfolder + '/run_pwg.py ' + rootfolder + '/' + folderName + '/.')
-    runCommand('cp -p ' + rootfolder + '/runcmsgrid*.sh ' + rootfolder + '/' + folderName + '/.')
+
+    runCommand('cp -p '+folderName+'/pwggrid-0001.dat '+folderName+'/pwggrid.dat') # for passing runcmsgrid.sh check
+    runCommand('cp -p '+folderName+'/pwg-0001-stat.dat '+folderName+'/pwg-stat.dat')
+
+    if not 'NEVENTS' in open(folderName+'/powheg.input').read():
+        runCommand('sed -i "s/^numevts.*/numevts NEVENTS/g" '+folderName+'/powheg.input')
+    if not 'SEED' in open(folderName+'/powheg.input').read():
+        runCommand('sed -i "s/iseed.*/iseed SEED/g" '+folderName+'/powheg.input')
+
+    if not 'manyseeds' in open(folderName+'/powheg.input').read():
+        runCommand('echo "manyseeds 1" >> '+folderName+'/powheg.input')
+    if not 'parallelstage' in open(folderName+'/powheg.input').read():
+        runCommand('echo "parallelstage 4" >> '+folderName+'/powheg.input')
+    if not 'xgriditeration' in open(folderName+'/powheg.input').read():
+        runCommand('echo "xgriditeration 1" >> '+folderName+'/powheg.input')
+
+    # turn into single run mode
+    runCommand('sed -i "s/^manyseeds.*/#manyseeds 1/g" '+folderName+'/powheg.input')
+    runCommand('sed -i "s/^parallelstage.*/#parallelstage 4/g" '+folderName+'/powheg.input')
+    runCommand('sed -i "s/^xgriditeration/#xgriditeration 1/g" '+folderName+'powheg.input')
+
+    if os.path.exists('JHUGen.input') :
+        runCommand('sed -e "s/PROCESS/'+prcName+'/g" runcmsgrid_powhegjhugen.sh > '+folderName+'/runcmsgrid.sh')
+    else :
+        runCommand('sed -e "s/PROCESS/'+prcName+'/g" runcmsgrid_powheg.sh > '+folderName+'/runcmsgrid.sh')
+
+    runCommand("sed -i 's/pwggrid.dat ]]/pwggrid.dat ]] || [ -e \${WORKDIR}\/pwggrid-0001.dat ]/g' "+folderName+"/runcmsgrid.sh")
+
+    runCommand("chmod 755 "+folderName+"/runcmsgrid.sh")
+
+    my_par = open(folderName+"/runcmsgrid_par.sh", 'w')
+    m_content = open(folderName+"/runcmsgrid.sh").read().replace("../pwhg_main &>> reweightlog_${process}_${seed}.txt",
+                                                                 '''cat <<EOF | ../pwhg_main &>> reweightlog_${process}_${seed}.txt
+${seed}
+pwgevents.lhe
+EOF
+''')
+    my_par.write(m_content)
+    my_par.close()
+
+    runCommand("sed -i 's/# Check if /sed -i \"s#.manyseeds.*#manyseeds 1#g\" powheg.input\\n# Check if /g' "+folderName+"/runcmsgrid_par.sh")
+    runCommand("sed -i 's/# Check if /sed -i \"s#.parallelstage.*#parallelstage 4#g\" powheg.input\\n# Check if /g' "+folderName+"/runcmsgrid_par.sh")
+    runCommand("sed -i 's/# Check if /sed -i \"s#.xgriditeration.*#xgriditeration 1#g\" powheg.input\\n\\n# Check if /g' "+folderName+"/runcmsgrid_par.sh")
+
+    runCommand("sed -i 's/^..\/pwhg_main/echo \${seed} | ..\/pwhg_main/g' "+folderName+"/runcmsgrid_par.sh")
+
+    runCommand("sed -i 's/\.lhe/\${idx}.lhe/g' "+folderName+"/runcmsgrid_par.sh")
+
+    runCommand('sed -i "s/^process/idx=-\`echo \${seed} | awk \'{printf \\"%04d\\", \$1}\'\` \\nprocess/g" '+folderName+"/runcmsgrid_par.sh")
+
+    runCommand("chmod 755 "+folderName+"/runcmsgrid_par.sh")
 
     if keepTop == '1' :
       print 'Keeping validation plots.'
-      print
-      runCommand('tar zcvf ' + rootfolder + '/' + folderName + '_' + prcName + '.tgz ' + folderName +' --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.lhe --exclude=run_*.sh --exclude=*.log --exclude=*temp', printIt = 1)
+      print 'Packing...'
+      runCommand('tar zcvf ' + rootfolder + '/' + folderName + '_' + prcName + '.tgz ' + folderName +' --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.lhe --exclude=run_*.sh --exclude=*.log --exclude=*temp', printIt = False)
     else :
-      runCommand('tar zcvf ' + rootfolder + '/' + folderName + '_' + prcName + '.tgz ' + folderName +' --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.top --exclude=*.lhe --exclude=run_*.sh --exclude=*.log --exclude=*temp', printIt = 1)
+      print 'Packing...'
+      runCommand('tar zcvf ' + rootfolder + '/' + folderName + '_' + prcName + '.tgz ' + folderName +' --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.top --exclude=*.lhe --exclude=run_*.sh --exclude=*.log --exclude=*temp', printIt = False)
 
-    print
+    #print
     print 'Done.'
 
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
@@ -555,11 +632,37 @@ if __name__ == "__main__":
         print '  --- TESTNG, NO submissions will happen ---  '
         print
 
-    res = runCommand('ls ' + args.folderName)
-    if args.parstage == '1' and args.xgrid == '1' and res != 0 :
-        print 'Working folder ' + args.folderName + ' not existing, exiting...'
-        sys.exit (-1)
+    res = os.path.exists(rootfolder+'/'+args.folderName)
+
+    if args.parstage == '1' and args.xgrid == '1' and (not res) :
+        print 'Creating working folder ' + args.folderName + '...'
+        # Assuming the generator binaries are in the current folder.
+        os.system('mkdir '+rootfolder+'/'+args.folderName)
+        if os.path.exists(rootfolder+'/pwhg_main') :
+            print 'Copy pwhg_main'
+            os.system('cp -p pwhg_main '+args.folderName+'/.')
+
+        if os.path.exists(rootfolder+'JHUGen') :
+            print 'Copy JHUGen'
+            os.system('cp -p JHUGen '+args.folderName+'/.')
+
     if args.parstage == '1' and args.xgrid == '1' :
+        if not os.path.exists(args.folderName) :
+            print 'Creating working folder ' + args.folderName + '...'
+            # Assuming the generator binaries are in the current folder.
+            os.system('mkdir '+args.folderName)
+            if os.path.exists('pwhg_main') :
+                os.system('cp -p pwhg_main '+args.folderName+'/.')
+
+            if os.path.exists('JHUGen') :
+                os.system('cp -p JHUGen '+args.folderName+'/.')
+
+        if not os.path.exists(args.folderName+'/powheg.input') :
+            os.system('cp -p '+args.inputTemplate+' '+
+                      args.folderName+'/powheg.input')
+            os.system('sed -i "s/^numevts.*/numevts '+args.numEvents+'/" '+
+                      args.folderName+'/powheg.input')
+
 #        runCommand ('mkdir ' + args.folderName)
 #        runCommand ('cp -p pwgseeds.dat ' + args.folderName)
         res = runCommand('ls ' + args.folderName + '/pwgseeds.dat')
@@ -594,11 +697,10 @@ if __name__ == "__main__":
     elif args.parstage == '123' :
         runSingleXgrid(args.parstage, args.xgrid, args.folderName,
                        args.numEvents, powInputName, args.rndSeed)
-    elif args.parstage == '1239' :
-        runSingleXgrid(args.parstage, args.xgrid, args.folderName,
-                       args.numEvents, powInputName, args.rndSeed)
-        createTarBall(args.parstage, args.folderName, args.prcName)
     elif args.parstage == '9' :
+        # overwriting with original
+        os.system('cp -p '+args.inputTemplate+' '+
+                  args.folderName+'/powheg.input')
         createTarBall(args.parstage, args.folderName, args.prcName,
                       args.keepTop)
     else                    :
