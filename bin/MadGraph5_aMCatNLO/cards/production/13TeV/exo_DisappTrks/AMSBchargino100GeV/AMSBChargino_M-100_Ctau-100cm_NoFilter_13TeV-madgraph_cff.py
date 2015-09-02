@@ -40,7 +40,7 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
     useregge = cms.bool(False), 
     hscpFlavor = cms.untracked.string('stau'),          
     massPoint = cms.untracked.int32(100),  # value not used 
-    particleFile = cms.untracked.string('Configuration/Generator/data/geant4_AMSB_chargino_100GeV_ctau100cm.slha'), 
+    particleFile = cms.untracked.string('Configuration/Generator/data/AMSB_chargino_100GeV_ctau100cm.slha'), 
 )
 
 
