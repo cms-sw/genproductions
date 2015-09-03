@@ -195,7 +195,7 @@ def runSingleXgrid(parstage, xgrid, folderName, nEvents, powInputName, seed, pro
         if os.path.exists(powInputName) :
             f.write('cp -p '+'/'.join(powInputName.split('/')[0:-1])+'/powheg-fh.in . \n')
         else :
-            f.write('wget --quiet --no-check-certificate --unlink http://cms-project-generators.web.cern.ch/cms-project-generators/'+'/'.join(powInputName.split('/')[0:-1])+'/powheg-fh.in \n')
+            f.write('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+'/'.join(powInputName.split('/')[0:-1])+'/powheg-fh.in \n')
 
     if process == 'gg_H_2HDM' :
         if os.path.exists(powInputName) :
@@ -203,15 +203,15 @@ def runSingleXgrid(parstage, xgrid, folderName, nEvents, powInputName, seed, pro
             f.write('cp -p '+'/'.join(powInputName.split('/')[0:-1])+'/br.l3_2HDM . \n')
             f.write('cp -p '+'/'.join(powInputName.split('/')[0:-1])+'/br.h3_2HDM . \n')
         else :
-            f.write('wget --quiet --no-check-certificate --unlink http://cms-project-generators.web.cern.ch/cms-project-generators/'+'/'.join(powInputName.split('/')[0:-1])+'/br.a3_2HDM \n')
-            f.write('wget --quiet --no-check-certificate --unlink http://cms-project-generators.web.cern.ch/cms-project-generators/'+'/'.join(powInputName.split('/')[0:-1])+'/br.h3_2HDM \n')
-            f.write('wget --quiet --no-check-certificate --unlink http://cms-project-generators.web.cern.ch/cms-project-generators/'+'/'.join(powInputName.split('/')[0:-1])+'/br.l3_2HDM \n')
+            f.write('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+'/'.join(powInputName.split('/')[0:-1])+'/br.a3_2HDM \n')
+            f.write('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+'/'.join(powInputName.split('/')[0:-1])+'/br.h3_2HDM \n')
+            f.write('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+'/'.join(powInputName.split('/')[0:-1])+'/br.l3_2HDM \n')
 
     if process == 'VBF_HJJJ' :
         if os.path.exists(powInputName) :
             f.write('cp -p '+'/'.join(powInputName.split('/')[0:-1])+'/vbfnlo.input . \n')
         else :
-            f.write('wget --quiet --no-check-certificate --unlink http://cms-project-generators.web.cern.ch/cms-project-generators/'+'/'.join(powInputName.split('/')[0:-1])+'/vbfnlo.input \n')
+            f.write('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+'/'.join(powInputName.split('/')[0:-1])+'/vbfnlo.input \n')
 
     m_ncall2 = 500000
     if process == 'ttH' :
@@ -721,8 +721,8 @@ if __name__ == "__main__":
                 os.system('cp -p JHUGen '+args.folderName+'/.')
 
         if not os.path.exists(args.inputTemplate) :
-            os.system('wget --quiet --no-check-certificate --unlink http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate+' -O '+args.folderName+'/powheg.input')
-            os.system('wget --quiet --no-check-certificate --unlink http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate)
+            os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate+' -O '+args.folderName+'/powheg.input')
+            os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate)
 
             os.system('sed -i "s/^numevts.*/numevts '+args.numEvents+'/" '+
                       args.folderName+'/powheg.input')
@@ -781,14 +781,14 @@ if __name__ == "__main__":
         prepareJob(tagName, '', '.')
 
         if not os.path.exists(args.inputTemplate) :
-            os.system('wget --quiet --no-check-certificate --unlink http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate)
+            os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate)
         os.system('mkdir -p '+rootfolder+'/'+args.folderName)
         os.system('cp -p '+args.inputTemplate.split('/')[-1]+' '+args.folderName+'/powheg.input')
 
         os.system('rm -rf JHUGen.input')
         inputJHUGen = '/'.join(powInputName.split('/')[0:-1])+'/JHUGen.input'
         if not os.path.exists(inputJHUGen) :
-            os.system('wget --quiet --no-check-certificate --unlink http://cms-project-generators.web.cern.ch/cms-project-generators/'+inputJHUGen)
+            os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+inputJHUGen)
             if os.path.exists('JHUGen.input') :
                 os.system('cp -p JHUGen.input '+args.folderName+'/.')
         else :
@@ -841,7 +841,7 @@ if __name__ == "__main__":
         scriptName = './run_'+tagName+'.sh'
 
         if not os.path.exists(args.inputTemplate) :
-            os.system('wget --quiet --no-check-certificate --unlink http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate)
+            os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate)
         os.system('mkdir -p '+rootfolder+'/'+args.folderName)
         os.system('cp -p '+args.inputTemplate.split('/')[-1]+' '+args.folderName+'/powheg.input')
         prepareJob(tagName, '', '.')
@@ -871,7 +871,7 @@ if __name__ == "__main__":
         scriptName = './run_'+tagName+'.sh'
 
         if not os.path.exists(args.inputTemplate) :
-            os.system('wget --quiet --no-check-certificate --unlink http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate)
+            os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate)
         os.system('mkdir -p '+rootfolder+'/'+args.folderName)
         os.system('cp -p '+args.inputTemplate.split('/')[-1]+' '+args.folderName+'/powheg.input')
         prepareJob(tagName, '', '.')
