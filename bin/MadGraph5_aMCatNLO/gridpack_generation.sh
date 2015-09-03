@@ -152,9 +152,9 @@ EFFDMSOURCE=/afs/cern.ch/cms/generators/www/
 CHMODEL=2HDMtypeII.tar.gz
 CHSOURCE=/afs/cern.ch/cms/generators/www/
 
-# 2HDM model for A->Zh->lltautau
-AZHMODEL=2HDM4MG5-may15.tar.gz
-AZHSOURCE=/afs/cern.ch/cms/generators/www/
+# NONRES HH model, needed for the non res HH analysis
+NONRESHHMODEL=BSM_gg_hh.tar
+NONRESHHSOURCE= /afs/cern.ch/cms/generators/www/
 
 # Model for EWK DM model
 EWKDMMODEL=EWModel_FermionDM_UFO.tar
@@ -337,16 +337,16 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   tar xvf ../${EFFDM}
   cd ..
 
-  # get charged Higgs model
+  # get ttDM model
   cp ${CHSOURCE}/${CHMODEL} .
   cd models
   tar xvf ../${CHMODEL}
   cd ..
 
-  # get A->Zh model
-  cp ${AZHSOURCE}/${AZHMODEL} .
+  # get non res HH model
+  cp ${NONRESHHSOURCE}/${NONRESHHMODEL} .
   cd models
-  tar xvf ../${AZHMODEL}
+  tar xvf ../${NONRESHHMODEL}
   cd ..
 
   #get EWK DM model
