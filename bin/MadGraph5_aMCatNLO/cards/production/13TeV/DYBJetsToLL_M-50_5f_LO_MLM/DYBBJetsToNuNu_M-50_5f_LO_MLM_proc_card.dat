@@ -11,6 +11,7 @@ define ell- = e- mu- ta-
 generate p p > ell+ ell- bquark / h @0
 add process p p > ell+ ell- bquark j / h @1
 add process p p > ell+ ell- bquark j j / h @2
+add process p p > ell+ ell- bquark j j j / h @3
 
 # Output processes to MadEvent directory
 output DYBJetsToLL_M-50_5f_LO_MLM -nojpeg
