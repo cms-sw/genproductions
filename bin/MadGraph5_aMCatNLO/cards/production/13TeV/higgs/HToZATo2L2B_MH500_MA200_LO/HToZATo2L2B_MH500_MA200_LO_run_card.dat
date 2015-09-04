@@ -29,7 +29,7 @@
 # Warning: Do not generate more than 1M events in a single run       *
 # If you want to run Pythia, avoid more than 50k events in a run.    *
 #*********************************************************************
- 100000 = nevents ! Number of unweighted events requested 
+   100 = nevents ! Number of unweighted events requested 
       0       = iseed   ! rnd seed (0=assigned automatically=default))
 #*********************************************************************
 # Collider type and energy                                           *
@@ -89,7 +89,7 @@
 # Apply pt/E/eta/dr/mij cuts on decay products or not
 # (note that etmiss/ptll/ptheavy/ht/sorted cuts always apply)
 #**********************************************************
-   T  = cut_decays    ! Cut decay products 
+   F  = cut_decays    ! Cut decay products 
 #*************************************************************
 # Number of helicities to sum per event (0 = all helicities)
 # 0 gives more stable result, but longer run time (needed for
