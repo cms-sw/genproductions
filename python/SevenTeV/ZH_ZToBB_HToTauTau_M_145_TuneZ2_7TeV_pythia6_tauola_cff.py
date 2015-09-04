@@ -7,6 +7,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
     pythiaPylistVerbosity = cms.untracked.int32(1),
     # put here the efficiency of your filter (1. if no filter)
     filterEfficiency = cms.untracked.double(1.0),
+    # hello, this is a test
     pythiaHepMCVerbosity = cms.untracked.bool(False),
     # put here the cross section of your process (in pb)
     crossSection = cms.untracked.double(1.0),
