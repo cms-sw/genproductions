@@ -152,6 +152,10 @@ EFFDMSOURCE=/afs/cern.ch/cms/generators/www/
 CHMODEL=2HDMtypeII.tar.gz
 CHSOURCE=/afs/cern.ch/cms/generators/www/
 
+# 2HDM model for A->Zh->lltautau
+AZHMODEL=2HDM4MG5-may15.tar.gz
+AZHSOURCE=/afs/cern.ch/cms/generators/www/
+
 # NONRES HH model, needed for the non res HH analysis
 NONRESHHMODEL=BSM_gg_hh.tar
 NONRESHHSOURCE= /afs/cern.ch/cms/generators/www/
