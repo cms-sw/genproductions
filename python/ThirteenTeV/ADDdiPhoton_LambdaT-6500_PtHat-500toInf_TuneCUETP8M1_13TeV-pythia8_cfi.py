@@ -16,10 +16,10 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
         processParameters = cms.vstring(
             'ExtraDimensionsLED:ffbar2gammagamma = on', 
             'ExtraDimensionsLED:gg2gammagamma = on',
-            'ExtraDimensionsLED:LambdaT = 3000.',
+            'ExtraDimensionsLED:LambdaT = 6500.',
             'ExtraDimensionsLED:NegInt = 1',
-            'PhaseSpace:pTHatMin = 150.',
-            'PhaseSpace:pTHatMax = 500.',
+            'PhaseSpace:pTHatMin = 500.',
+            'PhaseSpace:pTHatMax = -1.',
         ),
         parameterSets = cms.vstring(
             'pythia8CommonSettings',
