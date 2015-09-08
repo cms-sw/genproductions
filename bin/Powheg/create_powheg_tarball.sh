@@ -3,12 +3,12 @@
 fail_exit() { echo "$@" 1>&2; exit 1; }
 
 #set -o verbose
-EXPECTED_ARGS=8
+EXPECTED_ARGS=5
 
 if [ $# -ne $EXPECTED_ARGS ]
 then
-    echo "Usage: `basename $0` source_repository source_tarball_name process card tarballName othercard Nevents RandomSeed"
-    echo "Example: `basename $0` slc6_amd64_gcc481/powheg/V1.0/src powhegboxv1.0_Oct2013 Z slc6_amd64_gcc481/powheg/V1.0/8TeV_Summer12/DYToEE_M-20_8TeV-powheg/v1/DYToEE_M-20_8TeV-powheg.input none Z_local 1000 1212" 
+    echo "Usage: `basename $0` process card othercard Nevents RandomSeed"
+    echo "Example: `basename $0` Z slc6_amd64_gcc481/powheg/V1.0/8TeV_Summer12/DYToEE_M-20_8TeV-powheg/v1/DYToEE_M-20_8TeV-powheg.input none 1000 1212" 
     exit 1
 fi
 
@@ -16,52 +16,62 @@ echo "   ______________________________________________________    "
 echo "         Running Powheg  create_powheg_tarball.sh            "
 echo "   ______________________________________________________    "
 
-repo=${1}
+repo=slc6_amd64_gcc481/powheg/V2.0/src
 echo "%MSG-POWHEG source repository = $repo"
 
-name=${2} 
+name=powhegboxV2_July2015
 echo "%MSG-POWHEG source tarball name = $name"
 
-process=${3}
+process=${1}
 echo "%MSG-POWHEG process = $process"
 
-cardinput=${4}
+cardinput=${2}
 echo "%MSG-POWHEG location of the card = $cardinput"
 
-tarball=${5}
+tarball=${process}
 echo "%MSG-POWHEG tar ball file name = ${tarball}_tarball.tar.gz"
 
-usejhugen=${6}
+usejhugen=${3}
 echo "%MSG-POWHEG JHUGen datacard for decays = ${usejhugen}"
 
-nevt=${7}
+nevt=${4}
 echo "%MSG-POWHEG number of events requested = $nevt"
 
-rnum=${8}
+rnum=${5}
 echo "%MSG-POWHEG random seed used for the run = $rnum"
 
-skipgen=${9}
+skipgen=${6}
 echo "%MSG-POWHEG if not null skip generation = $skipgen"
 
 seed=$rnum
 file="events"
 jhugenversion="v5.2.5"
 
+temp1=${cardinput%%.input*}
+temp2=${temp1##*/}
+jobfolder=${name}_${temp2}_${tarball}
+
+echo "%MSG-POWHEG creating sub work directory ${jobfolder}"
+
 # Release to be used to define the environment and the compiler needed
 export RELEASE=${CMSSW_VERSION}
 export WORKDIR=`pwd`
 
+
 # initialize the CMS environment 
-if [[ -e ${name} ]]; then
-  echo -e "The directory ${name} exists! Move the directory to old_${name}\n"
-  mv ${name} old_${name}
-  mv output.lhe old_output.lhe
-  rm -rf ${myDir}
-  echo -e "Move the tar ball to old_${tarball}.tar.gz\n"
-  mv ${tarball}_tarball.tar.gz old_${tarball}_tarball.tar.gz
+if [[ -e ${jobfolder} ]]; then
+  fail_exit "The directory ${jobfolder} exists! Please clean up your work directory before running!!"
 fi
 
-scram project -n ${name} CMSSW ${RELEASE}; cd ${name} ; mkdir -p work ; 
+if [[ -e ${tarball}_tarball.tar.gz ]]; then
+  fail_exit "The tarball ${tarball}_tarball.tar.gz exists! Please rename it or move it somewhere else before running!!"
+fi
+
+if [[ -e events_final.lhe ]]; then
+  fail_exit "The LHE file events_final.lhe exists! Please remove this file before running!!"
+fi
+
+scram project -n ${jobfolder} CMSSW ${RELEASE}; cd ${jobfolder} ; mkdir -p work ; 
 eval `scram runtime -sh`
 cd work
 export PATH=`pwd`:${PATH}
@@ -108,7 +118,9 @@ wget --no-check-certificate http://cms-project-generators.web.cern.ch/cms-projec
 tar xzf ${name}.tar.gz
 #
 patch -l -p0 -i ${WORKDIR}/patches/pdfweights.patch
-cd POWHEG-BOX/${process}
+cd POWHEG-BOX
+tar xvzf ${process}.tgz
+cd ${process}
 
 # This is just to please gcc 4.8.1
 mkdir -p include
@@ -128,6 +140,7 @@ if [ `echo ${name} | cut -d "_" -f 1` = "powhegboxV1" ]; then
 fi 
 if [ "$process" = "trijet" ]; then 
    BOOK_HISTO+=" observables.o"
+   rm -rf ../progress/bbinit.f
 fi  
 if [ "$process" = "VBF_HJJJ" ]; then 
   mv pwhg_analysis-dummy.f pwhg_analysis-dummy.f.orig
@@ -136,6 +149,12 @@ fi
 if [ "$process" = "VBF_H" ]; then 
   sed -i '/pwhginihist/d' pwhg_analysis-dummy.f 
 fi  
+if [ "$process" = "Wgamma" ] || [ "$process" = "W_ew-BMNNP" ]; then
+    patch -l -p0 -i ${WORKDIR}/patches/pwhg_analysis_driver.patch 
+fi
+if [ "$process" = "ttb_NLO_dec" ]; then
+    patch -l -p0 -i ${WORKDIR}/patches/pwhg_analysis_driver_offshellmap.patch
+fi
 
 # Remove ANY kind of analysis with parton shower
 if [ `grep particle_identif pwhg_analysis-dummy.f` = ""]; then
@@ -160,12 +179,17 @@ if [ "$process" = "gg_H_MSSM" ]; then
   cp -p ../gg_H_quark-mass-effects/SLHADefs.h .
 fi  
   
-echo "ANALYSIS=none 
-PWHGANAL=$BOOK_HISTO pwhg_analysis-dummy.o
-LHAPDF_CONFIG=${myDir}/lhapdf-config" >> tmpfile
+echo "ANALYSIS=none " >> tmpfile
+if [ "$process" = "Wgamma" ]; then
+    echo "PWHGANAL=$BOOK_HISTO pwhg_analysis-dummy.o uti.o " >> tmpfile
+else
+    echo "PWHGANAL=$BOOK_HISTO pwhg_analysis-dummy.o " >> tmpfile
+fi
+echo "LHAPDF_CONFIG=${myDir}/lhapdf-config" >> tmpfile
 mv Makefile Makefile.interm
 cat tmpfile Makefile.interm > Makefile
 rm -f Makefile.interm tmpfile
+
 
 # Add libraries
 echo "LIBS+=-lz -lstdc++" >> Makefile
@@ -234,9 +258,85 @@ fi
 cat ${card} | sed -e "s#SEED#${seed}#g" | sed -e "s#NEVENTS#${nevt}#g" > powheg.input
 cat powheg.input
 
-#make sure env variable for pdfsets points to the right place
-export LHAPDF_DATA_PATH=`${myDir}/lhapdf-config --datadir`
-../pwhg_main &> log_${process}_${seed}.txt
+ 
+# Use one stage procedure by default and two stage procedure if ttH process is used
+if [ "$process" != "ttH" ]; then
+	echo "Default one stage procedure is used"
+	#make sure env variable for pdfsets points to the right place
+	export LHAPDF_DATA_PATH=`${myDir}/lhapdf-config --datadir`
+	../pwhg_main &> log_${process}_${seed}.txt
+else
+	# Save powheg input before starting two stage
+	cp powheg.input powheg.input.original
+	echo "Two stage procedure is used for ttH process"
+
+	# Check if required options are set in input card, otherwise set them
+	## use-old-grid must be set to 1
+	if grep -Fq "use-old-grid" powheg.input; then
+		echo "use-old-grid was already set, making sure it is set to 1"
+		sed -i '/use-old-grid/c\use-old-grid    1 ! if 1 use old grid if file pwggrids.dat is present (<> 1 regenerate)' powheg.input
+	else
+		echo "Inserted use-old-grid 1 needed for the two stage procedure."
+		echo -e "use-old-grid    1 ! if 1 use old grid if file pwggrids.dat is present (<> 1 regenerate)" >> powheg.input
+	fi
+	## use-old-ubound must be set to 1
+	if grep -Fq "use-old-ubound" powheg.input; then
+		echo "use-old-ubound was already set, making sure it is set to 1"
+		sed -i '/use-old-ubound/c\use-old-ubound  1 ! if 1 use norm of upper bounding function stored in pwgubound.dat, if present; <> 1 regenerate' powheg.input
+	else
+		echo "Inserted use-old-ubound 1 needed for the two stage procedure."
+		echo -e "use-old-ubound  1 ! if 1 use norm of upper bounding function stored in pwgubound.dat, if present; <> 1 regenerate" >> powheg.input
+	fi
+
+	# Preparation for first stage, ncall2 = 0 and fakevirt =1 must be set
+	## ncall2 must be set to 0, but before a value must be defined for the second stage
+	if grep -Fq "ncall2" powheg.input; then
+		ncallTwoOriginal=$(grep "^ncall2 " powheg.input | cut -d' ' -f2-3)
+		echo "ncall2 was set to $ncallTwoOriginal, set it to 0 for first stage." 
+		sed -i '/ncall2/c\ncall2  0  ! number of calls for computing the integral and finding upper bound' powheg.input
+	else
+		cp powheg.input.orginal powheg.input
+		fail_exit "Required ncall2 value was not defined"
+	fi
+	## fakevirt must be set to 1
+	if grep -Fq "fakevirt" powheg.input; then
+		echo "fakevirt was already set, making sure it is set to 1"
+		sed -i '/fakevirt/c\fakevirt   1      ! (default 0) if 1 use Born for virtuals' powheg.input
+	else
+		echo "Inserted fakevirt 1 needed for first stage."
+		echo -e "fakevirt   1      ! (default 0) if 1 use Born for virtuals" >> powheg.input
+	fi
+
+	# Save first stage powheg.input to allow a check later
+	cp powheg.input powheg.input.stage1
+
+	#make sure env variable for pdfsets points to the right place before starting first stage
+	export LHAPDF_DATA_PATH=`${myDir}/lhapdf-config --datadir`
+	../pwhg_main &> log_${process}_${seed}_stage1.txt
+
+	# Preparation for second stage, ncall2 = [OriginalValue] and fakevirt = 0 must be set
+	## Revert ncall2 to original value
+	if grep -Fq "ncall2" powheg.input; then
+		echo "ncall2 was set back to $ncallTwoOriginal as required for second stage." 
+		sed -i "/ncall2/c\ncall2  $ncallTwoOriginal  ! number of calls for computing the integral and finding upper bound" powheg.input
+	else
+		fail_exit "Something strange happened, ncall2 parameter was not found in second stage."
+	fi
+	## fakevirt must be set to 1
+	if grep -Fq "fakevirt" powheg.input; then
+		echo "fakevirt set to 0 as required for second stage."
+		sed -i '/fakevirt/c\fakevirt   0      ! (default 0) if 1 use Born for virtuals' powheg.input
+	else
+		fail_exit "Something strange happened, fakevirt parameter was not found in second stage."
+	fi
+
+	# Save second stage powheg.input to allow a check later
+	cp powheg.input powheg.input.stage2
+
+	#make sure env variable for pdfsets points to the right place before starting first stage
+	export LHAPDF_DATA_PATH=`${myDir}/lhapdf-config --datadir`
+	../pwhg_main &> log_${process}_${seed}_stage2.txt
+fi
 
 #remove the spurious random seed output that is non LHE standard 
 cat pwgevents.lhe | grep -v "Random number generator exit values" > ${file}_final.lhe
@@ -251,6 +351,7 @@ cp -p ../pwhg_main ${WORKDIR}/${myDir}/.
 cp -pr ../lib ${WORKDIR}/${myDir}/.
 cp -pr ../lib64 ${WORKDIR}/${myDir}/.
 cp -p pwg*.dat ${WORKDIR}/${myDir}/.
+cp -p *.top ${WORKDIR}/${myDir}/.
 cp -p ${WORKDIR}/vbfnlo.* ${WORKDIR}/${myDir}/.
 cp -p ${WORKDIR}/br.* ${WORKDIR}/${myDir}/.
 cp -p ${WORKDIR}/*fh.in ${WORKDIR}/${myDir}/.

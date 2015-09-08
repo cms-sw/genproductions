@@ -1,0 +1,6 @@
+import model sm
+import model MonoTops_UFO -modelname
+generate p p > t vmet  MT1=0 MT2=2 MT3=0 MT4=0, (t > b W+) @0
+add process p p > t~ vmet  MT1=0 MT2=2 MT3=0 MT4=0, (t~ > b~ W-) @1
+output Monotop_LO_S4_mchi1100p0
+
