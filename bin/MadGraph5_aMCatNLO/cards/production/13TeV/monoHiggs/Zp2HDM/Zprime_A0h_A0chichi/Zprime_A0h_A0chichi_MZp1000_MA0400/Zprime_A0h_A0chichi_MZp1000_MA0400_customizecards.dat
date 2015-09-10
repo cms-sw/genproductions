@@ -1,0 +1,8 @@
+set param_card mass 32 1000
+set param_card mass 26 400
+set param_card mass 27 400
+set param_card mass 28 400
+set param_card ZpINPUTS 1 1
+set param_card ZpINPUTS 2 0.8
+set param_card DECAY 32 2.022504e+01
+set param_card DECAY 28 25.8687
