@@ -11,5 +11,5 @@ define ell- = e- mu- ta-
 generate p p > ell+ vl  $$ t t~ h [QCD] @0
 add process p p > ell- vl~  $$ t t~ h [QCD] @1
 
-output wellnu012j_5f_NLO_FXFX -nojpeg
+output wellnu0j_5f_NLO_FXFX -nojpeg
 
