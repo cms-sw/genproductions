@@ -7,14 +7,18 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
     PythiaParameters = cms.PSet(
         pythia8CommonSettingsBlock,
         pythia8CUEP8M1SettingsBlock,
-        parameterSets = cms.vstring(
-            'pythia8CommonSettings',
-            'pythia8CUEP8M1Settings'
+        processParameters = cms.vstring(
+            '6:m0 = 172.5',
             '25:m0 = 125.0',
             '23:mMin = 0.05',       # Solve problem with mZ cut
             '24:mMin = 0.05',       # Solve problem with mW cut
-            '25:onMode = off', 
+            '25:onMode = off',
             '25:onIfAny = 22 22',    # Decay only higgs to gamma gamma
+        ),
+        parameterSets = cms.vstring(
+            'pythia8CommonSettings',
+            'pythia8CUEP8M1Settings',
+            'processParameters',
         )
     )
 )
