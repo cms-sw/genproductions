@@ -10,8 +10,8 @@ define ell- = e- mu- ta-
 # Specify process(es) to run
 generate p p > ell+ vl bquark / h @0
 add process p p > ell+ vl bquark j / h @1
-add process p p > ell+ vl bquark j j j / h @2
-add process p p > ell+ vl bquark j j / h @3
+add process p p > ell+ vl bquark j j / h @2
+add process p p > ell+ vl bquark j j j / h @3
 add process p p > ell- vl~ bquark / h @4
 add process p p > ell- vl~ bquark j / h @5
 add process p p > ell- vl~ bquark j j / h @6
