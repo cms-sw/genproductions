@@ -18,4 +18,4 @@ add process p p > w- bquark j j, w- > ell- vl~ / h @6
 add process p p > w- bquark j j j, w- > ell- vl~ / h @7
 
 # Output processes to MadEvent directory
-output WBJetsToLNu_5f_LO_MLM -nojpeg
+output WBJetsToLNu_Wpt-80toInf_5f_LO_MLM -nojpeg

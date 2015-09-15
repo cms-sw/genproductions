@@ -183,7 +183,7 @@
 #*********************************************************************
 # Minimum and maximum pt for 4-momenta sum of leptons                *
 #*********************************************************************
- 0   = ptllmin  ! Minimum pt for 4-momenta sum of leptons(l and vl)
+ 80   = ptllmin  ! Minimum pt for 4-momenta sum of leptons(l and vl)
  -1  = ptllmax  ! Maximum pt for 4-momenta sum of leptons(l and vl)
 #*********************************************************************
 # Inclusive cuts                                                     *
