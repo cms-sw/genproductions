@@ -1,0 +1,4 @@
+import model Higgs_hzpzp
+generate p p > h chi chi~
+output BaryonicZprime_MZp50_MChi50 -nojpeg
+
