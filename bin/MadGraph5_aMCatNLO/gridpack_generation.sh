@@ -341,10 +341,16 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   tar xvf ../${EFFDM}
   cd ..
 
-  # get ttDM model
+  # get charged Higgs model
   cp ${CHSOURCE}/${CHMODEL} .
   cd models
   tar xvf ../${CHMODEL}
+  cd ..
+
+  # get A->Zh model
+  cp ${AZHSOURCE}/${AZHMODEL} .
+  cd models
+  tar xvf ../${AZHMODEL}
   cd ..
 
   # get non res HH model
