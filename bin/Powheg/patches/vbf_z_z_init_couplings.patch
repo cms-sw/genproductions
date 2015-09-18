@@ -1,0 +1,16 @@
+--- init_couplings.f.orig	2015-07-30 14:36:08.000000001 +0200
++++ init_couplings.f	2015-09-18 17:11:30.000000001 +0200
+@@ -96,9 +96,10 @@
+       ph_WmWw = ph_Wmass * ph_Wwidth
+ 
+ c Higgs parameters
+-      masswindow = 30
+-      ph_Hmass2low=(ph_Hmass-masswindow*ph_Hwidth)**2
+-      ph_Hmass2high=(ph_Hmass+masswindow*ph_Hwidth)**2
++      masswindow = powheginput("#masswindow")
++      if(masswindow.lt.0d0) masswindow=10d0
++      ph_Hmass2low=max(0.5d0,ph_Hmass-masswindow*ph_Hwidth)**2
++      ph_Hmass2high=min(kn_sbeams,(ph_Hmass+masswindow*ph_Hwidth)**2)
+       ph_HmHw = ph_Hmass * ph_Hwidth
+     
+       ph_unit_e = sqrt(4*pi*ph_alphaem)
