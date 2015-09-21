@@ -158,7 +158,7 @@ AZHSOURCE=/afs/cern.ch/cms/generators/www/
 
 # NONRES HH model, needed for the non res HH analysis
 NONRESHHMODEL=BSM_gg_hh.tar
-NONRESHHSOURCE= /afs/cern.ch/cms/generators/www/
+NONRESHHSOURCE=/afs/cern.ch/cms/generators/www/
 
 # Model for EWK DM model
 EWKDMMODEL=EWModel_FermionDM_UFO.tar
@@ -357,6 +357,8 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   cp ${NONRESHHSOURCE}/${NONRESHHMODEL} .
   cd models
   tar xvf ../${NONRESHHMODEL}
+  # there are subdirectories in the tarball, sort this out:
+  mv NonRes_hh/GF/BSM_gg_hh BSM_gg_hh 
   cd ..
 
   #get EWK DM model
