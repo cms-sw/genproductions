@@ -52,6 +52,7 @@ ln -s ${LHAPDF_DATA_PATH}/../../lib/libLHAPDF.so .
 cd ../..
 
 # Edit / patch the cards
+# get them from this github once merged
 cd Cards
 # edit running configuration
 sed -i -e 's,auto_update = 7,auto_update = 0,1' amcatnlo_configuration.txt
@@ -62,25 +63,6 @@ sed -i -e 's,5 4.750000e+00,5 4.800000e+00,1' param_card.dat
 sed -i -e 's,6 1.730000e+02,6 1.725000e+02,1' param_card.dat
 # edit run card
 
-
-#seed
-10000 = nevents
-
-#input/mg5_configuration.txt
-bbH_4FS_yb2/Cards/amcatnlo_configuration.txt
-/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/lhapdf/6.1.5-ddibom2/share/LHAPDF/../../bin/lhapdf-config
-echo "set lhapdf ${LHAPDF_DATA_PATH}/../../bin/lhapdf-config" >> mgconfigscript
-echo "set run_mode 2" >> mgconfigscript
-echo "save options" >> mgconfigscript
-
-# FIXME: PARAMETERS SIMILAR TO CMS ONES?
-
 # Run!
-cd 
 ```
 
-# RUN AT LO ?
-# Since you also asked for the possibility of running LO with appropriate  inputs, there are three things to be noted:
-1) The new recommendation is to keep mb(mb)=4.187 as input also at LO (not changing it to the pole mass as done before for LO runs, this will have some significant effect on the total cross section K factor)
-2) Choose proper LO PDF sets in Cards/run_card.dat
-3) Change the running (for the scale variations) from 2- to 1-loop: Inside SubProcesses/reweight_xsec.f go to function rwgt_muR_dep_fac and comment line 1104 and 1105 (with "! NLO" at the end) and uncomment the two lines below 1106 and 1107 (with "! LO" at the end)
