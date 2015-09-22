@@ -1,0 +1,35 @@
+MajN_2
+ Particles
+ Full  name  |A    |A+   | number |2*spin| mass |width |color|aux|>LaTex(A)<|>LaTeX(A+)   <|
+Photon       |a    |a    |22      |2     |0     |0     |1    |G  |a         |a
+Z            |Z    |Z    |23      |2     |MZ    |!WZ   |1    |G  |Z         |Z
+W            |W+   |W-   |24      |2     |MW    |!WW   |1    |G  |W+        |W-
+G            |g    |g    |21      |2     |0     |0     |8    |G  |g         |g
+Electron-neut|ve   |ve~  |12      |1     |0     |0     |1    |   |ve        |ve~
+Mu-neutrino  |vm   |vm~  |14      |1     |0     |0     |1    |   |vm        |vm~
+Tau-neutrino |vt   |vt~  |16      |1     |0     |0     |1    |   |vt        |vt~
+Electron     |e-   |e+   |11      |1     |0     |0     |1    |   |e-        |e+
+Muon         |mu-  |mu+  |13      |1     |0     |0     |1    |   |mu-       |mu+
+Tau          |ta-  |ta+  |15      |1     |MTA   |0     |1    |   |ta-       |ta+
+u-quark      |u    |u~   |2       |1     |0     |0     |3    |   |u         |u~
+c-quark      |c    |c~   |4       |1     |0     |0     |3    |   |c         |c~
+t-quark      |t    |t~   |6       |1     |MT    |!WT   |3    |   |t         |t~
+d-quark      |d    |d~   |1       |1     |0     |0     |3    |   |d         |d~
+s-quark      |s    |s~   |3       |1     |0     |0     |3    |   |s         |s~
+b-quark      |b    |b~   |5       |1     |MB    |0     |3    |   |b         |b~
+H            |H    |H    |25      |0     |MH    |!WH   |1    |   |H         |H
+u*-quark     |Us   |Us~  |4000002 |1     |MUU   |!WUs  |3    |   |Us        |Us~
+c*-quark     |Cs   |Cs~  |4000004 |1     |MUU   |!WCs  |3    |   |Cs        |Cs~
+t*-quark     |Ts   |Ts~  |4000006 |1     |MUU   |!WTs  |3    |   |Ts        |Ts~
+d*-quark     |Ds   |Ds~  |4000008 |1     |MUU   |!WDs  |3    |   |Ds        |Ds~
+c*-quark     |Ss   |Ss~  |4000010 |1     |MUU   |!WSs  |3    |   |Ss        |Ss~
+b*-quark     |Bs   |Bs~  |4000012 |1     |MUU   |!WBs  |3    |   |Bs        |Bs~
+NuE*         |NEs  |NEs  |4000013 |1     |MUU   |!WNEs |1    |   |NEs       |NEs
+NuMu*        |NMus |NMus |4000014 |1     |MUU   |!WNMus|1    |   |NMus      |NMus
+NuTau*       |NTau |NTau |4000016 |1     |MUU   |!WNTau|1    |   |NTaus     |NTaus
+E*-lepton    |Es   |Es~  |4000018 |1     |MUU   |!WEs  |1    |   |Es        |Es~
+Mu*-lepton   |Mus  |Mus~ |4000020 |1     |MUU   |!WMus |1    |   |Mus       |Mus~
+Tau*-lepton  |Taus |~Taus|4000022 |1     |MUU   |!WTaus|1    |   |Taus      |Taus~
+aux	     |aux+ |aux- |        |2     |lc    |0     |1    |*  |          |              |
+aux0         |aux0 |aux0 |        |2     |lc    |0     |1    |*  |          |
+============================================================================================
