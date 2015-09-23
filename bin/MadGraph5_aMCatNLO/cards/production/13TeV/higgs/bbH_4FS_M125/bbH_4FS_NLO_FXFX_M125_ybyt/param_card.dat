@@ -18,7 +18,7 @@ Block loop
 ## INFORMATION FOR MASS
 ###################################
 Block mass 
-    5 4.800000e+00 # MB 
+    5 4.700000e+00 # MB 
     6 1.725000e+02 # MT 
    15 1.777000e+00 # MTA 
    23 9.118800e+01 # MZ 
@@ -63,7 +63,7 @@ Block yukawa
 DECAY   6 1.491500e+00 # WT 
 DECAY  23 2.441404e+00 # WZ 
 DECAY  24 2.047600e+00 # WW 
-DECAY  25 6.382339e-03 # WH 
+DECAY  25 4.070000e-03 # WH 
 ## Dependent parameters, given by model restrictions.
 ## Those values should be edited following the 
 ## analytical expression. MG5 ignores those values 
