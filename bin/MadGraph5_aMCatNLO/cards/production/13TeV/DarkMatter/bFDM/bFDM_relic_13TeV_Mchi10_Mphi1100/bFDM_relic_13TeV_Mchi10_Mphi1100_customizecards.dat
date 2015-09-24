@@ -1,0 +1,12 @@
+set MX 10
+set Mphix 1100
+set gx   6.82219229371
+set maxjetflavor 5
+set pdlabel lhapdf
+set lhaid 263000
+set ebeam1 6500
+set ebeam2 6500
+set nevents 20000
+set htjmin 100
+set wphix auto
+set misset 60
