@@ -1,0 +1,73 @@
+LQ_P&B_1st_gen
+ Variables 
+  Name | Value       |>  Comment                                   <|
+ GG    |1.13         |Strong coupling
+ EE    |0.31222      |
+ KG    |1            |VLQ KG
+ LG    |0            |VLQ LG
+ g1l   |0.31222      |
+ g1r   |0.31222      |
+ g2l   |0.31222      |
+ g2r   |0.31222      |
+ gt1r  |0.31222      |
+ g3l   |0.31222      |
+ gt2l  |0.31222      |
+ h2l   |0.31222      |
+ h2r   |0.31222      |
+ ht2l  |0.31222      |
+ h1l   |0.31222      |
+ h1r   |0.31222      |
+ ht1r  |0.31222      |
+ h3l   |0.31222      |
+me     |0.00051      |
+ Maux  |1000         |mass of im particles
+% MU3  |1000         |LQ MASS
+% MU1  |1000         |LQ MASS
+% MUT  |1000         |LQ MASS
+% MW2  |1000         |LQ MASS
+% MV2  |1000         |LQ MASS
+% MRP  |1000         |LQ MASS
+% MRM  |1000         |LQ MASS
+% MTP  |1000         |LQ MASS
+% MTM  |1000         |LQ MASS
+% MSP  |1000         |LQ MASS
+% MS0  |1000         |LQ MASS
+% MSM  |1000         |LQ MASS
+% MST  |1000         |LQ MASS
+% MS1  |1000         |LQ MASS
+% MS3  |1000         |
+% GUP  |10.0         |LQ WIDTH
+% GU0  |10.0         |LQ WIDTH
+% GUM  |10.0         |LQ WIDTH
+% GUT  |10.0         |LQ WIDTH
+% GWP  |10.0         |LQ WIDTH
+% GWM  |10.0         |LQ WIDTH
+% GVP  |10.0         |LQ WIDTH
+% GVM  |10.0         |LQ WIDTH
+% GRP  |10.0         |LQ WIDTH
+% GRM  |10.0         |LQ WIDTH
+% GTP  |10.0         |LQ WIDTH
+% GTM  |10.0         |LQ WIDTH
+% GSP  |10.0         |LQ WIDTH
+% GSM  |10.0         |LQ WIDTH
+% GST  |10.0         |LQ WIDTH
+ SW    |0.474        |sin of the Weinberg angle (PDG-94,"on-shell")
+ MZ    |91.187       |mass of Z boson
+ wZ    |2.502        |width of Z boson
+ wW    |2.094        |width of W boson
+ ka    |0            |
+ la    |0            |
+ s12   |0.221        |Parameter of C-K-M matrix (PDG-94)
+ s23   |0.04         |Parameter of C-K-M matrix (PDG-94)
+ s13   |0.0035       |Parameter of C-K-M matrix (PDG-94)
+ Mm    |0.1057       |mass of muon
+ Mt    |1.777        |mass of tau-lepton
+ Mc    |1.3          |mass of c-quark
+ Ms    |0.2          |mass of s-quark
+ Mtop  |170          |mass of t-quark
+ wtop  |1.442        |width of t-quark
+ Mb    |4.3          |mass of b-quark
+ MH    |200          |mass of Higgs
+ wH    |1.461        |width of Higgs
+MLQ    |1000         |
+=====================================================================
