@@ -117,7 +117,7 @@ MG=MG5_aMC_v2.3.2.2.tar.gz
 MGSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$MG
 
 #syscalc is a helper tool for madgraph to add scale and pdf variation weights for LO processes
-SYSCALC=SysCalc_V1.1.2.tar.gz
+SYSCALC=SysCalc_V1.1.5alpha.tar.gz
 SYSCALCSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$SYSCALC
 
 MGBASEDIRORIG=MG5_aMC_v2_3_2_2
