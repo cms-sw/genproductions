@@ -113,14 +113,14 @@ CARDSDIR=${PRODHOME}/${carddir}
 
 MGBASEDIR=mgbasedir
 
-MG=MG5_aMC_v2.3.0.tar.gz
+MG=MG5_aMC_v2.3.2.2.tar.gz
 MGSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$MG
 
 #syscalc is a helper tool for madgraph to add scale and pdf variation weights for LO processes
 SYSCALC=SysCalc_V1.1.2.tar.gz
 SYSCALCSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$SYSCALC
 
-MGBASEDIRORIG=MG5_aMC_v2_3_0
+MGBASEDIRORIG=MG5_aMC_v2_3_2_2
 
 isscratchspace=0
 
@@ -137,7 +137,7 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
 #   export RELEASE=CMSSW_5_3_29
 
   export SCRAM_ARCH=slc6_amd64_gcc481
-  export RELEASE=CMSSW_7_1_17_patch1
+  export RELEASE=CMSSW_7_1_19
 
 
   ############################
