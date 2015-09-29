@@ -358,7 +358,7 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   cd models
   tar xvf ../${NONRESHHMODEL}
   # there are subdirectories in the tarball, sort this out:
-  mv NonRes_hh/GF/BSM_gg_hh BSM_gg_hh 
+  ln -s -d NonRes_hh/GF/BSM_gg_hh .
   cd ..
 
   #get EWK DM model
