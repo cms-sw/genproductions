@@ -29,7 +29,7 @@ define p = g u c d s u~ c~ d~ s~
 define j = g u c d s u~ c~ d~ s~
 define l+ = e+ mu+
 define l- = e- mu-
-define vl = ve vm vtVVbb_fullLepVVbb_fullLep
+define vl = ve vm vt
 define vl~ = ve~ vm~ vt~
 import model BSM_gg_hh
 define lep = e+ e- mu+ mu-
