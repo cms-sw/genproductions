@@ -164,6 +164,10 @@ NONRESHHSOURCE=/afs/cern.ch/cms/generators/www/
 EWKDMMODEL=EWModel_FermionDM_UFO.tar
 EWKDMSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${EWKDMMODEL}
 
+# Model for RPV
+RPVMODEL=RPVMSSM_af1_ufo.tgz
+RPVSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${RPVMODEL}
+
 MGBASEDIRORIG=MG5_aMC_v2_2_2
 
 #activate this to avoid thousands of mails from CERN LSF
@@ -365,6 +369,12 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   wget --no-check-certificate -O ${EWKDMMODEL} ${EWKDMSOURCE}
   cd models
   tar  -xf ../${EWKDMMODEL}
+  cd ..
+
+  # get RPV model
+  wget --no-check-certificate -O ${RPVMODEL} ${RPVSOURCE}
+  cd models
+  tar  -xf ../${RPVMODEL}
   cd ..
 
   cd $WORKDIR
