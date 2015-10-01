@@ -302,7 +302,7 @@ if [[ -s ./JHUGen.input ]]; then
 fi
 
 ### retrieve the powheg source tar ball
-export POWHEGSRC=powhegboxV2_July2015.tar.gz 
+export POWHEGSRC=powhegboxV2_Sep2015.tar.gz 
 
 echo 'D/L POWHEG source...'
 
