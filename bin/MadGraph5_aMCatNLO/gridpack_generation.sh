@@ -376,11 +376,6 @@ if [ -e $CARDSDIR/${name}_FKS_params.dat ]; then
   cp $CARDSDIR/${name}_FKS_params.dat ./Cards/FKS_params.dat
 fi
 
-if [ -e $CARDSDIR/${name}_MadLoopParams.dat ]; then
-  echo "copying custom MadLoopParams.dat file"
-  cp $CARDSDIR/${name}_MadLoopParams.dat ./Cards/MadLoopParams.dat
-fi
-
 if [ -e $CARDSDIR/${name}_setscales.f ]; then
   echo "copying custom setscales.f file"
   cp $CARDSDIR/${name}_setscales.f ./SubProcesses/setscales.f
