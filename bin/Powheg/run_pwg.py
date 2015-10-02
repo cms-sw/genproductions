@@ -444,8 +444,13 @@ make pwhg_main || fail_exit "Failed to compile pwhg_main"
 
 mkdir -p ${WORKDIR}/${name}
 cp -p pwhg_main ${WORKDIR}/${name}/.
-cp -a lib ${WORKDIR}/${name}/.
-cp -a lib64 ${WORKDIR}/${name}/.
+
+if [ -d ./lib ]; then
+  cp -a ./lib ${WORKDIR}/${name}/.
+fi 
+if [ -d ./lib64 ]; then
+  cp -a ./lib64 ${WORKDIR}/${name}/.
+fi
 
 cd ${WORKDIR}/${name}
 
@@ -454,16 +459,16 @@ cd ${WORKDIR}/${name}
 localDir=`pwd`
 
 # Copy additional files
-if [ -e  ${WORKDIR}/vbfnlo.input ]; then
+if [ -e ${WORKDIR}/vbfnlo.input ]; then
   cp -p ${WORKDIR}/vbfnlo.input .
 fi 
 if [ -e ${WORKDIR}/br.a3_2HDM ]; then
   cp -p ${WORKDIR}/br*2HDM .
 fi
-if [ -e  ${WORKDIR}/powheg-fh.in ]; then
+if [ -e ${WORKDIR}/powheg-fh.in ]; then
   cp -p ${WORKDIR}/powheg-fh.in .
 fi
-if [ -e  ${WORKDIR}/cteq6m ]; then
+if [ -e ${WORKDIR}/cteq6m ]; then
     cp -p ${WORKDIR}/cteq6m .
 fi 
 
@@ -488,12 +493,12 @@ echo 'Compiling finished...'
 
 if [ $jhugen = 1 ]; then
   cp -p ${cardj} .
-  if [ ! -e  ${WORKDIR}/runcmsgrid_powhegjhugen.sh ]; then
+  if [ ! -e ${WORKDIR}/runcmsgrid_powhegjhugen.sh ]; then
    fail_exit "Did not find " ${WORKDIR}/runcmsgrid_powhegjhugen.sh 
   fi
   sed -e 's/PROCESS/'${process}'/g' ${WORKDIR}/runcmsgrid_powhegjhugen.sh > runcmsgrid.sh
 else
-  if [ ! -e  ${WORKDIR}/runcmsgrid_powheg.sh ]; then
+  if [ ! -e ${WORKDIR}/runcmsgrid_powheg.sh ]; then
    fail_exit "Did not find " ${WORKDIR}/runcmsgrid_powheg.sh 
   fi
   sed -e 's/PROCESS/'${process}'/g' ${WORKDIR}/runcmsgrid_powheg.sh > runcmsgrid.sh
@@ -601,11 +606,11 @@ sed -i "s/^manyseeds.*/#manyseeds 1/g" powheg.input
 sed -i "s/^parallelstage.*/#parallelstage 4/g" powheg.input
 sed -i "s/^xgriditeration/#xgriditeration 1/g" powheg.input
 
-if [ -e  ${WORKDIR}/$folderName/cteq6m ]; then
+if [ -e ${WORKDIR}/$folderName/cteq6m ]; then
     cp -p ${WORKDIR}/cteq6m .
 fi
 
-if [ -e  ${WORKDIR}/$folderName/JHUGen.input ]; then
+if [ -e ${WORKDIR}/$folderName/JHUGen.input ]; then
     sed -e "s/PROCESS/${process}/g" ${WORKDIR}/runcmsgrid_powhegjhugen.sh > runcmsgrid.sh
 else
     sed -e "s/PROCESS/${process}/g" ${WORKDIR}/runcmsgrid_powheg.sh > runcmsgrid.sh
