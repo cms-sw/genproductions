@@ -32,10 +32,6 @@ carddir=${2}
 # which queue
 queue=${3}
 
-# if there are (up to two) BSM models
-model=${4}
-model2=${5}
-
 if [ -z "$PRODHOME" ]; then
   PRODHOME=`pwd`
 fi 
@@ -54,23 +50,9 @@ if [ -z ${name} ]; then
   if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
 fi
 
-ismodel=0
-ismodel2=0
-
-if [ -z ${model} ]; then
-  echo "No BSM model provided"
-else
-  echo "Using BSM model" ${model}
-  ismodel=1
+if [ -z ${queue} ]; then
+  queue=local
 fi
-
-if [ -z ${model2} ]; then
-  echo "No other BSM model provided"
-else
-  echo "Using also BSM model" ${model2}
-  ismodel2=1
-fi
-
 
 #________________________________________
 # to be set for user specific
@@ -225,36 +207,29 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   PATH=`${LHAPDFCONFIG} --prefix`/bin:${PATH} make
   cd ..
   
-  if [ "$ismodel" -gt "0" ]; then
-    #get needed BSM model
-    wget --no-check-certificate https://cms-project-generators.web.cern.ch/cms-project-generators/$model
-    cd models
-    if [[ $model == *".zip"* ]]; then
-      unzip ../$model
-    elif [[ $model == *".tgz"* || $model == *".tar.gz"* ]]; then
-      tar zxvf ../$model
-    elif [[ $model == *".tar"* ]]; then
-      tar xvf ../$model
-    else 
-      echo "A BSM model is specified but it is not in a standard archive (.zip or .tar)"; exit 1
-    fi
-    cd ..
-  fi
-
-  if [ "$ismodel2" -gt "0" ]; then
-    #get second needed BSM model
-    wget --no-check-certificate https://cms-project-generators.web.cern.ch/cms-project-generators/$model2
-    cd models
-    if [[ $model2 == *".zip"* ]]; then
-      unzip ../$model2
-    elif [[ $model2 == *".tgz"* || $model2 == *".tar.gz"* ]]; then
-      tar zxvf ../$model2
-    elif [[ $model2 == *".tar"* ]]; then
-      tar xvf ../$model2
-    else 
-      echo "A BSM model is specified but it is not in a standard archive (.zip or .tar)"; exit 1
-    fi
-    cd ..
+  #load extra models if needed
+  if [ -e $CARDSDIR/${name}_extramodels.dat ]; then
+    echo "Loading extra models specified in $CARDSDIR/${name}_extramodels.dat"
+    #strip comments
+    sed 's:#.*$::g' $CARDSDIR/${name}_extramodels.dat | while read model
+    do
+      #get needed BSM model
+      if [[ $model = *[!\ ]* ]]; then
+        echo "Loading extra model $model"
+        wget --no-check-certificate https://cms-project-generators.web.cern.ch/cms-project-generators/$model
+        cd models
+        if [[ $model == *".zip"* ]]; then
+          unzip ../$model
+        elif [[ $model == *".tgz"* ]]; then
+          tar zxvf ../$model
+        elif [[ $model == *".tar"* ]]; then
+          tar xavf ../$model
+        else 
+          echo "A BSM model is specified but it is not in a standard archive (.zip or .tar)"
+        fi
+        cd ..
+      fi
+    done
   fi
 
   cd $WORKDIR
