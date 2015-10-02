@@ -283,8 +283,13 @@ export PATH=`pwd`:${PATH}
 ## Get the input card
 #wget --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/${cardinput} -O powheg.input  || cp -p ${cardinput} powheg.input || fail_exit "Failed to get powheg input card " ${card}
 
-cp -p ../${cardInput} powheg.input
-cp -p ../JHUGen.input JHUGen.input
+if [ -s ../${cardInput} ]; then
+  cp -p ../${cardInput} powheg.input
+fi
+
+if [ -s ../JHUGen.input ]; then
+  cp -p ../JHUGen.input JHUGen.input
+fi
 
 sed -i -e "s#--#-#g" powheg.input
 
@@ -591,8 +596,10 @@ rm -f $WORKDIR/$folderName'_'$process'.tgz'
 
 cp -p $WORKDIR/run_pwg.py $WORKDIR/$folderName
 
-cp -p $WORKDIR/$folderName/pwggrid-0001.dat $WORKDIR/$folderName/pwggrid.dat
-cp -p $WORKDIR/$folderName/pwg-0001-stat.dat $WORKDIR/$folderName/pwg-stat.dat
+if [ -e $WORKDIR/$folderName/pwggrid-0001.dat ]; then
+  cp -p $WORKDIR/$folderName/pwggrid-0001.dat $WORKDIR/$folderName/pwggrid.dat
+  cp -p $WORKDIR/$folderName/pwg-0001-stat.dat $WORKDIR/$folderName/pwg-stat.dat
+fi
 
 grep -q "NEVENTS" powheg.input; test $? -eq 0 || sed -i "s/^numevts.*/numevts NEVENTS/g" powheg.input
 grep -q "SEED" powheg.input; test $? -eq 0 || sed -i "s/^iseed.*/iseed SEED/g" powheg.input
