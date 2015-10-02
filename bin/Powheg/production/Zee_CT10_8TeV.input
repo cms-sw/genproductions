@@ -1,7 +1,7 @@
 ! Z production parameter
 vdecaymode 1      !(1:leptonic decay, 2:muonic decay, 3: tauonic decay,...)
  
-numevts 100000
+numevts NEVENTS
 ih1   1           ! hadron 1 (1 for protons, -1 for antiprotons)
 ih2   1           ! hadron 2 (1 for protons, -1 for antiprotons)
 ndns1 131         ! pdf set for hadron 1 (mlm numbering)
@@ -51,7 +51,7 @@ testplots  1      ! (default 0, do not) do NLO and PWHG distributions
 #testsuda  1       ! (default 0, do not test) test Sudakov form factor
 #radregion 1       ! (default all regions) only generate radiation in the selected singular region
  
-iseed 10483
+iseed SEED
 #rand1     -1      ! initialize random number sequence
 #rand2     -1      ! initialize random number sequence
  
