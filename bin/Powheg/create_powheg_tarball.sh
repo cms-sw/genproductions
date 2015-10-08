@@ -19,7 +19,7 @@ echo "   ______________________________________________________    "
 repo=slc6_amd64_gcc481/powheg/V2.0/src
 echo "%MSG-POWHEG source repository = $repo"
 
-name=powhegboxV2_July2015
+name=powhegboxV2_Sep2015
 echo "%MSG-POWHEG source tarball name = $name"
 
 process=${1}
@@ -178,7 +178,11 @@ if [ "$process" = "gg_H_MSSM" ]; then
   cp -p ../gg_H_quark-mass-effects/SLHA.h .
   cp -p ../gg_H_quark-mass-effects/SLHADefs.h .
 fi  
-  
+if [ "$process" = "VBF_H" ]; then
+    sed -i 's/masswindow = 30/masswindow = powheginput("#masswindow") \n      if(masswindow.lt.0d0) masswindow=30/g' init_couplings.f
+    sed -i 's/ph_Hmass2high=(ph_Hmass+masswindow\*ph_Hwidth)\*\*2/ph_Hmass2high=min(kn_sbeams,(ph_Hmass+masswindow\*ph_Hwidth)\*\*2)/g' init_couplings.f
+fi
+
 echo "ANALYSIS=none " >> tmpfile
 if [ "$process" = "Wgamma" ]; then
     echo "PWHGANAL=$BOOK_HISTO pwhg_analysis-dummy.o uti.o " >> tmpfile

@@ -26,6 +26,7 @@ fi
 export LHAPDF_DATA_PATH=`$LHAPDFCONFIG --datadir`
 
 echo "lhapdf = $LHAPDFCONFIG" >> ./madevent/Cards/me5_configuration.txt
+# echo "cluster_local_path = `${LHAPDFCONFIG} --datadir`" >> ./madevent/Cards/me5_configuration.txt
 
 if [ "$ncpu" -gt "1" ]; then
   echo "run_mode = 2" >> ./madevent/Cards/me5_configuration.txt
@@ -82,10 +83,7 @@ CT10nlo.LHgrid
 MMHT2014nlo68cl.LHgrid 1
 " > syscalc_card.dat
 
-./mgbasedir/SysCalc/sys_calc events_presys.lhe syscalc_card.dat cmsgrid_final.lhe
-
-
-
+LD_LIBRARY_PATH=`${LHAPDFCONFIG} --libdir`:${LD_LIBRARY_PATH} ./mgbasedir/SysCalc/sys_calc events_presys.lhe syscalc_card.dat cmsgrid_final.lhe
 
 ls -l
 echo
