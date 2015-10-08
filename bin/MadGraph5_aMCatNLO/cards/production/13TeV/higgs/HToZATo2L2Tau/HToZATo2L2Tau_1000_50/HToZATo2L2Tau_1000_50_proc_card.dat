@@ -42,5 +42,5 @@ define p = g u c d s u~ c~ d~ s~
 define j = g u c d s u~ c~ d~ s~
 define vl = ve vm vt
 define vl~ = ve~ vm~ vt~
-generate p p > h3 z/h1, h3 > tau+ tau-, z > l+ l-
+generate p p > h3 z/h1, h3 > ta+ ta-, z > l+ l-
 output HToZATo2L2Tau_1000_50
