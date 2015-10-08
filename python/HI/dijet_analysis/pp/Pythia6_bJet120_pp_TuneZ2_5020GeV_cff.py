@@ -3,7 +3,7 @@ import FWCore.ParameterSet.Config as cms
 from Configuration.Generator.PythiaUEZ2Settings_cfi import *
 
 generator = cms.EDFilter("Pythia6GeneratorFilter",
-                         comEnergy = cms.double(2760.0),
+                         comEnergy = cms.double(5020.0),
                          crossSection = cms.untracked.double(1.079e-02),
                          filterEfficiency = cms.untracked.double(5.5e-02),
                          maxEventsToPrint = cms.untracked.int32(-1),
