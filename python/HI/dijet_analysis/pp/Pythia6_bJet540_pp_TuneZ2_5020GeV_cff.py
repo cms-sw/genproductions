@@ -24,7 +24,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
 bfilter = cms.EDFilter("MCSingleParticleFilter",
                        MaxEta     = cms.untracked.vdouble(3.0, 3.0),
                        MinEta     = cms.untracked.vdouble(-3.0, -3.0),
-                       MinPt      = cms.untracked.vdouble(10.0, 10.0),
+                       MinPt      = cms.untracked.vdouble(0.0, 0.0),
                        ParticleID = cms.untracked.vint32(5, -5)
                        )
 
