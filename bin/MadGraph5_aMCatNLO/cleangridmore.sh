@@ -11,6 +11,7 @@ find ./ -name "test_ME" | xargs -r rm
 find ./ -name "*.f" | xargs -r rm
 find ./ -name "*.F" | xargs -r rm
 find ./ -name "*.cc" | xargs -r rm
+find ./ -name "makefile" | xargs -r truncate -c -s0 #emtpy makefiles to prevent recompilation in reweighting
 find ./ -name "*.html" | xargs -r rm
 find ./ -name "gensym" | xargs -r rm
 find ./ -name "ftn25" | xargs -r rm

@@ -1,0 +1,46 @@
+=== modified file 'madgraph/various/banner.py'
+--- MG5_aMC_v2_3_2_2/madgraph/various/banner.py 2015-10-01 16:00:08 +0000
++++ MG5_aMC_v2_3_2_2/madgraph/various/banner.py 2015-10-09 10:34:09 +0000
+@@ -536,7 +536,7 @@
+        if len(arg) == 1:
+            if tag == 'mg5proccard':
+                try:
+-                    return card.info[arg[0]]
++                    return card.get(arg[0])
+                except KeyError, error:
+                    if 'default' in opt:
+                        return opt['default']
+@@ -850,11 +850,18 @@
+            # update the counter to pass to the next element
+            nline -= 1
+
+-    def __getattr__(self, tag, default=None):
++    def get(self, tag, default=None):
+        if isinstance(tag, int):
+            list.__getattr__(self, tag)
+        elif tag == 'info' or tag == "__setstate__":
+            return default #for pickle
++        elif tag == "multiparticles":
++            out = []
++            for line in self:
++                if line.startswith('define'):
++                    name, content = line[7:].split('=',1)
++                    out.append((name, content))
++            return out
+        else:
+            return self.info[tag]
+=== modified file 'madgraph/interface/reweight_interface.py'
+--- MG5_aMC_v2_3_2_2/madgraph/interface/reweight_interface.py 2015-10-01 16:00:08 +0000
++++ MG5_aMC_v2_3_2_2/madgraph/interface/reweight_interface.py 2015-10-09 10:32:30 +0000
+@@ -916,6 +916,11 @@
+         commandline="import model %s " % modelpath
+         mgcmd.exec_cmd(commandline)
+
++        #multiparticles
++        print self.banner.get('proc_card', 'multiparticles')
++        for name, content in self.banner.get('proc_card', 'multiparticles'):
++            mgcmd.exec_cmd("define %s = %s" % (name, content))
++
+         # 2. compute the production matrix element -----------------------------
+         processes = [line[9:].strip() for line in self.banner.proc_card
+                      if line.startswith('generate')]
