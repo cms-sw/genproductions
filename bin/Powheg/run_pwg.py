@@ -302,7 +302,7 @@ if [[ -s ./JHUGen.input ]]; then
 fi
 
 ### retrieve the powheg source tar ball
-export POWHEGSRC=powhegboxV2_July2015.tar.gz 
+export POWHEGSRC=powhegboxV2_Sep2015.tar.gz 
 
 echo 'D/L POWHEG source...'
 
@@ -346,6 +346,10 @@ if [ "$process" = "VBF_HJJJ" ]; then
 fi  
 if [ "$process" = "VBF_H" ]; then 
   sed -i '/pwhginihist/d' pwhg_analysis-dummy.f 
+  patch -l -p0 -i ${WORKDIR}/patches/vbf_h_init_couplings.patch
+fi  
+if [ "$process" = "VBF_Z_Z" ]; then 
+  patch -l -p0 -i ${WORKDIR}/patches/vbf_z_z_init_couplings.patch
 fi  
 if [ "$process" = "Wgamma" ] || [ "$process" = "W_ew-BMNNP" ]; then
     patch -l -p0 -i ${WORKDIR}/patches/pwhg_analysis_driver.patch 
