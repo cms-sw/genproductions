@@ -21,7 +21,7 @@
 #*                                                          *
 #************************************************************
 set group_subprocesses Auto
-import model RPVMSSM_UFO -modelname
+import model RPVMSSM_UFO-no_b_mass -modelname
 define p = g u c d s u~ c~ d~ s~ b b~
 define j = g u c d s u~ c~ d~ s~ b b~
 generate p p > su1 su1~ /su2 QED=0 @0
