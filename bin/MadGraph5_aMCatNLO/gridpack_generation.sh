@@ -149,7 +149,6 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   patch -l -p0 -i $PRODHOME/patches/mgfixes.patch
   patch -l -p0 -i $PRODHOME/patches/models.patch
   patch -l -p0 -i $PRODHOME/patches/reweightfix.patch # issue with sepcifying path names for reweitgh code
-  patch -l -p0 -i $PRODHOME/patches/reweight_5f.patch # fix 5f scheme reweighting (https://bugs.launchpad.net/mg5amcnlo/+bug/1504089)
 
   cd $MGBASEDIRORIG
 
@@ -215,6 +214,7 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
     #strip comments
     sed 's:#.*$::g' $CARDSDIR/${name}_extramodels.dat | while read model
     do
+	echo $model
       #get needed BSM model
       if [[ $model = *[!\ ]* ]]; then
         echo "Loading extra model $model"
@@ -393,10 +393,10 @@ if [ -e $CARDSDIR/${name}_reweight_card.dat ]; then
   cp $CARDSDIR/${name}_reweight_card.dat ./Cards/reweight_card.dat
 fi
 
-if [ -e $CARDSDIR/${name}_param_card.dat ]; then
-  echo "copying custom reweight file"
-  cp $CARDSDIR/${name}_param_card.dat ./Cards/param_card.dat
-fi
+#if [ -e $CARDSDIR/${name}_param_card.dat ]; then
+#  echo "copying custom reweight file"
+#  cp $CARDSDIR/${name}_param_card.dat ./Cards/param_card.dat
+#fi
 
 
 
@@ -457,7 +457,7 @@ else
 
 #   set +e
   cat makegrid.dat | ./bin/generate_events pilotrun
-  
+
   cd $WORKDIR
   
 #   echo "creating debug tarball"
@@ -493,7 +493,7 @@ else
   # precompile reweighting if necessary
   if [ -e $CARDSDIR/${name}_reweight_card.dat ]; then
       pwd
-      echo # preparing reweighting step
+      echo "preparing reweighting step"
       mkdir -p madevent/Events/pilotrun
       cp $WORKDIR/unweighted_events.lhe.gz madevent/Events/pilotrun
       echo "f2py_compiler=" `which gfortran` >> ./madevent/Cards/me5_configuration.txt
