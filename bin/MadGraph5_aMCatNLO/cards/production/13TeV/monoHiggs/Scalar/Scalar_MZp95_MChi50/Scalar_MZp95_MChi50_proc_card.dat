@@ -1,3 +1,3 @@
 import model Higgs_scalar_UFO
 generate p p > h chi chi~
-output scalar -nojpeg
+output Scalar_MZp95_MChi50 -nojpeg
