@@ -3,13 +3,13 @@ vdecaymode        10
 hdecaymode        -1
 
 hmass  125d0        ! Higgs boson mass 
-hwidth 0.407d-2     ! Higgs boson width 
+hwidth 0.00407d0     ! Higgs boson width 
 
 min_h_mass    10d0      
-max_h_mass  1000d0 
+max_h_mass  13000d0 
 
 min_w_mass     10d0
-max_w_mass   1000d0
+max_w_mass   13000d0
 
 
 numevts NEVENTS   ! number of events to be generated
