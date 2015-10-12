@@ -149,6 +149,7 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   patch -l -p0 -i $PRODHOME/patches/mgfixes.patch
   patch -l -p0 -i $PRODHOME/patches/models.patch
   patch -l -p0 -i $PRODHOME/patches/reweightfix.patch # issue with sepcifying path names for reweitgh code
+  patch -l -p0 -i $PRODHOME/patches/recompile_inhibit.patch # inhibit recompilation of reweight code
 
   cd $MGBASEDIRORIG
 
@@ -214,11 +215,10 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
     #strip comments
     sed 's:#.*$::g' $CARDSDIR/${name}_extramodels.dat | while read model
     do
-	echo $model
       #get needed BSM model
       if [[ $model = *[!\ ]* ]]; then
         echo "Loading extra model $model"
-        wget --no-check-certificate https://cms-project-generators.web.cern.ch/cms-project-generators/$model
+        wget --no-check-certificate https://cms-project-generators.web.cern.ch/cms-project-generators/$model	
         cd models
         if [[ $model == *".zip"* ]]; then
           unzip ../$model
