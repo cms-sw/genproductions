@@ -83,6 +83,6 @@ bottommass 4.75d0    ! bottom quark mass - if defined it enables the bottom quar
 !charmmass 1.5d0     ! char quark mass - if defined it enables the charm quark
 ! Optional
 hdecaywidth 0        ! If equals to 1 read total decay width from HDECAY sm.br2 file
-withnegweights 0
+withnegweights 1
 pdfreweight 1       ! PDF reweighting
 storeinfo_rwgt 1    ! store weight information
