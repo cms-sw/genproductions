@@ -1,0 +1,3 @@
+import model Higgs_hzpzp
+generate p p > h chi chi~
+output ZpBaryonic_MZp10_MChi500 -nojpeg
