@@ -19,7 +19,7 @@ echo "   ______________________________________________________    "
 repo=slc6_amd64_gcc481/powheg/V2.0/src
 echo "%MSG-POWHEG source repository = $repo"
 
-name=powhegboxV2_July2015
+name=powhegboxV2_Sep2015
 echo "%MSG-POWHEG source tarball name = $name"
 
 process=${1}
