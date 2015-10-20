@@ -84,7 +84,7 @@
 #**********************************
 # BW cutoff (M+/-bwcutoff*Gamma)
 #**********************************
-   15  = bwcutoff      ! (M+/-bwcutoff*Gamma)
+   20  = bwcutoff      ! (M+/-bwcutoff*Gamma)
 #**********************************************************
 # Apply pt/E/eta/dr/mij cuts on decay products or not
 # (note that etmiss/ptll/ptheavy/ht/sorted cuts always apply)
@@ -133,7 +133,7 @@
  5.2  = etaj    ! max rap for the jets 
  5.2  = etab    ! max rap for the b
  2.5  = etaa    ! max rap for the photons 
- 3.0  = etal    ! max rap for the charged leptons 
+ 3.2  = etal    ! max rap for the charged leptons 
  0.6  = etaonium ! max rap for the quarkonium states
    0  = etajmin ! min rap for the jets
    0  = etabmin ! min rap for the b
@@ -148,7 +148,7 @@
  0.0 = draa    ! min distance between gammas 
  0.0 = drbj    ! min distance between b and jet 
  0.0 = draj    ! min distance between gamma and jet 
- 0.4 = drjl    ! min distance between jet and lepton 
+ 0.2 = drjl    ! min distance between jet and lepton 
  0.0 = drab    ! min distance between gamma and b 
  0.0 = drbl    ! min distance between b and lepton 
  0.0 = dral    ! min distance between gamma and lepton 
