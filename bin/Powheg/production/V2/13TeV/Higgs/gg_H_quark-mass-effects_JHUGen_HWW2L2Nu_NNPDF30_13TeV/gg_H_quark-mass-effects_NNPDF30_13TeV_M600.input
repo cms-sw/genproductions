@@ -41,7 +41,7 @@ facscfact  1   ! (default 1d0) fac scale factor: mufact = muref * facscfact
 #charmthr   1.5    ! (default 1.5 GeV) charm treshold for gluon splitting 
 #bottomthr  5.0    ! (default 5.0 GeV) bottom treshold for gluon splitting
 testplots  1      ! (default 0, do not) do NLO and PWHG distributions
-hfact    61.0d0    ! (default no dumping factor) dump factor for high-pt radiation: > 0 dumpfac=h**2/(pt2+h**2)
+hfact    107.5d0    ! (default no dumping factor) dump factor for high-pt radiation: > 0 dumpfac=h**2/(pt2+h**2)
 #testsuda  1       ! (default 0, do not test) test Sudakov form factor
 #radregion 1       ! (default all regions) only generate radiation in the selected singular region  
 #charmthrpdf  1.5  ! (default 1.5 GeV) pdf charm treshold
@@ -77,7 +77,7 @@ masswindow 9999d0  !(default 10d0) number of widths around hmass in the BW for a
 !	               12  gamma gamma
 ! **** Mandatory parameters for SM or MW ****
 hmass MASS            ! Higgs boson mass
-hwidth 0.00618D0     ! Higgs boson width    
+hwidth 123.0D0     ! Higgs boson width    
 topmass 172.5        ! top quark mass
 bottommass 4.75d0    ! bottom quark mass - if defined it enables the bottom quark
 !charmmass 1.5d0     ! char quark mass - if defined it enables the charm quark
