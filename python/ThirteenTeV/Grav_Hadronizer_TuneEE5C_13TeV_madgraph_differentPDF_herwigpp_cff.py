@@ -3,7 +3,6 @@ import FWCore.ParameterSet.Config as cms
 from Configuration.Generator.HerwigppDefaults_cfi import *
 from Configuration.Generator.HerwigppUE_EE_5C_cfi import *
 from Configuration.Generator.HerwigppPDF_CTEQ6_LO_cfi import *									# Import CTEQ6L PDF as shower pdf
-from Configuration.Generator.HerwigppPDF_NNPDF30_NLO_cfi import herwigppPDFSettingsBlock as herwigppHardPDFSettingsBlock 	# Import NNPDF30 NLO as PDF of the hard subprocess
 from Configuration.Generator.HerwigppEnergy_13TeV_cfi import *
 from Configuration.Generator.HerwigppLHEFile_cfi import *
 from Configuration.Generator.HerwigppMECorrections_cfi import *
@@ -27,7 +26,22 @@ generator = cms.EDFilter("ThePEGHadronizerFilter",
         herwigNewPhysicsBlock,
 	herwigppUESettingsBlock,
 	herwigppPDFSettingsBlock,
-	herwigppHardPDFSettingsBlock,			# Implementing renamed NNPDF30 config block
+        herwigppPDFSettingsBlock = cms.PSet(
+            # PDF for shower
+            hwpp_pdf_NNPDF30LO = cms.vstring(
+                'create ThePEG::LHAPDF /Herwig/Partons/cmsPDFSet ThePEGLHAPDF.so',          # cmsPDFSet Default name for shower PDF
+                'set /Herwig/Partons/cmsPDFSet:PDFName NNPDF30_lo_as_0130.LHgrid',
+                'set /Herwig/Partons/cmsPDFSet:RemnantHandler /Herwig/Partons/HadronRemnants',
+                'set /Herwig/Particles/p+:PDF /Herwig/Partons/cmsPDFSet',               # Use PDF in shower
+                'set /Herwig/Particles/pbar-:PDF /Herwig/Partons/cmsPDFSet'
+            ),
+            # PDF for hard subprocess
+            hwpp_pdf_NNPDF30LO_Hard = cms.vstring(
+                'create ThePEG::LHAPDF /Herwig/Partons/cmsHardPDFSet ThePEGLHAPDF.so',          # cmsHardPDFSet Default name for hard subprocess PDF
+                'set /Herwig/Partons/cmsHardPDFSet:PDFName NNPDF30_lo_as_0130.LHgrid',
+                'set /Herwig/Partons/cmsHardPDFSet:RemnantHandler /Herwig/Partons/HadronRemnants'
+            )
+        ),
 	herwigppEnergySettingsBlock,
 	herwigppLHEFileSettingsBlock,
 	herwigppMECorrectionsSettingsBlock,
@@ -39,7 +53,7 @@ generator = cms.EDFilter("ThePEGHadronizerFilter",
 		'hwpp_ue_EE5C',
 		'hwpp_cm_13TeV',
 		'hwpp_pdf_CTEQ6L1',			# Shower PDF matching with the tune
-		'hwpp_pdf_NNPDF30NLO_Hard',		# PDF of hard subprocess
+		'hwpp_pdf_NNPDF30LO_Hard',		# PDF of hard subprocess
 		'hwpp_LHE_MadGraph_DifferentPDFs',	### WARNING ### Use this option only with LO MadGraph5_aMC@NLO LHE files
 		'hwpp_MECorr_Off',			# Switch off ME corrections while showering LHE files as recommended by Herwig++ authors
 	),
