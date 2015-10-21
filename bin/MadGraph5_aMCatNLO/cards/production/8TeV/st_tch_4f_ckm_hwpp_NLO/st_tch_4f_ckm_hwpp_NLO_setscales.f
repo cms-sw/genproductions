@@ -1,12 +1,3 @@
-c                                                                                                                                 
-c The recommended scale for factorization & renormalization for the single top t-channel in the 4 flavour scheme
-c is given by mu = 4 sqrt(m_b^2 + p_T,b^2 ) where b is the spectator quark
-c (see e.g. http://arxiv.org/pdf/1207.5391v2.pdf)
-c This is implemented here for the global scale (i.e. also for the QES scale)       
-c
-
-
-
 c Functions that set the scales and compute alphaS
 c
 c The renormalization, the two factorization, and the Ellis-Sexton scales
@@ -65,7 +56,7 @@ c (mostly in run.inc, and one  in coupl.inc)
       include "nexternal.inc"
       include "run.inc"
       include "coupl.inc"
-      
+
       double precision xp(0:3,nexternal)
       double precision dummy,dummyQES,dummies(2)
       integer i,j
@@ -222,6 +213,7 @@ c a scale to be used as a reference for renormalization scale
       include 'nexternal.inc'
       include 'reweight0.inc'
       include 'run.inc'
+      include 'cuts.inc'
       double precision muR_ref_dynamic,pp(0:3,nexternal)
       double precision tmp,scale_global_reference,pt,et,dot,sumdot
       external pt,et,dot,sumdot
@@ -271,13 +263,10 @@ c of the colorless system (as returned by setclscales)
       elseif(imurtype.eq.1)then
         tmp=scale_global_reference(pp)
       elseif(imurtype.eq.2)then
-        tmp = 4.7**2 + pt(pp(0,nexternal-1))**2
-        tmp=4*sqrt(tmp)
-        temp_scale_id='4*Sqrt[m(b)**2 + pT(b)**2], b=b quark mur2'
-c        do i=nincoming+1,nexternal
-c          tmp=tmp+pt(pp(0,i))
-c        enddo
-c        temp_scale_id='sum_i pT(i), i=final state'
+        do i=nincoming+1,nexternal
+          tmp=tmp+pt(pp(0,i))
+        enddo
+        temp_scale_id='sum_i pT(i), i=final state'
       elseif(imurtype.eq.3)then
 c geometric mean (to reweight alphaS)
          tmp1=0d0
@@ -343,7 +332,6 @@ c  particles (e.g. top quarks or Higgs) into account.
         stop
       endif
       muR_ref_dynamic=tmp
-c      print *, "muR type " ,imurtype, " muR Val ", muR_ref_dynamic 
 c
       return
       end
@@ -428,12 +416,11 @@ c FxFx merging scale:
       elseif(imuftype.eq.1)then
         tmp=scale_global_reference(pp)
       elseif(imuftype.eq.2)then
-        tmp = 4.7**2 + pt(pp(0,nexternal-1))**2
-c          do i=nincoming+1,nexternal
-c          tmp=tmp+pt(pp(0,i))**2
-c        enddo
-        tmp=4*sqrt(tmp)
-        temp_scale_id='4*Sqrt[m(b)**2 + pT(b)**2], b=b quark'
+        do i=nincoming+1,nexternal
+          tmp=tmp+pt(pp(0,i))**2
+        enddo
+        tmp=sqrt(tmp)
+        temp_scale_id='Sqrt[sum_i pT(i)**2], i=final state'
       else
         write(*,*)'Unknown option in muF_ref_dynamic',imuftype
         stop
@@ -521,109 +508,103 @@ c
 
 
       function scale_global_reference(pp)
-c     This is a function of the kinematic configuration pp, which returns
-c     a scale to be used as a reference for renormalization scale
+c This is a function of the kinematic configuration pp, which returns
+c a scale to be used as a reference for renormalization scale
       implicit none
       include 'genps.inc'
       include 'nexternal.inc'
+      include 'run.inc'
+      include 'cuts.inc'
       double precision scale_global_reference,pp(0:3,nexternal)
-      double precision tmp,pt,et,dot,xm2,sumdot,xmt2,ptb,tmpmass
+      double precision tmp,pt,et,dot,xm2,sumdot,xmt2,ptmp(0:3)
+      double precision ptb,tmpmass
       external pt,et,dot,sumdot
-      integer i,itype
-      parameter (itype=3)
+      integer i,j
       character*80 temp_scale_id
       common/ctemp_scale_id/temp_scale_id
 c
       tmp=0
-      tmpmass=0
-      ptb=0 
-c     print *, "itype " , itype
-      if(itype.eq.1)then
-         if (nexternal.eq.5) then 
-            tmp = dot(pp(0,nexternal-1),pp(0,nexternal-1))
-            tmpmass = sqrt(tmp)
-            ptb = (pt(pp(0,nexternal-1)))**2
-            tmp=4d0*sqrt(tmp+ptb)
-            temp_scale_id='4*Sqrt[m(b)**2 + pT(b)**2], b=b quark mod 1'
-         elseif (nexternal.eq.6) then
-            tmp = dot(pp(0,nexternal-2),pp(0,nexternal-2))
-            tmpmass = sqrt(tmp)
-            ptb = (pt(pp(0,nexternal-2)))**2
-            tmp=4d0*sqrt(tmp+ptb)
-            temp_scale_id='4*Sqrt[m(b)**2 + pT(b)**2], b=b quark mod 1'
-         endif
-c     print *, "nexternal: " , nexternal , " pt b: ", sqrt(ptb)
-         
-c     Sum of transverse energies
-c     do i=nincoming+1,nexternal
-c     tmp=tmp+et(pp(0,i))
-c     enddo
-c     temp_scale_id='sum_i eT(i), i=final state'
-      elseif(itype.eq.2)then
-         if (nexternal.eq.5) then 
-            tmp = dot(pp(0,nexternal-1),pp(0,nexternal-1))
-            ptb = (pt(pp(0,nexternal-1)))**2
-            tmp=4d0*sqrt(tmp+ptb)
-            temp_scale_id='4*Sqrt[m(b)**2 + pT(b)**2], b=b quark mod 2'
-         elseif (nexternal.eq.6) then
-            tmp = dot(pp(0,nexternal-2),pp(0,nexternal-2))
-            ptb = (pt(pp(0,nexternal-2)))**2
-            tmp=4d0*sqrt(tmp+ptb)
-            temp_scale_id='4*Sqrt[m(b)**2 + pT(b)**2], b=b quark mod 2'
-         endif
-c     print *, "nexternal: " , nexternal , " pt b: ", sqrt(ptb)
-c     Sum of transverse masses
-c     temp_scale_id='sum_i mT(i), i=final state'
-      elseif(itype.eq.3)then
+      if(ickkw.eq.-1)then
+c Special for analytic resummation in veto'ed cross sections:
+         tmp=ptj
+         temp_scale_id='NLO+NNLL veto scale: ptj_max'
+      elseif(dynamical_scale_choice.eq.1) then
+c         Total transverse energy of the event.         
+          tmp=0d0
+          do i=3,nexternal
+             tmp=tmp+et(pp(0,i))
+          enddo      
+          temp_scale_id='sum_i eT(i), i=final state'
+      elseif(dynamical_scale_choice.eq.2) then
+c         sum of the transverse mass divide
+c         m^2+pt^2=p(0)^2-p(3)^2=(p(0)+p(3))*(p(0)-p(3))
+          tmp=0d0
+          do i=3,nexternal
+            tmp=tmp+dsqrt(max(0d0,(pp(0,i)+pp(3,i))*(pp(0,i)-pp(3,i))))
+          enddo
+          temp_scale_id='sum_i mT(i), i=final state'
+      elseif(dynamical_scale_choice.eq.3.or.dynamical_scale_choice.eq.-1) then
+c         sum of the transverse mass divide by 2
+c         m^2+pt^2=p(0)^2-p(3)^2=(p(0)+p(3))*(p(0)-p(3))
+          tmp=0d0
+          do i=3,nexternal
+            tmp=tmp+dsqrt(max(0d0,(pp(0,i)+pp(3,i))*(pp(0,i)-pp(3,i))))
+          enddo
+          tmp=tmp/2d0
+          temp_scale_id='H_T/2 := sum_i mT(i)/2, i=final state'
+      elseif(dynamical_scale_choice.eq.4) then
+c         \sqrt(s), partonic energy
+          tmp=dsqrt(2d0*dot(pp(0,1),pp(0,2)))
+          temp_scale_id='\sqrt(s), partonic energy'
+      elseif(dynamical_scale_choice.eq.0) then
+ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+cc      USER-DEFINED SCALE: ENTER YOUR CODE HERE                                 cc
+cc      to use this code you must set                                            cc
+cc                 dynamical_scale_choice = 0                                    cc
+cc      in the run_card (run_card.dat)                                           cc
+ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+         temp_scale_id='4*Sqrt[m(b)**2 + pT(b)**2]' 
+         tmp = 0
+         tmpmass=0
+         ptb=0
          do i=nincoming+1,nexternal
-            xm2=sqrt(dot(pp(0,i),pp(0,i)))
-c     if(xm2.le.0.d0)xm2=0.d0
-c     tmp=tmp+sqrt(pt(pp(0,i))**2+xm2)
-c     print *, "ith " , i , " mass ",xm2 
+             xm2=sqrt(dot(pp(0,i),pp(0,i)))
          enddo
-         if (nexternal.eq.5) then 
-            tmp = dot(pp(0,nexternal-1),pp(0,nexternal-1))
-            ptb = (pt(pp(0,nexternal-1)))**2
-            tmpmass = sqrt(tmp)
-            tmp=4d0*sqrt(tmp+ptb)
-            temp_scale_id='4*Sqrt[m(b)**2 + pT(b)**2], b=b quark 3'
-         elseif (nexternal.eq.6) then 
-            tmp = dot(pp(0,nexternal-2),pp(0,nexternal-2))
-            ptb = (pt(pp(0,nexternal-2)))**2
-            tmpmass = sqrt(tmp)
-            tmp=4d0*sqrt(tmp+ptb)
-            temp_scale_id='4*Sqrt[m(b)**2 + pT(b)**2], b=b quark 3'
+         if (nexternal.eq.5) then
+             tmp = dot(pp(0,nexternal-1),pp(0,nexternal-1))
+             ptb = (pt(pp(0,nexternal-1)))**2
+             tmpmass = sqrt(tmp)
+             tmp=4d0*sqrt(tmp+ptb) 
+         elseif (nexternal.eq.6) then
+             tmp = dot(pp(0,nexternal-2),pp(0,nexternal-2))
+             ptb = (pt(pp(0,nexternal-2)))**2
+             tmpmass = sqrt(tmp)
+             tmp=4d0*sqrt(tmp+ptb) 
          endif
          if (tmpmass.gt.100) then
-            if (nexternal.eq.5) then
-               tmp = dot(pp(0,nexternal-2),pp(0,nexternal-2))
-               ptb = (pt(pp(0,nexternal-2)))**2
-               tmpmass = sqrt(tmp)
-               tmp=4d0*sqrt(tmp+ptb)
-               temp_scale_id='4*Sqrt[m(b)**2 + pT(b)**2], b=b quark 3'
-            elseif (nexternal.eq.6) then
-               tmp = dot(pp(0,nexternal-3),pp(0,nexternal-3))
-               ptb = (pt(pp(0,nexternal-3)))**2
-               tmpmass = sqrt(tmp)
-               tmp=4d0*sqrt(tmp+ptb)
-               temp_scale_id='4*Sqrt[m(b)**2 + pT(b)**2], b=b quark 3'
-            endif
-         endif   
-c     print *, "nexternal: " , nexternal , " pt b: ", sqrt(ptb)
-c     c Sum of transverse masses divided by 2
-c     do i=nincoming+1,nexternal
-c     m^2+pt^2=p(0)^2-p(3)^2=(p(0)+p(3))*(p(0)-p(3))
-c     c            xmt2=(pp(0,i)+pp(3,i))*(pp(0,i)-pp(3,i))
-c     take max() to avoid numerical instabilities
-c     c            tmp=tmp+sqrt(max(xmt2,0d0))/2d0
-c     c         enddo
-c     c         temp_scale_id='H_T/2 := sum_i mT(i)/2, i=final state'
-c      print *, " pt b: ", sqrt(ptb) , "mass_b" , tmpmass 
+             if (nexternal.eq.5) then
+                 tmp = dot(pp(0,nexternal-2),pp(0,nexternal-2))
+                 ptb = (pt(pp(0,nexternal-2)))**2
+                 tmpmass = sqrt(tmp)
+                 tmp=4d0*sqrt(tmp+ptb)    
+             elseif (nexternal.eq.6) then
+                 tmp = dot(pp(0,nexternal-3),pp(0,nexternal-3))
+                 ptb = (pt(pp(0,nexternal-3)))**2
+                 tmpmass = sqrt(tmp)
+                 tmp=4d0*sqrt(tmp+ptb)              
+             endif
+         endif
+
+ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+cc      USER-DEFINED SCALE: END OF USER CODE                                     cc
+ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
       else
-         write(*,*)'Unknown option in scale_global_reference',itype
-         stop
+        write(*,*)'Unknown option in scale_global_reference',dynamical_scale_choice
+        stop
       endif
+
       scale_global_reference=tmp
-c     
+c
       return
       end
+
