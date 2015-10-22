@@ -26,6 +26,7 @@ fi
 export LHAPDF_DATA_PATH=`$LHAPDFCONFIG --datadir`
 
 echo "lhapdf = $LHAPDFCONFIG" >> ./Cards/amcatnlo_configuration.txt
+# echo "cluster_local_path = `${LHAPDFCONFIG} --datadir`" >> ./Cards/amcatnlo_configuration.txt
 
 echo "run_mode = 2" >> ./Cards/amcatnlo_configuration.txt
 echo "nb_core = $ncpu" >> ./Cards/amcatnlo_configuration.txt
