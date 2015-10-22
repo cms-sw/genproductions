@@ -9,15 +9,15 @@ define ell- = e- mu- ta-
 define vl = ve vm vt
 define vl~ = ve~ vm~ vt~
 
-generate p p > ell- vl~ e+ e- @0
-add process p p > ell+ vl e+ e- @1
-add process p p > ell- vl~ e+ e- j @2
-add process p p > ell+ vl e+ e- j @3
-add process p p > ell- vl~ e+ e- j j @4
-add process p p > ell+ vl e+ e- j j @5
-add process p p > ell- vl~ e+ e- j j j @6
-add process p p > ell+ vl e+ e- j j j @7
-add process p p > ell- vl~ e+ e- j j j j @8
-add process p p > ell+ vl e+ e- j j j j @9
+generate p p > ell- vl~ ell+ ell- @0
+add process p p > ell+ vl ell+ ell- @1
+add process p p > ell- vl~ ell+ ell- j @2
+add process p p > ell+ vl ell+ ell- j @3
+add process p p > ell- vl~ ell+ ell- j j @4
+add process p p > ell+ vl ell+ ell- j j @5
+add process p p > ell- vl~ ell+ ell- j j j @6
+add process p p > ell+ vl ell+ ell- j j j @7
+add process p p > ell- vl~ ell+ ell- j j j j @8
+add process p p > ell+ vl ell+ ell- j j j j @9
 
 output WGstarToLL_5f_LO -nojpeg
