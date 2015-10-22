@@ -85,6 +85,17 @@ MMHT2014nlo68cl.LHgrid 1
 
 LD_LIBRARY_PATH=`${LHAPDFCONFIG} --libdir`:${LD_LIBRARY_PATH} ./mgbasedir/SysCalc/sys_calc events_presys.lhe syscalc_card.dat cmsgrid_final.lhe
 
+#reweight if necessary
+if [ -e process/madevent/Cards/reweight_card.dat ]; then
+    echo "reweighting events"
+    mv cmsgrid_final.lhe process/madevent/Events/GridRun_${rnum}/unweighted_events.lhe
+    cd process/madevent
+    ./bin/madevent reweight -f GridRun_${rnum}
+    cd ../..
+    mv process/madevent/Events/GridRun_${rnum}/unweighted_events.lhe.gz cmsgrid_final.lhe.gz
+    gzip -d  cmsgrid_final.lhe.gz
+fi
+
 ls -l
 echo
 
