@@ -76,14 +76,14 @@ masswindow 9999d0  !(default 10d0) number of widths around hmass in the BW for a
 !	               11  ZZ
 !	               12  gamma gamma
 ! **** Mandatory parameters for SM or MW ****
-hmass MASS            ! Higgs boson mass
-hwidth 8.43D0     ! Higgs boson width    
+hmass 300            ! Higgs boson mass
+hwidth 8.43D0     ! Higgs boson width
 topmass 172.5        ! top quark mass
 bottommass 4.75d0    ! bottom quark mass - if defined it enables the bottom quark
 !charmmass 1.5d0     ! char quark mass - if defined it enables the charm quark
 ! Optional
 hdecaywidth 0        ! If equals to 1 read total decay width from HDECAY sm.br2 file
-withnegweights 1
+withnegweights 0
 pdfreweight 1       ! PDF reweighting
 storeinfo_rwgt 1    ! store weight information
 bwshape 3 ! complex-pole scheme according to Passarino et al.
