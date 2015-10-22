@@ -148,6 +148,8 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
 
   patch -l -p0 -i $PRODHOME/patches/mgfixes.patch
   patch -l -p0 -i $PRODHOME/patches/models.patch
+  patch -l -p0 -i $PRODHOME/patches/reweightfix.patch # issue with sepcifying path names for reweitgh code
+  patch -l -p0 -i $PRODHOME/patches/recompile_inhibit.patch # inhibit recompilation of reweight code
 
   cd $MGBASEDIRORIG
 
@@ -216,7 +218,7 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
       #get needed BSM model
       if [[ $model = *[!\ ]* ]]; then
         echo "Loading extra model $model"
-        wget --no-check-certificate https://cms-project-generators.web.cern.ch/cms-project-generators/$model
+        wget --no-check-certificate https://cms-project-generators.web.cern.ch/cms-project-generators/$model	
         cd models
         if [[ $model == *".zip"* ]]; then
           unzip ../$model
@@ -386,6 +388,12 @@ if [ -e $CARDSDIR/${name}_reweight_xsec.f ]; then
   cp $CARDSDIR/${name}_reweight_xsec.f ./SubProcesses/reweight_xsec.f
 fi
 
+if [ -e $CARDSDIR/${name}_reweight_card.dat ]; then
+  echo "copying custom reweight file"
+  cp $CARDSDIR/${name}_reweight_card.dat ./Cards/reweight_card.dat
+fi
+
+
 #automatically detect NLO mode or LO mode from output directory
 isnlo=0
 if [ -e ./MCatNLO ]; then
@@ -443,7 +451,7 @@ else
 
 #   set +e
   cat makegrid.dat | ./bin/generate_events pilotrun
-  
+
   cd $WORKDIR
   
 #   echo "creating debug tarball"
@@ -474,6 +482,20 @@ else
     rm $WORKDIR/unweighted_events.lhe.gz
     rm -rf tmp*
     cp $CARDSDIR/${name}_madspin_card.dat $WORKDIR/process/madspin_card.dat
+  fi
+  
+  # precompile reweighting if necessary
+  if [ -e $CARDSDIR/${name}_reweight_card.dat ]; then
+      pwd
+      echo "preparing reweighting step"
+      mkdir -p madevent/Events/pilotrun
+      cp $WORKDIR/unweighted_events.lhe.gz madevent/Events/pilotrun
+      echo "f2py_compiler=" `which gfortran` >> ./madevent/Cards/me5_configuration.txt
+      #need to set library path or f2py won't find libraries
+      export LIBRARY_PATH=$LD_LIBRARY_PATH
+      cd madevent
+      bin/madevent reweight pilotrun
+      cd ..      
   fi
 
   echo "preparing final gridpack"
