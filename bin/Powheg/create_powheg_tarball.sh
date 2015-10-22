@@ -57,6 +57,26 @@ echo "%MSG-POWHEG creating sub work directory ${jobfolder}"
 export RELEASE=${CMSSW_VERSION}
 export WORKDIR=`pwd`
 
+# There are some powheg processes for which decays do not preserve spin correlations, or where decays are not implemented at all.
+# One therefore might want to decay Powheg LHEs with MadSpin. If so, copy relevant madspin_card.dat and proc_card.dat. They must lie in the current directory.
+# An example proc_card.dat can be seen here: https://github.com/cms-sw/genproductions/tree/master/bin/Powheg/production/st_tch_top_4f_ckm_13TeV-powhegV2
+# It must include a block for <MG5ProcCard>, <MGRunCard> and <slha>.
+
+VERIFY_MADSPIN=0
+
+if [ -e  ${WORKDIR}/madspin_card.dat ]; then
+  ((VERIFY_MADSPIN++))
+fi
+
+if [ -e  ${WORKDIR}/proc_card.dat ]; then
+  ((VERIFY_MADSPIN++))
+fi
+
+if [ $VERIFY_MADSPIN -eq 1 ];
+then
+    echo "You either forgot the madspin_card or proc_card. I need both!"
+    exit 1
+fi
 
 # initialize the CMS environment 
 if [[ -e ${jobfolder} ]]; then
@@ -366,6 +386,14 @@ cp -pr ../JHUGenerator/pdfs ${WORKDIR}/${myDir}/.
 
 cd ${WORKDIR}/${myDir}
 cp -p ${card} .
+
+if [ -e  ${WORKDIR}/madspin_card.dat ]; then
+  cp -p ${WORKDIR}/madspin_card.dat .
+fi
+
+if [ -e  ${WORKDIR}/proc_card.dat ]; then
+  cp -p ${WORKDIR}/proc_card.dat .
+fi
 
 if [ $jhugen = 1 ]; then
   cp -p ${cardj} .
