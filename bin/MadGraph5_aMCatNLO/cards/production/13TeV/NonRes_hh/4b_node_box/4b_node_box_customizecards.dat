@@ -2,5 +2,5 @@
 set param_card bsm 30 0.0 
 set param_card bsm 31 0.0 
 set param_card bsm 32 0.0 
-set param_card bsm 188 0 
+set param_card bsm 188 0.00001 
 set param_card bsm 189 1 
