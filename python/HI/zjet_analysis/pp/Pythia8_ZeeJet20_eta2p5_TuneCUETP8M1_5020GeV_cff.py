@@ -21,7 +21,7 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
         processParameters = cms.vstring(
             'WeakSingleBoson:ffbar2gmZ = on',
             '23:onMode = off',
-            '23:onIfAny = 13',
+            '23:onIfAny = 11',
             'PhaseSpace:pTHatMin = 20.',
             'PhaseSpace:pTHatMax = 9999.',
             'PhaseSpace:mHatMin = 75.',
@@ -39,8 +39,8 @@ mumugenfilter = cms.EDFilter("MCParticlePairFilter",
     MaxEta = cms.untracked.vdouble(2.5, 2.5),
     MinEta = cms.untracked.vdouble(-2.5, -2.5),
     ParticleCharge = cms.untracked.int32(-1),
-    ParticleID1 = cms.untracked.vint32(13),
-    ParticleID2 = cms.untracked.vint32(13)
+    ParticleID1 = cms.untracked.vint32(11),
+    ParticleID2 = cms.untracked.vint32(11)
 )
 
 ProductionFilterSequence = cms.Sequence(generator)
