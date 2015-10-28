@@ -16,4 +16,4 @@ add process p p > ell+ vl ell+ ell- j @3
 add process p p > ell- vl~ ell+ ell- j j @4
 add process p p > ell+ vl ell+ ell- j j @5
 
-output WGstarToLL01j_5f_LO -nojpeg
+output WGstarToLL012j_5f_LO -nojpeg
