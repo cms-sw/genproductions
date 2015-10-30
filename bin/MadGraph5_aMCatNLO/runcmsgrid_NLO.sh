@@ -109,15 +109,15 @@ else
     mv cmsgrid_predecay_decayed.lhe.gz cmsgrid_final.lhe.gz
     
     if [ -e initrwgt.txt ];then
-    gzip -d cmsgrid_final.lhe.gz
-    sed -i "/<\/header>/ {
-         h
-         r initrwgt.txt
-         g
-         N
-    }" cmsgrid_final.lhe
-    rm initrwgt.txt
-    gzip cmsgrid_final.lhe
+    	gzip -d cmsgrid_final.lhe.gz
+    	sed -i "/<\/header>/ {
+             h
+             r initrwgt.txt
+             g
+             N
+        }" cmsgrid_final.lhe
+        rm initrwgt.txt
+        gzip cmsgrid_final.lhe
     fi
 
     
