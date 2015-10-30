@@ -424,6 +424,7 @@ if [ "$isnlo" -gt "0" ]; then
       gunzip ./Events/pilotrun_decayed_1/events.lhe.gz
       sed -n '/<MG5ProcCard>/,/<\/slha>/p' ./Events/pilotrun_decayed_1/events.lhe > header_for_madspin.txt
       mv header_for_madspin.txt $WORKDIR
+      gzip ./Events/pilotrun_decayed_1/events.lhe
   fi
   
   echo "mg5_path = ../mgbasedir" >> ./Cards/amcatnlo_configuration.txt
