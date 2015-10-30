@@ -1,0 +1,11 @@
+import model loop_sm-ckm
+#switch to non-diagonal ckm matrix for speed
+#import model loop_sm
+
+
+generate p p > t b~ j a a $$ w+ w- [QCD] @0
+add process p p > t~ b j a a $$ w+ w- [QCD] @1
+
+
+output TGGJets_4f_ckm_LO -nojpeg
+
