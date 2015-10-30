@@ -92,7 +92,12 @@ else
          N
      }" cmsgrid_final.lhe
 
-    cp cmsgrid_final.lhe ../cmsgrid_predecay.lhe
+#check if lhe file has reweighting blocks - temporarily save those, because MadSpin later overrides the entire header
+    if grep -R "<initrwgt>" cmsgrid_final.lhe; then
+        sed -n '/<initrwgt>/,/<\/initrwgt>/p' cmsgrid_final.lhe > ../initrwgt.txt
+    fi
+
+    mv cmsgrid_final.lhe ../cmsgrid_predecay.lhe
     cd $LHEWORKDIR
     rm -r external_tarball
     echo "import $LHEWORKDIR/cmsgrid_predecay.lhe" > madspinrun.dat
@@ -102,6 +107,19 @@ else
     rm madspinrun.dat
     rm cmsgrid_predecay.lhe.gz
     mv cmsgrid_predecay_decayed.lhe.gz cmsgrid_final.lhe.gz
+    
+    if [ -e initrwgt.txt ];then
+    gzip -d cmsgrid_final.lhe.gz
+    sed -i "/<\/header>/ {
+         h
+         r initrwgt.txt
+         g
+         N
+    }" cmsgrid_final.lhe
+    rm initrwgt.txt
+    gzip cmsgrid_final.lhe
+    fi
+
     
 fi
 
