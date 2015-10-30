@@ -1,4 +1,5 @@
 #Change bstar mass and width
-set param_card mass 1005 2600
+set frblock in param_card 1 1.000000e+00 # fnewL 
+set frblock in param_card 2 0.000000e+00 # fnewR 
+set param_card mass 1005 2600 #MBP
 set param_card DECAY 1005  128.218
-set param_card mass 5 0 # MB 
