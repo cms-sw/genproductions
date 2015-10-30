@@ -55,13 +55,54 @@ fi
 
 runname=cmsgrid
 
-#generate events
-cat runscript.dat | ./bin/generate_events -ox -n $runname
 
-if [ "$domadspin" -gt "0" ] ; then 
-    mv ./Events/${runname}_decayed_1/events.lhe.gz $LHEWORKDIR/${runname}_final.lhe.gz
+#generate events
+
+#First check if normal operation with MG5_aMCatNLO events is planned
+if [ ! -e $LHEWORKDIR/header_for_madspin.txt ]; then
+  
+    cat runscript.dat | ./bin/generate_events -ox -n $runname
+
+    if [ "$domadspin" -gt "0" ] ; then 
+	mv ./Events/${runname}_decayed_1/events.lhe.gz $LHEWORKDIR/${runname}_final.lhe.gz
+    else
+	mv ./Events/${runname}/events.lhe.gz $LHEWORKDIR/${runname}_final.lhe.gz
+    fi
+
+#else handle external tarball
 else
-    mv ./Events/${runname}/events.lhe.gz $LHEWORKDIR/${runname}_final.lhe.gz
+    cd $LHEWORKDIR
+    mkdir external_tarball
+    cd external_tarball
+    if [ -e ../*.tar.xz ];then
+	tar -xvaf ../*.tar.xz
+    elif [ -e ../*.tar.gz ];then
+	tar -xvaf ../*.tar.gz
+    elif [ -e ../*.tgz ]; then
+	tar -xvzf ../*.tgz
+    fi
+
+    ./runcmsgrid.sh $nevtjob $rnum $ncpu
+
+#splice blocks needed for MadSpin into LHE file
+    sed -i "/<init>/ {
+         h
+         r ../header_for_madspin.txt
+         g
+         N
+     }" cmsgrid_final.lhe
+
+    cp cmsgrid_final.lhe ../cmsgrid_predecay.lhe
+    cd $LHEWORKDIR
+    rm -r external_tarball
+    echo "import $LHEWORKDIR/cmsgrid_predecay.lhe" > madspinrun.dat
+    echo "set ms_dir $LHEWORKDIR/process/madspingrid" >> madspinrun.dat
+    echo "launch" >> madspinrun.dat
+    cat madspinrun.dat | $LHEWORKDIR/mgbasedir/MadSpin/madspin
+    rm madspinrun.dat
+    rm cmsgrid_predecay.lhe.gz
+    mv cmsgrid_predecay_decayed.lhe.gz cmsgrid_final.lhe.gz
+    
 fi
 
 cd $LHEWORKDIR
