@@ -1,3 +1,5 @@
+import model sm-ckm_no_b_mass
+
 define p = p b b~
 define j = j b b~
 
