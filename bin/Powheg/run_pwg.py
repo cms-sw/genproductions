@@ -414,6 +414,7 @@ if [ $jhugen = 1 ]; then
 
   mkdir -p ${WORKDIR}/${name}
   cp -p JHUGen ${WORKDIR}/${name}/.
+  cp -pr JHUGen/pdfs ${WORKDIR}/${name}/.
 
   cd ..
 fi
