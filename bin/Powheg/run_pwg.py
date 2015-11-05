@@ -317,8 +317,8 @@ fi
 
 tar zxf ${POWHEGSRC}
 #
-# increase maxseeds to 20000
-sed -i -e "s#par_maxseeds=200,#par_maxseeds=20000,#g" POWHEG-BOX/include/pwhg_par.h
+# increase maxseeds to 10000
+sed -i -e "s#par_maxseeds=200,#par_maxseeds=10000,#g" POWHEG-BOX/include/pwhg_par.h
 
 if [ -e POWHEG-BOX/${process}.tgz ]; then
   cd POWHEG-BOX/
