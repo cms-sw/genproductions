@@ -6,10 +6,8 @@ define j = j b b~
 generate p p > t t~ z, z > j j @0
 add process p p > t t~ z, z > vl vl~ @1
 add process p p > t t~ l+ l- @2
-add process p p > t t~ vl vl~ @3
-add process p p > t t~ z j, z > j j @4
-add process p p > t t~ z j, z > vl vl~ @5
-add process p p > t t~ l+ l- j @6
-add process p p > t t~ vl vl~ j @6
+add process p p > t t~ z j, z > j j @3
+add process p p > t t~ z j, z > vl vl~ @4
+add process p p > t t~ l+ l- j @5
 
 output ttZ01j_5f -nojpeg
