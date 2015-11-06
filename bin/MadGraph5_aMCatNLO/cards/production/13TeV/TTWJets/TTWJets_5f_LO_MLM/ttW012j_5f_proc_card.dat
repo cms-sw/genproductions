@@ -3,7 +3,9 @@ import model sm-ckm_no_b_mass
 define p = p b b~
 define j = j b b~
 
-define wdecay = j l+ vl l- vl~
+define ell+ = e+ mu+ ta+
+define ell- = e- mu- ta-
+define wdecay = j ell+ vl ell- vl~
 define wpm = w+ w-
 
 generate p p > t t~ wpm, wpm > wdecay wdecay @0
