@@ -106,7 +106,7 @@ average = event_norm ! Normalize events to sum or average to the X sect.
 #***********************************************************************
 # BW cutoff (M+/-bwcutoff*Gamma)                                       *
 #***********************************************************************
- 30  = bwcutoff
+ 15  = bwcutoff
 #***********************************************************************
 # Cuts on the jets                                                     *
 # Jet clustering is performed by FastJet.
