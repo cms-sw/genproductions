@@ -1,3 +1,3 @@
 import model Higgs_hzpzp_UFO
-generate p p > h chi chi~
+generate p p > h chi chi~ QED=3
 output ZpBaryonic_MZp15_MChi10 -nojpeg
