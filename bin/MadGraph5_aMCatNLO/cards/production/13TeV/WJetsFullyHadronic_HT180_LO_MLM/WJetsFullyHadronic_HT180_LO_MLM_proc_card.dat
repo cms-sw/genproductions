@@ -27,9 +27,13 @@ define p = u c s d b u~ c~ s~ d~ b~ g
 define j = u c s d b u~ c~ s~ d~ b~ g
 define qw = u c s d b u~ c~ s~ d~ b~
 # Specify process(es) to run
-generate p p > w j  , w > qw qw / h @0
-add process p p > w j j  , w > qw qw / h @1
-add process p p > w j j j , w > qw qw / h @2
-add process p p > w j j j j , w > qw qw / h @3
+generate p p > w+ j  , w+ > qw qw / h @0
+add process p p > w+ j j  , w+ > qw qw / h @1
+add process p p > w+ j j j , w+ > qw qw / h @2
+add process p p > w+ j j j j , w+ > qw qw / h @3
+add process p p > w- j  , w- > qw qw / h @4
+add process p p > w- j j  , w- > qw qw / h @5
+add process p p > w- j j j , w- > qw qw / h @6
+add process p p > w- j j j j , w- > qw qw / h @7
 # Output processes to MadEvent directory
 output WJetsFullyHadronic_HT180_LO_MLM -nojpeg
