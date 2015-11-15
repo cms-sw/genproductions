@@ -3,15 +3,13 @@ import model sm-ckm_no_b_mass
 
 define p = p b b~
 define j = j b b~
-define r = u c s d b u~ c~ s~ d~ b~
 
 define l+ = e+ mu+ ta+
 define l- = e- mu- ta-
 define vl = ve vm vt
 define vl~ = ve~ vm~ vt~
 
-generate p p > vl vl~ r r / t t~ h QED=4 QCD=0 @0
-add process p p > vl vl~ r r j / t t~ h QED=4 QCD=1 @1
+generate p p > vl vl~ j j / t t~ h QED=4 QCD=0 
 
 output ewkzvvjj_5f_LO_MLM -nojpeg
 
