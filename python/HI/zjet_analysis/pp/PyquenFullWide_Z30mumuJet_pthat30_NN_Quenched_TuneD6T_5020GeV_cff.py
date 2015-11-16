@@ -47,7 +47,7 @@ generator = cms.EDFilter("PyquenGeneratorFilter",
                                                                                 'pythiaZmumujets',
                                                                                 'kinematics'),
                                                     ),
-                        cFlag = cms.int32(0), ## centrality flag
+                        cFlag = cms.int32(1), ## centrality flag
                         bMin = cms.double(0.0), ## min impact param (fm); valid only if cflag_!=0
                         bMax = cms.double(0.0) ## max impact param (fm); valid only if cflag_!=0
                         )
