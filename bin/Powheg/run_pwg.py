@@ -317,6 +317,8 @@ fi
 
 tar zxf ${POWHEGSRC}
 #
+# increase maxseeds to 10000
+sed -i -e "s#par_maxseeds=200,#par_maxseeds=10000,#g" POWHEG-BOX/include/pwhg_par.h
 
 if [ -e POWHEG-BOX/${process}.tgz ]; then
   cd POWHEG-BOX/
@@ -412,6 +414,7 @@ if [ $jhugen = 1 ]; then
 
   mkdir -p ${WORKDIR}/${name}
   cp -p JHUGen ${WORKDIR}/${name}/.
+  cp -pr JHUGen/pdfs ${WORKDIR}/${name}/.
 
   cd ..
 fi
@@ -635,6 +638,8 @@ sed -i 's/# Check if /sed -i \"s#.*manyseeds.*#manyseeds 1#g\" powheg.input\\n# 
 sed -i 's/# Check if /sed -i \"s#.*parallelstage.*#parallelstage 4#g\" powheg.input\\n# Check if /g' runcmsgrid_par.sh
 sed -i 's/# Check if /sed -i \"s#.*xgriditeration.*#xgriditeration 1#g\" powheg.input\\n\\n# Check if /g' runcmsgrid_par.sh
 
+sed -i 's/# Check if /rm -rf pwgseeds.dat; for ii in $(seq 1 9999); do echo $ii >> pwgseeds.dat; done\\n\\n# Check if /g' runcmsgrid_par.sh
+
 sed -i 's/^..\/pwhg_main/echo \${seed} | ..\/pwhg_main/g' runcmsgrid_par.sh
 
 sed -i 's/\.lhe/\${idx}.lhe/g' runcmsgrid_par.sh
@@ -751,10 +756,9 @@ if __name__ == "__main__":
 
 #        runCommand ('mkdir ' + args.folderName)
 #        runCommand ('cp -p pwgseeds.dat ' + args.folderName)
-        res = runCommand('ls ' + args.folderName + '/pwgseeds.dat')
-        if res != 0 :
+        if not os.path.exists(args.folderName + '/pwgseeds.dat') :
             fseed = open(args.folderName + '/pwgseeds.dat', 'w')
-            for ii in range(1, 501) :
+            for ii in range(1, 10000) :
                 fseed.write(str(ii)+'\n')
 #        #FIXME this is a crude hardcoded trick to overcome some problems in LHAPDF usage
 #        runCommand ('ln -s /afs/cern.ch/user/g/govoni/work/HiggsPlusJets/lhapdf/share/lhapdf/PDFsets/CT10.LHgrid ./'  + args.folderName)
