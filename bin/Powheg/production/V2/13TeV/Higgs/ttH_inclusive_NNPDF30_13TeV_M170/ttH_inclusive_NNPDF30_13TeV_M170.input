@@ -1,8 +1,8 @@
 numevts NEVENTS    ! number of events to be generated
 
 ! Production parameters for ttH production 
-hmass 70.d0      ! mass of the Higgs boson [GeV]
-hwidth 0.00181d0  ! width of the Higgs boson [GeV]
+hmass 170.d0      ! mass of the Higgs boson [GeV]
+hwidth 0.380d0  ! width of the Higgs boson [GeV]
 
 ! Higgs decay:
 hdecaymode -1   ! -1 no decay                
@@ -33,7 +33,6 @@ use-old-ubound  1 ! if 1 use norm of upper bounding function stored in pwgubound
 ncall1  500000  ! number of calls for initializing the integration grid
 itmx1    2     ! number of iterations for initializing the integration grid
 ncall2  500000  ! number of calls for computing the integral and finding upper bound
-#ncall2   0  ! number of calls for computing the integral and finding upper bound
 itmx2    1     ! number of iterations for computing the integral and finding upper bound
 foldcsi   1    ! number of folds on csi integration
 foldy      1    ! number of folds on  y  integration
@@ -49,7 +48,7 @@ facscfact 1d0   ! (default 1d0) fac scale factor: mufact = muref * facscfact
 testplots  1       ! (default 0, do not) do NLO and PWHG distributions
 
 #bornonly   1      ! (default 0) if 1 do Born only
-fakevirt   1      ! (default 0) if 1 use Born for virtuals
+fakevirt   0      ! (default 0) if 1 use Born for virtuals
 
 iseed    SEED
 
@@ -83,8 +82,9 @@ tdec/sin2cabibbo 0.051
                    ! The event file is called pwgevents-'j'.lhe
 
 pdfreweight 1       ! PDF reweighting
+hdamp 172.5
 dampreweight 1      ! h_damp reweighting (mt/2, mt, mt*2)
 storeinfo_rwgt 1    ! store weight information
-withnegweights 0    ! default 0, 
+withnegweights 1    ! default 0, 
 #xgriditeration 1   ! identifier for grid generation
 #parallelstage  1   ! identifier for parallel running stages
