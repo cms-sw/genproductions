@@ -551,6 +551,11 @@ if [ -e $CARDSDIR/${name}_externaltarball.dat ]; then
     echo $EXTERNAL_TARBALL 
     cp $EXTERNAL_TARBALL .
     tarname=$(basename $EXTERNAL_TARBALL)
+    mkdir external_tarball
+    cd external_tarball
+    tar -xvaf ../$tarname
+    cd ..
+    rm $tarname
 fi
 
 
@@ -566,7 +571,7 @@ echo "Creating tarball"
 if [ ! -e $CARDSDIR/${name}_externaltarball.dat ]; then
     XZ_OPT="--lzma2=preset=9,dict=512MiB" tar -cJpsf ${name}_tarball.tar.xz mgbasedir process runcmsgrid.sh gridpack_generation.log
 else
-    XZ_OPT="--lzma2=preset=9,dict=512MiB" tar -cJpsf ${name}_tarball.tar.xz mgbasedir process runcmsgrid.sh gridpack_generation.log $tarname ${name}_externaltarball.dat header_for_madspin.txt
+    XZ_OPT="--lzma2=preset=9,dict=512MiB" tar -cJpsf ${name}_tarball.tar.xz mgbasedir process runcmsgrid.sh gridpack_generation.log external_tarball ${name}_externaltarball.dat header_for_madspin.txt
 fi
 
 mv ${name}_tarball.tar.xz ${PRODHOME}/${name}_tarball.tar.xz
