@@ -419,6 +419,13 @@ if [ "$isnlo" -gt "0" ]; then
   echo "done" >> makegrid.dat
 
   cat makegrid.dat | ./bin/generate_events -n pilotrun
+
+  if [ -e $CARDSDIR/${name}_externaltarball.dat ]; then
+      gunzip ./Events/pilotrun_decayed_1/events.lhe.gz
+      sed -n '/<MG5ProcCard>/,/<\/slha>/p' ./Events/pilotrun_decayed_1/events.lhe > header_for_madspin.txt
+      mv header_for_madspin.txt $WORKDIR
+      gzip ./Events/pilotrun_decayed_1/events.lhe
+  fi
   
   echo "mg5_path = ../mgbasedir" >> ./Cards/amcatnlo_configuration.txt
   echo "cluster_temp_path = None" >> ./Cards/amcatnlo_configuration.txt
@@ -434,6 +441,10 @@ if [ "$isnlo" -gt "0" ]; then
   cd gridpack
 
   cp $PRODHOME/runcmsgrid_NLO.sh ./runcmsgrid.sh
+  
+  if [ -e $CARDSDIR/${name}_externaltarball.dat ]; then
+    mv $WORKDIR/header_for_madspin.txt . 
+  fi
   
 else
   #LO mode
@@ -522,16 +533,46 @@ else
   
 fi
 
+
+
+
 #clean unneeded files for generation
 $PRODHOME/cleangridmore.sh
+
+
+#
+#Plan to decay events from external tarball?
+# 
+
+if [ -e $CARDSDIR/${name}_externaltarball.dat ]; then
+    echo "Locating the external tarball"
+    cp $CARDSDIR/${name}_externaltarball.dat .
+    source $CARDSDIR/${name}_externaltarball.dat
+    echo $EXTERNAL_TARBALL 
+    cp $EXTERNAL_TARBALL .
+    tarname=$(basename $EXTERNAL_TARBALL)
+    mkdir external_tarball
+    cd external_tarball
+    tar -xvaf ../$tarname
+    cd ..
+    rm $tarname
+fi
+
 
 echo "Saving log file"
 #copy log file
 cp ${LOGFILE} ./gridpack_generation.log
 
+
+
 #create tarball with very aggressive xz settings (trade memory and cpu usage for compression ratio)
 echo "Creating tarball"
-XZ_OPT="--lzma2=preset=9,dict=512MiB" tar -cJpsf ${name}_tarball.tar.xz mgbasedir process runcmsgrid.sh gridpack_generation.log
+
+if [ ! -e $CARDSDIR/${name}_externaltarball.dat ]; then
+    XZ_OPT="--lzma2=preset=9,dict=512MiB" tar -cJpsf ${name}_tarball.tar.xz mgbasedir process runcmsgrid.sh gridpack_generation.log
+else
+    XZ_OPT="--lzma2=preset=9,dict=512MiB" tar -cJpsf ${name}_tarball.tar.xz mgbasedir process runcmsgrid.sh gridpack_generation.log external_tarball ${name}_externaltarball.dat header_for_madspin.txt
+fi
 
 mv ${name}_tarball.tar.xz ${PRODHOME}/${name}_tarball.tar.xz
 
