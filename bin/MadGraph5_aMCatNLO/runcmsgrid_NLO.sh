@@ -71,16 +71,7 @@ if [ ! -e $LHEWORKDIR/header_for_madspin.txt ]; then
 
 #else handle external tarball
 else
-    cd $LHEWORKDIR
-    mkdir external_tarball
-    cd external_tarball
-    if [ -e ../*.tar.xz ];then
-	tar -xvaf ../*.tar.xz
-    elif [ -e ../*.tar.gz ];then
-	tar -xvaf ../*.tar.gz
-    elif [ -e ../*.tgz ]; then
-	tar -xvzf ../*.tgz
-    fi
+    cd $LHEWORKDIR/external_tarball
 
     ./runcmsgrid.sh $nevtjob $rnum $ncpu
 
