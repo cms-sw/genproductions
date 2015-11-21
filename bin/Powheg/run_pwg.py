@@ -648,16 +648,18 @@ sed -i "s/^process/idx=-\`echo \${seed} | awk \'{printf \\"%04d\\", \$1}\'\` \\n
 
 chmod 755 runcmsgrid_par.sh
 
-cd ${WORKDIR}
+#cd ${WORKDIR}
 
 if [ $keepTop == '1' ]; then
     echo 'Keeping validation plots.'
     echo 'Packing...' ${WORKDIR}'/'${folderName}'_'${process}'.tgz'
-    tar zcf ${WORKDIR}'/'${folderName}'_'${process}'.tgz' ${folderName} --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.lhe --exclude=run_*.sh --exclude=*.log --exclude=*temp
+    tar zcf ${WORKDIR}'/'${folderName}'_'${process}'.tgz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.lhe --exclude=run_*.sh --exclude=*.log --exclude=*temp
 else
     echo 'Packing...' ${WORKDIR}'/'${folderName}'_'${process}'.tgz'
-    tar zcf ${WORKDIR}'/'${folderName}'_'${process}'.tgz' ${folderName} --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.top --exclude=*.lhe --exclude=run_*.sh --exclude=*.log --exclude=*temp
+    tar zcf ${WORKDIR}'/'${folderName}'_'${process}'.tgz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.top --exclude=*.lhe --exclude=run_*.sh --exclude=*.log --exclude=*temp
 fi
+
+cd ${WORKDIR}
 
 date
 echo 'Done.'
