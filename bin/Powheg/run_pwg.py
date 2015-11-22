@@ -312,7 +312,7 @@ export POWHEGSRC=powhegboxV2_Sep2015.tar.gz
 echo 'D/L POWHEG source...'
 
 if [ ! -f ${POWHEGSRC} ]; then
-  wget --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/${SCRAM_ARCH}/powheg/V2.0/src/${POWHEGSRC} || fail_exit "Failed to get powheg tar ball "
+  wget --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/slc6_amd64_gcc481/powheg/V2.0/src/${POWHEGSRC} || fail_exit "Failed to get powheg tar ball "
 fi
 
 tar zxf ${POWHEGSRC}
@@ -648,16 +648,18 @@ sed -i "s/^process/idx=-\`echo \${seed} | awk \'{printf \\"%04d\\", \$1}\'\` \\n
 
 chmod 755 runcmsgrid_par.sh
 
-cd ${WORKDIR}
+#cd ${WORKDIR}
 
 if [ $keepTop == '1' ]; then
     echo 'Keeping validation plots.'
     echo 'Packing...' ${WORKDIR}'/'${folderName}'_'${process}'.tgz'
-    tar zcf ${WORKDIR}'/'${folderName}'_'${process}'.tgz' ${folderName} --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.lhe --exclude=run_*.sh --exclude=*.log --exclude=*temp
+    tar zcf ${WORKDIR}'/'${folderName}'_'${process}'.tgz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.lhe --exclude=run_*.sh --exclude=*.log --exclude=*temp
 else
     echo 'Packing...' ${WORKDIR}'/'${folderName}'_'${process}'.tgz'
-    tar zcf ${WORKDIR}'/'${folderName}'_'${process}'.tgz' ${folderName} --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.top --exclude=*.lhe --exclude=run_*.sh --exclude=*.log --exclude=*temp
+    tar zcf ${WORKDIR}'/'${folderName}'_'${process}'.tgz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.top --exclude=*.lhe --exclude=run_*.sh --exclude=*.log --exclude=*temp
 fi
+
+cd ${WORKDIR}
 
 date
 echo 'Done.'
