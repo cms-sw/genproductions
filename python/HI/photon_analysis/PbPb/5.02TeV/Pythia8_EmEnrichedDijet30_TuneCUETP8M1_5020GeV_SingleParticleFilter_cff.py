@@ -32,7 +32,7 @@ partonFilter = cms.EDFilter("MCSingleParticleFilter",
                                                           2, 1)
                             )
 neutralMesonFilter = cms.EDFilter("MCSingleParticleFilter",
-                                  moduleLabel = "partonFilter",
+                                  moduleLabel = cms.untracked.InputTag("partonFilter"),
                                   ParticleID = cms.untracked.vint32(111, #pi0
                                                                     221, #eta
                                                                     331, #eta'
