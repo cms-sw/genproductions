@@ -19,7 +19,7 @@
 +     &   pdfgup(1),pdfgup(2),pdfsup(1),pdfsup(2),idwtup,nprup
 +      else
 +         write(nlf,110) idbmup(1),idbmup(2),ebmup(1),ebmup(2),
-+     &   pdfgup(1),pdfgup(2),pdf_ndns1,pdf_ndns2,idwtup,nprup
++     &   0,0,pdf_ndns1,pdf_ndns2,idwtup,nprup
 +      endif
        do 100 ipr=1,nprup
           write(nlf,120) xsecup(ipr),xerrup(ipr),xmaxup(ipr),
