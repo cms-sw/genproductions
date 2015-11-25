@@ -18,10 +18,10 @@
 #*     run as ./bin/mg5  filename                           *
 #*                                                          *
 #************************************************************
-import model Seesaw_460GeV_UFO
+import model typeIII460_UFO
 # Define multiparticle labels
-define p = g u c d s b u~ c~ d~ s~ b~
-define j = g u c d s b u~ c~ d~ s~ b~
+define p = g u c d s u~ c~ d~ s~
+define j = g u c d s u~ c~ d~ s~
 define l+ = e+ mu+ ta+
 define l- = e- mu- ta-
 define vl = v1 v2 v3
