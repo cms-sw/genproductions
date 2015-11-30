@@ -43,7 +43,7 @@ add process  p p > t t~ chi chi~ j @1
 output 
 # This will create a directory PROC_$MODELNAME_$X
 # If you want to specify the path/name of the directory use
-output DMPseudo_ttbar01j_mphi_500_mchi_500_gSM_1p0_gDM_1p0
+output DMPseudo_ttbar01j_mphi_MED_mchi_XMASS_gSM_1p0_gDM_1p0
 
 # To generate events, you can go to the created directory and 
 # run ./bin/generate_events

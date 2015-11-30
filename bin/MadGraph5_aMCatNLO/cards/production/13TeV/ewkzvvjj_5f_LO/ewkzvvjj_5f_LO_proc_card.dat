@@ -1,0 +1,15 @@
+import model sm-ckm_no_b_mass
+#switch to diagonal ckm matrix if needed for speed
+
+define p = p b b~
+define j = j b b~
+
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+
+generate p p > vl vl~ j j / t t~ h QED=4 QCD=0 
+
+output ewkzvvjj_5f_LO -nojpeg
+
