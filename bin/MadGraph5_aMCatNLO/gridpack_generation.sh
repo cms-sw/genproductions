@@ -95,14 +95,14 @@ CARDSDIR=${PRODHOME}/${carddir}
 
 MGBASEDIR=mgbasedir
 
-MG=MG5_aMC_v2.3.2.2.tar.gz
+MG=MG5_aMC_v2.3.3.tar.gz
 MGSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$MG
 
 #syscalc is a helper tool for madgraph to add scale and pdf variation weights for LO processes
 SYSCALC=SysCalc_V1.1.5alpha.tar.gz
 SYSCALCSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$SYSCALC
 
-MGBASEDIRORIG=MG5_aMC_v2_3_2_2
+MGBASEDIRORIG=MG5_aMC_v2_3_3
 
 isscratchspace=0
 
@@ -119,7 +119,7 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
 #   export RELEASE=CMSSW_5_3_30
 
   export SCRAM_ARCH=slc6_amd64_gcc481
-  export RELEASE=CMSSW_7_1_19
+  export RELEASE=CMSSW_7_1_20_patch3
 
 
   ############################
@@ -148,8 +148,6 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
 
   patch -l -p0 -i $PRODHOME/patches/mgfixes.patch
   patch -l -p0 -i $PRODHOME/patches/models.patch
-  patch -l -p0 -i $PRODHOME/patches/reweightfix.patch # issue with sepcifying path names for reweitgh code
-  patch -l -p0 -i $PRODHOME/patches/recompile_inhibit.patch # inhibit recompilation of reweight code
 
   cd $MGBASEDIRORIG
 
@@ -490,7 +488,6 @@ else
     cat $CARDSDIR/${name}_madspin_card.dat >> madspinrun.dat
     cat madspinrun.dat | $WORKDIR/$MGBASEDIRORIG/MadSpin/madspin
     rm madspinrun.dat
-    rm $WORKDIR/unweighted_events.lhe.gz
     rm -rf tmp*
     cp $CARDSDIR/${name}_madspin_card.dat $WORKDIR/process/madspin_card.dat
   fi
@@ -515,12 +512,7 @@ else
   echo "mg5_path = ../../mgbasedir" >> ./madevent/Cards/me5_configuration.txt
   echo "cluster_temp_path = None" >> ./madevent/Cards/me5_configuration.txt
   echo "run_mode = 0" >> ./madevent/Cards/me5_configuration.txt  
-  
-  #temporary workaround for uncompiled gridpack executables
-#   echo "compiling remaining executables"
-#   cd madevent/Source
-#   make ../bin/internal/gen_ximprove
-  
+    
   cd $WORKDIR
   
   mkdir gridpack
