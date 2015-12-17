@@ -178,7 +178,7 @@
 #*********************************************************************
 # Minimum and maximum invariant mass for all letpons                 *
 #*********************************************************************
-  50  = mmnl    ! min invariant mass for all letpons (l+- and vl) 
+ 50  = mmnl    ! min invariant mass for all letpons (l+- and vl) 
  -1  = mmnlmax ! max invariant mass for all letpons (l+- and vl) 
 #*********************************************************************
 # Minimum and maximum pt for 4-momenta sum of leptons                *
@@ -266,5 +266,6 @@
 #          reweighting into account!                                 *
 #*********************************************************************
    T  = use_syst      ! Enable systematics studies
+   F  = mc_grouped_subproc
 #
 #**************************************
