@@ -1,0 +1,19 @@
+#switch to diagonal ckm matrix if needed for speed
+import model sm-ckm_lepton_masses_no_b_mass
+
+define p = p b b~
+define j = j b b~
+
+define ell+ = e+ mu+ ta+
+define ell- = e- mu- ta-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+
+generate p p > ell- vl~ ell+ ell- $$ t t~ h @0
+add process p p > ell+ vl ell+ ell- $$ t t~ h @1
+add process p p > ell- vl~ ell+ ell- j $$ t t~ h @2
+add process p p > ell+ vl ell+ ell- j $$ t t~ h @3
+# add process p p > ell- vl~ ell+ ell- j j $$ t t~ h @4
+# add process p p > ell+ vl ell+ ell- j j $$ t t~ h @5
+
+output WGstarToLL012j_5f_LO_MLM -nojpeg
