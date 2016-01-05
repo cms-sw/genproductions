@@ -821,18 +821,6 @@ import FWCore.ParameterSet.Config as cms
 from Configuration.Generator.Pythia8CommonSettings_cfi import *
 from Configuration.Generator.Pythia8CUEP8M1Settings_cfi import *
 
-dirhadrongenfilter = cms.EDFilter("MCParticlePairFilter",
-    Status = cms.untracked.vint32(1, 1),
-    MinPt = cms.untracked.vdouble(0., 0.),
-    MinP = cms.untracked.vdouble(0., 0.),
-    MaxEta = cms.untracked.vdouble(100., 100.),
-    MinEta = cms.untracked.vdouble(-100, -100),
-    ParticleCharge = cms.untracked.int32(0),
-    ParticleID1 = cms.untracked.vint32(1000993,1009213,1009313,1009323,1009113,1009223,1009333,1091114,1092114,1092214,1092224,1093114,1093214,1093224,1093314,1093324,1093334),
-    ParticleID2 = cms.untracked.vint32(1000993,1009213,1009313,1009323,1009113,1009223,1009333,1091114,1092114,1092214,1092224,1093114,1093214,1093224,1093314,1093324,1093334)
-)
-
-
 generator = cms.EDFilter("Pythia8GeneratorFilter",
     pythiaPylistVerbosity = cms.untracked.int32(0),
     filterEfficiency = cms.untracked.double(-1),
@@ -864,4 +852,4 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
 )
 
 
-ProductionFilterSequence = cms.Sequence(generator*dirhadrongenfilter)
+ProductionFilterSequence = cms.Sequence(generator)
