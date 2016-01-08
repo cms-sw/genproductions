@@ -54,21 +54,14 @@ def prepareJob(tag, i, folderName) :
     f.write('export PATH=$FASTJET_BASE/bin/:$PATH \n')
 
     f.write('### Prepare environments for LHAPDF ### \n\n')
-    
-    f.write('LHAPDF6TOOLFILE=$CMSSW_BASE/config/toolbox/$SCRAM_ARCH/tools/available/lhapdf6.xml    \n')
-    f.write('if [ -e $LHAPDF6TOOLFILE ]; then    \n')
-    f.write('   export LHAPDF_BASE=`cat $LHAPDF6TOOLFILE | grep "<environment name=\\"LHAPDF6_BASE\\"" | cut -d \\" -f 4`    \n')
-    f.write('else    \n')
-    f.write('   export LHAPDF_BASE=`scram tool info lhapdf | grep LHAPDF_BASE | sed -e s%LHAPDF_BASE=%%`    \n')
-    f.write('fi    \n')
 
+    f.write('export LHAPDF_BASE=`scram tool info lhapdf | grep LHAPDF_BASE | sed -e s%LHAPDF_BASE=%%`    \n')
     f.write('echo "LHAPDF_BASE is set to:" $LHAPDF_BASE \n')
     f.write('export PATH=$LHAPDF_BASE/bin/:$PATH \n')
 #    f.write('export LHAPATH=`scram tool info lhapdf | grep LHAPATH | sed -e s%LHAPATH=%%`\n')
     f.write('export LHAPDF_DATA_PATH=`$LHAPDF_BASE/bin/lhapdf-config --datadir` \n')
 #    f.write('export LHAPDF6TOOLFILE=$CMSSW_BASE/config/toolbox/$SCRAM_ARCH/tools/available/lhapdf6.xml \n\n')
 #    f.write('cd ' + rootfolder + '/' + folderName + '\n')
-
 
     f.write('\n')
 
