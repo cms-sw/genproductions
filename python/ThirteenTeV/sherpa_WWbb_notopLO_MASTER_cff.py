@@ -8,9 +8,9 @@ generator = cms.EDFilter("SherpaGeneratorFilter",
   filterEfficiency = cms.untracked.double(1.0),
   crossSection = cms.untracked.double(-1),
   SherpaProcess = cms.string('WWbb_notopLO'),
-  SherpackLocation = cms.string('/afs/cern.ch/user/l/lorusso/work/sherpa_tt/CMSSW_7_1_20/src/MYWWbb_notop/PROJECT/test'),
+  SherpackLocation = cms.string('slc6_amd64_gcc481/13TeV/sherpa/2.1.1/WWbb_notopLO/v1'),
   SherpackChecksum = cms.string('aa5a3c98e59d73dce65da007f7633f73'),
-  FetchSherpack = cms.bool(False),
+  FetchSherpack = cms.bool(True),
   SherpaPath = cms.string('./'),
   SherpaPathPiece = cms.string('./'),
   SherpaResultDir = cms.string('Result'),
@@ -56,4 +56,3 @@ generator = cms.EDFilter("SherpaGeneratorFilter",
 )
 
 ProductionFilterSequence = cms.Sequence(generator)
-
