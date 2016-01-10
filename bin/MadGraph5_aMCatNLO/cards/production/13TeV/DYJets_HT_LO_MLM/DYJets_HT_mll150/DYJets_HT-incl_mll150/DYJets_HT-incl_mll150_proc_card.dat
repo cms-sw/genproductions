@@ -30,8 +30,8 @@ define vl = ve vm vt
 define vl~ = ve~ vm~ vt~
 # Define multiparticle labels
 define p u c s d b u~ c~ s~ d~ b~ g
-define l+ = e+ mu+ ta+
-define l- = e- mu- ta-
+define l+ = ta+
+define l- = ta-
 define j  = p
 # Specify process(es) to run
 generate p p > l+ l- / h @0
