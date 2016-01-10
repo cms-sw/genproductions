@@ -67,7 +67,7 @@ ew 0                ! ew = 0 disable EW corrections - ew = 1 enable EW correctio
 model 0
 gfermi 0.116637D-04        ! GF
 hdecaymode -1      ! PDG code for first decay product of the higgs
-masswindow 9999d0  !(default 10d0) number of widths around hmass in the BW for an off-shell Higgs boson
+masswindow 15d0  !(default 10d0) number of widths around hmass in the BW for an off-shell Higgs boson
 ! allowed values are:  -1 all decay channels closed
 !                      0 all decay channels open
 !	               1-6 d dbar, u ubar,..., t tbar (as in HERWIG)
@@ -86,4 +86,4 @@ hdecaywidth 0        ! If equals to 1 read total decay width from HDECAY sm.br2 
 withnegweights 0
 pdfreweight 1       ! PDF reweighting
 storeinfo_rwgt 1    ! store weight information
-bwshape 1 ! fixed width
+bwshape 2 ! complex-pole scheme according to Passarino et al.
