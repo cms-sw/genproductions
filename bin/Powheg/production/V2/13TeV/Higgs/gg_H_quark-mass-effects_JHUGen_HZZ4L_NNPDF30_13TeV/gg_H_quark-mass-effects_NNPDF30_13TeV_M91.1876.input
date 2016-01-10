@@ -86,4 +86,4 @@ hdecaywidth 0        ! If equals to 1 read total decay width from HDECAY sm.br2 
 withnegweights 0
 pdfreweight 1       ! PDF reweighting
 storeinfo_rwgt 1    ! store weight information
-bwshape 2 ! complex-pole scheme according to Passarino et al.
+bwshape 2 ! fixed width
