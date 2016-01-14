@@ -13,5 +13,5 @@ generate p p > ell+ ell- [QCD] @0
 add process p p > ell+ ell- j [QCD] @1
 add process p p > ell+ ell- j j [QCD] @2
 
-output dyellell012j_5f_NLO_FXFX_forcemuon_10to50 -nojpeg
+output dytautau012j_5f_NLO_FXFX_forcemuon_10to50 -nojpeg
 
