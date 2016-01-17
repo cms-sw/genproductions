@@ -13,7 +13,7 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
         pythia8CUEP8M1SettingsBlock,
         processParameters = cms.vstring(
             'WeakBosonAndParton:qqbar2gmZg = on',
-            'WeakBosonAndParton:qg2gmZq = on',,
+            'WeakBosonAndParton:qg2gmZq = on',
             '23:onMode = off',
             '23:onIfAny = 13'
             ),
