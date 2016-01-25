@@ -54,14 +54,21 @@ def prepareJob(tag, i, folderName) :
     f.write('export PATH=$FASTJET_BASE/bin/:$PATH \n')
 
     f.write('### Prepare environments for LHAPDF ### \n\n')
+    
+    f.write('LHAPDF6TOOLFILE=$CMSSW_BASE/config/toolbox/$SCRAM_ARCH/tools/available/lhapdf6.xml    \n')
+    f.write('if [ -e $LHAPDF6TOOLFILE ]; then    \n')
+    f.write('   export LHAPDF_BASE=`cat $LHAPDF6TOOLFILE | grep "<environment name=\\"LHAPDF6_BASE\\"" | cut -d \\" -f 4`    \n')
+    f.write('else    \n')
+    f.write('   export LHAPDF_BASE=`scram tool info lhapdf | grep LHAPDF_BASE | sed -e s%LHAPDF_BASE=%%`    \n')
+    f.write('fi    \n')
 
-    f.write('export LHAPDF_BASE=`scram tool info lhapdf | grep LHAPDF_BASE | sed -e s%LHAPDF_BASE=%%`    \n')
     f.write('echo "LHAPDF_BASE is set to:" $LHAPDF_BASE \n')
     f.write('export PATH=$LHAPDF_BASE/bin/:$PATH \n')
 #    f.write('export LHAPATH=`scram tool info lhapdf | grep LHAPATH | sed -e s%LHAPATH=%%`\n')
     f.write('export LHAPDF_DATA_PATH=`$LHAPDF_BASE/bin/lhapdf-config --datadir` \n')
 #    f.write('export LHAPDF6TOOLFILE=$CMSSW_BASE/config/toolbox/$SCRAM_ARCH/tools/available/lhapdf6.xml \n\n')
 #    f.write('cd ' + rootfolder + '/' + folderName + '\n')
+
 
     f.write('\n')
 
@@ -574,7 +581,7 @@ def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag, proc
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
 def createTarBall(parstage, folderName, prcName, keepTop, seed, scriptName) :
-    print 'Creating tarball distribution for '+opts.folderName+'_'+prcName+'.tgz'
+    print 'Creating tarball distribution for '+args.folderName+'_'+prcName+'.tgz'
     print
 
     #inputName = folderName + "/powheg.input"
@@ -703,19 +710,19 @@ if __name__ == "__main__":
     parser.add_option('-k', '--keepTop'       , dest="keepTop",       default= '0',           help='Keep the validation top draw plots [0]')
 
     # args = parser.parse_args ()
-    (opts, args) = parser.parse_args(sys.argv)
+    (args, opts) = parser.parse_args(sys.argv)
     
-    QUEUE = opts.lsfQueue
-    EOSfolder = opts.folderName
+    QUEUE = args.lsfQueue
+    EOSfolder = args.folderName
 
     print
-    print 'RUNNING PARAMS: parstage = ' + opts.parstage + ' , xgrid = ' + opts.xgrid  + ' , folderName = ' + opts.folderName 
-    print '                Total Events = ' + opts.totEvents 
-    print '                Number of Events = ' + opts.numEvents 
-    print '                powheg input cfg file : ' + opts.inputTemplate 
-    print '                powheg process name : ' + opts.prcName
-    print '                working folder : ' + opts.folderName
-    print '                EOS folder : ' + opts.eosFolder + '/' + EOSfolder
+    print 'RUNNING PARAMS: parstage = ' + args.parstage + ' , xgrid = ' + args.xgrid  + ' , folderName = ' + args.folderName 
+    print '                Total Events = ' + args.totEvents 
+    print '                Number of Events = ' + args.numEvents 
+    print '                powheg input cfg file : ' + args.inputTemplate 
+    print '                powheg process name : ' + args.prcName
+    print '                working folder : ' + args.folderName
+    print '                EOS folder : ' + args.eosFolder + '/' + EOSfolder
     print '                base folder : ' + rootfolder
     print
  
@@ -723,65 +730,65 @@ if __name__ == "__main__":
         print '  --- TESTNG, NO submissions will happen ---  '
         print
 
-    res = os.path.exists(rootfolder+'/'+opts.folderName)
+    res = os.path.exists(rootfolder+'/'+args.folderName)
 
-    if opts.parstage == '1' and opts.xgrid == '1' and (not res) :
-        print 'Creating working folder ' + opts.folderName + '...'
+    if args.parstage == '1' and args.xgrid == '1' and (not res) :
+        print 'Creating working folder ' + args.folderName + '...'
         # Assuming the generator binaries are in the current folder.
-        os.system('mkdir '+rootfolder+'/'+opts.folderName)
+        os.system('mkdir '+rootfolder+'/'+args.folderName)
         if os.path.exists(rootfolder+'/pwhg_main') :
             print 'Copy pwhg_main'
-            os.system('cp -p pwhg_main '+opts.folderName+'/.')
+            os.system('cp -p pwhg_main '+args.folderName+'/.')
 
         if os.path.exists(rootfolder+'JHUGen') :
             print 'Copy JHUGen'
-            os.system('cp -p JHUGen '+opts.folderName+'/.')
+            os.system('cp -p JHUGen '+args.folderName+'/.')
 
-    if opts.parstage == '1' and opts.xgrid == '1' :
-        if not os.path.exists(opts.folderName) :
-            print 'Creating working folder ' + opts.folderName + '...'
+    if args.parstage == '1' and args.xgrid == '1' :
+        if not os.path.exists(args.folderName) :
+            print 'Creating working folder ' + args.folderName + '...'
             # Assuming the generator binaries are in the current folder.
-            os.system('mkdir '+opts.folderName)
+            os.system('mkdir '+args.folderName)
             if os.path.exists('pwhg_main') :
-                os.system('cp -p pwhg_main '+opts.folderName+'/.')
+                os.system('cp -p pwhg_main '+args.folderName+'/.')
 
             if os.path.exists('JHUGen') :
-                os.system('cp -p JHUGen '+opts.folderName+'/.')
+                os.system('cp -p JHUGen '+args.folderName+'/.')
 
-        if not os.path.exists(opts.inputTemplate) :
-            os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+opts.inputTemplate+' -O '+opts.folderName+'/powheg.input')
-            os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+opts.inputTemplate)
+        if not os.path.exists(args.inputTemplate) :
+            os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate+' -O '+args.folderName+'/powheg.input')
+            os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate)
 
-            os.system('sed -i "s/^numevts.*/numevts '+opts.numEvents+'/" '+
-                      opts.folderName+'/powheg.input')
+            os.system('sed -i "s/^numevts.*/numevts '+args.numEvents+'/" '+
+                      args.folderName+'/powheg.input')
 
-        if not os.path.exists(opts.folderName+'/powheg.input') :
-            os.system('cp -p '+opts.inputTemplate+' '+
-                      opts.folderName+'/powheg.input')
-            os.system('sed -i "s/^numevts.*/numevts '+opts.numEvents+'/" '+
-                      opts.folderName+'/powheg.input')
+        if not os.path.exists(args.folderName+'/powheg.input') :
+            os.system('cp -p '+args.inputTemplate+' '+
+                      args.folderName+'/powheg.input')
+            os.system('sed -i "s/^numevts.*/numevts '+args.numEvents+'/" '+
+                      args.folderName+'/powheg.input')
 
-#        runCommand ('mkdir ' + opts.folderName)
-#        runCommand ('cp -p pwgseeds.dat ' + opts.folderName)
-        if not os.path.exists(opts.folderName + '/pwgseeds.dat') :
-            fseed = open(opts.folderName + '/pwgseeds.dat', 'w')
+#        runCommand ('mkdir ' + args.folderName)
+#        runCommand ('cp -p pwgseeds.dat ' + args.folderName)
+        if not os.path.exists(args.folderName + '/pwgseeds.dat') :
+            fseed = open(args.folderName + '/pwgseeds.dat', 'w')
             for ii in range(1, 10000) :
                 fseed.write(str(ii)+'\n')
 #        #FIXME this is a crude hardcoded trick to overcome some problems in LHAPDF usage
-#        runCommand ('ln -s /afs/cern.ch/user/g/govoni/work/HiggsPlusJets/lhapdf/share/lhapdf/PDFsets/CT10.LHgrid ./'  + opts.folderName)
+#        runCommand ('ln -s /afs/cern.ch/user/g/govoni/work/HiggsPlusJets/lhapdf/share/lhapdf/PDFsets/CT10.LHgrid ./'  + args.folderName)
 
-    if opts.parstage == '4' :    
-        runCommand (eoscmd + ' mkdir /eos/cms/store/user/${user}/LHE/powheg/' + opts.eosFolder, 1, 1)
-        runCommand (eoscmd + ' mkdir /eos/cms/store/user/${user}/LHE/powheg/' + opts.eosFolder + '/' + EOSfolder, 1, 1)
+    if args.parstage == '4' :    
+        runCommand (eoscmd + ' mkdir /eos/cms/store/user/${user}/LHE/powheg/' + args.eosFolder, 1, 1)
+        runCommand (eoscmd + ' mkdir /eos/cms/store/user/${user}/LHE/powheg/' + args.eosFolder + '/' + EOSfolder, 1, 1)
 
-    njobs = int (opts.totEvents) / int (opts.numEvents)
+    njobs = int (args.totEvents) / int (args.numEvents)
 
-    powInputName = opts.inputTemplate
-    #powInputName = opts.inputTemplate + '_tempo'
-    #sedcommand = 'sed "s/numevts.*/numevts ' + opts.numEvents + '/" ' + opts.inputTemplate + ' > ' + powInputName
+    powInputName = args.inputTemplate
+    #powInputName = args.inputTemplate + '_tempo'
+    #sedcommand = 'sed "s/numevts.*/numevts ' + args.numEvents + '/" ' + args.inputTemplate + ' > ' + powInputName
     #runCommand (sedcommand)
 
-    jobtag = opts.parstage + '_' + opts.xgrid
+    jobtag = args.parstage + '_' + args.xgrid
 
     if len(sys.argv) <= 1 :
         print "\t argument '-p', '--parstage'      , default= '0'"
@@ -799,30 +806,30 @@ if __name__ == "__main__":
 
         exit()
 
-    if opts.parstage == '0' :
-        #runCommand('cp -p JHUGen.input '+opts.folderName+'/.')
+    if args.parstage == '0' :
+        #runCommand('cp -p JHUGen.input '+args.folderName+'/.')
 
-        tagName = 'src_'+opts.folderName
+        tagName = 'src_'+args.folderName
         filename = './run_'+tagName+'.sh'
 
         prepareJob(tagName, '', '.')
 
-        if not os.path.exists(opts.inputTemplate) :
-            os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+opts.inputTemplate)
-        os.system('mkdir -p '+rootfolder+'/'+opts.folderName)
-        os.system('cp -p '+opts.inputTemplate.split('/')[-1]+' '+opts.folderName+'/powheg.input')
+        if not os.path.exists(args.inputTemplate) :
+            os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate)
+        os.system('mkdir -p '+rootfolder+'/'+args.folderName)
+        os.system('cp -p '+args.inputTemplate.split('/')[-1]+' '+args.folderName+'/powheg.input')
 
         os.system('rm -rf JHUGen.input')
         inputJHUGen = '/'.join(powInputName.split('/')[0:-1])+'/JHUGen.input'
         if not os.path.exists(inputJHUGen) :
             os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+inputJHUGen)
             if os.path.exists('JHUGen.input') :
-                os.system('cp -p JHUGen.input '+opts.folderName+'/.')
+                os.system('cp -p JHUGen.input '+args.folderName+'/.')
         else :
-            os.system('cp -p '+inputJHUGen+' '+opts.folderName+'/.')
+            os.system('cp -p '+inputJHUGen+' '+args.folderName+'/.')
 
-        runGetSource(opts.parstage, opts.xgrid, opts.folderName,
-                     powInputName, opts.prcName, tagName)
+        runGetSource(args.parstage, args.xgrid, args.folderName,
+                     powInputName, args.prcName, tagName)
 
         if QUEUE == '':
             print 'Direct compiling... \n'
@@ -834,24 +841,24 @@ if __name__ == "__main__":
             print 'Submitting to queue: '+QUEUE+' \n'
             runCommand ('bsub -J compile_pwg -u $USER -q ' + QUEUE + ' '+rootfolder + '/' +filename, TESTING == 0)
 
-    elif opts.parstage == '1' :
-        runParallelXgrid(opts.parstage, opts.xgrid, opts.folderName,
-                         opts.numEvents, njobs, powInputName, jobtag,
-                         opts.rndSeed, opts.prcName)
+    elif args.parstage == '1' :
+        runParallelXgrid(args.parstage, args.xgrid, args.folderName,
+                         args.numEvents, njobs, powInputName, jobtag,
+                         args.rndSeed, args.prcName)
 
-    elif opts.parstage == '123' or opts.parstage == 's' : # single grid proc
-        tagName = 'grid_'+opts.folderName
-        scriptName = opts.folderName + '/run_'+tagName+'.sh'
+    elif args.parstage == '123' or args.parstage == 's' : # single grid proc
+        tagName = 'grid_'+args.folderName
+        scriptName = args.folderName + '/run_'+tagName+'.sh'
 
 
-        os.system('cp -p '+opts.inputTemplate.split('/')[-1]+' '+opts.folderName+'/powheg.input')
-        os.system('sed -i "s/^numevts.*/numevts '+opts.totEvents+'/" '+
-                  opts.folderName+'/powheg.input')
+        os.system('cp -p '+args.inputTemplate.split('/')[-1]+' '+args.folderName+'/powheg.input')
+        os.system('sed -i "s/^numevts.*/numevts '+args.totEvents+'/" '+
+                  args.folderName+'/powheg.input')
 
-        prepareJob(tagName, '', opts.folderName)
-        runSingleXgrid(opts.parstage, opts.xgrid, opts.folderName,
-                       opts.numEvents, powInputName, opts.rndSeed,
-                       opts.prcName, scriptName)
+        prepareJob(tagName, '', args.folderName)
+        runSingleXgrid(args.parstage, args.xgrid, args.folderName,
+                       args.numEvents, powInputName, args.rndSeed,
+                       args.prcName, scriptName)
 
         if QUEUE == '':
             print 'Direct running single grid... \n'
@@ -861,27 +868,27 @@ if __name__ == "__main__":
         
         else:
             print 'Submitting to queue: '+QUEUE+' \n'
-            runCommand ('bsub -J '+opts.folderName+' -u $USER -q ' + QUEUE + ' '+rootfolder+'/'+scriptName, TESTING == 0)
+            runCommand ('bsub -J '+args.folderName+' -u $USER -q ' + QUEUE + ' '+rootfolder+'/'+scriptName, TESTING == 0)
 
-    elif opts.parstage == '0123' or opts.parstage == 'a' : # compile & run
-        tagName = 'all_'+opts.folderName
+    elif args.parstage == '0123' or args.parstage == 'a' : # compile & run
+        tagName = 'all_'+args.folderName
         scriptName = './run_'+tagName+'.sh'
 
-        if not os.path.exists(opts.inputTemplate) :
-            os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+opts.inputTemplate)
-        os.system('mkdir -p '+rootfolder+'/'+opts.folderName)
-        os.system('cp -p '+opts.inputTemplate.split('/')[-1]+' '+opts.folderName+'/powheg.input')
+        if not os.path.exists(args.inputTemplate) :
+            os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate)
+        os.system('mkdir -p '+rootfolder+'/'+args.folderName)
+        os.system('cp -p '+args.inputTemplate.split('/')[-1]+' '+args.folderName+'/powheg.input')
         prepareJob(tagName, '', '.')
-        runGetSource(opts.parstage, opts.xgrid, opts.folderName,
-                     powInputName, opts.prcName, tagName)
+        runGetSource(args.parstage, args.xgrid, args.folderName,
+                     powInputName, args.prcName, tagName)
 
-        os.system('cp -p '+opts.inputTemplate.split('/')[-1]+' '+
-                  opts.folderName+'/powheg.input')
-        os.system('sed -i "s/^numevts.*/numevts '+opts.numEvents+'/" '+
-                  opts.folderName+'/powheg.input')
-        runSingleXgrid(opts.parstage, opts.xgrid, opts.folderName,
-                       opts.numEvents, powInputName, opts.rndSeed,
-                       opts.prcName, scriptName)
+        os.system('cp -p '+args.inputTemplate.split('/')[-1]+' '+
+                  args.folderName+'/powheg.input')
+        os.system('sed -i "s/^numevts.*/numevts '+args.numEvents+'/" '+
+                  args.folderName+'/powheg.input')
+        runSingleXgrid(args.parstage, args.xgrid, args.folderName,
+                       args.numEvents, powInputName, args.rndSeed,
+                       args.prcName, scriptName)
 
         if QUEUE == '':
             print 'Direct compiling and running... \n'
@@ -890,27 +897,27 @@ if __name__ == "__main__":
                       scriptName.split('.sh')[0]+'.log &')
         else:
             print 'Submitting to queue: '+QUEUE+' \n'
-            runCommand ('bsub -J all_'+opts.folderName+' -u $USER -q ' +
+            runCommand ('bsub -J all_'+args.folderName+' -u $USER -q ' +
                         QUEUE + ' '+rootfolder + '/' +scriptName, TESTING == 0)
 
-    elif opts.parstage == '01239' or opts.parstage == 'one' or opts.parstage == 'f' : # full single grid in oneshot 
-        tagName = 'full_'+opts.folderName
+    elif args.parstage == '01239' or args.parstage == 'one' or args.parstage == 'f' : # full single grid in oneshot 
+        tagName = 'full_'+args.folderName
         scriptName = './run_'+tagName+'.sh'
 
-        if not os.path.exists(opts.inputTemplate) :
-            os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+opts.inputTemplate)
-        os.system('mkdir -p '+rootfolder+'/'+opts.folderName)
-        os.system('cp -p '+opts.inputTemplate.split('/')[-1]+' '+opts.folderName+'/powheg.input')
+        if not os.path.exists(args.inputTemplate) :
+            os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate)
+        os.system('mkdir -p '+rootfolder+'/'+args.folderName)
+        os.system('cp -p '+args.inputTemplate.split('/')[-1]+' '+args.folderName+'/powheg.input')
         prepareJob(tagName, '', '.')
-        runGetSource(opts.parstage, opts.xgrid, opts.folderName,
-                     powInputName, opts.prcName, tagName)
+        runGetSource(args.parstage, args.xgrid, args.folderName,
+                     powInputName, args.prcName, tagName)
 
-        runSingleXgrid(opts.parstage, opts.xgrid, opts.folderName,
-                       opts.numEvents, powInputName, opts.rndSeed,
-                       opts.prcName, scriptName)
+        runSingleXgrid(args.parstage, args.xgrid, args.folderName,
+                       args.numEvents, powInputName, args.rndSeed,
+                       args.prcName, scriptName)
 
-        createTarBall(opts.parstage, opts.folderName, opts.prcName,
-                      opts.keepTop, opts.rndSeed, scriptName)
+        createTarBall(args.parstage, args.folderName, args.prcName,
+                      args.keepTop, args.rndSeed, scriptName)
 
         if QUEUE == '':
             print 'Direct running in one shot... \n'
@@ -919,21 +926,21 @@ if __name__ == "__main__":
                       scriptName.split('.sh')[0]+'.log &')
         else:
             print 'Submitting to queue: '+QUEUE+' \n'
-            runCommand ('bsub -J full_'+opts.folderName+' -u $USER -q ' + 
+            runCommand ('bsub -J full_'+args.folderName+' -u $USER -q ' + 
                         QUEUE + ' '+rootfolder + '/' +scriptName, TESTING == 0)
 
-    elif opts.parstage == '9' :
+    elif args.parstage == '9' :
         # overwriting with original
-        scriptName = './run_tar_'+opts.folderName+'.sh'
+        scriptName = './run_tar_'+args.folderName+'.sh'
 
         os.system('rm -rf '+scriptName)
 
-        createTarBall(opts.parstage, opts.folderName, opts.prcName,
-                      opts.keepTop, opts.rndSeed, scriptName)
+        createTarBall(args.parstage, args.folderName, args.prcName,
+                      args.keepTop, args.rndSeed, scriptName)
 
         os.system('cd '+rootfolder+';bash '+scriptName)
 
     else                    :
-        runEvents(opts.parstage, opts.folderName,
-                  opts.eosFolder + '/' + EOSfolder, njobs, powInputName,
-                  jobtag, opts.prcName)
+        runEvents(args.parstage, args.folderName,
+                  args.eosFolder + '/' + EOSfolder, njobs, powInputName,
+                  jobtag, args.prcName)
