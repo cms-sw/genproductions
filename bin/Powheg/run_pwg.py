@@ -8,9 +8,10 @@ Based on Pietro's script
 
 import commands
 import fileinput
-import argparse
+# import argparse
 import sys
 import os
+from optparse import OptionParser
 
 TESTING = 0
 QUEUE = ''
@@ -53,14 +54,21 @@ def prepareJob(tag, i, folderName) :
     f.write('export PATH=$FASTJET_BASE/bin/:$PATH \n')
 
     f.write('### Prepare environments for LHAPDF ### \n\n')
+    
+    f.write('LHAPDF6TOOLFILE=$CMSSW_BASE/config/toolbox/$SCRAM_ARCH/tools/available/lhapdf6.xml    \n')
+    f.write('if [ -e $LHAPDF6TOOLFILE ]; then    \n')
+    f.write('   export LHAPDF_BASE=`cat $LHAPDF6TOOLFILE | grep "<environment name=\\"LHAPDF6_BASE\\"" | cut -d \\" -f 4`    \n')
+    f.write('else    \n')
+    f.write('   export LHAPDF_BASE=`scram tool info lhapdf | grep LHAPDF_BASE | sed -e s%LHAPDF_BASE=%%`    \n')
+    f.write('fi    \n')
 
-    f.write('export LHAPDF_BASE=`scram tool info lhapdf | grep LHAPDF_BASE | sed -e s%LHAPDF_BASE=%%`    \n')
     f.write('echo "LHAPDF_BASE is set to:" $LHAPDF_BASE \n')
     f.write('export PATH=$LHAPDF_BASE/bin/:$PATH \n')
 #    f.write('export LHAPATH=`scram tool info lhapdf | grep LHAPATH | sed -e s%LHAPATH=%%`\n')
     f.write('export LHAPDF_DATA_PATH=`$LHAPDF_BASE/bin/lhapdf-config --datadir` \n')
 #    f.write('export LHAPDF6TOOLFILE=$CMSSW_BASE/config/toolbox/$SCRAM_ARCH/tools/available/lhapdf6.xml \n\n')
 #    f.write('cd ' + rootfolder + '/' + folderName + '\n')
+
 
     f.write('\n')
 
@@ -307,7 +315,7 @@ if [[ -s ./JHUGen.input ]]; then
 fi
 
 ### retrieve the powheg source tar ball
-export POWHEGSRC=powhegboxV2_Sep2015.tar.gz 
+export POWHEGSRC=powhegboxV2_Nov2015.tar.gz 
 
 echo 'D/L POWHEG source...'
 
@@ -687,20 +695,22 @@ if __name__ == "__main__":
 #    inputTemplate = sys.argv[5] # FIXME build the template... it simply should be the cfg file
 #    eosFolderName = sys.argv[6]
     
-    parser = argparse.ArgumentParser (description = 'run phantom productions on lxplus')
-    parser.add_argument('-p', '--parstage'      , default= '0',            help='stage of the production process [0]')
-    parser.add_argument('-x', '--xgrid'         , default= '1',            help='loop number for the girds production [1]')
-    parser.add_argument('-f', '--folderName'    , default='testProd',      help='local folder and last eos folder name[testProd]')
-    parser.add_argument('-e', '--eosFolder'     , default='NONE' ,         help='folder before the last one, on EOS')
-    parser.add_argument('-t', '--totEvents'     , default= '10000',        help='total number of events to be generated [10000]')
-    parser.add_argument('-n', '--numEvents'     , default= '2000',         help='number of events for a single job [2000]')
-    parser.add_argument('-i', '--inputTemplate' , default= 'powheg.input', help='input cfg file (fixed) [=powheg.input]')
-    parser.add_argument('-q', '--lsfQueue'      , default= '',          help='LSF queue [2nd]')
-    parser.add_argument('-s', '--rndSeed'       , default= '42',           help='Starting random number seed [42]')
-    parser.add_argument('-m', '--prcName'       , default= 'DMGG',           help='POWHEG process name [DMGG]')
-    parser.add_argument('-k', '--keepTop'       , default= '0',           help='Keep the validation top draw plots [0]')
+    # parser = argparse.ArgumentParser (description = 'run phantom productions on lxplus')
+    parser = OptionParser()
+    parser.add_option('-p', '--parstage'      , dest="parstage",      default= '0',            help='stage of the production process [0]')
+    parser.add_option('-x', '--xgrid'         , dest="xgrid",         default= '1',            help='loop number for the girds production [1]')
+    parser.add_option('-f', '--folderName'    , dest="folderName",    default='testProd',      help='local folder and last eos folder name[testProd]')
+    parser.add_option('-e', '--eosFolder'     , dest="eosFolder",     default='NONE' ,         help='folder before the last one, on EOS')
+    parser.add_option('-t', '--totEvents'     , dest="totEvents",     default= '10000',        help='total number of events to be generated [10000]')
+    parser.add_option('-n', '--numEvents'     , dest="numEvents",     default= '2000',         help='number of events for a single job [2000]')
+    parser.add_option('-i', '--inputTemplate' , dest="inputTemplate", default= 'powheg.input', help='input cfg file (fixed) [=powheg.input]')
+    parser.add_option('-q', '--lsfQueue'      , dest="lsfQueue",      default= '',          help='LSF queue [2nd]')
+    parser.add_option('-s', '--rndSeed'       , dest="rndSeed",       default= '42',           help='Starting random number seed [42]')
+    parser.add_option('-m', '--prcName'       , dest="prcName",       default= 'DMGG',           help='POWHEG process name [DMGG]')
+    parser.add_option('-k', '--keepTop'       , dest="keepTop",       default= '0',           help='Keep the validation top draw plots [0]')
 
-    args = parser.parse_args ()
+    # args = parser.parse_args ()
+    (args, opts) = parser.parse_args(sys.argv)
     
     QUEUE = args.lsfQueue
     EOSfolder = args.folderName
