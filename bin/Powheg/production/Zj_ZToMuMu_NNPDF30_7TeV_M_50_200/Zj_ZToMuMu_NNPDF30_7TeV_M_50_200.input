@@ -25,9 +25,9 @@ lhans2  260000         ! pdf set for hadron 2 (LHA numbering)
 use-old-grid    1 ! if 1 use old grid if file pwggrids.dat is present (<> 1 regenerate)
 use-old-ubound  1 ! if 1 use norm of upper bounding function stored in pwgubound.dat, if present; <> 1 regenerate
 
-ncall1 50000    ! number of calls for initializing the integration grid
+ncall1 250000    ! number of calls for initializing the integration grid
 itmx1    5      ! number of iterations for initializing the integration grid
-ncall2 8000     ! number of calls for computing the integral and finding upper bounding envelope
+ncall2 250000     ! number of calls for computing the integral and finding upper bounding envelope
 itmx2    3      ! number of iterations for computing the integral and finding upper bouding envelope
 foldcsi   5     ! number of folds on csi integration
 foldy    10     ! number of folds on  y  integration
@@ -60,6 +60,8 @@ iseed    SEED     !  Start the random number generator with seed iseed
 masslow 50       ! M Z > masslow in GeV
 masshigh 200    ! M Z < masshigh in GeV
 
+minlo 1    
+minlo_nnll 1  
 
 pdfreweight 1
 storeinfo_rwgt 1
