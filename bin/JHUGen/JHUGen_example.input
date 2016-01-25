@@ -1,1 +1,1 @@
-Process=2 VegasNc2=NEVT a1=1,0 a2=0,0 b2=0,0 b5=1,0 MReso=800 GaReso=80 DecayMode1=1 DecayMode2=1 OffXVV=111 
+Process=2 VegasNc2=NEVT a1=1,0 a2=0,0 b2=0,0 b5=1,0 MReso=800 GaReso=80 DecayMode1=1 DecayMode2=1 OffXVV=111 LHAPDF=NNPDF30_lo_as_0130/NNPDF30_lo_as_0130.info
