@@ -163,7 +163,7 @@ def runParallelXgrid(parstage, xgrid, folderName, nEvents, njobs, powInputName, 
             os.system('cd '+rootfolder+'/'+folderName+';bash run_'+jobID+'.sh &')
         else:
             print 'Submitting to queue: '+QUEUE+' #'+str(i)+' \n'
-            runCommand ('bsub -J ' + jobID + ' -u $USER -q ' + QUEUE + ' '+rootfolder+'/run_'+jobID+'.sh ', TESTING == 0)
+            runCommand ('bsub -J ' + jobID + ' -u $USER -q ' + QUEUE + ' '+rootfolder+'/'+folderName+'/run_'+jobID+'.sh ', TESTING == 0)
 
 
     #runCommand ('mv *.sh ' + folderName)
