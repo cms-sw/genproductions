@@ -88,5 +88,3 @@ CKM_Vtb   1.0
 #rand1     0      ! initialize random number sequence 
 #rand2     0      ! initialize random number sequence 
 
-!pdfreweight 1       ! PDF reweighting
-storeinfo_rwgt 1    ! store weight information
