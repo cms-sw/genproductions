@@ -9,12 +9,12 @@ masses = [750, 800, 1200, 2000, 3000, 4000]
 widths = {mass: [mass/10, mass*2/10, mass*3/10] for mass in masses}
 PChannels = {0: "gg", 1: "qqbar"}
 DecayModes = {
-              (1, 1):   "ZZ4q",
-              (1, 3):   "ZZ2q2nu",
+              (9, 9):   "ZZany",
+              (9, 3):   "ZZ2nu2any",
               (8, 1):   "ZZ2l2q",
               (8, 8):   "ZZ4l",
               (8, 3):   "ZZ2l2nu",
-              (5, 5):   "WW4q",
+              (11, 11): "WWany",
               (10, 5):  "WWlnu2q",
               (10, 10): "WW2l2nu",
              }
