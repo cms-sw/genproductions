@@ -27,8 +27,8 @@ set spinmode=none
 set run_card mmll=0
 set run_card mmllmax=60
 
-define l+ = m+
-define l- = m-
+define l+ = e+
+define l- = e-
 
 decay x0 > l+ l- a
 
