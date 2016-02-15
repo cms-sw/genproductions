@@ -351,7 +351,7 @@ sed -i -e "s#COMPILER[ \t]*=[ \t]*ifort#COMPILER=gfortran#g" Makefile
 
 # Find proper histo booking routine (two of them exist)
 BOOK_HISTO="pwhg_bookhist-multi.o"
-if [ `echo ${name} | cut -d "_" -f 1` = "powhegboxV1" ]; then
+if [ `echo ${POWHEGSRC} | cut -d "_" -f 1` = "powhegboxV1" ]; then
    BOOK_HISTO="pwhg_bookhist.o"
 fi 
 if [ "$process" = "trijet" ]; then 
