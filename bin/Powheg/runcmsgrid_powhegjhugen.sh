@@ -306,7 +306,28 @@ jhugencommand="./JHUGen $partialcommand ReadLHE=${file}_tmp.lhe DataFile=${file}
 echo ${jhugencommand}
 ${jhugencommand}
 
+if [ -s pwgstat.dat ]; then
+  mv pwgstat.dat pwg-stat.dat
+fi
+
+if [ -s pwg-stat.dat ]; then
+  XSECTION=`cat pwg-stat.dat | grep total | awk '{print $7}'`
+  XSECUNC=` cat pwg-stat.dat | grep total | awk '{print $9}'`
+  head=`cat   cmsgrid_final.lhe | grep -in "<init>" | sed "s@:@ @g" | awk '{print $1+1}' | tail -1`
+  tail=`wc -l cmsgrid_final.lhe | awk -v tmp="$head" '{print $1-2-tmp}'`
+  tail -${tail} cmsgrid_final.lhe                           >  cmsgrid_final.lhe_tail
+  head -${head} cmsgrid_final.lhe                           >  cmsgrid_final.lhe_F
+  echo "  "$XSECTION"   "$XSECUNC"  1.00000000000E-00 10001" >>  cmsgrid_final.lhe_F
+  echo "</init>"                                           >>  cmsgrid_final.lhe_F
+  cat cmsgrid_final.lhe_tail                               >>  cmsgrid_final.lhe_F
+  mv cmsgrid_final.lhe_F cmsgrid_final.lhe
+fi
+#Replace the negative so pythia will work
+sed "s@-1000021@ 1000022@g" cmsgrid_final.lhe           > cmsgrid_final.lhe_F1
+sed "s@1000021@1000022@g"   cmsgrid_final.lhe_F1          > cmsgrid_final.lhe
+cp ${file}_final.lhe ${WORKDIR}/.
 
 echo "Output ready with ${file}_final.lhe at $WORKDIR"
 echo "End of job on " `date`
 exit 0;
+
