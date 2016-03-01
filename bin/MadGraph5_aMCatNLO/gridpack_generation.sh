@@ -179,8 +179,13 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
       export LSB_JOB_REPORT_MAIL="N"
   
       echo "set run_mode  1" >> mgconfigscript
-      echo "set cluster_type lsf" >> mgconfigscript
-      echo "set cluster_queue $queue" >> mgconfigscript
+      if [ "$queue" == "condor" ]; then
+        echo "set cluster_type condor" >> mgconfigscript
+        echo "set cluster_queue None" >> mgconfigscript
+      else
+        echo "set cluster_type lsf" >> mgconfigscript
+        echo "set cluster_queue $queue" >> mgconfigscript
+      fi 
       echo "set cluster_status_update 60 30" >> mgconfigscript
       echo "set cluster_nb_retry 3" >> mgconfigscript
       echo "set cluster_retry_wait 300" >> mgconfigscript 
