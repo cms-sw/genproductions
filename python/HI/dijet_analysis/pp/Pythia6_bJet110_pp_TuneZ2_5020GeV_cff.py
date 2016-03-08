@@ -12,8 +12,6 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
                          PythiaParameters = cms.PSet(pythiaUESettingsBlock,
                                                      processParameters = cms.vstring('MSEL=1   ! QCD hight pT processes',
                                                                                      'CKIN(3)= 110  ! minimum pt hat for hard interactions',
-                                                                                     "CKIN(7)=-3.",  #min rapidity
-                                                                                     "CKIN(8)=3.",    #max rapidity
                                                                                      ),
                                                      parameterSets = cms.vstring('pythiaUESettings',
                                                                                  'processParameters',
@@ -22,8 +20,8 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
                          )
 
 bfilter = cms.EDFilter("MCSingleParticleFilter",
-                       MaxEta     = cms.untracked.vdouble(3.0, 3.0),
-                       MinEta     = cms.untracked.vdouble(-3.0, -3.0),
+                       MaxEta     = cms.untracked.vdouble(2.5, 2.5),
+                       MinEta     = cms.untracked.vdouble(-2.5, -2.5),
                        MinPt      = cms.untracked.vdouble(0.0, 0.0),
                        ParticleID = cms.untracked.vint32(5, -5)
                        )
