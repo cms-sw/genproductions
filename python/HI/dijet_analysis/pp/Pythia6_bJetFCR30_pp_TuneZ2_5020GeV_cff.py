@@ -4,7 +4,7 @@ from Configuration.Generator.PythiaUEZ2Settings_cfi import *
 
 generator = cms.EDFilter("Pythia6GeneratorFilter",
                          comEnergy = cms.double(5020.0),
-                         crossSection = cms.untracked.double(1.242e+05),  #pb
+                         crossSection = cms.untracked.double(1.242e-04),  
                          filterEfficiency = cms.untracked.double(1.),
                          maxEventsToPrint = cms.untracked.int32(-1),
                          pythiaHepMCVerbosity = cms.untracked.bool(False),

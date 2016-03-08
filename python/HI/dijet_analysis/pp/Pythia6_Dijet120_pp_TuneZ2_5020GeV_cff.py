@@ -1,32 +1,26 @@
 import FWCore.ParameterSet.Config as cms
+from Configuration.Generator.PythiaUEZ2Settings_cfi import *
 
-from Configuration.Generator.Pyquen2015Settings_cff import *
-
-generator = cms.EDFilter("PyquenGeneratorFilter",
-		        collisionParameters5020GeV,
-                        qgpParameters,
-                        pyquenParameters,
-
-                        doQuench = cms.bool(False),
-                        
-                        bFixed = cms.double(0.0), ## fixed impact param (fm); valid only if cflag_=0
-                        PythiaParameters = cms.PSet(pyquenPythiaDefaultBlock,
-                                                    parameterSets = cms.vstring('pythiaUESettings',
-                                                                                'ppJets',
-                                                                                'kinematics'),
-                                                    kinematics = cms.vstring ("CKIN(3)=120",  #min pthat
-                                                                              "CKIN(4)=9999" #max pthat
-                                                                              )
-                                                    ),
-                        cFlag = cms.int32(0), ## centrality flag
-                        bMin = cms.double(0.0), ## min impact param (fm); valid only if cflag_!=0
-                        bMax = cms.double(0.0) ## max impact param (fm); valid only if cflag_!=0
-                        )
-
-generator.doIsospin = cms.bool(False)
+generator = cms.EDFilter("Pythia6GeneratorFilter",
+                         comEnergy = cms.double(5020.0),
+                         crossSection = cms.untracked.double(6.159e-05),  
+                         filterEfficiency = cms.untracked.double(1.),
+                         maxEventsToPrint = cms.untracked.int32(1),
+                         pythiaHepMCVerbosity = cms.untracked.bool(False),
+                         pythiaPylistVerbosity = cms.untracked.int32(False),
+                         PythiaParameters = cms.PSet(pythiaUESettingsBlock,
+                                                     processParameters = cms.vstring('MSEL=1   ! Standard QCD processes',
+                                                                                     'CKIN(3)= 120  ! minimum pt hat for hard interactions',
+                                                                                     ),
+                                                     parameterSets = cms.vstring('pythiaUESettings',
+                                                                                 'processParameters',
+                                                                                 )
+                                                     )
+                         )
 
 configurationMetadata = cms.untracked.PSet(
-    annotation = cms.untracked.string('PYTHIA (unquenched) dijets in NN (pt-hat > 120 GeV) at sqrt(s) = 2.76TeV')
+    annotation = cms.untracked.string('PYTHIA6 QCD, pt-hat > 120 GeV, at sqrt(s) = 5.02 TeV')
     )
 
 ProductionFilterSequence = cms.Sequence(generator)
+
