@@ -166,7 +166,6 @@ then
 	echo -e "\nlhrwgt_id '${counter}'" >> powheg.input
 	echo -e "lhrwgt_descr 'PDF set = ${iteration}'" >> powheg.input
 	echo -e "lhrwgt_group_name 'PDF_variation'" >> powheg.input
-	echo -e "lhrwgt_group_combine 'hessian'" >> powheg.input
 
 	../pwhg_main &>> reweightlog_${process}_${seed}.txt  
 	mv pwgevents-rwgt.lhe pwgevents.lhe
@@ -183,7 +182,6 @@ then
     echo -e "\nlhrwgt_id '${counter}'" >> powheg.input
     echo -e "lhrwgt_descr 'PDF set = ${iteration}'" >> powheg.input
     echo -e "lhrwgt_group_name 'PDF_variation'" >> powheg.input
-    echo -e "lhrwgt_group_combine 'hessian'" >> powheg.input
 
     ../pwhg_main &>> reweightlog_${process}_${seed}.txt  
     mv pwgevents-rwgt.lhe pwgevents.lhe
@@ -198,7 +196,6 @@ then
     echo -e "\nlhrwgt_id '${counter}'" >> powheg.input
     echo -e "lhrwgt_descr 'PDF set = ${iteration}'" >> powheg.input
     echo -e "lhrwgt_group_name 'PDF_variation'" >> powheg.input
-    echo -e "lhrwgt_group_combine 'hessian'" >> powheg.input
 
     ../pwhg_main &>> reweightlog_${process}_${seed}.txt  
     mv pwgevents-rwgt.lhe pwgevents.lhe
