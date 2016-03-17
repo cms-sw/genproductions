@@ -25,6 +25,7 @@ facscfact 1    ! factorization scale factor: mufact=muref*facscfact
 renscfact 1    ! renormalization scale factor: muren=muref*renscfact 
 #fixedscale 1    ! use ref. scale=qmass (default 0, use running scale)
 hdamp 172.5
+nospincorr 1       ! remove spin correlation
 
 topdecaymode 22200   ! an integer of 5 digits that are either 0, or 2, representing in 
                      ! the order the maximum number of the following particles(antiparticles)
