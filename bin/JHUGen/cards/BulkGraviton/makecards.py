@@ -35,7 +35,7 @@ for mass in masses:
                 with open(cardname % themap, "w") as f:
                     f.write(card % themap)
 
-            if "2l2nu" in DecayModes[DecayMode] or "4l" in DecayModes[DecayMode]:
+            if "2l2nu" in DecayModes[DecayMode] or "4l" in DecayModes[DecayMode] or mass == 750:
                 #narrow width
                 themap["width"] = 0
                 with open(cardname % themap, "w") as f:
