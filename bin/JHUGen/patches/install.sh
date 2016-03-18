@@ -6,7 +6,6 @@ rm -rf AnalyticMELA
 rm -rf JHUGenMELA
 cd JHUGenerator
 sed -i "s/UseLHAPDF=No/UseLHAPDF=Yes/" makefile
-sed -i 's|MyLHADir=.*|MyLHADir=${LHAPDF_DATA_PATH}/../../lib/|' makefile
 make
 rm ../JHUGenerator.v6.8.5.tar.gz
 

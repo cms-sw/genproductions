@@ -27,7 +27,7 @@ def completed(name,basedir,card):
 aparser = argparse.ArgumentParser(description='Process benchmarks.')
 aparser.add_argument('-card'    ,'--card'      ,action='store' ,dest='card',default='JHUGen.input',help='card')
 aparser.add_argument('-name'    ,'--name'      ,action='store' ,dest='name'   ,default='ScalarVH'       ,help='name')
-aparser.add_argument('-q'       ,'--queue'     ,action='store' ,dest='queue'  ,default='1nh'            ,help='queue')
+aparser.add_argument('-q'       ,'--queue'     ,action='store' ,dest='queue'  ,default='8nm'            ,help='queue')
 args1 = aparser.parse_args()
 
 print args1.card,args1.name,args1.queue
@@ -60,6 +60,8 @@ job_file.write('cp %s/runcmsgrid_template.sh .                                  
 job_file.write('sed "s@GENCOMMAND@%s@g"    runcmsgrid_template.sh > runcmsgrid.sh \n' % (command))
 job_file.write('mv runcmsgrid.sh runcmsgrid_template.sh                        \n')
 job_file.write('sed "s@VegasNc2=NEVT@VegasNc2=\\$\\{nevt\\}@g"   runcmsgrid_template.sh > runcmsgrid.sh \n')
+job_file.write('mv runcmsgrid.sh runcmsgrid_template.sh                        \n')
+job_file.write('sed "s@Seed=SEED@Seed=\\$\\{rnum\\}@g"   runcmsgrid_template.sh > runcmsgrid.sh \n')
 job_file.write('mv runcmsgrid.sh runcmsgrid_template.sh                        \n')
 job_file.write('sed "s@BASEDIR@%s_JHUGen@g"   runcmsgrid_template.sh > runcmsgrid.sh \n'  % (args1.name))
 job_file.write('chmod +x runcmsgrid.sh \n')

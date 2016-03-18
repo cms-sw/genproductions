@@ -1,8 +1,8 @@
 #MC plans as documented here:
 #https://indico.cern.ch/event/481417/contribution/7/attachments/1212251/1768492/High_mass_ZZ4l.pdf
 
-card = "Process=2 VegasNc0=1000000 VegasNc2=NEVT a1=1,0 a2=0,0 b2=0,0 b5=1,0 MReso=%(mass)i GaReso=%(width)i DecayMode1=%(decaymode1)i DecayMode2=%(decaymode2)i OffXVV=111 PChannel=%(pchannel)i LHAPDF=NNPDF30_lo_as_0130/NNPDF30_lo_as_0130.info"
-card_narrow = "Process=2 VegasNc0=1000000 VegasNc2=NEVT a1=1,0 a2=0,0 b2=0,0 b5=1,0 MReso=%(mass)i GaReso=0.000001 DecayMode1=%(decaymode1)i DecayMode2=%(decaymode2)i OffXVV=011 PChannel=%(pchannel)i LHAPDF=NNPDF30_lo_as_0130/NNPDF30_lo_as_0130.info"
+card = "Process=2 VegasNc0=1000000 VegasNc2=NEVT a1=1,0 a2=0,0 b2=0,0 b5=1,0 MReso=%(mass)i GaReso=%(width)i DecayMode1=%(decaymode1)i DecayMode2=%(decaymode2)i OffshellX=1 PChannel=%(pchannel)i LHAPDF=NNPDF30_lo_as_0130/NNPDF30_lo_as_0130.info Seed=SEED"
+card_narrow = "Process=2 VegasNc0=1000000 VegasNc2=NEVT a1=1,0 a2=0,0 b2=0,0 b5=1,0 MReso=%(mass)i GaReso=0.000001 DecayMode1=%(decaymode1)i DecayMode2=%(decaymode2)i OffshellX=0 PChannel=%(pchannel)i LHAPDF=NNPDF30_lo_as_0130/NNPDF30_lo_as_0130.info Seed=SEED"
 cardname = "JHUGen_2bp_%(pchannelname)s_m%(mass)i_ga%(width)i_%(decaymode)s.input"
 
 masses = [750, 800, 1200, 2000, 3000, 4000]
