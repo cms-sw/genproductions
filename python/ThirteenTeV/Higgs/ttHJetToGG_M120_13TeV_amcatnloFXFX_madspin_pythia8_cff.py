@@ -27,8 +27,10 @@ pythia8aMCatNLOSettingsBlock,
   'JetMatching:nJetMax = 1', #number of partons in born matrix element for highest multiplicity
   'SLHA:useDecayTable = off',  # Use pythia8s own decay mode instead of decays defined in LH accord
   '25:m0 = 120.0',
+  '23:mMin = 0.05',       # Solve problem with mZ cut
+  '24:mMin = 0.05',       # Solve problem with mW cut
   '25:onMode = off', 
-  '25:onIfAny = 22 22',    # Decay only higgs to gamma gamma
+  '25:onIfMatch = 22 22',    # Decay only higgs to gamma gamma, note onIfMatch is used instead of onIfAny since otherwise H->Gamma Z, Z-> Gamma is also possible.
   ),
 parameterSets = cms.vstring('pythia8CommonSettings',
 'pythia8CUEP8M1Settings',

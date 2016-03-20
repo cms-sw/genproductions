@@ -229,8 +229,8 @@
 #*********************************************************************
  0   = xetamin ! minimum rapidity for two jets in the WBF case  
  0   = deltaeta ! minimum rapidity for two jets in the WBF case 
- 150 = mqqvbf
- 1.5   = deltaeta2
+ # 150 = mqqvbf
+ # 1.5   = deltaeta2
 #*********************************************************************
 # maximal pdg code for quark to be considered as a light jet         *
 # (otherwise b cuts are applied)                                     *

@@ -23,7 +23,7 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
 	    '24:mMin = 0.05',      # Solve problem with mW cut
             '25:m0 = 125.0',
             '25:onMode = off',	   # Switch all higgs decays off
-            '25:onIfAny = 22 22',   # Switch decay to gamma gamma on
+            '25:onIfMatch = 22 22', # Decay only higgs to gamma gamma, note onIfMatch is used instead of onIfAny since otherwise H->Gamma Z, Z-> Gamma is also possible.
           ),
         parameterSets = cms.vstring('pythia8CommonSettings',
                                     'pythia8CUEP8M1Settings',
