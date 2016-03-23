@@ -9,25 +9,10 @@ import argparse
 import random
 import ROOT
 
-def completed(name,basedir,card):
-    completed = True
-    fileExists=os.path.isfile('runcmsgrid.sh') 
-    if fileExists:
-        os.chmod('runcmsgrid.sh',0777)
-        os.chdir('%s' % (basedir))
-        os.system('pwd')
-        os.system('rm -rf %s_JHUGen/LSFJOB*' % (name))
-        os.system('mv %s_JHUGen/runcmsgrid.sh .' % (name)) 
-        os.system('tar czvf JHUGen_%s.tgz %s_JHUGen runcmsgrid.sh' % (name,name))
-    else:
-        if not os.path.isfile('JHUGen_%s.tgz' % (name)):
-            completed = False
-    return completed
-
 aparser = argparse.ArgumentParser(description='Process benchmarks.')
 aparser.add_argument('-card'    ,'--card'      ,action='store' ,dest='card',default='JHUGen.input',help='card')
 aparser.add_argument('-name'    ,'--name'      ,action='store' ,dest='name'   ,default='ScalarVH'       ,help='name')
-aparser.add_argument('-q'       ,'--queue'     ,action='store' ,dest='queue'  ,default='1nh'            ,help='queue')
+aparser.add_argument('-q'       ,'--queue'     ,action='store' ,dest='queue'  ,default='8nm'            ,help='queue')
 args1 = aparser.parse_args()
 
 print args1.card,args1.name,args1.queue
@@ -61,13 +46,18 @@ job_file.write('sed "s@GENCOMMAND@%s@g"    runcmsgrid_template.sh > runcmsgrid.s
 job_file.write('mv runcmsgrid.sh runcmsgrid_template.sh                        \n')
 job_file.write('sed "s@VegasNc2=NEVT@VegasNc2=\\$\\{nevt\\}@g"   runcmsgrid_template.sh > runcmsgrid.sh \n')
 job_file.write('mv runcmsgrid.sh runcmsgrid_template.sh                        \n')
+job_file.write('sed "s@Seed=SEED@Seed=\\$\\{rnum\\}@g"   runcmsgrid_template.sh > runcmsgrid.sh \n')
+job_file.write('mv runcmsgrid.sh runcmsgrid_template.sh                        \n')
 job_file.write('sed "s@BASEDIR@%s_JHUGen@g"   runcmsgrid_template.sh > runcmsgrid.sh \n'  % (args1.name))
 job_file.write('chmod +x runcmsgrid.sh \n')
 job_file.write('rm *.lhe \n')
 job_file.close()
 os.chmod('integrate.sh',0777)
-os.system('bsub -q %s %s/%s_JHUGen/integrate.sh' % (args1.queue,basedir,args1.name))
-           
-while not completed(args1.name,basedir,args1.card):
-    print "Waiting ",datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
-    time.sleep(60)
+os.system('%s/%s_JHUGen/integrate.sh' % (basedir,args1.name))
+
+os.chmod('runcmsgrid.sh',0777)
+os.chdir('%s' % (basedir))
+os.system('pwd')
+os.system('rm -rf %s_JHUGen/LSFJOB*' % (args1.name))
+os.system('mv %s_JHUGen/runcmsgrid.sh .' % (args1.name)) 
+os.system('tar czvf JHUGen_%s.tgz %s_JHUGen runcmsgrid.sh' % (args1.name,args1.name))
