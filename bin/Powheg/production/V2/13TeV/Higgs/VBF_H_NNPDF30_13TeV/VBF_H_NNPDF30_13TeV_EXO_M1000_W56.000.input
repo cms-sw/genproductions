@@ -69,14 +69,10 @@ hdecaymode -1   ! -1 no decay
                 ! 11  ZZ
                 ! 12  gamma gamma
 
-
+bwshape 3           ! complex-pole scheme according to Passarino et al.
 
 #iupperisr 1 ! (default 1) choice of ISR upper bounding functional form 
 #iupperfsr 2 ! (default 2) choice of FSR upper bounding functional form 
 
 ! Z+jet production
 #bornktmin  0d0    ! (default 0d0) kt min at Born level for jet in Z+jet 
-
-
-
-
