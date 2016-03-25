@@ -18,7 +18,9 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
          'PhotonCollision:gmgm2ee = on',
          'PhaseSpace:mHatMin = 500.',
          'PhaseSpace:mHatMax = 6500.',
-         'PDF:pSet = LHAPDF6:MRST2004qed.LHgrid'
+         'PDF:useHard on',
+         'PDF:pHardSet = LHAPDF6:MRST2004qed.LHgrid',
+         'PDF:pSet = LHAPDF6:NNPDF23_lo_as_0130_qed'
       ),
       parameterSets = cms.vstring('pythia8CommonSettings',
                                   'pythia8CUEP8M1Settings',
