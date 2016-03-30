@@ -35,4 +35,4 @@ define vl = ve vm vt
 define vl~ = ve~ vm~ vt~
 import model Massive_Higgs_UFO
 generate p p > a0 > t t~
-output pp_tt_template_pseudoscalar_S_25Mar16
+output Spin0ToTT_LO_pseudoscalar_M500
