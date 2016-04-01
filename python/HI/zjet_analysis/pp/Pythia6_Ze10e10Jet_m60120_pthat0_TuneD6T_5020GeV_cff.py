@@ -10,7 +10,7 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
                 crossSection = cms.untracked.double(305.2),
                 comEnergy = cms.double(5020.0),
                 PythiaParameters = cms.PSet(pythiaUESettingsBlock,
-                                            pythiaZmumujets = cms.vstring('MSEL = 0 ! users defined processes only',
+                                            pythiaZeejets = cms.vstring('MSEL = 0 ! users defined processes only',
                                                                           'MSUB(15)=1  !qq->Z0/gamma*+g',
                                                                           'MSUB(30)=1  !qg->Z0/gamma*+q',
                                                                           'MDME( 174,1) = 0    !Z decay into d dbar', 
@@ -27,11 +27,11 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
                                                                           'MDME( 187,1) = 0    !Z decay into nu_tau nu_taubar', 
                                                                         ),
                                             parameterSets = cms.vstring('pythiaUESettings',
-                                                                        'pythiaZmumujets'),
+                                                                        'pythiaZeejets'),
                                             )
                         )
 
-mumugenfilter = cms.EDFilter("MCParticlePairFilter",
+eegenfilter = cms.EDFilter("MCParticlePairFilter",
     Status         = cms.untracked.vint32(1, 1),
     MinPt          = cms.untracked.vdouble(10, 10),
     MaxEta         = cms.untracked.vdouble(2.5, 2.5),
@@ -43,4 +43,4 @@ mumugenfilter = cms.EDFilter("MCParticlePairFilter",
     ParticleID2    = cms.untracked.vint32(11)
 )
 
-ProductionFilterSequence = cms.Sequence(generator*mumugenfilter)
+ProductionFilterSequence = cms.Sequence(generator*eegenfilter)
