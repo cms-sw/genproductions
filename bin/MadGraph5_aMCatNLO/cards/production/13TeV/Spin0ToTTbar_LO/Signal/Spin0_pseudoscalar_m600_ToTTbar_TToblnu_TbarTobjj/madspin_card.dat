@@ -20,8 +20,6 @@
 
 decay t > w+ b, w+ > l+ vl
 decay t~ > w- b~, w- > j j
-decay w+ > l+ vl
-decay w- > j j
 
 ## running the actual code
 launch

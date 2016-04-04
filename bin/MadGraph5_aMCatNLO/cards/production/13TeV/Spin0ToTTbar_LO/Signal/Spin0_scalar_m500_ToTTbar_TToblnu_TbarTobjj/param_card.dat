@@ -24,8 +24,8 @@ Block ckmblock
 ## INFORMATION FOR FRBLOCK
 ###################################
 Block frblock 
-    1 5.000000e+01 # H0Width 
-    2 5.000000e+01 # A0Width 
+    1 1.650000e+01 # H0Width 
+    2 2.225000e+01 # A0Width 
 
 ###################################
 ## INFORMATION FOR H0PARAMS

@@ -24,8 +24,8 @@ Block ckmblock
 ## INFORMATION FOR FRBLOCK
 ###################################
 Block frblock 
-    1 5.000000e+01 # H0Width 
-    2 5.000000e+01 # A0Width 
+    1 0.880000e+01 # H0Width 
+    2 1.483000e+01 # A0Width 
 
 ###################################
 ## INFORMATION FOR H0PARAMS
@@ -49,7 +49,7 @@ Block mass
    23 9.118800e+01 # MZ 
    25 1.250000e+02 # MH 
   6000045 4.000000e+02 # MH0 
-  6000045 4.000000e+02 # MA0 
+  6000046 4.000000e+02 # MA0 
 ## Dependent parameters, given by model restrictions.
 ## Those values should be edited following the 
 ## analytical expression. MG5 ignores those values 
@@ -109,7 +109,7 @@ DECAY  15 0.000000 # ta- : 0.0
 DECAY  16 0.000000 # vt : 0.0 
 DECAY  21 0.000000 # g : 0.0 
 DECAY  22 0.000000 # a : 0.0 
-DECAY  6000045 8.800000 # h0 : H0Width
+DECAY  6000045 8.800000 # h0 : H0Width 
 DECAY  6000046 14.830000 # a0 : A0Width 
 #===========================================================
 # QUANTUM NUMBERS OF NEW STATE(S) (NON SM PDG CODE)
