@@ -5,8 +5,8 @@
 numevts NEVENTS    ! number of events to be generated
 ih1   1           ! hadron 1 (1 for protons, -1 for antiprotons)
 ih2   1           ! hadron 2 (1 for protons, -1 for antiprotons)
-ebeam1 2500d0     ! energy of beam 1
-ebeam2 2500d0     ! energy of beam 2
+ebeam1 2510d0     ! energy of beam 1
+ebeam2 2510d0     ! energy of beam 2
 
 iseed    SEED    ! initialize random number sequence 
 
