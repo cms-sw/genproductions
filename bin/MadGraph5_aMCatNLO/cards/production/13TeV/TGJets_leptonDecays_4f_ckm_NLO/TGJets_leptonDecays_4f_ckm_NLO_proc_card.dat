@@ -7,5 +7,5 @@ generate p p > t b~ j a $$ w+ w- [QCD] @0
 add process p p > t~ b j a $$ w+ w- [QCD] @1
 
 
-output TGJets_4f_ckm_NLO -nojpeg
+output TGJets_leptonDecays_4f_ckm_NLO -nojpeg
 
