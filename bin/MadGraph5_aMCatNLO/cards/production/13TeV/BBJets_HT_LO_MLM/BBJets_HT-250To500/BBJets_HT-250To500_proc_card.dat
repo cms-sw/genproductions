@@ -1,0 +1,11 @@
+import model sm
+define p = g u c d s u~ c~ d~ s~
+define j = g u c d s u~ c~ d~ s~
+
+# Specify process(es) to run
+generate p p > b b~ @0
+add process p p > b b~ j @1
+add process p p > b b~ j j @2
+
+# Output processes to MadEvent directory
+output BBJets_HT-250To500 -nojpeg
