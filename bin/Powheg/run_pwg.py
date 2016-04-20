@@ -472,6 +472,74 @@ fi
 
 cd ${WORKDIR}/${name}
 
+if [ "$process" = "HJ" ]; then
+  echo "Compilinig HNNLO...."
+  wget http://theory.fi.infn.it/grazzini/codes/hnnlo-v2.0.tgz
+  tar -xzvf hnnlo-v2.0.tgz
+  cd hnnlo-v2.0
+  cp ../POWHEG-BOX/HJ/NNLOPS-mass-effects/HNNLO-makefile ./makefile 
+  cp -r ../POWHEG-BOX/HJ/NNLOPS-mass-effects/HNNLO-patches ./
+  cat makefile | sed -e "s#LHAPDFLIB=.\+#LHAPDFLIB=$(scram tool info lhapdf | grep LIBDIR | cut -d "=" -f2)#g" > makefile
+  make || fail_exit "Failed to compile HNNLO"
+  cp -p bin/hnnlo ${WORKDIR}/${name}/
+  cp bin/br.* ${WORKDIR}/${name}/
+  cd ${WORKDIR}/${name}
+  cp POWHEG-BOX/HJ/NNLOPS-mass-effects/mergedata.f .
+  gfortran -o mergedata mergedata.f
+
+  cd ${WORKDIR}/${name}/POWHEG-BOX/HJ
+  cp Makefile Makefile.orig
+  cat Makefile.orig | sed -e "s#ANALYSIS=.\+#ANALYSIS=NNLOPS#g" |sed -e "s#\$(shell \$(LHAPDF_CONFIG) --libdir)#$(scram tool info lhapdf | grep LIBDIR | cut -d "=" -f2)#g" | sed -e "s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d "=" -f2)/bin/fastjet-config#g" | sed -e "s#NNLOPSREWEIGHTER+=  fastjetfortran.o#NNLOPSREWEIGHTER+=  fastjetfortran.o pwhg_bookhist-multi.o#g" > Makefile
+  make nnlopsreweighter || fail_exit "Failed to compile nnlopsreweighter"
+  cp nnlopsreweighter ../../
+  cd ${WORKDIR}/${name}
+  HMASS=`cat powheg.input | grep "^hmass" | cut -d " " -f2`; 
+  gawk "/sroot/{gsub(/8000/,13000)};/hmass/{gsub(/125.5/, ${HMASS})};/mur,muf/{gsub(/62.750/, $(( $HMASS/2 )))};{print}" POWHEG-BOX/HJ/PaperRun/HNNLO-LHC8-R04-APX2-11.input | sed -e "s#10103#SEED#g" | sed -e "s#HNNLO-LHC8-R04-APX2-11#HNNLO-LHC13-R04-APX2-11#g"> HNNLO-LHC13-R04-APX2-11.input
+  gawk "/sroot/{gsub(/8000/,13000)};/hmass/{gsub(/125.5/, ${HMASS})};/mur,muf/{gsub(/62.750/, $(( $HMASS )))};{print}" POWHEG-BOX/HJ/PaperRun/HNNLO-LHC8-R04-APX2-11.input | sed -e "s#10103#SEED#g" | sed -e "s#HNNLO-LHC8-R04-APX2-11#HNNLO-LHC13-R04-APX2-22#g"> HNNLO-LHC13-R04-APX2-22.input
+  gawk "/sroot/{gsub(/8000/,13000)};/hmass/{gsub(/125.5/, ${HMASS})};/mur,muf/{gsub(/62.750/, $(( $HMASS/4 )))};{print}" POWHEG-BOX/HJ/PaperRun/HNNLO-LHC8-R04-APX2-11.input | sed -e "s#10103#SEED#g" | sed -e "s#HNNLO-LHC8-R04-APX2-11#HNNLO-LHC13-R04-APX2-0505#g"> HNNLO-LHC13-R04-APX2-0505.input
+  cat << EOF > nnlopsreweighter.input
+# a line beginning with 'lhfile' followed by the name of the event file
+
+lhfile pwgevents.lhe 
+
+# weights present in the lhfile: 'mtinf', 'mt', 'mtmb', 'mtmb-bminlo'
+
+
+# a line with: 'nnlofiles'
+# followed by a quoted label and the name of a HNNLO output file.
+# In the following the 3 ouput refer to mt=infinity approx,
+# finite mt, and finite mt and mb.
+
+nnlofiles
+'nn-mtmb-11' HNNLO-11.top
+'nn-mtmb-22' HNNLO-22.top
+'nn-mtmb-0505' HNNLO-0505.top
+
+# The new desired weights, in the Les Houches format.
+# The user can choose to group them in the way he prefers, and give them
+# the id's he likes.
+# The program determined how to compute each weights from the description
+# line. It loops through the weights id's present in the pwgevents.lhe file
+# and through the labels of the nnlofiles. If a label of a weight and
+# a label of the nnlofiles are both present in the description field
+# of a weight mentioned here, it computes that weight by reweighting
+# the corresponding weights in the lhe file with the nnlo result present
+# in the nnlofiles associated with the label. For example, in the
+# nnlops-mt id in the following it reweights the nn-mtinf weight present
+# in the .lhe file with the nnlo result present in the
+# HNNLO-LHC8-R04-APX0-11.top file.
+
+<initrwgt>
+<weightgroup name='nnl'> 
+<weight id='nnlops-11'> combines 'nn-mtmb-11' with 'c' (central)</weight> 
+<weight id='nnlops-22'> combines 'nn-mtmb-22' with 'c' (central)</weight> 
+<weight id='nnlops-0505'> combines 'nn-mtmb-0505' with 'c' (central)</weight> 
+</weightgroup>
+</initrwgt>
+EOF
+
+fi  
+
 #mkdir -p workdir
 #cd workdir
 localDir=`pwd`
@@ -638,6 +706,11 @@ fi
 
 sed -i 's/pwggrid.dat ]]/pwggrid.dat ]] || [ -e ${WORKDIR}\/pwggrid-0001.dat ]/g' runcmsgrid.sh
 
+if [ "$process" = "HJ" ]; then
+  cat runcmsgrid.sh  | gawk '/produceWeightsNNLO/{gsub(/false/, \"true\")};{print}' > runcmsgrid_tmp.sh
+  mv runcmsgrid_tmp.sh runcmsgrid.sh
+fi  
+
 chmod 755 runcmsgrid.sh
 
 cp -p runcmsgrid.sh runcmsgrid_par.sh
@@ -669,6 +742,14 @@ else
     tar zcf ${WORKDIR}'/'${folderName}'_'${process}'.tgz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.top --exclude=*.lhe --exclude=run_*.sh --exclude=*.log --exclude=*temp
 fi
 
+if [ "$process" = "HJ" ]; then
+  echo "This process needs NNLOPS reweighting"
+  for i in `echo 11 22 0505`; do
+    ./mergedata 1 ${i}/*.top
+    mv fort.12 HNNLO-${i}.top 
+  done  
+fi
+
 cd ${WORKDIR}
 
 date
@@ -679,6 +760,50 @@ echo 'Done.'
     f.close()
 
     os.system('chmod 755 '+filename)
+
+# ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+
+
+def runhnnlo(folderName, njobs, QUEUE):
+  scales = ["11", "22", "0505"]
+  for scale in scales:
+    os.system('rm -rf '+ folderName+"/"+scale)
+    os.system('mkdir -p '+ folderName+"/"+scale) 
+    filename = folderName+"/"+scale+"/launch_NNLO.sh"
+    launching_script = open(filename, "w")
+    launching_script.write("#!/bin/bash\n")
+    launching_script.write('base='+os.getcwd()+"/"+folderName+"/"+scale+'\n\n')
+    launching_script.write(
+'''
+config=$1
+seed=$2
+
+cd $base
+eval `scram runtime -sh`
+cd -
+
+cat $base/../$config | sed -e "s#SEED#$seed#g" > config.input
+
+cp $base/../hnnlo .
+cp $base/../br* .
+
+./hnnlo < config.input &> log_${seed}.txt
+
+cp HNNLO-LHC13* ${base}
+
+cp log_${seed}.txt ${base}
+''')
+    launching_script.close()
+    os.system('chmod 755 '+filename) 
+    for ijob in range(njobs):
+      config = "HNNLO-LHC13-R04-APX2-"+scale+".input" 
+      jobID = scale+"_"+str(ijob)
+      print 'Submitting to queue: '+QUEUE+' #'+str(ijob)+' \n'
+      runCommand ('bsub -J ' + jobID + ' -u $USER -q ' + QUEUE + ' \"' + rootfolder + "/" + folderName + "/"+ scale + '/launch_NNLO.sh '+config+' '+str(1000+ijob)+'\"', TESTING == 1)
+      
+      
+
+
 
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
@@ -928,6 +1053,10 @@ if __name__ == "__main__":
             print 'Submitting to queue: '+QUEUE+' \n'
             runCommand ('bsub -J full_'+args.folderName+' -u $USER -q ' + 
                         QUEUE + ' '+rootfolder + '/' +scriptName, TESTING == 0)
+
+    elif args.parstage == '7' :
+      print "preparing for NNLO reweighting"
+      runhnnlo(args.folderName, 350, QUEUE)
 
     elif args.parstage == '9' :
         # overwriting with original
