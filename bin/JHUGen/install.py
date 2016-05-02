@@ -51,9 +51,7 @@ job_file.write('sed "s@BASEDIR@%s_JHUGen@g"   runcmsgrid_template.sh > runcmsgri
 job_file.write('chmod +x runcmsgrid.sh \n')
 if "ReadCSmax" in command:
     #set up the grid now so it can be read
-    runcommand = command.replace("ReadCSmax", "")
-    job_file.write("nevt=%s \n" % (args1.nevents))
-    job_file.write("rnum=%s \n" % (args1.seed))
+    runcommand = command.replace("ReadCSmax", "").replace("NEVT", args1.nevents).replace("SEED", args1.seed)
     job_file.write("%s \n" % (runcommand))
 job_file.write('rm *.lhe \n')
 job_file.write('rm -r data/ \n')
