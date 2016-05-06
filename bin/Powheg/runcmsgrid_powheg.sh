@@ -335,6 +335,7 @@ then
     echo -e "\n finished computing weights ..\n" 
 fi
 
+xmllint --noout pwgevents.lhe > /dev/null 2>&1; test $? -eq 0 || fail_exit "xmllint integrity check failed on pwgevents.lhe"
 
 cat pwgevents.lhe | grep -v "Random number generator exit values" > ${file}_final.lhe
 
