@@ -106,7 +106,7 @@ fi
 
 
 cat powheg.input
-../pwhg_main &> log_${process}_${seed}.txt
+../pwhg_main &> log_${process}_${seed}.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
 
 if [ "$produceWeights" == "true" ];
 then 
@@ -144,7 +144,7 @@ then
 	echo -e "lhrwgt_group_name 'scale_variation'" >> powheg.input
 	echo -e "lhrwgt_group_combine 'envelope'" >> powheg.input
 	
-	../pwhg_main &>> reweightlog_${process}_${seed}.txt  
+	../pwhg_main &>> reweightlog_${process}_${seed}.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
 	mv pwgevents-rwgt.lhe pwgevents.lhe
 	mv powheg.input powheg.input.${scale1}_${scale2}
 #      fi;      
@@ -168,7 +168,7 @@ then
 	echo -e "lhrwgt_group_name 'PDF_variation'" >> powheg.input
 	echo -e "lhrwgt_group_combine 'gaussian'" >> powheg.input
 
-	../pwhg_main &>> reweightlog_${process}_${seed}.txt  
+	../pwhg_main &>> reweightlog_${process}_${seed}.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
 	mv pwgevents-rwgt.lhe pwgevents.lhe
 	mv powheg.input powheg.input.${iteration}
     done
@@ -185,7 +185,7 @@ then
     echo -e "lhrwgt_group_name 'PDF_variation'" >> powheg.input
     echo -e "lhrwgt_group_combine 'gaussian'" >> powheg.input
 
-    ../pwhg_main &>> reweightlog_${process}_${seed}.txt  
+    ../pwhg_main &>> reweightlog_${process}_${seed}.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
     mv pwgevents-rwgt.lhe pwgevents.lhe
     mv powheg.input powheg.input.${iteration}
 
@@ -200,7 +200,7 @@ then
     echo -e "lhrwgt_group_name 'PDF_variation'" >> powheg.input
     echo -e "lhrwgt_group_combine 'gaussian'" >> powheg.input
 
-    ../pwhg_main &>> reweightlog_${process}_${seed}.txt  
+    ../pwhg_main &>> reweightlog_${process}_${seed}.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
     mv pwgevents-rwgt.lhe pwgevents.lhe
     mv powheg.input powheg.input.${iteration}
 
@@ -220,7 +220,7 @@ then
 	echo -e "lhrwgt_group_name 'PDF_variation'" >> powheg.input
 	echo -e "lhrwgt_group_combine 'hessian'" >> powheg.input
 
-	../pwhg_main &>> reweightlog_${process}_${seed}.txt  
+	../pwhg_main &>> reweightlog_${process}_${seed}.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
 	mv pwgevents-rwgt.lhe pwgevents.lhe
 	mv powheg.input powheg.input.${iteration}
     done
@@ -235,7 +235,7 @@ then
     echo -e "lhrwgt_group_name 'PDF_variation'" >> powheg.input
     echo -e "lhrwgt_group_combine 'hessian'" >> powheg.input
 
-    ../pwhg_main &>> reweightlog_${process}_${seed}.txt  
+    ../pwhg_main &>> reweightlog_${process}_${seed}.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
     mv pwgevents-rwgt.lhe pwgevents.lhe
     mv powheg.input powheg.input.${iteration}
 
@@ -249,7 +249,7 @@ then
     echo -e "lhrwgt_group_name 'PDF_variation'" >> powheg.input
     echo -e "lhrwgt_group_combine 'hessian'" >> powheg.input
 
-    ../pwhg_main &>> reweightlog_${process}_${seed}.txt  
+    ../pwhg_main &>> reweightlog_${process}_${seed}.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
     mv pwgevents-rwgt.lhe pwgevents.lhe
     mv powheg.input powheg.input.${iteration}
  
@@ -263,7 +263,7 @@ then
     echo -e "lhrwgt_group_name 'PDF_variation'" >> powheg.input
     echo -e "lhrwgt_group_combine 'hessian'" >> powheg.input
 
-    ../pwhg_main &>> reweightlog_${process}_${seed}.txt  
+    ../pwhg_main &>> reweightlog_${process}_${seed}.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
     mv pwgevents-rwgt.lhe pwgevents.lhe
     mv powheg.input powheg.input.${iteration}
  
@@ -283,7 +283,7 @@ then
 	echo -e "lhrwgt_group_name 'PDF_variation'" >> powheg.input
 	echo -e "lhrwgt_group_combine 'hessian'" >> powheg.input
 
-	../pwhg_main &>> reweightlog_${process}_${seed}.txt  
+	../pwhg_main &>> reweightlog_${process}_${seed}.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
 	mv pwgevents-rwgt.lhe pwgevents.lhe
 	mv powheg.input powheg.input.${iteration}
     done
@@ -303,7 +303,7 @@ then
 	echo -e "lhrwgt_group_name 'PDF_variation'" >> powheg.input
 	echo -e "lhrwgt_group_combine 'hessian'" >> powheg.input
 
-	../pwhg_main &>> reweightlog_${process}_${seed}.txt  
+	../pwhg_main &>> reweightlog_${process}_${seed}.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
 	mv pwgevents-rwgt.lhe pwgevents.lhe
 	mv powheg.input powheg.input.${iteration}
     done
@@ -323,7 +323,7 @@ then
 	echo -e "lhrwgt_group_name 'PDF_variation'" >> powheg.input
 	echo -e "lhrwgt_group_combine 'hessian'" >> powheg.input
 
-	../pwhg_main &>> reweightlog_${process}_${seed}.txt  
+	../pwhg_main &>> reweightlog_${process}_${seed}.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
 	mv pwgevents-rwgt.lhe pwgevents.lhe
 	mv powheg.input powheg.input.${iteration}
     done
