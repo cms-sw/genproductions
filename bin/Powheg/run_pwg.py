@@ -641,7 +641,7 @@ def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag, proc
 
         else:
             print 'Submitting to queue: '+QUEUE+' #'+str(i)+' \n'
-            runCommand ('bsub -J ' + jobID + ' -u $USER -q ' + QUEUE + ' ' + rootfolder + '/run_'+tag+'.sh', TESTING == 0)
+            runCommand ('bsub -J ' + jobID + ' -u $USER -q ' + QUEUE + ' ' + rootfolder +'/'+folderName+'/run_'+tag+'.sh', TESTING == 0)
 
     #runCommand('mv *.sh ' + folderName)
 
