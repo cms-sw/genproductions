@@ -95,14 +95,14 @@ CARDSDIR=${PRODHOME}/${carddir}
 
 MGBASEDIR=mgbasedir
 
-MG=MG5_aMC_v2.3.3.tar.gz
+MG=MG5_aMC_v2.4.0.tar.gz
 MGSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$MG
 
 #syscalc is a helper tool for madgraph to add scale and pdf variation weights for LO processes
-SYSCALC=SysCalc_V1.1.5alpha.tar.gz
+SYSCALC=SysCalc_V1.1.6.tar.gz
 SYSCALCSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$SYSCALC
 
-MGBASEDIRORIG=MG5_aMC_v2_3_3
+MGBASEDIRORIG=MG5_aMC_v2_4_0
 
 isscratchspace=0
 
@@ -116,10 +116,10 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   cd $AFS_GEN_FOLDER
 
 #   export SCRAM_ARCH=slc6_amd64_gcc472 #Here one should select the correct architechture corresponding with the CMSSW release
-#   export RELEASE=CMSSW_5_3_30
+#   export RELEASE=CMSSW_5_3_32_patch3
 
   export SCRAM_ARCH=slc6_amd64_gcc481
-  export RELEASE=CMSSW_7_1_20_patch3
+  export RELEASE=CMSSW_7_1_22
 
 
   ############################
@@ -181,10 +181,12 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
       echo "set run_mode  1" >> mgconfigscript
       if [ "$queue" == "condor" ]; then
         echo "set cluster_type condor" >> mgconfigscript
-        echo "set cluster_queue None" >> mgconfigscript
+        #*FIXME* broken in mg_amc 2.4.0
+#         echo "set cluster_queue None" >> mgconfigscript
       else
         echo "set cluster_type lsf" >> mgconfigscript
-        echo "set cluster_queue $queue" >> mgconfigscript
+        #*FIXME* broken in mg_amc 2.4.0
+#         echo "set cluster_queue $queue" >> mgconfigscript
       fi 
       echo "set cluster_status_update 60 30" >> mgconfigscript
       echo "set cluster_nb_retry 3" >> mgconfigscript
@@ -192,7 +194,8 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
 #       echo "set cluster_local_path `${LHAPDFCONFIG} --datadir`" >> mgconfigscript 
       if [[ ! "$RUNHOME" =~ ^/afs/.* ]]; then
           echo "local path is not an afs path, batch jobs will use worker node scratch space instead of afs"
-          echo "set cluster_temp_path `echo $RUNHOME`" >> mgconfigscript 
+          #*FIXME* broken in mg_amc 2.4.0
+#           echo "set cluster_temp_path `echo $RUNHOME`" >> mgconfigscript 
           echo "set cluster_retry_wait 30" >> mgconfigscript 
           isscratchspace=1
       fi      
@@ -201,7 +204,14 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   echo "save options" >> mgconfigscript
 
   ./bin/mg5_aMC mgconfigscript
-
+  
+  #*FIXME* workaround for broken set cluster_queue handling
+  echo "cluster_queue = $queue" >> input/mg5_configuration.txt
+  if [ "$isscratchspace" -gt "0" ]; then
+    echo "cluster_temp_path = `echo $RUNHOME`" >> input/mg5_configuration.txt
+  fi
+  
+  
   #get syscalc and compile
   wget --no-check-certificate ${SYSCALCSOURCE}
   tar xzf ${SYSCALC}
