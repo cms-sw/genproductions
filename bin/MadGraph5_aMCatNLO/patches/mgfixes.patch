@@ -1,3 +1,66 @@
+diff -ur MG5_aMC_v2_4_0/madgraph/interface/amcatnlo_run_interface.py ../new/MG5_aMC_v2_4_0/madgraph/interface/amcatnlo_run_interface.py
+--- MG5_aMC_v2_4_0/madgraph/interface/amcatnlo_run_interface.py	2016-05-12 13:08:53.000000001 +0200
++++ ../new/MG5_aMC_v2_4_0/madgraph/interface/amcatnlo_run_interface.py	2016-05-19 07:58:49.000000001 +0200
+@@ -961,7 +961,7 @@
+         self.check_shower(argss, options)
+         evt_file = pjoin(os.getcwd(), argss[0], 'events.lhe')
+         self.ask_run_configuration('onlyshower', options)
+-        self.run_mcatnlo(evt_file)
++        self.run_mcatnlo(evt_file, options)
+ 
+         self.update_status('', level='all', update_results=True)
+ 
+@@ -1217,7 +1217,7 @@
+         
+         if not mode in ['LO', 'NLO', 'noshower', 'noshowerLO'] \
+                                                       and not options['parton']:
+-            self.run_mcatnlo(evt_file)
++            self.run_mcatnlo(evt_file, options)
+         elif mode == 'noshower':
+             logger.warning("""You have chosen not to run a parton shower. NLO events without showering are NOT physical.
+ Please, shower the Les Houches events before using them for physics analyses.""")
+@@ -2774,7 +2774,7 @@
+             scale_pdf_info = self.run_reweight(options['reweightonly'])
+         self.update_status('Collecting events', level='parton', update_results=True)
+         misc.compile(['collect_events'], 
+-                    cwd=pjoin(self.me_dir, 'SubProcesses'))
++                    cwd=pjoin(self.me_dir, 'SubProcesses'), nocompile=options['nocompile'])
+         p = misc.Popen(['./collect_events'], cwd=pjoin(self.me_dir, 'SubProcesses'),
+                 stdin=subprocess.PIPE, 
+                 stdout=open(pjoin(self.me_dir, 'collect_events.log'), 'w'))
+@@ -2805,7 +2805,7 @@
+         return evt_file[:-3]
+ 
+ 
+-    def run_mcatnlo(self, evt_file):
++    def run_mcatnlo(self, evt_file, options):
+         """runs mcatnlo on the generated event file, to produce showered-events
+         """
+         logger.info('Preparing MCatNLO run')
+@@ -2961,7 +2961,7 @@
+             #clean the old files
+             files.rm([f for f in event_files if 'events.lhe' not in f])
+             if self.shower_card['nsplit_jobs'] > 1:
+-                misc.compile(['split_events'], cwd = pjoin(self.me_dir, 'Utilities'))
++                misc.compile(['split_events'], cwd = pjoin(self.me_dir, 'Utilities'), nocompile=options['nocompile'])
+                 p = misc.Popen([pjoin(self.me_dir, 'Utilities', 'split_events')],
+                                 stdin=subprocess.PIPE,
+                                 stdout=open(pjoin(self.me_dir, 'Events', self.run_name, 'split_events.log'), 'w'),
+diff -ur MG5_aMC_v2_4_0/madgraph/iolibs/export_v4.py ../new/MG5_aMC_v2_4_0/madgraph/iolibs/export_v4.py
+--- MG5_aMC_v2_4_0/madgraph/iolibs/export_v4.py	2016-05-12 13:08:53.000000001 +0200
++++ ../new/MG5_aMC_v2_4_0/madgraph/iolibs/export_v4.py	2016-05-17 03:42:51.000000001 +0200
+@@ -6267,8 +6267,9 @@
+     # An installation is required then, but only if the specified path is the
+     # default local one and that the Ninja library appears missing.
+     if requires_ninja and (not opt['ninja'] is None) and\
+-            os.path.abspath(opt['ninja'])==pjoin(MG5DIR,'HEPTools','lib') and\
+-            not os.path.isfile(pjoin(MG5DIR,'HEPTools','lib','libninja.a')):
++            not os.path.isfile(pjoin(os.path.abspath(opt['ninja']),'libninja.a')):
++            #os.path.abspath(opt['ninja'])==pjoin(MG5DIR,'HEPTools','lib') and\
++            #not os.path.isfile(pjoin(MG5DIR,'HEPTools','lib','libninja.a')):
+                 # Then install Ninja here from the tarballs in the vendor
+                 # directory so that it would work offline too.
+                 logger.info(
 diff -ur MG5_aMC_v2_4_0/madgraph/various/cluster.py ../new/MG5_aMC_v2_4_0/madgraph/various/cluster.py
 --- MG5_aMC_v2_4_0/madgraph/various/cluster.py	2016-05-12 13:08:53.000000001 +0200
 +++ ../new/MG5_aMC_v2_4_0/madgraph/various/cluster.py	2016-05-16 08:52:34.000000001 +0200
@@ -366,6 +429,40 @@ diff -ur MG5_aMC_v2_4_0/madgraph/various/cluster.py ../new/MG5_aMC_v2_4_0/madgra
  
          return idle, run, self.submitted - (idle+run+fail), fail
  
+diff -ur MG5_aMC_v2_4_0/madgraph/various/misc.py ../new/MG5_aMC_v2_4_0/madgraph/various/misc.py
+--- MG5_aMC_v2_4_0/madgraph/various/misc.py	2016-05-12 13:08:53.000000001 +0200
++++ ../new/MG5_aMC_v2_4_0/madgraph/various/misc.py	2016-05-19 07:55:38.000000001 +0200
+@@ -455,6 +455,18 @@
+ def compile(arg=[], cwd=None, mode='fortran', job_specs = True, nb_core=1 ,**opt):
+     """compile a given directory"""
+ 
++    if 'nocompile' in opt:
++        if opt['nocompile'] == True:
++            if not arg:
++                return
++            if cwd:
++                executable = pjoin(cwd, arg[0])
++            else:
++                executable = arg[0]
++            if os.path.exists(executable):
++                return
++        del opt['nocompile']
++
+     cmd = ['make']
+     try:
+         if nb_core > 1:
+diff -ur MG5_aMC_v2_4_0/MadSpin/interface_madspin.py ../new/MG5_aMC_v2_4_0/MadSpin/interface_madspin.py
+--- MG5_aMC_v2_4_0/MadSpin/interface_madspin.py	2016-05-12 13:08:53.000000001 +0200
++++ ../new/MG5_aMC_v2_4_0/MadSpin/interface_madspin.py	2016-05-19 10:26:15.000000001 +0200
+@@ -464,7 +464,7 @@
+         except:
+             #cleaning if the error is recover later
+             key = line.split()[0]
+-            if hasattr(self, 'multiparticles_ms' and key in self.multiparticles_ms):
++            if hasattr(self, 'multiparticles_ms') and key in self.multiparticles_ms:
+                 del self.multiparticles_ms[key]
+             raise
+            
 diff -ur MG5_aMC_v2_4_0/Template/LO/bin/internal/Gridpack/run.sh ../new/MG5_aMC_v2_4_0/Template/LO/bin/internal/Gridpack/run.sh
 --- MG5_aMC_v2_4_0/Template/LO/bin/internal/Gridpack/run.sh	2016-05-12 13:08:53.000000001 +0200
 +++ ../new/MG5_aMC_v2_4_0/Template/LO/bin/internal/Gridpack/run.sh	2016-05-16 07:47:18.000000001 +0200
