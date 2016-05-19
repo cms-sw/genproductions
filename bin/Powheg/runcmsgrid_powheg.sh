@@ -131,6 +131,7 @@ then
         do
             scale2=${array[$iter]}
             rm -rf powheg.input          
+            
             echo -e "\n doing scale ${scale1}, ${scale2}\n"
             sed -e 's/.*renscfact.*/renscfact '$scale1'd0/ ; s/.*facscfact.*/facscfact '$scale2'd0/' powheg.input.tmp > powheg.input
 
