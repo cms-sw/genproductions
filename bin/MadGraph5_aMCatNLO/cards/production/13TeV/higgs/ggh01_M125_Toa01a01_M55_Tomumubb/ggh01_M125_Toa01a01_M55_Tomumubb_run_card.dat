@@ -265,7 +265,9 @@
 #          meaningful ONLY if plotted taking matchscale              *
 #          reweighting into account!                                 *
 #*********************************************************************
-   F  = use_syst      ! Enable systematics studies
+#   F  = use_syst      ! Enable systematics studies
+   F  = cut_decays      ! Enable systematics studies
+   T = use_syst   
 #
 #**************************************
 # Parameter of the systematics study
