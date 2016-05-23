@@ -5,7 +5,7 @@ from Configuration.Generator.Pythia8CUEP8M1Settings_cfi import *
 
 
 generator = cms.EDFilter("Pythia8GeneratorFilter",
-        comEnergy = cms.double(2510.0),
+        comEnergy = cms.double(5020.0),
         crossSection = cms.untracked.double(2.0221e+09),
         filterEfficiency = cms.untracked.double(1.0),
         maxEventsToPrint = cms.untracked.int32(1),
