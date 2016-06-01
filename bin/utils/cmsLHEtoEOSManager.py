@@ -211,7 +211,7 @@ if __name__ == '__main__':
             if not os.path.exists(f):
                 raise Exception('Input file '+f+' does not exists')
             if( f.lower().endswith(".lhe") ):
-                theCheckIntegrityCommand = 'xmllint -noout '+f
+                theCheckIntegrityCommand = 'xmllint -noout --stream '+f
                 exeCheckIntegrity = subprocess.Popen(["/bin/sh","-c", theCheckIntegrityCommand])
                 intCode = exeCheckIntegrity.wait()
                 if(intCode is not 0):
