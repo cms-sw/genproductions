@@ -170,7 +170,7 @@
  1d5  = mmjjmax ! max invariant mass of a jet pair
  1d5  = mmbbmax ! max invariant mass of a b pair
  1d5  = mmaamax ! max invariant mass of gamma gamma pair
- 1000  = mmllmax ! max invariant mass of l+l- (same flavour) lepton pair
+ 2000  = mmllmax ! max invariant mass of l+l- (same flavour) lepton pair
 #*********************************************************************
 # Minimum and maximum invariant mass for all letpons                 *
 #*********************************************************************
