@@ -1,0 +1,8 @@
+import model sm-no_b_mass
+
+define lep = e+ e- mu+ mu- ta+ ta-
+define nu = ve ve~ vm vm~ vt vt~
+
+generate p p > lep nu a j j QCD=0
+
+output WAJJToLNuAJJ_EWK_5f_LO
