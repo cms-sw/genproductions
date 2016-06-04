@@ -36,5 +36,5 @@ define j = g u c d s u~ c~ d~ s~
 define p = g u c d s u~ c~ d~ s~
 generate p p > b b~ xd xd~ [QCD] @1
 add process p p > b b~ xd xd~ j [QCD] @2
-output Scalar_NLO_match -nojpeg
+output bbbar_DM_NLO_MLM -nojpeg
 
