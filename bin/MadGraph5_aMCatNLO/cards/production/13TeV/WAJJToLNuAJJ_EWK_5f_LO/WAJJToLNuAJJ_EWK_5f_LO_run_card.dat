@@ -107,7 +107,7 @@
  20  = ptj       ! minimum pt for the jets 
  20  = ptb       ! minimum pt for the b 
  10  = pta       ! minimum pt for the photons 
- 15  = ptl       ! minimum pt for the charged leptons 
+ 0  = ptl       ! minimum pt for the charged leptons 
   0  = misset    ! minimum missing Et (sum of neutrino's momenta)
   0  = ptheavy   ! minimum pt for one heavy final state
  1.0  = ptonium   ! minimum pt for the quarkonium states
@@ -148,7 +148,7 @@
  0   = draa    ! min distance between gammas 
  0   = drbj    ! min distance between b and jet 
  0.05 = draj    ! min distance between gamma and jet 
- 0.3 = drjl    ! min distance between jet and lepton 
+ 0 = drjl    ! min distance between jet and lepton 
  0   = drab    ! min distance between gamma and b 
  0   = drbl    ! min distance between b and lepton 
  0.05 = dral    ! min distance between gamma and lepton 
