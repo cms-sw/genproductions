@@ -242,7 +242,7 @@
 # WBF cuts                                                           *
 #*********************************************************************
  0   = xetamin ! minimum rapidity for two jets in the WBF case  
- 1.0   = deltaeta ! minimum rapidity for two jets in the WBF case 
+ 0   = deltaeta ! minimum rapidity for two jets in the WBF case 
 #*********************************************************************
 # KT DURHAM CUT                                                      *
 #*********************************************************************
