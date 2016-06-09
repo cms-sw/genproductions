@@ -2,7 +2,7 @@ vdecaymode   11   ! 1: e, 2: mu, 3: tau, 4:nu_e, 5: nu_mu, 6: nu_tau, 0: hadroni
 hdecaymode  -1   ! for PYTHIA or HERWIG: do not decay the Higgs boson
 
 hmass  450d0        ! Higgs boson mass 
-hwidth 4.69d1       ! Higgs boson width 
+hwidth 5.3d-02       ! Higgs boson width 
 
 min_h_mass    10d0      
 max_h_mass  1000d0 
