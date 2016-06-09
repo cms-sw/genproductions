@@ -60,7 +60,7 @@ iseed    SEED    ! initialize random number sequence
 #rand2     3      ! initialize random number sequence 
 
 hmass    900d0       ! Higgs boson mass
-hwidth   4.49d2      ! Higgs boson width
+hwidth   1.26d-01      ! Higgs boson width
 hdecaymode -1   ! -1 no decay
                 ! 0 all decay channels open
                 ! 1-6 d dbar, u ubar,..., t tbar
