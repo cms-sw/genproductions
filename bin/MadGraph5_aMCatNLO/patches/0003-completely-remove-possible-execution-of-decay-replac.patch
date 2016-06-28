@@ -1,7 +1,7 @@
 From 434a2734d923a29d02934bd52244d6dac3ac8326 Mon Sep 17 00:00:00 2001
 From: Josh Bendavid <Josh.Bendavid@cern.ch>
 Date: Mon, 27 Jun 2016 19:02:53 +0200
-Subject: [PATCH 3/5] completely remove possible execution of decay, replace and addmasses for LO gridpacks
+Subject: [PATCH 3/8] completely remove possible execution of decay, replace and addmasses for LO gridpacks
 
 ---
  Template/LO/bin/internal/Gridpack/run.sh |   38 ------------------------------

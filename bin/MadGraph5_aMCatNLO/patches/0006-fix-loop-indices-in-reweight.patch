@@ -1,0 +1,41 @@
+From 5bace9c85037528f39a7c14c3c4a4247f2e5df70 Mon Sep 17 00:00:00 2001
+From: Josh Bendavid <Josh.Bendavid@cern.ch>
+Date: Tue, 28 Jun 2016 22:49:12 +0200
+Subject: [PATCH 6/8] fix loop indices in reweight
+
+---
+ madgraph/interface/amcatnlo_run_interface.py |    8 ++++----
+ 1 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/madgraph/interface/amcatnlo_run_interface.py b/madgraph/interface/amcatnlo_run_interface.py
+index b540cbf..0e1277a 100755
+--- a/madgraph/interface/amcatnlo_run_interface.py
++++ b/madgraph/interface/amcatnlo_run_interface.py
+@@ -3623,20 +3623,20 @@ RESTART = %(mint_mode)s
+             with open(pjoin(self.me_dir, 'SubProcesses', path, 'scale_pdf_dependence.dat'),'r') as f:
+                 data_line=f.readline()
+                 if "scale variations:" in data_line:
+-                    for i,scale in enumerate(self.run_card['dynamical_scale_choice']):
++                    for j,scale in enumerate(self.run_card['dynamical_scale_choice']):
+                         data_line = f.readline().split()
+                         scales_this = [float(val)*evt_wghts[i] for val in f.readline().replace("D", "E").split()]
+                         try:
+-                            scales[i] = [a + b for a, b in zip(scales[i], scales_this)]
++                            scales[j] = [a + b for a, b in zip(scales[j], scales_this)]
+                         except IndexError:
+                             scales+=[scales_this]
+                     data_line=f.readline()
+                 if "pdf variations:" in data_line:
+-                    for i,pdf in enumerate(self.run_card['lhaid']):
++                    for j,pdf in enumerate(self.run_card['lhaid']):
+                         data_line = f.readline().split()
+                         pdfs_this = [float(val)*evt_wghts[i] for val in f.readline().replace("D", "E").split()]
+                         try:
+-                            pdfs[i] = [a + b for a, b in zip(pdfs[i], pdfs_this)]
++                            pdfs[j] = [a + b for a, b in zip(pdfs[j], pdfs_this)]
+                         except IndexError:
+                             pdfs+=[pdfs_this]
+ 
+-- 
+1.7.1
+

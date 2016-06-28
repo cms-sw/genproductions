@@ -1,7 +1,7 @@
 From 632805b6eaaae6dcea6fb716b66c61806faa6beb Mon Sep 17 00:00:00 2001
 From: Josh Bendavid <Josh.Bendavid@cern.ch>
 Date: Mon, 27 Jun 2016 18:53:27 +0200
-Subject: [PATCH 1/5] add additional restrict files for sm models
+Subject: [PATCH 1/8] add additional restrict files for sm models
 
 ---
  .../restrict_lepton_masses_no_lepton_yukawas.dat   |   65 ++++++++++++++++++++
