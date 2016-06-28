@@ -95,14 +95,14 @@ CARDSDIR=${PRODHOME}/${carddir}
 
 MGBASEDIR=mgbasedir
 
-MG=MG5_aMC_v2.4.0.tar.gz
+MG=MG5_aMC_v2.4.2.tar.gz
 MGSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$MG
 
 #syscalc is a helper tool for madgraph to add scale and pdf variation weights for LO processes
 SYSCALC=SysCalc_V1.1.6.tar.gz
 SYSCALCSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$SYSCALC
 
-MGBASEDIRORIG=MG5_aMC_v2_4_0
+MGBASEDIRORIG=MG5_aMC_v2_4_2
 
 isscratchspace=0
 
@@ -119,7 +119,7 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
 #   export RELEASE=CMSSW_5_3_32_patch3
 
   export SCRAM_ARCH=slc6_amd64_gcc481
-  export RELEASE=CMSSW_7_1_22
+  export RELEASE=CMSSW_7_1_23
 
 
   ############################
@@ -146,10 +146,8 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   #Apply any necessary patches on top of official release
   #############################################
 
-  patch -l -p0 -i $PRODHOME/patches/mgfixes.patch
-  patch -l -p0 -i $PRODHOME/patches/models.patch
-
   cd $MGBASEDIRORIG
+  cat $PRODHOME/patches/*.patch | patch -p1
 
   #if lhapdf6 external is available then above points to lhapdf5 and needs to be overridden
   LHAPDF6TOOLFILE=$CMSSW_BASE/config/toolbox/$SCRAM_ARCH/tools/available/lhapdf6.xml
@@ -171,6 +169,7 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   echo "set automatic_html_opening False" >> mgconfigscript
 #  echo "set output_dependencies internal" >> mgconfigscript
   echo "set lhapdf $LHAPDFCONFIG" >> mgconfigscript
+#   echo "set ninja $PWD/HEPTools/lib" >> mgconfigscript
 
   if [ "$queue" == "local" ]; then
       echo "set run_mode 2" >> mgconfigscript
@@ -446,6 +445,7 @@ if [ "$isnlo" -gt "0" ]; then
   fi
   
   echo "mg5_path = ../mgbasedir" >> ./Cards/amcatnlo_configuration.txt
+#   echo "ninja = ../mgbasedir/HEPTools/lib" >> ./Cards/amcatnlo_configuration.txt
   echo "cluster_temp_path = None" >> ./Cards/amcatnlo_configuration.txt
 
   cd $WORKDIR
