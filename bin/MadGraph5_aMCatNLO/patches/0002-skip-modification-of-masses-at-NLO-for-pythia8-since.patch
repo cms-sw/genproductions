@@ -1,7 +1,7 @@
 From db33b2369c7f3bc3ab84575ed500b45612cccf53 Mon Sep 17 00:00:00 2001
 From: Josh Bendavid <Josh.Bendavid@cern.ch>
 Date: Mon, 27 Jun 2016 19:02:12 +0200
-Subject: [PATCH 2/5] skip modification of masses at NLO for pythia8 since this is unnecessary and can cause kinematic issues
+Subject: [PATCH 2/8] skip modification of masses at NLO for pythia8 since this is unnecessary and can cause kinematic issues
 
 ---
  Template/NLO/SubProcesses/MCmasses_PYTHIA8.inc |   22 +++++++++++-----------

@@ -1,7 +1,7 @@
 From 11fbdc8fd25669f94c770bf85253a8c2823ccde6 Mon Sep 17 00:00:00 2001
 From: Josh Bendavid <Josh.Bendavid@cern.ch>
 Date: Mon, 27 Jun 2016 19:08:19 +0200
-Subject: [PATCH 4/5] fix dependency of ninja installation on current directory
+Subject: [PATCH 4/8] fix dependency of ninja installation on current directory
 
 ---
  madgraph/iolibs/export_v4.py |    5 +++--

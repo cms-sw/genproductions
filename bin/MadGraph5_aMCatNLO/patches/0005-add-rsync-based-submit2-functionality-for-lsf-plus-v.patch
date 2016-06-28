@@ -1,7 +1,7 @@
 From 556b9a5288351fb2730cc9b71ea69a583201c4b7 Mon Sep 17 00:00:00 2001
 From: Josh Bendavid <Josh.Bendavid@cern.ch>
 Date: Mon, 27 Jun 2016 19:10:11 +0200
-Subject: [PATCH 5/5] add rsync-based submit2 functionality for lsf, plus various lsf robustness fixes and minor condor fixes
+Subject: [PATCH 5/8] add rsync-based submit2 functionality for lsf, plus various lsf robustness fixes and minor condor fixes
 
 ---
  madgraph/various/cluster.py |  273 ++++++++++++++++++++++++++++++++++++++++---
