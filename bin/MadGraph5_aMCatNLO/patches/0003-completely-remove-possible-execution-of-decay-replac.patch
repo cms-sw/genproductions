@@ -1,0 +1,60 @@
+From 434a2734d923a29d02934bd52244d6dac3ac8326 Mon Sep 17 00:00:00 2001
+From: Josh Bendavid <Josh.Bendavid@cern.ch>
+Date: Mon, 27 Jun 2016 19:02:53 +0200
+Subject: [PATCH 3/5] completely remove possible execution of decay, replace and addmasses for LO gridpacks
+
+---
+ Template/LO/bin/internal/Gridpack/run.sh |   38 ------------------------------
+ 1 files changed, 0 insertions(+), 38 deletions(-)
+
+diff --git a/Template/LO/bin/internal/Gridpack/run.sh b/Template/LO/bin/internal/Gridpack/run.sh
+index cf49ebe..e75fffb 100755
+--- a/Template/LO/bin/internal/Gridpack/run.sh
++++ b/Template/LO/bin/internal/Gridpack/run.sh
+@@ -78,43 +78,5 @@ else
+     cd ..
+ fi
+ 
+-if [[ -e ./DECAY/decay ]]; then
+-    cd DECAY
+-    echo -$seed > iseed.dat
+-    for ((i = 1 ;  i <= 20;  i++)) ; do
+-	if [[ -e decay_$i\.in ]]; then
+-	    echo "Decaying events..."
+-	    mv ../events.lhe ../events_in.lhe
+-	    ./decay < decay_$i\.in
+-	fi
+-    done
+-    cd ..
+-fi
+-
+-if [[ -e ./REPLACE/replace.pl ]]; then
+-    for ((i = 1 ;  i <= 20;  i++)) ; do
+-	if [[ -e ./REPLACE/replace_card$i\.dat ]];then
+-	    echo "Adding flavors..."
+-	    mv ./events.lhe ./events_in.lhe
+-	    cd ./REPLACE
+-	    ./replace.pl ../events_in.lhe ../events.lhe < replace_card$i\.dat
+-	    cd ..
+-	fi
+-    done
+-fi
+-
+-# part added by Stephen Mrenna to correct the kinematics of the replaced
+-#  particles
+-if [[ -e ./madevent/bin/internal/addmasses.py ]]; then
+-  mv ./events.lhe ./events.lhe.0
+-  python ./madevent/bin/internal/addmasses.py ./events.lhe.0 ./events.lhe
+-  if [[ $? -eq 0 ]]; then
+-     echo "Mass added"
+-     rm -rf ./events.lhe.0 &> /dev/null
+-  else
+-     mv ./events.lhe.0 ./events.lhe
+-  fi
+-fi  
+-
+ gzip -f events.lhe
+ exit
+-- 
+1.7.1
+
