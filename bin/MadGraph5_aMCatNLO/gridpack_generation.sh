@@ -190,7 +190,7 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
       echo "set cluster_status_update 60 30" >> mgconfigscript
       echo "set cluster_nb_retry 3" >> mgconfigscript
       echo "set cluster_retry_wait 300" >> mgconfigscript 
-#       echo "set cluster_local_path `${LHAPDFCONFIG} --datadir`" >> mgconfigscript 
+      #echo "set cluster_local_path `${LHAPDFCONFIG} --datadir`" >> mgconfigscript 
       if [[ ! "$RUNHOME" =~ ^/afs/.* ]]; then
           echo "local path is not an afs path, batch jobs will use worker node scratch space instead of afs"
           #*FIXME* broken in mg_amc 2.4.0
@@ -203,14 +203,7 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   echo "save options" >> mgconfigscript
 
   ./bin/mg5_aMC mgconfigscript
-  
-  #*FIXME* workaround for broken set cluster_queue handling
-  echo "cluster_queue = $queue" >> input/mg5_configuration.txt
-  if [ "$isscratchspace" -gt "0" ]; then
-    echo "cluster_temp_path = `echo $RUNHOME`" >> input/mg5_configuration.txt
-  fi
-  
-  
+
   #get syscalc and compile
   wget --no-check-certificate ${SYSCALCSOURCE}
   tar xzf ${SYSCALC}
@@ -289,6 +282,13 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
 
   ./$MGBASEDIRORIG/bin/mg5_aMC ${name}_proc_card.dat
 
+  #*FIXME* workaround for broken set cluster_queue handling
+  echo "cluster_queue = $queue" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
+  if [ "$isscratchspace" -gt "0" ]; then
+    echo "cluster_temp_path = `echo $RUNHOME`" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
+  fi
+#   echo "cluster_local_path = `${LHAPDFCONFIG} --datadir`" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt    
+  
   if [ -e $CARDSDIR/${name}_patch_me.sh ]; then
       echo "Patching generated matrix element code with " $CARDSDIR/${name}_patch_me.sh
       /bin/bash "$CARDSDIR/${name}_patch_me.sh" "$WORKDIR/$MGBASEDIRORIG"
