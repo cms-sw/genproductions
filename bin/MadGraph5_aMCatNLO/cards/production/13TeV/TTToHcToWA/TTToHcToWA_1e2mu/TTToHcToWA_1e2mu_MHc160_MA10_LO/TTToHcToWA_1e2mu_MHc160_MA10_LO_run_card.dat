@@ -137,7 +137,7 @@
  5.0  = etaj    ! max rap for the jets 
  5.0  = etab    ! max rap for the b
  0.0  = etaa    ! max rap for the photons 
- 2.5  = etal    ! max rap for the charged leptons 
+ 2.6  = etal    ! max rap for the charged leptons 
  0.0  = etajmin ! min rap for the jets
  0.0  = etabmin ! min rap for the b
  0.0  = etaamin ! min rap for the photons

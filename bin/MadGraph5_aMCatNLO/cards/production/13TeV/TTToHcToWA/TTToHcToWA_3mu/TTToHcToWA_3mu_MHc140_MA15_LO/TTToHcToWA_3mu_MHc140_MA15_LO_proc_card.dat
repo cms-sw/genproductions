@@ -26,10 +26,10 @@ set loop_color_flows False
 set gauge unitary
 set complex_mass_scheme False
 set max_npoint_for_channel 0
-import model 2HDM
+import model 2HDM_MG5_noqmass-no_udcsb_mass
 define p = g u d c s u~ d~ c~ s~ b b~
 define w_q= u d c s
 define w_q~= u~ d~ c~ s~
 generate p p > t t~, (t > h+ b, (h+ > w+ h3, (w+ > w_q w_q~), (h3 > mu- mu+))),(t~ > w- b~, (w- > mu- vm~))
 add process p p > t t~, (t > h+ b, (h+ > w+ h3, (w+ > mu+ vm), (h3 > mu- mu+))),(t~ > w- b~, (w- > w_q w_q~))
-output TTToHcToWA_3mu_MHc140_MA15_LO
+output TTToHcToWA_3mu_MHc140_MA15_LO -nojpeg
