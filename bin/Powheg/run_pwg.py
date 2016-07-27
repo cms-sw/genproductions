@@ -349,6 +349,14 @@ sed -i -e "s#PDF[ \t]*=[ \t]*native#PDF=lhapdf#g" Makefile
 # Use gfortran, not other compilers which are not free/licensed
 sed -i -e "s#COMPILER[ \t]*=[ \t]*ifort#COMPILER=gfortran#g" Makefile
 
+# hardcode svn info
+sed -i -e 's#^pwhg_main:#$(shell ../svnversion/svnversion.sh>/dev/null) \
+\
+pwhg_main:#g' Makefile
+
+echo "pwhg_main.o: svn.version" >> Makefile
+echo "lhefwrite.o: svn.version" >> Makefile
+
 # Find proper histo booking routine (two of them exist)
 BOOK_HISTO="pwhg_bookhist-multi.o"
 if [ `echo ${POWHEGSRC} | cut -d "_" -f 1` = "powhegboxV1" ]; then
