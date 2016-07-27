@@ -199,6 +199,12 @@ def runSingleXgrid(parstage, xgrid, folderName, nEvents, powInputName, seed, pro
 
     f.write('sed -i "s/NEVENTS/'+nEvents+'/ ; s/SEED/'+seed+'/" powheg.input\n\n')
 
+    if process == 'W' :
+        if os.path.exists(powInputName) :
+            f.write('cp -p '+'/'.join(powInputName.split('/')[0:-1])+'/cteq6m . \n')   
+        else :
+            f.write('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+'/'.join(powInputName.split('/')[0:-1])+'/cteq6m \n')
+
     if process == 'gg_H_MSSM' :
         if os.path.exists(powInputName) :
             f.write('cp -p '+'/'.join(powInputName.split('/')[0:-1])+'/powheg-fh.in . \n')
