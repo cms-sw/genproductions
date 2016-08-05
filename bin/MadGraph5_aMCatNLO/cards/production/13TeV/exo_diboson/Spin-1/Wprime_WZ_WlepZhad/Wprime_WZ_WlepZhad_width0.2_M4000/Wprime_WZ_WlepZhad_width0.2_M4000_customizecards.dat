@@ -1,0 +1,5 @@
+set param_card mass 9000001 4000
+set param_card mass 9000002 4000
+set param_card rhoinputs 2 4000
+set param_card DECAY 9000001 800.0
+set param_card DECAY 9000002 800.0

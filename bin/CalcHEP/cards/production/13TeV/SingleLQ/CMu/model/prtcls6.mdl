@@ -1,0 +1,48 @@
+LQ_P&B_2nd_gen
+ Particles 
+ Full  name  | P | aP| number |2*spin| mass |width |color|aux|>LaTeX(A)<|>LaTeX(A+)<|
+gluon        |G  |G  |      21|2     |0     |0     |8    |G  |G         |G
+photon       |A  |A  |      22|2     |0     |0     |1    |G  |A         |A
+Z boson      |Z  |Z  |      23|2     |MZ    |wZ    |1    |G  |Z         |Z
+W boson      |W+ |W- |      24|2     |MW    |wW    |1    |G  |W+        |W-
+Higgs boson  |H  |H  |      25|0     |MH    |wH    |1    |   |          |
+ U3,+5/3,F0,v|up |UP |   10001|2     |MU3   |!GUP  |3    |   |up        |UP
+ U3,+2/3,F0,v|u0 |U0 |   10002|2     |MU3   |!GU0  |3    |   |u0        |U0
+ U3,-1/3,F0,v|um |UM |   10003|2     |MU3   |!GUM  |3    |   |um        |UM
+ U1,+2/3,F0,v|u1 |U1 |   10004|2     |MU1   |!GU1  |3    |   |u1        |U1
+~U1,+5/3,F0,v|ut |UT |   10005|2     |MUT   |!GUT  |3    |   |ut        |UT
+~V2,+1/3,F2,v|WP |wp |   10006|2     |MW2   |!GWP  |3    |   |WP        |wp
+~V2,-2/3,F2,v|WM |wm |   10007|2     |MW2   |!GWM  |3    |   |WM        |wm
+ V2,+4/3,F2,v|VP |vp |   10008|2     |MV2   |!GVP  |3    |   |VP        |vp
+ V2,+1/3,F2,v|VM |vm |   10009|2     |MV2   |!GVM  |3    |   |VM        |vm
+ R2,+5/3,F0,s|RP |rp |   10010|0     |MRP   |!GRP  |3    |   |rp        |RP
+ R2,+2/3,F0,s|RM |rm |   10011|0     |MRM   |!GRM  |3    |   |rm        |RM
+~R2,+2/3,F0,s|TP |tp |   10012|0     |MTP   |!GTP  |3    |   |tp        |TP
+~R2,-1/3,F0,s|TM |tm |   10013|0     |MTM   |!GTM  |3    |   |tm        |TM
+ S3,+4/3,F2,s|SP |sp |   10014|0     |MSP   |!GSP  |3    |   |SP        |sp
+ S3,+1/3,F2,s|S0 |s0 |   10015|0     |MS0   |!GS0  |3    |   |S0        |s0
+ S3,-2/3,F2,s|SM |sm |   10016|0     |MSM   |!GSM  |3    |   |SM        |sm
+~S1,+4/3,F2,s|ST |st |   10017|0     |MST   |!GST  |3    |   |ST        |st
+ S1,+1/3,F2,s|S1 |s1 |   10018|0     |MS1   |!GS1  |3    |   |S1        |s1
+u-quark      |u  |U  |       2|1     |0     |0     |3    |   |u         |U
+d-quark      |d  |D  |       1|1     |0     |0     |3    |   |d         |D
+c-quark      |c  |C  |       4|1     |0     |0     |3    |   |c         |C
+s-quark      |s  |S  |       3|1     |0     |0     |3    |   |s         |S
+t-quark      |t  |T  |       6|1     |0     |0     |3    |   |t         |T
+b-quark      |b  |B  |       5|1     |0     |0     |3    |   |b         |B
+neutrino     |n1 |N1 |      12|1     |0     |0     |1    |L  |n1        |N1
+electron     |e1 |E1 |      11|1     |me    |0     |1    |   |e1        |E1
+neutrino     |n2 |N2 |      14|1     |0     |0     |1    |L  |n2        |N2
+muon         |e2 |E2 |      13|1     |0     |0     |1    |   |e2        |E2
+neutrino     |n3 |N3 |      16|1     |0     |0     |1    |L  |n3        |N3
+tau          |e3 |E3 |      15|1     |0     |0     |1    |   |e3        |E3
+(G G RM rm)  |~RM|~rm|       0|2     |Maux  |0     |3    |*  |(rm)      |(RM)
+(G G RP rp)  |~RP|~rp|       0|2     |Maux  |0     |3    |*  |(rp)      |(RP)
+(G G S0 s0)  |~S0|~s0|       0|2     |Maux  |0     |3    |*  |(S0)      |(s0)
+(G G S1 s1)  |~S1|~s1|       0|2     |Maux  |0     |3    |*  |(S1)      |(s1)
+(G G SM sm)  |~SM|~sm|       0|2     |Maux  |0     |3    |*  |(SM)      |(sm)
+(G G SP sp)  |~SP|~sp|       0|2     |Maux  |0     |3    |*  |(SP)      |(sp)
+(G G ST st)  |~ST|~st|       0|2     |Maux  |0     |3    |*  |(ST)      |(st)
+(G G TM tm)  |~TM|~tm|       0|2     |Maux  |0     |3    |*  |(tm)      |(TM)
+(G G TP tp)  |~TP|~tp|       0|2     |Maux  |0     |3    |*  |(tp)      |(TP)
+=====================================================================================

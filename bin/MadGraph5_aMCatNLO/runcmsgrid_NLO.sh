@@ -26,6 +26,7 @@ fi
 export LHAPDF_DATA_PATH=`$LHAPDFCONFIG --datadir`
 
 echo "lhapdf = $LHAPDFCONFIG" >> ./Cards/amcatnlo_configuration.txt
+# echo "cluster_local_path = `${LHAPDFCONFIG} --datadir`" >> ./Cards/amcatnlo_configuration.txt
 
 echo "run_mode = 2" >> ./Cards/amcatnlo_configuration.txt
 echo "nb_core = $ncpu" >> ./Cards/amcatnlo_configuration.txt
@@ -54,13 +55,63 @@ fi
 
 runname=cmsgrid
 
-#generate events
-cat runscript.dat | ./bin/generate_events -ox -n $runname
 
-if [ "$domadspin" -gt "0" ] ; then 
-    mv ./Events/${runname}_decayed_1/events.lhe.gz $LHEWORKDIR/${runname}_final.lhe.gz
+#generate events
+
+#First check if normal operation with MG5_aMCatNLO events is planned
+if [ ! -e $LHEWORKDIR/header_for_madspin.txt ]; then
+  
+    cat runscript.dat | ./bin/generate_events -ox -n $runname
+
+    if [ "$domadspin" -gt "0" ] ; then 
+	mv ./Events/${runname}_decayed_1/events.lhe.gz $LHEWORKDIR/${runname}_final.lhe.gz
+    else
+	mv ./Events/${runname}/events.lhe.gz $LHEWORKDIR/${runname}_final.lhe.gz
+    fi
+
+#else handle external tarball
 else
-    mv ./Events/${runname}/events.lhe.gz $LHEWORKDIR/${runname}_final.lhe.gz
+    cd $LHEWORKDIR/external_tarball
+
+    ./runcmsgrid.sh $nevtjob $rnum $ncpu
+
+#splice blocks needed for MadSpin into LHE file
+    sed -i "/<init>/ {
+         h
+         r ../header_for_madspin.txt
+         g
+         N
+     }" cmsgrid_final.lhe
+
+#check if lhe file has reweighting blocks - temporarily save those, because MadSpin later overrides the entire header
+    if grep -R "<initrwgt>" cmsgrid_final.lhe; then
+        sed -n '/<initrwgt>/,/<\/initrwgt>/p' cmsgrid_final.lhe > ../initrwgt.txt
+    fi
+
+    mv cmsgrid_final.lhe ../cmsgrid_predecay.lhe
+    cd $LHEWORKDIR
+    rm -r external_tarball
+    echo "import $LHEWORKDIR/cmsgrid_predecay.lhe" > madspinrun.dat
+    echo "set ms_dir $LHEWORKDIR/process/madspingrid" >> madspinrun.dat
+    echo "launch" >> madspinrun.dat
+    cat madspinrun.dat | $LHEWORKDIR/mgbasedir/MadSpin/madspin
+    rm madspinrun.dat
+    rm cmsgrid_predecay.lhe.gz
+    mv cmsgrid_predecay_decayed.lhe.gz cmsgrid_final.lhe.gz
+    
+    if [ -e initrwgt.txt ];then
+    	gzip -d cmsgrid_final.lhe.gz
+    	sed -i "/<\/header>/ {
+             h
+             r initrwgt.txt
+             g
+             N
+        }" cmsgrid_final.lhe
+        rm initrwgt.txt
+        gzip cmsgrid_final.lhe
+    fi
+
+    
 fi
 
 cd $LHEWORKDIR

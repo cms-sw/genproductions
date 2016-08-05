@@ -209,9 +209,9 @@ then
     mv powheg.input powheg.input.${iteration}
 
 
-    echo -e "\ncomputing weights for 52+1 CT10 PDF variations\n"
-    iteration=10999
-    lastfile=11052
+    echo -e "\ncomputing weights for 56+1 CT14 PDF variations\n"
+    iteration=13099
+    lastfile=13156
     counter=3000
     while [ $iteration -lt $lastfile ];
     do
@@ -229,8 +229,8 @@ then
 	mv powheg.input powheg.input.${iteration}
     done
 
-    echo -e "\ncomputing weights for CT10 alphas=0.117 variation\n"
-    iteration=11067
+    echo -e "\ncomputing weights for CT14 alphas=0.117 variation\n"
+    iteration=13164
     echo -e "\n PDF set ${iteration}"
     sed -e 's/.*lhans1.*/lhans1 '$iteration'/ ; s/.*lhans2.*/lhans2 '$iteration'/' powheg.input.tmp > powheg.input
     counter=$(( counter + 1 ))
@@ -243,8 +243,8 @@ then
     mv pwgevents-rwgt.lhe pwgevents.lhe
     mv powheg.input powheg.input.${iteration}
 
-    echo -e "\ncomputing weights for CT10 alphas=0.119 variation\n"
-    iteration=11069
+    echo -e "\ncomputing weights for CT14 alphas=0.119 variation\n"
+    iteration=13166
     echo -e "\n PDF set ${iteration}"
     sed -e 's/.*lhans1.*/lhans1 '$iteration'/ ; s/.*lhans2.*/lhans2 '$iteration'/' powheg.input.tmp > powheg.input
     counter=$(( counter + 1 ))
@@ -257,7 +257,20 @@ then
     mv pwgevents-rwgt.lhe pwgevents.lhe
     mv powheg.input powheg.input.${iteration}
  
+    echo -e "\ncomputing weights for CT10 central values\n"
+    iteration=11000
+    echo -e "\n PDF set ${iteration}"
+    sed -e 's/.*lhans1.*/lhans1 '$iteration'/ ; s/.*lhans2.*/lhans2 '$iteration'/' powheg.input.tmp > powheg.input
+    counter=$(( counter + 1 ))
+    echo -e "\nlhrwgt_id '${counter}'" >> powheg.input
+    echo -e "lhrwgt_descr 'PDF set = ${iteration}'" >> powheg.input
+    echo -e "lhrwgt_group_name 'PDF_variation'" >> powheg.input
+    echo -e "lhrwgt_group_combine 'hessian'" >> powheg.input
 
+    ../pwhg_main &>> reweightlog_${process}_${seed}.txt  
+    mv pwgevents-rwgt.lhe pwgevents.lhe
+    mv powheg.input powheg.input.${iteration}
+ 
     echo -e "\ncomputing weights for 50+1 MMHT2014nlo68clas118 PDF variations\n"
     iteration=25199
     lastfile=25250
@@ -359,6 +372,26 @@ cat pwgevents.lhe | grep -v "Random number generator exit values" > ${file}_fina
 ls -l ${file}_final.lhe
 sed -i 's/Input file powheg.input contained:/Process: '$process'\nInput file powheg.input contained:/g' ${file}_final.lhe
 pwd
+
+if [ -s pwgstat.dat ]; then
+  mv pwgstat.dat pwg-stat.dat
+fi
+
+if [ -s pwg-stat.dat ]; then
+  XSECTION=`cat pwg-stat.dat | grep total | awk '{print $7}'`
+  XSECUNC=` cat pwg-stat.dat | grep total | awk '{print $9}'`
+  head=`cat   cmsgrid_final.lhe | grep -in "<init>" | sed "s@:@ @g" | awk '{print $1+1}' | tail -1`
+  tail=`wc -l cmsgrid_final.lhe | awk -v tmp="$head" '{print $1-2-tmp}'`
+  tail -${tail} cmsgrid_final.lhe                           >  cmsgrid_final.lhe_tail
+  head -${head} cmsgrid_final.lhe                           >  cmsgrid_final.lhe_F
+  echo "  "$XSECTION"   "$XSECUNC"  1.00000000000E-00 10001" >>  cmsgrid_final.lhe_F
+  echo "</init>"                                           >>  cmsgrid_final.lhe_F
+  cat cmsgrid_final.lhe_tail                               >>  cmsgrid_final.lhe_F
+  mv cmsgrid_final.lhe_F cmsgrid_final.lhe
+fi
+#Replace the negative so pythia will work
+sed "s@-1000021@ 1000022@g" cmsgrid_final.lhe           > cmsgrid_final.lhe_F1
+sed "s@1000021@1000022@g"   cmsgrid_final.lhe_F1          > cmsgrid_final.lhe
 cp ${file}_final.lhe ${WORKDIR}/.
 
 
