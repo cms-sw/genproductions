@@ -1,0 +1,10 @@
+import model EWdim6-EWdim65f
+define p = g u c d s b u~ c~ d~ s~ b~
+define j = p
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+generate p p > w+ w- / t h QED=6 , w+ > l+ vl , w- > j j
+add process p p > w+ w- / t h QED=6 , w+ > j j  , w- > l- vl~ @2
+output WW_aTGC_reweight

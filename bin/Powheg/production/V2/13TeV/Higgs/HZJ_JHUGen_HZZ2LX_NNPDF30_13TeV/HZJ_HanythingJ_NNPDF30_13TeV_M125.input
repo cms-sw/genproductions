@@ -2,13 +2,13 @@ vdecaymode   10  ! 1,2,3 => electron,muon,tau; 4,5,6 => respective neutrinos
 hdecaymode  -1  ! undecayed Higgs boson (for PYTHIA and HERWIG)
 
 hmass  125d0        ! Higgs boson mass 
-hwidth 0.407d-2     ! Higgs boson width 
+hwidth 0.00407d0     ! Higgs boson width 
 
 min_h_mass    10d0      
-max_h_mass  1000d0 
+max_h_mass  13000d0 
 
 min_z_mass     10d0
-max_z_mass    1000d0
+max_z_mass    13000d0
 
 
 
@@ -47,11 +47,11 @@ use-old-grid    1 ! if 1 use old grid if file pwggrids.dat is present (<> 1 rege
 use-old-ubound  1 ! if 1 use norm of upper bounding function stored in pwgubound.dat, if present; <> 1 regenerate
 
 ! the typical call uses 1/1400 seconds (1400 calls per second)
-ncall1 400000      ! Number of calls for the construction of the importance sampling grid
-itmx1 1           ! Number of iterations for grid
-ncall2 400000      ! Number of calls for the computation of the upper bounding envelope
+ncall1 1000000      ! Number of calls for the construction of the importance sampling grid
+itmx1 3           ! Number of iterations for grid
+ncall2 75000      ! Number of calls for the computation of the upper bounding envelope
                   ! for the generation of radiation
-itmx2 1           ! Number of iterations for the above
+itmx2 5           ! Number of iterations for the above
 ! Notice: the total number of calls is ncall2*itmx2*foldcsi*foldy*foldphi
 foldcsi 2         ! number of folds on csi integration
 foldy   5         ! number of folds on  y  integration
@@ -89,7 +89,7 @@ fastbtlbound 1
 storeinfo_rwgt 1   ! store info to allow for reweighting
 pdfreweight 1
 
-
+complexpolescheme 1
 
 minlo 1    
 minlo_nnll 1  

@@ -21,7 +21,7 @@ lhans2  260000         ! pdf set for hadron 2 (LHA numbering)
 use-old-grid    1 ! if 1 use old grid if file pwggrids.dat is present (<> 1 regenerate)
 use-old-ubound  1 ! if 1 use norm of upper bounding function stored in pwgubound.dat, if present; <> 1 regenerate
 
-ncall1 125000  ! number of calls for initializing the integration grid
+ncall1 550000  ! number of calls for initializing the integration grid
 itmx1    7     ! number of iterations for initializing the integration grid
 ncall2 75000   ! number of calls for computing the integral and finding upper bound
 itmx2    5     ! number of iterations for computing the integral and finding upper bound
@@ -59,8 +59,8 @@ iseed    SEED    ! initialize random number sequence
 #rand1     941046295      ! initialize random number sequence 
 #rand2     3      ! initialize random number sequence 
 
-hmass    120d0       ! Higgs boson mass
-hwidth   3.51d-03    ! Higgs boson width
+hmass    120       ! Higgs boson mass
+hwidth   0.00351D0    ! Higgs boson width
 hdecaymode -1   ! -1 no decay
                 ! 0 all decay channels open
                 ! 1-6 d dbar, u ubar,..., t tbar
@@ -69,14 +69,14 @@ hdecaymode -1   ! -1 no decay
                 ! 11  ZZ
                 ! 12  gamma gamma
 
-
+complexpolescheme 1 ! switch on Complex Pole scheme
+masswindow 9999d0
 
 #iupperisr 1 ! (default 1) choice of ISR upper bounding functional form 
 #iupperfsr 2 ! (default 2) choice of FSR upper bounding functional form 
 
 ! Z+jet production
 #bornktmin  0d0    ! (default 0d0) kt min at Born level for jet in Z+jet 
-
 
 
 

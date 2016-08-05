@@ -3,7 +3,7 @@ from GeneratorInterface.GenFilters.CosmicGenFilterHelix_cff import *
 
 generator = cms.EDProducer("CosMuoGenProducer",
     ZCentrOfTarget = cms.double(0.0),
-    MinP = cms.double(10.0),
+    MinP = cms.double(4.0),
     MinP_CMS = cms.double(-1.0), ##negative means MinP_CMS = MinP. Only change this if you know what you are doing!
     MaxP = cms.double(3000.0),
     MinTheta = cms.double(0.0),

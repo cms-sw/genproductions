@@ -50,6 +50,9 @@ if [ -z ${name} ]; then
   if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
 fi
 
+if [ -z ${queue} ]; then
+  queue=local
+fi
 
 #________________________________________
 # to be set for user specific
@@ -77,7 +80,7 @@ cd $PRODHOME
 git status
 echo "Current git revision is:"
 git rev-parse HEAD
-git diff
+git diff | cat
 cd -
 
 AFSFOLD=${PRODHOME}/${name}
@@ -92,79 +95,14 @@ CARDSDIR=${PRODHOME}/${carddir}
 
 MGBASEDIR=mgbasedir
 
-MG=MG5_aMC_v2.2.2.tar.gz
+MG=MG5_aMC_v2.3.3.tar.gz
 MGSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$MG
 
 #syscalc is a helper tool for madgraph to add scale and pdf variation weights for LO processes
-SYSCALC=SysCalc_V1.1.0.tar.gz
+SYSCALC=SysCalc_V1.1.5alpha.tar.gz
 SYSCALCSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$SYSCALC
 
-#higgs characterization model NLO, needed for gluon-gluon-higgs effective vertex for gluon fusion production
-#or for non-scalar production
-HCNLO=HC_NLO_X0_UFO.zip
-HCNLOSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$HCNLO
-
-## Single VLQ model
-SINGLEVLQ=STP_UFO_freeWidth.tar.gz
-SINGLEVLQSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$SINGLEVLQ
-
-#diagonal CKM 
-SINGLEVLQ_diagCKM=STP_UFO_freeWidth_diagCKM.zip
-SINGLEVLQSOURCE_diagCKM=https://cms-project-generators.web.cern.ch/cms-project-generators/$SINGLEVLQ_diagCKM
-
-## Models for searches of diboson resonances
-VVMODEL=dibosonResonanceModel.tar.gz
-VVSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$VVMODEL
-
-# Model for search for Z' resonances
-ZPRIMEMODEL=topBSM_UFO.zip
-ZPRIMESOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${ZPRIMEMODEL}
-
-# Model for searches for monotops
-MONOTOPMODEL=monotops_UFO.tgz
-MONOTOPSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${MONOTOPMODEL}
-
-## DM Model Vector Mediator
-SimplifiedVDM=SimplifiedDM_VectorMediator_UFO.tar.gz
-SimplifiedVDMSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${SimplifiedVDM}
-
-## Type I See Saw Majorana Neutrino
-TypeIMajNeutrinoMODEL=typeISeeSaw_MajNeutrino_UFO.tar.gz
-TypeIMajNeutrinoSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${TypeIMajNeutrinoMODEL}
-
-# Model for search for excited top quark (t*)
-TOP32MODEL=top32.tgz
-TOP32SOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${TOP32MODEL}
-
-# Model for Z' > VLQ
-ZPTOVLQMODEL=onerho.tar.gz
-ZPTOVLQSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${ZPTOVLQMODEL}
-
-## Model for tGamma FCNC                                                                                                                              
-TGAMMAMODEL=tqAandG_UFO.zip
-TGAMMASOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${TGAMMAMODEL}
-
-#ttDM EFT model, needed for ttDM production
-EFFDM=EffDM_222_restricted.tar
-EFFDMSOURCE=/afs/cern.ch/cms/generators/www/
-
-# 2HDM model, needed for the charged Higgs analysis
-CHMODEL=2HDMtypeII.tar.gz
-CHSOURCE=/afs/cern.ch/cms/generators/www/
-
-# 2HDM model for A->Zh->lltautau
-AZHMODEL=2HDM4MG5-may15.tar.gz
-AZHSOURCE=/afs/cern.ch/cms/generators/www/
-
-# Model for EWK DM model
-EWKDMMODEL=EWModel_FermionDM_UFO.tar
-EWKDMSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/${EWKDMMODEL}
-
-MGBASEDIRORIG=MG5_aMC_v2_2_2
-
-#activate this to avoid thousands of mails from CERN LSF
-LSFMAIL=no
-#LSFMAIL=yes
+MGBASEDIRORIG=MG5_aMC_v2_3_3
 
 isscratchspace=0
 
@@ -178,10 +116,10 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   cd $AFS_GEN_FOLDER
 
 #   export SCRAM_ARCH=slc6_amd64_gcc472 #Here one should select the correct architechture corresponding with the CMSSW release
-#   export RELEASE=CMSSW_5_3_23_patch1
+#   export RELEASE=CMSSW_5_3_30
 
   export SCRAM_ARCH=slc6_amd64_gcc481
-  export RELEASE=CMSSW_7_1_14
+  export RELEASE=CMSSW_7_1_20_patch3
 
 
   ############################
@@ -231,30 +169,36 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
 
   echo "set auto_update 0" > mgconfigscript
   echo "set automatic_html_opening False" >> mgconfigscript
-  echo "set output_dependencies internal" >> mgconfigscript
+#  echo "set output_dependencies internal" >> mgconfigscript
   echo "set lhapdf $LHAPDFCONFIG" >> mgconfigscript
 
-  if [ -n "$queue" ]; then
+  if [ "$queue" == "local" ]; then
+      echo "set run_mode 2" >> mgconfigscript
+  else
+      #suppress lsf emails
+      export LSB_JOB_REPORT_MAIL="N"
+  
       echo "set run_mode  1" >> mgconfigscript
-      echo "set cluster_type lsf" >> mgconfigscript
-      echo "set cluster_queue $queue" >> mgconfigscript
-      echo "set cluster_status_update 300 30" >> mgconfigscript
+      if [ "$queue" == "condor" ]; then
+        echo "set cluster_type condor" >> mgconfigscript
+        echo "set cluster_queue None" >> mgconfigscript
+      else
+        echo "set cluster_type lsf" >> mgconfigscript
+        echo "set cluster_queue $queue" >> mgconfigscript
+      fi 
+      echo "set cluster_status_update 60 30" >> mgconfigscript
       echo "set cluster_nb_retry 3" >> mgconfigscript
       echo "set cluster_retry_wait 300" >> mgconfigscript 
+#       echo "set cluster_local_path `${LHAPDFCONFIG} --datadir`" >> mgconfigscript 
       if [[ ! "$RUNHOME" =~ ^/afs/.* ]]; then
           echo "local path is not an afs path, batch jobs will use worker node scratch space instead of afs"
           echo "set cluster_temp_path `echo $RUNHOME`" >> mgconfigscript 
+          echo "set cluster_retry_wait 30" >> mgconfigscript 
           isscratchspace=1
       fi      
-  else
-      echo "set run_mode 2" >> mgconfigscript
   fi
 
   echo "save options" >> mgconfigscript
-
-  if [ "${LSFMAIL}" == "no" ]; then
-     export LSB_JOB_REPORT_MAIL="N"
-  fi
 
   ./bin/mg5_aMC mgconfigscript
 
@@ -264,96 +208,34 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   rm $SYSCALC
 
   cd SysCalc
-  sed -i "s#INCLUDES =  -I../include#INCLUDES =  -I../include -I${LHAPDFINCLUDES} -I${BOOSTINCLUDES}#g" src/Makefile
-  sed -i "s#LIBS = -lLHAPDF#LIBS = ${LHAPDFLIBS}/libLHAPDF.a #g" src/Makefile
-  make
+  sed -i "s#INCLUDES = -I../include#INCLUDES = -I../include -I${BOOSTINCLUDES}#g" src/Makefile  
+  PATH=`${LHAPDFCONFIG} --prefix`/bin:${PATH} make
   cd ..
   
-  #get HC nlo model
-  wget --no-check-certificate ${HCNLOSOURCE}
-  cd models
-  unzip ../${HCNLO}
- # adding restrict files for massive muons
-  cp $PRODHOME/patches/restrict_heft_muelmass.dat  ./HC_NLO_X0_UFO/
-  cp $PRODHOME/patches/paramcard_heft_muelmass.dat  ./HC_NLO_X0_UFO/
-  cd ..  
-  
-  #get single VLQ models
-  wget --no-check-certificate ${SINGLEVLQSOURCE}
-  wget --no-check-certificate ${SINGLEVLQSOURCE_diagCKM}  
-  cd models
-  tar -zxvf ../${SINGLEVLQ}
-  unzip ../${SINGLEVLQ_diagCKM}
-  cd ..
-
-  ## DM Model Vector Mediator
-  wget --no-check-certificate ${SimplifiedVDMSOURCE}
-  cd models
-  tar -zxvf ../${SimplifiedVDM}
-  cd ..
-
-  ## Type I See Saw Majorana Neutrino
-  wget --no-check-certificate ${TypeIMajNeutrinoSOURCE}
-  cd models
-  tar -zxvf ../${TypeIMajNeutrinoMODEL}
-  cd ..
-
-  #get Diboson model
-  wget --no-check-certificate ${VVSOURCE}
-  #get Monotop model
-  wget --no-check-certificate ${MONOTOPSOURCE}
-  cd models
-  tar xvzf ../${VVMODEL}
-  tar xvzf ../${MONOTOPMODEL}
-  cd ..
-
-  #get Z' model
-  wget --no-check-certificate -O ${ZPRIMEMODEL} ${ZPRIMESOURCE}
-  cd models
-  unzip ../${ZPRIMEMODEL}
-  cd ..
-
-  #get t* model
-  wget --no-check-certificate -O ${TOP32MODEL} ${TOP32SOURCE}
-  cd models
-  tar -xaf ../${TOP32MODEL}
-  cd ..
-
-  #get Z' > VLQ model
-  wget --no-check-certificate ${ZPTOVLQSOURCE}
-  cd models
-  tar xvzf ../${ZPTOVLQMODEL}
-  cd ..
-  
-  #get tGamma FCNC model                                                                                                                              
-  wget --no-check-certificate -O ${TGAMMAMODEL} ${TGAMMASOURCE}
-  cd models
-  unzip ../${TGAMMAMODEL}
-  cd ..
-
-  # get ttDM model
-  cp ${EFFDMSOURCE}/${EFFDM} .
-  cd models
-  tar xvf ../${EFFDM}
-  cd ..
-
-  # get charged Higgs model
-  cp ${CHSOURCE}/${CHMODEL} .
-  cd models
-  tar xvf ../${CHMODEL}
-  cd ..
-
-  # get A->Zh model
-  cp ${AZHSOURCE}/${AZHMODEL} .
-  cd models
-  tar xvf ../${AZHMODEL}
-  cd ..
-
-  #get EWK DM model
-  wget --no-check-certificate -O ${EWKDMMODEL} ${EWKDMSOURCE}
-  cd models
-  tar  -xf ../${EWKDMMODEL}
-  cd ..
+  #load extra models if needed
+  if [ -e $CARDSDIR/${name}_extramodels.dat ]; then
+    echo "Loading extra models specified in $CARDSDIR/${name}_extramodels.dat"
+    #strip comments
+    sed 's:#.*$::g' $CARDSDIR/${name}_extramodels.dat | while read model
+    do
+      #get needed BSM model
+      if [[ $model = *[!\ ]* ]]; then
+        echo "Loading extra model $model"
+        wget --no-check-certificate https://cms-project-generators.web.cern.ch/cms-project-generators/$model	
+        cd models
+        if [[ $model == *".zip"* ]]; then
+          unzip ../$model
+        elif [[ $model == *".tgz"* ]]; then
+          tar zxvf ../$model
+        elif [[ $model == *".tar"* ]]; then
+          tar xavf ../$model
+        else 
+          echo "A BSM model is specified but it is not in a standard archive (.zip or .tar)"
+        fi
+        cd ..
+      fi
+    done
+  fi
 
   cd $WORKDIR
   
@@ -397,6 +279,11 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   ########################
 
   ./$MGBASEDIRORIG/bin/mg5_aMC ${name}_proc_card.dat
+
+  if [ -e $CARDSDIR/${name}_patch_me.sh ]; then
+      echo "Patching generated matrix element code with " $CARDSDIR/${name}_patch_me.sh
+      /bin/bash "$CARDSDIR/${name}_patch_me.sh" "$WORKDIR/$MGBASEDIRORIG"
+  fi;
   
 else  
   echo "Reusing existing directory assuming generated code already exists"
@@ -499,11 +386,6 @@ if [ -e $CARDSDIR/${name}_FKS_params.dat ]; then
   cp $CARDSDIR/${name}_FKS_params.dat ./Cards/FKS_params.dat
 fi
 
-if [ -e $CARDSDIR/${name}_MadLoopParams.dat ]; then
-  echo "copying custom MadLoopParams.dat file"
-  cp $CARDSDIR/${name}_MadLoopParams.dat ./Cards/MadLoopParams.dat
-fi
-
 if [ -e $CARDSDIR/${name}_setscales.f ]; then
   echo "copying custom setscales.f file"
   cp $CARDSDIR/${name}_setscales.f ./SubProcesses/setscales.f
@@ -513,6 +395,12 @@ if [ -e $CARDSDIR/${name}_reweight_xsec.f ]; then
   echo "copying custom reweight_xsec.f file"
   cp $CARDSDIR/${name}_reweight_xsec.f ./SubProcesses/reweight_xsec.f
 fi
+
+if [ -e $CARDSDIR/${name}_reweight_card.dat ]; then
+  echo "copying custom reweight file"
+  cp $CARDSDIR/${name}_reweight_card.dat ./Cards/reweight_card.dat
+fi
+
 
 #automatically detect NLO mode or LO mode from output directory
 isnlo=0
@@ -539,8 +427,16 @@ if [ "$isnlo" -gt "0" ]; then
   echo "done" >> makegrid.dat
 
   cat makegrid.dat | ./bin/generate_events -n pilotrun
+
+  if [ -e $CARDSDIR/${name}_externaltarball.dat ]; then
+      gunzip ./Events/pilotrun_decayed_1/events.lhe.gz
+      sed -n '/<MG5ProcCard>/,/<\/slha>/p' ./Events/pilotrun_decayed_1/events.lhe > header_for_madspin.txt
+      mv header_for_madspin.txt $WORKDIR
+      gzip ./Events/pilotrun_decayed_1/events.lhe
+  fi
   
   echo "mg5_path = ../mgbasedir" >> ./Cards/amcatnlo_configuration.txt
+  echo "cluster_temp_path = None" >> ./Cards/amcatnlo_configuration.txt
 
   cd $WORKDIR
   
@@ -554,6 +450,10 @@ if [ "$isnlo" -gt "0" ]; then
 
   cp $PRODHOME/runcmsgrid_NLO.sh ./runcmsgrid.sh
   
+  if [ -e $CARDSDIR/${name}_externaltarball.dat ]; then
+    mv $WORKDIR/header_for_madspin.txt . 
+  fi
+  
 else
   #LO mode
   #######################
@@ -561,16 +461,26 @@ else
   #######################
 
   echo "done" > makegrid.dat
-  echo "set gridpack true" >> makegrid.dat
+  echo "set gridpack True" >> makegrid.dat
   if [ -e $CARDSDIR/${name}_customizecards.dat ]; then
           cat $CARDSDIR/${name}_customizecards.dat >> makegrid.dat
           echo "" >> makegrid.dat
   fi
   echo "done" >> makegrid.dat
 
+#   set +e
   cat makegrid.dat | ./bin/generate_events pilotrun
-  
+
   cd $WORKDIR
+  
+#   echo "creating debug tarball"
+#   cp ${LOGFILE} ./gridpack_generation.log
+#   DEBUGTARBALL=${name}_debug_tarball.tar.gz
+#   tar -czps --ignore-failed-read -f ${DEBUGTARBALL} processtmp gridpack_generation.log
+#   echo "moving tarball to ${PRODHOME}/${DEBUGTARBALL}"
+#   mv ${DEBUGTARBALL} ${PRODHOME}/${DEBUGTARBALL}
+#   set -e
+  
   echo "cleaning temporary output"
   mv $WORKDIR/processtmp/pilotrun_gridpack.tar.gz $WORKDIR/
   mv $WORKDIR/processtmp/Events/pilotrun/unweighted_events.lhe.gz $WORKDIR/
@@ -588,15 +498,29 @@ else
     cat $CARDSDIR/${name}_madspin_card.dat >> madspinrun.dat
     cat madspinrun.dat | $WORKDIR/$MGBASEDIRORIG/MadSpin/madspin
     rm madspinrun.dat
-    rm $WORKDIR/unweighted_events.lhe.gz
     rm -rf tmp*
     cp $CARDSDIR/${name}_madspin_card.dat $WORKDIR/process/madspin_card.dat
+  fi
+  
+  # precompile reweighting if necessary
+  if [ -e $CARDSDIR/${name}_reweight_card.dat ]; then
+      pwd
+      echo "preparing reweighting step"
+      mkdir -p madevent/Events/pilotrun
+      cp $WORKDIR/unweighted_events.lhe.gz madevent/Events/pilotrun
+      echo "f2py_compiler=" `which gfortran` >> ./madevent/Cards/me5_configuration.txt
+      #need to set library path or f2py won't find libraries
+      export LIBRARY_PATH=$LD_LIBRARY_PATH
+      cd madevent
+      bin/madevent reweight pilotrun
+      cd ..      
   fi
 
   echo "preparing final gridpack"
   
   #set to single core mode
   echo "mg5_path = ../../mgbasedir" >> ./madevent/Cards/me5_configuration.txt
+  echo "cluster_temp_path = None" >> ./madevent/Cards/me5_configuration.txt
   echo "run_mode = 0" >> ./madevent/Cards/me5_configuration.txt  
     
   cd $WORKDIR
@@ -611,16 +535,46 @@ else
   
 fi
 
+
+
+
 #clean unneeded files for generation
 $PRODHOME/cleangridmore.sh
+
+
+#
+#Plan to decay events from external tarball?
+# 
+
+if [ -e $CARDSDIR/${name}_externaltarball.dat ]; then
+    echo "Locating the external tarball"
+    cp $CARDSDIR/${name}_externaltarball.dat .
+    source $CARDSDIR/${name}_externaltarball.dat
+    echo $EXTERNAL_TARBALL 
+    cp $EXTERNAL_TARBALL .
+    tarname=$(basename $EXTERNAL_TARBALL)
+    mkdir external_tarball
+    cd external_tarball
+    tar -xvaf ../$tarname
+    cd ..
+    rm $tarname
+fi
+
 
 echo "Saving log file"
 #copy log file
 cp ${LOGFILE} ./gridpack_generation.log
 
+
+
 #create tarball with very aggressive xz settings (trade memory and cpu usage for compression ratio)
 echo "Creating tarball"
-XZ_OPT="--lzma2=preset=9,dict=512MiB" tar -cJpsf ${name}_tarball.tar.xz mgbasedir process runcmsgrid.sh gridpack_generation.log
+
+if [ ! -e $CARDSDIR/${name}_externaltarball.dat ]; then
+    XZ_OPT="--lzma2=preset=9,dict=512MiB" tar -cJpsf ${name}_tarball.tar.xz mgbasedir process runcmsgrid.sh gridpack_generation.log
+else
+    XZ_OPT="--lzma2=preset=9,dict=512MiB" tar -cJpsf ${name}_tarball.tar.xz mgbasedir process runcmsgrid.sh gridpack_generation.log external_tarball ${name}_externaltarball.dat header_for_madspin.txt
+fi
 
 mv ${name}_tarball.tar.xz ${PRODHOME}/${name}_tarball.tar.xz
 

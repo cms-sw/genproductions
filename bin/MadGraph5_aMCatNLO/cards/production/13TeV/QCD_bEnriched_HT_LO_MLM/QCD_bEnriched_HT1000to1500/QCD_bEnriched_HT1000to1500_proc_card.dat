@@ -1,0 +1,35 @@
+#************************************************************
+#*                        MadGraph 5                        *
+#*                                                          *
+#*                *                       *                 *
+#*                  *        * *        *                   *
+#*                    * * * * 5 * * * *                     *
+#*                  *        * *        *                   *
+#*                *                       *                 *
+#*                                                          *
+#*                                                          *
+#*         VERSION 1.5.11                2013-06-21         *
+#*                                                          *
+#*    The MadGraph Development Team - Please visit us at    *
+#*    https://server06.fynu.ucl.ac.be/projects/madgraph     *
+#*                                                          *
+#************************************************************
+#*                                                          *
+#*               Command File for MadGraph 5                *
+#*                                                          *
+#*     run as ./bin/mg5  filename                           *
+#*                                                          *
+#************************************************************
+
+import model sm-ckm_no_b_mass
+define p = p b b~
+define j = p
+define bquark = b b~
+
+# Specify process(es) to run
+generate p p > bquark j @0
+add process p p > bquark j j @1
+add process p p > bquark j j j @2
+
+# Output processes to MadEvent directory
+output QCD_bEnriched_HT1000to1500 -nojpeg

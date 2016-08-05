@@ -8,7 +8,7 @@
       implicit none
       include 'hepeup.f'  
       include 'heprup.f'
-      double precision dmmass,medmass
+      double precision dmmass,medmass,olddmmass
       double precision ran2
       double precision p1x(4),p2x(4),pmx(4) !==== rest frame
       double precision p1(4),p2(4),pm(4) !===== lab frame
@@ -93,8 +93,9 @@
       
       xth=ran2()
       xphi=ran2()
-
+      olddmmass=dmmass
       call phi3m(xth,xphi,pm,p1x,p2x,dmmass,dmmass,wt,*999)
+      dmmass=olddmmass
 
 !      write(6,*) p1x,p2x
 !=====write to file
@@ -161,7 +162,11 @@ c     factor of (2*pi)^4 included in definition of phase space
 
       smin=(m1+m2)**2
       if (s .lt. smin) then
-         return 1
+c         return 1
+c hack fix to force onshell decay
+         m1=sqrt(s-1)/2
+         m2=sqrt(s-1)/2
+         write(6,*) 'changed',m1,' ',m2,' ',sqrt(s)
       endif
 
       if (dsqrt(s)-m1-m2 .lt. 0d0) return 1 

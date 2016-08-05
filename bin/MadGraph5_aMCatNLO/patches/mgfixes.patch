@@ -1,106 +1,33 @@
-diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/interface/amcatnlo_run_interface.py MG5_aMC_v2_2_2/madgraph/interface/amcatnlo_run_interface.py
---- ../orig/MG5_aMC_v2_2_2/madgraph/interface/amcatnlo_run_interface.py	2014-11-06 17:28:34.000000001 +0100
-+++ MG5_aMC_v2_2_2/madgraph/interface/amcatnlo_run_interface.py	2015-03-14 00:03:54.000000001 +0100
-@@ -1518,9 +1518,7 @@
-                     nevents_unweighted = []
- 
-                 split = i == 2 and \
--                        int(self.run_card['nevt_job']) > 0 and \
--                        any([int(l.split()[1]) > int(self.run_card['nevt_job']) \
--                            for l in nevents_unweighted if l])
-+                        int(self.run_card['nevt_job']) > 0
- 
-                 if i == 2 or not options['only_generation']:
-                     # if the number of events requested is zero,
-@@ -3436,7 +3434,8 @@
-                 elif len(args) ==4:
-                     keep_fourth_arg = True
-                     # this is for the split event generation
--                    output_files.append('G%s%s_%s' % (args[1], i, args[3]))
-+                    current = 'G%s%s_%s' % (args[1], i, args[3])
-+                    output_files.append(current)
-                 required_output.append('%s/log_MINT%s.txt' % (current,args[2]))
-                 if args[2] in ['0','1']:
-                     required_output.append('%s/results.dat' % current)
-diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/interface/madevent_interface.py MG5_aMC_v2_2_2/madgraph/interface/madevent_interface.py
---- ../orig/MG5_aMC_v2_2_2/madgraph/interface/madevent_interface.py	2014-11-06 17:28:34.000000001 +0100
-+++ MG5_aMC_v2_2_2/madgraph/interface/madevent_interface.py	2015-03-14 00:03:54.000000001 +0100
-@@ -2508,10 +2508,14 @@
-             os.remove(pjoin(self.me_dir,'SubProcesses', 'combine.log'))
-         except Exception:
-             pass
--        self.cluster.launch_and_wait('../bin/internal/run_combine', 
-+        #run_combinel locally rather than on cluster
-+        misc.call(['../bin/internal/run_combine'], 
-                                         cwd=pjoin(self.me_dir,'SubProcesses'),
--                                        stdout=pjoin(self.me_dir,'SubProcesses', 'combine.log'),
--                                        required_output=[pjoin(self.me_dir,'SubProcesses', 'combine.log')])
-+                                        stdout=open(pjoin(self.me_dir,'SubProcesses', 'combine.log'),'w'))
-+        #self.cluster.launch_and_wait('../bin/internal/run_combine', 
-+                                        #cwd=pjoin(self.me_dir,'SubProcesses'),
-+                                        #stdout=pjoin(self.me_dir,'SubProcesses', 'combine.log'),
-+                                        #required_output=[pjoin(self.me_dir,'SubProcesses', 'combine.log')])
-         
-         output = misc.mult_try_open(pjoin(self.me_dir,'SubProcesses','combine.log')).read()
-         # Store the number of unweighted events for the results object
-diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/iolibs/export_fks.py MG5_aMC_v2_2_2/madgraph/iolibs/export_fks.py
---- ../orig/MG5_aMC_v2_2_2/madgraph/iolibs/export_fks.py	2014-11-06 17:28:34.000000001 +0100
-+++ MG5_aMC_v2_2_2/madgraph/iolibs/export_fks.py	2015-03-14 00:03:54.000000001 +0100
-@@ -630,7 +630,7 @@
- 
-         #import nexternal/leshouches in Source
-         ln('nexternal.inc', '../../Source', log=False)
--        ln('leshouche_decl.inc', '../../Source', log=False)
-+        ln('born_leshouche.inc', '../../Source', log=False)
- 
- 
-         # Return to SubProcesses dir
-@@ -2599,19 +2599,34 @@
-                 for initial_state in init_states:
-                     if initial_state in pdf_codes.keys():
-                         if subproc_group:
--                            pdf_lines = pdf_lines + \
--                                        ("%s%d=PDG2PDF(ABS(LPP(IB(%d))),%d*LP," + \
-+                            if abs(pdgtopdf[initial_state]) <= 7:  
-+                                pdf_lines = pdf_lines + \
-+                                    ("%s%d=PDG2PDF(ABS(LPP(IB(%d))),%d*LP," + \
-                                          "XBK(IB(%d)),DSQRT(Q2FACT(%d)))\n") % \
-                                          (pdf_codes[initial_state],
-                                           i + 1, ibeam, pdgtopdf[initial_state],
-                                           ibeam, ibeam)
-+                            else:
-+                                # setting other partons flavours outside quark, gluon, photon to be 0d0
-+                                pdf_lines = pdf_lines + \
-+                                    ("c settings other partons flavours outside quark, gluon, photon to 0d0\n" + \
-+                                     "%s%d=0d0\n") % \
-+                                         (pdf_codes[initial_state],i + 1)                                
-                         else:
--                            pdf_lines = pdf_lines + \
--                                        ("%s%d=PDG2PDF(ABS(LPP(%d)),%d*LP," + \
-+                            if abs(pdgtopdf[initial_state]) <= 7:  
-+                                pdf_lines = pdf_lines + \
-+                                    ("%s%d=PDG2PDF(ABS(LPP(%d)),%d*LP," + \
-                                          "XBK(%d),DSQRT(Q2FACT(%d)))\n") % \
-                                          (pdf_codes[initial_state],
-                                           i + 1, ibeam, pdgtopdf[initial_state],
-                                           ibeam, ibeam)
-+                            else:
-+                                # setting other partons flavours outside quark, gluon, photon to be 0d0
-+                                pdf_lines = pdf_lines + \
-+                                    ("c settings other partons flavours outside quark, gluon, photon to 0d0\n" + \
-+                                     "%s%d=0d0\n") % \
-+                                         (pdf_codes[initial_state],i + 1)                                
-+
-                 pdf_lines = pdf_lines + "ENDIF\n"
- 
-             # Add up PDFs for the different initial state particles
-diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/various/cluster.py MG5_aMC_v2_2_2/madgraph/various/cluster.py
---- ../orig/MG5_aMC_v2_2_2/madgraph/various/cluster.py	2014-11-06 17:28:34.000000001 +0100
-+++ MG5_aMC_v2_2_2/madgraph/various/cluster.py	2015-03-21 23:43:28.000000001 +0100
-@@ -18,6 +18,11 @@
- import re
+diff -ur -x '.*/models/.*' ../old/MG5_aMC_v2_3_3/madgraph/interface/reweight_interface.py MG5_aMC_v2_3_3/madgraph/interface/reweight_interface.py
+--- ../old/MG5_aMC_v2_3_3/madgraph/interface/reweight_interface.py	2015-10-26 02:18:52.000000001 +0100
++++ MG5_aMC_v2_3_3/madgraph/interface/reweight_interface.py	2015-11-18 20:27:57.000000001 +0100
+@@ -782,7 +782,8 @@
+                     os.remove(pjoin(Pdir, 'matrix%spy.so' % newtag))
+                     newtag  = "L%s" % newtag
+                     os.environ['MENUM'] = newtag
+-                    misc.compile(['matrix%spy.so' % newtag], cwd=Pdir)
++                    if not self.rwgt_dir or not os.path.exists(pjoin(Pdir,'matrix%spy.so' % newtag )):
++                        misc.compile(['matrix%spy.so' % newtag], cwd=Pdir)
+                     mymod = __import__('rw_me.SubProcesses.%s.matrix%spy' % (Pname, newtag), globals(), locals(), [],-1)
+                 
+                 S = mymod.SubProcesses
+@@ -818,7 +819,8 @@
+                 os.remove(pjoin(Pdir, 'matrix%spy.so' % metag ))
+                 metag = "L%s" % metag
+                 os.environ['MENUM'] = str(metag)
+-                misc.compile(['matrix%spy.so' % metag], cwd=pjoin(subdir, Pdir))
++                if not self.rwgt_dir or not os.path.exists(pjoin(Pdir,'matrix%spy.so' % metag)):
++                    misc.compile(['matrix%spy.so' % metag], cwd=pjoin(subdir, Pdir))
+                 mymod = __import__("rw_me_second.SubProcesses.%s.matrix%spy" % (Pname, metag))
+             reload(mymod)
+             S = mymod.SubProcesses
+diff -ur -x '.*/models/.*' ../old/MG5_aMC_v2_3_3/madgraph/various/cluster.py MG5_aMC_v2_3_3/madgraph/various/cluster.py
+--- ../old/MG5_aMC_v2_3_3/madgraph/various/cluster.py	2015-10-26 02:18:52.000000001 +0100
++++ MG5_aMC_v2_3_3/madgraph/various/cluster.py	2015-12-11 15:13:21.000000001 +0100
+@@ -19,6 +19,11 @@
  import glob
  import inspect
+ import sys
 +import platform
 +import signal
 +import uuid
@@ -109,34 +36,66 @@ diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/various/cluster.py MG5_aMC_v2_2_2/madgr
  
  logger = logging.getLogger('madgraph.cluster') 
  
-@@ -73,6 +78,9 @@
-         return deco_f_store
-     return deco_store
+@@ -83,6 +88,10 @@
+     else:
+         return True
  
 +def cleansubproc(subproc):
 +    #print "killing %s" % subproc
 +    subproc.terminate()
- 
++
  class Cluster(object):
      """Basic Class for all cluster type submission"""
-@@ -312,14 +320,14 @@
-             with option: %s
-             file missing: %s.
-             Stopping all runs.''' % (job_id, args, path))
--            #self.remove()
-+            raise ClusterManagmentError('Job exhausted all retries.')
-         elif args['nb_submit'] >= self.nb_retry:
-             logger.critical('''Fail to run correctly job %s.
-             with option: %s
-             file missing: %s
-             Fails %s times
-             No resubmition. ''' % (job_id, args, path, args['nb_submit']))
--            #self.remove()
-+            raise ClusterManagmentError('Job exhausted all retries.')
-         else:
-             args['nb_submit'] += 1            
-             logger.warning('resubmit job (for the %s times)' % args['nb_submit'])
-@@ -1279,6 +1287,80 @@
+     name = 'mother class'
+@@ -97,6 +106,7 @@
+         self.submitted_dirs = [] #HTCaaS
+         self.submitted_exes = [] #HTCaaS
+         self.submitted_args = [] #HTCaaS
++        self.hold_msg = ""
+ 
+         if 'cluster_queue' in opts:
+             self.cluster_queue = opts['cluster_queue']
+@@ -307,7 +317,8 @@
+             else:
+                 nb_job = idle + run + finish + fail
+             if fail:
+-                raise ClusterManagmentError('Some Jobs are in a Hold/... state. Please try to investigate or contact the IT team')
++                raise ClusterManagmentError('Some Jobs are in a Hold/... state. Error messages are below.' 
++                        'Please try to investigate or contact the IT team. \n%s' % self.hold_msg)
+             if idle + run == 0:
+                 #time.sleep(20) #security to ensure that the file are really written on the disk
+                 logger.info('All jobs finished')
+@@ -840,6 +851,7 @@
+                   Universe = vanilla
+                   notification = Error
+                   Initialdir = %(cwd)s
++                  Request_memory = 528
+                   %(requirement)s
+                   getenv=True
+                   queue 1
+@@ -916,6 +928,7 @@
+                   Universe = vanilla
+                   notification = Error
+                   Initialdir = %(cwd)s
++                  Request_memory = 528
+                   %(requirement)s
+                   getenv=True
+                   queue 1
+@@ -1023,6 +1036,13 @@
+                     idle += 1
+                 elif status == 'R':
+                     run += 1
++                elif status == 'H':
++                    error = misc.Popen(["condor_q", "-format", "'%s\n'", "HoldReason", id], 
++                                            stdout=subprocess.PIPE)
++                    self.hold_msg += "Hold message for ID %s:" % id
++                    for line in error.stdout:
++                        self.hold_msg += line
++                    fail += 1
+                 elif status != 'C':
+                     fail += 1
+ 
+@@ -1349,6 +1358,80 @@
      name = 'lsf'
      job_id = 'LSB_JOBID'
  
@@ -217,7 +176,7 @@ diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/various/cluster.py MG5_aMC_v2_2_2/madgr
      @multiple_try()
      def submit(self, prog, argument=[], cwd=None, stdout=None, stderr=None, log=None,
                 required_output=[], nb_submit=0):
-@@ -1304,6 +1386,8 @@
+@@ -1372,6 +1455,8 @@
          if log is None:
              log = '/dev/null'
          
@@ -226,9 +185,9 @@ diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/various/cluster.py MG5_aMC_v2_2_2/madgr
          text += prog
          if argument:
              text += ' ' + ' '.join(argument)
-@@ -1330,6 +1414,139 @@
+@@ -1397,6 +1482,136 @@
+         self.submitted_ids.append(id)
          return id        
-         
          
 +    @store_input()
 +    @multiple_try()
@@ -300,14 +259,14 @@ diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/various/cluster.py MG5_aMC_v2_2_2/madgr
 +            export RSYNC_PASSWORD=$MADGRAPHRSYNCPASSWD_%(rsyncport)s
 +                 
 +            #dereference symlinks for input
-+            rsync -vvv --timeout=60 --contimeout=60 --port %(rsyncport)s -rptL %(infilelist)s
++            rsync -vvv --timeout=600 --contimeout=600 --port %(rsyncport)s -rptL %(infilelist)s
 +
 +            echo '%(arguments)s' > arguments
 +            chmod +x ./%(script)s        
 +            %(program)s ./%(script)s %(arguments)s
 +            
 +            #copy symlinks as symlinks for output and don't overwrite existing files unless updated
-+            rsync -vvv --timeout=60 --contimeout=60 --port %(rsyncport)s -rptul %(outfilelist)s
++            rsync -vvv --timeout=600 --contimeout=600 --port %(rsyncport)s -rptul %(outfilelist)s
 +            
 +            """
 +        dico = {'script': os.path.basename(prog),
@@ -319,13 +278,11 @@ diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/various/cluster.py MG5_aMC_v2_2_2/madgr
 +        'arguments': ' '.join([str(a) for a in argument]),
 +        'program': ' ' if '.py' in prog else 'bash'}
 +
-+        me_dir = os.path.realpath(os.path.join(cwd,prog)).rsplit('/SubProcesses',1)[0]
-+        me_dir = misc.digest(me_dir)[-14:]
-+        if not me_dir[0].isalpha():
-+            me_dir = 'a' + me_dir[1:]
++        me_dir = self.get_jobs_identifier(cwd, prog)
 +
 +        text = text % dico
-+        command = ['bsub', '-cwd', '/tmp/$USER', '-C0', '-J', me_dir]
++        cwdpath = "/tmp/" + os.environ.get("USER", '')
++        command = ['bsub', '-cwd', cwdpath, '-C0', '-J', me_dir]
 +        if cwd is None:
 +            cwd = os.getcwd()
 +        #else:
@@ -361,68 +318,174 @@ diff -ur ../orig/MG5_aMC_v2_2_2/madgraph/various/cluster.py MG5_aMC_v2_2_2/madgr
 +            % output
 +        self.submitted += 1
 +        self.submitted_ids.append(id)
-+        return id        
-+        
++        return id         
+         
      @multiple_try()
      def control_one_job(self, id):
-         """ control the status of a single job with it's cluster id """
-diff -ur ../orig/MG5_aMC_v2_2_2/MadSpin/decay.py MG5_aMC_v2_2_2/MadSpin/decay.py
---- ../orig/MG5_aMC_v2_2_2/MadSpin/decay.py	2014-11-06 17:28:34.000000001 +0100
-+++ MG5_aMC_v2_2_2/MadSpin/decay.py	2015-03-14 00:03:54.000000001 +0100
-@@ -2161,8 +2161,9 @@
-                 # here I also need to specify the Monte Carlo Masses
-                 stdin_text+=" %s \n" % nb_mc_masses
-                 
--                mepath = self.all_ME[production_tag]['path']
--                mepath = mepath.replace('production_me','full_me');
-+                decay = self.all_ME[production_tag]['decays'][0]
-+                decay_me=self.all_ME.get_decay_from_tag(production_tag, decay['decay_tag'])
-+                mepath = decay_me['path']
-                                 
-                 trial_nb, BWvalue, weight, momenta, failed, use_mc_masses, helicities = self.loadfortran( 'unweighting', mepath, stdin_text)
-                                 
-@@ -3223,7 +3224,7 @@
-             helicities=[lastline[i] for i in range(len(lastline))]
-             output = trials, BWvalue, weight, momenta, failed, use_mc_masses, helicities
+@@ -1428,37 +1643,48 @@
+         
+         if not self.submitted_ids:
+             return 0, 0, 0, 0
+-        
+-        cmd = "bjobs " + ' '.join(self.submitted_ids) 
+-        status = misc.Popen([cmd], shell=True, stdout=subprocess.PIPE)
  
--        if len(self.calculator) > 100:
-+        if len(self.calculator) > self.options['max_running_process']:
-             logger.debug('more than 100 calculator. Perform cleaning')
-             nb_calls = self.calculator_nbcall.values()
-             nb_calls.sort()
-@@ -3231,6 +3232,15 @@
-             for key, external in list(self.calculator.items()):
-                 nb = self.calculator_nbcall[key]
-                 if nb < cut:
-+                    if key[0]=='full':
-+                      path=key[1]
-+                      end_signal="5 0 0 0 \n"  # before closing, write down the seed 
-+                      external.stdin.write(end_signal)
-+                      ranmar_state=external.stdout.readline()
-+                      ranmar_file=pjoin(path,'ranmar_state.dat')
-+                      ranmar=open(ranmar_file, 'w')
-+                      ranmar.write(ranmar_state)
-+                      ranmar.close()
-                     external.stdin.close()
-                     external.stdout.close()
-                     external.terminate()
-diff -ur ../orig/MG5_aMC_v2_2_2/MadSpin/interface_madspin.py MG5_aMC_v2_2_2/MadSpin/interface_madspin.py
---- ../orig/MG5_aMC_v2_2_2/MadSpin/interface_madspin.py	2014-11-06 17:28:34.000000001 +0100
-+++ MG5_aMC_v2_2_2/MadSpin/interface_madspin.py	2015-03-14 00:03:54.000000001 +0100
-@@ -533,6 +533,9 @@
-                 %s""" \
-                 % (self.options['ms_dir'], name, orig_block, block)
-         
-+        #replace init information
-+        generate_all.banner['init'] = self.banner['init']
+         jobstatus = {}
+-        for line in status.stdout:
+-            line = line.strip()
+-            if 'JOBID' in line:
+-                continue
+-            splitline = line.split()
+-            id = splitline[0]
+-            if id not in self.submitted_ids:
+-                continue
+-            jobstatus[id] = splitline[2]
 +        
-         # NOW we have all the information available for RUNNING
-         
-         if self.seed:
-diff -ur ../orig/MG5_aMC_v2_2_2/Template/LO/bin/internal/Gridpack/run.sh MG5_aMC_v2_2_2/Template/LO/bin/internal/Gridpack/run.sh
---- ../orig/MG5_aMC_v2_2_2/Template/LO/bin/internal/Gridpack/run.sh	2014-11-06 17:28:34.000000001 +0100
-+++ MG5_aMC_v2_2_2/Template/LO/bin/internal/Gridpack/run.sh	2015-03-14 00:03:54.000000001 +0100
-@@ -78,37 +78,5 @@
++        #split into smaller groups of 200 jobs to avoid problems with truncated output
++        idsplitting = 200
++        splitids = [self.submitted_ids[i:i+idsplitting] for i in range(0, len(self.submitted_ids), idsplitting)]
++        
++        for ids in splitids:
++            cmd = "bjobs " + ' '.join(ids) 
++            status = misc.Popen([cmd], shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
++
++            for line in status.stdout:
++                line = line.strip()
++                if 'JOBID' in line:
++                    continue
++                splitline = line.split()
++                if splitline[0] in ids:
++                    id = splitline[0]
++                    jobstatus[id] = splitline[2]
++                else:
++                    splitline = re.split('[><]',line)
++                    if len(splitline)==3 and splitline[0] == 'Job ' and splitline[2] == " is not found" and splitline[1] in ids:
++                        id = splitline[1]
++                        jobstatus[id] = 'MISSING'
+ 
+         idle, run, fail = 0, 0, 0
+         for id in self.submitted_ids[:]:
+             if id in jobstatus:
+                 status = jobstatus[id]
+             else:
+-                status = 'MISSING'
++                status = 'PEND'
++                
+             if status == 'RUN':
+                 run += 1
+-            elif status == 'PEND':
+-                idle += 1
+-            else:
++            elif status in ['DONE', 'EXIT', 'MISSING']:
+                 status = self.check_termination(id)
+                 if status == 'wait':
+                     run += 1
+                 elif status == 'resubmit':
+-                    idle += 1                
++                    idle += 1
++            else:
++                idle += 1
+ 
+         return idle, run, self.submitted - (idle+run+fail), fail
+ 
+diff -ur -x '.*/models/.*' ../old/MG5_aMC_v2_3_3/MadSpin/interface_madspin.py MG5_aMC_v2_3_3/MadSpin/interface_madspin.py
+--- ../old/MG5_aMC_v2_3_3/MadSpin/interface_madspin.py	2015-10-26 02:18:52.000000001 +0100
++++ MG5_aMC_v2_3_3/MadSpin/interface_madspin.py	2015-11-19 22:44:54.000000001 +0100
+@@ -693,24 +693,56 @@
+                     else:
+                         mg5.exec_cmd("generate %s" % proc)
+                         mg5.exec_cmd("output %s -f" % decay_dir)
+-                options = dict(mg5.options)
+-                import madgraph.interface.madevent_interface as madevent_interface
+-                me5_cmd = madevent_interface.MadEventCmdShell(me_dir=os.path.realpath(\
++                    
++                    import madgraph.interface.madevent_interface as madevent_interface
++                    options = dict(mg5.options)
++                    if self.options['ms_dir']:
++                        misc.sprint("start gridpack!")
++                        # we are in gridpack mode -> create it
++                        me5_cmd = madevent_interface.MadEventCmdShell(me_dir=os.path.realpath(\
+                                                 decay_dir), options=options)
+-                me5_cmd.options["automatic_html_opening"] = False
+-                if self.options["run_card"]:
+-                    run_card = self.options["run_card"]
++                        me5_cmd.options["automatic_html_opening"] = False
++                        if self.options["run_card"]:
++                            run_card = self.options["run_card"]
++                        else:
++                            run_card = banner.RunCard(pjoin(decay_dir, "Cards", "run_card.dat"))                        
++                        
++                        run_card["iseed"] = self.seed
++                        run_card['gridpack'] = True
++                        run_card.write(pjoin(decay_dir, "Cards", "run_card.dat"))
++                        param_card = self.banner['slha']
++                        open(pjoin(decay_dir, "Cards", "param_card.dat"),"w").write(param_card)
++                        self.seed += 1
++                        # actually creation
++                        me5_cmd.exec_cmd("generate_events run_01 -f")
++                        me5_cmd.exec_cmd("exit")                        
++                        #remove pointless informat
++                        misc.call(["rm", "Cards", "bin", 'Source', 'SubProcesses'], cwd=decay_dir)
++                        misc.call(['tar', '-xzpvf', 'run_01_gridpack.tar.gz'], cwd=decay_dir)
++                
++                # Now generate the events
++
++                
++                if not self.options['ms_dir']:
++                    me5_cmd = madevent_interface.MadEventCmdShell(me_dir=os.path.realpath(\
++                                                    decay_dir), options=options)
++                    me5_cmd.options["automatic_html_opening"] = False
++                    if self.options["run_card"]:
++                        run_card = self.options["run_card"]
++                    else:
++                        run_card = banner.RunCard(pjoin(decay_dir, "Cards", "run_card.dat"))
++                    run_card["nevents"] = int(1.2*nb_event)
++                    run_card["iseed"] = self.seed
++                    run_card.write(pjoin(decay_dir, "Cards", "run_card.dat"))
++                    param_card = self.banner['slha']
++                    open(pjoin(decay_dir, "Cards", "param_card.dat"),"w").write(param_card)
++                    self.seed += 1
++                    me5_cmd.exec_cmd("generate_events run_01 -f")
++                    me5_cmd.exec_cmd("exit")
++                    out[i] = lhe_parser.EventFile(pjoin(decay_dir, "Events", 'run_01', 'unweighted_events.lhe.gz'))            
+                 else:
+-                    run_card = banner.RunCard(pjoin(decay_dir, "Cards", "run_card.dat"))
+-                run_card["nevents"] = int(1.2*nb_event)
+-                run_card["iseed"] = self.seed
+-                run_card.write(pjoin(decay_dir, "Cards", "run_card.dat"))
+-                param_card = self.banner['slha']
+-                open(pjoin(decay_dir, "Cards", "param_card.dat"),"w").write(param_card)
+-                self.seed += 1
+-                me5_cmd.exec_cmd("generate_events run_01 -f")
+-                me5_cmd.exec_cmd("exit")     
+-                out[i] = lhe_parser.EventFile(pjoin(decay_dir, "Events", 'run_01', 'unweighted_events.lhe.gz'))            
++                    misc.call(['run.sh', str(int(1.2*nb_event)), str(self.seed)], cwd=decay_dir)     
++                    out[i] = lhe_parser.EventFile(pjoin(decay_dir, 'events.lhe.gz'))            
+                 if cumul:
+                     break
+             
+@@ -742,9 +774,10 @@
+                     # final state and tag as to decay
+                     to_decay[particle.pdg] += 1
+ 
++        import random
++
+         # Handle the banner of the output file
+         if not self.seed:
+-            import random
+             self.seed = random.randint(0, int(30081*30081))
+             self.do_set('seed %s' % self.seed)
+             logger.info('Will use seed %s' % self.seed)
+Only in MG5_aMC_v2_3_3/models/loop_qcd_qed_sm: restrict_lepton_masses_no_lepton_yukawas.dat
+Only in MG5_aMC_v2_3_3/models/loop_sm: restrict_ckm_no_b_mass.dat
+Only in MG5_aMC_v2_3_3/models/sm: restrict_ckm_lepton_masses.dat
+Only in MG5_aMC_v2_3_3/models/sm: restrict_ckm_lepton_masses_no_b_mass.dat
+Only in MG5_aMC_v2_3_3/models/sm: restrict_ckm_no_b_mass.dat
+Only in MG5_aMC_v2_3_3/models/sm: restrict_lepton_masses_no_b_mass.dat
+diff -ur -x '.*/models/.*' ../old/MG5_aMC_v2_3_3/Template/LO/bin/internal/Gridpack/run.sh MG5_aMC_v2_3_3/Template/LO/bin/internal/Gridpack/run.sh
+--- ../old/MG5_aMC_v2_3_3/Template/LO/bin/internal/Gridpack/run.sh	2015-10-26 02:18:52.000000001 +0100
++++ MG5_aMC_v2_3_3/Template/LO/bin/internal/Gridpack/run.sh	2015-11-18 17:21:02.000000001 +0100
+@@ -78,43 +78,5 @@
      cd ..
  fi
  
@@ -456,49 +519,53 @@ diff -ur ../orig/MG5_aMC_v2_2_2/Template/LO/bin/internal/Gridpack/run.sh MG5_aMC
 -if [[ -e ./madevent/bin/internal/addmasses.py ]]; then
 -  mv ./events.lhe ./events.lhe.0
 -  python ./madevent/bin/internal/addmasses.py ./events.lhe.0 ./events.lhe
+-  if [[ $? -eq 0 ]]; then
+-     echo "Mass added"
+-     rm -rf ./events.lhe.0 &> /dev/null
+-  else
+-     mv ./events.lhe.0 ./events.lhe
+-  fi
 -fi  
 -
  gzip -f events.lhe
  exit
-diff -ur ../orig/MG5_aMC_v2_2_2/Template/NLO/Source/setrun.f MG5_aMC_v2_2_2/Template/NLO/Source/setrun.f
---- ../orig/MG5_aMC_v2_2_2/Template/NLO/Source/setrun.f	2014-11-06 17:28:34.000000001 +0100
-+++ MG5_aMC_v2_2_2/Template/NLO/Source/setrun.f	2015-03-14 00:03:54.000000001 +0100
-@@ -56,7 +56,6 @@
-      &     xmaxup(maxpup),lprup(maxpup)
- c
-       include 'nexternal.inc'
--      include 'leshouche_decl.inc'
-       logical gridrun,gridpack
-       integer          iseed
-       common /to_seed/ iseed
-@@ -65,6 +64,13 @@
-       common /event_normalisation/event_norm
-       integer iappl
-       common /for_applgrid/ iappl
-+C      
-+      integer    maxflow
-+      parameter (maxflow=999)
-+      integer idup(nexternal,maxproc)
-+      integer mothup(2,nexternal,maxproc)
-+      integer icolup(2,nexternal,maxflow)
-+      include 'born_leshouche.inc'
- c
- c----------
- c     start
-@@ -74,7 +80,6 @@
- c MZ add the possibility to have shower_MC input lowercase
-       call to_upper(shower_MC)
- C
--      call read_leshouche_info(idup_d,mothup_d,icolup_d)
+diff -ur -x '.*/models/.*' ../old/MG5_aMC_v2_3_3/Template/NLO/SubProcesses/MCmasses_PYTHIA8.inc MG5_aMC_v2_3_3/Template/NLO/SubProcesses/MCmasses_PYTHIA8.inc
+--- ../old/MG5_aMC_v2_3_3/Template/NLO/SubProcesses/MCmasses_PYTHIA8.inc	2015-10-26 02:18:52.000000001 +0100
++++ MG5_aMC_v2_3_3/Template/NLO/SubProcesses/MCmasses_PYTHIA8.inc	2015-11-18 16:58:52.000000001 +0100
+@@ -1,12 +1,12 @@
+-      mcmass(1)=0.33d0
+-      mcmass(2)=0.33d0
+-      mcmass(3)=0.50d0
+-      mcmass(4)=1.50d0
+-      mcmass(5)=4.80d0
+-      mcmass(11)=0.510998928d-3
+-      mcmass(12)=0.d0
+-      mcmass(13)=0.1056583715d0
+-      mcmass(14)=0.d0
+-      mcmass(15)=1.77682d0
+-      mcmass(16)=0.d0
++      mcmass(1)=0.0d0
++      mcmass(2)=0.0d0
++      mcmass(3)=0.0d0
++      mcmass(4)=0.0d0
++      mcmass(5)=0.0d0
++      mcmass(11)=0.0d0
++      mcmass(12)=0.0d0
++      mcmass(13)=0.0d0
++      mcmass(14)=0.0d0
++      mcmass(15)=0.0d0
++      mcmass(16)=0.0d0
+       mcmass(21)=0.0d0
+diff -ur ../old/MG5_aMC_v2_3_3/madgraph/interface/madgraph_interface.py MG5_aMC_v2_3_2_2/madgraph/interface/madgraph_interface.py
+--- ../old/MG5_aMC_v2_3_3/madgraph/interface/madgraph_interface.py       2015-09-07 20:07:39.000000000 +0200
++++ MG5_aMC_v2_3_3/madgraph/interface/madgraph_interface.py    2015-11-17 10:50:56.985751642 +0100
+@@ -5851,6 +5851,9 @@
+         elif args[0] in ['cluster_local_path']:
+             self.options[args[0]] = args[1].strip()
  
- c merging cuts
-       xqcut=0d0
-@@ -160,7 +165,7 @@
-         elseif(lpp(i).eq.-3) then
-           idbmup(i)=-11
-         elseif(lpp(i).eq.0) then
--          idbmup(i)=idup_d(1,i,1)
-+          idbmup(i)=idup(i,1)
-         else
-           idbmup(i)=lpp(i)
-         endif
++        elif args[0] in ['cluster_queue']:
++            self.options[args[0]] = args[1].strip()
++        
+         elif args[0] == 'cluster_status_update':
+             if '(' in args[1]:
+                 data = ' '.join([a for a in args[1:] if not a.startswith('-')])

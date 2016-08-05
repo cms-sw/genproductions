@@ -30,7 +30,7 @@
 # If you want to run Pythia, avoid more than 50k events in a run.    *
 #*********************************************************************
   1000 = nevents ! Number of unweighted events requested 
-      23488       = iseed   ! rnd seed (0=assigned automatically=default))
+      7883       = iseed   ! rnd seed (0=assigned automatically=default))
 #*********************************************************************
 # Collider type and energy                                           *
 # lpp: 0=No PDF, 1=proton, -1=antiproton, 2=photon from proton,      *
@@ -253,7 +253,7 @@
 # maximal pdg code for quark to be considered as a light jet         *
 # (otherwise b cuts are applied)                                     *
 #*********************************************************************
- 5 = maxjetflavor    ! Maximum jet pdg code
+ 4 = maxjetflavor    ! Maximum jet pdg code
 #*********************************************************************
 # Jet measure cuts                                                   *
 #*********************************************************************
