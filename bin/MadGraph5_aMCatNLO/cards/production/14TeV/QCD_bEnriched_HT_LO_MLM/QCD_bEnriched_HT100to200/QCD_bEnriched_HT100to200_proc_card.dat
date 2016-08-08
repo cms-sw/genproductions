@@ -22,23 +22,12 @@
 #************************************************************
 
 import model sm-ckm_no_b_mass
-# define p = g u c d s u~ c~ d~ s~
-# define j = g u c d s u~ c~ d~ s~
-# define l+ = e+ mu+
-# define l- = e- mu-
-# define vl = ve vm vt
-# define vl~ = ve~ vm~ vt~
 # Define multiparticle labels
-# define p = u c s d b u~ c~ s~ d~ b~ g
-# define j = u c s d b u~ c~ s~ d~ b~ g
-# define l = e+ e- mu+ mu- ta+ ta-
 define p = p b b~
 define j = p
 define bquark = b b~
+
 # Specify process(es) to run
-# generate p p > j j @0
-# add process p p > j j j @1
-# add process p p > j j j j @2
 generate p p > bquark j @0
 add process p p > bquark j j @1
 add process p p > bquark j j j @2
