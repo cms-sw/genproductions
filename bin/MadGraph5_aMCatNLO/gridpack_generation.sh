@@ -279,6 +279,11 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   ########################
 
   ./$MGBASEDIRORIG/bin/mg5_aMC ${name}_proc_card.dat
+
+  if [ -e $CARDSDIR/${name}_patch_me.sh ]; then
+      echo "Patching generated matrix element code with " $CARDSDIR/${name}_patch_me.sh
+      /bin/bash "$CARDSDIR/${name}_patch_me.sh" "$WORKDIR/$MGBASEDIRORIG"
+  fi;
   
 else  
   echo "Reusing existing directory assuming generated code already exists"
