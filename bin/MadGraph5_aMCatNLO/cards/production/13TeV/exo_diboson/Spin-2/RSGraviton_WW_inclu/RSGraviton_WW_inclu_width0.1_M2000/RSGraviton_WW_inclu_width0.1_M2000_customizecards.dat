@@ -1,0 +1,11 @@
+set param_card mass 39 2000
+set param_card decay 39 200.0
+set param_card yukawa 5 4.8
+set param_card yukawa 6 172.5
+set param_card mass 5 4.8
+set param_card mass 6 172.5
+set param_card mass 23 91.1876
+set param_card mass 24 80.385
+set param_card decay 6 1.491500
+set param_card decay 23 2.4952
+set param_card decay 24 2.085

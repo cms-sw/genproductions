@@ -8,9 +8,10 @@ Based on Pietro's script
 
 import commands
 import fileinput
-import argparse
+# import argparse
 import sys
 import os
+from optparse import OptionParser
 
 TESTING = 0
 QUEUE = ''
@@ -53,14 +54,21 @@ def prepareJob(tag, i, folderName) :
     f.write('export PATH=$FASTJET_BASE/bin/:$PATH \n')
 
     f.write('### Prepare environments for LHAPDF ### \n\n')
+    
+    f.write('LHAPDF6TOOLFILE=$CMSSW_BASE/config/toolbox/$SCRAM_ARCH/tools/available/lhapdf6.xml    \n')
+    f.write('if [ -e $LHAPDF6TOOLFILE ]; then    \n')
+    f.write('   export LHAPDF_BASE=`cat $LHAPDF6TOOLFILE | grep "<environment name=\\"LHAPDF6_BASE\\"" | cut -d \\" -f 4`    \n')
+    f.write('else    \n')
+    f.write('   export LHAPDF_BASE=`scram tool info lhapdf | grep LHAPDF_BASE | sed -e s%LHAPDF_BASE=%%`    \n')
+    f.write('fi    \n')
 
-    f.write('export LHAPDF_BASE=`scram tool info lhapdf | grep LHAPDF_BASE | sed -e s%LHAPDF_BASE=%%`    \n')
     f.write('echo "LHAPDF_BASE is set to:" $LHAPDF_BASE \n')
     f.write('export PATH=$LHAPDF_BASE/bin/:$PATH \n')
 #    f.write('export LHAPATH=`scram tool info lhapdf | grep LHAPATH | sed -e s%LHAPATH=%%`\n')
     f.write('export LHAPDF_DATA_PATH=`$LHAPDF_BASE/bin/lhapdf-config --datadir` \n')
 #    f.write('export LHAPDF6TOOLFILE=$CMSSW_BASE/config/toolbox/$SCRAM_ARCH/tools/available/lhapdf6.xml \n\n')
 #    f.write('cd ' + rootfolder + '/' + folderName + '\n')
+
 
     f.write('\n')
 
@@ -155,7 +163,7 @@ def runParallelXgrid(parstage, xgrid, folderName, nEvents, njobs, powInputName, 
             os.system('cd '+rootfolder+'/'+folderName+';bash run_'+jobID+'.sh &')
         else:
             print 'Submitting to queue: '+QUEUE+' #'+str(i)+' \n'
-            runCommand ('bsub -J ' + jobID + ' -u $USER -q ' + QUEUE + ' '+rootfolder+'/run_'+jobID+'.sh ', TESTING == 0)
+            runCommand ('bsub -J ' + jobID + ' -u $USER -q ' + QUEUE + ' '+rootfolder+'/'+folderName+'/run_'+jobID+'.sh ', TESTING == 0)
 
 
     #runCommand ('mv *.sh ' + folderName)
@@ -190,6 +198,12 @@ def runSingleXgrid(parstage, xgrid, folderName, nEvents, powInputName, seed, pro
     #f.write('echo $LD_LIBRARY_PATH \n')
 
     f.write('sed -i "s/NEVENTS/'+nEvents+'/ ; s/SEED/'+seed+'/" powheg.input\n\n')
+
+    if process == 'W' :
+        if os.path.exists(powInputName) :
+            f.write('cp -p '+'/'.join(powInputName.split('/')[0:-1])+'/cteq6m . \n')   
+        else :
+            f.write('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+'/'.join(powInputName.split('/')[0:-1])+'/cteq6m \n')
 
     if process == 'gg_H_MSSM' :
         if os.path.exists(powInputName) :
@@ -257,7 +271,7 @@ def runGetSource(parstage, xgrid, folderName, powInputName, process, tagName) :
 '''
 # Release to be used to define the environment and the compiler needed
 export RELEASE=${CMSSW_VERSION}
-export jhugenversion="v5.2.5"
+export jhugenversion="v6.9.8"
 
 cd $WORKDIR
 pwd
@@ -307,7 +321,7 @@ if [[ -s ./JHUGen.input ]]; then
 fi
 
 ### retrieve the powheg source tar ball
-export POWHEGSRC=powhegboxV2_Sep2015.tar.gz 
+export POWHEGSRC=powhegboxV2_May2016.tar.gz 
 
 echo 'D/L POWHEG source...'
 
@@ -341,9 +355,17 @@ sed -i -e "s#PDF[ \t]*=[ \t]*native#PDF=lhapdf#g" Makefile
 # Use gfortran, not other compilers which are not free/licensed
 sed -i -e "s#COMPILER[ \t]*=[ \t]*ifort#COMPILER=gfortran#g" Makefile
 
+# hardcode svn info
+sed -i -e 's#^pwhg_main:#$(shell ../svnversion/svnversion.sh>/dev/null) \
+\
+pwhg_main:#g' Makefile
+
+echo "pwhg_main.o: svn.version" >> Makefile
+echo "lhefwrite.o: svn.version" >> Makefile
+
 # Find proper histo booking routine (two of them exist)
 BOOK_HISTO="pwhg_bookhist-multi.o"
-if [ `echo ${name} | cut -d "_" -f 1` = "powhegboxV1" ]; then
+if [ `echo ${POWHEGSRC} | cut -d "_" -f 1` = "powhegboxV1" ]; then
    BOOK_HISTO="pwhg_bookhist.o"
 fi 
 if [ "$process" = "trijet" ]; then 
@@ -416,7 +438,7 @@ if [ $jhugen = 1 ]; then
 
   mkdir -p ${WORKDIR}/${name}
   cp -p JHUGen ${WORKDIR}/${name}/.
-  cp -pr JHUGen/pdfs ${WORKDIR}/${name}/.
+  cp -pr pdfs ${WORKDIR}/${name}/.
 
   cd ..
 fi
@@ -463,6 +485,74 @@ if [ -d ./lib64 ]; then
 fi
 
 cd ${WORKDIR}/${name}
+
+if [ "$process" = "HJ" ]; then
+  echo "Compilinig HNNLO...."
+  wget http://theory.fi.infn.it/grazzini/codes/hnnlo-v2.0.tgz
+  tar -xzvf hnnlo-v2.0.tgz
+  cd hnnlo-v2.0
+  cp ../POWHEG-BOX/HJ/NNLOPS-mass-effects/HNNLO-makefile ./makefile 
+  cp -r ../POWHEG-BOX/HJ/NNLOPS-mass-effects/HNNLO-patches ./
+  cat makefile | sed -e "s#LHAPDFLIB=.\+#LHAPDFLIB=$(scram tool info lhapdf | grep LIBDIR | cut -d "=" -f2)#g" > makefile
+  make || fail_exit "Failed to compile HNNLO"
+  cp -p bin/hnnlo ${WORKDIR}/${name}/
+  cp bin/br.* ${WORKDIR}/${name}/
+  cd ${WORKDIR}/${name}
+  cp POWHEG-BOX/HJ/NNLOPS-mass-effects/mergedata.f .
+  gfortran -o mergedata mergedata.f
+
+  cd ${WORKDIR}/${name}/POWHEG-BOX/HJ
+  cp Makefile Makefile.orig
+  cat Makefile.orig | sed -e "s#ANALYSIS=.\+#ANALYSIS=NNLOPS#g" |sed -e "s#\$(shell \$(LHAPDF_CONFIG) --libdir)#$(scram tool info lhapdf | grep LIBDIR | cut -d "=" -f2)#g" | sed -e "s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d "=" -f2)/bin/fastjet-config#g" | sed -e "s#NNLOPSREWEIGHTER+=  fastjetfortran.o#NNLOPSREWEIGHTER+=  fastjetfortran.o pwhg_bookhist-multi.o#g" > Makefile
+  make nnlopsreweighter || fail_exit "Failed to compile nnlopsreweighter"
+  cp nnlopsreweighter ../../
+  cd ${WORKDIR}/${name}
+  HMASS=`cat powheg.input | grep "^hmass" | cut -d " " -f2`; 
+  gawk "/sroot/{gsub(/8000/,13000)};/hmass/{gsub(/125.5/, ${HMASS})};/mur,muf/{gsub(/62.750/, $(( $HMASS/2 )))};{print}" POWHEG-BOX/HJ/PaperRun/HNNLO-LHC8-R04-APX2-11.input | sed -e "s#10103#SEED#g" | sed -e "s#HNNLO-LHC8-R04-APX2-11#HNNLO-LHC13-R04-APX2-11#g"> HNNLO-LHC13-R04-APX2-11.input
+  gawk "/sroot/{gsub(/8000/,13000)};/hmass/{gsub(/125.5/, ${HMASS})};/mur,muf/{gsub(/62.750/, $(( $HMASS )))};{print}" POWHEG-BOX/HJ/PaperRun/HNNLO-LHC8-R04-APX2-11.input | sed -e "s#10103#SEED#g" | sed -e "s#HNNLO-LHC8-R04-APX2-11#HNNLO-LHC13-R04-APX2-22#g"> HNNLO-LHC13-R04-APX2-22.input
+  gawk "/sroot/{gsub(/8000/,13000)};/hmass/{gsub(/125.5/, ${HMASS})};/mur,muf/{gsub(/62.750/, $(( $HMASS/4 )))};{print}" POWHEG-BOX/HJ/PaperRun/HNNLO-LHC8-R04-APX2-11.input | sed -e "s#10103#SEED#g" | sed -e "s#HNNLO-LHC8-R04-APX2-11#HNNLO-LHC13-R04-APX2-0505#g"> HNNLO-LHC13-R04-APX2-0505.input
+  cat << EOF > nnlopsreweighter.input
+# a line beginning with 'lhfile' followed by the name of the event file
+
+lhfile pwgevents.lhe 
+
+# weights present in the lhfile: 'mtinf', 'mt', 'mtmb', 'mtmb-bminlo'
+
+
+# a line with: 'nnlofiles'
+# followed by a quoted label and the name of a HNNLO output file.
+# In the following the 3 ouput refer to mt=infinity approx,
+# finite mt, and finite mt and mb.
+
+nnlofiles
+'nn-mtmb-11' HNNLO-11.top
+'nn-mtmb-22' HNNLO-22.top
+'nn-mtmb-0505' HNNLO-0505.top
+
+# The new desired weights, in the Les Houches format.
+# The user can choose to group them in the way he prefers, and give them
+# the id's he likes.
+# The program determined how to compute each weights from the description
+# line. It loops through the weights id's present in the pwgevents.lhe file
+# and through the labels of the nnlofiles. If a label of a weight and
+# a label of the nnlofiles are both present in the description field
+# of a weight mentioned here, it computes that weight by reweighting
+# the corresponding weights in the lhe file with the nnlo result present
+# in the nnlofiles associated with the label. For example, in the
+# nnlops-mt id in the following it reweights the nn-mtinf weight present
+# in the .lhe file with the nnlo result present in the
+# HNNLO-LHC8-R04-APX0-11.top file.
+
+<initrwgt>
+<weightgroup name='nnl'> 
+<weight id='nnlops-11'> combines 'nn-mtmb-11' with 'c' (central)</weight> 
+<weight id='nnlops-22'> combines 'nn-mtmb-22' with 'c' (central)</weight> 
+<weight id='nnlops-0505'> combines 'nn-mtmb-0505' with 'c' (central)</weight> 
+</weightgroup>
+</initrwgt>
+EOF
+
+fi  
 
 #mkdir -p workdir
 #cd workdir
@@ -565,7 +655,7 @@ def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag, proc
 
         else:
             print 'Submitting to queue: '+QUEUE+' #'+str(i)+' \n'
-            runCommand ('bsub -J ' + jobID + ' -u $USER -q ' + QUEUE + ' ' + rootfolder + '/run_'+tag+'.sh', TESTING == 0)
+            runCommand ('bsub -J ' + jobID + ' -u $USER -q ' + QUEUE + ' ' + rootfolder +'/'+folderName+'/run_'+tag+'.sh', TESTING == 0)
 
     #runCommand('mv *.sh ' + folderName)
 
@@ -630,6 +720,11 @@ fi
 
 sed -i 's/pwggrid.dat ]]/pwggrid.dat ]] || [ -e ${WORKDIR}\/pwggrid-0001.dat ]/g' runcmsgrid.sh
 
+if [ "$process" = "HJ" ]; then
+  cat runcmsgrid.sh  | gawk '/produceWeightsNNLO/{gsub(/false/, \"true\")};{print}' > runcmsgrid_tmp.sh
+  mv runcmsgrid_tmp.sh runcmsgrid.sh
+fi  
+
 chmod 755 runcmsgrid.sh
 
 cp -p runcmsgrid.sh runcmsgrid_par.sh
@@ -661,6 +756,14 @@ else
     tar zcf ${WORKDIR}'/'${folderName}'_'${process}'.tgz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.top --exclude=*.lhe --exclude=run_*.sh --exclude=*.log --exclude=*temp
 fi
 
+if [ "$process" = "HJ" ]; then
+  echo "This process needs NNLOPS reweighting"
+  for i in `echo 11 22 0505`; do
+    ./mergedata 1 ${i}/*.top
+    mv fort.12 HNNLO-${i}.top 
+  done  
+fi
+
 cd ${WORKDIR}
 
 date
@@ -671,6 +774,50 @@ echo 'Done.'
     f.close()
 
     os.system('chmod 755 '+filename)
+
+# ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+
+
+def runhnnlo(folderName, njobs, QUEUE):
+  scales = ["11", "22", "0505"]
+  for scale in scales:
+    os.system('rm -rf '+ folderName+"/"+scale)
+    os.system('mkdir -p '+ folderName+"/"+scale) 
+    filename = folderName+"/"+scale+"/launch_NNLO.sh"
+    launching_script = open(filename, "w")
+    launching_script.write("#!/bin/bash\n")
+    launching_script.write('base='+os.getcwd()+"/"+folderName+"/"+scale+'\n\n')
+    launching_script.write(
+'''
+config=$1
+seed=$2
+
+cd $base
+eval `scram runtime -sh`
+cd -
+
+cat $base/../$config | sed -e "s#SEED#$seed#g" > config.input
+
+cp $base/../hnnlo .
+cp $base/../br* .
+
+./hnnlo < config.input &> log_${seed}.txt
+
+cp HNNLO-LHC13* ${base}
+
+cp log_${seed}.txt ${base}
+''')
+    launching_script.close()
+    os.system('chmod 755 '+filename) 
+    for ijob in range(njobs):
+      config = "HNNLO-LHC13-R04-APX2-"+scale+".input" 
+      jobID = scale+"_"+str(ijob)
+      print 'Submitting to queue: '+QUEUE+' #'+str(ijob)+' \n'
+      runCommand ('bsub -J ' + jobID + ' -u $USER -q ' + QUEUE + ' \"' + rootfolder + "/" + folderName + "/"+ scale + '/launch_NNLO.sh '+config+' '+str(1000+ijob)+'\"', TESTING == 1)
+      
+      
+
+
 
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
@@ -687,20 +834,22 @@ if __name__ == "__main__":
 #    inputTemplate = sys.argv[5] # FIXME build the template... it simply should be the cfg file
 #    eosFolderName = sys.argv[6]
     
-    parser = argparse.ArgumentParser (description = 'run phantom productions on lxplus')
-    parser.add_argument('-p', '--parstage'      , default= '0',            help='stage of the production process [0]')
-    parser.add_argument('-x', '--xgrid'         , default= '1',            help='loop number for the girds production [1]')
-    parser.add_argument('-f', '--folderName'    , default='testProd',      help='local folder and last eos folder name[testProd]')
-    parser.add_argument('-e', '--eosFolder'     , default='NONE' ,         help='folder before the last one, on EOS')
-    parser.add_argument('-t', '--totEvents'     , default= '10000',        help='total number of events to be generated [10000]')
-    parser.add_argument('-n', '--numEvents'     , default= '2000',         help='number of events for a single job [2000]')
-    parser.add_argument('-i', '--inputTemplate' , default= 'powheg.input', help='input cfg file (fixed) [=powheg.input]')
-    parser.add_argument('-q', '--lsfQueue'      , default= '',          help='LSF queue [2nd]')
-    parser.add_argument('-s', '--rndSeed'       , default= '42',           help='Starting random number seed [42]')
-    parser.add_argument('-m', '--prcName'       , default= 'DMGG',           help='POWHEG process name [DMGG]')
-    parser.add_argument('-k', '--keepTop'       , default= '0',           help='Keep the validation top draw plots [0]')
+    # parser = argparse.ArgumentParser (description = 'run phantom productions on lxplus')
+    parser = OptionParser()
+    parser.add_option('-p', '--parstage'      , dest="parstage",      default= '0',            help='stage of the production process [0]')
+    parser.add_option('-x', '--xgrid'         , dest="xgrid",         default= '1',            help='loop number for the girds production [1]')
+    parser.add_option('-f', '--folderName'    , dest="folderName",    default='testProd',      help='local folder and last eos folder name[testProd]')
+    parser.add_option('-e', '--eosFolder'     , dest="eosFolder",     default='NONE' ,         help='folder before the last one, on EOS')
+    parser.add_option('-t', '--totEvents'     , dest="totEvents",     default= '10000',        help='total number of events to be generated [10000]')
+    parser.add_option('-n', '--numEvents'     , dest="numEvents",     default= '2000',         help='number of events for a single job [2000]')
+    parser.add_option('-i', '--inputTemplate' , dest="inputTemplate", default= 'powheg.input', help='input cfg file (fixed) [=powheg.input]')
+    parser.add_option('-q', '--lsfQueue'      , dest="lsfQueue",      default= '',          help='LSF queue [2nd]')
+    parser.add_option('-s', '--rndSeed'       , dest="rndSeed",       default= '42',           help='Starting random number seed [42]')
+    parser.add_option('-m', '--prcName'       , dest="prcName",       default= 'DMGG',           help='POWHEG process name [DMGG]')
+    parser.add_option('-k', '--keepTop'       , dest="keepTop",       default= '0',           help='Keep the validation top draw plots [0]')
 
-    args = parser.parse_args ()
+    # args = parser.parse_args ()
+    (args, opts) = parser.parse_args(sys.argv)
     
     QUEUE = args.lsfQueue
     EOSfolder = args.folderName
@@ -918,6 +1067,10 @@ if __name__ == "__main__":
             print 'Submitting to queue: '+QUEUE+' \n'
             runCommand ('bsub -J full_'+args.folderName+' -u $USER -q ' + 
                         QUEUE + ' '+rootfolder + '/' +scriptName, TESTING == 0)
+
+    elif args.parstage == '7' :
+      print "preparing for NNLO reweighting"
+      runhnnlo(args.folderName, 350, QUEUE)
 
     elif args.parstage == '9' :
         # overwriting with original

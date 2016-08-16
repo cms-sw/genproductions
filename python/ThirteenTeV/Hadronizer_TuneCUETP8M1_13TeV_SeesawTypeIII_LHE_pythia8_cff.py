@@ -3,21 +3,21 @@ import FWCore.ParameterSet.Config as cms
 from Configuration.Generator.Pythia8CommonSettings_cfi import *
 from Configuration.Generator.Pythia8CUEP8M1Settings_cfi import *
 
-process.generator = cms.EDFilter("Pythia8HadronizerFilter",
+generator = cms.EDFilter("Pythia8HadronizerFilter",
     pythiaPylistVerbosity = cms.untracked.int32(1),
     filterEfficiency = cms.untracked.double(1.0),
     pythiaHepMCVerbosity = cms.untracked.bool(False),
     comEnergy = cms.double(13000.0),
     maxEventsToPrint = cms.untracked.int32(1),
     PythiaParameters = cms.PSet(
-        process.pythia8CommonSettingsBlock,
-        process.pythia8CUEP8M1SettingsBlock,
+        pythia8CommonSettingsBlock,
+        pythia8CUEP8M1SettingsBlock,
         parameterSets = cms.vstring('pythia8CommonSettings', 
             'pythia8CUEP8M1Settings')
     )
 )
 
-process.dirhadrongenfilter = cms.EDFilter("MCMultiParticleFilter",
+dirhadrongenfilter = cms.EDFilter("MCMultiParticleFilter",
 	src=cms.InputTag("generator"),
     NumRequired = cms.int32(3),
     AcceptMore = cms.bool(True),
@@ -28,5 +28,5 @@ process.dirhadrongenfilter = cms.EDFilter("MCMultiParticleFilter",
 	
 )
 
-process.ProductionFilterSequence = cms.Sequence(process.generator*process.dirhadrongenfilter)
+ProductionFilterSequence = cms.Sequence(generator*dirhadrongenfilter)
 
