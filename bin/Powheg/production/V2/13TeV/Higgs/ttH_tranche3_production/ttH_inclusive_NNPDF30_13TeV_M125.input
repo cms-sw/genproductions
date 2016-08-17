@@ -82,7 +82,7 @@ tdec/sin2cabibbo 0.051
                    ! The event file is called pwgevents-'j'.lhe
 
 pdfreweight 1       ! PDF reweighting
-hdamp 172.5*1.581
+hdamp 272.72
 dampreweight 1      ! h_damp reweighting (mt/2, mt, mt*2)
 storeinfo_rwgt 1    ! store weight information
 withnegweights 1    ! default 0, 
