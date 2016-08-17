@@ -2,6 +2,7 @@ import FWCore.ParameterSet.Config as cms
 
 from Configuration.Generator.Pythia8CommonSettings_cfi import *
 from Configuration.Generator.Pythia8CUEP8M1Settings_cfi import *
+from Configuration.StandardSequences.GeneratorMix_cff import *
 
 generator = cms.EDFilter("Pythia8GeneratorFilter",
     PythiaParameters = cms.PSet(
@@ -27,6 +28,7 @@ configurationMetadata = cms.untracked.PSet(
     )
 
 photonFilter = cms.EDFilter("PythiaFilterMultiMother",
+                            moduleLabel = cms.untracked.string('generatorSmeared'),
                             Status = cms.untracked.int32(1),
                             MinPt = cms.untracked.double(15.0),
                             ParticleID = cms.untracked.int32(22),
@@ -34,4 +36,4 @@ photonFilter = cms.EDFilter("PythiaFilterMultiMother",
 )
 
 
-ProductionFilterSequence = cms.Sequence(generator*photonFilter)
+ProductionFilterSequence = cms.Sequence(generator*pgen*photonFilter)
