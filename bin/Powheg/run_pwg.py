@@ -843,6 +843,7 @@ if __name__ == "__main__":
     parser.add_option('-x', '--xgrid'         , dest="xgrid",         default= '1',            help='loop number for the girds production [1]')
     parser.add_option('-f', '--folderName'    , dest="folderName",    default='testProd',      help='local folder and last eos folder name[testProd]')
     parser.add_option('-e', '--eosFolder'     , dest="eosFolder",     default='NONE' ,         help='folder before the last one, on EOS')
+    parser.add_option('-j', '--numJobs'       , dest="numJobs",       default= '10',           help='number of jobs to be used for multicore grid step 1')
     parser.add_option('-t', '--totEvents'     , dest="totEvents",     default= '10000',        help='total number of events to be generated [10000]')
     parser.add_option('-n', '--numEvents'     , dest="numEvents",     default= '2000',         help='number of events for a single job [2000]')
     parser.add_option('-i', '--inputTemplate' , dest="inputTemplate", default= 'powheg.input', help='input cfg file (fixed) [=powheg.input]')
@@ -923,7 +924,7 @@ if __name__ == "__main__":
         runCommand (eoscmd + ' mkdir /eos/cms/store/user/${user}/LHE/powheg/' + args.eosFolder, 1, 1)
         runCommand (eoscmd + ' mkdir /eos/cms/store/user/${user}/LHE/powheg/' + args.eosFolder + '/' + EOSfolder, 1, 1)
 
-    njobs = int (args.totEvents) / int (args.numEvents)
+    njobs = int (args.numJobs)
 
     powInputName = args.inputTemplate
     #powInputName = args.inputTemplate + '_tempo'
