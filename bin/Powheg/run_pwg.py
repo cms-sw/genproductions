@@ -816,7 +816,7 @@ cp log_${seed}.txt ${base}
       config = "HNNLO-LHC13-R04-APX2-"+scale+".input" 
       jobID = scale+"_"+str(ijob)
       print 'Submitting to queue: '+QUEUE+' #'+str(ijob)+' \n'
-      runCommand ('bsub -J ' + jobID + ' -u $USER -q ' + QUEUE + ' \"' + rootfolder + "/" + folderName + "/"+ scale + '/launch_NNLO.sh '+config+' '+str(1000+ijob)+'\"', TESTING == 1)
+      runCommand ('bsub -J ' + jobID + ' -u $USER -q ' + QUEUE + ' \"' + rootfolder + "/" + folderName + "/"+ scale + '/launch_NNLO.sh '+config+' '+str(1000+ijob)+'\"', 1, 1)
       
       
 
@@ -1074,7 +1074,7 @@ if __name__ == "__main__":
 
     elif args.parstage == '7' :
       print "preparing for NNLO reweighting"
-      runhnnlo(args.folderName, 350, QUEUE)
+      runhnnlo(args.folderName, njobs, QUEUE)
 
     elif args.parstage == '9' :
         # overwriting with original
