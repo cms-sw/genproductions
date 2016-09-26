@@ -86,8 +86,8 @@ def prepareJobForEvents (tag, i, folderName, EOSfolder) :
     prepareJob(tag, i, folderName)
 
     f = open (filename, 'a')
-    f.write ('cp -p ' + rootfolder + '/' + folderName + '/powheg.input ./' + '\n')
-    f.write ('cp -p ' + rootfolder + '/' + folderName + '/JHUGen.input ./' + '\n')
+#    f.write ('cp -p ' + rootfolder + '/' + folderName + '/powheg.input ./' + '\n')
+#    f.write ('cp -p ' + rootfolder + '/' + folderName + '/JHUGen.input ./' + '\n')
     f.write ('cp -p ' + rootfolder + '/' + folderName + '/*.dat  ./' + '\n')
 
     f.write ('cd -' + '\n')
@@ -199,12 +199,6 @@ def runSingleXgrid(parstage, xgrid, folderName, nEvents, powInputName, seed, pro
 
     f.write('sed -i "s/NEVENTS/'+nEvents+'/ ; s/SEED/'+seed+'/" powheg.input\n\n')
 
-    if process == 'W' :
-        if os.path.exists(powInputName) :
-            f.write('cp -p '+'/'.join(powInputName.split('/')[0:-1])+'/cteq6m . \n')   
-        else :
-            f.write('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+'/'.join(powInputName.split('/')[0:-1])+'/cteq6m \n')
-
     if process == 'gg_H_MSSM' :
         if os.path.exists(powInputName) :
             f.write('cp -p '+'/'.join(powInputName.split('/')[0:-1])+'/powheg-fh.in . \n')
@@ -271,7 +265,7 @@ def runGetSource(parstage, xgrid, folderName, powInputName, process, tagName) :
 '''
 # Release to be used to define the environment and the compiler needed
 export RELEASE=${CMSSW_VERSION}
-export jhugenversion="v7.0.1"
+export jhugenversion="v6.9.8"
 
 cd $WORKDIR
 pwd
@@ -321,13 +315,14 @@ if [[ -s ./JHUGen.input ]]; then
 fi
 
 ### retrieve the powheg source tar ball
-export POWHEGSRC=powhegboxV2_May2016.tar.gz 
+export POWHEGSRC=powhegboxV2rwgt_Aug2016.tar.gz
 
 echo 'D/L POWHEG source...'
 
-if [ ! -f ${POWHEGSRC} ]; then
-  wget --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/slc6_amd64_gcc481/powheg/V2.0/src/${POWHEGSRC} || fail_exit "Failed to get powheg tar ball "
-fi
+#if [ ! -f ${POWHEGSRC} ]; then
+#  wget --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/slc6_amd64_gcc481/powheg/V2.0/src/${POWHEGSRC} || fail_exit "Failed to get powheg tar ball "
+#fi
+cp -p ../${POWHEGSRC} .
 
 tar zxf ${POWHEGSRC}
 #
@@ -354,6 +349,9 @@ sed -i -e "s#PDF[ \t]*=[ \t]*native#PDF=lhapdf#g" Makefile
 
 # Use gfortran, not other compilers which are not free/licensed
 sed -i -e "s#COMPILER[ \t]*=[ \t]*ifort#COMPILER=gfortran#g" Makefile
+
+sed -i -e 's#$(PDFPACK#lhefread.o pwhg_io_interface.o rwl_weightlists.o rwl_setup_param_weights.o \\ \
+	$(PDFPACK#' Makefile
 
 # hardcode svn info
 sed -i -e 's#^pwhg_main:#$(shell ../svnversion/svnversion.sh>/dev/null) \
@@ -385,9 +383,9 @@ fi
 if [ "$process" = "Wgamma" ] || [ "$process" = "W_ew-BMNNP" ]; then
     patch -l -p0 -i ${WORKDIR}/patches/pwhg_analysis_driver.patch 
 fi
-if [ "$process" = "ttb_NLO_dec" ]; then
-    patch -l -p0 -i ${WORKDIR}/patches/pwhg_analysis_driver_offshellmap.patch
-fi
+#if [ "$process" = "ttb_NLO_dec" ]; then
+#    patch -l -p0 -i ${WORKDIR}/patches/pwhg_analysis_driver_offshellmap.patch
+#fi
 
 # Remove ANY kind of analysis with parton shower
 if [ `grep particle_identif pwhg_analysis-dummy.f` = ""]; then
@@ -708,6 +706,12 @@ sed -i "s/^manyseeds.*/#manyseeds 1/g" powheg.input
 sed -i "s/^parallelstage.*/#parallelstage 4/g" powheg.input
 sed -i "s/^xgriditeration/#xgriditeration 1/g" powheg.input
 
+# parallel re-weighting calculation
+echo "rwl_group_events 2000" >> powheg.input
+echo "lhapdf6maxsets 50" >> powheg.input
+echo "rwl_file 'pwg-rwl.dat'" >> powheg.input
+cp -p $WORKDIR/pwg-rwl.dat pwg-rwl.dat
+
 if [ -e ${WORKDIR}/$folderName/cteq6m ]; then
     cp -p ${WORKDIR}/cteq6m .
 fi
@@ -937,6 +941,7 @@ if __name__ == "__main__":
         print "\t argument '-t', '--totEvents'     , default= '10000"
         print "\t argument '-n', '--numEvents'     , default= '2000'"
         print "\t argument '-i', '--inputTemplate' , default= 'powheg.input'"
+        print "\t argument '-j', '--inputJHUGen'   , default= ''"
         print "\t argument '-q', '--lsfQueue'      , default= ''"
         print "\t argument '-s', '--rndSeed'       , default= '42'"
         print "\t argument '-m', '--prcName'       , default= 'DMGG'"
@@ -964,6 +969,8 @@ if __name__ == "__main__":
             os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+inputJHUGen)
             if os.path.exists('JHUGen.input') :
                 os.system('cp -p JHUGen.input '+args.folderName+'/.')
+            if os.path.exists(args.inputJHUGen) :
+                os.system('cp -p '+args.inputJHUGen+' '+args.folderName+'/JHUGen.input')
         else :
             os.system('cp -p '+inputJHUGen+' '+args.folderName+'/.')
 
