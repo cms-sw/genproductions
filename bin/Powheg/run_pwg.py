@@ -583,7 +583,7 @@ fi
 
 #make sure env variable for pdfsets points to the right place
 #export LHAPDF_DATA_PATH=`${myDir}/lhapdf-config --datadir`
-#../pwhg_main &> log_${process}_${seed}.txt
+#../pwhg_main 2>&1 | tee log_${process}_${seed}.txt
 
 #cp -p ../runcms*.sh .
 
@@ -999,7 +999,7 @@ if __name__ == "__main__":
         if QUEUE == '':
             print 'Direct running single grid... \n'
             #runCommand ('bash run_source.sh ', TESTING == 1)
-            os.system('bash '+scriptName+' 2>&1 | tee '+scriptName.split('.sh')[0]+'.log')
+            os.system('bash '+scriptName+' >& '+scriptName.split('.sh')[0]+'.log &')
             #print "Issue 'bash run_source.sh >& run.log &' to compile powheg..."
         
         else:
@@ -1029,8 +1029,8 @@ if __name__ == "__main__":
         if QUEUE == '':
             print 'Direct compiling and running... \n'
             #runCommand ('bash run_source.sh ', TESTING == 1)
-            os.system('bash '+scriptName+' 2>&1 | tee '+
-                      scriptName.split('.sh')[0]+'.log')
+            os.system('bash '+scriptName+' >& '+
+                      scriptName.split('.sh')[0]+'.log &')
         else:
             print 'Submitting to queue: '+QUEUE+' \n'
             runCommand ('bsub -J all_'+args.folderName+' -u $USER -q ' +
@@ -1058,8 +1058,8 @@ if __name__ == "__main__":
         if QUEUE == '':
             print 'Direct running in one shot... \n'
             #runCommand ('bash run_source.sh ', TESTING == 1)
-            os.system('bash '+scriptName+' 2>&1 | tee '+
-                      scriptName.split('.sh')[0]+'.log')
+            os.system('bash '+scriptName+' >& '+
+                      scriptName.split('.sh')[0]+'.log &')
         else:
             print 'Submitting to queue: '+QUEUE+' \n'
             runCommand ('bsub -J full_'+args.folderName+' -u $USER -q ' + 
