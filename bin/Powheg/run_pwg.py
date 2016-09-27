@@ -94,7 +94,7 @@ def prepareJobForEvents (tag, i, folderName, EOSfolder) :
 
     f.write ('pwd' + '\n')
     f.write ('ls' + '\n')
-    f.write ('echo ' + str (i) + ' | ' + rootfolder + '/pwhg_main &> log_' + tag + '.log &' + '\n')
+    f.write ('echo ' + str (i) + ' | ' + rootfolder + '/pwhg_main &> log_' + tag + '.log ' + '\n')
     f.write ('cp -p log_' + tag + '.log ' + rootfolder + '/' + folderName + '/. \n')
     #lhefilename = 'pwgevents-{:04d}.lhe'.format(i) 
 
@@ -150,7 +150,7 @@ def runParallelXgrid(parstage, xgrid, folderName, nEvents, njobs, powInputName, 
         filename = folderName+'/run_' + jobID + '.sh'
         f = open(filename, 'a')
         f.write('cd '+rootfolder+'/'+folderName+'/ \n')
-        f.write('echo ' + str (i) + ' | ./pwhg_main &> run_' + jobID + '.log &' + '\n')
+        f.write('echo ' + str (i) + ' | ./pwhg_main &> run_' + jobID + '.log ' + '\n')
         f.close()
 
         os.system('chmod 755 '+filename)
@@ -583,7 +583,7 @@ fi
 
 #make sure env variable for pdfsets points to the right place
 #export LHAPDF_DATA_PATH=`${myDir}/lhapdf-config --datadir`
-#../pwhg_main 2>&1 | tee log_${process}_${seed}.txt
+#../pwhg_main &> log_${process}_${seed}.txt
 
 #cp -p ../runcms*.sh .
 
@@ -644,7 +644,7 @@ def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag, proc
         filename = folderName+'/run_' + tag + '.sh'
         f = open (filename, 'a')
         f.write('cd '+rootfolder+'/'+folderName+'/ \n')
-        f.write('echo ' + str (i) + ' | ./pwhg_main &> run_' + tag + '.log &' + '\n')
+        f.write('echo ' + str (i) + ' | ./pwhg_main &> run_' + tag + '.log ' + '\n')
         f.close()
 
         os.system('chmod 755 '+filename)
