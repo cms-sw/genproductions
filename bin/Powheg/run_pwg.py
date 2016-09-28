@@ -68,6 +68,13 @@ def prepareJob(tag, i, folderName) :
     f.write('export LHAPDF_DATA_PATH=`$LHAPDF_BASE/bin/lhapdf-config --datadir` \n')
 #    f.write('export LHAPDF6TOOLFILE=$CMSSW_BASE/config/toolbox/$SCRAM_ARCH/tools/available/lhapdf6.xml \n\n')
 #    f.write('cd ' + rootfolder + '/' + folderName + '\n')
+    f.write ('cd -' + '\n')
+    f.write ('echo "I am here:"' + '\n')
+    f.write ('pwd' + '\n')
+    f.write ('cp -p ' + rootfolder + '/' + folderName + '/powheg.input ./' + '\n')
+    f.write ('cp -p ' + rootfolder + '/' + folderName + '/JHUGen.input ./' + '\n')
+    f.write ('cp -p ' + rootfolder + '/' + folderName + '/*.dat  ./' + '\n') 
+    f.write ('cp -p ' + rootfolder + '/' + folderName + '/pwhg_main  ./' + '\n') 
 
 
     f.write('\n')
@@ -149,8 +156,12 @@ def runParallelXgrid(parstage, xgrid, folderName, nEvents, njobs, powInputName, 
 
         filename = folderName+'/run_' + jobID + '.sh'
         f = open(filename, 'a')
-        f.write('cd '+rootfolder+'/'+folderName+'/ \n')
-        f.write('echo ' + str (i) + ' | ./pwhg_main &> run_' + jobID + '.log &' + '\n')
+        #f.write('cd '+rootfolder+'/'+folderName+'/ \n')
+        f.write('echo ' + str (i) + ' | ./pwhg_main &> run_' + jobID + '.log ' + '\n')
+        f.write('cp -p *.log ' + rootfolder + '/' + folderName + '/. \n')  
+        f.write('cp -p *.top ' + rootfolder + '/' + folderName + '/. \n')  
+        f.write('cp -p *.dat ' + rootfolder + '/' + folderName + '/. \n')  
+
         f.close()
 
         os.system('chmod 755 '+filename)
@@ -271,7 +282,7 @@ def runGetSource(parstage, xgrid, folderName, powInputName, process, tagName) :
 '''
 # Release to be used to define the environment and the compiler needed
 export RELEASE=${CMSSW_VERSION}
-export jhugenversion="v7.0.1"
+export jhugenversion="v7.0.0"
 
 cd $WORKDIR
 pwd
@@ -644,7 +655,7 @@ def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag, proc
         filename = folderName+'/run_' + tag + '.sh'
         f = open (filename, 'a')
         f.write('cd '+rootfolder+'/'+folderName+'/ \n')
-        f.write('echo ' + str (i) + ' | ./pwhg_main &> run_' + tag + '.log &' + '\n')
+        f.write('echo ' + str (i) + ' | ./pwhg_main &> run_' + tag + '.log ' + '\n')
         f.close()
 
         os.system('chmod 755 '+filename)
@@ -725,27 +736,41 @@ if [ "$process" = "HJ" ]; then
   mv runcmsgrid_tmp.sh runcmsgrid.sh
 fi  
 
+
+if [ "$process" = "Zj" ] || [ "$process" = "HJ" ]; then
+  
+  cp runcmsgrid.sh runcmsgrid_singlecore.sh
+
+  sed -i '/ reweightlog_/c cat <<EOF | ../pwhg_main &>> reweightlog_${process}_${seed}.txt\\n${seed}\\npwgevents.lhe\\nEOF\\n' runcmsgrid.sh
+
+  sed -i 's/# Check if /sed -i \"s#.*manyseeds.*#manyseeds 1#g\" powheg.input\\n# Check if /g' runcmsgrid.sh
+  sed -i 's/# Check if /sed -i \"s#.*parallelstage.*#parallelstage 4#g\" powheg.input\\n# Check if /g' runcmsgrid.sh
+  sed -i 's/# Check if /sed -i \"s#.*xgriditeration.*#xgriditeration 1#g\" powheg.input\\n\\n# Check if /g' runcmsgrid.sh
+
+  sed -i 's/# Check if /rm -rf pwgseeds.dat; for ii in $(seq 1 9999); do echo $ii >> pwgseeds.dat; done\\n\\n# Check if /g' runcmsgrid.sh
+
+  sed -i 's/^..\/pwhg_main/echo \${seed} | ..\/pwhg_main/g' runcmsgrid.sh
+
+  sed -i 's/pwgevents.lhe/fornnlops/g' nnlopsreweighter.input 
+  sed -i 's/\.lhe/\${idx}.lhe/g' runcmsgrid.sh
+
+  sed -i "s/^process/idx=-\`echo \${seed} | awk \'{printf \\"%04d\\", \$1}\'\` \\nprocess/g" runcmsgrid.sh
+
+fi
+
 chmod 755 runcmsgrid.sh
 
-cp -p runcmsgrid.sh runcmsgrid_par.sh
-
-sed -i '/ reweightlog_/c cat <<EOF | ../pwhg_main &>> reweightlog_${process}_${seed}.txt\\n${seed}\\npwgevents.lhe\\nEOF\\n' runcmsgrid_par.sh
-
-sed -i 's/# Check if /sed -i \"s#.*manyseeds.*#manyseeds 1#g\" powheg.input\\n# Check if /g' runcmsgrid_par.sh
-sed -i 's/# Check if /sed -i \"s#.*parallelstage.*#parallelstage 4#g\" powheg.input\\n# Check if /g' runcmsgrid_par.sh
-sed -i 's/# Check if /sed -i \"s#.*xgriditeration.*#xgriditeration 1#g\" powheg.input\\n\\n# Check if /g' runcmsgrid_par.sh
-
-sed -i 's/# Check if /rm -rf pwgseeds.dat; for ii in $(seq 1 9999); do echo $ii >> pwgseeds.dat; done\\n\\n# Check if /g' runcmsgrid_par.sh
-
-sed -i 's/^..\/pwhg_main/echo \${seed} | ..\/pwhg_main/g' runcmsgrid_par.sh
-
-sed -i 's/\.lhe/\${idx}.lhe/g' runcmsgrid_par.sh
-
-sed -i "s/^process/idx=-\`echo \${seed} | awk \'{printf \\"%04d\\", \$1}\'\` \\nprocess/g" runcmsgrid_par.sh
-
-chmod 755 runcmsgrid_par.sh
-
 #cd ${WORKDIR}
+
+if [ "$process" = "HJ" ]; then
+  echo "This process needs NNLOPS reweighting"
+  for i in `echo 11 22 0505`; do
+    ./mergedata 1 ${i}/*.top
+    mv fort.12 HNNLO-${i}.top 
+  done
+  #force keep top in this case 
+  keepTop='1'
+fi
 
 if [ $keepTop == '1' ]; then
     echo 'Keeping validation plots.'
@@ -754,14 +779,6 @@ if [ $keepTop == '1' ]; then
 else
     echo 'Packing...' ${WORKDIR}'/'${folderName}'_'${process}'.tgz'
     tar zcf ${WORKDIR}'/'${folderName}'_'${process}'.tgz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.top --exclude=*.lhe --exclude=run_*.sh --exclude=*.log --exclude=*temp
-fi
-
-if [ "$process" = "HJ" ]; then
-  echo "This process needs NNLOPS reweighting"
-  for i in `echo 11 22 0505`; do
-    ./mergedata 1 ${i}/*.top
-    mv fort.12 HNNLO-${i}.top 
-  done  
 fi
 
 cd ${WORKDIR}
@@ -813,7 +830,7 @@ cp log_${seed}.txt ${base}
       config = "HNNLO-LHC13-R04-APX2-"+scale+".input" 
       jobID = scale+"_"+str(ijob)
       print 'Submitting to queue: '+QUEUE+' #'+str(ijob)+' \n'
-      runCommand ('bsub -J ' + jobID + ' -u $USER -q ' + QUEUE + ' \"' + rootfolder + "/" + folderName + "/"+ scale + '/launch_NNLO.sh '+config+' '+str(1000+ijob)+'\"', TESTING == 1)
+      runCommand ('bsub -J ' + jobID + ' -u $USER -q ' + QUEUE + ' \"' + rootfolder + "/" + folderName + "/"+ scale + '/launch_NNLO.sh '+config+' '+str(1000+ijob)+'\"', 1, 1)
       
       
 
@@ -840,6 +857,7 @@ if __name__ == "__main__":
     parser.add_option('-x', '--xgrid'         , dest="xgrid",         default= '1',            help='loop number for the girds production [1]')
     parser.add_option('-f', '--folderName'    , dest="folderName",    default='testProd',      help='local folder and last eos folder name[testProd]')
     parser.add_option('-e', '--eosFolder'     , dest="eosFolder",     default='NONE' ,         help='folder before the last one, on EOS')
+    parser.add_option('-j', '--numJobs'       , dest="numJobs",       default= '10',           help='number of jobs to be used for multicore grid step 1,2,3')
     parser.add_option('-t', '--totEvents'     , dest="totEvents",     default= '10000',        help='total number of events to be generated [10000]')
     parser.add_option('-n', '--numEvents'     , dest="numEvents",     default= '2000',         help='number of events for a single job [2000]')
     parser.add_option('-i', '--inputTemplate' , dest="inputTemplate", default= 'powheg.input', help='input cfg file (fixed) [=powheg.input]')
@@ -920,7 +938,7 @@ if __name__ == "__main__":
         runCommand (eoscmd + ' mkdir /eos/cms/store/user/${user}/LHE/powheg/' + args.eosFolder, 1, 1)
         runCommand (eoscmd + ' mkdir /eos/cms/store/user/${user}/LHE/powheg/' + args.eosFolder + '/' + EOSfolder, 1, 1)
 
-    njobs = int (args.totEvents) / int (args.numEvents)
+    njobs = int (args.numJobs)
 
     powInputName = args.inputTemplate
     #powInputName = args.inputTemplate + '_tempo'
@@ -973,7 +991,7 @@ if __name__ == "__main__":
         if QUEUE == '':
             print 'Direct compiling... \n'
             #runCommand ('bash run_source.sh ', TESTING == 1)
-            os.system('bash '+filename+' >& '+filename.split('.sh')[0]+'.log &')
+            os.system('bash '+filename+' 2>&1 | tee '+filename.split('.sh')[0]+'.log')
             #print "Issue 'bash run_source.sh >& run.log &' to compile powheg..."
         
         else:
@@ -1070,7 +1088,7 @@ if __name__ == "__main__":
 
     elif args.parstage == '7' :
       print "preparing for NNLO reweighting"
-      runhnnlo(args.folderName, 350, QUEUE)
+      runhnnlo(args.folderName, njobs, QUEUE)
 
     elif args.parstage == '9' :
         # overwriting with original
