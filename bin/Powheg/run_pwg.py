@@ -68,6 +68,13 @@ def prepareJob(tag, i, folderName) :
     f.write('export LHAPDF_DATA_PATH=`$LHAPDF_BASE/bin/lhapdf-config --datadir` \n')
 #    f.write('export LHAPDF6TOOLFILE=$CMSSW_BASE/config/toolbox/$SCRAM_ARCH/tools/available/lhapdf6.xml \n\n')
 #    f.write('cd ' + rootfolder + '/' + folderName + '\n')
+    f.write ('cd -' + '\n')
+    f.write ('echo "I am here:"' + '\n')
+    f.write ('pwd' + '\n')
+    f.write ('cp -p ' + rootfolder + '/' + folderName + '/powheg.input ./' + '\n')
+    f.write ('cp -p ' + rootfolder + '/' + folderName + '/JHUGen.input ./' + '\n')
+    f.write ('cp -p ' + rootfolder + '/' + folderName + '/*.dat  ./' + '\n') 
+    f.write ('cp -p ' + rootfolder + '/' + folderName + '/pwhg_main  ./' + '\n') 
 
 
     f.write('\n')
@@ -149,8 +156,12 @@ def runParallelXgrid(parstage, xgrid, folderName, nEvents, njobs, powInputName, 
 
         filename = folderName+'/run_' + jobID + '.sh'
         f = open(filename, 'a')
-        f.write('cd '+rootfolder+'/'+folderName+'/ \n')
+        #f.write('cd '+rootfolder+'/'+folderName+'/ \n')
         f.write('echo ' + str (i) + ' | ./pwhg_main &> run_' + jobID + '.log ' + '\n')
+        f.write('cp -p *.log ' + rootfolder + '/' + folderName + '/. \n')  
+        f.write('cp -p *.top ' + rootfolder + '/' + folderName + '/. \n')  
+        f.write('cp -p *.dat ' + rootfolder + '/' + folderName + '/. \n')  
+
         f.close()
 
         os.system('chmod 755 '+filename)
@@ -271,7 +282,7 @@ def runGetSource(parstage, xgrid, folderName, powInputName, process, tagName) :
 '''
 # Release to be used to define the environment and the compiler needed
 export RELEASE=${CMSSW_VERSION}
-export jhugenversion="v7.0.0"
+export jhugenversion="v7.0.1"
 
 cd $WORKDIR
 pwd
@@ -342,6 +353,8 @@ fi
 
 patch -l -p0 -i ${WORKDIR}/patches/pdfweights.patch
 patch -l -p0 -i ${WORKDIR}/patches/pwhg_lhepdf.patch
+
+echo ${POWHEGSRC} > VERSION
 
 cd POWHEG-BOX/${process}
 
@@ -725,9 +738,7 @@ if [ "$process" = "HJ" ]; then
   mv runcmsgrid_tmp.sh runcmsgrid.sh
 fi  
 
-
 chmod 755 runcmsgrid.sh
-
 cp -p runcmsgrid.sh runcmsgrid_par.sh
 
 sed -i '/ reweightlog_/c cat <<EOF | ../pwhg_main &>> reweightlog_${process}_${seed}.txt\\n${seed}\\npwgevents.lhe\\nEOF\\n' runcmsgrid_par.sh
@@ -743,6 +754,16 @@ chmod 755 runcmsgrid_par.sh
 
 #cd ${WORKDIR}
 
+if [ "$process" = "HJ" ]; then
+  echo "This process needs NNLOPS reweighting"
+  for i in `echo 11 22 0505`; do
+    ./mergedata 1 ${i}/*.top
+    mv fort.12 HNNLO-${i}.top 
+  done
+  #force keep top in this case 
+  keepTop='1'
+fi
+
 if [ $keepTop == '1' ]; then
     echo 'Keeping validation plots.'
     echo 'Packing...' ${WORKDIR}'/'${folderName}'_'${process}'.tgz'
@@ -750,14 +771,6 @@ if [ $keepTop == '1' ]; then
 else
     echo 'Packing...' ${WORKDIR}'/'${folderName}'_'${process}'.tgz'
     tar zcf ${WORKDIR}'/'${folderName}'_'${process}'.tgz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.top --exclude=*.lhe --exclude=run_*.sh --exclude=*.log --exclude=*temp
-fi
-
-if [ "$process" = "HJ" ]; then
-  echo "This process needs NNLOPS reweighting"
-  for i in `echo 11 22 0505`; do
-    ./mergedata 1 ${i}/*.top
-    mv fort.12 HNNLO-${i}.top 
-  done  
 fi
 
 cd ${WORKDIR}
