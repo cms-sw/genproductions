@@ -101,7 +101,7 @@ def prepareJobForEvents (tag, i, folderName, EOSfolder) :
 
     f.write ('pwd' + '\n')
     f.write ('ls' + '\n')
-    f.write ('echo ' + str (i) + ' | ' + rootfolder + '/pwhg_main &> log_' + tag + '.log &' + '\n')
+    f.write ('echo ' + str (i) + ' | ' + rootfolder + '/pwhg_main &> log_' + tag + '.log ' + '\n')
     f.write ('cp -p log_' + tag + '.log ' + rootfolder + '/' + folderName + '/. \n')
     #lhefilename = 'pwgevents-{:04d}.lhe'.format(i) 
 
@@ -738,29 +738,19 @@ if [ "$process" = "HJ" ]; then
   mv runcmsgrid_tmp.sh runcmsgrid.sh
 fi  
 
-
-if [ "$process" = "Zj" ] || [ "$process" = "HJ" ]; then
-  
-  cp runcmsgrid.sh runcmsgrid_singlecore.sh
-
-  sed -i '/ reweightlog_/c cat <<EOF | ../pwhg_main &>> reweightlog_${process}_${seed}.txt\\n${seed}\\npwgevents.lhe\\nEOF\\n' runcmsgrid.sh
-
-  sed -i 's/# Check if /sed -i \"s#.*manyseeds.*#manyseeds 1#g\" powheg.input\\n# Check if /g' runcmsgrid.sh
-  sed -i 's/# Check if /sed -i \"s#.*parallelstage.*#parallelstage 4#g\" powheg.input\\n# Check if /g' runcmsgrid.sh
-  sed -i 's/# Check if /sed -i \"s#.*xgriditeration.*#xgriditeration 1#g\" powheg.input\\n\\n# Check if /g' runcmsgrid.sh
-
-  sed -i 's/# Check if /rm -rf pwgseeds.dat; for ii in $(seq 1 9999); do echo $ii >> pwgseeds.dat; done\\n\\n# Check if /g' runcmsgrid.sh
-
-  sed -i 's/^..\/pwhg_main/echo \${seed} | ..\/pwhg_main/g' runcmsgrid.sh
-
-  sed -i 's/pwgevents.lhe/fornnlops/g' nnlopsreweighter.input 
-  sed -i 's/\.lhe/\${idx}.lhe/g' runcmsgrid.sh
-
-  sed -i "s/^process/idx=-\`echo \${seed} | awk \'{printf \\"%04d\\", \$1}\'\` \\nprocess/g" runcmsgrid.sh
-
-fi
-
 chmod 755 runcmsgrid.sh
+cp -p runcmsgrid.sh runcmsgrid_par.sh
+
+sed -i '/ reweightlog_/c cat <<EOF | ../pwhg_main &>> reweightlog_${process}_${seed}.txt\\n${seed}\\npwgevents.lhe\\nEOF\\n' runcmsgrid_par.sh
+sed -i 's/# Check if /sed -i \"s#.*manyseeds.*#manyseeds 1#g\" powheg.input\\n# Check if /g' runcmsgrid_par.sh
+sed -i 's/# Check if /sed -i \"s#.*parallelstage.*#parallelstage 4#g\" powheg.input\\n# Check if /g' runcmsgrid_par.sh
+sed -i 's/# Check if /sed -i \"s#.*xgriditeration.*#xgriditeration 1#g\" powheg.input\\n\\n# Check if /g' runcmsgrid_par.sh
+sed -i 's/# Check if /rm -rf pwgseeds.dat; for ii in $(seq 1 9999); do echo $ii >> pwgseeds.dat; done\\n\\n# Check if /g' runcmsgrid_par.sh
+sed -i 's/^..\/pwhg_main/echo \${seed} | ..\/pwhg_main/g' runcmsgrid_par.sh
+sed -i 's/\.lhe/\${idx}.lhe/g' runcmsgrid_par.sh
+sed -i "s/^process/idx=-\`echo \${seed} | awk \'{printf \\"%04d\\", \$1}\'\` \\nprocess/g" runcmsgrid_par.sh
+
+chmod 755 runcmsgrid_par.sh
 
 #cd ${WORKDIR}
 
