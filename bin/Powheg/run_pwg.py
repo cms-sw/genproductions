@@ -567,6 +567,80 @@ EOF
 
 fi  
 
+if [ "$process" = "Zj" ]; then
+  echo "downloading DYNNLOPS....
+  cd $PWD/POWHEG-BOX/Zj
+  echo "I am now in" $PWD
+  svn co --username anonymous --password anonymous svn://powhegbox.mib.infn.it/trunk/User-Processes-V2/DYNNLOPS
+  cd -
+  echo "I am now back in" $PWD
+  
+  echo "Compilinig DYNNLO...."
+  wget http://theory.fi.infn.it/grazzini/codes/dynnlo-v1.5.tgz
+  tar -xzvf dynnlo-v1.5.tgz
+  cd dynnlo-v1.5
+  cp ../POWHEG-BOX/Zj/DYNNLOPS/ZNNLOPS/dynnlo-patches/dynnlo.makefile ./makefile 
+  cp -r -L ../POWHEG-BOX/Zj/DYNNLOPS/ZNNLOPS/dynnlo-patches ./
+  cat makefile | sed -e "s#LHAPDFLIB=.\+#LHAPDFLIB=$(scram tool info lhapdf | grep LIBDIR | cut -d "=" -f2)#g" > makefile
+  make || fail_exit "Failed to compile DYNNLO"
+  cp -p bin/dynnlo ${WORKDIR}/${name}/
+  cd ${WORKDIR}/${name}
+  # cp POWHEG-BOX/HJ/NNLOPS-mass-effects/mergedata.f .
+  # gfortran -o mergedata mergedata.f
+
+  # cd ${WORKDIR}/${name}/POWHEG-BOX/HJ
+  # cp Makefile Makefile.orig
+  # cat Makefile.orig | sed -e "s#ANALYSIS=.\+#ANALYSIS=NNLOPS#g" |sed -e "s#\$(shell \$(LHAPDF_CONFIG) --libdir)#$(scram tool info lhapdf | grep LIBDIR | cut -d "=" -f2)#g" | sed -e "s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d "=" -f2)/bin/fastjet-config#g" | sed -e "s#NNLOPSREWEIGHTER+=  fastjetfortran.o#NNLOPSREWEIGHTER+=  fastjetfortran.o pwhg_bookhist-multi.o#g" > Makefile
+  # make nnlopsreweighter || fail_exit "Failed to compile nnlopsreweighter"
+  # cp nnlopsreweighter ../../
+  # cd ${WORKDIR}/${name}
+  # HMASS=`cat powheg.input | grep "^hmass" | cut -d " " -f2`; 
+  # gawk "/sroot/{gsub(/8000/,13000)};/hmass/{gsub(/125.5/, ${HMASS})};/mur,muf/{gsub(/62.750/, $(( $HMASS/2 )))};{print}" POWHEG-BOX/HJ/PaperRun/HNNLO-LHC8-R04-APX2-11.input | sed -e "s#10103#SEED#g" | sed -e "s#HNNLO-LHC8-R04-APX2-11#HNNLO-LHC13-R04-APX2-11#g"> HNNLO-LHC13-R04-APX2-11.input
+  # gawk "/sroot/{gsub(/8000/,13000)};/hmass/{gsub(/125.5/, ${HMASS})};/mur,muf/{gsub(/62.750/, $(( $HMASS )))};{print}" POWHEG-BOX/HJ/PaperRun/HNNLO-LHC8-R04-APX2-11.input | sed -e "s#10103#SEED#g" | sed -e "s#HNNLO-LHC8-R04-APX2-11#HNNLO-LHC13-R04-APX2-22#g"> HNNLO-LHC13-R04-APX2-22.input
+  # gawk "/sroot/{gsub(/8000/,13000)};/hmass/{gsub(/125.5/, ${HMASS})};/mur,muf/{gsub(/62.750/, $(( $HMASS/4 )))};{print}" POWHEG-BOX/HJ/PaperRun/HNNLO-LHC8-R04-APX2-11.input | sed -e "s#10103#SEED#g" | sed -e "s#HNNLO-LHC8-R04-APX2-11#HNNLO-LHC13-R04-APX2-0505#g"> HNNLO-LHC13-R04-APX2-0505.input
+  # cat << EOF > nnlopsreweighter.input
+# # a line beginning with 'lhfile' followed by the name of the event file
+
+# lhfile pwgevents.lhe 
+
+# # weights present in the lhfile: 'mtinf', 'mt', 'mtmb', 'mtmb-bminlo'
+
+
+# # a line with: 'nnlofiles'
+# # followed by a quoted label and the name of a HNNLO output file.
+# # In the following the 3 ouput refer to mt=infinity approx,
+# # finite mt, and finite mt and mb.
+
+# nnlofiles
+# 'nn-mtmb-11' HNNLO-11.top
+# 'nn-mtmb-22' HNNLO-22.top
+# 'nn-mtmb-0505' HNNLO-0505.top
+
+# # The new desired weights, in the Les Houches format.
+# # The user can choose to group them in the way he prefers, and give them
+# # the id's he likes.
+# # The program determined how to compute each weights from the description
+# # line. It loops through the weights id's present in the pwgevents.lhe file
+# # and through the labels of the nnlofiles. If a label of a weight and
+# # a label of the nnlofiles are both present in the description field
+# # of a weight mentioned here, it computes that weight by reweighting
+# # the corresponding weights in the lhe file with the nnlo result present
+# # in the nnlofiles associated with the label. For example, in the
+# # nnlops-mt id in the following it reweights the nn-mtinf weight present
+# # in the .lhe file with the nnlo result present in the
+# # HNNLO-LHC8-R04-APX0-11.top file.
+
+# <initrwgt>
+# <weightgroup name='nnl'> 
+# <weight id='nnlops-11'> combines 'nn-mtmb-11' with 'c' (central)</weight> 
+# <weight id='nnlops-22'> combines 'nn-mtmb-22' with 'c' (central)</weight> 
+# <weight id='nnlops-0505'> combines 'nn-mtmb-0505' with 'c' (central)</weight> 
+# </weightgroup>
+# </initrwgt>
+# EOF
+
+fi  
+
 #mkdir -p workdir
 #cd workdir
 localDir=`pwd`
