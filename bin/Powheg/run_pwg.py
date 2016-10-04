@@ -329,6 +329,15 @@ jhugen=0
 if [[ -s ./JHUGen.input ]]; then
   jhugen=$(expr $jhugen + 1)
   echo "JHUGen activated!"
+  #for decay weights in H->WW and H->ZZ
+  wget https://github.com/hroskes/genproductions/blob/master/bin/JHUGen/Pdecay/PMWWdistribution.out
+  wget https://github.com/hroskes/genproductions/blob/master/bin/JHUGen/Pdecay/PMZZdistribution.out
+
+  match=`grep -xq "DecayMode1=10" JHUGen.input`
+  if grep -q "DecayMode1=10" JHUGen.input || grep -q "DecayMode1=11" JHUGen.input; then 
+    echo "This is a WW decay channel, using the corresponfind decay weights"
+    mv PMWWdistribution.out PMZZdistribution.out
+  fi
 fi
 
 ### retrieve the powheg source tar ball
@@ -452,6 +461,7 @@ if [ $jhugen = 1 ]; then
   mkdir -p ${WORKDIR}/${name}
   cp -p JHUGen ${WORKDIR}/${name}/.
   cp -pr pdfs ${WORKDIR}/${name}/.
+
 
   cd ..
 fi
@@ -606,6 +616,7 @@ echo 'Compiling finished...'
 
 if [ $jhugen = 1 ]; then
   cp -p ${cardj} .
+  
   if [ ! -e ${WORKDIR}/runcmsgrid_powhegjhugen.sh ]; then
    fail_exit "Did not find " ${WORKDIR}/runcmsgrid_powhegjhugen.sh 
   fi
@@ -970,7 +981,9 @@ if __name__ == "__main__":
         os.system('cp -p '+args.inputTemplate.split('/')[-1]+' '+args.folderName+'/powheg.input')
 
         #os.system('rm -rf JHUGen.input')
-        inputJHUGen = '/'.join(powInputName.split('/')[0:-1])+'/JHUGen.input'
+        #inputJHUGen = '/'.join(powInputName.split('/')[0:-1])+'/JHUGen.input'
+        #print powInputName
+        inputJHUGen='JHUGen.input'
         if not os.path.exists(inputJHUGen) :
             os.system('wget --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+inputJHUGen)
 
