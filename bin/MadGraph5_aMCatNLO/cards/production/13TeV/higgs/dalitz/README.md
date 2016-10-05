@@ -34,6 +34,10 @@ Cards for WH: *WH120*, *WH125*, *WH130*
 Use ```2nw/1nw``` queues
 
 
+## Higgs to ZGamma
+Card: *ggH125_012j_NLO_FXFX_HtoZGammaToMuMuGamma*
+It is included for cross check with the official H to ZG process, whcich was produced with Powheg (H production) + Pythia 8 (H decay) combination.
+
 [1]: https://twiki.cern.ch/twiki/bin/viewauth/CMS/QuickGuideMadGraph5aMCatNLO
 
 [2]: https://twiki.cern.ch/twiki/bin/viewauth/CMS/HZgMC13TeV
