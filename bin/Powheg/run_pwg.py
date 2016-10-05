@@ -525,6 +525,10 @@ if [ "$process" = "HJ" ]; then
   gfortran -o mergedata mergedata.f
 
   cd ${WORKDIR}/${name}/POWHEG-BOX/HJ
+ 
+  # avoid accessing member 1 for q2min determination. Use member 0, as member 1 may not be available
+  sed -i "s/getq2min(1,tmp)/getq2min(0,tmp)/g" setlocalscales.f
+
   cp Makefile Makefile.orig
   cat Makefile.orig | sed -e "s#ANALYSIS=.\+#ANALYSIS=NNLOPS#g" |sed -e "s#\$(shell \$(LHAPDF_CONFIG) --libdir)#$(scram tool info lhapdf | grep LIBDIR | cut -d "=" -f2)#g" | sed -e "s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d "=" -f2)/bin/fastjet-config#g" | sed -e "s#NNLOPSREWEIGHTER+=  fastjetfortran.o#NNLOPSREWEIGHTER+=  fastjetfortran.o pwhg_bookhist-multi.o#g" > Makefile
   make nnlopsreweighter || fail_exit "Failed to compile nnlopsreweighter"
