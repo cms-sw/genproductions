@@ -7,9 +7,9 @@ Also, these distributions depend strongly on the HVV couplings.  The ones here s
 Because the weights are normalized to 1 at the pole mass, these distributions should be fine for any ZZ or WW final state, which differ only by normalization above 2mV.
 
 To use:
- 1. Download one of the distributions from this directory, either the ZZ or WW.  It should be stored in the girdpack in the same directory where JHUGen will be run.  It also has to be called PMZZdistribution.out (even for WW).
+ 1. Download one of the distributions from this directory, either the ZZ or WW.  It should be stored in the gridpack in the same directory where JHUGen will be run.
  2. Add the following command line options in the JHUGen card:
-      ReadLHE=(input file).lhe ReweightDecay WidthSchemeIn=3 ReadPMZZ
+      ReadLHE=(input file).lhe ReweightDecay WidthSchemeIn=3 ReadPmHstar PmHstarFile=(filename.out)
  3. Run
 
 Please let us know if you would like instructions to produce more distributions, for example Zgamma, a low mass wide resonance, or other couplings.
