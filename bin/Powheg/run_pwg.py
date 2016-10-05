@@ -330,8 +330,8 @@ if [[ -s ./JHUGen.input ]]; then
   jhugen=$(expr $jhugen + 1)
   echo "JHUGen activated!"
   #for decay weights in H->WW and H->ZZ
-  wget https://github.com/hroskes/genproductions/blob/master/bin/JHUGen/Pdecay/PMWWdistribution.out
-  wget https://github.com/hroskes/genproductions/blob/master/bin/JHUGen/Pdecay/PMZZdistribution.out
+  wget https://github.com/hroskes/genproductions/raw/master/bin/JHUGen/Pdecay/PMWWdistribution.out 
+  wget https://github.com/hroskes/genproductions/raw/master/bin/JHUGen/Pdecay/PMZZdistribution.out 
 
   match=`grep -xq "DecayMode1=10" JHUGen.input`
   if grep -q "DecayMode1=10" JHUGen.input || grep -q "DecayMode1=11" JHUGen.input; then 
