@@ -333,11 +333,6 @@ if [[ -s ./JHUGen.input ]]; then
   wget https://github.com/hroskes/genproductions/raw/master/bin/JHUGen/Pdecay/PMWWdistribution.out 
   wget https://github.com/hroskes/genproductions/raw/master/bin/JHUGen/Pdecay/PMZZdistribution.out 
 
-  match=`grep -xq "DecayMode1=10" JHUGen.input`
-  if grep -q "DecayMode1=10" JHUGen.input || grep -q "DecayMode1=11" JHUGen.input; then 
-    echo "This is a WW decay channel, using the corresponfind decay weights"
-    mv PMWWdistribution.out PMZZdistribution.out
-  fi
 fi
 
 ### retrieve the powheg source tar ball
