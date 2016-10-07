@@ -190,7 +190,7 @@ def runSingleXgrid(parstage, xgrid, folderName, nEvents, powInputName, seed, pro
 
 #    runCommand('mv -f powheg.input powheg.input.temp')
 #    sedcommand = 'sed "s/parallelstage.*/parallelstage ' + parstage + '/ ; s/xgriditeration.*/xgriditeration ' + xgrid + '/" ' + powInputName + ' > ' + folderName + '/powheg.input'
-    sedcommand = 'sed "s/NEVENTS/' + nEvents + '/ ; s/SEED/' + seed + '/" ' + powInputName.split('/')[-1] + ' > ' + folderName + '/powheg.input'
+    sedcommand = 'sed "s/NEVENTS/' + nEvents + '/ ; s/SEED/' + seed + '/" ' + powInputName + ' > ' + folderName + '/powheg.input'
 
     runCommand(sedcommand)
 
@@ -332,7 +332,7 @@ if [[ -s ./JHUGen.input ]]; then
 fi
 
 ### retrieve the powheg source tar ball
-export POWHEGSRC=powhegboxV2_May2016.tar.gz 
+export POWHEGSRC=powhegboxV2_Sep2016.tar.gz 
 
 echo 'D/L POWHEG source...'
 
@@ -853,6 +853,7 @@ if __name__ == "__main__":
     parser.add_option('-t', '--totEvents'     , dest="totEvents",     default= '10000',        help='total number of events to be generated [10000]')
     parser.add_option('-n', '--numEvents'     , dest="numEvents",     default= '2000',         help='number of events for a single job [2000]')
     parser.add_option('-i', '--inputTemplate' , dest="inputTemplate", default= 'powheg.input', help='input cfg file (fixed) [=powheg.input]')
+    parser.add_option('-g', '--inputJHUGen' , dest="inputJHUGen", default= '', help='input JHUGen cfg file []')
     parser.add_option('-q', '--lsfQueue'      , dest="lsfQueue",      default= '',          help='LSF queue [2nd]')
     parser.add_option('-s', '--rndSeed'       , dest="rndSeed",       default= '42',           help='Starting random number seed [42]')
     parser.add_option('-m', '--prcName'       , dest="prcName",       default= 'DMGG',           help='POWHEG process name [DMGG]')
@@ -947,6 +948,7 @@ if __name__ == "__main__":
         print "\t argument '-t', '--totEvents'     , default= '10000"
         print "\t argument '-n', '--numEvents'     , default= '2000'"
         print "\t argument '-i', '--inputTemplate' , default= 'powheg.input'"
+        print "\t argument '-g', '--inputJHUGen'   , default= ''"
         print "\t argument '-q', '--lsfQueue'      , default= ''"
         print "\t argument '-s', '--rndSeed'       , default= '42'"
         print "\t argument '-m', '--prcName'       , default= 'DMGG'"
@@ -955,8 +957,9 @@ if __name__ == "__main__":
 
         exit()
 
-    if args.parstage == '0' :
-        #runCommand('cp -p JHUGen.input '+args.folderName+'/.')
+    if args.parstage == '0' or \
+       args.parstage == '0123' or args.parstage == 'a' or \
+       args.parstage == '01239' or args.parstage == 'one' or args.parstage == 'f' : # full single grid in oneshot 
 
         tagName = 'src_'+args.folderName
         filename = './run_'+tagName+'.sh'
@@ -966,7 +969,7 @@ if __name__ == "__main__":
         if not os.path.exists(args.inputTemplate) :
             os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate)
         os.system('mkdir -p '+rootfolder+'/'+args.folderName)
-        os.system('cp -p '+args.inputTemplate.split('/')[-1]+' '+args.folderName+'/powheg.input')
+        os.system('cp -p '+args.inputTemplate+' '+args.folderName+'/powheg.input')
 
         os.system('rm -rf JHUGen.input')
         inputJHUGen = '/'.join(powInputName.split('/')[0:-1])+'/JHUGen.input'
@@ -974,8 +977,17 @@ if __name__ == "__main__":
             os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+inputJHUGen)
             if os.path.exists('JHUGen.input') :
                 os.system('cp -p JHUGen.input '+args.folderName+'/.')
+            if os.path.exists(args.inputJHUGen) :
+                os.system('cp -p '+args.inputJHUGen+' '+args.folderName+'/JHUGen.input')
         else :
             os.system('cp -p '+inputJHUGen+' '+args.folderName+'/.')
+
+    if args.parstage == '0' :
+
+        tagName = 'src_'+args.folderName
+        filename = './run_'+tagName+'.sh'
+
+        prepareJob(tagName, '', '.')
 
         runGetSource(args.parstage, args.xgrid, args.folderName,
                      powInputName, args.prcName, tagName)
@@ -1000,7 +1012,7 @@ if __name__ == "__main__":
         scriptName = args.folderName + '/run_'+tagName+'.sh'
 
 
-        os.system('cp -p '+args.inputTemplate.split('/')[-1]+' '+args.folderName+'/powheg.input')
+        os.system('cp -p '+args.inputTemplate+' '+args.folderName+'/powheg.input')
         os.system('sed -i "s/^numevts.*/numevts '+args.totEvents+'/" '+
                   args.folderName+'/powheg.input')
 
@@ -1023,16 +1035,10 @@ if __name__ == "__main__":
         tagName = 'all_'+args.folderName
         scriptName = './run_'+tagName+'.sh'
 
-        if not os.path.exists(args.inputTemplate) :
-            os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate)
-        os.system('mkdir -p '+rootfolder+'/'+args.folderName)
-        os.system('cp -p '+args.inputTemplate.split('/')[-1]+' '+args.folderName+'/powheg.input')
         prepareJob(tagName, '', '.')
         runGetSource(args.parstage, args.xgrid, args.folderName,
                      powInputName, args.prcName, tagName)
 
-        os.system('cp -p '+args.inputTemplate.split('/')[-1]+' '+
-                  args.folderName+'/powheg.input')
         os.system('sed -i "s/^numevts.*/numevts '+args.numEvents+'/" '+
                   args.folderName+'/powheg.input')
         runSingleXgrid(args.parstage, args.xgrid, args.folderName,
@@ -1053,10 +1059,6 @@ if __name__ == "__main__":
         tagName = 'full_'+args.folderName
         scriptName = './run_'+tagName+'.sh'
 
-        if not os.path.exists(args.inputTemplate) :
-            os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate)
-        os.system('mkdir -p '+rootfolder+'/'+args.folderName)
-        os.system('cp -p '+args.inputTemplate.split('/')[-1]+' '+args.folderName+'/powheg.input')
         prepareJob(tagName, '', '.')
         runGetSource(args.parstage, args.xgrid, args.folderName,
                      powInputName, args.prcName, tagName)
