@@ -985,7 +985,7 @@ if __name__ == "__main__":
         os.system('rm -rf JHUGen.input')
         inputJHUGen = '/'.join(powInputName.split('/')[0:-1])+'/JHUGen.input'
         if not os.path.exists(inputJHUGen) :
-            os.system('wget --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+inputJHUGen)
+            os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+inputJHUGen)
 
             if os.path.exists('JHUGen.input') :
                 os.system('cp -p JHUGen.input '+args.folderName+'/.')
