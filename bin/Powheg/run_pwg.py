@@ -329,6 +329,10 @@ jhugen=0
 if [[ -s ./JHUGen.input ]]; then
   jhugen=$(expr $jhugen + 1)
   echo "JHUGen activated!"
+  #for decay weights in H->WW and H->ZZ
+  wget https://github.com/hroskes/genproductions/raw/master/bin/JHUGen/Pdecay/PMWWdistribution.out 
+  wget https://github.com/hroskes/genproductions/raw/master/bin/JHUGen/Pdecay/PMZZdistribution.out 
+
 fi
 
 ### retrieve the powheg source tar ball
@@ -453,6 +457,7 @@ if [ $jhugen = 1 ]; then
   cp -p JHUGen ${WORKDIR}/${name}/.
   cp -pr pdfs ${WORKDIR}/${name}/.
 
+
   cd ..
 fi
 if [ "$process" = "gg_H_2HDM" ] || [ "$process" = "gg_H_MSSM" ]; then
@@ -484,6 +489,12 @@ fi
 
 echo 'Compiling pwhg_main...'
 pwd
+if [ "$process" = "HJ" ]; then
+  echo "fixing q2min determination for HJ"
+  # avoid accessing member 1 for q2min determination. Use member 0, as member 1 may not be available
+  sed -i "s/getq2min(1,tmp)/getq2min(0,tmp)/g" setlocalscales.f
+fi  
+
 
 make pwhg_main || fail_exit "Failed to compile pwhg_main"
 
@@ -515,6 +526,7 @@ if [ "$process" = "HJ" ]; then
   gfortran -o mergedata mergedata.f
 
   cd ${WORKDIR}/${name}/POWHEG-BOX/HJ
+ 
   cp Makefile Makefile.orig
   cat Makefile.orig | sed -e "s#ANALYSIS=.\+#ANALYSIS=NNLOPS#g" |sed -e "s#\$(shell \$(LHAPDF_CONFIG) --libdir)#$(scram tool info lhapdf | grep LIBDIR | cut -d "=" -f2)#g" | sed -e "s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d "=" -f2)/bin/fastjet-config#g" | sed -e "s#NNLOPSREWEIGHTER+=  fastjetfortran.o#NNLOPSREWEIGHTER+=  fastjetfortran.o pwhg_bookhist-multi.o#g" > Makefile
   make nnlopsreweighter || fail_exit "Failed to compile nnlopsreweighter"
@@ -606,6 +618,7 @@ echo 'Compiling finished...'
 
 if [ $jhugen = 1 ]; then
   cp -p ${cardj} .
+  
   if [ ! -e ${WORKDIR}/runcmsgrid_powhegjhugen.sh ]; then
    fail_exit "Did not find " ${WORKDIR}/runcmsgrid_powhegjhugen.sh 
   fi
@@ -748,6 +761,7 @@ sed -i 's/# Check if /sed -i \"s#.*xgriditeration.*#xgriditeration 1#g\" powheg.
 sed -i 's/# Check if /rm -rf pwgseeds.dat; for ii in $(seq 1 9999); do echo $ii >> pwgseeds.dat; done\\n\\n# Check if /g' runcmsgrid_par.sh
 sed -i 's/^..\/pwhg_main/echo \${seed} | ..\/pwhg_main/g' runcmsgrid_par.sh
 sed -i 's/\.lhe/\${idx}.lhe/g' runcmsgrid_par.sh
+sed -i 's/pwgevents.lhe/fornnlops/g' nnlopsreweighter.input
 sed -i "s/^process/idx=-\`echo \${seed} | awk \'{printf \\"%04d\\", \$1}\'\` \\nprocess/g" runcmsgrid_par.sh
 
 chmod 755 runcmsgrid_par.sh
