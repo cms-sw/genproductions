@@ -1,13 +1,13 @@
 # Higgs Dalitz Samples
-In this directory we keep all cards used for *H &rightarrow; &gamma;\* &gamma; &rightarrow; ll;&gamma;*, aka **Higgs Dalitz decay**.
+In this directory we keep all cards used for *H &rightarrow; &gamma;&ast;&gamma; &rightarrow; ll&gamma;*, aka **Higgs Dalitz decay**.
 The samples produced with these cards are listed at [HZg MC twiki page](https://twiki.cern.ch/twiki/bin/view/CMS/HZgMC13TeV).
 
 We use the
 [Higgs Characterization](http://feynrules.irmp.ucl.ac.be/wiki/HiggsCharacterisation)
 model in Madgraph/amcatnlo for the decay of the Higgs
 boson. It is crucial part here, since *H
-&rightsarrow; &gamma;\* &gamma;* process does not yet exist in
-Pythia 8.  The mass of the *&gamma;\* &rightsarrow;* decay is
+&rightarrow; &gamma;&ast; &gamma;* process does not yet exist in
+Pythia 8.  The di-lepton mass of the *&gamma;&ast; &rightarrow; ll* decay is
 restricted to *0 < m(ll) < (50)60 GeV*.  However, the lower cut is
 effectively goverened by the masses of leptons: *2m_l < m(ll)*, and
 the masses of leptons are not zero in the decay model for that reason.
@@ -28,29 +28,33 @@ other samples as well.
 Cards: *ggH120_012j_NLO_FXFX_HtoMuMuGamma*, *ggH125_012j_NLO_FXFX_HtoMuMuGamma*, *ggH130_012j_NLO_FXFX_HtoMuMuGamma*,
 *ggH120_012j_NLO_FXFX_HtoElElGamma*, *ggH125_012j_NLO_FXFX_HtoElElGamma*, *ggH130_012j_NLO_FXFX_HtoElElGamma*
 
-  * Use ```2nw/1nw``` queues
+  * Use `2nw/1nw` queues
   * Production model: **HC**
   * Decay model: **HC**
 
 ## Gluon fusion at LO
 Cards: *ggH120_MuMuGamma*, *ggH125_MuMuGamma*, *ggH130_MuMuGamma*, *ggH120_ElElGamma*, *ggH125_ElElGamma*, *ggH130_ElElGamma*
 
-  * Use ```2nd/1nd``` queues
+  * Use `2nd/1nd` queues
   * Production model: **HC**
   * Decay model: **HC**
 
 ## Vector Boson Fusion
-Cards: *vbfH120*, *vbfH125*, *vbfH130*
+Cards: *vbfH120_NLO_HtoMuMuGamma*, *vbfH125_NLO_HtoMuMuGamma*, *vbfH130_NLO_HtoMuMuGamma*, 
+*vbfH120_NLO_HtoElElGamma*, *vbfH125_NLO_HtoElElGamma*, *vbfH130_NLO_HtoElElGamma*
 
-  * Use ```2nd/1nd``` queues
+  * Use `2nd/1nd` queues
   * Production model: **loop_sm-no_b_mass**
   * Decay model: **HC**
 
 ## Associated production
-Cards for ZH: *ZH120*, *ZH125*, *ZH130*__
-Cards for WH: *WH120*, *WH125*, *WH130*
+Cards for ZH: *ZH120_012j_NLO_HtoEMuMuGamma*, *ZH125_012j_NLO_HtoMuMuGamma*, *ZH130_012j_NLO_HtoMuMuGamma*,
+*ZH120_012j_NLO_HtoElElGamma*, *ZH125_012j_NLO_HtoElElGamma*, *ZH130_012j_NLO_HtoElElGamma*
 
-  * Use ```1nw/2nd``` queues
+Cards for WH: *WH120_012j_NLO_HtoEMuMuGamma*, *WH125_012j_NLO_HtoMuMuGamma*, *WH130_012j_NLO_HtoMuMuGamma*,
+*WH120_012j_NLO_HtoElElGamma*, *WH125_012j_NLO_HtoElElGamma*, *WH130_012j_NLO_HtoElElGamma* 
+
+  * Use `1nw/2nd` queues
   * Production model: **loop_sm-no_b_mass**
   * Decay model: **HC**
 
