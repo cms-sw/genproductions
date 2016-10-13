@@ -31,6 +31,7 @@ define l+ = m+
 define l- = m-
 
 decay x0 > l+ l- a
+
 #decay z > all all
 
 # running the actual code
