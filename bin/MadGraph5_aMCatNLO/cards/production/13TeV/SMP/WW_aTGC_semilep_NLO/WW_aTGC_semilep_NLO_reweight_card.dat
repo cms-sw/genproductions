@@ -3,10 +3,6 @@
  launch  
 	 set Dim6 1 1.6
 	 set Dim6 2 2.5
-	 set Dim6 3 10
- launch  
-	 set Dim6 1 1.6
-	 set Dim6 2 2.5
 	 set Dim6 3 0
  launch  
 	 set Dim6 1 1.6
