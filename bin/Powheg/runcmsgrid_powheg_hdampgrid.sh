@@ -61,7 +61,7 @@ mkdir ${myDir}; cd ${myDir} ;
 #ln -s `which gfortran` g77
 export PATH=`pwd`:${PATH}
 
-if [[ -e ${WORKDIR}/pwggrid.dat ]]; then
+if [[ -e ${WORKDIR}/pwggrid.dat ]] || [ -e ${WORKDIR}/pwggrid-0001.dat ]; then
     cp -p ${WORKDIR}/pwg*.dat .
 fi
 if [ -e  ${WORKDIR}/vbfnlo.input ]; then
@@ -143,7 +143,7 @@ then
 
 	counter=$(( counter + 1 ))
 	echo -e "\nlhrwgt_id '${counter}'" >> powheg.input
-	echo -e "lhrwgt_descr 'muR=${scale1} muF=${scale2} hdamp=mt=172.5'" >> powheg.input
+	echo -e "lhrwgt_descr 'muR=${scale1} muF=${scale2} hdamp=1.581*mt=272.7225'" >> powheg.input
 	echo -e "lhrwgt_group_name 'scale_variation'" >> powheg.input
 	echo -e "lhrwgt_group_combine 'envelope'" >> powheg.input
 	
@@ -312,12 +312,14 @@ then
     done
     fi
 
+
     if [ "$produceHdampWeights" == "true" ];
     then 
       echo -e "\ncomputing weights for 3 hdamp variations x 9 scale variations\n"
       hiteration=-1
       hlastfile=2
-      harray=(0 86.25 350)
+      #harray=(0 86.25 350)
+      harray=(0 171.79275 386.2275)
       counter=5000
       while [ $hiteration -lt $hlastfile ];
         do
