@@ -7,6 +7,9 @@ define j = j b b~
 
 define V = z
 
+#define allVdecay = u u~ c c~ d d~ s s~ b b~ vl vl~ e+ e- mu+ mu- ta+ ta-
+#generate p p > V h, V > allVdecay allVdecay
+
 generate p p > V h [QCD] @0
 add process p p > V h j [QCD] @1
 add process p p > V h j j [QCD] @2

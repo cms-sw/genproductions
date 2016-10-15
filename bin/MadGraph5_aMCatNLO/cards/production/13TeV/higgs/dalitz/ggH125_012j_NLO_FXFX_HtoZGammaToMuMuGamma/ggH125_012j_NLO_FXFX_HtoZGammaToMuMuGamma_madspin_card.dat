@@ -24,14 +24,13 @@ set max_running_process 1
 
 # specify the decay for the final state particles
 set spinmode=none
-set run_card mmll=0
-set run_card mmllmax=60
+set run_card mmll=50
+set run_card mmllmax=1000
 
-define l+ = e+
-define l- = e-
+define l+ = m+
+define l- = m-
 
 decay x0 > l+ l- a
-#decay z > all all
 
 # running the actual code
 launch
