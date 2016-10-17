@@ -5,7 +5,7 @@
  c Maximum number of weights
        integer lhrwgt_maxnheader
 -      parameter (lhrwgt_maxnheader=200)
-+      parameter (lhrwgt_maxnheader=300)
++      parameter (lhrwgt_maxnheader=400)
        integer  lhrwgt_max_header_columns
        parameter ( lhrwgt_max_header_columns=200)
        character * (lhrwgt_max_header_columns)
