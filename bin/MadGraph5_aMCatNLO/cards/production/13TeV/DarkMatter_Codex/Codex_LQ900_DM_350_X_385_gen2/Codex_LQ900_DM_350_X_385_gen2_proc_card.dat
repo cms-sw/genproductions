@@ -49,4 +49,4 @@ add process p p > m2 m2~ QCD=2 QED=0 NP=0, m2 > sm sm, (m2~ > ~dm ~x2~\
 , ~x2~ > sm sm ~dm)
 add process p p > m2 m2~ QCD=2 QED=0 NP=0, m2~ > sm sm, (m2 > ~dm ~x2 \
 , ~x2 > sm sm ~dm)
-output Codex_LQ1600_DM_700_X_770_gen2
+output Codex_LQ900_DM_350_X_385_gen2
