@@ -513,6 +513,16 @@ else
       export LIBRARY_PATH=$LD_LIBRARY_PATH
       cd madevent
       bin/madevent reweight pilotrun
+      # Explicitly compile all subprocesses
+      for file in $(ls -d rwgt/rw_me/SubProcesses/P* | head -4); do
+        echo "Compiling subprocess $(basename $file)"
+        pushd $file > /dev/null
+        for i in 2 3; do
+            MENUM=$i make matrix${i}py.so >& /dev/null
+            echo "Library MENUM=$i compiled with status $?"
+        done
+        popd >& /dev/null
+      done
       cd ..      
   fi
 
