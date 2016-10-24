@@ -514,7 +514,7 @@ else
       cd madevent
       bin/madevent reweight pilotrun
       # Explicitly compile all subprocesses
-      for file in $(ls -d rwgt/rw_me/SubProcesses/P* | head -4); do
+      for file in $(ls -d rwgt/rw_me/SubProcesses/P*); do
         echo "Compiling subprocess $(basename $file)"
         pushd $file > /dev/null
         for i in 2 3; do
