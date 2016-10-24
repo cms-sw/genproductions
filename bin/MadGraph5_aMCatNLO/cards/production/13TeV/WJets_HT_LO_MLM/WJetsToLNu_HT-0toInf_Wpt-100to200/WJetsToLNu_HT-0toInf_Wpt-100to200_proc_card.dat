@@ -1,0 +1,24 @@
+import model sm-ckm_no_b_mass
+#switch to diagonal ckm matrix if needed for speed
+#import model sm-ckm_no_b_mass
+
+define p = p b b~
+define j = j b b~
+
+define ell+ = e+ mu+ ta+
+define ell- = e- mu- ta-
+
+generate p p > w+, w+ > ell+ vl $$ t t~ h @0
+add process p p > w+ j, w+ > ell+ vl $$ t t~ h @1
+add process p p > w+ j j, w+ > ell+ vl $$ t t~ h @2
+add process p p > w+ j j j, w+ > ell+ vl $$ t t~ h @3
+add process p p > w+ j j j j, w+ > ell+ vl $$ t t~ h @4
+
+add process p p > w-, w- > ell- vl~ $$ t t~ h @5
+add process p p > w- j, w- > ell- vl~ $$ t t~ h @6
+add process p p > w- j j, w- > ell- vl~ $$ t t~ h @7
+add process p p > w- j j j, w- > ell- vl~ $$ t t~ h @8
+add process p p > w- j j j j, w- > ell- vl~ $$ t t~ h @9
+
+output WJetsToLNu_HT-0toInf_Wpt-100to200 -nojpeg
+
