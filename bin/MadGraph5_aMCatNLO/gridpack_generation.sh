@@ -516,12 +516,12 @@ else
       # Explicitly compile all subprocesses
       for file in $(ls -d rwgt/rw_me/SubProcesses/P*); do
         echo "Compiling subprocess $(basename $file)"
-        pushd $file > /dev/null
+        cd $file
         for i in 2 3; do
             MENUM=$i make matrix${i}py.so >& /dev/null
             echo "Library MENUM=$i compiled with status $?"
         done
-        popd >& /dev/null
+        cd -
       done
       cd ..      
   fi
