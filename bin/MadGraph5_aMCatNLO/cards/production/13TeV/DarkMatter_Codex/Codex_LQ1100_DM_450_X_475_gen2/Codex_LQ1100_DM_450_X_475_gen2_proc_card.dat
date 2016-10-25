@@ -35,11 +35,6 @@ define l- = e- mu-
 define vl = ve vm vt
 define vl~ = ve~ vm~ vt~
 
-
-import model sm-no_b_mass
-define p = p b b~
-define j = j b b~
-
 import model  lq_met
 define sm = c c~ s s~ mu+ mu- vm vm~
 generate p p > m1 m1~ QCD=2 QED=0 NP=0, m1 > sm sm, (m1~ > ~dm ~x1~, ~\
