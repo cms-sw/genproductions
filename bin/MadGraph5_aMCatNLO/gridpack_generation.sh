@@ -180,8 +180,7 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
       echo "set run_mode  1" >> mgconfigscript
       if [ "$queue" == "condor" ]; then
         echo "set cluster_type condor" >> mgconfigscript
-        #*FIXME* broken in mg_amc 2.4.0
-#         echo "set cluster_queue None" >> mgconfigscript
+        echo "set cluster_queue None" >> mgconfigscript
       else
         echo "set cluster_type lsf" >> mgconfigscript
         #*FIXME* broken in mg_amc 2.4.0
@@ -282,8 +281,10 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
 
   ./$MGBASEDIRORIG/bin/mg5_aMC ${name}_proc_card.dat
 
-  #*FIXME* workaround for broken set cluster_queue handling
-  echo "cluster_queue = $queue" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
+  #*FIXME* workaround for broken set cluster_queue handling (only needed for LSF)
+  if [ "$queue" != "condor" ]; then
+    echo "cluster_queue = $queue" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
+  fi
   if [ "$isscratchspace" -gt "0" ]; then
     echo "cluster_temp_path = `echo $RUNHOME`" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
   fi
@@ -502,16 +503,6 @@ else
   echo "cleaning temporary gridpack"
   rm $WORKDIR/pilotrun_gridpack.tar.gz
   
-  #prepare madspin grids if necessary
-  if [ -e $CARDSDIR/${name}_madspin_card.dat ]; then
-    echo "import $WORKDIR/unweighted_events.lhe.gz" > madspinrun.dat
-    cat $CARDSDIR/${name}_madspin_card.dat >> madspinrun.dat
-    cat madspinrun.dat | $WORKDIR/$MGBASEDIRORIG/MadSpin/madspin
-    rm madspinrun.dat
-    rm -rf tmp*
-    cp $CARDSDIR/${name}_madspin_card.dat $WORKDIR/process/madspin_card.dat
-  fi
-  
   # precompile reweighting if necessary
   if [ -e $CARDSDIR/${name}_reweight_card.dat ]; then
       pwd
@@ -523,7 +514,27 @@ else
       export LIBRARY_PATH=$LD_LIBRARY_PATH
       cd madevent
       bin/madevent reweight pilotrun
+      # Explicitly compile all subprocesses
+      for file in $(ls -d rwgt/*/SubProcesses/P*); do
+        echo "Compiling subprocess $(basename $file)"
+        cd $file
+        for i in 2 3; do
+            MENUM=$i make matrix${i}py.so >& /dev/null
+            echo "Library MENUM=$i compiled with status $?"
+        done
+        cd -
+      done
       cd ..      
+  fi
+  
+  #prepare madspin grids if necessary
+  if [ -e $CARDSDIR/${name}_madspin_card.dat ]; then
+    echo "import $WORKDIR/unweighted_events.lhe.gz" > madspinrun.dat
+    cat $CARDSDIR/${name}_madspin_card.dat >> madspinrun.dat
+    cat madspinrun.dat | $WORKDIR/$MGBASEDIRORIG/MadSpin/madspin
+    rm madspinrun.dat
+    rm -rf tmp*
+    cp $CARDSDIR/${name}_madspin_card.dat $WORKDIR/process/madspin_card.dat
   fi
 
   echo "preparing final gridpack"
