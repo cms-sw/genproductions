@@ -6,7 +6,7 @@ ih2   1           ! hadron 2 (1 for protons, -1 for antiprotons)
 ebeam1 6500d0     ! energy of beam 1
 ebeam2 6500d0     ! energy of beam 2
 
-bornktmin  5d0     ! (default 0d0) generation cut. Minimum kt in underlying Born
+#bornktmin  1d0     ! (default 0d0) generation cut. Minimum kt in underlying Born
 #bornsuppfact 10d0 ! (default 0d0) mass param for Born suppression factor. If < 0 suppfact = 1
 
 ! To be set only if using internal (mlm) pdfs
@@ -79,8 +79,8 @@ raisingscales 1
 
 doublefsr 1
 
-par_diexp 2
-par_dijexp 2
-par_2gsupp 4
+#par_diexp 2
+#par_dijexp 2
+#par_2gsupp 4
 
 
