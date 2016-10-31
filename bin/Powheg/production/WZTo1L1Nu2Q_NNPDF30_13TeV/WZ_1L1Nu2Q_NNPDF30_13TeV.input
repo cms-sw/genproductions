@@ -47,7 +47,7 @@ iseed    SEED    ! initialize random number sequence
                    ! The event file is called pwgevents-'j'.lhe
 
 # Only leptonic decays
-hhl 1
+lhh 1
 
 #zerowidth 0         ! if 1 (true) use zero width approximatrion (default 0)
 #withinterference 1  ! if 1 (true) include interference for like flavour charged leptons
