@@ -180,7 +180,8 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
       echo "set run_mode  1" >> mgconfigscript
       if [ "$queue" == "condor" ]; then
         echo "set cluster_type condor" >> mgconfigscript
-        echo "set cluster_queue None" >> mgconfigscript
+        #*FIXME* broken in mg_amc 2.4.0
+#        echo "set cluster_queue None" >> mgconfigscript
       else
         echo "set cluster_type lsf" >> mgconfigscript
         #*FIXME* broken in mg_amc 2.4.0
@@ -281,8 +282,10 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
 
   ./$MGBASEDIRORIG/bin/mg5_aMC ${name}_proc_card.dat
 
-  #*FIXME* workaround for broken set cluster_queue handling (only needed for LSF)
-  if [ "$queue" != "condor" ]; then
+  #*FIXME* workaround for broken set cluster_queue handling
+  if [ "$queue" == "condor" ]; then
+    echo "cluster_queue = None" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
+  else
     echo "cluster_queue = $queue" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
   fi
   if [ "$isscratchspace" -gt "0" ]; then
