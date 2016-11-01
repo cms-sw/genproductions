@@ -1,0 +1,55 @@
+#************************************************************
+#*                     MadGraph5_aMC@NLO                    *
+#*                                                          *
+#*                *                       *                 *
+#*                  *        * *        *                   *
+#*                    * * * * 5 * * * *                     *
+#*                  *        * *        *                   *
+#*                *                       *                 *
+#*                                                          *
+#*                                                          *
+#*         VERSION 2.4.3                 2016-08-01         *
+#*                                                          *
+#*    The MadGraph5_aMC@NLO Development Team - Find us at   *
+#*    https://server06.fynu.ucl.ac.be/projects/madgraph     *
+#*                                                          *
+#************************************************************
+#*                                                          *
+#*               Command File for MadGraph5_aMC@NLO         *
+#*                                                          *
+#*     run as ./bin/mg5_aMC  filename                       *
+#*                                                          *
+#************************************************************
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set loop_optimized_output True
+set loop_color_flows False
+set gauge unitary
+set complex_mass_scheme False
+set max_npoint_for_channel 0
+import model sm
+define p = g u c d s u~ c~ d~ s~
+define j = g u c d s u~ c~ d~ s~
+define l+ = e+ mu+
+define l- = e- mu-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+import model STripletBaryogen_X2N1_UFO
+define j = g u c d s u~ c~ d~ s~ b b~
+define p = g u c d s u~ c~ d~ s~ b b~
+define jb = g u c d s b u~ c~ d~ s~ b~
+define l+ = e+ mu+
+define l- = e- mu-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+define dq = d s b
+define dq~ = d~ s~ b~
+define ds = d s
+define ds~ = d~ s~
+define dsg =d s g
+define ucx = u c u~ c~
+define nx = n n~
+generate dq dq > j n @1
+add process g p > nx ucx jb QCD=1 @1
+add process p p > nx nx ucx ucx QED=0 @1
+output NonthDM_MonoJet_Mx-1000_l1-2p_l2-0p04
