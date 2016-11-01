@@ -1,0 +1,58 @@
+numevts NEVENTS    ! number of events to be generated
+ih1   1           ! hadron 1 (1 for protons, -1 for antiprotons)
+ih2   1           ! hadron 2 (1 for protons, -1 for antiprotons)
+lhans1 11000
+lhans2 11000
+ebeam1 6500d0     ! energy of beam 1
+ebeam2 6500d0     ! energy of beam 2
+ 
+bornktmin 1d0    ! Generation cut; minimmum kt in underlying born
+bornsuppfact 800d0 ! (default 0d0) mass param for Born suppression factor. If < 0 suppfact = 1
+use-old-grid    1 ! if 1 use old grid if file pwggrids.dat is present (<> 1 regenerate)
+use-old-ubound  1 ! if 1 use norm of upper bounding function stored in pwgubound.dat, if present; <>
+ 
+ncall1  10000  ! number of calls for initializing the integration grid
+itmx1    1    ! number of iterations for initializing the integration grid
+ncall1rm 30000
+itmx1rm 1
+ncall2  10000  ! number of calls for computing the integral and finding upper bound
+itmx2    10     ! number of iterations for computing the integral and finding upper bound
+foldcsi   1    ! number of folds on csi integration
+foldy     1    ! number of folds on  y  integration
+foldphi   1    ! number of folds on phi integration
+nubound 10000  ! number of bbarra calls to setup norm of upper bounding function
+icsimax  1     ! <= 100, number of csi subdivision when computing the upper bounds
+iymax    1     ! <= 100, number of y subdivision when computing the upper bounds
+xupbound 2d0   ! increase upper bound for radiation generation
+testplots 1
+withnegweights 1
+pdfreweight 1       ! PDF reweighting
+
+withdamp 1
+iseed    SEED       ! Start the random number generator with seed iseed 
+#manyseeds 1
+#parallelstage 1
+#xgriditeration 1
+ 
+storemintupb 1
+fastbtlbound 1
+ 
+minlo 1            ! default 1,
+doublefsr 1        ! default 1, see arXiv:1303.3922
+storeinfo_rwgt 1   ! default 1, store info to allow for reweighting
+
+#bornonly 1
+#LOevents 1
+
+renscfact 1d0      ! default 1
+facscfact 1d0      ! default 1
+
+nohad 1            ! only used by main-PYTHIA-lhef and main-PYTHIA8-lhef
+changescalup 1     ! default 1, see arXiv:1303.3922, only used at
+                   ! the analysis level
+
+htlhcut 20         ! cut on total ht at Les Houches level,
+                   ! only used at the analysis level
+
+
+
