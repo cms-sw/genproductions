@@ -9,4 +9,4 @@ define vl~ = ve~ vm~
 
 generate p p > t t~, ( t > h+ b, ( h+ > c b~ )), ( t~ > w- b~, ( w- > l- vl~ ))
 
-output ChargedHiggsToCB_M125 -nojpeg
+output ChargedHiggsToCB_M150 -nojpeg
