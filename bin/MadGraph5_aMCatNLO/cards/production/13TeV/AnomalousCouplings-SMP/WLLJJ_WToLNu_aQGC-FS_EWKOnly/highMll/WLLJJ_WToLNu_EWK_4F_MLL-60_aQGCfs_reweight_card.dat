@@ -1,0 +1,148 @@
+#******************************************************************
+#                       Reweight Module                           *
+#******************************************************************
+change rwgt_dir rwgt
+launch #Standard model  
+set anoinputs 1 0.000000e-12 #fs0
+set anoinputs 2 0.000000e-12 #fs1
+launch
+set anoinputs 1 -32.000000e-12
+set anoinputs 2 0.000000e-12
+launch
+set anoinputs 1 -16.000000e-12
+set anoinputs 2 0.000000e-12
+launch   
+set anoinputs 1 -8.000000e-12
+set anoinputs 2 0.000000e-12
+launch   
+set anoinputs 1 8.000000e-12
+set anoinputs 2 0.000000e-12
+launch   
+set anoinputs 1 32.000000e-12
+set anoinputs 2 0.000000e-12
+launch
+set anoinputs 1 0.000000e-12
+set anoinputs 2 -32.000000e-12
+launch   
+set anoinputs 1 0.000000e-12
+set anoinputs 2 -16.000000e-12
+launch
+set anoinputs 1 0.000000e-12
+set anoinputs 2 -8.000000e-12
+launch
+set anoinputs 1 0.000000e-12
+set anoinputs 2 8.000000e-12
+launch
+set anoinputs 1 0.000000e-12
+set anoinputs 2 16.000000e-12
+launch
+set anoinputs 1 0.000000e-12
+set anoinputs 2 32.000000e-12
+launch
+set anoinputs 1 -32.000000e-12
+set anoinputs 2 -32.000000e-12
+launch
+set anoinputs 1 -32.000000e-12
+set anoinputs 2 -16.000000e-12
+launch
+set anoinputs 1 -32.000000e-12
+set anoinputs 2 -8.000000e-12
+launch
+set anoinputs 1 -32.000000e-12
+set anoinputs 2 8.000000e-12
+launch
+set anoinputs 1 -32.000000e-12
+set anoinputs 2 16.000000e-12
+launch
+set anoinputs 1 -32.000000e-12
+set anoinputs 2 32.000000e-12
+launch
+set anoinputs 1 -16.000000e-12
+set anoinputs 2 -32.000000e-12
+launch
+set anoinputs 1 -16.000000e-12
+set anoinputs 2 -16.000000e-12
+launch
+set anoinputs 1 -16.000000e-12
+set anoinputs 2 -8.000000e-12
+launch
+set anoinputs 1 -16.000000e-12
+set anoinputs 2 8.000000e-12
+launch
+set anoinputs 1 -16.000000e-12
+set anoinputs 2 16.000000e-12
+launch
+set anoinputs 1 -16.000000e-12
+set anoinputs 2 32.000000e-12
+launch
+set anoinputs 1 -8.000000e-12
+set anoinputs 2 -32.000000e-12
+launch
+set anoinputs 1 -8.000000e-12
+set anoinputs 2 -16.000000e-12
+launch
+set anoinputs 1 -8.000000e-12
+set anoinputs 2 -8.000000e-12
+launch
+set anoinputs 1 -8.000000e-12
+set anoinputs 2 8.000000e-12
+launch
+set anoinputs 1 -8.000000e-12
+set anoinputs 2 16.000000e-12
+launch
+set anoinputs 1 -8.000000e-12
+set anoinputs 2 32.000000e-12
+launch
+set anoinputs 1 8.000000e-12
+set anoinputs 2 -32.000000e-12
+launch
+set anoinputs 1 8.000000e-12
+set anoinputs 2 -16.000000e-12
+launch
+set anoinputs 1 8.000000e-12
+set anoinputs 2 -8.000000e-12
+launch
+set anoinputs 1 8.000000e-12
+set anoinputs 2 8.000000e-12
+launch
+set anoinputs 1 8.000000e-12
+set anoinputs 2 16.000000e-12
+launch
+set anoinputs 1 8.000000e-12
+set anoinputs 2 32.000000e-12
+launch
+set anoinputs 1 16.000000e-12
+set anoinputs 2 -32.000000e-12
+launch
+set anoinputs 1 16.000000e-12
+set anoinputs 2 -16.000000e-12
+launch
+set anoinputs 1 16.000000e-12
+set anoinputs 2 -8.000000e-12
+launch
+set anoinputs 1 16.000000e-12
+set anoinputs 2 8.000000e-12
+launch
+set anoinputs 1 16.000000e-12
+set anoinputs 2 16.000000e-12
+launch
+set anoinputs 1 16.000000e-12
+set anoinputs 2 32.000000e-12
+launch
+set anoinputs 1 32.000000e-12
+set anoinputs 2 -32.000000e-12
+launch
+set anoinputs 1 32.000000e-12
+set anoinputs 2 -16.000000e-12
+launch
+set anoinputs 1 32.000000e-12
+set anoinputs 2 -8.000000e-12
+launch
+set anoinputs 1 32.000000e-12
+set anoinputs 2 8.000000e-12
+launch
+set anoinputs 1 32.000000e-12
+set anoinputs 2 16.000000e-12
+launch
+set anoinputs 1 32.000000e-12
+set anoinputs 2 32.000000e-12
