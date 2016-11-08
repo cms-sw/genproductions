@@ -1,4 +1,4 @@
-import model 2HDM
+import model 2HDM-NoCSBMass
 
 define p = g u c d s b u~ c~ d~ s~ b~
 define j = g u c d s b u~ c~ d~ s~ b~
