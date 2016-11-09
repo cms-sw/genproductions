@@ -1,0 +1,76 @@
+#******************************************************************
+#                       Reweight Module                           *
+#******************************************************************
+change rwgt_dir rwgt
+launch #Standard model  
+set anoinputs 11 0.000000e-12 #ft0 
+set anoinputs 12 0.000000e-12 #ft1 
+set anoinputs 13 0.000000e-12 #ft2 
+launch
+set anoinputs 11 -16.000000e-12 
+set anoinputs 12 0.000000e-12   
+set anoinputs 13 0.000000e-12   
+launch
+set anoinputs 11 -8.000000e-12 
+set anoinputs 12 0.000000e-12  
+set anoinputs 13 0.000000e-12  
+launch   
+set anoinputs 11 -4.000000e-12  
+set anoinputs 12 0.000000e-12
+set anoinputs 13 0.000000e-12
+launch   
+set anoinputs 11 4.000000e-12
+set anoinputs 12 0.000000e-12
+set anoinputs 13 0.000000e-12
+launch   
+set anoinputs 11 16.000000e-12
+set anoinputs 12 0.000000e-12
+set anoinputs 13 0.000000e-12
+launch
+set anoinputs 11 0.000000e-12
+set anoinputs 12 -8.000000e-12
+set anoinputs 13 0.000000e-12
+launch   
+set anoinputs 11 0.000000e-12
+set anoinputs 12 -4.000000e-12
+set anoinputs 13 0.000000e-12
+launch
+set anoinputs 11 0.000000e-12
+set anoinputs 12 -2.000000e-12
+set anoinputs 13 0.000000e-12
+launch
+set anoinputs 11 0.000000e-12
+set anoinputs 12 2.000000e-12
+set anoinputs 13 0.000000e-12
+launch
+set anoinputs 11 0.000000e-12
+set anoinputs 12 4.000000e-12
+set anoinputs 13 0.000000e-12
+launch
+set anoinputs 11 0.000000e-12
+set anoinputs 12 8.000000e-12
+set anoinputs 13 0.000000e-12
+launch
+set anoinputs 11 0.000000e-12
+set anoinputs 12 0.000000e-12
+set anoinputs 13 -24.000000e-12
+launch
+set anoinputs 11 0.000000e-12
+set anoinputs 12 0.000000e-12
+set anoinputs 13 -12.000000e-12
+launch
+set anoinputs 11 0.000000e-12
+set anoinputs 12 0.000000e-12
+set anoinputs 13 -6.000000e-12
+launch
+set anoinputs 11 0.000000e-12
+set anoinputs 12 0.000000e-12
+set anoinputs 13 6.000000e-12
+launch
+set anoinputs 11 0.000000e-12
+set anoinputs 12 0.000000e-12
+set anoinputs 13 12.000000e-12
+launch
+set anoinputs 11 0.000000e-12
+set anoinputs 12 0.000000e-12
+set anoinputs 13 24.000000e-12
