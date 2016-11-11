@@ -37,5 +37,5 @@ define vl~ = ve~ vm~ vt~
 import model SM_HeavyN_NLO
 define p = p b b~
 define j = p
-generate p p > n1 e- [QCD]
+generate p p > n1 mu- [QCD]
 output MajoranaNeutrinoToMumMum_Schannel_M-1100_5f_NLO -nojpeg
