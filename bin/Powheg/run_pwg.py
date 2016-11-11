@@ -539,7 +539,7 @@ if [ "$process" = "HJ" ]; then
   cat << EOF > nnlopsreweighter.input
 # a line beginning with 'lhfile' followed by the name of the event file
 
-lhfile fornnlops 
+lhfile pwgevents.lhe 
 
 # weights present in the lhfile: 'mtinf', 'mt', 'mtmb', 'mtmb-bminlo'
 
