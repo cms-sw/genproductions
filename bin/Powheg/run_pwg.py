@@ -570,9 +570,33 @@ nnlofiles
 
 <initrwgt>
 <weightgroup name='nnl'> 
-<weight id='nnlops-11'> combines 'nn-mtmb-11' with 'c' (central)</weight> 
-<weight id='nnlops-22'> combines 'nn-mtmb-22' with 'c' (central)</weight> 
-<weight id='nnlops-0505'> combines 'nn-mtmb-0505' with 'c' (central)</weight> 
+<weight id='nnlops-11-1'> combines 'nn-mtmb-11' with '1001' </weight> 
+<weight id='nnlops-11-2'> combines 'nn-mtmb-11' with '1002' </weight> 
+<weight id='nnlops-11-3'> combines 'nn-mtmb-11' with '1003' </weight> 
+<weight id='nnlops-11-4'> combines 'nn-mtmb-11' with '1004' </weight> 
+<weight id='nnlops-11-5'> combines 'nn-mtmb-11' with '1005' </weight> 
+<weight id='nnlops-11-6'> combines 'nn-mtmb-11' with '1006' </weight> 
+<weight id='nnlops-11-7'> combines 'nn-mtmb-11' with '1007' </weight> 
+<weight id='nnlops-11-8'> combines 'nn-mtmb-11' with '1008' </weight> 
+<weight id='nnlops-11-9'> combines 'nn-mtmb-11' with '1009' </weight> 
+<weight id='nnlops-22-1'> combines 'nn-mtmb-22' with '1001' </weight>          
+<weight id='nnlops-22-2'> combines 'nn-mtmb-22' with '1002' </weight>         
+<weight id='nnlops-22-3'> combines 'nn-mtmb-22' with '1003' </weight>         
+<weight id='nnlops-22-4'> combines 'nn-mtmb-22' with '1004' </weight>         
+<weight id='nnlops-22-5'> combines 'nn-mtmb-22' with '1005' </weight>         
+<weight id='nnlops-22-6'> combines 'nn-mtmb-22' with '1006' </weight>         
+<weight id='nnlops-22-7'> combines 'nn-mtmb-22' with '1007' </weight>         
+<weight id='nnlops-22-8'> combines 'nn-mtmb-22' with '1008' </weight>         
+<weight id='nnlops-22-9'> combines 'nn-mtmb-22' with '1009' </weight>
+<weight id='nnlops-0505-1'> combines 'nn-mtmb-0505' with '1001' </weight>
+<weight id='nnlops-0505-2'> combines 'nn-mtmb-0505' with '1002' </weight>
+<weight id='nnlops-0505-3'> combines 'nn-mtmb-0505' with '1003' </weight>
+<weight id='nnlops-0505-4'> combines 'nn-mtmb-0505' with '1004' </weight>
+<weight id='nnlops-0505-5'> combines 'nn-mtmb-0505' with '1005' </weight>
+<weight id='nnlops-0505-6'> combines 'nn-mtmb-0505' with '1006' </weight>
+<weight id='nnlops-0505-7'> combines 'nn-mtmb-0505' with '1007' </weight>
+<weight id='nnlops-0505-8'> combines 'nn-mtmb-0505' with '1008' </weight>
+<weight id='nnlops-0505-9'> combines 'nn-mtmb-0505' with '1009' </weight>
 </weightgroup>
 </initrwgt>
 EOF
