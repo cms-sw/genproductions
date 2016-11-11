@@ -558,7 +558,7 @@ nnlofiles
 # The user can choose to group them in the way he prefers, and give them
 # the id's he likes.
 # The program determined how to compute each weights from the description
-# line. It loops through the weights id's present in the fornnlops file
+# line. It loops through the weights id's present in the pwgevents.lhe file
 # and through the labels of the nnlofiles. If a label of a weight and
 # a label of the nnlofiles are both present in the description field
 # of a weight mentioned here, it computes that weight by reweighting
@@ -598,7 +598,7 @@ nnlofiles
 <weight id='nnlops-0505-8'> combines 'nn-mtmb-0505' with '1008' </weight>
 <weight id='nnlops-0505-9'> combines 'nn-mtmb-0505' with '1009' </weight>
 </weightgroup>
-</initrwgt>  
+</initrwgt>
 EOF
 
 fi  
