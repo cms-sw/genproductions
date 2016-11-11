@@ -1,6 +1,7 @@
 #******************************************************************
 #                       Reweight Module                           *
 #******************************************************************
+change helicity False
 change rwgt_dir rwgt
 launch #Standard model  
 set anoinputs 11 0.000000e-12 #ft0 
