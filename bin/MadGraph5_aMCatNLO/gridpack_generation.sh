@@ -95,14 +95,15 @@ CARDSDIR=${PRODHOME}/${carddir}
 
 MGBASEDIR=mgbasedir
 
-MG=MG5_aMC_v2.4.2.tar.gz
+MG=MG5_aMC_v2.5.1.tar.gz
 MGSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$MG
+MGSOURCE_ALT=${PRODHOME}/code_tars/$MG
 
 #syscalc is a helper tool for madgraph to add scale and pdf variation weights for LO processes
 SYSCALC=SysCalc_V1.1.6.tar.gz
 SYSCALCSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$SYSCALC
 
-MGBASEDIRORIG=MG5_aMC_v2_4_2
+MGBASEDIRORIG=MG5_aMC_v2_5_1
 
 isscratchspace=0
 
@@ -138,7 +139,13 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   #############################################
   #Copy, Unzip and Delete the MadGraph tarball#
   #############################################
+  set +e
   wget --no-check-certificate ${MGSOURCE}
+  if [ $? -ne 0 ]; then
+    echo "Could not find release on central server, try locally"
+    cp ${MGSOURCE_ALT} . 
+  fi
+  #set -e
   tar xzf ${MG}
   rm $MG
 
@@ -148,6 +155,13 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
 
   cd $MGBASEDIRORIG
   cat $PRODHOME/patches/*.patch | patch -p1
+
+  set -e
+  if [ -e $CARDSDIR/${name}_loop_filter.py ]; then
+    echo "Acitvating custom user loop filter"
+    cat $CARDSDIR/${name}_loop_filter.py | patch -p1
+  fi
+
 
   #if lhapdf6 external is available then above points to lhapdf5 and needs to be overridden
   LHAPDF6TOOLFILE=$CMSSW_BASE/config/toolbox/$SCRAM_ARCH/tools/available/lhapdf6.xml
