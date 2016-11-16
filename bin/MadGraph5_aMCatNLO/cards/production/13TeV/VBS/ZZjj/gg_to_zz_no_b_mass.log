@@ -1,0 +1,321 @@
+Starting job on  Wed Nov 16 10:29:05 CET 2016
+Running on  Linux polui01.in2p3.fr 2.6.32-642.4.2.el6.x86_64 #1 SMP Tue Aug 23 11:15:56 CDT 2016 x86_64 x86_64 x86_64 GNU/Linux
+System release  Scientific Linux release 6.8 (Carbon)
+name: cards/production/13TeV/VBS/ZZjj/gg_to_zz_no_b_mass
+carddir: 
+queue: local
+# On branch mg240
+# Changes to be committed:
+#   (use "git reset HEAD <file>..." to unstage)
+#
+#	deleted:    patches/0006-fix-loop-indices-in-reweight.patch
+#
+# Changed but not updated:
+#   (use "git add/rm <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#	modified:   gridpack_generation.sh
+#	deleted:    patches/0007-Fix-in-PDF-reweighting-NLO-process-generation-if-a-P.patch
+#	modified:   patches/0008-allow-for-reweighting-with-up-to-25-PDF-sets-for-NLO.patch
+#
+# Untracked files:
+#   (use "git add <file>..." to include in what will be committed)
+#
+#	Condor_MG5_aMC_v2_5_0_beta2_gridpack_generation.sh
+#	cards/.log
+#	cards/DY_test_proc_card.dat
+#	cards/DY_test_run_card.dat
+#	cards/production/13TeV/VBS/ZZjj/gg_to_zz_no_b_mass.log
+#	cards/production/13TeV/VBS/ZZjj/gg_to_zz_no_b_mass_loop_filter.py
+#	cards/production/13TeV/VBS/ZZjj/gg_to_zz_no_b_mass_madspin_card.dat
+#	cards/production/13TeV/VBS/ZZjj/gg_to_zz_no_b_mass_proc_card.dat
+#	cards/production/13TeV/VBS/ZZjj/gg_to_zz_no_b_mass_run_card.dat
+#	cards/production/13TeV/VBS/ZZjj/zzjj_cards
+#	code_tars/
+#	filter.py
+#	zzjj_cards
+Current git revision is:
+929b438ec6a99f0fd155e38191a6cdfb41fdb362
+diff --git a/bin/MadGraph5_aMCatNLO/gridpack_generation.sh b/bin/MadGraph5_aMCatNLO/gridpack_generation.sh
+index 9ab7e8f..c995d22 100755
+--- a/bin/MadGraph5_aMCatNLO/gridpack_generation.sh
++++ b/bin/MadGraph5_aMCatNLO/gridpack_generation.sh
+@@ -95,14 +95,15 @@ CARDSDIR=${PRODHOME}/${carddir}
+ 
+ MGBASEDIR=mgbasedir
+ 
+-MG=MG5_aMC_v2.4.2.tar.gz
++MG=MG5_aMC_v2.5.1.tar.gz
+ MGSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$MG
++MGSOURCE_ALT=${PRODHOME}/code_tars/$MG
+ 
+ #syscalc is a helper tool for madgraph to add scale and pdf variation weights for LO processes
+ SYSCALC=SysCalc_V1.1.6.tar.gz
+ SYSCALCSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$SYSCALC
+ 
+-MGBASEDIRORIG=MG5_aMC_v2_4_2
++MGBASEDIRORIG=MG5_aMC_v2_5_1
+ 
+ isscratchspace=0
+ 
+@@ -138,7 +139,14 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
+   #############################################
+   #Copy, Unzip and Delete the MadGraph tarball#
+   #############################################
++  set +e
+   wget --no-check-certificate ${MGSOURCE}
++  if [ $? -ne 0 ]; then
++    echo "Could not find release on central server, try locally"
++    cp ${MGSOURCE_ALT} . 
++  fi
++  #set -e
++  ls
+   tar xzf ${MG}
+   rm $MG
+ 
+@@ -149,6 +157,13 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
+   cd $MGBASEDIRORIG
+   cat $PRODHOME/patches/*.patch | patch -p1
+ 
++  if [ -e $CARDSDIR/${name}_loop_filter.py ]; then
++    echo "Acitvating custom user loop filter"
++    cat $CARDSDIR/${name}_loop_filter.py | patch -p1
++#    cp $CARDSDIR/${name}_loop_filter.py madgraph/loop/loop_diagram_generation.py
++  fi
++
++
+   #if lhapdf6 external is available then above points to lhapdf5 and needs to be overridden
+   LHAPDF6TOOLFILE=$CMSSW_BASE/config/toolbox/$SCRAM_ARCH/tools/available/lhapdf6.xml
+     
+diff --git a/bin/MadGraph5_aMCatNLO/patches/0007-Fix-in-PDF-reweighting-NLO-process-generation-if-a-P.patch b/bin/MadGraph5_aMCatNLO/patches/0007-Fix-in-PDF-reweighting-NLO-process-generation-if-a-P.patch
+deleted file mode 100644
+index 54d35ca..0000000
+--- a/bin/MadGraph5_aMCatNLO/patches/0007-Fix-in-PDF-reweighting-NLO-process-generation-if-a-P.patch
++++ /dev/null
+@@ -1,60 +0,0 @@
+-From e6b9ea1743a9343117e090f1af711680c3498539 Mon Sep 17 00:00:00 2001
+-From: Rikkert Frederix <frederix@physik.uzh.ch>
+-Date: Tue, 28 Jun 2016 12:26:43 +0200
+-Subject: [PATCH 7/8] Fix in PDF reweighting (NLO process generation) if a PDF set has no
+- error members, while reweight_pdf was set to True for that set.
+-
+----
+- Template/NLO/Source/setrun.f                     |    4 ++++
+- Template/NLO/SubProcesses/madfks_plot.f          |    4 ++++
+- Template/NLO/SubProcesses/reweight_xsec_events.f |    4 ++++
+- 3 files changed, 12 insertions(+), 0 deletions(-)
+-
+-diff --git a/Template/NLO/Source/setrun.f b/Template/NLO/Source/setrun.f
+-index 77bc48b..239150a 100644
+---- a/Template/NLO/Source/setrun.f
+-+++ b/Template/NLO/Source/setrun.f
+-@@ -204,6 +204,10 @@ C       Fill common block for Les Houches init info
+- c fill the nmemPDF(i) array with the number of PDF error set. This we
+- c get from LHAPDF.
+-          call numberPDFm(1,nmemPDF(1))
+-+         if (nmemPDF(1).eq.1) then
+-+            nmemPDF(1)=0
+-+            lpdfvar(1)=0
+-+         endif
+-       else
+-          nmemPDF(1)=0
+-       endif
+-diff --git a/Template/NLO/SubProcesses/madfks_plot.f b/Template/NLO/SubProcesses/madfks_plot.f
+-index 4a4bb5b..c5c8b7c 100644
+---- a/Template/NLO/SubProcesses/madfks_plot.f
+-+++ b/Template/NLO/SubProcesses/madfks_plot.f
+-@@ -66,6 +66,10 @@ c     to "setrun")
+-                call initpdfsetbynamem(nn,lhaPDFsetname(nn))
+-                if (lpdfvar(nn)) then
+-                   call numberPDFm(nn,nmemPDF(nn))
+-+                  if (nmemPDF(nn).eq.1) then
+-+                     nmemPDF(nn)=0
+-+                     lpdfvar(nn)=.false.
+-+                  endif
+-                else
+-                   nmemPDF(nn)=0
+-                endif
+-diff --git a/Template/NLO/SubProcesses/reweight_xsec_events.f b/Template/NLO/SubProcesses/reweight_xsec_events.f
+-index 512c6a1..54fd9f6 100644
+---- a/Template/NLO/SubProcesses/reweight_xsec_events.f
+-+++ b/Template/NLO/SubProcesses/reweight_xsec_events.f
+-@@ -87,6 +87,10 @@ c to "setrun")
+-                call initpdfsetbynamem(nn,lhaPDFsetname(nn))
+-                if (lpdfvar(nn)) then
+-                   call numberPDFm(nn,nmemPDF(nn))
+-+                  if (nmemPDF(nn).eq.1) then
+-+                     nmemPDF(nn)=0
+-+                     lpdfvar(nn)=.false.
+-+                  endif
+-                else
+-                   nmemPDF(nn)=0
+-                endif
+--- 
+-1.7.1
+-
+diff --git a/bin/MadGraph5_aMCatNLO/patches/0008-allow-for-reweighting-with-up-to-25-PDF-sets-for-NLO.patch b/bin/MadGraph5_aMCatNLO/patches/0008-allow-for-reweighting-with-up-to-25-PDF-sets-for-NLO.patch
+index 6e30c6c..11663ce 100644
+--- a/bin/MadGraph5_aMCatNLO/patches/0008-allow-for-reweighting-with-up-to-25-PDF-sets-for-NLO.patch
++++ b/bin/MadGraph5_aMCatNLO/patches/0008-allow-for-reweighting-with-up-to-25-PDF-sets-for-NLO.patch
+@@ -5,9 +5,6 @@ Subject: [PATCH 8/8] allow for reweighting with up to 25 PDF sets (for NLO proce
+ 
+ ---
+  Template/LO/Source/make_opts            |    8 ++++----
+- Template/NLO/SubProcesses/reweight0.inc |    2 +-
+- madgraph/various/banner.py              |    4 ++--
+- 3 files changed, 7 insertions(+), 7 deletions(-)
+ 
+ diff --git a/Template/LO/Source/make_opts b/Template/LO/Source/make_opts
+ index 92a3fe4..a2c75f7 100644
+@@ -26,35 +23,3 @@ index 92a3fe4..a2c75f7 100644
+ +STDLIB_FLAG=
+  #end_of_make_opts_variables
+  # Rest of the makefile
+- 
+-diff --git a/Template/NLO/SubProcesses/reweight0.inc b/Template/NLO/SubProcesses/reweight0.inc
+-index 5329885..5907f1f 100644
+---- a/Template/NLO/SubProcesses/reweight0.inc
+-+++ b/Template/NLO/SubProcesses/reweight0.inc
+-@@ -71,7 +71,7 @@ c
+- c New format to allow for multiple PDF sets and scales (both functional form
+- c and normal)
+-       integer    maxPDFsets,   maxdynscales
+--      parameter (maxPDFsets=10,maxdynscales=10)
+-+      parameter (maxPDFsets=25,maxdynscales=10)
+-       integer lhaPDFid(0:maxPDFsets),nmemPDF(maxPDFsets)
+-      $     ,dyn_scale(0:maxdynscales)
+-       logical lscalevar(maxdynscales),lpdfvar(maxPDFsets)
+-diff --git a/madgraph/various/banner.py b/madgraph/various/banner.py
+-index 9378184..e8ce9b5 100755
+---- a/madgraph/various/banner.py
+-+++ b/madgraph/various/banner.py
+-@@ -2112,8 +2112,8 @@ class RunCardNLO(RunCard):
+-             raise InvalidRunCard, "'reweight_scale' and 'dynamical_scale_choice' lists should have the same length"
+-         if len(self['dynamical_scale_choice']) > 10 :
+-             raise InvalidRunCard, "Length of list for 'dynamical_scale_choice' too long: max is 10."
+--        if len(self['lhaid']) > 10 :
+--            raise InvalidRunCard, "Length of list for 'lhaid' too long: max is 10."
+-+        if len(self['lhaid']) > 25 :
+-+            raise InvalidRunCard, "Length of list for 'lhaid' too long: max is 25."
+-         if len(self['rw_rscale']) > 9 :
+-             raise InvalidRunCard, "Length of list for 'rw_rscale' too long: max is 9."
+-         if len(self['rw_fscale']) > 9 :
+--- 
+-1.7.1
+-
+/home/llr/cms/pigard/genpro_251/my_genproductions/bin/MadGraph5_aMCatNLO
+WARNING: In non-interactive mode release checks e.g. deprecated releases, production architectures are disabled.
+--2016-11-16 10:29:13--  https://cms-project-generators.web.cern.ch/cms-project-generators/MG5_aMC_v2.5.1.tar.gz
+Resolving cms-project-generators.web.cern.ch... 188.184.67.64
+Connecting to cms-project-generators.web.cern.ch|188.184.67.64|:443... connected.
+HTTP request sent, awaiting response... 404 Not Found
+2016-11-16 10:29:13 ERROR 404: Not Found.
+
+Could not find release on central server, try locally
+MG5_aMC_v2.5.1.tar.gz
+patching file models/loop_qcd_qed_sm/restrict_lepton_masses_no_lepton_yukawas.dat
+patching file models/loop_sm/restrict_ckm_no_b_mass.dat
+patching file models/sm/restrict_ckm_lepton_masses.dat
+patching file models/sm/restrict_ckm_lepton_masses_no_b_mass.dat
+patching file models/sm/restrict_ckm_no_b_mass.dat
+patching file models/sm/restrict_lepton_masses_no_b_mass.dat
+patching file Template/NLO/SubProcesses/MCmasses_PYTHIA8.inc
+patching file Template/LO/bin/internal/Gridpack/run.sh
+patching file madgraph/iolibs/export_v4.py
+Hunk #1 FAILED at 6267.
+1 out of 1 hunk FAILED -- saving rejects to file madgraph/iolibs/export_v4.py.rej
+patching file madgraph/various/cluster.py
+Hunk #5 succeeded at 864 (offset 2 lines).
+Hunk #6 succeeded at 941 (offset 2 lines).
+Hunk #7 succeeded at 1049 (offset 2 lines).
+Hunk #8 succeeded at 1382 (offset 2 lines).
+Hunk #9 succeeded at 1479 (offset 2 lines).
+Hunk #10 succeeded at 1507 (offset 2 lines).
+Hunk #11 succeeded at 1667 (offset 2 lines).
+patching file Template/LO/Source/make_opts
+Hunk #1 FAILED at 1.
+1 out of 1 hunk FAILED -- saving rejects to file Template/LO/Source/make_opts.rej
+Acitvating custom user loop filter
+patching file madgraph/loop/loop_diagram_generation.py
+Hunk #1 succeeded at 384 with fuzz 2.
+[?1034h************************************************************
+*                                                          *
+*                     W E L C O M E to                     *
+*              M A D G R A P H 5 _ a M C @ N L O           *
+*                                                          *
+*                                                          *
+*                 *                       *                *
+*                   *        * *        *                  *
+*                     * * * * 5 * * * *                    *
+*                   *        * *        *                  *
+*                 *                       *                *
+*                                                          *
+*         VERSION 2.5.1                 2016-11-04         *
+*                                                          *
+*    The MadGraph5_aMC@NLO Development Team - Find us at   *
+*    https://server06.fynu.ucl.ac.be/projects/madgraph     *
+*                            and                           *
+*            http://amcatnlo.web.cern.ch/amcatnlo/         *
+*                                                          *
+*               Type 'help' for in-line help.              *
+*           Type 'tutorial' to learn how MG5 works         *
+*    Type 'tutorial aMCatNLO' to learn how aMC@NLO works   *
+*    Type 'tutorial MadLoop' to learn how MadLoop works    *
+*                                                          *
+************************************************************
+load MG5 configuration from input/mg5_configuration.txt 
+fastjet-config does not seem to correspond to a valid fastjet-config executable (v3+). We will use fjcore instead.
+ Please set the 'fastjet'variable to the full (absolute) /PATH/TO/fastjet-config (including fastjet-config).
+ MG5_aMC> set fastjet /PATH/TO/fastjet-config
+
+lhapdf-config does not seem to correspond to a valid lhapdf-config executable. 
+Please set the 'lhapdf' variable to the (absolute) /PATH/TO/lhapdf-config (including lhapdf-config).
+Note that you can still compile and run aMC@NLO with the built-in PDFs
+ MG5_aMC> set lhapdf /PATH/TO/lhapdf-config
+
+Using default text editor "vi". Set another one in ./input/mg5_configuration.txt
+Using default eps viewer "evince". Set another one in ./input/mg5_configuration.txt
+No valid web browser found. Please set in ./input/mg5_configuration.txt
+import /grid_mnt/vol__vol_U__u/llr/cms/pigard/genpro_251/my_genproductions/bin/MadGraph5_aMCatNLO/cards/production/13TeV/VBS/ZZjj/gg_to_zz_no_b_mass/cards/production/13TeV/VBS/ZZjj/gg_to_zz_no_b_mass_gridpack/work/MG5_aMC_v2_5_1/mgconfigscript
+The import format was not given, so we guess it as command
+set auto_update 0
+save options --auto
+save configuration file to /grid_mnt/vol__vol_U__u/llr/cms/pigard/genpro_251/my_genproductions/bin/MadGraph5_aMCatNLO/cards/production/13TeV/VBS/ZZjj/gg_to_zz_no_b_mass/cards/production/13TeV/VBS/ZZjj/gg_to_zz_no_b_mass_gridpack/work/MG5_aMC_v2_5_1/input/mg5_configuration.txt
+set automatic_html_opening False
+This option will be the default in any output that you are going to create in this session.
+In order to keep this changes permanent please run 'save options'
+set lhapdf /cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/lhapdf/6.1.5-ddibom3/share/LHAPDF/../../bin/lhapdf-config
+set lhapdf to /cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/lhapdf/6.1.5-ddibom3/share/LHAPDF/../../bin/lhapdf-config
+save options --auto
+save configuration file to /grid_mnt/vol__vol_U__u/llr/cms/pigard/genpro_251/my_genproductions/bin/MadGraph5_aMCatNLO/cards/production/13TeV/VBS/ZZjj/gg_to_zz_no_b_mass/cards/production/13TeV/VBS/ZZjj/gg_to_zz_no_b_mass_gridpack/work/MG5_aMC_v2_5_1/input/mg5_configuration.txt
+set run_mode 2
+This option will be the default in any output that you are going to create in this session.
+In order to keep this changes permanent please run 'save options'
+save options
+save configuration file to /grid_mnt/vol__vol_U__u/llr/cms/pigard/genpro_251/my_genproductions/bin/MadGraph5_aMCatNLO/cards/production/13TeV/VBS/ZZjj/gg_to_zz_no_b_mass/cards/production/13TeV/VBS/ZZjj/gg_to_zz_no_b_mass_gridpack/work/MG5_aMC_v2_5_1/input/mg5_configuration.txt
+quit
+ 
+
+ 
+
+--2016-11-16 10:29:38--  https://cms-project-generators.web.cern.ch/cms-project-generators/SysCalc_V1.1.6.tar.gz
+Resolving cms-project-generators.web.cern.ch... 188.184.67.64
+Connecting to cms-project-generators.web.cern.ch|188.184.67.64|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 38825 (38K) [application/x-gzip]
+Saving to: `SysCalc_V1.1.6.tar.gz'
+
+     0K .......... .......... .......... .......              100% 2.12M=0.02s
+
+2016-11-16 10:29:38 (2.12 MB/s) - `SysCalc_V1.1.6.tar.gz' saved [38825/38825]
+
+cd src; make
+make[1]: Entering directory `/grid_mnt/vol__vol_U__u/llr/cms/pigard/genpro_251/my_genproductions/bin/MadGraph5_aMCatNLO/cards/production/13TeV/VBS/ZZjj/gg_to_zz_no_b_mass/cards/production/13TeV/VBS/ZZjj/gg_to_zz_no_b_mass_gridpack/work/MG5_aMC_v2_5_1/SysCalc/src'
+gfortran -c alfas_functions.f
+g++ -O -DDROP_CGAL -I../include -I/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/boost/1.51.0-cms2/include -I/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/lhapdf/6.1.5-ddibom3/include -c SysCalc.cc
+g++ -O -DDROP_CGAL -I../include -I/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/boost/1.51.0-cms2/include -I/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/lhapdf/6.1.5-ddibom3/include -c tinyxml2.cpp
+g++ -O -DDROP_CGAL -I../include -I/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/boost/1.51.0-cms2/include -I/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/lhapdf/6.1.5-ddibom3/include -c sys_calc.cc
+g++ -o ../sys_calc SysCalc.o tinyxml2.o alfas_functions.o sys_calc.o -L/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/lhapdf/6.1.5-ddibom3/lib -lLHAPDF -lgfortran
+make[1]: Leaving directory `/grid_mnt/vol__vol_U__u/llr/cms/pigard/genpro_251/my_genproductions/bin/MadGraph5_aMCatNLO/cards/production/13TeV/VBS/ZZjj/gg_to_zz_no_b_mass/cards/production/13TeV/VBS/ZZjj/gg_to_zz_no_b_mass_gridpack/work/MG5_aMC_v2_5_1/SysCalc/src'
+/home/llr/cms/pigard/genpro_251/my_genproductions/bin/MadGraph5_aMCatNLO/cards/production/13TeV/VBS/ZZjj/gg_to_zz_no_b_mass/cards/production/13TeV/VBS/ZZjj/gg_to_zz_no_b_mass_gridpack/work
+Card directory not provided
