@@ -56,6 +56,7 @@ fi
 
 gzip -d events_presys.lhe.gz
 
+sed -i ':a;N;$!ba;s/<rwgt>\n<wgt id='\''bias'\''>   0.1000000E+01<\/wgt>\n<\/rwgt>\n//g' events_presys.lhe
 
 #run syscalc to populate pdf and scale variation weights
 echo "
