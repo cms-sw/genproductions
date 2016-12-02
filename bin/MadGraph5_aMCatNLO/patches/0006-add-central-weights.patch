@@ -1,0 +1,86 @@
+--- a/madgraph/various/systematics.py	2016-11-23 10:32:13.000000000 +0100
++++ b/madgraph/various/systematics.py	2016-11-23 10:58:43.967919000 +0100
+@@ -228,7 +228,7 @@
+         else:
+             lowest_id = self.get_id()        
+ 
+-        ids = [lowest_id+i for i in range(len(self.args)-1)]
++        ids = [lowest_id+i for i in range(len(self.args))]
+         all_cross = [0 for i in range(len(self.args))]
+         
+         for nb_event,event in enumerate(self.input):
+@@ -256,7 +256,7 @@
+                 print event
+                 raise Exception
+             
+-            wgt = [event.wgt*wgts[i]/wgts[0] for i in range(1,len(wgts))]
++            wgt = [event.wgt*wgts[i]/wgts[0] for i in range(0,len(wgts))]
+             all_cross = [(all_cross[j] + event.wgt*wgts[j]/wgts[0]) for j in range(len(wgts))]
+             
+             rwgt_data = event.parse_reweight()
+@@ -367,6 +367,17 @@
+             if lhapdfid == self.orig_pdf.lhapdfID:
+                 continue
+             pdfset = self.pdfsets[lhapdfid]
++
++            if len(values) == 1 :
++                continue
++            pdfset = self.pdfsets[lhapdfid]
++
++            if pdfset.errorType == 'unknown' :
++                # Don't know how to determine uncertainty for 'unknown' errorType :
++                # File "lhapdf.pyx", line 329, in lhapdf.PDFSet.uncertainty (lhapdf.cpp:6621)
++                # RuntimeError: "ErrorType: unknown" not supported by LHAPDF::PDFSet::uncertainty.
++                continue
++
+             pdferr =  pdfset.uncertainty(values)
+             resume.write( '#PDF %s: %g +%2.3g%% -%2.3g%%\n' % (pdfset.name, pdferr.central,pdferr.errplus*100/all_cross[0], pdferr.errminus*100/all_cross[0]))
+ 
+@@ -402,7 +413,7 @@
+         
+         text = ''
+         
+-        for arg in self.args[1:]:
++        for arg in self.args[:]:
+             mur, muf, alps, dyn, pdf = arg[:5]
+             if pdf == self.orig_pdf and alps ==1 and (mur!=1 or muf!=1 or dyn!=-1):
+                 if not in_scale:
+@@ -525,7 +536,17 @@
+                 new_args[pos[name]] = value
+                 all_args.append(new_args)
+         
+-        self.args = [default]+ [arg for arg in all_args if arg!= default]
++        cleaned_args = [arg for arg in all_args if arg != default]
++
++        orig_pdf_rwgt_member1 = -1
++        for i, arg in enumerate(cleaned_args) :
++            if arg[:3] == default[:3] and arg[4].lhapdfID == self.orig_pdf.lhapdfID+1 :
++                orig_pdf_rwgt_member1 = i
++
++        if orig_pdf_rwgt_member1 > -1 :
++            cleaned_args.insert(orig_pdf_rwgt_member1, default)
++
++        self.args = [default] + cleaned_args
+ 
+         self.log( "#Will Compute %s weights per event." % (len(self.args)-1))
+         return
+@@ -781,8 +802,17 @@
+     return obj
+ 
+ if __name__ == "__main__":
+-    call_systematics(sys.argv[1:])
+-   
++    sys_args = sys.argv[1:]
++    for i, arg in enumerate(sys_args) :
++        print arg
++        if arg.startswith('--lhapdf-config=') :
++            lhapdf = misc.import_python_lhapdf(arg[len('--lhapdf-config='):])
++            del sys_args[i]
++            break
++
++    if 'lhapdf' not in globals() or not lhapdf:
++            sys.exit('Can not run systematics since can not link python to lhapdf, specify --lhapdf-config=')
++    call_systematics(sys_args) 
+    
+         
+         

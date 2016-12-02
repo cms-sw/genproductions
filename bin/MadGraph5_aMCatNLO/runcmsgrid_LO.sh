@@ -56,35 +56,43 @@ fi
 
 gzip -d events_presys.lhe.gz
 
-sed -i ':a;N;$!ba;s/<rwgt>\n<wgt id='\''bias'\''>   0.1000000E+01<\/wgt>\n<\/rwgt>\n//g' events_presys.lhe
+# Remove the bias rwgt block that causes SysCalc to fail (patch 9 fixes this)
+#sed -i ':a;N;$!ba;s/<rwgt>\n<wgt id='\''bias'\''>   0.1000000E+01<\/wgt>\n<\/rwgt>\n//g' events_presys.lhe
 
-#run syscalc to populate pdf and scale variation weights
-echo "
-# Central scale factors
-scalefact:
-1 2 0.5
-# choice of correlation scheme between muF and muR
-# set here to reproduce aMC@NLO order
-scalecorrelation:
-0 3 6 1 4 7 2 5 8
-# PDF sets and number of members (0 or none for all members)
-PDF:
-NNPDF30_lo_as_0130.LHgrid
-NNPDF30_lo_as_0130_nf_4.LHgrid
-NNPDF30_lo_as_0118.LHgrid 1
-NNPDF23_lo_as_0130_qed.LHgrid
-NNPDF23_lo_as_0119_qed.LHgrid 1
-cteq6l1.LHgrid
-MMHT2014lo68cl.LHgrid
-MMHT2014lo_asmzsmallrange.LHgrid
-HERAPDF15LO_EIG.LHgrid
-NNPDF30_nlo_as_0118.LHgrid 1
-NNPDF23_nlo_as_0119.LHgrid 1
-CT10nlo.LHgrid
-MMHT2014nlo68cl.LHgrid 1
-" > syscalc_card.dat
 
-LD_LIBRARY_PATH=`${LHAPDFCONFIG} --libdir`:${LD_LIBRARY_PATH} ./mgbasedir/SysCalc/sys_calc events_presys.lhe syscalc_card.dat cmsgrid_final.lhe
+use_syscalc=0
+if [ "$use_syscalc" -gt 1 ]; then
+    #run syscalc to populate pdf and scale variation weights
+    echo "
+    # Central scale factors
+    scalefact:
+    1 2 0.5
+    # choice of correlation scheme between muF and muR
+    # set here to reproduce aMC@NLO order
+    scalecorrelation:
+    0 3 6 1 4 7 2 5 8
+    # PDF sets and number of members (0 or none for all members)
+    PDF:
+    NNPDF30_lo_as_0130.LHgrid
+    NNPDF30_lo_as_0130_nf_4.LHgrid
+    NNPDF30_lo_as_0118.LHgrid 1
+    NNPDF23_lo_as_0130_qed.LHgrid
+    NNPDF23_lo_as_0119_qed.LHgrid 1
+    cteq6l1.LHgrid
+    MMHT2014lo68cl.LHgrid
+    MMHT2014lo_asmzsmallrange.LHgrid
+    HERAPDF15LO_EIG.LHgrid
+    NNPDF30_nlo_as_0118.LHgrid 1
+    NNPDF23_nlo_as_0119.LHgrid 1
+    CT10nlo.LHgrid
+    MMHT2014nlo68cl.LHgrid 1
+    " > syscalc_card.dat
+    
+    LD_LIBRARY_PATH=`${LHAPDFCONFIG} --libdir`:${LD_LIBRARY_PATH} ./mgbasedir/SysCalc/sys_calc events_presys.lhe syscalc_card.dat cmsgrid_final.lhe
+else 
+   echo "systematics events_presys.lhe cmsgrid_final.lhe --dyn=-1 --mur=1,2,0.5 --muf=1,2,0.5 --pdf=NNPDF30_lo_as_0130,NNPDF30_lo_as_0130_nf_4,NNPDF30_lo_as_0118@0,NNPDF23_lo_as_0130_qed,NNPDF23_lo_as_0119_qed@0,cteq6l1,MMHT2014lo68cl,MMHT2014lo_asmzsmallrange,HERAPDF15LO_EIG,NNPDF30_nlo_as_0118@0,NNPDF23_nlo_as_0119@0,CT10nlo,MMHT2014nlo68cl@0" > systematics_card.dat
+   cat systematics_card.dat | $LHEWORKDIR/process/madevent/bin/madevent 
+fi
 
 #reweight if necessary
 if [ -e process/madevent/Cards/reweight_card.dat ]; then
