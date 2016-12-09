@@ -34,7 +34,7 @@ define tp = tp+ tp-
 define vtpp = vtp vtp~
 # Specify process(es) to run
 
-generate p p > tp vtpp, (tp > h l),(vtpp > w l, w > l v)
+generate p p > tp vtpp, (tp > z l),(vtpp > w l, w > l v)
 # Output processes to MadEvent directory
 output VectorLikeLeptons_TAUprimeNUTAUprimeWZ_Wlv_M-500_13TeV-madgraph -nojpeg	
 
