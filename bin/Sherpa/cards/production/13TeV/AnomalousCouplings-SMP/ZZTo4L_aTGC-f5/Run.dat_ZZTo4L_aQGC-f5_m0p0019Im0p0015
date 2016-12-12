@@ -1,0 +1,36 @@
+(run){
+  EVENTS 1M; ERROR 0.1;
+  MASSIVE_PS 4 5;
+
+  FSF:=1.; RSF:=1.; QSF:=1.;
+  SCALES STRICT_METS{FSF*MU_F2}{RSF*MU_R2}{QSF*MU_Q2};
+
+  NJET:=2; LJET:=3,4; QCUT:=20.;
+
+  ME_SIGNAL_GENERATOR Amegic;
+  EVENT_GENERATION_MODE Unweighted;
+
+  MASSIVE[15] 1;
+
+  BEAM_1 2212; BEAM_ENERGY_1 6500.;
+  BEAM_2 2212; BEAM_ENERGY_2 6500.;
+
+  MODEL SM+AGC;
+
+ F5_Z     -0.0015                                                                                                                                                            
+ F5_GAMMA -0.0019                                                                                                                                                            
+
+  UNITARIZATION_SCALE 1500;
+  UNITARIZATION_N 2;
+  UNITARIZATION_M 1;
+}(run)
+
+(processes){
+  Process 93 93 -> 90 90 90 90;
+}(processes)
+
+(selector){
+ Mass 11 -11 60. 120.;
+ Mass 13 -13 60. 120.;
+}(selector)
+

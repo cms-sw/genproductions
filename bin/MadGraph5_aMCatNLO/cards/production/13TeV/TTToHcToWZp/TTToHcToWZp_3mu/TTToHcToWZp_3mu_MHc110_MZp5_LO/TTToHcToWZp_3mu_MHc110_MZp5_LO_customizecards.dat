@@ -3,6 +3,5 @@
 #set param_card yukawa 6 175.0
 set param_card mhc 110
 set param_card mzp 5
-
 set param_card whc 0.001
 set param_card wzp 0.001
