@@ -1,24 +1,3 @@
-#************************************************************
-#*                        MadGraph 5                        *
-#*                                                          *
-#*                *                       *                 *
-#*                  *        * *        *                   *
-#*                    * * * * 5 * * * *                     *
-#*                  *        * *        *                   *
-#*                *                       *                 *
-#*                                                          *
-#*                                                          *
-#*    The MadGraph Development Team - Please visit us at    *
-#*    https://server06.fynu.ucl.ac.be/projects/madgraph     *
-#*                                                          *
-#************************************************************
-#*                                                          *
-#*               Command File for MadGraph 5                *
-#*                                                          *
-#*     run as ./bin/mg5  filename                           *
-#*                                                          *
-#************************************************************
-#import model sm
 import model 2HDMtypeIIymbMSbar
 # Define multiparticle labels
 define p = g u c d s u~ c~ d~ s~
@@ -28,18 +7,6 @@ define l- = e- mu-
 define vl = ve vm vt
 define vl~ = ve~ vm~ vt~
 # Specify process(es) to run
-#generate p p > e- ve~ @1
-#add process p p > e- ve~ j @2
-#add process p p > t t~ @3
 generate p p > h+ w- b b~ / h1 h2 h3
-
-# Output processes to MadEvent directory
-# output
-# This will create a directory PROC_$MODELNAME_$X
-# If you want to specify the path/name of the directory use
-# output PATH
-
-# To generate events, you can go to the created directory and 
-# run ./bin/generate_events
 
 output ChargedHiggs_intermediateNoNeutral_M150 -nojpeg
