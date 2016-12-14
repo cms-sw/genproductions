@@ -89,7 +89,6 @@
 # Apply pt/E/eta/dr/mij cuts on decay products or not
 # (note that etmiss/ptll/ptheavy/ht/sorted cuts always apply)
 #**********************************************************
-   F  = cut_decays    ! Cut decay products 
 #*************************************************************
 # Number of helicities to sum per event (0 = all helicities)
 # 0 gives more stable result, but longer run time (needed for
@@ -107,7 +106,7 @@
  20  = ptj       ! minimum pt for the jets 
   0  = ptb       ! minimum pt for the b 
  10  = pta       ! minimum pt for the photons 
- 10  = ptl       ! minimum pt for the charged leptons 
+  0  = ptl       ! minimum pt for the charged leptons 
   0  = misset    ! minimum missing Et (sum of neutrino's momenta)
   0  = ptheavy   ! minimum pt for one heavy final state
  1.0 = ptonium   ! minimum pt for the quarkonium states
@@ -133,7 +132,7 @@
    5  = etaj    ! max rap for the jets 
   -1  = etab    ! max rap for the b
  2.5  = etaa    ! max rap for the photons 
- 2.5  = etal    ! max rap for the charged leptons 
+  -1  = etal    ! max rap for the charged leptons 
  0.6  = etaonium ! max rap for the quarkonium states
    0  = etajmin ! min rap for the jets
    0  = etabmin ! min rap for the b
@@ -144,7 +143,7 @@
 #*********************************************************************
  0.4 = drjj    ! min distance between jets 
  0   = drbb    ! min distance between b's 
- 0.4 = drll    ! min distance between leptons 
+ 0.0 = drll    ! min distance between leptons 
  0.4 = draa    ! min distance between gammas 
  0   = drbj    ! min distance between b and jet 
  0.4 = draj    ! min distance between gamma and jet 
@@ -265,6 +264,8 @@
 #          meaningful ONLY if plotted taking matchscale              *
 #          reweighting into account!                                 *
 #*********************************************************************
+#   F  = use_syst      ! Enable systematics studies
+    F  = cut_decays      ! Enable systematics studies
     T = use_syst
 #
 #
