@@ -41,11 +41,11 @@ itmx1    1     ! number of iterations for initializing the integration grid
 ncall2  100000  ! number of calls for computing the integral and finding upper bound
 itmx2     5    ! number of iterations for computing the integral and finding upper bound
 nubound 200000  ! number of bbarra calls to setup norm of upper bounding function
+foldcsi   2    ! number of folds on csi integration
+foldy     2    ! number of folds on  y  integration
+foldphi   2    ! number of folds on phi integration
 fastbtlbound 1    ! (default 0) if 1 use fast btilde bound
 storemintupb 1    ! store calls for grids
-foldcsi   2       ! number of folds on csi integration
-foldy     2       ! number of folds on  y  integration
-foldphi   1       ! number of folds on phi integration
 
 ! OPTIONAL PARAMETERS
 
