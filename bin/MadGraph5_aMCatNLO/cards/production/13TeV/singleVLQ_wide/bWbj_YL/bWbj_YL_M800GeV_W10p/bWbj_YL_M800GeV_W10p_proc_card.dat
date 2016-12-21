@@ -1,0 +1,19 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set loop_optimized_output True
+set complex_mass_scheme False
+import model sm
+define p = g u c d s u~ c~ d~ s~
+define j = g u c d s u~ c~ d~ s~
+define l+ = e+ mu+ ta+ 
+define l- = e- mu- ta-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+define al = j l+ l- vl vl~
+define bb = b b~
+define ww = w+ w-
+define j = p
+import model VLQ_NLO_v3_4FNS_UFO-w3
+generate p p > bb w- bb j / x tp bp  QED=1 QCD=1 VLQ=2
+add process p p > bb w+ bb j / x tp bp  QED=1 QCD=1 VLQ=2 
+output bWbj_YL_M800GeV_W10p -nojpeg
