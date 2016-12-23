@@ -1,4 +1,4 @@
-import model 2HDM
+import model 2HDM-NoCSBMass
 
 define p = g u c d s b u~ c~ d~ s~ b~
 define j = g u c d s b u~ c~ d~ s~ b~
@@ -9,4 +9,4 @@ define vl~ = ve~ vm~
 
 generate p p > t t~, ( t > h+ b, ( h+ > c b~ )), ( t~ > w- b~, ( w- > l- vl~ ))
 
-output CH_TEST -nojpeg
+output ChargedHiggsToCB_M120 -nojpeg
