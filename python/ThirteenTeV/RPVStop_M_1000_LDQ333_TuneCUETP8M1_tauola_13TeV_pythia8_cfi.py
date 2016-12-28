@@ -1,5 +1,4 @@
 SLHA_TABLE="""
-
 # SOFTSUSY3.2.4
 # B.C. Allanach, Comput. Phys. Commun. 143 (2002) 305-331, hep-ph/0104145
 # B.C. Allanach and M.A. Bernhardt, arXiv:0903.1805
@@ -416,8 +415,6 @@ DECAY   1000006     5.19649555E+01   # stop1
 #          BR         NDA      ID1       ID2
 1.00000000E-00    2     -15        5
 #
-
-
 """
 import FWCore.ParameterSet.Config as cms 
 

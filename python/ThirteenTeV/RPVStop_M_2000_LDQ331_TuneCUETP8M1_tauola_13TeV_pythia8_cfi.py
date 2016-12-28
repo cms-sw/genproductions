@@ -415,7 +415,6 @@ DECAY   1000006     5.19649555E+01   # stop1
 #          BR         NDA      ID1       ID2
 1.00000000E-00    2     -15        1
 #
-
 """
 
 import FWCore.ParameterSet.Config as cms 
