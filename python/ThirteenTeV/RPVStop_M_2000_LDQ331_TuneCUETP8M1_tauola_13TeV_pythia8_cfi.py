@@ -414,43 +414,39 @@ DECAY   1000006     5.19649555E+01   # stop1
 #                    stop1 2-body decays
 #          BR         NDA      ID1       ID2
 1.00000000E-00    2     -15        1
-#
 """
 
-import FWCore.ParameterSet.Config as cms 
+import FWCore.ParameterSet.Config as cms
 
+from Configuration.Generator.Pythia8CommonSettings_cfi import *
+from Configuration.Generator.Pythia8CUEP8M1Settings_cfi import *
+from GeneratorInterface.ExternalDecays.TauolaSettings_cff import *
 
-from GeneratorInterface.ExternalDecays.TauolaSettings_cff import * 
-from Configuration.Generator.Pythia8CommonSettings_cfi import * 
-from Configuration.Generator.Pythia8CUEP8M1Settings_cfi import *  
-
-
-generator = cms.EDFilter("Pythia8GeneratorFilter", 
-    comEnergy = cms.double(13000.0), 
-    filterEfficiency = cms.untracked.double(1.), 
-    maxEventsToPrint = cms.untracked.int32(1), 
-    pythiaHepMCVerbosity = cms.untracked.bool(False), 
-    pythiaPylistVerbosity = cms.untracked.int32(1), 
-    SLHAFileForPythia8 = cms.string('%s' % SLHA_TABLE), 
-    ExternalDecays = cms.PSet(Tauola = cms.untracked.PSet(TauolaPolar, TauolaDefaultInputCards ), 
-                              parameterSets = cms.vstring('Tauola') 
-                             ), 
-    PythiaParameters = cms.PSet(         
-         pythia8CommonSettingsBlock, 
-         pythia8CUEP8M1SettingsBlock, 
-         processParameters = cms.vstring( 
-             'SUSY:all off',
-             'SUSY:gg2squarkantisquark = on',
-             'SUSY:qqbar2squarkantisquark = on',
-             'SUSY:idA = 1000006',
-             'SUSY:idB = 1000006',
-             ), 
-         parameterSets = cms.vstring( 
-             'pythia8CommonSettings', 
-             'pythia8CUEP8M1Settings', 
-             'processParameters'
-         )        
-    ) 
+generator = cms.EDFilter("Pythia8GeneratorFilter",
+    comEnergy = cms.double(13000.0),
+    filterEfficiency = cms.untracked.double(1.),
+    maxEventsToPrint = cms.untracked.int32(0),
+    pythiaHepMCVerbosity = cms.untracked.bool(False),
+    pythiaPylistVerbosity = cms.untracked.int32(0),
+    SLHATableForPythia8 = cms.string('%s' % SLHA_TABLE),
+    ExternalDecays = cms.PSet(Tauola = cms.untracked.PSet(TauolaPolar, TauolaDefaultInputCards ),
+                              parameterSets = cms.vstring('Tauola')),
+    PythiaParameters = cms.PSet(
+        pythia8CommonSettingsBlock,
+        pythia8CUEP8M1SettingsBlock,
+        processParameters = cms.vstring(
+            'SUSY:all = off',
+            'SUSY:gg2squarkantisquark = on',
+            'SUSY:qqbar2squarkantisquark = on',
+            'SUSY:idA = 1000006',
+            'SUSY:idB = 1000006',
+        ),
+        parameterSets = cms.vstring(
+            'pythia8CommonSettings',
+            'pythia8CUEP8M1Settings',
+            'processParameters'
+        )
+    )
 )
 
-ProductionFilterSequence = cms.Sequence(generator) 
+ProductionFilterSequence = cms.Sequence(generator)
