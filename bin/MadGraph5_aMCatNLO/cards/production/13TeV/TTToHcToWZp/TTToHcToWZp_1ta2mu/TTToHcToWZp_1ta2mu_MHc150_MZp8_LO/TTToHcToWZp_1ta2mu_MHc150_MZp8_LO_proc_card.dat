@@ -1,0 +1,35 @@
+#************************************************************
+#*                     MadGraph5_aMC@NLO                    *
+#*                                                          *
+#*                *                       *                 *
+#*                  *        * *        *                   *
+#*                    * * * * 5 * * * *                     *
+#*                  *        * *        *                   *
+#*                *                       *                 *
+#*                                                          *
+#*                                                          *
+#*         VERSION 2.3.3                 2015-10-25         *
+#*                                                          *
+#*    The MadGraph5_aMC@NLO Development Team - Find us at   *
+#*    https://server06.fynu.ucl.ac.be/projects/madgraph     *
+#*                                                          *
+#************************************************************
+#*                                                          *
+#*               Command File for MadGraph5_aMC@NLO         *
+#*                                                          *
+#*     run as ./bin/mg5_aMC  filename                       *
+#*                                                          *
+#************************************************************
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set loop_color_flows False
+set gauge unitary
+set complex_mass_scheme False
+set max_npoint_for_channel 0
+import model ChargedHiggs_DarkZ-no_udcsb_mass
+define p = g u d c s u~ d~ c~ s~ b b~
+define w_q= u d c s
+define w_q~= u~ d~ c~ s~
+generate p p > t t~, (t > h+ b, (h+ > w+ zp, (w+ > w_q w_q~), (zp > mu- mu+))),(t~ > w- b~, (w- > ta- vt~))
+add process p p > t t~, (t > h+ b, (h+ > w+ zp, (w+ > ta+ vt), (zp > mu- mu+))),(t~ > w- b~, (w- > w_q w_q~))
+output TTToHcToWZp_1ta2mu_MHc150_MZp8_LO -nojpeg
