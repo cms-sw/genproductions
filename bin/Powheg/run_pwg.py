@@ -337,6 +337,7 @@ fi
 
 patch -l -p0 -i ${WORKDIR}/patches/pdfweights.patch
 patch -l -p0 -i ${WORKDIR}/patches/pwhg_lhepdf.patch
+sed -i -e "s#500#900#g"  POWHEG-BOX/include/pwhg_rwl.h
 
 cd POWHEG-BOX/${process}
 
