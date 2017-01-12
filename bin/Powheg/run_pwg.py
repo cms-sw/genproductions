@@ -315,14 +315,14 @@ if [[ -s ./JHUGen.input ]]; then
 fi
 
 ### retrieve the powheg source tar ball
-export POWHEGSRC=powhegboxV2rwgt_Aug2016.tar.gz
+export POWHEGSRC=powhegboxV2_Dec2016.tar.gz
 
 echo 'D/L POWHEG source...'
 
-#if [ ! -f ${POWHEGSRC} ]; then
-#  wget --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/slc6_amd64_gcc481/powheg/V2.0/src/${POWHEGSRC} || fail_exit "Failed to get powheg tar ball "
-#fi
-cp -p ../${POWHEGSRC} .
+if [ ! -f ${POWHEGSRC} ]; then
+  wget --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/slc6_amd64_gcc481/powheg/V2.0/src/${POWHEGSRC} || fail_exit "Failed to get powheg tar ball "
+fi
+#cp -p ../${POWHEGSRC} .
 
 tar zxf ${POWHEGSRC}
 #
@@ -337,6 +337,7 @@ fi
 
 patch -l -p0 -i ${WORKDIR}/patches/pdfweights.patch
 patch -l -p0 -i ${WORKDIR}/patches/pwhg_lhepdf.patch
+sed -i -e "s#500#900#g"  POWHEG-BOX/include/pwhg_rwl.h
 
 cd POWHEG-BOX/${process}
 
@@ -350,8 +351,9 @@ sed -i -e "s#PDF[ \t]*=[ \t]*native#PDF=lhapdf#g" Makefile
 # Use gfortran, not other compilers which are not free/licensed
 sed -i -e "s#COMPILER[ \t]*=[ \t]*ifort#COMPILER=gfortran#g" Makefile
 
-sed -i -e 's#$(PDFPACK#lhefread.o pwhg_io_interface.o rwl_weightlists.o rwl_setup_param_weights.o \\ \
-	$(PDFPACK#' Makefile
+## Not needed anymore
+# sed -i -e 's#$(PDFPACK#lhefread.o pwhg_io_interface.o rwl_weightlists.o rwl_setup_param_weights.o \\ \
+#	$(PDFPACK#' Makefile
 
 # hardcode svn info
 sed -i -e 's#^pwhg_main:#$(shell ../svnversion/svnversion.sh>/dev/null) \
