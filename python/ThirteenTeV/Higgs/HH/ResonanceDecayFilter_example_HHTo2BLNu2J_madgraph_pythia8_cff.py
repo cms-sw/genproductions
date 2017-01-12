@@ -39,6 +39,8 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
             'ResonanceDecayFilter:eMuAsEquivalent = off', #on: treat electrons and muons as equivalent
             'ResonanceDecayFilter:eMuTauAsEquivalent = on', #on: treat electrons, muons , and taus as equivalent
             'ResonanceDecayFilter:allNuAsEquivalent = on', #on: treat all three neutrino flavours as equivalent
+            'ResonanceDecayFilter:udscAsEquivalent   = off', #on: treat udsc quarks as equivalent
+            'ResonanceDecayFilter:udscbAsEquivalent  = on',  #on: treat udscb quarks as equivalent
             'ResonanceDecayFilter:mothers = 25,24', #list of mothers not specified -> count all particles in hard process+resonance decays (better to avoid specifying mothers when including leptons from the lhe in counting, since intermediate resonances are not gauranteed to appear in general
             'ResonanceDecayFilter:daughters = 5,5,24,24,11,12,1,1',
           ),
