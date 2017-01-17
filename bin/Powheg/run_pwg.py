@@ -74,8 +74,10 @@ def prepareJob(tag, i, folderName) :
     f.write ('cp -p ' + rootfolder + '/' + folderName + '/powheg.input ./' + '\n')
     f.write ('cp -p ' + rootfolder + '/' + folderName + '/JHUGen.input ./' + '\n')
     f.write ('cp -p ' + rootfolder + '/' + folderName + '/*.dat  ./' + '\n') 
-    f.write ('cp -p ' + rootfolder + '/' + folderName + '/pwhg_main  ./' + '\n') 
-
+    f.write ('cp -p ' + rootfolder + '/' + folderName + '/pwhg_main  ./' + '\n')
+    f.write ('if [ -e '+ rootfolder + '/' + folderName + '/obj-gfortran/proclib ]; then    \n')
+    f.write ('cp -pr ' + rootfolder + '/' + folderName + '/obj-gfortran  ./' + '\n')  
+    f.write ('fi    \n')
 
     f.write('\n')
 
@@ -96,6 +98,9 @@ def prepareJobForEvents (tag, i, folderName, EOSfolder) :
     f.write ('cp -p ' + rootfolder + '/' + folderName + '/powheg.input ./' + '\n')
     f.write ('cp -p ' + rootfolder + '/' + folderName + '/JHUGen.input ./' + '\n')
     f.write ('cp -p ' + rootfolder + '/' + folderName + '/*.dat  ./' + '\n')
+    f.write ('if [ -e '+ rootfolder + '/' + folderName + '/obj-gfortran/proclib ]; then    \n')
+    f.write ('   cp -pr ' + rootfolder + '/' + folderName + '/obj-gfortran  ./' + '\n')  
+    f.write ('fi    \n')
 
     f.write ('cd -' + '\n')
 
@@ -138,7 +143,8 @@ def runParallelXgrid(parstage, xgrid, folderName, nEvents, njobs, powInputName, 
             runCommand("echo \'manyseeds 1\' >> "+ inputName)
 
         if not 'fakevirt' in open(inputName).read() :
-            runCommand("echo \'fakevirt 1\' >> "+inputName)
+            if process != 'b_bbar_4l':
+                runCommand("echo \'fakevirt 1\' >> "+inputName)
 
         #if process == 'ttH' :
         #    if not 'ncall2' in open(inputName).read() :
@@ -338,6 +344,10 @@ fi
 ### retrieve the powheg source tar ball
 export POWHEGSRC=powhegboxV2_Sep2016.tar.gz 
 
+if [ "$process" = "b_bbar_4l" ]; then 
+  export POWHEGSRC=powhegboxRES_Aug2016.tar.gz
+fi
+
 echo 'D/L POWHEG source...'
 
 if [ ! -f ${POWHEGSRC} ]; then
@@ -357,6 +367,12 @@ fi
 
 patch -l -p0 -i ${WORKDIR}/patches/pdfweights.patch
 patch -l -p0 -i ${WORKDIR}/patches/pwhg_lhepdf.patch
+if [ "$process" = "b_bbar_4l" ]; then
+    cd POWHEG-BOX
+    patch -l -p0 -i ${WORKDIR}/patches/res_openloops_long_install_dir.patch
+    patch -l -p0 -i ${WORKDIR}/patches/res_gfortran48.patch
+    cd ..
+fi
 
 echo ${POWHEGSRC} > VERSION
 
@@ -506,6 +522,9 @@ if [ -d ./lib ]; then
 fi 
 if [ -d ./lib64 ]; then
   cp -a ./lib64 ${WORKDIR}/${name}/.
+fi
+if [ "$process" = "b_bbar_4l" ]; then
+    cp -rp obj-gfortran ${WORKDIR}/${name}/.
 fi
 
 cd ${WORKDIR}/${name}
@@ -744,6 +763,12 @@ cp -p $WORKDIR/run_pwg.py $WORKDIR/$folderName
 if [ -e $WORKDIR/$folderName/pwggrid-0001.dat ]; then
   cp -p $WORKDIR/$folderName/pwggrid-0001.dat $WORKDIR/$folderName/pwggrid.dat
   cp -p $WORKDIR/$folderName/pwg-0001-stat.dat $WORKDIR/$folderName/pwg-stat.dat
+fi
+
+if [ -e $WORKDIR/$folderName/pwggrid-rm-0001.dat ]; then
+  cp -p $WORKDIR/$folderName/pwggrid-rm-0001.dat $WORKDIR/$folderName/pwggrid-rm.dat
+  cp -p $WORKDIR/$folderName/pwggrid-btl-0001.dat $WORKDIR/$folderName/pwggrid-btl.dat
+  cp -p $WORKDIR/$folderName/pwg-0001-st3-stat.dat $WORKDIR/$folderName/pwg-stat.dat
 fi
 
 grep -q "NEVENTS" powheg.input; test $? -eq 0 || sed -i "s/^numevts.*/numevts NEVENTS/g" powheg.input
