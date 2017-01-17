@@ -33,6 +33,7 @@ if __name__ == "__main__":
     parser = OptionParser()
     parser.add_option('-f', '--folderName'    , dest="folderName",    default='testProd',      help='local folder and last eos folder name[testProd]')
     parser.add_option('-j', '--numJobs'       , dest="numJobs",       default= '10',           help='number of jobs to be used for multicore grid step 1,2,3')
+    parser.add_option('-x', '--numX'          , dest="numX",          default= '5',            help='number of xgrid iterations for multicore grid step 1')
     parser.add_option('-i', '--inputTemplate' , dest="inputTemplate", default= 'powheg.input', help='input cfg file (fixed) [=powheg.input]')
     parser.add_option('-q', '--lsfQueue'      , dest="lsfQueue",      default= '1nd',          help='LSF queue [2nd]')
     parser.add_option('-m', '--prcName'       , dest="prcName",       default= 'DMGG',         help='POWHEG process name [DMGG]')
@@ -46,6 +47,7 @@ if __name__ == "__main__":
     print 'RUNNING PARAMS: '
     print '                folderName            = ' + args.folderName 
     print '                Number of jobs        = ' + args.numJobs 
+    print '                Number of xgrid iter  = ' + args.numX 
     print '                LSF Queue             = ' + args.lsfQueue 
     print '                powheg input cfg file = ' + args.inputTemplate 
     print '                powheg process name   = ' + args.prcName
@@ -53,16 +55,18 @@ if __name__ == "__main__":
 
 
     steps=[
-           ('compile','-p 0'),
-           ('grid production 1-1','-p 1 -x 1'),
-           ('grid production 1-2','-p 1 -x 2'),
-           ('grid production 1-3','-p 1 -x 3'),
-           ('grid production 1-4','-p 1 -x 4'),
-           ('grid production 1-5','-p 1 -x 5'),
+           ('compile','-p 0')
+          ]
+    for ix in range(1, int(args.numX)+1):
+        steps.append(
+           ('grid production 1-'+str(ix),'-p 1 -x '+str(ix))
+        )
+    steps.extend(
+          [
            ('grid production 2',   '-p 2'),
            ('grid production 3',   '-p 3'),
            ('grid production 9',   '-p 9 -k 1')
-          ]
+          ])
 
     for step,extraOpt in steps:
         print '*'*50,extraOpt,'*'*50
