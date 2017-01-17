@@ -36,4 +36,4 @@ generate p p > w+ l+ l- j j, w+ > l+ vl @0
 add process p p > w- l+ l- j j, w- > l- vl~ @3
 
 # Output processes to MadEvent directory
-output WZTo3LNu2j_5f_LO_MLM -nojpeg
+output WZTo3LNu2j_MLL-4To50_5f_LO_MLM -nojpeg
