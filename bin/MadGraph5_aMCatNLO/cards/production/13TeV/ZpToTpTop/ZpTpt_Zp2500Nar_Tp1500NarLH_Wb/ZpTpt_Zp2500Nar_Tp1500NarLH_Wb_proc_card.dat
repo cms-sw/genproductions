@@ -1,0 +1,17 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set loop_optimized_output True
+set complex_mass_scheme False
+import model sm
+define p = g u c d s u~ c~ d~ s~
+define j = g u c d s u~ c~ d~ s~
+define l+ = e+ mu+
+define l- = e- mu-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+import model onerho
+generate p p > rho0 t23 > t~ w+ b
+add process p p > rho0 t23~ > w- b~ t
+add process p p > rho0 t23 > t~ w+ b j
+add process p p > rho0 t23~ > w- b~ t j
+output ZpTpt_Zp2500Nar_Tp1500NarLH_Wb

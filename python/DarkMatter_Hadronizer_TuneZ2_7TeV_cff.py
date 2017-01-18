@@ -1,6 +1,6 @@
 from Configuration.Generator.PythiaUEZ2Settings_cfi import *
 
-process.generator = cms.EDFilter("Pythia6HadronizerFilter",
+generator = cms.EDFilter("Pythia6HadronizerFilter",
 
     pythiaPylistVerbosity = cms.untracked.int32(0),
     filterEfficiency = cms.untracked.double(0.254),

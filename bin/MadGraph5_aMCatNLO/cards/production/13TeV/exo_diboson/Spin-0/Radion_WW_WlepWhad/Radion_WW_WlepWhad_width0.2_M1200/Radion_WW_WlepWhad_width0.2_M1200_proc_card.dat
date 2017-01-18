@@ -1,0 +1,15 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set gauge unitary
+set complex_mass_scheme False
+import model heft_radion
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+define q = u c d s b u~ c~ d~ s~ b~
+define lep = l+ l-
+define neu = vl vl~
+generate p p > h2, ( h2 > w+ w- > lep neu q q)
+output Radion_WW_WlepWhad_width0.2_M1200 -nojpeg
+
