@@ -77,6 +77,11 @@ fi
 if [ -e  ${WORKDIR}/cteq6m ]; then
     cp -p ${WORKDIR}/cteq6m .
 fi
+### For the bb4l process
+if [[ -d ${WORKDIR}/obj-gfortran ]]; then
+    ln -s ${WORKDIR}/obj-gfortran .
+    cp -p ${WORKDIR}/pwg*.dat .
+fi
 
 if [[ ! -e ${card} ]]; then
  fail_exit "powheg.input not found!"

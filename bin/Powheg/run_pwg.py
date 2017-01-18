@@ -765,9 +765,12 @@ if [ -e $WORKDIR/$folderName/pwggrid-0001.dat ]; then
   cp -p $WORKDIR/$folderName/pwg-0001-stat.dat $WORKDIR/$folderName/pwg-stat.dat
 fi
 
-if [ -e $WORKDIR/$folderName/pwggrid-rm-0001.dat ]; then
-  cp -p $WORKDIR/$folderName/pwggrid-rm-0001.dat $WORKDIR/$folderName/pwggrid-rm.dat
-  cp -p $WORKDIR/$folderName/pwggrid-btl-0001.dat $WORKDIR/$folderName/pwggrid-btl.dat
+
+FULLGRIDRM=`ls ${WORKDIR}/${folderName} | grep fullgrid-rm`
+FULLGRIDBTL=`ls ${WORKDIR}/${folderName} | grep fullgrid-btl`
+if [ ${#FULLGRIDRM} -gt 0 -a ${#FULLGRIDBTL} -gt 0 ]; then
+  cp -p $WORKDIR/$folderName/${FULLGRIDRM} $WORKDIR/$folderName/pwgfullgrid-rm.dat
+  cp -p $WORKDIR/$folderName/${FULLGRIDBTL} $WORKDIR/$folderName/pwgfullgrid-btl.dat
   cp -p $WORKDIR/$folderName/pwg-0001-st3-stat.dat $WORKDIR/$folderName/pwg-stat.dat
 fi
 
@@ -830,10 +833,10 @@ fi
 if [ $keepTop == '1' ]; then
     echo 'Keeping validation plots.'
     echo 'Packing...' ${WORKDIR}'/'${folderName}'_'${process}'.tgz'
-    tar zcf ${WORKDIR}'/'${folderName}'_'${process}'.tgz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.lhe --exclude=run_*.sh --exclude=*.log --exclude=*temp
+    tar zcf ${WORKDIR}'/'${folderName}'_'${process}'.tgz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.lhe --exclude=run_*.sh --exclude=*.log --exclude=*temp --exclude=pwgbtlupb-*.dat --exclude=pwgrmupb-*.dat
 else
     echo 'Packing...' ${WORKDIR}'/'${folderName}'_'${process}'.tgz'
-    tar zcf ${WORKDIR}'/'${folderName}'_'${process}'.tgz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.top --exclude=*.lhe --exclude=run_*.sh --exclude=*.log --exclude=*temp
+    tar zcf ${WORKDIR}'/'${folderName}'_'${process}'.tgz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.top --exclude=*.lhe --exclude=run_*.sh --exclude=*.log --exclude=*temp --exclude=pwgbtlupb-*.dat --exclude=pwgrmupb-*.dat
 fi
 
 cd ${WORKDIR}
