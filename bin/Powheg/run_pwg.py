@@ -76,7 +76,8 @@ def prepareJob(tag, i, folderName) :
     f.write ('cp -p ' + rootfolder + '/' + folderName + '/*.dat  ./' + '\n') 
     f.write ('cp -p ' + rootfolder + '/' + folderName + '/pwhg_main  ./' + '\n')
     f.write ('if [ -e '+ rootfolder + '/' + folderName + '/obj-gfortran/proclib ]; then    \n')
-    f.write ('cp -pr ' + rootfolder + '/' + folderName + '/obj-gfortran  ./' + '\n')  
+    f.write ('  mkdir ./obj-gfortran/' + '\n')
+    f.write ('  cp -pr ' + rootfolder + '/' + folderName + '/obj-gfortran/proclib  ./obj-gfortran/' + '\n')
     f.write ('fi    \n')
 
     f.write('\n')
@@ -99,7 +100,8 @@ def prepareJobForEvents (tag, i, folderName, EOSfolder) :
     f.write ('cp -p ' + rootfolder + '/' + folderName + '/JHUGen.input ./' + '\n')
     f.write ('cp -p ' + rootfolder + '/' + folderName + '/*.dat  ./' + '\n')
     f.write ('if [ -e '+ rootfolder + '/' + folderName + '/obj-gfortran/proclib ]; then    \n')
-    f.write ('   cp -pr ' + rootfolder + '/' + folderName + '/obj-gfortran  ./' + '\n')  
+    f.write ('  mkdir ./obj-gfortran/' + '\n')
+    f.write ('  cp -pr ' + rootfolder + '/' + folderName + '/obj-gfortran/proclib  ./obj-gfortran/' + '\n')
     f.write ('fi    \n')
 
     f.write ('cd -' + '\n')
@@ -523,8 +525,9 @@ fi
 if [ -d ./lib64 ]; then
   cp -a ./lib64 ${WORKDIR}/${name}/.
 fi
-if [ "$process" = "b_bbar_4l" ]; then
-    cp -rp obj-gfortran ${WORKDIR}/${name}/.
+if [ -d ./obj-gfortran/proclib ]; then
+  mkdir ${WORKDIR}/${name}/obj-gfortran/
+  cp -a ./obj-gfortran/proclib ${WORKDIR}/${name}/obj-gfortran/.
 fi
 
 cd ${WORKDIR}/${name}
