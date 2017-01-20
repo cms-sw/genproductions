@@ -37,6 +37,8 @@ if __name__ == "__main__":
     parser.add_option('-i', '--inputTemplate' , dest="inputTemplate", default= 'powheg.input', help='input cfg file (fixed) [=powheg.input]')
     parser.add_option('-q', '--lsfQueue'      , dest="lsfQueue",      default= '1nd',          help='LSF queue [2nd]')
     parser.add_option('-m', '--prcName'       , dest="prcName",       default= 'DMGG',         help='POWHEG process name [DMGG]')
+    parser.add_option(      '--step3pilot'    , dest="step3pilot",    default= False,          help='do a pilot job to combine the grids, calculate upper bounds afterwards (otherwise afs jobs might fail)', action='store_true')
+    parser.add_option(      '--dry-run'       , dest="dryrun",        default= False,          help='show commands only, do not submit', action='store_true')
 
     (args, opts) = parser.parse_args(sys.argv)
     
@@ -51,29 +53,34 @@ if __name__ == "__main__":
     print '                LSF Queue             = ' + args.lsfQueue 
     print '                powheg input cfg file = ' + args.inputTemplate 
     print '                powheg process name   = ' + args.prcName
+    print '                do step 3 pilot run   = ' + str(args.step3pilot)
+    print '                dry run               = ' + str(args.dryrun)
     print
 
 
     steps=[
-           ('compile','-p 0')
+           ('compile',                   '-p 0')
           ]
     for ix in range(1, int(args.numX)+1):
         steps.append(
-           ('grid production 1-'+str(ix),'-p 1 -x '+str(ix))
-        )
+           ('grid production 1-'+str(ix),'-p 1 -x '+str(ix)))
+    steps.append(
+           ('grid production 2',         '-p 2'))
+    if args.step3pilot:
+        steps.append(
+           ('grid production 3 pilot',   '-p 3'))
     steps.extend(
-          [
-           ('grid production 2',   '-p 2'),
-           ('grid production 3',   '-p 3'),
-           ('grid production 9',   '-p 9 -k 1')
-          ])
+          [('grid production 3',         '-p 3'),
+           ('grid production 9',         '-p 9 -k 1')])
 
     for step,extraOpt in steps:
-        print '*'*50,extraOpt,'*'*50
-        commonOpts='-i '+args.inputTemplate+' -m '+args.prcName+' -f '+args.folderName+' -j '+args.numJobs
+        print '*'*50,step,'*'*5,extraOpt,'*'*50
+        njobs = '1' if 'pilot' in step else args.numJobs
+        commonOpts='-i '+args.inputTemplate+' -m '+args.prcName+' -f '+args.folderName+' -j '+njobs
         if extraOpt!='-p 0' and extraOpt!='-p 9 -k 1': commonOpts = commonOpts+' -q '+args.lsfQueue
         command = 'python ./run_pwg.py %s %s'%(extraOpt,commonOpts)
         print command
+        if args.dryrun: continue
         command_out = commands.getstatusoutput(command)[1]
         print command_out
         jobNumbers=[int(s) for s in re.findall(r'\<(.*?)\>', command_out) if s.isdigit()]
