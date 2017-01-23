@@ -712,6 +712,7 @@ sed -i "s/^xgriditeration/#xgriditeration 1/g" powheg.input
 echo "rwl_group_events 2000" >> powheg.input
 echo "lhapdf6maxsets 50" >> powheg.input
 echo "rwl_file 'pwg-rwl.dat'" >> powheg.input
+echo "rwl_format_rwgt 1" >> powheg.input
 cp -p $WORKDIR/pwg-rwl.dat pwg-rwl.dat
 
 if [ -e ${WORKDIR}/$folderName/cteq6m ]; then
