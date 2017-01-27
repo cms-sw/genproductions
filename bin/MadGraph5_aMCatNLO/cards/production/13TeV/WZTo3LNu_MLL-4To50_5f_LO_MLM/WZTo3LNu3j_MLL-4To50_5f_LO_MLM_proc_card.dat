@@ -1,5 +1,5 @@
-j#************************************************************
-#*                     MadGraph5_aMC@NLO                    *
+#************************************************************
+#*                        MadGraph 5                        *
 #*                                                          *
 #*                *                       *                 *
 #*                  *        * *        *                   *
@@ -8,31 +8,32 @@ j#************************************************************
 #*                *                       *                 *
 #*                                                          *
 #*                                                          *
-#*         VERSION 2.2.1                 2014-09-25         *
+#*         VERSION 1.5.11                2013-06-21         *
 #*                                                          *
-#*    The MadGraph5_aMC@NLO Development Team - Find us at   *
+#*    The MadGraph Development Team - Please visit us at    *
 #*    https://server06.fynu.ucl.ac.be/projects/madgraph     *
 #*                                                          *
 #************************************************************
 #*                                                          *
-#*               Command File for MadGraph5_aMC@NLO         *
+#*               Command File for MadGraph 5                *
 #*                                                          *
-#*     run as ./bin/mg5_aMC  filename                       *
+#*     run as ./bin/mg5  filename                           *
 #*                                                          *
 #************************************************************
 
-set group_subprocesses Auto
-set ignore_six_quark_processes False
-set loop_optimized_output True
-set complex_mass_scheme False
-import model sm-lepton_masses
-define p = g u c d s u~ c~ d~ s~ 
-define j = p b b~
-define l+ = e+ mu+ ta+
-define l- = e- mu- ta-
+import model sm-no_b_mass
+
+# Define multiparticle labels
+define p = g u c d s b u~ c~ d~ s~ b~
+define j = g u c d s b u~ c~ d~ s~ b~
 define vl = ve vm vt
 define vl~ = ve~ vm~ vt~
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
 
-generate    p p > w+ l+ l- j j QED=5 QCD=0 @ 1
-add process p p > w- l+ l- j j QED=5 QCD=0 @ 2
-output WLLJJ_WToLNu_EWK_4F_MLL-60
+# Specify process(es) to run
+generate p p > w+ l+ l- j j j, w+ > l+ vl @0
+add process p p > w- l+ l- j j j, w- > l- vl~ @1
+
+# Output processes to MadEvent directory
+output WZTo3LNu3j_MLL-4To50_5f_LO_MLM -nojpeg
