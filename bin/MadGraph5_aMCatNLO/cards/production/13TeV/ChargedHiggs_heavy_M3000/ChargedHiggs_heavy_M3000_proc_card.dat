@@ -19,7 +19,8 @@
 #*                                                          *
 #************************************************************
 #import model sm
-import model 2HDMtypeII
+#import model 2HDMtypeII
+import model 2HDMtII_NLO
 # Define multiparticle labels
 define p = g u c d s u~ c~ d~ s~
 define j = g u c d s u~ c~ d~ s~
@@ -32,6 +33,7 @@ define vl~ = ve~ vm~ vt~
 #add process p p > e- ve~ j @2
 #add process p p > t t~ @3
 generate p p > t~ b h+ [QCD]
+add process p p > t b~ h- [QCD]
 
 # Output processes to MadEvent directory
 #output
