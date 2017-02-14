@@ -47,7 +47,7 @@ topdecaymode 22222   ! an integer of 5 digits that are either 0, or 2, represent
 tdec/wmass 80.4  ! W mass for top decay
 tdec/wwidth 2.141
 tdec/bmass 4.8
-tdec/twidth  1.31
+tdec/twidth  1.31 ! 1.33 using PDG LO formula
 tdec/elbranching 0.108
 tdec/emass 0.00051
 tdec/mumass 0.1057

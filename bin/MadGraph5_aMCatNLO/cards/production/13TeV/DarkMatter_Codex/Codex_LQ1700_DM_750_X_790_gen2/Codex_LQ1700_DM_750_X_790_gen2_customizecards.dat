@@ -1,0 +1,13 @@
+set param_card  frblock  1  750
+set param_card  frblock  2  790
+set param_card  frblock  3  790
+set param_card  frblock  4  1700
+set param_card  frblock  5  1700
+set param_card  frblock  6  1.000000e-01
+set param_card  frblock8 1 1  0.000000e-01
+set param_card  frblock8 2 2  1.414000e-01
+set param_card  frblock8 3 3  0.000000e-01
+set param_card  frblock9 1 1  0.000000e-01
+set param_card  frblock9 2 2  0.000000e-01
+set param_card  frblock9 3 3  0.000000e-01
+

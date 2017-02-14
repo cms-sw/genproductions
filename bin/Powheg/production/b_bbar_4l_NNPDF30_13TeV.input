@@ -1,0 +1,269 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! Standard settings which have the same meaning as in POWHEG-BOX-V2
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+numevts NEVENTS                                    ! number of events to be generated
+iseed   SEED                                       ! Start the random number generator with seed iseed
+ih1   1                                          ! hadron 1 (1 for protons, -1 for antiprotons)
+ih2   1                                          ! hadron 2 (1 for protons, -1 for antiprotons)
+ndns1 131                                        ! pdf set for hadron 1 (mlm numbering) [if not using LHA pdfs]
+ndns2 131                                        ! pdf set for hadron 2 (mlm numbering) [if not using LHA pdfs]
+ebeam1 6500d0                                    ! energy of beam 1
+ebeam2 6500d0                                    ! energy of beam 2
+lhans1 260000                                     ! pdf set for hadron 1 (LHA numbering) [if using LHA pdfs]
+lhans2 260000                                     ! pdf set for hadron 2 (LHA numbering) [if using LHA pdfs]
+#QCDLambda5  0.2                                 ! to be set only if using different pdf sets for the two incoming hadrons
+
+use-old-grid 1                                   ! if 1 use old grid if file pwggrids.dat is present (<> 1 regenerate)
+use-old-ubound 1                                 ! if 1 use norm of upper bounding function stored in pwgubound.dat, if present; <> 1 regenerate
+
+ncall1 80000                                     ! number of calls for initializing the integration grid
+itmx1    1                                       ! number of iterations for initializing the integration grid
+ncall2 100000                                    ! number of calls for computing the integral and finding upper bound
+itmx2   3                                        ! number of iterations for computing the integral and finding upper bound
+foldcsi   1                                      ! number of folds on csi integration
+foldy     1                                      ! number of folds on  y  integration
+foldphi   1                                      ! number of folds on phi integration
+nubound 10000                                    ! number of bbarra calls to setup norm of upper bounding function
+icsimax  1                                       ! <= 100, number of csi subdivision when computing the upper bounds
+iymax    1                                       ! <= 100, number of y subdivision when computing the upper bounds
+xupbound 2d0                                     ! increase upper bound for radiation generation
+storemintupb 1                                   ! (default 0, do not) Store st2 btilde calls to set up upper bounding envelope
+fastbtlbound 1                                   ! (default 0, do not) Turn on fast calculation of the btilde upper bounding envelope
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! Some standard optional settings
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+#renscfact  1d0                                  ! (default 1d0) ren scale factor: muren  = muref * renscfact
+#facscfact  1d0                                  ! (default 1d0) fac scale factor: mufact = muref * facscfact
+#bornonly   1                                    ! (default 0) if 1 do Born only
+#smartsig   0                                    ! (default 1) remember equal amplitudes (0 do not remember)
+#ptsqmin    0.8                                  ! (default 0.8 GeV) minimum pt for generation of radiation
+#charmthr   1.5                                  ! (default 1.5 GeV) charm treshold for gluon splitting
+#bottomthr  5.0                                  ! (default 5.0 GeV) bottom treshold for gluon splitting
+#testplots  0                                    ! (default 0, do not) do NLO and PWHG distributions
+#charmthrpdf  1.5                                ! (default 1.5 GeV) pdf charm treshold
+#bottomthrpdf 5.0                                ! (default 5.0 GeV) pdf bottom treshold
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! POWHEG-BOX-RES and bb4l relevant settings
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+allrad 1                                         ! (default 0, single shower scheme) Turns on multiple shower scheme
+hdamp 172.5                                      ! Using a damping factor h**2/(pt2+h**2) to separate real contributions between Sudakov and remnants (should be set to the mass of the top quark)
+withdamp 1                                       ! Turn on calculation of the remnants
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! Physics constants
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+#tmass      172.5d0                              ! (default 172.5) top quark mass (in the matrix element, should be equal to tmass_phsp unless reweighting to a different top mass)
+#tmass_phsp 172.5d0                              ! (default 172.5) top quark mass (in the phase space)
+#twidth                                          ! (default unset) top quark width (calculated from all the other constants, do not change unless you know what you're doing)
+#zmass      91.188d0                             ! (default 91.188d0) mass of Z-boson
+#zwidth     2.441d0                              ! (default 2.441d0) width of Z-boson
+#wmass      80.419d0                             ! (default 80.419d0) mass of W-boson
+#wwidth     2.04807d0                            ! (default 2.04807d0) width of W-boson
+#hmass      125d0                                ! (default 125d0) mass of Higgs boson
+#hwidth     0.403d-2                             ! (default 0.403d-2) width of the Higgs boson
+#bmass      4.75d0                               ! (default 4.75d0) mass of the bottom quark
+#ewscheme   2                                    ! (default 2) 1...wmass, zmass, grefmi input; alpha calculated, 2... wmass, zmass, alpha input; gfermi calculated
+#gfermi     1.1658029175194381d-5                ! (default 1.1658029175194381d-5) gfermi
+#alpha      0.007546772                          ! (default 0.007546772) alpha
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! Other settings
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# clobberlhe 1                                   ! (default 0, do not) Delete pwgevents.lhe file if it exist, instead of exiting
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! The following is the minimal settings that we used for the publication of our paper.
+! It performs event generation with the `for_reweighting 1` settings (no virtual and modified subtraction), and then it reweights the events with the full, correct cross section.
+! Thus the 'default' weight has the correct cross section for the parameters given in the powheg.input file. The "xwgtup" value in the Les Houches record does not correspond to
+! a useful cross section.
+! If more weights are needed, they should be included in the <initrwgt> section (see README.Compress-And-Weights for explanations).
+! If weights are added to a previously existing .lhe file, i.e. `rwl_add 1`, the for_reweighting flag is ignored, and the full cross section
+! is always used.
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+for_reweighting 1                                ! (default 0) Modifies subtraction to reduce reweighting factors (for adding the virtual contribution during the reweighing stage only) 
+rwl_file '-'                                     ! If set to '-' read the xml reweighting info from this same file. Otherwise, it specifies the xml file with weight information
+<initrwgt>
+<weight id='1'>default</weight>                  ! With this setting, this weight will have the complete result (including virtual corrections)
+<weightgroup name='scale_variation' combine='envelope'>
+<weight id='1001'> renscfact=1 facscfact=1 </weight>
+<weight id='1002'> renscfact=1 facscfact=2 </weight>
+<weight id='1003'> renscfact=1 facscfact=0.5 </weight>
+<weight id='1004'> renscfact=2 facscfact=1 </weight>
+<weight id='1005'> renscfact=2 facscfact=2 </weight>
+<weight id='1006'> renscfact=2 facscfact=0.5 </weight>
+<weight id='1007'> renscfact=0.5 facscfact=1 </weight>
+<weight id='1008'> renscfact=0.5 facscfact=2 </weight>
+<weight id='1009'> renscfact=0.5 facscfact=0.5 </weight>
+</weightgroup>
+<weightgroup name='PDF_variation' combine='hessian'>
+<weight id='2001'> lhapdf=260001 </weight>
+<weight id='2002'> lhapdf=260002 </weight>
+<weight id='2003'> lhapdf=260003 </weight>
+<weight id='2004'> lhapdf=260004 </weight>
+<weight id='2005'> lhapdf=260005 </weight>
+<weight id='2006'> lhapdf=260006 </weight>
+<weight id='2007'> lhapdf=260007 </weight>
+<weight id='2008'> lhapdf=260008 </weight>
+<weight id='2009'> lhapdf=260009 </weight>
+<weight id='2010'> lhapdf=260010 </weight>
+<weight id='2011'> lhapdf=260011 </weight>
+<weight id='2012'> lhapdf=260012 </weight>
+<weight id='2013'> lhapdf=260013 </weight>
+<weight id='2014'> lhapdf=260014 </weight>
+<weight id='2015'> lhapdf=260015 </weight>
+<weight id='2016'> lhapdf=260016 </weight>
+<weight id='2017'> lhapdf=260017 </weight>
+<weight id='2018'> lhapdf=260018 </weight>
+<weight id='2019'> lhapdf=260019 </weight>
+<weight id='2020'> lhapdf=260020 </weight>
+<weight id='2021'> lhapdf=260021 </weight>
+<weight id='2022'> lhapdf=260022 </weight>
+<weight id='2023'> lhapdf=260023 </weight>
+<weight id='2024'> lhapdf=260024 </weight>
+<weight id='2025'> lhapdf=260025 </weight>
+<weight id='2026'> lhapdf=260026 </weight>
+<weight id='2027'> lhapdf=260027 </weight>
+<weight id='2028'> lhapdf=260028 </weight>
+<weight id='2029'> lhapdf=260029 </weight>
+<weight id='2030'> lhapdf=260030 </weight>
+<weight id='2031'> lhapdf=260031 </weight>
+<weight id='2032'> lhapdf=260032 </weight>
+<weight id='2033'> lhapdf=260033 </weight>
+<weight id='2034'> lhapdf=260034 </weight>
+<weight id='2035'> lhapdf=260035 </weight>
+<weight id='2036'> lhapdf=260036 </weight>
+<weight id='2037'> lhapdf=260037 </weight>
+<weight id='2038'> lhapdf=260038 </weight>
+<weight id='2039'> lhapdf=260039 </weight>
+<weight id='2040'> lhapdf=260040 </weight>
+<weight id='2041'> lhapdf=260041 </weight>
+<weight id='2042'> lhapdf=260042 </weight>
+<weight id='2043'> lhapdf=260043 </weight>
+<weight id='2044'> lhapdf=260044 </weight>
+<weight id='2045'> lhapdf=260045 </weight>
+<weight id='2046'> lhapdf=260046 </weight>
+<weight id='2047'> lhapdf=260047 </weight>
+<weight id='2048'> lhapdf=260048 </weight>
+<weight id='2049'> lhapdf=260049 </weight>
+<weight id='2050'> lhapdf=260050 </weight>
+<weight id='2051'> lhapdf=260051 </weight>
+<weight id='2052'> lhapdf=260052 </weight>
+<weight id='2053'> lhapdf=260053 </weight>
+<weight id='2054'> lhapdf=260054 </weight>
+<weight id='2055'> lhapdf=260055 </weight>
+<weight id='2056'> lhapdf=260056 </weight>
+<weight id='2057'> lhapdf=260057 </weight>
+<weight id='2058'> lhapdf=260058 </weight>
+<weight id='2059'> lhapdf=260059 </weight>
+<weight id='2060'> lhapdf=260060 </weight>
+<weight id='2061'> lhapdf=260061 </weight>
+<weight id='2062'> lhapdf=260062 </weight>
+<weight id='2063'> lhapdf=260063 </weight>
+<weight id='2064'> lhapdf=260064 </weight>
+<weight id='2065'> lhapdf=260065 </weight>
+<weight id='2066'> lhapdf=260066 </weight>
+<weight id='2067'> lhapdf=260067 </weight>
+<weight id='2068'> lhapdf=260068 </weight>
+<weight id='2069'> lhapdf=260069 </weight>
+<weight id='2070'> lhapdf=260070 </weight>
+<weight id='2071'> lhapdf=260071 </weight>
+<weight id='2072'> lhapdf=260072 </weight>
+<weight id='2073'> lhapdf=260073 </weight>
+<weight id='2074'> lhapdf=260074 </weight>
+<weight id='2075'> lhapdf=260075 </weight>
+<weight id='2076'> lhapdf=260076 </weight>
+<weight id='2077'> lhapdf=260077 </weight>
+<weight id='2078'> lhapdf=260078 </weight>
+<weight id='2079'> lhapdf=260079 </weight>
+<weight id='2080'> lhapdf=260080 </weight>
+<weight id='2081'> lhapdf=260081 </weight>
+<weight id='2082'> lhapdf=260082 </weight>
+<weight id='2083'> lhapdf=260083 </weight>
+<weight id='2084'> lhapdf=260084 </weight>
+<weight id='2085'> lhapdf=260085 </weight>
+<weight id='2086'> lhapdf=260086 </weight>
+<weight id='2087'> lhapdf=260087 </weight>
+<weight id='2088'> lhapdf=260088 </weight>
+<weight id='2089'> lhapdf=260089 </weight>
+<weight id='2090'> lhapdf=260090 </weight>
+<weight id='2091'> lhapdf=260091 </weight>
+<weight id='2092'> lhapdf=260092 </weight>
+<weight id='2093'> lhapdf=260093 </weight>
+<weight id='2094'> lhapdf=260094 </weight>
+<weight id='2095'> lhapdf=260095 </weight>
+<weight id='2096'> lhapdf=260096 </weight>
+<weight id='2097'> lhapdf=260097 </weight>
+<weight id='2098'> lhapdf=260098 </weight>
+<weight id='2099'> lhapdf=260099 </weight>
+<weight id='2100'> lhapdf=260100 </weight>
+<weight id='2101'> lhapdf=265000 </weight>
+<weight id='2102'> lhapdf=266000 </weight>
+<weight id='3001'> lhapdf=13164 </weight>
+<weight id='3002'> lhapdf=13166 </weight>
+<weight id='3003'> lhapdf=11000 </weight>
+<weight id='4001'> lhapdf=25200 </weight>
+<weight id='4002'> lhapdf=25201 </weight>
+<weight id='4003'> lhapdf=25202 </weight>
+<weight id='4004'> lhapdf=25203 </weight>
+<weight id='4005'> lhapdf=25204 </weight>
+<weight id='4006'> lhapdf=25205 </weight>
+<weight id='4007'> lhapdf=25206 </weight>
+<weight id='4008'> lhapdf=25207 </weight>
+<weight id='4009'> lhapdf=25208 </weight>
+<weight id='4010'> lhapdf=25209 </weight>
+<weight id='4011'> lhapdf=25210 </weight>
+<weight id='4012'> lhapdf=25211 </weight>
+<weight id='4013'> lhapdf=25212 </weight>
+<weight id='4014'> lhapdf=25213 </weight>
+<weight id='4015'> lhapdf=25214 </weight>
+<weight id='4016'> lhapdf=25215 </weight>
+<weight id='4017'> lhapdf=25216 </weight>
+<weight id='4018'> lhapdf=25217 </weight>
+<weight id='4019'> lhapdf=25218 </weight>
+<weight id='4020'> lhapdf=25219 </weight>
+<weight id='4021'> lhapdf=25220 </weight>
+<weight id='4022'> lhapdf=25221 </weight>
+<weight id='4023'> lhapdf=25222 </weight>
+<weight id='4024'> lhapdf=25223 </weight>
+<weight id='4025'> lhapdf=25224 </weight>
+<weight id='4026'> lhapdf=25225 </weight>
+<weight id='4027'> lhapdf=25226 </weight>
+<weight id='4028'> lhapdf=25227 </weight>
+<weight id='4029'> lhapdf=25228 </weight>
+<weight id='4030'> lhapdf=25229 </weight>
+<weight id='4031'> lhapdf=25230 </weight>
+<weight id='4032'> lhapdf=25231 </weight>
+<weight id='4033'> lhapdf=25232 </weight>
+<weight id='4034'> lhapdf=25233 </weight>
+<weight id='4035'> lhapdf=25234 </weight>
+<weight id='4036'> lhapdf=25235 </weight>
+<weight id='4037'> lhapdf=25236 </weight>
+<weight id='4038'> lhapdf=25237 </weight>
+<weight id='4039'> lhapdf=25238 </weight>
+<weight id='4040'> lhapdf=25239 </weight>
+<weight id='4041'> lhapdf=25240 </weight>
+<weight id='4042'> lhapdf=25241 </weight>
+<weight id='4043'> lhapdf=25242 </weight>
+<weight id='4044'> lhapdf=25243 </weight>
+<weight id='4045'> lhapdf=25244 </weight>
+<weight id='4046'> lhapdf=25245 </weight>
+<weight id='4047'> lhapdf=25246 </weight>
+<weight id='4048'> lhapdf=25247 </weight>
+<weight id='4049'> lhapdf=25248 </weight>
+<weight id='4050'> lhapdf=25249 </weight>
+<weight id='4051'> lhapdf=25250 </weight>
+<weight id='4052'> lhapdf=25260 </weight>
+<weight id='4053'> lhapdf=25261 </weight>
+<weight id='4054'> lhapdf=25262 </weight>
+<weight id='4055'> lhapdf=25263 </weight>
+<weight id='4056'> lhapdf=25264 </weight>
+</weightgroup>
+</initrwgt>
+rwl_group_events 100                             ! (default 1000) It keeps 100 events in memory, reprocessing them together for reweighting (see README.Compress-And-Weights) 
+lhapdf6maxsets 1                                 ! (default 10) Maximum number of lhapdf6 sets that it can keep in memory (see README.Compress-And-Weights) 

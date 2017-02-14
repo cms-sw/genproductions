@@ -31,8 +31,8 @@ define l+ = m+
 define l- = m-
 
 decay x0 > l+ l- a
-decay w+ > all all
-decay w- > all all
+#decay w+ > all all
+#decay w- > all all
 
 # running the actual code
 launch
