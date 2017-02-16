@@ -1,0 +1,19 @@
+import model sm-ckm_no_b_mass
+
+define p = p b b~
+define j = p
+define bb = b b~
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
+
+# Specify process(es) to run
+generate p p > l+ vl bb bb / t t~ H @0
+add process p p > l+ vl bb bb j / t t~ H @1
+add process p p > l+ vl bb bb j j / t t~ H @2
+
+add process p p > l- vl~ bb bb / t t~ H @3
+add process p p > l- vl~ bb bb j / t t~ H @4
+add process p p > l- vl~ bb bb j j / t t~ H @5
+
+# Output processes to MadEvent directory
+output WBBJetsToLNu_5f_LO_MLM -nojpeg
