@@ -702,6 +702,7 @@ grep -q "SEED" powheg.input; test $? -eq 0 || sed -i "s/^iseed.*/iseed SEED/g" p
 grep -q "manyseeds" powheg.input; test $? -eq 0 || printf "\\n\\nmanyseeds 1\\n" >> powheg.input
 grep -q "parallelstage" powheg.input; test $? -eq 0 || printf "\\nparallelstage 4\\n" >> powheg.input
 grep -q "xgriditeration" powheg.input; test $? -eq 0 || printf "\\nxgriditeration 1\\n" >> powheg.input
+sed -i "s/^pdfreweight.*/pdfreweight 0/g" powheg.input
 
 # turn into single run mode
 sed -i "s/^manyseeds.*/#manyseeds 1/g" powheg.input
