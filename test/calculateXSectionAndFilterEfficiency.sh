@@ -1,15 +1,42 @@
-# Use this command to obtain the cross section and filter efficiency
+#/bin/bash
 
-# Adjust the MySample_cff.py file and the number of events to generate
+# example usage:
+# launch_cmsrun.sh -f datasets.txt -c Moriond17 -d MINIAODSIM -n 1000000
 
-# To calculate the filter efficiency, in the output look for:
+FILE='datasets.txt'
+CAMPAIGN='Moriond17'
+DATATIER='MINIAODSIM'
+EVENTS='1000000'
 
-# TrigReport ---------- Modules in Path: generation_step ------------
-# TrigReport  Trig Bit#    Visited     Passed     Failed      Error Name
-# TrigReport     1    0     100000     100000          0          0 generator
-# TrigReport     1    0     100000      25834      74166          0 oniafilter
-# TrigReport     1    0      25834      14286      11548          0 mumugenfilter
+DEBUG="False"
 
-cmsenv
-cmsDriver.py Configuration/Generator/python/MySample_cff.py -s GEN -n 10000 --conditions=auto:mc --customise Configuration/GenProduction/calculateXSectionAndFilterEfficiency.py
+while getopts f:c:d:n option
+do
+        case "${option}"
+        in
+                f) FILE=${OPTARG};;
+                c) CAMPAIGN=${OPTARG};;
+                d) DATATIER=${OPTARG};;
+                n) EVENTS=${OPTARG};;
+        esac
+done
+
+while read -r dataset
+do
+    name="$dataset"
+    echo "Name read from file - $name"
+    
+    echo 'compute_cross_section.py -f '${dataset}' -c '${CAMPAIGN}' -n '${EVENTS}' -d '${DATATIER}
+    output=$(python compute_cross_section.py -f ${dataset} -c ${CAMPAIGN} -n ${EVENTS} -d ${DATATIER} --debug ${DEBUG})
+    # echo 'output:'
+    # echo ${output}
+    
+    if [ "${DEBUG}" != "True" ]; then
+      eval ${output}
+    else
+      exit 1
+    fi
+    
+done < "$FILE"
+
 
