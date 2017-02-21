@@ -9,6 +9,12 @@ import re
 import datetime
 from time import sleep
 
+def str_to_bool(s):
+    if s == 'True':
+         return True
+    elif s == 'False':
+         return False
+
 if __name__ == "__main__":
 
     parser = OptionParser()
@@ -19,12 +25,14 @@ if __name__ == "__main__":
     parser.add_option(      '--debug'         , dest="debug",         default=False,            help='datatier (e.g. GEN-SIM, MINIAOD, ...)')
 
     (args, opts) = parser.parse_args(sys.argv)
-    if args.debug == 'False': args.debug = False
-      
-    if args.debug:
+    debug = str_to_bool(str(args.debug))
+    # print 'args.debug',args.debug,'debug',debug
+    if debug: 'debug is True!'
+    
+    if debug:
         print
         print 'RUNNING PARAMS: '
-        print '                debug                 = ' + args.debug
+        print '                debug                 = ' + str(debug)
         print '                dataset               = ' + args.inputdataset
         print '                MC campaign           = ' + args.campaign
         print '                Datatier              = ' + args.datatier
@@ -33,17 +41,19 @@ if __name__ == "__main__":
 
     # for dataset in args.inputdataset:
     primary_dataset_name = args.inputdataset.split('/')[1]
-    if args.debug: print 'primary_dataset_name',primary_dataset_name,'\n'
+    if debug: print 'primary_dataset_name',primary_dataset_name,'\n'
     command="/cvmfs/cms.cern.ch/common/das_client --limit=0 --query=\"dataset dataset=/"+primary_dataset_name+"/*"+args.campaign+"*/"+args.datatier+"\""
-    if args.debug: print 'command',command,'\n'
+    if debug: print 'command',command,'\n'
     dataset_used = commands.getstatusoutput(command)[1].split("\n")
     # pick up only the first dataset of the list
     dataset_used = [x.strip() for x in dataset_used][0]
-    if args.debug: print 'dataset_used',dataset_used
+    if debug: print 'dataset_used',dataset_used
     # retrieve filelist
     command="/cvmfs/cms.cern.ch/common/das_client --limit=100 --query=\"file dataset="+dataset_used+"\" "
     filelist_used = "/store"+commands.getstatusoutput(command)[1].replace("\n",",").split("/store",1)[1] 
-    if args.debug: print 'filelist_used',filelist_used.split(',')[0]
+    if debug: 
+        print 'filelist_used',filelist_used.split(',')[0]
+        filelist_used = filelist_used.split(',')[0]
     # compute cross section
     command = 'cmsRun ana.py inputFiles=\"'+filelist_used+'\" maxEvents='+str(args.events)+" 2>&1 | tee xsec_"+primary_dataset_name+".log"
     print command

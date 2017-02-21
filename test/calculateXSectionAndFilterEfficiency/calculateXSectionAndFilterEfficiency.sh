@@ -8,9 +8,10 @@ CAMPAIGN='Moriond17'
 DATATIER='MINIAODSIM'
 EVENTS='1000000'
 
-DEBUG="False"
+DEBUG=False
+# DEBUG=True
 
-while getopts f:c:d:n option
+while getopts f:c:d:n: option
 do
         case "${option}"
         in
@@ -26,14 +27,14 @@ do
     name="$dataset"
     echo "Name read from file - $name"
     
-    echo 'compute_cross_section.py -f '${dataset}' -c '${CAMPAIGN}' -n '${EVENTS}' -d '${DATATIER}
-    output=$(python compute_cross_section.py -f ${dataset} -c ${CAMPAIGN} -n ${EVENTS} -d ${DATATIER} --debug ${DEBUG})
-    # echo 'output:'
-    # echo ${output}
+    echo 'compute_cross_section.py -f '${dataset}' -c '${CAMPAIGN}' -n '${EVENTS}' -d '${DATATIER}' --debug "'${DEBUG}'"'
+    output=$(python compute_cross_section.py -f ${dataset} -c ${CAMPAIGN} -n ${EVENTS} -d ${DATATIER} --debug "${DEBUG}")
     
     if [ "${DEBUG}" != "True" ]; then
+      # echo 'output '${output} > test.log
       eval ${output}
     else
+      echo ${output}
       exit 1
     fi
     
