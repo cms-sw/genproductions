@@ -12,5 +12,5 @@ generate p p > ell+ ell- [QCD] @0
 add process p p > ell+ ell- j [QCD] @1
 add process p p > ell+ ell- j j [QCD] @2
 
-output DYJetsToNuNu_012j_Zpt-250To400_5f_NLO_FXFX -nojpeg
+output DYJetsToNuNu_012j_Zpt-0To50_5f_NLO_FXFX -nojpeg
 
