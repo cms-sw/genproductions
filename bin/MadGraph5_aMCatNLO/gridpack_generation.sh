@@ -95,14 +95,14 @@ CARDSDIR=${PRODHOME}/${carddir}
 
 MGBASEDIR=mgbasedir
 
-MG=MG5_aMC_v2.3.3.tar.gz
+MG=MG5_aMC_v2.4.2.tar.gz
 MGSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$MG
 
 #syscalc is a helper tool for madgraph to add scale and pdf variation weights for LO processes
-SYSCALC=SysCalc_V1.1.5alpha.tar.gz
+SYSCALC=SysCalc_V1.1.6.tar.gz
 SYSCALCSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$SYSCALC
 
-MGBASEDIRORIG=MG5_aMC_v2_3_3
+MGBASEDIRORIG=MG5_aMC_v2_4_2
 
 isscratchspace=0
 
@@ -116,10 +116,10 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   cd $AFS_GEN_FOLDER
 
 #   export SCRAM_ARCH=slc6_amd64_gcc472 #Here one should select the correct architechture corresponding with the CMSSW release
-#   export RELEASE=CMSSW_5_3_30
+#   export RELEASE=CMSSW_5_3_32_patch3
 
   export SCRAM_ARCH=slc6_amd64_gcc481
-  export RELEASE=CMSSW_7_1_20_patch3
+  export RELEASE=CMSSW_7_1_23
 
 
   ############################
@@ -146,10 +146,8 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   #Apply any necessary patches on top of official release
   #############################################
 
-  patch -l -p0 -i $PRODHOME/patches/mgfixes.patch
-  patch -l -p0 -i $PRODHOME/patches/models.patch
-
   cd $MGBASEDIRORIG
+  cat $PRODHOME/patches/*.patch | patch -p1
 
   #if lhapdf6 external is available then above points to lhapdf5 and needs to be overridden
   LHAPDF6TOOLFILE=$CMSSW_BASE/config/toolbox/$SCRAM_ARCH/tools/available/lhapdf6.xml
@@ -171,6 +169,7 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   echo "set automatic_html_opening False" >> mgconfigscript
 #  echo "set output_dependencies internal" >> mgconfigscript
   echo "set lhapdf $LHAPDFCONFIG" >> mgconfigscript
+#   echo "set ninja $PWD/HEPTools/lib" >> mgconfigscript
 
   if [ "$queue" == "local" ]; then
       echo "set run_mode 2" >> mgconfigscript
@@ -181,18 +180,21 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
       echo "set run_mode  1" >> mgconfigscript
       if [ "$queue" == "condor" ]; then
         echo "set cluster_type condor" >> mgconfigscript
-        echo "set cluster_queue None" >> mgconfigscript
+        #*FIXME* broken in mg_amc 2.4.0
+#        echo "set cluster_queue None" >> mgconfigscript
       else
         echo "set cluster_type lsf" >> mgconfigscript
-        echo "set cluster_queue $queue" >> mgconfigscript
+        #*FIXME* broken in mg_amc 2.4.0
+#         echo "set cluster_queue $queue" >> mgconfigscript
       fi 
       echo "set cluster_status_update 60 30" >> mgconfigscript
       echo "set cluster_nb_retry 3" >> mgconfigscript
       echo "set cluster_retry_wait 300" >> mgconfigscript 
-#       echo "set cluster_local_path `${LHAPDFCONFIG} --datadir`" >> mgconfigscript 
+      #echo "set cluster_local_path `${LHAPDFCONFIG} --datadir`" >> mgconfigscript 
       if [[ ! "$RUNHOME" =~ ^/afs/.* ]]; then
           echo "local path is not an afs path, batch jobs will use worker node scratch space instead of afs"
-          echo "set cluster_temp_path `echo $RUNHOME`" >> mgconfigscript 
+          #*FIXME* broken in mg_amc 2.4.0
+#           echo "set cluster_temp_path `echo $RUNHOME`" >> mgconfigscript 
           echo "set cluster_retry_wait 30" >> mgconfigscript 
           isscratchspace=1
       fi      
@@ -280,6 +282,17 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
 
   ./$MGBASEDIRORIG/bin/mg5_aMC ${name}_proc_card.dat
 
+  #*FIXME* workaround for broken set cluster_queue handling
+  if [ "$queue" == "condor" ]; then
+    echo "cluster_queue = None" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
+  else
+    echo "cluster_queue = $queue" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
+  fi
+  if [ "$isscratchspace" -gt "0" ]; then
+    echo "cluster_temp_path = `echo $RUNHOME`" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
+  fi
+#   echo "cluster_local_path = `${LHAPDFCONFIG} --datadir`" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt    
+  
   if [ -e $CARDSDIR/${name}_patch_me.sh ]; then
       echo "Patching generated matrix element code with " $CARDSDIR/${name}_patch_me.sh
       /bin/bash "$CARDSDIR/${name}_patch_me.sh" "$WORKDIR/$MGBASEDIRORIG"
@@ -436,6 +449,7 @@ if [ "$isnlo" -gt "0" ]; then
   fi
   
   echo "mg5_path = ../mgbasedir" >> ./Cards/amcatnlo_configuration.txt
+#   echo "ninja = ../mgbasedir/HEPTools/lib" >> ./Cards/amcatnlo_configuration.txt
   echo "cluster_temp_path = None" >> ./Cards/amcatnlo_configuration.txt
 
   cd $WORKDIR
@@ -492,16 +506,6 @@ else
   echo "cleaning temporary gridpack"
   rm $WORKDIR/pilotrun_gridpack.tar.gz
   
-  #prepare madspin grids if necessary
-  if [ -e $CARDSDIR/${name}_madspin_card.dat ]; then
-    echo "import $WORKDIR/unweighted_events.lhe.gz" > madspinrun.dat
-    cat $CARDSDIR/${name}_madspin_card.dat >> madspinrun.dat
-    cat madspinrun.dat | $WORKDIR/$MGBASEDIRORIG/MadSpin/madspin
-    rm madspinrun.dat
-    rm -rf tmp*
-    cp $CARDSDIR/${name}_madspin_card.dat $WORKDIR/process/madspin_card.dat
-  fi
-  
   # precompile reweighting if necessary
   if [ -e $CARDSDIR/${name}_reweight_card.dat ]; then
       pwd
@@ -524,6 +528,16 @@ else
         cd -
       done
       cd ..      
+  fi
+  
+  #prepare madspin grids if necessary
+  if [ -e $CARDSDIR/${name}_madspin_card.dat ]; then
+    echo "import $WORKDIR/unweighted_events.lhe.gz" > madspinrun.dat
+    cat $CARDSDIR/${name}_madspin_card.dat >> madspinrun.dat
+    cat madspinrun.dat | $WORKDIR/$MGBASEDIRORIG/MadSpin/madspin
+    rm madspinrun.dat
+    rm -rf tmp*
+    cp $CARDSDIR/${name}_madspin_card.dat $WORKDIR/process/madspin_card.dat
   fi
 
   echo "preparing final gridpack"
