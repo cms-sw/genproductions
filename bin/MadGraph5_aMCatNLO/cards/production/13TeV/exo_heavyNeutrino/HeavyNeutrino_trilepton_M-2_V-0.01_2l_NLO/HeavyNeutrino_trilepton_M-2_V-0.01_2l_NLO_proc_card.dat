@@ -31,8 +31,11 @@ import model sm
 define p = g u c d s u~ c~ d~ s~
 define j = g u c d s u~ c~ d~ s~
 define l+ = e+ mu+
+define ldecay+ = e+ mu+
 define l- = e- mu-
+define ldecay- = e- mu-
 define l = l+ l-
+define ldecay = ldecay+ ldecay-
 define vl = ve vm vt
 define vl~ = ve~ vm~ vt~
 define v = vl vl~

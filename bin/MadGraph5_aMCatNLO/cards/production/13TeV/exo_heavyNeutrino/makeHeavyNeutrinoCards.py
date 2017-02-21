@@ -22,6 +22,8 @@ def makeHeavyNeutrinoCards(mass, coupling, flavours):
   elif flavours == 'mu':  replacements += [('l+ = e+ mu+ ta+', 'l+ = mu+'),    ('l- = e- mu- ta-', 'l- = mu-')]
   elif flavours == 'tau': replacements += [('l+ = e+ mu+ ta+', 'l+ = ta+'),    ('l- = e- mu- ta-', 'l- = tau-')]
 
+  if flavours in ['e','mu','2l']:    replacements += [('ldecay+ = e+ mu+ ta+', 'ldecay+ = e+ mu+'), ('ldecay- = e- mu- ta-', 'ldecay- = e- mu-')]
+
   if flavours in ['3l', '2l', 'e']:  replacements += [('set param_card numixing 1 0.000000e+00', 'set param_card numixing 1 %E' % coupling)]
   if flavours in ['3l', '2l', 'mu']: replacements += [('set param_card numixing 4 0.000000e+00', 'set param_card numixing 4 %E' % coupling)]
   if flavours in ['3l', 'tau']:      replacements += [('set param_card numixing 7 0.000000e+00', 'set param_card numixing 7 %E' % coupling)]

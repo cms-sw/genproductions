@@ -21,6 +21,6 @@ set spinmode none
 # 
 
 set max_running_process 1
-decay n1 > l l v
+decay n1 > ldecay ldecay v
 # running the actual code
 launch
