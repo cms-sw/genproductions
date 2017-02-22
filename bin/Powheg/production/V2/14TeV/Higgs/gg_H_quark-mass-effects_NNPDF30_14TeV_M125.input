@@ -1,0 +1,88 @@
+numevts NEVENTS    ! number of events to be generated
+ih1   1           ! hadron 1 (1 for protons, -1 for antiprotons)
+ih2   1           ! hadron 2 (1 for protons, -1 for antiprotons)
+#ndns1 131         ! pdf set for hadron 1 (mlm numbering)
+#ndns2 131         ! pdf set for hadron 2 (mlm numbering)
+ebeam1 7000     ! energy of beam 1
+ebeam2 7000    ! energy of beam 2
+
+! To be set only if using LHA pdfs
+lhans1 260000       ! pdf set for hadron 1 (LHA numbering)
+lhans2 260000       ! pdf set for hadron 2 (LHA numbering)
+! To be set only if using different pdf sets for the two incoming hadrons
+! QCDLambda5  0.25 ! for not equal pdf sets 
+
+! Parameters to allow or not the use of stored data
+use-old-grid    1 ! if 1 use old grid if file pwggrids.dat is present (<> 1 regenerate)
+use-old-ubound  1 ! if 1 use norm of upper bounding function stored in pwgubound.dat, if present; <> 1 regenerate
+
+ncall1 50000   ! number of calls for initializing the integration grid
+itmx1  5    ! number of iterations for initializing the integration grid
+ncall2 50000    ! number of calls for computing the integral and finding upper bound
+itmx2  5     ! number of iterations for computing the integral and finding upper bound
+foldcsi   1    ! number of folds on csi integration
+foldy     1    ! number of folds on  y  integration
+foldphi   1    ! number of folds on phi integration
+nubound 50000  ! number of bbarra calls to setup norm of upper bounding function
+icsimax  1     ! <= 100, number of csi subdivision when computing the upper bounds
+iymax    1     ! <= 100, number of y subdivision when computing the upper bounds
+xupbound 2d0   ! increase upper bound for radiation generation
+
+! OPTIONAL PARAMETERS
+
+renscfact  1   ! (default 1d0) ren scale factor: muren  = muref * renscfact
+facscfact  1   ! (default 1d0) fac scale factor: mufact = muref * facscfact
+#ptsupp     0d0   ! (default 0d0)  mass param for Born suppression factor (generation cut) If < 0 suppfact = 1
+#bornonly   0      ! (default 0) if 1 do Born only
+#smartsig   0      ! (default 1) remember equal amplitudes (0 do not remember)
+#withsubtr  0      ! (default 1) subtract real counterterms (0 do not subtract)
+#withdamp    1      ! (default 0, do not use) use Born-zero damping factor
+#ptsqmin    0.8   ! (default 0.8 GeV) minimum pt for generation of radiation
+#charmthr   1.5    ! (default 1.5 GeV) charm treshold for gluon splitting 
+#bottomthr  5.0    ! (default 5.0 GeV) bottom treshold for gluon splitting
+testplots  1      ! (default 0, do not) do NLO and PWHG distributions
+hfact    60.0d0    ! (default no dumping factor) dump factor for high-pt radiation: > 0 dumpfac=h**2/(pt2+h**2)
+#testsuda  1       ! (default 0, do not test) test Sudakov form factor
+#radregion 1       ! (default all regions) only generate radiation in the selected singular region  
+#charmthrpdf  1.5  ! (default 1.5 GeV) pdf charm treshold
+#bottomthrpdf 5.0  ! (default 5.0 GeV) pdf bottom treshold
+# mur,muf settings
+runningscale 0    ! 0 = scales equal to the Higgs pole mass; 1  = scales equal to the Higgs virtuality; 
+                  ! 2 = scales equal to the Higgs pole mass for Born-like configuration and to the transverse mass for real emission contribution
+# When using 2 uncomment the following option
+# btlscalereal 1
+
+iseed    SEED    ! initialize random number sequence 
+#rand1    32      ! initialize random number sequence 
+#rand2    0      ! initialize random number sequence 
+
+#iupperisr 1 ! (default 1) choice of ISR upper bounding functional form 
+#iupperfsr 2 ! (default 2) choice of FSR upper bounding functional form 
+
+! GGF_H production:
+! **** Mandatory parameters for ALL models ****
+massren 0           ! Mass renormalization scheme. 0 = OS, 1 = MSBAR , 2 = DRBAR
+zerowidth 0         ! Control if the Higgs boson is to be produced on-shell or not: 1 = On-Shell; 0 = Off-shell with Breit-Wigner
+ew 1                ! ew = 0 disable EW corrections - ew = 1 enable EW corrections
+model 0
+gfermi 0.116637D-04        ! GF
+hdecaymode -1      ! PDG code for first decay product of the higgs
+masswindow 10d0  !(default 10d0) number of widths around hmass in the BW for an off-shell Higgs boson
+! allowed values are:  -1 all decay channels closed
+!                      0 all decay channels open
+!	               1-6 d dbar, u ubar,..., t tbar (as in HERWIG)
+!	               7-9 e+ e-, mu+ mu-, tau+ tau-
+!		       10  W+W-
+!	               11  ZZ
+!	               12  gamma gamma
+! **** Mandatory parameters for SM or MW ****
+hmass 125            ! Higgs boson mass
+hwidth 4.07D-03     ! Higgs boson width
+topmass 172.5        ! top quark mass
+bottommass 4.75d0    ! bottom quark mass - if defined it enables the bottom quark
+!charmmass 1.5d0     ! char quark mass - if defined it enables the charm quark
+! Optional
+hdecaywidth 0        ! If equals to 1 read total decay width from HDECAY sm.br2 file
+withnegweights 0
+pdfreweight 1       ! PDF reweighting
+storeinfo_rwgt 1    ! store weight information

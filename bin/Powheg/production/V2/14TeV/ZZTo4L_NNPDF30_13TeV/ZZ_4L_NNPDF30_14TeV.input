@@ -1,0 +1,61 @@
+! ZZ boson production parameters
+mllmin 4d0         ! default 0.1 GeV this is minimum invar mass for Z leptons
+
+numevts NEVENTS   ! number of events to be generated
+ih1   1           ! hadron 1 (1 for protons, -1 for antiprotons)
+ih2   1           ! hadron 2 (1 for protons, -1 for antiprotons)
+ebeam1 7000d0     ! energy of beam 1
+ebeam2 7000d0     ! energy of beam 2
+! To be set only if using LHA pdfs
+lhans1   260000   ! pdf set for hadron 1 (LHA numbering)
+lhans2   260000   ! pdf set for hadron 2 (LHA numbering)
+! To be set only if using internal mlm pdf
+#ndns1 131         ! pdf set for hadron 1 (mlm numbering)
+#ndns2 131         ! pdf set for hadron 2 (mlm numbering)
+! To be set only if using different pdf sets for the two incoming hadrons
+! QCDLambda5  0.25 ! for not equal pdf sets 
+
+! Parameters to allow or not the use of stored data
+use-old-grid    1 ! if 1 use old grid if file pwggrids.dat is present (<> 1 regenerate)
+use-old-ubound  1 ! if 1 use norm of upper bounding function stored in pwgubound.dat, if present; <> 1 regenerate
+
+ncall1   1000000   ! number of calls for initializing the integration grid
+itmx1    4        ! number of iterations for initializing the integration grid
+ncall2   1000000  ! number of calls for computing the integral and finding upper bounds
+itmx2    5        ! number of iterations for computing the integral and finding upper bound
+foldcsi   2       ! number of folds on csi integration
+foldy     5       ! number of folds on  y  integration
+foldphi   2       ! number of folds on phi integration
+nubound  1000000  ! number of bbarra calls to setup norm of upper bounding function
+
+! OPTIONAL PARAMETERS
+
+renscfact  1d0   ! (default 1d0) ren scale factor: muren  = muref * renscfact 
+facscfact  1d0   ! (default 1d0) fac scale factor: mufact = muref * facscfact 
+#bornonly   0     ! (default 0) if 1 do Born only
+#testplots  0     ! (default 0, do not) do NLO and PWHG distributions
+
+iseed    SEED    ! initialize random number sequence 
+#rand1     -1      ! initialize random number sequence 
+#rand2     -1      ! initialize random number sequence 
+
+#manyseeds  1      ! Used to perform multiple runs with different random
+                   ! seeds in the same directory.
+                   ! If set to 1, the program asks for an integer j;
+                   ! The file pwgseeds.dat at line j is read, and the
+                   ! integer at line j is used to initialize the random
+                   ! sequence for the generation of the event.
+                   ! The event file is called pwgevents-'j'.lhe
+
+
+leptonic 1
+
+
+
+
+#dronly 0           ! default 0; if 1 only double resonant diagrams
+#zerowidth 0        ! default 0 (offshell Zs); if 1 generate Z's on shell
+#withinterference 1 ! default 1; 0 switches off interfernce for same flavour charged leptons (no used otherwise) 
+pdfreweight 1       ! PDF reweighting
+storeinfo_rwgt 1
+withnegweights 0
