@@ -375,6 +375,12 @@ cd processtmp
 echo "copying run_card.dat file"
 cp $CARDSDIR/${name}_run_card.dat ./Cards/run_card.dat
 
+#copy provided custom param_cards.dat
+if [ -e $CARDSDIR/${name}_param_card.dat ]; then
+  echo "copying custom param_card.dat file"
+  cp $CARDSDIR/${name}_param_card.dat ./Cards/param_card.dat
+fi
+
 #copy provided custom fks params or cuts
 if [ -e $CARDSDIR/${name}_cuts.f ]; then
   echo "copying custom cuts.f file"
