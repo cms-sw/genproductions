@@ -85,8 +85,9 @@ fi
 cat ${card} | sed -e "s#SEED#${seed}#g" | sed -e "s#NEVENTS#${nevt}#g" > powheg.input
 
 # Check if the powheg.input file contains the proper settings to calculate weights                                                                                                                           
-produceWeights="true" 
-produceWeightsNNLO="false"
+
+produceWeights="false" 
+
 grep -q "storeinfo_rwgt 1" powheg.input ; test $? -eq 0  || produceWeights="false"
 grep -q "pdfreweight 1" powheg.input ; test $? -eq 0 || produceWeights="false"
 
@@ -345,12 +346,9 @@ then
     echo -e "\n finished computing weights ..\n" 
 fi
 
-cat pwgevents.lhe | grep -v "Random number generator exit values" > pwgevents.lhe.bkp
-mv pwgevents.lhe.bkp pwgevents.lhe
+cat pwgevents.lhe | grep -v "Random number generator exit values" > ${file}_final.lhe
 
-xmllint --noout pwgevents.lhe > /dev/null 2>&1; test $? -eq 0 || fail_exit "xmllint integrity check failed on pwgevents.lhe"
-
-cp pwgevents.lhe ${file}_final.lhe
+xmllint --noout ${file}_final.lhe > /dev/null 2>&1; test $? -eq 0 || fail_exit "xmllint integrity check failed on pwgevents.lhe"
 
 ls -l ${file}_final.lhe
 sed -i 's/Input file powheg.input contained:/Process: '$process'\nInput file powheg.input contained:/g' ${file}_final.lhe

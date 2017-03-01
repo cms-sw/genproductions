@@ -96,8 +96,8 @@ def prepareJobForEvents (tag, i, folderName, EOSfolder) :
     prepareJob(tag, i, folderName)
 
     f = open (filename, 'a')
-    f.write ('cp -p ' + rootfolder + '/' + folderName + '/powheg.input ./' + '\n')
-    f.write ('cp -p ' + rootfolder + '/' + folderName + '/JHUGen.input ./' + '\n')
+#    f.write ('cp -p ' + rootfolder + '/' + folderName + '/powheg.input ./' + '\n')
+#    f.write ('cp -p ' + rootfolder + '/' + folderName + '/JHUGen.input ./' + '\n')
     f.write ('cp -p ' + rootfolder + '/' + folderName + '/*.dat  ./' + '\n')
     f.write ('if [ -e '+ rootfolder + '/' + folderName + '/obj-gfortran/proclib ]; then    \n')
     f.write ('  mkdir ./obj-gfortran/' + '\n')
@@ -217,12 +217,6 @@ def runSingleXgrid(parstage, xgrid, folderName, nEvents, powInputName, seed, pro
     #f.write('echo $LD_LIBRARY_PATH \n')
 
     f.write('sed -i "s/NEVENTS/'+nEvents+'/ ; s/SEED/'+seed+'/" powheg.input\n\n')
-
-    if process == 'W' :
-        if os.path.exists(powInputName) :
-            f.write('cp -p '+'/'.join(powInputName.split('/')[0:-1])+'/cteq6m . \n')   
-        else :
-            f.write('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+'/'.join(powInputName.split('/')[0:-1])+'/cteq6m \n')
 
     if process == 'gg_H_MSSM' :
         if os.path.exists(powInputName) :
@@ -344,17 +338,14 @@ if [[ -s ./JHUGen.input ]]; then
 fi
 
 ### retrieve the powheg source tar ball
-export POWHEGSRC=powhegboxV2_Sep2016.tar.gz 
-
-if [ "$process" = "b_bbar_4l" ]; then 
-  export POWHEGSRC=powhegboxRES_Aug2016.tar.gz
-fi
+export POWHEGSRC=powhegboxV2_Dec2016.tar.gz
 
 echo 'D/L POWHEG source...'
 
 if [ ! -f ${POWHEGSRC} ]; then
   wget --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/slc6_amd64_gcc481/powheg/V2.0/src/${POWHEGSRC} || fail_exit "Failed to get powheg tar ball "
 fi
+#cp -p ../${POWHEGSRC} .
 
 tar zxf ${POWHEGSRC}
 #
@@ -369,12 +360,7 @@ fi
 
 patch -l -p0 -i ${WORKDIR}/patches/pdfweights.patch
 patch -l -p0 -i ${WORKDIR}/patches/pwhg_lhepdf.patch
-if [ "$process" = "b_bbar_4l" ]; then
-    cd POWHEG-BOX
-    patch -l -p0 -i ${WORKDIR}/patches/res_openloops_long_install_dir.patch
-    patch -l -p0 -i ${WORKDIR}/patches/res_gfortran48.patch
-    cd ..
-fi
+sed -i -e "s#500#900#g"  POWHEG-BOX/include/pwhg_rwl.h
 
 echo ${POWHEGSRC} > VERSION
 
@@ -389,6 +375,10 @@ sed -i -e "s#PDF[ \t]*=[ \t]*native#PDF=lhapdf#g" Makefile
 
 # Use gfortran, not other compilers which are not free/licensed
 sed -i -e "s#COMPILER[ \t]*=[ \t]*ifort#COMPILER=gfortran#g" Makefile
+
+## Not needed anymore
+# sed -i -e 's#$(PDFPACK#lhefread.o pwhg_io_interface.o rwl_weightlists.o rwl_setup_param_weights.o \\ \
+#	$(PDFPACK#' Makefile
 
 # hardcode svn info
 sed -i -e 's#^pwhg_main:#$(shell ../svnversion/svnversion.sh>/dev/null) \
@@ -420,9 +410,9 @@ fi
 if [ "$process" = "Wgamma" ] || [ "$process" = "W_ew-BMNNP" ]; then
     patch -l -p0 -i ${WORKDIR}/patches/pwhg_analysis_driver.patch 
 fi
-if [ "$process" = "ttb_NLO_dec" ]; then
-    patch -l -p0 -i ${WORKDIR}/patches/pwhg_analysis_driver_offshellmap.patch
-fi
+#if [ "$process" = "ttb_NLO_dec" ]; then
+#    patch -l -p0 -i ${WORKDIR}/patches/pwhg_analysis_driver_offshellmap.patch
+#fi
 
 # Remove ANY kind of analysis with parton shower
 if [ `grep particle_identif pwhg_analysis-dummy.f` = ""]; then
@@ -785,11 +775,19 @@ grep -q "SEED" powheg.input; test $? -eq 0 || sed -i "s/^iseed.*/iseed SEED/g" p
 grep -q "manyseeds" powheg.input; test $? -eq 0 || printf "\\n\\nmanyseeds 1\\n" >> powheg.input
 grep -q "parallelstage" powheg.input; test $? -eq 0 || printf "\\nparallelstage 4\\n" >> powheg.input
 grep -q "xgriditeration" powheg.input; test $? -eq 0 || printf "\\nxgriditeration 1\\n" >> powheg.input
+sed -i "s/^pdfreweight.*/pdfreweight 0/g" powheg.input
 
 # turn into single run mode
 sed -i "s/^manyseeds.*/#manyseeds 1/g" powheg.input
 sed -i "s/^parallelstage.*/#parallelstage 4/g" powheg.input
 sed -i "s/^xgriditeration/#xgriditeration 1/g" powheg.input
+
+# parallel re-weighting calculation
+echo "rwl_group_events 2000" >> powheg.input
+echo "lhapdf6maxsets 50" >> powheg.input
+echo "rwl_file 'pwg-rwl.dat'" >> powheg.input
+echo "rwl_format_rwgt 1" >> powheg.input
+cp -p $WORKDIR/pwg-rwl.dat pwg-rwl.dat
 
 if [ -e ${WORKDIR}/$folderName/cteq6m ]; then
     cp -p ${WORKDIR}/cteq6m .
