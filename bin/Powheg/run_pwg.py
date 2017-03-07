@@ -344,10 +344,10 @@ if [[ -s ./JHUGen.input ]]; then
 fi
 
 ### retrieve the powheg source tar ball
-export POWHEGSRC=powhegboxV2_Sep2016.tar.gz 
+export POWHEGSRC=powhegboxV2_Mar2017.tar.gz 
 
 if [ "$process" = "b_bbar_4l" ]; then 
-  export POWHEGSRC=powhegboxRES_Aug2016.tar.gz
+  export POWHEGSRC=powhegboxRES_Mar2017.tar.gz
 fi
 
 echo 'D/L POWHEG source...'
@@ -1038,6 +1038,7 @@ if __name__ == "__main__":
         prepareJob(tagName, '', '.')
 
         if not os.path.exists(args.inputTemplate) :
+            os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate+' -O '+args.folderName+'/powheg.input')
             os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate)
         os.system('mkdir -p '+rootfolder+'/'+args.folderName)
         os.system('cp -p '+args.inputTemplate+' '+args.folderName+'/powheg.input')
