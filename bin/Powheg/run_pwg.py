@@ -338,7 +338,11 @@ if [[ -s ./JHUGen.input ]]; then
 fi
 
 ### retrieve the powheg source tar ball
-export POWHEGSRC=powhegboxV2_Dec2016.tar.gz
+export POWHEGSRC=powhegboxV2rwgt_Mar2017.tar.gz
+
+if [ "$process" = "b_bbar_4l" ]; then 
+  export POWHEGSRC=powhegboxRES_Mar2017.tar.gz
+fi
 
 echo 'D/L POWHEG source...'
 
@@ -360,6 +364,13 @@ fi
 
 patch -l -p0 -i ${WORKDIR}/patches/pdfweights.patch
 patch -l -p0 -i ${WORKDIR}/patches/pwhg_lhepdf.patch
+
+if [ "$process" = "b_bbar_4l" ]; then
+    cd POWHEG-BOX
+    patch -l -p0 -i ${WORKDIR}/patches/res_openloops_long_install_dir.patch
+    cd ..
+fi
+
 sed -i -e "s#500#900#g"  POWHEG-BOX/include/pwhg_rwl.h
 
 echo ${POWHEGSRC} > VERSION
@@ -1035,21 +1046,22 @@ if __name__ == "__main__":
 
         prepareJob(tagName, '', '.')
 
-        if not os.path.exists(args.inputTemplate) :
-            os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate)
         os.system('mkdir -p '+rootfolder+'/'+args.folderName)
-        os.system('cp -p '+args.inputTemplate+' '+args.folderName+'/powheg.input')
+        if not os.path.exists(args.inputTemplate) :
+            os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate+' -O '+args.folderName+'/powheg.input')
+        else :
+            os.system('cp -p '+args.inputTemplate+' '+args.folderName+'/powheg.input')
 
         os.system('rm -rf JHUGen.input')
         inputJHUGen = '/'.join(powInputName.split('/')[0:-1])+'/JHUGen.input'
         if not os.path.exists(inputJHUGen) :
-            os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+inputJHUGen)
-            if os.path.exists('JHUGen.input') :
-                os.system('cp -p JHUGen.input '+args.folderName+'/.')
-            if os.path.exists(args.inputJHUGen) :
-                os.system('cp -p '+args.inputJHUGen+' '+args.folderName+'/JHUGen.input')
+            os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+inputJHUGen+' -O '+args.folderName+'/JHUGen.input')
+#            if os.path.exists('JHUGen.input') :
+#                os.system('cp -p JHUGen.input '+args.folderName+'/.')
+#            if os.path.exists(args.inputJHUGen) :
+#                os.system('cp -p '+args.inputJHUGen+' '+args.folderName+'/JHUGen.input')
         else :
-            os.system('cp -p '+inputJHUGen+' '+args.folderName+'/.')
+            os.system('cp -p '+inputJHUGen+' '+args.folderName+'/JHUGen.input')
 
     if args.parstage == '0' :
 
