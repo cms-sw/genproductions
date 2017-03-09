@@ -17,4 +17,4 @@ generate p p > s1 WEIGHTED=10, (s1 > t t~ WEIGHTED=10, (t > W+ b WEIGHTED=2, W+ 
 add process p p > s1 j WEIGHTED=11, (s1 > t t~ WEIGHTED=11, (t > W+ b WEIGHTED=2, W+ > all all WEIGHTED=2), (t~ > W- b~ WEIGHTED=2, W- > all all WEIGHTED=2)) QS1=2 @1
 add process p p > s1 j j WEIGHTED=12, (s1 > t t~ WEIGHTED=12, (t > W+ b WEIGHTED=2, W+ > all all WEIGHTED=2), (t~ > W- b~ WEIGHTED=2, W- > all all WEIGHTED=2)) QS1=2 @2
 add process p p > s1 j j j WEIGHTED=13, (s1 > t t~ WEIGHTED=13, (t > W+ b WEIGHTED=2, W+ > all all WEIGHTED=2), (t~ > W- b~ WEIGHTED=2, W- > all all WEIGHTED=2)) QS1=2 @3
-output ZPrimeToTTJets_M4000GeV_W40GeV -nojpeg
+output ZPrimeToTTJets_M5000GeV_W50GeV -nojpeg
