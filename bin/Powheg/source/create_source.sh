@@ -6,8 +6,8 @@ EXPECTED_ARGS=1
 
 if [ $# -ne $EXPECTED_ARGS ]
 then
-    echo "Usage: `basename $0` outputtarball_prefix"
-    echo "Example: `basename $0` powhegboxV2_Oct2015"
+    echo "Usage: `basename $0` workdir_prefix"
+    echo "Example: `basename $0` my"
     exit 1
 fi
 
@@ -16,8 +16,8 @@ echo "         Running Powheg  "$basename"                         "
 echo "   ______________________________________________________    "
 
 topdir=$PWD
-output=$1
-workdir=$topdir/temp_$output
+prefix=$1
+workdir=$topdir/temp_$prefix
 
 if [[ -e ${workdir} ]]; then
   fail_exit "The directory ${workdir} exists! Please clean up your work directory before running!!"
@@ -30,6 +30,10 @@ cd $workdir
 svn checkout --username anonymous --password anonymous svn://powhegbox.mib.infn.it/trunk/POWHEG-BOX-V2 POWHEG-BOX
 
 powhegdir=$workdir/POWHEG-BOX
+cd $powhegdir
+version=`svn info | grep -a "Revision" | awk '{print $2}'`
+cd -
+output=powhegboxV2_rev${version}
 
 ### Check out user process
 svn co --username anonymous --password anonymous svn://powhegbox.mib.infn.it/trunk/User-Processes-V2 
