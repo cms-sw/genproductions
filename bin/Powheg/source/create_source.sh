@@ -47,8 +47,8 @@ do
 done
 
 cd $workdir
-tar cspzf ${output}.tar.gz --exclude .svn POWHEG-BOX
-
+#tar cspzf ${output}.tar.gz --exclude .svn POWHEG-BOX
+tar cspzf ${output}.tar.gz POWHEG-BOX
 sourcedir=/afs/cern.ch/cms/generators/www/slc6_amd64_gcc481/powheg/V2.0/src
 
 mv ${output}.tar.gz $sourcedir/${output}.tar.gz 
