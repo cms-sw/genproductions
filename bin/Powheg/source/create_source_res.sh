@@ -35,7 +35,7 @@ cd $powhegdir
 version=`svn info | grep -a "Revision" | awk '{print $2}'`
 date=`date +%Y%m%d`
 cd -
-output=powhegboxV2_rev${version}_date${date}
+output=powhegboxRES_rev${version}_date${date}
 
 ### Check out user process
 svn co --username anonymous --password anonymous svn://powhegbox.mib.infn.it/trunk/User-Processes-RES
