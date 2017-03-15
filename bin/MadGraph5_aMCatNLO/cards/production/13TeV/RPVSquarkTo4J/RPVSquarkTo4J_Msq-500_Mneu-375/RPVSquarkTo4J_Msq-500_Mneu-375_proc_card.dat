@@ -1,0 +1,9 @@
+import model RPVMSSM_UFO
+
+define p = g u c d s u~ c~ d~ s~
+define j = g u c d s u~ c~ d~ s~
+define sq = t1 t1~
+define neu = n3 n4
+
+generate p p > sq sq, ( sq > j neu, neu > j j j )
+output RPVSquarkTo4J_Msq-500_Mneu-375
