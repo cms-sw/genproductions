@@ -6,8 +6,8 @@ EXPECTED_ARGS=1
 
 if [ $# -ne $EXPECTED_ARGS ]
 then
-    echo "Usage: `basename $0` outputtarball_prefix"
-    echo "Example: `basename $0` powhegboxV2_Oct2015"
+    echo "Usage: `basename $0` workdir_prefix"
+    echo "Example: `basename $0` my"
     exit 1
 fi
 
@@ -16,8 +16,8 @@ echo "         Running Powheg  "$basename"                         "
 echo "   ______________________________________________________    "
 
 topdir=$PWD
-output=$1
-workdir=$topdir/temp_$output
+prefix=$1
+workdir=$topdir/temp_$prefix
 
 if [[ -e ${workdir} ]]; then
   fail_exit "The directory ${workdir} exists! Please clean up your work directory before running!!"
@@ -31,6 +31,12 @@ svn checkout --username anonymous --password anonymous svn://powhegbox.mib.infn.
 
 powhegdir=$workdir/POWHEG-BOX
 
+cd $powhegdir
+version=`svn info | grep -a "Revision" | awk '{print $2}'`
+date=`date +%Y%m%d`
+cd -
+output=powhegboxV2_rev${version}_date${date}
+
 ### Check out user process
 svn co --username anonymous --password anonymous svn://powhegbox.mib.infn.it/trunk/User-Processes-RES
 cd User-Processes-RES
@@ -38,11 +44,11 @@ cd User-Processes-RES
 for file in $(ls $workdir/User-Processes-RES)
 do
     echo $file
-    tar cspzf $powhegdir/${file}.tgz --exclude .svn $file  
+    tar cspzf $powhegdir/${file}.tgz $file  
 done
 
 cd $workdir
-tar cspzf ${output}.tar.gz --exclude .svn POWHEG-BOX
+tar cspzf ${output}.tar.gz POWHEG-BOX
 
 sourcedir=/afs/cern.ch/cms/generators/www/slc6_amd64_gcc481/powheg/V2.0/src
 
