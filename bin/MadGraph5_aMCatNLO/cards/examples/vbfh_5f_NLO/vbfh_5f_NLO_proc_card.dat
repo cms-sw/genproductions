@@ -1,3 +1,5 @@
+set low_mem_multicore_nlo_generation True
+
 #import model loop_sm-ckm_no_b_mass
 #switch to diagonal ckm matrix if needed for speed
 #(for this particular process the diagonal ckm model is needed
