@@ -1,0 +1,17 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set loop_optimized_output True
+set complex_mass_scheme False
+import model sm
+define p = g u c d s u~ c~ d~ s~
+define j = g u c d s u~ c~ d~ s~
+define l+ = e+ mu+
+define l- = e- mu-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+import model onerho
+generate p p > rho+ t23 > b~ w+ b
+add process p p > rho- t23~ > w- b~ b
+add process p p > rho+ t23 > b~ w+ b j
+add process p p > rho- t23~ > w- b~ b j
+output WpTpb_Wp1500Wid_Tp900WidLH_Wb
