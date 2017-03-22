@@ -98,12 +98,15 @@ echo "name: ${name}"
 echo "carddir: ${carddir}"
 echo "queue: ${queue}"
 
-cd $PRODHOME
-git status
-echo "Current git revision is:"
-git rev-parse HEAD
-git diff | cat
-cd -
+# Not all CMS Tier Site worker nodes have git
+if [ $iscmsconnect -eq 0 ]; then
+  cd $PRODHOME
+  git status
+  echo "Current git revision is:"
+  git rev-parse HEAD
+  git diff | cat
+  cd -
+fi
 
 AFSFOLD=${PRODHOME}/${name}
 # the folder where the script works, I guess
