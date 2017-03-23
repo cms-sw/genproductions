@@ -472,6 +472,7 @@ if [ "$isnlo" -gt "0" ]; then
   #######################
   #Run the integration and generate the grid
   #######################
+  echo "starting NLO mode"
 
   if [ -e $CARDSDIR/${name}_madspin_card.dat ]; then
     cp $CARDSDIR/${name}_madspin_card.dat ./Cards/madspin_card.dat
@@ -486,7 +487,6 @@ if [ "$isnlo" -gt "0" ]; then
   echo "done" >> makegrid.dat
 
   cat makegrid.dat | ./bin/generate_events -n pilotrun
-
   echo "finished pilot run"
 
   if [ -e $CARDSDIR/${name}_externaltarball.dat ]; then
