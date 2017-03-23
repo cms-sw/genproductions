@@ -652,12 +652,12 @@ else
 fi
 
 if [ ! -e $CARDSDIR/${name}_externaltarball.dat ]; then
-    XZ_OPT="$XZ_OPT" tar -cJpsf ${name}_tarball.tar.xz mgbasedir process runcmsgrid.sh gridpack_generation.log
+    XZ_OPT="$XZ_OPT" tar -cJpsf ${PRODHOME}/${name}_tarball.tar.xz mgbasedir process runcmsgrid.sh gridpack_generation.log
 else
-    XZ_OPT="$XZ_OPT" tar -cJpsf ${name}_tarball.tar.xz mgbasedir process runcmsgrid.sh gridpack_generation.log external_tarball ${name}_externaltarball.dat header_for_madspin.txt
+    XZ_OPT="$XZ_OPT" tar -cJpsf ${PRODHOME}/${name}_tarball.tar.xz mgbasedir process runcmsgrid.sh gridpack_generation.log external_tarball ${name}_externaltarball.dat header_for_madspin.txt
 fi
 
-mv ${name}_tarball.tar.xz ${PRODHOME}/${name}_tarball.tar.xz
+#mv ${name}_tarball.tar.xz ${PRODHOME}/${name}_tarball.tar.xz
 
 echo "Gridpack created successfully at ${PRODHOME}/${name}_tarball.tar.xz"
 echo "End of job"

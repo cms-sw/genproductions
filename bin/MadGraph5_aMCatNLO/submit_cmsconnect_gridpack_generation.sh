@@ -40,7 +40,7 @@ cat<<-EOF
 	source \$VO_CMS_SW_DIR/cmsset_default.sh
 	
 	# Run
-	iscmsconnect=1 bash -xe gridpack_generation.sh "${card_name}" "${card_dir}" "${workqueue}" CODEGEN
+	iscmsconnect=1 bash -x gridpack_generation.sh "${card_name}" "${card_dir}" "${workqueue}" CODEGEN
 	exitcode=\$?
 
 	if [ \$exitcode -ne 0 ]; then
@@ -184,7 +184,7 @@ cd "$parent_dir"
 
 # CMS Dashboard reporting not yet working with this step.
 export CONDOR_CMS_DASHBOARD=False
-iscmsconnect=1 bash -xe gridpack_generation.sh ${card_name} ${card_dir} ${workqueue} INTEGRATE
+iscmsconnect=1 bash -x gridpack_generation.sh ${card_name} ${card_dir} ${workqueue} INTEGRATE
 
 ##############################################
 # MADSPIN step
