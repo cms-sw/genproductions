@@ -98,7 +98,9 @@ echo "name: ${name}"
 echo "carddir: ${carddir}"
 echo "queue: ${queue}"
 
-# Not all CMS Tier Site worker nodes have git
+if [ -z ${iscmsconnect:+x} ]; then iscmsconnect=0; fi
+# Not all CMS Tier Site worker nodes have git.
+# Disable this block for CMS Connect
 if [ $iscmsconnect -eq 0 ]; then
   cd $PRODHOME
   git status
@@ -130,10 +132,6 @@ SYSCALCSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/
 MGBASEDIRORIG=MG5_aMC_v2_4_2
 
 isscratchspace=0
-iscmsconnect=0
-if [ "$HOSTNAME" == "login.uscms.org" ]; then
-    iscmsconnect=1
-fi
 
 if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   #directory doesn't exist, create it and set up environment
@@ -220,7 +218,7 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
 #         echo "set cluster_queue $queue" >> mgconfigscript
       fi 
       echo "set cluster_status_update 60 30" >> mgconfigscript
-      if [ $iscmsconnect -gt 0 ]; then n_retries=10; else n_retries=3
+      if [ $iscmsconnect -gt 0 ]; then n_retries=10; else n_retries=3; fi
       echo "set cluster_nb_retry $n_retries" >> mgconfigscript
       echo "set cluster_retry_wait 300" >> mgconfigscript 
       #echo "set cluster_local_path `${LHAPDFCONFIG} --datadir`" >> mgconfigscript 
