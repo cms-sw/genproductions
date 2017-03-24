@@ -32,9 +32,12 @@ carddir=${2}
 # which queue
 queue=${3}
 
+# provide new model files
+modeldir=${4}
+
 if [ -z "$PRODHOME" ]; then
   PRODHOME=`pwd`
-fi 
+fi
 
 if [ ! -z ${CMSSW_BASE} ]; then
   echo "Error: This script must be run in a clean environment as it sets up CMSSW itself.  You already have a CMSSW environment set up for ${CMSSW_VERSION}."
@@ -75,6 +78,9 @@ echo "System release " `cat /etc/redhat-release` #And the system release
 echo "name: ${name}"
 echo "carddir: ${carddir}"
 echo "queue: ${queue}"
+if [ -n "${modeldir}" ]; then
+    echo "modeldir: ${modeldir}"
+fi
 
 cd $PRODHOME
 git status
@@ -149,9 +155,20 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   cd $MGBASEDIRORIG
   cat $PRODHOME/patches/*.patch | patch -p1
 
+  # copy model provided to model directory
+  if [ -n "${modeldir}" ]; then
+      if [ "${modeldir[0]}" == '/' ]; then
+          # absolute path
+          cp -r ${modeldir} models/
+      else
+          # relative path
+          cp -r ${RUNHOME}/${modeldir} models/
+      fi
+  fi
+
   #if lhapdf6 external is available then above points to lhapdf5 and needs to be overridden
   LHAPDF6TOOLFILE=$CMSSW_BASE/config/toolbox/$SCRAM_ARCH/tools/available/lhapdf6.xml
-    
+
   if [ -e $LHAPDF6TOOLFILE ]; then
     LHAPDFCONFIG=`cat $LHAPDF6TOOLFILE | grep "<environment name=\"LHAPDF6_BASE\"" | cut -d \" -f 4`/bin/lhapdf-config
   else
