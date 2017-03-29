@@ -290,7 +290,7 @@ DECAY   1000021     0.00E+00   # gluino decays
      0.00000000E+00    2    -2000006         6   # BR(~g -> ~t_2* t )
 #
 #         PDG            Width
-DECAY   1000006     9.86634858424195e-15   # stop1 decays
+DECAY   1000006     3.94653943369678e-15   # stop1 decays
 #          BR         NDA      ID1       ID2
       3.33333333E-01  2  5  -11
       3.33333333E-01  2  5  -13
