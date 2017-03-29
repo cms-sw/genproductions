@@ -5,9 +5,8 @@
 # documentation
 # https://twiki.cern.ch/twiki/bin/viewauth/CMS/HowToGenXSecAnalyzer#Automated_scripts_to_compute_the
 
-# cern-get-sso-cookie -u https://cms-pdmv-dev.cern.ch/mcm/ -o ~/private/dev-cookie.txt --krb --reprocess
-# cern-get-sso-cookie -u https://cms-pdmv.cern.ch/mcm/ -o ~/private/prod-cookie.txt --krb --reprocess
-# source /afs/cern.ch/cms/PPD/PdmV/tools/McM/getCookie.sh
+# To obtain CERN SSO credentials (necessary to read from McM):
+#   ./getCookie.sh
 
 FILE='datasets.txt'
 CAMPAIGN='Moriond17'

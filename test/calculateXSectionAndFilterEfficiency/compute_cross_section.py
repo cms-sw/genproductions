@@ -82,5 +82,5 @@ if __name__ == "__main__":
         print 'filelist_used',filelist_used.split(',')[0]
         filelist_used = filelist_used.split(',')[0]
     # compute cross section
-    command = 'cmsRun ana.py inputFiles=\"'+filelist_used+'\" maxEvents='+str(args.events)+" 2>&1 | tee xsec_"+primary_dataset_name+".log"
+    command = 'cmsRun genXsec_cfg.py inputFiles=\"'+filelist_used+'\" maxEvents='+str(args.events)+" 2>&1 | tee xsec_"+primary_dataset_name+".log"
     print command
