@@ -27,21 +27,18 @@ set loop_color_flows False
 set gauge unitary
 set complex_mass_scheme False
 set max_npoint_for_channel 0
-import model sm
-define p = g u c d s u~ c~ d~ s~
-define j = g u c d s u~ c~ d~ s~
+import model SM_HeavyN_NLO
+define p = g u c d s b u~ c~ d~ s~ b~
+define j = p
 define l+ = e+ mu+ ta+
-define ldecay+ = e+ mu+ ta+
 define l- = e- mu- ta-
-define ldecay- = e- mu- ta-
 define l = l+ l-
+define ldecay+ = e+ mu+ ta+
+define ldecay- = e- mu- ta-
 define ldecay = ldecay+ ldecay-
 define vl = ve vm vt
 define vl~ = ve~ vm~ vt~
 define v = vl vl~
 define w = w- w+
-import model SM_HeavyN_NLO
-define p = p b b~
-define j = p
 generate p p > n1 l [QCD]
 output HeavyNeutrino_trilepton_M-200_V-0.01_3l_NLO -nojpeg
