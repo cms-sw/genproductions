@@ -1,6 +1,6 @@
 set param_card anoinputs 1 0.0
 set param_card anoinputs 2 0.0
-set param_card anoinputs 3 4.000000e-12
+set param_card anoinputs 3 8.000000e-12
 set param_card anoinputs 4 0.0
 set param_card anoinputs 5 0.0
 set param_card anoinputs 6 0.0
