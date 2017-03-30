@@ -99,9 +99,10 @@ echo "carddir: ${carddir}"
 echo "queue: ${queue}"
 
 if [ -z ${iscmsconnect:+x} ]; then iscmsconnect=0; fi
-# Not all CMS Tier Site worker nodes have git.
-# Disable this block for CMS Connect
-if [ $iscmsconnect -eq 0 ]; then
+
+# Check for git availability
+which git > /dev/null 2>&1
+if [ $? -eq 0 ]; then
   cd $PRODHOME
   git status
   echo "Current git revision is:"
