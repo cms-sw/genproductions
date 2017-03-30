@@ -13,10 +13,10 @@ launch --rwgt_name=fm0_m4__fm1_0
 set anoinputs 3 -4.000000e-12
 set anoinputs 4 0.000000e-12
 launch --rwgt_name=fm0_m16__fm1_0
-set anoinputs 3 -2.000000e-12
+set anoinputs 3 -16.000000e-12
 set anoinputs 4 0.000000e-12
-launch --rwgt_name=fm0_16__fm1_0
-set anoinputs 3 2.000000e-12
+launch --rwgt_name=fm0_8__fm1_0
+set anoinputs 3 8.000000e-12
 set anoinputs 4 0.000000e-12
 launch --rwgt_name=fm0_8__fm1_0
 set anoinputs 3 4.000000e-12
@@ -29,10 +29,10 @@ set anoinputs 3 0.000000e-12
 set anoinputs 4 -4.000000e-12
 launch --rwgt_name=fm0_0__fm1_m16
 set anoinputs 3 0.000000e-12
-set anoinputs 4 -2.000000e-12
+set anoinputs 4 -16.000000e-12
 launch --rwgt_name=fm0_0__fm1_16
 set anoinputs 3 0.000000e-12
-set anoinputs 4 2.000000e-12
+set anoinputs 4 16.000000e-12
 launch --rwgt_name=fm0_0__fm1_4
 set anoinputs 3 0.000000e-12
 set anoinputs 4 4.000000e-12
@@ -47,10 +47,10 @@ set anoinputs 3 -8.000000e-12
 set anoinputs 4 -4.000000e-12
 launch --rwgt_name=fm0_m8__fm1_m16
 set anoinputs 3 -8.000000e-12
-set anoinputs 4 -2.000000e-12
+set anoinputs 4 -16.000000e-12
 launch --rwgt_name=fm0_m8__fm1_16
 set anoinputs 3 -8.000000e-12
-set anoinputs 4 2.000000e-12
+set anoinputs 4 16.000000e-12
 launch --rwgt_name=fm0_m8__fm1_4
 set anoinputs 3 -8.000000e-12
 set anoinputs 4 4.000000e-12
@@ -65,10 +65,10 @@ set anoinputs 3 -4.000000e-12
 set anoinputs 4 -4.000000e-12
 launch --rwgt_name=fm0_m4__fm1_m16
 set anoinputs 3 -4.000000e-12
-set anoinputs 4 -2.000000e-12
+set anoinputs 4 -16.000000e-12
 launch --rwgt_name=fm0_m4__fm1_16
 set anoinputs 3 -4.000000e-12
-set anoinputs 4 2.000000e-12
+set anoinputs 4 16.000000e-12
 launch --rwgt_name=fm0_m4__fm1_4
 set anoinputs 3 -4.000000e-12
 set anoinputs 4 4.000000e-12
@@ -76,40 +76,40 @@ launch --rwgt_name=fm0_m4__fm1_8
 set anoinputs 3 -4.000000e-12
 set anoinputs 4 8.000000e-12
 launch --rwgt_name=fm0_m16__fm1_m8
-set anoinputs 3 -2.000000e-12
+set anoinputs 3 -16.000000e-12
 set anoinputs 4 -8.000000e-12
 launch --rwgt_name=fm0_m16__fm1_m4
-set anoinputs 3 -2.000000e-12
+set anoinputs 3 -16.000000e-12
 set anoinputs 4 -4.000000e-12
 launch --rwgt_name=fm0_m16__fm1_m16
-set anoinputs 3 -2.000000e-12
-set anoinputs 4 -2.000000e-12
+set anoinputs 3 -16.000000e-12
+set anoinputs 4 -16.000000e-12
 launch --rwgt_name=fm0_m16__fm1_16
-set anoinputs 3 -2.000000e-12
-set anoinputs 4 2.000000e-12
+set anoinputs 3 -16.000000e-12
+set anoinputs 4 16.000000e-12
 launch --rwgt_name=fm0_m16__fm1_4
-set anoinputs 3 -2.000000e-12
+set anoinputs 3 -16.000000e-12
 set anoinputs 4 4.000000e-12
 launch --rwgt_name=fm0_m16__fm1_8
-set anoinputs 3 -2.000000e-12
+set anoinputs 3 -16.000000e-12
 set anoinputs 4 8.000000e-12
 launch --rwgt_name=fm0_16__fm1_m8
-set anoinputs 3 2.000000e-12
+set anoinputs 3 16.000000e-12
 set anoinputs 4 -8.000000e-12
 launch --rwgt_name=fm0_16__fm1_m4
-set anoinputs 3 2.000000e-12
+set anoinputs 3 16.000000e-12
 set anoinputs 4 -4.000000e-12
 launch --rwgt_name=fm0_16__fm1_m16
-set anoinputs 3 2.000000e-12
-set anoinputs 4 -2.000000e-12
+set anoinputs 3 16.000000e-12
+set anoinputs 4 -16.000000e-12
 launch --rwgt_name=fm0_16__fm1_16
-set anoinputs 3 2.000000e-12
-set anoinputs 4 2.000000e-12
+set anoinputs 3 16.000000e-12
+set anoinputs 4 16.000000e-12
 launch --rwgt_name=fm0_16__fm1_4
-set anoinputs 3 2.000000e-12
+set anoinputs 3 16.000000e-12
 set anoinputs 4 4.000000e-12
 launch --rwgt_name=fm0_16__fm1_8
-set anoinputs 3 2.000000e-12
+set anoinputs 3 16.000000e-12
 set anoinputs 4 8.000000e-12
 launch --rwgt_name=fm0_4__fm1_m8
 set anoinputs 3 4.000000e-12
@@ -119,10 +119,10 @@ set anoinputs 3 4.000000e-12
 set anoinputs 4 -4.000000e-12
 launch --rwgt_name=fm0_4__fm1_m16
 set anoinputs 3 4.000000e-12
-set anoinputs 4 -2.000000e-12
+set anoinputs 4 -16.000000e-12
 launch --rwgt_name=fm0_4__fm1_16
 set anoinputs 3 4.000000e-12
-set anoinputs 4 2.000000e-12
+set anoinputs 4 16.000000e-12
 launch --rwgt_name=fm0_4__fm1_4
 set anoinputs 3 4.000000e-12
 set anoinputs 4 4.000000e-12
@@ -137,10 +137,10 @@ set anoinputs 3 8.000000e-12
 set anoinputs 4 -4.000000e-12
 launch --rwgt_name=fm0_8__fm1_m16
 set anoinputs 3 8.000000e-12
-set anoinputs 4 -2.000000e-12
+set anoinputs 4 -16.000000e-12
 launch --rwgt_name=fm0_8__fm1_16
 set anoinputs 3 8.000000e-12
-set anoinputs 4 2.000000e-12
+set anoinputs 4 16.000000e-12
 launch --rwgt_name=fm0_8__fm1_4
 set anoinputs 3 8.000000e-12
 set anoinputs 4 4.000000e-12
