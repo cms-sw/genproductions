@@ -19,7 +19,8 @@
 #*                                                          *
 #************************************************************
 #import model sm
-import model 2HDMtypeII
+import model 2HDMtII_NLO
+#import model 2HDMtypeII
 # Define multiparticle labels
 define p = g u c d s u~ c~ d~ s~
 define j = g u c d s u~ c~ d~ s~
