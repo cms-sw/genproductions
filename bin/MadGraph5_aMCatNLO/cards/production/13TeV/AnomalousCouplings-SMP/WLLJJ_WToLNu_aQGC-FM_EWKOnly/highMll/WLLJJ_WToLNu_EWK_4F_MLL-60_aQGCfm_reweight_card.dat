@@ -18,7 +18,7 @@ set anoinputs 4 0.000000e-12
 launch --rwgt_name=fm0_8__fm1_0
 set anoinputs 3 8.000000e-12
 set anoinputs 4 0.000000e-12
-launch --rwgt_name=fm0_8__fm1_0
+launch --rwgt_name=fm0_4__fm1_0
 set anoinputs 3 4.000000e-12
 set anoinputs 4 0.000000e-12
 launch --rwgt_name=fm0_0__fm1_m8

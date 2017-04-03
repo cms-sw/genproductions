@@ -11,66 +11,90 @@ launch --rwgt_name=ft0_m0p5__ft1_0__ft2_0
 set anoinputs 11 -0.5000000e-12 
 set anoinputs 12 0.000000e-12   
 set anoinputs 13 0.000000e-12   
-launch --rwgt_name=ft0_m0p25__ft1_0__ft2_0
-set anoinputs 11 -0.25000000e-12 
+launch --rwgt_name=ft0_m1__ft1_0__ft2_0
+set anoinputs 11 -1.00000000e-12 
 set anoinputs 12 0.000000e-12  
 set anoinputs 13 0.000000e-12  
-launch --rwgt_name=ft0_m1__ft1_0__ft2_0
-set anoinputs 11 -1.000000e-12  
+launch --rwgt_name=ft0_m1p5__ft1_0__ft2_0
+set anoinputs 11 -1.500000e-12  
+set anoinputs 12 0.000000e-12
+set anoinputs 13 0.000000e-12
+launch --rwgt_name=ft0_m2__ft1_0__ft2_0
+set anoinputs 11 -2.0000000e-12
 set anoinputs 12 0.000000e-12
 set anoinputs 13 0.000000e-12
 launch --rwgt_name=ft0_1__ft1_0__ft2_0
 set anoinputs 11 1.000000e-12
 set anoinputs 12 0.000000e-12
 set anoinputs 13 0.000000e-12
+launch --rwgt_name=ft0_1p5__ft1_0__ft2_0
+set anoinputs 11 1.500000e-12
+set anoinputs 12 0.000000e-12
+set anoinputs 13 0.000000e-12
 launch --rwgt_name=ft0_0p5__ft1_0__ft2_0
 set anoinputs 11 0.5000000e-12
 set anoinputs 12 0.000000e-12
 set anoinputs 13 0.000000e-12
-launch --rwgt_name=ft0_0__ft1_m0p25__ft2_0
+launch --rwgt_name=ft0_2__ft1_0__ft2_0
+set anoinputs 11 2.000000e-12
+set anoinputs 12 0.000000e-12
+set anoinputs 13 0.000000e-12
+launch --rwgt_name=ft0_0__ft1_m0p5__ft2_0
 set anoinputs 11 0.000000e-12
-set anoinputs 12 -0.25000000e-12
+set anoinputs 12 -0.50000000e-12
 set anoinputs 13 0.000000e-12
 launch --rwgt_name=ft0_0__ft1_m1__ft2_0
 set anoinputs 11 0.000000e-12
 set anoinputs 12 -1.000000e-12
 set anoinputs 13 0.000000e-12
+launch --rwgt_name=ft0_0__ft1_m1p5__ft2_0
+set anoinputs 11 0.000000e-12
+set anoinputs 12 -1.50000000e-12
+set anoinputs 13 0.000000e-12
 launch --rwgt_name=ft0_0__ft1_m2__ft2_0
 set anoinputs 11 0.000000e-12
 set anoinputs 12 -2.000000e-12
-set anoinputs 13 0.000000e-12
-launch --rwgt_name=ft0_0__ft1_2__ft2_0
-set anoinputs 11 0.000000e-12
-set anoinputs 12 2.000000e-12
 set anoinputs 13 0.000000e-12
 launch --rwgt_name=ft0_0__ft1_1__ft2_0
 set anoinputs 11 0.000000e-12
 set anoinputs 12 1.000000e-12
 set anoinputs 13 0.000000e-12
-launch --rwgt_name=ft0_0__ft1_0p25__ft2_0
+launch --rwgt_name=ft0_0__ft1_1p5__ft2_0
 set anoinputs 11 0.000000e-12
-set anoinputs 12 0.25000000e-12
+set anoinputs 12 1.50000000e-12
+set anoinputs 13 0.000000e-12
+launch --rwgt_name=ft0_0__ft1_0p5__ft2_0
+set anoinputs 11 0.000000e-12
+set anoinputs 12 0.50000000e-12
 set anoinputs 13 0.000000e-12
 launch --rwgt_name=ft0_0__ft1_0__ft2_m1
 set anoinputs 11 0.000000e-12
 set anoinputs 12 0.000000e-12
 set anoinputs 13 -1.000000e-12
-launch --rwgt_name=ft0_0__ft1_0__ft2_m3
-set anoinputs 11 0.000000e-12
-set anoinputs 12 0.000000e-12
-set anoinputs 13 -3.000000e-12
 launch --rwgt_name=ft0_0__ft1_0__ft2_m2
 set anoinputs 11 0.000000e-12
 set anoinputs 12 0.000000e-12
 set anoinputs 13 -2.000000e-12
-launch --rwgt_name=ft0_0__ft1_0__ft2_2
+launch --rwgt_name=ft0_0__ft1_0__ft2_m3
 set anoinputs 11 0.000000e-12
 set anoinputs 12 0.000000e-12
-set anoinputs 13 2.000000e-12
+set anoinputs 13 -3.000000e-12
+launch --rwgt_name=ft0_0__ft1_0__ft2_m6
+set anoinputs 11 0.000000e-12
+set anoinputs 12 0.000000e-12
+set anoinputs 13 -6.000000e-12
+launch --rwgt_name=ft0_0__ft1_0__ft2_6
+set anoinputs 11 0.000000e-12
+set anoinputs 12 0.000000e-12
+set anoinputs 13 6.000000e-12
 launch --rwgt_name=ft0_0__ft1_0__ft2_3
 set anoinputs 11 0.000000e-12
 set anoinputs 12 0.000000e-12
 set anoinputs 13 3.000000e-12
+launch --rwgt_name=ft0_0__ft1_0__ft2_2
+set anoinputs 11 0.000000e-12
+set anoinputs 12 0.000000e-12
+set anoinputs 13 2.000000e-12
 launch --rwgt_name=ft0_0__ft1_0__ft2_1
 set anoinputs 11 0.000000e-12
 set anoinputs 12 0.000000e-12
