@@ -344,10 +344,10 @@ if [[ -s ./JHUGen.input ]]; then
 fi
 
 ### retrieve the powheg source tar ball
-export POWHEGSRC=powhegboxV2_Mar2017.tar.gz 
+export POWHEGSRC=powhegboxV2_Sep2016.tar.gz 
 
 if [ "$process" = "b_bbar_4l" ]; then 
-  export POWHEGSRC=powhegboxRES_Mar2017.tar.gz
+  export POWHEGSRC=powhegboxRES_Aug2016.tar.gz
 fi
 
 echo 'D/L POWHEG source...'
