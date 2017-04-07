@@ -43,4 +43,4 @@ generate p p > t~ b h+ [QCD]
 # To generate events, you can go to the created directory and 
 # run ./bin/generate_events
 
-output ChargedHiggs_heavy_M5000 -nojpeg
+output ChargedHiggs_heavy_TB_M5000 -nojpeg
