@@ -369,6 +369,7 @@ fi
 
 patch -l -p0 -i ${WORKDIR}/patches/pdfweights.patch
 patch -l -p0 -i ${WORKDIR}/patches/pwhg_lhepdf.patch
+patch -l -p0 -i ${WORKDIR}/patches/pwhg_rad_kinreg.patch
 if [ "$process" = "b_bbar_4l" ]; then
     cd POWHEG-BOX
     patch -l -p0 -i ${WORKDIR}/patches/res_openloops_long_install_dir.patch
