@@ -33,9 +33,8 @@ Inside the Run card:
 -If ickkw=1 checks if the jets are in the process
 -No double declaration of pfd number.
 
+********
 
 How to run the code:
-
-********
 
 python parsing.py name-of-cards e.g. python parsing.py dyellell012j-5f-NLO-FXFX 
