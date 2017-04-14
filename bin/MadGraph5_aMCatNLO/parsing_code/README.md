@@ -1,6 +1,9 @@
 The goal of the parsed code is the syntactic analysis of the Madgraph cards to check:
+
 -The cards's right structure.
+
 -Wrong objects definition.
+
 -Possible bugs.
 
 The code is written in python and it take as input:
