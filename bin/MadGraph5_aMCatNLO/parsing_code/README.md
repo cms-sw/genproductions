@@ -37,4 +37,6 @@ Inside the Run card:
 
 How to run the code:
 
-python parsing.py name-of-cards e.g. python parsing.py dyellell012j-5f-NLO-FXFX 
+python parsing.py name-of-cards 
+
+e.g. python parsing.py dyellell012j-5f-NLO-FXFX 
