@@ -23,10 +23,6 @@ launch --rwgt_name=ft0_m2__ft1_0__ft2_0
 set anoinputs 11 -2.0000000e-12
 set anoinputs 12 0.000000e-12
 set anoinputs 13 0.000000e-12
-launch --rwgt_name=ft0_1__ft1_0__ft2_0
-set anoinputs 11 1.000000e-12
-set anoinputs 12 0.000000e-12
-set anoinputs 13 0.000000e-12
 launch --rwgt_name=ft0_1p5__ft1_0__ft2_0
 set anoinputs 11 1.500000e-12
 set anoinputs 12 0.000000e-12
@@ -62,6 +58,10 @@ set anoinputs 13 0.000000e-12
 launch --rwgt_name=ft0_0__ft1_1p5__ft2_0
 set anoinputs 11 0.000000e-12
 set anoinputs 12 1.50000000e-12
+set anoinputs 13 0.000000e-12
+launch --rwgt_name=ft0_0__ft1_2__ft2_0
+set anoinputs 11 0.000000e-12
+set anoinputs 12 2.000000e-12
 set anoinputs 13 0.000000e-12
 launch --rwgt_name=ft0_0__ft1_0p5__ft2_0
 set anoinputs 11 0.000000e-12
