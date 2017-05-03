@@ -5,10 +5,13 @@ import string
 import os.path
 import urllib, re
 
+#*******************************************************************
+#*************HOW TO RUN THE CODE***********************************
+#python parsing.py /path/of/<name of process card without _proc_card.dat>
+#e.g. python parsing.py cards_example/dyellell012j-5f-NLO-FXFX
+#*******************************************************************
+#*******************************************************************
 
-
-#print "Plese remove any comment inside the 'define' lines, if they are present "
-#print "PDF from lhapdf here:", link_pdfset
 print "-----------------------------------------------------------------------"
 print "-----------------------------------------------------------------------"
 print """___  ___            _                             _      ______                    _               
@@ -199,22 +202,15 @@ def parsing (name, link_pdfset):
   if  jet_def<1:  print "WARNING in Proc Card: no jet definition. Plese define the jat as: 'j = g u c d s u~ c~ d~ s~'  with or w/o 'b b~' "
 
   if outputline<1: print "WARNING in Proc Card: no/wrong output line in the proc card. Plese add this line at the END of card: 'output name_of_process -nojpeg'   "
-  #else: print "GOOD"
 
-  if model<1: print "WARNING in Proc Card: no model difined. Plese define the model as 'import model my_model' "
-  #else: print "GOOD 3"
-
-
+  if model<1: print "WARNING in Proc Card: no model difined. Plese define the model as 'import model my_model' "  
 
   #----Error in Run Card----
   if (energy1<1 or energy2<1): print "WARNING in Run Card: the sum of beams energy is different from 13 TeV"
-  #else: print "GOOD 4"
 
   if  nevents<1: print "WARNING in Run Card: no 'nvents' declaration. Plese add the Number of unweighted events requested as: '1000	=  nevents' "
-  #else: print "GOOD 5"
 
-  if ickkw>0: print "WARNING in Proc/Run Card: in run card is set 'ickkw=1' but in the proc card there is NO Jet definition in 'process' line"
-  #else: print "GOOD 6"
+  if ickkw>0: print "WARNING in Proc/Run Card: in run card is set 'ickkw=1' but in the proc card there is NO Jet definition in 'process' line" 
 
   print "\n"
   print "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
@@ -225,18 +221,6 @@ def parsing (name, link_pdfset):
   run_card.close() 
 
 
-#-------------------Run the function-----------------
-
-#link_pdfset = "https://lhapdf.hepforge.org/pdfsets.html"
-#proc = "tt012j_5f_ckm_NLO_FXFX_proc_card.dat"
-#run = "tt012j_5f_ckm_NLO_FXFX_run_card.dat"
-
-#parsing(run, proc,  link_pdfset)
-
-#parsing("tt012j_5f_ckm_NLO_FXFX_run_card.dat","tt012j_5f_ckm_NLO_FXFX_proc_card.dat", "https://lhapdf.hepforge.org/pdfsets.html" )
-#parsing("dyellell012j_5f_NLO_FXFX", "https://lhapdf.hepforge.org/pdfsets.html" )
-
-#print sys.argv[0]
 parsing(sys.argv[1], "https://lhapdf.hepforge.org/pdfsets.html" )
 
 
