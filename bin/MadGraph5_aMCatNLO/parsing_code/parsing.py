@@ -180,6 +180,15 @@ def parsing (name, link_pdfset):
       if   'ickkw' in line and '1' in line:
        if jet_proc_finder(proc)>0:
          ickkw+=1
+      if "parton_shower" in line:
+        print ""
+        print "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+        print "Note that for NLO configurations the parton shower code"
+        print "needs to be correctly specified in parton_shower in runcard"
+        print "Your runcard is using:" 
+        print line
+        print "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
+        print ""
 
   #---------------------------------------------------------------------------
   #Error List
