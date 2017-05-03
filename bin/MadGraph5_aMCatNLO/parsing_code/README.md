@@ -47,9 +47,13 @@ e.g. python parsing.py dyellell012j-5f-NLO-FXFX
 Datacards for example
 
 In the "cards_example" folder there are cards to show some errors or warnings. In particular:
+
 -in dyellell012j_5f_NLO_FXFX cards the proton is defined two times.
+
 -in dyellell01234j_5f_LO_MLM cards the pdf set used is wrong.
+
 -in WJetsToLNu_HT-incl cards there is a double "lhaid" declaration.
+
 The run/proc datacards for "tt012j_5f_ckm_NLO_FXFX" come from "standard" datacards already present in the repository and they works fine for the gridpack production.
 
 
