@@ -539,6 +539,10 @@ if [ "$process" = "HJ" ]; then
   cd hnnlo-v2.0
   cp ../POWHEG-BOX/HJ/NNLOPS-mass-effects/HNNLO-makefile ./makefile 
   cp -r ../POWHEG-BOX/HJ/NNLOPS-mass-effects/HNNLO-patches ./
+  cd src/Need/
+  cat pdfset_lhapdf.f | sed -e "s#30#40#g" | sed -e "s#20#25#g" > pdfset_lhapdf.f.new
+  mv pdfset_lhapdf.f.new pdfset_lhapdf.f
+  cd -
   cat makefile | sed -e "s#LHAPDFLIB=.\+#LHAPDFLIB=$(scram tool info lhapdf | grep LIBDIR | cut -d "=" -f2)#g" > makefile
   make || fail_exit "Failed to compile HNNLO"
   cp -p bin/hnnlo ${WORKDIR}/${name}/
@@ -877,6 +881,8 @@ eval `scram runtime -sh`
 cd -
 
 cat $base/../$config | sed -e "s#SEED#$seed#g" > config.input
+cat config.input | sed -e "s#MSTW2008nnlo68cl#NNPDF30_nnlo_as_0118#g" > config.input.temp
+mv config.input.temp config.input
 
 cp $base/../hnnlo .
 cp $base/../br* .
