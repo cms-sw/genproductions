@@ -1,6 +1,6 @@
 FLAVOR = 'stau'
-COM_ENERGY = 13000. 
-MASS_POINT = 494   # GeV
+COM_ENERGY = 14000. 
+MASS_POINT = 200   # GeV
 PROCESS_FILE = 'SimG4Core/CustomPhysics/data/RhadronProcessList.txt'
 PARTICLE_FILE = 'Configuration/Generator/data/particles_%s_%d_GeV.txt' % (FLAVOR, MASS_POINT)
 SLHA_FILE = 'Configuration/Generator/data/isa-slha%dGeV.out' % MASS_POINT
@@ -11,31 +11,31 @@ import FWCore.ParameterSet.Config as cms
 
 source = cms.Source("EmptySource")
 
-from Configuration.Generator.PythiaUEZ2starSettings_cfi import *
+from Configuration.Generator.Pythia8CommonSettings_cfi import *
+from Configuration.Generator.Pythia8CUEP8M1Settings_cfi import *
 
-generator = cms.EDFilter("Pythia6GeneratorFilter",
-	pythiaPylistVerbosity = cms.untracked.int32(0),
-    filterEfficiency = cms.untracked.double(1.),
+generator = cms.EDFilter("Pythia8GeneratorFilter",
+    pythiaPylistVerbosity = cms.untracked.int32(0),
+    filterEfficiency = cms.untracked.double(1),
+    pythiaHepMCVerbosity = cms.untracked.bool(False),
     comEnergy = cms.double(COM_ENERGY),
     crossSection = cms.untracked.double(-1),
     maxEventsToPrint = cms.untracked.int32(0),
-    stopHadrons = cms.bool(False),
-    gluinoHadrons =  cms.bool(False),  
-                         
-	PythiaParameters = cms.PSet(
-	    pythiaUESettingsBlock,
-		processParameters = cms.vstring(
-                  'MSEL=0                  ! full user control ',
-                  'MSUB(207)=1             ! stau-staubar', 
-		  'IMSS(1) = 11             ! Spectrum from external SLHA file',
-		  'IMSS(21) = 33            ! LUN number for SLHA File (must be 33)',
-		  'IMSS(22) = 33            ! Read-in SLHA decay table ',
-		  'MDCY(C1000015,1)=0       ! set the stau stable.'
-		  ),
-    SLHAParameters = cms.vstring('SLHAFILE = %s' % SLHA_FILE),
-    parameterSets = cms.vstring(
-    'pythiaUESettings', 'processParameters','SLHAParameters'),
-    
+    SLHAFileForPythia8 = cms.string('%s' % SLHA_FILE),
+    PythiaParameters = cms.PSet(
+        pythia8CommonSettingsBlock,
+        pythia8CUEP8M1SettingsBlock,
+        processParameters = cms.vstring(
+            'SUSY:all = on',
+            'SUSY:idA = 1000015',
+            'SUSY:idB = 1000015',
+            '1000006:mayDecay = off'
+        ),
+        parameterSets = cms.vstring(
+            'pythia8CommonSettings',
+            'pythia8CUEP8M1Settings',
+            'processParameters'
+        )
     )
  )
                          
