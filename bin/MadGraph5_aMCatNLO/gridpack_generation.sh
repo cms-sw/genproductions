@@ -95,7 +95,7 @@ CARDSDIR=${PRODHOME}/${carddir}
 
 MGBASEDIR=mgbasedir
 
-MG=MG5_aMC_v2.5.1.tar.gz
+MG=MG5_aMC_v2.5.4.tar.gz
 MGSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$MG
 MGSOURCE_ALT=${PRODHOME}/code_tars/$MG
 
@@ -103,7 +103,7 @@ MGSOURCE_ALT=${PRODHOME}/code_tars/$MG
 SYSCALC=SysCalc_V1.1.6.tar.gz
 SYSCALCSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$SYSCALC
 
-MGBASEDIRORIG=MG5_aMC_v2_5_1
+MGBASEDIRORIG=MG5_aMC_v2_5_4
 
 isscratchspace=0
 
@@ -119,8 +119,8 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
 #   export SCRAM_ARCH=slc6_amd64_gcc472 #Here one should select the correct architechture corresponding with the CMSSW release
 #   export RELEASE=CMSSW_5_3_32_patch3
 
-  export SCRAM_ARCH=slc6_amd64_gcc481
-  export RELEASE=CMSSW_7_1_23
+  export SCRAM_ARCH=slc6_amd64_gcc530
+  export RELEASE=CMSSW_9_0_2
 
 
   ############################
