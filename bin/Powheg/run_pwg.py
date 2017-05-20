@@ -71,8 +71,8 @@ def prepareJob(tag, i, folderName) :
     f.write ('cd -' + '\n')
     f.write ('echo "I am here:"' + '\n')
     f.write ('pwd' + '\n')
-    f.write ('cp -p ' + rootfolder + '/' + folderName + '/powheg.input ./' + '\n')
-    f.write ('cp -p ' + rootfolder + '/' + folderName + '/JHUGen.input ./' + '\n')
+#    f.write ('cp -p ' + rootfolder + '/' + folderName + '/powheg.input ./' + '\n')
+#    f.write ('cp -p ' + rootfolder + '/' + folderName + '/JHUGen.input ./' + '\n')
     f.write ('cp -p ' + rootfolder + '/' + folderName + '/*.dat  ./' + '\n') 
     f.write ('cp -p ' + rootfolder + '/' + folderName + '/pwhg_main  ./' + '\n')
     f.write ('if [ -e '+ rootfolder + '/' + folderName + '/obj-gfortran/proclib ]; then    \n')
@@ -96,8 +96,8 @@ def prepareJobForEvents (tag, i, folderName, EOSfolder) :
     prepareJob(tag, i, folderName)
 
     f = open (filename, 'a')
-    f.write ('cp -p ' + rootfolder + '/' + folderName + '/powheg.input ./' + '\n')
-    f.write ('cp -p ' + rootfolder + '/' + folderName + '/JHUGen.input ./' + '\n')
+#    f.write ('cp -p ' + rootfolder + '/' + folderName + '/powheg.input ./' + '\n')
+#    f.write ('cp -p ' + rootfolder + '/' + folderName + '/JHUGen.input ./' + '\n')
     f.write ('cp -p ' + rootfolder + '/' + folderName + '/*.dat  ./' + '\n')
     f.write ('if [ -e '+ rootfolder + '/' + folderName + '/obj-gfortran/proclib ]; then    \n')
     f.write ('  mkdir ./obj-gfortran/' + '\n')
@@ -198,8 +198,7 @@ def runSingleXgrid(parstage, xgrid, folderName, nEvents, powInputName, seed, pro
 
 #    runCommand('mv -f powheg.input powheg.input.temp')
 #    sedcommand = 'sed "s/parallelstage.*/parallelstage ' + parstage + '/ ; s/xgriditeration.*/xgriditeration ' + xgrid + '/" ' + powInputName + ' > ' + folderName + '/powheg.input'
-    sedcommand = 'sed "s/NEVENTS/' + nEvents + '/ ; s/SEED/' + seed + '/" ' + powInputName + ' > ' + folderName + '/powheg.input'
-
+    sedcommand = 'sed -i "s/NEVENTS/' + nEvents + '/ ; s/SEED/' + seed + '/" '+inputName
     runCommand(sedcommand)
 
     #prepareJob('Xgrid', '', folderName)
@@ -367,13 +366,18 @@ if [ -e POWHEG-BOX/${process}.tgz ]; then
   cd -
 fi
 
-patch -l -p0 -i ${WORKDIR}/patches/pdfweights.patch
-patch -l -p0 -i ${WORKDIR}/patches/pwhg_lhepdf.patch
+#patch -l -p0 -i ${WORKDIR}/patches/pdfweights.patch
+# patch -l -p0 -i ${WORKDIR}/patches/pwhg_lhepdf.patch
+cd POWHEG-BOX
+patch -l -p0 -i ${WORKDIR}/patches/res_gfortran48.patch
+cd ..
+
 if [ "$process" = "b_bbar_4l" ]; then
     cd POWHEG-BOX
     patch -l -p0 -i ${WORKDIR}/patches/res_openloops_long_install_dir.patch
     patch -l -p0 -i ${WORKDIR}/patches/res_gfortran48.patch
     cd ..
+    sed -i -e "s#500#900#g"  POWHEG-BOX/include/pwhg_rwl.h
 fi
 
 echo ${POWHEGSRC} > VERSION
@@ -1034,31 +1038,37 @@ if __name__ == "__main__":
 
         exit()
 
-    if args.parstage == '0' or \
-       args.parstage == '0123' or args.parstage == 'a' or \
-       args.parstage == '01239' or args.parstage == 'one' or args.parstage == 'f' : # full single grid in oneshot 
+    if args.parstage[0] == '0' or args.parstage[0] == '1' or \
+       args.parstage == 'a' or \
+       args.parstage == 'one' or args.parstage == 'f' : # full single grid in oneshot 
 
-        tagName = 'src_'+args.folderName
-        filename = './run_'+tagName+'.sh'
+        #tagName = 'full_'+args.folderName
+        #filename = './run_'+tagName+'.sh'
 
-        prepareJob(tagName, '', '.')
+        #prepareJob(tagName, '', '.')
 
+        os.system('mkdir -p '+rootfolder+'/'+args.folderName)
         if not os.path.exists(args.inputTemplate) :
             os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate+' -O '+args.folderName+'/powheg.input')
-            os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate)
-        os.system('mkdir -p '+rootfolder+'/'+args.folderName)
-        os.system('cp -p '+args.inputTemplate+' '+args.folderName+'/powheg.input')
+        else :
+            os.system('cp -p '+args.inputTemplate+' '+args.folderName+'/powheg.input')
+
+        os.system('cp -p '+args.folderName+'/powheg.input '+args.folderName+'/powheg.input.org')
 
         os.system('rm -rf JHUGen.input')
-        inputJHUGen = '/'.join(powInputName.split('/')[0:-1])+'/JHUGen.input'
-        if not os.path.exists(inputJHUGen) :
-            os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+inputJHUGen)
-            if os.path.exists('JHUGen.input') :
-                os.system('cp -p JHUGen.input '+args.folderName+'/.')
-            if os.path.exists(args.inputJHUGen) :
-                os.system('cp -p '+args.inputJHUGen+' '+args.folderName+'/JHUGen.input')
+        if args.inputJHUGen == "" :
+            inputJHUGen = '/'.join(powInputName.split('/')[0:-1])+'/JHUGen.input'
         else :
-            os.system('cp -p '+inputJHUGen+' '+args.folderName+'/.')
+            inputJHUGen = args.inputJHUGen
+
+        if args.inputJHUGen != "" and not os.path.exists(inputJHUGen) :
+            print 'wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+inputJHUGen+' -O '+args.folderName+'/JHUGen.input'
+            os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+inputJHUGen+' -O '+args.folderName+'/JHUGen.input')
+        elif os.path.exists(inputJHUGen) :
+            os.system('cp -p '+inputJHUGen+' '+args.folderName+'/JHUGen.input')
+
+        if os.path.exists(args.folderName+'/JHUGen.input') :
+            os.system('cp -p '+args.folderName+'/JHUGen.input '+args.folderName+'/JHUGen.input.org')
 
     if args.parstage == '0' :
 

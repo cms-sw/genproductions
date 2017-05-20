@@ -1,6 +1,6 @@
 Index: include/pwhg_io_interface.h
 ===================================================================
---- include/pwhg_io_interface.h	(revision 3248)
+--- include/pwhg_io_interface.h	(revision 3370)
 +++ include/pwhg_io_interface.h	(working copy)
 @@ -69,11 +69,12 @@
        integer, parameter :: z_ok=0
@@ -17,15 +17,15 @@ Index: include/pwhg_io_interface.h
  c     length: length of buffer
  c     current: current position in buffer (next read starts at next byte)
  c     upper: position of last byte already red
-@@ -89,3 +90,4 @@
-       type(pwhg_io_buffer_type) :: pwhg_io_buffer(pwhg_io_maxfiles)
-       common/pwhg_io_interface/files_handle,pwhg_io_buffer,pwhg_io_initialized
+@@ -90,3 +91,4 @@
+       common/pwhg_io_interface/files_handle,pwhg_io_buffer,
+      1     pwhg_io_initialized
  
-+c			character(len=1000) :: pwhg_io_buffer_buffer(10)
++c                      character(len=1000) :: pwhg_io_buffer_buffer(10)
 Index: include/pwhg_rwl.h
 ===================================================================
---- include/pwhg_rwl.h	(revision 3248)
-+++ include/pwhg_rwl.h	(working copy)
+--- include/pwhg_rwl.h  (revision 3370)
++++ include/pwhg_rwl.h  (working copy)
 @@ -12,7 +12,7 @@
  
        type rwl_weight_info
@@ -46,7 +46,7 @@ Index: include/pwhg_rwl.h
        real * 4, pointer :: rwl_weights(:)
 Index: pwhg_io_interface.f
 ===================================================================
---- pwhg_io_interface.f	(revision 3248)
+--- pwhg_io_interface.f	(revision 3370)
 +++ pwhg_io_interface.f	(working copy)
 @@ -5,7 +5,7 @@
        character(len=*) :: path
@@ -75,7 +75,7 @@ Index: pwhg_io_interface.f
        integer iun,iret
        integer j
        logical ok
-@@ -129,9 +129,9 @@
+@@ -130,9 +130,9 @@
              write(*,*) ' iret=',iret
           endif
           files_handle(iun) = c_null_ptr
@@ -88,7 +88,7 @@ Index: pwhg_io_interface.f
        endif
        pwhg_io_buffer(iun)%opened = .false.
        end
-@@ -245,7 +245,6 @@
+@@ -247,7 +247,6 @@
        implicit none
        include 'pwhg_io_interface.h'
        integer iun,nskip
@@ -96,7 +96,7 @@ Index: pwhg_io_interface.f
        if(.not. pwhg_io_buffer(iun)%opened) then
           write(*,*) ' pwhg_io_backspace: unit ',iun,
       1        ' is not opened, exiting ...'
-@@ -297,7 +296,9 @@
+@@ -299,7 +298,9 @@
              exit
           else
              if(upper+szchunk >  pwhg_io_buffer(iun)%length) then
@@ -107,7 +107,7 @@ Index: pwhg_io_interface.f
              endif
  c read one more chunk into buffer. If it doesn't fit, increase buffer size.
              inum = gzRead(files_handle(iun),buffer(1:szchunk),szchunk)
-@@ -311,36 +312,36 @@
+@@ -313,37 +314,37 @@
              endif
           endif
        enddo
@@ -127,7 +127,8 @@ Index: pwhg_io_interface.f
 -      olg=pwhg_io_buffer(iun)%length
 -      lg = olg + 1000
 -      if(lg>max_io_bufsize) then
--         write(*,*) " pwhg_io_skip_until: we can't find mark '"//mark//"'"
+-         write(*,*) " pwhg_io_skip_until: we can't find mark '"
+-     1        //mark//"'"
 -         write(*,*) " and are above max_io_bufsize limit."
 -         write(*,*) " if the mark is really there, you must."
 -         write(*,*) " set max_io_bufsize to a value larger than ",
@@ -157,7 +158,8 @@ Index: pwhg_io_interface.f
 +c4.8.5      olg=pwhg_io_buffer(iun)%length
 +c4.8.5      lg = olg + 1000
 +c4.8.5      if(lg>max_io_bufsize) then
-+c4.8.5         write(*,*) " pwhg_io_skip_until: we can't find mark '"//mark//"'"
++c4.8.5         write(*,*) " pwhg_io_skip_until: we can't find mark '"
++c4.8.5     1        //mark//"'"
 +c4.8.5         write(*,*) " and are above max_io_bufsize limit."
 +c4.8.5         write(*,*) " if the mark is really there, you must."
 +c4.8.5         write(*,*) " set max_io_bufsize to a value larger than ",
@@ -171,12 +173,12 @@ Index: pwhg_io_interface.f
 +c4.8.5      pwhg_io_buffer(iun)%buffer => buf
 +c4.8.5      pwhg_io_buffer(iun)%length = lg
 +c4.8.5      end subroutine pwhg_io_enlarge_buffer
-      
+ 
        end
  
 Index: rwl_weightlists.f
 ===================================================================
---- rwl_weightlists.f	(revision 3248)
+--- rwl_weightlists.f	(revision 3370)
 +++ rwl_weightlists.f	(working copy)
 @@ -186,8 +186,8 @@
           do kw = 1,rwl_num_weights
@@ -192,7 +194,7 @@ Index: rwl_weightlists.f
 @@ -298,15 +298,15 @@
        character(len=3) group
        do j=1,rwl_num_weights
-          write(*,'(a,i2)') 'Weight ',j
+          write(*,'(a,i4)') 'Weight ',j
 -         write(*,'(a)') '   id='//rwl_weights_array(j)%id//','
 +         write(*,'(a)') '   id='//trim(rwl_weights_array(j)%id)//','
           write(group,'(i3)')  rwl_weights_array(j)%group
