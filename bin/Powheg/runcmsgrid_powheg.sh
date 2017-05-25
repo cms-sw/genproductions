@@ -89,7 +89,7 @@ fi
 
 cat ${card} | sed -e "s#SEED#${seed}#g" | sed -e "s#NEVENTS#${nevt}#g" > powheg.input
 
-# Check if the powheg.input file contains the proper settings to calculate weights                                                                                                                           
+# Check if the powheg.input file contains the proper settings to calculate weights
 
 produceWeights="false" 
 
@@ -98,7 +98,6 @@ grep -q "pdfreweight 1" powheg.input ; test $? -eq 0 || produceWeights="false"
 
 cat powheg.input
 ../pwhg_main &> log_${process}_${seed}.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
-
 
 if [ "$produceWeightsNNLO" == "true" ]; then
     echo -e "\ncomputing weights for NNLOPS\n"
@@ -110,7 +109,7 @@ if [ "$produceWeightsNNLO" == "true" ]; then
     ../nnlopsreweighter
     mv fornnlops.nnlo pwgevents.lhe
 fi
- 
+
 rm -rf powheg.input*
 sed -e "/#new weight/d" -e "/<wgt id='c'>/d" -e "/<weight id='c'>/d" pwgevents.lhe > pwgevents.lhe.tmp
 mv pwgevents.lhe.tmp pwgevents.lhe 
@@ -136,8 +135,8 @@ if [ -s pwg-stat.dat ]; then
   tail -${tail} cmsgrid_final.lhe                           >  cmsgrid_final.lhe_tail
   head -${head} cmsgrid_final.lhe                           >  cmsgrid_final.lhe_F
   proclin=`expr $head + 1`
-  PROCESS=`sed -n -e ${proclin}p  cmsgrid_final.lhe |  awk '{print $4}'`
-  echo "  "$XSECTION"   "$XSECUNC"  1.00000000000E-00 "$PROCESS >>  cmsgrid_final.lhe_F
+  proc=`sed -n -e ${proclin}p  cmsgrid_final.lhe |  awk '{print $4}'`
+  echo "  "$XSECTION"   "$XSECUNC"  1.00000000000E-00 "$proc >>  cmsgrid_final.lhe_F
   echo "</init>"                                           >>  cmsgrid_final.lhe_F
   cat cmsgrid_final.lhe_tail                               >>  cmsgrid_final.lhe_F
   mv cmsgrid_final.lhe_F cmsgrid_final.lhe
