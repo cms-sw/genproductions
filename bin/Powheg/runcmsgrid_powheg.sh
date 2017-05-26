@@ -373,8 +373,8 @@ if [ -s pwg-stat.dat ]; then
   tail -${tail} cmsgrid_final.lhe                           >  cmsgrid_final.lhe_tail
   head -${head} cmsgrid_final.lhe                           >  cmsgrid_final.lhe_F
   proclin=`expr $head + 1`
-  PROCESS=`sed -n -e ${proclin}p  cmsgrid_final.lhe |  awk '{print $4}'`
-  echo "  "$XSECTION"   "$XSECUNC"  1.00000000000E-00 "$PROCESS >>  cmsgrid_final.lhe_F
+  proc=`sed -n -e ${proclin}p  cmsgrid_final.lhe |  awk '{print $4}'`
+  echo "  "$XSECTION"   "$XSECUNC"  1.00000000000E-00 "$proc >>  cmsgrid_final.lhe_F
   echo "</init>"                                           >>  cmsgrid_final.lhe_F
   cat cmsgrid_final.lhe_tail                               >>  cmsgrid_final.lhe_F
   mv cmsgrid_final.lhe_F cmsgrid_final.lhe
