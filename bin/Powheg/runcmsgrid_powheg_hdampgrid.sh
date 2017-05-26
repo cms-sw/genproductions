@@ -77,7 +77,11 @@ fi
 if [ -e  ${WORKDIR}/cteq6m ]; then
     cp -p ${WORKDIR}/cteq6m .
 fi
-
+### For the bb4l process
+if [[ -d ${WORKDIR}/obj-gfortran ]]; then
+    ln -s ${WORKDIR}/obj-gfortran .
+    cp -p ${WORKDIR}/pwg*.dat .
+fi
 if [[ ! -e ${card} ]]; then
  fail_exit "powheg.input not found!"
 fi
@@ -86,6 +90,7 @@ cat ${card} | sed -e "s#SEED#${seed}#g" | sed -e "s#NEVENTS#${nevt}#g" > powheg.
 
 # Check if the powheg.input file contains the proper settings to calculate weights                                                                                                                           
 produceWeights="true" 
+produceWeightsNNLO="false"
 grep -q "storeinfo_rwgt 1" powheg.input ; test $? -eq 0  || produceWeights="false"
 producePdfWeights="true" 
 grep -q "pdfreweight 1" powheg.input ; test $? -eq 0 || producePdfWeights="false"
@@ -152,6 +157,18 @@ then
 	mv powheg.input powheg.input.${scale1}_${scale2}
 #      fi;      
       done
+
+    if [ "$produceWeightsNNLO" == "true" ]; then
+      echo -e "\ncomputing weights for NNLOPS\n"
+      mv pwgevents.lhe fornnlops
+      cp ../nnlopsreweighter.input .
+      cp ../HNNLO-11.top .
+      cp ../HNNLO-22.top .
+      cp ../HNNLO-0505.top .
+      ../nnlopsreweighter
+      mv fornnlops.nnlo pwgevents.lhe
+    fi
+
     done
 
     if [ "$producePdfWeights" == "true" ];
@@ -387,8 +404,8 @@ if [ -s pwg-stat.dat ]; then
   tail -${tail} cmsgrid_final.lhe                           >  cmsgrid_final.lhe_tail
   head -${head} cmsgrid_final.lhe                           >  cmsgrid_final.lhe_F
   proclin=`expr $head + 1`
-  PROCESS=`sed -n -e ${proclin}p  cmsgrid_final.lhe |  awk '{print $4}'`
-  echo "  "$XSECTION"   "$XSECUNC"  1.00000000000E-00 "$PROCESS >>  cmsgrid_final.lhe_F
+  proc=`sed -n -e ${proclin}p  cmsgrid_final.lhe |  awk '{print $4}'`
+  echo "  "$XSECTION"   "$XSECUNC"  1.00000000000E-00 "$proc >>  cmsgrid_final.lhe_F
   echo "</init>"                                           >>  cmsgrid_final.lhe_F
   cat cmsgrid_final.lhe_tail                               >>  cmsgrid_final.lhe_F
   mv cmsgrid_final.lhe_F cmsgrid_final.lhe
