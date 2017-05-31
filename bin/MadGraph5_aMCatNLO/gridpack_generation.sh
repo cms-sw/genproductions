@@ -100,9 +100,10 @@ echo "queue: ${queue}"
 
 if [ -z ${iscmsconnect:+x} ]; then iscmsconnect=0; fi
 
-# Check for git availability
-which git > /dev/null 2>&1
-if [ $? -eq 0 ]; then
+# CMS Connect doesn't clone
+# the whole repository for the CODEGEN step
+# so git doesn't work even if available.
+if [ $iscmsconnect -eq 0 ]; then
   cd $PRODHOME
   git status
   echo "Current git revision is:"
@@ -218,8 +219,16 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
         #*FIXME* broken in mg_amc 2.4.0
 #         echo "set cluster_queue $queue" >> mgconfigscript
       fi 
-      echo "set cluster_status_update 60 30" >> mgconfigscript
-      if [ $iscmsconnect -gt 0 ]; then n_retries=10; else n_retries=3; fi
+      if [ $iscmsconnect -gt 0 ]; then
+	  n_retries=10
+	  long_wait=300
+	  short_wait=120
+      else
+	  n_retries=3
+	  long_wait=60
+	  short_wait=30
+      fi
+      echo "set cluster_status_update $long_wait $short_wait" >> mgconfigscript
       echo "set cluster_nb_retry $n_retries" >> mgconfigscript
       echo "set cluster_retry_wait 300" >> mgconfigscript 
       #echo "set cluster_local_path `${LHAPDFCONFIG} --datadir`" >> mgconfigscript 
@@ -597,7 +606,7 @@ else
   #set to single core mode
   echo "mg5_path = ../../mgbasedir" >> ./madevent/Cards/me5_configuration.txt
   echo "cluster_temp_path = None" >> ./madevent/Cards/me5_configuration.txt
-  echo "run_mode = 0" >> ./madevent/Cards/me5_configuration.txt  
+  echo "run_mode = 0" >> ./madevent/Cards/me5_configuration.txt
     
   cd $WORKDIR
   

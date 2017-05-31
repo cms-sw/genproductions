@@ -1,0 +1,98 @@
+diff --git a/Template/LO/SubProcesses/refine.sh b/Template/LO/SubProcesses/refine.sh
+index 1f19ab6..577461f 100644
+--- a/Template/LO/SubProcesses/refine.sh
++++ b/Template/LO/SubProcesses/refine.sh
+@@ -5,6 +5,13 @@ if [ $CLUSTER_LHAPATH ]; then
+   export LHAPATH=$CLUSTER_LHAPATH;
+ fi
+ 
++# Add CVMFS libraries to LD_LIBRARY_PATH, if not present already
++if [ $SRT_LD_LIBRARY_PATH_SCRAMRT ]; then 
++  if [ -n ${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRT}*} ]; then
++    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRT:$LD_LIBRARY_PATH"
++  fi
++fi
++
+ if [[ -e MadLoop5_resources.tar.gz && ! -e MadLoop5_resources ]]; then
+ tar -xzf MadLoop5_resources.tar.gz
+ fi
+diff --git a/Template/LO/SubProcesses/refine_splitted.sh b/Template/LO/SubProcesses/refine_splitted.sh
+index 10fe14f..d7d5df6 100644
+--- a/Template/LO/SubProcesses/refine_splitted.sh
++++ b/Template/LO/SubProcesses/refine_splitted.sh
+@@ -4,6 +4,14 @@
+ if [ $CLUSTER_LHAPATH ]; then
+   export LHAPATH=$CLUSTER_LHAPATH;
+ fi
++
++# Add CVMFS libraries to LD_LIBRARY_PATH, if not present already
++if [ $SRT_LD_LIBRARY_PATH_SCRAMRT ]; then 
++  if [ -n ${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRT}*} ]; then
++    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRT:$LD_LIBRARY_PATH"
++  fi
++fi
++
+ if [[ -e MadLoop5_resources.tar.gz && ! -e MadLoop5_resources ]]; then
+ tar -xzf MadLoop5_resources.tar.gz
+ fi
+@@ -76,4 +84,4 @@ if [[ $status_code -ne 0 ]]; then
+ 	 echo "end code not correct $status_code" > results.dat
+ fi
+ 
+-cd ../
+\ No newline at end of file
++cd ../
+diff --git a/Template/LO/SubProcesses/survey.sh b/Template/LO/SubProcesses/survey.sh
+index 8433127..c9ef2c5 100755
+--- a/Template/LO/SubProcesses/survey.sh
++++ b/Template/LO/SubProcesses/survey.sh
+@@ -5,6 +5,13 @@ if [ $CLUSTER_LHAPATH ]; then
+   export LHAPATH=$CLUSTER_LHAPATH;
+ fi
+ 
++# Add CVMFS libraries to LD_LIBRARY_PATH, if not present already
++if [ $SRT_LD_LIBRARY_PATH_SCRAMRT ]; then 
++  if [ -n ${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRT}*} ]; then
++    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRT:$LD_LIBRARY_PATH"
++  fi
++fi
++
+ if [[ -e MadLoop5_resources.tar.gz && ! -e MadLoop5_resources ]]; then
+ tar -xzf MadLoop5_resources.tar.gz;
+ fi
+diff --git a/Template/NLO/SubProcesses/ajob_template b/Template/NLO/SubProcesses/ajob_template
+index 93a8260..db5444b 100755
+--- a/Template/NLO/SubProcesses/ajob_template
++++ b/Template/NLO/SubProcesses/ajob_template
+@@ -12,6 +12,13 @@ if [ $CLUSTER_LHAPATH ]; then
+    export LHAPATH=$CLUSTER_LHAPATH;
+ fi
+ 
++# Add CVMFS libraries to LD_LIBRARY_PATH, if not present already
++if [ $SRT_LD_LIBRARY_PATH_SCRAMRT ]; then 
++  if [ -n ${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRT}*} ]; then
++    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRT:$LD_LIBRARY_PATH"
++  fi
++fi
++
+ tarCounter=0
+ while [[ (-f MadLoop5_resources.tar.gz) && (! -f MadLoop5_resources/HelConfigs.dat) && ($tarCounter < 10) ]]; do
+     if [[ $tarCounter > 0 ]]; then
+diff --git a/Template/NLO/SubProcesses/reweight_xsec_events.local b/Template/NLO/SubProcesses/reweight_xsec_events.local
+index 2bd5719..a38c4e8 100644
+--- a/Template/NLO/SubProcesses/reweight_xsec_events.local
++++ b/Template/NLO/SubProcesses/reweight_xsec_events.local
+@@ -8,6 +8,13 @@ if [ $CLUSTER_LHAPATH ]; then
+   export LHAPATH=$CLUSTER_LHAPATH;
+ fi
+ 
++# Add CVMFS libraries to LD_LIBRARY_PATH, if not present already
++if [ $SRT_LD_LIBRARY_PATH_SCRAMRT ]; then 
++  if [ -n ${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRT}*} ]; then
++    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRT:$LD_LIBRARY_PATH"
++  fi
++fi
++
+ if [[ -e ./reweight_xsec_events ]]
+ then
+     (echo $event_file; echo $save_wgts) | ./reweight_xsec_events > reweight_xsec_events.output
