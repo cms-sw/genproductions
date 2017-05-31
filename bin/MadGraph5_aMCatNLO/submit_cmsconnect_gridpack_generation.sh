@@ -85,7 +85,7 @@ EOF
 mintime=172800
 timeleft=$(voms-proxy-info -timeleft 2>&1)
 if [ $? != 0 ]; then
-    echo -e "Proxies are needed. Please execute the command below and submit your gridpack again\n\n:voms-proxy-init -voms cms -valid 192:00"
+    echo -e "Proxies are needed. Please execute the command below and submit your gridpack again:\n\nvoms-proxy-init -voms cms -valid 192:00"
     exit 100
 elif [ "$timeleft" -lt "$mintime" ]; then
     echo "Your proxy time left is less that 48 hours. Please renew it before submitting your gridpack."
