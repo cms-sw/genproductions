@@ -12,4 +12,4 @@ define vl~ = ve~ vm~ vt~
 import model Gstar_UFO
 generate p p > kkg ts > t~ w+ b
 add process p p > kkg ts~ > w- b~ t
-output ZpTpt_Zp2000WID_Tp1500NarLH_Wb
+output ZpTpt_Zp3500WID_Tp1800NarLH_Wb

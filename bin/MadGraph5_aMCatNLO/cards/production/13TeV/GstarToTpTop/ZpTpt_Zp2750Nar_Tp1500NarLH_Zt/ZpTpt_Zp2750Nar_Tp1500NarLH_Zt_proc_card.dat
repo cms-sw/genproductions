@@ -1,3 +1,4 @@
+
 set group_subprocesses Auto
 set ignore_six_quark_processes False
 set loop_optimized_output True
@@ -10,6 +11,6 @@ define l- = e- mu-
 define vl = ve vm vt
 define vl~ = ve~ vm~ vt~
 import model Gstar_UFO
-generate p p > kkg ts > t~ w+ b
-add process p p > kkg ts~ > w- b~ t
-output ZpTpt_Zp2000WID_Tp1500NarLH_Wb
+generate p p > kkg ts > t~ t z
+add process p p > kkg ts~ > t~ t z
+output ZpTpt_Zp2750Nar_Tp1500NarLH_Zt

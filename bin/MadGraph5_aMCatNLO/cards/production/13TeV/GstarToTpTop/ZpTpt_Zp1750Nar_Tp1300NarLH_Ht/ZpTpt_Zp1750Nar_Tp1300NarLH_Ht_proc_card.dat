@@ -10,6 +10,6 @@ define l- = e- mu-
 define vl = ve vm vt
 define vl~ = ve~ vm~ vt~
 import model Gstar_UFO
-generate p p > kkg ts > t~ w+ b
-add process p p > kkg ts~ > w- b~ t
-output ZpTpt_Zp2000WID_Tp1500NarLH_Wb
+generate p p > kkg ts > t~ t h
+add process p p > kkg ts~ > t~ t h
+output ZpTpt_Zp1750Nar_Tp1300NarLH_Ht
