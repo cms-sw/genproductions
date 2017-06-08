@@ -390,6 +390,11 @@ sed -i -e "s#PDF[ \t]*=[ \t]*native#PDF=lhapdf#g" Makefile
 # Use gfortran, not other compilers which are not free/licensed
 sed -i -e "s#COMPILER[ \t]*=[ \t]*ifort#COMPILER=gfortran#g" Makefile
 
+# Use option O0 for bbH (O2 too long)
+if [ "$process" = "bbH" ]; then
+   sed -i -e "s#O2#O0#g" Makefile
+fi
+
 # hardcode svn info
 sed -i -e 's#^pwhg_main:#$(shell ../svnversion/svnversion.sh>/dev/null) \
 \
@@ -1044,6 +1049,7 @@ if __name__ == "__main__":
         prepareJob(tagName, '', '.')
 
         if not os.path.exists(args.inputTemplate) :
+            os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate+' -O '+args.folderName+'/powheg.input')
             os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate)
         os.system('mkdir -p '+rootfolder+'/'+args.folderName)
         os.system('cp -p '+args.inputTemplate+' '+args.folderName+'/powheg.input')

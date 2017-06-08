@@ -15,9 +15,9 @@ for Reference_dir in Reference_dirs:
 		print "BAD VLQ"
 	FinalStates = ["Ht"]
 	Chiralities =["LH","RH"]
-	Masses = [[1500,[700,900,1200]],[2000,[900,1200,1500]],[2500,[1200,1500,1900]],[3000,[1500,1900,2200]],[3500,[1900,2200,2600]],[4000,[2200,2600,3100]]]
+	Masses = [[1500,[800,1000,1300]],[2000,[1000,1300,1500]],[2500,[1300,1500,1800]],[3000,[1500,1800,2100]],[3500,[1800,2100,2500]],[4000,[2100,2500,3000]]]
 	Zwidths = [[0.03,'Nar'],[0.3,'Wid']]
-	Twidths = [[0.01,'Nar'],[0.1,'Wid']]
+	Twidths = [[0.03,'Nar'],[0.3,'Wid']]
 
 
 	for state in FinalStates:
@@ -26,17 +26,29 @@ for Reference_dir in Reference_dirs:
 				for tmass in zmass[1]:
 					for zwidth in Zwidths:
 						for twidth in Twidths:
-							if zmass[0]==1500 and tmass==zmass[1][0]:
-								continue 
-							elif hand=='LH' and not (tmass==zmass[1][1]):
+							#if zmass[0]==1500 and tmass==zmass[1][0]:
+							#	continue 
+							if hand=='RH' and not (tmass==zmass[1][1]):
 								continue
-							elif (zwidth[1]!=twidth[1]) and not (tmass==zmass[1][1]):
-								continue
-							if hand=='LH' :
+							#if (zwidth[1]!=twidth[1]) and not (tmass==zmass[1][1]):
+							#	continue
+						
+							if (twidth[1]=='Wid') :
+								print  twidth[1]	 
+								if hand=='RH' :
+									continue
+								if hand=='LH' :
+									if tmass!=zmass[1][1]:
+										continue
+									if zmass[0]!=2000 and zmass[0]!=3000:
+										print zmass[0]
+										continue 
+							
+							if hand=='RH' :
 								if (zwidth[1]!=twidth[1]):
 									continue
-								if zmass[0]!=1500 and zmass[0]!=2500 and zmass[0]!=3500:
-									continue
+								#if zmass[0]!=1500 and zmass[0]!=2500 and zmass[0]!=3500:
+								#	continue
 
 							#create name
 							sampleName = prefixington+'_Wp'+str(zmass[0])+zwidth[1]+'_'+VLQ+str(tmass)+twidth[1]+hand+'_'+state
