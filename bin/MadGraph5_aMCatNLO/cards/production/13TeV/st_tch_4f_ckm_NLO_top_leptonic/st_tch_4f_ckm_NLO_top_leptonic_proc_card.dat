@@ -1,0 +1,8 @@
+import model loop_sm-ckm
+#switch to non-diagonal ckm matrix for speed
+#import model loop_sm
+
+generate p p > t~ b j $$ w+ w- [QCD] @0
+
+output st_tch_4f_ckm_NLO_top_leptonic -nojpeg
+
