@@ -156,18 +156,6 @@ then
         iteration=$(( iteration + 1 ))
    done
 
-    if [ "$produceWeightsNNLO" == "true" ]; then
-      echo -e "\ncomputing weights for NNLOPS\n"
-      mv pwgevents.lhe fornnlops
-      cp ../nnlopsreweighter.input .
-      cp ../HNNLO-11.top .
-      cp ../HNNLO-22.top .
-      cp ../HNNLO-0505.top .
-      ../nnlopsreweighter
-      mv fornnlops.nnlo pwgevents.lhe
-    fi
- 
-
     echo -e "\ncomputing weights for 100 NNPDF3.0 nlo variations\n"
     iteration=260001
     lastfile=260100
@@ -383,6 +371,19 @@ fi
 sed "s@-1000021@ 1000022@g" cmsgrid_final.lhe           > cmsgrid_final.lhe_F1
 sed "s@1000021@1000022@g"   cmsgrid_final.lhe_F1          > cmsgrid_final.lhe
 cp ${file}_final.lhe ${WORKDIR}/.
+
+if [ "$produceWeightsNNLO" == "true" ]; then
+    echo -e "\ncomputing weights for NNLOPS is not possible at this stage\n"
+    echo -e "because the job is too small. Please run many jobs using \n"
+    echo -e "run_lhe_parallel.sh and then run run_nnlops.sh on them. \n"
+      #mv pwgevents.lhe fornnlops
+      #cp ../nnlopsreweighter.input .
+      #cp ../HNNLO-11.top .
+      #cp ../HNNLO-22.top .
+      #cp ../HNNLO-0505.top .
+      #../nnlopsreweighter
+      #mv fornnlops.nnlo pwgevents.lhe
+fi
 
 echo "Output ready with ${file}_final.lhe at $WORKDIR"
 echo "End of job on " `date`
