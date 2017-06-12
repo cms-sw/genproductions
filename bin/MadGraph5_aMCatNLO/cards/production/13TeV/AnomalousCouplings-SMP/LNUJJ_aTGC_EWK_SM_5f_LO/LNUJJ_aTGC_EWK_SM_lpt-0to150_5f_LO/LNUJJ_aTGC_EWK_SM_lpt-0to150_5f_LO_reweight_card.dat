@@ -1,4 +1,6 @@
- change mode LO  
+ change mode LO
+ change helicity False
+ change rwgt_dir rwgt
 
  launch --rwgt_name=cwww_15_cw_40_cb_175
 	 set Dim6 1 15
