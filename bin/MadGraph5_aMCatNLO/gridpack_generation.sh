@@ -295,13 +295,18 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
 
   ./$MGBASEDIRORIG/bin/mg5_aMC ${name}_proc_card.dat
 
-  #*FIXME* workaround for broken set cluster_queue handling (only needed for LSF)
-  if [ "$queue" != "condor" ]; then
-    echo "cluster_queue = $queue" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
-  fi
-  if [ "$isscratchspace" -gt "0" ]; then
-    echo "cluster_temp_path = `echo $RUNHOME`" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
-  fi
+   #*FIXME* workaround for broken set cluster_queue and run_mode handling
+   if [ "$queue" != "condor" ]; then
+     echo "cluster_queue = $queue" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
+     if [ "$isscratchspace" -gt "0" ]; then
+         echo "cluster_temp_path = `echo $RUNHOME`" >> ./$MGBASEDIRORIG/input/mg5_con»
+     fi
+   elif [ "$queue" == "condor" ]; then
+     echo "cluster_queue = None" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
+     echo "run_mode = 1" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
+     echo "cluster_type = condor" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
+   fi
+
 #   echo "cluster_local_path = `${LHAPDFCONFIG} --datadir`" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt    
   
   if [ -e $CARDSDIR/${name}_patch_me.sh ]; then
