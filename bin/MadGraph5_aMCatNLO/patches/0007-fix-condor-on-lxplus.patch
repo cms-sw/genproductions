@@ -22,7 +22,7 @@
 +            return "F"
 +        elif output == '5':
 +            hold_reason = subprocess.check_output(["condor_q", str(id),"-af", "HoldReason"])
-+            logger.info("ClusterId %i held with HoldReason %s" % (str(id), hold_reason))
++            logger.warning("ClusterId %i held with HoldReason %s" % (str(id), hold_reason))
 +        return output
      
      @check_interupt()
@@ -38,7 +38,7 @@
              
              status = misc.Popen([cmd], shell=True, stdout=subprocess.PIPE, 
                                                               stderr=subprocess.PIPE)
-@@ -1035,12 +1039,17 @@
+@@ -1035,12 +1039,16 @@
              for line in status.stdout:
                  id, status = line.strip().split()
                  ongoing.append(int(id))
@@ -53,9 +53,8 @@
                      fail += 1
 +                    if status == '5':
 +                        hold_reason = subprocess.check_output(["condor_q", str(id),"-af", "HoldReason"])
-+                        logger.info("ClusterId %i held with HoldReason %s" % (str(id), hold_reason))
-+                        print "ClusterId %i held with HoldReason %s" % (str(id), hold_reason)
++                        logger.warning("ClusterId %i held with HoldReason %s" % (str(id), hold_reason))
 +                        
- 
+
          for id in list(self.submitted_ids):
              if int(id) not in ongoing:
