@@ -34,7 +34,7 @@ define l- = e- mu-
 # Specify process(es) to run
 generate p p > w+ l+ l- j j, w+ > l+ vl @0
 add process p p > w- l+ l- j j, w- > l- vl~ @1
-add process p p > w+ l+ l- j j j, w+ > l+ vl~ @2
+add process p p > w+ l+ l- j j j, w+ > l+ vl @2
 add process p p > w- l+ l- j j j, w- > l- vl~ @3
 
 # Output processes to MadEvent directory
