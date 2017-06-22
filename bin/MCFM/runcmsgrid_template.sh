@@ -15,6 +15,8 @@ ncpu=${3}
 echo "%MSG-MG5 number of cpus = $ncpu"
 
 LHEWORKDIR=`pwd`
+export VO_CMS_SW_DIR=/cvmfs/cms.cern.ch
+source $VO_CMS_SW_DIR/cmsset_default.sh
 export SCRAM_ARCH=${scram_arch_version}
 scramv1 project CMSSW ${cmssw_version}
 cd ${cmssw_version}/src
