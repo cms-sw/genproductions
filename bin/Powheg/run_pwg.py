@@ -846,11 +846,11 @@ fi
 
 if [ $keepTop == '1' ]; then
     echo 'Keeping validation plots.'
-    echo 'Packing...' ${WORKDIR}'/'${folderName}'_'${process}'.tgz'
-    tar zcf ${WORKDIR}'/'${folderName}'_'${process}'.tgz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.lhe --exclude=run_*.sh --exclude=*.log --exclude=*temp --exclude=pwgbtlupb-*.dat --exclude=pwgrmupb-*.dat
+    echo 'Packing...' ${WORKDIR}'/'${folderName}'_'${SCRAM_ARCH}'_'${CMSSW_VERSION}'_'${process}'.tgz
+    tar zcf ${WORKDIR}'/'${folderName}'_'${SCRAM_ARCH}'_'${CMSSW_VERSION}'_'${process}'.tgz * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.lhe --exclude=run_*.sh --exclude=*.log --exclude=*temp --exclude=pwgbtlupb-*.dat --exclude=pwgrmupb-*.dat
 else
-    echo 'Packing...' ${WORKDIR}'/'${folderName}'_'${process}'.tgz'
-    tar zcf ${WORKDIR}'/'${folderName}'_'${process}'.tgz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.top --exclude=*.lhe --exclude=run_*.sh --exclude=*.log --exclude=*temp --exclude=pwgbtlupb-*.dat --exclude=pwgrmupb-*.dat
+    echo 'Packing...' ${WORKDIR}'/'${folderName}'_'${SCRAM_ARCH}'_'${CMSSW_VERSION}'_'${process}'.tgz
+    tar zcf ${WORKDIR}'/'${folderName}'_'${SCRAM_ARCH}'_'${CMSSW_VERSION}'_'${process}'.tgz * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.top --exclude=*.lhe --exclude=run_*.sh --exclude=*.log --exclude=*temp --exclude=pwgbtlupb-*.dat --exclude=pwgrmupb-*.dat
 fi
 
 cd ${WORKDIR}
