@@ -1,0 +1,363 @@
+--- POWHEG-BOX/Bornzerodamp.f 2016-09-23 15:15:29.000000001 +0200
++++ POWHEG-BOX/Bornzerodamp.f 2017-06-21 18:53:35.000000001 +0200
+@@ -30,19 +30,22 @@
+          endif
+          if(h.gt.0) then
+             write(*,*)'***************************************'
+-            write(*,*)' Using a damping factor h**2/(pt2+h**2)'
++            write(*,*)' Using a damping factor h^2/(pt2+h^2)'
+             write(*,*)' to separate real contributions between'
+-            write(*,*)' Sudakov and remnants    h=',h,' GeV   ' 
++            write(*,*)' Sudakov and remnants    h=',h
+             write(*,*)'***************************************'
+          endif
+          ini=.false.
+       endif
+-c local variables
+-      if(h.gt.0) then
+-         pt2=pwhg_pt2()
+-         dampfac=h**2/(pt2+h**2)
+-      else
+-         dampfac=1
++c
++      dampfac = 1
++      if(flst_alrres(nlegreal,alr).eq.0) then
++c hfact applied only for radiation in production
++         if(h.gt.0) then
++            
++            pt2 = kn_cmpreal(1,nlegreal)**2+kn_cmpreal(2,nlegreal)**2
++            dampfac=h**2/(pt2+h**2)
++         endif
+       endif
+ 
+       if(flg_bornzerodamp.and.r0.gt.5*rc.and.r0.gt.5*rs) then
+
+--- POWHEG-BOX/ttb_NLO_dec/gen_radiation_hook.f	2017-04-11 09:27:23.000000001 +0200
++++ POWHEG-BOX/ttb_NLO_dec/gen_radiation_hook.f 2017-06-23 11:31:46.000000001 +0200
+@@ -3,40 +3,131 @@
+       include 'nlegborn.h'
+       include 'pwhg_rad.h'
+       include 'pwhg_kn.h'
++      include 'pwhg_flg.h'
++      include 'pwhg_flst.h'
+       real * 8 t,tmax
+-      integer save_rad_kinreg
++      integer save_rad_kinreg,save_rad_realalr,save_kn_emitter,save_rad_alr_nlist 
+       logical save_on
+-      real * 8 save_kn_csi,save_kn_y,save_kn_azi,save_kn_emitter
+-      integer jnlowhich,allrad,fladec,fltdec
++      real * 8 save_kn_csi,save_kn_y,save_kn_azi
++      integer jnlowhich,allrad,fladec,fltdec,alr,em,j,local_alr_nlist
+       common/cjnlowhich/jnlowhich,allrad,fladec,fltdec
++
++c     this subroutine is called just after a gen_remnant call.  If it's
++c     a genuine remnant (not a regular), then an emitter has been
++c     selected. Since for this process we are only allowing remnants
++c     from radiation from production (hdamp), check that the emitter and
++c     rad_kinreg are compatible.
++c      print*, 'rad_kinreg,kn_csi = ',rad_kinreg,kn_csi
++      if(kn_emitter.gt.2.or.rad_kinreg.ne.1.or.kn_csi.eq.0d0) then
++         write(*,*) 'error in gen_remnant_hook: kn_emitter,rad_kinreg,kn_csi '
++     $        ,kn_emitter,rad_kinreg,kn_csi
++         call exit(-1)
++      endif
++c     We are not allowing bornzerodamp for this process (see
++c     init_couplings.f).
++      if(flg_bornzerodamp) then
++         write(*,*) 'error in gen_remnant_hook: flg_bornzerodamp'
++         call exit(-1)
++      endif
++
++c     if we are not doing allrad, we are done. Just keep doing what
++c     normal powheg would do (which in this case is writing a remmant
++c     event with just radiation from production).
+       if(allrad.ne.1) return
+ 
++c     first, save the current kinematics (remnant configuration).
++c      print*, 'UB PROCESS ',flst_born(:,rad_ubornidx)
++c      print*, 'REMN PROCESS ',flst_alr(:,rad_realalr)
++
+       save_kn_emitter = kn_emitter
+       save_rad_kinreg = rad_kinreg
+       save_kn_csi = kn_csi
+       save_kn_y = kn_y
+       save_kn_azi = kn_azi
++      save_rad_realalr = rad_realalr
++      save_rad_alr_nlist = rad_alr_nlist
++      save_on = rad_kinreg_on(1)
++
++cccccccccc      
++c     No need to reset rad_kinreg to 1 (as if we are here, it must be
++c     1, see above).  However, let's do it explicitly, helps reading the code.
+       rad_kinreg = 1
+       call gen_radiation_hook(t,tmax)
++cccccccccc
++      
++c     At this point, there has not been any loop on other emissions
++c     (from resonances). The (remnant) ISR has just been stored by means
++c     of the previous variables, and the previous call to
++c     gen_radiation_hook makes sure that the skn_cmpreal for ISR is
++c     filled properly starting from the true remnant kinematics. I now
++c     need to loop over all other regions, as allrad=1. However at this
++c     point, rad_kinreg_on(*) is all set to false, as the place where
++c     it's filled properly is gen_uborn_idx (but we haven't called it
++c     here, we are generating a remnant event).  To fill it properly, we
++c     repeat here what we would do in gen_uborn_idx, recalling that
++c     rad_ubornidx has just been set in gen_remnant. Moreover, to
++c     generate radiation properly, I need to have rad_alr_nlist
++c     set.
++      rad_alr_nlist=flst_born2alr(0,rad_ubornidx)
++      do j=1,rad_alr_nlist
++         alr=flst_born2alr(j,rad_ubornidx)
++         em=flst_emitter(alr)
++         rad_alr_list(j)=alr
++         if(em.le.2) then
++            rad_kinreg_on(1)=.true.
++         else
++            rad_kinreg_on(em-flst_lightpart+2)=.true.
++         endif
++      enddo
+ 
+-      save_on = rad_kinreg_on(1)
+-      rad_kinreg_on(1) = .false.
++c     overwrite rad_kinreg_on(1)=false, as I don't want to generate that
++c     again (we are in a remnant event, it has been already generated!)
++      rad_kinreg_on(1)=.false.
++c     If I allow the code to re-generate the ISR for a remnant, I'll end
++c     up with a wrong LHE file (for instance, scalup will not match).
++c     This is because I would put in sn_kncmpreal the wrong kinematics,
++c     rather than the correct, original, one. Calling the radiation_hook
++c     on the correct kinematics (see above), and setting
++c     rad_kinreg_on(1)=false, prevents this error to happen.
++
++c     Now generate all other possible emissions (emissions from the
++c     decay(s)).
++      
+       call gen_radiation
+-      rad_kinreg_on(1) = save_on
+-c gen_radiation has certainly changed the following variables,
+-c since it has computed radiation from resonances. Must put back
+-c the remnant ISR type event.
++
++c     gen_radiation has certainly changed the following variables, since
++c     it has computed radiation from resonances. Must put back the
++c     remnant ISR type event.  Before doing so, check that rad_kinreg
++c     was set to zero. This is the case due to the fact that, because of
++c     the hook, t is never bigger than tmax, so in gen_radiation, kinreg
++c     stays equal to zero (whilst rad_kinreg is changing...)
++      if(rad_kinreg.ne.0) then
++         write(*,*) 'error in gen_remnant_hook, rad_kinreg = ',rad_kinreg
++         call exit(-1)
++      endif
++      
+       rad_kinreg = save_rad_kinreg
+       kn_emitter = save_kn_emitter
+       kn_csi = save_kn_csi
+       kn_y = save_kn_y
+       kn_azi = save_kn_azi
+-
++      rad_realalr = save_rad_realalr
++      rad_alr_nlist = save_rad_alr_nlist 
++      rad_kinreg_on(1) = save_on
++      
+ c generate again the remnant phase space;
+ c the LH routines assumes that the initial state
+-c radiation configuration is in the kn block.
++c radiation configuration is in the kn block. 
+       call gen_real_phsp_isr_rad
+ 
++c     The above is needed as if we are in the allrad+remnant
++c     configuration, then in the gen_radiation subroutine I don't rech
++c     the call to gen_real_phsp_isr_rad (because kinreg stays equal to
++c     zero). The call to set_rad_scales is taken care of in pwhgevent
++c     (as usual for a remnant, in the remnant branch of the main if
++c     block). The flavour configuration was already decided by
++c     gen_remnant, and it's saved via rad_realalr.
++
+       end
+       
+       subroutine gen_radiation_hook(t,tmax)
+@@ -61,6 +152,7 @@
+       integer o_radkinreg
+       data o_radkinreg/100/
+       save o_radkinreg
++c      print*, '    in gen_radiation_hook: csi = ',kn_csi
+       if(allrad.ne.1) return
+       if(rad_kinreg.lt.o_radkinreg) then
+          radres = 0
+@@ -69,11 +161,12 @@
+          index = 0
+       endif
+       o_radkinreg = rad_kinreg
+-c if no radiation was generted at this stage, skip;
++c if no radiation was generated at this stage, skip;
+ c but go to last lines to setup output values of t, tmax and rad_kinreg
+       if(kn_csi.eq.0) goto 998
+       index = index + 1
+       if(rad_kinreg.eq.1) then
++c         print*, '       --> hook: emission from production,index= ',index
+          indcur = index
+          res = 1
+       else
+@@ -95,22 +188,27 @@
+             endif
+          enddo
+       endif
++c      print*, '       --> hook: emission from resonance (res,index) = ',res,index
+       if(index.gt.5) then
+          write(*,*) ' gen_radiation_hook: got more than 5 regions!'
+          call exit(-1)
+       endif
+       radres(indcur) = res
+       tgen(indcur)   = t
++c      print*, 'calling offshellmapreal in gen_rad_hook, res= ',res
++c     $     ,' 3,4,5,6=t,tb,wp,wm'
++c      print*, 'csi for this emission: ',kn_csi
+       call offshellmapreal
+       vecl = (/ 0,0,1 /)
+       betal = ( kn_x1 - kn_x2 )/( kn_x1 + kn_x2 )
+       call mboost(nlegreal,vecl,-betal,preal_os,
+      1     skn_cmpreal(0:3,1:nlegreal,indcur))
++c      print*, '       --> saved kinematics skn_cmpreal for indcur,t = ',indcur,tgen(indcur)
+  998  if(rad_kinreg.eq.1) then
+ c make sure that ISR always wins, since t>tmax
+ c with this settings, tmax will be still 0 at the first
+-c round (we want all regions to try to radiate down to 0
+-         if(kn_csi.eq.0) rad_kinreg = 0
++c round (we want all regions to try to radiate down to 0)
++         if(kn_csi.eq.0) rad_kinreg = 0 !ER: I am not sure I understand this line. Maybe it's just to make sure that when I pass through this hook, if I was in a Btilde event without ISR radiation, I save that information.
+          t    =  0
+          tmax = -1
+       else
+@@ -141,6 +239,7 @@
+       integer ii1,ii2,it,itb,iwp,iwm,iwpa,iwpf,iwmf,iwma,ib,ibb,ip
+       common/inputprocind/ii1,ii2,it,itb,iwp,iwm,iwpa,iwpf,iwmf,iwma,
+      1     ib,ibb,ip
++      real *8 wmom_tdec(0:3),wmom_wdec(0:3),dotp
+ c No emissions or a single emission; nothing to do
+       if(index.lt.1) then
+          if(rad_kinreg.ne.0) then
+@@ -160,6 +259,7 @@
+       kwp = 0
+ c radiation from w-
+       kwm = 0
++
+       do j=1,index
+          if(radres(j).eq.1) then
+             kir = j
+@@ -173,8 +273,12 @@
+             kwm = j
+          endif
+       enddo
++c      print*, 'combine emission: index,kir,ktp,ktm,kwp,kwm ',index,kir
++c     $     ,ktp,ktm,kwp,kwm
++c      print*, skn_cmpreal(0,:,index)
+       if(ktp.ne.0.or.kwp.ne.0) then
+          if(ktp.eq.0) then
++c            print*, '>>>>> WP, no top'
+             tpmoms(:,1) = skn_cmpreal(:,it,kwp)
+             tpmoms(:,2) = skn_cmpreal(:,ib,kwp)
+             tpmoms(:,3) = 0
+@@ -183,6 +287,7 @@
+             tpmoms(:,6) = skn_cmpreal(:,iwpa,kwp)
+             tpmoms(:,7) = skn_cmpreal(:,nlegreal,kwp)
+          elseif(kwp.eq.0) then
++c            print*, '>>>>> top, no WP'
+             tpmoms(:,1) = skn_cmpreal(:,it,ktp)
+             tpmoms(:,2) = skn_cmpreal(:,ib,ktp)
+             tpmoms(:,3) = skn_cmpreal(:,nlegreal,ktp)
+@@ -191,21 +296,27 @@
+             tpmoms(:,6) = skn_cmpreal(:,iwpa,ktp)
+             tpmoms(:,7) = 0
+          else
++c            print*, '>>>>> top, WP'
+             tpmoms(:,1) = skn_cmpreal(:,it,ktp)
+             tpmoms(:,2) = skn_cmpreal(:,ib,ktp)
+             tpmoms(:,3) = skn_cmpreal(:,nlegreal,ktp)
+             
+             tpmoms(:,4) = skn_cmpreal(:,iwp,ktp)
++c            wmom_tdec(:) = tpmoms(:,4) !ER:
+             tpmoms(:,5) = skn_cmpreal(:,iwpf,kwp)
+             tpmoms(:,6) = skn_cmpreal(:,iwpa,kwp)
+             tpmoms(:,7) = skn_cmpreal(:,nlegreal,kwp)
++            wmom_wdec(:) = tpmoms(:,5)+tpmoms(:,6)+tpmoms(:,7)
++            !print*, 'virtualities ',dotp(wmom_tdec,wmom_tdec)
++!     $           ,dotp(wmom_wdec,wmom_wdec)
++            
+ c boost first to top rest frame            
+             call boost2reson(tpmoms(:,1),4,tpmoms(:,4:7),tpmoms(:,4:7))
+ c next boost to their own rest frame
+-            call boost2reson(tpmoms(:,5)+tpmoms(:,6)+tpmoms(:,7),4,
++            call boost2reson(tpmoms(:,5)+tpmoms(:,6)+tpmoms(:,7),3,
+      1           tpmoms(:,5:7),tpmoms(:,5:7))
+ c boost W decay products to W frame
+-            call boost2resoninv(tpmoms(:,4),4,
++            call boost2resoninv(tpmoms(:,4),3,
+      1           tpmoms(:,5:7),tpmoms(:,5:7))
+ c boost back to top frame
+             call boost2resoninv(tpmoms(:,1),4,tpmoms(:,4:7),
+@@ -214,6 +325,7 @@
+       endif
+       if(ktm.ne.0.or.kwm.ne.0) then
+          if(ktm.eq.0) then
++c            print*, '>>>>> WM, no atop'
+             tmmoms(:,1) = skn_cmpreal(:,itb,kwm)
+             tmmoms(:,2) = skn_cmpreal(:,ibb,kwm)
+             tmmoms(:,3) = 0
+@@ -222,6 +334,7 @@
+             tmmoms(:,6) = skn_cmpreal(:,iwma,kwm)
+             tmmoms(:,7) = skn_cmpreal(:,nlegreal,kwm)
+          elseif(kwm.eq.0) then
++c            print*, '>>>>> atop, no WM'
+             tmmoms(:,1) = skn_cmpreal(:,itb,ktm)
+             tmmoms(:,2) = skn_cmpreal(:,ibb,ktm)
+             tmmoms(:,3) = skn_cmpreal(:,nlegreal,ktm)
+@@ -230,6 +343,7 @@
+             tmmoms(:,6) = skn_cmpreal(:,iwma,ktm)
+             tmmoms(:,7) = 0
+          else
++c            print*, '>>>>> atop, WM'
+             tmmoms(:,1) = skn_cmpreal(:,itb,ktm)
+             tmmoms(:,2) = skn_cmpreal(:,ibb,ktm)
+             tmmoms(:,3) = skn_cmpreal(:,nlegreal,ktm)
+@@ -241,10 +355,10 @@
+ c boost first to top rest frame            
+             call boost2reson(tmmoms(:,1),4,tmmoms(:,4:7),tmmoms(:,4:7))
+ c next boost to their own rest frame
+-            call boost2reson(tmmoms(:,5)+tmmoms(:,6)+tmmoms(:,7),4,
++            call boost2reson(tmmoms(:,5)+tmmoms(:,6)+tmmoms(:,7),3,
+      1           tmmoms(:,5:7),tmmoms(:,5:7))
+ c boost W decay products to W frame
+-            call boost2resoninv(tmmoms(:,4),4,
++            call boost2resoninv(tmmoms(:,4),3,
+      1           tmmoms(:,5:7),tmmoms(:,5:7))
+ c boost back to top frame
+             call boost2resoninv(tmmoms(:,1),4,tmmoms(:,4:7),
+@@ -282,7 +396,8 @@
+          if(tmperr.gt.1d-6) then
+             write(*,*) ' tpmoms'
+             call checktp(tpmoms)
+-            write(*,*) sum(abs(final_cm(:,it)-tpmoms(:,1)))
++            write(*,*) final_cm(:,it)-tpmoms(:,1)
++            stop
+          endif
+          final_cm(:,ib) = tpmoms(:,2)
+          final_cm(:,iwp) = tpmoms(:,4)
+@@ -296,7 +411,8 @@
+          if(tmperr.gt.1d-6) then
+             write(*,*) ' tmmoms'
+             call checktp(tmmoms)
+-            write(*,*) sum(abs(final_cm(:,itb)-tmmoms(:,1)))
++            write(*,*) final_cm(:,itb)-tmmoms(:,1)
++            stop
+          endif
+          final_cm(:,ibb) = tmmoms(:,2)
+          final_cm(:,iwm) = tmmoms(:,4)
+@@ -358,6 +474,7 @@
+             endif
+          endif
+       enddo
++c      print*, 'CHECKING MOM CONS AT THE END'
+       call check_leshouches
+       end
+ 
