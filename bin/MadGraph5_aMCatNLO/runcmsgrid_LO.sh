@@ -1,11 +1,9 @@
 #!/bin/bash
 
-# scram_arch_version=${1}
-scram_arch_version=slc6_amd64_gcc481
+scram_arch_version=SCRAM_ARCH_VERSION_REPLACE
 echo "%MSG-MG5 SCRAM_ARCH version = $scram_arch_version"
 
-# cmssw_version=${2}
-cmssw_version=CMSSW_7_1_28
+cmssw_version=CMSSW_VERSION_REPLACE
 echo "%MSG-MG5 CMSSW version = $cmssw_version"
 
 nevt=${1}

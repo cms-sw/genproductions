@@ -495,6 +495,8 @@ if [ "$isnlo" -gt "0" ]; then
   cd gridpack
 
   cp $PRODHOME/runcmsgrid_NLO.sh ./runcmsgrid.sh
+  sed -i s/SCRAM_ARCH_VERSION_REPLACE/${scram_arch}/g runcmsgrid.sh
+  sed -i s/CMSSW_VERSION_REPLACE/${cmssw_version}/g runcmsgrid.sh
   
   if [ -e $CARDSDIR/${name}_externaltarball.dat ]; then
     mv $WORKDIR/header_for_madspin.txt . 
@@ -588,6 +590,8 @@ else
   cd gridpack
   
   cp $PRODHOME/runcmsgrid_LO.sh ./runcmsgrid.sh
+  sed -i s/SCRAM_ARCH_VERSION_REPLACE/${scram_arch}/g runcmsgrid.sh
+  sed -i s/CMSSW_VERSION_REPLACE/${cmssw_version}/g runcmsgrid.sh
   
 fi
 
