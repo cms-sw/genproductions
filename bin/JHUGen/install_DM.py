@@ -9,7 +9,7 @@ import argparse
 import random
 import ROOT
 
-def completed(name,medrange,dmrange,basedir,carddir,resubmit):
+def completed(name,medrange,dmrange,basedir,carddir,resubmit,scram_arch,cmssw):
     completed = True
     for med in medrange:
         for dm in dmrange:
@@ -20,11 +20,11 @@ def completed(name,medrange,dmrange,basedir,carddir,resubmit):
             if fileExists:
                 os.system('cp JHUGen_%s_%s_%s/runcmsgrid.sh .'  % (name,med,dm))
                 os.chmod('runcmsgrid.sh',0777)
-                os.system('tar czvf  JHUGen_%s_%s_%s.tgz  JHUGen_%s_%s_%s runcmsgrid.sh' % (name,med,dm,name,med,dm))
+                os.system('tar czvf  JHUGen_%s_%s_%s_%s_%s.tgz  JHUGen_%s_%s_%s runcmsgrid.sh' % (name,med,dm,scram_arch,cmssw,name,med,dm))
                 os.system('rm -r JHUGen_%s_%s_%s ' % (name,med,dm))
-                os.system('mv JHUGen_%s_%s_%s.tgz ../' % (name,med,dm))
+                os.system('mv JHUGen_%s_%s_%s_%s_%s.tgz ../' % (name,med,dm,scram_arch,cmssw))
             else:
-                if not os.path.isfile('JHUGen_%s_%s_%s.tgz' % (name,med,dm)):
+                if not os.path.isfile('JHUGen_%s_%s_%s_%s_%s.tgz' % (name,med,dm,scram_arch,cmssw)):
                     completed = False
                     if resubmit:
                         os.system('bsub -q %s %s/%s_JHUGen/JHUGen_%s_%s_%s/integrate.sh' % (args1.queue,basedir,args1.name,args1.name,med,dm))
@@ -131,6 +131,6 @@ if not args1.retar and not args1.resubmit:
             os.chmod('JHUGen_%s_%s_%s/integrate.sh' % (args1.name,med,dm),0777)
             os.system('bsub -q %s %s/%s_JHUGen/JHUGen_%s_%s_%s/integrate.sh' % (args1.queue,basedir,args1.name,args1.name,med,dm))
            
-while not completed(args1.name,args1.medrange,args1.dmrange,basedir,args1.carddir,args1.resubmit):
+while not completed(args1.name,args1.medrange,args1.dmrange,basedir,args1.carddir,args1.resubmit,args1.scram_arch,args1.cmssw):
     print "Waiting ",datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
     time.sleep(60)

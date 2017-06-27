@@ -31,10 +31,10 @@ def completed(name,medrange,dmrange,basedir,carddir,scram_arch,cmssw):
                             tmpline = tmpline.replace('CMSSW_VERSION_REPLACE'     ,'%s' % (cmssw))
                             fout.write(tmpline)
                 os.chmod('runcmsgrid.sh',0777)
-                os.system('tar czvf  MCFM_%s_%s_%s.tgz  MCFM_%s_%s_%s runcmsgrid.sh' % (name,med,dm,name,med,dm))
+                os.system('tar czvf  MCFM_%s_%s_%s_%s_%s.tgz  MCFM_%s_%s_%s runcmsgrid.sh' % (name,med,dm,scram_arch,cmssw,name,med,dm))
                 os.system('rm -rf MCFM_%s_%s_%s' % (name,med,dm))
             else:
-                if not os.path.isfile('MCFM_%s_%s_%s.tgz' % (name,med,dm)):
+                if not os.path.isfile('MCFM_%s_%s_%s_%s_%s.tgz' % (name,med,dm,scram_arch,cmssw)):
                     completed = False
     return completed
 
