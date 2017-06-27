@@ -32,14 +32,14 @@ carddir=${2}
 # which queue
 queue=${3}
 
-if [ -z "$5" ]
+if [ -z "$4" ]
   then
     scram_arch=${4}
   else
     scram_arch=slc6_amd64_gcc481  
 fi
 
-if [ -z "$6" ]
+if [ -z "$5" ]
   then
     cmssw_version=${5}
   else
