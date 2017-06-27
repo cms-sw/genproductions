@@ -8,7 +8,7 @@ from optparse import OptionParser
 import argparse
 import random
 
-def completed(name,medrange,dmrange,basedir,carddir):
+def completed(name,medrange,dmrange,basedir,carddir,scram_arch,cmssw):
     completed = True
     labelname=''
     with open(basedir+'/'+carddir+'/outputname',"rt")         as flabel: 
@@ -27,6 +27,8 @@ def completed(name,medrange,dmrange,basedir,carddir):
                         for line in fin:
                             tmpline =    line   .replace('BASENAME', 'MCFM_%s_%s_%s' % (name,med,dm))
                             tmpline =    tmpline.replace('FILENAME', '%s.lhe'        % (labelname))
+                            tmpline = tmpline.replace('SCRAM_ARCH_VERSION_REPLACE','%s' % (scram_arch))
+                            tmpline = tmpline.replace('CMSSW_VERSION_REPLACE'     ,'%s' % (cmssw))
                             fout.write(tmpline)
                 os.chmod('runcmsgrid.sh',0777)
                 os.system('tar czvf  MCFM_%s_%s_%s.tgz  MCFM_%s_%s_%s runcmsgrid.sh' % (name,med,dm,name,med,dm))
@@ -43,6 +45,8 @@ aparser.add_argument('-q'      ,'--queue'     ,action='store',dest='queue'  ,def
 aparser.add_argument('-dm'     ,'--dmrange'   ,dest='dmrange' ,nargs='+',type=int,     default=[1,10,50,100,500],    help='mass range')
 aparser.add_argument('-med'    ,'--medrange'  ,dest='medrange',nargs='+',type=int,     default=[10,50,100,150,200,300,500,1000,1500],help='mediator range')
 aparser.add_argument('-retar'   ,'--retar'     ,type=bool      ,dest='retar'   ,default=False,help='tar up')
+aparser.add_argument('-scram_arch' ,'--scram_arch',action='store' ,dest='scram_arch',default='slc6_amd64_gcc481',help='SCRAM_ARCH system variable, default slc6_amd64_gcc481')
+aparser.add_argument('-cmssw'      ,'--cmssw'     ,action='store' ,dest='cmssw'     ,default='CMSSW_7_1_28'     ,help='CMSSW_VERSION system variable, default CMSSW_7_1_28')
 args1 = aparser.parse_args()
 
 print args1.carddir,args1.name,args1.queue,args1.dmrange,args1.medrange
@@ -95,6 +99,6 @@ random.seed(1)
             os.chmod('MCFM_%s_%s_%s/integrate.sh' % (args1.name,med,dm),0777)
             os.system('bsub -q %s %s/%s_MCFM-7.0/MCFM_%s_%s_%s/integrate.sh' % (args1.queue,basedir,args1.name,args1.name,med,dm))
            
-while not completed(args1.name,args1.medrange,args1.dmrange,basedir,args1.carddir):
+while not completed(args1.name,args1.medrange,args1.dmrange,basedir,args1.carddir,args1.scram_arch,args1.cmssw):
     print "Waiting ",datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
     time.sleep(60)
