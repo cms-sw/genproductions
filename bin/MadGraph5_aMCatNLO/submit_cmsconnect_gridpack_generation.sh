@@ -40,7 +40,7 @@ cat<<-EOF
 	source \$VO_CMS_SW_DIR/cmsset_default.sh
 	
 	# Run
-	iscmsconnect=1 bash -x gridpack_generation.sh "${card_name}" "${card_dir}" "${workqueue}" CODEGEN
+	iscmsconnect=1 bash -x gridpack_generation.sh "${card_name}" "${card_dir}" "${workqueue}" CODEGEN "${scram_arch}" "${cmssw_version}"
 	exitcode=\$?
 
 	if [ \$exitcode -ne 0 ]; then
@@ -88,6 +88,8 @@ workqueue="condor"
 # Using 1 core and 2 Gb by default.
 cores="${3:-1}"
 memory="${4:-2 Gb}"
+scram_arch=${3}
+cmssw_version=${4}
 
 parent_dir=$PWD
 ##############################################
@@ -184,7 +186,7 @@ cd "$parent_dir"
 
 # CMS Dashboard reporting not yet working with this step.
 export CONDOR_CMS_DASHBOARD=False
-iscmsconnect=1 bash -x gridpack_generation.sh ${card_name} ${card_dir} ${workqueue} INTEGRATE
+iscmsconnect=1 bash -x gridpack_generation.sh ${card_name} ${card_dir} ${workqueue} INTEGRATE ${scram_arch} ${cmssw_version}
 
 ##############################################
 # MADSPIN step
@@ -192,4 +194,4 @@ iscmsconnect=1 bash -x gridpack_generation.sh ${card_name} ${card_dir} ${workque
 # step yet.
 ##############################################
 #echo ">> Start MADSPIN step"
-#iscmsconnect=1 bash -xe gridpack_generation.sh ${card_name} ${card_dir} ${workqueue} MADSPIN
+#iscmsconnect=1 bash -xe gridpack_generation.sh ${card_name} ${card_dir} ${workqueue} MADSPIN ${scram_arch} ${cmssw_version}
