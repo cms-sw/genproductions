@@ -687,6 +687,8 @@ else
   sed -e 's/PROCESS/'${process}'/g' ${WORKDIR}/runcmsgrid_powheg.sh > runcmsgrid.sh
 fi
 
+sed -i s/SCRAM_ARCH_VERSION_REPLACE/${SCRAM_ARCH}/g runcmsgrid.sh
+sed -i s/CMSSW_VERSION_REPLACE/${CMSSW_VERSION}/g runcmsgrid.sh
 chmod 755 runcmsgrid.sh
 
 ''')
@@ -817,6 +819,8 @@ if [ "$process" = "HJ" ]; then
   mv runcmsgrid_tmp.sh runcmsgrid.sh
 fi  
 
+sed -i s/SCRAM_ARCH_VERSION_REPLACE/${SCRAM_ARCH}/g runcmsgrid.sh
+sed -i s/CMSSW_VERSION_REPLACE/${CMSSW_VERSION}/g runcmsgrid.sh
 chmod 755 runcmsgrid.sh
 cp -p runcmsgrid.sh runcmsgrid_par.sh
 
