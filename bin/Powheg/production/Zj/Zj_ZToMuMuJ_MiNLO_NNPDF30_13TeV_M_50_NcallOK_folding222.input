@@ -1,0 +1,86 @@
+vdecaymode  2   ! Z decay products (default 2): 1 for electronic, 2 for muonic and 3 for tauonic decay
+
+numevts NEVENTS   ! number of events to be generated
+ih1   1           ! hadron 1 (1 for protons, -1 for antiprotons)
+ih2   1           ! hadron 2 (1 for protons, -1 for antiprotons)
+ebeam1 6500d0     ! energy of beam 1
+ebeam2 6500d0     ! energy of beam 2
+
+#bornktmin  1d0     ! (default 0d0) generation cut. Minimum kt in underlying Born
+#bornsuppfact 10d0 ! (default 0d0) mass param for Born suppression factor. If < 0 suppfact = 1
+
+! To be set only if using internal (mlm) pdfs
+! 131 cteq4m
+!  83 cteq4l
+! ndns1 131         ! pdf set for hadron 1 (mlm numbering)
+! ndns2 131         ! pdf set for hadron 2 (mlm numbering)
+! To be set only if using LHA pdfs
+! 19150 cteq4m
+! 19170 cteq4l
+! 10050 cteq6m
+lhans1  260000         ! pdf set for hadron 1 (LHA numbering)
+lhans2  260000         ! pdf set for hadron 2 (LHA numbering)	
+
+! Parameters to allow or not the use of stored data
+use-old-grid    1 ! if 1 use old grid if file pwggrids.dat is present (<> 1 regenerate)
+use-old-ubound  1 ! if 1 use norm of upper bounding function stored in pwgubound.dat, if present; <> 1 regenerate
+
+ncall1  100000  ! number of calls for initializing the integration grid
+itmx1    1     ! number of iterations for initializing the integration grid
+ncall2  100000  ! number of calls for computing the integral and finding upper bound
+itmx2     5    ! number of iterations for computing the integral and finding upper bound
+foldcsi   2    ! number of folds on csi integration
+foldy     2    ! number of folds on  y  integration
+foldphi   2    ! number of folds on phi integration
+nubound 200000  ! number of bbarra calls to setup norm of upper bounding function
+icsimax  1     ! <= 100, number of csi subdivision when computing the upper bounds
+iymax    1     ! <= 100, number of y subdivision when computing the upper bounds
+xupbound 2d0   ! increase upper bound for radiation generation
+
+! OPTIONAL PARAMETERS
+
+renscfact  1d0    ! (default 1d0) ren scale factor: muren  = muref * renscfact 
+facscfact  1d0    ! (default 1d0) fac scale factor: mufact = muref * facscfact 
+
+withnegweights 1
+
+#ptsqmin 1
+
+minlo 1
+minlo_nnll 1  
+
+min_Z_mass 50
+max_Z_mass 8000
+
+iseed   SEED
+testplots 1
+#withdamp 1 
+
+pdfreweight 1 
+storeinfo_rwgt 1 
+#compute_rwgt 1
+
+#bornsuppfact 30d0 ! (default 0d0) mass param for Born suppression factor. If < 0 suppfact = 1
+#bornonly   0      ! (default 0) if 1 do Born only
+
+
+#bwcutofflow  25
+#bwcutoffhigh 35
+#ptborncut 20 
+
+#manyseeds 1
+#maxseeds 9999
+
+fastbtlbound 1 
+storemintupb 1
+#parallelstage 4
+
+raisingscales 1
+
+doublefsr 1
+
+#par_diexp 2
+#par_dijexp 2
+#par_2gsupp 4
+
+

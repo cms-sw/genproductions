@@ -36,26 +36,10 @@ fi
 #generate events
 ./run.sh $nevt $rnum
 
-domadspin=0
-if [ -f ./madspin_card.dat ] ;then
-    domadspin=1
-    echo "import events.lhe.gz" > madspinrun.dat
-    rnum2=$(($rnum+1000000))
-    echo `echo "set seed $rnum2"` >> madspinrun.dat
-    cat ./madspin_card.dat >> madspinrun.dat
-    cat madspinrun.dat | $LHEWORKDIR/mgbasedir/MadSpin/madspin
-fi
-
 cd $LHEWORKDIR
 
-if [ "$domadspin" -gt "0" ] ; then 
-    mv process/events_decayed.lhe.gz events_presys.lhe.gz
-else
-    mv process/events.lhe.gz events_presys.lhe.gz
-fi
-
+mv process/events.lhe.gz events_presys.lhe.gz
 gzip -d events_presys.lhe.gz
-
 
 #run syscalc to populate pdf and scale variation weights
 echo "
@@ -93,6 +77,20 @@ if [ -e process/madevent/Cards/reweight_card.dat ]; then
     ./bin/madevent reweight -f GridRun_${rnum}
     cd ../..
     mv process/madevent/Events/GridRun_${rnum}/unweighted_events.lhe.gz cmsgrid_final.lhe.gz
+    gzip -d  cmsgrid_final.lhe.gz
+fi
+
+if [ -f process/madspin_card.dat ] ;then
+    mv cmsgrid_final.lhe process
+    cd process
+    gzip  cmsgrid_final.lhe
+    echo "import cmsgrid_final.lhe.gz" > madspinrun.dat
+    rnum2=$(($rnum+1000000))
+    echo `echo "set seed $rnum2"` >> madspinrun.dat
+    cat ./madspin_card.dat >> madspinrun.dat
+    cat madspinrun.dat | $LHEWORKDIR/mgbasedir/MadSpin/madspin
+    cd $LHEWORKDIR
+    mv process/cmsgrid_final_decayed.lhe.gz cmsgrid_final.lhe.gz
     gzip -d  cmsgrid_final.lhe.gz
 fi
 

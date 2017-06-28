@@ -77,7 +77,11 @@ fi
 if [ -e  ${WORKDIR}/cteq6m ]; then
     cp -p ${WORKDIR}/cteq6m .
 fi
-
+### For the bb4l process
+if [[ -d ${WORKDIR}/obj-gfortran ]]; then
+    ln -s ${WORKDIR}/obj-gfortran .
+    cp -p ${WORKDIR}/pwg*.dat .
+fi
 if [[ ! -e ${card} ]]; then
  fail_exit "powheg.input not found!"
 fi
@@ -86,6 +90,7 @@ cat ${card} | sed -e "s#SEED#${seed}#g" | sed -e "s#NEVENTS#${nevt}#g" > powheg.
 
 # Check if the powheg.input file contains the proper settings to calculate weights                                                                                                                           
 produceWeights="true" 
+produceWeightsNNLO="false"
 grep -q "storeinfo_rwgt 1" powheg.input ; test $? -eq 0  || produceWeights="false"
 grep -q "pdfreweight 1" powheg.input ; test $? -eq 0 || produceWeights="false"
 
@@ -149,7 +154,6 @@ then
 
         iteration=$(( iteration + 1 ))
    done
-
 
     echo -e "\ncomputing weights for 100 NNPDF3.0 nlo variations\n"
     iteration=260001
@@ -333,9 +337,12 @@ then
     echo -e "\n finished computing weights ..\n" 
 fi
 
+cat pwgevents.lhe | grep -v "Random number generator exit values" > pwgevents.lhe.bkp
+mv pwgevents.lhe.bkp pwgevents.lhe
+
 xmllint --noout pwgevents.lhe > /dev/null 2>&1; test $? -eq 0 || fail_exit "xmllint integrity check failed on pwgevents.lhe"
 
-cat pwgevents.lhe | grep -v "Random number generator exit values" > ${file}_final.lhe
+cp pwgevents.lhe ${file}_final.lhe
 
 ls -l ${file}_final.lhe
 sed -i 's/Input file powheg.input contained:/Process: '$process'\nInput file powheg.input contained:/g' ${file}_final.lhe
@@ -358,7 +365,9 @@ if [ -s pwg-stat.dat ]; then
   tail=`wc -l cmsgrid_final.lhe | awk -v tmp="$head" '{print $1-2-tmp}'`
   tail -${tail} cmsgrid_final.lhe                           >  cmsgrid_final.lhe_tail
   head -${head} cmsgrid_final.lhe                           >  cmsgrid_final.lhe_F
-  echo "  "$XSECTION"   "$XSECUNC"  1.00000000000E-00 10001" >>  cmsgrid_final.lhe_F
+  proclin=`expr $head + 1`
+  proc=`sed -n -e ${proclin}p  cmsgrid_final.lhe |  awk '{print $4}'`
+  echo "  "$XSECTION"   "$XSECUNC"  1.00000000000E-00 "$proc >>  cmsgrid_final.lhe_F
   echo "</init>"                                           >>  cmsgrid_final.lhe_F
   cat cmsgrid_final.lhe_tail                               >>  cmsgrid_final.lhe_F
   mv cmsgrid_final.lhe_F cmsgrid_final.lhe
@@ -367,6 +376,19 @@ fi
 sed "s@-1000021@ 1000022@g" cmsgrid_final.lhe           > cmsgrid_final.lhe_F1
 sed "s@1000021@1000022@g"   cmsgrid_final.lhe_F1          > cmsgrid_final.lhe
 cp ${file}_final.lhe ${WORKDIR}/.
+
+if [ "$produceWeightsNNLO" == "true" ]; then
+    echo -e "\ncomputing weights for NNLOPS is not possible at this stage\n"
+    echo -e "because the job is too small. Please run many jobs using \n"
+    echo -e "run_lhe_parallel.sh and then run run_nnlops.sh on them. \n"
+      #mv pwgevents.lhe fornnlops
+      #cp ../nnlopsreweighter.input .
+      #cp ../HNNLO-11.top .
+      #cp ../HNNLO-22.top .
+      #cp ../HNNLO-0505.top .
+      #../nnlopsreweighter
+      #mv fornnlops.nnlo pwgevents.lhe
+fi
 
 echo "Output ready with ${file}_final.lhe at $WORKDIR"
 echo "End of job on " `date`

@@ -1,0 +1,44 @@
+#************************************************************
+#*                     MadGraph5_aMC@NLO                    *
+#*                                                          *
+#*                *                       *                 *
+#*                  *        * *        *                   *
+#*                    * * * * 5 * * * *                     *
+#*                  *        * *        *                   *
+#*                *                       *                 *
+#*                                                          *
+#*                                                          *
+#*         VERSION 2.4.3                 2016-08-01         *
+#*                                                          *
+#*    The MadGraph5_aMC@NLO Development Team - Find us at   *
+#*    https://server06.fynu.ucl.ac.be/projects/madgraph     *
+#*                                                          *
+#************************************************************
+#*                                                          *
+#*               Command File for MadGraph5_aMC@NLO         *
+#*                                                          *
+#*     run as ./bin/mg5_aMC  filename                       *
+#*                                                          *
+#************************************************************
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set loop_optimized_output True
+set loop_color_flows False
+set gauge unitary
+set complex_mass_scheme False
+set max_npoint_for_channel 0
+import model sm
+define p = g u c d s u~ c~ d~ s~
+define j = g u c d s u~ c~ d~ s~
+define l+ = e+ mu+
+define l- = e- mu-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+import model Fermion_Portal_Majorana_UFO
+define fp = ur cr dr sr
+define fp~ = ur~ cr~ dr~ sr~
+generate  p p > n1 n1 j dmscalar=0 dmpscalar=0 dmvector=0 dmpvector=1 \
+@1
+add process p p > fp fp~, (fp > n1 j), (fp~ > n1 j) dmscalar=0 dmpscal\
+ar=0 dmvector=0 dmpvector=1 @2
+output fPort_maj_ld1_phi1000_chi800

@@ -1,0 +1,7 @@
+import model pions_from_unification_UFO
+compute_widths pi3+
+compute_widths pi3-
+generate p p > pi3+ > w+ a , w+ > j j
+add process p p > pi3- > w- a , w- > j j
+output ChargedResonance_WGToJJ_M500 
+
