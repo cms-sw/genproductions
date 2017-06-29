@@ -78,6 +78,7 @@ def prepareJob(tag, i, folderName) :
     f.write ('if [ -e '+ rootfolder + '/' + folderName + '/obj-gfortran/proclib ]; then    \n')
     f.write ('  mkdir ./obj-gfortran/' + '\n')
     f.write ('  cp -pr ' + rootfolder + '/' + folderName + '/obj-gfortran/proclib  ./obj-gfortran/' + '\n')
+    f.write ('  cp -pr ' + rootfolder + '/' + folderName + '/obj-gfortran/*.so  ./obj-gfortran/' + '\n')
     f.write ('fi    \n')
 
     f.write('\n')
@@ -102,6 +103,7 @@ def prepareJobForEvents (tag, i, folderName, EOSfolder) :
     f.write ('if [ -e '+ rootfolder + '/' + folderName + '/obj-gfortran/proclib ]; then    \n')
     f.write ('  mkdir ./obj-gfortran/' + '\n')
     f.write ('  cp -pr ' + rootfolder + '/' + folderName + '/obj-gfortran/proclib  ./obj-gfortran/' + '\n')
+    f.write ('  cp -pr ' + rootfolder + '/' + folderName + '/obj-gfortran/*.so  ./obj-gfortran/' + '\n')
     f.write ('fi    \n')
 
     f.write ('cd -' + '\n')
@@ -533,6 +535,7 @@ fi
 if [ -d ./obj-gfortran/proclib ]; then
   mkdir ${WORKDIR}/${name}/obj-gfortran/
   cp -a ./obj-gfortran/proclib ${WORKDIR}/${name}/obj-gfortran/.
+  cp -a ./obj-gfortran/*.so ${WORKDIR}/${name}/obj-gfortran/.
 fi
 
 cd ${WORKDIR}/${name}
