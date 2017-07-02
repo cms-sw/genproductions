@@ -299,7 +299,7 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
    if [ "$queue" != "condor" ]; then
      echo "cluster_queue = $queue" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
      if [ "$isscratchspace" -gt "0" ]; then
-         echo "cluster_temp_path = `echo $RUNHOME`" >> ./$MGBASEDIRORIG/input/mg5_con»
+         echo "cluster_temp_path = `echo $RUNHOME`" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
      fi
    elif [ "$queue" == "condor" ]; then
      echo "cluster_queue = None" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
