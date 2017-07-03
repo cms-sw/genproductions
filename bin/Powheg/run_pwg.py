@@ -690,6 +690,8 @@ else
   sed -e 's/PROCESS/'${process}'/g' ${WORKDIR}/runcmsgrid_powheg.sh > runcmsgrid.sh
 fi
 
+sed -i s/SCRAM_ARCH_VERSION_REPLACE/${SCRAM_ARCH}/g runcmsgrid.sh
+sed -i s/CMSSW_VERSION_REPLACE/${CMSSW_VERSION}/g runcmsgrid.sh
 chmod 755 runcmsgrid.sh
 
 ''')
@@ -820,6 +822,8 @@ if [ "$process" = "HJ" ]; then
   mv runcmsgrid_tmp.sh runcmsgrid.sh
 fi  
 
+sed -i s/SCRAM_ARCH_VERSION_REPLACE/${SCRAM_ARCH}/g runcmsgrid.sh
+sed -i s/CMSSW_VERSION_REPLACE/${CMSSW_VERSION}/g runcmsgrid.sh
 chmod 755 runcmsgrid.sh
 cp -p runcmsgrid.sh runcmsgrid_par.sh
 
@@ -849,11 +853,11 @@ fi
 
 if [ $keepTop == '1' ]; then
     echo 'Keeping validation plots.'
-    echo 'Packing...' ${WORKDIR}'/'${folderName}'_'${process}'.tgz'
-    tar zcf ${WORKDIR}'/'${folderName}'_'${process}'.tgz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.lhe --exclude=run_*.sh --exclude=*.log --exclude=*temp --exclude=pwgbtlupb-*.dat --exclude=pwgrmupb-*.dat
+    echo 'Packing...' ${WORKDIR}'/'${folderName}'_'${SCRAM_ARCH}'_'${CMSSW_VERSION}'_'${process}'.tgz'
+    tar zcf ${WORKDIR}'/'${folderName}'_'${SCRAM_ARCH}'_'${CMSSW_VERSION}'_'${process}'.tgz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.lhe --exclude=run_*.sh --exclude=*.log --exclude=*temp --exclude=pwgbtlupb-*.dat --exclude=pwgrmupb-*.dat
 else
-    echo 'Packing...' ${WORKDIR}'/'${folderName}'_'${process}'.tgz'
-    tar zcf ${WORKDIR}'/'${folderName}'_'${process}'.tgz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.top --exclude=*.lhe --exclude=run_*.sh --exclude=*.log --exclude=*temp --exclude=pwgbtlupb-*.dat --exclude=pwgrmupb-*.dat
+    echo 'Packing...' ${WORKDIR}'/'${folderName}'_'${SCRAM_ARCH}'_'${CMSSW_VERSION}'_'${process}'.tgz'
+    tar zcf ${WORKDIR}'/'${folderName}'_'${SCRAM_ARCH}'_'${CMSSW_VERSION}'_'${process}'.tgz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.top --exclude=*.lhe --exclude=run_*.sh --exclude=*.log --exclude=*temp --exclude=pwgbtlupb-*.dat --exclude=pwgrmupb-*.dat
 fi
 
 cd ${WORKDIR}
