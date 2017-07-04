@@ -2,15 +2,15 @@
 
 fail_exit() { echo "$@"; exit 1; }
 
-#set -o verbose
-EXPECTED_ARGS=3
+# #set -o verbose
+# EXPECTED_ARGS=3
 
-if [ $# -ne $EXPECTED_ARGS ]
-then
-    echo "Usage: `basename $0` Nevents RandomSeed cpu"
-    echo "Example: `basename $0` 1000 1212 cpu" 
-    exit 1
-fi
+# if [ $# -ne $EXPECTED_ARGS ]
+# then
+    # echo "Usage: `basename $0` Nevents RandomSeed cpu"
+    # echo "Example: `basename $0` 1000 1212 cpu" 
+    # exit 1
+# fi
 
 echo "   ______________________________________     "
 echo "         Running Powheg                       "
@@ -24,6 +24,39 @@ echo "%MSG-POWHEG random seed used for the run = $rnum"
 
 ncpu=${3}
 echo "%MSG-POWHEG number of cputs for the run = $ncpu"
+
+LHEWORKDIR=`pwd`
+use_gridpack_env=true
+if [ -z "$4" ]
+  then
+  use_gridpack_env=$4
+fi
+
+if [ "$use_gridpack_env" = true ]
+  then
+    if [ -z "$5" ]
+      then
+        scram_arch_version=${5}
+      else
+        scram_arch_version=SCRAM_ARCH_VERSION_REPLACE
+    fi
+    echo "%MSG-MG5 SCRAM_ARCH version = $scram_arch_version"
+
+    if [ -z "$6" ]
+      then
+        cmssw_version=${6}
+      else
+        cmssw_version=CMSSW_VERSION_REPLACE
+    fi
+    echo "%MSG-MG5 CMSSW version = $cmssw_version"
+    export VO_CMS_SW_DIR=/cvmfs/cms.cern.ch
+    source $VO_CMS_SW_DIR/cmsset_default.sh
+    export SCRAM_ARCH=${scram_arch_version}
+    scramv1 project CMSSW ${cmssw_version}
+    cd ${cmssw_version}/src
+    eval `scramv1 runtime -sh`
+fi
+cd $LHEWORKDIR
 
 seed=$rnum
 file="cmsgrid"
