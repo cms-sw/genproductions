@@ -1,0 +1,20 @@
+import model loop_sm-ckm_no_b_mass
+#switch to diagonal ckm matrix if needed for speed
+#import model loop_sm-no_b_mass
+
+define p = p b b~
+define j = j b b~
+
+define ell+ = e+ mu+ ta+
+define ell- = e- mu- ta-
+
+generate p p > ell+ vl $$ t t~ h [QCD] @0
+add process p p > ell+ vl j $$ t t~ h [QCD] @1
+add process p p > ell+ vl j j $$ t t~ h [QCD] @2
+
+add process p p > ell- vl~ $$ t t~ h [QCD] @3
+add process p p > ell- vl~ j $$ t t~ h [QCD] @4
+add process p p > ell- vl~ j j $$ t t~ h [QCD] @5
+
+output WJetsToLNu_012j_Wpt-50To100_5f_NLO_FXFX -nojpeg
+

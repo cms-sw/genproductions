@@ -1,0 +1,35 @@
+--- OpenLoopsStuff/OpenLoops/lib_src/openloops/src/ol_interface.F90     (revision 3248)
++++ OpenLoopsStuff/OpenLoops/lib_src/openloops/src/ol_interface.F90     (working copy)
+@@ -990,6 +990,7 @@
+     inquire(directory=trim(install_path)//"/proclib", exist=proclib_exists)
+ #endif
+     if (.not. proclib_exists) then
++      call ol_msg("expected proclib folder in " // trim(install_path))
+       call ol_fatal("register_process: proclib folder not found, check install_path or install libraries.")
+       check_proclib_exists = .false.
+       return
+Index: OpenLoopsStuff/OpenLoops/lib_src/openloops/src/parameters.F90
+===================================================================
+--- OpenLoopsStuff/OpenLoops/lib_src/openloops/src/parameters.F90       (revision 3248)
++++ OpenLoopsStuff/OpenLoops/lib_src/openloops/src/parameters.F90       (working copy)
+@@ -175,7 +175,7 @@
+   ! OpenLoops installation path; used to locate info files and process libraries
+   ! character(len=:), allocatable :: install_path ! gfortran 4.7: doesn't work in modules and type (though it does in subroutines)
+   character(len=255) :: &
+-    & install_path = OL_INSTALL_PATH
++    & install_path = "obj-gfortran/"
+   ! Mode for check_last_[...] in laststep and tensor integral routine in looproutines
+   integer, save :: l_switch = 1, a_switch = 5, a_switch_rescue = 5, redlib_qp = 5
+   ! switchers for checking Ward identities at tree/loop level
+===================================================================
+--- b_bbar_4l/Makefile	(revision 3388)
++++ b_bbar_4l/Makefile	(working copy)
+@@ -149,7 +149,7 @@
+ 
+ ifdef OLPATH
+ FF+= -I$(OLPATH)/lib_src/openloops/mod
+-LIBSOPENLOOPS= -Wl,-rpath=$(PWD)/$(OBJDIR) -L$(PWD)/$(OBJDIR) -lopenloops
++LIBSOPENLOOPS= -Wl,-rpath=$(OBJDIR) -L$(OBJDIR) -lopenloops
+ USER+=openloops.o
+ endif
+

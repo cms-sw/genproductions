@@ -1,0 +1,8 @@
+set param_card frblock 32 1.000000e-01
+set param_card frblock 33 0.000000e-01
+set param_card frblock 59 0.000000e-01
+set param_card frblock 60 1.000000e-01
+set param_card mass 8000001 1.900000e+03
+set param_card mass 9900113 2.500000e+03
+set param_card decay 9900113 2.500000e+01
+set param_card decay 8000001 1.000000e-03

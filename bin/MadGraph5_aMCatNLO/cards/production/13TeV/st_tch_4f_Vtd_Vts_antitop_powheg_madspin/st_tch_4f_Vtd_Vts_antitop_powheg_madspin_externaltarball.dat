@@ -1,0 +1,3 @@
+# Link to cards: https://github.com/cms-sw/genproductions/blob/eba2ae4224e5a95f1f7da58f0d3602abc1b7cd09/bin/Powheg/production/st_tch_4f_ckm_13TeV_v2/powheg_antitop.input
+
+EXTERNAL_TARBALL="/cvmfs/cms.cern.ch/phys_generator/gridpacks/slc6_amd64_gcc481/13TeV/powheg/V2/ST_tch_4f_13TeV_Vtd_Vts_powheg/my_ST_tch_4f_Vtd_Vts_antitop_ST_tch_4f.tgz"
