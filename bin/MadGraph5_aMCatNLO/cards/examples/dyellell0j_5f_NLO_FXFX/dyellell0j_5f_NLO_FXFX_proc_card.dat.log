@@ -1,0 +1,98 @@
+Starting job on  Tue Jul 4 15:43:53 CEST 2017
+Running on  Linux uwlogin.cern.ch 2.6.32-642.11.1.el6.aufs21.x86_64 #1 SMP Thu Nov 24 13:45:10 CET 2016 x86_64 x86_64 x86_64 GNU/Linux
+System release  Scientific Linux CERN SLC release 6.8 (Carbon)
+name: cards/examples/dyellell0j_5f_NLO_FXFX/dyellell0j_5f_NLO_FXFX_proc_card.dat
+carddir: dyellell0j_5f_NLO_FXFX
+queue: local
+On branch mg25x
+Your branch is ahead of 'upstream/mg25x' by 3 commits.
+  (use "git push" to publish your local commits)
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+	modified:   gridpack_generation.sh
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+	0007-fix-condor-on-lxplus.patch
+	DY1Jets_madgraph_5f_LO.log
+	DY1Jets_madgraph_5f_LO/
+	DY1Jets_madgraph_5f_LO_tarball.tar.xz
+	DYJetsToLL_0j-Zpt-0To50_5f_NLO_FXFX.log
+	DYJetsToLL_0j-Zpt-0To50_5f_NLO_FXFX/
+	DYJetsToLL_0j-Zpt-0To50_5f_NLO_FXFX_tarball.tar.xz
+	WZTo3LNu0j_MLL-4_5f_LO_MLM.log
+	WZTo3LNu0j_MLL-4_5f_LO_MLM/
+	WZTo3LNu0j_MLL-4_5f_LO_MLM_tarball.tar.xz
+	WZTo3LNu1j_MLL-4_5f_LO_MLM.log
+	WZTo3LNu1j_MLL-4_5f_LO_MLM/
+	WZTo3LNu1j_MLL-4_5f_LO_MLM_tarball.tar.xz
+	WZTo3LNu23j_MLL-4_5f_LO_MLM.log
+	WZTo3LNu23j_MLL-4_5f_LO_MLM/
+	WZTo3LNu23j_MLL-4_5f_LO_MLM_tarball.tar.xz
+	cards/examples/dyellell01j_5f_NLO_FXFX/
+	cards/examples/dyellell0j_5f_NLO_FXFX/
+	cards/production/13TeV/AnomalousCouplings-SMP/
+	cards/production/13TeV/DYJetsToLL_nj-Zpt_2Dbinning_5f_NLO_FXFX/
+	dyellell0j_5f_NLO_FXFX.log
+	dyellell0j_5f_NLO_FXFX/
+	dyellell0j_5f_NLO_FXFX_tarball.tar.xz
+	gridpack_generation.log
+	pwg-stat.dat
+	../Powheg/WZToLNuQQ/
+	../Powheg/WZToLNuQQ_DMGG.tgz
+	../Powheg/lsfsubmission/
+	../Powheg/run_src_tempZZpdf4lhc.log
+	../Powheg/run_src_tempZZpdf4lhc.sh
+	../Powheg/runcmsgrid.sh
+	../Powheg/temp/
+	../Powheg/tempZZpdf4lhc/
+	../Sherpa/cards/production/13TeV/AnomalousCouplings-SMP/
+	../../test/calculateXSectionAndFilterEfficiency/
+
+no changes added to commit (use "git add" and/or "git commit -a")
+Current git revision is:
+1a817d355a5841f0f3e3a2c69f8b2d411c1704eb
+diff --git a/bin/MadGraph5_aMCatNLO/gridpack_generation.sh b/bin/MadGraph5_aMCatNLO/gridpack_generation.sh
+index 083d4e0..eb01511 100755
+--- a/bin/MadGraph5_aMCatNLO/gridpack_generation.sh
++++ b/bin/MadGraph5_aMCatNLO/gridpack_generation.sh
+@@ -95,9 +95,8 @@ CARDSDIR=${PRODHOME}/${carddir}
+ 
+ MGBASEDIR=mgbasedir
+ 
+-MG=MG5_aMC_v2.5.4.tar.gz
++MG=MG5_aMC_v2.5.5.tar.gz
+ MGSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$MG
+-MGSOURCE_ALT=${PRODHOME}/code_tars/$MG
+ 
+ #syscalc is a helper tool for madgraph to add scale and pdf variation weights for LO processes
+ SYSCALC=SysCalc_V1.1.6.tar.gz
+@@ -139,13 +138,7 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
+   #############################################
+   #Copy, Unzip and Delete the MadGraph tarball#
+   #############################################
+-  set +e
+   wget --no-check-certificate ${MGSOURCE}
+-  if [ $? -ne 0 ]; then
+-    echo "Could not find release on central server, try locally"
+-    cp ${MGSOURCE_ALT} . 
+-  fi
+-  #set -e
+   tar xzf ${MG}
+   rm $MG
+ 
+@@ -155,8 +148,8 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
+ 
+   cd $MGBASEDIRORIG
+   cat $PRODHOME/patches/*.patch | patch -p1
++  exit 0
+ 
+-  set -e
+   if [ -e $CARDSDIR/${name}_loop_filter.py ]; then
+     echo "Acitvating custom user loop filter"
+     cat $CARDSDIR/${name}_loop_filter.py | patch -p1
+/data/kelong/genproductions/bin/MadGraph5_aMCatNLO
+mkdir: cannot create directory `/data/kelong/genproductions/bin/MadGraph5_aMCatNLO/cards/examples/dyellell0j_5f_NLO_FXFX/dyellell0j_5f_NLO_FXFX_proc_card.dat': File exists
