@@ -32,6 +32,20 @@ carddir=${2}
 # which queue
 queue=${3}
 
+if [ -z "$4" ]
+  then
+    scram_arch=${4}
+  else
+    scram_arch=slc6_amd64_gcc481  
+fi
+
+if [ -z "$5" ]
+  then
+    cmssw_version=${5}
+  else
+    cmssw_version=CMSSW_7_1_28
+fi
+ 
 if [ -z "$PRODHOME" ]; then
   PRODHOME=`pwd`
 fi 
@@ -75,6 +89,8 @@ echo "System release " `cat /etc/redhat-release` #And the system release
 echo "name: ${name}"
 echo "carddir: ${carddir}"
 echo "queue: ${queue}"
+echo "scram_arch: ${scram_arch}"
+echo "cmssw_version: ${cmssw_version}"
 
 cd $PRODHOME
 git status
@@ -118,9 +134,8 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
 #   export SCRAM_ARCH=slc6_amd64_gcc472 #Here one should select the correct architechture corresponding with the CMSSW release
 #   export RELEASE=CMSSW_5_3_32_patch3
 
-  export SCRAM_ARCH=slc6_amd64_gcc481
-  export RELEASE=CMSSW_7_1_28
-
+  export SCRAM_ARCH=${scram_arch}
+  export RELEASE=${cmssw_version}
 
   ############################
   #Create a workplace to work#
@@ -290,7 +305,7 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
    if [ "$queue" != "condor" ]; then
      echo "cluster_queue = $queue" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
      if [ "$isscratchspace" -gt "0" ]; then
-         echo "cluster_temp_path = `echo $RUNHOME`" >> ./$MGBASEDIRORIG/input/mg5_con»
+         echo "cluster_temp_path = `echo $RUNHOME`" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
      fi
    elif [ "$queue" == "condor" ]; then
      echo "cluster_queue = None" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
@@ -470,6 +485,8 @@ if [ "$isnlo" -gt "0" ]; then
   cd gridpack
 
   cp $PRODHOME/runcmsgrid_NLO.sh ./runcmsgrid.sh
+  sed -i s/SCRAM_ARCH_VERSION_REPLACE/${scram_arch}/g runcmsgrid.sh
+  sed -i s/CMSSW_VERSION_REPLACE/${cmssw_version}/g runcmsgrid.sh
   
   if [ -e $CARDSDIR/${name}_externaltarball.dat ]; then
     mv $WORKDIR/header_for_madspin.txt . 
@@ -563,6 +580,8 @@ else
   cd gridpack
   
   cp $PRODHOME/runcmsgrid_LO.sh ./runcmsgrid.sh
+  sed -i s/SCRAM_ARCH_VERSION_REPLACE/${scram_arch}/g runcmsgrid.sh
+  sed -i s/CMSSW_VERSION_REPLACE/${cmssw_version}/g runcmsgrid.sh
   
 fi
 
@@ -602,14 +621,14 @@ cp ${LOGFILE} ./gridpack_generation.log
 echo "Creating tarball"
 
 if [ ! -e $CARDSDIR/${name}_externaltarball.dat ]; then
-    XZ_OPT="--lzma2=preset=9,dict=512MiB" tar -cJpsf ${name}_tarball.tar.xz mgbasedir process runcmsgrid.sh gridpack_generation.log
+    XZ_OPT="--lzma2=preset=9,dict=512MiB" tar -cJpsf ${name}_${scram_arch}_${cmssw_version}_tarball.tar.xz mgbasedir process runcmsgrid.sh gridpack_generation.log
 else
-    XZ_OPT="--lzma2=preset=9,dict=512MiB" tar -cJpsf ${name}_tarball.tar.xz mgbasedir process runcmsgrid.sh gridpack_generation.log external_tarball ${name}_externaltarball.dat header_for_madspin.txt
+    XZ_OPT="--lzma2=preset=9,dict=512MiB" tar -cJpsf ${name}_${scram_arch}_${cmssw_version}_tarball.tar.xz mgbasedir process runcmsgrid.sh gridpack_generation.log external_tarball ${name}_externaltarball.dat header_for_madspin.txt
 fi
 
-mv ${name}_tarball.tar.xz ${PRODHOME}/${name}_tarball.tar.xz
+mv ${name}_${scram_arch}_${cmssw_version}_tarball.tar.xz ${PRODHOME}/${name}_${scram_arch}_${cmssw_version}_tarball.tar.xz
 
-echo "Gridpack created successfully at ${PRODHOME}/${name}_tarball.tar.xz"
+echo "Gridpack created successfully at ${PRODHOME}/${name}_${scram_arch}_${cmssw_version}_tarball.tar.xz"
 echo "End of job"
 
 if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 0; else exit 0; fi
