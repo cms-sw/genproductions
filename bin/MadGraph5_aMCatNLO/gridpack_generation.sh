@@ -34,16 +34,16 @@ queue=${3}
 
 if [ -z "$4" ]
   then
-    scram_arch=${4}
+    scram_arch=slc6_amd64_gcc481
   else
-    scram_arch=slc6_amd64_gcc481  
+    scram_arch=${4}
 fi
 
 if [ -z "$5" ]
   then
-    cmssw_version=${5}
-  else
     cmssw_version=CMSSW_7_1_28
+  else
+    cmssw_version=${5}
 fi
  
 if [ -z "$PRODHOME" ]; then
