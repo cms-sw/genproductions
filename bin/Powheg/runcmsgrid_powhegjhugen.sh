@@ -27,14 +27,14 @@ echo "%MSG-POWHEG number of cputs for the run = $ncpu"
 
 LHEWORKDIR=`pwd`
 use_gridpack_env=true
-if [ -z "$4" ]
+if [ -n "$4" ]
   then
   use_gridpack_env=$4
 fi
 
 if [ "$use_gridpack_env" = true ]
   then
-    if [ -z "$5" ]
+    if [ -n "$5" ]
       then
         scram_arch_version=${5}
       else
@@ -42,7 +42,7 @@ if [ "$use_gridpack_env" = true ]
     fi
     echo "%MSG-MG5 SCRAM_ARCH version = $scram_arch_version"
 
-    if [ -z "$6" ]
+    if [ -n "$6" ]
       then
         cmssw_version=${6}
       else
