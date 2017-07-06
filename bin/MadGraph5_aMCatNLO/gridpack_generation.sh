@@ -37,16 +37,16 @@ jobstep=${4}
 
 if [ -z "$5" ]
   then
-    scram_arch=${5}
+    scram_arch=slc6_amd64_gcc481
   else
-    scram_arch=slc6_amd64_gcc481  
+    scram_arch=${5}
 fi
 
 if [ -z "$6" ]
   then
-    cmssw_version=${6}
-  else
     cmssw_version=CMSSW_7_1_28
+  else
+    cmssw_version=${6}
 fi
 
 # jobstep can be 'ALL','CODEGEN', 'INTEGRATE', 'MADSPIN'
