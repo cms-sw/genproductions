@@ -214,7 +214,7 @@
 #*********************************************************************
 # Control the Ht(k)=Sum of k leading jets                            *
 #*********************************************************************
- 100  = htjmin ! minimum jet HT=Sum(jet pt)
+ 150  = htjmin ! minimum jet HT=Sum(jet pt)
  200  = htjmax ! maximum jet HT=Sum(jet pt)
  0   = ihtmin  !inclusive Ht for all partons (including b)
  1d5  = ihtmax  !inclusive Ht for all partons (including b)
@@ -245,3 +245,4 @@
 #          reweighting into account!                                 *
 #*********************************************************************
    T  = use_syst      ! Enable systematics studies
+   F  = mc_grouped_subproc 
