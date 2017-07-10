@@ -176,7 +176,7 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   #############################################
 
   cd $MGBASEDIRORIG
-  cat $PRODHOME/patches/*.patch | patch -p1
+  #cat $PRODHOME/patches/*.patch | patch -p1
 
   #if lhapdf6 external is available then above points to lhapdf5 and needs to be overridden
   LHAPDF6TOOLFILE=$CMSSW_BASE/config/toolbox/$SCRAM_ARCH/tools/available/lhapdf6.xml

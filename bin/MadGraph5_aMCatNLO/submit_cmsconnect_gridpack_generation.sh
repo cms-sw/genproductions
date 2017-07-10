@@ -38,7 +38,9 @@ cat<<-EOF
 	# Setup CMS framework
 	export VO_CMS_SW_DIR=/cvmfs/cms.cern.ch
 	source \$VO_CMS_SW_DIR/cmsset_default.sh
-	
+
+	# Purdue wokaround
+	unset CXX CC FC
 	# Run
 	iscmsconnect=1 bash -x gridpack_generation.sh "${card_name}" "${card_dir}" "${workqueue}" CODEGEN
 	exitcode=\$?
@@ -67,11 +69,14 @@ cat<<-EOF
 	fi
 	# Second, try condor_chirp
 	echo ">> Copying sandbox via condor_chirp"
-	if [ -n "\${CONDOR_CONFIG}" ]; then
-	    CONDOR_CHIRP_BIN="\$(dirname \$CONDOR_CONFIG)/main/condor/libexec/condor_chirp"
-	    "\${CONDOR_CHIRP_BIN}" put -perm 644 "\${condor_scratch}/$sandbox_output" "$sandbox_output"
-	    exitcode=\$?
+	CONDOR_CHIRP_BIN=\$(command -v condor_chirp)
+	if [ \$? != 0 ]; then
+	    if [ -n "\${CONDOR_CONFIG}" ]; then
+	        CONDOR_CHIRP_BIN="\$(dirname \$CONDOR_CONFIG)/main/condor/libexec/condor_chirp"
+	    fi
 	fi
+	"\${CONDOR_CHIRP_BIN}" put -perm 644 "\${condor_scratch}/$sandbox_output" "$sandbox_output"
+	exitcode=\$?
 	if [ \$exitcode -ne 0 ]; then
 	    echo "condor_chirp failed. Exiting with error code 210."
 	    exit 210
@@ -196,8 +201,9 @@ cd -
 echo ">> Start INTEGRATE step"
 cd "$parent_dir"
 
-# CMS Dashboard reporting not yet working with this step.
-export CONDOR_CMS_DASHBOARD=False
+# CMS Dashboard reporting should work now.
+# Disable this only for testing.
+# export CONDOR_CMS_DASHBOARD=False
 iscmsconnect=1 bash -x gridpack_generation.sh ${card_name} ${card_dir} ${workqueue} INTEGRATE
 
 ##############################################
