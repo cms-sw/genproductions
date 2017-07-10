@@ -1,0 +1,120 @@
+diff --git a/madgraph/various/cluster.py b/madgraph/various/cluster.py
+index 4a9c3d6..ea47a80 100755
+--- a/madgraph/various/cluster.py
++++ b/madgraph/various/cluster.py
+@@ -846,6 +846,40 @@ class CondorCluster(Cluster):
+     name = 'condor'
+     job_id = 'CONDOR_ID'
+ 
++    def __init__(self, *args, **opt):
++        """Init the cluster """
++
++        super(CondorCluster, self).__init__(self, *args, **opt)
++        try:
++            import htcondor
++            self.schedd = htcondor.Schedd()
++        except Exception, error:
++            raise ClusterManagmentError, 'could not import htcondor python API: \n%s' % error
++
++    def query(self, ids, ads=[], lim=-1):
++        """Query the Schedd via HTCondor Python API"""
++        q = self.schedd.query(
++            'stringListmember(string(ClusterId),"{0}")'.format(
++                ",".join(str(id) for id in ids)), ads, limit=lim)
++        return q
++
++    def status_map(self, status):
++        if status == 0:
++            return 'U'
++        elif status == 1:
++            return 'I'
++        elif status == 2:
++            return 'R'
++        elif status == 3:
++            return 'X'
++        elif status == 4:
++            return 'C'
++        elif status == 5:
++            return 'H'
++        elif status == 6:
++            return 'E'
++        else:
++            return str(status)
+ 
+ 
+     @multiple_try()
+@@ -1006,54 +1040,46 @@ class CondorCluster(Cluster):
+     @multiple_try(nb_try=10, sleep=10)
+     def control_one_job(self, id):
+         """ control the status of a single job with it's cluster id """
+-        cmd = 'condor_q '+str(id)+" -format \'%-2s \\n\' \'ifThenElse(JobStatus==0,\"U\",ifThenElse(JobStatus==1,\"I\",ifThenElse(JobStatus==2,\"R\",ifThenElse(JobStatus==3,\"X\",ifThenElse(JobStatus==4,\"C\",ifThenElse(JobStatus==5,\"H\",ifThenElse(JobStatus==6,\"E\",string(JobStatus))))))))\'"
+-        status = misc.Popen([cmd], shell=True, stdout=subprocess.PIPE, 
+-                                                         stderr=subprocess.PIPE)
+-        
+-        error = status.stderr.read()
+-        if status.returncode or error:
+-            raise ClusterManagmentError, 'condor_q returns error: %s' % error
++        q = self.query([str(id)], ["JobStatus", "HoldReason"], lim=1)
++        try:
++            status = q[0]["JobStatus"]
++        except Exception, error:
++            raise ClusterManagmentError, 'could not retrieve job query:\n%s' % error
++
++        s = self.status_map(status)
+ 
+-        return status.stdout.readline().strip()
++        if s == 'H':
++            hold_reason = q[0]["HoldReason"]
++            logger.warning("ClusterId %i held with HoldReason: %s" % (str(id), hold_reason))
++
++        return s
+     
+     @check_interupt()
+     @multiple_try(nb_try=10, sleep=10)
+     def control(self, me_dir):
+         """ control the status of a single job with it's cluster id """
+-        
++
+         if not self.submitted_ids:
+             return 0, 0, 0, 0
+-        
++
+         packet = 15000
+         idle, run, fail = 0, 0, 0
+         ongoing = []
+         for i in range(1+(len(self.submitted_ids)-1)//packet):
+             start = i * packet
+             stop = (i+1) * packet
+-            cmd = "condor_q " + ' '.join(self.submitted_ids[start:stop]) + \
+-            " -format \'%-2s\  ' \'ClusterId\' " + \
+-            " -format \'%-2s \\n\' \'ifThenElse(JobStatus==0,\"U\",ifThenElse(JobStatus==1,\"I\",ifThenElse(JobStatus==2,\"R\",ifThenElse(JobStatus==3,\"X\",ifThenElse(JobStatus==4,\"C\",ifThenElse(JobStatus==5,\"H\",ifThenElse(JobStatus==6,\"E\",string(JobStatus))))))))\'"
+-            
+-            status = misc.Popen([cmd], shell=True, stdout=subprocess.PIPE, 
+-                                                             stderr=subprocess.PIPE)
+-            error = status.stderr.read()
+-            if status.returncode or error:
+-                raise ClusterManagmentError, 'condor_q returns error: %s' % error
+-                
+-            for line in status.stdout:
+-                id, status = line.strip().split()
++            q = self.query(self.submitted_ids[start:stop], ["ClusterId", "JobStatus", "HoldReason"])
++
++            for job in q:
++                id, status = job["ClusterId"], self.status_map(job["JobStatus"])
+                 ongoing.append(int(id))
+                 if status in ['I','U']:
+                     idle += 1
+                 elif status == 'R':
+                     run += 1
+                 elif status == 'H':
+-                    error = misc.Popen(["condor_q", "-format", "'%s\n'", "HoldReason", id], 
+-                                            stdout=subprocess.PIPE)
+-                    self.hold_msg += "Hold message for ID %s:" % id
+-                    for line in error.stdout:
+-                        self.hold_msg += line
+-                    fail += 1                    
++                    self.hold_msg = job["HoldReason"]
++                    fail += 1
+                 elif status != 'C':
+                     fail += 1
+ 
