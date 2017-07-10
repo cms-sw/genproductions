@@ -100,9 +100,7 @@ echo "queue: ${queue}"
 
 if [ -z ${iscmsconnect:+x} ]; then iscmsconnect=0; fi
 
-# CMS Connect doesn't clone
-# the whole repository for the CODEGEN step
-# so git doesn't work even if available.
+# CMS Connect runs git status inside its own script.
 if [ $iscmsconnect -eq 0 ]; then
   cd $PRODHOME
   git status

@@ -86,6 +86,18 @@ cat<<-EOF
 EOF
 }
 
+
+# Run git status before submitting condor jobs
+if [ -z "$PRODHOME" ]; then
+  PRODHOME=`pwd`
+fi 
+cd $PRODHOME
+git status
+echo "Current git revision is:"
+git rev-parse HEAD
+git diff | cat
+cd -
+
 # Start proxy certificate watcher
 mintime=172800
 timeleft=$(voms-proxy-info -timeleft 2>&1)
