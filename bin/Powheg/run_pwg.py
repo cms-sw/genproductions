@@ -338,7 +338,7 @@ if [[ -s ./JHUGen.input ]]; then
 fi
 
 ### retrieve the powheg source tar ball
-export POWHEGSRC=powhegboxV2rwgt_Mar2017.tar.gz
+export POWHEGSRC=powhegboxV2_rev3407_date20170711.tar.gz
 
 if [ "$process" = "b_bbar_4l" ]; then 
   export POWHEGSRC=powhegboxRES_Mar2017.tar.gz
@@ -372,6 +372,10 @@ if [ "$process" = "b_bbar_4l" ]; then
 fi
 
 sed -i -e "s#500#900#g"  POWHEG-BOX/include/pwhg_rwl.h
+
+#if [ "$process" = "HJ" ]; then 
+#   sed -i -e "s#maxmulti=10#maxmulti=500#g" POWHEG-BOX/include/pwhg_bookhist-multi.h
+#fi
 
 echo ${POWHEGSRC} > VERSION
 
@@ -551,9 +555,9 @@ if [ "$process" = "HJ" ]; then
   cd ${WORKDIR}/${name}/POWHEG-BOX/HJ
  
   cp Makefile Makefile.orig
-  cat Makefile.orig | sed -e "s#ANALYSIS=.\+#ANALYSIS=NNLOPS#g" |sed -e "s#\$(shell \$(LHAPDF_CONFIG) --libdir)#$(scram tool info lhapdf | grep LIBDIR | cut -d "=" -f2)#g" | sed -e "s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d "=" -f2)/bin/fastjet-config#g" | sed -e "s#NNLOPSREWEIGHTER+=  fastjetfortran.o#NNLOPSREWEIGHTER+=  fastjetfortran.o pwhg_bookhist-multi.o#g" > Makefile
-  make nnlopsreweighter || fail_exit "Failed to compile nnlopsreweighter"
-  cp nnlopsreweighter ../../
+  cat Makefile.orig | sed -e "s#ANALYSIS=.\+#ANALYSIS=NNLOPS#g" |sed -e "s#\$(shell \$(LHAPDF_CONFIG) --libdir)#$(scram tool info lhapdf | grep LIBDIR | cut -d "=" -f2)#g" | sed -e "s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d "=" -f2)/bin/fastjet-config#g" | sed -e "s#NNLOPSREWEIGHTER+=  fastjetfortran.o#NNLOPSREWEIGHTER+=  fastjetfortran.o pwhg_bookhist-multi.o#g" | sed -e "s#NNLOPSREWEIGHTERNRW+=  fastjetfortran.o#NNLOPSREWEIGHTERNRW+=  fastjetfortran.o pwhg_bookhist-multi.o#g" > Makefile
+  make nnlopsreweighter-newrwgt || fail_exit "Failed to compile nnlopsreweighter"
+  cp nnlopsreweighter-newrwgt ../../
   cd ${WORKDIR}/${name}
   HMASS=`cat powheg.input | grep "^hmass" | cut -d " " -f2`;
   BEAM=`cat powheg.input | grep "^ebeam1" | cut -d " " -f2 | tr "d" "."`;
@@ -565,6 +569,7 @@ if [ "$process" = "HJ" ]; then
 # a line beginning with 'lhfile' followed by the name of the event file
 
 lhfile pwgevents.lhe 
+rwl_format_rwgt
 
 # weights present in the lhfile: 'mtinf', 'mt', 'mtmb', 'mtmb-bminlo'
 
@@ -595,33 +600,33 @@ nnlofiles
 
 <initrwgt>
 <weightgroup name='nnl'> 
-<weight id='nnlops-11-1'> combines 'nn-mtmb-11' with '1001' </weight> 
-<weight id='nnlops-11-2'> combines 'nn-mtmb-11' with '1002' </weight> 
-<weight id='nnlops-11-3'> combines 'nn-mtmb-11' with '1003' </weight> 
-<weight id='nnlops-11-4'> combines 'nn-mtmb-11' with '1004' </weight> 
-<weight id='nnlops-11-5'> combines 'nn-mtmb-11' with '1005' </weight> 
-<weight id='nnlops-11-6'> combines 'nn-mtmb-11' with '1006' </weight> 
-<weight id='nnlops-11-7'> combines 'nn-mtmb-11' with '1007' </weight> 
-<weight id='nnlops-11-8'> combines 'nn-mtmb-11' with '1008' </weight> 
-<weight id='nnlops-11-9'> combines 'nn-mtmb-11' with '1009' </weight> 
-<weight id='nnlops-22-1'> combines 'nn-mtmb-22' with '1001' </weight>          
-<weight id='nnlops-22-2'> combines 'nn-mtmb-22' with '1002' </weight>         
-<weight id='nnlops-22-3'> combines 'nn-mtmb-22' with '1003' </weight>         
-<weight id='nnlops-22-4'> combines 'nn-mtmb-22' with '1004' </weight>         
-<weight id='nnlops-22-5'> combines 'nn-mtmb-22' with '1005' </weight>         
-<weight id='nnlops-22-6'> combines 'nn-mtmb-22' with '1006' </weight>         
-<weight id='nnlops-22-7'> combines 'nn-mtmb-22' with '1007' </weight>         
-<weight id='nnlops-22-8'> combines 'nn-mtmb-22' with '1008' </weight>         
-<weight id='nnlops-22-9'> combines 'nn-mtmb-22' with '1009' </weight>
-<weight id='nnlops-0505-1'> combines 'nn-mtmb-0505' with '1001' </weight>
-<weight id='nnlops-0505-2'> combines 'nn-mtmb-0505' with '1002' </weight>
-<weight id='nnlops-0505-3'> combines 'nn-mtmb-0505' with '1003' </weight>
-<weight id='nnlops-0505-4'> combines 'nn-mtmb-0505' with '1004' </weight>
-<weight id='nnlops-0505-5'> combines 'nn-mtmb-0505' with '1005' </weight>
-<weight id='nnlops-0505-6'> combines 'nn-mtmb-0505' with '1006' </weight>
-<weight id='nnlops-0505-7'> combines 'nn-mtmb-0505' with '1007' </weight>
-<weight id='nnlops-0505-8'> combines 'nn-mtmb-0505' with '1008' </weight>
-<weight id='nnlops-0505-9'> combines 'nn-mtmb-0505' with '1009' </weight>
+<weight id='nnlops-11-1'> combines 'nn-mtmb-11' with '1000' </weight> 
+<weight id='nnlops-11-2'> combines 'nn-mtmb-11' with '1001' </weight> 
+<weight id='nnlops-11-3'> combines 'nn-mtmb-11' with '1002' </weight> 
+<weight id='nnlops-11-4'> combines 'nn-mtmb-11' with '1003' </weight> 
+<weight id='nnlops-11-5'> combines 'nn-mtmb-11' with '1004' </weight> 
+<weight id='nnlops-11-6'> combines 'nn-mtmb-11' with '1005' </weight> 
+<weight id='nnlops-11-7'> combines 'nn-mtmb-11' with '1006' </weight> 
+<weight id='nnlops-11-8'> combines 'nn-mtmb-11' with '1007' </weight> 
+<weight id='nnlops-11-9'> combines 'nn-mtmb-11' with '1008' </weight> 
+<weight id='nnlops-22-1'> combines 'nn-mtmb-22' with '1000' </weight>          
+<weight id='nnlops-22-2'> combines 'nn-mtmb-22' with '1001' </weight>         
+<weight id='nnlops-22-3'> combines 'nn-mtmb-22' with '1002' </weight>         
+<weight id='nnlops-22-4'> combines 'nn-mtmb-22' with '1003' </weight>         
+<weight id='nnlops-22-5'> combines 'nn-mtmb-22' with '1004' </weight>         
+<weight id='nnlops-22-6'> combines 'nn-mtmb-22' with '1005' </weight>         
+<weight id='nnlops-22-7'> combines 'nn-mtmb-22' with '1006' </weight>         
+<weight id='nnlops-22-8'> combines 'nn-mtmb-22' with '1007' </weight>         
+<weight id='nnlops-22-9'> combines 'nn-mtmb-22' with '1008' </weight>
+<weight id='nnlops-0505-1'> combines 'nn-mtmb-0505' with '1000' </weight>
+<weight id='nnlops-0505-2'> combines 'nn-mtmb-0505' with '1001' </weight>
+<weight id='nnlops-0505-3'> combines 'nn-mtmb-0505' with '1002' </weight>
+<weight id='nnlops-0505-4'> combines 'nn-mtmb-0505' with '1003' </weight>
+<weight id='nnlops-0505-5'> combines 'nn-mtmb-0505' with '1004' </weight>
+<weight id='nnlops-0505-6'> combines 'nn-mtmb-0505' with '1005' </weight>
+<weight id='nnlops-0505-7'> combines 'nn-mtmb-0505' with '1006' </weight>
+<weight id='nnlops-0505-8'> combines 'nn-mtmb-0505' with '1007' </weight>
+<weight id='nnlops-0505-9'> combines 'nn-mtmb-0505' with '1008' </weight>
 </weightgroup>
 </initrwgt>
 EOF
@@ -678,10 +683,6 @@ else
   fi
   sed -e 's/PROCESS/'${process}'/g' ${WORKDIR}/runcmsgrid_powheg.sh > runcmsgrid.sh
 fi
-
-
-sed -i s/SCRAM_ARCH_VERSION_REPLACE/${SCRAM_ARCH}/g runcmsgrid.sh
-sed -i s/CMSSW_VERSION_REPLACE/${CMSSW_VERSION}/g runcmsgrid.sh 
 
 chmod 755 runcmsgrid.sh
 
@@ -816,14 +817,10 @@ fi
 
 sed -i 's/pwggrid.dat ]]/pwggrid.dat ]] || [ -e ${WORKDIR}\/pwggrid-0001.dat ]/g' runcmsgrid.sh
 
-if [ "$process" = "HJ" ]; then
-  cat runcmsgrid.sh  | gawk '/produceWeightsNNLO/{gsub(/false/, \"true\")};{print}' > runcmsgrid_tmp.sh
-  mv runcmsgrid_tmp.sh runcmsgrid.sh
-fi  
-
-
-sed -i s/SCRAM_ARCH_VERSION_REPLACE/${SCRAM_ARCH}/g runcmsgrid.sh
-sed -i s/CMSSW_VERSION_REPLACE/${CMSSW_VERSION}/g runcmsgrid.sh 
+#if [ "$process" = "HJ" ]; then
+#  cat runcmsgrid.sh  | gawk '/produceWeightsNNLO/{gsub(/false/, \"true\")};{print}' > runcmsgrid_tmp.sh
+#  mv runcmsgrid_tmp.sh runcmsgrid.sh
+#fi  
 
 chmod 755 runcmsgrid.sh
 cp -p runcmsgrid.sh runcmsgrid_par.sh
@@ -854,12 +851,11 @@ fi
 
 if [ $keepTop == '1' ]; then
     echo 'Keeping validation plots.'
-    echo 'Packing...' ${WORKDIR}'/'${folderName}'_'${SCRAM_ARCH}'_'${CMSSW_VERSION}'_'${process}'.tgz'
-    tar zcf ${WORKDIR}'/'${folderName}'_'${SCRAM_ARCH}'_'${CMSSW_VERSION}'_'${process}'.tgz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.lhe --exclude=run_*.sh --exclude=*.log --exclude=*temp --exclude=pwgbtlupb-*.dat --exclude=pwgrmupb-*.dat
+    echo 'Packing...' ${WORKDIR}'/'${folderName}'_'${process}'.tgz'
+    tar zcf ${WORKDIR}'/'${folderName}'_'${process}'.tgz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.lhe --exclude=run_*.sh --exclude=*.log --exclude=*temp --exclude=pwgbtlupb-*.dat --exclude=pwgrmupb-*.dat
 else
-
-    echo 'Packing...' ${WORKDIR}'/'${folderName}'_'${SCRAM_ARCH}'_'${CMSSW_VERSION}'_'${process}'.tgz'
-    tar zcf ${WORKDIR}'/'${folderName}'_'${SCRAM_ARCH}'_'${CMSSW_VERSION}'_'${process}'.tgz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.top --exclude=*.lhe --exclude=run_*.sh --exclude=*.log --exclude=*temp --exclude=pwgbtlupb-*.dat --exclude=pwgrmupb-*.dat 
+    echo 'Packing...' ${WORKDIR}'/'${folderName}'_'${process}'.tgz'
+    tar zcf ${WORKDIR}'/'${folderName}'_'${process}'.tgz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.top --exclude=*.lhe --exclude=run_*.sh --exclude=*.log --exclude=*temp --exclude=pwgbtlupb-*.dat --exclude=pwgrmupb-*.dat
 fi
 
 cd ${WORKDIR}
