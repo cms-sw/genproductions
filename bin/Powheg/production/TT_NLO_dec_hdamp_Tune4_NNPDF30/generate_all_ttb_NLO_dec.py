@@ -16,10 +16,10 @@ def main():
                         elif 'tbardec' in line:
                             f.write('tbardec ' + str(modes[tbarmode]) + ' ! 11, 13 and 15 for e+,mu+,tau+, 1 for hadrons\n')
                         else: f.write(line)
-            cmd = 'python ./run_pwg.py -p f -i ttb_NLO_dec_%s_%s_NNPDF30_13TeV.input -f ttb_NLO_dec_%s_%s_NNPDF30_13TeV -m ttb_NLO_dec -n 1000'%(topmode,tbarmode,topmode,tbarmode)
+            cmd = 'python ./run_pwg_parallel.py -i ttb_NLO_dec_%s_%s_NNPDF30_13TeV.input -f ttb_NLO_dec_%s_%s_NNPDF30_13TeV -m ttb_NLO_dec -q 2nd -j 24 -x 2 --step3pilot'%(topmode,tbarmode,topmode,tbarmode)
             print(cmd)
             if os.path.isfile('ttb_NLO_dec_%s_%s_NNPDF30_13TeV/pwgevents.lhe'%(topmode,tbarmode)):
-                print('Skipping as pwgevent.lhe is present')
+                print('Skipping %s_%s as pwgevent.lhe is present'%(topmode,tbarmode))
             else:
                 os.system(cmd)
 
