@@ -377,6 +377,10 @@ if [ "$process" = "b_bbar_4l" ]; then
     patch -l -p0 -i ${WORKDIR}/patches/res_gfortran48.patch
     cd ..
 fi
+if [ "$process" = "ttb_NLO_dec" ]; then
+    patch -l -p0 -i ${WORKDIR}/patches/pwhg_ttb_NLO_dec_gen_radiation_hook.patch
+fi
+
 
 echo ${POWHEGSRC} > VERSION
 
@@ -1013,6 +1017,7 @@ if __name__ == "__main__":
             fseed = open(args.folderName + '/pwgseeds.dat', 'w')
             for ii in range(1, 10000) :
                 fseed.write(str(ii)+'\n')
+            fseed.close()
 #        #FIXME this is a crude hardcoded trick to overcome some problems in LHAPDF usage
 #        runCommand ('ln -s /afs/cern.ch/user/g/govoni/work/HiggsPlusJets/lhapdf/share/lhapdf/PDFsets/CT10.LHgrid ./'  + args.folderName)
 
