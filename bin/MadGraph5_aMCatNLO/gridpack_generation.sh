@@ -111,16 +111,15 @@ CARDSDIR=${PRODHOME}/${carddir}
 
 MGBASEDIR=mgbasedir
 
-MG=MG5_aMC_v2.5.4.tar.gz
+MG_EXT=".tar.gz"
+MG=MG5_aMC_v2.5.5$MG_EXT
 MGSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$MG
-MGSOURCE_ALT=${PRODHOME}/code_tars/$MG
 
 #syscalc is a helper tool for madgraph to add scale and pdf variation weights for LO processes
 SYSCALC=SysCalc_V1.1.6.tar.gz
 SYSCALCSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$SYSCALC
 
-MGBASEDIRORIG=MG5_aMC_v2_5_4
-
+MGBASEDIRORIG=$(echo ${MG%$MG_EXT} | tr "." "_")
 isscratchspace=0
 
 if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
@@ -138,7 +137,6 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   export SCRAM_ARCH=${scram_arch}
   export RELEASE=${cmssw_version}
 
-
   ############################
   #Create a workplace to work#
   ############################
@@ -155,15 +153,8 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   #############################################
   #Copy, Unzip and Delete the MadGraph tarball#
   #############################################
-  set +e
   wget --no-check-certificate ${MGSOURCE}
-  if [ $? -ne 0 ]; then
-    echo "Could not find release on central server, try locally"
-    cp ${MGSOURCE_ALT} . 
-  fi
-  #set -e
   tar xzf ${MG}
-  rm $MG
 
   #############################################
   #Apply any necessary patches on top of official release
@@ -172,7 +163,6 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   cd $MGBASEDIRORIG
   cat $PRODHOME/patches/*.patch | patch -p1
 
-  set -e
   if [ -e $CARDSDIR/${name}_loop_filter.py ]; then
     echo "Acitvating custom user loop filter"
     cat $CARDSDIR/${name}_loop_filter.py | patch -p1
