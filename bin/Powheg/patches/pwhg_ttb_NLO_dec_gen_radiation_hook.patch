@@ -1,36 +1,14 @@
---- POWHEG-BOX/Bornzerodamp.f 2016-09-23 15:15:29.000000001 +0200
-+++ POWHEG-BOX/Bornzerodamp.f 2017-06-21 18:53:35.000000001 +0200
-@@ -30,19 +30,22 @@
-          endif
-          if(h.gt.0) then
-             write(*,*)'***************************************'
--            write(*,*)' Using a damping factor h**2/(pt2+h**2)'
-+            write(*,*)' Using a damping factor h^2/(pt2+h^2)'
-             write(*,*)' to separate real contributions between'
--            write(*,*)' Sudakov and remnants    h=',h,' GeV   ' 
-+            write(*,*)' Sudakov and remnants    h=',h
-             write(*,*)'***************************************'
-          endif
-          ini=.false.
+--- POWHEG-BOX/ttb_NLO_dec/Bornzerodamp.f	2016-09-23 15:22:09.000000000 +0200
++++ POWHEG-BOX/ttb_NLO_dec/Bornzerodamp.f	2017-06-21 18:53:35.000000000 +0200
+@@ -39,7 +39,7 @@
        endif
--c local variables
--      if(h.gt.0) then
--         pt2=pwhg_pt2()
--         dampfac=h**2/(pt2+h**2)
--      else
--         dampfac=1
-+c
-+      dampfac = 1
+ c
+       dampfac = 1
+-      if(flst_realres(nlegreal,alr).eq.0) then
 +      if(flst_alrres(nlegreal,alr).eq.0) then
-+c hfact applied only for radiation in production
-+         if(h.gt.0) then
-+            
-+            pt2 = kn_cmpreal(1,nlegreal)**2+kn_cmpreal(2,nlegreal)**2
-+            dampfac=h**2/(pt2+h**2)
-+         endif
-       endif
- 
-       if(flg_bornzerodamp.and.r0.gt.5*rc.and.r0.gt.5*rs) then
+ c hfact applied only for radiation in production
+          if(h.gt.0) then
+
 
 --- POWHEG-BOX/ttb_NLO_dec/gen_radiation_hook.f	2017-04-11 09:27:23.000000001 +0200
 +++ POWHEG-BOX/ttb_NLO_dec/gen_radiation_hook.f 2017-06-23 11:31:46.000000001 +0200
