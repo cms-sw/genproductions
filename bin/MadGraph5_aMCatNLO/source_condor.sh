@@ -10,9 +10,12 @@ if [ -z "$PYTHON_BINDINGS" ]; then
     exit 1
 else
   if [ -n "$PYTHONPATH" ]; then
-    if [ -n "${PYTHONPATH##*${PYTHON_BINDINGS}*}" ]; then
-      export PYTHONPATH="$PYTHON_BINDINGS:$PYTHONPATH"
-    fi
+      case ":$PYTHONPATH:" in
+        *:$PYTHON_BINDINGS:*) :
+        ;;
+        *) export PYTHONPATH="$PYTHON_BINDINGS:$PYTHONPATH"
+        ;;
+      esac
   else
       export PYTHONPATH="$PYTHON_BINDINGS"
   fi
