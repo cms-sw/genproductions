@@ -34,6 +34,21 @@ queue=${3}
 
 # processing options
 jobstep=${4}
+
+if [ -z "$5" ]
+  then
+    scram_arch=slc6_amd64_gcc481
+  else
+    scram_arch=${5}
+fi
+
+if [ -z "$6" ]
+  then
+    cmssw_version=CMSSW_7_1_28
+  else
+    cmssw_version=${6}
+fi
+
 # jobstep can be 'ALL','CODEGEN', 'INTEGRATE', 'MADSPIN'
 
 if [ -z "$PRODHOME" ]; then
@@ -97,6 +112,8 @@ echo "System release " `cat /etc/redhat-release` #And the system release
 echo "name: ${name}"
 echo "carddir: ${carddir}"
 echo "queue: ${queue}"
+echo "scram_arch: ${scram_arch}"
+echo "cmssw_version: ${cmssw_version}"
 
 if [ -z ${iscmsconnect:+x} ]; then iscmsconnect=0; fi
 
@@ -145,8 +162,8 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
 #   export SCRAM_ARCH=slc6_amd64_gcc472 #Here one should select the correct architechture corresponding with the CMSSW release
 #   export RELEASE=CMSSW_5_3_32_patch3
 
-  export SCRAM_ARCH=slc6_amd64_gcc481
-  export RELEASE=CMSSW_7_1_23
+  export SCRAM_ARCH=${scram_arch}
+  export RELEASE=${cmssw_version}
 
 
   ############################
@@ -519,6 +536,8 @@ if [ "$isnlo" -gt "0" ]; then
   cd gridpack
 
   cp $PRODHOME/runcmsgrid_NLO.sh ./runcmsgrid.sh
+  sed -i s/SCRAM_ARCH_VERSION_REPLACE/${scram_arch}/g runcmsgrid.sh
+  sed -i s/CMSSW_VERSION_REPLACE/${cmssw_version}/g runcmsgrid.sh
   
   if [ -e $CARDSDIR/${name}_externaltarball.dat ]; then
     mv $WORKDIR/header_for_madspin.txt . 
@@ -615,6 +634,8 @@ else
   cd gridpack
   
   cp $PRODHOME/runcmsgrid_LO.sh ./runcmsgrid.sh
+  sed -i s/SCRAM_ARCH_VERSION_REPLACE/${scram_arch}/g runcmsgrid.sh
+  sed -i s/CMSSW_VERSION_REPLACE/${cmssw_version}/g runcmsgrid.sh
   
 fi
 
@@ -660,14 +681,14 @@ else
 fi
 
 if [ ! -e $CARDSDIR/${name}_externaltarball.dat ]; then
-    XZ_OPT="$XZ_OPT" tar -cJpsf ${PRODHOME}/${name}_tarball.tar.xz mgbasedir process runcmsgrid.sh gridpack_generation.log
+    XZ_OPT="$XZ_OPT" tar -cJpsf ${PRODHOME}/${name}_${scram_arch}_${cmssw_version}_tarball.tar.xz mgbasedir process runcmsgrid.sh gridpack_generation.log
 else
-    XZ_OPT="$XZ_OPT" tar -cJpsf ${PRODHOME}/${name}_tarball.tar.xz mgbasedir process runcmsgrid.sh gridpack_generation.log external_tarball ${name}_externaltarball.dat header_for_madspin.txt
+    XZ_OPT="$XZ_OPT" tar -cJpsf ${PRODHOME}/${name}_${scram_arch}_${cmssw_version}_tarball.tar.xz mgbasedir process runcmsgrid.sh gridpack_generation.log external_tarball ${name}_externaltarball.dat header_for_madspin.txt
 fi
 
-#mv ${name}_tarball.tar.xz ${PRODHOME}/${name}_tarball.tar.xz
+#mv ${name}_${scram_arch}_${cmssw_version}_tarball.tar.xz ${PRODHOME}/${name}_${scram_arch}_${cmssw_version}_tarball.tar.xz
 
-echo "Gridpack created successfully at ${PRODHOME}/${name}_tarball.tar.xz"
+echo "Gridpack created successfully at ${PRODHOME}/${name}_${scram_arch}_${cmssw_version}_tarball.tar.xz"
 echo "End of job"
 
 if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 0; else exit 0; fi

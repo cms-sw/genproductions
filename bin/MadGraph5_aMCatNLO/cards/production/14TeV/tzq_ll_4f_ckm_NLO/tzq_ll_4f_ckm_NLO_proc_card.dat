@@ -1,0 +1,6 @@
+import model loop_sm-ckm
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
+generate p p > t b~ j l+ l- $$ w+ w- [QCD]
+add process p p > t~ b j l+ l- $$ w+ w- [QCD]
+output tzq_ll_4f_ckm_NLO -nojpeg
