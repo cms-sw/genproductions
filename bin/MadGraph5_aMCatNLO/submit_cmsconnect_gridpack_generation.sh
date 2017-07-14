@@ -1,6 +1,7 @@
 #!/bin/bash
 
 source cmsconnect_utils.sh
+source source_condor.sh
 
 create_codegen_jdl(){
 cat<<-EOF
