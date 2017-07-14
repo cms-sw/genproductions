@@ -132,6 +132,13 @@ if [ -z "$CONDOR_SET_MAXWALLTIMES" ]; then
   export CONDOR_SET_MAXWALLTIMES="500,960,2160,2820"
 fi
 
+##########################
+# ADDITIONAL CLASSADS
+##########################
+# Always append IOProxy, so that JobDuration is always set in the history.
+export _CONDOR_WantIOProxy=true 
+export _CONDOR_SUBMIT_ATTRS="$_CONDOR_SUBMIT_ATTRS WantIOProxy"
+
 card_name=$1
 card_dir=$2
 workqueue="condor"
