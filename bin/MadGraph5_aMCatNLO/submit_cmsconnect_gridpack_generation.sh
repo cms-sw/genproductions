@@ -112,6 +112,25 @@ fi
 echo -e "Start proxy watcher job.\nThis will be automatically removed at the end of the script. If you kill this process before though, please execute:\nproxy-watcher -remove"
 proxy-watcher -start
 
+##########################
+# HOLD CODES AND WALLTIMES
+#########################
+#26:119 : CVMFS failed
+#30:256: Job put on hold by remote host
+#13: condor_starter or shadow failed to send job
+
+if [ -z "$CONDOR_RELEASE_HOLDCODES" ]; then
+  export CONDOR_RELEASE_HOLDCODES="26:119,13,30:256"
+fi
+if [ -z "$CONDOR_RELEASE_HOLDCODES_SHADOW_LIM" ]; then
+  export CONDOR_RELEASE_HOLDCODES_SHADOW_LIM="10"
+fi
+# Set a list of maxwalltime in minutes
+# Pilots maximum life is 48h or 2880 minutes
+if [ -z "$CONDOR_SET_MAXWALLTIMES" ]; then
+  export CONDOR_SET_MAXWALLTIMES="500,960,2160,2820"
+fi
+
 card_name=$1
 card_dir=$2
 workqueue="condor"

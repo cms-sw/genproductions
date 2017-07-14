@@ -1,5 +1,5 @@
 diff --git a/madgraph/various/cluster.py b/madgraph/various/cluster.py
-index 4a9c3d6..ea47a80 100755
+index 4a9c3d6..62f6a37 100755
 --- a/madgraph/various/cluster.py
 +++ b/madgraph/various/cluster.py
 @@ -846,6 +846,40 @@ class CondorCluster(Cluster):
@@ -65,7 +65,7 @@ index 4a9c3d6..ea47a80 100755
 -        return status.stdout.readline().strip()
 +        if s == 'H':
 +            hold_reason = q[0]["HoldReason"]
-+            logger.warning("ClusterId %i held with HoldReason: %s" % (str(id), hold_reason))
++            logger.warning("ClusterId %s held with HoldReason: %s" % (str(id), hold_reason))
 +
 +        return s
      
@@ -113,7 +113,7 @@ index 4a9c3d6..ea47a80 100755
 -                    for line in error.stdout:
 -                        self.hold_msg += line
 -                    fail += 1                    
-+                    self.hold_msg = job["HoldReason"]
++                    self.hold_msg = "ClusterId %s with HoldReason: %s" % (str(id), job["HoldReason"])
 +                    fail += 1
                  elif status != 'C':
                      fail += 1
