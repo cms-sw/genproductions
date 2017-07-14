@@ -21,4 +21,15 @@ Index: OpenLoopsStuff/OpenLoops/lib_src/openloops/src/parameters.F90
    ! Mode for check_last_[...] in laststep and tensor integral routine in looproutines
    integer, save :: l_switch = 1, a_switch = 5, a_switch_rescue = 5, redlib_qp = 5
    ! switchers for checking Ward identities at tree/loop level
+===================================================================
+--- b_bbar_4l/Makefile	(revision 3388)
++++ b_bbar_4l/Makefile	(working copy)
+@@ -149,7 +149,7 @@
+ 
+ ifdef OLPATH
+ FF+= -I$(OLPATH)/lib_src/openloops/mod
+-LIBSOPENLOOPS= -Wl,-rpath=$(PWD)/$(OBJDIR) -L$(PWD)/$(OBJDIR) -lopenloops
++LIBSOPENLOOPS= -Wl,-rpath=$(OBJDIR) -L$(OBJDIR) -lopenloops
+ USER+=openloops.o
+ endif
 

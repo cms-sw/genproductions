@@ -8,6 +8,8 @@ aparser.add_argument('-decay-card' ,'--decay-card',action='store' ,dest='card2' 
 aparser.add_argument('-name'       ,'--name'      ,action='store' ,dest='name'   ,default='ScalarVH'       ,help='name')
 aparser.add_argument('-s'          ,'--seed'      ,action='store' ,dest='seed'   ,default='123456'         ,help='random seed for grid generation')
 aparser.add_argument('-n'          ,'--nevents'   ,action='store' ,dest='nevents',default='100'            ,help='number of events for the test run after grid generation')
+aparser.add_argument('-scram_arch' ,'--scram_arch',action='store' ,dest='scram_arch',default='slc6_amd64_gcc481',help='SCRAM_ARCH system variable, default slc6_amd64_gcc481')
+aparser.add_argument('-cmssw'      ,'--cmssw'     ,action='store' ,dest='cmssw'     ,default='CMSSW_7_1_28'     ,help='CMSSW_VERSION system variable, default CMSSW_7_1_28')
 args1 = aparser.parse_args()
 
 basedir=os.getcwd()
@@ -48,6 +50,10 @@ job_file.write('mv runcmsgrid.sh runcmsgrid_template.sh                        \
 job_file.write('sed "s@Seed=SEED@Seed=\\$\\{rnum\\}@g"   runcmsgrid_template.sh > runcmsgrid.sh \n')
 job_file.write('mv runcmsgrid.sh runcmsgrid_template.sh                        \n')
 job_file.write('sed "s@BASEDIR@%s_JHUGen@g"   runcmsgrid_template.sh > runcmsgrid.sh \n'  % (args1.name))
+
+job_file.write('sed -i s/SCRAM_ARCH_VERSION_REPLACE/%s/g runcmsgrid.sh \n'  % (args1.scram_arch))
+job_file.write('sed -i s/CMSSW_VERSION_REPLACE/%s/g runcmsgrid.sh \n'  % (args1.cmssw))
+
 job_file.write('chmod +x runcmsgrid.sh \n')
 if "ReadCSmax" in command:
     #set up the grid now so it can be read
@@ -65,4 +71,4 @@ os.chdir('%s' % (basedir))
 os.system('pwd')
 os.system('rm -rf %s_JHUGen/LSFJOB*' % (args1.name))
 os.system('mv %s_JHUGen/runcmsgrid.sh .' % (args1.name)) 
-os.system('tar czvf JHUGen_%s.tgz %s_JHUGen runcmsgrid.sh' % (args1.name,args1.name))
+os.system('tar czvf JHUGen_%s_%s_%s.tgz %s_JHUGen runcmsgrid.sh' % (args1.name,args1.name,args1.scram_arch,args1.cmssw))

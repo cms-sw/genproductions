@@ -43,7 +43,7 @@ cat<<-EOF
 	# Purdue wokaround
 	unset CXX CC FC
 	# Run
-	iscmsconnect=1 bash -x gridpack_generation.sh "${card_name}" "${card_dir}" "${workqueue}" CODEGEN
+	iscmsconnect=1 bash -x gridpack_generation.sh "${card_name}" "${card_dir}" "${workqueue}" CODEGEN "${scram_arch}" "${cmssw_version}"
 	exitcode=\$?
 
 	if [ \$exitcode -ne 0 ]; then
@@ -146,6 +146,8 @@ workqueue="condor"
 # Using 1 core and 2 Gb by default.
 cores="${3:-1}"
 memory="${4:-2 Gb}"
+scram_arch="${5:-}"
+cmssw_version="${6:-}"
 
 parent_dir=$PWD
 ##############################################
@@ -243,7 +245,7 @@ cd "$parent_dir"
 # CMS Dashboard reporting should work now.
 # Disable this only for testing.
 # export CONDOR_CMS_DASHBOARD=False
-iscmsconnect=1 bash -x gridpack_generation.sh ${card_name} ${card_dir} ${workqueue} INTEGRATE
+iscmsconnect=1 bash -x gridpack_generation.sh ${card_name} ${card_dir} ${workqueue} INTEGRATE ${scram_arch} ${cmssw_version}
 
 ##############################################
 # MADSPIN step
@@ -251,7 +253,7 @@ iscmsconnect=1 bash -x gridpack_generation.sh ${card_name} ${card_dir} ${workque
 # step yet.
 ##############################################
 #echo ">> Start MADSPIN step"
-#iscmsconnect=1 bash -xe gridpack_generation.sh ${card_name} ${card_dir} ${workqueue} MADSPIN
+#iscmsconnect=1 bash -xe gridpack_generation.sh ${card_name} ${card_dir} ${workqueue} MADSPIN ${scram_arch} ${cmssw_version}
 
 echo "Remove proxy watcher job"
 proxy-watcher -remove

@@ -2,15 +2,15 @@
 
 fail_exit() { echo "$@"; exit 1; }
 
-#set -o verbose
-EXPECTED_ARGS=3
+# #set -o verbose
+# EXPECTED_ARGS=3
 
-if [ $# -ne $EXPECTED_ARGS ]
-then
-    echo "Usage: `basename $0` Nevents RandomSeed cpu"
-    echo "Example: `basename $0` 1000 1212 cpu" 
-    exit 1
-fi
+# if [ $# -ne $EXPECTED_ARGS ]
+# then
+    # echo "Usage: `basename $0` Nevents RandomSeed cpu"
+    # echo "Example: `basename $0` 1000 1212 cpu" 
+    # exit 1
+# fi
 
 echo "   ______________________________________     "
 echo "         Running Powheg                       "
@@ -24,6 +24,40 @@ echo "%MSG-POWHEG random seed used for the run = $rnum"
 
 ncpu=${3}
 echo "%MSG-POWHEG number of cputs for the run = $ncpu"
+
+LHEWORKDIR=`pwd`
+
+use_gridpack_env=true
+if [ -n "$4" ]
+  then
+  use_gridpack_env=$4
+fi
+
+if [ "$use_gridpack_env" = true ]
+  then
+    if [ -n "$5" ]
+      then
+        scram_arch_version=${5}
+      else
+        scram_arch_version=SCRAM_ARCH_VERSION_REPLACE
+    fi
+    echo "%MSG-MG5 SCRAM_ARCH version = $scram_arch_version"
+
+    if [ -n "$6" ]
+      then
+        cmssw_version=${6}
+      else
+        cmssw_version=CMSSW_VERSION_REPLACE
+    fi
+    echo "%MSG-MG5 CMSSW version = $cmssw_version"
+    export VO_CMS_SW_DIR=/cvmfs/cms.cern.ch
+    source $VO_CMS_SW_DIR/cmsset_default.sh
+    export SCRAM_ARCH=${scram_arch_version}
+    scramv1 project CMSSW ${cmssw_version}
+    cd ${cmssw_version}/src
+    eval `scramv1 runtime -sh`
+fi
+cd $LHEWORKDIR
 
 seed=$rnum
 file="cmsgrid"
@@ -155,18 +189,6 @@ then
 
         iteration=$(( iteration + 1 ))
    done
-
-    if [ "$produceWeightsNNLO" == "true" ]; then
-      echo -e "\ncomputing weights for NNLOPS\n"
-      mv pwgevents.lhe fornnlops
-      cp ../nnlopsreweighter.input .
-      cp ../HNNLO-11.top .
-      cp ../HNNLO-22.top .
-      cp ../HNNLO-0505.top .
-      ../nnlopsreweighter
-      mv fornnlops.nnlo pwgevents.lhe
-    fi
- 
 
     echo -e "\ncomputing weights for 100 NNPDF3.0 nlo variations\n"
     iteration=260001
@@ -383,6 +405,19 @@ fi
 sed "s@-1000021@ 1000022@g" cmsgrid_final.lhe           > cmsgrid_final.lhe_F1
 sed "s@1000021@1000022@g"   cmsgrid_final.lhe_F1          > cmsgrid_final.lhe
 cp ${file}_final.lhe ${WORKDIR}/.
+
+if [ "$produceWeightsNNLO" == "true" ]; then
+    echo -e "\ncomputing weights for NNLOPS is not possible at this stage\n"
+    echo -e "because the job is too small. Please run many jobs using \n"
+    echo -e "run_lhe_parallel.sh and then run run_nnlops.sh on them. \n"
+      #mv pwgevents.lhe fornnlops
+      #cp ../nnlopsreweighter.input .
+      #cp ../HNNLO-11.top .
+      #cp ../HNNLO-22.top .
+      #cp ../HNNLO-0505.top .
+      #../nnlopsreweighter
+      #mv fornnlops.nnlo pwgevents.lhe
+fi
 
 echo "Output ready with ${file}_final.lhe at $WORKDIR"
 echo "End of job on " `date`
