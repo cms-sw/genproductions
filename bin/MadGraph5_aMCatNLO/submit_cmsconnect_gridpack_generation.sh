@@ -1,6 +1,7 @@
 #!/bin/bash
 
 source cmsconnect_utils.sh
+source source_condor.sh
 
 create_codegen_jdl(){
 cat<<-EOF
@@ -38,7 +39,9 @@ cat<<-EOF
 	# Setup CMS framework
 	export VO_CMS_SW_DIR=/cvmfs/cms.cern.ch
 	source \$VO_CMS_SW_DIR/cmsset_default.sh
-	
+
+	# Purdue wokaround
+	unset CXX CC FC
 	# Run
 	iscmsconnect=1 bash -x gridpack_generation.sh "${card_name}" "${card_dir}" "${workqueue}" CODEGEN "${scram_arch}" "${cmssw_version}"
 	exitcode=\$?
@@ -67,11 +70,14 @@ cat<<-EOF
 	fi
 	# Second, try condor_chirp
 	echo ">> Copying sandbox via condor_chirp"
-	if [ -n "\${CONDOR_CONFIG}" ]; then
-	    CONDOR_CHIRP_BIN="\$(dirname \$CONDOR_CONFIG)/main/condor/libexec/condor_chirp"
-	    "\${CONDOR_CHIRP_BIN}" put -perm 644 "\${condor_scratch}/$sandbox_output" "$sandbox_output"
-	    exitcode=\$?
+	CONDOR_CHIRP_BIN=\$(command -v condor_chirp)
+	if [ \$? != 0 ]; then
+	    if [ -n "\${CONDOR_CONFIG}" ]; then
+	        CONDOR_CHIRP_BIN="\$(dirname \$CONDOR_CONFIG)/main/condor/libexec/condor_chirp"
+	    fi
 	fi
+	"\${CONDOR_CHIRP_BIN}" put -perm 644 "\${condor_scratch}/$sandbox_output" "$sandbox_output"
+	exitcode=\$?
 	if [ \$exitcode -ne 0 ]; then
 	    echo "condor_chirp failed. Exiting with error code 210."
 	    exit 210
@@ -81,6 +87,58 @@ cat<<-EOF
 EOF
 }
 
+
+# Run git status before submitting condor jobs
+if [ -z "$PRODHOME" ]; then
+  PRODHOME=`pwd`
+fi 
+cd $PRODHOME
+git status
+echo "Current git revision is:"
+git rev-parse HEAD
+git diff | cat
+cd -
+
+# Start proxy certificate watcher
+mintime=172800
+timeleft=$(voms-proxy-info -timeleft 2>&1)
+if [ $? != 0 ]; then
+    echo -e "Proxies are needed. Please execute the command below and submit your gridpack again:\n\nvoms-proxy-init -voms cms -valid 192:00"
+    exit 100
+elif [ "$timeleft" -lt "$mintime" ]; then
+    echo "Your proxy time left is less that 48 hours. Please renew it before submitting your gridpack."
+    exit 101
+fi
+
+echo -e "Start proxy watcher job.\nThis will be automatically removed at the end of the script. If you kill this process before though, please execute:\nproxy-watcher -remove"
+proxy-watcher -start
+
+##########################
+# HOLD CODES AND WALLTIMES
+#########################
+#26:119 : CVMFS failed
+#30:256: Job put on hold by remote host
+#13: condor_starter or shadow failed to send job
+
+if [ -z "$CONDOR_RELEASE_HOLDCODES" ]; then
+  export CONDOR_RELEASE_HOLDCODES="26:119,13,30:256"
+fi
+if [ -z "$CONDOR_RELEASE_HOLDCODES_SHADOW_LIM" ]; then
+  export CONDOR_RELEASE_HOLDCODES_SHADOW_LIM="10"
+fi
+# Set a list of maxwalltime in minutes
+# Pilots maximum life is 48h or 2880 minutes
+if [ -z "$CONDOR_SET_MAXWALLTIMES" ]; then
+  export CONDOR_SET_MAXWALLTIMES="500,960,2160,2820"
+fi
+
+##########################
+# ADDITIONAL CLASSADS
+##########################
+# Always append IOProxy, so that JobDuration is always set in the history.
+export _CONDOR_WantIOProxy=true 
+export _CONDOR_SUBMIT_ATTRS="$_CONDOR_SUBMIT_ATTRS WantIOProxy"
+
 card_name=$1
 card_dir=$2
 workqueue="condor"
@@ -88,8 +146,8 @@ workqueue="condor"
 # Using 1 core and 2 Gb by default.
 cores="${3:-1}"
 memory="${4:-2 Gb}"
-scram_arch=${3}
-cmssw_version=${4}
+scram_arch="${5:-}"
+cmssw_version="${6:-}"
 
 parent_dir=$PWD
 ##############################################
@@ -184,8 +242,9 @@ cd -
 echo ">> Start INTEGRATE step"
 cd "$parent_dir"
 
-# CMS Dashboard reporting not yet working with this step.
-export CONDOR_CMS_DASHBOARD=False
+# CMS Dashboard reporting should work now.
+# Disable this only for testing.
+# export CONDOR_CMS_DASHBOARD=False
 iscmsconnect=1 bash -x gridpack_generation.sh ${card_name} ${card_dir} ${workqueue} INTEGRATE ${scram_arch} ${cmssw_version}
 
 ##############################################
@@ -195,3 +254,6 @@ iscmsconnect=1 bash -x gridpack_generation.sh ${card_name} ${card_dir} ${workque
 ##############################################
 #echo ">> Start MADSPIN step"
 #iscmsconnect=1 bash -xe gridpack_generation.sh ${card_name} ${card_dir} ${workqueue} MADSPIN ${scram_arch} ${cmssw_version}
+
+echo "Remove proxy watcher job"
+proxy-watcher -remove
