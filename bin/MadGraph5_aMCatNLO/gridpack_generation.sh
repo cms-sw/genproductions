@@ -32,6 +32,25 @@ carddir=${2}
 # which queue
 queue=${3}
 
+# processing options
+jobstep=${4}
+
+if [ -z "$5" ]
+  then
+    scram_arch=slc6_amd64_gcc481
+  else
+    scram_arch=${5}
+fi
+
+if [ -z "$6" ]
+  then
+    cmssw_version=CMSSW_7_1_28
+  else
+    cmssw_version=${6}
+fi
+
+# jobstep can be 'ALL','CODEGEN', 'INTEGRATE', 'MADSPIN'
+
 if [ -z "$PRODHOME" ]; then
   PRODHOME=`pwd`
 fi 
@@ -54,6 +73,24 @@ if [ -z ${queue} ]; then
   queue=local
 fi
 
+if [ -z ${jobstep} ]; then
+  jobstep=ALL
+fi
+
+#Check values of jobstep:
+if [ "${jobstep}" == "ALL" ] || [ "${jobstep}" == "CODEGEN" ] || [ "${jobstep}" == "INTEGRATE" ] || [ "${jobstep}" == "MADSPIN" ]; then
+    echo "Running gridpack generation step ${jobstep}"
+else
+    echo "No Valid Job Step specified, exiting "
+    if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
+fi 
+
+# @TODO: MADSPIN hasn't been split from INTEGRATE step yet. Just exit for now.
+if  [ "${jobstep}" == "MADSPIN" ]; then
+    echo "MADSPIN hasn't been split from INTEGRATE step yet. Doing nothing. "
+    if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 0; else exit 0; fi
+fi 
+
 #________________________________________
 # to be set for user specific
 # Release to be used to define the environment and the compiler needed
@@ -75,13 +112,20 @@ echo "System release " `cat /etc/redhat-release` #And the system release
 echo "name: ${name}"
 echo "carddir: ${carddir}"
 echo "queue: ${queue}"
+echo "scram_arch: ${scram_arch}"
+echo "cmssw_version: ${cmssw_version}"
 
-cd $PRODHOME
-git status
-echo "Current git revision is:"
-git rev-parse HEAD
-git diff | cat
-cd -
+if [ -z ${iscmsconnect:+x} ]; then iscmsconnect=0; fi
+
+# CMS Connect runs git status inside its own script.
+if [ $iscmsconnect -eq 0 ]; then
+  cd $PRODHOME
+  git status
+  echo "Current git revision is:"
+  git rev-parse HEAD
+  git diff | cat
+  cd -
+fi
 
 AFSFOLD=${PRODHOME}/${name}
 # the folder where the script works, I guess
@@ -118,8 +162,8 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
 #   export SCRAM_ARCH=slc6_amd64_gcc472 #Here one should select the correct architechture corresponding with the CMSSW release
 #   export RELEASE=CMSSW_5_3_32_patch3
 
-  export SCRAM_ARCH=slc6_amd64_gcc481
-  export RELEASE=CMSSW_7_1_23
+  export SCRAM_ARCH=${scram_arch}
+  export RELEASE=${cmssw_version}
 
 
   ############################
@@ -167,7 +211,10 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
 
   echo "set auto_update 0" > mgconfigscript
   echo "set automatic_html_opening False" >> mgconfigscript
-#  echo "set output_dependencies internal" >> mgconfigscript
+  if [ $iscmsconnect -gt 0 ]; then
+    echo "set output_dependencies internal" >> mgconfigscript
+  fi
+#   echo "set output_dependencies internal" >> mgconfigscript
   echo "set lhapdf $LHAPDFCONFIG" >> mgconfigscript
 #   echo "set ninja $PWD/HEPTools/lib" >> mgconfigscript
 
@@ -187,8 +234,17 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
         #*FIXME* broken in mg_amc 2.4.0
 #         echo "set cluster_queue $queue" >> mgconfigscript
       fi 
-      echo "set cluster_status_update 60 30" >> mgconfigscript
-      echo "set cluster_nb_retry 3" >> mgconfigscript
+      if [ $iscmsconnect -gt 0 ]; then
+	  n_retries=10
+	  long_wait=300
+	  short_wait=120
+      else
+	  n_retries=3
+	  long_wait=60
+	  short_wait=30
+      fi
+      echo "set cluster_status_update $long_wait $short_wait" >> mgconfigscript
+      echo "set cluster_nb_retry $n_retries" >> mgconfigscript
       echo "set cluster_retry_wait 300" >> mgconfigscript 
       #echo "set cluster_local_path `${LHAPDFCONFIG} --datadir`" >> mgconfigscript 
       if [[ ! "$RUNHOME" =~ ^/afs/.* ]]; then
@@ -298,7 +354,12 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
       /bin/bash "$CARDSDIR/${name}_patch_me.sh" "$WORKDIR/$MGBASEDIRORIG"
   fi;
   
-else  
+  if [ "${jobstep}" = "CODEGEN" ]; then
+      echo "job finished step ${jobstep}, exiting now."
+      if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 0; else exit 0; fi
+  fi
+
+elif [ "${jobstep}" = "INTEGRATE" ] || [ "${jobstep}" = "ALL" ]; then  
   echo "Reusing existing directory assuming generated code already exists"
   echo "WARNING: If you changed the process card you need to clean the folder and run from scratch"
   
@@ -332,8 +393,12 @@ else
     set +u  
     if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 0; else exit 0; fi
   else
-    echo "Reusing an existing process directory ${name} is not actually supported in production at the moment.  Please clean or move the directory and start from scratch."
-    if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
+    if [ $iscmsconnect -gt 0 ]; then
+      echo "Reusing existing process directory - be careful!"
+    else
+      echo "Reusing an existing process directory ${name} is not actually supported in production at the moment.  Please clean or move the directory and start from scratch."
+      if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
+    fi
   fi
   
   if [ -z ${carddir} ]; then
@@ -432,6 +497,7 @@ if [ "$isnlo" -gt "0" ]; then
   #######################
   #Run the integration and generate the grid
   #######################
+  echo "starting NLO mode"
 
   if [ -e $CARDSDIR/${name}_madspin_card.dat ]; then
     cp $CARDSDIR/${name}_madspin_card.dat ./Cards/madspin_card.dat
@@ -446,6 +512,7 @@ if [ "$isnlo" -gt "0" ]; then
   echo "done" >> makegrid.dat
 
   cat makegrid.dat | ./bin/generate_events -n pilotrun
+  echo "finished pilot run"
 
   if [ -e $CARDSDIR/${name}_externaltarball.dat ]; then
       gunzip ./Events/pilotrun_decayed_1/events.lhe.gz
@@ -469,6 +536,8 @@ if [ "$isnlo" -gt "0" ]; then
   cd gridpack
 
   cp $PRODHOME/runcmsgrid_NLO.sh ./runcmsgrid.sh
+  sed -i s/SCRAM_ARCH_VERSION_REPLACE/${scram_arch}/g runcmsgrid.sh
+  sed -i s/CMSSW_VERSION_REPLACE/${cmssw_version}/g runcmsgrid.sh
   
   if [ -e $CARDSDIR/${name}_externaltarball.dat ]; then
     mv $WORKDIR/header_for_madspin.txt . 
@@ -480,6 +549,8 @@ else
   #Run the integration and generate the grid
   #######################
 
+  echo "starting LO mode"
+
   echo "done" > makegrid.dat
   echo "set gridpack True" >> makegrid.dat
   if [ -e $CARDSDIR/${name}_customizecards.dat ]; then
@@ -490,6 +561,7 @@ else
 
 #   set +e
   cat makegrid.dat | ./bin/generate_events pilotrun
+  echo "finished pilot run"
 
   cd $WORKDIR
   
@@ -551,7 +623,7 @@ else
   #set to single core mode
   echo "mg5_path = ../../mgbasedir" >> ./madevent/Cards/me5_configuration.txt
   echo "cluster_temp_path = None" >> ./madevent/Cards/me5_configuration.txt
-  echo "run_mode = 0" >> ./madevent/Cards/me5_configuration.txt  
+  echo "run_mode = 0" >> ./madevent/Cards/me5_configuration.txt
     
   cd $WORKDIR
   
@@ -562,6 +634,8 @@ else
   cd gridpack
   
   cp $PRODHOME/runcmsgrid_LO.sh ./runcmsgrid.sh
+  sed -i s/SCRAM_ARCH_VERSION_REPLACE/${scram_arch}/g runcmsgrid.sh
+  sed -i s/CMSSW_VERSION_REPLACE/${cmssw_version}/g runcmsgrid.sh
   
 fi
 
@@ -600,15 +674,21 @@ cp ${LOGFILE} ./gridpack_generation.log
 #create tarball with very aggressive xz settings (trade memory and cpu usage for compression ratio)
 echo "Creating tarball"
 
-if [ ! -e $CARDSDIR/${name}_externaltarball.dat ]; then
-    XZ_OPT="--lzma2=preset=9,dict=512MiB" tar -cJpsf ${name}_tarball.tar.xz mgbasedir process runcmsgrid.sh gridpack_generation.log
+if [ $iscmsconnect -gt 0 ]; then
+    XZ_OPT="--lzma2=preset=2,dict=256MiB"
 else
-    XZ_OPT="--lzma2=preset=9,dict=512MiB" tar -cJpsf ${name}_tarball.tar.xz mgbasedir process runcmsgrid.sh gridpack_generation.log external_tarball ${name}_externaltarball.dat header_for_madspin.txt
+    XZ_OPT="--lzma2=preset=9,dict=512MiB"
 fi
 
-mv ${name}_tarball.tar.xz ${PRODHOME}/${name}_tarball.tar.xz
+if [ ! -e $CARDSDIR/${name}_externaltarball.dat ]; then
+    XZ_OPT="$XZ_OPT" tar -cJpsf ${PRODHOME}/${name}_${scram_arch}_${cmssw_version}_tarball.tar.xz mgbasedir process runcmsgrid.sh gridpack_generation.log
+else
+    XZ_OPT="$XZ_OPT" tar -cJpsf ${PRODHOME}/${name}_${scram_arch}_${cmssw_version}_tarball.tar.xz mgbasedir process runcmsgrid.sh gridpack_generation.log external_tarball ${name}_externaltarball.dat header_for_madspin.txt
+fi
 
-echo "Gridpack created successfully at ${PRODHOME}/${name}_tarball.tar.xz"
+#mv ${name}_${scram_arch}_${cmssw_version}_tarball.tar.xz ${PRODHOME}/${name}_${scram_arch}_${cmssw_version}_tarball.tar.xz
+
+echo "Gridpack created successfully at ${PRODHOME}/${name}_${scram_arch}_${cmssw_version}_tarball.tar.xz"
 echo "End of job"
 
 if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 0; else exit 0; fi
