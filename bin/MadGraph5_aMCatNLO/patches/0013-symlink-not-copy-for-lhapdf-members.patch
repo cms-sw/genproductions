@@ -1,0 +1,14 @@
+--- a/madgraph/interface/common_run_interface.py  2017-07-18 22:02:44.043260539 +0200
++++ b/madgraph/interface/common_run_interface.py  2017-07-18 22:02:20.751067552 +0200
+@@ -2341,9 +2341,9 @@
+                     self.install_lhapdf_pdfset(pdfsets_dir, pdfset)
+     
+                 if os.path.exists(pjoin(pdfsets_dir, pdfset)):
+-                    files.cp(pjoin(pdfsets_dir, pdfset), pjoin(self.me_dir, 'lib', 'PDFsets'))
++                    files.ln(pjoin(pdfsets_dir, pdfset), pjoin(self.me_dir, 'lib', 'PDFsets'))
+                 elif os.path.exists(pjoin(os.path.dirname(pdfsets_dir), pdfset)):
+-                    files.cp(pjoin(os.path.dirname(pdfsets_dir), pdfset), pjoin(self.me_dir, 'lib', 'PDFsets'))
++                    files.ln(pjoin(os.path.dirname(pdfsets_dir), pdfset), pjoin(self.me_dir, 'lib', 'PDFsets'))
+             
+     def install_lhapdf_pdfset(self, pdfsets_dir, filename):
+         """idownloads and install the pdfset filename in the pdfsets_dir"""
