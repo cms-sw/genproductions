@@ -90,17 +90,17 @@ NNPDF30_nnlo_nf_5_pdfas.LHgrid 1
 NNPDF31_nlo_hessian_pdfas.LHgrid
 NNPDF31_lo_as_0118.LHgrid 1
 CT14nlo.LHgrid
-CT14nlo_as_0.116.LHgrid 1
-CT14nlo_as_0.120.LHgrid 1
+CT14nlo_as_0116.LHgrid 1
+CT14nlo_as_0120.LHgrid 1
 CT14nnlo.LHgrid
-CT14nnlo_as_0.116.LHgrid 1
-CT14nnlo_as_0.120.LHgrid 1
+CT14nnlo_as_0116.LHgrid 1
+CT14nnlo_as_0120.LHgrid 1
 CT14lo.LHgrid 1
-MMHT2014nlo68clas118.LHgrid
+MMHT2014nlo68clas118.LHgrid 
 MMHT2014nnlo68cl.LHgrid
 MMHT2014lo68cl.LHgrid 1
 ABMP15_3_nnlo.LHgrid
-ABMP16als118_5_nnlo .LHgrid
+ABMP16als118_5_nnlo.LHgrid
 PDF4LHC15_nlo_100_pdfas.LHgrid
 PDF4LHC15_nnlo_100_pdfas.LHgrid
 PDF4LHC15_nlo_30_pdfas.LHgrid
