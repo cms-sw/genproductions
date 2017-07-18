@@ -62,7 +62,8 @@
 # PDF choice: this automatically fixes also alpha_s(MZ) and its evol.  *
 #***********************************************************************
  lhapdf = pdlabel ! PDF set
- 292200, 90000, 90200, 90400, 13100, 13164, 13166, 25200, 25260, 11000, 11067, 11069 = lhaid   ! If pdlabel=lhapdf, this is the lhapdf number. Only 
+ 303600,292200,292600,305800,315000,13100,13163,13167,13000,13065,13069,13200,25200,25300,25000,42400,42780,90200,91200,90400,91400,61100,61130,61200,61230,13400,82000 = lhaid
+ ! If pdlabel=lhapdf, this is the lhapdf number. Only 
               ! numbers for central PDF sets are allowed. Can be a list; 
               ! PDF sets beyond the first are included via reweighting.
 #***********************************************************************
@@ -98,7 +99,9 @@
             ! rw_rscale and rw_fscale factors. Should be a list of 
             ! booleans of equal length to dynamical_scale_choice to
             ! specify for which choice to include scale dependence.
- True = reweight_PDF  ! Reweight to get PDF uncertainty. Should be a
+
+True,False,False,True,False,True,False,False,True,False,False,False,True,True,False,True,True,True,True,True,True,True,True,True,True,True,True = reweight_PDF  
+            ! Reweight to get PDF uncertainty. Should be a
             ! list booleans of equal length to lhaid to specify for
             !  which PDF set to include the uncertainties.
 #***********************************************************************
