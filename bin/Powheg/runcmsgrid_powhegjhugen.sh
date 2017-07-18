@@ -26,10 +26,7 @@ ncpu=${3}
 echo "%MSG-POWHEG number of cputs for the run = $ncpu"
 
 LHEWORKDIR=`pwd`
-<<<<<<< HEAD
-=======
 
->>>>>>> powheg_gcc530
 use_gridpack_env=true
 if [ -n "$4" ]
   then
@@ -119,10 +116,7 @@ if [[ -d ${WORKDIR}/obj-gfortran ]]; then
     ln -s ${WORKDIR}/obj-gfortran .
     cp -p ${WORKDIR}/pwg*.dat .
 fi
-<<<<<<< HEAD
-=======
 
->>>>>>> powheg_gcc530
 if [[ ! -e ${card} ]]; then
  fail_exit "powheg.input not found!"
 fi

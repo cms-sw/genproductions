@@ -25,10 +25,6 @@ echo "%MSG-POWHEG random seed used for the run = $rnum"
 ncpu=${3}
 echo "%MSG-POWHEG number of cputs for the run = $ncpu"
 
-<<<<<<< HEAD
-=======
-
->>>>>>> powheg_gcc530
 LHEWORKDIR=`pwd`
 
 use_gridpack_env=true
@@ -62,11 +58,7 @@ if [ "$use_gridpack_env" = true ]
     eval `scramv1 runtime -sh`
 fi
 cd $LHEWORKDIR
-<<<<<<< HEAD
 
-=======
- 
->>>>>>> powheg_gcc530
 seed=$rnum
 file="cmsgrid"
 
