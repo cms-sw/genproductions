@@ -2,7 +2,7 @@
 
 default=$(basename $(pwd))
 #m=$1
-for m in 225 250 275 300 325 350 400 500 600 700 750 800 900 1000
+for m in 225 250 275 300 325 350 400 500 600 700 750 800 900 1000 1200 1400 1600 1800 2000
 do
     echo Copying mass M$m
     newdir=../"$default"_M"$m"
