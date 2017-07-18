@@ -97,8 +97,8 @@ def prepareJobForEvents (tag, i, folderName, EOSfolder) :
     prepareJob(tag, i, folderName)
 
     f = open (filename, 'a')
-    f.write ('cp -p ' + rootfolder + '/' + folderName + '/powheg.input ./' + '\n')
-    f.write ('cp -p ' + rootfolder + '/' + folderName + '/JHUGen.input ./' + '\n')
+#    f.write ('cp -p ' + rootfolder + '/' + folderName + '/powheg.input ./' + '\n')
+#    f.write ('cp -p ' + rootfolder + '/' + folderName + '/JHUGen.input ./' + '\n')
     f.write ('cp -p ' + rootfolder + '/' + folderName + '/*.dat  ./' + '\n')
     f.write ('if [ -e '+ rootfolder + '/' + folderName + '/obj-gfortran/proclib ]; then    \n')
     f.write ('  mkdir ./obj-gfortran/' + '\n')
@@ -220,12 +220,6 @@ def runSingleXgrid(parstage, xgrid, folderName, nEvents, powInputName, seed, pro
 
     f.write('sed -i "s/NEVENTS/'+nEvents+'/ ; s/SEED/'+seed+'/" powheg.input\n\n')
 
-    if process == 'W' :
-        if os.path.exists(powInputName) :
-            f.write('cp -p '+'/'.join(powInputName.split('/')[0:-1])+'/cteq6m . \n')   
-        else :
-            f.write('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+'/'.join(powInputName.split('/')[0:-1])+'/cteq6m \n')
-
     if process == 'gg_H_MSSM' :
         if os.path.exists(powInputName) :
             f.write('cp -p '+'/'.join(powInputName.split('/')[0:-1])+'/powheg-fh.in . \n')
@@ -346,10 +340,10 @@ if [[ -s ./JHUGen.input ]]; then
 fi
 
 ### retrieve the powheg source tar ball
-export POWHEGSRC=powhegboxV2_Sep2016.tar.gz 
+export POWHEGSRC=powhegboxV2_rev3407_date20170711.tar.gz
 
 if [ "$process" = "b_bbar_4l" ]; then 
-  export POWHEGSRC=powhegboxRES_Aug2016.tar.gz
+  export POWHEGSRC=powhegboxRES_Mar2017.tar.gz
 fi
 
 echo 'D/L POWHEG source...'
@@ -357,6 +351,7 @@ echo 'D/L POWHEG source...'
 if [ ! -f ${POWHEGSRC} ]; then
   wget --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/slc6_amd64_gcc481/powheg/V2.0/src/${POWHEGSRC} || fail_exit "Failed to get powheg tar ball "
 fi
+#cp -p ../${POWHEGSRC} .
 
 tar zxf ${POWHEGSRC}
 #
@@ -371,16 +366,22 @@ fi
 
 patch -l -p0 -i ${WORKDIR}/patches/pdfweights.patch
 patch -l -p0 -i ${WORKDIR}/patches/pwhg_lhepdf.patch
+
 if [ "$process" = "b_bbar_4l" ]; then
     cd POWHEG-BOX
     patch -l -p0 -i ${WORKDIR}/patches/res_openloops_long_install_dir.patch
-    patch -l -p0 -i ${WORKDIR}/patches/res_gfortran48.patch
     cd ..
 fi
 if [ "$process" = "ttb_NLO_dec" ]; then
     patch -l -p0 -i ${WORKDIR}/patches/pwhg_ttb_NLO_dec_gen_radiation_hook.patch
 fi
 
+
+sed -i -e "s#500#900#g"  POWHEG-BOX/include/pwhg_rwl.h
+
+#if [ "$process" = "HJ" ]; then 
+#   sed -i -e "s#maxmulti=10#maxmulti=500#g" POWHEG-BOX/include/pwhg_bookhist-multi.h
+#fi
 
 echo ${POWHEGSRC} > VERSION
 
@@ -396,10 +397,16 @@ sed -i -e "s#PDF[ \t]*=[ \t]*native#PDF=lhapdf#g" Makefile
 # Use gfortran, not other compilers which are not free/licensed
 sed -i -e "s#COMPILER[ \t]*=[ \t]*ifort#COMPILER=gfortran#g" Makefile
 
+<<<<<<< HEAD
 # Use option O0 for bbH (O2 too long)
 if [ "$process" = "bbH" ]; then
    sed -i -e "s#O2#O0#g" Makefile
 fi
+=======
+## Not needed anymore
+# sed -i -e 's#$(PDFPACK#lhefread.o pwhg_io_interface.o rwl_weightlists.o rwl_setup_param_weights.o \\ \
+#	$(PDFPACK#' Makefile
+>>>>>>> powheg_gcc530
 
 # hardcode svn info
 sed -i -e 's#^pwhg_main:#$(shell ../svnversion/svnversion.sh>/dev/null) \
@@ -431,9 +438,9 @@ fi
 if [ "$process" = "Wgamma" ] || [ "$process" = "W_ew-BMNNP" ]; then
     patch -l -p0 -i ${WORKDIR}/patches/pwhg_analysis_driver.patch 
 fi
-if [ "$process" = "ttb_NLO_dec" ]; then
-    patch -l -p0 -i ${WORKDIR}/patches/pwhg_analysis_driver_offshellmap.patch
-fi
+#if [ "$process" = "ttb_NLO_dec" ]; then
+#    patch -l -p0 -i ${WORKDIR}/patches/pwhg_analysis_driver_offshellmap.patch
+#fi
 
 # Remove ANY kind of analysis with parton shower
 if [ `grep particle_identif pwhg_analysis-dummy.f` = ""]; then
@@ -566,9 +573,9 @@ if [ "$process" = "HJ" ]; then
   cd ${WORKDIR}/${name}/POWHEG-BOX/HJ
  
   cp Makefile Makefile.orig
-  cat Makefile.orig | sed -e "s#ANALYSIS=.\+#ANALYSIS=NNLOPS#g" |sed -e "s#\$(shell \$(LHAPDF_CONFIG) --libdir)#$(scram tool info lhapdf | grep LIBDIR | cut -d "=" -f2)#g" | sed -e "s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d "=" -f2)/bin/fastjet-config#g" | sed -e "s#NNLOPSREWEIGHTER+=  fastjetfortran.o#NNLOPSREWEIGHTER+=  fastjetfortran.o pwhg_bookhist-multi.o#g" > Makefile
-  make nnlopsreweighter || fail_exit "Failed to compile nnlopsreweighter"
-  cp nnlopsreweighter ../../
+  cat Makefile.orig | sed -e "s#ANALYSIS=.\+#ANALYSIS=NNLOPS#g" |sed -e "s#\$(shell \$(LHAPDF_CONFIG) --libdir)#$(scram tool info lhapdf | grep LIBDIR | cut -d "=" -f2)#g" | sed -e "s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d "=" -f2)/bin/fastjet-config#g" | sed -e "s#NNLOPSREWEIGHTER+=  fastjetfortran.o#NNLOPSREWEIGHTER+=  fastjetfortran.o pwhg_bookhist-multi.o#g" | sed -e "s#NNLOPSREWEIGHTERNRW+=  fastjetfortran.o#NNLOPSREWEIGHTERNRW+=  fastjetfortran.o pwhg_bookhist-multi.o#g" > Makefile
+  make nnlopsreweighter-newrwgt || fail_exit "Failed to compile nnlopsreweighter"
+  cp nnlopsreweighter-newrwgt ../../
   cd ${WORKDIR}/${name}
   HMASS=`cat powheg.input | grep "^hmass" | cut -d " " -f2`;
   BEAM=`cat powheg.input | grep "^ebeam1" | cut -d " " -f2 | tr "d" "."`;
@@ -580,6 +587,7 @@ if [ "$process" = "HJ" ]; then
 # a line beginning with 'lhfile' followed by the name of the event file
 
 lhfile pwgevents.lhe 
+rwl_format_rwgt
 
 # weights present in the lhfile: 'mtinf', 'mt', 'mtmb', 'mtmb-bminlo'
 
@@ -696,6 +704,10 @@ fi
 
 sed -i s/SCRAM_ARCH_VERSION_REPLACE/${SCRAM_ARCH}/g runcmsgrid.sh
 sed -i s/CMSSW_VERSION_REPLACE/${CMSSW_VERSION}/g runcmsgrid.sh
+<<<<<<< HEAD
+=======
+
+>>>>>>> powheg_gcc530
 chmod 755 runcmsgrid.sh
 
 ''')
@@ -803,11 +815,19 @@ grep -q "SEED" powheg.input; test $? -eq 0 || sed -i "s/^iseed.*/iseed SEED/g" p
 grep -q "manyseeds" powheg.input; test $? -eq 0 || printf "\\n\\nmanyseeds 1\\n" >> powheg.input
 grep -q "parallelstage" powheg.input; test $? -eq 0 || printf "\\nparallelstage 4\\n" >> powheg.input
 grep -q "xgriditeration" powheg.input; test $? -eq 0 || printf "\\nxgriditeration 1\\n" >> powheg.input
+sed -i "s/^pdfreweight.*/pdfreweight 0/g" powheg.input
 
 # turn into single run mode
 sed -i "s/^manyseeds.*/#manyseeds 1/g" powheg.input
 sed -i "s/^parallelstage.*/#parallelstage 4/g" powheg.input
 sed -i "s/^xgriditeration/#xgriditeration 1/g" powheg.input
+
+# parallel re-weighting calculation
+echo "rwl_group_events 2000" >> powheg.input
+echo "lhapdf6maxsets 50" >> powheg.input
+echo "rwl_file 'pwg-rwl.dat'" >> powheg.input
+echo "rwl_format_rwgt 1" >> powheg.input
+cp -p $WORKDIR/pwg-rwl.dat pwg-rwl.dat
 
 if [ -e ${WORKDIR}/$folderName/cteq6m ]; then
     cp -p ${WORKDIR}/cteq6m .
@@ -821,10 +841,13 @@ fi
 
 sed -i 's/pwggrid.dat ]]/pwggrid.dat ]] || [ -e ${WORKDIR}\/pwggrid-0001.dat ]/g' runcmsgrid.sh
 
-if [ "$process" = "HJ" ]; then
-  cat runcmsgrid.sh  | gawk '/produceWeightsNNLO/{gsub(/false/, \"true\")};{print}' > runcmsgrid_tmp.sh
-  mv runcmsgrid_tmp.sh runcmsgrid.sh
-fi  
+#if [ "$process" = "HJ" ]; then
+#  cat runcmsgrid.sh  | gawk '/produceWeightsNNLO/{gsub(/false/, \"true\")};{print}' > runcmsgrid_tmp.sh
+#  mv runcmsgrid_tmp.sh runcmsgrid.sh
+#fi  
+
+sed -i s/SCRAM_ARCH_VERSION_REPLACE/${SCRAM_ARCH}/g runcmsgrid.sh
+sed -i s/CMSSW_VERSION_REPLACE/${CMSSW_VERSION}/g runcmsgrid.sh
 
 sed -i s/SCRAM_ARCH_VERSION_REPLACE/${SCRAM_ARCH}/g runcmsgrid.sh
 sed -i s/CMSSW_VERSION_REPLACE/${CMSSW_VERSION}/g runcmsgrid.sh
@@ -857,11 +880,19 @@ fi
 
 if [ $keepTop == '1' ]; then
     echo 'Keeping validation plots.'
+<<<<<<< HEAD
     echo 'Packing...' ${WORKDIR}'/'${process}'_'${SCRAM_ARCH}'_'${CMSSW_VERSION}'_'${folderName}'.tgz'
     tar zcf ${WORKDIR}'/'${process}'_'${SCRAM_ARCH}'_'${CMSSW_VERSION}'_'${folderName}'.tgz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.lhe --exclude=run_*.sh --exclude=*.log --exclude=*temp --exclude=pwgbtlupb-*.dat --exclude=pwgrmupb-*.dat
 else
     echo 'Packing...' ${WORKDIR}'/'${process}'_'${SCRAM_ARCH}'_'${CMSSW_VERSION}'_'${folderName}'.tgz'
     tar zcf ${WORKDIR}'/'${process}'_'${SCRAM_ARCH}'_'${CMSSW_VERSION}'_'${folderName}'.tgz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.top --exclude=*.lhe --exclude=run_*.sh --exclude=*.log --exclude=*temp --exclude=pwgbtlupb-*.dat --exclude=pwgrmupb-*.dat
+=======
+    echo 'Packing...' ${WORKDIR}'/'${folderName}'_'${SCRAM_ARCH}'_'${CMSSW_VERSION}'_'${process}'.tgz'
+    tar zcf ${WORKDIR}'/'${folderName}'_'${SCRAM_ARCH}'_'${CMSSW_VERSION}'_'${process}'.tgz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.lhe --exclude=run_*.sh --exclude=*.log --exclude=*temp --exclude=pwgbtlupb-*.dat --exclude=pwgrmupb-*.dat
+else
+    echo 'Packing...' ${WORKDIR}'/'${folderName}'_'${SCRAM_ARCH}'_'${CMSSW_VERSION}'_'${process}'.tgz'
+    tar zcf ${WORKDIR}'/'${folderName}'_'${SCRAM_ARCH}'_'${CMSSW_VERSION}'_'${process}'.tgz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.top --exclude=*.lhe --exclude=run_*.sh --exclude=*.log --exclude=*temp --exclude=pwgbtlupb-*.dat --exclude=pwgrmupb-*.dat 
+>>>>>>> powheg_gcc530
 fi
 
 cd ${WORKDIR}
@@ -1060,22 +1091,28 @@ if __name__ == "__main__":
 
         prepareJob(tagName, '', '.')
 
+<<<<<<< HEAD
         if not os.path.exists(args.inputTemplate) :
             os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate+' -O '+args.folderName+'/powheg.input')
             os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate)
+=======
+>>>>>>> powheg_gcc530
         os.system('mkdir -p '+rootfolder+'/'+args.folderName)
-        os.system('cp -p '+args.inputTemplate+' '+args.folderName+'/powheg.input')
+        if not os.path.exists(args.inputTemplate) :
+            os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate+' -O '+args.folderName+'/powheg.input')
+        else :
+            os.system('cp -p '+args.inputTemplate+' '+args.folderName+'/powheg.input')
 
         os.system('rm -rf JHUGen.input')
         inputJHUGen = '/'.join(powInputName.split('/')[0:-1])+'/JHUGen.input'
         if not os.path.exists(inputJHUGen) :
-            os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+inputJHUGen)
-            if os.path.exists('JHUGen.input') :
-                os.system('cp -p JHUGen.input '+args.folderName+'/.')
-            if os.path.exists(args.inputJHUGen) :
-                os.system('cp -p '+args.inputJHUGen+' '+args.folderName+'/JHUGen.input')
+            os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+inputJHUGen+' -O '+args.folderName+'/JHUGen.input')
+#            if os.path.exists('JHUGen.input') :
+#                os.system('cp -p JHUGen.input '+args.folderName+'/.')
+#            if os.path.exists(args.inputJHUGen) :
+#                os.system('cp -p '+args.inputJHUGen+' '+args.folderName+'/JHUGen.input')
         else :
-            os.system('cp -p '+inputJHUGen+' '+args.folderName+'/.')
+            os.system('cp -p '+inputJHUGen+' '+args.folderName+'/JHUGen.input')
 
     if args.parstage == '0' :
 
