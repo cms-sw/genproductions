@@ -43,11 +43,7 @@ int main(int argc, char** argv)
     
     if( line != "</LesHouchesEvents>" ) { 
       
-<<<<<<< HEAD
-      if( line == "<event>" || line == "</initrwgt>" ) {
-=======
       if( line == "<event>" || line == "</header>" ) {
->>>>>>> powheg_gcc530
 	++eventIt;
 	writeEvent = true;   writePdf = false;
       }
@@ -56,11 +52,7 @@ int main(int argc, char** argv)
 	writeEvent = false;   writePdf = true;
       }
       
-<<<<<<< HEAD
-      if( line == "</rwgt>" ) {
-=======
       if( line == "</rwgt>" || line == "</initrwgt>" ) {
->>>>>>> powheg_gcc530
 	writeEvent = true;   writePdf = true;
       }
       
