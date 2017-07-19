@@ -3,21 +3,12 @@
 fail_exit() { echo "$@"; exit 1; }
 
 #set -o verbose
-<<<<<<< HEAD
-EXPECTED_ARGS=3
-
-if [ $# -ne $EXPECTED_ARGS ]
-then
-    echo "Usage: `basename $0` PowhegTarfile Njobs NeventsPerJob"
-    echo "Example: `basename $0` my_ggh_nnpdf30.tgz 10 1000" 
-=======
 EXPECTED_ARGS=4
 
 if [ $# -ne $EXPECTED_ARGS ]
 then
     echo "Usage: `basename $0` PowhegTarfile Njobs NeventsPerJob Start"
     echo "Example: `basename $0` my_ggh_nnpdf30.tgz 10 1000 1" 
->>>>>>> powheg_gcc530
     exit 1
 fi
 
@@ -34,12 +25,6 @@ echo "%MSG-POWHEG number of jobs = $numj"
 nume=${3}
 echo "%MSG-POWHEG number of events per job = $nume"
 
-<<<<<<< HEAD
-iteration=1
-eval `scramv1 runtime -sh`
-
-while [ $iteration -le $numj ];
-=======
 start=${4}
 echo "%MSG-POWHEG Starting from job = $start"
 
@@ -49,7 +34,6 @@ eval `scramv1 runtime -sh`
 tot=$(( $start + $numj - 1))
 
 while [ $iteration -le $tot ];
->>>>>>> powheg_gcc530
     do
 
     echo -e "Submit job ${iteration}\n"
@@ -60,12 +44,8 @@ while [ $iteration -le $tot ];
     touch submit.sh
     echo -e "cd ${WORKDIR}" >> submit.sh
     echo -e 'eval `scramv1 runtime -sh`' >> submit.sh
-<<<<<<< HEAD
-    echo -e "./runcmsgrid.sh ${nume} ${iteration} 1" >> submit.sh 
-=======
     echo -e "./runcmsgrid.sh ${nume} ${iteration} 1" >> submit.sh
     echo -e "mv cmsgrid_final.lhe ../cmsgrid_final${iteration}.lhe" >> submit.sh
->>>>>>> powheg_gcc530
     chmod a+x submit.sh 
     bsub -q 1nw -J jobPowheg${iteration} < submit.sh
     cd ..
