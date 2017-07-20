@@ -22,11 +22,7 @@ rm -f splitLheFiles mergeLheFiles lhefiles.txt
 g++ -Wall -o splitLheFiles lheMacros/splitLheFiles.cpp
 g++ -Wall -o mergeLheFiles lheMacros/mergeLheFiles.cpp
 
-<<<<<<< HEAD
-ls jobPowheg*/cmsgrid_final.lhe > lhefiles.txt
-=======
 ls cmsgrid_final*.lhe > lhefiles.txt
->>>>>>> powheg_gcc530
 
 comman="";
 for fn in `cat lhefiles.txt`; do
@@ -37,17 +33,13 @@ done
 cd jobPowheg1
 ../splitLheFiles ${comman}
 mv out.lhe fornnlops
-<<<<<<< HEAD
 cp powheg.input.1_1 powheg.input
-./nnlopsreweighter
-=======
 #mv powheg.input powheg.input.orig
 #head -n 12 pwg-rwl.dat > temp1.dat
 #tail -n 1 pwg-rwl.dat > temp2.dat
 #cat temp1.dat temp2.dat > pwg-rwl-scaleonly.dat
 #sed s/pwg-rwl/pwg-rwl-scaleonly/ powheg.input.orig > powheg.input
 ./nnlopsreweighter-newrwgt
->>>>>>> powheg_gcc530
 ../mergeLheFiles fornnlops.nnlo pdf.lhe
 mv out.lhe ../cmsgrid_final.lhe
 cd ..
