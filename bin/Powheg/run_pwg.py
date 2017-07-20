@@ -1076,12 +1076,10 @@ if __name__ == "__main__":
 
         prepareJob(tagName, '', '.')
 
-<<<<<<< HEAD
         if not os.path.exists(args.inputTemplate) :
             os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate+' -O '+args.folderName+'/powheg.input')
             os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate)
-=======
->>>>>>> powheg_gcc530
+        
         os.system('mkdir -p '+rootfolder+'/'+args.folderName)
         if not os.path.exists(args.inputTemplate) :
             os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate+' -O '+args.folderName+'/powheg.input')
