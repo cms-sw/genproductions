@@ -395,16 +395,14 @@ sed -i -e "s#PDF[ \t]*=[ \t]*native#PDF=lhapdf#g" Makefile
 # Use gfortran, not other compilers which are not free/licensed
 sed -i -e "s#COMPILER[ \t]*=[ \t]*ifort#COMPILER=gfortran#g" Makefile
 
-<<<<<<< HEAD
 # Use option O0 for bbH (O2 too long)
 if [ "$process" = "bbH" ]; then
    sed -i -e "s#O2#O0#g" Makefile
 fi
-=======
+
 ## Not needed anymore
 # sed -i -e 's#$(PDFPACK#lhefread.o pwhg_io_interface.o rwl_weightlists.o rwl_setup_param_weights.o \\ \
 #	$(PDFPACK#' Makefile
->>>>>>> powheg_gcc530
 
 # hardcode svn info
 sed -i -e 's#^pwhg_main:#$(shell ../svnversion/svnversion.sh>/dev/null) \
