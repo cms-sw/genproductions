@@ -30,11 +30,7 @@ int main(int argc, char** argv)
   bool writeEvent = true;
   bool writePdf = false;
   int eventIt = 0;
-<<<<<<< HEAD
   std::string pdfString = "wgt id=\'2001\'";
-=======
-  std::string pdfString = "wgt id=\'2000\'";
->>>>>>> powheg_gcc530
 
   while(!initialFile.eof()) {
     
