@@ -97,8 +97,6 @@ def prepareJobForEvents (tag, i, folderName, EOSfolder) :
     prepareJob(tag, i, folderName)
 
     f = open (filename, 'a')
-#    f.write ('cp -p ' + rootfolder + '/' + folderName + '/powheg.input ./' + '\n')
-#    f.write ('cp -p ' + rootfolder + '/' + folderName + '/JHUGen.input ./' + '\n')
     f.write ('cp -p ' + rootfolder + '/' + folderName + '/*.dat  ./' + '\n')
     f.write ('if [ -e '+ rootfolder + '/' + folderName + '/obj-gfortran/proclib ]; then    \n')
     f.write ('  mkdir ./obj-gfortran/' + '\n')
