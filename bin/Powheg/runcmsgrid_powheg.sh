@@ -123,27 +123,12 @@ fi
 
 cat ${card} | sed -e "s#SEED#${seed}#g" | sed -e "s#NEVENTS#${nevt}#g" > powheg.input
 
-# Check if the powheg.input file contains the proper settings to calculate weights                                                                                                                           
-produceWeights="true"
-produceWeightsNNLO="false"
+# Check if the powheg.input file contains the proper settings to calculate weights
+
+produceWeights="false" 
+
 grep -q "storeinfo_rwgt 1" powheg.input ; test $? -eq 0  || produceWeights="false"
 grep -q "pdfreweight 1" powheg.input ; test $? -eq 0 || produceWeights="false"
-
-if [ "$produceWeights" == "true" ];
-then
-    cp -p powheg.input powheg.input.orig
-    cat <<'EOF' >> powheg.input
-
-lhrwgt_id 'c'
-lhrwgt_descr 'muR=0.10000E+01 muF=0.10000E+01'
-lhrwgt_group_name 'scale_variation'
-lhrwgt_group_combine 'envelope'
-EOF
-else
-    echo -e "\nWarning!! The output will not contain weights!\n"
-    produceWeights="false"
-fi
-
 
 cat powheg.input
 ../pwhg_main &> log_${process}_${seed}.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
@@ -370,14 +355,26 @@ then
     sed -e "/#new weight/d" -e "/<wgt id='c'>/d" -e "/<weight id='c'>/d" pwgevents.lhe > pwgevents.lhe.tmp
     mv pwgevents.lhe.tmp pwgevents.lhe 
     echo -e "\n finished computing weights ..\n" 
+
+if [ "$produceWeightsNNLO" == "true" ]; then
+    echo -e "\ncomputing weights for NNLOPS\n"
+    mv pwgevents.lhe fornnlops
+    cp ../nnlopsreweighter.input .
+    cp ../HNNLO-11.top .
+    cp ../HNNLO-22.top .
+    cp ../HNNLO-0505.top .
+    ../nnlopsreweighter
+    mv fornnlops.nnlo pwgevents.lhe
 fi
 
-cat pwgevents.lhe | grep -v "Random number generator exit values" > pwgevents.lhe.bkp
-mv pwgevents.lhe.bkp pwgevents.lhe
+rm -rf powheg.input*
+sed -e "/#new weight/d" -e "/<wgt id='c'>/d" -e "/<weight id='c'>/d" pwgevents.lhe > pwgevents.lhe.tmp
+mv pwgevents.lhe.tmp pwgevents.lhe 
+echo -e "\n finished computing weights ..\n" 
 
-xmllint --noout pwgevents.lhe > /dev/null 2>&1; test $? -eq 0 || fail_exit "xmllint integrity check failed on pwgevents.lhe"
+cat pwgevents.lhe | grep -v "Random number generator exit values" > ${file}_final.lhe
 
-cp pwgevents.lhe ${file}_final.lhe
+xmllint --noout ${file}_final.lhe > /dev/null 2>&1; test $? -eq 0 || fail_exit "xmllint integrity check failed on pwgevents.lhe"
 
 ls -l ${file}_final.lhe
 sed -i 's/Input file powheg.input contained:/Process: '$process'\nInput file powheg.input contained:/g' ${file}_final.lhe
