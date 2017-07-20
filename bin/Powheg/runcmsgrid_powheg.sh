@@ -133,7 +133,6 @@ grep -q "pdfreweight 1" powheg.input ; test $? -eq 0 || produceWeights="false"
 cat powheg.input
 ../pwhg_main &> log_${process}_${seed}.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
 
-<<<<<<< HEAD
 if [ "$produceWeights" == "true" ];
 then 
     cp -p pwgevents.lhe pwgevents.lhe.orig
@@ -356,7 +355,7 @@ then
     sed -e "/#new weight/d" -e "/<wgt id='c'>/d" -e "/<weight id='c'>/d" pwgevents.lhe > pwgevents.lhe.tmp
     mv pwgevents.lhe.tmp pwgevents.lhe 
     echo -e "\n finished computing weights ..\n" 
-=======
+
 if [ "$produceWeightsNNLO" == "true" ]; then
     echo -e "\ncomputing weights for NNLOPS\n"
     mv pwgevents.lhe fornnlops
@@ -366,7 +365,6 @@ if [ "$produceWeightsNNLO" == "true" ]; then
     cp ../HNNLO-0505.top .
     ../nnlopsreweighter
     mv fornnlops.nnlo pwgevents.lhe
->>>>>>> powheg_gcc530
 fi
 
 rm -rf powheg.input*
