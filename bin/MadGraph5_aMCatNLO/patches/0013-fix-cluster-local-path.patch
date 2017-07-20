@@ -1,21 +1,7 @@
 diff --git a/Template/LO/Source/make_opts b/Template/LO/Source/make_opts
-index 92a3fe4..50cfa34 100644
+index 92a3fe4..026b115 100644
 --- a/Template/LO/Source/make_opts
 +++ b/Template/LO/Source/make_opts
-@@ -1,9 +1,9 @@
- DEFAULT_F2PY_COMPILER=f2py
- DEFAULT_F_COMPILER=gfortran
--MACFLAG=-mmacosx-version-min=10.7
--DEFAULT_CPP_COMPILER=clang
--STDLIB=-lc++
--STDLIB_FLAG=-stdlib=libc++
-+MACFLAG=
-+DEFAULT_CPP_COMPILER=g++
-+STDLIB=-lstdc++
-+STDLIB_FLAG=
- #end_of_make_opts_variables
- # Rest of the makefile
- 
 @@ -33,7 +33,7 @@ CFLAGS= -O $(STDLIB_FLAG) $(MACFLAG)
  endif
  
@@ -46,65 +32,19 @@ index 964abc6..4e14603 100644
  # Set FC unless it's defined by an environment variable
  ifeq ($(origin FC),default)
 diff --git a/madgraph/iolibs/export_v4.py b/madgraph/iolibs/export_v4.py
-index 47367e1..69c8e6b 100755
+index 47367e1..beef7fe 100755
 --- a/madgraph/iolibs/export_v4.py
 +++ b/madgraph/iolibs/export_v4.py
-@@ -89,6 +89,7 @@ class ProcessExporterFortran(object):
-         self.opt = dict(self.default_opt)
-         if opt:
-             self.opt.update(opt)
-+        logger.info("options = {0}".format(self.opt))
-         
-         #place holder to pass information to the run_interface
-         self.proc_characteristic = banner_mod.ProcCharacteristic()
-@@ -155,7 +156,7 @@ class ProcessExporterFortran(object):
-         if not os.path.isdir(self.dir_path):
-             assert self.mgme_dir, \
-                      "No valid MG_ME path given for MG4 run directory creation."
--            logger.info('initialize a new directory: %s' % \
-+            nogger.info('initialize a new directory: %s' % \
-                         os.path.basename(self.dir_path))
-             shutil.copytree(pjoin(self.mgme_dir, 'Template/LO'),
-                             self.dir_path, True)
-@@ -317,6 +318,7 @@ class ProcessExporterFortran(object):
-         """ modify the pdf opendata file, to allow direct access to cluster node
-         repository if configure"""
-         
-+        logger.info("options inside write_pdfopendata= {0}".format(self.opt))
-         if not self.opt["cluster_local_path"]:
-             changer = {"pdf_systemwide": ""}
-         else: 
-@@ -358,6 +360,9 @@ class ProcessExporterFortran(object):
+@@ -358,6 +358,9 @@ class ProcessExporterFortran(object):
           LHAPath='%(path)s/../lhapdf/pdfsets/'
           Inquire(File=LHAPath, exist=exists)
           if(exists)return  
 +         LHAPath='%(path)s'
 +         Inquire(File=LHAPath, exist=exists)
-+         if(exists)return        
++         if(exists)return
           LHAPath='./PDFsets'            
           """ % {"path" : self.opt["cluster_local_path"]}
              changer = {"cluster_specific_path": to_add}
-@@ -1844,7 +1849,7 @@ class ProcessExporterFortranSA(ProcessExporterFortran):
-     def finalize_v4_directory(self, matrix_elements, history, makejpg = False,
-                               online = False, compiler=default_compiler):
-         """Finalize Standalone MG4 directory by generation proc_card_mg5.dat"""
--
-+        logger.info("Entering here")
-         self.compiler_choice(compiler)
-         self.make()
- 
-@@ -6267,8 +6272,9 @@ def ExportV4Factory(cmd, noclean, output_type='default', group_subprocesses=True
-     # An installation is required then, but only if the specified path is the
-     # default local one and that the Ninja library appears missing.
-     if requires_ninja and (not opt['ninja'] is None) and\
--            os.path.abspath(opt['ninja'])==pjoin(MG5DIR,'HEPTools','lib') and\
--            not os.path.isfile(pjoin(MG5DIR,'HEPTools','lib','libninja.a')):
-+            not os.path.isfile(pjoin(os.path.abspath(opt['ninja']),'libninja.a')):
-+            #os.path.abspath(opt['ninja'])==pjoin(MG5DIR,'HEPTools','lib') and\
-+            #not os.path.isfile(pjoin(MG5DIR,'HEPTools','lib','libninja.a')):
-                 # Then install Ninja here from the tarballs in the vendor
-                 # directory so that it would work offline too.
-                 logger.info(
 diff --git a/madgraph/iolibs/template_files/pdf_opendata.f b/madgraph/iolibs/template_files/pdf_opendata.f
 index 8463d20..939f500 100644
 --- a/madgraph/iolibs/template_files/pdf_opendata.f
@@ -119,9 +59,18 @@ index 8463d20..939f500 100644
        Integer IU,NextUnopen,i
        External NextUnopen
 diff --git a/madgraph/iolibs/template_files/pdf_wrap_lhapdf.f b/madgraph/iolibs/template_files/pdf_wrap_lhapdf.f
-index 95b0f49..f06dbfa 100644
+index 95b0f49..b06677d 100644
 --- a/madgraph/iolibs/template_files/pdf_wrap_lhapdf.f
 +++ b/madgraph/iolibs/template_files/pdf_wrap_lhapdf.f
+@@ -7,7 +7,7 @@ C
+       include '../alfas.inc'
+       real*8 zmass
+       data zmass/91.188d0/
+-      Character*150 LHAPath
++      Character*250 LHAPath
+       character*20 parm(20)
+       double precision value(20)
+       real*8 alphasPDF
 @@ -38,7 +38,7 @@ c generic subroutine to open the table files in the right directories
  c********************************************************************
        implicit none
