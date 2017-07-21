@@ -1,0 +1,5 @@
+set param_card mass 9000001 200
+set param_card mass 9000007 150
+set param_card np 1 0.1
+set param_card np 2 1
+set param_card DECAY 9000001 0.05297020

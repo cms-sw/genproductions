@@ -1,0 +1,11 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set gauge unitary
+set complex_mass_scheme False
+import model RS
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+define ferm = u c d s b u~ c~ d~ s~ b~ e- mu- ta- e+ mu+ ta+ vl vl~
+generate p p > y, ( y > w+ w-, w+ > ferm ferm, w- > ferm ferm)
+output RSGraviton_WW_inclu_width0.3_M800 -nojpeg
+

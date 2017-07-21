@@ -1,0 +1,14 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set gauge unitary
+set complex_mass_scheme False
+import model RS_bulk_ktilda
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+define q = u c d s b u~ c~ d~ s~ b~
+define p = g u c d s u~ c~ d~ s~
+generate p p > y, ( y > z z > l+ l- vl vl~)
+output BulkGraviton_ZZ_ZlepZinv_narrow_M3500 -nojpeg
+

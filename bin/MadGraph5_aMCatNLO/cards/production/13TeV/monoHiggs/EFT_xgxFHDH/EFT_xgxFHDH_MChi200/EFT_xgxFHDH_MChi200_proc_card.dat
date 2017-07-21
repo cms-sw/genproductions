@@ -1,0 +1,3 @@
+import model Higgs_xgxFhDh_UFO
+generate p p > h x x~ QED=3
+output EFT_xgxFHDH_MChi200 -nojpeg

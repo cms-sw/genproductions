@@ -1,0 +1,3 @@
+import model Higgs_hhxg5x_UFO
+generate p p > h chi chi~ QED=3
+output EFT_HHxg5x_MChi10 -nojpeg

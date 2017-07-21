@@ -24,13 +24,14 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
                                 'SLHAParameters'),
     
         SLHAParameters = cms.vstring('SLHAFILE = Configuration/Generator/data/GMSB_Lambda100_CTau500_pythia6.slha')
+        #SLHAParameters = cms.vstring('SLHAFILE = GMSB-8-TeV/8-TeV-Samples/python/GMSB_Lambda100_CTau500_pythia6.slha')
 
         )
  )
 
 configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('$Revision: 1.1 $'),
-    name = cms.untracked.string('$Source: /cvs/CMSSW/CMSSW/Configuration/GenProduction/python/GMSB_Lambda100_CTau500_8TeV_pythia6_cff.py,v $'),
+    name = cms.untracked.string('$Source: Configuration/GenProduction/python/EightTeV/GMSB_Lambda100_CTau500_8TeV_pythia6_cff.py,v $'),
     annotation = cms.untracked.string('GMSB Lambda=100TeV and ctau=500 at 8 TeV')
 )
 

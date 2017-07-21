@@ -1,0 +1,13 @@
+#special model for gluon fusion higgs at NLO (effective theory in infinite top mass limit)
+#note that this model is NOT needed for other SM higgs production modes
+import model HC_NLO_X0_UFO-heft
+
+define p = p b b~
+define j = j b b~
+
+generate p p > x0 / t [QCD] @0
+add process p p > x0 j / t [QCD] @1
+add process p p > x0 j j / t [QCD] @2
+
+output ggh012j_5f_NLO_FXFX_127 -nojpeg
+
