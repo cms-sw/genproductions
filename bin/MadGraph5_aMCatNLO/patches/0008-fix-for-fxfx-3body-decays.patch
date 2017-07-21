@@ -1,0 +1,36 @@
+--- a/Template/NLO/SubProcesses/driver_mintFO.f	2017-05-09 11:54:11 +0000
++++ b/Template/NLO/SubProcesses/driver_mintFO.f	2017-06-06 14:25:45 +0000
+@@ -505,6 +505,7 @@
+ 
+       subroutine update_fks_dir(nFKS)
+       implicit none
++      include 'run.inc'
+       integer nFKS
+       integer              nFKSprocess
+       common/c_nFKSprocess/nFKSprocess
+@@ -513,6 +514,7 @@
+       call leshouche_inc_chooser()
+       call setcuts
+       call setfksfactor(.false.)
++      if (ickkw.eq.3) call configs_and_props_inc_chooser()
+       return
+       end
+       
+
+--- a/Template/NLO/SubProcesses/driver_mintMC.f	2017-05-09 12:41:29 +0000
++++ b/Template/NLO/SubProcesses/driver_mintMC.f	2017-06-06 14:25:45 +0000
+@@ -1207,6 +1207,7 @@
+ 
+       subroutine update_fks_dir(nFKS)
+       implicit none
++      include 'run.inc'
+       integer nFKS
+       integer              nFKSprocess
+       common/c_nFKSprocess/nFKSprocess
+@@ -1215,6 +1216,7 @@
+       call leshouche_inc_chooser()
+       call setcuts
+       call setfksfactor(.true.)
++      if (ickkw.eq.3) call configs_and_props_inc_chooser()
+       return
+       end
