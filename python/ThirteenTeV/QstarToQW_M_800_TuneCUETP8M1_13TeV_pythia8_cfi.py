@@ -5,7 +5,7 @@ from Configuration.Generator.Pythia8CUEP8M1Settings_cfi import *
 
 generator = cms.EDFilter("Pythia8GeneratorFilter",
 	comEnergy = cms.double(13000.0),
-	crossSection = cms.untracked.double(183.7),
+	crossSection = cms.untracked.double(2.896e+02),
 	filterEfficiency = cms.untracked.double(1),
 	maxEventsToPrint = cms.untracked.int32(0),
 	pythiaHepMCVerbosity = cms.untracked.bool(False),
@@ -16,7 +16,7 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
 		processParameters = cms.vstring(
 			'ExcitedFermion:dg2dStar = on',
 			'ExcitedFermion:ug2uStar = on',
-			'ExcitedFermion:Lambda = 1000',
+			'ExcitedFermion:Lambda = 800',
 			'4000001:m0 = 800',
 			'4000001:onMode = off',
 			'4000001:onIfMatch = 2 24',

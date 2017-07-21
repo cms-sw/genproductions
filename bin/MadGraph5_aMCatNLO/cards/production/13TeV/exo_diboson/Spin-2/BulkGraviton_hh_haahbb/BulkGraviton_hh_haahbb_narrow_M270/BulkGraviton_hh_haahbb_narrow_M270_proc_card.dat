@@ -1,0 +1,8 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set gauge unitary
+set complex_mass_scheme False
+import model RS_bulk_ktilda
+generate p p > y , ( y > H H, H > a a , H > b b~)
+output BulkGraviton_hh_haahbb_narrow_M270 -nojpeg
+

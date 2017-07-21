@@ -1,0 +1,8 @@
+set param_card mx 500
+set param_card mzprime 500
+set param_card gd 1
+set param_card gu 1
+set param_card gdm 1
+set param_card cV 0
+set param_card cA 1
+compute_widths 1008

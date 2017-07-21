@@ -1,0 +1,26 @@
+# Input
+import cmsgrid_final.lhe
+
+# Model
+import model TopFCNC_UFO-all_ProdConventions_no_b_mass param_card_madspin.dat --bypass_check
+
+# Settings
+set ms_dir                 ./madspin2
+set Nevents_for_max_weigth 250 # number of events for the estimate of the max. weight
+set max_weight_ps_point    400 # number of PS to estimate the maximum for each event
+
+# Multiparticles
+define j     = g u u~ d d~ s s~ c c~ b b~
+define l+    = e+ mu+ ta+
+define l-    = e- mu- ta-
+define vl    = ve vm vt
+define vl~   = ve~ vm~ vt~
+define inclu = l- l+ j vl vl~
+
+# SM decay of the quark top
+# Anomalous coupling is too small: MadSpin cannot find the anomalous decay and forces SM decay
+decay t  > w+ b,  w+ > j j NP=0 
+decay t~ > a  c~ NP=1
+
+# go go go!!!
+launch

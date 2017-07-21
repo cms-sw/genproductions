@@ -1,0 +1,13 @@
+set param_card mass 25 125.0
+set param_card mass 6000005 1800.0
+set param_card mass 6000006 1800.0
+set param_card mass 6000007 1800.0
+set param_card mass 6000008 1800.0
+set param_card DECAY 6000008 180.0
+set param_card DECAY 6000005 180.0
+set param_card DECAY 6000006 180.0
+set param_card DECAY 6000007 180.0
+set param_card ktrh 3 0.1
+set param_card ktrz 3 0.1
+set param_card ktlh 3 0.0
+set param_card ktlz 3 0.0

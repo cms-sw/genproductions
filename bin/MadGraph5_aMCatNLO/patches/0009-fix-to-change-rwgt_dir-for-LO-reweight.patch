@@ -1,0 +1,27 @@
+diff --git a/interface/reweight_interface.py b/interface/reweight_interface.py
+--- a/madgraph/interface/reweight_interface.py
++++ b/madgraph/interface/reweight_interface.py
+@@ -1612,18 +1612,21 @@
+         to_save['rwgt_dir'] = self.rwgt_dir
+         to_save['has_nlo'] = self.has_nlo
+         to_save['rwgt_mode'] = self.rwgt_mode
++        to_save['rwgt_name'] = self.options['rwgt_name']
+ 
+         name = pjoin(self.rwgt_dir, 'rw_me', 'rwgt.pkl')
+         save_load_object.save_to_file(name, to_save)
+ 
+-    def load_from_pickle(self):
++    def load_from_pickle(self, keep_name=False):
+         import madgraph.iolibs.save_load_object as save_load_object
+         
+         obj = save_load_object.load_from_file( pjoin(self.rwgt_dir, 'rw_me', 'rwgt.pkl'))
+         
+         self.has_standalone_dir = True
+         self.options = {'curr_dir': os.path.realpath(os.getcwd()),
+-                        'rewgt_name': None}
++                    'rwgt_name': self.options['rwgt_name'] if (hasattr(self, 'options') and 'rwgt_name' in self.options) else None}
++        if keep_name:
++            self.options['rwgt_name'] = obj['rwgt_name']
+         
+         old_rwgt = obj['rwgt_dir']
+            

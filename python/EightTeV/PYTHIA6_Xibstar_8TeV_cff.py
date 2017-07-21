@@ -43,8 +43,8 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
 ###########
 # Filters #
 ###########
-# Filter only pp events which produce a B0: efficiency ~6e-3
-b0filter = cms.EDFilter("PythiaFilter", ParticleID = cms.untracked.int32(511))
+# Filter only pp events which produce a Xi*_b0: efficiency ~6e-3
+b0filter = cms.EDFilter("PythiaFilter", ParticleID = cms.untracked.int32(5324))
 
 # Filter on final state muons
 mumugenfilter = cms.EDFilter("MCParticlePairFilter",

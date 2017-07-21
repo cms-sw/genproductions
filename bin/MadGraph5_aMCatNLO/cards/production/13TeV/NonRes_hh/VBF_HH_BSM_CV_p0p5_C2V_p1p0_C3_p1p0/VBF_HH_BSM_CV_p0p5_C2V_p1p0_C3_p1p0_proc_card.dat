@@ -1,0 +1,13 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set loop_optimized_output True
+set complex_mass_scheme False
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+import model SM_HEL_UFO_noLightYukawa
+define p = u c d s u~ c~ d~ s~
+define j = p
+define ferm = u c d s b u~ c~ d~ s~ b~ e- mu- ta- e+ mu+ ta+ vl vl~
+generate p p > h h j j $$ z w+ w-  / a j QED=4
+output VBF_HH_BSM_CV_p0p5_C2V_p1p0_C3_p1p0 -nojpeg
+

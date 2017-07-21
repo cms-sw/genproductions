@@ -1,0 +1,500 @@
+ change mode LO  
+ change helicity False
+ change rwgt_dir rwgt
+
+ launch --rwgt_name=cwww_15_cw_50_cb_250
+	 set Dim6 1 15
+	 set Dim6 2 50
+	 set Dim6 3 250
+ launch --rwgt_name=cwww_15_cw_50_cb_0
+	 set Dim6 1 15
+	 set Dim6 2 50
+	 set Dim6 3 0
+ launch --rwgt_name=cwww_15_cw_50_cb_m250
+	 set Dim6 1 15
+	 set Dim6 2 50
+	 set Dim6 3 -250
+ launch --rwgt_name=cwww_15_cw_50_cb_m500
+	 set Dim6 1 15
+	 set Dim6 2 50
+	 set Dim6 3 -500
+ launch --rwgt_name=cwww_15_cw_25_cb_500
+	 set Dim6 1 15
+	 set Dim6 2 25
+	 set Dim6 3 500
+ launch --rwgt_name=cwww_15_cw_25_cb_250
+	 set Dim6 1 15
+	 set Dim6 2 25
+	 set Dim6 3 250
+ launch --rwgt_name=cwww_15_cw_25_cb_0
+	 set Dim6 1 15
+	 set Dim6 2 25
+	 set Dim6 3 0
+ launch --rwgt_name=cwww_15_cw_25_cb_m250
+	 set Dim6 1 15
+	 set Dim6 2 25
+	 set Dim6 3 -250
+ launch --rwgt_name=cwww_15_cw_25_cb_m500
+	 set Dim6 1 15
+	 set Dim6 2 25
+	 set Dim6 3 -500
+ launch --rwgt_name=cwww_15_cw_0_cb_500
+	 set Dim6 1 15
+	 set Dim6 2 0
+	 set Dim6 3 500
+ launch --rwgt_name=cwww_15_cw_0_cb_250
+	 set Dim6 1 15
+	 set Dim6 2 0
+	 set Dim6 3 250
+ launch --rwgt_name=cwww_15_cw_0_cb_0
+	 set Dim6 1 15
+	 set Dim6 2 0
+	 set Dim6 3 0
+ launch --rwgt_name=cwww_15_cw_0_cb_m250
+	 set Dim6 1 15
+	 set Dim6 2 0
+	 set Dim6 3 -250
+ launch --rwgt_name=cwww_15_cw_0_cb_m500
+	 set Dim6 1 15
+	 set Dim6 2 0
+	 set Dim6 3 -500
+ launch --rwgt_name=cwww_15_cw_m25_cb_500
+	 set Dim6 1 15
+	 set Dim6 2 -25
+	 set Dim6 3 500
+ launch --rwgt_name=cwww_15_cw_m25_cb_250
+	 set Dim6 1 15
+	 set Dim6 2 -25
+	 set Dim6 3 250
+ launch --rwgt_name=cwww_15_cw_m25_cb_0
+	 set Dim6 1 15
+	 set Dim6 2 -25
+	 set Dim6 3 0
+ launch --rwgt_name=cwww_15_cw_m25_cb_m250
+	 set Dim6 1 15
+	 set Dim6 2 -25
+	 set Dim6 3 -250
+ launch --rwgt_name=cwww_15_cw_m25_cb_m500
+	 set Dim6 1 15
+	 set Dim6 2 -25
+	 set Dim6 3 -500
+ launch --rwgt_name=cwww_15_cw_m50_cb_500
+	 set Dim6 1 15
+	 set Dim6 2 -50
+	 set Dim6 3 500
+ launch --rwgt_name=cwww_15_cw_m50_cb_250
+	 set Dim6 1 15
+	 set Dim6 2 -50
+	 set Dim6 3 250
+ launch --rwgt_name=cwww_15_cw_m50_cb_0
+	 set Dim6 1 15
+	 set Dim6 2 -50
+	 set Dim6 3 0
+ launch --rwgt_name=cwww_15_cw_m50_cb_m250
+	 set Dim6 1 15
+	 set Dim6 2 -50
+	 set Dim6 3 -250
+ launch --rwgt_name=cwww_15_cw_m50_cb_m500
+	 set Dim6 1 15
+	 set Dim6 2 -50
+	 set Dim6 3 -500
+ launch --rwgt_name=cwww_7_cw_50_cb_500
+	 set Dim6 1 7.5
+	 set Dim6 2 50
+	 set Dim6 3 500
+ launch --rwgt_name=cwww_7_cw_50_cb_250
+	 set Dim6 1 7.5
+	 set Dim6 2 50
+	 set Dim6 3 250
+ launch --rwgt_name=cwww_7_cw_50_cb_0
+	 set Dim6 1 7.5
+	 set Dim6 2 50
+	 set Dim6 3 0
+ launch --rwgt_name=cwww_7_cw_50_cb_m250
+	 set Dim6 1 7.5
+	 set Dim6 2 50
+	 set Dim6 3 -250
+ launch --rwgt_name=cwww_7_cw_50_cb_m500
+	 set Dim6 1 7.5
+	 set Dim6 2 50
+	 set Dim6 3 -500
+ launch --rwgt_name=cwww_7_cw_25_cb_500
+	 set Dim6 1 7.5
+	 set Dim6 2 25
+	 set Dim6 3 500
+ launch --rwgt_name=cwww_7_cw_25_cb_250
+	 set Dim6 1 7.5
+	 set Dim6 2 25
+	 set Dim6 3 250
+ launch --rwgt_name=cwww_7_cw_25_cb_0
+	 set Dim6 1 7.5
+	 set Dim6 2 25
+	 set Dim6 3 0
+ launch --rwgt_name=cwww_7_cw_25_cb_m250
+	 set Dim6 1 7.5
+	 set Dim6 2 25
+	 set Dim6 3 -250
+ launch --rwgt_name=cwww_7_cw_25_cb_m500
+	 set Dim6 1 7.5
+	 set Dim6 2 25
+	 set Dim6 3 -500
+ launch --rwgt_name=cwww_7_cw_0_cb_500
+	 set Dim6 1 7.5
+	 set Dim6 2 0
+	 set Dim6 3 500
+ launch --rwgt_name=cwww_7_cw_0_cb_250
+	 set Dim6 1 7.5
+	 set Dim6 2 0
+	 set Dim6 3 250
+ launch --rwgt_name=cwww_7_cw_0_cb_0
+	 set Dim6 1 7.5
+	 set Dim6 2 0
+	 set Dim6 3 0
+ launch --rwgt_name=cwww_7_cw_0_cb_m250
+	 set Dim6 1 7.5
+	 set Dim6 2 0
+	 set Dim6 3 -250
+ launch --rwgt_name=cwww_7_cw_0_cb_m500
+	 set Dim6 1 7.5
+	 set Dim6 2 0
+	 set Dim6 3 -500
+ launch --rwgt_name=cwww_7_cw_m25_cb_500
+	 set Dim6 1 7.5
+	 set Dim6 2 -25
+	 set Dim6 3 500
+ launch --rwgt_name=cwww_7_cw_m25_cb_250
+	 set Dim6 1 7.5
+	 set Dim6 2 -25
+	 set Dim6 3 250
+ launch --rwgt_name=cwww_7_cw_m25_cb_0
+	 set Dim6 1 7.5
+	 set Dim6 2 -25
+	 set Dim6 3 0
+ launch --rwgt_name=cwww_7_cw_m25_cb_m250
+	 set Dim6 1 7.5
+	 set Dim6 2 -25
+	 set Dim6 3 -250
+ launch --rwgt_name=cwww_7_cw_m25_cb_m500
+	 set Dim6 1 7.5
+	 set Dim6 2 -25
+	 set Dim6 3 -500
+ launch --rwgt_name=cwww_7_cw_m50_cb_500
+	 set Dim6 1 7.5
+	 set Dim6 2 -50
+	 set Dim6 3 500
+ launch --rwgt_name=cwww_7_cw_m50_cb_250
+	 set Dim6 1 7.5
+	 set Dim6 2 -50
+	 set Dim6 3 250
+ launch --rwgt_name=cwww_7_cw_m50_cb_0
+	 set Dim6 1 7.5
+	 set Dim6 2 -50
+	 set Dim6 3 0
+ launch --rwgt_name=cwww_7_cw_m50_cb_m250
+	 set Dim6 1 7.5
+	 set Dim6 2 -50
+	 set Dim6 3 -250
+ launch --rwgt_name=cwww_7_cw_m50_cb_m500
+	 set Dim6 1 7.5
+	 set Dim6 2 -50
+	 set Dim6 3 -500
+ launch --rwgt_name=cwww_0_cw_50_cb_500
+	 set Dim6 1 0
+	 set Dim6 2 50
+	 set Dim6 3 500
+ launch --rwgt_name=cwww_0_cw_50_cb_250
+	 set Dim6 1 0
+	 set Dim6 2 50
+	 set Dim6 3 250
+ launch --rwgt_name=cwww_0_cw_50_cb_0
+	 set Dim6 1 0
+	 set Dim6 2 50
+	 set Dim6 3 0
+ launch --rwgt_name=cwww_0_cw_50_cb_m250
+	 set Dim6 1 0
+	 set Dim6 2 50
+	 set Dim6 3 -250
+ launch --rwgt_name=cwww_0_cw_50_cb_m500
+	 set Dim6 1 0
+	 set Dim6 2 50
+	 set Dim6 3 -500
+ launch --rwgt_name=cwww_0_cw_25_cb_500
+	 set Dim6 1 0
+	 set Dim6 2 25
+	 set Dim6 3 500
+ launch --rwgt_name=cwww_0_cw_25_cb_250
+	 set Dim6 1 0
+	 set Dim6 2 25
+	 set Dim6 3 250
+ launch --rwgt_name=cwww_0_cw_25_cb_0
+	 set Dim6 1 0
+	 set Dim6 2 25
+	 set Dim6 3 0
+ launch --rwgt_name=cwww_0_cw_25_cb_m250
+	 set Dim6 1 0
+	 set Dim6 2 25
+	 set Dim6 3 -250
+ launch --rwgt_name=cwww_0_cw_25_cb_m500
+	 set Dim6 1 0
+	 set Dim6 2 25
+	 set Dim6 3 -500
+ launch --rwgt_name=cwww_0_cw_0_cb_500
+	 set Dim6 1 0
+	 set Dim6 2 0
+	 set Dim6 3 500
+ launch --rwgt_name=cwww_0_cw_0_cb_250
+	 set Dim6 1 0
+	 set Dim6 2 0
+	 set Dim6 3 250
+ launch --rwgt_name=cwww_0_cw_0_cb_0
+	 set Dim6 1 0
+	 set Dim6 2 0
+	 set Dim6 3 0
+ launch --rwgt_name=cwww_0_cw_0_cb_m250
+	 set Dim6 1 0
+	 set Dim6 2 0
+	 set Dim6 3 -250
+ launch --rwgt_name=cwww_0_cw_0_cb_m500
+	 set Dim6 1 0
+	 set Dim6 2 0
+	 set Dim6 3 -500
+ launch --rwgt_name=cwww_0_cw_m25_cb_500
+	 set Dim6 1 0
+	 set Dim6 2 -25
+	 set Dim6 3 500
+ launch --rwgt_name=cwww_0_cw_m25_cb_250
+	 set Dim6 1 0
+	 set Dim6 2 -25
+	 set Dim6 3 250
+ launch --rwgt_name=cwww_0_cw_m25_cb_0
+	 set Dim6 1 0
+	 set Dim6 2 -25
+	 set Dim6 3 0
+ launch --rwgt_name=cwww_0_cw_m25_cb_m250
+	 set Dim6 1 0
+	 set Dim6 2 -25
+	 set Dim6 3 -250
+ launch --rwgt_name=cwww_0_cw_m25_cb_m500
+	 set Dim6 1 0
+	 set Dim6 2 -25
+	 set Dim6 3 -500
+ launch --rwgt_name=cwww_0_cw_m50_cb_500
+	 set Dim6 1 0
+	 set Dim6 2 -50
+	 set Dim6 3 500
+ launch --rwgt_name=cwww_0_cw_m50_cb_250
+	 set Dim6 1 0
+	 set Dim6 2 -50
+	 set Dim6 3 250
+ launch --rwgt_name=cwww_0_cw_m50_cb_0
+	 set Dim6 1 0
+	 set Dim6 2 -50
+	 set Dim6 3 0
+ launch --rwgt_name=cwww_0_cw_m50_cb_m250
+	 set Dim6 1 0
+	 set Dim6 2 -50
+	 set Dim6 3 -250
+ launch --rwgt_name=cwww_0_cw_m50_cb_m500
+	 set Dim6 1 0
+	 set Dim6 2 -50
+	 set Dim6 3 -500
+ launch --rwgt_name=cwww_m7_cw_50_cb_500
+	 set Dim6 1 -7.5
+	 set Dim6 2 50
+	 set Dim6 3 500
+ launch --rwgt_name=cwww_m7_cw_50_cb_250
+	 set Dim6 1 -7.5
+	 set Dim6 2 50
+	 set Dim6 3 250
+ launch --rwgt_name=cwww_m7_cw_50_cb_0
+	 set Dim6 1 -7.5
+	 set Dim6 2 50
+	 set Dim6 3 0
+ launch --rwgt_name=cwww_m7_cw_50_cb_m250
+	 set Dim6 1 -7.5
+	 set Dim6 2 50
+	 set Dim6 3 -250
+ launch --rwgt_name=cwww_m7_cw_50_cb_m500
+	 set Dim6 1 -7.5
+	 set Dim6 2 50
+	 set Dim6 3 -500
+ launch --rwgt_name=cwww_m7_cw_25_cb_500
+	 set Dim6 1 -7.5
+	 set Dim6 2 25
+	 set Dim6 3 500
+ launch --rwgt_name=cwww_m7_cw_25_cb_250
+	 set Dim6 1 -7.5
+	 set Dim6 2 25
+	 set Dim6 3 250
+ launch --rwgt_name=cwww_m7_cw_25_cb_0
+	 set Dim6 1 -7.5
+	 set Dim6 2 25
+	 set Dim6 3 0
+ launch --rwgt_name=cwww_m7_cw_25_cb_m250
+	 set Dim6 1 -7.5
+	 set Dim6 2 25
+	 set Dim6 3 -250
+ launch --rwgt_name=cwww_m7_cw_25_cb_m500
+	 set Dim6 1 -7.5
+	 set Dim6 2 25
+	 set Dim6 3 -500
+ launch --rwgt_name=cwww_m7_cw_0_cb_500
+	 set Dim6 1 -7.5
+	 set Dim6 2 0
+	 set Dim6 3 500
+ launch --rwgt_name=cwww_m7_cw_0_cb_250
+	 set Dim6 1 -7.5
+	 set Dim6 2 0
+	 set Dim6 3 250
+ launch --rwgt_name=cwww_m7_cw_0_cb_0
+	 set Dim6 1 -7.5
+	 set Dim6 2 0
+	 set Dim6 3 0
+ launch --rwgt_name=cwww_m7_cw_0_cb_m250
+	 set Dim6 1 -7.5
+	 set Dim6 2 0
+	 set Dim6 3 -250
+ launch --rwgt_name=cwww_m7_cw_0_cb_m500
+	 set Dim6 1 -7.5
+	 set Dim6 2 0
+	 set Dim6 3 -500
+ launch --rwgt_name=cwww_m7_cw_m25_cb_500
+	 set Dim6 1 -7.5
+	 set Dim6 2 -25
+	 set Dim6 3 500
+ launch --rwgt_name=cwww_m7_cw_m25_cb_250
+	 set Dim6 1 -7.5
+	 set Dim6 2 -25
+	 set Dim6 3 250
+ launch --rwgt_name=cwww_m7_cw_m25_cb_0
+	 set Dim6 1 -7.5
+	 set Dim6 2 -25
+	 set Dim6 3 0
+ launch --rwgt_name=cwww_m7_cw_m25_cb_m250
+	 set Dim6 1 -7.5
+	 set Dim6 2 -25
+	 set Dim6 3 -250
+ launch --rwgt_name=cwww_m7_cw_m25_cb_m500
+	 set Dim6 1 -7.5
+	 set Dim6 2 -25
+	 set Dim6 3 -500
+ launch --rwgt_name=cwww_m7_cw_m50_cb_500
+	 set Dim6 1 -7.5
+	 set Dim6 2 -50
+	 set Dim6 3 500
+ launch --rwgt_name=cwww_m7_cw_m50_cb_250
+	 set Dim6 1 -7.5
+	 set Dim6 2 -50
+	 set Dim6 3 250
+ launch --rwgt_name=cwww_m7_cw_m50_cb_0
+	 set Dim6 1 -7.5
+	 set Dim6 2 -50
+	 set Dim6 3 0
+ launch --rwgt_name=cwww_m7_cw_m50_cb_m250
+	 set Dim6 1 -7.5
+	 set Dim6 2 -50
+	 set Dim6 3 -250
+ launch --rwgt_name=cwww_m7_cw_m50_cb_m500
+	 set Dim6 1 -7.5
+	 set Dim6 2 -50
+	 set Dim6 3 -500
+ launch --rwgt_name=cwww_m15_cw_50_cb_500
+	 set Dim6 1 -15
+	 set Dim6 2 50
+	 set Dim6 3 500
+ launch --rwgt_name=cwww_m15_cw_50_cb_250
+	 set Dim6 1 -15
+	 set Dim6 2 50
+	 set Dim6 3 250
+ launch --rwgt_name=cwww_m15_cw_50_cb_0
+	 set Dim6 1 -15
+	 set Dim6 2 50
+	 set Dim6 3 0
+ launch --rwgt_name=cwww_m15_cw_50_cb_m250
+	 set Dim6 1 -15
+	 set Dim6 2 50
+	 set Dim6 3 -250
+ launch --rwgt_name=cwww_m15_cw_50_cb_m500
+	 set Dim6 1 -15
+	 set Dim6 2 50
+	 set Dim6 3 -500
+ launch --rwgt_name=cwww_m15_cw_25_cb_500
+	 set Dim6 1 -15
+	 set Dim6 2 25
+	 set Dim6 3 500
+ launch --rwgt_name=cwww_m15_cw_25_cb_250
+	 set Dim6 1 -15
+	 set Dim6 2 25
+	 set Dim6 3 250
+ launch --rwgt_name=cwww_m15_cw_25_cb_0
+	 set Dim6 1 -15
+	 set Dim6 2 25
+	 set Dim6 3 0
+ launch --rwgt_name=cwww_m15_cw_25_cb_m250
+	 set Dim6 1 -15
+	 set Dim6 2 25
+	 set Dim6 3 -250
+ launch --rwgt_name=cwww_m15_cw_25_cb_m500
+	 set Dim6 1 -15
+	 set Dim6 2 25
+	 set Dim6 3 -500
+ launch --rwgt_name=cwww_m15_cw_0_cb_500
+	 set Dim6 1 -15
+	 set Dim6 2 0
+	 set Dim6 3 500
+ launch --rwgt_name=cwww_m15_cw_0_cb_250
+	 set Dim6 1 -15
+	 set Dim6 2 0
+	 set Dim6 3 250
+ launch --rwgt_name=cwww_m15_cw_0_cb_0
+	 set Dim6 1 -15
+	 set Dim6 2 0
+	 set Dim6 3 0
+ launch --rwgt_name=cwww_m15_cw_0_cb_m250
+	 set Dim6 1 -15
+	 set Dim6 2 0
+	 set Dim6 3 -250
+ launch --rwgt_name=cwww_m15_cw_0_cb_m500
+	 set Dim6 1 -15
+	 set Dim6 2 0
+	 set Dim6 3 -500
+ launch --rwgt_name=cwww_m15_cw_m25_cb_500
+	 set Dim6 1 -15
+	 set Dim6 2 -25
+	 set Dim6 3 500
+ launch --rwgt_name=cwww_m15_cw_m25_cb_250
+	 set Dim6 1 -15
+	 set Dim6 2 -25
+	 set Dim6 3 250
+ launch --rwgt_name=cwww_m15_cw_m25_cb_0
+	 set Dim6 1 -15
+	 set Dim6 2 -25
+	 set Dim6 3 0
+ launch --rwgt_name=cwww_m15_cw_m25_cb_m250
+	 set Dim6 1 -15
+	 set Dim6 2 -25
+	 set Dim6 3 -250
+ launch --rwgt_name=cwww_m15_cw_m25_cb_m500
+	 set Dim6 1 -15
+	 set Dim6 2 -25
+	 set Dim6 3 -500
+ launch --rwgt_name=cwww_m15_cw_m50_cb_500
+	 set Dim6 1 -15
+	 set Dim6 2 -50
+	 set Dim6 3 500
+ launch --rwgt_name=cwww_m15_cw_m50_cb_250
+	 set Dim6 1 -15
+	 set Dim6 2 -50
+	 set Dim6 3 250
+ launch --rwgt_name=cwww_m15_cw_m50_cb_0
+	 set Dim6 1 -15
+	 set Dim6 2 -50
+	 set Dim6 3 0
+ launch --rwgt_name=cwww_m15_cw_m50_cb_m250
+	 set Dim6 1 -15
+	 set Dim6 2 -50
+	 set Dim6 3 -250
+ launch --rwgt_name=cwww_m15_cw_m50_cb_m500
+	 set Dim6 1 -15
+	 set Dim6 2 -50
+	 set Dim6 3 -500
