@@ -3,7 +3,6 @@ COM_ENERGY = 14000. # GeV
 # this is the closest thing I could find:
 # https://twiki.cern.ch/twiki/bin/view/LHCPhysics/SUSYCrossSections13TeVslepslep
 CROSS_SECTION = 1 # pb
-CTAU_POINT = 1. # mm
 SLHA_TABLE = """## Important note!
 ## This file has been modified by hand to give the gluino and the
 ## stop_1 a very narrow width, such that it can be used to try out
@@ -53,11 +52,11 @@ BLOCK MODSEL  # Model selection
      1     1   sugra
 #
 BLOCK SMINPUTS  # Standard Model inputs
-     1     1.27934000E+02   # alpha_em^-1(M_Z)^MSbar
+     1     1.27934000E+02   # alpha_em^-1(M_Z) Sbar
      2     1.16637000E-05   # G_F [GeV^-2]
-     3     1.18000000E-01   # alpha_S(M_Z)^MSbar
+     3     1.18000000E-01   # alpha_S(M_Z) Sbar
      4     9.11876000E+01   # M_Z pole mass
-     5     4.25000000E+00   # mb(mb)^MSbar
+     5     4.25000000E+00   # mb(mb) Sbar
      6     1.75000000E+02   # mt pole mass
      7     1.77700000E+00   # mtau pole mass
 #
@@ -470,7 +469,7 @@ DECAY   2000011     2.16121626E-01   # selectron_R decays
      0.00000000E+00    2    -1000037        12   # BR(~e_R -> ~chi_2- nu_e)
 #
 #         PDG            Width
-DECAY   1000013     1.9732697E-13   # smuon_L decays
+DECAY   1000013     1.9732697E-13   # smuon_L decays - EDIT THIS LINE TO CHANGE LIFETIME
 #          BR         NDA      ID1       ID2
      1.000000000000    2     1000022        13   # BR(~mu_L -> ~chi_10 mu-)
 #     0.00000000E+00    2     1000023        13   # BR(~mu_L -> ~chi_20 mu-)
@@ -830,7 +829,6 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
         processParameters = cms.vstring(
             'SUSY:all = off',
             'SUSY:qqbar2sleptonantislepton = on',
-            '1000013:tau0 = %.1f' % CTAU_POINT,
         ),
         parameterSets = cms.vstring(
             'pythia8CommonSettings',
