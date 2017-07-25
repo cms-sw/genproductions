@@ -1,4 +1,5 @@
 #!/bin/bash
+PTYHONPATH=$PYTHONPATH:/usr/lib64/python2.6/site-packages
 source source_condor.sh
 
 name=$1

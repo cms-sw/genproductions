@@ -84,19 +84,33 @@ scalecorrelation:
 0 3 6 1 4 7 2 5 8
 # PDF sets and number of members (0 or none for all members)
 PDF:
-NNPDF30_lo_as_0130.LHgrid
-NNPDF30_lo_as_0130_nf_4.LHgrid
-NNPDF30_lo_as_0118.LHgrid 1
-NNPDF23_lo_as_0130_qed.LHgrid
-NNPDF23_lo_as_0119_qed.LHgrid 1
-cteq6l1.LHgrid
-MMHT2014lo68cl.LHgrid
-MMHT2014lo_asmzsmallrange.LHgrid
-HERAPDF15LO_EIG.LHgrid
-NNPDF30_nlo_as_0118.LHgrid 1
-NNPDF23_nlo_as_0119.LHgrid 1
-CT10nlo.LHgrid
-MMHT2014nlo68cl.LHgrid 1
+NNPDF31_nnlo_hessian_pdfas.LHgrid
+NNPDF30_nlo_nf_5_pdfas.LHgrid 1
+NNPDF30_nnlo_nf_5_pdfas.LHgrid 1
+NNPDF31_nlo_hessian_pdfas.LHgrid
+NNPDF31_lo_as_0118.LHgrid 1
+CT14nlo.LHgrid
+CT14nlo_as_0116.LHgrid 1
+CT14nlo_as_0120.LHgrid 1
+CT14nnlo.LHgrid
+CT14nnlo_as_0116.LHgrid 1
+CT14nnlo_as_0120.LHgrid 1
+CT14lo.LHgrid 1
+MMHT2014nlo68clas118.LHgrid 
+MMHT2014nnlo68cl.LHgrid
+MMHT2014lo68cl.LHgrid 1
+ABMP15_3_nnlo.LHgrid
+ABMP16als118_5_nnlo.LHgrid
+PDF4LHC15_nlo_100_pdfas.LHgrid
+PDF4LHC15_nnlo_100_pdfas.LHgrid
+PDF4LHC15_nlo_30_pdfas.LHgrid
+PDF4LHC15_nnlo_30_pdfas.LHgrid
+HERAPDF20_NLO_EIG.LHgrid
+HERAPDF20_NLO_VAR.LHgrid
+HERAPDF20_NNLO_EIG.LHgrid
+HERAPDF20_NLO_VAR.LHgrid
+CT14qed_inc_proton.LHgrid
+LUXqed_plus_PDF4LHC15_nnlo_100.LHgrid
 " > syscalc_card.dat
 
 LD_LIBRARY_PATH=`${LHAPDFCONFIG} --libdir`:${LD_LIBRARY_PATH} ./mgbasedir/SysCalc/sys_calc events_presys.lhe syscalc_card.dat cmsgrid_final.lhe
