@@ -338,7 +338,7 @@ if [[ -s ./JHUGen.input ]]; then
 fi
 
 ### retrieve the powheg source tar ball
-export POWHEGSRC=powhegboxV2_rev3407_date20170711.tar.gz
+export POWHEGSRC=powhegboxV2_rev3426_date20170725.tar.gz
 
 if [ "$process" = "b_bbar_4l" ]; then 
   export POWHEGSRC=powhegboxRES_Mar2017.tar.gz
@@ -375,7 +375,7 @@ if [ "$process" = "ttb_NLO_dec" ]; then
 fi
 
 
-sed -i -e "s#500#900#g"  POWHEG-BOX/include/pwhg_rwl.h
+sed -i -e "s#500#1200#g"  POWHEG-BOX/include/pwhg_rwl.h
 
 #if [ "$process" = "HJ" ]; then 
 #   sed -i -e "s#maxmulti=10#maxmulti=500#g" POWHEG-BOX/include/pwhg_bookhist-multi.h
@@ -809,6 +809,10 @@ grep -q "manyseeds" powheg.input; test $? -eq 0 || printf "\\n\\nmanyseeds 1\\n"
 grep -q "parallelstage" powheg.input; test $? -eq 0 || printf "\\nparallelstage 4\\n" >> powheg.input
 grep -q "xgriditeration" powheg.input; test $? -eq 0 || printf "\\nxgriditeration 1\\n" >> powheg.input
 sed -i "s/^pdfreweight.*/pdfreweight 0/g" powheg.input
+
+# enforce standard pdfs
+sed -i "s/^lhans1.*/lhans1 306000/g" powheg.input
+sed -i "s/^lhans2.*/lhans2 306000/g" powheg.input
 
 # turn into single run mode
 sed -i "s/^manyseeds.*/#manyseeds 1/g" powheg.input
