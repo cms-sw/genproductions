@@ -162,7 +162,6 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
 
   cd $MGBASEDIRORIG
   cat $PRODHOME/patches/*.patch | patch -p1
-  exit 0
 
   if [ -e $CARDSDIR/${name}_loop_filter.py ]; then
     echo "Acitvating custom user loop filter"
