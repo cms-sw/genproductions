@@ -245,7 +245,7 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
       fi
       echo "set cluster_status_update $long_wait $short_wait" >> mgconfigscript
       echo "set cluster_nb_retry $n_retries" >> mgconfigscript
-      echo "set cluster_retry_wait 300" >> mgconfigscript 
+      echo "set cluster_retry_wait 300" >> mgconfigscript
       #echo "set cluster_local_path `${LHAPDFCONFIG} --datadir`" >> mgconfigscript 
       if [[ ! "$RUNHOME" =~ ^/afs/.* ]]; then
           echo "local path is not an afs path, batch jobs will use worker node scratch space instead of afs"
@@ -330,7 +330,12 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   fi  
   
   cp $CARDSDIR/${name}_proc_card.dat ${name}_proc_card.dat
-  
+ 
+
+  #*FIXME* workaround for broken cluster_local_path handling. 
+  # This needs to happen before the code-generation step, as fortran templates
+  # are modified based on this parameter.
+  echo "cluster_local_path = `${LHAPDFCONFIG} --datadir`" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt 
 
   ########################
   #Run the code-generation step to create the process directory
@@ -347,7 +352,9 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   if [ "$isscratchspace" -gt "0" ]; then
     echo "cluster_temp_path = `echo $RUNHOME`" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
   fi
-#   echo "cluster_local_path = `${LHAPDFCONFIG} --datadir`" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt    
+  # Previous cluster_local_path setting  gets erased after
+  # code-generation mg5_aMC execution, set it up again before the integrate step.
+  echo "cluster_local_path = `${LHAPDFCONFIG} --datadir`" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt    
   
   if [ -e $CARDSDIR/${name}_patch_me.sh ]; then
       echo "Patching generated matrix element code with " $CARDSDIR/${name}_patch_me.sh
