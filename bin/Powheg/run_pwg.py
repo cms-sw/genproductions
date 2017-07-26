@@ -830,7 +830,7 @@ if [ -e ${WORKDIR}/$folderName/cteq6m ]; then
     cp -p ${WORKDIR}/cteq6m .
 fi
 
-if [ -e ${WORKDIR}/$folderName/JHUGen.input ]; then
+if [ -s ${WORKDIR}/$folderName/JHUGen.input ]; then
     sed -e "s/PROCESS/${process}/g" ${WORKDIR}/runcmsgrid_powhegjhugen.sh > runcmsgrid.sh
 else
     sed -e "s/PROCESS/${process}/g" ${WORKDIR}/runcmsgrid_powheg.sh > runcmsgrid.sh
