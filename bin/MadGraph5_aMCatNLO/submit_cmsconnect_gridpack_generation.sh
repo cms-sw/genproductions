@@ -124,7 +124,7 @@ if [ -z "$CONDOR_RELEASE_HOLDCODES" ]; then
   export CONDOR_RELEASE_HOLDCODES="26:119,13,30:256"
 fi
 if [ -z "$CONDOR_RELEASE_HOLDCODES_SHADOW_LIM" ]; then
-  export CONDOR_RELEASE_HOLDCODES_SHADOW_LIM="10"
+  export CONDOR_RELEASE_HOLDCODES_SHADOW_LIM="19"
 fi
 # Set a list of maxwalltime in minutes
 # Pilots maximum life is 48h or 2880 minutes
