@@ -183,6 +183,7 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   #############################################
   wget --no-check-certificate ${MGSOURCE}
   tar xzf ${MG}
+  rm "$MG"
 
   #############################################
   #Apply any necessary patches on top of official release
