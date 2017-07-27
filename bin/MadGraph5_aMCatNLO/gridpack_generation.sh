@@ -471,11 +471,12 @@ if [ "$isnlo" -gt "0" ]; then
     sed "s/\$DEFAULT_PDF_SETS/303600,292200,292600,305800,315000,13100,13163,13167,13000,13065,13069,13200,25200,25300,25000,42400,42780,90200,91200,90400,91400,61100,61130,61200,61230,13400,82000/" $CARDSDIR/${name}_run_card.dat > ./Cards/run_card.dat
     sed -i "s/\$DEFAULT_PDF_MEMBERS/True,False,False,True,False,True,False,False,True,False,False,False,True,True,False,True,True,True,True,True,True,True,True,True,True,True,True/" ./Cards/run_card.dat 
   else
+    echo ""
     echo "WARNING: You've chosen not to use the PDF sets recommended for 2017 production!"
-    echo "    If this isn't intentional, and you prefer to use the recommended sets"
-    echo "    insert the following lines into your process-name_run_card.dat:"
-    echo "        '$DEFAULT_PDF_SETS = lhaid'"
-    echo "        '$DEFAULT_PDF_MEMBERS = reweight_PDF'"
+    echo "If this isn't intentional, and you prefer to use the recommended sets,"
+    echo "insert the following lines into your process-name_run_card.dat:"
+    echo "    '\$DEFAULT_PDF_SETS = lhaid'"
+    echo "    '\$DEFAULT_PDF_MEMBERS = reweight_PDF'"
     echo ""
     echo "copying run_card.dat file"
     cp $CARDSDIR/${name}_run_card.dat ./Cards/run_card.dat
@@ -484,6 +485,7 @@ else
   echo "copying run_card.dat file"
   cp $CARDSDIR/${name}_run_card.dat ./Cards/run_card.dat
 fi
+exit 0
 
 #copy provided custom param_cards.dat
 if [ -e $CARDSDIR/${name}_param_card.dat ]; then
