@@ -469,7 +469,7 @@ DECAY   2000011     2.16121626E-01   # selectron_R decays
      0.00000000E+00    2    -1000037        12   # BR(~e_R -> ~chi_2- nu_e)
 #
 #         PDG            Width
-DECAY   1000013     1.9732697E-15   # smuon_L decays
+DECAY   1000013     1.9732697E-15   # smuon_L decays - EDIT THIS LINE TO CHANGE LIFETIME
 #          BR         NDA      ID1       ID2
      1.000000000000    2     1000022        13   # BR(~mu_L -> ~chi_10 mu-)
 #     0.00000000E+00    2     1000023        13   # BR(~mu_L -> ~chi_20 mu-)
