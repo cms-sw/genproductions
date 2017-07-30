@@ -485,7 +485,6 @@ else
   echo "copying run_card.dat file"
   cp $CARDSDIR/${name}_run_card.dat ./Cards/run_card.dat
 fi
-exit 0
 
 #copy provided custom param_cards.dat
 if [ -e $CARDSDIR/${name}_param_card.dat ]; then
