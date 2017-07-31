@@ -1,4 +1,4 @@
-#! /bin.bash
+#! /bin/bash
 
 # HTCondor python bindings are lost after cmsenv/scram
 # unless PYTHONPATH is set including its location
