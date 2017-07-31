@@ -55,7 +55,8 @@ average = event_norm ! Normalize events to sum or average to the X sect.
 # PDF choice: this automatically fixes also alpha_s(MZ) and its evol.  *
 #***********************************************************************
  lhapdf    = pdlabel   ! PDF set                                     
- 292200    = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number
+ 303600    = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number
+# NNPDF31_nnlo_as0118
 #***********************************************************************
 # Include the NLO Monte Carlo subtr. terms for the following parton    *
 # shower (HERWIG6 | HERWIGPP | PYTHIA6Q | PYTHIA6PT | PYTHIA8)         *
@@ -93,8 +94,9 @@ average = event_norm ! Normalize events to sum or average to the X sect.
   0.5     = rw_Fscale_down   ! lower bound for fact scale variations
   2.0     = rw_Fscale_up     ! upper bound for fact scale variations
  .true.  = reweight_PDF     ! reweight to get PDF uncertainty
- 292201   = PDF_set_min      ! First of the error PDF sets 
- 292302   = PDF_set_max      ! Last of the error PDF sets
+ 303400   = PDF_set_min      ! First of the error PDF sets 
+#ids 303501-303599 do not exist
+ 303700   = PDF_set_max      ! Last of the error PDF sets
 #***********************************************************************
 # Merging - WARNING! Applies merging only at the hard-event level.     *
 # After showering an MLM-type merging should be applied as well.       *
