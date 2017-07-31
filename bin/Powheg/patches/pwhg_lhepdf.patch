@@ -8,20 +8,22 @@
        integer nlf
        real * 8 version
        common/cversion/version
-@@ -34,8 +35,13 @@
-          write(nlf,'(a)') '</header>'
+@@ -34,10 +35,15 @@
+ c     write(nlf,'(a)') '</header>'
        endif
-       write(nlf,'(a)') '<init>'
--      write(nlf,110) idbmup(1),idbmup(2),ebmup(1),ebmup(2),
--     &pdfgup(1),pdfgup(2),pdfsup(1),pdfsup(2),idwtup,nprup
+       call  pwhg_io_write(nlf,'<init>')
+ c      write(nlf,'(a)') '<init>'
+-      write(buffer,110) idbmup(1),idbmup(2),ebmup(1),ebmup(2),
+-     1     pdfgup(1),pdfgup(2),pdfsup(1),pdfsup(2),idwtup,nprup
 +      if(pdfsup(1).ne.-1 .and. pdfsup(2).ne.-1) then
-+         write(nlf,110) idbmup(1),idbmup(2),ebmup(1),ebmup(2),
-+     &   pdfgup(1),pdfgup(2),pdfsup(1),pdfsup(2),idwtup,nprup
++         write(buffer,110) idbmup(1),idbmup(2),ebmup(1),ebmup(2),
++     1     pdfgup(1),pdfgup(2),pdfsup(1),pdfsup(2),idwtup,nprup
 +      else
-+         write(nlf,110) idbmup(1),idbmup(2),ebmup(1),ebmup(2),
-+     &   0,0,pdf_ndns1,pdf_ndns2,idwtup,nprup
++         write(buffer,110) idbmup(1),idbmup(2),ebmup(1),ebmup(2),
++     1   0,0,pdf_ndns1,pdf_ndns2,idwtup,nprup
 +      endif
+       call  pwhg_io_write(nlf,trim(buffer))
        do 100 ipr=1,nprup
-          write(nlf,120) xsecup(ipr),xerrup(ipr),xmaxup(ipr),
+          write(buffer,120) xsecup(ipr),xerrup(ipr),xmaxup(ipr),
       &        lprup(ipr)
 
