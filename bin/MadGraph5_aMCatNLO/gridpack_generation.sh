@@ -245,7 +245,7 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
       fi
       echo "set cluster_status_update $long_wait $short_wait" >> mgconfigscript
       echo "set cluster_nb_retry $n_retries" >> mgconfigscript
-      echo "set cluster_retry_wait 300" >> mgconfigscript 
+      echo "set cluster_retry_wait 300" >> mgconfigscript
       #echo "set cluster_local_path `${LHAPDFCONFIG} --datadir`" >> mgconfigscript 
       if [[ ! "$RUNHOME" =~ ^/afs/.* ]]; then
           echo "local path is not an afs path, batch jobs will use worker node scratch space instead of afs"
@@ -328,9 +328,16 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
     echo $CARDSDIR/${name}_run_card.dat " does not exist!"
     if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
   fi  
+
+
   
   cp $CARDSDIR/${name}_proc_card.dat ${name}_proc_card.dat
-  
+ 
+
+  #*FIXME* workaround for broken cluster_local_path handling. 
+  # This needs to happen before the code-generation step, as fortran templates
+  # are modified based on this parameter.
+  echo "cluster_local_path = `${LHAPDFCONFIG} --datadir`" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt 
 
   ########################
   #Run the code-generation step to create the process directory
@@ -347,7 +354,9 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   if [ "$isscratchspace" -gt "0" ]; then
     echo "cluster_temp_path = `echo $RUNHOME`" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
   fi
-#   echo "cluster_local_path = `${LHAPDFCONFIG} --datadir`" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt    
+  # Previous cluster_local_path setting  gets erased after
+  # code-generation mg5_aMC execution, set it up again before the integrate step.
+  echo "cluster_local_path = `${LHAPDFCONFIG} --datadir`" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt    
   
   if [ -e $CARDSDIR/${name}_patch_me.sh ]; then
       echo "Patching generated matrix element code with " $CARDSDIR/${name}_patch_me.sh
@@ -446,12 +455,36 @@ fi
 
 cd processtmp
 
+#automatically detect NLO mode or LO mode from output directory
+isnlo=0
+if [ -e ./MCatNLO ]; then
+  isnlo=1
+fi
+
 #######################
 #Locating the run card#
 #######################
 
-echo "copying run_card.dat file"
-cp $CARDSDIR/${name}_run_card.dat ./Cards/run_card.dat
+if [ "$isnlo" -gt "0" ]; then
+  if grep -q -e "\$DEFAULT_PDF_SETS" -e "\$DEFAULT_PDF_MEMBERS" $CARDSDIR/${name}_run_card.dat; then
+    echo "INFO: Using default PDF sets for 2017 production"
+    sed "s/\$DEFAULT_PDF_SETS/303600,292200,292600,305800,315000,13100,13163,13167,13000,13065,13069,13200,25200,25300,25000,42400,42780,90200,91200,90400,91400,61100,61130,61200,61230,13400,82000/" $CARDSDIR/${name}_run_card.dat > ./Cards/run_card.dat
+    sed -i "s/\$DEFAULT_PDF_MEMBERS/True,False,False,True,False,True,False,False,True,False,False,False,True,True,False,True,True,True,True,True,True,True,True,True,True,True,True/" ./Cards/run_card.dat 
+  else
+    echo ""
+    echo "WARNING: You've chosen not to use the PDF sets recommended for 2017 production!"
+    echo "If this isn't intentional, and you prefer to use the recommended sets,"
+    echo "insert the following lines into your process-name_run_card.dat:"
+    echo "    '\$DEFAULT_PDF_SETS = lhaid'"
+    echo "    '\$DEFAULT_PDF_MEMBERS = reweight_PDF'"
+    echo ""
+    echo "copying run_card.dat file"
+    cp $CARDSDIR/${name}_run_card.dat ./Cards/run_card.dat
+  fi
+else
+  echo "copying run_card.dat file"
+  cp $CARDSDIR/${name}_run_card.dat ./Cards/run_card.dat
+fi
 
 #copy provided custom param_cards.dat
 if [ -e $CARDSDIR/${name}_param_card.dat ]; then
@@ -483,13 +516,6 @@ fi
 if [ -e $CARDSDIR/${name}_reweight_card.dat ]; then
   echo "copying custom reweight file"
   cp $CARDSDIR/${name}_reweight_card.dat ./Cards/reweight_card.dat
-fi
-
-
-#automatically detect NLO mode or LO mode from output directory
-isnlo=0
-if [ -e ./MCatNLO ]; then
-  isnlo=1
 fi
 
 if [ "$isnlo" -gt "0" ]; then

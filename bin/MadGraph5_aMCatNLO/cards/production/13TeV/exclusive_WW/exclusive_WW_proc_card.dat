@@ -34,4 +34,4 @@ define l+ = e+ mu+
 define l- = e- mu-
 define vl = ve vm vt
 define vl~ = ve~ vm~ vt~
-output cepww
+output exclusive_WW
