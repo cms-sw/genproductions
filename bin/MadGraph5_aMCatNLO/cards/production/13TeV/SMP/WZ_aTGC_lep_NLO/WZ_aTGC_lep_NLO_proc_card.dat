@@ -1,0 +1,23 @@
+#import model loop_sm-ckm_no_b_mass
+#switch to diagonal ckm matrix if needed for speed
+
+import model loop_sm-no_b_mass
+import model EWdim6NLO
+
+define p = p b b~
+define j = j b b~
+
+define ell+ = e+ mu+
+define ell- = e- mu-
+define V = w+ w-
+define vl = ve vm
+define vl~ = ve~ vm~
+
+generate p p > w+ ell+ ell- QED=3 [QCD] @0
+add process p p > w- ell+ ell- QED=3 [QCD] @1
+add process p p > w+ ell+ ell- j QED=3 [QCD] @2
+add process p p > w- ell+ ell- j QED=3 [QCD] @3
+
+output WZ_aTGC_lep_NLO -nojpeg
+
+
