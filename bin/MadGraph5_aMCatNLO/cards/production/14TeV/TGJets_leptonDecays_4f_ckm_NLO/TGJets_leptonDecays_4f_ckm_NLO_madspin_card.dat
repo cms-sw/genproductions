@@ -1,0 +1,27 @@
+#************************************************************
+#*                        MadSpin                           *
+#*                                                          *
+#*    P. Artoisenet, R. Frederix, R. Rietkerk, O. Mattelaer * 
+#*                                                          *
+#*    Part of the MadGraph5_aMC@NLO Framework:              *
+#*    The MadGraph5_aMC@NLO Development Team - Find us at   *
+#*    https://server06.fynu.ucl.ac.be/projects/madgraph     *
+#*                                                          *
+#************************************************************
+#Some options (uncomment to apply)
+ set ms_dir ./madspingrid
+ set Nevents_for_max_weigth 250
+ #set BW_cut 15
+ set max_weight_ps_point 400 
+ set max_running_process 1
+
+define ell+ = e+ mu+ ta+
+define ell- = e- mu- ta-
+# specify the decay for the final state particles
+decay t > w+ b, w+ > ell+ vl
+decay t~ > w- b~, w- > ell- vl~
+decay w+ > ell+ vl
+decay w- > ell- vl~
+
+# running the actual code
+launch
