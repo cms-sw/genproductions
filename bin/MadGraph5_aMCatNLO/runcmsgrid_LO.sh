@@ -10,6 +10,7 @@ ncpu=${3}
 echo "%MSG-MG5 number of cpus = $ncpu"
 
 LHEWORKDIR=`pwd`
+
 use_gridpack_env=true
 if [ -z "$4" ]
   then
@@ -79,51 +80,28 @@ fi
 
 cd $LHEWORKDIR
 
+runlabel=GridRun_${rnum}
 if [ "$domadspin" -gt "0" ] ; then 
-    mv process/events_decayed.lhe.gz events_presys.lhe.gz
-else
-    mv process/events.lhe.gz events_presys.lhe.gz
+    mv process/events_decayed.lhe.gz process/madevent/Events/${runlabel}/events.lhe.gz
 fi
 
-gzip -d events_presys.lhe.gz
+# Add scale and PDF weights using systematics module
+#
+pushd process/madevent
+pdfsets="303600,292200@0,292600@0,305800,315000@0,"
+pdfsets+="13100,13163@0,13167,13000@0,13065@0,"
+pdfsets+="13069,13200@0,25200@0,25300@0,25000,"
+pdfsets+="42400,42780@0,90200,91200,90400,"
+pdfsets+="91400,61100,61130,61200,61230,"
+pdfsets+="13400,82000"
+scalevars="--mur=1,2,0.5 --muf=1,2,0.5 --together=muf,mur,dyn --dyn=-1,1,2,3,4"
 
-# Remove the bias rwgt block that causes SysCalc to fail (patch 9 fixes this)
-#sed -i ':a;N;$!ba;s/<rwgt>\n<wgt id='\''bias'\''>   0.1000000E+01<\/wgt>\n<\/rwgt>\n//g' events_presys.lhe
+echo "systematics $runlabel --pdf=$pdfsets $scalevars" | ./bin/madevent
+popd
 
+mv process/madevent/Events/${runlabel}/events.lhe.gz cmsgrid_final.lhe.gz
+gzip -d cmsgrid_final.lhe.gz
 
-use_syscalc=0
-if [ "$use_syscalc" -gt 1 ]; then
-    #run syscalc to populate pdf and scale variation weights
-    echo "
-    # Central scale factors
-    scalefact:
-    1 2 0.5
-    # choice of correlation scheme between muF and muR
-    # set here to reproduce aMC@NLO order
-    scalecorrelation:
-    0 3 6 1 4 7 2 5 8
-    # PDF sets and number of members (0 or none for all members)
-    PDF:
-    NNPDF30_lo_as_0130.LHgrid
-    NNPDF30_lo_as_0130_nf_4.LHgrid
-    NNPDF30_lo_as_0118.LHgrid 1
-    NNPDF23_lo_as_0130_qed.LHgrid
-    NNPDF23_lo_as_0119_qed.LHgrid 1
-    cteq6l1.LHgrid
-    MMHT2014lo68cl.LHgrid
-    MMHT2014lo_asmzsmallrange.LHgrid
-    HERAPDF15LO_EIG.LHgrid
-    NNPDF30_nlo_as_0118.LHgrid 1
-    NNPDF23_nlo_as_0119.LHgrid 1
-    CT10nlo.LHgrid
-    MMHT2014nlo68cl.LHgrid 1
-    " > syscalc_card.dat
-    
-    LD_LIBRARY_PATH=`${LHAPDFCONFIG} --libdir`:${LD_LIBRARY_PATH} ./mgbasedir/SysCalc/sys_calc events_presys.lhe syscalc_card.dat cmsgrid_final.lhe
-else 
-   echo "systematics events_presys.lhe cmsgrid_final.lhe --dyn=-1 --mur=1,2,0.5 --muf=1,2,0.5 --pdf=NNPDF30_lo_as_0130,NNPDF30_lo_as_0130_nf_4,NNPDF30_lo_as_0118@0,NNPDF23_lo_as_0130_qed,NNPDF23_lo_as_0119_qed@0,cteq6l1,MMHT2014lo68cl,MMHT2014lo_asmzsmallrange,HERAPDF15LO_EIG,NNPDF30_nlo_as_0118@0,NNPDF23_nlo_as_0119@0,CT10nlo,MMHT2014nlo68cl@0" > systematics_card.dat
-   cat systematics_card.dat | $LHEWORKDIR/process/madevent/bin/madevent 
-fi
 
 #reweight if necessary
 if [ -e process/madevent/Cards/reweight_card.dat ]; then
@@ -135,6 +113,7 @@ if [ -e process/madevent/Cards/reweight_card.dat ]; then
     mv process/madevent/Events/GridRun_${rnum}/unweighted_events.lhe.gz cmsgrid_final.lhe.gz
     gzip -d  cmsgrid_final.lhe.gz
 fi
+
 
 ls -l
 echo
