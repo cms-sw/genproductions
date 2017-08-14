@@ -11,8 +11,8 @@ bornsuppfact 400d0   ! (default 0d0) Mass parameter for Born suppression factor.
 
 ! To be set only if using internal (mlm) pdfs
 ! 131 cteq6m
-ndns1 131            ! pdf set for hadron 1 (mlm numbering)
-ndns2 131            ! pdf set for hadron 2 (mlm numbering)
+! ndns1 131            ! pdf set for hadron 1 (mlm numbering)
+! ndns2 131            ! pdf set for hadron 2 (mlm numbering)
 
 ! To be set only if using LHA pdfs
 ! 303600 NNPDF31nnlo
