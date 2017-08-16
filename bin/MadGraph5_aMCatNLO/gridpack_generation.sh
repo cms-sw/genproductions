@@ -691,9 +691,12 @@ if [ -e $CARDSDIR/${name}_externaltarball.dat ]; then
 fi
 
 
-echo "Saving log file"
+echo "Saving log file(s)"
 #copy log file
-cp ${LOGFILE} ./gridpack_generation.log
+LOGFILE_NAME=${LOGFILE/.log/}
+for i in ${LOGFILE_NAME}*.log; do 
+    cp $i ${i/$LOGFILE_NAME/gridpack_generation}; 
+done
 
 
 
@@ -707,9 +710,9 @@ else
 fi
 
 if [ ! -e $CARDSDIR/${name}_externaltarball.dat ]; then
-    XZ_OPT="$XZ_OPT" tar -cJpsf ${PRODHOME}/${name}_${scram_arch}_${cmssw_version}_tarball.tar.xz mgbasedir process runcmsgrid.sh gridpack_generation.log
+    XZ_OPT="$XZ_OPT" tar -cJpsf ${PRODHOME}/${name}_${scram_arch}_${cmssw_version}_tarball.tar.xz mgbasedir process runcmsgrid.sh gridpack_generation*.log
 else
-    XZ_OPT="$XZ_OPT" tar -cJpsf ${PRODHOME}/${name}_${scram_arch}_${cmssw_version}_tarball.tar.xz mgbasedir process runcmsgrid.sh gridpack_generation.log external_tarball ${name}_externaltarball.dat header_for_madspin.txt
+    XZ_OPT="$XZ_OPT" tar -cJpsf ${PRODHOME}/${name}_${scram_arch}_${cmssw_version}_tarball.tar.xz mgbasedir process runcmsgrid.sh gridpack_generation*.log external_tarball ${name}_externaltarball.dat header_for_madspin.txt
 fi
 
 #mv ${name}_${scram_arch}_${cmssw_version}_tarball.tar.xz ${PRODHOME}/${name}_${scram_arch}_${cmssw_version}_tarball.tar.xz
