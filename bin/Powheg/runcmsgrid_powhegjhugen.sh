@@ -392,8 +392,8 @@ if [ -s pwgstat.dat ]; then
 fi
 
 if [ -s pwg-stat.dat ]; then
-  XSECTION=`cat pwg-stat.dat | grep total | awk '{print $7}'`
-  XSECUNC=` cat pwg-stat.dat | grep total | awk '{print $9}'`
+  XSECTION=`tac pwg-stat.dat | grep -m1 in\ pb | awk '{ print $(NF-2) }'`
+  XSECUNC=` tac pwg-stat.dat | grep -m1 in\ pb | awk '{ print $(NF) }'`
   head=`cat   cmsgrid_final.lhe | grep -in "<init>" | sed "s@:@ @g" | awk '{print $1+1}' | tail -1`
   tail=`wc -l cmsgrid_final.lhe | awk -v tmp="$head" '{print $1-2-tmp}'`
   tail -${tail} cmsgrid_final.lhe                           >  cmsgrid_final.lhe_tail
