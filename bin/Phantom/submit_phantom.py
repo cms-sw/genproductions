@@ -2,6 +2,44 @@
 # - upload the script to my version of genproduction
 # - prepare the script for the event generation
 # - upload it to genproduction and find a way to test it
+# - example for the next step:
+#   https://github.com/cms-sw/genproductions/blob/master/bin/Powheg/runcmsgrid_powheg.sh
+#   - il compiler usato da phantom puo' essere quello di phantom e non quello di cmssw?
+#     --> sembra che cmssw non venga chiamato nella produzione dei LHE file
+#   - come passo un seed random a phantom?
+# - include the submission script in the gridpack, does it have to be shell?
+# - FIXME new version of Phantom compiles also with CMS compilers,
+#   we should produce compiled releases for various architectures
+#   and check the correct choice of the phantom release wrt the cmssw version used to setup the environment
+# - FIXME if I do the compilation, I should also pickup the same LHAPDF libraries of the CMSSW release?
+#    - are they the same for all the releases with the same architecture?
+#    - how do I get the list of architectures and most importantly the configurations?
+#      slc6_amd64_gcc493 CMSSW_7_6_6_patch1 
+#      slc6_amd64_gcc630 CMSSW_9_3_0_pre4   
+#      slc5_amd64_gcc462 CMSSW_5_3_17       
+#      slc5_amd64_gcc472 CMSSW_6_2_0_SLHC15 
+#      slc6_amd64_gcc530 CMSSW_9_2_10       
+#      slc5_amd64_gcc434 CMSSW_4_2_10_patch2
+#      slc6_amd64_gcc491 CMSSW_7_5_8_patch7 
+#      slc6_amd64_gcc481 CMSSW_7_1_29       
+#      slc6_amd64_gcc472 CMSSW_5_3_36       
+#       
+# dettagli da josh su come funzionano le chiamate degli script
+# so there are two places
+# 
+# 
+# one for the traditional wmLHE workflow
+# 
+# and one for the new susy parameter scan workflow
+# 
+# for the wmLHE workflow: https://github.com/cms-sw/cmssw/blob/master/GeneratorInterface/LHEInterface/plugins/ExternalLHEProducer.cc#L253
+# 
+# https://github.com/cms-sw/cmssw/blob/master/GeneratorInterface/LHEInterface/plugins/ExternalLHEProducer.cc#L366
+# 
+# for the newer susy workflow which is only used for parameter scans so far:
+# https://github.com/cms-sw/cmssw/blob/master/GeneratorInterface/Core/interface/GeneratorFilter.h#L247
+# 
+# https://github.com/cms-sw/cmssw/blob/09c3fce6626f70fd04223e7dacebf0b485f73f54/GeneratorInterface/Core/src/BaseHadronizer.cc#L78
 
 
 import sys
@@ -65,7 +103,7 @@ def findLhapdfUsed (makefilename):
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
 
-def modifySubmitfile (submitfilename, pdfgridfolder, phantompdflib):
+def modifySubmitfileIntelCompiler (submitfilename, pdfgridfolder, phantompdflib):
     submitfile = open (submitfilename, 'read')
     lines = submitfile.readlines ()
     submitfile.close ()
@@ -73,6 +111,28 @@ def modifySubmitfile (submitfilename, pdfgridfolder, phantompdflib):
     submitfile.write ('#!/bin/bash\n\n')
     submitfile.write ('source /afs/cern.ch/sw/IntelSoftware/linux/setup.sh intel64\n')
     submitfile.write ('source /afs/cern.ch/sw/IntelSoftware/linux/x86_64/xe2016/compilers_and_libraries/linux/bin/compilervars.csh intel64\n')
+    submitfile.write ('export LHAPDF=' + pdfgridfolder + '\n')
+    submitfile.write ('export PDFLIBDIR=/afs/cern.ch/work/b/ballest/public/phantom/LHAPDF-6.1.5_work/lib\n')
+#    submitfile.write ('export PDFLIBDIR=' + phantompdflib + '\n')
+#    submitfile.write ('export PDFLIBDIR=' + pdfgridfolder + '/../../lib\n')
+    submitfile.write ('export LD_LIBRARY_PATH=$PDFLIBDIR:$LD_LIBRARY_PATH\n')
+    for i in range (1, len (lines)) :
+        submitfile.write (lines[i])
+    
+
+# ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+
+
+def modifySubmitfileCMSSWCompiler (submitfilename, pdfgridfolder, phantompdflib, cmssw, shell):
+    submitfile = open (submitfilename, 'read')
+    lines = submitfile.readlines ()
+    submitfile.close ()
+    submitfile = open (submitfilename, 'write')
+    submitfile.write ('#!/bin/bash\n\n')
+    submitfile.write ('source /afs/cern.ch/sw/IntelSoftware/linux/setup.sh intel64\n')
+    submitfile.write ('source /afs/cern.ch/sw/IntelSoftware/linux/x86_64/xe2016/compilers_and_libraries/linux/bin/compilervars.csh intel64\n')
+    submitfile.write ('scram project CMSSW ' + cmssw + '\n')
+    submitfile.write ('eval `scram runtime -' + shell + '\n')
     submitfile.write ('export LHAPDF=' + pdfgridfolder + '\n')
     submitfile.write ('export PDFLIBDIR=/afs/cern.ch/work/b/ballest/public/phantom/LHAPDF-6.1.5_work/lib\n')
 #    submitfile.write ('export PDFLIBDIR=' + phantompdflib + '\n')
@@ -248,7 +308,8 @@ if __name__ == '__main__':
 
     # add to the LSFfile the environment setupdir
     # configuration to be setup before running the phantom program
-    modifySubmitfile (submitfilename, pdfgridfolder, phantompdflib)
+    modifySubmitfileIntelCompiler (submitfilename, pdfgridfolder, phantompdflib)
+    # modifySubmitfileCMSSWCompiler (submitfilename, pdfgridfolder, phantompdflib, cmssw, shell):
 
     # launch the submission script
     execute ('source ' + workingfolder + '/LSFfile', True)
