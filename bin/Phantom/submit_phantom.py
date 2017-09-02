@@ -427,9 +427,10 @@ if __name__ == '__main__':
 
     # NB removing the phantom to save space, it will have to be put back (reasonably in the same place)
     #    when generating the events
-#    execute ('rm -rf ' + phantomfolder + '*', debugging)
-#    execute ('rm -rf CMSSW*', debugging)
-#    execute ('rm -rf LSFJOB*', debugging)
+    if not debugging:
+        execute ('rm -rf ' + phantomfolder + '*', debugging)
+        execute ('rm -rf CMSSW*', debugging)
+        execute ('rm -rf LSFJOB*', debugging)
     
     # get all the grids, to be run in workingfolder
     gridfiles = execute ('for fil in `find -L . -name "phavegas*"` ; do echo `pwd`/$fil ; done', debugging)
