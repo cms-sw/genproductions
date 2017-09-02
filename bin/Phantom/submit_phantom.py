@@ -62,7 +62,6 @@ def replaceParameterInFile (inputFile, outputFile, substitute):
     f = open (inputFile)
     lines = f.readlines ()
     f.close ()
-
     f = open (outputFile, 'w')
     for line in lines:
         if line.startswith ('*') or line.startswith (' ') or len (line) < 3 or line.startswith ('.') :
@@ -145,6 +144,45 @@ def modifySubmitfileCMSSWCompiler (submitfilename, pdfgridfolder, phantompdflib,
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
 
+def prepareEventProductionScript (productionfilename, pdfgridfolder, phantompdflib, cmssw, shell):
+    productionfile = open (productionfilename, 'write')
+    productionfile.write ('#!/bin/bash\n\n')
+    productionfile.write ('source /afs/cern.ch/sw/IntelSoftware/linux/setup.sh intel64\n')
+    productionfile.write ('source /afs/cern.ch/sw/IntelSoftware/linux/x86_64/xe2016/compilers_and_libraries/linux/bin/compilervars.csh intel64\n')
+    productionfile.write ('scram project CMSSW ' + cmssw + '\n')
+    productionfile.write ('eval `scram runtime -' + shell + '\n')
+    productionfile.write ('export LHAPDF=' + pdfgridfolder + '\n')
+    productionfile.write ('export PDFLIBDIR=/afs/cern.ch/work/b/ballest/public/phantom/LHAPDF-6.1.5_work/lib\n')
+#    productionfile.write ('export PDFLIBDIR=' + phantompdflib + '\n')
+#    productionfile.write ('export PDFLIBDIR=' + pdfgridfolder + '/../../lib\n')
+    productionfile.write ('export LD_LIBRARY_PATH=$PDFLIBDIR:$LD_LIBRARY_PATH\n')
+    for i in range (1, len (lines)) :
+        productionfile.write (lines[i])
+    
+
+# ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+
+
+def addGridsToRin (filename, grids, debug = False):
+    if debug : print 'preparing ' + filename + '\n'
+    configfile = open (filename, 'read')
+    lines = configfile.readlines ()
+    configfile.close ()
+    configfile = open (filename, 'write')
+    for line in lines:
+        if line.startswith ('nfiles'):
+            configfile.write (line)
+            break
+        configfile.write (line)
+    for gridfile in grids.split ():
+        if debug : print 'adding ' + gridfile + '\n'
+        configfile.write (gridfile + '\n')
+    configfile.close ()    
+    
+
+# ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+
+
 def wordInFile (word, filename):
     thefile = open (filename, 'r')
     s = thefile.read ()
@@ -161,6 +199,8 @@ if __name__ == '__main__':
         print 'config file missing, exiting'
         sys.exit (1)
 
+    debugging = False
+    if len (sys.argv) > 2 : debugging = True
     rootfolder = os.getcwd ()
 
     # values to be inserted in the phantom r.in file
@@ -236,11 +276,12 @@ if __name__ == '__main__':
     substitute['PDFname'] = pdfgrids
 
     # prepare the r.in phantom config file
-    templatefile = rootfolder + '/' + config.get ('general', 'template')
+    templatefile = 'nonEsisto'  
+    if config.has_option ('general', 'template'):
+        templatefile = rootfolder + '/' + config.get ('general', 'template')
     if not os.path.exists (templatefile):
         templatefile = workingfolder + '/' + phantomfolder + '/r.in'
         print 'r.in template not found, using the default one in the phantom release'
-        sys.exit (1)
     replaceParameterInFile (templatefile, workingfolder + '/r.in', substitute)
 
     # get the setupdir2 script from the phantom folder
@@ -370,7 +411,20 @@ if __name__ == '__main__':
     execute ('rm -rf CMSSW*', True)
     execute ('rm -rf LSFJOB*', True)
     
+    # prepare the r.in file for the event production, starting from the template one
+    execute ('rm -rf LSFJOB*', True)
+
+    # to be run in workingfolder, get all the grids
+    gridfiles = execute ('for fil in `find -L . -name "phavegas*"` ; do echo `pwd`/$fil ; done', True)
+
+    replacement = {'ionesh':'1\n', 'nfiles': str(len (gridfiles[1].split ()))+'\n'} 
+    replaceParameterInFile (workingfolder + '/r.in', workingfolder + '/r_GEN.in', replacement)
+    addGridsToRin (workingfolder + '/r_GEN.in', gridfiles[1], debuigging)
+
     os.chdir (rootfolder)
+    # FIXME does the gridpack require NOT to have a folder?
+    execute ('cp ' + sys.argv[1] + ' ' + foldername, True)
+
     execute ('tar czf ' + foldername + '.tgz ' + foldername, True)
     print 'gridpack ' + foldername + '.tgz created'
     
