@@ -24,6 +24,10 @@
 #      slc6_amd64_gcc481 CMSSW_7_1_29       
 #      slc6_amd64_gcc472 CMSSW_5_3_36       
 # FIXME put the compiled versions of Phantom on cvmfs
+# FIXME to let condor work, at least the following:
+# - decide when to finish the jobs, see whether the control for lsf is enough
+# - fix the sending of the pdf grids: now I don't understand where it does come from,
+#   it might be hardcoded in the phantom script? check submit blabla 2.pl
 
 #       
 # dettagli da josh su come funzionano le chiamate degli script
@@ -316,7 +320,7 @@ if __name__ == '__main__':
         command += ' -Hs '
     elif substitute['i_signal'] == '2' :
         command += ' -S '
-    submitfilename = workingfolder + '/LSFfile'
+    submitfilename = workingfolder + '/' + config.get ('submission','scheduler') + 'file'
 
     # create the executable script to submit the gridpack production
     execute (command, debugging)
@@ -363,13 +367,13 @@ if __name__ == '__main__':
         if 'bsub' in line: processoutputs.append (line.split()[6])
     submitfile.close ()
 
-    # add to the LSFfile the environment setupdir
+    # add to the submit file the environment setupdir
     # configuration to be setup before running the phantom program
     modifySubmitfileIntelCompiler (submitfilename, pdfgridfolder, phantompdflib)
     # modifySubmitfileCMSSWCompiler (submitfilename, pdfgridfolder, phantompdflib, cmssw, shell):
 
     # launch the submission script
-    execute ('source ' + workingfolder + '/LSFfile', debugging)
+    execute ('source ' + submitfilename, debugging)
 
     # wait until all jobs finish, before calculating the cross-section 
     # and compressing the gridpack
@@ -423,9 +427,9 @@ if __name__ == '__main__':
 
     # NB removing the phantom to save space, it will have to be put back (reasonably in the same place)
     #    when generating the events
-    execute ('rm -rf ' + phantomfolder + '*', debugging)
-    execute ('rm -rf CMSSW*', debugging)
-    execute ('rm -rf LSFJOB*', debugging)
+#    execute ('rm -rf ' + phantomfolder + '*', debugging)
+#    execute ('rm -rf CMSSW*', debugging)
+#    execute ('rm -rf LSFJOB*', debugging)
     
     # get all the grids, to be run in workingfolder
     gridfiles = execute ('for fil in `find -L . -name "phavegas*"` ; do echo `pwd`/$fil ; done', debugging)
