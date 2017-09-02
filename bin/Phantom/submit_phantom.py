@@ -419,7 +419,7 @@ if __name__ == '__main__':
 
     replacement = {'ionesh':'1\n', 'nfiles': str(len (gridfiles[1].split ()))+'\n'} 
     replaceParameterInFile (workingfolder + '/r.in', workingfolder + '/r_GEN.in', replacement)
-    addGridsToRin (workingfolder + '/r_GEN.in', gridfiles[1], debuigging)
+    addGridsToRin (workingfolder + '/r_GEN.in', gridfiles[1], debugging)
 
     os.chdir (rootfolder)
     # FIXME does the gridpack require NOT to have a folder?
