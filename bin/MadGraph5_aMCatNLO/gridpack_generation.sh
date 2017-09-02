@@ -709,11 +709,14 @@ else
     XZ_OPT="--lzma2=preset=9,dict=512MiB"
 fi
 
-if [ ! -e $CARDSDIR/${name}_externaltarball.dat ]; then
-    XZ_OPT="$XZ_OPT" tar -cJpsf ${PRODHOME}/${name}_${scram_arch}_${cmssw_version}_tarball.tar.xz mgbasedir process runcmsgrid.sh gridpack_generation*.log
-else
-    XZ_OPT="$XZ_OPT" tar -cJpsf ${PRODHOME}/${name}_${scram_arch}_${cmssw_version}_tarball.tar.xz mgbasedir process runcmsgrid.sh gridpack_generation*.log external_tarball ${name}_externaltarball.dat header_for_madspin.txt
+mkdir InputCards
+cp $CARDSDIR/* InputCards
+
+EXTRA_TAR_ARGS=""
+if [ -e $CARDSDIR/${name}_externaltarball.dat ]; then
+    EXTRA_TAR_ARGS="${name}_externaltarball.dat header_for_madspin.txt"
 fi
+XZ_OPT="$XZ_OPT" tar -cJpsf ${PRODHOME}/${name}_${scram_arch}_${cmssw_version}_tarball.tar.xz mgbasedir process runcmsgrid.sh gridpack_generation*.log InputCards $EXTRA_TAR_ARGS
 
 #mv ${name}_${scram_arch}_${cmssw_version}_tarball.tar.xz ${PRODHOME}/${name}_${scram_arch}_${cmssw_version}_tarball.tar.xz
 
