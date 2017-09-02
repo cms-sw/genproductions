@@ -238,8 +238,8 @@ if __name__ == '__main__':
     if not os.path.isfile (phantom):
         print 'Phantom package ' + phantom + ' not found, exiting'
         sys.exit (1)
-    execute ('cp ' + phantom + ' ' + workingfolder, True)
-    execute ('tar xzf ' + phantom.split ('/')[-1], True)
+    execute ('cp ' + phantom + ' ' + workingfolder, debugging)
+    execute ('tar xzf ' + phantom.split ('/')[-1], debugging)
     phantomfolder = phantom.split ('/')[-1]
     dummy = '.tar.gz'
     phantomfolder = phantomfolder[0:-len(dummy)] if phantomfolder.endswith(dummy) else phantomfolder    
@@ -253,16 +253,16 @@ if __name__ == '__main__':
     shell = 'sh'
     if os.environ['SHELL'].find ('c') != -1 :
         shell = 'csh'
-    returnCode = execute ('scram project CMSSW ' + cmssw, True)
+    returnCode = execute ('scram project CMSSW ' + cmssw, debugging)
     if returnCode[0] != 0 :
         print 'cmssw release: ', cmssw, 'not found, exiting'
         sys.exit (1)
     os.chdir (cmssw + '/src')
-    execute ('pwd', True)
-    result = execute ('eval `scram runtime -' + shell + '` ; printenv | grep LHAPDF_DATA_PATH', True)
+    execute ('pwd', debugging)
+    result = execute ('eval `scram runtime -' + shell + '` ; printenv | grep LHAPDF_DATA_PATH', debugging)
     os.chdir (workingfolder)
     # get the pdf grid
-#    execute ('printenv | grep LHAPDF_DATA_PATH', True)
+#    execute ('printenv | grep LHAPDF_DATA_PATH', debugging)
 #    pdfgridfolder = os.environ['LHAPDF_DATA_PATH']
     for line in result[1].split('\n'):
         if line.startswith ('LHAPDF_DATA_PATH=') : 
@@ -285,7 +285,7 @@ if __name__ == '__main__':
     replaceParameterInFile (templatefile, workingfolder + '/r.in', substitute)
 
     # get the setupdir2 script from the phantom folder
-    execute ('cp ' + workingfolder + '/' + phantomfolder + '/tools/setupdir2.pl ' + workingfolder, True)    
+    execute ('cp ' + workingfolder + '/' + phantomfolder + '/tools/setupdir2.pl ' + workingfolder, debugging)    
 
     channel = config.get ('generation','channel')
     command = './setupdir2.pl'
@@ -303,7 +303,7 @@ if __name__ == '__main__':
     submitfilename = workingfolder + '/LSFfile'
 
     # create the executable script to submit the gridpack production
-    execute (command, True)
+    execute (command, debugging)
 
     # in case of QCD or QCD+EWK generation requests
     if config.get ('parameters','perturbativeorder') == '2' or config.get ('parameters','perturbativeorder') == '3':
@@ -331,7 +331,7 @@ if __name__ == '__main__':
 
         # create the executable script to submit the gridpack production
         # for the component w/ real gluons
-        execute (command, True)
+        execute (command, debugging)
         
         # extend the executable script with the part w/o real gluons
         submitfile = open (submitfilename, 'a')
@@ -353,7 +353,7 @@ if __name__ == '__main__':
     # modifySubmitfileCMSSWCompiler (submitfilename, pdfgridfolder, phantompdflib, cmssw, shell):
 
     # launch the submission script
-    execute ('source ' + workingfolder + '/LSFfile', True)
+    execute ('source ' + workingfolder + '/LSFfile', debugging)
 
     # wait until all jobs finish, before calculating the cross-section 
     # and compressing the gridpack
@@ -390,8 +390,8 @@ if __name__ == '__main__':
     # calculate the cross-section
     command = 'cd ' + workingfolder + '; grep SIGMA */run.out > res ; '
     command += workingfolder + '/' + phantomfolder + '/tools/totint.exe > result '
-    execute (command, True)            
-    result = execute ('tail -n 1 ' + workingfolder + '/result', True)
+    execute (command, debugging)            
+    result = execute ('tail -n 1 ' + workingfolder + '/result', debugging)
     Xsection = result[1] + ' pb'
 
     logfile.write ('CONFIG FILE\n\n')
@@ -407,15 +407,15 @@ if __name__ == '__main__':
 
     # NB removing the phantom to save space, it will have to be put back (reasonably in the same place)
     #    when generating the events
-    execute ('rm -rf ' + phantomfolder + '*', True)
-    execute ('rm -rf CMSSW*', True)
-    execute ('rm -rf LSFJOB*', True)
+    execute ('rm -rf ' + phantomfolder + '*', debugging)
+    execute ('rm -rf CMSSW*', debugging)
+    execute ('rm -rf LSFJOB*', debugging)
     
     # prepare the r.in file for the event production, starting from the template one
-    execute ('rm -rf LSFJOB*', True)
+    execute ('rm -rf LSFJOB*', debugging)
 
     # to be run in workingfolder, get all the grids
-    gridfiles = execute ('for fil in `find -L . -name "phavegas*"` ; do echo `pwd`/$fil ; done', True)
+    gridfiles = execute ('for fil in `find -L . -name "phavegas*"` ; do echo `pwd`/$fil ; done', debugging)
 
     replacement = {'ionesh':'1\n', 'nfiles': str(len (gridfiles[1].split ()))+'\n'} 
     replaceParameterInFile (workingfolder + '/r.in', workingfolder + '/r_GEN.in', replacement)
@@ -423,9 +423,9 @@ if __name__ == '__main__':
 
     os.chdir (rootfolder)
     # FIXME does the gridpack require NOT to have a folder?
-    execute ('cp ' + sys.argv[1] + ' ' + foldername, True)
+    execute ('cp ' + sys.argv[1] + ' ' + foldername, debugging)
 
-    execute ('tar czf ' + foldername + '.tgz ' + foldername, True)
+    execute ('tar czf ' + foldername + '.tgz ' + foldername, debugging)
     print 'gridpack ' + foldername + '.tgz created'
     
     sys.exit (0)
