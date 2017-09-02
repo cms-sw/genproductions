@@ -23,6 +23,8 @@
 #      slc6_amd64_gcc491 CMSSW_7_5_8_patch7 
 #      slc6_amd64_gcc481 CMSSW_7_1_29       
 #      slc6_amd64_gcc472 CMSSW_5_3_36       
+# FIXME put the compiled versions of Phantom on cvmfs
+
 #       
 # dettagli da josh su come funzionano le chiamate degli script
 # so there are two places
@@ -128,10 +130,10 @@ def modifySubmitfileCMSSWCompiler (submitfilename, pdfgridfolder, phantompdflib,
     submitfile.close ()
     submitfile = open (submitfilename, 'write')
     submitfile.write ('#!/bin/bash\n\n')
-    submitfile.write ('source /afs/cern.ch/sw/IntelSoftware/linux/setup.sh intel64\n')
-    submitfile.write ('source /afs/cern.ch/sw/IntelSoftware/linux/x86_64/xe2016/compilers_and_libraries/linux/bin/compilervars.csh intel64\n')
     submitfile.write ('scram project CMSSW ' + cmssw + '\n')
+    submitfile.write ('cd ' + cmssw + '/src\n')
     submitfile.write ('eval `scram runtime -' + shell + '\n')
+    submitfile.write ('cd -\n')    
     submitfile.write ('export LHAPDF=' + pdfgridfolder + '\n')
     submitfile.write ('export PDFLIBDIR=/afs/cern.ch/work/b/ballest/public/phantom/LHAPDF-6.1.5_work/lib\n')
 #    submitfile.write ('export PDFLIBDIR=' + phantompdflib + '\n')
@@ -147,17 +149,31 @@ def modifySubmitfileCMSSWCompiler (submitfilename, pdfgridfolder, phantompdflib,
 def prepareEventProductionScript (productionfilename, pdfgridfolder, phantompdflib, cmssw, shell):
     productionfile = open (productionfilename, 'write')
     productionfile.write ('#!/bin/bash\n\n')
-    productionfile.write ('source /afs/cern.ch/sw/IntelSoftware/linux/setup.sh intel64\n')
-    productionfile.write ('source /afs/cern.ch/sw/IntelSoftware/linux/x86_64/xe2016/compilers_and_libraries/linux/bin/compilervars.csh intel64\n')
+    
+    # setup the environment for the running
     productionfile.write ('scram project CMSSW ' + cmssw + '\n')
+    productionfile.write ('cd ' + cmssw + '/src\n')
     productionfile.write ('eval `scram runtime -' + shell + '\n')
+    productionfile.write ('cd -\n')    
     productionfile.write ('export LHAPDF=' + pdfgridfolder + '\n')
     productionfile.write ('export PDFLIBDIR=/afs/cern.ch/work/b/ballest/public/phantom/LHAPDF-6.1.5_work/lib\n')
 #    productionfile.write ('export PDFLIBDIR=' + phantompdflib + '\n')
 #    productionfile.write ('export PDFLIBDIR=' + pdfgridfolder + '/../../lib\n')
     productionfile.write ('export LD_LIBRARY_PATH=$PDFLIBDIR:$LD_LIBRARY_PATH\n')
-    for i in range (1, len (lines)) :
-        productionfile.write (lines[i])
+    
+    # fetch the precompiled version of phantom from cvmfs
+    
+    # call the setupdir script for the preparation of the run
+    #  - the script is already in the gridpack folder
+    
+    # start the run of the LHE file production
+    #  - the Phantom submission script should be in a file for it
+    
+    # check the success of the production
+    #  - the LHE file is closed
+    #  - there might be a "finished" file produced by Phantom
+    
+    # copy the lhe file in the right place, with the right name (cmsgrid_final.lhe)
     
 
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
@@ -411,12 +427,10 @@ if __name__ == '__main__':
     execute ('rm -rf CMSSW*', debugging)
     execute ('rm -rf LSFJOB*', debugging)
     
-    # prepare the r.in file for the event production, starting from the template one
-    execute ('rm -rf LSFJOB*', debugging)
-
-    # to be run in workingfolder, get all the grids
+    # get all the grids, to be run in workingfolder
     gridfiles = execute ('for fil in `find -L . -name "phavegas*"` ; do echo `pwd`/$fil ; done', debugging)
 
+    # prepare the r.in file for the event production, starting from the template one
     replacement = {'ionesh':'1\n', 'nfiles': str(len (gridfiles[1].split ()))+'\n'} 
     replaceParameterInFile (workingfolder + '/r.in', workingfolder + '/r_GEN.in', replacement)
     addGridsToRin (workingfolder + '/r_GEN.in', gridfiles[1], debugging)
