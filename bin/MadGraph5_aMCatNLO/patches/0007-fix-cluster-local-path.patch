@@ -2,22 +2,23 @@ diff --git a/Template/LO/Source/.make_opts b/Template/LO/Source/.make_opts
 index caec32b..96a598e 100644
 --- a/Template/LO/Source/.make_opts
 +++ b/Template/LO/Source/.make_opts
-@@ -38,7 +38,7 @@ CFLAGS= -O $(STDLIB_FLAG) $(MACFLAG)
- endif
- 
- # Increase the number of allowed charcters in a Fortran line
+@@ -49,7 +49,7 @@
+ ifeq ($(FC), ftn)
+ FFLAGS+= -extend-source # for ifort type of compiler
+ else
 -FFLAGS+= -ffixed-line-length-132
 +FFLAGS+= -ffixed-line-length-300
+ endif
  
- # Set FC unless it's defined by an environment variable
- ifeq ($(origin FC),default)
-@@ -100,4 +100,4 @@ endif
+ 
+@@ -114,4 +114,4 @@
  # Helper function to check MG5 version
  define CHECK_MG5AMC_VERSION
  python -c 'import re; from distutils.version import StrictVersion; print StrictVersion("$(MG5AMC_VERSION)") >= StrictVersion("$(1)") if re.match("^[\d\.]+$$","$(MG5AMC_VERSION)") else True;'
 -endef
 \ No newline at end of file
 +endef
+
 diff --git a/Template/NLO/Source/make_opts.inc b/Template/NLO/Source/make_opts.inc
 index f3327bf..5fd77b9 100644
 --- a/Template/NLO/Source/make_opts.inc
