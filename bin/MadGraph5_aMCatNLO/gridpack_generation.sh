@@ -143,10 +143,6 @@ MG_EXT=".tar.gz"
 MG=MG5_aMC_v2.5.5$MG_EXT
 MGSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$MG
 
-#syscalc is a helper tool for madgraph to add scale and pdf variation weights for LO processes
-SYSCALC=SysCalc_V1.1.6.tar.gz
-SYSCALCSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$SYSCALC
-
 MGBASEDIRORIG=$(echo ${MG%$MG_EXT} | tr "." "_")
 isscratchspace=0
 
@@ -264,16 +260,6 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
 
   ./bin/mg5_aMC mgconfigscript
 
-  #get syscalc and compile
-  wget --no-check-certificate ${SYSCALCSOURCE}
-  tar xzf ${SYSCALC}
-  rm $SYSCALC
-
-  cd SysCalc
-  sed -i "s#INCLUDES = -I../include#INCLUDES = -I../include -I${BOOSTINCLUDES}#g" src/Makefile  
-  PATH=`${LHAPDFCONFIG} --prefix`/bin:${PATH} make
-  cd ..
-  
   #load extra models if needed
   if [ -e $CARDSDIR/${name}_extramodels.dat ]; then
     echo "Loading extra models specified in $CARDSDIR/${name}_extramodels.dat"
