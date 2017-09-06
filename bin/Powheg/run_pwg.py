@@ -38,7 +38,8 @@ def prepareJob(tag, i, folderName) :
     filename = folderName+'/run_' + tag + '.sh'
     f = open(filename, 'w')
 
-    f.write('#!/bin/bash \n\n')
+    f.write('#!/bin/bash \n')
+    f.write('fail_exit() { echo "$@" 1>&2; exit 1; } \n\n')
 
     f.write('echo "Start of job on " `date`\n\n')
 
@@ -265,7 +266,7 @@ def runSingleXgrid(parstage, xgrid, folderName, nEvents, powInputName, seed, pro
     #runCommand ('bsub -J ' + jobID + ' -u pippopluto -q ' + QUEUE + ' < ' + jobname, 1, TESTING == 0)
 
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-def runGetSource(parstage, xgrid, folderName, powInputName, process, tagName) :
+def runGetSource(parstage, xgrid, folderName, powInputName, process, noPdfCheck, tagName) :
     # parstage, xgrid are strings!
 
     print 'Getting and compiling POWHEG source...'
@@ -279,6 +280,7 @@ def runGetSource(parstage, xgrid, folderName, powInputName, process, tagName) :
 #    f.write('export process='+rootfolder+'\n\n')
     f.write('export cardInput='+powInputName+'\n\n')
     f.write('export process='+process+'\n\n')
+    f.write('export noPdfCheck='+noPdfCheck+'\n\n')
     f.write('export WORKDIR='+os.getcwd()+'\n\n')
     f.write(
 '''
@@ -313,6 +315,16 @@ export PATH=`pwd`:${PATH}
 if [ -s ../${cardInput} ]; then
   cp -p ../${cardInput} powheg.input
 fi
+
+# enforce standard pdfs?
+grep "306000" powheg.input >> teststandpdf.txt
+if ! [ -s teststandpdf.txt ] ; then
+   if [ $noPdfCheck == '0' ] ; then
+      rm -f teststandpdf.txt
+      fail_exit "WARNING: The input card provided does not have the standard 2017 PDF (NNPDF31 NNLO, 306000). Either change the card or run again with -d 1 to ignore this message. Exiting now..."
+   fi
+fi
+rm -f teststandpdf.txt
 
 if [ -s ../JHUGen.input ]; then
   cp -p ../JHUGen.input JHUGen.input
@@ -810,9 +822,7 @@ grep -q "parallelstage" powheg.input; test $? -eq 0 || printf "\\nparallelstage 
 grep -q "xgriditeration" powheg.input; test $? -eq 0 || printf "\\nxgriditeration 1\\n" >> powheg.input
 sed -i "s/^pdfreweight.*/pdfreweight 0/g" powheg.input
 
-# enforce standard pdfs
-sed -i "s/^lhans1.*/lhans1 306000/g" powheg.input
-sed -i "s/^lhans2.*/lhans2 306000/g" powheg.input
+
 
 # turn into single run mode
 sed -i "s/^manyseeds.*/#manyseeds 1/g" powheg.input
@@ -971,6 +981,7 @@ if __name__ == "__main__":
     parser.add_option('-s', '--rndSeed'       , dest="rndSeed",       default= '42',           help='Starting random number seed [42]')
     parser.add_option('-m', '--prcName'       , dest="prcName",       default= 'DMGG',           help='POWHEG process name [DMGG]')
     parser.add_option('-k', '--keepTop'       , dest="keepTop",       default= '0',           help='Keep the validation top draw plots [0]')
+    parser.add_option('-d', '--noPdfCheck'    , dest="noPdfCheck",    default= '0',           help='If 1, deactivate automatic PDF check [0]')
 
     # args = parser.parse_args ()
     (args, opts) = parser.parse_args(sys.argv)
@@ -1067,6 +1078,7 @@ if __name__ == "__main__":
         print "\t argument '-s', '--rndSeed'       , default= '42'"
         print "\t argument '-m', '--prcName'       , default= 'DMGG'"
         print "\t argument '-k', '--keepTop'       , default= '0'"
+        print "\t argument '-d', '--noPdfCheck'    , default= '0'"
         print ""
 
         exit()
@@ -1109,7 +1121,7 @@ if __name__ == "__main__":
         prepareJob(tagName, '', '.')
 
         runGetSource(args.parstage, args.xgrid, args.folderName,
-                     powInputName, args.prcName, tagName)
+                     powInputName, args.prcName, args.noPdfCheck, tagName)
 
         if QUEUE == '':
             print 'Direct compiling... \n'
@@ -1156,7 +1168,7 @@ if __name__ == "__main__":
 
         prepareJob(tagName, '', '.')
         runGetSource(args.parstage, args.xgrid, args.folderName,
-                     powInputName, args.prcName, tagName)
+                     powInputName, args.prcName, args.noPdfCheck, tagName)
 
         os.system('sed -i "s/^numevts.*/numevts '+args.numEvents+'/" '+
                   args.folderName+'/powheg.input')
@@ -1180,7 +1192,7 @@ if __name__ == "__main__":
 
         prepareJob(tagName, '', '.')
         runGetSource(args.parstage, args.xgrid, args.folderName,
-                     powInputName, args.prcName, tagName)
+                     powInputName, args.prcName, args.noPdfCheck, tagName)
 
         runSingleXgrid(args.parstage, args.xgrid, args.folderName,
                        args.numEvents, powInputName, args.rndSeed,
