@@ -1,4 +1,0 @@
-import model Zp2HDM
-generate p p > Zp > h A0, A0 > n1 n1~
-output Zprime_A0h_A0chichi_MZp3500_MA0300 -nojpeg
-

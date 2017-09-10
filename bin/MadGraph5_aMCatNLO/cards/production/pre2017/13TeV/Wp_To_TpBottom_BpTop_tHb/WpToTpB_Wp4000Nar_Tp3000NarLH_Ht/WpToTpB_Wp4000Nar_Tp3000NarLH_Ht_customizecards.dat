@@ -1,8 +1,0 @@
-set param_card kwpsmvlq 18 0.000000e-01
-set param_card kwpsmvlq 6 1.000000e-01
-set param_card ktsm 18 0.000000e-01
-set param_card ktsm 9 1.000000e-01
-set param_card mass 6000006 3.000000e+03
-set param_card mass 6000024 4.000000e+03
-set param_card decay 6000024 1.200000e+02
-set param_card decay 6000006 9.000000e+01

@@ -1,3 +1,0 @@
-import model Higgs_scalar_UFO
-generate p p > h chi chi~ QED=3
-output Scalar_MZp500_MChi500 -nojpeg
