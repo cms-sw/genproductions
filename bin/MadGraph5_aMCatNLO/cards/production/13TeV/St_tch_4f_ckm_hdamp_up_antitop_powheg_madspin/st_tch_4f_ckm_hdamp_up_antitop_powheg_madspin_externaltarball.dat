@@ -1,2 +1,0 @@
-# Link to cards: https://github.com/cms-sw/genproductions/blob/eba2ae4224e5a95f1f7da58f0d3602abc1b7cd09/bin/Powheg/production/st_tch_4f_ckm_13TeV_v2/powheg_top.input
-EXTERNAL_TARBALL="/user/rgoldouz/GenContact/CMSSW_7_1_25/src/genproductions/bin/MadGraph5_aMCatNLO/gridpacks/my_ST_tch_4f_hdamp_up_antitop_ST_tch_4f.tgz"

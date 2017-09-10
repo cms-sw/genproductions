@@ -1,7 +1,0 @@
-set group_subprocesses Auto
-set ignore_six_quark_processes False
-set gauge unitary
-set complex_mass_scheme False
-import model heft_radion
-generate p p > h2, ( h2 > H H )
-output Radion_GF_HH_M750_narrow -nojpeg
