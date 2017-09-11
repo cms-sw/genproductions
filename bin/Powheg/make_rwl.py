@@ -60,7 +60,7 @@ for idx in range(305801, 305901) :
 fout.write("<weight id='3102'> lhapdf=305901 </weight>\n")
 fout.write("<weight id='3103'> lhapdf=305902 </weight>\n")
 # computing weights for NNPDF 3.1 lo central
-# fout.write("<weight id='3104'> lhapdf=315000 </weight>\n")
+fout.write("<weight id='3104'> lhapdf=315000 </weight>\n")
 
 m_idx = 4001
 
