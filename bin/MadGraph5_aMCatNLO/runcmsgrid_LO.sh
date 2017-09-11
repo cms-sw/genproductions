@@ -93,7 +93,7 @@ NNPDF31_nnlo_as_0117.LHgrid 1
 NNPDF31_nnlo_as_0119.LHgrid 1
 NNPDF31_nnlo_as_0122.LHgrid 1
 NNPDF31_nnlo_as_0124.LHgrid 1
-NNPDF30_nlo_nf_5_pdfas.LHgrid 1
+NNPDF30_nlo_nf_5_pdfas.LHgrid
 NNPDF30_nnlo_nf_5_pdfas.LHgrid 1
 NNPDF31_nlo_hessian_pdfas.LHgrid
 NNPDF31_lo_as_0118.LHgrid 1
@@ -107,8 +107,7 @@ CT14lo.LHgrid 1
 MMHT2014nlo68clas118.LHgrid 
 MMHT2014nnlo68cl.LHgrid
 MMHT2014lo68cl.LHgrid 1
-ABMP15_3_nnlo.LHgrid
-ABMP16als118_5_nnlo.LHgrid
+ABMP16als118_5_nnlo.LHgrid 1
 PDF4LHC15_nlo_100_pdfas.LHgrid
 PDF4LHC15_nnlo_100_pdfas.LHgrid
 PDF4LHC15_nlo_30_pdfas.LHgrid
@@ -116,9 +115,10 @@ PDF4LHC15_nnlo_30_pdfas.LHgrid
 HERAPDF20_NLO_EIG.LHgrid
 HERAPDF20_NLO_VAR.LHgrid
 HERAPDF20_NNLO_EIG.LHgrid
-HERAPDF20_NLO_VAR.LHgrid
+HERAPDF20_NNLO_VAR.LHgrid
 CT14qed_inc_proton.LHgrid
 LUXqed_plus_PDF4LHC15_nnlo_100.LHgrid
+NNPDF30_lo_as_0130.LHgrid
 " > syscalc_card.dat
 
 LD_LIBRARY_PATH=`${LHAPDFCONFIG} --libdir`:${LD_LIBRARY_PATH} ./mgbasedir/SysCalc/sys_calc events_presys.lhe syscalc_card.dat cmsgrid_final.lhe
