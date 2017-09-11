@@ -13,6 +13,7 @@
 #   and check the correct choice of the phantom release wrt the cmssw version used to setup the environment
 # - FIXME if I do the compilation, I should also pickup the same LHAPDF libraries of the CMSSW release?
 #    - are they the same for all the releases with the same architecture?
+#    - the Makefile should read the environment variable, testing...
 #    - how do I get the list of architectures and most importantly the configurations?
 #      slc6_amd64_gcc493 CMSSW_7_6_6_patch1 
 #      slc6_amd64_gcc630 CMSSW_9_3_0_pre4   
@@ -28,7 +29,10 @@
 # - decide when to finish the jobs, see whether the control for lsf is enough
 # - fix the sending of the pdf grids: now I don't understand where it does come from,
 #   it might be hardcoded in the phantom script? check submit blabla 2.pl
-
+# - FIXME where to put the releases: 
+#    /afs/cern.ch/cms/generators/www/slc6_amd64_gcc481/powheg/V2.0/src
+# - which is mapped here, so that one can use wget to get what's needed
+#    https://cms-project-generators.web.cern.ch/cms-project-generators/
 #       
 # dettagli da josh su come funzionano le chiamate degli script
 # so there are two places
@@ -123,6 +127,7 @@ def modifySubmitfileIntelCompiler (submitfilename, pdfgridfolder, phantompdflib)
     submitfile.write ('export LD_LIBRARY_PATH=$PDFLIBDIR:$LD_LIBRARY_PATH\n')
     for i in range (1, len (lines)) :
         submitfile.write (lines[i])
+    submitfile.close ()
     
 
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
@@ -136,48 +141,59 @@ def modifySubmitfileCMSSWCompiler (submitfilename, pdfgridfolder, phantompdflib,
     submitfile.write ('#!/bin/bash\n\n')
     submitfile.write ('scram project CMSSW ' + cmssw + '\n')
     submitfile.write ('cd ' + cmssw + '/src\n')
-    submitfile.write ('eval `scram runtime -' + shell + '\n')
+    submitfile.write ('eval `scram runtime -' + shell + '`\n')
     submitfile.write ('cd -\n')    
-    submitfile.write ('export LHAPDF=' + pdfgridfolder + '\n')
-    submitfile.write ('export PDFLIBDIR=/afs/cern.ch/work/b/ballest/public/phantom/LHAPDF-6.1.5_work/lib\n')
-#    submitfile.write ('export PDFLIBDIR=' + phantompdflib + '\n')
-#    submitfile.write ('export PDFLIBDIR=' + pdfgridfolder + '/../../lib\n')
-    submitfile.write ('export LD_LIBRARY_PATH=$PDFLIBDIR:$LD_LIBRARY_PATH\n')
     for i in range (1, len (lines)) :
         submitfile.write (lines[i])
-    
+    submitfile.close ()
 
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
 
-def prepareEventProductionScript (productionfilename, pdfgridfolder, phantompdflib, cmssw, shell):
+def prepareEventProductionScript (productionfilename, phantom, phantomfolder, cmssw, shell, debugging = 0):
     productionfile = open (productionfilename, 'write')
     productionfile.write ('#!/bin/bash\n\n')
+
+    productionfile.write ('fail_exit() { echo "$@"; exit 1; }\n')
+
+    productionfile.write ('echo "   ______________________________________     "\n')
+    productionfile.write ('echo "         Running Phantom                      "\n')
+    productionfile.write ('echo "   ______________________________________     "\n')
+
+    productionfile.write ('nevt=${1}\n')
+    productionfile.write ('echo "%MSG-PHANTOM number of events requested = $nevt"\n')
+
+    productionfile.write ('rnum=${2}\n')
+    productionfile.write ('echo "%MSG-PHANTOM random seed used for the run = $rnum"\n')
+
+    productionfile.write ('ncpu=1\n')
+    productionfile.write ('echo "%MSG-PHANTOM number of cputs for the run = $ncpu"\n')
     
     # setup the environment for the running
     productionfile.write ('scram project CMSSW ' + cmssw + '\n')
     productionfile.write ('cd ' + cmssw + '/src\n')
-    productionfile.write ('eval `scram runtime -' + shell + '\n')
+    productionfile.write ('eval `scram runtime -' + shell + '`\n')
     productionfile.write ('cd -\n')    
-    productionfile.write ('export LHAPDF=' + pdfgridfolder + '\n')
-    productionfile.write ('export PDFLIBDIR=/afs/cern.ch/work/b/ballest/public/phantom/LHAPDF-6.1.5_work/lib\n')
-#    productionfile.write ('export PDFLIBDIR=' + phantompdflib + '\n')
-#    productionfile.write ('export PDFLIBDIR=' + pdfgridfolder + '/../../lib\n')
-    productionfile.write ('export LD_LIBRARY_PATH=$PDFLIBDIR:$LD_LIBRARY_PATH\n')
+
+    # get the phantom release
+    productionfile.write ('cp ' + phantom + ' ' + workingfolder + '\n')
+    productionfile.write ('tar xzf ' + phantom.split ('/')[-1] + '\n')
     
-    # fetch the precompiled version of phantom from cvmfs
+    # set the number of events to be generated
+    productionfile.write ('cat r_GEN.in | sed -e s/EVENTSNUM/${nevt}/ > r_tempo.in\n') 
     
-    # call the setupdir script for the preparation of the run
-    #  - the script is already in the gridpack folder
+    # set the random seed
+    productionfile.write ('cat r_tempo.in | sed -e s/RANDOMSEED/${rnum}/ > r.in\n')
+    if not debugging:
+        productionfile.write ('rm r_tempo.in')
+        
+    # call the event production
+    productionfile.write ('./' + phantomfolder + '/phantom.exe\n') 
     
-    # start the run of the LHE file production
-    #  - the Phantom submission script should be in a file for it
+    # FIXME check the success of the production
+    productionfile.write ('mv phamom.dat cmsgrid_final.lhe\n')
     
-    # check the success of the production
-    #  - the LHE file is closed
-    #  - there might be a "finished" file produced by Phantom
-    
-    # copy the lhe file in the right place, with the right name (cmsgrid_final.lhe)
+    productionfile.close ()
     
 
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
@@ -369,8 +385,8 @@ if __name__ == '__main__':
 
     # add to the submit file the environment setupdir
     # configuration to be setup before running the phantom program
-    modifySubmitfileIntelCompiler (submitfilename, pdfgridfolder, phantompdflib)
-    # modifySubmitfileCMSSWCompiler (submitfilename, pdfgridfolder, phantompdflib, cmssw, shell):
+    # modifySubmitfileIntelCompiler (submitfilename, pdfgridfolder, phantompdflib)
+    modifySubmitfileCMSSWCompiler (submitfilename, pdfgridfolder, phantompdflib, cmssw, shell)
 
     # launch the submission script
     execute ('source ' + submitfilename, debugging)
@@ -436,13 +452,19 @@ if __name__ == '__main__':
     gridfiles = execute ('for fil in `find -L . -name "phavegas*"` ; do echo `pwd`/$fil ; done', debugging)
 
     # prepare the r.in file for the event production, starting from the template one
-    replacement = {'ionesh':'1\n', 'nfiles': str(len (gridfiles[1].split ()))+'\n'} 
+    replacement = {'ionesh':'1\n', 'nfiles': str(len (gridfiles[1].split ()))+'\n', 'nunwevts':'EVENTSNUM\n', 'idum':'-RANDOMSEED\n'}
     replaceParameterInFile (workingfolder + '/r.in', workingfolder + '/r_GEN.in', replacement)
     addGridsToRin (workingfolder + '/r_GEN.in', gridfiles[1], debugging)
+
+    execute ('mv r.in r_GRID.in', debugging)
+
+    # prepare the script for the event generation
 
     os.chdir (rootfolder)
     # FIXME does the gridpack require NOT to have a folder?
     execute ('cp ' + sys.argv[1] + ' ' + foldername, debugging)
+
+    prepareEventProductionScript ('runcmsgrid.sh', phantom, phantomfolder, cmssw, shell, debugging)
 
     execute ('tar czf ' + foldername + '.tgz ' + foldername, debugging)
     print 'gridpack ' + foldername + '.tgz created'
