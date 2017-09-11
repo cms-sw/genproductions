@@ -85,6 +85,14 @@ scalecorrelation:
 # PDF sets and number of members (0 or none for all members)
 PDF:
 NNPDF31_nnlo_hessian_pdfas.LHgrid
+NNPDF31_nnlo_as_0108.LHgrid 1
+NNPDF31_nnlo_as_0110.LHgrid 1
+NNPDF31_nnlo_as_0112.LHgrid 1
+NNPDF31_nnlo_as_0114.LHgrid 1
+NNPDF31_nnlo_as_0117.LHgrid 1
+NNPDF31_nnlo_as_0119.LHgrid 1
+NNPDF31_nnlo_as_0122.LHgrid 1
+NNPDF31_nnlo_as_0124.LHgrid 1
 NNPDF30_nlo_nf_5_pdfas.LHgrid 1
 NNPDF30_nnlo_nf_5_pdfas.LHgrid 1
 NNPDF31_nlo_hessian_pdfas.LHgrid
