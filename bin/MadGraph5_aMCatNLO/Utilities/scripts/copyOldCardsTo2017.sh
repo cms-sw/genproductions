@@ -34,3 +34,8 @@ for old_path in $(git status --porcelain -uno cards/production); do
         git rm $old_card
     fi 
 done
+git commit -m "Copying $1 cards from legacy production to modify for 2017"
+for run_card in cards/production/2017/$1/*run_card.dat; do
+    sed -i "s/^ [0-9]* *= *lhaid/\$DEFAULT_PDF_SETS = lhaid/g" $run_card
+    sed -i ".*= *reweight_PDF/\$DEFAULT_PDF_MEMBERS = reweight_PDF/g" $run_card
+done
