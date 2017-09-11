@@ -28,10 +28,16 @@ fout.write("</weightgroup>\n")
 
 fout.write("<weightgroup name='PDF_variation1' combine='replica' >\n")
 
+m_idx = 1501
 # computing weights for NNPDF 3.0 nlo central (for cross-check)
-fout.write("<weight id='1501'> lhapdf=292200 </weight>\n")
+# fout.write("<weight id='1501'> lhapdf=292200 </weight>\n")
+for idx in range(292200, 292202) :
+  fout.write("<weight id='"+str(m_idx)+"'> lhapdf="+str(idx)+" </weight>\n")
+  m_idx = m_idx + 1
+
+
 # computing weights for NNPDF 3.0 nnlo central (for cross-check)
-fout.write("<weight id='1502'> lhapdf=292600 </weight>\n")
+fout.write("<weight id='1701'> lhapdf=292600 </weight>\n")
 fout.write("</weightgroup>\n")
 
 m_idx = 2001
