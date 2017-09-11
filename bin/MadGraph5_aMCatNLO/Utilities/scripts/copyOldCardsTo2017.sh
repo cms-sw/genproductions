@@ -42,6 +42,7 @@ for run_card in cards/production/2017/$1/*run_card.dat; do
     sed -i "s/.*= *reweight_PDF/\$DEFAULT_PDF_MEMBERS = reweight_PDF/g" $run_card
     sed -i "s/.*= *PDF_set_min//g" $run_card
     sed -i "s/.*= *PDF_set_max//g" $run_card
+    git add $run_card
 done
 
 git commit -m "Updating PDF sets to 2017 defaults for $1"
