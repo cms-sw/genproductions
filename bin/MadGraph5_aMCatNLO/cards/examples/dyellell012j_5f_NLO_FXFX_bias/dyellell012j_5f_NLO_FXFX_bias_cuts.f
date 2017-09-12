@@ -940,16 +940,16 @@ c
          enddo
       enddo
       
-c find the jets
+c find the jets (skip first two partons, since these are the incoming ones)
       njets=0
-      do i=1,nexternal
+      do i=3,nexternal
          if (abs(ipdg(i)).le.maxjetflavor .or. ipdg(i).eq.21) then
             njets=njets+1
          endif
       enddo
       
-!       subtract incoming partons and real emission from jet counting
-      njets = njets-3
+!       subtract real emission from jet counting
+      njets = njets-1
       
 !       approximately compensating for xsec decrease in powers of alphaS
       njets_wgt = 10d0**njets
