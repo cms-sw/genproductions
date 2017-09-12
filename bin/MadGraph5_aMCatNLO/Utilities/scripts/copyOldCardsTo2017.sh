@@ -43,7 +43,7 @@ for old_card in $(find $old_cards_path -type f -follow -print); do
     git rm $old_card
 done
 
-#git commit -m "Copying $1 cards from legacy production to modify for 2017"
+git commit -m "Copying $1 cards from legacy production to modify for 2017"
 
 for run_card in $(find $new_cards_path -type f -follow -print -name "*run_card*"); do 
     # reweight_PDF may not be present in older cards
@@ -58,4 +58,4 @@ for run_card in $(find $new_cards_path -type f -follow -print -name "*run_card*"
     git add $run_card
 done
 
-#git commit -m "Updating PDF sets to 2017 defaults for $1"
+git commit -m "Updating PDF sets to 2017 defaults for $1"
