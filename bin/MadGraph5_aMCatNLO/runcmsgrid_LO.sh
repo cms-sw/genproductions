@@ -107,7 +107,7 @@ CT14lo.LHgrid 1
 MMHT2014nlo68clas118.LHgrid 
 MMHT2014nnlo68cl.LHgrid
 MMHT2014lo68cl.LHgrid 1
-ABMP16als118_5_nnlo.LHgrid 1
+ABMP16als118_5_nnlo.LHgrid
 PDF4LHC15_nlo_100_pdfas.LHgrid
 PDF4LHC15_nnlo_100_pdfas.LHgrid
 PDF4LHC15_nlo_30_pdfas.LHgrid
