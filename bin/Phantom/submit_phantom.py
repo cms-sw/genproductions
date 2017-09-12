@@ -147,11 +147,14 @@ def modifySubmitfileCMSSWCompiler (submitfilename, pdfgridfolder, phantompdflib,
         submitfile.write (lines[i])
     submitfile.close ()
 
+
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
 
 def prepareEventProductionScript (productionfilename, phantom, phantomfolder, cmssw, shell, debugging = 0):
     productionfile = open (productionfilename, 'write')
+    if debugging:
+        print 'creating ' + productionfilename
     productionfile.write ('#!/bin/bash\n\n')
 
     productionfile.write ('fail_exit() { echo "$@"; exit 1; }\n')
@@ -176,7 +179,7 @@ def prepareEventProductionScript (productionfilename, phantom, phantomfolder, cm
     productionfile.write ('cd -\n')    
 
     # get the phantom release
-    productionfile.write ('cp ' + phantom + ' ' + workingfolder + '\n')
+    productionfile.write ('wget ' + phantom + '\n')
     productionfile.write ('tar xzf ' + phantom.split ('/')[-1] + '\n')
     
     # set the number of events to be generated
@@ -185,15 +188,17 @@ def prepareEventProductionScript (productionfilename, phantom, phantomfolder, cm
     # set the random seed
     productionfile.write ('cat r_tempo.in | sed -e s/RANDOMSEED/${rnum}/ > r.in\n')
     if not debugging:
-        productionfile.write ('rm r_tempo.in')
+        productionfile.write ('rm r_tempo.in\n')
         
     # call the event production
-    productionfile.write ('./' + phantomfolder + '/phantom.exe\n') 
+    productionfile.write ('./' + phantomfolder + '/phantom.exe >& log_GEN.txt\n') 
     
     # FIXME check the success of the production
     productionfile.write ('mv phamom.dat cmsgrid_final.lhe\n')
     
     productionfile.close ()
+    execute ('chmod 755 ' + productionfilename, debugging)
+    
     
 
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
@@ -271,10 +276,18 @@ if __name__ == '__main__':
     # get the precompiled phantom code, untar it and get the name of the pdf libraries
     # used in the compilation
     phantom = config.get ('general', 'package')
-    if not os.path.isfile (phantom):
-        print 'Phantom package ' + phantom + ' not found, exiting'
+    foundIT = execute ('wget ' + phantom, debugging)
+    if not foundIT[0] == 0:
+        print 'Phantom version: ' + phantom + ' not found, exiting'
         sys.exit (1)
-    execute ('cp ' + phantom + ' ' + workingfolder, debugging)
+
+    # should the phantom code be a local folder
+#    if not os.path.isfile (phantom):
+#        print 'Phantom package ' + phantom + ' not found, exiting'
+#        sys.exit (1)
+#    execute ('cp ' + phantom + ' ' + workingfolder, debugging)
+
+
     execute ('tar xzf ' + phantom.split ('/')[-1], debugging)
     phantomfolder = phantom.split ('/')[-1]
     dummy = '.tar.gz'
@@ -406,7 +419,7 @@ if __name__ == '__main__':
         time.sleep (60) # seconds
 
     # log file of the generation parameters
-    logfilename = workingfolder + '/log.txt'
+    logfilename = workingfolder + '/log_GRID.txt'
     logfile = open (logfilename, 'write')
 
     # verify that all jobs finished successfully,
@@ -464,9 +477,9 @@ if __name__ == '__main__':
     # FIXME does the gridpack require NOT to have a folder?
     execute ('cp ' + sys.argv[1] + ' ' + foldername, debugging)
 
-    prepareEventProductionScript ('runcmsgrid.sh', phantom, phantomfolder, cmssw, shell, debugging)
+    prepareEventProductionScript (foldername + '/runcmsgrid.sh', phantom, phantomfolder, cmssw, shell, debugging)
 
-    execute ('tar czf ' + foldername + '.tgz ' + foldername, debugging)
+    execute ('tar czf ' + foldername.split ('/')[-1] + '.tgz ' + foldername, debugging)
     print 'gridpack ' + foldername + '.tgz created'
     
     sys.exit (0)
