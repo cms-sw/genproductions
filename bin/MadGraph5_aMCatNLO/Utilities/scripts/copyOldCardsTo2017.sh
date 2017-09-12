@@ -21,7 +21,16 @@ base_folder=$(git rev-parse --show-toplevel)/bin/MadGraph5_aMCatNLO
 
 old_cards_path=cards/production/13TeV/$1
 new_cards_path=cards/production/2017/$1
+
 git checkout tags/pre2017 -- $old_cards_path
+
+if [ $? -ne 0 ]; then
+    echo ""
+    echo "ERROR: $old_cards_path doesn't exist in the pre2017 repository. "
+    echo "Verify the name and try again."
+    exit 1
+fi
+
 
 for old_card in $(find $old_cards_path -type f -follow -print); do 
     old_card=$base_folder/$old_card
@@ -36,7 +45,7 @@ for old_card in $(find $old_cards_path -type f -follow -print); do
     git rm $old_card
 done
 
-#git commit -m "Copying $1 cards from legacy production to modify for 2017"
+git commit -m "Copying $1 cards from legacy production to modify for 2017"
 
 for run_card in $(find $new_cards_path -type f -follow -print -name "*run_card*"); do 
     # reweight_PDF may not be present in older cards
@@ -49,4 +58,4 @@ for run_card in $(find $new_cards_path -type f -follow -print -name "*run_card*"
     git add $run_card
 done
 
-#git commit -m "Updating PDF sets to 2017 defaults for $1"
+git commit -m "Updating PDF sets to 2017 defaults for $1"
