@@ -136,8 +136,7 @@ fout.write("<weight id='7060'> lhapdf=25000 </weight>\n")
 m_idx = 8001
 
 # computing weights for ABMP16 nlo central value
-fout.write("<weight id='4500'> lhapdf=42780 </weight>\n")
-
+# fout.write("<weight id='4500'> lhapdf=42780 </weight>\n")
 # computing weights for ABMP16 nlo variations
 for idx in range(42780, 42810) :
   fout.write("<weight id='"+str(m_idx)+"'> lhapdf="+str(idx)+" </weight>\n")
