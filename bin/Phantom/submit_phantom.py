@@ -1,12 +1,7 @@
 #!/usr/bin/python
+# - get some indications from Phantom authors on the parameters for the gridpacks generation
 # - transform the script into a daemon
 # - upload it to genproduction and find a way to test it
-# - example for the next step:
-#   https://github.com/cms-sw/genproductions/blob/master/bin/Powheg/runcmsgrid_powheg.sh
-#   - il compiler usato da phantom puo' essere quello di phantom e non quello di cmssw?
-#     --> sembra che cmssw non venga chiamato nella produzione dei LHE file
-#   - come passo un seed random a phantom?
-# - include the submission script in the gridpack, does it have to be shell?
 #    - how do I get the list of architectures and most importantly the configurations?
 #      slc6_amd64_gcc493 CMSSW_7_6_6_patch1 
 #      slc6_amd64_gcc630 CMSSW_9_3_0_pre4   
@@ -19,8 +14,6 @@
 #      slc6_amd64_gcc472 CMSSW_5_3_36       
 # FIXME to let condor work, at least the following:
 # - decide when to finish the jobs, see whether the control for lsf is enough
-# - fix the sending of the pdf grids: now I don't understand where it does come from,
-#   it might be hardcoded in the phantom script? check submit blabla 2.pl
 #       
 # dettagli da josh su come funzionano le chiamate degli script
 # so there are two places
