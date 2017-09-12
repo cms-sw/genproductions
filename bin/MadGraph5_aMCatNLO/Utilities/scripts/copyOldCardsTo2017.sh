@@ -48,10 +48,10 @@ git commit -m "Copying $1 cards from legacy production to modify for 2017"
 for run_card in $(find $new_cards_path -type f -follow -print -name "*run_card*"); do 
     # reweight_PDF may not be present in older cards
     if grep -q -e ".*= *reweight_PDF" $run_card; then
-        sed -i "s/^ [0-9]* *= *lhaid/\$DEFAULT_PDF_SETS = lhaid/g" $run_card
+        sed -i "s/^ *[0-9]* *= *lhaid/\$DEFAULT_PDF_SETS = lhaid/g" $run_card
         sed -i "s/.*= *reweight_PDF/\$DEFAULT_PDF_MEMBERS = reweight_PDF/g" $run_card
     else
-        sed -i "s/^ [0-9]* *= *lhaid/\$DEFAULT_PDF_SETS = lhaid\n\$DEFAULT_PDF_MEMBERS = reweight_PDF/g" $run_card
+        sed -i "s/^ *[0-9]* *= *lhaid/\$DEFAULT_PDF_SETS = lhaid\n\$DEFAULT_PDF_MEMBERS = reweight_PDF/g" $run_card
     fi
     sed -i "s/.*= *PDF_set_min//g" $run_card
     sed -i "s/.*= *PDF_set_max//g" $run_card
