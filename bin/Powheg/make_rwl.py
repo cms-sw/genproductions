@@ -52,7 +52,7 @@ if is5FlavorScheme:
     m_idx = 1501
     # computing weights for NNPDF 3.0 nlo central (for cross-check)
     # fout.write("<weight id='1501'> lhapdf=292200 </weight>\n")
-    for idx in range(292200, 292202) :
+    for idx in range(292200, 292303) :
       fout.write("<weight id='"+str(m_idx)+"'> lhapdf="+str(idx)+" </weight>\n")
       m_idx = m_idx + 1
 
