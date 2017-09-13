@@ -73,21 +73,24 @@ cd $LHEWORKDIR
 mv process/events.lhe.gz events_presys.lhe.gz
 gzip -d events_presys.lhe.gz
 
+echo "
+# Central scale factors
+scalefact:
+1 2 0.5
+# choice of correlation scheme between muF and muR
+# set here to reproduce aMC@NLO order
+scalecorrelation:
+0 3 6 1 4 7 2 5 8
+# PDF sets and number of members (0 or none for all members)
+PDF:
+" > syscalc_card.dat
+
 is5FlavorScheme=PDF_FLAVOR_SCHEME_REPLACE
 
 #run syscalc to populate pdf and scale variation weights
 if [ $is5FlavorScheme -eq 1 ]; then
   # 5F PDF
   echo "
-  # Central scale factors
-  scalefact:
-  1 2 0.5
-  # choice of correlation scheme between muF and muR
-  # set here to reproduce aMC@NLO order
-  scalecorrelation:
-  0 3 6 1 4 7 2 5 8
-  # PDF sets and number of members (0 or none for all members)
-  PDF:
   NNPDF31_nnlo_hessian_pdfas.LHgrid
   NNPDF30_nlo_nf_5_pdfas.LHgrid
   NNPDF30_nnlo_nf_5_pdfas.LHgrid 1
@@ -115,7 +118,7 @@ if [ $is5FlavorScheme -eq 1 ]; then
   CT14qed_inc_proton.LHgrid
   LUXqed_plus_PDF4LHC15_nnlo_100.LHgrid
   NNPDF30_lo_as_0130.LHgrid
-  " > syscalc_card.dat
+  " >> syscalc_card.dat
 
   # NNPDF31_nnlo_as_0108.LHgrid 1
   # NNPDF31_nnlo_as_0110.LHgrid 1
@@ -128,17 +131,8 @@ if [ $is5FlavorScheme -eq 1 ]; then
 else
   # 4F PDF
   echo "
-  # Central scale factors
-  scalefact:
-  1 2 0.5
-  # choice of correlation scheme between muF and muR
-  # set here to reproduce aMC@NLO order
-  scalecorrelation:
-  0 3 6 1 4 7 2 5 8
-  # PDF sets and number of members (0 or none for all members)
-  PDF:
   NNPDF31_nnlo_as_0118_nf_4.LHgrid
-  " > syscalc_card.dat
+  " >> syscalc_card.dat
 fi
 
 LD_LIBRARY_PATH=`${LHAPDFCONFIG} --libdir`:${LD_LIBRARY_PATH} ./mgbasedir/SysCalc/sys_calc events_presys.lhe syscalc_card.dat cmsgrid_final.lhe
