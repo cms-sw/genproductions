@@ -73,54 +73,73 @@ cd $LHEWORKDIR
 mv process/events.lhe.gz events_presys.lhe.gz
 gzip -d events_presys.lhe.gz
 
-#run syscalc to populate pdf and scale variation weights
-echo "
-# Central scale factors
-scalefact:
-1 2 0.5
-# choice of correlation scheme between muF and muR
-# set here to reproduce aMC@NLO order
-scalecorrelation:
-0 3 6 1 4 7 2 5 8
-# PDF sets and number of members (0 or none for all members)
-PDF:
-NNPDF31_nnlo_hessian_pdfas.LHgrid
-NNPDF30_nlo_nf_5_pdfas.LHgrid
-NNPDF30_nnlo_nf_5_pdfas.LHgrid 1
-NNPDF31_nlo_hessian_pdfas.LHgrid
-NNPDF31_lo_as_0118.LHgrid 1
-CT14nlo.LHgrid
-CT14nlo_as_0116.LHgrid 1
-CT14nlo_as_0120.LHgrid 1
-CT14nnlo.LHgrid
-CT14nnlo_as_0116.LHgrid 1
-CT14nnlo_as_0120.LHgrid 1
-CT14lo.LHgrid 1
-MMHT2014nlo68clas118.LHgrid 
-MMHT2014nnlo68cl.LHgrid
-MMHT2014lo68cl.LHgrid 1
-ABMP16als118_5_nnlo.LHgrid
-PDF4LHC15_nlo_100_pdfas.LHgrid
-PDF4LHC15_nnlo_100_pdfas.LHgrid
-PDF4LHC15_nlo_30_pdfas.LHgrid
-PDF4LHC15_nnlo_30_pdfas.LHgrid
-HERAPDF20_NLO_EIG.LHgrid
-HERAPDF20_NLO_VAR.LHgrid
-HERAPDF20_NNLO_EIG.LHgrid
-HERAPDF20_NNLO_VAR.LHgrid
-CT14qed_inc_proton.LHgrid
-LUXqed_plus_PDF4LHC15_nnlo_100.LHgrid
-NNPDF30_lo_as_0130.LHgrid
-" > syscalc_card.dat
+is5FlavorScheme=PDF_FLAVOR_SCHEME_REPLACE
 
-# NNPDF31_nnlo_as_0108.LHgrid 1
-# NNPDF31_nnlo_as_0110.LHgrid 1
-# NNPDF31_nnlo_as_0112.LHgrid 1
-# NNPDF31_nnlo_as_0114.LHgrid 1
-# NNPDF31_nnlo_as_0117.LHgrid 1
-# NNPDF31_nnlo_as_0119.LHgrid 1
-# NNPDF31_nnlo_as_0122.LHgrid 1
-# NNPDF31_nnlo_as_0124.LHgrid 1
+#run syscalc to populate pdf and scale variation weights
+if [ $is5FlavorScheme -eq 1 ]; then
+  # 5F PDF
+  echo "
+  # Central scale factors
+  scalefact:
+  1 2 0.5
+  # choice of correlation scheme between muF and muR
+  # set here to reproduce aMC@NLO order
+  scalecorrelation:
+  0 3 6 1 4 7 2 5 8
+  # PDF sets and number of members (0 or none for all members)
+  PDF:
+  NNPDF31_nnlo_hessian_pdfas.LHgrid
+  NNPDF30_nlo_nf_5_pdfas.LHgrid
+  NNPDF30_nnlo_nf_5_pdfas.LHgrid 1
+  NNPDF31_nlo_hessian_pdfas.LHgrid
+  NNPDF31_lo_as_0118.LHgrid 1
+  CT14nlo.LHgrid
+  CT14nlo_as_0116.LHgrid 1
+  CT14nlo_as_0120.LHgrid 1
+  CT14nnlo.LHgrid
+  CT14nnlo_as_0116.LHgrid 1
+  CT14nnlo_as_0120.LHgrid 1
+  CT14lo.LHgrid 1
+  MMHT2014nlo68clas118.LHgrid 
+  MMHT2014nnlo68cl.LHgrid
+  MMHT2014lo68cl.LHgrid 1
+  ABMP16als118_5_nnlo.LHgrid
+  PDF4LHC15_nlo_100_pdfas.LHgrid
+  PDF4LHC15_nnlo_100_pdfas.LHgrid
+  PDF4LHC15_nlo_30_pdfas.LHgrid
+  PDF4LHC15_nnlo_30_pdfas.LHgrid
+  HERAPDF20_NLO_EIG.LHgrid
+  HERAPDF20_NLO_VAR.LHgrid
+  HERAPDF20_NNLO_EIG.LHgrid
+  HERAPDF20_NNLO_VAR.LHgrid
+  CT14qed_inc_proton.LHgrid
+  LUXqed_plus_PDF4LHC15_nnlo_100.LHgrid
+  NNPDF30_lo_as_0130.LHgrid
+  " > syscalc_card.dat
+
+  # NNPDF31_nnlo_as_0108.LHgrid 1
+  # NNPDF31_nnlo_as_0110.LHgrid 1
+  # NNPDF31_nnlo_as_0112.LHgrid 1
+  # NNPDF31_nnlo_as_0114.LHgrid 1
+  # NNPDF31_nnlo_as_0117.LHgrid 1
+  # NNPDF31_nnlo_as_0119.LHgrid 1
+  # NNPDF31_nnlo_as_0122.LHgrid 1
+  # NNPDF31_nnlo_as_0124.LHgrid 1
+else
+  # 4F PDF
+  echo "
+  # Central scale factors
+  scalefact:
+  1 2 0.5
+  # choice of correlation scheme between muF and muR
+  # set here to reproduce aMC@NLO order
+  scalecorrelation:
+  0 3 6 1 4 7 2 5 8
+  # PDF sets and number of members (0 or none for all members)
+  PDF:
+  NNPDF31_nnlo_as_0118_nf_4.LHgrid
+  " > syscalc_card.dat
+fi
 
 LD_LIBRARY_PATH=`${LHAPDFCONFIG} --libdir`:${LD_LIBRARY_PATH} ./mgbasedir/SysCalc/sys_calc events_presys.lhe syscalc_card.dat cmsgrid_final.lhe
 
