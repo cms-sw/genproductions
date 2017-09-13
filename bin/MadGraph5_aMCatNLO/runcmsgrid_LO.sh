@@ -132,6 +132,31 @@ else
   # 4F PDF
   echo "
   NNPDF31_nnlo_as_0118_nf_4.LHgrid
+  NNPDF31_nlo_as_0118_nf_4.LHgrid
+  NNPDF30_nlo_as_0118_nf_4.LHgrid
+  NNPDF30_lo_as_0118_nf_4.LHgrid 1
+  NNPDF30_lo_as_0130_nf_4.LHgrid 1
+  NNPDF30_nlo_nf_4_pdfas.LHgrid
+  NNPDF30_nnlo_nf_4_pdfas.LHgrid 1
+  CT10nlo_nf4.LHgrid
+  CT14nnlo_NF4.LHgrid 1
+  CT14nlo_NF4.LHgrid 1
+  CT14lo_NF4.LHgrid 1
+  MSTW2008lo68cl_nf4.LHgrid
+  MSTW2008nlo68cl_nf4.LHgrid
+  MSTW2008nlo_mbrange_nf4.LHgrid
+  MSTW2008nnlo68cl_nf4.LHgrid
+  MSTW2008nnlo_mbrange_nf4.LHgrid
+  MMHT2014nlo68cl_nf4.LHgrid
+  MMHT2014nlo68clas118_nf4.LHgrid
+  MMHT2014nlo_asmzsmallrange_nf4.LHgrid
+  MMHT2014nlo_mcrange_nf4.LHgrid
+  MMHT2014nlo_mbrange_nf4.LHgrid
+  MMHT2014nnlo68cl_nf4.LHgrid
+  MMHT2014nnlo_asmzsmallrange_nf4.LHgrid
+  MMHT2014nnlo_mcrange_nf4.LHgrid
+  MMHT2014nnlo_mbrange_nf4.LHgrid
+  PDF4LHC15_nlo_nf4_30.LHgrid
   " >> syscalc_card.dat
 fi
 

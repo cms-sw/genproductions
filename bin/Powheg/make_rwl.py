@@ -102,7 +102,7 @@ else:
               [2600, 262400, 'NNPDF30_lo_as_0118_nf_4', 1],
               [2800, 263400, 'NNPDF30_lo_as_0130_nf_4', 1],
               [3000, 292000, 'NNPDF30_nlo_nf_4_pdfas', 103],
-              [3200, 292400, 'NNPDF30_nnlo_nf_4_pdfas' ,103],
+              [3200, 292400, 'NNPDF30_nnlo_nf_4_pdfas' ,1],
               
             ],
             "PDF_variation2 , hessian" :
