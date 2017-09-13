@@ -45,201 +45,104 @@ for m_rensc in m_factor :
 fout.write("</weightgroup>\n")
 
 if is5FlavorScheme:
-# 5F PDF
-
-    fout.write("<weightgroup name='PDF_variation1' combine='replica' >\n")
-    
-    m_idx = 1501
-    # computing weights for NNPDF 3.0 nlo central (for cross-check)
-    # fout.write("<weight id='1501'> lhapdf=292200 </weight>\n")
-    for idx in range(292200, 292303) :
-      fout.write("<weight id='"+str(m_idx)+"'> lhapdf="+str(idx)+" </weight>\n")
-      m_idx = m_idx + 1
-
-
-    # computing weights for NNPDF 3.0 nnlo central (for cross-check)
-    fout.write("<weight id='1701'> lhapdf=292600 </weight>\n")
-    fout.write("</weightgroup>\n")
-
-    m_idx = 2001
-
-    fout.write("<weightgroup name='PDF_variation2' combine='hessian' >\n")
-
-    # computing weights for 100 NNPDF3.1 nnlo variations
-    for idx in range(306001, 306101) :
-      fout.write("<weight id='"+str(m_idx)+"'> lhapdf="+str(idx)+" </weight>\n")
-      m_idx = m_idx + 1
-      
-    # computing weights for NNPDF 3.1 nnlo alphas=0.116 variation
-    # computing weights for NNPDF 3.1 nnlo alphas=0.120 variation
-    fout.write("<weight id='2102'> lhapdf=306101 </weight>\n")
-    fout.write("<weight id='2103'> lhapdf=306102 </weight>\n")
-
-    # # computing weights for NNPDF 3.1 nnlo alphas=0.108 variation
-    # fout.write("<weight id='2104'> lhapdf=322500 </weight>\n")
-    # # computing weights for NNPDF 3.1 nnlo alphas=0.110 variation
-    # fout.write("<weight id='2105'> lhapdf=322700 </weight>\n")
-    # # computing weights for NNPDF 3.1 nnlo alphas=0.112 variation
-    # fout.write("<weight id='2106'> lhapdf=322900 </weight>\n")
-    # # computing weights for NNPDF 3.1 nnlo alphas=0.114 variation
-    # fout.write("<weight id='2107'> lhapdf=323100 </weight>\n")
-    # # computing weights for NNPDF 3.1 nnlo alphas=0.117 variation
-    # fout.write("<weight id='2108'> lhapdf=323300 </weight>\n")
-    # # computing weights for NNPDF 3.1 nnlo alphas=0.119 variation
-    # fout.write("<weight id='2109'> lhapdf=323500 </weight>\n")
-    # # computing weights for NNPDF 3.1 nnlo alphas=0.122 variation
-    # fout.write("<weight id='2110'> lhapdf=323700 </weight>\n")
-    # # computing weights for NNPDF 3.1 nnlo alphas=0.124 variation
-    # fout.write("<weight id='2111'> lhapdf=323900 </weight>\n")
-
-    m_idx = 3001
-
-    # computing weights for 100 NNPDF3.1 nlo variations
-    for idx in range(305801, 305901) :
-      fout.write("<weight id='"+str(m_idx)+"'> lhapdf="+str(idx)+" </weight>\n")
-      m_idx = m_idx + 1
-      
-    # computing weights for NNPDF 3.1 nlo alphas=0.116 variation
-    # computing weights for NNPDF 3.1 nlo alphas=0.120 variation
-    fout.write("<weight id='3102'> lhapdf=305901 </weight>\n")
-    fout.write("<weight id='3103'> lhapdf=305902 </weight>\n")
-    # computing weights for NNPDF 3.1 lo central
-    fout.write("<weight id='3104'> lhapdf=315000 </weight>\n")
-
-    m_idx = 4001
-
-    # computing weights for 56+1 CT14 nlo PDF variations
-    for idx in range(13100, 13157) :
-      fout.write("<weight id='"+str(m_idx)+"'> lhapdf="+str(idx)+" </weight>\n")
-      m_idx = m_idx + 1
-
-    # computing weights for CT14 nlo alphas=0.116 variation
-    # computing weights for CT14 nlo alphas=0.120 variation
-    fout.write("<weight id='4058'> lhapdf=13163 </weight>\n")
-    fout.write("<weight id='4059'> lhapdf=13167 </weight>\n")
-    # computing weights for CT14 lo central values
-    fout.write("<weight id='4060'> lhapdf=13200 </weight>\n")
-
-    m_idx = 5001
-
-    # computing weights for 56+1 CT14 nnlo PDF variations
-    for idx in range(13000, 13057) :
-      fout.write("<weight id='"+str(m_idx)+"'> lhapdf="+str(idx)+" </weight>\n")
-      m_idx = m_idx + 1
-
-    # computing weights for CT14 nnlo alphas=0.116 variation
-    # computing weights for CT14 nnlo alphas=0.120 variation
-    fout.write("<weight id='5058'> lhapdf=13065 </weight>\n")
-    fout.write("<weight id='5059'> lhapdf=13069 </weight>\n")
-
-    m_idx = 6001
-
-    # computing weights for 50+1 MMHT2014nlo68clas118 PDF variations
-    for idx in range(25200, 25251) :
-      fout.write("<weight id='"+str(m_idx)+"'> lhapdf="+str(idx)+" </weight>\n")
-      m_idx = m_idx + 1
-
-    m_idx = 7001
-
-    # computing weights for 50+1 MMHT2014nnlo68cl PDF variations
-    for idx in range(25300, 25351) :
-      fout.write("<weight id='"+str(m_idx)+"'> lhapdf="+str(idx)+" </weight>\n")
-      m_idx = m_idx + 1
-
-    # computing weights for MMHT2014lo68cl central value
-    fout.write("<weight id='7060'> lhapdf=25000 </weight>\n")
-
-    # computing weights for 5 MMHT2014nlo68cl 5 alphas variations
-    #for idx in range(25260, 25265) :
-    #  fout.write("<weight id='"+str(m_idx)+"'> lhapdf="+str(idx)+" </weight>\n")
-    #  m_idx = m_idx + 1
-
-    m_idx = 8001
-
-    # computing weights for ABMP16 nlo central value
-    # fout.write("<weight id='4500'> lhapdf=42780 </weight>\n")
-    # computing weights for ABMP16 nlo variations
-    for idx in range(42780, 42810) :
-      fout.write("<weight id='"+str(m_idx)+"'> lhapdf="+str(idx)+" </weight>\n")
-      m_idx = m_idx + 1
-
-    m_idx = 8501
-
-    # computing weights for PDF4LHC15_100_nlo, 100+3 variations
-    for idx in range(90200, 90303) :
-      fout.write("<weight id='"+str(m_idx)+"'> lhapdf="+str(idx)+" </weight>\n")
-      m_idx = m_idx + 1
-
-    m_idx = 9001
-
-    # computing weights for PDF4LHC15_100_nnlo, 100+3 variations
-    for idx in range(91200, 91303) :
-      fout.write("<weight id='"+str(m_idx)+"'> lhapdf="+str(idx)+" </weight>\n")
-      m_idx = m_idx + 1
-
-    m_idx = 10001
-
-    # computing weights for PDF4LHC15_30_nlo, 30+3 variations
-    for idx in range(90400, 90432) :
-      fout.write("<weight id='"+str(m_idx)+"'> lhapdf="+str(idx)+" </weight>\n")
-      m_idx = m_idx + 1
-
-    m_idx = 11001
-
-    # computing weights for PDF4LHC15_30_nnlo, 30+3 variations
-    for idx in range(91400, 91433) :
-      fout.write("<weight id='"+str(m_idx)+"'> lhapdf="+str(idx)+" </weight>\n")
-      m_idx = m_idx + 1
-
-    m_idx = 12001
-
-    # computing weights for HERAPDF2.0_nlo, 29+14 variations
-    for idx in range(61100, 61129) :
-      fout.write("<weight id='"+str(m_idx)+"'> lhapdf="+str(idx)+" </weight>\n")
-      m_idx = m_idx + 1
-
-    for idx in range(61130, 61144) :
-      fout.write("<weight id='"+str(m_idx)+"'> lhapdf="+str(idx)+" </weight>\n")
-      m_idx = m_idx + 1
-
-    m_idx = 13001
-
-    # computing weights for HERAPDF2.0_nnlo, 29+14 variations
-    for idx in range(61200, 61229) :
-      fout.write("<weight id='"+str(m_idx)+"'> lhapdf="+str(idx)+" </weight>\n")
-      m_idx = m_idx + 1
-
-    for idx in range(61230, 61244) :
-      fout.write("<weight id='"+str(m_idx)+"'> lhapdf="+str(idx)+" </weight>\n")
-      m_idx = m_idx + 1
-
-    m_idx = 14001
-
-    # computing weights for CT14QED, 30+1 variations
-    for idx in range(13400, 13431) :
-      fout.write("<weight id='"+str(m_idx)+"'> lhapdf="+str(idx)+" </weight>\n")
-      m_idx = m_idx + 1
-
-    m_idx = 15001
-
-    # computing weights for LUXQED_PDF4LHC_nnlo, 108 variations
-    for idx in range(82000, 82108) :
-      fout.write("<weight id='"+str(m_idx)+"'> lhapdf="+str(idx)+" </weight>\n")
-      m_idx = m_idx + 1
+  # 5F PDF
+  pdf_sets = {
+            # weight id, LHAPDF id, name, replicas to be written
+            "PDF_variation1 , replica" :
+            [
+              [1500, 292200, 'NNPDF30_nlo_nf_5_pdfas', 103],
+              [1700, 292600, 'NNPDF30_nnlo_nf_5_pdfas', 1],
+              [1800, 315000, 'NNPDF31_lo_as_0118', 1],
+              [1900, 315200, 'NNPDF31_lo_as_0130', 1],
+            ],
+            "PDF_variation2 , hessian" :
+            [
+              [2000, 306000, 'NNPDF31_nnlo_hessian_pdfas', 103],
+              # [2104, 322500, 'NNPDF31_nnlo_as_0108', 1],
+              # [2105, 322700, 'NNPDF31_nnlo_as_0110', 1],
+              # [2106, 322900, 'NNPDF31_nnlo_as_0112', 1],
+              # [2107, 323100, 'NNPDF31_nnlo_as_0114', 1],
+              # [2108, 323300, 'NNPDF31_nnlo_as_0117', 1],
+              # [2109, 323500, 'NNPDF31_nnlo_as_0119', 1],
+              # [2110, 323700, 'NNPDF31_nnlo_as_0122', 1],
+              # [2111, 323900, 'NNPDF31_nnlo_as_0124', 1],
+              [3000, 305800, 'NNPDF31_nlo_hessian_pdfas', 103],
+              [4000, 13100, 'CT14nlo', 57],
+              [4060, 13163, 'CT14nlo_as_0116', 1],
+              [4070, 13167, 'CT14nlo_as_0120', 1],
+              [4080, 13200, 'CT14lo', 1],
+              [5000, 13000, 'CT14nnlo', 57],
+              [5060, 13065, 'CT14nnlo_as_0116', 1],
+              [5070, 13069, 'CT14nnlo_as_0120', 1],
+              [6000, 25200, 'MMHT2014nlo68clas118', 51],
+              [7000, 25300, 'MMHT2014nnlo68cl', 51],
+              [7060, 25000, 'MMHT2014lo68cl', 1],
+              [8000, 42780, 'ABMP16als118_5_nnlo', 30],
+              [8500, 90200, 'PDF4LHC15_nlo_100_pdfas', 103],
+              [9000, 91200, 'PDF4LHC15_nnlo_100_pdfas', 103],
+              [10000, 90400, 'PDF4LHC15_nlo_30_pdfas', 33],
+              [11000, 91400, 'PDF4LHC15_nnlo_30_pdfas', 33],
+              [12000, 61100, 'HERAPDF20_NLO_EIG', 29],
+              [12050, 61130, 'HERAPDF20_NLO_VAR', 14],
+              [13000, 61200, 'HERAPDF20_NNLO_EIG', 29],
+              [13050, 61230, 'HERAPDF20_NNLO_VAR', 14],
+              [14000, 13400, 'CT14qed_inc_proton', 31],
+              [15000, 82000, 'LUXqed_plus_PDF4LHC15_nnlo_100', 108],
+            ]
+          }
 else:
-# 4F PDF    
-
-    m_idx = 2001
-
-    fout.write("<weightgroup name='PDF_variation2' combine='replica' >\n")
-
-    # computing weights for 100 NNPDF3.1 nnlo variations
-    for idx in range(320901, 321001) :
+  # 4F PDF    
+  pdf_sets = {
+            # weight id, LHAPDF id, name, replicas to be written
+            "PDF_variation1 , replica" :
+            [
+              [2000, 320900, 'NNPDF31_nnlo_as_0118_nf_4', 101],
+              [2200, 320500, 'NNPDF31_nlo_as_0118_nf_4', 101],
+              [2400, 260400, 'NNPDF30_nlo_as_0118_nf_4', 101],
+              [2600, 262400, 'NNPDF30_lo_as_0118_nf_4', 1],
+              [2800, 263400, 'NNPDF30_lo_as_0130_nf_4', 1],
+              [3000, 292000, 'NNPDF30_nlo_nf_4_pdfas', 103],
+              [3200, 292400, 'NNPDF30_nnlo_nf_4_pdfas' ,103],
+              
+            ],
+            "PDF_variation2 , hessian" :
+            [
+              [3400, 11082, 'CT10nlo_nf4', 2],
+              [3450, 13091, 'CT14nnlo_NF4', 1],
+              [3500, 13191, 'CT14nlo_NF4', 1],
+              [3550, 13202, 'CT14lo_NF4', 1],
+              [3600, 23100, 'MSTW2008lo68cl_nf4', 41],
+              [3700, 23300, 'MSTW2008nlo68cl_nf4', 41],
+              [3800, 23490, 'MSTW2008nlo_mbrange_nf4', 7],
+              [3900, 23600, 'MSTW2008nnlo68cl_nf4', 41],
+              [4000, 23790, 'MSTW2008nnlo_mbrange_nf4', 7],
+              [4100, 25410, 'MMHT2014nlo68cl_nf4', 51],
+              [4200, 25510, 'MMHT2014nlo68clas118_nf4', 51],
+              [4300, 25570, 'MMHT2014nlo_asmzsmallrange_nf4', 5],
+              [4400, 25605, 'MMHT2014nlo_mcrange_nf4', 9],
+              [4500, 25620, 'MMHT2014nlo_mbrange_nf4', 5],
+              [4600, 25710, 'MMHT2014nnlo68cl_nf4', 51],
+              [4700, 25770, 'MMHT2014nnlo_asmzsmallrange_nf4', 3],
+              [4800, 25805, 'MMHT2014nnlo_mcrange_nf4', 9],
+              [4900, 25840, 'MMHT2014nnlo_mbrange_nf4', 5],
+              [5000, 92000, 'PDF4LHC15_nlo_nf4_30', 31],
+            ]
+          }
+  
+for key, pdfsets in sorted(pdf_sets.iteritems()):
+  weightgroup_name = key.replace(" ", "").split(',')[0]
+  combine = key.replace(" ", "").split(',')[1]
+  print 'weightgroup_name',weightgroup_name,'combine',combine
+  fout.write("<weightgroup name='"+weightgroup_name+"' combine='"+combine+"' >\n")
+  for pdf in pdfsets:
+    print 'pdf',pdf
+    m_idx = pdf[0]
+    pdf_member_start = pdf[1]
+    pdf_member_end = pdf[1] + pdf[3]
+    for idx in range(pdf_member_start, pdf_member_end) :
       fout.write("<weight id='"+str(m_idx)+"'> lhapdf="+str(idx)+" </weight>\n")
       m_idx = m_idx + 1
-
-
-fout.write("</weightgroup>\n")
+  fout.write("</weightgroup>\n")
 
 fout.write("</initrwgt>\n")
 
