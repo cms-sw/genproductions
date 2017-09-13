@@ -53,7 +53,9 @@ if is5FlavorScheme:
               [1500, 292200, 'NNPDF30_nlo_nf_5_pdfas', 103],
               [1700, 292600, 'NNPDF30_nnlo_nf_5_pdfas', 1],
               [1800, 315000, 'NNPDF31_lo_as_0118', 1],
-              [1900, 315200, 'NNPDF31_lo_as_0130', 1],
+              [1850, 315200, 'NNPDF31_lo_as_0130', 1],
+              [1900, 262000, 'NNPDF30_lo_as_0118', 1],
+              [1950, 263000, 'NNPDF30_lo_as_0130', 1],
             ],
             "PDF_variation2 , hessian" :
             [
