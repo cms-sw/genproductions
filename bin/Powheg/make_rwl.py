@@ -8,23 +8,26 @@ By Yuan CHAO  08/06/2016
 import sys
 import os
 
-if len(sys.argv) < 2:
+if len(sys.argv) < 3:
     print """\
-ERROR: Please specify the process (e.g. Zj, HJ, ...) for which you want to define the weights
-Example of usage:  python make_rwl.py ST_tch_4f
+ERROR: Please specify if the Flavor scheme for which you want to define the weights is 5F (1) or 4F (0), and the central PDF
+Example of usage for 5F:  python make_rwl.py 1 306000
+Example of usage for 4F:  python make_rwl.py 0 320900
 """
     sys.exit(1)
 
-processName = str(sys.argv[1])
-is5FlavorScheme = True
-CentralPDF = 306000
-processes4Flavor = ['ST_tch_4f', 'bbH', 'Wbb_dec', 'Wbbj',]
+is5FlavorScheme = str(sys.argv[1])
+CentralPDF = str(sys.argv[2])
 
-if processName in processes4Flavor:
-  is5FlavorScheme = False
-  CentralPDF = 320900
+# is5FlavorScheme = True
+# CentralPDF = 306000
+# processes4Flavor = ['ST_tch_4f', 'bbH', 'Wbb_dec', 'Wbbj',]
 
-print 'INFO: The selected process uses',('5F' if is5FlavorScheme == True else '4F'),'PDF Flavor Scheme, using central PDF set', CentralPDF
+# if processName in processes4Flavor:
+  # is5FlavorScheme = False
+  # CentralPDF = 320900
+
+# print 'INFO: The selected process '+processName+'uses',('5F' if is5FlavorScheme == True else '4F'),'PDF Flavor Scheme, using central PDF set', CentralPDF
 
 m_outfile = 'pwg-rwl.dat'
 
@@ -44,7 +47,7 @@ for m_rensc in m_factor :
 		  
 fout.write("</weightgroup>\n")
 
-if is5FlavorScheme:
+if int(is5FlavorScheme) == 1:
   # 5F PDF
   pdf_sets = {
             # weight id, LHAPDF id, name, replicas to be written
