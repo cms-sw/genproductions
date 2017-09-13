@@ -483,8 +483,8 @@ if [ "$isnlo" -gt "0" ]; then
       sed -i "s/\$DEFAULT_PDF_MEMBERS/True,  True,  False, True,  False, True, False,False,True, False,False,False,True, True, False,True, True, True, True, True, True, True, True, True, True, True/" ./Cards/run_card.dat 
     else
       # 4F PDF
-            sed "s/\$DEFAULT_PDF_SETS/320900,/" $CARDSDIR/${name}_run_card.dat > ./Cards/run_card.dat
-      sed -i "s/\$DEFAULT_PDF_MEMBERS/True/" ./Cards/run_card.dat 
+            sed "s/\$DEFAULT_PDF_SETS/320900,320500,260400,262400,263400,292000,292400,11082,13091,13191,13202,23100,23300,23490,23600,23790,25410,25510,25570,25605,25620,25710,25770,25805,25840,92000/" $CARDSDIR/${name}_run_card.dat > ./Cards/run_card.dat
+      sed -i "s/\$DEFAULT_PDF_MEMBERS/True,  True,  True,  False, False, True,  False, True, False,False,False,True, True, True, True, True, True, True, True, True, True, True, True, True, True, True/" ./Cards/run_card.dat 
     fi
   else
     echo ""
