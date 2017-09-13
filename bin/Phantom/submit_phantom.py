@@ -19,6 +19,7 @@
 # so there are two places
 # 
 # 
+# FIXME update this page: https://twiki.cern.ch/twiki/bin/view/CMSPublic/SWGuideSubgroupMC#1_1_Using_wmLHE_campaigns
 # one for the traditional wmLHE workflow
 # 
 # and one for the new susy parameter scan workflow
@@ -31,6 +32,10 @@
 # https://github.com/cms-sw/cmssw/blob/master/GeneratorInterface/Core/interface/GeneratorFilter.h#L247
 # 
 # https://github.com/cms-sw/cmssw/blob/09c3fce6626f70fd04223e7dacebf0b485f73f54/GeneratorInterface/Core/src/BaseHadronizer.cc#L78
+# useful HN reference from Qiang: https://hypernews.cern.ch/HyperNews/CMS/get/generators/3320/1/1.html
+# where to put gridpacks: ls  /cvmfs/cms.cern.ch/phys_generator/gridpacks/
+# how to have gridpacks end there: https://twiki.cern.ch/twiki/bin/view/CMSPublic/SWGuideSubgroupMC#1_1_Using_wmLHE_campaigns
+# for the time being, I use this place: /eos/cms/store/group/phys_generator/cvmfs/gridpacks/slc6_amd64_gcc530/13TeV/phantom
 
 
 import sys
@@ -245,7 +250,7 @@ if __name__ == '__main__':
     foldername = os.getcwd () + '/phantomGrid_' + datetime.datetime.now().strftime('%y-%m-%d-%H-%M')
     if config.has_option ('general', 'foldername') :
         foldername = os.getcwd () + '/' + config.get ('general', 'foldername')
-    if os.path.exists (foldername + '.tgz'):
+    if os.path.exists (foldername + '.tar.xz'):
         print 'gridpack ' + foldername + '.tgz already existing, exiting'
         sys.exit (1)
     print 'creating gridpack in folder: ' + foldername ;
@@ -461,8 +466,8 @@ if __name__ == '__main__':
 
     prepareEventProductionScript (foldername + '/runcmsgrid.sh', phantom, phantomfolder, cmssw, shell, debugging)
 
-    execute ('tar czf ' + foldername.split ('/')[-1] + '.tgz ' + foldername.split ('/')[-1], debugging)
-    print 'gridpack ' + foldername + '.tgz created'
+    execute ('tar cJf ' + foldername.split ('/')[-1] + '.tar.xz ' + foldername.split ('/')[-1], debugging)
+    print 'gridpack ' + foldername + '.tar.xz created'
     
     sys.exit (0)
     
