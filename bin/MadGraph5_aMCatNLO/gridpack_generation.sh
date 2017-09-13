@@ -678,7 +678,7 @@ else
   cp $PRODHOME/runcmsgrid_LO.sh ./runcmsgrid.sh
   sed -i s/SCRAM_ARCH_VERSION_REPLACE/${scram_arch}/g runcmsgrid.sh
   sed -i s/CMSSW_VERSION_REPLACE/${cmssw_version}/g runcmsgrid.sh
-  sed -i s/PDF_FLAVOR_SCHEME/${is5FlavorScheme}/g runcmsgrid.sh
+  sed -i s/PDF_FLAVOR_SCHEME_REPLACE/${is5FlavorScheme}/g runcmsgrid.sh
   
 fi
 
