@@ -460,14 +460,14 @@ if __name__ == '__main__':
 
     # prepare the script for the event generation
 
-    os.chdir (rootfolder)
-    # FIXME does the gridpack require NOT to have a folder?
-    execute ('cp ' + sys.argv[1] + ' ' + foldername, debugging)
+    execute ('cp ../' + sys.argv[1] + ' ./', debugging)
 
     prepareEventProductionScript (foldername + '/runcmsgrid.sh', phantom, phantomfolder, cmssw, shell, debugging)
 
-    execute ('tar cJf ' + foldername.split ('/')[-1] + '.tar.xz ' + foldername.split ('/')[-1], debugging)
-    print 'gridpack ' + foldername + '.tar.xz created'
+    execute ('tar cJf ../' + foldername.split ('/')[-1] + '.tar.xz *', debugging)
+    print 'gridpack ' + foldername.split ('/')[-1] + '.tar.xz created'
+
+    os.chdir (rootfolder)
     
     sys.exit (0)
     
