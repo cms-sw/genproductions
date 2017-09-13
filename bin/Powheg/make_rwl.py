@@ -54,22 +54,22 @@ for idx in range(306001, 306101) :
 fout.write("<weight id='2102'> lhapdf=306101 </weight>\n")
 fout.write("<weight id='2103'> lhapdf=306102 </weight>\n")
 
-# computing weights for NNPDF 3.1 nnlo alphas=0.108 variation
-fout.write("<weight id='2104'> lhapdf=322500 </weight>\n")
-# computing weights for NNPDF 3.1 nnlo alphas=0.110 variation
-fout.write("<weight id='2105'> lhapdf=322700 </weight>\n")
-# computing weights for NNPDF 3.1 nnlo alphas=0.112 variation
-fout.write("<weight id='2106'> lhapdf=322900 </weight>\n")
-# computing weights for NNPDF 3.1 nnlo alphas=0.114 variation
-fout.write("<weight id='2107'> lhapdf=323100 </weight>\n")
-# computing weights for NNPDF 3.1 nnlo alphas=0.117 variation
-fout.write("<weight id='2108'> lhapdf=323300 </weight>\n")
-# computing weights for NNPDF 3.1 nnlo alphas=0.119 variation
-fout.write("<weight id='2109'> lhapdf=323500 </weight>\n")
-# computing weights for NNPDF 3.1 nnlo alphas=0.122 variation
-fout.write("<weight id='2110'> lhapdf=323700 </weight>\n")
-# computing weights for NNPDF 3.1 nnlo alphas=0.124 variation
-fout.write("<weight id='2111'> lhapdf=323900 </weight>\n")
+# # computing weights for NNPDF 3.1 nnlo alphas=0.108 variation
+# fout.write("<weight id='2104'> lhapdf=322500 </weight>\n")
+# # computing weights for NNPDF 3.1 nnlo alphas=0.110 variation
+# fout.write("<weight id='2105'> lhapdf=322700 </weight>\n")
+# # computing weights for NNPDF 3.1 nnlo alphas=0.112 variation
+# fout.write("<weight id='2106'> lhapdf=322900 </weight>\n")
+# # computing weights for NNPDF 3.1 nnlo alphas=0.114 variation
+# fout.write("<weight id='2107'> lhapdf=323100 </weight>\n")
+# # computing weights for NNPDF 3.1 nnlo alphas=0.117 variation
+# fout.write("<weight id='2108'> lhapdf=323300 </weight>\n")
+# # computing weights for NNPDF 3.1 nnlo alphas=0.119 variation
+# fout.write("<weight id='2109'> lhapdf=323500 </weight>\n")
+# # computing weights for NNPDF 3.1 nnlo alphas=0.122 variation
+# fout.write("<weight id='2110'> lhapdf=323700 </weight>\n")
+# # computing weights for NNPDF 3.1 nnlo alphas=0.124 variation
+# fout.write("<weight id='2111'> lhapdf=323900 </weight>\n")
 
 m_idx = 3001
 
