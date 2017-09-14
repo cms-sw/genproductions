@@ -1,0 +1,43 @@
+#************************************************************
+#*                     MadGraph5_aMC@NLO                    *
+#*                                                          *
+#*                *                       *                 *
+#*                  *        * *        *                   *
+#*                    * * * * 5 * * * *                     *
+#*                  *        * *        *                   *
+#*                *                       *                 *
+#*                                                          *
+#*                                                          *
+#*         VERSION 2.2.1                 2014-09-25         *
+#*                                                          *
+#*    The MadGraph5_aMC@NLO Development Team - Find us at   *
+#*    https://server06.fynu.ucl.ac.be/projects/madgraph     *
+#*                                                          *
+#************************************************************
+#*                                                          *
+#*               Command File for MadGraph5_aMC@NLO         *
+#*                                                          *
+#*     run as ./bin/mg5_aMC  filename                       *
+#*                                                          *
+#************************************************************
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set loop_optimized_output True
+set complex_mass_scheme False
+import model sm-ckm_lepton_masses_no_b_mass
+define p = g u c d s u~ c~ d~ s~  b b~
+define j = g u c d s u~ c~ d~ s~
+define l+ = e+ mu+
+define l- = e- mu-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+#define p = p b b~
+define j = j b b~
+define ell+ = e+ mu+ ta+
+define ell- = e- mu- ta-
+generate p p > ell+ ell- @0
+add process p p > ell+ ell- j @1
+add process p p > ell+ ell- j j @2 
+add process p p > ell+ ell- j j j @3 
+add process p p > ell+ ell- j j j j @4 
+output dyellell01234j_5f_LO_MLM -nojpeg
