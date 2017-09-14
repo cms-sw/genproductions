@@ -568,6 +568,18 @@ if [ "$process" = "HJ" ]; then
   sed -i "s/getq2min(1,tmp)/getq2min(0,tmp)/g" setlocalscales.f
 fi  
 
+if [ "$process" = "ST_wtch_DR" ] || [ "$process" = "ST_wtch_DS" ]; then   
+  echo "D/L QCDLoop-1.9 library"                            
+  if [ ! -f FeynHiggs-2.10.2.tar.gz ]; then                 
+    wget http://qcdloop.fnal.gov/QCDLoop-1.96.tar.gz || fail_exit "Failed to get QCDLoop tar ball"
+  fi                                                        
+  tar xvf QCDLoop-1.96.tar.gz                               
+  mv QCDLoop-1.96 QCDLoop-1.9                               
+  cd QCDLoop-1.9                                            
+  make                                                      
+  cd ..                                                     
+fi                                                          
+
 
 make pwhg_main || fail_exit "Failed to compile pwhg_main"
 
@@ -584,6 +596,10 @@ if [ -d ./obj-gfortran/proclib ]; then
   mkdir ${WORKDIR}/${name}/obj-gfortran/
   cp -a ./obj-gfortran/proclib ${WORKDIR}/${name}/obj-gfortran/.
   cp -a ./obj-gfortran/*.so ${WORKDIR}/${name}/obj-gfortran/.
+fi
+if [ -d ./QCDLoop-1.9 ]; then                                 
+  cp -a ./QCDLoop-1.9 ${WORKDIR}/${name}/.                    
+  cp -a ./QCDLoop-1.9/ff/ff*.dat ${WORKDIR}/${name}/.      
 fi
 
 cd ${WORKDIR}/${name}
