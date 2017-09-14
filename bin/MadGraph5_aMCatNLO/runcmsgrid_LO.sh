@@ -119,7 +119,7 @@ if [ $is5FlavorScheme -eq 1 ]; then
   HERAPDF20_NNLO_EIG.LHgrid
   HERAPDF20_NNLO_VAR.LHgrid
   CT14qed_inc_proton.LHgrid
-  LUXqed_plus_PDF4LHC15_nnlo_100.LHgrid
+  LUXqed_plus_PDF4LHC15_nnlo_100.LHgrid 1
   " >> syscalc_card.dat
 
   # NNPDF31_nnlo_as_0108.LHgrid 1

@@ -92,7 +92,7 @@ if int(is5FlavorScheme) == 1:
               [13000, 61200, 'HERAPDF20_NNLO_EIG', 29],
               [13050, 61230, 'HERAPDF20_NNLO_VAR', 14],
               [14000, 13400, 'CT14qed_inc_proton', 31],
-              [15000, 82000, 'LUXqed_plus_PDF4LHC15_nnlo_100', 108],
+              [15000, 82000, 'LUXqed_plus_PDF4LHC15_nnlo_100', 1],
             ]
           }
 else:
