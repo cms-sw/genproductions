@@ -343,7 +343,14 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   #Run the code-generation step to create the process directory
   ########################
 
+  # Used to figure out if 4F or 5F scheme
+  sed -i '$ a display multiparticles' ${name}_proc_card.dat
   ./$MGBASEDIRORIG/bin/mg5_aMC ${name}_proc_card.dat
+ 
+  is5FlavorScheme=0
+  if tail -n 20 $LOGFILE | grep -q -e "^p *=.*b\~.*b" -e "^p *=.*b.*b\~"; then 
+    is5FlavorScheme=1
+  fi
 
   #*FIXME* workaround for broken set cluster_queue handling
   if [ "$queue" == "condor" ]; then
@@ -465,12 +472,29 @@ fi
 #Locating the run card#
 #######################
 
-if [ "$isnlo" -gt "0" ]; then
-  if grep -q -e "\$DEFAULT_PDF_SETS" -e "\$DEFAULT_PDF_MEMBERS" $CARDSDIR/${name}_run_card.dat; then
+if grep -q -e "\$DEFAULT_PDF_SETS" -e "\$DEFAULT_PDF_MEMBERS" $CARDSDIR/${name}_run_card.dat; then
     echo "INFO: Using default PDF sets for 2017 production"
-    sed "s/\$DEFAULT_PDF_SETS/303600,292200,292600,305800,315000,13100,13163,13167,13000,13065,13069,13200,25200,25300,25000,42400,42780,90200,91200,90400,91400,61100,61130,61200,61230,13400,82000/" $CARDSDIR/${name}_run_card.dat > ./Cards/run_card.dat
-    sed -i "s/\$DEFAULT_PDF_MEMBERS/True,False,False,True,False,True,False,False,True,False,False,False,True,True,False,True,True,True,True,True,True,True,True,True,True,True,True/" ./Cards/run_card.dat 
-  else
+    if [ "$isnlo" -gt "0" ]; then
+        if [ $is5FlavorScheme -eq 1 ]; then
+            # 5F PDF
+                  sed "s/\$DEFAULT_PDF_SETS/306000,292200,292600,305800,315000,315200,13100,13163,13167,13000,13065,13069,13200,25200,25300,25000,42780,90200,91200,90400,91400,61100,61130,61200,61230,13400,82000,262000,263000/" $CARDSDIR/${name}_run_card.dat > ./Cards/run_card.dat
+            sed -i "s/\$DEFAULT_PDF_MEMBERS/True,  True,  False, True,  False, False, True, False,False,True, False,False,False,True, True, False,True, True, True, True, True, True, True, True, True, True, False,False, False/" ./Cards/run_card.dat 
+        else
+            # 4F PDF
+                  sed "s/\$DEFAULT_PDF_SETS/320900,320500,260400,262400,263400,292000,292400,11082,13091,13191,13202,23100,23300,23490,23600,23790,25410,25510,25570,25605,25620,25710,25770,25805,25840,92000/" $CARDSDIR/${name}_run_card.dat > ./Cards/run_card.dat
+            sed -i "s/\$DEFAULT_PDF_MEMBERS/True,  True,  True,  False, False, True,  False, True, False,False,False,True, True, True, True, True, True, True, True, True, True, True, True, True, True, True/" ./Cards/run_card.dat 
+        fi
+    elif [ "$isnlo" -eq "0" ]; then
+        if [ $is5FlavorScheme -eq 1 ]; then
+            # 5F PDF
+            sed "s/\$DEFAULT_PDF_SETS/306000/" $CARDSDIR/${name}_run_card.dat > ./Cards/run_card.dat
+        else
+            # 4F PDF
+            sed "s/\$DEFAULT_PDF_SETS/320900/" $CARDSDIR/${name}_run_card.dat > ./Cards/run_card.dat
+        fi
+        sed -i "s/ *\$DEFAULT_PDF_MEMBERS = .*//" ./Cards/run_card.dat 
+    fi
+else
     echo ""
     echo "WARNING: You've chosen not to use the PDF sets recommended for 2017 production!"
     echo "If this isn't intentional, and you prefer to use the recommended sets,"
@@ -480,10 +504,6 @@ if [ "$isnlo" -gt "0" ]; then
     echo ""
     echo "copying run_card.dat file"
     cp $CARDSDIR/${name}_run_card.dat ./Cards/run_card.dat
-  fi
-else
-  echo "copying run_card.dat file"
-  cp $CARDSDIR/${name}_run_card.dat ./Cards/run_card.dat
 fi
 
 #copy provided custom param_cards.dat
@@ -662,6 +682,7 @@ else
   cp $PRODHOME/runcmsgrid_LO.sh ./runcmsgrid.sh
   sed -i s/SCRAM_ARCH_VERSION_REPLACE/${scram_arch}/g runcmsgrid.sh
   sed -i s/CMSSW_VERSION_REPLACE/${cmssw_version}/g runcmsgrid.sh
+  sed -i s/PDF_FLAVOR_SCHEME_REPLACE/${is5FlavorScheme}/g runcmsgrid.sh
   
 fi
 

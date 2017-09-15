@@ -304,6 +304,7 @@ pwd
 #  mv ${tarball}_tarball.tar.gz old_${tarball}_tarball.tar.gz
 #fi
 
+
 mkdir -p ${name} ; 
 
 cd ${name}
@@ -316,15 +317,43 @@ if [ -s ../${cardInput} ]; then
   cp -p ../${cardInput} powheg.input
 fi
 
+# same pdfs for the 2 protons?
+teststandpdf=`grep "lhans1" powheg.input | awk '{print $2}'`
+teststandpdf2=`grep "lhans2" powheg.input | awk '{print $2}'`
+if ! [[ $teststandpdf == $teststandpdf2 ]]; then
+    fail_exit "ERROR: PDF settings not equal for the 2 protons: ${teststandpdf} vs ${teststandpdf2}... Please check your datacard"
+fi
+
+# 5F
+is5FlavorScheme=1
+defaultPDF=306000
+
+
+if [[ "$process" == "ST_tch_4f" ]] || [[ "$process" == "bbH" ]] || [[ "$process" == "Wbb_dec" ]] || [[ "$process" == "Wbbj" ]]; then
+    # 4F
+    is5FlavorScheme=0
+    defaultPDF=320900
+fi
+
+if [[ $is5FlavorScheme -eq 1 ]]; then
+  echo "INFO: The process $process uses the 5F PDF scheme"
+else
+  echo "INFO: The process $process uses the 4F PDF scheme"
+fi
+
 # enforce standard pdfs?
-grep "306000" powheg.input >> teststandpdf.txt
-if ! [ -s teststandpdf.txt ] ; then
+echo "INFO: PDF set for central value: ${teststandpdf}"
+if ([[ $is5FlavorScheme -eq 1 ]] && [[ ${teststandpdf} -ne 306000 ]]) || ([[ $is5FlavorScheme -eq 0 ]] && [[ ${teststandpdf} -ne 320900 ]]) ; then
    if [ $noPdfCheck == '0' ] ; then
-      rm -f teststandpdf.txt
-      fail_exit "WARNING: The input card provided does not have the standard 2017 PDF (NNPDF31 NNLO, 306000). Either change the card or run again with -d 1 to ignore this message. Exiting now..."
+      fail_exit "WARNING: The input card does not have the standard 2017 PDF (NNPDF31 NNLO, 306000 for 5F, 320900 for 4F). Either change the card or run again with -d 1 to ignore this message. Exiting now..."
+   else 
+      echo "WARNING: FORCING A DIFFERENT PDF SET FOR CENTRAL VALUE wrt standard 2017 (NNPDF31 NNLO, 306000 for 5F, 320900 for 4F)"
    fi
 fi
-rm -f teststandpdf.txt
+
+cd $WORKDIR
+python make_rwl.py ${is5FlavorScheme} ${teststandpdf}
+cd ${name}
 
 if [ -s ../JHUGen.input ]; then
   cp -p ../JHUGen.input JHUGen.input
