@@ -311,7 +311,7 @@ cd ${name}
 export PATH=`pwd`:${PATH}
 
 ## Get the input card
-#wget --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/${cardinput} -O powheg.input  || cp -p ${cardinput} powheg.input || fail_exit "Failed to get powheg input card " ${card}
+#wget --no-verbose --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/${cardinput} -O powheg.input  || cp -p ${cardinput} powheg.input || fail_exit "Failed to get powheg input card " ${card}
 
 if [ -s ../${cardInput} ]; then
   cp -p ../${cardInput} powheg.input
@@ -366,15 +366,15 @@ card=${myDir}/powheg.input
 cardj=${myDir}/JHUGen.input
 
 ## Try to get the JHUGen card
-#wget --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/${usejhugen} -O JHUGen.input || cp -p ${usejhugen} JHUGen.input
+#wget --no-verbose --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/${usejhugen} -O JHUGen.input || cp -p ${usejhugen} JHUGen.input
 
 jhugen=0
 if [[ -s ./JHUGen.input ]]; then
   jhugen=$(expr $jhugen + 1)
   echo "JHUGen activated!"
   #for decay weights in H->WW and H->ZZ
-  wget https://github.com/hroskes/genproductions/raw/master/bin/JHUGen/Pdecay/PMWWdistribution.out 
-  wget https://github.com/hroskes/genproductions/raw/master/bin/JHUGen/Pdecay/PMZZdistribution.out 
+  wget --no-verbose https://github.com/hroskes/genproductions/raw/master/bin/JHUGen/Pdecay/PMWWdistribution.out 
+  wget --no-verbose https://github.com/hroskes/genproductions/raw/master/bin/JHUGen/Pdecay/PMZZdistribution.out 
 
 fi
 
@@ -388,7 +388,7 @@ fi
 echo 'D/L POWHEG source...'
 
 if [ ! -f ${POWHEGSRC} ]; then
-  wget --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/slc6_amd64_gcc481/powheg/V2.0/src/${POWHEGSRC} || fail_exit "Failed to get powheg tar ball "
+  wget --no-verbose --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/slc6_amd64_gcc481/powheg/V2.0/src/${POWHEGSRC} || fail_exit "Failed to get powheg tar ball "
 fi
 #cp -p ../${POWHEGSRC} .
 
@@ -518,7 +518,7 @@ rm -f Makefile.interm tmpfile
 echo "LIBS+=-lz -lstdc++" >> Makefile
 if [ $jhugen = 1 ]; then
   if [ ! -f JHUGenerator.${jhugenversion}.tar.gz ]; then
-    wget --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/slc6_amd64_gcc481/JHUGenerator.${jhugenversion}.tar.gz || fail_exit "Failed to get JHUGen tar ball "
+    wget --no-verbose --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/slc6_amd64_gcc481/JHUGenerator.${jhugenversion}.tar.gz || fail_exit "Failed to get JHUGen tar ball "
   fi
 
   tar zxf JHUGenerator.${jhugenversion}.tar.gz
@@ -536,7 +536,7 @@ fi
 if [ "$process" = "gg_H_2HDM" ] || [ "$process" = "gg_H_MSSM" ]; then
   echo "Adding CHAPLIN 1.2 library"
   if [ ! -f chaplin-1.2.tar ]; then
-    wget http://chaplin.hepforge.org/code/chaplin-1.2.tar || fail_exit "Failed to get CHAPLIN tar ball "
+    wget --no-verbose http://chaplin.hepforge.org/code/chaplin-1.2.tar || fail_exit "Failed to get CHAPLIN tar ball "
   fi
   tar xvf chaplin-1.2.tar
   cd chaplin-1.2
@@ -549,7 +549,7 @@ if [ "$process" = "gg_H_2HDM" ] || [ "$process" = "gg_H_MSSM" ]; then
   if [ "$process" = "gg_H_MSSM" ]; then
     echo "Adding FeynHiggs 2.10 library"
     if [ ! -f FeynHiggs-2.10.2.tar.gz ]; then
-      wget http://wwwth.mpp.mpg.de/members/heinemey/feynhiggs/newversion/FeynHiggs-2.10.2.tar.gz || fail_exit "Failed to get FeynHiggs tar ball "
+      wget --no-verbose http://wwwth.mpp.mpg.de/members/heinemey/feynhiggs/newversion/FeynHiggs-2.10.2.tar.gz || fail_exit "Failed to get FeynHiggs tar ball "
     fi
     tar xvf FeynHiggs-2.10.2.tar.gz
     cd FeynHiggs-2.10.2
@@ -571,7 +571,7 @@ fi
 if [ "$process" = "ST_wtch_DR" ] || [ "$process" = "ST_wtch_DS" ]; then   
   echo "D/L QCDLoop-1.9 library"                            
   if [ ! -f FeynHiggs-2.10.2.tar.gz ]; then                 
-    wget http://qcdloop.fnal.gov/QCDLoop-1.96.tar.gz || fail_exit "Failed to get QCDLoop tar ball"
+    wget --no-verbose http://qcdloop.fnal.gov/QCDLoop-1.96.tar.gz || fail_exit "Failed to get QCDLoop tar ball"
   fi                                                        
   tar xvf QCDLoop-1.96.tar.gz                               
   mv QCDLoop-1.96 QCDLoop-1.9                               
@@ -606,7 +606,7 @@ cd ${WORKDIR}/${name}
 
 if [ "$process" = "HJ" ]; then
   echo "Compilinig HNNLO...."
-  wget http://theory.fi.infn.it/grazzini/codes/hnnlo-v2.0.tgz
+  wget --no-verbose http://theory.fi.infn.it/grazzini/codes/hnnlo-v2.0.tgz
   tar -xzvf hnnlo-v2.0.tgz
   cd hnnlo-v2.0
   cp ../POWHEG-BOX/HJ/NNLOPS-mass-effects/HNNLO-makefile ./makefile 
