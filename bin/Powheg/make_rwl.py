@@ -51,7 +51,7 @@ if int(is5FlavorScheme) == 1:
   # 5F PDF
   pdf_sets = {
             # weight id, LHAPDF id, name, replicas to be written
-            "PDF_variation2 , hessian" :
+            "PDF_variation1 , hessian" :
             [
               [2000, 306000, 'NNPDF31_nnlo_hessian_pdfas', 103],
               [2104, 322500, 'NNPDF31_nnlo_as_0108', 1],
@@ -63,13 +63,13 @@ if int(is5FlavorScheme) == 1:
               [2110, 323700, 'NNPDF31_nnlo_as_0122', 1],
               [2111, 323900, 'NNPDF31_nnlo_as_0124', 1],
               [3000, 305800, 'NNPDF31_nlo_hessian_pdfas', 103],
+              [5000, 13000, 'CT14nnlo', 57],
+              [5060, 13065, 'CT14nnlo_as_0116', 1],
+              [5070, 13069, 'CT14nnlo_as_0120', 1],
               [4000, 13100, 'CT14nlo', 57],
               [4060, 13163, 'CT14nlo_as_0116', 1],
               [4070, 13167, 'CT14nlo_as_0120', 1],
               [4080, 13200, 'CT14lo', 1],
-              [5000, 13000, 'CT14nnlo', 57],
-              [5060, 13065, 'CT14nnlo_as_0116', 1],
-              [5070, 13069, 'CT14nnlo_as_0120', 1],
               [6000, 25200, 'MMHT2014nlo68clas118', 51],
               [7000, 25300, 'MMHT2014nnlo68cl', 51],
               [7060, 25000, 'MMHT2014lo68cl', 1],
@@ -85,7 +85,7 @@ if int(is5FlavorScheme) == 1:
               [14000, 13400, 'CT14qed_inc_proton', 31],
               [15000, 82200, 'LUXqed17_plus_PDF4LHC15_nnlo_100', 108],
             ],
-            "PDF_variation1 , replica" :
+            "PDF_variation2 , replica" :
             [
               [1500, 292200, 'NNPDF30_nlo_nf_5_pdfas', 103],
               [1700, 292600, 'NNPDF30_nnlo_nf_5_pdfas', 1],
