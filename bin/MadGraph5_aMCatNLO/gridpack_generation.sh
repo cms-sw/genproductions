@@ -492,7 +492,7 @@ if grep -q -e "\$DEFAULT_PDF_SETS" -e "\$DEFAULT_PDF_MEMBERS" $CARDSDIR/${name}_
             # 4F PDF
             sed "s/\$DEFAULT_PDF_SETS/320900/" $CARDSDIR/${name}_run_card.dat > ./Cards/run_card.dat
         fi
-        sed -i "s/ *\$DEFAULT_PDF_MEMBERS = .*//" ./Cards/run_card.dat 
+        sed -i "s/ *\$DEFAULT_PDF_MEMBERS *= .*//" ./Cards/run_card.dat
     fi
 else
     echo ""
