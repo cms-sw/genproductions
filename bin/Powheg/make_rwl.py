@@ -99,19 +99,9 @@ else:
   # 4F PDF    
   pdf_sets = {
             # weight id, LHAPDF id, name, replicas to be written
-            "PDF_variation1 , replica" :
+            "PDF_variation1 , hessian" :
             [
-              [2000, 320900, 'NNPDF31_nnlo_as_0118_nf_4', 101],
-              [2200, 320500, 'NNPDF31_nlo_as_0118_nf_4', 101],
-              [2400, 260400, 'NNPDF30_nlo_as_0118_nf_4', 101],
-              [2600, 262400, 'NNPDF30_lo_as_0118_nf_4', 1],
-              [2800, 263400, 'NNPDF30_lo_as_0130_nf_4', 1],
-              [3000, 292000, 'NNPDF30_nlo_nf_4_pdfas', 103],
-              [3200, 292400, 'NNPDF30_nnlo_nf_4_pdfas' ,1],
-              
-            ],
-            "PDF_variation2 , hessian" :
-            [
+              [2000, 306000, 'NNPDF31_nnlo_hessian_pdfas', 103],
               [3400, 11082, 'CT10nlo_nf4', 2],
               [3450, 13091, 'CT14nnlo_NF4', 1],
               [3500, 13191, 'CT14nlo_NF4', 1],
@@ -132,6 +122,17 @@ else:
               [4900, 25840, 'MMHT2014nnlo_mbrange_nf4', 5],
               [5000, 92000, 'PDF4LHC15_nlo_nf4_30', 31],
             ]
+            "PDF_variation2 , replica" :
+            [
+              [2000, 320900, 'NNPDF31_nnlo_as_0118_nf_4', 101],
+              [2200, 320500, 'NNPDF31_nlo_as_0118_nf_4', 101],
+              [2400, 260400, 'NNPDF30_nlo_as_0118_nf_4', 101],
+              [2600, 262400, 'NNPDF30_lo_as_0118_nf_4', 1],
+              [2800, 263400, 'NNPDF30_lo_as_0130_nf_4', 1],
+              [3000, 292000, 'NNPDF30_nlo_nf_4_pdfas', 103],
+              [3200, 292400, 'NNPDF30_nnlo_nf_4_pdfas' ,1],
+              
+            ],
           }
   
 for key, pdfsets in sorted(pdf_sets.iteritems()):
