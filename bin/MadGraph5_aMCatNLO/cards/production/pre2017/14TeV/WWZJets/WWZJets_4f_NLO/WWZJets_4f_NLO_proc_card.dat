@@ -1,5 +1,3 @@
-#import model loop_sm-ckm
-#switch to diagonal ckm matrix if needed for speed
 import model loop_sm
 
 define p = g u c d s u~ c~ d~ s~
