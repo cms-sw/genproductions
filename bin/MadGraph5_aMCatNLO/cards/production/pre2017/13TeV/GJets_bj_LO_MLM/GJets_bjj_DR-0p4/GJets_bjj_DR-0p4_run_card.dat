@@ -215,19 +215,6 @@
   -1	=  ptl2max  ! maximum pt for the second lepton in pt
   -1	=  ptl3max  ! maximum pt for the third lepton in pt
   -1	=  ptl4max  ! maximum pt for the fourth lepton in pt
-#*********************************************************************
-# Control the Ht(k)=Sum of k leading jets                            *
-#*********************************************************************
-#  100	=  htjmin  ! minimum jet HT=Sum(jet pt)
-#  200	=  htjmax  ! maximum jet HT=Sum(jet pt)
-#  0	=  ihtmin   !inclusive Ht for all partons (including b)
-#  -1	=  ihtmax   !inclusive Ht for all partons (including b)
-#  0	=  ht2min  ! minimum Ht for the two leading jets
-#  0	=  ht3min  ! minimum Ht for the three leading jets
-#  0	=  ht4min  ! minimum Ht for the four leading jets
-#  -1	=  ht2max  ! maximum Ht for the two leading jets
-#  -1	=  ht3max  ! maximum Ht for the three leading jets
-#  -1	=  ht4max  ! maximum Ht for the four leading jets
 #***********************************************************************
 # Photon-isolation cuts, according to hep-ph/9801442                   *
 # When ptgmin=0, all the other parameters are ignored                  *
