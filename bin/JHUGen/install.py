@@ -9,7 +9,7 @@ aparser.add_argument('-name'       ,'--name'      ,action='store' ,dest='name'  
 aparser.add_argument('-s'          ,'--seed'      ,action='store' ,dest='seed'   ,default='123456'         ,help='random seed for grid generation')
 aparser.add_argument('-n'          ,'--nevents'   ,action='store' ,dest='nevents',default='100'            ,help='number of events for the test run after grid generation')
 aparser.add_argument('-scram_arch' ,'--scram_arch',action='store' ,dest='scram_arch',default='slc6_amd64_gcc481',help='SCRAM_ARCH system variable, default slc6_amd64_gcc481')
-aparser.add_argument('-cmssw'      ,'--cmssw'     ,action='store' ,dest='cmssw'     ,default='CMSSW_7_1_28'     ,help='CMSSW_VERSION system variable, default CMSSW_7_1_28')
+aparser.add_argument('-cmssw'      ,'--cmssw'     ,action='store' ,dest='cmssw'     ,default='CMSSW_7_1_30'     ,help='CMSSW_VERSION system variable, default CMSSW_7_1_30')
 args1 = aparser.parse_args()
 
 basedir=os.getcwd()
