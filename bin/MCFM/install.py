@@ -46,7 +46,7 @@ aparser.add_argument('-dm'     ,'--dmrange'   ,dest='dmrange' ,nargs='+',type=in
 aparser.add_argument('-med'    ,'--medrange'  ,dest='medrange',nargs='+',type=int,     default=[10,50,100,150,200,300,500,1000,1500],help='mediator range')
 aparser.add_argument('-retar'   ,'--retar'     ,type=bool      ,dest='retar'   ,default=False,help='tar up')
 aparser.add_argument('-scram_arch' ,'--scram_arch',action='store' ,dest='scram_arch',default='slc6_amd64_gcc481',help='SCRAM_ARCH system variable, default slc6_amd64_gcc481')
-aparser.add_argument('-cmssw'      ,'--cmssw'     ,action='store' ,dest='cmssw'     ,default='CMSSW_7_1_28'     ,help='CMSSW_VERSION system variable, default CMSSW_7_1_28')
+aparser.add_argument('-cmssw'      ,'--cmssw'     ,action='store' ,dest='cmssw'     ,default='CMSSW_7_1_30'     ,help='CMSSW_VERSION system variable, default CMSSW_7_1_30')
 args1 = aparser.parse_args()
 
 print args1.carddir,args1.name,args1.queue,args1.dmrange,args1.medrange

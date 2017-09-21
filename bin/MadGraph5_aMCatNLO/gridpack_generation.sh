@@ -44,7 +44,7 @@ fi
 
 if [ -z "$6" ]
   then
-    cmssw_version=CMSSW_7_1_28
+    cmssw_version=CMSSW_7_1_30
   else
     cmssw_version=${6}
 fi
