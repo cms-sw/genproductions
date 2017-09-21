@@ -121,7 +121,7 @@ else:
               [4800, 25805, 'MMHT2014nnlo_mcrange_nf4', 9],
               [4900, 25840, 'MMHT2014nnlo_mbrange_nf4', 5],
               [5000, 92000, 'PDF4LHC15_nlo_nf4_30', 31],
-            ]
+            ],
             "PDF_variation2 , replica" :
             [
               [2000, 320900, 'NNPDF31_nnlo_as_0118_nf_4', 101],
