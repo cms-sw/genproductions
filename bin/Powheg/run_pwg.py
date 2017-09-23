@@ -1161,10 +1161,10 @@ if __name__ == "__main__":
                 default_pdf = "320900"  # for 4 flavours
 
             for line in open(args.folderName+'/powheg.input') :
-                if 'lhans1' in line and len(line.split(' ')) >= 2:
-                    test_pdf1 = line.split(' ')[1].strip()
-                if 'lhans2' in line and len(line.split(' ')) >= 2:
-                    test_pdf2 = line.split(' ')[1].strip()
+                if 'lhans1' in line and len(line.split()) >= 2:
+                    test_pdf1 = line.split()[1].strip()
+                if 'lhans2' in line and len(line.split()) >= 2:
+                    test_pdf2 = line.split()[1].strip()
 
             if not (test_pdf1 == test_pdf2) :
                 print "ERROR: PDF settings not equal for the 2 protons: "+test_pdf1+" vs "+test_pdf2+"... Please check your datacard"
