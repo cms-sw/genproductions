@@ -1,7 +1,6 @@
-#import model loop_sm
 #switch to non-diagonal ckm matrix if relevant
 import model loop_sm-ckm
 
 generate p p > t t~ b b~ [QCD]
-output ttbb_4f_ckm_NLO_FXFX -nojpeg
+output ttbb_4f_ckm_NLO_NNPDF31 -nojpeg
 
