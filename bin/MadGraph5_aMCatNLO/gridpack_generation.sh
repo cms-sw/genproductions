@@ -44,7 +44,7 @@ fi
 
 if [ -z "$6" ]
   then
-    cmssw_version=CMSSW_7_1_30
+    cmssw_version=CMSSW_7_1_28
   else
     cmssw_version=${6}
 fi
@@ -149,6 +149,8 @@ SYSCALCSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/
 MGBASEDIRORIG=MG5_aMC_v2_4_2
 
 isscratchspace=0
+
+is5FlavorScheme=-1
 
 if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   #directory doesn't exist, create it and set up environment
@@ -347,9 +349,8 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   sed -i '$ a display multiparticles' ${name}_proc_card.dat
   ./$MGBASEDIRORIG/bin/mg5_aMC ${name}_proc_card.dat
  
-  is5FlavorScheme=0
-  if tail -n 20 $LOGFILE | grep -q -e "^p *=.*b\~.*b" -e "^p *=.*b.*b\~"; then 
-    is5FlavorScheme=1
+  if tail -n 20 $name*.log| grep -q -e "^p *=.*b\~.*b" -e "^p *=.*b.*b\~"; then 
+      is5FlavorScheme=1
   fi
 
   #*FIXME* workaround for broken set cluster_queue handling
@@ -376,6 +377,11 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   fi
 
 elif [ "${jobstep}" = "INTEGRATE" ] || [ "${jobstep}" = "ALL" ]; then  
+  if [[ is5FlavorScheme -le -1 ]]; then
+    if tail -n 20 ${name}*.log | grep -q -e "^p *=.*b\~.*b" -e "^p *=.*b.*b\~"; then 
+        is5FlavorScheme=1
+    fi
+  fi
   echo "Reusing existing directory assuming generated code already exists"
   echo "WARNING: If you changed the process card you need to clean the folder and run from scratch"
   
@@ -474,24 +480,33 @@ fi
 
 if grep -q -e "\$DEFAULT_PDF_SETS" -e "\$DEFAULT_PDF_MEMBERS" $CARDSDIR/${name}_run_card.dat; then
     echo "INFO: Using default PDF sets for 2017 production"
+    # 5F PDF
+    pdflistFile=$(git rev-parse --show-toplevel)/MetaData/pdflist_5f_2017.dat
+    if [ $is5FlavorScheme -neq 1 ]; then
+        # 4F PDF
+        pdflistFile=$(git rev-parse --show-toplevel)/MetaData/pdflist_4f_2017.dat
+    fi
+    pdfids=""
+    storeMembers=""
+    while read lhaid setName members; do 
+        if [[ $pdfids -ne "" ]]; then
+            pdfids+=","
+            storeMembers+=","
+        fi
+        pdfids+=$lhaid
+        if [[ $members == "all" ]]; then
+            storeMembers+="True"
+        else
+            storeMembers+="False"
+        fi
+    done < <(grep -v "^#" $pdflistFile)
     if [ "$isnlo" -gt "0" ]; then
-        if [ $is5FlavorScheme -eq 1 ]; then
-            # 5F PDF
-                  sed "s/\$DEFAULT_PDF_SETS/306000,322500,322700,322900,323100,323300,323500,323700,323900,305800,13000,13065,13069,13100,13163,13167,13200,25200,25300,25000,42780,90200,91200,90400,91400,61100,61130,61200,61230,13400,82200,292200,292600,315000,315200,262000,263000/" $CARDSDIR/${name}_run_card.dat > ./Cards/run_card.dat
-            sed -i "s/\$DEFAULT_PDF_MEMBERS/True,  False, False, False, False, False, False, False, False, True,  True,False,False,True, False,False,False,True, True, False,True, True, True, True, True, True, True, True, True, True, True, True,  False, False, False, False, False/" ./Cards/run_card.dat 
-        else
-            # 4F PDF
-                  sed "s/\$DEFAULT_PDF_SETS/306000,11082,13091,13191,13202,23100,23300,23490,23600,23790,25410,25510,25570,25605,25620,25710,25770,25805,25840,92000,320900,320500,260400,262400,263400,292000,292400/" $CARDSDIR/${name}_run_card.dat > ./Cards/run_card.dat
-            sed -i "s/\$DEFAULT_PDF_MEMBERS/True,  True, False,False,False,True, True, True, True, True, True, True, True, True, True, True, True, True, True, True, True,  True,  True,  False, False, True,  False/" ./Cards/run_card.dat 
-        fi
+        echo ${pdfids}
+        echo $name
+        sed "s/\$DEFAULT_PDF_SETS/${pdfids}/" $CARDSDIR/${name}_run_card.dat > ./Cards/run_card.dat
+        sed -i "s/ *\$DEFAULT_PDF_MEMBERS/${storeMembers}/" ./Cards/run_card.dat
     elif [ "$isnlo" -eq "0" ]; then
-        if [ $is5FlavorScheme -eq 1 ]; then
-            # 5F PDF
-            sed "s/\$DEFAULT_PDF_SETS/306000/" $CARDSDIR/${name}_run_card.dat > ./Cards/run_card.dat
-        else
-            # 4F PDF
-            sed "s/\$DEFAULT_PDF_SETS/320900/" $CARDSDIR/${name}_run_card.dat > ./Cards/run_card.dat
-        fi
+        sed "s/\$DEFAULT_PDF_SETS/${pdfids/,*/}/" $CARDSDIR/${name}_run_card.dat > ./Cards/run_card.dat
         sed -i "s/ *\$DEFAULT_PDF_MEMBERS.*=.*//" ./Cards/run_card.dat
     fi
 else
