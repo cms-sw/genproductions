@@ -26,15 +26,14 @@
 
   %me generator settings
   ME_SIGNAL_GENERATOR Comix Amegic LOOPGEN;
-  OL_PREFIX=/cvmfs/cms.cern.ch/slc6_amd64_gcc530/external/openloops/1.3.1
   LOOPGEN:=OpenLoops;
 
   % settings relevant for 4-flavour scheme
   MASSIVE[5]=1
-  MASS[5]=4.75
+  MASS[5]=4.8
   PDF_LIBRARY LHAPDFSherpa
   #LHAPDF_GRID_PATH=./PDFsets
-  PDF_SET NNPDF30_nnlo_as_0118_nf_4
+  PDF_SET NNPDF31_nnlo_as_0118_nf_4
   USE_PDF_ALPHAS=1
   CSS_ENHANCE S{G}{t}{tb} 0
   CSS_ENHANCE S{G}{tb}{t} 0
