@@ -335,7 +335,7 @@ else
 fi
 
 cd $WORKDIR
-python make_rwl.py ${is5FlavorScheme} ${teststandpdf}
+python make_rwl.py ${is5FlavorScheme} ${defaultPDF}
 cd ${name}
 
 if [ -s ../JHUGen.input ]; then
