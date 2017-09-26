@@ -1,0 +1,55 @@
+# Format: <LHAPDF ID> <LHAPDF label> <number of variations to include>
+306000 NNPDF31_nnlo_hessian_pdfas all
+11082 CT10nlo_nf4 all
+13091 CT14nnlo_NF4 1
+13191 CT14nlo_NF4 1
+13202 CT14lo_NF4 1
+23100 MSTW2008lo68cl_nf4 all
+23300 MSTW2008nlo68cl_nf4 all
+23490 MSTW2008nlo_mbrange_nf4 all
+23600 MSTW2008nnlo68cl_nf4 all
+23790 MSTW2008nnlo_mbrange_nf4 all
+25410 MMHT2014nlo68cl_nf4 all
+25510 MMHT2014nlo68clas118_nf4 all
+25570 MMHT2014nlo_asmzsmallrange_nf4 all
+25605 MMHT2014nlo_mcrange_nf4 all
+25620 MMHT2014nlo_mbrange_nf4 all
+25710 MMHT2014nnlo68cl_nf4 all
+25770 MMHT2014nnlo_asmzsmallrange_nf4 all
+25805 MMHT2014nnlo_mcrange_nf4 all
+25840 MMHT2014nnlo_mbrange_nf4 all
+92000 PDF4LHC15_nlo_nf4_30 all
+# 320900 NNPDF31_nnlo_as_0118_nf_4 all
+# 320500 NNPDF31_nlo_as_0118_nf_4 all
+260400 NNPDF30_nlo_as_0118_nf_4 all
+262400 NNPDF30_lo_as_0118_nf_4 1
+263400 NNPDF30_lo_as_0130_nf_4 1
+292000 NNPDF30_nlo_nf_4_pdfas all
+292400 NNPDF30_nnlo_nf_4_pdfas 1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+e
+
+
+e

@@ -1,3 +1,4 @@
+# Format: <LHAPDF ID> <LHAPDF label> <number of variations to include>
 306000 NNPDF31_nnlo_hessian_pdfas all
 # 322500 NNPDF31_nnlo_as_0108 1
 # 322700 NNPDF31_nnlo_as_0110 1
@@ -33,5 +34,5 @@
 292600 NNPDF30_nnlo_nf_5_pdfas 1
 315000 NNPDF31_lo_as_0118 1
 315200 NNPDF31_lo_as_0130 1
-262000 NNPDF30_lo_as_0118 2
-263000 NNPDF30_lo_as_0130 2
+262000 NNPDF30_lo_as_0118 1
+263000 NNPDF30_lo_as_0130 1
