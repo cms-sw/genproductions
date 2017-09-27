@@ -92,21 +92,23 @@ if [ $is5FlavorScheme -eq 1 ]; then
   # 5F PDF
   echo "
   NNPDF31_nnlo_hessian_pdfas.LHgrid
+  NNPDF31_nnlo_as_0108.LHgrid 1
+  NNPDF31_nnlo_as_0110.LHgrid 1
+  NNPDF31_nnlo_as_0112.LHgrid 1
+  NNPDF31_nnlo_as_0114.LHgrid 1
+  NNPDF31_nnlo_as_0117.LHgrid 1
+  NNPDF31_nnlo_as_0119.LHgrid 1
+  NNPDF31_nnlo_as_0122.LHgrid 1
+  NNPDF31_nnlo_as_0124.LHgrid 1
   NNPDF31_nlo_hessian_pdfas.LHgrid
-  NNPDF31_lo_as_0118.LHgrid 1
-  NNPDF31_lo_as_0130.LHgrid 1
-  NNPDF30_nnlo_nf_5_pdfas.LHgrid 1
-  NNPDF30_nlo_nf_5_pdfas.LHgrid
-  NNPDF30_lo_as_0118.LHgrid 1
-  NNPDF30_lo_as_0130.LHgrid
-  CT14nlo.LHgrid
-  CT14nlo_as_0116.LHgrid 1
-  CT14nlo_as_0120.LHgrid 1
   CT14nnlo.LHgrid
   CT14nnlo_as_0116.LHgrid 1
   CT14nnlo_as_0120.LHgrid 1
+  CT14nlo.LHgrid
+  CT14nlo_as_0116.LHgrid 1
+  CT14nlo_as_0120.LHgrid 1
   CT14lo.LHgrid 1
-  MMHT2014nlo68clas118.LHgrid 
+  MMHT2014nlo68clas118.LHgrid
   MMHT2014nnlo68cl.LHgrid
   MMHT2014lo68cl.LHgrid 1
   ABMP16als118_5_nnlo.LHgrid
@@ -119,27 +121,19 @@ if [ $is5FlavorScheme -eq 1 ]; then
   HERAPDF20_NNLO_EIG.LHgrid
   HERAPDF20_NNLO_VAR.LHgrid
   CT14qed_inc_proton.LHgrid
-  LUXqed_plus_PDF4LHC15_nnlo_100.LHgrid 1
-  " >> syscalc_card.dat
+  LUXqed17_plus_PDF4LHC15_nnlo_100.LHgrid
+  NNPDF30_nlo_nf_5_pdfas.LHgrid
+  NNPDF30_nnlo_nf_5_pdfas.LHgrid 1
+  NNPDF31_lo_as_0118.LHgrid 1
+  NNPDF31_lo_as_0130.LHgrid 1
+  NNPDF30_lo_as_0118.LHgrid 1
+  NNPDF30_lo_as_0130.LHgrid 1
+ " >> syscalc_card.dat
 
-  # NNPDF31_nnlo_as_0108.LHgrid 1
-  # NNPDF31_nnlo_as_0110.LHgrid 1
-  # NNPDF31_nnlo_as_0112.LHgrid 1
-  # NNPDF31_nnlo_as_0114.LHgrid 1
-  # NNPDF31_nnlo_as_0117.LHgrid 1
-  # NNPDF31_nnlo_as_0119.LHgrid 1
-  # NNPDF31_nnlo_as_0122.LHgrid 1
-  # NNPDF31_nnlo_as_0124.LHgrid 1
 else
-  # 4F PDF
+ # 4F PDF
   echo "
-  NNPDF31_nnlo_as_0118_nf_4.LHgrid
-  NNPDF31_nlo_as_0118_nf_4.LHgrid
-  NNPDF30_nlo_as_0118_nf_4.LHgrid
-  NNPDF30_lo_as_0118_nf_4.LHgrid 1
-  NNPDF30_lo_as_0130_nf_4.LHgrid 1
-  NNPDF30_nlo_nf_4_pdfas.LHgrid
-  NNPDF30_nnlo_nf_4_pdfas.LHgrid 1
+  NNPDF31_nnlo_hessian_pdfas.LHgrid
   CT10nlo_nf4.LHgrid
   CT14nnlo_NF4.LHgrid 1
   CT14nlo_NF4.LHgrid 1
@@ -159,6 +153,13 @@ else
   MMHT2014nnlo_mcrange_nf4.LHgrid
   MMHT2014nnlo_mbrange_nf4.LHgrid
   PDF4LHC15_nlo_nf4_30.LHgrid
+  NNPDF31_nnlo_as_0118_nf_4.LHgrid
+  NNPDF31_nlo_as_0118_nf_4.LHgrid
+  NNPDF30_nlo_as_0118_nf_4.LHgrid
+  NNPDF30_lo_as_0118_nf_4.LHgrid 1
+  NNPDF30_lo_as_0130_nf_4.LHgrid 1
+  NNPDF30_nlo_nf_4_pdfas.LHgrid
+  NNPDF30_nnlo_nf_4_pdfas.LHgrid 1
   " >> syscalc_card.dat
 fi
 

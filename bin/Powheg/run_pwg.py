@@ -317,13 +317,6 @@ if [ -s ../${cardInput} ]; then
   cp -p ../${cardInput} powheg.input
 fi
 
-# same pdfs for the 2 protons?
-teststandpdf=`grep "lhans1" powheg.input | awk '{print $2}'`
-teststandpdf2=`grep "lhans2" powheg.input | awk '{print $2}'`
-if ! [[ $teststandpdf == $teststandpdf2 ]]; then
-    fail_exit "ERROR: PDF settings not equal for the 2 protons: ${teststandpdf} vs ${teststandpdf2}... Please check your datacard"
-fi
-
 # 5F
 is5FlavorScheme=1
 defaultPDF=306000
@@ -341,18 +334,8 @@ else
   echo "INFO: The process $process uses the 4F PDF scheme"
 fi
 
-# enforce standard pdfs?
-echo "INFO: PDF set for central value: ${teststandpdf}"
-if ([[ $is5FlavorScheme -eq 1 ]] && [[ ${teststandpdf} -ne 306000 ]]) || ([[ $is5FlavorScheme -eq 0 ]] && [[ ${teststandpdf} -ne 320900 ]]) ; then
-   if [ $noPdfCheck == '0' ] ; then
-      fail_exit "WARNING: The input card does not have the standard 2017 PDF (NNPDF31 NNLO, 306000 for 5F, 320900 for 4F). Either change the card or run again with -d 1 to ignore this message. Exiting now..."
-   else 
-      echo "WARNING: FORCING A DIFFERENT PDF SET FOR CENTRAL VALUE wrt standard 2017 (NNPDF31 NNLO, 306000 for 5F, 320900 for 4F)"
-   fi
-fi
-
 cd $WORKDIR
-python make_rwl.py ${is5FlavorScheme} ${teststandpdf}
+python make_rwl.py ${is5FlavorScheme} ${defaultPDF}
 cd ${name}
 
 if [ -s ../JHUGen.input ]; then
@@ -1138,7 +1121,9 @@ if __name__ == "__main__":
         prepareJob(tagName, '', '.')
 
         if not os.path.exists(args.inputTemplate) :
-            os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate+' -O '+args.folderName+'/powheg.input')
+            m_ret = os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate+' -O '+args.folderName+'/powheg.input')
+#            print "return ", m_ret
+
             os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate)
         
         os.system('mkdir -p '+rootfolder+'/'+args.folderName)
@@ -1148,15 +1133,53 @@ if __name__ == "__main__":
             os.system('cp -p '+args.inputTemplate+' '+args.folderName+'/powheg.input')
 
         os.system('rm -rf JHUGen.input')
-        inputJHUGen = '/'.join(powInputName.split('/')[0:-1])+'/JHUGen.input'
+        inputJHUGen = args.inputJHUGen
+        if args.inputJHUGen == "":
+            inputJHUGen = '/'.join(powInputName.split('/')[0:-1])+'/JHUGen.input'
+
         if not os.path.exists(inputJHUGen) :
-            os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+inputJHUGen+' -O '+args.folderName+'/JHUGen.input')
+            m_ret = os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+inputJHUGen+' -O '+args.folderName+'/JHUGen.input')
+            if ((m_ret>>8) & 255) != 0 :
+                os.system('rm -rf '+args.folderName+'/JHUGen.input')
+#            print 'return value: ', ((m_ret>>8) & 255), m_ret
+
 #            if os.path.exists('JHUGen.input') :
 #                os.system('cp -p JHUGen.input '+args.folderName+'/.')
 #            if os.path.exists(args.inputJHUGen) :
 #                os.system('cp -p '+args.inputJHUGen+' '+args.folderName+'/JHUGen.input')
         else :
             os.system('cp -p '+inputJHUGen+' '+args.folderName+'/JHUGen.input')
+
+        if os.path.exists(args.folderName+'/powheg.input') :
+            #card_in = ConfigParser.ConfigParser()
+            test_pdf1 = 0
+            test_pdf2 = 0
+
+            default_pdf = "306000"  # for 5 flavours
+
+            if args.prcName=="ST_tch_4f" or args.prcName=="bbH" or args.prcName=="Wbb_dec" or args.prcName=="Wbbj" :
+                default_pdf = "320900"  # for 4 flavours
+
+            for line in open(args.folderName+'/powheg.input') :
+                n_column = line.split()
+                if 'lhans1' in line and len(n_column) >= 2:
+                    test_pdf1 = n_column[1].strip()
+                if 'lhans2' in line and len(n_column) >= 2:
+                    test_pdf2 = n_column[1].strip()
+
+            if not (test_pdf1 == test_pdf2) :
+                print "ERROR: PDF settings not equal for the 2 protons: "+test_pdf1+" vs "+test_pdf2+"... Please check your datacard"
+                quit()
+
+            if test_pdf1 != default_pdf :
+#                print "PDF in card: ", test_pdf1, "PDF default: ", default_pdf, test_pdf1==default_pdf
+                print "WARNING: The input card does not have the standard 2017 PDF (NNPDF31 NNLO, 306000 for 5F, 320900 for 4F): "+test_pdf1+". Either change the card or run again with -d 1 to ignore this message.\n"
+
+                if args.noPdfCheck == '0' :
+                    print "Exiting now...\n"
+                    quit()
+                else:
+                    print "FORCING A DIFFERENT PDF SET FOR CENTRAL VALUE\n"
 
     if args.parstage == '0' :
 

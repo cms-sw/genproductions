@@ -100,7 +100,7 @@
             ! booleans of equal length to dynamical_scale_choice to
             ! specify for which choice to include scale dependence.
 
- $DEFAULT_PDF_MEMBERS  = reweight_PDF     ! reweight to get PDF uncertainty
+ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! reweight to get PDF uncertainty
             ! Reweight to get PDF uncertainty. Should be a
             ! list booleans of equal length to lhaid to specify for
             !  which PDF set to include the uncertainties.
