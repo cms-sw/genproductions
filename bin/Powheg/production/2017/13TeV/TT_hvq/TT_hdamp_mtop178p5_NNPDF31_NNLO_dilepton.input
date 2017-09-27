@@ -5,7 +5,7 @@
                    ! If POWHEG is interfaced to a shower MC, refer to the shower MC
                    ! documentation to set its seed.
 
-!Heavy flavour production parameters
+
 
 numevts NEVENTS
 iseed SEED
