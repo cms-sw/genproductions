@@ -11,7 +11,7 @@ fi
 base_folder=$(git rev-parse --show-toplevel)/bin/MadGraph5_aMCatNLO
 
 old_cards_path=${base_folder}/cards/production/13TeV/$1
-new_cards_path=${base_folder}/cards/production/2017/$1
+new_cards_path=${base_folder}/cards/production/2017/13TeV/$1
 
 git diff-index --quiet HEAD -- $base_folder/cards 
 if [ $? -ne 0 ]; then
@@ -33,7 +33,7 @@ fi
 
 
 for old_card in $(find $old_cards_path -type f -follow -print); do 
-    new_card=${old_card/13TeV/2017}
+    new_card=${old_card/13TeV/2017\/13TeV}
     card_dir=$(dirname $new_card)
     if [ ! -d $card_dir ]; then
         mkdir -p $card_dir
