@@ -33,7 +33,7 @@
   MASS[5]=4.8
   PDF_LIBRARY LHAPDFSherpa
   #LHAPDF_GRID_PATH=./PDFsets
-  PDF_SET NNPDF31_nnlo_as_0118_nf_4
+  PDF_SET NNPDF30_nnlo_as_0118_nf_4
   USE_PDF_ALPHAS=1
   CSS_ENHANCE S{G}{t}{tb} 0
   CSS_ENHANCE S{G}{tb}{t} 0
