@@ -182,7 +182,7 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   #############################################
   #Copy, Unzip and Delete the MadGraph tarball#
   #############################################
-  wget --no-check-certificate ${MGSOURCE}
+  wget --no-verbose --no-check-certificate ${MGSOURCE}
   tar xzf ${MG}
   rm $MG
 
@@ -261,7 +261,7 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   ./bin/mg5_aMC mgconfigscript
 
   #get syscalc and compile
-  wget --no-check-certificate ${SYSCALCSOURCE}
+  wget --no-verbose --no-check-certificate ${SYSCALCSOURCE}
   tar xzf ${SYSCALC}
   rm $SYSCALC
 
@@ -279,7 +279,7 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
       #get needed BSM model
       if [[ $model = *[!\ ]* ]]; then
         echo "Loading extra model $model"
-        wget --no-check-certificate https://cms-project-generators.web.cern.ch/cms-project-generators/$model	
+        wget --no-verbose --no-check-certificate https://cms-project-generators.web.cern.ch/cms-project-generators/$model	
         cd models
         if [[ $model == *".zip"* ]]; then
           unzip ../$model
