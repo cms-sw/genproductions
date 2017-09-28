@@ -101,7 +101,7 @@ else:
             # weight id, LHAPDF id, name, replicas to be written
             "PDF_variation1 , hessian" :
             [
-              [2000, 306000, 'NNPDF31_nnlo_hessian_pdfas', 103],
+              [1500, 306000, 'NNPDF31_nnlo_hessian_pdfas', 103],
               [3400, 11082, 'CT10nlo_nf4', 2],
               [3450, 13091, 'CT14nnlo_NF4', 1],
               [3500, 13191, 'CT14nlo_NF4', 1],
