@@ -481,17 +481,12 @@ if grep -q -e "\$DEFAULT_PDF_SETS" -e "\$DEFAULT_PDF_MEMBERS" $CARDSDIR/${name}_
             sed -i "s/\$DEFAULT_PDF_MEMBERS/True,False,False,False,False,False,False,False,False,True,True,False,False,True,False,False,False,True,True,False,True,True,True,True,True,True,True,True,True,True,True,True,False,False,False,False,False/" ./Cards/run_card.dat 
         else
             # 4F PDF
-                  sed "s/\$DEFAULT_PDF_SETS/320900,11082,13091,13191,13202,23100,23300,23490,23600,23790,25410,25510,25570,25605,25620,25710,25770,25805,25840,92000,320500,260400,262400,263400,292000,292400/" $CARDSDIR/${name}_run_card.dat > ./Cards/run_card.dat
-            sed -i "s/\$DEFAULT_PDF_MEMBERS/True,True,False,False,False,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,False,False,True,False/" ./Cards/run_card.dat 
+                  sed "s/\$DEFAULT_PDF_SETS/320600,11082,13091,13191,13202,23100,23300,23490,23600,23790,25410,25510,25570,25605,25620,25710,25770,25805,25840,92000,320900,320500,260400,262400,263400,292000,292400/" $CARDSDIR/${name}_run_card.dat > ./Cards/run_card.dat
+            sed -i "s/\$DEFAULT_PDF_MEMBERS/True,True,False,False,False,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,False,False,True,False/" ./Cards/run_card.dat 
         fi
     elif [ "$isnlo" -eq "0" ]; then
-        if [ $is5FlavorScheme -eq 1 ]; then
-            # 5F PDF
+        # Same central PDF for both 4 and 5F, variations added at runtime
             sed "s/\$DEFAULT_PDF_SETS/306000/" $CARDSDIR/${name}_run_card.dat > ./Cards/run_card.dat
-        else
-            # 4F PDF
-            sed "s/\$DEFAULT_PDF_SETS/320900/" $CARDSDIR/${name}_run_card.dat > ./Cards/run_card.dat
-        fi
         sed -i "s/ *\$DEFAULT_PDF_MEMBERS.*=.*//" ./Cards/run_card.dat
     fi
 else
