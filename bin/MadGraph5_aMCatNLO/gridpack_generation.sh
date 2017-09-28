@@ -197,7 +197,7 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
 
   LHAPDFINCLUDES=`$LHAPDFCONFIG --incdir`
   LHAPDFLIBS=`$LHAPDFCONFIG --libdir`
-  BOOSTINCLUDES=`scram tool tag boost INCLUDE`
+  export BOOSTINCLUDES=`scram tool tag boost INCLUDE`
 
   echo "set auto_update 0" > mgconfigscript
   echo "set automatic_html_opening False" >> mgconfigscript
