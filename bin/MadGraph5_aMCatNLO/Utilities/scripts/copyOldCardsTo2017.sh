@@ -10,9 +10,9 @@ fi
 
 base_folder=$(git rev-parse --show-toplevel)/bin/MadGraph5_aMCatNLO
 
-old_cards_path=${base_folder}/cards/production/13TeV/$1
 old_cards_relative_path=cards/production/13TeV/$1
-new_cards_path=${base_folder}/${new_cards_relative_path}
+old_cards_path=${base_folder}/${old_cards_relative_path}
+new_cards_path=${base_folder}/cards/production/2017/13TeV/$1
 
 git diff-index --quiet HEAD -- $base_folder/cards 
 if [ $? -ne 0 ]; then
@@ -26,7 +26,6 @@ fi
 pushd $base_folder
 git checkout tags/pre2017 -- ${old_cards_relative_path}
 popd
-exit 1
 
 if [ $? -ne 0 ]; then
     echo ""
