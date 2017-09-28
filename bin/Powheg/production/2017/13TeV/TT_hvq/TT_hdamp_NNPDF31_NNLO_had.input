@@ -5,14 +5,14 @@
                    ! If POWHEG is interfaced to a shower MC, refer to the shower MC
                    ! documentation to set its seed.
 
-!Heavy flavour production parameters
+
 
 numevts NEVENTS
 iseed SEED
 ih1   1        ! hadron 1
 ih2   1        ! hadron 2
-#ndns1 131      ! pdf for hadron 1 (hvqpdf numbering)
-#ndns2 131      ! pdf for hadron 2
+
+
 ! To be set only if using LHA pdfs
 lhans1 306000
 lhans2 306000
@@ -71,7 +71,7 @@ foldy   1      ! number of folds on y integration
 foldphi 1      ! number of folds on phi integration
 nubound 100000  ! number of bbarra calls to setup norm of upper bounding function
 iymax 1        ! <= 10, normalization of upper bounding function in iunorm X iunorm square in y, log(m2qq)
-ixmax 1        ! <= 10, normalization of upper bounding function in iunorm X iunorm square in y, log(m2qq)
+
 xupbound 2      ! increase upper bound for radiation generation
 
 pdfreweight 1
@@ -80,12 +80,12 @@ storeinfo_rwgt 1    ! store weight information
 withnegweights 0    ! default 0
 
 
-#manyseeds 1
 
-#parallelstage 4
 
-#xgriditeration 1 1
-rwl_group_events 2000
-lhapdf6maxsets 50
-rwl_file 'pwg-rwl.dat'
-rwl_format_rwgt 1
+
+
+
+
+
+
+

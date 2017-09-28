@@ -35,18 +35,18 @@ queue=${3}
 # processing options
 jobstep=${4}
 
-if [ -z "$5" ]
+if [ -n "$5" ]
   then
-    scram_arch=slc6_amd64_gcc481
-  else
     scram_arch=${5}
+  else
+    scram_arch=slc6_amd64_gcc481
 fi
 
-if [ -z "$6" ]
+if [ -n "$6" ]
   then
-    cmssw_version=CMSSW_7_1_30
-  else
     cmssw_version=${6}
+  else
+    cmssw_version=CMSSW_7_1_30
 fi
 
 # jobstep can be 'ALL','CODEGEN', 'INTEGRATE', 'MADSPIN'
@@ -182,7 +182,7 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   #############################################
   #Copy, Unzip and Delete the MadGraph tarball#
   #############################################
-  wget --no-check-certificate ${MGSOURCE}
+  wget --no-verbose --no-check-certificate ${MGSOURCE}
   tar xzf ${MG}
   rm $MG
 
@@ -207,7 +207,7 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
 
   LHAPDFINCLUDES=`$LHAPDFCONFIG --incdir`
   LHAPDFLIBS=`$LHAPDFCONFIG --libdir`
-  BOOSTINCLUDES=`scram tool tag boost INCLUDE`
+  export BOOSTINCLUDES=`scram tool tag boost INCLUDE`
 
   echo "set auto_update 0" > mgconfigscript
   echo "set automatic_html_opening False" >> mgconfigscript
@@ -261,7 +261,7 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   ./bin/mg5_aMC mgconfigscript
 
   #get syscalc and compile
-  wget --no-check-certificate ${SYSCALCSOURCE}
+  wget --no-verbose --no-check-certificate ${SYSCALCSOURCE}
   tar xzf ${SYSCALC}
   rm $SYSCALC
 
@@ -279,7 +279,7 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
       #get needed BSM model
       if [[ $model = *[!\ ]* ]]; then
         echo "Loading extra model $model"
-        wget --no-check-certificate https://cms-project-generators.web.cern.ch/cms-project-generators/$model	
+        wget --no-verbose --no-check-certificate https://cms-project-generators.web.cern.ch/cms-project-generators/$model	
         cd models
         if [[ $model == *".zip"* ]]; then
           unzip ../$model
