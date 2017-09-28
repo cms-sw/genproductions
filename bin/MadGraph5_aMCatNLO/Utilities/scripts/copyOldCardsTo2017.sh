@@ -10,7 +10,8 @@ fi
 
 base_folder=$(git rev-parse --show-toplevel)/bin/MadGraph5_aMCatNLO
 
-old_cards_path=${base_folder}/cards/production/13TeV/$1
+old_cards_relative_path=cards/production/13TeV/$1
+old_cards_path=${base_folder}/${old_cards_relative_path}
 new_cards_path=${base_folder}/cards/production/2017/13TeV/$1
 
 git diff-index --quiet HEAD -- $base_folder/cards 
@@ -22,7 +23,9 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-git checkout tags/pre2017 -- $old_cards_path
+pushd $base_folder
+git checkout tags/pre2017 -- ${old_cards_relative_path}
+popd
 
 if [ $? -ne 0 ]; then
     echo ""
@@ -48,10 +51,10 @@ git commit -m "Copying $1 cards from legacy production to modify for 2017"
 for run_card in $(find $new_cards_path -type f -follow -print -name "*run_card*"); do 
     # reweight_PDF may not be present in older cards
     if grep -q -e ".*= *reweight_PDF" $run_card; then
-        sed -i "s/^ *[0-9]* *= *lhaid/\$DEFAULT_PDF_SETS = lhaid/g" $run_card
+        sed -i "s/^.*= *lhaid/\$DEFAULT_PDF_SETS = lhaid/g" $run_card
         sed -i "s/.*= *reweight_PDF/\$DEFAULT_PDF_MEMBERS = reweight_PDF/g" $run_card
     else
-        sed -i "s/^ *[0-9]* *= *lhaid/\$DEFAULT_PDF_SETS = lhaid\n\$DEFAULT_PDF_MEMBERS = reweight_PDF/g" $run_card
+        sed -i "s/^.*= *lhaid/\$DEFAULT_PDF_SETS = lhaid\n\$DEFAULT_PDF_MEMBERS = reweight_PDF/g" $run_card
     fi
     sed -i "s/.*= *PDF_set_min//g" $run_card
     sed -i "s/.*= *PDF_set_max//g" $run_card
