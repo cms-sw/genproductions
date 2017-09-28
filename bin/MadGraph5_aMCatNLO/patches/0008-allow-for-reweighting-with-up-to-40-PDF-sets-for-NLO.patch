@@ -36,7 +36,7 @@ index 5329885..5907f1f 100644
        integer maxscales,maxPDFs
        parameter (maxscales=9)
 -      parameter (maxPDFs=200)
-+      parameter (maxPDFs=1000)
++      parameter (maxPDFs=1500)
  
  c New format to allow for multiple PDF sets and scales (both functional form
  c and normal)
