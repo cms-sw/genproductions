@@ -35,18 +35,18 @@ queue=${3}
 # processing options
 jobstep=${4}
 
-if [ -z "$5" ]
+if [ -n "$5" ]
   then
-    scram_arch=slc6_amd64_gcc481
-  else
     scram_arch=${5}
+  else
+    scram_arch=slc6_amd64_gcc481
 fi
 
-if [ -z "$6" ]
+if [ -n "$6" ]
   then
-    cmssw_version=CMSSW_7_1_30
-  else
     cmssw_version=${6}
+  else
+    cmssw_version=CMSSW_7_1_30
 fi
 
 # jobstep can be 'ALL','CODEGEN', 'INTEGRATE', 'MADSPIN'
