@@ -335,7 +335,7 @@ else
 fi
 
 cd $WORKDIR
-python make_rwl.py ${is5FlavorScheme} ${teststandpdf}
+python make_rwl.py ${is5FlavorScheme} ${defaultPDF}
 cd ${name}
 
 if [ -s ../JHUGen.input ]; then
@@ -1161,10 +1161,11 @@ if __name__ == "__main__":
                 default_pdf = "320900"  # for 4 flavours
 
             for line in open(args.folderName+'/powheg.input') :
-                if 'lhans1' in line and len(line.split()) >= 2:
-                    test_pdf1 = line.split()[1].strip()
-                if 'lhans2' in line and len(line.split()) >= 2:
-                    test_pdf2 = line.split()[1].strip()
+                n_column = line.split()
+                if 'lhans1' in line and len(n_column) >= 2:
+                    test_pdf1 = n_column[1].strip()
+                if 'lhans2' in line and len(n_column) >= 2:
+                    test_pdf2 = n_column[1].strip()
 
             if not (test_pdf1 == test_pdf2) :
                 print "ERROR: PDF settings not equal for the 2 protons: "+test_pdf1+" vs "+test_pdf2+"... Please check your datacard"
@@ -1172,7 +1173,7 @@ if __name__ == "__main__":
 
             if test_pdf1 != default_pdf :
 #                print "PDF in card: ", test_pdf1, "PDF default: ", default_pdf, test_pdf1==default_pdf
-                print "WARNING: The input card does not have the standard 2017 PDF (NNPDF31 NNLO, 306000 for 5F, 320900 for 4F). Either change the card or run again with -d 1 to ignore this message.\n"
+                print "WARNING: The input card does not have the standard 2017 PDF (NNPDF31 NNLO, 306000 for 5F, 320900 for 4F): "+test_pdf1+". Either change the card or run again with -d 1 to ignore this message.\n"
 
                 if args.noPdfCheck == '0' :
                     print "Exiting now...\n"
