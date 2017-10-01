@@ -1,0 +1,133 @@
+Starting job on  Thu Sep 28 23:05:09 CEST 2017
+Running on  Linux lxplus022.cern.ch 2.6.32-696.10.1.el6.x86_64 #1 SMP Wed Aug 23 17:23:30 CEST 2017 x86_64 x86_64 x86_64 GNU/Linux
+System release  Scientific Linux CERN SLC release 6.9 (Carbon)
+name: cards/production/2017/ZJets_LO_MLM/ZJetsToQQ_HT-800toInf/
+carddir: 
+queue: local
+scram_arch: slc6_amd64_gcc481
+cmssw_version: CMSSW_7_1_30
+# On branch isrjetbg
+# Changes to be committed:
+#   (use "git reset HEAD <file>..." to unstage)
+#
+#	copied:     cards/production/2017/ZJets_LO_MLM/ZJetsToQQ_HT-600toInf/ZJetsToQQ_HT600toInf_proc_card.dat -> cards/production/2017/ZJets_LO_MLM/ZJetsToQQ_HT-800toInf/ZJetsToQQ_HT800toInf_proc_card.dat
+#	renamed:    cards/production/2017/ZJets_LO_MLM/ZJetsToQQ_HT-600toInf/ZJetsToQQ_HT600toInf_proc_card.dat -> cards/production/2017/ZJets_LO_MLM/ZJetsToQQ_HT-800toInf/ZJetsToQQ_HT800toInf_proc_card.dat~
+#	renamed:    cards/production/2017/ZJets_LO_MLM/ZJetsToQQ_HT-600toInf/ZJetsToQQ_HT600toInf_run_card.dat -> cards/production/2017/ZJets_LO_MLM/ZJetsToQQ_HT-800toInf/ZJetsToQQ_HT800toInf_run_card.dat
+#
+# Untracked files:
+#   (use "git add <file>..." to include in what will be committed)
+#
+#	LSFJOB_92991694/
+#	cards/production/2017/ZJets_LO_MLM/.log
+#	cards/production/2017/ZJets_LO_MLM/ZJetsToQQ_HT-800toInf/.log
+#	cards/production/2017/ZJets_LO_MLM/cards/
+Current git revision is:
+67e3bc8aceaa597feb4c229f4f808546d65370c8
+/afs/cern.ch/user/c/cmantill/work/public/Gen/gridpacks2018/genproductions/bin/MadGraph5_aMCatNLO
+WARNING: In non-interactive mode release checks e.g. deprecated releases, production architectures are disabled.
+2017-09-28 23:05:15 URL:https://cms-project-generators.web.cern.ch/cms-project-generators/MG5_aMC_v2.4.2.tar.gz [25094198/25094198] -> "MG5_aMC_v2.4.2.tar.gz" [1]
+patching file models/loop_qcd_qed_sm/restrict_lepton_masses_no_lepton_yukawas.dat
+patching file models/loop_sm/restrict_ckm_no_b_mass.dat
+patching file models/sm/restrict_ckm_lepton_masses.dat
+patching file models/sm/restrict_ckm_lepton_masses_no_b_mass.dat
+patching file models/sm/restrict_ckm_no_b_mass.dat
+patching file models/sm/restrict_lepton_masses_no_b_mass.dat
+patching file Template/NLO/SubProcesses/MCmasses_PYTHIA8.inc
+patching file Template/LO/bin/internal/Gridpack/run.sh
+patching file madgraph/iolibs/export_v4.py
+patching file madgraph/various/cluster.py
+patching file madgraph/interface/amcatnlo_run_interface.py
+patching file Template/NLO/Source/setrun.f
+patching file Template/NLO/SubProcesses/madfks_plot.f
+patching file Template/NLO/SubProcesses/reweight_xsec_events.f
+patching file Template/LO/Source/make_opts
+patching file Template/NLO/SubProcesses/reweight0.inc
+patching file madgraph/various/banner.py
+patching file madgraph/interface/reweight_interface.py
+patching file Template/LO/SubProcesses/refine.sh
+patching file Template/LO/SubProcesses/refine_splitted.sh
+patching file Template/LO/SubProcesses/survey.sh
+patching file Template/NLO/SubProcesses/ajob_template
+patching file Template/NLO/SubProcesses/reweight_xsec_events.local
+patching file madgraph/various/cluster.py
+patching file madgraph/various/cluster.py
+patching file Template/LO/Source/make_opts
+patching file Template/NLO/Source/make_opts.inc
+patching file madgraph/iolibs/export_v4.py
+patching file madgraph/iolibs/template_files/pdf_opendata.f
+patching file madgraph/iolibs/template_files/pdf_wrap_lhapdf.f
+patching file Template/LO/Source/PDF/pdf_lhapdf6.cc
+patching file Template/NLO/Source/PDF/pdf_lhapdf6.cc
+patching file madgraph/iolibs/template_files/pdf_wrap_lhapdf.f
+patching file Template/LO/Source/make_opts
+patching file Template/NLO/Source/make_opts.inc
+[?1034h************************************************************
+*                                                          *
+*                     W E L C O M E to                     *
+*              M A D G R A P H 5 _ a M C @ N L O           *
+*                                                          *
+*                                                          *
+*                 *                       *                *
+*                   *        * *        *                  *
+*                     * * * * 5 * * * *                    *
+*                   *        * *        *                  *
+*                 *                       *                *
+*                                                          *
+*         VERSION 2.4.2                 2016-06-10         *
+*                                                          *
+*    The MadGraph5_aMC@NLO Development Team - Find us at   *
+*    https://server06.fynu.ucl.ac.be/projects/madgraph     *
+*                            and                           *
+*            http://amcatnlo.web.cern.ch/amcatnlo/         *
+*                                                          *
+*               Type 'help' for in-line help.              *
+*           Type 'tutorial' to learn how MG5 works         *
+*    Type 'tutorial aMCatNLO' to learn how aMC@NLO works   *
+*    Type 'tutorial MadLoop' to learn how MadLoop works    *
+*                                                          *
+************************************************************
+load MG5 configuration from input/mg5_configuration.txt 
+fastjet-config does not seem to correspond to a valid fastjet-config executable (v3+). We will use fjcore instead.
+ Please set the 'fastjet'variable to the full (absolute) /PATH/TO/fastjet-config (including fastjet-config).
+ MG5_aMC> set fastjet /PATH/TO/fastjet-config
+
+lhapdf-config does not seem to correspond to a valid lhapdf-config executable. 
+Please set the 'lhapdf' variable to the (absolute) /PATH/TO/lhapdf-config (including lhapdf-config).
+Note that you can still compile and run aMC@NLO with the built-in PDFs
+ MG5_aMC> set lhapdf /PATH/TO/lhapdf-config
+
+Using default eps viewer "evince". Set another one in ./input/mg5_configuration.txt
+Using default web browser "firefox". Set another one in ./input/mg5_configuration.txt
+import /afs/cern.ch/work/c/cmantill/public/Gen/gridpacks2018/genproductions/bin/MadGraph5_aMCatNLO/cards/production/2017/ZJets_LO_MLM/ZJetsToQQ_HT-800toInf/cards/production/2017/ZJets_LO_MLM/ZJetsToQQ_HT-800toInf/_gridpack/work/MG5_aMC_v2_4_2/mgconfigscript
+The import format was not given, so we guess it as command
+set auto_update 0
+save options --auto
+save configuration file to /afs/cern.ch/work/c/cmantill/public/Gen/gridpacks2018/genproductions/bin/MadGraph5_aMCatNLO/cards/production/2017/ZJets_LO_MLM/ZJetsToQQ_HT-800toInf/cards/production/2017/ZJets_LO_MLM/ZJetsToQQ_HT-800toInf/_gridpack/work/MG5_aMC_v2_4_2/input/mg5_configuration.txt
+set automatic_html_opening False
+This option will be the default in any output that you are going to create in this session.
+In order to keep this changes permanent please run 'save options'
+set lhapdf /cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/lhapdf/6.2.1/share/LHAPDF/../../bin/lhapdf-config
+set lhapdf to /cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/lhapdf/6.2.1/share/LHAPDF/../../bin/lhapdf-config
+save options --auto
+save configuration file to /afs/cern.ch/work/c/cmantill/public/Gen/gridpacks2018/genproductions/bin/MadGraph5_aMCatNLO/cards/production/2017/ZJets_LO_MLM/ZJetsToQQ_HT-800toInf/cards/production/2017/ZJets_LO_MLM/ZJetsToQQ_HT-800toInf/_gridpack/work/MG5_aMC_v2_4_2/input/mg5_configuration.txt
+set run_mode 2
+This option will be the default in any output that you are going to create in this session.
+In order to keep this changes permanent please run 'save options'
+save options
+save configuration file to /afs/cern.ch/work/c/cmantill/public/Gen/gridpacks2018/genproductions/bin/MadGraph5_aMCatNLO/cards/production/2017/ZJets_LO_MLM/ZJetsToQQ_HT-800toInf/cards/production/2017/ZJets_LO_MLM/ZJetsToQQ_HT-800toInf/_gridpack/work/MG5_aMC_v2_4_2/input/mg5_configuration.txt
+quit
+ 
+
+ 
+
+2017-09-28 23:05:39 URL:https://cms-project-generators.web.cern.ch/cms-project-generators/SysCalc_V1.1.6.tar.gz [38825/38825] -> "SysCalc_V1.1.6.tar.gz" [1]
+cd src; make
+make[1]: Entering directory `/afs/cern.ch/work/c/cmantill/public/Gen/gridpacks2018/genproductions/bin/MadGraph5_aMCatNLO/cards/production/2017/ZJets_LO_MLM/ZJetsToQQ_HT-800toInf/cards/production/2017/ZJets_LO_MLM/ZJetsToQQ_HT-800toInf/_gridpack/work/MG5_aMC_v2_4_2/SysCalc/src'
+gfortran -c alfas_functions.f
+g++ -O -DDROP_CGAL -I../include -I/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/boost/1.51.0-cms2/include -I/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/lhapdf/6.2.1/include -c SysCalc.cc
+g++ -O -DDROP_CGAL -I../include -I/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/boost/1.51.0-cms2/include -I/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/lhapdf/6.2.1/include -c tinyxml2.cpp
+g++ -O -DDROP_CGAL -I../include -I/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/boost/1.51.0-cms2/include -I/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/lhapdf/6.2.1/include -c sys_calc.cc
+g++ -o ../sys_calc SysCalc.o tinyxml2.o alfas_functions.o sys_calc.o -L/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/lhapdf/6.2.1/lib -lLHAPDF -lgfortran
+make[1]: Leaving directory `/afs/cern.ch/work/c/cmantill/public/Gen/gridpacks2018/genproductions/bin/MadGraph5_aMCatNLO/cards/production/2017/ZJets_LO_MLM/ZJetsToQQ_HT-800toInf/cards/production/2017/ZJets_LO_MLM/ZJetsToQQ_HT-800toInf/_gridpack/work/MG5_aMC_v2_4_2/SysCalc/src'
+/afs/cern.ch/user/c/cmantill/work/public/Gen/gridpacks2018/genproductions/bin/MadGraph5_aMCatNLO/cards/production/2017/ZJets_LO_MLM/ZJetsToQQ_HT-800toInf/cards/production/2017/ZJets_LO_MLM/ZJetsToQQ_HT-800toInf/_gridpack/work
+Card directory not provided

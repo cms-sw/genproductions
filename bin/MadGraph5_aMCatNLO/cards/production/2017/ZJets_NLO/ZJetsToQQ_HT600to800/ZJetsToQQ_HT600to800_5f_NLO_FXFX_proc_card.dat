@@ -1,0 +1,10 @@
+import model loop_sm-ckm_no_b_mass
+define p = p b b~
+define j = j b b~
+define q = j 
+
+generate p p > z, z > j j $$ h [QCD] @0
+add process p p > z j, z > j j $$ h [QCD] @1
+add process p p > z j j, z > j j $$ h [QCD] @2
+
+output ZJetsToQQ_HT600to800_5f_NLO_FXFX -nojpeg
