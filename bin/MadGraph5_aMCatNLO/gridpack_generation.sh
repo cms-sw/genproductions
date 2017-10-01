@@ -382,7 +382,7 @@ elif [ "${jobstep}" = "INTEGRATE" ] || [ "${jobstep}" = "ALL" ]; then
   echo "WARNING: If you changed the process card you need to clean the folder and run from scratch"
 
   if [ "$is5FlavorScheme" -eq -1 ]; then
-    if tail -n 20 $LOGFILE_NAME*.log | grep -q -e "^p *=.*b\~.*b" -e "^p *=.*b.*b\~"; then 
+    if cat $LOGFILE_NAME*.log | grep -q -e "^p *=.*b\~.*b" -e "^p *=.*b.*b\~"; then 
         is5FlavorScheme=1
     else
         is5FlavorScheme=0
