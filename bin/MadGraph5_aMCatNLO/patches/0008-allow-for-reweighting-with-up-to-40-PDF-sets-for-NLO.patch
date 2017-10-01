@@ -67,3 +67,27 @@ index 9378184..e8ce9b5 100755
 -- 
 1.7.1
 
+
+--- a/Template/NLO/FixedOrderAnalysis/HwU.inc	2016-06-11 00:38:14.000000000 +0800
++++ b/Template/NLO/FixedOrderAnalysis/HwU.inc	2017-10-01 11:56:48.115254232 +0800
+@@ -3,7 +3,7 @@
+       integer max_plots,max_bins,max_wgts,max_points
+       parameter (max_plots=200)
+       parameter (max_bins=100)
+-      parameter (max_wgts=1024)
++      parameter (max_wgts=2224)
+       parameter (max_points=max_plots*40)
+ 
+       logical booked(max_plots)
+
+--- a/Template/NLO/SubProcesses/c_weight.inc	2016-06-11 00:38:14.000000000 +0800
++++ b/Template/NLO/SubProcesses/c_weight.inc	2017-10-01 11:57:11.879254849 +0800
+@@ -1,7 +1,7 @@
+ *     -*-fortran-*-
+ 
+       integer max_contr,max_wgt,max_iproc
+-      parameter (max_contr=128,max_wgt=1024,max_iproc=100)
++      parameter (max_contr=128,max_wgt=2224,max_iproc=100)
+       logical H_event(max_contr)
+       integer nFKS(max_contr),itype(max_contr),QCDpower(max_contr)
+      $     ,pdg(nexternal,0:max_contr),pdg_uborn(nexternal,0:max_contr)
