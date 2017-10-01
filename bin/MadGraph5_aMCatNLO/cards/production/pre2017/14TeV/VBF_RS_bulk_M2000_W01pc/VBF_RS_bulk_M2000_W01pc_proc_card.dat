@@ -1,6 +1,4 @@
 set group_subprocesses Auto
-define p = g u c d s u~ c~ d~ s~
-define j = g u c d s u~ c~ d~ s~
 import model RS_bulk_ktilda
 generate p p > y j j / g h QTD=2 , ( y > h h , h >  b b~ )
 output VBF_RS_bulk_M2000_W01pc -nojpeg
