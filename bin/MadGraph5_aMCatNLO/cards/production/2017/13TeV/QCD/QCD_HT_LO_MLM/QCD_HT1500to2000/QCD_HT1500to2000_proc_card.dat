@@ -1,0 +1,7 @@
+import model sm-ckm_no_b_mass
+# Specify process(es) to run
+generate p p > j j @0
+add process p p > j j j @1
+add process p p > j j j j @2
+# Output processes to MadEvent directory
+output QCD_HT1500to2000 -nojpeg

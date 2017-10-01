@@ -1,4 +1,4 @@
-From ddfc18a9d88b70282ad7322450e8ff8578062874 Mon Sep 17 00:00:00 2001
+From ddfc18a9d88b70282ad7322440e8ff8578062874 Mon Sep 17 00:00:00 2001
 From: Josh Bendavid <Josh.Bendavid@cern.ch>
 Date: Tue, 28 Jun 2016 23:03:49 +0200
 Subject: [PATCH 8/8] allow for reweighting with up to 40 PDF sets (for NLO process generation)
@@ -31,6 +31,15 @@ diff --git a/Template/NLO/SubProcesses/reweight0.inc b/Template/NLO/SubProcesses
 index 5329885..5907f1f 100644
 --- a/Template/NLO/SubProcesses/reweight0.inc
 +++ b/Template/NLO/SubProcesses/reweight0.inc
+@@ -66,7 +66,7 @@
+ c
+       integer maxscales,maxPDFs
+       parameter (maxscales=9)
+-      parameter (maxPDFs=200)
++      parameter (maxPDFs=1500)
+ 
+ c New format to allow for multiple PDF sets and scales (both functional form
+ c and normal)
 @@ -71,7 +71,7 @@ c
  c New format to allow for multiple PDF sets and scales (both functional form
  c and normal)
