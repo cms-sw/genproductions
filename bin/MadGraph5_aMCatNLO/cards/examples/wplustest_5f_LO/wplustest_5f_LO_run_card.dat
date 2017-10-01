@@ -49,7 +49,7 @@
 # PDF CHOICE: this automatically fixes also alpha_s and its evol.    *
 #*********************************************************************
  'lhapdf'    = pdlabel     ! PDF set                                  
-  260000    = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number 
+  $DEFAULT_PDF_SETS = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number 
 #*********************************************************************
 # Renormalization and factorization scales                           *
 #*********************************************************************
