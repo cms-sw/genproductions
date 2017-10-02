@@ -35,18 +35,18 @@ queue=${3}
 # processing options
 jobstep=${4}
 
-if [ -z "$5" ]
+if [ -n "$5" ]
   then
-    scram_arch=slc6_amd64_gcc481
-  else
     scram_arch=${5}
+  else
+    scram_arch=slc6_amd64_gcc481
 fi
 
-if [ -z "$6" ]
+if [ -n "$6" ]
   then
-    cmssw_version=CMSSW_7_1_28
-  else
     cmssw_version=${6}
+  else
+    cmssw_version=CMSSW_7_1_30
 fi
 
 # jobstep can be 'ALL','CODEGEN', 'INTEGRATE', 'MADSPIN'
@@ -150,8 +150,6 @@ MGBASEDIRORIG=MG5_aMC_v2_4_2
 
 isscratchspace=0
 
-is5FlavorScheme=-1
-
 if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   #directory doesn't exist, create it and set up environment
   
@@ -184,7 +182,7 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   #############################################
   #Copy, Unzip and Delete the MadGraph tarball#
   #############################################
-  wget --no-check-certificate ${MGSOURCE}
+  wget --no-verbose --no-check-certificate ${MGSOURCE}
   tar xzf ${MG}
   rm $MG
 
@@ -209,7 +207,7 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
 
   LHAPDFINCLUDES=`$LHAPDFCONFIG --incdir`
   LHAPDFLIBS=`$LHAPDFCONFIG --libdir`
-  BOOSTINCLUDES=`scram tool tag boost INCLUDE`
+  export BOOSTINCLUDES=`scram tool tag boost INCLUDE`
 
   echo "set auto_update 0" > mgconfigscript
   echo "set automatic_html_opening False" >> mgconfigscript
@@ -263,7 +261,7 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   ./bin/mg5_aMC mgconfigscript
 
   #get syscalc and compile
-  wget --no-check-certificate ${SYSCALCSOURCE}
+  wget --no-verbose --no-check-certificate ${SYSCALCSOURCE}
   tar xzf ${SYSCALC}
   rm $SYSCALC
 
@@ -281,7 +279,7 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
       #get needed BSM model
       if [[ $model = *[!\ ]* ]]; then
         echo "Loading extra model $model"
-        wget --no-check-certificate https://cms-project-generators.web.cern.ch/cms-project-generators/$model	
+        wget --no-verbose --no-check-certificate https://cms-project-generators.web.cern.ch/cms-project-generators/$model	
         cd models
         if [[ $model == *".zip"* ]]; then
           unzip ../$model
@@ -349,8 +347,9 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   sed -i '$ a display multiparticles' ${name}_proc_card.dat
   ./$MGBASEDIRORIG/bin/mg5_aMC ${name}_proc_card.dat
  
-  if tail -n 20 $name*.log| grep -q -e "^p *=.*b\~.*b" -e "^p *=.*b.*b\~"; then 
-      is5FlavorScheme=1
+  is5FlavorScheme=0
+  if tail -n 20 $LOGFILE | grep -q -e "^p *=.*b\~.*b" -e "^p *=.*b.*b\~"; then 
+    is5FlavorScheme=1
   fi
 
   #*FIXME* workaround for broken set cluster_queue handling
@@ -377,11 +376,6 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   fi
 
 elif [ "${jobstep}" = "INTEGRATE" ] || [ "${jobstep}" = "ALL" ]; then  
-  if [[ is5FlavorScheme -le -1 ]]; then
-    if tail -n 20 ${name}*.log | grep -q -e "^p *=.*b\~.*b" -e "^p *=.*b.*b\~"; then 
-        is5FlavorScheme=1
-    fi
-  fi
   echo "Reusing existing directory assuming generated code already exists"
   echo "WARNING: If you changed the process card you need to clean the folder and run from scratch"
   
@@ -480,35 +474,23 @@ fi
 
 if grep -q -e "\$DEFAULT_PDF_SETS" -e "\$DEFAULT_PDF_MEMBERS" $CARDSDIR/${name}_run_card.dat; then
     echo "INFO: Using default PDF sets for 2017 production"
-    # 5F PDF
-    pdflistFile=$(git rev-parse --show-toplevel)/MetaData/pdflist_5f_2017.dat
-    if [ $is5FlavorScheme -neq 1 ]; then
-        # 4F PDF
-        pdflistFile=$(git rev-parse --show-toplevel)/MetaData/pdflist_4f_2017.dat
+    script_folder=$(git rev-parse --show-toplevel)/Utilities/scripts
+    pdfExtraArgs=""
+
+    if [ $is5FlavorScheme -eq 1 ]; then
+        pdfExtraArgs+="--is5FlavorScheme"
     fi
-    pdfids=""
-    storeMembers=""
-    while read lhaid setName members; do 
-        if [[ $pdfids -ne "" ]]; then
-            pdfids+=","
-            storeMembers+=","
-        fi
-        pdfids+=$lhaid
-        if [[ $members == "all" ]]; then
-            storeMembers+="True"
-        else
-            storeMembers+="False"
-        fi
-    done < <(grep -v "^#" $pdflistFile)
+
     if [ "$isnlo" -gt "0" ]; then
-        echo ${pdfids}
-        echo $name
-        sed "s/\$DEFAULT_PDF_SETS/${pdfids}/" $CARDSDIR/${name}_run_card.dat > ./Cards/run_card.dat
-        sed -i "s/ *\$DEFAULT_PDF_MEMBERS/${storeMembers}/" ./Cards/run_card.dat
-    elif [ "$isnlo" -eq "0" ]; then
-        sed "s/\$DEFAULT_PDF_SETS/${pdfids/,*/}/" $CARDSDIR/${name}_run_card.dat > ./Cards/run_card.dat
-        sed -i "s/ *\$DEFAULT_PDF_MEMBERS.*=.*//" ./Cards/run_card.dat
+        pdfExtraArgs+="--isNLO"
+        pdfMembersToStore=$(python ${script_folder}/getMG5_aMC_PDFInputs.py -f members -c 2017 $pdfExtraArgs)
+        sed -i "s/\$DEFAULT_PDF_MEMBERS/$pdfMembersToStore/" ./Cards/run_card.dat 
+    else
+        sed -i "s/ *\$DEFAULT_PDF_MEMBERS.*=.*//g" ./Cards/run_card.dat
     fi
+
+    pdfSetList=$(python ${script_folder}/getMG5_aMC_PDFInputs.py -f sets -c 2017 $pdfExtraArgs)
+    sed "s/\$DEFAULT_PDF_SETS/$pdfSetList/" $CARDSDIR/${name}_run_card.dat > ./Cards/run_card.dat
 else
     echo ""
     echo "WARNING: You've chosen not to use the PDF sets recommended for 2017 production!"

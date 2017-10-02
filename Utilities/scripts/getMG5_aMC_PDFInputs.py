@@ -1,4 +1,4 @@
-from python.PDFSetsChooserTools import PDFSetHelper_MG5_aMC_NLO
+from python.PDFSetsChooserTools import PDFSetHelper_MG5_aMC
 import argparse
 
 parser = argparse.ArgumentParser()
@@ -8,10 +8,12 @@ parser.add_argument('-c', '--pdf_choice', choices=['custom', '2016', '2017'],
         required=True, help="Use 2017 or 2016 defaults or custom choice")
 parser.add_argument('--is5FlavorScheme', action='store_true',
         help='Use PDF set for 5 flavor scheme (vs. 4F if false)')
+parser.add_argument('--isNLO', action='store_true',
+        help='NLO vs. LO MG5_aMC@NLO')
 
 args = parser.parse_args()
 
-helper = PDFSetHelper_MG5_aMC_NLO()
+helper = PDFSetHelper_MG5_aMC()
 if args.pdf_choice:
     helper.readDefaultPDFsFile(args.is5FlavorScheme)
 else:
@@ -20,8 +22,9 @@ else:
     exit(1)
 
 if args.format == "sets":
-    print helper.getListOfLHAPDFIds()
+    print helper.getListOfLHAPDFIds(args.isNLO)
     exit(0)
 elif args.format == "members":
+    # Only used for NLO 
     print helper.getListOfMembersToStore()
     exit(0)

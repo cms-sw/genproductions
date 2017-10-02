@@ -27,12 +27,14 @@ class PDFSetHelper(object):
     def getPDFData(self):
         return self.pdf_data
         
-class PDFSetHelper_MG5_aMC_NLO(PDFSetHelper):
+class PDFSetHelper_MG5_aMC(PDFSetHelper):
     def __init__(self, pdflist_file=None):
-        super(PDFSetHelper_MG5_aMC_NLO, self).__init__(pdflist_file)
+        super(PDFSetHelper_MG5_aMC, self).__init__(pdflist_file)
 
-    def getListOfLHAPDFIds(self):
-        return ','.join([x[0] for x in self.pdf_data])
+    def getListOfLHAPDFIds(self, isNLO):
+        if isNLO:
+            return ','.join([x[0] for x in self.pdf_data])
+        return self.pdf_data[0][0]
 
     def getListOfMembersToStore(self):
         return ','.join(['True' if x[2] > 1 else 'False' for x in self.pdf_data])
