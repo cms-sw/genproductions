@@ -29,7 +29,7 @@
 # Warning: Do not generate more than 1M events in a single run       *
 # If you want to run Pythia, avoid more than 50k events in a run.    *
 #*********************************************************************
-  250 = nevents ! Number of unweighted events requested 
+     1000     = nevents ! Number of unweighted events requested 
       0       = iseed   ! rnd seed (0=assigned automatically=default))
 #*********************************************************************
 # Collider type and energy                                           *
@@ -38,8 +38,8 @@
 #*********************************************************************
         1     = lpp1    ! beam 1 type 
         1     = lpp2    ! beam 2 type
-     6500     = ebeam1  ! beam 1 total energy in GeV
-     6500     = ebeam2  ! beam 2 total energy in GeV
+     7000     = ebeam1  ! beam 1 total energy in GeV
+     7000     = ebeam2  ! beam 2 total energy in GeV
 #*********************************************************************
 # Beam polarization from -100 (left-handed) to 100 (right-handed)    *
 #*********************************************************************
@@ -48,8 +48,8 @@
 #*********************************************************************
 # PDF CHOICE: this automatically fixes also alpha_s and its evol.    *
 #*********************************************************************
- 'lhapdf'    = pdlabel     ! PDF set                                  
-  $DEFAULT_PDF_SETS = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number 
+ 'lhapdf'  = pdlabel     ! PDF set                                     
+ 263400    = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number
 #*********************************************************************
 # Renormalization and factorization scales                           *
 #*********************************************************************
@@ -84,7 +84,7 @@
 #**********************************
 # BW cutoff (M+/-bwcutoff*Gamma)
 #**********************************
-  15000  = bwcutoff      ! (M+/-bwcutoff*Gamma)
+  15  = bwcutoff      ! (M+/-bwcutoff*Gamma)
 #**********************************************************
 # Apply pt/E/eta/dr/mij cuts on decay products or not
 # (note that etmiss/ptll/ptheavy/ht/sorted cuts always apply)
@@ -107,10 +107,10 @@
  10  = ptj       ! minimum pt for the jets 
   0  = ptb       ! minimum pt for the b 
  10  = pta       ! minimum pt for the photons 
-  0  = ptl       ! minimum pt for the charged leptons 
+ 10  = ptl       ! minimum pt for the charged leptons 
   0  = misset    ! minimum missing Et (sum of neutrino's momenta)
   0  = ptheavy   ! minimum pt for one heavy final state
-  0  = ptonium   ! minimum pt for the quarkonium states
+ 1.0 = ptonium   ! minimum pt for the quarkonium states
  -1  = ptjmax    ! maximum pt for the jets
  -1  = ptbmax    ! maximum pt for the b
  -1  = ptamax    ! maximum pt for the photons
@@ -130,7 +130,7 @@
 #*********************************************************************
 # Maximum and minimum absolute rapidity (for max, -1 means no cut)   *
 #*********************************************************************
-   5  = etaj    ! max rap for the jets 
+  -1  = etaj    ! max rap for the jets 
   -1  = etab    ! max rap for the b
   -1  = etaa    ! max rap for the photons 
   -1  = etal    ! max rap for the charged leptons 
@@ -142,7 +142,7 @@
 #*********************************************************************
 # Minimum and maximum DeltaR distance                                *
 #*********************************************************************
- 0.1 = drjj    ! min distance between jets 
+ 0.0001 = drjj    ! min distance between jets 
  0   = drbb    ! min distance between b's 
  0   = drll    ! min distance between leptons 
  0   = draa    ! min distance between gammas 
