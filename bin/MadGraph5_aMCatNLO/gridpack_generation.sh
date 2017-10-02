@@ -100,6 +100,7 @@ fi
 RUNHOME=`pwd`
 
 LOGFILE=${RUNHOME}/${name}.log
+LOGFILE_NAME=${LOGFILE/.log/}
 if [ "${name}" != "interactive" ]; then
   exec > >(tee ${LOGFILE})
   exec 2>&1
@@ -115,6 +116,7 @@ echo "queue: ${queue}"
 echo "scram_arch: ${scram_arch}"
 echo "cmssw_version: ${cmssw_version}"
 
+is5FlavorScheme=-1
 if [ -z ${iscmsconnect:+x} ]; then iscmsconnect=0; fi
 
 # CMS Connect runs git status inside its own script.
@@ -378,6 +380,14 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
 elif [ "${jobstep}" = "INTEGRATE" ] || [ "${jobstep}" = "ALL" ]; then  
   echo "Reusing existing directory assuming generated code already exists"
   echo "WARNING: If you changed the process card you need to clean the folder and run from scratch"
+
+  if [ "$is5FlavorScheme" -eq -1 ]; then
+    if cat $LOGFILE_NAME*.log | grep -q -e "^p *=.*b\~.*b" -e "^p *=.*b.*b\~"; then 
+        is5FlavorScheme=1
+    else
+        is5FlavorScheme=0
+    fi 
+  fi
   
   cd $AFS_GEN_FOLDER
   
@@ -389,6 +399,7 @@ elif [ "${jobstep}" = "INTEGRATE" ] || [ "${jobstep}" = "ALL" ]; then
   cd $WORKDIR
 
   eval `scram runtime -sh`
+  export BOOSTINCLUDES=`scram tool tag boost INCLUDE`
 
   #LHAPDFCONFIG=`echo "$LHAPDF_DATA_PATH/../../bin/lhapdf-config"`
 
@@ -711,7 +722,6 @@ fi
 
 echo "Saving log file(s)"
 #copy log file
-LOGFILE_NAME=${LOGFILE/.log/}
 for i in ${LOGFILE_NAME}*.log; do 
     cp $i ${i/$LOGFILE_NAME/gridpack_generation}; 
 done
