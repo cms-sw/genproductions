@@ -163,7 +163,7 @@ sed -i 's/Input file powheg.input contained:/Process: '$process'\nInput file pow
 pwd
 cp ${file}_final.lhe ${WORKDIR}/${file}_tmp.lhe
 cd ${WORKDIR}
-partialcommand=`cat JHUGen.input`
+partialcommand=`cat JHUGen.input | sed "s/SEED/${seed}"`
 jhugencommand="./JHUGen $partialcommand ReadLHE=${file}_tmp.lhe DataFile=${file}_final"
 echo ${jhugencommand}
 ${jhugencommand}
