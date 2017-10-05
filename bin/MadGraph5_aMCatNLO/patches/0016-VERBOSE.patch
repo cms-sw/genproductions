@@ -1,0 +1,12 @@
+--- a/madgraph/various/banner.py        2016-06-11 00:38:14.000000000 +0800
++++ b/madgraph/various/banner.py        2017-10-05 21:28:40.794461532 +0800
+@@ -982,7 +982,7 @@
+                 value = value.strip()
+                 if value.startswith('[') and value.endswith(']'):
+                     value = value[1:-1]
+-                value = filter(None, re.split(r'(?:(?<!\\)\s)|,', value, re.VERBOSE)) 
++                value = filter(None, re.split(r'(?:(?<!\\)\s)|,', value, flags=re.VERBOSE)) 
+             elif not hasattr(value, '__iter__'):
+                 value = [value]
+             elif isinstance(value, dict):
+
