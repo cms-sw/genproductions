@@ -21,17 +21,14 @@ set ms_dir ./madspingrid
 #to properly limit the number of concurrent processes for grid running
 set max_running_process 1
 #
-# specify the decay for the final state particles
- decay t > w+ b, w+ > all all
- decay t~ > w- b~, w- > all all
- decay w+ > all all
- decay w- > all all
 
-#define ell+ = e+ mu+ ta+
-#define ell- = e- mu- ta-
+define ell+ = e+ mu+ ta+
+define ell- = e- mu- ta-
+define q = u u~ d d~ c c~ s s~ b b~
 
 # specify the decay for the final state particles
-#decay w+ > ell+ vl
-#decay w- > ell- vl~
+decay t > w+ b, w+ > q q
+decay t~ > w- b~, w- > ell- vl~
+
 # running the actual code
 launch
