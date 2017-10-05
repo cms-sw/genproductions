@@ -22,8 +22,6 @@
 #************************************************************
 
 import model sm-ckm_no_b_mass
-define l+ = e+ mu+
-define l- = e- mu-
 define vl = ve vm vt
 define vl~ = ve~ vm~ vt~
 # Define multiparticle labels
