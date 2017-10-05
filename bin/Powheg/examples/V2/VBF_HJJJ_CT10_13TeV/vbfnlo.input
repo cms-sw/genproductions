@@ -1,0 +1,18 @@
+!ccccccc THIS IS THE INPUT FILE RELATED TO VBFNLO-INPUT ccccccccccccccccc
+!c
+!c      adapted from vbfnlo.dat 
+!c
+
+!   Physics parameters
+!------------------------ 
+HMASS        126.0d0         ! Higgs mass
+HWIDTH       -999d0          ! Higgs width (calculated internally, if set to -999)
+TOPMASS      172.4d0         ! Top mass
+TAU_MASS     1.7768          ! Tau mass
+BOTTOMMASS   4.855d0         ! Bottom Pole mass
+CHARMMASS    1.65d0          ! Charm Pole mass 
+FERMI_CONST  1.16637d-5      ! Fermi Constant
+WMASS        80.398d0        ! W mass
+ZMASS        91.1876d0       ! Z mass
+
+!ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc

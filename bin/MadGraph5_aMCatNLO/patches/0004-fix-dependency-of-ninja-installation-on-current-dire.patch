@@ -1,0 +1,28 @@
+From 11fbdc8fd25669f94c770bf85253a8c2823ccde6 Mon Sep 17 00:00:00 2001
+From: Josh Bendavid <Josh.Bendavid@cern.ch>
+Date: Mon, 27 Jun 2016 19:08:19 +0200
+Subject: [PATCH 4/8] fix dependency of ninja installation on current directory
+
+---
+ madgraph/iolibs/export_v4.py |    5 +++--
+ 1 files changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/madgraph/iolibs/export_v4.py b/madgraph/iolibs/export_v4.py
+index 47367e1..fe98d18 100755
+--- a/madgraph/iolibs/export_v4.py
++++ b/madgraph/iolibs/export_v4.py
+@@ -6267,8 +6267,9 @@ def ExportV4Factory(cmd, noclean, output_type='default', group_subprocesses=True
+     # An installation is required then, but only if the specified path is the
+     # default local one and that the Ninja library appears missing.
+     if requires_ninja and (not opt['ninja'] is None) and\
+-            os.path.abspath(opt['ninja'])==pjoin(MG5DIR,'HEPTools','lib') and\
+-            not os.path.isfile(pjoin(MG5DIR,'HEPTools','lib','libninja.a')):
++            not os.path.isfile(pjoin(os.path.abspath(opt['ninja']),'libninja.a')):
++            #os.path.abspath(opt['ninja'])==pjoin(MG5DIR,'HEPTools','lib') and\
++            #not os.path.isfile(pjoin(MG5DIR,'HEPTools','lib','libninja.a')):
+                 # Then install Ninja here from the tarballs in the vendor
+                 # directory so that it would work offline too.
+                 logger.info(
+-- 
+1.7.1
+

@@ -1,0 +1,59 @@
+! ZZ boson production parameters
+
+vdecaymodeZ1 11  ! PDG code for charged decay product of the vector boson (11:e-; -11:e+; ...)
+vdecaymodeZ2 11  ! PDG code for charged decay product of the vector boson (11:e-; -11:e+; ...)
+mllmin 8d0     ! Minimum invariant mass of lepton pairs from Z decay
+#dronly 0        ! default 0; if 1 only double resonant diagrams
+#zerowidth 0    ! default 0 (offshell Zs); if 1 generate Z's on shell
+withinterference 1 ! default 1; 0 switches off interfernce for same flavour charged leptons (no used
+ 
+numevts NEVENTS    ! number of events to be generated
+ih1   1           ! hadron 1 (1 for protons, -1 for antiprotons)
+ih2   1           ! hadron 2 (1 for protons, -1 for antiprotons)
+ebeam1 4000d0     ! energy of beam 1
+ebeam2 4000d0     ! energy of beam 2
+! To be set only if using LHA pdfs
+lhans1   10800    ! pdf set for hadron 1 (LHA numbering)
+lhans2   10800    ! pdf set for hadron 2 (LHA numbering)
+! To be set only if using internal mlm pdf
+#ndns1 131         ! pdf set for hadron 1 (mlm numbering)
+#ndns2 131         ! pdf set for hadron 2 (mlm numbering)
+! To be set only if using different pdf sets for the two incoming hadrons
+! QCDLambda5  0.25 ! for not equal pdf sets
+ 
+! Parameters to allow or not the use of stored data
+use-old-grid    0 ! if 1 use old grid if file pwggrids.dat is present (<> 1 regenerate)
+use-old-ubound  0 ! if 1 use norm of upper bounding function stored in pwgubound.dat, if present; 
+ 
+ncall1   300000   ! number of calls for initializing the integration grid
+itmx1    5        ! number of iterations for initializing the integration grid
+ncall2   1000000  ! number of calls for computing the integral and finding upperbounds
+itmx2    7        ! number of iterations for computing the integral and finding upper bound
+foldcsi   1       ! number of folds on csi integration
+foldy     1       ! number of folds on  y  integration
+foldphi   1       ! number of folds on phi integration
+nubound  750000   ! number of bbarra calls to setup norm of upper bounding function
+ 
+! OPTIONAL PARAMETERS
+ 
+#renscfact  1d0   ! (default 1d0) ren scale factor: muren  = muref * renscfact
+#facscfact  1d0   ! (default 1d0) fac scale factor: mufact = muref * facscfact
+#bornonly   0      ! (default 0) if 1 do Born only
+#withdamp 0        ! (default 1) if 0 do not apply (no remnants)
+testplots  1      ! (default 0, do not) do NLO and PWHG distributions
+ 
+iseed   SEED      ! initialize random number sequence
+rand1   -1      ! initialize random number sequence
+rand2   -1      ! initialize random number sequence
+ 
+#manyseeds  1      ! Used to perform multiple runs with different random
+                   ! seeds in the same directory.
+                   ! If set to 1, the program asks for an integer j;
+                   ! The file pwgseeds.dat at line j is read, and the
+                   ! integer at line j is used to initialize the random
+                   ! sequence for the generation of the event.
+                   ! The event file is called pwgevents-'j'.lhe
+ 
+ 
+withnegweights 1
+
