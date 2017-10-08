@@ -1,8 +1,10 @@
 #! /usr/bin/env python
 import argparse
+import contextlib
 import glob
 import os
 import shutil
+import subprocess
 
 aparser = argparse.ArgumentParser(description='Process benchmarks.')
 aparser.add_argument('-card'       ,'--card'      ,action='store' ,dest='card',default='JHUGen.input'      ,help='card')
@@ -23,30 +25,28 @@ def cd(newdir):
         os.chdir(prevdir)
 
 basedir=os.getcwd()
+JHUbasedir = os.path.join(basedir, args1.name+"_JHUGen")
 #Start with the basics download MCFM and add the options we care  :
-os.system('cp patches/install.sh .')
-os.system('./install.sh')
-os.system('mv JHUGenerator %s_JHUGen' % args1.name)
+with cd(JHUbasedir):
+    subprocess.check_call(["patches/install.sh"])
 
 ##Get the base files
-os.system('cp '+basedir+('/%s' % args1.card)+(' %s_JHUGen' % args1.name))
-
-os.chdir('%s_JHUGen' % (args1.name))
-os.system('make')
+shutil.copy(os.path.join(basedir, args1.card), JHUbasedir)
 
 command='./JHUGen '
-with open(basedir+'/'+args1.card,"rt")         as flabel: 
+with open(os.path.join(basedir, args1.card), "rt") as flabel: 
     for line in flabel:
         command += line.rstrip('\n')
     command += " VegasNc2=${nevt} Seed=${rnum}"
 if args1.card2 is not None:
     command += " DataFile=undecayed && ./JHUGen "
-    with open(basedir+'/'+args1.card2,"rt") as flabel:
+    with open(os.path.join(basedir, args1.card2), "rt") as flabel:
         for line in flabel:
             command += line.rstrip("\n").replace("ReadCSmax", "")  #remove CSmax so the same card can be used for generating ggH or decaying
     command += " ReadLHE=undecayed.lhe Seed=${rnum}"
-command=command+' DataFile=Out'
+command += ' DataFile=Out'
 print command
+#Note the same seed is used twice.  This sounds bad but the JHUGen processes are completely independent and use the seed in different ways.
 
 runcmsgrid = os.path.join(basedir, args1.name+"_JHUGen", "runcmsgrid.sh")
 with open(os.path.join(basedir, "runcmsgrid_template.sh")) as f, open(runcmsgrid, "w") as newf:
@@ -63,12 +63,12 @@ with cd(os.path.join(basedir, args1.name+"_JHUGen")):
         #set up the grid now so it can be read
         #but not the decay part (that is quick anyway)
         runcommand = command.split("&&")[0].replace("ReadCSmax", "").replace("${nevt}", args1.nevents).replace("${rnum}", args1.seed)
-        os.system(runcommand)
+        subprocess.check_call(runcommand.split())
         for _ in glob.glob("*.lhe"): os.remove(_)
         shutil.rmtree("data/")
     for _ in glob.glob("LSFJOB*"): shutil.rmtree(_)
     shutil.move("runcmsgrid.sh", "..")
 
 with cd(basedir):
-    os.system('tar czvf JHUGen_%s_%s_%s.tgz %s_JHUGen runcmsgrid.sh' % (args1.name,args1.name,os.environ["SCRAM_ARCH"],os.environ["CMSSW_VERSION"]))
+    subprocess.check_call(["tar", "czvf", "JHUGen_%s_%s_%s.tgz" % (args1.name,os.environ["SCRAM_ARCH"],os.environ["CMSSW_VERSION"]), "%s_JHUGen runcmsgrid.sh" % args1.name])
 
