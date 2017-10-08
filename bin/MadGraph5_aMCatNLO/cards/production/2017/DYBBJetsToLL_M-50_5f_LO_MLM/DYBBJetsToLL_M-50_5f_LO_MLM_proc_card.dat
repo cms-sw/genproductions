@@ -1,7 +1,5 @@
 import model sm-ckm_no_b_mass
 
-define p = p b b~
-define j = p
 define bb = b b~
 define l+ = e+ mu+ ta+
 define l- = e- mu- ta-
