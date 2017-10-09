@@ -31,6 +31,6 @@ iseed    SEED    ! initialize random number sequence
 leptons-nu 1
 
 
-pdfreweight 1       ! PDF reweighting
-storeinfo_rwgt 1
-withnegweights 0
+pdfreweight 0       ! PDF reweighting
+storeinfo_rwgt 0
+withnegweights 1
