@@ -362,7 +362,7 @@ if [[ -s ./JHUGen.input ]]; then
 fi
 
 ### retrieve the powheg source tar ball
-export POWHEGSRC=powhegboxV2_rev3429_date20170726.tar.gz
+export POWHEGSRC=powhegboxV2_rev3453_date20171005.tar.gz
 
 if [ "$process" = "b_bbar_4l" ]; then 
   export POWHEGSRC=powhegboxRES_Mar2017.tar.gz
@@ -848,14 +848,20 @@ grep -q "SEED" powheg.input; test $? -eq 0 || sed -i "s/^iseed.*/iseed SEED/g" p
 grep -q "manyseeds" powheg.input; test $? -eq 0 || printf "\\n\\nmanyseeds 1\\n" >> powheg.input
 grep -q "parallelstage" powheg.input; test $? -eq 0 || printf "\\nparallelstage 4\\n" >> powheg.input
 grep -q "xgriditeration" powheg.input; test $? -eq 0 || printf "\\nxgriditeration 1\\n" >> powheg.input
-sed -i "s/^pdfreweight.*/pdfreweight 0/g" powheg.input
-
-
-
+  
 # turn into single run mode
 sed -i "s/^manyseeds.*/#manyseeds 1/g" powheg.input
 sed -i "s/^parallelstage.*/#parallelstage 4/g" powheg.input
 sed -i "s/^xgriditeration/#xgriditeration 1/g" powheg.input
+
+# turn off obsolete stuff
+grep -q "pdfreweight" powheg.input; test $? -eq 0 || printf "\\n\\npdfreweight 0\\n" >> powheg.input
+grep -q "storeinfo_rwgt" powheg.input; test $? -eq 0 || printf "\\nstoreinfo_rwgt 0\\n" >> powheg.input
+grep -q "withnegweights" powheg.input; test $? -eq 0 || printf "\\nwithnegweights 1\\n" >> powheg.input
+  
+sed -i "s/^pdfreweight.*/#pdfreweight 0/g" powheg.input
+sed -i "s/^storeinfo_rwgt.*/#storeinfo_rwgt 0/g" powheg.input
+sed -i "s/^withnegweights/#withnegweights 1/g" powheg.input
 
 # parallel re-weighting calculation
 echo "rwl_group_events 2000" >> powheg.input
