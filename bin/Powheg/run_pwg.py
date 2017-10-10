@@ -356,8 +356,8 @@ if [[ -s ./JHUGen.input ]]; then
   jhugen=$(expr $jhugen + 1)
   echo "JHUGen activated!"
   #for decay weights in H->WW and H->ZZ
-  wget --no-verbose https://github.com/hroskes/genproductions/raw/master/bin/JHUGen/Pdecay/PMWWdistribution.out 
-  wget --no-verbose https://github.com/hroskes/genproductions/raw/master/bin/JHUGen/Pdecay/PMZZdistribution.out 
+  wget --no-verbose https://github.com/cms-sw/genproductions/raw/7261679b0fd6464b80479c075b10f9ba1932ab9a/bin/JHUGen/Pdecay/PMWWdistribution.out 
+  wget --no-verbose https://github.com/cms-sw/genproductions/raw/7261679b0fd6464b80479c075b10f9ba1932ab9a/bin/JHUGen/Pdecay/PMZZdistribution.out 
 
 fi
 
