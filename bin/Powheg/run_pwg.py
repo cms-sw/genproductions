@@ -1174,11 +1174,11 @@ if __name__ == "__main__":
                     test_pdf2 = n_column[1].strip()
 
             if not (test_pdf1 == test_pdf2) :
-                raise RuntimeError("ERROR: PDF settings not equal for the 2 protons: {} vs {}... Please check your datacard".format(test_pdf1, test_pdf2))
+                raise RuntimeError("ERROR: PDF settings not equal for the 2 protons: {0} vs {1}... Please check your datacard".format(test_pdf1, test_pdf2))
 
             if test_pdf1 != default_pdf :
 #                print "PDF in card: ", test_pdf1, "PDF default: ", default_pdf, test_pdf1==default_pdf
-                message = "The input card does not have the standard 2017 PDF (NNPDF31 NNLO, 306000 for 5F, 320900 for 4F): {}. Either change the card or run again with -d 1 to ignore this message.\n".format(test_pdf1)
+                message = "The input card does not have the standard 2017 PDF (NNPDF31 NNLO, 306000 for 5F, 320900 for 4F): {0}. Either change the card or run again with -d 1 to ignore this message.\n".format(test_pdf1)
 
                 if args.noPdfCheck == '0' :
                     raise RuntimeError(message)
