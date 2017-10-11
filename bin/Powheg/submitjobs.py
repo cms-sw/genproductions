@@ -32,4 +32,4 @@ for name, powhegcard, powhegmodel in samples:
   for k, v in parameters.iteritems():
     command += [k, v]
 
-subprocess.check_call(command)
+  subprocess.check_call(command)
