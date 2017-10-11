@@ -489,19 +489,19 @@ if grep -q -e "\$DEFAULT_PDF_SETS" -e "\$DEFAULT_PDF_MEMBERS" $CARDSDIR/${name}_
     pdfExtraArgs=""
 
     if [ $is5FlavorScheme -eq 1 ]; then
-        pdfExtraArgs+="--is5FlavorScheme"
+        pdfExtraArgs+="--is5FlavorScheme "
     fi
 
     if [ "$isnlo" -gt "0" ]; then
-        pdfExtraArgs+="--isNLO"
+        pdfExtraArgs+="--isNLO "
         pdfMembersToStore=$(python ${script_folder}/getMG5_aMC_PDFInputs.py -f members -c 2017 $pdfExtraArgs)
-        sed -i "s/\$DEFAULT_PDF_MEMBERS/$pdfMembersToStore/" ./Cards/run_card.dat 
+        sed "s/\$DEFAULT_PDF_MEMBERS/$pdfMembersToStore/" $CARDSDIR/${name}_run_card.dat > ./Cards/run_card.dat
     else
-        sed -i "s/ *\$DEFAULT_PDF_MEMBERS.*=.*//g" ./Cards/run_card.dat
+        sed "s/ *\$DEFAULT_PDF_MEMBERS.*=.*//g" $CARDSDIR/${name}_run_card.dat > ./Cards/run_card.dat 
     fi
 
     pdfSetList=$(python ${script_folder}/getMG5_aMC_PDFInputs.py -f sets -c 2017 $pdfExtraArgs)
-    sed "s/\$DEFAULT_PDF_SETS/$pdfSetList/" $CARDSDIR/${name}_run_card.dat > ./Cards/run_card.dat
+    sed -i "s/\$DEFAULT_PDF_SETS/$pdfSetList/" ./Cards/run_card.dat
 else
     echo ""
     echo "WARNING: You've chosen not to use the PDF sets recommended for 2017 production!"
@@ -616,6 +616,7 @@ else
 #   set +e
   cat makegrid.dat | ./bin/generate_events pilotrun
   echo "finished pilot run"
+  exit 1
 
   cd $WORKDIR
   
