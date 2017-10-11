@@ -1,9 +1,7 @@
 #!/usr/bin/env python
 
-from collections import namedtuple
+import os
 import subprocess
-
-Sample = namedtuple("Sample", "name powhegcard powhegmodel")
 
 parametersbase = {
   "-p": "f",
@@ -14,19 +12,20 @@ parametersbase = {
 }
 
 samples = [
-  Sample("ggH", "gg_H_quark-mass-effects_NNPDF30_14TeV", "gg_H_quark-mass-effects"),
-  Sample("WplusH", "HWplusJ_HanythingJ_NNPDF30_14TeV", "HWJ"),
-  Sample("WminusH", "HWminusJ_HanythingJ_NNPDF30_14TeV", "HWJ"),
-  Sample("minloHJJ", "HJJ_NNPDF30_14TeV", "HJJ"),
+  ("ggH", "gg_H_quark-mass-effects_NNPDF30_14TeV", "gg_H_quark-mass-effects"),
+  ("WplusH", "HWplusJ_HanythingJ_NNPDF30_14TeV", "HWJ"),
+  ("WminusH", "HWminusJ_HanythingJ_NNPDF30_14TeV", "HWJ"),
+  ("minloHJJ", "HJJ_NNPDF30_14TeV", "HJJ"),
 ]
 
 for name, powhegcard, powhegmodel in samples:
   parameters = {
-    "-i": powhegcard+"/"+powhegcard+"_M125.input",
+    "-i": os.path.join("production", "pre2017", "14TeV", powhegcard, powhegcard+"_M125.input"),
     "-f": name,
     "-m": powhegmodel,
   }
   parameters.update(parametersbase)
+  assert os.path.exists(parameters["-i"]) and os.path.exists(parameters["-g"])
 
   command = ["./run_pwg.py"]
   for k, v in parameters.iteritems():
