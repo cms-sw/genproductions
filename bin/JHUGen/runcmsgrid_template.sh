@@ -46,5 +46,5 @@ cd BASEDIR/
 
 GENCOMMAND
 
-mv Out.lhe ../cmsgrid_final.lhe
-cd ..
+mv Out.lhe $LHEWORKDIR/cmsgrid_final.lhe
+cd $LHEWORKDIR
