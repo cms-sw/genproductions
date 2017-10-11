@@ -507,6 +507,7 @@ if [ $jhugen = 1 ]; then
   tar zxf JHUGenerator.${jhugenversion}.tar.gz
   cd JHUGenerator
   sed -i -e "s#Comp = ifort#Comp = gfort#g" makefile
+  sed -i -e "s#linkMELA = Yes#linkMELA = No#g" makefile
   make
 
   mkdir -p ${WORKDIR}/${name}
