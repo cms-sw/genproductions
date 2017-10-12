@@ -1,4 +1,4 @@
-card = "Process={spin} PChannel={PChannel} VegasNc0=1000000 VegasNc2=NEVT MReso={mass} GaReso={width} DecayMode1={DecayMode1} DecayMode2={DecayMode2} {couplings} LHAPDF=NNPDF30_lo_as_0130/NNPDF30_lo_as_0130.info Seed=SEED ReadCSmax"
+card = "Process={spin} PChannel={PChannel} VegasNc0=1000000 MReso={mass} GaReso={width} DecayMode1={DecayMode1} DecayMode2={DecayMode2} {couplings} LHAPDF=NNPDF30_lo_as_0130/NNPDF30_lo_as_0130.info ReadCSmax"
 cardname = "{spin_forname}{prod}To{decaymode}To{decaymode_final}_{width_forname}_M-{mass}_13TeV-JHUgenV6.input"
 
 masses = [300, 350, 400, 500, 600, 750, 900, 1200, 1500, 2000, 3000, 4000, 5000]
