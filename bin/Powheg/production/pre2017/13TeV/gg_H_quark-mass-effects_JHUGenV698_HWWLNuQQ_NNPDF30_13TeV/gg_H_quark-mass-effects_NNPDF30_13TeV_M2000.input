@@ -1,8 +1,6 @@
 numevts NEVENTS    ! number of events to be generated
 ih1   1           ! hadron 1 (1 for protons, -1 for antiprotons)
 ih2   1           ! hadron 2 (1 for protons, -1 for antiprotons)
-#ndns1 131         ! pdf set for hadron 1 (mlm numbering)
-#ndns2 131         ! pdf set for hadron 2 (mlm numbering)
 ebeam1 6500     ! energy of beam 1
 ebeam2 6500    ! energy of beam 2
 
@@ -32,32 +30,13 @@ xupbound 2d0     ! increase upper bound for radiation generation
 
 renscfact  1   ! (default 1d0) ren scale factor: muren  = muref * renscfact
 facscfact  1   ! (default 1d0) fac scale factor: mufact = muref * facscfact
-#ptsupp     0d0   ! (default 0d0)  mass param for Born suppression factor (generation cut) If < 0 suppfact = 1
-#bornonly   0      ! (default 0) if 1 do Born only
-#smartsig   0      ! (default 1) remember equal amplitudes (0 do not remember)
-#withsubtr  0      ! (default 1) subtract real counterterms (0 do not subtract)
-#withdamp    1      ! (default 0, do not use) use Born-zero damping factor
-#ptsqmin    0.8   ! (default 0.8 GeV) minimum pt for generation of radiation
-#charmthr   1.5    ! (default 1.5 GeV) charm treshold for gluon splitting 
-#bottomthr  5.0    ! (default 5.0 GeV) bottom treshold for gluon splitting
 testplots  1      ! (default 0, do not) do NLO and PWHG distributions
 hfact    247.5d0    ! (default no dumping factor) dump factor for high-pt radiation: > 0 dumpfac=h**2/(pt2+h**2)
-#testsuda  1       ! (default 0, do not test) test Sudakov form factor
-#radregion 1       ! (default all regions) only generate radiation in the selected singular region  
-#charmthrpdf  1.5  ! (default 1.5 GeV) pdf charm treshold
-#bottomthrpdf 5.0  ! (default 5.0 GeV) pdf bottom treshold
-# mur,muf settings
 runningscale 1    ! 0 = scales equal to the Higgs pole mass; 1  = scales equal to the Higgs virtuality; 
                   ! 2 = scales equal to the Higgs pole mass for Born-like configuration and to the transverse mass for real emission contribution
-# When using 2 uncomment the following option
-# btlscalereal 1
 
 iseed    SEED    ! initialize random number sequence 
-#rand1    32      ! initialize random number sequence 
-#rand2    0      ! initialize random number sequence 
 
-#iupperisr 1 ! (default 1) choice of ISR upper bounding functional form 
-#iupperfsr 2 ! (default 2) choice of FSR upper bounding functional form 
 
 ! GGF_H production:
 ! **** Mandatory parameters for ALL models ****
