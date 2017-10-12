@@ -73,18 +73,10 @@ tdec/cmass   1.5
 tdec/sin2cabibbo 0.051
 
 # parameters for parallel runs (remove '#' below for parallel runs):
-#manyseeds  1       ! Used to perform multiple runs with different random
-                   ! seeds in the same directory.
-                   ! If set to 1, the program asks for an integer j;
-                   ! The file pwgseeds.dat at line j is read, and the
-                   ! integer at line j is used to initialize the random
-                   ! sequence for the generation of the event.
-                   ! The event file is called pwgevents-'j'.lhe
 
 pdfreweight 1       ! PDF reweighting
 hdamp 272.7225
 dampreweight 1      ! h_damp reweighting (mt/2, mt, mt*2)
 storeinfo_rwgt 1    ! store weight information
 withnegweights 1    ! default 0,
-#xgriditeration 1   ! identifier for grid generation
-#parallelstage  1   ! identifier for parallel running stages
+
