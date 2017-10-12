@@ -62,3 +62,6 @@ CKM_Vcb   0.04101
 CKM_Vtd   0.00862
 CKM_Vts   0.04101
 CKM_Vtb   1.0
+pdfreweight 0
+storeinfo_rwgt 0 ! store weight information
+withnegweights 1 ! default 0
