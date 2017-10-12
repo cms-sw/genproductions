@@ -1,0 +1,16 @@
+set f2py_compiler /cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/py2-numpy/1.6.1-cms2/bin/f2py
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set loop_optimized_output True
+set loop_color_flows False
+set gauge unitary
+set complex_mass_scheme False
+set max_npoint_for_channel 0
+import model SM_HeavyN_NLO
+define p = u c d s b u~ c~ d~ s~ b~ g
+define j = u c d s b u~ c~ d~ s~ b~ g
+define mu = mu+ mu-
+define e = e+ e-
+define w = w+ w-
+generate p p > n1 e [QCD]
+output HeavyNeutrinoToEE_Schannel_M20_NLO -nojpeg
