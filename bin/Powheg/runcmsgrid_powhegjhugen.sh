@@ -165,6 +165,10 @@ cp ${file}_final.lhe ${WORKDIR}/${file}_tmp.lhe
 cd ${WORKDIR}
 partialcommand=`cat JHUGen.input`
 jhugencommand="./JHUGen $partialcommand ReadLHE=${file}_tmp.lhe DataFile=${file}_final Seed=${seed}"
+########################
+#backwards compatibility
+jhugencommand=$(echo $jhugencommand | sed "s/Seed=SEED//g")
+########################
 echo ${jhugencommand}
 ${jhugencommand}
 
