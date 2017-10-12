@@ -1,0 +1,381 @@
+From 556b9a5288351fb2730cc9b71ea69a583201c4b7 Mon Sep 17 00:00:00 2001
+From: Josh Bendavid <Josh.Bendavid@cern.ch>
+Date: Mon, 27 Jun 2016 19:10:11 +0200
+Subject: [PATCH 5/8] add rsync-based submit2 functionality for lsf, plus various lsf robustness fixes and minor condor fixes
+
+---
+ madgraph/various/cluster.py |  273 ++++++++++++++++++++++++++++++++++++++++---
+ 1 files changed, 255 insertions(+), 18 deletions(-)
+
+diff --git a/madgraph/various/cluster.py b/madgraph/various/cluster.py
+index effede0..4a9c3d6 100755
+--- a/madgraph/various/cluster.py
++++ b/madgraph/various/cluster.py
+@@ -19,6 +19,11 @@ import re
+ import glob
+ import inspect
+ import sys
++import platform
++import signal
++import uuid
++import socket
++import atexit
+ 
+ logger = logging.getLogger('madgraph.cluster') 
+ 
+@@ -83,6 +88,9 @@ def need_transfer(options):
+     else:
+         return True
+ 
++def cleansubproc(subproc):
++    subproc.terminate()
++
+ class Cluster(object):
+     """Basic Class for all cluster type submission"""
+     name = 'mother class'
+@@ -97,6 +105,7 @@ class Cluster(object):
+         self.submitted_dirs = [] #HTCaaS
+         self.submitted_exes = [] #HTCaaS
+         self.submitted_args = [] #HTCaaS
++        self.hold_msg = ""
+ 
+         if 'cluster_queue' in opts:
+             self.cluster_queue = opts['cluster_queue']
+@@ -307,7 +316,8 @@ class Cluster(object):
+             else:
+                 nb_job = idle + run + finish + fail
+             if fail:
+-                raise ClusterManagmentError('Some Jobs are in a Hold/... state. Please try to investigate or contact the IT team')
++                raise ClusterManagmentError('Some Jobs are in a Hold/... state. Error messages are below.' 
++                        'Please try to investigate or contact the IT team. \n%s' % self.hold_msg)
+             if idle + run == 0:
+                 #time.sleep(20) #security to ensure that the file are really written on the disk
+                 logger.info('All jobs finished')
+@@ -852,6 +862,7 @@ class CondorCluster(Cluster):
+                   Universe = vanilla
+                   notification = Error
+                   Initialdir = %(cwd)s
++                  Request_memory = 528
+                   %(requirement)s
+                   getenv=True
+                   queue 1
+@@ -928,6 +939,7 @@ class CondorCluster(Cluster):
+                   Universe = vanilla
+                   notification = Error
+                   Initialdir = %(cwd)s
++                  Request_memory = 528
+                   %(requirement)s
+                   getenv=True
+                   queue 1
+@@ -1035,6 +1047,13 @@ class CondorCluster(Cluster):
+                     idle += 1
+                 elif status == 'R':
+                     run += 1
++                elif status == 'H':
++                    error = misc.Popen(["condor_q", "-format", "'%s\n'", "HoldReason", id], 
++                                            stdout=subprocess.PIPE)
++                    self.hold_msg += "Hold message for ID %s:" % id
++                    for line in error.stdout:
++                        self.hold_msg += line
++                    fail += 1                    
+                 elif status != 'C':
+                     fail += 1
+ 
+@@ -1361,6 +1380,80 @@ class LSFCluster(Cluster):
+     name = 'lsf'
+     job_id = 'LSB_JOBID'
+ 
++    def __init__(self,*args, **opts):
++        """Init the cluster"""
++        Cluster.__init__(self,*args, **opts)
++
++        if self.temp_dir!=None:
++            self.dorsync = True
++            #print "starting rsync"
++          
++            cwd = os.getcwd()
++
++            self.rsyncroot = cwd
++            
++            self.rsyncmodule = str(uuid.uuid4())
++            
++            #get free port number for rsyncd
++            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
++            sock.bind(('localhost', 0))
++            addr, port = sock.getsockname()
++            sock.close()    
++            
++            self.rsyncport = port
++            #print self.rsyncport
++            
++            rsynclog = os.path.join(cwd, 'rsyncd_%i.log' % self.rsyncport)
++            rsynclock = os.path.join(cwd, 'rsyncd_%i.lock' % self.rsyncport)
++            rsyncpid = os.path.join(cwd, 'rsyncd_%i.pid' % self.rsyncport)
++
++            rsyncpasswd = str(uuid.uuid4())
++            
++            self.rsyncuser = 'madgraph'
++            
++            rsyncsecrets = "%s:%s" % (self.rsyncuser,rsyncpasswd)
++            rsyncsecretsfile = os.path.join(cwd, 'rsyncsecrets_%i' % self.rsyncport)
++            secretsh = open(rsyncsecretsfile,'w')
++            os.chmod(rsyncsecretsfile, 0600)
++            secretsh.write(rsyncsecrets)
++          
++            os.environ["MADGRAPHRSYNCPASSWD_%i" % self.rsyncport] = rsyncpasswd
++            #print rsyncpasswd
++
++            rsyncconf = """
++              port = %(rsyncport)s
++              pid file = %(rsyncpid)s
++              log file = %(rsynclog)s
++             
++                [%(rsyncmodule)s]
++                  comment = Random things available for download
++                  lock file = %(rsynclock)s
++                  secrets file = %(rsyncsecrets)s
++                  path = %(path)s
++                  list = yes 
++                  use chroot = no
++                  munge symlinks = no
++                  read only = no
++                  auth users = %(rsyncuser)s
++            """ % {'rsyncport': self.rsyncport,
++                   'rsyncmodule': self.rsyncmodule,
++                   'path': cwd,
++                  'rsynclog' : rsynclog,
++                  'rsynclock' : rsynclock,
++                  'rsyncpid' : rsyncpid,
++                  'rsyncsecrets' : rsyncsecretsfile,
++                  'rsyncuser' : self.rsyncuser,
++                  }
++            
++            rsyncconffile = os.path.join(cwd, 'rsyncd_%i.conf' % self.rsyncport)
++            open(rsyncconffile,'w').write(rsyncconf)
++            
++            self.rsyncd = subprocess.Popen(['rsync','--daemon', '--no-detach', '--config=%s' % rsyncconffile],cwd=cwd,stdout=subprocess.PIPE,stdin=subprocess.PIPE,stderr=subprocess.PIPE)
++            atexit.register(cleansubproc,self.rsyncd)
++            
++        else:
++            self.dorsync = False
++
+     @multiple_try()
+     def submit(self, prog, argument=[], cwd=None, stdout=None, stderr=None, log=None,
+                required_output=[], nb_submit=0):
+@@ -1384,6 +1477,8 @@ class LSFCluster(Cluster):
+         if log is None:
+             log = '/dev/null'
+         
++        text += 'if [ -n $CMSSW_BASE ]; then cd $CMSSW_BASE; eval `scramv1 runtime -sh`; cd -; fi;'
++        
+         text += prog
+         if argument:
+             text += ' ' + ' '.join(argument)
+@@ -1410,6 +1505,137 @@ class LSFCluster(Cluster):
+         return id        
+         
+         
++    @store_input()
++    @multiple_try()
++    def submit2(self, prog, argument=[], cwd=None, stdout=None, stderr=None,
++            log=None, input_files=[], output_files=[], required_output=[],nb_submit=0):
++        """How to make one submission. Return status id on the cluster.
++        NO SHARE DISK"""
++
++        #print "running lsf submit2"
++
++        if cwd is None:
++            cwd = os.getcwd()
++        if not os.path.exists(prog):
++            prog = os.path.join(cwd, prog)
++
++        if not required_output and output_files:
++            required_output = output_files
++
++        if not self.dorsync or (not input_files and not output_files):
++            # not input/output so not using submit2
++            return self.submit(prog, argument, cwd, stdout, stderr, log,
++        required_output=required_output, nb_submit=nb_submit)
++
++        if self.rsyncd.poll()!=None:
++            raise RuntimeError("rsyncd not running")
++
++        if cwd is None:
++            cwd = os.getcwd()
++        if not os.path.exists(prog):
++            prog = os.path.join(cwd, prog)
++        temp_file_name = "sub." + os.path.basename(prog) + '.'.join(argument)
++               
++        input_files.append(prog)                
++               
++        hostname = platform.node()
++               
++        rsynccwd = cwd
++        if rsynccwd.startswith(self.rsyncroot):
++            rsynccwd = rsynccwd[len(self.rsyncroot):]                   
++               
++        infilelist = ""
++        for input_file in input_files:
++            #make sure input_files are absolute paths
++            if not input_file.startswith('/'):
++                input_file = os.path.join(cwd,input_file)
++            #convert to paths relative to rsyncd root
++            if input_file.startswith(self.rsyncroot):
++                input_file = input_file[len(self.rsyncroot):]
++            infilelist += "%s@%s::%s/%s " % (self.rsyncuser,hostname,self.rsyncmodule, input_file)
++        infilelist += "./"
++        
++        outfilelist = ""
++        for output_file in output_files:
++            outfilelist += "%s " % (output_file)
++        outfilelist += "%s@%s::%s/%s" % (self.rsyncuser,hostname,self.rsyncmodule,rsynccwd)
++            
++        text = """#!/bin/bash
++        
++            SUBMITTERHOST=%(hostname)s            
++
++            if [ -n $CMSSW_VERSION ]
++            then
++              scramv1 project CMSSW $CMSSW_VERSION
++              cd $CMSSW_VERSION
++              eval `scramv1 runtime -sh`
++              cd -
++            fi
++                             
++            export RSYNC_PASSWORD=$MADGRAPHRSYNCPASSWD_%(rsyncport)s
++                 
++            #dereference symlinks for input
++            rsync -vvv --timeout=600 --contimeout=600 --port %(rsyncport)s -rptL %(infilelist)s
++
++            echo '%(arguments)s' > arguments
++            chmod +x ./%(script)s        
++            %(program)s ./%(script)s %(arguments)s
++            
++            #copy symlinks as symlinks for output and don't overwrite existing files unless updated
++            rsync -vvv --timeout=600 --contimeout=600 --port %(rsyncport)s -rptul %(outfilelist)s
++            
++            """
++        dico = {'script': os.path.basename(prog),
++        'hostname': hostname,
++        'infilelist': infilelist,
++        'outfilelist': outfilelist,
++        'output_files': ' '.join(output_files),
++        'rsyncport': self.rsyncport,
++        'arguments': ' '.join([str(a) for a in argument]),
++        'program': ' ' if '.py' in prog else 'bash'}
++
++        me_dir = self.get_jobs_identifier(cwd, prog)
++
++        text = text % dico
++        cwdpath = "/tmp/" + os.environ.get("USER", '')
++        command = ['bsub', '-cwd', cwdpath, '-C0', '-J', me_dir]
++        if cwd is None:
++            cwd = os.getcwd()
++        #else:
++            #text += " cd %s;" % cwd
++        if stdout and isinstance(stdout, str):
++            command.extend(['-o', stdout])
++        if stderr and isinstance(stdout, str):
++            command.extend(['-e', stderr])
++        elif stderr == -2: # -2 is subprocess.STDOUT
++            pass
++        if log is None:
++            log = '/dev/null'
++
++        if self.cluster_queue and self.cluster_queue != 'None':
++            command.extend(['-q', self.cluster_queue])
++
++        submitenv = os.environ.copy()
++        submitenv["TMPDIR"] = "/tmp/" + submitenv.get("USER", '')
++        a = misc.Popen(command, stdout=subprocess.PIPE,
++        stderr=subprocess.STDOUT,
++        stdin=subprocess.PIPE, cwd=cwd,
++        env=submitenv)
++
++        output = a.communicate(text)[0]
++        #Job <nnnn> is submitted to default queue <normal>.
++        try:
++            id = output.split('>',1)[0].split('<')[1]
++        except:
++            raise ClusterManagmentError, 'fail to submit to the cluster: \n%s' \
++            % output
++        if not id.isdigit():
++            raise ClusterManagmentError, 'fail to submit to the cluster: \n%s' \
++            % output
++        self.submitted += 1
++        self.submitted_ids.append(id)
++        return id         
++        
+     @multiple_try()
+     def control_one_job(self, id):
+         """ control the status of a single job with it's cluster id """
+@@ -1439,38 +1665,49 @@ class LSFCluster(Cluster):
+         """ control the status of a single job with it's cluster id """
+         
+         if not self.submitted_ids:
+-            return 0, 0, 0, 0
+-        
+-        cmd = "bjobs " + ' '.join(self.submitted_ids) 
+-        status = misc.Popen([cmd], shell=True, stdout=subprocess.PIPE)
++            return 0, 0, 0, 0        
+ 
+         jobstatus = {}
+-        for line in status.stdout:
+-            line = line.strip()
+-            if 'JOBID' in line:
+-                continue
+-            splitline = line.split()
+-            id = splitline[0]
+-            if id not in self.submitted_ids:
+-                continue
+-            jobstatus[id] = splitline[2]
++        
++        #split into smaller groups of 200 jobs to avoid problems with truncated output
++        idsplitting = 200
++        splitids = [self.submitted_ids[i:i+idsplitting] for i in range(0, len(self.submitted_ids), idsplitting)]
++        
++        for ids in splitids:
++            cmd = "bjobs " + ' '.join(ids) 
++            status = misc.Popen([cmd], shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
++
++            for line in status.stdout:
++                line = line.strip()
++                if 'JOBID' in line:
++                    continue
++                splitline = line.split()
++                if splitline[0] in ids:
++                    id = splitline[0]
++                    jobstatus[id] = splitline[2]
++                else:
++                    splitline = re.split('[><]',line)
++                    if len(splitline)==3 and splitline[0] == 'Job ' and splitline[2] == " is not found" and splitline[1] in ids:
++                        id = splitline[1]
++                        jobstatus[id] = 'MISSING'        
+ 
+         idle, run, fail = 0, 0, 0
+         for id in self.submitted_ids[:]:
+             if id in jobstatus:
+                 status = jobstatus[id]
+             else:
+-                status = 'MISSING'
++                status = 'PEND'
++
+             if status == 'RUN':
+                 run += 1
+-            elif status == 'PEND':
+-                idle += 1
+-            else:
++            elif status in ['DONE', 'EXIT', 'MISSING']:
+                 status = self.check_termination(id)
+                 if status == 'wait':
+                     run += 1
+                 elif status == 'resubmit':
+                     idle += 1                
++            else:
++                idle += 1
+ 
+         return idle, run, self.submitted - (idle+run+fail), fail
+ 
+-- 
+1.7.1
+

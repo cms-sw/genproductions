@@ -1,0 +1,10 @@
+import model loop_sm-no_b_mass
+
+define p = p b b~
+define j = j b b~
+define w = w+ w-
+
+generate p p > w z z [QCD] @0
+
+output WZZJets_5f_NLO -nojpeg
+

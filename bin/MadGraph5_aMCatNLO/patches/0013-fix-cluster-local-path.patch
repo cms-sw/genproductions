@@ -1,0 +1,82 @@
+diff --git a/Template/LO/Source/make_opts b/Template/LO/Source/make_opts
+index 92a3fe4..026b115 100644
+--- a/Template/LO/Source/make_opts
++++ b/Template/LO/Source/make_opts
+@@ -33,7 +33,7 @@ CFLAGS= -O $(STDLIB_FLAG) $(MACFLAG)
+ endif
+ 
+ # Increase the number of allowed charcters in a Fortran line
+-FFLAGS+= -ffixed-line-length-132
++FFLAGS+= -ffixed-line-length-300
+ 
+ # Set FC unless it's defined by an environment variable
+ ifeq ($(origin FC),default)
+@@ -90,4 +90,4 @@ llhapdf+= -lLHAPDF
+ else
+ alfas_functions=alfas_functions
+ llhapdf=
+-endif
+\ No newline at end of file
++endif
+diff --git a/Template/NLO/Source/make_opts.inc b/Template/NLO/Source/make_opts.inc
+index 964abc6..4e14603 100644
+--- a/Template/NLO/Source/make_opts.inc
++++ b/Template/NLO/Source/make_opts.inc
+@@ -36,7 +36,7 @@ ifdef f2pymode
+ endif
+ 
+ # Increase the number of allowed charcters in a Fortran line
+-FFLAGS+= -ffixed-line-length-132
++FFLAGS+= -ffixed-line-length-300
+ 
+ # Set FC unless it's defined by an environment variable
+ ifeq ($(origin FC),default)
+diff --git a/madgraph/iolibs/export_v4.py b/madgraph/iolibs/export_v4.py
+index 47367e1..beef7fe 100755
+--- a/madgraph/iolibs/export_v4.py
++++ b/madgraph/iolibs/export_v4.py
+@@ -358,6 +358,9 @@ class ProcessExporterFortran(object):
+          LHAPath='%(path)s/../lhapdf/pdfsets/'
+          Inquire(File=LHAPath, exist=exists)
+          if(exists)return  
++         LHAPath='%(path)s'
++         Inquire(File=LHAPath, exist=exists)
++         if(exists)return
+          LHAPath='./PDFsets'            
+          """ % {"path" : self.opt["cluster_local_path"]}
+             changer = {"cluster_specific_path": to_add}
+diff --git a/madgraph/iolibs/template_files/pdf_opendata.f b/madgraph/iolibs/template_files/pdf_opendata.f
+index 8463d20..939f500 100644
+--- a/madgraph/iolibs/template_files/pdf_opendata.f
++++ b/madgraph/iolibs/template_files/pdf_opendata.f
+@@ -24,7 +24,7 @@ c generic subroutine to open the table files in the right directories
+ c********************************************************************
+       implicit none
+ c
+-      Character Tablefile*(*),up*3,lib*4,dir*8,tempname*100
++      Character Tablefile*(*),up*3,lib*4,dir*8,tempname*250
+       data up,lib,dir/'../','lib/','Pdfdata/'/
+       Integer IU,NextUnopen,i
+       External NextUnopen
+diff --git a/madgraph/iolibs/template_files/pdf_wrap_lhapdf.f b/madgraph/iolibs/template_files/pdf_wrap_lhapdf.f
+index 95b0f49..b06677d 100644
+--- a/madgraph/iolibs/template_files/pdf_wrap_lhapdf.f
++++ b/madgraph/iolibs/template_files/pdf_wrap_lhapdf.f
+@@ -7,7 +7,7 @@ C
+       include '../alfas.inc'
+       real*8 zmass
+       data zmass/91.188d0/
+-      Character*150 LHAPath
++      Character*250 LHAPath
+       character*20 parm(20)
+       double precision value(20)
+       real*8 alphasPDF
+@@ -38,7 +38,7 @@ c generic subroutine to open the table files in the right directories
+ c********************************************************************
+       implicit none
+ c
+-      Character LHAPath*150,up*3
++      Character LHAPath*250,up*3
+       data up/'../'/
+       logical exists
+       integer i

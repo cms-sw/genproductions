@@ -1,3 +1,0 @@
-import model Higgs_hhxx_scalar_UFO
-generate p p > h chi chi QED=3
-output EFT_HHxx_scalar_MChi1300 -nojpeg
