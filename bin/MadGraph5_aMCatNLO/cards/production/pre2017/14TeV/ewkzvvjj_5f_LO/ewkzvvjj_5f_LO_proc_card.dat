@@ -2,11 +2,6 @@ import model sm-ckm_no_b_mass
 #import model sm-ckm_lepton_masses_no_b_mass
 #switch to diagonal ckm matrix if needed for speed
 
-define p = p b b~
-define j = j b b~
-
-define l+ = e+ mu+ ta+
-define l- = e- mu- ta-
 define vl = ve vm vt
 define vl~ = ve~ vm~ vt~
 
