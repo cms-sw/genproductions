@@ -499,8 +499,10 @@ if grep -q -e "\$DEFAULT_PDF_SETS" -e "\$DEFAULT_PDF_MEMBERS" $CARDSDIR/${name}_
         # 5F PDF
         if [ $is5FlavorScheme -eq 1 ]; then
             sed "s/\$DEFAULT_PDF_SETS/306000/g" $CARDSDIR/${name}_run_card.dat > ./Cards/run_card.dat
+            sed -i "s/.*maxjetflavor.*/5\ =\ maxjetflavor/" ./Cards/run_card.dat 
         else
             sed "s/\$DEFAULT_PDF_SETS/320900/g" $CARDSDIR/${name}_run_card.dat > ./Cards/run_card.dat
+            sed -i "s/.*maxjetflavor.*/4\ =\ maxjetflavor/" ./Cards/run_card.dat 
         # 4F PDF
         fi
         sed -i "s/ *\$DEFAULT_PDF_MEMBERS.*=.*//g" ./Cards/run_card.dat
