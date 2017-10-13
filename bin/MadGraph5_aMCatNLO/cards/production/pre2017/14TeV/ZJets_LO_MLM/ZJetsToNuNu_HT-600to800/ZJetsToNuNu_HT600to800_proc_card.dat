@@ -30,5 +30,5 @@ add process p p > vl vl~ j / h @1
 add process p p > vl vl~ j j / h @2
 add process p p > vl vl~ j j j / h @3
 add process p p > vl vl~ j j j j / h @4
-# Output processes to lMadEvent directory
+# Output processes to MadEvent directory
 output ZJetsToNuNu_HT600to800 -nojpeg
