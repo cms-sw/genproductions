@@ -25,10 +25,8 @@
 ##************************************************************
 import model sm-ckm_no_b_mass
 # Define multiparticle labels
-define p u c s d b u~ c~ s~ d~ b~ g
 define l+ = e+ mu+ ta+
 define l- = e- mu- ta-
-define j  = p
 # Specify process(es) to run
 generate p p > l+ l- / h @0
 add process p p > l+ l- j / h @1
