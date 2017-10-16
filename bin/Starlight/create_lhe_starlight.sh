@@ -116,6 +116,7 @@ cd ${WORKDIR}
 echo "***STARLIGHT COMPLETE***"
 
 #now convert the starlight file to a HepMC file
+curl https://raw.githubusercontent.com/kurtejung/genproductions/starlight_dev/bin/Starlight/convert_SL2HepMC.C > convert_SL2HepMC.C
 root -l -b << EOF
 .x convert_SL2HepMC.C+(1,"slight.out","slight_${prodType}_${channel}_${seed}.hepmc") 
 .q
