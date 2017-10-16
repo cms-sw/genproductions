@@ -505,6 +505,16 @@ if grep -q -e "\$DEFAULT_PDF_SETS" -e "\$DEFAULT_PDF_MEMBERS" $CARDSDIR/${name}_
         fi
         sed -i "s/ *\$DEFAULT_PDF_MEMBERS.*=.*//g" ./Cards/run_card.dat
     fi
+    # set maxjetflavor
+    nFlavorScheme=5
+    if [ $is5FlavorScheme -ne 1 ]; then
+      nFlavorScheme=4
+    fi
+    if grep -Fxq "maxjetflavor" ./Cards/run_card.dat ; then
+      sed -i "s/.*maxjetflavor.*/${nFlavorScheme}\ =\ maxjetflavor/" ./Cards/run_card.dat 
+    else
+      echo "${nFlavorScheme} = maxjetflavor" >> ./Cards/run_card.dat 
+    fi
 else
     echo ""
     echo "WARNING: You've chosen not to use the PDF sets recommended for 2017 production!"

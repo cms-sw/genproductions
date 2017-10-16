@@ -53,6 +53,10 @@ if args.decay_card is not None:
             command += line.rstrip("\n").replace("ReadCSmax", "")+" "  #remove CSmax so the same card can be used for generating ggH or decaying
     command += " ReadLHE=undecayed.lhe Seed=${rnum}"
 command += ' DataFile=Out'
+########################
+#backwards compatibility
+command = command.replace("Seed=SEED", "")
+########################
 print command
 #Note the same seed is used twice.  This sounds bad but the JHUGen processes are completely independent and use the seed in different ways.
 
