@@ -11,13 +11,11 @@ numevts NEVENTS    ! number of events to be generated
 iseed   SEED       ! Start the random number generator with seed iseed 
 ih1   1        ! hadron 1
 ih2   1        ! hadron 2
-#ndns1 131      ! pdf for hadron 1 (hvqpdf numbering)
-#ndns2 131      ! pdf for hadron 2
+
 ! To be set only if using LHA pdfs
 lhans1 260000       ! pdf set for hadron 1 (LHA numbering)
 lhans2 260000       ! pdf set for hadron 2 (LHA numbering)
-! To be set only if using different pdf sets for the two incoming hadrons
-! QCDLambda5  0.25 ! for not equal pdf sets
+
 ebeam1 6500    ! energy of beam 1
 ebeam2 6500    ! energy of beam 2
 qmass  172.5     ! mass of heavy quark in GeV
@@ -70,7 +68,6 @@ foldy   1      ! number of folds on y integration
 foldphi 1      ! number of folds on phi integration
 nubound 100000  ! number of bbarra calls to setup norm of upper bounding function
 iymax 1        ! <= 10, normalization of upper bounding function in iunorm X iunorm square in y, log(m2qq)
-ixmax 1        ! <= 10, normalization of upper bounding function in iunorm X iunorm square in y, log(m2qq)
 xupbound 2      ! increase upper bound for radiation generation
 
 pdfreweight 1       ! PDF reweighting
