@@ -44,15 +44,16 @@ int main(int argc, char** argv)
       eventIt++;
     }	
 
-    if (line.find("</rwgt>") != std::string::npos || line.find("</weightgroup>") != std::string::npos) {
+    if (line.find("</rwgt>") != std::string::npos || line.find("</initrwgt>") != std::string::npos) {
       getFromNormal = true;  getFromPdf = false;
+      getline(initialFile, line2);
       if (eventIt>1) {
-	getline(initialFile, line2);
 	for (int i = 0; i< 6; i++) {getline(pdfFile, line2);}
-      }
+      } 
     }	
   }
-  
+  outFile << "</LesHouchesEvents>" << std::endl;
+
   std::cout << "Merged " << eventIt-1 << " events " << std::endl;
   return 0;
 }

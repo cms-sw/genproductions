@@ -1,0 +1,17 @@
+import model sm-ckm_no_b_mass
+define p = g u c d s u~ c~ d~ s~
+define j = g u c d s u~ c~ d~ s~
+define l+ = e+ mu+
+define l- = e- mu-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+# Define multiparticle labels
+define p = u c s d b u~ c~ s~ d~ b~ g
+define j = u c s d b u~ c~ s~ d~ b~ g
+define l = e+ e- mu+ mu- ta+ ta-
+# Specify process(es) to run
+generate p p > j j @0
+add process p p > j j j @1
+add process p p > j j j j @2
+# Output processes to MadEvent directory
+output QCD_HT2000toInf -nojpeg
