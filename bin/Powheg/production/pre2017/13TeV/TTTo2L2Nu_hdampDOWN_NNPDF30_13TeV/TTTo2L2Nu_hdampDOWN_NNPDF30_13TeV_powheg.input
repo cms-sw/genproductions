@@ -68,7 +68,6 @@ foldy   1      ! number of folds on y integration
 foldphi 1      ! number of folds on phi integration
 nubound 100000  ! number of bbarra calls to setup norm of upper bounding function
 iymax 1        ! <= 10, normalization of upper bounding function in iunorm X iunorm square in y, log(m2qq)
-ixmax 1        ! <= 10, normalization of upper bounding function in iunorm X iunorm square in y, log(m2qq)
 xupbound 2      ! increase upper bound for radiation generation
 
 pdfreweight 1       ! PDF reweighting
