@@ -34,7 +34,7 @@ define vl~ = ve~ vm~
 define neut = vl vl~
 define V = w+ w-
 
-import model /eos/cms/store/user/sghiasis/NMSSM --modelname
+import model NMSSM --modelname
 generate p p  > V h01 , V > lep neut, (h01 > a01 a01, a01 > b b~, a01 > b b~)
 
 output Wh01_M125_Toa01a01_M12_Tobbbb -nojpeg
