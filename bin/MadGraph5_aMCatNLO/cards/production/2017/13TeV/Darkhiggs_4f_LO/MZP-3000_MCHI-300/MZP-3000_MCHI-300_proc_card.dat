@@ -1,0 +1,11 @@
+import model ZpHiggs_UFO
+#switch to diagonal ckm matrix if relevant for speed
+#import model sm-lepton_masses
+
+generate p p > Zp > DM DM Hs, (Hs > b b~) @0
+
+add process p p > Zp > DM DM Hs j, (Hs > b b~) @1
+
+#add process p p > DM DM Hs j j, (Hs > b b~) @2
+
+output MZP-3000_MCHI-300 -nojpeg
