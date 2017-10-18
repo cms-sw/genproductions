@@ -1,8 +1,0 @@
-#put card customizations here (change top and higgs mass for example)
-set param_card mass 6 172.5
-set param_card yukawa 6 172.5
-set param_card mass 55 1000
-set param_card decay 55 auto
-set param_card mass 54 70
-set param_card decay 54 auto
-set param_card mass 52 600
