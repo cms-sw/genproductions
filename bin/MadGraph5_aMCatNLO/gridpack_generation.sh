@@ -513,7 +513,7 @@ if grep -q -e "\$DEFAULT_PDF_SETS" -e "\$DEFAULT_PDF_MEMBERS" $CARDSDIR/${name}_
     if grep -Fxq "maxjetflavor" ./Cards/run_card.dat ; then
       sed -i "s/.*maxjetflavor.*/${nFlavorScheme}\ =\ maxjetflavor/" ./Cards/run_card.dat 
     else
-      echo "${nFlavorScheme}\ =\ maxjetflavor" >> ./Cards/run_card.dat 
+      echo "${nFlavorScheme} = maxjetflavor" >> ./Cards/run_card.dat 
     fi
 else
     echo ""
