@@ -133,6 +133,16 @@ if [ -z "$CONDOR_SET_MAXWALLTIMES" ]; then
 fi
 
 ##########################
+# QUERY RETRIES
+##########################
+if [ -z "$CONDOR_QUERY_MAX_RETRIES" ]; then
+  export CONDOR_QUERY_MAX_RETRIES="30"
+fi
+if [ -z "$CONDOR_QUERY_SLEEP_PER_RETRY" ]; then
+  export CONDOR_QUERY_SLEEP_PER_RETRY="30"
+fi
+
+##########################
 # ADDITIONAL CLASSADS
 ##########################
 # Always append IOProxy, so that JobDuration is always set in the history.
