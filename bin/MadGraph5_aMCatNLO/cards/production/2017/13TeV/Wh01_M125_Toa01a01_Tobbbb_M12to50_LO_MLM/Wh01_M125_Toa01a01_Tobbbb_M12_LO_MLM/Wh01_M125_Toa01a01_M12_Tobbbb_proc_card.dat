@@ -24,12 +24,8 @@ set loop_optimized_output True
 set gauge unitary
 set complex_mass_scheme False
 import model sm
-define l+ = e+ mu+
-define l- = e- mu-
-define lep = l+ l-
-define vl = ve vm
-define vl~ = ve~ vm~
-define neut = vl vl~
+define lep = e+ mu+ e- mu-
+define neut = ve vm ve~ vm~
 define V = w+ w-
 
 import model NMSSM --modelname
