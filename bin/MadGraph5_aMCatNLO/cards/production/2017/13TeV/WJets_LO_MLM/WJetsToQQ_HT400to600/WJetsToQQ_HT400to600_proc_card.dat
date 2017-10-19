@@ -1,6 +1,4 @@
 import model sm-ckm_no_b_mass
-#switch to diagonal ckm matrix if needed for speed
-#import model sm-ckm_no_b_mass
 
 define q = j 
 
