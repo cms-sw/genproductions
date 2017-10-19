@@ -1,3 +1,0 @@
-import model Branon_UFO
-generate p p > p pi pi @0
-output Branon_monoJet -nojpeg

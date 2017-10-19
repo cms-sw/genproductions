@@ -1,0 +1,10 @@
+import model sm-ckm_no_b_mass
+# Define multiparticle labels
+define p = u c s d b u~ c~ s~ d~ b~ g
+define j = p
+define bquark = b b~
+# Specify process(es) to run
+add process p p > a bquark j j @0
+add process p p > a bquark j @1
+# Output processes to MadEvent directory
+output GJets_bjj_DR-0p4 -nojpeg

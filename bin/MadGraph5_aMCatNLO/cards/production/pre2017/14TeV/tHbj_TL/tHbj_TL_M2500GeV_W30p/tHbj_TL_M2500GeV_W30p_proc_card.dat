@@ -1,0 +1,8 @@
+set group_subprocesses Auto
+define p = g u c d s u~ c~ d~ s~
+define j = g u c d s u~ c~ d~ s~
+define bb = b b~
+import model VLQ_NLO_v3_4FNS_UFO-wh3
+generate p p > t H bb j / x y bp QED=1 QCD=1 VLQ=2
+add process p p > t~ H bb j / x y bp QED=1 QCD=1 VLQ=2
+output  tHbj_TL_M2500GeV_W30p -nojpeg

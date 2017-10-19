@@ -12,14 +12,14 @@ echo "%MSG-MG5 number of cpus = $ncpu"
 LHEWORKDIR=`pwd`
 
 use_gridpack_env=true
-if [ -z "$4" ]
+if [ -n "$4" ]
   then
   use_gridpack_env=$4
 fi
 
 if [ "$use_gridpack_env" = true ]
   then
-    if [ -z "$5" ]
+    if [ -n "$5" ]
       then
         scram_arch_version=${5}
       else
@@ -27,7 +27,7 @@ if [ "$use_gridpack_env" = true ]
     fi
     echo "%MSG-MG5 SCRAM_ARCH version = $scram_arch_version"
 
-    if [ -z "$6" ]
+    if [ -n "$6" ]
       then
         cmssw_version=${6}
       else
@@ -73,7 +73,6 @@ cd $LHEWORKDIR
 mv process/events.lhe.gz events_presys.lhe.gz
 gzip -d events_presys.lhe.gz
 
-#run syscalc to populate pdf and scale variation weights
 echo "
 # Central scale factors
 scalefact:
@@ -84,20 +83,85 @@ scalecorrelation:
 0 3 6 1 4 7 2 5 8
 # PDF sets and number of members (0 or none for all members)
 PDF:
-NNPDF30_lo_as_0130.LHgrid
-NNPDF30_lo_as_0130_nf_4.LHgrid
-NNPDF30_lo_as_0118.LHgrid 1
-NNPDF23_lo_as_0130_qed.LHgrid
-NNPDF23_lo_as_0119_qed.LHgrid 1
-cteq6l1.LHgrid
-MMHT2014lo68cl.LHgrid
-MMHT2014lo_asmzsmallrange.LHgrid
-HERAPDF15LO_EIG.LHgrid
-NNPDF30_nlo_as_0118.LHgrid 1
-NNPDF23_nlo_as_0119.LHgrid 1
-CT10nlo.LHgrid
-MMHT2014nlo68cl.LHgrid 1
 " > syscalc_card.dat
+
+is5FlavorScheme=PDF_FLAVOR_SCHEME_REPLACE
+
+#run syscalc to populate pdf and scale variation weights
+if [ $is5FlavorScheme -eq 1 ]; then
+  # 5F PDF
+  echo "
+  NNPDF31_nnlo_hessian_pdfas.LHgrid
+  NNPDF31_nnlo_as_0108.LHgrid 1
+  NNPDF31_nnlo_as_0110.LHgrid 1
+  NNPDF31_nnlo_as_0112.LHgrid 1
+  NNPDF31_nnlo_as_0114.LHgrid 1
+  NNPDF31_nnlo_as_0117.LHgrid 1
+  NNPDF31_nnlo_as_0119.LHgrid 1
+  NNPDF31_nnlo_as_0122.LHgrid 1
+  NNPDF31_nnlo_as_0124.LHgrid 1
+  NNPDF31_nlo_hessian_pdfas.LHgrid
+  CT14nnlo.LHgrid
+  CT14nnlo_as_0116.LHgrid 1
+  CT14nnlo_as_0120.LHgrid 1
+  CT14nlo.LHgrid
+  CT14nlo_as_0116.LHgrid 1
+  CT14nlo_as_0120.LHgrid 1
+  CT14lo.LHgrid 1
+  MMHT2014nlo68clas118.LHgrid
+  MMHT2014nnlo68cl.LHgrid
+  MMHT2014lo68cl.LHgrid 1
+  ABMP16als118_5_nnlo.LHgrid
+  PDF4LHC15_nlo_100_pdfas.LHgrid
+  PDF4LHC15_nnlo_100_pdfas.LHgrid
+  PDF4LHC15_nlo_30_pdfas.LHgrid
+  PDF4LHC15_nnlo_30_pdfas.LHgrid
+  HERAPDF20_NLO_EIG.LHgrid
+  HERAPDF20_NLO_VAR.LHgrid
+  HERAPDF20_NNLO_EIG.LHgrid
+  HERAPDF20_NNLO_VAR.LHgrid
+  CT14qed_inc_proton.LHgrid
+  LUXqed17_plus_PDF4LHC15_nnlo_100.LHgrid
+  NNPDF30_nlo_nf_5_pdfas.LHgrid
+  NNPDF30_nnlo_nf_5_pdfas.LHgrid 1
+  NNPDF31_lo_as_0118.LHgrid 1
+  NNPDF31_lo_as_0130.LHgrid 1
+  NNPDF30_lo_as_0118.LHgrid 1
+  NNPDF30_lo_as_0130.LHgrid 1
+ " >> syscalc_card.dat
+
+else
+ # 4F PDF
+  echo "
+  NNPDF31_nnlo_hessian_pdfas.LHgrid
+  CT10nlo_nf4.LHgrid
+  CT14nnlo_NF4.LHgrid 1
+  CT14nlo_NF4.LHgrid 1
+  CT14lo_NF4.LHgrid 1
+  MSTW2008lo68cl_nf4.LHgrid
+  MSTW2008nlo68cl_nf4.LHgrid
+  MSTW2008nlo_mbrange_nf4.LHgrid
+  MSTW2008nnlo68cl_nf4.LHgrid
+  MSTW2008nnlo_mbrange_nf4.LHgrid
+  MMHT2014nlo68cl_nf4.LHgrid
+  MMHT2014nlo68clas118_nf4.LHgrid
+  MMHT2014nlo_asmzsmallrange_nf4.LHgrid
+  MMHT2014nlo_mcrange_nf4.LHgrid
+  MMHT2014nlo_mbrange_nf4.LHgrid
+  MMHT2014nnlo68cl_nf4.LHgrid
+  MMHT2014nnlo_asmzsmallrange_nf4.LHgrid
+  MMHT2014nnlo_mcrange_nf4.LHgrid
+  MMHT2014nnlo_mbrange_nf4.LHgrid
+  PDF4LHC15_nlo_nf4_30.LHgrid
+  NNPDF31_nnlo_as_0118_nf_4.LHgrid
+  NNPDF31_nlo_as_0118_nf_4.LHgrid
+  NNPDF30_nlo_as_0118_nf_4.LHgrid
+  NNPDF30_lo_as_0118_nf_4.LHgrid 1
+  NNPDF30_lo_as_0130_nf_4.LHgrid 1
+  NNPDF30_nlo_nf_4_pdfas.LHgrid
+  NNPDF30_nnlo_nf_4_pdfas.LHgrid 1
+  " >> syscalc_card.dat
+fi
 
 LD_LIBRARY_PATH=`${LHAPDFCONFIG} --libdir`:${LD_LIBRARY_PATH} ./mgbasedir/SysCalc/sys_calc events_presys.lhe syscalc_card.dat cmsgrid_final.lhe
 

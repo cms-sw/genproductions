@@ -1,3 +1,0 @@
-#put card customizations here (change top and higgs mass for example)
-set param_card mass 9100000 10
-set param_card mass 9100022 500
