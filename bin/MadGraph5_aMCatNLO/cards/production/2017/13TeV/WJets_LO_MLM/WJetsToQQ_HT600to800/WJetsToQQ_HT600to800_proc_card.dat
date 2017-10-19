@@ -2,8 +2,6 @@ import model sm-ckm_no_b_mass
 #switch to diagonal ckm matrix if needed for speed
 #import model sm-ckm_no_b_mass
 
-define p = p b b~
-define j = j b b~
 define q = j 
 
 define ell+ = e+ mu+ ta+
@@ -19,4 +17,4 @@ add process p p > w- j, w- > q q $$ t t~ h @5
 add process p p > w- j j, w- > q q $$ t t~ h @6
 add process p p > w- j j j, w- > q q $$ t t~ h @7
 
-output WJetsToQQ_HT-800toInf -nojpeg
+output WJetsToQQ_HT600to800 -nojpeg
