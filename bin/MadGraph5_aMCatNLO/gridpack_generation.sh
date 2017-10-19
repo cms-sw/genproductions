@@ -102,8 +102,7 @@ RUNHOME=`pwd`
 LOGFILE=${RUNHOME}/${name}.log
 LOGFILE_NAME=${LOGFILE/.log/}
 if [ "${name}" != "interactive" ]; then
-  exec > >(tee ${LOGFILE})
-  exec 2>&1
+  exec &> ${LOGFILE}
 fi
 
 echo "Starting job on " `date` #Only to display the starting of production date
@@ -504,6 +503,16 @@ if grep -q -e "\$DEFAULT_PDF_SETS" -e "\$DEFAULT_PDF_MEMBERS" $CARDSDIR/${name}_
         # 4F PDF
         fi
         sed -i "s/ *\$DEFAULT_PDF_MEMBERS.*=.*//g" ./Cards/run_card.dat
+    fi
+    # set maxjetflavor
+    nFlavorScheme=5
+    if [ $is5FlavorScheme -ne 1 ]; then
+      nFlavorScheme=4
+    fi
+    if grep -Fxq "maxjetflavor" ./Cards/run_card.dat ; then
+      sed -i "s/.*maxjetflavor.*/${nFlavorScheme}\ =\ maxjetflavor/" ./Cards/run_card.dat 
+    else
+      echo "${nFlavorScheme} = maxjetflavor" >> ./Cards/run_card.dat 
     fi
 else
     echo ""
