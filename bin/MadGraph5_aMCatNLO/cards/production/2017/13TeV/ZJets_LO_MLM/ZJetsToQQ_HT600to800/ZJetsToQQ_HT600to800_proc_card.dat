@@ -10,4 +10,4 @@ add process p p > z j j, z > j j $$ h @2
 add process p p > z j j j, z > j j $$ h @3
 add process p p > z j j j j, z > j j $$ h @4
 
-output ZJetsToQQ_HT800toInf -nojpeg
+output ZJetsToQQ_HT600to800 -nojpeg
