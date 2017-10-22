@@ -1,0 +1,6 @@
+import model Pseudoscalar_2HDM
+define p = p b b~
+define j = j b b~
+generate g g > xd xd~ h1 / z [QCD]
+output MH3_500_MH4_250_MH2_500_MHC_500 -nojpeg
+
