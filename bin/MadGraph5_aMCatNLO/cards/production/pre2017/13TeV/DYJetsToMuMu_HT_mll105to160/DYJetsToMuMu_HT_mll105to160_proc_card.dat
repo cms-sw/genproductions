@@ -1,8 +1,6 @@
 import model sm
 define l+ =  mu+
 define l- =  mu-
-define vl = vm 
-define vl~ = vm~
 generate p p > l+ l- / h @0
 add process p p > l+ l- j / h @1
 add process p p > l+ l- j j / h @2
