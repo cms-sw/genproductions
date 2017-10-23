@@ -596,7 +596,7 @@ if [ "$process" = "HJ" ]; then
   cp ../POWHEG-BOX/HJ/NNLOPS-mass-effects/HNNLO-makefile ./makefile 
   cp -r ../POWHEG-BOX/HJ/NNLOPS-mass-effects/HNNLO-patches ./
   cd src/Need/
-  cat pdfset_lhapdf.f | sed -e "s#30#40#g" | sed -e "s#20#25#g" | sed -e "s#InitPDFset#InitPDFsetByName#g" > pdfset_lhapdf.f.new
+  cat pdfset_lhapdf.f | sed -e "s#30#40#g" | sed -e "s#20#30#g" | sed -e "s#oldPDFname(1:i-1)//'.LHgrid'#oldPDFname(1:i-1)#g" | sed -e "s#oldPDFname(1:i-1)//'.LHpdf'#oldPDFname(1:i-1)#g" | sed -e "s#InitPDFset('PDFsets/'//PDFname)#InitPDFsetByName(PDFname)#g" > pdfset_lhapdf.f.new
   mv pdfset_lhapdf.f.new pdfset_lhapdf.f  
   cd -
   cat makefile | sed -e "s#LHAPDFLIB=.\+#LHAPDFLIB=$(scram tool info lhapdf | grep LIBDIR | cut -d "=" -f2)#g" > makefile
@@ -962,7 +962,7 @@ eval `scram runtime -sh`
 cd -
 
 cat $base/../$config | sed -e "s#SEED#$seed#g" > config.input
-cat config.input | sed -e "s#MSTW2008nnlo68cl#NNPDF30_nnlo_as_0118#g" > config.input.temp
+cat config.input | sed -e "s#MSTW2008nnlo68cl#NNPDF31_nnlo_hessian_pdfas#g" > config.input.temp
 mv config.input.temp config.input
 
 cp $base/../hnnlo .
