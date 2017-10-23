@@ -254,22 +254,6 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
 #*********************************************************************
  4 = maxjetflavor    ! Maximum jet pdg code
 #*********************************************************************
-# Jet measure cuts                                                   *
-#*********************************************************************
- 15   = xqcut   ! minimum kt jet measure between partons
-#*********************************************************************
-#
-#*********************************************************************
-# Store info for systematics studies                                 *
-# WARNING: If use_syst is T, matched Pythia output is                *
-#          meaningful ONLY if plotted taking matchscale              *
-#          reweighting into account!                                 *
-#*********************************************************************
-#   F  = use_syst      ! Enable systematics studies
-   F  = cut_decays      ! Enable systematics studies   
-   T = use_syst
-#
-#**************************************
 # Parameter of the systematics study
 #  will be used by SysCalc (if installed)
 #**************************************                                  
