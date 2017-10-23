@@ -1,6 +1,0 @@
-import model Pseudoscalar_2HDM
-define p = p b b~
-define j = j b b~
-generate b b~ > xd xd~ h1 / z
-output bb_MH3_400_MH4_200_MH2_400_MHC_400 -nojpeg
-
