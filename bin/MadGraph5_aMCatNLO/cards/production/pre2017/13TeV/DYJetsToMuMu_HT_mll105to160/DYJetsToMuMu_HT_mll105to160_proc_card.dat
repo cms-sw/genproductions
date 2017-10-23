@@ -1,26 +1,3 @@
-#************************************************************
-#*                        MadGraph 5                        *
-#*                                                          *
-#*                *                       *                 *
-#*                  *        * *        *                   *
-#*                    * * * * 5 * * * *                     *
-#*                  *        * *        *                   *
-#*                *                       *                 *
-#*                                                          *
-#*                                                          *
-#*         VERSION 1.5.11                2013-06-21         *
-#*                                                          *
-#*    The MadGraph Development Team - Please visit us at    *
-#*    https://server06.fynu.ucl.ac.be/projects/madgraph     *
-#*                                                          *
-#************************************************************
-#*                                                          *
-#*               Command File for MadGraph 5                *
-#*                                                          *
-#*     run as ./bin/mg5  filename                           *
-#*                                                          *
-#************************************************************
-
 import model sm
 #import model sm-ckm_no_b_mass
 #customize_model —save=ckm_no_b_mass
