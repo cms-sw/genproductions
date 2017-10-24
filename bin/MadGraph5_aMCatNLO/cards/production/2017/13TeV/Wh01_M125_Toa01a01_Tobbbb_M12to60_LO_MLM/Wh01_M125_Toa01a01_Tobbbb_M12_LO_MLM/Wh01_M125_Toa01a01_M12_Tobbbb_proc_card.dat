@@ -3,12 +3,12 @@ set ignore_six_quark_processes False
 set loop_optimized_output True
 set gauge unitary
 set complex_mass_scheme False
-import model sm
+
+import model NMSSM --modelname
 define lep = e+ mu+ e- mu-
 define neut = ve vm ve~ vm~
 define V = w+ w-
 
-import model NMSSM --modelname
 generate p p  > V h01 , V > lep neut, (h01 > a01 a01, a01 > b b~, a01 > b b~)
 
 output Wh01_M125_Toa01a01_M12_Tobbbb -nojpeg
