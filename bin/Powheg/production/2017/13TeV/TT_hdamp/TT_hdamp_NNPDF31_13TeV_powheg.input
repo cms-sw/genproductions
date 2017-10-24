@@ -11,8 +11,6 @@ numevts NEVENTS    ! number of events to be generated
 iseed   SEED       ! Start the random number generator with seed iseed 
 ih1   1        ! hadron 1
 ih2   1        ! hadron 2
-#ndns1 131      ! pdf for hadron 1 (hvqpdf numbering)
-#ndns2 131      ! pdf for hadron 2
 ! To be set only if using LHA pdfs
 lhans1 306000
 lhans2 306000
@@ -23,7 +21,6 @@ ebeam2 6500    ! energy of beam 2
 qmass  172.5     ! mass of heavy quark in GeV
 facscfact 1    ! factorization scale factor: mufact=muref*facscfact 
 renscfact 1    ! renormalization scale factor: muren=muref*renscfact 
-#fixedscale 1    ! use ref. scale=qmass (default 0, use running scale)
 hdamp 272.7225
 
 topdecaymode 22222   ! an integer of 5 digits that are either 0, or 2, representing in 
