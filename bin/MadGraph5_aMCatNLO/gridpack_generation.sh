@@ -228,12 +228,10 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
       echo "set run_mode  1" >> mgconfigscript
       if [ "$queue" == "condor" ]; then
         echo "set cluster_type condor" >> mgconfigscript
-        #*FIXME* broken in mg_amc 2.4.0
-#        echo "set cluster_queue None" >> mgconfigscript
+      elif [ "$queue" == "cream02" ]; then
+        echo "set cluster_type pbs" >> mgconfigscript
       else
         echo "set cluster_type lsf" >> mgconfigscript
-        #*FIXME* broken in mg_amc 2.4.0
-#         echo "set cluster_queue $queue" >> mgconfigscript
       fi 
       if [ $iscmsconnect -gt 0 ]; then
 	  n_retries=10
@@ -356,6 +354,10 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   #*FIXME* workaround for broken set cluster_queue handling
   if [ "$queue" == "condor" ]; then
     echo "cluster_queue = None" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
+  elif [ "$queue" == "cream02" ]; then
+    echo "cluster_queue = localgrid@cream02" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
+    mkdir -p /user/$USER/temp
+    echo "cluster_temp_path = /user/$USER/temp" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
   else
     echo "cluster_queue = $queue" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
   fi
