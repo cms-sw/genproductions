@@ -54,7 +54,6 @@ average = event_norm ! Normalize events to sum or average to the X sect.
 #***********************************************************************
 # PDF choice: this automatically fixes also alpha_s(MZ) and its evol. *
 #***********************************************************************
-lhapdf = pdlabel ! PDF set
 $DEFAULT_PDF_SETS = lhaid	
 $DEFAULT_PDF_MEMBERS  = reweight_PDF
 #***********************************************************************
@@ -144,12 +143,5 @@ F = fixed_QES_scale ! if .true. use fixed Ellis-Sexton scale
 # At least all massless quarks of the model should be included here. *
 #***********************************************************************
 5 = maxjetflavor
-#***********************************************************************
-# Store info for systematics studies                                 *
-# WARNING: If use_syst is T, matched Pythia output is                *
-#          meaningful ONLY if plotted taking matchscale              *
-#          reweighting into account!                                 *
-#*********************************************************************
-T  = use_syst      ! Enable systematics studies
-#
 #**************************************
+T = pdfwgt
