@@ -146,13 +146,13 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
  0   = drjj    ! min distance between jets 
  0   = drbb    ! min distance between b's 
  0   = drll    ! min distance between leptons 
- 0   = draa    ! min distance between gammas 
+ 0.4   = draa    ! min distance between gammas 
  0   = drbj    ! min distance between b and jet 
- 0.1 = draj    ! min distance between gamma and jet 
+ 0.4 = draj    ! min distance between gamma and jet 
  0   = drjl    ! min distance between jet and lepton 
  0   = drab    ! min distance between gamma and b 
  0   = drbl    ! min distance between b and lepton 
- 0.1 = dral    ! min distance between gamma and lepton 
+ 0.4 = dral    ! min distance between gamma and lepton 
  -1  = drjjmax ! max distance between jets
  -1  = drbbmax ! max distance between b's
  -1  = drllmax ! max distance between leptons
