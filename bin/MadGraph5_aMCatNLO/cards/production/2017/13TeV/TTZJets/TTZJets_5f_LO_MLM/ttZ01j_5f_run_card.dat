@@ -59,6 +59,17 @@
  91.1880  = dsqrt_q2fact1    ! fixed fact scale for pdf1
  91.1880  = dsqrt_q2fact2    ! fixed fact scale for pdf2
  1        = scalefact        ! scale factor for event-by-event scales
+#*********************************************************************** 
+# Reweight flags to get scale dependence and PDF uncertainty           *
+# For scale dependence: factor rw_scale_up/down around central scale   *
+# For PDF uncertainty: use LHAPDF with supported set                   *
+#***********************************************************************
+ .true.   = reweight_scale   ! reweight to get scale dependence
+  0.5     = rw_Rscale_down   ! lower bound for ren scale variations
+  2.0     = rw_Rscale_up     ! upper bound for ren scale variations
+  0.5     = rw_Fscale_down   ! lower bound for fact scale variations
+  2.0     = rw_Fscale_up     ! upper bound for fact scale variations
+ $DEFAULT_PDF_MEMBERS  = reweight_PDF     ! reweight to get PDF uncertainty
 #*********************************************************************
 # Matching - Warning! ickkw > 1 is still beta
 #*********************************************************************
@@ -67,7 +78,7 @@
  1        = ktscheme         ! for ickkw=1, 1 Durham kT, 2 Pythia pTE
  1        = alpsfact         ! scale factor for QCD emission vx
  F        = chcluster        ! cluster only according to channel diag
- F        = pdfwgt           ! for ickkw=1, perform pdf reweighting
+ T        = pdfwgt           ! for ickkw=1, perform pdf reweighting
  5        = asrwgtflavor     ! highest quark flavor for a_s reweight
  T        = clusinfo         ! include clustering tag in output
  3.0      = lhe_version       ! Change the way clustering information pass to shower.        
