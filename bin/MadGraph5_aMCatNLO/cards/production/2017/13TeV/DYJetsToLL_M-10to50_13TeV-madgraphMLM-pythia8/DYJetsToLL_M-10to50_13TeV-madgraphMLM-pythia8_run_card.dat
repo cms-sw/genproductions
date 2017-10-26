@@ -74,8 +74,6 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
  3.0      = lhe_version       ! Change the way clustering information pass to shower.        
 #*********************************************************************
 #**********************************************************
-#
-#**********************************************************
 # Automatic ptj and mjj cuts if xqcut > 0
 # (turn off for VBF and single top processes)
 #**********************************************************
