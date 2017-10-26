@@ -1,3 +1,4 @@
+import model loop_sm-ckm_no_b_mass
 define ell+ = e+ mu+ ta+
 define ell- = e- mu- ta-
 
