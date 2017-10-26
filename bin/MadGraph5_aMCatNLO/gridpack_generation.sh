@@ -101,8 +101,7 @@ RUNHOME=`pwd`
 
 LOGFILE=${RUNHOME}/${name}.log
 if [ "${name}" != "interactive" ]; then
-  exec > >(tee ${LOGFILE})
-  exec 2>&1
+  exec &> ${LOGFILE}
 fi
 
 echo "Starting job on " `date` #Only to display the starting of production date
