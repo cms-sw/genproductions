@@ -50,7 +50,6 @@
 #*********************************************************************
  'lhapdf'    = pdlabel     ! PDF set                                  
   $DEFAULT_PDF_SETS    = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number 
-  $DEFAULT_PDF_MEMBERS = reweight_PDF
 #*********************************************************************
 # Renormalization and factorization scales                           *
 #*********************************************************************
@@ -269,5 +268,3 @@
    T  = use_syst      ! Enable systematics studies
 #
 #**************************************
-0.5 1 2	=  sys_scalefact   # factorization/renormalization scale factor
-30 50	=  sys_matchscale  # variation of merging scale
