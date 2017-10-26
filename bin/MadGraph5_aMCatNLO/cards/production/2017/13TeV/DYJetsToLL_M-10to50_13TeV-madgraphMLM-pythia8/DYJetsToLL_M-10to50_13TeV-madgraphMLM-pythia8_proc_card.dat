@@ -1,0 +1,12 @@
+import model sm-ckm_no_b_mass
+
+
+generate p p > l+ l- /h @0
+add process p p > l+ l- j /h @1
+add process p p > l+ l- j j /h @2
+add process p p > l+ l- j j j /h @3
+add process p p > l+ l- j j j j /h @4
+
+output DYJetsToLL_M-10to50_13TeV-madgraphMLM-pythia8 -nojpeg
+
+
