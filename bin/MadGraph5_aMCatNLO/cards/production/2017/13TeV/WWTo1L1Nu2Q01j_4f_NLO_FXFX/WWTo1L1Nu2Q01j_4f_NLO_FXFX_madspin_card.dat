@@ -22,6 +22,7 @@ set BW_cut 40                # cut on how far the particle can be off-shell
  
 #to properly limit the number of concurrent processes for grid running
 set max_running_process 1
+set onlyhelicity True
 #
 # specify the decay for the final state particles
 define q = u c d s b u~ c~ d~ s~ b~
