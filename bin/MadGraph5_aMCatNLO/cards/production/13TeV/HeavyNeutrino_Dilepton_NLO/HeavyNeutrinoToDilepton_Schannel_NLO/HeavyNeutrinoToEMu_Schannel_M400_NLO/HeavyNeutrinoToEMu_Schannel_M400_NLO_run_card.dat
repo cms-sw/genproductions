@@ -74,4 +74,3 @@ average = event_norm ! Normalize events to sum or average to the X sect.
  5 = maxjetflavor
 
   0	=  iappl    ! aMCfast switch (0=OFF, 1=prepare APPLgrids, 2=fill grids)
-#***********************************************************************
