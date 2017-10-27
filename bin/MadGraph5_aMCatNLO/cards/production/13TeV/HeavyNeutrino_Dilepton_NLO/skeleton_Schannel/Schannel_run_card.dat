@@ -22,7 +22,7 @@ average = event_norm ! Normalize events to sum or average to the X sect.
  6500   = ebeam2  ! beam 2 energy in GeV
 
  lhapdf    = pdlabel   ! PDF set                                     
- 292200     = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number
+ $DEFAULT_PDF_SETS     = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number
 
   PYTHIA8   = parton_shower
    1.0	=  shower_scale_factor  ! multiply default shower starting
@@ -43,9 +43,7 @@ average = event_norm ! Normalize events to sum or average to the X sect.
  True   = reweight_scale   ! reweight to get scale dependence
  1.0, 2.0, 0.5 = rw_rscale ! muR factors to be included by reweighting
  1.0, 2.0, 0.5 = rw_fscale ! muF factors to be included by reweighting
- True   = reweight_PDF     ! reweight to get PDF uncertainty
- 292201 =  PDF_set_min       ! First of the error PDF sets
- 292302 = PDF_set_max ! Last of the error PDF sets
+ $DEFAULT_PDF_MEMBERS   = reweight_PDF     ! reweight to get PDF uncertainty
  False = store_rwgt_info ! Store info for reweighting in LHE file
 
  0        = ickkw            ! 0 no merging, 3 FxFx merging
