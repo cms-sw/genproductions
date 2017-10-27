@@ -1,0 +1,15 @@
+set low_mem_multicore_nlo_generation True
+
+import model loop_sm-ckm_no_b_mass
+
+generate p p > w+, w+ > j j [QCD] @0
+add process p p > w+ j, w+ > j j [QCD] @1
+add process p p > w+ j j, w+ > j j [QCD] @2
+add process p p > w+ j j j, w+ > j j [QCD] @3
+
+add process p p > w-, w- > j j [QCD] @4
+add process p p > w- j, w- > j j [QCD] @5
+add process p p > w- j j, w- > j j [QCD] @6
+add process p p > w- j j j, w- > j j [QCD] @7
+
+output WJetsToQQ_5f_NLO_FXFX -nojpeg
