@@ -39,7 +39,7 @@ int main(int argc, char** argv)
     
     if( line != "</LesHouchesEvents>" ) { 
       
-      if( line == "<event>" || line == "</initrwgt>" ) {
+      if( line == "<event>" || line == "</header>" ) {
 	++eventIt;
 	writeEvent = true;   writePdf = false;
       }
@@ -48,7 +48,7 @@ int main(int argc, char** argv)
 	writeEvent = false;   writePdf = true;
       }
       
-      if( line == "</rwgt>" ) {
+      if( line == "</rwgt>" || line == "</initrwgt>" ) {
 	writeEvent = true;   writePdf = true;
       }
       

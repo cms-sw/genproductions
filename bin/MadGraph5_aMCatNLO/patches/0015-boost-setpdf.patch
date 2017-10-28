@@ -1,0 +1,69 @@
+diff --git a/Template/LO/Source/PDF/pdf_lhapdf6.cc b/Template/LO/Source/PDF/pdf_lhapdf6.cc
+index 35b34d5..77daf67 100644
+--- a/Template/LO/Source/PDF/pdf_lhapdf6.cc
++++ b/Template/LO/Source/PDF/pdf_lhapdf6.cc
+@@ -12,6 +12,11 @@
+ #include "LHAPDF/Version.h"
+ #include "LHAPDF/LHAGlue.h"
+ 
++#include <boost/shared_ptr.hpp>
++#include <boost/foreach.hpp>
++#include <boost/algorithm/string/case_conv.hpp>
++#include <cstring>
++
+ using namespace std;
+ 
+ 
+diff --git a/Template/NLO/Source/PDF/pdf_lhapdf6.cc b/Template/NLO/Source/PDF/pdf_lhapdf6.cc
+index 35b34d5..77daf67 100644
+--- a/Template/NLO/Source/PDF/pdf_lhapdf6.cc
++++ b/Template/NLO/Source/PDF/pdf_lhapdf6.cc
+@@ -12,6 +12,11 @@
+ #include "LHAPDF/Version.h"
+ #include "LHAPDF/LHAGlue.h"
+ 
++#include <boost/shared_ptr.hpp>
++#include <boost/foreach.hpp>
++#include <boost/algorithm/string/case_conv.hpp>
++#include <cstring>
++
+ using namespace std;
+ 
+ 
+diff --git a/madgraph/iolibs/template_files/pdf_wrap_lhapdf.f b/madgraph/iolibs/template_files/pdf_wrap_lhapdf.f
+index 95b0f49..c24d81c 100644
+--- a/madgraph/iolibs/template_files/pdf_wrap_lhapdf.f
++++ b/madgraph/iolibs/template_files/pdf_wrap_lhapdf.f
+@@ -20,7 +20,7 @@ c-------------------
+ 
+ c     initialize the pdf set
+       call FindPDFPath(LHAPath)
+-      CALL SetPDFPath(LHAPath)
++c      CALL SetPDFPath(LHAPath)
+       value(1)=lhaid
+       parm(1)='DEFAULT'
+       call pdfset(parm,value)
+diff --git a/Template/LO/Source/make_opts b/Template/LO/Source/make_opts
+index 026b115..2d539ba 100644
+--- a/Template/LO/Source/make_opts
++++ b/Template/LO/Source/make_opts
+@@ -85,6 +85,7 @@ endif
+ 
+ ifneq ($(lhapdf),)
+ CXXFLAGS += $(shell $(lhapdf) --cppflags)
++CXXFLAGS += -I$(BOOSTINCLUDES)
+ alfas_functions=alfas_functions_lhapdf
+ llhapdf+= -lLHAPDF
+ else
+diff --git a/Template/NLO/Source/make_opts.inc b/Template/NLO/Source/make_opts.inc
+index 4e14603..7d940f0 100644
+--- a/Template/NLO/Source/make_opts.inc
++++ b/Template/NLO/Source/make_opts.inc
+@@ -91,6 +91,7 @@ endif
+ 
+ ifneq ($(lhapdf),)
+   CXXFLAGS += $(shell $(lhapdf) --cppflags)
++  CXXFLAGS += -I$(BOOSTINCLUDES)
+   alfas_functions=alfas_functions_lhapdf
+   llhapdf+=-lLHAPDF 
+   reweight_xsec_events_pdf_dummy=
