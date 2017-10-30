@@ -39,3 +39,8 @@ class PDFSetHelper_MG5_aMC(PDFSetHelper):
     def getListOfMembersToStore(self):
         return ','.join(['True' if x[2] > 1 else 'False' for x in self.pdf_data])
 
+    # Format pdf list for systematics program
+    # See https://cp3.irmp.ucl.ac.be/projects/madgraph/wiki/Systematics
+    def getListOfLHAPDFIdsForSystematics(self):
+        sys_list = [ x[0] if x[2] > 1 else str(x[0])+"@0" for x in self.pdf_data]
+        return ','.join(sys_list)
