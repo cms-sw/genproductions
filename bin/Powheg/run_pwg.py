@@ -424,9 +424,9 @@ if [ "$process" = "bbH" ]; then
    sed -i -e "s#O2#O0#g" Makefile
 fi
 
-## Not needed anymore
-# sed -i -e 's#$(PDFPACK#lhefread.o pwhg_io_interface.o rwl_weightlists.o rwl_setup_param_weights.o \\ \
-#	$(PDFPACK#' Makefile
+# Remove strange options in fortran (fixed line length, multiCPU compilation)
+sed -i -e "s#132#none#g" Makefile
+sed -i -e "s#make -j FC#make FC#g" Makefile
 
 # hardcode svn info
 sed -i -e 's#^pwhg_main:#$(shell ../svnversion/svnversion.sh>/dev/null) \
@@ -441,10 +441,15 @@ BOOK_HISTO="pwhg_bookhist-multi.o"
 if [ `echo ${POWHEGSRC} | cut -d "_" -f 1` = "powhegboxV1" ]; then
    BOOK_HISTO="pwhg_bookhist.o"
 fi 
+if [ "$process" = "gg_H" ] || [ "$process" = "ggHH" ]; then
+   BOOK_HISTO=""
+   echo "Process using pwhg_bookhist-multi-new"
+fi
 if [ "$process" = "trijet" ]; then 
    BOOK_HISTO+=" observables.o"
    rm -rf ../progress/bbinit.f
 fi  
+
 if [ "$process" = "VBF_HJJJ" ]; then 
   sed -i 's/..\/pwhg_book.h/pwhg_book.h/g' pwhg_analysis-dummy.f
 fi  
@@ -596,8 +601,8 @@ if [ "$process" = "HJ" ]; then
   cp ../POWHEG-BOX/HJ/NNLOPS-mass-effects/HNNLO-makefile ./makefile 
   cp -r ../POWHEG-BOX/HJ/NNLOPS-mass-effects/HNNLO-patches ./
   cd src/Need/
-  cat pdfset_lhapdf.f | sed -e "s#30#40#g" | sed -e "s#20#25#g" > pdfset_lhapdf.f.new
-  mv pdfset_lhapdf.f.new pdfset_lhapdf.f
+  cat pdfset_lhapdf.f | sed -e "s#30#40#g" | sed -e "s#20#30#g" | sed -e "s#oldPDFname(1:i-1)//'.LHgrid'#oldPDFname(1:i-1)#g" | sed -e "s#oldPDFname(1:i-1)//'.LHpdf'#oldPDFname(1:i-1)#g" | sed -e "s#InitPDFset('PDFsets/'//PDFname)#InitPDFsetByName(PDFname)#g" > pdfset_lhapdf.f.new
+  mv pdfset_lhapdf.f.new pdfset_lhapdf.f  
   cd -
   cat makefile | sed -e "s#LHAPDFLIB=.\+#LHAPDFLIB=$(scram tool info lhapdf | grep LIBDIR | cut -d "=" -f2)#g" > makefile
   make || fail_exit "Failed to compile HNNLO"
@@ -962,7 +967,7 @@ eval `scram runtime -sh`
 cd -
 
 cat $base/../$config | sed -e "s#SEED#$seed#g" > config.input
-cat config.input | sed -e "s#MSTW2008nnlo68cl#NNPDF30_nnlo_as_0118#g" > config.input.temp
+cat config.input | sed -e "s#MSTW2008nnlo68cl#NNPDF31_nnlo_hessian_pdfas#g" > config.input.temp
 mv config.input.temp config.input
 
 cp $base/../hnnlo .
