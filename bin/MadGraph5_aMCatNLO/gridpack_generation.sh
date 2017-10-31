@@ -318,7 +318,13 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   #Run the code-generation step to create the process directory
   ########################
 
+  sed -i '$ a display multiparticles' ${name}_proc_card.dat
   ./$MGBASEDIRORIG/bin/mg5_aMC ${name}_proc_card.dat
+
+  is5FlavorScheme=0
+  if tail -n 20 $LOGFILE | grep -q -e "^p *=.*b\~.*b" -e "^p *=.*b.*b\~"; then 
+    is5FlavorScheme=1
+  fi
 
    #*FIXME* workaround for broken set cluster_queue and run_mode handling
    if [ "$queue" != "condor" ]; then
@@ -349,6 +355,14 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
 elif [ "${jobstep}" = "INTEGRATE" ] || [ "${jobstep}" = "ALL" ]; then  
   echo "Reusing existing directory assuming generated code already exists"
   echo "WARNING: If you changed the process card you need to clean the folder and run from scratch"
+
+  if [ "$is5FlavorScheme" -eq -1 ]; then
+    if cat $LOGFILE_NAME*.log | grep -q -e "^p *=.*b\~.*b" -e "^p *=.*b.*b\~"; then 
+        is5FlavorScheme=1
+    else
+        is5FlavorScheme=0
+    fi 
+  fi
   
   cd $AFS_GEN_FOLDER
   
@@ -517,8 +531,6 @@ if [ "$isnlo" -gt "0" ]; then
   cd gridpack
 
   cp $PRODHOME/runcmsgrid_NLO.sh ./runcmsgrid.sh
-  sed -i s/SCRAM_ARCH_VERSION_REPLACE/${scram_arch}/g runcmsgrid.sh
-  sed -i s/CMSSW_VERSION_REPLACE/${cmssw_version}/g runcmsgrid.sh
   
   if [ -e $CARDSDIR/${name}_externaltarball.dat ]; then
     mv $WORKDIR/header_for_madspin.txt . 
@@ -615,17 +627,22 @@ else
   cd gridpack
   
   cp $PRODHOME/runcmsgrid_LO.sh ./runcmsgrid.sh
-  sed -i s/SCRAM_ARCH_VERSION_REPLACE/${scram_arch}/g runcmsgrid.sh
-  sed -i s/CMSSW_VERSION_REPLACE/${cmssw_version}/g runcmsgrid.sh
-  
 fi
 
+sed -i s/SCRAM_ARCH_VERSION_REPLACE/${scram_arch}/g runcmsgrid.sh
+sed -i s/CMSSW_VERSION_REPLACE/${cmssw_version}/g runcmsgrid.sh
 
+pdfExtraArgs=""
+if [ $is5FlavorScheme -eq 1 ]; then
+  pdfExtraArgs+="--is5FlavorScheme "
+fi
+script_folder=$(git rev-parse --show-toplevel)/Utilities/scripts
+pdfSysArgs=$(python ${script_folder}/getMG5_aMC_PDFInputs.py -f systematics -c 2017 $pdfExtraArgs)
+sed -i s/PDF_SETS_REPLACE/${pdfSysArgs}/g runcmsgrid.sh
 
 
 #clean unneeded files for generation
 $PRODHOME/cleangridmore.sh
-
 
 #
 #Plan to decay events from external tarball?
@@ -658,6 +675,7 @@ done
 #create tarball with very aggressive xz settings (trade memory and cpu usage for compression ratio)
 echo "Creating tarball"
 
+is5FlavorScheme=-1
 if [ $iscmsconnect -gt 0 ]; then
     XZ_OPT="--lzma2=preset=2,dict=256MiB"
 else

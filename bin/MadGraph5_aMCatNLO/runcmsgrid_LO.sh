@@ -79,12 +79,7 @@ fi
 # Add scale and PDF weights using systematics module
 #
 pushd process/madevent
-pdfsets="303600,292200@0,292600@0,305800,315000@0,"
-pdfsets+="13100,13163@0,13167,13000@0,13065@0,"
-pdfsets+="13069,13200@0,25200@0,25300@0,25000,"
-pdfsets+="42400,42780@0,90200,91200,90400,"
-pdfsets+="91400,61100,61130,61200,61230,"
-pdfsets+="13400,82000"
+pdfsets="PDF_SETS_REPLACE"
 scalevars="--mur=1,2,0.5 --muf=1,2,0.5 --together=muf,mur,dyn --dyn=-1,1,2,3,4"
 
 echo "systematics $runlabel --pdf=$pdfsets $scalevars" | ./bin/madevent
