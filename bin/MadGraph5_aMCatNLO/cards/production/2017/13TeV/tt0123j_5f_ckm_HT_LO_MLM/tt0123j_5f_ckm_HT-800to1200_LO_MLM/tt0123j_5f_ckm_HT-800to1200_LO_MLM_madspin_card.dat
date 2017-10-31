@@ -15,8 +15,8 @@ set ms_dir ./madspingrid
 
 #initialization parameters
  set Nevents_for_max_weigth 250 # number of events for the estimate of the max. weight
-# set BW_cut 15                # cut on how far the particle can be off-shell
  set max_weight_ps_point 400  # number of PS to estimate the maximum for each event
+ 
 # 
 #to properly limit the number of concurrent processes for grid running
 set max_running_process 1
@@ -27,11 +27,5 @@ set max_running_process 1
  decay w+ > all all
  decay w- > all all
 
-#define ell+ = e+ mu+ ta+
-#define ell- = e- mu- ta-
-
-# specify the decay for the final state particles
-#decay w+ > ell+ vl
-#decay w- > ell- vl~
 # running the actual code
 launch
