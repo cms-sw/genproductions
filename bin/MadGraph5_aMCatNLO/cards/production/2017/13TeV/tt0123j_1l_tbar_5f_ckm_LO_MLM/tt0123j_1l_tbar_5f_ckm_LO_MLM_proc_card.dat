@@ -1,0 +1,11 @@
+import model sm-ckm_no_b_mass
+#switch to diagonal ckm matrix if relevant for speed
+#import model sm-lepton_masses_no_b_mass
+
+generate p p > t t~ @0
+add process p p > t t~ j @1
+add process p p > t t~ j j @2
+add process p p > t t~ j j j @3
+
+output tt0123j_1l_tbar_5f_ckm_LO_MLM -nojpeg
+
