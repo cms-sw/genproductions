@@ -641,6 +641,8 @@ else
 #   mv ${DEBUGTARBALL} ${PRODHOME}/${DEBUGTARBALL}
 #   set -e
   
+  mv ${LOGFILE} ${PRODHOME}/
+  
   echo "cleaning temporary output"
   mv $WORKDIR/processtmp/pilotrun_gridpack.tar.gz $WORKDIR/
   mv $WORKDIR/processtmp/Events/pilotrun/unweighted_events.lhe.gz $WORKDIR/
