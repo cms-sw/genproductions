@@ -3,7 +3,7 @@ numevts NEVENTS    ! number of events to be generated
 ! Production parameters for ttH production
 hmass 125.d0      ! mass of the Higgs boson [GeV]
 hwidth 0.00407d0  ! width of the Higgs boson [GeV]
-hdamp 272.7225
+hdamp 237.8775
 
 ! Higgs decay:
 hdecaymode -1   ! -1 no decay
