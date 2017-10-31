@@ -102,7 +102,9 @@ RUNHOME=`pwd`
 LOGFILE=${RUNHOME}/${name}.log
 LOGFILE_NAME=${LOGFILE/.log/}
 if [ "${name}" != "interactive" ]; then
-  exec &> ${LOGFILE}
+  #exec &> ${LOGFILE}
+  exec > >(tee ${LOGFILE})
+  exec 2>&1
 fi
 
 echo "Starting job on " `date` #Only to display the starting of production date
@@ -640,8 +642,6 @@ else
 #   echo "moving tarball to ${PRODHOME}/${DEBUGTARBALL}"
 #   mv ${DEBUGTARBALL} ${PRODHOME}/${DEBUGTARBALL}
 #   set -e
-  
-  mv ${LOGFILE} ${PRODHOME}/
   
   echo "cleaning temporary output"
   mv $WORKDIR/processtmp/pilotrun_gridpack.tar.gz $WORKDIR/
