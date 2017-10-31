@@ -1,11 +1,9 @@
 numevts NEVENTS    ! number of events to be generated
 
-! Production parameters for ttH production
 hmass 125.d0      ! mass of the Higgs boson [GeV]
 hwidth 0.00407d0  ! width of the Higgs boson [GeV]
 hdamp 237.8775
 
-! Higgs decay:
 hdecaymode -1   ! -1 no decay
                 ! 0 all decay channels open
                 ! 1-6 d dbar, u ubar,..., t tbar
@@ -14,14 +12,12 @@ hdecaymode -1   ! -1 no decay
                 ! 11  ZZ
                 ! 12  gamma gamma
 
-#pythiatune 320 ! PYTHIA tune
 
 ih1   1           ! hadron 1 (1 for protons, -1 for antiprotons)
 ih2   1           ! hadron 2 (1 for protons, -1 for antiprotons)
 ebeam1 6500d0     ! energy of beam 1
 ebeam2 6500d0     ! energy of beam 2
 
-# https://lhapdf.hepforge.org/pdfsets.html
 lhans1  306000      ! pdf set for hadron 1 (LHA numbering)
 lhans2  306000      ! pdf set for hadron 2 (LHA numbering)
 
@@ -47,17 +43,14 @@ renscfact 1d0   ! (default 1d0) ren scale factor: muren  = muref * renscfact
 facscfact 1d0   ! (default 1d0) fac scale factor: mufact = muref * facscfact
 testplots  1       ! (default 0, do not) do NLO and PWHG distributions
 
-#bornonly   1      ! (default 0) if 1 do Born only
 fakevirt   1      ! (default 0) if 1 use Born for virtuals
 
 iseed    SEED
 
-# parameters for top decays:
 topdecaymode 22222      ! 0 stable tops
                         ! 20000 both tops decay into b l v
 zerowidth 0         ! if 1, use zero width approximation during decay
 
-! Parameters for the generation of spin correlations in t tbar decays
 tdec/wmass 80.385  ! W mass for top decay
 tdec/wwidth 2.085
 tdec/bmass 4.8
