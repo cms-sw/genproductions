@@ -21,6 +21,7 @@
 
 #exit on first error
 set -e
+source Utilities/gridpack_helpers.sh
 
 #First you need to set couple of settings:
 
@@ -44,7 +45,7 @@ fi
 
 if [ -z "$6" ]
   then
-    cmssw_version=CMSSW_7_1_28
+    cmssw_version=CMSSW_7_1_30
   else
     cmssw_version=${6}
 fi
@@ -100,8 +101,12 @@ fi
 RUNHOME=`pwd`
 
 LOGFILE=${RUNHOME}/${name}.log
+LOGFILE_NAME=${LOGFILE/.log/}
 if [ "${name}" != "interactive" ]; then
-  exec &> ${LOGFILE}
+  mkfifo ${LOGFILE}.pipe
+  tee < ${LOGFILE}.pipe ${LOGFILE} &
+  exec &> ${LOGFILE}.pipe
+  rm ${LOGFILE}.pipe
 fi
 
 echo "Starting job on " `date` #Only to display the starting of production date
@@ -114,6 +119,7 @@ echo "queue: ${queue}"
 echo "scram_arch: ${scram_arch}"
 echo "cmssw_version: ${cmssw_version}"
 
+is5FlavorScheme=-1
 if [ -z ${iscmsconnect:+x} ]; then iscmsconnect=0; fi
 
 # CMS Connect runs git status inside its own script.
@@ -447,12 +453,10 @@ fi
 
 cd processtmp
 
-#######################
-#Locating the run card#
-#######################
-
-echo "copying run_card.dat file"
-cp $CARDSDIR/${name}_run_card.dat ./Cards/run_card.dat
+#################################
+#Add PDF info and copy run card #
+#################################
+prepare_run_card $name $CARDSDIR $is5FlavorScheme
 
 #copy provided custom fks params or cuts
 if [ -e $CARDSDIR/${name}_cuts.f ]; then
@@ -642,7 +646,7 @@ sed -i s/PDF_SETS_REPLACE/${pdfSysArgs}/g runcmsgrid.sh
 
 
 #clean unneeded files for generation
-$PRODHOME/cleangridmore.sh
+$PRODHOME/Utilities/cleangridmore.sh
 
 #
 #Plan to decay events from external tarball?
@@ -665,7 +669,6 @@ fi
 
 echo "Saving log file(s)"
 #copy log file
-LOGFILE_NAME=${LOGFILE/.log/}
 for i in ${LOGFILE_NAME}*.log; do 
     cp $i ${i/$LOGFILE_NAME/gridpack_generation}; 
 done
@@ -675,7 +678,6 @@ done
 #create tarball with very aggressive xz settings (trade memory and cpu usage for compression ratio)
 echo "Creating tarball"
 
-is5FlavorScheme=-1
 if [ $iscmsconnect -gt 0 ]; then
     XZ_OPT="--lzma2=preset=2,dict=256MiB"
 else
