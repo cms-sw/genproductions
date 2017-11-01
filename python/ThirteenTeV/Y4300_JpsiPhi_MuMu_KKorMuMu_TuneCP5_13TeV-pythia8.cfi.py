@@ -53,8 +53,6 @@ motherFilter = cms.EDFilter("PythiaFilter",
     ParticleID = cms.untracked.int32(20443) # Chi_c1 as Y4140
 )
 
-# verbose threshold for "PythiaDauVFilter" are 2,5,10
-
 decayfilter = cms.EDFilter("PythiaDauVFilter",
     ParticleID = cms.untracked.int32(20443),
     NumberDaughters = cms.untracked.int32(2),
