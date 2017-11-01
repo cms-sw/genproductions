@@ -1,15 +1,15 @@
-vdecaymode   10  ! 1,2,3 => electron,muon,tau; 4,5,6 => respective neutrinos
-hdecaymode  -1  ! undecayed Higgs boson (for PYTHIA and HERWIG)
+idvecbos          {W}
+vdecaymode        10
+hdecaymode        -1
 
-hmass  450d0        ! Higgs boson mass 
-hwidth 46.8d0     ! Higgs boson width 
+hmass  {mass}d0        ! Higgs boson mass 
+hwidth {width}d0     ! Higgs boson width 
 
 min_h_mass    10d0      
 max_h_mass  13000d0 
 
-min_z_mass     10d0
-max_z_mass    13000d0
-
+min_w_mass     10d0
+max_w_mass   13000d0
 
 
 numevts NEVENTS   ! number of events to be generated
@@ -52,12 +52,13 @@ itmx1 3           ! Number of iterations for grid
 ncall2 75000      ! Number of calls for the computation of the upper bounding envelope
                   ! for the generation of radiation
 itmx2 5           ! Number of iterations for the above
+
 ! Notice: the total number of calls is ncall2*itmx2*foldcsi*foldy*foldphi
 foldcsi 2         ! number of folds on csi integration
 foldy   5         ! number of folds on  y  integration
 foldphi 2         ! number of folds on phi integration
 
-nubound 60000 ! number of calls to set up the upper bounding norms for radiation
+nubound 600000 ! number of calls to set up the upper bounding norms for radiation
                ! This is performed using only the Born cross section (fast)
 
 
@@ -82,9 +83,9 @@ iseed    SEED        !  Start the random number generator with seed iseed
                      ! The event file is called pwgevents-'j'.lhe
 
 #parallelstage 1
-xgriditeration 1
+#xgriditeration 1
 fastbtlbound 1
-#storemintupb 1
+storemintupb 1
 
 storeinfo_rwgt 1   ! store info to allow for reweighting
 pdfreweight 1
