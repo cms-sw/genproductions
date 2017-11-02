@@ -269,8 +269,4 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
    T  = use_syst      ! Enable systematics studies
 #
 #**************************************
-#**************************************
-# Parameter of the systematics study
-#  will be used by SysCalc (if installed)
 #**************************************                                  
-
