@@ -14,7 +14,6 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
         pythia8CP5SettingsBlock,
         processParameters = cms.vstring(
               'SoftQCD:inelastic = on',
-     
        ),
         parameterSets = cms.vstring('pythia8CommonSettings',
                                     'pythia8CP5Settings',
