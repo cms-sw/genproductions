@@ -34,10 +34,7 @@ define l+ = e+ mu+ ta+
 define l- = e- mu- ta-
 define j  = p
 # Specify process(es) to run
-generate p p > l+ l- / h @0
-add process p p > l+ l- j / h @1
-add process p p > l+ l- j j / h @2
-add process p p > l+ l- j j j / h @3
-add process p p > l+ l- j j j j / h @4
+generate p p > l+ l- j j j / h @0
+
 # Output processes to MadEvent directory
-output DYJets_Zpt-150toInf_5f_LO_MLM -nojpeg
+output DY3Jets_madgraph_5f_LO -nojpeg
