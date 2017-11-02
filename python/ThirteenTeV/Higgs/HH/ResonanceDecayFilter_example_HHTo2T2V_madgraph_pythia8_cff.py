@@ -23,11 +23,7 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
         pythia8CUEP8M1SettingsBlock,
         processParameters = cms.vstring(
             '23:mMin = 0.05',
-            '23:onMode = off',
-            '23:onIfAny = 1 2 3 4 5 11 12 13 14 15 16', # inclusive
             '24:mMin = 0.05',
-            '24:onMode = off',
-            '24:onIfAny = 1 2 3 4 5 11 12 13 14 15 16', # inclusive
             '25:m0 = 125.0',
             '25:onMode = off',
             '25:onIfMatch = 15 -15',
@@ -35,14 +31,10 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
             '25:onIfMatch = 24 -24',
             'ResonanceDecayFilter:filter = on',
             'ResonanceDecayFilter:exclusive = on', #off: require at least the specified number of daughters, on: require exactly the specified number of daughters
-            'ResonanceDecayFilter:eMuAsEquivalent = off', #on: treat electrons and muons as equivalent
-            'ResonanceDecayFilter:eMuTauAsEquivalent = on', #on: treat electrons, muons , and taus as equivalent
-            'ResonanceDecayFilter:allNuAsEquivalent  = off', #on: treat all three neutrino flavours as equivalent
-            'ResonanceDecayFilter:udscAsEquivalent   = off', #on: treat udsc quarks as equivalent
-            'ResonanceDecayFilter:udscbAsEquivalent  = on',  #on: treat udscb quarks as equivalent
-            'ResonanceDecayFilter:mothers = 25,23,24', #list of mothers not specified -> count all particles in hard process+resonance decays (better to avoid specifying mothers when including leptons from the lhe in counting, since intermediate resonances are not gauranteed to appear in general
-            'ResonanceDecayFilter:daughters = 15,-15,1,1,1,1',
-          ),
+            'ResonanceDecayFilter:mothers = 25', #list of mothers not specified -> count all particles in hard process+resonance decays (better to avoid specifying mothers when including leptons from the lhe in counting, since intermediate resonances are not gauranteed to appear in general
+            'ResonanceDecayFilter:wzAsEquivalent = on',
+            'ResonanceDecayFilter:daughters = 15,15,23,23',
+        ),
         parameterSets = cms.vstring('pythia8CommonSettings',
                                     'pythia8CUEP8M1Settings',
                                     'processParameters'
