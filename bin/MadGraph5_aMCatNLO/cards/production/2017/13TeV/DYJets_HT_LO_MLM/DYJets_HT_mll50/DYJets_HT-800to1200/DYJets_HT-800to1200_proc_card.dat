@@ -1,6 +1,4 @@
 import model sm-ckm_no_b_mass
-define vl = ve vm vt
-define vl~ = ve~ vm~ vt~
 define l+ = e+ mu+ ta+
 define l- = e- mu- ta-
 generate p p > l+ l- / h @0
