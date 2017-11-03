@@ -104,7 +104,7 @@ LOGFILE_NAME=${LOGFILE/.log/}
 if [ "${name}" != "interactive" ]; then
   mkfifo ${LOGFILE}.pipe
   tee < ${LOGFILE}.pipe ${LOGFILE} &
-  exec &> ${LOGFILE}
+  exec &> ${LOGFILE}.pipe
   rm ${LOGFILE}.pipe
 fi
 
