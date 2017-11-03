@@ -463,7 +463,12 @@ cd processtmp
 #################################
 #Add PDF info and copy run card #
 #################################
-prepare_run_card $name $CARDSDIR $is5FlavorScheme
+script_dir="${PRODHOME}/Utilities/scripts"
+if [ $iscmsconnect -eq 0 ]; then
+  script_dir=$(git rev-parse --show-toplevel)/Utilities/scripts
+fi
+
+prepare_run_card $name $CARDSDIR $is5FlavorScheme $script_dir
 
 #copy provided custom fks params or cuts
 if [ -e $CARDSDIR/${name}_cuts.f ]; then
@@ -647,11 +652,6 @@ pdfExtraArgs=""
 if [ $is5FlavorScheme -eq 1 ]; then
   pdfExtraArgs+="--is5FlavorScheme "
 fi 
-
-script_dir="${PRODHOME}/Utilities/scripts"
-if [ $iscmsconnect -eq 0 ]; then
-  script_dir=$(git rev-parse --show-toplevel)/Utilities/scripts
-fi
 
 pdfSysArgs=$(python ${script_dir}/getMG5_aMC_PDFInputs.py -f systematics -c 2017 $pdfExtraArgs)
 sed -i s/PDF_SETS_REPLACE/${pdfSysArgs}/g runcmsgrid.sh

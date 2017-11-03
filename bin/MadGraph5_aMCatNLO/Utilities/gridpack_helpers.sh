@@ -1,12 +1,8 @@
-script_dir="${PRODHOME}/Utilities/scripts"
-if [ $iscmsconnect -eq 0 ]; then
-  script_dir=$(git rev-parse --show-toplevel)/Utilities/scripts
-fi
-
 set_run_card_pdf () {
     name=$1
     CARDSDIR=$2
     is5FlavorScheme=$3
+    script_dir=$4
 
     pdfExtraArgs=""
     if [ $is5FlavorScheme -eq 1 ]; then
@@ -45,7 +41,7 @@ EOF
 # and copy to correct directory
 # Args: <process_name> <cards directory> <is5FlavorScheme> 
 prepare_run_card () {
-    set_run_card_pdf $1 $2 $3
+    set_run_card_pdf $1 $2 $3 $4
 
     # Set maxjetflavor according to PDF scheme
     is5FlavorScheme=$3
