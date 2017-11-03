@@ -55,10 +55,10 @@ if [ -z "$PRODHOME" ]; then
   PRODHOME=`pwd`
 fi 
 
-helpers_dir=$(git rev-parse --show-toplevel)/bin/MadGraph5_aMCatNLO/Utilities
-#Folder structure will be different on the cluster
-if [ ! -d $helpers_dir ]; then
-  helpers_dir=Utilities
+# Folder structure is different on CMSConnect
+helpers_dir=${PRODHOME}/Utilities
+if [ $iscmsconnect -eq 0 ]; then
+    helpers_dir=$(git rev-parse --show-toplevel)/bin/MadGraph5_aMCatNLO/Utilities
 fi
 source ${helpers_dir}/gridpack_helpers.sh 
 
@@ -648,11 +648,11 @@ if [ $is5FlavorScheme -eq 1 ]; then
   pdfExtraArgs+="--is5FlavorScheme "
 fi 
 
-script_dir=$(git rev-parse --show-toplevel)/Utilities/scripts
-#Folder structure will be different on the cluster
-if [ ! -d $script_dir ]; then
-  script_dir=${PRODHOME}/Utilities/scripts
+script_dir="${PRODHOME}/Utilities/scripts"
+if [ $iscmsconnect -eq 0 ]; then
+  script_dir=$(git rev-parse --show-toplevel)/Utilities/scripts
 fi
+
 pdfSysArgs=$(python ${script_dir}/getMG5_aMC_PDFInputs.py -f systematics -c 2017 $pdfExtraArgs)
 sed -i s/PDF_SETS_REPLACE/${pdfSysArgs}/g runcmsgrid.sh
 

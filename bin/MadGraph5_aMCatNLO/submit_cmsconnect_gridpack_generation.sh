@@ -165,7 +165,7 @@ patches_directory="./patches"
 utilities_dir="./Utilities"
 
 if [ -e "$input_files" ]; then rm "$input_files"; fi
-tar -zchf "$input_files" "$card_dir" "$patches_directory" "$utitlies_dir}
+tar -zchf "$input_files" "$card_dir" "$patches_directory" "$utilities_dir"
 
 ## Create a submit file for a single job
 # create_codegen_exe arguments are:
