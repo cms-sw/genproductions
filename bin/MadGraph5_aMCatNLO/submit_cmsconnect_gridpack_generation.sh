@@ -1,7 +1,10 @@
 #!/bin/bash
 
-source Utilities/cmsconnect_utils.sh
-source Utilities/source_condor.sh
+helpers_dir=$(git rev-parse --show-toplevel)/bin/MadGraph5_aMCatNLO/Utilities
+script_dir=$(git rev-parse --show-toplevel)/Utilities/scripts
+
+source ${helpers_dir}/cmsconnect_utils.sh
+source ${helpers_dir}/source_condor.sh
 
 create_codegen_jdl(){
 cat<<-EOF
@@ -164,7 +167,7 @@ input_files="input_${card_name}.tar.gz"
 patches_directory="./patches"
 
 if [ -e "$input_files" ]; then rm "$input_files"; fi
-tar -zcf "$input_files" "$card_dir" "$patches_directory"
+tar -zcf "$input_files" "$card_dir" "$patches_directory" $scripts_dir $helpers_dir
 
 ## Create a submit file for a single job
 # create_codegen_exe arguments are:

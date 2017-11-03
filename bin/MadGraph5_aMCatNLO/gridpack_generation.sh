@@ -21,7 +21,6 @@
 
 #exit on first error
 set -e
-source Utilities/gridpack_helpers.sh
 
 #First you need to set couple of settings:
 
@@ -55,6 +54,14 @@ fi
 if [ -z "$PRODHOME" ]; then
   PRODHOME=`pwd`
 fi 
+
+helpers_dir=$(git rev-parse --show-toplevel)/bin/MadGraph5_aMCatNLO/Utilities
+#Folder structure will be different on the cluster
+if [ ! -d $helpers_dir ]; then
+  helpers_dir=Utilities
+fi
+source ${helpers_dir}/gridpack_helpers.sh 
+
 
 if [ ! -z ${CMSSW_BASE} ]; then
   echo "Error: This script must be run in a clean environment as it sets up CMSSW itself.  You already have a CMSSW environment set up for ${CMSSW_VERSION}."
@@ -639,14 +646,19 @@ sed -i s/CMSSW_VERSION_REPLACE/${cmssw_version}/g runcmsgrid.sh
 pdfExtraArgs=""
 if [ $is5FlavorScheme -eq 1 ]; then
   pdfExtraArgs+="--is5FlavorScheme "
+fi 
+
+script_dir=$(git rev-parse --show-toplevel)/Utilities/scripts
+#Folder structure will be different on the cluster
+if [ ! -d $script_dir ]; then
+  script_dir=${PRODHOME}/Utilities/scripts
 fi
-script_folder=$(git rev-parse --show-toplevel)/Utilities/scripts
-pdfSysArgs=$(python ${script_folder}/getMG5_aMC_PDFInputs.py -f systematics -c 2017 $pdfExtraArgs)
+pdfSysArgs=$(python ${script_dir}/getMG5_aMC_PDFInputs.py -f systematics -c 2017 $pdfExtraArgs)
 sed -i s/PDF_SETS_REPLACE/${pdfSysArgs}/g runcmsgrid.sh
 
 
 #clean unneeded files for generation
-$PRODHOME/Utilities/cleangridmore.sh
+${helpers_dir}/cleangridmore.sh
 
 #
 #Plan to decay events from external tarball?
