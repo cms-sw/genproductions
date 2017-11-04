@@ -387,6 +387,7 @@ elif [ "${jobstep}" = "INTEGRATE" ] || [ "${jobstep}" = "ALL" ]; then
   cd $WORKDIR
 
   eval `scram runtime -sh`
+  export BOOSTINCLUDES=`scram tool tag boost INCLUDE`
 
   #LHAPDFCONFIG=`echo "$LHAPDF_DATA_PATH/../../bin/lhapdf-config"`
 
