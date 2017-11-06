@@ -1,9 +1,7 @@
 import model sm-ckm_no_b_mass
 
-generate p p > w-, w- > l- vl~ /h @0
-add process p p > w- j, w- > l- vl~ @1
-add process p p > w- j j, w- > l- vl~ @2
-add process p p > w- j j j, w- > l- vl~ @3
+generate p p > w+ j j j, w+ > l+ vl $$ t t~ h @0
+add process p p > w- j j j, w- > l- vl~ $$ t t~ h @1
 
 
 output W3JetsToLNu_13TeV-madgraphMLM-pythia8 -nojpeg
