@@ -1,10 +1,7 @@
 import os
 
-#HNmass = ["15", "20", "30", "40", "50", "60", "65", "70", "75", "80", "85", "90", "95", "100", "110", "150", "200", "300", "400", "500", "600", "700", "800", "900", "1000", "1100", "1200", "1300", "1400", "1500"]
-#Decay = ["MuMu", "MuE", "EMu", "EE"]
-
-HNmass = ["50", "400"]
-Decay = ["MuE", "EMu"]
+HNmass = ["15", "20", "30", "40", "50", "60", "65", "70", "75", "80", "85", "90", "95", "100", "125", "150", "200", "250", "300", "400", "500", "600", "700", "800", "900", "1000", "1100", "1200", "1300", "1400", "1500", "1700", "2000"]
+Decay = ["MuMu", "MuE", "EMu", "EE"]
 
 skel_customizecards = open("./skeleton_Schannel/Schannel_customizecards.dat").readlines()
 skel_madspin_card = open("./skeleton_Schannel/Schannel_madspin_card.dat").readlines()
@@ -12,8 +9,8 @@ skel_proc_card = open("./skeleton_Schannel/Schannel_proc_card.dat").readlines()
 
 os.mkdir("HeavyNeutrinoToDilepton_Schannel_NLO")
 
-for i in range(0,2):
-  for ii in range(0,2):
+for i in range(0,33):
+  for ii in range(0,4):
     os.mkdir("HeavyNeutrinoToDilepton_Schannel_NLO/HeavyNeutrinoTo"+Decay[ii]+"_Schannel_M"+HNmass[i]+"_NLO")
     out_customizecards = open("HeavyNeutrinoTo"+Decay[ii]+"_Schannel_M"+HNmass[i]+"_NLO_customizecards.dat", "wt")
     for line in skel_customizecards:
@@ -65,8 +62,8 @@ for i in range(0,2):
         out_proc_card.write(line)
     out_proc_card.close()
 
-for i in range(0,2):
-  for ii in range(0,2):
+for i in range(0,33):
+  for ii in range(0,4):
     os.system("mv HeavyNeutrinoTo"+Decay[ii]+"_Schannel_M"+HNmass[i]+"_NLO_customizecards.dat HeavyNeutrinoToDilepton_Schannel_NLO/HeavyNeutrinoTo"+Decay[ii]+"_Schannel_M"+HNmass[i]+"_NLO/")
     os.system("mv HeavyNeutrinoTo"+Decay[ii]+"_Schannel_M"+HNmass[i]+"_NLO_madspin_card.dat HeavyNeutrinoToDilepton_Schannel_NLO/HeavyNeutrinoTo"+Decay[ii]+"_Schannel_M"+HNmass[i]+"_NLO/")
     os.system("mv HeavyNeutrinoTo"+Decay[ii]+"_Schannel_M"+HNmass[i]+"_NLO_proc_card.dat HeavyNeutrinoToDilepton_Schannel_NLO/HeavyNeutrinoTo"+Decay[ii]+"_Schannel_M"+HNmass[i]+"_NLO/")
