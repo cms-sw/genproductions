@@ -1,7 +1,4 @@
 import model loop_sm-ckm
-#switch to non-diagonal ckm matrix for speed
-#import model loop_sm
-
 generate p p > w+ > t b~ [QCD] @0
 add process p p > w- > t~ b  [QCD] @1
 
