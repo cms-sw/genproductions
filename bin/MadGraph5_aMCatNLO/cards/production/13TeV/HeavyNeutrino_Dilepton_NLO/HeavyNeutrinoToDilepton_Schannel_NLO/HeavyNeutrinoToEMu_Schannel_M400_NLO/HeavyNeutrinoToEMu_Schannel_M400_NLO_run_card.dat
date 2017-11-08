@@ -74,7 +74,7 @@ average = event_norm ! Normalize events to sum or average to the X sect.
  1.0, 2.0, 0.5 = rw_rscale ! muR factors to be included by reweighting
  1.0, 2.0, 0.5 = rw_fscale ! muF factors to be included by reweighting
  $DEFAULT_PDF_MEMBERS   = reweight_PDF     ! reweight to get PDF uncertainty
- False = store_rwgt_info ! Store info for reweighting in LHE file
+ True = store_rwgt_info ! Store info for reweighting in LHE file
 #***********************************************************************
 # Merging - WARNING! Applies merging only at the hard-event level.     *
 # After showering an MLM-type merging should be applied as well.       *
