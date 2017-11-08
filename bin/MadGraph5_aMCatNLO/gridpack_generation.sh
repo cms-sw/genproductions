@@ -35,18 +35,18 @@ queue=${3}
 # processing options
 jobstep=${4}
 
-if [ -z "$5" ]
+if [ -n "$5" ]
   then
-    scram_arch=slc6_amd64_gcc481
-  else
     scram_arch=${5}
+  else
+    scram_arch=slc6_amd64_gcc481
 fi
 
-if [ -z "$6" ]
+if [ -n "$6" ]
   then
-    cmssw_version=CMSSW_7_1_28
-  else
     cmssw_version=${6}
+  else
+    cmssw_version=CMSSW_7_1_30
 fi
  
 # jobstep can be 'ALL','CODEGEN', 'INTEGRATE', 'MADSPIN'
@@ -54,6 +54,14 @@ fi
 if [ -z "$PRODHOME" ]; then
   PRODHOME=`pwd`
 fi 
+
+# Folder structure is different on CMSConnect
+helpers_dir=${PRODHOME}/Utilities
+if [ $iscmsconnect -eq 0 ]; then
+    helpers_dir=$(git rev-parse --show-toplevel)/bin/MadGraph5_aMCatNLO/Utilities
+fi
+source ${helpers_dir}/gridpack_helpers.sh 
+
 
 if [ ! -z ${CMSSW_BASE} ]; then
   echo "Error: This script must be run in a clean environment as it sets up CMSSW itself.  You already have a CMSSW environment set up for ${CMSSW_VERSION}."
@@ -100,8 +108,12 @@ fi
 RUNHOME=`pwd`
 
 LOGFILE=${RUNHOME}/${name}.log
+LOGFILE_NAME=${LOGFILE/.log/}
 if [ "${name}" != "interactive" ]; then
-  exec &> ${LOGFILE}
+  mkfifo ${LOGFILE}.pipe
+  tee < ${LOGFILE}.pipe ${LOGFILE} &
+  exec &> ${LOGFILE}.pipe
+  rm ${LOGFILE}.pipe
 fi
 
 echo "Starting job on " `date` #Only to display the starting of production date
@@ -114,6 +126,7 @@ echo "queue: ${queue}"
 echo "scram_arch: ${scram_arch}"
 echo "cmssw_version: ${cmssw_version}"
 
+is5FlavorScheme=-1
 if [ -z ${iscmsconnect:+x} ]; then iscmsconnect=0; fi
 
 # CMS Connect runs git status inside its own script.
@@ -318,7 +331,13 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   #Run the code-generation step to create the process directory
   ########################
 
+  sed -i '$ a display multiparticles' ${name}_proc_card.dat
   ./$MGBASEDIRORIG/bin/mg5_aMC ${name}_proc_card.dat
+
+  is5FlavorScheme=0
+  if tail -n 20 $LOGFILE | grep -q -e "^p *=.*b\~.*b" -e "^p *=.*b.*b\~"; then 
+    is5FlavorScheme=1
+  fi
 
    #*FIXME* workaround for broken set cluster_queue and run_mode handling
    if [ "$queue" != "condor" ]; then
@@ -349,6 +368,14 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
 elif [ "${jobstep}" = "INTEGRATE" ] || [ "${jobstep}" = "ALL" ]; then  
   echo "Reusing existing directory assuming generated code already exists"
   echo "WARNING: If you changed the process card you need to clean the folder and run from scratch"
+
+  if [ "$is5FlavorScheme" -eq -1 ]; then
+    if cat $LOGFILE_NAME*.log | grep -q -e "^p *=.*b\~.*b" -e "^p *=.*b.*b\~"; then 
+        is5FlavorScheme=1
+    else
+        is5FlavorScheme=0
+    fi 
+  fi
   
   cd $AFS_GEN_FOLDER
   
@@ -360,6 +387,7 @@ elif [ "${jobstep}" = "INTEGRATE" ] || [ "${jobstep}" = "ALL" ]; then
   cd $WORKDIR
 
   eval `scram runtime -sh`
+  export BOOSTINCLUDES=`scram tool tag boost INCLUDE`
 
   #LHAPDFCONFIG=`echo "$LHAPDF_DATA_PATH/../../bin/lhapdf-config"`
 
@@ -433,12 +461,15 @@ fi
 
 cd processtmp
 
-#######################
-#Locating the run card#
-#######################
+#################################
+#Add PDF info and copy run card #
+#################################
+script_dir="${PRODHOME}/Utilities/scripts"
+if [ $iscmsconnect -eq 0 ]; then
+  script_dir=$(git rev-parse --show-toplevel)/Utilities/scripts
+fi
 
-echo "copying run_card.dat file"
-cp $CARDSDIR/${name}_run_card.dat ./Cards/run_card.dat
+prepare_run_card $name $CARDSDIR $is5FlavorScheme $script_dir
 
 #copy provided custom fks params or cuts
 if [ -e $CARDSDIR/${name}_cuts.f ]; then
@@ -517,8 +548,6 @@ if [ "$isnlo" -gt "0" ]; then
   cd gridpack
 
   cp $PRODHOME/runcmsgrid_NLO.sh ./runcmsgrid.sh
-  sed -i s/SCRAM_ARCH_VERSION_REPLACE/${scram_arch}/g runcmsgrid.sh
-  sed -i s/CMSSW_VERSION_REPLACE/${cmssw_version}/g runcmsgrid.sh
   
   if [ -e $CARDSDIR/${name}_externaltarball.dat ]; then
     mv $WORKDIR/header_for_madspin.txt . 
@@ -615,17 +644,22 @@ else
   cd gridpack
   
   cp $PRODHOME/runcmsgrid_LO.sh ./runcmsgrid.sh
-  sed -i s/SCRAM_ARCH_VERSION_REPLACE/${scram_arch}/g runcmsgrid.sh
-  sed -i s/CMSSW_VERSION_REPLACE/${cmssw_version}/g runcmsgrid.sh
-  
 fi
 
+sed -i s/SCRAM_ARCH_VERSION_REPLACE/${scram_arch}/g runcmsgrid.sh
+sed -i s/CMSSW_VERSION_REPLACE/${cmssw_version}/g runcmsgrid.sh
 
+pdfExtraArgs=""
+if [ $is5FlavorScheme -eq 1 ]; then
+  pdfExtraArgs+="--is5FlavorScheme "
+fi 
+
+pdfSysArgs=$(python ${script_dir}/getMG5_aMC_PDFInputs.py -f systematics -c 2017 $pdfExtraArgs)
+sed -i s/PDF_SETS_REPLACE/${pdfSysArgs}/g runcmsgrid.sh
 
 
 #clean unneeded files for generation
-$PRODHOME/cleangridmore.sh
-
+${helpers_dir}/cleangridmore.sh
 
 #
 #Plan to decay events from external tarball?
@@ -648,7 +682,6 @@ fi
 
 echo "Saving log file(s)"
 #copy log file
-LOGFILE_NAME=${LOGFILE/.log/}
 for i in ${LOGFILE_NAME}*.log; do 
     cp $i ${i/$LOGFILE_NAME/gridpack_generation}; 
 done

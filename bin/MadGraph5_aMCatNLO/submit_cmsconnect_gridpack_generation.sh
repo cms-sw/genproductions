@@ -1,7 +1,7 @@
 #!/bin/bash
 
-source cmsconnect_utils.sh
-source source_condor.sh
+source Utilities/cmsconnect_utils.sh
+source Utilities/source_condor.sh
 
 create_codegen_jdl(){
 cat<<-EOF
@@ -162,9 +162,10 @@ codegen_jdl="codegen_${card_name}.jdl"
 # Those will be input files for the condor CODEGEN step.
 input_files="input_${card_name}.tar.gz"
 patches_directory="./patches"
+utilities_dir="./Utilities"
 
 if [ -e "$input_files" ]; then rm "$input_files"; fi
-tar -zcf "$input_files" "$card_dir" "$patches_directory"
+tar -zchf "$input_files" "$card_dir" "$patches_directory" "$utilities_dir"
 
 ## Create a submit file for a single job
 # create_codegen_exe arguments are:

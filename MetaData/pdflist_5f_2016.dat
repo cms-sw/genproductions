@@ -1,0 +1,4 @@
+# Format: <LHAPDF ID> <LHAPDF label> <number of variations to include>
+292200 NNPDF30_nlo_nf_5_pdfas 103
+13100 CT14nlo 57
+25200 MMHT2014nlo68clas118 51

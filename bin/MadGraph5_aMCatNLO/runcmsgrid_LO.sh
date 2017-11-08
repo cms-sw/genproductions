@@ -12,14 +12,14 @@ echo "%MSG-MG5 number of cpus = $ncpu"
 LHEWORKDIR=`pwd`
 
 use_gridpack_env=true
-if [ -z "$4" ]
+if [ -n "$4" ]
   then
   use_gridpack_env=$4
 fi
 
 if [ "$use_gridpack_env" = true ]
   then
-    if [ -z "$5" ]
+    if [ -n "$5" ]
       then
         scram_arch_version=${5}
       else
@@ -27,7 +27,7 @@ if [ "$use_gridpack_env" = true ]
     fi
     echo "%MSG-MG5 SCRAM_ARCH version = $scram_arch_version"
 
-    if [ -z "$6" ]
+    if [ -n "$6" ]
       then
         cmssw_version=${6}
       else
@@ -79,12 +79,7 @@ fi
 # Add scale and PDF weights using systematics module
 #
 pushd process/madevent
-pdfsets="303600,292200@0,292600@0,305800,315000@0,"
-pdfsets+="13100,13163@0,13167,13000@0,13065@0,"
-pdfsets+="13069,13200@0,25200@0,25300@0,25000,"
-pdfsets+="42400,42780@0,90200,91200,90400,"
-pdfsets+="91400,61100,61130,61200,61230,"
-pdfsets+="13400,82000"
+pdfsets="PDF_SETS_REPLACE"
 scalevars="--mur=1,2,0.5 --muf=1,2,0.5 --together=muf,mur,dyn --dyn=-1,1,2,3,4"
 
 echo "systematics $runlabel --pdf=$pdfsets $scalevars" | ./bin/madevent
