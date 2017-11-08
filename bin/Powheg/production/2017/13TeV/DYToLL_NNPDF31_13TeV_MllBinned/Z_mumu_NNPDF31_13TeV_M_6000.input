@@ -12,8 +12,6 @@ ebeam2 6500d0      ! energy of beam 2
 ! To be set only if using LHA pdfs
 lhans1 306000      ! pdf set for hadron 1 (LHA numbering)
 lhans2 306000     ! pdf set for hadron 2 (LHA numbering)	
-! To be set only if using different pdf sets for the two incoming hadrons
-! QCDLambda5  0.25 ! for not equal pdf sets 
 
 ! Parameters to allow or not the use of stored data
 use-old-grid    1 ! if 1 use old grid if file pwggrids.dat is present (<> 1 regenerate)
@@ -32,15 +30,11 @@ iymax    1     ! <= 100, number of y subdivision when computing the upper bounds
 xupbound 2d0   ! increase upper bound for radiation generation
 
 ! OPTIONAL PARAMETERS
-
 renscfact  1d0   ! (default 1d0) ren scale factor: muren  = muref * renscfact 
 facscfact  1d0   ! (default 1d0) fac scale factor: mufact = muref * facscfact 
 testplots  1      ! (default 0, do not) do NLO and PWHG distributions
-
 iseed    SEED    ! initialize random number sequence 
-
 mass_low 6000       ! M Z > mass_low in GeV
-
-pdfreweight 1       ! PDF reweighting
-storeinfo_rwgt 1    ! store weight information
-withnegweights 0 ! default 0, 
+pdfreweight 0       ! PDF reweighting
+storeinfo_rwgt 0    ! store weight information
+withnegweights 1 ! default 0, 
