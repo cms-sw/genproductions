@@ -53,5 +53,3 @@ for_reweighting 1                                ! (default 0) Modifies subtract
 
 
 
-rwl_file 'pwg-rwl.dat'
-rwl_format_rwgt 1
