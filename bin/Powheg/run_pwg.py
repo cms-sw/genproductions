@@ -563,7 +563,8 @@ if [ "$process" = "ST_wtch_DR" ] || [ "$process" = "ST_wtch_DS" ]; then
     wget --no-verbose http://qcdloop.fnal.gov/QCDLoop-1.96.tar.gz || fail_exit "Failed to get QCDLoop tar ball"
   fi                                                        
   tar xvf QCDLoop-1.96.tar.gz                               
-  mv QCDLoop-1.96 QCDLoop-1.9                               
+  mv QCDLoop-1.96 QCDLoop-1.9
+  sed -i -e 's#/Users/ellis/QCDLoop#./QCDLoop#' ff/ffinit_mine.f                
   cd QCDLoop-1.9                                            
   make                                                      
   cd ..                                                     
