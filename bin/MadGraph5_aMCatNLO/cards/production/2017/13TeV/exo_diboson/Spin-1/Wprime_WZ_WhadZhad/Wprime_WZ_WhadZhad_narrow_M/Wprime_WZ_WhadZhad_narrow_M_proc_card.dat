@@ -7,5 +7,5 @@ define q = u c d s b u~ c~ d~ s~ b~
 define vc = vc+ vc-
 define vw = w+ w-
 generate p p > vc, (vc > vw z, vw > q q, z > q q)
-output Wprime_WZ_WhadZhad_narrow_M1600 -nojpeg
+output Wprime_WZ_WhadZhad_narrow_M<MASS> -nojpeg
 
