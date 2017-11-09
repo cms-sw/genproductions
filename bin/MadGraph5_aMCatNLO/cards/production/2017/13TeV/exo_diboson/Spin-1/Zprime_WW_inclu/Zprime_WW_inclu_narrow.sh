@@ -1,7 +1,7 @@
 #!/bin/bash
 
 masses=(600 800 1000 1200 1400 1600 1800 2000 2500 3000 3500 4000 4500)
-sample=Wprime_WZ_WhadZhad_narrow_M
+sample=Zprime_WW_inclu_narrow_M
 
 postfix=(_run_card.dat _customizecards.dat _proc_card.dat)
 
