@@ -27,7 +27,7 @@
 #***********************************************************************
   1500 = nevents ! Number of unweighted events requested 
  0.001 = req_acc ! Required accuracy (-1=auto determined from nevents)
-    -1 = nevt_job! Max number of events per job in event generation. 
+    20 = nevt_job! Max number of events per job in event generation. 
                  !  (-1= no split).
 average = event_norm ! Normalize events to sum or average to the X sect.
 #***********************************************************************
@@ -49,13 +49,13 @@ average = event_norm ! Normalize events to sum or average to the X sect.
 #***********************************************************************
     1   = lpp1    ! beam 1 type (0 = no PDF)
     1   = lpp2    ! beam 2 type (0 = no PDF)
- 6500   = ebeam1  ! beam 1 energy in GeV
- 6500   = ebeam2  ! beam 2 energy in GeV
+ 7000   = ebeam1  ! beam 1 energy in GeV
+ 7000   = ebeam2  ! beam 2 energy in GeV
 #***********************************************************************
 # PDF choice: this automatically fixes also alpha_s(MZ) and its evol.  *
 #***********************************************************************
  lhapdf    = pdlabel   ! PDF set                                     
-$DEFAULT_PDF_SETS = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number
+ 292000    = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number
 #***********************************************************************
 # Include the NLO Monte Carlo subtr. terms for the following parton    *
 # shower (HERWIG6 | HERWIGPP | PYTHIA6Q | PYTHIA6PT | PYTHIA8)         *
@@ -78,10 +78,10 @@ $DEFAULT_PDF_SETS = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number
 #***********************************************************************
  F        = fixed_QES_scale  ! if .true. use fixed Ellis-Sexton scale
  91.188   = QES_ref_fixed    ! fixed Ellis-Sexton reference scale
- 1        = muR_over_ref     ! ratio of current muR over reference muR
- 1        = muF1_over_ref    ! ratio of current muF1 over reference muF1
- 1        = muF2_over_ref    ! ratio of current muF2 over reference muF2
- 1        = QES_over_ref     ! ratio of current QES over reference QES
+ 0.33        = muR_over_ref     ! ratio of current muR over reference muR
+ 0.33        = muF1_over_ref    ! ratio of current muF1 over reference muF1
+ 0.33        = muF2_over_ref    ! ratio of current muF2 over reference muF2
+ 0.33        = QES_over_ref     ! ratio of current QES over reference QES
 #*********************************************************************** 
 # Reweight flags to get scale dependence and PDF uncertainty           *
 # For scale dependence: factor rw_scale_up/down around central scale   *
@@ -92,15 +92,15 @@ $DEFAULT_PDF_SETS = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number
   2.0     = rw_Rscale_up     ! upper bound for ren scale variations
   0.5     = rw_Fscale_down   ! lower bound for fact scale variations
   2.0     = rw_Fscale_up     ! upper bound for fact scale variations
-$DEFAULT_PDF_MEMBERS = reweight_PDF     ! reweight to get PDF uncertainty
-      ! First of the error PDF sets 
-      ! Last of the error PDF sets
+ .true.  = reweight_PDF     ! reweight to get PDF uncertainty
+ 292001   = PDF_set_min      ! First of the error PDF sets 
+ 292102   = PDF_set_max      ! Last of the error PDF sets
 #***********************************************************************
 # Merging - WARNING! Applies merging only at the hard-event level.     *
 # After showering an MLM-type merging should be applied as well.       *
 # See http://amcatnlo.cern.ch/FxFx_merging.htm for more details.       *
 #***********************************************************************
- 3        = ickkw            ! 0 no merging, 3 FxFx merging
+ 0        = ickkw            ! 0 no merging, 3 FxFx merging
 #***********************************************************************
 #
 #***********************************************************************
@@ -116,7 +116,7 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! reweight to get PDF uncertainty
 #***********************************************************************
    1  = jetalgo   ! FastJet jet algorithm (1=kT, 0=C/A, -1=anti-kT)
  1.0  = jetradius ! The radius parameter for the jet algorithm
-  10  = ptj       ! Min jet transverse momentum
+   0  = ptj       ! Min jet transverse momentum
   -1  = etaj      ! Max jet abs(pseudo-rap) (a value .lt.0 means no cut)
 #***********************************************************************
 # Cuts on the charged leptons (e+, e-, mu+, mu-, tau+ and tau-)        *
@@ -127,14 +127,14 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! reweight to get PDF uncertainty
    0  = drll    ! Min distance between opposite sign lepton pairs
    0  = drll_sf ! Min distance between opp. sign same-flavor lepton pairs
    0  = mll     ! Min inv. mass of all opposite sign lepton pairs
-  50  = mll_sf  ! Min inv. mass of all opp. sign same-flavor lepton pairs
+  30  = mll_sf  ! Min inv. mass of all opp. sign same-flavor lepton pairs
 #***********************************************************************
 # Photon-isolation cuts, according to hep-ph/9801442                   *
 # When ptgmin=0, all the other parameters are ignored                  *
 #***********************************************************************
-  20  = ptgmin    ! Min photon transverse momentum
-  -1  = etagamma  ! Max photon abs(pseudo-rap)
- 0.4  = R0gamma   ! Radius of isolation code
+  10  = ptgmin    ! Min photon transverse momentum
+ 2.6  = etagamma  ! Max photon abs(pseudo-rap)
+ 0.05  = R0gamma   ! Radius of isolation code
  1.0  = xn        ! n parameter of eq.(3.4) in hep-ph/9801442
  1.0  = epsgamma  ! epsilon_gamma parameter of eq.(3.4) in hep-ph/9801442
  .true.  = isoEM  ! isolate photons from EM energy (photons and leptons)
@@ -142,5 +142,5 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! reweight to get PDF uncertainty
 # Maximal PDG code for quark to be considered a jet when applying cuts.*
 # At least all massless quarks of the model should be included here.   *
 #***********************************************************************
- 5 = maxjetflavor
-#***********************************************************************
+ 4 = maxjetflavor
+#*********************************************************************** 
