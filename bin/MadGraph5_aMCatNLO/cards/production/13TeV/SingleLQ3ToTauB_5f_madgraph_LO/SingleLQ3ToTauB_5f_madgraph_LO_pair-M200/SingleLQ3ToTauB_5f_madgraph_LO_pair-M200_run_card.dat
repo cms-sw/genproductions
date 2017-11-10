@@ -267,11 +267,6 @@
 #*********************************************************************
    True  = use_syst      ! Enable systematics studies
 #
-#**************************************
-# Parameter of the systematics study
-#  will be used by SysCalc (if installed)
-#**************************************                                  
-#
 0.5 1 2 = sys_scalefact  # factorization/renormalization scale factor
 None = sys_alpsfact  # \alpha_s emission scale factors
 auto = sys_matchscale # variation of merging scale
