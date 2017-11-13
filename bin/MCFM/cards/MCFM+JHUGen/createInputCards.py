@@ -54,7 +54,7 @@ class mcfmInputCard():
 			with open('MCFM_JHUGen_13TeV_ggZZto{0}_BKG.DAT'.format(self.products),'w') as fout:
 				for line in fin:
 					if '[nproc]' in line:			line = '{0}.{1}		[nproc] \n'.format(self.process,self.products)
-					if '[LHAPDF group]' in line:	line = 'NNPDF{0}_lo_as_0130			[LHAPDF group]\n'.format(pdfnumber)
+					if '[LHAPDF group]' in line:	line = "'NNPDF{0}_lo_as_0131'			[LHAPDF group]\n".format(pdfnumber)
 					if '[nevtrequested]' in line:	line = '{0}			[nevtrequested]\n'.format(nevents)
 					if 'NU'in self.products and '[m56min]' in line:	line = '0d0			[m56min]\n'
 					fout.write(line)

@@ -43,7 +43,7 @@ SEED		[ij]
 cteq6_l [pdlabel]
 4       [NGROUP, see PDFLIB]
 46      [NSET - see PDFLIB]
-'NNPDF30_lo_as_0130'  [LHAPDF group]
+'NNPDF30_lo_as_0131'  [LHAPDF group]
 0              [LHAPDF set]
 
 [Jet definition and event cuts]
