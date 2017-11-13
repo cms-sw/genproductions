@@ -284,7 +284,7 @@ def gridpackGeneration (debugging):
 
     res = getPhantom (config, workingfolder, debugging)
     phantomfolder = res[0]
-    phantomlib = res[1]
+    phantompdflib = res[1]
 
     # get the cmssw environment and the location of the pdf grids
     cmssw = config.get ('general', 'CMSSW')
