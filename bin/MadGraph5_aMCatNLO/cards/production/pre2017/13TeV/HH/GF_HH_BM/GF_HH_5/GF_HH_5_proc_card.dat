@@ -1,3 +1,0 @@
-import model BSM_gg_hh
-generate p p > h h 
-output GF_HH_5 -nojpeg 
