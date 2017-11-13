@@ -133,6 +133,16 @@ if [ -z "$CONDOR_SET_MAXWALLTIMES" ]; then
 fi
 
 ##########################
+# QUERY RETRIES
+##########################
+if [ -z "$CONDOR_QUERY_MAX_RETRIES" ]; then
+  export CONDOR_QUERY_MAX_RETRIES="30"
+fi
+if [ -z "$CONDOR_QUERY_SLEEP_PER_RETRY" ]; then
+  export CONDOR_QUERY_SLEEP_PER_RETRY="30"
+fi
+
+##########################
 # ADDITIONAL CLASSADS
 ##########################
 # Always append IOProxy, so that JobDuration is always set in the history.
@@ -194,12 +204,21 @@ mkdir -p condor_log
 CLUSTER_ID=$(condor_submit "${codegen_jdl}" | tail -n1 | rev | cut -d' ' -f1 | rev)
 LOG_FILE=$(condor_q -format '%s\n' UserLog $CLUSTER_ID | tail -n1)
 condor_wait "$LOG_FILE" "$CLUSTER_ID"
-condor_exitcode=$(condor_history ${CLUSTERID} -limit 1 -format "%s" ExitCode)
+
+# If querying job exitcode fails, retry
+status_n_retries=10
+for ((i=0; i<=$status_n_retries; ++i)); do
+    condor_exitcode=$(condor_history ${CLUSTERID} -limit 1 -format "%s" ExitCode)
+    if [ "x$condor_exitcode" != "x" ]; then
+        break
+    fi
+    sleep 10
+done
 
 # Check condor job exit code before going to the next step
 #if [ "x$condor_exitcode" != "x0" ] || [ ! -f "$sandbox_output" ]; then
 if [ "x$condor_exitcode" != "x0" ]; then
-    echo "CODEGEN condor job failed. Please, check logfiles in condor_log/ directory (Job Id: $CLUSTER_ID)". Exiting now.
+    echo "CODEGEN condor job failed with exitcode: $condor_exitcode. Please, check logfiles in condor_log/ directory (Job Id: $CLUSTER_ID)". Exiting now.
     exit $condor_exitcode
 fi
 

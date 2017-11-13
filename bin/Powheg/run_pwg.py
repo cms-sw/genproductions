@@ -441,10 +441,15 @@ BOOK_HISTO="pwhg_bookhist-multi.o"
 if [ `echo ${POWHEGSRC} | cut -d "_" -f 1` = "powhegboxV1" ]; then
    BOOK_HISTO="pwhg_bookhist.o"
 fi 
+if [ "$process" = "gg_H" ] || [ "$process" = "ggHH" ]; then
+   BOOK_HISTO=""
+   echo "Process using pwhg_bookhist-multi-new"
+fi
 if [ "$process" = "trijet" ]; then 
    BOOK_HISTO+=" observables.o"
    rm -rf ../progress/bbinit.f
 fi  
+
 if [ "$process" = "VBF_HJJJ" ]; then 
   sed -i 's/..\/pwhg_book.h/pwhg_book.h/g' pwhg_analysis-dummy.f
 fi  
@@ -558,7 +563,8 @@ if [ "$process" = "ST_wtch_DR" ] || [ "$process" = "ST_wtch_DS" ]; then
     wget --no-verbose http://qcdloop.fnal.gov/QCDLoop-1.96.tar.gz || fail_exit "Failed to get QCDLoop tar ball"
   fi                                                        
   tar xvf QCDLoop-1.96.tar.gz                               
-  mv QCDLoop-1.96 QCDLoop-1.9                               
+  mv QCDLoop-1.96 QCDLoop-1.9
+  sed -i -e 's#/Users/ellis/QCDLoop#./QCDLoop#' ff/ffinit_mine.f                
   cd QCDLoop-1.9                                            
   make                                                      
   cd ..                                                     
@@ -596,7 +602,7 @@ if [ "$process" = "HJ" ]; then
   cp ../POWHEG-BOX/HJ/NNLOPS-mass-effects/HNNLO-makefile ./makefile 
   cp -r ../POWHEG-BOX/HJ/NNLOPS-mass-effects/HNNLO-patches ./
   cd src/Need/
-  cat pdfset_lhapdf.f | sed -e "s#30#40#g" | sed -e "s#20#25#g" | sed -e "s#InitPDFset#InitPDFsetByName#g" > pdfset_lhapdf.f.new
+  cat pdfset_lhapdf.f | sed -e "s#30#40#g" | sed -e "s#20#30#g" | sed -e "s#oldPDFname(1:i-1)//'.LHgrid'#oldPDFname(1:i-1)#g" | sed -e "s#oldPDFname(1:i-1)//'.LHpdf'#oldPDFname(1:i-1)#g" | sed -e "s#InitPDFset('PDFsets/'//PDFname)#InitPDFsetByName(PDFname)#g" > pdfset_lhapdf.f.new
   mv pdfset_lhapdf.f.new pdfset_lhapdf.f  
   cd -
   cat makefile | sed -e "s#LHAPDFLIB=.\+#LHAPDFLIB=$(scram tool info lhapdf | grep LIBDIR | cut -d "=" -f2)#g" > makefile
@@ -962,7 +968,7 @@ eval `scram runtime -sh`
 cd -
 
 cat $base/../$config | sed -e "s#SEED#$seed#g" > config.input
-cat config.input | sed -e "s#MSTW2008nnlo68cl#NNPDF30_nnlo_as_0118#g" > config.input.temp
+cat config.input | sed -e "s#MSTW2008nnlo68cl#NNPDF31_nnlo_hessian_pdfas#g" > config.input.temp
 mv config.input.temp config.input
 
 cp $base/../hnnlo .
