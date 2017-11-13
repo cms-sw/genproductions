@@ -58,18 +58,6 @@ colltest          0  ! no check of the collinear limit in the real
 ptHHcut     0.001d0
 ptHHcut_CT  0.001d0
 
-! PARAMETERS for parallel runnning
-! -- non parallel (for testing purposes only)
-iseed SEED
-
-! -- parallel
-manyseeds 1          ! Used to perform multiple runs with different random
-                     ! seeds in the same directory.
-                     ! If set to 1, the program asks for an integer j;
-                     ! The file pwgseeds.dat at line j is read, and the
-                     ! integer at line j is used to initialize the random
-                     ! sequence for the generation of the event.
-                     ! The event file is called pwgevents-'j'.lhe
 parallelstage  1
 xgriditeration 1
 maxseeds    1000
