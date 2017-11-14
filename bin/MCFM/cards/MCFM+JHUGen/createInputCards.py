@@ -50,8 +50,8 @@ class mcfmInputCard():
 		else:	raise IOError("Invalid products input.")
 
 	def writecard(self):
-		with open('ggZZBKG.DAT','r') as fin:
-			with open('MCFM_JHUGen_13TeV_ggZZto{0}_BKG.DAT'.format(self.products),'w') as fout:
+		with open('MCFM_JHUGen_13TeV_ggZZtoELNU_BKG.DAT','r') as fin:
+			with open('MCFM_JHUGen_13TeV_ggZZto{0}_BKG_NNPDF31.DAT'.format(self.products),'w') as fout:
 				for line in fin:
 					if '[nproc]' in line:			line = '{0}.{1}		[nproc] \n'.format(self.process,self.products)
 					if '[LHAPDF group]' in line:	line = "'NNPDF{0}_lo_as_0131'			[LHAPDF group]\n".format(pdfnumber)
