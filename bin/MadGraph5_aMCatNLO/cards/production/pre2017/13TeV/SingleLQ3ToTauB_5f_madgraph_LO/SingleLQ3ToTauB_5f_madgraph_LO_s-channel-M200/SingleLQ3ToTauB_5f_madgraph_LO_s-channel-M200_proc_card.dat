@@ -5,10 +5,6 @@ set loop_color_flows False
 set gauge unitary
 set complex_mass_scheme False
 set max_npoint_for_channel 0
-define l+ = e+ mu+
-define l- = e- mu-
-define vl = ve vm vt
-define vl~ = ve~ vm~ vt~
 import model LQ_UFO
 define p = p b b~
 generate p p > r23 ta- , (r23 > b ta+)
