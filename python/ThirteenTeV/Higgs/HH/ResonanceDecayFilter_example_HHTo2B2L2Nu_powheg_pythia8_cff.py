@@ -25,8 +25,6 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
             'POWHEG:nFinal = 2',   ## Number of final state particles
                                    ## (BEFORE THE DECAYS) in the LHE
                                    ## other than emitted extra parton
-                        '15:onMode = off',
-                        '15:onIfAny = 11 13', # only leptonic tau decays
                         '23:mMin = 0.05',
                         '23:onMode = off',
                         '23:onIfAny = 11 12 13 14 15 16', # only leptonic Z decays
