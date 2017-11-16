@@ -1,0 +1,12 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set loop_optimized_output True
+set loop_color_flows False
+set gauge unitary
+set complex_mass_scheme False
+set max_npoint_for_channel 0
+import model LQ_UFO
+define p = p b b~
+generate p p > r23 ta- , (r23 > b ta+)
+add process p p > r23~ ta+ , (r23~ > b~ ta-)
+output SingleLQ3ToTauB_5f_madgraph_LO_s-channel-M800 -nojpeg
