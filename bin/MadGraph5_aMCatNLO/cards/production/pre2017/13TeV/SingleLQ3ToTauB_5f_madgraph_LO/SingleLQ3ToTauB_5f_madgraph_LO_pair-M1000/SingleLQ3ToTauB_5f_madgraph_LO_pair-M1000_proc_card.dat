@@ -8,4 +8,4 @@ set max_npoint_for_channel 0
 import model LQ_UFO
 define p = p b b~
 generate p p > r23 r23~ , (r23 > b ta+), (r23~ > b~ ta-)
-output pair_template
+output SingleLQ3ToTauB_5f_madgraph_LO_pair-M1000 -nojpeg
