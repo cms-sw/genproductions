@@ -76,7 +76,7 @@
 # Automatic ptj and mjj cuts if xqcut > 0
 # (turn off for VBF and single top processes)
 #**********************************************************
-   F  = auto_ptj_mjj  ! Automatic setting of ptj and mjj
+   T  = auto_ptj_mjj  ! Automatic setting of ptj and mjj
 #**********************************************************
 #                                                                    
 #**********************************
