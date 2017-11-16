@@ -6,4 +6,4 @@ add process p p > l+ l- j / h @1
 add process p p > l+ l- j j / h @2
 add process p p > l+ l- j j j / h @3
 add process p p > l+ l- j j j j / h @4
-output DYJetsToMuMu_HT_mll105to160 -nojpeg
+output DYJetsToMuMu_mll105to160 -nojpeg
