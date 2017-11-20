@@ -23,7 +23,7 @@
 #*********************************************************************
 # Run to generate the grid pack                                      *
 #*********************************************************************
-  False     = gridpack  !True = setting up the grid pack
+ .true.     = gridpack  !True = setting up the grid pack
 #*********************************************************************
 # Number of events and rnd seed                                      *
 # Warning: Do not generate more than 1M events in a single run       *
@@ -48,9 +48,9 @@
 #*********************************************************************
 # PDF CHOICE: this automatically fixes also alpha_s and its evol.    *
 #*********************************************************************
- 'lhapdf'    = pdlabel     ! PDF set                                  
-$DEFAULT_PDF_SETS = lhaid
-$DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf number 
+ lhapdf = pdlabel ! PDF set
+ $DEFAULT_PDF_SETS = lhaid
+ $DEFAULT_PDF_MEMBERS  = reweight_PDF
 #*********************************************************************
 # Renormalization and factorization scales                           *
 #*********************************************************************
@@ -105,7 +105,7 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
 #*********************************************************************
  0.01  = ptj       ! minimum pt for the jets 
   0  = ptb       ! minimum pt for the b 
- 10  = pta       ! minimum pt for the photons 
+  0  = pta       ! minimum pt for the photons 
   0  = ptl       ! minimum pt for the charged leptons 
   0  = misset    ! minimum missing Et (sum of neutrino's momenta)
   0  = ptheavy   ! minimum pt for one heavy final state
@@ -130,9 +130,9 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
 # Maximum and minimum absolute rapidity (for max, -1 means no cut)   *
 #*********************************************************************
    5  = etaj    ! max rap for the jets 
-  2.5 = etab    ! max rap for the b
+  -1 = etab    ! max rap for the b
   -1  = etaa    ! max rap for the photons 
-  2.5 = etal    ! max rap for the charged leptons 
+  -1 = etal    ! max rap for the charged leptons 
   -1  = etaonium ! max rap for the quarkonium states
    0  = etajmin ! min rap for the jets
    0  = etabmin ! min rap for the b
@@ -144,13 +144,13 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
  0   = drjj    ! min distance between jets 
  0   = drbb    ! min distance between b's 
  0   = drll    ! min distance between leptons 
- 0.4 = draa    ! min distance between gammas 
+ 0   = draa    ! min distance between gammas 
  0   = drbj    ! min distance between b and jet 
- 0.4 = draj    ! min distance between gamma and jet 
+ 0.1 = draj    ! min distance between gamma and jet 
  0   = drjl    ! min distance between jet and lepton 
  0   = drab    ! min distance between gamma and b 
  0   = drbl    ! min distance between b and lepton 
- 0.4 = dral    ! min distance between gamma and lepton 
+ 0.1 = dral    ! min distance between gamma and lepton 
  -1  = drjjmax ! max distance between jets
  -1  = drbbmax ! max distance between b's
  -1  = drllmax ! max distance between leptons

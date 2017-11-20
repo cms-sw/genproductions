@@ -104,8 +104,8 @@ if [ ! -e $LHEWORKDIR/header_for_madspin.txt ]; then
 #else handle external tarball
 else
     cd $LHEWORKDIR/external_tarball
-
-    ./runcmsgrid.sh $nevtjob $rnum $ncpu
+    #for Powheg gridpacks + Madspin to have same amount of events
+    ./runcmsgrid.sh $nevt $rnum $ncpu
 
 #splice blocks needed for MadSpin into LHE file
     sed -i "/<init>/ {
