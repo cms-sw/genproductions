@@ -381,7 +381,7 @@ make_gridpack () {
     #Add PDF info and copy run card #
     #################################
     script_dir="${PRODHOME}/Utilities/scripts"
-    if [ $iscmsconnect -eq 0 ]; then
+    if [ ! -d "$script_dir" ]; then
       script_dir=$(git rev-parse --show-toplevel)/Utilities/scripts
     fi
     
@@ -634,7 +634,7 @@ fi
 
 # Folder structure is different on CMSConnect
 helpers_dir=${PRODHOME}/Utilities
-if [ $iscmsconnect -eq 0 ]; then
+if [ ! -d "$helpers_dir" ]; then
     helpers_dir=$(git rev-parse --show-toplevel)/bin/MadGraph5_aMCatNLO/Utilities
 fi
 source ${helpers_dir}/gridpack_helpers.sh 
