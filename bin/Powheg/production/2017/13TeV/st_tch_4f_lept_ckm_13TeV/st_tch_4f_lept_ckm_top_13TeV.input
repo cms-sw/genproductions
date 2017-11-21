@@ -46,16 +46,9 @@ icsimax  1        ! <= 100, number of csi subdivision when computing the upper b
 iymax    1        ! <= 100, number of y subdivision when computing the upper bounds
 xupbound 2d0      ! increase upper bound for radiation generation
 
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-! PROCESS SPECIFIC PARAMETERS
-! production parameters
-! setting are set according to https://twiki.cern.ch/twiki/bin/viewauth/CMS/StandardModelCrossSectionsat13TeV
-! CKM values according to PDG 2016
-
 ttype        1
 
 ! Set for leptonic decay
-! mandatory parameters used in decay generation
 topdecaymode 11100   ! decay mode: the 5 digits correspond to the following
                      ! top-decay channels (l,mu,tau,u,c) 
                      ! 0 means close, 1 open
@@ -63,9 +56,6 @@ wdecaymode 11100     ! decay mode: the 5 digits correspond to the following
                      ! primary-w-decay channels (l,mu,tau,u,c) 
                      ! 0 means close, 1 open
 tdec/elbranching 0.108  ! W electronic branching fraction
-
-! optional production parameters 
-! (defaults defined in init_couplings.f)
 
 topmass      172.5
 bmass        4.80
