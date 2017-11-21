@@ -1,6 +1,5 @@
 ! ST-tchannel inputs
 
-#smartsig       1 
 withdamp       1
 hdamp 172.5   
 
@@ -9,14 +8,7 @@ withnegweights 1   ! will generate also events with negative-weight
 renscfact  1d0    ! (default 1d0) ren scale factor: muren  = muref * renscfact 
 facscfact  1d0    ! (default 1d0) fac scale factor: mufact = muref * facscfact 
 
-#bornonly   1     ! (default 0) if 1 do Born only
-#testplots  1     ! (default 0, do not) do NLO and PWHG distributions
-
 iseed    SEED    ! initialize random number sequence 
-#rand1     0      ! initialize random number sequence 
-#rand2     0      ! initialize random number sequence 
-#manyseeds 1   
-
 
 numevts NEVENTS     ! number of events to be generated
 ih1   1           ! hadron 1 (1 for protons, -1 for antiprotons)
