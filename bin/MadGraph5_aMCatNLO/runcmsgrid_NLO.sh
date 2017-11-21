@@ -143,7 +143,7 @@ fi
 
 cd $LHEWORKDIR
 gzip -d ${runname}_final.lhe.gz
-
+sed -i -e '/<mgrwgt/,/mgrwgt>/d' ${runname}_final.lhe 
 ls -l
 echo
 
