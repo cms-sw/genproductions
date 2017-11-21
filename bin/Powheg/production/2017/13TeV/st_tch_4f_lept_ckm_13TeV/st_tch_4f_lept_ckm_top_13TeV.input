@@ -4,7 +4,7 @@
 withdamp       1
 hdamp 172.5   
 
-withnegweights 0   ! will generate also events with negative-weight 
+withnegweights 1   ! will generate also events with negative-weight 
 
 renscfact  1d0    ! (default 1d0) ren scale factor: muren  = muref * renscfact 
 facscfact  1d0    ! (default 1d0) fac scale factor: mufact = muref * facscfact 
@@ -77,4 +77,5 @@ CKM_Vtd   0.0082
 CKM_Vts   0.040
 CKM_Vtb   1.0
 
-
+pdfreweight 0
+storeinfo_rwgt 0 ! store weight information
