@@ -1,0 +1,38 @@
+diff --git a/Template/LO/SubProcesses/refine.sh b/Template/LO/SubProcesses/refine.sh
+index 577461f..52006bc 100644
+--- a/Template/LO/SubProcesses/refine.sh
++++ b/Template/LO/SubProcesses/refine.sh
+@@ -78,3 +78,4 @@ j=%(directory)s
+      fi
+      cd ../
+ 
++exit $status_code
+diff --git a/Template/LO/SubProcesses/refine_splitted.sh b/Template/LO/SubProcesses/refine_splitted.sh
+index d7d5df6..fef13e5 100644
+--- a/Template/LO/SubProcesses/refine_splitted.sh
++++ b/Template/LO/SubProcesses/refine_splitted.sh
+@@ -85,3 +85,4 @@ if [[ $status_code -ne 0 ]]; then
+ fi
+ 
+ cd ../
++exit $status_code
+diff --git a/Template/LO/SubProcesses/survey.sh b/Template/LO/SubProcesses/survey.sh
+index c9ef2c5..37472be 100755
+--- a/Template/LO/SubProcesses/survey.sh
++++ b/Template/LO/SubProcesses/survey.sh
+@@ -80,6 +80,8 @@ for i in $@ ; do
+ 	 rm results.dat
+ 	 echo "ERROR DETECTED"
+ 	 echo "end code not correct $status_code" > results.dat
++         cd ../
++         exit $status_code
+      fi
+      cd ../;
+ 
+@@ -87,6 +89,3 @@ for i in $@ ; do
+ done;
+ 
+ # Cleaning 
+-
+-
+-
