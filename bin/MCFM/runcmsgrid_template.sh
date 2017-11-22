@@ -44,7 +44,7 @@ cd $LHEWORKDIR
 
 basename=BASENAME
 
-cd $LHEWORKDIR/$basename
+#cd $LHEWORKDIR/$basename
 
 LHAPDFCONFIG=`echo "$LHAPDF_DATA_PATH/../../bin/lhapdf-config"`
 #if lhapdf6 external is available then above points to lhapdf5 and needs to be overridden
@@ -58,9 +58,9 @@ export LHAPDF_DATA_PATH=`$LHAPDFCONFIG --datadir`
 export LHAPATH=$LHADPDF_DATA_PATH
 
 
-sed "s@EVTS@$nevt@g" input_gen.DAT > input_g0.DAT
-sed "s@XRAN@$rnum@g" input_g0.DAT  > input.DAT
-./mcfm
+#sed "s@EVTS@$nevt@g" input_gen.DAT > input_g0.DAT
+#sed "s@XRAN@$rnum@g" input_g0.DAT  > input.DAT
+./mcfm INPUT.DAT
 #Replace the negative so pythia will work
 #sed "s@-1000022@1000022@g" FILENAME > $LHEWORKDIR/cmsgrid_final.lhe
 mv FILENAME $LHEWORKDIR/cmsgrid_final.lhe
