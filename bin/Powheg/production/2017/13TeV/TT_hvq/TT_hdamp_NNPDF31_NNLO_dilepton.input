@@ -17,14 +17,12 @@ ih2   1        ! hadron 2
 lhans1 306000
 lhans2 306000
 ! NNPDF31_nnlo_as_0118
-! To be set only if using different pdf sets for the two incoming hadrons
-! QCDLambda5  0.25 ! for not equal pdf sets
 ebeam1 6500    ! energy of beam 1
 ebeam2 6500    ! energy of beam 2
 qmass  172.5     ! mass of heavy quark in GeV
 facscfact 1    ! factorization scale factor: mufact=muref*facscfact 
 renscfact 1    ! renormalization scale factor: muren=muref*renscfact 
-#fixedscale 1    ! use ref. scale=qmass (default 0, use running scale)
+
 hdamp 237.8775
 
 topdecaymode 22200   ! an integer of 5 digits that are either 0, or 2, representing in 
