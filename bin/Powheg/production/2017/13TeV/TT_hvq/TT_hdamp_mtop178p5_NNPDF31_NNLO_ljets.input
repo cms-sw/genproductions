@@ -74,10 +74,10 @@ iymax 1        ! <= 10, normalization of upper bounding function in iunorm X iun
 
 xupbound 2      ! increase upper bound for radiation generation
 
-pdfreweight 1
+pdfreweight 0
 
-storeinfo_rwgt 1    ! store weight information
-withnegweights 0    ! default 0
+storeinfo_rwgt 0    ! store weight information
+withnegweights 1    ! default 0
 
 
 

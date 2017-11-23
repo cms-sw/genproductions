@@ -27,7 +27,7 @@ renscfact 1    ! renormalization scale factor: muren=muref*renscfact
 #fixedscale 1    ! use ref. scale=qmass (default 0, use running scale)
 hdamp 237.8775
 
-topdecaymode 00022   ! an integer of 5 digits that are either 0, or 2, representing in 
+topdecaymode 22222   ! an integer of 5 digits that are either 0, or 2, representing in 
                      ! the order the maximum number of the following particles(antiparticles)
                      ! in the final state: e  mu tau up charm
                      ! For example
