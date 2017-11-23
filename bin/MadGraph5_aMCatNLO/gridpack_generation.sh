@@ -241,8 +241,8 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
 	  long_wait=300
 	  short_wait=120
       else
-	  n_retries=3
-	  long_wait=60
+	  n_retries=10
+	  long_wait=300
 	  short_wait=30
       fi
       echo "set cluster_status_update $long_wait $short_wait" >> mgconfigscript
@@ -647,7 +647,7 @@ else
   echo "cleaning temporary output"
   mv $WORKDIR/processtmp/pilotrun_gridpack.tar.gz $WORKDIR/
   mv $WORKDIR/processtmp/Events/pilotrun/unweighted_events.lhe.gz $WORKDIR/
-  rm -rf processtmp
+  #rm -rf processtmp
   mkdir process
   cd process
   echo "unpacking temporary gridpack"
