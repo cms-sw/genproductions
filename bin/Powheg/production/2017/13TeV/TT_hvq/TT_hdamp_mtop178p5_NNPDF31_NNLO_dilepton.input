@@ -32,7 +32,7 @@ topdecaymode 22200   ! an integer of 5 digits that are either 0, or 2, represent
                      ! in the final state: e  mu tau up charm
                      ! For example
                      ! 22222    All decays (up to 2 units of everything)
-                     ! 20000    both top go into e l nu (with the appropriate signs)
+                     ! 20000    both top go into b e nu (with the appropriate signs)
                      ! 10011    one top goes into electron (or positron), the other into (any) hadrons,
                      !          or one top goes into charm, the other into up
                      ! 00022    Fully hadronic
