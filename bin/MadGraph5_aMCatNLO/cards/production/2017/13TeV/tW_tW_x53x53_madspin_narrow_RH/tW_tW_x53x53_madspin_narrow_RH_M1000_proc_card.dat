@@ -2,7 +2,6 @@ set group_subprocesses Auto
 set ignore_six_quark_processes False
 set loop_optimized_output True
 set complex_mass_scheme False
-import model sm
 import model STP_UFO_freeWidth
 define Topo = x53 x53~
 define all = g a ve vm vt ve~ vm~ vt~ u c t d s b u~ c~ t~ d~ s~ b~ e- mu- ta- e+ mu+ ta+
