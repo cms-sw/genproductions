@@ -3,34 +3,34 @@
 # - transform the script into a daemon
 # - upload it to genproduction and find a way to test it
 #    - how do I get the list of architectures and most importantly the configurations?
-#      slc6_amd64_gcc493 CMSSW_7_6_6_patch1 
-#      slc6_amd64_gcc630 CMSSW_9_3_0_pre4   
-#      slc5_amd64_gcc462 CMSSW_5_3_17       
-#      slc5_amd64_gcc472 CMSSW_6_2_0_SLHC15 
-#      slc6_amd64_gcc530 CMSSW_9_2_10       
+#      slc6_amd64_gcc493 CMSSW_7_6_6_patch1
+#      slc6_amd64_gcc630 CMSSW_9_3_0_pre4
+#      slc5_amd64_gcc462 CMSSW_5_3_17
+#      slc5_amd64_gcc472 CMSSW_6_2_0_SLHC15
+#      slc6_amd64_gcc530 CMSSW_9_2_10
 #      slc5_amd64_gcc434 CMSSW_4_2_10_patch2
-#      slc6_amd64_gcc491 CMSSW_7_5_8_patch7 
-#      slc6_amd64_gcc481 CMSSW_7_1_29       
-#      slc6_amd64_gcc472 CMSSW_5_3_36       
+#      slc6_amd64_gcc491 CMSSW_7_5_8_patch7
+#      slc6_amd64_gcc481 CMSSW_7_1_29
+#      slc6_amd64_gcc472 CMSSW_5_3_36
 # FIXME to let condor work, at least the following:
 # - decide when to finish the jobs, see whether the control for lsf is enough
-#       
+#
 # dettagli da josh su come funzionano le chiamate degli script
 # so there are two places
-# 
-# 
+#
+#
 # FIXME update this page: https://twiki.cern.ch/twiki/bin/view/CMSPublic/SWGuideSubgroupMC#1_1_Using_wmLHE_campaigns
 # one for the traditional wmLHE workflow
-# 
+#
 # and one for the new susy parameter scan workflow
-# 
+#
 # for the wmLHE workflow: https://github.com/cms-sw/cmssw/blob/master/GeneratorInterface/LHEInterface/plugins/ExternalLHEProducer.cc#L253
-# 
+#
 # https://github.com/cms-sw/cmssw/blob/master/GeneratorInterface/LHEInterface/plugins/ExternalLHEProducer.cc#L366
-# 
+#
 # for the newer susy workflow which is only used for parameter scans so far:
 # https://github.com/cms-sw/cmssw/blob/master/GeneratorInterface/Core/interface/GeneratorFilter.h#L247
-# 
+#
 # https://github.com/cms-sw/cmssw/blob/09c3fce6626f70fd04223e7dacebf0b485f73f54/GeneratorInterface/Core/src/BaseHadronizer.cc#L78
 # useful HN reference from Qiang: https://hypernews.cern.ch/HyperNews/CMS/get/generators/3320/1/1.html
 # where to put gridpacks: ls  /cvmfs/cms.cern.ch/phys_generator/gridpacks/
@@ -54,7 +54,7 @@ import time
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
 
-def replaceParameterInFile (inputFile, outputFile, substitute): 
+def replaceParameterInFile (inputFile, outputFile, substitute):
     f = open (inputFile)
     lines = f.readlines ()
     f.close ()
@@ -67,7 +67,7 @@ def replaceParameterInFile (inputFile, outputFile, substitute):
             if words[0] in substitute.keys ():
                 f.write (words[0] + ' ' + substitute[words[0]])
             else:
-                f.write (line) 
+                f.write (line)
     f.close ()
 
 
@@ -93,7 +93,7 @@ def findLhapdfUsed (makefilename):
         if line.startswith ('#') : continue
         if re.match ('^\s*PDFLIBDIR\s*=', line):
             return line.split()[2]
-    
+
 
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
@@ -114,21 +114,21 @@ def modifySubmitfileIntelCompiler (submitfilename, pdfgridfolder, phantompdflib)
     for i in range (1, len (lines)) :
         submitfile.write (lines[i])
     submitfile.close ()
-    
+
 
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
 
-def modifySubmitfileCMSSWCompiler (submitfilename, pdfgridfolder, phantompdflib, cmssw, shell):
+def modifySubmitfileCMSSWCompiler (submitfilename, pdfgridfolder, phantompdflib, cmssw, shell, scram_arch, cmssw_path = ""):
     submitfile = open (submitfilename, 'read')
     lines = submitfile.readlines ()
     submitfile.close ()
     submitfile = open (submitfilename, 'write')
     submitfile.write ('#!/bin/bash\n\n')
-    submitfile.write ('scram project CMSSW ' + cmssw + '\n')
-    submitfile.write ('cd ' + cmssw + '/src\n')
+    submitfile.write ('scram -a ' + scram_arch + ' project CMSSW ' + cmssw + '\n')
+    submitfile.write ('cd ' + cmssw_path + cmssw + '/src\n')
     submitfile.write ('eval `scram runtime -' + shell + '`\n')
-    submitfile.write ('cd -\n')    
+    submitfile.write ('cd -\n')
     for i in range (1, len (lines)) :
         submitfile.write (lines[i])
     submitfile.close ()
@@ -137,7 +137,7 @@ def modifySubmitfileCMSSWCompiler (submitfilename, pdfgridfolder, phantompdflib,
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
 
-def prepareEventProductionScript (productionfilename, phantom, phantomfolder, cmssw, shell, debugging = 0):
+def prepareEventProductionScript (productionfilename, phantom, phantomfolder, cmssw, shell, scram_arch, debugging = 0):
     productionfile = open (productionfilename, 'write')
     if debugging:
         print 'creating ' + productionfilename
@@ -157,35 +157,35 @@ def prepareEventProductionScript (productionfilename, phantom, phantomfolder, cm
 
     productionfile.write ('ncpu=1\n')
     productionfile.write ('echo "%MSG-PHANTOM number of cputs for the run = $ncpu"\n')
-    
+
     # setup the environment for the running
-    productionfile.write ('scram project CMSSW ' + cmssw + '\n')
+    productionfile.write ('scram -a ' + scram_arch + ' project CMSSW ' + cmssw + '\n')
     productionfile.write ('cd ' + cmssw + '/src\n')
     productionfile.write ('eval `scram runtime -' + shell + '`\n')
-    productionfile.write ('cd -\n')    
+    productionfile.write ('cd -\n')
 
     # get the phantom release
     productionfile.write ('wget ' + phantom + '\n')
     productionfile.write ('tar xzf ' + phantom.split ('/')[-1] + '\n')
-    
+
     # set the number of events to be generated
-    productionfile.write ('cat r_GEN.in | sed -e s/EVENTSNUM/${nevt}/ > r_tempo.in\n') 
-    
+    productionfile.write ('cat r_GEN.in | sed -e s/EVENTSNUM/${nevt}/ > r_tempo.in\n')
+
     # set the random seed
     productionfile.write ('cat r_tempo.in | sed -e s/RANDOMSEED/${rnum}/ > r.in\n')
     if not debugging:
         productionfile.write ('rm r_tempo.in\n')
-        
+
     # call the event production
-    productionfile.write ('./' + phantomfolder + '/phantom.exe >& log_GEN.txt\n') 
-    
+    productionfile.write ('./' + phantomfolder + '/phantom.exe >& log_GEN.txt\n')
+
     # FIXME check the success of the production
     productionfile.write ('mv phamom.dat cmsgrid_final.lhe\n')
-    
+
     productionfile.close ()
     execute ('chmod 755 ' + productionfilename, debugging)
-    
-    
+
+
 
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
@@ -204,8 +204,8 @@ def addGridsToRin (filename, grids, debug = False):
     for gridfile in grids.split ():
         if debug : print 'adding ' + gridfile + '\n'
         configfile.write (gridfile + '\n')
-    configfile.close ()    
-    
+    configfile.close ()
+
 
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
@@ -217,22 +217,45 @@ def wordInFile (word, filename):
     if word in s: return True
     return False
 
+
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
 
-if __name__ == '__main__':
+def getPhantom (config, workingfolder, debugging):
 
-    if len (sys.argv) < 2 :
-        print 'config file missing, exiting'
-        sys.exit (1)
+    # get the precompiled phantom code, untar it and get the name of the pdf libraries
+    # used in the compilation
+    phantom = config.get ('general', 'package')
+    # Check is the package is on http or in local folder
+    if "http" in phantom:
+        foundIT = execute ('wget ' + phantom, debugging)
+        if not foundIT[0] == 0:
+            print 'Phantom version: ' + phantom + ' not found, exiting'
+            sys.exit (1)
+    else:
+        # should the phantom code be a local folder
+        if not os.path.isfile (phantom):
+            print 'Phantom package ' + phantom + ' not found, exiting'
+            sys.exit (1)
+        execute ('cp ' + phantom + ' ' + workingfolder, debugging)
 
-    debugging = False
-    if len (sys.argv) > 2 : debugging = True
+    execute ('tar xzf ' + phantom.split ('/')[-1], debugging)
+    phantomfolder = phantom.split ('/')[-1]
+    dummy = '.tar.gz'
+    phantomfolder = phantomfolder[0:-len(dummy)] if phantomfolder.endswith(dummy) else phantomfolder
+    dummy = '.tgz'
+    phantomfolder = phantomfolder[0:-len(dummy)] if phantomfolder.endswith(dummy) else phantomfolder
+    phantompdflib = findLhapdfUsed (workingfolder + '/' + phantomfolder + '/makefile')
+    return [phantomfolder, phantompdflib]
+
+
+# ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+
+
+def gridpackGeneration (debugging):
     rootfolder = os.getcwd ()
-
     # values to be inserted in the phantom r.in file
     substitute = {}
-        
     config = ConfigParser.ConfigParser ()
     config.optionxform = str # to preserve the case when reading options
     print 'reading config file:',sys.argv[1]
@@ -244,8 +267,8 @@ if __name__ == '__main__':
             if (section == 'parameters') :
                 substitute [option] = config.get (section, option)
     # this means gridpack production
-    substitute['ionesh'] = '0'  
-  
+    substitute['ionesh'] = '0'
+
     # prepare the folder for the gridpack creation
     foldername = os.getcwd () + '/phantomGrid_' + datetime.datetime.now().strftime('%y-%m-%d-%H-%M')
     if config.has_option ('general', 'foldername') :
@@ -253,42 +276,24 @@ if __name__ == '__main__':
     if os.path.exists (foldername + '.tar.xz'):
         print 'gridpack ' + foldername + '.tgz already existing, exiting'
         sys.exit (1)
-    print 'creating gridpack in folder: ' + foldername ;
+    print 'creating gridpack in folder: ' + foldername
     os.system ('rm -rf ' + foldername)
     os.system ('mkdir ' + foldername)
     os.chdir (foldername)
     workingfolder = os.getcwd ()
 
-    # get the precompiled phantom code, untar it and get the name of the pdf libraries
-    # used in the compilation
-    phantom = config.get ('general', 'package')
-    foundIT = execute ('wget ' + phantom, debugging)
-    if not foundIT[0] == 0:
-        print 'Phantom version: ' + phantom + ' not found, exiting'
-        sys.exit (1)
-
-    # should the phantom code be a local folder
-#    if not os.path.isfile (phantom):
-#        print 'Phantom package ' + phantom + ' not found, exiting'
-#        sys.exit (1)
-#    execute ('cp ' + phantom + ' ' + workingfolder, debugging)
-
-
-    execute ('tar xzf ' + phantom.split ('/')[-1], debugging)
-    phantomfolder = phantom.split ('/')[-1]
-    dummy = '.tar.gz'
-    phantomfolder = phantomfolder[0:-len(dummy)] if phantomfolder.endswith(dummy) else phantomfolder    
-    dummy = '.tgz'
-    phantomfolder = phantomfolder[0:-len(dummy)] if phantomfolder.endswith(dummy) else phantomfolder    
-    phantompdflib = findLhapdfUsed (workingfolder + '/' + phantomfolder + '/makefile')
+    res = getPhantom (config, workingfolder, debugging)
+    phantomfolder = res[0]
+    phantompdflib = res[1]
 
     # get the cmssw environment and the location of the pdf grids
     cmssw = config.get ('general', 'CMSSW')
-    os.environ['SCRAM_ARCH'] = config.get ('general', 'ARCH')
+    scram_arch = config.get ('general', 'ARCH')
+    os.environ['SCRAM_ARCH'] = scram_arch
     shell = 'sh'
     if os.environ['SHELL'].find ('c') != -1 :
         shell = 'csh'
-    returnCode = execute ('scram project CMSSW ' + cmssw, debugging)
+    returnCode = execute ('scram -a ' + scram_arch + ' project CMSSW ' + cmssw, debugging)
     if returnCode[0] != 0 :
         print 'cmssw release: ', cmssw, 'not found, exiting'
         sys.exit (1)
@@ -300,18 +305,22 @@ if __name__ == '__main__':
 #    execute ('printenv | grep LHAPDF_DATA_PATH', debugging)
 #    pdfgridfolder = os.environ['LHAPDF_DATA_PATH']
     for line in result[1].split('\n'):
-        if line.startswith ('LHAPDF_DATA_PATH=') : 
+        if line.startswith ('LHAPDF_DATA_PATH=') :
             pdfgridfolder = line[len ('LHAPDF_DATA_PATH='):]
             break
     pdfgrids = pdfgridfolder+'/' + config.get ('parameters','PDFname')
     if not os.path.exists (pdfgrids):
         print 'PDF grids ' + pdfgrids + ' not found, exiting'
-        sys.exit (1)    
+        sys.exit (1)
     # NB this should happen before creating the phantom config file!
-    substitute['PDFname'] = pdfgrids
+    # for the latest pdfs it seems that the pdf name is enough
+    # and the path gets truncated
+    # substitute['PDFname'] = pdfgrids
+    substitute['PDFname'] = config.get ('parameters','PDFname')
+
 
     # prepare the r.in phantom config file
-    templatefile = 'nonEsisto'  
+    templatefile = 'nonEsisto'
     if config.has_option ('general', 'template'):
         templatefile = rootfolder + '/' + config.get ('general', 'template')
     if not os.path.exists (templatefile):
@@ -320,16 +329,16 @@ if __name__ == '__main__':
     replaceParameterInFile (templatefile, workingfolder + '/r.in', substitute)
 
     # get the setupdir2 script from the phantom folder
-    execute ('cp ' + workingfolder + '/' + phantomfolder + '/tools/setupdir2.pl ' + workingfolder, debugging)    
+    execute ('cp ' + workingfolder + '/' + phantomfolder + '/tools/setupdir2.pl ' + workingfolder, debugging)
 
     channel = config.get ('generation','channel')
     command = './setupdir2.pl'
     command += ' -b ' + workingfolder + '/' + phantomfolder
-    if int (config.get ('generation', 'topnumber')) > 0 : 
+    if int (config.get ('generation', 'topnumber')) > 0 :
         command += ' -T ' + config.get ('generation', 'topnumber')
     command += ' -d ' + workingfolder
     command += ' -t ' + workingfolder + '/r.in'
-    command += ' -i "' + channel + '" -q ' + str (8 - len (channel.split ())) 
+    command += ' -i "' + channel + '" -q ' + str (8 - len (channel.split ()))
     command += ' -s ' + config.get ('submission','scheduler') + ' -n ' + config.get ('submission', 'queue')
     if substitute['i_signal'] == '1' :
         command += ' -Hs '
@@ -349,15 +358,15 @@ if __name__ == '__main__':
         submitfile.close ()
 
         # modify the channel variable adding the gluon legs
-        channel = channel + ' g g' 
-        
+        channel = channel + ' g g'
+
         command = './setupdir2.pl'
         command += ' -b ' + workingfolder + '/' + phantomfolder
-        if int (config.get ('generation', 'topnumber')) > 0 : 
+        if int (config.get ('generation', 'topnumber')) > 0 :
             command += ' -T ' + config.get ('generation', 'topnumber')
         command += ' -d ' + workingfolder
         command += ' -t ' + workingfolder + '/r.in'
-        command += ' -i "' + channel + '" -q ' + str (8 - len (channel.split ())) 
+        command += ' -i "' + channel + '" -q ' + str (8 - len (channel.split ()))
         command += ' -s ' + config.get ('submission','scheduler') + ' -n ' + config.get ('submission', 'queue')
         if substitute['i_signal'] == '1' :
             command += ' -Hs '
@@ -367,7 +376,7 @@ if __name__ == '__main__':
         # create the executable script to submit the gridpack production
         # for the component w/ real gluons
         execute (command, debugging)
-        
+
         # extend the executable script with the part w/o real gluons
         submitfile = open (submitfilename, 'a')
         submitfile.write ('\n')
@@ -385,12 +394,12 @@ if __name__ == '__main__':
     # add to the submit file the environment setupdir
     # configuration to be setup before running the phantom program
     # modifySubmitfileIntelCompiler (submitfilename, pdfgridfolder, phantompdflib)
-    modifySubmitfileCMSSWCompiler (submitfilename, pdfgridfolder, phantompdflib, cmssw, shell)
+    modifySubmitfileCMSSWCompiler (submitfilename, pdfgridfolder, phantompdflib, cmssw, shell, scram_arch)
 
     # launch the submission script
     execute ('source ' + submitfilename, debugging)
 
-    # wait until all jobs finish, before calculating the cross-section 
+    # wait until all jobs finish, before calculating the cross-section
     # and compressing the gridpack
     finished = False
     while not finished:
@@ -425,7 +434,7 @@ if __name__ == '__main__':
     # calculate the cross-section
     command = 'cd ' + workingfolder + '; grep SIGMA */run.out > res ; '
     command += workingfolder + '/' + phantomfolder + '/tools/totint.exe > result '
-    execute (command, debugging)            
+    execute (command, debugging)
     result = execute ('tail -n 1 ' + workingfolder + '/result', debugging)
     Xsection = result[1] + ' pb'
 
@@ -435,9 +444,9 @@ if __name__ == '__main__':
         for option in options:
             logfile.write ('[' + section + '] ' + option + ' : ' + config.get (section, option) + '\n')
     logfile.write ('\nSETUP COMMAND\n\n')
-    logfile.write (command + '\n') 
+    logfile.write (command + '\n')
     logfile.write ('\nRESULTING CROSS-SECTION FROM GRID CREATION\n\n')
-    logfile.write (Xsection + '\n') 
+    logfile.write (Xsection + '\n')
     logfile.close ()
 
     # NB removing the phantom to save space, it will have to be put back (reasonably in the same place)
@@ -446,7 +455,7 @@ if __name__ == '__main__':
         execute ('rm -rf ' + phantomfolder + '*', debugging)
         execute ('rm -rf CMSSW*', debugging)
         execute ('rm -rf LSFJOB*', debugging)
-    
+
     # get all the grids, to be run in workingfolder
 #    gridfiles = execute ('for fil in `find -L . -name "phavegas*.dat"` ; do echo `pwd`/$fil ; done', debugging)
     gridfiles = execute ('for fil in `find -L . -name "phavegas*.dat"` ; do echo $fil ; done', debugging)
@@ -462,12 +471,132 @@ if __name__ == '__main__':
 
     execute ('cp ../' + sys.argv[1] + ' ./', debugging)
 
-    prepareEventProductionScript (foldername + '/runcmsgrid.sh', phantom, phantomfolder, cmssw, shell, debugging)
+    prepareEventProductionScript (foldername + '/runcmsgrid.sh', phantom, phantomfolder, cmssw, shell, scram_arch, debugging)
 
     execute ('tar cJf ../' + foldername.split ('/')[-1] + '.tar.xz *', debugging)
     print 'gridpack ' + foldername.split ('/')[-1] + '.tar.xz created'
 
     os.chdir (rootfolder)
-    
     sys.exit (0)
+
+
+# ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+
+
+def produceEvents (nevents, ngenerations, debugging=True):
+    # Parse the configuration
+    substitute = {}
+    config = ConfigParser.ConfigParser ()
+    config.optionxform = str # to preserve the case when reading options
+    print 'reading config file:',sys.argv[1]
+    config.read (sys.argv[1])
+    for section in config.sections ():
+        options = config.options (section)
+        for option in options:
+            print '[' + section + '] ' + option, ':', config.get (section, option)
+            if (section == 'parameters') :
+                substitute [option] = config.get (section, option)
+
+    scram_arch = config.get ('general', 'ARCH')
+    os.environ['SCRAM_ARCH'] = scram_arch
+
+    foldername = os.getcwd() + '/' + config.get ('general', 'foldername')
+    if not os.path.exists (foldername):
+        print "gridpack folder {} doesn't exist! exiting".format(foldername)
+        sys.exit(1)
+    os.chdir(foldername)
+
+    workingfolder = os.getcwd ()
+    res = getPhantom (config, workingfolder, debugging)
+    phantomfolder = res[0] 
+    phantompdflib = res[1]
     
+    if debugging==1:
+        print 'phantomfolder', phantomfolder
+        print 'phantompdflib', phantompdflib
+    
+    # Creating folders for generation
+    try:
+        os.makedirs("generations/gen1")
+    except Exception:
+        print "generation directories already exist. exiting"
+        sys.exit(1)
+    os.chdir ("generations")
+
+    execute ('cp ../'+ phantomfolder +'/tools/gendir.scr .', debugging)
+    # Copying the r_GEN.in prepared in the gridpack
+    # changing the EVENTSNUM and SEED variable and fixing the vegas files path
+    rin = open("../r_GEN.in", "r")
+    rout = open("gen1/r.in", "w")
+    rin_text = rin.read()
+    # Fix variables
+    rin_text = rin_text.replace ("EVENTSNUM", str(nevents))
+    rin_text = rin_text.replace ("RANDOMSEED", "123456789")
+    # Match nfiles section
+    match = re.search( r"nfiles\s*(?P<lines>\d+)\n", rin_text)
+    rout.write(rin_text[:match.end()])
+    # Now fixing the path of the files
+    nfiles = int(match.group("lines"))
+    files = rin_text[match.end():].split("\n")
+    for i in range(nfiles):
+        rout.write("../."+ files[i] +"\n")
+    rin.close()
+    rout.close()
+
+    # Create the run file
+    runFile = open ('gen1/run','w')
+#    runFile.write('#!/bin/bash\n')
+    runFile.write ('pwd\n')
+    runFile.write ('cd '+ os.getcwd() + '/gen1\n')
+    runFile.write ('pwd\n')
+    runFile.write ('rm *.dat\necho $HOSTNAME\ntouch running\ndate\n')
+    runFile.write ('unbuffer ../../'+ phantomfolder +"/phantom.exe\n")
+    # Rename the data from phamom.dat to phamom.lhe
+    runFile.write ("mv phamom.dat phamom.lhe\n")
+    runFile.write ('mv running finished\ndate')
+    runFile.close ()
+
+    cmssw = config.get ('general', 'CMSSW')
+    modifySubmitfileCMSSWCompiler ('gen1/run', "", "", cmssw, "sh", scram_arch)
+
+    # Now run the phantom tool to generate the folders
+    execute ("./gendir.scr -l CERN -q 1nw -d "+ str(ngenerations) + " -i `pwd`", debugging)
+    # We have now a submit file create, we have to add the CMSSW activation at the beginning
+#    modifySubmitfileCMSSWCompiler(os.getcwd() +'/submitfile', "", "", cmssw, "sh", scram_arch, cmssw_path="../")
+
+    # Execute the submit script and launch the generation
+    print "Launching the generation of {0} events * {1} generations = {2} events".format(nevents,
+            ngenerations, nevents*ngenerations)
+    execute('source '+ os.getcwd() +'/submitfile', debugging)
+
+
+# ------------------------------------------------------------------------------
+
+if __name__ == '__main__':
+    if len (sys.argv) < 2 :
+        print 'config file missing, exiting'
+        sys.exit (1)
+
+    debugging = False
+    produce = False
+    nevents_produce = 0
+    ngenerations_produce = 0
+    if len (sys.argv) > 2 :
+        arg2 = sys.argv[2]
+        if arg2 == "1":
+            debugging = True
+        elif arg2 == "--produce":
+            produce = True
+            if len(sys.argv) < 5:
+                print "Number of events and generations missing, exiting"
+                sys.exit(1)
+            else:
+                nevents_produce = int(sys.argv[3])
+                ngenerations_produce = int(sys.argv[4])
+
+
+    if not produce:
+        #starting gridpack generation
+        gridpackGeneration(debugging)
+    else:
+        produceEvents(nevents_produce, ngenerations_produce)
