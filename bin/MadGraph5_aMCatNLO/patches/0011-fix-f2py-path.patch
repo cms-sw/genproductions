@@ -1,0 +1,11 @@
+--- a/madgraph/iolibs/export_v4.py 
++++ b/madgraph/iolibs/export_v4.py
+@@ -1739,7 +1739,7 @@
+             f2py_compiler = ''
+         # Try to find the correct one.
+         if default_compiler['f2py'] and misc.which(default_compiler['f2py']):
+- f2py_compiler = default_compiler
++ f2py_compiler = default_compiler['f2py']
+         elif misc.which('f2py'):
+             f2py_compiler = 'f2py'
+         elif sys.version_info[1] == 6:
