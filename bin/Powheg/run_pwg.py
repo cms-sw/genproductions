@@ -365,7 +365,7 @@ fi
 export POWHEGSRC=powhegboxV2_rev3453_date20171005.tar.gz
 
 if [ "$process" = "b_bbar_4l" ]; then 
-  export POWHEGSRC=powhegboxRES_Mar2017.tar.gz
+  export POWHEGSRC=powhegboxRES_rev3468_date20171122.tar.gz 
 fi
 
 echo 'D/L POWHEG source...'
