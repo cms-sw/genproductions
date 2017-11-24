@@ -1,5 +1,5 @@
 diff --git a/Template/LO/SubProcesses/refine.sh b/Template/LO/SubProcesses/refine.sh
-index 577461f..6039be5 100644
+index 577461f..af6263f 100644
 --- a/Template/LO/SubProcesses/refine.sh
 +++ b/Template/LO/SubProcesses/refine.sh
 @@ -12,6 +12,10 @@ if [ $SRT_LD_LIBRARY_PATH_SCRAMRT ]; then
@@ -13,14 +13,16 @@ index 577461f..6039be5 100644
  if [[ -e MadLoop5_resources.tar.gz && ! -e MadLoop5_resources ]]; then
  tar -xzf MadLoop5_resources.tar.gz
  fi
-@@ -72,9 +76,14 @@ j=%(directory)s
+@@ -71,10 +75,15 @@ j=%(directory)s
+      if [[ $status_code -ne 0 ]]; then 
  	 rm results.dat
  	 echo "ERROR DETECTED"
- 	 echo "end-code not correct $status_code" > results.dat
-+         echo "+ Hostname:" >> results.dat
-+         hostname >> results.dat
-+         echo "+ Printing job environment:" >> results.dat
-+         env >> results.dat
+-	 echo "end-code not correct $status_code" > results.dat
++	 echo "end-code not correct $status_code" >> log.txt
++         echo "+ Hostname:" >> log.txt
++         hostname >> log.txt
++         echo "+ Printing job environment:" >> log.txt
++         env >> log.txt
       fi     
       if [[ -e ftn26 ]]; then
           cp ftn26 ftn25
@@ -29,7 +31,7 @@ index 577461f..6039be5 100644
  
 +exit $status_code
 diff --git a/Template/LO/SubProcesses/refine_splitted.sh b/Template/LO/SubProcesses/refine_splitted.sh
-index d7d5df6..21876ec 100644
+index d7d5df6..8ce9e4d 100644
 --- a/Template/LO/SubProcesses/refine_splitted.sh
 +++ b/Template/LO/SubProcesses/refine_splitted.sh
 @@ -12,6 +12,10 @@ if [ $SRT_LD_LIBRARY_PATH_SCRAMRT ]; then
@@ -43,20 +45,22 @@ index d7d5df6..21876ec 100644
  if [[ -e MadLoop5_resources.tar.gz && ! -e MadLoop5_resources ]]; then
  tar -xzf MadLoop5_resources.tar.gz
  fi
-@@ -82,6 +86,11 @@ if [[ $status_code -ne 0 ]]; then
+@@ -81,7 +85,12 @@ fi
+ if [[ $status_code -ne 0 ]]; then 
  	 rm results.dat
  	 echo "ERROR DETECTED"
- 	 echo "end code not correct $status_code" > results.dat
-+         echo "+ Hostname:" >> results.dat
-+         hostname >> results.dat
-+         echo "+ Printing job environment:" >> results.dat
-+         env >> results.dat
+-	 echo "end code not correct $status_code" > results.dat
++	 echo "end code not correct $status_code" > log.txt
++         echo "+ Hostname:" >> log.txt
++         hostname >> log.txt
++         echo "+ Printing job environment:" >> log.txt
++         env >> log.txt
  fi
  
  cd ../
 +exit $status_code
 diff --git a/Template/LO/SubProcesses/survey.sh b/Template/LO/SubProcesses/survey.sh
-index c9ef2c5..0f89674 100755
+index c9ef2c5..d02f9e1 100755
 --- a/Template/LO/SubProcesses/survey.sh
 +++ b/Template/LO/SubProcesses/survey.sh
 @@ -12,6 +12,10 @@ if [ $SRT_LD_LIBRARY_PATH_SCRAMRT ]; then
@@ -70,14 +74,16 @@ index c9ef2c5..0f89674 100755
  if [[ -e MadLoop5_resources.tar.gz && ! -e MadLoop5_resources ]]; then
  tar -xzf MadLoop5_resources.tar.gz;
  fi
-@@ -80,6 +84,12 @@ for i in $@ ; do
+@@ -79,7 +83,13 @@ for i in $@ ; do
+      if [[ $status_code -ne 0 ]]; then 
  	 rm results.dat
  	 echo "ERROR DETECTED"
- 	 echo "end code not correct $status_code" > results.dat
-+         echo "+ Hostname:" >> results.dat
-+         hostname >> results.dat
-+         echo "+ Printing job environment:" >> results.dat
-+         env >> results.dat
+-	 echo "end code not correct $status_code" > results.dat
++	 echo "end code not correct $status_code" >> log.txt
++         echo "+ Hostname:" >> log.txt
++         hostname >> log.txt
++         echo "+ Printing job environment:" >> log.txt
++         env >> log.txt
 +         cd ../
 +         exit $status_code
       fi
@@ -91,7 +97,7 @@ index c9ef2c5..0f89674 100755
 -
 -
 diff --git a/Template/NLO/SubProcesses/ajob_template b/Template/NLO/SubProcesses/ajob_template
-index db5444b..0fd27ca 100755
+index db5444b..f9914cf 100755
 --- a/Template/NLO/SubProcesses/ajob_template
 +++ b/Template/NLO/SubProcesses/ajob_template
 @@ -19,6 +19,10 @@ if [ $SRT_LD_LIBRARY_PATH_SCRAMRT ]; then
@@ -111,8 +117,8 @@ index db5444b..0fd27ca 100755
      status=$?
 +    if [[ $status_code -ne 0 ]]; then
 +      echo "Error: Status code $status_code" >> log.txt
-+      echo "+ Hostname:" >> results.dat
-+      hostname >> results.dat
++      echo "+ Hostname:" >> log.txt
++      hostname >> log.txt
 +      echo "+ Printing environment" >> log.txt
 +      env >> log.txt
 +    fi
