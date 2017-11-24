@@ -1,5 +1,5 @@
 diff --git a/Template/LO/SubProcesses/refine.sh b/Template/LO/SubProcesses/refine.sh
-index 577461f..756db37 100644
+index 577461f..6039be5 100644
 --- a/Template/LO/SubProcesses/refine.sh
 +++ b/Template/LO/SubProcesses/refine.sh
 @@ -12,6 +12,10 @@ if [ $SRT_LD_LIBRARY_PATH_SCRAMRT ]; then
@@ -13,10 +13,12 @@ index 577461f..756db37 100644
  if [[ -e MadLoop5_resources.tar.gz && ! -e MadLoop5_resources ]]; then
  tar -xzf MadLoop5_resources.tar.gz
  fi
-@@ -72,9 +76,12 @@ j=%(directory)s
+@@ -72,9 +76,14 @@ j=%(directory)s
  	 rm results.dat
  	 echo "ERROR DETECTED"
  	 echo "end-code not correct $status_code" > results.dat
++         echo "+ Hostname:" >> results.dat
++         hostname >> results.dat
 +         echo "+ Printing job environment:" >> results.dat
 +         env >> results.dat
       fi     
@@ -27,7 +29,7 @@ index 577461f..756db37 100644
  
 +exit $status_code
 diff --git a/Template/LO/SubProcesses/refine_splitted.sh b/Template/LO/SubProcesses/refine_splitted.sh
-index d7d5df6..b4b9e57 100644
+index d7d5df6..21876ec 100644
 --- a/Template/LO/SubProcesses/refine_splitted.sh
 +++ b/Template/LO/SubProcesses/refine_splitted.sh
 @@ -12,6 +12,10 @@ if [ $SRT_LD_LIBRARY_PATH_SCRAMRT ]; then
@@ -41,10 +43,12 @@ index d7d5df6..b4b9e57 100644
  if [[ -e MadLoop5_resources.tar.gz && ! -e MadLoop5_resources ]]; then
  tar -xzf MadLoop5_resources.tar.gz
  fi
-@@ -82,6 +86,9 @@ if [[ $status_code -ne 0 ]]; then
+@@ -82,6 +86,11 @@ if [[ $status_code -ne 0 ]]; then
  	 rm results.dat
  	 echo "ERROR DETECTED"
  	 echo "end code not correct $status_code" > results.dat
++         echo "+ Hostname:" >> results.dat
++         hostname >> results.dat
 +         echo "+ Printing job environment:" >> results.dat
 +         env >> results.dat
  fi
@@ -52,7 +56,7 @@ index d7d5df6..b4b9e57 100644
  cd ../
 +exit $status_code
 diff --git a/Template/LO/SubProcesses/survey.sh b/Template/LO/SubProcesses/survey.sh
-index c9ef2c5..ef9ef53 100755
+index c9ef2c5..0f89674 100755
 --- a/Template/LO/SubProcesses/survey.sh
 +++ b/Template/LO/SubProcesses/survey.sh
 @@ -12,6 +12,10 @@ if [ $SRT_LD_LIBRARY_PATH_SCRAMRT ]; then
@@ -66,10 +70,12 @@ index c9ef2c5..ef9ef53 100755
  if [[ -e MadLoop5_resources.tar.gz && ! -e MadLoop5_resources ]]; then
  tar -xzf MadLoop5_resources.tar.gz;
  fi
-@@ -80,6 +84,10 @@ for i in $@ ; do
+@@ -80,6 +84,12 @@ for i in $@ ; do
  	 rm results.dat
  	 echo "ERROR DETECTED"
  	 echo "end code not correct $status_code" > results.dat
++         echo "+ Hostname:" >> results.dat
++         hostname >> results.dat
 +         echo "+ Printing job environment:" >> results.dat
 +         env >> results.dat
 +         cd ../
@@ -77,7 +83,7 @@ index c9ef2c5..ef9ef53 100755
       fi
       cd ../;
  
-@@ -87,6 +95,3 @@ for i in $@ ; do
+@@ -87,6 +97,3 @@ for i in $@ ; do
  done;
  
  # Cleaning 
@@ -85,7 +91,7 @@ index c9ef2c5..ef9ef53 100755
 -
 -
 diff --git a/Template/NLO/SubProcesses/ajob_template b/Template/NLO/SubProcesses/ajob_template
-index db5444b..4ded855 100755
+index db5444b..0fd27ca 100755
 --- a/Template/NLO/SubProcesses/ajob_template
 +++ b/Template/NLO/SubProcesses/ajob_template
 @@ -19,6 +19,10 @@ if [ $SRT_LD_LIBRARY_PATH_SCRAMRT ]; then
@@ -99,12 +105,14 @@ index db5444b..4ded855 100755
  tarCounter=0
  while [[ (-f MadLoop5_resources.tar.gz) && (! -f MadLoop5_resources/HelConfigs.dat) && ($tarCounter < 10) ]]; do
      if [[ $tarCounter > 0 ]]; then
-@@ -100,6 +104,11 @@ TAGTAGTAGTAGTAGTAGTAG for i in 1 ; do
+@@ -100,6 +104,13 @@ TAGTAGTAGTAGTAGTAGTAG for i in 1 ; do
          ../madevent_mintMC > log.txt <input_app.txt 2>&1
      fi
      status=$?
 +    if [[ $status_code -ne 0 ]]; then
 +      echo "Error: Status code $status_code" >> log.txt
++      echo "+ Hostname:" >> results.dat
++      hostname >> results.dat
 +      echo "+ Printing environment" >> log.txt
 +      env >> log.txt
 +    fi
