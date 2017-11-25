@@ -72,9 +72,11 @@ fi
 cd $LHEWORKDIR
 
 runlabel=GridRun_${rnum}
+event_file=events.lhe.gz
 if [ "$domadspin" -gt "0" ] ; then 
-    mv process/events_decayed.lhe.gz process/madevent/Events/${runlabel}/events.lhe.gz
+    event_file=events_decayed.lhe.gz
 fi
+mv process/$event_file process/madevent/Events/${runlabel}/events.lhe.gz
 
 # Add scale and PDF weights using systematics module
 #
