@@ -1,0 +1,8 @@
+<tool name="opencl-cpp" version="1.1">
+  <info url="http://www.khronos.org/registry/cl/"/>
+  <client>
+    <environment name="OPENCL_CPP_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/opencl-cpp/1.1"/>
+    <environment name="INCLUDE" default="$OPENCL_CPP_BASE/include"/>
+  </client>
+  <use name="opencl"/>
+</tool>

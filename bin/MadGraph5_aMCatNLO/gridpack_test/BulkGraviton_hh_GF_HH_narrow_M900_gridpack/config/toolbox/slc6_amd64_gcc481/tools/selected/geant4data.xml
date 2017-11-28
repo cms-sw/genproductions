@@ -1,0 +1,12 @@
+<tool name="geant4data" version="">
+  <client>
+    <environment name="GEANT4DATA_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external"/>
+  </client>
+  <runtime name="G4ABLADATA" value="/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/geant4-G4ABLA/3.0/data/G4ABLA3.0" type="path"/>
+  <runtime name="G4LEDATA" value="/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/geant4-G4EMLOW/6.35/data/G4EMLOW6.35" type="path"/>
+  <runtime name="G4NEUTRONHPDATA" value="/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/geant4-G4NDL/4.4/data/G4NDL4.4" type="path"/>
+  <runtime name="G4NEUTRONXSDATA" value="/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/geant4-G4NEUTRONXS/1.4/data/G4NEUTRONXS1.4" type="path"/>
+  <runtime name="G4LEVELGAMMADATA" value="/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/geant4-G4PhotonEvaporation/3.0/data/PhotonEvaporation3.0" type="path"/>
+  <runtime name="G4RADIOACTIVEDATA" value="/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/geant4-G4RadioactiveDecay/4.0/data/RadioactiveDecay4.0" type="path"/>
+  <runtime name="G4SAIDXSDATA" value="/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/geant4-G4SAIDDATA/1.1-cms/data/G4SAIDDATA1.1" type="path"/>
+</tool>

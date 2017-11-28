@@ -1,0 +1,7 @@
+<tool name="pyclang" version="3.4-cms2">
+  <client>
+    <environment name="PYCLANG_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/llvm/3.4-cms2"/>
+  </client>
+  <runtime name="PYTHONPATH" value="$PYCLANG_BASE/lib/python2.7/site-packages" type="path"/>
+  <use name="python"/>
+</tool>

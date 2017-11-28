@@ -1,0 +1,10 @@
+<tool name="photospp" version="3.56-ddibom">
+  <lib name="PhotosFortran"/>
+  <lib name="PhotosCxxInterface"/>
+  <client>
+    <environment name="PHOTOSPP_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/photospp/3.56-ddibom"/>
+    <environment name="LIBDIR" default="$PHOTOSPP_BASE/lib"/>
+    <environment name="INCLUDE" default="$PHOTOSPP_BASE/include"/>
+  </client>
+  <use name="hepmc"/>
+</tool>

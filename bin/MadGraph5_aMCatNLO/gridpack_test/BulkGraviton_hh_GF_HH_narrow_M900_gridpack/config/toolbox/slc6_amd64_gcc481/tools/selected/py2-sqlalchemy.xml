@@ -1,0 +1,7 @@
+<tool name="py2-sqlalchemy" version="0.8.2-cms3">
+  <client>
+    <environment name="PY2_SQLALCHEMY_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/py2-sqlalchemy/0.8.2-cms3"/>
+  </client>
+  <runtime name="PYTHONPATH" value="$PY2_SQLALCHEMY_BASE/lib/python2.7/site-packages" type="path"/>
+  <use name="python"/>
+</tool>

@@ -1,0 +1,345 @@
+2015-07-05 Shahzad Muzaffar  <Shahzad.Muzaffar@cern.ch>
+
+	* V05-04-10: Fix runtest prefix command
+
+2015-07-02 Shahzad Muzaffar  <Shahzad.Muzaffar@cern.ch>
+
+	* V05-05-01: Fix linkexternal script to always create symlinks in
+	the order of paths mentioned in toolfile.
+
+2015-07-02 Shahzad Muzaffar  <Shahzad.Muzaffar@cern.ch>
+
+	* V05-04-09: Back ported symlink changes for branch without
+	capabilities changes.
+
+2015-06-22 Shahzad Muzaffar  <Shahzad.Muzaffar@cern.ch>
+
+	* V05-04-08: Disable capabilities libs if NO_CAPABILITIS flag is
+	set in root.xml toolfile.
+
+2015-06-01 Shahzad Muzaffar  <Shahzad.Muzaffar@cern.ch>
+
+	* V05-04-07: Make sure that the compiler generated dependency file is
+	parsed properly.
+
+2015-04-07 Shahzad Muzaffar  <Shahzad.Muzaffar@cern.ch>
+
+	* V05-04-06: New build rule "deps-tree <package1> <package2>" added to
+	find the BuildFile level dependencies paths from <package1> to
+	<package2>.
+	Make sure the REM_<flags> are properly dropped.
+
+2015-02-20 Shahzad Muzaffar  <Shahzad.Muzaffar@cern.ch>
+
+	* V05-04-05: HOOK_PROJECT support added. SCRAM should call this hook
+	once before the start of build and once at the end of build.
+
+2015-02-03 Shahzad Muzaffar  <Shahzad.Muzaffar@cern.ch>
+
+	* V05-04-04: Generate glimpse indexes for cfipython too.
+	Added support for USER_HOOK_PACKAGE and USER_HOOK_PRODUCT
+
+2015-01-31 Shahzad Muzaffar  <Shahzad.Muzaffar@cern.ch>
+
+	* V05-04-03: Bug fix, make sure that product's precompile rule
+	is called before the gch generation.
+
+2015-01-14 Shahzad Muzaffar  <Shahzad.Muzaffar@cern.ch>
+
+	* V05-04-02: Various fixes
+	- For patch release buils, add base release src directory in to
+	CMSSW_SEARCH_PATH
+	- For missing src/package/python directory create
+	python/package/__init__.py file to append cfipython/package
+	in python path.
+	- generate .gch.cxxflags files for precompile headers.
+
+2015-01-07 Shahzad Muzaffar  <Shahzad.Muzaffar@cern.ch>
+
+	* V05-04-01: Support for precompile headers. If a package has
+	src/precompile.h file then scram will generate
+	LOCALTOP/include/<arch>/<package>/src/precompile.h.gch.
+
+2014-12-19 Shahzad Muzaffar  <Shahzad.Muzaffar@cern.ch>
+
+	* V05-04-00: Moved findDependencies.pl from the cmsdist. Update
+	cmsdist/scram-project-build to use this.
+	Cleanup for rootdict source dependency.
+
+2014-12-05 Shahzad Muzaffar  <Shahzad.Muzaffar@cern.ch>
+
+	* V05-03-31: Cleanup for ClassVersion check and print the
+	scram command for updating the class version.
+
+2014-11-27 Shahzad Muzaffar  <Shahzad.Muzaffar@cern.ch>
+
+	* V05-03-30: Drop support for ROOTMAP BuildFile flag and always
+	generate .rootmap file if supported by root external tool.
+
+2014-11-25 Shahzad Muzaffar  <Shahzad.Muzaffar@cern.ch>
+
+	* V05-03-29: Various features added
+	- SCRAM_TEST_RUNNER_PREFIX: Runtime environment variable which
+	scram can append before any unittest e.g. one use of it could be
+	to run unit test under valgrind or timeout etc.
+	- generate  ;lib/arch/.poisonededmplugincache for all the
+	packages locallt built or deleted.
+2014-10-27 Shahzad Muzaffar  <Shahzad.Muzaffar@cern.ch>
+
+	* V05-03-28: Help message updated; some cleanup;
+	Do not add biglib path if biglib is disabled in the dev area.
+
+2014-10-13 Patrick Gartung  <gartung@fnal.gov>
+
+	* V05-03-27: Fixed dxr.config file; passed -k gmake option and
+	exit with 0 for dxr rule.
+
+2014-10-08 Shahzad Muzaffar  <Shahzad.Muzaffar@cern.ch>
+
+	* V05-03-26: Various fixes for OSX:
+	- Fix big plugin extension for OSX arch (dylib instead of so)
+	- Do not pass -L<path> for non-existing local directories
+
+2014-10-08 David Abdurachmanov  <David.Abdurachmanov@cern.ch>
+
+	* V05-03-25: Pass --exclude-libs to only non-osx archs.
+
+2014-10-06 Shahzad Muzaffar  <Shahzad.Muzaffar@cern.ch>
+
+	* V05-03-24: Drop LD_UNIT_FLAGS and just use LD_UNIT flag.
+
+2014-10-05 Shahzad Muzaffar  <Shahzad.Muzaffar@cern.ch>
+
+	* V05-03-23: New dxr build rule added for generating dxr indexes;
+	Cleanup LD_UNIT flags for big objects for osx,fc and slc archs.
+
+2014-09-29 Shahzad Muzaffar  <Shahzad.Muzaffar@cern.ch>
+
+	* V05-03-22: Do not generate any lcg/root dict if all files have been
+	skipped e.g. <flags SKIP_FILES="%"/>
+
+2014-09-25 Shahzad Muzaffar  <Shahzad.Muzaffar@cern.ch>
+
+	* V05-03-21: Set CLASS for each product e..g LIBRARY, BINARY, TEST,
+	TEST_LIBRARY.
+	Fix creation of symlinks unders externals/arch for big objs.
+
+	* V05-03-20: Allow to set and use LIBRARY_<flag>, BINARY_<flag>,
+	and TEST_<flag> flags (CXXFLAGS, CPPFLAGS, CFLAGS, LDFLAGS etc.);
+	Regenerate Serialization.cc if cond serialization script is changed;
+	Fix GENREFLEX_GCCXMLOPT for flag for genreflex;
+
+2014-09-09 Shahzad Muzaffar  <Shahzad.Muzaffar@cern.ch>
+
+	* V05-03-19: Fixed class version update rule;
+	Allow multiple LinkDef.h per package;
+	Fixed absolute path in lcgdict
+
+2014-08-27 Shahzad Muzaffar  <Shahzad.Muzaffar@cern.ch>
+
+	* V05-03-18: Make use of new release tag in config/BuildFile.xml so that
+	 same config tag can be used for all releases.
+
+2014-08-27 Shahzad Muzaffar  <Shahzad.Muzaffar@cern.ch>
+
+	* V05-03-17: Only update external/$(SCRAM_ARCH)/links.DB if external
+	tools definition changes
+
+2014-08-26 Shahzad Muzaffar  <Shahzad.Muzaffar@cern.ch>
+
+	* V05-03-16: For unittests rule always call unittests of PRE_TEST instead
+	of runtests
+
+2014-08-05 Shahzad Muzaffar  <Shahzad.Muzaffar@cern.ch>
+
+	* V05-03-15: Disable biglib rules for llvm
+
+2014-07-25 Shahzad Muzaffar  <Shahzad.Muzaffar@cern.ch>
+
+	* V05-03-14: Various fixes for Biglib rules;
+	 - Added new build rule check_dependents_<biglib> to check dependent packages
+	of biglib
+	- Bug fix: Make sure scram picks up changes in  plugins/BuildFile.xml
+
+2014-07-01 Shahzad Muzaffar  <Shahzad.Muzaffar@cern.ch>
+
+	* V05-03-00: New build rules to generate big edmplugin using other
+	small shared libraries and edm plugins. Supported flags are
+	[USER_][REM_]BIGOBJ_CPPFLAGS, [USER_][REM_]BIGOBJ_CFLAGS, [USER_][REM_]BIGOBJ_FFLAGS
+	[USER_][REM_]BIGOBJ_CXXFLAGS, [USER_][REM_]BIGOBJ_LDFLAGS
+
+2013-05-19 Shahzad Muzaffar  <Shahzad.Muzaffar@cern.ch>
+
+	* V05-02-00: lcg and root dictionaries generation updated to use new
+	genreflex (root6). This tag should work for both root5 and root6 based
+	releases.
+
+2013-05-13 Shahzad Muzaffar  <Shahzad.Muzaffar@cern.ch>
+
+	* V05-01-26: Various fixes and new features e.g.
+	  - mic/arm/cuda build
+	  - Boost IO serialization 
+	  - glimpse indexes
+	  - poison include directory in patch releases
+	  - ROOT_INCLUDE_PATH
+
+2013-03-20 Shahzad Muzaffar  <Shahzad.Muzaffar@cern.ch>
+
+	* V04-02-20: Fix seal capabilities file generation for multiple
+	classes.h files.
+	* V05-00-11: Fix seal capabilities file generation for multiple
+	classes.h files.
+
+2013-03-18 Shahzad Muzaffar  <Shahzad.Muzaffar@cern.ch>
+
+	* V04-02-19: Do to check for duplicate values in compiler flags
+	INCLUDE, LIB and LIBDIR are still checked for duplicates.
+	* V05-00-10: Duplicate flags checks added for biglibs rules too.
+
+2013-03-14 Shahzad Muzaffar  <Shahzad.Muzaffar@cern.ch>
+
+	* V05-00-09: Fixed lcgdict dependency rule which was broekn in
+	V05-00-08.
+	* V05-00-08: Fix build rile for rootdict (LinkDef.h) to regenerate
+	tmp/LinkDef.cc file if any of the headers included in LinkDef.h
+	are changed.
+
+2013-03-13 Shahzad Muzaffar  <Shahzad.Muzaffar@cern.ch>
+
+	* V05-00-07: Sync new biglib development.
+
+2013-02-13 Shahzad Muzaffar  <Shahzad.Muzaffar@cern.ch>
+
+	* V04-02-18: Do not add missing directories with -I
+
+2013-02-06 Shahzad Muzaffar  <Shahzad.Muzaffar@cern.ch>
+
+	* V04-02-17: Fixed bigobj rule
+
+2013-01-31 Shahzad Muzaffar  <Shahzad.Muzaffar@cern.ch>
+
+	* V04-02-16: Do not delete the testing.log file for individual tests
+
+2012-12-13 Shahzad Muzaffar  <Shahzad.Muzaffar@cern.ch>
+
+	* V04-02-15: Fixes for ccache to work properly with scram.
+	Allow to set build time only environment variables e.g. having
+	<client>
+	  <environment name="BUILDENV_<VARIABLE>" value="<VALUE>" handler="warn"/>
+	</client>
+	will set environment variable <VARIABLE>=<VALUE>
+
+2012-12-11 Shahzad Muzaffar  <Shahzad.Muzaffar@cern.ch>
+
+	* V04-02-14: Explicitly added -MF <file>.d in compilation command to let distcc
+	properly deal with .d files.
+
+2012-11-05 Shahzad Muzaffar  <Shahzad.Muzaffar@cern.ch>
+
+	* V04-02-12/13: Now scram prints "gamke *** [ ] Error 1" type error message when it
+	founds plugins/BuildFile.xml without any source files.
+
+2012-10-25 Shahzad Muzaffar  <Shahzad.Muzaffar@cern.ch>
+
+	* V04-02-11: -Wl,--icf=all LDFLAGS is now oonly set for slc5.* archs.
+
+2012-10-19 Shahzad Muzaffar  <Shahzad.Muzaffar@cern.ch>
+
+	* V04-02-10: Generate default <Package>Auto plugin from plugins
+	sub-directory is no explicit product is requested in
+	<Package>/plugins/BuildFile.xml
+
+2012-10-10 Giulio Eulisse <Giulio.Eulisse@cern.ch>
+
+	* V04-02-08: Add -DDISABLE_BOOST_ASSERTS to CXXFLAGS
+
+2012-09-21 Shahzad Muzaffar  <Shahzad.Muzaffar@cern.ch>
+
+	* V04-02-07: Always treat CXXFLAGS, CFLAGS, FFLAGS, CPPDEFINES, LDFLAGS
+	and CPPFLAGS as known compilers flags.
+
+2012-09-14 Shahzad Muzaffar  <Shahzad.Muzaffar@cern.ch>
+
+	* V04-02-06: Remove cms llvm checker category (it is not available)
+	checker rule now dumps the build logs of individual products in to
+	their build.log files.
+
+2012-09-11 Giulio Eulisse <Giulio.Eulisse@cern.ch>
+
+	* V04-02-05: Remove llvm-analysis/*/failures files
+
+2012-07-16 Shahzad Muzaffar  <Shahzad.Muzaffar@cern.ch>
+
+	* V04-02-04: By default enable all cms and threadsafety llvm checkers.
+
+2012-06-28 Shahzad Muzaffar  <Shahzad.Muzaffar@cern.ch>
+
+	* V04-02-03: By default do not run llvm-analyzer on generated e.g.
+        xr.cc, LinkDef.cc etc. files. Set RUN_LLVM_ANALYZER_ON_ALL=yes
+	if one needs to analyze generated code.
+
+2012-06-21 Shahzad Muzaffar  <Shahzad.Muzaffar@cern.ch>
+
+	* V04-02-02: Bug fix
+	- Properly set ROOTCINT if not set via tool.
+	- Properly generate lcg dict compiler generate source dependency.
+	- Properly initialize compiler flags
+	- Print warning if package directly depened on compiler tools except
+	f77compiler.
+	- Removed unused MODULEFLAGS, it is same as CXXSHAREDFLAGS.
+	- Rules cleanup
+
+2012-06-12 Shahzad Muzaffar  <Shahzad.Muzaffar@cern.ch>
+
+	* V04-02-01: Replace hard coded value for llvm analyzer tool name.
+
+2012-06-12 Shahzad Muzaffar  <Shahzad.Muzaffar@cern.ch>
+
+	* V04-02-00: 
+	 - Allow multiple compilers support. Default compiler is gcc
+	while one can run "scram b COMPILER=<name> to switch to a different
+	compiler.
+	 - Bug fix, if compilation failed then try to atleast generate compiler
+	generate dependency file (.d) by using -MM flag.
+	 - Drop headers for externals from the compiler generated dependency
+	file.
+	 - Support for llvm and llvm-analyzer compilers.
+	 - Bug fix, while building patch release make sure that src/<package> for
+	a python/<package> exists.
+
+2012-05-23 Shahzad Muzaffar  <Shahzad.Muzaffar@cern.ch>
+
+	* V04-01-02: Do not recursively export an external tool if
+	NO_RECURSIVE_EXPORT flag is set for it.
+
+2012-05-07 Shahzad Muzaffar  <Shahzad.Muzaffar@cern.ch>
+
+	* V04-01-01: Auto generation of classes.h files
+	- Added build rules for running genClassesH script of classes_def.xml
+	exists but classes.h does not.
+	- cleanup unused variables for LCGDict.
+	- Enable autoGenerateClassesH for CMSSW
+	- Delete product (lib.binary/test) before copy.
+
+2012-04-26 Shahzad Muzaffar  <Shahzad.Muzaffar@cern.ch>
+
+	* V04-01-00:
+	- Convert any LD_LIBRARY_PATH to DYLD_FALLBACK_LIBRARY_PATH on osx
+	archs. This allows us to have osx* and slc* archs in single dev area,
+	although it is unlikely that someone will do this but at least there
+	is no restriction from SCRAM side now
+	- Allow external scripts (hooks) to be called at Package/Product
+	start/end time. One needs to have HOOK_PACKAGE/PRODUCT flag set in
+	config/BuildFile.xml. SCRAM will call
+	'$(HOOK_PACKAGE) -e|-s -p <Package|ProductName>' if HOOK_PACKAGE|PRODUCT
+	is set.
+	- Unit test dependency added e.g. 
+	<bin file="Test2"><flags PRE_TEST="Test1"/></bin>
+	will run Test1 first
+	- For fortran file compilation/linking, automatically add f77_compiler
+	dependency
+	- Drop CMSSW LIBDIR which does not exist e.g. in dev area
+	external/<arch>/lib does not exists (unless tool changed). This will
+	avoid following kind of warnings on osx archs
+	ld: warning: directory not found for option '-L<path>/external/<arch>/lib'
+	- config/SCRAM/Plugins are now moved back to SCRAM itself.

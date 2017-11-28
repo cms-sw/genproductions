@@ -1,0 +1,9 @@
+<tool name="opencl" version="1.1">
+  <info url="https://www.khronos.org/opencl/"/>
+  <lib name="OpenCL"/>
+  <client>
+    <environment name="OPENCL_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/opencl/1.1"/>
+    <environment name="LIBDIR" default="$OPENCL_BASE/lib64"/>
+    <environment name="INCLUDE" default="$OPENCL_BASE/include"/>
+  </client>
+</tool>

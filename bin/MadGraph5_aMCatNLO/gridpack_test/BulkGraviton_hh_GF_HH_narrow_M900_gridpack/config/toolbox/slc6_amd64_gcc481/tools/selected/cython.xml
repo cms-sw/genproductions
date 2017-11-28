@@ -1,0 +1,7 @@
+<tool name="cython" version="0.19.1-cms">
+  <client>
+    <environment name="CYTHON_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/cython/0.19.1-cms"/>
+  </client>
+  <runtime name="PYTHONPATH" value="/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/cython/0.19.1-cms/lib/python2.7/site-packages" type="path"/>
+  <use name="python"/>
+</tool>

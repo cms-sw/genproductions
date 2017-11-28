@@ -1,0 +1,7 @@
+<tool name="clhepheader" version="2.1.4.1-cms">
+  <info url="http://wwwinfo.cern.ch/asd/lhc++/clhep"/>
+  <client>
+    <environment name="CLHEPHEADER_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/clhep/2.1.4.1-cms"/>
+    <environment name="INCLUDE"    default="$CLHEPHEADER_BASE/include"/>
+  </client>
+</tool>

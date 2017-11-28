@@ -1,0 +1,30 @@
+#!/bin/bash
+
+event_file=$1
+save_wgts=$2
+
+# For support of LHAPATH in cluster mode                                                                                                                                                                    
+if [ $CLUSTER_LHAPATH ]; then
+  export LHAPATH=$CLUSTER_LHAPATH;
+fi
+
+# Add CVMFS libraries to LD_LIBRARY_PATH, if not present already
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRT" ]; then 
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRT}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRT:$LD_LIBRARY_PATH"
+  fi
+fi
+
+if [[ -e ./reweight_xsec_events ]]
+then
+    (echo $event_file; echo $save_wgts) | ./reweight_xsec_events > reweight_xsec_events.output
+else
+    (echo $event_file; echo $save_wgts) | ../reweight_xsec_events > reweight_xsec_events.output
+fi
+
+#old version
+#echo $event_file > reweight_xsec_events.input
+#echo $save_wgts >> reweight_xsec_events.input
+#../reweight_xsec_events < reweight_xsec_events.input > reweight_xsec_events.output
+
+

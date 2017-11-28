@@ -1,0 +1,10 @@
+<tool name="ktjet" version="1.06-cms3">
+  <info url="http://hepforge.cedar.ac.uk/ktjet"/>
+  <lib name="KtEvent"/>
+  <client>
+    <environment name="KTJET_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/ktjet/1.06-cms3"/>
+    <environment name="LIBDIR" default="$KTJET_BASE/lib"/>
+    <environment name="INCLUDE" default="$KTJET_BASE/include"/>
+  </client>
+  <flags cppdefines="KTDOUBLEPRECISION"/>
+</tool>

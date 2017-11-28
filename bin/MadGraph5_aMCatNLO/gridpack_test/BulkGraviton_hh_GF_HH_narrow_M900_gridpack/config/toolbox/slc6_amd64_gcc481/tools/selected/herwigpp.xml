@@ -1,0 +1,8 @@
+<tool name="herwigpp" version="2.7.1-ddibom7">
+  <client>
+    <environment name="HERWIGPP_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/herwigpp/2.7.1-ddibom7"/>
+    <environment name="LIBDIR" default="$HERWIGPP_BASE/lib"/>
+    <environment name="INCLUDE" default="$HERWIGPP_BASE/include"/>
+  </client>
+  <runtime name="HERWIGPATH" value="$HERWIGPP_BASE/share/Herwig++"/>
+</tool>

@@ -1,0 +1,69 @@
+-include ../../Source/make_opts
+
+DEBUG=
+FF=$(FC) $(FFLAGS) $(DEBUG)
+CPP=$(CXX) $(CXXFLAGS) $(DEBUG) $(INCLOPTION)
+CC=$(CXX) $(CFLAGS) $(DEBUG) $(INCLOPTION)
+
+$(OBJDIR)/%.o: $(HWSDIR)/%.f
+	$(FF) -I$(INCDIR) $(AUTODBL) -c $< -o $@
+$(OBJDIR)/%.o: $(PYSDIR)/%.f
+	$(FF) -I$(INCDIR) $(AUTODBL) -c $< -o $@
+$(OBJDIR)/%.o: $(SRCDIR)/%.f
+	$(FF) -I$(INCDIR) $(AUTODBL) -c $< -o $@
+$(OBJDIR)/%.o: $(COMSRC)/%.f
+	$(FF) -I$(INCDIR) $(AUTODBL) -c $< -o $@
+$(OBJDIR)/%.o: $(ANADIR)/%.f
+	$(FF) -I$(INCDIR) $(AUTODBL) -c $< -o $@
+
+$(OBJDIR)/%.o: $(SRCDIR)/%.for
+	$(FF) -I$(INCDIR) $(AUTODBL) -c $< -o $@
+$(OBJDIR)/%.o: $(COMSRC)/%.for
+	$(FF) -I$(INCDIR) $(AUTODBL) -c $< -o $@
+
+$(OBJDIR)/%.o: $(SRCDIR)/%.cc
+	$(CPP) -I$(INCDIR) -c $< -o $@
+$(OBJDIR)/%.o: $(COMSRC)/%.cc
+	$(CPP) -I$(INCDIR) -c $< -o $@
+$(OBJDIR)/%.o: $(ANADIR)/%.cc
+	$(CPP) -I$(INCDIR) -c $< -o $@
+
+$(OBJDIR)/%.o: $(SRCDIR)/%.c
+	$(CC) -I$(INCDIR) -c $^ -o $@
+$(OBJDIR)/%.o: $(COMSRC)/%.c
+	$(CC) -I$(INCDIR) -c $^ -o $@
+$(OBJDIR)/%.o: $(ANADIR)/%.c
+	$(CC) -I$(INCDIR) -c $< -o $@
+
+
+UTIFILES=$(OBJDIR)/mcatnlo_date.o $(OBJDIR)/mcatnlo_int.o $(OBJDIR)/mcatnlo_uxdate.o $(OBJDIR)/mcatnlo_uti.o \
+         $(OBJDIR)/mcatnlo_str.o $(EXTRAOBJ)
+LUTIFILES=$(OBJDIR)/mcatnlo_date.o $(OBJDIR)/mcatnlo_int.o $(OBJDIR)/mcatnlo_uxdate.o $(OBJDIR)/mcatnlo_uti.o \
+         $(OBJDIR)/mcatnlo_str.o $(EXTRAOBJ)
+PDFFILES=$(OBJDIR)/mcatnlo_pdftomlm.o $(OBJDIR)/mcatnlo_libofpdf.o $(OBJDIR)/dummies.o
+CPDFFILES=$(OBJDIR)/mcatnlo_mlmtopdf.o $(OBJDIR)/dummies.o
+LPDFFILES=$(OBJDIR)/mcatnlo_mlmtolha.o $(OBJDIR)/dummies.o
+HWFILES=$(OBJDIR)/$(HERWIGVER) $(OBJDIR)/madfks_hwdriver.o $(OBJDIR)/madfks_hwlhin.o \
+        $(OBJDIR)/mcatnlo_str.o $(HWUTI)
+PYFILES=$(OBJDIR)/$(PYTHIAVER) $(OBJDIR)/madfks_pydriver.o $(OBJDIR)/madfks_pylhin.o \
+        $(OBJDIR)/mcatnlo_str.o $(PYUTI)
+
+
+HW_EXE_DEFAULT : $(HWFILES) $(PDFFILES)
+	$(FC) $(LDFLAGS) $^ $(EXTRAPATHS) $(EXTRALIBS) -o $@
+
+HW_EXE_PDFLIB : $(HWFILES) $(CPDFFILES) 
+	$(FC) $(LDFLAGS) $^ $(LIBS) $(EXTRAPATHS) $(EXTRALIBS) -o $@
+
+HW_EXE_LHAPDF : $(HWFILES) $(LPDFFILES)  
+	$(FC) $(LDFLAGS) $^ $(LHALIB) $(EXTRAPATHS) $(EXTRALIBS) -o $@
+
+
+PY_EXE_DEFAULT : $(PYFILES) $(PDFFILES)
+	$(FC) $(LDFLAGS) $^ $(EXTRAPATHS) $(EXTRALIBS) -o $@
+
+PY_EXE_PDFLIB : $(PYFILES) $(CPDFFILES) 
+	$(FC) $(LDFLAGS) $^ $(LIBS) $(EXTRAPATHS) $(EXTRALIBS) -o $@
+
+PY_EXE_LHAPDF : $(PYFILES) $(LPDFFILES)  
+	$(FC) $(LDFLAGS) $^ $(LHALIB) $(EXTRAPATHS) $(EXTRALIBS) -o $@

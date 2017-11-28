@@ -1,0 +1,6 @@
+<tool name="vdt_headers" version="v0.3.2-cms">
+  <client>
+    <environment name="VDT_HEADERS_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc481/cms/vdt/v0.3.2-cms"/>
+    <environment name="INCLUDE" default="$VDT_HEADERS_BASE/include"/>
+  </client>
+</tool>

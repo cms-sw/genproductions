@@ -1,0 +1,10 @@
+<tool name="heppdt" version="3.03.00">
+  <lib name="HepPDT"/>
+  <lib name="HepPID"/>
+  <client>
+    <environment name="HEPPDT_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/heppdt/3.03.00"/>
+    <environment name="LIBDIR" default="$HEPPDT_BASE/lib"/>
+    <environment name="INCLUDE" default="$HEPPDT_BASE/include"/>
+  </client>
+  <runtime name="HEPPDT_PARAM_PATH" value="$HEPPDT_BASE"/>
+</tool>

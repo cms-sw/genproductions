@@ -1,0 +1,27 @@
+<tool name="cuda" version="1.0">
+  <info url="https://developer.nvidia.com/cuda-toolkit"/>
+  <lib name="cublas"/>
+  <lib name="cublas_device"/>
+  <lib name="cudadevrt"/>
+  <lib name="cudart"/>
+  <lib name="cudart_static"/>
+  <lib name="cufft"/>
+  <lib name="cufftw"/>
+  <lib name="cuinj64"/>
+  <lib name="curand"/>
+  <lib name="cusparse"/>
+  <lib name="nppc"/>
+  <lib name="nppi"/>
+  <lib name="npps"/>
+  <lib name="nvToolsExt"/>
+  <client>
+    <environment name="CUDA_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/cuda/1.0/installation"/>
+    <environment name="NVCC"      default="$CUDA_BASE/bin/nvcc"/>
+    <environment name="BINDIR"    default="$CUDA_BASE/bin"/>
+    <environment name="LIBDIR"    default="$CUDA_BASE/lib64"/>
+    <environment name="INCLUDE"   default="$CUDA_BASE/include"/>
+  </client>
+  <flags CUDA_CFLAGS="-fPIC"/>
+  <flags CUDA_FLAGS="-gencode arch=compute_35,code=sm_35"/>
+  <runtime name="PATH" value="$CUDA_BASE/bin" type="path"/>
+</tool>

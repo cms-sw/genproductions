@@ -1,0 +1,9 @@
+set auto_update 0
+set automatic_html_opening False
+set lhapdf /cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/lhapdf/6.2.1/share/LHAPDF/../../bin/lhapdf-config
+set run_mode  1
+set cluster_type lsf
+set cluster_status_update 60 30
+set cluster_nb_retry 3
+set cluster_retry_wait 300
+save options

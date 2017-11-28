@@ -1,0 +1,8 @@
+<tool name="py2-networkx" version="1.8.1-cms">
+  <info url="https://pypi.python.org/pypi/networkx"/>
+  <client>
+    <environment name="PY2_NETWORKX" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/py2-networkx/1.8.1-cms"/>
+    <environment name="LIBDIR" default="$PY2_NETWORKX/lib"/>
+    <runtime name="PYTHONPATH" value="$PY2_NETWORKX/lib/python2.7/site-packages" type="path"/>
+  </client>
+</tool>

@@ -1,0 +1,14 @@
+<tool name="evtgen" version="1.3.0-ddibom10">
+  <lib name="EvtGen"/>
+  <lib name="EvtGenExternal"/>
+  <client>
+    <environment name="EVTGEN_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/evtgen/1.3.0-ddibom10"/>
+    <environment name="LIBDIR" default="$EVTGEN_BASE/lib"/>
+    <environment name="INCLUDE" default="$EVTGEN_BASE/include"/>
+  </client>
+  <runtime name="EVTGENDATA" value="$EVTGEN_BASE/share"/>
+  <use name="hepmc"/>
+  <use name="pythia8"/>
+  <use name="tauolapp"/>
+  <use name="photospp"/>
+</tool>

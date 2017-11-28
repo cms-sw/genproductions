@@ -1,0 +1,11 @@
+<tool name="geant4static" version="10.00.p02-ddibom2">
+  <info url="http://geant4.web.cern.ch/geant4/"/>
+  <lib name="geant4-static"/>
+  <flags CXXFLAGS="-ftls-model=global-dynamic -pthread"/>
+  <client>
+    <environment name="GEANT4STATIC_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/geant4/10.00.p02-ddibom2"/>
+    <environment name="LIBDIR" default="$GEANT4STATIC_BASE/lib/archive"/>
+  </client>
+  <use name="clhep"/>
+  <use name="xerces-c"/>
+</tool>

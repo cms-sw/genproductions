@@ -1,0 +1,12 @@
+<tool name="cgal" version="4.2-ddibom">
+  <info url="http://www.cgal.org/"/>
+  <lib name="CGAL_Core"/>
+  <lib name="CGAL"/>
+  <client>
+    <environment name="CGAL_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/cgal/4.2-ddibom"/>
+    <environment name="LIBDIR" default="$CGAL_BASE/lib"/>
+    <environment name="INCLUDE" default="$CGAL_BASE/include"/>
+  </client>
+  <use name="zlib"/>
+  <use name="boost_system"/>
+</tool>

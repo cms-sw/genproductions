@@ -1,0 +1,12 @@
+<tool name="rivet2" version="2.0.0-ddibom">
+<lib name="Rivet"/>
+<client>
+<environment name="RIVET2_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/rivet2/2.0.0-ddibom"/>
+<environment name="LIBDIR" default="$RIVET2_BASE/lib"/>
+<environment name="INCLUDE" default="$RIVET2_BASE/include"/>
+</client>
+<runtime name="PATH" value="$RIVET2_BASE/bin" type="path"/>
+<runtime name="PYTHONPATH" value="$RIVET2_BASE/lib/python2.7/site-packages" type="path"/>
+<runtime name="RIVET_ANALYSIS_PATH" value="$RIVET2_BASE/lib" type="path"/>
+<runtime name="PDFPATH" default="$RIVET2_BASE/share" type="path"/>
+</tool>

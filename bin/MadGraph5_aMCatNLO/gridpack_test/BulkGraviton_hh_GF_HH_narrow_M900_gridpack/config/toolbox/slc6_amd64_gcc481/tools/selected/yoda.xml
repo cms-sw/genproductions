@@ -1,0 +1,10 @@
+<tool name="yoda" version="1.0.4-cms">
+  <lib name="YODA"/>
+  <client>
+    <environment name="YODA_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/yoda/1.0.4-cms"/>
+    <environment name="LIBDIR" default="$YODA_BASE/lib"/>
+    <environment name="INCLUDE" default="$YODA_BASE/include"/>
+  </client>
+  <use name="boost"/>
+  <runtime name="PYTHONPATH" value="$YODA_BASE/lib/python2.7/site-packages" type="path"/>
+</tool>
