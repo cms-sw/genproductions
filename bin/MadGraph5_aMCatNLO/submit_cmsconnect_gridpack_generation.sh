@@ -119,9 +119,10 @@ proxy-watcher -start
 #26:119 : CVMFS failed
 #30:256: Job put on hold by remote host
 #13: condor_starter or shadow failed to send job
+#12:28 : (errno 28) No space left on device
 
 if [ -z "$CONDOR_RELEASE_HOLDCODES" ]; then
-  export CONDOR_RELEASE_HOLDCODES="26:119,13,30:256"
+  export CONDOR_RELEASE_HOLDCODES="26:119,13,30:256,12:28"
 fi
 if [ -z "$CONDOR_RELEASE_HOLDCODES_SHADOW_LIM" ]; then
   export CONDOR_RELEASE_HOLDCODES_SHADOW_LIM="10"
@@ -130,6 +131,16 @@ fi
 # Pilots maximum life is 48h or 2880 minutes
 if [ -z "$CONDOR_SET_MAXWALLTIMES" ]; then
   export CONDOR_SET_MAXWALLTIMES="500,960,2160,2820"
+fi
+
+##########################
+# QUERY RETRIES
+##########################
+if [ -z "$CONDOR_QUERY_MAX_RETRIES" ]; then
+  export CONDOR_QUERY_MAX_RETRIES="30"
+fi
+if [ -z "$CONDOR_QUERY_SLEEP_PER_RETRY" ]; then
+  export CONDOR_QUERY_SLEEP_PER_RETRY="30"
 fi
 
 ##########################
@@ -194,12 +205,21 @@ mkdir -p condor_log
 CLUSTER_ID=$(condor_submit "${codegen_jdl}" | tail -n1 | rev | cut -d' ' -f1 | rev)
 LOG_FILE=$(condor_q -format '%s\n' UserLog $CLUSTER_ID | tail -n1)
 condor_wait "$LOG_FILE" "$CLUSTER_ID"
-condor_exitcode=$(condor_history ${CLUSTERID} -limit 1 -format "%s" ExitCode)
+
+# If querying job exitcode fails, retry
+status_n_retries=10
+for ((i=0; i<=$status_n_retries; ++i)); do
+    condor_exitcode=$(condor_history ${CLUSTERID} -limit 1 -format "%s" ExitCode)
+    if [ "x$condor_exitcode" != "x" ]; then
+        break
+    fi
+    sleep 10
+done
 
 # Check condor job exit code before going to the next step
 #if [ "x$condor_exitcode" != "x0" ] || [ ! -f "$sandbox_output" ]; then
 if [ "x$condor_exitcode" != "x0" ]; then
-    echo "CODEGEN condor job failed. Please, check logfiles in condor_log/ directory (Job Id: $CLUSTER_ID)". Exiting now.
+    echo "CODEGEN condor job failed with exitcode: $condor_exitcode. Please, check logfiles in condor_log/ directory (Job Id: $CLUSTER_ID)". Exiting now.
     exit $condor_exitcode
 fi
 

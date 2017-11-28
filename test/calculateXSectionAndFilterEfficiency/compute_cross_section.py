@@ -23,11 +23,13 @@ if __name__ == "__main__":
     parser.add_option('-n', '--events'        , dest="events",        default=int(1e6),         help='number of events to calculate the cross section')
     parser.add_option('-d', '--datatier'      , dest="datatier",      default='MINIAODSIM',     help='datatier (e.g. GEN-SIM, MINIAOD, ...)')
     parser.add_option(      '--mcm'           , dest="mcm",           default=False,            help='use McM prepID instead of dataset name')
+    parser.add_option('-s', '--skipexisting'  , dest="skipexisting",  default=False,            help='skipexisting existing output files containing xsec results')
     parser.add_option(      '--debug'         , dest="debug",         default=False,            help='use debug options (debug couts...)')
 
     (args, opts) = parser.parse_args(sys.argv)
     debug = str_to_bool(str(args.debug))
     mcm = str_to_bool(str(args.mcm))
+    skipexisting = str_to_bool(str(args.skipexisting))
     if debug: print 'args.mcm',args.mcm,'mcm',mcm,'debug',debug
     if debug: print 'debug is True!'
     if debug and mcm: print 'mcm is True!'
@@ -41,6 +43,7 @@ if __name__ == "__main__":
         print '                Datatier              = ' + args.datatier
         print '                number of events      = ' + str(args.events)
         print '                use McM prepID        = ' + str(mcm)
+        print '                skipexisting          = ' + str(skipexisting)
         print
 
     # if mcm is specified, retrieve dataset name from prepID:
@@ -70,17 +73,21 @@ if __name__ == "__main__":
         if debug: print 'command',command,'\n'
         dataset_used = [x.strip() for x in dataset_used][0]
     
-    if debug: print 'dataset_used',dataset_used
-    if debug: print 'primary_dataset_name',primary_dataset_name,'\n'
-    # pick up only the first dataset of the list
-    if debug: print 'dataset_used',dataset_used
-    # retrieve filelist
-    command="/cvmfs/cms.cern.ch/common/das_client --limit=100 --query=\"file dataset="+dataset_used+"\" "
-    if debug: print 'command',command
-    filelist_used = "/store"+commands.getstatusoutput(command)[1].replace("\n",",").split("/store",1)[1] 
-    if debug: 
-        print 'filelist_used',filelist_used.split(',')[0]
-        filelist_used = filelist_used.split(',')[0]
-    # compute cross section
-    command = 'cmsRun genXsec_cfg.py inputFiles=\"'+filelist_used+'\" maxEvents='+str(args.events)+" 2>&1 | tee xsec_"+primary_dataset_name+".log"
-    print command
+    if skipexisting and os.path.isfile("xsec_"+primary_dataset_name+".log"): 
+        print "xsec_"+primary_dataset_name+".log existing and NO skipexisting asked, skipping"
+        # sys.exit(0)
+    else:
+        if debug: print 'dataset_used',dataset_used
+        if debug: print 'primary_dataset_name',primary_dataset_name,'\n'
+        # pick up only the first dataset of the list
+        if debug: print 'dataset_used',dataset_used
+        # retrieve filelist
+        command="/cvmfs/cms.cern.ch/common/das_client --limit=100 --query=\"file dataset="+dataset_used+"\" "
+        if debug: print 'command',command
+        filelist_used = "/store"+commands.getstatusoutput(command)[1].replace("\n",",").split("/store",1)[1] 
+        if debug: 
+            print 'filelist_used',filelist_used.split(',')[0]
+            filelist_used = filelist_used.split(',')[0]
+        # compute cross section
+        command = 'cmsRun genXsec_cfg.py inputFiles=\"'+filelist_used+'\" maxEvents='+str(args.events)+" 2>&1 | tee xsec_"+primary_dataset_name+".log"
+        print command
