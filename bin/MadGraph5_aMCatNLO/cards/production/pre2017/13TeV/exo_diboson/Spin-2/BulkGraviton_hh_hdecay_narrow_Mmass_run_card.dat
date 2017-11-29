@@ -19,17 +19,17 @@
 #*********************************************************************
 # Tag name for the run (one word)                                    *
 #*********************************************************************
-  DY     = run_tag ! name of the run 
+  tag_1     = run_tag ! name of the run 
 #*********************************************************************
 # Run to generate the grid pack                                      *
 #*********************************************************************
-  .true.     = gridpack  !True = setting up the grid pack
+  .false.     = gridpack  !True = setting up the grid pack
 #*********************************************************************
 # Number of events and rnd seed                                      *
 # Warning: Do not generate more than 1M events in a single run       *
 # If you want to run Pythia, avoid more than 50k events in a run.    *
 #*********************************************************************
-  1000 = nevents ! Number of unweighted events requested 
+     1000     = nevents ! Number of unweighted events requested 
       0       = iseed   ! rnd seed (0=assigned automatically=default))
 #*********************************************************************
 # Collider type and energy                                           *
@@ -48,9 +48,8 @@
 #*********************************************************************
 # PDF CHOICE: this automatically fixes also alpha_s and its evol.    *
 #*********************************************************************
- 'lhapdf'    = pdlabel     ! PDF set                                  
-$DEFAULT_PDF_SETS = lhaid
-$DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf number 
+ 'lhapdf'  = pdlabel     ! PDF set                                     
+ 263400    = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number
 #*********************************************************************
 # Renormalization and factorization scales                           *
 #*********************************************************************
@@ -63,16 +62,18 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
 #*********************************************************************
 # Matching - Warning! ickkw > 1 is still beta
 #*********************************************************************
- 1        = ickkw            ! 0 no matching, 1 MLM, 2 CKKW matching
+ 0        = ickkw            ! 0 no matching, 1 MLM, 2 CKKW matching
  1        = highestmult      ! for ickkw=2, highest mult group
  1        = ktscheme         ! for ickkw=1, 1 Durham kT, 2 Pythia pTE
  1        = alpsfact         ! scale factor for QCD emission vx
  F        = chcluster        ! cluster only according to channel diag
- T        = pdfwgt           ! for ickkw=1, perform pdf reweighting
+ F        = pdfwgt           ! for ickkw=1, perform pdf reweighting
  5        = asrwgtflavor     ! highest quark flavor for a_s reweight
  T        = clusinfo         ! include clustering tag in output
  3.0      = lhe_version       ! Change the way clustering information pass to shower.        
 #*********************************************************************
+#**********************************************************
+#
 #**********************************************************
 # Automatic ptj and mjj cuts if xqcut > 0
 # (turn off for VBF and single top processes)
@@ -83,7 +84,7 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
 #**********************************
 # BW cutoff (M+/-bwcutoff*Gamma)
 #**********************************
-  15000  = bwcutoff      ! (M+/-bwcutoff*Gamma)
+  15  = bwcutoff      ! (M+/-bwcutoff*Gamma)
 #**********************************************************
 # Apply pt/E/eta/dr/mij cuts on decay products or not
 # (note that etmiss/ptll/ptheavy/ht/sorted cuts always apply)
@@ -103,13 +104,13 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
 #*********************************************************************
 # Minimum and maximum pt's (for max, -1 means no cut)                *
 #*********************************************************************
- 0.01  = ptj       ! minimum pt for the jets 
+ 10  = ptj       ! minimum pt for the jets 
   0  = ptb       ! minimum pt for the b 
  10  = pta       ! minimum pt for the photons 
-  0  = ptl       ! minimum pt for the charged leptons 
+ 10  = ptl       ! minimum pt for the charged leptons 
   0  = misset    ! minimum missing Et (sum of neutrino's momenta)
   0  = ptheavy   ! minimum pt for one heavy final state
-  0  = ptonium   ! minimum pt for the quarkonium states
+ 1.0 = ptonium   ! minimum pt for the quarkonium states
  -1  = ptjmax    ! maximum pt for the jets
  -1  = ptbmax    ! maximum pt for the b
  -1  = ptamax    ! maximum pt for the photons
@@ -129,7 +130,7 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
 #*********************************************************************
 # Maximum and minimum absolute rapidity (for max, -1 means no cut)   *
 #*********************************************************************
-   5  = etaj    ! max rap for the jets 
+  -1  = etaj    ! max rap for the jets 
   -1  = etab    ! max rap for the b
   -1  = etaa    ! max rap for the photons 
   -1  = etal    ! max rap for the charged leptons 
@@ -141,16 +142,16 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
 #*********************************************************************
 # Minimum and maximum DeltaR distance                                *
 #*********************************************************************
- 0   = drjj    ! min distance between jets 
+ 0.0001 = drjj    ! min distance between jets 
  0   = drbb    ! min distance between b's 
  0   = drll    ! min distance between leptons 
- 0.4 = draa    ! min distance between gammas 
+ 0   = draa    ! min distance between gammas 
  0   = drbj    ! min distance between b and jet 
- 0.4 = draj    ! min distance between gamma and jet 
+ 0.1 = draj    ! min distance between gamma and jet 
  0   = drjl    ! min distance between jet and lepton 
  0   = drab    ! min distance between gamma and b 
  0   = drbl    ! min distance between b and lepton 
- 0.4 = dral    ! min distance between gamma and lepton 
+ 0.1 = dral    ! min distance between gamma and lepton 
  -1  = drjjmax ! max distance between jets
  -1  = drbbmax ! max distance between b's
  -1  = drllmax ! max distance between leptons
@@ -169,11 +170,11 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
  0   = mmjj    ! min invariant mass of a jet pair 
  0   = mmbb    ! min invariant mass of a b pair 
  0   = mmaa    ! min invariant mass of gamma gamma pair
-10   = mmll    ! min invariant mass of l+l- (same flavour) lepton pair
+ 0   = mmll    ! min invariant mass of l+l- (same flavour) lepton pair
  -1  = mmjjmax ! max invariant mass of a jet pair
  -1  = mmbbmax ! max invariant mass of a b pair
  -1  = mmaamax ! max invariant mass of gamma gamma pair
- 50  = mmllmax ! max invariant mass of l+l- (same flavour) lepton pair
+ -1  = mmllmax ! max invariant mass of l+l- (same flavour) lepton pair
 #*********************************************************************
 # Minimum and maximum invariant mass for all letpons                 *
 #*********************************************************************
@@ -251,11 +252,11 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
 # maximal pdg code for quark to be considered as a light jet         *
 # (otherwise b cuts are applied)                                     *
 #*********************************************************************
- 5 = maxjetflavor    ! Maximum jet pdg code
+ 4 = maxjetflavor    ! Maximum jet pdg code
 #*********************************************************************
 # Jet measure cuts                                                   *
 #*********************************************************************
- 10   = xqcut   ! minimum kt jet measure between partons
+ 0   = xqcut   ! minimum kt jet measure between partons
 #*********************************************************************
 #
 #*********************************************************************
