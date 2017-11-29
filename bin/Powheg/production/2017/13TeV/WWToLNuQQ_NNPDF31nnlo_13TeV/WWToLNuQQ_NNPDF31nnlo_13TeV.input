@@ -33,5 +33,5 @@ storeinfo_rwgt 0    ! store weight information
 
 withnegweights 1      ! default 0
 
-# only leptonic decays
+# only semileptonic decays
 semileptonic 1
