@@ -65,8 +65,44 @@ if [ "$ncpu" -gt "1" ]; then
   echo "nb_core = $ncpu" >> ./madevent/Cards/me5_configuration.txt
 fi
 
-#generate events
-./run.sh $nevt $rnum
+#########################################
+# FORCE IT TO PRODUCE EXACTLY THE REQUIRED NUMBER OF EVENTS
+#########################################
+
+produced_lhe=0
+run_counter=0
+run_random_seed=$rnum
+remaining_event=$nevt
+
+while [ $produced_lhe -lt $nevt ]; do
+  
+  let run_counter=run_counter+1 
+  echo Running MG5_aMC for the $run_counter time
+  remaining_event=$(($remaining_event - $produced_lhe))
+  
+  #generate events
+  echo run.sh $remaining_event $run_random_seed
+  ./run.sh $remaining_event $run_random_seed
+  
+  produced_lhe=$(($produced_lhe+`zgrep \<event events.lhe.gz | wc -l`))
+  mv events.lhe.gz events_${run_counter}.lhe.gz
+  echo "run "$run_counter" finished, total number of produced events: "$produced_lhe"/"$nevt
+  run_random_seed=$(($run_random_seed + 1))
+  
+done
+
+ls -lrt events*.lhe.gz
+if [  $run_counter -gt "1" ]; then
+    echo "Merging files and deleting unmerged ones"
+    ./madevent/bin/internal/merge.pl events*.lhe.gz events.lhe.gz banner.txt
+    rm events_*.lhe.gz banner.txt;
+else
+    mv events_${run_counter}.lhe.gz events.lhe.gz
+fi
+
+#########################################
+#########################################
+#########################################
 
 echo "run finished, produced number of events:"
 zgrep \<event events.lhe.gz |wc -l
