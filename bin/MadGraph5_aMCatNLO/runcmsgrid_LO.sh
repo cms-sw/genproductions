@@ -69,7 +69,7 @@ fi
 ./run.sh $nevt $rnum
 
 echo "run finished, produced number of events:"
-zgrep \<event process/events.lhe.gz |wc -l
+zgrep \<event events.lhe.gz |wc -l
 
 cd $LHEWORKDIR
 
