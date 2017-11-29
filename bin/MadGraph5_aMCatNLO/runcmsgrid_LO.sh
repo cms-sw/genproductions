@@ -77,17 +77,21 @@ remaining_event=$nevt
 while [ $produced_lhe -lt $nevt ]; do
   
   let run_counter=run_counter+1 
-  echo Running MG5_aMC for the $run_counter time
-  remaining_event=$(($remaining_event - $produced_lhe))
+  echo "Running MG5_aMC for the "$run_counter" time"
+  remaining_event=$(($nevt - $produced_lhe))
   
   #generate events
-  echo run.sh $remaining_event $run_random_seed
-  ./run.sh $remaining_event $run_random_seed
+  submitting_event=$(( $remaining_event < 5000 ? $remaining_event : 5000 ))
+  echo "produced_lhe " $produced_lhe "nevt " $nevt "submitting_event " $submitting_event " remaining_event " $remaining_event
+  echo run.sh $submitting_event $run_random_seed
+  ./run.sh $submitting_event $run_random_seed
   
   produced_lhe=$(($produced_lhe+`zgrep \<event events.lhe.gz | wc -l`))
   mv events.lhe.gz events_${run_counter}.lhe.gz
   echo "run "$run_counter" finished, total number of produced events: "$produced_lhe"/"$nevt
   run_random_seed=$(($run_random_seed + 1))
+  
+  echo ""
   
 done
 
