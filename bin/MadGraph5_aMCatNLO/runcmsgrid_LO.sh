@@ -69,51 +69,27 @@ fi
 # FORCE IT TO PRODUCE EXACTLY THE REQUIRED NUMBER OF EVENTS
 #########################################
 
-echo "produce backup tarball"
-cd $LHEWORKDIR
-tar cfJ gridpack.tar.xz ./
-cd process
-
 produced_lhe=0
 run_counter=0
 run_random_seed=$rnum
 remaining_event=$nevt
 
-echo "start the loop"
 while [ $produced_lhe -lt $nevt ]; do
-
+  
   let run_counter=run_counter+1 
   echo Running MG5_aMC for the $run_counter time
   remaining_event=$(($remaining_event - $produced_lhe))
-
-  if [  $run_counter -gt "1" ]; then
-      echo "refresing the working directory (i.e. remove mgbasedir, process and and untar gridpack again"
-      cd $LHEWORKDIR
-      rm -rf mgbasedir process
-      tar xf gridpack.tar.xz
-      cd process
-  fi
   
   #generate events
   echo run.sh $remaining_event $run_random_seed
-  ./run.sh $remaining_event $run_random_seed # TO REALLY PRODUCE EVENTS
+  ./run.sh $remaining_event $run_random_seed
   
   produced_lhe=$(($produced_lhe+`zgrep \<event events.lhe.gz | wc -l`))
-  mv events.lhe.gz $LHEWORKDIR/events_${run_counter}.lhe.gz
-  # cp $LHEWORKDIR/events_${run_counter}.lhe.gz $LHEWORKDIR/events.lhe.gz # TO DELETE
-  
+  mv events.lhe.gz events_${run_counter}.lhe.gz
   echo "run "$run_counter" finished, total number of produced events: "$produced_lhe"/"$nevt
   run_random_seed=$(($run_random_seed + 1))
   
-  # if [  $run_counter -eq "10" ]; then
-      # break
-  # fi
-  
 done
-
-
-cd $LHEWORKDIR
-# rm events.lhe.gz # TO DELETE
 
 ls -lrt events*.lhe.gz
 if [  $run_counter -gt "1" ]; then
@@ -123,8 +99,6 @@ if [  $run_counter -gt "1" ]; then
 else
     mv events_${run_counter}.lhe.gz events.lhe.gz
 fi
-
-mv events.lhe.gz process/
 
 #########################################
 #########################################
