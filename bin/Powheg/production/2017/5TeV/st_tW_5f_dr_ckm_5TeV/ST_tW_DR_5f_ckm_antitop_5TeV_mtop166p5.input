@@ -1,0 +1,94 @@
+! ST-wtchannel production parameters
+
+! GENERAL POWHEG PARAMETERS
+
+numevts NEVENTS    ! number of events to be generated
+ih1   1           ! hadron 1 (1 for protons, -1 for antiprotons)
+ih2   1           ! hadron 2 (1 for protons, -1 for antiprotons)
+ebeam1 2510d0     ! energy of beam 1
+ebeam2 2510d0     ! energy of beam 2
+
+iseed    SEED    ! initialize random number sequence 
+
+! To be set only if using LHA pdfs
+lhans1 306000      ! pdf set for hadron 1 (LHA numbering)
+lhans2 306000      ! pdf set for hadron 2 (LHA numbering)	
+
+! Parameters to allow or not the use of stored data
+use-old-grid    1 ! if 1 use old grid if file pwggrids.dat is present (<> 1 regenerate)
+use-old-ubound  1 ! if 1 use norm of upper bounding function stored in pwgubound.dat, if present; <> 1 regenerate
+
+ncall1 50000   ! number of calls for initializing the integration grid
+itmx1    5     ! number of iterations for initializing the integration grid
+ncall2 50000   ! number of calls for computing the integral and finding upper bound
+itmx2    5     ! number of iterations for computing the integral and finding upper bound
+foldcsi   1    ! number of folds on csi integration
+foldy     1    ! number of folds on  y  integration
+foldphi   1    ! number of folds on phi integration
+nubound 50000  ! number of bbarra calls to setup norm of upper bounding function
+xupbound 2d0   ! increase upper bound for radiation generation
+
+
+withdamp       1
+hdamp  237.8775
+
+
+! mandatory production parameters
+ttype       -1          ! 1 for t, -1 for tbar
+
+
+! mandatory parameters used in decay generation
+topdecaymode 11111   ! decay mode: the 5 digits correspond to the following
+                     ! top-decay channels (l,mu,tau,u,c) 
+                     ! 0 means close, 1 open
+wdecaymode 11111     ! decay mode: the 5 digits correspond to the following
+                     ! primary-w-decay channels (l,mu,tau,u,c) 
+                     ! 0 means close, 1 open
+tdec/elbranching 0.108  ! W electronic branching fraction
+
+! optional production parameters 
+! (defaults defined in init_couplings.f)
+topmass      166.5
+wmass        80.419
+sthw2        0.2226459
+alphaem_inv  132.3384323
+
+
+
+CKM_Vud   0.97462
+CKM_Vus   0.22530
+CKM_Vub   0.00338
+CKM_Vcd   0.22530
+CKM_Vcs   0.97462
+CKM_Vcb   0.04101
+CKM_Vtd   0.00862
+CKM_Vts   0.04101
+CKM_Vtb   1.0
+
+
+! optional parameters used in decay generation
+! (defaults defined in init_couplings.f)
+#topwidth         1.7      ! top width
+#wwidth           2.141    ! w width
+#lhfm/cmass       1.5      ! c mass
+#lhfm/bmass       5.0      ! b mass
+#lhfm/emass       0.000511 ! e mass
+#lhfm/mumass      0.1056   ! mu mass
+#lhfm/taumass     1.777    ! tau mass
+
+! OTHER OPTIONAL PARAMETERS
+
+#renscfact  1d0   ! (default 1d0) ren scale factor: muren  = muref * renscfact 
+#facscfact  1d0   ! (default 1d0) fac scale factor: mufact = muref * facscfact 
+
+#bornonly   1     ! (default 0) if 1 do Born only
+#testplots  1     ! (default 0, do not) do NLO and PWHG distributions
+
+#iseed    1234    ! initialize random number sequence 
+#rand1     0      ! initialize random number sequence 
+#rand2     0      ! initialize random number sequence 
+
+pdfreweight 0       ! PDF reweighting
+dampreweight 0      ! h_damp reweighting (mt/2, mt, mt*2)
+storeinfo_rwgt 0    ! store weight information
+withnegweights 1 ! default 
