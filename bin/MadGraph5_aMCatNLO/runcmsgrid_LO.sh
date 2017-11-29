@@ -68,6 +68,9 @@ fi
 #generate events
 ./run.sh $nevt $rnum
 
+echo "run finished, produced number of events:"
+zgrep \<event process/events.lhe.gz |wc -l
+
 cd $LHEWORKDIR
 
 mv process/events.lhe.gz events_presys.lhe.gz
