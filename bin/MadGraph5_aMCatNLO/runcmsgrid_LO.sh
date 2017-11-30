@@ -69,32 +69,51 @@ fi
 # FORCE IT TO PRODUCE EXACTLY THE REQUIRED NUMBER OF EVENTS
 #########################################
 
+# set starting variables
+max_events_per_iteration=5000
 produced_lhe=0
 run_counter=0
-run_random_seed=$rnum
-remaining_event=$nevt
+run_random_start=$rnum
+# if rnum allows, multiply by 10 to avoid multiple runs 
+# with the same seed across the workflow
+if [  $run_random_start -lt "89999999" ]; then
+    run_random_start=$(($rnum*10))
+fi
 
 while [ $produced_lhe -lt $nevt ]; do
   
+  # set the incremental iteration seed
+  run_random_seed=$(($run_random_start + $run_counter))
+  # increase the iteration counter
   let run_counter=run_counter+1 
-  echo "Running MG5_aMC for the "$run_counter" time"
+  
+  # don't allow more than 9 iterations
+  if [  $run_counter -gt "9" ]; then
+      break
+  fi
+  # compute remaining events
   remaining_event=$(($nevt - $produced_lhe))
   
-  #generate events
-  submitting_event=$(( $remaining_event < 5000 ? $remaining_event : 5000 ))
+  echo "Running MG5_aMC for the "$run_counter" time"
+  # set number of events to max_events_per_iteration or residual ones if less than that
+  submitting_event=$(( $remaining_event < $max_events_per_iteration ? $remaining_event : $max_events_per_iteration ))
+  # run mg5_amc
   echo "produced_lhe " $produced_lhe "nevt " $nevt "submitting_event " $submitting_event " remaining_event " $remaining_event
   echo run.sh $submitting_event $run_random_seed
   ./run.sh $submitting_event $run_random_seed
   
+  # compute number of events produced in the iteration
   produced_lhe=$(($produced_lhe+`zgrep \<event events.lhe.gz | wc -l`))
+  
+  # rename output file to avoid overwriting
   mv events.lhe.gz events_${run_counter}.lhe.gz
   echo "run "$run_counter" finished, total number of produced events: "$produced_lhe"/"$nevt
-  run_random_seed=$(($run_random_seed + 1))
   
   echo ""
   
 done
 
+# merge multiple lhe files if needed
 ls -lrt events*.lhe.gz
 if [  $run_counter -gt "1" ]; then
     echo "Merging files and deleting unmerged ones"
