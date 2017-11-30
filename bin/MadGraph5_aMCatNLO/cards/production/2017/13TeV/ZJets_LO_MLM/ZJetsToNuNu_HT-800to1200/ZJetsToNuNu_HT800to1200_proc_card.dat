@@ -1,11 +1,11 @@
 import model sm-ckm_no_b_mass
 
 # Specify process(es) to run
-generate p p > ve ve~ / h @0
-add process p p > ve ve~ j / h @1
-add process p p > ve ve~ j j / h @2
-add process p p > ve ve~ j j j / h @3
-add process p p > ve ve~ j j j j / h @4
+generate    p p > vl vl~ / h @0
+add process p p > vl vl~ j / h @1
+add process p p > vl vl~ j j / h @2
+add process p p > vl vl~ j j j / h @3
+add process p p > vl vl~ j j j j / h @4
 
 # Output processes to MadEvent directory
 output ZJetsToNuNu_HT800to1200 -nojpeg
