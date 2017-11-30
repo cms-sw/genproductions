@@ -1,7 +1,0 @@
-set group_subprocesses Auto 
-set ignore_six_quark_processes False 
-set gauge unitary 
-set complex_mass_scheme False 
-import model RS_exovv 
-generate p p > y, ( y > H H ) 
-output RSGraviton_hh_narrow_M270 -nojpeg 
