@@ -30,35 +30,39 @@ custom_content = customizecards_template.read()
 proc_content = proc_card_template.read()
 
 # select name for the H decay process
-H_decays = ['GF_HH']
+H_decays = ['']
 
 #select mass points
-mass_points = ['250','260','270','280','290','300','350','400','450','500','550','600','650','700','750','800','900','1000','1200','1400','1600','1800','2000','2500','3000','3500','4000','4500']
+mass_points = ['260','270','300','350','400','450','500','600','700','800','900','1000','1100','1200','1300','1500','2000']
 
 import fileinput    
 for H_decay in H_decays :
     for mass in mass_points :
         print 'decay , mass point: ', H_decay, mass
-        directoryName = str('./BulkGraviton_hh_'+H_decay+'_narrow_M'+mass)
+        directoryName = str('./Radion_hh'+H_decay+'_narrow_M'+mass)
         print directoryName
         if generate==1 :
             os.makedirs( directoryName )
             os.chdir( directoryName )
 
-            run_card = open( 'BulkGraviton_hh_'+H_decay+'_narrow_M'+mass+'_run_card.dat', 'w' )
+            run_card = open( 'Radion_hh'+H_decay+'_narrow_M'+mass+'_run_card.dat', 'w' )
             run_card.write( run_content )
             run_card.close()
 
-            customize_card = open( 'BulkGraviton_hh_'+H_decay+'_narrow_M'+mass+'_customizecards.dat', 'w' )
+            customize_card = open( 'Radion_hh'+H_decay+'_narrow_M'+mass+'_customizecards.dat', 'w' )
             customize_card.write( custom_content )
             customize_card.close()
 
-            proc_card = open( 'BulkGraviton_hh_'+H_decay+'_narrow_M'+mass+'_proc_card.dat', 'w' )            
+            proc_card = open( 'Radion_hh'+H_decay+'_narrow_M'+mass+'_proc_card.dat', 'w' )            
             proc_card.write( proc_content )
             proc_card.close()
             
-            for line in fileinput.input('BulkGraviton_hh_'+H_decay+'_narrow_M'+mass+'_proc_card.dat', inplace=True): 
-                print line.rstrip().replace('BulkGraviton_hh_hdecay_narrow_Mmass', 'BulkGraviton_hh_'+H_decay+'_narrow_M'+mass),'\n'
+            for line in fileinput.input('Radion_hh'+H_decay+'_narrow_M'+mass+'_proc_card.dat', inplace=True): 
+                print line.rstrip().replace('Radion_hh_hdecay_narrow_Mmass', 'Radion_hh'+H_decay+'_narrow_M'+mass),'\n'
+
+            for line in fileinput.input('Radion_hh'+H_decay+'_narrow_M'+mass+'_proc_card.dat', inplace=True):
+                if not line.isspace():
+                    sys.stdout.write(line)
                 
             os.chdir( '../' )
             
