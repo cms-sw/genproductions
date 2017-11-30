@@ -69,15 +69,18 @@ fi
 # FORCE IT TO PRODUCE EXACTLY THE REQUIRED NUMBER OF EVENTS
 #########################################
 
+# define max event per iteration as 5000 if n_evt<45000 or n_evt/9 otherwise
+max_events_per_iteration=$(( $nevt > 5000*9 ? ($nevt / 9) + ($nevt % 9 > 0) : 5000 ))
 # set starting variables
-max_events_per_iteration=5000
 produced_lhe=0
 run_counter=0
-run_random_start=$rnum
 # if rnum allows, multiply by 10 to avoid multiple runs 
 # with the same seed across the workflow
-if [  $run_random_start -lt "89999999" ]; then
-    run_random_start=$(($rnum*10))
+run_random_start=$(($rnum*10))
+# otherwise don't change the seed and increase number of events as 10000 if n_evt<50000 or n_evt/9 otherwise
+if [  $run_random_start -gt "89999999" ]; then
+    run_random_start=$rnum
+    max_events_per_iteration=$(( $nevt > 10000*9 ? ($nevt / 9) + ($nevt % 9 > 0) : 10000 ))
 fi
 
 while [ $produced_lhe -lt $nevt ]; do
