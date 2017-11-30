@@ -1,8 +1,0 @@
-  <tool name="geant4-parfullcms" version="2014.01.27-ddibom2">
-    <client>
-      <environment name="GEANT4_PARFULLCMS" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/geant4-parfullcms/2014.01.27-ddibom2"/>
-    </client>
-    <runtime name="PATH" value="$GEANT4_PARFULLCMS/bin" type="path"/>
-    <runtime name="GEANT4_PARFULLCMS_CONFIG_DIR" value="$GEANT4_PARFULLCMS/share/ParFullCMS" type="path"/>
-    <runtime name="G4FORCENUMBEROFTHREADS" value="max"/>
-  </tool>

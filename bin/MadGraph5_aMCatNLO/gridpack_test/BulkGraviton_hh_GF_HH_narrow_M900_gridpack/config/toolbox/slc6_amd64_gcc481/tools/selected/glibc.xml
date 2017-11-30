@@ -1,6 +1,0 @@
-  <tool name="glibc" version="2.12-2">
-    <info url="http://www.gnu.org/software/libc/libc.html"/>
-    <client>
-      <environment name="GLIBC_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/glibc/2.12-2"/>
-    </client>
-  </tool>

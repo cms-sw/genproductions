@@ -24,10 +24,12 @@ if fileSuffName == "" :
 run_card_template = open(fileSuffName+'_run_card.dat','r')
 customizecards_template = open(fileSuffName+'_customizecards.dat','r')
 proc_card_template = open(fileSuffName+'_proc_card.dat','r')
+extra_card_template = open(fileSuffName+'_extramodels.dat')
 
 run_content = run_card_template.read()
 custom_content = customizecards_template.read()
 proc_content = proc_card_template.read()
+extra_content = extra_card_template.read()
 
 # select name for the H decay process
 H_decays = ['']
@@ -49,9 +51,20 @@ for H_decay in H_decays :
             run_card.write( run_content )
             run_card.close()
 
+            extra_card = open( 'Radion_hh'+H_decay+'_narrow_M'+mass+'_extramodels.dat', 'w' )
+            extra_card.write( extra_content )
+            extra_card.close()
+
             customize_card = open( 'Radion_hh'+H_decay+'_narrow_M'+mass+'_customizecards.dat', 'w' )
             customize_card.write( custom_content )
             customize_card.close()
+
+            for line in fileinput.input('Radion_hh'+H_decay+'_narrow_M'+mass+'_customizecards.dat', inplace=True): 
+                print line.rstrip().replace('set param_card mass 39 MASS', 'set param_card mass 39 '+mass),'\n' 
+                
+            for line in fileinput.input('Radion_hh'+H_decay+'_narrow_M'+mass+'_customizecards.dat', inplace=True):
+                if not line.isspace():
+                    sys.stdout.write(line)
 
             proc_card = open( 'Radion_hh'+H_decay+'_narrow_M'+mass+'_proc_card.dat', 'w' )            
             proc_card.write( proc_content )

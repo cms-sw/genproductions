@@ -1,7 +1,0 @@
-  <tool name="doxygen" version="1.8.5-ddibom">
-    <info url="http://www.stack.nl/~dimitri/doxygen/"/>
-    <client>
-      <environment name="DOXYGEN_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/doxygen/1.8.5-ddibom"/>
-    </client>
-    <runtime name="PATH" value="$DOXYGEN_BASE/bin" type="path"/>
-  </tool>

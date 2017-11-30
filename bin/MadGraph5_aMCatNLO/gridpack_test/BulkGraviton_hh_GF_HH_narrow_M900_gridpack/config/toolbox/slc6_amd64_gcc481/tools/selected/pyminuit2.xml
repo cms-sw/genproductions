@@ -1,6 +1,0 @@
-<tool name="pyminuit2" version="0.0.1-ddibom">
-<client>
-<environment name="PYMINUIT2_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/pyminuit2/0.0.1-ddibom"/>
-</client>
-<runtime name="PYTHONPATH" value="$PYMINUIT2_BASE/lib/python2.7/site-packages" type="path"/>
-</tool>

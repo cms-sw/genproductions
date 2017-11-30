@@ -1,8 +1,0 @@
-<tool name="py2-pygithub" version="1.23.0-cms">
-  <info url="https://github.com/jacquev6/PyGithub"/>
-  <client>
-    <environment name="PY2_PYGITHUB" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/py2-pygithub/1.23.0-cms"/>
-    <environment name="LIBDIR" default="$PY2_PYGITHUB/lib"/>
-    <runtime name="PYTHONPATH" value="$PY2_PYGITHUB/lib/python2.7/site-packages" type="path"/>
-  </client>
-</tool>

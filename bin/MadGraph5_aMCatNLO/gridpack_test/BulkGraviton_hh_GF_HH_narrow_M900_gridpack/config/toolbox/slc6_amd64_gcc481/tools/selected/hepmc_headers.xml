@@ -1,6 +1,0 @@
-<tool name="hepmc_headers" version="2.06.07-ddibom">
-  <client>
-    <environment name="HEPMC_HEADERS_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/hepmc/2.06.07-ddibom"/>
-    <environment name="INCLUDE" default="$HEPMC_HEADERS_BASE/include"/>
-  </client>
-</tool>

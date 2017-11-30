@@ -1,8 +1,0 @@
-<tool name="dcap" version="2.47.8-ddibom">
-  <lib name="dcap"/>
-  <client>
-    <environment name="DCAP_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/dcap/2.47.8-ddibom"/>
-    <environment name="LIBDIR" default="$DCAP_BASE/lib"/>
-    <environment name="INCLUDE" default="$DCAP_BASE/include"/>
-  </client>
-</tool>

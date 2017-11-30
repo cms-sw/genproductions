@@ -1,6 +1,0 @@
-<tool name="pythia6_headers" version="426">
-  <client>
-    <environment name="PYTHIA6_HEADERS_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/pythia6/426"/>
-    <environment name="INCLUDE" default="$PYTHIA6_HEADERS_BASE/include"/>
-  </client>
-</tool>
