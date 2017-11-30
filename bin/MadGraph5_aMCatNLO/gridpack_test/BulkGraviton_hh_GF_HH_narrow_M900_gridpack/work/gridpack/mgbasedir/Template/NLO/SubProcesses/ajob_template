@@ -1,0 +1,110 @@
+#!/bin/bash
+script=ajob1.$1.$2.$3.$4
+
+function link1up {
+if [[ ! -e $1 && -e ../$1 ]] ; then
+    ln -sf ../$1 .
+fi
+}
+
+#Force LHAPATH to be set correctly on cluster
+if [ $CLUSTER_LHAPATH ]; then
+   export LHAPATH=$CLUSTER_LHAPATH;
+fi
+
+# Add CVMFS libraries to LD_LIBRARY_PATH, if not present already
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRT" ]; then 
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRT}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRT:$LD_LIBRARY_PATH"
+  fi
+fi
+
+tarCounter=0
+while [[ (-f MadLoop5_resources.tar.gz) && (! -f MadLoop5_resources/HelConfigs.dat) && ($tarCounter < 10) ]]; do
+    if [[ $tarCounter > 0 ]]; then
+	sleep 2s
+    fi
+    tar -xzf MadLoop5_resources.tar.gz >/dev/null 2>&1
+    tarCounter=$[$tarCounter+1]
+done
+
+if [[ (-e MadLoop5_resources.tar.gz) && (! -e MadLoop5_resources/HelConfigs.dat) ]]; then
+    echo "Cannot untar and unzip file `pwd`/MadLoop5_resources.tar.gz." > log.txt
+    exit
+fi
+
+channel=$1
+run_mode=$2
+runnumber=$3
+integration_step=$4
+
+TAGTAGTAGTAGTAGTAGTAG for i in 1 ; do
+    
+    if [[ $run_mode == 'all' || $run_mode == 'born' ]] ; then
+	j=$run_mode\_G$i
+    else
+	if [[ $runnumber == '0' ]] ; then
+	    j=G$run_mode$i
+	else
+	    j=G$run_mode$i\_$runnumber
+	fi
+    fi
+    cd $j
+    
+    if  [[ -e res.dat ]] ; then
+	rm -f res.dat
+    fi
+    if  [[ -e log.txt ]] ; then
+	rm -f log.txt
+    fi
+    if  [[ -e MADatNLO.top ]] ; then
+	rm -f MADatNLO.top
+    fi
+    if  [[ -e MADatNLO.HwU ]] ; then
+	rm -f MADatNLO.HwU
+    fi
+    if  [[ -e MADatNLO.root ]] ; then
+	rm -f MADatNLO.root
+    fi
+    if  [[ -e randinit ]] ; then
+	rm -f randinit
+    fi
+    if [[ -e ../randinit ]] ; then
+        ln -sf ../randinit .
+    else
+        ln -sf ../../randinit .
+    fi
+    if  [[ ! -e symfact.dat ]] ; then
+    	if [[  -e ../symfact.dat ]] ; then
+	    ln -sf ../symfact.dat .
+	else
+	    ln -sf ../../symfact.dat .    
+	fi
+    fi
+
+    link1up FKS_params.dat
+    link1up configs_and_props_info.dat
+    link1up leshouche_info.dat
+    link1up OLE_order.olc
+    link1up param_card.dat
+    link1up initial_states_map.dat
+    
+    
+    T="$(date +%s)"
+    if [[ $run_mode == 'all' || $run_mode == 'born' ]]; then
+        ../madevent_mintFO > log.txt <input_app.txt 2>&1
+    else
+        if [[ $runnumber != 0 ]]; then
+            echo "$runnumber" >& moffset.dat
+        fi
+        ../madevent_mintMC > log.txt <input_app.txt 2>&1
+    fi
+    status=$?
+    T="$(($(date +%s)-T))"
+    echo "Time in seconds: ${T}" >>log.txt
+    cp -f log.txt log_MINT$integration_step.txt  >/dev/null 2>&1
+    cp -f res.dat res_$integration_step.dat  >/dev/null 2>&1
+    exit $status
+done
+    
+

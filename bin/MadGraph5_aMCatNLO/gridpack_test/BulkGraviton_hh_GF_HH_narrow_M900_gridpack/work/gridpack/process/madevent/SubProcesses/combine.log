@@ -1,0 +1,36 @@
+==== LHAPDF6 USING DEFAULT-TYPE LHAGLUE INTERFACE ====
+LHAPDF 6.2.1 loading /cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/lhapdf/6.2.1/share/LHAPDF/NNPDF30_lo_as_0130_nf_4/NNPDF30_lo_as_0130_nf_4_0000.dat
+NNPDF30_lo_as_0130_nf_4 PDF set, member #0, version 2; LHAPDF ID = 263400
+Thanks for using LHAPDF 6.2.1. Please make sure to cite the paper:
+  Eur.Phys.J. C75 (2015) 3, 132  (http://arxiv.org/abs/1412.7420)
+ A PDF is used, so alpha_s(MZ) is going to be modified
+ Old value of alpha_s from param_card:   0.11799999999999999     
+ New value of alpha_s from PDF lhapdf :  0.12470044313224841     
+ using LHAPDF
+ Results.dat xsec =    1.0766000000000000       abs xsec =    1.0766000000000000     
+ Found            1  subprocesses
+ SubProcess/Channel     kept   read   xsec 
+P1_gg_y_y_hh/G1/     808     808 0.108E+01
+ Iteration            1  too large truncation   0.21553398058251769              808
+ Iteration            2  too few events    0.0000000000000000              792
+ Iteration            3  too large truncation    3.1184466019411751E-002         808
+ Iteration            4  too few events    0.0000000000000000              647
+ Iteration            5  too few events    0.0000000000000000              675
+ Iteration            6  too few events    0.0000000000000000              709
+ Iteration            7  too few events    0.0000000000000000              754
+ Iteration            8  too few events    0.0000000000000000              782
+ Iteration            9  too large truncation    2.5453710207518472E-002         808
+ Iteration           10  too few events    0.0000000000000000              654
+ Iteration           11  too few events    0.0000000000000000              672
+ Iteration           12  too few events    0.0000000000000000              712
+ Iteration           13  too few events    0.0000000000000000              751
+ Iteration           14  too few events    0.0000000000000000              775
+ Iteration           15  too large truncation    1.9689055721395437E-002         808
+ Iteration           16  too few events    0.0000000000000000              630
+ Iteration           17  too few events    0.0000000000000000              678
+ Iteration           18  too few events    0.0000000000000000              704
+ Iteration           19  too few events    0.0000000000000000              743
+ Iteration           20  too few events    0.0000000000000000              778
+ Unable to get         1000  events. Writing          778
+ Unweighting selected          778  events.
+Truncated  0.00% of cross section
