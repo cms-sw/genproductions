@@ -66,27 +66,6 @@ CKM_Vts   0.04101
 CKM_Vtb   1.0
 
 
-! optional parameters used in decay generation
-! (defaults defined in init_couplings.f)
-#topwidth         1.7      ! top width
-#wwidth           2.141    ! w width
-#lhfm/cmass       1.5      ! c mass
-#lhfm/bmass       5.0      ! b mass
-#lhfm/emass       0.000511 ! e mass
-#lhfm/mumass      0.1056   ! mu mass
-#lhfm/taumass     1.777    ! tau mass
-
-! OTHER OPTIONAL PARAMETERS
-
-#renscfact  1d0   ! (default 1d0) ren scale factor: muren  = muref * renscfact 
-#facscfact  1d0   ! (default 1d0) fac scale factor: mufact = muref * facscfact 
-
-#bornonly   1     ! (default 0) if 1 do Born only
-#testplots  1     ! (default 0, do not) do NLO and PWHG distributions
-
-#iseed    1234    ! initialize random number sequence 
-#rand1     0      ! initialize random number sequence 
-#rand2     0      ! initialize random number sequence 
 
 pdfreweight 0       ! PDF reweighting
 dampreweight 0      ! h_damp reweighting (mt/2, mt, mt*2)
