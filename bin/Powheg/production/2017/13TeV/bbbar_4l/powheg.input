@@ -29,14 +29,14 @@ fastbtlbound 1                                   ! (default 0, do not) Turn on f
 
 
 
+
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ! POWHEG-BOX-RES and bb4l relevant settings
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 allrad 1                                         ! (default 0, single shower scheme) Turns on multiple shower scheme
 hdamp 237.8775                                   ! Using a damping factor h**2/(pt2+h**2) to separate real contributions between Sudakov and remnants (should be set to the mass of the top quark)
 withdamp 1                                       ! Turn on calculation of the remnants
-channel 2					 ! e mu and mu e decays
-
+channel 7                                        ! let top decay leptonically 
 
 
 
@@ -50,6 +50,7 @@ channel 2					 ! e mu and mu e decays
 ! is always used.
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 for_reweighting 1                                ! (default 0) Modifies subtraction to reduce reweighting factors (for adding the virtual contribution during the reweighing stage only) 
+
 
 
 
