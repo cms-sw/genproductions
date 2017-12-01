@@ -1,0 +1,101 @@
+diff --git a/Template/LO/SubProcesses/refine.sh b/Template/LO/SubProcesses/refine.sh
+index 577461f..eec44ea 100644
+--- a/Template/LO/SubProcesses/refine.sh
++++ b/Template/LO/SubProcesses/refine.sh
+@@ -12,6 +12,10 @@ if [ $SRT_LD_LIBRARY_PATH_SCRAMRT ]; then
+   fi
+ fi
+ 
++# If TMPDIR is unset, set it to the condor scratch area if present
++# and fallback to /tmp
++export TMPDIR=${TMPDIR:-${_CONDOR_SCRATCH_DIR:-/tmp}}
++
+ if [[ -e MadLoop5_resources.tar.gz && ! -e MadLoop5_resources ]]; then
+ tar -xzf MadLoop5_resources.tar.gz
+ fi
+@@ -78,3 +82,4 @@ j=%(directory)s
+      fi
+      cd ../
+ 
++exit $status_code
+diff --git a/Template/LO/SubProcesses/refine_splitted.sh b/Template/LO/SubProcesses/refine_splitted.sh
+index d7d5df6..6f65eb0 100644
+--- a/Template/LO/SubProcesses/refine_splitted.sh
++++ b/Template/LO/SubProcesses/refine_splitted.sh
+@@ -12,6 +12,10 @@ if [ $SRT_LD_LIBRARY_PATH_SCRAMRT ]; then
+   fi
+ fi
+ 
++# If TMPDIR is unset, set it to the condor scratch area if present
++# and fallback to /tmp
++export TMPDIR=${TMPDIR:-${_CONDOR_SCRATCH_DIR:-/tmp}}
++
+ if [[ -e MadLoop5_resources.tar.gz && ! -e MadLoop5_resources ]]; then
+ tar -xzf MadLoop5_resources.tar.gz
+ fi
+@@ -85,3 +89,4 @@ if [[ $status_code -ne 0 ]]; then
+ fi
+ 
+ cd ../
++exit $status_code
+diff --git a/Template/LO/SubProcesses/survey.sh b/Template/LO/SubProcesses/survey.sh
+index c9ef2c5..1333846 100755
+--- a/Template/LO/SubProcesses/survey.sh
++++ b/Template/LO/SubProcesses/survey.sh
+@@ -12,6 +12,10 @@ if [ $SRT_LD_LIBRARY_PATH_SCRAMRT ]; then
+   fi
+ fi
+ 
++# If TMPDIR is unset, set it to the condor scratch area if present
++# and fallback to /tmp
++export TMPDIR=${TMPDIR:-${_CONDOR_SCRATCH_DIR:-/tmp}}
++
+ if [[ -e MadLoop5_resources.tar.gz && ! -e MadLoop5_resources ]]; then
+ tar -xzf MadLoop5_resources.tar.gz;
+ fi
+@@ -80,6 +84,8 @@ for i in $@ ; do
+ 	 rm results.dat
+ 	 echo "ERROR DETECTED"
+ 	 echo "end code not correct $status_code" > results.dat
++         cd ../
++         exit $status_code
+      fi
+      cd ../;
+ 
+@@ -87,6 +93,3 @@ for i in $@ ; do
+ done;
+ 
+ # Cleaning 
+-
+-
+-
+diff --git a/Template/NLO/SubProcesses/ajob_template b/Template/NLO/SubProcesses/ajob_template
+index db5444b..dd3e508 100755
+--- a/Template/NLO/SubProcesses/ajob_template
++++ b/Template/NLO/SubProcesses/ajob_template
+@@ -19,6 +19,10 @@ if [ $SRT_LD_LIBRARY_PATH_SCRAMRT ]; then
+   fi
+ fi
+ 
++# If TMPDIR is unset, set it to the condor scratch area if present
++# and fallback to /tmp
++export TMPDIR=${TMPDIR:-${_CONDOR_SCRATCH_DIR:-/tmp}}
++
+ tarCounter=0
+ while [[ (-f MadLoop5_resources.tar.gz) && (! -f MadLoop5_resources/HelConfigs.dat) && ($tarCounter < 10) ]]; do
+     if [[ $tarCounter > 0 ]]; then
+diff --git a/Template/NLO/SubProcesses/reweight_xsec_events.local b/Template/NLO/SubProcesses/reweight_xsec_events.local
+index a38c4e8..c8c856b 100644
+--- a/Template/NLO/SubProcesses/reweight_xsec_events.local
++++ b/Template/NLO/SubProcesses/reweight_xsec_events.local
+@@ -15,6 +15,10 @@ if [ $SRT_LD_LIBRARY_PATH_SCRAMRT ]; then
+   fi
+ fi
+ 
++# If TMPDIR is unset, set it to the condor scratch area if present
++# and fallback to /tmp
++export TMPDIR=${TMPDIR:-${_CONDOR_SCRATCH_DIR:-/tmp}}
++
+ if [[ -e ./reweight_xsec_events ]]
+ then
+     (echo $event_file; echo $save_wgts) | ./reweight_xsec_events > reweight_xsec_events.output

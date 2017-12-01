@@ -1,0 +1,3 @@
+import model VLF_Singlet_UFO
+generate p p > t t~ h
+output ttH_HTT_Singlet_LO -nojpeg

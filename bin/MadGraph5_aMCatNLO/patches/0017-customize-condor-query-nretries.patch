@@ -1,0 +1,31 @@
+diff --git a/madgraph/various/cluster.py b/madgraph/various/cluster.py
+index 3d9c5dc..b9d7a47 100755
+--- a/madgraph/various/cluster.py
++++ b/madgraph/various/cluster.py
+@@ -845,6 +845,8 @@ class CondorCluster(Cluster):
+     
+     name = 'condor'
+     job_id = 'CONDOR_ID'
++    condor_q_max_retries = int(os.environ.get("CONDOR_QUERY_MAX_RETRIES",10))
++    condor_q_sleep_per_retry = int(os.environ.get("CONDOR_QUERY_SLEEP_PER_RETRY",10))
+ 
+     def __init__(self, *args, **opt):
+         """Init the cluster """
+@@ -1127,7 +1129,7 @@ class CondorCluster(Cluster):
+ 
+ 
+     
+-    @multiple_try(nb_try=10, sleep=10)
++    @multiple_try(nb_try=condor_q_max_retries, sleep=condor_q_sleep_per_retry)
+     def control_one_job(self, id):
+         """ control the status of a single job with it's cluster id """
+         q = self.query([str(id)], ["JobStatus", "HoldReason"], lim=1)
+@@ -1145,7 +1147,7 @@ class CondorCluster(Cluster):
+         return s
+     
+     @check_interupt()
+-    @multiple_try(nb_try=10, sleep=10)
++    @multiple_try(nb_try=condor_q_max_retries, sleep=condor_q_sleep_per_retry)
+     def control(self, me_dir):
+         """ control the status of a single job with it's cluster id """
+ 
