@@ -78,7 +78,7 @@ run_counter=0
 # with the same seed across the workflow
 run_random_start=$(($rnum*10))
 # otherwise don't change the seed and increase number of events as 10000 if n_evt<50000 or n_evt/9 otherwise
-if [  $run_random_start -gt "89999999" ]; then
+if [  $run_random_start -gt "89999990" ]; then
     run_random_start=$rnum
     max_events_per_iteration=$(( $nevt > 10000*9 ? ($nevt / 9) + ($nevt % 9 > 0) : 10000 ))
 fi
@@ -90,8 +90,8 @@ while [ $produced_lhe -lt $nevt ]; do
   # increase the iteration counter
   let run_counter=run_counter+1 
   
-  # don't allow more than 9 iterations
-  if [  $run_counter -gt "9" ]; then
+  # don't allow more than 90 iterations
+  if [  $run_counter -gt "90" ]; then
       break
   fi
   # compute remaining events
