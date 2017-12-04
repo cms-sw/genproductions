@@ -77,13 +77,13 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
 # Automatic ptj and mjj cuts if xqcut > 0
 # (turn off for VBF and single top processes)
 #**********************************************************
-   F  = auto_ptj_mjj  ! Automatic setting of ptj and mjj
+   T  = auto_ptj_mjj  ! Automatic setting of ptj and mjj
 #**********************************************************
 #                                                                    
 #**********************************
 # BW cutoff (M+/-bwcutoff*Gamma)
 #**********************************
-  15  = bwcutoff      ! (M+/-bwcutoff*Gamma)
+  15000  = bwcutoff      ! (M+/-bwcutoff*Gamma)
 #**********************************************************
 # Apply pt/E/eta/dr/mij cuts on decay products or not
 # (note that etmiss/ptll/ptheavy/ht/sorted cuts always apply)

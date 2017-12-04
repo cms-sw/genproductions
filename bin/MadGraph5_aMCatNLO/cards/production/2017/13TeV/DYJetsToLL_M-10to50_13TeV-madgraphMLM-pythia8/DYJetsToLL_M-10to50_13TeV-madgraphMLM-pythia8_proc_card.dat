@@ -1,5 +1,10 @@
 import model sm-ckm_no_b_mass
 
+
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
+
+
 generate p p > l+ l- /h @0
 add process p p > l+ l- j /h @1
 add process p p > l+ l- j j /h @2
