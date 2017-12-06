@@ -2,10 +2,18 @@
 
 #set -o verbose
 EXPECTED_ARGS=4
+rebuildFromSource=true
+runLocally=false
+if [ $runLocally == false ]; then
+EXPECTED_ARGS=$((EXPECTED_ARGS-2))
+fi
 
 if [ $# -ne $EXPECTED_ARGS ]
 then
-  echo "Usage: `basename $0` Production_type Channel Nevents RandomSeed "
+  if [ $runLocally == true ]; then 
+  echo "For local running, Usage: `basename $0` Production_type Channel Nevents RandomSeed "
+  else echo "For gridpack production, Usage: `basename $0` Production_type Channel "
+  fi
   echo "Production type can range from 1-4; available channels can be found on https://starlight.hepforge.org/"  
   exit 1
 fi
@@ -14,8 +22,12 @@ echo "   ______________________________________     "
 echo "         Running Starlight...                 "
 echo "   ______________________________________     "
 
+if [ $runLocally == true ]; then
 echo "Generating $3 events with production type $1, channel $2"
 echo "Random seed set to $4"
+else
+echo "Generating GRIDPACK with production type $1, channel $2"
+fi
 
 if [ $CMSSW_BASE == "" ]; then
 echo "CMSSW_BASE not found! Please run cmsenv first!"
@@ -24,11 +36,17 @@ fi
 
 
 rebuildFromSource=true
+runLocally=false
 
 if [ $rebuildFromSource == true ]; then
 echo "rebuilding starlight from source..."
 else
 echo "using precombiled starlight setup..."
+fi
+if [ $runLocally == true ]; then
+echo "will run starlight locally. Please disable for gridpack prod only"
+else
+echo "Just producing a starlight gridpack..."
 fi
 
 prodType=${1}
@@ -106,8 +124,18 @@ EOFILE
 
 #fi
 
+if [ $runLocally == true ]; then
 cat slightTemplate.in | sed -e "s#RNDSEED#${seed}#g" | sed -e "s#NEVT#${nevts}#g" | sed -e "s#PRODUCTIONCHANNEL#${channel}#g" | sed -e "s#PRODMODE#${prodType}#g" > slight.in
+else
+cat slightTemplate.in | sed -e "s#PRODUCTIONCHANNEL#${channel}#g" | sed -e "s#PRODMODE#${prodType}#g" > slight.in
+fi
 
+cd ../..
+
+tar -czf slightGridpack_ProdType${prodType}_Channel${channel}.tgz starlightTrunk convert_SL2LHE.C
+
+if [ $runLocally == true ]
+then
 echo "*** STARTING STARLIGHT PRODUCTION ***"
 ./starlight &> log_${prodType}_${channel}_${seed}.txt
 #remove the spurious random seed output that is non LHE standard 
@@ -116,22 +144,23 @@ cd ${WORKDIR}
 echo "***STARLIGHT COMPLETE***"
 
 #now convert the starlight file to a HepMC file
-curl https://raw.githubusercontent.com/kurtejung/genproductions/starlight_dev/bin/Starlight/convert_SL2HepMC.C > convert_SL2HepMC.C
+#curl https://raw.githubusercontent.com/kurtejung/genproductions/starlight_dev/bin/Starlight/convert_SL2LHE.C > convert_SL2LHE.C
 root -l -b << EOF
-.x convert_SL2HepMC.C+(1,"slight.out","slight_${prodType}_${channel}_${seed}.hepmc") 
+.x convert_SL2LHE.C+(1,"slight.out","slight_${prodType}_${channel}_${seed}") 
 .q
 EOF
-echo "*** HEPMC CONVERSION COMPLETE ***"
+echo "*** LHE CONVERSION COMPLETE ***"
 
 #optionally convert the hepMC file to a gen file
-curl https://raw.githubusercontent.com/cms-sw/cmssw/master/IOMC/Input/test/hepmc2gen.py > hepmc2gen.py
-mv hepmc2gen.py hepmc2genOrig.py
-cat hepmc2genOrig.py | sed -e "s/if True/if False/g" | sed -e "/file:\/tmp/c\     fileNames = cms.untracked.vstring(options.inputFiles[0])," | sed -e "s/'HepMC_GEN.root'/options.outputFile/g" > hepmc2gen.py
-rm hepmc2genOrig.py
-echo "Converting slight_${prodType}_${channel}_${seed}.hepmc0.hepmc to gen file..."
-cmsRun hepmc2gen.py maxEvents=-1 inputFiles=file:slight_${prodType}_${channel}_${seed}.hepmc0.hepmc outputFile=slight_${prodType}_${channel}_${seed}_GEN.root
-echo "*** GEN CONVERSION COMPLETE ***"
+#curl https://raw.githubusercontent.com/cms-sw/cmssw/master/IOMC/Input/test/hepmc2gen.py > hepmc2gen.py
+#mv hepmc2gen.py hepmc2genOrig.py
+#cat hepmc2genOrig.py | sed -e "s/if True/if False/g" | sed -e "/file:\/tmp/c\     fileNames = cms.untracked.vstring(options.inputFiles[0])," | sed -e "s/'HepMC_GEN.root'/options.outputFile/g" > hepmc2gen.py
+#rm hepmc2genOrig.py
+#echo "Converting slight_${prodType}_${channel}_${seed}.hepmc0.hepmc to gen file..."
+#cmsRun hepmc2gen.py maxEvents=-1 inputFiles=file:slight_${prodType}_${channel}_${seed}.hepmc0.hepmc outputFile=slight_${prodType}_${channel}_${seed}_GEN.root
+#echo "*** GEN CONVERSION COMPLETE ***"
 
 echo "Output ready with log_${prodType}_${channel}_${seed}.txt and slight_${prodType}_${channel}_${seed}_GEN.root at `pwd` and $WORKDIR"
+fi
 echo "End of job on " `date`
 exit 0
