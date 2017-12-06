@@ -1,5 +1,5 @@
 diff --git a/Template/LO/SubProcesses/refine.sh b/Template/LO/SubProcesses/refine.sh
-index 577461f..eec44ea 100644
+index 577461f..af6263f 100644
 --- a/Template/LO/SubProcesses/refine.sh
 +++ b/Template/LO/SubProcesses/refine.sh
 @@ -12,6 +12,10 @@ if [ $SRT_LD_LIBRARY_PATH_SCRAMRT ]; then
@@ -13,13 +13,25 @@ index 577461f..eec44ea 100644
  if [[ -e MadLoop5_resources.tar.gz && ! -e MadLoop5_resources ]]; then
  tar -xzf MadLoop5_resources.tar.gz
  fi
-@@ -78,3 +82,4 @@ j=%(directory)s
+@@ -71,10 +75,15 @@ j=%(directory)s
+      if [[ $status_code -ne 0 ]]; then 
+ 	 rm results.dat
+ 	 echo "ERROR DETECTED"
+-	 echo "end-code not correct $status_code" > results.dat
++	 echo "end-code not correct $status_code" >> log.txt
++         echo "+ Hostname:" >> log.txt
++         hostname >> log.txt
++         echo "+ Printing job environment:" >> log.txt
++         env >> log.txt
+      fi     
+      if [[ -e ftn26 ]]; then
+          cp ftn26 ftn25
       fi
       cd ../
  
 +exit $status_code
 diff --git a/Template/LO/SubProcesses/refine_splitted.sh b/Template/LO/SubProcesses/refine_splitted.sh
-index d7d5df6..6f65eb0 100644
+index d7d5df6..8ce9e4d 100644
 --- a/Template/LO/SubProcesses/refine_splitted.sh
 +++ b/Template/LO/SubProcesses/refine_splitted.sh
 @@ -12,6 +12,10 @@ if [ $SRT_LD_LIBRARY_PATH_SCRAMRT ]; then
@@ -33,13 +45,22 @@ index d7d5df6..6f65eb0 100644
  if [[ -e MadLoop5_resources.tar.gz && ! -e MadLoop5_resources ]]; then
  tar -xzf MadLoop5_resources.tar.gz
  fi
-@@ -85,3 +89,4 @@ if [[ $status_code -ne 0 ]]; then
+@@ -81,7 +85,12 @@ fi
+ if [[ $status_code -ne 0 ]]; then 
+ 	 rm results.dat
+ 	 echo "ERROR DETECTED"
+-	 echo "end code not correct $status_code" > results.dat
++	 echo "end code not correct $status_code" > log.txt
++         echo "+ Hostname:" >> log.txt
++         hostname >> log.txt
++         echo "+ Printing job environment:" >> log.txt
++         env >> log.txt
  fi
  
  cd ../
 +exit $status_code
 diff --git a/Template/LO/SubProcesses/survey.sh b/Template/LO/SubProcesses/survey.sh
-index c9ef2c5..1333846 100755
+index c9ef2c5..d02f9e1 100755
 --- a/Template/LO/SubProcesses/survey.sh
 +++ b/Template/LO/SubProcesses/survey.sh
 @@ -12,6 +12,10 @@ if [ $SRT_LD_LIBRARY_PATH_SCRAMRT ]; then
@@ -53,16 +74,22 @@ index c9ef2c5..1333846 100755
  if [[ -e MadLoop5_resources.tar.gz && ! -e MadLoop5_resources ]]; then
  tar -xzf MadLoop5_resources.tar.gz;
  fi
-@@ -80,6 +84,8 @@ for i in $@ ; do
+@@ -79,7 +83,13 @@ for i in $@ ; do
+      if [[ $status_code -ne 0 ]]; then 
  	 rm results.dat
  	 echo "ERROR DETECTED"
- 	 echo "end code not correct $status_code" > results.dat
+-	 echo "end code not correct $status_code" > results.dat
++	 echo "end code not correct $status_code" >> log.txt
++         echo "+ Hostname:" >> log.txt
++         hostname >> log.txt
++         echo "+ Printing job environment:" >> log.txt
++         env >> log.txt
 +         cd ../
 +         exit $status_code
       fi
       cd ../;
  
-@@ -87,6 +93,3 @@ for i in $@ ; do
+@@ -87,6 +97,3 @@ for i in $@ ; do
  done;
  
  # Cleaning 
@@ -70,7 +97,7 @@ index c9ef2c5..1333846 100755
 -
 -
 diff --git a/Template/NLO/SubProcesses/ajob_template b/Template/NLO/SubProcesses/ajob_template
-index db5444b..dd3e508 100755
+index db5444b..f9914cf 100755
 --- a/Template/NLO/SubProcesses/ajob_template
 +++ b/Template/NLO/SubProcesses/ajob_template
 @@ -19,6 +19,10 @@ if [ $SRT_LD_LIBRARY_PATH_SCRAMRT ]; then
@@ -84,6 +111,20 @@ index db5444b..dd3e508 100755
  tarCounter=0
  while [[ (-f MadLoop5_resources.tar.gz) && (! -f MadLoop5_resources/HelConfigs.dat) && ($tarCounter < 10) ]]; do
      if [[ $tarCounter > 0 ]]; then
+@@ -100,6 +104,13 @@ TAGTAGTAGTAGTAGTAGTAG for i in 1 ; do
+         ../madevent_mintMC > log.txt <input_app.txt 2>&1
+     fi
+     status=$?
++    if [[ $status_code -ne 0 ]]; then
++      echo "Error: Status code $status_code" >> log.txt
++      echo "+ Hostname:" >> log.txt
++      hostname >> log.txt
++      echo "+ Printing environment" >> log.txt
++      env >> log.txt
++    fi
+     T="$(($(date +%s)-T))"
+     echo "Time in seconds: ${T}" >>log.txt
+     cp -f log.txt log_MINT$integration_step.txt  >/dev/null 2>&1
 diff --git a/Template/NLO/SubProcesses/reweight_xsec_events.local b/Template/NLO/SubProcesses/reweight_xsec_events.local
 index a38c4e8..c8c856b 100644
 --- a/Template/NLO/SubProcesses/reweight_xsec_events.local
