@@ -92,6 +92,7 @@ while [ $produced_lhe -lt $nevt ]; do
   
   # don't allow more than 90 iterations
   if [  $run_counter -gt "90" ]; then
+      echo "asking for more than 90 iterations, this should never happen"
       break
   fi
   # compute remaining events
@@ -120,7 +121,10 @@ done
 ls -lrt events*.lhe.gz
 if [  $run_counter -gt "1" ]; then
     echo "Merging files and deleting unmerged ones"
-    ./madevent/bin/internal/merge.pl events*.lhe.gz events.lhe.gz banner.txt
+    cp /cvmfs/cms.cern.ch/phys_generator/gridpacks/lhe_merger/merge.pl ./
+    chmod 755 merge.pl
+    # ./madevent/bin/internal/merge.pl events*.lhe.gz events.lhe.gz banner.txt
+    ./merge.pl events*.lhe.gz events.lhe.gz banner.txt
     rm events_*.lhe.gz banner.txt;
 else
     mv events_${run_counter}.lhe.gz events.lhe.gz
