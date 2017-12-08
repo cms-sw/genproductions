@@ -49,20 +49,20 @@ tdec/elbranching 0.108  ! W electronic branching fraction
 ! optional production parameters 
 ! (defaults defined in init_couplings.f)
 topmass      172.5
-wmass        80.419
-sthw2        0.2226459
-alphaem_inv  132.3384323
+wmass        80.398
+sthw2        0.231295
+alphaem_inv  137.0360098
 
 
 
-CKM_Vud   0.97462
-CKM_Vus   0.22530
-CKM_Vub   0.00338
-CKM_Vcd   0.22530
-CKM_Vcs   0.97462
-CKM_Vcb   0.04101
-CKM_Vtd   0.00862
-CKM_Vts   0.04101
+CKM_Vud   0.97417
+CKM_Vus   0.2248
+CKM_Vub   0.00409
+CKM_Vcd   0.220
+CKM_Vcs   0.995
+CKM_Vcb   0.0405
+CKM_Vtd   0.0082
+CKM_Vts   0.040
 CKM_Vtb   1.0
 
 
