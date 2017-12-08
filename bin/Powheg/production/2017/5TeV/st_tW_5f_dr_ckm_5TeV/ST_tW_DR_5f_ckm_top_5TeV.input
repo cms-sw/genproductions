@@ -49,21 +49,21 @@ tdec/elbranching 0.108  ! W electronic branching fraction
 ! optional production parameters 
 ! (defaults defined in init_couplings.f)
 topmass      172.5
-wmass        80.398
-sthw2        0.231295
-alphaem_inv  137.0360098
+wmass        80.385 ! http://pdg.lbl.gov/2017/reviews/rpp2017-rev-phys-constants.pdf
+sthw2        0.23129 ! http://pdg.lbl.gov/2017/reviews/rpp2017-rev-phys-constants.pdf
+alphaem_inv  137.035999139  ! http://pdg.lbl.gov/2017/reviews/rpp2017-rev-phys-constants.pdf
 
 
 
-CKM_Vud   0.97417
-CKM_Vus   0.2248
-CKM_Vub   0.00409
-CKM_Vcd   0.220
-CKM_Vcs   0.995
-CKM_Vcb   0.0405
-CKM_Vtd   0.0082
-CKM_Vts   0.040
-CKM_Vtb   1.0
+CKM_Vud   0.97434 !  Table (12.17) http://pdg.lbl.gov/2017/reviews/rpp2017-rev-ckm-matrix.pdf
+CKM_Vus   0.22506 !  Table (12.17) http://pdg.lbl.gov/2017/reviews/rpp2017-rev-ckm-matrix.pdf
+CKM_Vub   0.00357 !  Table (12.17) http://pdg.lbl.gov/2017/reviews/rpp2017-rev-ckm-matrix.pdf
+CKM_Vcd   0.22492 !  Table (12.17) http://pdg.lbl.gov/2017/reviews/rpp2017-rev-ckm-matrix.pdf
+CKM_Vcs   0.97351 !  Table (12.17) http://pdg.lbl.gov/2017/reviews/rpp2017-rev-ckm-matrix.pdf
+CKM_Vcb   0.0411  !  Table (12.17) http://pdg.lbl.gov/2017/reviews/rpp2017-rev-ckm-matrix.pdf
+CKM_Vtd   0.00875 !  Table (12.17) http://pdg.lbl.gov/2017/reviews/rpp2017-rev-ckm-matrix.pdf
+CKM_Vts   0.0403  !  Table (12.17) http://pdg.lbl.gov/2017/reviews/rpp2017-rev-ckm-matrix.pdf
+CKM_Vtb   0.99915 !  Table (12.17) http://pdg.lbl.gov/2017/reviews/rpp2017-rev-ckm-matrix.pdf
 
 
 
