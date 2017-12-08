@@ -113,8 +113,32 @@ foreach $infile (@ARGV) {
 # Check/compute cross-sections, totals and unit weight
 ###########################################################################
 $oldxsec        = $infiles[0][2];
-@oldinit        = @{$infiles[0][3]};
+@oldinit        = ($infiles[0][3][0]);
 $oldlhe_version = $infiles[0][4];
+
+# Form a composite init block by including any subprocess that 
+# is present for any of the files. Take the first occurance 
+# of the subprocess from all the files. 
+my %uniqentries;
+my $genblock;
+foreach $infile (@infiles) {
+  for($i=1; $i < scalar(@{$infile->[3]}); $i++) {
+    if ($infile->[3][$i] =~ /^<generator/) {
+        $genblock = $infile->[3][$i];
+        next;
+    }
+    # Important to take first entry, as this is treated
+    # differently in the next loop
+    elsif (!exists $uniqentries{$infile->[3][$i][3]}) {
+      $uniqentries{$infile->[3][$i][3]} = $infile->[3][$i];
+    }
+  }
+}
+# Maintain MadGraph's convention of reverse sorting by LPRUP
+my @initentry = reverse sort { $a->[3] <=> $b->[3] } values %uniqentries;
+push(@oldinit, @initentry);
+push(@oldinit, $genblock);
+
 $totevents = 0;  $totxsec = 0.0;
 foreach $infile (@infiles) {
   print "Input file: $infile->[0]\n";
@@ -133,29 +157,38 @@ foreach $infile (@infiles) {
   }
 
   @currinit = @{$infile->[3]};
-  # Same number of lines in <init> block?
-  if ($#oldinit != $#currinit)             { die("Init blocks do not match"); }
 
   # Same number of entries on first line of <init> block?
   if ($#{$oldinit[0]} != $#{$currinit[0]}) { die("Init blocks do not match"); }
 
-  # All entries the same on first line of <init> block?
-  for ($i = 0; $i <= $#{$oldinit[0]}; $i++) {
-    if ($oldinit[0][$i] != $currinit[0][$i])
-      { die("Init blocks do not match"); }
-  }
-
   # Create new init block (overwrite first file's init block data)
   for ($i = 1; $i <= $#oldinit; $i++) {
+    # Match entry in init block based on LPRUP
+    my @matchingsubprocess = ();
     if ($oldinit[$i] =~ /^<generator/) {
-      if ($oldinit[$i] ne $currinit[$i]) { die("Init blocks do not match"); } 
+      next
+    }
+    for ($j = 1; $j <= $#currinit; $j++) {
+      if ($currinit[$j] =~ /^<generator/) {
+        next;
+      }
+      if (${oldinit[$i][3]} == ${currinit[$j][3]}) {
+        push(@matchingsubprocess, @{$currinit[$j]});
+      }
+    }
+    if (scalar(@matchingsubprocess) == 0) {
+      next
+    }
+
+    if ($oldinit[$i] =~ /^<generator/) {
+      if ($oldinit[$i] ne @matchingsubprocess) { die("Init blocks do not match"); } 
       next;
     }
 
-    if ($oldinit[$i][3] != $currinit[$i][3]) { die("Init blocks do not match"); }
+    if ($oldinit[$i][3] != $matchingsubprocess[3]) { die("Init blocks do not match"); }
 
-    print " xsecup = $currinit[$i][0], xerrup = $currinit[$i][1]\n";
-    print " xmaxup = $currinit[$i][2], lprup = $currinit[$i][3]\n";
+    print " xsecup = $matchingsubprocess[0], xerrup = $matchingsubprocess[1]\n";
+    print " xmaxup = $matchingsubprocess[2], lprup = $matchingsubprocess[3]\n";
 
     # XSECUP = sum(xsecup * no.events) / tot.events
     # XERRUP = sqrt( sum(sigma^2 * no.events^2) ) / tot.events
@@ -163,18 +196,22 @@ foreach $infile (@infiles) {
     # Here we temporarily store:
     #  sum(xsecup * no.events)
     #  sum(sigma^2 * no.events^2)
-    if (\$oldinit == \$currinit) {
+    my $identicalentry = 1;
+    for ($j = 0; $j <= $#matchingsubprocess; $j++) {
+      if ($matchingsubprocess[$j] != $oldinit[$i][$j]) {
+         $identicalentry = 0;
+      }
+    }
+    if ($identicalentry) {
       $oldinit[$i][0] *= $infile->[1];
       $oldinit[$i][1] *= $oldinit[$i][1] * $infile->[1]**2;
-
     } else {
-      $oldinit[$i][0] += ($currinit[$i][0] * $infile->[1]);
-      $oldinit[$i][1] += $currinit[$i][1]**2 * $infile->[1]**2;
-
+      $oldinit[$i][0] += ($matchingsubprocess[0] * $infile->[1]);
+      $oldinit[$i][1] += $matchingsubprocess[1]**2 * $infile->[1]**2;
     }
 
     # XMAXUP = max(xmaxup)
-    $oldinit[$i][2] = max($oldinit[$i][2], $currinit[$i][2]);
+    $oldinit[$i][2] = max($oldinit[$i][2], $matchingsubprocess[2]);
   }
 
   # Total number of events and total cross-section
