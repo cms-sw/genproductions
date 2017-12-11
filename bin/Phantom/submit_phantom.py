@@ -186,7 +186,6 @@ def prepareEventProductionScript (productionfilename, phantom, phantomfolder, cm
     productionfile.write ('./' + phantomfolder + '/phantom.exe >& log_GEN.txt\n')
 
     # FIXME check the success of the production    
-#    productionfile.write ('grep -n "<init>" phamom.dat | tr ":" " " | awk \'{print $1}\' > cmsgrid_final.lhe\n')
     productionfile.write ('head -n `grep -n "<init>" phamom.dat | tr ":" " " | awk \'{print $1+1}\'` phamom.dat >> cmsgrid_final.lhe\n')
     productionfile.write ('tail -n 1 result | awk \'{print $4" "$6" -1 -1"}\' >> cmsgrid_final.lhe\n')
     productionfile.write ('tail -n +`grep -n "<init>" phamom.dat | tr ":" " " | awk \'{print $1+3}\'` phamom.dat >> cmsgrid_final.lhe\n')
