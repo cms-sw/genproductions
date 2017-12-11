@@ -365,7 +365,7 @@ fi
 export POWHEGSRC=powhegboxV2_rev3453_date20171005.tar.gz
 
 if [ "$process" = "b_bbar_4l" ]; then 
-  export POWHEGSRC=powhegboxRES_Mar2017.tar.gz
+  export POWHEGSRC=powhegboxRES_rev3468_date20171122.tar.gz 
 fi
 
 echo 'D/L POWHEG source...'
@@ -424,9 +424,9 @@ if [ "$process" = "bbH" ]; then
    sed -i -e "s#O2#O0#g" Makefile
 fi
 
-## Not needed anymore
-# sed -i -e 's#$(PDFPACK#lhefread.o pwhg_io_interface.o rwl_weightlists.o rwl_setup_param_weights.o \\ \
-#	$(PDFPACK#' Makefile
+# Remove strange options in fortran (fixed line length, multiCPU compilation)
+sed -i -e "s#132#none#g" Makefile
+sed -i -e "s#make -j FC#make FC#g" Makefile
 
 # hardcode svn info
 sed -i -e 's#^pwhg_main:#$(shell ../svnversion/svnversion.sh>/dev/null) \
@@ -441,10 +441,15 @@ BOOK_HISTO="pwhg_bookhist-multi.o"
 if [ `echo ${POWHEGSRC} | cut -d "_" -f 1` = "powhegboxV1" ]; then
    BOOK_HISTO="pwhg_bookhist.o"
 fi 
+if [ "$process" = "gg_H" ] || [ "$process" = "ggHH" ]; then
+   BOOK_HISTO=""
+   echo "Process using pwhg_bookhist-multi-new"
+fi
 if [ "$process" = "trijet" ]; then 
    BOOK_HISTO+=" observables.o"
    rm -rf ../progress/bbinit.f
 fi  
+
 if [ "$process" = "VBF_HJJJ" ]; then 
   sed -i 's/..\/pwhg_book.h/pwhg_book.h/g' pwhg_analysis-dummy.f
 fi  
@@ -507,6 +512,7 @@ if [ $jhugen = 1 ]; then
   tar zxf JHUGenerator.${jhugenversion}.tar.gz
   cd JHUGenerator
   sed -i -e "s#Comp = ifort#Comp = gfort#g" makefile
+  sed -i -e "s#linkMELA = Yes#linkMELA = No#g" makefile
   make
 
   mkdir -p ${WORKDIR}/${name}
@@ -557,7 +563,8 @@ if [ "$process" = "ST_wtch_DR" ] || [ "$process" = "ST_wtch_DS" ]; then
     wget --no-verbose http://qcdloop.fnal.gov/QCDLoop-1.96.tar.gz || fail_exit "Failed to get QCDLoop tar ball"
   fi                                                        
   tar xvf QCDLoop-1.96.tar.gz                               
-  mv QCDLoop-1.96 QCDLoop-1.9                               
+  mv QCDLoop-1.96 QCDLoop-1.9
+  sed -i -e 's#/Users/ellis/QCDLoop#./QCDLoop#' ff/ffinit_mine.f                
   cd QCDLoop-1.9                                            
   make                                                      
   cd ..                                                     
@@ -595,8 +602,8 @@ if [ "$process" = "HJ" ]; then
   cp ../POWHEG-BOX/HJ/NNLOPS-mass-effects/HNNLO-makefile ./makefile 
   cp -r ../POWHEG-BOX/HJ/NNLOPS-mass-effects/HNNLO-patches ./
   cd src/Need/
-  cat pdfset_lhapdf.f | sed -e "s#30#40#g" | sed -e "s#20#25#g" > pdfset_lhapdf.f.new
-  mv pdfset_lhapdf.f.new pdfset_lhapdf.f
+  cat pdfset_lhapdf.f | sed -e "s#30#40#g" | sed -e "s#20#30#g" | sed -e "s#oldPDFname(1:i-1)//'.LHgrid'#oldPDFname(1:i-1)#g" | sed -e "s#oldPDFname(1:i-1)//'.LHpdf'#oldPDFname(1:i-1)#g" | sed -e "s#InitPDFset('PDFsets/'//PDFname)#InitPDFsetByName(PDFname)#g" > pdfset_lhapdf.f.new
+  mv pdfset_lhapdf.f.new pdfset_lhapdf.f  
   cd -
   cat makefile | sed -e "s#LHAPDFLIB=.\+#LHAPDFLIB=$(scram tool info lhapdf | grep LIBDIR | cut -d "=" -f2)#g" > makefile
   make || fail_exit "Failed to compile HNNLO"
@@ -922,10 +929,10 @@ fi
 if [ $keepTop == '1' ]; then
     echo 'Keeping validation plots.'
     echo 'Packing...' ${WORKDIR}'/'${process}'_'${SCRAM_ARCH}'_'${CMSSW_VERSION}'_'${folderName}'.tgz'
-    tar zcf ${WORKDIR}'/'${process}'_'${SCRAM_ARCH}'_'${CMSSW_VERSION}'_'${folderName}'.tgz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.lhe --exclude=run_*.sh --exclude=*.log --exclude=*temp --exclude=pwgbtlupb-*.dat --exclude=pwgrmupb-*.dat
+    tar zcf ${WORKDIR}'/'${process}'_'${SCRAM_ARCH}'_'${CMSSW_VERSION}'_'${folderName}'.tgz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.lhe --exclude=run_*.sh --exclude=*temp --exclude=pwgbtlupb-*.dat --exclude=pwgrmupb-*.dat
 else
     echo 'Packing...' ${WORKDIR}'/'${process}'_'${SCRAM_ARCH}'_'${CMSSW_VERSION}'_'${folderName}'.tgz'
-    tar zcf ${WORKDIR}'/'${process}'_'${SCRAM_ARCH}'_'${CMSSW_VERSION}'_'${folderName}'.tgz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.top --exclude=*.lhe --exclude=run_*.sh --exclude=*.log --exclude=*temp --exclude=pwgbtlupb-*.dat --exclude=pwgrmupb-*.dat
+    tar zcf ${WORKDIR}'/'${process}'_'${SCRAM_ARCH}'_'${CMSSW_VERSION}'_'${folderName}'.tgz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.top --exclude=*.lhe --exclude=run_*.sh --exclude=*temp --exclude=pwgbtlupb-*.dat --exclude=pwgrmupb-*.dat
 fi
 
 cd ${WORKDIR}
@@ -961,7 +968,7 @@ eval `scram runtime -sh`
 cd -
 
 cat $base/../$config | sed -e "s#SEED#$seed#g" > config.input
-cat config.input | sed -e "s#MSTW2008nnlo68cl#NNPDF30_nnlo_as_0118#g" > config.input.temp
+cat config.input | sed -e "s#MSTW2008nnlo68cl#NNPDF31_nnlo_hessian_pdfas#g" > config.input.temp
 mv config.input.temp config.input
 
 cp $base/../hnnlo .
@@ -1174,17 +1181,16 @@ if __name__ == "__main__":
                     test_pdf2 = n_column[1].strip()
 
             if not (test_pdf1 == test_pdf2) :
-                print "ERROR: PDF settings not equal for the 2 protons: "+test_pdf1+" vs "+test_pdf2+"... Please check your datacard"
-                quit()
+                raise RuntimeError("ERROR: PDF settings not equal for the 2 protons: {0} vs {1}... Please check your datacard".format(test_pdf1, test_pdf2))
 
             if test_pdf1 != default_pdf :
 #                print "PDF in card: ", test_pdf1, "PDF default: ", default_pdf, test_pdf1==default_pdf
-                print "WARNING: The input card does not have the standard 2017 PDF (NNPDF31 NNLO, 306000 for 5F, 320900 for 4F): "+test_pdf1+". Either change the card or run again with -d 1 to ignore this message.\n"
+                message = "The input card does not have the standard 2017 PDF (NNPDF31 NNLO, 306000 for 5F, 320900 for 4F): {0}. Either change the card or run again with -d 1 to ignore this message.\n".format(test_pdf1)
 
                 if args.noPdfCheck == '0' :
-                    print "Exiting now...\n"
-                    quit()
+                    raise RuntimeError(message)
                 else:
+                    print "WARNING:", message
                     print "FORCING A DIFFERENT PDF SET FOR CENTRAL VALUE\n"
 
     if args.parstage == '0' :

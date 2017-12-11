@@ -1,0 +1,11 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set loop_optimized_output True
+set complex_mass_scheme False
+import model STP_UFO_freeWidth
+define Topo = t23 t23~
+define bb = b b~
+define tt = t t~
+define WW = w+ w-
+generate p p > topo topo / h a z ww
+output t23t23_Incl_tPythia_narrow_M700 -nojpeg
