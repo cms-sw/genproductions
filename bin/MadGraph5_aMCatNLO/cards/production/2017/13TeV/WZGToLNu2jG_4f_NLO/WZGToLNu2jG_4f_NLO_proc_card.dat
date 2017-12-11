@@ -29,8 +29,6 @@ set max_npoint_for_channel 0
 
 import model loop_sm
 
-define p = g u c d s u~ c~ d~ s~
-define j = g u c d s u~ c~ d~ s~
 define lep = e+ mu+ ta+ e- mu- ta-
 define nu = ve vm vt ve~ vm~ vt~
 
