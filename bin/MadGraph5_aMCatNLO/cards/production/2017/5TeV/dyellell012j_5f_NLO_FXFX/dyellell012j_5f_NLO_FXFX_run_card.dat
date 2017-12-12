@@ -27,7 +27,7 @@
 #***********************************************************************
   1500 = nevents ! Number of unweighted events requested 
  0.001 = req_acc ! Required accuracy (-1=auto determined from nevents)
-    20 = nevt_job! Max number of events per job in event generation. 
+    -1 = nevt_job! Max number of events per job in event generation. 
                  !  (-1= no split).
 average = event_norm ! Normalize events to sum or average to the X sect.
 #***********************************************************************
@@ -49,14 +49,16 @@ average = event_norm ! Normalize events to sum or average to the X sect.
 #***********************************************************************
     1   = lpp1    ! beam 1 type (0 = no PDF)
     1   = lpp2    ! beam 2 type (0 = no PDF)
- 6500   = ebeam1  ! beam 1 energy in GeV
- 6500   = ebeam2  ! beam 2 energy in GeV
+ 2510   = ebeam1  ! beam 1 energy in GeV
+ 2510   = ebeam2  ! beam 2 energy in GeV
 #***********************************************************************
 # PDF choice: this automatically fixes also alpha_s(MZ) and its evol.  *
 #***********************************************************************
  lhapdf    = pdlabel   ! PDF set                                     
- $DEFAULT_PDF_SETS = lhaid
- $DEFAULT_PDF_MEMBERS  = reweight_PDF
+ $DEFAULT_PDF_SETS = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number
+ ! If pdlabel=lhapdf, this is the lhapdf number. Only 
+ ! numbers for central PDF sets are allowed. Can be a list; 
+ ! PDF sets beyond the first are included via reweighting.
 #***********************************************************************
 # Include the NLO Monte Carlo subtr. terms for the following parton    *
 # shower (HERWIG6 | HERWIGPP | PYTHIA6Q | PYTHIA6PT | PYTHIA8)         *
@@ -93,9 +95,10 @@ average = event_norm ! Normalize events to sum or average to the X sect.
   2.0     = rw_Rscale_up     ! upper bound for ren scale variations
   0.5     = rw_Fscale_down   ! lower bound for fact scale variations
   2.0     = rw_Fscale_up     ! upper bound for fact scale variations
- .true.  = reweight_PDF     ! reweight to get PDF uncertainty
- 292201   = PDF_set_min      ! First of the error PDF sets 
- 292302   = PDF_set_max      ! Last of the error PDF sets
+  $DEFAULT_PDF_MEMBERS = reweight_PDF     ! reweight to get PDF uncertainty
+  ! Reweight to get PDF uncertainty. Should be a
+  ! list booleans of equal length to lhaid to specify for
+  ! which PDF set to include the uncertainties.
 #***********************************************************************
 # Merging - WARNING! Applies merging only at the hard-event level.     *
 # After showering an MLM-type merging should be applied as well.       *
@@ -128,7 +131,7 @@ average = event_norm ! Normalize events to sum or average to the X sect.
    0  = drll    ! Min distance between opposite sign lepton pairs
    0  = drll_sf ! Min distance between opp. sign same-flavor lepton pairs
    0  = mll     ! Min inv. mass of all opposite sign lepton pairs
-  30  = mll_sf  ! Min inv. mass of all opp. sign same-flavor lepton pairs
+  50  = mll_sf  ! Min inv. mass of all opp. sign same-flavor lepton pairs
 #***********************************************************************
 # Photon-isolation cuts, according to hep-ph/9801442                   *
 # When ptgmin=0, all the other parameters are ignored                  *
