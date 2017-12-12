@@ -286,7 +286,7 @@ def runGetSource(parstage, xgrid, folderName, powInputName, process, noPdfCheck,
 '''
 # Release to be used to define the environment and the compiler needed
 export RELEASE=${CMSSW_VERSION}
-export jhugenversion="v7.0.9"
+export jhugenversion="v7.0.11"
 
 cd $WORKDIR
 pwd
@@ -506,7 +506,7 @@ rm -f Makefile.interm tmpfile
 echo "LIBS+=-lz -lstdc++" >> Makefile
 if [ $jhugen = 1 ]; then
   if [ ! -f JHUGenerator.${jhugenversion}.tar.gz ]; then
-    wget --no-verbose --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/slc6_amd64_gcc481/JHUGenerator.${jhugenversion}.tar.gz || fail_exit "Failed to get JHUGen tar ball "
+    wget --no-verbose --no-check-certificate http://spin.pha.jhu.edu/Generator/JHUGenerator.${jhugenversion}.tar.gz || fail_exit "Failed to get JHUGen tar ball "
   fi
 
   tar zxf JHUGenerator.${jhugenversion}.tar.gz
