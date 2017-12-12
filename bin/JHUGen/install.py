@@ -39,20 +39,14 @@ with cd(JHUbasedir):
     subprocess.check_call([os.path.join(basedir, "patches", "install.sh"), "true" if args.link_mela else "false"])
 
 ##Get the base files
-shutil.copy(os.path.join(basedir, args.card), JHUbasedir)
+shutil.copy(os.path.join(basedir, args.card), os.path.join(JHUbasedir, "JHUGen.input"))
 
-command='./JHUGen '
-with open(os.path.join(basedir, args.card), "rt") as flabel: 
-    for line in flabel:
-        command += line.rstrip('\n')+" "
-    command += " VegasNc2=${nevt} Seed=${rnum}"
+command="./JHUGen $(cat ../JHUGen.input) VegasNc2=${nevt} Seed=${rnum}"
 if args.decay_card is not None:
-    command += " DataFile=undecayed && ./JHUGen "
-    with open(os.path.join(basedir, args.decay_card), "rt") as flabel:
-        for line in flabel:
-            command += line.rstrip("\n").replace("ReadCSmax", "")+" "  #remove CSmax so the same card can be used for generating ggH or decaying
-    command += " ReadLHE=undecayed.lhe Seed=${rnum}"
-command += ' DataFile=Out'
+    with open(os.path.join(basedir, args.decay_card)) as f, open(os.path.join(JHUbasedir, "JHUGen_decay.input"), "w") as newf:
+        newf.write(f.read().replace("ReadCSmax", ""))
+    command += " DataFile=undecayed &&\n./JHUGen $(cat ../JHUgen_decay.input) Seed=${rnum} ReadLHE=undecayed.lhe Seed=${rnum}"
+command += " DataFile=Out"
 ########################
 #backwards compatibility
 command = command.replace("Seed=SEED", "")
@@ -71,15 +65,14 @@ with open(os.path.join(basedir, "runcmsgrid_template.sh")) as f, open(runcmsgrid
     newf.write(contents)
 os.chmod(runcmsgrid, 0777)
 
-with cd(os.path.join(JHUbasedir, "JHUGenerator")):
-    if "ReadCSmax" in command:
+with cd(os.path.join(JHUbasedir, "JHUGenerator")), open("../JHUGen.input") as f:
+    if "ReadCSmax" in f.read():
         #set up the grid now so it can be read
         #but not the decay part (that is quick anyway)
-        runcommand = command.split("&&")[0].replace("ReadCSmax", "").replace("${nevt}", args.nevents).replace("${rnum}", args.seed)
-        subprocess.check_call(runcommand.split())
+        runcommand = command.split("&&")[0].replace("${nevt}", args.nevents).replace("${rnum}", args.seed) + " NoReadCSmax"
+        os.system(runcommand)
         for _ in glob.glob("*.lhe"): os.remove(_)
         shutil.rmtree("data/")
-    for _ in glob.glob("LSFJOB*"): shutil.rmtree(_)
 
 with cd(basedir):
     subprocess.check_call(["tar", "czvf", "JHUGen_%s_%s_%s.tgz" % (args.name, os.environ["SCRAM_ARCH"], os.environ["CMSSW_VERSION"]), args.name+"_JHUGen", "runcmsgrid.sh"])
