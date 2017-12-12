@@ -142,6 +142,8 @@ def modifySubmitfileCMSSWCompiler (submitfilename, pdfgridfolder, phantompdflib,
 
 ''' setup the shell script that will be run by the cms production framework
     in the wmLHE production mode
+    NOTA BENE the script does not allow to modify the architecture on purpose
+              since it keeps the one used for the gridpack calculation
 '''
 def prepareEventProductionScript (productionfilename, phantom, phantomfolder, cmssw, shell, scram_arch, debugging = 0):
     productionfile = open (productionfilename, 'write')
@@ -157,16 +159,37 @@ def prepareEventProductionScript (productionfilename, phantom, phantomfolder, cm
 
     productionfile.write ('nevt=${1}\n')
     productionfile.write ('echo "%MSG-PHANTOM number of events requested = $nevt"\n')
-
     productionfile.write ('rnum=${2}\n')
     productionfile.write ('echo "%MSG-PHANTOM random seed used for the run = $rnum"\n')
-
     productionfile.write ('ncpu=1\n')
     productionfile.write ('echo "%MSG-PHANTOM number of cputs for the run = $ncpu"\n')
 
+    productionfile.write ('cmssw_version=' + cmssw + '\n')
+    productionfile.write ('scram_arch=' + scram_arch + '\n')
+
+    productionfile.write ('modify_env=false\n')
+
+    productionfile.write ('if [ -n "$4" ]\n')
+    productionfile.write ('  then\n')
+    productionfile.write ('    modify_env=$4\n')
+    productionfile.write ('    if [ "$modify_env" = true ]\n')
+    productionfile.write ('      then\n')
+    productionfile.write ('      if [ -n "$6" ]\n')
+    productionfile.write ('        then\n')
+    productionfile.write ('          cmssw_version=${6}\n')
+    productionfile.write ('      fi\n')
+    productionfile.write ('    fi  \n')
+    productionfile.write ('  echo ${1}\n')
+    productionfile.write ('  else\n')
+    productionfile.write ('  echo "ciccia"  \n')
+    productionfile.write ('fi\n')
+
+    productionfile.write ('echo "%MSG-PHANTOM getting environment LHAPDF from CMSSW release = $cmssw_version"\n')
+    productionfile.write ('echo "%MSG-PHANTOM running with architecture  = $scram_arch"\n')
+
     # setup the environment for the running
-    productionfile.write ('scram -a ' + scram_arch + ' project CMSSW ' + cmssw + '\n')
-    productionfile.write ('cd ' + cmssw + '/src\n')
+    productionfile.write ('scram -a ${scram_arch} project CMSSW ${cmssw_version}\n')
+    productionfile.write ('cd ${cmssw_version}/src\n')
     productionfile.write ('eval `scram runtime -' + shell + '`\n')
     productionfile.write ('cd -\n')
 
