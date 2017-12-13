@@ -151,7 +151,7 @@ c
 c find the jets
       do i=1,nexternal
          if (istatus(i).eq.1 .and.
-     &        (abs(ipdg(i)).le.5 .or. ipdg(i).eq.21)) then
+     &        (abs(ipdg(i)).le.maxjetflavor .or. ipdg(i).eq.21)) then
             is_a_j(i)=.true.
          else
             is_a_j(i)=.false.
@@ -257,7 +257,7 @@ c Apply the jet cuts
             return
          endif
       endif
- 122    continue
+ 122  continue
 c
 c PHOTON (ISOLATION) CUTS
 c
@@ -368,7 +368,7 @@ c End of loop over photons
             passcuts_user=.false.
             return
          endif
- 444          continue
+ 444     continue
 c End photon isolation
       endif
 
@@ -516,26 +516,26 @@ C
       IF (N.LE.0)            RETURN
       IF (NSORT.NE.0) GO TO 2
       DO 1 I=1,N
- 1        INDEX(I)=I
+    1 INDEX(I)=I
 C
- 2         IF (N.EQ.1)            RETURN
+    2 IF (N.EQ.1)            RETURN
       IF (MODE)    10,20,30
- 10    CALL SORTTI (A,INDEX,N)
+   10 CALL SORTTI (A,INDEX,N)
       GO TO 40
 C
- 20    CALL SORTTC(A,INDEX,N)
+   20 CALL SORTTC(A,INDEX,N)
       GO TO 40
 C
- 30    CALL SORTTF (A,INDEX,N)
+   30 CALL SORTTF (A,INDEX,N)
 C
- 40     IF (NWAY.EQ.0) GO TO 50
+   40 IF (NWAY.EQ.0) GO TO 50
       N2 = N/2
       DO 41 I=1,N2
       ISWAP = INDEX(I)
       K = N+1-I
       INDEX(I) = INDEX(K)
- 41    INDEX(K) = ISWAP
- 50     RETURN
+   41 INDEX(K) = ISWAP
+   50 RETURN
       END
 *     ========================================
       SUBROUTINE SORTTF (A,INDEX,N1)
@@ -547,34 +547,34 @@ C
       I3 = I1
       I33 = INDEX(I3)
       AI = A(I33)
- 1     I2 = I3/2
+    1 I2 = I3/2
       IF (I2) 3,3,2
- 2     I22 = INDEX(I2)
+    2 I22 = INDEX(I2)
       IF (AI.LE.A (I22)) GO TO 3
       INDEX (I3) = I22
       I3 = I2
       GO TO 1
- 3     INDEX (I3) = I33
- 4      I3 = INDEX (N)
+    3 INDEX (I3) = I33
+    4 I3 = INDEX (N)
       INDEX (N) = INDEX (1)
       AI = A(I3)
       N = N-1
       IF (N-1) 12,12,5
- 5     I1 = 1
- 6      I2 = I1 + I1
+    5 I1 = 1
+    6 I2 = I1 + I1
       IF (I2.LE.N) I22= INDEX(I2)
       IF (I2-N) 7,9,11
- 7     I222 = INDEX (I2+1)
+    7 I222 = INDEX (I2+1)
       IF (A(I22)-A(I222)) 8,9,9
- 8     I2 = I2+1
+    8 I2 = I2+1
       I22 = I222
- 9     IF (AI-A(I22)) 10,11,11
- 10     INDEX(I1) = I22
+    9 IF (AI-A(I22)) 10,11,11
+   10 INDEX(I1) = I22
       I1 = I2
       GO TO 6
- 11    INDEX (I1) = I3
+   11 INDEX (I1) = I3
       GO TO 4
- 12    INDEX (1) = I3
+   12 INDEX (1) = I3
       RETURN
       END
 *     ========================================
@@ -588,34 +588,34 @@ C
       I3 = I1
       I33 = INDEX(I3)
       AI = A(I33)
- 1     I2 = I3/2
+    1 I2 = I3/2
       IF (I2) 3,3,2
- 2     I22 = INDEX(I2)
+    2 I22 = INDEX(I2)
       IF (AI.LE.A (I22)) GO TO 3
       INDEX (I3) = I22
       I3 = I2
       GO TO 1
- 3     INDEX (I3) = I33
- 4      I3 = INDEX (N)
+    3 INDEX (I3) = I33
+    4 I3 = INDEX (N)
       INDEX (N) = INDEX (1)
       AI = A(I3)
       N = N-1
       IF (N-1) 12,12,5
- 5     I1 = 1
- 6      I2 = I1 + I1
+    5 I1 = 1
+    6 I2 = I1 + I1
       IF (I2.LE.N) I22= INDEX(I2)
       IF (I2-N) 7,9,11
- 7     I222 = INDEX (I2+1)
+    7 I222 = INDEX (I2+1)
       IF (A(I22)-A(I222)) 8,9,9
- 8     I2 = I2+1
+    8 I2 = I2+1
       I22 = I222
- 9     IF (AI-A(I22)) 10,11,11
- 10     INDEX(I1) = I22
+    9 IF (AI-A(I22)) 10,11,11
+   10 INDEX(I1) = I22
       I1 = I2
       GO TO 6
- 11    INDEX (I1) = I3
+   11 INDEX (I1) = I3
       GO TO 4
- 12    INDEX (1) = I3
+   12 INDEX (1) = I3
       RETURN
       END
 *     ========================================
@@ -629,34 +629,34 @@ C
       I3 = I1
       I33 = INDEX(I3)
       AI = A(I33)
- 1     I2 = I3/2
+    1 I2 = I3/2
       IF (I2) 3,3,2
- 2     I22 = INDEX(I2)
+    2 I22 = INDEX(I2)
       IF(ICMPCH(AI,A(I22)))3,3,21
- 21    INDEX (I3) = I22
+   21 INDEX (I3) = I22
       I3 = I2
       GO TO 1
- 3     INDEX (I3) = I33
- 4      I3 = INDEX (N)
+    3 INDEX (I3) = I33
+    4 I3 = INDEX (N)
       INDEX (N) = INDEX (1)
       AI = A(I3)
       N = N-1
       IF (N-1) 12,12,5
- 5     I1 = 1
- 6      I2 = I1 + I1
+    5 I1 = 1
+    6 I2 = I1 + I1
       IF (I2.LE.N) I22= INDEX(I2)
       IF (I2-N) 7,9,11
- 7     I222 = INDEX (I2+1)
+    7 I222 = INDEX (I2+1)
       IF (ICMPCH(A(I22),A(I222))) 8,9,9
- 8     I2 = I2+1
+    8 I2 = I2+1
       I22 = I222
- 9     IF (ICMPCH(AI,A(I22))) 10,11,11
- 10     INDEX(I1) = I22
+    9 IF (ICMPCH(AI,A(I22))) 10,11,11
+   10 INDEX(I1) = I22
       I1 = I2
       GO TO 6
- 11    INDEX (I1) = I3
+   11 INDEX (I1) = I3
       GO TO 4
- 12    INDEX (1) = I3
+   12 INDEX (1) = I3
       RETURN
       END
 *     ========================================
@@ -673,12 +673,12 @@ C     ICMPCH=+1 IF HEX VALUES OF IC1 IS GREATER THAN IC2
       I1=-I1
       I2=-I2
       IF(I1-I2)80,70,60
- 40      IF(I1-I2)60,70,80
- 60         ICMPCH=-1
+ 40   IF(I1-I2)60,70,80
+ 60   ICMPCH=-1
       RETURN
- 70      ICMPCH=0
+ 70   ICMPCH=0
       RETURN
- 80      ICMPCH=1
+ 80   ICMPCH=1
       RETURN
       END
 
@@ -928,21 +928,22 @@ c
       
       ptz_wgt=1d0
 
-!     pT of different flavour quark pairs
+!       pT of quark-antiquark pair
       do i=0,nexternal
          do j=i+1,nexternal
-            if (abs(ipdg(i)).le.5.and.(abs(ipdg(i)).ne.abs(ipdg(j)))) then
+            if (abs(ipdg(i)).le.5.and.
+     &         (abs(ipdg(i)).ne.abs(ipdg(j)))) then
                ptz=dsqrt((p(1,i)+p(1,j))**2 + (p(2,i)+p(2,j))**2)
 !               define appropriate functional form here
                ptz_wgt=25d0+ptz**4
-c         endif
-c      enddo
+            endif
+         enddo
+      enddo
 
-      
 c find the jets (skip first two partons, since these are the incoming ones)
       njets=0
       do i=3,nexternal
-         if (abs(ipdg(i)).le.5 .or. ipdg(i).eq.21) then
+         if (abs(ipdg(i)).le.maxjetflavor .or. ipdg(i).eq.21) then
             njets=njets+1
          endif
       enddo
@@ -956,5 +957,20 @@ c find the jets (skip first two partons, since these are the incoming ones)
 !       combined weight
       bias_wgt=ptz_wgt*njets_wgt
 
+c How to enhance the tails is very process dependent. For example for
+c top quark production one could use:
+c      do i=1,nexternal
+c         if (ipdg(i).eq.6) then
+c            bias_wgt=sqrt(p(1,i)**2+p(2,i)**2)**3
+c         endif
+c      enddo
+c Or to use H_T^2 one does     
+c      H_T=0d0
+c      do i=3,nexternal
+c         H_T=H_T+sqrt(max(0d0,(p(0,i)+p(3,i))*(p(0,i)-p(3,i))))
+c      enddo
+c      bias_wgt=H_T**2
       return
       end
+
+

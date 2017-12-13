@@ -7,6 +7,5 @@ define V = w+ w-
 generate p p > V [QCD] @0
 add process p p > V j [QCD] @1
 add process p p > V j j [QCD] @2
-add process p p > V j j j [QCD] @3
 
 output WJetsToQQ_5f_NLO_FXFX_bias -nojpeg
