@@ -1,0 +1,6 @@
+import model loop_sm-ckm_no_b_mass
+
+generate p p > t t~ h [QCD] @0
+add process p p > t t~ h j [QCD] @1
+
+output tth01j_5f_ckm_NLO_FXFX_MH<MASS> -nojpeg
