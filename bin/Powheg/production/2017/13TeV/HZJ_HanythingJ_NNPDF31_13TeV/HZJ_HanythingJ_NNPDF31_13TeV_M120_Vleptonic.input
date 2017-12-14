@@ -21,9 +21,6 @@ ebeam2 6500d0     ! energy of beam 2
 bornktmin 0.26d0      ! (default 0d0) generation cut. Minimum kt in underlying Born
 bornsuppfact 0d0 ! (default 0d0)  mass param for Born suppression factor. If < 0 suppfact = 1
 
-#bornzerodamp  1
-
-
 ! To be set only if using internal (mlm) pdfs
 ! 131 cteq4m
 !  83 cteq4l
@@ -64,27 +61,14 @@ nubound 100000 ! number of calls to set up the upper bounding norms for radiatio
 ! OPTIONAL PARAMETERS
 
 withnegweights 1  ! (default 0) if on (1) use negative weights
-#bornonly 1        ! (default 0) if 1 do Born only
 testplots  1      ! (default 0, do not) do NLO and PWHG distributions
 
-#xupbound 2d0   ! increase upper bound for radiation generation
 
 
 iseed    SEED        !  Start the random number generator with seed iseed
-#rand1     0          !  skipping  rand2*100000000+rand1 numbers.  
-#rand2     0          !  (see RM48 short writeup in CERNLIB)              
-#manyseeds 1         ! Used to perform multiple runs with different random
-                     ! seeds in the same directory.
-                     ! If set to 1, the program asks for an integer j;
-                     ! The file pwgseeds.dat at line j is read, and the
-                     ! integer at line j is used to initialize the random
-                     ! sequence for the generation of the event.
-                     ! The event file is called pwgevents-'j'.lhe
 
-#parallelstage 1
 xgriditeration 1
 fastbtlbound 1
-#storemintupb 1
 
 storeinfo_rwgt 0   ! store info to allow for reweighting
 pdfreweight 0
