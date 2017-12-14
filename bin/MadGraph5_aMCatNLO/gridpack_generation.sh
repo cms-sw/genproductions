@@ -101,12 +101,13 @@ RUNHOME=`pwd`
 
 LOGFILE=${RUNHOME}/${name}.log
 LOGFILE_NAME=${LOGFILE/.log/}
-if [ "${name}" != "interactive" ]; then
-  mkfifo ${LOGFILE}.pipe
-  tee < ${LOGFILE}.pipe ${LOGFILE} &
-  exec &> ${LOGFILE}.pipe
-  rm ${LOGFILE}.pipe
-fi
+exec &> ${LOGFILE}
+#if [ "${name}" != "interactive" ]; then
+#  mkfifo ${LOGFILE}.pipe
+#  tee < ${LOGFILE}.pipe ${LOGFILE} &
+#  exec &> ${LOGFILE}.pipe
+#  rm ${LOGFILE}.pipe
+#fi
 
 echo "Starting job on " `date` #Only to display the starting of production date
 echo "Running on " `uname -a` #Only to display the machine where the job is running
