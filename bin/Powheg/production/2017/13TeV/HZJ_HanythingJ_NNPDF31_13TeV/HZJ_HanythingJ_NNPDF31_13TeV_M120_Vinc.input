@@ -23,20 +23,8 @@ ebeam2 6500d0     ! energy of beam 2
 bornktmin 0.26d0      ! (default 0d0) generation cut. Minimum kt in underlying Born
 bornsuppfact 0d0 ! (default 0d0)  mass param for Born suppression factor. If < 0 suppfact = 1
 
-! To be set only if using internal (mlm) pdfs
-! 131 cteq4m
-!  83 cteq4l
-! ndns1 131         ! pdf set for hadron 1 (mlm numbering)
-! ndns2 131         ! pdf set for hadron 2 (mlm numbering)
-! To be set only if using LHA pdfs
-! 19150 cteq4m
-! 19170 cteq4l
-! 10050 cteq6m
-! 21100 MSTW 2008 (NLO central)
 lhans1  306000         ! pdf set for hadron 1 (LHA numbering)
 lhans2  306000         ! pdf set for hadron 2 (LHA numbering)	
-! To be set only if using different pdf sets for the two incoming hadrons
-#QCDLambda5  0.25 ! for not equal pdf sets 
 
 renscfact  1d0   ! (default 1d0) ren scale factor: muren  = muref * renscfact 
 facscfact  1d0   ! (default 1d0) fac scale factor: mufact = muref * facscfact 
