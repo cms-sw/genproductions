@@ -29,8 +29,8 @@ renscfact  1d0   ! (default 1d0) ren scale factor: muren  = muref * renscfact
 facscfact  1d0   ! (default 1d0) fac scale factor: mufact = muref * facscfact
 withdamp    1      ! (default 0, do not use) use Born-zero damping factor
 testplots  1      ! (default 0, do not) do NLO and PWHG distributions
-pdfreweight 1       ! PDF reweighting
-storeinfo_rwgt 1    ! store weight information
+pdfreweight 0       ! PDF reweighting
+storeinfo_rwgt 0    ! store weight information
 withnegweights 1 ! default 0,
 
 iseed    SEED    ! initialize random number sequence
