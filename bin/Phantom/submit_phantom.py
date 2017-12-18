@@ -951,7 +951,7 @@ def produceEvents (nevents, ngenerations, queue, debugging=True):
     print 'in the file "result" as a cross-check of the gridpack\n' 
     print 'cd ' + workingfolder
     print 'grep -A 1 total\ integral generations/gen*/run.o* > res'    
-    print workingfolder + '/' + phantomfolder + '/tools/totint.exe > result_gen.txt'
+    print workingfolder + '/' + phantomfolder + '/tools/gentotint.exe > result_gen.txt'
 
 
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
