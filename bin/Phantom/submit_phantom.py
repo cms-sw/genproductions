@@ -985,7 +985,11 @@ def runSimpleVerification (configfilename):
     processoutputs = []
     submitfile = open (submitfilename, 'read')
     for line in submitfile.readlines () :
-        if 'bsub' in line: processoutputs.append (line.split()[6])
+        if 'bsub' in line: 
+            outfilename = line.split()[6].split (config.get ('general', 'foldername'))
+#            print foldername + outfilename [1]
+#            print outfilename
+            processoutputs.append (foldername + outfilename [1])
     submitfile.close ()
 
     verifyGridpack (processoutputs, workingfolder, logfile)
