@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 masswidth = (
-  (110, 0.00285),
   (115, 0.00312),
   (120, 0.00351),
   (124, 0.00394),
@@ -42,9 +41,9 @@ masswidth = (
   (3000, 1500.0),
 )
 
-with open("VBF_H_NNPDF31_13TeV_template.input") as f:
+with open("VBF_H_ZZ_NNPDF31_13TeV_template.input") as f:
   template = f.read()
 
 for mass, width in masswidth:
-  with open("VBF_H_NNPDF31_13TeV_M{}.input".format(mass), "w") as f:
+  with open("VBF_H_ZZ_NNPDF31_13TeV_M{}.input".format(mass), "w") as f:
     f.write(template.format(mass=mass, width=width))
