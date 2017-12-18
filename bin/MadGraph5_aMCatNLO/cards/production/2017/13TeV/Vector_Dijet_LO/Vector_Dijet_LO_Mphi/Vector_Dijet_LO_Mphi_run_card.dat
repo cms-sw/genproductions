@@ -260,7 +260,7 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
 #*********************************************************************
 # Jet measure cuts                                                   *
 #*********************************************************************
-  0.0	= xqcut ! minimum kt jet measure between partons
+  15.0	= xqcut ! minimum kt jet measure between partons
 #*********************************************************************
 #
 #*********************************************************************
