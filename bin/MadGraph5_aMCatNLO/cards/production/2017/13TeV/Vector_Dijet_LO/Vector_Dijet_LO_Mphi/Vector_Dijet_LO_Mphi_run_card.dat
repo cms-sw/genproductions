@@ -262,20 +262,3 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
 #*********************************************************************
   15.0	= xqcut ! minimum kt jet measure between partons
 #*********************************************************************
-#
-#*********************************************************************
-# Store info for systematics studies                                 *
-# WARNING: If use_syst is T, matched Pythia output is                *
-#          meaningful ONLY if plotted taking matchscale              *
-#          reweighting into account!                                 *
-#*********************************************************************
-  True	= use_syst ! Enable systematics studies
-#
-#**************************************
-# Parameter of the systematics study
-#  will be used by SysCalc (if installed)
-#**************************************                                  
-#
-  0.5 1 2	= sys_scalefact # factorization/renormalization scale factor
-  None	= sys_alpsfact # \alpha_s emission scale factors
-  30 50	= sys_matchscale # variation of merging scale
