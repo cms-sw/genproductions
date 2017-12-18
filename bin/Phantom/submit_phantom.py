@@ -860,7 +860,7 @@ def gridpackGeneration (debugging):
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
 
-def produceEvents (nevents, ngenerations, debugging=True):
+def produceEvents (nevents, ngenerations, queue, debugging=True):
     # Parse the configuration
     substitute = {}
     config = ConfigParser.ConfigParser ()
@@ -937,7 +937,7 @@ def produceEvents (nevents, ngenerations, debugging=True):
     modifySubmitfileCMSSWCompiler ('gen1/run', "", "", cmssw, "sh", scram_arch)
 
     # Now run the phantom tool to generate the folders
-    execute ("./gendir.scr -l CERN -q 1nw -d "+ str(ngenerations) + " -i `pwd`", debugging)
+    execute ("./gendir.scr -l CERN -q " + queue + " -d "+ str(ngenerations) + " -i `pwd`", debugging)
     # We have now a submit file create, we have to add the CMSSW activation at the beginning
 #    modifySubmitfileCMSSWCompiler(os.getcwd() +'/submitfile', "", "", cmssw, "sh", scram_arch, cmssw_path="../")
 
@@ -945,6 +945,13 @@ def produceEvents (nevents, ngenerations, debugging=True):
     print "Launching the generation of {0} events * {1} generations = {2} events".format(nevents,
             ngenerations, nevents*ngenerations)
     execute('source '+ os.getcwd() +'/submitfile', debugging)
+    
+    print '\nAt the end of the events production, please run the following to get the total XS,'
+    print 'to be compared to the one calculated in the gridpack production and stored'
+    print 'in the file "result" as a cross-check of the gridpack\n' 
+    print 'cd ' + workingfolder
+    print 'grep -A 1 total\ integral generations/gen*/run.o* > res'    
+    print workingfolder + '/' + phantomfolder + '/tools/totint.exe > result_gen.txt'
 
 
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
@@ -1018,7 +1025,9 @@ if __name__ == '__main__':
             else:
                 nevents_produce = int(sys.argv[3])
                 ngenerations_produce = int(sys.argv[4])
-                produceEvents (nevents_produce, ngenerations_produce)
+                queue = '8nh'
+                if len (sys.argv) > 5 : queue = sys.argv[5]
+                produceEvents (nevents_produce, ngenerations_produce, queue)
                 sys.exit (0)
         elif arg2 == "--test":
             runSimpleVerification (sys.argv[1])
