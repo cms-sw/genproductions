@@ -460,7 +460,7 @@ def verifyGridpack (processoutputs, workingfolder, logfile):
                 writing = writing + '\t' + str (elem[-1])
                 logfile.write (writing + '\n')
     
-            # prepare drawings of the grid calculation process
+            # prepare detailed drawings of the grid calculation process
     
             # find the unique occurrences in first and second column
             steps = set ([elem[0] for elem in thisoutput])
@@ -541,6 +541,24 @@ def verifyGridpack (processoutputs, workingfolder, logfile):
         plt.xticks (x_val, x_label, rotation='vertical')
         plt.title (step + ' chi2\n')
         plt.ylabel ('chi2')
+        plt.xlim((-1,len (x_label)))
+        plt.subplots_adjust (bottom=0.5)
+        fig2.savefig (plotsFile, format = 'pdf')
+
+        # the relative error
+
+        y_val_tota = []
+        for elem in summary_output:
+            if (elem[1] != step): continue
+            if (elem[5] == 0.): y_val_tota.append (0.)
+            else              : y_val_tota.append (elem[6]/elem[5])
+        x_label = [elem[0]+' '+str(elem[2]) for elem in summary_output if (elem[1] == step)]
+        x_val = range (len (x_label))
+        fig2 = plt.figure ()
+        plt.plot (x_val, y_val_tota, color ='r')
+        plt.xticks (x_val, x_label, rotation='vertical')
+        plt.title (step + ' relative error\n')
+        plt.ylabel ('rel. error')
         plt.xlim((-1,len (x_label)))
         plt.subplots_adjust (bottom=0.5)
         fig2.savefig (plotsFile, format = 'pdf')
