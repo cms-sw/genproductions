@@ -679,7 +679,7 @@ def gridpackGeneration (debugging):
     if config.has_option ('general', 'foldername') :
         foldername = os.getcwd () + '/' + config.get ('general', 'foldername')
     if os.path.exists (foldername + '.tar.xz'):
-        print 'gridpack ' + foldername + '.tgz already existing, exiting'
+        print 'gridpack ' + foldername + '.tar.xz already existing, exiting'
         sys.exit (1)
     print 'creating gridpack in folder: ' + foldername
     os.system ('rm -rf ' + foldername)
@@ -707,14 +707,19 @@ def gridpackGeneration (debugging):
     execute ('pwd', debugging)
     result = execute ('eval `scram runtime -' + shell + '` ; printenv | grep LHAPDF_DATA_PATH', debugging)
     os.chdir (workingfolder)
+
     # get the pdf grid
 #    execute ('printenv | grep LHAPDF_DATA_PATH', debugging)
 #    pdfgridfolder = os.environ['LHAPDF_DATA_PATH']
+
+    pdfgridfolder = '' 
     for line in result[1].split('\n'):
         if line.startswith ('LHAPDF_DATA_PATH=') :
             pdfgridfolder = line[len ('LHAPDF_DATA_PATH='):]
             break
-    pdfgrids = pdfgridfolder+'/' + config.get ('parameters','PDFname')
+    if debugging:
+        print 'using pdf grids at: ' + pdfgridfolder
+    pdfgrids = pdfgridfolder + '/' + config.get ('parameters','PDFname')
     if not os.path.exists (pdfgrids):
         print 'PDF grids ' + pdfgrids + ' not found, exiting'
         sys.exit (1)
