@@ -1,1 +1,1 @@
-VegasNc0=99999999 Process=60 MReso=125 ghz4=1,0 pTjetcut=0 deltaRcut=0 LHAPDF=NNPDF31_lo_as_0130/NNPDF31_lo_as_0130.info ReadCSmax
+VegasNc0=99999999 Process=60 MReso=125 ghz1=0,0 ghz4=1,0 pTjetcut=0 deltaRcut=0 LHAPDF=NNPDF31_lo_as_0130/NNPDF31_lo_as_0130.info ReadCSmax
