@@ -286,7 +286,7 @@ def runGetSource(parstage, xgrid, folderName, powInputName, process, noPdfCheck,
 '''
 # Release to be used to define the environment and the compiler needed
 export RELEASE=${CMSSW_VERSION}
-export jhugenversion="v7.0.9"
+export jhugenversion="v7.0.11"
 
 cd $WORKDIR
 pwd
@@ -365,7 +365,7 @@ fi
 export POWHEGSRC=powhegboxV2_rev3453_date20171005.tar.gz
 
 if [ "$process" = "b_bbar_4l" ]; then 
-  export POWHEGSRC=powhegboxRES_Mar2017.tar.gz
+  export POWHEGSRC=powhegboxRES_rev3468_date20171122.tar.gz 
 fi
 
 echo 'D/L POWHEG source...'
@@ -506,7 +506,7 @@ rm -f Makefile.interm tmpfile
 echo "LIBS+=-lz -lstdc++" >> Makefile
 if [ $jhugen = 1 ]; then
   if [ ! -f JHUGenerator.${jhugenversion}.tar.gz ]; then
-    wget --no-verbose --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/slc6_amd64_gcc481/JHUGenerator.${jhugenversion}.tar.gz || fail_exit "Failed to get JHUGen tar ball "
+    wget --no-verbose --no-check-certificate http://spin.pha.jhu.edu/Generator/JHUGenerator.${jhugenversion}.tar.gz || fail_exit "Failed to get JHUGen tar ball "
   fi
 
   tar zxf JHUGenerator.${jhugenversion}.tar.gz
@@ -929,10 +929,10 @@ fi
 if [ $keepTop == '1' ]; then
     echo 'Keeping validation plots.'
     echo 'Packing...' ${WORKDIR}'/'${process}'_'${SCRAM_ARCH}'_'${CMSSW_VERSION}'_'${folderName}'.tgz'
-    tar zcf ${WORKDIR}'/'${process}'_'${SCRAM_ARCH}'_'${CMSSW_VERSION}'_'${folderName}'.tgz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.lhe --exclude=run_*.sh --exclude=*.log --exclude=*temp --exclude=pwgbtlupb-*.dat --exclude=pwgrmupb-*.dat
+    tar zcf ${WORKDIR}'/'${process}'_'${SCRAM_ARCH}'_'${CMSSW_VERSION}'_'${folderName}'.tgz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.lhe --exclude=run_*.sh --exclude=*temp --exclude=pwgbtlupb-*.dat --exclude=pwgrmupb-*.dat
 else
     echo 'Packing...' ${WORKDIR}'/'${process}'_'${SCRAM_ARCH}'_'${CMSSW_VERSION}'_'${folderName}'.tgz'
-    tar zcf ${WORKDIR}'/'${process}'_'${SCRAM_ARCH}'_'${CMSSW_VERSION}'_'${folderName}'.tgz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.top --exclude=*.lhe --exclude=run_*.sh --exclude=*.log --exclude=*temp --exclude=pwgbtlupb-*.dat --exclude=pwgrmupb-*.dat
+    tar zcf ${WORKDIR}'/'${process}'_'${SCRAM_ARCH}'_'${CMSSW_VERSION}'_'${folderName}'.tgz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.top --exclude=*.lhe --exclude=run_*.sh --exclude=*temp --exclude=pwgbtlupb-*.dat --exclude=pwgrmupb-*.dat
 fi
 
 cd ${WORKDIR}

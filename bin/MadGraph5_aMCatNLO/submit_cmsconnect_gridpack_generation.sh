@@ -119,9 +119,10 @@ proxy-watcher -start
 #26:119 : CVMFS failed
 #30:256: Job put on hold by remote host
 #13: condor_starter or shadow failed to send job
+#12:28 : (errno 28) No space left on device
 
 if [ -z "$CONDOR_RELEASE_HOLDCODES" ]; then
-  export CONDOR_RELEASE_HOLDCODES="26:119,13,30:256"
+  export CONDOR_RELEASE_HOLDCODES="26:119,13,30:256,12:28"
 fi
 if [ -z "$CONDOR_RELEASE_HOLDCODES_SHADOW_LIM" ]; then
   export CONDOR_RELEASE_HOLDCODES_SHADOW_LIM="10"
@@ -129,7 +130,7 @@ fi
 # Set a list of maxwalltime in minutes
 # Pilots maximum life is 48h or 2880 minutes
 if [ -z "$CONDOR_SET_MAXWALLTIMES" ]; then
-  export CONDOR_SET_MAXWALLTIMES="500,960,2160,2820"
+  export CONDOR_SET_MAXWALLTIMES="500,960,2160,2820,4200"
 fi
 
 ##########################
