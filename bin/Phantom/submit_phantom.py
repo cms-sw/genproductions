@@ -811,19 +811,63 @@ def gridpackGeneration (debugging):
     # launch the submission script
     execute ('source ' + submitfilename, debugging)
 
-    # wait until all jobs finish, before calculating the cross-section
-    # and compressing the gridpack
-    finished = False
-    while not finished:
-        finished = True
-        unfinished = int (0)
-        for fil in processoutputs:
-            if not os.path.exists (fil):
-                finished = False
-                unfinished += 1
-        sys.stdout.write ('waiting for: ' + str (unfinished) + ' jobs\r' )
-        sys.stdout.flush ()
-        time.sleep (60) # seconds
+    os.chdir (rootfolder)
+    sys.exit (0)
+
+
+# ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+
+''' creating tarball of the gridpack generated for the wmLHE prodcution framework
+'''
+def gridpackCreation (debugging):
+    rootfolder = os.getcwd ()
+    # values to be inserted in the phantom r.in file
+    substitute = {}
+    config = ConfigParser.ConfigParser ()
+    config.optionxform = str # to preserve the case when reading options
+    print 'reading config file:',sys.argv[1]
+    config.read (sys.argv[1])
+
+    # prepare the folder for the gridpack creation
+    foldername = os.getcwd () + '/phantomGrid_' + datetime.datetime.now().strftime('%y-%m-%d-%H-%M')
+    if config.has_option ('general', 'foldername') :
+        foldername = os.getcwd () + '/' + config.get ('general', 'foldername')
+    if os.path.exists (foldername + '.tar.xz'):
+        print 'gridpack ' + foldername + '.tgz already existing, exiting'
+        sys.exit (1)
+
+    os.chdir (foldername)
+    workingfolder = os.getcwd ()
+
+    phantom = config.get ('general', 'package')
+    phantomfolder = phantom.split ('/')[-1]
+
+    if not os.path.exists (workingfolder + '/' + phantomfolder):
+       execute ('wget ' + phantom) 
+       execute ('tar xvf ' + phantomfolder) 
+
+    dummy = '.tar.gz'
+    phantomfolder = phantomfolder[0:-len(dummy)] if phantomfolder.endswith(dummy) else phantomfolder
+    dummy = '.tgz'
+    phantomfolder = phantomfolder[0:-len(dummy)] if phantomfolder.endswith(dummy) else phantomfolder
+
+
+    # get the cmssw environment and the location of the pdf grids
+    cmssw = config.get ('general', 'CMSSW')
+    scram_arch = config.get ('general', 'ARCH')
+    os.environ['SCRAM_ARCH'] = scram_arch
+    shell = 'sh'
+    if os.environ['SHELL'].find ('c') != -1 :
+        shell = 'csh'
+
+    submitfilename = workingfolder + '/' + config.get ('submission','scheduler') + 'file'
+
+    # get the list of process output files
+    processoutputs = []
+    submitfile = open (submitfilename, 'read')
+    for line in submitfile.readlines () :
+        if 'bsub' in line: processoutputs.append (line.split()[6])
+    submitfile.close ()
 
     # log file of the generation parameters
     logfilename = workingfolder + '/log_GRID.txt'
@@ -881,7 +925,6 @@ def gridpackGeneration (debugging):
 
 
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-
 
 def produceEvents (nevents, ngenerations, queue, debugging=True):
     # Parse the configuration
@@ -1054,6 +1097,9 @@ if __name__ == '__main__':
                 sys.exit (0)
         elif arg2 == "--test":
             runSimpleVerification (sys.argv[1])
+            sys.exit (0)
+        elif arg2 == "--createGP":
+            gridpackCreation(verbose)
             sys.exit (0)
 
     gridpackGeneration (verbose)
