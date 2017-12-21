@@ -41,10 +41,10 @@ xupbound 2d0      ! increase upper bound for radiation generation
 ttype        -1
 
 ! Set for hadronic decay
-topdecaymode OO111   ! decay mode: the 5 digits correspond to the following
+topdecaymode 00111   ! decay mode: the 5 digits correspond to the following
                      ! top-decay channels (l,mu,tau,u,c) 
                      ! 0 means close, 1 open
-wdecaymode OO111     ! decay mode: the 5 digits correspond to the following
+wdecaymode 00111     ! decay mode: the 5 digits correspond to the following
                      ! primary-w-decay channels (l,mu,tau,u,c) 
                      ! 0 means close, 1 open
 tdec/elbranching 0.108  ! W electronic branching fraction
