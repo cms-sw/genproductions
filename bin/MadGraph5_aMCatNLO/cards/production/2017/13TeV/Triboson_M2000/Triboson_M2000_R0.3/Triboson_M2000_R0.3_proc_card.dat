@@ -1,0 +1,4 @@
+import model Radion_EW_all
+generate p p > wkk+ > w+ r , r > w+ w-
+add process p p > wkk- > w- r , r > w+ w-
+output Triboson_M2000_R0.3 -nojpeg
