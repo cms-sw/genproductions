@@ -1,1 +1,1 @@
-DecayMode1=8 DecayMode2=9 FilterNLept=4 WriteFailedEvents=2 ghz2=1,0
+DecayMode1=8 DecayMode2=9 FilterNLept=4 WriteFailedEvents=2 ghz1=0,0 ghz2=1,0
