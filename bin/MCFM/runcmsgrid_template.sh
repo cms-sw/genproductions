@@ -44,8 +44,6 @@ cd $LHEWORKDIR
 
 basename=BASENAME
 
-cd $LHEWORKDIR/$basename
-
 LHAPDFCONFIG=`echo "$LHAPDF_DATA_PATH/../../bin/lhapdf-config"`
 #if lhapdf6 external is available then above points to lhapdf5 and needs to be overridden
 LHAPDF6TOOLFILE=$CMSSW_BASE/config/toolbox/$SCRAM_ARCH/tools/available/lhapdf6.xml
@@ -58,12 +56,19 @@ export LHAPDF_DATA_PATH=`$LHAPDFCONFIG --datadir`
 export LHAPATH=$LHADPDF_DATA_PATH
 
 
-sed "s@EVTS@$nevt@g" input_gen.DAT > input_g0.DAT
-sed "s@XRAN@$rnum@g" input_g0.DAT  > input.DAT
-./mcfm
+#sed "s@EVTS@$nevt@g" input_gen.DAT > input_g0.DAT
+#sed "s@XRAN@$rnum@g" input_g0.DAT  > input.DAT
+sed -i "s/NEVENT/"$nevt"/" INPUT.DAT
+sed -i "s/SEED/"$rnum"/" INPUT.DAT
+./mcfm INPUT.DAT
 #Replace the negative so pythia will work
 #sed "s@-1000022@1000022@g" FILENAME > $LHEWORKDIR/cmsgrid_final.lhe
-mv FILENAME $LHEWORKDIR/cmsgrid_final.lhe
+lhefiles=($(ls *.lhe))
+if [ ${#lhefiles[@]} -ne 1 ];then exit 1; else FILENAME=${lhefiles[0]}; fi
+mv $FILENAME $LHEWORKDIR/cmsgrid_final.lhe
+fevt=$(grep "<event>" cmsgrid_final.lhe|wc -l)
+if [ ${nevt} -ne ${fevt} ]; then python adjlheevent.py ${nevt} ${fevt}; fi
+
 cd $LHEWORKDIR
 
 ls -l
