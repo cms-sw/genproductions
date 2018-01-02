@@ -1,1 +1,1 @@
-VegasNc0=99999999 Process=80 TopDK=1 DecayMode1=11 DecayMode2=11 MReso=125 kappa=1,0 kappa_tilde=1.6,0 pTjetcut=0 deltaRcut=0 LHAPDF=NNPDF31_lo_as_0130/NNPDF31_lo_as_0130.info ReadCSmax
+VegasNc0=99999999 Process=80 TopDK=1 DecayMode1=11 DecayMode2=11 MReso=125 kappa=1,0 kappa_tilde=1.6,0 LHAPDF=NNPDF31_lo_as_0130/NNPDF31_lo_as_0130.info ReadCSmax
