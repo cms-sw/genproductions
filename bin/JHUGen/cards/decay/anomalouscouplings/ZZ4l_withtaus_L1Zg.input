@@ -1,1 +1,1 @@
-DecayMode1=8 DecayMode2=8 ghz1=0,0 ghzgs1_prime2=1,0
+DecayMode1=8 DecayMode2=8 ghz1=0,0 ghzgs1_prime2=1,0 MPhotonCutoff=0

@@ -1,1 +1,1 @@
-DecayMode1=8 DecayMode2=9 FilterNLept=4 WriteFailedEvents=2 ghz1=1,0 ghzgs1_prime2=-642.9534,0
+DecayMode1=8 DecayMode2=9 FilterNLept=4 WriteFailedEvents=2 ghz1=1,0 ghzgs1_prime2=-642.9534,0 MPhotonCutoff=0
