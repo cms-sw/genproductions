@@ -1,0 +1,13 @@
+import model sm-ckm_no_b_mass
+define l+ = e+
+define l- = e-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+# Specify process(es) to run
+generate p p > l+ l- / h @0
+add process p p > l+ l- j / h @1
+add process p p > l+ l- j j / h @2
+add process p p > l+ l- j j j / h @3
+add process p p > l+ l- j j j j / h @4
+# Output processes to MadEvent directory
+output DYJets_M50_LT_800to2000 -nojpeg
