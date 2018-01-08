@@ -13,11 +13,12 @@ CAMPAIGN='Moriond17'
 DATATIER='MINIAODSIM'
 EVENTS='1000000'
 MCM=False
+SKIPEXISTING=False
 
 DEBUG=False
 # DEBUG=True
 
-while getopts f:c:d:n:m option
+while getopts f:c:d:n:m:s option
 do
     case "${option}"
     in
@@ -26,6 +27,7 @@ do
             d) DATATIER=${OPTARG};;
             n) EVENTS=${OPTARG};;
             m) MCM=True;;
+            s) SKIPEXISTING=True;;
     esac
 done
 
@@ -34,18 +36,22 @@ do
     name="$dataset"
     echo "Name read from file - $name"
     
-    echo 'compute_cross_section.py -f '${dataset}' -c '${CAMPAIGN}' -n '${EVENTS}' -d '${DATATIER}' --mcm "'${MCM}'" --debug "'${DEBUG}'"'
-    output=$(python compute_cross_section.py -f ${dataset} -c ${CAMPAIGN} -n ${EVENTS} -d ${DATATIER} --mcm "${MCM}" --debug "${DEBUG}")
+    echo 'compute_cross_section.py -f '${dataset}' -c '${CAMPAIGN}' -n '${EVENTS}' -d '${DATATIER}' --mcm "'${MCM}'" --skipexisting "'${SKIPEXISTING}'" --debug "'${DEBUG}'"'
+    output=$(python compute_cross_section.py -f ${dataset} -c ${CAMPAIGN} -n ${EVENTS} -d ${DATATIER} --mcm "${MCM}" --skipexisting "${SKIPEXISTING}" --debug "${DEBUG}")
     output=${output#*.txt}
     
     if [ "${DEBUG}" != "True" ]; then
-      # echo 'output '${output} > test.log
-      eval ${output}
+      if [[ $output == *"cmsRun"* ]]; then
+        eval ${output}
+      else
+        echo ${output}
+      fi
     else
       echo 'output'
       echo ${output}
       exit 1
     fi
+    echo ""
     
 done < "$FILE"
 

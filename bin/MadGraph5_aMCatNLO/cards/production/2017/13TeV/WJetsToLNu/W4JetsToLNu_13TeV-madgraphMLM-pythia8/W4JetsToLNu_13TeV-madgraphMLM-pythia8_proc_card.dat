@@ -1,0 +1,10 @@
+import model sm-ckm_no_b_mass
+
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
+
+generate p p > w+ j j j j, w+ > l+ vl $$ t t~ h @0
+add process p p > w- j j j j, w- > l- vl~ $$ t t~ h @1
+
+
+output W4JetsToLNu_13TeV-madgraphMLM-pythia8 -nojpeg
