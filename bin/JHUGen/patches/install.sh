@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sed -euo pipefail
+set -euo pipefail
 
 if [ $# -eq 0 ]; then
     linkMELA=false

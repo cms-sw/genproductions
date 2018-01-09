@@ -41,9 +41,10 @@ masswidth = (
   (3000, 1500.0),
 )
 
-with open("HZJ_HanythingJ_NNPDF31_13TeV_template.input") as f:
+with open("HWJ_HanythingJ_ZZ_NNPDF31_13TeV_template.input") as f:
   template = f.read()
 
 for mass, width in masswidth:
-  with open("HZJ_HanythingJ_NNPDF31_13TeV_M{}.input".format(mass), "w") as f:
-    f.write(template.format(mass=mass, width=width))
+  for sign, W in ("plus", 24), ("minus", -24):
+    with open("HW{}J_HanythingJ_ZZ_NNPDF31_13TeV_M{}.input".format(sign, mass), "w") as f:
+      f.write(template.format(mass=mass, width=width, W=W))
