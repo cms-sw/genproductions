@@ -66,9 +66,6 @@ for run_card in $(find $new_cards_path -type f -follow -print -name "*run_card*"
 	
 	# Deleting lines from Store info for systematics studies ... to MSTW2008nlo68cl.LHgrid for 2017 MC production 
 	sed -i "/Store info for systematics studies/,/MSTW2008nlo68cl.LHgrid/d" $run_card 
-	# For 2017 requests with MG5_aMC at LO set	
-	sed -i "\$a # For 2017 requests with MG5_aMC at LO set" $run_card 
-	sed -i "\$a T = pdfwgt" $run_card
 	
     fi
     sed -i "s/.*= *PDF_set_min//g" $run_card
