@@ -142,6 +142,8 @@ def modifySubmitfileCMSSWCompiler (submitfilename, pdfgridfolder, phantompdflib,
 
 ''' setup the shell script that will be run by the cms production framework
     in the wmLHE production mode
+    NOTA BENE the script does not allow to modify the architecture on purpose
+              since it keeps the one used for the gridpack calculation
 '''
 def prepareEventProductionScript (productionfilename, phantom, phantomfolder, cmssw, shell, scram_arch, debugging = 0):
     productionfile = open (productionfilename, 'write')
@@ -157,16 +159,37 @@ def prepareEventProductionScript (productionfilename, phantom, phantomfolder, cm
 
     productionfile.write ('nevt=${1}\n')
     productionfile.write ('echo "%MSG-PHANTOM number of events requested = $nevt"\n')
-
     productionfile.write ('rnum=${2}\n')
     productionfile.write ('echo "%MSG-PHANTOM random seed used for the run = $rnum"\n')
-
     productionfile.write ('ncpu=1\n')
     productionfile.write ('echo "%MSG-PHANTOM number of cputs for the run = $ncpu"\n')
 
+    productionfile.write ('cmssw_version=' + cmssw + '\n')
+    productionfile.write ('scram_arch=' + scram_arch + '\n')
+
+    productionfile.write ('modify_env=false\n')
+
+    productionfile.write ('if [ -n "$4" ]\n')
+    productionfile.write ('  then\n')
+    productionfile.write ('    modify_env=$4\n')
+    productionfile.write ('    if [ "$modify_env" = true ]\n')
+    productionfile.write ('      then\n')
+    productionfile.write ('      if [ -n "$6" ]\n')
+    productionfile.write ('        then\n')
+    productionfile.write ('          cmssw_version=${6}\n')
+    productionfile.write ('      fi\n')
+    productionfile.write ('    fi  \n')
+    productionfile.write ('  echo ${1}\n')
+    productionfile.write ('  else\n')
+    productionfile.write ('  echo "ciccia"  \n')
+    productionfile.write ('fi\n')
+
+    productionfile.write ('echo "%MSG-PHANTOM getting environment LHAPDF from CMSSW release = $cmssw_version"\n')
+    productionfile.write ('echo "%MSG-PHANTOM running with architecture  = $scram_arch"\n')
+
     # setup the environment for the running
-    productionfile.write ('scram -a ' + scram_arch + ' project CMSSW ' + cmssw + '\n')
-    productionfile.write ('cd ' + cmssw + '/src\n')
+    productionfile.write ('scram -a ${scram_arch} project CMSSW ${cmssw_version}\n')
+    productionfile.write ('cd ${cmssw_version}/src\n')
     productionfile.write ('eval `scram runtime -' + shell + '`\n')
     productionfile.write ('cd -\n')
 
@@ -185,8 +208,10 @@ def prepareEventProductionScript (productionfilename, phantom, phantomfolder, cm
     # call the event production
     productionfile.write ('./' + phantomfolder + '/phantom.exe >& log_GEN.txt\n')
 
-    # FIXME check the success of the production
-    productionfile.write ('mv phamom.dat cmsgrid_final.lhe\n')
+    # FIXME check the success of the production    
+    productionfile.write ('head -n `grep -n "<init>" phamom.dat | tr ":" " " | awk \'{print $1+1}\'` phamom.dat >> cmsgrid_final.lhe\n')
+    productionfile.write ('tail -n 1 result | awk \'{print $4" "$6" -1 -1"}\' >> cmsgrid_final.lhe\n')
+    productionfile.write ('tail -n +`grep -n "<init>" phamom.dat | tr ":" " " | awk \'{print $1+3}\'` phamom.dat >> cmsgrid_final.lhe\n')
 
     productionfile.close ()
     execute ('chmod 755 ' + productionfilename, debugging)
@@ -435,7 +460,7 @@ def verifyGridpack (processoutputs, workingfolder, logfile):
                 writing = writing + '\t' + str (elem[-1])
                 logfile.write (writing + '\n')
     
-            # prepare drawings of the grid calculation process
+            # prepare detailed drawings of the grid calculation process
     
             # find the unique occurrences in first and second column
             steps = set ([elem[0] for elem in thisoutput])
@@ -516,6 +541,24 @@ def verifyGridpack (processoutputs, workingfolder, logfile):
         plt.xticks (x_val, x_label, rotation='vertical')
         plt.title (step + ' chi2\n')
         plt.ylabel ('chi2')
+        plt.xlim((-1,len (x_label)))
+        plt.subplots_adjust (bottom=0.5)
+        fig2.savefig (plotsFile, format = 'pdf')
+
+        # the relative error
+
+        y_val_tota = []
+        for elem in summary_output:
+            if (elem[1] != step): continue
+            if (elem[5] == 0.): y_val_tota.append (0.)
+            else              : y_val_tota.append (elem[6]/elem[5])
+        x_label = [elem[0]+' '+str(elem[2]) for elem in summary_output if (elem[1] == step)]
+        x_val = range (len (x_label))
+        fig2 = plt.figure ()
+        plt.plot (x_val, y_val_tota, color ='r')
+        plt.xticks (x_val, x_label, rotation='vertical')
+        plt.title (step + ' relative error\n')
+        plt.ylabel ('rel. error')
         plt.xlim((-1,len (x_label)))
         plt.subplots_adjust (bottom=0.5)
         fig2.savefig (plotsFile, format = 'pdf')
@@ -636,7 +679,7 @@ def gridpackGeneration (debugging):
     if config.has_option ('general', 'foldername') :
         foldername = os.getcwd () + '/' + config.get ('general', 'foldername')
     if os.path.exists (foldername + '.tar.xz'):
-        print 'gridpack ' + foldername + '.tgz already existing, exiting'
+        print 'gridpack ' + foldername + '.tar.xz already existing, exiting'
         sys.exit (1)
     print 'creating gridpack in folder: ' + foldername
     os.system ('rm -rf ' + foldername)
@@ -664,14 +707,19 @@ def gridpackGeneration (debugging):
     execute ('pwd', debugging)
     result = execute ('eval `scram runtime -' + shell + '` ; printenv | grep LHAPDF_DATA_PATH', debugging)
     os.chdir (workingfolder)
+
     # get the pdf grid
 #    execute ('printenv | grep LHAPDF_DATA_PATH', debugging)
 #    pdfgridfolder = os.environ['LHAPDF_DATA_PATH']
+
+    pdfgridfolder = '' 
     for line in result[1].split('\n'):
         if line.startswith ('LHAPDF_DATA_PATH=') :
             pdfgridfolder = line[len ('LHAPDF_DATA_PATH='):]
             break
-    pdfgrids = pdfgridfolder+'/' + config.get ('parameters','PDFname')
+    if debugging:
+        print 'using pdf grids at: ' + pdfgridfolder
+    pdfgrids = pdfgridfolder + '/' + config.get ('parameters','PDFname')
     if not os.path.exists (pdfgrids):
         print 'PDF grids ' + pdfgrids + ' not found, exiting'
         sys.exit (1)
@@ -835,7 +883,7 @@ def gridpackGeneration (debugging):
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
 
-def produceEvents (nevents, ngenerations, debugging=True):
+def produceEvents (nevents, ngenerations, queue, debugging=True):
     # Parse the configuration
     substitute = {}
     config = ConfigParser.ConfigParser ()
@@ -912,7 +960,7 @@ def produceEvents (nevents, ngenerations, debugging=True):
     modifySubmitfileCMSSWCompiler ('gen1/run', "", "", cmssw, "sh", scram_arch)
 
     # Now run the phantom tool to generate the folders
-    execute ("./gendir.scr -l CERN -q 1nw -d "+ str(ngenerations) + " -i `pwd`", debugging)
+    execute ("./gendir.scr -l CERN -q " + queue + " -d "+ str(ngenerations) + " -i `pwd`", debugging)
     # We have now a submit file create, we have to add the CMSSW activation at the beginning
 #    modifySubmitfileCMSSWCompiler(os.getcwd() +'/submitfile', "", "", cmssw, "sh", scram_arch, cmssw_path="../")
 
@@ -920,6 +968,13 @@ def produceEvents (nevents, ngenerations, debugging=True):
     print "Launching the generation of {0} events * {1} generations = {2} events".format(nevents,
             ngenerations, nevents*ngenerations)
     execute('source '+ os.getcwd() +'/submitfile', debugging)
+    
+    print '\nAt the end of the events production, please run the following to get the total XS,'
+    print 'to be compared to the one calculated in the gridpack production and stored'
+    print 'in the file "result" as a cross-check of the gridpack\n' 
+    print 'cd ' + workingfolder
+    print 'grep -A 1 total\ integral generations/gen*/run.o* > res'    
+    print workingfolder + '/' + phantomfolder + '/tools/gentotint.exe > result_gen.txt'
 
 
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
@@ -960,7 +1015,11 @@ def runSimpleVerification (configfilename):
     processoutputs = []
     submitfile = open (submitfilename, 'read')
     for line in submitfile.readlines () :
-        if 'bsub' in line: processoutputs.append (line.split()[6])
+        if 'bsub' in line: 
+            outfilename = line.split()[6].split (config.get ('general', 'foldername'))
+#            print foldername + outfilename [1]
+#            print outfilename
+            processoutputs.append (foldername + outfilename [1])
     submitfile.close ()
 
     verifyGridpack (processoutputs, workingfolder, logfile)
@@ -989,7 +1048,9 @@ if __name__ == '__main__':
             else:
                 nevents_produce = int(sys.argv[3])
                 ngenerations_produce = int(sys.argv[4])
-                produceEvents (nevents_produce, ngenerations_produce)
+                queue = '8nh'
+                if len (sys.argv) > 5 : queue = sys.argv[5]
+                produceEvents (nevents_produce, ngenerations_produce, queue)
                 sys.exit (0)
         elif arg2 == "--test":
             runSimpleVerification (sys.argv[1])
