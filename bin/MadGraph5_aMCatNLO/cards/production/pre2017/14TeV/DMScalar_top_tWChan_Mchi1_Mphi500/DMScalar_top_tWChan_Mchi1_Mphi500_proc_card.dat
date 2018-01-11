@@ -21,14 +21,12 @@
 #*                                                          *
 #************************************************************
 import model DMScalar
-define p = g u c d s u~ c~ d~ s~
-define j = g u c d s u~ c~ d~ s~
+define p = g u c d s b u~ c~ d~ s~ b~
+define j = g u c d s b u~ c~ d~ s~ b~
 define l+ = e+ mu+
 define l- = e- mu-
 define vl = ve vm vt
 define vl~ = ve~ vm~ vt~
-define p = p b  b~
-define j = j b  b~
 generate p p > t w- chi~ chi /h
 add process p p > t~ w+ chi~ chi /h
 output DMScalar_top_tWChan_Mchi1_Mphi500
