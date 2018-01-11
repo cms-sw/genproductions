@@ -9,7 +9,7 @@ if [ -z $1 ]; then
 fi
 
 base_folder=$(git rev-parse --show-toplevel)/bin/MadGraph5_aMCatNLO
-
+echo $base_folder
 old_cards_relative_path=cards/production/13TeV/$1
 old_cards_path=${base_folder}/${old_cards_relative_path}
 new_cards_path=${base_folder}/cards/production/2017/13TeV/$1
@@ -51,14 +51,26 @@ git commit -m "Copying $1 cards from legacy production to modify for 2017"
 for run_card in $(find $new_cards_path -type f -follow -print -name "*run_card*"); do 
     # reweight_PDF may not be present in older cards
     if grep -q -e ".*= *reweight_PDF" $run_card; then
-        sed -i "s/^.*= *lhaid/\$DEFAULT_PDF_SETS = lhaid/g" $run_card
+        sed -i "s/^.*= *pdlabel/lhapdf = pdlabel/g" $run_card
+	sed -i "s/^.*= *lhaid/\$DEFAULT_PDF_SETS = lhaid/g" $run_card
         sed -i "s/.*= *reweight_PDF/\$DEFAULT_PDF_MEMBERS = reweight_PDF/g" $run_card
+	
+	# Deleting lines containing "Store info for systematics studies" to "MSTW2008nlo68cl.LHgrid" for 2017 MC production 
+	sed -i '/Store info for systematics studies/,/MSTW2008nlo68cl.LHgrid/d' $run_card
+	# For 2017 requests with MG5_aMC at LO set	
+	sed -i "\$a # For 2017 requests with MG5_aMC at LO set" $run_card 
+	sed -i "\$a T = pdfwgt" $run_card
     else
-        sed -i "s/^.*= *lhaid/\$DEFAULT_PDF_SETS = lhaid\n\$DEFAULT_PDF_MEMBERS = reweight_PDF/g" $run_card
+        sed -i "s/^.*= *pdlabel/lhapdf = pdlabel/g" $run_card
+	sed -i "s/^.*= *lhaid/\$DEFAULT_PDF_SETS = lhaid\n\$DEFAULT_PDF_MEMBERS = reweight_PDF/g" $run_card
+	
+	# Deleting lines from Store info for systematics studies ... to MSTW2008nlo68cl.LHgrid for 2017 MC production 
+	sed -i "/Store info for systematics studies/,/MSTW2008nlo68cl.LHgrid/d" $run_card 
+	
     fi
     sed -i "s/.*= *PDF_set_min//g" $run_card
     sed -i "s/.*= *PDF_set_max//g" $run_card
-    git add $run_card
+    #git add $run_card
 done
 
-git commit -m "Updating PDF sets to 2017 defaults for $1"
+#git commit -m "Updating PDF sets to 2017 defaults for $1"
