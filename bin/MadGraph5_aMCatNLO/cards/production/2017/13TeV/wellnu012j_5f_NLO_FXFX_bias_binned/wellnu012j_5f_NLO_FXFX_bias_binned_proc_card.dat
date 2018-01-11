@@ -1,0 +1,19 @@
+set low_mem_multicore_nlo_generation True
+
+import model loop_sm-ckm_no_b_mass
+#switch to diagonal ckm matrix if needed for speed
+#import model loop_sm-no_b_mass
+
+define ell+ = e+ mu+ ta+
+define ell- = e- mu- ta-
+
+generate p p > ell+ vl $$ t t~ h [QCD] @0
+add process p p > ell+ vl j $$ t t~ h [QCD] @1
+add process p p > ell+ vl j j $$ t t~ h [QCD] @2
+
+add process p p > ell- vl~ $$ t t~ h [QCD] @3
+add process p p > ell- vl~ j $$ t t~ h [QCD] @4
+add process p p > ell- vl~ j j $$ t t~ h [QCD] @5
+
+output wellnu012j_5f_NLO_FXFX_bias_binned -nojpeg
+
