@@ -1,4 +1,0 @@
-import model Radion_EW_all
-generate p p > wkk+ > w+ r , r > w+ w-
-add process p p > wkk- > w- r , r > w+ w-
-output Triboson_M3500_R0.4 -nojpeg

@@ -1,7 +1,0 @@
-#set param_card mass 9000024 3000.000000
-set param_card kkinputs 5 2500.0000
-set param_card kkinputs 2 6.708000e+00
-set param_card mass 9000025 250.000000
-set param_card mass 9000024 2500.000000
-set param_card DECAY 9000024 17.632
-set param_card DECAY 9000025 0.0010935
