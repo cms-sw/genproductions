@@ -20,7 +20,8 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
             ),
             parameterSets = cms.vstring('setHiggsScalarPseudoscalarPDG', 'setHiggsScalarPseudoscalarMixingAngle'),
             setHiggsScalarPseudoscalarPDG = cms.int32(25),
-            setHiggsScalarPseudoscalarMixingAngle = cms.double(0)
+            setHiggsScalarPseudoscalarMixingAngle = cms.double(0), #this is for SM decay
+                                                                   #change to 90 for pure pseudoscalar
         ),
         parameterSets = cms.vstring('Tauola'),
     ),
