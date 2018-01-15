@@ -140,8 +140,6 @@ def generate_run_card(Gstar_mass, Gstar_width, Tp_mass, Tp_width, chirality, Tp_
 #*********************************************************************
 # PDF CHOICE: this automatically fixes also alpha_s and its evol.    *
 #*********************************************************************
-# 'cteq6l1'    = pdlabel     ! PDF set (lhapdf for using lhapdf)
-#  10042       = lhaid      ! PDF number used ONLY for LHAPDF
  'lhapdf'   = pdlabel   ! PDF set                                  
   263400    = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number 
 #*********************************************************************

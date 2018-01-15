@@ -48,8 +48,6 @@
 #*********************************************************************
 # PDF CHOICE: this automatically fixes also alpha_s and its evol.    *
 #*********************************************************************
-# 'cteq6l1'    = pdlabel     ! PDF set (lhapdf for using lhapdf)
-#  10042       = lhaid      ! PDF number used ONLY for LHAPDF
  'lhapdf'   = pdlabel   ! PDF set                                  
   263400    = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number 
 #*********************************************************************
