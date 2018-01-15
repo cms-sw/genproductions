@@ -264,3 +264,5 @@ True	=  isoEM  ! isolate photons from EM energy (photons and leptons)
 #*********************************************************************
 # For 2017 requests with MG5_aMC at LO set
 T = pdfwgt
+# For 2017 requests with MG5_aMC at LO set
+T = pdfwgt
