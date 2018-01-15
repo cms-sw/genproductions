@@ -1,4 +1,96 @@
-#*********************************************************************  
+import sys
+import os
+import subprocess
+import time
+import datetime
+import stat
+import ROOT
+
+def generate_sample_directories(Gstar_mass, Gstar_width, Tp_mass, Tp_width, chirality, Tp_decay):
+    cwd = os.getcwd()
+    if not os.path.exists(cwd+"/ZpTpt_Zp"+str(Gstar_mass)+Gstar_width+"_Tp"+str(Tp_mass)+Tp_width+chirality+"_"+Tp_decay):
+        os.makedirs(cwd+"/ZpTpt_Zp"+str(Gstar_mass)+Gstar_width+"_Tp"+str(Tp_mass)+Tp_width+chirality+"_"+Tp_decay)
+        
+def generate_customizecards(Gstar_mass, Gstar_width, Tp_mass, Tp_width, chirality, Tp_decay): 
+    
+    if  Gstar_width == "Nar":
+        Gstar_mass_width=Gstar_mass*0.01
+    else:
+        Gstar_mass_width=Gstar_mass*0.3
+       
+    if  Tp_width == "Nar":
+        Tp_mass_width=Tp_mass*0.01
+    else:
+        Tp_mass_width=Tp_mass*0.3       
+       
+    script=""
+    script+="""set param_card frblock 4 """+str(float(Tp_mass))+"""
+set param_card mass 9000010 """+str(float(Gstar_mass))+"""
+set param_card mass 9000001 """+str(float(Tp_mass))+"""
+set param_card mass 9000002 """+str(float(Tp_mass))+"""
+set param_card mass 9000003 """+str(float(Tp_mass))+"""
+set param_card mass 9000004 """+str(float(Tp_mass))+"""
+set param_card DECAY 9000001 """+str(Tp_mass_width)+"""
+set param_card DECAY 9000002 """+str(Tp_mass_width)+"""
+set param_card DECAY 9000003 """+str(Tp_mass_width)+"""
+set param_card DECAY 9000004 """+str(Tp_mass_width)+"""
+set param_card DECAY 9000010 """+str(Gstar_mass_width)
+    
+    
+    f=open("ZpTpt_Zp"+str(Gstar_mass)+Gstar_width+"_Tp"+str(Tp_mass)+Tp_width+chirality+"_"+Tp_decay+"/ZpTpt_Zp"+str(Gstar_mass)+Gstar_width+"_Tp"+str(Tp_mass)+Tp_width+chirality+"_"+Tp_decay+"_customizecards.dat","w")
+    f.write(script)
+    f.close()
+    
+def generate_extramodels(Gstar_mass, Gstar_width, Tp_mass, Tp_width, chirality, Tp_decay):
+    script="Gstar_UFO.zip"
+    
+    f=open("ZpTpt_Zp"+str(Gstar_mass)+Gstar_width+"_Tp"+str(Tp_mass)+Tp_width+chirality+"_"+Tp_decay+"/ZpTpt_Zp"+str(Gstar_mass)+Gstar_width+"_Tp"+str(Tp_mass)+Tp_width+chirality+"_"+Tp_decay+"_extramodels.dat","w")
+    f.write(script)
+    f.close()
+
+def generate_madspin_card(Gstar_mass, Gstar_width, Tp_mass, Tp_width, chirality, Tp_decay):
+    script="""set ms_dir ./madspingrid
+set max_running_process 1
+set Nevents_for_max_weigth 250
+set max_weight_ps_point 400
+decay t > w+ b, w+ > all all
+decay t~ > w- b~, w- > all all
+launch"""
+    
+    f=open("ZpTpt_Zp"+str(Gstar_mass)+Gstar_width+"_Tp"+str(Tp_mass)+Tp_width+chirality+"_"+Tp_decay+"/ZpTpt_Zp"+str(Gstar_mass)+Gstar_width+"_Tp"+str(Tp_mass)+Tp_width+chirality+"_"+Tp_decay+"_madspin_card.dat","w")
+    f.write(script)
+    f.close()
+
+def generate_proc_card(Gstar_mass, Gstar_width, Tp_mass, Tp_width, chirality, Tp_decay):
+    script="""set group_subprocesses Auto
+import model Gstar_UFO"""
+
+    if Tp_decay=="Ht":
+        script+="""
+generate p p > kkg ts > t~ t h
+add process p p > kkg ts~ > t~ t h"""
+    elif Tp_decay=="Zt":
+        script+="""
+generate p p > kkg ts > t~ t z
+add process p p > kkg ts~ > t~ t z"""
+    elif Tp_decay=="Wb":
+        script+="""
+generate p p > kkg ts > t~ w+ b
+add process p p > kkg ts~ > w- b~ t"""
+    script+="""
+output ZpTpt_Zp"""+str(Gstar_mass)+Gstar_width+"_Tp"+str(Tp_mass)+Tp_width+chirality
+    
+    f=open("ZpTpt_Zp"+str(Gstar_mass)+Gstar_width+"_Tp"+str(Tp_mass)+Tp_width+chirality+"_"+Tp_decay+"/ZpTpt_Zp"+str(Gstar_mass)+Gstar_width+"_Tp"+str(Tp_mass)+Tp_width+chirality+"_"+Tp_decay+"_proc_card.dat","w")
+    f.write(script)
+    f.close()
+
+    f=open("ZpTpt_Zp"+str(Gstar_mass)+Gstar_width+"_Tp"+str(Tp_mass)+Tp_width+chirality+"_"+Tp_decay+"/ZpTpt_Zp"+str(Gstar_mass)+Gstar_width+"_Tp"+str(Tp_mass)+Tp_width+chirality+"_"+Tp_decay+"_run_card.dat","w")
+    f.write(script)
+    f.close()
+    
+
+def generate_run_card(Gstar_mass, Gstar_width, Tp_mass, Tp_width, chirality, Tp_decay):
+    script="""#*********************************************************************  
 #                       MadGraph5_aMC@NLO                            *
 #                                                                    *
 #                     run_card.dat MadEvent                          *
@@ -266,17 +358,35 @@
 # WARNING: If use_syst is T, matched Pythia output is                *
 #          meaningful ONLY if plotted taking matchscale              *
 #          reweighting into account!                                 *
-#*********************************************************************
-   T  = use_syst      ! Enable systematics studies
-#
-#**************************************
-# Parameter of the systematics study
-#  will be used by SysCalc (if installed)
-#**************************************                                  
-#
-#0.5 1 2 = sys_scalefact  # factorization/renormalization scale factor
-#0.5 1 2 = sys_alpsfact  # \alpha_s emission scale factors
-#30 50 = sys_matchscale # variation of merging scale
-# PDF sets and number of members (0 or none for all members).
-#CT10nlo.LHgrid = sys_pdf # matching scales
-# MSTW2008nlo68cl.LHgrid 1 = sys_pdf
+#*********************************************************************"""
+
+    
+    f=open("ZpTpt_Zp"+str(Gstar_mass)+Gstar_width+"_Tp"+str(Tp_mass)+Tp_width+chirality+"_"+Tp_decay+"/ZpTpt_Zp"+str(Gstar_mass)+Gstar_width+"_Tp"+str(Tp_mass)+Tp_width+chirality+"_"+Tp_decay+"_run_card.dat","w")
+    f.write(script)
+    f.close()
+    
+
+#Gstar_mass_list=[1500,1500,1500, 1750,1750, 2000,2000,2000, 2250,2250, 2500,2500,2500, 3000,3000,3000, 3500,3500,3500, 4000,4000,4000]
+#Tp_mass_list   =[ 800,1000,1200, 1000,1300, 1000,1300,1500, 1300,1500, 1300,1500,1800, 1500,2000,2500, 1800,2100,2500, 2100,2500,3000]
+Gstar_mass_list=[1500]
+Tp_mass_list   =[ 800]
+
+Gstar_width_list=["Nar","WID"]
+Tp_width_list=["Nar"]
+chirality_list=["LH"]
+Tp_decay_list=["Ht","Zt","Wb"]
+    
+    
+for Gstar_mass,Tp_mass in zip(Gstar_mass_list,Tp_mass_list):
+    for Gstar_width in Gstar_width_list:
+        for Tp_width in Tp_width_list:
+            for chirality in chirality_list:
+                for Tp_decay in Tp_decay_list:
+                    generate_sample_directories(Gstar_mass, Gstar_width, Tp_mass, Tp_width, chirality, Tp_decay)
+                    generate_customizecards(Gstar_mass, Gstar_width, Tp_mass, Tp_width, chirality, Tp_decay)
+                    generate_extramodels(Gstar_mass, Gstar_width, Tp_mass, Tp_width, chirality, Tp_decay)
+                    generate_madspin_card(Gstar_mass, Gstar_width, Tp_mass, Tp_width, chirality, Tp_decay)
+                    generate_proc_card(Gstar_mass, Gstar_width, Tp_mass, Tp_width, chirality, Tp_decay)
+                    generate_run_card(Gstar_mass, Gstar_width, Tp_mass, Tp_width, chirality, Tp_decay)
+                    
+                    
