@@ -174,7 +174,7 @@ False	=  cut_decays     ! Cut decay products
 0.0	=  mmjj     ! min invariant mass of a jet pair
 0.0	=  mmbb     ! min invariant mass of a b pair
 0.0	=  mmaa     ! min invariant mass of gamma gamma pair
-10.0	=  mmll     ! min invariant mass of l+l- (same flavour) lepton pair
+0.0	=  mmll     ! min invariant mass of l+l- (same flavour) lepton pair
 -1.0	=  mmjjmax  ! max invariant mass of a jet pair
 -1.0	=  mmbbmax  ! max invariant mass of a b pair
 -1.0	=  mmaamax  ! max invariant mass of gamma gamma pair
@@ -261,8 +261,6 @@ True	=  isoEM  ! isolate photons from EM energy (photons and leptons)
 # Jet measure cuts                                                   *
 #*********************************************************************
 0.0	=  xqcut    ! minimum kt jet measure between partons
-#*********************************************************************
-#
 #*********************************************************************
 # For 2017 requests with MG5_aMC at LO set
 T = pdfwgt
