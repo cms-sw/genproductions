@@ -45,7 +45,7 @@ command="./JHUGen $(cat ../JHUGen.input) VegasNc2=${nevt} Seed=${rnum}"
 if args.decay_card is not None:
     with open(os.path.join(basedir, args.decay_card)) as f, open(os.path.join(JHUbasedir, "JHUGen_decay.input"), "w") as newf:
         newf.write(f.read().replace("ReadCSmax", ""))
-    command += " DataFile=undecayed &&\n./JHUGen $(cat ../JHUgen_decay.input) Seed=${rnum} ReadLHE=undecayed.lhe Seed=${rnum}"
+    command += " DataFile=undecayed &&\n./JHUGen $(cat ../JHUGen_decay.input) Seed=${rnum} ReadLHE=undecayed.lhe Seed=${rnum}"
 command += " DataFile=Out"
 ########################
 #backwards compatibility
