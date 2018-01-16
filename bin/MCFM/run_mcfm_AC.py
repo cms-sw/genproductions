@@ -27,6 +27,9 @@ class RunMcfmOP():
 		self.parser.add_argument("-i", "--inputcard", dest="inputcard",type=str,
 								help="InputCard",
 								required=True)
+		self.parser.add_argument('-d','--datasetname',dest='datasetname',type=str,
+								help='Output grid name',
+								required=True)
 		self.parser.add_argument('--coupling', type=str, 
 								help="coupling: '0PH','0M','0PM','0PL1','0PHf05ph0','0Mf05ph0',0PL1f05ph0'", 
 								required=True)
@@ -93,7 +96,7 @@ class RunMcfmOP():
 		if self.args.runtestonly or self.args.setupenvonly or self.args.gridonly:
 			return 'MCFM-7.0_JHUGen'
 		else:
-			return 'MCFM-7.0_JHUGen_%s_%s' % (self.cardbase, self.args.coupling)
+			return 'MCFM-7.0_JHUGen_%s' % (self.datasetname)
 
 	def editmakefile(self):
 		fmakefile = open('%s/makefile' % (self.mcfmdir))
@@ -137,7 +140,7 @@ class RunMcfmOP():
 			if (readin):
 				if('[readin]' in line):			line = '.true.		[readin] \n'	
 				if('[writeout]' in line):		line = '.false.		[writeout] \n'
-				if('[ingridfile]' in line):		line = "'%s_grid'		[ingridfile] \n" %(self.cardbase)
+				if('[ingridfile]' in line):		line = "'%s_grid'		[ingridfile] \n" %(self.datasetname)
 				if('[outgridfile' in line):		line = "''		[outgridfile] \n"
 			if(writeout):
 				line = line.replace('NEVENT',str(self.args.nevent),1)
@@ -166,16 +169,16 @@ class RunMcfmOP():
 			substr+='./compile.sh \n'
 			substr+='while [ ! -f DONE ]; do sleep 2m; done \n'
 		if(not self.args.setupenvonly):
-			mcfmsubmitfile = 'MCFM_submit_{0}.sh'.format(self.cardbase)
+			mcfmsubmitfile = 'MCFM_submit_{0}.sh'.format(self.datasetname)
 			substr+='cd ${mcfmdir}/${cmssw_version}/src \neval `scramv1 runtime -sh`\n' 
 			substr+='cd ${mcfmdir}\n'
 			substr+='ln -sf ./Bin/process.DAT process.DAT \n ln -sf ./Bin/hto_output.dat hto_output.dat \n ln -sf ./Bin/ffwarn.dat ffwarn.dat \n ln -sf ./Bin/ffperm5.dat ffperm5.dat \n ln -sf ./Bin/fferr.dat fferr.dat \n ln -sf ./Bin/dm_parameters.DAT dm_parameters.DAT \n ln -sf ./Bin/br.sm1 br.sm1 \n ln -sf ./Bin/br.sm2 br.sm2 \n \n'  
 			substr+='./Bin/mcfm writeInput.DAT \n'
 			substr+='gridfileexists=false \nwhile [ ${gridfileexists} = false ]; do gridfile=($(ls|grep _grid)); if [ ${#gridfile[@]} -eq 1 ]; then gridfileexists=true; else sleep 2m; fi; done \n'
-			substr+="mv ${gridfile[0]} %s_grid \nchmod 755 runcmsgrid.sh \nrm *.lhe \n"%(self.cardbase)
+			substr+="mv ${gridfile[0]} %s_grid \nchmod 755 runcmsgrid.sh \nrm *.lhe \n"%(self.datasetname)
  			substr+='cp ../adjlheevent.py ./ \n'
 			substr+='echo tarball will be found at ${basedir} \n'
-			substr+='tar -cvzf ${basedir}/MCFM_%s_%s_%s_%s.tgz ./ \n' % (self.args.method, self.args.scram_arch, self.args.cmssw, self.cardbase)
+			substr+='tar -cvzf ${basedir}/MCFM_%s_%s_%s_%s.tgz ./ \n' % (self.args.method, self.args.scram_arch, self.args.cmssw, self.datasetname)
 			substr+='#cleaning up part\n'
 			substr+='cd ${basedir} \n' 
 			substr+='rm -rf ${mcfmdir}\n'
@@ -185,7 +188,7 @@ class RunMcfmOP():
 		os.system('chmod 755 %s'%(mcfmsubmitfile))
 
 	def submittoqueue(self):
-		fsubbash ='MCFM_submit_%s.sh'%(self.cardbase)
+		fsubbash ='MCFM_submit_%s.sh'%(self.datasetname)
 #		os.system('%s' % (fsubbash))
 		os.system('bsub -q %s %s' % (self.args.queue,fsubbash))
 
