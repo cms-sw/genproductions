@@ -29,7 +29,7 @@ class ACConfig(object):
 		if self.coupling in ['0PH']:
 			return [1,0]
 		elif self.coupling in ['0PHf05ph0']:
-			return [1.65684,0]
+			return [0.358691,0]
 		else:
 			return [0,0]
 
@@ -38,7 +38,7 @@ class ACConfig(object):
 		if self.coupling in ['0M']:
 			return [1,0]
 		elif self.coupling in ['0Mf05ph0']:
-			return [2.55052,0]
+			return [0.366354,0]
 		else:
 			return [0,0]
 
@@ -47,7 +47,7 @@ class ACConfig(object):
 		if self.coupling in ['0PL1']:
 			return [1,0]
 		elif self.coupling in ['0PL1f05ph0']:
-			return [12100, 0]
+			return [-5921.92, 0]
 		else:
 			return [0,0]
 
