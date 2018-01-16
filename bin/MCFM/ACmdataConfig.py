@@ -64,7 +64,7 @@ def getOrigstr(parameter):
 
 def Configmdata(ACConfigObj, mcfmdir):
 	assert type(ACConfigObj) is ACConfig
-	mdatapath = './{mcfmdir}/src/User/mdata.f'.format(mcfmdir=mcfmdir)
+	mdatapath = os.path.join(mcfmdir,'src','User','mdata.f')
 	with open(mdatapath,'r') as fin:
 		finstr = fin.read()
 		origstr = 'data AllowAnomalousCouplings / 0 /'
@@ -78,7 +78,7 @@ def Configmdata(ACConfigObj, mcfmdir):
 		fout.write(foutstr)
 
 
-import argparse
+import argparse,os
 
 if __name__=="__main__":
 	parser = argparse.ArgumentParser()
@@ -86,7 +86,8 @@ if __name__=="__main__":
 	parser.add_argument('--mcfmdir', type=str)
 	args = parser.parse_args()
 	tmplobj = ACConfig(args.coupling)
-	Configmdata(tmplobj,args.mcfmdir)
+	mcfmdir = os.path.abspath(args.mcfmdir)
+	Configmdata(tmplobj, mcfmdir)
 
 """
 	data AllowAnomalousCouplings / 0 /
