@@ -8,12 +8,12 @@ class ACConfig(object):
 
 	def giveCouplingPara(self, parameter):
 		p0p1 = []
-		if parameter == 'kappa_top':		p0p1=[1,0]
-		elif parameter == 'kappa_bot':		p0p1=[1,0]
+		if parameter == 'kappa_top':			p0p1=[1,0]
+		elif parameter == 'kappa_bot':			p0p1=[1,0]
 		elif parameter == 'ghz1':			p0p1=self.ghz1
 		elif parameter == 'ghz2':			p0p1=self.ghz2
 		elif parameter == 'ghz4':			p0p1=self.ghz4
-		elif parameter == 'ghz1_prime2':	p0p1=self.ghz1_prime2
+		elif parameter == 'ghz1_prime2':		p0p1=self.ghz1_prime2
 		returnstr = 'data {parameter} / ({p0}d0,{p1}d0) /'.format(parameter=parameter, p0=p0p1[0], p1=p0p1[1])
 		return returnstr
 
@@ -72,6 +72,7 @@ def Configmdata(ACConfigObj, mcfmdir):
 		foutstr = finstr.replace(origstr,replstr)
 		for parameter in parameters:
 			origstr = getOrigstr(parameter)
+			assert origstr in finstr
 			replstr = ACConfigObj.giveCouplingPara(parameter)
 			foutstr = foutstr.replace(origstr,replstr)
 	with open(mdatapath,'w') as fout:
