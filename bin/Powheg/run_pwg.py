@@ -389,6 +389,10 @@ fi
 patch -l -p0 -i ${WORKDIR}/patches/pdfweights.patch
 patch -l -p0 -i ${WORKDIR}/patches/pwhg_lhepdf.patch
 
+if [ "$process" = "WZ" ] || [ "$process" = "ZZ" ]; then
+   patch -l -p0 -i ${WORKDIR}/patches/lhapdf_zanderighi.patch
+fi
+
 if [ "$process" = "b_bbar_4l" ]; then
     cd POWHEG-BOX
     patch -l -p0 -i ${WORKDIR}/patches/res_openloops_long_install_dir.patch
