@@ -34,9 +34,9 @@ http://cmssw.cvs.cern.ch/cgi-bin/cmssw.cgi/UserCode/kumarv/Input/StarToHepmc.C?v
 using namespace std;
 
 //void convert_starlight(int num=0, ifstream &infile = 0, string outfilename = "slight");
-void convert_SL2LHE(int number_of_files=1, string filename = "slight.out", string outfilename = "starlight_LHEtest" );
+void convert_SL2LHE(int number_of_files=1, string filename = "slight.out", string outfilename = "starlight_LHEtest", double beamE1=2560, double beamE2=2560);
 
-void convert_starlight(int num, ifstream &infile, string outfilename) //makeEventsFile
+void convert_starlight(int num, ifstream &infile, string outfilename, double beamE1, double beamE2) //makeEventsFile
 {
   char ofName[100];
   sprintf(ofName,"%s.lhe",outfilename.c_str());
@@ -54,7 +54,7 @@ void convert_starlight(int num, ifstream &infile, string outfilename) //makeEven
   double MU;
   int evt_n=0; // event_number, read from the input-file
   int nn=0; // event_counter, in the output file
-  int signFlip=1;
+  //int signFlip=1;
   TRandom3 random;
 
   // GENER: STL  1.0            1           1           1           1  200.00     999.999     CMS
@@ -68,7 +68,8 @@ void convert_starlight(int num, ifstream &infile, string outfilename) //makeEven
   //put generic initialization-level info since STARLIGHT doesn't save this
   output << "<init>" << endl;
   //beam particle 1, 2, beam energy 1, 2, author group, beam 1, 2, PDFSET beam 1, 2,
-  output << "2212 " << "-2212 " << "-1 " << "-1 " << "-1 " << "-1 " << "-1 " << "-1 " << "-1 " << "-1 " << endl; 
+  output << "22 " << "22 " << beamE1 << " " << beamE2 << " 0 " << "0 " << "0 " << "0 " << "3 " << "1" << endl;
+  output << "1.0 " << "0.0 " << "3.0 " << "81" << endl;
   output << "</init>" << endl;
 
   while (getline(infile,temp_string)) {
@@ -83,19 +84,13 @@ void convert_starlight(int num, ifstream &infile, string outfilename) //makeEven
 		curstring >> temp >> evt_n >> N; //assuming that EVENT always preceeds VERTEX/TRACK so that N is set correctly
 		// EVENT:          1       2       1
       		if(evt_n >=K && evt_n < K+M)  {
-			output << N << " " << evt_n << " " << "-1 -1 -1 -1" << endl;
-			//output << "E " << evt_n << " -1.0000000000000000e+00 -1.0000000000000000e+00 -1.0000000000000000e+00 20 " << evt_n << " 1 0 0" << endl;
+			output << N << " 81" << " 1.0 -1.0 -1.0 -1.0" << endl;
 			nn++;
 		}
 		N2=0;
 
-	} /*else if(strstr(temp_string.c_str(),"VERTEX"))	{
-		float x,y,z,t;
-		curstring >> temp >> x >> y >> z >> t; 
-		// VERTEX:   0.0000       0.0000       0.0000       0.0000          1      0      0      2
-      		if(evt_n >=K && evt_n < K+M) output << "V " << -evt_n << " 0 " << x << " " << y << " " << z << " " << t << " 0 " << N <<  " 0" << endl;
-	*/
-	 else if(strstr(temp_string.c_str(),"TRACK"))	{
+	}
+	else if(strstr(temp_string.c_str(),"TRACK"))	{
                 N2++;
 		int useless, part_n, pdg_id;
 		float px, py, pz;
@@ -108,11 +103,11 @@ void convert_starlight(int num, ifstream &infile, string outfilename) //makeEven
                 //std::cout << MU << std::endl;
                 //
  		if(evt_n >=K && evt_n < K+M){
-			output << pdg_id << " -1 " << " -1 -1 -1 -1 " << px << " " << py << " " << pz << " " << E << " " << sqrt(MU*MU + px*px + py*py + pz*pz) << " -1 -1" << endl; 
+			output << pdg_id << " -1" << " 0 0 0 0 " << px << " " << py << " " << pz << " " << E << " " << MU << " 0.0 9.0" << endl; 
 		}
                 if(N==N2 && evt_n == K+M-1){
 		    output << "</event>" << endl;
-		    output << "<LesHouchesEvents>" << endl; 
+		    output << "</LesHouchesEvents>" << endl; 
 		    output.close();
 		    cout << nn << " events written in " << ofName << endl;
 		    return;
@@ -122,20 +117,20 @@ void convert_starlight(int num, ifstream &infile, string outfilename) //makeEven
 
   } // reading loop of the input file
   output << "</event>" << endl;
-  output << "<LesHouchesEvents>" << endl;
+  output << "</LesHouchesEvents>" << endl;
   output.close();
   cout << nn << " events written in " << ofName << endl;
   return;
 }
 
-void convert_SL2LHE(int number_of_files, string filename, string outfilename) {
+void convert_SL2LHE(int number_of_files, string filename, string outfilename, double beamE1, double beamE2) {
   ifstream infile(filename.c_str());
   if (! infile.is_open()) { cout << "\t convert_starlight ERROR: I can not open \"" << filename << "\"" << endl; return; }
-  for(int i=0; i<number_of_files; i++) convert_starlight(i, infile, outfilename);
+  for(int i=0; i<number_of_files; i++) convert_starlight(i, infile, outfilename, beamE1, beamE2);
   infile.close();
 }
 
-/* Explaination of the format :
+/* Explanation of the format :
  * +++ Event +++
  * E 1 -1.0000000000000000e+00 -1.0000000000000000e+00 -1.0000000000000000e+00 20 0 1 0 0
  *   1 : event number  			<-------

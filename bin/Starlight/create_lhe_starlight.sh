@@ -1,58 +1,76 @@
 #!/bin/sh
 
 #set -o verbose
-EXPECTED_ARGS=4
+EXPECTED_ARGS=17
 rebuildFromSource=true
-runLocally=false
+runLocally=true
 if [ $runLocally == false ]; then
 EXPECTED_ARGS=$((EXPECTED_ARGS-2))
 fi
 
-if [ $# -ne $EXPECTED_ARGS ]
+if [ $# -ge $EXPECTED_ARGS ]
 then
   if [ $runLocally == true ]; then 
-  echo "For local running, Usage: `basename $0` Production_type Channel Nevents RandomSeed "
-  else echo "For gridpack production, Usage: `basename $0` Production_type Channel "
+  echo "For local running, Usage: `basename $0` Production_type Channel Beam1_Z Beam2_Z Beam1_A Beam2_A Beam1_Gamma Beam2_Gamma Eta_cut EtaMin EtaMax BreakupMode Nevents RandomSeed "
+  else echo "For gridpack production, Usage: `basename $0` Production_type Channel Beam1_Z Beam2_Z Beam1_A Beam2_A Beam1_Gamma Beam2_Gamma Eta_cut EtaMin EtaMax BreakupMode"
   fi
   echo "Production type can range from 1-4; available channels can be found on https://starlight.hepforge.org/"  
   exit 1
 fi
+
+#setting all default values...
+prodType=${1:-5}
+channel=${2:-11}
+Beam1Z=${3:-82}
+Beam2Z=${4:-82}
+Beam1A=${5:-208}
+Beam2A=${6:-208}
+Beam1Gamma=${7:-2560.0}
+Beam2Gamma=${8:-2560.0}
+BreakupMode=${9:-5}
+EtaCut=${10:-0}
+EtaMin=${11:--10}
+EtaMax=${12:-10}
+PtCut=${13:-0}
+PtMin=${14:-1.0}
+PtMax=${15:-3.0}
+nevts=${16:-10000}
+seed=${17:-121212}
 
 echo "   ______________________________________     "
 echo "         Running Starlight...                 "
 echo "   ______________________________________     "
 
 if [ $runLocally == true ]; then
-echo "Generating $3 events with production type $1, channel $2"
-echo "Random seed set to $4"
+echo "Generating $nevts events with production type $prodType, channel $channel"
+echo "Random seed set to $seed"
 else
-echo "Generating GRIDPACK with production type $1, channel $2"
+echo "Generating GRIDPACK with production type $prodType, channel $channel"
+fi
+echo "Beam1: Z=$Beam1Z, A=$Beam1A, Gamma=$Beam1Gamma;  Beam2: Z=$Beam2Z, A=$Beam2A, Gamma=$Beam2Gamma"
+echo "BreakupMode: $BreakupMode"
+if [ $EtaCut == 0 ]; then echo "Eta Cuts OFF"
+else echo "Eta Cuts ON from $EtaMin to $EtaMax"
+fi
+if [ $PtCut == 0 ]; then echo "Pt Cuts OFF"
+else echo "Pt Cuts ON from $PtMin to $PtMax"
 fi
 
-if [ $CMSSW_BASE == "" ]; then
+if [ ${CMSSW_BASE} == "" ]; then
 echo "CMSSW_BASE not found! Please run cmsenv first!"
 exit 1
 fi
 
-
-rebuildFromSource=true
-runLocally=false
-
 if [ $rebuildFromSource == true ]; then
 echo "rebuilding starlight from source..."
 else
-echo "using precombiled starlight setup..."
+echo "using precompiled starlight setup..."
 fi
 if [ $runLocally == true ]; then
-echo "will run starlight locally. Please disable for gridpack prod only"
+echo "will run starlight locally. Please turn off the \"runLocally\" flag for gridpack production"
 else
 echo "Just producing a starlight gridpack..."
 fi
-
-prodType=${1}
-channel=${2}
-nevts=${3}
-seed=${4}
 
 name="starlightProd"
 
@@ -67,15 +85,39 @@ cd ${CMSSW_BASE}
 eval `scram runtime -sh`
 cd -
 
+#first get DPMJet... need fpe.c from starlight!
+#wget...
+#svn co http://starlight.hepforge.org/svn/trunk
+#mv trunk starlightTrunk
+#tar -xvf dpmjet3.0-5.tar
+#mv dpmjet3.0-5 dpmjetV305
+#cp starlightTrunk/external/fpe.c dpmjetV305
+#cd dpmjetV305
+#make
+#cd ..
+#export DPMJETDIR="$(pwd)/dpmjetV305"
+#export FLUPRO="$(pwd)/fluka"
+
 # # retrieve the latest Starlight version from SVN if you want
 if [ $rebuildFromSource == true ]
 then
    svn co http://starlight.hepforge.org/svn/trunk
    mv trunk starlightTrunk
+   tar -xvf dpmjet3.0-5.tar
+   mv dpmjet3.0-5 dpmjetV305
+   cp phojet1.12-35c4.f dpmjetV305
+   cp dpmjetMakefile dpmjetV305/Makefile 
+   cp starlightTrunk/external/fpe.c dpmjetV305
+   cd dpmjetV305
+   make
+   gcc fpe.c -Wall -g -c
+   make
+   cd ..
+   export DPMJETDIR="$(pwd)/dpmjetV305"
    cd starlightTrunk
    mkdir -p build
    cd build
-   cmake ..
+   cmake .. -DENABLE_DPMJET=ON
    gmake
 fi
 
@@ -83,7 +125,7 @@ fi
 if [ $rebuildFromSource == false ]
 then
   #wget --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/${repo}/${name}.tar.gz  -O ${name}.tar.gz
-  tar xf ${name}.tar
+  #tar xf ${name}.tar
   cd starlightTrunk/build
 fi
 
@@ -91,28 +133,28 @@ fi
 #if [ $rebuildFromSource == true ]; then
 cat > slightTemplate.in <<EOFILE
 baseFileName = slight   #suite of output files will be saved with this base name
-BEAM_1_Z = 82    #Z of projectile
-BEAM_1_A = 208   #A of projectile
-BEAM_2_Z = 82   #Z of target
-BEAM_2_A = 208   #A of target
-BEAM_1_GAMMA = 1470.0 #Gamma of the colliding ion 1
-BEAM_2_GAMMA = 1470.0 #Gamma of the colliding ion 2
+BEAM_1_Z = B1Z    #Z of projectile
+BEAM_1_A = B1A   #A of projectile
+BEAM_2_Z = B2Z   #Z of target
+BEAM_2_A = B2A   #A of target
+BEAM_1_GAMMA = B1G #Gamma of the colliding ion 1
+BEAM_2_GAMMA = B2G #Gamma of the colliding ion 2
 W_MAX = -1   #Max value of w
 W_MIN = -1    #Min value of w
 W_N_BINS = 50    #Bins i w
 RAP_MAX = 9.    #max y
 RAP_N_BINS = 200    #Bins i y
-CUT_PT = 0 #Cut in pT? 0 = (no, 1 = yes)
-PT_MIN = 1.0 #Minimum pT in GeV
-PT_MAX = 3.0 #Maximum pT in GeV
-CUT_ETA = 0 #Cut in pseudorapidity? (0 = no, 1 = yes)
-ETA_MIN = -10 #Minimum pseudorapidity
-ETA_MAX = 10 #Maximum pseudorapidity
+CUT_PT = PtCut #Cut in pT? 0 = (no, 1 = yes)
+PT_MIN = PtMin #Minimum pT in GeV
+PT_MAX = PtMax #Maximum pT in GeV
+CUT_ETA = EtaCut #Cut in pseudorapidity? (0 = no, 1 = yes)
+ETA_MIN = EtaMin #Minimum pseudorapidity
+ETA_MAX = EtaMax #Maximum pseudorapidity
 PROD_MODE = PRODMODE     #gg or gP switch (1 = 2-photon, 2 = coherent vector meson (narrow), 3 = coherent vector meson (wide), 4 = incoherent vector meson)
 N_EVENTS = NEVT   #Number of events
 PROD_PID = PRODUCTIONCHANNEL   #Channel of interest; this is j/psi --> mu+ mu-
 RND_SEED = RNDSEED
-BREAKUP_MODE = 5     #Controls the nuclear breakup; a 5 here makes no requirement on the breakup of the ions
+BREAKUP_MODE = BreakupMode     #Controls the nuclear breakup; a 5 here makes no requirement on the breakup of the ions
 INTERFERENCE = 0     #Interference (0 = off, 1 = on)
 IF_STRENGTH = 1.    #% of intefernce (0.0 - 0.1)
 INT_PT_MAX = 0.24  #Maximum pt considered, when interference is turned on
@@ -125,40 +167,38 @@ EOFILE
 #fi
 
 if [ $runLocally == true ]; then
-cat slightTemplate.in | sed -e "s#RNDSEED#${seed}#g" | sed -e "s#NEVT#${nevts}#g" | sed -e "s#PRODUCTIONCHANNEL#${channel}#g" | sed -e "s#PRODMODE#${prodType}#g" > slight.in
-else
-cat slightTemplate.in | sed -e "s#PRODUCTIONCHANNEL#${channel}#g" | sed -e "s#PRODMODE#${prodType}#g" > slight.in
+cat slightTemplate.in | sed -e "s#RNDSEED#${seed}#g" | sed -e "s#NEVT#${nevts}#g" | sed -e "s#PRODUCTIONCHANNEL#${channel}#g" | sed -e "s#PRODMODE#${prodType}#g" | sed -e "s#B1Z#${Beam1Z}#g" | sed -e "s#B2Z#${Beam2Z}#g" | sed -e "s#B1A#${Beam1A}#g" | sed -e "s#B2A#${Beam2A}#g" | sed -e "s#B1G#${Beam1Gamma}#g" | sed -e "s#B2G#${Beam2Gamma}#g" | sed -e "s#PtCut#${PtCut}#g" | sed -e "s#PtMin#${PtMin}#g" | sed -e "s#PtMax#${PtMax}#g" | sed -e "s#EtaCut#${EtaCut}#g" | sed -e "s#EtaMin#${EtaMin}#g" | sed -e "s#EtaMax#${EtaMax}#g" | sed -e "s#BreakupMode#${BreakupMode}#g" > slight.in
 fi
+
+cat slightTemplate.in | sed -e "s#PRODUCTIONCHANNEL#${channel}#g" | sed -e "s#PRODMODE#${prodType}#g" | sed -e "s#B1Z#${Beam1Z}#g" | sed -e "s#B2Z#${Beam2Z}#g" | sed -e "s#B1A#${Beam1A}#g" | sed -e "s#B2A#${Beam2A}#g" | sed -e "s#PtCut#${PtCut}#g" | sed -e "s#PtMin#${PtMin}#g" | sed -e "s#PtMax#${PtMax}#g" | sed -e "s#EtaCut#${EtaCut}#g" | sed -e "s#EtaMin#${EtaMin}#g" | sed -e "s#EtaMax#${EtaMax}#g" | sed -e "s#BreakupMode#${BreakupMode}#g" > slightTemplateForNextProd.in
+
 
 cd ../..
 
-tar -czf slightGridpack_ProdType${prodType}_Channel${channel}.tgz starlightTrunk convert_SL2LHE.C
+cp starlightTrunk/config/my.input starlightTrunk/build
+cp $DPMJETDIR/dpmjet.dat starlightTrunk/build
 
-if [ $runLocally == true ]
-then
+#tar -czf slightGridpack_ProdType${prodType}_Channel${channel}.tgz starlightTrunk
+
+if [ $runLocally == true ]; then
 echo "*** STARTING STARLIGHT PRODUCTION ***"
+cd starlightTrunk/build
+if [ $prodType -ge 4 ]; then
+./starlight < my.input &> log_${prodType}_${channel}_${seed}.txt
+else
 ./starlight &> log_${prodType}_${channel}_${seed}.txt
-#remove the spurious random seed output that is non LHE standard 
+fi
 cp slight.out ${WORKDIR}/.
 cd ${WORKDIR}
 echo "***STARLIGHT COMPLETE***"
 
-#now convert the starlight file to a HepMC file
+#now convert the starlight file to a LHE file
 #curl https://raw.githubusercontent.com/kurtejung/genproductions/starlight_dev/bin/Starlight/convert_SL2LHE.C > convert_SL2LHE.C
 root -l -b << EOF
-.x convert_SL2LHE.C+(1,"slight.out","slight_${prodType}_${channel}_${seed}") 
+.x convert_SL2LHE.C+(1,"slight.out","slight_${prodType}_${channel}_${seed}",${Beam1Gamma},${Beam2Gamma})
 .q
 EOF
 echo "*** LHE CONVERSION COMPLETE ***"
-
-#optionally convert the hepMC file to a gen file
-#curl https://raw.githubusercontent.com/cms-sw/cmssw/master/IOMC/Input/test/hepmc2gen.py > hepmc2gen.py
-#mv hepmc2gen.py hepmc2genOrig.py
-#cat hepmc2genOrig.py | sed -e "s/if True/if False/g" | sed -e "/file:\/tmp/c\     fileNames = cms.untracked.vstring(options.inputFiles[0])," | sed -e "s/'HepMC_GEN.root'/options.outputFile/g" > hepmc2gen.py
-#rm hepmc2genOrig.py
-#echo "Converting slight_${prodType}_${channel}_${seed}.hepmc0.hepmc to gen file..."
-#cmsRun hepmc2gen.py maxEvents=-1 inputFiles=file:slight_${prodType}_${channel}_${seed}.hepmc0.hepmc outputFile=slight_${prodType}_${channel}_${seed}_GEN.root
-#echo "*** GEN CONVERSION COMPLETE ***"
 
 echo "Output ready with log_${prodType}_${channel}_${seed}.txt and slight_${prodType}_${channel}_${seed}_GEN.root at `pwd` and $WORKDIR"
 fi
