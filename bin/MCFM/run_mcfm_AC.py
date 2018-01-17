@@ -116,10 +116,10 @@ class RunMcfmOP():
 	def downloadmcfm(self):
 		tempdir=os.path.join(self.curdir+self.mcfmdir)
 		if os.path.isdir(tempdir):	
-			print '%s already exists'%(self.mcfmdir)
-		else:
-			os.system('git clone https://github.com/usarica/MCFM-7.0_JHUGen.git %s'%(self.mcfmdir))
-		assert os.path.isdir(self.mcfmdir)==1
+			os.system('rm -rf %s'%(self.mcfmdir))
+		os.system('git clone https://github.com/usarica/MCFM-7.0_JHUGen.git %s'%(self.mcfmdir))
+		os.system('cd %s && git checkout v7.0.5'%(self.mcfmdir))
+		assert os.path.isdir(self.mcfmdir)
 
 	def replaceInputDat(self,action):
 		readin,writeout=0,0
