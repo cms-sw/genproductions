@@ -3,7 +3,7 @@
 #set -o verbose
 EXPECTED_ARGS=17
 rebuildFromSource=true
-runLocally=true
+runLocally=false
 if [ $runLocally == false ]; then
 EXPECTED_ARGS=$((EXPECTED_ARGS-2))
 fi
@@ -201,6 +201,10 @@ EOF
 echo "*** LHE CONVERSION COMPLETE ***"
 
 echo "Output ready with log_${prodType}_${channel}_${seed}.txt and slight_${prodType}_${channel}_${seed}_GEN.root at `pwd` and $WORKDIR"
+else
+tar -czf slightGridpack_ProdType${prodType}_Channel${channel}.tgz starlightTrunk convert_SL2LHE.C dpmjetV305 runcmsgrid_starlight.sh
+echo "Created starlight tarball: slightGridpack_ProdType${prodType}_Channel${channel}.tgz"
 fi
+
 echo "End of job on " `date`
 exit 0

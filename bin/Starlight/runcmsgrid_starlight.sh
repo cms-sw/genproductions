@@ -1,43 +1,56 @@
 #!/bin/bash
 
-nevt=${1}
-echo "%MSG-MG5 number of events requested = $nevt"
+set -o verbose
 
-rnum=${2}
-echo "%MSG-MG5 random seed used for the run = $rnum"
+echo "-------------------"
+echo " Running STARLIGHT "
+echo "-------------------"
 
-ncpu=${3}
-echo "%MSG-MG5 number of cpus = $ncpu"
+repo=${1}
+echo "%MSG-MG5 repository = $repo"
 
-cmsEnergy=${4}
+name=${2}
+echo "%MSG-MG5 gridpack = $name"
+
+cmsEnergy=${3}
 echo "%MSG-MG5 energy = $cmsEnergy"
 
-cmsEnergyDiv2=$((cmsEnergy/2))
-
-prodType=${5}
+prodType=${4}
 echo "%MSG-MG5 Using Production mode $prodType"
+
+nevt=${5}
+echo "%MSG-MG5 number of events requested = $nevt"
+
+rnum=${6}
+echo "%MSG-MG5 random seed used for the run = $rnum"
+
+ncpu=${7}
+echo "%MSG-MG5 number of cpus = $ncpu"
+
+
+cmsEnergyDiv2=$((cmsEnergy/2))
 
 FILENAME='slightout'
 LHEWORKDIR=`pwd`
 use_gridpack_env=false
-if [ -n "$6" ]
+if [ -n "$8" ]
   then
-  use_gridpack_env=$6
+  use_gridpack_env=$8
 fi
 
 if [ "$use_gridpack_env" = true ]
   then
-    if [ -n "$7" ]
+    if [ -n "$9" ]
       then
-        scram_arch_version=${7}
+        scram_arch_version=${9}
       else
         scram_arch_version=SCRAM_ARCH_VERSION_REPLACE
     fi
     echo "%MSG-MG5 SCRAM_ARCH version = $scram_arch_version"
 
-    if [ -n "$8" ]
+    if [ -n "$10" ]
       then
-        cmssw_version=${8}
+        cmssw_version=${10}
       else
         cmssw_version=CMSSW_VERSION_REPLACE
     fi
@@ -50,6 +63,8 @@ if [ "$use_gridpack_env" = true ]
     eval `scramv1 runtime -sh`
 fi
 cd $LHEWORKDIR
+
+tar xf $repo/$name
 
 cd starlightTrunk/build
 cat slightTemplateForNextProd.in | sed -e "s#RNDSEED#${rnum}#g" | sed -e "s#NEVT#${nevt}#g" | sed -e "s#B1G#${cmsEnergyDiv2}#g" | sed -e "s#B2G#${cmsEnergyDiv2}#g"  > slight.in
