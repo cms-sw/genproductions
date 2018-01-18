@@ -7,7 +7,7 @@
 .false.		[dswhisto]
 .true.     [creategrid]
 .false.		[writetop]
-.false.		[writedat]
+.true.		[writedat]
 .false.		[writegnu]
 .false.		[writeroot]
 .false.		[writepwg]
