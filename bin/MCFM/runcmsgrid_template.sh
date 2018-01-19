@@ -55,10 +55,11 @@ export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:`$LHAPDFCONFIG --libdir`
 export LHAPDF_DATA_PATH=`$LHAPDFCONFIG --datadir`
 export LHAPATH=$LHADPDF_DATA_PATH
 
-
+inputnevt=$( echo ${nevt} \* 1.1 | bc)
+inputnevt=${inputnevt%.*}
 #sed "s@EVTS@$nevt@g" input_gen.DAT > input_g0.DAT
 #sed "s@XRAN@$rnum@g" input_g0.DAT  > input.DAT
-sed -i "s/NEVENT/"$nevt"/" INPUT.DAT
+sed -i "s/NEVENT/"$inputnevt"/" INPUT.DAT
 sed -i "s/SEED/"$rnum"/" INPUT.DAT
 ./mcfm INPUT.DAT
 #Replace the negative so pythia will work

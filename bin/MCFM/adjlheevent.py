@@ -37,6 +37,10 @@ def getlheheadfoot():
 #	print strtoreturn
 	return strtoreturn
 
+def overshoot(requestednumofevents, foundnumofevents):
+	if requestednumofevents > foundnumofevents:
+		return True
+
 lheeventstr=getlheeventstring()
 lheheadfoot=getlheheadfoot()
 requestednumofevents = int(sys.argv[1])
@@ -54,12 +58,18 @@ class lheevent(object):
 	
 	def concentrate(self):
 		return ''.join(self.lhecontent)
-		
-numlist = random.sample(xrange(1,foundnumofevents), requestednumofevents)
-trimmedeventsstr=''
+
+trimmedeventsstr=''.join(lheeventstr)
+numlist = random.sample(xrange(1,foundnumofevents),abs(foundnumofevents-requestednumofevents))
+
 for num in numlist:
 	event = lheevent(num)
-	trimmedeventsstr+=event.concentrate()
+	for overshoot():
+		assert event.concentrate() in trimmedeventsstr
+		trimmedeventsstr.replace(event.concentrate(),'')
+	else:
+		trimmedeventsstr+=event.concentrate()
+
 finalstr = lheheadfoot.replace('<lheventstobefilled>',trimmedeventsstr)
 finalnumofevents = finalstr.count('<event>')
 if finalnumofevents != requestednumofevents:
