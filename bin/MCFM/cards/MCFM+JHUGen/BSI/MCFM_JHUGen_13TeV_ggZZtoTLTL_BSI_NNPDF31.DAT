@@ -1,7 +1,7 @@
 '7.0'		[file version number]
 
 [Flags to specify the mode in which MCFM is run]
-1			[nevtrequested]
+NEVENT			[nevtrequested]
 .false.		[creatent]
 .false.		[skipnt]
 .false.		[dswhisto]
