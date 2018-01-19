@@ -3,6 +3,19 @@ import random
 import sys
 import os
 
+emptyevt = """<event>
+	0	0	0	0	0	0							
+	0	0	0	0	0	0	0	0	0	0	0	0	0
+	0	0	0	0	0	0	0	0	0	0	0	0	0
+	0	0	0	0	0	0	0	0	0	0	0	0	0
+	0	0	0	0	0	0	0	0	0	0	0	0	0
+	0	0	0	0	0	0	0	0	0	0	0	0	0
+	0	0	0	0	0	0	0	0	0	0	0	0	0
+	0	0	0	0	0	0	0	0	0	0	0	0	0
+	0	0	0	0	0	0	0	0	0	0	0	0	0 
+</event>"""
+
+
 def getlheeventstring():
 	strtoreturn=[]
 	with open('cmsgrid_final.lhe','r') as f:
@@ -37,10 +50,6 @@ def getlheheadfoot():
 #	print strtoreturn
 	return strtoreturn
 
-def overshoot(requestednumofevents, foundnumofevents):
-	if requestednumofevents > foundnumofevents:
-		return True
-
 lheeventstr=getlheeventstring()
 lheheadfoot=getlheheadfoot()
 requestednumofevents = int(sys.argv[1])
@@ -49,30 +58,44 @@ foundnumofevents = int(sys.argv[2])
 class lheevent(object):
 	def __init__(self,lhenum):
 		self.lhenum = lhenum
-		self.lhecontent = self._getContent(self.lhenum)
 
-	def _getContent(self,lhenum):
-		start = 11*(lhenum-1)
-		end  = 11*(lhenum)
-		return lheeventstr[start:end]		
+	@property
+	def emptyevent(self):
+		assert self.lhenum < 1
+		return emptyevt
+
+	@property
+	def lhecontent(self):	
+		if self.lhenum > 0:
+			start = 11*(self.lhenum-1)
+			end  = 11*(self.lhenum)
+			returnevt = lheeventstr[start:end]			
+			returnevt =  ''.join(returnevt)
+		else:
+			returnevt = self.emptyevent 
+		assert type(returnevt) == str
+		return returnevt
 	
-	def concentrate(self):
-		return ''.join(self.lhecontent)
 
 trimmedeventsstr=''.join(lheeventstr)
-numlist = random.sample(xrange(1,foundnumofevents),abs(foundnumofevents-requestednumofevents))
-
-for num in numlist:
-	event = lheevent(num)
-	for overshoot():
-		assert event.concentrate() in trimmedeventsstr
-		trimmedeventsstr.replace(event.concentrate(),'')
-	else:
-		trimmedeventsstr+=event.concentrate()
+assert trimmedeventsstr.count('<event>') == foundnumofevents
+if foundnumofevents>requestednumofevents:
+	numlist = random.sample(xrange(1,foundnumofevents+1),requestednumofevents)
+	trimmedeventsstr=''
+	for num in numlist:
+		event = lheevent(num)
+		trimmedeventsstr += event.lhecontent
+else:
+	eventsneeded = requestednumofevents - foundnumofevents
+	dummyevent = lheevent(-1)
+	for _ in range(eventsneeded):
+		trimmedeventsstr+=dummyevent.lhecontent
+		trimmedeventsstr+='\n'
 
 finalstr = lheheadfoot.replace('<lheventstobefilled>',trimmedeventsstr)
 finalnumofevents = finalstr.count('<event>')
 if finalnumofevents != requestednumofevents:
+	print finalnumofevents
 	raise Exception("final number of events does not match requested number of events")
 else:
 	os.system('rm cmsgrid_final.lhe')
