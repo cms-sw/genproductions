@@ -5,9 +5,9 @@ import os, sys
 
 def checkallfiles():
 	if not os.path.exists('./runcmsgrid_template.sh'):
-		os.system('wget https://raw.githubusercontent.com/carolhungwt/genproductions/bc81e783add413edf33d24e4f068ecaf362eb9f1/bin/MCFM/runcmsgrid_template.sh')
+		os.system('wget https://raw.githubusercontent.com/carolhungwt/genproductions/b1c20b4eb8be3d787c0fd8f4f10f9191d24d7ce8/bin/MCFM/runcmsgrid_template.sh')
 	if not os.path.exists('./adjlheevent.py'):
-		os.system('wget https://raw.githubusercontent.com/carolhungwt/genproductions/c68777f521ab38c55a8dddbef39c93fa06f8634c/bin/MCFM/adjlheevent.py')
+		os.system('wget https://raw.githubusercontent.com/carolhungwt/genproductions/84f43d96e5cbf5a09b6a51cf20075ac9a3b486c6/bin/MCFM/adjlheevent.py')
 	if not os.path.exists('./ACmdataConfig.py'):
 		os.system('wget https://raw.githubusercontent.com/carolhungwt/genproductions/64796590df6a1f068fca32b12d9c2b9c87189fb2/bin/MCFM/ACmdataConfig.py')
 		
