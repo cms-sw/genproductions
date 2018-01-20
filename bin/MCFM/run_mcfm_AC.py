@@ -5,9 +5,9 @@ import os, sys
 
 def checkallfiles():
 	if not os.path.exists('./runcmsgrid_template.sh'):
-		os.system('wget https://raw.githubusercontent.com/carolhungwt/genproductions/b1c20b4eb8be3d787c0fd8f4f10f9191d24d7ce8/bin/MCFM/runcmsgrid_template.sh')
+		os.system('wget https://raw.githubusercontent.com/carolhungwt/genproductions/bc81e783add413edf33d24e4f068ecaf362eb9f1/bin/MCFM/runcmsgrid_template.sh')
 	if not os.path.exists('./adjlheevent.py'):
-		os.system('wget https://raw.githubusercontent.com/carolhungwt/genproductions/84f43d96e5cbf5a09b6a51cf20075ac9a3b486c6/bin/MCFM/adjlheevent.py')
+		os.system('wget https://raw.githubusercontent.com/carolhungwt/genproductions/3ef288ee2fcb86961a31e658de23828e8aef93ca/bin/MCFM/adjlheevent.py')
 	if not os.path.exists('./ACmdataConfig.py'):
 		os.system('wget https://raw.githubusercontent.com/carolhungwt/genproductions/64796590df6a1f068fca32b12d9c2b9c87189fb2/bin/MCFM/ACmdataConfig.py')
 		
@@ -138,6 +138,8 @@ class RunMcfmOP():
 		for templine in tempstr:
 			line = templine	
 			if (readin):
+				if('[nevtrequested]' in line):		assert 'NEVENT' in line
+				if('[ij]' in line):			assert 'SEED' in line
 				if('[readin]' in line):			line = '.true.		[readin] \n'	
 				if('[writeout]' in line):		line = '.false.		[writeout] \n'
 				if('[ingridfile]' in line):		line = "'%s_grid'		[ingridfile] \n" %(self.args.datasetname)
@@ -177,6 +179,7 @@ class RunMcfmOP():
 			substr+='gridfileexists=false \nwhile [ ${gridfileexists} = false ]; do gridfile=($(ls|grep _grid)); if [ ${#gridfile[@]} -eq 1 ]; then gridfileexists=true; else sleep 2m; fi; done \n'
 			substr+="mv ${gridfile[0]} %s_grid \nchmod 755 runcmsgrid.sh \nrm *.lhe \n"%(self.args.datasetname)
  			substr+='cp ../adjlheevent.py ./ \n'
+			substr+='rm -rf CMSSW* .git\n'
 			substr+='echo tarball will be found at ${basedir} \n'
 			substr+='tar -cvzf ${basedir}/MCFM_%s_%s_%s_%s.tgz ./ \n' % (self.args.method, self.args.scram_arch, self.args.cmssw, self.args.datasetname)
 			substr+='#cleaning up part\n'
