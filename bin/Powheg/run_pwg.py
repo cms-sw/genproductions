@@ -448,6 +448,10 @@ fi
 if [ "$process" = "gg_H" ] || [ "$process" = "ggHH" ]; then
    BOOK_HISTO=""
    echo "Process using pwhg_bookhist-multi-new"
+   sed -i -e "/PYTHIA8LOCATION/s|^|#|g" Makefile
+   sed -i -e "/LIBPYTHIA8/s|^|#|g" Makefile
+   sed -i -e "s|LIBHEPMC=|# LIBHEPMC=|g" Makefile
+   sed -i -e "/main-PYTHIA8-lhef:/s|^|#|g" Makefile
 fi
 if [ "$process" = "trijet" ]; then 
    BOOK_HISTO+=" observables.o"
