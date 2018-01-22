@@ -25,7 +25,7 @@ echo "   ______________________________________________________    "
 # IF THE VARIABLE "processes" IS UNSET (i.e. COMMENTED), 
 # THE SCRIPT IT WILL LOOP ON ALL THE .tgz FILES IN THE SOURCE TARBALL
 
-# processes=('DMGG' 'DMS' 'DMS_tloop' 'DMV' 'DYNNLOPS' 'HJ' 'HJJ' 'HW' 'HWJ' 'HZ' 'HZJ' \
+# processes=('DMGG' 'DMS' 'DMS_tloop' 'DMV' 'HJ' 'HJJ' 'HW' 'HWJ' 'HZ' 'HZJ' \
            # 'ST_sch' 'ST_tch' 'ST_tch_4f' 'ST_wtch_DR' 'ST_wtch_DS' 'VBF_H' 'VBF_HJJJ' \
            # 'VBF_Wp_Wm' 'VBF_Z' 'VBF_Z_Z' 'W' 'W2jet' 'WW' 'WZ' 'W_ew-BMNNP' 'Wbb_dec' \
            # 'Wbbj' 'Wgamma' 'Wj' 'Wp_Wp_J_J' 'Z' 'Z2jet' 'ZZ' 'Z_ew-BMNNPV' 'Zj' 'bbH' \
@@ -80,6 +80,8 @@ else
     process_list=$(printf " %s" "${processes[@]}")
     process_list=${process_list:1}
 fi
+
+process_list=`echo "$process_list" | sed -e "s/"DYNNLOPS"//"` # DYNNLOPS is not meant to be compiled
 
 echo "PROCESS LIST: "${process_list}
 

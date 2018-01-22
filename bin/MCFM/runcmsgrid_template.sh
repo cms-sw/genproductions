@@ -44,6 +44,7 @@ cd $LHEWORKDIR
 
 basename=BASENAME
 
+
 LHAPDFCONFIG=`echo "$LHAPDF_DATA_PATH/../../bin/lhapdf-config"`
 #if lhapdf6 external is available then above points to lhapdf5 and needs to be overridden
 LHAPDF6TOOLFILE=$CMSSW_BASE/config/toolbox/$SCRAM_ARCH/tools/available/lhapdf6.xml
@@ -61,6 +62,7 @@ inputnevt=${inputnevt%.*}
 #sed "s@XRAN@$rnum@g" input_g0.DAT  > input.DAT
 sed -i "s/NEVENT/"$inputnevt"/" INPUT.DAT
 sed -i "s/SEED/"$rnum"/" INPUT.DAT
+
 ./mcfm INPUT.DAT
 #Replace the negative so pythia will work
 #sed "s@-1000022@1000022@g" FILENAME > $LHEWORKDIR/cmsgrid_final.lhe

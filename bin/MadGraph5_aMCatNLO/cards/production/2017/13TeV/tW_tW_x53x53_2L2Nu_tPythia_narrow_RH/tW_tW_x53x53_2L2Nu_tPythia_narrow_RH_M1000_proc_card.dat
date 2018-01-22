@@ -1,0 +1,14 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set loop_optimized_output True
+set complex_mass_scheme False
+import model STP_UFO_freeWidth
+define Topo = x53 x53~
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+define k+ = e+ mu+ ta+
+define k- = e- mu- ta-
+generate    p p > x53 x53~   , (x53  > t  w+ , (t > w+ b)), (x53~ > t~ w-, (t~ > w- b~, w- > k- vl~), (w- > k- vl~))
+add process p p > x53 x53~   , (x53~ > t~ w- , (t~ > w- b~)), (x53  > t  w+, (t  > w+ b , w+ > k+ vl ), (w+ > k+ vl ))
+output tW_tW_x53x53_2L2Nu_tPythia_narrow_RH_M1000 -nojpeg
+

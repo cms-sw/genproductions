@@ -163,6 +163,7 @@ class RunMcfmOP():
 			substr+='#cleaning up part\n'
 			substr+='cd ${basedir} \n' 
 			substr+='rm -rf ${mcfmdir}\n'
+
 		fsub = open(mcfmsubmitfile,'w')
 		fsub.write(substr)
 		fsub.close()
@@ -185,6 +186,7 @@ class RunMcfmOP():
 					if('SCRAM_ARCH_VERSION_REPLACE' in line):	line = '        scram_arch_version=%s \n' % (self.args.scram_arch)
 					if('./mcfm' in line and 'INPUT.DAT' in line):	line = './Bin/mcfm readInput.DAT \n'	
 					line = line.replace('INPUT.DAT','readInput.DAT')
+
 					fout.write(line)
 			fout.close()
 		ftemp.close()		
