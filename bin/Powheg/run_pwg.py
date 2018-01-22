@@ -446,14 +446,12 @@ if [ `echo ${POWHEGSRC} | cut -d "_" -f 1` = "powhegboxV1" ]; then
    BOOK_HISTO="pwhg_bookhist.o"
 fi 
 
-if [ "$process" = "gg_H" ] ; then
+if [ "$process" = "gg_H" ] || [ "$process" = "ggHH" ]; then
    BOOK_HISTO=""
    echo "Process using pwhg_bookhist-multi-new"
 fi
 
 if [ "$process" = "ggHH" ]; then
-   BOOK_HISTO=""
-   echo "Process using pwhg_bookhist-multi-new"
    sed -i -e "/PYTHIA8LOCATION/s|^|#|g" Makefile
    sed -i -e "/LIBPYTHIA8/s|^|#|g" Makefile
    sed -i -e "s|LIBHEPMC=|# LIBHEPMC=|g" Makefile
