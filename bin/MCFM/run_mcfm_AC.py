@@ -1,4 +1,4 @@
-#!/bin/env python
+#!/usr/bin/env python
 from optparse import OptionParser
 from argparse import ArgumentParser
 import os, sys
@@ -71,8 +71,8 @@ class RunMcfmOP():
 			except:			raise KeyError('Inputcard must be provided')	
 		self.mcfmdir =  self.givemcfmdir()
 		print self.mcfmdir
-		if not os.path.isdir(self.mcfmdir):
-			self.downloadmcfm()
+#		if not os.path.isdir(self.mcfmdir):
+#			self.downloadmcfm()
 
 	def execute(self):
 		checkallfiles()
@@ -87,8 +87,8 @@ class RunMcfmOP():
 			self.writeruncmsgrid()
 			self.replaceInputDat('w')
 			self.replaceInputDat('r')
-			self.editmakefile()
-			self.appendtocompile()
+		#	self.editmakefile()
+#			self.appendtocompile()
 		self.writesubmissionbash()
 		self.submittoqueue()
 
@@ -129,7 +129,7 @@ class RunMcfmOP():
 		elif (action == 'write' or action== 'w'):	
 			writeout=1
 			filename = 'writeInput.DAT'
-		filepath = os.path.join(self.mcfmdir,filename)
+		filepath = os.path.join(self.curdir,filename)
 		finput =open(filepath,'w')
 		try: 		ftemp = open(self.args.inputcard,'r')
 		except IOError:		
@@ -158,7 +158,20 @@ class RunMcfmOP():
 		substr = '#!/bin/bash \n'
 		substr+='basedir=%s\n'%(self.curdir)
 		substr+='mcfmdir=%s/%s \n'%(self.curdir, self.mcfmdir)
+		substr+='cd ${basedir}\n'
+		substr+='eval `scramv1 runtime -sh`\n'
+		substr+='git clone https://github.com/usarica/MCFM-7.0_JHUGen.git %s\n'%(self.mcfmdir)
+		substr+='cd %s && git checkout v7.0.5 \n'%(self.mcfmdir)
+		#move readInput.DAT and writeInput.DAT to mcfmdir
+		substr+='mv ${basedir}/*Input.DAT ${basedir}/runcmsgrid.sh ${mcfmdir}\n'
 		substr+='cd ${mcfmdir} \n scram_arch_version=%s \n'%(self.args.scram_arch)
+		# now in mcfmdir
+		# now append line to compile.sh
+		substr+='echo \"echo DONE > DONE\" >> compile.sh\n'
+		#now edit makefile
+		substr+='mv makefile makefile_bak\n'
+		substr+="sed -e 's|CERNLIB\ \ \ \  =\ |CERNLIB\ \ \ \  =\/usr\/lib64\/cernlib\/2006\/lib\/\ |1' -e 's|LHAPDFLIB\ \ \ =\ |LHAPDFLIB\ \ \ =\/cvmfs\/cms.cern.ch\/%s\/external\/lhapdf\/6.2.1\/lib\/|1' -e 's|PDFROUTINES\ =\ NATIVE|PDFROUTINES\ =\ LHAPDF|1' < makefile_bak > makefile\n"%(self.args.scram_arch)
+		substr+='rm makefile_bak\n'
 		substr+='cmssw_version=%s\n'%(self.args.cmssw)
 		substr+="export VO_CMS_SW_DIR=/cvmfs/cms.cern.ch\nsource $VO_CMS_SW_DIR/cmsset_default.sh\nexport SCRAM_ARCH=${scram_arch_version} \n"	
 		if (not self.args.runtestonly and not self.args.gridonly):
@@ -174,6 +187,11 @@ class RunMcfmOP():
 			mcfmsubmitfile = 'MCFM_submit_{0}.sh'.format(self.args.datasetname)
 			substr+='cd ${mcfmdir}/${cmssw_version}/src \neval `scramv1 runtime -sh`\n' 
 			substr+='cd ${mcfmdir}\n'
+#			substr+='cp %s ${mcfmdir}/input.DAT\n'%(self.args.inputcard)
+			#write writeInput.DAT
+#			substr+="sed -e 's|READIN|false|1' -e 's|WRITEOUT|true|1' -e 's|INGRIDFILE||1' -e 's|OUTGRIDFILE|grid|1' -e 's|NEVENT|1|1' -e 's|SEED|123456|1' < input.DAT > writeInput.DAT \n"
+			#readInput.DAT
+#			substr+="sed -e 's|READIN|true|1' -e 's|WRITEOUT|false|1' -e 's|INGRIDFILE|%s_grid|1' -e 's|OUTGRIDFILE||1' < input.DAT > readInput.DAT \n"%(self.args.datasetname)
 			substr+='ln -sf ./Bin/process.DAT process.DAT \n ln -sf ./Bin/hto_output.dat hto_output.dat \n ln -sf ./Bin/ffwarn.dat ffwarn.dat \n ln -sf ./Bin/ffperm5.dat ffperm5.dat \n ln -sf ./Bin/fferr.dat fferr.dat \n ln -sf ./Bin/dm_parameters.DAT dm_parameters.DAT \n ln -sf ./Bin/br.sm1 br.sm1 \n ln -sf ./Bin/br.sm2 br.sm2 \n \n'  
 			substr+='./Bin/mcfm writeInput.DAT \n'
 			substr+='gridfileexists=false \nwhile [ ${gridfileexists} = false ]; do gridfile=($(ls|grep _grid)); if [ ${#gridfile[@]} -eq 1 ]; then gridfileexists=true; else sleep 2m; fi; done \n'
@@ -185,6 +203,7 @@ class RunMcfmOP():
 			substr+='#cleaning up part\n'
 			substr+='cd ${basedir} \n' 
 			substr+='rm -rf ${mcfmdir}\n'
+			#substr+="echo \"%s DONE\" > DONE".%(self.args.datasetname)
 		fsub = open(mcfmsubmitfile,'w')
 		fsub.write(substr)
 		fsub.close()
@@ -200,7 +219,7 @@ class RunMcfmOP():
 			print 'cannot find runcmsgrid_template.sh, downloading from github...'
 			os.system('wget https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/MCFM/runcmsgrid_template.sh')
 		with open('runcmsgrid_template.sh','r') as ftemp:
-			with open(os.path.join(self.mcfmdir,'runcmsgrid.sh'),'w') as fout:
+			with open(os.path.join(self.curdir,'runcmsgrid.sh'),'w') as fout:
 				for templine in ftemp.readlines():
 					line  = templine
 					if('CMSSW_VERSION_REPLACE' in line):		line = '        cmssw_version=%s \n' % (self.args.cmssw)
