@@ -445,7 +445,13 @@ BOOK_HISTO="pwhg_bookhist-multi.o"
 if [ `echo ${POWHEGSRC} | cut -d "_" -f 1` = "powhegboxV1" ]; then
    BOOK_HISTO="pwhg_bookhist.o"
 fi 
-if [ "$process" = "gg_H" ] || [ "$process" = "ggHH" ]; then
+
+if [ "$process" = "gg_H" ] ; then
+   BOOK_HISTO=""
+   echo "Process using pwhg_bookhist-multi-new"
+fi
+
+if [ "$process" = "ggHH" ]; then
    BOOK_HISTO=""
    echo "Process using pwhg_bookhist-multi-new"
    sed -i -e "/PYTHIA8LOCATION/s|^|#|g" Makefile
@@ -453,6 +459,7 @@ if [ "$process" = "gg_H" ] || [ "$process" = "ggHH" ]; then
    sed -i -e "s|LIBHEPMC=|# LIBHEPMC=|g" Makefile
    sed -i -e "/main-PYTHIA8-lhef:/s|^|#|g" Makefile
 fi
+
 if [ "$process" = "trijet" ]; then 
    BOOK_HISTO+=" observables.o"
    rm -rf ../progress/bbinit.f
