@@ -15,4 +15,4 @@ define j = j b b~
 define wdec = u c d s u~ c~ d~ s~ l+ l- vl vl~
 generate p p > x0 t w-, (t > w+ b, w+ > wdec wdec), w- > wdec wdec @1
 add process p p > x0 t~ w+, (t~ > w- b~, w- > wdec wdec), w+ > wdec wdec @2
-output thw_5f_ckm_LO_ctcvcp_MX0120 -nojpeg
+output thw_5f_ckm_LO_ctcvcp_MH -nojpeg
