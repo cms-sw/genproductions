@@ -262,5 +262,3 @@ True	=  isoEM  ! isolate photons from EM energy (photons and leptons)
 #*********************************************************************
 0.0	=  xqcut    ! minimum kt jet measure between partons
 #*********************************************************************
-# For 2017 requests with MG5_aMC at LO set
-T = pdfwgt
