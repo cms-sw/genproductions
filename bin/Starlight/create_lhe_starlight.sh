@@ -21,12 +21,12 @@ fi
 #setting all default values...
 prodType=${1:-5}
 channel=${2:-11}
-Beam1Z=${3:-82}
-Beam2Z=${4:-82}
-Beam1A=${5:-208}
-Beam2A=${6:-208}
-Beam1Gamma=${7:-2560.0}
-Beam2Gamma=${8:-2560.0}
+Beam1Z=${3:-54}
+Beam2Z=${4:-54}
+Beam1A=${5:-131}
+Beam2A=${6:-131}
+Beam1Gamma=${7:-2720.0}
+Beam2Gamma=${8:-2720.0}
 BreakupMode=${9:-5}
 EtaCut=${10:-0}
 EtaMin=${11:--10}
@@ -85,24 +85,12 @@ cd ${CMSSW_BASE}
 eval `scram runtime -sh`
 cd -
 
-#first get DPMJet... need fpe.c from starlight!
-#wget...
-#svn co http://starlight.hepforge.org/svn/trunk
-#mv trunk starlightTrunk
-#tar -xvf dpmjet3.0-5.tar
-#mv dpmjet3.0-5 dpmjetV305
-#cp starlightTrunk/external/fpe.c dpmjetV305
-#cd dpmjetV305
-#make
-#cd ..
-#export DPMJETDIR="$(pwd)/dpmjetV305"
-#export FLUPRO="$(pwd)/fluka"
-
 # # retrieve the latest Starlight version from SVN if you want
 if [ $rebuildFromSource == true ]
 then
    svn co http://starlight.hepforge.org/svn/trunk
    mv trunk starlightTrunk
+   wget --no-verbose --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/starlight/dpmjet3.0-5.tar
    tar -xvf dpmjet3.0-5.tar
    mv dpmjet3.0-5 dpmjetV305
    cp phojet1.12-35c4.f dpmjetV305
@@ -124,13 +112,10 @@ fi
 #or get the precompiled version on lxplus
 if [ $rebuildFromSource == false ]
 then
-  #wget --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/${repo}/${name}.tar.gz  -O ${name}.tar.gz
-  #tar xf ${name}.tar
   cd starlightTrunk/build
 fi
 
 #get the standard slight.in template
-#if [ $rebuildFromSource == true ]; then
 cat > slightTemplate.in <<EOFILE
 baseFileName = slight   #suite of output files will be saved with this base name
 BEAM_1_Z = B1Z    #Z of projectile
@@ -178,8 +163,6 @@ cd ../..
 cp starlightTrunk/config/my.input starlightTrunk/build
 cp $DPMJETDIR/dpmjet.dat starlightTrunk/build
 
-#tar -czf slightGridpack_ProdType${prodType}_Channel${channel}.tgz starlightTrunk
-
 if [ $runLocally == true ]; then
 echo "*** STARTING STARLIGHT PRODUCTION ***"
 cd starlightTrunk/build
@@ -193,7 +176,6 @@ cd ${WORKDIR}
 echo "***STARLIGHT COMPLETE***"
 
 #now convert the starlight file to a LHE file
-#curl https://raw.githubusercontent.com/kurtejung/genproductions/starlight_dev/bin/Starlight/convert_SL2LHE.C > convert_SL2LHE.C
 root -l -b << EOF
 .x convert_SL2LHE.C+(1,"slight.out","slight_${prodType}_${channel}_${seed}",${Beam1Gamma},${Beam2Gamma})
 .q
@@ -202,8 +184,8 @@ echo "*** LHE CONVERSION COMPLETE ***"
 
 echo "Output ready with log_${prodType}_${channel}_${seed}.txt and slight_${prodType}_${channel}_${seed}_GEN.root at `pwd` and $WORKDIR"
 else
-tar -czf slightGridpack_ProdType${prodType}_Channel${channel}.tgz starlightTrunk convert_SL2LHE.C dpmjetV305 runcmsgrid_starlight.sh
-echo "Created starlight tarball: slightGridpack_ProdType${prodType}_Channel${channel}.tgz"
+tar -czf slightGridpack_ProdType${prodType}_Channel${channel}_beam${Beam1A}.tgz starlightTrunk convert_SL2LHE.C dpmjetV305 runcmsgrid_starlight.sh
+echo "Created starlight tarball: slightGridpack_ProdType${prodType}_Channel${channel}_beam${Beam1A}.tgz"
 fi
 
 echo "End of job on " `date`

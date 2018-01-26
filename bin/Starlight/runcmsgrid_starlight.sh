@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -o verbose
-
 echo "-------------------"
 echo " Running STARLIGHT "
 echo "-------------------"
@@ -9,22 +7,22 @@ echo "-------------------"
 repo=${1}
 echo "%MSG-MG5 repository = $repo"
 
-name=${2}
+name=${5}
 echo "%MSG-MG5 gridpack = $name"
 
-cmsEnergy=${3}
+cmsEnergy=${6}
 echo "%MSG-MG5 energy = $cmsEnergy"
 
-prodType=${4}
+prodType=${7}
 echo "%MSG-MG5 Using Production mode $prodType"
 
-nevt=${5}
+nevt=${2}
 echo "%MSG-MG5 number of events requested = $nevt"
 
-rnum=${6}
+rnum=${3}
 echo "%MSG-MG5 random seed used for the run = $rnum"
 
-ncpu=${7}
+ncpu=${4}
 echo "%MSG-MG5 number of cpus = $ncpu"
 
 
@@ -32,7 +30,7 @@ cmsEnergyDiv2=$((cmsEnergy/2))
 
 FILENAME='slightout'
 LHEWORKDIR=`pwd`
-use_gridpack_env=false
+use_gridpack_env=true
 if [ -n "$8" ]
   then
   use_gridpack_env=$8

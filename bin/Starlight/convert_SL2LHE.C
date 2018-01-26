@@ -47,8 +47,7 @@ void convert_starlight(int num, ifstream &infile, string outfilename, double bea
   istringstream curstring;
   int N = 0;
   int N2 = 0; // N_particles (set for every even independently in the code)
-  int M = 4000; // N_events
-  int K = num*M+1;  // first event  //num*M+1
+  int K = 1;  // first event  //num*M+1
   //const double MU = 0.105658369; // muon mass [GeV] 
   //const double MU = 0.51099892811e-3; //electron mass [GeV]
   double MU;
@@ -83,7 +82,7 @@ void convert_starlight(int num, ifstream &infile, string outfilename, double bea
 		output << "<event>" << endl;
 		curstring >> temp >> evt_n >> N; //assuming that EVENT always preceeds VERTEX/TRACK so that N is set correctly
 		// EVENT:          1       2       1
-      		if(evt_n >=K && evt_n < K+M)  {
+      		if(evt_n >=K)  {
 			output << N << " 81" << " 1.0 -1.0 -1.0 -1.0" << endl;
 			nn++;
 		}
@@ -102,16 +101,9 @@ void convert_starlight(int num, ifstream &infile, string outfilename, double bea
 		float E = TMath::Sqrt(pow(MU,2)+pow(p1.P(),2));
                 //std::cout << MU << std::endl;
                 //
- 		if(evt_n >=K && evt_n < K+M){
+ 		if(evt_n >=K ){
 			output << pdg_id << " -1" << " 0 0 0 0 " << px << " " << py << " " << pz << " " << E << " " << MU << " 0.0 9.0" << endl; 
 		}
-                if(N==N2 && evt_n == K+M-1){
-		    output << "</event>" << endl;
-		    output << "</LesHouchesEvents>" << endl; 
-		    output.close();
-		    cout << nn << " events written in " << ofName << endl;
-		    return;
-                }
 			
 	}
 
