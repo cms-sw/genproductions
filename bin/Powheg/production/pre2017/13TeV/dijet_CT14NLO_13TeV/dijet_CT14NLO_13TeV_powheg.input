@@ -8,12 +8,6 @@ bornktmin 5d0       ! (default 0d0) Generation cut: minimum kt in underlying Bor
 bornsuppfact 300d0  ! (default 0d0) Mass parameter for Born suppression factor.
                      ! If < 0 suppfact = 1.
 
-
-! To be set only if using internal (mlm) pdfs
-! 131 cteq6m
-ndns1 131            ! pdf set for hadron 1 (mlm numbering)
-ndns2 131            ! pdf set for hadron 2 (mlm numbering)
-
 ! To be set only if using LHA pdfs
 ! 13100 CT14NLO
 lhans1  13100      ! pdf set for hadron 1 (LHA numbering)
