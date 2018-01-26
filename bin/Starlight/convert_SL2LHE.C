@@ -102,7 +102,7 @@ void convert_starlight(int num, ifstream &infile, string outfilename, double bea
                 //std::cout << MU << std::endl;
                 //
  		if(evt_n >=K ){
-			output << pdg_id << " -1" << " 0 0 0 0 " << px << " " << py << " " << pz << " " << E << " " << MU << " 0.0 9.0" << endl; 
+			output << pdg_id << " 1" << " 0 0 0 0 " << px << " " << py << " " << pz << " " << E << " " << MU << " 0.0 9.0" << endl; 
 		}
 			
 	}
