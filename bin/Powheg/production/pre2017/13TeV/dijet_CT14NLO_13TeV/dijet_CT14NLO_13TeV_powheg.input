@@ -51,6 +51,6 @@ doublefsr 1          ! Default 0; if 1 use new mechanism to generate regions
                      ! If set, it strongly reduces spikes on showered output.
 
 
-storeinfo_rwgt 1
-pdfreweight 1
+storeinfo_rwgt 0
+pdfreweight 0
 withnegweights 1
