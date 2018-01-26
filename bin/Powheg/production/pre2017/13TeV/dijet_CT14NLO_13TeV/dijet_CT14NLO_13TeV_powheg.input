@@ -9,7 +9,6 @@ bornsuppfact 300d0  ! (default 0d0) Mass parameter for Born suppression factor.
                      ! If < 0 suppfact = 1.
 
 ! To be set only if using LHA pdfs
-! 13100 CT14NLO
 lhans1  13100      ! pdf set for hadron 1 (LHA numbering)
 lhans2  13100      ! pdf set for hadron 2 (LHA numbering)	
 
