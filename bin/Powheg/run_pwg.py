@@ -389,6 +389,10 @@ fi
 patch -l -p0 -i ${WORKDIR}/patches/pdfweights.patch
 patch -l -p0 -i ${WORKDIR}/patches/pwhg_lhepdf.patch
 
+if [ "$process" = "WZ" ] || [ "$process" = "ZZ" ]; then
+   patch -l -p0 -i ${WORKDIR}/patches/lhapdf_zanderighi.patch
+fi
+
 if [ "$process" = "b_bbar_4l" ]; then
     cd POWHEG-BOX
     patch -l -p0 -i ${WORKDIR}/patches/res_openloops_long_install_dir.patch
@@ -441,10 +445,19 @@ BOOK_HISTO="pwhg_bookhist-multi.o"
 if [ `echo ${POWHEGSRC} | cut -d "_" -f 1` = "powhegboxV1" ]; then
    BOOK_HISTO="pwhg_bookhist.o"
 fi 
+
 if [ "$process" = "gg_H" ] || [ "$process" = "ggHH" ]; then
    BOOK_HISTO=""
    echo "Process using pwhg_bookhist-multi-new"
 fi
+
+if [ "$process" = "ggHH" ]; then
+   sed -i -e "/PYTHIA8LOCATION/s|^|#|g" Makefile
+   sed -i -e "/LIBPYTHIA8/s|^|#|g" Makefile
+   sed -i -e "s|LIBHEPMC=|# LIBHEPMC=|g" Makefile
+   sed -i -e "/main-PYTHIA8-lhef:/s|^|#|g" Makefile
+fi
+
 if [ "$process" = "trijet" ]; then 
    BOOK_HISTO+=" observables.o"
    rm -rf ../progress/bbinit.f
