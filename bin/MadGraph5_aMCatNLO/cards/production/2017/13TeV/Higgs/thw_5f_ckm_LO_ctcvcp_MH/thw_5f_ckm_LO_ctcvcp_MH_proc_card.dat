@@ -7,8 +7,6 @@ define l- = e- mu- ta-
 define vl = ve vm vt
 define vl~ = ve~ vm~ vt~
 import model HC_NLO_X0_UFO-no_b_mass
-define p = p b b~
-define j = j b b~
 define wdec = u c d s u~ c~ d~ s~ l+ l- vl vl~
 generate p p > x0 t w-, (t > w+ b, w+ > wdec wdec), w- > wdec wdec @1
 add process p p > x0 t~ w+, (t~ > w- b~, w- > wdec wdec), w+ > wdec wdec @2
