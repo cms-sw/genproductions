@@ -8,7 +8,6 @@ set max_weight_ps_point 400  # number of PS to estimate the maximum for each eve
 set max_running_process 1
 
 set onlyhelicity True
-decay w+ > ta+ vt
 
 # running the actual code
 launch
