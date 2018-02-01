@@ -286,7 +286,7 @@ def runGetSource(parstage, xgrid, folderName, powInputName, process, noPdfCheck,
 '''
 # Release to be used to define the environment and the compiler needed
 export RELEASE=${CMSSW_VERSION}
-export jhugenversion="v7.0.11"
+export jhugenversion="v7.1.0"
 
 cd $WORKDIR
 pwd
