@@ -4,15 +4,7 @@ import sys
 import os
 
 emptyevt = """<event>
-	0	0	0	0	0	0							
-	0	0	0	0	0	0	0	0	0	0	0	0	0
-	0	0	0	0	0	0	0	0	0	0	0	0	0
-	0	0	0	0	0	0	0	0	0	0	0	0	0
-	0	0	0	0	0	0	0	0	0	0	0	0	0
-	0	0	0	0	0	0	0	0	0	0	0	0	0
-	0	0	0	0	0	0	0	0	0	0	0	0	0
-	0	0	0	0	0	0	0	0	0	0	0	0	0
-	0	0	0	0	0	0	0	0	0	0	0	0	0 
+	0	processNUMBER	0	0	0	0							
 </event>"""
 
 
@@ -62,7 +54,15 @@ class lheevent(object):
 	@property
 	def emptyevent(self):
 		assert self.lhenum < 1
-		return emptyevt
+		tmpemptyevt = emptyevt.replace('processNUMBER',self.processNum)
+		return tmpemptyevt
+
+	@property
+	def processNum(self):
+		if self.lhenum < 1:
+                        returnevt = lheeventstr[1]
+                        processNum = returnevt.split()[1]
+		return processNum
 
 	@property
 	def lhecontent(self):	
