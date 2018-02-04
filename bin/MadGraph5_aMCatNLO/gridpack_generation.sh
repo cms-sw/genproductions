@@ -432,6 +432,7 @@ make_gridpack () {
       fi
       
       echo "shower=OFF" > makegrid.dat
+      echo "reweight=OFF" > makegrid.dat
       echo "done" >> makegrid.dat
       if [ -e $CARDSDIR/${name}_customizecards.dat ]; then
               cat $CARDSDIR/${name}_customizecards.dat >> makegrid.dat
@@ -440,6 +441,12 @@ make_gridpack () {
       echo "done" >> makegrid.dat
     
       cat makegrid.dat | ./bin/generate_events -n pilotrun
+      # Run this step separately in debug mode since it gives so many problems
+      if [ -e $CARDSDIR/${name}_reweight_card.dat ]; then
+          echo "preparing reweighting step"
+          prepare_reweight $isnlo $WORKDIR $scram_arch $CARDSDIR/${name}_reweight_card.dat 
+      fi
+      
       echo "finished pilot run"
     
       if [ -e $CARDSDIR/${name}_externaltarball.dat ]; then
@@ -512,26 +519,8 @@ make_gridpack () {
       
       # precompile reweighting if necessary
       if [ -e $CARDSDIR/${name}_reweight_card.dat ]; then
-          pwd
           echo "preparing reweighting step"
-          mkdir -p madevent/Events/pilotrun
-          cp $WORKDIR/unweighted_events.lhe.gz madevent/Events/pilotrun
-          echo "f2py_compiler=" `which gfortran` >> ./madevent/Cards/me5_configuration.txt
-          #need to set library path or f2py won't find libraries
-          export LIBRARY_PATH=$LD_LIBRARY_PATH
-          cd madevent
-          bin/madevent reweight pilotrun
-          # Explicitly compile all subprocesses
-          for file in $(ls -d rwgt/*/SubProcesses/P*); do
-            echo "Compiling subprocess $(basename $file)"
-            cd $file
-            for i in 2 3; do
-                MENUM=$i make matrix${i}py.so >& /dev/null
-                echo "Library MENUM=$i compiled with status $?"
-            done
-            cd -
-          done
-          cd ..      
+          prepare_reweight $isnlo $WORKDIR $scram_arch $CARDSDIR/${name}_reweight_card.dat 
       fi
       
       #prepare madspin grids if necessary
