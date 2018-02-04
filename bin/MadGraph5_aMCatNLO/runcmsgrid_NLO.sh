@@ -93,6 +93,8 @@ if [ ! -e $LHEWORKDIR/header_for_madspin.txt ]; then
     fi
 
     if [ -f ./Cards/reweight_card.dat ] ;then
+        rwgt_dir="$LHEWORKDIR/process/rwgt"
+        export PYTHONPATH=$rwgt_dir:$PYTHONPATH
         echo "0" | ./bin/aMCatNLO --debug reweight pilotrun
     fi
 
