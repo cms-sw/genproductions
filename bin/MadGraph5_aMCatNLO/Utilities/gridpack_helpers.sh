@@ -64,7 +64,7 @@ prepare_reweight () {
     scram_arch=$3
     reweight_card=$4
 
-    if cat $reweight_card | grep -q -e "change rwgt_dir \(\.\/\)\?rwgt"; then
+    if ! cat $reweight_card | grep -q -e "change rwgt_dir \(\.\/\)\?rwgt"; then
         echo "ERROR: Reweight card must contain the line"
         echo "    'change rwgt_dir ./rwgt'"
         echo "Refer to examples in genproductions repository."
@@ -72,7 +72,7 @@ prepare_reweight () {
         exit 1
     fi
 
-    cd $WORKDIR
+    cd $WORKDIR/process
     echo "preparing reweighting step"
     if [ "$isnlo" -gt "0" ]; then
         config=./Cards/amcatnlo_configuration.txt
@@ -84,8 +84,8 @@ prepare_reweight () {
     fi
 
     # No longer necessary in gcc6
-    if [ ${scram_arch}== "*gcc48*" ]; then
-        echo "f2py_compiler=" `which gfortran` >> ./madevent/Cards/me5_configuration.txt
+    if [[ ${scram_arch} == *"gcc48"* ]]; then
+        echo "f2py_compiler=" `which gfortran` >> $config
         #need to set library path or f2py won't find libraries
         export LIBRARY_PATH=$LD_LIBRARY_PATH
     fi
