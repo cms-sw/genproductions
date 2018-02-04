@@ -4,5 +4,4 @@ generate p p > x0 / t [QCD] @0
 add process p p > x0 j / t [QCD] @1
 add process p p > x0 j j / t [QCD] @2
 
-output ggh_HT-400To1000_M<MASS>_5f_NLO_FXFX -nojpeg
-
+output ggh_HT-1000ToInf_5f_NLO_FXFX_MH125 -nojpeg
