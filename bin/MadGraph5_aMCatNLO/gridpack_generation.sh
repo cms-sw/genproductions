@@ -448,6 +448,7 @@ make_gridpack () {
       fi
       
       echo "finished pilot run"
+      cd $WORKDIR/process
     
       if [ -e $CARDSDIR/${name}_externaltarball.dat ]; then
           gunzip ./Events/pilotrun_decayed_1/events.lhe.gz
@@ -522,6 +523,8 @@ make_gridpack () {
           echo "preparing reweighting step"
           prepare_reweight $isnlo $WORKDIR $scram_arch $CARDSDIR/${name}_reweight_card.dat 
       fi
+    
+      cd $WORKDIR/process/madevent
       
       #prepare madspin grids if necessary
       if [ -e $CARDSDIR/${name}_madspin_card.dat ]; then
