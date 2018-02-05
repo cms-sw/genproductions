@@ -1,3 +1,4 @@
+import math
 import FWCore.ParameterSet.Config as cms
 from Configuration.Generator.Pythia8CommonSettings_cfi import *
 from Configuration.Generator.MCTunes2017.PythiaCP5Settings_cfi import *
@@ -21,7 +22,7 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
             parameterSets = cms.vstring('setHiggsScalarPseudoscalarPDG', 'setHiggsScalarPseudoscalarMixingAngle'),
             setHiggsScalarPseudoscalarPDG = cms.int32(25),
             setHiggsScalarPseudoscalarMixingAngle = cms.double(0), #this is for SM decay
-                                                                   #change to 90 for pure pseudoscalar
+                                                                   #change to math.pi/2 for pure pseudoscalar
         ),
         parameterSets = cms.vstring('Tauola'),
     PythiaParameters = cms.PSet(
