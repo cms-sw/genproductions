@@ -1,0 +1,15 @@
+README
+
+
+With these cards, you are able to generate the single top + Higgs process in the tW-channel (five-flavour-scheme) at LO.
+
+However, the gridpack_generation.sh scripts will not work, for we employ a reweighting technique to scan the 2dimensional plane spanned by the Yukawa coupling to the top and the coupling of the Higgs to vector bosons. Because of the latter, we need to use the Higgs characterization model, which allows to modify this coupling which in other models (e.g. the model sm) would be fixed. Have a look at the reweight_card! This reweighting is currently (as of Jul 06, 2015) not supported by the generation scripts.
+
+Therefore we generated the LHEs by hand. Non-diagonal 3rd generation transitions are forbidden (see param_card.dat).
+MG5 v2.2.3 was used.
+
+
+For questions, please contact me:
+
+benedikt.maier@cern.ch
+  
