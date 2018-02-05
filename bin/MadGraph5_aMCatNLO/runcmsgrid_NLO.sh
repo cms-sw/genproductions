@@ -55,7 +55,7 @@ echo "run_mode = 2" >> ./Cards/amcatnlo_configuration.txt
 echo "nb_core = $ncpu" >> ./Cards/amcatnlo_configuration.txt
 
 echo "done" > runscript.dat
-echo "reweight=OFF" > runscript.dat
+echo "reweight=OFF" >> runscript.dat
 echo "set nevents $nevt" >> runscript.dat
 echo "set iseed $rnum" >> runscript.dat
 

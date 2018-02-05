@@ -91,6 +91,9 @@ prepare_reweight () {
     fi
 
     if [ "$isnlo" -gt "0" ]; then
+        # Needed to get around python import errors
+        rwgt_dir="$LHEWORKDIR/process/rwgt"
+        export PYTHONPATH=$rwgt_dir:$PYTHONPATH
         echo "0" | ./bin/aMCatNLO --debug reweight pilotrun
     else
         echo "0" | ./bin/madevent --debug reweight pilotrun

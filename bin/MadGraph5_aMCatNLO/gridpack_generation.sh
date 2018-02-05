@@ -432,7 +432,7 @@ make_gridpack () {
       fi
       
       echo "shower=OFF" > makegrid.dat
-      echo "reweight=OFF" > makegrid.dat
+      echo "reweight=OFF" >> makegrid.dat
       echo "done" >> makegrid.dat
       if [ -e $CARDSDIR/${name}_customizecards.dat ]; then
               cat $CARDSDIR/${name}_customizecards.dat >> makegrid.dat
