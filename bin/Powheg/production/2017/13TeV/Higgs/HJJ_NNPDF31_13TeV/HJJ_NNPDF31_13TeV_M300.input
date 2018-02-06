@@ -1,8 +1,8 @@
 numevts NEVENTS     ! number of events to be generated
 ih1   1           ! hadron 1 (1 for protons, -1 for antiprotons)
 ih2   1           ! hadron 2 (1 for protons, -1 for antiprotons)
-ebeam1 7000     ! energy of beam 1
-ebeam2 7000     ! energy of beam 2
+ebeam1 6500     ! energy of beam 1
+ebeam2 6500     ! energy of beam 2
 ! To be set only if using LHA pdfs
 lhans1   306000      ! pdf set for hadron 1 (LHA numbering)
 lhans2   306000      ! pdf set for hadron 2 (LHA numbering)
