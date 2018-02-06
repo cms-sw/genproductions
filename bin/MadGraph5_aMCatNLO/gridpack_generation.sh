@@ -118,7 +118,10 @@ make_gridpack () {
     
       cd $MGBASEDIRORIG
       cat $PRODHOME/patches/*.patch | patch -p1
-    
+
+      echo "Copying PLUGIN folder"
+      cp -vr ${PRODHOME}/PLUGIN/* ./PLUGIN/
+
       if [ -e $CARDSDIR/${name}_loop_filter.py ]; then
         echo "Acitvating custom user loop filter"
         cat $CARDSDIR/${name}_loop_filter.py | patch -p1
@@ -147,10 +150,10 @@ make_gridpack () {
       
           echo "set run_mode  1" >> mgconfigscript
           if [ "$queue" == "condor" ]; then
-            echo "set cluster_type condor" >> mgconfigscript
+            echo "set cluster_type cms_condor" >> mgconfigscript
             echo "set cluster_queue None" >> mgconfigscript
           else
-            echo "set cluster_type lsf" >> mgconfigscript
+            echo "set cluster_type cms_lsf" >> mgconfigscript
             #*FIXME* broken in mg_amc 2.4.0
     #         echo "set cluster_queue $queue" >> mgconfigscript
           fi 
@@ -267,7 +270,7 @@ make_gridpack () {
        elif [ "$queue" == "condor" ]; then
          echo "cluster_queue = None" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
          echo "run_mode = 1" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
-         echo "cluster_type = condor" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
+         echo "cluster_type = cms_condor" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
        fi
     
       # Previous cluster_local_path setting  gets erased after
