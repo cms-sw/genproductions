@@ -1,0 +1,18 @@
+OUTPUT 2 
+NTNAME      'tmpntuple.ntp'
+MAXEV       1000
+TYPEPR      'EXC'
+TYPINT      'QED'
+ECMS        14000.
+IPROC       16008
+NFLUX       15
+NRN1        33781
+NRN2        11776
+PTMIN       3.
+IFIT        10
+ISOFTM	    0
+Q2WWMX      2.
+YWWMIN      0.
+YWWMAX      1.
+
+
