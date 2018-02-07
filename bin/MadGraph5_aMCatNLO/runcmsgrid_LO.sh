@@ -59,6 +59,17 @@ fi
 #generate events
 ./run.sh $nevt $rnum
 
+#reweight if necessary
+if [ -e process/madevent/Cards/reweight_card.dat ]; then
+    echo "reweighting events"
+    mv cmsgrid_final.lhe process/madevent/Events/GridRun_${rnum}/unweighted_events.lhe
+    cd process/madevent
+    echo "0" |./bin/madevent --debug reweight GridRun_${rnum}
+    cd ../..
+    mv process/madevent/Events/GridRun_${rnum}/unweighted_events.lhe.gz cmsgrid_final.lhe.gz
+    gzip -d  cmsgrid_final.lhe.gz
+fi
+
 domadspin=0
 if [ -f ./madspin_card.dat ] ;then
     domadspin=1
@@ -89,19 +100,6 @@ popd
 
 mv process/madevent/Events/${runlabel}/events.lhe.gz cmsgrid_final.lhe.gz
 gzip -d cmsgrid_final.lhe.gz
-
-
-#reweight if necessary
-if [ -e process/madevent/Cards/reweight_card.dat ]; then
-    echo "reweighting events"
-    mv cmsgrid_final.lhe process/madevent/Events/GridRun_${rnum}/unweighted_events.lhe
-    cd process/madevent
-    echo "0" |./bin/madevent --debug reweight GridRun_${rnum}
-    cd ../..
-    mv process/madevent/Events/GridRun_${rnum}/unweighted_events.lhe.gz cmsgrid_final.lhe.gz
-    gzip -d  cmsgrid_final.lhe.gz
-fi
-
 
 ls -l
 echo
