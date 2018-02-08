@@ -11,7 +11,7 @@ if [ $linkMELA != true ] && [ $linkMELA != false ]; then
     echo "Argument to $0 has to be true to link MELA or false to not link it"
 fi
 
-jhugenversion=v7.0.11
+jhugenversion=v7.1.0
 
 wget --no-check-certificate http://spin.pha.jhu.edu/Generator/JHUGenerator.${jhugenversion}.tar.gz -O JHUGenerator.${jhugenversion}.tar.gz
 tar xzvf JHUGenerator.${jhugenversion}.tar.gz
