@@ -56,7 +56,7 @@ pjoin = os.path.join
 def cleansubproc(subproc):
     subproc.terminate()
 
-class CMSCondorCluster(Cluster):
+class CMSCondorCluster(CondorCluster):
     """Basic class for dealing with cluster submission"""
     
     name = 'condor'
@@ -189,68 +189,6 @@ class CMSCondorCluster(Cluster):
                 return new_maxwalltime
 
         return 0
-
-    @multiple_try()
-    def submit(self, prog, argument=[], cwd=None, stdout=None, stderr=None, log=None,
-               required_output=[], nb_submit=0):
-        """Submit a job prog to a Condor cluster"""
-        
-        text = """Executable = %(prog)s
-                  output = %(stdout)s
-                  error = %(stderr)s
-                  log = %(log)s
-                  %(argument)s
-                  environment = CONDOR_ID=$(Cluster).$(Process)
-                  Universe = vanilla
-                  notification = Error
-                  Initialdir = %(cwd)s
-                  %(requirement)s
-                  getenv=True
-                  queue 1
-               """
-        
-        if self.cluster_queue not in ['None', None]:
-            requirement = 'Requirements = %s=?=True' % self.cluster_queue
-        else:
-            requirement = ''
-
-        if cwd is None:
-            cwd = os.getcwd()
-        if stdout is None:
-            stdout = '/dev/null'
-        if stderr is None:
-            stderr = '/dev/null'
-        if log is None:
-            log = '/dev/null'
-        if not os.path.exists(prog):
-            prog = os.path.join(cwd, prog)
-        if argument:
-            argument = 'Arguments = %s' % ' '.join(argument)
-        else:
-            argument = ''
-        
-
-        dico = {'prog': prog, 'cwd': cwd, 'stdout': stdout, 
-                'stderr': stderr,'log': log,'argument': argument,
-                'requirement': requirement}
-
-        #open('submit_condor','w').write(text % dico)
-        a = misc.Popen(['condor_submit'], stdout=subprocess.PIPE,
-                       stdin=subprocess.PIPE)
-        output, _ = a.communicate(text % dico)
-        #output = a.stdout.read()
-        #Submitting job(s).
-        #Logging submit event(s).
-        #1 job(s) submitted to cluster 2253622.
-        pat = re.compile("submitted to cluster (\d*)",re.MULTILINE)
-        try:
-            id = pat.search(output).groups()[0]
-        except:
-            raise ClusterManagmentError, 'fail to submit to the cluster: \n%s' \
-                                                                        % output 
-        self.submitted += 1
-        self.submitted_ids.append(id)
-        return id
 
     @store_input()
     @multiple_try()
@@ -408,20 +346,8 @@ class CMSCondorCluster(Cluster):
                     idle += 1
 
         return idle, run, self.submitted - (idle+run+fail), fail
-    
-    @multiple_try()
-    def remove(self, *args, **opts):
-        """Clean the jobson the cluster"""
-        
-        if not self.submitted_ids:
-            return
-        cmd = "condor_rm %s" % ' '.join(self.submitted_ids)
-        
-        status = misc.Popen([cmd], shell=True, stdout=open(os.devnull,'w'))
-        self.submitted_ids = []
-        
 
-class CMSLSFCluster(Cluster):
+class CMSLSFCluster(LSFCluster):
     """Basic class for dealing with cluster submission"""
     
     name = 'lsf'
@@ -682,30 +608,6 @@ class CMSLSFCluster(Cluster):
         self.submitted += 1
         self.submitted_ids.append(id)
         return id         
-        
-    @multiple_try()
-    def control_one_job(self, id):
-        """ control the status of a single job with it's cluster id """
-        
-        cmd = 'bjobs '+str(id)
-        status = misc.Popen([cmd], shell=True, stdout=subprocess.PIPE)
-        
-        for line in status.stdout:
-            line = line.strip().upper()
-            if 'JOBID' in line:
-                continue
-            elif str(id) not in line:
-                continue
-            status = line.split()[2]
-            if status == 'RUN':
-                return 'R'
-            elif status == 'PEND':
-                return 'I'
-            elif status == 'DONE':
-                return 'F'
-            else:
-                return 'H'
-            return 'F'
 
     @multiple_try()   
     def control(self, me_dir):
@@ -757,17 +659,6 @@ class CMSLSFCluster(Cluster):
                 idle += 1
 
         return idle, run, self.submitted - (idle+run+fail), fail
-
-    @multiple_try()
-    def remove(self, *args,**opts):
-        """Clean the jobs on the cluster"""
-        
-        if not self.submitted_ids:
-            return
-        cmd = "bkill %s" % ' '.join(self.submitted_ids)
-        status = misc.Popen([cmd], shell=True, stdout=open(os.devnull,'w'))
-        self.submitted_ids = []
-
 
 # Three types of functionality are allowed in a plugin
 #   1. new output mode
