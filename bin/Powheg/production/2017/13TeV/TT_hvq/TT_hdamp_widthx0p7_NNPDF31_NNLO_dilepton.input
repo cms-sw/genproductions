@@ -5,30 +5,32 @@
                    ! If POWHEG is interfaced to a shower MC, refer to the shower MC
                    ! documentation to set its seed.
 
-!Heavy flavour production parameters
 
-numevts NEVENTS    ! number of events to be generated
-iseed   SEED       ! Start the random number generator with seed iseed 
+
+numevts NEVENTS
+iseed SEED
 ih1   1        ! hadron 1
 ih2   1        ! hadron 2
 
-! To be set only if using LHA pdfs
-lhans1 260000       ! pdf set for hadron 1 (LHA numbering)
-lhans2 260000       ! pdf set for hadron 2 (LHA numbering)
 
+! To be set only if using LHA pdfs
+lhans1 306000
+lhans2 306000
+! NNPDF31_nnlo_as_0118
 ebeam1 6500    ! energy of beam 1
 ebeam2 6500    ! energy of beam 2
 qmass  172.5     ! mass of heavy quark in GeV
 facscfact 1    ! factorization scale factor: mufact=muref*facscfact 
 renscfact 1    ! renormalization scale factor: muren=muref*renscfact 
-hdamp 171.79275
 
-topdecaymode 11111   ! an integer of 5 digits that are either 0, or 2, representing in 
+hdamp 237.8775
+
+topdecaymode 22200   ! an integer of 5 digits that are either 0, or 2, representing in 
                      ! the order the maximum number of the following particles(antiparticles)
                      ! in the final state: e  mu tau up charm
                      ! For example
                      ! 22222    All decays (up to 2 units of everything)
-                     ! 20000    both top go into b l nu (with the appropriate signs)
+                     ! 20000    both top go into b e nu (with the appropriate signs)
                      ! 10011    one top goes into electron (or positron), the other into (any) hadrons,
                      !          or one top goes into charm, the other into up
                      ! 00022    Fully hadronic
@@ -36,7 +38,7 @@ topdecaymode 11111   ! an integer of 5 digits that are either 0, or 2, represent
                      ! 00011    Fully hadronic with a single charm
                      ! 00012    Fully hadronic with at least one charm
 
-semileptonic 1      ! uncomment if you want to filter out only semileptonic events. For example,
+!semileptonic 1      ! uncomment if you want to filter out only semileptonic events. For example,
                      ! with topdecaymode 10011 and semileptonic 1 you get only events with one top going
                      ! to an electron or positron, and the other into any hadron.
 
@@ -44,7 +46,7 @@ semileptonic 1      ! uncomment if you want to filter out only semileptonic even
 tdec/wmass 80.4  ! W mass for top decay
 tdec/wwidth 2.141
 tdec/bmass 4.8
-tdec/twidth  1.31
+tdec/twidth  0.917 ! 0.7 x 1.31 central width
 tdec/elbranching 0.108
 tdec/emass 0.00051
 tdec/mumass 0.1057
@@ -67,9 +69,21 @@ foldy   1      ! number of folds on y integration
 foldphi 1      ! number of folds on phi integration
 nubound 100000  ! number of bbarra calls to setup norm of upper bounding function
 iymax 1        ! <= 10, normalization of upper bounding function in iunorm X iunorm square in y, log(m2qq)
+
 xupbound 2      ! increase upper bound for radiation generation
 
-pdfreweight 1       ! PDF reweighting
-dampreweight 0      ! h_damp reweighting (mt/2, mt, mt*2)
-storeinfo_rwgt 1    ! store weight information
-withnegweights 0    ! default 0
+pdfreweight 0
+
+storeinfo_rwgt 0    ! store weight information
+withnegweights 1    ! default 0
+
+
+
+
+
+
+
+
+
+
+
