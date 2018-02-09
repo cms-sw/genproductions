@@ -2,6 +2,21 @@
 
 #
 # Description:
+# Bash script to install and compile FPMC event generator
+# and setup the necessary files to produce an event sample
+# in LXBATCH.
+#
+# If argument "run" is True, this script will produce
+# samples with ALL the cards present at the cards folder.
+#
+# The necessary arguments are set within the lines below,
+# which are:
+# 
+# 1 -- carddir: folder containing the input cards for FPMC (e.g. cards/)
+# 2 -- name: any label for the working directory
+# 3 -- queue: LXBATH queue (e.g. 2nd for quick production)
+# 4 -- run?: if the user wants to produce the event samples or
+#            just setup FPMC
 #
 ARGS=4
 RUN=False
