@@ -1,8 +1,8 @@
 FLAVOR = 'stop'
 COM_ENERGY = 13000. # GeV
-MASS_POINT = 1300   # GeV
-CROSS_SECTION = 0.000850345 # pb
-CTAU_POINT = 1. # mm
+MASS_POINT = XXX   # GeV
+CROSS_SECTION = ZZZ # pb
+CTAU_POINT = YYY # mm
 SLHA_TABLE = """## Important note!
 ## This file has been modified by hand to give the gluino and the
 ## stop_1 a very narrow width, such that it can be used to try out
@@ -86,7 +86,7 @@ BLOCK MASS  # Mass Spectrum
    2000004     5.49259265E+05   # ~c_R
    1000005     5.13065179E+05   # ~b_1
    2000005     5.43726676E+05   # ~b_2
-   1000006     1300.00   # ~t_1
+   1000006     XXX.00           # ~t_1
    2000006     5.85785818E+05   # ~t_2
    1000011     2.02915690E+05   # ~e_L
    2000011     1.44102799E+05   # ~e_R
@@ -290,7 +290,7 @@ DECAY   1000021     0.00E+00   # gluino decays
      0.00000000E+00    2    -2000006         6   # BR(~g -> ~t_2* t )
 #
 #         PDG            Width
-DECAY   1000006     1.97326971684839e-13   # stop1 decays
+DECAY   1000006     1.97326971684839e-AAA   # stop1 decays
 #          BR         NDA      ID1       ID2
       3.33333333E-01  2  5  -11
       3.33333333E-01  2  5  -13
