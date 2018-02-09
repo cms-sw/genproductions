@@ -1,8 +1,8 @@
 FLAVOR = 'stop'
 COM_ENERGY = 13000. # GeV
-MASS_POINT = 400   # GeV
-CROSS_SECTION = 1.83537 # pb
-CTAU_POINT = 10. # mm
+MASS_POINT = XXX   # GeV
+CROSS_SECTION = ZZZ # pb
+CTAU_POINT = YYY # mm
 SLHA_TABLE = """## Important note!
 ## This file has been modified by hand to give the gluino and the
 ## stop_1 a very narrow width, such that it can be used to try out
@@ -86,7 +86,7 @@ BLOCK MASS  # Mass Spectrum
    2000004     5.49259265E+05   # ~c_R
    1000005     5.13065179E+05   # ~b_1
    2000005     5.43726676E+05   # ~b_2
-   1000006     400.00   # ~t_1
+   1000006     XXX.00           # ~t_1
    2000006     5.85785818E+05   # ~t_2
    1000011     2.02915690E+05   # ~e_L
    2000011     1.44102799E+05   # ~e_R
@@ -290,7 +290,7 @@ DECAY   1000021     0.00E+00   # gluino decays
      0.00000000E+00    2    -2000006         6   # BR(~g -> ~t_2* t )
 #
 #         PDG            Width
-DECAY   1000006     1.97326971684839e-14   # stop1 decays
+DECAY   1000006     1.97326971684839e-AAA   # stop1 decays
 #          BR         NDA      ID1       ID2
       3.33333333E-01  2  5  -11
       3.33333333E-01  2  5  -13
@@ -813,7 +813,7 @@ DECAY   1000035     2.58585079E+00   # neutralino4 decays
 import FWCore.ParameterSet.Config as cms
 
 from Configuration.Generator.Pythia8CommonSettings_cfi import *
-from Configuration.Generator.Pythia8CUEP8M1Settings_cfi import *
+from Configuration.Generator.MCTunes2017.PythiaCP5Settings_cfi import *
 
 generator = cms.EDFilter("Pythia8GeneratorFilter",
     pythiaPylistVerbosity = cms.untracked.int32(0),
@@ -825,7 +825,7 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
     SLHATableForPythia8 = cms.string('%s' % SLHA_TABLE),
     PythiaParameters = cms.PSet(
         pythia8CommonSettingsBlock,
-        pythia8CUEP8M1SettingsBlock,
+        pythia8CP5SettingsBlock,
         processParameters = cms.vstring(
             'SUSY:all = off',
             'SUSY:gg2squarkantisquark  = on',
@@ -837,7 +837,7 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
         ),
         parameterSets = cms.vstring(
             'pythia8CommonSettings',
-            'pythia8CUEP8M1Settings',
+            'pythia8CP5Settings',
             'processParameters'
         )
     )
