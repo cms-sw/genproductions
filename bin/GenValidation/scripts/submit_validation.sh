@@ -9,6 +9,8 @@ NJOBS=1
 NEVTS=250 
 # valiation output tag  
 OTAG=dyfxfx_2p6
+# path to submit jobs 
+WORKDIR=`pwd -P`
 # name of shower fragment 
 GRIDPACK=${WORKDIR}/dyellell012j_5f_NLO_FXFX_slc6_amd64_gcc481_CMSSW_7_1_30_tarball.tar.xz
 #GENFRAGMENT=Hadronizer_TuneCUETP8M1_13TeV_MLM_5f_max4j_LHE_pythia8_cff # wjets/zjets
@@ -19,8 +21,6 @@ FRAGMENTDIR=SOMENAME
 # release setup 
 SCRAM_ARCH=slc6_amd64_gcc630
 RELEASE=CMSSW_9_3_3
-# path to submit jobs 
-WORKDIR=`pwd`
 # path to store output files
 ODIR=${WORKDIR}/samples/${OTAG}
 ### done with settings 
@@ -100,6 +100,9 @@ cd ${WORKDIR}
 ### prepare submission script 
 cat > subscript_${OTAG}.sh <<EOF 
 #!/bin/bash
+if [ ! -z ${TMPDIR} ] ; then 
+cd ${TMPDIR}
+fi 
 pushd ${CMSSW_BASE}/src/
 eval \`scram runtime -sh\`
 popd
@@ -113,7 +116,11 @@ sed -i "\${LINE}"aprocess.RandomNumberGeneratorService.externalLHEProducer.initi
 ### run config 
 cmsRun cmsrun_\${OTAG}.py 
 ### copy output 
+if [ $? -eq 0 ]; then
 cp *_inDQM.root \${ODIR}/\${OTAG}_\${OFFSET}.root 
+else
+echo "Generation problems please check log file carefully!"
+fi 
 EOF
 # adjust rights 
 chmod 755 subscript_${OTAG}.sh
