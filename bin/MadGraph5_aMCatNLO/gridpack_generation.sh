@@ -152,6 +152,9 @@ make_gridpack () {
           if [ "$queue" == "condor" ]; then
             echo "set cluster_type cms_condor" >> mgconfigscript
             echo "set cluster_queue None" >> mgconfigscript
+          elif [ "$queue" == "condor_spool" ]; then
+            echo "set cluster_type cms_condor_spool" >> mgconfigscript
+            echo "set cluster_queue None" >> mgconfigscript
           else
             echo "set cluster_type cms_lsf" >> mgconfigscript
             #*FIXME* broken in mg_amc 2.4.0
@@ -271,6 +274,10 @@ make_gridpack () {
          echo "cluster_queue = None" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
          echo "run_mode = 1" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
          echo "cluster_type = cms_condor" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
+       elif [ "$queue" == "condor_spool" ]; then
+         echo "cluster_queue = None" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
+         echo "run_mode = 1" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
+         echo "cluster_type = cms_condor_spool" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
        fi
     
       # Previous cluster_local_path setting  gets erased after
