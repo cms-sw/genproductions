@@ -1,0 +1,17 @@
+set param_card mass  55 2000
+set param_card mass  52 1
+set param_card dminputs 2 1
+set param_card dminputs 3 0
+set param_card dminputs 4 0.25
+set param_card dminputs 5 0.25
+set param_card dminputs 6 0.25
+set param_card dminputs 7 0.25
+set param_card dminputs 8 0.25
+set param_card dminputs 9 0.25
+set param_card dminputs 10 0
+set param_card dminputs 11 0
+set param_card dminputs 12 0
+set param_card dminputs 13 0
+set param_card dminputs 14 0
+set param_card dminputs 15 0
+set param_card decay 55 auto
