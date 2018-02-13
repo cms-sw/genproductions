@@ -1,6 +1,7 @@
 #!/bin/bash
 code_dir=$PWD
-for mass in 100 150 200 250 300 350 400 450 500 550 600 650 700 750 800 850 900 950 1000
+#for mass in 100 150 200 250 300 350 400 450 500 550 600 650 700 750 800 850 900 950 1000
+for mass in 300 
 do
     cd $code_dir
     echo $mass;
@@ -29,37 +30,10 @@ do
 	echo "VectorLikeLeptons_M-"$mass"_UFO.tgz" >> $extramodels
 	
 	echo "writing proc_card for mass " $mass " in " $mode " mode "
-
-	echo "#************************************************************" >> $proc_card
-	echo "#*                     MadGraph5_aMC@NLO                    *" >> $proc_card
-	echo "#*                                                          *" >> $proc_card
-	echo "#*                *                       *                 *" >> $proc_card
-	echo "#*                  *        * *        *                   *" >> $proc_card
-	echo "#*                    * * * * 5 * * * *                     *" >> $proc_card
-	echo "#*                  *        * *        *                   *" >> $proc_card
-	echo "#*                *                       *                 *" >> $proc_card
-	echo "#*                                                          *" >> $proc_card
-	echo "#*                                                          *" >> $proc_card
-	echo "#*         VERSION 2.4.3                 2016-08-01         *" >> $proc_card
-	echo "#*                                                          *" >> $proc_card
-	echo "#*    The MadGraph5_aMC@NLO Development Team - Find us at   *" >> $proc_card
-	echo "#*    https://server06.fynu.ucl.ac.be/projects/madgraph     *" >> $proc_card
-	echo "#*                                                          *" >> $proc_card
-	echo "#************************************************************" >> $proc_card
-	echo "#*                                                          *" >> $proc_card
-	echo "#*               Command File for MadGraph5_aMC@NLO         *" >> $proc_card
-	echo "#*                                                          *" >> $proc_card
-	echo "#*     run as ./bin/mg5_aMC  filename                       *" >> $proc_card
-	echo "#*                                                          *" >> $proc_card
-	echo "#************************************************************" >> $proc_card
-        echo "set group_subprocesses Auto" >> $proc_card
-	echo "set ignore_six_quark_processes False" >> $proc_card
-	echo "set loop_optimized_output True" >> $proc_card
-	echo "set complex_mass_scheme False" >> $proc_card
 	echo "import model VectorLikeLeptons_M-"$mass"_UFO" >> $proc_card
-	echo "# Define multiparticle labels" >> $proc_card
-	echo "define p = g u c d s u~ c~ d~ s~" >> $proc_card
-	echo "define j = g u c d s u~ c~ d~ s~" >> $proc_card
+	#echo "# Define multiparticle labels" >> $proc_card
+	#echo "define p = g u c d s u~ c~ d~ s~" >> $proc_card
+	#echo "define j = g u c d s u~ c~ d~ s~" >> $proc_card
 	echo "define l+ = e+ mu+ ta+" >> $proc_card
 	echo "define l- = e- mu- ta-" >> $proc_card
 	echo "define w = w+ w-" >> $proc_card
@@ -79,8 +53,8 @@ do
 #
 	echo "output VectorLikeLeptons_M-"$mass"_13TeV-madgraph_MLM -nojpeg" >> $proc_card
 	echo "" >> $proc_card
-	echo "# To generate events, you can go to the created directory and " >> $proc_card
-	echo "# run ./bin/generate_events" >> $proc_card
+	#echo "# To generate events, you can go to the created directory and " >> $proc_card
+	#echo "# run ./bin/generate_events" >> $proc_card
 
 	echo "writing run_card for mass " $mass " in " $mode " mode "
 	
@@ -147,13 +121,13 @@ do
 	echo " 91.188  = scale            ! fixed ren scale" >> $run_card
 	echo " 91.188  = dsqrt_q2fact1    ! fixed fact scale for pdf1" >> $run_card
 	echo " 91.188  = dsqrt_q2fact2    ! fixed fact scale for pdf2" >> $run_card
-	echo " -1 = dynamical_scale_choice ! Choose one of the preselected dynamical choices" >> $run_card
+	#echo " -1 = dynamical_scale_choice ! Choose one of the preselected dynamical choices" >> $run_card
 	echo " 1.0  = scalefact        ! scale factor for event-by-event scales" >> $run_card
 	echo "#*********************************************************************" >> $run_card
-	echo "# Time of flight information. (-1 means not run)" >> $run_card
-	echo "#*********************************************************************" >> $run_card
-	echo " -1.0 = time_of_flight ! threshold below which info is not written" >> $run_card
-	echo "#*********************************************************************" >> $run_card
+	#echo "# Time of flight information. (-1 means not run)" >> $run_card
+	#echo "#*********************************************************************" >> $run_card
+	#echo " -1.0 = time_of_flight ! threshold below which info is not written" >> $run_card
+	#echo "#*********************************************************************" >> $run_card
 	echo "# Matching - Warning! ickkw > 1 is still beta" >> $run_card
 	echo "#*********************************************************************" >> $run_card
 	echo " 0 = ickkw            ! 0 no matching, 1 MLM, 2 CKKW matching" >> $run_card
@@ -359,16 +333,16 @@ do
 	echo "#*********************************************************************" >> $run_card
 	echo "   True  = use_syst      ! Enable systematics studies" >> $run_card
 	echo "#" >> $run_card
-	echo "#**************************************" >> $run_card
-	echo "# Parameter of the systematics study" >> $run_card
-	echo "#  will be used by SysCalc (if installed)" >> $run_card
-	echo "#**************************************                                  " >> $run_card
-	echo "#" >> $run_card
-	echo "0.5 1 2 = sys_scalefact  # factorization/renormalization scale factor" >> $run_card
-	echo "None = sys_alpsfact  # \alpha_s emission scale factors" >> $run_card
-	echo "30 50 = sys_matchscale # variation of merging scale" >> $run_card
-	echo "# PDF sets and number of members (0 or none for all members)." >> $run_card
-	echo "NNPDF23_lo_as_0130_qed = sys_pdf # matching scales" >> $run_card
-	echo "# MSTW2008nlo68cl.LHgrid 1  = sys_pdf" >> $run_card	
+	#echo "#**************************************" >> $run_card
+	#echo "# Parameter of the systematics study" >> $run_card
+	#echo "#  will be used by SysCalc (if installed)" >> $run_card
+	#echo "#**************************************                                  " >> $run_card
+	#echo "#" >> $run_card
+	#echo "0.5 1 2 = sys_scalefact  # factorization/renormalization scale factor" >> $run_card
+	#echo "None = sys_alpsfact  # \alpha_s emission scale factors" >> $run_card
+	#echo "30 50 = sys_matchscale # variation of merging scale" >> $run_card
+	#echo "# PDF sets and number of members (0 or none for all members)." >> $run_card
+	#echo "NNPDF23_lo_as_0130_qed = sys_pdf # matching scales" >> $run_card
+	#echo "# MSTW2008nlo68cl.LHgrid 1  = sys_pdf" >> $run_card	
 	cd $code_dir
 done 
