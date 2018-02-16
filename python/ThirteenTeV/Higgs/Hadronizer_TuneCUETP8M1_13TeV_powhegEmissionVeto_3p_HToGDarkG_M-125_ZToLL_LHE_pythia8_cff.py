@@ -20,7 +20,7 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
                  '3000022:all = DarkPhoton void 3 0 0 0. 0. 0. 0. 0.',
                  '3000022:isVisible = 0',
                  '25:m0 = 125.0',
-                 '25:oneChannel = 1 1 100 22 3000022'
+                 '25:oneChannel = 1 1 100 22 3000022',
                  '23:onMode = off',
                  '23:onIfAny = 11 13 15',
                ),
