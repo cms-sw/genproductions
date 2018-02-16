@@ -98,6 +98,12 @@ class RunMcfmOP():
 		else:
 			return 'MCFM-7.0_JHUGen_%s' % (self.args.datasetname)
 
+        @property 
+	def gridname(self):
+		gridname = re.split('_',self.agrs.datasetname)
+		gridname = '_'.join(gridname)
+		return gridname
+
 	def editmakefile(self):
 		fmakefile = open('%s/makefile' % (self.mcfmdir))
 		tempstr = fmakefile.read()
@@ -142,7 +148,7 @@ class RunMcfmOP():
 				if('[ij]' in line):			assert 'SEED' in line
 				if('[readin]' in line):			line = '.true.		[readin] \n'	
 				if('[writeout]' in line):		line = '.false.		[writeout] \n'
-				if('[ingridfile]' in line):		line = "'%s_grid'		[ingridfile] \n" %(self.args.datasetname)
+				if('[ingridfile]' in line):		line = "'%s_grid'		[ingridfile] \n" %(self.gridname)
 				if('[outgridfile' in line):		line = "''		[outgridfile] \n"
 			if(writeout):
 				line = line.replace('NEVENT',str(self.args.nevent),1)
@@ -195,7 +201,7 @@ class RunMcfmOP():
 			substr+='ln -sf ./Bin/process.DAT process.DAT \n ln -sf ./Bin/hto_output.dat hto_output.dat \n ln -sf ./Bin/ffwarn.dat ffwarn.dat \n ln -sf ./Bin/ffperm5.dat ffperm5.dat \n ln -sf ./Bin/fferr.dat fferr.dat \n ln -sf ./Bin/dm_parameters.DAT dm_parameters.DAT \n ln -sf ./Bin/br.sm1 br.sm1 \n ln -sf ./Bin/br.sm2 br.sm2 \n \n'  
 			substr+='./Bin/mcfm writeInput.DAT \n'
 			substr+='gridfileexists=false \nwhile [ ${gridfileexists} = false ]; do gridfile=($(ls|grep _grid)); if [ ${#gridfile[@]} -eq 1 ]; then gridfileexists=true; else sleep 2m; fi; done \n'
-			substr+="mv ${gridfile[0]} %s_grid \nchmod 755 runcmsgrid.sh \nrm *.lhe \n"%(self.args.datasetname)
+			substr+="mv ${gridfile[0]} %s_grid \nchmod 755 runcmsgrid.sh \nrm *.lhe \n"%(self.gridname)
  			substr+='cp ../adjlheevent.py ./ \n'
 			substr+='rm -rf CMSSW* .git\n'
 			substr+='echo tarball will be found at ${basedir} \n'
