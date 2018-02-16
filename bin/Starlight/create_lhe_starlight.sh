@@ -19,18 +19,18 @@ then
 fi
 
 #setting all default values...
-prodType=${1:-5}
+prodType=${1:-6}
 channel=${2:-11}
 Beam1Z=${3:-54}
 Beam2Z=${4:-54}
-Beam1A=${5:-131}
-Beam2A=${6:-131}
-Beam1Gamma=${7:-2720.0}
-Beam2Gamma=${8:-2720.0}
+Beam1A=${5:-129}
+Beam2A=${6:-129}
+Beam1Gamma=${7:-2889.0}
+Beam2Gamma=${8:-2889.0}
 BreakupMode=${9:-5}
-EtaCut=${10:-0}
-EtaMin=${11:--10}
-EtaMax=${12:-10}
+EtaCut=${10:-1}
+EtaMin=${11:--6}
+EtaMax=${12:-6}
 PtCut=${13:-0}
 PtMin=${14:-1.0}
 PtMax=${15:-3.0}
@@ -124,11 +124,11 @@ BEAM_2_Z = B2Z   #Z of target
 BEAM_2_A = B2A   #A of target
 BEAM_1_GAMMA = B1G #Gamma of the colliding ion 1
 BEAM_2_GAMMA = B2G #Gamma of the colliding ion 2
-W_MAX = -1   #Max value of w
-W_MIN = -1    #Min value of w
-W_N_BINS = 50    #Bins i w
-RAP_MAX = 9.    #max y
-RAP_N_BINS = 200    #Bins i y
+W_MAX = 12.0   #Max value of w
+W_MIN = 2.0    #Min value of w
+W_N_BINS = 40    #Bins i w
+RAP_MAX = 8.    #max y
+RAP_N_BINS = 80    #Bins i y
 CUT_PT = PtCut #Cut in pT? 0 = (no, 1 = yes)
 PT_MIN = PtMin #Minimum pT in GeV
 PT_MAX = PtMax #Maximum pT in GeV
@@ -145,7 +145,7 @@ IF_STRENGTH = 1.    #% of intefernce (0.0 - 0.1)
 INT_PT_MAX = 0.24  #Maximum pt considered, when interference is turned on
 INT_PT_N_BINS =120   #Number of pt bins when interference is turned on
 XSEC_METHOD = 1 # Set to 0 to use old method for calculating gamma-gamma luminosity
-PYTHIA_FULL_EVENTRECORD = 0 # Write full pythia information to output (vertex, parents, daughter etc).  
+PYTHIA_FULL_EVENTRECORD = 1 # Write full pythia information to output (vertex, parents, daughter etc).  
 
 EOFILE
 
@@ -160,7 +160,8 @@ cat slightTemplate.in | sed -e "s#PRODUCTIONCHANNEL#${channel}#g" | sed -e "s#PR
 
 cd ../..
 
-cp starlightTrunk/config/my.input starlightTrunk/build
+cat starlightTrunk/config/my.input | sed -e "s#TARPAR         208.0      82.0#TARPAR         ${Beam1A}.0      ${Beam1Z}.0#g" > starlightTrunk/build/my.input
+#cp starlightTrunk/config/my.input starlightTrunk/build
 cp $DPMJETDIR/dpmjet.dat starlightTrunk/build
 
 if [ $runLocally == true ]; then
