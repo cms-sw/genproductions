@@ -16,6 +16,8 @@ cat<<-EOF
 	#transfer_input_files = $input_files, gridpack_generation.sh, runcmsgrid_LO.sh, runcmsgrid_NLO.sh, cleangridmore.sh, /usr/bin/unzip
 	transfer_input_files = $input_files, gridpack_generation.sh
 	transfer_output_files = ${card_name}.log
+	should_transfer_files = YES
+	when_to_transfer_output = ON_EXIT_OR_EVICT
 	+WantIOProxy=true
 	periodic_release = (JobStatus == 5) && StringListMember(HoldReasonCode,"26,13,256,12,6") && (NumJobStarts < 11)
 	
