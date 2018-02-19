@@ -5,7 +5,7 @@ set loop_color_flows False
 set gauge unitary
 set complex_mass_scheme False
 set max_npoint_for_channel 0
-import model sm
+
 define l+ = e+ mu+
 define l- = e- mu-
 define vl = ve vm vt
