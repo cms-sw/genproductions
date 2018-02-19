@@ -270,9 +270,6 @@
 #*********************************************************************
    True  = use_syst      ! Enable systematics studies
 #
-#**************************************
-# Parameter of the systematics study
-#  will be used by SysCalc (if installed)
 #**************************************                                  
 #
 0.5 1 2 = sys_scalefact  # factorization/renormalization scale factor
