@@ -52,12 +52,12 @@ topdecaymode 22222      ! 0 stable tops
                         ! 20000 both tops decay into b l v
 zerowidth 0         ! if 1, use zero width approximation during decay
 
-tdec/wmass 80.385  ! W mass for top decay
-tdec/wwidth 2.085
+tdec/wmass 80.4  ! W mass for top decay
+tdec/wwidth 2.141
 tdec/bmass 4.8
-tdec/twidth  1.41
+tdec/twidth  1.31
 tdec/elbranching 0.108 ! W electronic branching fraction
-tdec/emass 0.000548
+tdec/emass 0.00051
 tdec/mumass 0.1057
 tdec/taumass 1.777
 tdec/dmass   0.100
