@@ -1,0 +1,24 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set loop_optimized_output True
+set loop_color_flows False
+set gauge unitary
+set complex_mass_scheme False
+set max_npoint_for_channel 0
+
+define l+ = e+ mu+
+define l- = e- mu-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+
+import model  lq_met
+define sm = c c~ s s~ mu+ mu- vm vm~
+generate p p > m1 m1~ QCD=2 QED=0 NP=0, m1 > sm sm, (m1~ > ~dm ~x1~, ~\
+x1~ > sm sm ~dm)
+add process p p > m1 m1~ QCD=2 QED=0 NP=0, m1~ > sm sm, (m1 > ~dm ~x1 \
+, ~x1 > sm sm ~dm)
+add process p p > m2 m2~ QCD=2 QED=0 NP=0, m2 > sm sm, (m2~ > ~dm ~x2~\
+, ~x2~ > sm sm ~dm)
+add process p p > m2 m2~ QCD=2 QED=0 NP=0, m2~ > sm sm, (m2 > ~dm ~x2 \
+, ~x2 > sm sm ~dm)
+output Codex_LQ900_DM_300_X_330_gen2
