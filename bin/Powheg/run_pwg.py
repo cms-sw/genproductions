@@ -401,6 +401,9 @@ fi
 if [ "$process" = "ttb_NLO_dec" ]; then
     patch -l -p0 -i ${WORKDIR}/patches/pwhg_ttb_NLO_dec_gen_radiation_hook.patch
 fi
+if [ "$process" = "ZZ" ]; then
+    git apply ${WORKDIR}/patches/zz_m4lcut.patch
+fi
 
 
 sed -i -e "s#500#1200#g"  POWHEG-BOX/include/pwhg_rwl.h

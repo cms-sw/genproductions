@@ -1,0 +1,145 @@
+diff --git a/ZZ/Born_phsp.f b/ZZ/Born_phsp.f
+index 6b700ba..46a92c2 100644
+--- a/ZZ/Born_phsp.f
++++ b/ZZ/Born_phsp.f
+@@ -19,14 +19,14 @@
+       double precision m34,m56,smin,smax,s,z
+       double precision xmin,taumin,sqrts
+       integer i,k
+-      real * 8 mllmin34,mllmin56,mllmin,gamcut
++      real * 8 mllmin34,mllmin56,mllmin,gamcut,m4lmin,m4lmax
+       real * 8 powheginput
+       external powheginput
+-      logical debug,ini,pwhg_isfinite
++      logical debug,ini,pwhg_isfinite,usem4lcut
+       data ini/.true./
+       data debug/.false./
+       save ini,mllmin34,mllmin56
+-      save gamcut
++      save gamcut,m4lmin,m4lmax,usem4lcut
+ 
+       double precision lntaum,ymax,ycm
+ 
+@@ -60,6 +60,10 @@ c kn_jacborn = 0 depending upon the charge of the decay products
+                call pwhg_exit(-1)
+             endif
+          endif
++         m4lmin=powheginput("#m4lmin")
++         m4lmax=powheginput("#m4lmax")
++         usem4lcut = (m4lmin.gt.0d0 .or. m4lmax.gt.0d0)
++         if (m4lmax.le.0d0) m4lmax = sqrt(kn_sbeams)
+          ini=.false.
+       endif
+ C     
+@@ -68,7 +72,7 @@ C
+       xjac=1
+ c First determine virtualities of lepton pairs
+       smin=mllmin34**2
+-      smax=(sqrts-mllmin56)**2
++      smax=(m4lmax-mllmin56)**2
+       z=xborn(1)**4
+       xjac=xjac*4*xborn(1)**3
+ c breitw, if zerowidth is true, does the right thing
+@@ -84,7 +88,7 @@ c 2 pi
+       m34=sqrt(s)
+ c
+       smin=mllmin56**2
+-      smax=(sqrts-m34)**2
++      smax=(m4lmax-m34)**2
+       z=xborn(2)**4
+       xjac=xjac*4*xborn(2)**3
+       if(z2_to_ch.and..not.zerowidth) then
+@@ -97,26 +101,26 @@ c
+       m56=sqrt(s)
+ 
+       if(zerowidth) then
+-         taumin = ((m34+m56)/sqrts)**2
++         taumin = ((m34+m56)/m4lmax)**2
+          lntaum = dlog(taumin)
+          tau = dexp(lntaum*(1d0-xborn(9)))
+          xjac = xjac*(-lntaum*tau)
+       else
+          z = xborn(9)
+          smin = (m34+m56)**2
+-         smax = kn_sbeams
++         smax = m4lmax**2
+ c use breit plus gamma importance sampling, even if it is a W;
+ c in decaying into gamma*+W it needs that
+          call breitplusgam(z,smin,smax,ph_zmass,ph_zwidth,gamcut,
+      1        20d0,s,wt)        
+ c     jacobian from z to s (i.e. ds = wt dz)
+          xjac = xjac*wt
+-         tau = s/kn_sbeams
++         tau = s/m4lmax**2
+ c     jacobian from s to tau (d tau = ds/kn_sbeams
+-         xjac = xjac/kn_sbeams
++         xjac = xjac/m4lmax**2
+       endif
+ 
+-      kn_sborn = kn_sbeams*tau
++      kn_sborn = m4lmax**2*tau
+ 
+       ymax=-0.5d0*log(tau)
+       ycm=xborn(10)*2*ymax-ymax
+@@ -198,6 +202,16 @@ c     minimal final state mass
+       else
+          kn_minmass=mllmin34+mllmin56 
+       endif
++      if (kn_minmass.lt.m4lmin) kn_minmass = m4lmin
++      if (m4lmax.gt.0d0) then
++        if ((
++     1      (p(4,3)+p(4,4)+p(4,5)+p(4,6))**2
++     2    - (p(1,3)+p(1,4)+p(1,5)+p(1,6))**2
++     3    - (p(2,3)+p(2,4)+p(2,5)+p(2,6))**2
++     4    - (p(3,3)+p(3,4)+p(3,5)+p(3,6))**2 ).gt.m4lmax**2) then
++           kn_jacborn=0
++       endif
++      endif
+ 
+       if(.not.pwhg_isfinite(kn_jacborn)) kn_jacborn=0
+ 
+diff --git a/ZZ/init_couplings.f b/ZZ/init_couplings.f
+index ddaca89..c2acb0d 100644
+--- a/ZZ/init_couplings.f
++++ b/ZZ/init_couplings.f
+@@ -80,10 +80,10 @@ c     number of light flavors
+       include 'pwhg_physpar.h'
+       include 'cvecbos.h'
+       include 'vvsettings.f'
+-      logical withinterference,ini
+-      real * 8 mllmin,m1,m2
++      logical withinterference,ini,usem4lcut
++      real * 8 mllmin,m1,m2,m4lmin,m4lmax,m4l
+       data ini/.true./
+-      save withinterference,ini,mllmin
++      save withinterference,ini,mllmin,m4lmin,m4lmax,usem4lcut
+       real * 8 powheginput
+       logical isquark,islepton,isnu
+       external powheginput,isquark,islepton,isnu
+@@ -96,6 +96,9 @@ c     number of light flavors
+          ini=.false.
+          mllmin=powheginput("#mllmin")
+          if(mllmin.le.0) mllmin=0.1d0
++         m4lmin=powheginput("#m4lmin")
++         m4lmax=powheginput("#m4lmax")
++         usem4lcut = (m4lmin.gt.0d0 .or. m4lmax.gt.0d0)
+       endif
+ 
+       normbr = 1
+@@ -155,6 +158,16 @@ c     number of light flavors
+          endif
+       endif
+ 
++      if (usem4lcut) then
++        m4l = sqrt(
++     1           (kn_cmpborn(0,3)+kn_cmpborn(0,4))**2-
++     2           (kn_cmpborn(1,3)+kn_cmpborn(1,4))**2-
++     3           (kn_cmpborn(2,3)+kn_cmpborn(2,4))**2-
++     4           (kn_cmpborn(3,3)+kn_cmpborn(3,4))**2  )
++        if (m4l.lt.m4lmin) normbr = 0
++        if (m4lmax.gt.0d0 .and. m4l.gt.m4lmax) normbr = 0
++      endif
++
+       if(id1.eq.id2) then
+          vsymfact=0.5d0
+          if(withinterference) then
