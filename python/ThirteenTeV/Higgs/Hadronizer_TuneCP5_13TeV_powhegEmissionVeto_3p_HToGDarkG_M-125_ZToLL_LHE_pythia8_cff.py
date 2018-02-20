@@ -1,6 +1,6 @@
 import FWCore.ParameterSet.Config as cms
 from Configuration.Generator.Pythia8CommonSettings_cfi import *
-from Configuration.Generator.Pythia8CUEP8M1Settings_cfi import *
+from Configuration.Generator.MCTunes2017.PythiaCP5Settings_cfi import *
 from Configuration.Generator.Pythia8PowhegEmissionVetoSettings_cfi import *
 
 generator = cms.EDFilter("Pythia8HadronizerFilter",
@@ -11,7 +11,7 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
                          comEnergy = cms.double(13000.),
                          PythiaParameters = cms.PSet(
               pythia8CommonSettingsBlock,
-              pythia8CUEP8M1SettingsBlock,
+              pythia8CP5SettingsBlock,
               pythia8PowhegEmissionVetoSettingsBlock,
               processParameters = cms.vstring(
                  'POWHEG:nFinal = 3', ## Number of final state particles
