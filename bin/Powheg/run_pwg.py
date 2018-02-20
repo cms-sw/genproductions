@@ -402,7 +402,7 @@ if [ "$process" = "ttb_NLO_dec" ]; then
     patch -l -p0 -i ${WORKDIR}/patches/pwhg_ttb_NLO_dec_gen_radiation_hook.patch
 fi
 if [ "$process" = "ZZ" ]; then
-    git apply ${WORKDIR}/patches/zz_m4lcut.patch
+    patch -l -p0 -i ${WORKDIR}/patches/zz_m4lcut.patch
 fi
 
 

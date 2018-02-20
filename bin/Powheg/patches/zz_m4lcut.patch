@@ -1,7 +1,5 @@
-diff --git a/ZZ/Born_phsp.f b/ZZ/Born_phsp.f
-index 6b700ba..46a92c2 100644
---- a/ZZ/Born_phsp.f
-+++ b/ZZ/Born_phsp.f
+--- POWHEG-BOX/ZZ/Born_phsp.f
++++ POWHEG-BOX/ZZ/Born_phsp.f
 @@ -19,14 +19,14 @@
        double precision m34,m56,smin,smax,s,z
        double precision xmin,taumin,sqrts
@@ -98,10 +96,8 @@ index 6b700ba..46a92c2 100644
  
        if(.not.pwhg_isfinite(kn_jacborn)) kn_jacborn=0
  
-diff --git a/ZZ/init_couplings.f b/ZZ/init_couplings.f
-index ddaca89..c2acb0d 100644
---- a/ZZ/init_couplings.f
-+++ b/ZZ/init_couplings.f
+--- POWHEG-BOX/ZZ/init_couplings.f
++++ POWHEG-BOX/ZZ/init_couplings.f
 @@ -80,10 +80,10 @@ c     number of light flavors
        include 'pwhg_physpar.h'
        include 'cvecbos.h'
