@@ -23,7 +23,7 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
             '25:oneChannel = 1 1 100 22 3000022'
           ),
         parameterSets = cms.vstring('pythia8CommonSettings',
-                                    'pythia8CUEP8M1Settings',
+                                    'pythia8CP5Settings',
                                     'pythia8PowhegEmissionVetoSettings',
                                     'processParameters'
                                     )
