@@ -10,7 +10,7 @@ set param_card mass 1000013  2.000000e+03 # Msl2
 set param_card mass 1000014  2.000000e+03 # Msn2
 set param_card mass 1000015  2.000000e+03 # Msl3
 set param_card mass 1000016  2.000000e+03 # Msn3
-set param_card mass 1000021  1000.0       # Mgo
+set param_card mass 1000021  1000      # Mgo
 set param_card mass 1000022  2.000000e+03 # Mneu1
 set param_card mass 1000023  2.000000e+03 # Mneu2
 set param_card mass 1000024  2.000000e+03 # Mch1
