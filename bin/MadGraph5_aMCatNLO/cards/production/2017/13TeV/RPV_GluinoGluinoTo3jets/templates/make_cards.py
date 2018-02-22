@@ -28,7 +28,7 @@ def make_new_script(f_in, args, f_out):
 
 def main():
 	for gmass in gmasses:
-		name = "RPV_GluinoGluinoToJets_customizecards_M-{0}.dat".format(gmass)
+		name = "RPV_GluinoGluinoToJets_M-{0}_customizecards.dat".format(gmass)
 		make_new_script(
 			"RPV_GluinoGluinoToJets_customizecards.template",
 			{
@@ -37,7 +37,7 @@ def main():
 			name
 		)
 		
-		name = "RPV_GluinoGluinoToJets_proc_card_M-{0}.dat".format(gmass)
+		name = "RPV_GluinoGluinoToJets_M-1000_proc_card.dat".format(gmass)
 		make_new_script(
 			"RPV_GluinoGluinoToJets_proc_card.template",
 			{
