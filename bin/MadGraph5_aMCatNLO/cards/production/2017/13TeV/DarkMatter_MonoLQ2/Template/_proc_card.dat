@@ -6,10 +6,6 @@ set gauge unitary
 set complex_mass_scheme False
 set max_npoint_for_channel 0
 
-define l+ = e+ mu+
-define l- = e- mu-
-define vl = ve vm vt
-define vl~ = ve~ vm~ vt~
 
 import model  lq_met
 define sm = c c~ s s~ mu+ mu- vm vm~
