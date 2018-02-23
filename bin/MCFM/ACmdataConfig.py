@@ -3,7 +3,7 @@
 parameters=['kappa_top','kappa_bot','ghz1','ghz2','ghz4','ghz1_prime2']
 
 class ACConfig(object):
-	def __init__(self,coupling,self.bsisigbkg):
+	def __init__(self,coupling,bsisigbkg):
 		self.bsisigbkg = bsisigbkg
 		self.coupling = coupling
 
