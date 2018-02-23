@@ -1,0 +1,17 @@
+set param_card mass  55 _MMED_
+set param_card mass  52 _MDM_
+set param_card dminputs 2 _gDMV_
+set param_card dminputs 3 _gDMA_
+set param_card dminputs 4 _gVq_
+set param_card dminputs 5 _gVq_
+set param_card dminputs 6 _gVq_
+set param_card dminputs 7 _gVq_
+set param_card dminputs 8 _gVq_
+set param_card dminputs 9 _gVq_
+set param_card dminputs 10 _gAq_
+set param_card dminputs 11 _gAq_
+set param_card dminputs 12 _gAq_
+set param_card dminputs 13 _gAq_
+set param_card dminputs 14 _gAq_
+set param_card dminputs 15 _gAq_
+set param_card decay 55 auto
