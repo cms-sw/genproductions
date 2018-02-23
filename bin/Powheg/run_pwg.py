@@ -167,9 +167,9 @@ def runParallelXgrid(parstage, xgrid, folderName, nEvents, njobs, powInputName, 
         f = open(filename, 'a')
         #f.write('cd '+rootfolder+'/'+folderName+'/ \n')
         f.write('echo ' + str (i) + ' | ./pwhg_main &> run_' + jobID + '.log ' + '\n')
-        f.write('cp -p *.log ' + rootfolder + '/' + folderName + '/. \n')  
-        f.write('cp -p *.top ' + rootfolder + '/' + folderName + '/. \n')  
-        f.write('cp -p *.dat ' + rootfolder + '/' + folderName + '/. \n')  
+        f.write('cp -p *.top ' + rootfolder + '/' + folderName + '/. \n')
+        f.write('cp -p *.dat ' + rootfolder + '/' + folderName + '/. \n')
+        f.write('cp -p *.log ' + rootfolder + '/' + folderName + '/. \n')
 
         f.close()
 
