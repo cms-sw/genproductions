@@ -189,8 +189,6 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
   #############################################
   wget --no-verbose --no-check-certificate ${MGSOURCE}
   tar xzf ${MG}
-  #SELF-modified#
-  
   rm $MG
 
   #############################################
@@ -296,10 +294,6 @@ if [ ! -d ${AFS_GEN_FOLDER}/${name}_gridpack ]; then
           echo "A BSM model is specified but it is not in a standard archive (.zip or .tar)"
         fi
         cd ..
-	#SELF modified
-	touch IamHere.o
-	cp /afs/cern.ch/work/r/rshevche/genproductions/bin/MadGraph5_aMCatNLO/test2/HC_NLO_X0_UFO/restrict_default.dat models/HC_NLO_X0_UFO/restrict_default.dat
-	pwd ; ls $model 
       fi
     done
   fi
