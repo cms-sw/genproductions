@@ -4,11 +4,11 @@ README (UPDATED 2018/02)
 With these cards, you are able to generate the single top + Higgs process in the t-channel (four-flavour-scheme) at LO.
 
 However, the gridpack_generation.sh scripts will not work, for we employ a reweighting technique to scan the 2dimensional plane spanned by the Yukawa coupling to the top and the coupling of the Higgs to vector bosons. Because of the latter, we need to use the Higgs characterization model, which allows to modify this coupling which in other models (e.g. the model sm) would be fixed. Have a look at the reweight_card! gridpack_generation.sh script should be hacked in order to manually copy the proper Wolfenstein parametrization. This can be done in next steps:
-1. Run the gridpack production as usual. Try to generate the events. When the production will fail - go to the output folder and search for work/MG5_aMC_v2_4_2/models/HC_NLO_X0_UFO/restrict_default.dat 
+1. Run the gridpack production as usual. Try to generate the events. When the production will fail - go to the output folder and search for work/MG5_aMC_v2_4_2/models/HC_NLO_X0_UFO/restrict_no_b_mass.dat 
 2. Backup this card.
 3. Change the values of the Wolfenstein parametrization to https://github.com/cms-sw/genproductions/blob/pre2017/bin/MadGraph5_aMCatNLO/cards/production/13TeV/higgs/thq_4f_ckm_LO/thq_4f_ckm_LO_param_card.dat#L89-L96
 4. In gridpack_generation.sh find a block where extra models are loaded. 
-5. Add manual  copying of the modified restrict_default.dat card to models/HC_NLO_X0_UFO/restrict_default.dat
+5. Add manual  copying of the modified restrict_default.dat card to models/HC_NLO_X0_UFO/restrict_no_b_mass.dat
 6. Generate the gridpack with this script
 
 For questions, please contact:
