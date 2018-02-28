@@ -19,12 +19,10 @@ bwcutoff 15d0       ! Mass window is hmass +- bwcutoff*hwidth
 ncall1   150000   ! number of calls for initializing the integration grid
 itmx1    3        ! number of iterations for initializing the integration grid
 ncall2   100000   ! number of calls for computing the integral and finding upper bound
-! itmx2    5        ! number of iterations for computing the integral and finding upper bound from powhegBox twiki
 itmx2    3        ! number of iterations for computing the integral and finding upper bound
 foldcsi   2       ! number of folds on csi integration
 foldy     5       ! number of folds on  y  integration
 foldphi   2       ! number of folds on phi integration
-! nubound  200000  ! number of bbarra calls to setup norm of upper bounding function from https://twiki.cern.ch/twiki/bin/viewauth/CMS/PowhegBOXPrecompiled
 nubound  60000    ! number of bbarra calls to setup norm of upper bounding function
 
 
