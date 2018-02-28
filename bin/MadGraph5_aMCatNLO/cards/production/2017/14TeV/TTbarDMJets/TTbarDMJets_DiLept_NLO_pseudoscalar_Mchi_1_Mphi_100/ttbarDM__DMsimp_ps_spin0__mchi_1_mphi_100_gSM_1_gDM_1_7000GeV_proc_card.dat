@@ -1,0 +1,34 @@
+#************************************************************
+#*                        MadGraph 5                        *
+#*                                                          *
+#*                *                       *                 *
+#*                  *        * *        *                   *
+#*                    * * * * 5 * * * *                     *
+#*                  *        * *        *                   *
+#*                *                       *                 *
+#*                                                          *
+#*                                                          *
+#*    The MadGraph Development Team - Please visit us at    *
+#*    https://server06.fynu.ucl.ac.be/projects/madgraph     *
+#*                                                          *
+#************************************************************
+#*                                                          *
+#*               Command File for MadGraph 5                *
+#*                                                          *
+#*     run as ./bin/mg5  filename                           *
+#*                                                          *
+#************************************************************
+import model DMsimp_ps_spin0
+# Define multiparticle labels
+define p = g u c d s b u~ c~ d~ s~ b~
+define j = p 
+define l+ = e+ mu+ 
+define l- = e- mu- 
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+define lept = l+ l- vl vl~
+# Specify process(es) to run
+generate p p > xd xd~ t t~ / a z w+ w- [QCD] 
+
+output  ttbarDM__DMsimp_ps_spin0__mchi_1_mphi_100_gSM_1_gDM_1_7000GeV 
+

@@ -1,0 +1,12 @@
+# moved modifications to model file 
+# up/down couplings for scalar/pseudoscalar mediator Y0 gSdij igPdij  gSuij igPuij with 
+# Dirac DM Xd and coupling gSXD gPXD 
+# as well as real/complex scalar (no pseudoscalar couplings with scalar particles!) gSXR gSXC
+# agrohsje check electroweak diagrams ! 
+set param_card mass   6 172.5 
+set param_card yukawa 6 172.5 
+set param_card decay  6 auto 
+set param_card mass  52 1 
+set param_card mass  54 100 
+set param_card decay 54 auto 
+
