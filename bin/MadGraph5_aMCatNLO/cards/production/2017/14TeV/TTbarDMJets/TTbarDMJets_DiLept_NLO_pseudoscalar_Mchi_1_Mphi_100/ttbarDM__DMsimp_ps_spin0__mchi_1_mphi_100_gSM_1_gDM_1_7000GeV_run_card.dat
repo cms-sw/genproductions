@@ -62,7 +62,6 @@
 # PDF choice: this automatically fixes also alpha_s(MZ) and its evol.  *
 #***********************************************************************
  lhapdf = pdlabel ! PDF set
- # NNPDF30_nlo_as_0118_hessian
  303000 = lhaid   ! If pdlabel=lhapdf, this is the lhapdf number. Only 
               	  ! numbers for central PDF sets are allowed. Can be a list; 
               	  ! PDF sets beyond the first are included via reweighting.
