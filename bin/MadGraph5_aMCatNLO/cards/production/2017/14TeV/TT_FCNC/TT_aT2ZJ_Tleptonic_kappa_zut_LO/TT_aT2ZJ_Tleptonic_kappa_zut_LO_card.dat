@@ -1,0 +1,10 @@
+# Settings
+set ms_dir ./madspin2
+set Nevents_for_max_weigth 250 # number of events for the estimate of the max. weight
+set max_weight_ps_point    400 # number of PS to estimate the maximum for each event
+set max_running_process 1
+
+# SM decay of the quark top. Anomalous coupling is too small: MadSpin cannot find the anomalous decay and forces SM decay
+decay t > w+ b, w+ > l+ vl NP=0 
+decay t~ > z u~ NP=1
+launch
