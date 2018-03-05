@@ -1,0 +1,100 @@
+! ST-tchannel inputs
+
+!smartsig       1 
+withdamp       1
+hdamp 172.5   
+
+withnegweights 1   ! will generate also events with negative-weight 
+
+renscfact  1d0    ! (default 1d0) ren scale factor: muren  = muref * renscfact 
+facscfact  1d0    ! (default 1d0) fac scale factor: mufact = muref * facscfact 
+
+iseed    SEED    ! initialize random number sequence 
+
+numevts NEVENTS     ! number of events to be generated
+ih1   1           ! hadron 1 (1 for protons, -1 for antiprotons)
+ih2   1           ! hadron 2 (1 for protons, -1 for antiprotons)
+
+ebeam1 6500
+ebeam2 6500
+
+! To be set only if using LHA pdfs
+lhans1 306000 ! 5FS
+lhans2 306000 ! 5FS
+
+! Parameters to allow or not the use of stored data
+use-old-grid    1 ! if 1 use old grid if file pwggrids.dat is present (<> 1 regenerate)
+use-old-ubound  1 ! if 1 use norm of upper bounding function stored in pwgubound.dat, if present; <> 1 regenerate
+
+ncall1 100000         ! number of calls for initializing the integration grid
+itmx1   4         ! number of iterations for initializing the integration grid
+ncall2 100000         ! number of calls for computing the integral and finding upper bound
+itmx2   4         ! number of iterations for computing the integral and finding upper bound
+foldcsi   5       ! number of folds on csi integration
+foldy     5       ! number of folds on  y  integration
+foldphi   1       ! number of folds on phi integration
+nubound  100000       ! number of bbarra calls to setup norm of upper bounding function
+icsimax  1        ! <= 100, number of csi subdivision when computing the upper bounds
+iymax    1        ! <= 100, number of y subdivision when computing the upper bounds
+xupbound 2d0      ! increase upper bound for radiation generation
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! I need to reproduce exactly MCFM input
+! MCFM (alphainv, sthw2)
+! 132.3384323 
+! 0.2226459
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! PROCESS SPECIFIC PARAMETERS
+! production parameters
+! comment BM: change parameters to match exactly MG5_aMCatNO v.2.1.2 defintions
+! for questions ask: benedikt.maier@cern.ch
+
+ttype        -1
+
+! mandatory parameters used in decay generation
+topdecaymode 11111   ! decay mode: the 5 digits correspond to the following
+                     ! top-decay channels (l,mu,tau,u,c) 
+                     ! 0 means close, 1 open
+wdecaymode 11111     ! decay mode: the 5 digits correspond to the following
+                     ! primary-w-decay channels (l,mu,tau,u,c) 
+                     ! 0 means close, 1 open
+tdec/elbranching 0.108  ! W electronic branching fraction
+
+! optional production parameters 
+! (defaults defined in init_couplings.f)
+
+topmass      172.5
+bmass        4.70
+wmass        80.419
+sthw2        0.2222465
+alphaem_inv  132.507
+
+charmthr     1.5
+bottomthr    4.70
+bottomthrpdf 4.70
+
+CKM_Vud   0.97462
+CKM_Vus   0.22530
+CKM_Vub   0.00338
+CKM_Vcd   0.22530
+CKM_Vcs   0.97462
+CKM_Vcb   0.04101
+CKM_Vtd   0.00862
+CKM_Vts   0.04101
+CKM_Vtb   1.0
+
+decayCKM 1                ! Flag to initiate non-standard top decays 
+
+dCKM_Vud   0.97462        ! CKM matrix elements for decay
+dCKM_Vus   0.22530
+dCKM_Vub   0.00338
+dCKM_Vcd   0.22530
+dCKM_Vcs   0.97462
+dCKM_Vcb   0.04101
+dCKM_Vtd   0.7071   ! 0.00862 Values to test Vtd=Vts=0.7071
+dCKM_Vts   0.7071   ! 0.04101
+dCKM_Vtb   0.000001 ! 1.0
+
+
+pdfreweight 0       ! PDF reweighting
+storeinfo_rwgt 0 ! store weight information
