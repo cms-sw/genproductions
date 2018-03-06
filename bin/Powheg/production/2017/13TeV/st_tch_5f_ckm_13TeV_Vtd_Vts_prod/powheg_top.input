@@ -37,17 +37,6 @@ icsimax  1        ! <= 100, number of csi subdivision when computing the upper b
 iymax    1        ! <= 100, number of y subdivision when computing the upper bounds
 xupbound 2d0      ! increase upper bound for radiation generation
 
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-! I need to reproduce exactly MCFM input
-! MCFM (alphainv, sthw2)
-! 132.3384323 
-! 0.2226459
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-! PROCESS SPECIFIC PARAMETERS
-! production parameters
-! comment BM: change parameters to match exactly MG5_aMCatNO v.2.1.2 defintions
-! for questions ask: benedikt.maier@cern.ch
-
 ttype        1
 
 ! mandatory parameters used in decay generation
@@ -58,10 +47,6 @@ wdecaymode 11111     ! decay mode: the 5 digits correspond to the following
                      ! primary-w-decay channels (l,mu,tau,u,c) 
                      ! 0 means close, 1 open
 tdec/elbranching 0.108  ! W electronic branching fraction
-
-! optional production parameters 
-! (defaults defined in init_couplings.f)
-
 
 topmass      172.5
 bmass        4.70
@@ -97,4 +82,4 @@ dCKM_Vtb   1.0
 
 
 pdfreweight 0       ! PDF reweighting
-storeinfo_rwgt 0 ! store weight information
+storeinfo_rwgt 0    ! store weight information
