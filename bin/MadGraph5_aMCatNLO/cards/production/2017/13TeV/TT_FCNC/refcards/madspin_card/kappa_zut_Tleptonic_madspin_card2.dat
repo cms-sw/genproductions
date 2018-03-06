@@ -10,12 +10,10 @@ define l+    = e+ mu+ ta+
 define l-    = e- mu- ta-
 define vl    = ve vm vt
 define vl~   = ve~ vm~ vt~
-define inclu = l- l+ j vl vl~
 
 # SM decay of the quark top
 # Anomalous coupling is too small: MadSpin cannot find the anomalous decay and forces SM decay
 decay t  > w+ b,  w+ > l+ vl NP=0 
 decay t~ > z  u~ NP=1
 
-# go go go!!!
 launch

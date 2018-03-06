@@ -2,11 +2,6 @@
 import model TopFCNC_UFO-all_ProdConventions_no_b_mass --modelname
 
 # Multiparticles
-define w   = w+ w-
-define l+  = e+ mu+ ta+
-define l-  = e- mu- ta-
-define vl  = ve vm vt
-define vl~ = ve~ vm~ vt~
 define j   = g u u~ d d~ c c~ s s~ b b~
 define p   = g u u~ d d~ c c~ s s~ b b~
 
