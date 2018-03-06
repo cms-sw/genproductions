@@ -1,0 +1,77 @@
+! ST-tchannel inputs
+
+withdamp       1
+hdamp 172.5   
+
+withnegweights 1   
+
+renscfact  1d0    
+facscfact  1d0    
+
+iseed    SEED    
+
+numevts NEVENTS     
+ih1   1           
+ih2   1          
+
+ebeam1 6500
+ebeam2 6500
+
+lhans1 306000 
+lhans2 306000 
+
+use-old-grid    1 
+use-old-ubound  1 
+
+ncall1 100000         
+itmx1   4         
+ncall2 100000         
+itmx2   4         
+foldcsi   5       
+foldy     5       
+foldphi   1       
+nubound  100000      
+icsimax  1       
+iymax    1        
+xupbound 2d0      
+
+ttype        -1
+
+topdecaymode 11111 
+wdecaymode 11111 
+tdec/elbranching 0.108  
+topmass      172.5
+bmass        4.70
+wmass        80.419
+sthw2        0.2222465
+alphaem_inv  132.507
+
+charmthr     1.5
+bottomthr    4.70
+bottomthrpdf 4.70
+
+CKM_Vud   0.97462
+CKM_Vus   0.22530
+CKM_Vub   0.00338
+CKM_Vcd   0.22530
+CKM_Vcs   0.97462
+CKM_Vcb   0.04101
+CKM_Vtd   0.00862
+CKM_Vts   0.04101
+CKM_Vtb   1.0
+
+decayCKM 1            
+
+dCKM_Vud   0.97462 
+dCKM_Vus   0.22530
+dCKM_Vub   0.00338
+dCKM_Vcd   0.22530
+dCKM_Vcs   0.97462
+dCKM_Vcb   0.04101
+dCKM_Vtd   0.7071  
+dCKM_Vts   0.7071   
+dCKM_Vtb   0.000001 
+
+
+pdfreweight 0
+storeinfo_rwgt 0 
