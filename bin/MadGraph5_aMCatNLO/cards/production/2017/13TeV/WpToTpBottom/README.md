@@ -3,6 +3,8 @@ Author: Emanuele Usai name.surname@cern.ch
 
 modified to fit Z' to T'+top production from the B' single production for reference see original
 
+Modified to include W' to T'b 
+
 ## How to generate the cards?
 
 Edit cards in the ZpToTpTop_conf folder. You can change the PDF, the center-of-mass energy, etc. in the `run_card`. 
