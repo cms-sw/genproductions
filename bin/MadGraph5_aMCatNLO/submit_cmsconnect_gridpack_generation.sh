@@ -13,7 +13,7 @@ cat<<-EOF
 	Output = condor_log/job.out.\$(Cluster)-\$(Process) 
 	Log = condor_log/job.log.\$(Cluster) 
 	
-	transfer_input_files = $input_files, gridpack_generation.sh
+	transfer_input_files = $input_files, gridpack_generation.sh, /usr/bin/unzip
 	transfer_output_files = ${card_name}.log
 	transfer_output_remaps = "${card_name}.log = ${card_name}_codegen.log"
 	+WantIOProxy=true
@@ -32,6 +32,13 @@ cat<<-EOF
 	# Condor scratch dir
 	condor_scratch=\$(pwd)
 	echo "\$condor_scratch" > _condor_scratch_dir.txt
+	
+	# Add unzip to the environment
+	if [ -x \$condor_scratch/unzip ]; then
+	    mkdir \$condor_scratch/local_bin
+	    mv \$condor_scratch/unzip \$condor_scratch/local_bin
+	    export PATH="\$PATH:\$condor_scratch/local_bin"
+	fi
 
 	# Untar input files
 	tar xfz "$input_files"
