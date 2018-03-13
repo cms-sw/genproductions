@@ -167,9 +167,9 @@ def runParallelXgrid(parstage, xgrid, folderName, nEvents, njobs, powInputName, 
         f = open(filename, 'a')
         #f.write('cd '+rootfolder+'/'+folderName+'/ \n')
         f.write('echo ' + str (i) + ' | ./pwhg_main &> run_' + jobID + '.log ' + '\n')
-        f.write('cp -p *.log ' + rootfolder + '/' + folderName + '/. \n')  
-        f.write('cp -p *.top ' + rootfolder + '/' + folderName + '/. \n')  
-        f.write('cp -p *.dat ' + rootfolder + '/' + folderName + '/. \n')  
+        f.write('cp -p *.top ' + rootfolder + '/' + folderName + '/. \n')
+        f.write('cp -p *.dat ' + rootfolder + '/' + folderName + '/. \n')
+        f.write('cp -p *.log ' + rootfolder + '/' + folderName + '/. \n')
 
         f.close()
 
@@ -400,6 +400,9 @@ if [ "$process" = "b_bbar_4l" ]; then
 fi
 if [ "$process" = "ttb_NLO_dec" ]; then
     patch -l -p0 -i ${WORKDIR}/patches/pwhg_ttb_NLO_dec_gen_radiation_hook.patch
+fi
+if [ "$process" = "ZZ" ]; then
+    patch -l -p0 -i ${WORKDIR}/patches/zz_m4lcut.patch
 fi
 
 
