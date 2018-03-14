@@ -11,7 +11,7 @@ if [[ "${HOSTNAME}" =~ "lxplus" ]] && [[ ! $(pwd) =~ "/afs/" ]]; then
     workqueue="condor_spool"
 fi
 
-if [[ "${workqueue}" -eq "condor_spool" ]] && [[ $(pwd) =~ "/afs/" ]]; then
+if [[ "${workqueue}" = "condor_spool" ]] && [[ $(pwd) =~ "/afs/" ]]; then
     echo "ERROR: You are using the condor SPOOL option while submitting from AFS." \
     "Spool only makes sense to allow condor submission from a file system unique to the submitter machine." \
     "Please either change directory to e.g. /tmp/user/ or simply do not use spool." \
