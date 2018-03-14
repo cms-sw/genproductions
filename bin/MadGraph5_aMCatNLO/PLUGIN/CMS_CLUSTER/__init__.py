@@ -373,6 +373,7 @@ class CMSCondorSpoolCluster(CMSCondorCluster):
 
         super(CMSCondorSpoolCluster, self).__init__(self, *args, **opt)
         self.spool = True
+        self.cluster_queue = None
 
 class CMSLSFCluster(LSFCluster):
     """Basic class for dealing with cluster submission"""
