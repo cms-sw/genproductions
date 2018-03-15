@@ -336,7 +336,9 @@ class CMSCondorCluster(CondorCluster):
                             self.release_holdcodes(id, self.hold_list)
                     if not released:
                         reason = job["HoldReason"]
-                        if not ("Spool" in reason):
+                        if ("Spool" in reason):
+                            run += 1
+                        else:
                             self.hold_msg = "ClusterId %s with HoldReason: %s" % (str(id), job["HoldReason"])
                             fail += 1
                 elif status == 'C' and self.spool:
