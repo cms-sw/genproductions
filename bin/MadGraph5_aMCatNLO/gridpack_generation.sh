@@ -116,13 +116,20 @@ make_gridpack () {
       #Apply any necessary patches on top of official release
       #############################################
     
-      cd $MGBASEDIRORIG
-      cat $PRODHOME/patches/*.patch | patch -p1
-    
       if [ -e $CARDSDIR/${name}_loop_filter.py ]; then
         echo "Acitvating custom user loop filter"
         cat $CARDSDIR/${name}_loop_filter.py | patch -p1
       fi
+
+      # Intended for expert use only!
+      if [ -e $CARDSDIR/${name}*.patch ]; then
+        echo "    WARNING: Applying custom user patch. I hope you know what you're doing!"
+        cat $CARDSDIR/${name}*.patch | patch -p1
+      fi
+
+      cd $MGBASEDIRORIG
+      cat $PRODHOME/patches/*.patch | patch -p1
+    
     
       LHAPDFCONFIG=`echo "$LHAPDF_DATA_PATH/../../bin/lhapdf-config"`
     

@@ -1,0 +1,23 @@
+--- madevent/bin/internal/lhe_parser.py	2018-02-20 19:33:59.001377848 -0600
++++ /nfs_scratch/kdlong/MG5_aMC_v2_6_0/madgraph/various/lhe_parser.py	2017-08-16 17:25:24.000000000 -0500
+@@ -2213,20 +2213,6 @@
+                 scale += p.E*pt/math.sqrt(pt**2+p.pz**2)
+     
+         return prefactor * scale    
+-
+-
+-    def get_maxptj_scale(self, prefactor=1):
+-        
+-        scale = 0 
+-        for particle in self:
+-            if particle.status != 1 or (abs(particle.pid) > 5 and particle.pid != 21):
+-                continue 
+-            p = FourMomentum(particle)
+-            pt = p.pt
+-            if (pt>scale):
+-                scale = pt
+-    
+-        return prefactor * scale 
+     
+     @property
+     def sqrts(self):
