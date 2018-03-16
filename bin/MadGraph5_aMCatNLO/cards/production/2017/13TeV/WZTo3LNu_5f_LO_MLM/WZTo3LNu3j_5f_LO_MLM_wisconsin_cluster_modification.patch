@@ -1,0 +1,20 @@
+--- a/madgraph/various/cluster.py
++++ b/madgraph/various/cluster.py
+@@ -1007,7 +1007,7 @@
+         if self.cluster_queue not in ['None', None]:
+             requirement = 'Requirements = %s=?=True' % self.cluster_queue
+         else:
+-            requirement = ''
++            requirement = 'Requirements = Site == "HEP"'
+ 
+         if cwd is None:
+             cwd = os.getcwd()
+@@ -1083,7 +1083,7 @@
+         if self.cluster_queue not in ['None', None]:
+             requirement = 'Requirements = %s=?=True' % self.cluster_queue
+         else:
+-            requirement = ''
++            requirement = 'Requirements = Site == "HEP"'
+ 
+         if cwd is None:
+             cwd = os.getcwd()
