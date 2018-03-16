@@ -1,56 +1,29 @@
---- madevent/bin/internal/systematics.py	2018-02-20 19:33:49.455432428 -0600
-+++ /nfs_scratch/kdlong/MG5_aMC_v2_6_0/madgraph/various/systematics.py	2017-08-16 17:25:24.000000000 -0500
-@@ -314,7 +314,7 @@
-         else:
-             lowest_id = self.get_id()        
- 
--        ids = [lowest_id+i for i in range(len(self.args))]
-+        ids = [lowest_id+i for i in range(len(self.args)-1)]
-         all_cross = [0 for i in range(len(self.args))]
-         
-         self.input.parsing = False
-@@ -348,7 +348,7 @@
-                 print event
-                 raise Exception
-             
--            wgt = [event.wgt*wgts[i]/wgts[0] for i in range(0,len(wgts))]
-+            wgt = [event.wgt*wgts[i]/wgts[0] for i in range(1,len(wgts))]
-             all_cross = [(all_cross[j] + event.wgt*wgts[j]/wgts[0]) for j in range(len(wgts))]
-             
-             rwgt_data = event.parse_reweight()
+--- a/madgraph/various/systematics.py	2017-08-16 17:25:24.000000000 -0500
++++ b/madgraph/various/systematics.py	2018-02-20 19:33:49.455432428 -0600
 @@ -479,7 +479,7 @@
              else:
                  resume.write( '#PDF %s: %g +%2.3g%% -%2.3g%%\n' % (pdfset.name, pdferr.central,pdferr.errplus*100/all_cross[0], pdferr.errminus*100/all_cross[0]))
  
--        dyn_name = {1: '\sum ET', 2:'\sum\sqrt{m^2+pt^2}', 3:'0.5 \sum\sqrt{m^2+pt^2}',4:'\sqrt{\hat s}', 5:'max{pt(j1), pt(j2)}' }
-+        dyn_name = {1: '\sum ET', 2:'\sum\sqrt{m^2+pt^2}', 3:'0.5 \sum\sqrt{m^2+pt^2}',4:'\sqrt{\hat s}' }
+-        dyn_name = {1: '\sum ET', 2:'\sum\sqrt{m^2+pt^2}', 3:'0.5 \sum\sqrt{m^2+pt^2}',4:'\sqrt{\hat s}' }
++        dyn_name = {1: '\sum ET', 2:'\sum\sqrt{m^2+pt^2}', 3:'0.5 \sum\sqrt{m^2+pt^2}',4:'\sqrt{\hat s}', 5:'max{pt(j1), pt(j2)}' }
          for key, curr in dyns.items():
              if key ==-1:
                  continue
-@@ -512,7 +512,7 @@
-         text = ''
-         
-         default = self.args[0]
--        for arg in self.args:
-+        for arg in self.args[1:]:
-             mur, muf, alps, dyn, pdf = arg[:5]
-             if pdf == self.orig_pdf and alps ==1 and (mur!=1 or muf!=1 or dyn!=-1):
-                 if not in_scale:
 @@ -582,7 +582,7 @@
                  info += 'alpsfact=%s ' % alps
              if dyn!=-1.:
                  tag += 'DYN_SCALE="%s" ' % dyn
--                info += 'dyn_scale_choice=%s ' % {1:'sum pt', 2:'HT',3:'HT/2',4:'sqrts',5:'max ptj'}[dyn]
-+                info += 'dyn_scale_choice=%s ' % {1:'sum pt', 2:'HT',3:'HT/2',4:'sqrts'}[dyn]
+-                info += 'dyn_scale_choice=%s ' % {1:'sum pt', 2:'HT',3:'HT/2',4:'sqrts'}[dyn]
++                info += 'dyn_scale_choice=%s ' % {1:'sum pt', 2:'HT',3:'HT/2',4:'sqrts',5:'max ptj'}[dyn]
                                             
              if pdf != self.orig_pdf:
                  tag += 'PDF="%s" ' % pdf.lhapdfID
-@@ -750,8 +750,6 @@
+@@ -750,6 +750,8 @@
                  mur = event.get_ht_scale(0.5)
              elif dyn == 4:
                  mur = event.get_sqrts_scale(1.)
--            elif dyn == 5:
--                mur = event.get_maxptj_scale(1.)
++            elif dyn == 5:
++                mur = event.get_maxptj_scale(1.)
              muf1 = mur
              muf2 = mur
              loinfo = dict(loinfo)
