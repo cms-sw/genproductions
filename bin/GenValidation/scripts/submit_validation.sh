@@ -4,13 +4,13 @@
 # specify batch system 
 BATCH=SGE # SGE LSF 
 # number of jobs 
-NJOBS=1
+NJOBS=100
 # number of events per job 
-NEVTS=250 
-# valiation output tag  
-OTAG=dyfxfx_2p6
+NEVTS=5000 
 # path to submit jobs 
 WORKDIR=`pwd -P`
+# valiation output tag  
+OTAG=dyfxfx_2p6
 # name of shower fragment 
 GRIDPACK=${WORKDIR}/dyellell012j_5f_NLO_FXFX_slc6_amd64_gcc481_CMSSW_7_1_30_tarball.tar.xz
 #GENFRAGMENT=Hadronizer_TuneCUETP8M1_13TeV_MLM_5f_max4j_LHE_pythia8_cff # wjets/zjets
