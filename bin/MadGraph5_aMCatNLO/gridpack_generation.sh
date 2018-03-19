@@ -32,7 +32,7 @@ make_tarball () {
     fi
 
     mkdir InputCards
-    cp $CARDSDIR/* InputCards
+    cp $CARDSDIR/${name}*.* InputCards
 
     EXTRA_TAR_ARGS=""
     if [ -e $CARDSDIR/${name}_externaltarball.dat ]; then
