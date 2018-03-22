@@ -908,10 +908,14 @@ sed -i "s/^storeinfo_rwgt.*/#storeinfo_rwgt 0/g" powheg.input
 sed -i "s/^withnegweights/#withnegweights 1/g" powheg.input
 
 # parallel re-weighting calculation
-echo "rwl_group_events 2000" >> powheg.input
-echo "lhapdf6maxsets 50" >> powheg.input
-echo "rwl_file 'pwg-rwl.dat'" >> powheg.input
-echo "rwl_format_rwgt 1" >> powheg.input
+if [ "$process" = "HW_ew" ] || [ "$process" = "HZ_ew" ] || [ "$process" = "HZJ_ew" ] || [ "$process" = "HWJ_ew" ] ; then
+   echo "# no reweighting in first runx" >> powheg.input
+else 
+   echo "rwl_group_events 2000" >> powheg.input
+   echo "lhapdf6maxsets 50" >> powheg.input
+   echo "rwl_file 'pwg-rwl.dat'" >> powheg.input
+   echo "rwl_format_rwgt 1" >> powheg.input
+fi
 cp -p $WORKDIR/pwg-rwl.dat pwg-rwl.dat
 
 if [ -e ${WORKDIR}/$folderName/cteq6m ]; then

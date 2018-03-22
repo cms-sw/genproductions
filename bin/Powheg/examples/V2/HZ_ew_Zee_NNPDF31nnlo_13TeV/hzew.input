@@ -1,0 +1,191 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! Standard settings which have the same meaning as in POWHEG-BOX-V2
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+vdecaymode        1    ! 1: e+/e-, 2: mu+/mu-, 3: tau+/tau-
+hdecaymode       -1    ! for PYTHIA or HERWIG: do not decay the Higgs boson
+
+hmass  125d0        ! Higgs boson mass
+onshellhiggs    1   ! HV/HVJ MUST be run with the Higgs on shell, i.e. gamma_H=0
+#hwidth 4.088d-03   ! Higgs boson width. Do NOT use it!!
+
+#lambdaHHH 1         ! Coupling modifier for trilinear Higgs coupling, default lambdaHHH=1
+
+#min_h_mass    10d0      
+#max_h_mass  1000d0 
+
+min_z_mass    10d0
+max_z_mass  1000d0
+
+
+numevts NEVENTS    ! number of events to be generated
+ih1 1             ! hadron 1 (1 for protons, -1 for antiprotons)
+ih2 1             ! hadron 2 (1 for protons, -1 for antiprotons)
+ebeam1 6500d0     ! energy of beam 1
+ebeam2 6500d0     ! energy of beam 2
+
+bornktmin       0d0  ! (default 0d0) generation cut. Minimum kt in underlying Born
+bornsuppfactV 700d0  ! (default 0d0) pt of the V boson at Born level, as suppression factor. If < 0 suppfact = 1
+bornzerodamp      1  ! (default 0d0) activate damping factors for Born amplitudes approching zero in some phase-space point
+ubexcess_correct  1  ! correct for upperbound violations
+
+! To be set only if using LHA pdfs
+! 21100 MSTW2008nlo68cl
+! 244800 NNPDF2.3_as_0119_qed
+lhans1  306000         ! pdf set for hadron 1 (LHA numbering)
+lhans2  306000         ! pdf set for hadron 2 (LHA numbering)	
+
+! To be set only if using different pdf sets for the two incoming hadrons
+#QCDLambda5  0.25 ! for not equal pdf sets 
+
+renscfact  1d0   ! (default 1d0) ren scale factor: muren  = muref * renscfact 
+facscfact  1d0   ! (default 1d0) fac scale factor: mufact = muref * facscfact 
+
+! Parameters to allow or not the use of stored data
+use-old-grid    1 ! if 1 use old grid if file pwggrids.dat is present (<> 1 regenerate)
+use-old-ubound  1 ! if 1 use norm of upper bounding function stored in pwgubound.dat, if present; <> 1 regenerate
+
+
+ncall1  500000    ! number of calls for initializing the integration grid
+itmx1   2         ! number of iterations for initializing the integration grid (ignored in)
+                  !    runs, use `parallel stage` setting instead)
+ncall2 2000000    ! number of calls for computing the integral and finding upper bound 
+itmx2   2         ! number of iterations for computing the integral and finding upper bound
+
+! Notice: the total number of calls is ncall2*itmx2*foldcsi*foldy*foldphi
+foldcsi 1         ! number of folds on csi integration
+foldy   1         ! number of folds on  y  integration
+foldphi 1         ! number of folds on phi integration
+
+nubound 1000000   ! number of bbarra calls to setup norm of upper bounding function for the generation of radiation
+
+#icsimax  1           ! <= 100, number of csi subdivision when computing the upper bounds
+#iymax    1           ! <= 100, number of y subdivision when computing the upper bounds
+#xupbound 2d0         ! increase upper bound for radiation generation
+storemintupb 1        ! (default 0, do not) Store stage2 btilde calls to set up upper bounding envelope
+fastbtlbound 1        ! (default 0, do not) Turn on fast calculation of the btilde upper bounding envelope
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! Some standard optional settings
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+withnegweights 1    ! (default 0) if on (1) use negative weights
+#bornonly      1    ! (default 0) if 1 do Born only
+#ptsqmin     0.8    ! (default 0.8 GeV) minimum pt for generation of radiation
+testplots      1    ! (default 0, do not) do NLO and PWHG distributions
+
+iseed    SEED         !  Start the random number generator with seed iseed
+#rand1     0         !  skipping  rand2*100000000+rand1 numbers.  
+#rand2     0         !  (see RM48 short writeup in CERNLIB)              
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! Settings for piloting (parallel) runs 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+#parallelstage  1     ! which stage of parallel from 1 to 4
+#xgriditeration 1     ! which grid iteration when in parallel stage 1
+
+
+!!!!!!!!!!!!!!!!!!
+! DEBUG OPTIONS
+!!!!!!!!!!!!!!!!!!
+#mint_density_map  1  ! while doing the integration, keep track of the distribution
+                      ! of the integrand values. For debugging info
+#flg_debug         1
+#testsuda          1
+#radregion         1
+
+#btildeborn   0
+#btildevirt   0	
+#btildecoll   0
+#btildereal   0
+#softmismch   0
+#withremnants 0
+#withregular  0
+
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! POWHEG-BOX-RES and HV/HVJ
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+#nores         1     ! nores=1: disable the resonance treatment
+#minlo         1     ! activate MiNLO for HVJ
+#minlo_nnll    1     ! activate MiNLO NNLL for HVJ
+#sudscalevar   1    
+#raisingscales 1     ! force CKKW scale to be increasing 
+allrad         1     ! (default 0 = single shower scheme) Keeps hardest radiation from production and all resonances
+
+
+
+#massivetop      1   ! (default 0) Turns on some virtual corrections with top quark in the loop. Do NOT use it!
+#massivebottom   1   ! (default 0) Turns on some virtual corrections with bottom quark in the loop. Do NOT use it!
+#bmass      4.75d0   ! (default 4.75) bottom quark mass 
+#tmass     172.5d0   ! (default 172.5) top quark mass 
+#ptsqmin     0.8d0   ! minimum squared transverse momentum for gluon radiation. Do NOT use it!
+#ptsqmin_em   1d-6   ! minimum squared transverse momentum for photon radiation. Do NOT use it!
+#CKM_diagonal    1   ! (default 0) Set CKM matrix diagonal
+#complexpolescheme  1  ! Do NOT use it!
+runningscales       3  ! 0=mh+mz, 1=Ht, 2=sqrt(pt_l1*pt_l2), 3=sqrt((p_H+p_l1+p_l2)^2) at underlying Born level
+
+!!!!!!!!!!!!!!!!!!!
+! Other settings
+!!!!!!!!!!!!!!!!!!!
+nohad        1   ! no hadronization in PYTHIA or HERWIG 
+#clobberlhe  1   ! (default 0, do not) Delete pwgevents*.lhe file if they exist, instead of exiting
+#evenmaxrat  1
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! Reweighting instructions
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+storeinfo_rwgt  1   ! store info to allow for reweighting
+#compute_rwgt   1   ! TO BE REMOVED
+#pdfreweight    1   ! TO BE REMOVED
+
+
+! Uncomment the following for reweighting
+#rwl_add 1        ! Add recomputed weights to the same pwgevents*.lhe file
+#rwl_file '-'     ! If set to '-' read the xml reweighting info from this same file. Otherwise, it specifies
+                  !     the xml file with weight information
+<initrwgt>
+<weight id='1'>  renscfact=1  facscfact=1   </weight>
+</initrwgt>
+
+#rwl_group_events   50      ! (default 1000) It keeps the given number of events in memory, reprocessing them together
+                           !    for reweighting (see README.Compress-And-Weights) 
+
+
+qed_qcd         2  ! 0: QCD only; 1: QED only;  2: QED+QCD
+select_EW_virt  2  ! 0: no EW virtuals; 1: full EW virtuals; 2: Sudakov approx; 3: (full EW virtuals - Sudakov approx)
+
+#novirtual 1
+#virtonly  1
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! Other options
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+#compress_lhe    1
+compress_upb    1
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! Instructions for QCD+EW FIXED ORDER NLO runs
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! 1st run: parallel-stage 1 and 2, with novirtual 1 and virtonly 0
+! 2nd run: copy pwg-*xgrid*.dat from the 1st run in a new directory
+!          In this new directory do a parallel-stage 2 run, with
+!          novirtual 0 and virtonly  1, eventually with lower statistics.
+!          Merge together the pwgNLO.top obtained
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! Instructions for the generation of QCD+EW events
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! Generate events with select_EW_virt 2. Then reweight them with full
+! virtuals, i.e. select_EW_virt 1
+
+
+
