@@ -26,7 +26,7 @@ ebeam1 6500d0     ! energy of beam 1
 ebeam2 6500d0     ! energy of beam 2
 
 bornktmin       0d0  ! (default 0d0) generation cut. Minimum kt in underlying Born
-bornsuppfactV 700d0  ! (default 0d0) pt of the V boson at Born level, as suppression factor. If < 0 suppfact = 1
+#bornsuppfactV 700d0  ! (default 0d0) pt of the V boson at Born level, as suppression factor. If < 0 suppfact = 1
 bornzerodamp      1  ! (default 0d0) activate damping factors for Born amplitudes approching zero in some phase-space point
 ubexcess_correct  1  ! correct for upperbound violations
 
