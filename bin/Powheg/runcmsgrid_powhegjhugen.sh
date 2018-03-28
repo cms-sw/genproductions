@@ -129,6 +129,7 @@ produceWeights="false"
 
 grep -q "storeinfo_rwgt 1" powheg.input ; test $? -eq 0  || produceWeights="false"
 grep -q "pdfreweight 1" powheg.input ; test $? -eq 0 || produceWeights="false"
+grep -q "first runx" powheg.input ; test $? -neq 0 || produceWeights="true"
 
 cat powheg.input
 ../pwhg_main &> log_${process}_${seed}.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
@@ -144,12 +145,34 @@ if [ "$produceWeightsNNLO" == "true" ]; then
     mv fornnlops.nnlo pwgevents.lhe
 fi
 
-rm -rf powheg.input*
 sed -e "/#new weight/d" -e "/<wgt id='c'>/d" -e "/<weight id='c'>/d" pwgevents.lhe > pwgevents.lhe.tmp
 mv pwgevents.lhe.tmp pwgevents.lhe 
-echo -e "\n finished computing weights ..\n" 
+cp powheg.input powheg.input.noweight
 
-cat pwgevents.lhe | grep -v "Random number generator exit values" > ${file}_final.lhe
+if [ "$produceWeights" == "true" ]; then
+
+   echo "   ______________________________________     "
+   echo "           Running HV_ew reweight             "
+   echo "   ______________________________________     "
+
+   cp pwgfullgrid-reg-00*.dat pwgfullgrid-reg.dat
+   echo "rwl_add 1" >> powheg.input
+   echo "rwl_group_events 2000" >> powheg.input
+   echo "lhapdf6maxsets 50" >> powheg.input
+   echo "rwl_file 'pwg-rwl.dat'" >> powheg.input
+   echo "rwl_format_rwgt 1" >> powheg.input
+   sed -i -e "s#select_EW#\#select_EW#g" powheg.input
+   echo "select_EW_virt 1" >> powheg.input
+
+   ../pwhg_main &> logrew_${process}_${seed}.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
+   cat pwgevents-rwgt.lhe | grep -v "Random number generator exit values" > ${file}_final.lhe
+else 
+   cat pwgevents.lhe | grep -v "Random number generator exit values" > ${file}_final.lhe
+fi
+
+rm -rf powheg.input*
+
+echo -e "\n finished computing weights ..\n" 
 
 xmllint --noout ${file}_final.lhe > /dev/null 2>&1; test $? -eq 0 || fail_exit "xmllint integrity check failed on pwgevents.lhe"
 
