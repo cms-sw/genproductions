@@ -1,6 +1,4 @@
-#higgs characterization NLO model version 1.3 from http://feynrules.irmp.ucl.ac.be/wiki/HiggsCharacterisation
 HC_NLO_X0_UFO-v1.3.zip
 
-#additional variation useful for higgs dalitz decays, in order to exclude tiny contributions proportional to ye^2 and ymu^2
 HC_NLO_X0_UFO-lepton_masses_no_lepton_yukawas_MX0_130-v1.3.tar.gz
 
