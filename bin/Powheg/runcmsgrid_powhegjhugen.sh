@@ -200,8 +200,13 @@ if [ -s pwgstat.dat ]; then
 fi
 
 if [ -s pwg-stat.dat ]; then
-  XSECTION=`tac pwg-stat.dat | grep -m1 in\ pb | awk '{ print $(NF-2) }'`
-  XSECUNC=` tac pwg-stat.dat | grep -m1 in\ pb | awk '{ print $(NF) }'`
+  if [ "$process" = "b_bbar_4l" ] || [ "$process" = "HWJ_ew" ] || [ "$process" = "HW_ew" ] || [ "$process" = "HZJ_ew" ] || [ "$process" = "HZ_ew" ]; then
+    XSECTION=`tac pwg-stat.dat | grep total\ total | awk '{ print $(NF-2) }'`
+    XSECUNC=` tac pwg-stat.dat | grep total\ total | awk '{ print $(NF) }'`
+  else
+    XSECTION=`tac pwg-stat.dat | grep -m1 in\ pb | awk '{ print $(NF-2) }'`
+    XSECUNC=` tac pwg-stat.dat | grep -m1 in\ pb | awk '{ print $(NF) }'`
+  fi
   head=`cat   cmsgrid_final.lhe | grep -in "<init>" | sed "s@:@ @g" | awk '{print $1+1}' | tail -1`
   tail=`wc -l cmsgrid_final.lhe | awk -v tmp="$head" '{print $1-2-tmp}'`
   tail -${tail} cmsgrid_final.lhe                           >  cmsgrid_final.lhe_tail
