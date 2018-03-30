@@ -129,7 +129,7 @@ produceWeights="false"
 
 grep -q "storeinfo_rwgt 1" powheg.input ; test $? -eq 0  || produceWeights="false"
 grep -q "pdfreweight 1" powheg.input ; test $? -eq 0 || produceWeights="false"
-grep -q "first runx" powheg.input ; test $? -neq 0 || produceWeights="true"
+grep -q "first runx" powheg.input ; test $? -ne 0 || produceWeights="true"
 
 cat powheg.input
 ../pwhg_main &> log_${process}_${seed}.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
