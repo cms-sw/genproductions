@@ -11,7 +11,7 @@ workqueue="condor"
 # You can set following variable to keep logs, stdout and sterr for condor jobs (a lot of files)
 export CONDOR_DEBUG_OUTPUT_PATH=""
 if [ -n "$CONDOR_DEBUG_OUTPUT_PATH" ]; then
-  if [ ! -d "$6" ]; then
+  if [ ! -d "$CONDOR_DEBUG_OUTPUT_PATH" ]; then
     echo "ERROR: "$CONDOR_DEBUG_OUTPUT_PATH" directory doesn't exist, please create it before condor run"
     exit 1
   fi
