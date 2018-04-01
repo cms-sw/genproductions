@@ -78,6 +78,8 @@ class CMSCondorCluster(CondorCluster):
         self.max_shadows = os.environ.get("CONDOR_RELEASE_HOLDCODES_SHADOW_LIM", "")
         self.walltimes = os.environ.get("CONDOR_SET_MAXWALLTIMES", "")
         self.spool = False
+        self.debug_print = os.environ.get("CONDOR_DEBUG_PRINT", "")
+        
     def query(self, ids, ads=[], lim=-1):
         """Query the Schedd via HTCondor Python API"""
         q = self.schedd.query(
@@ -220,6 +222,9 @@ class CMSCondorCluster(CondorCluster):
                   Initialdir = %(cwd)s
                   %(requirement)s
                   getenv=True
+                  
+                  +JobFlavour = "%(job_flavour)s"
+                  
                   queue 1
                """
         
@@ -252,14 +257,23 @@ class CMSCondorCluster(CondorCluster):
         else:
             output_files = ''
         
+        # keep condor logs if CONDOR_DEBUG_OUTPUT_PATH variable is defined
+        debug_output_path = os.environ.get("CONDOR_DEBUG_OUTPUT_PATH", "")
+        if debug_output_path : 
+          stdout = os.path.normpath(debug_output_path) + "/" + "job_$(ClusterId)_$(JobId)_stdout.txt"
+          stderr = os.path.normpath(debug_output_path) + "/" + "job_$(ClusterId)_$(JobId)_stderr.txt"
+          log    = os.path.normpath(debug_output_path) + "/" + "job_$(ClusterId)_$(JobId)_condor.txt"
         
+        # set job max work time
+        job_flavour = os.environ.get("CONDOR_JOB_FLAVOUR", "nextweek")
 
         dico = {'prog': prog, 'cwd': cwd, 'stdout': stdout, 
                 'stderr': stderr,'log': log,'argument': argument,
                 'requirement': requirement, 'input_files':input_files, 
-                'output_files':output_files}
+                'output_files':output_files, 'job_flavour':job_flavour}
 
         #open('submit_condor','w').write(text % dico)
+        if self.debug_print : logger.info( text % dico )
         cmd = ['condor_submit']
         if(self.spool):
             cmd.append("-spool")
@@ -270,6 +284,8 @@ class CMSCondorCluster(CondorCluster):
         #Submitting job(s).
         #Logging submit event(s).
         #1 job(s) submitted to cluster 2253622.
+        if self.debug_print : logger.info( output )
+            
         pat = re.compile("submitted to cluster (\d*)",re.MULTILINE)
         try:
             id = pat.search(output).groups()[0]
@@ -344,6 +360,7 @@ class CMSCondorCluster(CondorCluster):
                 elif status == 'C' and self.spool:
                     self.retrieve_output(id)
                 else:
+                    logger.warning("Failed condor job = ", id, job)
                     fail += 1
 
         for id in list(self.submitted_ids):
