@@ -360,7 +360,8 @@ class CMSCondorCluster(CondorCluster):
                 elif status == 'C' and self.spool:
                     self.retrieve_output(id)
                 else:
-                    logger.warning("Failed condor job = ", id, job)
+                    logger.warning("Failed condor job = " + str(id))
+                    logger.warning( job )
                     fail += 1
 
         for id in list(self.submitted_ids):
