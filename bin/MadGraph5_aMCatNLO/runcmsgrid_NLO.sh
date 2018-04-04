@@ -16,6 +16,37 @@ if [ -n "$4" ]
   then
   use_gridpack_env=$4
 fi
+<<<<<<< HEAD
+
+if [ "$use_gridpack_env" = true ]
+  then
+    if [ -n "$5" ]
+      then
+        scram_arch_version=${5}
+      else
+        scram_arch_version=SCRAM_ARCH_VERSION_REPLACE
+    fi
+    echo "%MSG-MG5 SCRAM_ARCH version = $scram_arch_version"
+
+    if [ -n "$6" ]
+      then
+        cmssw_version=${6}
+      else
+        cmssw_version=CMSSW_VERSION_REPLACE
+    fi
+    echo "%MSG-MG5 CMSSW version = $cmssw_version"
+    export VO_CMS_SW_DIR=/cvmfs/cms.cern.ch
+    source $VO_CMS_SW_DIR/cmsset_default.sh
+    export SCRAM_ARCH=${scram_arch_version}
+    scramv1 project CMSSW ${cmssw_version}
+    cd ${cmssw_version}/src
+    eval `scramv1 runtime -sh`
+fi
+cd $LHEWORKDIR
+
+cd process
+=======
+>>>>>>> upstream/mg26x
 
 if [ "$use_gridpack_env" = true ]
   then
@@ -47,15 +78,6 @@ cd process
 
 #make sure lhapdf points to local cmssw installation area
 LHAPDFCONFIG=`echo "$LHAPDF_DATA_PATH/../../bin/lhapdf-config"`
-
-#if lhapdf6 external is available then above points to lhapdf5 and needs to be overridden
-LHAPDF6TOOLFILE=$CMSSW_BASE/config/toolbox/$SCRAM_ARCH/tools/available/lhapdf6.xml
-if [ -e $LHAPDF6TOOLFILE ]; then
-  LHAPDFCONFIG=`cat $LHAPDF6TOOLFILE | grep "<environment name=\"LHAPDF6_BASE\"" | cut -d \" -f 4`/bin/lhapdf-config
-fi
-
-#make sure env variable for pdfsets points to the right place
-export LHAPDF_DATA_PATH=`$LHAPDFCONFIG --datadir`
 
 echo "lhapdf = $LHAPDFCONFIG" >> ./Cards/amcatnlo_configuration.txt
 # echo "cluster_local_path = `${LHAPDFCONFIG} --datadir`" >> ./Cards/amcatnlo_configuration.txt
@@ -94,12 +116,16 @@ runname=cmsgrid
 if [ ! -e $LHEWORKDIR/header_for_madspin.txt ]; then
   
     cat runscript.dat | ./bin/generate_events -ox -n $runname
-
+    runlabel=$runname
     if [ "$domadspin" -gt "0" ] ; then 
-	mv ./Events/${runname}_decayed_1/events.lhe.gz $LHEWORKDIR/${runname}_final.lhe.gz
-    else
-	mv ./Events/${runname}/events.lhe.gz $LHEWORKDIR/${runname}_final.lhe.gz
+      runlabel=${runname}_decayed_1
     fi
+
+    pdfsets="PDF_SETS_REPLACE"
+    scalevars="--mur=1,2,0.5 --muf=1,2,0.5 --together=muf,mur --dyn=-1"
+
+    echo "systematics $runlabel --remove_wgts=all --start_id=1001 --pdf=$pdfsets $scalevars" | ./bin/aMCatNLO
+	cp ./Events/${runlabel}/events.lhe.gz $LHEWORKDIR/${runname}_final.lhe.gz
 
 #else handle external tarball
 else
@@ -151,7 +177,7 @@ fi
 
 cd $LHEWORKDIR
 gzip -d ${runname}_final.lhe.gz
-
+sed -i -e '/<mgrwgt/,/mgrwgt>/d' ${runname}_final.lhe 
 ls -l
 echo
 
