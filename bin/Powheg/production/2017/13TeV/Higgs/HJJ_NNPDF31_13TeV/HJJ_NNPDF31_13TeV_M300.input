@@ -12,7 +12,7 @@ use-old-grid    1 ! if 1 use old grid if file pwggrids.dat is present (<> 1 rege
 use-old-ubound  1 ! if 1 use norm of upper bounding function stored in pwgubound.dat, if present; <> 1 regenerate
 
 hmass  300             ! Higgs mass
-hwidth 0.00407D0            ! Higgs width
+hwidth 8.43D0            ! Higgs width
 
 bwcutoff 15d0       ! Mass window is hmass +- bwcutoff*hwidth
 
