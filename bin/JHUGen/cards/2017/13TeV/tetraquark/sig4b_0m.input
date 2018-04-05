@@ -1,0 +1,1 @@
+Process=0 MReso=18.5 GaReso=0.001 ColliderEnergy=13 Unweighted=1 Interf=1 DataFile=$1/$2 LHAPDF=NNPDF31_lo_as_0130/NNPDF31_lo_as_0130.info ghzpzp1=0,0 ghzpzp4=1,0 ghz1=0,0 MZprime=9.46 GaZprime=0.00005 ezp_Mu_right=0.46238,0 ezp_Mu_left=0.46238,0 ezp_El_right=0.46238,0 ezp_El_left=0.46238,0 ReadCSmax VegasNc0=5000000 

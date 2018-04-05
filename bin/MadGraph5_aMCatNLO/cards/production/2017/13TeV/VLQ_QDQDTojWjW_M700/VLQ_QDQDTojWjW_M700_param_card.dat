@@ -1,0 +1,137 @@
+#*********************************************************************
+#                        MadGraph/MadEvent                           *
+#                   http://madgraph.hep.uiuc.edu                     *
+#                                                                    *
+#                         param_card.dat                             *
+#                                                                    *
+#   Les Houches friendly file for the SM parameters of MadGraph      *
+#        Spectrum and decay widths produced by SMCalc                *
+#                                                                    *
+#  Please note the following IMPORTANT issues:                       *
+#                                                                    *
+# 0. REFRAIN from editing this file by hand! Some of the parame-     *
+#    ters are not independent                                        *
+#    (such as G_Fermi, alpha_em, sin(theta_W),MZ,MW) and serious     *
+#    problems might be encountered (such as violation of unitarity   *
+#    or gauge invariance).  Always use a calculator.                 *
+#                                                                    *
+# 1. alpha_S(MZ) has been used in the calculation of the parameters  *
+#    but, for consistency, it will be reset by madgraph to the       *
+#    value expected IF the pdfs for collisions with hadrons are      *
+#    used. This value is KEPT by madgraph when no pdf are used       *
+#    lpp(i)=0 .                                                      *
+#                                                                    *
+#  2. Values of the charm and bottom kinematic (pole) masses are     *
+#     those used in the matrix elements and phase space UNLESS they  *
+#     are set to ZERO from the start in the model (particles.dat)    *
+#     This happens, for example,  when using 5-flavor QCD where      *
+#     charm and bottom are treated as partons in the initial state   *
+#     and a zero mass might be hardwired in the model definition.    *
+#                                                                    *
+##********************************************************************
+Block MODSEL # Select Model
+     0   1   #  0 1 = SM
+Block SMINPUTS      # Standard Model inputs
+     1         1.27900000E+02   # alpha_em(MZ)(-1) SM MSbar
+     2         1.16600000E-05   # G_Fermi
+     3         1.18000000E-01   # alpha_s(MZ) SM MSbar
+     4         9.15445065E+01   # Z mass (as input parameter)
+Block MGYUKAWA     # Yukawa masses m/v=y/sqrt(2)
+#    PDG          YMASS
+     5         4.20000000E+00   # mbottom for the Yukawa  y_b
+     4         1.25000000E+00   # mcharm  for the Yukawa  y_c
+     6         1.74300000E+02   # mtop    for the Yukawa  y_t
+    15         1.77700000E+00   # mtau    for the Yukawa  y_ta
+Block MGCKM     # CKM elements for MadGraph
+     1   1     9.75000000E-01   # Vud for Cabibbo matrix
+#===========================================================
+# QUANTUM NUMBERS OF NEW STATE(S) (NON SM PDG CODE) IF ANY
+# (see below for masses and decay tables)
+# These blocks are automatically created by the MadGraph
+# qnumbers.pl script from the particles.dat model file
+#===========================================================
+BLOCK QNUMBERS 4000001 # qd
+         1  0 # 3 times electric charge
+         2  2 # number of spin states (2S+1)
+         3  3 # colour rep (1: singlet, 3: triplet, 8: octet)
+         4  1 # Particle/Antiparticle distinction (0=own anti)
+BLOCK QNUMBERS 4000002 # qu
+         1  0 # 3 times electric charge
+         2  2 # number of spin states (2S+1)
+         3  3 # colour rep (1: singlet, 3: triplet, 8: octet)
+         4  1 # Particle/Antiparticle distinction (0=own anti)
+BLOCK QNUMBERS 4000003 # xd
+         1  0 # 3 times electric charge
+         2  2 # number of spin states (2S+1)
+         3  3 # colour rep (1: singlet, 3: triplet, 8: octet)
+         4  1 # Particle/Antiparticle distinction (0=own anti)
+BLOCK QNUMBERS 4000004 # xu
+         1  0 # 3 times electric charge
+         2  2 # number of spin states (2S+1)
+         3  3 # colour rep (1: singlet, 3: triplet, 8: octet)
+         4  1 # Particle/Antiparticle distinction (0=own anti)
+BLOCK QNUMBERS 5000003 # yd
+         1  0 # 3 times electric charge
+         2  2 # number of spin states (2S+1)
+         3  3 # colour rep (1: singlet, 3: triplet, 8: octet)
+         4  1 # Particle/Antiparticle distinction (0=own anti)
+# END of QNUMBERS blocks
+#===========================================================
+Block MASS      #  Mass spectrum (kinematic masses)
+#       PDG       Mass
+         4     1.40000000E+00   # charm    pole mass
+         5     4.20000000E+00   # bottom   pole mass
+         6     1.74300000E+02   # top      pole mass
+        15     1.77700000E+00   # tau      mass
+        23     9.15445065E+01   # Z        mass
+        24     8.02673592E+01   # W        mass
+        25     1.25000000E+02   # H        mass
+   4000001     7.00000000e+02   # QDMASS
+   4000002     7.00000000e+02   # QUMASS
+   4000003     7.00000000e+02   # XDMASS
+   4000004     7.00000000e+02   # XUMASS
+   5000003     7.00000000e+02   # YDMASS
+#            PDG       Width
+DECAY   4000001     7.00000000e+00   # QDWID
+DECAY   4000002     7.00000000e+00   # QUWID
+DECAY   4000003     7.00000000e+00   # XDWID
+DECAY   4000004     7.00000000e+00   # XUWID
+DECAY   5000003     7.00000000e+00   # YDWID
+DECAY         6     1.51013490E+00   # top width
+DECAY        23     2.44639985E+00   # Z   width
+DECAY        24     2.03535570E+00   # W   width
+DECAY        25     6.79485838E-03   # H   width
+#        BR           NDA        ID1       ID2
+     2.91E-02    2           4        -4   # BR( H -> c  cbar  )
+     5.77E-01    2           5        -5   # BR( H -> b  bbar  )
+     0.00000000E+00    2           6        -6   # BR( H -> t  tbar  )
+     6.32E-02    2          15       -15   # BR( H -> tau- tau+)
+     2.64E-02    2          23        23   # BR( H -> Z   Z^(*))
+     2.15E-01    2          24       -24   # BR( H -> W   W^(*))
+     8.57E-02    2          21        21   # BR( H -> g   g    )
+     2.28E-03    2          22        22   # BR( H -> A   A    )
+BLOCK MGUSER
+         1     0.00000000e+00   # wldqu ,\kappa^{LH}_{dqu} - couplings for qu
+         2     0.00000000e+00   # wrdqu ,\kappa^{RH}_{dqu}
+         3     0.00000000e+00   # xluqu ,\kappa^{LH}_{uqu}
+         4     0.00000000e+00   # xruqu ,\kappa^{RH}_{uqu} 
+         5     0.00000000e+00   # yuqu  ,\kappa_{uqu}     
+         6     0.00000000e+00   # yquu  ,\kappa_{quu}     
+#
+         7     0.00000000e+00   # wluqd ,\kappa^{LH}_{uqd} - couplings for qd
+         8     2.48571000e-01   # wruqd ,\kappa^{RH}_{uqd}
+         9     0.00000000e+00   # xldqd ,\kappa^{LH}_{dqd}
+        10     0.00000000e+00   # xrdqd ,\kappa^{RH}_{dqd}
+        11     0.00000000e+00   # ydqd  ,\kappa_{dqd}     
+        12     0.00000000e+00   # yqdd  ,\kappa_{qdd}     
+#
+        13     0.00000000e+00   # wluxu ,\kappa^{LH}_{uxu} - couplings for xu
+        14     0.00000000e+00   # wruxu ,\kappa^{RH}_{uxu}
+        15     0.00000000e+00   # wldxd ,\kappa^{LH}_{dxd} - couplings for xd
+        16     0.00000000e+00   # wrdxd ,\kappa^{RH}_{dxd}
+        17     0.00000000e+00   # xluxd ,\kappa^{LH}_{uxd}
+        18     0.00000000e+00   # xruxd ,\kappa^{RH}_{uxd}
+        19     0.00000000e+00   # yuxd  ,\kappa_{uxd}     
+        20     0.00000000e+00   # yxdu  ,\kappa_{xdu}    
+        21     0.00000000e+00   # wldyd ,\kappa^{LH}_{dyd} - couplings for yd
+        22     0.00000000e+00   # wrdyd ,\kappa^{RH}_{dyd}  
