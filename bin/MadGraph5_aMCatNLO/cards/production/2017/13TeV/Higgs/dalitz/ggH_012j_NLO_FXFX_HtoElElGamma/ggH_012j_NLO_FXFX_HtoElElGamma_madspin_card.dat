@@ -3,6 +3,7 @@ import model HC_NLO_X0_UFO-lepton_masses_no_lepton_yukawas --bypass_check
 set ms_dir ./madspingrid
 
 set Nevents_for_max_weigth 250 # number of events for the estimate of the max. weight
+
 set max_weight_ps_point 400  # number of PS to estimate the maximum for each event
 
 set max_running_process 1
@@ -11,8 +12,8 @@ set spinmode=none
 set run_card mmll=0
 set run_card mmllmax=60
 
-define l+ = m+
-define l- = m-
+define l+ = e+
+define l- = e-
 
 decay x0 > l+ l- a
 
