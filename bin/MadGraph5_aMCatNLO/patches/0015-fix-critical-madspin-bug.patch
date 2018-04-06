@@ -1,0 +1,282 @@
+=== modified file 'MadSpin/decay.py'
+--- ./MadSpin/decay.py	2017-12-02 01:16:01 +0000
++++ ./MadSpin/decay.py	2018-01-11 10:40:04 +0000
+@@ -2746,37 +2746,8 @@
+             decay_text = ', '.join(decay_text)
+             commandline = ''
+             for proc in processes:
+-                if '[' in proc:
+-                    new_command = reweight_interface.ReweightInterface.get_LO_definition_from_NLO(proc, mgcmd._curr_model)
+-                    new_procs = new_command.split('add process')[1:]
+-                else:
+-                    new_procs = [proc]
+-                    
+-                for new_proc in new_procs:
+-                    new_proc= new_proc.strip()
+-                    if new_proc.endswith(';'):
+-                        new_proc = new_proc[:-1]
++                commandline += self.get_proc_with_decay(proc, decay_text, mgcmd._curr_model)
+                 
+-                    # deal with @ syntax need to move it after the decay specification
+-                    if '@' in new_proc:
+-                        baseproc, proc_nb = new_proc.split('@')
+-                        try:
+-                            proc_nb = int(proc_nb)
+-                        except ValueError:
+-                            raise MadSpinError, 'MadSpin didn\'t allow order restriction after the @ comment: \"%s\" not valid' % proc_nb
+-                        proc_nb = '@ %i' % proc_nb 
+-                    else:
+-                        baseproc = new_proc
+-                        proc_nb = ''      
+-                    nb_comma = baseproc.count(',')
+-                    if nb_comma == 0:
+-                        commandline+="add process %s, %s %s  --no_warning=duplicate;" % (baseproc, decay_text, proc_nb)
+-                    elif nb_comma == 1:
+-                        before, after = baseproc.split(',')
+-                        commandline+="add process %s, %s, (%s, %s) %s  --no_warning=duplicate;" % (before, decay_text, after, decay_text, proc_nb)
+-                    else:
+-                        raise Exception, 'too much decay at MG level. this can not be done for the moment)'            
+-
+             commandline = commandline.replace('add process', 'generate',1)
+             logger.info(commandline)
+             mgcmd.exec_cmd(commandline, precmd=True)
+@@ -2860,7 +2831,68 @@
+ #                for decay in prod['matrix_element']['base_amplitude']['process']['decay_chains']:
+ #                    assert decay.shell_string() in self.all_decay
+             
+-        
++    @staticmethod
++    def get_proc_with_decay(proc, decay_text, model):
++        
++        commands = []
++        if '[' in proc:
++            new_command = reweight_interface.ReweightInterface.get_LO_definition_from_NLO(proc, model)
++            new_procs = new_command.split(';')
++        else:
++            new_procs = [proc]
++        for new_proc in new_procs:
++            new_proc= new_proc.strip()
++            if new_proc.endswith(';'):
++                new_proc = new_proc[:-1]
++            #catch line like "define" where no decay need to be added
++            if not new_proc.strip():
++                continue
++            if not new_proc.startswith(('add', 'generate')):
++                commands.append(new_proc)
++                continue
++            
++            # check options
++            tmp, options = [], set(["--no_warning=duplicate"])
++            for arg in new_proc.split():
++                if arg.startswith('--'):
++                    options.add(arg)
++                else:
++                    tmp.append(arg)
++            new_proc = ' '.join(tmp)
++            options = list(options)
++            options.sort()
++            options = ' '.join(options)
++        
++            # deal with @ syntax need to move it after the decay specification
++            if '@' in new_proc:
++                baseproc, proc_nb = new_proc.split('@')
++                try:
++                    proc_nb = int(proc_nb)
++                except ValueError:
++                    raise MadSpinError, 'MadSpin didn\'t allow order restriction after the @ comment: \"%s\" not valid' % proc_nb
++                proc_nb = '@%i' % proc_nb 
++            else:
++                baseproc = new_proc
++                proc_nb = ''      
++            nb_comma = baseproc.count(',')
++            if nb_comma == 0:
++                commands.append("%s, %s %s %s" % (baseproc, decay_text, proc_nb, options))
++            elif nb_comma == 1:
++                before, after = baseproc.split(',')
++                commands.append("%s, %s, (%s, %s) %s  %s" % (before, decay_text, after, decay_text, proc_nb, options))
++            else:
++                part = baseproc.split(',')
++                if any('(' in p for p in part):
++                    raise Exception, 'too much decay at MG level. this can not be done for the moment)'            
++                else:
++                    decay_part = []
++                    for p in part[1:]:
++                        decay_part.append("(%s, %s)" % (p, decay_text))
++                    commands.append("%s, %s, %s %s %s" % (part[0], decay_text, ', '.join(decay_part), proc_nb, options))
++        commands.append('') #to have a ; at the end of the command
++        return ';'.join(commands)
++        
++    
+     def get_branching_ratio(self):
+         """compute the branching ratio of all the decaying particles"""
+     
+@@ -4047,52 +4079,9 @@
+ #        commandline = ''
+         
+         for proc in processes:
+-            if '[' in proc:
+-                new_command = reweight_interface.ReweightInterface.get_LO_definition_from_NLO(proc, mgcmd._curr_model)
+-                new_procs = new_command.split('add process')[1:]
+-            else:
+-                new_procs = [proc]
+-                
+-            for new_proc in new_procs:
+-                new_proc= new_proc.strip()
+-                if new_proc.endswith(';'):
+-                    new_proc = new_proc[:-1]
+-            
+-                
+-                # deal with @ syntax need to move it after the decay specification
+-                if '@' in new_proc:
+-                    baseproc, proc_nb = new_proc.split('@')
+-                    try:
+-                        proc_nb = int(proc_nb)
+-                    except ValueError:
+-                        raise MadSpinError, 'MadSpin didn\'t allow order restriction after the @ comment: \"%s\" not valid' % proc_nb
+-                    proc_nb = '@ %i' % proc_nb 
+-                else:
+-                    baseproc = new_proc
+-                    proc_nb = '' 
+-                    
+-                nb_comma = baseproc.count(',')
+-                if nb_comma == 0:
+-                    commandline+="add process %s, %s %s  --no_warning=duplicate;" % (baseproc, decay_text, proc_nb)
+-                elif nb_comma == 1:
+-                    before, after = baseproc.split(',')
+-                    commandline+="add process %s, %s, (%s, %s) %s  --no_warning=duplicate;" % (before, decay_text, after, decay_text, proc_nb)
+-                else:
+-                    raise Exception, 'too much decay at MG level. this can not be done for the moment)'            
+-        
+-#        commandline = commandline.replace('add process', 'generate',1)
+-#        logger.info(commandline)
+-#        mgcmd.exec_cmd(commandline, precmd=True)
+-        # remove decay with 0 branching ratio.
+-#        mgcmd.remove_pointless_decay(self.banner.param_card)
+-#        commandline = 'output standalone_msF %s %s' % (pjoin(path_me,'full_me'),
+-#                                                      ' '.join(self.list_branches.keys()))
+-#        mgcmd.exec_cmd(commandline, precmd=True)
+-#        logger.info('Done %.4g' % (time.time()-start))
+-                 
+-
+-
+-
++            if not proc.strip().startswith(('add','generate')):
++                proc = 'add process %s' % proc
++            commandline += self.get_proc_with_decay(proc, decay_text, mgcmd._curr_model)
+         # 5. add the decay information to the all_topology object --------------                        
+ #        for matrix_element in mgcmd._curr_matrix_elements.get_matrix_elements():
+ #            me_path = pjoin(path_me,'full_me', 'SubProcesses', \
+@@ -4129,7 +4118,8 @@
+         for processes in self.list_branches.values():
+             for proc in processes:
+                 commandline+="add process %s @%i --no_warning=duplicate --standalone;" % (proc,i)
+-                i+=1        
++                i+=1 
++
+         commandline = commandline.replace('add process', 'generate',1)
+         mgcmd.exec_cmd(commandline, precmd=True)
+         # remove decay with 0 branching ratio.
+
+=== modified file 'MadSpin/interface_madspin.py'
+--- ./MadSpin/interface_madspin.py	2017-10-23 21:05:39 +0000
++++ ./MadSpin/interface_madspin.py	2018-01-11 10:40:04 +0000
+@@ -1343,6 +1343,7 @@
+                     evt_decayfile[particle.pdg].update(new_file)
+                     decay_file = evt_decayfile[particle.pdg][decay_file_nb]
+                     continue
++            
+             out[particle.pdg].append(decay)
+                         
+         return out
+@@ -1433,10 +1434,10 @@
+         full_event = lhe_parser.Event(str(production))
+         full_event = full_event.add_decays(decays)
+         full_me = self.calculate_matrix_element(full_event)
+-        
+-#        misc.sprint([p.pdg for p in production])
+-#        misc.sprint([p.pdg for p in full_event])
+-
++        #misc.sprint(full_event)
++        #misc.sprint([p.pdg for p in production])
++        #misc.sprint([p.pdg for p in full_event])
++        #misc.sprint(full_me, production_me, decay_me)
+         return full_event, full_me/(production_me*decay_me)
+         
+         
+@@ -1444,7 +1445,19 @@
+         """routine to return the matrix element"""        
+         
+         tag, order = event.get_tag_and_order()
+-        orig_order = self.all_me[tag]['order']
++        try:
++            orig_order = self.all_me[tag]['order']
++        except Exception:
++            # try to pass to full anti-particles for 1->N
++            init, final = tag
++            if len(init) == 2:
++                raise
++            init = (-init[0],)
++            final = tuple(-i for i in final)
++            tag = (init, final)
++            misc.sprint([k for k in  self.all_me.keys() if len(k[0])==1])
++            orig_order = self.all_me[tag]['order']
++            
+         pdir = self.all_me[tag]['pdir']
+         if pdir in self.all_f2py:
+             p = event.get_momenta(orig_order)
+
+=== modified file 'UpdateNotes.txt'
+--- ./UpdateNotes.txt	2017-12-12 21:11:08 +0000
++++ ./UpdateNotes.txt	2018-01-11 10:40:04 +0000
+@@ -1,5 +1,8 @@
+ Update notes for MadGraph5_aMC@NLO (in reverse time order)
+ 
++2.6.2 ()
++      OM: Fix issue with madspin introduced in 2.6.1 (failing to generate correct diagram for NLO process)
++
+ 2.6.1 (12/12/17)
+       RF+MZ: It is now possible to add LO matrix elements (with [LOonly]) 
+              to Fx-Fx merged samples. Thanks to Josh Bendavid for testing.
+
+=== modified file 'madgraph/interface/reweight_interface.py'
+--- ./madgraph/interface/reweight_interface.py	2017-12-02 01:16:01 +0000
++++ ./madgraph/interface/reweight_interface.py	2018-01-11 10:40:04 +0000
+@@ -217,6 +217,10 @@
+         
+         # split the line definition with the part before and after the NLO tag
+         process, order, final = re.split('\[\s*(.*)\s*\]', proc)
++        if process.strip().startswith(('generate', 'add process')):
++            process = process.replace('generate', '')
++            process = process.replace('add process','')
++        
+         # add the part without any additional jet.
+         commandline="add process %s %s --no_warning=duplicate;" % (process, final)
+         if not order:
+@@ -258,13 +262,16 @@
+                 commandline +='add process %s pert_%s %s --no_warning=duplicate;' % (process,order.replace(' ',''), final)
+         elif order.startswith(('noborn=')):
+             # pass in sqrvirt=
+-            return "add process %s ;" % proc.replace('noborn=', 'sqrvirt=')
++            return "add process %s [%s] %s;" % (process, order.replace('noborn=', 'sqrvirt='), final)
+         elif order.startswith('LOonly'):
+             #remove [LOonly] flag
+             return "add process %s %s;" % (process, final)
+         else:
+             #just return the input. since this Madloop.
+-            return "add process %s ;" % proc                                       
++            if order:
++                return "add process %s [%s] %s ;" % (process, order,final)
++            else:
++                return "add process %s %s ;" % (process, final)
+         return commandline
+ 
+ 
+@@ -1753,7 +1760,7 @@
+                         for i in range(len(pdg)):
+                             if pdg[i] == oldpdg[i]:
+                                 continue
+-                            if not self.model:
++                            if not self.model or not getattr(self.model, 'get_mass'):
+                                 continue
+                             if self.model.get_mass(int(pdg[i])) == self.model.get_mass(int(oldpdg[i])):
+                                 continue
