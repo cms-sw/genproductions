@@ -84,11 +84,14 @@ os.system('rm -rf '+my_path+'/'+prepid+'/*'); sys.stdout.flush()
 os.system('tar xf '+gridpack_eos_path)
 merge = os.popen('grep \/cvmfs\/cms.cern.ch\/phys_generator\/gridpacks\/lhe_merger\/merge.pl runcmsgrid.sh').read()
 tmpdir = os.popen('grep _CONDOR_SCRATCH_DIR mgbasedir/Template/LO/SubProcesses/refine.sh').read()
-if merge == "" or tmpdir == "":
+tmpdir2 = os.popen('grep _CONDOR_SCRATCH_DIR process/madevent/SubProcesses/refine.sh').read()
+if merge == "" or tmpdir == "" or tmpdir2 == "":
     if merge == "":
         print 'needs to replace the string in runcmsgrid.sh'; sys.stdout.flush()
     if tmpdir == "" and os.path.isfile("./mgbasedir/Template/LO/SubProcesses/refine.sh"):
         print 'needs to apply the tmpdir patch in mgbasedir/Template/LO/SubProcesses/refine.sh'; sys.stdout.flush()
+    if tmpdir2 == "" and os.path.isfile("./process/madevent/SubProcesses/refine.sh"):
+	    print 'needs to apply the tmpdir patch in process/madevent/SubProcesses/refine.sh'; sys.stdout.flush()
 else:
     print 'no need to patch! removing noiter backup copy'
     os.system('rm '+gridpack_eos_path_noiter); sys.stdout.flush()
@@ -138,7 +141,8 @@ os.system('tar xf '+gridpack_eos_path_noiter)
   
 merge = os.popen('grep \/cvmfs\/cms.cern.ch\/phys_generator\/gridpacks\/lhe_merger\/merge.pl runcmsgrid.sh').read()
 tmpdir = os.popen('grep _CONDOR_SCRATCH_DIR mgbasedir/Template/LO/SubProcesses/refine.sh').read()
-if merge == "" or tmpdir == "":
+tmpdir2 = os.popen('grep _CONDOR_SCRATCH_DIR process/madevent/SubProcesses/refine.sh').read()
+if merge == "" or tmpdir == "" or tmpdir2 == "":
     if merge == "":
         print 'replacing the string in runcmsgrid.sh'; sys.stdout.flush()
         os.system("sed -e '/\.\/run\.sh\ / {' -e 'r /cvmfs/cms.cern.ch/phys_generator/gridpacks/mg_amg_patch/runcmsgrid_backup_5k_mergeFix.sh' -e 'd' -e '}' -i runcmsgrid.sh")
@@ -148,7 +152,9 @@ if merge == "" or tmpdir == "":
               wget https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/MadGraph5_aMCatNLO/patches/0018-propagate-madevent-exitcode-properly.patch; \
               patch -p1 < 0018-propagate-madevent-exitcode-properly.patch; \
               rm 0018-propagate-madevent-exitcode-properly.patch")
-
+    if tmpdir2 == "" and os.path.isfile("./process/madevent/SubProcesses/refine.sh"):
+	    print 'applying the tmpdir patch in process/madevent/SubProcesses/refine.sh'; sys.stdout.flush()
+	    os.system("cp mgbasedir/Template/LO/SubProcesses/refine.sh process/madevent/SubProcesses/refine.sh")
 
         
     print 'tarring to gridpack.tar.xz for',prepid; sys.stdout.flush()
