@@ -167,9 +167,9 @@ def runParallelXgrid(parstage, xgrid, folderName, nEvents, njobs, powInputName, 
         f = open(filename, 'a')
         #f.write('cd '+rootfolder+'/'+folderName+'/ \n')
         f.write('echo ' + str (i) + ' | ./pwhg_main &> run_' + jobID + '.log ' + '\n')
-        f.write('cp -p *.log ' + rootfolder + '/' + folderName + '/. \n')  
-        f.write('cp -p *.top ' + rootfolder + '/' + folderName + '/. \n')  
-        f.write('cp -p *.dat ' + rootfolder + '/' + folderName + '/. \n')  
+        f.write('cp -p *.top ' + rootfolder + '/' + folderName + '/. \n')
+        f.write('cp -p *.dat ' + rootfolder + '/' + folderName + '/. \n')
+        f.write('cp -p *.log ' + rootfolder + '/' + folderName + '/. \n')
 
         f.close()
 
@@ -362,10 +362,10 @@ if [[ -s ./JHUGen.input ]]; then
 fi
 
 ### retrieve the powheg source tar ball
-export POWHEGSRC=powhegboxV2_rev3453_date20171005.tar.gz
+export POWHEGSRC=powhegboxV2_rev3504_date20180309.tar.gz
 
-if [ "$process" = "b_bbar_4l" ]; then 
-  export POWHEGSRC=powhegboxRES_rev3468_date20171122.tar.gz 
+if [ "$process" = "b_bbar_4l" ] || [ "$process" = "HWJ_ew" ] || [ "$process" = "HW_ew" ] || [ "$process" = "HZJ_ew" ] || [ "$process" = "HZ_ew" ]; then 
+  export POWHEGSRC=powhegboxRES_rev3478_date20180122.tar.gz 
 fi
 
 echo 'D/L POWHEG source...'
@@ -401,6 +401,9 @@ fi
 if [ "$process" = "ttb_NLO_dec" ]; then
     patch -l -p0 -i ${WORKDIR}/patches/pwhg_ttb_NLO_dec_gen_radiation_hook.patch
 fi
+if [ "$process" = "ZZ" ]; then
+    patch -l -p0 -i ${WORKDIR}/patches/zz_m4lcut.patch
+fi
 
 
 sed -i -e "s#500#1200#g"  POWHEG-BOX/include/pwhg_rwl.h
@@ -423,11 +426,6 @@ sed -i -e "s#PDF[ \t]*=[ \t]*native#PDF=lhapdf#g" Makefile
 # Use gfortran, not other compilers which are not free/licensed
 sed -i -e "s#COMPILER[ \t]*=[ \t]*ifort#COMPILER=gfortran#g" Makefile
 
-# Use option O0 for bbH (O2 too long)
-if [ "$process" = "bbH" ]; then
-   sed -i -e "s#O2#O0#g" Makefile
-fi
-
 # Remove strange options in fortran (fixed line length, multiCPU compilation)
 sed -i -e "s#132#none#g" Makefile
 sed -i -e "s#make -j FC#make FC#g" Makefile
@@ -440,7 +438,7 @@ pwhg_main:#g' Makefile
 echo "pwhg_main.o: svn.version" >> Makefile
 echo "lhefwrite.o: svn.version" >> Makefile
 
-# Find proper histo booking routine (two of them exist)
+# Find proper histo booking routine (many of them exist)
 BOOK_HISTO="pwhg_bookhist-multi.o"
 if [ `echo ${POWHEGSRC} | cut -d "_" -f 1` = "powhegboxV1" ]; then
    BOOK_HISTO="pwhg_bookhist.o"
@@ -476,6 +474,9 @@ fi
 if [ "$process" = "Wgamma" ] || [ "$process" = "W_ew-BMNNP" ]; then
     patch -l -p0 -i ${WORKDIR}/patches/pwhg_analysis_driver.patch 
 fi
+if [ "$process" = "HW_ew" ]; then
+    patch -l -p0 -i ${WORKDIR}/patches/hwew.patch 
+fi
 #if [ "$process" = "ttb_NLO_dec" ]; then
 #    patch -l -p0 -i ${WORKDIR}/patches/pwhg_analysis_driver_offshellmap.patch
 #fi
@@ -490,23 +491,44 @@ sed -i -e "s#LHAPDF_CONFIG[ \t]*=[ \t]*#\#LHAPDF_CONFIG=#g" Makefile
 sed -i -e "s#pwhg_bookhist.o# #g" Makefile
 sed -i -e "s#pwhg_bookhist-new.o# #g" Makefile
 sed -i -e "s#pwhg_bookhist-multi.o# #g" Makefile
+
+# Use option O0 for bbH (O2 too long)
+if [ "$process" = "bbH" ]; then
+   sed -i -e "s#O2#O0#g" Makefile
+fi
+
+# fix fortran options and missing libraries in VH_ew
+if [ "$process" = "HW_ew" ] || [ "$process" = "HZ_ew" ] || [ "$process" = "HZJ_ew" ] || [ "$process" = "HWJ_ew" ] ; then
+   sed -i -e "s#OL_process_src#OL_process_src f90_flags=-ffree-line-length-none#g" Makefile
+fi
+if [ "$process" = "HWJ_ew" ] || [ "$process" = "HZJ_ew" ] ; then
+   sed -i -e "s#boostrot.o#boostrot.o boostrot4.o#g" Makefile
+fi
+
+# 
 if [ "$process" = "ttJ" ]; then
   sed -i -e "s#_PATH) -L#_PATH) #g" Makefile
   sed -i -e "s# -lvirtual#/libvirtual.so.1.0.0#g" Makefile
 fi
+
+# Use option O0 for ttH (O2 too long)
 if [ "$process" = "ttH" ]; then
   sed -i 's/O2/O0/g' Makefile
   sed -i 's/4.5d0/4.75d0/g' init_couplings.f
 fi
+
 if [ "$process" = "gg_H_MSSM" ]; then 
   sed -i 's/leq/le/g' nloreal.F
   cp -p ../gg_H_quark-mass-effects/SLHA.h .
   cp -p ../gg_H_quark-mass-effects/SLHADefs.h .
-fi  
+fi
   
 echo "ANALYSIS=none " >> tmpfile
+
 if [ "$process" = "Wgamma" ]; then
   echo "PWHGANAL=$BOOK_HISTO pwhg_analysis-dummy.o uti.o " >> tmpfile
+#elif [ "$process" = "HW_ew" ] || [ "$process" = "HWJ_ew" ]; then 
+#  echo "PWHGANAL=$BOOK_HISTO pwhg_analysis-HWnJ_res.o pwhg_analysis_paper-HWnJ_res.o observables.o multi_plot.o " >> tmpfile
 else
   echo "PWHGANAL=$BOOK_HISTO pwhg_analysis-dummy.o " >> tmpfile
 fi
@@ -517,6 +539,8 @@ rm -f Makefile.interm tmpfile
 
 # Add libraries
 echo "LIBS+=-lz -lstdc++" >> Makefile
+
+# Add extra packages
 if [ $jhugen = 1 ]; then
   if [ ! -f JHUGenerator.${jhugenversion}.tar.gz ]; then
     wget --no-verbose --no-check-certificate http://spin.pha.jhu.edu/Generator/JHUGenerator.${jhugenversion}.tar.gz || fail_exit "Failed to get JHUGen tar ball "

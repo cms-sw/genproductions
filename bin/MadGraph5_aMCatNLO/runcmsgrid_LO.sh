@@ -237,11 +237,11 @@ LD_LIBRARY_PATH=`${LHAPDFCONFIG} --libdir`:${LD_LIBRARY_PATH} ./mgbasedir/SysCal
 #reweight if necessary
 if [ -e process/madevent/Cards/reweight_card.dat ]; then
     echo "reweighting events"
-    mv cmsgrid_final.lhe process/madevent/Events/GridRun_${rnum}/unweighted_events.lhe
+    mv cmsgrid_final.lhe process/madevent/Events/GridRun_${run_random_start}/unweighted_events.lhe
     cd process/madevent
-    ./bin/madevent reweight -f GridRun_${rnum}
+    ./bin/madevent reweight -f GridRun_${run_random_start}
     cd ../..
-    mv process/madevent/Events/GridRun_${rnum}/unweighted_events.lhe.gz cmsgrid_final.lhe.gz
+    mv process/madevent/Events/GridRun_${run_random_start}/unweighted_events.lhe.gz cmsgrid_final.lhe.gz
     gzip -d  cmsgrid_final.lhe.gz
 fi
 
