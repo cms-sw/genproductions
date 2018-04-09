@@ -1,0 +1,12 @@
+#directory for gridpack mode
+set ms_dir ./madspingrid
+
+set max_running_process 1
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+
+decay w+ > l+ vl
+decay w- > l- vl~
+launch
