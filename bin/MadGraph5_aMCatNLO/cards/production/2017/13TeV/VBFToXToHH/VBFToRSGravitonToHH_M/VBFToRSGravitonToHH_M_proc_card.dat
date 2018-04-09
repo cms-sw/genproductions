@@ -1,0 +1,11 @@
+
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set loop_optimized_output True
+set complex_mass_scheme False
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+import model RS_exovv
+define ferm = u c d s b u~ c~ d~ s~ b~ e- mu- ta- e+ mu+ ta+ vl vl~
+generate p p > y j j $$ z w+ w- / g a h , ( y > h h )
+output VBFToRSGravitonToHH_M<MASS> -nojpeg

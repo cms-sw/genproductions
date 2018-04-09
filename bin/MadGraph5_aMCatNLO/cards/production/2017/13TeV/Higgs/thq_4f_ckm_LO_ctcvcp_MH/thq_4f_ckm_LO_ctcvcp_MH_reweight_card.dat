@@ -1,0 +1,344 @@
+change rwgt_dir rwgt
+launch
+set kHtt 3.0
+launch
+set kHtt 2.0
+launch
+set kHtt 1.5
+launch
+set kHtt 1.25
+launch
+set kHtt 0.75 
+launch
+set kHtt 0.5
+launch
+set kHtt 0.25
+launch
+set kHtt 0.0001
+launch
+set kHtt -0.25
+launch
+set kHtt -0.5
+launch
+set kHtt -0.75
+launch
+set kHtt -1.0
+launch
+set kHtt -1.25
+launch
+set kHtt -1.5
+launch
+set kHtt -2.0
+launch
+set kHtt -3.0
+launch
+set kHtt 3.0
+set kSM 1.5
+launch
+set kHtt 2.0
+set kSM 1.5
+launch
+set kHtt 1.5
+set kSM 1.5
+launch
+set kHtt 1.25
+set kSM 1.5
+launch
+set kHtt 1.0
+set kSM 1.5
+launch
+set kHtt 0.75
+set kSM 1.5
+launch
+set kHtt 0.5 
+set kSM 1.5
+launch
+set kHtt 0.25
+set kSM 1.5
+launch
+set kHtt 0.0001
+set kSM 1.5
+launch
+set kHtt -0.25
+set kSM 1.5
+launch
+set kHtt -0.5
+set kSM 1.5
+launch
+set kHtt -0.75
+set kSM 1.5
+launch
+set kHtt -1.0
+set kSM 1.5
+launch
+set kHtt -1.25
+set kSM 1.5
+launch
+set kHtt -1.5
+set kSM 1.5
+launch
+set kHtt -2.0
+set kSM 1.5
+launch
+set kHtt -3.0
+set kSM 1.5
+launch
+set kHtt 3.0
+set kSM 0.5
+launch
+set kHtt 2.0
+set kSM 0.5
+launch
+set kHtt 1.5
+set kSM 0.5
+launch
+set kHtt 1.25
+set kSM 0.5
+launch
+set kHtt 1.0
+set kSM 0.5
+launch
+set kHtt 0.75
+set kSM 0.5
+launch
+set kHtt 0.5 
+set kSM 0.5
+launch
+set kHtt 0.25
+set kSM 0.5
+launch
+set kHtt 0.0001
+set kSM 0.5
+launch
+set kHtt -0.25
+set kSM 0.5
+launch
+set kHtt -0.5
+set kSM 0.5
+launch
+set kHtt -0.75
+set kSM 0.5
+launch
+set kHtt -1.0
+set kSM 0.5
+launch
+set kHtt -1.25
+set kSM 0.5
+launch
+set kHtt -1.5
+set kSM 0.5
+launch
+set kHtt -2.0
+set kSM 0.5
+launch
+set kHtt -3.0
+set kSM 0.5
+launch
+set ymt 172.5
+set kAtt 0.666667
+set kHll 0.000000
+set kAll 0.000000
+set kHaa 0.000000
+set kAaa 0.000000
+set kHza 0.000000
+set kAza 0.000000
+set cosa -0.9
+set kSM -1.1111
+launch
+set ymt 172.5
+set kAtt 0.666667
+set kHll 0.000000
+set kAll 0.000000
+set kHaa 0.000000
+set kAaa 0.000000
+set kHza 0.000000
+set kAza 0.000000
+set cosa -0.8
+set kSM -1.25
+launch
+set ymt 172.5
+set kAtt 0.666667
+set kHll 0.000000
+set kAll 0.000000
+set kHaa 0.000000
+set kAaa 0.000000
+set kHza 0.000000
+set kAza 0.000000
+set cosa -0.7
+set kSM -1.42857
+launch
+set ymt 172.5
+set kAtt 0.666667
+set kHll 0.000000
+set kAll 0.000000
+set kHaa 0.000000
+set kAaa 0.000000
+set kHza 0.000000
+set kAza 0.000000
+set cosa -0.6
+set kSM -1.6667
+launch
+set ymt 172.5
+set kAtt 0.666667
+set kHll 0.000000
+set kAll 0.000000
+set kHaa 0.000000
+set kAaa 0.000000
+set kHza 0.000000
+set kAza 0.000000
+set cosa -0.5
+set kSM -2.0
+launch
+set ymt 172.5
+set kAtt 0.666667
+set kHll 0.000000
+set kAll 0.000000
+set kHaa 0.000000
+set kAaa 0.000000
+set kHza 0.000000
+set kAza 0.000000
+set cosa -0.4
+set kSM -2.5
+launch
+set ymt 172.5
+set kAtt 0.666667
+set kHll 0.000000
+set kAll 0.000000
+set kHaa 0.000000
+set kAaa 0.000000
+set kHza 0.000000
+set kAza 0.000000
+set cosa -0.3
+set kSM -3.333
+launch
+set ymt 172.5
+set kAtt 0.666667
+set kHll 0.000000
+set kAll 0.000000
+set kHaa 0.000000
+set kAaa 0.000000
+set kHza 0.000000
+set kAza 0.000000
+set cosa -0.2
+set kSM -5.0
+launch
+set ymt 172.5
+set kAtt 0.666667
+set kHll 0.000000
+set kAll 0.000000
+set kHaa 0.000000
+set kAaa 0.000000
+set kHza 0.000000
+set kAza 0.000000
+set cosa -0.1
+set kSM -10.0
+launch
+set ymt 172.5
+set kAtt 0.666667
+set kHll 0.000000
+set kAll 0.000000
+set kHaa 0.000000
+set kAaa 0.000000
+set kHza 0.000000
+set kAza 0.000000
+set cosa -0.0001
+set kSM -10000
+launch
+set ymt 172.5
+set kAtt 0.666667
+set kHll 0.000000
+set kAll 0.000000
+set kHaa 0.000000
+set kAaa 0.000000
+set kHza 0.000000
+set kAza 0.000000
+set cosa 0.1
+set kSM 10.0
+launch
+set ymt 172.5
+set kAtt 0.666667
+set kHll 0.000000
+set kAll 0.000000
+set kHaa 0.000000
+set kAaa 0.000000
+set kHza 0.000000
+set kAza 0.000000
+set cosa 0.2
+set kSM 5.0
+launch
+set ymt 172.5
+set kAtt 0.666667
+set kHll 0.000000
+set kAll 0.000000
+set kHaa 0.000000
+set kAaa 0.000000
+set kHza 0.000000
+set kAza 0.000000
+set cosa 0.3
+set kSM 3.333
+launch
+set ymt 172.5
+set kAtt 0.666667
+set kHll 0.000000
+set kAll 0.000000
+set kHaa 0.000000
+set kAaa 0.000000
+set kHza 0.000000
+set kAza 0.000000
+set cosa 0.4
+set kSM 2.5
+launch
+set ymt 172.5
+set kAtt 0.666667
+set kHll 0.000000
+set kAll 0.000000
+set kHaa 0.000000
+set kAaa 0.000000
+set kHza 0.000000
+set kAza 0.000000
+set cosa 0.5
+set kSM 2.0
+launch
+set ymt 172.5
+set kAtt 0.666667
+set kHll 0.000000
+set kAll 0.000000
+set kHaa 0.000000
+set kAaa 0.000000
+set kHza 0.000000
+set kAza 0.000000
+set cosa 0.6
+set kSM 1.6667
+launch
+set ymt 172.5
+set kAtt 0.666667
+set kHll 0.000000
+set kAll 0.000000
+set kHaa 0.000000
+set kAaa 0.000000
+set kHza 0.000000
+set kAza 0.000000
+set cosa 0.7
+set kSM 1.42857
+launch
+set ymt 172.5
+set kAtt 0.666667
+set kHll 0.000000
+set kAll 0.000000
+set kHaa 0.000000
+set kAaa 0.000000
+set kHza 0.000000
+set kAza 0.000000
+set cosa 0.8
+set kSM 1.25
+launch
+set ymt 172.5
+set kAtt 0.666667
+set kHll 0.000000
+set kAll 0.000000
+set kHaa 0.000000
+set kAaa 0.000000
+set kHza 0.000000
+set kAza 0.000000
+set cosa 0.9
+set kSM 1.1111
