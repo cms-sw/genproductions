@@ -46,10 +46,12 @@ import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument("requestednumofevents", type=int)
 parser.add_argument("foundnumofevents", type=int)
+parser.add_argument("seed", type=int)
 parser.add_argument("lhefiles", nargs="+")
 args = parser.parse_args()
 requestednumofevents = args.requestednumofevents
 foundnumofevents = args.foundnumofevents
+random.seed(args.seed)
 lhefiles = args.lhefiles
 lheeventstr=getlheeventstring()
 lheheadfoot=getlheheadfoot()

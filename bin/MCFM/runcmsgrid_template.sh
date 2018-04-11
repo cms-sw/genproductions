@@ -97,7 +97,7 @@ while [ ${produced_lhe} -lt ${nevt} ]; do
 done
 
 cd $LHEWORKDIR
-python adjlheevent.py ${nevt} ${produced_lhe} cmsgrid_*.lhe
+python adjlheevent.py ${nevt} ${produced_lhe} ${rnum} cmsgrid_*.lhe
 
 ls -l
 echo
