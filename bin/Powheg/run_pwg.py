@@ -454,6 +454,7 @@ if [ "$process" = "ggHH" ]; then
    sed -i -e "/LIBPYTHIA8/s|^|#|g" Makefile
    sed -i -e "s|LIBHEPMC=|# LIBHEPMC=|g" Makefile
    sed -i -e "/main-PYTHIA8-lhef:/s|^|#|g" Makefile
+   sed -i -e "s|LIBS+=-L:\\\$|LIBS+=-L\\\$|g" Makefile
 fi
 
 if [ "$process" = "trijet" ]; then 
