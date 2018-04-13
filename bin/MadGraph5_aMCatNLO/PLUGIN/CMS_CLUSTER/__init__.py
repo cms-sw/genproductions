@@ -79,6 +79,7 @@ class CMSCondorCluster(CondorCluster):
         self.walltimes = os.environ.get("CONDOR_SET_MAXWALLTIMES", "")
         self.spool = False
         self.debug_print = os.environ.get("CONDOR_DEBUG_PRINT", "")
+        self.fetched_jobs = []
         
     def query(self, ids, ads=[], lim=-1):
         """Query the Schedd via HTCondor Python API"""
@@ -376,9 +377,15 @@ class CMSCondorCluster(CondorCluster):
 
     def retrieve_output(self,id):
         # TODO: Error handling
-        a = subprocess.Popen(['condor_transfer_data',str(id)], stdout=subprocess.PIPE,
-                             stdin=subprocess.PIPE)
-        output, err_ = a.communicate()
+        if id in self.fetched_jobs : return
+        a = subprocess.Popen(['condor_transfer_data',str(id)], stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
+        out, err = a.communicate()
+        
+        if a.returncode : 
+          logger.warning("Failed to transfer spooled data " + str(id))
+          logger.warning("   standard output: \n" + str(out))
+          logger.warning("   standard error: \n" + str(err))
+        else : self.fetched_jobs += [ id ]
 
 class CMSCondorSpoolCluster(CMSCondorCluster):
     """Same as CMSCondorCluster, except that we use 'spool' to transfer files."""
