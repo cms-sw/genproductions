@@ -7,26 +7,26 @@ generator = cms.EDFilter(
     "Pythia8GeneratorFilter",
     maxEventsToPrint = cms.untracked.int32(1),
     pythiaPylistVerbosity = cms.untracked.int32(1),
-    filterEfficiency = cms.untracked.double(1.0),
+    filterEfficiency = cms.untracked.double(0.00255),
     pythiaHepMCVerbosity = cms.untracked.bool(False),
     comEnergy = cms.double(5020.0),
-
-    crossSection = cms.untracked.double(2.80e+06),
-
+    
+    crossSection = cms.untracked.double(1.59068e+08),
+    
     PythiaParameters = cms.PSet(
         pythia8CommonSettingsBlock,
         pythia8CP5SettingsBlock,
         processParameters = cms.vstring(
             'HardQCD:all = on',
-            'PhaseSpace:pTHatMin = 80 ',
-            'PhaseSpace:pTHatMax = 120 ',
-            ),
-        parameterSets = cms.vstring(
+            'PhaseSpace:pTHatMin = 30  ',
+            'PhaseSpace:pTHatMax = 80  ',
+	    ),
+            parameterSets = cms.vstring(
             'pythia8CommonSettings',
             'pythia8CP5Settings',
             'processParameters',
             )
-        )
+	)
     )
 
 genParticlesForFilter = cms.EDProducer(
@@ -34,7 +34,7 @@ genParticlesForFilter = cms.EDProducer(
     saveBarCodes = cms.untracked.bool(True),
     src = cms.InputTag("generator","unsmeared"),
     abortOnUnknownPDGCode = cms.untracked.bool(False)
-    )
+)
 
 bctoefilter = cms.EDFilter(
     "BCToEFilter",
@@ -44,26 +44,14 @@ bctoefilter = cms.EDFilter(
         )
     )
 
-emenrichingfilter = cms.EDFilter(
-    "EMEnrichingFilter",
-    filterAlgoPSet = cms.PSet(
-        isoGenParETMin=cms.double(20.),
-        isoGenParConeSize=cms.double(0.1),
-        clusterThreshold=cms.double(20.),
-        isoConeSize=cms.double(0.2),
-        hOverEMax=cms.double(0.5),
-        tkIsoMax=cms.double(5.),
-        caloIsoMax=cms.double(10.),
-        requireTrackMatch=cms.bool(False),
-        genParSource = cms.InputTag("genParticlesForFilter")
-        )
-    )
-
 configurationMetadata = cms.untracked.PSet(
     version = cms.untracked.string('\$Revision$'),
     name = cms.untracked.string('\$Source$'),
-    annotation = cms.untracked.string('QCD pthat 80to120 GeV, 5.02 TeV, TuneCP5')
-    )
+    annotation = cms.untracked.string('b/c->e filtered QCD pthat 30to80 GeV, 5.02 TeV, TuneCP5')
+)
 
 # add your filters to this sequence
-ProductionFilterSequence = cms.Sequence(generator * (genParticlesForFilter + ~bctoefilter + emenrichingfilter))
+ProductionFilterSequence = cms.Sequence(generator * (genParticlesForFilter + bctoefilter ))
+
+
+
