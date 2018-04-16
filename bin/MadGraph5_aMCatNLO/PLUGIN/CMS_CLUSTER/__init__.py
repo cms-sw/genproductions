@@ -223,6 +223,7 @@ class CMSCondorCluster(CondorCluster):
                   Initialdir = %(cwd)s
                   %(requirement)s
                   getenv=True
+                  %(leave_in_queue)s
                   
                   +JobFlavour = "%(job_flavour)s"
                   
@@ -267,11 +268,12 @@ class CMSCondorCluster(CondorCluster):
         
         # set job max work time
         job_flavour = os.environ.get("CONDOR_JOB_FLAVOUR", "nextweek")
-
+        leave_in_queue = "leave_in_queue = (JobStatus == 4) && ((StageOutFinish =?= UNDEFINED) || (StageOutFinish == 0))" if self.spool else ""
+        
         dico = {'prog': prog, 'cwd': cwd, 'stdout': stdout, 
                 'stderr': stderr,'log': log,'argument': argument,
                 'requirement': requirement, 'input_files':input_files, 
-                'output_files':output_files, 'job_flavour':job_flavour}
+                'output_files':output_files, 'job_flavour':job_flavour, 'leave_in_queue':leave_in_queue}
 
         #open('submit_condor','w').write(text % dico)
         if self.debug_print : logger.info( text % dico )
