@@ -1,0 +1,19 @@
+commit 554d9f95b18b0cf265cafe0b28e3a0eb7898c53b
+Author: Alberto Sanchez Hernandez <alberto.sanchez@mail.com>
+Date:   Thu Sep 28 02:04:02 2017 +0200
+
+    fix lhapdf and boost issues
+
+diff --git a/madgraph/iolibs/template_files/pdf_wrap_lhapdf.f b/madgraph/iolibs/template_files/pdf_wrap_lhapdf.f
+index b06677d..0a53fd6 100644
+--- a/madgraph/iolibs/template_files/pdf_wrap_lhapdf.f
++++ b/madgraph/iolibs/template_files/pdf_wrap_lhapdf.f
+@@ -20,7 +20,7 @@ c-------------------
+ 
+ c     initialize the pdf set
+       call FindPDFPath(LHAPath)
+-      CALL SetPDFPath(LHAPath)
++c      CALL SetPDFPath(LHAPath)
+       value(1)=lhaid
+       parm(1)='DEFAULT'
+       call pdfset(parm,value)
