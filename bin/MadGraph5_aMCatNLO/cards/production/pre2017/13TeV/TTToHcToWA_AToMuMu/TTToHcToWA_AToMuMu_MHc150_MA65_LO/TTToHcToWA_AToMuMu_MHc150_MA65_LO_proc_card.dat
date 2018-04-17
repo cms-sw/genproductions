@@ -1,0 +1,13 @@
+import model 2HDM_MG5_noqmass-no_udcsb_mass
+define p = g u d c s u~ d~ c~ s~ b b~
+define j = g u d c s u~ d~ c~ s~ b b~
+define w_q= u d c s
+define w_q~= u~ d~ c~ s~
+define l+= e+ mu+ ta+
+define l-= e- mu- ta-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+generate p p > t t~,(t > b h+,(h+ > w+ h3,(h3 > mu+ mu-),(w+ > l+ vl))),(t~ > b~ w-,(w- > w_q w_q~)) @0
+add process p p > t t~,(t > b h+,(h+ > w+ h3,(h3 > mu+ mu-),(w+ > w_q w_q~))),(t~ > b~ w-,(w- > l- vl~)) @1
+add process p p > t t~,(t > b h+,(h+ > w+ h3,(h3 > mu+ mu-),(w+ > l+ vl))),(t~ > b~ w-,(w- > l- vl~)) @2
+output TTToHcToWA_AToMuMu_MHc150_MA65_LO -nojpeg
