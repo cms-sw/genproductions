@@ -10,4 +10,4 @@ define vl~ = ve~ vm~ vt~
 generate p p > t t~,(t > b h+,(h+ > w+ h3,(h3 > mu+ mu-),(w+ > l+ vl))),(t~ > b~ w-,(w- > w_q w_q~)) @0
 add process p p > t t~,(t > b h+,(h+ > w+ h3,(h3 > mu+ mu-),(w+ > w_q w_q~))),(t~ > b~ w-,(w- > l- vl~)) @1
 add process p p > t t~,(t > b h+,(h+ > w+ h3,(h3 > mu+ mu-),(w+ > l+ vl))),(t~ > b~ w-,(w- > l- vl~)) @2
-output TTToHcToWA_AToMuMu_MHc150_MA55_LO -nojpeg
+output TTToHcToWA_AToMuMu_MHc130_MA30_LO -nojpeg
