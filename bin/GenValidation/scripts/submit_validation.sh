@@ -133,7 +133,7 @@ sed -i "\${LINE}"aprocess.RandomNumberGeneratorService.generator.initialSeed=\${
 SEED=\`echo "289634+\${OFFSET}" | bc\`
 sed -i "\${LINE}"aprocess.RandomNumberGeneratorService.externalLHEProducer.initialSeed=\${SEED} cmsrun_\${OTAG}.py  
 ### run config 
-cmsRun cmsrun_\${OTAG}.py 
+cmsRun cmsrun_\${OTAG}.py || exit $? ; 
 ### copy output 
 if [ $? -eq 0 ]; then
 cp *_inDQM.root \${ODIR}/\${OTAG}_\${OFFSET}.root 
