@@ -18,4 +18,4 @@ define j = j b b~
 generate p p > zp, zp > mu+ mu- @0
 add process p p > zp j, zp > mu+ mu- @1
 add process p p > zp j j, zp > mu+ mu- @2
-output zp2mu -nojpeg
+output ZprimeToMuMu -nojpeg
