@@ -28,7 +28,6 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
             '25:onMode = off',
             '25:onIfMatch = 15 -15',
             '25:onIfMatch = 23 23',
-            '25:onIfMatch = 24 -24',
             'ResonanceDecayFilter:filter = on',
             'ResonanceDecayFilter:exclusive = on', #off: require at least the specified number of daughters, on: require exactly the specified number of daughters
             'ResonanceDecayFilter:eMuAsEquivalent = off', #on: treat electrons and muons as equivalent
