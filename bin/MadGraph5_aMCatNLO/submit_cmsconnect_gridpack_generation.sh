@@ -1,7 +1,7 @@
 #!/bin/bash
 
-source cmsconnect_utils.sh
-source source_condor.sh
+source Utilities/cmsconnect_utils.sh
+source Utilities/source_condor.sh
 
 create_codegen_jdl(){
 cat<<-EOF
@@ -13,7 +13,7 @@ cat<<-EOF
 	Output = condor_log/job.out.\$(Cluster)-\$(Process) 
 	Log = condor_log/job.log.\$(Cluster) 
 	
-	transfer_input_files = $input_files, gridpack_generation.sh, /usr/bin/unzip
+	transfer_input_files = $input_files, gridpack_generation.sh
 	transfer_output_files = ${card_name}.log
 	transfer_output_remaps = "${card_name}.log = ${card_name}_codegen.log"
 	+WantIOProxy=true
@@ -32,13 +32,6 @@ cat<<-EOF
 	# Condor scratch dir
 	condor_scratch=\$(pwd)
 	echo "\$condor_scratch" > _condor_scratch_dir.txt
-	
-	# Add unzip to the environment
-	if [ -x \$condor_scratch/unzip ]; then
-	    mkdir \$condor_scratch/local_bin
-	    mv \$condor_scratch/unzip \$condor_scratch/local_bin
-	    export PATH="\$PATH:\$condor_scratch/local_bin"
-	fi
 
 	# Untar input files
 	tar xfz "$input_files"
@@ -132,12 +125,12 @@ if [ -z "$CONDOR_RELEASE_HOLDCODES" ]; then
   export CONDOR_RELEASE_HOLDCODES="26:119,13,30:256,12:28,6:0"
 fi
 if [ -z "$CONDOR_RELEASE_HOLDCODES_SHADOW_LIM" ]; then
-  export CONDOR_RELEASE_HOLDCODES_SHADOW_LIM="10"
+  export CONDOR_RELEASE_HOLDCODES_SHADOW_LIM="19"
 fi
 # Set a list of maxwalltime in minutes
 # Pilots maximum life is 48h or 2880 minutes
 if [ -z "$CONDOR_SET_MAXWALLTIMES" ]; then
-  export CONDOR_SET_MAXWALLTIMES="500,960,2160,2820,4200"
+  export CONDOR_SET_MAXWALLTIMES="500,960,2160,2820"
 fi
 
 ##########################
@@ -180,9 +173,10 @@ codegen_jdl="codegen_${card_name}.jdl"
 # Those will be input files for the condor CODEGEN step.
 input_files="input_${card_name}.tar.gz"
 patches_directory="./patches"
+utilities_dir="./Utilities"
 
 if [ -e "$input_files" ]; then rm "$input_files"; fi
-tar -zcf "$input_files" "$card_dir" "$patches_directory"
+tar -zchf "$input_files" "$card_dir" "$patches_directory" "$utilities_dir"
 
 ## Create a submit file for a single job
 # create_codegen_exe arguments are:
