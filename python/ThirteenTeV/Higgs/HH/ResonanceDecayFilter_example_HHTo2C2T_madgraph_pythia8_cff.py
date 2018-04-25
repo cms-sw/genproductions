@@ -9,7 +9,7 @@ externalLHEProducer = cms.EDProducer("ExternalLHEProducer",
                                      )
 
 from Configuration.Generator.Pythia8CommonSettings_cfi import *
-from Configuration.Generator.Pythia8CUEP8M1Settings_cfi import *
+from Configuration.Generator.MCTunes2017.PythiaCP5Settings_cfi import *
 from Configuration.Generator.Pythia8PowhegEmissionVetoSettings_cfi import *
 
 generator = cms.EDFilter("Pythia8HadronizerFilter",
@@ -32,7 +32,7 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
                                                                                      'ResonanceDecayFilter:daughters = 4,4,15,15',
                                                                                      ),
                                                      parameterSets = cms.vstring('pythia8CommonSettings',
-                                                                                 'pythia8CUEP8M1Settings',
+                                                                                 'pythia8CP5Settings',
                                                                                  'processParameters'
                                                                                  )
                                                      )

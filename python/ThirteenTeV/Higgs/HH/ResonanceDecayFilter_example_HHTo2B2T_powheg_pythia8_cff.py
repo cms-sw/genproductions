@@ -1,6 +1,6 @@
 import FWCore.ParameterSet.Config as cms
 from Configuration.Generator.Pythia8CommonSettings_cfi import *
-from Configuration.Generator.Pythia8CUEP8M1Settings_cfi import *
+from Configuration.Generator.MCTunes2017.PythiaCP5Settings_cfi import *
 from Configuration.Generator.Pythia8PowhegEmissionVetoSettings_cfi import *
 
 externalLHEProducer = cms.EDProducer("ExternalLHEProducer",
@@ -22,7 +22,7 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
         pythia8CUEP8M1SettingsBlock,
         pythia8PowhegEmissionVetoSettingsBlock,
         processParameters = cms.vstring(
-            'POWHEG:nFinal = 2',   ## Number of final state particles 
+            'POWHEG:nFinal = 2',   ## Number of final state particles
                                    ## (BEFORE THE DECAYS) in the LHE
                                    ## other than emitted extra parton
                                  '25:m0 = 125.0',
@@ -35,7 +35,7 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
                                  'ResonanceDecayFilter:daughters = 5,5,15,15'
           ),
         parameterSets = cms.vstring('pythia8CommonSettings',
-                                    'pythia8CUEP8M1Settings',
+                                    'pythia8CP5Settings',
                                     'pythia8PowhegEmissionVetoSettings',
                                     'processParameters'
                                     )
