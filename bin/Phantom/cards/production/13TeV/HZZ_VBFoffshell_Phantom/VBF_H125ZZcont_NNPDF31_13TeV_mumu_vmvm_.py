@@ -2,21 +2,21 @@
 CMSSW = CMSSW_9_3_0
 package = https://cms-project-generators.web.cern.ch/cms-project-generators/phantom/compiled/phantom_1_3_p1_slc6_amd64_gcc630.tar.gz
 ARCH = slc6_amd64_gcc630
-foldername    =   gridpack_VBF_ZZcont_NNPDF31_13TeV_ee_mumu_
+foldername    =   gridpack_VBF_H125ZZcont_NNPDF31_13TeV_mumu_vmvm_
 
 [submission]
 scheduler = LSF
 queue = 1nw
 
 [generation]
-channel    =   e e_ mu mu_
+channel    =   mu mu_ vm vm_
 topnumber = -1
 excludegluons = 1
 
 [parameters]
 PDFname = NNPDF31_nnlo_hessian_pdfas
 perturbativeorder = 1
-rmh = -999.d0
+rmh = 125.d0
 gamh = 0.004088
 ghfactor = 1
 i_e_min_lep = 1

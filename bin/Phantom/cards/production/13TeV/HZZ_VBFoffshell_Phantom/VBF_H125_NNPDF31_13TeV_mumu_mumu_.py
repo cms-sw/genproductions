@@ -33,6 +33,7 @@ i_rm_min_ll = 1
 rm_min_ll = 4.d0
 i_rm_min_4l = 1
 rm_min_4l = 70.d0
+i_pt_min_j = 0
 i_rm_min_jfjb = 0
 i_PDFscale = 4
 fixed_PDFscale = 125

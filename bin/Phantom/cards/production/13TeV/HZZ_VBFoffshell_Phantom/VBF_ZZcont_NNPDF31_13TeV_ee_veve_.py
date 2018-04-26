@@ -2,14 +2,14 @@
 CMSSW = CMSSW_9_3_0
 package = https://cms-project-generators.web.cern.ch/cms-project-generators/phantom/compiled/phantom_1_3_p1_slc6_amd64_gcc630.tar.gz
 ARCH = slc6_amd64_gcc630
-foldername    =   gridpack_VBF_ZZcont_NNPDF31_13TeV_ee_mumu_
+foldername    =   gridpack_VBF_ZZcont_NNPDF31_13TeV_ee_veve_
 
 [submission]
 scheduler = LSF
 queue = 1nw
 
 [generation]
-channel    =   e e_ mu mu_
+channel    =   e e_ ve ve_
 topnumber = -1
 excludegluons = 1
 
