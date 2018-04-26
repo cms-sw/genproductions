@@ -141,9 +141,7 @@ fi
 
 cd $LHEWORKDIR
 
-runlabel=GridRun_PostProc_${rnum}
-mkdir process/madevent/Events/${runlabel}
-
+runlabel=GridRun_${rnum}
 event_file=events.lhe.gz
 if [ "$domadspin" -gt "0" ] ; then 
     event_file=events_decayed.lhe.gz
