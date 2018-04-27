@@ -54,11 +54,13 @@ command = command.replace("Seed=SEED", "")
 print command
 #Note the same seed is used twice.  This sounds bad but the JHUGen processes are completely independent and use the seed in different ways.
 
-runcmsgrid = os.path.join(basedir, "runcmsgrid.sh")
+runcmsgrid = os.path.join(JHUbasedir, "runcmsgrid.sh")
+#runcmsgrid = os.path.join(basedir, "runcmsgrid.sh")
 with open(os.path.join(basedir, "runcmsgrid_template.sh")) as f, open(runcmsgrid, "w") as newf:
     contents = (f.read()
                         .replace("GENCOMMAND", command)
-                        .replace("BASEDIR", args.name+"_JHUGen/JHUGenerator")
+                        .replace("BASEDIR", "JHUGenerator")
+                        #.replace("BASEDIR", args.name+"_JHUGen/JHUGenerator")
                         .replace("SCRAM_ARCH_VERSION_REPLACE", os.environ["SCRAM_ARCH"])
                         .replace("CMSSW_VERSION_REPLACE", os.environ["CMSSW_VERSION"])
                )
@@ -74,5 +76,12 @@ with cd(os.path.join(JHUbasedir, "JHUGenerator")), open("../JHUGen.input") as f:
         for _ in glob.glob("*.lhe"): os.remove(_)
         shutil.rmtree("data/")
 
-with cd(basedir):
-    subprocess.check_call(["tar", "czvf", "JHUGen_%s_%s_%s.tgz" % (args.name, os.environ["SCRAM_ARCH"], os.environ["CMSSW_VERSION"]), args.name+"_JHUGen", "runcmsgrid.sh"])
+os.chdir(JHUbasedir)
+cmd="tar czf "+ "../JHUGen_%s_%s_%s.tgz" % (args.name, os.environ["SCRAM_ARCH"], os.environ["CMSSW_VERSION"])+ " *"
+print cmd
+os.system(cmd)
+os.chdir(basedir)
+#with cd(basedir):
+#with cd(JHUbasedir):
+#    subprocess.check_call(["tar", "czvf", "../JHUGen_%s_%s_%s.tgz" % (args.name, os.environ["SCRAM_ARCH"], os.environ["CMSSW_VERSION"]), "*"])
+#    #subprocess.check_call(["tar", "czvf", "JHUGen_%s_%s_%s.tgz" % (args.name, os.environ["SCRAM_ARCH"], os.environ["CMSSW_VERSION"]), args.name+"_JHUGen", "runcmsgrid.sh"])
