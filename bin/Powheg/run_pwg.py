@@ -286,7 +286,7 @@ def runGetSource(parstage, xgrid, folderName, powInputName, process, noPdfCheck,
 '''
 # Release to be used to define the environment and the compiler needed
 export RELEASE=${CMSSW_VERSION}
-export jhugenversion="v7.1.0"
+export jhugenversion="v7.1.4"
 
 cd $WORKDIR
 pwd
@@ -362,7 +362,7 @@ if [[ -s ./JHUGen.input ]]; then
 fi
 
 ### retrieve the powheg source tar ball
-export POWHEGSRC=powhegboxV2_rev3504_date20180309.tar.gz
+export POWHEGSRC=powhegboxV2_rev3511_date20180410.tar.gz
 
 if [ "$process" = "b_bbar_4l" ] || [ "$process" = "HWJ_ew" ] || [ "$process" = "HW_ew" ] || [ "$process" = "HZJ_ew" ] || [ "$process" = "HZ_ew" ]; then 
   export POWHEGSRC=powhegboxRES_rev3478_date20180122.tar.gz 
@@ -454,6 +454,7 @@ if [ "$process" = "ggHH" ]; then
    sed -i -e "/LIBPYTHIA8/s|^|#|g" Makefile
    sed -i -e "s|LIBHEPMC=|# LIBHEPMC=|g" Makefile
    sed -i -e "/main-PYTHIA8-lhef:/s|^|#|g" Makefile
+   sed -i -e "s|LIBS+=-L:\\\$|LIBS+=-L\\\$|g" Makefile
 fi
 
 if [ "$process" = "trijet" ]; then 
