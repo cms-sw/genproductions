@@ -1,0 +1,4 @@
+import DMsimp_s_spin1
+generate       p p  > y1    ,y1 > j j 
+add process    p p  > y1 j  ,y1 > j j 
+output Vector_Dijet_LO_Mphi<MASS> -nojpeg

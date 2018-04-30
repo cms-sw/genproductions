@@ -1,63 +1,78 @@
 #! /usr/bin/env python
-import commands,sys,os,subprocess,stat
-import datetime
-import time 
-from os import listdir
-from os.path import isfile, join
-from optparse import OptionParser
 import argparse
-import random
-import ROOT
+import contextlib
+import glob
+import os
+import shutil
+import subprocess
 
 aparser = argparse.ArgumentParser(description='Process benchmarks.')
-aparser.add_argument('-card'    ,'--card'      ,action='store' ,dest='card',default='JHUGen.input',help='card')
-aparser.add_argument('-name'    ,'--name'      ,action='store' ,dest='name'   ,default='ScalarVH'       ,help='name')
-aparser.add_argument('-q'       ,'--queue'     ,action='store' ,dest='queue'  ,default='8nm'            ,help='queue')
-args1 = aparser.parse_args()
+aparser.add_argument('--card', '-c', action='store', required=True, help='card')
+aparser.add_argument('--decay-card', '-d', action='store', help='second input card to run for decay')
+aparser.add_argument('--name', action='store', required=True, help='name')
+aparser.add_argument('--seed', '-s', action='store', default='123456', help='random seed for grid generation')
+aparser.add_argument('--nevents', '-n', action='store', default='100', help='number of events for the test run after grid generation')
+aparser.add_argument('--force', '-f', action='store_true', help='overwrite existing folder')
+aparser.add_argument('--link-mela', action='store_true', help='indicate that the process requires MCFM libraries from MELA')
+args = aparser.parse_args()
 
-print args1.card,args1.name,args1.queue
+@contextlib.contextmanager
+def cd(newdir):
+    """http://stackoverflow.com/a/24176022/5228524"""
+    prevdir = os.getcwd()
+    os.chdir(os.path.expanduser(newdir))
+    try:
+        yield
+    finally:
+        os.chdir(prevdir)
 
 basedir=os.getcwd()
+JHUbasedir = os.path.join(basedir, args.name+"_JHUGen")
+if os.path.exists(JHUbasedir):
+    if args.force:
+        shutil.rmtree(JHUbasedir)
+    else:
+        raise OSError("{} already exists.  To overwrite, use the --force option".format(JHUbasedir))
+os.mkdir(JHUbasedir)
 #Start with the basics download MCFM and add the options we care  :
-os.system('cp patches/install.sh .')
-os.system('./install.sh')
-os.system('mv JHUGenerator %s_JHUGen' % args1.name)
+with cd(JHUbasedir):
+    subprocess.check_call([os.path.join(basedir, "patches", "install.sh"), "true" if args.link_mela else "false"])
 
 ##Get the base files
-os.system('cp '+basedir+('/%s' % args1.card)+(' %s_JHUGen' % args1.name))
+shutil.copy(os.path.join(basedir, args.card), os.path.join(JHUbasedir, "JHUGen.input"))
 
-os.chdir('%s_JHUGen' % (args1.name))
-os.system('make')
-
-command='./JHUGen '
-with open(basedir+'/'+args1.card,"rt")         as flabel: 
-    for line in flabel:
-        command=command+line.rstrip('\n')
-        break
-command=command+' DataFile=Out' 
+command="./JHUGen $(cat ../JHUGen.input) VegasNc2=${nevt} Seed=${rnum}"
+if args.decay_card is not None:
+    with open(os.path.join(basedir, args.decay_card)) as f, open(os.path.join(JHUbasedir, "JHUGen_decay.input"), "w") as newf:
+        newf.write(f.read().replace("ReadCSmax", ""))
+    command += " DataFile=undecayed &&\n./JHUGen $(cat ../JHUGen_decay.input) Seed=${rnum} ReadLHE=undecayed.lhe Seed=${rnum}"
+command += " DataFile=Out"
+########################
+#backwards compatibility
+command = command.replace("Seed=SEED", "")
+########################
 print command
+#Note the same seed is used twice.  This sounds bad but the JHUGen processes are completely independent and use the seed in different ways.
 
-job_file = open('integrate.sh', "wt")
-job_file.write('#!/bin/bash\n')
-job_file.write('cd %s/%s_JHUGen/ \n'% (basedir,args1.name))
-job_file.write('eval `scramv1 runtime -sh` \n')
-job_file.write('cp %s/runcmsgrid_template.sh .                                    \n' % (basedir))
-job_file.write('sed "s@GENCOMMAND@%s@g"    runcmsgrid_template.sh > runcmsgrid.sh \n' % (command))
-job_file.write('mv runcmsgrid.sh runcmsgrid_template.sh                        \n')
-job_file.write('sed "s@VegasNc2=NEVT@VegasNc2=\\$\\{nevt\\}@g"   runcmsgrid_template.sh > runcmsgrid.sh \n')
-job_file.write('mv runcmsgrid.sh runcmsgrid_template.sh                        \n')
-job_file.write('sed "s@Seed=SEED@Seed=\\$\\{rnum\\}@g"   runcmsgrid_template.sh > runcmsgrid.sh \n')
-job_file.write('mv runcmsgrid.sh runcmsgrid_template.sh                        \n')
-job_file.write('sed "s@BASEDIR@%s_JHUGen@g"   runcmsgrid_template.sh > runcmsgrid.sh \n'  % (args1.name))
-job_file.write('chmod +x runcmsgrid.sh \n')
-job_file.write('rm *.lhe \n')
-job_file.close()
-os.chmod('integrate.sh',0777)
-os.system('%s/%s_JHUGen/integrate.sh' % (basedir,args1.name))
+runcmsgrid = os.path.join(basedir, "runcmsgrid.sh")
+with open(os.path.join(basedir, "runcmsgrid_template.sh")) as f, open(runcmsgrid, "w") as newf:
+    contents = (f.read()
+                        .replace("GENCOMMAND", command)
+                        .replace("BASEDIR", args.name+"_JHUGen/JHUGenerator")
+                        .replace("SCRAM_ARCH_VERSION_REPLACE", os.environ["SCRAM_ARCH"])
+                        .replace("CMSSW_VERSION_REPLACE", os.environ["CMSSW_VERSION"])
+               )
+    newf.write(contents)
+os.chmod(runcmsgrid, 0777)
 
-os.chmod('runcmsgrid.sh',0777)
-os.chdir('%s' % (basedir))
-os.system('pwd')
-os.system('rm -rf %s_JHUGen/LSFJOB*' % (args1.name))
-os.system('mv %s_JHUGen/runcmsgrid.sh .' % (args1.name)) 
-os.system('tar czvf JHUGen_%s.tgz %s_JHUGen runcmsgrid.sh' % (args1.name,args1.name))
+with cd(os.path.join(JHUbasedir, "JHUGenerator")), open("../JHUGen.input") as f:
+    if "ReadCSmax" in f.read():
+        #set up the grid now so it can be read
+        #but not the decay part (that is quick anyway)
+        runcommand = command.split("&&")[0].replace("${nevt}", args.nevents).replace("${rnum}", args.seed) + " NoReadCSmax"
+        os.system(runcommand)
+        for _ in glob.glob("*.lhe"): os.remove(_)
+        shutil.rmtree("data/")
+
+with cd(basedir):
+    subprocess.check_call(["tar", "czvf", "JHUGen_%s_%s_%s.tgz" % (args.name, os.environ["SCRAM_ARCH"], os.environ["CMSSW_VERSION"]), args.name+"_JHUGen", "runcmsgrid.sh"])

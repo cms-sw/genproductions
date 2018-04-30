@@ -1,7 +1,0 @@
-set param_card mass 8000001 1400
-set param_card bsm 3 0.100000e+00
-set param_card bsm 4 0.000000e+00
-set param_card bsm 5 0.100000e+00
-set param_card bsm 6 0.000000e+00
-set param_card bsm 7 0.100000e+00
-set param_card bsm 8 0.000000e+00

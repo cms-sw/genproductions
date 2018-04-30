@@ -1,11 +1,28 @@
 #!/bin/bash
 
-wget --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/slc6_amd64_gcc481/JHUGenerator.v6.9.8.tar.gz -O JHUGenerator.v6.9.8.tar.gz
-tar xzvf JHUGenerator.v6.9.8.tar.gz
+set -euo pipefail
+
+if [ $# -eq 0 ]; then
+    linkMELA=false
+else
+    linkMELA=$1
+fi
+if [ $linkMELA != true ] && [ $linkMELA != false ]; then
+    echo "Argument to $0 has to be true to link MELA or false to not link it"
+fi
+
+jhugenversion=v7.1.4
+
+wget --no-check-certificate http://spin.pha.jhu.edu/Generator/JHUGenerator.${jhugenversion}.tar.gz -O JHUGenerator.${jhugenversion}.tar.gz
+tar xzvf JHUGenerator.${jhugenversion}.tar.gz
 rm -rf AnalyticMELA
-rm -rf JHUGenMELA
+rm -f manJHUGenerator*.pdf
 cd JHUGenerator
 sed -i "s/UseLHAPDF=No/UseLHAPDF=Yes/" makefile
+if ! $linkMELA; then
+    sed -i "s/linkMELA = Yes/linkMELA = No/" makefile
+    rm -rf ../JHUGenMELA
+fi
 make
-rm ../JHUGenerator.v6.9.8.tar.gz
+rm ../JHUGenerator.${jhugenversion}.tar.gz
 

@@ -1,7 +1,0 @@
-set param_card mx 1300
-set param_card k1 1
-set param_card k2 1
-set param_card lambdawimp 3000
-set param_card cS 1  ## scalar coupling
-set param_card cP 0  ## pseudo-scalar coupling
-

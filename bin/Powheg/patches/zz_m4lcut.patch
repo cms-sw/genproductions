@@ -1,0 +1,43 @@
+--- POWHEG-BOX/ZZ/init_couplings.f
++++ POWHEG-BOX/ZZ/init_couplings.f
+@@ -80,10 +80,10 @@ c     number of light flavors
+       include 'pwhg_physpar.h'
+       include 'cvecbos.h'
+       include 'vvsettings.f'
+-      logical withinterference,ini
+-      real * 8 mllmin,m1,m2
++      logical withinterference,ini,usem4lcut
++      real * 8 mllmin,m1,m2,m4lmin,m4lmax,m4l
+       data ini/.true./
+-      save withinterference,ini,mllmin
++      save withinterference,ini,mllmin,m4lmin,m4lmax,usem4lcut
+       real * 8 powheginput
+       logical isquark,islepton,isnu
+       external powheginput,isquark,islepton,isnu
+@@ -96,6 +96,9 @@ c     number of light flavors
+          ini=.false.
+          mllmin=powheginput("#mllmin")
+          if(mllmin.le.0) mllmin=0.1d0
++         m4lmin=powheginput("#m4lmin")
++         m4lmax=powheginput("#m4lmax")
++         usem4lcut = (m4lmin.gt.0d0 .or. m4lmax.gt.0d0)
+       endif
+ 
+       normbr = 1
+@@ -155,6 +158,16 @@ c     number of light flavors
+          endif
+       endif
+ 
++      if (usem4lcut .and. .not. flg_in_smartsig) then
++        m4l = sqrt(
++     1           (kn_cmpborn(0,3)+kn_cmpborn(0,4))**2-
++     2           (kn_cmpborn(1,3)+kn_cmpborn(1,4))**2-
++     3           (kn_cmpborn(2,3)+kn_cmpborn(2,4))**2-
++     4           (kn_cmpborn(3,3)+kn_cmpborn(3,4))**2  )
++        if (m4l.lt.m4lmin) normbr = 0
++        if (m4lmax.gt.0d0 .and. m4l.gt.m4lmax) normbr = 0
++      endif
++
+       if(id1.eq.id2) then
+          vsymfact=0.5d0
+          if(withinterference) then

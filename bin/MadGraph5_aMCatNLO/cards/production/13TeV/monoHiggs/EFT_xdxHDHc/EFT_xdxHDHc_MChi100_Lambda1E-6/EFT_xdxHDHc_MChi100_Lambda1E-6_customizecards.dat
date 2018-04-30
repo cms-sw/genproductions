@@ -1,4 +1,0 @@
-set param_card mass 25 125
-set param_card mass 9000006 100
-set param_card newblock 1 1E-6
-set param_card DECAY 23 2.411596e+00

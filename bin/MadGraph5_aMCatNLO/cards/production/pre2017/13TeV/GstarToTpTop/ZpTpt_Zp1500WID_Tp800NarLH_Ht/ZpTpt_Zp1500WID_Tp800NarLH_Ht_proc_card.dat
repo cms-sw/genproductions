@@ -1,0 +1,5 @@
+set group_subprocesses Auto
+import model Gstar_UFO
+generate p p > kkg ts > t~ t h
+add process p p > kkg ts~ > t~ t h
+output ZpTpt_Zp1500WID_Tp800NarLH
