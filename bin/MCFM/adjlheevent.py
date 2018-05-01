@@ -34,17 +34,11 @@ def getlheeventstring():
 def getlheheadfoot():
 	strtoreturn=''
 	with open(lhefiles[0],'r') as f:
-		foundevent=False
 		for line in f:
-			if '<event>' not in line and not foundevent:
-				strtoreturn+=line
-			elif '<event>' in line and not foundevent:
-				foundevent = True
-			elif foundevent and '</LesHouchesEvents>' not in line:
-				continue
-			else:
-				strtoreturn+='<lheventstobefilled>\n'
-				strtoreturn+=line
+			if '<event>' in line:
+				break
+			strtoreturn+=line
+	strtoreturn += '<lheventstobefilled>\n</LesHouchesEvents>\n'
 #	print strtoreturn
 	return strtoreturn
 
@@ -52,10 +46,12 @@ import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument("requestednumofevents", type=int)
 parser.add_argument("foundnumofevents", type=int)
+parser.add_argument("seed", type=int)
 parser.add_argument("lhefiles", nargs="+")
 args = parser.parse_args()
 requestednumofevents = args.requestednumofevents
 foundnumofevents = args.foundnumofevents
+random.seed(args.seed)
 lhefiles = args.lhefiles
 lheeventstr=getlheeventstring()
 lheheadfoot=getlheheadfoot()
@@ -73,8 +69,8 @@ class lheevent(object):
 	@property
 	def processNum(self):
 		if self.lhenum < 1:
-                        returnevt = lheeventstr[1]
-                        processNum = returnevt.split()[1]
+			returnevt = lheeventstr[1]
+			processNum = returnevt.split()[1]
 		return processNum
 
 	@property
