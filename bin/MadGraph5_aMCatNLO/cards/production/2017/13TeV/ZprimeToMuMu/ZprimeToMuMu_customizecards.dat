@@ -1,0 +1,6 @@
+set param_card MASS 32 3.500000e+02
+set param_card Zprime_Couplings 1 2.000000e-02
+set param_card Zprime_Couplings 2 1.700000e-01
+set param_card Zprime_Couplings 3 0.000000e+00
+set param_card Zprime_Couplings 4 4.000000e-02
+set param_card DECAY 32 Auto

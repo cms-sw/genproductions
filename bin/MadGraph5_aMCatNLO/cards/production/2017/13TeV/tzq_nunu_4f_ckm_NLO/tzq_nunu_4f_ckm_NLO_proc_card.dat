@@ -1,0 +1,4 @@
+import model loop_sm-ckm
+generate p p > t b~ j vl vl~ $$ w+ w- [QCD]
+add process p p > t~ b j vl vl~ $$ w+ w- [QCD]
+output tzq_nunu_4f_ckm_NLO -nojpeg
