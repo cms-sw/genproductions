@@ -371,26 +371,26 @@ C PUT HERE YOUR USER-DEFINED CUTS
 C***************************************************************
 C***************************************************************
 C
-      do i=0,nexternal
-         do j=i+1,nexternal
-            if (((abs(ipdg(i)).eq.12.or.abs(ipdg(i)).eq.14.or.
-     &        abs(ipdg(i)).eq.16).and.
-     &        (ipdg(j).eq.-sign(abs(ipdg(i))-1,ipdg(i)))).or.
-     &        ((abs(ipdg(i)).eq.11.or.abs(ipdg(i)).eq.13.or.
-     &        abs(ipdg(i)).eq.15).and.
-     &        (ipdg(j).eq.-sign(abs(ipdg(i))+1,ipdg(i))))) then
-              ptw=dsqrt((p(1,i)+p(1,j))**2 + (p(2,i)+p(2,j))**2)
-              if (ptw.lt.70) then
-                passcuts_user=.false.
-                return
-              endif
-              if (ptw.gt.180) then
-                passcuts_user=.false.
-                return
-              endif
-            endif
-         enddo
-      enddo
+C      do i=0,nexternal
+C         do j=i+1,nexternal
+C            if (((abs(ipdg(i)).eq.12.or.abs(ipdg(i)).eq.14.or.
+C     &        abs(ipdg(i)).eq.16).and.
+C     &        (ipdg(j).eq.-sign(abs(ipdg(i))-1,ipdg(i)))).or.
+C     &        ((abs(ipdg(i)).eq.11.or.abs(ipdg(i)).eq.13.or.
+C     &        abs(ipdg(i)).eq.15).and.
+C     &        (ipdg(j).eq.-sign(abs(ipdg(i))+1,ipdg(i))))) then
+C              ptw=dsqrt((p(1,i)+p(1,j))**2 + (p(2,i)+p(2,j))**2)
+C              if (ptw.lt.70) then
+C                passcuts_user=.false.
+C                return
+C              endif
+C              if (ptw.gt.180) then
+C                passcuts_user=.false.
+C                return
+C              endif
+C            endif
+C         enddo
+C      enddo
 C: cut on higgs boson pT
       do i=1,nexternal   ! loop over all external particles
          if (istatus(i).eq.1    ! final state particle
