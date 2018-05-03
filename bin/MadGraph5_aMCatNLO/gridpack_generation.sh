@@ -32,7 +32,7 @@ make_tarball () {
     fi
 
     mkdir InputCards
-    cp $CARDSDIR/* InputCards
+    cp $CARDSDIR/${name}*.* InputCards
 
     EXTRA_TAR_ARGS=""
     if [ -e $CARDSDIR/${name}_externaltarball.dat ]; then
@@ -119,9 +119,10 @@ make_gridpack () {
       cd $MGBASEDIRORIG
       cat $PRODHOME/patches/*.patch | patch -p1
     
-      if [ -e $CARDSDIR/${name}_loop_filter.py ]; then
-        echo "Acitvating custom user loop filter"
-        cat $CARDSDIR/${name}_loop_filter.py | patch -p1
+      # Intended for expert use only!
+      if ls $CARDSDIR/${name}*.patch; then
+        echo "    WARNING: Applying custom user patch. I hope you know what you're doing!"
+        cat $CARDSDIR/${name}*.patch | patch -p1
       fi
     
       LHAPDFCONFIG=`echo "$LHAPDF_DATA_PATH/../../bin/lhapdf-config"`

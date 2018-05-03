@@ -1,0 +1,10 @@
+import model sm-lepton_masses
+
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+
+generate    p p > w+ l+ l- j j QED=5 QCD=0 @ 1
+add process p p > w- l+ l- j j QED=5 QCD=0 @ 2
+output WLLJJ_WToLNu_EWK_4F_MLL-60
