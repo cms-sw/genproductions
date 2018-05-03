@@ -24,7 +24,7 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
                          comEnergy = cms.double(13000.),
                          PythiaParameters = cms.PSet(
         pythia8CommonSettingsBlock,
-        pythia8CUEP8M1SettingsBlock,
+        pythia8CP5SettingsBlock,
         processParameters = cms.vstring(
             '15:onMode = off',
             '15:onIfAny = 11 13', # only leptonic tau decays
