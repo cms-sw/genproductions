@@ -1,0 +1,24 @@
+#************************************************************
+#*                        MadSpin                           *
+#*                                                          *
+#*    P. Artoisenet, R. Frederix, R. Rietkerk, O. Mattelaer * 
+#*                                                          *
+#*    Part of the MadGraph5_aMC@NLO Framework:              *
+#*    The MadGraph5_aMC@NLO Development Team - Find us at   *
+#*    https://server06.fynu.ucl.ac.be/projects/madgraph     *
+#*                                                          *
+#************************************************************
+#Some options (uncomment to apply)
+#
+# set seed 1
+# set Nevents_for_max_weigth 75
+# set BW_cut 15
+set max_weight_ps_point 400
+
+decay t > w+ b, w+ > all all
+decay t~ > w- b~, w- > all all
+decay w+ > all all
+decay w- > all all
+decay z > all all
+# running the actual code
+launch
