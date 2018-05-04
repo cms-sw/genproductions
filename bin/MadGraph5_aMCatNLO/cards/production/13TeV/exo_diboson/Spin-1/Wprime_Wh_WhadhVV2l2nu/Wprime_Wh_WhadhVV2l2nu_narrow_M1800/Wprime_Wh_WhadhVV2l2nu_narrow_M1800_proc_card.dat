@@ -6,8 +6,8 @@ import model Vector_Triplet_free_Width_UFO
 define q = u c d s b u~ c~ d~ s~ b~
 define vc = vc+ vc-
 define vw = w+ w-
-define lep+ = e+ mu+ tau+
-define lep- = e- mu- tau-
+define lep+ = e+ mu+ ta+
+define lep- = e- mu- ta-
 generate p p > vc, (vc > h vw, vw > q q, (h > z > lep+ lep- vl vl~ / vz vc ta+ ta-))
 add process p p > vc, (vc > h vw, z > q q, (h > vw > lep+ lep- vl vl~ / vz vc ta+ ta-))
 output Wprime_Wh_WhadhVV2l2nu_narrow_M1800 -nojpeg
