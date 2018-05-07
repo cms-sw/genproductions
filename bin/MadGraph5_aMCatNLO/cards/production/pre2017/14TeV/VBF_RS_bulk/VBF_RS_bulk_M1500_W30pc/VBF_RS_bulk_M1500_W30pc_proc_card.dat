@@ -1,0 +1,4 @@
+set group_subprocesses Auto
+import model RS_bulk_ktilda
+generate p p > y j j / g h QTD=2 , ( y > h h , h >  b b~ )
+output VBF_RS_bulk_M1500_W30pc -nojpeg
