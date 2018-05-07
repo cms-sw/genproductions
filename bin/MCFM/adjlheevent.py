@@ -10,42 +10,51 @@ emptyevt = """<event>
 
 def getlheeventstring():
 	strtoreturn=[]
-	with open('cmsgrid_final.lhe','r') as f:
-		foundevent = False
-		for line in f:
-			if '<event>' not in line and not foundevent:
-				continue
-			elif '<event>' in line and not foundevent: 
-				foundevent = True
-				strtoreturn.append(line)
-			elif '</LesHouchesEvents>' in line:	continue
-			else:
-				strtoreturn.append(line)
+	for lhefile in lhefiles:
+		with open(lhefile,'r') as f:
+			inevent = False
+			currentevent = []
+			for line in f:
+				if '<event>' not in line and not inevent:
+					continue
+				elif '<event>' in line and not inevent: 
+					inevent = True
+					currentevent.append(line)
+				elif '</event>' in line and inevent:
+					currentevent.append(line)
+					strtoreturn += currentevent
+					currentevent = []
+				elif '</LesHouchesEvents>' in line:	continue
+				else:
+					currentevent.append(line)
 #	print strtoreturn
 	return strtoreturn
 
 
 def getlheheadfoot():
 	strtoreturn=''
-	with open('cmsgrid_final.lhe','r') as f:
-		foundevent=False
+	with open(lhefiles[0],'r') as f:
 		for line in f:
-			if '<event>' not in line and not foundevent:
-				strtoreturn+=line
-			elif '<event>' in line and not foundevent:
-				foundevent = True
-			elif foundevent and '</LesHouchesEvents>' not in line:
-				continue
-			else:
-				strtoreturn+='<lheventstobefilled>\n'
-				strtoreturn+=line
+			if '<event>' in line:
+				break
+			strtoreturn+=line
+	strtoreturn += '<lheventstobefilled>\n</LesHouchesEvents>\n'
 #	print strtoreturn
 	return strtoreturn
 
+import argparse
+parser = argparse.ArgumentParser()
+parser.add_argument("requestednumofevents", type=int)
+parser.add_argument("foundnumofevents", type=int)
+parser.add_argument("seed", type=int)
+parser.add_argument("lhefiles", nargs="+")
+args = parser.parse_args()
+requestednumofevents = args.requestednumofevents
+foundnumofevents = args.foundnumofevents
+random.seed(args.seed)
+lhefiles = args.lhefiles
 lheeventstr=getlheeventstring()
 lheheadfoot=getlheheadfoot()
-requestednumofevents = int(sys.argv[1])
-foundnumofevents = int(sys.argv[2])
 
 class lheevent(object):
 	def __init__(self,lhenum):
@@ -60,8 +69,8 @@ class lheevent(object):
 	@property
 	def processNum(self):
 		if self.lhenum < 1:
-                        returnevt = lheeventstr[1]
-                        processNum = returnevt.split()[1]
+			returnevt = lheeventstr[1]
+			processNum = returnevt.split()[1]
 		return processNum
 
 	@property
@@ -78,9 +87,9 @@ class lheevent(object):
 	
 
 trimmedeventsstr=''.join(lheeventstr)
-assert trimmedeventsstr.count('<event>') == foundnumofevents
+assert trimmedeventsstr.count('<event>') == foundnumofevents, trimmedeventsstr.count('<event>')
 if foundnumofevents>requestednumofevents:
-	numlist = random.sample(xrange(1,foundnumofevents+1),requestednumofevents)
+	numlist = sorted(random.sample(xrange(1,foundnumofevents+1),requestednumofevents))
 	trimmedeventsstr=''
 	for num in numlist:
 		event = lheevent(num)
@@ -98,7 +107,6 @@ if finalnumofevents != requestednumofevents:
 	print finalnumofevents
 	raise Exception("final number of events does not match requested number of events")
 else:
-	os.system('rm cmsgrid_final.lhe')
 	with open('cmsgrid_final.lhe','w+') as fout:
 		fout.write(finalstr)
 
