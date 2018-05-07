@@ -20,17 +20,17 @@ rootfolder = os.getcwd()
 
 
 def runCommand(command, printIt = False, doIt = 1, TESTING = 0) :
-    if TESTING : 
+    if TESTING :
         printIt = 1
         doIt = 0
     if printIt : print ('> ' + command)
-    if doIt : 
+    if doIt :
         commandOutput = commands.getstatusoutput(command)
         if printIt : print commandOutput[1]
         return commandOutput[0]
     else :    print ('    jobs not submitted')
     return 1
-    
+
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
 
@@ -55,7 +55,7 @@ def prepareJob(tag, i, folderName) :
     f.write('export PATH=$FASTJET_BASE/bin/:$PATH \n')
 
     f.write('### Prepare environments for LHAPDF ### \n\n')
-    
+
     f.write('LHAPDF6TOOLFILE=$CMSSW_BASE/config/toolbox/$SCRAM_ARCH/tools/available/lhapdf6.xml    \n')
     f.write('if [ -e $LHAPDF6TOOLFILE ]; then    \n')
     f.write('   export LHAPDF_BASE=`cat $LHAPDF6TOOLFILE | grep "<environment name=\\"LHAPDF6_BASE\\"" | cut -d \\" -f 4`    \n')
@@ -74,7 +74,7 @@ def prepareJob(tag, i, folderName) :
     f.write ('pwd' + '\n')
     f.write ('cp -p ' + rootfolder + '/' + folderName + '/powheg.input ./' + '\n')
     f.write ('cp -p ' + rootfolder + '/' + folderName + '/JHUGen.input ./' + '\n')
-    f.write ('cp -p ' + rootfolder + '/' + folderName + '/*.dat  ./' + '\n') 
+    f.write ('cp -p ' + rootfolder + '/' + folderName + '/*.dat  ./' + '\n')
     f.write ('cp -p ' + rootfolder + '/' + folderName + '/pwhg_main  ./' + '\n')
     f.write ('if [ -e '+ rootfolder + '/' + folderName + '/obj-gfortran/proclib ]; then    \n')
     f.write ('  mkdir ./obj-gfortran/' + '\n')
@@ -111,7 +111,7 @@ def prepareJobForEvents (tag, i, folderName, EOSfolder) :
     f.write ('ls' + '\n')
     f.write ('echo ' + str (i) + ' | ' + rootfolder + '/pwhg_main &> log_' + tag + '.log ' + '\n')
     f.write ('cp -p log_' + tag + '.log ' + rootfolder + '/' + folderName + '/. \n')
-    #lhefilename = 'pwgevents-{:04d}.lhe'.format(i) 
+    #lhefilename = 'pwgevents-{:04d}.lhe'.format(i)
 
     #f.write ('cmsStage ' + lhefilename + ' /store/user/govoni/LHE/powheg/' + EOSfolder + '/\n')
     #f.write ('rm -f ' + lhefilename + '\n')
@@ -291,7 +291,7 @@ export jhugenversion="v7.1.4"
 cd $WORKDIR
 pwd
 
-# initialize the CMS environment 
+# initialize the CMS environment
 
 #if [ -e ${name} ]; then
 #  echo -e "The directory ${name} exists! Move the directory to old_${name}"
@@ -305,7 +305,7 @@ pwd
 #fi
 
 
-mkdir -p ${name} ; 
+mkdir -p ${name} ;
 
 cd ${name}
 export PATH=`pwd`:${PATH}
@@ -356,16 +356,16 @@ if [[ -s ./JHUGen.input ]]; then
   jhugen=$(expr $jhugen + 1)
   echo "JHUGen activated!"
   #for decay weights in H->WW and H->ZZ
-  wget --no-verbose https://github.com/cms-sw/genproductions/raw/7261679b0fd6464b80479c075b10f9ba1932ab9a/bin/JHUGen/Pdecay/PMWWdistribution.out 
-  wget --no-verbose https://github.com/cms-sw/genproductions/raw/7261679b0fd6464b80479c075b10f9ba1932ab9a/bin/JHUGen/Pdecay/PMZZdistribution.out 
+  wget --no-verbose https://github.com/cms-sw/genproductions/raw/7261679b0fd6464b80479c075b10f9ba1932ab9a/bin/JHUGen/Pdecay/PMWWdistribution.out
+  wget --no-verbose https://github.com/cms-sw/genproductions/raw/7261679b0fd6464b80479c075b10f9ba1932ab9a/bin/JHUGen/Pdecay/PMZZdistribution.out
 
 fi
 
 ### retrieve the powheg source tar ball
 export POWHEGSRC=powhegboxV2_rev3511_date20180410.tar.gz
 
-if [ "$process" = "b_bbar_4l" ] || [ "$process" = "HWJ_ew" ] || [ "$process" = "HW_ew" ] || [ "$process" = "HZJ_ew" ] || [ "$process" = "HZ_ew" ]; then 
-  export POWHEGSRC=powhegboxRES_rev3478_date20180122.tar.gz 
+if [ "$process" = "b_bbar_4l" ] || [ "$process" = "HWJ_ew" ] || [ "$process" = "HW_ew" ] || [ "$process" = "HZJ_ew" ] || [ "$process" = "HZ_ew" ]; then
+  export POWHEGSRC=powhegboxRES_rev3478_date20180122.tar.gz
 fi
 
 echo 'D/L POWHEG source...'
@@ -408,7 +408,7 @@ fi
 
 sed -i -e "s#500#1200#g"  POWHEG-BOX/include/pwhg_rwl.h
 
-#if [ "$process" = "HJ" ]; then 
+#if [ "$process" = "HJ" ]; then
 #   sed -i -e "s#maxmulti=10#maxmulti=500#g" POWHEG-BOX/include/pwhg_bookhist-multi.h
 #fi
 
@@ -442,7 +442,7 @@ echo "lhefwrite.o: svn.version" >> Makefile
 BOOK_HISTO="pwhg_bookhist-multi.o"
 if [ `echo ${POWHEGSRC} | cut -d "_" -f 1` = "powhegboxV1" ]; then
    BOOK_HISTO="pwhg_bookhist.o"
-fi 
+fi
 
 if [ "$process" = "gg_H" ] || [ "$process" = "ggHH" ]; then
    BOOK_HISTO=""
@@ -457,26 +457,26 @@ if [ "$process" = "ggHH" ]; then
    sed -i -e "s|LIBS+=-L:\\\$|LIBS+=-L\\\$|g" Makefile
 fi
 
-if [ "$process" = "trijet" ]; then 
+if [ "$process" = "trijet" ]; then
    BOOK_HISTO+=" observables.o"
    rm -rf ../progress/bbinit.f
-fi  
+fi
 
-if [ "$process" = "VBF_HJJJ" ]; then 
+if [ "$process" = "VBF_HJJJ" ]; then
   sed -i 's/..\/pwhg_book.h/pwhg_book.h/g' pwhg_analysis-dummy.f
-fi  
-if [ "$process" = "VBF_H" ]; then 
-  sed -i '/pwhginihist/d' pwhg_analysis-dummy.f 
+fi
+if [ "$process" = "VBF_H" ]; then
+  sed -i '/pwhginihist/d' pwhg_analysis-dummy.f
   patch -l -p0 -i ${WORKDIR}/patches/vbf_h_init_couplings.patch
-fi  
-if [ "$process" = "VBF_Z_Z" ]; then 
+fi
+if [ "$process" = "VBF_Z_Z" ]; then
   patch -l -p0 -i ${WORKDIR}/patches/vbf_z_z_init_couplings.patch
-fi  
+fi
 if [ "$process" = "Wgamma" ] || [ "$process" = "W_ew-BMNNP" ]; then
-    patch -l -p0 -i ${WORKDIR}/patches/pwhg_analysis_driver.patch 
+    patch -l -p0 -i ${WORKDIR}/patches/pwhg_analysis_driver.patch
 fi
 if [ "$process" = "HW_ew" ]; then
-    patch -l -p0 -i ${WORKDIR}/patches/hwew.patch 
+    patch -l -p0 -i ${WORKDIR}/patches/hwew.patch
 fi
 #if [ "$process" = "ttb_NLO_dec" ]; then
 #    patch -l -p0 -i ${WORKDIR}/patches/pwhg_analysis_driver_offshellmap.patch
@@ -506,7 +506,7 @@ if [ "$process" = "HWJ_ew" ] || [ "$process" = "HZJ_ew" ] ; then
    sed -i -e "s#boostrot.o#boostrot.o boostrot4.o#g" Makefile
 fi
 
-# 
+#
 if [ "$process" = "ttJ" ]; then
   sed -i -e "s#_PATH) -L#_PATH) #g" Makefile
   sed -i -e "s# -lvirtual#/libvirtual.so.1.0.0#g" Makefile
@@ -518,17 +518,17 @@ if [ "$process" = "ttH" ]; then
   sed -i 's/4.5d0/4.75d0/g' init_couplings.f
 fi
 
-if [ "$process" = "gg_H_MSSM" ]; then 
+if [ "$process" = "gg_H_MSSM" ]; then
   sed -i 's/leq/le/g' nloreal.F
   cp -p ../gg_H_quark-mass-effects/SLHA.h .
   cp -p ../gg_H_quark-mass-effects/SLHADefs.h .
 fi
-  
+
 echo "ANALYSIS=none " >> tmpfile
 
 if [ "$process" = "Wgamma" ]; then
   echo "PWHGANAL=$BOOK_HISTO pwhg_analysis-dummy.o uti.o " >> tmpfile
-#elif [ "$process" = "HW_ew" ] || [ "$process" = "HWJ_ew" ]; then 
+#elif [ "$process" = "HW_ew" ] || [ "$process" = "HWJ_ew" ]; then
 #  echo "PWHGANAL=$BOOK_HISTO pwhg_analysis-HWnJ_res.o pwhg_analysis_paper-HWnJ_res.o observables.o multi_plot.o " >> tmpfile
 else
   echo "PWHGANAL=$BOOK_HISTO pwhg_analysis-dummy.o " >> tmpfile
@@ -569,7 +569,7 @@ if [ "$process" = "gg_H_2HDM" ] || [ "$process" = "gg_H_MSSM" ]; then
   cd chaplin-1.2
   ./configure --prefix=`pwd`/..
   make install
-  cd .. 
+  cd ..
   echo "LIBS+=-L`pwd`/lib/ -L`pwd`/lib64/" >> Makefile   # be safe
   export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:${LD_LIBRARY_PATH}
 
@@ -581,11 +581,11 @@ if [ "$process" = "gg_H_2HDM" ] || [ "$process" = "gg_H_MSSM" ]; then
     tar xvf FeynHiggs-2.10.2.tar.gz
     cd FeynHiggs-2.10.2
     ./configure --prefix=`pwd`/..
-    make 
+    make
     make install
     cd ..
   fi
-fi  
+fi
 
 echo 'Compiling pwhg_main...'
 pwd
@@ -593,20 +593,20 @@ if [ "$process" = "HJ" ]; then
   echo "fixing q2min determination for HJ"
   # avoid accessing member 1 for q2min determination. Use member 0, as member 1 may not be available
   sed -i "s/getq2min(1,tmp)/getq2min(0,tmp)/g" setlocalscales.f
-fi  
+fi
 
-if [ "$process" = "ST_wtch_DR" ] || [ "$process" = "ST_wtch_DS" ]; then   
-  echo "D/L QCDLoop-1.9 library"                            
-  if [ ! -f FeynHiggs-2.10.2.tar.gz ]; then                 
+if [ "$process" = "ST_wtch_DR" ] || [ "$process" = "ST_wtch_DS" ]; then
+  echo "D/L QCDLoop-1.9 library"
+  if [ ! -f FeynHiggs-2.10.2.tar.gz ]; then
     wget --no-verbose http://qcdloop.fnal.gov/QCDLoop-1.96.tar.gz || fail_exit "Failed to get QCDLoop tar ball"
-  fi                                                        
-  tar xvf QCDLoop-1.96.tar.gz                               
+  fi
+  tar xvf QCDLoop-1.96.tar.gz
   mv QCDLoop-1.96 QCDLoop-1.9
-  sed -i -e 's#/Users/ellis/QCDLoop#./QCDLoop#' ff/ffinit_mine.f                
-  cd QCDLoop-1.9                                            
-  make                                                      
-  cd ..                                                     
-fi                                                          
+  sed -i -e 's#/Users/ellis/QCDLoop#./QCDLoop#' ff/ffinit_mine.f
+  cd QCDLoop-1.9
+  make
+  cd ..
+fi
 
 
 make pwhg_main || fail_exit "Failed to compile pwhg_main"
@@ -616,7 +616,7 @@ cp -p pwhg_main ${WORKDIR}/${name}/.
 
 if [ -d ./lib ]; then
   cp -a ./lib ${WORKDIR}/${name}/.
-fi 
+fi
 if [ -d ./lib64 ]; then
   cp -a ./lib64 ${WORKDIR}/${name}/.
 fi
@@ -625,9 +625,9 @@ if [ -d ./obj-gfortran/proclib ]; then
   cp -a ./obj-gfortran/proclib ${WORKDIR}/${name}/obj-gfortran/.
   cp -a ./obj-gfortran/*.so ${WORKDIR}/${name}/obj-gfortran/.
 fi
-if [ -d ./QCDLoop-1.9 ]; then                                 
-  cp -a ./QCDLoop-1.9 ${WORKDIR}/${name}/.                    
-  cp -a ./QCDLoop-1.9/ff/ff*.dat ${WORKDIR}/${name}/.      
+if [ -d ./QCDLoop-1.9 ]; then
+  cp -a ./QCDLoop-1.9 ${WORKDIR}/${name}/.
+  cp -a ./QCDLoop-1.9/ff/ff*.dat ${WORKDIR}/${name}/.
 fi
 
 cd ${WORKDIR}/${name}
@@ -637,11 +637,11 @@ if [ "$process" = "HJ" ]; then
   wget --no-verbose http://theory.fi.infn.it/grazzini/codes/hnnlo-v2.0.tgz
   tar -xzvf hnnlo-v2.0.tgz
   cd hnnlo-v2.0
-  cp ../POWHEG-BOX/HJ/NNLOPS-mass-effects/HNNLO-makefile ./makefile 
+  cp ../POWHEG-BOX/HJ/NNLOPS-mass-effects/HNNLO-makefile ./makefile
   cp -r ../POWHEG-BOX/HJ/NNLOPS-mass-effects/HNNLO-patches ./
   cd src/Need/
   cat pdfset_lhapdf.f | sed -e "s#30#40#g" | sed -e "s#20#30#g" | sed -e "s#oldPDFname(1:i-1)//'.LHgrid'#oldPDFname(1:i-1)#g" | sed -e "s#oldPDFname(1:i-1)//'.LHpdf'#oldPDFname(1:i-1)#g" | sed -e "s#InitPDFset('PDFsets/'//PDFname)#InitPDFsetByName(PDFname)#g" > pdfset_lhapdf.f.new
-  mv pdfset_lhapdf.f.new pdfset_lhapdf.f  
+  mv pdfset_lhapdf.f.new pdfset_lhapdf.f
   cd -
   cat makefile | sed -e "s#LHAPDFLIB=.\+#LHAPDFLIB=$(scram tool info lhapdf | grep LIBDIR | cut -d "=" -f2)#g" > makefile
   make || fail_exit "Failed to compile HNNLO"
@@ -652,7 +652,7 @@ if [ "$process" = "HJ" ]; then
   gfortran -o mergedata mergedata.f
 
   cd ${WORKDIR}/${name}/POWHEG-BOX/HJ
- 
+
   cp Makefile Makefile.orig
   cat Makefile.orig | sed -e "s#ANALYSIS=.\+#ANALYSIS=NNLOPS#g" |sed -e "s#\$(shell \$(LHAPDF_CONFIG) --libdir)#$(scram tool info lhapdf | grep LIBDIR | cut -d "=" -f2)#g" | sed -e "s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d "=" -f2)/bin/fastjet-config#g" | sed -e "s#NNLOPSREWEIGHTER+=  fastjetfortran.o#NNLOPSREWEIGHTER+=  fastjetfortran.o pwhg_bookhist-multi.o#g" | sed -e "s#NNLOPSREWEIGHTERNRW+=  fastjetfortran.o#NNLOPSREWEIGHTERNRW+=  fastjetfortran.o pwhg_bookhist-multi.o#g" > Makefile
   make nnlopsreweighter-newrwgt || fail_exit "Failed to compile nnlopsreweighter"
@@ -667,7 +667,7 @@ if [ "$process" = "HJ" ]; then
   cat << EOF > nnlopsreweighter.input
 # a line beginning with 'lhfile' followed by the name of the event file
 
-lhfile pwgevents.lhe 
+lhfile pwgevents.lhe
 rwl_format_rwgt
 
 # weights present in the lhfile: 'mtinf', 'mt', 'mtmb', 'mtmb-bminlo'
@@ -698,24 +698,24 @@ nnlofiles
 # HNNLO-LHC8-R04-APX0-11.top file.
 
 <initrwgt>
-<weightgroup name='nnl'> 
-<weight id='nnlops-11-1'> combines 'nn-mtmb-11' with '1001' </weight> 
-<weight id='nnlops-11-2'> combines 'nn-mtmb-11' with '1002' </weight> 
-<weight id='nnlops-11-3'> combines 'nn-mtmb-11' with '1003' </weight> 
-<weight id='nnlops-11-4'> combines 'nn-mtmb-11' with '1004' </weight> 
-<weight id='nnlops-11-5'> combines 'nn-mtmb-11' with '1005' </weight> 
-<weight id='nnlops-11-6'> combines 'nn-mtmb-11' with '1006' </weight> 
-<weight id='nnlops-11-7'> combines 'nn-mtmb-11' with '1007' </weight> 
-<weight id='nnlops-11-8'> combines 'nn-mtmb-11' with '1008' </weight> 
-<weight id='nnlops-11-9'> combines 'nn-mtmb-11' with '1009' </weight> 
-<weight id='nnlops-22-1'> combines 'nn-mtmb-22' with '1001' </weight>          
-<weight id='nnlops-22-2'> combines 'nn-mtmb-22' with '1002' </weight>         
-<weight id='nnlops-22-3'> combines 'nn-mtmb-22' with '1003' </weight>         
-<weight id='nnlops-22-4'> combines 'nn-mtmb-22' with '1004' </weight>         
-<weight id='nnlops-22-5'> combines 'nn-mtmb-22' with '1005' </weight>         
-<weight id='nnlops-22-6'> combines 'nn-mtmb-22' with '1006' </weight>         
-<weight id='nnlops-22-7'> combines 'nn-mtmb-22' with '1007' </weight>         
-<weight id='nnlops-22-8'> combines 'nn-mtmb-22' with '1008' </weight>         
+<weightgroup name='nnl'>
+<weight id='nnlops-11-1'> combines 'nn-mtmb-11' with '1001' </weight>
+<weight id='nnlops-11-2'> combines 'nn-mtmb-11' with '1002' </weight>
+<weight id='nnlops-11-3'> combines 'nn-mtmb-11' with '1003' </weight>
+<weight id='nnlops-11-4'> combines 'nn-mtmb-11' with '1004' </weight>
+<weight id='nnlops-11-5'> combines 'nn-mtmb-11' with '1005' </weight>
+<weight id='nnlops-11-6'> combines 'nn-mtmb-11' with '1006' </weight>
+<weight id='nnlops-11-7'> combines 'nn-mtmb-11' with '1007' </weight>
+<weight id='nnlops-11-8'> combines 'nn-mtmb-11' with '1008' </weight>
+<weight id='nnlops-11-9'> combines 'nn-mtmb-11' with '1009' </weight>
+<weight id='nnlops-22-1'> combines 'nn-mtmb-22' with '1001' </weight>
+<weight id='nnlops-22-2'> combines 'nn-mtmb-22' with '1002' </weight>
+<weight id='nnlops-22-3'> combines 'nn-mtmb-22' with '1003' </weight>
+<weight id='nnlops-22-4'> combines 'nn-mtmb-22' with '1004' </weight>
+<weight id='nnlops-22-5'> combines 'nn-mtmb-22' with '1005' </weight>
+<weight id='nnlops-22-6'> combines 'nn-mtmb-22' with '1006' </weight>
+<weight id='nnlops-22-7'> combines 'nn-mtmb-22' with '1007' </weight>
+<weight id='nnlops-22-8'> combines 'nn-mtmb-22' with '1008' </weight>
 <weight id='nnlops-22-9'> combines 'nn-mtmb-22' with '1009' </weight>
 <weight id='nnlops-0505-1'> combines 'nn-mtmb-0505' with '1001' </weight>
 <weight id='nnlops-0505-2'> combines 'nn-mtmb-0505' with '1002' </weight>
@@ -730,7 +730,7 @@ nnlofiles
 </initrwgt>
 EOF
 
-fi  
+fi
 
 #mkdir -p workdir
 #cd workdir
@@ -739,7 +739,7 @@ localDir=`pwd`
 # Copy additional files
 if [ -e ${WORKDIR}/vbfnlo.input ]; then
   cp -p ${WORKDIR}/vbfnlo.input .
-fi 
+fi
 if [ -e ${WORKDIR}/br.a3_2HDM ]; then
   cp -p ${WORKDIR}/br*2HDM .
 fi
@@ -748,7 +748,7 @@ if [ -e ${WORKDIR}/powheg-fh.in ]; then
 fi
 if [ -e ${WORKDIR}/cteq6m ]; then
     cp -p ${WORKDIR}/cteq6m .
-fi 
+fi
 
 #rm -f ${WORKDIR}/${name}/powheg.input
 #cat ${card} | sed -e "s#SEED#${seed}#g" | sed -e "s#NEVENTS#${nevt}#g" > powheg.input
@@ -771,14 +771,14 @@ echo 'Compiling finished...'
 
 if [ $jhugen = 1 ]; then
   cp -p ${cardj} .
-  
+
   if [ ! -e ${WORKDIR}/runcmsgrid_powhegjhugen.sh ]; then
-   fail_exit "Did not find " ${WORKDIR}/runcmsgrid_powhegjhugen.sh 
+   fail_exit "Did not find " ${WORKDIR}/runcmsgrid_powhegjhugen.sh
   fi
   sed -e 's/PROCESS/'${process}'/g' ${WORKDIR}/runcmsgrid_powhegjhugen.sh > runcmsgrid.sh
 else
   if [ ! -e ${WORKDIR}/runcmsgrid_powheg.sh ]; then
-   fail_exit "Did not find " ${WORKDIR}/runcmsgrid_powheg.sh 
+   fail_exit "Did not find " ${WORKDIR}/runcmsgrid_powheg.sh
   fi
   sed -e 's/PROCESS/'${process}'/g' ${WORKDIR}/runcmsgrid_powheg.sh > runcmsgrid.sh
 fi
@@ -893,7 +893,7 @@ grep -q "SEED" powheg.input; test $? -eq 0 || sed -i "s/^iseed.*/iseed SEED/g" p
 grep -q "manyseeds" powheg.input; test $? -eq 0 || printf "\\n\\nmanyseeds 1\\n" >> powheg.input
 grep -q "parallelstage" powheg.input; test $? -eq 0 || printf "\\nparallelstage 4\\n" >> powheg.input
 grep -q "xgriditeration" powheg.input; test $? -eq 0 || printf "\\nxgriditeration 1\\n" >> powheg.input
-  
+
 # turn into single run mode
 sed -i "s/^manyseeds.*/#manyseeds 1/g" powheg.input
 sed -i "s/^parallelstage.*/#parallelstage 4/g" powheg.input
@@ -903,7 +903,7 @@ sed -i "s/^xgriditeration/#xgriditeration 1/g" powheg.input
 grep -q "pdfreweight" powheg.input; test $? -eq 0 || printf "\\n\\npdfreweight 0\\n" >> powheg.input
 grep -q "storeinfo_rwgt" powheg.input; test $? -eq 0 || printf "\\nstoreinfo_rwgt 0\\n" >> powheg.input
 grep -q "withnegweights" powheg.input; test $? -eq 0 || printf "\\nwithnegweights 1\\n" >> powheg.input
-  
+
 sed -i "s/^pdfreweight.*/#pdfreweight 0/g" powheg.input
 sed -i "s/^storeinfo_rwgt.*/#storeinfo_rwgt 0/g" powheg.input
 sed -i "s/^withnegweights/#withnegweights 1/g" powheg.input
@@ -911,7 +911,7 @@ sed -i "s/^withnegweights/#withnegweights 1/g" powheg.input
 # parallel re-weighting calculation
 if [ "$process" = "HW_ew" ] || [ "$process" = "HZ_ew" ] || [ "$process" = "HZJ_ew" ] || [ "$process" = "HWJ_ew" ] ; then
    echo "# no reweighting in first runx" >> powheg.input
-else 
+else
    echo "rwl_group_events 2000" >> powheg.input
    echo "lhapdf6maxsets 50" >> powheg.input
    echo "rwl_file 'pwg-rwl.dat'" >> powheg.input
@@ -934,7 +934,7 @@ sed -i 's/pwggrid.dat ]]/pwggrid.dat ]] || [ -e ${WORKDIR}\/pwggrid-0001.dat ]/g
 #if [ "$process" = "HJ" ]; then
 #  cat runcmsgrid.sh  | gawk '/produceWeightsNNLO/{gsub(/false/, \"true\")};{print}' > runcmsgrid_tmp.sh
 #  mv runcmsgrid_tmp.sh runcmsgrid.sh
-#fi  
+#fi
 
 sed -i s/SCRAM_ARCH_VERSION_REPLACE/${SCRAM_ARCH}/g runcmsgrid.sh
 sed -i s/CMSSW_VERSION_REPLACE/${CMSSW_VERSION}/g runcmsgrid.sh
@@ -962,9 +962,9 @@ if [ "$process" = "HJ" ]; then
   echo "This process needs NNLOPS reweighting"
   for i in `echo 11 22 0505`; do
     ./mergedata 1 ${i}/*.top
-    mv fort.12 HNNLO-${i}.top 
+    mv fort.12 HNNLO-${i}.top
   done
-  #force keep top in this case 
+  #force keep top in this case
   keepTop='1'
 fi
 
@@ -995,7 +995,7 @@ def runhnnlo(folderName, njobs, QUEUE):
   scales = ["11", "22", "0505"]
   for scale in scales:
     os.system('rm -rf '+ folderName+"/"+scale)
-    os.system('mkdir -p '+ folderName+"/"+scale) 
+    os.system('mkdir -p '+ folderName+"/"+scale)
     filename = folderName+"/"+scale+"/launch_NNLO.sh"
     launching_script = open(filename, "w")
     launching_script.write("#!/bin/bash\n")
@@ -1023,14 +1023,14 @@ cp HNNLO-LHC13* ${base}
 cp log_${seed}.txt ${base}
 ''')
     launching_script.close()
-    os.system('chmod 755 '+filename) 
+    os.system('chmod 755 '+filename)
     for ijob in range(njobs):
-      config = "HNNLO-LHC13-R04-APX2-"+scale+".input" 
+      config = "HNNLO-LHC13-R04-APX2-"+scale+".input"
       jobID = scale+"_"+str(ijob)
       print 'Submitting to queue: '+QUEUE+' #'+str(ijob)+' \n'
       runCommand ('bsub -J ' + jobID + ' -u $USER -q ' + QUEUE + ' \"' + rootfolder + "/" + folderName + "/"+ scale + '/launch_NNLO.sh '+config+' '+str(1000+ijob)+'\"', 1, 1)
-      
-      
+
+
 
 
 
@@ -1048,7 +1048,7 @@ if __name__ == "__main__":
 #    totEvents     = sys.argv[4]
 #    inputTemplate = sys.argv[5] # FIXME build the template... it simply should be the cfg file
 #    eosFolderName = sys.argv[6]
-    
+
     # parser = argparse.ArgumentParser (description = 'run phantom productions on lxplus')
     parser = OptionParser()
     parser.add_option('-p', '--parstage'      , dest="parstage",      default= '0',            help='stage of the production process [0]')
@@ -1068,22 +1068,22 @@ if __name__ == "__main__":
 
     # args = parser.parse_args ()
     (args, opts) = parser.parse_args(sys.argv)
-    
+
     QUEUE = args.lsfQueue
     EOSfolder = args.folderName
 
     print
-    print 'RUNNING PARAMS: parstage = ' + args.parstage + ' , xgrid = ' + args.xgrid  + ' , folderName = ' + args.folderName 
-    print '                Total Events = ' + args.totEvents 
-    print '                Number of Events = ' + args.numEvents 
-    print '                powheg input cfg file : ' + args.inputTemplate 
+    print 'RUNNING PARAMS: parstage = ' + args.parstage + ' , xgrid = ' + args.xgrid  + ' , folderName = ' + args.folderName
+    print '                Total Events = ' + args.totEvents
+    print '                Number of Events = ' + args.numEvents
+    print '                powheg input cfg file : ' + args.inputTemplate
     print '                powheg process name : ' + args.prcName
     print '                working folder : ' + args.folderName
     print '                EOS folder : ' + args.eosFolder + '/' + EOSfolder
     print '                base folder : ' + rootfolder
     print
- 
-    if (TESTING == 1) :     
+
+    if (TESTING == 1) :
         print '  --- TESTNG, NO submissions will happen ---  '
         print
 
@@ -1135,7 +1135,7 @@ if __name__ == "__main__":
 #        #FIXME this is a crude hardcoded trick to overcome some problems in LHAPDF usage
 #        runCommand ('ln -s /afs/cern.ch/user/g/govoni/work/HiggsPlusJets/lhapdf/share/lhapdf/PDFsets/CT10.LHgrid ./'  + args.folderName)
 
-    if args.parstage == '4' :    
+    if args.parstage == '4' :
         runCommand (eoscmd + ' mkdir /eos/cms/store/user/${user}/LHE/powheg/' + args.eosFolder, 1, 1)
         runCommand (eoscmd + ' mkdir /eos/cms/store/user/${user}/LHE/powheg/' + args.eosFolder + '/' + EOSfolder, 1, 1)
 
@@ -1168,7 +1168,7 @@ if __name__ == "__main__":
 
     if args.parstage == '0' or \
        args.parstage == '0123' or args.parstage == 'a' or \
-       args.parstage == '01239' or args.parstage == 'one' or args.parstage == 'f' : # full single grid in oneshot 
+       args.parstage == '01239' or args.parstage == 'one' or args.parstage == 'f' : # full single grid in oneshot
 
         tagName = 'src_'+args.folderName
         filename = './run_'+tagName+'.sh'
@@ -1180,7 +1180,7 @@ if __name__ == "__main__":
 #            print "return ", m_ret
 
             os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate)
-        
+
         os.system('mkdir -p '+rootfolder+'/'+args.folderName)
         if not os.path.exists(args.inputTemplate) :
             os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate+' -O '+args.folderName+'/powheg.input')
@@ -1250,7 +1250,7 @@ if __name__ == "__main__":
             #runCommand ('bash run_source.sh ', TESTING == 1)
             os.system('bash '+filename+' 2>&1 | tee '+filename.split('.sh')[0]+'.log')
             #print "Issue 'bash run_source.sh >& run.log &' to compile powheg..."
-        
+
         else:
             print 'Submitting to queue: '+QUEUE+' \n'
             runCommand ('bsub -J compile_pwg -u $USER -q ' + QUEUE + ' '+rootfolder + '/' +filename, TESTING == 0)
@@ -1279,7 +1279,7 @@ if __name__ == "__main__":
             #runCommand ('bash run_source.sh ', TESTING == 1)
             os.system('bash '+scriptName+' >& '+scriptName.split('.sh')[0]+'.log &')
             #print "Issue 'bash run_source.sh >& run.log &' to compile powheg..."
-        
+
         else:
             print 'Submitting to queue: '+QUEUE+' \n'
             runCommand ('bsub -J '+args.folderName+' -u $USER -q ' + QUEUE + ' '+rootfolder+'/'+scriptName, TESTING == 0)
@@ -1308,7 +1308,7 @@ if __name__ == "__main__":
             runCommand ('bsub -J all_'+args.folderName+' -u $USER -q ' +
                         QUEUE + ' '+rootfolder + '/' +scriptName, TESTING == 0)
 
-    elif args.parstage == '01239' or args.parstage == 'one' or args.parstage == 'f' : # full single grid in oneshot 
+    elif args.parstage == '01239' or args.parstage == 'one' or args.parstage == 'f' : # full single grid in oneshot
         tagName = 'full_'+args.folderName
         scriptName = './run_'+tagName+'.sh'
 
@@ -1330,7 +1330,7 @@ if __name__ == "__main__":
                       scriptName.split('.sh')[0]+'.log &')
         else:
             print 'Submitting to queue: '+QUEUE+' \n'
-            runCommand ('bsub -J full_'+args.folderName+' -u $USER -q ' + 
+            runCommand ('bsub -J full_'+args.folderName+' -u $USER -q ' +
                         QUEUE + ' '+rootfolder + '/' +scriptName, TESTING == 0)
 
     elif args.parstage == '7' :
