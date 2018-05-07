@@ -93,7 +93,7 @@ if [ ! -e $LHEWORKDIR/header_for_madspin.txt ]; then
     pdfsets="PDF_SETS_REPLACE"
     scalevars="--mur=1,2,0.5 --muf=1,2,0.5 --together=muf,mur --dyn=-1"
 
-    echo "systematics $runlabel --pdf=$pdfsets $scalevars" | ./bin/aMCatNLO
+    echo "systematics $runlabel --remove_wgts=all --start_id=1001 --pdf=$pdfsets $scalevars" | ./bin/aMCatNLO
 	cp ./Events/${runlabel}/events.lhe.gz $LHEWORKDIR/${runname}_final.lhe.gz
 
 #else handle external tarball
@@ -143,7 +143,7 @@ fi
 
 cd $LHEWORKDIR
 gzip -d ${runname}_final.lhe.gz
-
+sed -i -e '/<mgrwgt/,/mgrwgt>/d' ${runname}_final.lhe 
 ls -l
 echo
 

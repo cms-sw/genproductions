@@ -56,8 +56,78 @@ if [ "$ncpu" -gt "1" ]; then
   echo "nb_core = $ncpu" >> ./madevent/Cards/me5_configuration.txt
 fi
 
-#generate events
-./run.sh $nevt $rnum
+#########################################
+# FORCE IT TO PRODUCE EXACTLY THE REQUIRED NUMBER OF EVENTS
+#########################################
+
+# define max event per iteration as 5000 if n_evt<45000 or n_evt/9 otherwise
+max_events_per_iteration=$(( $nevt > 5000*9 ? ($nevt / 9) + ($nevt % 9 > 0) : 5000 ))
+# set starting variables
+produced_lhe=0
+run_counter=0
+# if rnum allows, multiply by 10 to avoid multiple runs 
+# with the same seed across the workflow
+run_random_start=$(($rnum*10))
+# otherwise don't change the seed and increase number of events as 10000 if n_evt<50000 or n_evt/9 otherwise
+if [  $run_random_start -gt "89999990" ]; then
+    run_random_start=$rnum
+    max_events_per_iteration=$(( $nevt > 10000*9 ? ($nevt / 9) + ($nevt % 9 > 0) : 10000 ))
+fi
+
+while [ $produced_lhe -lt $nevt ]; do
+  
+  # set the incremental iteration seed
+  run_random_seed=$(($run_random_start + $run_counter))
+  # increase the iteration counter
+  let run_counter=run_counter+1 
+  
+  # don't allow more than 90 iterations
+  if [  $run_counter -gt "90" ]; then
+      echo "asking for more than 90 iterations, this should never happen"
+      break
+  fi
+  # compute remaining events
+  remaining_event=$(($nevt - $produced_lhe))
+  
+  echo "Running MG5_aMC for the "$run_counter" time"
+  # set number of events to max_events_per_iteration or residual ones if less than that
+  submitting_event=$(( $remaining_event < $max_events_per_iteration ? $remaining_event : $max_events_per_iteration ))
+  # run mg5_amc
+  echo "produced_lhe " $produced_lhe "nevt " $nevt "submitting_event " $submitting_event " remaining_event " $remaining_event
+  echo run.sh $submitting_event $run_random_seed
+  ./run.sh $submitting_event $run_random_seed
+  
+  # compute number of events produced in the iteration
+  produced_lhe=$(($produced_lhe+`zgrep \<event events.lhe.gz | wc -l`))
+  
+  # rename output file to avoid overwriting
+  mv events.lhe.gz events_${run_counter}.lhe.gz
+  echo "run "$run_counter" finished, total number of produced events: "$produced_lhe"/"$nevt
+  
+  echo ""
+  
+done
+
+# merge multiple lhe files if needed
+ls -lrt events*.lhe.gz
+if [  $run_counter -gt "1" ]; then
+    echo "Merging files and deleting unmerged ones"
+    cp /cvmfs/cms.cern.ch/phys_generator/gridpacks/lhe_merger/merge.pl ./
+    chmod 755 merge.pl
+    # ./madevent/bin/internal/merge.pl events*.lhe.gz events.lhe.gz banner.txt
+    ./merge.pl events*.lhe.gz events.lhe.gz banner.txt
+    rm events_*.lhe.gz banner.txt;
+else
+    mv events_${run_counter}.lhe.gz events.lhe.gz
+fi
+
+#########################################
+#########################################
+#########################################
+
+echo "run finished, produced number of events:"
+zgrep \<event events.lhe.gz |wc -l
+
 
 domadspin=0
 if [ -f ./madspin_card.dat ] ;then
@@ -71,7 +141,9 @@ fi
 
 cd $LHEWORKDIR
 
-runlabel=GridRun_${rnum}
+runlabel=GridRun_PostProc_${rnum}
+mkdir process/madevent/Events/${runlabel}
+
 event_file=events.lhe.gz
 if [ "$domadspin" -gt "0" ] ; then 
     event_file=events_decayed.lhe.gz
@@ -84,7 +156,7 @@ pushd process/madevent
 pdfsets="PDF_SETS_REPLACE"
 scalevars="--mur=1,2,0.5 --muf=1,2,0.5 --together=muf,mur,dyn --dyn=-1,1,2,3,4"
 
-echo "systematics $runlabel --pdf=$pdfsets $scalevars" | ./bin/madevent
+echo "systematics $runlabel --remove_wgts=all --start_id=1001 --pdf=$pdfsets $scalevars" | ./bin/madevent
 popd
 
 mv process/madevent/Events/${runlabel}/events.lhe.gz cmsgrid_final.lhe.gz
@@ -94,11 +166,11 @@ gzip -d cmsgrid_final.lhe.gz
 #reweight if necessary
 if [ -e process/madevent/Cards/reweight_card.dat ]; then
     echo "reweighting events"
-    mv cmsgrid_final.lhe process/madevent/Events/GridRun_${rnum}/unweighted_events.lhe
+    mv cmsgrid_final.lhe process/madevent/Events/GridRun_${run_random_start}/unweighted_events.lhe
     cd process/madevent
-    ./bin/madevent reweight -f GridRun_${rnum}
+    ./bin/madevent reweight -f GridRun_${run_random_start}
     cd ../..
-    mv process/madevent/Events/GridRun_${rnum}/unweighted_events.lhe.gz cmsgrid_final.lhe.gz
+    mv process/madevent/Events/GridRun_${run_random_start}/unweighted_events.lhe.gz cmsgrid_final.lhe.gz
     gzip -d  cmsgrid_final.lhe.gz
 fi
 
