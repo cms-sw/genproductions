@@ -1,6 +1,0 @@
-set param_card mass 9000007 200
-set param_card mass 9000006 1
-set param_card np 1 0.3
-set param_card np 2 1
-set param_card np 3 3
-set param_card DECAY 9000007 7.242199

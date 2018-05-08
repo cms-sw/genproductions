@@ -1,0 +1,10 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set loop_optimized_output True
+set complex_mass_scheme False
+
+import model Radion_GKK_UFO
+
+generate p p > GKK > R g, R > g g 
+
+output PROCESSNAME -nojpeg
