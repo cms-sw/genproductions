@@ -498,9 +498,14 @@ if [ "$process" = "bbH" ]; then
    sed -i -e "s#O2#O0#g" Makefile
 fi
 
-# fix fortran options and missing libraries in VH_ew
+# fix fortran options/linking to OpenLoops/missing libraries in VH_ew
 if [ "$process" = "HW_ew" ] || [ "$process" = "HZ_ew" ] || [ "$process" = "HZJ_ew" ] || [ "$process" = "HWJ_ew" ] ; then
    sed -i -e "s#OL_process_src#OL_process_src f90_flags=-ffree-line-length-none#g" Makefile
+   sed -i -e "s#\$(PWD)/\$(OBJ)#\$(OBJ)#g" Makefile
+   sed -i -e "s#\$(OLPATH)/lib_src#lib_src#g" Makefile
+   sed -i -e "s#cd \$(OLPATH)#cp -r \$(OLPATH)/* .#g" Makefile
+   sed -i -e "s#abspath(os.path.join(config#relpath(os.path.join(config#g" ../OpenLoopsStuff/OpenLoops/SConstruct
+   sed -i -e "s#rpath=\$(PWD)/\$(OBJDIR) -L\$(PWD)/\$(OBJDIR)#rpath=\$(OBJDIR) -L\$(OBJDIR)#g" Makefile
 fi
 if [ "$process" = "HWJ_ew" ] || [ "$process" = "HZJ_ew" ] ; then
    sed -i -e "s#boostrot.o#boostrot.o boostrot4.o#g" Makefile
