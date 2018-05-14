@@ -1,0 +1,9 @@
+set param_card mass 999888 Mass_point
+set param_card ZPINPUTS 3 1.000000e-01
+set param_card ZPINPUTS 4 1.000000e-01
+set param_card ZPINPUTS 5 -1.000000e-01
+set param_card ZPINPUTS 6 -1.000000e-01
+set param_card DECAY 999888 Auto
+set param_card DECAY 23 Auto
+set param_card DECAY 24 Auto
+
