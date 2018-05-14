@@ -657,7 +657,7 @@ def verifyGridpack (processoutputs, workingfolder, logfile):
 
 ''' generate the gridpack for the wmLHE prodcution framework
 '''
-def gridpackGeneration (debugging):
+def gridpackGeneration (full,debugging):
     rootfolder = os.getcwd ()
     # values to be inserted in the phantom r.in file
     substitute = {}
@@ -811,6 +811,9 @@ def gridpackGeneration (debugging):
     # launch the submission script
     execute ('source ' + submitfilename, debugging)
 
+    if full == False :
+       sys.exit(0)
+
     # wait until all jobs finish, before calculating the cross-section
     # and compressing the gridpack
     finished = False
@@ -882,6 +885,111 @@ def gridpackGeneration (debugging):
 
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
+''' creating tarball of the gridpack generated for the wmLHE prodcution framework
+'''
+def gridpackCreation (debugging):
+    rootfolder = os.getcwd ()
+    # values to be inserted in the phantom r.in file
+    substitute = {}
+    config = ConfigParser.ConfigParser ()
+    config.optionxform = str # to preserve the case when reading options
+    print 'reading config file:',sys.argv[1]
+    config.read (sys.argv[1])
+
+    foldername = os.getcwd () + '/' + config.get ('general', 'foldername')
+    if os.path.exists (foldername + '.tar.xz'):
+        print 'gridpack ' + foldername + '.tgz already existing, exiting'
+        sys.exit (1)
+
+    os.chdir (foldername)
+    workingfolder = os.getcwd ()
+
+    phantom = config.get ('general', 'package')
+    phantomfolder = phantom.split ('/')[-1]
+
+    if not os.path.exists (workingfolder + '/' + phantomfolder):
+       execute ('wget ' + phantom) 
+       execute ('tar xvf ' + phantomfolder) 
+
+    dummy = '.tar.gz'
+    phantomfolder = phantomfolder[0:-len(dummy)] if phantomfolder.endswith(dummy) else phantomfolder
+    dummy = '.tgz'
+    phantomfolder = phantomfolder[0:-len(dummy)] if phantomfolder.endswith(dummy) else phantomfolder
+
+
+    # get the cmssw environment and the location of the pdf grids
+    cmssw = config.get ('general', 'CMSSW')
+    scram_arch = config.get ('general', 'ARCH')
+    os.environ['SCRAM_ARCH'] = scram_arch
+    shell = 'sh'
+    if os.environ['SHELL'].find ('c') != -1 :
+        shell = 'csh'
+
+    submitfilename = workingfolder + '/' + config.get ('submission','scheduler') + 'file'
+
+    # get the list of process output files
+    processoutputs = []
+    submitfile = open (submitfilename, 'read')
+    for line in submitfile.readlines () :
+        if 'bsub' in line: processoutputs.append (line.split()[6])
+    submitfile.close ()
+
+    # log file of the generation parameters
+    logfilename = workingfolder + '/log_GRID.txt'
+    logfile = open (logfilename, 'write')
+
+    # calculate the cross-section
+    command = 'cd ' + workingfolder + '; grep SIGMA */run.out > res ; '
+    command += workingfolder + '/' + phantomfolder + '/tools/totint.exe > result '
+    execute (command, debugging)
+    result = execute ('tail -n 1 ' + workingfolder + '/result', debugging)
+    Xsection = result[1] + ' pb'
+
+    verifyGridpack (processoutputs, workingfolder, logfile)
+
+    logfile.write ('CONFIG FILE\n\n')
+    for section in config.sections ():
+        options = config.options (section)
+        for option in options:
+            logfile.write ('[' + section + '] ' + option + ' : ' + config.get (section, option) + '\n')
+    logfile.write ('\nSETUP COMMAND\n\n')
+    logfile.write (command + '\n')
+    logfile.write ('\nRESULTING CROSS-SECTION FROM GRID CREATION\n\n')
+    logfile.write (Xsection + '\n')
+    logfile.close ()
+
+    # NB removing the phantom to save space, it will have to be put back (reasonably in the same place)
+    #    when generating the events
+    if not debugging:
+        execute ('rm -rf ' + phantomfolder + '*', debugging)
+        execute ('rm -rf CMSSW*', debugging)
+        execute ('rm -rf LSFJOB*', debugging)
+
+    # get all the grids, to be run in workingfolder
+#    gridfiles = execute ('for fil in `find -L . -name "phavegas*.dat"` ; do echo `pwd`/$fil ; done', debugging)
+    gridfiles = execute ('for fil in `find -L . -name "phavegas*.dat"` ; do echo $fil ; done', debugging)
+
+    # prepare the r.in file for the event production, starting from the template one
+    replacement = {'ionesh':'1\n', 'nfiles': str(len (gridfiles[1].split ()))+'\n', 'nunwevts':'EVENTSNUM\n', 'idum':'-RANDOMSEED\n'}
+    replaceParameterInFile (workingfolder + '/r.in', workingfolder + '/r_GEN.in', replacement)
+    addGridsToRin (workingfolder + '/r_GEN.in', gridfiles[1], debugging)
+
+    execute ('mv r.in r_GRID.in', debugging)
+
+    # prepare the script for the event generation
+
+    execute ('cp ../' + sys.argv[1] + ' ./', debugging)
+
+    prepareEventProductionScript (foldername + '/runcmsgrid.sh', phantom, phantomfolder, cmssw, shell, scram_arch, debugging)
+
+    execute ('tar cJf ../' + foldername.split ('/')[-1] + '.tar.xz *', debugging)
+    print 'gridpack ' + foldername.split ('/')[-1] + '.tar.xz created'
+
+    os.chdir (rootfolder)
+    sys.exit (0)
+
+
+# ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
 def produceEvents (nevents, ngenerations, queue, debugging=True):
     # Parse the configuration
@@ -1035,27 +1143,39 @@ if __name__ == '__main__':
         print 'config file missing, exiting'
         sys.exit (1)
 
+    full = False 
     verbose = False
     if len (sys.argv) > 2 :
-        arg2 = sys.argv[2]
-        if arg2 == "--verbose":
-            verbose = True
-        elif arg2 == "--produce":
-            produce = True
-            if len(sys.argv) < 5:
-                print "Number of events and generations missing, exiting"
-                sys.exit(1)
-            else:
-                nevents_produce = int(sys.argv[3])
-                ngenerations_produce = int(sys.argv[4])
-                queue = '8nh'
-                if len (sys.argv) > 5 : queue = sys.argv[5]
-                produceEvents (nevents_produce, ngenerations_produce, queue)
+       if len (sys.argv) > 3 :
+           arg2 = sys.argv[2]
+           arg3 = sys.argv[3]
+           if arg2 == "--full":
+             full = True
+           if arg3 == "--verbose":
+             verbose = True
+       else : 
+           arg2 = sys.argv[2]
+           if arg2 == "--full":
+             full = True
+           elif arg2 == "--produce":
+                produce = True
+                if len(sys.argv) < 5:
+                    print "Number of events and generations missing, exiting"
+                    sys.exit(1)
+                else:
+                    nevents_produce = int(sys.argv[3])
+                    ngenerations_produce = int(sys.argv[4])
+                    queue = '8nh'
+                    if len (sys.argv) > 5 : queue = sys.argv[5]
+                    produceEvents (nevents_produce, ngenerations_produce, queue)
+                    sys.exit (0)
+           elif arg2 == "--test":
+                runSimpleVerification (sys.argv[1])
                 sys.exit (0)
-        elif arg2 == "--test":
-            runSimpleVerification (sys.argv[1])
-            sys.exit (0)
+           elif arg2 == "--createGP":
+                gridpackCreation(verbose)
+                sys.exit (0)
 
-    gridpackGeneration (verbose)
+    gridpackGeneration (full,verbose)
             
     sys.exit (0)
