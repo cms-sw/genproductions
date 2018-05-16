@@ -1,0 +1,9 @@
+import model nmssm
+define squark = ul ur dl dr cl cr sl sr ul~ ur~ dl~ dr~ cl~ cr~ sl~ sr~
+generate p p > squark squark
+add process p p > squark go
+add process p p > go go
+add process p p > squark squark j $ go
+add process p p > squark go j $ go
+add process p p > go go j
+output mH70_mSusy1200 -nojpeg

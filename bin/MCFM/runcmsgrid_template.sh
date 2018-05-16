@@ -55,22 +55,49 @@ export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:`$LHAPDFCONFIG --libdir`
 export LHAPDF_DATA_PATH=`$LHAPDFCONFIG --datadir`
 export LHAPATH=$LHADPDF_DATA_PATH
 
-inputnevt=$( echo ${nevt} \* 1.1 | bc)
-inputnevt=${inputnevt%.*}
-#sed "s@EVTS@$nevt@g" input_gen.DAT > input_g0.DAT
-#sed "s@XRAN@$rnum@g" input_g0.DAT  > input.DAT
-sed -i "s/NEVENT/"$inputnevt"/" INPUT.DAT
-sed -i "s/SEED/"$rnum"/" INPUT.DAT
-./mcfm INPUT.DAT
-#Replace the negative so pythia will work
-#sed "s@-1000022@1000022@g" FILENAME > $LHEWORKDIR/cmsgrid_final.lhe
-lhefiles=($(ls *.lhe))
-if [ ${#lhefiles[@]} -ne 1 ];then exit 1; else FILENAME=${lhefiles[0]}; fi
-mv $FILENAME $LHEWORKDIR/cmsgrid_final.lhe
-fevt=$(grep "<event>" cmsgrid_final.lhe|wc -l)
-if [ ${nevt} -ne ${fevt} ]; then python adjlheevent.py ${nevt} ${fevt}; fi
+#idea taken from https://github.com/cms-sw/genproductions/blob/733f0729283054fc381f1035616d6793db0ea33c/bin/MadGraph5_aMCatNLO/runcmsgrid_LO.sh#L68
+#but the implementation is a little different, because the problem isn't requesting too many events, it's the job crashing when it hits nan
+
+cp INPUT.DAT INPUT.DAT.orig
+produced_lhe=0
+run_counter=0
+inputseed=$rnum
+
+# if rnum allows, multiply by 10 to avoid multiple runs 
+# with the same seed across the workflow
+run_random_start=$(($rnum*10))
+# otherwise, still multiply by 10 but chop the first digit
+if [  $run_random_start -gt "89999990" ]; then
+    run_random_start=$(echo "print str($run_random_start)[1:]" | python)
+fi
+
+while [ ${produced_lhe} -lt ${nevt} ]; do
+  # set the incremental iteration seed
+  run_random_seed=$(echo $run_random_start + $run_counter | bc)
+  # increase the iteration counter
+  run_counter=$(echo $run_counter+1 | bc)
+
+  # don't allow more than 90 iterations
+  if [  $run_counter -gt "90" ]; then
+      echo "asking for more than 90 iterations, this should never happen"
+      break
+  fi
+
+  echo "Running MCFM for the "$run_counter" time"
+  cp INPUT.DAT.orig INPUT.DAT
+  inputnevt=$( echo "(${nevt} - ${produced_lhe}) * 1.1" | bc)
+  inputnevt=${inputnevt%.*}
+  sed -i "s/NEVENT/"$inputnevt"/" INPUT.DAT
+  sed -i "s/SEED/"$run_random_seed"/" INPUT.DAT
+  ./mcfm INPUT.DAT
+  lhefiles=($(ls *.lhe | grep -v cmsgrid_))
+  if [ ${#lhefiles[@]} -ne 1 ];then exit 1; else FILENAME=${lhefiles[0]}; fi
+  produced_lhe=$(echo $produced_lhe + $(grep "</event>" $FILENAME | wc -l) | bc)
+  mv $FILENAME $LHEWORKDIR/cmsgrid_${run_counter}.lhe
+done
 
 cd $LHEWORKDIR
+python adjlheevent.py ${nevt} ${produced_lhe} ${rnum} cmsgrid_*.lhe
 
 ls -l
 echo
