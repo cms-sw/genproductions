@@ -18,41 +18,30 @@
 }(run)
 
 (processes){
-#  Process 21 21 -> 22 22;
-#  Scales VAR{Abs2(p[2]+p[3])};
-#  ME_Generator Internal;
-#  Loop_Generator gg_yy;
-#  End process;
 
   Process 93 93 -> 22 22 5 -5 93{1};
   Order (*,2);
-  Enhance_Factor 2 {3};
   Enhance_Factor 5 {4};
   Enhance_Factor 10 {5};
   CKKW sqr(20./E_CMS);
-  Integration_Error 0.005 {3};
   Integration_Error 0.03 {4};
   Integration_Error 0.05 {5};
   End process;
 
   Process 93 93 -> 22 22 5 5 93{1};
   Order (*,2);
-  Enhance_Factor 2 {3};
   Enhance_Factor 5 {4};
   Enhance_Factor 10 {5};
   CKKW sqr(20./E_CMS);
-  Integration_Error 0.005 {3};
   Integration_Error 0.03 {4};
   Integration_Error 0.05 {5};
   End process;
 
   Process 93 93 -> 22 22 -5 -5 93{1};
   Order (*,2);
-  Enhance_Factor 2 {3};
   Enhance_Factor 5 {4};
   Enhance_Factor 10 {5};
   CKKW sqr(20./E_CMS);
-  Integration_Error 0.005 {3};
   Integration_Error 0.03 {4};
   Integration_Error 0.05 {5};
   End process;
