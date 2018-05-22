@@ -168,8 +168,7 @@ pdfsets="PDF_SETS_REPLACE"
 scalevars="--mur=1,2,0.5 --muf=1,2,0.5 --together=muf,mur,dyn --dyn=-1,1,2,3,4"
 
 if [ "$doreweighting" -gt "0" ] ; then 
-    echo "systematics $runlabel --start_id=1001 --pdf=$pdfsets $scalevars" | ./bin/made
-vent
+    echo "systematics $runlabel --start_id=1001 --pdf=$pdfsets $scalevars" | ./bin/madevent
 else
     echo "systematics $runlabel --remove_wgts=all --start_id=1001 --pdf=$pdfsets $scalevars" | ./bin/made
 fi
