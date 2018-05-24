@@ -1,0 +1,10 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set loop_optimized_output True
+set loop_color_flows False
+set gauge unitary
+set complex_mass_scheme False
+set max_npoint_for_channel 0
+import model EffLRSM_NLO
+generate p p > n2 n2 QCD=0 [QCD]
+OUTPUT_HERE
