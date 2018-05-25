@@ -26,7 +26,8 @@ cmssw_setup() {
     #    rel=$(basename $(tar -tvjf "${SANDBOX_HOME}/$1" | head -1 | awk '{print $NF}'))
     #fi
 
-    arch=$(ls $rel/.SCRAM/|grep slc)
+    arch="$(ls $rel/.SCRAM/|grep slc)"
+    export SCRAM_ARCH="$arch"
     old_release_top=$(awk -F= '/RELEASETOP/ {print $2}' $rel/.SCRAM/slc*/Environment)
     rel_version=$(basename $old_release_top)
     tmp=$basedir/$rel
@@ -36,6 +37,7 @@ cmssw_setup() {
     # which will not exist here
     echo ">>> creating new release $rel_version"
     cd -
+    echo scramv1 project -f -n $rel CMSSW $rel_version
     scramv1 project -f -n $rel CMSSW $rel_version
     new_release_top=$(awk -F= '/RELEASETOP/ {print $2}' $rel/.SCRAM/slc*/Environment)
     #echo "--new_release_top = $new_release_top"

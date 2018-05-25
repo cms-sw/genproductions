@@ -19,8 +19,11 @@ def make_new_script(f_in, args, f_out):
 		text = fin.read()
 	for key, value in args.items():
 		text = text.replace("%%{0}%%".format(key.upper()), str(value))
+	lines = text.split('\n')
+	for i,line in enumerate(lines):
+		lines[i] = line.split('#')[0]
 	with open(f_out, "w") as fout:
-		fout.write(text)
+		fout.write('\n'.join(lines))
 
 def main():
 	for gmass in gmasses:
