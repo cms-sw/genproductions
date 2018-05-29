@@ -250,11 +250,6 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
  -1    =  ktdurham        
  0.4  =  dparameter 
 #*********************************************************************
-# maximal pdg code for quark to be considered as a light jet         *
-# (otherwise b cuts are applied)                                     *
-#*********************************************************************
- 4 = maxjetflavor    ! Maximum jet pdg code
-#*********************************************************************
 # Jet measure cuts                                                   *
 #*********************************************************************
  0   = xqcut   ! minimum kt jet measure between partons
