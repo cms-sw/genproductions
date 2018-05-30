@@ -1,6 +1,4 @@
 import model sm-no_b_mass
-define p = p b  b~
-define j = j b  b~
 define l+ = e+ mu+ ta+
 define l- = e- mu- ta-
 define vl = ve vm vt
