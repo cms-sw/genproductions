@@ -844,7 +844,6 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
 )
 
 dirhadrongenfilter = cms.EDFilter("MCParticlePairFilter",
-    #Status = cms.untracked.vint32(1, 1),
     MinPt = cms.untracked.vdouble(0., 0.),
     MinP = cms.untracked.vdouble(0., 0.),
     MaxEta = cms.untracked.vdouble(100., 100.),
