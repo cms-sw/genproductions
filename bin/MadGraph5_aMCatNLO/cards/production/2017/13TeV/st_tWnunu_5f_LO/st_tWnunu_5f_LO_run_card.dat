@@ -45,7 +45,6 @@
 #*********************************************************************
      lhapdf    = pdlabel     ! PDF set                                     
      $DEFAULT_PDF_SETS = lhaid ! if pdlabel=lhapdf, this is the lhapdf number
-     T = pdfwgt
 #*********************************************************************
 # Renormalization and factorization scales                           *
 #*********************************************************************
