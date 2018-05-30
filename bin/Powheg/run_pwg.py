@@ -590,7 +590,22 @@ if [ "$process" = "gg_H_2HDM" ] || [ "$process" = "gg_H_MSSM" ]; then
     make install
     cd ..
   fi
-fi  
+fi
+if [ "$process" = "directphoton" ]; then
+  echo "Adding LoopTools 2.14 library"
+  if [ ! -f LoopTools-2.14.tar.gz ]; then
+    wget --no-verbose http://www.feynarts.de/looptools/LoopTools-2.14.tar.gz || fail_exit "Failed to get LoopTools tar ball "
+  fi
+  tar xvf LoopTools-2.14.tar.gz
+  cd LoopTools-2.14
+  ./configure --prefix=`pwd`/..
+  make install
+  cd ..
+  sed -i -e 's/^LT\=$.*/LT=$\(PWD\)/' Makefile
+  export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:${LD_LIBRARY_PATH}
+  mkdir obj-gfortran
+fi
+
 
 echo 'Compiling pwhg_main...'
 pwd
