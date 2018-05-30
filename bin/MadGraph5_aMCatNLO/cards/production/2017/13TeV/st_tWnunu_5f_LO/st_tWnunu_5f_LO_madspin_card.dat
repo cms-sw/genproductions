@@ -1,7 +1,6 @@
 #Some options (uncomment to apply)
 set ms_dir ./madspingrid
 set Nevents_for_max_weigth 250
-# set BW_cut 15
 set max_weight_ps_point 400
 set max_running_process 1 
 # specify the decay for the final state particles
