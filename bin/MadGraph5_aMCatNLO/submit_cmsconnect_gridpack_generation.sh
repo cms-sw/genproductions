@@ -17,6 +17,8 @@ cat<<-EOF
 	transfer_output_files = ${card_name}.log
 	transfer_output_remaps = "${card_name}.log = ${card_name}_codegen.log"
 	+WantIOProxy=true
+        +IsGridpack=true
+        +GridpackCard = "${card_name}"
 	
 	+REQUIRED_OS = "rhel6"
 	request_cpus = $cores
@@ -150,12 +152,9 @@ if [ -z "$CONDOR_QUERY_SLEEP_PER_RETRY" ]; then
   export CONDOR_QUERY_SLEEP_PER_RETRY="30"
 fi
 
-##########################
-# ADDITIONAL CLASSADS
-##########################
-# Always append IOProxy, so that JobDuration is always set in the history.
-export _CONDOR_WantIOProxy=true 
-export _CONDOR_SUBMIT_ATTRS="$_CONDOR_SUBMIT_ATTRS WantIOProxy"
+#########################
+# INPUT PARAMENTERS
+#########################
 
 card_name=$1
 card_dir=$2
@@ -168,6 +167,22 @@ scram_arch="${5:-}"
 cmssw_version="${6:-}"
 
 parent_dir=$PWD
+
+##########################
+# ADDITIONAL CLASSADS
+##########################
+# Always append IOProxy, so that JobDuration is always set in the history.
+export _CONDOR_WantIOProxy=true
+export _CONDOR_SUBMIT_ATTRS="WantIOProxyd"
+export _CONDOR_IsGridpack=true
+export CONDOR_GRIDPACK_CARDNAME="${card_name}"
+CONDOR_SUBMIT_ATTRS="$(condor_config_val SUBMIT_ATTRS 2>/dev/null)"
+if [ -z "$CONDOR_SUBMIT_ATTRS" ]; then
+    export _CONDOR_SUBMIT_ATTRS="$CONDOR_SUBMIT_ATTRS WantIOProxy IsGridpack"
+else
+    export _CONDOR_SUBMIT_ATTRS="WantIOProxy IsGridpack"
+fi
+
 ##############################################
 # CODEGEN step
 ##############################################
