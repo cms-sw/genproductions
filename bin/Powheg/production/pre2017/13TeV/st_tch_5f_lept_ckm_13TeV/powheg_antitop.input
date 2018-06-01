@@ -1,6 +1,5 @@
 ! ST-tchannel inputs
 
-!smartsig       1 
 withdamp       1
 hdamp 172.5   
 
