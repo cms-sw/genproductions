@@ -4,9 +4,6 @@ import os, shutil, subprocess
 
 REFERENCE_DIR = "reference"
 
-# MASSES = [500, 750, 1000, 1250, 1500, 2000, 2500, 2750, 3000, 3250, 3500, 3750, 4000]
-# WIDTHS = [0.01, 0.10, 0.30]
-
 #format  [mass, [widths] ]
 MASSES = [
            [2000, [0.01, 0.03, 0.10, 0.20, 0.30]],
@@ -27,9 +24,6 @@ def formatName(mass, width):
 for setup in MASSES:
     mass=setup[0]
     for width in setup[1]:
-
-        # if width == 0.30 and not mass == 1000 and not mass == 2000 and not mass == 3000 and not mass == 4000:
-        #     continue
 
         sampleName = formatName(mass, widthToString(mass * width))
 
