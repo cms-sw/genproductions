@@ -1,0 +1,12 @@
+*.pyc
+*__init__*
+*mergeDaemon*
+mergeOutput.py.out*
+*~
+*condor
+*limits
+*roostats-*
+*higgsCombineTest*
+*.root
+*.pdf
+*.png
