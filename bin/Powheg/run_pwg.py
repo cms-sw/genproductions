@@ -286,7 +286,7 @@ def runGetSource(parstage, xgrid, folderName, powInputName, process, noPdfCheck,
 '''
 # Release to be used to define the environment and the compiler needed
 export RELEASE=${CMSSW_VERSION}
-export jhugenversion="v7.1.0"
+export jhugenversion="v7.1.4"
 
 cd $WORKDIR
 pwd
@@ -362,7 +362,7 @@ if [[ -s ./JHUGen.input ]]; then
 fi
 
 ### retrieve the powheg source tar ball
-export POWHEGSRC=powhegboxV2_rev3504_date20180309.tar.gz
+export POWHEGSRC=powhegboxV2_rev3511_date20180410.tar.gz
 
 if [ "$process" = "b_bbar_4l" ] || [ "$process" = "HWJ_ew" ] || [ "$process" = "HW_ew" ] || [ "$process" = "HZJ_ew" ] || [ "$process" = "HZ_ew" ]; then 
   export POWHEGSRC=powhegboxRES_rev3478_date20180122.tar.gz 
@@ -454,6 +454,7 @@ if [ "$process" = "ggHH" ]; then
    sed -i -e "/LIBPYTHIA8/s|^|#|g" Makefile
    sed -i -e "s|LIBHEPMC=|# LIBHEPMC=|g" Makefile
    sed -i -e "/main-PYTHIA8-lhef:/s|^|#|g" Makefile
+   sed -i -e "s|LIBS+=-L:\\\$|LIBS+=-L\\\$|g" Makefile
 fi
 
 if [ "$process" = "trijet" ]; then 
@@ -497,9 +498,14 @@ if [ "$process" = "bbH" ]; then
    sed -i -e "s#O2#O0#g" Makefile
 fi
 
-# fix fortran options and missing libraries in VH_ew
+# fix fortran options/linking to OpenLoops/missing libraries in VH_ew
 if [ "$process" = "HW_ew" ] || [ "$process" = "HZ_ew" ] || [ "$process" = "HZJ_ew" ] || [ "$process" = "HWJ_ew" ] ; then
    sed -i -e "s#OL_process_src#OL_process_src f90_flags=-ffree-line-length-none#g" Makefile
+   sed -i -e "s#\$(PWD)/\$(OBJ)#\$(OBJ)#g" Makefile
+   sed -i -e "s#\$(OLPATH)/lib_src#lib_src#g" Makefile
+   sed -i -e "s#cd \$(OLPATH)#cp -r \$(OLPATH)/* .#g" Makefile
+   sed -i -e "s#abspath(os.path.join(config#relpath(os.path.join(config#g" ../OpenLoopsStuff/OpenLoops/SConstruct
+   sed -i -e "s#rpath=\$(PWD)/\$(OBJDIR) -L\$(PWD)/\$(OBJDIR)#rpath=\$(OBJDIR) -L\$(OBJDIR)#g" Makefile
 fi
 if [ "$process" = "HWJ_ew" ] || [ "$process" = "HZJ_ew" ] ; then
    sed -i -e "s#boostrot.o#boostrot.o boostrot4.o#g" Makefile
@@ -584,7 +590,22 @@ if [ "$process" = "gg_H_2HDM" ] || [ "$process" = "gg_H_MSSM" ]; then
     make install
     cd ..
   fi
-fi  
+fi
+if [ "$process" = "directphoton" ]; then
+  echo "Adding LoopTools 2.14 library"
+  if [ ! -f LoopTools-2.14.tar.gz ]; then
+    wget --no-verbose http://www.feynarts.de/looptools/LoopTools-2.14.tar.gz || fail_exit "Failed to get LoopTools tar ball "
+  fi
+  tar xvf LoopTools-2.14.tar.gz
+  cd LoopTools-2.14
+  ./configure --prefix=`pwd`/..
+  make install
+  cd ..
+  sed -i -e 's/^LT\=$.*/LT=$\(PWD\)/' Makefile
+  export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:${LD_LIBRARY_PATH}
+  mkdir obj-gfortran
+fi
+
 
 echo 'Compiling pwhg_main...'
 pwd
