@@ -29,11 +29,6 @@ Block mass
   9000009 8.000000e+02 # Mpi8 
   9000010 8.000000e+02 # Mx13 
   9000011 8.000000e+02 # Mx43 
-## Dependent parameters, given by model restrictions.
-## Those values should be edited following the 
-## analytical expression. MG5 ignores those values 
-## but they are important for interfacing the output of MG5
-## to external program such as Pythia.
   12 0.000000 # ve : 0.0 
   14 0.000000 # vm : 0.0 
   16 0.000000 # vt : 0.0 
@@ -91,11 +86,6 @@ DECAY 9000008 3.700000e-04 # Wpi3N
 DECAY 9000009 3.000000e-02 # Wpi8 
 DECAY 9000010 1.000000e+00 # Wx13 
 DECAY 9000011 5.000000e+00 # Wx43 
-## Dependent parameters, given by model restrictions.
-## Those values should be edited following the 
-## analytical expression. MG5 ignores those values 
-## but they are important for interfacing the output of MG5
-## to external program such as Pythia.
 DECAY  1 0.000000 # d : 0.0 
 DECAY  2 0.000000 # u : 0.0 
 DECAY  3 0.000000 # s : 0.0 

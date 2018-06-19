@@ -52,9 +52,6 @@
  $DEFAULT_PDF_SETS = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number
  $DEFAULT_PDF_MEMBERS  = reweight_PDF
  T = pdfwgt
- ! If pdlabel=lhapdf, this is the lhapdf number. Only 
- ! numbers for central PDF sets are allowed. Can be a list; 
- ! PDF sets beyond the first are included via reweighting.
 #*********************************************************************
 # Renormalization and factorization scales                           *
 #*********************************************************************
