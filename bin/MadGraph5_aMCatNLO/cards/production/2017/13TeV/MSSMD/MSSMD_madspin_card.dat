@@ -1,0 +1,22 @@
+#************************************************************
+#*                        MadSpin                           *
+#*                                                          *
+#*    P. Artoisenet, R. Frederix, R. Rietkerk, O. Mattelaer * 
+#*                                                          *
+#*    Part of the MadGraph5_aMC@NLO Framework:              *
+#*    The MadGraph5_aMC@NLO Development Team - Find us at   *
+#*    https://server06.fynu.ucl.ac.be/projects/madgraph     *
+#*                                                          *
+#*    Manual:                                               *
+#*    cp3.irmp.ucl.ac.be/projects/madgraph/wiki/MadSpin     *
+#*                                                          *
+#************************************************************
+#directory for gridpack mode
+set ms_dir ./madspingrid
+set spinmode none
+# param_card.dat directory relative to work directory
+import model MSSMD_UFO ../mgbasedir/models/MSSMD_UFO/param_card.dat --bypass_check
+# specify the decay for the final state particles
+decay h > n1 n1, (n1 > ad nD, ad > mu+ mu-)
+# running the actual code
+launch
