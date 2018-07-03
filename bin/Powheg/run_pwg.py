@@ -533,9 +533,9 @@ fi
 echo "ANALYSIS=none " >> tmpfile
 
 # Add libraries now
-NEWRPATH1=`ls /cvmfs/cms.cern.ch/${SCRAM_ARCH}/external/gcc/*/* | head -n 1 | grep "/lib64"`
+NEWRPATH1=`ls /cvmfs/cms.cern.ch/${SCRAM_ARCH}/external/gcc/*/* | grep "/lib64" | head -n 1`
 NEWRPATH1=${NEWRPATH1%?}
-NEWRPATH2=`ls /cvmfs/cms.cern.ch/${SCRAM_ARCH}/external/zlib-x86_64/*/* | head -n 1 | grep "/lib"`
+NEWRPATH2=`ls /cvmfs/cms.cern.ch/${SCRAM_ARCH}/external/zlib-x86_64/*/* | grep "/lib" | head -n 1`
 NEWRPATH2=${NEWRPATH2%?}
 echo "RPATHLIBS= -Wl,-rpath,${NEWRPATH1} -L${NEWRPATH1} -lgfortran -lstdc++ -Wl,-rpath,${NEWRPATH2} -L${NEWRPATH2} -lz" >> tmpfile
 
