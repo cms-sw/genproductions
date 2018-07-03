@@ -1,5 +1,5 @@
 diff --git a/Template/LO/SubProcesses/refine.sh b/Template/LO/SubProcesses/refine.sh
-index b1a7314..7cd7a75 100644
+index 8276a2c..83854c8 100644
 --- a/Template/LO/SubProcesses/refine.sh
 +++ b/Template/LO/SubProcesses/refine.sh
 @@ -12,6 +12,10 @@ if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRT" ]; then
@@ -26,13 +26,15 @@ index b1a7314..7cd7a75 100644
       fi     
       if [[ -e ftn26 ]]; then
           cp ftn26 ftn25
-@@ -105,3 +113,4 @@ j=%(directory)s
+@@ -105,3 +113,6 @@ j=%(directory)s
  
       cd ../
  
-+exit $status_code
++if [[ $status_code -ne 0 ]]; then
++    exit $status_code
++fi
 diff --git a/Template/LO/SubProcesses/refine_splitted.sh b/Template/LO/SubProcesses/refine_splitted.sh
-index abc4b99..bd1b78c 100644
+index abc4b99..07aaeb6 100644
 --- a/Template/LO/SubProcesses/refine_splitted.sh
 +++ b/Template/LO/SubProcesses/refine_splitted.sh
 @@ -12,6 +12,10 @@ if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRT" ]; then
@@ -46,7 +48,7 @@ index abc4b99..bd1b78c 100644
  if [[ -e MadLoop5_resources.tar.gz && ! -e MadLoop5_resources ]]; then
  tar -xzf MadLoop5_resources.tar.gz
  fi
-@@ -81,7 +85,12 @@ fi
+@@ -81,7 +85,15 @@ fi
  if [[ $status_code -ne 0 ]]; then 
  	 rm results.dat
  	 echo "ERROR DETECTED"
@@ -59,7 +61,10 @@ index abc4b99..bd1b78c 100644
  fi
  
  cd ../
-+exit $status_code
++
++if [[ $status_code -ne 0 ]]; then 
++    exit $status_code
++fi
 diff --git a/Template/LO/SubProcesses/survey.sh b/Template/LO/SubProcesses/survey.sh
 index 5f121e8..ebe9369 100755
 --- a/Template/LO/SubProcesses/survey.sh
@@ -98,7 +103,7 @@ index 5f121e8..ebe9369 100755
 -
 -
 diff --git a/Template/NLO/SubProcesses/ajob_template b/Template/NLO/SubProcesses/ajob_template
-index ff308ff..8a3389c 100755
+index ff308ff..a28479b 100755
 --- a/Template/NLO/SubProcesses/ajob_template
 +++ b/Template/NLO/SubProcesses/ajob_template
 @@ -19,6 +19,10 @@ if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRT" ]; then
@@ -116,8 +121,8 @@ index ff308ff..8a3389c 100755
          ../madevent_mintMC > log.txt <input_app.txt 2>&1
      fi
      status=$?
-+    if [[ $status_code -ne 0 ]]; then
-+      echo "Error: Status code $status_code" >> log.txt
++    if [[ $status -ne 0 ]]; then
++      echo "Error: Status code $status" >> log.txt
 +      echo "+ Hostname:" >> log.txt
 +      hostname >> log.txt
 +      echo "+ Printing environment" >> log.txt
