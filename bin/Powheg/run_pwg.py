@@ -422,7 +422,7 @@ mkdir -p include
 # Use dynamic linking and lhapdf
 sed -i -e "s#STATIC[ \t]*=[ \t]*-static#STATIC=-dynamic#g" Makefile
 sed -i -e "s#PDF[ \t]*=[ \t]*native#PDF=lhapdf#g" Makefile
-sed -i -e "s# -lstdc++# \$(RPATHLIBS)#g" Makefile
+sed -i -e "s# -lLHAPDF# -lLHAPDF \$(RPATHLIBS)#g" Makefile
 
 # Use gfortran, not other compilers which are not free/licensed
 sed -i -e "s#COMPILER[ \t]*=[ \t]*ifort#COMPILER=gfortran#g" Makefile
