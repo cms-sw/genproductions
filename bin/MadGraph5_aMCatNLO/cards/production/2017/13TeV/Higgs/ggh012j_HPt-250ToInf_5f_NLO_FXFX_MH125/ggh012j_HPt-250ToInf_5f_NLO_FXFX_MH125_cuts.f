@@ -399,7 +399,6 @@ C apply the pT cut (Higgs bosonn pT should be large than 250 GeV for the event t
 C pass cuts)
             if ( p(1,i)**2+p(2,i)**2 .le. 250d0**2 ) then
 C momenta do not pass cuts. Set passcuts_user to false and return
-codegen_wplustest_4f_NLO.jdl
                passcuts_user=.false.
                return
             endif
