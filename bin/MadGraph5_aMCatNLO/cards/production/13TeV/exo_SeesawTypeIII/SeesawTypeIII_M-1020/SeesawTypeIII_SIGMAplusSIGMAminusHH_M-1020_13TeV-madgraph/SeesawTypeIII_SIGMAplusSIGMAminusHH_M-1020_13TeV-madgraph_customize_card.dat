@@ -1,4 +1,0 @@
-set param_card mass 8000018 1.020000e+03 # Mtr0
-set param_card mass 8000020 1.020000e+03 # Mtrch
-set param_card decay 8000018 4.147251e-09 # Wtr0 
-set param_card decay 8000020 4.147254e-09 # Wtrch 

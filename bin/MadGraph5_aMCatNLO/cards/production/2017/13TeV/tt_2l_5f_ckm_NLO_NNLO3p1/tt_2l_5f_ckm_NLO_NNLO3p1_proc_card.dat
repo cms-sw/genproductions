@@ -1,0 +1,9 @@
+import model loop_sm-ckm_no_b_mass
+
+define p = p b b~
+define j = j b b~
+
+generate p p > t t~ [QCD] @0
+
+output tt_2l_5f_ckm_NLO_NNLO3p1 -nojpeg
+

@@ -1,9 +1,0 @@
-# Note: v1.1 of the model is required
-import model HC_NLO_X0_UFO-heft_muelmass
-
-define p = p b b~
-define j = j b b~
-
-generate p p > x0 > e+ e- a
-
-output ggH130_ElElGamma_LO -nojpeg

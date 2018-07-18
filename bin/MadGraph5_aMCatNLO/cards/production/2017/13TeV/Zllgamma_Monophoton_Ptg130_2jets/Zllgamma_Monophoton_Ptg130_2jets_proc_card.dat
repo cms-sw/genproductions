@@ -1,0 +1,11 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set loop_optimized_output True
+set complex_mass_scheme False
+import model sm-ckm_no_b_mass
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
+generate p p > l+ l- a / h @1
+add process p p > l+ l- a j / h @2
+add process p p > l+ l- a j j / h @3
+output Zllgamma_Monophoton_Ptg130_2jets

@@ -1,6 +1,0 @@
-set auto_update 0
-set automatic_html_opening False
-set output_dependencies internal
-set lhapdf /cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/lhapdf6/6.1.5-cms/bin/lhapdf-config
-set run_mode  2
-save options

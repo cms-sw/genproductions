@@ -38,7 +38,8 @@ def prepareJob(tag, i, folderName) :
     filename = folderName+'/run_' + tag + '.sh'
     f = open(filename, 'w')
 
-    f.write('#!/bin/bash \n\n')
+    f.write('#!/bin/bash \n')
+    f.write('fail_exit() { echo "$@" 1>&2; exit 1; } \n\n')
 
     f.write('echo "Start of job on " `date`\n\n')
 
@@ -78,6 +79,7 @@ def prepareJob(tag, i, folderName) :
     f.write ('if [ -e '+ rootfolder + '/' + folderName + '/obj-gfortran/proclib ]; then    \n')
     f.write ('  mkdir ./obj-gfortran/' + '\n')
     f.write ('  cp -pr ' + rootfolder + '/' + folderName + '/obj-gfortran/proclib  ./obj-gfortran/' + '\n')
+    f.write ('  cp -pr ' + rootfolder + '/' + folderName + '/obj-gfortran/*.so  ./obj-gfortran/' + '\n')
     f.write ('fi    \n')
 
     f.write('\n')
@@ -96,12 +98,11 @@ def prepareJobForEvents (tag, i, folderName, EOSfolder) :
     prepareJob(tag, i, folderName)
 
     f = open (filename, 'a')
-    f.write ('cp -p ' + rootfolder + '/' + folderName + '/powheg.input ./' + '\n')
-    f.write ('cp -p ' + rootfolder + '/' + folderName + '/JHUGen.input ./' + '\n')
     f.write ('cp -p ' + rootfolder + '/' + folderName + '/*.dat  ./' + '\n')
     f.write ('if [ -e '+ rootfolder + '/' + folderName + '/obj-gfortran/proclib ]; then    \n')
     f.write ('  mkdir ./obj-gfortran/' + '\n')
     f.write ('  cp -pr ' + rootfolder + '/' + folderName + '/obj-gfortran/proclib  ./obj-gfortran/' + '\n')
+    f.write ('  cp -pr ' + rootfolder + '/' + folderName + '/obj-gfortran/*.so  ./obj-gfortran/' + '\n')
     f.write ('fi    \n')
 
     f.write ('cd -' + '\n')
@@ -166,9 +167,9 @@ def runParallelXgrid(parstage, xgrid, folderName, nEvents, njobs, powInputName, 
         f = open(filename, 'a')
         #f.write('cd '+rootfolder+'/'+folderName+'/ \n')
         f.write('echo ' + str (i) + ' | ./pwhg_main &> run_' + jobID + '.log ' + '\n')
-        f.write('cp -p *.log ' + rootfolder + '/' + folderName + '/. \n')  
-        f.write('cp -p *.top ' + rootfolder + '/' + folderName + '/. \n')  
-        f.write('cp -p *.dat ' + rootfolder + '/' + folderName + '/. \n')  
+        f.write('cp -p *.top ' + rootfolder + '/' + folderName + '/. \n')
+        f.write('cp -p *.dat ' + rootfolder + '/' + folderName + '/. \n')
+        f.write('cp -p *.log ' + rootfolder + '/' + folderName + '/. \n')
 
         f.close()
 
@@ -218,12 +219,6 @@ def runSingleXgrid(parstage, xgrid, folderName, nEvents, powInputName, seed, pro
 
     f.write('sed -i "s/NEVENTS/'+nEvents+'/ ; s/SEED/'+seed+'/" powheg.input\n\n')
 
-    if process == 'W' :
-        if os.path.exists(powInputName) :
-            f.write('cp -p '+'/'.join(powInputName.split('/')[0:-1])+'/cteq6m . \n')   
-        else :
-            f.write('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+'/'.join(powInputName.split('/')[0:-1])+'/cteq6m \n')
-
     if process == 'gg_H_MSSM' :
         if os.path.exists(powInputName) :
             f.write('cp -p '+'/'.join(powInputName.split('/')[0:-1])+'/powheg-fh.in . \n')
@@ -271,7 +266,7 @@ def runSingleXgrid(parstage, xgrid, folderName, nEvents, powInputName, seed, pro
     #runCommand ('bsub -J ' + jobID + ' -u pippopluto -q ' + QUEUE + ' < ' + jobname, 1, TESTING == 0)
 
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-def runGetSource(parstage, xgrid, folderName, powInputName, process, tagName) :
+def runGetSource(parstage, xgrid, folderName, powInputName, process, noPdfCheck, tagName) :
     # parstage, xgrid are strings!
 
     print 'Getting and compiling POWHEG source...'
@@ -285,12 +280,13 @@ def runGetSource(parstage, xgrid, folderName, powInputName, process, tagName) :
 #    f.write('export process='+rootfolder+'\n\n')
     f.write('export cardInput='+powInputName+'\n\n')
     f.write('export process='+process+'\n\n')
+    f.write('export noPdfCheck='+noPdfCheck+'\n\n')
     f.write('export WORKDIR='+os.getcwd()+'\n\n')
     f.write(
 '''
 # Release to be used to define the environment and the compiler needed
 export RELEASE=${CMSSW_VERSION}
-export jhugenversion="v7.0.2"
+export jhugenversion="v7.1.4"
 
 cd $WORKDIR
 pwd
@@ -308,17 +304,39 @@ pwd
 #  mv ${tarball}_tarball.tar.gz old_${tarball}_tarball.tar.gz
 #fi
 
+
 mkdir -p ${name} ; 
 
 cd ${name}
 export PATH=`pwd`:${PATH}
 
 ## Get the input card
-#wget --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/${cardinput} -O powheg.input  || cp -p ${cardinput} powheg.input || fail_exit "Failed to get powheg input card " ${card}
+#wget --no-verbose --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/${cardinput} -O powheg.input  || cp -p ${cardinput} powheg.input || fail_exit "Failed to get powheg input card " ${card}
 
 if [ -s ../${cardInput} ]; then
   cp -p ../${cardInput} powheg.input
 fi
+
+# 5F
+is5FlavorScheme=1
+defaultPDF=306000
+
+
+if [[ "$process" == "ST_tch_4f" ]] || [[ "$process" == "bbH" ]] || [[ "$process" == "Wbb_dec" ]] || [[ "$process" == "Wbbj" ]]; then
+    # 4F
+    is5FlavorScheme=0
+    defaultPDF=320900
+fi
+
+if [[ $is5FlavorScheme -eq 1 ]]; then
+  echo "INFO: The process $process uses the 5F PDF scheme"
+else
+  echo "INFO: The process $process uses the 4F PDF scheme"
+fi
+
+cd $WORKDIR
+python make_rwl.py ${is5FlavorScheme} ${defaultPDF}
+cd ${name}
 
 if [ -s ../JHUGen.input ]; then
   cp -p ../JHUGen.input JHUGen.input
@@ -331,30 +349,31 @@ card=${myDir}/powheg.input
 cardj=${myDir}/JHUGen.input
 
 ## Try to get the JHUGen card
-#wget --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/${usejhugen} -O JHUGen.input || cp -p ${usejhugen} JHUGen.input
+#wget --no-verbose --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/${usejhugen} -O JHUGen.input || cp -p ${usejhugen} JHUGen.input
 
 jhugen=0
 if [[ -s ./JHUGen.input ]]; then
   jhugen=$(expr $jhugen + 1)
   echo "JHUGen activated!"
   #for decay weights in H->WW and H->ZZ
-  wget https://github.com/hroskes/genproductions/raw/master/bin/JHUGen/Pdecay/PMWWdistribution.out 
-  wget https://github.com/hroskes/genproductions/raw/master/bin/JHUGen/Pdecay/PMZZdistribution.out 
+  wget --no-verbose https://github.com/cms-sw/genproductions/raw/7261679b0fd6464b80479c075b10f9ba1932ab9a/bin/JHUGen/Pdecay/PMWWdistribution.out 
+  wget --no-verbose https://github.com/cms-sw/genproductions/raw/7261679b0fd6464b80479c075b10f9ba1932ab9a/bin/JHUGen/Pdecay/PMZZdistribution.out 
 
 fi
 
 ### retrieve the powheg source tar ball
-export POWHEGSRC=powhegboxV2_Sep2016.tar.gz 
+export POWHEGSRC=powhegboxV2_rev3511_date20180410.tar.gz
 
-if [ "$process" = "b_bbar_4l" ]; then 
-  export POWHEGSRC=powhegboxRES_Aug2016.tar.gz
+if [ "$process" = "b_bbar_4l" ] || [ "$process" = "HWJ_ew" ] || [ "$process" = "HW_ew" ] || [ "$process" = "HZJ_ew" ] || [ "$process" = "HZ_ew" ]; then 
+  export POWHEGSRC=powhegboxRES_rev3478_date20180122.tar.gz 
 fi
 
 echo 'D/L POWHEG source...'
 
 if [ ! -f ${POWHEGSRC} ]; then
-  wget --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/slc6_amd64_gcc481/powheg/V2.0/src/${POWHEGSRC} || fail_exit "Failed to get powheg tar ball "
+  wget --no-verbose --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/slc6_amd64_gcc481/powheg/V2.0/src/${POWHEGSRC} || fail_exit "Failed to get powheg tar ball "
 fi
+#cp -p ../${POWHEGSRC} .
 
 tar zxf ${POWHEGSRC}
 #
@@ -369,12 +388,29 @@ fi
 
 patch -l -p0 -i ${WORKDIR}/patches/pdfweights.patch
 patch -l -p0 -i ${WORKDIR}/patches/pwhg_lhepdf.patch
+
+if [ "$process" = "WZ" ] || [ "$process" = "ZZ" ]; then
+   patch -l -p0 -i ${WORKDIR}/patches/lhapdf_zanderighi.patch
+fi
+
 if [ "$process" = "b_bbar_4l" ]; then
     cd POWHEG-BOX
     patch -l -p0 -i ${WORKDIR}/patches/res_openloops_long_install_dir.patch
-    patch -l -p0 -i ${WORKDIR}/patches/res_gfortran48.patch
     cd ..
 fi
+if [ "$process" = "ttb_NLO_dec" ]; then
+    patch -l -p0 -i ${WORKDIR}/patches/pwhg_ttb_NLO_dec_gen_radiation_hook.patch
+fi
+if [ "$process" = "ZZ" ]; then
+    patch -l -p0 -i ${WORKDIR}/patches/zz_m4lcut.patch
+fi
+
+
+sed -i -e "s#500#1200#g"  POWHEG-BOX/include/pwhg_rwl.h
+
+#if [ "$process" = "HJ" ]; then 
+#   sed -i -e "s#maxmulti=10#maxmulti=500#g" POWHEG-BOX/include/pwhg_bookhist-multi.h
+#fi
 
 echo ${POWHEGSRC} > VERSION
 
@@ -390,6 +426,10 @@ sed -i -e "s#PDF[ \t]*=[ \t]*native#PDF=lhapdf#g" Makefile
 # Use gfortran, not other compilers which are not free/licensed
 sed -i -e "s#COMPILER[ \t]*=[ \t]*ifort#COMPILER=gfortran#g" Makefile
 
+# Remove strange options in fortran (fixed line length, multiCPU compilation)
+sed -i -e "s#132#none#g" Makefile
+sed -i -e "s#make -j FC#make FC#g" Makefile
+
 # hardcode svn info
 sed -i -e 's#^pwhg_main:#$(shell ../svnversion/svnversion.sh>/dev/null) \
 \
@@ -398,15 +438,30 @@ pwhg_main:#g' Makefile
 echo "pwhg_main.o: svn.version" >> Makefile
 echo "lhefwrite.o: svn.version" >> Makefile
 
-# Find proper histo booking routine (two of them exist)
+# Find proper histo booking routine (many of them exist)
 BOOK_HISTO="pwhg_bookhist-multi.o"
 if [ `echo ${POWHEGSRC} | cut -d "_" -f 1` = "powhegboxV1" ]; then
    BOOK_HISTO="pwhg_bookhist.o"
 fi 
+
+if [ "$process" = "gg_H" ] || [ "$process" = "ggHH" ]; then
+   BOOK_HISTO=""
+   echo "Process using pwhg_bookhist-multi-new"
+fi
+
+if [ "$process" = "ggHH" ]; then
+   sed -i -e "/PYTHIA8LOCATION/s|^|#|g" Makefile
+   sed -i -e "/LIBPYTHIA8/s|^|#|g" Makefile
+   sed -i -e "s|LIBHEPMC=|# LIBHEPMC=|g" Makefile
+   sed -i -e "/main-PYTHIA8-lhef:/s|^|#|g" Makefile
+   sed -i -e "s|LIBS+=-L:\\\$|LIBS+=-L\\\$|g" Makefile
+fi
+
 if [ "$process" = "trijet" ]; then 
    BOOK_HISTO+=" observables.o"
    rm -rf ../progress/bbinit.f
 fi  
+
 if [ "$process" = "VBF_HJJJ" ]; then 
   sed -i 's/..\/pwhg_book.h/pwhg_book.h/g' pwhg_analysis-dummy.f
 fi  
@@ -420,9 +475,12 @@ fi
 if [ "$process" = "Wgamma" ] || [ "$process" = "W_ew-BMNNP" ]; then
     patch -l -p0 -i ${WORKDIR}/patches/pwhg_analysis_driver.patch 
 fi
-if [ "$process" = "ttb_NLO_dec" ]; then
-    patch -l -p0 -i ${WORKDIR}/patches/pwhg_analysis_driver_offshellmap.patch
+if [ "$process" = "HW_ew" ]; then
+    patch -l -p0 -i ${WORKDIR}/patches/hwew.patch 
 fi
+#if [ "$process" = "ttb_NLO_dec" ]; then
+#    patch -l -p0 -i ${WORKDIR}/patches/pwhg_analysis_driver_offshellmap.patch
+#fi
 
 # Remove ANY kind of analysis with parton shower
 if [ `grep particle_identif pwhg_analysis-dummy.f` = ""]; then
@@ -434,23 +492,49 @@ sed -i -e "s#LHAPDF_CONFIG[ \t]*=[ \t]*#\#LHAPDF_CONFIG=#g" Makefile
 sed -i -e "s#pwhg_bookhist.o# #g" Makefile
 sed -i -e "s#pwhg_bookhist-new.o# #g" Makefile
 sed -i -e "s#pwhg_bookhist-multi.o# #g" Makefile
+
+# Use option O0 for bbH (O2 too long)
+if [ "$process" = "bbH" ]; then
+   sed -i -e "s#O2#O0#g" Makefile
+fi
+
+# fix fortran options/linking to OpenLoops/missing libraries in VH_ew
+if [ "$process" = "HW_ew" ] || [ "$process" = "HZ_ew" ] || [ "$process" = "HZJ_ew" ] || [ "$process" = "HWJ_ew" ] ; then
+   sed -i -e "s#OL_process_src#OL_process_src f90_flags=-ffree-line-length-none#g" Makefile
+   sed -i -e "s#\$(PWD)/\$(OBJ)#\$(OBJ)#g" Makefile
+   sed -i -e "s#\$(OLPATH)/lib_src#lib_src#g" Makefile
+   sed -i -e "s#cd \$(OLPATH)#cp -r \$(OLPATH)/* .#g" Makefile
+   sed -i -e "s#abspath(os.path.join(config#relpath(os.path.join(config#g" ../OpenLoopsStuff/OpenLoops/SConstruct
+   sed -i -e "s#rpath=\$(PWD)/\$(OBJDIR) -L\$(PWD)/\$(OBJDIR)#rpath=\$(OBJDIR) -L\$(OBJDIR)#g" Makefile
+fi
+if [ "$process" = "HWJ_ew" ] || [ "$process" = "HZJ_ew" ] ; then
+   sed -i -e "s#boostrot.o#boostrot.o boostrot4.o#g" Makefile
+fi
+
+# 
 if [ "$process" = "ttJ" ]; then
   sed -i -e "s#_PATH) -L#_PATH) #g" Makefile
   sed -i -e "s# -lvirtual#/libvirtual.so.1.0.0#g" Makefile
 fi
+
+# Use option O0 for ttH (O2 too long)
 if [ "$process" = "ttH" ]; then
   sed -i 's/O2/O0/g' Makefile
   sed -i 's/4.5d0/4.75d0/g' init_couplings.f
 fi
+
 if [ "$process" = "gg_H_MSSM" ]; then 
   sed -i 's/leq/le/g' nloreal.F
   cp -p ../gg_H_quark-mass-effects/SLHA.h .
   cp -p ../gg_H_quark-mass-effects/SLHADefs.h .
-fi  
+fi
   
 echo "ANALYSIS=none " >> tmpfile
+
 if [ "$process" = "Wgamma" ]; then
   echo "PWHGANAL=$BOOK_HISTO pwhg_analysis-dummy.o uti.o " >> tmpfile
+#elif [ "$process" = "HW_ew" ] || [ "$process" = "HWJ_ew" ]; then 
+#  echo "PWHGANAL=$BOOK_HISTO pwhg_analysis-HWnJ_res.o pwhg_analysis_paper-HWnJ_res.o observables.o multi_plot.o " >> tmpfile
 else
   echo "PWHGANAL=$BOOK_HISTO pwhg_analysis-dummy.o " >> tmpfile
 fi
@@ -461,14 +545,17 @@ rm -f Makefile.interm tmpfile
 
 # Add libraries
 echo "LIBS+=-lz -lstdc++" >> Makefile
+
+# Add extra packages
 if [ $jhugen = 1 ]; then
   if [ ! -f JHUGenerator.${jhugenversion}.tar.gz ]; then
-    wget --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/slc6_amd64_gcc481/JHUGenerator.${jhugenversion}.tar.gz || fail_exit "Failed to get JHUGen tar ball "
+    wget --no-verbose --no-check-certificate http://spin.pha.jhu.edu/Generator/JHUGenerator.${jhugenversion}.tar.gz || fail_exit "Failed to get JHUGen tar ball "
   fi
 
   tar zxf JHUGenerator.${jhugenversion}.tar.gz
   cd JHUGenerator
   sed -i -e "s#Comp = ifort#Comp = gfort#g" makefile
+  sed -i -e "s#linkMELA = Yes#linkMELA = No#g" makefile
   make
 
   mkdir -p ${WORKDIR}/${name}
@@ -481,7 +568,7 @@ fi
 if [ "$process" = "gg_H_2HDM" ] || [ "$process" = "gg_H_MSSM" ]; then
   echo "Adding CHAPLIN 1.2 library"
   if [ ! -f chaplin-1.2.tar ]; then
-    wget http://chaplin.hepforge.org/code/chaplin-1.2.tar || fail_exit "Failed to get CHAPLIN tar ball "
+    wget --no-verbose http://chaplin.hepforge.org/code/chaplin-1.2.tar || fail_exit "Failed to get CHAPLIN tar ball "
   fi
   tar xvf chaplin-1.2.tar
   cd chaplin-1.2
@@ -494,7 +581,7 @@ if [ "$process" = "gg_H_2HDM" ] || [ "$process" = "gg_H_MSSM" ]; then
   if [ "$process" = "gg_H_MSSM" ]; then
     echo "Adding FeynHiggs 2.10 library"
     if [ ! -f FeynHiggs-2.10.2.tar.gz ]; then
-      wget http://wwwth.mpp.mpg.de/members/heinemey/feynhiggs/newversion/FeynHiggs-2.10.2.tar.gz || fail_exit "Failed to get FeynHiggs tar ball "
+      wget --no-verbose http://wwwth.mpp.mpg.de/members/heinemey/feynhiggs/newversion/FeynHiggs-2.10.2.tar.gz || fail_exit "Failed to get FeynHiggs tar ball "
     fi
     tar xvf FeynHiggs-2.10.2.tar.gz
     cd FeynHiggs-2.10.2
@@ -503,7 +590,22 @@ if [ "$process" = "gg_H_2HDM" ] || [ "$process" = "gg_H_MSSM" ]; then
     make install
     cd ..
   fi
-fi  
+fi
+if [ "$process" = "directphoton" ]; then
+  echo "Adding LoopTools 2.14 library"
+  if [ ! -f LoopTools-2.14.tar.gz ]; then
+    wget --no-verbose http://www.feynarts.de/looptools/LoopTools-2.14.tar.gz || fail_exit "Failed to get LoopTools tar ball "
+  fi
+  tar xvf LoopTools-2.14.tar.gz
+  cd LoopTools-2.14
+  ./configure --prefix=`pwd`/..
+  make install
+  cd ..
+  sed -i -e 's/^LT\=$.*/LT=$\(PWD\)/' Makefile
+  export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:${LD_LIBRARY_PATH}
+  mkdir obj-gfortran
+fi
+
 
 echo 'Compiling pwhg_main...'
 pwd
@@ -512,6 +614,19 @@ if [ "$process" = "HJ" ]; then
   # avoid accessing member 1 for q2min determination. Use member 0, as member 1 may not be available
   sed -i "s/getq2min(1,tmp)/getq2min(0,tmp)/g" setlocalscales.f
 fi  
+
+if [ "$process" = "ST_wtch_DR" ] || [ "$process" = "ST_wtch_DS" ]; then   
+  echo "D/L QCDLoop-1.9 library"                            
+  if [ ! -f FeynHiggs-2.10.2.tar.gz ]; then                 
+    wget --no-verbose http://qcdloop.fnal.gov/QCDLoop-1.96.tar.gz || fail_exit "Failed to get QCDLoop tar ball"
+  fi                                                        
+  tar xvf QCDLoop-1.96.tar.gz                               
+  mv QCDLoop-1.96 QCDLoop-1.9
+  sed -i -e 's#/Users/ellis/QCDLoop#./QCDLoop#' ff/ffinit_mine.f                
+  cd QCDLoop-1.9                                            
+  make                                                      
+  cd ..                                                     
+fi                                                          
 
 
 make pwhg_main || fail_exit "Failed to compile pwhg_main"
@@ -528,17 +643,26 @@ fi
 if [ -d ./obj-gfortran/proclib ]; then
   mkdir ${WORKDIR}/${name}/obj-gfortran/
   cp -a ./obj-gfortran/proclib ${WORKDIR}/${name}/obj-gfortran/.
+  cp -a ./obj-gfortran/*.so ${WORKDIR}/${name}/obj-gfortran/.
+fi
+if [ -d ./QCDLoop-1.9 ]; then                                 
+  cp -a ./QCDLoop-1.9 ${WORKDIR}/${name}/.                    
+  cp -a ./QCDLoop-1.9/ff/ff*.dat ${WORKDIR}/${name}/.      
 fi
 
 cd ${WORKDIR}/${name}
 
 if [ "$process" = "HJ" ]; then
   echo "Compilinig HNNLO...."
-  wget http://theory.fi.infn.it/grazzini/codes/hnnlo-v2.0.tgz
+  wget --no-verbose http://theory.fi.infn.it/grazzini/codes/hnnlo-v2.0.tgz
   tar -xzvf hnnlo-v2.0.tgz
   cd hnnlo-v2.0
   cp ../POWHEG-BOX/HJ/NNLOPS-mass-effects/HNNLO-makefile ./makefile 
   cp -r ../POWHEG-BOX/HJ/NNLOPS-mass-effects/HNNLO-patches ./
+  cd src/Need/
+  cat pdfset_lhapdf.f | sed -e "s#30#40#g" | sed -e "s#20#30#g" | sed -e "s#oldPDFname(1:i-1)//'.LHgrid'#oldPDFname(1:i-1)#g" | sed -e "s#oldPDFname(1:i-1)//'.LHpdf'#oldPDFname(1:i-1)#g" | sed -e "s#InitPDFset('PDFsets/'//PDFname)#InitPDFsetByName(PDFname)#g" > pdfset_lhapdf.f.new
+  mv pdfset_lhapdf.f.new pdfset_lhapdf.f  
+  cd -
   cat makefile | sed -e "s#LHAPDFLIB=.\+#LHAPDFLIB=$(scram tool info lhapdf | grep LIBDIR | cut -d "=" -f2)#g" > makefile
   make || fail_exit "Failed to compile HNNLO"
   cp -p bin/hnnlo ${WORKDIR}/${name}/
@@ -550,9 +674,9 @@ if [ "$process" = "HJ" ]; then
   cd ${WORKDIR}/${name}/POWHEG-BOX/HJ
  
   cp Makefile Makefile.orig
-  cat Makefile.orig | sed -e "s#ANALYSIS=.\+#ANALYSIS=NNLOPS#g" |sed -e "s#\$(shell \$(LHAPDF_CONFIG) --libdir)#$(scram tool info lhapdf | grep LIBDIR | cut -d "=" -f2)#g" | sed -e "s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d "=" -f2)/bin/fastjet-config#g" | sed -e "s#NNLOPSREWEIGHTER+=  fastjetfortran.o#NNLOPSREWEIGHTER+=  fastjetfortran.o pwhg_bookhist-multi.o#g" > Makefile
-  make nnlopsreweighter || fail_exit "Failed to compile nnlopsreweighter"
-  cp nnlopsreweighter ../../
+  cat Makefile.orig | sed -e "s#ANALYSIS=.\+#ANALYSIS=NNLOPS#g" |sed -e "s#\$(shell \$(LHAPDF_CONFIG) --libdir)#$(scram tool info lhapdf | grep LIBDIR | cut -d "=" -f2)#g" | sed -e "s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d "=" -f2)/bin/fastjet-config#g" | sed -e "s#NNLOPSREWEIGHTER+=  fastjetfortran.o#NNLOPSREWEIGHTER+=  fastjetfortran.o pwhg_bookhist-multi.o#g" | sed -e "s#NNLOPSREWEIGHTERNRW+=  fastjetfortran.o#NNLOPSREWEIGHTERNRW+=  fastjetfortran.o pwhg_bookhist-multi.o#g" > Makefile
+  make nnlopsreweighter-newrwgt || fail_exit "Failed to compile nnlopsreweighter"
+  cp nnlopsreweighter-newrwgt ../../
   cd ${WORKDIR}/${name}
   HMASS=`cat powheg.input | grep "^hmass" | cut -d " " -f2`;
   BEAM=`cat powheg.input | grep "^ebeam1" | cut -d " " -f2 | tr "d" "."`;
@@ -564,6 +688,7 @@ if [ "$process" = "HJ" ]; then
 # a line beginning with 'lhfile' followed by the name of the event file
 
 lhfile pwgevents.lhe 
+rwl_format_rwgt
 
 # weights present in the lhfile: 'mtinf', 'mt', 'mtmb', 'mtmb-bminlo'
 
@@ -678,6 +803,9 @@ else
   sed -e 's/PROCESS/'${process}'/g' ${WORKDIR}/runcmsgrid_powheg.sh > runcmsgrid.sh
 fi
 
+sed -i s/SCRAM_ARCH_VERSION_REPLACE/${SCRAM_ARCH}/g runcmsgrid.sh
+sed -i s/CMSSW_VERSION_REPLACE/${CMSSW_VERSION}/g runcmsgrid.sh
+
 chmod 755 runcmsgrid.sh
 
 ''')
@@ -785,17 +913,37 @@ grep -q "SEED" powheg.input; test $? -eq 0 || sed -i "s/^iseed.*/iseed SEED/g" p
 grep -q "manyseeds" powheg.input; test $? -eq 0 || printf "\\n\\nmanyseeds 1\\n" >> powheg.input
 grep -q "parallelstage" powheg.input; test $? -eq 0 || printf "\\nparallelstage 4\\n" >> powheg.input
 grep -q "xgriditeration" powheg.input; test $? -eq 0 || printf "\\nxgriditeration 1\\n" >> powheg.input
-
+  
 # turn into single run mode
 sed -i "s/^manyseeds.*/#manyseeds 1/g" powheg.input
 sed -i "s/^parallelstage.*/#parallelstage 4/g" powheg.input
 sed -i "s/^xgriditeration/#xgriditeration 1/g" powheg.input
 
+# turn off obsolete stuff
+grep -q "pdfreweight" powheg.input; test $? -eq 0 || printf "\\n\\npdfreweight 0\\n" >> powheg.input
+grep -q "storeinfo_rwgt" powheg.input; test $? -eq 0 || printf "\\nstoreinfo_rwgt 0\\n" >> powheg.input
+grep -q "withnegweights" powheg.input; test $? -eq 0 || printf "\\nwithnegweights 1\\n" >> powheg.input
+  
+sed -i "s/^pdfreweight.*/#pdfreweight 0/g" powheg.input
+sed -i "s/^storeinfo_rwgt.*/#storeinfo_rwgt 0/g" powheg.input
+sed -i "s/^withnegweights/#withnegweights 1/g" powheg.input
+
+# parallel re-weighting calculation
+if [ "$process" = "HW_ew" ] || [ "$process" = "HZ_ew" ] || [ "$process" = "HZJ_ew" ] || [ "$process" = "HWJ_ew" ] ; then
+   echo "# no reweighting in first runx" >> powheg.input
+else 
+   echo "rwl_group_events 2000" >> powheg.input
+   echo "lhapdf6maxsets 50" >> powheg.input
+   echo "rwl_file 'pwg-rwl.dat'" >> powheg.input
+   echo "rwl_format_rwgt 1" >> powheg.input
+fi
+cp -p $WORKDIR/pwg-rwl.dat pwg-rwl.dat
+
 if [ -e ${WORKDIR}/$folderName/cteq6m ]; then
     cp -p ${WORKDIR}/cteq6m .
 fi
 
-if [ -e ${WORKDIR}/$folderName/JHUGen.input ]; then
+if [ -s ${WORKDIR}/$folderName/JHUGen.input ]; then
     sed -e "s/PROCESS/${process}/g" ${WORKDIR}/runcmsgrid_powhegjhugen.sh > runcmsgrid.sh
 else
     sed -e "s/PROCESS/${process}/g" ${WORKDIR}/runcmsgrid_powheg.sh > runcmsgrid.sh
@@ -803,11 +951,16 @@ fi
 
 sed -i 's/pwggrid.dat ]]/pwggrid.dat ]] || [ -e ${WORKDIR}\/pwggrid-0001.dat ]/g' runcmsgrid.sh
 
-if [ "$process" = "HJ" ]; then
-  cat runcmsgrid.sh  | gawk '/produceWeightsNNLO/{gsub(/false/, \"true\")};{print}' > runcmsgrid_tmp.sh
-  mv runcmsgrid_tmp.sh runcmsgrid.sh
-fi  
+#if [ "$process" = "HJ" ]; then
+#  cat runcmsgrid.sh  | gawk '/produceWeightsNNLO/{gsub(/false/, \"true\")};{print}' > runcmsgrid_tmp.sh
+#  mv runcmsgrid_tmp.sh runcmsgrid.sh
+#fi  
 
+sed -i s/SCRAM_ARCH_VERSION_REPLACE/${SCRAM_ARCH}/g runcmsgrid.sh
+sed -i s/CMSSW_VERSION_REPLACE/${CMSSW_VERSION}/g runcmsgrid.sh
+
+sed -i s/SCRAM_ARCH_VERSION_REPLACE/${SCRAM_ARCH}/g runcmsgrid.sh
+sed -i s/CMSSW_VERSION_REPLACE/${CMSSW_VERSION}/g runcmsgrid.sh
 chmod 755 runcmsgrid.sh
 cp -p runcmsgrid.sh runcmsgrid_par.sh
 
@@ -837,11 +990,11 @@ fi
 
 if [ $keepTop == '1' ]; then
     echo 'Keeping validation plots.'
-    echo 'Packing...' ${WORKDIR}'/'${folderName}'_'${process}'.tgz'
-    tar zcf ${WORKDIR}'/'${folderName}'_'${process}'.tgz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.lhe --exclude=run_*.sh --exclude=*.log --exclude=*temp --exclude=pwgbtlupb-*.dat --exclude=pwgrmupb-*.dat
+    echo 'Packing...' ${WORKDIR}'/'${process}'_'${SCRAM_ARCH}'_'${CMSSW_VERSION}'_'${folderName}'.tgz'
+    tar zcf ${WORKDIR}'/'${process}'_'${SCRAM_ARCH}'_'${CMSSW_VERSION}'_'${folderName}'.tgz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.lhe --exclude=run_*.sh --exclude=*temp --exclude=pwgbtlupb-*.dat --exclude=pwgrmupb-*.dat
 else
-    echo 'Packing...' ${WORKDIR}'/'${folderName}'_'${process}'.tgz'
-    tar zcf ${WORKDIR}'/'${folderName}'_'${process}'.tgz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.top --exclude=*.lhe --exclude=run_*.sh --exclude=*.log --exclude=*temp --exclude=pwgbtlupb-*.dat --exclude=pwgrmupb-*.dat
+    echo 'Packing...' ${WORKDIR}'/'${process}'_'${SCRAM_ARCH}'_'${CMSSW_VERSION}'_'${folderName}'.tgz'
+    tar zcf ${WORKDIR}'/'${process}'_'${SCRAM_ARCH}'_'${CMSSW_VERSION}'_'${folderName}'.tgz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.top --exclude=*.lhe --exclude=run_*.sh --exclude=*temp --exclude=pwgbtlupb-*.dat --exclude=pwgrmupb-*.dat
 fi
 
 cd ${WORKDIR}
@@ -877,6 +1030,8 @@ eval `scram runtime -sh`
 cd -
 
 cat $base/../$config | sed -e "s#SEED#$seed#g" > config.input
+cat config.input | sed -e "s#MSTW2008nnlo68cl#NNPDF31_nnlo_hessian_pdfas#g" > config.input.temp
+mv config.input.temp config.input
 
 cp $base/../hnnlo .
 cp $base/../br* .
@@ -929,6 +1084,7 @@ if __name__ == "__main__":
     parser.add_option('-s', '--rndSeed'       , dest="rndSeed",       default= '42',           help='Starting random number seed [42]')
     parser.add_option('-m', '--prcName'       , dest="prcName",       default= 'DMGG',           help='POWHEG process name [DMGG]')
     parser.add_option('-k', '--keepTop'       , dest="keepTop",       default= '0',           help='Keep the validation top draw plots [0]')
+    parser.add_option('-d', '--noPdfCheck'    , dest="noPdfCheck",    default= '0',           help='If 1, deactivate automatic PDF check [0]')
 
     # args = parser.parse_args ()
     (args, opts) = parser.parse_args(sys.argv)
@@ -995,6 +1151,7 @@ if __name__ == "__main__":
             fseed = open(args.folderName + '/pwgseeds.dat', 'w')
             for ii in range(1, 10000) :
                 fseed.write(str(ii)+'\n')
+            fseed.close()
 #        #FIXME this is a crude hardcoded trick to overcome some problems in LHAPDF usage
 #        runCommand ('ln -s /afs/cern.ch/user/g/govoni/work/HiggsPlusJets/lhapdf/share/lhapdf/PDFsets/CT10.LHgrid ./'  + args.folderName)
 
@@ -1024,6 +1181,7 @@ if __name__ == "__main__":
         print "\t argument '-s', '--rndSeed'       , default= '42'"
         print "\t argument '-m', '--prcName'       , default= 'DMGG'"
         print "\t argument '-k', '--keepTop'       , default= '0'"
+        print "\t argument '-d', '--noPdfCheck'    , default= '0'"
         print ""
 
         exit()
@@ -1038,20 +1196,64 @@ if __name__ == "__main__":
         prepareJob(tagName, '', '.')
 
         if not os.path.exists(args.inputTemplate) :
+            m_ret = os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate+' -O '+args.folderName+'/powheg.input')
+#            print "return ", m_ret
+
             os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate)
+        
         os.system('mkdir -p '+rootfolder+'/'+args.folderName)
-        os.system('cp -p '+args.inputTemplate+' '+args.folderName+'/powheg.input')
+        if not os.path.exists(args.inputTemplate) :
+            os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate+' -O '+args.folderName+'/powheg.input')
+        else :
+            os.system('cp -p '+args.inputTemplate+' '+args.folderName+'/powheg.input')
 
         os.system('rm -rf JHUGen.input')
-        inputJHUGen = '/'.join(powInputName.split('/')[0:-1])+'/JHUGen.input'
+        inputJHUGen = args.inputJHUGen
+        if args.inputJHUGen == "":
+            inputJHUGen = '/'.join(powInputName.split('/')[0:-1])+'/JHUGen.input'
+
         if not os.path.exists(inputJHUGen) :
-            os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+inputJHUGen)
-            if os.path.exists('JHUGen.input') :
-                os.system('cp -p JHUGen.input '+args.folderName+'/.')
-            if os.path.exists(args.inputJHUGen) :
-                os.system('cp -p '+args.inputJHUGen+' '+args.folderName+'/JHUGen.input')
+            m_ret = os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+inputJHUGen+' -O '+args.folderName+'/JHUGen.input')
+            if ((m_ret>>8) & 255) != 0 :
+                os.system('rm -rf '+args.folderName+'/JHUGen.input')
+#            print 'return value: ', ((m_ret>>8) & 255), m_ret
+
+#            if os.path.exists('JHUGen.input') :
+#                os.system('cp -p JHUGen.input '+args.folderName+'/.')
+#            if os.path.exists(args.inputJHUGen) :
+#                os.system('cp -p '+args.inputJHUGen+' '+args.folderName+'/JHUGen.input')
         else :
-            os.system('cp -p '+inputJHUGen+' '+args.folderName+'/.')
+            os.system('cp -p '+inputJHUGen+' '+args.folderName+'/JHUGen.input')
+
+        if os.path.exists(args.folderName+'/powheg.input') :
+            #card_in = ConfigParser.ConfigParser()
+            test_pdf1 = 0
+            test_pdf2 = 0
+
+            default_pdf = "306000"  # for 5 flavours
+
+            if args.prcName=="ST_tch_4f" or args.prcName=="bbH" or args.prcName=="Wbb_dec" or args.prcName=="Wbbj" :
+                default_pdf = "320900"  # for 4 flavours
+
+            for line in open(args.folderName+'/powheg.input') :
+                n_column = line.split()
+                if 'lhans1' in line and len(n_column) >= 2:
+                    test_pdf1 = n_column[1].strip()
+                if 'lhans2' in line and len(n_column) >= 2:
+                    test_pdf2 = n_column[1].strip()
+
+            if not (test_pdf1 == test_pdf2) :
+                raise RuntimeError("ERROR: PDF settings not equal for the 2 protons: {0} vs {1}... Please check your datacard".format(test_pdf1, test_pdf2))
+
+            if test_pdf1 != default_pdf :
+#                print "PDF in card: ", test_pdf1, "PDF default: ", default_pdf, test_pdf1==default_pdf
+                message = "The input card does not have the standard 2017 PDF (NNPDF31 NNLO, 306000 for 5F, 320900 for 4F): {0}. Either change the card or run again with -d 1 to ignore this message.\n".format(test_pdf1)
+
+                if args.noPdfCheck == '0' :
+                    raise RuntimeError(message)
+                else:
+                    print "WARNING:", message
+                    print "FORCING A DIFFERENT PDF SET FOR CENTRAL VALUE\n"
 
     if args.parstage == '0' :
 
@@ -1061,7 +1263,7 @@ if __name__ == "__main__":
         prepareJob(tagName, '', '.')
 
         runGetSource(args.parstage, args.xgrid, args.folderName,
-                     powInputName, args.prcName, tagName)
+                     powInputName, args.prcName, args.noPdfCheck, tagName)
 
         if QUEUE == '':
             print 'Direct compiling... \n'
@@ -1108,7 +1310,7 @@ if __name__ == "__main__":
 
         prepareJob(tagName, '', '.')
         runGetSource(args.parstage, args.xgrid, args.folderName,
-                     powInputName, args.prcName, tagName)
+                     powInputName, args.prcName, args.noPdfCheck, tagName)
 
         os.system('sed -i "s/^numevts.*/numevts '+args.numEvents+'/" '+
                   args.folderName+'/powheg.input')
@@ -1132,7 +1334,7 @@ if __name__ == "__main__":
 
         prepareJob(tagName, '', '.')
         runGetSource(args.parstage, args.xgrid, args.folderName,
-                     powInputName, args.prcName, tagName)
+                     powInputName, args.prcName, args.noPdfCheck, tagName)
 
         runSingleXgrid(args.parstage, args.xgrid, args.folderName,
                        args.numEvents, powInputName, args.rndSeed,
