@@ -397,7 +397,7 @@ C: cut on higgs boson pT
      &        .and. abs(ipdg(i)).eq.25) then    ! Higgs boson
 C apply the pT cut (Higgs bosonn pT should be large than 250 GeV for the event to
 C pass cuts)
-            if ( p(1,i)**2+p(2,i)**2 .gt. 250d0**2 ) then
+            if ( p(1,i)**2+p(2,i)**2 .le. 250d0**2 ) then
 C momenta do not pass cuts. Set passcuts_user to false and return
                passcuts_user=.false.
                return
