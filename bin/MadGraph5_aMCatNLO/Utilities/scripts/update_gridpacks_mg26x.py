@@ -1,85 +1,58 @@
 import os,sys
+import hashlib
 
 my_path = '/tmp/'+os.environ['USER']+'/replace_gridpacks/'
 
+requests=[]
 requests = [
-            # "HIG-RunIIFall17wmLHEGS-01193",
-            # "HIG-RunIIFall17wmLHEGS-01216",
-            # "HIG-RunIIFall17wmLHEGS-01217",
-            # "HIG-RunIIFall17wmLHEGS-01218",
-            # "HIG-RunIIFall17wmLHEGS-01219",
-            # "HIG-RunIIFall17wmLHEGS-01220",
-            # "HIG-RunIIFall17wmLHEGS-01221",
-            # "HIG-RunIIFall17wmLHEGS-01222",
-            # "HIG-RunIIFall17wmLHEGS-01223",
-            # "HIG-RunIIFall17wmLHEGS-01224",
-            # "HIG-RunIIFall17wmLHEGS-01225",
-            # "HIG-RunIIFall17wmLHEGS-01226",
-            # "HIG-RunIIFall17wmLHEGS-01227",
-            # "HIG-RunIIFall17wmLHEGS-01228",
-            # "HIG-RunIIFall17wmLHEGS-01229",
-            # "HIG-RunIIFall17wmLHEGS-01230",
-            # "HIG-RunIIFall17wmLHEGS-01231",
-            # "HIG-RunIIFall17wmLHEGS-01232",
-            # "HIG-RunIIFall17wmLHEGS-01233",
-            # "HIG-RunIIFall17wmLHEGS-01234",
-            # "HIG-RunIIFall17wmLHEGS-01235",
-            # "HIG-RunIIFall17wmLHEGS-01236",
-            # "HIG-RunIIFall17wmLHEGS-01237",
-            # "HIG-RunIIFall17wmLHEGS-01238",
-            "HIG-RunIIFall17wmLHEGS-01673",
-            "HIG-RunIIFall17wmLHEGS-01674",
-            "HIG-RunIIFall17wmLHEGS-01675",
-            "HIG-RunIIFall17wmLHEGS-01676",
-            "HIG-RunIIFall17wmLHEGS-01677",
-            "HIG-RunIIFall17wmLHEGS-01678",
-            "HIG-RunIIFall17wmLHEGS-01679",
-            "HIG-RunIIFall17wmLHEGS-01681",
-            "HIG-RunIIFall17wmLHEGS-01682",
+	    "HIG-RunIIFall17wmLHEGS-01813",
+	    "HIG-RunIIFall17wmLHEGS-01814",
+	    "HIG-RunIIFall17wmLHEGS-01816",
+	    "HIG-RunIIFall17wmLHEGS-01817",
+	    "HIG-RunIIFall17wmLHEGS-01818",
+	    "HIG-RunIIFall17wmLHEGS-01819",
+	    "HIG-RunIIFall17wmLHEGS-01820",
+	    "HIG-RunIIFall17wmLHEGS-01821",
+	    "HIG-RunIIFall17wmLHEGS-01822",
+	    "HIG-RunIIFall17wmLHEGS-01823",
+	    "HIG-RunIIFall17wmLHEGS-01826",
+	    "HIG-RunIIFall17wmLHEGS-01836",
+	    "HIG-RunIIFall17wmLHEGS-01837",
+	    "HIG-RunIIFall17wmLHEGS-01838",
+	    "HIG-RunIIFall17wmLHEGS-01841",
+	    "HIG-RunIIFall17wmLHEGS-01843",
+	    "HIG-RunIIFall17wmLHEGS-01845",
+	    "HIG-RunIIFall17wmLHEGS-01846",
            ]
 
+#for num in range(0,60):
+#	requests.append('EXO-RunIISummer15wmLHEGS-0'+str(num+6229))
+print requests
 
-# ##########################################
-# ######## START LOOP OVER PREPIDS #########
-# ##########################################
-# for prepid in requests:
+for prepid in requests:
 
-        # os.system('echo '+prepid)
+        os.system('echo '+prepid)
         
-        # os.system('mkdir -p '+my_path+'/'+prepid)
-        # os.chdir(my_path+'/'+prepid)
-        # os.system('wget -q https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_fragment/'+prepid+' -O '+prepid)
-        # gridpack_cvmfs_path = os.popen('grep \/cvmfs '+prepid).read()
-        # gridpack_cvmfs_path = gridpack_cvmfs_path.replace('\"',"\'").split('\'')[1]
-        # os.system('rm '+prepid)
-# ##########################################
-# ######## END LOOP OVER PREPIDS ###########
-# ##########################################
+        os.system('mkdir -p '+my_path+'/'+prepid)
+        os.chdir(my_path+'/'+prepid)
+        os.system('wget -q https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_fragment/'+prepid+' -O '+prepid)
+        gridpack_cvmfs_path = os.popen('grep \/cvmfs '+prepid+'| grep -v \'#args\' ').read()
+        gridpack_cvmfs_path = gridpack_cvmfs_path.split('\'')[1]
+	gridpack_eos_path = gridpack_cvmfs_path.replace("/cvmfs/cms.cern.ch/phys_generator","/eos/cms/store/group/phys_generator/cvmfs")
 
-##########################################
-########## START LOOP OVER FILES #########
-##########################################
-import hashlib
-# for subdir, dirs, files in os.walk("/cvmfs/cms.cern.ch/phys_generator/gridpacks/2017/13TeV/madgraph/"):
-for subdir, dirs, files in os.walk("/cvmfs/cms.cern.ch/phys_generator/gridpacks/slc6_amd64_gcc481/14TeV/madgraph/V5_2.6.0/"):
-    for file in files:
+        print gridpack_cvmfs_path
+	if not 'madgraph' in gridpack_cvmfs_path: continue
+	if not '.tar.xz' in gridpack_cvmfs_path: continue
+	if '_noiter.tar.xz' in gridpack_cvmfs_path: continue
         
-        if not 'madgraph' in subdir: continue
-        if not '.tar.xz' in file: continue
-        if '_noiter.tar.xz' in file: continue
-        
-        gridpack_cvmfs_path = os.path.join(subdir, file)
-        prepid = hashlib.sha224(gridpack_cvmfs_path).hexdigest()
+	prepid = hashlib.sha224(gridpack_cvmfs_path).hexdigest()
         print 'gridpack_cvmfs_path',gridpack_cvmfs_path; sys.stdout.flush()
         print 'prepid',prepid; sys.stdout.flush()
         os.system('mkdir -p '+my_path+'/'+prepid)
         os.chdir(my_path+'/'+prepid)
-##########################################
-########## END LOOP OVER FILES ###########
-##########################################
 
         gridpack_eos_path = gridpack_cvmfs_path.replace('/cvmfs/cms.cern.ch/phys_generator/gridpacks/','/eos/cms/store/group/phys_generator/cvmfs/gridpacks/')
-        gridpack_eos_path_noiter = gridpack_eos_path.replace('.tar.xz','_noiter.tar.xz')
+        gridpack_eos_path_noiter = gridpack_eos_path.replace('.tar.xz','_noiter_TEST.tar.xz')
                 
         ##############################################
         ############ START REPLACE ###################
@@ -111,7 +84,7 @@ for subdir, dirs, files in os.walk("/cvmfs/cms.cern.ch/phys_generator/gridpacks/
         if merge == "":
             if merge == "":
                 print 'replacing the string in runcmsgrid.sh'; sys.stdout.flush()
-                os.system("patch < /eos/cms/store/group/phys_generator/cvmfs/gridpacks/mg_amg_patch/runcmsgrid_fix26x_mkdir.patch")
+                os.system("patch < /eos/cms/store/group/phys_generator/cvmfs/gridpacks/mg_amg_patch/26x.patch")
 
                 
             print 'tarring to gridpack.tar.xz for',prepid; sys.stdout.flush()
