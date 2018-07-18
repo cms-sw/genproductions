@@ -36,7 +36,7 @@ topdecaymode 11111   ! an integer of 5 digits that are either 0, or 2, represent
                      ! 00011    Fully hadronic with a single charm
                      ! 00012    Fully hadronic with at least one charm
 
-!semileptonic 1      ! uncomment if you want to filter out only semileptonic events. For example,
+semileptonic 1      ! uncomment if you want to filter out only semileptonic events. For example,
                      ! with topdecaymode 10011 and semileptonic 1 you get only events with one top going
                      ! to an electron or positron, and the other into any hadron.
 

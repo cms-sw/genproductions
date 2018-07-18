@@ -118,15 +118,15 @@ class RunMcfmOP():
 			raise IOError(self.args.inputcard+' does not exists')
 		tempstr = ftemp.readlines()
 		for templine in tempstr:
-			line = templine
-			line = line.replace('NEVENTS',str(self.args.nevent),1)
-			line = line.replace('SEED', str(self.args.seed),1)
+			line = templine	
 			if (readin):
 				if('[readin]' in line):			line = '.true.		[readin] \n'	
 				if('[writeout]' in line):		line = '.false.		[writeout] \n'
 				if('[ingridfile]' in line):		line = "'%s_grid'		[ingridfile] \n" %(self.cardbase)
 				if('[outgridfile' in line):		line = "''		[outgridfile] \n"
 			if(writeout):
+				line = line.replace('NEVENT',str(self.args.nevent),1)
+				line = line.replace('SEED', str(self.args.seed),1)
 				if('[readin]' in line):			line = '.false.		[readin] \n '
 				if('[writeout]' in line):		line = '.true.		[writeout] \n'
 				if('[ingridfile]' in line):		line = "''		[ingridfile] \n" 
@@ -156,11 +156,14 @@ class RunMcfmOP():
 			substr+='ln -sf ./Bin/process.DAT process.DAT \n ln -sf ./Bin/hto_output.dat hto_output.dat \n ln -sf ./Bin/ffwarn.dat ffwarn.dat \n ln -sf ./Bin/ffperm5.dat ffperm5.dat \n ln -sf ./Bin/fferr.dat fferr.dat \n ln -sf ./Bin/dm_parameters.DAT dm_parameters.DAT \n ln -sf ./Bin/br.sm1 br.sm1 \n ln -sf ./Bin/br.sm2 br.sm2 \n \n'  
 			substr+='./Bin/mcfm writeInput.DAT \n'
 			substr+='gridfileexists=false \nwhile [ ${gridfileexists} = false ]; do gridfile=($(ls|grep _grid)); if [ ${#gridfile[@]} -eq 1 ]; then gridfileexists=true; else sleep 2m; fi; done \n'
-			substr+="mv ${gridfile[0]} %s_grid \nchmod 755 runcmsgrid.sh \nrm*.lhe \n"%(self.cardbase)
+			substr+="mv ${gridfile[0]} %s_grid \nchmod 755 runcmsgrid.sh \nrm *.lhe \n"%(self.cardbase)
+ 			substr+='cp ../adjlheevent.py ./ \n'
 			substr+='echo tarball will be found at ${basedir} \n'
 			substr+='tar -cvzf ${basedir}/MCFM_%s_%s_%s_%s.tgz ./ \n' % (self.args.method, self.args.scram_arch, self.args.cmssw, self.cardbase)
 			substr+='#cleaning up part\n'
 			substr+='cd ${basedir} \n' 
+			substr+='rm -rf ${mcfmdir}\n'
+
 		fsub = open(mcfmsubmitfile,'w')
 		fsub.write(substr)
 		fsub.close()
@@ -181,7 +184,9 @@ class RunMcfmOP():
 					line  = templine
 					if('CMSSW_VERSION_REPLACE' in line):		line = '        cmssw_version=%s \n' % (self.args.cmssw)
 					if('SCRAM_ARCH_VERSION_REPLACE' in line):	line = '        scram_arch_version=%s \n' % (self.args.scram_arch)
-					if('INPUT.DAT' in line):			line = './Bin/mcfm readInput.DAT \n'
+					if('./mcfm' in line and 'INPUT.DAT' in line):	line = './Bin/mcfm readInput.DAT \n'	
+					line = line.replace('INPUT.DAT','readInput.DAT')
+
 					fout.write(line)
 			fout.close()
 		ftemp.close()		

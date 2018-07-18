@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sed -euo pipefail
+set -euo pipefail
 
 if [ $# -eq 0 ]; then
     linkMELA=false
@@ -11,16 +11,18 @@ if [ $linkMELA != true ] && [ $linkMELA != false ]; then
     echo "Argument to $0 has to be true to link MELA or false to not link it"
 fi
 
-wget --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/slc6_amd64_gcc481/JHUGenerator.v7.0.9.tar.gz -O JHUGenerator.v7.0.9.tar.gz
-tar xzvf JHUGenerator.v7.0.9.tar.gz
+jhugenversion=v7.1.4
+
+wget --no-check-certificate http://spin.pha.jhu.edu/Generator/JHUGenerator.${jhugenversion}.tar.gz -O JHUGenerator.${jhugenversion}.tar.gz
+tar xzvf JHUGenerator.${jhugenversion}.tar.gz
 rm -rf AnalyticMELA
 rm -f manJHUGenerator*.pdf
 cd JHUGenerator
 sed -i "s/UseLHAPDF=No/UseLHAPDF=Yes/" makefile
 if ! $linkMELA; then
     sed -i "s/linkMELA = Yes/linkMELA = No/" makefile
-    rm -rf ../JHUGenMELAv2
+    rm -rf ../JHUGenMELA
 fi
 make
-rm ../JHUGenerator.v7.0.9.tar.gz
+rm ../JHUGenerator.${jhugenversion}.tar.gz
 

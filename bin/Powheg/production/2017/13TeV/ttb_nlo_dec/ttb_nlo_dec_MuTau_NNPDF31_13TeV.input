@@ -1,0 +1,41 @@
+numevts NEVENTS    ! number of events to be generated
+ih1   1           ! hadron 1 (1 for protons, -1 for antiprotons)
+ih2   1           ! hadron 2 (1 for protons, -1 for antiprotons)
+lhans1 306000
+lhans2 306000
+ebeam1 6500d0     ! energy of beam 1
+ebeam2 6500d0     ! energy of beam 2
+
+topdec 13         ! 11, 13 and 15 for e+,mu+,tau+, 1 for hadrons
+tbardec 15        ! 11, 13 and 15 for e-,mu-,tau-, 1 for hadrons
+
+tmass 172.5        ! top mass (default: 172)
+bmass 4.8       ! bottom mass (default: 4.75)
+
+
+use-old-grid    1 ! if 1 use old grid if file pwggrids.dat is present (<> 1 regenerate)
+use-old-ubound  1 ! if 1 use norm of upper bounding function stored in pwgubound.dat, if present; <> 1 regenerate
+
+ncall1  500000  ! number of calls for initializing the integration grid
+itmx1    1    ! number of iterations for initializing the integration grid
+ncall2  500000  ! number of calls for computing the integral and finding upper bound
+itmx2    1     ! number of iterations for computing the integral and finding upper bound
+foldcsi   1    ! number of folds on csi integration
+foldy     1    ! number of folds on  y  integration
+foldphi   1    ! number of folds on phi integration
+nubound 50000  ! number of bbarra calls to setup norm of upper bounding function
+icsimax  1     ! <= 100, number of csi subdivision when computing the upper bounds
+iymax    1     ! <= 100, number of y subdivision when computing the upper bounds
+xupbound 2d0   ! increase upper bound for radiation generation
+
+iseed     SEED    ! initialize random number sequence
+
+
+hdamp 237.8775
+
+
+renscfact  1d0   ! (default 1d0) ren scale factor: muren  = muref * renscfact 
+facscfact  1d0   ! (default 1d0) fac scale factor: mufact = muref * facscfact 
+     
+
+

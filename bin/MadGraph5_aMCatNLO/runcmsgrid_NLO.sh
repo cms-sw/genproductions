@@ -106,6 +106,9 @@ else
     cd $LHEWORKDIR/external_tarball
     #for Powheg gridpacks + Madspin to have same amount of events
     ./runcmsgrid.sh $nevt $rnum $ncpu
+    
+    echo "run finished, produced number of events:"
+    grep \<event cmsgrid_final.lhe |wc -l
 
 #splice blocks needed for MadSpin into LHE file
     sed -i "/<init>/ {
