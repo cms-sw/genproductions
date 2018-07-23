@@ -449,7 +449,7 @@ make_gridpack () {
       fi
       
       echo "finished pilot run"
-      cd $WORKDIR/process
+      cd $WORKDIR/processtmp
     
       if [ -e $CARDSDIR/${name}_externaltarball.dat ]; then
           gunzip ./Events/pilotrun_decayed_1/events.lhe.gz
@@ -541,7 +541,7 @@ make_gridpack () {
       echo "mg5_path = ../../mgbasedir" >> ./madevent/Cards/me5_configuration.txt
       echo "cluster_temp_path = None" >> ./madevent/Cards/me5_configuration.txt
       echo "run_mode = 0" >> ./madevent/Cards/me5_configuration.txt  
-        
+      
       cd $WORKDIR
       
       mkdir gridpack

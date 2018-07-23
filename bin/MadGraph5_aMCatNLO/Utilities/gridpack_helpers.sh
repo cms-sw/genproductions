@@ -71,13 +71,14 @@ prepare_reweight () {
         echo "Exciting..."
         exit 1
     fi
-
-    cd $WORKDIR/process
+    
     echo "preparing reweighting step"
     if [ "$isnlo" -gt "0" ]; then
+        cd $WORKDIR/processtmp
         config=./Cards/amcatnlo_configuration.txt
     else
-        mkdir -p madevent/Events/pilotrun
+        cd $WORKDIR/process
+	mkdir -p madevent/Events/pilotrun
         cp $WORKDIR/unweighted_events.lhe.gz madevent/Events/pilotrun
         cd madevent
         config=./madevent/Cards/me5_configuration.txt
