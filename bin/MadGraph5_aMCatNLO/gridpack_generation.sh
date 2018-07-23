@@ -538,11 +538,10 @@ make_gridpack () {
       echo "preparing final gridpack"
       
       #set to single core mode
-      cd $WORKDIR/process/madevent
-      echo "mg5_path = ../../mgbasedir" >> ./Cards/me5_configuration.txt
-      echo "cluster_temp_path = None" >> ./Cards/me5_configuration.txt
-      echo "run_mode = 0" >> ./Cards/me5_configuration.txt  
-        
+      echo "mg5_path = ../../mgbasedir" >> ./madevent/Cards/me5_configuration.txt
+      echo "cluster_temp_path = None" >> ./madevent/Cards/me5_configuration.txt
+      echo "run_mode = 0" >> ./madevent/Cards/me5_configuration.txt  
+      
       cd $WORKDIR
       
       mkdir gridpack
