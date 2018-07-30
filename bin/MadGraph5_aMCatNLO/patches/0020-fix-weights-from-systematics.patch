@@ -1,0 +1,10 @@
+--- a/madgraph/various/systematics.py    2018-03-25 08:30:56 +0000
++++ b/madgraph/various/systematics.py    2018-07-24 12:34:44 +0000
+@@ -810,6 +810,7 @@
+             for onewgt in cevent.wgts:
+                 if not __debug__ and (dyn== -1 and Dmur==1 and Dmuf==1 and pdf==self.orig_pdf):
+                     wgt += onewgt.ref_wgt 
++                    continue
+                 
+                 if dyn == -1:
+                     mur2 = onewgt.scales2[1]
