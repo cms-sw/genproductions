@@ -15,22 +15,22 @@
 #   comma or space separated.                                          *
 #***********************************************************************
 #
-#*******************                                                 
+#*******************
 # Running parameters
-#*******************                                                 
+#*******************
 #
 #***********************************************************************
 # Tag name for the run (one word)                                      *
 #***********************************************************************
-  tag_1     = run_tag ! name of the run 
+  tag_1     = run_tag ! name of the run
 #***********************************************************************
 # Number of LHE events (and their normalization) and the required      *
 # (relative) accuracy on the Xsec.                                     *
 # These values are ignored for fixed order runs                        *
 #***********************************************************************
- 10 = nevents ! Number of unweighted events requested 
+ 10 = nevents ! Number of unweighted events requested
  -1.0 = req_acc ! Required accuracy (-1=auto determined from nevents)
- -1 = nevt_job! Max number of events per job in event generation. 
+ -1 = nevt_job! Max number of events per job in event generation.
                  !  (-1= no split).
 #***********************************************************************
 # Normalize the weights of LHE events such that they sum or average to *
@@ -40,7 +40,7 @@
 #***********************************************************************
 # Number of points per itegration channel (ignored for aMC@NLO runs)   *
 #***********************************************************************
- 0.01   = req_acc_FO       ! Required accuracy (-1=ignored, and use the 
+ 0.01   = req_acc_FO       ! Required accuracy (-1=ignored, and use the
  	                   ! number of points and iter. below)
 # These numbers are ignored except if req_acc_FO is equal to -1
  5000   = npoints_FO_grid  ! number of points to setup grids
@@ -62,8 +62,8 @@
 # PDF choice: this automatically fixes also alpha_s(MZ) and its evol.  *
 #***********************************************************************
  lhapdf = pdlabel ! PDF set
- 263400  = lhaid   ! If pdlabel=lhapdf, this is the lhapdf number. Only 
-              ! numbers for central PDF sets are allowed. Can be a list; 
+ 306000  = lhaid   ! If pdlabel=lhapdf, this is the lhapdf number. Only 
+              ! numbers for central PDF sets are allowed. Can be a list;
               ! PDF sets beyond the first are included via reweighting.
 #***********************************************************************
 # Include the NLO Monte Carlo subtr. terms for the following parton    *
@@ -76,26 +76,26 @@
 #***********************************************************************
 # Renormalization and factorization scales                             *
 # (Default functional form for the non-fixed scales is the sum of      *
-# the transverse masses divided by two of all final state particles    * 
+# the transverse masses divided by two of all final state particles    *
 # and partons. This can be changed in SubProcesses/set_scales.f or via *
 # dynamical_scale_choice option)                                       *
 #***********************************************************************
  False    = fixed_ren_scale  ! if .true. use fixed ren scale
  False    = fixed_fac_scale  ! if .true. use fixed fac scale
- 91.118   = muR_ref_fixed    ! fixed ren reference scale 
+ 91.118   = muR_ref_fixed    ! fixed ren reference scale
  91.118   = muF_ref_fixed    ! fixed fact reference scale
  -1 = dynamical_scale_choice ! Choose one (or more) of the predefined
            ! dynamical choices. Can be a list; scale choices beyond the
            ! first are included via reweighting
  1.0  = muR_over_ref  ! ratio of current muR over reference muR
  1.0  = muF_over_ref  ! ratio of current muF over reference muF
-#*********************************************************************** 
+#***********************************************************************
 # Reweight variables for scale dependence and PDF uncertainty          *
 #***********************************************************************
  1.0, 2.0, 0.5 = rw_rscale ! muR factors to be included by reweighting
  1.0, 2.0, 0.5 = rw_fscale ! muF factors to be included by reweighting
- True = reweight_scale ! Reweight to get scale variation using the 
-            ! rw_rscale and rw_fscale factors. Should be a list of 
+ True = reweight_scale ! Reweight to get scale variation using the
+            ! rw_rscale and rw_fscale factors. Should be a list of
             ! booleans of equal length to dynamical_scale_choice to
             ! specify for which choice to include scale dependence.
  False = reweight_PDF  ! Reweight to get PDF uncertainty. Should be a
