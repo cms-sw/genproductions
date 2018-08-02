@@ -149,7 +149,7 @@
 # all the other parameters are ignored.                                *
 # More specific cuts can be specified in SubProcesses/cuts.f           *
 #***********************************************************************
- 20.0  = ptgmin    ! Min photon transverse momentum
+  0.0  = ptgmin    ! Min photon transverse momentum
  -1.0  = etagamma  ! Max photon abs(pseudo-rap)
   0.4  = R0gamma   ! Radius of isolation code
   1.0  = xn        ! n parameter of eq.(3.4) in hep-ph/9801442
