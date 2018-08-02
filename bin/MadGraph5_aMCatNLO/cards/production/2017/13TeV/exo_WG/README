@@ -1,0 +1,9 @@
+To make all mass point cards for exo_WG, simply type make.
+
+To make all mass point cards for only the leptonic final state type make wgtolnu
+To make all mass point cards for only the hadronic final state type make wgtojj
+
+The masses and widths that are considered can be modified by editing the 
+'MASS_POINTS' and 'WIDTHS' lists at the top of the make_all_cards.py script
+
+The commands in the Makefile can be used as templates for other use cases

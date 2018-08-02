@@ -21,7 +21,6 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
             'ResonanceDecayFilter:filter = on',
             'ResonanceDecayFilter:exclusive = on', #off: require at least the specified number of daughters, on: require exactly the specified number of daughters
             'ResonanceDecayFilter:mothers = 25', #list of mothers not specified -> count all particles in hard process+resonance decays (better to avoid specifying mothers when including leptons from the lhe in counting, since intermediate resonances are not gauranteed to appear in general
-            'ResonanceDecayFilter:wzAsEquivalent = on',
             'ResonanceDecayFilter:daughters = 15,15,15,15',
         ),
         parameterSets = cms.vstring('pythia8CommonSettings',

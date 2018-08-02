@@ -38,7 +38,7 @@ echo "   ______________________________________________________    "
 ##################################################################################
 
 # Define a few variables
-genproduction_dir=`awk -F genproductions '{print $1}' <<< $PWD`"genproductions"
+genproduction_dir=`awk -F genproductions '{print $1}' <<< $PWD`"/genproductions"
 topdir=$PWD
 source_file="/afs/cern.ch/cms/generators/www/slc6_amd64_gcc481/powheg/V2.0/src/"${1}
 echo "source file: "$source_file
