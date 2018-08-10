@@ -11,8 +11,7 @@ for mass in ${masses[*]}; do
     echo generating cards for M = $mass GeV
     
     mkdir ${sample}${mass}
-           
-    for i in {0..2}; do
+    for ((i=0;i<${#postfix[@]};i+=1)); do           
 	sed "s/<MASS>/${mass}/g" ${sample}/${sample}${postfix[$i]} > ${sample}$mass/${sample}$mass${postfix[$i]}
     done    
 done
