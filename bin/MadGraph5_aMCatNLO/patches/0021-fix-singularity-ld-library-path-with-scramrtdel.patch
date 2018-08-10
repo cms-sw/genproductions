@@ -1,0 +1,80 @@
+diff --git a/Template/LO/SubProcesses/refine.sh b/Template/LO/SubProcesses/refine.sh
+index 87cc4a8..fb131dd 100644
+--- a/Template/LO/SubProcesses/refine.sh
++++ b/Template/LO/SubProcesses/refine.sh
+@@ -11,6 +11,11 @@ if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRT" ]; then
+     export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRT:$LD_LIBRARY_PATH"
+   fi
+ fi
++if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRTDEL" ]; then
++  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRTDEL}*}" ]; then
++    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRTDEL:$LD_LIBRARY_PATH"
++  fi
++fi
+ 
+ # If TMPDIR is unset, set it to the condor scratch area if present
+ # and fallback to /tmp
+diff --git a/Template/LO/SubProcesses/refine_splitted.sh b/Template/LO/SubProcesses/refine_splitted.sh
+index bd1b78c..7ab0f31 100644
+--- a/Template/LO/SubProcesses/refine_splitted.sh
++++ b/Template/LO/SubProcesses/refine_splitted.sh
+@@ -11,6 +11,11 @@ if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRT" ]; then
+     export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRT:$LD_LIBRARY_PATH"
+   fi
+ fi
++if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRTDEL" ]; then 
++  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRTDEL}*}" ]; then
++    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRTDEL:$LD_LIBRARY_PATH"
++  fi
++fi
+ 
+ # If TMPDIR is unset, set it to the condor scratch area if present
+ # and fallback to /tmp
+diff --git a/Template/LO/SubProcesses/survey.sh b/Template/LO/SubProcesses/survey.sh
+index ebe9369..f56a773 100755
+--- a/Template/LO/SubProcesses/survey.sh
++++ b/Template/LO/SubProcesses/survey.sh
+@@ -11,6 +11,11 @@ if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRT" ]; then
+     export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRT:$LD_LIBRARY_PATH"
+   fi
+ fi
++if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRTDEL" ]; then 
++  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRTDEL}*}" ]; then
++    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRTDEL:$LD_LIBRARY_PATH"
++  fi
++fi
+ 
+ # If TMPDIR is unset, set it to the condor scratch area if present
+ # and fallback to /tmp
+diff --git a/Template/NLO/SubProcesses/ajob_template b/Template/NLO/SubProcesses/ajob_template
+index 6144c59..d142f90 100755
+--- a/Template/NLO/SubProcesses/ajob_template
++++ b/Template/NLO/SubProcesses/ajob_template
+@@ -18,6 +18,11 @@ if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRT" ]; then
+     export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRT:$LD_LIBRARY_PATH"
+   fi
+ fi
++if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRTDEL" ]; then 
++  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRTDEL}*}" ]; then
++    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRTDEL:$LD_LIBRARY_PATH"
++  fi
++fi
+ 
+ # If TMPDIR is unset, set it to the condor scratch area if present
+ # and fallback to /tmp
+diff --git a/Template/NLO/SubProcesses/reweight_xsec_events.local b/Template/NLO/SubProcesses/reweight_xsec_events.local
+index fa64a85..f05ab88 100644
+--- a/Template/NLO/SubProcesses/reweight_xsec_events.local
++++ b/Template/NLO/SubProcesses/reweight_xsec_events.local
+@@ -14,6 +14,11 @@ if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRT" ]; then
+     export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRT:$LD_LIBRARY_PATH"
+   fi
+ fi
++if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRTDEL" ]; then 
++  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRTDEL}*}" ]; then
++    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRTDEL:$LD_LIBRARY_PATH"
++  fi
++fi
+ 
+ # If TMPDIR is unset, set it to the condor scratch area if present
+ # and fallback to /tmp
