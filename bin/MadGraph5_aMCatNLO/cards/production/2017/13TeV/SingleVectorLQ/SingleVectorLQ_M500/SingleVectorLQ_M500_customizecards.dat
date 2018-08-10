@@ -1,0 +1,5 @@
+set param_card mass 9000002 500
+set param_card decay 9000002 0.1209
+set param_card npcoup 1 1.0
+set param_card npcoup 2 0.1
+set param_card npcoup 3 0.1

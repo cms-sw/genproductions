@@ -1,0 +1,8 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set complex_mass_scheme False
+import model SM_LS_LM_LT_UFO
+define p = g u c d s u~ c~ d~ s~ b b~
+define j = g u c d s u~ c~ d~ s~ b b~
+generate p p > w- w- j j QED=3 QCD=1 NP=1
+output aQGC_WMhadWMhadJJ_EWK_LO_NPle1 -nojpeg
