@@ -117,6 +117,6 @@ set param_card loop 10 0.998732586
 set param_card loop 11 -0.0503311168
 set param_card loop 12 916.226138
 set param_card loop 13 655.056549
-set param_card decay 35 2.33323671e+00 # h2 decays, heaviest CP-even Higgs
-set param_card decay 36 3.82011292e+00 # h3 decays, CP-odd Higgs
-set param_card decay 37 3.92439730e+00 # Charged Higgs decays
+set param_card decay 35 2.33323671e+00 
+set param_card decay 36 3.82011292e+00 
+set param_card decay 37 3.92439730e+00 
