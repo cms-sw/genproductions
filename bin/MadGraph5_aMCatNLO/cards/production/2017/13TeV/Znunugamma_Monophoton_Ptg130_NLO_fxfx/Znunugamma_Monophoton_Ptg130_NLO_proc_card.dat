@@ -16,4 +16,4 @@ define j = j b b~
 define nu = ve vm vt ve~ vm~ vt~
 generate p p > nu nu a [QCD] @0
 add process p p > nu nu j a [QCD] @1
-output ZATo2NuA01j_5f_pta130_NLO_FXFX -nojpeg
+output Znunugamma_Monophoton_Ptg130_NLO -nojpeg
