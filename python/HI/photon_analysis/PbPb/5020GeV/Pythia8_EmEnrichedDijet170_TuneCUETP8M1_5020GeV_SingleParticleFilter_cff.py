@@ -22,7 +22,7 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
 )
 
 configurationMetadata = cms.untracked.PSet(
-    annotation = cms.untracked.string('PYTHIA 8 (unquenched) EM-enriched Dijets in NN (pt-hat > 30 GeV) at sqrt(s) = 5.02 TeV')
+    annotation = cms.untracked.string('PYTHIA 8 (unquenched) EM-enriched Dijets in NN (pt-hat > 170 GeV) at sqrt(s) = 5.02 TeV')
     )
 
 partonFilter = cms.EDFilter("MCSingleParticleFilter",
