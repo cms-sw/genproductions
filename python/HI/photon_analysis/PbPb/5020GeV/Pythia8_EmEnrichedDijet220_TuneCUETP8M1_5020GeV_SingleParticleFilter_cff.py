@@ -11,7 +11,7 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
             'pythia8CUEP8M1Settings',
             'processParameters'),
         processParameters = cms.vstring('HardQCD:all = on',
-                                        'PhaseSpace:pTHatMin = 250.',
+                                        'PhaseSpace:pTHatMin = 220.',
                                         'PhaseSpace:pTHatMax = 9999.'),
     ),
     comEnergy = cms.double(5020.0),
@@ -22,7 +22,7 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
 )
 
 configurationMetadata = cms.untracked.PSet(
-    annotation = cms.untracked.string('PYTHIA 8 (unquenched) EM-enriched Dijets in NN (pt-hat > 250 GeV) at sqrt(s) = 5.02 TeV')
+    annotation = cms.untracked.string('PYTHIA 8 (unquenched) EM-enriched Dijets in NN (pt-hat > 220 GeV) at sqrt(s) = 5.02 TeV')
     )
 
 partonFilter = cms.EDFilter("MCSingleParticleFilter",
