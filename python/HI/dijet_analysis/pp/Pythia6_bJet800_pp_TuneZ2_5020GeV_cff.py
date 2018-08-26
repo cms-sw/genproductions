@@ -1,15 +1,16 @@
 import FWCore.ParameterSet.Config as cms
+
 from Configuration.Generator.PythiaUEZ2Settings_cfi import *
 
 generator = cms.EDFilter("Pythia6GeneratorFilter",
                          comEnergy = cms.double(5020.0),
-                         crossSection = cms.untracked.double(2.631e-10), #PYTHIA6 100 evtestimate, accuracy 10% level
-                         filterEfficiency = cms.untracked.double(1.),
-                         maxEventsToPrint = cms.untracked.int32(1),
+                         crossSection = cms.untracked.double(2.381e-11), #mb, +- ~5% relative, after the filter
+                         filterEfficiency = cms.untracked.double(8.130e-02), # +- ~5% relative
+                         maxEventsToPrint = cms.untracked.int32(-1),
                          pythiaHepMCVerbosity = cms.untracked.bool(False),
                          pythiaPylistVerbosity = cms.untracked.int32(False),
                          PythiaParameters = cms.PSet(pythiaUESettingsBlock,
-                                                     processParameters = cms.vstring('MSEL=1   ! Standard QCD processes',
+                                                     processParameters = cms.vstring('MSEL=1   ! QCD hight pT processes',
                                                                                      'CKIN(3)= 800  ! minimum pt hat for hard interactions',
                                                                                      ),
                                                      parameterSets = cms.vstring('pythiaUESettings',
@@ -18,9 +19,14 @@ generator = cms.EDFilter("Pythia6GeneratorFilter",
                                                      )
                          )
 
-configurationMetadata = cms.untracked.PSet(
-    annotation = cms.untracked.string('PYTHIA6 QCD, pt-hat > 800 GeV, at sqrt(s) = 5.02 TeV')
-    )
+bfilter = cms.EDFilter("MCSingleParticleFilter",
+                       MaxEta     = cms.untracked.vdouble(2.5, 2.5),
+                       MinEta     = cms.untracked.vdouble(-2.5, -2.5),
+                       MinPt      = cms.untracked.vdouble(0.0, 0.0),
+                       ParticleID = cms.untracked.vint32(5, -5)
+                       )
 
-ProductionFilterSequence = cms.Sequence(generator)
+ProductionFilterSequence = cms.Sequence(generator*bfilter)
+
+
 
