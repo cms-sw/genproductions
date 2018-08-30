@@ -74,7 +74,7 @@ c are filled from the PDG codes (iPDG array) in this function.
       do i=0,nexternal
          do j=i+1,nexternal
             if ((abs(ipdg(i)).eq.52).and.(ipdg(i).eq.-ipdg(j))) then
-              if (ptZ(p(0,i),p(0,j)).lt.100) then
+              if (ptZ(p(0,i),p(0,j)).lt.170) then
                   passcuts_user=.false.
                   return
               endif
@@ -295,7 +295,7 @@ c find the photons
             endif
          enddo
          if(nph.eq.0)goto 444
-         
+
          if(isoEM)then
             nem=nph
             do k=1,nem
@@ -312,14 +312,14 @@ c find the photons
                endif
             enddo
          endif
-         
+
          alliso=.true.
 
          j=0
          do while(j.lt.nph.and.alliso)
 c Loop over all photons
             j=j+1
-            
+
             ptg=pt(pgamma(0,j))
             if(ptg.lt.ptgmin)then
                passcuts_user=.false.
@@ -331,7 +331,7 @@ c Loop over all photons
                   return
                endif
             endif
-         
+
 c Isolate from hadronic energy
             do i=1,nQCD
                drlist(i)=sngl(iso_getdrv40(pgamma(0,j),pQCD(0,i)))
@@ -350,7 +350,7 @@ c Isolate from hadronic energy
      $              Etsum(i).le.chi_gamma_iso(dble(drlist(isorted(i))),
      $              R0gamma,xn,epsgamma,ptg)
             enddo
-            
+
 c Isolate from EM energy
             if(isoEM.and.nem.gt.1)then
                do i=1,nem
@@ -486,7 +486,7 @@ c Fill the arrays (momenta, status and PDG):
          ipdg(i)=idup(i,1)
          if (ipdg(i).eq.-21) ipdg(i)=21
       enddo
-c Call the actual cuts function  
+c Call the actual cuts function
       passcuts = passcuts_user(pp,istatus,ipdg)
       call cpu_time(tAfter)
       t_cuts=t_cuts+(tAfter-tBefore)
@@ -879,7 +879,7 @@ c
       double precision p1(0:4),p2(0:4),dsign
 c
 c     Local
-c      
+c
       integer i
       double precision ptot(0:3)
 c
@@ -951,10 +951,10 @@ c identical for all events, the statistical uncertainty on this total
 c cross section can be much larger than without including the bias.
 c
 c The 'bias_wgt' should be a IR-safe function of the momenta.
-c      
+c
 c For this to be used, the 'event_norm' option in the run_card should be
 c set to
-c      'bias' = event_norm      
+c      'bias' = event_norm
 c
       implicit none
       include 'nexternal.inc'
@@ -970,7 +970,7 @@ c         if (ipdg(i).eq.6) then
 c            bias_wgt=sqrt(p(1,i)**2+p(2,i)**2)**3
 c         endif
 c      enddo
-c Or to use H_T^2 one does     
+c Or to use H_T^2 one does
 c      H_T=0d0
 c      do i=3,nexternal
 c         H_T=H_T+sqrt(max(0d0,(p(0,i)+p(3,i))*(p(0,i)-p(3,i))))
@@ -978,5 +978,3 @@ c      enddo
 c      bias_wgt=H_T**2
       return
       end
-
-
