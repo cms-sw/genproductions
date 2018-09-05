@@ -1,6 +1,4 @@
 import model sm
-define p = g u c d s u~ c~ d~ s~
-define j = g u c d s u~ c~ d~ s~
 define l+ = e+ mu+
 define l- = e- mu-
 define vl = ve vm vt
