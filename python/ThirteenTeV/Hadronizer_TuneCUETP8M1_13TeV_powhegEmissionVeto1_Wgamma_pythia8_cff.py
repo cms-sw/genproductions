@@ -1,17 +1,5 @@
 import FWCore.ParameterSet.Config as cms
 
-externalLHEProducer = cms.EDProducer("ExternalLHEProducer",
-    args = cms.vstring('/afs/cern.ch/user/a/amlevin/public/Wgamma_slc6_amd64_gcc630_CMSSW_9_3_0_my_Wgamma.tgz'),
-    nEvents = cms.untracked.uint32(5000),
-    numberOfParameters = cms.uint32(1),
-    outputFile = cms.string('cmsgrid_final.lhe'),
-    scriptName = cms.FileInPath('GeneratorInterface/LHEInterface/data/run_generic_tarball_cvmfs.sh')
-)
-
-#Link to datacards:
-# https://github.com/cms-sw/genproductions/blob/d388a1bcbee4578ba0827651eb3f05006ed1d797/bin/Powheg/production/2017/13TeV/ttH_inclusive_hdamp_NNPDF31_13TeV_M125/ttH_inclusive_hdamp_NNPDF31_13TeV_M125.input
-
-
 from Configuration.Generator.Pythia8CommonSettings_cfi import *
 from Configuration.Generator.MCTunes2017.PythiaCP5Settings_cfi import *
 from Configuration.Generator.Pythia8PowhegEmissionVetoSettings_cfi import *
