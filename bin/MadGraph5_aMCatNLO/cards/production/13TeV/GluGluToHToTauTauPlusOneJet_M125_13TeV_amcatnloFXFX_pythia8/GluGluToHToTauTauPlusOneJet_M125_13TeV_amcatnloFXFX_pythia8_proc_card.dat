@@ -11,7 +11,5 @@ define l- = e- mu-
 define vl = ve vm vt
 define vl~ = ve~ vm~ vt~
 import model HC_NLO_X0_UFO-heft
-define p = 21 2 4 1 3 -2 -4 -1 -3 5 -5 
-define j = p
 generate p p > x0 j / t [QCD]
 output GluGluToHToTauTauPlusOneJet_M125_13TeV_amcatnloFXFX_pythia8
