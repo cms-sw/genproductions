@@ -1,9 +1,0 @@
-set param_card hidden 1 25
-set param_card mass 1023 25
-set param_card hidden 3 1.000000e-03
-set param_card hidden 4 1.000000e-09
-set param_card DECAY 1023 Auto
-set param_card DECAY 25 Auto
-set ptl 0.0
-set etal -1.0
-set mmll 0.01

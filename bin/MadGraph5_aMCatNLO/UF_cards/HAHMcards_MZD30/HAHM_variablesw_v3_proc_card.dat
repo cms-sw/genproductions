@@ -1,8 +1,0 @@
-import model sm
-define l+ = e+ mu+
-define l- = e- mu-
-define vl = ve vm vt
-define vl~ = ve~ vm~ vt~
-import model HAHM_variablesw_v3_UFO
-generate p p > h > Z Zp , Z > l+ l- , Zp > l+ l-
-output HAHM_variablesw_v3
