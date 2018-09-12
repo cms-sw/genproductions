@@ -4,7 +4,7 @@
 ### NOTES: User should verify epsilon, lhaid used, and mass points below. 
 
 eps="1e-2"
-lhaid=263000
+lhaid=306000
 
 for zdmass in 1 2 3 4 7 10 15 20 25 30 35
 do
