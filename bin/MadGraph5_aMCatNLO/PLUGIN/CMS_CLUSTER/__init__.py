@@ -79,6 +79,7 @@ class CMSCondorCluster(CondorCluster):
         self.walltimes = os.environ.get("CONDOR_SET_MAXWALLTIMES", "")
         self.spool = False
         self.debug_print = os.environ.get("CONDOR_DEBUG_PRINT", "")
+        self.fetched_jobs = []
         
     def query(self, ids, ads=[], lim=-1):
         """Query the Schedd via HTCondor Python API"""
@@ -222,6 +223,7 @@ class CMSCondorCluster(CondorCluster):
                   Initialdir = %(cwd)s
                   %(requirement)s
                   getenv=True
+                  %(leave_in_queue)s
                   
                   +JobFlavour = "%(job_flavour)s"
                   
@@ -266,11 +268,12 @@ class CMSCondorCluster(CondorCluster):
         
         # set job max work time
         job_flavour = os.environ.get("CONDOR_JOB_FLAVOUR", "nextweek")
-
+        leave_in_queue = "leave_in_queue = (JobStatus == 4) && ((StageOutFinish =?= UNDEFINED) || (StageOutFinish == 0))" if self.spool else ""
+        
         dico = {'prog': prog, 'cwd': cwd, 'stdout': stdout, 
                 'stderr': stderr,'log': log,'argument': argument,
                 'requirement': requirement, 'input_files':input_files, 
-                'output_files':output_files, 'job_flavour':job_flavour}
+                'output_files':output_files, 'job_flavour':job_flavour, 'leave_in_queue':leave_in_queue}
 
         #open('submit_condor','w').write(text % dico)
         if self.debug_print : logger.info( text % dico )
@@ -376,9 +379,15 @@ class CMSCondorCluster(CondorCluster):
 
     def retrieve_output(self,id):
         # TODO: Error handling
-        a = subprocess.Popen(['condor_transfer_data',str(id)], stdout=subprocess.PIPE,
-                             stdin=subprocess.PIPE)
-        output, err_ = a.communicate()
+        if id in self.fetched_jobs : return
+        a = subprocess.Popen(['condor_transfer_data',str(id)], stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
+        out, err = a.communicate()
+        
+        if a.returncode : 
+          logger.warning("Failed to transfer spooled data " + str(id))
+          logger.warning("   standard output: \n" + str(out))
+          logger.warning("   standard error: \n" + str(err))
+        else : self.fetched_jobs += [ id ]
 
 class CMSCondorSpoolCluster(CMSCondorCluster):
     """Same as CMSCondorCluster, except that we use 'spool' to transfer files."""
