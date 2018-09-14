@@ -51,17 +51,6 @@ modept2gamlep 0      ! (default=0) pt_rel definition in setlocalscales
 #Deltak_gam  0.2d0   ! (default 0) anomalous coupling
 #Lambda_gam  0.02d0  ! (default 0) anomalous coupling
 
-! input variables for the shower
-#use_photos 1         ! (default 0) if 1 use photos for photon radiation from leptons 
-! settings for shower with pythia6 
-pythiatune 320       ! (default 320, Perugia tune) tune for pythia6 
-! settings for shower with pythia8
-py8tune  5           ! (default 5) tune for pythia8 (14 -> Monash2013 tune)
-nohad    0           ! (default 0) if 1 switch off hadronization
-py8veto  1           ! (default 0, use scalupveto routines) if 1 use pythia8 internal routines 
-me_corr 1            ! (default 0, do not use), if 1 use matrix element corrections in photos
-double_brem 1        ! (default 0, do not use), if 1 use double bremsstrahlung generation in photos
-
 #compute_rwgt 1   ! if 1 reweight events for scale variations 
 #renscfact  1d0   ! (default 1d0) ren scale factor: muren  = muref * renscfact
 #facscfact  1d0   ! (default 1d0) fac scale factor: mufact = muref * facscfact
