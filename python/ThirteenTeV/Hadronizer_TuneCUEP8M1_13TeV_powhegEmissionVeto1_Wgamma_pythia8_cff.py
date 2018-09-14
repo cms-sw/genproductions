@@ -23,7 +23,7 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
                          EV1_QEDvetoMode = cms.int32(1),
                          PythiaParameters = cms.PSet(
         pythia8CommonSettingsBlock,
-        pythia8CP5SettingsBlock,
+        pythia8CUEP8M1SettingsBlock,
         processParameters = cms.vstring(
             'POWHEG:nFinal = 2',   ## Number of final state particles
                                    ## (BEFORE THE DECAYS) in the LHE
