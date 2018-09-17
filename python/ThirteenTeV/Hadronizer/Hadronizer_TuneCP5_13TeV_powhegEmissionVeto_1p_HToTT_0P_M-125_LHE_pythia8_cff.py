@@ -26,6 +26,7 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
                                                                    #change to math.pi/2 for pure pseudoscalar
         ),
         parameterSets = cms.vstring('Tauola'),
+    ),
     PythiaParameters = cms.PSet(
         pythia8CommonSettingsBlock,
         pythia8CP5SettingsBlock,
