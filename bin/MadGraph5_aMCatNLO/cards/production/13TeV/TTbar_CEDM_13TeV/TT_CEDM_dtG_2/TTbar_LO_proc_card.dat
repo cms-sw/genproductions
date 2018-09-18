@@ -1,0 +1,5 @@
+import model SMCEDM_U
+generate p p > t t~ [QCD] @0
+
+output CEDM_dtg_1 -nojpeg
+set dtG 1
