@@ -1,6 +1,6 @@
 set param_card hidden 1 20
 set param_card mass 1023 20
-set param_card hidden 3 1.000000e-04
+set param_card hidden 3 1.000000e-02
 set param_card hidden 4 1.000000e-09
 set param_card DECAY 1023 Auto
 set param_card DECAY 25 Auto
