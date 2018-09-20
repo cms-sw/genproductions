@@ -1,0 +1,13 @@
+set group_subprocesses Auto 
+set ignore_six_quark_processes False 
+set gauge unitary 
+set complex_mass_scheme False 
+import model heft_radion 
+define p = g u c d s u~ c~ d~ s~
+define lep = e+ e- mu+ mu- ta+ ta-
+define nu = ve ve~ vm vm~ vt vt~
+define jet = u c d s u~ c~ d~ s~ b b~
+define all = lep nu jet 
+generate p p > h2, ( h2 > H H , H > w+ w- > all all all all / g a , H > b b~)
+add process p p > h2, ( h2 > H H , H > z z > all all all all / g a , H > b b~)
+output Radion_hh_hVVhbb_incl_narrow_M3500 -nojpeg 
