@@ -131,7 +131,7 @@
    0  = drll    ! Min distance between opposite sign lepton pairs
    0  = drll_sf ! Min distance between opp. sign same-flavor lepton pairs
    0  = mll     ! Min inv. mass of all opposite sign lepton pairs
-  30  = mll_sf  ! Min inv. mass of all opp. sign same-flavor lepton pairs
+#  30  = mll_sf  ! Min inv. mass of all opp. sign same-flavor lepton pairs
 #***********************************************************************
 # Photon-isolation cuts, according to hep-ph/9801442                   *
 # When ptgmin=0, all the other parameters are ignored                  *
