@@ -404,6 +404,10 @@ fi
 if [ "$process" = "ZZ" ]; then
     patch -l -p0 -i ${WORKDIR}/patches/zz_m4lcut.patch
 fi
+if [ "$process" = "WWJ" ]; then
+    patch -l -p0 -i ${WORKDIR}/patches/wwj-weights.patch
+    cp ${WORKDIR}/patches/rwl_write_weights2_extra.f POWHEG-BOX/$process/
+fi
 
 
 sed -i -e "s#500#1200#g"  POWHEG-BOX/include/pwhg_rwl.h
@@ -566,7 +570,7 @@ fi
 
 if [ "$process" = "WWJ" ]; then
   cp Makefile Makefile.orig
-  cat Makefile.orig |  sed -e "s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d "=" -f2)/bin/fastjet-config#g" | sed -e "s#cs_angles.o#cs_angles.o fastjetfortran.o observables.o pwhg_bookhist-multi-new.o#g" | sed -e "s#\#\ FASTJET_CONFIG#FASTJET_CONFIG#g" | sed -e "s#\#\ LIBSFASTJET#LIBSFASTJET#g" | sed -e "s#\#\ FJCXXFLAGS#FJCXXFLAGS#g" > Makefile
+  cat Makefile.orig |  sed -e "s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d "=" -f2)/bin/fastjet-config#g" | sed -e "s#cs_angles.o#cs_angles.o fastjetfortran.o observables.o pwhg_bookhist-multi-new.o#g" | sed -e "s#\#\ FASTJET_CONFIG#FASTJET_CONFIG#g" | sed -e "s#\#\ LIBSFASTJET#LIBSFASTJET#g" | sed -e "s#\#\ FJCXXFLAGS#FJCXXFLAGS#g" | sed -e "s#rwl_write_weights_extra.f#rwl_write_weights_extra.f\ rwl_write_weights2_extra.f#g"> Makefile
 fi
 
 if [ "$process" = "gg_H_2HDM" ] || [ "$process" = "gg_H_MSSM" ]; then
@@ -955,10 +959,12 @@ fi
 
 sed -i 's/pwggrid.dat ]]/pwggrid.dat ]] || [ -e ${WORKDIR}\/pwggrid-0001.dat ]/g' runcmsgrid.sh
 
-#if [ "$process" = "HJ" ]; then
-#  cat runcmsgrid.sh  | gawk '/produceWeightsNNLO/{gsub(/false/, \"true\")};{print}' > runcmsgrid_tmp.sh
-#  mv runcmsgrid_tmp.sh runcmsgrid.sh
-#fi  
+if [ "$process" = "WWJ" ]; then
+   cp -p ${WORKDIR}/$folderName/POWHEG-BOX/$process/testrun-nnlops/binvalues-WW.top .
+   cp -r ${WORKDIR}/$folderName/POWHEG-BOX/$process/testrun-nnlops/WW_MATRIX .
+   cp -r ${WORKDIR}/$folderName/POWHEG-BOX/$process/testrun-nnlops/WW_MINLO .
+   keepTop='1'
+fi  
 
 sed -i s/SCRAM_ARCH_VERSION_REPLACE/${SCRAM_ARCH}/g runcmsgrid.sh
 sed -i s/CMSSW_VERSION_REPLACE/${CMSSW_VERSION}/g runcmsgrid.sh
