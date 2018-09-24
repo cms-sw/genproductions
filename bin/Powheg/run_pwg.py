@@ -322,7 +322,7 @@ is5FlavorScheme=1
 defaultPDF=306000
 
 
-if [[ "$process" == "ST_tch_4f" ]] || [[ "$process" == "bbH" ]] || [[ "$process" == "Wbb_dec" ]] || [[ "$process" == "Wbbj" ]]; then
+if [[ "$process" == "ST_tch_4f" ]] || [[ "$process" == "bbH" ]] || [[ "$process" == "Wbb_dec" ]] || [[ "$process" == "Wbbj" ]] || [[ "$process" == "WWJ" ]]; then
     # 4F
     is5FlavorScheme=0
     defaultPDF=320900

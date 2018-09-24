@@ -3,8 +3,8 @@ e+mu- 1
 numevts NEVENTS     ! number of events to be generated
 ih1   1           ! hadron 1 (1 for protons, -1 for antiprotons)
 ih2   1           ! hadron 2 (1 for protons, -1 for antiprotons)
-lhans1 260400     ! pdf set for hadron 1 ( *must be a 4f set* )
-lhans2 260400     ! pdf set for hadron 2 ( *must be a 4f set* )
+lhans1 320900     ! pdf set for hadron 1 ( *must be a 4f set* )
+lhans2 320900     ! pdf set for hadron 2 ( *must be a 4f set* )
 ebeam1 6500d0     ! energy of beam 1
 ebeam2 6500d0     ! energy of beam 2
 
