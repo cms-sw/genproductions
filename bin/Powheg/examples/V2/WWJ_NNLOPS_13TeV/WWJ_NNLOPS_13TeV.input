@@ -43,32 +43,12 @@ nnlops 1           ! (default 0) If 1, activate NNLOPS
 sudscalevar 1      ! (default 1) scale variation also in Sudakov form factors in minlo
 factsc2min 2       ! value the factorization scale is frozen (needed with minlo)
 
-# the following is for parallel runs (see manual in POWHEG-BOX-V2/Docs/)
-# manyseeds 1
-# parallelstage 1
-# xgriditeration 1
-
 # other settings (mostly for debugging purposes)
 #flg_debug 1        ! store extra event info for debugging
 #storemintupb 1    ! (default 0) if 1 save calls in a file
 
-#storeinfo_rwgt 1   ! store info to allow for reweighting
-
-#rwl_file '-'
-#<initrwgt>
-#<weightgroup name='First-Weights'>
-#<weight id='11'> renscfact=1.0 facscfact=1.0 </weight>
-#<weight id='12'> renscfact=1.0 facscfact=2.0 </weight>
-#<weight id='21'> renscfact=2.0 facscfact=1.0 </weight>
-#<weight id='22'> renscfact=2.0 facscfact=2.0 </weight>
-#<weight id='1H'> renscfact=1.0 facscfact=0.5 </weight>
-#<weight id='H1'> renscfact=0.5 facscfact=1.0 </weight>
-#<weight id='HH'> renscfact=0.5 facscfact=0.5 </weight>
-#</initrwgt>
-
 lhrwgt_id 'st4'
 lhrwgt_descr 'Initial st4 event generation'
-
 
 # other parameters
 #wmasslow 10d0
