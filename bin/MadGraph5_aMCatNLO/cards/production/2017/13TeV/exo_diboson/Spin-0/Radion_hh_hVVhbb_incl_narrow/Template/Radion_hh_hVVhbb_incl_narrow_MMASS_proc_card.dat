@@ -10,4 +10,4 @@ define jet = u c d s u~ c~ d~ s~ b b~
 define all = lep nu jet 
 generate p p > h2, ( h2 > H H , H > w+ w- > all all all all / g a , H > b b~)
 add process p p > h2, ( h2 > H H , H > z z > all all all all / g a , H > b b~)
-output Radion_hh_hVVhbb_incl_narrow_M900 -nojpeg 
+output Radion_hh_hVVhbb_incl_narrow_MMASS -nojpeg 
