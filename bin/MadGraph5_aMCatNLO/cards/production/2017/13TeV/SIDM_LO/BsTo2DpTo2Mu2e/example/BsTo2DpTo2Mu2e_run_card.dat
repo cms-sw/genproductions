@@ -63,7 +63,7 @@
 #*********************************************************************
 # Time of flight information. (-1 means not run)
 #*********************************************************************
- 0.0001 = time_of_flight ! threshold below which info is not written
+ -1 = time_of_flight ! threshold below which info is not written
 #*********************************************************************
 # Matching - Warning! ickkw > 1 is still beta
 #*********************************************************************
