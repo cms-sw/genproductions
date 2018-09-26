@@ -1,0 +1,4 @@
+set time_of_flight 0.0001
+set param_card mass 35 XMASS
+set param_card mass 32 MED
+set param_card newg 1 EPSILON
