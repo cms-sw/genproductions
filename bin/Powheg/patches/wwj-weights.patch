@@ -218,7 +218,7 @@
        common/ckfactdyww/Kfact_dyWW
        real *8 num_CS,den_CS 
 --- ../my_WWJ/POWHEG-BOX/WWJ/rwl_procdep.f	2018-09-04 10:17:03.000000001 +0200
-+++ POWHEG-BOX/WWJ/rwl_procdep.f	2018-09-24 12:19:33.000000001 +0200
++++ POWHEG-BOX/WWJ/rwl_procdep.f	2018-09-27 12:13:29.000000001 +0200
 @@ -2,13 +2,19 @@
        implicit none 
        include 'pwhg_rwl.h'
@@ -249,7 +249,7 @@
        do jw = 1, rwl_num_weights
 -         if(rwl_weights_array(jw)%group == jg) then
 +         if((rwl_weights_array(jw)%group == jg) .and. 
-+     1        (weights_new(jw) .gt. -999.)) .and. 
++     1        (weights_new(jw) .gt. -999.) .and. 
 +     2        (weights_new(jw) .lt. 999.)) then
              write(tmpstr,'(E11.5)') weights_new(jw)
              call pwhg_io_write(iun,tmpstr)
