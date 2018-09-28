@@ -1,0 +1,5 @@
+import model Phi2_simp_tt
+generate p p > y0 [QCD] QED = 0 @0
+add process p p > y0 j [QCD] QED = 0 @1
+add process p p > y0 j j [QCD] QED = 0 @2
+output %PROC_NAME%
