@@ -322,7 +322,7 @@ is5FlavorScheme=1
 defaultPDF=306000
 
 
-if [[ "$process" == "ST_tch_4f" ]] || [[ "$process" == "bbH" ]] || [[ "$process" == "Wbb_dec" ]] || [[ "$process" == "Wbbj" ]]; then
+if [[ "$process" == "ST_tch_4f" ]] || [[ "$process" == "bbH" ]] || [[ "$process" == "Wbb_dec" ]] || [[ "$process" == "Wbbj" ]] || [[ "$process" == "WWJ" ]]; then
     # 4F
     is5FlavorScheme=0
     defaultPDF=320900
@@ -362,7 +362,7 @@ if [[ -s ./JHUGen.input ]]; then
 fi
 
 ### retrieve the powheg source tar ball
-export POWHEGSRC=powhegboxV2_rev3511_date20180410.tar.gz
+export POWHEGSRC=powhegboxV2_rev3592_date20180904.tar.gz
 
 if [ "$process" = "b_bbar_4l" ] || [ "$process" = "HWJ_ew" ] || [ "$process" = "HW_ew" ] || [ "$process" = "HZJ_ew" ] || [ "$process" = "HZ_ew" ]; then 
   export POWHEGSRC=powhegboxRES_rev3478_date20180122.tar.gz 
@@ -403,6 +403,10 @@ if [ "$process" = "ttb_NLO_dec" ]; then
 fi
 if [ "$process" = "ZZ" ]; then
     patch -l -p0 -i ${WORKDIR}/patches/zz_m4lcut.patch
+fi
+if [ "$process" = "WWJ" ]; then
+    patch -l -p0 -i ${WORKDIR}/patches/wwj-weights.patch
+    cp ${WORKDIR}/patches/rwl_write_weights2_extra.f POWHEG-BOX/$process/
 fi
 
 
@@ -451,7 +455,7 @@ if [ `echo ${POWHEGSRC} | cut -d "_" -f 1` = "powhegboxV1" ]; then
    BOOK_HISTO="pwhg_bookhist.o"
 fi 
 
-if [ "$process" = "gg_H" ] || [ "$process" = "ggHH" ]; then
+if [ "$process" = "gg_H" ] || [ "$process" = "ggHH" ] || [ "$process" = "WWJ" ]; then
    BOOK_HISTO=""
    echo "Process using pwhg_bookhist-multi-new"
 fi
@@ -540,8 +544,6 @@ echo "ANALYSIS=none " >> tmpfile
 
 if [ "$process" = "Wgamma" ]; then
   echo "PWHGANAL=$BOOK_HISTO pwhg_analysis-dummy.o uti.o " >> tmpfile
-#elif [ "$process" = "HW_ew" ] || [ "$process" = "HWJ_ew" ]; then 
-#  echo "PWHGANAL=$BOOK_HISTO pwhg_analysis-HWnJ_res.o pwhg_analysis_paper-HWnJ_res.o observables.o multi_plot.o " >> tmpfile
 else
   echo "PWHGANAL=$BOOK_HISTO pwhg_analysis-dummy.o " >> tmpfile
 fi
@@ -572,6 +574,12 @@ if [ $jhugen = 1 ]; then
 
   cd ..
 fi
+
+if [ "$process" = "WWJ" ]; then
+  cp Makefile Makefile.orig
+  cat Makefile.orig |  sed -e "s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d "=" -f2)/bin/fastjet-config#g" | sed -e "s#cs_angles.o#cs_angles.o fastjetfortran.o observables.o pwhg_bookhist-multi-new.o#g" | sed -e "s#\#\ FASTJET_CONFIG#FASTJET_CONFIG#g" | sed -e "s#\#\ LIBSFASTJET#LIBSFASTJET#g" | sed -e "s#\#\ FJCXXFLAGS#FJCXXFLAGS#g" | sed -e "s#rwl_write_weights_extra.f#rwl_write_weights_extra.f\ rwl_write_weights2_extra.f#g"> Makefile
+fi
+
 if [ "$process" = "gg_H_2HDM" ] || [ "$process" = "gg_H_MSSM" ]; then
   echo "Adding CHAPLIN 1.2 library"
   if [ ! -f chaplin-1.2.tar ]; then
@@ -1012,10 +1020,12 @@ fi
 
 sed -i 's/pwggrid.dat ]]/pwggrid.dat ]] || [ -e ${WORKDIR}\/pwggrid-0001.dat ]/g' runcmsgrid.sh
 
-#if [ "$process" = "HJ" ]; then
-#  cat runcmsgrid.sh  | gawk '/produceWeightsNNLO/{gsub(/false/, \"true\")};{print}' > runcmsgrid_tmp.sh
-#  mv runcmsgrid_tmp.sh runcmsgrid.sh
-#fi  
+if [ "$process" = "WWJ" ]; then
+   cp -p ${WORKDIR}/$folderName/POWHEG-BOX/$process/testrun-nnlops/binvalues-WW.top .
+   cp -r ${WORKDIR}/$folderName/POWHEG-BOX/$process/testrun-nnlops/WW_MATRIX .
+   cp -r ${WORKDIR}/$folderName/POWHEG-BOX/$process/testrun-nnlops/WW_MINLO .
+   keepTop='1'
+fi  
 
 sed -i s/SCRAM_ARCH_VERSION_REPLACE/${SCRAM_ARCH}/g runcmsgrid.sh
 sed -i s/CMSSW_VERSION_REPLACE/${CMSSW_VERSION}/g runcmsgrid.sh
