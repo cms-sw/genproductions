@@ -419,6 +419,13 @@ cd POWHEG-BOX/${process}
 # This is just to please gcc 4.8.1
 mkdir -p include
 
+if [ "$process" = "Zj" ] || [ "$process" = "Wj" ]; then
+    tar zxf ../DYNNLOPS.tgz
+    #diff DYNNLOPS/${process:0:1}NNLOPS/powheg-patches/powheg.makefile Makefile
+    sed -i 's/VPATH= /VPATH= DYNNLOPS\/WNNLOPS\/powheg-patches\/:/g' Makefile
+    sed -i 's/setlocalscales.o/auxiliary.o boost.o setlocalscales2.o/g' Makefile
+fi
+
 # Use dynamic linking and lhapdf
 sed -i -e "s#STATIC[ \t]*=[ \t]*-static#STATIC=-dynamic#g" Makefile
 sed -i -e "s#PDF[ \t]*=[ \t]*native#PDF=lhapdf#g" Makefile
@@ -653,7 +660,7 @@ fi
 cd ${WORKDIR}/${name}
 
 if [ "$process" = "HJ" ]; then
-  echo "Compilinig HNNLO...."
+  echo "Compiling HNNLO...."
   wget --no-verbose http://theory.fi.infn.it/grazzini/codes/hnnlo-v2.0.tgz
   tar -xzvf hnnlo-v2.0.tgz
   cd hnnlo-v2.0
@@ -751,6 +758,60 @@ nnlofiles
 EOF
 
 fi  
+
+if [ "$process" = "Zj" ] || [ "$process" = "Wj" ]; then
+  echo "Compiling DYNNLO...."
+  wget --no-verbose http://theory.fi.infn.it/grazzini/codes/dynnlo-v1.5.tgz
+  tar -xzvf dynnlo-v1.5.tgz
+  cd dynnlo-v1.5
+  cp ../POWHEG-BOX/${process}/DYNNLOPS/${process:0:1}NNLOPS/dynnlo-patches/dynnlo.makefile ./makefile
+  cp -r -L ../POWHEG-BOX/${process}/DYNNLOPS/${process:0:1}NNLOPS/dynnlo-patches ./
+  cd src/Need/
+  cat pdfset_lhapdf.f | sed -e "s#30#40#g" | sed -e "s#20#30#g" | sed -e "s#oldPDFname(1:i-1)//'.LHgrid'#oldPDFname(1:i-1)#g" | sed -e "s#oldPDFname(1:i-1)//'.LHpdf'#oldPDFname(1:i-1)#g" | sed -e "s#InitPDFset('PDFsets/'//PDFname)#InitPDFsetByName(PDFname)#g" > pdfset_lhapdf.f.new
+  mv pdfset_lhapdf.f.new pdfset_lhapdf.f
+  cd -
+  cat makefile | sed -e "s#LHAPDFLIB=.\+#LHAPDFLIB=$(scram tool info lhapdf | grep LIBDIR | cut -d "=" -f2)#g" > makefile
+  make || fail_exit "Failed to compile DYNNLO"
+
+  cp -p bin/dynnlo ${WORKDIR}/${name}/
+
+  cd ${WORKDIR}/${name}/POWHEG-BOX/${process}/DYNNLOPS/aux
+  gfortran -mcmodel=medium -o merge3ddata merge3ddata.f  || fail_exit "Failed to compile merge3ddata"
+  cp merge3ddata ${WORKDIR}/${name}/
+
+  cd ${WORKDIR}/${name}/POWHEG-BOX/${process}/DYNNLOPS/${process:0:1}NNLOPS/Reweighter
+  sed -i 's/MINNLO=/MINNLO=pwhg_io_interface.o rwl_weightlists.o zlibdummy.o /g' Makefile
+  make minnlo || fail_exit "Failed to compile minnlo reweighter"
+  cp minnlo ${WORKDIR}/${name}/
+
+  cd ${WORKDIR}/${name}
+  VMASS=`cat powheg.input | grep "^Wmass\|^Zmass" | awk '{print $2}' | cut -d "d" -f1`
+  VMASSEXP=`cat powheg.input | grep "^Wmass\|^Zmass" | awk '{print $2}' | cut -d "d" -f2`
+  VMASS=`echo "( $VMASS*10^$VMASSEXP )" | bc`
+  VMASS05=`echo "( 0.5*$VMASS*10^$VMASSEXP )" | bc`
+  VMASS2=`echo "( 2*$VMASS*10^$VMASSEXP )" | bc`
+  echo $VMASS
+  DYNNLOPROC=3
+  DYNNLOMASS=91.1876d0
+  if [ "$process" = "Wj" ]; then
+    DYNNLOPROC=1
+    DYNNLOMASS=80.398d0
+    VID=`cat powheg.input | grep "^idvecbos" | awk '{print $2}'`;
+    if [ "$VID" = "-24" ]; then
+      DYNNLOPROC=2
+    fi
+  fi
+  BEAM=`cat powheg.input | grep "^ebeam1" | cut -d " " -f2 | tr "d" "."`;
+  COMENERGY=`echo "( $BEAM*2 )" | bc`
+  
+  cp POWHEG-BOX/${process}/DYNNLOPS/${process:0:1}NNLOPS/dynnlo-patches/dynnlo.infile dynnlo.infile
+  sed -i "/nproc/d" dynnlo.infile
+  echo "$DYNNLOPROC ! nproc" >> dynnlo.infile
+  
+  gawk "/sroot/{gsub(/14d3/,$COMENERGY)};/mur, muf/{gsub(/$DYNNLOMASS/, ${VMASS05})};{print}" dynnlo.infile | sed -e "s#113#SEED#g" | sed -e "s#MSTW2008nnlo68cl#NNPDF31_nnlo_hessian_pdfas#g"  | sed -e "s#nnlo#nnlo_mu05#g"> DYNNLO-mu05.input
+  gawk "/sroot/{gsub(/14d3/,$COMENERGY)};/mur, muf/{gsub(/$DYNNLOMASS/, ${VMASS})};{print}" dynnlo.infile | sed -e "s#113#SEED#g" | sed -e "s#MSTW2008nnlo68cl#NNPDF31_nnlo_hessian_pdfas#g"  | sed -e "s#nnlo#nnlo_mu1#g"> DYNNLO-mu1.input
+  gawk "/sroot/{gsub(/14d3/,$COMENERGY)};/mur, muf/{gsub(/$DYNNLOMASS/, ${VMASS2})};{print}" dynnlo.infile | sed -e "s#113#SEED#g" | sed -e "s#MSTW2008nnlo68cl#NNPDF31_nnlo_hessian_pdfas#g"  | sed -e "s#nnlo#nnlo_mu2#g"> DYNNLO-mu2.input
+fi
 
 #mkdir -p workdir
 #cd workdir
@@ -1354,8 +1415,11 @@ if __name__ == "__main__":
                         QUEUE + ' '+rootfolder + '/' +scriptName, TESTING == 0)
 
     elif args.parstage == '7' :
-      print "preparing for NNLO reweighting"
-      runhnnlo(args.folderName, njobs, QUEUE)
+        print "preparing for NNLO reweighting"
+        if args.prcName == "HJ":
+            runhnnlo(args.folderName, njobs, QUEUE)
+        if args.prcName in ["Zj", "Wj"]:
+            rundynnlo(args.folderName, njobs, QUEUE)
 
     elif args.parstage == '9' :
         # overwriting with original
