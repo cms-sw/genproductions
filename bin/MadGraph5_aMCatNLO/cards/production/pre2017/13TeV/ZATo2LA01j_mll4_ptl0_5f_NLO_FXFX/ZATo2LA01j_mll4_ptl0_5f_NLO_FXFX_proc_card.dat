@@ -8,4 +8,4 @@ define lep = e+ mu+ ta+ e- mu- ta-
 generate p p > lep lep a [QCD] @0
 add process p p > lep lep j a [QCD] @1
 
-output ZATo2LA01j_mll4_5f_NLO_FXFX -nojpeg
+output ZATo2LA01j_mll4_ptl0_5f_NLO_FXFX -nojpeg
