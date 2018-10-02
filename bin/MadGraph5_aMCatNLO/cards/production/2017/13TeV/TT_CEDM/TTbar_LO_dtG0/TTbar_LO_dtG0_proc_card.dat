@@ -1,0 +1,4 @@
+import model SMCEDM_UFO
+generate p p > t t~ [QCD] @0
+
+output CEDM_dtG_0 -nojpeg
