@@ -1,0 +1,149 @@
+Standard Model
+ Vertices
+A1   |A2   |A3   |A4   |         Factor               |  Lorentz part                                                         |
+G    |G    |G    |     |GG                            |m1.m2*(p1-p2).m3+m2.m3*(p2-p3).m1+m3.m1*(p3-p1).m2
+G    |G    |G.t  |     |GG/Sqrt2                      |m1.M3*m2.m3-m1.m3*m2.M3
+W+   |W-   |A    |     |-EE                           |m1.m2*(p1-p2).m3+m2.m3*(p2-p3).m1+m3.m1*(p3-p1).m2
+W+   |W-   |Z    |     |-EE*CW/SW                     |m1.m2*(p1-p2).m3+m2.m3*(p2-p3).m1+m3.m1*(p3-p1).m2
+W+   |W-   |Z    |Z    |-(EE*CW/SW)^ 2                |2*m1.m2*m3.m4-m1.m3*m2.m4-m1.m4*m2.m3
+W+   |W+   |W-   |W-   |(EE/SW)^ 2                    |2*m1.m2*m3.m4-m1.m3*m2.m4-m1.m4*m2.m3
+W+   |W-   |A    |Z    |-EE^ 2*CW/SW                  |2*m1.m2*m3.m4-m1.m3*m2.m4-m1.m4*m2.m3
+W+   |W-   |A    |A    |-EE^ 2                        |2*m1.m2*m3.m4-m1.m3*m2.m4-m1.m4*m2.m3
+h    |W+   |W-   |     |EE*MW/SW                      |m2.m3
+h    |Z    |Z    |     |EE/(SW*CW^ 2)*MW              |m2.m3
+h    |h    |h    |     |-(3/2)*EE*Mh^ 2/(MW*SW)       |1
+h    |h    |h    |h    |(-3/4)*(EE*Mh/(MW*SW))^ 2     |1
+h    |h    |Z    |Z    | (1/2)*(EE/(SW*CW))^ 2        |m3.m4
+h    |h    |W+   |W-   | (1/2)*(EE/SW)^ 2             |m3.m4
+M    |m    |h    |     |-EE*Mm/(2*MW*SW)              |1
+L    |l    |h    |     |-EE*Ml  /(2*MW*SW)            |1
+C    |c    |h    |     |-EE*Mc/(2*MW*SW)              |1
+B    |b    |h    |     |-EE*Mb/(2*MW*SW)              |1
+T    |t    |h    |     |-EE*Mt  /(2*MW*SW)            |1
+E    |e    |A    |     |-EE                           |G(m3)
+M    |m    |A    |     |-EE                           |G(m3)
+L    |l    |A    |     |-EE                           |G(m3)
+Ne   |e    |W+   |     |EE/(2*Sqrt2*SW)               |G(m3)*(1-G5)
+Nm   |m    |W+   |     |EE/(2*Sqrt2*SW)               |G(m3)*(1-G5)
+Nl   |l    |W+   |     |EE/(2*Sqrt2*SW)               |G(m3)*(1-G5)
+E    |ne   |W-   |     |EE/(2*Sqrt2*SW)               |G(m3)*(1-G5)
+M    |nm   |W-   |     |EE/(2*Sqrt2*SW)               |G(m3)*(1-G5)
+L    |nl   |W-   |     |EE/(2*Sqrt2*SW)               |G(m3)*(1-G5)
+E    |e    |Z    |     |-EE/(4*SW*CW)                 |G(m3)*(1-G5)-4*(SW^ 2)*G(m3)
+M    |m    |Z    |     |-EE/(4*SW*CW)                 |G(m3)*(1-G5)-4*(SW^ 2)*G(m3)
+L    |l    |Z    |     |-EE/(4*SW*CW)                 |G(m3)*(1-G5)-4*(SW^ 2)*G(m3)
+Ne   |ne   |Z    |     |EE/(4*SW*CW)                  |G(m3)*(1-G5)
+Nm   |nm   |Z    |     |EE/(4*SW*CW)                  |G(m3)*(1-G5)
+Nl   |nl   |Z    |     |EE/(4*SW*CW)                  |G(m3)*(1-G5)
+U    |u    |A    |     |(2/3)*EE                      |G(m3)
+D    |d    |A    |     |(-1/3)*EE                     |G(m3)
+C    |c    |A    |     |(2/3)*EE                      |G(m3)
+S    |s    |A    |     |(-1/3)*EE                     |G(m3)
+B    |b    |A    |     |(-1/3)*EE                     |G(m3)
+T    |t    |A    |     |(2/3)*EE                      |G(m3)
+U    |u    |Z    |     |-EE/(12*SW*CW)                |-3*G(m3)*(1-G5)+8*(SW^ 2)*G(m3)
+D    |d    |Z    |     |-EE/(12*SW*CW)                |+3*G(m3)*(1-G5)-4*(SW^ 2)*G(m3)
+C    |c    |Z    |     |-EE/(12*SW*CW)                |-3*G(m3)*(1-G5)+8*(SW^ 2)*G(m3)
+S    |s    |Z    |     |-EE/(12*SW*CW)                |+3*G(m3)*(1-G5)-4*(SW^ 2)*G(m3)
+B    |b    |Z    |     |-EE/(12*SW*CW)                |+3*G(m3)*(1-G5)-4*(SW^ 2)*G(m3)
+T    |t    |Z    |     |-EE/(12*SW*CW)                |-3*G(m3)*(1-G5)+8*(SW^ 2)*G(m3)
+U    |d    |W+   |     |EE*Vud/(2*Sqrt2*SW)           |G(m3)*(1-G5)
+U    |s    |W+   |     |EE*Vus/(2*Sqrt2*SW)           |G(m3)*(1-G5)
+U    |b    |W+   |     |EE*Vub/(2*Sqrt2*SW)           |G(m3)*(1-G5)
+C    |d    |W+   |     |EE*Vcd/(2*Sqrt2*SW)           |G(m3)*(1-G5)
+C    |s    |W+   |     |EE*Vcs/(2*Sqrt2*SW)           |G(m3)*(1-G5)
+C    |b    |W+   |     |EE*Vcb/(2*Sqrt2*SW)           |G(m3)*(1-G5)
+T    |d    |W+   |     |EE*Vtd/(2*Sqrt2*SW)           |G(m3)*(1-G5)
+T    |s    |W+   |     |EE*Vts/(2*Sqrt2*SW)           |G(m3)*(1-G5)
+T    |b    |W+   |     |EE*Vtb/(2*Sqrt2*SW)           |G(m3)*(1-G5)
+D    |u    |W-   |     |EE*Vud/(2*Sqrt2*SW)           |G(m3)*(1-G5)
+S    |u    |W-   |     |EE*Vus/(2*Sqrt2*SW)           |G(m3)*(1-G5)
+B    |u    |W-   |     |EE*Vub/(2*Sqrt2*SW)           |G(m3)*(1-G5)
+D    |c    |W-   |     |EE*Vcd/(2*Sqrt2*SW)           |G(m3)*(1-G5)
+S    |c    |W-   |     |EE*Vcs/(2*Sqrt2*SW)           |G(m3)*(1-G5)
+B    |c    |W-   |     |EE*Vcb/(2*Sqrt2*SW)           |G(m3)*(1-G5)
+D    |t    |W-   |     |EE*Vtd/(2*Sqrt2*SW)           |G(m3)*(1-G5)
+S    |t    |W-   |     |EE*Vts/(2*Sqrt2*SW)           |G(m3)*(1-G5)
+B    |t    |W-   |     |EE*Vtb/(2*Sqrt2*SW)           |G(m3)*(1-G5)
+U    |u    |G    |     |GG                            |G(m3)
+D    |d    |G    |     |GG                            |G(m3)
+C    |c    |G    |     |GG                            |G(m3)
+S    |s    |G    |     |GG                            |G(m3)
+T    |t    |G    |     |GG                            |G(m3)
+B    |b    |G    |     |GG                            |G(m3)
+U    |b    |W+.f |     |-i*EE*Vub/(2*Sqrt2*MW*SW)     |Mb*(1+G5)
+C    |d    |W+.f |     |-i*EE*Vcd/(2*Sqrt2*MW*SW)     |         -Mc*(1-G5)
+C    |b    |W+.f |     |-i*EE*Vcb/(2*Sqrt2*MW*SW)     |Mb*(1+G5)-Mc*(1-G5)
+T    |d    |W+.f |     |-i*EE*Vtd/(2*Sqrt2*MW*SW)     |         -Mt  *(1-G5)
+T    |b    |W+.f |     |-i*EE*Vtb/(2*Sqrt2*MW*SW)     |Mb*(1+G5)-Mt  *(1-G5)
+D    |c    |W-.f |     |-i*EE*Vcd/(2*Sqrt2*MW*SW)     |Mc*(1+G5)
+D    |t    |W-.f |     |-i*EE*Vtd/(2*Sqrt2*MW*SW)     |Mt  *(1+G5)
+B    |u    |W-.f |     |-i*EE*Vub/(2*Sqrt2*MW*SW)     |           -Mb*(1-G5)
+B    |c    |W-.f |     |-i*EE*Vcb/(2*Sqrt2*MW*SW)     |Mc*(1+G5)-Mb*(1-G5)
+B    |t    |W-.f |     |-i*EE*Vtb/(2*Sqrt2*MW*SW)     |Mt  *(1+G5)-Mb*(1-G5)
+C    |c    |Z.f  |     |-i*EE*Mc/(2*MW*SW)            |G5
+T    |t    |Z.f  |     |-i*EE*Mt  /(2*MW*SW)          |G5
+B    |b    |Z.f  |     |i*EE*Mb/(2*MW*SW)             |G5
+M    |nm   |W-.f |     |-i*EE*Mm/(2*Sqrt2*MW*SW)      |-(1-G5)
+L    |nl   |W-.f |     |-i*EE*Ml  /(2*Sqrt2*MW*SW)    |-(1-G5)
+Nm   |m    |W+.f |     |-i*EE*Mm/(2*Sqrt2*MW*SW)      |(1+G5)
+Nl   |l    |W+.f |     |-i*EE*Ml  /(2*Sqrt2*MW*SW)    |(1+G5)
+M    |m    |Z.f  |     |i*EE*Mm/(2*MW*SW)             |G5
+L    |l    |Z.f  |     |i*EE*Ml  /(2*MW*SW)           |G5
+h    |Z.f  |Z    |     |i*EE/(2*CW*SW)                |(p2-p1).m3
+h    |W-.f |W+   |     |i*EE/(2*SW)                   |(p2-p1).m3
+h    |W+.f |W-   |     |i*EE/(2*SW)                   |(p2-p1).m3
+Z.f  |W+.f |W-   |     |EE/(2*SW)                     |-(p2-p1).m3
+Z.f  |W-.f |W+   |     |EE/(2*SW)                     |(p2-p1).m3
+W-.f |W+.f |Z    |     |EE/(2*CW*SW)                  |(1-2*SW^ 2)* (p2-p1).m3
+W-.f |W+.f |A    |     |EE                            |(p2-p1).m3
+W-.f |W+   |A    |     |-i*EE*MW                      |m2.m3
+W+.f |W-   |A    |     |-i*EE*MW                      |-m2.m3
+W-.f |W+   |Z    |     |-i*EE*MW*SW/CW                |-m2.m3
+W+.f |W-   |Z    |     |-i*EE*MW*SW/CW                |m2.m3
+W+.f |W-.f |h    |     |-EE*Mh^ 2/(2*MW*SW)           |1
+Z.f  |Z.f  |h    |     |-EE*Mh^ 2/(2*MW*SW)           |1
+W-.f |W+.f |A    |A    |2*EE^ 2                       |m3.m4
+W-.f |W+.f |Z    |Z    |(EE/(CW*SW))^ 2/2             |(1-2*SW^ 2)^ 2*m3.m4
+W-.f |W+.f |W-   |W+   |EE^ 2/(2*SW*SW)               |m3.m4
+W-.f |W+.f |Z    |A    |EE^ 2/(SW*CW)                 |(1-2*SW^ 2)*m3.m4
+Z.f  |Z.f  |Z    |Z    |(EE/(SW*CW))^ 2/2             |m3.m4
+Z.f  |Z.f  |W-   |W+   |EE^ 2/(2*SW*SW)               |m3.m4
+W-.f |Z.f  |W+   |A    |-EE^ 2/(2*SW)                 |m3.m4
+W+.f |Z.f  |W-   |A    |-EE^ 2/(2*SW)                 |m3.m4
+W-.f |Z.f  |W+   |Z    |EE^ 2/(2*CW)                  |m3.m4
+W+.f |Z.f  |W-   |Z    |EE^ 2/(2*CW)                  |m3.m4
+W-.f |h    |W+   |A    |-i*EE^ 2/(2*SW)               |m3.m4
+W+.f |h    |W-   |A    |i*EE^ 2/(2*SW)                |m3.m4
+W-.f |h    |W+   |Z    |i*EE^ 2/(2*CW)                |m3.m4
+W+.f |h    |W-   |Z    |-i*EE^ 2/(2*CW)               |m3.m4
+Z.f  |Z.f  |Z.f  |Z.f  |-3*(EE*Mh/(2*MW*SW))^ 2       |1
+Z.f  |Z.f  |W-.f |W+.f |-(EE*Mh/(2*MW*SW))^ 2         |1
+W-.f |W-.f |W+.f |W+.f |- (EE*Mh/(MW*SW))^ 2/2        |1
+Z.f  |Z.f  |h    |h    |-(EE*Mh/(2*MW*SW))^ 2         |1
+W+.f |W-.f |h    |h    |-(EE*Mh/(2*MW*SW))^ 2         |1
+G.C  |G.c  |G    |     |-GG                           |p1.m3
+W-.C |Z.c  |W+   |     |EE*CW/SW                      |p1.m3
+W+.C |Z.c  |W-   |     |-EE*CW/SW                     |p1.m3
+Z.C  |W-.c |W+   |     |-EE*CW/SW                     |p1.m3
+Z.C  |W+.c |W-   |     |EE*CW/SW                      |p1.m3
+W-.C |W+.c |Z    |     |-EE*CW/SW                     |p1.m3
+W+.C |W-.c |Z    |     |EE*CW/SW                      |p1.m3
+W-.C |W+.c |A    |     |-EE                           |p1.m3
+W+.C |W-.c |A    |     |EE                            |p1.m3
+Z.C  |Z.c  |h    |     |-EE*MW/(2*SW*CW*CW)           |1
+W-.C |W+.c |h    |     |-EE*MW/(2*SW)                 |1
+W+.C |W-.c |h    |     |-EE*MW/(2*SW)                 |1
+W-.C |W+.c |Z.f  |     |i*EE*MW/(2*SW)                |1
+W+.C |W-.c |Z.f  |     |-i*EE*MW/(2*SW)               |1
+W-.C |Z.c  |W+.f |     |-i*EE*MW/(2*CW*SW)            |1-2*SW^ 2
+W+.C |Z.c  |W-.f |     |i*EE*MW/(2*CW*SW)             |1-2*SW^ 2
+Z.C  |W-.c |W+.f |     |i*EE*MW/(2*CW*SW)             |1
+Z.C  |W+.c |W-.f |     |-i*EE*MW/(2*CW*SW)            |1
+W-.C |A.c  |W+   |     |EE                            |p1.m3
+W+.C |A.c  |W-   |     |-EE                           |p1.m3
+A.C  |W-.c |W+   |     |-EE                           |p1.m3
+A.C  |W+.c |W-   |     |EE                            |p1.m3
+W-.C |A.c  |W+.f |     |-i*EE*MW                      |1
+W+.C |A.c  |W-.f |     |i*EE*MW                       |1
+===============================================================================================================================
