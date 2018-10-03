@@ -1,0 +1,4 @@
+import model SMCEDM_UFO
+generate p p > t t~ @0
+
+output TTbar_LO_CEDM_dtG0 -nojpeg
