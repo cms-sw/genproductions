@@ -1,0 +1,23 @@
+Standard Model
+ Constraints 
+ Name      |  Expression                                                   <|
+CW         |MW/MZ                       % on-shell cos of the Weinberg angle
+SW         |sqrt(1-CW^2)                % sin of the Weinberg angle
+GF         |EE^2/(2*SW*MW)^2/Sqrt2      % Fermi constant (not used below)
+c12        |sqrt(1-s12^ 2)              % parameter  of C-K-M matrix
+c23        |sqrt(1-s23^ 2)              % parameter  of C-K-M matrix
+c13        |sqrt(1-s13^ 2)              % parameter  of C-K-M matrix
+Vud        |c12*c13                     % C-K-M matrix element
+Vus        |s12*c13                     % C-K-M matrix element
+Vub        |s13                         % C-K-M matrix element
+Vcd        |-s12*c23-c12*s23*s13        % C-K-M matrix element
+Vcs        |c12*c23-s12*s23*s13         % C-K-M matrix element
+Vcb        |s23*c13                     % C-K-M matrix element
+Vtd        |s12*s23-c12*c23*s13         % C-K-M matrix element
+Vts        |-c12*s23-s12*c23*s13        % C-K-M matrix element
+Vtb        |c23*c13                     % C-K-M matrix element
+LamQCD     |initQCD5(alfSMZ,McMc,MbMb,Mtp)
+ Mb        |MbEff(Q)
+ Mt        |MtEff(Q)
+ Mc        |McEff(Q)
+=============================================================================
