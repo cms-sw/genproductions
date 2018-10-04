@@ -1,7 +1,6 @@
 import FWCore.ParameterSet.Config as cms
 from GeneratorInterface.ExternalDecays.TauolaSettings_cff import *
 from Configuration.Generator.Pythia8CUEP8S1CTEQ6L1Settings_cfi import *
-from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *
 
 generator = cms.EDFilter("Pythia8HadronizerFilter",
                          ExternalDecays = cms.PSet(
@@ -32,13 +31,11 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
         outTree_flag = cms.int32(0) # 1=yes, write out the tree for future sanity check
         ),
                          PythiaParameters = cms.PSet(
-        pythia8PSweightsSettingsBlock,
         processParameters = cms.vstring(
             'Main:timesAllowErrors = 10000',
             'ParticleDecays:tauMax = 10',
             ),
     parameterSets = cms.vstring('pythia8CUEP8S1cteqSettings',
-                                'pythia8PSweightsSettings',
                                 'processParameters')
     )
 )

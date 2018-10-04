@@ -1,5 +1,4 @@
 import FWCore.ParameterSet.Config as cms
-from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *
 
 generator = cms.EDFilter("Pythia8HadronizerFilter",
     maxEventsToPrint = cms.untracked.int32(1),
@@ -11,7 +10,6 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
       scheme = cms.string("MadgraphPy8Internal"),
     ),
     PythiaParameters = cms.PSet(
-        pythia8PSweightsSettingsBlock,
         processParameters = cms.vstring(
 	    'Main:timesAllowErrors    = 10000', 
         'ParticleDecays:limitTau0 = on',
@@ -47,7 +45,6 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
         'TimeShower:nPartonsInBorn = 0', #number of partons in born matrix element
         'JetMatching:nJetMax = 1', #number of partons in born matrix element for highest multiplicity
         ),
-        parameterSets = cms.vstring('pythia8PSweightsSettings',
-                                    'processParameters')
+        parameterSets = cms.vstring('processParameters')
     )
 )

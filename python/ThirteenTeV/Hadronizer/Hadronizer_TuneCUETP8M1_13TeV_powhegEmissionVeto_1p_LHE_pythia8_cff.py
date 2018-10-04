@@ -2,7 +2,6 @@ import FWCore.ParameterSet.Config as cms
 from Configuration.Generator.Pythia8CommonSettings_cfi import *
 from Configuration.Generator.Pythia8CUEP8M1Settings_cfi import *
 from Configuration.Generator.Pythia8PowhegEmissionVetoSettings_cfi import *
-from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *
 
 generator = cms.EDFilter("Pythia8HadronizerFilter",
                          maxEventsToPrint = cms.untracked.int32(1),
@@ -14,7 +13,6 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
         pythia8CommonSettingsBlock,
         pythia8CUEP8M1SettingsBlock,
         pythia8PowhegEmissionVetoSettingsBlock,
-        pythia8PSweightsSettingsBlock,
         processParameters = cms.vstring(
             'POWHEG:nFinal = 1',   ## Number of final state particles
                                    ## (BEFORE THE DECAYS) in the LHE
@@ -23,7 +21,6 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
         parameterSets = cms.vstring('pythia8CommonSettings',
                                     'pythia8CUEP8M1Settings',
                                     'pythia8PowhegEmissionVetoSettings',
-                                    'pythia8PSweightsSettings',
                                     'processParameters'
                                     )
         )

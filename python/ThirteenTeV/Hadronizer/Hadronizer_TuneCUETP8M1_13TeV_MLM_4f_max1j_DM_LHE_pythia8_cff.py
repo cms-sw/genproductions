@@ -2,7 +2,6 @@ import FWCore.ParameterSet.Config as cms
 
 from Configuration.Generator.Pythia8CommonSettings_cfi import *
 from Configuration.Generator.Pythia8CUEP8M1Settings_cfi import *
-from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *
 
 generator = cms.EDFilter("Pythia8HadronizerFilter",
     maxEventsToPrint = cms.untracked.int32(1),
@@ -13,7 +12,6 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
     PythiaParameters = cms.PSet(
         pythia8CommonSettingsBlock,
         pythia8CUEP8M1SettingsBlock,
-        pythia8PSweightsSettingsBlock,
         processParameters = cms.vstring(
             'JetMatching:setMad = off',
             'JetMatching:scheme = 1',
@@ -33,7 +31,6 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
         ),
         parameterSets = cms.vstring('pythia8CommonSettings',
                                     'pythia8CUEP8M1Settings',
-                                    'pythia8PSweightsSettings',
                                     'processParameters',
                                     )
     )
