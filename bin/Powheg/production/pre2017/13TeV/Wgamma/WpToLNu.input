@@ -1,5 +1,6 @@
 idvecbos 24   ! PDG code for vector boson to be produced ( W+:24 W-:-24)
-vdecaymode 3  ! (1:electronic decay, 2: muonic decay, 3: tauonic decay)
+vdecaymode 2  ! (1:electronic decay, 2: muonic decay, 3: tauonic decay)
+generate_e_mu_tau 3
 
 numevts NEVENTS ! number of events to be generated
 ih1   1        ! hadron 1 (1 for protons, -1 for antiprotons)
