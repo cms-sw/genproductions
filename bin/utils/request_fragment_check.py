@@ -27,6 +27,7 @@ for r in res:
     te = r['time_event']
     totalevents = r['total_events']
     cmssw = r['cmssw_release']
+    mem = r['memory']
     print (pi)
     check = []
     tunecheck = []
@@ -59,6 +60,18 @@ for r in res:
         print "***********************************************************************************"
         print ""
         exit()
+    ftest = os.system('wget -q https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_test/'+pi+' -O '+pi+'_get_test')
+    ttxt = os.popen('grep nThreads '+pi+'_get_test').read()
+    if int(os.popen('grep -c nThreads '+pi+'_get_test').read()) == 0 :
+        nthreads = 1
+    else :
+        nthreads = int(re.search('nThreads(.*?) --',ttxt).group(1))
+    if mem != 2300 and mem != 4000 :
+        print "* [ERROR] Memory is not 2300 or 4000 GB"
+    if mem == 2300 and nthreads != 1 :
+        print "* [ERROR] Memory is "+str(mem)+" GB while number of cores is "+str(nthreads)+" but not = 1"
+    if mem == 4000 and nthreads == 1 :
+        print "* [ERROR] Memory is "+str(mem)+" GB while number of cores is "+str(nthreads)+" but not = 2,4 or 8"
     os.system('wget -q https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_fragment/'+pi+' -O '+pi)
     os.system('mkdir -p '+my_path+'/'+pi)
     if int(os.popen('grep -c eos '+pi).read()) == 1 :
