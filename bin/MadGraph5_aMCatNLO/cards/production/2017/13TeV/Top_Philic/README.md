@@ -1,6 +1,8 @@
 # CMS Madgraph cards for Z'->ttbar+1jet (top-philic) model
+
 references:http://arxiv.org/pdf/1604.07421.pdf, http://arxiv.org/pdf/1410.6099.pdf 
-Author: Anastasia Karavdina<sanastasia.karavdina@desy.de>
+
+Author: Anastasia Karavdina <anastasia.karavdina@desy.de>
 
 This folder contains all the Madgraph cards used for the generation of Z'->ttbar+1jet (top-philic) CMS samples. 
 They are slightly different from the normal Z'->ttbar samples because only the Z' and the jet with Madgraph (including the top
