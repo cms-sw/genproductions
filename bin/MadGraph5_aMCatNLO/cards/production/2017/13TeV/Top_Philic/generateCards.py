@@ -42,11 +42,24 @@ for mass in MASSES:
     # Overwrite customizecards with correct mass and width
     with open("{0}/{0}_customizecards.dat".format(sampleName), "w") as f:
         f.write("set param_card mass 6000055 %d\n" % mass)
+        f.write("set param_card mass 6 172.5\n")
+        f.write("set param_card yukawa 6 172.5\n")
+
+
       #  f.write("set param_card decay 6000047 %.2f" % (mass * width))
 
     # Overwrite prod_cards with correct mass and width
     with open("{0}/{0}_proc_card.dat".format(sampleName), "w") as f:
+        f.write("set group_subprocesses Auto\n")
+        f.write("set ignore_six_quark_processes False\n")
+        f.write("set loop_optimized_output True\n")
+        f.write("set complex_mass_scheme False\n")
+        f.write("import model Top_Philic_V1_NLO\n")
+        f.write("define p = g u c d s b u~ c~ d~ s~ b~\n") 
+        f.write("define j = g u c d s b u~ c~ d~ s~ b~\n")
+        f.write("generate p p > v1 j [noborn=QCD]\n")
         f.write("output TopPhilicZprimeToTTbar_M%d -nojpeg\n" % mass)
+        #f.write("\n")
 
 
 

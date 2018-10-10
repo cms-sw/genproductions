@@ -6,4 +6,4 @@ import model Top_Philic_V1_NLO
 define p = g u c d s b u~ c~ d~ s~ b~
 define j = g u c d s b u~ c~ d~ s~ b~
 generate p p > v1 j [noborn=QCD]
-output TopPhilicZprimeToTTbar_M500 -nojpeg
+output TopPhilicZprimeToTTbar_M2000 -nojpeg
