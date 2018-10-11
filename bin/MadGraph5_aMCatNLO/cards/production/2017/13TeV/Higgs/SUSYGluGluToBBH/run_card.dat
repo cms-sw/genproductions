@@ -70,8 +70,8 @@
 # shower (HERWIG6 | HERWIGPP | PYTHIA6Q | PYTHIA6PT | PYTHIA8)         *
 # WARNING: PYTHIA6PT works only for processes without FSR!!!!          *
 #***********************************************************************
-  HERWIG6   = parton_shower
-  0.3535534 = shower_scale_factor ! multiply default shower starting
+  PYTHIA8   = parton_shower
+  1         = shower_scale_factor ! multiply default shower starting
                                   ! scale by this factor
 #***********************************************************************
 # Renormalization and factorization scales                             *
@@ -82,8 +82,8 @@
 #***********************************************************************
  False    = fixed_ren_scale  ! if .true. use fixed ren scale
  False    = fixed_fac_scale  ! if .true. use fixed fac scale
- 33.71    = muR_ref_fixed    ! fixed ren reference scale 
- 33.71    = muF_ref_fixed    ! fixed fact reference scale
+ 91.118   = muR_ref_fixed    ! fixed ren reference scale 
+ 91.118   = muF_ref_fixed    ! fixed fact reference scale
  -1 = dynamical_scale_choice ! Choose one (or more) of the predefined
            ! dynamical choices. Can be a list; scale choices beyond the
            ! first are included via reweighting
@@ -98,7 +98,7 @@
             ! rw_rscale and rw_fscale factors. Should be a list of 
             ! booleans of equal length to dynamical_scale_choice to
             ! specify for which choice to include scale dependence.
- True = reweight_PDF  ! Reweight to get PDF uncertainty. Should be a
+ False = reweight_PDF  ! Reweight to get PDF uncertainty. Should be a
             ! list booleans of equal length to lhaid to specify for
             !  which PDF set to include the uncertainties.
 #***********************************************************************
