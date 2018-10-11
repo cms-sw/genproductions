@@ -19,5 +19,8 @@ ERRORS:
 * [ERROR] May be wrong fragment: powheg/madgraph/mcatnlo in dataset name but settings in fragment not correct or vice versa"
 * [ERROR] Tune configuration wrong in the fragment"
 * [ERROR] Parton shower weight configuretion not OK in the fragment"
+* [ERROR] If memory is not 2300 or 4000 GB
+* [ERROR] If memory is 2300 but nthreads != 1
+* [ERROR] If memory is 4000 but nthreads == 1  
 
 The script also checks if there is no fragment there is a hadronizer used.  
