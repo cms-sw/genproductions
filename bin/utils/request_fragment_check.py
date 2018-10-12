@@ -25,14 +25,19 @@ parser = argparse.ArgumentParser(
                   * [ERROR] Parton shower weight configuretion not OK in the fragment"
 
                The script also checks if there is no fragment there is a hadronizer used.'''))
-parser.add_argument('--prepid', type=str, help="check single mcm request", nargs='+')
+parser.add_argument('--prepid', type=str, help="check mcm requests using prepids", nargs='+')
+parser.add_argument('--ticket', type=str, help="check mcm requests using ticket number", nargs=1)
 args = parser.parse_args()
 
-parser.parse_args('--prepid 1'.split())
-print "---> "+str(len(args.prepid))+" requests will be checked:"
-for indnum in range(0,len(args.prepid)):
-    print(args.prepid[indnum])
+if args.prepid is not None:
+    parser.parse_args('--prepid 1'.split())
+    print "---> "+str(len(args.prepid))+" requests will be checked:"
+    prepid = args.prepid
+#    for indnum in range(0,len(prepid)):
+#        print(prepid[indnum])
 print " "
+
+
 
 os.system('source /afs/cern.ch/cms/PPD/PdmV/tools/McM/getCookie.sh')
 os.system('cern-get-sso-cookie -u https://cms-pdmv.cern.ch/mcm/ -o ~/private/prod-cookie.txt --krb --reprocess')
@@ -44,14 +49,52 @@ from itertools import groupby
 
 mcm = McM(dev=False)
 
-for num in range(0,len(args.prepid)):
-    query_str = 'prepid='+args.prepid[num]
+def root_requests_from_ticket(ticket_prepid, include_docs=False):
+    """
+    Return list of all root (first ones in the chain) requests of a ticket.
+    By default function returns list of prepids.
+    If include_docs is set to True, function will return whole documents
+    """
+    mccm = mcm.get('mccms',ticket_prepid)
+    query = ''
+    for root_request in mccm.get('requests',[]):
+        if isinstance(root_request,str) or isinstance(root_request,unicode):
+            query += '%s\n' % (root_request)
+        elif isinstance(root_request,list):
+             # List always contains two elements - start and end of a range
+            query += '%s -> %s\n' % (root_request[0], root_request[1])
+    requests = mcm.get_range_of_requests(query)
+    if not include_docs:
+        # Extract only prepids
+        requests = [r['prepid'] for r in requests]
+    return requests
+
+
+if args.ticket is not None:
+    parser.parse_args('--ticket 1'.split())
+    ticket = args.ticket
+    ticket = ticket[0]
+    print "------------------------------------"
+    print "--> Ticket = "+ticket
+    print "------------------------------------"
+#    print(root_requests_from_ticket(ticket))
+    prepid = []
+    for rr in root_requests_from_ticket(ticket):
+        if 'GS' in rr or 'wmLHE' in rr or 'pLHE' in rr:
+            prepid.append(rr)
+
+prepid = list(set(prepid)) #to avoid requests appearing x times if x chains have the same request 
+       
+for x in range(0,len(prepid)):
+    print(prepid[x])           
+
+for num in range(0,len(prepid)):
+    query_str = 'prepid='+prepid[num]
     res = mcm.get('requests', query=query_str)
     if len(res) == 0 :
         print "***********************************************************************************"
         print "Something's wrong - can not get the request parameters"
         print "***********************************************************************************"
-        exit()
 
     my_path =  '/tmp/'+os.environ['USER']+'/gridpacks/'
     print ""
@@ -83,19 +126,13 @@ for num in range(0,len(args.prepid)):
             print "*           which may not have all the necessary GEN code."
         if totalevents >= 100000000 :
             print "* [WARNING] Is "+str(totalevents)+" events what you really wanted - please check!"
-        fsize = os.popen('wget --spider --server-response https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_fragment/'+pi+' -O - 2>&1 | sed -ne \'/Length/{s/.*: //;p}\'').read()
-        if 'unspecified' in fsize :
-            os.system('wget -q https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_test/'+pi+' -O '+pi)
-            gettest = os.popen('grep cff '+pi+' | grep curl').read()
-            for index, aword in enumerate(MEname):
-                if aword in dn.lower() :
-                    print "* "+gettest
-                    print "* [OK] Probably OK if the above hadronizer is what you intended to use"
-                else:
-                    print "* [ERROR] Something may be wrong - name/hadronizer mismatch - please check!"
-                    print "***********************************************************************************"
-                    print ""
-                    exit()
+        os.popen('wget -q https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_fragment/'+pi+' -O '+pi).read()
+        fsize = os.path.getsize(pi)
+        os.system('wget -q https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_test/'+pi+' -O '+pi)
+        gettest = os.popen('grep cff '+pi+' | grep curl').read()
+        if fsize == 0:
+            print "* No fragment associated to this request"
+            print "       [Probably OK] if this is the hadronizer you intended to use?: "+gettest
         ftest = os.system('wget -q https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_test/'+pi+' -O '+pi+'_get_test')
         ttxt = os.popen('grep nThreads '+pi+'_get_test').read()
         if int(os.popen('grep -c nThreads '+pi+'_get_test').read()) == 0 :
@@ -162,20 +199,20 @@ for num in range(0,len(args.prepid)):
                         print "*           then fragment is OK (no need to have Pythia8PowhegEmissionVetoSettings)"
         for kk in range (0, 2):   
             tunecheck.append(int(os.popen('grep -c -i '+tune[kk]+' '+pi).read()))
-        if tunecheck[0] < 3 and tunecheck[1] < 3 :
+        if tunecheck[0] < 3 and tunecheck[1] < 3 and fsize != 0:
             print "* [ERROR] Tune configuration wrong in the fragment"
-        elif tunecheck[0] > 2 or tunecheck[1] >2 :
+        elif tunecheck[0] > 2 or tunecheck[1] >2 and fsize != 0:
             print "* [OK] Tune configuration probably OK in the fragment"
             if tunecheck[0] > 2 :
                 if 'Fall18' not in pi and 'Fall17' not in pi :
                     print "* [WARNING] Do you really want to have tune "+tunename[0] +" in this campaign?"
-        if 'Fall18' in pi :
+        if 'Fall18' in pi and fsize != 0:
             if int(os.popen('grep -c "from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *" '+pi).read()) != 1 :
                 print "* [WARNING] No parton shower weights configuration in the fragment. In the Fall18 campaign, we recommend to include Parton Shower weights"
             if int(os.popen('grep -c "from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *" '+pi).read()) == 1 :
                 if '10_2_3' not in cmssw :
                     "* [ERROR] PS weights in config but CMSSW version is not 10_2_3 - please check!"
-                    exit() 		    
+          	exit()	    
                 psweightscheck.append(int(os.popen('grep -c "from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *" '+pi).read()))
                 psweightscheck.append(int(os.popen('grep -c "pythia8PSweightsSettingsBlock," '+pi).read()))
                 psweightscheck.append(int(os.popen('grep -c "pythia8PSweightsSettings" '+pi).read()))
