@@ -174,28 +174,28 @@ for num in range(0,len(prepid)):
                 if matching >= 2 and check[0] == 2 and check[1] == 1 and check[2] == 1 :
                     print "* [OK] no known inconsistency in the fragment w.r.t. the name of the dataset "+word
                     if matching ==3 :  
-                        print "* [WARNING] This is a FxFx sample. Please check 'JetMatching:nJetMax' is set correctly"
-                        print "*                as number of partons in born matrix element for highest multiplicity."
+                        print "* [Caution: To check manunally] This is a FxFx sample. Please check 'JetMatching:nJetMax' is set"
+                        print "*           correctly as number of partons in born matrix element for highest multiplicity."
                     if matching > 3 :
-                        print "* [WARNING] This is a Powheg NLO sample. Please check 'nFinal' is set correctly"
-                        print "*                        as number of final state particles (BEFORE THE DECAYS)"
+                        print "* [Caution: To check manually] This is a Powheg NLO sample. Please check 'nFinal' is"
+                        print "*               set correctly as number of final state particles (BEFORE THE DECAYS)"
                         print "*                                   in the LHE other than emitted extra parton."
                 elif matching == 1 and check[0] == 0 and check[1] == 0 and check[2] == 0 :    
                     print "* [OK] no known inconsistency in the fragment w.r.t. the name of the dataset "+word
-                    print "* [WARNING] This is a MadGraph LO sample with Jet matching sample. Please check"
+                    print "* [Caution: To check manually] This is a MadGraph LO sample with Jet matching sample. Please check"
                     print "*                   'JetMatching:nJetMax' is set correctly as number of partons"
                     print "*                              in born matrix element for highest multiplicity."
                 elif matching == 0 and word == "madgraph" and check[0] == 0 and check[1] == 0 and check[2] == 0 :
                     print "* [OK] no known inconsistency in the fragment w.r.t. the name of the dataset "+word
                 elif matching == 0 and word == "mcatnlo" and check[0] == 2 and check[1] == 1 and check[2] == 1 :
                     print "* [OK] no known inconsistency in the fragment w.r.t. the name of the dataset "+word
-                    print "* [WARNING] This is a MadGraph NLO sample without matching. Please check 'TimeShower:nPartonsInBorn'"
+                    print "* [Caution: To check manually] This is a MadGraph NLO sample without matching. Please check 'TimeShower:nPartonsInBorn'"
                     print "*                                                   is set correctly as number of coloured particles"
                     print "*                                                  (before resonance decays) in born matrix element."
                 else:     
-                    print "* [ERROR] May be wrong fragment: "+word+" in dataset name but settings in fragment not correct or vice versa"
+                    print "* [ERROR] Fragment may be wrong: "+word+" in dataset name but fragment settings not correct or vice versa"
                     if word == "powheg" :
-                        print "* [WARNING] if this is a"+word+" sample but a loop induced process such as ggZH," 
+                        print "* [However: To check manually] if this is a "+word+" but loop induced process such as gg->ZH," 
                         print "*           then fragment is OK (no need to have Pythia8PowhegEmissionVetoSettings)"
         for kk in range (0, 2):   
             tunecheck.append(int(os.popen('grep -c -i '+tune[kk]+' '+pi).read()))
