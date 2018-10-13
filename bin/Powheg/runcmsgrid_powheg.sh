@@ -117,6 +117,12 @@ if [[ -d ${WORKDIR}/obj-gfortran ]]; then
     ln -s ${WORKDIR}/obj-gfortran .
     cp -p ${WORKDIR}/pwg*.dat .
 fi
+### For the bb4l process
+if [[ -d ${WORKDIR}/WW_MATRIX ]]; then
+    ln -s ${WORKDIR}/WW_MATRIX .
+    ln -s ${WORKDIR}/WW_MINLO .
+    cp -p ${WORKDIR}/binvalues-WW.top .
+fi
 
 if [[ ! -e ${card} ]]; then
  fail_exit "powheg.input not found!"
