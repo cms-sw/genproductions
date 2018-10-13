@@ -211,8 +211,8 @@ for num in range(0,len(prepid)):
                 print "* [WARNING] No parton shower weights configuration in the fragment. In the Fall18 campaign, we recommend to include Parton Shower weights"
             if int(os.popen('grep -c "from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *" '+pi).read()) == 1 :
                 if '10_2_3' not in cmssw :
-                    "* [ERROR] PS weights in config but CMSSW version is not 10_2_3 - please check!"
-          	exit()	    
+                    print "* [ERROR] PS weights in config but CMSSW version is not 10_2_3 - please check!"
+          	    exit()	    
                 psweightscheck.append(int(os.popen('grep -c "from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *" '+pi).read()))
                 psweightscheck.append(int(os.popen('grep -c "pythia8PSweightsSettingsBlock," '+pi).read()))
                 psweightscheck.append(int(os.popen('grep -c "pythia8PSweightsSettings" '+pi).read()))
