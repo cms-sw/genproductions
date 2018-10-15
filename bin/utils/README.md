@@ -1,5 +1,6 @@
 ## usage for *request_fragment_check.py* script:
 
+```
 python request_fragment_check.py --help (or -h)
 
 usage: request_fragment_check.py [-h] [--prepid PREPID [PREPID ...]]
@@ -32,3 +33,4 @@ optional arguments:
   --prepid PREPID [PREPID ...]
                         check mcm requests using prepids
   --ticket TICKET       check mcm requests using ticket number
+```
