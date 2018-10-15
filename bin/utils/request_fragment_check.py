@@ -177,9 +177,11 @@ for num in range(0,len(prepid)):
                     fname = my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat'
                     fname2 = my_path+'/'+pi+'/'+'process/Cards/run_card.dat'
                     if os.path.isfile(fname) is True :
-                        ickkw = os.popen('grep "= ickkw" '+fname).read()
+#                        ickkw = os.popen('grep "= ickkw" '+fname).read()
+                       ickkw = os.popen('more '+fname+' | tr -s \' \' | grep "= ickkw"').read()
                     elif os.path.isfile(fname2) is True :    
-                        ickkw = os.popen('grep "= ickkw" '+fname2).read()
+#                        ickkw = os.popen('grep "= ickkw" '+fname2).read()
+                       ickkw = os.popen('more '+fname2+' | tr -s \' \' | grep "= ickkw"').read()
                     matching = int(re.search(r'\d+',ickkw).group())
                     ickkw = str(ickkw)    
                     if ind < 2:
