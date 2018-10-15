@@ -37,8 +37,6 @@ if args.prepid is not None:
 #        print(prepid[indnum])
 print " "
 
-
-
 os.system('source /afs/cern.ch/cms/PPD/PdmV/tools/McM/getCookie.sh')
 os.system('cern-get-sso-cookie -u https://cms-pdmv.cern.ch/mcm/ -o ~/private/prod-cookie.txt --krb --reprocess')
 sys.path.append('/afs/cern.ch/cms/PPD/PdmV/tools/McM/')
@@ -111,6 +109,7 @@ for num in range(0,len(prepid)):
         check = []
         tunecheck = []
         psweightscheck = []
+        MGpatch = []
         ME = ["PowhegEmissionVeto","aMCatNLO"]
         MEname = ["powheg","madgraph","mcatnlo"]
         tunename = ["CP5","CUETP8M1"]
@@ -169,8 +168,30 @@ for num in range(0,len(prepid)):
                         ickkw = os.popen('grep "= ickkw" '+fname).read()
                     elif os.path.isfile(fname2) is True :    
                         ickkw = os.popen('grep "= ickkw" '+fname2).read()
-                    ickkw = str(ickkw)    
                     matching = int(re.search(r'\d+',ickkw).group())
+                    ickkw = str(ickkw)    
+                    if ind < 2:
+                        MGpatch.append(int(os.popen('more '+my_path+'/'+pi+'/'+'runcmsgrid.sh | grep -c "FORCE IT TO"').read()))
+                        MGpatch.append(int(os.popen('grep -c _CONDOR_SCRATCH_DIR '+my_path+'/'+pi+'/'+'mgbasedir/Template/LO/SubProcesses/refine.sh').read()))
+                        MGpatch.append(int(os.popen('grep -c _CONDOR_SCRATCH_DIR '+my_path+'/'+pi+'/'+'process/madevent/SubProcesses/refine.sh').read()))
+#                        os.system('echo "* multi-run patch (0 bad, 1 good)"; more '+my_path+'/'+pi+'/'+'runcmsgrid.sh | grep -c "FORCE IT TO"')
+#                        os.system('echo "* tmpdir patch-1 (0 bad, 1 good)"; grep -c _CONDOR_SCRATCH_DIR '+my_path+'/'+pi+'/'+'mgbasedir/Template/LO/SubProcesses/refine.sh')
+#                        os.system('echo "* tmpdir patch-2 (0 bad, 1 good)"; grep -c _CONDOR_SCRATCH_DIR '+my_path+'/'+pi+'/'+'process/madevent/SubProcesses/refine.sh')
+                        if MGpatch[0] == 1 and MGpatch[1] == 1 and MGpatch[2] == 1:
+                            print "* [OK] MG5_aMC@NLO leading order patches OK in gridpack"
+                        if MGpatch[0] != 1:
+                            print "* [ERROR] MG5_aMC@NLO multi-run patch missing in gridpack - please re-create a gridpack"
+                            print "*            using updated genproductions area"
+                        if MGpatch[1] == 0 or MGpatch[2] == 0:
+                            print "* [WARNING] At least one of the MG5_aMC@NLO tmpdir patches is missing."
+                            print "*           --> Please check that you use:"
+                            print "*               >=  CMSSW_7_1_32_patch1 in 7_1_X or"  
+                            print "*               >= CMSSW_9_3_9_patch1 in 9_3_X or"
+                            print "*               >= 10_1_3 in 10_1_X or" 
+                            print "*               >= CMSSW_10_2_0_pre2 in 10_2_X."
+                            print "*           Your request uses "+cmssw+" :"
+                            print "*           If you are not using a proper CMSSW version, please switch to that or"
+                            print "*           re-create the gridpack using the updated genproductions area"
                 if matching >= 2 and check[0] == 2 and check[1] == 1 and check[2] == 1 :
                     print "* [OK] no known inconsistency in the fragment w.r.t. the name of the dataset "+word
                     if matching ==3 :  
@@ -211,8 +232,7 @@ for num in range(0,len(prepid)):
                 print "* [WARNING] No parton shower weights configuration in the fragment. In the Fall18 campaign, we recommend to include Parton Shower weights"
             if int(os.popen('grep -c "from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *" '+pi).read()) == 1 :
                 if '10_2_3' not in cmssw :
-                    "* [ERROR] PS weights in config but CMSSW version is not 10_2_3 - please check!"
-          	exit()	    
+                    "* [ERROR] PS weights in config but CMSSW version is not 10_2_3 - please check!"	    
                 psweightscheck.append(int(os.popen('grep -c "from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *" '+pi).read()))
                 psweightscheck.append(int(os.popen('grep -c "pythia8PSweightsSettingsBlock," '+pi).read()))
                 psweightscheck.append(int(os.popen('grep -c "pythia8PSweightsSettings" '+pi).read()))
@@ -220,7 +240,6 @@ for num in range(0,len(prepid)):
                     print "* [OK] Parton shower weight configuration probably OK in the fragment"
                 else:
                     print "* [ERROR] Parton shower weight configuretion not OK in the fragment" 
-                                                                                                                                    
-    print "***********************************************************************************"
-    print ""
-                                                                                                                                    
+print "***********************************************************************************"
+print ""
+os.popen("rm -rf "+my_path+pi).read()  
