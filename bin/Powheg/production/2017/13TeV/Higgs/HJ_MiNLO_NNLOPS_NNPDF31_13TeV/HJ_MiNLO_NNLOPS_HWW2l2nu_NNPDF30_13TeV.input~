@@ -1,0 +1,72 @@
+numevts NEVENTS
+ih1   1           ! hadron 1 (1 for protons, -1 for antiprotons)
+ih2   1           ! hadron 2 (1 for protons, -1 for antiprotons)
+ebeam1 6500d0      ! energy of beam 1
+ebeam2 6500d0      ! energy of beam 2
+
+hmass 125
+hwidth 0.004221d0
+
+hdecaywidth 0        ! If equals to 1 read total decay width from HDECAY sm.br2 file
+                     ! if 0 the hwidth value is used
+
+
+bwcutoff 15        ! how many W widths below and above the Higgs mass are included
+
+! To be set only if using LHA pdfs
+lhans1   306000      ! pdf set for hadron 1 (LHA numbering)
+lhans2   306000     ! pdf set for hadron 2 (LHA numbering)
+! To be set only if using internal mlm pdf
+#ndns1 131         ! pdf set for hadron 1 (mlm numbering)
+#ndns2 131         ! pdf set for hadron 2 (mlm numbering)
+! To be set only if using different pdf sets for the two incoming hadrons
+! QCDLambda5  0.25 ! for not equal pdf sets 
+
+! Parameters to allow or not the use of stored data
+use-old-grid    1 ! if 1 use old grid if file pwggrids.dat is present (<> 1 regenerate)
+use-old-ubound  1 ! if 1 use norm of upper bounding function stored in pwgubound.dat, if present; <> 1 regenerate
+
+
+ncall1   150000    ! number of calls for initializing the integration grid
+itmx1    1        ! number of iterations for initializing the integration grid
+ncall2   100000   ! number of calls for computing the integral and finding upper bound
+itmx2    5        ! number of iterations for computing the integral and finding upper bound
+fastbtlbound 1    ! (default 0) if 1 use fast btilde bound
+storemintupb 1    ! store calls for grids
+foldcsi   2       ! number of folds on csi integration
+foldy     2       ! number of folds on  y  integration
+foldphi   2       ! number of folds on phi integration
+nubound 2000    ! number of bbarra calls to setup norm of upper bounding function
+
+! OPTIONAL PARAMETERS
+
+testplots  1       ! (default 0, do not) do NLO and PWHG distributions
+
+withnegweights 1  ! (1 default) If 1 output negative weighted events.
+                   ! If 0 descard them
+
+renscfact  1d0   ! (default 1d0) ren scale factor: muren  = muref * renscfact 
+facscfact  1d0   ! (default 1d0) fac scale factor: mufact = muref * facscfact 
+pdfreweight 0       ! PDF reweighting
+
+bornktmin 0.26    ! Minimum transverse momentum of the Higgs at the underlying Born level
+
+storeinfo_rwgt 0   ! store info to allow for reweighting
+
+flg_debug      1   ! store extra event info for debugging
+
+minlo 1            ! default 0, set to 1 to use minlo
+
+factsc2min 2       ! at this value the factorization scale is frozen (neede with minlo)
+
+sudscalevar 1      ! (default 1) scale variation also in Sudakov form factors in minlo 
+
+iseed    SEED       ! initialize random number sequence 
+
+# variables for including quark mass effects
+quarkmasseffects 1   ! Include quark mass effects
+topmass 172.5d0      ! top quark mass (172.5 in HNNLO-patches/mdata.f)
+bottommass 3.38d0    ! bottom quark mass in MSbar at MH
+bmass_in_minlo 1     ! Include quark mass effects in Sudakov exponent
+
+fakevirt 1
