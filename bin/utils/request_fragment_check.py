@@ -93,7 +93,7 @@ if args.ticket is not None:
         if 'GS' in rr or 'wmLHE' in rr or 'pLHE' in rr:
             prepid.append(rr)
 
-prepid = list(set(prepid)) #to avoid requests appearing x times if x chains have the same request 
+prepid = list(list(prepid)) #to avoid requests appearing x times if x chains have the same request 
        
 for x in range(0,len(prepid)):
     print(prepid[x])           
@@ -241,7 +241,7 @@ for num in range(0,len(prepid)):
                 print "* [WARNING] No parton shower weights configuration in the fragment. In the Fall18 campaign, we recommend to include Parton Shower weights"
             if int(os.popen('grep -c "from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *" '+pi).read()) == 1 :
                 if '10_2_3' not in cmssw :
-                    "* [ERROR] PS weights in config but CMSSW version is not 10_2_3 - please check!"	    
+                    print "* [ERROR] PS weights in config but CMSSW version is not 10_2_3 - please check!"	    
                 psweightscheck.append(int(os.popen('grep -c "from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *" '+pi).read()))
                 psweightscheck.append(int(os.popen('grep -c "pythia8PSweightsSettingsBlock," '+pi).read()))
                 psweightscheck.append(int(os.popen('grep -c "pythia8PSweightsSettings" '+pi).read()))
