@@ -33,8 +33,6 @@ if args.prepid is not None:
     parser.parse_args('--prepid 1'.split())
     print "---> "+str(len(args.prepid))+" requests will be checked:"
     prepid = args.prepid
-#    for indnum in range(0,len(prepid)):
-#        print(prepid[indnum])
 print " "
 
 os.system('source /afs/cern.ch/cms/PPD/PdmV/tools/McM/getCookie.sh')
@@ -174,9 +172,6 @@ for num in range(0,len(prepid)):
                         MGpatch.append(int(os.popen('more '+my_path+'/'+pi+'/'+'runcmsgrid.sh | grep -c "FORCE IT TO"').read()))
                         MGpatch.append(int(os.popen('grep -c _CONDOR_SCRATCH_DIR '+my_path+'/'+pi+'/'+'mgbasedir/Template/LO/SubProcesses/refine.sh').read()))
                         MGpatch.append(int(os.popen('grep -c _CONDOR_SCRATCH_DIR '+my_path+'/'+pi+'/'+'process/madevent/SubProcesses/refine.sh').read()))
-#                        os.system('echo "* multi-run patch (0 bad, 1 good)"; more '+my_path+'/'+pi+'/'+'runcmsgrid.sh | grep -c "FORCE IT TO"')
-#                        os.system('echo "* tmpdir patch-1 (0 bad, 1 good)"; grep -c _CONDOR_SCRATCH_DIR '+my_path+'/'+pi+'/'+'mgbasedir/Template/LO/SubProcesses/refine.sh')
-#                        os.system('echo "* tmpdir patch-2 (0 bad, 1 good)"; grep -c _CONDOR_SCRATCH_DIR '+my_path+'/'+pi+'/'+'process/madevent/SubProcesses/refine.sh')
                         if MGpatch[0] == 1 and MGpatch[1] == 1 and MGpatch[2] == 1:
                             print "* [OK] MG5_aMC@NLO leading order patches OK in gridpack"
                         if MGpatch[0] != 1:
