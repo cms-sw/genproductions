@@ -93,7 +93,7 @@ if args.ticket is not None:
         if 'GS' in rr or 'wmLHE' in rr or 'pLHE' in rr:
             prepid.append(rr)
 
-prepid = list(list(prepid)) #to avoid requests appearing x times if x chains have the same request 
+prepid = list(set(prepid)) #to avoid requests appearing x times if x chains have the same request 
        
 for x in range(0,len(prepid)):
     print(prepid[x])           
