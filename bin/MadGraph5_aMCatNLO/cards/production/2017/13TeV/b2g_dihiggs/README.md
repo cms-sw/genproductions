@@ -23,18 +23,20 @@ To generate gridpack, you need to prepare some cards for gridpack
 after preparing cards, jobs to generate gridpack will be sent to batch system and it will finished in several minutes 
 
 ### How do I use it?
-* How to generate large number of samples
+* How to generate large number of samples for different mass points
 
-please change this [line](genGridpack_diboson.py#L12), the gridpack with the mass point in array will be generated
+please change this [line](genGridpack_diboson.py#L15), the gridpack with the mass point in array will be generated
 
 * How to change the width
 
-please change this [line](genGridpack_diboson.py#L19-L20), width can vary with resonance mass or be fixed  
+please change this [line](genGridpack_diboson.py#L16) and this [line](genGridpack_diboson.py#L22-L23), width can vary with resonance mass or be fixed  
 
 * How to generate gridpacks locally?
 
+please change this [line](genGridpack_diboson.py#L7-L8)
 set exe = 1, sub = 0
 
 * How to generate gridpack via submission of batch jobs at lxplus
 
+please change this [line](genGridpack_diboson.py#L7-L8)
 set sub = 1, exe = 0
