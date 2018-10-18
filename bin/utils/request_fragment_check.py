@@ -1,4 +1,10 @@
-import os,sys,time,string,re, argparse,textwrap
+import os
+import sys
+import time
+import string
+import re 
+import argparse
+import textwrap
 from textwrap import dedent
 
 parser = argparse.ArgumentParser(
@@ -21,7 +27,7 @@ parser = argparse.ArgumentParser(
                   *                        >= CMSSW_9_3_9_patch1 in 9_3_X or
                   *                        >= 10_1_3 in 10_1_X or" 
                   *                        >= CMSSW_10_2_0_pre2 in 10_2_X.
-                  *                        Your request uses "+cmssw+" :
+                  *                        Your request uses version xxxxx :
                   *                         If you are not using a proper CMSSW version, please switch to that or
                   *                         re-create the gridpack using the updated genproductions area
 
@@ -120,14 +126,13 @@ for num in range(0,len(prepid)):
         print (pi)
         check = []
         tunecheck = []
-        psweightscheck = []
-        MGpatch = []
-        ME = ["PowhegEmissionVeto","aMCatNLO"]
+        psweightscheck = [] #ps = parton shower
+        MGpatch = [] 
+        ME = ["PowhegEmissionVeto","aMCatNLO"] # ME = matrix element
         MEname = ["powheg","madgraph","mcatnlo"]
-        tunename = ["CP5","CUETP8M1"]
         tune = ["CP5","CUEP8M1"] 
         matching = 10
-        ickkw = 'del'
+        ickkw = 'del' # ickkw = matching parameter in madgraph
         for item in te:
             timeperevent = float(item)
         if timeperevent > 150.0 :
@@ -237,7 +242,7 @@ for num in range(0,len(prepid)):
             print "* [OK] Tune configuration probably OK in the fragment"
             if tunecheck[0] > 2 :
                 if 'Fall18' not in pi and 'Fall17' not in pi :
-                    print "* [WARNING] Do you really want to have tune "+tunename[0] +" in this campaign?"
+                    print "* [WARNING] Do you really want to have tune "+tune[0] +" in this campaign?"
         if 'Fall18' in pi and fsize != 0:
             if int(os.popen('grep -c "from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *" '+pi).read()) != 1 :
                 print "* [WARNING] No parton shower weights configuration in the fragment. In the Fall18 campaign, we recommend to include Parton Shower weights"
