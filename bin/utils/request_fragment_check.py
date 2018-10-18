@@ -37,13 +37,16 @@ parser = argparse.ArgumentParser(
                   * [ERROR] Memory is 4000 GB while number of cores is 1 but not = 2,4 or 8
                   * [ERROR] Gridpack should have used cvmfs path instead of eos path
                   * [ERROR] Matched sample but matching efficiency is 1!
-                  * [ERROR] MG5_aMC@NLO multi-run patch missing in gridpack - please re-create a gridpack"
+                  * [ERROR] MG5_aMC@NLO multi-run patch missing in gridpack - please re-create a gridpack
                   *            using updated genproductions area
                   * [ERROR] May be wrong fragment: powheg/madgraph/mcatnlo in dataset name but settings in 
                             fragment not correct or vice versa"
-                  * [ERROR] Tune configuration wrong in the fragment"
-                  * [ERROR] PS weights in config but CMSSW version is not 10_2_3 - please check!"	
-                  * [ERROR] Parton shower weight configuration not OK in the fragment"
+                  * [ERROR] Fragment may be wrong: check "+word+" settings in the fragment"
+                  *         if madgraph: You run MG5_aMC@NLO at LO but you have  Pythia8aMCatNLOSettings_cfi in fragment
+                  *                --> please remove it from the fragment
+                  * [ERROR] Tune configuration wrong in the fragment
+                  * [ERROR] PS weights in config but CMSSW version is not 10_2_3 - please check!	
+                  * [ERROR] Parton shower weight configuration not OK in the fragment
                   * [ERROR] Filters in the fragment but filter efficiency = 1
 
                The script also checks if there is no fragment there is a hadronizer used.'''))
@@ -237,7 +240,10 @@ for num in range(0,len(prepid)):
                     print "*                                                   is set correctly as number of coloured particles"
                     print "*                                                  (before resonance decays) in born matrix element."
                 else:     
-                    print "* [ERROR] Fragment may be wrong: "+word+" in dataset name but fragment settings not correct or vice versa"
+                    print "* [ERROR] Fragment may be wrong: check "+word+" settings in the fragment"
+                    if matching <= 1 and word == "madgraph":
+                        print "*        You run MG5_aMC@NLO at LO but you have  Pythia8aMCatNLOSettings_cfi in fragment"
+                        print "*           --> please remove it from the fragment"
                     if word == "powheg" :
                         print "* [However: To check manually] if this is a "+word+" but loop induced process such as gg->ZH," 
                         print "*           then fragment is OK (no need to have Pythia8PowhegEmissionVetoSettings)"
