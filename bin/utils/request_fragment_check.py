@@ -193,7 +193,7 @@ for num in range(0,len(prepid)):
                        ickkw = os.popen('more '+fname2+' | tr -s \' \' | grep "= ickkw"').read()
                     matching = int(re.search(r'\d+',ickkw).group())
                     ickkw = str(ickkw)  
-                    if matching == 1 or ickkw == matching:
+                    if matching == 1 or matching == 2:
                         if match_eff == 1:
                             print "* [ERROR] Matched sample but matching efficiency is 1!"
                     if ind < 2:
