@@ -36,6 +36,7 @@ parser = argparse.ArgumentParser(
                   * [ERROR] Memory is 2300 GB while number of cores is XX but not = 1
                   * [ERROR] Memory is 4000 GB while number of cores is 1 but not = 2,4 or 8
                   * [ERROR] Gridpack should have used cvmfs path instead of eos path
+                  * [ERROR] Matched sample but matching efficiency is 1!
                   * [ERROR] MG5_aMC@NLO multi-run patch missing in gridpack - please re-create a gridpack"
                   *            using updated genproductions area
                   * [ERROR] May be wrong fragment: powheg/madgraph/mcatnlo in dataset name but settings in 
@@ -43,6 +44,7 @@ parser = argparse.ArgumentParser(
                   * [ERROR] Tune configuration wrong in the fragment"
                   * [ERROR] PS weights in config but CMSSW version is not 10_2_3 - please check!"	
                   * [ERROR] Parton shower weight configuration not OK in the fragment"
+                  * [ERROR] Filters in the fragment but filter efficiency = 1
 
                The script also checks if there is no fragment there is a hadronizer used.'''))
 parser.add_argument('--prepid', type=str, help="check mcm requests using prepids", nargs='+')
@@ -123,6 +125,8 @@ for num in range(0,len(prepid)):
         totalevents = r['total_events']
         cmssw = r['cmssw_release']
         mem = r['memory']
+        filter_eff = r['generator_parameters'][-1]['filter_efficiency']
+        match_eff = r['generator_parameters'][-1]['match_efficiency']
         print (pi)
         check = []
         tunecheck = []
@@ -188,7 +192,10 @@ for num in range(0,len(prepid)):
 #                        ickkw = os.popen('grep "= ickkw" '+fname2).read()
                        ickkw = os.popen('more '+fname2+' | tr -s \' \' | grep "= ickkw"').read()
                     matching = int(re.search(r'\d+',ickkw).group())
-                    ickkw = str(ickkw)    
+                    ickkw = str(ickkw)  
+                    if ickkw == 1 or ickkw == 2:
+                        if match_eff == 1:
+                            print "* [ERROR] Matched sample but matching efficiency is 1!"
                     if ind < 2:
                         MGpatch.append(int(os.popen('more '+my_path+'/'+pi+'/'+'runcmsgrid.sh | grep -c "FORCE IT TO"').read()))
                         MGpatch.append(int(os.popen('grep -c _CONDOR_SCRATCH_DIR '+my_path+'/'+pi+'/'+'mgbasedir/Template/LO/SubProcesses/refine.sh').read()))
@@ -256,6 +263,8 @@ for num in range(0,len(prepid)):
                     print "* [OK] Parton shower weight configuration probably OK in the fragment"
                 else:
                     print "* [ERROR] Parton shower weight configuretion not OK in the fragment" 
+        if int(os.popen('grep -c -i filter '+pi).read()) > 3 and filter_eff == 1:
+            print "* [ERROR] Filters in the fragment but filter efficiency = 1"
 print "***********************************************************************************"
 print ""
 os.popen("rm -rf "+my_path+pi).read()  
