@@ -45,13 +45,16 @@ set -euo pipefail
 
 cd $LHEWORKDIR
 
-if [ -d JHUGenMELA ]; then
-  eval $(JHUGenMELA/MELA/setup.sh env)
-fi
-
+eval $(JHUGenMELA/MELA/setup.sh env)
 cd JHUGenerator/
 
-GENCOMMAND
+seq 1 5 | parallel -j${ncpu} --eta "GENCOMMAND VBFoffsh_run={} ReadCSmax"
+
+(
+cat Out_1.lhe      | grep -v "</LesHouchesEvents>"
+cat Out_{2..4}.lhe | grep -v "</?LesHouchesEvents>" | sed -e '/<init>/,+4d'
+cat Out_5.lhe      | grep -v "<LesHouchesEvents>"   | sed -e '/<init>/,+4d'
+) > Out.lhe
 
 mv Out.lhe $LHEWORKDIR/cmsgrid_final.lhe
 cd $LHEWORKDIR
