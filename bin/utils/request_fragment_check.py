@@ -271,6 +271,6 @@ for num in range(0,len(prepid)):
                     print "* [ERROR] Parton shower weight configuretion not OK in the fragment" 
         if int(os.popen('grep -c -i filter '+pi).read()) > 3 and filter_eff == 1:
             print "* [ERROR] Filters in the fragment but filter efficiency = 1"
+    os.popen("rm -rf "+my_path+pi).read()  
 print "***********************************************************************************"
 print ""
-os.popen("rm -rf "+my_path+pi).read()  
