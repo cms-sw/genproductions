@@ -68,10 +68,10 @@ make_gridpack () {
     fi
     
     # where to find the madgraph tarred distribution
-    MGBASEDIR=mgbasedir
+    MGBASEDIR=$PRODHOME/mgbasedir
     
     MG_EXT=".tar.gz"
-    MG=MG5_aMC_v2.6.0$MG_EXT
+    MG=MG5_aMC_v2.6.3.2$MG_EXT
     MGSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$MG
     
     MGBASEDIRORIG=$(echo ${MG%$MG_EXT} | tr "." "_")
@@ -109,6 +109,11 @@ make_gridpack () {
       #Copy, Unzip and Delete the MadGraph tarball#
       #############################################
       wget --no-check-certificate ${MGSOURCE}
+      if [ $? -ne 0 ]; then 
+        echo "Can't wget the "${MGSOURCE}
+        echo "will try to use the local copy "$MGBASEDIR"/"$MG
+        cp $MGBASEDIR"/"$MG .
+      fi
       tar xzf ${MG}
       rm "$MG"
     
@@ -491,7 +496,7 @@ make_gridpack () {
       echo "finished pilot run"
     
       cd $WORKDIR
-      
+       
     #   echo "creating debug tarball"
     #   cp ${LOGFILE} ./gridpack_generation.log
     #   DEBUGTARBALL=${name}_debug_tarball.tar.gz
@@ -560,7 +565,12 @@ make_gridpack () {
     
       cd gridpack
       
-      cp $PRODHOME/runcmsgrid_LO.sh ./runcmsgrid.sh
+      if [ $isREADONLY -eq 1 ]; then
+        echo "Will use read-only gridpack use mode ... "
+        cp $PRODHOME/runcmsgrid_LO_readonly.sh ./runcmsgrid.sh
+      else
+        cp $PRODHOME/runcmsgrid_LO.sh ./runcmsgrid.sh
+      fi
     fi
     
     sed -i s/SCRAM_ARCH_VERSION_REPLACE/${scram_arch}/g runcmsgrid.sh
@@ -625,6 +635,13 @@ if [ -n "$6" ]
     cmssw_version=${6}
   else
     cmssw_version=CMSSW_7_1_30
+fi
+
+if [ -n "$7" ]; then
+  isREADONLY=1
+  echo "Will use read-only gridpack use mode ... "
+else
+  isREADONLY=0
 fi
  
 # jobstep can be 'ALL','CODEGEN', 'INTEGRATE', 'MADSPIN'
