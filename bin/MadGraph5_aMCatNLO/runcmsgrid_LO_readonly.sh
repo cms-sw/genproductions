@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#set -x
+
 nevt=${1}
 echo "%MSG-MG5 number of events requested = $nevt"
 
@@ -12,8 +14,7 @@ echo "%MSG-MG5 number of cpus = $ncpu"
 LHEWORKDIR=`pwd`
 
 use_gridpack_env=true
-if [ -n "$4" ]
-  then
+if [ -n "$4" ]; then
   use_gridpack_env=$4
 fi
 
@@ -23,7 +24,7 @@ if [ "$use_gridpack_env" = true ]
       then
         scram_arch_version=${5}
       else
-        scram_arch_version=SCRAM_ARCH_VERSION_REPLACE
+        scram_arch_version=slc6_amd64_gcc481
     fi
     echo "%MSG-MG5 SCRAM_ARCH version = $scram_arch_version"
 
@@ -31,7 +32,7 @@ if [ "$use_gridpack_env" = true ]
       then
         cmssw_version=${6}
       else
-        cmssw_version=CMSSW_VERSION_REPLACE
+        cmssw_version=CMSSW_7_1_30
     fi
     echo "%MSG-MG5 CMSSW version = $cmssw_version"
     export VO_CMS_SW_DIR=/cvmfs/cms.cern.ch
@@ -43,17 +44,22 @@ if [ "$use_gridpack_env" = true ]
 fi
 cd $LHEWORKDIR
 
-cd process
+path_to_gridpack=$LHEWORKDIR
+if [ -n "$7" ]; then
+  path_to_gridpack=$7
+fi
+echo $path_to_gridpack
+
+cp $path_to_gridpack/process/madevent/Cards/me5_configuration.txt .
 
 #make sure lhapdf points to local cmssw installation area
 LHAPDFCONFIG=`echo "$LHAPDF_DATA_PATH/../../bin/lhapdf-config"`
-
-echo "lhapdf = $LHAPDFCONFIG" >> ./madevent/Cards/me5_configuration.txt
-# echo "cluster_local_path = `${LHAPDFCONFIG} --datadir`" >> ./madevent/Cards/me5_configuration.txt
+echo "lhapdf = $LHAPDFCONFIG" >> me5_configuration.txt
+# echo "cluster_local_path = `${LHAPDFCONFIG} --datadir`" >> me5_configuration.txt
 
 if [ "$ncpu" -gt "1" ]; then
-  echo "run_mode = 2" >> ./madevent/Cards/me5_configuration.txt
-  echo "nb_core = $ncpu" >> ./madevent/Cards/me5_configuration.txt
+  echo "run_mode = 2" >> me5_configuration.txt
+  echo "nb_core = $ncpu" >> me5_configuration.txt
 fi
 
 #########################################
@@ -95,7 +101,7 @@ while [ $produced_lhe -lt $nevt ]; do
   # run mg5_amc
   echo "produced_lhe " $produced_lhe "nevt " $nevt "submitting_event " $submitting_event " remaining_event " $remaining_event
   echo run.sh $submitting_event $run_random_seed
-  ./run.sh $submitting_event $run_random_seed
+  $path_to_gridpack/process/run.sh $submitting_event $run_random_seed
   
   # compute number of events produced in the iteration
   produced_lhe=$(($produced_lhe+`zgrep \<event events.lhe.gz | wc -l`))
@@ -105,7 +111,6 @@ while [ $produced_lhe -lt $nevt ]; do
   echo "run "$run_counter" finished, total number of produced events: "$produced_lhe"/"$nevt
   
   echo ""
-  
 done
 
 # merge multiple lhe files if needed
@@ -122,60 +127,58 @@ else
 fi
 
 #########################################
-#########################################
-#########################################
-
 echo "run finished, produced number of events:"
 zgrep \<event events.lhe.gz |wc -l
 
-
-domadspin=0
-if [ -f ./madspin_card.dat ] ;then
+domadspin=0 
+if [ -f $path_to_gridpack/process/madspin_card.dat ]; then #TODO - test in read-only mode
     domadspin=1
+    cp $path_to_gridpack/process/madspin_card.dat .
     echo "import events.lhe.gz" > madspinrun.dat
     rnum2=$(($rnum+1000000))
     echo `echo "set seed $rnum2"` >> madspinrun.dat
     cat ./madspin_card.dat >> madspinrun.dat
-    cat madspinrun.dat | $LHEWORKDIR/mgbasedir/MadSpin/madspin
+    cat madspinrun.dat | $path_to_gridpack/mgbasedir/MadSpin/madspin
 fi
-
 cd $LHEWORKDIR
 
 runlabel=GridRun_PostProc_${rnum}
-mkdir process/madevent/Events/${runlabel}
+mkdir ${runlabel}
 
 event_file=events.lhe.gz
 if [ "$domadspin" -gt "0" ] ; then 
     event_file=events_decayed.lhe.gz
 fi
-mv process/$event_file process/madevent/Events/${runlabel}/events.lhe.gz
+mv $event_file ${runlabel}/events.lhe.gz
 
 # Add scale and PDF weights using systematics module
-#
-pushd process/madevent
-pdfsets="PDF_SETS_REPLACE"
+pdfsets="320900,11082,13091@0,13191@0,13202@0,23100,23300,23490,23600,23790,25410,25510,25570,25605,25620,25710,25770,25805,25840,92000,306000,320500,260400,262400@0,263400@0,292000,292400@0"
 scalevars="--mur=1,2,0.5 --muf=1,2,0.5 --together=muf,mur,dyn --dyn=-1,1,2,3,4"
+python $path_to_gridpack/process/madevent/bin/internal/systematics.py ${runlabel}/events.lhe.gz ${runlabel}/events_sys.lhe.gz --lhapdf_config=$LHAPDFCONFIG --remove_wgts=all --start_id=1001 --pdf=$pdfsets $scalevars
 
-echo "systematics $runlabel --remove_wgts=all --start_id=1001 --pdf=$pdfsets $scalevars" | ./bin/madevent
-popd
-
-mv process/madevent/Events/${runlabel}/events.lhe.gz cmsgrid_final.lhe.gz
+mv ${runlabel}/events.lhe.gz cmsgrid_final.lhe.gz
 gzip -d cmsgrid_final.lhe.gz
 
-
 #reweight if necessary
-if [ -e process/madevent/Cards/reweight_card.dat ]; then
+if [ -e $path_to_gridpack/process/madevent/Cards/reweight_card.dat ]; then #TODO - test in read-only mode
     echo "reweighting events"
-    mv cmsgrid_final.lhe process/madevent/Events/GridRun_${run_random_start}/unweighted_events.lhe
-    cd process/madevent
-    ./bin/madevent reweight -f GridRun_${run_random_start}
-    cd ../..
-    mv process/madevent/Events/GridRun_${run_random_start}/unweighted_events.lhe.gz cmsgrid_final.lhe.gz
-    gzip -d  cmsgrid_final.lhe.gz
+    mv cmsgrid_final.lhe $runlabel/unweighted_events.lhe
+
+    echo "WARNING: bypass the creation of the RunWeb for the read-only gridpack ..."
+    python $path_to_gridpack/process/madevent/bin/internal/madevent_interface.py reweight -f GridRun_${run_random_start}
+    mv $runlabel/unweighted_events.lhe.gz cmsgrid_final.lhe.gz
 fi
 
+gzip -d  cmsgrid_final.lhe.gz
 
 ls -l
 echo
 
 exit 0
+
+
+
+
+
+
+
