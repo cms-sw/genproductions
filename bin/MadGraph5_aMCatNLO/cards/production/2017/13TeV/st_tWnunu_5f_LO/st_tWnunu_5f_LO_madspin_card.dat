@@ -1,0 +1,13 @@
+#Some options (uncomment to apply)
+set ms_dir ./madspingrid
+set Nevents_for_max_weigth 250
+set max_weight_ps_point 400
+set max_running_process 1 
+# specify the decay for the final state particles
+decay t > w+ b, w+ > all all
+decay t~ > w- b~, w- > all all
+decay w+ > all all
+decay w- > all all
+decay z > all all
+# running the actual code
+launch

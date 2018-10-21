@@ -172,7 +172,8 @@ parent_dir=$PWD
 # ADDITIONAL CLASSADS
 ##########################
 # Always append IOProxy, so that JobDuration is always set in the history.
-export _CONDOR_WantIOProxy=true 
+export _CONDOR_WantIOProxy=true
+export _CONDOR_SUBMIT_ATTRS="WantIOProxyd"
 export _CONDOR_IsGridpack=true
 export CONDOR_GRIDPACK_CARDNAME="${card_name}"
 CONDOR_SUBMIT_ATTRS="$(condor_config_val SUBMIT_ATTRS 2>/dev/null)"
