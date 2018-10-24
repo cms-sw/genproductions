@@ -1,0 +1,4 @@
+import model DMEFT2ZpNewV2_UFO
+define p = g u c d s u~ c~ d~ s~
+generate p p > vt vt~ Zp QED=0 dmvector=3 dmzpu=1,Zp > u u~
+output _NAME_
