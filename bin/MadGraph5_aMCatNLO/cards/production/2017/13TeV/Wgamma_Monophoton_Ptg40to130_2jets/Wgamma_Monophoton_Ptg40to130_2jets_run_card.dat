@@ -49,7 +49,8 @@
 # PDF CHOICE: this automatically fixes also alpha_s and its evol.    *
 #*********************************************************************
   'lhapdf'	=  pdlabel      ! PDF set                                     
-   263000 	=  lhaid      ! if pdlabel=lhapdf, this is the lhapdf number
+$DEFAULT_PDF_SETS = lhaid
+$DEFAULT_PDF_MEMBERS = reweight_PDF      ! if pdlabel=lhapdf, this is the lhapdf number
 #*********************************************************************
 # Renormalization and factorization scales                           *
 #*********************************************************************
@@ -278,4 +279,5 @@
 # PDF sets and number of members (0 or none for all members).
   CT10nlo.LHgrid	=  sys_pdf  # matching scales
 # MSTW2008nlo68cl.LHgrid 1  = sys_pdf
-  263400	= lhaid 
+$DEFAULT_PDF_SETS = lhaid
+$DEFAULT_PDF_MEMBERS = reweight_PDF 
