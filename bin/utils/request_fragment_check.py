@@ -48,6 +48,10 @@ parser = argparse.ArgumentParser(
                   * [ERROR] PS weights in config but CMSSW version is not 10_2_3 - please check!	
                   * [ERROR] Parton shower weight configuration not OK in the fragment
                   * [ERROR] Filters in the fragment but filter efficiency = 1
+                  * [ERROR] You are using a loop induced process, [noborn=QCD].
+                  *         Please remove all occurances of Pythia8aMCatNLOSettings from the fragment
+                  * [ERROR] You are using a loop induced process, [noborn=QCD].
+                  *         Please remove all TimeShower:nPartonsInBorn from the fragment 
 
                The script also checks if there is no fragment there is a hadronizer used.'''))
 parser.add_argument('--prepid', type=str, help="check mcm requests using prepids", nargs='+')
@@ -104,6 +108,8 @@ if args.ticket is not None:
         if 'GS' in rr or 'wmLHE' in rr or 'pLHE' in rr:
             prepid.append(rr)
 
+
+
 prepid = list(set(prepid)) #to avoid requests appearing x times if x chains have the same request 
        
 for x in range(0,len(prepid)):
@@ -138,6 +144,9 @@ for num in range(0,len(prepid)):
         ME = ["PowhegEmissionVeto","aMCatNLO"] # ME = matrix element
         MEname = ["powheg","madgraph","mcatnlo"]
         tune = ["CP5","CUEP8M1"] 
+        mcatnlo_flag = 0
+        loop_flag = 0
+        nPartonsInBorn_flag = 0
         matching = 10
         ickkw = 'del' # ickkw = matching parameter in madgraph
         for item in te:
@@ -172,6 +181,8 @@ for num in range(0,len(prepid)):
         os.system('mkdir -p '+my_path+'/'+pi)
         if int(os.popen('grep -c eos '+pi).read()) == 1 :
             print "* [ERROR] Gridpack should have used cvmfs path instead of eos path"
+        if int(os.popen('grep -c nPartonsInBorn '+pi).read()) == 1:
+            nPartonsInBorn_flag = 1
         for ind, word in enumerate(MEname):
             if word in dn.lower() :
                 if ind == 2 :
@@ -181,11 +192,19 @@ for num in range(0,len(prepid)):
                 check.append(int(os.popen('grep -c pythia8'+ME[knd]+'Settings '+pi).read()))
                 check.append(int(os.popen('grep -c "from Configuration.Generator.Pythia8'+ME[knd]+'Settings_cfi import *" '+pi).read()))
                 check.append(int(os.popen('grep -c "pythia8'+ME[knd]+'SettingsBlock," '+pi).read()))
+                if check[2] == 1:
+                    mcatnlo_flag = 1
                 if ind > 0 :
                     os.system('wget -q https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_fragment/'+pi+' -O '+my_path+'/'+pi+'/'+pi)
                     gridpack_cvmfs_path = os.popen('grep \/cvmfs '+my_path+'/'+pi+'/'+pi+'| grep -v \'#args\' ').read()
                     gridpack_cvmfs_path = gridpack_cvmfs_path.split('\'')[1]
                     os.system('tar xf '+gridpack_cvmfs_path+' -C'+my_path+'/'+pi)
+                    fname_p = my_path+'/'+pi+'/'+'process/madevent/Cards/proc_card_mg5.dat'
+                    fname_p2 = my_path+'/'+pi+'/'+'process/Cards/proc_card.dat'
+                    if os.path.isfile(fname_p) is True :
+                        loop_flag = int(os.popen('more '+fname_p+' | grep -c "noborn=QCD"').read())
+                    elif os.path.isfile(fname_p2) is True : 
+                        loop_flag = int(os.popen('more '+fname_p2+' | grep -c "noborn=QCD"').read())
                     fname = my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat'
                     fname2 = my_path+'/'+pi+'/'+'process/Cards/run_card.dat'
                     if os.path.isfile(fname) is True :
@@ -234,9 +253,9 @@ for num in range(0,len(prepid)):
                     print "*                              in born matrix element for highest multiplicity."
                 elif matching == 0 and word == "madgraph" and check[0] == 0 and check[1] == 0 and check[2] == 0 :
                     print "* [OK] no known inconsistency in the fragment w.r.t. the name of the dataset "+word
-                elif matching == 0 and word == "mcatnlo" and check[0] == 2 and check[1] == 1 and check[2] == 1 :
+                elif matching == 0 and word == "mcatnlo" and check[0] == 2 and check[1] == 1 and check[2] == 1 and loop_flag != 1:
                     print "* [OK] no known inconsistency in the fragment w.r.t. the name of the dataset "+word
-                    print "* [Caution: To check manually] This is a MadGraph NLO sample without matching. Please check 'TimeShower:nPartonsInBorn'"
+                    print "* [Caution: To check manually] Is this a MadGraph NLO sample without matching. Please check 'TimeShower:nPartonsInBorn'"
                     print "*                                                   is set correctly as number of coloured particles"
                     print "*                                                  (before resonance decays) in born matrix element."
                 else:     
@@ -247,6 +266,13 @@ for num in range(0,len(prepid)):
                     if word == "powheg" :
                         print "* [However: To check manually] if this is a "+word+" but loop induced process such as gg->ZH," 
                         print "*           then fragment is OK (no need to have Pythia8PowhegEmissionVetoSettings)"
+        if loop_flag == 1:
+            if mcatnlo_flag == 1: 
+                print "* [ERROR] You are using a loop induced process, [noborn=QCD]."
+                print "*         Please remove all occurances of Pythia8aMCatNLOSettings from the fragment"
+            if nPartonsInBorn_flag == 1:
+                print "* [ERROR] You are using a loop induced process, [noborn=QCD]."
+                print "*         Please remove all TimeShower:nPartonsInBorn from the fragment"                
         for kk in range (0, 2):   
             tunecheck.append(int(os.popen('grep -c -i '+tune[kk]+' '+pi).read()))
         if tunecheck[0] < 3 and tunecheck[1] < 3 and fsize != 0:
