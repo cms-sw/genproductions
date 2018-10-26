@@ -1,4 +1,6 @@
 import model SMCEDM_UFO
 generate p p > t t~ @0
+add process p p > t t ~ @1
+add process p p > t t ~ @2
 
 output TTbar_LO_CEDM_dtG0 -nojpeg
