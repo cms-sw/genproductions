@@ -1,0 +1,5 @@
+set max_weight_ps_point 400  # number of PS to estimate the maximum for each event
+define dec = b b~
+set spinmode None
+decay y0 > x0 x0, x0 > dec dec
+launch
