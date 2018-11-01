@@ -138,6 +138,8 @@ for num in range(0,len(prepid)):
         match_eff = r['generator_parameters'][-1]['match_efficiency']
         print (pi)
         check = []
+        purepythiacheck = []
+        powhegcheck = []
         tunecheck = []
         psweightscheck = [] #ps = parton shower
         MGpatch = [] 
@@ -146,6 +148,7 @@ for num in range(0,len(prepid)):
         tune = ["CP5","CUEP8M1"] 
         mcatnlo_flag = 0
         loop_flag = 0
+        knd =  10
         nPartonsInBorn_flag = 0
         matching = 10
         ickkw = 'del' # ickkw = matching parameter in madgraph
@@ -266,6 +269,15 @@ for num in range(0,len(prepid)):
                     if word == "powheg" :
                         print "* [However: To check manually] if this is a "+word+" but loop induced process such as gg->ZH," 
                         print "*           then fragment is OK (no need to have Pythia8PowhegEmissionVetoSettings)"
+        if knd == 1 :
+             powhegcheck.append(int(os.popen('grep -c -i PowhegEmission '+pi).read()))
+             if powhegcheck[0] > 0 :
+                 print "* [ERROR] Please remove POWHEG settings for MG requests."
+        if knd > 2 :
+             purepythiacheck.append(int(os.popen('grep -c -i Pythia8aMCatNLOSettings '+pi).read()))
+             purepythiacheck.append(int(os.popen('grep -c -i PowhegEmission '+pi).read()))
+             if purepythiacheck[0] > 0 or purepythiacheck[1] >0 :
+                 print "* [ERROR] Please remove aMCatNLO or POWHEG settings for pure Pythia requests."
         if loop_flag == 1:
             if mcatnlo_flag == 1: 
                 print "* [ERROR] You are using a loop induced process, [noborn=QCD]."
