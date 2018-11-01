@@ -1,0 +1,53 @@
+(run){
+  % general setting
+  EVENTS 100000; ERROR 0.99;
+
+  % scales, tags for scale variations
+  FSF:=1.; RSF:=1.; QSF:=1.;
+  SCALES METS{FSF*MU_F2}{RSF*MU_R2}{QSF*MU_Q2};
+
+  % tags for process setup
+  NJET:=3; LJET:=0; QCUT:=20.;
+
+  % me generator settings
+  ME_SIGNAL_GENERATOR Comix Amegic LOOPGEN;
+  EVENT_GENERATION_MODE Weighted;
+  LOOPGEN:=Internal; % BlackHat/OpenLoops
+
+  % exclude tau from lepton container
+  MASSIVE[15] 1;
+
+  % collider setup
+  BEAM_1 2212; BEAM_ENERGY_1 6500.;
+  BEAM_2 2212; BEAM_ENERGY_2 6500.;
+}(run)
+
+(processes){
+  Process 93 93 -> 90 90 22 93{NJET};
+  Order (*,3); CKKW sqr(20./E_CMS);
+  NLO_QCD_Mode MC@NLO {LJET};
+  ME_Generator Amegic {LJET};
+  RS_ME_Generator Comix {LJET};
+  Loop_Generator LOOPGEN {LJET};
+  End process;
+}(processes)
+
+(selector){
+  Mass 11 -11 50. E_CMS
+  Mass 13 -13 50. E_CMS
+  PT 11 20. E_CMS
+  PT -11 20. E_CMS
+  PT 13 20. E_CMS
+  PT -13 20. E_CMS
+  PT 22 15. E_CMS
+  PseudoRapidity 11  -2.5 2.5
+  PseudoRapidity -11 -2.5 2.5
+  PseudoRapidity 13  -2.5 2.5
+  PseudoRapidity -13 -2.5 2.5
+  PseudoRapidity 22 -2.5 2.5
+  DeltaR 11 22  0.7 999.
+  DeltaR -11 22 0.7 999.
+  DeltaR 13 22  0.7 999.
+  DeltaR -13 22 0.7 999.
+  IsolationCut 22 0.4 1.0 1.0
+}(selector)
