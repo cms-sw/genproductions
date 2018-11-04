@@ -2,7 +2,6 @@ import FWCore.ParameterSet.Config as cms
 from Configuration.Generator.Pythia8CommonSettings_cfi import *
 from Configuration.Generator.MCTunes2017.PythiaCP5Settings_cfi import *
 from Configuration.Generator.Pythia8PowhegEmissionVetoSettings_cfi import *
-from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *
 
 generator = cms.EDFilter("Pythia8HadronizerFilter",
                          maxEventsToPrint = cms.untracked.int32(1),
@@ -13,13 +12,25 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
                          PythiaParameters = cms.PSet(
         pythia8CommonSettingsBlock,
         pythia8PowhegEmissionVetoSettingsBlock,
-        pythia8PSweightsSettingsBlock,
         pythia8CP5UpSettings = cms.vstring(
-            'MultipartonInteractions:pT0Ref           1.407',
-            'MultipartonInteractions:ecmPow         0.03344',
-            'MultipartonInteractions:coreFraction    0.4281',
-            'MultipartonInteractions:coreRadius      0.6671',
-            'ColourReconnection:range                 4.881',
+            'Tune:pp 14',
+            'Tune:ee 7',
+            'MultipartonInteractions:ecmPow=0.03344',
+            'PDF:pSet=20',
+            'MultipartonInteractions:bProfile=2',
+            'MultipartonInteractions:pT0Ref=1.407',
+            'MultipartonInteractions:coreRadius=0.6671',
+            'MultipartonInteractions:coreFraction=0.4281',
+            'ColourReconnection:range=4.881',
+            'SigmaTotal:zeroAXB=off',
+            'SpaceShower:alphaSorder=2',
+            'SpaceShower:alphaSvalue=0.118',
+            'SigmaProcess:alphaSvalue=0.118',
+            'SigmaProcess:alphaSorder=2',
+            'MultipartonInteractions:alphaSvalue=0.118',
+            'MultipartonInteractions:alphaSorder=2',
+            'TimeShower:alphaSorder=2',
+            'TimeShower:alphaSvalue=0.118',
         ),
         processParameters = cms.vstring(
             'POWHEG:nFinal = 1',   ## Number of final state particles
@@ -29,7 +40,6 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
         parameterSets = cms.vstring('pythia8CommonSettings',
                                     'pythia8CP5UpSettings',
                                     'pythia8PowhegEmissionVetoSettings',
-                                    'pythia8PSweightsSettings',
                                     'processParameters'
                                     )
         )
