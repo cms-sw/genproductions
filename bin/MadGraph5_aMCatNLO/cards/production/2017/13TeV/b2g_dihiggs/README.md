@@ -10,10 +10,15 @@ here is the way to install and do a simple test
 after executing python script, gridpacks will be generated in several minutes
 
 ```
-cp genGridpack_diboson.py .
-cp -r cards/ . 
-# test
+# Check out genproduction package
+git clone git@github.com:cms-sw/genproductions.git
+# Produce cards
+cd genproductions/bin/MadGraph5_aMCatNLO/
+cp cards/production/2017/13TeV/b2g_dihiggs/genGridpack_diboson.py .
+cp -r cards/production/2017/13TeV/b2g_dihiggs/cards/* cards/. 
 python genGridpack_diboson.py
+
+## input cards are now generated in the cards directory
 ```
 
 ### Structure
