@@ -40,7 +40,7 @@ echo -e "echo \"Start of job on \" `date`" >> submitEvents.sh
 echo -e "source /cvmfs/cms.cern.ch/cmsset_default.sh" >> submitEvents.sh
 echo -e "tar -xzvf ${WORKDIR}/${tar}" >> submitEvents.sh
 echo -e "./runcmsgrid.sh ${nume} \$1 1" >> submitEvents.sh
-echo -e "mv cmsgrid_final.lhe ${WORKDIR}/cmsgrid_final\$1.lhe" >> submitEvents.sh
+echo -e "mv cmsgrid_final.lhe ${WORKDIR}/cmsgrid_final_\$1.lhe" >> submitEvents.sh
 chmod a+x submitEvents.sh 
 
 cat << EOF >> events.condorConf
