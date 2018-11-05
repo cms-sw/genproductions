@@ -53,7 +53,6 @@ def prepareCondorScript( tag, i, folderName, queue, SCALE = '0' ):
    f.write('log                     = ' + logname + '_$(ProcId).log \n')
    f.write('initialdir              = ' + rootfolder + '/' + folderName + '\n')
 
-   # f.write('request_memory          = 4000M  \n')
    f.write('+JobFlavour             = "'+ queue +'" \n') 
 
    f.write('periodic_remove         = JobStatus == 5  \n')
@@ -62,6 +61,16 @@ def prepareCondorScript( tag, i, folderName, queue, SCALE = '0' ):
    f.write('\n')
  
    f.close()
+
+   if os.path.exists('additional.condorConf') :
+       filenamenew = 'run_' + tag + 'new.condorConf'
+       ff = open('mergeCondorConf.sh', 'w')
+       ff.write('#!/bin/bash \n \n')
+       ff.write('mv ' + filename + ' ' + filenamenew + '\n')
+       ff.write('cat ' + filenamenew + ' additional.condorConf > ' + filename + '\n')
+       ff.write('rm -f ' + filenamenew + '\n') 
+       ff.close()
+       runCommand('source mergeCondorConf.sh')
 
    return filename
 
@@ -78,7 +87,6 @@ def prepareJob(tag, i, folderName) :
     f.write('echo "Start of job on " `date`\n\n')
 
     f.write('cd '+os.getcwd()+'\n\n')
-#    f.write('pwd \n\n')
 
     f.write('source /cvmfs/cms.cern.ch/cmsset_default.sh\n\n')
     f.write('eval `scramv1 runtime -sh`\n\n')
@@ -821,11 +829,6 @@ chmod 755 runcmsgrid.sh
     f.close()
 
     os.system('chmod 755 '+filename)
-
-    #print "Source done..."
-    #runCommand ('mv *.sh ' + folderName)
-
-    #runCommand ('cp -p runcms*.sh ' + folderName + '/.')
 
     return
 
