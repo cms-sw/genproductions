@@ -243,7 +243,7 @@ for num in range(0,len(prepid)):
                 if matching >= 2 and check[0] == 2 and check[1] == 1 and check[2] == 1 :
                     print "* [OK] no known inconsistency in the fragment w.r.t. the name of the dataset "+word
                     if matching ==3 :  
-                        print "* [Caution: To check manunally] This is a FxFx sample. Please check 'JetMatching:nJetMax' is set"
+                        print "* [Caution: To check manually] This is a FxFx sample. Please check 'JetMatching:nJetMax' is set"
                         print "*           correctly as number of partons in born matrix element for highest multiplicity."
                     if matching > 3 :
                         print "* [Caution: To check manually] This is a Powheg NLO sample. Please check 'nFinal' is"
