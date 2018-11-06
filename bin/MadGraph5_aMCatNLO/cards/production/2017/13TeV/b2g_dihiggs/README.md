@@ -21,7 +21,7 @@ python genGridpack_diboson.py
 ## input cards are now generated in the cards directory
 ```
 
-### IMPORTANT!! Modication of runcmsgrid_LO.sh
+### IMPORTANT!! Modification of runcmsgrid_LO.sh
 In order to save the PDF uncertainties of NNPDF 3.1 LO (315200), the shell 
 script runcmsgrid_LO.sh must be modified. 
 
