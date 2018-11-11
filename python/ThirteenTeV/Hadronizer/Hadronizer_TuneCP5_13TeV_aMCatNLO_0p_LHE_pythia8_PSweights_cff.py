@@ -16,7 +16,7 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
         pythia8CommonSettingsBlock,
         pythia8CP5SettingsBlock,
         pythia8aMCatNLOSettingsBlock,
-        pythia8PSweightsSettingsBlock
+        pythia8PSweightsSettingsBlock,
         processParameters = cms.vstring(
             'TimeShower:nPartonsInBorn = 0', #number of coloured particles (before resonance decays) in born matrix element
         ),
