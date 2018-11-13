@@ -1,4 +1,5 @@
 set param_card MASS 9000006 500
+set param_card DECAY 9000006 AUTO
 set param_card FRBLOCK 1 0.0
 set param_card FRBLOCK 2 0.0
 set param_card FRBLOCK 3 1.0

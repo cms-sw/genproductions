@@ -37,8 +37,9 @@ do
     echo "Name read from file - $name"
     
     echo 'compute_cross_section.py -f '${dataset}' -c '${CAMPAIGN}' -n '${EVENTS}' -d '${DATATIER}' --mcm "'${MCM}'" --skipexisting "'${SKIPEXISTING}'" --debug "'${DEBUG}'"'
-    output=$(python compute_cross_section.py -f ${dataset} -c ${CAMPAIGN} -n ${EVENTS} -d ${DATATIER} --mcm "${MCM}" --skipexisting "${SKIPEXISTING}" --debug "${DEBUG}")
-    output=${output#*.txt}
+    output="$(python compute_cross_section.py -f "${dataset}" -c "${CAMPAIGN}" -n "${EVENTS}" -d "${DATATIER}" --mcm "${MCM}" --skipexisting "${SKIPEXISTING}" --debug "${DEBUG}")"
+    output="${output#*.txt}"
+    output="${output#*.txt}"
     
     if [ "${DEBUG}" != "True" ]; then
       if [[ $output == *"cmsRun"* ]]; then
@@ -48,7 +49,7 @@ do
       fi
     else
       echo 'output'
-      echo ${output}
+      echo "${output}"
       exit 1
     fi
     echo ""

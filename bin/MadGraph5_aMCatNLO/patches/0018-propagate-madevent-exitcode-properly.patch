@@ -115,8 +115,8 @@ index db5444b..f9914cf 100755
          ../madevent_mintMC > log.txt <input_app.txt 2>&1
      fi
      status=$?
-+    if [[ $status_code -ne 0 ]]; then
-+      echo "Error: Status code $status_code" >> log.txt
++    if [[ $status -ne 0 ]]; then
++      echo "Error: Status code $status" >> log.txt
 +      echo "+ Hostname:" >> log.txt
 +      hostname >> log.txt
 +      echo "+ Printing environment" >> log.txt
