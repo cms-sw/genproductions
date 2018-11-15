@@ -50,7 +50,7 @@ def prepareCondorScript( tag, i, folderName, queue, SCALE = '0' ):
        f.write('executable              = ' + execname + '.sh \n')
    f.write('output                  = ' + logname + '_$(ProcId).out \n')
    f.write('error                   = ' + logname + '_$(ProcId).err \n')
-   f.write('log                     = ' + logname + '_$(ProcId).log \n')
+   f.write('log                     = ' + logname + '.log \n')
    f.write('initialdir              = ' + rootfolder + '/' + folderName + '\n')
 
    f.write('+JobFlavour             = "'+ queue +'" \n') 
