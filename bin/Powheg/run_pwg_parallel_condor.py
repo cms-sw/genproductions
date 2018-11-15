@@ -85,7 +85,7 @@ if __name__ == "__main__":
         command_out = commands.getstatusoutput(command)[1]
         print command_out
         if extraOpt!='-p 0' and extraOpt!='-p 9 -k 1': 
-            print command
+ #           print command
             command = 'condor_wait -status %s'%(logf)  
             command_out = commands.getstatusoutput(command)[1]
             print command_out
