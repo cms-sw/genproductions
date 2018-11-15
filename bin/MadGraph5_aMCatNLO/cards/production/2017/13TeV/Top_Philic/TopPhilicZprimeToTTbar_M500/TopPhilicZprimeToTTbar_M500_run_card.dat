@@ -51,8 +51,6 @@
  lhapdf = pdlabel ! PDF set	
 # $DEFAULT_PDF_SETS = lhaid
  315200 = lhaid ! NNPDF31_lo_as_0130
-# 305800 = lhaid ! NNPDF31_nlo_hessian_pdfas instead of default NNPDF31_nnlo_hessian_pdfas
-# 306200 = lhaid ! NNPDF31_nlo_pch_hessian_pdfas instead of default NNPDF31_nnlo_hessian_pdfas
  $DEFAULT_PDF_MEMBERS  = reweight_PDF
 #*********************************************************************
 # Renormalization and factorization scales                           *
