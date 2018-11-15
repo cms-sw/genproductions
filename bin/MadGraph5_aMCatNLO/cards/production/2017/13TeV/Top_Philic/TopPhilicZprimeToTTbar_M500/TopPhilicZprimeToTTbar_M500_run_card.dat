@@ -49,7 +49,10 @@
 # PDF CHOICE: this automatically fixes also alpha_s and its evol.    *
 #*********************************************************************
  lhapdf = pdlabel ! PDF set	
- $DEFAULT_PDF_SETS = lhaid
+# $DEFAULT_PDF_SETS = lhaid
+ 315200 = lhaid ! NNPDF31_lo_as_0130
+# 305800 = lhaid ! NNPDF31_nlo_hessian_pdfas instead of default NNPDF31_nnlo_hessian_pdfas
+# 306200 = lhaid ! NNPDF31_nlo_pch_hessian_pdfas instead of default NNPDF31_nnlo_hessian_pdfas
  $DEFAULT_PDF_MEMBERS  = reweight_PDF
 #*********************************************************************
 # Renormalization and factorization scales                           *
@@ -85,7 +88,7 @@
 #**********************************
 # BW cutoff (M+/-bwcutoff*Gamma)
 #**********************************
-  15000  = bwcutoff      ! (M+/-bwcutoff*Gamma)
+  15  = bwcutoff      ! (M+/-bwcutoff*Gamma)
 #**********************************************************
 # Apply pt/E/eta/dr/mij cuts on decay products or not
 # (note that etmiss/ptll/ptheavy/ht/sorted cuts always apply)
