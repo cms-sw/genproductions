@@ -8,7 +8,7 @@ import re
 import shutil
 import subprocess
 
-JHUGenversion = "v7.2.3"
+JHUGenversion = "v7.2.4"
 
 if __name__ == "__main__":
   aparser = argparse.ArgumentParser(description='Make JHUGen gridpack')
@@ -101,6 +101,10 @@ def main(args):
         find = "(^linkMELA *= *)(Yes|No)"
         assert re.search(find, makefile, flags=re.MULTILINE)
         makefile = re.sub(find, r"\1"+("Yes" if args.link_mela else "No"), makefile, flags=re.MULTILINE)
+
+        find = "(^MELADir *= *).*"
+        assert re.search(find, makefile, flags=re.MULTILINE)
+        makefile = re.sub(find, r"\1../JHUGenMELA/MELA", makefile, flags=re.MULTILINE) #use the RELATIVE path.  make creates symlinks that have to be valid wherever the gridpack is opened.
 
         find = "(^UseLHAPDF *= *)(Yes|No)"
         assert re.search(find, makefile, flags=re.MULTILINE)
