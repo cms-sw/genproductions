@@ -16,4 +16,4 @@ define all = g u c d s u~ c~ d~ s~ a ve vm vt e- mu- ve~ vm~ vt~ e+ mu+ b b~ h t
 generate p p > s1 WEIGHTED=10, (s1 > t t~ WEIGHTED=10, (t > W+ b WEIGHTED=2, W+ > all all WEIGHTED=2), (t~ > W- b~ WEIGHTED=2, W- > all all WEIGHTED=2)) QS1=2 @0
 add process p p > s1 j WEIGHTED=11, (s1 > t t~ WEIGHTED=11, (t > W+ b WEIGHTED=2, W+ > all all WEIGHTED=2), (t~ > W- b~ WEIGHTED=2, W- > all all WEIGHTED=2)) QS1=2 @1
 add process p p > s1 j j WEIGHTED=12, (s1 > t t~ WEIGHTED=12, (t > W+ b WEIGHTED=2, W+ > all all WEIGHTED=2), (t~ > W- b~ WEIGHTED=2, W- > all all WEIGHTED=2)) QS1=2 @2
-output ZPrimeToTTJets_M500GeV_W5GeV -nojpeg
+output ZPrimeToTTJets_M500GeV_W5GeV
