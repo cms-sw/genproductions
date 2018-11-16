@@ -1,10 +1,11 @@
-import model 2HDMtypeIIymbMSbar
+import model 2HDMtII_NLO
 define p = g u c d s u~ c~ d~ s~
 define j = g u c d s u~ c~ d~ s~
 define l+ = e+ mu+
 define l- = e- mu-
 define vl = ve vm vt
 define vl~ = ve~ vm~ vt~
-generate p p > h+ w- b b~ / h1 h2 h3
+generate p p > t~ b h+
+add process p p > t b~ h-
 
-output ChargedHiggs_taunu_intermediateNoNeutral_LO_M<MASS> -nojpeg
+output ChargedHiggs_taunu_heavy_LO_M<MASS> -nojpeg

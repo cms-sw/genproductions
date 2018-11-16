@@ -1,8 +1,8 @@
 #!/bin/bash
 
-masses=(145 150 155 160 165 170 175 180 190 200)
+masses=(170 175)
 
-sample=ChargedHiggs_taunu_intermediateNoNeutral_LO
+sample=ChargedHiggs_taunu_heavy_LO
 postfix=(_run_card.dat _customizecards.dat _proc_card.dat _extramodels.dat)
 
 #echo ${masses[*]}
