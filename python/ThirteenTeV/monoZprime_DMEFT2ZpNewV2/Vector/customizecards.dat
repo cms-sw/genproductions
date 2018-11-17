@@ -1,0 +1,8 @@
+set run_card misset 200
+set run_card drjj 0.0
+set param_card Mv3  _MDM_
+set param_card MZh  _MMED_
+set param_card gchi 1.0
+set param_card gvhq 0.25
+set param_card MZp  1.0
+set param_card DECAY 600002 Auto
