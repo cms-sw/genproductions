@@ -7,4 +7,4 @@ define vl = ve vm vt
 define vl~ = ve~ vm~ vt~
 generate p p > h+ w- b b~ / h1 h2 h3
 
-output ChargedHiggs_intermediateNoNeutral_M<MASS> -nojpeg
+output ChargedHiggs_taunu_intermediateNoNeutral_LO_M<MASS> -nojpeg

@@ -139,6 +139,7 @@ for num in range(0,len(prepid)):
         print (pi)
         check = []
         purepythiacheck = []
+        powhegcheck = []
         tunecheck = []
         psweightscheck = [] #ps = parton shower
         MGpatch = [] 
@@ -242,7 +243,7 @@ for num in range(0,len(prepid)):
                 if matching >= 2 and check[0] == 2 and check[1] == 1 and check[2] == 1 :
                     print "* [OK] no known inconsistency in the fragment w.r.t. the name of the dataset "+word
                     if matching ==3 :  
-                        print "* [Caution: To check manunally] This is a FxFx sample. Please check 'JetMatching:nJetMax' is set"
+                        print "* [Caution: To check manually] This is a FxFx sample. Please check 'JetMatching:nJetMax' is set"
                         print "*           correctly as number of partons in born matrix element for highest multiplicity."
                     if matching > 3 :
                         print "* [Caution: To check manually] This is a Powheg NLO sample. Please check 'nFinal' is"
@@ -268,6 +269,10 @@ for num in range(0,len(prepid)):
                     if word == "powheg" :
                         print "* [However: To check manually] if this is a "+word+" but loop induced process such as gg->ZH," 
                         print "*           then fragment is OK (no need to have Pythia8PowhegEmissionVetoSettings)"
+        if knd == 1 :
+             powhegcheck.append(int(os.popen('grep -c -i PowhegEmission '+pi).read()))
+             if powhegcheck[0] > 0 :
+                 print "* [ERROR] Please remove POWHEG settings for MG requests."
         if knd > 2 :
              purepythiacheck.append(int(os.popen('grep -c -i Pythia8aMCatNLOSettings '+pi).read()))
              purepythiacheck.append(int(os.popen('grep -c -i PowhegEmission '+pi).read()))
