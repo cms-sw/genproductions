@@ -128,6 +128,17 @@ fi
 echo "run finished, produced number of events:"
 zgrep \<event events.lhe.gz |wc -l
 
+#reweight if necessary
+doreweighting=0
+if [ -e ./madevent/Cards/reweight_card.dat ]; then
+    echo "reweighting events"
+    doreweighting=1
+    mv events.lhe.gz ./madevent/Events/GridRun_${rnum}/unweighted_events.lhe.gz
+    cd madevent
+    echo "0" |./bin/madevent --debug reweight GridRun_${rnum}
+    cd ..
+    mv $LHEWORKDIR/process/madevent/Events/GridRun_${rnum}/unweighted_events.lhe.gz $LHEWORKDIR/process/events.lhe.gz
+fi
 
 domadspin=0
 if [ -f ./madspin_card.dat ] ;then
@@ -156,24 +167,16 @@ pushd process/madevent
 pdfsets="PDF_SETS_REPLACE"
 scalevars="--mur=1,2,0.5 --muf=1,2,0.5 --together=muf,mur,dyn --dyn=-1,1,2,3,4"
 
-echo "systematics $runlabel --remove_wgts=all --start_id=1001 --pdf=$pdfsets $scalevars" | ./bin/madevent
+if [ "$doreweighting" -gt "0" ] ; then 
+    echo "systematics $runlabel --start_id=1001 --pdf=$pdfsets $scalevars" | ./bin/madevent
+else
+    echo "systematics $runlabel --remove_wgts=all --start_id=1001 --pdf=$pdfsets $scalevars" | ./bin/madevent
+fi
+
 popd
 
 mv process/madevent/Events/${runlabel}/events.lhe.gz cmsgrid_final.lhe.gz
 gzip -d cmsgrid_final.lhe.gz
-
-
-#reweight if necessary
-if [ -e process/madevent/Cards/reweight_card.dat ]; then
-    echo "reweighting events"
-    mv cmsgrid_final.lhe process/madevent/Events/GridRun_${run_random_start}/unweighted_events.lhe
-    cd process/madevent
-    ./bin/madevent reweight -f GridRun_${run_random_start}
-    cd ../..
-    mv process/madevent/Events/GridRun_${run_random_start}/unweighted_events.lhe.gz cmsgrid_final.lhe.gz
-    gzip -d  cmsgrid_final.lhe.gz
-fi
-
 
 ls -l
 echo

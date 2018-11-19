@@ -55,6 +55,7 @@ echo "run_mode = 2" >> ./Cards/amcatnlo_configuration.txt
 echo "nb_core = $ncpu" >> ./Cards/amcatnlo_configuration.txt
 
 echo "done" > runscript.dat
+echo "reweight=OFF" >> runscript.dat
 echo "set nevents $nevt" >> runscript.dat
 echo "set iseed $rnum" >> runscript.dat
 
@@ -85,9 +86,16 @@ runname=cmsgrid
 if [ ! -e $LHEWORKDIR/header_for_madspin.txt ]; then
   
     cat runscript.dat | ./bin/generate_events -ox -n $runname
+
     runlabel=$runname
     if [ "$domadspin" -gt "0" ] ; then 
       runlabel=${runname}_decayed_1
+    fi
+
+    if [ -f ./Cards/reweight_card.dat ] ;then
+        rwgt_dir="$LHEWORKDIR/process/rwgt"
+        export PYTHONPATH=$rwgt_dir:$PYTHONPATH
+        echo "0" | ./bin/aMCatNLO --debug reweight $runname
     fi
 
     pdfsets="PDF_SETS_REPLACE"
