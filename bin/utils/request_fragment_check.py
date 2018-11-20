@@ -145,7 +145,7 @@ for num in range(0,len(prepid)):
         MGpatch = [] 
         ME = ["PowhegEmissionVeto","aMCatNLO"] # ME = matrix element
         MEname = ["powheg","madgraph","mcatnlo"]
-        tune = ["CP5","CUEP8M1"] 
+        tune = ["CP5","CUEP8M1","CP1","CP2","CP3","CP4"] 
         mcatnlo_flag = 0
         loop_flag = 0
         knd =  10
@@ -284,12 +284,13 @@ for num in range(0,len(prepid)):
                 print "*         Please remove all occurances of Pythia8aMCatNLOSettings from the fragment"
             if nPartonsInBorn_flag == 1:
                 print "* [ERROR] You are using a loop induced process, [noborn=QCD]."
-                print "*         Please remove all TimeShower:nPartonsInBorn from the fragment"                
-        for kk in range (0, 2):   
+                print "*         Please remove all TimeShower:nPartonsInBorn from the fragment"                        
+        for kk in range (0, 6):   
             tunecheck.append(int(os.popen('grep -c -i '+tune[kk]+' '+pi).read()))
-        if tunecheck[0] < 3 and tunecheck[1] < 3 and fsize != 0:
-            print "* [ERROR] Tune configuration wrong in the fragment"
-        elif tunecheck[0] > 2 or tunecheck[1] >2 and fsize != 0:
+        tune_check_tmp = [i for i, n in enumerate(tunecheck) if n > 2]
+        if tune_check_tmp[0] < 3 or len(tune_check_tmp) > 1 and fsize != 0:
+            print "* [ERROR] Tune configuration may be wrong in the fragment"
+        elif tune_check_tmp[0] > 2 and fsize != 0:    
             print "* [OK] Tune configuration probably OK in the fragment"
             if tunecheck[0] > 2 :
                 if 'Fall18' not in pi and 'Fall17' not in pi :
