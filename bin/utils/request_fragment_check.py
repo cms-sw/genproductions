@@ -32,9 +32,9 @@ parser = argparse.ArgumentParser(
                   *                         re-create the gridpack using the updated genproductions area
 
                ERRORS:
-                  * [ERROR] Memory is not 2300 or 4000 GB"
-                  * [ERROR] Memory is 2300 GB while number of cores is XX but not = 1
-                  * [ERROR] Memory is 4000 GB while number of cores is 1 but not = 2,4 or 8
+                  * [ERROR] Memory is not 2300 or 4000 MB"
+                  * [ERROR] Memory is 2300 MB while number of cores is XX but not = 1
+                  * [ERROR] Memory is 4000 MB while number of cores is 1 but not = 2,4 or 8
                   * [ERROR] Gridpack should have used cvmfs path instead of eos path
                   * [ERROR] Matched sample but matching efficiency is 1!
                   * [ERROR] MG5_aMC@NLO multi-run patch missing in gridpack - please re-create a gridpack
@@ -175,11 +175,11 @@ for num in range(0,len(prepid)):
         else :
             nthreads = int(re.search('nThreads(.*?) --',ttxt).group(1))
         if mem != 2300 and mem != 4000 :
-            print "* [ERROR] Memory is not 2300 or 4000 GB"
+            print "* [ERROR] Memory is not 2300 or 4000 MB"
         if mem == 2300 and nthreads != 1 :
-            print "* [ERROR] Memory is "+str(mem)+" GB while number of cores is "+str(nthreads)+" but not = 1"
+            print "* [ERROR] Memory is "+str(mem)+" MB while number of cores is "+str(nthreads)+" but not = 1"
         if mem == 4000 and nthreads == 1 :
-            print "* [ERROR] Memory is "+str(mem)+" GB while number of cores is "+str(nthreads)+" but not = 2,4 or 8"
+            print "* [ERROR] Memory is "+str(mem)+" MB while number of cores is "+str(nthreads)+" but not = 2,4 or 8"
         os.system('wget -q https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_fragment/'+pi+' -O '+pi)
         os.system('mkdir -p '+my_path+'/'+pi)
         if int(os.popen('grep -c eos '+pi).read()) == 1 :
