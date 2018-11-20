@@ -152,6 +152,8 @@ for num in range(0,len(prepid)):
         nPartonsInBorn_flag = 0
         matching = 10
         ickkw = 'del' # ickkw = matching parameter in madgraph
+        autoptjmjj_c = 'del'
+        drjj = 1000
         for item in te:
             timeperevent = float(item)
         if timeperevent > 150.0 :
@@ -213,11 +215,18 @@ for num in range(0,len(prepid)):
                     if os.path.isfile(fname) is True :
 #                        ickkw = os.popen('grep "= ickkw" '+fname).read()
                        ickkw = os.popen('more '+fname+' | tr -s \' \' | grep "= ickkw"').read()
+                       autoptjmjj_c = os.popen('more '+fname+' | tr -s \' \' | grep "= auto_ptj_mjj"').read()
+                       drjj_c = os.popen('more '+fname+' | tr -s \' \' | grep "= drjj"').read()
                     elif os.path.isfile(fname2) is True :    
 #                        ickkw = os.popen('grep "= ickkw" '+fname2).read()
                        ickkw = os.popen('more '+fname2+' | tr -s \' \' | grep "= ickkw"').read()
+                       autoptjmjj_c = os.popen('more '+fname2+' | tr -s \' \' | grep "= auto_ptj_mjj"').read()
+                       drjj_c = os.popen('more '+fname2+' | tr -s \' \' | grep "= drjj"').read()
+                    test_autoptjmjj = re.search(r'true',autoptjmjj_c,re.M|re.I).group()
                     matching = int(re.search(r'\d+',ickkw).group())
                     ickkw = str(ickkw)  
+                    if matching == 1 and test_autoptjmjj.lower() != "true":
+                        print "* [ERROR] Please set True = auto_ptj_mjj for MLM"
                     if matching == 1 or matching == 2:
                         if match_eff == 1:
                             print "* [ERROR] Matched sample but matching efficiency is 1!"
