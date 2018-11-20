@@ -286,7 +286,7 @@ def runGetSource(parstage, xgrid, folderName, powInputName, process, noPdfCheck,
 '''
 # Release to be used to define the environment and the compiler needed
 export RELEASE=${CMSSW_VERSION}
-export jhugenversion="v7.1.4"
+export jhugenversion="v7.2.3"
 
 cd $WORKDIR
 pwd
@@ -433,6 +433,7 @@ fi
 # Use dynamic linking and lhapdf
 sed -i -e "s#STATIC[ \t]*=[ \t]*-static#STATIC=-dynamic#g" Makefile
 sed -i -e "s#PDF[ \t]*=[ \t]*native#PDF=lhapdf#g" Makefile
+sed -i -e "s# -lLHAPDF# -lLHAPDF \$(RPATHLIBS)#g" Makefile
 
 # Use gfortran, not other compilers which are not free/licensed
 sed -i -e "s#COMPILER[ \t]*=[ \t]*ifort#COMPILER=gfortran#g" Makefile
@@ -542,6 +543,13 @@ fi
   
 echo "ANALYSIS=none " >> tmpfile
 
+# Add libraries now
+NEWRPATH1=`ls /cvmfs/cms.cern.ch/${SCRAM_ARCH}/external/gcc/*/* | grep "/lib64" | head -n 1`
+NEWRPATH1=${NEWRPATH1%?}
+NEWRPATH2=`ls /cvmfs/cms.cern.ch/${SCRAM_ARCH}/external/zlib-x86_64/*/* | grep "/lib" | head -n 1`
+NEWRPATH2=${NEWRPATH2%?}
+echo "RPATHLIBS= -Wl,-rpath,${NEWRPATH1} -L${NEWRPATH1} -lgfortran -lstdc++ -Wl,-rpath,${NEWRPATH2} -L${NEWRPATH2} -lz" >> tmpfile
+
 if [ "$process" = "Wgamma" ]; then
   echo "PWHGANAL=$BOOK_HISTO pwhg_analysis-dummy.o uti.o " >> tmpfile
 else
@@ -551,9 +559,6 @@ echo "LHAPDF_CONFIG=${LHAPDF_BASE}/bin/lhapdf-config" >> tmpfile
 mv Makefile Makefile.interm
 cat tmpfile Makefile.interm > Makefile
 rm -f Makefile.interm tmpfile
-
-# Add libraries
-echo "LIBS+=-lz -lstdc++" >> Makefile
 
 # Add extra packages
 if [ $jhugen = 1 ]; then
