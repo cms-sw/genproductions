@@ -223,10 +223,13 @@ for num in range(0,len(prepid)):
                        autoptjmjj_c = os.popen('more '+fname2+' | tr -s \' \' | grep "= auto_ptj_mjj"').read()
                        drjj_c = os.popen('more '+fname2+' | tr -s \' \' | grep "= drjj"').read()
                     test_autoptjmjj = re.search(r'true',autoptjmjj_c,re.M|re.I).group()
+                    test_drjj_c = re.search(r'\d*\.\d+|\d+', drjj_c, re.M|re.I).group()
                     matching = int(re.search(r'\d+',ickkw).group())
                     ickkw = str(ickkw)  
                     if matching == 1 and test_autoptjmjj.lower() != "true":
-                        print "* [ERROR] Please set True = auto_ptj_mjj for MLM"
+                        print "* [ERROR] Please set True = auto_ptj_mjj for MLM"    
+                    if matching == 1 and test_drjj_c > 0:
+                        print "* [ERROR] drjj should be set to 0.0 for MLM"
                     if matching == 1 or matching == 2:
                         if match_eff == 1:
                             print "* [ERROR] Matched sample but matching efficiency is 1!"
