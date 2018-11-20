@@ -49,7 +49,7 @@ cat << EOF >> events.condorConf
    output                  = events_\$(ProcId).out
    error                   = events_\$(ProcId).err 
    log                     = events_\$(ProcId).log 
-   +JobFlavour             = "microcentury" 
+   +JobFlavour             = "longlunch" 
    periodic_remove         = JobStatus == 5  
    WhenToTransferOutput    = ON_EXIT_OR_EVICT
    queue ${numj}        
