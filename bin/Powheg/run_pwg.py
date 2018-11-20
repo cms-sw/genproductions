@@ -810,10 +810,13 @@ if [ "$process" = "Zj" ] || [ "$process" = "Wj" ]; then
   BEAM=`cat powheg.input | grep "^ebeam1" | cut -d " " -f2 | tr "d" "."`;
   COMENERGY=`echo "( $BEAM*2 )" | bc`
   
-  cp POWHEG-BOX/${process}/DYNNLOPS/${process:0:1}NNLOPS/dynnlo-patches/dynnlo.infile dynnlo.infile
-  gawk "/sroot/{gsub(/14d3/,$COMENERGY)};/nproc/{gsub(/1/,$DYNNLOPROC)};/rseed/{gsub(/113/,\"SEED\")};{print}" dynnlo.infile > dynnlo.infile
-  
+  cp POWHEG-BOX/${process}/DYNNLOPS/${process:0:1}NNLOPS/dynnlo-patches/dynnlo.infile dynnlo.infile.orig
+  gawk "/sroot/{gsub(/14d3/,$COMENERGY)};/nproc/{gsub(/1/,$DYNNLOPROC)};/rseed/{gsub(/113/,\"SEED\")};{print}" dynnlo.infile.orig > dynnlo.infile
   gawk "/mur, muf/{gsub(/$DYNNLOMASS/, ${VMASS})};{print}" dynnlo.infile | sed -e "s#nnlo#SEED#g"> DYNNLO.input
+  
+  echo "gawk commands for dynnlo.input.orig->DYNNLO.input may fail in this script and need to be repeated in the shell:"
+  echo "/sroot/{gsub(/14d3/,$COMENERGY)};/nproc/{gsub(/1/,$DYNNLOPROC)};/rseed/{gsub(/113/,\\\"SEED\\\")};{print}"
+  echo "/mur, muf/{gsub(/$DYNNLOMASS/, ${VMASS})};{print}"
 fi
 
 #mkdir -p workdir
