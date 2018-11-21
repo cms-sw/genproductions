@@ -223,17 +223,13 @@ for num in range(0,len(prepid)):
                        ickkw = os.popen('more '+fname2+' | tr -s \' \' | grep "= ickkw"').read()
                        autoptjmjj_c = os.popen('more '+fname2+' | tr -s \' \' | grep "= auto_ptj_mjj"').read()
                        drjj_c = os.popen('more '+fname2+' | tr -s \' \' | grep "= drjj"').read()
-                    test_autoptjmjj = re.search(r'true',autoptjmjj_c,re.M|re.I)
-                    test_drjj_c = re.search(r'\d*\.\d+|\d+', drjj_c, re.M|re.I)
-	            if test_autoptjmjj:
-			test_autoptjmjj = test_autoptjmjj.groups()
-                    if test_drjj_c:
-			test_drjj_c = test_drjj_c.groups()
+                    test_autoptjmjj = autoptjmjj_c.split()
+                    test_drjj_c = drjj_c.split()
                     matching = int(re.search(r'\d+',ickkw).group())
                     ickkw = str(ickkw)  
-                    if matching == 1 and test_autoptjmjj.lower() != "true":
+                    if matching == 1 and test_autoptjmjj[0].lower() != "true":
                         print "* [ERROR] Please set True = auto_ptj_mjj for MLM"    
-                    if matching == 1 and test_drjj_c > 0:
+                    if matching == 1 and float(test_drjj_c[0]) > 0:
                         print "* [ERROR] drjj should be set to 0.0 for MLM"
                     if matching == 1 or matching == 2:
                         if match_eff == 1:
@@ -328,6 +324,6 @@ for num in range(0,len(prepid)):
                     print "* [ERROR] Parton shower weight configuretion not OK in the fragment" 
         if int(os.popen('grep -c -i filter '+pi).read()) > 3 and filter_eff == 1:
             print "* [ERROR] Filters in the fragment but filter efficiency = 1"
-    os.popen("rm -rf "+my_path+pi).read()  
+#    os.popen("rm -rf "+my_path+pi).read()  
 print "***********************************************************************************"
 print ""
