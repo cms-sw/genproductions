@@ -19,8 +19,8 @@ set max_weight_ps_point 400  # number of PS to estimate the maximum for each eve
 define dprod = g u c d s b u~ c~ d~ s~ b~ a ve vm vt e- mu- ve~ vm~ vt~ e+ mu+ ta- ta+
 
 # specify the decay for the final state particles
-w+ > dprod dprod
-w- > dprod dprod
+decay w+ > dprod dprod
+decay w- > dprod dprod
 
 # running the actual code
 launch

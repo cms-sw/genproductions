@@ -20,8 +20,8 @@ define dprod = g u c d s b u~ c~ d~ s~ b~ a ve vm vt e- mu- ve~ vm~ vt~ e+ mu+ t
 # specify the decay for the final state particles
 decay t > w+ b, w+ > dprod dprod
 decay t~ > w- b~, w- > dprod dprod
-w+ > dprod dprod
-w- > dprod dprod
+decay w+ > dprod dprod
+decay w- > dprod dprod
 
 # running the actual code
 launch
