@@ -153,6 +153,7 @@ for num in range(0,len(prepid)):
         matching = 10
         ickkw = 'del' # ickkw = matching parameter in madgraph
         autoptjmjj_c = 'del'
+        test_drjj_c = -1
         drjj = 1000
         for item in te:
             timeperevent = float(item)
@@ -222,8 +223,12 @@ for num in range(0,len(prepid)):
                        ickkw = os.popen('more '+fname2+' | tr -s \' \' | grep "= ickkw"').read()
                        autoptjmjj_c = os.popen('more '+fname2+' | tr -s \' \' | grep "= auto_ptj_mjj"').read()
                        drjj_c = os.popen('more '+fname2+' | tr -s \' \' | grep "= drjj"').read()
-                    test_autoptjmjj = re.search(r'true',autoptjmjj_c,re.M|re.I).group()
-                    test_drjj_c = re.search(r'\d*\.\d+|\d+', drjj_c, re.M|re.I).group()
+                    test_autoptjmjj = re.search(r'true',autoptjmjj_c,re.M|re.I)
+                    test_drjj_c = re.search(r'\d*\.\d+|\d+', drjj_c, re.M|re.I)
+	            if test_autoptjmjj:
+			test_autoptjmjj = test_autoptjmjj.groups()
+                    if test_drjj_c:
+			test_drjj_c = test_drjj_c.groups()
                     matching = int(re.search(r'\d+',ickkw).group())
                     ickkw = str(ickkw)  
                     if matching == 1 and test_autoptjmjj.lower() != "true":
@@ -300,7 +305,7 @@ for num in range(0,len(prepid)):
         for kk in range (0, 6):   
             tunecheck.append(int(os.popen('grep -c -i '+tune[kk]+' '+pi).read()))
         tune_check_tmp = [i for i, n in enumerate(tunecheck) if n > 2]
-        if tune_check_tmp[0] < 3 or len(tune_check_tmp) > 1 and fsize != 0:
+        if tune_check_tmp[0] < 3 and len(tune_check_tmp) > 1 and fsize != 0:
             print "* [ERROR] Tune configuration may be wrong in the fragment"
         elif tune_check_tmp[0] > 2 and fsize != 0:    
             print "* [OK] Tune configuration probably OK in the fragment"
