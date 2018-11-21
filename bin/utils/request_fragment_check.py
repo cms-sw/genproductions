@@ -148,7 +148,7 @@ for num in range(0,len(prepid)):
         tune = ["CP5","CUEP8M1","CP1","CP2","CP3","CP4"] 
         mcatnlo_flag = 0
         loop_flag = 0
-        knd =  10
+        knd =  -1
         nPartonsInBorn_flag = 0
         matching = 10
         ickkw = 'del' # ickkw = matching parameter in madgraph
