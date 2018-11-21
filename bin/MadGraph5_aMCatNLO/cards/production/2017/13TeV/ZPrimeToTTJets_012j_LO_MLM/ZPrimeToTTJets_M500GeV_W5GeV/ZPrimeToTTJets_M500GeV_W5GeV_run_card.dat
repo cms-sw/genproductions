@@ -50,7 +50,8 @@
 #*********************************************************************
  'lhapdf'    = pdlabel     ! PDF set                                  
 #  306000     = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number 
- $DEFAULT_PDF_SETS = lhaid
+# $DEFAULT_PDF_SETS = lhaid
+ 315200    = lhaid  
  $DEFAULT_PDF_MEMBERS = reweight_PDF
 #*********************************************************************
 # Renormalization and factorization scales                           *
