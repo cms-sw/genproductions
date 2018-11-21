@@ -1,0 +1,12 @@
+import model 2HDM
+
+define p = g u c d s b u~ c~ d~ s~ b~
+define j = g u c d s b u~ c~ d~ s~ b~
+define l+ = e+ mu+
+define l- = e- mu-
+define vl = ve vm
+define vl~ = ve~ vm~
+
+generate p p > t t~, ( t > h+ b, ( h+ > c b~ )), ( t~ > w- b~, ( w- > l- vl~ ))
+
+output ChargedHiggsToCB_M050 -nojpeg
