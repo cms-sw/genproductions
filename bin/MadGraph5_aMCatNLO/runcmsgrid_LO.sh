@@ -133,6 +133,7 @@ doreweighting=0
 if [ -e ./madevent/Cards/reweight_card.dat ]; then
     echo "reweighting events"
     doreweighting=1
+    mkdir -p ./madevent/Events/GridRun_${rnum}/
     mv events.lhe.gz ./madevent/Events/GridRun_${rnum}/unweighted_events.lhe.gz
     cd madevent
     echo "0" |./bin/madevent --debug reweight GridRun_${rnum}
