@@ -41,6 +41,7 @@ echo -e "source /cvmfs/cms.cern.ch/cmsset_default.sh" >> submitEvents.sh
 echo -e "tar -xzvf ${WORKDIR}/${tar}" >> submitEvents.sh
 echo -e "./runcmsgrid.sh ${nume} \$1 1" >> submitEvents.sh
 echo -e "mv cmsgrid_final.lhe ${WORKDIR}/cmsgrid_final_\$1.lhe" >> submitEvents.sh
+echo -e "mv powhegbox*/log* ${WORKDIR}" >> submitEvents.sh
 chmod a+x submitEvents.sh 
 
 cat << EOF >> events.condorConf
@@ -52,6 +53,7 @@ cat << EOF >> events.condorConf
    +JobFlavour             = "longlunch" 
    periodic_remove         = JobStatus == 5  
    WhenToTransferOutput    = ON_EXIT_OR_EVICT
+   transfer_output_files   = ""
    queue ${numj}        
 EOF
 condor_submit events.condorConf 

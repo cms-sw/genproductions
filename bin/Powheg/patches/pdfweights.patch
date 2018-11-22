@@ -27,3 +27,14 @@
        if(flg_debug) call lhefwritextra(nlf)
        write(nlf,'(a)')'</event>'      
   210  format(1p,2(1x,i6),4(1x,e12.5))
+--- ../my_testNNLOPS2/POWHEG-BOX/rwl_weightlists.f	2018-09-04 10:13:18.000000001 +0200
++++ POWHEG-BOX/rwl_weightlists.f	2018-11-22 10:37:02.000000001 +0100
+@@ -558,6 +558,8 @@
+       call nextword(jpos,iv,jv)
+ c No key found
+       if(iv>lb) goto 998
++c for NNLOPS
++      if(buf(iv:jv) == 'combines') goto 998 
+       if(buf(iv:jv) == 'default') then
+ c     In this case we do not expect a value
+          val = 0

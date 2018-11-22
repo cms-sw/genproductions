@@ -379,7 +379,7 @@ fi
 #cp -p ../${POWHEGSRC} .
 
 tar zxf ${POWHEGSRC}
-#
+
 # increase maxseeds to 10000
 sed -i -e "s#par_maxseeds=200,#par_maxseeds=10000,#g" POWHEG-BOX/include/pwhg_par.h
 
@@ -414,10 +414,6 @@ fi
 
 
 sed -i -e "s#500#1200#g"  POWHEG-BOX/include/pwhg_rwl.h
-
-#if [ "$process" = "HJ" ]; then 
-#   sed -i -e "s#maxmulti=10#maxmulti=500#g" POWHEG-BOX/include/pwhg_bookhist-multi.h
-#fi
 
 echo ${POWHEGSRC} > VERSION
 
