@@ -286,11 +286,13 @@ for num in range(0,len(prepid)):
              powhegcheck.append(int(os.popen('grep -c -i PowhegEmission '+pi).read()))
              if powhegcheck[0] > 0 :
                  print "* [ERROR] Please remove POWHEG settings for MG requests."
-        if knd > 2 :
+        if knd == -1 :
              purepythiacheck.append(int(os.popen('grep -c -i Pythia8aMCatNLOSettings '+pi).read()))
              purepythiacheck.append(int(os.popen('grep -c -i PowhegEmission '+pi).read()))
              if purepythiacheck[0] > 0 or purepythiacheck[1] >0 :
-                 print "* [ERROR] Please remove aMCatNLO or POWHEG settings for pure Pythia requests."
+                 print "* [WARNING] Please remove aMCatNLO or POWHEG settings if this is a pure Pythia request."
+                 print "*           If it's not a pure request, in the future, please include madgraph/powheg or amcatnlo"
+                 print "*           in the name of the dataset"
         if loop_flag == 1:
             if mcatnlo_flag == 1: 
                 print "* [ERROR] You are using a loop induced process, [noborn=QCD]."
