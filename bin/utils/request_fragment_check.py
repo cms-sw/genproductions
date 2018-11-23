@@ -136,7 +136,7 @@ for num in range(0,len(prepid)):
         mem = r['memory']
         filter_eff = r['generator_parameters'][-1]['filter_efficiency']
         match_eff = r['generator_parameters'][-1]['match_efficiency']
-        print (pi)
+        print pi+"    Status= "+r['status']
         check = []
         purepythiacheck = []
         powhegcheck = []
