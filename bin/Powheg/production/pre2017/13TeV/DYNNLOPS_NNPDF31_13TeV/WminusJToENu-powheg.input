@@ -1,0 +1,85 @@
+! W^- + jet production parameter
+idvecbos -24
+vdecaymode 1
+
+par_isrtinyy 5d-6
+par_fsrtinyy 5d-6
+par_isrtinycsi 5d-6
+par_fsrtinycsi 5d-6
+
+minlo 1            ! default 0
+minlo_nnll 1       ! (default 0)
+runningscales 0    ! 0 = fixed scale
+facscfact 1
+renscfact 1
+factsc2min 2
+frensc2min 2
+sudscalevar 1
+
+bornktmin 0.26
+
+numevts NEVENTS    ! number of events to be generated
+ih1   1           ! hadron 1 (1 for protons, -1 for antiprotons)
+ih2   1           ! hadron 2 (1 for protons, -1 for antiprotons)
+ebeam1 6500d0     ! energy of beam 1
+ebeam2 6500d0     ! energy of beam 2
+
+! EW parameters
+Wmass   80.398d0
+Wwidth  2.08872d0
+alphaem 7.556254d-3 ! as computed by dynnlo
+sthw2   0.22264585  ! as computed by dynnlo
+
+! CKM (as in dynnlo)
+CKM_Vud 0.97427d0
+CKM_Vus 0.2253d0
+CKM_Vub 0.00351d0
+CKM_Vcd 0.2252d0
+CKM_Vcs 0.97344d0
+CKM_Vcb 0.0412d0
+CKM_Vtd 1d-5
+CKM_Vts 1d-5
+CKM_Vtb 1d0
+
+min_W_mass 1d0    ! Lower mass cut-off for W boson production
+max_W_mass 13000d0   ! Upper mass cut-off for W boson production
+
+! To be set only if using LHA pdfs
+lhans1 306000      ! pdf set for hadron 1 (LHA numbering)
+lhans2 306000      ! pdf set for hadron 2 (LHA numbering)
+
+! Parameters to allow or not the use of stored data
+use-old-grid    1 ! if 1 use old grid if file pwggrids.dat is present (<> 1 regenerate)
+use-old-ubound  1 ! if 1 use norm of upper bounding function stored in pwgubound.dat, if present; <> 1 regenerate
+
+ncall1 500000   ! number of calls for initializing the integration grid
+itmx1    5     ! number of iterations for initializing the integration grid
+ncall2 500000   ! number of calls for computing the integral and finding upper bound
+itmx2    5     ! number of iterations for computing the integral and finding upper bound
+foldcsi   2    ! number of folds on csi integration
+foldy     2    ! number of folds on  y  integration
+foldphi   1    ! number of folds on phi integration
+nubound 200000  ! number of bbarra calls to setup norm of upper bounding function
+icsimax  1     ! <= 100, number of csi subdivision when computing the upper bounds
+iymax    1     ! <= 100, number of y subdivision when computing the upper bounds
+xupbound 2d0   ! increase upper bound for radiation generation
+
+! OPTIONAL PARAMETERS
+withdamp  0        ! (default 0, do not use) use B
+withnegweights 1   ! (0 default) If 1 output negative weighted events. If 0 descard them.
+# olddij 0         ! turn this on to reproduce exactly the "old"
+                   ! behaviour of ref. JHEP 1305 (2013) 082
+
+testplots  0       ! (default 0, do not) do NLO and PWHG distributions
+flg_debug  0       ! store extra event info for debugging
+
+iseed    SEED    ! initialize random number sequence
+#manyseeds 1
+#parallelstage 1
+#xgriditeration 1
+
+storeinfo_rwgt 1   ! store info to allow for reweighting
+#compute_rwgt 1
+
+doublefsr 1
+bornzerodamp 1
