@@ -32,6 +32,7 @@ if __name__ == "__main__":
     eoscmd = '/afs/cern.ch/project/eos/installation/cms/bin/eos.select' ;
 
     parser = OptionParser()
+    parser.add_option('-p', '--parstage'      , dest="parstage",      default= '01239',        help='stage of the production process [01239]')
     parser.add_option('-f', '--folderName'    , dest="folderName",    default='testProd',      help='local folder and last eos folder name[testProd]')
     parser.add_option('-j', '--numJobs'       , dest="numJobs",       default= '10',           help='number of jobs to be used for multicore grid step 1,2,3')
     parser.add_option('-x', '--numX'          , dest="numX",          default= '5',            help='number of xgrid iterations for multicore grid step 1')
@@ -48,6 +49,7 @@ if __name__ == "__main__":
 
     print
     print 'RUNNING PARAMS: '
+    print '                parstage              = ' + args.parstage
     print '                folderName            = ' + args.folderName 
     print '                Number of jobs        = ' + args.numJobs 
     print '                Number of xgrid iter  = ' + args.numX 
@@ -59,20 +61,25 @@ if __name__ == "__main__":
     print
 
 
-    steps=[
-           ('compile',                   '-p 0','null')
-          ]
-    for ix in range(1, int(args.numX)+1):
+    steps = []
+    if '0' in args.parstage:
+        steps.append(('compile',                   '-p 0','null'))
+    if '1' in args.parstage:
+        for ix in range(1, int(args.numX)+1):
+            steps.append(
+            ('grid production 1-'+str(ix),'-p 1 -x '+str(ix),args.folderName+'/run_1_'+str(ix)+'.log'))
+    if '2' in args.parstage:
         steps.append(
-           ('grid production 1-'+str(ix),'-p 1 -x '+str(ix),args.folderName+'/run_1_'+str(ix)+'.log'))
-    steps.append(
-           ('grid production 2',         '-p 2',args.folderName+'/run_2_1.log'))
-    if args.step3pilot:
+            ('grid production 2',         '-p 2',args.folderName+'/run_2_1.log'))
+    if '3' in args.parstage:
+        if args.step3pilot:
+            steps.append(
+            ('grid production 3 pilot',   '-p 3',args.folderName+'/run_3_1.log'))
         steps.append(
-           ('grid production 3 pilot',   '-p 3',args.folderName+'/run_3_1.log'))
-    steps.extend(
-          [('grid production 3',         '-p 3',args.folderName+'/run_3_1.log'),
-           ('grid production 9',         '-p 9 -k 1','null')])
+            ('grid production 3',         '-p 3',args.folderName+'/run_3_1.log'))
+    if '9' in args.parstage:
+        steps.append(
+            ('grid production 9',         '-p 9 -k 1','null'))
 
     for step,extraOpt,logf in steps:
         print '*'*50,step,'*'*5,extraOpt,'*'*50
