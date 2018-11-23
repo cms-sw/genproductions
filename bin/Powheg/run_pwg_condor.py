@@ -49,6 +49,9 @@ def prepareCondorScript( tag, i, folderName, queue, SCALE = '0' ):
    elif (i == 'dynnlo') :
        f.write('executable              = ' + folderName + '/' +  SCALE + '/' + 'launch_NNLO.sh \n')
        f.write('arguments               = ' + SCALE + '.input $(ClusterId)$(ProcId) \n')
+   elif (i == 'minlo') :
+       f.write('executable              = ' + folderName + '/minlo-run/launch_minlo.sh \n')
+       f.write('arguments               = ' + 'powheg.input $(ClusterId)$(ProcId) \n')
    else :
        f.write('executable              = ' + execname + '.sh \n')
    f.write('output                  = ' + logname + '_$(ProcId).out \n')
@@ -340,9 +343,14 @@ else
   echo "INFO: The process $process uses the 4F PDF scheme"
 fi
 
+forNNLOPS=0
+if [ "$process" = "Zj" ] || [ "$process" = "Wj" ]; then
+    forNNLOPS=1
+fi
+
 cd $WORKDIR
-python make_rwl.py ${is5FlavorScheme} ${defaultPDF}
 cd ${name}
+python ../make_rwl.py ${is5FlavorScheme} ${defaultPDF} ${forNNLOPS}
 
 if [ -s ../JHUGen.input ]; then
   cp -p ../JHUGen.input JHUGen.input
@@ -431,9 +439,13 @@ mkdir -p include
 
 if [ "$process" = "Zj" ] || [ "$process" = "Wj" ]; then
     tar zxf ../DYNNLOPS.tgz
+    #TODO: move patches to cms gen space
+    wget --no-verbose --no-check-certificate https://mseidel.web.cern.ch/mseidel/public/nnlops_fast_patch_${process:0:1}.tgz
+    tar zxf nnlops_fast_patch_${process:0:1}.tgz
+    mv Makefile-NNLOPS Makefile
     #diff DYNNLOPS/${process:0:1}NNLOPS/powheg-patches/powheg.makefile Makefile
-    sed -i 's/VPATH= /VPATH= DYNNLOPS\/WNNLOPS\/powheg-patches\/:/g' Makefile
-    sed -i 's/setlocalscales.o/auxiliary.o boost.o setlocalscales2.o/g' Makefile
+    #sed -i 's/VPATH= /VPATH= DYNNLOPS\/WNNLOPS\/powheg-patches\/:/g' Makefile
+    #sed -i 's/setlocalscales.o/auxiliary.o boost.o setlocalscales2.o/g' Makefile
 fi
 
 
@@ -781,7 +793,7 @@ fi
 
 if [ "$process" = "Zj" ] || [ "$process" = "Wj" ]; then
   echo "Compiling DYNNLO...."
-  wget --no-verbose http://theory.fi.infn.it/grazzini/codes/dynnlo-v1.5.tgz
+  wget --no-verbose --no-check-certificate http://theory.fi.infn.it/grazzini/codes/dynnlo-v1.5.tgz
   tar -xzvf dynnlo-v1.5.tgz
   cd dynnlo-v1.5
   cp ../POWHEG-BOX/${process}/DYNNLOPS/${process:0:1}NNLOPS/dynnlo-patches/dynnlo.makefile ./makefile
@@ -798,22 +810,21 @@ if [ "$process" = "Zj" ] || [ "$process" = "Wj" ]; then
   cd ${WORKDIR}/${name}/POWHEG-BOX/${process}/DYNNLOPS/aux
   gfortran -mcmodel=medium -o merge3ddata merge3ddata.f  || fail_exit "Failed to compile merge3ddata"
   cp merge3ddata ${WORKDIR}/${name}/
-
-  cd ${WORKDIR}/${name}/POWHEG-BOX/${process}/DYNNLOPS/${process:0:1}NNLOPS/Reweighter
-  sed -i 's/MINNLO=/MINNLO=pwhg_io_interface.o rwl_weightlists.o zlibdummy.o /g' Makefile
-  make minnlo || fail_exit "Failed to compile minnlo reweighter"
-  cp minnlo ${WORKDIR}/${name}/
+  
+  cd ${WORKDIR}/${name}/POWHEG-BOX/${process}
+  make lhef_analysis_3d || fail_exit "Failed to compile lhef_analysis_3d"
+  cp lhef_analysis_3d ${WORKDIR}/${name}/
 
   cd ${WORKDIR}/${name}
   VMASS=`cat powheg.input | grep "^Wmass\|^Zmass" | awk '{print $2}' | cut -d "d" -f1`
   VMASSEXP=`cat powheg.input | grep "^Wmass\|^Zmass" | awk '{print $2}' | cut -d "d" -f2`
   VMASS=`echo "( $VMASS*10^$VMASSEXP )" | bc`
+  VMASSMIN=`cat powheg.input | grep "^min_W_mass\|^min_Z_mass" | awk '{print $2}'`
+  VMASSMAX=`cat powheg.input | grep "^max_W_mass\|^max_Z_mass" | awk '{print $2}'`
   echo $VMASS
   DYNNLOPROC=3
-  DYNNLOMASS=91.1876d0
   if [ "$process" = "Wj" ]; then
     DYNNLOPROC=1
-    DYNNLOMASS=80.398d0
     VID=`cat powheg.input | grep "^idvecbos" | awk '{print $2}'`;
     if [ "$VID" = "-24" ]; then
       DYNNLOPROC=2
@@ -823,12 +834,13 @@ if [ "$process" = "Zj" ] || [ "$process" = "Wj" ]; then
   COMENERGY=`echo "( $BEAM*2 )" | bc`
   
   cp POWHEG-BOX/${process}/DYNNLOPS/${process:0:1}NNLOPS/dynnlo-patches/dynnlo.infile dynnlo.infile.orig
-  gawk "/sroot/{gsub(/14d3/,$COMENERGY)};/nproc/{gsub(/1/,$DYNNLOPROC)};/rseed/{gsub(/113/,\"SEED\")};{print}" dynnlo.infile.orig > dynnlo.infile
-  gawk "/mur, muf/{gsub(/$DYNNLOMASS/, ${VMASS})};{print}" dynnlo.infile | sed -e "s#nnlo#SEED#g"> DYNNLO.input
-  
-  echo "gawk commands for dynnlo.input.orig->DYNNLO.input may fail in this script and need to be repeated in the shell:"
-  echo "/sroot/{gsub(/14d3/,$COMENERGY)};/nproc/{gsub(/1/,$DYNNLOPROC)};/rseed/{gsub(/113/,\\\"SEED\\\")};{print}"
-  echo "/mur, muf/{gsub(/$DYNNLOMASS/, ${VMASS})};{print}"
+  gawk "/sroot/{gsub(/.*!/,$COMENERGY \\\" !\\\")};\\
+        /nproc/{gsub(/.*!/,$DYNNLOPROC \\\" !\\\")};\\
+        /mur/{gsub(/.*!/, $VMASS \\\" \\\" $VMASS \\\" !\\\")};\\
+        /mwmin/{gsub(/.*!/, $VMASSMIN \\\" \\\" $VMASSMAX \\\" !\\\")};\\
+        /rseed/{gsub(/.*!/,\\\"SEED !\\\")};\\
+        /runstring/{gsub(/.*!/,\\\"'SEED' !\\\")};\\
+        {print}" dynnlo.infile.orig | tee DYNNLO.input
 fi
 
 #mkdir -p workdir
@@ -1010,7 +1022,6 @@ else
    echo "rwl_file 'pwg-rwl.dat'" >> powheg.input
    echo "rwl_format_rwgt 1" >> powheg.input
 fi
-cp -p $WORKDIR/pwg-rwl.dat pwg-rwl.dat
 
 if [ -e ${WORKDIR}/$folderName/cteq6m ]; then
     cp -p ${WORKDIR}/cteq6m .
@@ -1195,10 +1206,10 @@ cp log_${seed}.txt ${base}
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
 
-def runminnlo(folderName, njobs, QUEUE):
-    os.system('rm -rf ' + folderName + "/minnlo-run")
-    os.system('mkdir -p ' + folderName + "/minnlo-run")
-
+def runminlo(folderName, njobs, QUEUE):
+    os.system('rm -rf ' + folderName + "/minlo-run")
+    os.system('mkdir -p ' + folderName + "/minlo-run")
+    
     m_outfile = 'pwg-rwl-scalesonly.dat'
     m_factor = ['1d0', '2d0', '0.5d0']
     m_idx = 1001
@@ -1212,10 +1223,10 @@ def runminnlo(folderName, njobs, QUEUE):
     fout.write("</weightgroup>\n")
     fout.close()
 
-    filename = folderName+"/minnlo-run"+"/launch_minnlo.sh"
+    filename = folderName+"/minlo-run"+"/launch_minlo.sh"
     launching_script = open(filename, "w")
     launching_script.write("#!/bin/bash\n")
-    launching_script.write('base='+os.getcwd()+"/"+folderName+"/minnlo-run"+'\n\n')
+    launching_script.write('base='+os.getcwd()+"/"+folderName+"/minlo-run"+'\n\n')
     launching_script.write('''
 config=$1
 seed=$2
@@ -1225,24 +1236,27 @@ eval `scram runtime -sh`
 cd -
 
 gawk "/iseed/{gsub(/[0-9]+/,$seed)};{print}" $base/../$config > powheg.input
+sed -i "s/NEVENTS/500000/" powheg.input
 echo "rwl_file 'pwg-rwl-scalesonly.dat'" >> powheg.input
 
 cp $base/../pwhg_main .
+cp $base/../lhef_analysis_3d .
 cp $base/../*.dat .
 
 ./pwhg_main &> log_${seed}.txt
+./lhef_analysis_3d
 
-cp *.top ${base}
+mkdir -p $base/$seed
+cp MINLO*.top ${base}/$seed/
 
 cp log_${seed}.txt ${base}
 ''')
     launching_script.close()
     os.system('chmod 755 ' + filename)
-    for ijob in range(njobs):
-        config = "powheg.input"
-        jobID = "minnlo_" + str(ijob)
-        print 'Submitting to queue: ' + QUEUE + ' #' + str(ijob) + ' \n'
-        runCommand('bsub -J ' + jobID + ' -u $USER -q ' + QUEUE + ' \"' + rootfolder + "/" + folderName + "/" + scale + '/launch_minnlo.sh ' + config + ' ' + str(1000+ijob) + '\"', 1, 1)
+    
+    print 'Submitting to condor queues \n'
+    condorfile = prepareCondorScript(folderName + '_minlo', 'minlo', folderName, QUEUE) 
+    runCommand ('condor_submit ' + condorfile + ' -queue '+ str(njobs), TESTING == 0)
 
 
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
@@ -1483,7 +1497,7 @@ if __name__ == "__main__":
                        args.numEvents, powInputName, args.rndSeed,
                        args.prcName, scriptName)
 
-        if QUEUE == '':
+        if QUEUE == 'none':
             print 'Direct compiling and running... \n'
             #runCommand ('bash run_source.sh ', TESTING == 1)
             os.system('bash '+scriptName+' >& '+
@@ -1508,7 +1522,7 @@ if __name__ == "__main__":
         createTarBall(args.parstage, args.folderName, args.prcName,
                       args.keepTop, args.rndSeed, scriptName)
 
-        if QUEUE == '':
+        if QUEUE == 'none':
             print 'Direct running in one shot... \n'
             os.system('bash '+scriptName+' >& '+
                       scriptName.split('.sh')[0]+'.log &')
@@ -1525,9 +1539,9 @@ if __name__ == "__main__":
             rundynnlo(args.folderName, njobs, QUEUE)
 
     elif args.parstage == '8' :
-        print "preparing MINNLO files"
+        print "preparing MINLO files for NNLOPS"
         if args.prcName in ["Zj", "Wj"]:
-            runminnlo(args.folderName, njobs, QUEUE)
+            runminlo(args.folderName, njobs, QUEUE)
 
     elif args.parstage == '9' :
         # overwriting with original

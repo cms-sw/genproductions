@@ -18,6 +18,7 @@ Example of usage for 4F:  python make_rwl.py 0 320900
 
 is5FlavorScheme = str(sys.argv[1])
 CentralPDF = str(sys.argv[2])
+forNNLOPS = str(sys.argv[3]) if len(sys.argv) > 3 else 0
 
 # is5FlavorScheme = True
 # CentralPDF = 306000
@@ -46,6 +47,20 @@ for m_rensc in m_factor :
     m_idx = m_idx + 1
 		  
 fout.write("</weightgroup>\n")
+
+if int(forNNLOPS) == 1:
+  print("Scale variations will be duplicated 8 times for NNLOPS reweighting")
+  
+  fout.write("<weightgroup name='scale_variation2' combine='envelope' >\n")
+
+  for i in range(8):
+    for m_rensc in m_factor :
+      for m_facsc in m_factor :
+        fout.write("<weight id='"+str(m_idx)+"'> lhapdf="+str(CentralPDF)+" renscfact="+ \
+                  m_rensc+" facscfact="+m_facsc+" </weight>\n")
+        m_idx = m_idx + 1
+		  
+  fout.write("</weightgroup>\n")
 
 if int(is5FlavorScheme) == 1:
   # 5F PDF
