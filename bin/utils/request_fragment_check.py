@@ -155,10 +155,10 @@ for num in range(0,len(prepid)):
         autoptjmjj_c = 'del'
         test_drjj_c = -1
         drjj = 1000
-#       special conditions for fall18/autumn18 for specific requests (these lines are temporary)
+########special conditions for fall18/autumn18 for specific requests (these lines are temporary)
 	if "seesaw" in dn.lower() and "fall18" in pi.lower():
-		print "* [WARNING] Please check the priority of this sample in fall18/autumn18"
-		print "*           This sample should be finished by mid-january" 
+	    print "* [WARNING] Please check the priority of this sample in fall18/autumn18"
+	    print "*           This sample should be finished by mid-january" 
 ################################################################################################
         for item in te:
             timeperevent = float(item)
