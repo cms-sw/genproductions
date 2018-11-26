@@ -33,11 +33,14 @@ def runCommand(command, printIt = False, doIt = 1, TESTING = 0) :
     
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
-def prepareCondorScript( tag, i, folderName, queue, SCALE = '0' ):
+def prepareCondorScript( tag, i, folderName, queue, SCALE = '0', runInBatchDir = False):
    '''prepare the Condor submission script'''
 
    filename = 'run_' + tag + '.condorConf'
    execname = folderName + '/run_' + tag
+   if runInBatchDir:
+       folderName = rootfolder + '/' + folderName
+       execname = rootfolder + '/' + execname
    logname =  'run_' + tag
    f = open(filename, 'w')
   
@@ -57,7 +60,8 @@ def prepareCondorScript( tag, i, folderName, queue, SCALE = '0' ):
    f.write('output                  = ' + logname + '_$(ProcId).out \n')
    f.write('error                   = ' + logname + '_$(ProcId).err \n')
    f.write('log                     = ' + logname + '.log \n')
-   f.write('initialdir              = ' + rootfolder + '/' + folderName + '\n')
+   if not runInBatchDir:
+       f.write('initialdir              = ' + rootfolder + '/' + folderName + '\n')
 
    f.write('+JobFlavour             = "'+ queue +'" \n') 
 
@@ -1199,7 +1203,7 @@ cp log_${seed}.txt ${base}
             os.system('chmod 755 ' + filename)
             
             print 'Submitting to condor queues \n'
-            condorfile = prepareCondorScript(subfolderName, 'dynnlo', folderName, QUEUE, subfolderName) 
+            condorfile = prepareCondorScript(subfolderName, 'dynnlo', folderName, QUEUE, subfolderName, runInBatchDir=True) 
             runCommand ('condor_submit ' + condorfile + ' -queue '+ str(njobs), TESTING == 0)
 
 
@@ -1210,7 +1214,7 @@ def runminlo(folderName, njobs, QUEUE):
     os.system('rm -rf ' + folderName + "/minlo-run")
     os.system('mkdir -p ' + folderName + "/minlo-run")
     
-    m_outfile = 'pwg-rwl-scalesonly.dat'
+    m_outfile = folderName + '/pwg-rwl-scalesonly.dat'
     m_factor = ['1d0', '2d0', '0.5d0']
     m_idx = 1001
     fout = open(m_outfile, 'w')
@@ -1221,6 +1225,7 @@ def runminlo(folderName, njobs, QUEUE):
         fout.write("<weight id='"+str(m_idx)+"'> renscfact=" + m_rensc + " facscfact=" + m_facsc + " </weight>\n")
         m_idx = m_idx + 1
     fout.write("</weightgroup>\n")
+    fout.write("</initrwgt>\n")
     fout.close()
 
     filename = folderName+"/minlo-run"+"/launch_minlo.sh"
@@ -1236,7 +1241,7 @@ eval `scram runtime -sh`
 cd -
 
 gawk "/iseed/{gsub(/[0-9]+/,$seed)};{print}" $base/../$config > powheg.input
-sed -i "s/NEVENTS/500000/" powheg.input
+sed -i "s/^numevts.*/numevts 500000/g" powheg.input
 echo "rwl_file 'pwg-rwl-scalesonly.dat'" >> powheg.input
 
 cp $base/../pwhg_main .
@@ -1255,7 +1260,7 @@ cp log_${seed}.txt ${base}
     os.system('chmod 755 ' + filename)
     
     print 'Submitting to condor queues \n'
-    condorfile = prepareCondorScript(folderName + '_minlo', 'minlo', folderName, QUEUE) 
+    condorfile = prepareCondorScript(folderName + '_minlo', 'minlo', folderName, QUEUE, runInBatchDir=True) 
     runCommand ('condor_submit ' + condorfile + ' -queue '+ str(njobs), TESTING == 0)
 
 
