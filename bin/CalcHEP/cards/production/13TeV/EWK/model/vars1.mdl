@@ -1,0 +1,21 @@
+Standard Model
+ Parameters 
+ Name          | Value       |  Comment                                                  |
+ EE            |0.31343      |elecromagnetic constant
+ alfSMZ        |0.1184       |Srtong alpha(MZ) for running mass calculation
+ Q             |100          |scale for running mass calculation
+ s12           |0.221        |Parameter of C-K-M matrix  (PDG96)
+ s23           |0.041        |Parameter of C-K-M matrix  (PDG96)
+ s13           |0.0035       |Parameter of C-K-M matrix  (PDG96)
+ Mm            |0.1057       |muon mass
+ Ml            |1.777        |tau-lepton mass
+ McMc          |1.2          |Mc(Mc)
+ MbMb          |4.25         |Mb(Mb)
+ Mtp           |172.5        |t-quark pole mass
+ MZ            |91.188       |Z-boson mass
+ MW            |80.385       |W-boson mass
+ Mh            |125          |higgs mass
+ wt            |1.59         |t-quark width        (tree level 1->2x)
+ wZ            |2.49444      |Z-boson width        (tree level 1->2x)
+ wW            |2.08895      |W-boson width        (tree level 1->2x)
+==========================================================================================

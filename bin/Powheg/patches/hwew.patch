@@ -1,0 +1,207 @@
+--- scalupveto_HW.f	2018-02-22 16:32:52.000000001 +0100
++++ scalupveto_HW.f.new	2018-02-22 16:34:17.000000001 +0100
+@@ -784,3 +784,100 @@
+       endif
+              
+       end
++
++      subroutine sortbypt(n,iarr)
++      implicit none
++      integer n,iarr(n)
++      include 'hepevt.h'
++      integer j,k
++      real * 8 tmp,pt(nmxhep)
++      logical touched
++      do j=1,n
++         pt(j)=sqrt(phep(1,iarr(j))**2+phep(2,iarr(j))**2)
++      enddo
++c bubble sort
++      touched=.true.
++      do while(touched)
++         touched=.false.
++         do j=1,n-1
++            if(pt(j).lt.pt(j+1)) then
++               k=iarr(j)
++               iarr(j)=iarr(j+1)
++               iarr(j+1)=k
++               tmp=pt(j)
++               pt(j)=pt(j+1)
++               pt(j+1)=tmp
++               touched=.true.
++            endif
++         enddo
++      enddo
++      end
++
++      function islept(j)
++      implicit none
++      logical islept
++      integer j
++      if(abs(j).ge.11.and.abs(j).le.15) then
++         islept = .true.
++      else
++         islept = .false.
++      endif
++      end
++
++      function get_ptrel(pin,pjet)
++      implicit none
++      real * 8 get_ptrel,pin(0:3),pjet(0:3)
++      real * 8 pin2,pjet2,cth2,scalprod
++      pin2  = pin(1)**2 + pin(2)**2 + pin(3)**2
++      pjet2 = pjet(1)**2 + pjet(2)**2 + pjet(3)**2
++      scalprod = pin(1)*pjet(1) + pin(2)*pjet(2) + pin(3)*pjet(3)
++      cth2 = scalprod**2/pin2/pjet2
++      get_ptrel = sqrt(pin2*abs(1d0 - cth2))
++      end
++
++      subroutine pwhgfinalopshist
++      end
++
++
++c     Scan the hep common block to find "nmax" final-state particles with idhep = id
++c     Return the pt-ordered position of the found particles in idarr(1:nidarr)
++c     If the found particles are less than nidarr, nidarr is set to the actual number of
++c     found particles
++      subroutine find_particles(id,nmax,idarr)
++      implicit none
++      include 'hepevt.h'
++      integer id,nmax
++      integer idarr(nmax)
++      integer ihep,imax 
++      imax = 0
++      do ihep=1,nhep
++         if (idhep(ihep).eq.id .and.isthep(ihep).eq.1) then
++cc     for HERWIG and PY6 the status of final state particles is 1
++c     $        (WHCPRG.ne.'PY8   '.and. isthep(ihep).eq.1) .or.         
++c     $        (WHCPRG.eq.'PY8   '.and. isthep(ihep).gt.0) )) then
++c     found
++            imax = imax+1
++            idarr(imax)=ihep
++         endif
++      if (imax.eq.nmax) goto 111
++      enddo
++      
++ 111  continue
++      call sortbypt(imax,idarr(1:imax))
++      nmax = imax
++      end
++
++
++
++c     relative pt of 1 with respect to 2 for FSR
++      function ptrelFSR(p1,p2)
++      implicit none
++      real * 8 ptrelFSR
++      real*8 p1(1:4),p2(1:4)
++      real * 8 costh,mod1,mod2
++      mod1 = sqrt(p1(1)**2+p1(2)**2+p1(3)**2)
++      mod2 = sqrt(p2(1)**2+p2(2)**2+p2(3)**2)
++      costh = (p1(1)*p2(1) + p1(2)*p2(2) + p1(3)*p2(3))/(mod1*mod2)
++
++      ptrelFSR = mod1 * sqrt(2*(1d0 - costh))
++      end
+--- pwhg_analysis-HWnJ_res.f	2018-02-22 16:32:40.000000001 +0100
++++ pwhg_analysis-HWnJ_res.f.new	2018-02-22 16:34:25.000000001 +0100
+@@ -1253,100 +1253,5 @@
+       end
+ 
+ 
+-      subroutine sortbypt(n,iarr)
+-      implicit none
+-      integer n,iarr(n)
+-      include 'hepevt.h'
+-      integer j,k
+-      real * 8 tmp,pt(nmxhep)
+-      logical touched
+-      do j=1,n
+-         pt(j)=sqrt(phep(1,iarr(j))**2+phep(2,iarr(j))**2)
+-      enddo
+-c bubble sort
+-      touched=.true.
+-      do while(touched)
+-         touched=.false.
+-         do j=1,n-1
+-            if(pt(j).lt.pt(j+1)) then
+-               k=iarr(j)
+-               iarr(j)=iarr(j+1)
+-               iarr(j+1)=k
+-               tmp=pt(j)
+-               pt(j)=pt(j+1)
+-               pt(j+1)=tmp
+-               touched=.true.
+-            endif
+-         enddo
+-      enddo
+-      end
+-
+-      function islept(j)
+-      implicit none
+-      logical islept
+-      integer j
+-      if(abs(j).ge.11.and.abs(j).le.15) then
+-         islept = .true.
+-      else
+-         islept = .false.
+-      endif
+-      end
+-
+-      function get_ptrel(pin,pjet)
+-      implicit none
+-      real * 8 get_ptrel,pin(0:3),pjet(0:3)
+-      real * 8 pin2,pjet2,cth2,scalprod
+-      pin2  = pin(1)**2 + pin(2)**2 + pin(3)**2
+-      pjet2 = pjet(1)**2 + pjet(2)**2 + pjet(3)**2
+-      scalprod = pin(1)*pjet(1) + pin(2)*pjet(2) + pin(3)*pjet(3)
+-      cth2 = scalprod**2/pin2/pjet2
+-      get_ptrel = sqrt(pin2*abs(1d0 - cth2))
+-      end
+-
+-      subroutine pwhgfinalopshist
+-      end
+-
+-
+-c     Scan the hep common block to find "nmax" final-state particles with idhep = id
+-c     Return the pt-ordered position of the found particles in idarr(1:nidarr)
+-c     If the found particles are less than nidarr, nidarr is set to the actual number of
+-c     found particles
+-      subroutine find_particles(id,nmax,idarr)
+-      implicit none
+-      include 'hepevt.h'
+-      integer id,nmax
+-      integer idarr(nmax)
+-      integer ihep,imax 
+-      imax = 0
+-      do ihep=1,nhep
+-         if (idhep(ihep).eq.id .and.isthep(ihep).eq.1) then
+-cc     for HERWIG and PY6 the status of final state particles is 1
+-c     $        (WHCPRG.ne.'PY8   '.and. isthep(ihep).eq.1) .or.         
+-c     $        (WHCPRG.eq.'PY8   '.and. isthep(ihep).gt.0) )) then
+-c     found
+-            imax = imax+1
+-            idarr(imax)=ihep
+-         endif
+-      if (imax.eq.nmax) goto 111
+-      enddo
+-      
+- 111  continue
+-      call sortbypt(imax,idarr(1:imax))
+-      nmax = imax
+-      end
+-
+-
+-
+-c     relative pt of 1 with respect to 2 for FSR
+-      function ptrelFSR(p1,p2)
+-      implicit none
+-      real * 8 ptrelFSR
+-      real*8 p1(1:4),p2(1:4)
+-      real * 8 costh,mod1,mod2
+-      mod1 = sqrt(p1(1)**2+p1(2)**2+p1(3)**2)
+-      mod2 = sqrt(p2(1)**2+p2(2)**2+p2(3)**2)
+-      costh = (p1(1)*p2(1) + p1(2)*p2(2) + p1(3)*p2(3))/(mod1*mod2)
+-
+-      ptrelFSR = mod1 * sqrt(2*(1d0 - costh))
+-      end
++    
+ 

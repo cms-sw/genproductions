@@ -1,0 +1,11 @@
+import model sm-ckm_no_b_mass
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+# Specify process(es) to run
+generate p p > vl vl~ / h @0
+add process p p > vl vl~ j / h @1
+add process p p > vl vl~ j j / h @2
+add process p p > vl vl~ j j j / h @3
+add process p p > vl vl~ j j j j / h @4
+# Output processes to MadEvent directory
+output ZJetsToNuNu_HT1200to2500 -nojpeg

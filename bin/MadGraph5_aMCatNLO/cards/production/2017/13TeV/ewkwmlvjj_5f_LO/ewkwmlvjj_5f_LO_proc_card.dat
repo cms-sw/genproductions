@@ -1,0 +1,9 @@
+import model sm-ckm_no_b_mass
+
+define l- = e- mu- ta-
+define vl~ = ve~ vm~ vt~
+
+generate p p > w- j j / t t~ h QED=4 QCD=0, w- > l- vl~
+
+output ewkwmlvjj_5f_LO -nojpeg
+

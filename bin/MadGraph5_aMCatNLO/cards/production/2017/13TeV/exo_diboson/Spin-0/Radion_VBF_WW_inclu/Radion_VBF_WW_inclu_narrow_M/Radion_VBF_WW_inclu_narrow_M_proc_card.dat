@@ -1,0 +1,12 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set loop_optimized_output True
+set complex_mass_scheme False
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+import model heft_radion
+define exc=a h g
+define ferm = u c d s b u~ c~ d~ s~ b~ e- mu- ta- e+ mu+ ta+ vl vl~
+generate p p > h2 j j $$ z w+ w- /exc QCD=0  , ( h2 > w+ w- , w+ > ferm ferm , w- > ferm ferm )
+output Radion_VBF_WW_inclu_narrow_M<MASS> -nojpeg
+

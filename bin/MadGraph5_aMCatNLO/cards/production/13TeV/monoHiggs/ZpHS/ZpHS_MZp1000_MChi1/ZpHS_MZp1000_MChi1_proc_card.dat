@@ -1,3 +1,0 @@
-import model Higgs_Zprime_UFO
-generate p p > h chi chi~ QED=3
-output ZpHS_MZp1000_MChi1 -nojpeg
