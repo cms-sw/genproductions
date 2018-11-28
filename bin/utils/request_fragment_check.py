@@ -56,6 +56,7 @@ parser = argparse.ArgumentParser(
                The script also checks if there is no fragment there is a hadronizer used.'''))
 parser.add_argument('--prepid', type=str, help="check mcm requests using prepids", nargs='+')
 parser.add_argument('--ticket', type=str, help="check mcm requests using ticket number", nargs=1)
+parser.add_argument('--bypass_status', help="don't check request status in mcm", nargs='?')
 args = parser.parse_args()
 
 if args.prepid is not None:
@@ -137,6 +138,10 @@ for num in range(0,len(prepid)):
         filter_eff = r['generator_parameters'][-1]['filter_efficiency']
         match_eff = r['generator_parameters'][-1]['match_efficiency']
         print pi+"    Status= "+r['status']
+        if args.bypass_status is None and r['status'] != "defined":
+	    print "--> Skipping since the request is not in defined state"
+	    print "--> Use --bypass_status option to look at all requests irrespective of state" 
+	    continue
         check = []
         purepythiacheck = []
         powhegcheck = []
@@ -308,7 +313,7 @@ for num in range(0,len(prepid)):
         tune_check_tmp = [i for i, n in enumerate(tunecheck) if n > 2]
         if tune_check_tmp[0] < 3 and len(tune_check_tmp) > 1 and fsize != 0:
             print "* [ERROR] Tune configuration may be wrong in the fragment"
-        elif tune_check_tmp[0] > 2 and fsize != 0:    
+        elif tune_check_tmp[0] > 2 and fsize != 0:    #len(tune_check_tmp) should  be there??
             print "* [OK] Tune configuration probably OK in the fragment"
             if tunecheck[0] > 2 :
                 if 'Fall18' not in pi and 'Fall17' not in pi :
