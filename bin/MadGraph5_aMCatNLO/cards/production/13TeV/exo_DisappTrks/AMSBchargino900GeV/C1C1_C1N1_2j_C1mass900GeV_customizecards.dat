@@ -1,6 +1,0 @@
-#put card customizations here 
-set param_card width 1000024 0.0  
-set param_card mass  1000024 900  
-set param_card mass  1000022 899.9  
-
-

@@ -1,0 +1,4 @@
+import model loop_sm-ckm
+generate p p > t b~ j $$ w+ w- [QCD] @0
+output st_tch_lept_4f_ckm_NLO_top_powheg_madspin -nojpeg
+

@@ -1,0 +1,12 @@
+DECAY        25   1.08946766e-07   # h decays
+#          BR         NDA      ID1       ID2
+     1.00000000e+00    2     3000002   3000002   # BR(h -> n2 n2 )
+#
+DECAY   3000002   6.83300640e-09   # n2 decays
+#          BR         NDA      ID1       ID2
+     1.00000000e+00    2     3000001   3000022   # BR(n2 -> n1 zd )
+#
+DECAY   3000022   1.54011913e-06   # zd decays
+#          BR         NDA      ID1       ID2
+     1.00000000e+00    2     3000013  -3000013   # BR(zd -> mu1- mu1+ )
+#

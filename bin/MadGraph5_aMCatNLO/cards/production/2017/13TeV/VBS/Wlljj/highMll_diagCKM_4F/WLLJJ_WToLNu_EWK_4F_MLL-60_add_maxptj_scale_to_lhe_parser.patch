@@ -1,0 +1,23 @@
+--- a/madgraph/various/lhe_parser.py
++++ b/madgraph/various/lhe_parser.py
+@@ -2213,6 +2213,20 @@
+                 scale += p.E*pt/math.sqrt(pt**2+p.pz**2)
+     
+         return prefactor * scale    
++
++
++    def get_maxptj_scale(self, prefactor=1):
++        
++        scale = 0 
++        for particle in self:
++            if particle.status != 1 or (abs(particle.pid) > 5 and particle.pid != 21):
++                continue 
++            p = FourMomentum(particle)
++            pt = p.pt
++            if (pt>scale):
++                scale = pt
++    
++        return prefactor * scale 
+     
+     @property
+     def sqrts(self):

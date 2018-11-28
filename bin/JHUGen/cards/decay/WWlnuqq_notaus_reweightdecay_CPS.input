@@ -1,0 +1,1 @@
+DecayMode1=4 DecayMode2=5 ReweightDecay WidthSchemeIn=3 ReadPmHstar PmHstarFile=PMWWdistribution.out

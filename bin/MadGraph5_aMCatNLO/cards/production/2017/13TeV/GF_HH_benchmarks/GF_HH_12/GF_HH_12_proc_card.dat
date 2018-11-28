@@ -1,0 +1,9 @@
+set group_subprocesses Auto 
+set ignore_six_quark_processes False 
+set loop_optimized_output True 
+set complex_mass_scheme False 
+import model BSM_gg_hh
+define lep = e+ e- mu+ mu-
+define nus = ve~ vm~ ve vm
+generate p p > h h 
+output GF_HH_12 -nojpeg 
