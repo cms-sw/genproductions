@@ -1,0 +1,12 @@
+--- a/Template/loop_material/StandAlone/SubProcesses/makefile	2017-08-17 00:25:24.000000001 +0200
++++ b/Template/loop_material/StandAlone/SubProcesses/makefile	2018-09-26 13:43:57.000000001 +0200
+@@ -94,6 +94,9 @@
+ $(DOTO) : $(DOTF) $(POLYNOMIAL) $(OLP_POLYNOMIAL)
+ 	$(FC) $(FFLAGS) -c $< -o $@ $(LOOP_INCLUDE)
+ 
++$(DOTO) : $(DOTF)
++	$(FC) $(FFLAGS) -c $< -o $@ $(LOOP_INCLUDE)
++
+ $(OLP): $(OLP_PROCESS) $(LIBS)
+ 	$(FC) -shared $(OLP_PROCESS) -o libMadLoop.$(dylibext) $(LINKLIBS)
+ 

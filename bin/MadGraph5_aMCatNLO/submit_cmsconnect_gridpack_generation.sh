@@ -1,7 +1,7 @@
 #!/bin/bash
 
-source cmsconnect_utils.sh
-source source_condor.sh
+source Utilities/cmsconnect_utils.sh
+source Utilities/source_condor.sh
 
 create_codegen_jdl(){
 cat<<-EOF
@@ -134,12 +134,12 @@ if [ -z "$CONDOR_RELEASE_HOLDCODES" ]; then
   export CONDOR_RELEASE_HOLDCODES="26:119,13,30:256,12:28,6:0"
 fi
 if [ -z "$CONDOR_RELEASE_HOLDCODES_SHADOW_LIM" ]; then
-  export CONDOR_RELEASE_HOLDCODES_SHADOW_LIM="10"
+  export CONDOR_RELEASE_HOLDCODES_SHADOW_LIM="19"
 fi
 # Set a list of maxwalltime in minutes
 # Pilots maximum life is 48h or 2880 minutes
 if [ -z "$CONDOR_SET_MAXWALLTIMES" ]; then
-  export CONDOR_SET_MAXWALLTIMES="500,960,2160,2820,4200"
+  export CONDOR_SET_MAXWALLTIMES="500,960,2160,2820"
 fi
 
 ##########################
@@ -152,9 +152,9 @@ if [ -z "$CONDOR_QUERY_SLEEP_PER_RETRY" ]; then
   export CONDOR_QUERY_SLEEP_PER_RETRY="30"
 fi
 
-#########################
-# INPUT PARAMENTERS
-#########################
+###########################
+# INPUT PARAMETERS
+###########################
 
 card_name=$1
 card_dir=$2
@@ -195,9 +195,10 @@ codegen_jdl="codegen_${card_name}.jdl"
 # Those will be input files for the condor CODEGEN step.
 input_files="input_${card_name}.tar.gz"
 patches_directory="./patches"
+utilities_dir="./Utilities"
 
 if [ -e "$input_files" ]; then rm "$input_files"; fi
-tar -zcf "$input_files" "$card_dir" "$patches_directory"
+tar -zchf "$input_files" "$card_dir" "$patches_directory" "$utilities_dir"
 
 ## Create a submit file for a single job
 # create_codegen_exe arguments are:
