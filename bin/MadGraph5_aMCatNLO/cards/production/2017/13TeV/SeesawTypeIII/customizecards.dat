@@ -1,0 +1,4 @@
+set param_card mass 8000018 SIGMAmass 
+set param_card mass 8000020 SIGMAmass 
+set param_card decay 8000018 Sigma0Width 
+set param_card decay 8000020 SigmaPMWidth 
