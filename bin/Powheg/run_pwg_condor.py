@@ -67,6 +67,7 @@ def prepareCondorScript( tag, i, folderName, queue, SCALE = '0', runInBatchDir =
 
    f.write('periodic_remove         = JobStatus == 5  \n')
    f.write('WhenToTransferOutput    = ON_EXIT_OR_EVICT \n')
+   f.write('transfer_output_files   = "" \n')
  
    f.write('\n')
  
