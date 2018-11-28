@@ -87,8 +87,12 @@ class quarklist(object):
 
 class svjHelper(object):
     def __init__(self):
-        with open(os.path.join(os.path.expandvars('$CMSSW_BASE'),'src/SVJ/Production/test/dict_xsec_Zprime.txt'),'r') as xfile:
-            self.xsecs = {int(xline.split('\t')[0]): float(xline.split('\t')[1]) for xline in xfile}
+        self.xsecs = {
+            500: 71.37, 600: 33.22, 700: 18.17, 800: 10.75, 900: 7.04, 1000: 4.612,
+            1100: 3.021, 1200: 2.039, 1300: 1.459, 1400: 1.057, 1500: 0.77, 1600: 0.5667, 1700: 0.4327, 1800: 0.3304, 1900: 0.2479, 2000: 0.1849,
+            2100: 0.1384, 2200: 0.1044, 2300: 0.08124, 2400: 0.06361, 2500: 0.04977, 2600: 0.03891, 2700: 0.03042, 2800: 0.02447, 2900: 0.01969, 3000: 0.0155,
+            3100: 0.01209, 3200: 0.009518, 3300: 0.007494, 3400: 0.006148, 3500: 0.005036, 3600: 0.004047, 3700: 0.003252, 3800: 0.002613, 3900: 0.0021, 4000: 0.001688
+        }
         self.quarks = quarklist()
         self.alphaName = ""
         # parameters for lambda/alpha calculations
