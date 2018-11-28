@@ -1,0 +1,5 @@
+import model loop_sm
+define w = w+ w-
+generate p p > w l+ l- l+ l- $$ h [QCD] @0
+output WZZJetsTo4L_4f_NLO -nojpeg
+

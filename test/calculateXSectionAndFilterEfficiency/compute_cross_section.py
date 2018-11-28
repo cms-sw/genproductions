@@ -55,13 +55,13 @@ if __name__ == "__main__":
             sys.exit(1)
         # load McM
         sys.path.append('/afs/cern.ch/cms/PPD/PdmV/tools/McM/')
-        from rest import restful
-        mcm = restful()
+        from rest import McM
+        mcm = McM()
         # retrieve request with given prepid
         temp = sys.stdout
         f = open('/dev/null', 'w')
         sys.stdout = f
-        request = mcm.getA('requests', str(args.inputdataset))
+        request = mcm.get('requests', str(args.inputdataset))
         sys.stdout = temp
         if debug: print 'request prepid',request['prepid']
         # search dataset name as returned by mcm
