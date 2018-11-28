@@ -54,8 +54,8 @@ echo "lhapdf = $LHAPDFCONFIG" >> ./Cards/amcatnlo_configuration.txt
 echo "run_mode = 2" >> ./Cards/amcatnlo_configuration.txt
 echo "nb_core = $ncpu" >> ./Cards/amcatnlo_configuration.txt
 
-echo "done" > runscript.dat
-echo "reweight=OFF" >> runscript.dat
+echo "reweight=OFF" > runscript.dat
+echo "done" >> runscript.dat
 echo "set nevents $nevt" >> runscript.dat
 echo "set iseed $rnum" >> runscript.dat
 
@@ -92,7 +92,7 @@ if [ ! -e $LHEWORKDIR/header_for_madspin.txt ]; then
       runlabel=${runname}_decayed_1
     fi
 
-    if [ -f ./Cards/reweight_card.dat ] ;then
+    if [ -f ./Cards/.reweight_card.dat ] ;then
         rwgt_dir="$LHEWORKDIR/process/rwgt"
         export PYTHONPATH=$rwgt_dir:$PYTHONPATH
         echo "0" | ./bin/aMCatNLO --debug reweight $runname
