@@ -148,17 +148,14 @@ class svjHelper(object):
         else:
             self.lambdaHV = self.calcLambda(self.alpha)
 
-    def getOutName(self,events,signal=True,outpre="outpre",part=None):
+    def getOutName(self,outpre,outsuff):
         _outname = outpre
-        if signal:
-            _outname += "_mZprime-{:g}".format(self.mZprime)
-            _outname += "_mDark-{:g}".format(self.mDark)
-            _outname += "_rinv-{:g}".format(self.rinv)
-            if len(self.alphaName)>0: _outname += "_alpha-"+(self.alphaName)
-            else: _outname += "_alpha-{:g}".format(self.alpha)
-        _outname += "_n-{:g}".format(events)
-        if part is not None:
-            _outname += "_part-{:g}".format(part)
+        _outname += "_mZprime-{:g}".format(self.mZprime)
+        _outname += "_mDark-{:g}".format(self.mDark)
+        _outname += "_rinv-{:g}".format(self.rinv)
+        if len(self.alphaName)>0: _outname += "_alpha-"+(self.alphaName)
+        else: _outname += "_alpha-{:g}".format(self.alpha)
+        _outname += "_"+outsuff
         return _outname
 
     # allow access to all xsecs
