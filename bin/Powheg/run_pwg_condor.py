@@ -347,14 +347,14 @@ else
   echo "INFO: The process $process uses the 4F PDF scheme"
 fi
 
-forNNLOPS=0
+forDYNNLOPS=0
 if [ "$process" = "Zj" ] || [ "$process" = "Wj" ]; then
-    forNNLOPS=1
+    forDYNNLOPS=1
 fi
 
 cd $WORKDIR
 cd ${name}
-python ../make_rwl.py ${is5FlavorScheme} ${defaultPDF} ${forNNLOPS}
+python ../make_rwl.py ${is5FlavorScheme} ${defaultPDF} ${forDYNNLOPS}
 
 if [ -s ../JHUGen.input ]; then
   cp -p ../JHUGen.input JHUGen.input
