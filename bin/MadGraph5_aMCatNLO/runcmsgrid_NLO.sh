@@ -77,6 +77,11 @@ if [ -f ./Cards/madspin_card.dat ] ;then
   domadspin=1
 fi
 
+doreweighting=0
+if [ -f ./Cards/reweight_card.dat ]; then
+    doreweighting=1
+fi
+
 runname=cmsgrid
 
 
@@ -92,7 +97,9 @@ if [ ! -e $LHEWORKDIR/header_for_madspin.txt ]; then
       runlabel=${runname}_decayed_1
     fi
 
-    if [ -f ./Cards/.reweight_card.dat ] ;then
+    if [ "$doreweighting" -gt "0" ] ; then 
+        #when REWEIGHT=OFF is applied, mg5_aMC moves reweight_card.dat to .reweight_card.dat
+        mv ./Cards/.reweight_card.dat ./Cards/reweight_card.dat
         rwgt_dir="$LHEWORKDIR/process/rwgt"
         export PYTHONPATH=$rwgt_dir:$PYTHONPATH
         echo "0" | ./bin/aMCatNLO --debug reweight $runname
