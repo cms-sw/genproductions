@@ -83,13 +83,13 @@
 # Automatic ptj and mjj cuts if xqcut > 0
 # (turn off for VBF and single top processes)
 #**********************************************************
-  False	=  auto_ptj_mjj   ! Automatic setting of ptj and mjj
+  True	=  auto_ptj_mjj   ! Automatic setting of ptj and mjj
 #**********************************************************
 #                                                                    
 #**********************************
 # BW cutoff (M+/-bwcutoff*Gamma)
 #**********************************
-  15000.0	=  bwcutoff       ! (M+/-bwcutoff*Gamma)
+  15.0	=  bwcutoff       ! (M+/-bwcutoff*Gamma)
 #**********************************************************
 # Apply pt/E/eta/dr/mij/kt_durham cuts on decay products or not
 # (note that etmiss/ptll/ptheavy/ht/sorted cuts always apply)
@@ -270,9 +270,6 @@
 #*********************************************************************
   True	=  use_syst       ! Enable systematics studies
 #
-#**************************************
-# Parameter of the systematics study
-#  will be used by SysCalc (if installed)
 #**************************************                                  
 #
   0.5 1 2	=  sys_scalefact   # factorization/renormalization scale factor

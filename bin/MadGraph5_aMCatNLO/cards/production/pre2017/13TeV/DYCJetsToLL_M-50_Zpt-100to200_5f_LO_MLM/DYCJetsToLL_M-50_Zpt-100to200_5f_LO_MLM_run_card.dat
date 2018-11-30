@@ -83,7 +83,7 @@
 # Automatic ptj and mjj cuts if xqcut > 0
 # (turn off for VBF and single top processes)
 #**********************************************************
-  False	=  auto_ptj_mjj   ! Automatic setting of ptj and mjj
+  True	=  auto_ptj_mjj   ! Automatic setting of ptj and mjj
 #**********************************************************
 #                                                                    
 #**********************************
@@ -269,12 +269,7 @@
 #          reweighting into account!                                 *
 #*********************************************************************
   True	=  use_syst       ! Enable systematics studies
-#
-#**************************************
-# Parameter of the systematics study
-#  will be used by SysCalc (if installed)
-#**************************************                                  
-#
+#*********************************************************************
   0.5 1 2	=  sys_scalefact   # factorization/renormalization scale factor
   None	=  sys_alpsfact   # \alpha_s emission scale factors
   30 50	=  sys_matchscale  # variation of merging scale
