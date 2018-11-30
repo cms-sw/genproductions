@@ -47,7 +47,7 @@ parser = argparse.ArgumentParser(
                   * [ERROR] Tune configuration wrong in the fragment
                   * [ERROR] PS weights in config but CMSSW version is not 10_2_3 - please check!	
                   * [ERROR] Parton shower weight configuration not OK in the fragment
-                  * [ERROR] Filters in the fragment but filter efficiency = 1
+                  * [WARNING] Filters in the fragment but filter efficiency = 1
                   * [ERROR] You are using a loop induced process, [noborn=QCD].
                   *         Please remove all occurances of Pythia8aMCatNLOSettings from the fragment
                   * [ERROR] You are using a loop induced process, [noborn=QCD].
@@ -333,7 +333,7 @@ for num in range(0,len(prepid)):
                 else:
                     print "* [ERROR] Parton shower weight configuretion not OK in the fragment" 
         if int(os.popen('grep -c -i filter '+pi).read()) > 3 and filter_eff == 1:
-            print "* [ERROR] Filters in the fragment but filter efficiency = 1"
+            print "* [WARNING] Filters in the fragment but filter efficiency = 1"
 #    os.popen("rm -rf "+my_path+pi).read()  
 print "***********************************************************************************"
 print ""
