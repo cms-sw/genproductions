@@ -56,7 +56,7 @@ parser = argparse.ArgumentParser(
                The script also checks if there is no fragment there is a hadronizer used.'''))
 parser.add_argument('--prepid', type=str, help="check mcm requests using prepids", nargs='+')
 parser.add_argument('--ticket', type=str, help="check mcm requests using ticket number", nargs=1)
-parser.add_argument('--bypass_status', help="don't check request status in mcm", nargs='?')
+parser.add_argument('--bypass_status', help="don't check request status in mcm", action='store_false')
 args = parser.parse_args()
 
 if args.prepid is not None:
@@ -138,7 +138,7 @@ for num in range(0,len(prepid)):
         filter_eff = r['generator_parameters'][-1]['filter_efficiency']
         match_eff = r['generator_parameters'][-1]['match_efficiency']
         print pi+"    Status= "+r['status']
-        if args.bypass_status is None and r['status'] != "defined":
+        if args.bypass_status and r['status'] != "defined":
 	    print "--> Skipping since the request is not in defined state"
 	    print "--> Use --bypass_status option to look at all requests irrespective of state" 
 	    continue
@@ -311,7 +311,7 @@ for num in range(0,len(prepid)):
                 print "* [ERROR] You are using a loop induced process, [noborn=QCD]."
                 print "*         Please remove all TimeShower:nPartonsInBorn from the fragment"                        
         for kk in range (0, 6):   
-            tunecheck.append(int(os.popen('grep -c -i '+tune[kk]+' '+pi).read()))
+            tunecheck.append(int(os.popen('grep -v "#" '+pi+' | grep -c -i '+tune[kk]).read()))
         if 3 not in tunecheck:
             print "* [ERROR] Tune configuration may be wrong in the fragment"
         elif 3 in tunecheck:
