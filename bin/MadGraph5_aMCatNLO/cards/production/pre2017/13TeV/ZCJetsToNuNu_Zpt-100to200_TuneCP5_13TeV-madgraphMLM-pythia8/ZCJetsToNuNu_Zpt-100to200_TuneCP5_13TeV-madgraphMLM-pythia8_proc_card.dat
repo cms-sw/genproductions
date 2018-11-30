@@ -14,8 +14,8 @@ define j = p
 define cquark = c c~
 define ell+ = e+ mu+ ta+
 define ell- = e- mu- ta-
-generate p p > z cquark, z > vl vl~  / h @0
-add process p p > z cquark j, z > vl vl~  / h @1
-add process p p > z cquark j j, z > vl vl~ / h @2
-add process p p > z cquark j j j, z > vl vl~ / h @3
+generate p p > vl vl~ cquark / h @0
+add process p p > vl vl~ cquark j / h @1
+add process p p > vl vl~ cquark j j / h @2
+add process p p > vl vl~ cquark j j j / h @3
 output ZCJetsToNuNu_Zpt-100to200_5f_LO_MLM -nojpeg
