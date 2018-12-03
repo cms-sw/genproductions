@@ -1,7 +1,7 @@
 #!/bin/bash
 
-source cmsconnect_utils.sh
-source source_condor.sh
+source Utilities/cmsconnect_utils.sh
+source Utilities/source_condor.sh
 
 create_codegen_jdl(){
 cat<<-EOF
@@ -17,6 +17,8 @@ cat<<-EOF
 	transfer_output_files = ${card_name}.log
 	transfer_output_remaps = "${card_name}.log = ${card_name}_codegen.log"
 	+WantIOProxy=true
+        +IsGridpack=true
+        +GridpackCard = "${card_name}"
 	
 	+REQUIRED_OS = "rhel6"
 	request_cpus = $cores
@@ -132,12 +134,12 @@ if [ -z "$CONDOR_RELEASE_HOLDCODES" ]; then
   export CONDOR_RELEASE_HOLDCODES="26:119,13,30:256,12:28,6:0"
 fi
 if [ -z "$CONDOR_RELEASE_HOLDCODES_SHADOW_LIM" ]; then
-  export CONDOR_RELEASE_HOLDCODES_SHADOW_LIM="10"
+  export CONDOR_RELEASE_HOLDCODES_SHADOW_LIM="19"
 fi
 # Set a list of maxwalltime in minutes
 # Pilots maximum life is 48h or 2880 minutes
 if [ -z "$CONDOR_SET_MAXWALLTIMES" ]; then
-  export CONDOR_SET_MAXWALLTIMES="500,960,2160,2820,4200"
+  export CONDOR_SET_MAXWALLTIMES="500,960,2160,2820"
 fi
 
 ##########################
@@ -150,12 +152,9 @@ if [ -z "$CONDOR_QUERY_SLEEP_PER_RETRY" ]; then
   export CONDOR_QUERY_SLEEP_PER_RETRY="30"
 fi
 
-##########################
-# ADDITIONAL CLASSADS
-##########################
-# Always append IOProxy, so that JobDuration is always set in the history.
-export _CONDOR_WantIOProxy=true 
-export _CONDOR_SUBMIT_ATTRS="$_CONDOR_SUBMIT_ATTRS WantIOProxy"
+###########################
+# INPUT PARAMETERS
+###########################
 
 card_name=$1
 card_dir=$2
@@ -168,6 +167,22 @@ scram_arch="${5:-}"
 cmssw_version="${6:-}"
 
 parent_dir=$PWD
+
+##########################
+# ADDITIONAL CLASSADS
+##########################
+# Always append IOProxy, so that JobDuration is always set in the history.
+export _CONDOR_WantIOProxy=true
+export _CONDOR_SUBMIT_ATTRS="WantIOProxyd"
+export _CONDOR_IsGridpack=true
+export CONDOR_GRIDPACK_CARDNAME="${card_name}"
+CONDOR_SUBMIT_ATTRS="$(condor_config_val SUBMIT_ATTRS 2>/dev/null)"
+if [ -z "$CONDOR_SUBMIT_ATTRS" ]; then
+    export _CONDOR_SUBMIT_ATTRS="$CONDOR_SUBMIT_ATTRS WantIOProxy IsGridpack"
+else
+    export _CONDOR_SUBMIT_ATTRS="WantIOProxy IsGridpack"
+fi
+
 ##############################################
 # CODEGEN step
 ##############################################
@@ -180,9 +195,10 @@ codegen_jdl="codegen_${card_name}.jdl"
 # Those will be input files for the condor CODEGEN step.
 input_files="input_${card_name}.tar.gz"
 patches_directory="./patches"
+utilities_dir="./Utilities"
 
 if [ -e "$input_files" ]; then rm "$input_files"; fi
-tar -zcf "$input_files" "$card_dir" "$patches_directory"
+tar -zchf "$input_files" "$card_dir" "$patches_directory" "$utilities_dir"
 
 ## Create a submit file for a single job
 # create_codegen_exe arguments are:

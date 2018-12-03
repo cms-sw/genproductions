@@ -1,0 +1,36 @@
+From 112b0213cdfd62e69053aed553bf5cd5fd955230 Mon Sep 17 00:00:00 2001
+From: Andreas Albert <andreas.albert@cern.ch>
+Date: Wed, 5 Sep 2018 16:26:58 +0200
+Subject: [PATCH] Fix remote package server error handling.
+
+---
+ madgraph/interface/madgraph_interface.py | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/madgraph/interface/madgraph_interface.py b/madgraph/interface/madgraph_interface.py
+index 26178dc..59ff53c 100755
+--- a/madgraph/interface/madgraph_interface.py
++++ b/madgraph/interface/madgraph_interface.py
+@@ -5840,15 +5840,16 @@ MG5aMC that supports quadruple precision (typically g++ based on gcc 4.6+).""")
+                 cluster_path = data_path[index]
+                 try:
+                     data = urllib.urlopen(cluster_path)
++
++                    for line in data:
++                        split = line.split()
++                        path[split[0]] = split[1]
+                 except Exception:
+                     continue
+                 break
+             else:
+                 raise MadGraph5Error, '''Impossible to connect any of us servers.
+                 Please check your internet connection or retry later'''
+-            for line in data:
+-                split = line.split()
+-                path[split[0]] = split[1]
+ 
+ ################################################################################
+ # TEMPORARY HACK WHERE WE ADD ENTRIES TO WHAT WILL BE EVENTUALLY ON THE WEB
+-- 
+2.17.1
+

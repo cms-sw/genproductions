@@ -56,19 +56,19 @@ basedir=$(pwd)
 #Proper GCC environment:
 source /cvmfs/sft.cern.ch/lcg/external/gcc/6.1.0/x86_64-slc6/setup.sh
 
-#Saving previous FPMC areas:
+#Saving previous FPMC builds:
 if [ -d "fpmc" ];
 then
   mv fpmc fpmc_"$(date +"%Y-%m-%d_%H:%M:%S")"
 fi
-
+  
 #Start fresh new FPMC area:
 printf "Cloning git repo of FPMC event generator: \n"
 git clone https://github.com/fpmc-hep/fpmc.git
 printf "Wait ... \n"
 cd fpmc/
-mkdir build/
-cd build/
+mkdir $name
+cd $name
 cmake ..
 printf "Compiling FPMC... \n"
 make
@@ -89,9 +89,9 @@ if [ "$run" = True ];
 then
   printf "You chose to generate events:\n"
   printf "Preperaing scripts to be submitted to LXBATCH...\n"
-  for f in arr;
+  for ((i=0; i<${#arr[@]}; i++));
   do
-    jobfile=${arr[$f]}
+    jobfile="${arr[$i]}"
     ecms=`awk '/ECMS/ { print $0 } ' $basedir/$carddir/$jobfile | cut -d ' ' -f9`
     printf "The ECMS is ${ecms}\n"
     nevt=`awk '/MAXEV/ { print $0 } ' $basedir/$carddir/$jobfile | cut -d ' ' -f8`
@@ -101,13 +101,13 @@ then
     echo "#!/bin/bash" >> ${jobfile}.sh
     echo "" >> ${jobfile}.sh
     echo "source /cvmfs/sft.cern.ch/lcg/external/gcc/6.1.0/x86_64-slc6/setup.sh" >> ${jobfile}.sh
-    echo "cd ${basedir}/fpmc/build/" >> ${jobfile}.sh
-    echo "./fpmc-hepmc --cfg $basedir/$carddir/${arr[$f]} --comenergy $ecms --nevents $nevt" --fileout ${jobfile}.hepmc >> ${jobfile}.sh
+    echo "cd ${basedir}/fpmc/$name/" >> ${jobfile}.sh
+    echo "./fpmc-lhe < $basedir/$carddir/${arr[$f]}" >> ${jobfile}.sh
     chmod +x ${jobfile}.sh
     printf "Submitting job... \n"
-    bsub -q $queue $basedir/fpmc/build/${jobfile}.sh -o $basedir/fpmc/build/${jobfile}.out -e $basedir/fpmc/build/${jobfile}.err
+    bsub -q $queue -o $basedir/fpmc/$name/${jobfile}.out -e $basedir/fpmc/$name/${jobfile}.err $basedir/fpmc/$name/${jobfile}.sh
   done;
 else
   echo "Not generating events."
-  echo "Executable fpmc-hepmc is available at fpmc/build";
+  echo "Executable fpmc-lhe is available at fpmc/build";
 fi

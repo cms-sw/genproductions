@@ -286,7 +286,7 @@ def runGetSource(parstage, xgrid, folderName, powInputName, process, noPdfCheck,
 '''
 # Release to be used to define the environment and the compiler needed
 export RELEASE=${CMSSW_VERSION}
-export jhugenversion="v7.1.4"
+export jhugenversion="v7.2.3"
 
 cd $WORKDIR
 pwd
@@ -322,7 +322,7 @@ is5FlavorScheme=1
 defaultPDF=306000
 
 
-if [[ "$process" == "ST_tch_4f" ]] || [[ "$process" == "bbH" ]] || [[ "$process" == "Wbb_dec" ]] || [[ "$process" == "Wbbj" ]]; then
+if [[ "$process" == "ST_tch_4f" ]] || [[ "$process" == "bbH" ]] || [[ "$process" == "Wbb_dec" ]] || [[ "$process" == "Wbbj" ]] || [[ "$process" == "WWJ" ]]; then
     # 4F
     is5FlavorScheme=0
     defaultPDF=320900
@@ -362,7 +362,7 @@ if [[ -s ./JHUGen.input ]]; then
 fi
 
 ### retrieve the powheg source tar ball
-export POWHEGSRC=powhegboxV2_rev3511_date20180410.tar.gz
+export POWHEGSRC=powhegboxV2_rev3592_date20180904.tar.gz
 
 if [ "$process" = "b_bbar_4l" ] || [ "$process" = "HWJ_ew" ] || [ "$process" = "HW_ew" ] || [ "$process" = "HZJ_ew" ] || [ "$process" = "HZ_ew" ]; then 
   export POWHEGSRC=powhegboxRES_rev3478_date20180122.tar.gz 
@@ -404,6 +404,10 @@ fi
 if [ "$process" = "ZZ" ]; then
     patch -l -p0 -i ${WORKDIR}/patches/zz_m4lcut.patch
 fi
+if [ "$process" = "WWJ" ]; then
+    patch -l -p0 -i ${WORKDIR}/patches/wwj-weights.patch
+    cp ${WORKDIR}/patches/rwl_write_weights2_extra.f POWHEG-BOX/$process/
+fi
 
 
 sed -i -e "s#500#1200#g"  POWHEG-BOX/include/pwhg_rwl.h
@@ -422,6 +426,7 @@ mkdir -p include
 # Use dynamic linking and lhapdf
 sed -i -e "s#STATIC[ \t]*=[ \t]*-static#STATIC=-dynamic#g" Makefile
 sed -i -e "s#PDF[ \t]*=[ \t]*native#PDF=lhapdf#g" Makefile
+sed -i -e "s# -lLHAPDF# -lLHAPDF \$(RPATHLIBS)#g" Makefile
 
 # Use gfortran, not other compilers which are not free/licensed
 sed -i -e "s#COMPILER[ \t]*=[ \t]*ifort#COMPILER=gfortran#g" Makefile
@@ -444,7 +449,7 @@ if [ `echo ${POWHEGSRC} | cut -d "_" -f 1` = "powhegboxV1" ]; then
    BOOK_HISTO="pwhg_bookhist.o"
 fi 
 
-if [ "$process" = "gg_H" ] || [ "$process" = "ggHH" ]; then
+if [ "$process" = "gg_H" ] || [ "$process" = "ggHH" ] || [ "$process" = "WWJ" ]; then
    BOOK_HISTO=""
    echo "Process using pwhg_bookhist-multi-new"
 fi
@@ -531,10 +536,15 @@ fi
   
 echo "ANALYSIS=none " >> tmpfile
 
+# Add libraries now
+NEWRPATH1=`ls /cvmfs/cms.cern.ch/${SCRAM_ARCH}/external/gcc/*/* | grep "/lib64" | head -n 1`
+NEWRPATH1=${NEWRPATH1%?}
+NEWRPATH2=`ls /cvmfs/cms.cern.ch/${SCRAM_ARCH}/external/zlib-x86_64/*/* | grep "/lib" | head -n 1`
+NEWRPATH2=${NEWRPATH2%?}
+echo "RPATHLIBS= -Wl,-rpath,${NEWRPATH1} -L${NEWRPATH1} -lgfortran -lstdc++ -Wl,-rpath,${NEWRPATH2} -L${NEWRPATH2} -lz" >> tmpfile
+
 if [ "$process" = "Wgamma" ]; then
   echo "PWHGANAL=$BOOK_HISTO pwhg_analysis-dummy.o uti.o " >> tmpfile
-#elif [ "$process" = "HW_ew" ] || [ "$process" = "HWJ_ew" ]; then 
-#  echo "PWHGANAL=$BOOK_HISTO pwhg_analysis-HWnJ_res.o pwhg_analysis_paper-HWnJ_res.o observables.o multi_plot.o " >> tmpfile
 else
   echo "PWHGANAL=$BOOK_HISTO pwhg_analysis-dummy.o " >> tmpfile
 fi
@@ -542,9 +552,6 @@ echo "LHAPDF_CONFIG=${LHAPDF_BASE}/bin/lhapdf-config" >> tmpfile
 mv Makefile Makefile.interm
 cat tmpfile Makefile.interm > Makefile
 rm -f Makefile.interm tmpfile
-
-# Add libraries
-echo "LIBS+=-lz -lstdc++" >> Makefile
 
 # Add extra packages
 if [ $jhugen = 1 ]; then
@@ -565,6 +572,12 @@ if [ $jhugen = 1 ]; then
 
   cd ..
 fi
+
+if [ "$process" = "WWJ" ]; then
+  cp Makefile Makefile.orig
+  cat Makefile.orig |  sed -e "s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d "=" -f2)/bin/fastjet-config#g" | sed -e "s#cs_angles.o#cs_angles.o fastjetfortran.o observables.o pwhg_bookhist-multi-new.o#g" | sed -e "s#\#\ FASTJET_CONFIG#FASTJET_CONFIG#g" | sed -e "s#\#\ LIBSFASTJET#LIBSFASTJET#g" | sed -e "s#\#\ FJCXXFLAGS#FJCXXFLAGS#g" | sed -e "s#rwl_write_weights_extra.f#rwl_write_weights_extra.f\ rwl_write_weights2_extra.f#g"> Makefile
+fi
+
 if [ "$process" = "gg_H_2HDM" ] || [ "$process" = "gg_H_MSSM" ]; then
   echo "Adding CHAPLIN 1.2 library"
   if [ ! -f chaplin-1.2.tar ]; then
@@ -590,7 +603,22 @@ if [ "$process" = "gg_H_2HDM" ] || [ "$process" = "gg_H_MSSM" ]; then
     make install
     cd ..
   fi
-fi  
+fi
+if [ "$process" = "directphoton" ]; then
+  echo "Adding LoopTools 2.14 library"
+  if [ ! -f LoopTools-2.14.tar.gz ]; then
+    wget --no-verbose http://www.feynarts.de/looptools/LoopTools-2.14.tar.gz || fail_exit "Failed to get LoopTools tar ball "
+  fi
+  tar xvf LoopTools-2.14.tar.gz
+  cd LoopTools-2.14
+  ./configure --prefix=`pwd`/..
+  make install
+  cd ..
+  sed -i -e 's/^LT\=$.*/LT=$\(PWD\)/' Makefile
+  export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:${LD_LIBRARY_PATH}
+  mkdir obj-gfortran
+fi
+
 
 echo 'Compiling pwhg_main...'
 pwd
@@ -936,10 +964,12 @@ fi
 
 sed -i 's/pwggrid.dat ]]/pwggrid.dat ]] || [ -e ${WORKDIR}\/pwggrid-0001.dat ]/g' runcmsgrid.sh
 
-#if [ "$process" = "HJ" ]; then
-#  cat runcmsgrid.sh  | gawk '/produceWeightsNNLO/{gsub(/false/, \"true\")};{print}' > runcmsgrid_tmp.sh
-#  mv runcmsgrid_tmp.sh runcmsgrid.sh
-#fi  
+if [ "$process" = "WWJ" ]; then
+   cp -p ${WORKDIR}/$folderName/POWHEG-BOX/$process/testrun-nnlops/binvalues-WW.top .
+   cp -r ${WORKDIR}/$folderName/POWHEG-BOX/$process/testrun-nnlops/WW_MATRIX .
+   cp -r ${WORKDIR}/$folderName/POWHEG-BOX/$process/testrun-nnlops/WW_MINLO .
+   keepTop='1'
+fi  
 
 sed -i s/SCRAM_ARCH_VERSION_REPLACE/${SCRAM_ARCH}/g runcmsgrid.sh
 sed -i s/CMSSW_VERSION_REPLACE/${CMSSW_VERSION}/g runcmsgrid.sh
