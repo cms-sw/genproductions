@@ -30,6 +30,7 @@ parser = argparse.ArgumentParser(
                   *                        Your request uses version xxxxx :
                   *                         If you are not using a proper CMSSW version, please switch to that or
                   *                         re-create the gridpack using the updated genproductions area
+		  * [WARNING] Filters in the fragment but filter efficiency = 1
 
                ERRORS:
                   * [ERROR] Memory is not 2300 or 4000 MB"
@@ -47,7 +48,6 @@ parser = argparse.ArgumentParser(
                   * [ERROR] Tune configuration wrong in the fragment
                   * [ERROR] PS weights in config but CMSSW version is not 10_2_3 - please check!	
                   * [ERROR] Parton shower weight configuration not OK in the fragment
-                  * [WARNING] Filters in the fragment but filter efficiency = 1
                   * [ERROR] You are using a loop induced process, [noborn=QCD].
                   *         Please remove all occurances of Pythia8aMCatNLOSettings from the fragment
                   * [ERROR] You are using a loop induced process, [noborn=QCD].
