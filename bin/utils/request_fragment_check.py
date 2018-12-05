@@ -166,7 +166,7 @@ for num in range(0,len(prepid)):
         for item in te:
             timeperevent = float(item)
         if timeperevent > 150.0 :
-            print "* [WARNING] Large time/event - please check"
+            print "* [WARNING] Large time/event="+str(timeperevent)+" - please check"
         if '10_2' not in cmssw and '9_3' not in cmssw and '7_1' not in cmssw :
             print "* [WARNING] Are you sure you want to use "+cmssw+"release which is not standard"
             print "*           which may not have all the necessary GEN code."
@@ -197,6 +197,9 @@ for num in range(0,len(prepid)):
             print "* [ERROR] Gridpack should have used cvmfs path instead of eos path"
         if int(os.popen('grep -c nPartonsInBorn '+pi).read()) == 1:
             nPartonsInBorn_flag = 1
+            print(os.popen('grep nPartonsInBorn '+pi).read())
+        if int(os.popen('grep -c nJetMax '+pi).read()) == 1:  
+            print(os.popen('grep nJetMax '+pi).read())
         for ind, word in enumerate(MEname):
             if ind == 3:
                 break
