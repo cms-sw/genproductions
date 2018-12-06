@@ -1,17 +1,11 @@
-# import ROOT
-# from math import pi, sqrt, copysign
-# from ROOT import TH1F, TFile, TTree, TString, gSystem, gROOT, AddressOf, TLorentzVector, TVector, TMath
 import sys
 import os
-# import numpy as np
 
 verbose = False
-#cardsPath = sys.argv[1]
-# model = sys.argv[1] # either 2hdm or zpb
+
 old_cardsPath = 'Template'
 
-#cardsPath = 'cards/examples/'
-# gridpoint = 'MH3_600_MH4_XX_Mchi_YY'
+
 prefix    = 'bbDM_2HDMa_MH3_AA_MH4_XX_Mchi_YY'
 os.system('mkdir '+ old_cardsPath+'/'+prefix)
 
@@ -33,12 +27,8 @@ d_customizecards = os.path.join(d_cardspath,prefix+'_customizecards.dat')
 d_cutcards       = os.path.join(d_cardspath,prefix+'_cuts.f')
 d_setcutcards    = os.path.join(d_cardspath,prefix+'_setcuts.f')
 
-# print ()
 
-#
 if verbose: print (d_run_card, d_proc_card, d_extramodels, d_customizecards, d_cutcards, d_setcutcards)
-
-
 
 
 def change_cards(d_cardname, cardname,MH3, MH4, Mchi):
@@ -51,8 +41,6 @@ def change_cards(d_cardname, cardname,MH3, MH4, Mchi):
         fout.write(line)
     fout.close()
     print ("Cardname",cardname)
-
-
 
 
 def submitgrid(MH3, MH4, Mchi):
@@ -77,8 +65,7 @@ def submitgrid(MH3, MH4, Mchi):
     outdir = prefix.replace("AA",str(MH3)).replace("XX",str(MH4)).replace("YY",str(Mchi))
     print ("output dir",outdir)
     os.system('nohup ./submit_cmsconnect_gridpack_generation.sh  '+ outdir +' '+ cardspath +'  4 "4 Gb" > mysubmit_'+outdir+'.debug 2>&1 &')
-    #os.system('./submit_gridpack_generation.sh 30000 30000 2nw '+ outdir +' '+ cardspath +'  2nw')
-    #os.system('nohup ./submit_cmsconnect_gridpack_generation.sh  '+ outdir +' '+ cardspath +'  4 "4 Gb" > mysubmit_'+outdir+'.debug 2>&1 &')
+
 
 Mchi = [1]
 MH3 = [600,1200]
