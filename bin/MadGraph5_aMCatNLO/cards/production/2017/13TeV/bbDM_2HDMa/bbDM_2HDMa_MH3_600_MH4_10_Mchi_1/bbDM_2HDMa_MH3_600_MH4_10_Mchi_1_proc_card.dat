@@ -4,4 +4,4 @@ define p = g u c d s u~ c~ d~ s~ b b~
 define j = p
 
 generate p p > b b~ xd xd~
-output bbDM_2HDMa_MH3_AA_MH4_XX_Mchi_YY -nojpeg
+output bbDM_2HDMa_MH3_600_MH4_10_Mchi_1 -nojpeg

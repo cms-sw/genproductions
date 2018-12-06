@@ -1,5 +1,0 @@
-import model Pseudoscalar_2HDM
-
-
-generate p p > b b~ xd xd~ [QCD]
-output bbDM_2HDMa_MH3_600_MH4_100_Mchi_10 -nojpeg

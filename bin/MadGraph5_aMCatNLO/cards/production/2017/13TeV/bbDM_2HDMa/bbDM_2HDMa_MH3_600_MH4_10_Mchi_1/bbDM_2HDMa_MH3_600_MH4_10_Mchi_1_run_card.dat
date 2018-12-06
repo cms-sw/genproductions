@@ -1,4 +1,4 @@
-    #*********************************************************************
+#*********************************************************************
 #                       MadGraph5_aMC@NLO                            *
 #                                                                    *
 #                     run_card.dat MadEvent                          *
@@ -25,7 +25,7 @@
 # Warning: Do not generate more than 1M events in a single run       *
 # If you want to run Pythia, avoid more than 50k events in a run.    *
 #*********************************************************************
-  1000 = nevents ! Number of unweighted events requested
+  10000 = nevents ! Number of unweighted events requested
   0   = iseed   ! rnd seed (0=assigned automatically=default))
 #*********************************************************************
 # Collider type and energy                                           *
@@ -266,4 +266,16 @@
 # WARNING: Do not use for interference type of computation           *
 #*********************************************************************
    True  = use_syst      ! Enable systematics studies
+#
+#**************************************
+# Parameter of the systematics study
+#  will be used by SysCalc (if installed)
+#**************************************
+#
+0.5 1 2 = sys_scalefact  # factorization/renormalization scale factor
+None = sys_alpsfact  # \alpha_s emission scale factors
+auto = sys_matchscale # variation of merging scale
+# PDF sets and number of members (0 or none for all members).
+NNPDF31_lo_as_0130 = sys_pdf # list of pdf sets
+# MSTW2008nlo68cl.LHgrid 1  = sys_pdf
 #
