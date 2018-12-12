@@ -54,53 +54,62 @@ average = event_norm ! Normalize events to sum or average to the X sect.
 #***********************************************************************
 # PDF choice: this automatically fixes also alpha_s(MZ) and its evol.  *
 #***********************************************************************
- lhapdf    = pdlabel   ! PDF set                                     
- $DEFAULT_PDF_SETS    = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number
- $DEFAULT_PDF_MEMBERS  = reweight_PDF     ! reweight to get PDF uncertainty
+ lhapdf = pdlabel ! PDF set
+ 306000 = lhaid ! If pdlabel=lhapdf, this is the lhapdf number. Only 
+              ! numbers for central PDF sets are allowed. Can be a list; 
+              ! PDF sets beyond the first are included via reweighting.
 #***********************************************************************
 # Include the NLO Monte Carlo subtr. terms for the following parton    *
 # shower (HERWIG6 | HERWIGPP | PYTHIA6Q | PYTHIA6PT | PYTHIA8)         *
 # WARNING: PYTHIA6PT works only for processes without FSR!!!!          *
 #***********************************************************************
   PYTHIA8   = parton_shower
+  1.0       = shower_scale_factor ! multiply default shower starting
+                                  ! scale by this factor
 #***********************************************************************
 # Renormalization and factorization scales                             *
 # (Default functional form for the non-fixed scales is the sum of      *
-# the transverse masses of all final state particles and partons. This *
-# can be changed in SubProcesses/set_scales.f)                         *
+# the transverse masses divided by two of all final state particles    * 
+# and partons. This can be changed in SubProcesses/set_scales.f or via *
+# dynamical_scale_choice option)                                       *
 #***********************************************************************
- F        = fixed_ren_scale  ! if .true. use fixed ren scale
- F        = fixed_fac_scale  ! if .true. use fixed fac scale
- 91.188   = muR_ref_fixed    ! fixed ren reference scale 
- 91.188   = muF1_ref_fixed   ! fixed fact reference scale for pdf1
- 91.188   = muF2_ref_fixed   ! fixed fact reference scale for pdf2
-#***********************************************************************
-# Renormalization and factorization scales (advanced and NLO options)  *
-#***********************************************************************
- F        = fixed_QES_scale  ! if .true. use fixed Ellis-Sexton scale
- 91.188   = QES_ref_fixed    ! fixed Ellis-Sexton reference scale
- 1        = muR_over_ref     ! ratio of current muR over reference muR
- 1        = muF1_over_ref    ! ratio of current muF1 over reference muF1
- 1        = muF2_over_ref    ! ratio of current muF2 over reference muF2
- 1        = QES_over_ref     ! ratio of current QES over reference QES
+ False    = fixed_ren_scale  ! if .true. use fixed ren scale
+ False    = fixed_fac_scale  ! if .true. use fixed fac scale
+ 91.118   = muR_ref_fixed    ! fixed ren reference scale 
+ 91.118   = muF_ref_fixed    ! fixed fact reference scale
+ -1 = dynamical_scale_choice ! Choose one (or more) of the predefined
+           ! dynamical choices. Can be a list; scale choices beyond the
+           ! first are included via reweighting
+ 1.0  = muR_over_ref  ! ratio of current muR over reference muR
+ 1.0  = muF_over_ref  ! ratio of current muF over reference muF
 #*********************************************************************** 
-# Reweight flags to get scale dependence and PDF uncertainty           *
-# For scale dependence: factor rw_scale_up/down around central scale   *
-# For PDF uncertainty: use LHAPDF with supported set                   *
+# Reweight variables for scale dependence and PDF uncertainty          *
 #***********************************************************************
- .true.   = reweight_scale   ! reweight to get scale dependence
-  0.5     = rw_Rscale_down   ! lower bound for ren scale variations
-  2.0     = rw_Rscale_up     ! upper bound for ren scale variations
-  0.5     = rw_Fscale_down   ! lower bound for fact scale variations
-  2.0     = rw_Fscale_up     ! upper bound for fact scale variations
- 292201   = PDF_set_min      ! First of the error PDF sets 
- 292302   = PDF_set_max      ! Last of the error PDF sets
+ 1.0, 2.0, 0.5 = rw_rscale ! muR factors to be included by reweighting
+ 1.0, 2.0, 0.5 = rw_fscale ! muF factors to be included by reweighting
+ True = reweight_scale ! Reweight to get scale variation using the 
+            ! rw_rscale and rw_fscale factors. Should be a list of 
+            ! booleans of equal length to dynamical_scale_choice to
+            ! specify for which choice to include scale dependence.
+ False = reweight_PDF  ! Reweight to get PDF uncertainty. Should be a
+            ! list booleans of equal length to lhaid to specify for
+            !  which PDF set to include the uncertainties.
 #***********************************************************************
-# Merging - WARNING! Applies merging only at the hard-event level.     *
-# After showering an MLM-type merging should be applied as well.       *
-# See http://amcatnlo.cern.ch/FxFx_merging.htm for more details.       *
+# Store reweight information in the LHE file for off-line model-       *
+# parameter reweighting at NLO+PS accuracy                             *
 #***********************************************************************
- 3        = ickkw            ! 0 no merging, 3 FxFx merging
+ True = store_rwgt_info ! Store info for reweighting in LHE file
+#***********************************************************************
+# ickkw parameter:                                                     *
+#   0: No merging                                                      *
+#   3: FxFx Merging - WARNING! Applies merging only at the hard-event  *
+#      level. After showering an MLM-type merging should be applied as *
+#      well. See http://amcatnlo.cern.ch/FxFx_merging.htm for details. *
+#   4: UNLOPS merging (with pythia8 only). No interface from within    *
+#      MG5_aMC available, but available in Pythia8.                    *
+#  -1: NNLL+NLO jet-veto computation. See arxiv:1412.8408 [hep-ph].    *
+#***********************************************************************
+ 3        = ickkw
 #***********************************************************************
 #
 #***********************************************************************
@@ -143,4 +152,10 @@ average = event_norm ! Normalize events to sum or average to the X sect.
 # At least all massless quarks of the model should be included here.   *
 #***********************************************************************
  5 = maxjetflavor
+#***********************************************************************
+#
+#***********************************************************************
+# For aMCfast+APPLGRID use in PDF fitting (http://amcfast.hepforge.org)*
+#***********************************************************************
+ 0 = iappl ! aMCfast switch (0=OFF, 1=prepare grids, 2=fill grids)
 #***********************************************************************
