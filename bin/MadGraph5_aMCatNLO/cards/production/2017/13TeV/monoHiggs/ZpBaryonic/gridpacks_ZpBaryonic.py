@@ -6,7 +6,7 @@ import os
 import shutil
 
 exe = 0 #exe=1 sub=0 to run locally in lxplus
-sub = 1 #sub=1 exe=0 to run in batch jobs
+sub = 0 #sub=1 exe=0 to run in batch jobs
 
 def mkDir(dirName):
     if not os.path.isdir(dirName): os.mkdir(dirName)
