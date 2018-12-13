@@ -1,0 +1,122 @@
+set param_card QNUMBERS 35 1 0.0
+set param_card QNUMBERS 35 2 1.0
+set param_card QNUMBERS 35 3 1.0
+set param_card QNUMBERS 35 4 0.0
+set param_card QNUMBERS 37 1 3.0
+set param_card QNUMBERS 37 2 1.0
+set param_card QNUMBERS 37 3 1.0
+set param_card QNUMBERS 37 4 1.0
+set param_card yukawagui 1 1 0.0
+set param_card yukawagui 1 2 0.0
+set param_card yukawagui 1 3 0.0
+set param_card yukawagui 2 1 0.0
+set param_card yukawagui 2 2 0.0
+set param_card yukawagui 2 3 0.0
+set param_card yukawagui 3 1 0.0
+set param_card yukawagui 3 2 0.0
+set param_card yukawagui 3 3 0.0
+set param_card QNUMBERS 36 1 0.0
+set param_card QNUMBERS 36 2 1.0
+set param_card QNUMBERS 36 3 1.0
+set param_card QNUMBERS 36 4 0.0
+set param_card yukawa 1 0.0
+set param_card yukawa 2 0.0
+set param_card yukawa 3 0.0
+set param_card yukawa 4 0.0
+set param_card yukawa 5 4.78
+set param_card yukawa 6 173.07
+set param_card yukawa 11 0.0
+set param_card yukawa 13 0.0
+set param_card yukawa 15 1.77684
+set param_card higgs 1 -2.09579386
+set param_card higgs 2 -3.58254055
+set param_card higgs 3 2.84436434
+set param_card higgs 4 0.0
+set param_card higgs 5 -0.050352391
+set param_card higgs 6 0.0
+set param_card higgs 7 0.0
+set param_card ckmblock 1 0.227736
+set param_card yukawagli 1 1 0.0
+set param_card yukawagli 1 2 0.0
+set param_card yukawagli 1 3 0.0
+set param_card yukawagli 2 1 0.0
+set param_card yukawagli 2 2 0.0
+set param_card yukawagli 2 3 0.0
+set param_card yukawagli 3 1 0.0
+set param_card yukawagli 3 2 0.0
+set param_card yukawagli 3 3 0.0
+set param_card yukawagdr 1 1 0.0
+set param_card yukawagdr 1 2 0.0
+set param_card yukawagdr 1 3 0.0
+set param_card yukawagdr 2 1 0.0
+set param_card yukawagdr 2 2 0.0
+set param_card yukawagdr 2 3 0.0
+set param_card yukawagdr 3 1 0.0
+set param_card yukawagdr 3 2 0.0
+set param_card yukawagdr 3 3 -0.0549096353
+set param_card mass 1 0.0
+set param_card mass 2 0.0
+set param_card mass 3 0.0
+set param_card mass 4 0.0
+set param_card mass 5 4.78
+set param_card mass 6 173.07
+set param_card mass 11 0.000510998918
+set param_card mass 13 0.105658367
+set param_card mass 15 1.77684
+set param_card mass 23 91.188
+set param_card mass 24 80.385
+set param_card mass 12 0.0
+set param_card mass 14 0.0
+set param_card mass 16 0.0
+set param_card mass 21 0.0
+set param_card mass 22 0.0
+set param_card mass 25 125.0
+set param_card mass 35 409.5
+set param_card mass 36 400.0
+set param_card mass 37 407.8
+set param_card yukawagdi 1 1 0.0
+set param_card yukawagdi 1 2 0.0
+set param_card yukawagdi 1 3 0.0
+set param_card yukawagdi 2 1 0.0
+set param_card yukawagdi 2 2 0.0
+set param_card yukawagdi 2 3 0.0
+set param_card yukawagdi 3 1 0.0
+set param_card yukawagdi 3 2 0.0
+set param_card yukawagdi 3 3 0.0
+set param_card yukawaglr 1 1 0.0
+set param_card yukawaglr 1 2 0.0
+set param_card yukawaglr 1 3 0.0
+set param_card yukawaglr 2 1 0.0
+set param_card yukawaglr 2 2 0.0
+set param_card yukawaglr 2 3 0.0
+set param_card yukawaglr 3 1 0.0
+set param_card yukawaglr 3 2 0.0
+set param_card yukawaglr 3 3 -0.020411221
+set param_card yukawagur 1 1 0.0
+set param_card yukawagur 1 2 0.0
+set param_card yukawagur 1 3 0.0
+set param_card yukawagur 2 1 0.0
+set param_card yukawagur 2 2 0.0
+set param_card yukawagur 2 3 0.0
+set param_card yukawagur 3 1 0.0
+set param_card yukawagur 3 2 0.0
+set param_card yukawagur 3 3 0.497029842
+set param_card SMINPUTS 1 127.934
+set param_card SMINPUTS 2 1.16637e-05
+set param_card SMINPUTS 3 0.119
+set param_card loop 1 91.188
+set param_card loop 2 0.973567028
+set param_card loop 3 -0.54969741
+set param_card loop 4 0.5
+set param_card loop 5 0.5
+set param_card loop 6 1.09939482
+set param_card loop 7 1.94713406
+set param_card loop 8 2.0
+set param_card loop 9 2.0
+set param_card loop 10 0.998732586
+set param_card loop 11 -0.0503311168
+set param_card loop 12 916.226138
+set param_card loop 13 655.056549
+set param_card decay 35 2.33323671e+00 
+set param_card decay 36 3.82011292e+00 
+set param_card decay 37 3.92439730e+00 
