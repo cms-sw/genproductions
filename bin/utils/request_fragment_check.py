@@ -200,8 +200,6 @@ for num in range(0,len(prepid)):
             print(os.popen('grep nPartonsInBorn '+pi).read())
         if int(os.popen('grep -c nJetMax '+pi).read()) == 1:  
             print(os.popen('grep nJetMax '+pi).read())
-	if int(os.popen('grep -c nFinal '+pi).read()) == 1:
-	    print(os.popen('grep nFinal '+pi).read())	
         for ind, word in enumerate(MEname):
             if ind == 3:
                 break
