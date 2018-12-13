@@ -198,8 +198,6 @@ for num in range(0,len(prepid)):
         if int(os.popen('grep -c nPartonsInBorn '+pi).read()) == 1:
             nPartonsInBorn_flag = 1
             print(os.popen('grep nPartonsInBorn '+pi).read())
-        if int(os.popen('grep -c nJetMax '+pi).read()) == 1:  
-            print(os.popen('grep nJetMax '+pi).read())
 	if int(os.popen('grep -c nFinal '+pi).read()) == 1:
 	    print(os.popen('grep nFinal '+pi).read())	
         for ind, word in enumerate(MEname):
@@ -273,15 +271,18 @@ for num in range(0,len(prepid)):
                     if matching ==3 :  
                         print "* [Caution: To check manually] This is a FxFx sample. Please check 'JetMatching:nJetMax' is set"
                         print "*           correctly as number of partons in born matrix element for highest multiplicity."
+			print(os.popen('grep nJetMax '+pi).read())
                     if matching > 3 :
                         print "* [Caution: To check manually] This is a Powheg NLO sample. Please check 'nFinal' is"
                         print "*               set correctly as number of final state particles (BEFORE THE DECAYS)"
                         print "*                                   in the LHE other than emitted extra parton."
+			print(os.popen('grep nFinal '+pi).read())
                 elif matching == 1 and check[0] == 0 and check[1] == 0 and check[2] == 0 :    
                     print "* [OK] no known inconsistency in the fragment w.r.t. the name of the dataset "+word
                     print "* [Caution: To check manually] This is a MadGraph LO sample with Jet matching sample. Please check"
                     print "*                   'JetMatching:nJetMax' is set correctly as number of partons"
                     print "*                              in born matrix element for highest multiplicity."
+		    print(os.popen('grep nJetMax '+pi).read())	
                 elif matching == 0 and word == "madgraph" and check[0] == 0 and check[1] == 0 and check[2] == 0 :
                     print "* [OK] no known inconsistency in the fragment w.r.t. the name of the dataset "+word
                 elif matching == 0 and word == "mcatnlo" and check[0] == 2 and check[1] == 1 and check[2] == 1 and loop_flag != 1:
