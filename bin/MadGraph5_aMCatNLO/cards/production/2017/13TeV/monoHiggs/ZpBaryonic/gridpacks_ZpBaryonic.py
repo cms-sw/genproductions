@@ -85,8 +85,8 @@ def main():
             f_cust0 = open('cards/ZpBaryonic_template/ZpBaryonic_MZp1000_MChi1_customizecards.dat','r')
             f_cust1 = open('cards/'+dirName+'/'+dirName+'_customizecards.dat','w')
             for line in f_cust0:
-                if line.find('MZp2') > 0: f_cust1.write(line.replace('MZp2',str(MZp2)))
-                elif line.find('mdm2') > 0: f_cust1.write(line.replace('mdm2',str(mdm2)))
+                if line.find('MZp') > 0: f_cust1.write(line.replace('MZp',str(MZp2)))
+                elif line.find('mdm') > 0: f_cust1.write(line.replace('mdm',str(mdm2)))
                 else: f_cust1.write(line)
 
             f_cust0.close()
@@ -127,8 +127,8 @@ def main():
             f_cust0 = open('cards/ZpBaryonic_template/ZpBaryonic_MZp1000_MChi1_customizecards.dat','r')
             f_cust1 = open('cards/'+dirName+'/'+dirName+'_customizecards.dat','w')
             for line in f_cust0:
-                if line.find('MZp3') > 0: f_cust1.write(line.replace('MZp3',str(MZp3)))
-                elif line.find('mdm3') > 0: f_cust1.write(line.replace('mdm3',str(mdm3)))
+                if line.find('MZp') > 0: f_cust1.write(line.replace('MZp',str(MZp3)))
+                elif line.find('mdm') > 0: f_cust1.write(line.replace('mdm',str(mdm3)))
                 else: f_cust1.write(line)
 
             f_cust0.close()
@@ -169,8 +169,8 @@ def main():
             f_cust0 = open('cards/ZpBaryonic_template/ZpBaryonic_MZp1000_MChi1_customizecards.dat','r')
             f_cust1 = open('cards/'+dirName+'/'+dirName+'_customizecards.dat','w')
             for line in f_cust0:
-                if line.find('MZp4') > 0: f_cust1.write(line.replace('MZp4',str(MZp4)))
-                elif line.find('mdm4') > 0: f_cust1.write(line.replace('mdm4',str(mdm4)))
+                if line.find('MZp') > 0: f_cust1.write(line.replace('MZp',str(MZp4)))
+                elif line.find('mdm') > 0: f_cust1.write(line.replace('mdm',str(mdm4)))
                 else: f_cust1.write(line)
 
             f_cust0.close()
