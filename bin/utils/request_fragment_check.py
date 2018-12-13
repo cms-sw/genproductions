@@ -198,8 +198,6 @@ for num in range(0,len(prepid)):
         if int(os.popen('grep -c nPartonsInBorn '+pi).read()) == 1:
             nPartonsInBorn_flag = 1
             print(os.popen('grep nPartonsInBorn '+pi).read())
-	if int(os.popen('grep -c nFinal '+pi).read()) == 1:
-	    print(os.popen('grep nFinal '+pi).read())	
         for ind, word in enumerate(MEname):
             if ind == 3:
                 break
