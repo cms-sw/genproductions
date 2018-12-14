@@ -51,7 +51,6 @@
  lhapdf    = pdlabel     ! PDF set
  $DEFAULT_PDF_SETS = lhaid
  $DEFAULT_PDF_MEMBERS  = reweight_PDF
-
 #*********************************************************************
 # Renormalization and factorization scales                           *
 #*********************************************************************
