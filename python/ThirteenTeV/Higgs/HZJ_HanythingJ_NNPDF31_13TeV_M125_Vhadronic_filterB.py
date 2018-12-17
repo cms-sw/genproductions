@@ -4,7 +4,7 @@ import FWCore.ParameterSet.Config as cms
 # https://github.com/cms-sw/genproductions/blob/master/bin/Powheg/production/2017/13TeV/Higgs/HZJ_HanythingJ_NNPDF31_13TeV/HZJ_HanythingJ_NNPDF31_13TeV_M125_Vhadronic.input
 
 externalLHEProducer = cms.EDProducer("ExternalLHEProducer",
-                                     args = cms.vstring('/HZJ_HanythingJ_NNPDF31_13TeV_M125_Vhadronic_filterB.tgz'),
+                                     args = cms.vstring('/afs/cern.ch/user/p/pbryant/public/HZJ_slc6_amd64_gcc630_CMSSW_9_3_8_HZJ_HanythingJ_NNPDF31_13TeV_M125_Vhadronic_filterB.tgz'),
                                      nEvents = cms.untracked.uint32(5000),
                                      numberOfParameters = cms.uint32(1),
                                      outputFile = cms.string('cmsgrid_final.lhe'),
