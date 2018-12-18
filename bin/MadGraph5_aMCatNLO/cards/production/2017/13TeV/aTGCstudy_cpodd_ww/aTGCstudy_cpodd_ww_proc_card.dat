@@ -1,0 +1,6 @@
+import model EWdim6NLO-no_cmass_cpodd
+define p = g u c d s u~ c~ d~ s~
+define j = g u c d s u~ c~ d~ s~ b b~
+generate p p > w+ w- , w+ > j j , w- > l- vl~ @0
+add process p p > w+ w- , w- > j j , w+ > l+ vl @1
+output aTGCstudy_cpodd_ww -nojpeg
