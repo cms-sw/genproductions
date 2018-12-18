@@ -4,7 +4,16 @@ source = cms.Source("EmptySource")
 
 from GeneratorInterface.AMPTInterface.amptDefaultParameters_cff import *
 amptStringMelting = amptDefaultParameters.clone()
-amptStringMelting.amptmode = cms.int32(4)
+amptStringMelting.amptmode = cms.int32(4) 
+# large rapidity
+amptStringMelting.ntmax = cms.int32(1000)
+# dNch/deta
+amptStringMelting.stringFragA = cms.double(0.3)
+amptStringMelting.stringFragB = cms.double(0.15)
+amptStringMelting.alpha = cms.double(0.33)
+
+# 3mb xs
+amptStringMelting.mu = cms.double(2.265)
 
 generator = cms.EDFilter("AMPTGeneratorFilter",
                          amptStringMelting,
