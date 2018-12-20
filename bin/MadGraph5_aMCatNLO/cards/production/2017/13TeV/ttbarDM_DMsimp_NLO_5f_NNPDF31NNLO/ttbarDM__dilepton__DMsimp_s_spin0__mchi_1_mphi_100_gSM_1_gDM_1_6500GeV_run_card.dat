@@ -102,11 +102,6 @@
             ! list booleans of equal length to lhaid to specify for
             !  which PDF set to include the uncertainties.
 #***********************************************************************
-# Store reweight information in the LHE file for off-line model-       *
-# parameter reweighting at NLO+PS accuracy                             *
-#***********************************************************************
- False = store_rwgt_info ! Store info for reweighting in LHE file
-#***********************************************************************
 # ickkw parameter:                                                     *
 #   0: No merging                                                      *
 #   3: FxFx Merging - WARNING! Applies merging only at the hard-event  *
