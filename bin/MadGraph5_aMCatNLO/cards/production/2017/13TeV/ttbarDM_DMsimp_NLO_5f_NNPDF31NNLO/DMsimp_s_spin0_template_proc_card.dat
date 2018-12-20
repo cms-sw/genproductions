@@ -1,0 +1,13 @@
+import model DMsimp_s_spin0
+define p = g u c d s b u~ c~ d~ s~ b~
+define j = p 
+define l+ = e+ mu+ ta+ 
+define l- = e- mu- ta-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+define lept = l+ l- vl vl~
+
+generate p p > xd xd~ t t~ / a z w+ w- [QCD] 
+
+output SUBDMSETUP -nojpeg
+
