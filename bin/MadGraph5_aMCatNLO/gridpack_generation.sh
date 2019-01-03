@@ -128,7 +128,8 @@ make_gridpack () {
     
       LHAPDFINCLUDES=`$LHAPDFCONFIG --incdir`
       LHAPDFLIBS=`$LHAPDFCONFIG --libdir`
-    
+      export BOOSTINCLUDES=`scram tool tag boost INCLUDE`
+
       echo "set auto_update 0" > mgconfigscript
       echo "set automatic_html_opening False" >> mgconfigscript
       if [ $iscmsconnect -gt 0 ]; then
@@ -304,6 +305,8 @@ make_gridpack () {
       cd $WORKDIR
     
       eval `scram runtime -sh`
+      export BOOSTINCLUDES=`scram tool tag boost INCLUDE`
+
       #if lhapdf6 external is available then above points to lhapdf5 and needs to be overridden
       LHAPDF6TOOLFILE=$CMSSW_BASE/config/toolbox/$SCRAM_ARCH/tools/available/lhapdf6.xml
       if [ -e $LHAPDF6TOOLFILE ]; then
