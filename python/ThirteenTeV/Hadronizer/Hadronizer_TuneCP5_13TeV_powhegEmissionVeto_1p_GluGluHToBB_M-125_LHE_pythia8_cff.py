@@ -14,7 +14,7 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
 	pythia8CP5SettingsBlock,
         pythia8PowhegEmissionVetoSettingsBlock,
         processParameters = cms.vstring(
-            #'POWHEG:nFinal = 1',   ## Number of final state particles
+            'POWHEG:nFinal = 2',   ## Number of final state particles
                                    ## (BEFORE THE DECAYS) in the LHE
                                    ## other than emitted extra parton
             '25:m0 = 125.0',
