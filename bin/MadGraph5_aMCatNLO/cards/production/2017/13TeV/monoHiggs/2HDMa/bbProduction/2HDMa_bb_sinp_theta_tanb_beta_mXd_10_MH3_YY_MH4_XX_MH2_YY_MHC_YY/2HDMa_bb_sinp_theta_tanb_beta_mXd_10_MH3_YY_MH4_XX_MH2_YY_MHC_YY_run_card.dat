@@ -1,4 +1,4 @@
-    #*********************************************************************
+#*********************************************************************
 #                       MadGraph5_aMC@NLO                            *
 #                                                                    *
 #                     run_card.dat MadEvent                          *
@@ -25,7 +25,7 @@
 # Warning: Do not generate more than 1M events in a single run       *
 # If you want to run Pythia, avoid more than 50k events in a run.    *
 #*********************************************************************
-  1000 = nevents ! Number of unweighted events requested
+  100 = nevents ! Number of unweighted events requested
   0   = iseed   ! rnd seed (0=assigned automatically=default))
 #*********************************************************************
 # Collider type and energy                                           *
@@ -113,7 +113,7 @@
  0.0  = ptb       ! minimum pt for the b
  10.0  = pta       ! minimum pt for the photons
  10.0  = ptl       ! minimum pt for the charged leptons
- 150.0  = misset    ! minimum missing Et (sum of neutrino's momenta)
+ 0.0  = misset    ! minimum missing Et (sum of neutrino's momenta)
  -1.0  = ptjmax    ! maximum pt for the jets
  -1.0  = ptbmax    ! maximum pt for the b
  -1.0  = ptamax    ! maximum pt for the photons
@@ -267,3 +267,4 @@
 #*********************************************************************
    True  = use_syst      ! Enable systematics studies
 #
+#**************************************

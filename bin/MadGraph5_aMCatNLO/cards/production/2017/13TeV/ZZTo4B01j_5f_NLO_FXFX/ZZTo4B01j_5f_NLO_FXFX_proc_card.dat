@@ -1,0 +1,12 @@
+import model loop_sm-ckm_no_b_mass
+define p = p b b~
+define j = j b b~
+
+define V = z
+define ell+ = e+ mu+ ta+
+define ell- = e- mu- ta-
+
+generate p p > V V [QCD] @0
+add process p p > V V j [QCD] @1
+
+output ZZTo4B01j_5f_NLO_FXFX -nojpeg

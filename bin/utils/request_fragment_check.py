@@ -30,6 +30,7 @@ parser = argparse.ArgumentParser(
                   *                        Your request uses version xxxxx :
                   *                         If you are not using a proper CMSSW version, please switch to that or
                   *                         re-create the gridpack using the updated genproductions area
+		  * [WARNING] Filters in the fragment but filter efficiency = 1
 
                ERRORS:
                   * [ERROR] Memory is not 2300 or 4000 MB"
@@ -47,7 +48,6 @@ parser = argparse.ArgumentParser(
                   * [ERROR] Tune configuration wrong in the fragment
                   * [ERROR] PS weights in config but CMSSW version is not 10_2_3 - please check!	
                   * [ERROR] Parton shower weight configuration not OK in the fragment
-                  * [ERROR] Filters in the fragment but filter efficiency = 1
                   * [ERROR] You are using a loop induced process, [noborn=QCD].
                   *         Please remove all occurances of Pythia8aMCatNLOSettings from the fragment
                   * [ERROR] You are using a loop induced process, [noborn=QCD].
@@ -56,7 +56,7 @@ parser = argparse.ArgumentParser(
                The script also checks if there is no fragment there is a hadronizer used.'''))
 parser.add_argument('--prepid', type=str, help="check mcm requests using prepids", nargs='+')
 parser.add_argument('--ticket', type=str, help="check mcm requests using ticket number", nargs=1)
-parser.add_argument('--bypass_status', help="don't check request status in mcm", nargs='?')
+parser.add_argument('--bypass_status', help="don't check request status in mcm", action='store_false')
 args = parser.parse_args()
 
 if args.prepid is not None:
@@ -138,7 +138,7 @@ for num in range(0,len(prepid)):
         filter_eff = r['generator_parameters'][-1]['filter_efficiency']
         match_eff = r['generator_parameters'][-1]['match_efficiency']
         print pi+"    Status= "+r['status']
-        if args.bypass_status is None and r['status'] != "defined":
+        if args.bypass_status and r['status'] != "defined":
 	    print "--> Skipping since the request is not in defined state"
 	    print "--> Use --bypass_status option to look at all requests irrespective of state" 
 	    continue
@@ -149,7 +149,7 @@ for num in range(0,len(prepid)):
         psweightscheck = [] #ps = parton shower
         MGpatch = [] 
         ME = ["PowhegEmissionVeto","aMCatNLO"] # ME = matrix element
-        MEname = ["powheg","madgraph","mcatnlo"]
+        MEname = ["powheg","madgraph","mcatnlo","jhugen"]
         tune = ["CP5","CUEP8M1","CP1","CP2","CP3","CP4"] 
         mcatnlo_flag = 0
         loop_flag = 0
@@ -166,7 +166,7 @@ for num in range(0,len(prepid)):
         for item in te:
             timeperevent = float(item)
         if timeperevent > 150.0 :
-            print "* [WARNING] Large time/event - please check"
+            print "* [WARNING] Large time/event="+str(timeperevent)+" - please check"
         if '10_2' not in cmssw and '9_3' not in cmssw and '7_1' not in cmssw :
             print "* [WARNING] Are you sure you want to use "+cmssw+"release which is not standard"
             print "*           which may not have all the necessary GEN code."
@@ -197,7 +197,12 @@ for num in range(0,len(prepid)):
             print "* [ERROR] Gridpack should have used cvmfs path instead of eos path"
         if int(os.popen('grep -c nPartonsInBorn '+pi).read()) == 1:
             nPartonsInBorn_flag = 1
+            print(os.popen('grep nPartonsInBorn '+pi).read())
+        if int(os.popen('grep -c nJetMax '+pi).read()) == 1:  
+            print(os.popen('grep nJetMax '+pi).read())
         for ind, word in enumerate(MEname):
+            if ind == 3:
+                break
             if word in dn.lower() :
                 if ind == 2 :
                     knd = 1 
@@ -208,7 +213,7 @@ for num in range(0,len(prepid)):
                 check.append(int(os.popen('grep -c "pythia8'+ME[knd]+'SettingsBlock," '+pi).read()))
                 if check[2] == 1:
                     mcatnlo_flag = 1
-                if ind > 0 :
+                if ind > 0:
                     os.system('wget -q https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_fragment/'+pi+' -O '+my_path+'/'+pi+'/'+pi)
                     gridpack_cvmfs_path = os.popen('grep \/cvmfs '+my_path+'/'+pi+'/'+pi+'| grep -v \'#args\' ').read()
                     gridpack_cvmfs_path = gridpack_cvmfs_path.split('\'')[1]
@@ -309,11 +314,10 @@ for num in range(0,len(prepid)):
                 print "* [ERROR] You are using a loop induced process, [noborn=QCD]."
                 print "*         Please remove all TimeShower:nPartonsInBorn from the fragment"                        
         for kk in range (0, 6):   
-            tunecheck.append(int(os.popen('grep -c -i '+tune[kk]+' '+pi).read()))
-        tune_check_tmp = [i for i, n in enumerate(tunecheck) if n > 2]
-        if tune_check_tmp[0] < 3 and len(tune_check_tmp) > 1 and fsize != 0:
+            tunecheck.append(int(os.popen('grep -v "#" '+pi+' | grep -c -i '+tune[kk]).read()))
+        if 3 not in tunecheck:
             print "* [ERROR] Tune configuration may be wrong in the fragment"
-        elif tune_check_tmp[0] > 2 and fsize != 0:    #len(tune_check_tmp) should  be there??
+        elif 3 in tunecheck:
             print "* [OK] Tune configuration probably OK in the fragment"
             if tunecheck[0] > 2 :
                 if 'Fall18' not in pi and 'Fall17' not in pi :
@@ -333,7 +337,7 @@ for num in range(0,len(prepid)):
                 else:
                     print "* [ERROR] Parton shower weight configuretion not OK in the fragment" 
         if int(os.popen('grep -c -i filter '+pi).read()) > 3 and filter_eff == 1:
-            print "* [ERROR] Filters in the fragment but filter efficiency = 1"
+            print "* [WARNING] Filters in the fragment but filter efficiency = 1"
 #    os.popen("rm -rf "+my_path+pi).read()  
 print "***********************************************************************************"
 print ""
