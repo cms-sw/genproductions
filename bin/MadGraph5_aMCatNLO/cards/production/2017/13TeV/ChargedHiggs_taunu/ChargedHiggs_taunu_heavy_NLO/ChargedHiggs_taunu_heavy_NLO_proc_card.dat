@@ -10,4 +10,4 @@ add process p p > t b~ h- [QCD]
 
 
 
-output ChargedHiggs_heavy_M<MASS> -nojpeg
+output ChargedHiggs_taunu_heavy_NLO_M<MASS> -nojpeg

@@ -4,7 +4,9 @@ import os, shutil, subprocess
 
 REFERENCE_DIR = "TopPhilicZprimeToTTbar_M500"
 
-MASSES = [500, 750, 1000, 1250, 1500, 2000, 2500, 3000, 3500, 4000, 5000, 6000, 7000, 8000, 9000]
+MASSES = [750, 1000, 1250, 1500, 2000, 2500, 3000, 3500, 4000, 5000, 6000, 7000, 8000, 9000]
+#MASSES = [7000]
+#MASSES = [8000, 6000]
 
 
 def formatName(mass):

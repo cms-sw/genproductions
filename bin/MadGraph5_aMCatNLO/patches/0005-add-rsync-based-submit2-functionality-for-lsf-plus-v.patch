@@ -1,7 +1,7 @@
 From 556b9a5288351fb2730cc9b71ea69a583201c4b7 Mon Sep 17 00:00:00 2001
 From: Josh Bendavid <Josh.Bendavid@cern.ch>
 Date: Mon, 27 Jun 2016 19:10:11 +0200
-Subject: [PATCH 5/8] add rsync-based submit2 functionality for lsf, plus various lsf robustness fixes and minor condor fixes
+Subject: [PATCH 5/8] add rsync-based submit2 functionality for lsf plus various lsf robustness fixes
 
 ---
  madgraph/various/cluster.py |  273 ++++++++++++++++++++++++++++++++++++++++---
@@ -33,54 +33,6 @@ index effede0..4a9c3d6 100755
  class Cluster(object):
      """Basic Class for all cluster type submission"""
      name = 'mother class'
-@@ -97,6 +105,7 @@ class Cluster(object):
-         self.submitted_dirs = [] #HTCaaS
-         self.submitted_exes = [] #HTCaaS
-         self.submitted_args = [] #HTCaaS
-+        self.hold_msg = ""
- 
-         if 'cluster_queue' in opts:
-             self.cluster_queue = opts['cluster_queue']
-@@ -307,7 +316,8 @@ class Cluster(object):
-             else:
-                 nb_job = idle + run + finish + fail
-             if fail:
--                raise ClusterManagmentError('Some Jobs are in a Hold/... state. Please try to investigate or contact the IT team')
-+                raise ClusterManagmentError('Some Jobs are in a Hold/... state. Error messages are below.' 
-+                        'Please try to investigate or contact the IT team. \n%s' % self.hold_msg)
-             if idle + run == 0:
-                 #time.sleep(20) #security to ensure that the file are really written on the disk
-                 logger.info('All jobs finished')
-@@ -852,6 +862,7 @@ class CondorCluster(Cluster):
-                   Universe = vanilla
-                   notification = Error
-                   Initialdir = %(cwd)s
-+                  Request_memory = 528
-                   %(requirement)s
-                   getenv=True
-                   queue 1
-@@ -928,6 +939,7 @@ class CondorCluster(Cluster):
-                   Universe = vanilla
-                   notification = Error
-                   Initialdir = %(cwd)s
-+                  Request_memory = 528
-                   %(requirement)s
-                   getenv=True
-                   queue 1
-@@ -1035,6 +1047,13 @@ class CondorCluster(Cluster):
-                     idle += 1
-                 elif status == 'R':
-                     run += 1
-+                elif status == 'H':
-+                    error = misc.Popen(["condor_q", "-format", "'%s\n'", "HoldReason", id], 
-+                                            stdout=subprocess.PIPE)
-+                    self.hold_msg += "Hold message for ID %s:" % id
-+                    for line in error.stdout:
-+                        self.hold_msg += line
-+                    fail += 1                    
-                 elif status != 'C':
-                     fail += 1
- 
 @@ -1361,6 +1380,80 @@ class LSFCluster(Cluster):
      name = 'lsf'
      job_id = 'LSB_JOBID'

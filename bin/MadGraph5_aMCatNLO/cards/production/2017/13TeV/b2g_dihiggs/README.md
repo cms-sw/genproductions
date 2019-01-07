@@ -21,6 +21,22 @@ python genGridpack_diboson.py
 ## input cards are now generated in the cards directory
 ```
 
+### IMPORTANT!! Modification of runcmsgrid_LO.sh
+In order to save the PDF uncertainties of NNPDF 3.1 LO (315200), the shell 
+script runcmsgrid_LO.sh must be modified. 
+
+Here is one [example](runcmsgrid_LO.sh). But runcmsgrid_LO.sh may be 
+modified in the future. Therefore, please double check the following two changes:
+
+```
+#within the 5F PDF block of code, modify the following line
+NNPDF31_lo_as_0130.LHgrid 1 ---> NNPDF31_lo_as_0130.LHgrid
+
+#within the 4F PDF block of code, add the following line
+NNPDF31_lo_as_0130.LHgrid 
+
+```
+
 ### Structure
 To generate gridpack, you need to prepare some cards for gridpack
 [here](cards/) are the template cards for Radion and BulkGraviton

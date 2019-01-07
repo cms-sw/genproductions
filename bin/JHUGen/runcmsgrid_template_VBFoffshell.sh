@@ -48,12 +48,15 @@ cd $LHEWORKDIR
 eval $(JHUGenMELA/MELA/setup.sh env)
 cd JHUGenerator/
 
-seq 1 5 | parallel -j${ncpu} --eta "GENCOMMAND VBFoffsh_run={} ReadCSmax"
+#seq 1 5 | parallel -j${ncpu} --eta "GENCOMMAND VBFoffsh_run={} ReadCSmax"
+#no parallel command on condor
+#https://www.gnu.org/software/parallel/parallel_alternatives.html#DIFFERENCES-BETWEEN-xargs-AND-GNU-Parallel
+seq 1 5 | xargs -d "\n" -P${ncpu} -I {} bash -c "GENCOMMAND VBFoffsh_run={} ReadCSmax |& tee log_{}"
 
 (
-cat Out_1.lhe      | grep -v "</LesHouchesEvents>"
-cat Out_{2..4}.lhe | grep -v "</?LesHouchesEvents>" | sed -e '/<init>/,+4d'
-cat Out_5.lhe      | grep -v "<LesHouchesEvents>"   | sed -e '/<init>/,+4d'
+cat Out_1.lhe      | grep -Ev "</LesHouchesEvents"
+cat Out_{2..4}.lhe | grep -Ev "</?LesHouchesEvents" | sed -e '/<init>/,+3d'
+cat Out_5.lhe      | grep -Ev "<LesHouchesEvents"   | sed -e '/<init>/,+3d'
 ) > Out.lhe
 
 mv Out.lhe $LHEWORKDIR/cmsgrid_final.lhe

@@ -45,7 +45,7 @@
 # PDF CHOICE: this automatically fixes also alpha_s and its evol.    *
 #*********************************************************************
      lhapdf  = pdlabel     ! PDF set                                     
-     $DEFAULT_PDF_SETS  = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number
+     306000  = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number
 #*********************************************************************
 # Renormalization and factorization scales                           *
 #*********************************************************************
@@ -63,6 +63,8 @@
   -1.0 = time_of_flight ! threshold (in mm) below which the invariant livetime is not written (-1 means not written)
   3.0 = lhe_version       ! Change the way clustering information pass to shower.        
   True = clusinfo         ! include clustering tag in output
+  average =  event_norm       ! average/sum. Normalization of the weight in the LHEF
+
 #*********************************************************************
 # Matching parameter (MLM only)
 #*********************************************************************
@@ -81,6 +83,18 @@
 #  1: importance sampling over helicities
 #*********************************************************************
    0  = nhel          ! using helicities importance sampling or not.
+#*********************************************************************
+# Generation bias, check the wiki page below for more information:   *
+#  'cp3.irmp.ucl.ac.be/projects/madgraph/wiki/LOEventGenerationBias' *
+#*********************************************************************
+ None = bias_module  ! Bias type of bias, [None, ptj_bias, -custom_folder-]
+ {} = bias_parameters ! Specifies the parameters of the module.
+#
+#*******************************                                                 
+# Parton level cuts definition *
+#*******************************                                     
+#                                                                    
+#
 #*********************************************************************
 # BW cutoff (M+/-bwcutoff*Gamma) ! Define on/off-shell for "$" and decay  
 #*********************************************************************
@@ -237,7 +251,9 @@
 # CKKW(L) merging with Pythia8 [arXiv:1410.3012, arXiv:1109.4829]      *
 #***********************************************************************
  -1.0  =  ktdurham        
- 0.4   =  dparameter 
+ 0.4   =  dparameter
+ -1.0  =  ptlund
+ 1, 2, 3, 4, 5, 6, 21  =  pdgs_for_merging_cut ! PDGs for two cuts above   
 #*********************************************************************
 # maximal pdg code for quark to be considered as a light jet         *
 # (otherwise b cuts are applied)                                     *
