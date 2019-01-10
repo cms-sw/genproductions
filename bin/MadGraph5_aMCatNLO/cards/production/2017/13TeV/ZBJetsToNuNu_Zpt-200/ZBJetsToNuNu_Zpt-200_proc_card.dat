@@ -14,8 +14,8 @@ define j = p
 define bquark = b b~
 define ell+ = e+ mu+ ta+
 define ell- = e- mu- ta-
-generate p p > z bquark, z > vl vl~  / h @0
-add process p p > z bquark j, z > vl vl~  / h @1
-add process p p > z bquark j j, z > vl vl~ / h @2
-add process p p > z bquark j j j, z > vl vl~ / h @3
+generate p p > vl vl~ bquark / h @0
+add process p p > vl vl~ bquark j / h @1
+add process p p > vl vl~ z bquark j j / h @2
+add process p p > vl vl~ z bquark j j j/ h @3
 output ZBJetsToNuNu_Zpt-200toInf_5f_LO_MLM -nojpeg
