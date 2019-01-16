@@ -150,7 +150,7 @@ for num in range(0,len(prepid)):
         MGpatch = [] 
         ME = ["PowhegEmissionVeto","aMCatNLO"] # ME = matrix element
         MEname = ["powheg","madgraph","mcatnlo","jhugen"]
-        tune = ["CP5","CUEP8M1","CP1","CP2","CP3","CP4"] 
+        tune = ["CP5","CUEP8M1","CP1","CP2","CP3","CP4","CP5TuneUp","CP5TuneDown"] 
         mcatnlo_flag = 0
         loop_flag = 0
         knd =  -1
@@ -313,10 +313,15 @@ for num in range(0,len(prepid)):
             if nPartonsInBorn_flag == 1:
                 print "* [ERROR] You are using a loop induced process, [noborn=QCD]."
                 print "*         Please remove all TimeShower:nPartonsInBorn from the fragment"                        
-        for kk in range (0, 6):   
+        for kk in range (0, 8):   
             tunecheck.append(int(os.popen('grep -v "#" '+pi+' | grep -c -i '+tune[kk]).read()))
+#        print tunecheck
+        if tunecheck[6] == 3 or tunecheck[7] == 3:
+            if tunecheck[0] != 3:
+                print "* [ERROR] Check if there is some extra tune setting"
         if 3 not in tunecheck:
             print "* [ERROR] Tune configuration may be wrong in the fragment"
+ 	    print "          or pythia8CUEP8M1Settings are overwritten by some other parameters as in CUETP8M2T4"
         elif 3 in tunecheck:
             print "* [OK] Tune configuration probably OK in the fragment"
             if tunecheck[0] > 2 :
