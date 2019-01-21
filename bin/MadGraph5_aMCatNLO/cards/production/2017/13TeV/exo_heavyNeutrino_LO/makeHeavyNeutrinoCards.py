@@ -90,7 +90,7 @@ if __name__ == "__main__":
 
   for dirac in [True, False]:
     for flavor in ['e', 'mu', 'tau']:
-      for mass in [1,2,3,4,5,10]:
+      for mass in [1,2,3,4,5,6,8,10]:
   
         # List of requested mixing parameters (or the square of the mixing parameter)
         if dirac and flavor=='tau':                                      # Dirac: tau
@@ -101,6 +101,7 @@ if __name__ == "__main__":
           elif intOrFloat(mass) == 4:  vs  = [9.28e-3]
           elif intOrFloat(mass) == 5:  vs  = [9.04e-3]
           elif intOrFloat(mass) == 10: vs  = [1.52e-3]
+          else: continue
         elif dirac:                                                      # Dirac: e/mu
           useV2 = True 
           if intOrFloat(mass) == 10:   v2s = [1.15e-6]
@@ -119,6 +120,7 @@ if __name__ == "__main__":
           elif intOrFloat(mass) == 4:  vs  = [6.56e-3]
           elif intOrFloat(mass) == 5:  vs  = [6.39e-3]
           elif intOrFloat(mass) == 10: vs  = [1.08e-3]
+          else: continue
         else:                                                            # Majorana: e/mu
           useV2 = True 
           if intOrFloat(mass) == 10:   v2s = [5.73e-7]

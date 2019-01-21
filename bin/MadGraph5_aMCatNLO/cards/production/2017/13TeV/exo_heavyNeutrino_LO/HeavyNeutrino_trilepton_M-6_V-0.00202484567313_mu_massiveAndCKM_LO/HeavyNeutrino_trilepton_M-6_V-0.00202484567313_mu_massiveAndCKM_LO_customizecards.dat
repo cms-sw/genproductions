@@ -1,0 +1,11 @@
+set param_card mass 9900012 6
+set param_card numixing 1 0.000000e+00
+set param_card numixing 2 0.000000e+00
+set param_card numixing 3 0.000000e+00
+set param_card numixing 4 2.024846E-03
+set param_card numixing 5 0.000000e+00
+set param_card numixing 6 0.000000e+00
+set param_card numixing 7 0.000000e+00
+set param_card numixing 8 0.000000e+00
+set param_card numixing 9 0.000000e+00
+compute_widths 9900012
