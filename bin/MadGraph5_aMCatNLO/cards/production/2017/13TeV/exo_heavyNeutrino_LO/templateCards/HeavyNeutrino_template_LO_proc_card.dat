@@ -1,0 +1,24 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set loop_optimized_output True
+set loop_color_flows False
+set gauge unitary
+set complex_mass_scheme False
+set max_npoint_for_channel 0
+import MODEL
+define p = g u c d s u~ c~ d~ s~
+define j = g u c d s u~ c~ d~ s~
+define l+ = e+ mu+ ta+
+define ldecay+ = e+ mu+ ta+
+define l- = e- mu- ta-
+define ldecay- = e- mu- ta-
+define l = l+ l-
+define ldecay = ldecay+ ldecay-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+define v = vl vl~
+define w = w- w+
+define p = p b b~
+define j = p
+generate p p > l n1
+output HeavyNeutrino_TYPE_M-MASS_V-COUPLING_FLAVOURSEXTRA_LO -nojpeg
