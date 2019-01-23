@@ -217,7 +217,12 @@ for num in range(0,len(prepid)):
                     os.system('wget -q https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_fragment/'+pi+' -O '+my_path+'/'+pi+'/'+pi)
                     gridpack_cvmfs_path = os.popen('grep \/cvmfs '+my_path+'/'+pi+'/'+pi+'| grep -v \'#args\' ').read()
                     gridpack_cvmfs_path = gridpack_cvmfs_path.split('\'')[1]
-                    os.system('tar xf '+gridpack_cvmfs_path+' -C'+my_path+'/'+pi)
+                    if int(os.popen('grep -c slha '+pi).read()) != 0:
+                        gridpack_cvmfs_path = gridpack_cvmfs_path.replace("%i","*")
+                        gridpack_cvmfs_path = os.popen('ls '+ gridpack_cvmfs_path+' | head -1 | tr \'\n\' \' \'').read()
+                        print "SLHA request - checking single gridpack:"
+                        print gridpack_cvmfs_path
+                    os.system('tar xf '+gridpack_cvmfs_path+' -C '+my_path+'/'+pi)	
                     fname_p = my_path+'/'+pi+'/'+'process/madevent/Cards/proc_card_mg5.dat'
                     fname_p2 = my_path+'/'+pi+'/'+'process/Cards/proc_card.dat'
                     if os.path.isfile(fname_p) is True :
