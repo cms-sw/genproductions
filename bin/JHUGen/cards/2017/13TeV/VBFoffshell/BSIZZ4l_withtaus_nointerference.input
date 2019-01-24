@@ -1,0 +1,1 @@
+Process=68 VegasNc0=5000000 MReso=125 GaReso=0.00407 FacScheme=1 MuFacMultiplier=1 RenScheme=1 MuRenMultiplier=1 LHAPDF=NNPDF30_lo_as_0130/NNPDF30_lo_as_0130.info mJJcut=30 MPhotonCutoff=4 deltaRcut=0.3 pTjetcut=15 m4l_min=70 m4l_max=13000 detajetcut=0 JetsOppositeEta=0 etajetcut=6.5 Interf=0
