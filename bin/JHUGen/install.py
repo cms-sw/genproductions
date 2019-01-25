@@ -7,12 +7,13 @@ import pipes
 import re
 import shutil
 import subprocess
+import textwrap
 
 JHUGenversion = "v7.2.6"
 
 if __name__ == "__main__":
   aparser = argparse.ArgumentParser(description='Make JHUGen gridpack')
-  aparser.add_argument('--card', '-c', action='store', required=True, help='card')
+  aparser.add_argument('--card', '-c', action='store', help='card')
   aparser.add_argument('--decay-card', '-d', action='store', help='second input card to run for decay')
   aparser.add_argument('--name', action='store', required=True, help='name')
   aparser.add_argument('--seed', '-s', action='store', default='123456', help='random seed for grid generation')
@@ -28,19 +29,8 @@ if __name__ == "__main__":
     aparser.error("--vbf-offshell also requires --link-mela")
   if args.check_jobs and not args.vbf_offshell:
     aparser.error("--check-jobs only makes sense for --vbf-offshell")
-
-def jobended(*bjobsargs):
-  try:
-    bjobsout = subprocess.check_output(["bjobs"]+list(bjobsargs), stderr=subprocess.STDOUT)
-  except subprocess.CalledProcessError:
-    return True
-  if re.match("Job <.*> is not found", bjobsout.strip()):
-    return True
-  lines = bjobsout.strip().split("\n")
-  if len(lines) == 2 and lines[1].split()[2] in ("EXIT", "DONE"):
-    return True
-
-  return False
+  if not args.card and not args.check_jobs:
+    aparser.error("have to provide a card (unless checking jobs for VBF offshell)")
 
 @contextlib.contextmanager
 def cd(newdir):
@@ -65,7 +55,6 @@ def main(args):
       if args.vbf_offshell:
         errortext += "  To check the status of the jobs, use the --check-jobs option."
       raise OSError(errortext)
-
   if args.link_mela:
     os.environ["LD_LIBRARY_PATH"] = (os.path.join(JHUbasedir, "JHUGenMELA", "MELA", "data", "slc6_amd64_gcc530") + ":" + os.environ["LD_LIBRARY_PATH"]).rstrip(":")
 
@@ -73,10 +62,6 @@ def main(args):
   if args.decay_card is not None:
     command += " DataFile=undecayed &&\n./JHUGen $(cat ../JHUGen_decay.input) Seed=${rnum} ReadLHE=undecayed.lhe Seed=${rnum}"
   command += " DataFile=Out"
-  ########################
-  #backwards compatibility
-  command = command.replace("Seed=SEED", "")
-  ########################
   print command
   #Note the same seed is used twice.  This sounds bad but the JHUGen processes are completely independent and use the seed in different ways.
 
@@ -141,15 +126,37 @@ def main(args):
       #set up the VBF offshell grids
       grids = []
       jobids = []
+      tosubmit = []
       for i in range(1, 6):
         gridfile = "Out_{}_step2.grid".format(i)
         try:
-          with open(gridfile+".tmp") as f:
-            jobid = int(f.read())
-            if jobended(str(jobid)):
-              if not os.path.exists(gridfile):
-                raise RuntimeError("Job " + str(jobid) + " died without creating the grid file.  Check the log.  If you change the input card, you have to delete the whole directory and start over.  If you think it will work this time with no change, remove " + os.path.relpath(gridfile+".tmp", basedir) + " and run install.py again.")
-              os.remove(gridfile+".tmp")
+          with open(gridfile+".log") as f:
+            log = f.read()
+            jobid = re.search("^000 [(]([0-9]*[.][0-9]*)[.][0-9]*[)]", log)
+            if not jobid:
+              raise RuntimeError("Don't know how to interpret "+os.path.relpath(gridfile+".log", basedir)+", can't find the jobid in the file.")
+            jobid = jobid.group(1)
+
+            error = None
+            if "Job terminated" in log:
+              if "return value 0" in log:
+                if os.path.exists(gridfile):
+                  continue
+                else:
+                  error = "finished with exit code 0, but without creating the grid file"
+              else:
+                if os.path.exists(gridfile):
+                  error = "finished with a nonzero exit code.  It seems to have created a grid file anyway, but the grid may be buggy"
+                else:
+                  error = "finished with a nonzero exit code"
+            elif "Job was aborted" in log:
+              if os.path.exists(gridfile):
+                error = "was aborted.  It seems to have created a grid file anyway, but the grid may be buggy"
+              else:
+                error = "was aborted"
+
+            if error:
+              raise RuntimeError("Job " + str(jobid) + " " + error + ".  Check the log, output, and error.  If you change the input card, you have to delete the whole directory and start over.  If you think it will work this time with no change, or if you edit the install.py script, remove " + os.path.relpath(gridfile+".log", basedir) + " and run install.py again.")
             else:
               grids.append(i)
               jobids.append(jobid)
@@ -160,31 +167,68 @@ def main(args):
         if os.path.exists(gridfile):
           continue
 
-        job = " && ".join((
-          "cd " + os.environ["CMSSW_BASE"],
-          "eval $(scram ru -sh)",
-          "cd " + JHUbasedir + "/JHUGenerator",
-          command.replace("${nevt}", args.nevents).replace("${rnum}", args.seed) + " NoReadCSmax VBFoffsh_run="+str(i),
-        ))
-        jobname = args.name+"_JHUGen_"+str(i)
-
-        output = subprocess.check_output("echo "+pipes.quote(job)+" | bsub -q 1nw -J " + jobname, shell=True)
-        print output
         grids.append(i)
-        jobids.append(int(output.split("<")[1].split(">")[0]))
-        with open(gridfile+".tmp", "w") as f:
-          f.write(str(jobids[-1]))
+        tosubmit.append(str(i))
+
+      if tosubmit:
+        job = textwrap.dedent("""\
+          #!/bin/bash
+          set -euo pipefail
+          cd {CMSSW_BASE}
+          eval $(scram ru -sh)
+          cd {JHUbasedir}/JHUGenerator
+          eval $(../JHUGenMELA/MELA/setup.sh env)
+          {command}
+        """.format(
+          CMSSW_BASE=os.environ["CMSSW_BASE"],
+          JHUbasedir=JHUbasedir,
+          command=command.replace("${nevt}", args.nevents).replace("${rnum}", args.seed) + " NoReadCSmax VBFoffsh_run=$1"
+        ).rstrip())
+        with open("condorgridscript.sh", "w") as f:
+          f.write(job)
+
+        submit = textwrap.dedent("""\
+          executable              = condorgridscript.sh
+          arguments               = $(i)
+
+          output                  = Out_$(i)_step2.grid.out
+          error                   = Out_$(i)_step2.grid.err
+          log                     = Out_$(i)_step2.grid.log
+
+          request_memory          = 4000M
+          +JobFlavour             = "nextweek"
+
+          #https://www-auth.cs.wisc.edu/lists/htcondor-users/2010-September/msg00009.shtml
+          periodic_remove         = JobStatus == 5
+          WhenToTransferOutput    = ON_EXIT_OR_EVICT
+
+          queue i in {ilist}
+        """.format(ilist=" ".join(tosubmit)).rstrip())
+
+        with open("condor.sub", "w") as f:
+          f.write(submit)
+
+        output = subprocess.check_output(["condor_submit", "condor.sub"])
+        print output,
+        match = re.search("([0-9]) job[(]s[)] submitted to cluster ([0-9]+)", output)
+        try:
+          njobs = int(match.group(1))
+          mainjobid = int(match.group(2))
+          jobids += ["{}.{}".format(mainjobid, i) for i in range(njobs)]
+        except (TypeError, ValueError, AttributeError):
+          #in case something weird happens in the output or regex
+          jobids.append("(unknown)")
 
       if grids:
         print "jobs", ", ".join(str(_) for _ in jobids), "are running to create grids", ", ".join(str(_) for _ in grids)
         print "run install.py again with the --check-jobs option to finish up once they're done"
         return
 
-      os.remove("Out_1.lhe")
-      os.remove("Out_2.lhe")
-      os.remove("Out_3.lhe")
-      os.remove("Out_4.lhe")
-      os.remove("Out_5.lhe")
+      for i in range(1, 6):
+        try:
+          os.remove("Out_{}.lhe".format(i))
+        except OSError:
+          pass
 
     elif "ReadCSmax" in f.read():
       #set up the grid now so it can be read
