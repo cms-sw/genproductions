@@ -4,7 +4,7 @@ import sys
 import os
 
 emptyevt = """<event>
-	0	processNUMBER	0.	0.	0.	0.
+	0	processNUMBER	0	0	0	0							
 </event>"""
 
 

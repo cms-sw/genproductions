@@ -8,7 +8,7 @@ import re
 import shutil
 import subprocess
 
-JHUGenversion = "v7.2.4"
+JHUGenversion = "v7.2.6"
 
 if __name__ == "__main__":
   aparser = argparse.ArgumentParser(description='Make JHUGen gridpack')

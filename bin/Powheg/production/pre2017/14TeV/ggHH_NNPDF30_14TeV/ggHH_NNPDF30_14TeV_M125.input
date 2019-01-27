@@ -1,0 +1,92 @@
+! ggHH production parameters:
+mtdep 3              ! 0: Higgs effective field theory (HEFT)
+!                      1: Born improved HEFT
+!                      2: approximated full theory (FTapprox)
+!                      3: full theory
+
+hmass 125            ! Higgs boson mass
+topmass 172.5          ! top quark mass (THIS VALUE IS HARD CODED IN THE VIRTUAL
+                     ! MATRIX ELEMENT AND FOR CONSISTENCY HAS NOT TO BE CHANGED WHEN
+		            ! RUNNING FULL THEORY PREDICTIONS - i.e. mtdep=3)
+hdecaymode -1        ! PDG code for Higgs boson decay products (it affects only the SMC)
+!                      allowed values are:  
+!                      0 all decay channels open
+!                      1-6 d dbar, u ubar,..., t tbar (as in HERWIG)
+!                      7-9 e+ e-, mu+ mu-, tau+ tau-
+!                      10  W+W-
+!                      11  ZZ
+!                      12  gamma gamma      
+!                      -1  all decay channels closed
+
+! general parameters:
+numevts  NEVENTS        ! number of events to be generated
+ih1         1        ! hadron 1 (1 for protons, -1 for antiprotons)
+ih2         1        ! hadron 2 (1 for protons, -1 for antiprotons)
+ebeam1 7000d0        ! energy of beam 1
+ebeam2 7000d0        ! energy of beam 2
+! To be set only if using LHA pdfs
+lhans1 260000         ! pdf set for hadron 1 (LHA numbering)
+lhans2 260000 	          ! pdf set for hadron 2 (LHA numbering)
+! To be set only if using internal mlm pdf
+# ndns1 131          ! pdf set for hadron 1 (mlm numbering)
+# ndns2 131          ! pdf set for hadron 2 (mlm numbering)
+! To be set only if using different pdf sets for the two incoming hadrons
+! QCDLambda5 0.25    ! for not equal pdf sets 
+
+! Parameters to allow or not the use of stored data
+use-old-grid    1    ! if 1 use old grid if file pwggrids.dat is present (<> 1 regenerate)
+use-old-ubound  1    ! if 1 use norm of upper bounding function stored in pwgubound.dat, if present; <> 1 regenerate
+!
+ncall1  50000        ! number of calls for initializing the integration grid
+itmx1       5        ! number of iterations for initializing the integration grid
+ncall2  50000        ! number of calls for computing the integral and finding upper bound
+itmx2       5        ! number of iterations for computing the integral and finding upper bound
+foldcsi     1        ! number of folds on csi integration
+foldy       1        ! number of folds on  y  integration
+foldphi     1        ! number of folds on phi integration
+nubound 50000        ! number of bbarra calls to setup norm of upper bounding function
+icsimax   1        ! <= 100, number of csi subdivision when computing the upper bounds
+iymax     1        ! <= 100, number of y subdivision when computing the upper bounds
+xupbound 2d0       ! increase upper bound for radiation generation
+
+
+! OPTIONAL PARAMETERS
+
+! scale settings:
+#fixedscale   1      ! (dafault 0) Use muren = mufac = 2*m_H
+facscfact   1d0      ! (default 1d0) fac scale factor: mufact = muref * facscfact
+renscfact   1d0      ! (default 1d0) ren scale factor: muren  = muref * renscfact
+
+! Born, plots and powheg strategy:
+#bornonly         1  ! (default 0) if 1 do Born only
+testplots         1  ! (default 0, do not) do NLO and PWHG distributions
+fastbtlbound      1  ! fast evaluation of Btilde upper bounds
+storemintupb      1  ! store function calls in binary file for more precise generation
+ubexcess_correct  1  ! corrects for error in upper bound estimate
+storeinfo_rwgt    1  ! store info to allow for reweighting
+softtest          0  ! no check of the soft limit in the real
+colltest          0  ! no check of the collinear limit in the real
+
+! PARAMETERS needed for ggHH
+hdamp           250
+
+! PARAMETERS for parallel runnning
+! -- non parallel (for testing purposes only)
+iseed    SEED        !  Start the random number generator with seed iseed
+#rand1     0         !  skipping  rand2*100000000+rand1 numbers.  
+#rand2     0         !  (see RM48 short writeup in CERNLIB)              
+
+! -- parallel
+#manyseeds 1          ! Used to perform multiple runs with different random
+                     ! seeds in the same directory.
+                     ! If set to 1, the program asks for an integer j;
+                     ! The file pwgseeds.dat at line j is read, and the
+                     ! integer at line j is used to initialize the random
+                     ! sequence for the generation of the event.
+                     ! The event file is called pwgevents-'j'.lhe
+#parallelstage  1
+xgriditeration 1
+#maxseeds    1000
+withnegweights 1
+pdfreweight 0       ! PDF reweighting
+storeinfo_rwgt 0    ! store weight information
