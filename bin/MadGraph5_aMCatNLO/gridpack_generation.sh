@@ -118,7 +118,7 @@ make_gridpack () {
     
       cd $MGBASEDIRORIG
       cat $PRODHOME/patches/*.patch | patch -p1
-    
+      cp -r $PRODHOME/PLUGIN/CMS_CLUSTER/ PLUGIN/ 
       # Intended for expert use only!
       if ls $CARDSDIR/${name}*.patch; then
         echo "    WARNING: Applying custom user patch. I hope you know what you're doing!"
@@ -148,10 +148,13 @@ make_gridpack () {
       
           echo "set run_mode  1" >> mgconfigscript
           if [ "$queue" == "condor" ]; then
-            echo "set cluster_type condor" >> mgconfigscript
+            echo "set cluster_type cms_condor" >> mgconfigscript
+            echo "set cluster_queue None" >> mgconfigscript
+          elif [ "$queue" == "condor_spool" ]; then
+            echo "set cluster_type cms_condor_spool" >> mgconfigscript
             echo "set cluster_queue None" >> mgconfigscript
           else
-            echo "set cluster_type lsf" >> mgconfigscript
+            echo "set cluster_type cms_lsf" >> mgconfigscript
             #*FIXME* broken in mg_amc 2.4.0
     #         echo "set cluster_queue $queue" >> mgconfigscript
           fi 
@@ -268,7 +271,11 @@ make_gridpack () {
        elif [ "$queue" == "condor" ]; then
          echo "cluster_queue = None" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
          echo "run_mode = 1" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
-         echo "cluster_type = condor" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
+         echo "cluster_type = cms_condor" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
+       elif [ "$queue" == "condor_spool" ]; then
+         echo "cluster_queue = None" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
+         echo "run_mode = 1" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
+         echo "cluster_type = cms_condor_spool" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
        fi
     
       # Previous cluster_local_path setting  gets erased after
