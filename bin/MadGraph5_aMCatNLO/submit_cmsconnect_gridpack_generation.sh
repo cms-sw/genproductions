@@ -196,9 +196,9 @@ codegen_jdl="codegen_${card_name}.jdl"
 input_files="input_${card_name}.tar.gz"
 patches_directory="./patches"
 utilities_dir="./Utilities"
-
+plugin_directory="./PLUGIN"
 if [ -e "$input_files" ]; then rm "$input_files"; fi
-tar -zchf "$input_files" "$card_dir" "$patches_directory" "$utilities_dir"
+tar -zchf "$input_files" "$card_dir" "$patches_directory" "$utilities_dir" "${plugin_directory}"
 
 ## Create a submit file for a single job
 # create_codegen_exe arguments are:
