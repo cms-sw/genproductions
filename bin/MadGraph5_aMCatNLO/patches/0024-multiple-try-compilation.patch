@@ -1,0 +1,10 @@
+--- a/madgraph/various/misc.py	2018-04-07 14:21:31.013031974 +0300
++++ b/madgraph/various/misc.py	2018-04-07 14:20:32.283033000 +0300
+@@ -402,6 +402,7 @@
+ #===============================================================================
+ # Compiler which returns smart output error in case of trouble
+ #===============================================================================
++@multiple_try()
+ def compile(arg=[], cwd=None, mode='fortran', job_specs = True, nb_core=1 ,**opt):
+     """compile a given directory"""
+ 
