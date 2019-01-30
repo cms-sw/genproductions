@@ -1,0 +1,19 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set loop_color_flows False
+set gauge unitary
+set complex_mass_scheme False
+set max_npoint_for_channel 0
+import model AQGC_ALL_UFO_new
+define p = g u c d s u~ c~ d~ s~
+define j = g u c d s u~ c~ d~ s~
+define l+ = e+ mu+
+define l- = e- mu-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+define p = p b b~
+define j = j b b~
+define lep+ = e+ mu+ ta+
+define lep- = e- mu- ta-
+generate p p > lep+ lep- a j j QCD=0
+output LLAJJ_EWK_MLL50_Mjj120_5f_LOaQGC

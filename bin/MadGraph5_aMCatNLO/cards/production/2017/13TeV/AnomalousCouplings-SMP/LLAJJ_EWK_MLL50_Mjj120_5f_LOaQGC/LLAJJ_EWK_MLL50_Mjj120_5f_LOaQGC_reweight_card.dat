@@ -1,0 +1,4665 @@
+#******************************************************************
+#                       Reweight Module                           *
+#******************************************************************
+
+# Without form factor (LFF -> inf)
+######################################################################
+# 6+1+6 for 1 dimensional limits
+
+change rwgt_dir rwgt
+ 
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+	set FT1 0.0
+	set FT2 0.0
+	set FT5 0.0
+	set FT6 0.0
+	    set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#***** FM0 ********************************************************
+#weight_
+launch
+   set FM0 -1.5e-10
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 -1.2e-10
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 -0.8e-10
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 -0.6e-10
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 -0.50e-10
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 -0.3e-10
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 -0.20e-10
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 -0.08e-10
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.08e-10
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.20e-10
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.3e-10
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.50e-10
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.6e-10
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.8e-10
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 1.2e-10
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 1.5e-10
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+     set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+
+#***** FM1 ********************************************************
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 -4.e-10
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 -3e-10
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 -2e-10
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 -1.5e-10
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 -1.0e-10
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 -0.8e-10
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 -0.5e-10
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 -0.2e-10
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.2e-10
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.5e-10
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.8e-10
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 1.0e-10
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 1.5e-10
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 2.0e-10
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 3.0e-10
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 4.0e-10
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+
+#***** FM2 ********************************************************
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 -100e-12
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 -50e-12
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 -40e-12
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 -30e-12
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 -20e-12
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 -10e-12
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 -5e-12
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 -1e-12
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 1e-12
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 5e-12
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 10e-12
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 20e-12
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 30e-12
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 40e-12
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 50e-12
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 100e-12
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#*****FM3************************************************************
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 -2e-10
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 -1e-10
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 -0.8e-10
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 -0.6e-10
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 -0.4e-10
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 -0.2e-10
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 -0.10e-10
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 -0.05e-10
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.05e-10
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.10e-10
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.2e-10
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.4e-10
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.6e-10
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.8e-10
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 1.0e-10
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 2e-10
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+
+#******FM4******************************************************
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 -2e-10
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 -1e-10
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 -0.8e-10
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 -0.6e-10
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 -0.4e-10
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 -0.2e-10
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 -0.1e-10
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 -0.05e-10
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.05e-10
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.1e-10
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.2e-10
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.4e-10
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.6e-10
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.8e-10
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 1e-10
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 2e-10
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#***FM5*********************************************
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 -2e-10
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 -1e-10
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 -0.8e-10
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 -0.6e-10
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 -0.4e-10
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 -0.2e-10
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 -0.1e-10
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 -0.05e-10
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.05e-10
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.1e-10
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.2e-10
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.4e-10
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.6e-10
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.8e-10
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 1e-10
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 2e-10
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#******FM6********************************************************************
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 -2.5e-10
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 -1.0e-10
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 -0.8e-10
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 -0.6e-10
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 -0.4e-10
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 -0.2e-10
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 -0.1e-10
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 -0.05e-10
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.05e-10
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.1e-10
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.2e-10
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.4e-10
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.6e-10
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.8e-10
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 1.0e-10
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 2.5e-10
+	 set FM7 0.0
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#*****FM7********************************************************
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 -2e-10
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 -1.2e-10
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 -0.8e-10
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 -0.6e-10
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 -0.4e-10
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 -0.2e-10
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 -0.1e-10
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 -0.05e-10
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.05e-10
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.1e-10
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.2e-10
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.4e-10
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.6e-10
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.8e-10
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 1.2e-10
+	 set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 2e-10
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#*******FT0***********************************************************
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 -0.2e-10
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 -0.1e-10
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 -0.06e-10
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 -0.05e-10
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 -0.03e-10
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 -0.02e-10
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 -0.01e-10
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 -0.006e-10
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.006e-10
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.010e-10
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.02e-10
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.03e-10
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.05e-10
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.06e-10
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+	 set FM1 0.0
+	 set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+	 set FM7 0.0
+	 set FT0 0.1e-10
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.2e-10
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#*******FT1***********************************************************
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 -0.2e-10
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 -0.1e-10
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 -0.06e-10
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 -0.05e-10
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 -0.03e-10
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 -0.02e-10
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 -0.01e-10
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 -0.006e-10
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.006e-10
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.01e-10
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.02e-10
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.03e-10
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.05e-10
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.06e-10
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.1e-10
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.2e-10
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+
+#*******FT2***********************************************************
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 -0.4e-10
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 -0.2e-10
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 -0.15e-10
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 -0.1e-10
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 -0.08e-10
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 -0.06e-10
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 -0.04e-10
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 -0.01e-10
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.01e-10
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.04e-10
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.06e-10
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.08e-10
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.1e-10
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.15e-10
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.2e-10
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.4e-10
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#*******FT5***********************************************************
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 -0.4e-10
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 -0.1e-10
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 -0.08e-10
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 -0.06e-10
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 -0.05e-10
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 -0.04e-10
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 -0.02e-10
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 -0.01e-10
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.01e-10
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.02e-10
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.04e-10
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.05e-10
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.06e-10
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.08e-10
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.1e-10
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.4e-10
+    set FT6 0.0
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+
+#*******FT6***********************************************************
+
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 -0.4e-10
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 -0.1e-10
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 -0.08e-10
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 -0.06e-10
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 -0.05e-10
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 -0.04e-10
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 -0.02e-10
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 -0.01e-10
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.01e-10
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.02e-10
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.04e-10
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.05e-10
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.06e-10
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.08e-10
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.1e-10
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.4e-10
+        set FT7 0.0
+	set FT8 0.0
+	set FT9 0.0
+
+#*******FT7***********************************************************
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+    set FT7 -0.4e-10
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+    set FT7 -0.1e-10
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+    set FT7 -0.08e-10
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+    set FT7 -0.06e-10
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+    set FT7 -0.05e-10
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+    set FT7 -0.04e-10
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+    set FT7 -0.02e-10
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+    set FT7 -0.01e-10
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.01e-10
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.02e-10
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.04e-10
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.05e-10
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.06e-10
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+        set FT7 0.08e-10
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+    set FT7 0.1e-10
+	set FT8 0.0
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+    set FT7 0.40e-10
+	set FT8 0.0
+	set FT9 0.0
+
+#*******FT8***********************************************************
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+    set FT7 0.0
+	set FT8 -0.20e-10
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+    set FT7 0.0
+	set FT8 -0.08e-10
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+    set FT7 0.0
+	set FT8 -0.06e-10
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+    set FT7 0.0
+	set FT8 -0.04e-10
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+    set FT7 0.0
+	set FT8 -0.03e-10
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+    set FT7 0.0
+	set FT8 -0.02e-10
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+    set FT7 0.0
+	set FT8 -0.01e-10
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+    set FT7 0.0
+	set FT8 -0.005e-10
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+    set FT7 0.0
+	set FT8 0.005e-10
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+    set FT7 0.0
+	set FT8  0.01e-10
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+    set FT7 0.0
+	set FT8 0.02e-10
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+    set FT7 0.0
+	set FT8 0.03e-10
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+    set FT7 0.0
+	set FT8 0.04e-10
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+    set FT7 0.0
+	set FT8 0.06e-10
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+    set FT7 0.0
+	set FT8 0.08e-10
+	set FT9 0.0
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+    set FT7 0.0
+	set FT8 0.2e-10
+	set FT9 0.0
+
+#*******FT9***********************************************************
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+    set FT7 0.0
+	set FT8 0.0
+	set FT9 -0.2e-10
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+    set FT7 0.0
+	set FT8 0.0
+	set FT9 -0.08e-10
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+    set FT7 0.0
+	set FT8 0.0
+	set FT9 -0.06e-10
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+    set FT7 0.0
+	set FT8 0.0
+	set FT9 -0.04e-10
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+    set FT7 0.0
+	set FT8 0.0
+	set FT9 -0.03e-10
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+    set FT7 0.0
+	set FT8 0.0
+	set FT9 -0.02e-10
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+    set FT7 0.0
+	set FT8 0.0
+	set FT9 -0.01e-10
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+    set FT7 0.0
+	set FT8 0.0
+	set FT9 -0.005e-10
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+    set FT7 0.0
+	set FT8 0.0
+	set FT9 0.005e-10
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+    set FT7 0.0
+	set FT8 0.0
+	set FT9 0.01e-10
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+    set FT7 0.0
+	set FT8 0.0
+	set FT9 0.02e-10
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+    set FT7 0.0
+	set FT8 0.0
+	set FT9 0.03e-10
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+    set FT7 0.0
+	set FT8 0.0
+	set FT9 0.04e-10
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+    set FT7 0.0
+	set FT8 0.0
+	set FT9 0.06e-10
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+    set FT7 0.0
+	set FT8 0.0
+	set FT9 0.08e-10
+#weight_
+launch
+   set FM0 0.0
+     set FM1 0.0
+     set FM2 0.0
+   set FM3 0.0
+   set FM4 0.0
+   set FM5 0.0
+   set FM6 0.0
+     set FM7 0.0
+     set FT0 0.0
+    set FT1 0.0
+    set FT2 0.0
+    set FT5 0.0
+    set FT6 0.0
+    set FT7 0.0
+	set FT8 0.0
+	set FT9 0.2e-10
+
