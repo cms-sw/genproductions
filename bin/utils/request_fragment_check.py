@@ -150,7 +150,7 @@ for num in range(0,len(prepid)):
         MGpatch = [] 
         ME = ["PowhegEmissionVeto","aMCatNLO"] # ME = matrix element
         MEname = ["powheg","madgraph","mcatnlo","jhugen"]
-        tune = ["CP5","CUEP8M1","CP1","CP2","CP3","CP4"] 
+        tune = ["CP5","CUEP8M1","CP1","CP2","CP3","CP4","CP5TuneUp","CP5TuneDown"] 
         mcatnlo_flag = 0
         loop_flag = 0
         knd =  -1
@@ -217,7 +217,12 @@ for num in range(0,len(prepid)):
                     os.system('wget -q https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_fragment/'+pi+' -O '+my_path+'/'+pi+'/'+pi)
                     gridpack_cvmfs_path = os.popen('grep \/cvmfs '+my_path+'/'+pi+'/'+pi+'| grep -v \'#args\' ').read()
                     gridpack_cvmfs_path = gridpack_cvmfs_path.split('\'')[1]
-                    os.system('tar xf '+gridpack_cvmfs_path+' -C'+my_path+'/'+pi)
+                    if int(os.popen('grep -c slha '+pi).read()) != 0:
+                        gridpack_cvmfs_path = gridpack_cvmfs_path.replace("%i","*")
+                        gridpack_cvmfs_path = os.popen('ls '+ gridpack_cvmfs_path+' | head -1 | tr \'\n\' \' \'').read()
+                        print "SLHA request - checking single gridpack:"
+                        print gridpack_cvmfs_path
+                    os.system('tar xf '+gridpack_cvmfs_path+' -C '+my_path+'/'+pi)	
                     fname_p = my_path+'/'+pi+'/'+'process/madevent/Cards/proc_card_mg5.dat'
                     fname_p2 = my_path+'/'+pi+'/'+'process/Cards/proc_card.dat'
                     if os.path.isfile(fname_p) is True :
@@ -313,10 +318,15 @@ for num in range(0,len(prepid)):
             if nPartonsInBorn_flag == 1:
                 print "* [ERROR] You are using a loop induced process, [noborn=QCD]."
                 print "*         Please remove all TimeShower:nPartonsInBorn from the fragment"                        
-        for kk in range (0, 6):   
+        for kk in range (0, 8):   
             tunecheck.append(int(os.popen('grep -v "#" '+pi+' | grep -c -i '+tune[kk]).read()))
+#        print tunecheck
+        if tunecheck[6] == 3 or tunecheck[7] == 3:
+            if tunecheck[0] != 3:
+                print "* [ERROR] Check if there is some extra tune setting"
         if 3 not in tunecheck:
             print "* [ERROR] Tune configuration may be wrong in the fragment"
+ 	    print "          or pythia8CUEP8M1Settings are overwritten by some other parameters as in CUETP8M2T4"
         elif 3 in tunecheck:
             print "* [OK] Tune configuration probably OK in the fragment"
             if tunecheck[0] > 2 :

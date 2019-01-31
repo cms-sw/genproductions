@@ -6,4 +6,5 @@
  #===============================================================================
 +@multiple_try()
  def compile(arg=[], cwd=None, mode='fortran', job_specs = True, nb_core=1 ,**opt):
-"""compile a given directory"""
+     """compile a given directory"""
+ 
