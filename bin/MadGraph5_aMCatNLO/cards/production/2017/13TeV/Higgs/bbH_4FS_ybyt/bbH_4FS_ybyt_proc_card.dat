@@ -5,11 +5,11 @@ set gauge unitary
 set complex_mass_scheme False                                           
 set max_npoint_for_channel 0                                            
 import model sm                                                         
-define l + = e + mu +                                                      
+define l+ = e+ mu+                                                      
 define l- = e-                                                      
 define vl = ve vt vt                                                    
-define vl ~ = ve ~ vm ~ vt ~                                                
+define vl~ = ve~ vm~ vt~                                                
 import model loop_sm_MSbar_ybyt                                           
-generate pp> hbb ~ [QCD]                                             
+generate p p > h b b ~ [QCD]                                             
 output bbH_4FS_ybyt
 
