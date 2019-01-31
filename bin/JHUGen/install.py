@@ -9,7 +9,7 @@ import shutil
 import subprocess
 import textwrap
 
-JHUGenversion = "v7.2.6"
+JHUGenversion = "v7.2.7"
 
 if __name__ == "__main__":
   aparser = argparse.ArgumentParser(description='Make JHUGen gridpack')
@@ -25,7 +25,7 @@ if __name__ == "__main__":
   group.add_argument('--check-jobs', action='store_true', help='check if the jobs for VBF offshell are done, and if they are finish the tarball')
   args = aparser.parse_args()
 
-  if args.vbf_offshell and not args.link_mela:
+  if args.vbf_offshell and not args.link_mela and not args.check_jobs:
     aparser.error("--vbf-offshell also requires --link-mela")
   if args.check_jobs and not args.vbf_offshell:
     aparser.error("--check-jobs only makes sense for --vbf-offshell")
@@ -234,7 +234,7 @@ def main(args):
       #set up the grid now so it can be read
       #but not the decay part (that is quick anyway)
       runcommand = command.split("&&")[0].replace("${nevt}", args.nevents).replace("${rnum}", args.seed) + " NoReadCSmax"
-      os.system(runcommand)
+      subprocess.check_call(runcommand, shell=True)
       for _ in glob.glob("*.lhe"): os.remove(_)
       shutil.rmtree("data/")
 
