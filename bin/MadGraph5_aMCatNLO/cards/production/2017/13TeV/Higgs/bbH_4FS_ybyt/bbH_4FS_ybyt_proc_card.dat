@@ -6,9 +6,10 @@ set complex_mass_scheme False
 set max_npoint_for_channel 0                                            
 import model sm                                                         
 define l+ = e+ mu+                                                      
-define l- = e-                                                      
+define l- = e- mu-                                                     
 define vl = ve vt vt                                                    
-define vl~ = ve~ vm~ vt~                                                
+define vl~ = ve~ vm~ vt~ 
+set output_dependencies internal
 import model loop_sm_MSbar_yb                                           
 generate p p > h b b~ [QCD]                                             
 output bbH_4FS_ybyt
