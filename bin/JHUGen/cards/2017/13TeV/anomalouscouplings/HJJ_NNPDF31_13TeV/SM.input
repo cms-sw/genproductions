@@ -1,1 +1,1 @@
-VegasNc0=99999999 Process=61 MReso=125 ghg2=1,0 pTjetcut=15 deltaRcut=0.3 RenScheme=11 MuRenMultiplier=1 FacScheme=11 MuFacMultiplier=1 LHAPDF=NNPDF31_lo_as_0130/NNPDF31_lo_as_0130.info ReadCSmax
+VegasNc0=99999999 Process=61 MReso=125 ghg2=1,0 pTjetcut=15 deltaRcut=0.3 LHAPDF=NNPDF31_lo_as_0130/NNPDF31_lo_as_0130.info ReadCSmax
