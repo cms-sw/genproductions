@@ -9,7 +9,7 @@ define l+ = e+ mu+
 define l- = e-                                                      
 define vl = ve vt vt                                                    
 define vl~ = ve~ vm~ vt~                                                
-import model loop_sm_MSbar_ybyt                                           
-generate p p > h b b ~ [QCD]                                             
+import model loop_sm_MSbar_yb                                           
+generate p p > h b b~ [QCD]                                             
 output bbH_4FS_ybyt
 
