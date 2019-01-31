@@ -52,13 +52,13 @@ lhans2 306000      ! pdf set for hadron 2 (LHA numbering)
 use-old-grid    1 ! if 1 use old grid if file pwggrids.dat is present (<> 1 regenerate)
 use-old-ubound  1 ! if 1 use norm of upper bounding function stored in pwgubound.dat, if present; <> 1 regenerate
 
-ncall1 500000   ! number of calls for initializing the integration grid
+ncall1 100000   ! number of calls for initializing the integration grid
 itmx1    5     ! number of iterations for initializing the integration grid
-ncall2 500000   ! number of calls for computing the integral and finding upper bound
+ncall2 100000   ! number of calls for computing the integral and finding upper bound
 itmx2    5     ! number of iterations for computing the integral and finding upper bound
-foldcsi   2    ! number of folds on csi integration
-foldy     2    ! number of folds on  y  integration
-foldphi   1    ! number of folds on phi integration
+foldcsi   5    ! number of folds on csi integration
+foldy     5    ! number of folds on  y  integration
+foldphi   5    ! number of folds on phi integration
 nubound 200000  ! number of bbarra calls to setup norm of upper bounding function
 icsimax  1     ! <= 100, number of csi subdivision when computing the upper bounds
 iymax    1     ! <= 100, number of y subdivision when computing the upper bounds

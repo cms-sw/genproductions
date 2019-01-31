@@ -117,11 +117,17 @@ if [[ -d ${WORKDIR}/obj-gfortran ]]; then
     ln -s ${WORKDIR}/obj-gfortran .
     cp -p ${WORKDIR}/pwg*.dat .
 fi
-### For the bb4l process
+### For the WW process
 if [[ -d ${WORKDIR}/WW_MATRIX ]]; then
     ln -s ${WORKDIR}/WW_MATRIX .
     ln -s ${WORKDIR}/WW_MINLO .
     cp -p ${WORKDIR}/binvalues-WW.top .
+fi
+### For DYNNLOPS
+if [[ -e ${WORKDIR}/DYNNLO_mur1_muf1_3D.top ]]; then
+    ln -s ${WORKDIR}/DYNNLO*.top .
+    ln -s ${WORKDIR}/MINLO*.top .
+    ln -s ${WORKDIR}/list*.txt .
 fi
 
 if [[ ! -e ${card} ]]; then
