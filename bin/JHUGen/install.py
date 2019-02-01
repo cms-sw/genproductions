@@ -12,25 +12,28 @@ import textwrap
 JHUGenversion = "v7.2.7"
 
 if __name__ == "__main__":
-  aparser = argparse.ArgumentParser(description='Make JHUGen gridpack')
-  aparser.add_argument('--card', '-c', action='store', help='card')
-  aparser.add_argument('--decay-card', '-d', action='store', help='second input card to run for decay')
-  aparser.add_argument('--name', action='store', required=True, help='name')
-  aparser.add_argument('--seed', '-s', action='store', default='123456', help='random seed for grid generation')
-  aparser.add_argument('--nevents', '-n', action='store', default='100', help='number of events for the test run after grid generation')
-  aparser.add_argument('--link-mela', action='store_true', help='indicate that the process requires MCFM or Collier libraries from MELA')
-  aparser.add_argument('--vbf-offshell', action='store_true', help='indicate that the process is offshell VBF')
-  group = aparser.add_mutually_exclusive_group()
-  group.add_argument('--force', '-f', action='store_true', help='overwrite existing folder')
-  group.add_argument('--check-jobs', action='store_true', help='check if the jobs for VBF offshell are done, and if they are finish the tarball')
-  args = aparser.parse_args()
+  parser = argparse.ArgumentParser(description="Make JHUGen gridpack")
+  parser.add_argument("--card", "-c", action="store", help="card")
+  parser.add_argument("--decay-card", "-d", action="store", help="second input card to run for decay")
+  parser.add_argument("--name", action="store", required=True, help="name")
+  parser.add_argument("--seed", "-s", action="store", default="123456", help="random seed for grid generation")
+  parser.add_argument("--nevents", "-n", action="store", default="100", help="number of events for the test run after grid generation")
+  parser.add_argument("--link-mela", action="store_true", help="indicate that the process requires MCFM or Collier libraries from MELA")
+  parser.add_argument("--vbf-offshell", action="store_true", help="indicate that the process is offshell VBF")
+  group = parser.add_mutually_exclusive_group()
+  group.add_argument("--force", "-f", action="store_true", help="overwrite existing folder")
+  group.add_argument("--check-jobs", action="store_true", help="check if the jobs for VBF offshell are done, and if they are finish the tarball")
+  parser.add_argument("--only-compile", action="store_true", help="compile JHUGen but don't submit the grid jobs")
+  args = parser.parse_args()
 
   if args.vbf_offshell and not args.link_mela and not args.check_jobs:
-    aparser.error("--vbf-offshell also requires --link-mela")
-  if args.check_jobs and not args.vbf_offshell:
-    aparser.error("--check-jobs only makes sense for --vbf-offshell")
+    parser.error("--vbf-offshell also requires --link-mela")
+  if (args.check_jobs or args.only_compile) and not args.vbf_offshell:
+    parser.error("--check-jobs and --only-compile only make sense for --vbf-offshell")
+  if args.check_jobs and args.only_compile:
+    parser.error("Can't do --check-jobs and --only-compile at the same time")
   if not args.card and not args.check_jobs:
-    aparser.error("have to provide a card (unless checking jobs for VBF offshell)")
+    parser.error("have to provide a card (unless checking jobs for VBF offshell)")
 
 @contextlib.contextmanager
 def cd(newdir):
@@ -123,6 +126,9 @@ def main(args):
 
   with cd(os.path.join(JHUbasedir, "JHUGenerator")), open("../JHUGen.input") as f:
     if args.vbf_offshell:
+      if args.only_compile:
+        print "JHUGen is compiled.  Run again with --check-jobs to submit the grid jobs."
+        return
       #set up the VBF offshell grids
       grids = []
       jobids = []
@@ -139,6 +145,7 @@ def main(args):
 
             error = None
             if "Job terminated" in log:
+
               if "return value 0" in log:
                 if os.path.exists(gridfile):
                   continue
