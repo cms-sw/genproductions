@@ -32,11 +32,11 @@ def makecard(signalbkgbsi, coupling, finalstate):
 
     SMcoupling = {
       "SM": "ghz1=1,0",
-      "a2": None,
+      "a2": "ghz1=0,0",
       "a2mix": "ghz1=1,0",
-      "a3": None,
+      "a3": "ghz1=0,0",
       "a3mix": "ghz1=1,0",
-      "L1": None,
+      "L1": "ghz1=0,0",
       "L1mix": "ghz1=1,0",
     }[coupling]
 
