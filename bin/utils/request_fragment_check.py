@@ -336,7 +336,9 @@ for num in range(0,len(prepid)):
         if tunecheck[6] == 3 or tunecheck[7] == 3:
             if tunecheck[0] != 3:
                 print "* [ERROR] Check if there is some extra tune setting"
-        if 3 not in tunecheck:
+        if 'sherpa' in dn.lower():
+            print "* [WARNING] No automated check of Sherpa ps/tune parameters yet"
+        if 3 not in tunecheck and 'sherpa' not in dn.lower():
             print "* [ERROR] Tune configuration may be wrong in the fragment"
  	    print "          or pythia8CUEP8M1Settings are overwritten by some other parameters as in CUETP8M2T4"
         elif 3 in tunecheck:
