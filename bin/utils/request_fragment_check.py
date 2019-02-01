@@ -138,6 +138,7 @@ for num in range(0,len(prepid)):
         filter_eff = r['generator_parameters'][-1]['filter_efficiency']
         match_eff = r['generator_parameters'][-1]['match_efficiency']
         print pi+"    Status= "+r['status']
+	print dn
         if args.bypass_status and r['status'] != "defined":
 	    print "--> Skipping since the request is not in defined state"
 	    print "--> Use --bypass_status option to look at all requests irrespective of state" 
@@ -217,6 +218,7 @@ for num in range(0,len(prepid)):
                     os.system('wget -q https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_fragment/'+pi+' -O '+my_path+'/'+pi+'/'+pi)
                     gridpack_cvmfs_path = os.popen('grep \/cvmfs '+my_path+'/'+pi+'/'+pi+'| grep -v \'#args\' ').read()
                     gridpack_cvmfs_path = gridpack_cvmfs_path.split('\'')[1]
+	            print gridpack_cvmfs_path		
                     if int(os.popen('grep -c slha '+pi).read()) != 0:
                         gridpack_cvmfs_path = gridpack_cvmfs_path.replace("%i","*")
                         gridpack_cvmfs_path = os.popen('ls '+ gridpack_cvmfs_path+' | head -1 | tr \'\n\' \' \'').read()
@@ -225,10 +227,20 @@ for num in range(0,len(prepid)):
                     os.system('tar xf '+gridpack_cvmfs_path+' -C '+my_path+'/'+pi)	
                     fname_p = my_path+'/'+pi+'/'+'process/madevent/Cards/proc_card_mg5.dat'
                     fname_p2 = my_path+'/'+pi+'/'+'process/Cards/proc_card.dat'
+                    fname_p3 = my_path+'/'+pi+'/'+'process/Cards/proc_card_mg5.dat'
                     if os.path.isfile(fname_p) is True :
                         loop_flag = int(os.popen('more '+fname_p+' | grep -c "noborn=QCD"').read())
+			print(os.popen('grep generate '+fname_p).read())
+			print(os.popen('grep process '+fname_p).read())
                     elif os.path.isfile(fname_p2) is True : 
                         loop_flag = int(os.popen('more '+fname_p2+' | grep -c "noborn=QCD"').read())
+                        print fname_p2
+                        print(os.popen('more '+fname_p2+' | grep "generate" ').read())
+                        print(os.popen('grep process '+fname_p2).read())
+                    elif os.path.isfile(fname_p3) is True :
+                        loop_flag = int(os.popen('more '+fname_p3+' | grep -c "noborn=QCD"').read())
+                        print(os.popen('more '+fname_p3+' | grep "generate" ').read())
+                        print(os.popen('grep process '+fname_p3).read())                        
                     fname = my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat'
                     fname2 = my_path+'/'+pi+'/'+'process/Cards/run_card.dat'
                     if os.path.isfile(fname) is True :
