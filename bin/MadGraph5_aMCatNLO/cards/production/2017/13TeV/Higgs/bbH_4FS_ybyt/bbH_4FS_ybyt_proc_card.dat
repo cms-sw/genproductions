@@ -1,6 +1,7 @@
 set group_subprocesses Auto                                             
 set ignore_six_quark_processes False                                    
-set loop_color_flows False                                              
+set loop_color_flows False 
+set low_mem_multicore_nlo_generation False
 set gauge unitary                                                       
 set complex_mass_scheme False                                           
 set max_npoint_for_channel 0                                            
@@ -12,5 +13,4 @@ define vl~ = ve~ vm~ vt~
 set output_dependencies internal
 import model loop_sm_MSbar_yb                                           
 generate p p > h b b~ [QCD]                                             
-output bbH_4FS_ybyt
-
+output bbH_4FS_ybyt -nojpeg
