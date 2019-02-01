@@ -216,17 +216,22 @@ for num in range(0,len(prepid)):
                 check.append(int(os.popen('grep -c "pythia8'+ME[knd]+'SettingsBlock," '+pi).read()))
                 if check[2] == 1:
                     mcatnlo_flag = 1
+                os.system('wget -q https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_fragment/'+pi+' -O '+my_path+'/'+pi+'/'+pi)
+                gridpack_cvmfs_path = os.popen('grep \/cvmfs '+my_path+'/'+pi+'/'+pi+'| grep -v \'#args\' ').read()
+                gridpack_cvmfs_path = gridpack_cvmfs_path.split('\'')[1]
+                print gridpack_cvmfs_path		
+                if int(os.popen('grep -c slha '+pi).read()) != 0:
+                    gridpack_cvmfs_path = gridpack_cvmfs_path.replace("%i","*")
+                    gridpack_cvmfs_path = os.popen('ls '+ gridpack_cvmfs_path+' | head -1 | tr \'\n\' \' \'').read()
+                    print "SLHA request - checking single gridpack:"
+                    print gridpack_cvmfs_path  
+                os.system('tar xf '+gridpack_cvmfs_path+' -C '+my_path+'/'+pi)	
+                if ind == 0:
+                    file_pwg_check =  my_path+'/'+pi+'/'+'pwhg_checklimits'
+                    if os.path.isfile(file_pwg_check) is True :
+                        print "grep from powheg pwhg_checklimits files"
+                        print(os.popen('grep emitter '+file_pwg_check).read())
                 if ind > 0:
-                    os.system('wget -q https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_fragment/'+pi+' -O '+my_path+'/'+pi+'/'+pi)
-                    gridpack_cvmfs_path = os.popen('grep \/cvmfs '+my_path+'/'+pi+'/'+pi+'| grep -v \'#args\' ').read()
-                    gridpack_cvmfs_path = gridpack_cvmfs_path.split('\'')[1]
-	            print gridpack_cvmfs_path		
-                    if int(os.popen('grep -c slha '+pi).read()) != 0:
-                        gridpack_cvmfs_path = gridpack_cvmfs_path.replace("%i","*")
-                        gridpack_cvmfs_path = os.popen('ls '+ gridpack_cvmfs_path+' | head -1 | tr \'\n\' \' \'').read()
-                        print "SLHA request - checking single gridpack:"
-                        print gridpack_cvmfs_path
-                    os.system('tar xf '+gridpack_cvmfs_path+' -C '+my_path+'/'+pi)	
                     fname_p = my_path+'/'+pi+'/'+'process/madevent/Cards/proc_card_mg5.dat'
                     fname_p2 = my_path+'/'+pi+'/'+'process/Cards/proc_card.dat'
                     fname_p3 = my_path+'/'+pi+'/'+'process/Cards/proc_card_mg5.dat'
