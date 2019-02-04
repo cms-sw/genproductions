@@ -106,13 +106,12 @@ if args.ticket is not None:
 #    print(root_requests_from_ticket(ticket))
     prepid = []
     for rr in root_requests_from_ticket(ticket):
-        if 'GS' in rr or 'wmLHE' in rr or 'pLHE' in rr:
+        if 'GS' in rr or 'wmLHE' in rr or 'pLHE' in rr or 'FS' in rr:
             prepid.append(rr)
 
 
-
 prepid = list(set(prepid)) #to avoid requests appearing x times if x chains have the same request 
-       
+
 for x in range(0,len(prepid)):
     print(prepid[x])           
 
@@ -221,8 +220,10 @@ for num in range(0,len(prepid)):
                 gridpack_cvmfs_path = gridpack_cvmfs_path.split('\'')[1]
                 print gridpack_cvmfs_path		
                 if int(os.popen('grep -c slha '+pi).read()) != 0:
-                    gridpack_cvmfs_path = gridpack_cvmfs_path.replace("%i","*")
-                    gridpack_cvmfs_path = gridpack_cvmfs_path.replace("%s","*")
+                    if int(os.popen('grep -c \%i '+pi).read()) != 0:
+                        gridpack_cvmfs_path = gridpack_cvmfs_path.replace("%i","*")
+                    if int(os.popen('grep -c \%s '+pi).read()) != 0:    
+                        gridpack_cvmfs_path = gridpack_cvmfs_path.replace("%s","*")
                     gridpack_cvmfs_path = os.popen('ls '+ gridpack_cvmfs_path+' | head -1 | tr \'\n\' \' \'').read()
                     print "SLHA request - checking single gridpack:"
                     print gridpack_cvmfs_path  
