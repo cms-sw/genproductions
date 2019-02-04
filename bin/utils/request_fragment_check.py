@@ -222,6 +222,7 @@ for num in range(0,len(prepid)):
                 print gridpack_cvmfs_path		
                 if int(os.popen('grep -c slha '+pi).read()) != 0:
                     gridpack_cvmfs_path = gridpack_cvmfs_path.replace("%i","*")
+                    gridpack_cvmfs_path = gridpack_cvmfs_path.replace("%s","*")
                     gridpack_cvmfs_path = os.popen('ls '+ gridpack_cvmfs_path+' | head -1 | tr \'\n\' \' \'').read()
                     print "SLHA request - checking single gridpack:"
                     print gridpack_cvmfs_path  
