@@ -1,12 +1,28 @@
 import os,sys
 import hashlib
+import argparse
+import textwrap
+
+parser = argparse.ArgumentParser(
+    formatter_class=argparse.RawDescriptionHelpFormatter,
+    description=textwrap.dedent)
+parser.add_argument('--prepid', type=str, help="check mcm requests using prepids", nargs='+')
+args = parser.parse_args()
+
+if args.prepid is not None:
+    parser.parse_args('--prepid 1'.split())
+#    print "---> "+str(len(args.prepid))+" requests will be checked:"
+    prepid = args.prepid
+#    print args.prepid	
+print " "
 
 my_path = '/tmp/'+os.environ['USER']+'/replace_gridpacks/'
 
 requests=[]
 requests = [
-            'B2G-RunIIFall18wmLHEGS-00053' 
+            'HIG-RunIIFall18wmLHEGS-01053222' 
            ]
+requests = prepid
 
 #for num in range(0,60):
 #	requests.append('EXO-RunIISummer15wmLHEGS-0'+str(num+6229))
