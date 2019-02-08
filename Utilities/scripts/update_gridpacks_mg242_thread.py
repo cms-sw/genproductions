@@ -1,17 +1,9 @@
 import os,sys
 import hashlib
-import time
 import string
 import argparse
-import re 
-import textwrap
-from textwrap import dedent
-
 
 parser = argparse.ArgumentParser(description='script to patch the nthreads problem in MG5_aMC LO configurations.')
-#    formatter_class=argparse.RawDescriptionHelpFormatter,
-#    description=textwrap.dedent('''\
-#        script to patch the nthreads problem in MG5_aMC LO configurations.'''))
 parser.add_argument('--prepid', type=str, help="check mcm requests using a single prepid", nargs=1)
 args = parser.parse_args()
 
@@ -24,14 +16,6 @@ else:
 
 my_path = '/tmp/'+os.environ['USER']+'/replace_gridpacks/'
 
-requests=[]
-requests = [
-            'HIG-RunIIFall18wmLHEGS-01053222' 
-           ]
-requests = prepid
-
-#for num in range(0,60):
-#	requests.append('EXO-RunIISummer15wmLHEGS-0'+str(num+6229))
 print requests
 
 for prepid in requests:
