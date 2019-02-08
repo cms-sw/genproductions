@@ -1,20 +1,26 @@
 import os,sys
 import hashlib
+import time
+import string
 import argparse
+import re 
 import textwrap
+from textwrap import dedent
 
-parser = argparse.ArgumentParser(
-    formatter_class=argparse.RawDescriptionHelpFormatter,
-    description=textwrap.dedent)
-parser.add_argument('--prepid', type=str, help="check mcm requests using prepids", nargs='+')
+
+parser = argparse.ArgumentParser(description='script to patch the nthreads problem in MG5_aMC LO configurations.')
+#    formatter_class=argparse.RawDescriptionHelpFormatter,
+#    description=textwrap.dedent('''\
+#        script to patch the nthreads problem in MG5_aMC LO configurations.'''))
+parser.add_argument('--prepid', type=str, help="check mcm requests using a single prepid", nargs=1)
 args = parser.parse_args()
 
 if args.prepid is not None:
     parser.parse_args('--prepid 1'.split())
-#    print "---> "+str(len(args.prepid))+" requests will be checked:"
     prepid = args.prepid
-#    print args.prepid	
-print " "
+else:
+   print "the script needs a prepid,i.e. python update_gridpacks_mg242_thread.py --prepid HIG-... "
+   sys.exit()
 
 my_path = '/tmp/'+os.environ['USER']+'/replace_gridpacks/'
 
