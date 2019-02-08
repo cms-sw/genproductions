@@ -16,6 +16,7 @@ else:
 
 my_path = '/tmp/'+os.environ['USER']+'/replace_gridpacks/'
 
+requests = prepid
 print requests
 
 for prepid in requests:
