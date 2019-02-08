@@ -12,6 +12,7 @@ parser = argparse.ArgumentParser(
     description=textwrap.dedent('''\
             ------------------------------------------------ 
                This script currently checks for the following to give an OK, WARNING, or ERROR
+               and does a patch for the MG5_aMC LO nthreads problem if needed. 
             
                WARNINGS:
                   * [WARNING] if time per event > 150 seconds
@@ -147,7 +148,8 @@ for num in range(0,len(prepid)):
         powhegcheck = []
         tunecheck = []
         psweightscheck = [] #ps = parton shower
-        MGpatch = [] 
+        MGpatch = []
+        MGpatch2 = []
         ME = ["PowhegEmissionVeto","aMCatNLO"] # ME = matrix element
         MEname = ["powheg","madgraph","mcatnlo","jhugen"]
         tune = ["CP5","CUEP8M1","CP1","CP2","CP3","CP4","CP5TuneUp","CP5TuneDown"] 
@@ -267,7 +269,7 @@ for num in range(0,len(prepid)):
                     matching = int(re.search(r'\d+',ickkw).group())
                     ickkw = str(ickkw)  
                     if matching == 1 and test_autoptjmjj[0].lower() != "true":
-                        print "* [ERROR] Please set True = auto_ptj_mjj for MLM"    
+                        print "* [WARNING] Please set True = auto_ptj_mjj for MLM"    
                     if matching == 1 and float(test_drjj_c[0]) > 0:
                         print "* [ERROR] drjj should be set to 0.0 for MLM"
                     if matching == 1 or matching == 2:
@@ -292,6 +294,13 @@ for num in range(0,len(prepid)):
                             print "*           Your request uses "+cmssw+" :"
                             print "*           If you are not using a proper CMSSW version, please switch to that or"
                             print "*           re-create the gridpack using the updated genproductions area"
+			MGpatch2.append(int(os.popen('more '+my_path+'/'+pi+'/'+'runcmsgrid.sh | grep -c "To overcome problem of taking toomanythreads"').read()))
+			if MGpatch2[0] == 1:
+			    print "* [OK] MG5_aMC@NLO LO nthreads patch OK"
+			if MGpatch2[0] == 0:
+			    print "* MG5_aMC@NLO LO nthreads patch not made!"
+			    print "Patching for nthreads problem... please be patient."
+                            os.system('python ../../Utilities/scripts/update_gridpacks_mg242_thread.py --prepid '+pi)
                 if matching >= 2 and check[0] == 2 and check[1] == 1 and check[2] == 1 :
                     print "* [OK] no known inconsistency in the fragment w.r.t. the name of the dataset "+word
                     if matching ==3 :  
