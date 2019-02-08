@@ -1,15 +1,21 @@
 import os,sys
 import hashlib
+import string
+import argparse
+
+parser = argparse.ArgumentParser(description='script to patch the nthreads problem in MG5_aMC LO configurations.')
+parser.add_argument('--prepid', type=str, help="check mcm requests using a single prepid", nargs=1)
+args = parser.parse_args()
+
+if args.prepid is not None:
+    parser.parse_args('--prepid 1'.split())
+    prepid = args.prepid
+else:
+   print "the script needs a prepid,i.e. python update_gridpacks_mg242_thread.py --prepid HIG-... "
+   sys.exit()
 
 my_path = '/tmp/'+os.environ['USER']+'/replace_gridpacks/'
 
-requests=[]
-requests = [
-            'B2G-RunIIFall18wmLHEGS-00053' 
-           ]
-
-#for num in range(0,60):
-#	requests.append('EXO-RunIISummer15wmLHEGS-0'+str(num+6229))
 print requests
 
 for prepid in requests:
