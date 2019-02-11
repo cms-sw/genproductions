@@ -227,7 +227,7 @@ for num in range(0,len(prepid)):
                 print gridpack_cvmfs_path
 		print gridpack_eos_path
 		if int(os.popen('grep -c slha '+pi).read()) != 0 or int(os.popen('grep -c \%i '+pi).read()) != 0 or int(os.popen('grep -c \%s '+pi).read()) != 0:
-			slha_flag = 1
+		    slha_flag = 1
                 if slha_flag == 1:
                     if int(os.popen('grep -c \%i '+pi).read()) != 0:
                         gridpack_cvmfs_path = gridpack_cvmfs_path.replace("%i","*")
