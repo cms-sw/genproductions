@@ -1,0 +1,21 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set loop_color_flows False
+set gauge unitary
+set complex_mass_scheme False
+set max_npoint_for_channel 0
+import model sm-ckm_no_b_mass
+define l+ = e+ mu+
+define l- = e- mu-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+define p u c s d b u~ c~ s~ d~ b~ g
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
+define j  = p
+generate p p > l+ l- / h @0
+add process p p > l+ l- j / h @1
+add process p p > l+ l- j j / h @2
+add process p p > l+ l- j j j / h @3
+add process p p > l+ l- j j j j / h @4
+output DYJets_HT-incl_Zpt-200 -nojpeg
