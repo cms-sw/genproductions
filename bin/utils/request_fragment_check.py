@@ -6,6 +6,7 @@ import re
 import argparse
 import textwrap
 from textwrap import dedent
+import glob
 
 parser = argparse.ArgumentParser(
     formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -222,12 +223,14 @@ for num in range(0,len(prepid)):
                 gridpack_cvmfs_path = os.popen('grep \/cvmfs '+my_path+'/'+pi+'/'+pi+'| grep -v \'#args\' ').read()
                 gridpack_cvmfs_path = gridpack_cvmfs_path.split('\'')[1]
                 gridpack_eos_path = gridpack_cvmfs_path.replace("/cvmfs/cms.cern.ch/phys_generator","/eos/cms/store/group/phys_generator/cvmfs")
-                print gridpack_cvmfs_path		
+                print gridpack_cvmfs_path
+		print gridpack_eos_path
                 if int(os.popen('grep -c slha '+pi).read()) != 0:
                     if int(os.popen('grep -c \%i '+pi).read()) != 0:
                         gridpack_cvmfs_path = gridpack_cvmfs_path.replace("%i","*")
                     if int(os.popen('grep -c \%s '+pi).read()) != 0:    
                         gridpack_cvmfs_path = gridpack_cvmfs_path.replace("%s","*")
+                    slha_all_path = os.path.dirname(gridpack_eos_path)    
                     gridpack_cvmfs_path = os.popen('ls '+ gridpack_cvmfs_path+' | head -1 | tr \'\n\' \' \'').read()
                     print "SLHA request - checking single gridpack:"
                     print gridpack_cvmfs_path  
@@ -273,7 +276,7 @@ for num in range(0,len(prepid)):
                     if matching == 1 and test_autoptjmjj[0].lower() != "true":
                         print "* [WARNING] Please set True = auto_ptj_mjj for MLM"    
                     if matching == 1 and float(test_drjj_c[0]) > 0:
-                        print "* [ERROR] drjj should be set to 0.0 for MLM"
+                        print "* [WARNING] drjj should be set to 0.0 for MLM"
                     if matching == 1 or matching == 2:
                         if match_eff == 1:
                             print "* [ERROR] Matched sample but matching efficiency is 1!"
@@ -297,22 +300,47 @@ for num in range(0,len(prepid)):
                             print "*           If you are not using a proper CMSSW version, please switch to that or"
                             print "*           re-create the gridpack using the updated genproductions area"
                         print "*"    
-                        print "-------------------------MG5_aMC LO/MLM Many Threads Patch Check --------------------------------------"    
-                        os.system('tar xf '+gridpack_eos_path+' -C '+my_path+'/eos/'+pi)
-			MGpatch2.append(int(os.popen('more '+my_path+'/'+pi+'/'+'runcmsgrid.sh | grep -c "To overcome problem of taking toomanythreads"').read()))
-                        MGpatch2.append(int(os.popen('more '+my_path+'/eos/'+pi+'/'+'runcmsgrid.sh | grep -c "To overcome problem of taking toomanythreads"').read()))
-			if MGpatch2[1] == 1:
-			    print "* [OK] MG5_aMC@NLO LO nthreads patch OK in EOS"
-			if MGpatch2[0] == 1:
-			    print "* [OK] MG5_aMC@NLO LO nthreads patch OK in CVMFS"
-			if MGpatch2[0] == 0 and MGpatch2[1] == 1:
-			    print "* [OK] MG5_aMC@NLO LO nthreads patch not made in CVMFS but done in EOS waiting for CVMFS-EOS synch"
-			if MGpatch2[1] == 0:
-			    print "* [PATCH] MG5_aMC@NLO LO nthreads patch not made in EOS"    
-			    print "Patching for nthreads problem... please be patient."
-                            os.system('python ../../Utilities/scripts/update_gridpacks_mg242_thread.py --prepid '+pi)
-                        print "-------------------------EOF MG5_aMC LO/MLM Many Threads Patch Check ----------------------------------"
-                        print "*"
+                        print "-------------------------MG5_aMC LO/MLM Many Threads Patch Check --------------------------------------"   
+                        ppp_ind_range = 0
+                        if int(os.popen('grep -c slha '+pi).read()) != 0:
+                            print slha_all_path
+                            slha_file_list =  os.listdir(slha_all_path)
+                            ppp_ind_range = len(slha_file_list)
+                            print slha_file_list
+#                            gridpack_cvmfs_path = os.popen('ls '+ gridpack_cvmfs_path+' | head -1 | tr \'\n\' \' \'').read()
+                        if int(os.popen('grep -c slha '+pi).read()) == 0:
+                            ppp_ind_range = 1
+                        for ppp in range(0,ppp_ind_range):
+                            if ppp == 3:
+                                sys.exit()
+                            del MGpatch2[:]
+                            if int(os.popen('grep -c slha '+pi).read()) != 0:
+                                gridpack_cvmfs_path_tmp = slha_all_path+'/'+slha_file_list[ppp]
+                                print gridpack_cvmfs_path_tmp
+                                if "runmode0_TEST" in gridpack_cvmfs_path_tmp:
+                                    continue
+                                gridpack_cvmfs_path = gridpack_cvmfs_path_tmp
+                                gridpack_eos_path = gridpack_cvmfs_path_tmp.replace("/cvmfs/cms.cern.ch/phys_generator","/eos/cms/store/group/phys_generator/cvmfs")
+                                print gridpack_eos_path
+                                print gridpack_cvmfs_path 
+                            os.system('tar xf '+gridpack_eos_path+' -C '+my_path+'/eos/'+pi)
+                            MGpatch2.append(int(os.popen('more '+my_path+'/'+pi+'/'+'runcmsgrid.sh | grep -c "To overcome problem of taking toomanythreads"').read()))
+                            MGpatch2.append(int(os.popen('more '+my_path+'/eos/'+pi+'/'+'runcmsgrid.sh | grep -c "To overcome problem of taking toomanythreads"').read()))
+                            if MGpatch2[1] == 1:
+                                print "* [OK] MG5_aMC@NLO LO nthreads patch OK in EOS"
+                            if MGpatch2[0] == 1:
+                                print "* [OK] MG5_aMC@NLO LO nthreads patch OK in CVMFS"
+                            if MGpatch2[0] == 0 and MGpatch2[1] == 1:
+                                print "* [OK] MG5_aMC@NLO LO nthreads patch not made in CVMFS but done in EOS waiting for CVMFS-EOS synch"
+                            if MGpatch2[1] == 0:
+                                print "* [PATCH] MG5_aMC@NLO LO nthreads patch not made in EOS"    
+                                print "Patching for nthreads problem... please be patient."
+                                if int(os.popen('grep -c slha '+pi).read()) == 0: 
+                                    os.system('python ../../Utilities/scripts/update_gridpacks_mg242_thread.py --prepid '+pi)
+                                if int(os.popen('grep -c slha '+pi).read()) != 0:
+                                    os.system('python ../../Utilities/scripts/update_gridpacks_mg242_thread.py --gridpack '+gridpack_cvmfs_path)
+                            print "-------------------------EOF MG5_aMC LO/MLM Many Threads Patch Check ----------------------------------"
+                            print "*"
                 if matching >= 2 and check[0] == 2 and check[1] == 1 and check[2] == 1 :
                     print "* [OK] no known inconsistency in the fragment w.r.t. the name of the dataset "+word
                     if matching ==3 :  
