@@ -195,6 +195,7 @@ for num in range(0,len(prepid)):
             print "* [ERROR] Memory is "+str(mem)+" MB while number of cores is "+str(nthreads)+" but not = 2,4 or 8"
         os.system('wget -q https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_fragment/'+pi+' -O '+pi)
         os.system('mkdir -p '+my_path+'/'+pi)
+        os.system('mkdir -p '+my_path+'/eos/'+pi)
         if int(os.popen('grep -c eos '+pi).read()) == 1 :
             print "* [ERROR] Gridpack should have used cvmfs path instead of eos path"
         if int(os.popen('grep -c nPartonsInBorn '+pi).read()) == 1:
@@ -220,6 +221,7 @@ for num in range(0,len(prepid)):
                 os.system('wget -q https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_fragment/'+pi+' -O '+my_path+'/'+pi+'/'+pi)
                 gridpack_cvmfs_path = os.popen('grep \/cvmfs '+my_path+'/'+pi+'/'+pi+'| grep -v \'#args\' ').read()
                 gridpack_cvmfs_path = gridpack_cvmfs_path.split('\'')[1]
+                gridpack_eos_path = gridpack_cvmfs_path.replace("/cvmfs/cms.cern.ch/phys_generator","/eos/cms/store/group/phys_generator/cvmfs")
                 print gridpack_cvmfs_path		
                 if int(os.popen('grep -c slha '+pi).read()) != 0:
                     if int(os.popen('grep -c \%i '+pi).read()) != 0:
@@ -294,13 +296,23 @@ for num in range(0,len(prepid)):
                             print "*           Your request uses "+cmssw+" :"
                             print "*           If you are not using a proper CMSSW version, please switch to that or"
                             print "*           re-create the gridpack using the updated genproductions area"
+                        print "*"    
+                        print "-------------------------MG5_aMC LO/MLM Many Threads Patch Check --------------------------------------"    
+                        os.system('tar xf '+gridpack_eos_path+' -C '+my_path+'/eos/'+pi)
 			MGpatch2.append(int(os.popen('more '+my_path+'/'+pi+'/'+'runcmsgrid.sh | grep -c "To overcome problem of taking toomanythreads"').read()))
+                        MGpatch2.append(int(os.popen('more '+my_path+'/eos/'+pi+'/'+'runcmsgrid.sh | grep -c "To overcome problem of taking toomanythreads"').read()))
+			if MGpatch2[1] == 1:
+			    print "* [OK] MG5_aMC@NLO LO nthreads patch OK in EOS"
 			if MGpatch2[0] == 1:
-			    print "* [OK] MG5_aMC@NLO LO nthreads patch OK"
-			if MGpatch2[0] == 0:
-			    print "* MG5_aMC@NLO LO nthreads patch not made!"
+			    print "* [OK] MG5_aMC@NLO LO nthreads patch OK in CVMFS"
+			if MGpatch2[0] == 0 and MGpatch2[1] == 1:
+			    print "* [OK] MG5_aMC@NLO LO nthreads patch not made in CVMFS but done in EOS waiting for CVMFS-EOS synch"
+			if MGpatch2[1] == 0:
+			    print "* [PATCH] MG5_aMC@NLO LO nthreads patch not made in EOS"    
 			    print "Patching for nthreads problem... please be patient."
                             os.system('python ../../Utilities/scripts/update_gridpacks_mg242_thread.py --prepid '+pi)
+                        print "-------------------------EOF MG5_aMC LO/MLM Many Threads Patch Check ----------------------------------"
+                        print "*"
                 if matching >= 2 and check[0] == 2 and check[1] == 1 and check[2] == 1 :
                     print "* [OK] no known inconsistency in the fragment w.r.t. the name of the dataset "+word
                     if matching ==3 :  
