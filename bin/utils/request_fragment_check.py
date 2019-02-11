@@ -311,8 +311,6 @@ for num in range(0,len(prepid)):
                         if int(os.popen('grep -c slha '+pi).read()) == 0:
                             ppp_ind_range = 1
                         for ppp in range(0,ppp_ind_range):
-                            if ppp == 3:
-                                sys.exit()
                             del MGpatch2[:]
                             if int(os.popen('grep -c slha '+pi).read()) != 0:
                                 gridpack_cvmfs_path_tmp = slha_all_path+'/'+slha_file_list[ppp]
