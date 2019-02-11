@@ -6,7 +6,6 @@ import re
 import argparse
 import textwrap
 from textwrap import dedent
-import glob
 
 parser = argparse.ArgumentParser(
     formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -263,12 +262,10 @@ for num in range(0,len(prepid)):
                     fname = my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat'
                     fname2 = my_path+'/'+pi+'/'+'process/Cards/run_card.dat'
                     if os.path.isfile(fname) is True :
-#                        ickkw = os.popen('grep "= ickkw" '+fname).read()
                        ickkw = os.popen('more '+fname+' | tr -s \' \' | grep "= ickkw"').read()
                        autoptjmjj_c = os.popen('more '+fname+' | tr -s \' \' | grep "= auto_ptj_mjj"').read()
                        drjj_c = os.popen('more '+fname+' | tr -s \' \' | grep "= drjj"').read()
                     elif os.path.isfile(fname2) is True :    
-#                        ickkw = os.popen('grep "= ickkw" '+fname2).read()
                        ickkw = os.popen('more '+fname2+' | tr -s \' \' | grep "= ickkw"').read()
                        autoptjmjj_c = os.popen('more '+fname2+' | tr -s \' \' | grep "= auto_ptj_mjj"').read()
                        drjj_c = os.popen('more '+fname2+' | tr -s \' \' | grep "= drjj"').read()
@@ -385,7 +382,6 @@ for num in range(0,len(prepid)):
                 print "*         Please remove all TimeShower:nPartonsInBorn from the fragment"                        
         for kk in range (0, 8):   
             tunecheck.append(int(os.popen('grep -v "#" '+pi+' | grep -c -i '+tune[kk]).read()))
-#        print tunecheck
         if tunecheck[6] == 3 or tunecheck[7] == 3:
             if tunecheck[0] != 3:
                 print "* [ERROR] Check if there is some extra tune setting"
