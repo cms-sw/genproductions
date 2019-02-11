@@ -157,6 +157,7 @@ for num in range(0,len(prepid)):
         mcatnlo_flag = 0
         loop_flag = 0
         knd =  -1
+	slha_flag = 0
         nPartonsInBorn_flag = 0
         matching = 10
         ickkw = 'del' # ickkw = matching parameter in madgraph
@@ -225,7 +226,9 @@ for num in range(0,len(prepid)):
                 gridpack_eos_path = gridpack_cvmfs_path.replace("/cvmfs/cms.cern.ch/phys_generator","/eos/cms/store/group/phys_generator/cvmfs")
                 print gridpack_cvmfs_path
 		print gridpack_eos_path
-                if int(os.popen('grep -c slha '+pi).read()) != 0 or int(os.popen('grep -c %i '+pi).read()) != 0:
+		if int(os.popen('grep -c slha '+pi).read()) != 0 or int(os.popen('grep -c \%i '+pi).read()) != 0 or int(os.popen('grep -c \%s '+pi).read()) != 0:
+			slha_flag = 1
+                if slha_flag == 1:
                     if int(os.popen('grep -c \%i '+pi).read()) != 0:
                         gridpack_cvmfs_path = gridpack_cvmfs_path.replace("%i","*")
                     if int(os.popen('grep -c \%s '+pi).read()) != 0:    
@@ -302,17 +305,17 @@ for num in range(0,len(prepid)):
                         print "*"    
                         print "-------------------------MG5_aMC LO/MLM Many Threads Patch Check --------------------------------------"   
                         ppp_ind_range = 0
-                        if int(os.popen('grep -c slha '+pi).read()) != 0 or int(os.popen('grep -c %i '+pi).read()) != 0:
+                        if slha_flag == 1:
                             print slha_all_path
                             slha_file_list =  os.listdir(slha_all_path)
                             ppp_ind_range = len(slha_file_list)
                             print slha_file_list
 #                            gridpack_cvmfs_path = os.popen('ls '+ gridpack_cvmfs_path+' | head -1 | tr \'\n\' \' \'').read()
-                        if int(os.popen('grep -c slha '+pi).read()) == 0 and int(os.popen('grep -c %i '+pi).read()) == 0:
+                        if slha_flag == 0:
                             ppp_ind_range = 1
                         for ppp in range(0,ppp_ind_range):
                             del MGpatch2[:]
-                            if int(os.popen('grep -c slha '+pi).read()) != 0 or int(os.popen('grep -c %i '+pi).read()) != 0:
+                            if slha_flag == 1:
                                 gridpack_cvmfs_path_tmp = slha_all_path+'/'+slha_file_list[ppp]
                                 print gridpack_cvmfs_path_tmp
                                 if "runmode0_TEST" in gridpack_cvmfs_path_tmp:
@@ -333,9 +336,9 @@ for num in range(0,len(prepid)):
                             if MGpatch2[1] == 0:
                                 print "* [PATCH] MG5_aMC@NLO LO nthreads patch not made in EOS"    
                                 print "Patching for nthreads problem... please be patient."
-                                if int(os.popen('grep -c slha '+pi).read()) == 0 and int(os.popen('grep -c %i '+pi).read()) == 0: 
+                                if slha_flag == 0: 
                                     os.system('python ../../Utilities/scripts/update_gridpacks_mg242_thread.py --prepid '+pi)
-                                if int(os.popen('grep -c slha '+pi).read()) != 0 or int(os.popen('grep -c %i '+pi).read()) != 0:
+                                if slha_flag == 1:
                                     os.system('python ../../Utilities/scripts/update_gridpacks_mg242_thread.py --gridpack '+gridpack_cvmfs_path)
                             print "-------------------------EOF MG5_aMC LO/MLM Many Threads Patch Check ----------------------------------"
                             print "*"
