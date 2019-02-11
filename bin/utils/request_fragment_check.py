@@ -236,7 +236,7 @@ for num in range(0,len(prepid)):
                     file_pwg_check =  my_path+'/'+pi+'/'+'pwhg_checklimits'
                     if os.path.isfile(file_pwg_check) is True :
                         print "grep from powheg pwhg_checklimits files"
-                        print(os.popen('grep emitter '+file_pwg_check).read())
+                        print(os.popen('grep emitter '+file_pwg_check+' | head -n 5').read())
                 if ind > 0:
                     fname_p = my_path+'/'+pi+'/'+'process/madevent/Cards/proc_card_mg5.dat'
                     fname_p2 = my_path+'/'+pi+'/'+'process/Cards/proc_card.dat'
