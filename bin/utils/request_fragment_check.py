@@ -12,6 +12,7 @@ parser = argparse.ArgumentParser(
     description=textwrap.dedent('''\
             ------------------------------------------------ 
                This script currently checks for the following to give an OK, WARNING, or ERROR
+               and does a patch for the MG5_aMC LO nthreads problem if needed. 
             
                WARNINGS:
                   * [WARNING] if time per event > 150 seconds
@@ -106,13 +107,12 @@ if args.ticket is not None:
 #    print(root_requests_from_ticket(ticket))
     prepid = []
     for rr in root_requests_from_ticket(ticket):
-        if 'GS' in rr or 'wmLHE' in rr or 'pLHE' in rr:
+        if 'GS' in rr or 'wmLHE' in rr or 'pLHE' in rr or 'FS' in rr:
             prepid.append(rr)
 
 
-
 prepid = list(set(prepid)) #to avoid requests appearing x times if x chains have the same request 
-       
+
 for x in range(0,len(prepid)):
     print(prepid[x])           
 
@@ -138,6 +138,7 @@ for num in range(0,len(prepid)):
         filter_eff = r['generator_parameters'][-1]['filter_efficiency']
         match_eff = r['generator_parameters'][-1]['match_efficiency']
         print pi+"    Status= "+r['status']
+	print dn
         if args.bypass_status and r['status'] != "defined":
 	    print "--> Skipping since the request is not in defined state"
 	    print "--> Use --bypass_status option to look at all requests irrespective of state" 
@@ -147,7 +148,8 @@ for num in range(0,len(prepid)):
         powhegcheck = []
         tunecheck = []
         psweightscheck = [] #ps = parton shower
-        MGpatch = [] 
+        MGpatch = []
+        MGpatch2 = []
         ME = ["PowhegEmissionVeto","aMCatNLO"] # ME = matrix element
         MEname = ["powheg","madgraph","mcatnlo","jhugen"]
         tune = ["CP5","CUEP8M1","CP1","CP2","CP3","CP4","CP5TuneUp","CP5TuneDown"] 
@@ -193,6 +195,7 @@ for num in range(0,len(prepid)):
             print "* [ERROR] Memory is "+str(mem)+" MB while number of cores is "+str(nthreads)+" but not = 2,4 or 8"
         os.system('wget -q https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_fragment/'+pi+' -O '+pi)
         os.system('mkdir -p '+my_path+'/'+pi)
+        os.system('mkdir -p '+my_path+'/eos/'+pi)
         if int(os.popen('grep -c eos '+pi).read()) == 1 :
             print "* [ERROR] Gridpack should have used cvmfs path instead of eos path"
         if int(os.popen('grep -c nPartonsInBorn '+pi).read()) == 1:
@@ -200,6 +203,8 @@ for num in range(0,len(prepid)):
             print(os.popen('grep nPartonsInBorn '+pi).read())
         if int(os.popen('grep -c nJetMax '+pi).read()) == 1:  
             print(os.popen('grep nJetMax '+pi).read())
+        if int(os.popen('grep -c nFinal '+pi).read()) == 1:
+            print(os.popen('grep nFinal '+pi).read())
         for ind, word in enumerate(MEname):
             if ind == 3:
                 break
@@ -213,22 +218,42 @@ for num in range(0,len(prepid)):
                 check.append(int(os.popen('grep -c "pythia8'+ME[knd]+'SettingsBlock," '+pi).read()))
                 if check[2] == 1:
                     mcatnlo_flag = 1
-                if ind > 0:
-                    os.system('wget -q https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_fragment/'+pi+' -O '+my_path+'/'+pi+'/'+pi)
-                    gridpack_cvmfs_path = os.popen('grep \/cvmfs '+my_path+'/'+pi+'/'+pi+'| grep -v \'#args\' ').read()
-                    gridpack_cvmfs_path = gridpack_cvmfs_path.split('\'')[1]
-                    if int(os.popen('grep -c slha '+pi).read()) != 0:
+                os.system('wget -q https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_fragment/'+pi+' -O '+my_path+'/'+pi+'/'+pi)
+                gridpack_cvmfs_path = os.popen('grep \/cvmfs '+my_path+'/'+pi+'/'+pi+'| grep -v \'#args\' ').read()
+                gridpack_cvmfs_path = gridpack_cvmfs_path.split('\'')[1]
+                gridpack_eos_path = gridpack_cvmfs_path.replace("/cvmfs/cms.cern.ch/phys_generator","/eos/cms/store/group/phys_generator/cvmfs")
+                print gridpack_cvmfs_path		
+                if int(os.popen('grep -c slha '+pi).read()) != 0:
+                    if int(os.popen('grep -c \%i '+pi).read()) != 0:
                         gridpack_cvmfs_path = gridpack_cvmfs_path.replace("%i","*")
-                        gridpack_cvmfs_path = os.popen('ls '+ gridpack_cvmfs_path+' | head -1 | tr \'\n\' \' \'').read()
-                        print "SLHA request - checking single gridpack:"
-                        print gridpack_cvmfs_path
-                    os.system('tar xf '+gridpack_cvmfs_path+' -C '+my_path+'/'+pi)	
+                    if int(os.popen('grep -c \%s '+pi).read()) != 0:    
+                        gridpack_cvmfs_path = gridpack_cvmfs_path.replace("%s","*")
+                    gridpack_cvmfs_path = os.popen('ls '+ gridpack_cvmfs_path+' | head -1 | tr \'\n\' \' \'').read()
+                    print "SLHA request - checking single gridpack:"
+                    print gridpack_cvmfs_path  
+                os.system('tar xf '+gridpack_cvmfs_path+' -C '+my_path+'/'+pi)	
+                if ind == 0:
+                    file_pwg_check =  my_path+'/'+pi+'/'+'pwhg_checklimits'
+                    if os.path.isfile(file_pwg_check) is True :
+                        print "grep from powheg pwhg_checklimits files"
+                        print(os.popen('grep emitter '+file_pwg_check+' | head -n 5').read())
+                if ind > 0:
                     fname_p = my_path+'/'+pi+'/'+'process/madevent/Cards/proc_card_mg5.dat'
                     fname_p2 = my_path+'/'+pi+'/'+'process/Cards/proc_card.dat'
+                    fname_p3 = my_path+'/'+pi+'/'+'process/Cards/proc_card_mg5.dat'
                     if os.path.isfile(fname_p) is True :
                         loop_flag = int(os.popen('more '+fname_p+' | grep -c "noborn=QCD"').read())
+			print(os.popen('grep generate '+fname_p).read())
+			print(os.popen('grep process '+fname_p).read())
                     elif os.path.isfile(fname_p2) is True : 
                         loop_flag = int(os.popen('more '+fname_p2+' | grep -c "noborn=QCD"').read())
+                        print fname_p2
+                        print(os.popen('more '+fname_p2+' | grep "generate" ').read())
+                        print(os.popen('grep process '+fname_p2).read())
+                    elif os.path.isfile(fname_p3) is True :
+                        loop_flag = int(os.popen('more '+fname_p3+' | grep -c "noborn=QCD"').read())
+                        print(os.popen('more '+fname_p3+' | grep "generate" ').read())
+                        print(os.popen('grep process '+fname_p3).read())                        
                     fname = my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat'
                     fname2 = my_path+'/'+pi+'/'+'process/Cards/run_card.dat'
                     if os.path.isfile(fname) is True :
@@ -246,7 +271,7 @@ for num in range(0,len(prepid)):
                     matching = int(re.search(r'\d+',ickkw).group())
                     ickkw = str(ickkw)  
                     if matching == 1 and test_autoptjmjj[0].lower() != "true":
-                        print "* [ERROR] Please set True = auto_ptj_mjj for MLM"    
+                        print "* [WARNING] Please set True = auto_ptj_mjj for MLM"    
                     if matching == 1 and float(test_drjj_c[0]) > 0:
                         print "* [ERROR] drjj should be set to 0.0 for MLM"
                     if matching == 1 or matching == 2:
@@ -271,6 +296,23 @@ for num in range(0,len(prepid)):
                             print "*           Your request uses "+cmssw+" :"
                             print "*           If you are not using a proper CMSSW version, please switch to that or"
                             print "*           re-create the gridpack using the updated genproductions area"
+                        print "*"    
+                        print "-------------------------MG5_aMC LO/MLM Many Threads Patch Check --------------------------------------"    
+                        os.system('tar xf '+gridpack_eos_path+' -C '+my_path+'/eos/'+pi)
+			MGpatch2.append(int(os.popen('more '+my_path+'/'+pi+'/'+'runcmsgrid.sh | grep -c "To overcome problem of taking toomanythreads"').read()))
+                        MGpatch2.append(int(os.popen('more '+my_path+'/eos/'+pi+'/'+'runcmsgrid.sh | grep -c "To overcome problem of taking toomanythreads"').read()))
+			if MGpatch2[1] == 1:
+			    print "* [OK] MG5_aMC@NLO LO nthreads patch OK in EOS"
+			if MGpatch2[0] == 1:
+			    print "* [OK] MG5_aMC@NLO LO nthreads patch OK in CVMFS"
+			if MGpatch2[0] == 0 and MGpatch2[1] == 1:
+			    print "* [OK] MG5_aMC@NLO LO nthreads patch not made in CVMFS but done in EOS waiting for CVMFS-EOS synch"
+			if MGpatch2[1] == 0:
+			    print "* [PATCH] MG5_aMC@NLO LO nthreads patch not made in EOS"    
+			    print "Patching for nthreads problem... please be patient."
+                            os.system('python ../../Utilities/scripts/update_gridpacks_mg242_thread.py --prepid '+pi)
+                        print "-------------------------EOF MG5_aMC LO/MLM Many Threads Patch Check ----------------------------------"
+                        print "*"
                 if matching >= 2 and check[0] == 2 and check[1] == 1 and check[2] == 1 :
                     print "* [OK] no known inconsistency in the fragment w.r.t. the name of the dataset "+word
                     if matching ==3 :  
@@ -324,7 +366,9 @@ for num in range(0,len(prepid)):
         if tunecheck[6] == 3 or tunecheck[7] == 3:
             if tunecheck[0] != 3:
                 print "* [ERROR] Check if there is some extra tune setting"
-        if 3 not in tunecheck:
+        if 'sherpa' in dn.lower():
+            print "* [WARNING] No automated check of Sherpa ps/tune parameters yet"
+        if 3 not in tunecheck and 'sherpa' not in dn.lower():
             print "* [ERROR] Tune configuration may be wrong in the fragment"
  	    print "          or pythia8CUEP8M1Settings are overwritten by some other parameters as in CUETP8M2T4"
         elif 3 in tunecheck:

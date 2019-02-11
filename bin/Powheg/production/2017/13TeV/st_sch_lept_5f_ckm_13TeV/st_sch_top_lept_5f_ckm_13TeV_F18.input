@@ -1,0 +1,73 @@
+! ST-schannel inputs
+
+withdamp       1
+hdamp 237.8775 ! 1.379*mtop   
+
+withnegweights 1   ! will generate also events with negative-weight 
+
+renscfact  1d0    ! (default 1d0) ren scale factor: muren  = muref * renscfact 
+facscfact  1d0    ! (default 1d0) fac scale factor: mufact = muref * facscfact 
+
+iseed    SEED    ! initialize random number sequence 
+
+numevts NEVENTS     ! number of events to be generated
+ih1   1           ! hadron 1 (1 for protons, -1 for antiprotons)
+ih2   1           ! hadron 2 (1 for protons, -1 for antiprotons)
+
+ebeam1 6500
+ebeam2 6500
+
+
+! To be set only if using LHA pdfs
+lhans1 306000 ! 5FS
+lhans2 306000 ! 5FS
+
+! Parameters to allow or not the use of stored data
+use-old-grid    1 ! if 1 use old grid if file pwggrids.dat is present (<> 1 regenerate)
+use-old-ubound  1 ! if 1 use norm of upper bounding function stored in pwgubound.dat, if present; <> 1 regenerate
+
+ncall1 100000         ! number of calls for initializing the integration grid
+itmx1   4         ! number of iterations for initializing the integration grid
+ncall2 100000         ! number of calls for computing the integral and finding upper bound
+itmx2   4         ! number of iterations for computing the integral and finding upper bound
+foldcsi   5       ! number of folds on csi integration
+foldy     5       ! number of folds on  y  integration
+foldphi   1       ! number of folds on phi integration
+nubound  100000       ! number of bbarra calls to setup norm of upper bounding function
+icsimax  1        ! <= 100, number of csi subdivision when computing the upper bounds
+iymax    1        ! <= 100, number of y subdivision when computing the upper bounds
+xupbound 2d0      ! increase upper bound for radiation generation
+
+ttype        1
+
+! Set for leptonic decay
+topdecaymode 11100   ! decay mode: the 5 digits correspond to the following
+                     ! top-decay channels (l,mu,tau,u,c) 
+                     ! 0 means close, 1 open
+wdecaymode 11100     ! decay mode: the 5 digits correspond to the following
+                     ! primary-w-decay channels (l,mu,tau,u,c) 
+                     ! 0 means close, 1 open
+tdec/elbranching 0.108  ! W electronic branching fraction
+
+topmass      172.5
+bmass        4.80
+wmass        80.398
+sthw2        0.231295
+alphaem_inv  137.0360098
+
+charmthr     1.27
+bottomthr    4.80
+bottomthrpdf 4.80
+
+CKM_Vud   0.97417
+CKM_Vus   0.2248
+CKM_Vub   0.00409
+CKM_Vcd   0.220
+CKM_Vcs   0.995
+CKM_Vcb   0.0405
+CKM_Vtd   0.0082
+CKM_Vts   0.040
+CKM_Vtb   1.0
+
+pdfreweight 0
+storeinfo_rwgt 0 ! store weight information
