@@ -306,24 +306,18 @@ for num in range(0,len(prepid)):
                         print "-------------------------MG5_aMC LO/MLM Many Threads Patch Check --------------------------------------"   
                         ppp_ind_range = 0
                         if slha_flag == 1:
-                            print slha_all_path
                             slha_file_list =  os.listdir(slha_all_path)
                             ppp_ind_range = len(slha_file_list)
-                            print slha_file_list
-#                            gridpack_cvmfs_path = os.popen('ls '+ gridpack_cvmfs_path+' | head -1 | tr \'\n\' \' \'').read()
                         if slha_flag == 0:
                             ppp_ind_range = 1
                         for ppp in range(0,ppp_ind_range):
                             del MGpatch2[:]
                             if slha_flag == 1:
                                 gridpack_cvmfs_path_tmp = slha_all_path+'/'+slha_file_list[ppp]
-                                print gridpack_cvmfs_path_tmp
                                 if "runmode0_TEST" in gridpack_cvmfs_path_tmp:
                                     continue
                                 gridpack_cvmfs_path = gridpack_cvmfs_path_tmp
                                 gridpack_eos_path = gridpack_cvmfs_path_tmp.replace("/cvmfs/cms.cern.ch/phys_generator","/eos/cms/store/group/phys_generator/cvmfs")
-                                print gridpack_eos_path
-                                print gridpack_cvmfs_path 
                             os.system('tar xf '+gridpack_eos_path+' -C '+my_path+'/eos/'+pi)
                             MGpatch2.append(int(os.popen('more '+my_path+'/'+pi+'/'+'runcmsgrid.sh | grep -c "To overcome problem of taking toomanythreads"').read()))
                             MGpatch2.append(int(os.popen('more '+my_path+'/eos/'+pi+'/'+'runcmsgrid.sh | grep -c "To overcome problem of taking toomanythreads"').read()))
