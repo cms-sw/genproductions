@@ -1,0 +1,17 @@
+#set group_subprocesses Auto
+#set ignore_six_quark_processes False
+#set loop_optimized_output True
+#set loop_color_flows False
+#set gauge unitary
+#set complex_mass_scheme False
+#set max_npoint_for_channel 0
+import model sm
+define p = g u c d s u~ c~ d~ s~
+define j = g u c d s u~ c~ d~ s~
+import model HAHM_MG5model_v3/HAHM_variableMW_v3_UFO --modelname
+define l+ = e+ tt+ m+ 
+define l- = e- tt- m- 
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+generate p p > h , (h > hs hs, (hs > zp zp, (zp > l+ l-)))
+output HiggsToHs40ToZdZd6To8L -nojpeg
