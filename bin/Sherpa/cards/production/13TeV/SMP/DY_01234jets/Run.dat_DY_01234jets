@@ -21,10 +21,10 @@
 
 (processes){
   Process 93 93 -> 90 90 93{NJET};
-  Enhance_Factor 4 {3}
-  Enhance_Factor 4 {4}
-  Enhance_Factor 4 {5}
-  Enhance_Factor 4 {6}
+  Enhance_Factor 4 {3};
+  Enhance_Factor 4 {4};
+  Enhance_Factor 4 {5};
+  Enhance_Factor 4 {6};
   Order (*,2); CKKW sqr(QCUT/E_CMS);
   NLO_QCD_Mode MC@NLO {LJET};
   ME_Generator Amegic {LJET};
