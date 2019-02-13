@@ -164,6 +164,7 @@ for num in range(0,len(prepid)):
         autoptjmjj_c = 'del'
         test_drjj_c = -1
         drjj = 1000
+        bw = -1 
 	if "seesaw" in dn.lower() and "fall18" in pi.lower(): #temporary special condition for fall18/autumn18
 	    print "* [WARNING] Please check the priority of this sample in fall18/autumn18"
 	    print "*           This sample should be finished by mid-january" 
@@ -266,12 +267,17 @@ for num in range(0,len(prepid)):
                        ickkw = os.popen('more '+fname+' | tr -s \' \' | grep "= ickkw"').read()
                        autoptjmjj_c = os.popen('more '+fname+' | tr -s \' \' | grep "= auto_ptj_mjj"').read()
                        drjj_c = os.popen('more '+fname+' | tr -s \' \' | grep "= drjj"').read()
+                       bw = os.popen('more '+fname+' | tr -s \' \' | grep "= bwcutoff"').read()
                     elif os.path.isfile(fname2) is True :    
                        ickkw = os.popen('more '+fname2+' | tr -s \' \' | grep "= ickkw"').read()
                        autoptjmjj_c = os.popen('more '+fname2+' | tr -s \' \' | grep "= auto_ptj_mjj"').read()
                        drjj_c = os.popen('more '+fname2+' | tr -s \' \' | grep "= drjj"').read()
+                       bw = os.popen('more '+fname+' | tr -s \' \' | grep "= bwcutoff"').read()
                     test_autoptjmjj = autoptjmjj_c.split()
                     test_drjj_c = drjj_c.split()
+                    test_bw = bw.split() 
+                    if float(test_bw[0]) > 15.:
+                        print " [IMPORTANT WARNING] bwcutoff set to "+str(test_bw[0])+". Note that large bwcutoff values can cause problems in production."
                     matching = int(re.search(r'\d+',ickkw).group())
                     ickkw = str(ickkw)  
                     if matching == 1 and test_autoptjmjj[0].lower() != "true":
