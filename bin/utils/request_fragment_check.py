@@ -272,7 +272,7 @@ for num in range(0,len(prepid)):
                        ickkw = os.popen('more '+fname2+' | tr -s \' \' | grep "= ickkw"').read()
                        autoptjmjj_c = os.popen('more '+fname2+' | tr -s \' \' | grep "= auto_ptj_mjj"').read()
                        drjj_c = os.popen('more '+fname2+' | tr -s \' \' | grep "= drjj"').read()
-                       bw = os.popen('more '+fname+' | tr -s \' \' | grep "= bwcutoff"').read()
+                       bw = os.popen('more '+fname2+' | tr -s \' \' | grep "= bwcutoff"').read()
                     test_autoptjmjj = autoptjmjj_c.split()
                     test_drjj_c = drjj_c.split()
                     test_bw = bw.split() 
