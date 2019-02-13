@@ -58,6 +58,7 @@ parser = argparse.ArgumentParser(
 parser.add_argument('--prepid', type=str, help="check mcm requests using prepids", nargs='+')
 parser.add_argument('--ticket', type=str, help="check mcm requests using ticket number", nargs=1)
 parser.add_argument('--bypass_status', help="don't check request status in mcm", action='store_false')
+parser.add_argument('--apply_many_threads_patch', help="apply the many threads MG5_aMC@NLO LO patch if necessary", action='store_true')
 args = parser.parse_args()
 
 if args.prepid is not None:
@@ -325,12 +326,13 @@ for num in range(0,len(prepid)):
                             if MGpatch2[0] == 0 and MGpatch2[1] == 1:
                                 print "* [OK] MG5_aMC@NLO LO nthreads patch not made in CVMFS but done in EOS waiting for CVMFS-EOS synch"
                             if MGpatch2[1] == 0:
-                                print "* [PATCH] MG5_aMC@NLO LO nthreads patch not made in EOS"    
-                                print "Patching for nthreads problem... please be patient."
-                                if slha_flag == 0: 
-                                    os.system('python ../../Utilities/scripts/update_gridpacks_mg242_thread.py --prepid '+pi)
-                                if slha_flag == 1:
-                                    os.system('python ../../Utilities/scripts/update_gridpacks_mg242_thread.py --gridpack '+gridpack_cvmfs_path)
+                                print "* [PATCH] MG5_aMC@NLO LO nthreads patch not made in EOS"  
+                                if args.apply_many_threads_patch:
+                                    print "Patching for nthreads problem... please be patient."
+                                    if slha_flag == 0: 
+                                        os.system('python ../../Utilities/scripts/update_gridpacks_mg242_thread.py --prepid '+pi)
+                                    if slha_flag == 1:
+                                        os.system('python ../../Utilities/scripts/update_gridpacks_mg242_thread.py --gridpack '+gridpack_cvmfs_path)
                             print "-------------------------EOF MG5_aMC LO/MLM Many Threads Patch Check ----------------------------------"
                             print "*"
                 if matching >= 2 and check[0] == 2 and check[1] == 1 and check[2] == 1 :
