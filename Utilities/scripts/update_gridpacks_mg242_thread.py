@@ -26,13 +26,14 @@ my_path = '/tmp/'+os.environ['USER']+'/replace_gridpacks/'
 
 #for prepid in requests:
 
+
 if  args.prepid is not None:
-    os.system('echo '+prepid)
+    os.system('echo '+prepid[0])
         
-    os.system('mkdir -p '+my_path+'/'+prepid)
-    os.chdir(my_path+'/'+prepid)
-    os.system('wget -q https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_fragment/'+prepid+' -O '+prepid)
-    gridpack_cvmfs_path = os.popen('grep \/cvmfs '+prepid+'| grep -v \'#args\' ').read()
+    os.system('mkdir -p '+my_path+'/'+prepid[0])
+    os.chdir(my_path+'/'+prepid[0])
+    os.system('wget -q https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_fragment/'+prepid[0]+' -O '+prepid[0])
+    gridpack_cvmfs_path = os.popen('grep \/cvmfs '+prepid[0]+'| grep -v \'#args\' ').read()
     gridpack_cvmfs_path = gridpack_cvmfs_path.split('\'')[1]
     gridpack_eos_path = gridpack_cvmfs_path.replace("/cvmfs/cms.cern.ch/phys_generator","/eos/cms/store/group/phys_generator/cvmfs")
 
@@ -49,11 +50,11 @@ if '_noiter.tar.xz' in gridpack_cvmfs_path:
     print "3"
     sys.exit()
         
-prepid = hashlib.sha224(gridpack_cvmfs_path).hexdigest()
+prepid[0] = hashlib.sha224(gridpack_cvmfs_path).hexdigest()
 print 'gridpack_cvmfs_path',gridpack_cvmfs_path; sys.stdout.flush()
-print 'prepid',prepid; sys.stdout.flush()
-os.system('mkdir -p '+my_path+'/'+prepid)
-os.chdir(my_path+'/'+prepid)
+print 'prepid',prepid[0]; sys.stdout.flush()
+os.system('mkdir -p '+my_path+'/'+prepid[0])
+os.chdir(my_path+'/'+prepid[0])
 
 gridpack_eos_path = gridpack_cvmfs_path.replace('/cvmfs/cms.cern.ch/phys_generator/gridpacks/','/eos/cms/store/group/phys_generator/cvmfs/gridpacks/')
 gridpack_eos_path_noiter = gridpack_eos_path.replace('.tar.xz','_runmode0_TEST.tar.xz')
@@ -79,7 +80,7 @@ if statinfo_noiter.st_size <= 10485760:
 # print('rm -rf '+my_path+'/'+prepid+'/*'); sys.stdout.flush()
                 
 print 'PATCHING: untarring',gridpack_eos_path_noiter; sys.stdout.flush()
-os.system('rm -rf '+my_path+'/'+prepid+'/*'); sys.stdout.flush()
+os.system('rm -rf '+my_path+'/'+prepid[0]+'/*'); sys.stdout.flush()
 os.system('tar xf '+gridpack_eos_path_noiter)
         
           
@@ -90,7 +91,7 @@ if merge == "":
         os.system("patch < /eos/cms/store/group/phys_generator/cvmfs/gridpacks/mg_amg_patch/mg242_runmode.patch")
 
                 
-    print 'tarring to gridpack.tar.xz for',prepid; sys.stdout.flush()
+    print 'tarring to gridpack.tar.xz for',prepid[0]; sys.stdout.flush()
     os.system('tar cfJ gridpack.tar.xz ./*')
     statinfo_new = os.stat('gridpack.tar.xz')
     print 'statinfo_new',statinfo_new; sys.stdout.flush()
