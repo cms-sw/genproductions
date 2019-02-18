@@ -35,7 +35,6 @@
   Integration_Error 0.02 {4};
   Integration_Error 0.02 {5};
   Integration_Error 0.05 {6};
-  Scales LOOSE_METS{FSF*MU_F2}{RSF*MU_R2}{QSF*MU_Q2} {7,8};
   End process;
 }(processes)
 
