@@ -144,3 +144,8 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! reweight to get PDF uncertainty
 #***********************************************************************
  5 = maxjetflavor
 #***********************************************************************
+# Store reweight information in the LHE file for off-line model-       *
+# parameter reweighting at NLO+PS accuracy                             *
+#***********************************************************************
+ True = store_rwgt_info ! Store info for reweighting in LHE file
+ 
