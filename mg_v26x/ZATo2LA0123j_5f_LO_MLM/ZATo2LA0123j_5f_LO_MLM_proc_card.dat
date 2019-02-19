@@ -10,4 +10,4 @@ add process p p > lep lep j a @1
 add process p p > lep lep j j a @2
 add process p p > lep lep j j j a @3
 
-output ZATo2LA0123j_5f_LO_FXFX -nojpeg
+output ZATo2LA0123j_5f_LO_MLM -nojpeg
