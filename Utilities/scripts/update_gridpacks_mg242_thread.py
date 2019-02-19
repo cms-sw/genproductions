@@ -39,6 +39,7 @@ if  args.prepid is not None:
 
 if args.gridpack is not None:
     gridpack_cvmfs_path = gridpack_file[0]
+    prepid = ['dummy','prepid']
 print gridpack_cvmfs_path
 if not 'madgraph' in gridpack_cvmfs_path: 
     print "1"
@@ -103,7 +104,7 @@ if merge == "":
 else:
     print "GRIDPACK SEEMS TO BE PATCHED (i.e. merge already present)\n"; sys.stdout.flush()
     sys.exit()
-# os.system('rm -rf '+my_path+'/'+prepid+'/*'); sys.stdout.flush()
+os.system('rm -r '+my_path+'/'+prepid[0]+'/*'); sys.stdout.flush()
 
 
 ##############################################
