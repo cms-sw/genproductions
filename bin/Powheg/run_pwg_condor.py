@@ -447,8 +447,7 @@ mkdir -p include
 
 if [ "$process" = "Zj" ] || [ "$process" = "Wj" ]; then
     tar zxf ../DYNNLOPS.tgz
-    #TODO: move patches to cms gen space
-    wget --no-verbose --no-check-certificate https://mseidel.web.cern.ch/mseidel/public/nnlops_fast_patch3_${process:0:1}.tgz
+    wget --no-verbose --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/slc6_amd64_gcc481/powheg/V2.0/src/nnlops_fast_patch3_${process:0:1}.tgz
     tar zxf nnlops_fast_patch3_${process:0:1}.tgz
     mv Makefile-NNLOPS Makefile
     #diff DYNNLOPS/${process:0:1}NNLOPS/powheg-patches/powheg.makefile Makefile
@@ -1247,7 +1246,7 @@ def mergedynnlo(folderName, process):
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
 
-def runminlo(folderName, njobs, QUEUE, eosdir):
+def dynnlops_runminlo(folderName, njobs, QUEUE, eosdir):
     if 'NONE' in eosdir:
         print('WARNING: using workdir for output files, you may run out of disk space')
         eosdir = os.getcwd()+"/"+folderName
@@ -1312,7 +1311,7 @@ cp log_${seed}.txt ${base}
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
 
-def mergeminlo(folderName, process, eosdir):
+def dynnlops_mergeminlo(folderName, process, eosdir):
     from numpy import median
     # Just recompile this in the default environment
     runCommand ('cd %s; gfortran -o merge3ddata POWHEG-BOX/%s/DYNNLOPS/aux/merge3ddata.f' % (folderName, process), printIt = True)
@@ -1681,12 +1680,12 @@ if __name__ == "__main__":
         print "preparing MINLO files for NNLOPS"
         os.system('cp -p '+args.inputTemplate+' '+args.folderName+'/powheg.input')
         if args.prcName in ["Zj", "Wj"]:
-            runminlo(args.folderName, njobs, QUEUE, args.eosFolder + '/' + EOSfolder)
+            dynnlops_runminlo(args.folderName, njobs, QUEUE, args.eosFolder + '/' + EOSfolder)
     
     elif args.parstage == '88' :
         print "merging MINLO files for NNLOPS"
         if args.prcName in ["Zj", "Wj"]:
-            mergeminlo(args.folderName, args.prcName, args.eosFolder + '/' + EOSfolder)
+            dynnlops_mergeminlo(args.folderName, args.prcName, args.eosFolder + '/' + EOSfolder)
     
     elif args.parstage == '9' :
         # overwriting with original
