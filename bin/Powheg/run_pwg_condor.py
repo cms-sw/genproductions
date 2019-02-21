@@ -450,9 +450,6 @@ if [ "$process" = "Zj" ] || [ "$process" = "Wj" ]; then
     wget --no-verbose --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/slc6_amd64_gcc481/powheg/V2.0/src/nnlops_fast_patch3_${process:0:1}.tgz
     tar zxf nnlops_fast_patch3_${process:0:1}.tgz
     mv Makefile-NNLOPS Makefile
-    #diff DYNNLOPS/${process:0:1}NNLOPS/powheg-patches/powheg.makefile Makefile
-    #sed -i 's/VPATH= /VPATH= DYNNLOPS\/WNNLOPS\/powheg-patches\/:/g' Makefile
-    #sed -i 's/setlocalscales.o/auxiliary.o boost.o setlocalscales2.o/g' Makefile
 fi
 
 
