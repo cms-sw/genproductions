@@ -77,6 +77,8 @@ from itertools import groupby
 
 mcm = McM(dev=False)
 
+error = 0
+
 def root_requests_from_ticket(ticket_prepid, include_docs=False):
     """
     Return list of all root (first ones in the chain) requests of a ticket.
@@ -161,6 +163,8 @@ for num in range(0,len(prepid)):
         nPartonsInBorn_flag = 0
         matching = 10
         ickkw = 'del' # ickkw = matching parameter in madgraph
+        nJetMax = 100
+        nFinal = 100
         autoptjmjj_c = 'del'
         test_drjj_c = -1
         drjj = 1000
@@ -205,9 +209,15 @@ for num in range(0,len(prepid)):
             nPartonsInBorn_flag = 1
             print(os.popen('grep nPartonsInBorn '+pi).read())
         if int(os.popen('grep -c nJetMax '+pi).read()) == 1:  
-            print(os.popen('grep nJetMax '+pi).read())
+            nJetMax = os.popen('grep nJetMax '+pi).read()
+            nJetMax = re.findall('\d+',nJetMax)
+            nJetMax = int(nJetMax[0])
+            print "nJetMax="+str(nJetMax)
         if int(os.popen('grep -c nFinal '+pi).read()) == 1:
-            print(os.popen('grep nFinal '+pi).read())
+            nFinal = os.popen('grep nFinal '+pi).read()
+            nFinal =  re.findall('\d+',nFinal)
+            nFinal = int(nFinal[0])
+            print "nFinal="+str(nFinal)
         for ind, word in enumerate(MEname):
             if ind == 3:
                 break
@@ -277,13 +287,13 @@ for num in range(0,len(prepid)):
                     test_drjj_c = drjj_c.split()
                     test_bw = bw.split() 
                     if float(test_bw[0]) > 15.:
-                        print " [IMPORTANT WARNING] bwcutoff set to "+str(test_bw[0])+". Note that large bwcutoff values can cause problems in production."
+                        print " [WARNING] bwcutoff set to "+str(test_bw[0])+". Note that large bwcutoff values can cause problems in production."
                     matching = int(re.search(r'\d+',ickkw).group())
                     ickkw = str(ickkw)  
-                    if matching == 1 and test_autoptjmjj[0].lower() != "true":
-                        print "* [WARNING] Please set True = auto_ptj_mjj for MLM"    
-                    if matching == 1 and float(test_drjj_c[0]) > 0:
-                        print "* [WARNING] drjj should be set to 0.0 for MLM"
+#                    if matching == 1 and test_autoptjmjj[0].lower() != "true":
+#                        print "* [WARNING] Please set True = auto_ptj_mjj for MLM"    
+#                    if matching == 1 and float(test_drjj_c[0]) > 0:
+#                        print "* [WARNING] drjj should be set to 0.0 for MLM"
                     if matching == 1 or matching == 2:
                         if match_eff == 1:
                             print "* [ERROR] Matched sample but matching efficiency is 1!"
@@ -297,15 +307,32 @@ for num in range(0,len(prepid)):
                             print "* [ERROR] MG5_aMC@NLO multi-run patch missing in gridpack - please re-create a gridpack"
                             print "*            using updated genproductions area"
                         if MGpatch[1] == 0 or MGpatch[2] == 0:
-                            print "* [WARNING] At least one of the MG5_aMC@NLO tmpdir patches is missing."
-                            print "*           --> Please check that you use:"
-                            print "*               >=  CMSSW_7_1_32_patch1 in 7_1_X or"  
-                            print "*               >= CMSSW_9_3_9_patch1 in 9_3_X or"
-                            print "*               >= 10_1_3 in 10_1_X or" 
-                            print "*               >= CMSSW_10_2_0_pre2 in 10_2_X."
-                            print "*           Your request uses "+cmssw+" :"
-                            print "*           If you are not using a proper CMSSW version, please switch to that or"
-                            print "*           re-create the gridpack using the updated genproductions area"
+                            if '10_2' not in cmssw and '9_3' not in cmssw and '7_1' not in cmssw :
+                                print "* [ERROR] At least one of the MG5_aMC@NLO tmpdir patches is missing."
+                                print "* And the request is using a version "+str(cmssw)+" that does not contain the patch."
+                                print "* Please use >= 7_1_32_patch1 or CMSSW_9_3_9_patch1 or 10_2_0_pre2"
+                                error = error + 1 
+                            elif '7_1' in cmssw:
+                                test_version = cmssw.split('_')
+                                if (len(test_version) == 4 and int(test_version[3]) < 33) or (len(test_version) == 5 and (int(test_version[3]) < 32 or (int(test_version[3]) == 32 and "patch1" not in cmssw))):
+                                    print "* [ERROR] At least one of the MG5_aMC@NLO tmpdir patches is missing."
+                                    print "* And the request is using a version "+str(cmssw)+" that does not contain the patch."
+                                    print "* In this release, please at least use CMSSW_7_1_32_patch1"
+                                    error = error + 1
+                            elif '9_3' in cmssw:
+                                test_version = cmssw.split('_')
+                                if (len(test_version) == 4 and int(test_version[3]) < 10) or (len(test_version) == 5 and (int(test_version[3]) < 9 or (int(test_version[3]) == 9 and "patch1" not in cmssw))):
+                                    print "* [ERROR] At least one of the MG5_aMC@NLO tmpdir patches is missing."
+                                    print "* And the request is using a version "+str(cmssw)+" that does not contain the patch."
+                                    print "* In this release, please at least use CMSSW_9_3_9_patch1"
+                                    error = error + 1
+                            elif '10_2' in cmssw:
+                                test_version = cmssw.split('_')
+                                if len(test_version) == 4 and int(test_version[3]) < 1:
+                                    print "* [ERROR] At least one of the MG5_aMC@NLO tmpdir patches is missing."
+                                    print "* And the request is using a version "+str(cmssw)+" that does not contain the patch."
+                                    print "* In this release, please at least use CMSSW_10_2_0_pre2"
+                                    error = error + 1
                         print "*"    
                         print "-------------------------MG5_aMC LO/MLM Many Threads Patch Check --------------------------------------"   
                         ppp_ind_range = 0
@@ -344,7 +371,7 @@ for num in range(0,len(prepid)):
                 if matching >= 2 and check[0] == 2 and check[1] == 1 and check[2] == 1 :
                     print "* [OK] no known inconsistency in the fragment w.r.t. the name of the dataset "+word
                     if matching ==3 :  
-                        print "* [Caution: To check manually] This is a FxFx sample. Please check 'JetMatching:nJetMax' is set"
+                        print "* [WARNING] To check manually - This is a FxFx sample. Please check 'JetMatching:nJetMax' ="+str(nJetMax)+" is OK and"
                         print "*           correctly as number of partons in born matrix element for highest multiplicity."
                     if matching > 3 :
                         print "* [Caution: To check manually] This is a Powheg NLO sample. Please check 'nFinal' is"
@@ -352,9 +379,8 @@ for num in range(0,len(prepid)):
                         print "*                                   in the LHE other than emitted extra parton."
                 elif matching == 1 and check[0] == 0 and check[1] == 0 and check[2] == 0 :    
                     print "* [OK] no known inconsistency in the fragment w.r.t. the name of the dataset "+word
-                    print "* [Caution: To check manually] This is a MadGraph LO sample with Jet matching sample. Please check"
-                    print "*                   'JetMatching:nJetMax' is set correctly as number of partons"
-                    print "*                              in born matrix element for highest multiplicity."
+                    print "* [WARNING] To check manually - This is a MadGraph LO sample. Please check 'JetMatching:nJetMax' ="+str(nJetMax)+" is OK and"
+                    print "*            correctly set as number of partons in born matrix element for highest multiplicity."
                 elif matching == 0 and word == "madgraph" and check[0] == 0 and check[1] == 0 and check[2] == 0 :
                     print "* [OK] no known inconsistency in the fragment w.r.t. the name of the dataset "+word
                 elif matching == 0 and word == "mcatnlo" and check[0] == 2 and check[1] == 1 and check[2] == 1 and loop_flag != 1:
@@ -374,6 +400,7 @@ for num in range(0,len(prepid)):
              powhegcheck.append(int(os.popen('grep -c -i PowhegEmission '+pi).read()))
              if powhegcheck[0] > 0 :
                  print "* [ERROR] Please remove POWHEG settings for MG requests."
+                 error = error + 1
         if knd == -1 :
              purepythiacheck.append(int(os.popen('grep -c -i Pythia8aMCatNLOSettings '+pi).read()))
              purepythiacheck.append(int(os.popen('grep -c -i PowhegEmission '+pi).read()))
@@ -385,14 +412,16 @@ for num in range(0,len(prepid)):
             if mcatnlo_flag == 1: 
                 print "* [ERROR] You are using a loop induced process, [noborn=QCD]."
                 print "*         Please remove all occurances of Pythia8aMCatNLOSettings from the fragment"
+                error = error + 1
             if nPartonsInBorn_flag == 1:
                 print "* [ERROR] You are using a loop induced process, [noborn=QCD]."
-                print "*         Please remove all TimeShower:nPartonsInBorn from the fragment"                        
+                print "*         Please remove all TimeShower:nPartonsInBorn from the fragment"       
+                error = error + 1
         for kk in range (0, 8):   
             tunecheck.append(int(os.popen('grep -v "#" '+pi+' | grep -c -i '+tune[kk]).read()))
         if tunecheck[6] == 3 or tunecheck[7] == 3:
             if tunecheck[0] != 3:
-                print "* [ERROR] Check if there is some extra tune setting"
+                print "* [WARNING] Check if there is some extra tune setting"
         if 'sherpa' in dn.lower():
             print "* [WARNING] No automated check of Sherpa ps/tune parameters yet"
         if 3 not in tunecheck and 'sherpa' not in dn.lower():
@@ -409,16 +438,19 @@ for num in range(0,len(prepid)):
             if int(os.popen('grep -c "from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *" '+pi).read()) == 1 :
                 cmssw_version    = int(re.search("_[0-9]?[0-9]_[0-9]?[0-9]_[0-9]?[0-9]",cmssw).group().replace('_',''))
                 if cmssw_version < int('10_2_3'.replace('_','')) :
-                    print "* [ERROR] PS weights in config but CMSSW version is previous 10_2_3 - please check!"	    
+                    print "* [ERROR] PS weights in config but CMSSW version is < 10_2_3 - please check!"
+                    error = error + 1
                 psweightscheck.append(int(os.popen('grep -c "from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *" '+pi).read()))
                 psweightscheck.append(int(os.popen('grep -c "pythia8PSweightsSettingsBlock," '+pi).read()))
                 psweightscheck.append(int(os.popen('grep -c "pythia8PSweightsSettings" '+pi).read()))
                 if psweightscheck[0] == 1 and psweightscheck[1] == 1 and psweightscheck[2] == 2 :
                     print "* [OK] Parton shower weight configuration probably OK in the fragment"
                 else:
-                    print "* [ERROR] Parton shower weight configuretion not OK in the fragment" 
+                    print "* [ERROR] Parton shower weight configuration not OK in the fragment" 
         if int(os.popen('grep -c -i filter '+pi).read()) > 3 and filter_eff == 1:
             print "* [WARNING] Filters in the fragment but filter efficiency = 1"
 #    os.popen("rm -rf "+my_path+pi).read()  
 print "***********************************************************************************"
-print ""
+print "Number of errors = "+ str(error)
+if error > 0:
+    print "There is at least 1 error. Request won't proceed to VALIDATION"
