@@ -254,6 +254,49 @@ for num in range(0,len(prepid)):
                     if os.path.isfile(file_pwg_check) is True :
                         print "grep from powheg pwhg_checklimits files"
                         print(os.popen('grep emitter '+file_pwg_check+' | head -n 5').read())
+                    with open(os.path.join(my_path, pi, "runcmsgrid.sh")) as f:
+                        content = f.read()
+                        match = re.search(r"""process=(["']?)([^"']*)\1""", content)
+                    if match:
+                        process = match.group(2)
+                        if process == "gg_H_quark-mass-effects":
+                            #for more information on this check, see
+                            #https://its.cern.ch/jira/browse/CMSCOMPPR-4874
+
+                            #this configuration is ok at 125 GeV, but causes trouble starting at around 170:
+                            #  ncall1=50000, itmx1=5, ncall2=50000, itmx2=5, foldcsi=1, foldy=1, foldphi=1
+                            #from mH=300 GeV to 3 TeV, this configuration seems to be fine:
+                            #  ncall1=550000, itmx1=7, ncall2=75000, itmx2=5, foldcsi=2, foldy=5, foldphi=2
+
+                            #I'm printing warnings here for anything less than the second configuration.
+                            #Smaller numbers are probably fine at low mass
+                            desiredvalues = {
+                              "ncall1": 550000,
+                              "itmx1": 7,
+                              "ncall2": 75000,
+                              "itmx2": 5,
+                              "foldcsi": 2,
+                              "foldy": 5,
+                              "foldphi": 2,
+                            }
+                            with open(os.path.join(my_path, pi, "powheg.input")) as f:
+                                content = f.read()
+                                matches = {name: re.search(r"^"+name+" *([0-9]+)", content, flags=re.MULTILINE) for name in desiredvalues}
+                            bad = False
+                            for name, match in matches.iteritems():
+                                if match:
+                                    actualvalue = int(match.group(1))
+                                    if actualvalue < desiredvalues[name]:
+                                        bad = True
+                                        print "* [WARNING] {} = {}, should be at least {} (may be ok if hmass < 150 GeV, please check!)".format(name, actualvalue, desiredvalues[name])
+                                else:
+                                    bad = True
+                                    print "* [ERROR] didn't find "+name+" in powheg.input"
+                            if not bad:
+                                print "* [OK] integration grid setup looks ok for gg_H_quark-mass-effects"
+                    else:
+                        print "* [WARNING] Didn't find powheg process in runcmsgrid.sh"
+
                 if ind > 0:
                     fname_p = my_path+'/'+pi+'/'+'process/madevent/Cards/proc_card_mg5.dat'
                     fname_p2 = my_path+'/'+pi+'/'+'process/Cards/proc_card.dat'
