@@ -1,7 +1,6 @@
 #!/usr/bin/env python
-from optparse import OptionParser
 from argparse import ArgumentParser
-import os, sys, re
+import os, re, subprocess, sys, textwrap
 
 def checkallfiles():
 	if not os.path.exists('./runcmsgrid_template.sh'):
@@ -219,13 +218,27 @@ class RunMcfmOP():
 
 	def submittoqueue(self):
 		fsubbash ='MCFM_submit_%s.sh'%(self.args.datasetname)
-#		os.system('%s' % (fsubbash))
-		os.system('bsub -q %s %s' % (self.args.queue,fsubbash))
+		with open("condor.sub", "w") as f:
+			f.write(textwrap.dedent("""\
+				executable              = {fsubbash}
+				arguments               =
+
+				output                  = condor.$(ClusterId).out
+				error                   = condor.$(ClusterId).err
+				log                     = condor.$(ClusterId).log
+
+				request_memory          = 4000M
+				+JobFlavour             = "{args.queue}"
+
+				#https://www-auth.cs.wisc.edu/lists/htcondor-users/2010-September/msg00009.shtml
+				periodic_remove         = JobStatus == 5
+				WhenToTransferOutput    = ON_EXIT_OR_EVICT
+
+				queue 1
+			""".format(fsubbash=fsubbash, args=self.args)))
+		subprocess.check_call(["condor_submit", "condor.sub"])
 
 	def writeruncmsgrid(self):
-		if not os.path.isfile('runcmsgrid_template.sh'):
-			print 'cannot find runcmsgrid_template.sh, downloading from github...'
-			os.system('wget https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/MCFM/runcmsgrid_template.sh')
 		with open('runcmsgrid_template.sh','r') as ftemp:
 			with open(os.path.join(self.curdir,'runcmsgrid.sh'),'w') as fout:
 				for templine in ftemp.readlines():
