@@ -67,15 +67,15 @@ if args.prepid is not None:
     prepid = args.prepid
 print " "
 
-os.system('source /afs/cern.ch/cms/PPD/PdmV/tools/McM/getCookie.sh')
-os.system('cern-get-sso-cookie -u https://cms-pdmv.cern.ch/mcm/ -o ~/private/prod-cookie.txt --krb --reprocess')
+# os.system('source /afs/cern.ch/cms/PPD/PdmV/tools/McM/getCookie.sh')
+# os.system('cern-get-sso-cookie -u https://cms-pdmv.cern.ch/mcm/ -o ~/private/prod-cookie.txt --krb --reprocess')
 sys.path.append('/afs/cern.ch/cms/PPD/PdmV/tools/McM/')
 
 from rest import McM
 from json import dumps
 from itertools import groupby
 
-mcm = McM(dev=False)
+mcm = McM(dev=False, cookie='cookie.txt', debug=True)
 
 def root_requests_from_ticket(ticket_prepid, include_docs=False):
     """
@@ -420,5 +420,6 @@ for num in range(0,len(prepid)):
         if int(os.popen('grep -c -i filter '+pi).read()) > 3 and filter_eff == 1:
             print "* [WARNING] Filters in the fragment but filter efficiency = 1"
 #    os.popen("rm -rf "+my_path+pi).read()  
+os.remove('cookie.txt')
 print "***********************************************************************************"
 print ""
