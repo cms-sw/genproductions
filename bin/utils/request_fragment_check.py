@@ -60,6 +60,7 @@ parser.add_argument('--ticket', type=str, help="check mcm requests using ticket 
 parser.add_argument('--bypass_status', help="don't check request status in mcm", action='store_false')
 parser.add_argument('--apply_many_threads_patch', help="apply the many threads MG5_aMC@NLO LO patch if necessary", action='store_true')
 parser.add_argument('--cookie', type=str, help="Path to cookie file. If cookie file is not there, it will be created")
+parser.add_argument('--dev', help="Run on DEV instance of McM", action='store_true')
 args = parser.parse_args()
 
 if args.prepid is not None:
@@ -67,7 +68,10 @@ if args.prepid is not None:
     prepid = args.prepid
 print " "
 
-mcm = McM(dev=False, cookie=args.cookie)
+mcm = McM(dev=args.dev, cookie=args.cookie)
+
+if args.dev:
+    print "Running on McM DEV!\n"
 
 error = 0
 
@@ -442,7 +446,6 @@ for num in range(0,len(prepid)):
         if int(os.popen('grep -c -i filter '+pi).read()) > 3 and filter_eff == 1:
             print "* [WARNING] Filters in the fragment but filter efficiency = 1"
 #    os.popen("rm -rf "+my_path+pi).read()  
-os.remove('cookie.txt')
 print "***********************************************************************************"
 print "Number of errors = "+ str(error)
 if error > 0:
