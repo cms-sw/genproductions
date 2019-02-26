@@ -1,11 +1,11 @@
 import os
 import sys
-import time
-import string
 import re 
 import argparse
 import textwrap
-from textwrap import dedent
+from datetime import datetime
+sys.path.append('/afs/cern.ch/cms/PPD/PdmV/tools/McM/')
+from rest import McM
 
 parser = argparse.ArgumentParser(
     formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -59,23 +59,15 @@ parser.add_argument('--prepid', type=str, help="check mcm requests using prepids
 parser.add_argument('--ticket', type=str, help="check mcm requests using ticket number", nargs=1)
 parser.add_argument('--bypass_status', help="don't check request status in mcm", action='store_false')
 parser.add_argument('--apply_many_threads_patch', help="apply the many threads MG5_aMC@NLO LO patch if necessary", action='store_true')
+parser.add_argument('--cookie', type=str, help="Path to cookie file. If cookie file is not there, it will be created")
 args = parser.parse_args()
 
 if args.prepid is not None:
-    parser.parse_args('--prepid 1'.split())
     print "---> "+str(len(args.prepid))+" requests will be checked:"
     prepid = args.prepid
 print " "
 
-# os.system('source /afs/cern.ch/cms/PPD/PdmV/tools/McM/getCookie.sh')
-# os.system('cern-get-sso-cookie -u https://cms-pdmv.cern.ch/mcm/ -o ~/private/prod-cookie.txt --krb --reprocess')
-sys.path.append('/afs/cern.ch/cms/PPD/PdmV/tools/McM/')
-
-from rest import McM
-from json import dumps
-from itertools import groupby
-
-mcm = McM(dev=False, cookie='cookie.txt', debug=True)
+mcm = McM(dev=False, cookie=args.cookie)
 
 error = 0
 
@@ -101,7 +93,6 @@ def root_requests_from_ticket(ticket_prepid, include_docs=False):
 
 
 if args.ticket is not None:
-    parser.parse_args('--ticket 1'.split())
     ticket = args.ticket
     ticket = ticket[0]
     print "------------------------------------"
@@ -116,8 +107,9 @@ if args.ticket is not None:
 
 prepid = list(set(prepid)) #to avoid requests appearing x times if x chains have the same request 
 
-for x in range(0,len(prepid)):
-    print(prepid[x])           
+print "Current date and time: %s" % (datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+for x in prepid:
+    print(x)
 
 for num in range(0,len(prepid)):
     query_str = 'prepid='+prepid[num]
@@ -455,3 +447,10 @@ print "*************************************************************************
 print "Number of errors = "+ str(error)
 if error > 0:
     print "There is at least 1 error. Request won't proceed to VALIDATION"
+
+# Valid range for exit codes is 0-255
+if error > 255 or error < 0:
+    error = 255
+
+# Exit with code, 0 - good, not 0 is bad
+sys.exit(error)
