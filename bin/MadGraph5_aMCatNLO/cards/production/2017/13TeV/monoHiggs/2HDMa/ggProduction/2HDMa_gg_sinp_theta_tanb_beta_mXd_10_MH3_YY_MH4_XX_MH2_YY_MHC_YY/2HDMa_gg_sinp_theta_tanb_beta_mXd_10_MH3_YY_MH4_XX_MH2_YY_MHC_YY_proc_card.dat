@@ -1,0 +1,6 @@
+import model Pseudoscalar_2HDM
+define p = p b b~
+define j = j b b~
+generate g g > xd xd~ h1 / z [QCD]
+output 2HDMa_gg_sinp_theta_tanb_beta_mXd_10_MH3_YY_MH4_XX_MH2_YY_MHC_YY -nojpeg
+

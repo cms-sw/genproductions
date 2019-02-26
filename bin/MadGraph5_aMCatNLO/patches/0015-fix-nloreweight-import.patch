@@ -1,0 +1,19 @@
+--- a/madgraph/interface/reweight_interface.py 2017-08-17 00:25:24.000000000 +0200
++++ b/madgraph/interface/reweight_interface.py 2018-02-03 23:58:11.000000000 +0100
+@@ -1848,13 +1848,13 @@
+             logger.info("mode set to %s" % self.rwgt_mode)
+         if self.has_nlo and 'NLO' in self.rwgt_mode:
+             path = pjoin(obj['rwgt_dir'], 'rw_mevirt','Source')
+-            sys.path.insert(0, path)
+             try:
+-                mymod = __import__('rwgt2py', globals(), locals())
++                mymod = __import__('rw_mevirt.Source.rwgt2py')
+             except ImportError:
+                 misc.compile(['rwgt2py.so'], cwd=path)
+-                mymod = __import__('rwgt2py', globals(), locals())
++                mymod = __import__('rw_mevirt.Source.rwgt2py')
+             with misc.stdchannel_redirected(sys.stdout, os.devnull):
++                mymod = mymod.Source.rwgt2py
+                 mymod.initialise([self.banner.run_card['lpp1'], 
+                               self.banner.run_card['lpp2']],
+                              self.banner.run_card.get_lhapdf_id())

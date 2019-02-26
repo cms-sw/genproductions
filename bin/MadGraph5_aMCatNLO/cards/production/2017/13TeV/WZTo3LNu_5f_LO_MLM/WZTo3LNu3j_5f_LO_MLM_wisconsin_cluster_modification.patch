@@ -1,0 +1,20 @@
+--- a/madgraph/various/cluster.py	2017-08-16 17:25:24.000000000 -0500
++++ b/madgraph/various/cluster.py	2018-03-16 05:32:13.710806284 -0500
+@@ -872,6 +872,8 @@
+         
+         if self.cluster_queue not in ['None', None]:
+             requirement = 'Requirements = %s=?=True' % self.cluster_queue
++        elif "uwlogin" in os.environ["HOSTNAME"] or "hep.wisc.edu" in os.environ["HOSTNAME"]:
++            requirement = 'Requirements = Site == "HEP"'
+         else:
+             requirement = ''
+ 
+@@ -948,6 +950,8 @@
+         
+         if self.cluster_queue not in ['None', None]:
+             requirement = 'Requirements = %s=?=True' % self.cluster_queue
++        elif "uwlogin" in os.environ["HOSTNAME"] or "hep.wisc.edu" in os.environ["HOSTNAME"]:
++            requirement = 'Requirements = Site == "HEP"'
+         else:
+             requirement = ''
+ 

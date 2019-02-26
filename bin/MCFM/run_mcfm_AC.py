@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 from optparse import OptionParser
 from argparse import ArgumentParser
-import os, sys
+import os, sys, re
 
 def checkallfiles():
 	if not os.path.exists('./runcmsgrid_template.sh'):
@@ -30,6 +30,7 @@ class RunMcfmOP():
 		self.parser.add_argument('-d','--datasetname',dest='datasetname',type=str,
 								help='Output grid name',
 								required=True)
+		self.parser.add_argument('--bsisigbkg',type=str,help='BSI/ BKG/ SIG',required=True)
 		self.parser.add_argument('--coupling', type=str, 
 								help="coupling: '0PH','0M','0PM','0PL1','0PHf05ph0','0Mf05ph0',0PL1f05ph0'", 
 								required=True)
@@ -100,9 +101,10 @@ class RunMcfmOP():
 
         @property 
 	def gridname(self):
-		gridname = re.split('_',self.agrs.datasetname)
-		gridname = '_'.join(gridname)
+		gridname = re.split('_',self.args.datasetname)
+		gridname = '_'.join(gridname[:2])
 		return gridname
+
 
 	def editmakefile(self):
 		fmakefile = open('%s/makefile' % (self.mcfmdir))
@@ -167,7 +169,7 @@ class RunMcfmOP():
 		substr+='cd ${basedir}\n'
 		substr+='eval `scramv1 runtime -sh`\n'
 		substr+='git clone https://github.com/usarica/MCFM-7.0_JHUGen.git %s\n'%(self.mcfmdir)
-		substr+='cd %s && git checkout v7.0.5 \n'%(self.mcfmdir)
+		substr+='cd %s && git checkout v7.0.5\n'%(self.mcfmdir)# && git revert 6359f4694370dc35a43c4a058dc6f443affb36f2\n'%(self.mcfmdir)
 		#move readInput.DAT and writeInput.DAT to mcfmdir
 		substr+='mv ${basedir}/*Input.DAT ${basedir}/runcmsgrid.sh ${mcfmdir}\n'
 		substr+='cd ${mcfmdir} \n scram_arch_version=%s \n'%(self.args.scram_arch)
@@ -184,7 +186,7 @@ class RunMcfmOP():
 			mcfmsubmitfile = 'MCFM_submit_setupenvonly.sh'
 			substr+='scramv1 project CMSSW ${cmssw_version} \n'
 			substr+='cd ${mcfmdir}/${cmssw_version}/src \neval `scramv1 runtime -sh`\n cd ${mcfmdir}\n'
-			substr+='python ../ACmdataConfig.py --coupling %s --mcfmdir ${mcfmdir}\n'%(self.args.coupling)
+			substr+='python ../ACmdataConfig.py --coupling %s --bsisigbkg %s --mcfmdir ${mcfmdir}\n'%(self.args.coupling,self.args.bsisigbkg)
 			substr+='sed -i "s~InitPDFset(checkpath([\']PDFsets/[\']//PDFname))~InitPDFsetByName(PDFname)~" src/Parton/pdfwrap_lhapdf.f\n'
 			substr+='chmod 755 compile.sh \n'
 			substr+='./compile.sh \n'
