@@ -165,9 +165,9 @@ for num in range(0,len(prepid)):
         ickkw = 'del' # ickkw = matching parameter in madgraph
         nJetMax = 100
         nFinal = 100
-        autoptjmjj_c = 'del'
-        test_drjj_c = -1
-        drjj = 1000
+#        autoptjmjj_c = 'del'
+#        test_drjj_c = -1
+#        drjj = 1000
         bw = -1 
 	if "seesaw" in dn.lower() and "fall18" in pi.lower(): #temporary special condition for fall18/autumn18
 	    print "* [WARNING] Please check the priority of this sample in fall18/autumn18"
@@ -275,16 +275,20 @@ for num in range(0,len(prepid)):
                     fname2 = my_path+'/'+pi+'/'+'process/Cards/run_card.dat'
                     if os.path.isfile(fname) is True :
                        ickkw = os.popen('more '+fname+' | tr -s \' \' | grep "= ickkw"').read()
-                       autoptjmjj_c = os.popen('more '+fname+' | tr -s \' \' | grep "= auto_ptj_mjj"').read()
-                       drjj_c = os.popen('more '+fname+' | tr -s \' \' | grep "= drjj"').read()
+#                       autoptjmjj_c = os.popen('more '+fname+' | tr -s \' \' | grep "= auto_ptj_mjj"').read()
+#                       drjj_c = os.popen('more '+fname+' | tr -s \' \' | grep "= drjj"').read()
                        bw = os.popen('more '+fname+' | tr -s \' \' | grep "= bwcutoff"').read()
                     elif os.path.isfile(fname2) is True :    
                        ickkw = os.popen('more '+fname2+' | tr -s \' \' | grep "= ickkw"').read()
-                       autoptjmjj_c = os.popen('more '+fname2+' | tr -s \' \' | grep "= auto_ptj_mjj"').read()
-                       drjj_c = os.popen('more '+fname2+' | tr -s \' \' | grep "= drjj"').read()
+#                       autoptjmjj_c = os.popen('more '+fname2+' | tr -s \' \' | grep "= auto_ptj_mjj"').read()
+#                       drjj_c = os.popen('more '+fname2+' | tr -s \' \' | grep "= drjj"').read()
                        bw = os.popen('more '+fname2+' | tr -s \' \' | grep "= bwcutoff"').read()
-                    test_autoptjmjj = autoptjmjj_c.split()
-                    test_drjj_c = drjj_c.split()
+#                    test_autoptjmjj = autoptjmjj_c.split()
+#                    test_drjj_c = drjj_c.split()
+                    else:
+                        print "[ERROR] Although the name of the dataset has ~Madgraph, the gridpack doesn't seem to be a MG5_aMC one. Please check."
+                        error = error + 1
+                        break
                     test_bw = bw.split() 
                     if float(test_bw[0]) > 15.:
                         print " [WARNING] bwcutoff set to "+str(test_bw[0])+". Note that large bwcutoff values can cause problems in production."
