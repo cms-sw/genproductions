@@ -4,7 +4,7 @@ import re
 import argparse
 import textwrap
 from datetime import datetime
-sys.path.append('/afs/cern.ch/user/j/jrumsevi/mcm_scripts')
+sys.path.append('/afs/cern.ch/user/j/jrumsevi/public')
 from rest import McM
 
 parser = argparse.ArgumentParser(
