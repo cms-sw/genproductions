@@ -4,7 +4,7 @@ import re
 import argparse
 import textwrap
 from datetime import datetime
-sys.path.append('/afs/cern.ch/cms/PPD/PdmV/tools/McM/')
+sys.path.append('/afs/cern.ch/user/j/jrumsevi/mcm_scripts')
 from rest import McM
 
 parser = argparse.ArgumentParser(
@@ -59,7 +59,6 @@ parser.add_argument('--prepid', type=str, help="check mcm requests using prepids
 parser.add_argument('--ticket', type=str, help="check mcm requests using ticket number", nargs=1)
 parser.add_argument('--bypass_status', help="don't check request status in mcm", action='store_false')
 parser.add_argument('--apply_many_threads_patch', help="apply the many threads MG5_aMC@NLO LO patch if necessary", action='store_true')
-parser.add_argument('--cookie', type=str, help="Path to cookie file. If cookie file is not there, it will be created")
 parser.add_argument('--dev', help="Run on DEV instance of McM", action='store_true')
 args = parser.parse_args()
 
@@ -68,7 +67,27 @@ if args.prepid is not None:
     prepid = args.prepid
 print " "
 
-mcm = McM(dev=args.dev, cookie=args.cookie)
+
+def get_request(prepid):
+    result = mcm._McM__get('public/restapi/requests/get/%s' % (prepid))
+    result = result.get('results', {})
+    return result
+
+
+def get_range_of_requests(query):
+    result = mcm._McM__put('public/restapi/requests/listwithfile', data={'contents': query})
+    result = result.get('results', {})
+    return result
+
+
+def get_ticket(prepid):
+    result = mcm._McM__get('public/restapi/mccms/get_fragment/%s' % (prepid))
+    result = result.get('results', {})
+    return result
+
+
+# Use no-id as identification mode in order not to use a SSO cookie
+mcm = McM(id='no-id', dev=args.dev, debug=True)
 
 if args.dev:
     print "Running on McM DEV!\n"
@@ -116,8 +135,7 @@ for x in prepid:
     print(x)
 
 for num in range(0,len(prepid)):
-    query_str = 'prepid='+prepid[num]
-    res = mcm.get('requests', query=query_str)
+    res = [get_request(prepid[num])]
     if len(res) == 0 :
         print "***********************************************************************************"
         print "Something's wrong - can not get the request parameters"
