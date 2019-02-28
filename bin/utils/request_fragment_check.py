@@ -281,14 +281,14 @@ for num in range(0,len(prepid)):
                             }
                             with open(os.path.join(my_path, pi, "powheg.input")) as f:
                                 content = f.read()
-                                matches = {name: re.search(r"^"+name+" *([0-9]+)", content, flags=re.MULTILINE) for name in desiredvalues}
+                                matches = dict((name, re.search(r"^"+name+" *([0-9]+)", content, flags=re.MULTILINE)) for name in desiredvalues)
                             bad = False
                             for name, match in matches.iteritems():
                                 if match:
                                     actualvalue = int(match.group(1))
                                     if actualvalue < desiredvalues[name]:
                                         bad = True
-                                        print "* [WARNING] {} = {}, should be at least {} (may be ok if hmass < 150 GeV, please check!)".format(name, actualvalue, desiredvalues[name])
+                                        print "* [WARNING] {0} = {1}, should be at least {2} (may be ok if hmass < 150 GeV, please check!)".format(name, actualvalue, desiredvalues[name])
                                 else:
                                     bad = True
                                     print "* [ERROR] didn't find "+name+" in powheg.input"
