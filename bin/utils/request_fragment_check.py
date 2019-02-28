@@ -4,7 +4,7 @@ import re
 import argparse
 import textwrap
 from datetime import datetime
-sys.path.append('/afs/cern.ch/user/j/jrumsevi/public')
+sys.path.append('/afs/cern.ch/cms/PPD/PdmV/tools/McM/')
 from rest import McM
 
 parser = argparse.ArgumentParser(
@@ -60,6 +60,7 @@ parser.add_argument('--ticket', type=str, help="check mcm requests using ticket 
 parser.add_argument('--bypass_status', help="don't check request status in mcm", action='store_false')
 parser.add_argument('--apply_many_threads_patch', help="apply the many threads MG5_aMC@NLO LO patch if necessary", action='store_true')
 parser.add_argument('--dev', help="Run on DEV instance of McM", action='store_true')
+parser.add_argument('--debug', help="Print debugging information", action='store_true')
 args = parser.parse_args()
 
 if args.prepid is not None:
@@ -87,7 +88,7 @@ def get_ticket(prepid):
 
 
 # Use no-id as identification mode in order not to use a SSO cookie
-mcm = McM(id='no-id', dev=args.dev, debug=True)
+mcm = McM(id='no-id', dev=args.dev, debug=args.debug)
 
 if args.dev:
     print "Running on McM DEV!\n"
