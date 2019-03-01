@@ -31,8 +31,8 @@ define vl~ = ve~ vm~ vt~
 
 #decay w+ > ta+ vt
 set onlyhelicity True
-decay w+ > ell+ vl
-decay w- > ell- vl~
+#decay w+ > ell+ vl
+#decay w- > ell- vl~
 
 # running the actual code
 launch
