@@ -69,26 +69,36 @@ if args.prepid is not None:
 print " "
 
 
+# Use no-id as identification mode in order not to use a SSO cookie
+mcm = McM(id='no-id', dev=args.dev, debug=args.debug)
+
+
 def get_request(prepid):
     result = mcm._McM__get('public/restapi/requests/get/%s' % (prepid))
+    if not result:
+        return {}
+
     result = result.get('results', {})
     return result
 
 
 def get_range_of_requests(query):
     result = mcm._McM__put('public/restapi/requests/listwithfile', data={'contents': query})
+    if not result:
+        return {}
+
     result = result.get('results', {})
     return result
 
 
 def get_ticket(prepid):
-    result = mcm._McM__get('public/restapi/mccms/get_fragment/%s' % (prepid))
+    result = mcm._McM__get('public/restapi/mccms/get/%s' % (prepid))
+    if not result:
+        return {}
+
     result = result.get('results', {})
     return result
 
-
-# Use no-id as identification mode in order not to use a SSO cookie
-mcm = McM(id='no-id', dev=args.dev, debug=args.debug)
 
 if args.dev:
     print "Running on McM DEV!\n"
@@ -101,7 +111,7 @@ def root_requests_from_ticket(ticket_prepid, include_docs=False):
     By default function returns list of prepids.
     If include_docs is set to True, function will return whole documents
     """
-    mccm = mcm.get('mccms',ticket_prepid)
+    mccm = get_ticket(ticket_prepid)
     query = ''
     for root_request in mccm.get('requests',[]):
         if isinstance(root_request,str) or isinstance(root_request,unicode):
@@ -109,7 +119,7 @@ def root_requests_from_ticket(ticket_prepid, include_docs=False):
         elif isinstance(root_request,list):
              # List always contains two elements - start and end of a range
             query += '%s -> %s\n' % (root_request[0], root_request[1])
-    requests = mcm.get_range_of_requests(query)
+    requests = get_range_of_requests(query)
     if not include_docs:
         # Extract only prepids
         requests = [r['prepid'] for r in requests]
@@ -136,7 +146,7 @@ for x in prepid:
     print(x)
 
 for num in range(0,len(prepid)):
-    res = [get_request(prepid[num])]
+    res = get_request(prepid[num])
     if len(res) == 0 :
         print "***********************************************************************************"
         print "Something's wrong - can not get the request parameters"
@@ -146,6 +156,8 @@ for num in range(0,len(prepid)):
     print ""
     print "***********************************************************************************"
 
+    # Create an array of one element so further for loop would not be removed and code re-indented
+    res = [res]
     for r in res:
         pi = r['prepid']
         dn = r['dataset_name']
