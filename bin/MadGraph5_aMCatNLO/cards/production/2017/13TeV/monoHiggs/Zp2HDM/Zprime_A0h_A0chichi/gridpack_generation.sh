@@ -765,7 +765,7 @@ EXTRA_TAR_ARGS=""
 if [ -e $CARDSDIR/${name}_externaltarball.dat ]; then
     EXTRA_TAR_ARGS="${name}_externaltarball.dat header_for_madspin.txt external_tarball"
 fi
-XZ_OPT="$XZ_OPT" tar -cJpsf ${PRODHOME}/${name}_${scram_arch}_${cmssw_version}_tarball.tar.xz mgbasedir process runcmsgrid.sh gridpack_generation*.log InputCards $EXTRA_TAR_ARGS
+XZ_OPT="$XZ_OPT" tar -cJpsf ${PRODHOME}/${name}_${scram_arch}_${cmssw_version}_tarball_gz0p2.tar.xz mgbasedir process runcmsgrid.sh gridpack_generation*.log InputCards $EXTRA_TAR_ARGS
 
 #mv ${name}_${scram_arch}_${cmssw_version}_tarball.tar.xz ${PRODHOME}/${name}_${scram_arch}_${cmssw_version}_tarball_gz0p2.tar.xz
 
