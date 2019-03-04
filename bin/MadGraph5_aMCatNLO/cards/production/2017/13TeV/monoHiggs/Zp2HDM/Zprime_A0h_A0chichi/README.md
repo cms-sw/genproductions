@@ -1,4 +1,4 @@
-# diBosonSamples
+# monoH 2HDM samples
 This is the script to quickly generate the cards and gridpacks ([twiki](https://twiki.cern.ch/twiki/bin/viewauth/CMS/QuickGuideMadGraph5aMCatNLO#Create_the_gridpacks_for_each_pr)) for 2HDM Zprime_A0h_A0chichi model, p p > Zp > h A0, A0 > n1 n1
 
 ### Prerequisites
@@ -14,8 +14,14 @@ after executing python script, gridpacks will be generated in several minutes
 git clone git@github.com:cms-sw/genproductions.git
 # Produce cards
 cd genproductions/bin/MadGraph5_aMCatNLO/
+voms-proxy-init -voms cms -rfc --valid 168:0
 cp cards/production/2017/13TeV/monoHiggs/Zp2HDM/Zprime_A0h_A0chichi/genGridpack_2HDM.py .
+cp cards/production/2017/13TeV/monoHiggs/Zp2HDM/Zprime_A0h_A0chichi/runcmsgrid_LO.sh .
+cp cards/production/2017/13TeV/monoHiggs/Zp2HDM/Zprime_A0h_A0chichi/*gridpack* .
 cp -r cards/production/2017/13TeV/monoHiggs/Zp2HDM/Zprime_A0h_A0chichi/cards/* cards/. 
+mkdir output
+mkdir error
+mkdir log
 python genGridpack_2HDM.py
 
 ## input cards are now generated in the cards directory

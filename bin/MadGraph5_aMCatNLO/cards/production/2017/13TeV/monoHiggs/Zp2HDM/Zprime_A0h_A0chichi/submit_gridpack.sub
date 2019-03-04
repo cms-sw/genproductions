@@ -1,0 +1,10 @@
+universe              = vanilla
+executable            = gridpack_generation.sh
+arguments             = $(myargs)
+output                = output/job.$(ClusterId).$(ProcId).out
+error                 = error/job.$(ClusterId).$(ProcId).err
+log                   = log/job.$(ClusterId).log
+Notify_user           = pedro.fernandez.manteca@cern.ch
+RequestCpus           = 1
++JobFlavour           = "workday"
+queue myargs from file_args.txt
