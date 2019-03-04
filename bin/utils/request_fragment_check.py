@@ -1,11 +1,11 @@
 import os
 import sys
-import time
-import string
 import re 
 import argparse
 import textwrap
-from textwrap import dedent
+from datetime import datetime
+sys.path.append('/afs/cern.ch/cms/PPD/PdmV/tools/McM/')
+from rest import McM
 
 parser = argparse.ArgumentParser(
     formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -59,23 +59,49 @@ parser.add_argument('--prepid', type=str, help="check mcm requests using prepids
 parser.add_argument('--ticket', type=str, help="check mcm requests using ticket number", nargs=1)
 parser.add_argument('--bypass_status', help="don't check request status in mcm", action='store_false')
 parser.add_argument('--apply_many_threads_patch', help="apply the many threads MG5_aMC@NLO LO patch if necessary", action='store_true')
+parser.add_argument('--dev', help="Run on DEV instance of McM", action='store_true')
+parser.add_argument('--debug', help="Print debugging information", action='store_true')
 args = parser.parse_args()
 
 if args.prepid is not None:
-    parser.parse_args('--prepid 1'.split())
     print "---> "+str(len(args.prepid))+" requests will be checked:"
     prepid = args.prepid
 print " "
 
-os.system('source /afs/cern.ch/cms/PPD/PdmV/tools/McM/getCookie.sh')
-os.system('cern-get-sso-cookie -u https://cms-pdmv.cern.ch/mcm/ -o ~/private/prod-cookie.txt --krb --reprocess')
-sys.path.append('/afs/cern.ch/cms/PPD/PdmV/tools/McM/')
 
-from rest import McM
-from json import dumps
-from itertools import groupby
+# Use no-id as identification mode in order not to use a SSO cookie
+mcm = McM(id='no-id', dev=args.dev, debug=args.debug)
 
-mcm = McM(dev=False)
+
+def get_request(prepid):
+    result = mcm._McM__get('public/restapi/requests/get/%s' % (prepid))
+    if not result:
+        return {}
+
+    result = result.get('results', {})
+    return result
+
+
+def get_range_of_requests(query):
+    result = mcm._McM__put('public/restapi/requests/listwithfile', data={'contents': query})
+    if not result:
+        return {}
+
+    result = result.get('results', {})
+    return result
+
+
+def get_ticket(prepid):
+    result = mcm._McM__get('public/restapi/mccms/get/%s' % (prepid))
+    if not result:
+        return {}
+
+    result = result.get('results', {})
+    return result
+
+
+if args.dev:
+    print "Running on McM DEV!\n"
 
 error = 0
 
@@ -85,7 +111,7 @@ def root_requests_from_ticket(ticket_prepid, include_docs=False):
     By default function returns list of prepids.
     If include_docs is set to True, function will return whole documents
     """
-    mccm = mcm.get('mccms',ticket_prepid)
+    mccm = get_ticket(ticket_prepid)
     query = ''
     for root_request in mccm.get('requests',[]):
         if isinstance(root_request,str) or isinstance(root_request,unicode):
@@ -93,7 +119,7 @@ def root_requests_from_ticket(ticket_prepid, include_docs=False):
         elif isinstance(root_request,list):
              # List always contains two elements - start and end of a range
             query += '%s -> %s\n' % (root_request[0], root_request[1])
-    requests = mcm.get_range_of_requests(query)
+    requests = get_range_of_requests(query)
     if not include_docs:
         # Extract only prepids
         requests = [r['prepid'] for r in requests]
@@ -101,7 +127,6 @@ def root_requests_from_ticket(ticket_prepid, include_docs=False):
 
 
 if args.ticket is not None:
-    parser.parse_args('--ticket 1'.split())
     ticket = args.ticket
     ticket = ticket[0]
     print "------------------------------------"
@@ -116,12 +141,12 @@ if args.ticket is not None:
 
 prepid = list(set(prepid)) #to avoid requests appearing x times if x chains have the same request 
 
-for x in range(0,len(prepid)):
-    print(prepid[x])           
+print "Current date and time: %s" % (datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+for x in prepid:
+    print(x)
 
 for num in range(0,len(prepid)):
-    query_str = 'prepid='+prepid[num]
-    res = mcm.get('requests', query=query_str)
+    res = get_request(prepid[num])
     if len(res) == 0 :
         print "***********************************************************************************"
         print "Something's wrong - can not get the request parameters"
@@ -131,6 +156,8 @@ for num in range(0,len(prepid)):
     print ""
     print "***********************************************************************************"
 
+    # Create an array of one element so further for loop would not be removed and code re-indented
+    res = [res]
     for r in res:
         pi = r['prepid']
         dn = r['dataset_name']
@@ -501,3 +528,10 @@ print "*************************************************************************
 print "Number of errors = "+ str(error)
 if error > 0:
     print "There is at least 1 error. Request won't proceed to VALIDATION"
+
+# Valid range for exit codes is 0-255
+if error > 255 or error < 0:
+    error = 255
+
+# Exit with code, 0 - good, not 0 is bad
+sys.exit(error)
