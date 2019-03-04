@@ -8,8 +8,7 @@
   EXCLUSIVE_CLUSTER_MODE 1;
   METS_BBAR_MODE 5;
 
-  % tags for process setup
-  NJET:=2; LJET:=3; QCUT:=30.;
+  QCUT:=30.;
 
   % me generator settings
   ME_SIGNAL_GENERATOR Comix Amegic LOOPGEN;
@@ -28,9 +27,9 @@
   HEPMC_USE_NAMED_WEIGHTS 1;
   SCALE_VARIATIONS 0.25,0.25 0.25,1. 1.,0.25 1.,1. 1.,4. 4.,1. 4.,4.;
   PDF_LIBRARY LHAPDFSherpa;
-  PDF_SET NNPDF30_nlo_as_0118;
+  PDF_SET NNPDF30_nnlo_as_0118;
   USE_PDF_ALPHAS=1;
-  PDF_VARIATIONS NNPDF30_nlo_as_0118[all];
+  PDF_VARIATIONS NNPDF30_nnlo_as_0118[all];
 
   % various settings given via command line
   BEAM_1=2212;
