@@ -6,7 +6,7 @@
 ######################################################################
 # 6+1+6 for 1 dimensional limits
 
-change rwgt_dir rwgt
+change rwgt_dir ./rwgt
  
 #weight_
 launch
