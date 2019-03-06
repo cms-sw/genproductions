@@ -1,0 +1,12 @@
+set param_card sminputs 1 132.35723363577195
+set param_card sminputs 3 0.1180000
+set param_card mass 23 91.1534806191827
+set param_card mass 25 125.0
+set param_card mass 24 80.3579736098775
+set param_card mass 250 91.1534806191827
+set param_card mass 251 80.3579736098775
+set param_card decay 23 2.494266
+set param_card decay 24 2.084299
+set param_card decay 25 0.004070000
+set param_card decay 250 2.494266
+set param_card decay 251 2.084299

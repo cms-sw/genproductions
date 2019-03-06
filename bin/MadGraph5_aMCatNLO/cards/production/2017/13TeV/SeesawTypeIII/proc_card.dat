@@ -1,0 +1,11 @@
+import model SeesawTypeIII_M-SIGMAmass_UFO
+
+define boson = w+ w- z h
+
+define lep = leptons
+
+generate p p > tr+ tr0, tr+ > boson lep, tr0 > boson lep @1
+add process p p > tr- tr0, tr- > boson lep, tr0 > boson lep @2
+add process p p > tr+ tr-, tr+ > boson lep, tr- > boson lep @3
+
+output outputDir

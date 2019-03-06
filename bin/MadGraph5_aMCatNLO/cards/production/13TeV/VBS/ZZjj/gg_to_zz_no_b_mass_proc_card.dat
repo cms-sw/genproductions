@@ -1,0 +1,5 @@
+import model loop_sm-no_b_mass
+define p = g u c d s b u~ c~ d~ s~ b~ # pass to 5 flavors
+define j = p
+generate g g > z z QED=2 QCD=99 [noborn=QCD]
+output gg_to_zz_no_b_mass

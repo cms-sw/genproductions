@@ -1,0 +1,7 @@
+import model loop_sm
+define w = w+ w-
+# exclude s-channel top contribution to avoid
+# overlap with TTZ sample
+generate p p > w w l+ l- $$ t t~ [QCD] @0
+output WWZJetsTo4L_4f_NLO -nojpeg
+

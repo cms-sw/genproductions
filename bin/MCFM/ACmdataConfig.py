@@ -3,7 +3,8 @@
 parameters=['kappa_top','kappa_bot','ghz1','ghz2','ghz4','ghz1_prime2']
 
 class ACConfig(object):
-	def __init__(self,coupling):
+	def __init__(self,coupling,bsisigbkg):
+		self.bsisigbkg = bsisigbkg
 		self.coupling = coupling
 
 	def giveCouplingPara(self, parameter):
@@ -26,30 +27,30 @@ class ACConfig(object):
 
 	@property
 	def ghz2(self):
-		if self.coupling in ['0PH']:
-			return [1,0]
-		elif self.coupling in ['0PHf05ph0']:
-			return [0.35869,0]
-		else:
-			return [0,0]
+		if self.coupling not in ['0PHf05ph0', '0PH']:
+		  return [0,0]
+		if self.coupling == '0PHf05ph0' or self.bsisigbkg=='BSI':
+		  return [0.35869,0]
+		else: # coupling == '0PH' and bsisigbkg == 'SIG'
+		  return [1,0]
 
 	@property
 	def ghz4(self):
-		if self.coupling in ['0M']:
-			return [1,0]
-		elif self.coupling in ['0Mf05ph0']:
-			return [0.366354,0]
-		else:
-			return [0,0]
+		if self.coupling not in ['0Mf05ph0', '0M']:
+                  return [0,0]
+                if self.coupling == '0Mf05ph0' or self.bsisigbkg=='BSI':
+                  return [0.366354,0]
+                else: # coupling == '0M' and bsisigbkg == 'SIG'
+                  return [1,0]
 
 	@property 
 	def ghz1_prime2(self):
-		if self.coupling in ['0PL1']:
-			return [1,0]
-		elif self.coupling in ['0PL1f05ph0']:
-			return [-5921.92, 0]
+		if self.coupling not in ['0PL1','0PL1f05ph0']:
+		  return [0,0]
+		if self.coupling == '0PL1f05ph0' or self.bsisigbkg == 'BSI':
+		  return [-5921.92, 0]
 		else:
-			return [0,0]
+		  return [1,0]
 
 	@classmethod
 	def getAllCouplings(cls):
@@ -83,9 +84,10 @@ import argparse,os
 if __name__=="__main__":
 	parser = argparse.ArgumentParser()
 	parser.add_argument('--coupling',type=str)
+	parser.add_argument('--bsisigbkg',type=str)
 	parser.add_argument('--mcfmdir', type=str)
 	args = parser.parse_args()
-	tmplobj = ACConfig(args.coupling)
+	tmplobj = ACConfig(args.coupling,args.bsisigbkg)
 	mcfmdir = os.path.abspath(args.mcfmdir)
 	Configmdata(tmplobj, mcfmdir)
 
