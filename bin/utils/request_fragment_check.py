@@ -32,13 +32,14 @@ parser = argparse.ArgumentParser(
                   *                         If you are not using a proper CMSSW version, please switch to that or
                   *                         re-create the gridpack using the updated genproductions area
 		  * [WARNING] Filters in the fragment but filter efficiency = 1
+                  * [WARNING] Matched sample but matching efficiency is 1!
+
 
                ERRORS:
                   * [ERROR] Memory is not 2300 or 4000 MB"
                   * [ERROR] Memory is 2300 MB while number of cores is XX but not = 1
                   * [ERROR] Memory is 4000 MB while number of cores is 1 but not = 2,4 or 8
                   * [ERROR] Gridpack should have used cvmfs path instead of eos path
-                  * [ERROR] Matched sample but matching efficiency is 1!
                   * [ERROR] MG5_aMC@NLO multi-run patch missing in gridpack - please re-create a gridpack
                   *            using updated genproductions area
                   * [ERROR] May be wrong fragment: powheg/madgraph/mcatnlo in dataset name but settings in 
@@ -104,7 +105,7 @@ if args.dev:
     print "Running on McM DEV!\n"
 
 error = 0
-
+warning = 0
 def root_requests_from_ticket(ticket_prepid, include_docs=False):
     """
     Return list of all root (first ones in the chain) requests of a ticket.
@@ -199,15 +200,19 @@ for num in range(0,len(prepid)):
 	if "seesaw" in dn.lower() and "fall18" in pi.lower(): #temporary special condition for fall18/autumn18
 	    print "* [WARNING] Please check the priority of this sample in fall18/autumn18"
 	    print "*           This sample should be finished by mid-january" 
+            warning = warning + 1
         for item in te:
             timeperevent = float(item)
         if timeperevent > 150.0 :
             print "* [WARNING] Large time/event="+str(timeperevent)+" - please check"
+            warning = warning + 1
         if '10_2' not in cmssw and '9_3' not in cmssw and '7_1' not in cmssw :
             print "* [WARNING] Are you sure you want to use "+cmssw+"release which is not standard"
             print "*           which may not have all the necessary GEN code."
+            warning = warning + 1
         if totalevents >= 100000000 :
             print "* [WARNING] Is "+str(totalevents)+" events what you really wanted - please check!"
+            warning = warning + 1
         os.popen('wget -q https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_fragment/'+pi+' -O '+pi).read()
         fsize = os.path.getsize(pi)
         os.system('wget -q https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_test/'+pi+' -O '+pi)
@@ -223,15 +228,19 @@ for num in range(0,len(prepid)):
             nthreads = int(re.search('nThreads(.*?) --',ttxt).group(1))
         if mem != 2300 and mem != 4000 :
             print "* [ERROR] Memory is not 2300 or 4000 MB"
+            error = error + 1
         if mem == 2300 and nthreads != 1 :
             print "* [ERROR] Memory is "+str(mem)+" MB while number of cores is "+str(nthreads)+" but not = 1"
+            error = error + 1
         if mem == 4000 and nthreads == 1 :
             print "* [ERROR] Memory is "+str(mem)+" MB while number of cores is "+str(nthreads)+" but not = 2,4 or 8"
+            error = error + 1
         os.system('wget -q https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_fragment/'+pi+' -O '+pi)
         os.system('mkdir -p '+my_path+'/'+pi)
         os.system('mkdir -p '+my_path+'/eos/'+pi)
         if int(os.popen('grep -c eos '+pi).read()) == 1 :
             print "* [ERROR] Gridpack should have used cvmfs path instead of eos path"
+            error = error + 1
         if int(os.popen('grep -c nPartonsInBorn '+pi).read()) == 1:
             nPartonsInBorn_flag = 1
             print(os.popen('grep nPartonsInBorn '+pi).read())
@@ -316,13 +325,16 @@ for num in range(0,len(prepid)):
                                     if actualvalue < desiredvalues[name]:
                                         bad = True
                                         print "* [WARNING] {0} = {1}, should be at least {2} (may be ok if hmass < 150 GeV, please check!)".format(name, actualvalue, desiredvalues[name])
+                                        warning = warning + 1
                                 else:
                                     bad = True
                                     print "* [ERROR] didn't find "+name+" in powheg.input"
+                                    error = error + 1
                             if not bad:
                                 print "* [OK] integration grid setup looks ok for gg_H_quark-mass-effects"
                     else:
                         print "* [WARNING] Didn't find powheg process in runcmsgrid.sh"
+                        warning = warning + 1
 
                 if ind > 0:
                     fname_p = my_path+'/'+pi+'/'+'process/madevent/Cards/proc_card_mg5.dat'
@@ -362,6 +374,7 @@ for num in range(0,len(prepid)):
                     test_bw = bw.split() 
                     if float(test_bw[0]) > 15.:
                         print " [WARNING] bwcutoff set to "+str(test_bw[0])+". Note that large bwcutoff values can cause problems in production."
+                        warning = warning + 1
                     matching = int(re.search(r'\d+',ickkw).group())
                     ickkw = str(ickkw)  
 #                    if matching == 1 and test_autoptjmjj[0].lower() != "true":
@@ -370,7 +383,8 @@ for num in range(0,len(prepid)):
 #                        print "* [WARNING] drjj should be set to 0.0 for MLM"
                     if matching == 1 or matching == 2:
                         if match_eff == 1:
-                            print "* [ERROR] Matched sample but matching efficiency is 1!"
+                            print "* [WARNING] Matched sample but matching efficiency is 1!"
+                            warning = warning + 1
                     if ind < 2:
                         MGpatch.append(int(os.popen('more '+my_path+'/'+pi+'/'+'runcmsgrid.sh | grep -c "FORCE IT TO"').read()))
                         MGpatch.append(int(os.popen('grep -c _CONDOR_SCRATCH_DIR '+my_path+'/'+pi+'/'+'mgbasedir/Template/LO/SubProcesses/refine.sh').read()))
@@ -380,6 +394,7 @@ for num in range(0,len(prepid)):
                         if MGpatch[0] != 1:
                             print "* [ERROR] MG5_aMC@NLO multi-run patch missing in gridpack - please re-create a gridpack"
                             print "*            using updated genproductions area"
+                            error = error + 1
                         if MGpatch[1] == 0 or MGpatch[2] == 0:
                             if '10_2' not in cmssw and '9_3' not in cmssw and '7_1' not in cmssw :
                                 print "* [ERROR] At least one of the MG5_aMC@NLO tmpdir patches is missing."
@@ -445,16 +460,19 @@ for num in range(0,len(prepid)):
                 if matching >= 2 and check[0] == 2 and check[1] == 1 and check[2] == 1 :
                     print "* [OK] no known inconsistency in the fragment w.r.t. the name of the dataset "+word
                     if matching ==3 :  
-                        print "* [WARNING] To check manually - This is a FxFx sample. Please check 'JetMatching:nJetMax' ="+str(nJetMax)+" is OK and"
+                        print "* [WARNING] To check manually (for now) - This is a FxFx sample. Please check 'JetMatching:nJetMax' ="+str(nJetMax)+" is OK and"
+                        warning = warning + 1
                         print "*           correctly as number of partons in born matrix element for highest multiplicity."
                     if matching > 3 :
-                        print "* [Caution: To check manually] This is a Powheg NLO sample. Please check 'nFinal' is"
+                        print "* [WARNING] To check manually (for now) - This is a Powheg NLO sample. Please check 'nFinal' is"
                         print "*               set correctly as number of final state particles (BEFORE THE DECAYS)"
                         print "*                                   in the LHE other than emitted extra parton."
+                        warning = warning + 1
                 elif matching == 1 and check[0] == 0 and check[1] == 0 and check[2] == 0 :    
                     print "* [OK] no known inconsistency in the fragment w.r.t. the name of the dataset "+word
-                    print "* [WARNING] To check manually - This is a MadGraph LO sample. Please check 'JetMatching:nJetMax' ="+str(nJetMax)+" is OK and"
+                    print "* [WARNING] To check manually (for now) - This is a MadGraph LO sample. Please check 'JetMatching:nJetMax' ="+str(nJetMax)+" is OK and"
                     print "*            correctly set as number of partons in born matrix element for highest multiplicity."
+                    warning = warning + 1
                 elif matching == 0 and word == "madgraph" and check[0] == 0 and check[1] == 0 and check[2] == 0 :
                     print "* [OK] no known inconsistency in the fragment w.r.t. the name of the dataset "+word
                 elif matching == 0 and word == "mcatnlo" and check[0] == 2 and check[1] == 1 and check[2] == 1 and loop_flag != 1:
@@ -464,6 +482,7 @@ for num in range(0,len(prepid)):
                     print "*                                                  (before resonance decays) in born matrix element."
                 else:     
                     print "* [ERROR] Fragment may be wrong: check "+word+" settings in the fragment"
+                    error = error + 1
                     if matching <= 1 and word == "madgraph":
                         print "*        You run MG5_aMC@NLO at LO but you have  Pythia8aMCatNLOSettings_cfi in fragment"
                         print "*           --> please remove it from the fragment"
@@ -482,6 +501,7 @@ for num in range(0,len(prepid)):
                  print "* [WARNING] Please remove aMCatNLO or POWHEG settings if this is a pure Pythia request."
                  print "*           If it's not a pure request, in the future, please include madgraph/powheg or amcatnlo"
                  print "*           in the name of the dataset"
+                 warning = warning + 1
         if loop_flag == 1:
             if mcatnlo_flag == 1: 
                 print "* [ERROR] You are using a loop induced process, [noborn=QCD]."
@@ -496,19 +516,24 @@ for num in range(0,len(prepid)):
         if tunecheck[6] == 3 or tunecheck[7] == 3:
             if tunecheck[0] != 3:
                 print "* [WARNING] Check if there is some extra tune setting"
+                warning = warning + 1
         if 'sherpa' in dn.lower():
             print "* [WARNING] No automated check of Sherpa ps/tune parameters yet"
+            warning = warning + 1
         if 3 not in tunecheck and 'sherpa' not in dn.lower():
             print "* [ERROR] Tune configuration may be wrong in the fragment"
  	    print "          or pythia8CUEP8M1Settings are overwritten by some other parameters as in CUETP8M2T4"
+            error = error + 1
         elif 3 in tunecheck:
             print "* [OK] Tune configuration probably OK in the fragment"
             if tunecheck[0] > 2 :
                 if 'Fall18' not in pi and 'Fall17' not in pi :
                     print "* [WARNING] Do you really want to have tune "+tune[0] +" in this campaign?"
+                    warning = warning + 1
         if 'Fall18' in pi and fsize != 0:
             if int(os.popen('grep -c "from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *" '+pi).read()) != 1 :
                 print "* [WARNING] No parton shower weights configuration in the fragment. In the Fall18 campaign, we recommend to include Parton Shower weights"
+                warning = warning + 1
             if int(os.popen('grep -c "from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *" '+pi).read()) == 1 :
                 cmssw_version    = int(re.search("_[0-9]?[0-9]_[0-9]?[0-9]_[0-9]?[0-9]",cmssw).group().replace('_',''))
                 if cmssw_version < int('10_2_3'.replace('_','')) :
@@ -521,10 +546,13 @@ for num in range(0,len(prepid)):
                     print "* [OK] Parton shower weight configuration probably OK in the fragment"
                 else:
                     print "* [ERROR] Parton shower weight configuration not OK in the fragment" 
+                    error = error + 1
         if int(os.popen('grep -c -i filter '+pi).read()) > 3 and filter_eff == 1:
             print "* [WARNING] Filters in the fragment but filter efficiency = 1"
+            warning = warning + 1
 #    os.popen("rm -rf "+my_path+pi).read()  
 print "***********************************************************************************"
+print "Number of warnings = "+ str(warning)
 print "Number of errors = "+ str(error)
 if error > 0:
     print "There is at least 1 error. Request won't proceed to VALIDATION"
