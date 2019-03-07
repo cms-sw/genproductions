@@ -294,7 +294,17 @@ for num in range(0,len(prepid)):
                     file_pwg_check =  my_path+'/'+pi+'/'+'pwhg_checklimits'
                     if os.path.isfile(file_pwg_check) is True :
                         print "grep from powheg pwhg_checklimits files"
-                        print(os.popen('grep emitter '+file_pwg_check+' | head -n 5').read())
+#                        print(os.popen('grep emitter '+file_pwg_check+' | head -n 5').read())
+                        nemit = os.popen('grep emitter '+file_pwg_check+' | head -n 1').read().replace('process','').replace('\n','').split(',')
+                        nemitsplit = nemit[1].split()
+                        print nemitsplit
+                        nemitsplit = nemitsplit[2:]
+                        nfinstatpar = len(nemitsplit)-nemitsplit.count('0')
+                        if nfinstatpar == nFinal :
+                            print "* [OK] nFinal(="+str(nFinal) + ") is equal to the number of final state particles before decays (="+str(nfinstatpar)+")"
+                        if nfinstatpar != nFinal :
+                            print "* [ERROR] nFinal(="+str(nFinal) + ") is NOT equal to the number of final state particles before decays (="+str(nfinstatpar)+")"
+                            error = error + 1
                     with open(os.path.join(my_path, pi, "runcmsgrid.sh")) as f:
                         content = f.read()
                         match = re.search(r"""process=(["']?)([^"']*)\1""", content)
@@ -369,39 +379,20 @@ for num in range(0,len(prepid)):
                         if nJetMax == jet_count:
                             print "* [OK] nJetMax(="+str(nJetMax) + ") is equal to the number of jets in the process(="+str(jet_count)+")"
                         if nJetMax != jet_count and str(jet_count)+"jet" not in dn.lower():
-                            print "* [ERROR] nJetMax(="+str(nJetMax)+") is not equal to the number of jets specified in the proc card(="+str(jet_count)+")"
+                            print "* [ERROR] nJetMax(="+str(nJetMax)+") is NOT equal to the number of jets specified in the proc card(="+str(jet_count)+")"
                             error = error + 1
                         if nJetMax != jet_count and str(jet_count)+"jet" in dn.lower():
                             print "* [WARNING] nJetMax(="+str(nJetMax)+") is not equal to the number of jets specified in the proc card(="+str(jet_count)+")."
                             print "*           Is it because this is an exclusive production with additional samples with higher multiplicity generated separately?"
-                            warning = warning + 1    
-
-                            
-#                    elif os.path.isfile(fname_p2) is True : 
-#                        loop_flag = int(os.popen('more '+fname_p2+' | grep -c "noborn=QCD"').read())
-#                        print fname_p2
-#                        print(os.popen('more '+fname_p2+' | grep "generate" ').read())
-#                        print(os.popen('grep process '+fname_p2).read())
-#                        print(os.popen('grep process '+fname_p2+' | tail -1').read()) 
-#                    elif os.path.isfile(fname_p3) is True :
-#                        loop_flag = int(os.popen('more '+fname_p3+' | grep -c "noborn=QCD"').read())
-#                        print(os.popen('more '+fname_p3+' | grep "generate" ').read())
-#                        print(os.popen('grep process '+fname_p3).read())    
-#                        print(os.popen('grep process '+fname_p3+' | tail -1').read())                     
+                            warning = warning + 1                         
                     fname = my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat'
                     fname2 = my_path+'/'+pi+'/'+'process/Cards/run_card.dat'
                     if os.path.isfile(fname) is True :
                        ickkw = os.popen('more '+fname+' | tr -s \' \' | grep "= ickkw"').read()
-#                       autoptjmjj_c = os.popen('more '+fname+' | tr -s \' \' | grep "= auto_ptj_mjj"').read()
-#                       drjj_c = os.popen('more '+fname+' | tr -s \' \' | grep "= drjj"').read()
                        bw = os.popen('more '+fname+' | tr -s \' \' | grep "= bwcutoff"').read()
                     elif os.path.isfile(fname2) is True :    
                        ickkw = os.popen('more '+fname2+' | tr -s \' \' | grep "= ickkw"').read()
-#                       autoptjmjj_c = os.popen('more '+fname2+' | tr -s \' \' | grep "= auto_ptj_mjj"').read()
-#                       drjj_c = os.popen('more '+fname2+' | tr -s \' \' | grep "= drjj"').read()
                        bw = os.popen('more '+fname2+' | tr -s \' \' | grep "= bwcutoff"').read()
-#                    test_autoptjmjj = autoptjmjj_c.split()
-#                    test_drjj_c = drjj_c.split()
                     else:
                         print "[ERROR] Although the name of the dataset has ~Madgraph, the gridpack doesn't seem to be a MG5_aMC one. Please check."
                         error = error + 1
@@ -412,10 +403,6 @@ for num in range(0,len(prepid)):
                         warning = warning + 1
                     matching = int(re.search(r'\d+',ickkw).group())
                     ickkw = str(ickkw)  
-#                    if matching == 1 and test_autoptjmjj[0].lower() != "true":
-#                        print "* [WARNING] Please set True = auto_ptj_mjj for MLM"    
-#                    if matching == 1 and float(test_drjj_c[0]) > 0:
-#                        print "* [WARNING] drjj should be set to 0.0 for MLM"
                     if matching == 1 or matching == 2:
                         if match_eff == 1:
                             print "* [WARNING] Matched sample but matching efficiency is 1!"
@@ -495,7 +482,7 @@ for num in range(0,len(prepid)):
                             print "*"
                 if matching >= 2 and check[0] == 2 and check[1] == 1 and check[2] == 1 :
                     print "* [OK] no known inconsistency in the fragment w.r.t. the name of the dataset "+word
-                    if matching > 3 :
+                    if matching > 3 and os.path.isfile(file_pwg_check) is False :
                         print "* [WARNING] To check manually (for now) - This is a Powheg NLO sample. Please check 'nFinal' is"
                         print "*               set correctly as number of final state particles (BEFORE THE DECAYS)"
                         print "*                                   in the LHE other than emitted extra parton."
