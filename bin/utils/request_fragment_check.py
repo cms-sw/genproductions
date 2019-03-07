@@ -54,6 +54,7 @@ parser = argparse.ArgumentParser(
                   *         Please remove all occurances of Pythia8aMCatNLOSettings from the fragment
                   * [ERROR] You are using a loop induced process, [noborn=QCD].
                   *         Please remove all TimeShower:nPartonsInBorn from the fragment 
+                  * [ERROR] nJetMax is not equal to the number of jets specified in the proc card
 
                The script also checks if there is no fragment there is a hadronizer used.'''))
 parser.add_argument('--prepid', type=str, help="check mcm requests using prepids", nargs='+')
@@ -193,14 +194,19 @@ for num in range(0,len(prepid)):
         ickkw = 'del' # ickkw = matching parameter in madgraph
         nJetMax = 100
         nFinal = 100
+        jet_count = 0
 #        autoptjmjj_c = 'del'
 #        test_drjj_c = -1
 #        drjj = 1000
         bw = -1 
-	if "seesaw" in dn.lower() and "fall18" in pi.lower(): #temporary special condition for fall18/autumn18
-	    print "* [WARNING] Please check the priority of this sample in fall18/autumn18"
-	    print "*           This sample should be finished by mid-january" 
+#	if "seesaw" in dn.lower() and "fall18" in pi.lower(): #temporary special condition for fall18/autumn18
+#	    print "* [WARNING] Please check the priority of this sample in fall18/autumn18"
+#	    print "*           This sample should be finished by mid-january" 
+#            warning = warning + 1
+        if "herwig" in dn.lower() or "comphep" in dn.lower():
+            print "* [WARNING] herwig or comphep sample. Please check manually"
             warning = warning + 1
+            continue
         for item in te:
             timeperevent = float(item)
         if timeperevent > 150.0 :
@@ -248,7 +254,6 @@ for num in range(0,len(prepid)):
             nJetMax = os.popen('grep nJetMax '+pi).read()
             nJetMax = re.findall('\d+',nJetMax)
             nJetMax = int(nJetMax[0])
-            print "nJetMax="+str(nJetMax)
         if int(os.popen('grep -c nFinal '+pi).read()) == 1:
             nFinal = os.popen('grep nFinal '+pi).read()
             nFinal =  re.findall('\d+',nFinal)
@@ -337,22 +342,43 @@ for num in range(0,len(prepid)):
                         warning = warning + 1
 
                 if ind > 0:
-                    fname_p = my_path+'/'+pi+'/'+'process/madevent/Cards/proc_card_mg5.dat'
+                    filename = my_path+'/'+pi+'/'+'process/madevent/Cards/proc_card_mg5.dat'
                     fname_p2 = my_path+'/'+pi+'/'+'process/Cards/proc_card.dat'
                     fname_p3 = my_path+'/'+pi+'/'+'process/Cards/proc_card_mg5.dat'
-                    if os.path.isfile(fname_p) is True :
-                        loop_flag = int(os.popen('more '+fname_p+' | grep -c "noborn=QCD"').read())
-			print(os.popen('grep generate '+fname_p).read())
-			print(os.popen('grep process '+fname_p).read())
-                    elif os.path.isfile(fname_p2) is True : 
-                        loop_flag = int(os.popen('more '+fname_p2+' | grep -c "noborn=QCD"').read())
-                        print fname_p2
-                        print(os.popen('more '+fname_p2+' | grep "generate" ').read())
-                        print(os.popen('grep process '+fname_p2).read())
-                    elif os.path.isfile(fname_p3) is True :
-                        loop_flag = int(os.popen('more '+fname_p3+' | grep -c "noborn=QCD"').read())
-                        print(os.popen('more '+fname_p3+' | grep "generate" ').read())
-                        print(os.popen('grep process '+fname_p3).read())                        
+                    if os.path.isfile(fname_p2) is True :
+                        filename = fname_p2
+                    if os.path.isfile(fname_p3) is True :
+                        filename = fname_p3
+                    print filename    
+                    if os.path.isfile(filename) is True :
+                        loop_flag = int(os.popen('more '+filename+' | grep -c "noborn=QCD"').read())
+                        gen_line = os.popen('grep generate '+filename).read()
+                        print(gen_line)
+#                        jet_count = jet_count + gen_line.count('j') + gen_line.count('b') + gen_line.count('c')
+                        proc_line = os.popen('grep process '+filename).read()
+                        print(proc_line)
+                        if gen_line.count('@') < proc_line.count('@'):
+                            nproc = proc_line.count('@')
+                            nproc = '@'+str(nproc)
+                            proc_line = proc_line.split('\n')
+                            jet_line = next((s for s in proc_line if nproc in s), None).replace('add process','')
+                            jet_count = jet_line.count('j') + jet_line.count('b') + jet_line.count('c')
+                            if nJetMax == jet_count:
+                                print "* [OK] nJetMax is equal to the number of jets in the process"
+                            if nJetMax != jet_count:
+                                print "* [ERROR] nJetMax is not equal to the number of jets specified in the proc card"
+                                error = error + 1
+#                    elif os.path.isfile(fname_p2) is True : 
+#                        loop_flag = int(os.popen('more '+fname_p2+' | grep -c "noborn=QCD"').read())
+#                        print fname_p2
+#                        print(os.popen('more '+fname_p2+' | grep "generate" ').read())
+#                        print(os.popen('grep process '+fname_p2).read())
+#                        print(os.popen('grep process '+fname_p2+' | tail -1').read()) 
+#                    elif os.path.isfile(fname_p3) is True :
+#                        loop_flag = int(os.popen('more '+fname_p3+' | grep -c "noborn=QCD"').read())
+#                        print(os.popen('more '+fname_p3+' | grep "generate" ').read())
+#                        print(os.popen('grep process '+fname_p3).read())    
+#                        print(os.popen('grep process '+fname_p3+' | tail -1').read())                     
                     fname = my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat'
                     fname2 = my_path+'/'+pi+'/'+'process/Cards/run_card.dat'
                     if os.path.isfile(fname) is True :
@@ -448,7 +474,8 @@ for num in range(0,len(prepid)):
                             if MGpatch2[0] == 0 and MGpatch2[1] == 1:
                                 print "* [OK] MG5_aMC@NLO LO nthreads patch not made in CVMFS but done in EOS waiting for CVMFS-EOS synch"
                             if MGpatch2[1] == 0:
-                                print "* [PATCH] MG5_aMC@NLO LO nthreads patch not made in EOS"  
+                                print "* [ERROR] MG5_aMC@NLO LO nthreads patch not made in EOS"
+                                error = error + 1
                                 if args.apply_many_threads_patch:
                                     print "Patching for nthreads problem... please be patient."
                                     if slha_flag == 0: 
@@ -459,20 +486,16 @@ for num in range(0,len(prepid)):
                             print "*"
                 if matching >= 2 and check[0] == 2 and check[1] == 1 and check[2] == 1 :
                     print "* [OK] no known inconsistency in the fragment w.r.t. the name of the dataset "+word
-                    if matching ==3 :  
-                        print "* [WARNING] To check manually (for now) - This is a FxFx sample. Please check 'JetMatching:nJetMax' ="+str(nJetMax)+" is OK and"
-                        warning = warning + 1
-                        print "*           correctly as number of partons in born matrix element for highest multiplicity."
                     if matching > 3 :
                         print "* [WARNING] To check manually (for now) - This is a Powheg NLO sample. Please check 'nFinal' is"
                         print "*               set correctly as number of final state particles (BEFORE THE DECAYS)"
                         print "*                                   in the LHE other than emitted extra parton."
                         warning = warning + 1
-                elif matching == 1 and check[0] == 0 and check[1] == 0 and check[2] == 0 :    
-                    print "* [OK] no known inconsistency in the fragment w.r.t. the name of the dataset "+word
-                    print "* [WARNING] To check manually (for now) - This is a MadGraph LO sample. Please check 'JetMatching:nJetMax' ="+str(nJetMax)+" is OK and"
-                    print "*            correctly set as number of partons in born matrix element for highest multiplicity."
-                    warning = warning + 1
+#                elif matching == 1 and check[0] == 0 and check[1] == 0 and check[2] == 0 :    
+#                    print "* [OK] no known inconsistency in the fragment w.r.t. the name of the dataset "+word
+#                    print "* [WARNING] To check manually (for now) - This is a MadGraph LO sample. Please check 'JetMatching:nJetMax' ="+str(nJetMax)+" is OK and"
+#                    print "*            correctly set as number of partons in born matrix element for highest multiplicity."
+#                    warning = warning + 1
                 elif matching == 0 and word == "madgraph" and check[0] == 0 and check[1] == 0 and check[2] == 0 :
                     print "* [OK] no known inconsistency in the fragment w.r.t. the name of the dataset "+word
                 elif matching == 0 and word == "mcatnlo" and check[0] == 2 and check[1] == 1 and check[2] == 1 and loop_flag != 1:
