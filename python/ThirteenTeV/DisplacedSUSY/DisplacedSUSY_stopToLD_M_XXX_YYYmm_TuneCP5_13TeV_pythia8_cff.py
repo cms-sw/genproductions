@@ -756,6 +756,7 @@ import FWCore.ParameterSet.Config as cms
 
 from Configuration.Generator.Pythia8CommonSettings_cfi import *
 from Configuration.Generator.MCTunes2017.PythiaCP5Settings_cfi import *
+from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *
 
 generator = cms.EDFilter("Pythia8GeneratorFilter",
     pythiaPylistVerbosity = cms.untracked.int32(0),
@@ -768,6 +769,7 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
     PythiaParameters = cms.PSet(
         pythia8CommonSettingsBlock,
         pythia8CP5SettingsBlock,
+        pythia8PSweightsSettingsBlock,
         processParameters = cms.vstring(
             'SUSY:all = off',
             'SUSY:gg2squarkantisquark  = on',
@@ -780,6 +782,7 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
         parameterSets = cms.vstring(
             'pythia8CommonSettings',
             'pythia8CP5Settings',
+            'pythia8PSweightsSettings',
             'processParameters'
         )
     )
