@@ -47,7 +47,7 @@ def main():
                 f_cust1.close()
             
                 command = './gridpack_generation.sh ' + dirName + ' cards/' + dirName
-                subcom = './submit_gridpack_generation.sh 12000 12000 1nw ' + dirName + ' cards/' + dirName + ' 2nd'
+                subcom = './submit_condor_gridpack_generation.sh ' + dirName + ' cards/' + dirName
                 print(command)
                 if (exe): os.system(command)
                 elif (sub): os.system(subcom)
