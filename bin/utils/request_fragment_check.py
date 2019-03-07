@@ -363,11 +363,20 @@ for num in range(0,len(prepid)):
                             proc_line = proc_line.split('\n')
                             jet_line = next((s for s in proc_line if nproc in s), None).replace('add process','')
                             jet_count = jet_line.count('j') + jet_line.count('b') + jet_line.count('c')
-                            if nJetMax == jet_count:
-                                print "* [OK] nJetMax is equal to the number of jets in the process"
-                            if nJetMax != jet_count:
-                                print "* [ERROR] nJetMax is not equal to the number of jets specified in the proc card"
-                                error = error + 1
+                        else :
+                            jet_line = gen_line.replace('generate','')
+                            jet_count = jet_line.count('j') + jet_line.count('b') + jet_line.count('c')
+                        if nJetMax == jet_count:
+                            print "* [OK] nJetMax(="+str(nJetMax) + ") is equal to the number of jets in the process(="+str(jet_count)+")"
+                        if nJetMax != jet_count and str(jet_count)+"jet" not in dn.lower():
+                            print "* [ERROR] nJetMax(="+str(nJetMax)+") is not equal to the number of jets specified in the proc card(="+str(jet_count)+")"
+                            error = error + 1
+                        if nJetMax != jet_count and str(jet_count)+"jet" in dn.lower():
+                            print "* [WARNING] nJetMax(="+str(nJetMax)+") is not equal to the number of jets specified in the proc card(="+str(jet_count)+")."
+                            print "*           Is it because this is an exclusive production with additional samples with higher multiplicity generated separately?"
+                            warning = warning + 1    
+
+                            
 #                    elif os.path.isfile(fname_p2) is True : 
 #                        loop_flag = int(os.popen('more '+fname_p2+' | grep -c "noborn=QCD"').read())
 #                        print fname_p2
