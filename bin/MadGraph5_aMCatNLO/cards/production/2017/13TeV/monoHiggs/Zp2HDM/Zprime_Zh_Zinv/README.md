@@ -14,14 +14,9 @@ after executing python script, gridpacks will be generated in several minutes
 git clone git@github.com:cms-sw/genproductions.git
 # Produce cards
 cd genproductions/bin/MadGraph5_aMCatNLO/
-voms-proxy-init -voms cms -rfc --valid 168:0
 cp cards/production/2017/13TeV/monoHiggs/Zp2HDM/Zprime_Zh_Zinv/genGridpack_Zp_Zh.py .
 cp cards/production/2017/13TeV/monoHiggs/Zp2HDM/Zprime_Zh_Zinv/runcmsgrid_LO.sh .
-cp cards/production/2017/13TeV/monoHiggs/Zp2HDM/Zprime_Zh_Zinv/*gridpack* .
 cp -r cards/production/2017/13TeV/monoHiggs/Zp2HDM/Zprime_Zh_Zinv/cards/* cards/. 
-mkdir output
-mkdir error
-mkdir log
 python genGridpack_Zp_Zh.py
 
 ## input cards are now generated in the cards directory
