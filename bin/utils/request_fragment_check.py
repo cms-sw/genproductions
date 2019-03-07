@@ -193,6 +193,7 @@ for num in range(0,len(prepid)):
         matching = 10
         ickkw = 'del' # ickkw = matching parameter in madgraph
         nJetMax = 100
+	jet_count_tmp = []
         nFinal = 100
         jet_count = 0
         bw = -1 
@@ -368,15 +369,19 @@ for num in range(0,len(prepid)):
                         loop_flag = int(os.popen('more '+filename+' | grep -c "noborn=QCD"').read())
                         gen_line = os.popen('grep generate '+filename).read()
                         print(gen_line)
-#                        jet_count = jet_count + gen_line.count('j') + gen_line.count('b') + gen_line.count('c')
                         proc_line = os.popen('grep process '+filename).read()
                         print(proc_line)
                         if gen_line.count('@') < proc_line.count('@'):
                             nproc = proc_line.count('@')
                             nproc = '@'+str(nproc)
-                            proc_line = proc_line.split('\n')
-                            jet_line = next((s for s in proc_line if nproc in s), None).replace('add process','')
-                            jet_count = jet_line.count('j') + jet_line.count('b') + jet_line.count('c')
+#                            proc_line = proc_line.split('\n')
+			    proc_line = proc_line.split('add process')	
+#                            jet_line = next((s for s in proc_line if nproc in s), None).replace('add process','')
+			    jet_line = proc_line[len(proc_line)-1]
+			    jet_line_arr = jet_line.split(',')	
+			    for x in range(0,len(jet_line_arr)):
+			        jet_count_tmp.append(jet_line_arr[x].count('j') + jet_line_arr[x].count('b') + jet_line_arr[x].count('c'))	 
+		            jet_count = max(jet_count_tmp)
                         else :
                             jet_line = gen_line.replace('generate','')
                             jet_count = jet_line.count('j') + jet_line.count('b') + jet_line.count('c')
@@ -500,9 +505,10 @@ for num in range(0,len(prepid)):
                     print "* [OK] no known inconsistency in the fragment w.r.t. the name of the dataset "+word
                 elif matching == 0 and word == "mcatnlo" and check[0] == 2 and check[1] == 1 and check[2] == 1 and loop_flag != 1:
                     print "* [OK] no known inconsistency in the fragment w.r.t. the name of the dataset "+word
-                    print "* [Caution: To check manually] Is this a MadGraph NLO sample without matching. Please check 'TimeShower:nPartonsInBorn'"
+                    print "* [WARNING] Is this a MadGraph NLO sample without matching. Please check 'TimeShower:nPartonsInBorn'"
                     print "*                                                   is set correctly as number of coloured particles"
                     print "*                                                  (before resonance decays) in born matrix element."
+		    warning = warning + 1	
                 else:     
                     print "* [ERROR] Fragment may be wrong: check "+word+" settings in the fragment"
                     error = error + 1
@@ -510,8 +516,9 @@ for num in range(0,len(prepid)):
                         print "*        You run MG5_aMC@NLO at LO but you have  Pythia8aMCatNLOSettings_cfi in fragment"
                         print "*           --> please remove it from the fragment"
                     if word == "powheg" :
-                        print "* [However: To check manually] if this is a "+word+" but loop induced process such as gg->ZH," 
+                        print "* [WARNING] if this is a "+word+" but loop induced process such as gg->ZH," 
                         print "*           then fragment is OK (no need to have Pythia8PowhegEmissionVetoSettings)"
+			warning = warning + 1
         if knd == 1 :
              powhegcheck.append(int(os.popen('grep -c -i PowhegEmission '+pi).read()))
              if powhegcheck[0] > 0 :
