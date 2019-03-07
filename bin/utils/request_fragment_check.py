@@ -195,16 +195,9 @@ for num in range(0,len(prepid)):
         nJetMax = 100
         nFinal = 100
         jet_count = 0
-#        autoptjmjj_c = 'del'
-#        test_drjj_c = -1
-#        drjj = 1000
         bw = -1 
-#	if "seesaw" in dn.lower() and "fall18" in pi.lower(): #temporary special condition for fall18/autumn18
-#	    print "* [WARNING] Please check the priority of this sample in fall18/autumn18"
-#	    print "*           This sample should be finished by mid-january" 
-#            warning = warning + 1
-        if "herwig" in dn.lower() or "comphep" in dn.lower():
-            print "* [WARNING] herwig or comphep sample. Please check manually"
+        if "herwig" in dn.lower() or "comphep" in dn.lower() or "calchep" in dn.lower():
+            print "* [WARNING] herwig or comphep or calchep sample. Please check manually"
             warning = warning + 1
             continue
         for item in te:
@@ -221,12 +214,23 @@ for num in range(0,len(prepid)):
             warning = warning + 1
         os.popen('wget -q https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_fragment/'+pi+' -O '+pi).read()
         fsize = os.path.getsize(pi)
-        os.system('wget -q https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_test/'+pi+' -O '+pi)
-        gettest = os.popen('grep cff '+pi+' | grep curl').read()
+        f1 = open(pi,"r") 
+        f2 = open(pi+"_tmp","w")
+        data_f1 = f1.read()
+        data_f2 = re.sub(r'(?m)^ *#.*\n?', '',data_f1)
+        f1.close()
+        f2.write(data_f2)
+        f2.close()
+        os.system('mkdir -p '+my_path+'/'+pi)
+        os.system('mkdir -p '+my_path+'/eos/'+pi)
+        os.system('mv '+pi+'_tmp '+pi)
+        os.system('cp '+pi+' '+my_path+'/'+pi+'/.')
+        os.system('wget -q https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_test/'+pi+' -O '+pi+'_get_test')
+        gettest = os.popen('grep cff '+pi+'_get_test'+' | grep curl').read()
         if fsize == 0:
-            print "* No fragment associated to this request"
-            print "       [Probably OK] if this is the hadronizer you intended to use?: "+gettest
-        ftest = os.system('wget -q https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_test/'+pi+' -O '+pi+'_get_test')
+            print "* [WARNING] No fragment associated to this request"
+            print "*           if this is the hadronizer you intended to use?: "+gettest
+            warning = warning + 1
         ttxt = os.popen('grep nThreads '+pi+'_get_test').read()
         if int(os.popen('grep -c nThreads '+pi+'_get_test').read()) == 0 :
             nthreads = 1
@@ -241,9 +245,9 @@ for num in range(0,len(prepid)):
         if mem == 4000 and nthreads == 1 :
             print "* [ERROR] Memory is "+str(mem)+" MB while number of cores is "+str(nthreads)+" but not = 2,4 or 8"
             error = error + 1
-        os.system('wget -q https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_fragment/'+pi+' -O '+pi)
-        os.system('mkdir -p '+my_path+'/'+pi)
-        os.system('mkdir -p '+my_path+'/eos/'+pi)
+#        os.system('wget -q https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_fragment/'+pi+' -O '+pi)
+#        os.system('mkdir -p '+my_path+'/'+pi)
+#        os.system('mkdir -p '+my_path+'/eos/'+pi)
         if int(os.popen('grep -c eos '+pi).read()) == 1 :
             print "* [ERROR] Gridpack should have used cvmfs path instead of eos path"
             error = error + 1
@@ -272,7 +276,7 @@ for num in range(0,len(prepid)):
                 check.append(int(os.popen('grep -c "pythia8'+ME[knd]+'SettingsBlock," '+pi).read()))
                 if check[2] == 1:
                     mcatnlo_flag = 1
-                os.system('wget -q https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_fragment/'+pi+' -O '+my_path+'/'+pi+'/'+pi)
+#                os.system('wget -q https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_fragment/'+pi+' -O '+my_path+'/'+pi+'/'+pi)   
                 gridpack_cvmfs_path = os.popen('grep \/cvmfs '+my_path+'/'+pi+'/'+pi+'| grep -v \'#args\' ').read()
                 gridpack_cvmfs_path = gridpack_cvmfs_path.split('\'')[1]
                 gridpack_eos_path = gridpack_cvmfs_path.replace("/cvmfs/cms.cern.ch/phys_generator","/eos/cms/store/group/phys_generator/cvmfs")
