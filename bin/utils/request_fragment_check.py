@@ -387,7 +387,7 @@ for num in range(0,len(prepid)):
                             jet_count = jet_line.count('j') + jet_line.count('b') + jet_line.count('c')
                         if nJetMax == jet_count:
                             print "* [OK] nJetMax(="+str(nJetMax) + ") is equal to the number of jets in the process(="+str(jet_count)+")"
-                        if nJetMax != jet_count and str(jet_count)+"jet" not in dn.lower():
+                        if nJetMax != jet_count and str(jet_count)+"jet" not in dn.lower() and gen_line.count('@') != 0:
                             print "* [ERROR] nJetMax(="+str(nJetMax)+") is NOT equal to the number of jets specified in the proc card(="+str(jet_count)+")"
                             error = error + 1
                         if nJetMax != jet_count and str(jet_count)+"jet" in dn.lower():
