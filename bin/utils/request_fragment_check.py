@@ -61,6 +61,7 @@ parser = argparse.ArgumentParser(
 parser.add_argument('--prepid', type=str, help="check mcm requests using prepids", nargs='+')
 parser.add_argument('--ticket', type=str, help="check mcm requests using ticket number", nargs=1)
 parser.add_argument('--bypass_status', help="don't check request status in mcm", action='store_false')
+parser.add_argument('--bypass_validation', help="proceed to next prepid even if there are errors", action='store_false')
 parser.add_argument('--apply_many_threads_patch', help="apply the many threads MG5_aMC@NLO LO patch if necessary", action='store_true')
 parser.add_argument('--dev', help="Run on DEV instance of McM", action='store_true')
 parser.add_argument('--debug', help="Print debugging information", action='store_true')
@@ -106,8 +107,7 @@ def get_ticket(prepid):
 if args.dev:
     print "Running on McM DEV!\n"
 
-error = 0
-warning = 0
+
 def root_requests_from_ticket(ticket_prepid, include_docs=False):
     """
     Return list of all root (first ones in the chain) requests of a ticket.
@@ -198,6 +198,8 @@ for num in range(0,len(prepid)):
         nFinal = 100
         jet_count = 0
         bw = -1 
+        error = 0
+        warning = 0
         if "herwig" in dn.lower() or "comphep" in dn.lower() or "calchep" in dn.lower():
             print "* [WARNING] herwig or comphep or calchep sample. Please check manually"
             warning = warning + 1
@@ -581,7 +583,7 @@ for num in range(0,len(prepid)):
         if int(os.popen('grep -c -i filter '+pi).read()) > 3 and filter_eff == 1:
             print "* [WARNING] Filters in the fragment but filter efficiency = 1"
             warning = warning + 1
-#    os.popen("rm -rf "+my_path+pi).read()  
+    os.popen("rm -rf "+my_path+pi).read()  
     print "***********************************************************************************"
     print "Number of warnings = "+ str(warning)
     print "Number of errors = "+ str(error)
@@ -593,4 +595,8 @@ for num in range(0,len(prepid)):
         error = 255
 
 # Exit with code, 0 - good, not 0 is bad
-    sys.exit(error)
+    if args.bypass_validation:
+        print ""
+        continue
+    else:    
+        sys.exit(error)
