@@ -33,7 +33,9 @@ parser = argparse.ArgumentParser(
                   *                         re-create the gridpack using the updated genproductions area
 		  * [WARNING] Filters in the fragment but filter efficiency = 1
                   * [WARNING] Matched sample but matching efficiency is 1!
-
+                  * [WARNING] nJetMax is not equal to the number of jets specified in the proc card
+                  * [WARNING] nJetMax(="+str(nJetMax)+") is not equal to the number of jets specified in the proc card(="+str(jet_count)+")."
+                  *            Is it because this is an exclusive production with additional samples with higher multiplicity generated separately?"
 
                ERRORS:
                   * [ERROR] Memory is not 2300 or 4000 MB"
@@ -54,7 +56,6 @@ parser = argparse.ArgumentParser(
                   *         Please remove all occurances of Pythia8aMCatNLOSettings from the fragment
                   * [ERROR] You are using a loop induced process, [noborn=QCD].
                   *         Please remove all TimeShower:nPartonsInBorn from the fragment 
-                  * [ERROR] nJetMax is not equal to the number of jets specified in the proc card
 
                The script also checks if there is no fragment there is a hadronizer used.'''))
 parser.add_argument('--prepid', type=str, help="check mcm requests using prepids", nargs='+')
@@ -388,8 +389,8 @@ for num in range(0,len(prepid)):
                         if nJetMax == jet_count:
                             print "* [OK] nJetMax(="+str(nJetMax) + ") is equal to the number of jets in the process(="+str(jet_count)+")"
                         if nJetMax != jet_count and str(jet_count)+"jet" not in dn.lower() and gen_line.count('@') != 0:
-                            print "* [ERROR] nJetMax(="+str(nJetMax)+") is NOT equal to the number of jets specified in the proc card(="+str(jet_count)+")"
-                            error = error + 1
+                            print "* [WARNING] nJetMax(="+str(nJetMax)+") is NOT equal to the number of jets specified in the proc card(="+str(jet_count)+")"
+                            warning = warning + 1
                         if nJetMax != jet_count and str(jet_count)+"jet" in dn.lower():
                             print "* [WARNING] nJetMax(="+str(nJetMax)+") is not equal to the number of jets specified in the proc card(="+str(jet_count)+")."
                             print "*           Is it because this is an exclusive production with additional samples with higher multiplicity generated separately?"
@@ -492,15 +493,15 @@ for num in range(0,len(prepid)):
                 if matching >= 2 and check[0] == 2 and check[1] == 1 and check[2] == 1 :
                     print "* [OK] no known inconsistency in the fragment w.r.t. the name of the dataset "+word
                     if matching > 3 and os.path.isfile(file_pwg_check) is False :
-                        print "* [WARNING] To check manually (for now) - This is a Powheg NLO sample. Please check 'nFinal' is"
+                        print "* [WARNING] To check manually - This is a Powheg NLO sample. Please check 'nFinal' is"
                         print "*               set correctly as number of final state particles (BEFORE THE DECAYS)"
                         print "*                                   in the LHE other than emitted extra parton."
                         warning = warning + 1
-#                elif matching == 1 and check[0] == 0 and check[1] == 0 and check[2] == 0 :    
-#                    print "* [OK] no known inconsistency in the fragment w.r.t. the name of the dataset "+word
-#                    print "* [WARNING] To check manually (for now) - This is a MadGraph LO sample. Please check 'JetMatching:nJetMax' ="+str(nJetMax)+" is OK and"
-#                    print "*            correctly set as number of partons in born matrix element for highest multiplicity."
-#                    warning = warning + 1
+                elif matching == 1 and check[0] == 0 and check[1] == 0 and check[2] == 0 :    
+                    print "* [OK] no known inconsistency in the fragment w.r.t. the name of the dataset "+word
+                    print "* [WARNING] To check manually - This is a MadGraph LO sample. Please check 'JetMatching:nJetMax' ="+str(nJetMax)+" is OK and"
+                    print "*            correctly set as number of partons in born matrix element for highest multiplicity."
+                    warning = warning + 1
                 elif matching == 0 and word == "madgraph" and check[0] == 0 and check[1] == 0 and check[2] == 0 :
                     print "* [OK] no known inconsistency in the fragment w.r.t. the name of the dataset "+word
                 elif matching == 0 and word == "mcatnlo" and check[0] == 2 and check[1] == 1 and check[2] == 1 and loop_flag != 1:
@@ -581,15 +582,15 @@ for num in range(0,len(prepid)):
             print "* [WARNING] Filters in the fragment but filter efficiency = 1"
             warning = warning + 1
 #    os.popen("rm -rf "+my_path+pi).read()  
-print "***********************************************************************************"
-print "Number of warnings = "+ str(warning)
-print "Number of errors = "+ str(error)
-if error > 0:
-    print "There is at least 1 error. Request won't proceed to VALIDATION"
+    print "***********************************************************************************"
+    print "Number of warnings = "+ str(warning)
+    print "Number of errors = "+ str(error)
+    if error > 0:
+        print "There is at least 1 error. Request won't proceed to VALIDATION"
 
 # Valid range for exit codes is 0-255
-if error > 255 or error < 0:
-    error = 255
+    if error > 255 or error < 0:
+        error = 255
 
 # Exit with code, 0 - good, not 0 is bad
-sys.exit(error)
+    sys.exit(error)
