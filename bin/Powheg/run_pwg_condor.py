@@ -33,11 +33,14 @@ def runCommand(command, printIt = False, doIt = 1, TESTING = 0) :
     
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
-def prepareCondorScript( tag, i, folderName, queue, SCALE = '0' ):
+def prepareCondorScript( tag, i, folderName, queue, SCALE = '0', runInBatchDir = False):
    '''prepare the Condor submission script'''
 
-   filename = 'run_' + tag + '.condorConf'
+   filename = 'run_' + folderName + '_' + tag + '.condorConf'
    execname = folderName + '/run_' + tag
+   if runInBatchDir:
+       folderName = rootfolder + '/' + folderName
+       execname = rootfolder + '/' + execname
    logname =  'run_' + tag
    f = open(filename, 'w')
   
@@ -46,17 +49,25 @@ def prepareCondorScript( tag, i, folderName, queue, SCALE = '0' ):
    elif (i == 'hnnlo') :
        f.write('executable              = ' + folderName + '/' + SCALE + '/' + 'launch_NNLO.sh \n')
        f.write('arguments               = HNNLO-LHC13-R04-APX2-' + SCALE + '.input $(ClusterId)$(ProcId) \n')
+   elif (i == 'dynnlo') :
+       f.write('executable              = ' + folderName + '/' +  SCALE + '/' + 'launch_NNLO.sh \n')
+       f.write('arguments               = ' + SCALE + '.input $(ClusterId)$(ProcId) \n')
+   elif (i == 'minlo') :
+       f.write('executable              = ' + folderName + '/minlo-run/launch_minlo.sh \n')
+       f.write('arguments               = ' + 'powheg.input $(ClusterId)$(ProcId) \n')
    else :
        f.write('executable              = ' + execname + '.sh \n')
    f.write('output                  = ' + logname + '_$(ProcId).out \n')
    f.write('error                   = ' + logname + '_$(ProcId).err \n')
    f.write('log                     = ' + logname + '.log \n')
-   f.write('initialdir              = ' + rootfolder + '/' + folderName + '\n')
+   if not runInBatchDir:
+       f.write('initialdir              = ' + rootfolder + '/' + folderName + '\n')
 
    f.write('+JobFlavour             = "'+ queue +'" \n') 
 
    f.write('periodic_remove         = JobStatus == 5  \n')
    f.write('WhenToTransferOutput    = ON_EXIT_OR_EVICT \n')
+   f.write('transfer_output_files   = "" \n')
  
    f.write('\n')
  
@@ -303,7 +314,7 @@ def runGetSource(parstage, xgrid, folderName, powInputName, process, noPdfCheck,
 '''
 # Release to be used to define the environment and the compiler needed
 export RELEASE=${CMSSW_VERSION}
-export jhugenversion="v7.2.6"
+export jhugenversion="v7.2.7"
 
 cd $WORKDIR
 pwd
@@ -337,9 +348,14 @@ else
   echo "INFO: The process $process uses the 4F PDF scheme"
 fi
 
+forDYNNLOPS=0
+if [ "$process" = "Zj" ] || [ "$process" = "Wj" ]; then
+    forDYNNLOPS=1
+fi
+
 cd $WORKDIR
-python make_rwl.py ${is5FlavorScheme} ${defaultPDF}
 cd ${name}
+python ../make_rwl.py ${is5FlavorScheme} ${defaultPDF} ${forDYNNLOPS}
 
 if [ -s ../JHUGen.input ]; then
   cp -p ../JHUGen.input JHUGen.input
@@ -411,6 +427,9 @@ if [ "$process" = "WWJ" ]; then
     patch -l -p0 -i ${WORKDIR}/patches/wwj-weights.patch
     cp ${WORKDIR}/patches/rwl_write_weights2_extra.f POWHEG-BOX/$process/
 fi
+if [ "$process" = "Zj" ] || [ "$process" = "Wj" ]; then
+    patch -l -p0 -i ${WORKDIR}/patches/pwhg_write_weights_nnlo.patch
+fi
 
 
 sed -i -e "s#500#1200#g"  POWHEG-BOX/include/pwhg_rwl.h
@@ -421,6 +440,14 @@ cd POWHEG-BOX/${process}
 
 # This is just to please gcc 4.8.1
 mkdir -p include
+
+if [ "$process" = "Zj" ] || [ "$process" = "Wj" ]; then
+    tar zxf ../DYNNLOPS.tgz
+    wget --no-verbose --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/slc6_amd64_gcc481/powheg/V2.0/src/nnlops_fast_patch3_${process:0:1}.tgz
+    tar zxf nnlops_fast_patch3_${process:0:1}.tgz
+    mv Makefile-NNLOPS Makefile
+fi
+
 
 # Use dynamic linking and lhapdf
 sed -i -e "s#STATIC[ \t]*=[ \t]*-static#STATIC=-dynamic#g" Makefile
@@ -764,6 +791,60 @@ EOF
 
 fi  
 
+if [ "$process" = "Zj" ] || [ "$process" = "Wj" ]; then
+  echo "Compiling DYNNLO...."
+  wget --no-verbose --no-check-certificate http://theory.fi.infn.it/grazzini/codes/dynnlo-v1.5.tgz
+  tar -xzvf dynnlo-v1.5.tgz
+  cd dynnlo-v1.5
+  cp ../POWHEG-BOX/${process}/DYNNLOPS/${process:0:1}NNLOPS/dynnlo-patches/dynnlo.makefile ./makefile
+  cp -r -L ../POWHEG-BOX/${process}/DYNNLOPS/${process:0:1}NNLOPS/dynnlo-patches ./
+  cd src/Need/
+  cat pdfset_lhapdf.f | sed -e "s#30#40#g" | sed -e "s#20#30#g" | sed -e "s#oldPDFname(1:i-1)//'.LHgrid'#oldPDFname(1:i-1)#g" | sed -e "s#oldPDFname(1:i-1)//'.LHpdf'#oldPDFname(1:i-1)#g" | sed -e "s#InitPDFset('PDFsets/'//PDFname)#InitPDFsetByName(PDFname)#g" > pdfset_lhapdf.f.new
+  mv pdfset_lhapdf.f.new pdfset_lhapdf.f
+  cd -
+  cat makefile | sed -e "s#LHAPDFLIB=.\+#LHAPDFLIB=$(scram tool info lhapdf | grep LIBDIR | cut -d "=" -f2)#g" > makefile
+  make || fail_exit "Failed to compile DYNNLO"
+
+  cp -p bin/dynnlo ${WORKDIR}/${name}/
+
+  cd ${WORKDIR}/${name}/POWHEG-BOX/${process}/DYNNLOPS/aux
+  gfortran -mcmodel=medium -o merge3ddata merge3ddata.f  || fail_exit "Failed to compile merge3ddata"
+  cp merge3ddata ${WORKDIR}/${name}/
+  gfortran -mcmodel=medium -o mergedata mergedata.f  || fail_exit "Failed to compile mergedata"
+  cp mergedata ${WORKDIR}/${name}/
+  
+  cd ${WORKDIR}/${name}/POWHEG-BOX/${process}
+  make lhef_analysis_3d || fail_exit "Failed to compile lhef_analysis_3d"
+  cp lhef_analysis_3d ${WORKDIR}/${name}/
+
+  cd ${WORKDIR}/${name}
+  VMASS=`cat powheg.input | grep "^Wmass\|^Zmass" | awk '{print $2}' | cut -d "d" -f1`
+  VMASSEXP=`cat powheg.input | grep "^Wmass\|^Zmass" | awk '{print $2}' | cut -d "d" -f2`
+  VMASS=`echo "( $VMASS*10^$VMASSEXP )" | bc`
+  VMASSMIN=`cat powheg.input | grep "^min_W_mass\|^min_Z_mass" | awk '{print $2}'`
+  VMASSMAX=`cat powheg.input | grep "^max_W_mass\|^max_Z_mass" | awk '{print $2}'`
+  echo $VMASS
+  DYNNLOPROC=3
+  if [ "$process" = "Wj" ]; then
+    DYNNLOPROC=1
+    VID=`cat powheg.input | grep "^idvecbos" | awk '{print $2}'`;
+    if [ "$VID" = "-24" ]; then
+      DYNNLOPROC=2
+    fi
+  fi
+  BEAM=`cat powheg.input | grep "^ebeam1" | cut -d " " -f2 | tr "d" "."`;
+  COMENERGY=`echo "( $BEAM*2 )" | bc`
+  
+  cp POWHEG-BOX/${process}/DYNNLOPS/${process:0:1}NNLOPS/dynnlo-patches/dynnlo.infile dynnlo.infile.orig
+  gawk "/sroot/{gsub(/.*!/,$COMENERGY \\\" !\\\")};\\
+        /nproc/{gsub(/.*!/,$DYNNLOPROC \\\" !\\\")};\\
+        /mur/{gsub(/.*!/, $VMASS \\\" \\\" $VMASS \\\" !\\\")};\\
+        /mwmin/{gsub(/.*!/, $VMASSMIN \\\" \\\" $VMASSMAX \\\" !\\\")};\\
+        /rseed/{gsub(/.*!/,\\\"SEED !\\\")};\\
+        /runstring/{gsub(/.*!/,\\\"'SEED' !\\\")};\\
+        {print}" dynnlo.infile.orig | tee DYNNLO.input
+fi
+
 #mkdir -p workdir
 #cd workdir
 localDir=`pwd`
@@ -938,12 +1019,11 @@ sed -i "s/^withnegweights/#withnegweights 1/g" powheg.input
 if [ "$process" = "HW_ew" ] || [ "$process" = "HZ_ew" ] || [ "$process" = "HZJ_ew" ] || [ "$process" = "HWJ_ew" ] ; then
    echo "# no reweighting in first runx" >> powheg.input
 else 
-   echo "rwl_group_events 2000" >> powheg.input
-   echo "lhapdf6maxsets 50" >> powheg.input
-   echo "rwl_file 'pwg-rwl.dat'" >> powheg.input
-   echo "rwl_format_rwgt 1" >> powheg.input
+   grep -q "rwl_group_events" powheg.input; test $? -eq 0 || echo "rwl_group_events 2000" >> powheg.input
+   grep -q "lhapdf6maxsets" powheg.input; test $? -eq 0 || echo "lhapdf6maxsets 50" >> powheg.input
+   grep -q "rwl_file" powheg.input; test $? -eq 0 || echo "rwl_file 'pwg-rwl.dat'" >> powheg.input
+   grep -q "rwl_format_rwgt" powheg.input; test $? -eq 0 || echo "rwl_format_rwgt 1" >> powheg.input
 fi
-cp -p $WORKDIR/pwg-rwl.dat pwg-rwl.dat
 
 if [ -e ${WORKDIR}/$folderName/cteq6m ]; then
     cp -p ${WORKDIR}/cteq6m .
@@ -996,13 +1076,22 @@ if [ "$process" = "HJ" ]; then
   keepTop='1'
 fi
 
+if [ "$process" = "Zj" ] || [ "$process" = "Wj" ]; then
+  if [ -e ${WORKDIR}/MINLO-W1-denom.top ]; then
+    echo "This gridpack includes NNLOPS reweighting"
+    #force keep top in this case
+    keepTop='1'
+    grep -q "nnlops" powheg.input; test $? -eq 0 || echo "nnlops 1" >> powheg.input
+  fi
+fi
+
 if [ $keepTop == '1' ]; then
     echo 'Keeping validation plots.'
     echo 'Packing...' ${WORKDIR}'/'${process}'_'${SCRAM_ARCH}'_'${CMSSW_VERSION}'_'${folderName}'.tgz'
-    tar zcf ${WORKDIR}'/'${process}'_'${SCRAM_ARCH}'_'${CMSSW_VERSION}'_'${folderName}'.tgz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.lhe --exclude=run_*.sh --exclude=*temp --exclude=pwgbtlupb-*.dat --exclude=pwgrmupb-*.dat
+    tar zcf ${WORKDIR}'/'${process}'_'${SCRAM_ARCH}'_'${CMSSW_VERSION}'_'${folderName}'.tgz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.lhe --exclude=run_*.sh --exclude=*temp --exclude=pwgbtlupb-*.dat --exclude=pwgrmupb-*.dat --exclude=run_*.out --exclude=run_*.err --exclude=run_*.log --exclude=minlo-run --exclude=dynnlo*
 else
     echo 'Packing...' ${WORKDIR}'/'${process}'_'${SCRAM_ARCH}'_'${CMSSW_VERSION}'_'${folderName}'.tgz'
-    tar zcf ${WORKDIR}'/'${process}'_'${SCRAM_ARCH}'_'${CMSSW_VERSION}'_'${folderName}'.tgz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.top --exclude=*.lhe --exclude=run_*.sh --exclude=*temp --exclude=pwgbtlupb-*.dat --exclude=pwgrmupb-*.dat
+    tar zcf ${WORKDIR}'/'${process}'_'${SCRAM_ARCH}'_'${CMSSW_VERSION}'_'${folderName}'.tgz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.top --exclude=*.lhe --exclude=run_*.sh --exclude=*temp --exclude=pwgbtlupb-*.dat --exclude=pwgrmupb-*.dat --exclude=run_*.out --exclude=run_*.err --exclude=run_*.log --exclude=minlo-run --exclude=dynnlo* 
 fi
 
 cd ${WORKDIR}
@@ -1013,6 +1102,10 @@ echo 'Done.'
 ''')
 
     f.close()
+    
+    if prcName in ['Zj', 'Wj']:
+        if os.path.isfile(folderName + '/DYNNLO_mur1_muf1_3D.top'):
+            make_nnlo_rwl(folderName)
 
     os.system('chmod 755 '+filename)
 
@@ -1063,6 +1156,238 @@ cp log_${seed}.txt ${base}
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
 
+def makedynnloconfig(folderName, baseconfig, config, murfac, muffac):
+    with open(folderName+'/'+baseconfig, 'r') as infile:
+        with open(folderName+'/'+config, 'w') as outfile:
+            for line in infile:
+                if 'mur' in line:
+                    mass = float(line.split()[0])
+                    mur = mass*murfac
+                    muf = mass*muffac
+                    newline = '%s %s  ! mur, muf\n' % (str(mur), str(muf))
+                    outfile.write(newline)
+                else:
+                    outfile.write(line)
+
+
+def rundynnlo(folderName, njobs, QUEUE):
+    scales = ["1", "2", "0.5"]
+    baseconfig = "DYNNLO.input"
+    for mur in scales:
+        for muf in scales:
+            config = "DYNNLO_mur%s_muf%s.input" % (mur, muf)
+            makedynnloconfig(folderName, baseconfig, config, float(mur), float(muf))
+            subfolderName = "dynnlo_mur%s_muf%s" % (mur, muf)
+            os.system('mkdir -p ' + folderName + "/" + subfolderName)
+            filename = folderName+"/"+subfolderName+"/launch_NNLO.sh"
+            launching_script = open(filename, "w")
+            launching_script.write("#!/bin/bash\n")
+            launching_script.write('base='+os.getcwd()+"/"+folderName+"/"+subfolderName+'\n\n')
+            launching_script.write('''
+config=$1
+seed=$2
+
+cd $base
+eval `scram runtime -sh`
+cd -
+
+cat $base/../$config | sed -e "s#SEED#$seed#g" > config.input
+cat config.input | sed -e "s#MSTW2008nnlo68cl#NNPDF31_nnlo_hessian_pdfas#g" > config.input.temp
+mv config.input.temp config.input
+
+cp $base/../dynnlo .
+
+./dynnlo < config.input &> log_${seed}.txt
+
+cp *.top ${base}
+
+cp log_${seed}.txt ${base}
+''')
+            launching_script.close()
+            os.system('chmod 755 ' + filename)
+            
+            print 'Submitting to condor queues \n'
+            condorfile = prepareCondorScript(subfolderName, 'dynnlo', folderName, QUEUE, subfolderName, runInBatchDir=True) 
+            runCommand ('condor_submit ' + condorfile + ' -queue '+ str(njobs), TESTING == 0)
+
+
+# ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+
+
+def mergedynnlo(folderName, process):
+    folderName = folderName + '/'
+    from numpy import median
+    # Just recompile this in the default environment
+    runCommand ('cd %s; gfortran -o merge3ddata POWHEG-BOX/%s/DYNNLOPS/aux/merge3ddata.f' % (folderName, process), printIt = True)
+    # Do the work
+    scales = ["1", "2", "0.5"]
+    for mur in scales:
+        for muf in scales:
+            path = 'dynnlo_mur%s_muf%s/' % (mur, muf)
+            files = [path + f for f in os.listdir(folderName+path) if '3D.top' in f]
+            sizes = []
+            for f in files:
+                sizes.append(os.path.getsize(folderName+'/'+f))
+            medianSize = median(sizes)
+            selfiles = [path + f for f in os.listdir(folderName+path) if '3D.top' in f and os.path.getsize(folderName + path + f) == medianSize]
+            print('Using %i files with size = %i, %i files discarded' % (len(selfiles), medianSize, len(files)-len(selfiles)))
+            runCommand ('cd %s; ./merge3ddata 1 ' % folderName + ' '.join(selfiles), printIt = True)
+            runCommand ('cd %s; mv fort.12 ' % folderName + 'DYNNLO_mur%s_muf%s_3D.top' % (mur, muf), printIt = True)
+            
+    #runCommand ('cd %s; for dir in dynnlo_*/; do echo "Removing empty files"; find ${dir} -name "*3D.top" -size  0 -print -delete; echo "Merging files..."; ./merge3ddata 1 ${dir\%?}/*3D.top; mv fort.12 ${dir\%?}_3D.top; done' % (folderName), printIt = True)
+
+# ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+
+
+def dynnlops_runminlo(folderName, njobs, QUEUE, eosdir):
+    if 'NONE' in eosdir:
+        print('WARNING: using workdir for output files, you may run out of disk space')
+        eosdir = os.getcwd()+"/"+folderName
+    
+    os.system('rm -rf ' + folderName + "/minlo-run")
+    os.system('mkdir -p ' + folderName + "/minlo-run")
+    os.system('rm -rf ' + eosdir + "/minlo-run")
+    os.system('mkdir -p ' + eosdir + "/minlo-run")
+    
+    m_outfile = folderName + '/pwg-rwl-scalesonly.dat'
+    m_factor = ['1d0', '2d0', '0.5d0']
+    m_idx = 1001
+    fout = open(m_outfile, 'w')
+    fout.write("<initrwgt>\n")
+    fout.write("<weightgroup name='scale_variation' combine='envelope' >\n")
+    for m_rensc in m_factor :
+      for m_facsc in m_factor :
+        fout.write("<weight id='"+str(m_idx)+"'> renscfact=" + m_rensc + " facscfact=" + m_facsc + " </weight>\n")
+        m_idx = m_idx + 1
+    fout.write("</weightgroup>\n")
+    fout.write("</initrwgt>\n")
+    fout.close()
+
+    filename = folderName+"/minlo-run/launch_minlo.sh"
+    launching_script = open(filename, "w")
+    launching_script.write("#!/bin/bash\n")
+    launching_script.write('base='+os.getcwd()+"/"+folderName+"/minlo-run"+'\n\n')
+    launching_script.write('eosbase='+ eosdir + "/minlo-run")
+    launching_script.write('''
+config=$1
+seed=$2
+
+cd $base
+eval `scram runtime -sh`
+cd -
+
+cp $base/../$config powheg.input
+sed -i "s/^iseed.*/iseed $seed/g" powheg.input
+sed -i "s/^numevts.*/numevts 50000/g" powheg.input
+echo "rwl_file 'pwg-rwl-scalesonly.dat'" >> powheg.input
+
+cp $base/../pwhg_main .
+cp $base/../lhef_analysis_3d .
+cp $base/../*.dat .
+
+./pwhg_main &> log_${seed}.txt
+./lhef_analysis_3d
+
+mkdir -p ${eosbase}/$seed
+cp MINLO*.top ${eosbase}/$seed/
+
+cp log_${seed}.txt ${base}
+''')
+    launching_script.close()
+    os.system('chmod 755 ' + filename)
+    
+    print 'Submitting to condor queues \n'
+    condorfile = prepareCondorScript(folderName + '_minlo', 'minlo', folderName, QUEUE, runInBatchDir=True) 
+    runCommand ('condor_submit ' + condorfile + ' -queue '+ str(njobs), TESTING == 0)
+
+
+# ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+
+
+def dynnlops_mergeminlo(folderName, process, eosdir):
+    from numpy import median
+    # Just recompile this in the default environment
+    runCommand ('cd %s; gfortran -o merge3ddata POWHEG-BOX/%s/DYNNLOPS/aux/merge3ddata.f' % (folderName, process), printIt = True)
+    # Do the work
+    import getpass
+    user = getpass.getuser()
+    runCommand ('mkdir -p /tmp/%s/%s' % (user, folderName), printIt = True)
+    jobdirs = os.listdir(eosdir + '/minlo-run/')
+    # loop over 9 mur+muf combinations
+    for w in range(1, 10):
+        files = []
+        for jd in jobdirs:
+            filename = eosdir + '/minlo-run/' + jd + '/MINLO-W%i-denom.top' % w
+            if os.path.isfile(filename):
+                files.append(filename)
+        sizes = []
+        for f in files:
+            sizes.append(os.path.getsize(f))
+        medianSize = median(sizes)
+        selfiles = []
+        for f in files:
+            if os.path.getsize(f) == medianSize:
+                selfiles.append(f)
+        print('Using %i files with size = %i, %i files discarded' % (len(selfiles), medianSize, len(files)-len(selfiles)))
+        # split into chunks of 10 files
+        n = 10
+        chunks = [selfiles[i:i + n] for i in xrange(0, len(selfiles), n)]
+        # merge
+        temps = []
+        for c in range(len(chunks)):
+            runCommand ('cd %s; ./merge3ddata 1 ' % folderName + ' '.join(chunks[c]), printIt = True)
+            if os.path.isfile(folderName + '/fort.12'):
+                temps.append('/tmp/%s/%s/MINLO-W%i-%i-denom.top' % (user, folderName, w, c))
+                runCommand ('cd %s; mv fort.12 ' % folderName + temps[-1], printIt = True)
+        runCommand ('cd %s; ./merge3ddata 1 ' % folderName + ' '.join(temps), printIt = True)
+        runCommand ('cd %s; mv fort.12 ' % folderName + 'MINLO-W%i-denom.top' % w, printIt = True)
+
+
+# ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+
+
+def make_nnlo_rwl(folderName):
+    # check pwg-rwl.dat
+    rwlfile = 'pwg-rwl.dat'
+    if 'scale_variation2' in open(rwlfile).read():
+        print('Creating 9x9 NNLOxMINLO scale variations')
+    else:
+        exit('Please implement simplified NNLO=MINLO scale variations if you need that mode')
+    nweights = open(rwlfile).read().count('weight id')
+    
+    # write nnlo lists
+    nnlo_outfile  = folderName + '/list_nnlo.txt'
+    minlo_outfile = folderName + '/list_minlo.txt'
+    nnlo_fout  = open(nnlo_outfile, 'w')
+    minlo_fout = open(minlo_outfile, 'w')
+    
+    # crossed scale variations
+    scales = ["1", "2", "0.5"]
+    for mur in scales:
+        for muf in scales:
+            nnlo = "DYNNLO_mur%s_muf%s_3D.top" % (mur, muf)
+            if not os.path.isfile(folderName + '/' + nnlo):
+                exit('%s is missing, exiting!' % nnlo)
+            for i in range(1,10):
+                minlo = 'MINLO-W%i-denom.top' % i
+                if not os.path.isfile(folderName + '/' + minlo):
+                    print('%s is missing, exiting!' % minlo)
+                nnlo_fout.write(nnlo+'\n')
+                minlo_fout.write(minlo+'\n')
+                nweights -= 1
+    
+    # weight pdf variations with nominal ratio
+    while nweights > 0:
+        nnlo_fout.write("DYNNLO_mur1_muf1_3D.top\n")
+        minlo_fout.write("MINLO-W1-denom.top\n")
+        nweights -= 1
+    
+    nnlo_fout.close()
+    minlo_fout.close()
+
+# ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
+
+
 if __name__ == "__main__":
 
     eoscmd = '/afs/cern.ch/project/eos/installation/cms/bin/eos.select' ;
@@ -1096,7 +1421,7 @@ if __name__ == "__main__":
     print '                powheg input cfg file : ' + args.inputTemplate 
     print '                powheg process name : ' + args.prcName
     print '                working folder : ' + args.folderName
- #   print '                EOS folder : ' + args.eosFolder + '/' + EOSfolder
+    print '                EOS folder (stages 4,7,8) : ' + args.eosFolder + '/' + EOSfolder
     print '                base folder : ' + rootfolder
     print
  
@@ -1298,7 +1623,7 @@ if __name__ == "__main__":
                        args.numEvents, powInputName, args.rndSeed,
                        args.prcName, scriptName)
 
-        if QUEUE == '':
+        if QUEUE == 'none':
             print 'Direct compiling and running... \n'
             #runCommand ('bash run_source.sh ', TESTING == 1)
             os.system('bash '+scriptName+' >& '+
@@ -1323,7 +1648,7 @@ if __name__ == "__main__":
         createTarBall(args.parstage, args.folderName, args.prcName,
                       args.keepTop, args.rndSeed, scriptName)
 
-        if QUEUE == '':
+        if QUEUE == 'none':
             print 'Direct running in one shot... \n'
             os.system('bash '+scriptName+' >& '+
                       scriptName.split('.sh')[0]+'.log &')
@@ -1333,9 +1658,28 @@ if __name__ == "__main__":
             runCommand ('condor_submit ' + condorfile + ' -queue 1', TESTING == 0)
 
     elif args.parstage == '7' :
-      print "preparing for NNLO reweighting"
-      runhnnlo(args.folderName, njobs, QUEUE)
+        print "preparing for NNLO reweighting"
+        if args.prcName == "HJ":
+            runhnnlo(args.folderName, njobs, QUEUE)
+        if args.prcName in ["Zj", "Wj"]:
+            rundynnlo(args.folderName, njobs, QUEUE)
 
+    elif args.parstage == '77' :
+        print "merging DYNNLO files for NNLOPS"
+        if args.prcName in ["Zj", "Wj"]:
+            mergedynnlo(args.folderName, args.prcName)
+    
+    elif args.parstage == '8' :
+        print "preparing MINLO files for NNLOPS"
+        os.system('cp -p '+args.inputTemplate+' '+args.folderName+'/powheg.input')
+        if args.prcName in ["Zj", "Wj"]:
+            dynnlops_runminlo(args.folderName, njobs, QUEUE, args.eosFolder + '/' + EOSfolder)
+    
+    elif args.parstage == '88' :
+        print "merging MINLO files for NNLOPS"
+        if args.prcName in ["Zj", "Wj"]:
+            dynnlops_mergeminlo(args.folderName, args.prcName, args.eosFolder + '/' + EOSfolder)
+    
     elif args.parstage == '9' :
         # overwriting with original
         scriptName = './run_tar_'+args.folderName+'.sh'
