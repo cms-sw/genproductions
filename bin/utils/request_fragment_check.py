@@ -240,15 +240,32 @@ for num in range(0,len(prepid)):
             nthreads = 1
         else :
             nthreads = int(re.search('nThreads(.*?) --',ttxt).group(1))
-        if mem != 2300 and mem != 4000 :
-            print "* [ERROR] Memory is not 2300 or 4000 MB"
-            error = error + 1
-        if mem == 2300 and nthreads != 1 :
-            print "* [ERROR] Memory is "+str(mem)+" MB while number of cores is "+str(nthreads)+" but not = 1"
-            error = error + 1
-        if mem == 4000 and nthreads == 1 :
-            print "* [ERROR] Memory is "+str(mem)+" MB while number of cores is "+str(nthreads)+" but not = 2,4 or 8"
-            error = error + 1
+        if "HIN-HINPbPbAutumn18GSHIMix" not in pi and "HINPbPbAutumn18wmLHEGSHIMix" not in pi:    
+            if mem != 2300 and mem != 4000:
+                print "* [ERROR] Memory is not 2300 or 4000 MB"
+                error = error + 1
+            if mem == 2300 and nthreads != 1 :
+                print "* [ERROR] Memory is "+str(mem)+" MB while number of cores is "+str(nthreads)+" but not = 1"
+                error = error + 1
+            if mem == 4000 and nthreads == 1 :
+                print "* [ERROR] Memory is "+str(mem)+" MB while number of cores is "+str(nthreads)+" but not = 2,4 or 8"
+                error = error + 1
+        if "HIN-HINPbPbAutumn18GSHIMix" in pi and "HINPbPbAutumn18wmLHEGSHIMix" in pi:
+            if mem != 14700 and mem != 5900 and mem != 4000 and mem != 2300:
+                print "* [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix campaign but Memory is not 14700, 5900, 400, or 2300 MB"
+                error = error + 1
+            if mem == 14700 and nthreads != 8 :
+                print "* [ERROR] Memory is "+str(mem)+" MB while number of cores is "+str(nthreads)+" but not = 8"
+                error = error + 1
+            if mem == 5900 and nthreads != 4 :
+                print "* [ERROR] Memory is "+str(mem)+" MB while number of cores is "+str(nthreads)+" but not = 4"
+                error = error + 1
+            if mem == 4000 and nthreads != 2 :
+                print "* [ERROR] Memory is "+str(mem)+" MB while number of cores is "+str(nthreads)+" but not = 2"
+                error = error + 1
+            if mem == 2300 and nthreads != 1:
+                print "* [ERROR] Memory is "+str(mem)+" MB while number of cores is "+str(nthreads)+" but not = 1"
+                error = error + 1
 #        os.system('wget -q https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_fragment/'+pi+' -O '+pi)
 #        os.system('mkdir -p '+my_path+'/'+pi)
 #        os.system('mkdir -p '+my_path+'/eos/'+pi)
@@ -584,7 +601,7 @@ for num in range(0,len(prepid)):
             print "* [WARNING] Filters in the fragment but filter efficiency = 1"
             warning = warning + 1
         os.popen("rm -rf "+my_path+pi).read()  
-        os.popen("rm -rf "+my_path+'/eos/'+pi).read()
+        os.popen("rm -rf "+my_path+'eos/'+pi).read()
         print "***********************************************************************************"
         print "Number of warnings = "+ str(warning)
         print "Number of errors = "+ str(error)
