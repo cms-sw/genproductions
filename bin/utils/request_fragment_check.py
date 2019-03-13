@@ -562,7 +562,7 @@ for num in range(0,len(prepid)):
                 print "*         Please remove all TimeShower:nPartonsInBorn from the fragment"       
                 error = error + 1
         for kk in range (0, 8):   
-            tunecheck.append(int(os.popen('grep -v "#" '+pi+' | grep -c -i '+tune[kk]).read()))
+            tunecheck.append(int(os.popen('grep -v "#" '+pi+' | grep -v "annotation" | grep -c -i '+tune[kk]).read()))
         if tunecheck[6] == 3 or tunecheck[7] == 3:
             if tunecheck[0] != 3:
                 print "* [WARNING] Check if there is some extra tune setting"
