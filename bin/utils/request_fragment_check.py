@@ -571,9 +571,13 @@ for num in range(0,len(prepid)):
             print "* [WARNING] No automated check of Sherpa ps/tune parameters yet"
             warning = warning + 1
         if 3 not in tunecheck and 'sherpa' not in dn.lower():
-            print "* [ERROR] Tune configuration may be wrong in the fragment"
- 	    print "          or pythia8CUEP8M1Settings are overwritten by some other parameters as in CUETP8M2T4"
-            error = error + 1
+	    if any(it!=0 for it in tunecheck) :
+            	print "* [ERROR] Tune configuration may be wrong in the fragment"
+ 	    	print "          or pythia8CUEP8M1Settings are overwritten by some other parameters as in CUETP8M2T4"
+            	error = error + 1
+	    else :
+		print "* [WARNING] None standard tune - please check the fragment carefully."
+		warning = warning + 1	
         elif 3 in tunecheck:
             print "* [OK] Tune configuration probably OK in the fragment"
             if tunecheck[0] > 2 :
