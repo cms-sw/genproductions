@@ -285,6 +285,8 @@ for num in range(0,len(prepid)):
             nFinal = int(nFinal[0])
             print "nFinal="+str(nFinal)
         for ind, word in enumerate(MEname):
+            if fsize == 0:
+                break
             if ind == 3:
                 break
             if word in dn.lower() :
