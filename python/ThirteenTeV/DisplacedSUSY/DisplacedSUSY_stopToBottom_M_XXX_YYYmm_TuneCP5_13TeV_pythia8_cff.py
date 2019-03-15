@@ -788,14 +788,4 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
     )
 )
 
-dirhadrongenfilter = cms.EDFilter("MCParticlePairFilter",
-    MinPt = cms.untracked.vdouble(0., 0.),
-    MinP = cms.untracked.vdouble(0., 0.),
-    MaxEta = cms.untracked.vdouble(100., 100.),
-    MinEta = cms.untracked.vdouble(-100, -100),
-    ParticleCharge = cms.untracked.int32(0),
-    ParticleID1 = cms.untracked.vint32(1000612,1000622,1000632,1000642,1000652,1006113,1006211,1006213,1006223,1006311,1006313,1006321,1006323,1006333),
-    ParticleID2 = cms.untracked.vint32(1000612,1000622,1000632,1000642,1000652,1006113,1006211,1006213,1006223,1006311,1006313,1006321,1006323,1006333)
-)
-
-ProductionFilterSequence = cms.Sequence(generator*dirhadrongenfilter)
+ProductionFilterSequence = cms.Sequence(generator)
