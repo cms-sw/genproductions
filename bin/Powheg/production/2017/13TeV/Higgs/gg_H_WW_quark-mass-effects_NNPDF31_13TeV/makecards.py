@@ -40,6 +40,8 @@ parameters = (
   (2000, 1000.0, 247.5),
   (2500, 1250.0, 297.5),
   (3000, 1500.0, 347.5),
+  (4000, 2000.0, 447.5),
+  (5000, 2500.0, 547.5),
 )
 
 with open("gg_H_WW_quark-mass-effects_NNPDF31_13TeV_template.input") as f:
@@ -48,5 +50,10 @@ with open("gg_H_WW_quark-mass-effects_NNPDF31_13TeV_template.input") as f:
 dct = {}
 
 for dct["mass"], dct["width"], dct["hfact"] in parameters:
+  if dct["mass"] < 300:
+    dct.update(ncall1=50000, itmx1=5, ncall2=50000, foldcsi=1, foldy=1, foldphi=1)
+  else:
+    dct.update(ncall1=550000, itmx1=7, ncall2=75000, foldcsi=2, foldy=5, foldphi=2)
+
   with open("gg_H_WW_quark-mass-effects_NNPDF31_13TeV_M{}.input".format(dct["mass"]), "w") as f:
     f.write(template.format(**dct))
