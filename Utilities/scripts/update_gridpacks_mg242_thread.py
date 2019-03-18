@@ -104,7 +104,7 @@ if merge == "":
 else:
     print "GRIDPACK SEEMS TO BE PATCHED (i.e. merge already present)\n"; sys.stdout.flush()
     sys.exit()
-os.system('rm -r '+my_path+'/'+prepid[0]+'/*'); sys.stdout.flush()
+os.system('rm -rf '+my_path+'/*'); sys.stdout.flush()
 
 
 ##############################################
