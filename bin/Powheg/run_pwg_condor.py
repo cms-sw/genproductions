@@ -1692,6 +1692,7 @@ if __name__ == "__main__":
         os.system('cd '+rootfolder+';bash '+scriptName)
 
     else                    :
+        os.system('cp -p '+args.inputTemplate+' '+args.folderName+'/powheg.input')
         runEvents(args.parstage, args.folderName,
                   args.eosFolder + '/' + EOSfolder, njobs, powInputName,
                   jobtag, args.prcName)
