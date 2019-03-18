@@ -50,5 +50,5 @@ with open("gg_H_WW_quark-mass-effects_NNPDF31_13TeV_template.input") as f:
 dct = {}
 
 for dct["mass"], dct["width"], dct["hfact"] in parameters:
-    with open("gg_H_WW_quark-mass-effects_NNPDF31_13TeV_M{}.input".format(dct["mass"]), "w") as f:
+  with open("gg_H_WW_quark-mass-effects_NNPDF31_13TeV_M{}.input".format(dct["mass"]), "w") as f:
     f.write(template.format(**dct))
