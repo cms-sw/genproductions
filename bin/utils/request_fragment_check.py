@@ -68,7 +68,10 @@ parser.add_argument('--debug', help="Print debugging information", action='store
 args = parser.parse_args()
 
 if args.prepid is not None:
-    print "---> "+str(len(args.prepid))+" requests will be checked:"
+    if len(args.prepid) == 1:
+        print "---> "+str(len(args.prepid))+" request will be checked:"
+    if len(args.prepid) != 1:     
+        print "---> "+str(len(args.prepid))+" requests will be checked:"
     prepid = args.prepid
 print " "
 
@@ -192,7 +195,9 @@ for num in range(0,len(prepid)):
 	slha_flag = 0
         nPartonsInBorn_flag = 0
         matching = 10
+        matching_c = 0
         ickkw = 'del' # ickkw = matching parameter in madgraph
+        ickkw_c = 100
         nJetMax = 100
 	jet_count_tmp = []
         nFinal = 100
@@ -233,7 +238,7 @@ for num in range(0,len(prepid)):
         gettest = os.popen('grep cff '+pi+'_get_test'+' | grep curl').read()
         if fsize == 0:
             print "* [WARNING] No fragment associated to this request"
-            print "*           if this is the hadronizer you intended to use?: "+gettest
+            print "*           is this the hadronizer you intended to use?: "+gettest
             warning = warning + 1
         ttxt = os.popen('grep nThreads '+pi+'_get_test').read()
         if int(os.popen('grep -c nThreads '+pi+'_get_test').read()) == 0 :
@@ -269,21 +274,68 @@ for num in range(0,len(prepid)):
 #        os.system('wget -q https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_fragment/'+pi+' -O '+pi)
 #        os.system('mkdir -p '+my_path+'/'+pi)
 #        os.system('mkdir -p '+my_path+'/eos/'+pi)
-        if int(os.popen('grep -c eos '+pi).read()) == 1 :
-            print "* [ERROR] Gridpack should have used cvmfs path instead of eos path"
-            error = error + 1
-        if int(os.popen('grep -c nPartonsInBorn '+pi).read()) == 1:
-            nPartonsInBorn_flag = 1
-            print(os.popen('grep nPartonsInBorn '+pi).read())
-        if int(os.popen('grep -c nJetMax '+pi).read()) == 1:  
-            nJetMax = os.popen('grep nJetMax '+pi).read()
-            nJetMax = re.findall('\d+',nJetMax)
-            nJetMax = int(nJetMax[0])
-        if int(os.popen('grep -c nFinal '+pi).read()) == 1:
-            nFinal = os.popen('grep nFinal '+pi).read()
-            nFinal =  re.findall('\d+',nFinal)
-            nFinal = int(nFinal[0])
-            print "nFinal="+str(nFinal)
+        if fsize != 0:        
+            if int(os.popen('grep -c eos '+pi).read()) == 1 :
+                print "* [ERROR] Gridpack should have used cvmfs path instead of eos path"
+                error = error + 1
+            if int(os.popen('grep -c nPartonsInBorn '+pi).read()) == 1:
+                nPartonsInBorn_flag = 1
+                print(os.popen('grep nPartonsInBorn '+pi).read())
+            if int(os.popen('grep -c nJetMax '+pi).read()) == 1:  
+                nJetMax = os.popen('grep nJetMax '+pi).read()
+                nJetMax = re.findall('\d+',nJetMax)
+                nJetMax = int(nJetMax[0])
+            if int(os.popen('grep -c nFinal '+pi).read()) == 1:
+                nFinal = os.popen('grep nFinal '+pi).read()
+                nFinal =  re.findall('\d+',nFinal)
+                nFinal = int(nFinal[0])
+                print "nFinal="+str(nFinal)
+            gridpack_cvmfs_path = os.popen('grep \/cvmfs '+my_path+'/'+pi+'/'+pi+'| grep -v \'#args\' ').read()
+            gp_size = len(gridpack_cvmfs_path)
+            if gp_size != 0:
+                gridpack_cvmfs_path = gridpack_cvmfs_path.split('\'')[1]
+                gridpack_eos_path = gridpack_cvmfs_path.replace("/cvmfs/cms.cern.ch/phys_generator","/eos/cms/store/group/phys_generator/cvmfs")
+                print gridpack_cvmfs_path
+                print gridpack_eos_path
+                if int(os.popen('grep -c slha '+pi).read()) != 0 or int(os.popen('grep -c \%i '+pi).read()) != 0 or int(os.popen('grep -c \%s '+pi).read()) != 0:
+                    slha_flag = 1
+                if slha_flag == 1:
+                    if int(os.popen('grep -c \%i '+pi).read()) != 0:
+                        gridpack_cvmfs_path = gridpack_cvmfs_path.replace("%i","*")
+                    if int(os.popen('grep -c \%s '+pi).read()) != 0:    
+                        gridpack_cvmfs_path = gridpack_cvmfs_path.replace("%s","*")
+                    slha_all_path = os.path.dirname(gridpack_eos_path)    
+                    gridpack_cvmfs_path = os.popen('ls '+ gridpack_cvmfs_path+' | head -1 | tr \'\n\' \' \'').read()
+                    print "SLHA request - checking single gridpack:"
+                    print gridpack_cvmfs_path
+                os.system('tar xf '+gridpack_cvmfs_path+' -C '+my_path+'/'+pi)
+                pw_gp = os.path.isfile(my_path+'/'+pi+'/'+'powheg.input')
+                mg_gp = os.path.isfile(my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat')
+                amcnlo_gp = os.path.isfile(my_path+'/'+pi+'/'+'process/Cards/run_card.dat')
+                print "powheg "+str(pw_gp)
+                print "mg "+str(mg_gp)        
+                if any(word in dn.lower() for word in MEname):
+                    print "Data set name is regular: "+dn
+                else:    
+                    print "* [WARNING] Dataset name is not regular:"+dn
+                    print "*           Please add the Generator name to the dataset."
+                    warning=warning+1
+                    if pw_gp is True:
+                        dn = dn + "-powheg"
+                    if mg_gp is True:
+                        dn = dn + "-madgraph"
+                    if amcnlo_gp is True:    
+                        if matching_c == 0:
+                            dn = dn + "-amcatnlo"
+                        if matching_c == 3:
+                            dn = dn + "-amcatnloFXFX"
+                if mg_gp is True:        
+                    ickkw_c = os.popen('more '+my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat'+' | tr -s \' \' | grep "= ickkw"').read()
+                    matching_c = int(re.search(r'\d+',ickkw_c).group())
+                if amcnlo_gp is True:
+                    ickkw_c = os.popen('more '+my_path+'/'+pi+'/'+'process/Cards/run_card.dat'+' | tr -s \' \' | grep "= ickkw"').read()
+                    matching_c = int(re.search(r'\d+',ickkw_c).group())
+                    print ickkw_c
         for ind, word in enumerate(MEname):
             if fsize == 0:
                 break
@@ -299,24 +351,6 @@ for num in range(0,len(prepid)):
                 check.append(int(os.popen('grep -c "pythia8'+ME[knd]+'SettingsBlock," '+pi).read()))
                 if check[2] == 1:
                     mcatnlo_flag = 1
-#                os.system('wget -q https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_fragment/'+pi+' -O '+my_path+'/'+pi+'/'+pi)   
-                gridpack_cvmfs_path = os.popen('grep \/cvmfs '+my_path+'/'+pi+'/'+pi+'| grep -v \'#args\' ').read()
-                gridpack_cvmfs_path = gridpack_cvmfs_path.split('\'')[1]
-                gridpack_eos_path = gridpack_cvmfs_path.replace("/cvmfs/cms.cern.ch/phys_generator","/eos/cms/store/group/phys_generator/cvmfs")
-                print gridpack_cvmfs_path
-		print gridpack_eos_path
-		if int(os.popen('grep -c slha '+pi).read()) != 0 or int(os.popen('grep -c \%i '+pi).read()) != 0 or int(os.popen('grep -c \%s '+pi).read()) != 0:
-		    slha_flag = 1
-                if slha_flag == 1:
-                    if int(os.popen('grep -c \%i '+pi).read()) != 0:
-                        gridpack_cvmfs_path = gridpack_cvmfs_path.replace("%i","*")
-                    if int(os.popen('grep -c \%s '+pi).read()) != 0:    
-                        gridpack_cvmfs_path = gridpack_cvmfs_path.replace("%s","*")
-                    slha_all_path = os.path.dirname(gridpack_eos_path)    
-                    gridpack_cvmfs_path = os.popen('ls '+ gridpack_cvmfs_path+' | head -1 | tr \'\n\' \' \'').read()
-                    print "SLHA request - checking single gridpack:"
-                    print gridpack_cvmfs_path  
-                os.system('tar xf '+gridpack_cvmfs_path+' -C '+my_path+'/'+pi)	
                 if ind == 0:
                     file_pwg_check =  my_path+'/'+pi+'/'+'pwhg_checklimits'
                     if os.path.isfile(file_pwg_check) is True :
@@ -386,14 +420,13 @@ for num in range(0,len(prepid)):
                         filename = fname_p2
                     if os.path.isfile(fname_p3) is True :
                         filename = fname_p3
-                    print filename    
                     if os.path.isfile(filename) is True :
                         loop_flag = int(os.popen('more '+filename+' | grep -c "noborn=QCD"').read())
                         gen_line = os.popen('grep generate '+filename).read()
                         print(gen_line)
                         proc_line = os.popen('grep process '+filename).read()
                         print(proc_line)
-                        if gen_line.count('@') < proc_line.count('@'):
+                        if gen_line.count('@') <= proc_line.count('@'):
                             nproc = proc_line.count('@')
                             nproc = '@'+str(nproc)
 #                            proc_line = proc_line.split('\n')
@@ -409,10 +442,11 @@ for num in range(0,len(prepid)):
                             jet_count = jet_line.count('j') + jet_line.count('b') + jet_line.count('c')
                         if nJetMax == jet_count:
                             print "* [OK] nJetMax(="+str(nJetMax) + ") is equal to the number of jets in the process(="+str(jet_count)+")"
-                        if nJetMax != jet_count and str(jet_count)+"jet" not in dn.lower() and gen_line.count('@') != 0:
+#                        if nJetMax != jet_count and str(jet_count)+"jet" not in dn.lower() and gen_line.count('@') != 0 and matching_c !=0:
+                        if nJetMax != jet_count and gen_line.count('@') != 0 and matching_c !=0:
                             print "* [WARNING] nJetMax(="+str(nJetMax)+") is NOT equal to the number of jets specified in the proc card(="+str(jet_count)+")"
                             warning = warning + 1
-                        if nJetMax != jet_count and str(jet_count)+"jet" in dn.lower():
+                        if nJetMax != jet_count and str(jet_count)+"jet" in dn.lower() and matching_c !=0:
                             print "* [WARNING] nJetMax(="+str(nJetMax)+") is not equal to the number of jets specified in the proc card(="+str(jet_count)+")."
                             print "*           Is it because this is an exclusive production with additional samples with higher multiplicity generated separately?"
                             warning = warning + 1                         
@@ -520,20 +554,23 @@ for num in range(0,len(prepid)):
                         warning = warning + 1
                 elif matching == 1 and check[0] == 0 and check[1] == 0 and check[2] == 0 :    
                     print "* [OK] no known inconsistency in the fragment w.r.t. the name of the dataset "+word
-                    print "* [WARNING] To check manually - This is a MadGraph LO sample. Please check 'JetMatching:nJetMax' ="+str(nJetMax)+" is OK and"
-                    print "*            correctly set as number of partons in born matrix element for highest multiplicity."
-                    warning = warning + 1
+                    if matching_c != 0:
+                        print "* [WARNING] To check manually - This is a matched MadGraph LO sample. Please check 'JetMatching:nJetMax' ="+str(nJetMax)+" is OK and"
+                        print "*            correctly set as number of partons in born matrix element for highest multiplicity."
+                        warning = warning + 1
                 elif matching == 0 and word == "madgraph" and check[0] == 0 and check[1] == 0 and check[2] == 0 :
                     print "* [OK] no known inconsistency in the fragment w.r.t. the name of the dataset "+word
                 elif matching == 0 and word == "mcatnlo" and check[0] == 2 and check[1] == 1 and check[2] == 1 and loop_flag != 1:
                     print "* [OK] no known inconsistency in the fragment w.r.t. the name of the dataset "+word
-                    print "* [WARNING] Is this a MadGraph NLO sample without matching. Please check 'TimeShower:nPartonsInBorn'"
-                    print "*                                                   is set correctly as number of coloured particles"
-                    print "*                                                  (before resonance decays) in born matrix element."
-		    warning = warning + 1	
+                    if matching_c == 0:
+                        print "* [WARNING] This a MadGraph NLO sample without matching. Please check 'TimeShower:nPartonsInBorn'"
+                        print "*                                                   is set correctly as number of coloured particles"
+                        print "*                                                  (before resonance decays) in born matrix element."
+                        warning = warning + 1	
                 else:     
-                    print "* [ERROR] Fragment may be wrong: check "+word+" settings in the fragment"
-                    error = error + 1
+                    if word != "powheg":
+                        print "* [ERROR] Fragment may be wrong: check "+word+" settings in the fragment"
+                        error = error + 1
                     if matching <= 1 and word == "madgraph":
                         print "*        You run MG5_aMC@NLO at LO but you have  Pythia8aMCatNLOSettings_cfi in fragment"
                         print "*           --> please remove it from the fragment"
@@ -572,7 +609,7 @@ for num in range(0,len(prepid)):
         if 'sherpa' in dn.lower():
             print "* [WARNING] No automated check of Sherpa ps/tune parameters yet"
             warning = warning + 1
-        if 3 not in tunecheck and 'sherpa' not in dn.lower():
+        if 3 not in tunecheck and 'sherpa' not in dn.lower() and fsize != 0:
 	    if any(it!=0 for it in tunecheck) :
             	print "* [ERROR] Tune configuration may be wrong in the fragment"
  	    	print "          or pythia8CUEP8M1Settings are overwritten by some other parameters as in CUETP8M2T4"
