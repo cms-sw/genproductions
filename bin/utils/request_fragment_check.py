@@ -352,6 +352,8 @@ for num in range(0,len(prepid)):
                 if check[2] == 1:
                     mcatnlo_flag = 1
                 if ind == 0:
+                    if gp_size == 0:
+                        break
                     file_pwg_check =  my_path+'/'+pi+'/'+'pwhg_checklimits'
                     if os.path.isfile(file_pwg_check) is True :
                         print "grep from powheg pwhg_checklimits files"
@@ -518,6 +520,8 @@ for num in range(0,len(prepid)):
                         if slha_flag == 0:
                             ppp_ind_range = 1
                         for ppp in range(0,ppp_ind_range):
+                            if gp_size == 0:
+                                break
                             del MGpatch2[:]
                             if slha_flag == 1:
                                 gridpack_cvmfs_path_tmp = slha_all_path+'/'+slha_file_list[ppp]
