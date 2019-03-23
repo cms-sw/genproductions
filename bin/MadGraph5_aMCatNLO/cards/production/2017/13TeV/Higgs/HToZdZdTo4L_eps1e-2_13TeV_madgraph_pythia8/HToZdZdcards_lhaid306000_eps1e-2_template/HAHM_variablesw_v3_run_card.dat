@@ -10,6 +10,7 @@
         0     = polbeam2 ! beam polarization for beam 2
  'lhapdf'    = pdlabel  ! PDF set                                     
  LHAID      = lhaid    ! if pdlabel=lhapdf, this is the lhapdf number
+ True     = use_syst ! Enable systematic studies
  F        = fixed_ren_scale  ! if .true. use fixed ren scale
  F        = fixed_fac_scale  ! if .true. use fixed fac scale
  91.1880  = scale            ! fixed ren scale
