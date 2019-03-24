@@ -184,7 +184,7 @@ for num in range(0,len(prepid)):
         MGpatch = []
         MGpatch2 = []
         ME = ["PowhegEmissionVeto","aMCatNLO"] # ME = matrix element
-        MEname = ["powheg","madgraph","mcatnlo","jhugen"]
+        MEname = ["powheg","madgraph","mcatnlo","jhugen","mcfm"]
         tune = ["CP5","CUEP8M1","CP1","CP2","CP3","CP4","CP5TuneUp","CP5TuneDown"] 
         mcatnlo_flag = 0
         loop_flag = 0
