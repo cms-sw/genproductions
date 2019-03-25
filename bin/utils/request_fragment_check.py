@@ -361,13 +361,20 @@ for num in range(0,len(prepid)):
                         nemit = os.popen('grep emitter '+file_pwg_check+' | head -n 1').read().replace('process','').replace('\n','').split(',')
                         nemitsplit = nemit[1].split()
                         print nemitsplit
-                        nemitsplit = nemitsplit[2:]
-                        nfinstatpar = len(nemitsplit)-nemitsplit.count('0')
+                        nemitsplit_pr = nemitsplit[2:]
+			nemitsplit = [x for x in nemitsplit_pr if x!=nemitsplit[0] and x!=nemitsplit[1]]
+			print nemitsplit
+#                        nfinstatpar = len(nemitsplit[2:])-nemitsplit[2:].count('0')
+			nemitsplit_wo_leptons = [int(x) for x in nemitsplit]
+			nemitsplit_wo_leptons = [abs(x) for x in nemitsplit_wo_leptons]
+			nemitsplit_wo_leptons = [x for x in nemitsplit_wo_leptons if x < 11 or x > 18]
+			nfinstatpar = len(nemitsplit_wo_leptons)-nemitsplit_wo_leptons.count(0)
+			print nemitsplit_wo_leptons
                         if nfinstatpar == nFinal :
                             print "* [OK] nFinal(="+str(nFinal) + ") is equal to the number of final state particles before decays (="+str(nfinstatpar)+")"
                         if nfinstatpar != nFinal :
-                            print "* [ERROR] nFinal(="+str(nFinal) + ") is NOT equal to the number of final state particles before decays (="+str(nfinstatpar)+")"
-                            error = error + 1
+                            print "* [WARNING] nFinal(="+str(nFinal) + ") may not be equal to the number of final state particles before decays (="+str(nfinstatpar)+")"
+                            warning = warning + 1
                     with open(os.path.join(my_path, pi, "runcmsgrid.sh")) as f:
                         content = f.read()
                         match = re.search(r"""process=(["']?)([^"']*)\1""", content)
