@@ -290,6 +290,28 @@ for num in range(0,len(prepid)):
                 nFinal =  re.findall('\d+',nFinal)
                 nFinal = int(nFinal[0])
                 print "nFinal="+str(nFinal)
+            test_cs_version = cmssw.split('_')
+            if int(test_cs_version[1]) >= 10 and int(test_cs_version[2]) >= 5 and int(test_cs_version[3]) >= 0 and "minbias" in dn.lower(): #this may be improved to make it more accurate >= CMSSW_10_0_5_pre2   
+                mb_mode = os.popen('grep SigmaTotal:mode '+pi).read()
+                mb_mode = re.findall('\d*\.\d+|\d+',mb_mode)
+                mb_SigmaEl = os.popen('grep SigmaTotal:sigmaEl '+pi).read()
+                mb_SigmaEl = re.findall('\d*\.\d+|\d+',mb_SigmaEl)
+                mb_SigmaTot = os.popen('grep SigmaTotal:sigmaTot '+pi).read()
+                mb_SigmaTot = re.findall('\d*\.\d+|\d+',mb_SigmaTot)
+                PDF_pSet = os.popen('grep PDF:pSet '+pi+' | grep -c LHAPDF6:NNPDF31_nnlo_as_0118').read()
+                if int(mb_mode[0]) != 0:  
+                    print "* [ERROR] SigmaTotal:mode should have been set to 0"
+                    error = error+1
+                if abs(float(mb_SigmaEl[0])-21.88) > 0.1:
+                    print "* [ERROR] SigmaTotal:sigmaEl should have been set to 21.89"
+                    error = error+1
+                if abs(float(mb_SigmaTot[0])-100.308) > 0.01:
+                    print "* [ERROR] SigmaTotal:sigmaTot should have been set to 100.309"
+                    error = error+1
+                if int(PDF_pSet[0]) != 1:
+                    print "* [ERROR] PDF access method is wrong. Please correct." 
+                    error = error+1
+                    
             gridpack_cvmfs_path = os.popen('grep \/cvmfs '+my_path+'/'+pi+'/'+pi+'| grep -v \'#args\' ').read()
             gp_size = len(gridpack_cvmfs_path)
             if gp_size != 0:
