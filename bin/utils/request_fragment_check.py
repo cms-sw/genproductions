@@ -363,10 +363,7 @@ for num in range(0,len(prepid)):
                         nemitsplit_pr = nemitsplit[2:]
 			nemitsplit = [x for x in nemitsplit_pr if x!=nemitsplit[0] and x!=nemitsplit[1]]
 			print nemitsplit
-                        for (iii,x) in enumerate(nemitsplit):
-                            if x == "***":
-                                nemitsplit[iii] = 100
-                        print nemitsplit        
+                        nemitsplit = [100 if x == "***" else x for x in nemitsplit]
 			nemitsplit_wo_leptons = [int(x) for x in nemitsplit]
 			nemitsplit_wo_leptons = [abs(x) for x in nemitsplit_wo_leptons]
 			nemitsplit_wo_leptons = [x for x in nemitsplit_wo_leptons if x < 11 or x > 18]
