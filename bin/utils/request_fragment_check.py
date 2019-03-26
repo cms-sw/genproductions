@@ -357,14 +357,16 @@ for num in range(0,len(prepid)):
                     file_pwg_check =  my_path+'/'+pi+'/'+'pwhg_checklimits'
                     if os.path.isfile(file_pwg_check) is True :
                         print "grep from powheg pwhg_checklimits files"
-#                        print(os.popen('grep emitter '+file_pwg_check+' | head -n 5').read())
                         nemit = os.popen('grep emitter '+file_pwg_check+' | head -n 1').read().replace('process','').replace('\n','').split(',')
                         nemitsplit = nemit[1].split()
                         print nemitsplit
                         nemitsplit_pr = nemitsplit[2:]
 			nemitsplit = [x for x in nemitsplit_pr if x!=nemitsplit[0] and x!=nemitsplit[1]]
 			print nemitsplit
-#                        nfinstatpar = len(nemitsplit[2:])-nemitsplit[2:].count('0')
+                        for (iii,x) in enumerate(nemitsplit):
+                            if x == "***":
+                                nemitsplit[iii] = 100
+                        print nemitsplit        
 			nemitsplit_wo_leptons = [int(x) for x in nemitsplit]
 			nemitsplit_wo_leptons = [abs(x) for x in nemitsplit_wo_leptons]
 			nemitsplit_wo_leptons = [x for x in nemitsplit_wo_leptons if x < 11 or x > 18]
