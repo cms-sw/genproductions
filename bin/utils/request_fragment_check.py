@@ -198,6 +198,7 @@ for num in range(0,len(prepid)):
         matching_c = 0
         ickkw = 'del' # ickkw = matching parameter in madgraph
         ickkw_c = 100
+        maxjetflavor = 0
         nJetMax = 100
 	jet_count_tmp = []
         nFinal = 100
