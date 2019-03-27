@@ -467,9 +467,9 @@ for num in range(0,len(prepid)):
 #                            jet_line = next((s for s in proc_line if nproc in s), None).replace('add process','')
 			    jet_line = proc_line[len(proc_line)-1]
 			    jet_line_arr = jet_line.split(',')	
-                            nbtomatch = jet_line_arr[x].count('b') if maxjetflavor > 4 else 0
 			    for x in range(0,len(jet_line_arr)):
 #			        jet_count_tmp.append(jet_line_arr[x].count('j') + jet_line_arr[x].count('b') + jet_line_arr[x].count('c'))	 
+                                nbtomatch = jet_line_arr[x].count('b') if maxjetflavor > 4 else 0
 			        jet_count_tmp.append(jet_line_arr[x].count('j') + nbtomatch + jet_line_arr[x].count('c'))	 
 		            jet_count = max(jet_count_tmp)
                         else :
