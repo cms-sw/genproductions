@@ -40,6 +40,8 @@ parameters = (
   (2000, 1000.0, 247.5),
   (2500, 1250.0, 297.5),
   (3000, 1500.0, 347.5),
+  (4000, 2000.0, 447.5),
+  (5000, 2500.0, 547.5),
 )
 
 with open("gg_H_WW_quark-mass-effects_NNPDF31_13TeV_template.input") as f:
