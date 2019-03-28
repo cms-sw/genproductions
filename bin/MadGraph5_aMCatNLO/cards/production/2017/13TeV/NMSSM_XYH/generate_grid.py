@@ -41,7 +41,7 @@ def do_point(mx, my):
     template_flrd = 'Template'
     
     run_card      = 'run_card.dat'
-    proc_card     = 'proc_card_mg5.dat'
+    proc_card     = 'proc_card.dat'
     param_card    = 'param_card.dat'
     extramodels   = 'extramodels.dat'
     customizecard = 'customizecards.dat'
