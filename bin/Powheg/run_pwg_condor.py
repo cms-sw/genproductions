@@ -181,6 +181,10 @@ def runParallelXgrid(parstage, xgrid, folderName, nEvents, njobs, powInputName, 
 
     sedcommand = 'sed -i "s/NEVENTS/'+nEvents+'/ ; s/SEED/'+rndSeed+'/ ; s/.*parallelstage.*/parallelstage '+parstage+'/ ; s/.*xgriditeration.*/xgriditeration '+xgrid+'/ ; s/.*manyseeds.*/manyseeds 1/ ; s/fakevirt.*// " '+inputName
 
+    with open(os.path.join(folderName, "pwgseeds.dat"), "w") as f:
+        for i in xrange(njobs):
+            f.write(str(int(rndSeed) + i)+"\n")
+
     #print sedcommand
     runCommand(sedcommand)
 
@@ -912,13 +916,17 @@ chmod 755 runcmsgrid.sh
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
 
-def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag, process) :
+def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag, process, seed) :
     print 'run : submitting jobs'
   
-    sedcommand = 'sed -i "s/parallelstage.*/parallelstage ' + parstage + '/ ; s/xgriditeration.*/xgriditeration 1/" '+folderName+'/powheg.input'
+    sedcommand = 'sed -i "s/parallelstage.*/parallelstage ' + parstage + '/ ; s/xgriditeration.*/xgriditeration 1/ ; s/iseed.*/iseed '+str(seed)+'/" '+folderName+'/powheg.input'
 
     runCommand(sedcommand)
     runCommand('cp -p ' + folderName + '/powheg.input ' + folderName + '/powheg.input.' + parstage)
+
+    with open(os.path.join(folderName, "pwgseeds.dat"), "w") as f:
+        for i in xrange(njobs):
+            f.write(str(int(seed) + i)+"\n")
 
     for i in range (0, njobs) :
         tag = jobtag + '_' + str (i)
@@ -1694,4 +1702,4 @@ if __name__ == "__main__":
     else                    :
         runEvents(args.parstage, args.folderName,
                   args.eosFolder + '/' + EOSfolder, njobs, powInputName,
-                  jobtag, args.prcName)
+                  jobtag, args.prcName, args.rndSeed)
