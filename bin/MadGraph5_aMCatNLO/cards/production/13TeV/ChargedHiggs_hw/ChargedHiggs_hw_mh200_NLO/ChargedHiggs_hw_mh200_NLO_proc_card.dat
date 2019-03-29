@@ -1,0 +1,13 @@
+import model 2HDMtII_NLO
+define p = g u c d s u~ c~ d~ s~
+define j = g u c d s u~ c~ d~ s~
+define l+ = e+ mu+
+define l- = e- mu-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+generate p p > h+ t~ b [QCD]
+add process p p > h- t b~ [QCD]
+
+set mh2 200
+
+output ChargedHiggs_hw_mh200_NLO_M<MASS> -nojpeg
