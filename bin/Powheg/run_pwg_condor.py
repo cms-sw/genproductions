@@ -926,7 +926,7 @@ chmod 755 runcmsgrid.sh
 def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag, process) :
     print 'run : submitting jobs'
   
-    sedcommand = 'sed -i "s/NEVENTS/10/ ; s/SEED/3/ ; s/parallelstage.*/parallelstage ' + parstage + '/ ; s/xgriditeration.*/xgriditeration 1/" '+folderName+'/powheg.input'
+    sedcommand = 'sed -i "s/NEVENTS/2000/ ; s/SEED/3/ ; s/parallelstage.*/parallelstage ' + parstage + '/ ; s/xgriditeration.*/xgriditeration 1/" '+folderName+'/powheg.input'
 
     runCommand(sedcommand)
     runCommand('cp -p ' + folderName + '/powheg.input ' + folderName + '/powheg.input.' + parstage)
