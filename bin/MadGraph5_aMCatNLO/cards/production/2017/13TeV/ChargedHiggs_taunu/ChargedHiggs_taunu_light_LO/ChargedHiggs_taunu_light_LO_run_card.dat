@@ -134,4 +134,3 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
  4 = maxjetflavor    ! Maximum jet pdg code
  0   = xqcut   ! minimum kt jet measure between partons
    T  = use_syst      ! Enable systematics studies
- .true. = store_rwgt_info
