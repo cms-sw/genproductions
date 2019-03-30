@@ -1,7 +1,7 @@
 import os
 
 # the prototype name of the production folder
-prod_proto = "NMSSM_XYH_MX_{0}_MY_{1}"
+prod_proto = "NMSSM_XYH_bbbb_MX_{0}_MY_{1}"
 
 ### things to replace are
 ### TEMPLATEMH02 [mX]
