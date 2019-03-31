@@ -42,11 +42,12 @@ def do_point(mx, my):
     
     run_card      = 'run_card.dat'
     proc_card     = 'proc_card.dat'
-    param_card    = 'param_card.dat'
+    # param_card    = 'param_card.dat'
     extramodels   = 'extramodels.dat'
     customizecard = 'customizecards.dat'
     
-    to_copy = [run_card, proc_card, param_card, extramodels, customizecard]
+    # to_copy = [run_card, proc_card, param_card, extramodels, customizecard]
+    to_copy = [run_card, proc_card, extramodels, customizecard]
 
     for tc in to_copy:
         os.system('cp %s/%s %s/%s_%s' % (template_flrd, tc, folder, folder, tc) )
