@@ -55,6 +55,7 @@ echo "run_mode = 2" >> ./Cards/amcatnlo_configuration.txt
 echo "nb_core = $ncpu" >> ./Cards/amcatnlo_configuration.txt
 
 echo "reweight=OFF" > runscript.dat
+echo "madspin=OFF" >> runscript.dat
 echo "done" >> runscript.dat
 echo "set nevents $nevt" >> runscript.dat
 echo "set iseed $rnum" >> runscript.dat
@@ -71,10 +72,10 @@ echo "done" >> runscript.dat
 
 domadspin=0
 if [ -f ./Cards/madspin_card.dat ] ;then
-  #set random seed for madspin
-  rnum2=$(($rnum+1000000))
-  echo "$(echo `echo "set seed $rnum2"` | cat - ./Cards/madspin_card.dat)" > ./Cards/madspin_card.dat
-  domadspin=1
+    #set random seed for madspin
+    rnum2=$(($rnum+1000000))
+    echo "$(echo `echo "set seed $rnum2"` | cat - ./Cards/madspin_card.dat)" > ./Cards/madspin_card.dat
+    domadspin=1
 fi
 
 doreweighting=0
@@ -93,11 +94,7 @@ if [ ! -e $LHEWORKDIR/header_for_madspin.txt ]; then
     cat runscript.dat | ./bin/generate_events -ox -n $runname
 
     runlabel=$runname
-    if [ "$domadspin" -gt "0" ] ; then 
-      runlabel=${runname}_decayed_1
-    fi
-
-    if [ "$doreweighting" -gt "0" ] ; then 
+    if [ "$doreweighting" -gt "0" ] ; then
         #when REWEIGHT=OFF is applied, mg5_aMC moves reweight_card.dat to .reweight_card.dat
         mv ./Cards/.reweight_card.dat ./Cards/reweight_card.dat
         rwgt_dir="$LHEWORKDIR/process/rwgt"
@@ -105,11 +102,35 @@ if [ ! -e $LHEWORKDIR/header_for_madspin.txt ]; then
         echo "0" | ./bin/aMCatNLO --debug reweight $runname
     fi
 
-    pdfsets="PDF_SETS_REPLACE"
+    mv $LHEWORKDIR/process/Events/${runlabel}/events.lhe.gz $LHEWORKDIR/process/events.lhe.gz
+
+    if [ "$domadspin" -gt "0" ] ; then
+        mv ./Cards/.madspin_card.dat ./Cards/madspin_card.dat
+        echo "import events.lhe.gz" > madspinrun.dat
+        cat ./Cards/madspin_card.dat >> madspinrun.dat
+        cat ./madspinrun.dat | $LHEWORKDIR/mgbasedir/MadSpin/madspin
+        mv $LHEWORKDIR/process/events.lhe.gz $LHEWORKDIR/process/Events/${runlabel}/events.lhe.gz
+        runlabel=${runname}_decayed_1
+    fi
+
+    event_file=events.lhe.gz
+    if [ "$domadspin" -gt "0" ] ; then
+      mkdir ./Events/${runlabel}
+      event_file=events_decayed.lhe.gz
+    fi
+
+    mv ./$event_file ./Events/${runlabel}/events.lhe.gz
+
+    pdfsets="306000,322500@0,322700@0,322900@0,323100@0,323300@0,323500@0,323700@0,323900@0,305800,13000,13065@0,13069@0,13100,13163@0,13167@0,13200@0,25200,25300,25000@0,42780,90200,91200,90400,91400,61100,61130,61200,61230,13400,82200,292200,292600@0,315000@0,315200@0,262000@0,263000@0"
     scalevars="--mur=1,2,0.5 --muf=1,2,0.5 --together=muf,mur --dyn=-1"
 
-    echo "systematics $runlabel --remove_wgts=all --start_id=1001 --pdf=$pdfsets $scalevars" | ./bin/aMCatNLO
-	cp ./Events/${runlabel}/events.lhe.gz $LHEWORKDIR/${runname}_final.lhe.gz
+    if [ "$doreweighting" -gt "0" ] ; then
+        echo "systematics $runlabel --start_id=1001 --pdf=$pdfsets $scalevars" | ./bin/aMCatNLO
+    else
+        echo "systematics $runlabel --remove_wgts=all --start_id=1001 --pdf=$pdfsets $scalevars" | ./bin/aMCatNLO
+    fi
+
+    cp ./Events/${runlabel}/events.lhe.gz $LHEWORKDIR/${runname}_final.lhe.gz
 
 #else handle external tarball
 else
