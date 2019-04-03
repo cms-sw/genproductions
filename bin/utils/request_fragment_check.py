@@ -256,6 +256,7 @@ for num in range(0,len(prepid)):
         bw = -1 
         error = 0
         warning = 0
+        et_flag = 0
         if "herwig" in dn.lower() or "comphep" in dn.lower() or "calchep" in dn.lower():
             print "* [WARNING] herwig or comphep or calchep sample. Please check manually"
             warning = warning + 1
@@ -453,6 +454,11 @@ for num in range(0,len(prepid)):
                     with open(os.path.join(my_path, pi, "runcmsgrid.sh")) as f:
                         content = f.read()
                         match = re.search(r"""process=(["']?)([^"']*)\1""", content)
+                    if match is None:
+                        with open(os.path.join(my_path, pi, "external_tarball/runcmsgrid.sh")) as f2:
+                            content2 = f2.read()
+                            match = re.search(r"""process=(["']?)([^"']*)\1""", content2)
+                            et_flag = 1
                     if match:
                         process = match.group(2)
                         if process == "gg_H_quark-mass-effects":
@@ -475,9 +481,14 @@ for num in range(0,len(prepid)):
                               "foldy": 5,
                               "foldphi": 2,
                             }
-                            with open(os.path.join(my_path, pi, "powheg.input")) as f:
-                                content = f.read()
-                                matches = dict((name, re.search(r"^"+name+" *([0-9]+)", content, flags=re.MULTILINE)) for name in desiredvalues)
+                            if et_flag == 0:
+                                with open(os.path.join(my_path, pi, "powheg.input")) as f:
+                                    content = f.read()
+                                    matches = dict((name, re.search(r"^"+name+" *([0-9]+)", content, flags=re.MULTILINE)) for name in desiredvalues)
+                            if et_flag == 1:
+                                with open(os.path.join(my_path, pi, "external_tarball/powheg.input")) as f:
+                                    content = f.read()
+                                    matches = dict((name, re.search(r"^"+name+" *([0-9]+)", content, flags=re.MULTILINE)) for name in desiredvalues)                                
                             bad = False
                             for name, match in matches.iteritems():
                                 if match:
