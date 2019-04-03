@@ -454,7 +454,7 @@ for num in range(0,len(prepid)):
                     with open(os.path.join(my_path, pi, "runcmsgrid.sh")) as f:
                         content = f.read()
                         match = re.search(r"""process=(["']?)([^"']*)\1""", content)
-                    if match is None:
+                    if os.path.isfile(my_path+'/'+pi+'/'+'external_tarball/runcmsgrid.sh') is True:
                         with open(os.path.join(my_path, pi, "external_tarball/runcmsgrid.sh")) as f2:
                             content2 = f2.read()
                             match = re.search(r"""process=(["']?)([^"']*)\1""", content2)
