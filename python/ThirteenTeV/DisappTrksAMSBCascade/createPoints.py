@@ -23,7 +23,7 @@ baseParticleFile = 'geant4_AMSB_chargino.slha'
 
 c = 299792458.0 * 100.0 # cm/s
 
-charginoMasses = range (400, 901, 100)
+charginoMasses = range (400, 1101, 100)
 
 # xsecs[mass in GeV] = xsec (pb)
 xsecs = {
