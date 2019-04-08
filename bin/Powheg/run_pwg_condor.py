@@ -120,6 +120,7 @@ def prepareJob(tag, i, folderName) :
     f.write('export PATH=$LHAPDF_BASE/bin/:$PATH \n')
 
     f.write('export LHAPDF_DATA_PATH=`$LHAPDF_BASE/bin/lhapdf-config --datadir` \n')
+    f.write ('export PYTHONPATH=.:$PYTHONPATH \n')       ## for ggHH
 
     f.write ('cd -' + '\n')
     f.write ('echo "I am here:"' + '\n')
@@ -132,6 +133,11 @@ def prepareJob(tag, i, folderName) :
     f.write ('  mkdir ./obj-gfortran/' + '\n')
     f.write ('  cp -pr ' + rootfolder + '/' + folderName + '/obj-gfortran/proclib  ./obj-gfortran/' + '\n')
     f.write ('  cp -pr ' + rootfolder + '/' + folderName + '/obj-gfortran/*.so  ./obj-gfortran/' + '\n')
+    f.write ('fi    \n')
+    f.write ('if [ -e '+ rootfolder + '/' + folderName + '/Virt_full_cHHH_0.0.grid ]; then    \n')
+    f.write ('  cp -p ' + rootfolder + '/' + folderName + '/*.grid .' + '\n')
+    f.write ('  cp -p ' + rootfolder + '/' + folderName + '/*.cdf .' + '\n')
+    f.write ('  cp -p ' + rootfolder + '/' + folderName + '/*.py* .' + '\n')
     f.write ('fi    \n')
 
     f.write('\n')
@@ -229,7 +235,7 @@ def runParallelXgrid(parstage, xgrid, folderName, nEvents, njobs, powInputName, 
 
     else:
         print 'Submitting to condor queues:  \n'
-        condorfile = prepareCondorScript(jobtag, 'multiple', args.folderName, QUEUE) 
+        condorfile = prepareCondorScript(jobtag, 'multiple', args.folderName, QUEUE, runInBatchDir=True) 
         runCommand ('condor_submit ' + condorfile + ' -queue '+ str(njobs), TESTING == 0)
 
 
@@ -385,7 +391,7 @@ if [[ -s ./JHUGen.input ]]; then
 fi
 
 ### retrieve the powheg source tar ball
-export POWHEGSRC=powhegboxV2_rev3592_date20180904.tar.gz
+export POWHEGSRC=powhegboxV2_rev3624_date20190201.tar.gz
 
 if [ "$process" = "b_bbar_4l" ] || [ "$process" = "HWJ_ew" ] || [ "$process" = "HW_ew" ] || [ "$process" = "HZJ_ew" ] || [ "$process" = "HZ_ew" ]; then 
   export POWHEGSRC=powhegboxRES_rev3478_date20180122.tar.gz 
@@ -479,12 +485,12 @@ if [ `echo ${POWHEGSRC} | cut -d "_" -f 1` = "powhegboxV1" ]; then
    BOOK_HISTO="pwhg_bookhist.o"
 fi 
 
-if [ "$process" = "gg_H" ] || [ "$process" = "ggHH" ] || [ "$process" = "WWJ" ]; then
+if [ "$process" = "gg_H" ] || [ "$process" = "ggHH" ] || [ "$process" = "ggHH_EWChL" ] || [ "$process" = "WWJ" ]; then
    BOOK_HISTO=""
    echo "Process using pwhg_bookhist-multi-new"
 fi
 
-if [ "$process" = "ggHH" ]; then
+if [ "$process" = "ggHH" ] || [ "$process" = "ggHH_EWChL" ]; then
    sed -i -e "/PYTHIA8LOCATION/s|^|#|g" Makefile
    sed -i -e "/LIBPYTHIA8/s|^|#|g" Makefile
    sed -i -e "s|LIBHEPMC=|# LIBHEPMC=|g" Makefile
@@ -516,6 +522,11 @@ fi
 #if [ "$process" = "ttb_NLO_dec" ]; then
 #    patch -l -p0 -i ${WORKDIR}/patches/pwhg_analysis_driver_offshellmap.patch
 #fi
+if [ -e ./Virtual/Virt_full_cHHH_-1.0.grid ]; then
+  cp ./Virtual/events.cdf ${WORKDIR}/${name}/
+  cp ./Virtual/creategrid.py* ${WORKDIR}/${name}/
+  cp ./Virtual/Virt_full_cHHH*.grid ${WORKDIR}/${name}/
+fi
 
 # Remove ANY kind of analysis with parton shower
 if [ `grep particle_identif pwhg_analysis-dummy.f` = ""]; then
@@ -671,7 +682,7 @@ if [ "$process" = "ST_wtch_DR" ] || [ "$process" = "ST_wtch_DS" ]; then
   cd ..                                                     
 fi                                                          
 
-
+export PYTHONPATH=./Virtual/:$PYTHONPATH
 make pwhg_main || fail_exit "Failed to compile pwhg_main"
 
 mkdir -p ${WORKDIR}/${name}
@@ -919,7 +930,7 @@ chmod 755 runcmsgrid.sh
 def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag, process, seed) :
     print 'run : submitting jobs'
   
-    sedcommand = 'sed -i "s/parallelstage.*/parallelstage ' + parstage + '/ ; s/xgriditeration.*/xgriditeration 1/ ; s/iseed.*/iseed '+str(seed)+'/" '+folderName+'/powheg.input'
+    sedcommand = 'sed -i "s/NEVENTS/2000/ ; s/parallelstage.*/parallelstage ' + parstage + '/ ; s/xgriditeration.*/xgriditeration 1/ ; s/iseed.*/iseed '+str(seed)+'/" '+folderName+'/powheg.input'
 
     runCommand(sedcommand)
     runCommand('cp -p ' + folderName + '/powheg.input ' + folderName + '/powheg.input.' + parstage)
@@ -953,7 +964,7 @@ def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag, proc
             
     else:
         print 'Submitting to condor queues:  \n'
-        condorfile = prepareCondorScript(jobtag, 'multiple', args.folderName, QUEUE) 
+        condorfile = prepareCondorScript(jobtag, 'multiple', args.folderName, QUEUE, runInBatchDir=True) 
         runCommand ('condor_submit ' + condorfile + ' -queue '+ str(njobs), TESTING == 0)
      
 
@@ -1614,7 +1625,7 @@ if __name__ == "__main__":
                     
         else:
             print 'Submitting to condor queues  \n'
-            condorfile = prepareCondorScript(tagName, '', args.folderName, QUEUE) 
+            condorfile = prepareCondorScript(tagName, '', args.folderName, QUEUE, runInBatchDir=True) 
             runCommand ('condor_submit ' + condorfile + ' -queue 1', TESTING == 0)
 
     elif args.parstage == '0123' or args.parstage == 'a' : # compile & run
@@ -1638,7 +1649,7 @@ if __name__ == "__main__":
                       scriptName.split('.sh')[0]+'.log &')
         else:
             print 'Submitting to condor queues  \n'
-            condorfile = prepareCondorScript(tagName, '', '.', QUEUE) 
+            condorfile = prepareCondorScript(tagName, '', '.', QUEUE, runInBatchDir=True) 
             runCommand ('condor_submit ' + condorfile + ' -queue 1', TESTING == 0)
 
     elif args.parstage == '01239' or args.parstage == 'f' : # full single grid in oneshot 
@@ -1662,7 +1673,7 @@ if __name__ == "__main__":
                       scriptName.split('.sh')[0]+'.log &')
         else:
             print 'Submitting to condor queues  \n'
-            condorfile = prepareCondorScript(tagName, '', '.', QUEUE) 
+            condorfile = prepareCondorScript(tagName, '', '.', QUEUE, runInBatchDir=True) 
             runCommand ('condor_submit ' + condorfile + ' -queue 1', TESTING == 0)
 
     elif args.parstage == '7' :
@@ -1700,6 +1711,7 @@ if __name__ == "__main__":
         os.system('cd '+rootfolder+';bash '+scriptName)
 
     else                    :
+        os.system('cp -p '+args.inputTemplate+' '+args.folderName+'/powheg.input')
         runEvents(args.parstage, args.folderName,
                   args.eosFolder + '/' + EOSfolder, njobs, powInputName,
                   jobtag, args.prcName, args.rndSeed)
