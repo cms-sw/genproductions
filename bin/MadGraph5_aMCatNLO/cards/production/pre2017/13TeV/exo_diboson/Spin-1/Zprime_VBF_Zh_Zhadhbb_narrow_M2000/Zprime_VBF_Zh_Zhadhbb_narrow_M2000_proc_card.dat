@@ -4,6 +4,7 @@ set gauge unitary
 set complex_mass_scheme False
 import model Vector_Triplet_free_Width_UFO_VBF
 define p = u c d s b u~ c~ d~ s~ b~
+define j = u c d s b u~ c~ d~ s~ b~
 define q = u c d s b u~ c~ d~ s~ b~
 define exc=a h g
 define vw = w+ w-
