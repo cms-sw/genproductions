@@ -231,7 +231,7 @@ c-neutrino's for missing et
          if (abs(idup(i,1,iproc)).eq.12) is_a_nu(i)=.true.  ! no cuts on ve ve~
          if (abs(idup(i,1,iproc)).eq.14) is_a_nu(i)=.true.  ! no cuts on vm vm~
          if (abs(idup(i,1,iproc)).eq.16) is_a_nu(i)=.true.  ! no cuts on vt vt~
-         if (abs(idup(i,1,iproc)).eq.18) is_a_nu(i)=.true.  ! no cuts in xd xd~
+         if (abs(idup(i,1,iproc)).eq.52) is_a_nu(i)=.true.  ! no cuts in xd xd~
          if (pmass(i).gt.10d0)     is_heavy(i)=.true. ! heavy fs particle
 c-onium
 
