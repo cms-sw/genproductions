@@ -1,0 +1,44 @@
+--- before/madgraph/madevent/gen_ximprove.py	2018-12-17 14:56:48.000000001 +0100
++++ after/madgraph/madevent/gen_ximprove.py	2018-12-17 14:54:17.000000001 +0100
+@@ -829,7 +829,7 @@
+                 
+         # Default option for the run
+         self.gen_events = True
+-        self.min_iter = 3
++        
+         self.parralel = False
+         # parameter which was input for the normal gen_ximprove run
+         self.err_goal = 0.01
+@@ -1596,11 +1596,12 @@
+ class gen_ximprove_gridpack(gen_ximprove_v4):
+     
+     min_iter = 1    
+-    max_iter = 12
++    max_iter = 13
+     max_request_event = 1e12         # split jobs if a channel if it needs more than that 
+-    max_event_in_iter = 5000
+-    min_event_in_iter = 1000
++    max_event_in_iter = 4000 #5000
++    min_event_in_iter = 500 #1000
+     combining_job = sys.maxint
++    gen_events_security = 1.00
+ 
+     def __init__(self, *args, **opts):
+         
+@@ -1692,7 +1693,7 @@
+                     'nevents': nevents, #int(nevents*self.gen_events_security)+1,
+                     'maxiter': self.max_iter,
+                     'miniter': self.min_iter,
+-                    'precision': -1*int(needed_event+1)/C.get('axsec'),
++                    'precision': -1*int(needed_event)/C.get('axsec'),
+                     'requested_event': needed_event,
+                     'nhel': self.run_card['nhel'],
+                     'channel': C.name.replace('G',''),
+@@ -1713,6 +1714,7 @@
+             if j['P_dir'] in done:
+                 continue
+ 
++            done.append(j['P_dir'])
+             # set the working directory path.
+             pwd = pjoin(os.getcwd(),j['P_dir']) if self.readonly else pjoin(self.me_dir, 'SubProcesses', j['P_dir'])
+             exe = pjoin(pwd, 'ajob1')
