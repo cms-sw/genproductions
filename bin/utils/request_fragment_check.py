@@ -60,11 +60,11 @@ parser = argparse.ArgumentParser(
                   * [ERROR] Memory is not 2300 or 4000 MB"
                   * [ERROR] Memory is 2300 MB while number of cores is XX but not = 1
                   * [ERROR] Memory is 4000 MB while number of cores is 1 but not = 2,4 or 8
-                  * [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix campaign but Memory is not 14700, 5900, 400, or 2300 MB
-                  * [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix campaign: Memory is 14700 but nthreads != 8
-                  * [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix campaign: Memory is 5900 but nthreads != 4
-                  * [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix campaign: Memory is 4000 but nthreads != 2
-                  * [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix campaign: Memory is 2300 but nthreads != 1
+                  * [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix or HINPbPbAutumn18GS campaign but Memory is not 14700, 5900, 400, or 2300 MB
+                  * [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix or HINPbPbAutumn18GS campaign: Memory is 14700 but nthreads != 8
+                  * [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix or HINPbPbAutumn18GS campaign: Memory is 5900 but nthreads != 4
+                  * [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix or HINPbPbAutumn18GS campaign: Memory is 4000 but nthreads != 2
+                  * [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix or HINPbPbAutumn18GS campaign: Memory is 2300 but nthreads != 1
 
                   * [ERROR] Gridpack should have used cvmfs path instead of eos path
 
@@ -297,7 +297,7 @@ for num in range(0,len(prepid)):
             nthreads = 1
         else :
             nthreads = int(re.search('nThreads(.*?) --',ttxt).group(1))
-        if "HIN-HINPbPbAutumn18GSHIMix" not in pi and "HINPbPbAutumn18wmLHEGSHIMix" not in pi:    
+        if "HIN-HINPbPbAutumn18GSHIMix" not in pi and "HINPbPbAutumn18wmLHEGSHIMix" not in pi and "HINPbPbAutumn18GS" not in pi:    
             if mem != 2300 and mem != 4000:
                 print "* [ERROR] Memory is not 2300 or 4000 MB"
                 error = error + 1
@@ -307,9 +307,9 @@ for num in range(0,len(prepid)):
             if mem == 4000 and nthreads == 1 :
                 print "* [ERROR] Memory is "+str(mem)+" MB while number of cores is "+str(nthreads)+" but not = 2,4 or 8"
                 error = error + 1
-        if "HIN-HINPbPbAutumn18GSHIMix" in pi and "HINPbPbAutumn18wmLHEGSHIMix" in pi:
+        if "HIN-HINPbPbAutumn18GSHIMix" in pi or "HINPbPbAutumn18wmLHEGSHIMix" in pi or "HINPbPbAutumn18GS" in pi:
             if mem != 14700 and mem != 5900 and mem != 4000 and mem != 2300:
-                print "* [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix campaign but Memory is not 14700, 5900, 400, or 2300 MB"
+                print "* [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix or HINPbPbAutumn18GS campaign but Memory is not 14700, 5900, 400, or 2300 MB"
                 error = error + 1
             if mem == 14700 and nthreads != 8 :
                 print "* [ERROR] Memory is "+str(mem)+" MB while number of cores is "+str(nthreads)+" but not = 8"
