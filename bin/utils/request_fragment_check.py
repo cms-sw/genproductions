@@ -15,49 +15,99 @@ parser = argparse.ArgumentParser(
                and does a patch for the MG5_aMC LO nthreads problem if needed. 
             
                WARNINGS:
+                  * [WARNING] herwig or comphep or calchep sample. Please check manually"
                   * [WARNING] if time per event > 150 seconds
                   * [WARNING] if CMSSW version is not 10_2 and 9_3 and 7_1
                   * [WARNING] total number of events > 100000000
+                  * [WARNING] No fragment associated to this request"
+                  *           is this the hadronizer you intended to use?:
+                  * [WARNING] Dataset name is not regular:
+                  *           Please add the Generator name to the dataset.
+                  * [WARNING] nJetMax(=X) is not equal to the number of jets specified in the proc card(=Y).
+                  *            Is it because this is an exclusive production with additional samples with higher multiplicity generated separately?
+                  * [WARNING] To check manually - This is a matched MadGraph LO sample. Please check 'JetMatching:nJetMax' =X is OK and
+                  *            correctly set as number of partons in born matrix element for highest multiplicity.
+                  * [WARNING] This a MadGraph NLO sample without matching. Please check 'TimeShower:nPartonsInBorn'
+                  *                                                   is set correctly as number of coloured particles
+                  *                                                  (before resonance decays) in born matrix element.
+                  * [WARNING] nFinal(=X) may not be equal to the number of final state particles before decays (=Y)
+                  * [WARNING] To check manually - This is a Powheg NLO sample. Please check 'nFinal' is
+                  *               set correctly as number of final state particles (BEFORE THE DECAYS)
+                  *                                   in the LHE other than emitted extra parton.
+                  * [WARNING] foldphi = X, should be at least 2 (may be ok if hmass < 150 GeV, please check!)
+                  * [WARNING] foldy = X, should be at least 5 (may be ok if hmass < 150 GeV, please check!)
+                  * [WARNING] ncall1 = X, should be at least 550000 (may be ok if hmass < 150 GeV, please check!)
+                  * [WARNING] ncall2 = X, should be at least 75000 (may be ok if hmass < 150 GeV, please check!)
+                  * [WARNING] foldcsi = X, should be at least 2 (may be ok if hmass < 150 GeV, please check!)
+                  * [WARNING] itmx1 = X, should be at least 7 (may be ok if hmass < 150 GeV, please check!)
                   * [WARNING] powheg+pythia sample contains Pythia8PowhegEmissionVetoSettings 
                               - warning to check whether it is a loop induced process
-                  * [WARNING] if CP5 tune is used but campaign is not Fall18 or Fall17
-                  * [WARNING] if Fall18 campaing but no parton shower weights configuration in the fragment
-                  * [WARNING] At least one of the MG5_aMC@NLO tmpdir patches is missing."
-                  *                    --> Please check that you use:"
-                  *                        >=  CMSSW_7_1_32_patch1 in 7_1_X or  
-                  *                        >= CMSSW_9_3_9_patch1 in 9_3_X or
-                  *                        >= 10_1_3 in 10_1_X or" 
-                  *                        >= CMSSW_10_2_0_pre2 in 10_2_X.
-                  *                        Your request uses version xxxxx :
-                  *                         If you are not using a proper CMSSW version, please switch to that or
-                  *                         re-create the gridpack using the updated genproductions area
+                  * [WARNING] if this is a Powheg request but loop induced process such as gg->ZH,
+                  *           then fragment is OK (no need to have Pythia8PowhegEmissionVetoSettings)
+                  * [WARNING] Please remove aMCatNLO or POWHEG settings if this is a pure Pythia request.
+                  *           If it's not a pure request, in the future, please include madgraph/powheg or amcatnlo
+                  *           in the name of the dataset
+                  * [WARNING] Check if there is some extra tune setting
+                  * [WARNING] No automated check of Sherpa ps/tune parameters yet
+		  * [WARNING] None standard tune - please check the fragment carefully.
+                  * [WARNING] Do you really want to have tune X in this campaign?
+                  * [WARNING] No parton shower weights configuration in the fragment. In the Fall18 campaign, we recommend to include Parton Shower weights
 		  * [WARNING] Filters in the fragment but filter efficiency = 1
+                  * [WARNING] bwcutoff set to X (> 15 GeV). Note that large bwcutoff values can cause problems in production."
                   * [WARNING] Matched sample but matching efficiency is 1!
-                  * [WARNING] nJetMax is not equal to the number of jets specified in the proc card
-                  * [WARNING] nJetMax(="+str(nJetMax)+") is not equal to the number of jets specified in the proc card(="+str(jet_count)+")."
-                  *            Is it because this is an exclusive production with additional samples with higher multiplicity generated separately?"
 
                ERRORS:
                   * [ERROR] Memory is not 2300 or 4000 MB"
                   * [ERROR] Memory is 2300 MB while number of cores is XX but not = 1
                   * [ERROR] Memory is 4000 MB while number of cores is 1 but not = 2,4 or 8
+                  * [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix campaign but Memory is not 14700, 5900, 400, or 2300 MB
+                  * [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix campaign: Memory is 14700 but nthreads != 8
+                  * [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix campaign: Memory is 5900 but nthreads != 4
+                  * [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix campaign: Memory is 4000 but nthreads != 2
+                  * [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix campaign: Memory is 2300 but nthreads != 1
+
                   * [ERROR] Gridpack should have used cvmfs path instead of eos path
+
+                  * [ERROR] minbias in CMSSW_10_X: SigmaTotal:mode should have been set to 0
+                  * [ERROR] minbias in CMSSW_10_X: SigmaTotal:sigmaEl should have been set to 21.89
+                  * [ERROR] minbias in CMSSW_10_X: SigmaTotal:sigmaTot should have been set to 100.309
+                  * [ERROR] minbias in CMSSW_10_X: PDF access method is wrong. Please correct.
+
+                  * [ERROR] Although the name of the dataset has ~Madgraph, the gridpack doesn't seem to be a MG5_aMC one. Please check.
+
                   * [ERROR] MG5_aMC@NLO multi-run patch missing in gridpack - please re-create a gridpack
                   *            using updated genproductions area
-                  * [ERROR] May be wrong fragment: powheg/madgraph/mcatnlo in dataset name but settings in 
-                            fragment not correct or vice versa"
-                  * [ERROR] Fragment may be wrong: check "+word+" settings in the fragment"
-                  *         if madgraph: You run MG5_aMC@NLO at LO but you have  Pythia8aMCatNLOSettings_cfi in fragment
-                  *                --> please remove it from the fragment
-                  * [ERROR] Tune configuration wrong in the fragment
-                  * [ERROR] PS weights in config but CMSSW version is not 10_2_3 - please check!	
-                  * [ERROR] Parton shower weight configuration not OK in the fragment
+                  * [ERROR] At least one of the MG5_aMC@NLO tmpdir patches is missing
+                  *         And the request is using a version X that does not contain the patch.
+                  *         Please use >= 7_1_32_patch1 or CMSSW_9_3_9_patch1 or 10_2_0_pre2
+                  * [ERROR] At least one of the MG5_aMC@NLO tmpdir patches is missing.
+                  *         And the request is using a version X that does not contain the patch.
+                  *         In this release, please at least use CMSSW_7_1_32_patch1
+                  * [ERROR] At least one of the MG5_aMC@NLO tmpdir patches is missing.
+                  *         And the request is using a version X that does not contain the patch.
+                  *         In this release, please at least use CMSSW_9_3_9_patch1
+                  * [ERROR] At least one of the MG5_aMC@NLO tmpdir patches is missing.
+                  *         And the request is using a version X that does not contain the patch.
+                  *         In this release, please at least use CMSSW_10_2_0_pre2
+
+                  * [ERROR] MG5_aMC@NLO LO nthreads patch not made in EOS
+
+                  * [ERROR] Fragment may be wrong: check powheg settings in the fragment
+                  * [ERROR] You run MG5_aMC@NLO at LO but you have  Pythia8aMCatNLOSettings_cfi in fragment
+                  *           --> please remove it from the fragment
+                  * [ERROR] Please remove POWHEG settings for MG requests.
+
                   * [ERROR] You are using a loop induced process, [noborn=QCD].
                   *         Please remove all occurances of Pythia8aMCatNLOSettings from the fragment
                   * [ERROR] You are using a loop induced process, [noborn=QCD].
-                  *         Please remove all TimeShower:nPartonsInBorn from the fragment 
+                  *         Please remove all TimeShower:nPartonsInBorn from the fragment
 
-               The script also checks if there is no fragment there is a hadronizer used.'''))
+                  * [ERROR] Tune configuration may be wrong in the fragment"
+ 	    	  *          or pythia8CUEP8M1Settings are overwritten by some other parameters as in CUETP8M2T4"
+
+                  * [ERROR] PS weights in config but CMSSW version is < 10_2_3 - please check!"
+                  * [ERROR] Parton shower weight configuration not OK in the fragment
+                                                                                    '''))
 parser.add_argument('--prepid', type=str, help="check mcm requests using prepids", nargs='+')
 parser.add_argument('--ticket', type=str, help="check mcm requests using ticket number", nargs=1)
 parser.add_argument('--bypass_status', help="don't check request status in mcm", action='store_false')
@@ -198,6 +248,7 @@ for num in range(0,len(prepid)):
         matching_c = 0
         ickkw = 'del' # ickkw = matching parameter in madgraph
         ickkw_c = 100
+        maxjetflavor = 0
         nJetMax = 100
 	jet_count_tmp = []
         nFinal = 100
@@ -205,6 +256,7 @@ for num in range(0,len(prepid)):
         bw = -1 
         error = 0
         warning = 0
+        et_flag = 0
         if "herwig" in dn.lower() or "comphep" in dn.lower() or "calchep" in dn.lower():
             print "* [WARNING] herwig or comphep or calchep sample. Please check manually"
             warning = warning + 1
@@ -402,6 +454,11 @@ for num in range(0,len(prepid)):
                     with open(os.path.join(my_path, pi, "runcmsgrid.sh")) as f:
                         content = f.read()
                         match = re.search(r"""process=(["']?)([^"']*)\1""", content)
+                    if os.path.isfile(my_path+'/'+pi+'/'+'external_tarball/runcmsgrid.sh') is True:
+                        with open(os.path.join(my_path, pi, "external_tarball/runcmsgrid.sh")) as f2:
+                            content2 = f2.read()
+                            match = re.search(r"""process=(["']?)([^"']*)\1""", content2)
+                            et_flag = 1
                     if match:
                         process = match.group(2)
                         if process == "gg_H_quark-mass-effects":
@@ -424,9 +481,14 @@ for num in range(0,len(prepid)):
                               "foldy": 5,
                               "foldphi": 2,
                             }
-                            with open(os.path.join(my_path, pi, "powheg.input")) as f:
-                                content = f.read()
-                                matches = dict((name, re.search(r"^"+name+" *([0-9]+)", content, flags=re.MULTILINE)) for name in desiredvalues)
+                            if et_flag == 0:
+                                with open(os.path.join(my_path, pi, "powheg.input")) as f:
+                                    content = f.read()
+                                    matches = dict((name, re.search(r"^"+name+" *([0-9]+)", content, flags=re.MULTILINE)) for name in desiredvalues)
+                            if et_flag == 1:
+                                with open(os.path.join(my_path, pi, "external_tarball/powheg.input")) as f:
+                                    content = f.read()
+                                    matches = dict((name, re.search(r"^"+name+" *([0-9]+)", content, flags=re.MULTILINE)) for name in desiredvalues)                                
                             bad = False
                             for name, match in matches.iteritems():
                                 if match:
@@ -494,7 +556,7 @@ for num in range(0,len(prepid)):
                        ickkw = os.popen('more '+fname2+' | tr -s \' \' | grep "= ickkw"').read()
                        bw = os.popen('more '+fname2+' | tr -s \' \' | grep "= bwcutoff"').read()
                     else:
-                        print "[ERROR] Although the name of the dataset has ~Madgraph, the gridpack doesn't seem to be a MG5_aMC one. Please check."
+                        print "* [ERROR] Although the name of the dataset has ~Madgraph, the gridpack doesn't seem to be a MG5_aMC one. Please check."
                         error = error + 1
                         break
                     test_bw = bw.split() 
@@ -609,10 +671,11 @@ for num in range(0,len(prepid)):
                         print "* [ERROR] Fragment may be wrong: check "+word+" settings in the fragment"
                         error = error + 1
                     if matching <= 1 and word == "madgraph":
-                        print "*        You run MG5_aMC@NLO at LO but you have  Pythia8aMCatNLOSettings_cfi in fragment"
+                        print "* [ERROR] You run MG5_aMC@NLO at LO but you have  Pythia8aMCatNLOSettings_cfi in fragment"
                         print "*           --> please remove it from the fragment"
+                        error = error + 1
                     if word == "powheg" :
-                        print "* [WARNING] if this is a "+word+" but loop induced process such as gg->ZH," 
+                        print "* [WARNING] if this is a "+word+" request but loop induced process such as gg->ZH," 
                         print "*           then fragment is OK (no need to have Pythia8PowhegEmissionVetoSettings)"
 			warning = warning + 1
         if knd == 1 :
@@ -649,7 +712,7 @@ for num in range(0,len(prepid)):
         if 3 not in tunecheck and 'sherpa' not in dn.lower() and fsize != 0:
 	    if any(it!=0 for it in tunecheck) :
             	print "* [ERROR] Tune configuration may be wrong in the fragment"
- 	    	print "          or pythia8CUEP8M1Settings are overwritten by some other parameters as in CUETP8M2T4"
+ 	    	print "*         or pythia8CUEP8M1Settings are overwritten by some other parameters as in CUETP8M2T4"
             	error = error + 1
 	    else :
 		print "* [WARNING] None standard tune - please check the fragment carefully."
