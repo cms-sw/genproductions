@@ -3,19 +3,17 @@
 fail_exit() { echo "$@"; exit 1; }
 
 #set -o verbose
-EXPECTED_ARGS=0
+EXPECTED_ARGS=1
 
 if [ $# -ne $EXPECTED_ARGS ]
 then
-    echo "Usage: `basename $0`"
+    echo "Usage: `basename $0` gridpack name"
     exit 1
 fi
 
 echo "   ______________________________________     "
 echo "           Running NNLOPS reweight            "
 echo "   ______________________________________     "
-
-prefix=jobPowheg
 
 eval `scramv1 runtime -sh`
 rm -f splitLheFiles mergeLheFiles lhefiles.txt
@@ -30,15 +28,12 @@ for fn in `cat lhefiles.txt`; do
     comman="$comman ../$fn"    
 done
 
-cd jobPowheg1
+mkdir nnlops
+cd nnlops
+tar -xvf ../$1
 ../splitLheFiles ${comman}
 mv out.lhe fornnlops
 cp powheg.input.1_1 powheg.input
-#mv powheg.input powheg.input.orig
-#head -n 12 pwg-rwl.dat > temp1.dat
-#tail -n 1 pwg-rwl.dat > temp2.dat
-#cat temp1.dat temp2.dat > pwg-rwl-scaleonly.dat
-#sed s/pwg-rwl/pwg-rwl-scaleonly/ powheg.input.orig > powheg.input
 ./nnlopsreweighter-newrwgt
 ../mergeLheFiles fornnlops.nnlo pdf.lhe
 mv out.lhe ../cmsgrid_final.lhe

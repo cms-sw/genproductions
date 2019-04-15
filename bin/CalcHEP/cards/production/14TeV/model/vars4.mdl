@@ -1,0 +1,41 @@
+MajN_2
+ Parameters
+  Name | Value       |> Comment                                                                <|
+cabi   |0.227736     |Cabibbo angle
+aEWM1  |127.9        |Inverse of the EW coupling constant at the Z pole
+Gf     |0.0000116637 |Fermi constant
+aS     |0.1184       |Strong coupling constant at the Z pole
+ymb    |4.7          |Bottom Yukawa mass
+ymt    |172          |Top Yukawa mass
+ymtau  |1.777        |Tau Yukawa mass
+f3u    |1.           |Ustar dimensionless coupling
+f3d    |1.           |Dstar dimensionless coupling
+f3e    |1.           |Estar dimensionless coupling
+lc     |10000.       |Compositeness scale
+MUU    |1000.        |Mass of excited states
+GG     |1.21977796370|Strong coupling constant at the Z pole   This value will be ignored and ca
+MZ     |91.1876      |Mass of G0.
+MTA    |1.777        |Mass of ta.
+MT     |172          |Mass of t.
+MB     |4.7          |Mass of b.
+MH     |120          |Mass of H.
+MU     |10000        |Mass of Taus.
+%WZ    |2.4952       |Width of Z.
+%WW    |2.085        |Width of W.
+%WT    |1.50833649   |Width of t.
+%WH    |0.00575308848|Width of H.
+%WUs   |30           |Width of Us.
+%WCs   |30           |Width of Cs.
+%WTs   |30           |Width of Ts.
+%WDs   |30           |Width of Ds.
+%WSs   |30           |Width of Ss.
+%WBs   |30           |Width of Bs.
+%WNEs  |30           |Width of NEs.
+%WNMus |30           |Width of NMus.
+%WNTaus|30           |Width of NTaus.
+%WEs   |30           |Width of Es.
+%WMus  |30           |Width of Mus.
+%WTaus |30           |Width of Taus.
+E      |2.71828182845|The base of the natural logarithm.
+Pi     |3.14159265358|The circumference of a circle divided by the diameter.
+=================================================================================================

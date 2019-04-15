@@ -1,0 +1,54 @@
+#************************************************************
+#*                     MadGraph5_aMC@NLO                    *
+#*                                                          *
+#*                *                       *                 *
+#*                  *        * *        *                   *
+#*                    * * * * 5 * * * *                     *
+#*                  *        * *        *                   *
+#*                *                       *                 *
+#*                                                          *
+#*                                                          *
+#*         VERSION 2.4.2                 2016-06-10         *
+#*                                                          *
+#*    The MadGraph5_aMC@NLO Development Team - Find us at   *
+#*    https://server06.fynu.ucl.ac.be/projects/madgraph     *
+#*                                                          *
+#************************************************************
+#*                                                          *
+#*               Command File for MadGraph5_aMC@NLO         *
+#*                                                          *
+#*     run as ./bin/mg5_aMC  filename                       *
+#*                                                          *
+#************************************************************
+set loop_color_flows False
+set gauge unitary
+set max_npoint_for_channel 0
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set loop_optimized_output True
+set complex_mass_scheme False
+import model sm-ckm_no_b_mass
+define j = g u c d s u~ c~ d~ s~
+define p = 21 2 4 1 3 -2 -4 -1 -3 5 -5 # pass to 5 flavors
+define j = p
+define p = g u c d s u~ c~ d~ s~
+define j =  u c d s u~ c~ d~ s~
+define l+ = e+ mu+
+define l- = e- mu-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+define p = p b b~
+define j = j b b~
+define ell+ = e+ mu+ ta+
+define ell- = e- mu- ta-
+generate p p >  ell+ vl $$ t t~ h @0
+add process p p >  ell+ vl j $$ t t~ h @1
+add process p p >  ell+ vl j j $$ t t~ h @2
+add process p p >  ell+ vl j j j $$ t t~ h @3
+add process p p >  ell+ vl j j j j $$ t t~ h @4
+add process p p >  ell- vl~ $$ t t~ h @5
+add process p p >  ell- vl~ j $$ t t~ h @6
+add process p p >  ell- vl~ j j $$ t t~ h @7
+add process p p >  ell- vl~ j j j $$ t t~ h @8
+add process p p >  ell- vl~ j j j j $$ t t~ h @9
+output lv_bwcutoff_WJetsToLNu_HT-incl_VMG5_260 -nojpeg

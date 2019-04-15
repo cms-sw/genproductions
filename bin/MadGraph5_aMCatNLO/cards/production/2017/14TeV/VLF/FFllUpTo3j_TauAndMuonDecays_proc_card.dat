@@ -1,0 +1,40 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set loop_optimized_output True
+set loop_color_flows False
+set gauge unitary
+set complex_mass_scheme False
+set max_npoint_for_channel 0
+
+import model sm
+
+#define p = g u c d s u~ c~ d~ s~
+#define j = g u c d s u~ c~ d~ s~
+define l+ = e+ mu+
+define l- = e- mu-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+
+import model SimplifiedDMSSSFDM -modelname
+
+define p = g d1 d1bar d2 d2bar d3 d3bar u1 u1bar u2 u2bar
+define j = g d1 d1bar d2 d2bar d3 d3bar u1 u1bar u2 u2bar
+
+generate p p > fre frebar, (fre > e2 ss), (frebar > e2bar ss) @0
+add process p p > fre frebar, (fre > e2 ss), (frebar > e3bar ss) @0
+add process p p > fre frebar, (fre > e3 ss), (frebar > e2bar ss) @0
+add process p p > fre frebar, (fre > e3 ss), (frebar > e3bar ss) @0
+add process p p > fre frebar j, (fre > e2 ss), (frebar > e2bar ss) @1
+add process p p > fre frebar j, (fre > e2 ss), (frebar > e3bar ss) @1
+add process p p > fre frebar j, (fre > e3 ss), (frebar > e2bar ss) @1
+add process p p > fre frebar j, (fre > e3 ss), (frebar > e3bar ss) @1
+add process p p > fre frebar j j, (fre > e2 ss), (frebar > e2bar ss) @\
+2
+add process p p > fre frebar j j, (fre > e2 ss), (frebar > e3bar ss) @\
+2
+add process p p > fre frebar j j, (fre > e3 ss), (frebar > e2bar ss) @\
+2
+add process p p > fre frebar j j, (fre > e3 ss), (frebar > e3bar ss) @\
+2
+
+output FFllUpTo3j_TauAndMuonDecays -nojpeg

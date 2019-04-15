@@ -46,6 +46,8 @@ if __name__ == "__main__":
         print '                skipexisting          = ' + str(skipexisting)
         print
 
+    das_cmd = "/cvmfs/cms.cern.ch/common/dasgoclient"
+
     # if mcm is specified, retrieve dataset name from prepID:
     if mcm:
         if "/" in str(args.inputdataset): 
@@ -53,13 +55,13 @@ if __name__ == "__main__":
             sys.exit(1)
         # load McM
         sys.path.append('/afs/cern.ch/cms/PPD/PdmV/tools/McM/')
-        from rest import restful
-        mcm = restful()
+        from rest import McM
+        mcm = McM()
         # retrieve request with given prepid
         temp = sys.stdout
         f = open('/dev/null', 'w')
         sys.stdout = f
-        request = mcm.getA('requests', str(args.inputdataset))
+        request = mcm.get('requests', str(args.inputdataset))
         sys.stdout = temp
         if debug: print 'request prepid',request['prepid']
         # search dataset name as returned by mcm
@@ -68,7 +70,7 @@ if __name__ == "__main__":
     else:
         # search dataset name as name + campaign + datatier
         primary_dataset_name = args.inputdataset.split('/')[1]
-        command="/cvmfs/cms.cern.ch/common/das_client --limit=0 --query=\"dataset dataset=/"+primary_dataset_name+"/*"+args.campaign+"*/"+args.datatier+"\""
+        command=das_cmd+" --limit=0 --query=\"dataset dataset=/"+primary_dataset_name+"/*"+args.campaign+"*/"+args.datatier+"\""
         dataset_used = commands.getstatusoutput(command)[1].split("\n")
         if debug: print 'command',command,'\n'
         dataset_used = [x.strip() for x in dataset_used][0]
@@ -82,7 +84,7 @@ if __name__ == "__main__":
         # pick up only the first dataset of the list
         if debug: print 'dataset_used',dataset_used
         # retrieve filelist
-        command="/cvmfs/cms.cern.ch/common/das_client --limit=100 --query=\"file dataset="+dataset_used+"\" "
+        command=das_cmd+" --limit=100 --query=\"file dataset="+dataset_used+"\" "
         if debug: print 'command',command
         filelist_used = "/store"+commands.getstatusoutput(command)[1].replace("\n",",").split("/store",1)[1] 
         if debug: 

@@ -1,0 +1,10 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set loop_optimized_output True
+set complex_mass_scheme False
+import model SM_HEL_UFO_noLightYukawa
+define p = u c d s u~ c~ d~ s~
+define j = p
+import model SM_HEL_UFO_noLightYukawa
+generate p p > h h j j $$ z w+ w-  / a j QED=4
+output VBF_HH_CV_1_C2V_2_C3_1_13TeV-madgraph -nojpeg
