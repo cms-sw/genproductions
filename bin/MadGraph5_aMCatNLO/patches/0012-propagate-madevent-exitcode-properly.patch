@@ -1,0 +1,143 @@
+diff --git a/Template/LO/SubProcesses/refine.sh b/Template/LO/SubProcesses/refine.sh
+index b1a7314..7cd7a75 100644
+--- a/Template/LO/SubProcesses/refine.sh
++++ b/Template/LO/SubProcesses/refine.sh
+@@ -12,6 +12,10 @@ if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRT" ]; then
+   fi
+ fi
+ 
++# If TMPDIR is unset, set it to the condor scratch area if present
++# and fallback to /tmp
++export TMPDIR=${TMPDIR:-${_CONDOR_SCRATCH_DIR:-/tmp}}
++
+ if [[ -e MadLoop5_resources.tar.gz && ! -e MadLoop5_resources ]]; then
+ tar -xzf MadLoop5_resources.tar.gz
+ fi
+@@ -87,7 +91,11 @@ j=%(directory)s
+      if [[ $status_code -ne 0 ]]; then 
+ 	 rm results.dat
+ 	 echo "ERROR DETECTED"
+-	 echo "end-code not correct $status_code" > results.dat
++         echo "end-code not correct $status_code" >> log.txt
++         echo "+ Hostname:" >> log.txt
++         hostname >> log.txt
++         echo "+ Printing job environment:" >> log.txt
++         env >> log.txt
+      fi     
+      if [[ -e ftn26 ]]; then
+          cp ftn26 ftn25
+@@ -105,3 +113,4 @@ j=%(directory)s
+ 
+      cd ../
+ 
++exit $status_code
+diff --git a/Template/LO/SubProcesses/refine_splitted.sh b/Template/LO/SubProcesses/refine_splitted.sh
+index abc4b99..bd1b78c 100644
+--- a/Template/LO/SubProcesses/refine_splitted.sh
++++ b/Template/LO/SubProcesses/refine_splitted.sh
+@@ -12,6 +12,10 @@ if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRT" ]; then
+   fi
+ fi
+ 
++# If TMPDIR is unset, set it to the condor scratch area if present
++# and fallback to /tmp
++export TMPDIR=${TMPDIR:-${_CONDOR_SCRATCH_DIR:-/tmp}}
++
+ if [[ -e MadLoop5_resources.tar.gz && ! -e MadLoop5_resources ]]; then
+ tar -xzf MadLoop5_resources.tar.gz
+ fi
+@@ -81,7 +85,12 @@ fi
+ if [[ $status_code -ne 0 ]]; then 
+ 	 rm results.dat
+ 	 echo "ERROR DETECTED"
+-	 echo "end code not correct $status_code" > results.dat
++	 echo "end code not correct $status_code" > log.txt
++         echo "+ Hostname:" >> log.txt
++         hostname >> log.txt
++         echo "+ Printing job environment:" >> log.txt
++         env >> log.txt
+ fi
+ 
+ cd ../
++exit $status_code
+diff --git a/Template/LO/SubProcesses/survey.sh b/Template/LO/SubProcesses/survey.sh
+index 5f121e8..ebe9369 100755
+--- a/Template/LO/SubProcesses/survey.sh
++++ b/Template/LO/SubProcesses/survey.sh
+@@ -12,6 +12,10 @@ if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRT" ]; then
+   fi
+ fi
+ 
++# If TMPDIR is unset, set it to the condor scratch area if present
++# and fallback to /tmp
++export TMPDIR=${TMPDIR:-${_CONDOR_SCRATCH_DIR:-/tmp}}
++
+ if [[ -e MadLoop5_resources.tar.gz && ! -e MadLoop5_resources ]]; then
+ tar -xzf MadLoop5_resources.tar.gz;
+ fi
+@@ -79,7 +83,13 @@ for i in $@ ; do
+      if [[ $status_code -ne 0 ]]; then 
+ 	 rm results.dat
+ 	 echo "ERROR DETECTED"
+-	 echo "end code not correct $status_code" > results.dat
++	 echo "end code not correct $status_code" >> log.txt
++         echo "+ Hostname:" >> log.txt
++         hostname >> log.txt
++         echo "+ Printing job environment:" >> log.txt
++         env >> log.txt
++         cd ../
++         exit $status_code
+      fi
+      cd ../;
+ 
+@@ -87,6 +97,3 @@ for i in $@ ; do
+ done;
+ 
+ # Cleaning 
+-
+-
+-
+diff --git a/Template/NLO/SubProcesses/ajob_template b/Template/NLO/SubProcesses/ajob_template
+index ff308ff..8a3389c 100755
+--- a/Template/NLO/SubProcesses/ajob_template
++++ b/Template/NLO/SubProcesses/ajob_template
+@@ -19,6 +19,10 @@ if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRT" ]; then
+   fi
+ fi
+ 
++# If TMPDIR is unset, set it to the condor scratch area if present
++# and fallback to /tmp
++export TMPDIR=${TMPDIR:-${_CONDOR_SCRATCH_DIR:-/tmp}}
++
+ tarCounter=0
+ while [[ (-f MadLoop5_resources.tar.gz) && (! -f MadLoop5_resources/HelConfigs.dat) && ($tarCounter < 10) ]]; do
+     if [[ $tarCounter > 0 ]]; then
+@@ -104,6 +108,13 @@ TAGTAGTAGTAGTAGTAGTAG for i in 1 ; do
+         ../madevent_mintMC > log.txt <input_app.txt 2>&1
+     fi
+     status=$?
++    if [[ $status -ne 0 ]]; then
++      echo "Error: Status code $status" >> log.txt
++      echo "+ Hostname:" >> log.txt
++      hostname >> log.txt
++      echo "+ Printing environment" >> log.txt
++      env >> log.txt
++    fi
+     T="$(($(date +%s)-T))"
+     echo "Time in seconds: ${T}" >>log.txt
+     cp -f log.txt log_MINT$integration_step.txt  >/dev/null 2>&1
+diff --git a/Template/NLO/SubProcesses/reweight_xsec_events.local b/Template/NLO/SubProcesses/reweight_xsec_events.local
+index cb9b7d2..fa64a85 100644
+--- a/Template/NLO/SubProcesses/reweight_xsec_events.local
++++ b/Template/NLO/SubProcesses/reweight_xsec_events.local
+@@ -15,6 +15,10 @@ if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRT" ]; then
+   fi
+ fi
+ 
++# If TMPDIR is unset, set it to the condor scratch area if present
++# and fallback to /tmp
++export TMPDIR=${TMPDIR:-${_CONDOR_SCRATCH_DIR:-/tmp}}
++
+ if [[ -e ./reweight_xsec_events ]]
+ then
+     (echo $event_file; echo $save_wgts) | ./reweight_xsec_events > reweight_xsec_events.output

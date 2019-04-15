@@ -1,0 +1,1 @@
+Process=2 PChannel=0 MReso=18.5 GaReso=0.001 ColliderEnergy=8 Unweighted=1 Interf=1 DataFile=$1/$2 PDFSet=1 bzpgs1=1,0 a1=1,0 MZprime=9.46 GaZprime=0.00005 ezp_Mu_right=0.46238,0 ezp_Mu_left=0.46238,0 ezp_El_right=0.46238,0 ezp_El_left=0.46238,0 ReadCSmax VegasNc0=5000000 

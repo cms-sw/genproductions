@@ -1,6 +1,12 @@
 #!/bin/tcsh
 
-foreach i (400 500 600 700 800 900 1000 1100 1200 1300 1400 1500 1600 1700 1800)
+foreach i (200 300 400 500 600 700 800 900 1000 1100 1200 1300 1400 1500 1600 1700 1800)
+    if ($i == '200') then
+        set xs=64.5085
+    endif
+    if ($i == '300') then
+        set xs=8.51615
+    endif
     if ($i == '400') then
 	set xs=1.83537
     endif
@@ -61,6 +67,7 @@ foreach i (400 500 600 700 800 900 1000 1100 1200 1300 1400 1500 1600 1700 1800)
 	    set exp=16
 	endif
 	sed "s/XXX/$i/" DisplacedSUSY_stopToBottom_M_XXX_YYYmm_TuneCP5_13TeV_pythia8_cff.py | sed "s/YYY/$j/" | sed "s/ZZZ/$xs/" | sed "s/AAA/$exp/" > DisplacedSUSY_stopToBottom_M_${i}_${j}mm_TuneCP5_13TeV_pythia8_cff.py
+	sed "s/XXX/$i/" DisplacedSUSY_stopToLD_M_XXX_YYYmm_TuneCP5_13TeV_pythia8_cff.py | sed "s/YYY/$j/" | sed "s/ZZZ/$xs/" | sed "s/AAA/$exp/" > DisplacedSUSY_stopToLD_M_${i}_${j}mm_TuneCP5_13TeV_pythia8_cff.py
     end
 end
     

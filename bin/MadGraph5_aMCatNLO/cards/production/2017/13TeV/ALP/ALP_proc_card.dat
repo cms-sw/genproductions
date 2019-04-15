@@ -1,0 +1,7 @@
+import model ALP
+
+define p = g u c d s u~ c~ d~ s~
+
+generate p p > h, (h > ALP ALP, ( ALP > mu+ mu- ) )
+
+output ALP -nojpeg 

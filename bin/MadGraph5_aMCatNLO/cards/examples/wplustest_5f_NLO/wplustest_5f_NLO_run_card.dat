@@ -62,8 +62,7 @@
 # PDF choice: this automatically fixes also alpha_s(MZ) and its evol.  *
 #***********************************************************************
  lhapdf = pdlabel ! PDF set
- $DEFAULT_PDF_SETS = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number
- ! If pdlabel=lhapdf, this is the lhapdf number. Only 
+ $DEFAULT_PDF_SETS = lhaid ! If pdlabel=lhapdf, this is the lhapdf number. Only 
               ! numbers for central PDF sets are allowed. Can be a list; 
               ! PDF sets beyond the first are included via reweighting.
 #***********************************************************************
@@ -93,22 +92,20 @@
 #*********************************************************************** 
 # Reweight variables for scale dependence and PDF uncertainty          *
 #***********************************************************************
- 1.0, 2.0, 0.5 = rw_rscale ! muR factors to be included by reweighting
- 1.0, 2.0, 0.5 = rw_fscale ! muF factors to be included by reweighting
+ 1.0 = rw_rscale ! muR factors to be included by reweighting
+ 1.0 = rw_fscale ! muF factors to be included by reweighting
  True = reweight_scale ! Reweight to get scale variation using the 
             ! rw_rscale and rw_fscale factors. Should be a list of 
             ! booleans of equal length to dynamical_scale_choice to
             ! specify for which choice to include scale dependence.
-
- $DEFAULT_PDF_MEMBERS = reweight_PDF     ! reweight to get PDF uncertainty
-            ! Reweight to get PDF uncertainty. Should be a
+ False = reweight_PDF  ! Reweight to get PDF uncertainty. Should be a
             ! list booleans of equal length to lhaid to specify for
             !  which PDF set to include the uncertainties.
 #***********************************************************************
 # Store reweight information in the LHE file for off-line model-       *
 # parameter reweighting at NLO+PS accuracy                             *
 #***********************************************************************
- False = store_rwgt_info ! Store info for reweighting in LHE file
+ True = store_rwgt_info ! Store info for reweighting in LHE file
 #***********************************************************************
 # ickkw parameter:                                                     *
 #   0: No merging                                                      *

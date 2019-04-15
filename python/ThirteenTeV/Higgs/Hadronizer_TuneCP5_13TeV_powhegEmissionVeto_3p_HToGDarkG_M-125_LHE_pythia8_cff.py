@@ -17,10 +17,10 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
             'POWHEG:nFinal = 3',   ## Number of final state particles
                                    ## (BEFORE THE DECAYS) in the LHE
                                    ## other than emitted extra parton
-            '3000022:all = DarkPhoton void 3 0 0 0. 0. 0. 0. 0.',
-            '3000022:isVisible = 0',
+            '53:all = DarkPhoton void 3 0 0 0. 0. 0. 0. 0.',
+            '53:isVisible = 0',
             '25:m0 = 125.0',
-            '25:oneChannel = 1 1 100 22 3000022'
+            '25:oneChannel = 1 1 100 22 53'
           ),
         parameterSets = cms.vstring('pythia8CommonSettings',
                                     'pythia8CP5Settings',

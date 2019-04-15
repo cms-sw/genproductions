@@ -1,0 +1,10 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set loop_optimized_output True
+set loop_color_flows False
+set gauge unitary
+set complex_mass_scheme False
+set max_npoint_for_channel 0
+import model EffLRSM_NLO
+generate p p > n1 n1 QCD=0 [QCD]
+output ZprimetoNN_EEJJJJ_Zprime1000_N400_WR5000_NLO

@@ -1,0 +1,8 @@
+set loop_optimized_output True
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set gauge unitary
+set complex_mass_scheme False
+import model RPVMSSM_UFO
+generate g g > go go, go > u d s, go > u~ d~ s~
+output RPV_GluinoGluinoToJets_M-1000
