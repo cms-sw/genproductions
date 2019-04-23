@@ -1,0 +1,4 @@
+import model DMsimp_s_spin0_4f
+
+generate p p > b b~ xd xd~ [QCD]
+output bbDM_DMSimp_pseudo_NLO_MPhi_YY_MChi_XX -nojpeg
