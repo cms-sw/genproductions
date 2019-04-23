@@ -1,1 +1,4 @@
 set param_card mhc <MASS>
+set param_card mh1 125
+set param_card mh2 200
+set param_card mh3 <MASS>
