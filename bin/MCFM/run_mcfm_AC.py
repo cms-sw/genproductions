@@ -49,11 +49,11 @@ class RunMcfmOP():
 								help='bqueue for submission. Default is 1nw',
 								default='1nw')
 		self.parser.add_argument('-c','--cmssw',dest='cmssw',type=str,
-								help='CMSSW release to install. Default is CMSSW_9_3_0',
-								default='CMSSW_9_3_0')
+								help='CMSSW release to install.',
+								default=os.environ["CMSSW_VERSION"])
 		self.parser.add_argument('--scram',dest='scram_arch',type=str,
-								help="Specify scram arch version if needed. Default=slc6_amd64_gcc630",
-								default='slc6_amd64_gcc630')
+								help="Specify scram arch version if needed.",
+								default=os.environ["SCRAM_ARCH"])
 		self.parser.add_argument('--gridonly', dest='gridonly',type=int,
 								help='Write gridpack only',
 								default='0')
@@ -123,9 +123,9 @@ class RunMcfmOP():
 	def downloadmcfm(self):
 		tempdir=os.path.join(self.curdir+self.mcfmdir)
 		if os.path.isdir(tempdir):	
-			os.system('rm -rf %s'%(self.mcfmdir))
-		os.system('git clone https://github.com/usarica/MCFM-7.0_JHUGen.git %s'%(self.mcfmdir))
-		os.system('cd %s && git checkout v7.0.5'%(self.mcfmdir))
+			subprocess.check_call('rm -rf %s'%(self.mcfmdir), shell=True)
+		subprocess.check_call('git clone https://github.com/usarica/MCFM-7.0_JHUGen.git %s'%(self.mcfmdir), shell=True)
+		subprocess.check_call('cd %s && git checkout v7.0.5 && git apply ../patches/csmax.patch'%(self.mcfmdir), shell=True)
 		assert os.path.isdir(self.mcfmdir)
 
 	def replaceInputDat(self,action):
@@ -163,12 +163,13 @@ class RunMcfmOP():
 
 	def writesubmissionbash(self):
 		substr = '#!/bin/bash \n'
+                substr+='set -euo pipefail\n'
 		substr+='basedir=%s\n'%(self.curdir)
 		substr+='mcfmdir=%s/%s \n'%(self.curdir, self.mcfmdir)
 		substr+='cd ${basedir}\n'
 		substr+='eval `scramv1 runtime -sh`\n'
 		substr+='git clone https://github.com/usarica/MCFM-7.0_JHUGen.git %s\n'%(self.mcfmdir)
-		substr+='cd %s && git checkout v7.0.5\n'%(self.mcfmdir)# && git revert 6359f4694370dc35a43c4a058dc6f443affb36f2\n'%(self.mcfmdir)
+		substr+='cd %s && git checkout v7.0.5 && git apply ../patches/csmax.patch\n'%(self.mcfmdir)
 		#move readInput.DAT and writeInput.DAT to mcfmdir
 		substr+='mv ${basedir}/*Input.DAT ${basedir}/runcmsgrid.sh ${mcfmdir}\n'
 		substr+='cd ${mcfmdir} \n scram_arch_version=%s \n'%(self.args.scram_arch)
@@ -245,8 +246,6 @@ class RunMcfmOP():
 					line  = templine
 					if('CMSSW_VERSION_REPLACE' in line):		line = '        cmssw_version=%s \n' % (self.args.cmssw)
 					if('SCRAM_ARCH_VERSION_REPLACE' in line):	line = '        scram_arch_version=%s \n' % (self.args.scram_arch)
-					if('./mcfm' in line and 'INPUT.DAT' in line):	line = './Bin/mcfm readInput.DAT \n'	
-					line = line.replace('INPUT.DAT','readInput.DAT')
 					fout.write(line)
 			fout.close()
 		ftemp.close()		
