@@ -54,13 +54,13 @@ varyAll(0,list(params_rinv.iteritems()),[],sigs)
 
 # 2D scans vs. mDark
 params_mDark = deepcopy(params)
-params_mDark["rinv"] = [0.5]
+params_mDark["rinv"] = [0.3]
 params_mDark["alpha"] = ["peak"]
 varyAll(0,list(params_mDark.iteritems()),[],sigs)
 
 # 2D scans vs. alpha
 params_alpha = deepcopy(params)
-params_alpha["rinv"] = [0.5]
+params_alpha["rinv"] = [0.3]
 params_alpha["mDark"] = [20]
 varyAll(0,list(params_alpha.iteritems()),[],sigs)
 
