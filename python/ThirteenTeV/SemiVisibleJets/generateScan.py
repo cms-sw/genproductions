@@ -6,6 +6,8 @@ from collections import OrderedDict
 from copy import deepcopy
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter
 
+# implementation of recursive loop over any number of dimensions
+# creates grid of all possible combinations of parameter values
 def varyAll(pos,paramlist,sig,sigs):
     param = paramlist[pos][0]
     vals = paramlist[pos][1]
@@ -21,6 +23,7 @@ parser = ArgumentParser(formatter_class=ArgumentDefaultsHelpFormatter)
 parser.add_argument("-y","--year", dest="year", type=int, default=2016, help="which year to simulate (specifies generator tune)")
 args = parser.parse_args()
 
+# specification of tunes for each year
 if args.year==2016:
     tune_loc = "Configuration.Generator.Pythia8CUEP8M1Settings_cfi"
     tune_block = "pythia8CUEP8M1SettingsBlock"
@@ -32,6 +35,7 @@ elif args.year==2017 or args.year==2018:
 else:
     parser.error("Unknown year: "+str(args.year))
 
+# complete set of parameter values
 params = OrderedDict([
     ("mZprime", range(1000,5100,100)),
     ("mDark", [1,5] + range(10,110,10)),
@@ -39,6 +43,7 @@ params = OrderedDict([
     ("alpha", ["peak", "high", "low"]),
 ])
 
+# set to accumulate all scan points
 sigs = set()
 
 # 2D scans vs. rinv
@@ -62,6 +67,7 @@ varyAll(0,list(params_alpha.iteritems()),[],sigs)
 # some info on the scan
 print("This scan will contain "+str(len(sigs))+" model points")
 
+# format first part of output config
 first_part = """
 import FWCore.ParameterSet.Config as cms
 
@@ -99,7 +105,8 @@ for point in sorted(sigs):
         'name': helper.getOutName(outpre="SVJ",outsuff=""),
     }
     points.append(pdict)
-    
+
+# format last part of config (loop over all points)
 last_part = """
 for point in points:
     basePythiaParameters = cms.PSet(
