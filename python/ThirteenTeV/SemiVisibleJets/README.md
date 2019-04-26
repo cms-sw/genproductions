@@ -17,3 +17,8 @@ python generateScan.py -y 2016
 python generateScan.py -y 2017
 python generateScan.py -y 2018
 ```
+
+For scan configs, an additional argument should be added to the driver command:
+```
+--customise_commands "process.source.numberEventsInLuminosityBlock = cms.untracked.uint32(200)"
+```
