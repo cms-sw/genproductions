@@ -11,11 +11,11 @@ cmsDriver.py Configuration/GenProduction/ThirteenTeV/SemiVisibleJets/SVJ_mZprime
 ```
 (suggested process string corresponding to `--customise_commands`: "DMinvis")
 
-To create scan configs for each year with a grid of signal points:
+To create scan configs for each year with a grid of signal points, with the nominal 10K events/point increased up to 2x for points with low acceptance:
 ```
-python generateScan.py -y 2016
-python generateScan.py -y 2017
-python generateScan.py -y 2018
+python generateScan.py -y 2016 -a 2
+python generateScan.py -y 2017 -a 2
+python generateScan.py -y 2018 -a 2
 ```
 
 For scan configs, an additional argument should be added to the driver command:
