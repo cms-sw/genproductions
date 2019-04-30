@@ -153,19 +153,25 @@ make_gridpack () {
           elif [ "$queue" == "condor_spool" ]; then
             echo "set cluster_type cms_condor_spool" >> mgconfigscript
             echo "set cluster_queue None" >> mgconfigscript
+          elif [ "$queue" == "cream02" ]; then
+            echo "set cluster_type pbs" >> mgconfigscript
           else
             echo "set cluster_type cms_lsf" >> mgconfigscript
             #*FIXME* broken in mg_amc 2.4.0
     #         echo "set cluster_queue $queue" >> mgconfigscript
           fi 
           if [ $iscmsconnect -gt 0 ]; then
-    	  n_retries=10
-    	  long_wait=300
-    	  short_wait=120
+            n_retries=10
+            long_wait=300
+            short_wait=120
+          elif [ "$queue" == "cream02" ]; then
+            n_retries=20
+            long_wait=600
+            short_wait=120
           else
-    	  n_retries=3
-    	  long_wait=60
-    	  short_wait=30
+            n_retries=3
+            long_wait=60
+            short_wait=30
           fi
           echo "set cluster_status_update $long_wait $short_wait" >> mgconfigscript
           echo "set cluster_nb_retry $n_retries" >> mgconfigscript
@@ -263,7 +269,11 @@ make_gridpack () {
       fi
     
        #*FIXME* workaround for broken set cluster_queue and run_mode handling
-       if [ "$queue" != "condor" ]; then
+       if [ "$queue" == "cream02" ]; then
+         echo "cluster_queue = localgrid@cream02" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
+         mkdir -p /user/$USER/temp
+         echo "cluster_temp_path = /user/$USER/temp" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
+       elif [ "$queue" != "condor" ]; then
          echo "cluster_queue = $queue" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
          if [ "$isscratchspace" -gt "0" ]; then
              echo "cluster_temp_path = `echo $RUNHOME`" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
