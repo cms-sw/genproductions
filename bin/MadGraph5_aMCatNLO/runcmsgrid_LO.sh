@@ -50,11 +50,11 @@ LHAPDFCONFIG=`echo "$LHAPDF_DATA_PATH/../../bin/lhapdf-config"`
 
 echo "lhapdf = $LHAPDFCONFIG" >> ./madevent/Cards/me5_configuration.txt
 # echo "cluster_local_path = `${LHAPDFCONFIG} --datadir`" >> ./madevent/Cards/me5_configuration.txt
-
-if [ "$ncpu" -gt "1" ]; then
-  echo "run_mode = 2" >> ./madevent/Cards/me5_configuration.txt
-  echo "nb_core = $ncpu" >> ./madevent/Cards/me5_configuration.txt
-fi
+#To overcome problem of taking toomanythreads
+#if [ "$ncpu" -gt "1" ]; then
+echo "run_mode = 2" >> ./madevent/Cards/me5_configuration.txt
+echo "nb_core = $ncpu" >> ./madevent/Cards/me5_configuration.txt
+#fi
 
 #########################################
 # FORCE IT TO PRODUCE EXACTLY THE REQUIRED NUMBER OF EVENTS

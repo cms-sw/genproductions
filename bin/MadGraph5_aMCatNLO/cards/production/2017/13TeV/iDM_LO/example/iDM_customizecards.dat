@@ -1,0 +1,7 @@
+#put card customizations here (change top and higgs mass for example)
+set time_of_flight 0.0001
+set param_card dm Mchi 5.25
+set param_card dm dMchi 0.5
+set param_card hidden mZDinput 15.0
+set param_card decay WZp 1e-3
+set param_card decay Wchi2 1e-3

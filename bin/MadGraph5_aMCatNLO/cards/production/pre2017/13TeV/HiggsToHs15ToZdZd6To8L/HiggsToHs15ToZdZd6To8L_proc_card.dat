@@ -1,0 +1,10 @@
+import model sm
+define p = g u c d s u~ c~ d~ s~
+define j = g u c d s u~ c~ d~ s~
+import model HAHM_MG5model_v3/HAHM_variableMW_v3_UFO --modelname
+define l+ = e+ tt+ m+ 
+define l- = e- tt- m- 
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+generate p p > h , (h > hs hs, (hs > zp zp, (zp > l+ l-)))
+output HiggsToHs15ToZdZd6To8L -nojpeg
