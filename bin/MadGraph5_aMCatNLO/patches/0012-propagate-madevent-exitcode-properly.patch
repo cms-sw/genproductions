@@ -62,7 +62,7 @@ index abc4b99..bd1b78c 100644
  
  cd ../
 +if [[ $status_code -ne 0 ]]; then 
-+exit $status_code
++   exit $status_code
 +fi
 
 diff --git a/Template/LO/SubProcesses/survey.sh b/Template/LO/SubProcesses/survey.sh
