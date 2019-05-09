@@ -1,3 +1,4 @@
+#!/bin/env python2
 import os
 import sys
 import re 
@@ -129,6 +130,10 @@ print " "
 # Use no-id as identification mode in order not to use a SSO cookie
 mcm = McM(id='no-id', dev=args.dev, debug=args.debug)
 
+if args.dev is True:
+    mcm_link = "https://cms-pdmv-dev.cern.ch/mcm/"
+else:
+    mcm_link = "https://cms-pdmv.cern.ch/mcm/"
 
 def get_request(prepid):
     result = mcm._McM__get('public/restapi/requests/get/%s' % (prepid))
@@ -273,7 +278,7 @@ for num in range(0,len(prepid)):
         if totalevents >= 100000000 :
             print "* [WARNING] Is "+str(totalevents)+" events what you really wanted - please check!"
             warning = warning + 1
-        os.popen('wget -q https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_fragment/'+pi+' -O '+pi).read()
+        os.popen('wget -q '+mcm_link+'public/restapi/requests/get_fragment/'+pi+' -O '+pi).read()
         fsize = os.path.getsize(pi)
         f1 = open(pi,"r") 
         f2 = open(pi+"_tmp","w")

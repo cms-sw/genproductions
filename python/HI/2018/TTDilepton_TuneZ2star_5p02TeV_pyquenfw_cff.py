@@ -1,7 +1,7 @@
 import FWCore.ParameterSet.Config as cms
 
 from GeneratorInterface.PyquenInterface.pyquenPythiaDefault_cff import *
-from Configuration.Generator.PythiaUEZ2Settings_cfi import * 
+from Configuration.Generator.PythiaUEZ2starSettings_cfi import * 
 
 generator = cms.EDFilter("PyquenGeneratorFilter",
       PythiaParameters = cms.PSet(

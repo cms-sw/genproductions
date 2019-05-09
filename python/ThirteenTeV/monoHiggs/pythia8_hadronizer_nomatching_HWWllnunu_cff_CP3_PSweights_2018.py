@@ -1,6 +1,6 @@
 import FWCore.ParameterSet.Config as cms
 from Configuration.Generator.Pythia8CommonSettings_cfi import *
-from Configuration.Generator.MCTunes2017.PythiaCP2Settings_cfi import *
+from Configuration.Generator.MCTunes2017.PythiaCP3Settings_cfi import *
 from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *
 
 generator = cms.EDFilter("Pythia8HadronizerFilter",
@@ -11,7 +11,7 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
                          comEnergy = cms.double(13000.),
                          PythiaParameters = cms.PSet(
         pythia8CommonSettingsBlock,
-        pythia8CP2SettingsBlock,
+        pythia8CP3SettingsBlock,
         pythia8PSweightsSettingsBlock,
         processParameters = cms.vstring(
             'SLHA:useDecayTable = off',  # Use pythia8s own decay mode instead of decays defined in LH accord
@@ -24,7 +24,7 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
 
             ),
         parameterSets = cms.vstring('pythia8CommonSettings',
-                                    'pythia8CP2Settings',
+                                    'pythia8CP3Settings',
                                     'processParameters',
                                     'pythia8PSweightsSettings'
                                     )
