@@ -18,7 +18,7 @@ parser = argparse.ArgumentParser(
                WARNINGS:
                   * [WARNING] herwig or comphep or calchep sample. Please check manually"
                   * [WARNING] if time per event > 150 seconds
-                  * [WARNING] if CMSSW version is not 10_2 and 9_3 and 7_1
+                  * [WARNING] if CMSSW version is not 10_6 10_2 and 9_3 and 7_1
                   * [WARNING] total number of events > 100000000
                   * [WARNING] No fragment associated to this request"
                   *           is this the hadronizer you intended to use?:
@@ -103,11 +103,12 @@ parser = argparse.ArgumentParser(
                   * [ERROR] You are using a loop induced process, [noborn=QCD].
                   *         Please remove all TimeShower:nPartonsInBorn from the fragment
 
-                  * [ERROR] Tune configuration may be wrong in the fragment"
- 	    	  *          or pythia8CUEP8M1Settings are overwritten by some other parameters as in CUETP8M2T4"
+                  * [ERROR] Tune configuration may be wrong in the fragment
+ 	    	  *          or pythia8CUEP8M1Settings are overwritten by some other parameters as in CUETP8M2T4
 
-                  * [ERROR] PS weights in config but CMSSW version is < 10_2_3 - please check!"
+                  * [ERROR] PS weights in config but CMSSW version is < 10_2_3 - please check!
                   * [ERROR] Parton shower weight configuration not OK in the fragment
+                  * [ERROR] Dataset name is not regular please add the tune name to the dataset name
                                                                                     '''))
 parser.add_argument('--prepid', type=str, help="check mcm requests using prepids", nargs='+')
 parser.add_argument('--ticket', type=str, help="check mcm requests using ticket number", nargs=1)
@@ -393,6 +394,12 @@ for num in range(0,len(prepid)):
                 amcnlo_gp = os.path.isfile(my_path+'/'+pi+'/'+'process/Cards/run_card.dat')
                 print "powheg "+str(pw_gp)
                 print "mg "+str(mg_gp)        
+                if any(word in dn.lower() for word in tune):
+                    print "[OK] Data set name has tune" + dn
+                else:
+                    print "* [ERROR] Dataset name is not regular:"+dn
+                    print "*         Please add the tune name to the dataset."
+                    error=error+1
                 if any(word in dn.lower() for word in MEname):
                     print "Data set name is regular: "+dn
                 else:    
