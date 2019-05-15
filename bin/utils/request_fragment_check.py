@@ -244,7 +244,8 @@ for num in range(0,len(prepid)):
         MGpatch2 = []
         ME = ["PowhegEmissionVeto","aMCatNLO"] # ME = matrix element
         MEname = ["powheg","madgraph","mcatnlo","jhugen","mcfm"]
-        tune = ["CP5","CUEP8M1","CP1","CP2","CP3","CP4","CP5TuneUp","CP5TuneDown"] 
+        tune = ["CP5","CUEP8M1","CP1","CP2","CP3","CP4","CP5TuneUp","CP5TuneDown"]
+        tunename = ["CP5","CUETP8M1","CP1","CP2","CP3","CP4","CP5TuneUp","CP5TuneDown"]
         mcatnlo_flag = 0
         loop_flag = 0
         knd =  -1
@@ -394,7 +395,7 @@ for num in range(0,len(prepid)):
                 amcnlo_gp = os.path.isfile(my_path+'/'+pi+'/'+'process/Cards/run_card.dat')
                 print "powheg "+str(pw_gp)
                 print "mg "+str(mg_gp)        
-                if any(word in dn.lower() for word in tune):
+                if any(word in dn.lower() for word in tunename):
                     print "[OK] Data set name has tune" + dn
                 else:
                     print "* [ERROR] Dataset name is not regular:"+dn
