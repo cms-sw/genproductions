@@ -349,8 +349,9 @@ for num in range(0,len(prepid)):
                 nFinal =  re.findall('\d+',nFinal)
                 nFinal = int(nFinal[0])
                 print "nFinal="+str(nFinal)
+            print("Using CMSSW release: ",cmssw)    
             test_cs_version = cmssw.split('_')
-            if int(test_cs_version[1]) >= 10 and int(test_cs_version[2]) >= 5 and int(test_cs_version[3]) >= 0 and "minbias" in dn.lower(): #this may be improved to make it more accurate >= CMSSW_10_0_5_pre2   
+            if int(test_cs_version[1]) >= 10 and int(test_cs_version[2]) >= 5 and int(test_cs_version[3]) >= 0 and '10_5_0_pre1' not in cmssw:
                 mb_mode = os.popen('grep SigmaTotal:mode '+pi).read()
                 mb_mode = re.findall('\d*\.\d+|\d+',mb_mode)
                 mb_SigmaEl = os.popen('grep SigmaTotal:sigmaEl '+pi).read()
@@ -368,8 +369,11 @@ for num in range(0,len(prepid)):
                     print "* [ERROR] SigmaTotal:sigmaTot should have been set to 100.309"
                     error = error+1
                 if int(PDF_pSet[0]) != 1:
-                    print "* [ERROR] PDF access method is wrong. Please correct." 
+                    print "* [ERROR] PDF access method is wrong. Please correct:"
+                    print "*         e.g. for CP5 use 'PDF:pSet=LHAPDF6:NNPDF31_nnlo_as_0118'"
                     error = error+1
+            
+                    
                     
             gridpack_cvmfs_path = os.popen('grep \/cvmfs '+my_path+'/'+pi+'/'+pi+'| grep -v \'#args\' ').read()
             gp_size = len(gridpack_cvmfs_path)
