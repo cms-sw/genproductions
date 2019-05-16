@@ -395,8 +395,8 @@ for num in range(0,len(prepid)):
                 amcnlo_gp = os.path.isfile(my_path+'/'+pi+'/'+'process/Cards/run_card.dat')
                 print "powheg "+str(pw_gp)
                 print "mg "+str(mg_gp)        
-                if any(word in dn.lower() for word in tunename):
-                    print "[OK] Data set name has tune" + dn
+                if any(word in dn for word in tunename):
+                    print "* [OK] Data set name has a known tune" 
                 else:
                     print "* [ERROR] Dataset name is not regular:"+dn
                     print "*         Please add the tune name to the dataset."
