@@ -245,7 +245,7 @@ for num in range(0,len(prepid)):
         ME = ["PowhegEmissionVeto","aMCatNLO"] # ME = matrix element
         MEname = ["powheg","madgraph","mcatnlo","jhugen","mcfm"]
         tune = ["CP5","CUEP8M1","CP1","CP2","CP3","CP4","CP5TuneUp","CP5TuneDown"]
-        tunename = ["CP5","CUETP8M1","CP1","CP2","CP3","CP4","CP5TuneUp","CP5TuneDown"]
+        tunename = ["CP5","CUETP8M1","CUETP8M2T4","CP1","CP2","CP3","CP4","CP5TuneUp","CP5TuneDown"]
         mcatnlo_flag = 0
         loop_flag = 0
         knd =  -1
@@ -402,7 +402,7 @@ for num in range(0,len(prepid)):
                 if any(word in dn for word in tunename):
                     print "* [OK] Data set name has a known tune" 
                 else:
-                    print "* [ERROR] Dataset name is not regular:"+dn
+                    print "* [ERROR] Dataset name does not have the tune name:"+dn
                     print "*         Please add the tune name to the dataset."
                     error=error+1
                 if any(word in dn.lower() for word in MEname):
