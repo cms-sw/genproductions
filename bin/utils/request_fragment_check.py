@@ -58,9 +58,10 @@ parser = argparse.ArgumentParser(
                   * [WARNING] Matched sample but matching efficiency is 1!
 
                ERRORS:
-                  * [ERROR] Memory is not 2300 or 4000 MB"
+                  * [ERROR] Memory is not 2300, 4000 or 15900 MB"
                   * [ERROR] Memory is 2300 MB while number of cores is XX but not = 1
                   * [ERROR] Memory is 4000 MB while number of cores is 1 but not = 2,4 or 8
+                  * [ERROR] Memory is 15900 MB while number of cores is not 8 
                   * [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix or HINPbPbAutumn18GS campaign but Memory is not 14700, 5900, 400, or 2300 MB
                   * [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix or HINPbPbAutumn18GS campaign: Memory is 14700 but nthreads != 8
                   * [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix or HINPbPbAutumn18GS campaign: Memory is 5900 but nthreads != 4
@@ -305,14 +306,17 @@ for num in range(0,len(prepid)):
         else :
             nthreads = int(re.search('nThreads(.*?) --',ttxt).group(1))
         if "HIN-HINPbPbAutumn18GSHIMix" not in pi and "HINPbPbAutumn18wmLHEGSHIMix" not in pi and "HINPbPbAutumn18GS" not in pi:    
-            if mem != 2300 and mem != 4000:
-                print "* [ERROR] Memory is not 2300 or 4000 MB"
+            if mem != 2300 and mem != 4000 and mem != 15900:
+                print "* [ERROR] Memory is not 2300, 4000 or 15900 MB"
                 error = error + 1
             if mem == 2300 and nthreads != 1 :
                 print "* [ERROR] Memory is "+str(mem)+" MB while number of cores is "+str(nthreads)+" but not = 1"
                 error = error + 1
             if mem == 4000 and nthreads == 1 :
                 print "* [ERROR] Memory is "+str(mem)+" MB while number of cores is "+str(nthreads)+" but not = 2,4 or 8"
+                error = error + 1
+            if mem == 15900 and nthreads != 8:
+                print "* [ERROR] Memory is "+str(mem)+" MB while number of cores is "+str(nthreads)+" but not = 8"
                 error = error + 1
         if "HIN-HINPbPbAutumn18GSHIMix" in pi or "HINPbPbAutumn18wmLHEGSHIMix" in pi or "HINPbPbAutumn18GS" in pi:
             if mem != 14700 and mem != 5900 and mem != 4000 and mem != 2300:
