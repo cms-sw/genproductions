@@ -248,14 +248,5 @@
 #          meaningful ONLY if plotted taking matchscale              *
 #          reweighting into account!                                 *
 #*********************************************************************
-   T = use_syst
-#
-#**************************************
-# Parameter of the systematics study
-#  will be used by SysCalc (if installed)
-#**************************************                                  
-#
-0.5 1 2 = sys_scalefact  
-0.5 1 2 = sys_alpsfact  
-30 50 = sys_matchscale 
-CT10nlo.LHgrid = sys_pdf 
+ F  = cut_decays      ! Enable systematics studies
+ T  = use_syst
