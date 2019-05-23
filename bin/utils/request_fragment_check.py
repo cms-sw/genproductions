@@ -354,7 +354,7 @@ for num in range(0,len(prepid)):
                 nFinal =  re.findall('\d+',nFinal)
                 nFinal = int(nFinal[0])
                 print "nFinal="+str(nFinal)
-            if int(os.popen('grep -c FlatRandomEGunProducer '+pi).read()) == 1 or int(os.popen('grep -c FlatRandomEGunProducer '+pi).read()) == 1:
+            if int(os.popen('grep -c FlatRandomEGunProducer '+pi).read()) == 1 or int(os.popen('grep -c FlatRandomPtGunProducer '+pi).read()) == 1:
                 particle_gun = 1
             print("Using CMSSW release: ",cmssw)    
             test_cs_version = cmssw.split('_')
