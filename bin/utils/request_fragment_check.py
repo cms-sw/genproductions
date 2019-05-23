@@ -258,6 +258,7 @@ for num in range(0,len(prepid)):
         ickkw_c = 100
         maxjetflavor = 0
         nJetMax = 100
+        particle_gun = 0
 	jet_count_tmp = []
         nFinal = 100
         jet_count = 0
@@ -353,9 +354,11 @@ for num in range(0,len(prepid)):
                 nFinal =  re.findall('\d+',nFinal)
                 nFinal = int(nFinal[0])
                 print "nFinal="+str(nFinal)
+            if int(os.popen('grep -c FlatRandomEGunProducer '+pi).read()) == 1 or int(os.popen('grep -c FlatRandomEGunProducer '+pi).read()) == 1:
+                particle_gun = 1
             print("Using CMSSW release: ",cmssw)    
             test_cs_version = cmssw.split('_')
-            if int(test_cs_version[1]) >= 10 and int(test_cs_version[2]) >= 5 and int(test_cs_version[3]) >= 0 and '10_5_0_pre1' not in cmssw:
+            if int(test_cs_version[1]) >= 10 and int(test_cs_version[2]) >= 5 and int(test_cs_version[3]) >= 0 and '10_5_0_pre1' not in cmssw and particle_gun == 0:
                 mb_mode = os.popen('grep SigmaTotal:mode '+pi).read()
                 mb_mode = re.findall('\d*\.\d+|\d+',mb_mode)
                 mb_SigmaEl = os.popen('grep SigmaTotal:sigmaEl '+pi).read()
