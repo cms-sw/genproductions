@@ -388,11 +388,11 @@ for num in range(0,len(prepid)):
                     error = error + 1
                     tmp_flag = 1
                 if len(PDF_pSet_test) == 0:
-                    print "* [ERROR] PDF:pSet is missing"
+                    print "* [WARNING] PDF:pSet is missing (if you want to use NNPDF3.1)"
                     print "*         For requests made with >= CMSSW_10_5_0_pre2 and <= CMSSW_10_6_0"
                     print "*         PDF access method should be like"
                     print "*         e.g. for CP5 use 'PDF:pSet=LHAPDF6:NNPDF31_nnlo_as_0118'"
-                    error = error + 1
+                    warning = warning + 1
                     tmp_flag = 1
                 if tmp_flag == 0:
                     if int(mb_mode[0]) != 0:  
@@ -405,9 +405,9 @@ for num in range(0,len(prepid)):
                         print "* [ERROR] SigmaTotal:sigmaTot should have been set to 100.309"
                         error = error+1
                     if int(PDF_pSet[0]) != 1:
-                        print "* [ERROR] PDF access method is wrong. Please correct:"
+                        print "* [WARNING] PDF access method is wrong (if you want to use NNPDF3.1). Please correct:"
                         print "*         e.g. for CP5 use 'PDF:pSet=LHAPDF6:NNPDF31_nnlo_as_0118'"
-                        error = error+1
+                        warning = warning + 1
                 
             gridpack_cvmfs_path = os.popen('grep \/cvmfs '+my_path+'/'+pi+'/'+pi+'| grep -v \'#args\' ').read()
             gp_size = len(gridpack_cvmfs_path)
