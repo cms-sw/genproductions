@@ -365,7 +365,37 @@ for num in range(0,len(prepid)):
                 mb_SigmaEl = re.findall('\d*\.\d+|\d+',mb_SigmaEl)
                 mb_SigmaTot = os.popen('grep SigmaTotal:sigmaTot '+pi).read()
                 mb_SigmaTot = re.findall('\d*\.\d+|\d+',mb_SigmaTot)
+                PDF_pSet_test = os.popen('grep PDF:pSet '+pi).read()
+                PDF_pSet_test = re.findall('\d*\.\d+|\d+',PDF_pSet_test)
                 PDF_pSet = os.popen('grep PDF:pSet '+pi+' | grep -c LHAPDF6:NNPDF31_nnlo_as_0118').read()
+                tmp_flag = 0
+                if len(mb_mode) == 0:
+                    print "* [ERROR] SigmaTotal:mode is missing"
+                    print "*         For requests made with >= CMSSW_10_5_0_pre2 and <= CMSSW_10_6_0"
+                    print "*         SigmaTotal:mode shoud be added by hand and set to 0"
+                    error = error + 1
+                    tmp_flag = 1
+                if len(mb_SigmaEl) == 0:
+                    print "* [ERROR] SigmaTotal:sigmaEl is missing"
+                    print "*         For requests made with >= CMSSW_10_5_0_pre2 and <= CMSSW_10_6_0"
+                    print "*         SigmaTotal:sigmaEl should be added by hand and set to 21.89"
+                    error = error + 1
+                    tmp_flag = 1
+                if len(mb_SigmaTot) == 0:
+                    print "* [ERROR] SigmaTotal:sigmaTot is missing"
+                    print "*         For requests made with >= CMSSW_10_5_0_pre2 and <= CMSSW_10_6_0"
+                    print "*         SigmaTotal:sigmaTot should be added by hand and set to 100.309"
+                    error = error + 1
+                    tmp_flag = 1
+                if len(PDF_pSet_test) == 0:
+                    print "* [ERROR] PDF:pSet is missing"
+                    print "*         For requests made with >= CMSSW_10_5_0_pre2 and <= CMSSW_10_6_0"
+                    print "*         PDF access method should be like"
+                    print "*         e.g. for CP5 use 'PDF:pSet=LHAPDF6:NNPDF31_nnlo_as_0118'"
+                    error = error + 1
+                    tmp_flag = 1
+                if tmp_flag == 1:
+                    continue
                 if int(mb_mode[0]) != 0:  
                     print "* [ERROR] SigmaTotal:mode should have been set to 0"
                     error = error+1
