@@ -394,24 +394,21 @@ for num in range(0,len(prepid)):
                     print "*         e.g. for CP5 use 'PDF:pSet=LHAPDF6:NNPDF31_nnlo_as_0118'"
                     error = error + 1
                     tmp_flag = 1
-                if tmp_flag == 1:
-                    continue
-                if int(mb_mode[0]) != 0:  
-                    print "* [ERROR] SigmaTotal:mode should have been set to 0"
-                    error = error+1
-                if abs(float(mb_SigmaEl[0])-21.88) > 0.1:
-                    print "* [ERROR] SigmaTotal:sigmaEl should have been set to 21.89"
-                    error = error+1
-                if abs(float(mb_SigmaTot[0])-100.308) > 0.01:
-                    print "* [ERROR] SigmaTotal:sigmaTot should have been set to 100.309"
-                    error = error+1
-                if int(PDF_pSet[0]) != 1:
-                    print "* [ERROR] PDF access method is wrong. Please correct:"
-                    print "*         e.g. for CP5 use 'PDF:pSet=LHAPDF6:NNPDF31_nnlo_as_0118'"
-                    error = error+1
-            
-                    
-                    
+                if tmp_flag == 0:
+                    if int(mb_mode[0]) != 0:  
+                        print "* [ERROR] SigmaTotal:mode should have been set to 0"
+                        error = error+1
+                    if abs(float(mb_SigmaEl[0])-21.88) > 0.1:
+                        print "* [ERROR] SigmaTotal:sigmaEl should have been set to 21.89"
+                        error = error+1
+                    if abs(float(mb_SigmaTot[0])-100.308) > 0.01:
+                        print "* [ERROR] SigmaTotal:sigmaTot should have been set to 100.309"
+                        error = error+1
+                    if int(PDF_pSet[0]) != 1:
+                        print "* [ERROR] PDF access method is wrong. Please correct:"
+                        print "*         e.g. for CP5 use 'PDF:pSet=LHAPDF6:NNPDF31_nnlo_as_0118'"
+                        error = error+1
+                
             gridpack_cvmfs_path = os.popen('grep \/cvmfs '+my_path+'/'+pi+'/'+pi+'| grep -v \'#args\' ').read()
             gp_size = len(gridpack_cvmfs_path)
             if gp_size != 0:
