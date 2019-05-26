@@ -1,0 +1,8 @@
+import model sm
+define l+ = e+ mu+
+define l- = e- mu-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+import model InducedEWSB_UFO
+generate p p > h2 > z h3, z > l+ l-, ( h3 > z h, z > l+ l-, h > b b~)
+output HeavyHiggs_ZA_ZZh_4l2b -nojpeg

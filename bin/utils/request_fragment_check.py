@@ -1,5 +1,4 @@
-#!/usr/bin/env python
-
+#!/bin/env python2
 import os
 import sys
 import re 
@@ -19,7 +18,7 @@ parser = argparse.ArgumentParser(
                WARNINGS:
                   * [WARNING] herwig or comphep or calchep sample. Please check manually"
                   * [WARNING] if time per event > 150 seconds
-                  * [WARNING] if CMSSW version is not 10_2 and 9_3 and 7_1
+                  * [WARNING] if CMSSW version is not 10_6 10_2 and 9_3 and 7_1
                   * [WARNING] total number of events > 100000000
                   * [WARNING] No fragment associated to this request"
                   *           is this the hadronizer you intended to use?:
@@ -59,14 +58,15 @@ parser = argparse.ArgumentParser(
                   * [WARNING] Matched sample but matching efficiency is 1!
 
                ERRORS:
-                  * [ERROR] Memory is not 2300 or 4000 MB"
+                  * [ERROR] Memory is not 2300, 4000 or 15900 MB"
                   * [ERROR] Memory is 2300 MB while number of cores is XX but not = 1
                   * [ERROR] Memory is 4000 MB while number of cores is 1 but not = 2,4 or 8
-                  * [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix campaign but Memory is not 14700, 5900, 400, or 2300 MB
-                  * [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix campaign: Memory is 14700 but nthreads != 8
-                  * [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix campaign: Memory is 5900 but nthreads != 4
-                  * [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix campaign: Memory is 4000 but nthreads != 2
-                  * [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix campaign: Memory is 2300 but nthreads != 1
+                  * [ERROR] Memory is 15900 MB while number of cores is not 8 
+                  * [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix or HINPbPbAutumn18GS campaign but Memory is not 14700, 5900, 400, or 2300 MB
+                  * [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix or HINPbPbAutumn18GS campaign: Memory is 14700 but nthreads != 8
+                  * [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix or HINPbPbAutumn18GS campaign: Memory is 5900 but nthreads != 4
+                  * [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix or HINPbPbAutumn18GS campaign: Memory is 4000 but nthreads != 2
+                  * [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix or HINPbPbAutumn18GS campaign: Memory is 2300 but nthreads != 1
 
                   * [ERROR] Gridpack should have used cvmfs path instead of eos path
 
@@ -104,11 +104,12 @@ parser = argparse.ArgumentParser(
                   * [ERROR] You are using a loop induced process, [noborn=QCD].
                   *         Please remove all TimeShower:nPartonsInBorn from the fragment
 
-                  * [ERROR] Tune configuration may be wrong in the fragment"
- 	    	  *          or pythia8CUEP8M1Settings are overwritten by some other parameters as in CUETP8M2T4"
+                  * [ERROR] Tune configuration may be wrong in the fragment
+ 	    	  *          or pythia8CUEP8M1Settings are overwritten by some other parameters as in CUETP8M2T4
 
-                  * [ERROR] PS weights in config but CMSSW version is < 10_2_3 - please check!"
+                  * [ERROR] PS weights in config but CMSSW version is < 10_2_3 - please check!
                   * [ERROR] Parton shower weight configuration not OK in the fragment
+                  * [ERROR] Dataset name is not regular please add the tune name to the dataset name
                                                                                     '''))
 parser.add_argument('--prepid', type=str, help="check mcm requests using prepids", nargs='+')
 parser.add_argument('--ticket', type=str, help="check mcm requests using ticket number", nargs=1)
@@ -131,6 +132,10 @@ print " "
 # Use no-id as identification mode in order not to use a SSO cookie
 mcm = McM(id='no-id', dev=args.dev, debug=args.debug)
 
+if args.dev is True:
+    mcm_link = "https://cms-pdmv-dev.cern.ch/mcm/"
+else:
+    mcm_link = "https://cms-pdmv.cern.ch/mcm/"
 
 def get_request(prepid):
     result = mcm._McM__get('public/restapi/requests/get/%s' % (prepid))
@@ -240,7 +245,8 @@ for num in range(0,len(prepid)):
         MGpatch2 = []
         ME = ["PowhegEmissionVeto","aMCatNLO"] # ME = matrix element
         MEname = ["powheg","madgraph","mcatnlo","jhugen","mcfm"]
-        tune = ["CP5","CUEP8M1","CP1","CP2","CP3","CP4","CP5TuneUp","CP5TuneDown"] 
+        tune = ["CP5","CUEP8M1","CP1","CP2","CP3","CP4","CP5TuneUp","CP5TuneDown"]
+        tunename = ["CP5","CUETP8M1","CUETP8M2T4","CP1","CP2","CP3","CP4","CP5TuneUp","CP5TuneDown"]
         mcatnlo_flag = 0
         loop_flag = 0
         knd =  -1
@@ -252,6 +258,7 @@ for num in range(0,len(prepid)):
         ickkw_c = 100
         maxjetflavor = 0
         nJetMax = 100
+        particle_gun = 0
 	jet_count_tmp = []
         nFinal = 100
         jet_count = 0
@@ -268,14 +275,14 @@ for num in range(0,len(prepid)):
         if timeperevent > 150.0 :
             print "* [WARNING] Large time/event="+str(timeperevent)+" - please check"
             warning = warning + 1
-        if '10_2' not in cmssw and '9_3' not in cmssw and '7_1' not in cmssw :
-            print "* [WARNING] Are you sure you want to use "+cmssw+"release which is not standard"
+        if '10_6' not in cmssw and '10_2' not in cmssw and '9_3' not in cmssw and '7_1' not in cmssw :
+            print "* [WARNING] Are you sure you want to use "+cmssw+" release which is not standard"
             print "*           which may not have all the necessary GEN code."
             warning = warning + 1
         if totalevents >= 100000000 :
             print "* [WARNING] Is "+str(totalevents)+" events what you really wanted - please check!"
             warning = warning + 1
-        os.popen('wget -q https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_fragment/'+pi+' -O '+pi).read()
+        os.popen('wget -q '+mcm_link+'public/restapi/requests/get_fragment/'+pi+' -O '+pi).read()
         fsize = os.path.getsize(pi)
         f1 = open(pi,"r") 
         f2 = open(pi+"_tmp","w")
@@ -299,9 +306,9 @@ for num in range(0,len(prepid)):
             nthreads = 1
         else :
             nthreads = int(re.search('nThreads(.*?) --',ttxt).group(1))
-        if "HIN-HINPbPbAutumn18GSHIMix" not in pi and "HINPbPbAutumn18wmLHEGSHIMix" not in pi:    
-            if mem != 2300 and mem != 4000:
-                print "* [ERROR] Memory is not 2300 or 4000 MB"
+        if "HIN-HINPbPbAutumn18GSHIMix" not in pi and "HINPbPbAutumn18wmLHEGSHIMix" not in pi and "HINPbPbAutumn18GS" not in pi:    
+            if mem != 2300 and mem != 4000 and mem != 15900:
+                print "* [ERROR] Memory is not 2300, 4000 or 15900 MB"
                 error = error + 1
             if mem == 2300 and nthreads != 1 :
                 print "* [ERROR] Memory is "+str(mem)+" MB while number of cores is "+str(nthreads)+" but not = 1"
@@ -309,9 +316,12 @@ for num in range(0,len(prepid)):
             if mem == 4000 and nthreads == 1 :
                 print "* [ERROR] Memory is "+str(mem)+" MB while number of cores is "+str(nthreads)+" but not = 2,4 or 8"
                 error = error + 1
-        if "HIN-HINPbPbAutumn18GSHIMix" in pi and "HINPbPbAutumn18wmLHEGSHIMix" in pi:
+            if mem == 15900 and nthreads != 8:
+                print "* [ERROR] Memory is "+str(mem)+" MB while number of cores is "+str(nthreads)+" but not = 8"
+                error = error + 1
+        if "HIN-HINPbPbAutumn18GSHIMix" in pi or "HINPbPbAutumn18wmLHEGSHIMix" in pi or "HINPbPbAutumn18GS" in pi:
             if mem != 14700 and mem != 5900 and mem != 4000 and mem != 2300:
-                print "* [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix campaign but Memory is not 14700, 5900, 400, or 2300 MB"
+                print "* [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix or HINPbPbAutumn18GS campaign but Memory is not 14700, 5900, 400, or 2300 MB"
                 error = error + 1
             if mem == 14700 and nthreads != 8 :
                 print "* [ERROR] Memory is "+str(mem)+" MB while number of cores is "+str(nthreads)+" but not = 8"
@@ -344,28 +354,61 @@ for num in range(0,len(prepid)):
                 nFinal =  re.findall('\d+',nFinal)
                 nFinal = int(nFinal[0])
                 print "nFinal="+str(nFinal)
+            if int(os.popen('grep -c FlatRandomEGunProducer '+pi).read()) == 1 or int(os.popen('grep -c FlatRandomPtGunProducer '+pi).read()) == 1:
+                particle_gun = 1
+            print("Using CMSSW release: ",cmssw)    
             test_cs_version = cmssw.split('_')
-            if int(test_cs_version[1]) >= 10 and int(test_cs_version[2]) >= 5 and int(test_cs_version[3]) >= 0 and "minbias" in dn.lower(): #this may be improved to make it more accurate >= CMSSW_10_0_5_pre2   
+            if int(test_cs_version[1]) >= 10 and int(test_cs_version[2]) >= 5 and int(test_cs_version[3]) >= 0 and '10_5_0_pre1' not in cmssw and particle_gun == 0:
                 mb_mode = os.popen('grep SigmaTotal:mode '+pi).read()
                 mb_mode = re.findall('\d*\.\d+|\d+',mb_mode)
                 mb_SigmaEl = os.popen('grep SigmaTotal:sigmaEl '+pi).read()
                 mb_SigmaEl = re.findall('\d*\.\d+|\d+',mb_SigmaEl)
                 mb_SigmaTot = os.popen('grep SigmaTotal:sigmaTot '+pi).read()
                 mb_SigmaTot = re.findall('\d*\.\d+|\d+',mb_SigmaTot)
+                PDF_pSet_test = os.popen('grep PDF:pSet '+pi).read()
+                PDF_pSet_test = re.findall('\d*\.\d+|\d+',PDF_pSet_test)
                 PDF_pSet = os.popen('grep PDF:pSet '+pi+' | grep -c LHAPDF6:NNPDF31_nnlo_as_0118').read()
-                if int(mb_mode[0]) != 0:  
-                    print "* [ERROR] SigmaTotal:mode should have been set to 0"
-                    error = error+1
-                if abs(float(mb_SigmaEl[0])-21.88) > 0.1:
-                    print "* [ERROR] SigmaTotal:sigmaEl should have been set to 21.89"
-                    error = error+1
-                if abs(float(mb_SigmaTot[0])-100.308) > 0.01:
-                    print "* [ERROR] SigmaTotal:sigmaTot should have been set to 100.309"
-                    error = error+1
-                if int(PDF_pSet[0]) != 1:
-                    print "* [ERROR] PDF access method is wrong. Please correct." 
-                    error = error+1
-                    
+                tmp_flag = 0
+                if len(mb_mode) == 0:
+                    print "* [ERROR] SigmaTotal:mode is missing"
+                    print "*         For requests made with >= CMSSW_10_5_0_pre2 and <= CMSSW_10_6_0"
+                    print "*         SigmaTotal:mode shoud be added by hand and set to 0"
+                    error = error + 1
+                    tmp_flag = 1
+                if len(mb_SigmaEl) == 0:
+                    print "* [ERROR] SigmaTotal:sigmaEl is missing"
+                    print "*         For requests made with >= CMSSW_10_5_0_pre2 and <= CMSSW_10_6_0"
+                    print "*         SigmaTotal:sigmaEl should be added by hand and set to 21.89"
+                    error = error + 1
+                    tmp_flag = 1
+                if len(mb_SigmaTot) == 0:
+                    print "* [ERROR] SigmaTotal:sigmaTot is missing"
+                    print "*         For requests made with >= CMSSW_10_5_0_pre2 and <= CMSSW_10_6_0"
+                    print "*         SigmaTotal:sigmaTot should be added by hand and set to 100.309"
+                    error = error + 1
+                    tmp_flag = 1
+                if len(PDF_pSet_test) == 0:
+                    print "* [WARNING] PDF:pSet is missing (if you want to use NNPDF3.1)"
+                    print "*         For requests made with >= CMSSW_10_5_0_pre2 and <= CMSSW_10_6_0"
+                    print "*         PDF access method should be like"
+                    print "*         e.g. for CP5 use 'PDF:pSet=LHAPDF6:NNPDF31_nnlo_as_0118'"
+                    warning = warning + 1
+                    tmp_flag = 1
+                if tmp_flag == 0:
+                    if int(mb_mode[0]) != 0:  
+                        print "* [ERROR] SigmaTotal:mode should have been set to 0"
+                        error = error+1
+                    if abs(float(mb_SigmaEl[0])-21.88) > 0.1:
+                        print "* [ERROR] SigmaTotal:sigmaEl should have been set to 21.89"
+                        error = error+1
+                    if abs(float(mb_SigmaTot[0])-100.308) > 0.01:
+                        print "* [ERROR] SigmaTotal:sigmaTot should have been set to 100.309"
+                        error = error+1
+                    if int(PDF_pSet[0]) != 1:
+                        print "* [WARNING] PDF access method is wrong (if you want to use NNPDF3.1). Please correct:"
+                        print "*         e.g. for CP5 use 'PDF:pSet=LHAPDF6:NNPDF31_nnlo_as_0118'"
+                        warning = warning + 1
+                
             gridpack_cvmfs_path = os.popen('grep \/cvmfs '+my_path+'/'+pi+'/'+pi+'| grep -v \'#args\' ').read()
             gp_size = len(gridpack_cvmfs_path)
             if gp_size != 0:
@@ -390,6 +433,12 @@ for num in range(0,len(prepid)):
                 amcnlo_gp = os.path.isfile(my_path+'/'+pi+'/'+'process/Cards/run_card.dat')
                 print "powheg "+str(pw_gp)
                 print "mg "+str(mg_gp)        
+                if any(word in dn for word in tunename):
+                    print "* [OK] Data set name has a known tune" 
+                else:
+                    print "* [ERROR] Dataset name does not have the tune name:"+dn
+                    print "*         Please add the tune name to the dataset."
+                    error=error+1
                 if any(word in dn.lower() for word in MEname):
                     print "Data set name is regular: "+dn
                 else:    
@@ -722,7 +771,7 @@ for num in range(0,len(prepid)):
         elif 3 in tunecheck:
             print "* [OK] Tune configuration probably OK in the fragment"
             if tunecheck[0] > 2 :
-                if 'Fall18' not in pi and 'Fall17' not in pi :
+                if 'Summer19UL' not in pi and 'Fall18' not in pi and 'Fall17' not in pi :
                     print "* [WARNING] Do you really want to have tune "+tune[0] +" in this campaign?"
                     warning = warning + 1
         if 'Fall18' in pi and fsize != 0:
