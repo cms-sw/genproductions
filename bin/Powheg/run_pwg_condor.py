@@ -1367,7 +1367,7 @@ def dynnlops_mergeminlo(folderName, process, eosdir):
 
 def make_nnlo_rwl(folderName):
     # check pwg-rwl.dat
-    rwlfile = 'pwg-rwl.dat'
+    rwlfile = folderName + '/pwg-rwl.dat'
     if 'scale_variation2' in open(rwlfile).read():
         print('Creating 9x9 NNLOxMINLO scale variations')
     else:
