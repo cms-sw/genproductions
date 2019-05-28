@@ -2,14 +2,8 @@
 from argparse import ArgumentParser
 import os, re, subprocess, sys, textwrap
 
-def checkallfiles():
-	if not os.path.exists('./runcmsgrid_template.sh'):
-		os.system('wget https://raw.githubusercontent.com/carolhungwt/genproductions/bc81e783add413edf33d24e4f068ecaf362eb9f1/bin/MCFM/runcmsgrid_template.sh')
-	if not os.path.exists('./adjlheevent.py'):
-		os.system('wget https://raw.githubusercontent.com/carolhungwt/genproductions/3ef288ee2fcb86961a31e658de23828e8aef93ca/bin/MCFM/adjlheevent.py')
-	if not os.path.exists('./ACmdataConfig.py'):
-		os.system('wget https://raw.githubusercontent.com/carolhungwt/genproductions/64796590df6a1f068fca32b12d9c2b9c87189fb2/bin/MCFM/ACmdataConfig.py')
-		
+#MCFM with anomalous couplings is distributed with JHUGen
+JHUGenversion = "v7.3.0"
 
 def getInputBase(inputcard):
 	try:
@@ -63,6 +57,9 @@ class RunMcfmOP():
 		self.parser.add_argument('--setupenvonly', dest='setupenvonly', type=int, 
 								help='Setup the environment and compile MCFM only',
 								default='0')
+		self.parser.add_argument('--slc6', dest='requirements', action='store_const',
+								const='requirements = (OpSysAndVer =?= "SLCern6")',
+								default='')
 
 		self.args = self.parser.parse_args()
 		self.curdir = os.getcwd()
@@ -75,7 +72,6 @@ class RunMcfmOP():
 #			self.downloadmcfm()
 
 	def execute(self):
-		checkallfiles()
 		if(self.args.setupenvonly == 1):
 			self.editmakefile()
 			self.appendtocompile()
@@ -94,11 +90,11 @@ class RunMcfmOP():
 
 	def givemcfmdir(self):
 		if self.args.runtestonly or self.args.setupenvonly or self.args.gridonly:
-			return 'MCFM-7.0_JHUGen'
+			return 'MCFM_JHUGen'
 		else:
-			return 'MCFM-7.0_JHUGen_%s' % (self.args.datasetname)
+			return 'MCFM_JHUGen_%s' % (self.args.datasetname)
 
-        @property 
+	@property 
 	def gridname(self):
 		gridname = re.split('_',self.args.datasetname)
 		gridname = '_'.join(gridname[:2])
@@ -124,8 +120,13 @@ class RunMcfmOP():
 		tempdir=os.path.join(self.curdir+self.mcfmdir)
 		if os.path.isdir(tempdir):	
 			subprocess.check_call('rm -rf %s'%(self.mcfmdir), shell=True)
-		subprocess.check_call('git clone https://github.com/usarica/MCFM-7.0_JHUGen.git %s'%(self.mcfmdir), shell=True)
-		subprocess.check_call('cd %s && git checkout v7.0.5 && git apply ../patches/csmax.patch'%(self.mcfmdir), shell=True)
+		subprocess.check_call(["wget", "--no-check-certificate", "http://spin.pha.jhu.edu/Generator/JHUGenerator."+JHUGenversion+".tar.gz"])
+		subprocess.check_call(["tar", "xvzf", "JHUGenerator."+JHUGenversion+".tar.gz"])
+		for _ in "AnalyticMELA", "JHUGenMELA", "JHUGenerator":
+			shutil.rmtree(_)
+                for _ in "JHUGenerator."+JHUGenversion+".tar.gz", "manJHUGenerator."+JHUGenversion+".pdf":
+			os.remove(_)
+                shutil.move("MCFM-JHUGen", self.mcfmdir)
 		assert os.path.isdir(self.mcfmdir)
 
 	def replaceInputDat(self,action):
@@ -163,13 +164,15 @@ class RunMcfmOP():
 
 	def writesubmissionbash(self):
 		substr = '#!/bin/bash \n'
-                substr+='set -euo pipefail\n'
+		substr+='set -euo pipefail\n'
 		substr+='basedir=%s\n'%(self.curdir)
 		substr+='mcfmdir=%s/%s \n'%(self.curdir, self.mcfmdir)
 		substr+='cd ${basedir}\n'
 		substr+='eval `scramv1 runtime -sh`\n'
-		substr+='git clone https://github.com/usarica/MCFM-7.0_JHUGen.git %s\n'%(self.mcfmdir)
-		substr+='cd %s && git checkout v7.0.5 && git apply ../patches/csmax.patch\n'%(self.mcfmdir)
+		substr+='wget --no-check-certificate http://spin.pha.jhu.edu/Generator/JHUGenerator.'+JHUGenversion+'.tar.gz\n'
+		substr+='tar xvzf JHUGenerator.'+JHUGenversion+'.tar.gz\n'
+		substr+='rm -r AnalyticMELA JHUGenMELA JHUGenerator JHUGenerator.'+JHUGenversion+'.tar.gz manJHUGenerator.'+JHUGenversion+'.pdf\n'
+                substr+='mv MCFM-JHUGen '+self.mcfmdir+'\n'
 		#move readInput.DAT and writeInput.DAT to mcfmdir
 		substr+='mv ${basedir}/*Input.DAT ${basedir}/runcmsgrid.sh ${mcfmdir}\n'
 		substr+='cd ${mcfmdir} \n scram_arch_version=%s \n'%(self.args.scram_arch)
@@ -229,6 +232,7 @@ class RunMcfmOP():
 				log                     = condor.$(ClusterId).log
 
 				request_memory          = 4000M
+				{args.requirements}
 				+JobFlavour             = "{args.queue}"
 
 				#https://www-auth.cs.wisc.edu/lists/htcondor-users/2010-September/msg00009.shtml

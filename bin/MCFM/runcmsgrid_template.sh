@@ -101,6 +101,7 @@ while [ $(cat produced_lhe | paste -sd+ | bc) -lt ${nevt} ]; do
   ) &
 
   while [ $( jobs | grep '^\[' | wc -l ) -ge $ncpu ]; do
+    jobs > /dev/null  #otherwise it does an infinite loop.  not sure why this happens.
     echo "$( jobs | grep '^\[' | wc -l ) jobs running"
     sleep 10s
   done
@@ -109,7 +110,7 @@ done
 wait
 
 cd $LHEWORKDIR
-python adjlheevent.py ${nevt} $(cat ../produced_lhe | paste -sd+ | bc) ${rnum} cmsgrid_*.lhe
+python adjlheevent.py ${nevt} $(cat produced_lhe | paste -sd+ | bc) ${rnum} cmsgrid_*.lhe
 
 ls -l
 echo
