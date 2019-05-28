@@ -1,0 +1,7 @@
+import model Oblique_UFO
+
+define p = p b b~
+define j = p
+generate p p > t~ t t~ t QED=2
+
+output TTTT_hhat_0p16 -nojpeg
