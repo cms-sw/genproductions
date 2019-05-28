@@ -105,6 +105,25 @@ while [ $(cat produced_lhe | paste -sd+ | bc) -lt ${nevt} ]; do
     echo "$( jobs | grep '^\[' | wc -l ) jobs running"
     sleep 10s
   done
+
+  submitmorejobs=false
+  if ! cat produced_lhe | grep [1-9]; then
+    submitmorejobs=true
+  fi
+  while ! $submitmorejobs; do
+    jobs > /dev/null
+    njobsrunning=$(jobs | grep '^\[' | wc -l)
+    njobsfinished=$(cat produced_lhe | grep [1-9] | wc -l)
+    eventsproduced=$(cat produced_lhe | paste -sd+ | bc)
+    nprojectedevents=$(echo "$eventsproduced * ($njobsrunning + $njobsfinished) / $njobsfinished" | bc)
+    if [ $nprojectedevents -lt ${nevt} ] || [ $eventsproduced -ge ${nevt} ]; then
+      submitmorejobs=true
+    else
+      echo "When the current jobs are done, we will have about $nprojectedevents events"
+      echo "No need to start more jobs"
+      sleep 10s
+    fi
+  done
 done
 
 wait
