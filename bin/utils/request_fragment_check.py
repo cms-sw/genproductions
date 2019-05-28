@@ -436,9 +436,9 @@ for num in range(0,len(prepid)):
                 if any(word in dn for word in tunename):
                     print "* [OK] Data set name has a known tune" 
                 else:
-                    print "* [ERROR] Dataset name does not have the tune name:"+dn
+                    print "* [WARNING] Dataset name does not have the tune name:"+dn
                     print "*         Please add the tune name to the dataset."
-                    error=error+1
+                    warning=warning+1
                 if any(word in dn.lower() for word in MEname):
                     print "Data set name is regular: "+dn
                 else:    
