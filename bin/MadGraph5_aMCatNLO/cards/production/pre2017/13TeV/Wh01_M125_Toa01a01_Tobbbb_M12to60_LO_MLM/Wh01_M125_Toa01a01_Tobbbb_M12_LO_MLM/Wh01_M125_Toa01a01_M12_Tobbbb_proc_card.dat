@@ -5,8 +5,8 @@ set gauge unitary
 set complex_mass_scheme False
 
 import model NMSSM --modelname
-define lep = e+ mu+ e- mu-
-define neut = ve vm ve~ vm~
+define lep = e+ mu+ tau+ e- mu- tau-
+define neut = ve vm vt ve~ vm~ vt~ 
 define V = w+ w-
 
 generate p p  > V h01 , V > lep neut, (h01 > a01 a01, a01 > b b~, a01 > b b~)
