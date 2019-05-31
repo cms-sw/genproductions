@@ -73,6 +73,12 @@ genSelectorLep = cms.EDFilter("GenParticleSelector",
   cut = cms.string('(abs(pdgId()) == 11 || abs(pdgId()) == 13 )')
 )
 
+selectedOneLepCandFilter = cms.EDFilter("CandViewCountFilter",
+   src = cms.InputTag('genSelectorLep'),
+   filter = cms.bool(True),
+   minNumber = cms.uint32(1)
+)
+
 bestLeps = cms.EDFilter("EtaPtMinCandViewSelector",
     src = cms.InputTag("genSelectorLep"),
     filter = cms.bool(True),				
@@ -81,4 +87,4 @@ bestLeps = cms.EDFilter("EtaPtMinCandViewSelector",
     etaMax = cms.double(2.5)
 )
 
-ProductionFilterSequence = cms.Sequence(generator * (genParticlesForFilter + genSelectorLep + bestLeps))
+ProductionFilterSequence = cms.Sequence(generator * (genParticlesForFilter + genSelectorLep + selectedOneLepCandFilter + bestLeps))
