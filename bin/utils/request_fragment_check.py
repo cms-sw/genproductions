@@ -259,6 +259,7 @@ for num in range(0,len(prepid)):
         maxjetflavor = 0
         nJetMax = 100
         particle_gun = 0
+        tunparmark = 0
 	jet_count_tmp = []
         nFinal = 100
         jet_count = 0
@@ -358,7 +359,9 @@ for num in range(0,len(prepid)):
                 particle_gun = 1
             print("Using CMSSW release: ",cmssw)    
             test_cs_version = cmssw.split('_')
-            if int(test_cs_version[1]) >= 10 and int(test_cs_version[2]) >= 5 and int(test_cs_version[3]) >= 0 and '10_5_0_pre1' not in cmssw and particle_gun == 0:
+            if int(test_cs_version[2]) == 6 and ('CMSSW_10_6_0' not in cmssw or 'CMSSW_10_6_0_patch1' not in cmssw):
+                tunparmark = 1
+            if int(test_cs_version[1]) >= 10 and int(test_cs_version[2]) >= 5 and int(test_cs_version[2]) <= 6 and int(test_cs_version[3]) >= 0 and '10_5_0_pre1' not in cmssw and particle_gun == 0 and tunparmark == 0:
                 mb_mode = os.popen('grep SigmaTotal:mode '+pi).read()
                 mb_mode = re.findall('\d*\.\d+|\d+',mb_mode)
                 mb_SigmaEl = os.popen('grep SigmaTotal:sigmaEl '+pi).read()
