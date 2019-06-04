@@ -12,10 +12,10 @@ define vl~ = ve~ vm~ vt~
 define q = u c d s b
 define q~ = u~ c~ d~ s~ b~
 
-decay t > w+ b, w+ > q q~
-decay t~ > w- b~, w- > q q~
-decay w+ > l+ vl
-decay w- > l- vl~
+decay t > w+ b, w+ > l+ vl
+decay t~ > w- b~, w- > l- vl~
+decay w+ > q q~
+decay w- > q q~
 decay z > all all
 # running the actual code
 launch
