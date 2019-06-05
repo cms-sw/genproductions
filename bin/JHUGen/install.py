@@ -134,19 +134,17 @@ def main(args):
       jobids = []
       tosubmit = []
       for i in range(1, 165):
-
+        #fix for job number 
         if i < 100 :
           v =""
           if i < 10: 
             v = "00{}"
             v=v.format(i)
           else: 
-            
             v = "0{}"
             v=v.format(i)
           gridfile = "Out_{}_step2.grid".format(v)
         else :
-
           gridfile = "Out_{}_step2.grid".format(i)
         try:
           with open(gridfile+".log") as f:
