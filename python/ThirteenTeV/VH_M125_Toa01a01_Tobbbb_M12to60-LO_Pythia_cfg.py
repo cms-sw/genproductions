@@ -68,7 +68,7 @@ genParticlesForFilter = cms.EDProducer("GenParticleProducer",
 genSelectorLep = cms.EDFilter("GenParticleSelector",
   filter = cms.bool(True),
   src = cms.InputTag('genParticlesForFilter'),
-  cut = cms.string('(abs(pdgId()) == 11 || abs(pdgId()) == 13 )')
+  cut = cms.string('(abs(pdgId()) == 11 || abs(pdgId()) == 13 ) && (mother().pdgId() == 23 || abs(mother().pdgId()) == 24 || abs(mother().pdgId()) == 15)')                              
 )
 
 bestLeps = cms.EDFilter("EtaPtMinCandViewSelector",
