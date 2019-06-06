@@ -54,8 +54,8 @@ cd JHUGenerator/
 seq 1 164 | xargs -d "\n" -P${ncpu} -I {} bash -c "GENCOMMAND VBFoffsh_run={} ReadCSmax |& tee log_{}"
 
 (
-cat Out_1.lhe      | grep -Ev "</LesHouchesEvents"
-cat Out_{2..163}.lhe | grep -Ev "</?LesHouchesEvents" | sed -e '/<init>/,+3d'
+cat Out_001.lhe      | grep -Ev "</LesHouchesEvents"
+cat Out_{002..163}.lhe | grep -Ev "</?LesHouchesEvents" | sed -e '/<init>/,+3d'
 cat Out_164.lhe      | grep -Ev "<LesHouchesEvents"   | sed -e '/<init>/,+3d'
 ) > Out.lhe
 
