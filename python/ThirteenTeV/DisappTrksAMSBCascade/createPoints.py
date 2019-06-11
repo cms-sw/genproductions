@@ -18,7 +18,11 @@ def findMassValue(fileName, particleName):
 		if particleName in line:
 			return line.split()[1]
 
-baseConfigFile = 'AMSB_gluinoToChargino_M-XXXGeV_M-YYYGeV_CTau-ZZZcm_TuneCP5_13TeV_pythia8_cff.py'
+tuneName = '_TuneCP5_'
+if os.environ["CMSSW_VERSION"].startswith('CMSSW_10_'):
+        tuneName = '_TuneCP5_PSweights_'
+
+baseConfigFile = 'AMSB_gluinoToChargino_M-XXXGeV_M-YYYGeV_CTau-ZZZcm' + tuneName + '13TeV_pythia8_cff.py'
 baseParticleFile = 'geant4_AMSB_chargino.slha'
 
 c = 299792458.0 * 100.0 # cm/s
@@ -47,12 +51,15 @@ xsecs = {
 
 ctaus = [10, 100, 1000, 10000] # cm
 
+if not os.path.exists('test/'):
+        os.mkdir('test')
+
 for mass in xsecs:
         for charginoMass in charginoMasses:
                 if charginoMass >= mass:
                         continue
                 for ctau in ctaus:
-                        outputConfigFile = 'test/AMSB_gluinoToChargino_M-%dGeV_M-%dGeV_CTau-%dcm_TuneCP5_13TeV_pythia8_cff.py' % (mass, charginoMass, ctau)
+                        outputConfigFile = ('test/AMSB_gluinoToChargino_M-%dGeV_M-%dGeV_CTau-%dcm' % (mass, charginoMass, ctau)) + tuneName + '13TeV_pythia8_cff.py'
                         outputParticleFile = 'test/geant4_AMSB_chargino_%dGeV_ctau%dcm.slha' % (charginoMass, ctau)
 
                         os.system('sed "s/XXX/' + str(mass) + '/g" ' + baseConfigFile + ' > ' + outputConfigFile)
