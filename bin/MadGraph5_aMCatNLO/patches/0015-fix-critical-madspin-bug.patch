@@ -1,7 +1,7 @@
 === modified file 'MadSpin/decay.py'
---- ./MadSpin/decay.py	2017-12-02 01:16:01 +0000
-+++ ./MadSpin/decay.py	2018-01-11 10:40:04 +0000
-@@ -2746,37 +2746,8 @@
+--- ./MadSpin/decay.py	2019-06-14 00:17:19 +0200
++++ ./MadSpin/decay.py	2019-06-14 00:17:12 +0200 
+@@ -2746,39 +2746,10 @@
              decay_text = ', '.join(decay_text)
              commandline = ''
              for proc in processes:
@@ -13,10 +13,10 @@
 -                    
 -                for new_proc in new_procs:
 -                    new_proc= new_proc.strip()
+-
 -                    if new_proc.endswith(';'):
 -                        new_proc = new_proc[:-1]
-+                commandline += self.get_proc_with_decay(proc, decay_text, mgcmd._curr_model)
-                 
+-
 -                    # deal with @ syntax need to move it after the decay specification
 -                    if '@' in new_proc:
 -                        baseproc, proc_nb = new_proc.split('@')
@@ -35,19 +35,23 @@
 -                        before, after = baseproc.split(',')
 -                        commandline+="add process %s, %s, (%s, %s) %s  --no_warning=duplicate;" % (before, decay_text, after, decay_text, proc_nb)
 -                    else:
--                        raise Exception, 'too much decay at MG level. this can not be done for the moment)'            
+-                        raise Exception, 'too much decay at MG level. this can not be done for the moment)'                  
+-                    
 -
++                if not proc.strip().startswith(('add','generate')):
++                    proc = 'add process %s' % proc
++                commandline += self.get_proc_with_decay(proc, decay_text, mgcmd._curr_model)
++                
              commandline = commandline.replace('add process', 'generate',1)
              logger.info(commandline)
              mgcmd.exec_cmd(commandline, precmd=True)
-@@ -2860,7 +2831,68 @@
+@@ -2862,7 +2833,71 @@
  #                for decay in prod['matrix_element']['base_amplitude']['process']['decay_chains']:
  #                    assert decay.shell_string() in self.all_decay
              
--        
 +    @staticmethod
 +    def get_proc_with_decay(proc, decay_text, model):
-+        
+         
 +        commands = []
 +        if '[' in proc:
 +            new_command = reweight_interface.ReweightInterface.get_LO_definition_from_NLO(proc, model)
@@ -61,7 +65,10 @@
 +            #catch line like "define" where no decay need to be added
 +            if not new_proc.strip():
 +                continue
-+            if not new_proc.startswith(('add', 'generate')):
++            if new_proc.startswith('p '):
++                new_proc = 'add process %s' % new_proc
++                logger.critical("wrongly formatted input for MadSpin. Please report this!")
++            elif not new_proc.startswith(('add', 'generate')):
 +                commands.append(new_proc)
 +                continue
 +            
@@ -110,7 +117,34 @@
      def get_branching_ratio(self):
          """compute the branching ratio of all the decaying particles"""
      
-@@ -4047,52 +4079,9 @@
+@@ -3928,14 +3963,23 @@
+                 elif mode=='full':
+                     stdin_text="5 0 0 0 \n"  # before closing, write down the seed 
+                     external = self.calculator[('full',path)]
+-                    external.stdin.write(stdin_text)
++                    try:
++                        external.stdin.write(stdin_text)
++                    except Exception:
++                        continue
+                     ranmar_state=external.stdout.readline()
+                     ranmar_file=pjoin(path,'ranmar_state.dat')
+                     ranmar=open(ranmar_file, 'w')
+                     ranmar.write(ranmar_state)
+                     ranmar.close()
+-                    external.stdin.close()
+-                    external.stdout.close()
++                    try:
++                        external.stdin.close()
++                    except Exception:
++                        continue
++                    try:
++                        external.stdout.close()
++                    except Exception:
++                        continue
+                     external.terminate()
+                     del external
+         else:
+@@ -4049,52 +4093,9 @@
  #        commandline = ''
          
          for proc in processes:
@@ -166,16 +200,6 @@
          # 5. add the decay information to the all_topology object --------------                        
  #        for matrix_element in mgcmd._curr_matrix_elements.get_matrix_elements():
  #            me_path = pjoin(path_me,'full_me', 'SubProcesses', \
-@@ -4129,7 +4118,8 @@
-         for processes in self.list_branches.values():
-             for proc in processes:
-                 commandline+="add process %s @%i --no_warning=duplicate --standalone;" % (proc,i)
--                i+=1        
-+                i+=1 
-+
-         commandline = commandline.replace('add process', 'generate',1)
-         mgcmd.exec_cmd(commandline, precmd=True)
-         # remove decay with 0 branching ratio.
 
 === modified file 'MadSpin/interface_madspin.py'
 --- ./MadSpin/interface_madspin.py	2017-10-23 21:05:39 +0000
