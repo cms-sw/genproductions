@@ -118,10 +118,11 @@ make_gridpack () {
     
       cd $MGBASEDIRORIG
       cat $PRODHOME/patches/*.patch | patch -p1
-    
-      if [ -e $CARDSDIR/${name}_loop_filter.py ]; then
-        echo "Acitvating custom user loop filter"
-        cat $CARDSDIR/${name}_loop_filter.py | patch -p1
+      cp -r $PRODHOME/PLUGIN/CMS_CLUSTER/ PLUGIN/ 
+      # Intended for expert use only!
+      if ls $CARDSDIR/${name}*.patch; then
+        echo "    WARNING: Applying custom user patch. I hope you know what you're doing!"
+        cat $CARDSDIR/${name}*.patch | patch -p1
       fi
     
       LHAPDFCONFIG=`echo "$LHAPDF_DATA_PATH/../../bin/lhapdf-config"`
@@ -129,7 +130,7 @@ make_gridpack () {
       LHAPDFINCLUDES=`$LHAPDFCONFIG --incdir`
       LHAPDFLIBS=`$LHAPDFCONFIG --libdir`
       export BOOSTINCLUDES=`scram tool tag boost INCLUDE`
-
+    
       echo "set auto_update 0" > mgconfigscript
       echo "set automatic_html_opening False" >> mgconfigscript
       if [ $iscmsconnect -gt 0 ]; then
@@ -147,10 +148,13 @@ make_gridpack () {
       
           echo "set run_mode  1" >> mgconfigscript
           if [ "$queue" == "condor" ]; then
-            echo "set cluster_type condor" >> mgconfigscript
+            echo "set cluster_type cms_condor" >> mgconfigscript
+            echo "set cluster_queue None" >> mgconfigscript
+          elif [ "$queue" == "condor_spool" ]; then
+            echo "set cluster_type cms_condor_spool" >> mgconfigscript
             echo "set cluster_queue None" >> mgconfigscript
           else
-            echo "set cluster_type lsf" >> mgconfigscript
+            echo "set cluster_type cms_lsf" >> mgconfigscript
             #*FIXME* broken in mg_amc 2.4.0
     #         echo "set cluster_queue $queue" >> mgconfigscript
           fi 
@@ -267,7 +271,11 @@ make_gridpack () {
        elif [ "$queue" == "condor" ]; then
          echo "cluster_queue = None" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
          echo "run_mode = 1" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
-         echo "cluster_type = condor" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
+         echo "cluster_type = cms_condor" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
+       elif [ "$queue" == "condor_spool" ]; then
+         echo "cluster_queue = None" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
+         echo "run_mode = 1" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
+         echo "cluster_type = cms_condor_spool" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
        fi
     
       # Previous cluster_local_path setting  gets erased after
@@ -306,7 +314,7 @@ make_gridpack () {
     
       eval `scram runtime -sh`
       export BOOSTINCLUDES=`scram tool tag boost INCLUDE`
-
+    
       #if lhapdf6 external is available then above points to lhapdf5 and needs to be overridden
       LHAPDF6TOOLFILE=$CMSSW_BASE/config/toolbox/$SCRAM_ARCH/tools/available/lhapdf6.xml
       if [ -e $LHAPDF6TOOLFILE ]; then
@@ -432,6 +440,7 @@ make_gridpack () {
       fi
       
       echo "shower=OFF" > makegrid.dat
+      echo "reweight=OFF" >> makegrid.dat
       echo "done" >> makegrid.dat
       if [ -e $CARDSDIR/${name}_customizecards.dat ]; then
               cat $CARDSDIR/${name}_customizecards.dat >> makegrid.dat
@@ -440,7 +449,14 @@ make_gridpack () {
       echo "done" >> makegrid.dat
     
       cat makegrid.dat | ./bin/generate_events -n pilotrun
+      # Run this step separately in debug mode since it gives so many problems
+      if [ -e $CARDSDIR/${name}_reweight_card.dat ]; then
+          echo "preparing reweighting step"
+          prepare_reweight $isnlo $WORKDIR $scram_arch $CARDSDIR/${name}_reweight_card.dat 
+      fi
+      
       echo "finished pilot run"
+      cd $WORKDIR/processtmp
     
       if [ -e $CARDSDIR/${name}_externaltarball.dat ]; then
           gunzip ./Events/pilotrun_decayed_1/events.lhe.gz
@@ -512,28 +528,10 @@ make_gridpack () {
       
       # precompile reweighting if necessary
       if [ -e $CARDSDIR/${name}_reweight_card.dat ]; then
-          pwd
           echo "preparing reweighting step"
-          mkdir -p madevent/Events/pilotrun
-          cp $WORKDIR/unweighted_events.lhe.gz madevent/Events/pilotrun
-          echo "f2py_compiler=" `which gfortran` >> ./madevent/Cards/me5_configuration.txt
-          #need to set library path or f2py won't find libraries
-          export LIBRARY_PATH=$LD_LIBRARY_PATH
-          cd madevent
-          bin/madevent reweight pilotrun
-          # Explicitly compile all subprocesses
-          for file in $(ls -d rwgt/*/SubProcesses/P*); do
-            echo "Compiling subprocess $(basename $file)"
-            cd $file
-            for i in 2 3; do
-                MENUM=$i make matrix${i}py.so >& /dev/null
-                echo "Library MENUM=$i compiled with status $?"
-            done
-            cd -
-          done
-          cd ..      
+          prepare_reweight $isnlo $WORKDIR $scram_arch $CARDSDIR/${name}_reweight_card.dat 
       fi
-      
+    
       #prepare madspin grids if necessary
       if [ -e $CARDSDIR/${name}_madspin_card.dat ]; then
         echo "import $WORKDIR/unweighted_events.lhe.gz" > madspinrun.dat
@@ -550,7 +548,7 @@ make_gridpack () {
       echo "mg5_path = ../../mgbasedir" >> ./madevent/Cards/me5_configuration.txt
       echo "cluster_temp_path = None" >> ./madevent/Cards/me5_configuration.txt
       echo "run_mode = 0" >> ./madevent/Cards/me5_configuration.txt  
-        
+      
       cd $WORKDIR
       
       mkdir gridpack
@@ -616,14 +614,14 @@ if [ -n "$5" ]
   then
     scram_arch=${5}
   else
-    scram_arch=slc6_amd64_gcc630
+    scram_arch=slc6_amd64_gcc630 #slc6_amd64_gcc481
 fi
 
 if [ -n "$6" ]
   then
     cmssw_version=${6}
   else
-    cmssw_version=CMSSW_9_3_8
+    cmssw_version=CMSSW_9_3_8 #CMSSW_7_1_30
 fi
  
 # jobstep can be 'ALL','CODEGEN', 'INTEGRATE', 'MADSPIN'
