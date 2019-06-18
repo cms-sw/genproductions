@@ -501,7 +501,6 @@ for num in range(0,len(prepid)):
                         print "grep from powheg pwhg_checklimits files"
                         nemit = os.popen('grep emitter '+file_pwg_check+' | grep process | head -n 1').read().replace('process','').replace('\n','').split(',')
                         nemitsplit = nemit[1].split()
-                        print nemitsplit
                         nemitsplit_pr = nemitsplit[2:]
 			nemitsplit = [x for x in nemitsplit_pr if x!=nemitsplit[0] and x!=nemitsplit[1]]
 			print nemitsplit
