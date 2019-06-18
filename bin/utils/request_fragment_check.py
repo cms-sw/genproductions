@@ -62,6 +62,7 @@ parser = argparse.ArgumentParser(
                   * [ERROR] Memory is 2300 MB while number of cores is XX but not = 1
                   * [ERROR] Memory is 4000 MB while number of cores is 1 but not = 2,4 or 8
                   * [ERROR] Memory is 15900 MB while number of cores is not 8 
+                  * [ERROR] Low filter efficiency (<0.001) GS request w/o 15900 GB memory or 16 cores
                   * [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix or HINPbPbAutumn18GS campaign but Memory is not 14700, 5900, 400, or 2300 MB
                   * [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix or HINPbPbAutumn18GS campaign: Memory is 14700 but nthreads != 8
                   * [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix or HINPbPbAutumn18GS campaign: Memory is 5900 but nthreads != 4
@@ -267,6 +268,13 @@ for num in range(0,len(prepid)):
         error = 0
         warning = 0
         et_flag = 0
+        req_type = "dummy"
+        if "gen" in pi.lower():
+            req_type = "genonly"
+        if "gs" in pi.lower():
+            req_type = "gs"
+        if "plhe" in pi.lower():
+            req_type = "plhe"
         if "herwig" in dn.lower() or "comphep" in dn.lower() or "calchep" in dn.lower():
             print "* [WARNING] herwig or comphep or calchep sample. Please check manually"
             warning = warning + 1
@@ -320,6 +328,9 @@ for num in range(0,len(prepid)):
             if mem == 15900 and nthreads != 8:
                 print "* [ERROR] Memory is "+str(mem)+" MB while number of cores is "+str(nthreads)+" but not = 8"
                 error = error + 1
+            if filter_eff < 0.001 and "gs" in req_type and (mem != 15900 or nthreads != 16):
+                print "* [ERROR] Low filter efficiency (<0.001) GS request w/o 15900 GB memory or 16 cores"
+                error = error +1
         if "HIN-HINPbPbAutumn18GSHIMix" in pi or "HINPbPbAutumn18wmLHEGSHIMix" in pi or "HINPbPbAutumn18GS" in pi:
             if mem != 14700 and mem != 5900 and mem != 4000 and mem != 2300:
                 print "* [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix or HINPbPbAutumn18GS campaign but Memory is not 14700, 5900, 400, or 2300 MB"
@@ -374,25 +385,25 @@ for num in range(0,len(prepid)):
                 tmp_flag = 0
                 if len(mb_mode) == 0:
                     print "* [ERROR] SigmaTotal:mode is missing"
-                    print "*         For requests made with >= CMSSW_10_5_0_pre2 and <= CMSSW_10_6_0"
+                    print "*         For requests made with >= CMSSW_10_5_0_pre2 and <= CMSSW_10_6_0_patch1"
                     print "*         SigmaTotal:mode shoud be added by hand and set to 0"
                     error = error + 1
                     tmp_flag = 1
                 if len(mb_SigmaEl) == 0:
                     print "* [ERROR] SigmaTotal:sigmaEl is missing"
-                    print "*         For requests made with >= CMSSW_10_5_0_pre2 and <= CMSSW_10_6_0"
+                    print "*         For requests made with >= CMSSW_10_5_0_pre2 and <= CMSSW_10_6_0_patch1"
                     print "*         SigmaTotal:sigmaEl should be added by hand and set to 21.89"
                     error = error + 1
                     tmp_flag = 1
                 if len(mb_SigmaTot) == 0:
                     print "* [ERROR] SigmaTotal:sigmaTot is missing"
-                    print "*         For requests made with >= CMSSW_10_5_0_pre2 and <= CMSSW_10_6_0"
+                    print "*         For requests made with >= CMSSW_10_5_0_pre2 and <= CMSSW_10_6_0_patch1"
                     print "*         SigmaTotal:sigmaTot should be added by hand and set to 100.309"
                     error = error + 1
                     tmp_flag = 1
                 if len(PDF_pSet_test) == 0:
                     print "* [WARNING] PDF:pSet is missing (if you want to use NNPDF3.1)"
-                    print "*         For requests made with >= CMSSW_10_5_0_pre2 and <= CMSSW_10_6_0"
+                    print "*         For requests made with >= CMSSW_10_5_0_pre2 and <= CMSSW_10_6_0_patch1"
                     print "*         PDF access method should be like"
                     print "*         e.g. for CP5 use 'PDF:pSet=LHAPDF6:NNPDF31_nnlo_as_0118'"
                     warning = warning + 1
