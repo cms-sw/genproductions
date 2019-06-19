@@ -1,0 +1,4 @@
+set param_card Mlq 1000
+set param_card Ylq 0.5
+set sun AUTO
+set sun~ AUTO
