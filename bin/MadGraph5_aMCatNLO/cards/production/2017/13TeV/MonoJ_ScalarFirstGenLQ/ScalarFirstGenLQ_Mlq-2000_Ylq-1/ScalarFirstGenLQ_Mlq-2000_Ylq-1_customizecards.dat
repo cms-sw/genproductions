@@ -1,3 +1,4 @@
 set param_card Mlq 2000
 set param_card Ylq 1
-set Wlq AUTO
+set sun AUTO
+set sun~ AUTO

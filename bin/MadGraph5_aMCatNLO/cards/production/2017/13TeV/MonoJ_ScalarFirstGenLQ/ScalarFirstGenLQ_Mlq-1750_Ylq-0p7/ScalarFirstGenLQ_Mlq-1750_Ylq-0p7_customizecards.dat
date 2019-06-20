@@ -1,3 +1,4 @@
 set param_card Mlq 1750
 set param_card Ylq 0.7
-set Wlq AUTO
+set sun AUTO
+set sun~ AUTO
