@@ -315,6 +315,9 @@ for num in range(0,len(prepid)):
             nthreads = 1
         else :
             nthreads = int(re.search('nThreads(.*?) --',ttxt).group(1))
+        if (nthreads != 16 or mem != 15900) and (8*3600/timeperevent)*filter_eff < 50:
+            print ("* [Error] please try to validate with 16 cores and 15900 GB memory or try to decrease the filter efficiency")
+            error = error + 1    
         if "HIN-HINPbPbAutumn18GSHIMix" not in pi and "HINPbPbAutumn18wmLHEGSHIMix" not in pi and "HINPbPbAutumn18GS" not in pi:    
             if mem != 2300 and mem != 4000 and mem != 15900:
                 print "* [ERROR] Memory is not 2300, 4000 or 15900 MB"
