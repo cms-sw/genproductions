@@ -325,8 +325,8 @@ for num in range(0,len(prepid)):
             if mem == 4000 and nthreads == 1 :
                 print "* [ERROR] Memory is "+str(mem)+" MB while number of cores is "+str(nthreads)+" but not = 2,4 or 8"
                 error = error + 1
-            if mem == 15900 and nthreads != 8:
-                print "* [ERROR] Memory is "+str(mem)+" MB while number of cores is "+str(nthreads)+" but not = 8"
+            if mem == 15900 and (nthreads != 8 or nthreads != 16) :
+                print "* [ERROR] Memory is "+str(mem)+" MB while number of cores is "+str(nthreads)+" but not = 8 or 16"
                 error = error + 1
             if filter_eff < 0.001 and "gs" in req_type and (mem != 15900 or nthreads != 16):
                 print "* [ERROR] Low filter efficiency (<0.001) GS request w/o 15900 GB memory or 16 cores"
