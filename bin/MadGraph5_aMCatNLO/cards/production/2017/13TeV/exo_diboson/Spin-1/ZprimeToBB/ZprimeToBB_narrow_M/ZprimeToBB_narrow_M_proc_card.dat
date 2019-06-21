@@ -3,8 +3,8 @@ set ignore_six_quark_processes False
 set gauge unitary
 set complex_mass_scheme False
 import model Vector_Triplet_free_Width_UFO
-define vl = ve vm vt
-define vl~ = ve~ vm~ vt~
-generate p p > vz, (vz > h z, h > b b~, z > vl vl~)
-output Zprime_Zh_Zinvhinc_narrow_M600 -nojpeg
+define p = g u c d s u~ c~ d~ s~
+define q = u c d s b u~ c~ d~ s~ b~
+generate p p > vz, (vz > b b~)
+output ZprimeToBB_narrow_M<MASS> -nojpeg
 
