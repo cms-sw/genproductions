@@ -1,0 +1,13 @@
+--- POWHEG-BOX/rwl_weightlists.f	(revision 3592)
++++ POWHEG-BOX/rwl_weightlists.f	(working copy)
+@@ -345,6 +345,10 @@
+      2                 //tmpstr//'</wgt>')
+                endif
+             enddo
++c     If flg_nnlops is set, weights are doubled to include the NNLO corrected ones.
++c     We include here a dummy file. NNLOPS generators can override it to call their own routines
++c     for writing the NNLOPS weights in the event.            
++            include 'rwl_write_weights_extra.f'
+          enddo
+          call pwhg_io_write(iun,'</rwgt>')
+       else
