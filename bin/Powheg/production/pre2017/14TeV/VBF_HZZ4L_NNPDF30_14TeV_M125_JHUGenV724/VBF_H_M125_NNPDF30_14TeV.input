@@ -1,0 +1,82 @@
+numevts NEVENTS    ! number of events to be generated
+ih1   1           ! hadron 1 (1 for protons, -1 for antiprotons)
+ih2   1           ! hadron 2 (1 for protons, -1 for antiprotons)
+! 131 cteq4m
+!  83 cteq4l
+!ndns1 131         ! pdf set for hadron 1 (mlm numbering)
+!ndns2 131         ! pdf set for hadron 2 (mlm numbering)
+ebeam1 7000d0     ! energy of beam 1
+ebeam2 7000d0     ! energy of beam 2
+
+! To be set only if using LHA pdfs
+! 19150 cteq4m
+! 19170 cteq4l
+! 10050 cteq6m
+lhans1  260000         ! pdf set for hadron 1 (LHA numbering)
+lhans2  260000         ! pdf set for hadron 2 (LHA numbering)	
+! To be set only if using different pdf sets for the two incoming hadrons
+! QCDLambda5  0.25 ! for not equal pdf sets 
+
+! Parameters to allow or not the use of stored data
+use-old-grid    1 ! if 1 use old grid if file pwggrids.dat is present (<> 1 regenerate)
+use-old-ubound  1 ! if 1 use norm of upper bounding function stored in pwgubound.dat, if present; <> 1 regenerate
+
+ncall1 550000  ! number of calls for initializing the integration grid
+itmx1    7     ! number of iterations for initializing the integration grid
+ncall2 75000   ! number of calls for computing the integral and finding upper bound
+itmx2    5     ! number of iterations for computing the integral and finding upper bound
+foldcsi   2    ! number of folds on csi integration
+foldy     5    ! number of folds on  y  integration
+foldphi   2    ! number of folds on phi integration
+nubound 175000 ! number of bbarra calls to setup norm of upper bounding function
+icsimax  1     ! <= 100, number of csi subdivision when computing the upper bounds
+iymax    1     ! <= 100, number of y subdivision when computing the upper bounds
+xupbound 2d0   ! increase upper bound for radiation generation
+
+! OPTIONAL PARAMETERS
+
+renscfact  1d0   ! (default 1d0) ren scale factor: muren  = muref * renscfact 
+facscfact  1d0   ! (default 1d0) fac scale factor: mufact = muref * facscfact 
+#ptsupp     0d0   ! (default 0d0)  mass param for Born suppression factor (generation cut) If < 0 suppfact = 1
+#bornonly   1      ! (default 0) if 1 do Born only
+#smartsig   0      ! (default 1) remember equal amplitudes (0 do not remember)
+#withsubtr  0      ! (default 1) subtract real counterterms (0 do not subtract)
+withdamp    1      ! (default 0, do not use) use Born-zero damping factor
+#ptsqmin    0.8    ! (default 0.8 GeV) minimum pt for generation of radiation
+#charmthr   1.5    ! (default 1.5 GeV) charm treshold for gluon splitting 
+#bottomthr  5.0    ! (default 5.0 GeV) bottom treshold for gluon splitting
+testplots  1      ! (default 0, do not) do NLO and PWHG distributions
+#hfact    100d0    ! (default no dumping factor) dump factor for high-pt radiation: > 0 dumpfac=h**2/(pt2+h**2)
+#testsuda  1       ! (default 0, do not test) test Sudakov form factor
+#radregion 1       ! (default all regions) only generate radiation in the selected singular region  
+#charmthrpdf  1.5  ! (default 1.5 GeV) pdf charm treshold
+#bottomthrpdf 5.0  ! (default 5.0 GeV) pdf bottom treshold
+pdfreweight 1       ! PDF reweighting
+storeinfo_rwgt 1    ! store weight information
+withnegweights 1 ! default 0,
+
+iseed    SEED    ! initialize random number sequence 
+#rand1     941046295      ! initialize random number sequence 
+#rand2     3      ! initialize random number sequence 
+
+hmass    125d0       ! Higgs boson mass
+hwidth   0.00407d0    ! Higgs boson width
+hdecaymode -1   ! -1 no decay
+                ! 0 all decay channels open
+                ! 1-6 d dbar, u ubar,..., t tbar
+                ! 7-9 e+ e-, mu+ mu-, tau+ tau-
+                ! 10  W+W-
+                ! 11  ZZ
+                ! 12  gamma gamma
+
+complexpolescheme 1 ! switch on Complex Pole scheme
+masswindow 9999d0
+
+#iupperisr 1 ! (default 1) choice of ISR upper bounding functional form 
+#iupperfsr 2 ! (default 2) choice of FSR upper bounding functional form 
+
+! Z+jet production
+#bornktmin  0d0    ! (default 0d0) kt min at Born level for jet in Z+jet 
+
+
+

@@ -1,0 +1,21 @@
+--- POWHEG-BOX/gen_radiation.f	(Revision 3334)
++++ POWHEG-BOX/gen_radiation.f	(Revision 3335)
+@@ -195,7 +195,7 @@
+       real * 8 t,csi,y,azi,sig,born
+       real * 8 tmax
+       common/ctmax/tmax
+-      integer kinreg,firstreg,lastreg,fl1,fl2,flemitter
++      integer kinreg,jkinreg,firstreg,lastreg,fl1,fl2,flemitter
+       logical ini
+       data ini/.true./
+       real * 8 pwhg_pt2,powheginput
+@@ -216,7 +216,8 @@
+ c Use highest bid procedure (see appendix B of FNO2006)
+       tmax=0
+       kinreg=0
+-      do rad_kinreg=firstreg,lastreg
++      do jkinreg=firstreg,lastreg
++         rad_kinreg = jkinreg
+          if(rad_kinreg_on(rad_kinreg)) then
+             if(rad_kinreg.eq.1) then
+ c     initial state radiation

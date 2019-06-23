@@ -1,0 +1,307 @@
+Index: include/pwhg_io_interface.h
+===================================================================
+--- include/pwhg_io_interface.h	(revision 3248)
++++ include/pwhg_io_interface.h	(working copy)
+@@ -69,11 +69,12 @@
+       integer, parameter :: z_ok=0
+       integer, parameter:: pwhg_io_maxfiles=10
+       integer, parameter:: szchunk=100
+-      type(c_ptr) :: files_handle(pwhg_io_maxfiles)=c_null_ptr
++c      type(c_ptr) :: files_handle(pwhg_io_maxfiles)=c_null_ptr ! initialization of common block array of type(c_ptr) leads to a gcc segfault
++      type(c_ptr) :: files_handle(pwhg_io_maxfiles)
+ 
+       type pwhg_io_buffer_type
+       sequence
+-      character(len=:), pointer :: buffer
++      character(len=10000) :: buffer
+ c     length: length of buffer
+ c     current: current position in buffer (next read starts at next byte)
+ c     upper: position of last byte already red
+@@ -89,3 +90,4 @@
+       type(pwhg_io_buffer_type) :: pwhg_io_buffer(pwhg_io_maxfiles)
+       common/pwhg_io_interface/files_handle,pwhg_io_buffer,pwhg_io_initialized
+ 
++c			character(len=1000) :: pwhg_io_buffer_buffer(10)
+Index: include/pwhg_rwl.h
+===================================================================
+--- include/pwhg_rwl.h	(revision 3248)
++++ include/pwhg_rwl.h	(working copy)
+@@ -12,7 +12,7 @@
+ 
+       type rwl_weight_info
+          sequence
+-         character(len=:), pointer :: id, desc
++         character(len=100) :: id, desc
+          integer :: group, num_keys
+          integer, pointer :: keys(:,:)
+          real * 8 , pointer :: values(:)
+@@ -21,7 +21,7 @@
+ 
+       type rwl_group_info
+          sequence
+-         character(len=:), pointer :: name, combine
++         character(len=100) :: name, combine
+       end type rwl_group_info
+ 
+       real * 4, pointer :: rwl_weights(:)
+Index: pwhg_io_interface.f
+===================================================================
+--- pwhg_io_interface.f	(revision 3248)
++++ pwhg_io_interface.f	(working copy)
+@@ -5,7 +5,7 @@
+       character(len=*) :: path
+       integer iun,iret
+       call pwhg_io_open('rb',path,iun,iret)
+-      allocate(character(len=szchunk*2)::pwhg_io_buffer(iun)%buffer)
++c4.8.5      allocate(character(len=szchunk*2)::pwhg_io_buffer(iun)%buffer)
+ c     current is the pointer to the file position. Reading will start at
+ c     the next character
+       pwhg_io_buffer(iun)%current=0
+@@ -13,7 +13,7 @@
+       pwhg_io_buffer(iun)%upper=0
+ c     we must always have: 0 <= current <= upper.
+ c     length buffer
+-      pwhg_io_buffer(iun)%length=szchunk*2
++      pwhg_io_buffer(iun)%length=10000
+       pwhg_io_buffer(iun)%mode='rb'
+       end
+ 
+@@ -55,7 +55,7 @@
+       use, intrinsic :: ISO_C_BINDING
+       implicit none
+       include 'pwhg_io_interface.h'
+-      character(*) path,mode
++      character(len=*) :: path, mode
+       integer iun,iret
+       integer j
+       logical ok
+@@ -129,9 +129,9 @@
+             write(*,*) ' iret=',iret
+          endif
+          files_handle(iun) = c_null_ptr
+-         if(pwhg_io_buffer(iun)%buffer == 'rb') then
+-            deallocate(pwhg_io_buffer(iun)%buffer)
+-         endif
++c4.8.5         if(pwhg_io_buffer(iun)%buffer == 'rb') then
++c4.8.5            deallocate(pwhg_io_buffer(iun)%buffer)
++c4.8.5         endif
+       endif
+       pwhg_io_buffer(iun)%opened = .false.
+       end
+@@ -245,7 +245,6 @@
+       implicit none
+       include 'pwhg_io_interface.h'
+       integer iun,nskip
+-      integer(z_off_t) offset,longskip
+       if(.not. pwhg_io_buffer(iun)%opened) then
+          write(*,*) ' pwhg_io_backspace: unit ',iun,
+      1        ' is not opened, exiting ...'
+@@ -297,7 +296,9 @@
+             exit
+          else
+             if(upper+szchunk >  pwhg_io_buffer(iun)%length) then
+-               call pwhg_io_enlarge_buffer
++c4.8.5               call pwhg_io_enlarge_buffer
++              print*,"unimplemented, send email to tomas.jezo@physik.uzh.ch"
++              call exit(-1)
+             endif
+ c read one more chunk into buffer. If it doesn't fit, increase buffer size.
+             inum = gzRead(files_handle(iun),buffer(1:szchunk),szchunk)
+@@ -311,36 +312,36 @@
+             endif
+          endif
+       enddo
+-      contains
+-      subroutine pwhg_io_enlarge_buffer
+-      character (len=:), pointer :: buf
+-      integer i1,h1,i2,h2,length,nu,nl,lg,olg,ibuf,cur,icur
+-      logical, save :: ini=.true.
+-      real(kind=8) :: powheginput
+-      integer, save :: max_io_bufsize
+-      if(ini) then
+-         max_io_bufsize = powheginput("#max_io_bufsize")
+-         if(max_io_bufsize < 0) max_io_bufsize=100000
+-         ini = .false.
+-      endif
+-c     Put safety limit on buffer size
+-      olg=pwhg_io_buffer(iun)%length
+-      lg = olg + 1000
+-      if(lg>max_io_bufsize) then
+-         write(*,*) " pwhg_io_skip_until: we can't find mark '"//mark//"'"
+-         write(*,*) " and are above max_io_bufsize limit."
+-         write(*,*) " if the mark is really there, you must."
+-         write(*,*) " set max_io_bufsize to a value larger than ",
+-     1        max_io_bufsize," in powheg.input"
+-         write(*,*) " exting ..."
+-         call exit(-1)
+-      endif
+-      allocate(character(len=lg)::buf)
+-      buf=pwhg_io_buffer(iun)%buffer(1:olg)
+-      deallocate(pwhg_io_buffer(iun)%buffer)
+-      pwhg_io_buffer(iun)%buffer => buf
+-      pwhg_io_buffer(iun)%length = lg
+-      end subroutine pwhg_io_enlarge_buffer
++c4.8.5      contains
++c4.8.5      subroutine pwhg_io_enlarge_buffer
++c4.8.5      character (len=:), pointer :: buf
++c4.8.5      integer i1,h1,i2,h2,length,nu,nl,lg,olg,ibuf,cur,icur
++c4.8.5      logical, save :: ini=.true.
++c4.8.5      real(kind=8) :: powheginput
++c4.8.5      integer, save :: max_io_bufsize
++c4.8.5      if(ini) then
++c4.8.5         max_io_bufsize = powheginput("#max_io_bufsize")
++c4.8.5         if(max_io_bufsize < 0) max_io_bufsize=100000
++c4.8.5         ini = .false.
++c4.8.5      endif
++c4.8.5c     Put safety limit on buffer size
++c4.8.5      olg=pwhg_io_buffer(iun)%length
++c4.8.5      lg = olg + 1000
++c4.8.5      if(lg>max_io_bufsize) then
++c4.8.5         write(*,*) " pwhg_io_skip_until: we can't find mark '"//mark//"'"
++c4.8.5         write(*,*) " and are above max_io_bufsize limit."
++c4.8.5         write(*,*) " if the mark is really there, you must."
++c4.8.5         write(*,*) " set max_io_bufsize to a value larger than ",
++c4.8.5     1        max_io_bufsize," in powheg.input"
++c4.8.5         write(*,*) " exting ..."
++c4.8.5         call exit(-1)
++c4.8.5      endif
++c4.8.5      allocate(character(len=lg)::buf)
++c4.8.5      buf=pwhg_io_buffer(iun)%buffer(1:olg)
++c4.8.5      deallocate(pwhg_io_buffer(iun)%buffer)
++c4.8.5      pwhg_io_buffer(iun)%buffer => buf
++c4.8.5      pwhg_io_buffer(iun)%length = lg
++c4.8.5      end subroutine pwhg_io_enlarge_buffer
+      
+       end
+ 
+Index: rwl_weightlists.f
+===================================================================
+--- rwl_weightlists.f	(revision 3248)
++++ rwl_weightlists.f	(working copy)
+@@ -186,8 +186,8 @@
+          do kw = 1,rwl_num_weights
+             if(rwl_weights_array(kw)%group == kg) then
+                call pwhg_io_write(iun,"<weight id='"//
+-     1              rwl_weights_array(kw)%id//"' >"//
+-     2              rwl_weights_array(kw)%desc//"</weight>")
++     1              trim(rwl_weights_array(kw)%id)//"' >"//
++     2              trim(rwl_weights_array(kw)%desc)//"</weight>")
+             endif
+          enddo
+          if(kg /= 0) then
+@@ -298,15 +298,15 @@
+       character(len=3) group
+       do j=1,rwl_num_weights
+          write(*,'(a,i2)') 'Weight ',j
+-         write(*,'(a)') '   id='//rwl_weights_array(j)%id//','
++         write(*,'(a)') '   id='//trim(rwl_weights_array(j)%id)//','
+          write(group,'(i3)')  rwl_weights_array(j)%group
+          write(*,'(a,i2)') '   group='//trim(adjustl(group))//','
+          if(rwl_weights_array(j)%num_keys > 0) then
+             write(*,'(a)') '   key value pairs:'
+             do k=1,rwl_weights_array(j)%num_keys
+-               write(*,'(a,d11.5)') '      '//rwl_weights_array(j)%desc(
++               write(*,'(a,d11.5)') '      '//trim(rwl_weights_array(j)%desc(
+      1              rwl_weights_array(j)%keys(1,k):
+-     2              rwl_weights_array(j)%keys(2,k))//'=',
++     2              rwl_weights_array(j)%keys(2,k)))//'=',
+      3              rwl_weights_array(j)%values(k)
+             enddo
+          endif
+@@ -327,7 +327,7 @@
+                if(rwl_weights_array(jw)%group == jg) then
+                   write(tmpstr,'(E11.5)') rwl_weights(jw)
+                   call pwhg_io_write(iun,"<wgt id='"
+-     1                 //rwl_weights_array(jw)%id//"'>"
++     1                 //trim(rwl_weights_array(jw)%id)//"'>"
+      2                 //tmpstr//'</wgt>')
+                endif
+             enddo
+@@ -375,8 +375,8 @@
+                if(j==-1) call errr("did not find end quote after =")
+                i = i+jpos-1
+                j = j+jpos-1
+-               allocate(character(j-i+1)::
+-     1              rwl_groups_array(rwl_num_groups)%name)
++c4.8.5               allocate(character(j-i+1)::
++c4.8.5     1              rwl_groups_array(rwl_num_groups)%name)
+                rwl_groups_array(rwl_num_groups)%name=buf(i:j)
+                jpos = j+2
+             else
+@@ -394,8 +394,12 @@
+                if(j==-1) call errr("did not find end quote after =")
+                i = i+jpos-1
+                j = j+jpos-1
+-               allocate(character(j-i+1)::
+-     1              rwl_groups_array(rwl_num_groups)%combine)
++c4.8.5               allocate(character(j-i+1)::
++c4.8.5     1              rwl_groups_array(rwl_num_groups)%combine)
++            if (j-i>100) then
++              print*,"unimplemented, send email to tomas.jezo@physik.uzh.ch"
++              call exit(-1)
++            endif
+                rwl_groups_array(rwl_num_groups)%combine=buf(i:j)
+                jpos = j+2
+             else
+@@ -410,8 +414,8 @@
+       endif
+       if(iname == 0) call errr("Did not find name in weightgroup")
+       if(icomb == 0) then
+-         allocate(character(1)::
+-     1        rwl_groups_array(rwl_num_groups)%combine)
++c4.8.5         allocate(character(1)::
++c4.8.5     1        rwl_groups_array(rwl_num_groups)%combine)
+          rwl_groups_array(rwl_num_groups)%combine=' '
+       endif
+ c     Check that group is not already present
+@@ -419,8 +423,8 @@
+          if(rwl_groups_array(rwl_num_groups)%name ==
+      1        rwl_groups_array(k)%name) then
+             group = k
+-            deallocate(rwl_groups_array(rwl_num_groups)%name,
+-     1           rwl_groups_array(rwl_num_groups)%combine)
++c4.8.5            deallocate(rwl_groups_array(rwl_num_groups)%name,
++c4.8.5     1           rwl_groups_array(rwl_num_groups)%combine)
+             rwl_num_groups = rwl_num_groups - 1
+             exit
+          endif
+@@ -456,8 +460,13 @@
+      1       ("can't find end of quoted string after id= in a weight")
+             i=i+jpos-1
+             j=j+jpos-1
+-            allocate(character(j-i+1)::
+-     1           rwl_weights_array(rwl_num_weights)%id)
++c4.8.5            allocate(character(j-i+1)::
++c4.8.5     1           rwl_weights_array(rwl_num_weights)%id)
++             
++            if (j-i>100) then
++              print*,"unimplemented, send email to tomas.jezo@physik.uzh.ch"
++              call exit(-1)
++            endif
+             rwl_weights_array(rwl_num_weights)%id=buf(i:j)
+             jpos=j+2
+             if(start_equal_strings(buf,'>',jpos)) then
+@@ -466,8 +475,12 @@
+                if(j>0) then
+                   j=jpos+j-2
+                   jpos=j+len('</weight>')+1
+-                  allocate(character(j-i+1) ::
+-     1                 rwl_weights_array(rwl_num_weights)%desc)
++c4.8.5                  allocate(character(j-i+1) ::
++c4.8.5     1                 rwl_weights_array(rwl_num_weights)%desc)
++                  if (j-i>100) then
++                    print*,"unimplemented, send email to tomas.jezo@physik.uzh.ch"
++                    call exit(-1)
++                  endif
+                   rwl_weights_array(rwl_num_weights)%desc=buf(i:j)
+                else
+                   call errr ("can't find </weight> after <weight>")
+@@ -487,7 +500,7 @@
+          if(rwl_weights_array(rwl_num_weights)%id ==
+      1        rwl_weights_array(k)%id) call errr
+      2        ('This weight id is already present:'//
+-     3        rwl_weights_array(k)%id)
++     3        trim(rwl_weights_array(k)%id))
+       enddo
+ c     Set up arrays of key-value pairs contained in the desc string
+       k=1
