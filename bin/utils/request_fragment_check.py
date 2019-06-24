@@ -314,7 +314,7 @@ for num in range(0,len(prepid)):
             nthreads = 1
         else :
             nthreads = int(re.search('nThreads(.*?) --',ttxt).group(1))
-        if (nthreads != 16 or mem != 15900) and (8*3600/timeperevent)*filter_eff < 50:
+        if (nthreads != 16 or mem != 15900) and (8*3600/timeperevent)*filter_eff < 50 and timeperevent > 0:
             print ("* [Error] please try to validate with 16 cores and 15900 GB memory or try to decrease the filter efficiency")
             error = error + 1    
         if "HIN-HINPbPbAutumn18GSHIMix" not in pi and "HINPbPbAutumn18wmLHEGSHIMix" not in pi and "HINPbPbAutumn18GS" not in pi:    
