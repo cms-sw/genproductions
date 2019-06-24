@@ -62,7 +62,6 @@ parser = argparse.ArgumentParser(
                   * [ERROR] Memory is 2300 MB while number of cores is XX but not = 1
                   * [ERROR] Memory is 4000 MB while number of cores is 1 but not = 2,4 or 8
                   * [ERROR] Memory is 15900 MB while number of cores is not 8 
-                  * [ERROR] Low filter efficiency (<0.001) GS request w/o 15900 GB memory or 16 cores
                   * [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix or HINPbPbAutumn18GS campaign but Memory is not 14700, 5900, 400, or 2300 MB
                   * [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix or HINPbPbAutumn18GS campaign: Memory is 14700 but nthreads != 8
                   * [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix or HINPbPbAutumn18GS campaign: Memory is 5900 but nthreads != 4
@@ -331,9 +330,9 @@ for num in range(0,len(prepid)):
             if mem == 15900 and (nthreads != 8 or nthreads != 16) :
                 print "* [ERROR] Memory is "+str(mem)+" MB while number of cores is "+str(nthreads)+" but not = 8 or 16"
                 error = error + 1
-            if filter_eff < 0.001 and "gs" in req_type and (mem != 15900 or nthreads != 16):
-                print "* [ERROR] Low filter efficiency (<0.001) GS request w/o 15900 GB memory or 16 cores"
-                error = error +1
+#            if filter_eff < 0.001 and "gs" in req_type and (mem != 15900 or nthreads != 16):
+#                print "* [ERROR] Low filter efficiency (<0.001) GS request w/o 15900 GB memory or 16 cores"
+#                error = error +1
         if "HIN-HINPbPbAutumn18GSHIMix" in pi or "HINPbPbAutumn18wmLHEGSHIMix" in pi or "HINPbPbAutumn18GS" in pi:
             if mem != 14700 and mem != 5900 and mem != 4000 and mem != 2300:
                 print "* [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix or HINPbPbAutumn18GS campaign but Memory is not 14700, 5900, 400, or 2300 MB"
