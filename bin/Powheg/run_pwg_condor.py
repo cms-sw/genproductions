@@ -38,10 +38,11 @@ def prepareCondorScript( tag, i, folderName, queue, SCALE = '0', runInBatchDir =
 
    filename = 'run_' + folderName + '_' + tag + '.condorConf'
    execname = folderName + '/run_' + tag
+   logname =  'run_' + tag
    if runInBatchDir:
        folderName = rootfolder + '/' + folderName
        execname = rootfolder + '/' + execname
-   logname =  'run_' + tag
+       logname =  folderName + '/run_' + tag
    f = open(filename, 'w')
   
    if (i == 'multiple') :
@@ -220,6 +221,7 @@ def runParallelXgrid(parstage, xgrid, folderName, nEvents, njobs, powInputName, 
         f.write('cp -p *.top ' + rootfolder + '/' + folderName + '/. \n')
         f.write('cp -p *.dat ' + rootfolder + '/' + folderName + '/. \n')
         f.write('cp -p *.log ' + rootfolder + '/' + folderName + '/. \n')
+        f.write('exit 0 \n')
 
         f.close()
 
@@ -929,10 +931,28 @@ chmod 755 runcmsgrid.sh
 
 def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag, process, seed) :
     print 'run : submitting jobs'
-  
-    sedcommand = 'sed -i "s/NEVENTS/2000/ ; s/parallelstage.*/parallelstage ' + parstage + '/ ; s/xgriditeration.*/xgriditeration 1/ ; s/iseed.*/iseed '+str(seed)+'/" '+folderName+'/powheg.input'
-
+    
+    inputName = folderName + "/powheg.input"
+    
+    sedcommand = 'sed -i "s/NEVENTS/2000/ ; s/SEED/3/ " '+inputName
     runCommand(sedcommand)
+    
+    if (parstage in ['2', '3']) :
+        sedcommand = 'sed -i "s/#manyseeds/manyseeds/ ; s/#parallelstage/parallelstage/ ; s/parallelstage.*/parallelstage ' + parstage + '/ ; s/xgriditeration.*/xgriditeration 1/ ; s/manyseeds.*/manyseeds 1/ " '+inputName
+        runCommand(sedcommand)
+    
+        if not 'parallelstage' in open(inputName).read() :
+            runCommand("echo \'\n\nparallelstage "+parstage+"\' >> "+inputName)
+        if not 'xgriditeration' in open(inputName).read() :
+            runCommand("echo \'xgriditeration 1\' >> "+inputName)
+
+        if not 'manyseeds' in open(inputName).read() :
+            runCommand("echo \'manyseeds 1\' >> "+ inputName)
+
+        if not 'fakevirt' in open(inputName).read() :
+            if process != 'b_bbar_4l':
+                runCommand("echo \'fakevirt 1\' >> "+inputName)
+    
     runCommand('cp -p ' + folderName + '/powheg.input ' + folderName + '/powheg.input.' + parstage)
 
     with open(os.path.join(folderName, "pwgseeds.dat"), "w") as f:
@@ -948,8 +968,12 @@ def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag, proc
     
         filename = folderName+'/run_' + tag + '.sh'
         f = open (filename, 'a')
-        f.write('cd '+rootfolder+'/'+folderName+'/ \n')
+        #f.write('cd '+rootfolder+'/'+folderName+'/ \n')
         f.write('echo ' + str (i) + ' | ./pwhg_main &> run_' + tag + '.log ' + '\n')
+        f.write('cp -p *.top ' + rootfolder + '/' + folderName + '/. \n')
+        f.write('cp -p *.dat ' + rootfolder + '/' + folderName + '/. \n')
+        f.write('cp -p *.log ' + rootfolder + '/' + folderName + '/. \n')
+        f.write('exit 0 \n')
         f.close()
 
         os.system('chmod 755 '+filename)
@@ -1096,7 +1120,7 @@ if [ "$process" = "HJ" ]; then
 fi
 
 if [ "$process" = "Zj" ] || [ "$process" = "Wj" ]; then
-  if [ -e ${WORKDIR}/MINLO-W1-denom.top ]; then
+  if [ -e ${WORKDIR}/${folderName}/MINLO-W1-denom.top ]; then
     echo "This gridpack includes NNLOPS reweighting"
     #force keep top in this case
     keepTop='1'
