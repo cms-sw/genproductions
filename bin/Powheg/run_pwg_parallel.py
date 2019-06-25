@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 # EXAMPLE ON HOW TO RUN
 # python ./run_pwg_parallel.py -i powheg_Zj.input -m Zj -f my_Zj -q 1nd -j 10
 

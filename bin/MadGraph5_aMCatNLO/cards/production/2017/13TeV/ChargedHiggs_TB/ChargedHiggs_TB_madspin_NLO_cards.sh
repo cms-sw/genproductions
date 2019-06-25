@@ -1,6 +1,6 @@
 #!/bin/bash
 
-masses=(180 200 220 250 300 400 500 750 1000 1500 2000 2500 3000 5000 7000 10000)
+masses=(200 220 250 300 350 400 500 600 700 800 1000 1250 1500 1750 2000 2500 3000 4000 5000)
 
 sample=ChargedHiggs_TB_madspin_NLO
 postfix=(_run_card.dat _customizecards.dat _proc_card.dat _extramodels.dat _madspin_card.dat)
