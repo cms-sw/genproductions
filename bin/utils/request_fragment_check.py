@@ -229,6 +229,7 @@ for num in range(0,len(prepid)):
         cmssw = r['cmssw_release']
         test_cs_version = cmssw.split('_')
         print(test_cs_version)
+        mgversion = 0
         mem = r['memory']
         filter_eff = r['generator_parameters'][-1]['filter_efficiency']
         match_eff = r['generator_parameters'][-1]['match_efficiency']
@@ -634,7 +635,18 @@ for num in range(0,len(prepid)):
                         if gp_size != 0:
                             print "* [ERROR] Although the name of the dataset has ~Madgraph, the gridpack doesn't seem to be a MG5_aMC one. Please check."
                             error = error + 1
-                            break
+                            break                            
+                    version_file = my_path+'/'+pi+'/'+'mgbasedir/VERSION'
+                    if os.path.isfile(version_file) is True:
+                        mgversion_tmp = os.popen('grep version '+version_file).read()
+                        mgversion = mgversion_tmp.split()
+                        mgversion = mgversion[2].split(".")
+                        mgversion_tmp = mgversion_tmp.split("\n")
+                        print"mgversion_tmp"
+                        print(mgversion_tmp,mgversion,prepid)
+                        if "UL" in pi and int(mgversion[0]) <= 2 and int(mgversion[1]) < 6:
+                            print"* [WARNING] Your using MG5_aMC "+str(mgversion_tmp[0])+" in an Ultra Legacy Campaign. Are you sure that's what you want?"
+                            warning = warning + 1
                     test_bw = bw.split() 
                     if float(test_bw[0]) > 15.:
                         print " [WARNING] bwcutoff set to "+str(test_bw[0])+". Note that large bwcutoff values can cause problems in production."
