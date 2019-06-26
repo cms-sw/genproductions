@@ -227,6 +227,8 @@ for num in range(0,len(prepid)):
         te = r['time_event']
         totalevents = r['total_events']
         cmssw = r['cmssw_release']
+        test_cs_version = cmssw.split('_')
+        print(test_cs_version)
         mem = r['memory']
         filter_eff = r['generator_parameters'][-1]['filter_efficiency']
         match_eff = r['generator_parameters'][-1]['match_efficiency']
@@ -314,9 +316,12 @@ for num in range(0,len(prepid)):
             nthreads = 1
         else :
             nthreads = int(re.search('nThreads(.*?) --',ttxt).group(1))
-        if (nthreads != 16 or mem != 15900) and (8*3600/timeperevent)*filter_eff < 50 and timeperevent > 0:
-            print ("* [Error] please try to validate with 16 cores and 15900 GB memory or try to decrease the filter efficiency")
+        if (nthreads != 16 or mem != 15900) and (8*3600/timeperevent)*filter_eff < 50 and timeperevent > 0 and int(test_cs_version[1]) > 9:
+            print ("* [ERROR] please try to validate with 16 cores and 15900 GB memory or try to increase the filter efficiency")
             error = error + 1    
+        if  (8*3600/timeperevent)*filter_eff < 50 and timeperevent > 0 and int(test_cs_version[1]) <= 9:
+            print ("* [ERROR] please try to increase the filter efficiency")
+            error = error + 1  
         if "HIN-HINPbPbAutumn18GSHIMix" not in pi and "HINPbPbAutumn18wmLHEGSHIMix" not in pi and "HINPbPbAutumn18GS" not in pi:    
             if mem != 2300 and mem != 4000 and mem != 15900:
                 print "* [ERROR] Memory is not 2300, 4000 or 15900 MB"
@@ -373,7 +378,7 @@ for num in range(0,len(prepid)):
             if int(os.popen('grep -c FlatRandomEGunProducer '+pi).read()) == 1 or int(os.popen('grep -c FlatRandomPtGunProducer '+pi).read()) == 1:
                 particle_gun = 1
             print("Using CMSSW release: ",cmssw)    
-            test_cs_version = cmssw.split('_')
+#            test_cs_version = cmssw.split('_')
             if int(test_cs_version[2]) == 6 and ('CMSSW_10_6_0' not in cmssw or 'CMSSW_10_6_0_patch1' not in cmssw):
                 tunparmark = 1
             if int(test_cs_version[1]) >= 10 and int(test_cs_version[2]) >= 5 and int(test_cs_version[2]) <= 6 and int(test_cs_version[3]) >= 0 and '10_5_0_pre1' not in cmssw and particle_gun == 0 and tunparmark == 0:
