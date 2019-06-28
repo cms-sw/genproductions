@@ -358,7 +358,7 @@ for num in range(0,len(prepid)):
 #        os.system('wget -q https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_fragment/'+pi+' -O '+pi)
 #        os.system('mkdir -p '+my_path+'/'+pi)
 #        os.system('mkdir -p '+my_path+'/eos/'+pi)
-        gridpack_cvmfs_path = os.popen('grep \/cvmfs '+my_path+'/'+pi+'/'+pi+'| grep -v \'#args\' ').read()
+        gridpack_cvmfs_path = os.popen('grep \/cvmfs '+my_path+'/'+pi+'/'+pi+'| grep -v \'#args\' | grep tar').read()
         gp_size = len(gridpack_cvmfs_path)
         if fsize != 0:        
             if int(os.popen('grep -c eos '+pi).read()) == 1 :
@@ -447,6 +447,8 @@ for num in range(0,len(prepid)):
                         gridpack_cvmfs_path = gridpack_cvmfs_path.replace("%i","*")
                     if int(os.popen('grep -c \%s '+pi).read()) != 0:    
                         gridpack_cvmfs_path = gridpack_cvmfs_path.replace("%s","*")
+                    if int(os.popen('grep -c \%d '+pi).read()) != 0:
+                        gridpack_cvmfs_path = gridpack_cvmfs_path.replace("%d","*")
                     slha_all_path = os.path.dirname(gridpack_eos_path)    
                     gridpack_cvmfs_path = os.popen('ls '+ gridpack_cvmfs_path+' | head -1 | tr \'\n\' \' \'').read()
                     print "SLHA request - checking single gridpack:"
@@ -642,8 +644,6 @@ for num in range(0,len(prepid)):
                         mgversion = mgversion_tmp.split()
                         mgversion = mgversion[2].split(".")
                         mgversion_tmp = mgversion_tmp.split("\n")
-                        print"mgversion_tmp"
-                        print(mgversion_tmp,mgversion,prepid)
                         if "UL" in pi and int(mgversion[0]) <= 2 and int(mgversion[1]) < 6:
                             print"* [WARNING] Your using MG5_aMC "+str(mgversion_tmp[0])+" in an Ultra Legacy Campaign. Are you sure that's what you want?"
                             warning = warning + 1
