@@ -1,5 +1,7 @@
 ## usage for *request_fragment_check.py* script:
 
+(also see https://app.gitbook.com/@monte-carlo-production-tools/s/project/mccontact/request-checking-script)
+
 ```
 usage: request_fragment_check.py [-h] [--prepid PREPID [PREPID ...]]
                                  [--ticket TICKET]

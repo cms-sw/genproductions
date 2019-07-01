@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 '''
 Script for POWHEG generator production
@@ -286,7 +286,7 @@ def runGetSource(parstage, xgrid, folderName, powInputName, process, noPdfCheck,
 '''
 # Release to be used to define the environment and the compiler needed
 export RELEASE=${CMSSW_VERSION}
-export jhugenversion="v7.2.3"
+export jhugenversion="v7.2.7"
 
 cd $WORKDIR
 pwd
