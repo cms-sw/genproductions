@@ -1,0 +1,11 @@
+--- a/madgraph/interface/amcatnlo_run_interface.py	2019-02-04 12:19:42.000000000 +0100
++++ b/madgraph/interface/amcatnlo_run_interface.py	2019-04-30 10:59:55.718456046 +0200
+@@ -2942,7 +2942,7 @@
+                 # check for PLUGIN format
+                 cluster_class = misc.from_plugin_import(self.plugin_path, 
+                                             'new_cluster', cluster_name,
+-                                            info = 'cluster handling will be done with PLUGIN: %{plug}s' )
++                                            info = 'cluster handling will be done with PLUGIN: %(plug)s' )
+                 if cluster_class:
+                     self.cluster = cluster_class(**self.options)
+         
