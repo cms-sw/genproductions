@@ -11,6 +11,7 @@ PROCS=(WminusJToENu WminusJToMuNu WminusJToTauNu WplusJToENu WplusJToMuNu WplusJ
 #PROCS=(ZJToEE ZJToMuMu ZJToTauTau)
 #PROCS=(WplusJToENu-522 WplusJToENu-552)
 #PROCS=(WplusJToENu-552)
+EPROCS=(WminusJToENu WplusJToENu ZJToEE)
 
 case $WHAT in
 
@@ -53,6 +54,13 @@ case $WHAT in
         for PROC in ${PROCS[@]}
         do
             k5reauth -R -- python ./run_pwg_parallel_condor.py -p 3 -i DYNNLOPS_NNPDF31_13TeV/${PROC}-powheg.input -m ${PROC:0:1}j -f ${PROC}-powheg-NNLOPS -q tomorrow --step3pilot &
+        done
+    ;;
+    
+    MINLO )
+        for PROC in ${EPROCS[@]}
+        do
+            k5reauth -R -- python ./run_pwg_condor.py -p 8 -i DYNNLOPS_NNPDF31_13TeV/${PROC}-powheg.input -m ${PROC:0:1}j -f ${PROC}-powheg-NNLOPS -q nextweek -j 1000  -e /eos/user/m/mseidel/Powheg &
         done
     ;;
     
