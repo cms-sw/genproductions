@@ -14,8 +14,8 @@ define q~ = u~ c~ d~ s~ b~
 
 decay t > w+ b, w+ > q q~
 decay t~ > w- b~, w- > q q~
-decay w+ > vl vl~
-decay w- > vl vl~
+decay w+ > l+ vl
+decay w- > l- vl~
 decay z > all all
 # running the actual code
 launch

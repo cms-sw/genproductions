@@ -258,6 +258,8 @@ for num in range(0,len(prepid)):
         ickkw_c = 100
         maxjetflavor = 0
         nJetMax = 100
+        particle_gun = 0
+        tunparmark = 0
 	jet_count_tmp = []
         nFinal = 100
         jet_count = 0
@@ -265,6 +267,13 @@ for num in range(0,len(prepid)):
         error = 0
         warning = 0
         et_flag = 0
+        req_type = "dummy"
+        if "gen" in pi.lower():
+            req_type = "genonly"
+        if "gs" in pi.lower():
+            req_type = "gs"
+        if "plhe" in pi.lower():
+            req_type = "plhe"
         if "herwig" in dn.lower() or "comphep" in dn.lower() or "calchep" in dn.lower():
             print "* [WARNING] herwig or comphep or calchep sample. Please check manually"
             warning = warning + 1
@@ -305,6 +314,9 @@ for num in range(0,len(prepid)):
             nthreads = 1
         else :
             nthreads = int(re.search('nThreads(.*?) --',ttxt).group(1))
+        if (nthreads != 16 or mem != 15900) and (8*3600/timeperevent)*filter_eff < 50 and timeperevent > 0:
+            print ("* [Error] please try to validate with 16 cores and 15900 GB memory or try to decrease the filter efficiency")
+            error = error + 1    
         if "HIN-HINPbPbAutumn18GSHIMix" not in pi and "HINPbPbAutumn18wmLHEGSHIMix" not in pi and "HINPbPbAutumn18GS" not in pi:    
             if mem != 2300 and mem != 4000 and mem != 15900:
                 print "* [ERROR] Memory is not 2300, 4000 or 15900 MB"
@@ -315,9 +327,12 @@ for num in range(0,len(prepid)):
             if mem == 4000 and nthreads == 1 :
                 print "* [ERROR] Memory is "+str(mem)+" MB while number of cores is "+str(nthreads)+" but not = 2,4 or 8"
                 error = error + 1
-            if mem == 15900 and nthreads != 8:
-                print "* [ERROR] Memory is "+str(mem)+" MB while number of cores is "+str(nthreads)+" but not = 8"
+            if mem == 15900 and (nthreads != 8 and nthreads != 16) :
+                print "* [ERROR] Memory is "+str(mem)+" MB while number of cores is "+str(nthreads)+" but not = 8 or 16"
                 error = error + 1
+#            if filter_eff < 0.001 and "gs" in req_type and (mem != 15900 or nthreads != 16):
+#                print "* [ERROR] Low filter efficiency (<0.001) GS request w/o 15900 GB memory or 16 cores"
+#                error = error +1
         if "HIN-HINPbPbAutumn18GSHIMix" in pi or "HINPbPbAutumn18wmLHEGSHIMix" in pi or "HINPbPbAutumn18GS" in pi:
             if mem != 14700 and mem != 5900 and mem != 4000 and mem != 2300:
                 print "* [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix or HINPbPbAutumn18GS campaign but Memory is not 14700, 5900, 400, or 2300 MB"
@@ -337,6 +352,8 @@ for num in range(0,len(prepid)):
 #        os.system('wget -q https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_fragment/'+pi+' -O '+pi)
 #        os.system('mkdir -p '+my_path+'/'+pi)
 #        os.system('mkdir -p '+my_path+'/eos/'+pi)
+        gridpack_cvmfs_path = os.popen('grep \/cvmfs '+my_path+'/'+pi+'/'+pi+'| grep -v \'#args\' ').read()
+        gp_size = len(gridpack_cvmfs_path)
         if fsize != 0:        
             if int(os.popen('grep -c eos '+pi).read()) == 1 :
                 print "* [ERROR] Gridpack should have used cvmfs path instead of eos path"
@@ -353,34 +370,65 @@ for num in range(0,len(prepid)):
                 nFinal =  re.findall('\d+',nFinal)
                 nFinal = int(nFinal[0])
                 print "nFinal="+str(nFinal)
+            if int(os.popen('grep -c FlatRandomEGunProducer '+pi).read()) == 1 or int(os.popen('grep -c FlatRandomPtGunProducer '+pi).read()) == 1:
+                particle_gun = 1
             print("Using CMSSW release: ",cmssw)    
             test_cs_version = cmssw.split('_')
-            if int(test_cs_version[1]) >= 10 and int(test_cs_version[2]) >= 5 and int(test_cs_version[3]) >= 0 and '10_5_0_pre1' not in cmssw:
+            if int(test_cs_version[2]) == 6 and ('CMSSW_10_6_0' not in cmssw or 'CMSSW_10_6_0_patch1' not in cmssw):
+                tunparmark = 1
+            if int(test_cs_version[1]) >= 10 and int(test_cs_version[2]) >= 5 and int(test_cs_version[2]) <= 6 and int(test_cs_version[3]) >= 0 and '10_5_0_pre1' not in cmssw and particle_gun == 0 and tunparmark == 0:
                 mb_mode = os.popen('grep SigmaTotal:mode '+pi).read()
                 mb_mode = re.findall('\d*\.\d+|\d+',mb_mode)
                 mb_SigmaEl = os.popen('grep SigmaTotal:sigmaEl '+pi).read()
                 mb_SigmaEl = re.findall('\d*\.\d+|\d+',mb_SigmaEl)
                 mb_SigmaTot = os.popen('grep SigmaTotal:sigmaTot '+pi).read()
                 mb_SigmaTot = re.findall('\d*\.\d+|\d+',mb_SigmaTot)
+                PDF_pSet_test = os.popen('grep PDF:pSet '+pi).read()
+                PDF_pSet_test = re.findall('\d*\.\d+|\d+',PDF_pSet_test)
                 PDF_pSet = os.popen('grep PDF:pSet '+pi+' | grep -c LHAPDF6:NNPDF31_nnlo_as_0118').read()
-                if int(mb_mode[0]) != 0:  
-                    print "* [ERROR] SigmaTotal:mode should have been set to 0"
-                    error = error+1
-                if abs(float(mb_SigmaEl[0])-21.88) > 0.1:
-                    print "* [ERROR] SigmaTotal:sigmaEl should have been set to 21.89"
-                    error = error+1
-                if abs(float(mb_SigmaTot[0])-100.308) > 0.01:
-                    print "* [ERROR] SigmaTotal:sigmaTot should have been set to 100.309"
-                    error = error+1
-                if int(PDF_pSet[0]) != 1:
-                    print "* [ERROR] PDF access method is wrong. Please correct:"
+                tmp_flag = 0
+                if len(mb_mode) == 0:
+                    print "* [ERROR] SigmaTotal:mode is missing"
+                    print "*         For requests made with >= CMSSW_10_5_0_pre2 and <= CMSSW_10_6_0_patch1"
+                    print "*         SigmaTotal:mode shoud be added by hand and set to 0"
+                    error = error + 1
+                    tmp_flag = 1
+                if len(mb_SigmaEl) == 0:
+                    print "* [ERROR] SigmaTotal:sigmaEl is missing"
+                    print "*         For requests made with >= CMSSW_10_5_0_pre2 and <= CMSSW_10_6_0_patch1"
+                    print "*         SigmaTotal:sigmaEl should be added by hand and set to 21.89"
+                    error = error + 1
+                    tmp_flag = 1
+                if len(mb_SigmaTot) == 0:
+                    print "* [ERROR] SigmaTotal:sigmaTot is missing"
+                    print "*         For requests made with >= CMSSW_10_5_0_pre2 and <= CMSSW_10_6_0_patch1"
+                    print "*         SigmaTotal:sigmaTot should be added by hand and set to 100.309"
+                    error = error + 1
+                    tmp_flag = 1
+                if len(PDF_pSet_test) == 0:
+                    print "* [WARNING] PDF:pSet is missing (if you want to use NNPDF3.1)"
+                    print "*         For requests made with >= CMSSW_10_5_0_pre2 and <= CMSSW_10_6_0_patch1"
+                    print "*         PDF access method should be like"
                     print "*         e.g. for CP5 use 'PDF:pSet=LHAPDF6:NNPDF31_nnlo_as_0118'"
-                    error = error+1
-            
-                    
-                    
-            gridpack_cvmfs_path = os.popen('grep \/cvmfs '+my_path+'/'+pi+'/'+pi+'| grep -v \'#args\' ').read()
-            gp_size = len(gridpack_cvmfs_path)
+                    warning = warning + 1
+                    tmp_flag = 1
+                if tmp_flag == 0:
+                    if int(mb_mode[0]) != 0:  
+                        print "* [ERROR] SigmaTotal:mode should have been set to 0"
+                        error = error+1
+                    if abs(float(mb_SigmaEl[0])-21.88) > 0.1:
+                        print "* [ERROR] SigmaTotal:sigmaEl should have been set to 21.89"
+                        error = error+1
+                    if abs(float(mb_SigmaTot[0])-100.308) > 0.01:
+                        print "* [ERROR] SigmaTotal:sigmaTot should have been set to 100.309"
+                        error = error+1
+                    if int(PDF_pSet[0]) != 1:
+                        print "* [WARNING] PDF access method is wrong (if you want to use NNPDF3.1). Please correct:"
+                        print "*         e.g. for CP5 use 'PDF:pSet=LHAPDF6:NNPDF31_nnlo_as_0118'"
+                        warning = warning + 1
+                
+#            gridpack_cvmfs_path = os.popen('grep \/cvmfs '+my_path+'/'+pi+'/'+pi+'| grep -v \'#args\' ').read()
+#            gp_size = len(gridpack_cvmfs_path)
             if gp_size != 0:
                 gridpack_cvmfs_path = gridpack_cvmfs_path.split('\'')[1]
                 gridpack_eos_path = gridpack_cvmfs_path.replace("/cvmfs/cms.cern.ch/phys_generator","/eos/cms/store/group/phys_generator/cvmfs")
@@ -406,9 +454,9 @@ for num in range(0,len(prepid)):
                 if any(word in dn for word in tunename):
                     print "* [OK] Data set name has a known tune" 
                 else:
-                    print "* [ERROR] Dataset name does not have the tune name:"+dn
+                    print "* [WARNING] Dataset name does not have the tune name:"+dn
                     print "*         Please add the tune name to the dataset."
-                    error=error+1
+                    warning=warning+1
                 if any(word in dn.lower() for word in MEname):
                     print "Data set name is regular: "+dn
                 else:    
@@ -455,9 +503,8 @@ for num in range(0,len(prepid)):
                     file_pwg_check =  my_path+'/'+pi+'/'+'pwhg_checklimits'
                     if os.path.isfile(file_pwg_check) is True :
                         print "grep from powheg pwhg_checklimits files"
-                        nemit = os.popen('grep emitter '+file_pwg_check+' | head -n 1').read().replace('process','').replace('\n','').split(',')
+                        nemit = os.popen('grep emitter '+file_pwg_check+' | grep process | head -n 1').read().replace('process','').replace('\n','').split(',')
                         nemitsplit = nemit[1].split()
-                        print nemitsplit
                         nemitsplit_pr = nemitsplit[2:]
 			nemitsplit = [x for x in nemitsplit_pr if x!=nemitsplit[0] and x!=nemitsplit[1]]
 			print nemitsplit
@@ -529,6 +576,8 @@ for num in range(0,len(prepid)):
                         warning = warning + 1
 
                 if ind > 0:
+                    if gp_size == 0:
+                        break
                     filename = my_path+'/'+pi+'/'+'process/madevent/Cards/proc_card_mg5.dat'
                     fname_p2 = my_path+'/'+pi+'/'+'process/Cards/proc_card.dat'
                     fname_p3 = my_path+'/'+pi+'/'+'process/Cards/proc_card_mg5.dat'
@@ -577,9 +626,10 @@ for num in range(0,len(prepid)):
                        ickkw = os.popen('more '+fname2+' | tr -s \' \' | grep "= ickkw"').read()
                        bw = os.popen('more '+fname2+' | tr -s \' \' | grep "= bwcutoff"').read()
                     else:
-                        print "* [ERROR] Although the name of the dataset has ~Madgraph, the gridpack doesn't seem to be a MG5_aMC one. Please check."
-                        error = error + 1
-                        break
+                        if gp_size != 0:
+                            print "* [ERROR] Although the name of the dataset has ~Madgraph, the gridpack doesn't seem to be a MG5_aMC one. Please check."
+                            error = error + 1
+                            break
                     test_bw = bw.split() 
                     if float(test_bw[0]) > 15.:
                         print " [WARNING] bwcutoff set to "+str(test_bw[0])+". Note that large bwcutoff values can cause problems in production."

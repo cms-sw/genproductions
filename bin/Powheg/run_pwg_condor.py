@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 '''
 Script for POWHEG generator production
@@ -187,6 +187,10 @@ def runParallelXgrid(parstage, xgrid, folderName, nEvents, njobs, powInputName, 
     inputName = folderName + "/powheg.input"
 
     sedcommand = 'sed -i "s/NEVENTS/'+nEvents+'/ ; s/SEED/'+rndSeed+'/ ; s/.*parallelstage.*/parallelstage '+parstage+'/ ; s/.*xgriditeration.*/xgriditeration '+xgrid+'/ ; s/.*manyseeds.*/manyseeds 1/ ; s/fakevirt.*// " '+inputName
+
+    with open(os.path.join(folderName, "pwgseeds.dat"), "w") as f:
+        for i in xrange(njobs):
+            f.write(str(int(rndSeed) + i)+"\n")
 
     #print sedcommand
     runCommand(sedcommand)
@@ -925,12 +929,12 @@ chmod 755 runcmsgrid.sh
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
 
-def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag, process) :
+def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag, process, seed) :
     print 'run : submitting jobs'
     
     inputName = folderName + "/powheg.input"
     
-    sedcommand = 'sed -i "s/NEVENTS/2000/ ; s/SEED/3/ " '+inputName
+    sedcommand = 'sed -i "s/NEVENTS/2000/ ; s/iseed.*/iseed '+str(seed)+'/" '+inputName
     runCommand(sedcommand)
     
     if (parstage in ['2', '3']) :
@@ -950,6 +954,10 @@ def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag, proc
                 runCommand("echo \'fakevirt 1\' >> "+inputName)
     
     runCommand('cp -p ' + folderName + '/powheg.input ' + folderName + '/powheg.input.' + parstage)
+
+    with open(os.path.join(folderName, "pwgseeds.dat"), "w") as f:
+        for i in xrange(njobs):
+            f.write(str(int(seed) + i)+"\n")
 
     for i in range (0, njobs) :
         tag = jobtag + '_' + str (i)
@@ -1730,4 +1738,4 @@ if __name__ == "__main__":
         os.system('cp -p '+args.inputTemplate+' '+args.folderName+'/powheg.input')
         runEvents(args.parstage, args.folderName,
                   args.eosFolder + '/' + EOSfolder, njobs, powInputName,
-                  jobtag, args.prcName)
+                  jobtag, args.prcName, args.rndSeed)
