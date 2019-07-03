@@ -34,6 +34,7 @@ if __name__ == "__main__":
     parser = OptionParser()
     parser.add_option('-p', '--parstage'      , dest="parstage",      default= '01239',        help='stage of the production process [01239]')
     parser.add_option('-f', '--folderName'    , dest="folderName",    default='testProd',      help='local folder and last eos folder name[testProd]')
+    parser.add_option('-e', '--eosFolder'     , dest="eosFolder",     default='NONE' ,         help='folder before the last one, on EOS')
     parser.add_option('-j', '--numJobs'       , dest="numJobs",       default= '10',           help='number of jobs to be used for multicore grid step 1,2,3')
     parser.add_option('-x', '--numX'          , dest="numX",          default= '5',            help='number of xgrid iterations for multicore grid step 1')
     parser.add_option('-i', '--inputTemplate' , dest="inputTemplate", default= 'powheg.input', help='input cfg file (fixed) [=powheg.input]')
@@ -51,6 +52,7 @@ if __name__ == "__main__":
     print 'RUNNING PARAMS: '
     print '                parstage              = ' + args.parstage
     print '                folderName            = ' + args.folderName 
+    print '                eosFolder             = ' + args.eosFolder 
     print '                Number of jobs        = ' + args.numJobs 
     print '                Number of xgrid iter  = ' + args.numX 
     print '                Condor Job flavor     = ' + args.doQueue 
@@ -85,6 +87,7 @@ if __name__ == "__main__":
         print '*'*50,step,'*'*5,extraOpt,'*'*50
         njobs = '1' if 'pilot' in step else args.numJobs
         commonOpts='-i '+args.inputTemplate+' -m '+args.prcName+' -f '+args.folderName+' -j '+njobs
+        if args.eosFolder != 'NONE': commonOpts+=' -e '+args.eosFolder
         if extraOpt!='-p 0' and extraOpt!='-p 9 -k 1': commonOpts = commonOpts+' -q '+args.doQueue
         command = 'python ./run_pwg_condor.py %s %s'%(extraOpt,commonOpts)
         print command
