@@ -343,13 +343,13 @@ fi
 
 # 5F
 is5FlavorScheme=1
-defaultPDF=306000
+defaultPDF=325300
 
 
 if [[ "$process" == "ST_tch_4f" ]] || [[ "$process" == "bbH" ]] || [[ "$process" == "Wbb_dec" ]] || [[ "$process" == "Wbbj" ]] || [[ "$process" == "WWJ" ]]; then
     # 4F
     is5FlavorScheme=0
-    defaultPDF=320900
+    defaultPDF=325500
 fi
 
 if [[ $is5FlavorScheme -eq 1 ]]; then
