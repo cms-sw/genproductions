@@ -228,7 +228,6 @@ for num in range(0,len(prepid)):
         totalevents = r['total_events']
         cmssw = r['cmssw_release']
         test_cs_version = cmssw.split('_')
-        print(test_cs_version)
         mgversion = 0
         mem = r['memory']
         filter_eff = r['generator_parameters'][-1]['filter_efficiency']
@@ -250,6 +249,7 @@ for num in range(0,len(prepid)):
         MEname = ["powheg","madgraph","mcatnlo","jhugen","mcfm"]
         tune = ["CP5","CUEP8M1","CP1","CP2","CP3","CP4","CP5TuneUp","CP5TuneDown"]
         tunename = ["CP5","CUETP8M1","CUETP8M2T4","CP1","CP2","CP3","CP4","CP5TuneUp","CP5TuneDown"]
+        n_ext_par = 0
         mcatnlo_flag = 0
         loop_flag = 0
         knd =  -1
@@ -378,8 +378,7 @@ for num in range(0,len(prepid)):
                 print "nFinal="+str(nFinal)
             if int(os.popen('grep -c FlatRandomEGunProducer '+pi).read()) == 1 or int(os.popen('grep -c FlatRandomPtGunProducer '+pi).read()) == 1:
                 particle_gun = 1
-            print("Using CMSSW release: ",cmssw)    
-#            test_cs_version = cmssw.split('_')
+            print "Using CMSSW release: "+cmssw    
             if int(test_cs_version[2]) == 6 and ('CMSSW_10_6_0' not in cmssw or 'CMSSW_10_6_0_patch1' not in cmssw):
                 tunparmark = 1
             if int(test_cs_version[1]) >= 10 and int(test_cs_version[2]) >= 5 and int(test_cs_version[2]) <= 6 and int(test_cs_version[3]) >= 0 and '10_5_0_pre1' not in cmssw and particle_gun == 0 and tunparmark == 0:
@@ -797,7 +796,17 @@ for num in range(0,len(prepid)):
         if 'sherpa' in dn.lower():
             print "* [WARNING] No automated check of Sherpa ps/tune parameters yet"
             warning = warning + 1
-        if 3 not in tunecheck and 'sherpa' not in dn.lower() and fsize != 0:
+        if 3 not in tunecheck:
+            with open(pi) as f:
+                tot = f.read()
+                n_ext_par += tot.count('MultipartonInteractions')
+                n_ext_par += tot.count('ColourReconnection')
+                n_ext_par += tot.count('SpaceShower')
+                n_ext_par += tot.count('TimeShower')
+                print "* [WARNING] Number of extra or replaced tune parameters is at least "+str(n_ext_par)
+                print "*           Please check tune configuration carefully (e.g. are the non-replaced parameters the ones you want)"
+                warning = warning + 1
+        if 3 not in tunecheck and 'sherpa' not in dn.lower() and fsize != 0 and n_ext_par == 0:
 	    if any(it!=0 for it in tunecheck) :
             	print "* [ERROR] Tune configuration may be wrong in the fragment"
  	    	print "*         or pythia8CUEP8M1Settings are overwritten by some other parameters as in CUETP8M2T4"
