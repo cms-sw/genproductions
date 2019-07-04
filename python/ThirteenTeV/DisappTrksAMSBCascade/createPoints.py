@@ -66,13 +66,25 @@ for mass in xsecs:
                         os.system('sed -i "s/YYY/' + str(charginoMass) + '/g" ' + outputConfigFile) # mm
                         os.system('sed -i "s/ZZZ/' + str(int(ctau * 10.0)) + '/g" ' + outputConfigFile) # mm
                         os.system('sed -i "s/WWW/' + str(xsecs[mass]) + '/g" ' + outputConfigFile)
-                        insertSLHA(outputConfigFile, charginoMass)
-
-                        mW1ss = findMassValue(outputConfigFile, 'w1ss')
-                        mZ1ss = findMassValue(outputConfigFile, 'z1ss')
 
                         tau = ctau / c * 1.e9 # ns
                         width = (1.97326979e-14 / ctau) # GeV
+
+                        if os.environ["CMSSW_VERSION"].startswith('CMSSW_10_'):
+                                if not os.path.exists('slha_withDecay/'):
+                                        os.mkdir('slha_withDecay')
+                                if not os.path.exists('slha_withDecay/%dcm/' % ctau):
+                                        os.mkdir('slha_withDecay/%dcm' % ctau)
+                                baseSLHA   = 'slha/AMSB_chargino_%dGeV_Isajet780.slha' % charginoMass
+                                outputSLHA = 'slha_withDecay/%dcm/AMSB_gluinoToChargino_%dGeV_%dGeV_%dcm_Isajet780.slha' % (ctau, mass, charginoMass, ctau)
+                                os.system('sed "s/%.9g   #  glss/' + str(mass) + '   #  glss/g" ' + baseSLHA + ' > ' + outputSLHA)
+                                os.system('sed -i "s/%.9g # chargino decay/' + str(width) + ' # chargino decay/g" ' + outputSLHA)
+                                mW1ss = findMassValue(outputSLHA, 'w1ss')
+                                mZ1ss = findMassValue(outputSLHA, 'z1ss')
+                        else:
+                                insertSLHA(outputConfigFile, mass)
+                                mW1ss = findMassValue(outputConfigFile, 'w1ss')
+                                mZ1ss = findMassValue(outputConfigFile, 'z1ss')
 
                         os.system('sed "s/_MW1SS/' + str(mW1ss) + '/g" ' + baseParticleFile + ' > ' + outputParticleFile)
                         os.system('sed -i "s/_MZ1SS/' + str(mZ1ss) + '/g" ' + outputParticleFile)
