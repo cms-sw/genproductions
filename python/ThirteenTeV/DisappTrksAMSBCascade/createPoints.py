@@ -82,7 +82,7 @@ for mass in xsecs:
                                 mW1ss = findMassValue(outputSLHA, 'w1ss')
                                 mZ1ss = findMassValue(outputSLHA, 'z1ss')
                         else:
-                                insertSLHA(outputConfigFile, mass)
+                                insertSLHA(outputConfigFile, charginoMass)
                                 mW1ss = findMassValue(outputConfigFile, 'w1ss')
                                 mZ1ss = findMassValue(outputConfigFile, 'z1ss')
 
