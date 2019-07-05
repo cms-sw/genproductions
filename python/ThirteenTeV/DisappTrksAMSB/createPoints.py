@@ -55,13 +55,24 @@ for mass in xsecs:
 		os.system('sed "s/XXX/' + str(mass) + '/g" ' + baseConfigFile + ' > ' + outputConfigFile)
 		os.system('sed -i "s/YYY/' + str(int(ctau * 10.0)) + '/g" ' + outputConfigFile) # mm
 		os.system('sed -i "s/ZZZ/' + str(xsecs[mass]) + '/g" ' + outputConfigFile)
-		insertSLHA(outputConfigFile, mass)
-
-		mW1ss = findMassValue(outputConfigFile, 'w1ss')
-		mZ1ss = findMassValue(outputConfigFile, 'z1ss')
-
+		
 		tau = ctau / c * 1.e9 # ns
 		width = (1.97326979e-14 / ctau) # GeV
+
+		if os.environ["CMSSW_VERSION"].startswith('CMSSW_10_'):
+			if not os.path.exists('slha_withDecay/'):
+				os.mkdir('slha_withDecay')
+			if not os.path.exists('slha_withDecay/%dcm/' % ctau):
+				os.mkdir('slha_withDecay/%dcm' % ctau)
+			baseSLHA   = 'slha/AMSB_chargino_%dGeV_Isajet780.slha' % mass
+			outputSLHA = 'slha_withDecay/%scm/AMSB_chargino_%sGeV_%scm_Isajet780.slha' % (ctau, mass, ctau)
+			os.system('sed "s/%.9g # chargino decay/' + str(width) + ' # chargino decay/g" ' + baseSLHA + ' > ' + outputSLHA)
+			mW1ss = findMassValue(outputSLHA, 'w1ss')
+			mZ1ss = findMassValue(outputSLHA, 'z1ss')
+		else:
+			insertSLHA(outputConfigFile, mass)
+			mW1ss = findMassValue(outputConfigFile, 'w1ss')
+			mZ1ss = findMassValue(outputConfigFile, 'z1ss')
 
 		os.system('sed "s/_MW1SS/' + str(mW1ss) + '/g" ' + baseParticleFile + ' > ' + outputParticleFile)
 		os.system('sed -i "s/_MZ1SS/' + str(mZ1ss) + '/g" ' + outputParticleFile)
