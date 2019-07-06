@@ -1,11 +1,11 @@
---- a/madgraph/interface/loop_interface.py	2017-03-28 18:32:43.000000000 +0300
-+++ b/madgraph/interface/loop_interface.py	2017-05-18 21:24:04.873265383 +0300
-@@ -498,7 +498,7 @@
+--- a/madgraph/interface/loop_interface.py	2019-07-06 03:19:30.000000002 +0200
++++ b/madgraph/interface/loop_interface.py	2019-07-06 03:22:46.000000002 +0200
+@@ -501,7 +501,7 @@
          opt = self.options
-         
+                 
          # Check if first time:
--        if (opt['ninja'] is None) or (os.path.isfile(pjoin(MG5DIR, opt['ninja'],'libninja.a'))): 
-+        if (opt['ninja'] is None) or (os.path.isfile(pjoin(os.path.abspath(opt['ninja']),'libninja.a'))):
+-        if not force and ((opt['ninja'] is None) or (os.path.isfile(pjoin(MG5DIR, opt['ninja'],'libninja.a')))): 
++        if not force and ((opt['ninja'] is None) or (os.path.isfile(pjoin(os.path.abspath(opt['ninja']),'libninja.a')))):    
              return
-         
-         logger.info("First output using loop matrix-elements has been detected. Now asking for loop reduction:", '$MG:color:BLACK')
+ 
+         # do not trigger the question for tests
