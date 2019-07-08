@@ -270,12 +270,13 @@ for num in range(0,len(prepid)):
         error = 0
         warning = 0
         et_flag = 0
+        not_enough_events = []
         req_type = "dummy"
-        if "gen" in pi.lower():
+        if "gen" in pi.lower(): 
             req_type = "genonly"
-        if "gs" in pi.lower():
+        if "gs" in pi.lower(): 
             req_type = "gs"
-        if "plhe" in pi.lower():
+        if "plhe" in pi.lower(): 
             req_type = "plhe"
         if "herwig" in dn.lower() or "comphep" in dn.lower() or "calchep" in dn.lower():
             print "* [WARNING] herwig or comphep or calchep sample. Please check manually"
@@ -479,6 +480,17 @@ for num in range(0,len(prepid)):
                             dn = dn + "-amcatnlo"
                         if matching_c == 3:
                             dn = dn + "-amcatnloFXFX"
+                gp_log_loc = my_path+'/'+pi+'/gridpack_generation.log'
+                if mg_gp is True or amcnlo_gp is True and os.path.isfile(gp_log_loc) is True:
+                    not_enough_events.append(os.popen('grep \"saving rejects to\" '+gp_log_loc).read())
+                    not_enough_events.append(os.popen('grep \"INFO: fail to reach target\" '+gp_log_loc).read())
+                    not_enough_events.append(os.popen('grep \"INFO: Not enough events for at least one production mode\" '+gp_log_loc).read())
+                    if not not_enough_events:
+                        print "* [WARNING] "+not_enough_events[0]
+                        print "*           "+not_enough_events[1]
+                        print "*           "+not_enough_events[2]
+                        print "*           You may try to request more events per phase-space region in the gridpack."
+                        warning = warning + 1
                 if mg_gp is True:        
                     ickkw_c = os.popen('more '+my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat'+' | tr -s \' \' | grep "= ickkw"').read()
                     matching_c = int(re.search(r'\d+',ickkw_c).group())
