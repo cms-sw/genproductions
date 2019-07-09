@@ -485,9 +485,12 @@ for num in range(0,len(prepid)):
                     not_enough_events.append(os.popen('grep \"saving rejects to\" '+gp_log_loc).read())
                     not_enough_events.append(os.popen('grep \"INFO: fail to reach target\" '+gp_log_loc).read())
                     not_enough_events.append(os.popen('grep \"INFO: Not enough events for at least one production mode\" '+gp_log_loc).read())
-                    if not not_enough_events:
+                    print not_enough_events
+                    if len(not_enough_events[0]) != 0:
                         print "* [WARNING] "+not_enough_events[0]
-                        print "*           "+not_enough_events[1]
+                        warning = warning + 1
+                    if len(not_enough_events[1]) !=0 or len(not_enough_events[2]) != 0:    
+                        print "* [WARNING] "+not_enough_events[1]
                         print "*           "+not_enough_events[2]
                         print "*           You may try to request more events per phase-space region in the gridpack."
                         warning = warning + 1
