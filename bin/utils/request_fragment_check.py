@@ -270,7 +270,7 @@ for num in range(0,len(prepid)):
         error = 0
         warning = 0
         et_flag = 0
-        not_enough_events = []
+        pf = []
         req_type = "dummy"
         if "gen" in pi.lower(): 
             req_type = "genonly"
@@ -287,7 +287,12 @@ for num in range(0,len(prepid)):
         if timeperevent > 150.0 :
             print "* [WARNING] Large time/event="+str(timeperevent)+" - please check"
             warning = warning + 1
-        if '10_6' not in cmssw and '10_2' not in cmssw and '9_3' not in cmssw and '7_1' not in cmssw :
+        version_not_ok = 0    
+        if '8_0' in cmssw and "Summer16FSPremix" not in pi:
+            version_not_ok = 1
+        if '9_4' in cmssw and "Fall17FSPremix" not in pi:
+            version_not_ok = 1      
+        if '10_6' not in cmssw and '10_2' not in cmssw and '9_3' not in cmssw and '7_1' not in cmssw and version_not_ok == 1:
             print "* [WARNING] Are you sure you want to use "+cmssw+" release which is not standard"
             print "*           which may not have all the necessary GEN code."
             warning = warning + 1
@@ -323,7 +328,10 @@ for num in range(0,len(prepid)):
             error = error + 1    
         if  (8*3600/timeperevent)*filter_eff < 50 and timeperevent > 0 and int(test_cs_version[1]) <= 9:
             print ("* [ERROR] please try to increase the filter efficiency")
-            error = error + 1  
+            error = error + 1
+        if int(test_cs_version[1]) >= 10 and int(test_cs_version[2]) >= 6 and nthreads == 8 and mem != 15900:
+            print ("* [ERROR] 8 core request with memory different from 15900 GB. Please set the memory to 15900 GB")
+            error = error + 1
         if "HIN-HINPbPbAutumn18GSHIMix" not in pi and "HINPbPbAutumn18wmLHEGSHIMix" not in pi and "HINPbPbAutumn18GS" not in pi:    
             if mem != 2300 and mem != 4000 and mem != 15900:
                 print "* [ERROR] Memory is not 2300, 4000 or 15900 MB"
@@ -482,16 +490,17 @@ for num in range(0,len(prepid)):
                             dn = dn + "-amcatnloFXFX"
                 gp_log_loc = my_path+'/'+pi+'/gridpack_generation.log'
                 if mg_gp is True or amcnlo_gp is True and os.path.isfile(gp_log_loc) is True:
-                    not_enough_events.append(os.popen('grep \"saving rejects to\" '+gp_log_loc).read())
-                    not_enough_events.append(os.popen('grep \"INFO: fail to reach target\" '+gp_log_loc).read())
-                    not_enough_events.append(os.popen('grep \"INFO: Not enough events for at least one production mode\" '+gp_log_loc).read())
-                    print not_enough_events
-                    if len(not_enough_events[0]) != 0:
-                        print "* [WARNING] "+not_enough_events[0]
+                    pf.append(os.popen('grep \"saving rejects to\" '+gp_log_loc).read())
+                    pf.append(os.popen('grep \"INFO: fail to reach target\" '+gp_log_loc).read())
+                    pf.append(os.popen('grep \"INFO: Not enough events for at least one production mode\" '+gp_log_loc).read())
+                    print pf
+                    if len(pf[0]) != 0:
+                        print "* [WARNING] "+pf[0]
+                        print "*             gridpack patch problem."
                         warning = warning + 1
-                    if len(not_enough_events[1]) !=0 or len(not_enough_events[2]) != 0:    
-                        print "* [WARNING] "+not_enough_events[1]
-                        print "*           "+not_enough_events[2]
+                    if len(pf[1]) !=0 or len(pf[2]) != 0:    
+                        print "* [WARNING] "+pf[1]
+                        print "*           "+pf[2]
                         print "*           You may try to request more events per phase-space region in the gridpack."
                         warning = warning + 1
                 if mg_gp is True:        
@@ -832,7 +841,7 @@ for num in range(0,len(prepid)):
         elif 3 in tunecheck:
             print "* [OK] Tune configuration probably OK in the fragment"
             if tunecheck[0] > 2 :
-                if 'Summer19UL' not in pi and 'Fall18' not in pi and 'Fall17' not in pi :
+                if 'Summer19UL' not in pi and 'Fall18' not in pi and 'Fall17' not in pi and 'Run3' not in pi:
                     print "* [WARNING] Do you really want to have tune "+tune[0] +" in this campaign?"
                     warning = warning + 1
         if 'Fall18' in pi and fsize != 0:
