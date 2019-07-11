@@ -248,7 +248,7 @@ for num in range(0,len(prepid)):
         ME = ["PowhegEmissionVeto","aMCatNLO"] # ME = matrix element
         MEname = ["powheg","madgraph","mcatnlo","jhugen","mcfm"]
         tune = ["CP5","CUEP8M1","CP1","CP2","CP3","CP4","CP5TuneUp","CP5TuneDown"]
-        tunename = ["CP5","CUETP8M1","CUETP8M2T4","CP1","CP2","CP3","CP4","CP5TuneUp","CP5TuneDown"]
+        tunename = ["CP5","CUETP8M1","CUETP8M2T4","CP1","CP2","CP3","CP4","CP5TuneUp","CP5TuneDown","CH3"]
         n_ext_par = 0
         mcatnlo_flag = 0
         loop_flag = 0
@@ -270,6 +270,7 @@ for num in range(0,len(prepid)):
         error = 0
         warning = 0
         et_flag = 0
+        herwig_flag = 0
         pf = []
         req_type = "dummy"
         if "gen" in pi.lower(): 
@@ -278,8 +279,10 @@ for num in range(0,len(prepid)):
             req_type = "gs"
         if "plhe" in pi.lower(): 
             req_type = "plhe"
-        if "herwig" in dn.lower() or "comphep" in dn.lower() or "calchep" in dn.lower():
-            print "* [WARNING] herwig or comphep or calchep sample. Please check manually"
+        if "herwig" in dn.lower():
+            herwig_flag = 1
+        if "comphep" in dn.lower() or "calchep" in dn.lower():
+            print "* [WARNING] comphep or calchep sample. Please check manually"
             warning = warning + 1
             continue
         for item in te:
@@ -314,6 +317,50 @@ for num in range(0,len(prepid)):
         os.system('cp '+pi+' '+my_path+'/'+pi+'/.')
         os.system('wget -q https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_test/'+pi+' -O '+pi+'_get_test')
         gettest = os.popen('grep cff '+pi+'_get_test'+' | grep curl').read()
+
+        if herwig_flag != 0:
+            os.system('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/herwig_frag_lines.txt -O herwig_frag_lines.txt')
+            file1 = set(line.strip() for line in open('herwig_frag_lines.txt'))
+            file2 = set(line.strip() for line in open(pi))
+            herwig_check = []
+            herwig_mat_err = 0
+            for line in file1:
+                if line not in file2:
+                    herwig_check.append(line)
+            if len(herwig_check) != 0:
+                print "* [ERROR] "+ str(len(herwig_check)) + " missing fragment line(s):"
+                print herwig_check
+                error = error + len(herwig_check)
+            if "powheg" in dn.lower():
+                if int(os.popen('grep -c Herwig7LHEPowhegSettings_cfi '+pi).read()) == 0:
+                    print "* [ERROR] Herwig7LHEPowhegSettings_cfi should be loaded in the fragment"
+                    error = error + 1   
+                    herwig_mat_err = 1
+                if int(os.popen('grep -c herwig7LHEPowhegSettingsBlock '+pi).read()) == 0:
+                    print "* [ERROR] herwig7LHEPowhegSettingsBlock missing for powheg+herwig7 request"
+                    error = error + 1 
+                    herwig_mat_err = 1
+                if int(os.popen('grep -c hw_lhe_Powheg_settings '+pi).read()) == 0:
+                    print "* [ERROR] hw_lhe_Powheg_settings missing for powheg+herwig7 request"
+                    error = error + 1 
+                    herwig_mat_err = 1
+            if "madgraph" in dn.lower() or "mcatnlo" in dn.lower():
+                if int(os.popen('grep -c Herwig7LHEMG5aMCatNLOSettings_cfi '+pi).read()) == 0:
+                    print "* [ERROR] Herwig7LHEMG5aMCatNLOSettings_cfi should be loaded in the fragment"
+                    error = error + 1 
+                    herwig_mat_err = 1
+                if int(os.popen('grep -c herwig7LHEMG5aMCatNLOSettingsBlock '+pi).read()) == 0:
+                    print "* [ERROR] herwig7LHEMG5aMCatNLOSettingsBlock missing for powheg+herwig7 request"
+                    error = error + 1 
+                    herwig_mat_err = 1
+                if int(os.popen('grep -c hw_lhe_MG5aMCatNLO_settings '+pi).read()) == 0:
+                    print "* [ERROR] hw_lhe_MG5aMCatNLO_settings missing for powheg+herwig7 request"
+                    error = error + 1 
+                    herwig_mat_err = 1
+            if herwig_mat_err == 0 and len(herwig_check) == 0:  
+                print "*"
+                print "* [OK] Herwig7 fragment probably OK"
+                print "*"
         if fsize == 0:
             print "* [WARNING] No fragment associated to this request"
             print "*           is this the hadronizer you intended to use?: "+gettest
@@ -390,7 +437,7 @@ for num in range(0,len(prepid)):
             print "Using CMSSW release: "+cmssw    
             if int(test_cs_version[2]) == 6 and ('CMSSW_10_6_0' not in cmssw or 'CMSSW_10_6_0_patch1' not in cmssw):
                 tunparmark = 1
-            if int(test_cs_version[1]) >= 10 and int(test_cs_version[2]) >= 5 and int(test_cs_version[2]) <= 6 and int(test_cs_version[3]) >= 0 and '10_5_0_pre1' not in cmssw and particle_gun == 0 and tunparmark == 0:
+            if int(test_cs_version[1]) >= 10 and int(test_cs_version[2]) >= 5 and int(test_cs_version[2]) <= 6 and int(test_cs_version[3]) >= 0 and '10_5_0_pre1' not in cmssw and particle_gun == 0 and tunparmark == 0 and herwig_flag == 0:
                 mb_mode = os.popen('grep SigmaTotal:mode '+pi).read()
                 mb_mode = re.findall('\d*\.\d+|\d+',mb_mode)
                 mb_SigmaEl = os.popen('grep SigmaTotal:sigmaEl '+pi).read()
@@ -493,7 +540,6 @@ for num in range(0,len(prepid)):
                     pf.append(os.popen('grep \"saving rejects to\" '+gp_log_loc).read())
                     pf.append(os.popen('grep \"INFO: fail to reach target\" '+gp_log_loc).read())
                     pf.append(os.popen('grep \"INFO: Not enough events for at least one production mode\" '+gp_log_loc).read())
-                    print pf
                     if len(pf[0]) != 0:
                         print "* [WARNING] "+pf[0]
                         print "*             gridpack patch problem."
@@ -508,11 +554,22 @@ for num in range(0,len(prepid)):
                     matching_c = int(re.search(r'\d+',ickkw_c).group())
                     maxjetflavor = os.popen('more '+my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat'+' | tr -s \' \' | grep "= maxjetflavor"').read()
                     maxjetflavor = int(re.search(r'\d+',maxjetflavor).group())
-                    print "maxjetflavor = "+str(maxjetflavor)                   
+                    print "maxjetflavor = "+str(maxjetflavor)
+                    if matching_c == 3 and herwig_flag != 0:
+                        ps_hw = os.popen('grep parton_shower '+my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat')
+                        if herwigpp not in ps_hw:
+                            print "* [ERROR] herwigpp = parton_shower not in run_card.dat"
+                            error = error + 1
                 if amcnlo_gp is True:
                     ickkw_c = os.popen('more '+my_path+'/'+pi+'/'+'process/Cards/run_card.dat'+' | tr -s \' \' | grep "= ickkw"').read()
                     matching_c = int(re.search(r'\d+',ickkw_c).group())
                     print ickkw_c
+                    if herwig_flag != 0:
+                        ps_hw = os.popen('grep parton_shower '+my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat')
+                        if herwigpp not in ps_hw:
+                            print "* [ERROR] herwigpp = parton_shower not in run_card.dat"
+                            error = error + 1
+                    
         for ind, word in enumerate(MEname):
             if fsize == 0:
                 break
@@ -685,6 +742,7 @@ for num in range(0,len(prepid)):
                         MGpatch.append(int(os.popen('grep -c _CONDOR_SCRATCH_DIR '+my_path+'/'+pi+'/'+'mgbasedir/Template/LO/SubProcesses/refine.sh').read()))
                         MGpatch.append(int(os.popen('grep -c _CONDOR_SCRATCH_DIR '+my_path+'/'+pi+'/'+'process/madevent/SubProcesses/refine.sh').read()))
                         if MGpatch[0] == 1 and MGpatch[1] == 1 and MGpatch[2] == 1:
+                            print "*"
                             print "* [OK] MG5_aMC@NLO leading order patches OK in gridpack"
                         if MGpatch[0] != 1:
                             print "* [ERROR] MG5_aMC@NLO multi-run patch missing in gridpack - please re-create a gridpack"
@@ -820,7 +878,7 @@ for num in range(0,len(prepid)):
         if 'sherpa' in dn.lower():
             print "* [WARNING] No automated check of Sherpa ps/tune parameters yet"
             warning = warning + 1
-        if 3 not in tunecheck:
+        if 3 not in tunecheck and herwig_flag == 0:
             with open(pi) as f:
                 tot = f.read()
                 n_ext_par += tot.count('MultipartonInteractions')
@@ -830,7 +888,7 @@ for num in range(0,len(prepid)):
                 print "* [WARNING] Number of extra or replaced tune parameters is at least "+str(n_ext_par)
                 print "*           Please check tune configuration carefully (e.g. are the non-replaced parameters the ones you want)"
                 warning = warning + 1
-        if 3 not in tunecheck and 'sherpa' not in dn.lower() and fsize != 0 and n_ext_par == 0:
+        if 3 not in tunecheck and 'sherpa' not in dn.lower() and fsize != 0 and n_ext_par == 0 and herwig_flag == 0:
 	    if any(it!=0 for it in tunecheck) :
             	print "* [ERROR] Tune configuration may be wrong in the fragment"
  	    	print "*         or pythia8CUEP8M1Settings are overwritten by some other parameters as in CUETP8M2T4"
@@ -844,7 +902,7 @@ for num in range(0,len(prepid)):
                 if 'Summer19UL' not in pi and 'Fall18' not in pi and 'Fall17' not in pi and 'Run3' not in pi:
                     print "* [WARNING] Do you really want to have tune "+tune[0] +" in this campaign?"
                     warning = warning + 1
-        if 'Fall18' in pi and fsize != 0:
+        if 'Fall18' in pi and fsize != 0 and herwig_flag == 0:
             if int(os.popen('grep -c "from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *" '+pi).read()) != 1 :
                 print "* [WARNING] No parton shower weights configuration in the fragment. In the Fall18 campaign, we recommend to include Parton Shower weights"
                 warning = warning + 1
