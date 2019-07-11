@@ -565,7 +565,7 @@ for num in range(0,len(prepid)):
                     matching_c = int(re.search(r'\d+',ickkw_c).group())
                     print ickkw_c
                     if herwig_flag != 0:
-                        ps_hw = os.popen('grep parton_shower '+my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat')
+                        ps_hw = os.popen('grep parton_shower '+my_path+'/'+pi+'/'+'process/Cards/run_card.dat')
                         if herwigpp not in ps_hw:
                             print "* [ERROR] herwigpp = parton_shower not in run_card.dat"
                             error = error + 1
