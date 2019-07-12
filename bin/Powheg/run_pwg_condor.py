@@ -933,8 +933,8 @@ def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag, proc
     print 'run : submitting jobs'
     
     inputName = folderName + "/powheg.input"
-    
-    sedcommand = 'sed -i "s/NEVENTS/2000/ ; s/SEED/3/ " '+inputName
+
+    sedcommand = 'sed -i "s/NEVENTS/2000/ ; s/iseed.*/iseed '+str(seed)+'/" '+inputName
     runCommand(sedcommand)
     
     if (parstage in ['2', '3']) :
