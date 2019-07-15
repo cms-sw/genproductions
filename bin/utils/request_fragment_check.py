@@ -560,6 +560,14 @@ for num in range(0,len(prepid)):
                         if herwigpp not in ps_hw:
                             print "* [ERROR] herwigpp = parton_shower not in run_card.dat"
                             error = error + 1
+                        if int(os.popen('grep -c "set FxFxHandler:MergeMode FxFx" '+pi).read()) == 0:
+			    print "* [ERROR] Please add \'set FxFxHandler:MergeMode FxFx\'"
+			    print "*         and set FxFxHandler:njetsmax 4"
+			    error = error + 1		
+                    if matching_c == 2 and herwig_flag != 0:
+			if int(os.popen('grep -c herwig7CommonMergingSettingsBlock').read()) == 0:
+			    print "* [ERROR] Please load herwig7CommonMergingSettingsBlock"
+			    error = error + 1		
                 if amcnlo_gp is True:
                     ickkw_c = os.popen('more '+my_path+'/'+pi+'/'+'process/Cards/run_card.dat'+' | tr -s \' \' | grep "= ickkw"').read()
                     matching_c = int(re.search(r'\d+',ickkw_c).group())
