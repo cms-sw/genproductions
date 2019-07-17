@@ -90,7 +90,7 @@ def main(args):
         assert re.search(find, makefile, flags=re.MULTILINE)
         makefile = re.sub(find, r"\1"+("Yes" if args.link_mela else "No"), makefile, flags=re.MULTILINE)
 
-        find = "(^MELADir *= *).*"
+        find = "(^ *MELADir *= *).*"
         assert re.search(find, makefile, flags=re.MULTILINE)
         makefile = re.sub(find, r"\1../JHUGenMELA/MELA", makefile, flags=re.MULTILINE) #use the RELATIVE path.  make creates symlinks that have to be valid wherever the gridpack is opened.
 
