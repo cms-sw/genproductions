@@ -281,8 +281,8 @@ for num in range(0,len(prepid)):
             req_type = "plhe"
         if "herwig" in dn.lower():
             herwig_flag = 1
-        if "comphep" in dn.lower() or "calchep" in dn.lower():
-            print "* [WARNING] comphep or calchep sample. Please check manually"
+        if "comphep" in dn.lower() or "calchep" in dn.lower() or "herwigpp" in dn.lower():
+            print "* [WARNING] comphep, calchep, or herwigpp request. Please check manually"
             warning = warning + 1
             continue
         for item in te:
