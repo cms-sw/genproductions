@@ -148,7 +148,7 @@ if [ -f ./madspin_card.dat ] ;then
     rnum2=$(($rnum+1000000))
     echo `echo "set seed $rnum2"` >> madspinrun.dat
     cat ./madspin_card.dat >> madspinrun.dat
-    cat madspinrun.dat | $LHEWORKDIR/mgbasedir/MadSpin/madspin
+    $LHEWORKDIR/mgbasedir/MadSpin/madspin madspinrun.dat 
 fi
 
 cd $LHEWORKDIR

@@ -536,7 +536,7 @@ make_gridpack () {
       if [ -e $CARDSDIR/${name}_madspin_card.dat ]; then
         echo "import $WORKDIR/unweighted_events.lhe.gz" > madspinrun.dat
         cat $CARDSDIR/${name}_madspin_card.dat >> madspinrun.dat
-        cat madspinrun.dat | $WORKDIR/$MGBASEDIRORIG/MadSpin/madspin
+        $WORKDIR/$MGBASEDIRORIG/MadSpin/madspin madspinrun.dat 
         rm madspinrun.dat
         rm -rf tmp*
         cp $CARDSDIR/${name}_madspin_card.dat $WORKDIR/process/madspin_card.dat
