@@ -1,6 +1,6 @@
 --- a/madgraph/interface/amcatnlo_run_interface.py	2019-02-04 12:19:42.000000000 +0100
 +++ b/madgraph/interface/amcatnlo_run_interface.py	2019-04-30 10:59:55.718456046 +0200
-@@ -2942,7 +2942,7 @@
+@@ -2942,6 +2942,6 @@
                  # check for PLUGIN format
                  cluster_class = misc.from_plugin_import(self.plugin_path, 
                                              'new_cluster', cluster_name,
@@ -32,4 +32,5 @@
 +            if pjoin(mg5dir, 'PLUGIN') not in self.plugin_path:
 +                self.plugin_path.append(pjoin(mg5dir,'PLUGIN'))
          self.configure_run_mode(self.options['run_mode'])
-         return self.options 
+         return self.options
+ 
