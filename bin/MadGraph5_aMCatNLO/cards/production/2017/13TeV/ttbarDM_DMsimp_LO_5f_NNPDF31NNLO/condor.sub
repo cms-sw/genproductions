@@ -1,0 +1,14 @@
+# HTCondor submit file to submit all jobs
+executable              = SUBPATH/logs/SUBJOB.sh 
+output                  = SUBPATH/logs/SUBJOB.o$(Cluster).$(Process)
+error                   = SUBPATH/logs/SUBJOB.o$(Cluster).$(Process)
+getenv = FALSE
+should_transfer_files   = NO 
+#when_to_transfer_output = ON_EXIT #_OR_EVICT
+request_memory          = SUBMEM
+request_cpus            = SUBCORE
+notification            = error
+# agrohsje 
+max_retries             = 1
++RequestRuntime         = SUBRUNTIME
+queue 1 
