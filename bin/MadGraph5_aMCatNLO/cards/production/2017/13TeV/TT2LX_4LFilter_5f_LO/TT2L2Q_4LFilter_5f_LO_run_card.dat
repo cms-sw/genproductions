@@ -47,7 +47,7 @@
 # PDF CHOICE: this automatically fixes also alpha_s and its evol.    *
 #*********************************************************************
   lhapdf	= pdlabel ! PDF set                                     
-$DEFAULT_PDF_SETS = lhaid
+263000 = lhaid
 $DEFAULT_PDF_MEMBERS = reweight_PDF      ! if pdlabel=lhapdf, this is the lhapdf number
 # To see heavy ion options: type "update ion_pdf"
 #*********************************************************************
@@ -71,7 +71,7 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF      ! if pdlabel=lhapdf, this is the lhapdf
 #*********************************************************************
 # Matching parameter (MLM only)
 #*********************************************************************
-  1	= ickkw ! 0 no matching, 1 MLM
+  0	= ickkw ! 0 no matching, 1 MLM
   1	=  highestmult       ! for ickkw=2, highest mult group
   1	=  ktscheme          ! for ickkw=1, 1 Durham kT, 2 Pythia pTE
   1.0	= alpsfact ! scale factor for QCD emission vx
