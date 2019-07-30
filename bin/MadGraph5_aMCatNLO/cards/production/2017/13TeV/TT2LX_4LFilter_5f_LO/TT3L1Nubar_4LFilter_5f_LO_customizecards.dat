@@ -11,7 +11,7 @@ set param_card decay 24 2.085
 set run_card use_syst True
 #set run_card pdlabel lhapdf
 set run_card lhaid 263000
-set run_card bwcutoff 15000
+set run_card bwcutoff 15
 set run_card ickkw 1
 set run_card ktscheme 1
 set run_card asrwgtflavor 5
