@@ -4,7 +4,7 @@ import sys
 import re 
 import argparse
 import textwrap
-import json
+#import json
 from datetime import datetime
 sys.path.append('/afs/cern.ch/cms/PPD/PdmV/tools/McM/')
 from rest import McM
@@ -217,9 +217,9 @@ for num in range(0,len(prepid)):
         print "***********************************************************************************"
 
     my_path =  '/tmp/'+os.environ['USER']+'/gridpacks/'
-    print "JSON Dump:"
-    print "----------"
-    print(json.dumps(res,indent = 2))
+#    print "JSON Dump:"
+#    print "----------"
+#    print(json.dumps(res,indent = 2))
     print "***********************************************************************************"
 
     # Create an array of one element so further for loop would not be removed and code re-indented
