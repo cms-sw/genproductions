@@ -18,7 +18,7 @@ cat<<-EOF
 	transfer_output_remaps = "${card_name}.log = ${card_name}_codegen.log"
 	+WantIOProxy=true
 	
-	+REQUIRED_OS = "rhel6"
+	+REQUIRED_OS = "rhel7"
 	request_cpus = $cores
 	request_memory = $memory
 	Queue 1
