@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 '''
 Script for POWHEG weighting calculation
@@ -18,7 +18,7 @@ Example of usage for 4F:  python make_rwl.py 0 320900
 
 is5FlavorScheme = str(sys.argv[1])
 CentralPDF = str(sys.argv[2])
-forDYNNLOPS = str(sys.argv[3]) if len(sys.argv) > 3 else 0
+forDYNNLOPS = bool(int(sys.argv[3])) if len(sys.argv) > 3 else False
 
 # is5FlavorScheme = True
 # CentralPDF = 306000
@@ -48,8 +48,8 @@ for m_rensc in m_factor :
 		  
 fout.write("</weightgroup>\n")
 
-if int(forDYNNLOPS) == 1:
-  print("Scale variations will be duplicated 8 times for DYNNLOPS reweighting")
+if forDYNNLOPS:
+  print("DYNNLOPS: Scale variations will be duplicated for 9x9 final NNLOxMINLO weights")
   
   fout.write("<weightgroup name='scale_variation2' combine='envelope' >\n")
 
@@ -62,13 +62,44 @@ if int(forDYNNLOPS) == 1:
 		  
   fout.write("</weightgroup>\n")
 
-if int(is5FlavorScheme) == 1:
-  # 5F PDF
+  print("DYNNLOPS: PDF variations will be reduced for generation speed")
+    # reduced 5F PDF for DYNNLOPS
   pdf_sets = {
             # weight id, LHAPDF id, name, replicas to be written
             "PDF_variation1 , hessian" :
             [
               [2000, 306000, 'NNPDF31_nnlo_hessian_pdfas', 103],
+              [2104, 322500, 'NNPDF31_nnlo_as_0108', 1],
+              [2105, 322700, 'NNPDF31_nnlo_as_0110', 1],
+              [2106, 322900, 'NNPDF31_nnlo_as_0112', 1],
+              [2107, 323100, 'NNPDF31_nnlo_as_0114', 1],
+              [2108, 323300, 'NNPDF31_nnlo_as_0117', 1],
+              [2109, 323500, 'NNPDF31_nnlo_as_0119', 1],
+              [2110, 323700, 'NNPDF31_nnlo_as_0122', 1],
+              [2111, 323900, 'NNPDF31_nnlo_as_0124', 1],
+              [2200, 325700, 'NNPDF31_nnlo_as_0118_CMSW1_hessian_100', 101],
+              [2400, 325900, 'NNPDF31_nnlo_as_0118_CMSW2_hessian_100', 101],
+              [2600, 326100, 'NNPDF31_nnlo_as_0118_CMSW3_hessian_100', 101],
+              [2800, 326300, 'NNPDF31_nnlo_as_0118_CMSW4_hessian_100', 101],
+              [5000, 13000, 'CT14nnlo', 57],
+              [5060, 13065, 'CT14nnlo_as_0116', 1],
+              [5070, 13069, 'CT14nnlo_as_0120', 1],
+              [7000, 25300, 'MMHT2014nnlo68cl', 51],
+              [7060, 25360, 'MMHT2014nnlo_asmzsmallrange', 3],
+              [8000, 42560, 'ABMP16_5_nnlo', 30],
+              [13000, 61200, 'HERAPDF20_NNLO_EIG', 29],
+              [13050, 61230, 'HERAPDF20_NNLO_VAR', 14],
+              [13100, 61740, 'HERAPDF20_NNLO_ALPHAS', 21],
+            ],
+          }
+
+elif int(is5FlavorScheme) == 1:
+  # 5F PDF
+  pdf_sets = {
+            # weight id, LHAPDF id, name, replicas to be written
+            "PDF_variation1 , hessian" :
+            [
+              [2000, 320900, 'NNPDF31_nnlo_hessian_pdfas', 101],
               [2104, 322500, 'NNPDF31_nnlo_as_0108', 1],
               [2105, 322700, 'NNPDF31_nnlo_as_0110', 1],
               [2106, 322900, 'NNPDF31_nnlo_as_0112', 1],
@@ -150,6 +181,7 @@ else:
             ],
           }
   
+pdf_count = 0
 for key, pdfsets in sorted(pdf_sets.iteritems()):
   weightgroup_name = key.replace(" ", "").split(',')[0]
   combine = key.replace(" ", "").split(',')[1]
@@ -163,8 +195,11 @@ for key, pdfsets in sorted(pdf_sets.iteritems()):
     for idx in range(pdf_member_start, pdf_member_end) :
       fout.write("<weight id='"+str(m_idx)+"'> lhapdf="+str(idx)+" </weight>\n")
       m_idx = m_idx + 1
+      pdf_count += 1
   fout.write("</weightgroup>\n")
 
 fout.write("</initrwgt>\n")
 
 fout.close()
+
+print 'pdf_count = ',pdf_count

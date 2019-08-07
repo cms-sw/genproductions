@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 '''
 Script for POWHEG generator production
@@ -38,10 +38,11 @@ def prepareCondorScript( tag, i, folderName, queue, SCALE = '0', runInBatchDir =
 
    filename = 'run_' + folderName + '_' + tag + '.condorConf'
    execname = folderName + '/run_' + tag
+   logname =  'run_' + tag
    if runInBatchDir:
        folderName = rootfolder + '/' + folderName
        execname = rootfolder + '/' + execname
-   logname =  'run_' + tag
+       logname =  folderName + '/run_' + tag
    f = open(filename, 'w')
   
    if (i == 'multiple') :
@@ -120,6 +121,7 @@ def prepareJob(tag, i, folderName) :
     f.write('export PATH=$LHAPDF_BASE/bin/:$PATH \n')
 
     f.write('export LHAPDF_DATA_PATH=`$LHAPDF_BASE/bin/lhapdf-config --datadir` \n')
+    f.write ('export PYTHONPATH=.:$PYTHONPATH \n')       ## for ggHH
 
     f.write ('cd -' + '\n')
     f.write ('echo "I am here:"' + '\n')
@@ -132,6 +134,11 @@ def prepareJob(tag, i, folderName) :
     f.write ('  mkdir ./obj-gfortran/' + '\n')
     f.write ('  cp -pr ' + rootfolder + '/' + folderName + '/obj-gfortran/proclib  ./obj-gfortran/' + '\n')
     f.write ('  cp -pr ' + rootfolder + '/' + folderName + '/obj-gfortran/*.so  ./obj-gfortran/' + '\n')
+    f.write ('fi    \n')
+    f.write ('if [ -e '+ rootfolder + '/' + folderName + '/Virt_full_cHHH_0.0.grid ]; then    \n')
+    f.write ('  cp -p ' + rootfolder + '/' + folderName + '/*.grid .' + '\n')
+    f.write ('  cp -p ' + rootfolder + '/' + folderName + '/*.cdf .' + '\n')
+    f.write ('  cp -p ' + rootfolder + '/' + folderName + '/*.py* .' + '\n')
     f.write ('fi    \n')
 
     f.write('\n')
@@ -181,6 +188,10 @@ def runParallelXgrid(parstage, xgrid, folderName, nEvents, njobs, powInputName, 
 
     sedcommand = 'sed -i "s/NEVENTS/'+nEvents+'/ ; s/SEED/'+rndSeed+'/ ; s/.*parallelstage.*/parallelstage '+parstage+'/ ; s/.*xgriditeration.*/xgriditeration '+xgrid+'/ ; s/.*manyseeds.*/manyseeds 1/ ; s/fakevirt.*// " '+inputName
 
+    with open(os.path.join(folderName, "pwgseeds.dat"), "w") as f:
+        for i in xrange(njobs):
+            f.write(str(int(rndSeed) + i)+"\n")
+
     #print sedcommand
     runCommand(sedcommand)
 
@@ -210,6 +221,7 @@ def runParallelXgrid(parstage, xgrid, folderName, nEvents, njobs, powInputName, 
         f.write('cp -p *.top ' + rootfolder + '/' + folderName + '/. \n')
         f.write('cp -p *.dat ' + rootfolder + '/' + folderName + '/. \n')
         f.write('cp -p *.log ' + rootfolder + '/' + folderName + '/. \n')
+        f.write('exit 0 \n')
 
         f.close()
 
@@ -225,7 +237,7 @@ def runParallelXgrid(parstage, xgrid, folderName, nEvents, njobs, powInputName, 
 
     else:
         print 'Submitting to condor queues:  \n'
-        condorfile = prepareCondorScript(jobtag, 'multiple', args.folderName, QUEUE) 
+        condorfile = prepareCondorScript(jobtag, 'multiple', args.folderName, QUEUE, runInBatchDir=True) 
         runCommand ('condor_submit ' + condorfile + ' -queue '+ str(njobs), TESTING == 0)
 
 
@@ -381,7 +393,7 @@ if [[ -s ./JHUGen.input ]]; then
 fi
 
 ### retrieve the powheg source tar ball
-export POWHEGSRC=powhegboxV2_rev3592_date20180904.tar.gz
+export POWHEGSRC=powhegboxV2_rev3624_date20190201.tar.gz
 
 if [ "$process" = "b_bbar_4l" ] || [ "$process" = "HWJ_ew" ] || [ "$process" = "HW_ew" ] || [ "$process" = "HZJ_ew" ] || [ "$process" = "HZ_ew" ]; then 
   export POWHEGSRC=powhegboxRES_rev3478_date20180122.tar.gz 
@@ -475,12 +487,12 @@ if [ `echo ${POWHEGSRC} | cut -d "_" -f 1` = "powhegboxV1" ]; then
    BOOK_HISTO="pwhg_bookhist.o"
 fi 
 
-if [ "$process" = "gg_H" ] || [ "$process" = "ggHH" ] || [ "$process" = "WWJ" ]; then
+if [ "$process" = "gg_H" ] || [ "$process" = "ggHH" ] || [ "$process" = "ggHH_EWChL" ] || [ "$process" = "WWJ" ]; then
    BOOK_HISTO=""
    echo "Process using pwhg_bookhist-multi-new"
 fi
 
-if [ "$process" = "ggHH" ]; then
+if [ "$process" = "ggHH" ] || [ "$process" = "ggHH_EWChL" ]; then
    sed -i -e "/PYTHIA8LOCATION/s|^|#|g" Makefile
    sed -i -e "/LIBPYTHIA8/s|^|#|g" Makefile
    sed -i -e "s|LIBHEPMC=|# LIBHEPMC=|g" Makefile
@@ -512,6 +524,11 @@ fi
 #if [ "$process" = "ttb_NLO_dec" ]; then
 #    patch -l -p0 -i ${WORKDIR}/patches/pwhg_analysis_driver_offshellmap.patch
 #fi
+if [ -e ./Virtual/Virt_full_cHHH_-1.0.grid ]; then
+  cp ./Virtual/events.cdf ${WORKDIR}/${name}/
+  cp ./Virtual/creategrid.py* ${WORKDIR}/${name}/
+  cp ./Virtual/Virt_full_cHHH*.grid ${WORKDIR}/${name}/
+fi
 
 # Remove ANY kind of analysis with parton shower
 if [ `grep particle_identif pwhg_analysis-dummy.f` = ""]; then
@@ -667,7 +684,7 @@ if [ "$process" = "ST_wtch_DR" ] || [ "$process" = "ST_wtch_DS" ]; then
   cd ..                                                     
 fi                                                          
 
-
+export PYTHONPATH=./Virtual/:$PYTHONPATH
 make pwhg_main || fail_exit "Failed to compile pwhg_main"
 
 mkdir -p ${WORKDIR}/${name}
@@ -912,13 +929,35 @@ chmod 755 runcmsgrid.sh
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
 
-def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag, process) :
+def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag, process, seed) :
     print 'run : submitting jobs'
-  
-    sedcommand = 'sed -i "s/parallelstage.*/parallelstage ' + parstage + '/ ; s/xgriditeration.*/xgriditeration 1/" '+folderName+'/powheg.input'
-
+    
+    inputName = folderName + "/powheg.input"
+    
+    sedcommand = 'sed -i "s/NEVENTS/2000/ ; s/iseed.*/iseed '+str(seed)+'/" '+inputName
     runCommand(sedcommand)
+    
+    if (parstage in ['2', '3']) :
+        sedcommand = 'sed -i "s/#manyseeds/manyseeds/ ; s/#parallelstage/parallelstage/ ; s/parallelstage.*/parallelstage ' + parstage + '/ ; s/xgriditeration.*/xgriditeration 1/ ; s/manyseeds.*/manyseeds 1/ " '+inputName
+        runCommand(sedcommand)
+    
+        if not 'parallelstage' in open(inputName).read() :
+            runCommand("echo \'\n\nparallelstage "+parstage+"\' >> "+inputName)
+        if not 'xgriditeration' in open(inputName).read() :
+            runCommand("echo \'xgriditeration 1\' >> "+inputName)
+
+        if not 'manyseeds' in open(inputName).read() :
+            runCommand("echo \'manyseeds 1\' >> "+ inputName)
+
+        if not 'fakevirt' in open(inputName).read() :
+            if process != 'b_bbar_4l':
+                runCommand("echo \'fakevirt 1\' >> "+inputName)
+    
     runCommand('cp -p ' + folderName + '/powheg.input ' + folderName + '/powheg.input.' + parstage)
+
+    with open(os.path.join(folderName, "pwgseeds.dat"), "w") as f:
+        for i in xrange(njobs):
+            f.write(str(int(seed) + i)+"\n")
 
     for i in range (0, njobs) :
         tag = jobtag + '_' + str (i)
@@ -929,8 +968,12 @@ def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag, proc
     
         filename = folderName+'/run_' + tag + '.sh'
         f = open (filename, 'a')
-        f.write('cd '+rootfolder+'/'+folderName+'/ \n')
+        #f.write('cd '+rootfolder+'/'+folderName+'/ \n')
         f.write('echo ' + str (i) + ' | ./pwhg_main &> run_' + tag + '.log ' + '\n')
+        f.write('cp -p *.top ' + rootfolder + '/' + folderName + '/. \n')
+        f.write('cp -p *.dat ' + rootfolder + '/' + folderName + '/. \n')
+        f.write('cp -p *.log ' + rootfolder + '/' + folderName + '/. \n')
+        f.write('exit 0 \n')
         f.close()
 
         os.system('chmod 755 '+filename)
@@ -945,7 +988,7 @@ def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag, proc
             
     else:
         print 'Submitting to condor queues:  \n'
-        condorfile = prepareCondorScript(jobtag, 'multiple', args.folderName, QUEUE) 
+        condorfile = prepareCondorScript(jobtag, 'multiple', args.folderName, QUEUE, runInBatchDir=True) 
         runCommand ('condor_submit ' + condorfile + ' -queue '+ str(njobs), TESTING == 0)
      
 
@@ -1077,7 +1120,7 @@ if [ "$process" = "HJ" ]; then
 fi
 
 if [ "$process" = "Zj" ] || [ "$process" = "Wj" ]; then
-  if [ -e ${WORKDIR}/MINLO-W1-denom.top ]; then
+  if [ -e ${WORKDIR}/${folderName}/MINLO-W1-denom.top ]; then
     echo "This gridpack includes NNLOPS reweighting"
     #force keep top in this case
     keepTop='1'
@@ -1348,7 +1391,7 @@ def dynnlops_mergeminlo(folderName, process, eosdir):
 
 def make_nnlo_rwl(folderName):
     # check pwg-rwl.dat
-    rwlfile = 'pwg-rwl.dat'
+    rwlfile = folderName + '/pwg-rwl.dat'
     if 'scale_variation2' in open(rwlfile).read():
         print('Creating 9x9 NNLOxMINLO scale variations')
     else:
@@ -1606,7 +1649,7 @@ if __name__ == "__main__":
                     
         else:
             print 'Submitting to condor queues  \n'
-            condorfile = prepareCondorScript(tagName, '', args.folderName, QUEUE) 
+            condorfile = prepareCondorScript(tagName, '', args.folderName, QUEUE, runInBatchDir=True) 
             runCommand ('condor_submit ' + condorfile + ' -queue 1', TESTING == 0)
 
     elif args.parstage == '0123' or args.parstage == 'a' : # compile & run
@@ -1630,7 +1673,7 @@ if __name__ == "__main__":
                       scriptName.split('.sh')[0]+'.log &')
         else:
             print 'Submitting to condor queues  \n'
-            condorfile = prepareCondorScript(tagName, '', '.', QUEUE) 
+            condorfile = prepareCondorScript(tagName, '', '.', QUEUE, runInBatchDir=True) 
             runCommand ('condor_submit ' + condorfile + ' -queue 1', TESTING == 0)
 
     elif args.parstage == '01239' or args.parstage == 'f' : # full single grid in oneshot 
@@ -1654,7 +1697,7 @@ if __name__ == "__main__":
                       scriptName.split('.sh')[0]+'.log &')
         else:
             print 'Submitting to condor queues  \n'
-            condorfile = prepareCondorScript(tagName, '', '.', QUEUE) 
+            condorfile = prepareCondorScript(tagName, '', '.', QUEUE, runInBatchDir=True) 
             runCommand ('condor_submit ' + condorfile + ' -queue 1', TESTING == 0)
 
     elif args.parstage == '7' :
@@ -1692,6 +1735,7 @@ if __name__ == "__main__":
         os.system('cd '+rootfolder+';bash '+scriptName)
 
     else                    :
+        os.system('cp -p '+args.inputTemplate+' '+args.folderName+'/powheg.input')
         runEvents(args.parstage, args.folderName,
                   args.eosFolder + '/' + EOSfolder, njobs, powInputName,
-                  jobtag, args.prcName)
+                  jobtag, args.prcName, args.rndSeed)
