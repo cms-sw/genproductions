@@ -13,7 +13,7 @@
   PDF_VARIATIONS NNPDF30_nlo_nf_5_pdfas[all];
 
   % tags for process setup
-  NJET:=3; LJET:=3,4,5: QCUT:=20.;
+  NJET:=3; LJET:=3,4,5,6; QCUT:=20.;
 
   % me generator settings
   ME_SIGNAL_GENERATOR Comix Amegic LOOPGEN;
