@@ -1,6 +1,6 @@
 #!/bin/bash
 
-masses=(300 400 500 750)
+masses=(300 400 500 700)
 #masses=(500 750)
 
 sample=ChargedHiggs_hw_mh200_NLO

@@ -164,9 +164,9 @@
 # POSITIVE PDG CODES only. Example of the syntax is {6 : 100} or       *
 # {6:100, 25:200} for multiple particles                               *
 #***********************************************************************
-  {} = pt_min_pdg ! Min pT for a massive particle
-  {} = pt_max_pdg ! Max pT for a massive particle
-  {} = mxx_min_pdg ! inv. mass for any pair of (anti)particles
+#  {} = pt_min_pdg ! Min pT for a massive particle
+#  {} = pt_max_pdg ! Max pT for a massive particle
+#  {} = mxx_min_pdg ! inv. mass for any pair of (anti)particles
 #***********************************************************************
 # For aMCfast+APPLGRID use in PDF fitting (http://amcfast.hepforge.org)*
 #***********************************************************************
