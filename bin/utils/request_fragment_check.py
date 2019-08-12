@@ -345,9 +345,9 @@ for num in range(0,len(prepid)):
             if (cmssw == cmssw_prime) == True:
                 print"[OK] Two requests have the same CMSSW version."
             else:
-                print"[ERROR] CMSSW version of "+pi+" is different than its base UL17 request: "+pi_prime
+                print"[WARNING] CMSSW version of "+pi+" is different than its base UL17 request: "+pi_prime
                 print"        Please make sure that "+pi+" has _exactly_ the same settings as "+pi_prime
-                error=error+1                
+                warning=warning+1                
             f1_prime.close()
             f2_prime.write(data_f2_prime)
             f2_prime.close()
