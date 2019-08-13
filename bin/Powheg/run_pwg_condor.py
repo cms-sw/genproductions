@@ -37,11 +37,11 @@ def prepareCondorScript( tag, i, folderName, queue, SCALE = '0', runInBatchDir =
    '''prepare the Condor submission script'''
 
    filename = 'run_' + folderName + '_' + tag + '.condorConf'
-   execname = folderName + '/run_' + tag
+   execname = 'run_' + tag
    logname =  'run_' + tag
    if runInBatchDir:
        folderName = rootfolder + '/' + folderName
-       execname = rootfolder + '/' + execname
+       execname = folderName + '/' + execname
        logname =  folderName + '/run_' + tag
    f = open(filename, 'w')
   
@@ -53,9 +53,12 @@ def prepareCondorScript( tag, i, folderName, queue, SCALE = '0', runInBatchDir =
    elif (i == 'dynnlo') :
        f.write('executable              = ' + folderName + '/' +  SCALE + '/' + 'launch_NNLO.sh \n')
        f.write('arguments               = ' + SCALE + '.input $(ClusterId)$(ProcId) \n')
+       logname =  folderName + '/' +  SCALE + '/run_' + tag
    elif (i == 'minlo') :
        f.write('executable              = ' + folderName + '/minlo-run/launch_minlo.sh \n')
-       f.write('arguments               = ' + 'powheg.input $(ClusterId)$(ProcId) \n')
+       f.write('arguments               = ' + 'powheg.input $(ProcId) \n')
+       f.write('max_retries             = 10\n')
+       logname =  folderName + '/minlo-run/run_' + tag
    else :
        f.write('executable              = ' + execname + '.sh \n')
    f.write('output                  = ' + logname + '_$(ProcId).out \n')
@@ -453,7 +456,8 @@ if [ "$process" = "Zj" ] || [ "$process" = "Wj" ]; then
     tar zxf ../DYNNLOPS.tgz
     wget --no-verbose --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/slc6_amd64_gcc481/powheg/V2.0/src/nnlops_fast_patch3_${process:0:1}.tgz
     tar zxf nnlops_fast_patch3_${process:0:1}.tgz
-    mv Makefile-NNLOPS Makefile
+    mv -v Makefile-NNLOPS Makefile
+    cp -v nnlops_fast/rwl_write_*.f ../include/
 fi
 
 
@@ -1205,7 +1209,10 @@ def makedynnloconfig(folderName, baseconfig, config, murfac, muffac):
                     outfile.write(line)
 
 
-def rundynnlo(folderName, njobs, QUEUE):
+def rundynnlo(folderName, njobs, QUEUE, eosdir):
+    if 'NONE' in eosdir:
+        print('WARNING: using workdir for output files, you may run out of disk space')
+        eosdir = os.getcwd()+"/"+folderName
     scales = ["1", "2", "0.5"]
     baseconfig = "DYNNLO.input"
     for mur in scales:
@@ -1218,6 +1225,7 @@ def rundynnlo(folderName, njobs, QUEUE):
             launching_script = open(filename, "w")
             launching_script.write("#!/bin/bash\n")
             launching_script.write('base='+os.getcwd()+"/"+folderName+"/"+subfolderName+'\n\n')
+            launching_script.write('eosbase='+ eosdir + '/' + subfolderName)
             launching_script.write('''
 config=$1
 seed=$2
@@ -1234,9 +1242,9 @@ cp $base/../dynnlo .
 
 ./dynnlo < config.input &> log_${seed}.txt
 
-cp *.top ${base}
-
 cp log_${seed}.txt ${base}
+
+cp *.top ${eosbase}
 ''')
             launching_script.close()
             os.system('chmod 755 ' + filename)
@@ -1279,6 +1287,7 @@ def dynnlops_runminlo(folderName, njobs, QUEUE, eosdir):
         print('WARNING: using workdir for output files, you may run out of disk space')
         eosdir = os.getcwd()+"/"+folderName
     
+    print("Cleaning old MINLO files")
     os.system('rm -rf ' + folderName + "/minlo-run")
     os.system('mkdir -p ' + folderName + "/minlo-run")
     os.system('rm -rf ' + eosdir + "/minlo-run")
@@ -1314,25 +1323,27 @@ cd -
 cp $base/../$config powheg.input
 sed -i "s/^iseed.*/iseed $seed/g" powheg.input
 sed -i "s/^numevts.*/numevts 50000/g" powheg.input
-echo "rwl_file 'pwg-rwl-scalesonly.dat'" >> powheg.input
+grep -q "rwl_file" powheg.input; test $? -eq 0 || echo "rwl_file 'pwg-rwl.dat'" >> powheg.input
+sed -i "s/^rwl_file.*/rwl_file 'pwg-rwl-scalesonly.dat'/g" powheg.input
 
 cp $base/../pwhg_main .
 cp $base/../lhef_analysis_3d .
 cp $base/../*.dat .
 
 ./pwhg_main &> log_${seed}.txt
-./lhef_analysis_3d
+cp log_${seed}.txt ${base}
+
+./lhef_analysis_3d <<< pwgevents.lhe
 
 mkdir -p ${eosbase}/$seed
 cp MINLO*.top ${eosbase}/$seed/
 
-cp log_${seed}.txt ${base}
 ''')
     launching_script.close()
     os.system('chmod 755 ' + filename)
     
     print 'Submitting to condor queues \n'
-    condorfile = prepareCondorScript(folderName + '_minlo', 'minlo', folderName, QUEUE, runInBatchDir=True) 
+    condorfile = prepareCondorScript('minlo', 'minlo', folderName, QUEUE, runInBatchDir=True) 
     runCommand ('condor_submit ' + condorfile + ' -queue '+ str(njobs), TESTING == 0)
 
 
@@ -1697,12 +1708,12 @@ if __name__ == "__main__":
         if args.prcName == "HJ":
             runhnnlo(args.folderName, njobs, QUEUE)
         if args.prcName in ["Zj", "Wj"]:
-            rundynnlo(args.folderName, njobs, QUEUE)
+            rundynnlo(args.folderName, njobs, QUEUE, args.eosFolder + '/' + EOSfolder)
 
     elif args.parstage == '77' :
         print "merging DYNNLO files for NNLOPS"
         if args.prcName in ["Zj", "Wj"]:
-            mergedynnlo(args.folderName, args.prcName)
+            mergedynnlo(args.folderName, args.prcName, args.eosFolder + '/' + EOSfolder)
     
     elif args.parstage == '8' :
         print "preparing MINLO files for NNLOPS"
