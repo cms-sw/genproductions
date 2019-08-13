@@ -1225,10 +1225,11 @@ def rundynnlo(folderName, njobs, QUEUE, eosdir):
     baseconfig = "DYNNLO.input"
     for mur in scales:
         for muf in scales:
-            config = "DYNNLO_mur%s_muf%s.input" % (mur, muf)
+            config = "dynnlo_mur%s_muf%s.input" % (mur, muf)
             makedynnloconfig(folderName, baseconfig, config, float(mur), float(muf))
             subfolderName = "dynnlo_mur%s_muf%s" % (mur, muf)
             os.system('mkdir -p ' + folderName + "/" + subfolderName)
+            os.system('mkdir -p ' + eosdir + "/" + subfolderName)
             filename = folderName+"/"+subfolderName+"/launch_NNLO.sh"
             launching_script = open(filename, "w")
             launching_script.write("#!/bin/bash\n")
