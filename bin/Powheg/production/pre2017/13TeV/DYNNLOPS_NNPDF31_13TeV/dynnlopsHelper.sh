@@ -2,7 +2,8 @@
 trap "exit" INT
 
 WHAT=$1;
-if [ "$#" -ne 1 ]; then
+PARAM=$2;
+if [ "$#" -lt 1 ]; then
     echo "dynnlopsHelper.sh <OPTION>";
     exit 1;
 fi
@@ -70,9 +71,13 @@ case $WHAT in
     ;;
     
     DYNNLO )
+        OUTPATH=/eos/cms/store/cmst3/group/wmass/DYNNLO
+        if [ "$#" -eq 2 ]; then
+            OUTPATH=${PARAM}
+        fi
         for PROC in ${EPROCS[@]}
         do
-            python ./run_pwg_condor.py -p 7 -i DYNNLOPS_NNPDF31_13TeV/${PROC}-powheg.input -m ${PROC:0:1}j -f ${PROC}-powheg-NNLOPS -q nextweek -j 100 -e /eos/cms/store/cmst3/group/wmass/DYNNLO &
+            python ./run_pwg_condor.py -p 7 -i DYNNLOPS_NNPDF31_13TeV/${PROC}-powheg.input -m ${PROC:0:1}j -f ${PROC}-powheg-NNLOPS -q nextweek -j 100 -e ${OUTPATH} &
         done
     ;;
     
