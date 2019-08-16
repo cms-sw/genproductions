@@ -1,0 +1,4 @@
+import model loop_sm
+generate p p > a l+ l- l+ l- $$ h [QCD] @0
+output ZZGJetsTo4L_4f_NLO -nojpeg
+

@@ -1,0 +1,21 @@
+--- POWHEG-BOX/lhapdf6if.f.orig	2017-10-05 15:15:25.000000001 +0200
++++ POWHEG-BOX/lhapdf6if.f	2018-01-16 11:01:14.000000001 +0100
+@@ -181,6 +181,13 @@
+       real*8 photon
+       call genericpdfset(ndns)
+ 
++
++      if (xmu2 /= xmu2 .or. xmu2 +1d0 == xmu2 .or. xmu2 <= 0d0) then 
++         write(*,*) 'xmu2', xmu2 
++         write(*,*) 'setting to zero' 
++         xmu2 = 0d0 
++      endif
++
+       call xfxq2(iset,x,xmu2,fxlha)
+ c photon induced work only with MRST2004QED (ndns = 20460)
+       if (ndns.eq.20460) then
+@@ -268,3 +275,4 @@
+       alphaspdf=tmp
+       return
+       end
++

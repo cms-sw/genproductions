@@ -1,0 +1,7 @@
+set ms_dir ./madspingrid
+set spinmode none
+
+import model MSSMD_UFO ../mgbasedir/models/MSSMD_UFO/param_card.dat --bypass_check
+decay h > n1 n1, (n1 > ad nD, ad > mu+ mu-)
+
+launch

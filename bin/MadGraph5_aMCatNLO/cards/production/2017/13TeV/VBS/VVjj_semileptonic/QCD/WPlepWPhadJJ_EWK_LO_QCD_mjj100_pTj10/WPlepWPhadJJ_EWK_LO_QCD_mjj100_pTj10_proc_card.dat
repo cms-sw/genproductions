@@ -1,0 +1,7 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set loop_optimized_output True
+set complex_mass_scheme False
+import model sm-ckm_no_b_mass
+generate p p > w+ w+ j j QED=2 QCD=99 
+output WPlepWPhadJJ_EWK_LO_QCD_mjj100_pTj10 --nojpeg

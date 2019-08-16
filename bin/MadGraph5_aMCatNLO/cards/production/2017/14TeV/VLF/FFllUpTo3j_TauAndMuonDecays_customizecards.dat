@@ -1,0 +1,7 @@
+#put card customizations here (change the Fermion and Scalar mass)
+#set param_card mass 6 173.0
+#set param_card yukawa 6 173.0
+#Scalar 
+#set param_card mass 6666635 80.0
+#Fermion
+#set param_card mass 6000061 100.0

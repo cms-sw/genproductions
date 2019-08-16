@@ -1,0 +1,11 @@
+--- a/madgraph/interface/common_run_interface.py
++++ b/madgraph/interface/common_run_interface.py
+@@ -1600,7 +1600,7 @@
+                     break
+             else:
+                 raise self.InvalidCmd, 'Invalid run name. Please retry'
+-        elif self.options['nb_core'] != 1:
++        else:
+             lhe = lhe_parser.EventFile(args[0])
+             nb_event = len(lhe)
+             lhe.close()

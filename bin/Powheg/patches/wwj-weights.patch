@@ -1,0 +1,284 @@
+--- ../my_WWJ/POWHEG-BOX/rwl_weightlists.f	2018-09-04 10:13:18.000000001 +0200
++++ POWHEG-BOX/rwl_weightlists.f	2018-09-19 15:51:43.000000001 +0200
+@@ -345,6 +345,10 @@
+      2                 //tmpstr//'</wgt>')
+                endif
+             enddo
++c     If flg_nnlops is set, weights are doubled to include the NNLO corrected ones.
++c     We include here a dummy file. NNLOPS generators can override it to call their own routines
++c     for writing the NNLOPS weights in the event.            
++            include 'rwl_write_weights2_extra.f'
+          enddo
+          call pwhg_io_write(iun,'</rwgt>')
+       else
+--- ../my_WWJ/POWHEG-BOX/WWJ/nnlopsreweight.f	2018-09-04 10:17:03.000000001 +0200
++++ POWHEG-BOX/WWJ/nnlopsreweight.f	2018-09-24 10:06:44.000000001 +0200
+@@ -5,14 +5,15 @@
+       include 'pwhg_rwl.h'
+       include 'wwproj_parameters.h'
+       real *8 nnlops_resc(rwl_num_weights)
+-      integer i 
++      logical computeweight(rwl_num_weights)
++      integer i,j
+       logical, save :: ini = .true. 
+-      character(1000) :: NNLO_phiB(rwl_num_weights),MINLO_phiB(rwl_num_weights)
+       integer :: nnum, nden, nlines  
+       real*8 tmp_hist3(2,nmh3d,maxbins3)
+       character*(200) indexnamesNNLO(nmh3d),indexnamesMiNLO(nmh3d)
+       character(100) :: filename 
+-      integer, parameter :: maxdist = 7 
++      integer, parameter :: maxdist = 7
++      character(1000) :: NNLO_phiB(maxdist),MINLO_phiB(maxdist)
+       real *8 Kfact_dyWW(28,maxdist,maxdist)
+       common/ckfactdyww/Kfact_dyWW
+       character(4) :: murstr,mufstr 
+@@ -20,14 +21,18 @@
+       logical rwl_keypresent
+ 
+ 
+-c      write(*,*) '-------> compute_nnlops_weights', rwl_num_weights  
++      write(*,*) '-------> compute_nnlops_weights', rwl_num_weights  
+       if (ini) then 
+ 
+-         if (maxdist < rwl_num_weights) then 
+-            write(*,*) 'maxdist:       ', maxdist 
+-            write(*,*) 'rwl_num_weights:', rwl_num_weights 
+-            stop 'Increase maxdist to rwl_num_weights '
+-         endif
++         do i = 1,rwl_num_weights 
++            computeweight(i) = .false.
++         enddo
++
++c         if (maxdist < rwl_num_weights) then 
++c            write(*,*) 'maxdist:       ', maxdist 
++c            write(*,*) 'rwl_num_weights:', rwl_num_weights 
++c            stop 'Increase maxdist to rwl_num_weights '
++c         endif
+          
+ 
+ c-----> load arrays for rebinning:
+@@ -48,28 +53,33 @@
+ C     open MINLO and NNLO FILES with distributions differential in phiB
+ C     and store NNLO, MINLO_A, MINLO_B results 
+ C     at the moment we have equal number of numerators and denominators 
+-         nNum = rwl_num_weights 
+-         nden = rwl_num_weights 
++         nNum = maxdist 
++         nDen = maxdist 
++         j = 1
+          
+          do i = 1,rwl_num_weights 
+-         if ( rwl_keypresent(i,'facscfact',muf) .and. 
+-     C           rwl_keypresent(i,'renscfact',mur)) then 
++            if ( rwl_keypresent(i,'facscfact',muf) .and. 
++     C           rwl_keypresent(i,'renscfact',mur)) then
++               if ((muf/mur .lt. 3.0) .and. (muf/mur .gt. 0.3)) then
+ C     set filenames 
+-            write(*,*) 'mur', mur
+-            write(*,*) 'muf', muf
+-            write(murstr,'(F4.2)') mur 
+-            write(mufstr,'(f4.2)') muf 
+-            write(*,*) 'murstr,mufstr',murstr,mufstr
+-            NNLO_phiB(i) =
+-     C           'WW_MATRIX/MATRIX-NNLO-mur'//trim(murstr)//'-muf'//trim(mufstr)//'.top' 
+-            MINLO_phiB(i)=
+-     C           'WW_MINLO/MINLO-mur'//trim(murstr)//'-muf'//trim(mufstr)//'.top' 
+-            write(*,*) 'NNLO_phiB(i)',trim(NNLO_phiB(i))
+-            write(*,*) 'MINLO_phiB(i)',trim(MINLO_phiB(i))
+-         else
+-            stop 'key does not contain factscfact or renscfact' 
+-         endif
+-         
++                  computeweight(i) = .true.
++                  write(*,*) 'mur', mur
++                  write(*,*) 'muf', muf
++                  write(murstr,'(F4.2)') mur 
++                  write(mufstr,'(f4.2)') muf 
++                  write(*,*) 'murstr,mufstr',murstr,mufstr
++                  NNLO_phiB(j) =
++     C                 'WW_MATRIX/MATRIX-NNLO-mur'//trim(murstr)//'-muf'//trim(mufstr)//'.top' 
++                  MINLO_phiB(j)=
++     C                 'WW_MINLO/MINLO-mur'//trim(murstr)//'-muf'//trim(mufstr)//'.top' 
++                  write(*,*) 'NNLO_phiB(i)',trim(NNLO_phiB(j))
++                  write(*,*) 'MINLO_phiB(i)',trim(MINLO_phiB(j))
++                  j = j+1
++c               else
++c               stop 'key does not contain factscfact or renscfact' 
++               endif
++            endif
++            
+ C     NNLO_phiB(i) =
+ C     C      'WW_MATRIX/MATRIX-NNLO-'//rwl_weights_array(i)%id//'.top' 
+ C            MINLO_phiB(i)=
+@@ -108,7 +118,7 @@
+          call search_for_index(indexnamesNNLO,indexnamesMiNLO) !-- values passed in common block
+          
+ c-----> compute overall K-factor and K-factor differential in dy_WW      
+-         call get_overall_kfactor(nNum,rwl_num_weights)
++         call get_overall_kfactor(nNum,nDen)
+ c-----> sets Kfact_dyWW      
+          call get_dyWW_kfactor(Kfact_dyWW) 
+ 
+@@ -126,10 +136,16 @@
+ 
+ 
+ c-----> event analysis:
+-      call compute_rescaling(nNum,rwl_num_weights) !--- we pass everything using common block ('reweighting_common.h')
++      call compute_rescaling(nNum,nDen) !--- we pass everything using common block ('reweighting_common.h')
+ c-----> finally set our rescaling 
++      j = 1
+       do i=1,rwl_num_weights
+-         nnlops_resc(i) = resc(i,i,1)
++         if (computeweight(i) .eqv. .true.) then
++            nnlops_resc(i) = resc(j,j,1)
++            j = j+1
++         else
++            nnlops_resc(i) = -9999999.
++         endif
+       enddo
+       
+ c      write(*,*) 'NNLO_resc', nnlops_resc
+@@ -150,7 +166,8 @@
+       include 'pwhg_bookhist-common.h'
+ c      include 'new-mergedata.h'
+ 
+-      character*(1000) filenames(rwl_num_weights)
++      integer, parameter :: maxdist = 7
++      character*(1000) filenames(maxdist)
+       character*7 string
+       integer not_numerical(4*nmh3d),tmp_not_numerical(4*nmh3d)
+       integer i,ifile,nfiles,nlines,tmpnlines
+@@ -546,7 +563,7 @@
+ 
+       integer i1,i2,ipoly,inum,iden,ibin,i
+       integer nNum,nDen
+-      real*8 numval(1:rwl_num_weights),denval(1:rwl_num_weights)
++      real*8 numval(1:nNum),denval(1:nDen)
+ 
+       overall_kfact=0d0
+       overall_kfactA=0d0
+@@ -599,13 +616,14 @@
+       include 'reweighting_common.h' 
+       include 'pwhg_rwl.h'
+       include 'wwproj_parameters.h'
+-      real *8  Kfact_dyWW(nbin_dyWW,rwl_num_weights,rwl_num_weights)
+-      real *8  sigMINLO_dyWW(nbin_dyWW,rwl_num_weights),sigNNLO_dyWW(nbin_dyWW,rwl_num_weights)
+-      real *8 sum_1D(rwl_num_weights)
++      integer, parameter :: maxdist = 7 
++      real *8  Kfact_dyWW(nbin_dyWW,maxdist,maxdist)
++      real *8  sigMINLO_dyWW(nbin_dyWW,maxdist),sigNNLO_dyWW(nbin_dyWW,maxdist)
++      real *8 sum_1D(maxdist)
+       integer nnum, nden, ibin, i,j,k   
+       
+-      nnum = rwl_num_weights
+-      nden = rwl_num_weights
++      nnum = maxdist
++      nden = maxdist
+       sigNNLO_dyWW = 0d0 
+       do j=1,nbin_dyWW
+          sum_1D = 0d0 
+@@ -679,7 +697,8 @@
+       real*8 xval,xerr
+       real*8 tmpval,tmperr
+ c-----> other variables
+-      real*8 num(rwl_num_weights,rwl_num_weights),den(rwl_num_weights)
++      integer, parameter :: maxdist = 7 
++      real*8 num(maxdist,maxdist),den(maxdist)
+       integer ibin,i,j,k,n
+       logical out_of_range
+ c----->
+@@ -687,21 +706,20 @@
+ c-----> CS functions, coefficients
+       integer iCSm,iCSp,iwgt,ii
+       real*8 funct(1:9,2) !>> CS functions [1603.01620, eq.(2.3)]
+-      real*8 AAval_NNLO(1:9, 1:9, rwl_num_weights)
+-      real*8 AAerr_NNLO(1:9, 1:9, rwl_num_weights)
+-      real*8 AAval_MiNLO_A(1:9, 1:9, rwl_num_weights)
+-      real*8 AAerr_MiNLO_A(1:9, 1:9, rwl_num_weights)
+-      real*8 AAval_MiNLO_B(1:9, 1:9, rwl_num_weights)
+-      real*8 AAerr_MiNLO_B(1:9, 1:9, rwl_num_weights)
++      real*8 AAval_NNLO(1:9, 1:9, maxdist)
++      real*8 AAerr_NNLO(1:9, 1:9, maxdist)
++      real*8 AAval_MiNLO_A(1:9, 1:9, maxdist)
++      real*8 AAerr_MiNLO_A(1:9, 1:9, maxdist)
++      real*8 AAval_MiNLO_B(1:9, 1:9, maxdist)
++      real*8 AAerr_MiNLO_B(1:9, 1:9, maxdist)
+       real*8 val1(1:9,1:9),err1(1:9,1:9)
+       real*8 vala(1:9,1:9),erra(1:9,1:9)
+       real*8 valb(1:9,1:9),errb(1:9,1:9)
+       real*8 get_rwgt,tot
+       real *8 pi 
+       parameter (pi=3.141592653589793238462643383279502884197D0) 
+-      real * 8 num_noCS, den_noCS,resc_noCS(rwl_num_weights,rwl_num_weights,nscen)
+-      real *8 Kfact_dyWW_lcl(rwl_num_weights,rwl_num_weights) 
+-      integer, parameter :: maxdist = 7 
++      real * 8 num_noCS, den_noCS,resc_noCS(maxdist,maxdist,nscen)
++      real *8 Kfact_dyWW_lcl(maxdist,maxdist) 
+       real *8 Kfact_dyWW(28,maxdist,maxdist)
+       common/ckfactdyww/Kfact_dyWW
+       real *8 num_CS,den_CS 
+--- ../my_WWJ/POWHEG-BOX/WWJ/rwl_procdep.f	2018-09-04 10:17:03.000000001 +0200
++++ POWHEG-BOX/WWJ/rwl_procdep.f	2018-09-27 12:13:29.000000001 +0200
+@@ -2,13 +2,19 @@
+       implicit none 
+       include 'pwhg_rwl.h'
+       integer kw,kg,iun
+-
++      real *8 mur,muf
++      logical rwl_keypresent
+ 
+       do kw = 1,rwl_num_weights
+          if(rwl_weights_array(kw)%group == kg) then
+-            call pwhg_io_write(iun,"<weight id='"//
+-     1           rwl_weights_array(kw)%id//'-NNLOPS'//"' >"//
+-     2           rwl_weights_array(kw)%desc//"</weight>")
++            if ( rwl_keypresent(kw,'facscfact',muf) .and. 
++     C           rwl_keypresent(kw,'renscfact',mur)) then 
++               if ((muf/mur .lt. 3.0) .and. (muf/mur .gt. 0.3)) then
++                  call pwhg_io_write(iun,"<weight id='"//
++     1                 rwl_weights_array(kw)%id//'-NNLOPS'//"' >"//
++     2                 rwl_weights_array(kw)%desc//"</weight>")
++               endif
++            endif
+          endif
+       enddo
+       
+@@ -28,10 +34,37 @@
+          weights_new = rwl_weights * nnlops_resc 
+       endif
+       do jw = 1, rwl_num_weights
+-         if(rwl_weights_array(jw)%group == jg) then
++         if((rwl_weights_array(jw)%group == jg) .and. 
++     1        (weights_new(jw) .gt. -999.) .and. 
++     2        (weights_new(jw) .lt. 999.)) then
+             write(tmpstr,'(E11.5)') weights_new(jw)
+             call pwhg_io_write(iun,tmpstr)
+          endif
+       enddo
++           
++      end
+ 
++      subroutine rwl_write_weights2_extra(iun,jg)
++      implicit none 
++      include 'pwhg_rwl.h'
++      character(len=11) tmpstr
++      integer iun,jg,jw 
++      real *8 nnlops_resc(rwl_num_weights),weights_new(rwl_num_weights) 
++
++C     first compute all rescaling factors at once 
++      if(rwl_weights_array(1)%group == jg) then
++         call compute_nnlops_weights(nnlops_resc)
++         weights_new = rwl_weights * nnlops_resc 
++      endif
++      do jw = 1, rwl_num_weights
++         if((rwl_weights_array(jw)%group == jg) .and. 
++     1        (weights_new(jw) .gt. -999.) .and. 
++     2        (weights_new(jw) .lt. 999.)) then
++            write(tmpstr,'(E11.5)') weights_new(jw)
++            call pwhg_io_write(iun,"<wgt id='"
++     1           //rwl_weights_array(jw)%id//'-NNLOPS'//"'>"
++     2           //tmpstr//'</wgt>')
++         endif
++      enddo
++              
+       end

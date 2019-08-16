@@ -1,0 +1,8 @@
+import model loop_sm-no_b_mass
+
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
+
+generate p p > t t~ l+ l- / h [QCD] @0
+
+output TTZJetsToLL_M-1to10_5f_NLO -nojpeg

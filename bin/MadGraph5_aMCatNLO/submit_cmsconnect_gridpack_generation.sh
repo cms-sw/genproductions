@@ -1,7 +1,7 @@
 #!/bin/bash
 
-source cmsconnect_utils.sh
-source source_condor.sh
+source Utilities/cmsconnect_utils.sh
+source Utilities/source_condor.sh
 
 create_codegen_jdl(){
 cat<<-EOF
@@ -13,10 +13,12 @@ cat<<-EOF
 	Output = condor_log/job.out.\$(Cluster)-\$(Process) 
 	Log = condor_log/job.log.\$(Cluster) 
 	
-	transfer_input_files = $input_files, gridpack_generation.sh
+	transfer_input_files = $input_files, gridpack_generation.sh, /usr/bin/unzip
 	transfer_output_files = ${card_name}.log
 	transfer_output_remaps = "${card_name}.log = ${card_name}_codegen.log"
 	+WantIOProxy=true
+        +IsGridpack=true
+        +GridpackCard = "${card_name}"
 	
 	+REQUIRED_OS = "rhel6"
 	request_cpus = $cores
@@ -32,6 +34,13 @@ cat<<-EOF
 	# Condor scratch dir
 	condor_scratch=\$(pwd)
 	echo "\$condor_scratch" > _condor_scratch_dir.txt
+	
+	# Add unzip to the environment
+	if [ -x \$condor_scratch/unzip ]; then
+	    mkdir \$condor_scratch/local_bin
+	    mv \$condor_scratch/unzip \$condor_scratch/local_bin
+	    export PATH="\$PATH:\$condor_scratch/local_bin"
+	fi
 
 	# Untar input files
 	tar xfz "$input_files"
@@ -119,12 +128,13 @@ proxy-watcher -start
 #26:119 : CVMFS failed
 #30:256: Job put on hold by remote host
 #13: condor_starter or shadow failed to send job
+#12:28 : (errno 28) No space left on device
 
 if [ -z "$CONDOR_RELEASE_HOLDCODES" ]; then
-  export CONDOR_RELEASE_HOLDCODES="26:119,13,30:256"
+  export CONDOR_RELEASE_HOLDCODES="26:119,13,30:256,12:28,6:0"
 fi
 if [ -z "$CONDOR_RELEASE_HOLDCODES_SHADOW_LIM" ]; then
-  export CONDOR_RELEASE_HOLDCODES_SHADOW_LIM="10"
+  export CONDOR_RELEASE_HOLDCODES_SHADOW_LIM="19"
 fi
 # Set a list of maxwalltime in minutes
 # Pilots maximum life is 48h or 2880 minutes
@@ -133,11 +143,18 @@ if [ -z "$CONDOR_SET_MAXWALLTIMES" ]; then
 fi
 
 ##########################
-# ADDITIONAL CLASSADS
+# QUERY RETRIES
 ##########################
-# Always append IOProxy, so that JobDuration is always set in the history.
-export _CONDOR_WantIOProxy=true 
-export _CONDOR_SUBMIT_ATTRS="$_CONDOR_SUBMIT_ATTRS WantIOProxy"
+if [ -z "$CONDOR_QUERY_MAX_RETRIES" ]; then
+  export CONDOR_QUERY_MAX_RETRIES="30"
+fi
+if [ -z "$CONDOR_QUERY_SLEEP_PER_RETRY" ]; then
+  export CONDOR_QUERY_SLEEP_PER_RETRY="30"
+fi
+
+###########################
+# INPUT PARAMETERS
+###########################
 
 card_name=$1
 card_dir=$2
@@ -150,6 +167,22 @@ scram_arch="${5:-}"
 cmssw_version="${6:-}"
 
 parent_dir=$PWD
+
+##########################
+# ADDITIONAL CLASSADS
+##########################
+# Always append IOProxy, so that JobDuration is always set in the history.
+export _CONDOR_WantIOProxy=true
+export _CONDOR_SUBMIT_ATTRS="WantIOProxyd"
+export _CONDOR_IsGridpack=true
+export CONDOR_GRIDPACK_CARDNAME="${card_name}"
+CONDOR_SUBMIT_ATTRS="$(condor_config_val SUBMIT_ATTRS 2>/dev/null)"
+if [ -z "$CONDOR_SUBMIT_ATTRS" ]; then
+    export _CONDOR_SUBMIT_ATTRS="$CONDOR_SUBMIT_ATTRS WantIOProxy IsGridpack"
+else
+    export _CONDOR_SUBMIT_ATTRS="WantIOProxy IsGridpack"
+fi
+
 ##############################################
 # CODEGEN step
 ##############################################
@@ -162,9 +195,10 @@ codegen_jdl="codegen_${card_name}.jdl"
 # Those will be input files for the condor CODEGEN step.
 input_files="input_${card_name}.tar.gz"
 patches_directory="./patches"
-
+utilities_dir="./Utilities"
+plugin_directory="./PLUGIN"
 if [ -e "$input_files" ]; then rm "$input_files"; fi
-tar -zcf "$input_files" "$card_dir" "$patches_directory"
+tar -zchf "$input_files" "$card_dir" "$patches_directory" "$utilities_dir" "${plugin_directory}"
 
 ## Create a submit file for a single job
 # create_codegen_exe arguments are:
@@ -194,12 +228,21 @@ mkdir -p condor_log
 CLUSTER_ID=$(condor_submit "${codegen_jdl}" | tail -n1 | rev | cut -d' ' -f1 | rev)
 LOG_FILE=$(condor_q -format '%s\n' UserLog $CLUSTER_ID | tail -n1)
 condor_wait "$LOG_FILE" "$CLUSTER_ID"
-condor_exitcode=$(condor_history ${CLUSTERID} -limit 1 -format "%s" ExitCode)
+
+# If querying job exitcode fails, retry
+status_n_retries=10
+for ((i=0; i<=$status_n_retries; ++i)); do
+    condor_exitcode=$(condor_history ${CLUSTERID} -limit 1 -format "%s" ExitCode)
+    if [ "x$condor_exitcode" != "x" ]; then
+        break
+    fi
+    sleep 10
+done
 
 # Check condor job exit code before going to the next step
 #if [ "x$condor_exitcode" != "x0" ] || [ ! -f "$sandbox_output" ]; then
 if [ "x$condor_exitcode" != "x0" ]; then
-    echo "CODEGEN condor job failed. Please, check logfiles in condor_log/ directory (Job Id: $CLUSTER_ID)". Exiting now.
+    echo "CODEGEN condor job failed with exitcode: $condor_exitcode. Please, check logfiles in condor_log/ directory (Job Id: $CLUSTER_ID)". Exiting now.
     exit $condor_exitcode
 fi
 

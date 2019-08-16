@@ -1,0 +1,9 @@
+import model loop_sm
+
+define ell+ = e+ mu+ ta+
+define ell- = e- mu- ta-
+
+generate p p > ell- vl~ ell+ vl $$ t t~ H [QCD] @0
+add process p p > ell- vl~ ell+ vl j $$ t t~ H [QCD] @1
+
+output VVTo2L2Nu01j_4f_NLO_FXFX -nojpeg

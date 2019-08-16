@@ -1,0 +1,47 @@
+(run){
+  % general setting
+  EVENTS 1M; ERROR 0.99;
+
+  % scales, tags for scale variations
+  FSF:=1.; RSF:=1.; QSF:=1.;
+  SCALES METS{FSF*MU_F2}{RSF*MU_R2}{QSF*MU_Q2};
+  SCALE_VARIATIONS 0.25,0.25 0.25,1. 1.,0.25 1.,1. 1.,4. 4.,1. 4.,4.;
+
+  % pdf
+  PDF_LIBRARY LHAPDFSherpa;
+  PDF_SET NNPDF30_nlo_nf_5_pdfas;
+  PDF_VARIATIONS NNPDF30_nlo_nf_5_pdfas[all];
+
+  % tags for process setup
+  NJET:=3; LJET:=3,4,5,6; QCUT:=20.;
+
+  % me generator settings
+  ME_SIGNAL_GENERATOR Comix Amegic LOOPGEN;
+  EVENT_GENERATION_MODE P;
+
+  % collider setup
+  BEAM_1 2212; BEAM_ENERGY_1 = 6500.;
+  BEAM_2 2212; BEAM_ENERGY_2 = 6500.;
+}(run)
+(processes){
+  Process 93 93 -> 90 90 22 93{NJET};
+  Order (*,3); CKKW sqr(QCUT/E_CMS);
+  ME_Generator Amegic {LJET};
+  RS_ME_Generator Comix {LJET};
+  Integration_Error 0.02 {3};
+  Integration_Error 0.02 {4};
+  Integration_Error 0.02 {5};
+  Integration_Error 0.05 {6};
+  End process;
+}(processes)
+
+(selector){
+  Mass 11 -11 30 E_CMS
+  Mass 13 -13 30 E_CMS
+  Mass 15 -15 30 E_CMS
+  PT 93 10 E_CMS
+  PT 90 15 E_CMS
+  PT 22 15 E_CMS
+  PseudoRapidity 22 -2.6 2.6
+  IsolationCut 22 0.05 1 1
+}(selector)
