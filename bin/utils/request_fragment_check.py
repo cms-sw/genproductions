@@ -373,8 +373,9 @@ for num in range(0,len(prepid)):
             nthreads = 1
         else :
             nthreads = int(re.search('nThreads(.*?) --',ttxt).group(1))
-        if (nthreads != 16 or mem != 15900) and (8*3600/timeperevent)*filter_eff < 50 and timeperevent > 0 and int(test_cs_version[1]) > 9:
-            print ("* [ERROR] please try to validate with 16 cores and 15900 GB memory or try to increase the filter efficiency")
+#        if (nthreads != 16 or mem != 15900) and (8*3600/timeperevent)*filter_eff < 50 and timeperevent > 0 and int(test_cs_version[1]) > 9:
+        if  (8*3600/timeperevent)*filter_eff < 50 and timeperevent > 0 and int(test_cs_version[1]) > 9:
+            print ("* [ERROR] please try to increase the filter efficiency")
             error = error + 1    
         if  (8*3600/timeperevent)*filter_eff < 50 and timeperevent > 0 and int(test_cs_version[1]) <= 9:
             print ("* [ERROR] please try to increase the filter efficiency")
