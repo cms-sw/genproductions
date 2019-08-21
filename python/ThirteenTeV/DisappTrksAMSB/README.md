@@ -6,6 +6,8 @@ https://indico.cern.ch/event/725187/contributions/3018385/attachments/1656960/26
     cd $CMSSW_BASE/src
     scramv1 b -j 9
 
+**Important!** The `Exotica_HSCP_SIM_cfi` and `customiseSequentialSim` customisation fragments are **required** in order for the charginos to interact with the detector! The rest can be changed to suit the campaign as needed.
+
 94X e.g.:
 
     cmsDriver.py Configuration/GenProduction/python/ThirteenTeV/DisappTrksAMSB/test/AMSB_chargino_M-700GeV_CTau-100cm_TuneCP5_13TeV_pythia8_cff.py \

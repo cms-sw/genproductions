@@ -943,14 +943,14 @@ for num in range(0,len(prepid)):
                 print "*           Please check tune configuration carefully (e.g. are the non-replaced parameters the ones you want)"
                 warning = warning + 1
         if 3 not in tunecheck and 'sherpa' not in dn.lower() and fsize != 0 and n_ext_par == 0 and herwig_flag == 0:
-	    if  any(tunecheck[0]<3 and it!=0 for it in tunecheck) :
-            	print tunecheck
-            	print "* [ERROR] Tune configuration may be wrong in the fragment"
- 	    	print "*         or pythia8CUEP8M1Settings are overwritten by some other parameters as in CUETP8M2T4"
-            	error = error + 1
-	    else :
-		print "* [WARNING] None standard tune - please check the fragment carefully."
-		warning = warning + 1	
+            if  any(tunecheck[0]<3 and it!=0 for it in tunecheck) :
+              	print tunecheck
+              	print "* [ERROR] Tune configuration may be wrong in the fragment"
+ 	    	        print "*         or pythia8CUEP8M1Settings are overwritten by some other parameters as in CUETP8M2T4"
+            	  error = error + 1
+	      else :
+		            print "* [WARNING] None standard tune - please check the fragment carefully."
+		            warning = warning + 1	
         elif 3 in tunecheck:
             print "* [OK] Tune configuration probably OK in the fragment"
             if tunecheck[0] > 2 :
