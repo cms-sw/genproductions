@@ -4,7 +4,7 @@ import sys
 import re 
 import argparse
 import textwrap
-import json
+#import json
 from datetime import datetime
 ###########Needed to check for ultra-legacy sample consistency check############################################
 os.system('cern-get-sso-cookie -u https://cms-pdmv.cern.ch/mcm/ -o prod-cookie.txt --krb --reprocess')
@@ -227,9 +227,9 @@ for num in range(0,len(prepid)):
         print "***********************************************************************************"
 
     my_path =  '/tmp/'+os.environ['USER']+'/gridpacks/'
-    print "JSON Dump:"
-    print "----------"
-    print(json.dumps(res,indent = 2))
+#    print "JSON Dump:"
+#    print "----------"
+#    print(json.dumps(res,indent = 2))
     print "***********************************************************************************"
 
     # Create an array of one element so further for loop would not be removed and code re-indented
