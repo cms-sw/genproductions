@@ -87,7 +87,7 @@ if [[ -e ${myDir} ]]; then
   mv cmsgrid_final.lhe old_cmsgrid_final.lhe
 fi
 
-export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:${LD_LIBRARY_PATH}
+export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:`pwd`/obj-gfortran/proclib/:${LD_LIBRARY_PATH}
 mkdir ${myDir}; cd ${myDir} ;  
 export PYTHONPATH=.:${PYTHONPATH}
 
