@@ -237,4 +237,4 @@ cp ${file}_final.lhe ${WORKDIR}/.
 echo "Output ready with ${file}_final.lhe at $WORKDIR"
 echo "End of job on " `date`
 exit 0;
-Â
+
