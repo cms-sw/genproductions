@@ -102,7 +102,7 @@ def prepareJob(tag, i, folderName) :
 
     f.write('source /cvmfs/cms.cern.ch/cmsset_default.sh\n\n')
     f.write('eval `scramv1 runtime -sh`\n\n')
- 
+
     f.write('### Prepare environments for FastJet ### \n\n')
 
     f.write('export FASTJET_BASE=`scram tool info fastjet | grep FASTJET_BASE | sed -e s%FASTJET_BASE=%%`\n')
@@ -134,6 +134,7 @@ def prepareJob(tag, i, folderName) :
     f.write ('  mkdir ./obj-gfortran/' + '\n')
     f.write ('  cp -pr ' + rootfolder + '/' + folderName + '/obj-gfortran/proclib  ./obj-gfortran/' + '\n')
     f.write ('  cp -pr ' + rootfolder + '/' + folderName + '/obj-gfortran/*.so  ./obj-gfortran/' + '\n')
+    f.write ('  export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:`pwd`/obj-gfortran/proclib/:${LD_LIBRARY_PATH} \n')
     f.write ('fi    \n')
     f.write ('if [ -e '+ rootfolder + '/' + folderName + '/Virt_full_cHHH_0.0.grid ]; then    \n')
     f.write ('  cp -p ' + rootfolder + '/' + folderName + '/*.grid .' + '\n')
@@ -257,7 +258,7 @@ def runSingleXgrid(parstage, xgrid, folderName, nEvents, powInputName, seed, pro
     f = open(filename, 'a')
     f.write('cd '+rootfolder+'/'+folderName+'/ \n')
 
-    f.write('export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:${LD_LIBRARY_PATH} \n\n')
+    f.write('export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:`pwd`/obj-gfortran/proclib/:${LD_LIBRARY_PATH} \n\n')
  
     f.write('sed -i "s/NEVENTS/'+nEvents+'/ ; s/SEED/'+seed+'/" powheg.input\n\n')
 
