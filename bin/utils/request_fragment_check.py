@@ -6,6 +6,9 @@ import argparse
 import textwrap
 #import json
 from datetime import datetime
+###########Needed to check for ultra-legacy sample consistency check############################################
+os.system('cern-get-sso-cookie -u https://cms-pdmv.cern.ch/mcm/ -o prod-cookie.txt --krb --reprocess')
+################################################################################################################
 sys.path.append('/afs/cern.ch/cms/PPD/PdmV/tools/McM/')
 from rest import McM
 
@@ -132,6 +135,7 @@ print " "
 
 # Use no-id as identification mode in order not to use a SSO cookie
 mcm = McM(id='no-id', dev=args.dev, debug=args.debug)
+mcm2 = McM(cookie='cookiefile.txt', dev=args.dev, debug=args.debug)
 
 if args.dev is True:
     mcm_link = "https://cms-pdmv-dev.cern.ch/mcm/"
@@ -164,6 +168,12 @@ def get_ticket(prepid):
     result = result.get('results', {})
     return result
 
+def get_requests_from_datasetname(dn):
+    result = mcm2.get('requests', query='dataset_name=%s' % (dn))
+    if not result:
+        return {}
+
+    return result    
 
 if args.dev:
     print "Running on McM DEV!\n"
@@ -311,6 +321,36 @@ for num in range(0,len(prepid)):
         f2 = open(pi+"_tmp","w")
         data_f1 = f1.read()
         data_f2 = re.sub(r'(?m)^ *#.*\n?', '',data_f1)
+        # Ultra-legacy sample settings' compatibility
+        if "Summer19UL16" in pi or "Summer19UL18" in pi:
+            prime = get_requests_from_datasetname(dn)
+            for rr in prime:
+                pi_prime = rr['prepid']
+                cmssw_prime = rr['cmssw_release']
+                if 'UL17' in pi_prime and 'GEN' in pi_prime:
+                    pi_prime = pi_prime
+                    break
+            print"This is an UL16 or UL18 request so GEN settings will be compared to the corresponding UL17 request: "+pi_prime       
+            os.popen('wget -q '+mcm_link+'public/restapi/requests/get_fragment/'+pi_prime+' -O '+pi_prime).read()
+            f1_prime = open(pi_prime,"r")
+            f2_prime = open(pi_prime+"_tmp","w")
+            data_f1_prime = f1_prime.read()
+            data_f2_prime = re.sub(r'(?m)^ *#.*\n?', '',data_f1_prime)
+            if (data_f2 == data_f2_prime) == True:
+                print"[OK] Two requests have the same fragment."
+            else:
+                print"[ERROR] Fragment of "+pi+" is different than its base UL17 request: "+pi_prime
+                print"        Please make sure that "+pi+" has _exactly_ the same settings as "+pi_prime
+                error=error+1
+            if (cmssw == cmssw_prime) == True:
+                print"[OK] Two requests have the same CMSSW version."
+            else:
+                print"[WARNING] CMSSW version of "+pi+" is different than its base UL17 request: "+pi_prime
+                print"        Please make sure that "+pi+" has _exactly_ the same settings as "+pi_prime
+                warning=warning+1                
+            f1_prime.close()
+            f2_prime.write(data_f2_prime)
+            f2_prime.close()
         f1.close()
         f2.write(data_f2)
         f2.close()
@@ -903,9 +943,9 @@ for num in range(0,len(prepid)):
                 print "*           Please check tune configuration carefully (e.g. are the non-replaced parameters the ones you want)"
                 warning = warning + 1
         if 3 not in tunecheck and 'sherpa' not in dn.lower() and fsize != 0 and n_ext_par == 0 and herwig_flag == 0:
-	    if  any(tunecheck[0]<3 and it!=0 for it in tunecheck) :
-            	print tunecheck
-                print "* [ERROR] Tune configuration may be wrong in the fragment"
+            if  any(tunecheck[0]<3 and it!=0 for it in tunecheck) :
+              	print tunecheck
+              	print "* [ERROR] Tune configuration may be wrong in the fragment"
  	    	print "*         or pythia8CUEP8M1Settings are overwritten by some other parameters as in CUETP8M2T4"
             	error = error + 1
 	    else :
