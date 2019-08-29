@@ -247,11 +247,11 @@ for num in range(0,len(prepid)):
         match_eff = r['generator_parameters'][-1]['match_efficiency']
         print pi+"    Status= "+r['status']
 	print dn
-        os.system('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/reqs_to_bypass_check_cmssw_vs_mg.txt -O reqs_to_bypass_check_cmssw_vs_mg.txt')
-        file1 = set(line.strip() for line in open('reqs_to_bypass_check_cmssw_vs_mg.txt'))
-        list_bypass_check = []
-        for line in file1:
-            list_bypass_check.append(line)
+#        os.system('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/reqs_to_bypass_check_cmssw_vs_mg.txt -O reqs_to_bypass_check_cmssw_vs_mg.txt')
+#        file1 = set(line.strip() for line in open('reqs_to_bypass_check_cmssw_vs_mg.txt'))
+#        list_bypass_check = []
+#        for line in file1:
+#            list_bypass_check.append(line)
         if args.bypass_status and r['status'] != "defined":
 	    print "--> Skipping since the request is not in defined state"
 	    print "--> Use --bypass_status option to look at all requests irrespective of state" 
@@ -815,7 +815,7 @@ for num in range(0,len(prepid)):
                                 print "* And the request is using a version "+str(cmssw)+" that does not contain the patch."
                                 print "* Please use >= 7_1_32_patch1 or CMSSW_9_3_9_patch1 or 10_2_0_pre2"
                                 error = error + 1 
-                            elif '7_1' in cmssw and pi not in list_bypass_check:
+                            elif '7_1' in cmssw:
                                 test_version = cmssw.split('_')
                                 if (len(test_version) == 4 and int(test_version[3]) < 33) or (len(test_version) == 5 and (int(test_version[3]) < 32 or (int(test_version[3]) == 32 and "patch1" not in cmssw))):
                                     print "* [ERROR] At least one of the MG5_aMC@NLO tmpdir patches is missing."
