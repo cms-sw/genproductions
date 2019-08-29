@@ -246,6 +246,10 @@ if [ -e process/madevent/Cards/reweight_card.dat ]; then
 fi
 
 if [ -f process/madspin_card.dat ] ;then
+    # extract header as overwritten by madspin 
+    if grep -R "<initrwgt>" cmsgrid_final.lhe; then
+	sed -n '/<initrwgt>/,/<\/initrwgt>/p' cmsgrid_final.lhe >  initrwgt.txt
+    fi
     mv cmsgrid_final.lhe process
     cd process
     gzip  cmsgrid_final.lhe
@@ -257,7 +261,18 @@ if [ -f process/madspin_card.dat ] ;then
     cd $LHEWORKDIR
     mv process/cmsgrid_final_decayed.lhe.gz cmsgrid_final.lhe.gz
     gzip -d  cmsgrid_final.lhe.gz
+    # add header back 
+    if [ -e initrwgt.txt ];then
+    sed -i "/<\/header>/ {
+             h
+             r initrwgt.txt
+             g
+             N
+        }" cmsgrid_final.lhe
+    rm initrwgt.txt
+    fi
 fi
+
 
 ls -l
 echo
