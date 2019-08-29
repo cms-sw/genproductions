@@ -960,7 +960,8 @@ def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag, proc
     runCommand(sedcommand)
     
     if (parstage in ['2', '3']) :
-        sedcommand = 'sed -i "s/#manyseeds/manyseeds/ ; s/#parallelstage/parallelstage/ ; s/parallelstage.*/parallelstage ' + parstage + '/ ; s/xgriditeration.*/xgriditeration 1/ ; s/manyseeds.*/manyseeds 1/ " '+inputName
+        
+        sedcommand = 'sed -i "s/#manyseeds/manyseeds/ ; s/.*parallelstage.*/parallelstage ' + parstage + '/ ; s/.*xgriditeration.*/xgriditeration 1/ ; s/.*manyseeds.*/manyseeds 1/ " '+inputName
         runCommand(sedcommand)
     
         if not 'parallelstage' in open(inputName).read() :
