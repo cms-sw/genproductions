@@ -426,10 +426,10 @@ c$$$         endif
 c$$$      enddo
 c
 
-      do i=1,nexternal   ! loop over all external particles
+      do i=nincoming+1,nexternal   ! loop over all external particles
          if (istatus(i).eq.1    ! final state particle
      &        .and. ( abs(ipdg(i)).eq.11 .or. abs(ipdg(i)).eq.13 .or. abs(ipdg(i)).eq.15)) then    ! leptons
-            do j=1,nexternal
+            do j=nincoming+1,nexternal
                if (istatus(j).eq.1 
            &        .and. ( abs(ipdg(j)).eq.12 .or. abs(ipdg(j)).eq.14 .or. abs(ipdg(j)).eq.16)) then
                   wpxtemp = p(1,i)+p(1,j)
