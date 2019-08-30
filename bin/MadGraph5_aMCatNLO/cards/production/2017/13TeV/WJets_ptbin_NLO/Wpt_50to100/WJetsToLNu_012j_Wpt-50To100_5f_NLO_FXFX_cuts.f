@@ -431,7 +431,7 @@ c
      &        .and. ( abs(ipdg(i)).eq.11 .or. abs(ipdg(i)).eq.13 .or. abs(ipdg(i)).eq.15)) then    ! leptons
             do j=1,nexternal
                if (istatus(j).eq.1 
-           &        .and. ( abs(ipdg(i)).eq.11 .or. abs(ipdg(i)).eq.13 .or. abs(ipdg(i)).eq.15)) then
+           &        .and. ( abs(ipdg(i)).eq.12 .or. abs(ipdg(i)).eq.14 .or. abs(ipdg(i)).eq.16)) then
                   wpxtemp = p(1,i)+p(1,j)
                   wpytemp = p(2,i)+p(2,j)
                   if ( wpxtemp**2+wpytemp**2 .gt. 100d0**2 
