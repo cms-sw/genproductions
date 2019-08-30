@@ -94,10 +94,9 @@ $DEFAULT_PDF_SETS = lhaid
             ! rw_rscale and rw_fscale factors. Should be a list of 
             ! booleans of equal length to dynamical_scale_choice to
             ! specify for which choice to include scale dependence.
- False = reweight_PDF  ! Reweight to get PDF uncertainty. Should be a
+ True = reweight_PDF  ! Reweight to get PDF uncertainty. Should be a
             ! list booleans of equal length to lhaid to specify for
             !  which PDF set to include the uncertainties.
- .true.  = reweight_PDF     ! reweight to get PDF uncertainty
 #***********************************************************************
 ## Store reweight information in the LHE file for off-line model-       *
 ## parameter reweighting at NLO+PS accuracy                             *
