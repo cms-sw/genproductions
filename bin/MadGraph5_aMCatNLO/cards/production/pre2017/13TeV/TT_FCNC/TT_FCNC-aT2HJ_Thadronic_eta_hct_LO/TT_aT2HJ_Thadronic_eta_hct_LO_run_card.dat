@@ -267,5 +267,5 @@ True    =  isoEM  ! isolate photons from EM energy (photons and leptons)
 ##          meaningful ONLY if plotted taking matchscale              *
 ##          reweighting into account!                                 *
 ##*********************************************************************
-#True	=  use_syst       ! Enable systematics studies
-##
+True	=  use_syst       ! Enable systematics studies
+F = pdfwgt 
