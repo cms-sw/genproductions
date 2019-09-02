@@ -431,10 +431,8 @@ c
      &        .and. ( ipdg(i).eq.11 .or. ipdg(i).eq.13 .or. ipdg(i).eq.15)) then    ! leptons
             do j=nincoming+1,nexternal
                if (istatus(j).eq.1 .and. ( ipdg(j).eq.-11 .or. ipdg(j).eq.-13 .or. ipdg(j).eq.-15)) then
-                  zpxtemp = p(1,i)+p(1,j)
-                  zpytemp = p(2,i)+p(2,j)
-                  if ( zpxtemp**2+zpytemp**2 .gt. 200d0**2
-                &    .or. zpxtemp**2+zpytemp**2 .le. 100d0**2 ) then
+                    if ( (p(1,i)+p(1,j))**2+(p(2,i)+p(2,j))**2 .gt. 200d0**2
+     &                 .or. (p(1,i)+p(1,j))**2+(p(2,i)+p(2,j))**2 .le. 100d0**2 ) then
                      passcuts_user=.false.
                      return
                   endif
