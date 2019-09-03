@@ -394,7 +394,7 @@ if [[ -s ./JHUGen.input ]]; then
 fi
 
 ### retrieve the powheg source tar ball
-export POWHEGSRC=powhegboxV2_rev3624_date20190119.tar.gz
+export POWHEGSRC=powhegboxV2_rev3624_date20190117.tar.gz
 
 if [ "$process" = "b_bbar_4l" ] || [ "$process" = "HWJ_ew" ] || [ "$process" = "HW_ew" ] || [ "$process" = "HZJ_ew" ] || [ "$process" = "HZ_ew" ] || [ "$process" = "vbs-ssww-nloew" ]; then 
   export POWHEGSRC=powhegboxRES_rev3660_date20190828.tar.gz 
