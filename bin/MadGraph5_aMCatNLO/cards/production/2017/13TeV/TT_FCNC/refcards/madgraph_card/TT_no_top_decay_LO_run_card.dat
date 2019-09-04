@@ -262,3 +262,11 @@ True	=  isoEM  ! isolate photons from EM energy (photons and leptons)
 #*********************************************************************
 20.0	=  xqcut    ! minimum kt jet measure between partons
 #*********************************************************************
+#
+#*********************************************************************
+# Store info for systematics studies                                 *
+# WARNING: If use_syst is T, matched Pythia output is                *
+#          meaningful ONLY if plotted taking matchscale              *
+#          reweighting into account!                                 *
+#*********************************************************************
+True	=  use_syst       ! Enable systematics studies
