@@ -1,3 +1,3 @@
-import model diquark2018_UFO
+import model Suu_diquark_UFO
 generate p p > suu > chi chi
 output Suu_Diquark_S8000_chi1900 -nojpeg
