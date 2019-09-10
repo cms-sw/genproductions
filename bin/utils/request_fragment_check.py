@@ -272,6 +272,7 @@ for num in range(0,len(prepid)):
         loop_flag = 0
         knd =  -1
 	slha_flag = 0
+        grid_points_flag = 0
         nPartonsInBorn_flag = 0
         matching = 10
         matching_c = 0
@@ -466,9 +467,14 @@ for num in range(0,len(prepid)):
 #        os.system('wget -q https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_fragment/'+pi+' -O '+pi)
 #        os.system('mkdir -p '+my_path+'/'+pi)
 #        os.system('mkdir -p '+my_path+'/eos/'+pi)
-        gridpack_cvmfs_path = os.popen('grep \/cvmfs '+my_path+'/'+pi+'/'+pi+'| grep -v \'#args\' | grep tar').read()
+
+        gridpack_cvmfs_path_tmp = os.popen('grep \/cvmfs '+my_path+'/'+pi+'/'+pi).read()
+        gridpack_cvmfs_path_tmp = re.findall("/cvmfs/cms\.cern\.ch/phys_generator/gridpacks/.*?tar.xz|/cvmfs/cms\.cern\.ch/phys_generator/gridpacks/.*?tgz",gridpack_cvmfs_path_tmp)
+        gridpack_cvmfs_path = gridpack_cvmfs_path_tmp[0]
+        if int(os.popen('grep -c grid_points '+pi).read()) != 0:
+            grid_points_flag = 1
         gp_size = len(gridpack_cvmfs_path)
-        if fsize != 0:        
+        if fsize != 0:    
             if int(os.popen('grep -c eos '+pi).read()) == 1 :
                 print "* [ERROR] Gridpack should have used cvmfs path instead of eos path"
                 error = error + 1
@@ -477,6 +483,9 @@ for num in range(0,len(prepid)):
                 print(os.popen('grep nPartonsInBorn '+pi).read())
             if int(os.popen('grep -c nJetMax '+pi).read()) == 1:  
                 nJetMax = os.popen('grep nJetMax '+pi).read()
+                if grid_points_flag == 1:
+                    nJetMax = re.findall('nJetMax = \d+',nJetMax)
+                    nJetMax = nJetMax[0]  
                 nJetMax = re.findall('\d+',nJetMax)
                 nJetMax = int(nJetMax[0])
             if int(os.popen('grep -c nFinal '+pi).read()) == 1:
@@ -543,7 +552,7 @@ for num in range(0,len(prepid)):
 #            gridpack_cvmfs_path = os.popen('grep \/cvmfs '+my_path+'/'+pi+'/'+pi+'| grep -v \'#args\' ').read()
 #            gp_size = len(gridpack_cvmfs_path)
             if gp_size != 0:
-                gridpack_cvmfs_path = gridpack_cvmfs_path.split('\'')[1]
+#                gridpack_cvmfs_path = gridpack_cvmfs_path.split('\'')[1]
                 gridpack_eos_path = gridpack_cvmfs_path.replace("/cvmfs/cms.cern.ch/phys_generator","/eos/cms/store/group/phys_generator/cvmfs")
                 print gridpack_cvmfs_path
                 print gridpack_eos_path
