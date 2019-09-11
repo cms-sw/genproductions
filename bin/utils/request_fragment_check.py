@@ -469,11 +469,11 @@ for num in range(0,len(prepid)):
 #        os.system('mkdir -p '+my_path+'/eos/'+pi)
 
         gridpack_cvmfs_path_tmp = os.popen('grep \/cvmfs '+my_path+'/'+pi+'/'+pi).read()
-        gridpack_cvmfs_path_tmp = re.findall("/cvmfs/cms\.cern\.ch/phys_generator/gridpacks/.*?tar.xz|/cvmfs/cms\.cern\.ch/phys_generator/gridpacks/.*?tgz",gridpack_cvmfs_path_tmp)
-        gridpack_cvmfs_path = gridpack_cvmfs_path_tmp[0]
+#        gridpack_cvmfs_path_tmp = re.findall("/cvmfs/cms\.cern\.ch/phys_generator/gridpacks/.*?tar.xz|/cvmfs/cms\.cern\.ch/phys_generator/gridpacks/.*?tgz",gridpack_cvmfs_path_tmp)
+#        gridpack_cvmfs_path = gridpack_cvmfs_path_tmp[0]
         if int(os.popen('grep -c grid_points '+pi).read()) != 0:
             grid_points_flag = 1
-        gp_size = len(gridpack_cvmfs_path)
+        gp_size = len(gridpack_cvmfs_path_tmp)
         if fsize != 0:    
             if int(os.popen('grep -c eos '+pi).read()) == 1 :
                 print "* [ERROR] Gridpack should have used cvmfs path instead of eos path"
@@ -552,6 +552,9 @@ for num in range(0,len(prepid)):
 #            gridpack_cvmfs_path = os.popen('grep \/cvmfs '+my_path+'/'+pi+'/'+pi+'| grep -v \'#args\' ').read()
 #            gp_size = len(gridpack_cvmfs_path)
             if gp_size != 0:
+#                gridpack_cvmfs_path_tmp = os.popen('grep \/cvmfs '+my_path+'/'+pi+'/'+pi).read()
+                gridpack_cvmfs_path_tmp = re.findall("/cvmfs/cms\.cern\.ch/phys_generator/gridpacks/.*?tar.xz|/cvmfs/cms\.cern\.ch/phys_generator/gridpacks/.*?tgz",gridpack_cvmfs_path_tmp)
+                gridpack_cvmfs_path = gridpack_cvmfs_path_tmp[0]
 #                gridpack_cvmfs_path = gridpack_cvmfs_path.split('\'')[1]
                 gridpack_eos_path = gridpack_cvmfs_path.replace("/cvmfs/cms.cern.ch/phys_generator","/eos/cms/store/group/phys_generator/cvmfs")
                 print gridpack_cvmfs_path
