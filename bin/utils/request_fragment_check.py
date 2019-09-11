@@ -372,12 +372,11 @@ for num in range(0,len(prepid)):
 
         if herwig_flag != 0:
             os.system('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/herwig_frag_lines.txt -O herwig_frag_lines.txt')
-            file1 = set(line.strip() for line in open('herwig_frag_lines.txt'))
-            file2 = set(line.strip() for line in open(pi))
+            file1 = set(line.strip().replace(",","")  for line in open('herwig_frag_lines.txt'))
+            file2 = set(line.strip().replace(",","") for line in open(pi))
             herwig_check = []
             herwig_mat_err = 0
             for line in file1:
-                line2 = re.sub(r',','',line)
                 if line not in file2:
                     herwig_check.append(line)
             if len(herwig_check) != 0:
