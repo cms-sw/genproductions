@@ -377,6 +377,7 @@ for num in range(0,len(prepid)):
             herwig_check = []
             herwig_mat_err = 0
             for line in file1:
+                line2 = re.sub(r',','',line)
                 if line not in file2:
                     herwig_check.append(line)
             if len(herwig_check) != 0:
