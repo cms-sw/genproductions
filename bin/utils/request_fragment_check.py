@@ -267,6 +267,7 @@ for num in range(0,len(prepid)):
         MEname = ["powheg","madgraph","mcatnlo","jhugen","mcfm"]
         tune = ["CP5","CUEP8M1","CP1","CP2","CP3","CP4","CP5TuneUp","CP5TuneDown"]
         tunename = ["CP5","CUETP8M1","CUETP8M2T4","CP1","CP2","CP3","CP4","CP5TuneUp","CP5TuneDown","CH3"]
+        psname = ["pythia","herwig","sherpa"]
         n_ext_par = 0
         mcatnlo_flag = 0
         loop_flag = 0
@@ -581,9 +582,15 @@ for num in range(0,len(prepid)):
                 if any(word in dn for word in tunename):
                     print "* [OK] Data set name has a known tune" 
                 else:
-                    print "* [WARNING] Dataset name does not have the tune name:"+dn
+                    print "* [ERROR] Dataset name does not have the tune name: "+dn
                     print "*         Please add the tune name to the dataset."
-                    warning=warning+1
+                    error=error+1
+                if any(word in dn.lower() for word in psname):
+                    print "* [OK] Dataset name contains a parton shower code name"
+                else:
+                    print "* [ERROR] Dataset name does not contain a parton shower code name: "+dn
+                    print "*         Please add the parton shower name to the dataset name."
+                    error = error + 1
                 if any(word in dn.lower() for word in MEname):
                     print "Data set name is regular: "+dn
                 else:    
