@@ -397,17 +397,17 @@ for num in range(0,len(prepid)):
                     print "* [ERROR] hw_lhe_Powheg_settings missing for powheg+herwig7 request"
                     error = error + 1 
                     herwig_mat_err = 1
-            if "madgraph" in dn.lower() or "mcatnlo" in dn.lower():
+            if "mcatnlo" in dn.lower():
                 if int(os.popen('grep -c Herwig7LHEMG5aMCatNLOSettings_cfi '+pi).read()) == 0:
                     print "* [ERROR] Herwig7LHEMG5aMCatNLOSettings_cfi should be loaded in the fragment"
                     error = error + 1 
                     herwig_mat_err = 1
                 if int(os.popen('grep -c herwig7LHEMG5aMCatNLOSettingsBlock '+pi).read()) == 0:
-                    print "* [ERROR] herwig7LHEMG5aMCatNLOSettingsBlock missing for powheg+herwig7 request"
+                    print "* [ERROR] herwig7LHEMG5aMCatNLOSettingsBlock missing for MG5_aMC[NLO]+herwig7 request"
                     error = error + 1 
                     herwig_mat_err = 1
                 if int(os.popen('grep -c hw_lhe_MG5aMCatNLO_settings '+pi).read()) == 0:
-                    print "* [ERROR] hw_lhe_MG5aMCatNLO_settings missing for powheg+herwig7 request"
+                    print "* [ERROR] hw_lhe_MG5aMCatNLO_settings missing for MG5_aMC[NLO]+herwig7 request"
                     error = error + 1 
                     herwig_mat_err = 1
             if herwig_mat_err == 0 and len(herwig_check) == 0:  
