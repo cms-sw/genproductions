@@ -804,7 +804,9 @@ for num in range(0,len(prepid)):
 #			        jet_count_tmp.append(jet_line_arr[x].count('j') + jet_line_arr[x].count('b') + jet_line_arr[x].count('c'))	 
                                 nbtomatch = jet_line_arr[x].count('b') if maxjetflavor > 4 else 0
                                 nc = jet_line_arr[x].count('c') if "chi" not in jet_line_arr[x] else 0
-			        jet_count_tmp.append(jet_line_arr[x].count('j') + nbtomatch + nc)	 
+                                if "excl" in jet_line_arr[x] and nc != 0:
+                                    nc = nc -1
+			        jet_count_tmp.append(jet_line_arr[x].count('j') + nbtomatch + nc)
 		            jet_count = max(jet_count_tmp)
                         else :
                             jet_line = gen_line.replace('generate','')
