@@ -518,6 +518,11 @@ for num in range(0,len(prepid)):
                     nJetMax = nJetMax[0]  
                 nJetMax = re.findall('\d+',nJetMax)
                 nJetMax = int(nJetMax[0])
+            if herwig_flag != 0:
+		if int(os.popen('grep -c njetsmax '+pi).read()) == 1:
+		    nJetMax = os.popen('grep njetsmax '+pi).read()
+		    nJetMax = re.findall('\d+',nJetMax)
+                    nJetMax = int(nJetMax[0])
             if int(os.popen('grep -c nFinal '+pi).read()) == 1:
                 nFinal = os.popen('grep nFinal '+pi).read()
                 nFinal =  re.findall('\d+',nFinal)
