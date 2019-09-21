@@ -9,7 +9,7 @@ import shutil
 import subprocess
 import textwrap
 
-JHUGenversion = "v7.2.7"
+JHUGenversion = "v7.3.0"
 
 if __name__ == "__main__":
   parser = argparse.ArgumentParser(description="Make JHUGen gridpack")
@@ -90,7 +90,7 @@ def main(args):
         assert re.search(find, makefile, flags=re.MULTILINE)
         makefile = re.sub(find, r"\1"+("Yes" if args.link_mela else "No"), makefile, flags=re.MULTILINE)
 
-        find = "(^MELADir *= *).*"
+        find = "(^ *MELADir *= *).*"
         assert re.search(find, makefile, flags=re.MULTILINE)
         makefile = re.sub(find, r"\1../JHUGenMELA/MELA", makefile, flags=re.MULTILINE) #use the RELATIVE path.  make creates symlinks that have to be valid wherever the gridpack is opened.
 
@@ -133,8 +133,19 @@ def main(args):
       grids = []
       jobids = []
       tosubmit = []
-      for i in range(1, 6):
-        gridfile = "Out_{}_step2.grid".format(i)
+      for i in range(1, 165):
+        #fix for job number 
+        if i < 100 :
+          v =""
+          if i < 10: 
+            v = "00{}"
+            v=v.format(i)
+          else: 
+            v = "0{}"
+            v=v.format(i)
+          gridfile = "Out_{}_step2.grid".format(v)
+        else :
+          gridfile = "Out_{}_step2.grid".format(i)
         try:
           with open(gridfile+".log") as f:
             log = f.read()
@@ -231,7 +242,7 @@ def main(args):
         print "run install.py again with the --check-jobs option to finish up once they're done"
         return
 
-      for i in range(1, 6):
+      for i in range(1, 165):
         try:
           os.remove("Out_{}.lhe".format(i))
         except OSError:

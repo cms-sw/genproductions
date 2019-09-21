@@ -1,0 +1,11 @@
+import model sm-ckm_no_b_mass
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+# Define multiparticle labels
+define p u c s d b u~ c~ s~ d~ b~ g
+define l+ = mu+
+define l- = mu-
+# Specify process(es) to run
+generate p p > l+ l- a @0
+# Output processes to MadEvent directory
+output DYGTo2MuG_mll_20-110_pta10_LO -nojpeg

@@ -51,13 +51,66 @@ cd JHUGenerator/
 #seq 1 5 | parallel -j${ncpu} --eta "GENCOMMAND VBFoffsh_run={} ReadCSmax"
 #no parallel command on condor
 #https://www.gnu.org/software/parallel/parallel_alternatives.html#DIFFERENCES-BETWEEN-xargs-AND-GNU-Parallel
-seq 1 5 | xargs -d "\n" -P${ncpu} -I {} bash -c "GENCOMMAND VBFoffsh_run={} ReadCSmax |& tee log_{}"
+seq 1 164 | xargs -d "\n" -P${ncpu} -I {} bash -c "GENCOMMAND VBFoffsh_run={} ReadCSmax |& tee log_{}"
 
-(
-cat Out_1.lhe      | grep -Ev "</LesHouchesEvents"
-cat Out_{2..4}.lhe | grep -Ev "</?LesHouchesEvents" | sed -e '/<init>/,+3d'
-cat Out_5.lhe      | grep -Ev "<LesHouchesEvents"   | sed -e '/<init>/,+3d'
-) > Out.lhe
+
+
+
+#randomize order of catted lhe files
+awk -v loop=164 -v range=164 'BEGIN{                                                                             
+                      
+  srand()                                                                                                        
+                    
+  do {                                                                                                           
+                    
+    numb = 1 + int(rand() * range)                                                                               
+                    
+    if (!(numb in prev)) {                                                                                       
+                    
+      if(numb < 10 ){
+         print "00"numb 
+      }                                                                                                          
+         
+      if(numb < 100 && numb > 9 ){
+         print "0"numb 
+      }
+      if(numb > 99){
+         print numb
+      }                                                                                                          
+         
+       prev[numb] = 1                                                                                            
+                    
+       count++                                                                                                   
+                    
+    }                                                                                                            
+                    
+  } while (count<loop)                                                                                           
+                    
+}' > order.txt
+
+
+if [  -e Out.lhe  ]
+ then 
+    rm Out.lhe
+
+ fi
+
+
+count=0
+for line in $(cat order.txt)
+do
+    if [ $count -eq 0 ]
+    then 
+	cat Out_$line.lhe      | grep -Ev "</LesHouchesEvents" >> Out.lhe
+    elif [ $count != 163 ] 
+    then 
+	cat Out_$line.lhe | grep -Ev "</?LesHouchesEvents" | sed -e '/<init>/,+3d'>> Out.lhe
+    else    
+	cat Out_$line.lhe | grep -Ev "</LesHouchesEvents" | sed -e '/<init>/,+3d'>> Out.lhe
+    fi
+    count=$((count+1))
+done
+rm order.txt
 
 mv Out.lhe $LHEWORKDIR/cmsgrid_final.lhe
 cd $LHEWORKDIR
