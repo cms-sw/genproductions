@@ -1,0 +1,5 @@
+import model loop_sm-ckm
+generate p p > w+ > t b~ [QCD] @0
+add process p p > w- > t~ b  [QCD] @1
+
+output st_sch_lept_4f_ckm_NLO -nojpeg

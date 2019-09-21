@@ -2,8 +2,6 @@ COM_ENERGY = 13000.
 MCHI = XXX  # GeV
 CTAU = YYY  # mm
 CROSS_SECTION = ZZZ # pb
-SLHA_TABLE="""
-""" % (1.97326979e-13 / CTAU)
 
 import FWCore.ParameterSet.Config as cms
 
@@ -15,7 +13,7 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
     pythiaPylistVerbosity = cms.untracked.int32(0),
     filterEfficiency = cms.untracked.double(-1),
     pythiaHepMCVerbosity = cms.untracked.bool(False),
-    SLHATableForPythia8 = cms.string('%s' % SLHA_TABLE),
+    SLHAFileForPythia8 = cms.string('Configuration/GenProduction/python/ThirteenTeV/DisappTrksAMSB/slha_withDecay/%scm/AMSB_chargino_%sGeV_%scm_Isajet780.slha' % (CTAU/10, MCHI, CTAU/10)),
     comEnergy = cms.double(COM_ENERGY),
     crossSection = cms.untracked.double(CROSS_SECTION),
     maxEventsToPrint = cms.untracked.int32(0),
@@ -35,12 +33,11 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
         parameterSets = cms.vstring(
             'pythia8CommonSettings',
             'pythia8CP5Settings',
-            'pythia8PSweightsSettingsBlock',
+            'pythia8PSweightsSettings',
             'processParameters')
     ),
     # The following parameters are required by Exotica_HSCP_SIM_cfi:
     slhaFile = cms.untracked.string(''),   # value not used
-    SLHAFileForPythia8 = cms.untracked.string(''),   # value not used, used over slhaFile for CMSSW >= 10_2_X
     processFile = cms.untracked.string('SimG4Core/CustomPhysics/data/RhadronProcessList.txt'),
     useregge = cms.bool(False),
     hscpFlavor = cms.untracked.string('stau'),
