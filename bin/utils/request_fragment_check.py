@@ -588,7 +588,7 @@ for num in range(0,len(prepid)):
 #            gp_size = len(gridpack_cvmfs_path)
             if gp_size != 0:
 #                gridpack_cvmfs_path_tmp = os.popen('grep \/cvmfs '+my_path+'/'+pi+'/'+pi).read()
-                gridpack_cvmfs_path_tmp = re.findall("/cvmfs/cms\.cern\.ch/phys_generator/gridpacks/.*?tar.xz|/cvmfs/cms\.cern\.ch/phys_generator/gridpacks/.*?tgz",gridpack_cvmfs_path_tmp)
+                gridpack_cvmfs_path_tmp = re.findall("/cvmfs/cms\.cern\.ch/phys_generator/gridpacks/.*?tar.xz|/cvmfs/cms\.cern\.ch/phys_generator/gridpacks/.*?tgz|/cvmfs/cms\.cern\.ch/phys_generator/gridpacks/.*?tar.gz",gridpack_cvmfs_path_tmp)
                 gridpack_cvmfs_path = gridpack_cvmfs_path_tmp[0]
 #                gridpack_cvmfs_path = gridpack_cvmfs_path.split('\'')[1]
                 gridpack_eos_path = gridpack_cvmfs_path.replace("/cvmfs/cms.cern.ch/phys_generator","/eos/cms/store/group/phys_generator/cvmfs")
