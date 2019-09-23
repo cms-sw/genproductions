@@ -504,6 +504,10 @@ for num in range(0,len(prepid)):
         if int(os.popen('grep -c grid_points '+pi).read()) != 0:
             grid_points_flag = 1
         gp_size = len(gridpack_cvmfs_path_tmp)
+	if "sherpa" in dn.lower():
+                        print("* [WARNING] Not checking sherpacks for now.")
+                        warning = warning + 1
+			gp_size = 0
         if fsize != 0:    
             if int(os.popen('grep -c eos '+pi).read()) == 1 :
                 print "* [ERROR] Gridpack should have used cvmfs path instead of eos path"
