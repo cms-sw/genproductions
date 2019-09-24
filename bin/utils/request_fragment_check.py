@@ -529,6 +529,9 @@ for num in range(0,len(prepid)):
                     nJetMax = int(nJetMax[0])
             if int(os.popen('grep -c nFinal '+pi).read()) == 1:
                 nFinal = os.popen('grep nFinal '+pi).read()
+		if grid_points_flag == 1:
+		    nFinal = re.findall('nFinal = \d+',nFinal)
+		    nFinal = nFinal[0]		
                 nFinal =  re.findall('\d+',nFinal)
                 nFinal = int(nFinal[0])
                 print "nFinal="+str(nFinal)
