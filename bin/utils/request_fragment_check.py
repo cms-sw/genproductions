@@ -45,7 +45,6 @@ parser = argparse.ArgumentParser(
                   * [WARNING] This a MadGraph NLO sample without matching. Please check 'TimeShower:nPartonsInBorn'
                   *                                                   is set correctly as number of coloured particles
                   *                                                  (before resonance decays) in born matrix element.
-                  * [WARNING] You're using MG5_aMC vXX in an Ultra Legacy Campaign. Are you sure that's what you want?
                   * [WARNING] nFinal(=X) may not be equal to the number of final state particles before decays (=Y)
                   * [WARNING] To check manually - This is a Powheg NLO sample. Please check 'nFinal' is
                   *               set correctly as number of final state particles (BEFORE THE DECAYS)
@@ -143,6 +142,7 @@ parser = argparse.ArgumentParser(
  	    	  *          or pythia8CUEP8M1Settings are overwritten by some other parameters as in CUETP8M2T4
                   * [ERROR] PS weights in config but CMSSW version is < 10_2_3 - please check!
                   * [ERROR] Parton shower weight configuration not OK in the fragment
+                  * [WARNING] You're using MG5_aMC version < 2.6.1 in an Ultra Legacy Campaign. You should use MG5_aMCv2.6.1+" 
                                                                                     '''))
 parser.add_argument('--prepid', type=str, help="check mcm requests using prepids", nargs='+')
 parser.add_argument('--ticket', type=str, help="check mcm requests using ticket number", nargs=1)
@@ -847,9 +847,9 @@ for num in range(0,len(prepid)):
                         mgversion = mgversion_tmp.split()
                         mgversion = mgversion[2].split(".")
                         mgversion_tmp = mgversion_tmp.split("\n")
-                        if "UL" in pi and int(mgversion[0]) <= 2 and int(mgversion[1]) < 6:
-                            print"* [WARNING] You're using MG5_aMC "+str(mgversion_tmp[0])+" in an Ultra Legacy Campaign. Are you sure that's what you want?"
-                            warning = warning + 1
+                        if "UL" in pi and int(mgversion[0]) <= 2 and int(mgversion[1]) < 6 and int(mgversion[2]) < 1:
+                            print"* [ERROR] You're using MG5_aMC "+str(mgversion_tmp[0])+" in an Ultra Legacy Campaign. You should use MG5_aMCv2.6.1+"
+                            error = error + 1
                     test_bw = bw.split() 
                     if float(test_bw[0]) > 15.:
                         print " [WARNING] bwcutoff set to "+str(test_bw[0])+". Note that large bwcutoff values can cause problems in production."
