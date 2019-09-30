@@ -992,10 +992,10 @@ for num in range(0,len(prepid)):
                         print "* [ERROR] You run MG5_aMC@NLO at LO but you have  Pythia8aMCatNLOSettings_cfi in fragment"
                         print "*           --> please remove it from the fragment"
                         error = error + 1
-                    if word == "powheg" :
-                        print "* [WARNING] if this is a "+word+" request but loop induced process such as gg->ZH," 
-                        print "*           then fragment is OK (no need to have Pythia8PowhegEmissionVetoSettings)"
-			warning = warning + 1
+#                    if word == "powheg" :
+#                        print "* [WARNING] if this is a "+word+" request but loop induced process such as gg->ZH," 
+#                        print "*           then fragment is OK (no need to have Pythia8PowhegEmissionVetoSettings)"
+#			warning = warning + 1
         if knd == 1 :
              powhegcheck.append(int(os.popen('grep -c -i PowhegEmission '+pi).read()))
              if powhegcheck[0] > 0 :
