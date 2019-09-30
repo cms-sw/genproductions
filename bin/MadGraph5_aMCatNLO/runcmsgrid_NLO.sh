@@ -136,7 +136,7 @@ else
     echo "import $LHEWORKDIR/cmsgrid_predecay.lhe" > madspinrun.dat
     echo "set ms_dir $LHEWORKDIR/process/madspingrid" >> madspinrun.dat
     echo "launch" >> madspinrun.dat
-    cat madspinrun.dat | $LHEWORKDIR/mgbasedir/MadSpin/madspin
+    $LHEWORKDIR/mgbasedir/MadSpin/madspin madspinrun.dat
     rm madspinrun.dat
     rm cmsgrid_predecay.lhe.gz
     mv cmsgrid_predecay_decayed.lhe.gz cmsgrid_final.lhe.gz

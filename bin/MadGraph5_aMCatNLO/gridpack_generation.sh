@@ -536,7 +536,7 @@ make_gridpack () {
       if [ -e $CARDSDIR/${name}_madspin_card.dat ]; then
         echo "import $WORKDIR/unweighted_events.lhe.gz" > madspinrun.dat
         cat $CARDSDIR/${name}_madspin_card.dat >> madspinrun.dat
-        cat madspinrun.dat | $WORKDIR/$MGBASEDIRORIG/MadSpin/madspin
+        $WORKDIR/$MGBASEDIRORIG/MadSpin/madspin madspinrun.dat 
         rm madspinrun.dat
         rm -rf tmp*
         cp $CARDSDIR/${name}_madspin_card.dat $WORKDIR/process/madspin_card.dat
@@ -621,7 +621,7 @@ if [ -n "$6" ]
   then
     cmssw_version=${6}
   else
-    cmssw_version=CMSSW_9_3_8 #CMSSW_7_1_30
+    cmssw_version=CMSSW_9_3_16 #CMSSW_7_1_30
 fi
  
 # jobstep can be 'ALL','CODEGEN', 'INTEGRATE', 'MADSPIN'
