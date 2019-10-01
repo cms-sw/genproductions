@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 '''
 Script for POWHEG generator production
@@ -38,10 +38,11 @@ def prepareCondorScript( tag, i, folderName, queue, SCALE = '0', runInBatchDir =
 
    filename = 'run_' + folderName + '_' + tag + '.condorConf'
    execname = folderName + '/run_' + tag
+   logname =  'run_' + tag
    if runInBatchDir:
        folderName = rootfolder + '/' + folderName
        execname = rootfolder + '/' + execname
-   logname =  'run_' + tag
+       logname =  folderName + '/run_' + tag
    f = open(filename, 'w')
   
    if (i == 'multiple') :
@@ -133,6 +134,7 @@ def prepareJob(tag, i, folderName) :
     f.write ('  mkdir ./obj-gfortran/' + '\n')
     f.write ('  cp -pr ' + rootfolder + '/' + folderName + '/obj-gfortran/proclib  ./obj-gfortran/' + '\n')
     f.write ('  cp -pr ' + rootfolder + '/' + folderName + '/obj-gfortran/*.so  ./obj-gfortran/' + '\n')
+    f.write ('  export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:`pwd`/obj-gfortran/proclib/:${LD_LIBRARY_PATH} \n')
     f.write ('fi    \n')
     f.write ('if [ -e '+ rootfolder + '/' + folderName + '/Virt_full_cHHH_0.0.grid ]; then    \n')
     f.write ('  cp -p ' + rootfolder + '/' + folderName + '/*.grid .' + '\n')
@@ -187,6 +189,10 @@ def runParallelXgrid(parstage, xgrid, folderName, nEvents, njobs, powInputName, 
 
     sedcommand = 'sed -i "s/NEVENTS/'+nEvents+'/ ; s/SEED/'+rndSeed+'/ ; s/.*parallelstage.*/parallelstage '+parstage+'/ ; s/.*xgriditeration.*/xgriditeration '+xgrid+'/ ; s/.*manyseeds.*/manyseeds 1/ ; s/fakevirt.*// " '+inputName
 
+    with open(os.path.join(folderName, "pwgseeds.dat"), "w") as f:
+        for i in xrange(njobs):
+            f.write(str(int(rndSeed) + i)+"\n")
+
     #print sedcommand
     runCommand(sedcommand)
 
@@ -216,6 +222,7 @@ def runParallelXgrid(parstage, xgrid, folderName, nEvents, njobs, powInputName, 
         f.write('cp -p *.top ' + rootfolder + '/' + folderName + '/. \n')
         f.write('cp -p *.dat ' + rootfolder + '/' + folderName + '/. \n')
         f.write('cp -p *.log ' + rootfolder + '/' + folderName + '/. \n')
+        f.write('exit 0 \n')
 
         f.close()
 
@@ -251,7 +258,7 @@ def runSingleXgrid(parstage, xgrid, folderName, nEvents, powInputName, seed, pro
     f = open(filename, 'a')
     f.write('cd '+rootfolder+'/'+folderName+'/ \n')
 
-    f.write('export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:${LD_LIBRARY_PATH} \n\n')
+    f.write('export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:`pwd`/obj-gfortran/proclib/:${LD_LIBRARY_PATH} \n\n')
  
     f.write('sed -i "s/NEVENTS/'+nEvents+'/ ; s/SEED/'+seed+'/" powheg.input\n\n')
 
@@ -387,10 +394,10 @@ if [[ -s ./JHUGen.input ]]; then
 fi
 
 ### retrieve the powheg source tar ball
-export POWHEGSRC=powhegboxV2_rev3624_date20190201.tar.gz
+export POWHEGSRC=powhegboxV2_rev3624_date20190117.tar.gz
 
-if [ "$process" = "b_bbar_4l" ] || [ "$process" = "HWJ_ew" ] || [ "$process" = "HW_ew" ] || [ "$process" = "HZJ_ew" ] || [ "$process" = "HZ_ew" ]; then 
-  export POWHEGSRC=powhegboxRES_rev3478_date20180122.tar.gz 
+if [ "$process" = "b_bbar_4l" ] || [ "$process" = "HWJ_ew" ] || [ "$process" = "HW_ew" ] || [ "$process" = "HZJ_ew" ] || [ "$process" = "HZ_ew" ] || [ "$process" = "vbs-ssww-nloew" ]; then 
+  export POWHEGSRC=powhegboxRES_rev3660_date20190828.tar.gz 
 fi
 
 echo 'D/L POWHEG source...'
@@ -612,7 +619,7 @@ fi
 
 if [ "$process" = "WWJ" ]; then
   cp Makefile Makefile.orig
-  cat Makefile.orig |  sed -e "s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d "=" -f2)/bin/fastjet-config#g" | sed -e "s#cs_angles.o#cs_angles.o fastjetfortran.o observables.o pwhg_bookhist-multi-new.o#g" | sed -e "s#\#\ FASTJET_CONFIG#FASTJET_CONFIG#g" | sed -e "s#\#\ LIBSFASTJET#LIBSFASTJET#g" | sed -e "s#\#\ FJCXXFLAGS#FJCXXFLAGS#g" | sed -e "s#rwl_write_weights_extra.f#rwl_write_weights_extra.f\ rwl_write_weights2_extra.f#g"> Makefile
+  cat Makefile.orig | sed -e "s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d "=" -f2)/bin/fastjet-config#g" | sed -e "s#cs_angles.o#cs_angles.o fastjetfortran.o observables.o pwhg_bookhist-multi-new.o#g" | sed -e "s#\#\ FASTJET_CONFIG#FASTJET_CONFIG#g" | sed -e "s#\#\ LIBSFASTJET#LIBSFASTJET#g" | sed -e "s#\#\ FJCXXFLAGS#FJCXXFLAGS#g" | sed -e "s#rwl_write_weights_extra.f#rwl_write_weights_extra.f\ rwl_write_weights2_extra.f#g" > Makefile
 fi
 
 if [ "$process" = "gg_H_2HDM" ] || [ "$process" = "gg_H_MSSM" ]; then
@@ -641,6 +648,7 @@ if [ "$process" = "gg_H_2HDM" ] || [ "$process" = "gg_H_MSSM" ]; then
     cd ..
   fi
 fi
+
 if [ "$process" = "directphoton" ]; then
   echo "Adding LoopTools 2.14 library"
   if [ ! -f LoopTools-2.14.tar.gz ]; then
@@ -654,6 +662,26 @@ if [ "$process" = "directphoton" ]; then
   sed -i -e 's/^LT\=$.*/LT=$\(PWD\)/' Makefile
   export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:${LD_LIBRARY_PATH}
   mkdir obj-gfortran
+fi
+
+if [ "$process" = "vbs-ssww-nloew" ]; then
+  echo "Adding Recola2.2.0 library"
+  if [ ! -f recola2-collier-2.2.0.tar.gz ]; then
+    wget --no-verbose -O recola2-collier-2.2.0.tar.gz https://recola.hepforge.org/downloads/?f=recola2-collier-2.2.0.tar.gz || fail_exit "Failed to get Recola tar ball "
+  fi
+  tar -zxvf recola2-collier-2.2.0.tar.gz
+  cd recola2-collier-2.2.0/build
+  cmake .. -DCMAKE_Fortran_COMPILER=gfortran -Dmodel=SM
+  make -j 1
+  make install
+  cd ../..
+  mkdir obj-gfortran/proclib
+  cd obj-gfortran/proclib
+  cp ../../recola2-collier-2.2.0/recola2-2.2.0/librecola.so .
+  cd ../..
+  cp Makefile Makefile.orig
+  cat Makefile.orig | sed -e "s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d "=" -f2)/bin/fastjet-config#g" | sed -e "s#/archive/mpellen/Programs/Recolas/Powheg/recola-1.3.6#$\(PWD\)/recola2-collier-2.2.0/recola2-2.2.0#g" | sed -e "s# real16.o##g" | sed -e '154d;164d' > Makefile
+  export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:${LD_LIBRARY_PATH}
 fi
 
 
@@ -923,13 +951,36 @@ chmod 755 runcmsgrid.sh
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
 
-def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag, process) :
+def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag, process, seed) :
     print 'run : submitting jobs'
-  
-    sedcommand = 'sed -i "s/NEVENTS/2000/ ; s/SEED/3/ ; s/parallelstage.*/parallelstage ' + parstage + '/ ; s/xgriditeration.*/xgriditeration 1/" '+folderName+'/powheg.input'
-
+    
+    inputName = folderName + "/powheg.input"
+    
+    sedcommand = 'sed -i "s/NEVENTS/2000/ ; s/iseed.*/iseed '+str(seed)+'/" '+inputName
     runCommand(sedcommand)
+    
+    if (parstage in ['2', '3']) :
+        
+        sedcommand = 'sed -i "s/#manyseeds/manyseeds/ ; s/.*parallelstage.*/parallelstage ' + parstage + '/ ; s/.*xgriditeration.*/xgriditeration 1/ ; s/.*manyseeds.*/manyseeds 1/ " '+inputName
+        runCommand(sedcommand)
+    
+        if not 'parallelstage' in open(inputName).read() :
+            runCommand("echo \'\n\nparallelstage "+parstage+"\' >> "+inputName)
+        if not 'xgriditeration' in open(inputName).read() :
+            runCommand("echo \'xgriditeration 1\' >> "+inputName)
+
+        if not 'manyseeds' in open(inputName).read() :
+            runCommand("echo \'manyseeds 1\' >> "+ inputName)
+
+        if not 'fakevirt' in open(inputName).read() :
+            if process != 'b_bbar_4l':
+                runCommand("echo \'fakevirt 1\' >> "+inputName)
+    
     runCommand('cp -p ' + folderName + '/powheg.input ' + folderName + '/powheg.input.' + parstage)
+
+    with open(os.path.join(folderName, "pwgseeds.dat"), "w") as f:
+        for i in xrange(njobs):
+            f.write(str(int(seed) + i)+"\n")
 
     for i in range (0, njobs) :
         tag = jobtag + '_' + str (i)
@@ -940,8 +991,12 @@ def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag, proc
     
         filename = folderName+'/run_' + tag + '.sh'
         f = open (filename, 'a')
-        f.write('cd '+rootfolder+'/'+folderName+'/ \n')
+        #f.write('cd '+rootfolder+'/'+folderName+'/ \n')
         f.write('echo ' + str (i) + ' | ./pwhg_main &> run_' + tag + '.log ' + '\n')
+        f.write('cp -p *.top ' + rootfolder + '/' + folderName + '/. \n')
+        f.write('cp -p *.dat ' + rootfolder + '/' + folderName + '/. \n')
+        f.write('cp -p *.log ' + rootfolder + '/' + folderName + '/. \n')
+        f.write('exit 0 \n')
         f.close()
 
         os.system('chmod 755 '+filename)
@@ -1088,7 +1143,7 @@ if [ "$process" = "HJ" ]; then
 fi
 
 if [ "$process" = "Zj" ] || [ "$process" = "Wj" ]; then
-  if [ -e ${WORKDIR}/MINLO-W1-denom.top ]; then
+  if [ -e ${WORKDIR}/${folderName}/MINLO-W1-denom.top ]; then
     echo "This gridpack includes NNLOPS reweighting"
     #force keep top in this case
     keepTop='1'
@@ -1359,7 +1414,7 @@ def dynnlops_mergeminlo(folderName, process, eosdir):
 
 def make_nnlo_rwl(folderName):
     # check pwg-rwl.dat
-    rwlfile = 'pwg-rwl.dat'
+    rwlfile = folderName + '/pwg-rwl.dat'
     if 'scale_variation2' in open(rwlfile).read():
         print('Creating 9x9 NNLOxMINLO scale variations')
     else:
@@ -1706,4 +1761,4 @@ if __name__ == "__main__":
         os.system('cp -p '+args.inputTemplate+' '+args.folderName+'/powheg.input')
         runEvents(args.parstage, args.folderName,
                   args.eosFolder + '/' + EOSfolder, njobs, powInputName,
-                  jobtag, args.prcName)
+                  jobtag, args.prcName, args.rndSeed)
