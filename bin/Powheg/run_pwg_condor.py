@@ -1597,7 +1597,7 @@ if __name__ == "__main__":
 
             if test_pdf1 != default_pdf :
 #                print "PDF in card: ", test_pdf1, "PDF default: ", default_pdf, test_pdf1==default_pdf
-                message = "The input card does not have the standard 2017 PDF (NNPDF31 NNLO, 325300 for 5F, 325500 for 4F): {0}. Either change the card or run again with -d 1 to ignore this message.\n".format(test_pdf1)
+                message = "The input card does not have the standard Ultralegacy PDF (NNPDF31 NNLO, 325300 for 5F, 325500 for 4F): {0}. Either change the card or run again with -d 1 to ignore this message.\n".format(test_pdf1)
 
                 if args.noPdfCheck == '0' :
                     raise RuntimeError(message)
