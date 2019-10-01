@@ -1,4 +1,4 @@
-vdecaymode  1     ! Z decay products (default 2): 1 for electronic
+vdecaymode  2     ! Z decay products (default 2): 1 for electronic
 
 par_isrtinyy 5d-6
 par_fsrtinyy 5d-6
