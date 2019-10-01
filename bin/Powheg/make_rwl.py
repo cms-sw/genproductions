@@ -68,7 +68,7 @@ if forDYNNLOPS:
             # weight id, LHAPDF id, name, replicas to be written
             "PDF_variation1 , hessian" :
             [
-              [2000, 325300, 'NNPDF31_nnlo_hessian_pdfas', 103],
+              [2000, 325300, 'NNPDF31_nnlo_as_0118_mc_hessian_pdfas', 103],
               [2104, 322500, 'NNPDF31_nnlo_as_0108', 1],
               [2105, 322700, 'NNPDF31_nnlo_as_0110', 1],
               [2106, 322900, 'NNPDF31_nnlo_as_0112', 1],
@@ -173,7 +173,7 @@ else:
             ],
             "PDF_variation2 , replica" :
             [
-              [2000, 325300, 'NNPDF31_nnlo_hessian_pdfas', 103],
+              [2000, 306000, 'NNPDF31_nnlo_hessian_pdfas', 103],
               [2200, 320500, 'NNPDF31_nlo_as_0118_nf_4', 101],
               [2400, 260400, 'NNPDF30_nlo_as_0118_nf_4', 101],
               [2600, 262400, 'NNPDF30_lo_as_0118_nf_4', 1],
