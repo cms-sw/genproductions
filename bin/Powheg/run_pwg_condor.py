@@ -134,7 +134,6 @@ def prepareJob(tag, i, folderName) :
     f.write ('  mkdir ./obj-gfortran/' + '\n')
     f.write ('  cp -pr ' + rootfolder + '/' + folderName + '/obj-gfortran/proclib  ./obj-gfortran/' + '\n')
     f.write ('  cp -pr ' + rootfolder + '/' + folderName + '/obj-gfortran/*.so  ./obj-gfortran/' + '\n')
-    f.write ('  export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:`pwd`/obj-gfortran/proclib/:${LD_LIBRARY_PATH} \n')
     f.write ('fi    \n')
     f.write ('if [ -e '+ rootfolder + '/' + folderName + '/Virt_full_cHHH_0.0.grid ]; then    \n')
     f.write ('  cp -p ' + rootfolder + '/' + folderName + '/*.grid .' + '\n')
@@ -258,7 +257,7 @@ def runSingleXgrid(parstage, xgrid, folderName, nEvents, powInputName, seed, pro
     f = open(filename, 'a')
     f.write('cd '+rootfolder+'/'+folderName+'/ \n')
 
-    f.write('export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:`pwd`/obj-gfortran/proclib/:${LD_LIBRARY_PATH} \n\n')
+    f.write('export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:${LD_LIBRARY_PATH} \n\n')
  
     f.write('sed -i "s/NEVENTS/'+nEvents+'/ ; s/SEED/'+seed+'/" powheg.input\n\n')
 
@@ -346,13 +345,13 @@ fi
 
 # 5F
 is5FlavorScheme=1
-defaultPDF=306000
+defaultPDF=325300
 
 
 if [[ "$process" == "ST_tch_4f" ]] || [[ "$process" == "bbH" ]] || [[ "$process" == "Wbb_dec" ]] || [[ "$process" == "Wbbj" ]] || [[ "$process" == "WWJ" ]]; then
     # 4F
     is5FlavorScheme=0
-    defaultPDF=320900
+    defaultPDF=325500
 fi
 
 if [[ $is5FlavorScheme -eq 1 ]]; then
@@ -396,8 +395,8 @@ fi
 ### retrieve the powheg source tar ball
 export POWHEGSRC=powhegboxV2_rev3624_date20190117.tar.gz
 
-if [ "$process" = "b_bbar_4l" ] || [ "$process" = "HWJ_ew" ] || [ "$process" = "HW_ew" ] || [ "$process" = "HZJ_ew" ] || [ "$process" = "HZ_ew" ] || [ "$process" = "vbs-ssww-nloew" ]; then 
-  export POWHEGSRC=powhegboxRES_rev3660_date20190828.tar.gz 
+if [ "$process" = "b_bbar_4l" ] || [ "$process" = "HWJ_ew" ] || [ "$process" = "HW_ew" ] || [ "$process" = "HZJ_ew" ] || [ "$process" = "HZ_ew" ]; then 
+  export POWHEGSRC=powhegboxRES_rev3478_date20180122.tar.gz 
 fi
 
 echo 'D/L POWHEG source...'
@@ -445,7 +444,7 @@ if [ "$process" = "Zj" ] || [ "$process" = "Wj" ]; then
 fi
 
 
-sed -i -e "s#500#1200#g"  POWHEG-BOX/include/pwhg_rwl.h
+sed -i -e "s#500#1350#g"  POWHEG-BOX/include/pwhg_rwl.h
 
 echo ${POWHEGSRC} > VERSION
 
@@ -619,7 +618,7 @@ fi
 
 if [ "$process" = "WWJ" ]; then
   cp Makefile Makefile.orig
-  cat Makefile.orig | sed -e "s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d "=" -f2)/bin/fastjet-config#g" | sed -e "s#cs_angles.o#cs_angles.o fastjetfortran.o observables.o pwhg_bookhist-multi-new.o#g" | sed -e "s#\#\ FASTJET_CONFIG#FASTJET_CONFIG#g" | sed -e "s#\#\ LIBSFASTJET#LIBSFASTJET#g" | sed -e "s#\#\ FJCXXFLAGS#FJCXXFLAGS#g" | sed -e "s#rwl_write_weights_extra.f#rwl_write_weights_extra.f\ rwl_write_weights2_extra.f#g" > Makefile
+  cat Makefile.orig |  sed -e "s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d "=" -f2)/bin/fastjet-config#g" | sed -e "s#cs_angles.o#cs_angles.o fastjetfortran.o observables.o pwhg_bookhist-multi-new.o#g" | sed -e "s#\#\ FASTJET_CONFIG#FASTJET_CONFIG#g" | sed -e "s#\#\ LIBSFASTJET#LIBSFASTJET#g" | sed -e "s#\#\ FJCXXFLAGS#FJCXXFLAGS#g" | sed -e "s#rwl_write_weights_extra.f#rwl_write_weights_extra.f\ rwl_write_weights2_extra.f#g"> Makefile
 fi
 
 if [ "$process" = "gg_H_2HDM" ] || [ "$process" = "gg_H_MSSM" ]; then
@@ -648,7 +647,6 @@ if [ "$process" = "gg_H_2HDM" ] || [ "$process" = "gg_H_MSSM" ]; then
     cd ..
   fi
 fi
-
 if [ "$process" = "directphoton" ]; then
   echo "Adding LoopTools 2.14 library"
   if [ ! -f LoopTools-2.14.tar.gz ]; then
@@ -662,26 +660,6 @@ if [ "$process" = "directphoton" ]; then
   sed -i -e 's/^LT\=$.*/LT=$\(PWD\)/' Makefile
   export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:${LD_LIBRARY_PATH}
   mkdir obj-gfortran
-fi
-
-if [ "$process" = "vbs-ssww-nloew" ]; then
-  echo "Adding Recola2.2.0 library"
-  if [ ! -f recola2-collier-2.2.0.tar.gz ]; then
-    wget --no-verbose -O recola2-collier-2.2.0.tar.gz https://recola.hepforge.org/downloads/?f=recola2-collier-2.2.0.tar.gz || fail_exit "Failed to get Recola tar ball "
-  fi
-  tar -zxvf recola2-collier-2.2.0.tar.gz
-  cd recola2-collier-2.2.0/build
-  cmake .. -DCMAKE_Fortran_COMPILER=gfortran -Dmodel=SM
-  make -j 1
-  make install
-  cd ../..
-  mkdir obj-gfortran/proclib
-  cd obj-gfortran/proclib
-  cp ../../recola2-collier-2.2.0/recola2-2.2.0/librecola.so .
-  cd ../..
-  cp Makefile Makefile.orig
-  cat Makefile.orig | sed -e "s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d "=" -f2)/bin/fastjet-config#g" | sed -e "s#/archive/mpellen/Programs/Recolas/Powheg/recola-1.3.6#$\(PWD\)/recola2-collier-2.2.0/recola2-2.2.0#g" | sed -e "s# real16.o##g" | sed -e '154d;164d' > Makefile
-  export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:${LD_LIBRARY_PATH}
 fi
 
 
@@ -955,13 +933,12 @@ def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag, proc
     print 'run : submitting jobs'
     
     inputName = folderName + "/powheg.input"
-    
+
     sedcommand = 'sed -i "s/NEVENTS/2000/ ; s/iseed.*/iseed '+str(seed)+'/" '+inputName
     runCommand(sedcommand)
     
     if (parstage in ['2', '3']) :
-        
-        sedcommand = 'sed -i "s/#manyseeds/manyseeds/ ; s/.*parallelstage.*/parallelstage ' + parstage + '/ ; s/.*xgriditeration.*/xgriditeration 1/ ; s/.*manyseeds.*/manyseeds 1/ " '+inputName
+        sedcommand = 'sed -i "s/#manyseeds/manyseeds/ ; s/#parallelstage/parallelstage/ ; s/parallelstage.*/parallelstage ' + parstage + '/ ; s/xgriditeration.*/xgriditeration 1/ ; s/manyseeds.*/manyseeds 1/ " '+inputName
         runCommand(sedcommand)
     
         if not 'parallelstage' in open(inputName).read() :
@@ -1603,10 +1580,10 @@ if __name__ == "__main__":
             test_pdf1 = 0
             test_pdf2 = 0
 
-            default_pdf = "306000"  # for 5 flavours
+            default_pdf = "325300"  # for 5 flavours
 
             if args.prcName=="ST_tch_4f" or args.prcName=="bbH" or args.prcName=="Wbb_dec" or args.prcName=="Wbbj" or args.prcName=="WWJ" :
-                default_pdf = "320900"  # for 4 flavours
+                default_pdf = "325500"  # for 4 flavours
 
             for line in open(args.folderName+'/powheg.input') :
                 n_column = line.split()
@@ -1620,7 +1597,7 @@ if __name__ == "__main__":
 
             if test_pdf1 != default_pdf :
 #                print "PDF in card: ", test_pdf1, "PDF default: ", default_pdf, test_pdf1==default_pdf
-                message = "The input card does not have the standard 2017 PDF (NNPDF31 NNLO, 306000 for 5F, 320900 for 4F): {0}. Either change the card or run again with -d 1 to ignore this message.\n".format(test_pdf1)
+                message = "The input card does not have the standard Ultralegacy PDF (NNPDF31 NNLO, 325300 for 5F, 325500 for 4F): {0}. Either change the card or run again with -d 1 to ignore this message.\n".format(test_pdf1)
 
                 if args.noPdfCheck == '0' :
                     raise RuntimeError(message)
