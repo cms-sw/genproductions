@@ -91,7 +91,7 @@ make_gridpack () {
     
       export SCRAM_ARCH=${scram_arch}
       export RELEASE=${cmssw_version}
-    
+
       ############################
       #Create a workplace to work#
       ############################
@@ -615,6 +615,13 @@ if [ -n "$5" ]
     scram_arch=${5}
   else
     scram_arch=slc7_amd64_gcc700 #slc6_amd64_gcc630 
+fi
+
+# Require OS and scram_arch to be consistent
+export SYSTEM_RELEASE=`cat /etc/redhat-release`
+if { [[ $SYSTEM_RELEASE == "*release 6*" ]] && [[ $scram_arch == "*slc6*" ]]; } || { [[ $SYSTEM_RELEASE == "*release 7*" ]] && [[ $scram_arch == "*slc7*" ]]; }; then
+  echo "Mismatch between architecture and OS"
+  if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
 fi
 
 if [ -n "$6" ]
