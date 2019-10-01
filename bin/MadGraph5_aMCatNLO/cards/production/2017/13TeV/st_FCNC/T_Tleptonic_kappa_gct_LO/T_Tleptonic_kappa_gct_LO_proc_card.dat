@@ -1,6 +1,9 @@
 # Model
 import model TopFCNC_UFO-kappa_gct_ProdConventions_no_c_mass --modelname
-
+# Multiparticles
+define l+  = e+ mu+ ta+
+define l-  = e- mu- ta-
+ 
 generate    p p > t  , (t  > w+ b,  w+ > l+ vl ) NP=1 @10
 add process p p > t~ , (t~ > w- b~, w- > l- vl~) NP=1 @20
 
