@@ -617,6 +617,13 @@ if [ -n "$5" ]
     scram_arch=slc6_amd64_gcc630 #slc6_amd64_gcc481
 fi
 
+# Require OS and scram_arch to be consistent
+export SYSTEM_RELEASE=`cat /etc/redhat-release`
+if { [[ $SYSTEM_RELEASE == *"release 6"* ]] && [[ $scram_arch == *"slc7"* ]]; } || { [[ $SYSTEM_RELEASE == *"release 7"* ]] && [[ $scram_arch == *"slc6"* ]]; }; then
+  echo "Mismatch between architecture (${scram_arch}) and OS (${SYSTEM_RELEASE})"
+  if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
+fi
+
 if [ -n "$6" ]
   then
     cmssw_version=${6}
