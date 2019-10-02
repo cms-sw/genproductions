@@ -1,0 +1,3 @@
+import DMsimp_s_spin1
+generate    p p  > y1 a  ,y1 > j j
+output VectorZPrimeAToQQA_M175_gq1p5_LO_flat_rhocut -nojpeg
