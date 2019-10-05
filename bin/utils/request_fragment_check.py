@@ -740,13 +740,17 @@ for num in range(0,len(prepid)):
                     if et_flag == 0:        
                         with open(os.path.join(my_path, pi, "powheg.input")) as f:
                             bornonly_f = f.read()
+                            bornonly_f = re.sub(r'(?m)^ *#.*\n?', '',bornonly_f)
                             bornonly = re.findall('bornonly\s+\d+',bornonly_f)
-                            bornonly = int(re.split(r'\s+',bornonly[0])[1])
+			    if len(bornonly) != 0: 	
+                                bornonly = int(re.split(r'\s+',bornonly[0])[1])
                     if et_flag == 1:
                         with open(os.path.join(my_path, pi, "external_tarball/powheg.input")) as f:
                             bornonly_f = f.read()
+                            bornonly_f = re.sub(r'(?m)^ *#.*\n?', '',bornonly_f)
                             bornonly = re.findall('bornonly\s+\d+',bornonly_f)
-                            bornonly = re.split(r'\s+',bornonly[0])[1]
+                            if len(bornonly) != 0: 
+                                bornonly = int(re.split(r'\s+',bornonly[0])[1])
                     if bornonly == 1:
                         bornonly_frag_check = 0
                         if int(os.popen('grep -c "Pythia8PowhegEmissionVetoSettings" '+pi).read()) == 1:
