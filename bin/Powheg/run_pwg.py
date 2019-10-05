@@ -319,13 +319,13 @@ fi
 
 # 5F
 is5FlavorScheme=1
-defaultPDF=306000
+defaultPDF=325300
 
 
 if [[ "$process" == "ST_tch_4f" ]] || [[ "$process" == "bbH" ]] || [[ "$process" == "Wbb_dec" ]] || [[ "$process" == "Wbbj" ]] || [[ "$process" == "WWJ" ]]; then
     # 4F
     is5FlavorScheme=0
-    defaultPDF=320900
+    defaultPDF=325500
 fi
 
 if [[ $is5FlavorScheme -eq 1 ]]; then
@@ -1245,10 +1245,10 @@ if __name__ == "__main__":
             test_pdf1 = 0
             test_pdf2 = 0
 
-            default_pdf = "306000"  # for 5 flavours
+            default_pdf = "325300"  # for 5 flavours
 
             if args.prcName=="ST_tch_4f" or args.prcName=="bbH" or args.prcName=="Wbb_dec" or args.prcName=="Wbbj" :
-                default_pdf = "320900"  # for 4 flavours
+                default_pdf = "325500"  # for 4 flavours
 
             for line in open(args.folderName+'/powheg.input') :
                 n_column = line.split()
@@ -1262,7 +1262,7 @@ if __name__ == "__main__":
 
             if test_pdf1 != default_pdf :
 #                print "PDF in card: ", test_pdf1, "PDF default: ", default_pdf, test_pdf1==default_pdf
-                message = "The input card does not have the standard 2017 PDF (NNPDF31 NNLO, 306000 for 5F, 320900 for 4F): {0}. Either change the card or run again with -d 1 to ignore this message.\n".format(test_pdf1)
+                message = "The input card does not have the standard Ultralegacy PDF (NNPDF31 NNLO, 325300 for 5F, 325500 for 4F): {0}. Either change the card or run again with -d 1 to ignore this message.\n".format(test_pdf1)
 
                 if args.noPdfCheck == '0' :
                     raise RuntimeError(message)
