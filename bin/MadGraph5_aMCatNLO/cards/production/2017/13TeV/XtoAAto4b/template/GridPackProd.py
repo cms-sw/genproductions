@@ -11,8 +11,8 @@ def Template_Replace(F, O, R):
 
 with open("ParticleWidths.csv") as csvfile:
 	W = csv.reader(csvfile)
-	for r in W:
-		R = r[0].split()
+	for R in W:
+		print R
 		N = "XtoAAto4b_X"+R[0]+"A"+R[1]
 		print "Creating: " + N
 		try:
@@ -20,7 +20,7 @@ with open("ParticleWidths.csv") as csvfile:
 		except:
 			os.mkdir("./"+N)
 
-		copyfile("customizecards_template.dat", "./"+N+"/"+N+"_costumizecards.dat")
+		copyfile("customizecards_template.dat", "./"+N+"/"+N+"_customizecards.dat")
 		copyfile("extramodels_template.dat", "./"+N+"/"+N+"_extramodels.dat")
 		copyfile("proc_card_template.dat", "./"+N+"/"+N+"_proc_card.dat")
 		copyfile("madspin_card_template.dat", "./"+N+"/"+N+"_madspin_card.dat")
