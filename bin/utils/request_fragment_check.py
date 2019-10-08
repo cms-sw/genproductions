@@ -739,18 +739,34 @@ for num in range(0,len(prepid)):
                             et_flag = 1
                     if et_flag == 0:        
                         with open(os.path.join(my_path, pi, "powheg.input")) as f:
-                            bornonly_f = f.read()
-                            bornonly_f = re.sub(r'(?m)^ *#.*\n?', '',bornonly_f)
-                            bornonly = re.findall('bornonly\s+\d+',bornonly_f)
+                            pw_in = f.read()
+                            pw_in = re.sub(r'(?m)^ *#.*\n?', '',pw_in)
+                            bornonly = re.findall('bornonly\s+\d+',pw_in)
 			    if len(bornonly) != 0: 	
                                 bornonly = int(re.split(r'\s+',bornonly[0])[1])
+                            pw_pdf = re.findall('lhans1\s+\d+',pw_in)
+                            if len(pw_pdf) != 0:
+                                pw_pdf = int(re.split(r'\s+', pw_pdf[0])[1])
+                                if "UL" in pi and pw_pdf != 325300 and pw_pdf != 325500:
+                                    print"* [WARNING] The gridpack uses PDF="+str(pw_pdf)+" but not the recommended sets for UL requests:"
+                                    print"*                                             325300 (NNPDF31_nnlo_as_0118_mc_hessian_pdfas)" 
+                                    print"*                                             or 325500 (NNPDF31_nnlo_as_0118_nf_4_mc_hessian)." 
+                                    warning =+ 1
                     if et_flag == 1:
                         with open(os.path.join(my_path, pi, "external_tarball/powheg.input")) as f:
-                            bornonly_f = f.read()
-                            bornonly_f = re.sub(r'(?m)^ *#.*\n?', '',bornonly_f)
-                            bornonly = re.findall('bornonly\s+\d+',bornonly_f)
+                            pw_in = f.read()
+                            pw_in = re.sub(r'(?m)^ *#.*\n?', '',pw_in)
+                            bornonly = re.findall('bornonly\s+\d+',pw_in)
                             if len(bornonly) != 0: 
                                 bornonly = int(re.split(r'\s+',bornonly[0])[1])
+                            pw_pdf = re.findall('lhans1\s+\d+',pw_in)
+                            if len(pw_pdf) != 0:
+                                pw_pdf = int(re.split(r'\s+', pw_pdf[0])[1])
+                            if "UL" in pi and pw_pdf != 325300 and pw_pdf != 325500:
+                                print"* [WARNING] The gridpack uses PDF="+str(pw_pdf)+" but not the recommended sets for UL requests:"
+                                print"*                                             325300 (NNPDF31_nnlo_as_0118_mc_hessian_pdfas)" 
+                                print"*                                             or 325500 (NNPDF31_nnlo_as_0118_nf_4_mc_hessian)." 
+                                warning =+ 1
                     if bornonly == 1:
                         bornonly_frag_check = 0
                         if int(os.popen('grep -c "Pythia8PowhegEmissionVetoSettings" '+pi).read()) == 1:
