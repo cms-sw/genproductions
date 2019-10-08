@@ -401,7 +401,7 @@ for num in range(0,len(prepid)):
         os.system('mkdir -p '+my_path+'/eos/'+pi)
         os.system('mv '+pi+'_tmp '+pi)
         os.system('cp '+pi+' '+my_path+'/'+pi+'/.')
-        os.system('wget -q https://cms-pdmv.cern.ch/mcm/public/restapi/requests/get_test/'+pi+' -O '+pi+'_get_test')
+        os.system('wget -q '+mcm_link+'public/restapi/requests/get_test/'+pi+' -O '+pi+'_get_test')
         gettest = os.popen('grep cff '+pi+'_get_test'+' | grep curl').read()
 
         if herwig_flag != 0:
