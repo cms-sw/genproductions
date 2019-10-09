@@ -701,17 +701,27 @@ for num in range(0,len(prepid)):
         if "jhugen" in dn.lower():
             if gp_size == 0:
                 break
-            with open(os.path.join(my_path, pi, "JHUGen.input")) as f:
-                jhu_in = f.read()
-                jhu_in = re.sub(r'(?m)^ *#.*\n?', '',jhu_in)
-                jhu_pdf = re.findall('LHAPDF=\S+',jhu_in)
-                jhu_pdf = jhu_pdf[0].split('=')[1].split('/')[1]
-                print(jhu_pdf)
-                if "UL" in pi and jhu_pdf not in UL_PDFs:
-                    print"* [WARNING] The gridpack uses PDF = "+str(jhu_pdf)+" but not the recommended sets for UL requests:"
-                    print"*                                   325300 "+UL_PDFs[0] 
-                    print"*                                or 325500 "+UL_PDFs[1]
-                    warning += 1
+	    for root, dirs, files in os.walk(os.path.join(my_path, pi, "."), topdown=False):
+   		for name in files:
+      		    if "JHUGen.input" in name:	
+			print"* Found the JHUGen input file: "+os.path.join(root, name)
+			jhufilename = os.path.join(root, name)
+   		for name in dirs:
+      	            if "JHUGen.input" in name:
+	                print"* Found the JHUGen input file: "+os.path.join(root, name)
+			jhufilename = os.path.join(root, name)
+            if os.path.isfile(jhufilename) is True :
+                with open(jhufilename) as f: 		
+                    jhu_in = f.read()
+                    jhu_in = re.sub(r'(?m)^ *#.*\n?', '',jhu_in)
+                    jhu_pdf = re.findall('LHAPDF=\S+',jhu_in)
+                    jhu_pdf = jhu_pdf[0].split('=')[1].split('/')[1]
+                    print(jhu_pdf)
+                    if "UL" in pi and jhu_pdf not in UL_PDFs:
+                        print"* [WARNING] The gridpack uses PDF = "+str(jhu_pdf)+" but not the recommended sets for UL requests:"
+                        print"*                                   325300 "+UL_PDFs[0] 
+                        print"*                                or 325500 "+UL_PDFs[1]
+                        warning += 1
         for ind, word in enumerate(MEname):
             if fsize == 0:
                 break
