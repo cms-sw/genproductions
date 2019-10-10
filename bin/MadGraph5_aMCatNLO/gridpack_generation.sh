@@ -623,7 +623,7 @@ fi
 export SYSTEM_RELEASE=`cat /etc/redhat-release`
 if { [[ $SYSTEM_RELEASE == *"release 6"* ]] && [[ $scram_arch == *"slc7"* ]]; } || { [[ $SYSTEM_RELEASE == *"release 7"* ]] && [[ $scram_arch == *"slc6"* ]]; }; then
   echo "Mismatch between architecture (${scram_arch}) and OS (${SYSTEM_RELEASE})."
-  echo "Note: you can specify the architecture as a command line argument."
+  echo "Note: you can specify the architecture as a command line argument. The default is slc7_amd64_gcc630."
   if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
 fi
 
