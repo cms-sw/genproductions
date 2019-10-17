@@ -38,5 +38,5 @@ mass_low 200       ! M Z > mass_low in GeV
 mass_high 400    ! M Z < mass_high in GeV
 
 pdfreweight 0       ! PDF reweighting
-storeinfo_rwgt 0    ! store weight information
+storeinfo_rwgt 0    ! store weight information, set to 1 if systematic variations are needed 
 withnegweights 1 ! default 0, 
