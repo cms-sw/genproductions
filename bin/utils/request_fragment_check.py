@@ -919,7 +919,7 @@ for num in range(0,len(prepid)):
                     elif os.path.isfile(fname2) is True :    
                        ickkw = os.popen('more '+fname2+' | tr -s \' \' | grep "= ickkw"').read()
                        bw = os.popen('more '+fname2+' | tr -s \' \' | grep "= bwcutoff"').read()
-                       mg_pdf = os.popen('more '+fname+' | tr -s \' \' | grep "= lhaid"').read()
+                       mg_pdf = os.popen('more '+fname2+' | tr -s \' \' | grep "= lhaid"').read()
                     else:
                         if gp_size != 0:
                             print "* [ERROR] Although the name of the dataset has ~Madgraph, the gridpack doesn't seem to be a MG5_aMC one. Please check."
