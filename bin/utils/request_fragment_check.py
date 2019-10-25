@@ -253,9 +253,10 @@ for x in prepid:
 for num in range(0,len(prepid)):
     res = get_request(prepid[num])
     if len(res) == 0 :
-        print "***********************************************************************************"
-        print "Something's wrong - can not get the request parameters"
-        print "***********************************************************************************"
+        print "***************************************************************************************"
+        print "Something's wrong - can not get the request parameters - check that the request exists."
+        print "***************************************************************************************"
+        continue
 
     my_path =  '/tmp/'+os.environ['USER']+'/gridpacks/'
 #    print "JSON Dump:"
