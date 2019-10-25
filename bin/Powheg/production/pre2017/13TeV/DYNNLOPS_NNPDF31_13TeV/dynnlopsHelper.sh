@@ -155,8 +155,8 @@ case $WHAT in
         for PROC in ${PROCS[@]}
         do
             rm -r ${PROC}; mkdir ${PROC}; cd ${PROC}
-            tar -xzf ../../${PROC:0:1}j_slc7_amd64_gcc700_CMSSW_10_6_0_${PROC}-powheg-NNLOPS.tgz
-            ./runcmsgrid.sh 150 1 1 &
+            tar -xzf ../../${PROC:0:1}j_slc6_amd64_gcc700_CMSSW_10_2_16_${PROC}-powheg-NNLOPS.tgz
+            ./runcmsgrid.sh 200 1 1 &
             cd ..
         done
     ;;
