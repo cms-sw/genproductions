@@ -1,0 +1,14 @@
+executable              = ${execname}
+arguments               = ${condor_args}
+
+transfer_input_files    = ${files_to_transfer}
+
+output                  = ${logname}_$$(ProcID}.out
+error                   = ${logname}_$$(ProcID}.err
+log                     = ${logname}_$$(ProcID}.log
+initialdir              = ${rootfolder}/${folderName}
+getEnv                  = 1
+
++JobFlavour             = ${run_queue}
+
+
