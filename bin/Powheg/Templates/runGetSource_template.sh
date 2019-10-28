@@ -35,7 +35,7 @@ forDYNNLOPS=$forDYNNLOPS
 
 cd $$WORKDIR
 cd $${name}
-python ${script_dir}/make_rwl.py $${is5FlavorScheme} $${defaultPDF} $${forDYNNLOPS}
+python ${rootfolder}/make_rwl.py $${is5FlavorScheme} $${defaultPDF} $${forDYNNLOPS}
 
 if [ -s ../JHUGen.input ]; then
   cp -p ../JHUGen.input JHUGen.input
