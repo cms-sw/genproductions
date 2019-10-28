@@ -1,6 +1,6 @@
 export folderName=$folderName
 export process=$process
-#export cardInput=$powInputName
+#export cardInput=$$powInputName
 export keepTop=$keepTop
 export WORKDIR=$rootfolder
 export SEED=$seed
