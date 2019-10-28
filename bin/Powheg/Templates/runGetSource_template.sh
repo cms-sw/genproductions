@@ -369,7 +369,7 @@ if [ "$$process" = "ST_wtch_DR" ] || [ "$$process" = "ST_wtch_DS" ]; then
   cd ..                                                     
 fi                                                          
 
-export PYTHONPATH=./Virtual/:$PYTHONPATH
+export PYTHONPATH=./Virtual/:$$PYTHONPATH
 make pwhg_main || fail_exit "Failed to compile pwhg_main"
 
 mkdir -p $${WORKDIR}/$${name}
