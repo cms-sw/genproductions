@@ -1,5 +1,6 @@
 export folderName=$folderName
 export process=$process
+#export cardInput=$powInputName
 export keepTop=$keepTop
 export WORKDIR=$rootfolder
 export SEED=$seed
@@ -50,13 +51,12 @@ sed -i "s/^withnegweights/#withnegweights 1/g" powheg.input
 # parallel re-weighting calculation
 if [ "$$process" = "HW_ew" ] || [ "$$process" = "HZ_ew" ] || [ "$$process" = "HZJ_ew" ] || [ "$$process" = "HWJ_ew" ] ; then
    echo "# no reweighting in first runx" >> powheg.input
-else 
-   echo "rwl_group_events 2000" >> powheg.input
-   echo "lhapdf6maxsets 50" >> powheg.input
-   echo "rwl_file 'pwg-rwl.dat'" >> powheg.input
-   echo "rwl_format_rwgt 1" >> powheg.input
+else
+   grep -q "rwl_group_events" powheg.input; test $$? -eq 0 || echo "rwl_group_events 2000" >> powheg.input
+   grep -q "lhapdf6maxsets" powheg.input; test $$? -eq 0 || echo "lhapdf6maxsets 50" >> powheg.input
+   grep -q "rwl_file" powheg.input; test $$? -eq 0 || echo "rwl_file 'pwg-rwl.dat'" >> powheg.input
+   grep -q "rwl_format_rwgt" powheg.input; test $$? -eq 0 || echo "rwl_format_rwgt 1" >> powheg.input
 fi
-cp -p $$WORKDIR/pwg-rwl.dat pwg-rwl.dat
 
 if [ -e $${WORKDIR}/$$folderName/cteq6m ]; then
     cp -p $${WORKDIR}/cteq6m .
@@ -109,13 +109,22 @@ if [ "$$process" = "HJ" ]; then
   keepTop='1'
 fi
 
+if [ "$$process" = "Zj" ] || [ "$$process" = "Wj" ]; then
+  if [ -e $${WORKDIR}/$${folderName}/MINLO-W1-denom.top ]; then
+    echo "This gridpack includes NNLOPS reweighting"
+    #force keep top in this case
+    keepTop='1'
+    grep -q "nnlops" powheg.input; test $$? -eq 0 || echo "nnlops 1" >> powheg.input
+  fi
+fi
+
 if [ $$keepTop == '1' ]; then
     echo 'Keeping validation plots.'
     echo 'Packing...' $${WORKDIR}'/'$${process}'_'$${SCRAM_ARCH}'_'$${CMSSW_VERSION}'_'$${folderName}'.tgz'
-    tar zcf $${WORKDIR}'/'$${process}'_'$${SCRAM_ARCH}'_'$${CMSSW_VERSION}'_'$${folderName}'.tgz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.lhe --exclude=run_*.sh --exclude=*temp --exclude=pwgbtlupb-*.dat --exclude=pwgrmupb-*.dat
+    tar zcf $${WORKDIR}'/'$${process}'_'$${SCRAM_ARCH}'_'$${CMSSW_VERSION}'_'$${folderName}'.tgz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.lhe --exclude=run_*.sh --exclude=*temp --exclude=pwgbtlupb-*.dat --exclude=pwgrmupb-*.dat --exclude=run_*.out --exclude=run_*.err --exclude=run_*.log --exclude=minlo-run --exclude=dynnlo*
 else
     echo 'Packing...' $${WORKDIR}'/'$${process}'_'$${SCRAM_ARCH}'_'$${CMSSW_VERSION}'_'$${folderName}'.tgz'
-    tar zcf $${WORKDIR}'/'$${process}'_'$${SCRAM_ARCH}'_'$${CMSSW_VERSION}'_'$${folderName}'.tgz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.top --exclude=*.lhe --exclude=run_*.sh --exclude=*temp --exclude=pwgbtlupb-*.dat --exclude=pwgrmupb-*.dat
+    tar zcf $${WORKDIR}'/'$${process}'_'$${SCRAM_ARCH}'_'$${CMSSW_VERSION}'_'$${folderName}'.tgz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.top --exclude=*.lhe --exclude=run_*.sh --exclude=*temp --exclude=pwgbtlupb-*.dat --exclude=pwgrmupb-*.dat --exclude=run_*.out --exclude=run_*.err --exclude=run_*.log --exclude=minlo-run --exclude=dynnlo*
 fi
 
 cd $${WORKDIR}

@@ -29,8 +29,8 @@ fi
 
 echo "LHAPDF_BASE is set to:" $$LHAPDF_BASE 
 export PATH=$$LHAPDF_BASE/bin/:$$PATH 
-
 export LHAPDF_DATA_PATH=`$$LHAPDF_BASE/bin/lhapdf-config --datadir` 
+export PYTHONPATH=.:$$PYTHONPATH
 
 popd
 
@@ -42,6 +42,11 @@ if [ -e ${rootfolder}/${folderName}/obj-gfortran/proclib ]; then
   mkdir ./obj-gfortran/
   cp -pr ${rootfolder}/${folderName}/obj-gfortran/proclib  ./obj-gfortran/
   cp -pr ${rootfolder}/${folderName}/obj-gfortran/*.so  ./obj-gfortran/ 
+  export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:`pwd`/obj-gfortran/proclib/:$${LD_LIBRARY_PATH}
 fi
-
+if [ -e ${rootfolder}/${folderName}/Virt_full_cHHH_0.0.grid ]; then 
+  cp -p ${rootfolder}/${folderName}/*.grid .
+  cp -p ${rootfolder}/${folderName}/*.cdf .
+  cp -p ${rootfolder}/${folderName}/*.py* .
+fi 
 

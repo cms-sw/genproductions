@@ -2,10 +2,10 @@ export name=$folderName
 export cardInput=$powInputName
 export process=$process
 export noPdfCheck=$noPdfCheck
-export WORKDIR=$currDir
+export WORKDIR=$rootfolder
 # Release to be used to define the environment and the compiler needed
 export RELEASE=$${CMSSW_VERSION}
-export jhugenversion="v7.1.4" 
+export jhugenversion="v7.2.7" 
 
 cd $$WORKDIR
 pwd
@@ -31,9 +31,11 @@ else
   echo "INFO: The process $$process uses the 4F PDF scheme"
 fi
 
+forDYNNLOPS=$forDYNNLOPS
+
 cd $$WORKDIR
-python ${script_dir}/make_rwl.py $${is5FlavorScheme} $${defaultPDF}
 cd $${name}
+python ${script_dir}/make_rwl.py $${is5FlavorScheme} $${defaultPDF} $${forDYNNLOPS}
 
 if [ -s ../JHUGen.input ]; then
   cp -p ../JHUGen.input JHUGen.input
@@ -59,7 +61,7 @@ if [[ -s ./JHUGen.input ]]; then
 fi
 
 ### retrieve the powheg source tar ball
-export POWHEGSRC=$powhegSrc
+export POWHEGSRC=$powhegSrc 
 
 echo 'D/L POWHEG source...'
 
@@ -101,6 +103,9 @@ if [ "$$process" = "WWJ" ]; then
     patch -l -p0 -i ${patches_dir}/wwj-weights.patch
     cp ${patches_dir}/rwl_write_weights2_extra.f POWHEG-BOX/$$process/
 fi
+if [ "$$process" = "Zj" ] || [ "$$process" = "Wj" ]; then
+    patch -l -p0 -i ${patches_dir}/pwhg_write_weights_nnlo.patch
+fi
 
 
 sed -i -e "s#500#1200#g"  POWHEG-BOX/include/pwhg_rwl.h
@@ -111,6 +116,14 @@ cd POWHEG-BOX/$${process}
 
 # This is just to please gcc 4.8.1
 mkdir -p include
+
+if [ "$$process" = "Zj" ] || [ "$$process" = "Wj" ]; then
+    tar zxf ../DYNNLOPS.tgz
+    wget --no-verbose --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/slc6_amd64_gcc481/powheg/V2.0/src/nnlops_fast_patch3_$${process:0:1}.tgz
+    tar zxf nnlops_fast_patch3_$${process:0:1}.tgz
+    mv Makefile-NNLOPS Makefile
+fi
+
 
 # Use dynamic linking and lhapdf
 sed -i -e "s#STATIC[ \t]*=[ \t]*-static#STATIC=-dynamic#g" Makefile
@@ -138,12 +151,12 @@ if [ `echo $${POWHEGSRC} | cut -d "_" -f 1` = "powhegboxV1" ]; then
    BOOK_HISTO="pwhg_bookhist.o"
 fi 
 
-if [ "$$process" = "gg_H" ] || [ "$$process" = "ggHH" ] || [ "$$process" = "WWJ" ]; then
+if [ "$$process" = "gg_H" ] || [ "$$process" = "ggHH" ] || [ "$$process" = "ggHH_EWChL" ] || [ "$$process" = "WWJ" ]; then
    BOOK_HISTO=""
    echo "Process using pwhg_bookhist-multi-new"
 fi
 
-if [ "$$process" = "ggHH" ]; then
+if [ "$$process" = "ggHH" ] || [ "$$process" = "ggHH_EWChL" ]; then
    sed -i -e "/PYTHIA8LOCATION/s|^|#|g" Makefile
    sed -i -e "/LIBPYTHIA8/s|^|#|g" Makefile
    sed -i -e "s|LIBHEPMC=|# LIBHEPMC=|g" Makefile
@@ -171,6 +184,14 @@ if [ "$$process" = "Wgamma" ] || [ "$$process" = "W_ew-BMNNP" ]; then
 fi
 if [ "$$process" = "HW_ew" ]; then
     patch -l -p0 -i ${patches_dir}/hwew.patch 
+fi
+#if [ "$$process" = "ttb_NLO_dec" ]; then
+#    patch -l -p0 -i ${patches_dir}/pwhg_analysis_driver_offshellmap.patch
+#fi
+if [ -e ./Virtual/Virt_full_cHHH_-1.0.grid ]; then
+  cp ./Virtual/events.cdf $${WORKDIR}/$${name}/
+  cp ./Virtual/creategrid.py* $${WORKDIR}/$${name}/
+  cp ./Virtual/Virt_full_cHHH*.grid $${WORKDIR}/$${name}/
 fi
 
 # Remove ANY kind of analysis with parton shower
@@ -261,7 +282,7 @@ fi
 
 if [ "$$process" = "WWJ" ]; then
   cp Makefile Makefile.orig
-  cat Makefile.orig |  sed -e "s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$$(scram tool info fastjet | grep BASE | cut -d "=" -f2)/bin/fastjet-config#g" | sed -e "s#cs_angles.o#cs_angles.o fastjetfortran.o observables.o pwhg_bookhist-multi-new.o#g" | sed -e "s#\#\ FASTJET_CONFIG#FASTJET_CONFIG#g" | sed -e "s#\#\ LIBSFASTJET#LIBSFASTJET#g" | sed -e "s#\#\ FJCXXFLAGS#FJCXXFLAGS#g" | sed -e "s#rwl_write_weights_extra.f#rwl_write_weights_extra.f\ rwl_write_weights2_extra.f#g"> Makefile
+  cat Makefile.orig | sed -e "s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$$(scram tool info fastjet | grep BASE | cut -d "=" -f2)/bin/fastjet-config#g" | sed -e "s#cs_angles.o#cs_angles.o fastjetfortran.o observables.o pwhg_bookhist-multi-new.o#g" | sed -e "s#\#\ FASTJET_CONFIG#FASTJET_CONFIG#g" | sed -e "s#\#\ LIBSFASTJET#LIBSFASTJET#g" | sed -e "s#\#\ FJCXXFLAGS#FJCXXFLAGS#g" | sed -e "s#rwl_write_weights_extra.f#rwl_write_weights_extra.f\ rwl_write_weights2_extra.f#g" > Makefile
 fi
 
 if [ "$$process" = "gg_H_2HDM" ] || [ "$$process" = "gg_H_MSSM" ]; then
@@ -290,6 +311,7 @@ if [ "$$process" = "gg_H_2HDM" ] || [ "$$process" = "gg_H_MSSM" ]; then
     cd ..
   fi
 fi
+
 if [ "$$process" = "directphoton" ]; then
   echo "Adding LoopTools 2.14 library"
   if [ ! -f LoopTools-2.14.tar.gz ]; then
@@ -303,6 +325,26 @@ if [ "$$process" = "directphoton" ]; then
   sed -i -e 's/^LT\=$$.*/LT=$$\(PWD\)/' Makefile
   export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:$${LD_LIBRARY_PATH}
   mkdir obj-gfortran
+fi
+
+if [ "$$process" = "vbs-ssww-nloew" ]; then
+  echo "Adding Recola2.2.0 library"
+  if [ ! -f recola2-collier-2.2.0.tar.gz ]; then
+    wget --no-verbose -O recola2-collier-2.2.0.tar.gz https://recola.hepforge.org/downloads/?f=recola2-collier-2.2.0.tar.gz || fail_exit "Failed to get Recola tar ball "
+  fi
+  tar -zxvf recola2-collier-2.2.0.tar.gz
+  cd recola2-collier-2.2.0/build
+  cmake .. -DCMAKE_Fortran_COMPILER=gfortran -Dmodel=SM
+  make -j 1
+  make install
+  cd ../..
+  mkdir obj-gfortran/proclib
+  cd obj-gfortran/proclib
+  cp ../../recola2-collier-2.2.0/recola2-2.2.0/librecola.so .
+  cd ../..
+  cp Makefile Makefile.orig
+  cat Makefile.orig | sed -e "s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$$(scram tool info fastjet | grep BASE | cut -d "=" -f2)/bin/fastjet-config#g" | sed -e "s#/archive/mpellen/Programs/Recolas/Powheg/recola-1.3.6#$$\(PWD\)/recola2-collier-2.2.0/recola2-2.2.0#g" | sed -e "s# real16.o##g" | sed -e '154d;164d' > Makefile
+  export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:$${LD_LIBRARY_PATH}
 fi
 
 
@@ -327,7 +369,7 @@ if [ "$$process" = "ST_wtch_DR" ] || [ "$$process" = "ST_wtch_DS" ]; then
   cd ..                                                     
 fi                                                          
 
-
+export PYTHONPATH=./Virtual/:$PYTHONPATH
 make pwhg_main || fail_exit "Failed to compile pwhg_main"
 
 mkdir -p $${WORKDIR}/$${name}
@@ -451,6 +493,60 @@ EOF
 
 fi  
 
+if [ "$$process" = "Zj" ] || [ "$$process" = "Wj" ]; then
+  echo "Compiling DYNNLO...."
+  wget --no-verbose --no-check-certificate http://theory.fi.infn.it/grazzini/codes/dynnlo-v1.5.tgz
+  tar -xzvf dynnlo-v1.5.tgz
+  cd dynnlo-v1.5
+  cp ../POWHEG-BOX/$${process}/DYNNLOPS/$${process:0:1}NNLOPS/dynnlo-patches/dynnlo.makefile ./makefile
+  cp -r -L ../POWHEG-BOX/$${process}/DYNNLOPS/$${process:0:1}NNLOPS/dynnlo-patches ./
+  cd src/Need/
+  cat pdfset_lhapdf.f | sed -e "s#30#40#g" | sed -e "s#20#30#g" | sed -e "s#oldPDFname(1:i-1)//'.LHgrid'#oldPDFname(1:i-1)#g" | sed -e "s#oldPDFname(1:i-1)//'.LHpdf'#oldPDFname(1:i-1)#g" | sed -e "s#InitPDFset('PDFsets/'//PDFname)#InitPDFsetByName(PDFname)#g" > pdfset_lhapdf.f.new
+  mv pdfset_lhapdf.f.new pdfset_lhapdf.f
+  cd -
+  cat makefile | sed -e "s#LHAPDFLIB=.\+#LHAPDFLIB=$$(scram tool info lhapdf | grep LIBDIR | cut -d "=" -f2)#g" > makefile
+  make || fail_exit "Failed to compile DYNNLO"
+
+  cp -p bin/dynnlo $${WORKDIR}/$${name}/
+
+  cd $${WORKDIR}/$${name}/POWHEG-BOX/$${process}/DYNNLOPS/aux
+  gfortran -mcmodel=medium -o merge3ddata merge3ddata.f  || fail_exit "Failed to compile merge3ddata"
+  cp merge3ddata $${WORKDIR}/$${name}/
+  gfortran -mcmodel=medium -o mergedata mergedata.f  || fail_exit "Failed to compile mergedata"
+  cp mergedata $${WORKDIR}/$${name}/
+
+  cd $${WORKDIR}/$${name}/POWHEG-BOX/$${process}
+  make lhef_analysis_3d || fail_exit "Failed to compile lhef_analysis_3d"
+  cp lhef_analysis_3d $${WORKDIR}/$${name}/
+
+  cd $${WORKDIR}/$${name}
+  VMASS=`cat powheg.input | grep "^Wmass\|^Zmass" | awk '{print $$2}' | cut -d "d" -f1`
+  VMASSEXP=`cat powheg.input | grep "^Wmass\|^Zmass" | awk '{print $$2}' | cut -d "d" -f2`
+  VMASS=`echo "( $$VMASS*10^$$VMASSEXP )" | bc`
+  VMASSMIN=`cat powheg.input | grep "^min_W_mass\|^min_Z_mass" | awk '{print $$2}'`
+  VMASSMAX=`cat powheg.input | grep "^max_W_mass\|^max_Z_mass" | awk '{print $$2}'`
+  echo $$VMASS
+  DYNNLOPROC=3
+  if [ "$$process" = "Wj" ]; then
+    DYNNLOPROC=1
+    VID=`cat powheg.input | grep "^idvecbos" | awk '{print $$2}'`;
+    if [ "$$VID" = "-24" ]; then
+      DYNNLOPROC=2
+    fi
+  fi
+  BEAM=`cat powheg.input | grep "^ebeam1" | cut -d " " -f2 | tr "d" "."`;
+  COMENERGY=`echo "( $$BEAM*2 )" | bc`
+
+  cp POWHEG-BOX/$${process}/DYNNLOPS/$${process:0:1}NNLOPS/dynnlo-patches/dynnlo.infile dynnlo.infile.orig
+  gawk "/sroot/{gsub(/.*!/,$$COMENERGY \" !\")};\
+        /nproc/{gsub(/.*!/,$$DYNNLOPROC \" !\")};\
+        /mur/{gsub(/.*!/, $$VMASS \" \" $$VMASS \" !\")};\
+        /mwmin/{gsub(/.*!/, $$VMASSMIN \" \" $$VMASSMAX \" !\")};\
+        /rseed/{gsub(/.*!/,\"SEED !\")};\
+        /runstring/{gsub(/.*!/,\"'SEED' !\")};\
+        {print}" dynnlo.infile.orig | tee DYNNLO.input
+fi
+
 #mkdir -p workdir
 #cd workdir
 localDir=`pwd`
@@ -491,20 +587,19 @@ echo 'Compiling finished...'
 if [ $$jhugen = 1 ]; then
   cp -p $${cardj} .
   
-  if [ ! -e ${script_dir}/runcmsgrid_powhegjhugen.sh ]; then
-   fail_exit "Did not find " ${script_dir}/runcmsgrid_powhegjhugen.sh 
+  if [ ! -e $${WORKDIR}/runcmsgrid_powhegjhugen.sh ]; then
+   fail_exit "Did not find " $${WORKDIR}/runcmsgrid_powhegjhugen.sh 
   fi
-  sed -e 's/PROCESS/'$${process}'/g' ${script_dir}/runcmsgrid_powhegjhugen.sh > runcmsgrid.sh
+  sed -e 's/PROCESS/'$${process}'/g' $${WORKDIR}/runcmsgrid_powhegjhugen.sh > runcmsgrid.sh
 else
-  if [ ! -e ${script_dir}/runcmsgrid_powheg.sh ]; then
-   fail_exit "Did not find " ${script_dir}/runcmsgrid_powheg.sh 
+  if [ ! -e $${WORKDIR}/runcmsgrid_powheg.sh ]; then
+   fail_exit "Did not find " $${WORKDIR}/runcmsgrid_powheg.sh 
   fi
-  sed -e 's/PROCESS/'$${process}'/g' ${script_dir}/runcmsgrid_powheg.sh > runcmsgrid.sh
+  sed -e 's/PROCESS/'$${process}'/g' $${WORKDIR}/runcmsgrid_powheg.sh > runcmsgrid.sh
 fi
 
 sed -i s/SCRAM_ARCH_VERSION_REPLACE/$${SCRAM_ARCH}/g runcmsgrid.sh
 sed -i s/CMSSW_VERSION_REPLACE/$${CMSSW_VERSION}/g runcmsgrid.sh
 
 chmod 755 runcmsgrid.sh
-
 
