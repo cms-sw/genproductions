@@ -99,9 +99,8 @@ def prepareJob(tag, i, folderName) :
         "folderName" : folderName,
         "rootfolder" : rootfolder,
     }
-    template_dict["script_dir"] = os.path.dirname(os.path.realpath(__file__))
 
-    template_file = "%s/Templates/prepareJob_template.sh" % template_dict["script_dir"]
+    template_file = "%s/Templates/prepareJob_template.sh" % rootfolder
     helpers.fillTemplatedFile(template_file, filename, template_dict, "w")
 
     return filename
@@ -111,28 +110,21 @@ def prepareJob(tag, i, folderName) :
 
 def prepareJobForEvents (tag, i, folderName, EOSfolder) :
     runCommand('rm ' + rootfolder + '/' + folderName + '/log_' + tag + '.log')
-    filename = 'run_' + tag + '.sh'
+    filename = 'run_%s.sh' % tag
 
     prepareJob(tag, i, folderName)
 
-    f = open (filename, 'a')
-    f.write ('cp -p ' + rootfolder + '/' + folderName + '/*.dat  ./' + '\n')
-    f.write ('if [ -e '+ rootfolder + '/' + folderName + '/obj-gfortran/proclib ]; then    \n')
-    f.write ('  mkdir ./obj-gfortran/' + '\n')
-    f.write ('  cp -pr ' + rootfolder + '/' + folderName + '/obj-gfortran/proclib  ./obj-gfortran/' + '\n')
-    f.write ('  cp -pr ' + rootfolder + '/' + folderName + '/obj-gfortran/*.so  ./obj-gfortran/' + '\n')
-    f.write ('fi    \n')
+    template_dict = {
+        "folderName" : folderName,
+        "rootfolder" : rootfolder,
+        "iJob"       : i,
+        "tag"        : tag,
+    }
 
-    f.write ('cd -' + '\n')
+    template_file = "%s/Templates/prepareJobForEvents_template.sh" % rootfolder
+    helpers.fillTemplatedFile(template_file, filename, template_dict)
 
-    f.write ('pwd' + '\n')
-    f.write ('ls' + '\n')
-    f.write ('echo ' + str (i) + ' | ' + rootfolder + '/pwhg_main &> log_' + tag + '.log ' + '\n')
-    f.write ('cp -p log_' + tag + '.log ' + rootfolder + '/' + folderName + '/. \n')
- 
-    f.close ()
     return filename
-
 
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
@@ -300,7 +292,7 @@ def runGetSource(parstage, xgrid, folderName, powInputName, process, noPdfCheck,
     else:
         template_dict["powhegSrc"] = POWHEG_SOURCE
 
-    template_file = "%s/Templates/runGetSource_template.sh" % template_dict["rootfolder"]
+    template_file = "%s/Templates/runGetSource_template.sh" % rootfolder
     helpers.fillTemplatedFile(template_file, filename, template_dict)
     os.chmod(filename, 0o755)
 
@@ -394,7 +386,7 @@ def createTarBall(parstage, folderName, prcName, keepTop, seed, scriptName) :
         "seed" : seed,
     }
 
-    template_file = "%s/Templates/createTarBall_template.sh" % template_dict["rootfolder"]
+    template_file = "%s/Templates/createTarBall_template.sh" % rootfolder
     helpers.fillTemplatedFile(template_file, filename, template_dict)
     
     if prcName in ['Zj', 'Wj']:
@@ -407,41 +399,26 @@ def createTarBall(parstage, folderName, prcName, keepTop, seed, scriptName) :
 
 
 def runhnnlo(folderName, njobs, QUEUE):
+
+  template_dict = {
+      "rootfolder" : rootfolder,
+      "folderName" : folderName,
+  }
+
   scales = ["11", "22", "0505"]
   for scale in scales:
     os.system('rm -rf '+ folderName+"/"+scale)
     os.system('mkdir -p '+ folderName+"/"+scale) 
     filename = folderName+"/"+scale+"/launch_NNLO.sh"
-    launching_script = open(filename, "w")
-    launching_script.write("#!/bin/bash\n")
-    launching_script.write('base='+os.getcwd()+"/"+folderName+"/"+scale+'\n\n')
-    launching_script.write(
-'''
-config=$1
-seed=$2
 
-cd $base
-eval `scram runtime -sh`
-cd -
+    template_dict["scale"] = scale
 
-cat $base/../$config | sed -e "s#SEED#$seed#g" > config.input
-cat config.input | sed -e "s#MSTW2008nnlo68cl#NNPDF31_nnlo_hessian_pdfas#g" > config.input.temp
-mv config.input.temp config.input
-
-cp $base/../hnnlo .
-cp $base/../br* .
-
-./hnnlo < config.input &> log_${seed}.txt
-
-cp HNNLO-LHC13* ${base}
-
-cp log_${seed}.txt ${base}
-''')
-    launching_script.close()
-    os.system('chmod 755 '+filename) 
+    template_file = "%s/Templates/runhnnlo_template.sh" % rootfolder
+    helpers.fillTemplatedFile(template_file, filename, template_dict, "w")
+    os.chmod(filename, 0o755)
      
     print 'Submitting to condor queues \n'
-    tagName = 'hnnlo_' + scale 
+    tagName = 'hnnlo_%s' % scale 
     condorfile = prepareCondorScript(tagName, 'hnnlo', folderName, QUEUE, scale) 
     runCommand ('condor_submit ' + condorfile + ' -queue '+ str(njobs), TESTING == 0)
    
@@ -465,6 +442,12 @@ def makedynnloconfig(folderName, baseconfig, config, murfac, muffac):
 
 
 def rundynnlo(folderName, njobs, QUEUE):
+
+    template_dict = {
+        "rootfolder" : rootfolder,
+        "folderName" : folderName,
+    }
+
     scales = ["1", "2", "0.5"]
     baseconfig = "DYNNLO.input"
     for mur in scales:
@@ -472,34 +455,15 @@ def rundynnlo(folderName, njobs, QUEUE):
             config = "DYNNLO_mur%s_muf%s.input" % (mur, muf)
             makedynnloconfig(folderName, baseconfig, config, float(mur), float(muf))
             subfolderName = "dynnlo_mur%s_muf%s" % (mur, muf)
+            template_dict["subfolderName"] = subfolderName
+
             os.system('mkdir -p ' + folderName + "/" + subfolderName)
             filename = folderName+"/"+subfolderName+"/launch_NNLO.sh"
-            launching_script = open(filename, "w")
-            launching_script.write("#!/bin/bash\n")
-            launching_script.write('base='+os.getcwd()+"/"+folderName+"/"+subfolderName+'\n\n')
-            launching_script.write('''
-config=$1
-seed=$2
 
-cd $base
-eval `scram runtime -sh`
-cd -
+            template_file = "%s/Templates/rundynnlo_template.sh" % rootfolder
+            helpers.fillTemplatedFile(template_file, filename, template_dict, "w")
+            os.chmod(filename, 0o755)
 
-cat $base/../$config | sed -e "s#SEED#$seed#g" > config.input
-cat config.input | sed -e "s#MSTW2008nnlo68cl#NNPDF31_nnlo_hessian_pdfas#g" > config.input.temp
-mv config.input.temp config.input
-
-cp $base/../dynnlo .
-
-./dynnlo < config.input &> log_${seed}.txt
-
-cp *.top ${base}
-
-cp log_${seed}.txt ${base}
-''')
-            launching_script.close()
-            os.system('chmod 755 ' + filename)
-            
             print 'Submitting to condor queues \n'
             condorfile = prepareCondorScript(subfolderName, 'dynnlo', folderName, QUEUE, subfolderName, runInBatchDir=True) 
             runCommand ('condor_submit ' + condorfile + ' -queue '+ str(njobs), TESTING == 0)
@@ -558,37 +522,16 @@ def dynnlops_runminlo(folderName, njobs, QUEUE, eosdir):
     fout.close()
 
     filename = folderName+"/minlo-run/launch_minlo.sh"
-    launching_script = open(filename, "w")
-    launching_script.write("#!/bin/bash\n")
-    launching_script.write('base='+os.getcwd()+"/"+folderName+"/minlo-run"+'\n\n')
-    launching_script.write('eosbase='+ eosdir + "/minlo-run")
-    launching_script.write('''
-config=$1
-seed=$2
 
-cd $base
-eval `scram runtime -sh`
-cd -
+    template_dict = {
+        "rootfolder" : rootfolder,
+        "folderName" : folderName,
+        "eosdir" : eosdir,
+    }
 
-cp $base/../$config powheg.input
-sed -i "s/^iseed.*/iseed $seed/g" powheg.input
-sed -i "s/^numevts.*/numevts 50000/g" powheg.input
-echo "rwl_file 'pwg-rwl-scalesonly.dat'" >> powheg.input
-
-cp $base/../pwhg_main .
-cp $base/../lhef_analysis_3d .
-cp $base/../*.dat .
-
-./pwhg_main &> log_${seed}.txt
-./lhef_analysis_3d
-
-mkdir -p ${eosbase}/$seed
-cp MINLO*.top ${eosbase}/$seed/
-
-cp log_${seed}.txt ${base}
-''')
-    launching_script.close()
-    os.system('chmod 755 ' + filename)
+    template_file = "%s/Templates/dynnlops_runminlo_template.sh" % rootfolder
+    helpers.fillTemplatedFile(template_file, filename, template_dict, "w")
+    os.chmod(filename, 0o755)
     
     print 'Submitting to condor queues \n'
     condorfile = prepareCondorScript(folderName + '_minlo', 'minlo', folderName, QUEUE, runInBatchDir=True) 

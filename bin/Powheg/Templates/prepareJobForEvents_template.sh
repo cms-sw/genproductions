@@ -1,4 +1,5 @@
 cp -p ${rootfolder}/${folderName}/*.dat  ./
+
 if [ -e ${rootfolder}/${folderName}/obj-gfortran/proclib ]; then
   mkdir ./obj-gfortran/
   cp -pr ${rootfolder}/${folderName}/obj-gfortran/proclib  ./obj-gfortran/
