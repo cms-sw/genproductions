@@ -716,7 +716,7 @@ for num in range(0,len(prepid)):
       	            if "JHUGen.input" in name:
 	                print"* Found the JHUGen input file: "+os.path.join(root, name)
 			jhufilename = os.path.join(root, name)
-            if os.path.isfile(jhufilename) is True :
+            if os.path.isfile(jhufilename) is True and pw_gp is False:
                 with open(jhufilename) as f: 		
                     jhu_in = f.read()
                     jhu_in = re.sub(r'(?m)^ *#.*\n?', '',jhu_in)
