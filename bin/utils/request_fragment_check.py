@@ -939,8 +939,8 @@ for num in range(0,len(prepid)):
                         print " [WARNING] bwcutoff set to "+str(test_bw[0])+". Note that large bwcutoff values can cause problems in production."
                         warning += 1
                     mg_pdf = mg_pdf.split()
-                    if "UL" in pi and mg_pdf[0] != 325300 and mg_pdf[0] != 325500:
-                        print"* [WARNING] The gridpack uses PDF="+str(mg_pdf)+" but not the recommended sets for UL requests:"
+                    if "UL" in pi and int(mg_pdf[0]) != 325300 and int(mg_pdf[0]) != 325500:
+                        print"* [WARNING] The gridpack uses PDF="+str(mg_pdf[0])+" but not the recommended sets for UL requests:"
                         print"*                                             325300 (NNPDF31_nnlo_as_0118_mc_hessian_pdfas)" 
                         print"*                                             or 325500 (NNPDF31_nnlo_as_0118_nf_4_mc_hessian)." 
                         warning += 1
