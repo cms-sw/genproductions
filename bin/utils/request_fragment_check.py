@@ -7,7 +7,7 @@ import textwrap
 #import json
 from datetime import datetime
 ###########Needed to check for ultra-legacy sample consistency check############################################
-os.system('cern-get-sso-cookie -u https://cms-pdmv.cern.ch/mcm/ -o prod-cookie.txt --krb --reprocess')
+os.system('cern-get-sso-cookie -u https://cms-pdmv.cern.ch/mcm/ -o cookiefile.txt --krb --reprocess')
 ################################################################################################################
 sys.path.append('/afs/cern.ch/cms/PPD/PdmV/tools/McM/')
 from rest import McM
