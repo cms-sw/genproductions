@@ -1,0 +1,11 @@
+import model mssm
+define p = g u c d s u~ c~ d~ s~
+define j = g u c d s u~ c~ d~ s~
+define p = p b b~
+define j = j b b~
+
+generate p p > go go @1
+add process p p > go go j @2
+add process p p > go go j j @3
+
+output SMS-GlGl_mGl-1000 -nojpeg

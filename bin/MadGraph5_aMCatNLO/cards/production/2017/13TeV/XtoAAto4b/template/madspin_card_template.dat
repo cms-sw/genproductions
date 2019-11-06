@@ -1,6 +1,5 @@
-
 set ms_dir ./madspingrid
-set max_weight_ps_point 400  # number of PS to estimate the maximum for each event
+set max_weight_ps_point 400
 define dec = b b~
 set spinmode None
 set max_running_process 1
