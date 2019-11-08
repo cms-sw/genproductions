@@ -46,7 +46,8 @@
 #*********************************************************************
      lhapdf    = pdlabel     ! PDF set                                     
      315200    = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number
-#     $DEFAULT_PDF_MEMBERS  = reweight_PDF     ! reweight to get PDF uncertainty
+     $DEFAULT_PDF_SETS = lhaid
+     $DEFAULT_PDF_MEMBERS  = reweight_PDF     ! reweight to get PDF uncertainty
 #*********************************************************************
 # Renormalization and factorization scales                           *
 #*********************************************************************
