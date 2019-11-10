@@ -20,7 +20,7 @@ masses = np.concatenate([
     #np.arange(1e3, 2.6e3, 2e2)/1.e3, # [  1 GeV,  2.6 GeV) in 200 MeV steps
     [0.1], # 100 MeV
     np.arange(  2e2, 1.2e3, 2e2)/1.e3, # [200 MeV,  1.2 GeV) in 200 MeV steps
-    np.arange(1.2e2, 2.8e3, 4e2)/1.e3, # [1.2 GeV,  2.4 GeV] in 400 MeV steps
+    np.arange(1.2e3, 2.8e3, 4e2)/1.e3, # [1.2 GeV,  2.4 GeV] in 400 MeV steps
     [3.], # 3 GeV
     np.arange(5e3,  65e3, 5e3)/1.e3,   # [  5 GeV,   60 GeV] in   5 GeV steps
 ])
