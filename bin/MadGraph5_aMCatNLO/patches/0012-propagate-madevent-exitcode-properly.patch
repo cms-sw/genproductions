@@ -26,11 +26,13 @@ index b1a7314..7cd7a75 100644
       fi     
       if [[ -e ftn26 ]]; then
           cp ftn26 ftn25
-@@ -105,3 +113,4 @@ j=%(directory)s
+@@ -105,2 +113,5 @@ j=%(directory)s
  
       cd ../
- 
-+exit $status_code
++if [[ $status_code -ne 0 ]]; then 
++   exit $status_code
++fi
+
 diff --git a/Template/LO/SubProcesses/refine_splitted.sh b/Template/LO/SubProcesses/refine_splitted.sh
 index abc4b99..bd1b78c 100644
 --- a/Template/LO/SubProcesses/refine_splitted.sh
@@ -46,7 +48,7 @@ index abc4b99..bd1b78c 100644
  if [[ -e MadLoop5_resources.tar.gz && ! -e MadLoop5_resources ]]; then
  tar -xzf MadLoop5_resources.tar.gz
  fi
-@@ -81,7 +85,12 @@ fi
+@@ -81,7 +85,14 @@ fi
  if [[ $status_code -ne 0 ]]; then 
  	 rm results.dat
  	 echo "ERROR DETECTED"
@@ -59,7 +61,10 @@ index abc4b99..bd1b78c 100644
  fi
  
  cd ../
-+exit $status_code
++if [[ $status_code -ne 0 ]]; then 
++   exit $status_code
++fi
+
 diff --git a/Template/LO/SubProcesses/survey.sh b/Template/LO/SubProcesses/survey.sh
 index 5f121e8..ebe9369 100755
 --- a/Template/LO/SubProcesses/survey.sh

@@ -50,11 +50,11 @@ LHAPDFCONFIG=`echo "$LHAPDF_DATA_PATH/../../bin/lhapdf-config"`
 
 echo "lhapdf = $LHAPDFCONFIG" >> ./madevent/Cards/me5_configuration.txt
 # echo "cluster_local_path = `${LHAPDFCONFIG} --datadir`" >> ./madevent/Cards/me5_configuration.txt
-
-if [ "$ncpu" -gt "1" ]; then
-  echo "run_mode = 2" >> ./madevent/Cards/me5_configuration.txt
-  echo "nb_core = $ncpu" >> ./madevent/Cards/me5_configuration.txt
-fi
+#To overcome problem of taking toomanythreads
+#if [ "$ncpu" -gt "1" ]; then
+echo "run_mode = 2" >> ./madevent/Cards/me5_configuration.txt
+echo "nb_core = $ncpu" >> ./madevent/Cards/me5_configuration.txt
+#fi
 
 #########################################
 # FORCE IT TO PRODUCE EXACTLY THE REQUIRED NUMBER OF EVENTS
@@ -148,7 +148,7 @@ if [ -f ./madspin_card.dat ] ;then
     rnum2=$(($rnum+1000000))
     echo `echo "set seed $rnum2"` >> madspinrun.dat
     cat ./madspin_card.dat >> madspinrun.dat
-    cat madspinrun.dat | $LHEWORKDIR/mgbasedir/MadSpin/madspin
+    $LHEWORKDIR/mgbasedir/MadSpin/madspin madspinrun.dat 
 fi
 
 cd $LHEWORKDIR
@@ -166,7 +166,7 @@ mv process/$event_file process/madevent/Events/${runlabel}/events.lhe.gz
 #
 pushd process/madevent
 pdfsets="PDF_SETS_REPLACE"
-scalevars="--mur=1,2,0.5 --muf=1,2,0.5 --together=muf,mur,dyn --dyn=-1,1,2,3,4"
+scalevars="--mur=1,2,0.5 --muf=1,2,0.5 --together=muf,mur,dyn --dyn=-1,1,2,3,4 --alps=0.5,1,2"
 
 if [ "$doreweighting" -gt "0" ] ; then 
     echo "systematics $runlabel --start_id=1001 --pdf=$pdfsets $scalevars" | ./bin/madevent
