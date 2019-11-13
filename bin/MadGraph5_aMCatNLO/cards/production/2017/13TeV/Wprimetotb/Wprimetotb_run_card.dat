@@ -70,7 +70,7 @@
 # https://twiki.cern.ch/twiki/bin/view/CMS/Moriond18MC#Checks_to_the_datacards_BEFORE_T 
 #*********************************************************************
  1        = ktscheme         ! for ickkw=1, 1 Durham kT, 2 Pythia pTE
- T        = pdfwgt           ! for ickkw=1, perform pdf reweighting
+ F        = pdfwgt           ! for ickkw=1, perform pdf reweighting
 #*********************************************************************
 # Matching parameter (MLM only)
 #*********************************************************************
