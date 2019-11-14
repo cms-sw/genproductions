@@ -951,6 +951,9 @@ for num in range(0,len(prepid)):
                             mg_me_pdf_list = re.findall('pdfsets=\S+',fmg_f)
                             mg_me_pdf_list = mg_me_pdf_list[0].split('=')[1].split('\"')[1].split(',')
                             var_count = [s for s in mg_me_pdf_list if "@0" in s]
+                            if len(var_count) < 1:
+                                    print"* [WARNING] There will be no PDF variations! Please check the runcmsgrid file in the gridpacl."
+                                    warning += 1
                             if mg_me_pdf_list.count("325300") != 1 and mg_me_pdf_list.count("325500") != 1:
                                     print"* [WARNING] pdfsets in runcmsgrid file does not contain one of the recommended sets:"
                                     print"*                                             325300 (NNPDF31_nnlo_as_0118_mc_hessian_pdfas)"
@@ -960,9 +963,6 @@ for num in range(0,len(prepid)):
                                     warning += 1
                             if (mg_me_pdf_list.count("325300") > 0 and mg_me_pdf_list.count("325300@0") != 0) or (mg_me_pdf_list.count("325500") > 0 and mg_me_pdf_list.count("325500@0") != 0):
                                     print"* [WARNING] Main pdf recommended set (325300 or 325500) is listed in runcmsgrid file but it is also included as a variation??"
-                                    warning += 1
-                            if len(var_count) < 1:
-                                    print"* [WARNING] There will be no PDF variations! Please check."
                                     warning += 1
                     matching = int(re.search(r'\d+',ickkw).group())
                     ickkw = str(ickkw)
