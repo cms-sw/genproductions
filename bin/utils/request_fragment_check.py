@@ -779,7 +779,7 @@ for num in range(0,len(prepid)):
                             pw_in = re.sub(r'(?m)^ *#.*\n?', '',pw_in)
                             bornonly = re.findall('bornonly\s+\d+',pw_in)
                         with open(os.path.join(my_path, pi, "pwg-rwl.dat")) as f_pdf:
-#                            pwg-rwl = f_pdf.read()
+                            pdf_varext = []
                             for line in f_pdf:
                                 if line.startswith("<weightgroup name='PDF_variation"):
                                     t_pdf_l = next(f_pdf,'').strip()
@@ -787,9 +787,10 @@ for num in range(0,len(prepid)):
                                         print"* [WARNING] main pdf set in pwg-rwl file does not contain one of the recommended sets:"
                                         print"*                                             325300 (NNPDF31_nnlo_as_0118_mc_hessian_pdfas)"
                                         print"*                                             or 325500 (NNPDF31_nnlo_as_0118_nf_4_mc_hessian)."
-                                    if "306000" in t_pdf_l:
-                                        print(next(f_pdf,'').strip())
-                                        print(next(f_pdf,'').strip())
+                                    pdf_varext.append(next(f_pdf,'').strip())
+                                    pdf_varext.append(next(f_pdf,'').strip())
+                                    if len(pdf_varext) == 0:
+                                        print"* [WARNING] please check if pdf variations are included in pwg-rwl file"
 			    if len(bornonly) != 0:
                                 bornonly = int(re.split(r'\s+',bornonly[0])[1])
                             pw_pdf = re.findall('lhans1\s+\d+',pw_in)
