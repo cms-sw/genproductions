@@ -947,8 +947,12 @@ for num in range(0,len(prepid)):
                         mgversion_tmp = mgversion_tmp.split("\n")
                         mg5_aMC_version = int(mgversion[0])*100 + int(mgversion[1])*10 + int(mgversion[2])
                         if "UL" in pi and mg5_aMC_version < 261:
-                            print"* [ERROR] You're using MG5_aMC "+str(mg5_aMC_version)+" in an Ultra Legacy Campaign. You should use MG5_aMCv2.6.1+"
-                            error += 1
+                            if "PPD" in pi:
+                                print"* [WARNING] You're using MG5_aMC "+str(mg5_aMC_version)+" in an Ultra Legacy Campaign. You should use MG5_aMCv2.6.1+"
+                                warning += 1
+                            else:
+                                print"* [ERROR] You're using MG5_aMC "+str(mg5_aMC_version)+" in an Ultra Legacy Campaign. You should use MG5_aMCv2.6.1+"
+                                error += 1
                     test_bw = bw.split()
                     if float(test_bw[0]) > 15.:
                         print " [WARNING] bwcutoff set to "+str(test_bw[0])+". Note that large bwcutoff values can cause problems in production."
