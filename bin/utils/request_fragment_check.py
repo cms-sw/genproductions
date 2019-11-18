@@ -778,6 +778,18 @@ for num in range(0,len(prepid)):
                             pw_in = f.read()
                             pw_in = re.sub(r'(?m)^ *#.*\n?', '',pw_in)
                             bornonly = re.findall('bornonly\s+\d+',pw_in)
+                        with open(os.path.join(my_path, pi, "pwg-rwl.dat")) as f_pdf:
+#                            pwg-rwl = f_pdf.read()
+                            for line in f_pdf:
+                                if line.startswith("<weightgroup name='PDF_variation"):
+                                    t_pdf_l = next(f_pdf,'').strip()
+                                    if "325300" not in t_pdf_l or "325500" not in t_pdf_l:
+                                        print"* [WARNING] main pdf set in pwg-rwl file does not contain one of the recommended sets:"
+                                        print"*                                             325300 (NNPDF31_nnlo_as_0118_mc_hessian_pdfas)"
+                                        print"*                                             or 325500 (NNPDF31_nnlo_as_0118_nf_4_mc_hessian)."
+                                    if "306000" in t_pdf_l:
+                                        print(next(f_pdf,'').strip())
+                                        print(next(f_pdf,'').strip())
 			    if len(bornonly) != 0:
                                 bornonly = int(re.split(r'\s+',bornonly[0])[1])
                             pw_pdf = re.findall('lhans1\s+\d+',pw_in)
@@ -949,6 +961,8 @@ for num in range(0,len(prepid)):
                             fmg_f = fmg.read()
                             fmg_f = re.sub(r'(?m)^ *#.*\n?', '',fmg_f)
                             mg_me_pdf_list = re.findall('pdfsets=\S+',fmg_f)
+                            if len(mg_me_pdf_list) == 0:
+                                continue
                             mg_me_pdf_list = mg_me_pdf_list[0].split('=')[1].split('\"')[1].split(',')
                             var_count = [s for s in mg_me_pdf_list if "@0" in s]
                             if len(var_count) < 1:
