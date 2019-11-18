@@ -274,6 +274,7 @@ for num in range(0,len(prepid)):
         cmssw = r['cmssw_release']
         test_cs_version = cmssw.split('_')
         mgversion = 0
+        mg5_aMC_version = 0
         mem = r['memory']
         filter_eff = r['generator_parameters'][-1]['filter_efficiency']
         match_eff = r['generator_parameters'][-1]['match_efficiency']
@@ -725,8 +726,8 @@ for num in range(0,len(prepid)):
                     print(jhu_pdf)
                     if "UL" in pi and jhu_pdf not in UL_PDFs:
                         print"* [WARNING] The gridpack uses PDF = "+str(jhu_pdf)+" but not the recommended sets for UL requests:"
-                        print"*                                   325300 "+UL_PDFs[0]
-                        print"*                                or 325500 "+UL_PDFs[1]
+                        print"*                                   "+str(UL_PDFs_N[0])+" "+UL_PDFs[0]
+                        print"*                                or "+str(UL_PDFs_N[1])+" "+UL_PDFs[1]
                         warning += 1
         for ind, word in enumerate(MEname):
             if fsize == 0:
@@ -783,10 +784,10 @@ for num in range(0,len(prepid)):
                             for line in f_pdf:
                                 if line.startswith("<weightgroup name='PDF_variation"):
                                     t_pdf_l = next(f_pdf,'').strip()
-                                    if "325300" not in t_pdf_l or "325500" not in t_pdf_l:
+                                    if UL_PDFs_N[0] not in t_pdf_l or UL_PDFs_N[1] not in t_pdf_l:
                                         print"* [WARNING] main pdf set in pwg-rwl file does not contain one of the recommended sets:"
-                                        print"*                                             325300 (NNPDF31_nnlo_as_0118_mc_hessian_pdfas)"
-                                        print"*                                             or 325500 (NNPDF31_nnlo_as_0118_nf_4_mc_hessian)."
+                                        print"*                                             "+str(UL_PDFs_N[0])+" "+UL_PDFs[0]
+                                        print"*                                             or "+str(UL_PDFs_N[1])+" "+UL_PDFs[1]
                                     pdf_varext.append(next(f_pdf,'').strip())
                                     pdf_varext.append(next(f_pdf,'').strip())
                                     if len(pdf_varext) == 0:
@@ -798,8 +799,8 @@ for num in range(0,len(prepid)):
                                 pw_pdf = int(re.split(r'\s+', pw_pdf[0])[1])
                                 if "UL" in pi and pw_pdf not in UL_PDFs_N:
                                     print"* [WARNING] The gridpack uses PDF="+str(pw_pdf)+" but not the recommended sets for UL requests:"
-                                    print"*                                             "+str(UL_PDFs_N[0])+" NNPDF31_nnlo_as_0118_mc_hessian_pdfas"
-                                    print"*                                             or "+str(UL_PDFs_N[1])+" NNPDF31_nnlo_as_0118_nf_4_mc_hessian"
+                                    print"*                                             "+str(UL_PDFs_N[0])+" "+UL_PDFs[0]
+                                    print"*                                             or "+str(UL_PDFs_N[1])+" "+UL_PDFs[1]
                                     warning += 1
                     if et_flag == 1:
                         with open(os.path.join(my_path, pi, "external_tarball/powheg.input")) as f:
@@ -944,40 +945,41 @@ for num in range(0,len(prepid)):
                         mgversion = mgversion_tmp.split()
                         mgversion = mgversion[2].split(".")
                         mgversion_tmp = mgversion_tmp.split("\n")
-                        if "UL" in pi and int(mgversion[0]) <= 2 and int(mgversion[1]) < 6 and int(mgversion[2]) < 1:
-                            print"* [ERROR] You're using MG5_aMC "+str(mgversion_tmp[0])+" in an Ultra Legacy Campaign. You should use MG5_aMCv2.6.1+"
+                        mg5_aMC_version = int(mgversion[0])*100 + int(mgversion[1])*10 + int(mgversion[2])
+                        if "UL" in pi and mg5_aMC_version < 261:
+                            print"* [ERROR] You're using MG5_aMC "+str(mg5_aMC_version)+" in an Ultra Legacy Campaign. You should use MG5_aMCv2.6.1+"
                             error += 1
                     test_bw = bw.split()
                     if float(test_bw[0]) > 15.:
                         print " [WARNING] bwcutoff set to "+str(test_bw[0])+". Note that large bwcutoff values can cause problems in production."
                         warning += 1
                     mg_pdf = mg_pdf.split()
-                    if "UL" in pi and int(mg_pdf[0]) != 325300 and int(mg_pdf[0]) != 325500:
+                    if "UL" in pi and int(mg_pdf[0]) != UL_PDFs_N[0] and int(mg_pdf[0]) != UL_PDFs_N[1]:
                         print"* [WARNING] The gridpack uses PDF="+str(mg_pdf[0])+" but not the recommended sets for UL requests:"
-                        print"*                                             325300 (NNPDF31_nnlo_as_0118_mc_hessian_pdfas)"
-                        print"*                                             or 325500 (NNPDF31_nnlo_as_0118_nf_4_mc_hessian)."
+                        print"*                                             "+str(UL_PDFs_N[0])+" "+UL_PDFs[0]
+                        print"*                                             or "+str(UL_PDFs_N[1])+" "+UL_PDFs[1]
                         warning += 1
                     if "UL" in pi and mg_gp is True:
                         with open(os.path.join(my_path, pi, "runcmsgrid.sh")) as fmg:
                             fmg_f = fmg.read()
                             fmg_f = re.sub(r'(?m)^ *#.*\n?', '',fmg_f)
                             mg_me_pdf_list = re.findall('pdfsets=\S+',fmg_f)
-                            if len(mg_me_pdf_list) == 0:
+                            if mg5_aMC_version < 260:
                                 continue
                             mg_me_pdf_list = mg_me_pdf_list[0].split('=')[1].split('\"')[1].split(',')
                             var_count = [s for s in mg_me_pdf_list if "@0" in s]
                             if len(var_count) < 1:
                                     print"* [WARNING] There will be no PDF variations! Please check the runcmsgrid file in the gridpacl."
                                     warning += 1
-                            if mg_me_pdf_list.count("325300") != 1 and mg_me_pdf_list.count("325500") != 1:
+                            if mg_me_pdf_list.count(UL_PDFs_N[0]) != 1 and mg_me_pdf_list.count(UL_PDFs_N[1]) != 1:
                                     print"* [WARNING] pdfsets in runcmsgrid file does not contain one of the recommended sets:"
-                                    print"*                                             325300 (NNPDF31_nnlo_as_0118_mc_hessian_pdfas)"
-                                    print"*                                             or 325500 (NNPDF31_nnlo_as_0118_nf_4_mc_hessian)."
+                                    print"*                                             "+str(UL_PDFs_N[0])+"("+UL_PDFs[0]+")"
+                                    print"*                                             or "+str(UL_PDFs_N[1])+"("+UL_PDFs[1]+")"
                                     print"* Your runcmsgrid file contains these sets:"
                                     print(mg_me_pdf_list)
                                     warning += 1
-                            if (mg_me_pdf_list.count("325300") > 0 and mg_me_pdf_list.count("325300@0") != 0) or (mg_me_pdf_list.count("325500") > 0 and mg_me_pdf_list.count("325500@0") != 0):
-                                    print"* [WARNING] Main pdf recommended set (325300 or 325500) is listed in runcmsgrid file but it is also included as a variation??"
+                            if (mg_me_pdf_list.count(str(UL_PDFs_N[0])) > 0 and mg_me_pdf_list.count(str(UL_PDFs_N[0])+"@0") != 0) or (mg_me_pdf_list.count(str(UL_PDFs_N[1])) > 0 and mg_me_pdf_list.count(str(UL_PDFs_N[1])+"@0") != 0):
+                                    print"* [WARNING] Main pdf recommended set ("+str(UL_PDFs_N[0])+" or "+str(UL_PDFs_N[1])+") is listed in runcmsgrid file but it is also included as a variation??"
                                     warning += 1
                     matching = int(re.search(r'\d+',ickkw).group())
                     ickkw = str(ickkw)
