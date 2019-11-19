@@ -726,8 +726,8 @@ for num in range(0,len(prepid)):
                     print(jhu_pdf)
                     if "UL" in pi and jhu_pdf not in UL_PDFs:
                         print"* [WARNING] The gridpack uses PDF = "+str(jhu_pdf)+" but not the recommended sets for UL requests:"
-                        print"*                                   "+str(UL_PDFs_N[0])+" "+UL_PDFs[0]
-                        print"*                                or "+str(UL_PDFs_N[1])+" "+UL_PDFs[1]
+                        print"*                                   "+str(UL_PDFs_N[0])+" "+str(UL_PDFs[0])
+                        print"*                                or "+str(UL_PDFs_N[1])+" "+str(UL_PDFs[1])
                         warning += 1
         for ind, word in enumerate(MEname):
             if fsize == 0:
@@ -784,10 +784,10 @@ for num in range(0,len(prepid)):
                             for line in f_pdf:
                                 if line.startswith("<weightgroup name='PDF_variation"):
                                     t_pdf_l = next(f_pdf,'').strip()
-                                    if UL_PDFs_N[0] not in t_pdf_l or UL_PDFs_N[1] not in t_pdf_l:
+                                    if str(UL_PDFs_N[0]) not in t_pdf_l or str(UL_PDFs_N[1]) not in t_pdf_l:
                                         print"* [WARNING] main pdf set in pwg-rwl file does not contain one of the recommended sets:"
-                                        print"*                                             "+str(UL_PDFs_N[0])+" "+UL_PDFs[0]
-                                        print"*                                             or "+str(UL_PDFs_N[1])+" "+UL_PDFs[1]
+                                        print"*                                             "+str(UL_PDFs_N[0])+" "+str(UL_PDFs[0])
+                                        print"*                                             or "+str(UL_PDFs_N[1])+" "+str(UL_PDFs[1])
                                     pdf_varext.append(next(f_pdf,'').strip())
                                     pdf_varext.append(next(f_pdf,'').strip())
                                     if len(pdf_varext) == 0:
@@ -799,8 +799,8 @@ for num in range(0,len(prepid)):
                                 pw_pdf = int(re.split(r'\s+', pw_pdf[0])[1])
                                 if "UL" in pi and pw_pdf not in UL_PDFs_N:
                                     print"* [WARNING] The gridpack uses PDF="+str(pw_pdf)+" but not the recommended sets for UL requests:"
-                                    print"*                                             "+str(UL_PDFs_N[0])+" "+UL_PDFs[0]
-                                    print"*                                             or "+str(UL_PDFs_N[1])+" "+UL_PDFs[1]
+                                    print"*                                             "+str(UL_PDFs_N[0])+" "+str(UL_PDFs[0])
+                                    print"*                                             or "+str(UL_PDFs_N[1])+" "+str(UL_PDFs[1])
                                     warning += 1
                     if et_flag == 1:
                         with open(os.path.join(my_path, pi, "external_tarball/powheg.input")) as f:
@@ -814,8 +814,8 @@ for num in range(0,len(prepid)):
                                 pw_pdf = int(re.split(r'\s+', pw_pdf[0])[1])
                             if "UL" in pi and pw_pdf not in UL_PDFs_N:
                                 print"* [WARNING] The gridpack uses PDF="+str(pw_pdf)+" but not the recommended sets for UL requests:"
-                                print"*                                             "+str(UL_PDFs_N[0])+" NNPDF31_nnlo_as_0118_mc_hessian_pdfas"
-                                print"*                                             or "+str(UL_PDFs_N[1])+" NNPDF31_nnlo_as_0118_nf_4_mc_hessian"
+                                print"*                                             "+str(UL_PDFs_N[0])+"  "+str(UL_PDFs[0])
+                                print"*                                             or "+str(UL_PDFs_N[1])+"  "+str(UL_PDFs[1])
                                 warning += 1
                     if bornonly == 1:
                         bornonly_frag_check = 0
@@ -960,8 +960,8 @@ for num in range(0,len(prepid)):
                     mg_pdf = mg_pdf.split()
                     if "UL" in pi and int(mg_pdf[0]) != UL_PDFs_N[0] and int(mg_pdf[0]) != UL_PDFs_N[1]:
                         print"* [WARNING] The gridpack uses PDF="+str(mg_pdf[0])+" but not the recommended sets for UL requests:"
-                        print"*                                             "+str(UL_PDFs_N[0])+" "+UL_PDFs[0]
-                        print"*                                             or "+str(UL_PDFs_N[1])+" "+UL_PDFs[1]
+                        print"*                                             "+str(UL_PDFs_N[0])+" "+str(UL_PDFs[0])
+                        print"*                                             or "+str(UL_PDFs_N[1])+" "+str(UL_PDFs[1])
                         warning += 1
                     if "UL" in pi and mg_gp is True:
                         with open(os.path.join(my_path, pi, "runcmsgrid.sh")) as fmg:
@@ -977,8 +977,8 @@ for num in range(0,len(prepid)):
                                     warning += 1
                             if mg_me_pdf_list.count(UL_PDFs_N[0]) != 1 and mg_me_pdf_list.count(UL_PDFs_N[1]) != 1:
                                     print"* [WARNING] pdfsets in runcmsgrid file does not contain one of the recommended sets:"
-                                    print"*                                             "+str(UL_PDFs_N[0])+"("+UL_PDFs[0]+")"
-                                    print"*                                             or "+str(UL_PDFs_N[1])+"("+UL_PDFs[1]+")"
+                                    print"*                                             "+str(UL_PDFs_N[0])+"("+str(UL_PDFs[0])+")"
+                                    print"*                                             or "+str(UL_PDFs_N[1])+"("+str(UL_PDFs[1])+")"
                                     print"* Your runcmsgrid file contains these sets:"
                                     print(mg_me_pdf_list)
                                     warning += 1
