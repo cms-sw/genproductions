@@ -1,4 +1,5 @@
 ! ST-wtchannel production parameters
+! 2018 hdamp settings and default init_couplig.f settings - not suitable for UL or Run 3
 
 ! GENERAL POWHEG PARAMETERS
 
@@ -30,11 +31,10 @@ xupbound 2d0   ! increase upper bound for radiation generation
 
 
 withdamp       1
-hdamp 233.7405 ! 1.379*mtop 
-
+hdamp 237.8775   ! 1.379*mtop nominal value for hdamp for Fall18
 
 ! mandatory production parameters
-ttype       -1          ! 1 for t, -1 for tbar
+ttype       1          ! 1 for t, -1 for tbar
 
 
 ! mandatory parameters used in decay generation
@@ -45,10 +45,11 @@ wdecaymode 11111     ! decay mode: the 5 digits correspond to the following
                      ! primary-w-decay channels (l,mu,tau,u,c) 
                      ! 0 means close, 1 open
 tdec/elbranching 0.108  ! W electronic branching fraction
+tdec/twidth 1.31 ! 1.33 
 
 ! optional production parameters 
 ! (defaults defined in init_couplings.f)
-topmass      169.5
+topmass      172.5
 wmass        80.419
 sthw2        0.2226459
 alphaem_inv  132.3384323
@@ -62,7 +63,6 @@ CKM_Vcb   0.04101
 CKM_Vtd   0.00862
 CKM_Vts   0.04101
 CKM_Vtb   1.0
-
 pdfreweight 0
 storeinfo_rwgt 0 ! store weight information
 withnegweights 1 ! default 0

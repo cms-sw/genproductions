@@ -1,7 +1,7 @@
 ! ST-schannel inputs
 
 withdamp       1
-hdamp 237.8775 ! 1.379*mtop      
+hdamp 237.8775 ! 1.379*mtop   
 
 withnegweights 1   ! will generate also events with negative-weight 
 
@@ -38,7 +38,7 @@ icsimax  1        ! <= 100, number of csi subdivision when computing the upper b
 iymax    1        ! <= 100, number of y subdivision when computing the upper bounds
 xupbound 2d0      ! increase upper bound for radiation generation
 
-ttype       -1
+ttype        1
 
 ! Set for leptonic decay
 topdecaymode 11100   ! decay mode: the 5 digits correspond to the following
@@ -48,6 +48,7 @@ wdecaymode 11100     ! decay mode: the 5 digits correspond to the following
                      ! primary-w-decay channels (l,mu,tau,u,c) 
                      ! 0 means close, 1 open
 tdec/elbranching 0.108  ! W electronic branching fraction
+tdec/twidth 1.31 ! 1.33 
 
 topmass      172.5
 bmass        4.80

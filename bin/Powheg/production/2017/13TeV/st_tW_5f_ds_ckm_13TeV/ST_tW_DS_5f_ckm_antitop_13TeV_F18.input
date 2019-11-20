@@ -46,7 +46,6 @@ wdecaymode 11111     ! decay mode: the 5 digits correspond to the following
                      ! primary-w-decay channels (l,mu,tau,u,c) 
                      ! 0 means close, 1 open
 tdec/elbranching 0.108  ! W electronic branching fraction
-tdec/twidth 1.31 ! 1.33 
 
 ! optional production parameters 
 ! (defaults defined in init_couplings.f)
