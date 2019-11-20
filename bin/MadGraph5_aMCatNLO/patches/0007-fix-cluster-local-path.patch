@@ -2,15 +2,6 @@ diff --git a/Template/LO/Source/.make_opts b/Template/LO/Source/.make_opts
 index caec32b..96a598e 100644
 --- a/Template/LO/Source/.make_opts
 +++ b/Template/LO/Source/.make_opts
-@@ -49,7 +49,7 @@
- ifeq ($(FC), ftn)
- FFLAGS+= -extend-source # for ifort type of compiler
- else
--FFLAGS+= -ffixed-line-length-132
-+FFLAGS+= -ffixed-line-length-300
- endif
- 
- 
 @@ -114,4 +114,4 @@
  # Helper function to check MG5 version
  define CHECK_MG5AMC_VERSION

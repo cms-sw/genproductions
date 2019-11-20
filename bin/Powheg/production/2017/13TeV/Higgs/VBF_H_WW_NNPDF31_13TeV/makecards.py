@@ -40,6 +40,8 @@ masswidth = (
   (2000, 1000.0),
   (2500, 1250.0),
   (3000, 1500.0),
+  (4000, 2000.0),
+  (5000, 2500.0),
 )
 
 with open("VBF_H_WW_NNPDF31_13TeV_template.input") as f:

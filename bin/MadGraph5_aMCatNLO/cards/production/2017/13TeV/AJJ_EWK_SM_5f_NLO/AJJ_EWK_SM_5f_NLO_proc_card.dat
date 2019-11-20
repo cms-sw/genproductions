@@ -6,7 +6,5 @@ set gauge unitary
 set complex_mass_scheme False
 set max_npoint_for_channel 0
 import model loop_sm
-define p = p b b~
-define j = j b b~
 generate p p > a j j  QCD=0 [QCD]
 output AJJ_EWK_SM_5f_NLO

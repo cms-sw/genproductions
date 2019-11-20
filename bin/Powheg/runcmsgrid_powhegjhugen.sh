@@ -87,8 +87,9 @@ if [[ -e ${myDir} ]]; then
   mv cmsgrid_final.lhe old_cmsgrid_final.lhe
 fi
 
-export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:${LD_LIBRARY_PATH}
+export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:`pwd`/obj-gfortran/proclib/:${LD_LIBRARY_PATH}
 mkdir ${myDir}; cd ${myDir} ;  
+export PYTHONPATH=.:${PYTHONPATH}
 
 # force the f77 compiler to be the CMS defined one
 #ln -s `which gfortran` f77
@@ -107,14 +108,11 @@ fi
 if [ -e  ${WORKDIR}/powheg-fh.in ]; then
   cp -p ${WORKDIR}/powheg-fh.in .
 fi
-### For the W process
-if [ -e  ${WORKDIR}/cteq6m ]; then
-    cp -p ${WORKDIR}/cteq6m .
-fi
-### For the bb4l process
-if [[ -d ${WORKDIR}/obj-gfortran ]]; then
-    ln -s ${WORKDIR}/obj-gfortran .
-    cp -p ${WORKDIR}/pwg*.dat .
+### For the ggHH process
+if [[ -e ${WORKDIR}/Virt_full_cHHH_0.0.grid ]]; then
+    ln -s ${WORKDIR}/Virt_full_cHHH_* .
+    ln -s ${WORKDIR}/creategrid.py .
+    cp -p ${WORKDIR}/events.cdf .
 fi
 
 if [[ ! -e ${card} ]]; then

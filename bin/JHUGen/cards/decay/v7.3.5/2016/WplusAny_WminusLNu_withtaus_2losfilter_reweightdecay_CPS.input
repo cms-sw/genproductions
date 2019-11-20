@@ -1,0 +1,1 @@
+DecayMode1=11 DecayMode2=10 RandomizeVVdecays=0 NLepMin=2 NOSMin=1 CountTauAsAny=1 WriteFailedEvents=2 WidthSchemeIn=3 ReweightDecay ReadPmHstar PmHstarFile=PMWWdistribution.out LHAPDF=NNPDF30_nlo_nf_5_pdfas/NNPDF30_nlo_nf_5_pdfas

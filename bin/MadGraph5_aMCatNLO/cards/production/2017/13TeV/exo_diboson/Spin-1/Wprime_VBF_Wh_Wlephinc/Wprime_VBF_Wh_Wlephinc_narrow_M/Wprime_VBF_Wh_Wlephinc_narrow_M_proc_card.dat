@@ -1,0 +1,19 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set gauge unitary
+set complex_mass_scheme False
+import model Vector_Triplet_free_Width_UFO
+define p = g u c d s u~ c~ d~ s~
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+define q = u c d s b u~ c~ d~ s~ b~
+define vc = vc+ vc-
+define vw = w+ w-
+define lep = l+ l-
+define neu = vl vl~
+define j = u c d s b u~ c~ d~ s~ b~
+generate p p > vc j j $$ z w+ w- / g a h QCD=0, (vc > h vw, vw > lep neu)
+output Wprime_VBF_Wh_Wlephinc_narrow_M<MASS> -nojpeg
+

@@ -1,0 +1,10 @@
+#directory for gridpack mode
+set ms_dir ./madspingrid
+
+set max_weight_ps_point 400  # number of PS to estimate the maximum for each event
+
+# specify the decay for the final state particles
+decay z > l+ l-
+
+# running the actual code
+launch
