@@ -51,7 +51,7 @@ def makecard(signalbkgbsi, coupling, finalstate):
     if BSMcoupling is not None: parameters.append(BSMcoupling)
 
   parameters += [
-    "VegasNc0=5000000",
+    "VegasNc0=10000000",
     "LHAPDF=NNPDF30_lo_as_0130/NNPDF30_lo_as_0130.info",
     "ReweightInterf=1",
 
