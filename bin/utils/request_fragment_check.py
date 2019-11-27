@@ -783,6 +783,11 @@ for num in range(0,len(prepid)):
                                         bornonly = int(re.split(r'\s+',line)[1])
                                     if "lhans1" in line:
                                         pw_pdf = int(re.split(r'\s+', line)[1])
+                                        if "UL" in pi and pw_pdf not in UL_PDFs_N:
+                                            print"* [WARNING] The gridpack uses PDF="+str(pw_pdf)+" but not the recommended sets for UL requests:"
+                                            print"*                                             "+str(UL_PDFs_N[0])+" "+str(UL_PDFs[0])
+                                            print"*                                             or "+str(UL_PDFs_N[1])+" "+str(UL_PDFs[1])
+                                            warning += 1
                         with open(os.path.join(my_path, pi, "pwg-rwl.dat")) as f_pdf:
                             pdf_varext = []
                             for line in f_pdf:
@@ -796,16 +801,6 @@ for num in range(0,len(prepid)):
                                     pdf_varext.append(next(f_pdf,'').strip())
                                     if len(pdf_varext) == 0:
                                         print"* [WARNING] please check if pdf variations are included in pwg-rwl file"
-			    if len(bornonly) != 0:
-                                bornonly = int(re.split(r'\s+',bornonly[0])[1])
-                            pw_pdf = re.findall('lhans1\s+\d+',pw_in)
-                            if len(pw_pdf) != 0:
-                                pw_pdf = int(re.split(r'\s+', pw_pdf[0])[1])
-                                if "UL" in pi and pw_pdf not in UL_PDFs_N:
-                                    print"* [WARNING] The gridpack uses PDF="+str(pw_pdf)+" but not the recommended sets for UL requests:"
-                                    print"*                                             "+str(UL_PDFs_N[0])+" "+str(UL_PDFs[0])
-                                    print"*                                             or "+str(UL_PDFs_N[1])+" "+str(UL_PDFs[1])
-                                    warning += 1
                     if et_flag == 1:
                         with open(os.path.join(my_path, pi, "external_tarball/powheg.input")) as f:
                             for line in f:
@@ -814,14 +809,11 @@ for num in range(0,len(prepid)):
                                         bornonly = int(re.split(r'\s+',line)[1])
                                     if "lhans1" in line:
                                         pw_pdf = int(re.split(r'\s+', line)[1])
-#                            pw_pdf = re.findall('lhans1\s+\d+',pw_in)
-#                            if len(pw_pdf) != 0:
-#                                pw_pdf = int(re.split(r'\s+', pw_pdf[0])[1])
-                            if "UL" in pi and pw_pdf not in UL_PDFs_N:
-                                print"* [WARNING] The gridpack uses PDF="+str(pw_pdf)+" but not the recommended sets for UL requests:"
-                                print"*                                             "+str(UL_PDFs_N[0])+"  "+str(UL_PDFs[0])
-                                print"*                                             or "+str(UL_PDFs_N[1])+"  "+str(UL_PDFs[1])
-                                warning += 1
+                                        if "UL" in pi and pw_pdf not in UL_PDFs_N:
+                                            print"* [WARNING] The gridpack uses PDF="+str(pw_pdf)+" but not the recommended sets for UL requests:"
+                                            print"*                                             "+str(UL_PDFs_N[0])+"  "+str(UL_PDFs[0])
+                                            print"*                                             or "+str(UL_PDFs_N[1])+"  "+str(UL_PDFs[1])
+                                            warning += 1
                     if bornonly == 1:
                         bornonly_frag_check = 0
                         if int(os.popen('grep -c "Pythia8PowhegEmissionVetoSettings" '+pi).read()) == 1:
