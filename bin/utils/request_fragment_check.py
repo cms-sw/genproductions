@@ -325,6 +325,7 @@ for num in range(0,len(prepid)):
         error = 0
         warning = 0
         et_flag = 0
+        bornonly = 0
         herwig_flag = 0
         pf = []
         ppd = 0
@@ -776,9 +777,12 @@ for num in range(0,len(prepid)):
                             et_flag = 1
                     if et_flag == 0:
                         with open(os.path.join(my_path, pi, "powheg.input")) as f:
-                            pw_in = f.read()
-                            pw_in = re.sub(r'(?m)^ *#.*\n?', '',pw_in)
-                            bornonly = re.findall('bornonly\s+\d+',pw_in)
+                            for line in f:
+                                if line.startswith("!") == False and line.startswith("#") == False:
+                                    if "bornonly" in line:
+                                        bornonly = int(re.split(r'\s+',line)[1])
+                                    if "lhans1" in line:
+                                        pw_pdf = int(re.split(r'\s+', line)[1])
                         with open(os.path.join(my_path, pi, "pwg-rwl.dat")) as f_pdf:
                             pdf_varext = []
                             for line in f_pdf:
@@ -804,14 +808,15 @@ for num in range(0,len(prepid)):
                                     warning += 1
                     if et_flag == 1:
                         with open(os.path.join(my_path, pi, "external_tarball/powheg.input")) as f:
-                            pw_in = f.read()
-                            pw_in = re.sub(r'(?m)^ *#.*\n?', '',pw_in)
-                            bornonly = re.findall('bornonly\s+\d+',pw_in)
-                            if len(bornonly) != 0:
-                                bornonly = int(re.split(r'\s+',bornonly[0])[1])
-                            pw_pdf = re.findall('lhans1\s+\d+',pw_in)
-                            if len(pw_pdf) != 0:
-                                pw_pdf = int(re.split(r'\s+', pw_pdf[0])[1])
+                            for line in f:
+                                if line.startswith("!") == False and line.startswith("#") == False:
+                                    if "bornonly" in line:
+                                        bornonly = int(re.split(r'\s+',line)[1])
+                                    if "lhans1" in line:
+                                        pw_pdf = int(re.split(r'\s+', line)[1])
+#                            pw_pdf = re.findall('lhans1\s+\d+',pw_in)
+#                            if len(pw_pdf) != 0:
+#                                pw_pdf = int(re.split(r'\s+', pw_pdf[0])[1])
                             if "UL" in pi and pw_pdf not in UL_PDFs_N:
                                 print"* [WARNING] The gridpack uses PDF="+str(pw_pdf)+" but not the recommended sets for UL requests:"
                                 print"*                                             "+str(UL_PDFs_N[0])+"  "+str(UL_PDFs[0])
