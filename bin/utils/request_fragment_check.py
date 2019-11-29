@@ -272,9 +272,6 @@ for num in range(0,len(prepid)):
         te = r['time_event']
         totalevents = r['total_events']
         cmssw = r['cmssw_release']
-        print "##################################################"
-        print "* CMSSW release for the request: "+str(cmssw)
-        print "##################################################"
         test_cs_version = cmssw.split('_')
         mgversion = 0
         mg5_aMC_version = 0
@@ -414,7 +411,21 @@ for num in range(0,len(prepid)):
         os.system('cp '+pi+' '+my_path+'/'+pi+'/.')
         os.system('wget -q '+mcm_link+'public/restapi/requests/get_test/'+pi+' -O '+pi+'_get_test')
         gettest = os.popen('grep cff '+pi+'_get_test'+' | grep curl').read()
-
+        scram_arch = os.popen('grep SCRAM_ARCH '+pi+'_get_test').read()
+        scram_arch = scram_arch.split('=')[1].rstrip()
+        print "##################################################"
+        print "* CMSSW release for the request: "+str(cmssw)
+        print "* scram_arch = "+str(scram_arch)
+        pythia8_version = "/cvmfs/cms.cern.ch/"+str(scram_arch)+"/cms/cmssw"
+        if "patch" in cmssw:
+            pythia8_version = pythia8_version + "-patch"
+        pythia8_version = pythia8_version + "/"+str(cmssw)+"/config/toolbox/"+str(scram_arch)+"/tools/selected/pythia8.xml"
+        pythia8_version_file = os.path.isfile(pythia8_version)
+        pythia8_version = "grep version "+pythia8_version
+        if pythia8_version_file is True:
+            pythia8_version = os.popen(pythia8_version).read().rstrip().split('=')[2].replace(">","")
+            print "* PYTHIA8 version = "+str(pythia8_version)
+        print "##################################################"
         if herwig_flag != 0:
             os.system('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/herwig_frag_lines.txt -O herwig_frag_lines.txt')
             file1 = set(line.strip().replace(",","")  for line in open('herwig_frag_lines.txt'))
