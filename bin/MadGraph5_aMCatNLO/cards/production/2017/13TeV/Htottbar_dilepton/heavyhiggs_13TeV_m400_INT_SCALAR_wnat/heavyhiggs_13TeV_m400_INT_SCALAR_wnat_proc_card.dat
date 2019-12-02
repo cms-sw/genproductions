@@ -1,0 +1,7 @@
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+import model Massive_Higgs_UFO
+generate g g > t t~ / a0 HIG<=2 , (t > b w+ , w+ > l+ vl ) , (t~ > b~ w- , w- > l- vl~ )
+output heavyhiggs_13TeV_m400_INT_SCALAR_wnat
