@@ -4,14 +4,10 @@ fail_exit() { echo "$$@" 1>&2; exit 1; }
 echo "Start of job on " `date`
 
 cd $rootfolder
-source /cvmfs/cms.cern.ch/cmsset_default.sh
-eval `scramv1 runtime -sh`
 
-if [ -z "$$CMSSW_BASE" ]; then
-    fail_exit "You must run in a CMSSW environment."
-else
-    pushd $$CMSSW_BASE 
-fi
+source /cvmfs/cms.cern.ch/cmsset_default.sh
+
+eval `scramv1 runtime -sh`
 
 ### Prepare environments for FastJet ### 
 
@@ -32,7 +28,9 @@ export PATH=$$LHAPDF_BASE/bin/:$$PATH
 export LHAPDF_DATA_PATH=`$$LHAPDF_BASE/bin/lhapdf-config --datadir` 
 export PYTHONPATH=.:$$PYTHONPATH
 
-popd
+cd -
+echo "I am here:"
+pwd
 
 cp -p ${rootfolder}/${folderName}/powheg.input ./
 cp -p ${rootfolder}/${folderName}/JHUGen.input ./
