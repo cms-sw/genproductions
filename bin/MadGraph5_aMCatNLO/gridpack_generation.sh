@@ -429,6 +429,11 @@ make_gridpack () {
       cp $CARDSDIR/${name}_param_card.dat ./Cards/param_card.dat
     fi
 
+    if [ -e $CARDSDIR/${name}_param_card.dat ]; then
+      echo "copying custom params file"
+      cp $CARDSDIR/${name}_param_card.dat ./Cards/param_card.dat
+    fi
+
     #automatically detect NLO mode or LO mode from output directory
     isnlo=0
     if [ -e ./MCatNLO ]; then
