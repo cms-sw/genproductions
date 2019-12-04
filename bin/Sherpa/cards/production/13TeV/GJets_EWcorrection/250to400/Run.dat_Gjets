@@ -9,7 +9,7 @@
   ASSOCIATED_CONTRIBUTIONS_VARIATIONS EW EW|LO1;
 
   % tags for process setup
-  NJET:=2; LJET:=2,3; QCUT:=20.;
+  NJET:=1; LJET:=2,3; QCUT:=20.;
 
   % me generator settings
   ME_SIGNAL_GENERATOR Comix Amegic LOOPGEN;
@@ -34,17 +34,10 @@
   RS_ME_Generator Comix {LJET};
   Loop_Generator LOOPGEN {LJET};
   Associated_Contributions EW|LO1 {LJET};
-  Integration_Error 0.02 {2};
-  Integration_Error 0.02 {3};
-  Integration_Error 0.05 {4};
   End process;
 }(processes)
 
 (selector){
-  Mass 11 -11 50 E_CMS
-  Mass 13 -13 50 E_CMS
-  Mass 15 -15 50 E_CMS
-  PTNLO 93 10 E_CMS
   PTNLO 22 250 400
   IsolationCut 22 0.4 1 1
 }(selector)
