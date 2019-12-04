@@ -569,11 +569,6 @@ make_gridpack () {
     
     sed -i s/SCRAM_ARCH_VERSION_REPLACE/${scram_arch}/g runcmsgrid.sh
     sed -i s/CMSSW_VERSION_REPLACE/${cmssw_version}/g runcmsgrid.sh
-
-    if [ -e $CARDSDIR/${name}_reweight_card.dat ]; then
-      # ensure that the desired weights aren't removed
-      sed -i s/remove_wgts=all/remove_wgts=1001,1002,1003,1004,1005,1006,1007,1008,1009/g runcmsgrid.sh
-    fi   
  
     pdfExtraArgs=""
     if [ $is5FlavorScheme -eq 1 ]; then
