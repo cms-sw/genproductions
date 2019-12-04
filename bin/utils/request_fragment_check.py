@@ -410,15 +410,24 @@ for num in range(0,len(prepid)):
         print "##################################################"
         print "* CMSSW release for the request: "+str(cmssw)
         print "* scram_arch = "+str(scram_arch)
-        pythia8_version = "/cvmfs/cms.cern.ch/"+str(scram_arch)+"/cms/cmssw"
+        ps_version = "/cvmfs/cms.cern.ch/"+str(scram_arch)+"/cms/cmssw"
+#        pythia8_version = "/cvmfs/cms.cern.ch/"+str(scram_arch)+"/cms/cmssw"
         if "patch" in cmssw:
-            pythia8_version = pythia8_version + "-patch"
-        pythia8_version = pythia8_version + "/"+str(cmssw)+"/config/toolbox/"+str(scram_arch)+"/tools/selected/pythia8.xml"
-        pythia8_version_file = os.path.isfile(pythia8_version)
-        pythia8_version = "grep version "+pythia8_version
-        if pythia8_version_file is True:
-            pythia8_version = os.popen(pythia8_version).read().rstrip().split('=')[2].replace(">","")
-            print "* PYTHIA8 version = "+str(pythia8_version)
+            ps_version = ps_version + "-patch"
+        if "pythia8" in dn.lower():
+            pythia8_version = ps_version + "/"+str(cmssw)+"/config/toolbox/"+str(scram_arch)+"/tools/selected/pythia8.xml"
+            pythia8_version_file = os.path.isfile(pythia8_version)
+            pythia8_version = "grep version "+pythia8_version
+            if pythia8_version_file is True:
+                pythia8_version = os.popen(pythia8_version).read().rstrip().split('=')[2].replace(">","")
+                print "* PYTHIA8 version = "+str(pythia8_version)
+        if "herwig" in dn.lower():
+            herwig_version = ps_version + "/"+str(cmssw)+"/config/toolbox/"+str(scram_arch)+"/tools/selected/herwigpp.xml"
+            herwig_version_file = os.path.isfile(herwig_version)
+            herwig_version = "grep version "+herwig_version
+            if herwig_version_file is True:
+                herwig_version = os.popen(herwig_version).read().rstrip().split('=')[2].replace(">","")
+                print "* Herwig version = "+str(herwig_version)
         print "##################################################"
         if herwig_flag != 0:
             os.system('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/herwig_frag_lines.txt -O herwig_frag_lines.txt')
