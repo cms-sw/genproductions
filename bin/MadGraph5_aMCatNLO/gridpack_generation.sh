@@ -245,7 +245,6 @@ make_gridpack () {
       
       cp $CARDSDIR/${name}_proc_card.dat ${name}_proc_card.dat
      
- 
       #*FIXME* workaround for broken cluster_local_path handling. 
       # This needs to happen before the code-generation step, as fortran templates
       # are modified based on this parameter.
