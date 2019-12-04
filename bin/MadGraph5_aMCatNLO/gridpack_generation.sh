@@ -244,7 +244,7 @@ make_gridpack () {
       fi  
       
       cp $CARDSDIR/${name}_proc_card.dat ${name}_proc_card.dat
-     
+      
       #*FIXME* workaround for broken cluster_local_path handling. 
       # This needs to happen before the code-generation step, as fortran templates
       # are modified based on this parameter.
@@ -420,20 +420,12 @@ make_gridpack () {
       echo "copying custom reweight file"
       cp $CARDSDIR/${name}_reweight_card.dat ./Cards/reweight_card.dat
     fi
-    
-    
-    if [ -e $CARDSDIR/${name}_param_card.dat ]; then
-      echo "copying custom params file"
-      echo testtest
-      pwd
-      cp $CARDSDIR/${name}_param_card.dat ./Cards/param_card.dat
-    fi
-
+   
     if [ -e $CARDSDIR/${name}_param_card.dat ]; then
       echo "copying custom params file"
       cp $CARDSDIR/${name}_param_card.dat ./Cards/param_card.dat
     fi
-
+     
     #automatically detect NLO mode or LO mode from output directory
     isnlo=0
     if [ -e ./MCatNLO ]; then
@@ -574,7 +566,7 @@ make_gridpack () {
     
     sed -i s/SCRAM_ARCH_VERSION_REPLACE/${scram_arch}/g runcmsgrid.sh
     sed -i s/CMSSW_VERSION_REPLACE/${cmssw_version}/g runcmsgrid.sh
- 
+    
     pdfExtraArgs=""
     if [ $is5FlavorScheme -eq 1 ]; then
       pdfExtraArgs+="--is5FlavorScheme "
