@@ -237,7 +237,6 @@ if args.ticket is not None:
     print "------------------------------------"
     print "--> Ticket = "+ticket
     print "------------------------------------"
-#    print(root_requests_from_ticket(ticket))
     prepid = []
     for rr in root_requests_from_ticket(ticket):
         if 'GS' in rr or 'wmLHE' in rr or 'pLHE' in rr or 'FS' in rr:
@@ -280,11 +279,6 @@ for num in range(0,len(prepid)):
         match_eff = r['generator_parameters'][-1]['match_efficiency']
         print pi+"    Status= "+r['status']
         print dn
-#        os.system('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/reqs_to_bypass_check_cmssw_vs_mg.txt -O reqs_to_bypass_check_cmssw_vs_mg.txt')
-#        file1 = set(line.strip() for line in open('reqs_to_bypass_check_cmssw_vs_mg.txt'))
-#        list_bypass_check = []
-#        for line in file1:
-#            list_bypass_check.append(line)
         if args.bypass_status and r['status'] != "defined":
 	    print "--> Skipping since the request is not in defined state"
 	    print "--> Use --bypass_status option to look at all requests irrespective of state"
@@ -794,19 +788,6 @@ for num in range(0,len(prepid)):
                                             print"*                                             "+str(UL_PDFs_N[0])+" "+str(UL_PDFs[0])
                                             print"*                                             or "+str(UL_PDFs_N[1])+" "+str(UL_PDFs[1])
                                             warning += 1
-                        with open(os.path.join(my_path, pi, "pwg-rwl.dat")) as f_pdf:
-                            pdf_varext = []
-                            for line in f_pdf:
-                                if line.startswith("<weightgroup name='PDF_variation"):
-                                    t_pdf_l = next(f_pdf,'').strip()
-                                    if str(UL_PDFs_N[0]) not in t_pdf_l or str(UL_PDFs_N[1]) not in t_pdf_l:
-                                        print"* [WARNING] main pdf set in pwg-rwl file does not contain one of the recommended sets:"
-                                        print"*                                             "+str(UL_PDFs_N[0])+" "+str(UL_PDFs[0])
-                                        print"*                                             or "+str(UL_PDFs_N[1])+" "+str(UL_PDFs[1])
-                                    pdf_varext.append(next(f_pdf,'').strip())
-                                    pdf_varext.append(next(f_pdf,'').strip())
-                                    if len(pdf_varext) == 0:
-                                        print"* [WARNING] please check if pdf variations are included in pwg-rwl file"
                     if et_flag == 1:
                         with open(os.path.join(my_path, pi, "external_tarball/powheg.input")) as f:
                             for line in f:
@@ -823,6 +804,35 @@ for num in range(0,len(prepid)):
                                             print"*                                             "+str(UL_PDFs_N[0])+"  "+str(UL_PDFs[0])
                                             print"*                                             or "+str(UL_PDFs_N[1])+"  "+str(UL_PDFs[1])
                                             warning += 1
+                    if et_flag == 0:
+                        pwg_rwl_file = os.path.join(my_path, pi, "pwg-rwl.dat")
+                    if et_flag == 1:
+                        pwg_rwl_file = os.path.join(my_path, pi, "external_tarball/pwg-rwl.dat")
+                    if os.path.isfile(pwg_rwl_file):
+                        with open(os.path.join(my_path, pi, "pwg-rwl.dat")) as f_pdf:
+                            pdf_var_check0 = 0
+                            pdf_var_check1 = 0
+                            scale_var_check0 = 0
+                            scale_var_check1 = 0
+                            for line in f_pdf:
+                                if "scale_variation" in line:
+                                    scale_var_check0 += 1
+                                if "renscfact" in line and "facscfact" in line:
+                                    scale_var_check1 += 1
+                                if "PDF_variation" in line:
+                                    pdf_var_check0 += 1
+                                if str(pw_pdf)[0:3] in line:
+                                    pdf_var_check1 += 1
+                            if scale_var_check0 == 1 and scale_var_check1 == 9:
+                                print "* [OK] Most probably ME scale variations are OK."
+                            else:
+                                print "* [WARNING] There may be a problem with scale variations. Please check pwg-rwl.dat"
+                                warning += 1
+                            if pdf_var_check0 > 0 and pdf_var_check1 > 1:
+                                print "* [OK] Most probably PDF variations are OK."
+                            else:
+                                print "* [WARNING] There may be a problem with PDF variations. Please check pwg-rwl.dat"
+                                warning += 1
                     if bornonly == 1:
                         bornonly_frag_check = 0
                         if int(os.popen('grep -c "Pythia8PowhegEmissionVetoSettings" '+pi).read()) == 1:
@@ -971,7 +981,7 @@ for num in range(0,len(prepid)):
                         print"*                                             "+str(UL_PDFs_N[0])+" "+str(UL_PDFs[0])
                         print"*                                             or "+str(UL_PDFs_N[1])+" "+str(UL_PDFs[1])
                         warning += 1
-                    if "UL" in pi and mg_gp is True:
+                    if mg_gp is True:
                         with open(os.path.join(my_path, pi, "runcmsgrid.sh")) as fmg:
                             fmg_f = fmg.read()
                             fmg_f = re.sub(r'(?m)^ *#.*\n?', '',fmg_f)
@@ -981,18 +991,20 @@ for num in range(0,len(prepid)):
                             mg_me_pdf_list = mg_me_pdf_list[0].split('=')[1].split('\"')[1].split(',')
                             var_count = [s for s in mg_me_pdf_list if "@0" in s]
                             if len(var_count) < 1:
-                                    print"* [WARNING] There will be no PDF variations! Please check the runcmsgrid file in the gridpacl."
-                                    warning += 1
-                            if mg_me_pdf_list.count(UL_PDFs_N[0]) != 1 and mg_me_pdf_list.count(UL_PDFs_N[1]) != 1:
-                                    print"* [WARNING] pdfsets in runcmsgrid file does not contain one of the recommended sets:"
-                                    print"*                                             "+str(UL_PDFs_N[0])+"("+str(UL_PDFs[0])+")"
-                                    print"*                                             or "+str(UL_PDFs_N[1])+"("+str(UL_PDFs[1])+")"
-                                    print"* Your runcmsgrid file contains these sets:"
-                                    print(mg_me_pdf_list)
-                                    warning += 1
+                                print"* [WARNING] There will be no PDF variations! Please check the runcmsgrid file in the gridpacl."
+                                warning += 1
+                            else:
+                                print"* [OK] There are some PDF variations."
+                            if "UL" in pi and mg_me_pdf_list.count(UL_PDFs_N[0]) != 1 and mg_me_pdf_list.count(UL_PDFs_N[1]) != 1:
+                                print"* [WARNING] pdfsets in runcmsgrid file does not contain one of the recommended sets:"
+                                print"*                                             "+str(UL_PDFs_N[0])+"("+str(UL_PDFs[0])+")"
+                                print"*                                             or "+str(UL_PDFs_N[1])+"("+str(UL_PDFs[1])+")"
+                                print"* Your runcmsgrid file contains these sets:"
+                                print(mg_me_pdf_list)
+                                warning += 1
                             if (mg_me_pdf_list.count(str(UL_PDFs_N[0])) > 0 and mg_me_pdf_list.count(str(UL_PDFs_N[0])+"@0") != 0) or (mg_me_pdf_list.count(str(UL_PDFs_N[1])) > 0 and mg_me_pdf_list.count(str(UL_PDFs_N[1])+"@0") != 0):
-                                    print"* [WARNING] Main pdf recommended set ("+str(UL_PDFs_N[0])+" or "+str(UL_PDFs_N[1])+") is listed in runcmsgrid file but it is also included as a variation??"
-                                    warning += 1
+                                print"* [WARNING] Main pdf recommended set ("+str(UL_PDFs_N[0])+" or "+str(UL_PDFs_N[1])+") is listed in runcmsgrid file but it is also included as a variation??"
+                                warning += 1
                     matching = int(re.search(r'\d+',ickkw).group())
                     ickkw = str(ickkw)
                     if matching == 1 or matching == 2:
