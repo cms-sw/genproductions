@@ -1,0 +1,12 @@
+--- a/MadSpin/decay.py	2017-08-17 00:25:24.000000000 +0200
++++ b/MadSpin/decay.py	2019-12-04 15:43:26.755060000 +0100
+@@ -3951,7 +3951,8 @@
+                 
+         self.cross = 0
+         self.error = 0
+-        if 'init' in self.banner and (eff!=1 or not any(v==-1 for v in self.br_per_id.values())):
++        if 'init' in self.banner and (eff!=1 or not any(v==-1 for v in self.br_per_id.values())) \
++                                 and not self.options['onlyhelicity']:
+             new_init =''
+             curr_proc = 0
+             has_missing=False
