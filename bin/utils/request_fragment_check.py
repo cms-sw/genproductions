@@ -982,12 +982,13 @@ for num in range(0,len(prepid)):
                             store_rwgt_info = os.popen('more '+fname+' | tr -s \' \' | grep "store_rwgt_info"').read()
                         elif os.path.isfile(fname2) is True :
                             store_rwgt_info = os.popen('more '+fname2+' | tr -s \' \' | grep "store_rwgt_info"').read()
-                        store_rwgt_info_a = store_rwgt_info.split('=')
+                        if len(store_rwgt_info) != 0:
+                            store_rwgt_info_a = store_rwgt_info.split('=')
+                            if "false" in store_rwgt_info_a[0].lower():
+                                print "* [ERROR] store_rwgt_info set to"+ str(store_rwgt_info_a[0]) +" for MG5_aMC >= 260."
+                                error += 1
                         if len(store_rwgt_info) == 0:
                             print "* [ERROR] No store_rwgt_info set for MG5_aMC >= 260."
-                            error += 1
-                        if "false" in store_rwgt_info_a[0].lower():
-                            print "* [ERROR] store_rwgt_info set to"+ str(store_rwgt_info_a[0]) +" for MG5_aMC >= 260."
                             error += 1
                     test_bw = bw.split()
                     if float(test_bw[0]) > 15.:
