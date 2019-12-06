@@ -641,7 +641,7 @@ for num in range(0,len(prepid)):
                 print "powheg "+str(pw_gp)
                 print "mg "+str(mg_gp)
                 print "jhugen "+str(jhu_gp)
-                if any(word in dn for word in tunename) or "sherpa" in dn.lower():
+                if any(word in dn for word in tunename) or "sherpa" in dn.lower() or ("herwigpp" in dn.lower() and "eec5" in dn.lower()):
                     print "* [OK] Data set name has a known tune"
                 else:
                     print "* [ERROR] Dataset name does not have the tune name: "+dn
