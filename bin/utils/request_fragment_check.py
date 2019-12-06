@@ -1245,8 +1245,8 @@ for num in range(0,len(prepid)):
         if int(os.popen('grep -c -i filter '+pi).read()) > 3 and filter_eff == 1:
             print "* [WARNING] Filters in the fragment but filter efficiency = 1"
             warning += 1
-#        os.popen("rm -rf "+my_path+pi).read()
-#        os.popen("rm -rf "+my_path+'eos/'+pi).read()
+        os.popen("rm -rf "+my_path+pi).read()
+        os.popen("rm -rf "+my_path+'eos/'+pi).read()
         print "***********************************************************************************"
         print "Number of warnings = "+ str(warning)
         print "Number of errors = "+ str(error)
