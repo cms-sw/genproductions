@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 '''
  - get some indications from Phantom authors on the parameters for the gridpacks generation
  - transform the script into a daemon

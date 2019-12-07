@@ -155,7 +155,7 @@ class svjHelper(object):
         _outname += "_rinv-{:g}".format(self.rinv)
         if len(self.alphaName)>0: _outname += "_alpha-"+(self.alphaName)
         else: _outname += "_alpha-{:g}".format(self.alpha)
-        if len(outsuff)>0: _outname += "_"+outsuff
+        _outname += "_"+outsuff
         return _outname
 
     # allow access to all xsecs

@@ -26,7 +26,7 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
         pythia8CommonSettingsBlock,
         pythia8CP3SettingsBlock,
         parameterSets = cms.vstring('pythia8CommonSettings',
-                                    'pythia8CP3Settings',
+                                    'pythia8CP3SettingsBlock',
                                     )
     )
 )
