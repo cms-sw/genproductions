@@ -1,3 +1,0 @@
-import model Suu_diquark_UFO
-generate p p > suu > chi chi
-output $NAME$ -nojpeg
