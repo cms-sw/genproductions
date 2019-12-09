@@ -298,6 +298,9 @@ for num in range(0,len(prepid)):
         UL_PDFs= ["NNPDF31_nnlo_as_0118_mc_hessian_pdfas","NNPDF31_nnlo_as_0118_nf_4_mc_hessian"]
         UL_PDFs_N = [325300,325500]
         n_ext_par = 0
+        mg_lo = 0
+        mg_lo_w_matching = 0
+        mg_nlo = 0
         mcatnlo_flag = 0
         loop_flag = 0
         knd =  -1
@@ -638,7 +641,7 @@ for num in range(0,len(prepid)):
                 print "powheg "+str(pw_gp)
                 print "mg "+str(mg_gp)
                 print "jhugen "+str(jhu_gp)
-                if any(word in dn for word in tunename) or "sherpa" in dn.lower():
+                if any(word in dn for word in tunename) or "sherpa" in dn.lower() or ("herwigpp" in dn.lower() and "eec5" in dn.lower()):
                     print "* [OK] Data set name has a known tune"
                 else:
                     print "* [ERROR] Dataset name does not have the tune name: "+dn
@@ -991,10 +994,48 @@ for num in range(0,len(prepid)):
                         print"*                                             or "+str(UL_PDFs_N[1])+" "+str(UL_PDFs[1])
                         warning += 1
                     if mg_gp is True:
-                        with open(os.path.join(my_path, pi, "runcmsgrid.sh")) as fmg:
+                        runcmsgrid_file = os.path.join(my_path, pi, "runcmsgrid.sh")
+                        with open(runcmsgrid_file) as fmg:
                             fmg_f = fmg.read()
                             fmg_f = re.sub(r'(?m)^ *#.*\n?', '',fmg_f)
                             mg_me_pdf_list = re.findall('pdfsets=\S+',fmg_f)
+                            mg_lo = int(os.popen('grep "systematics" '+str(runcmsgrid_file)+' | grep -c madevent').read())
+                            mg_nlo = int(os.popen('grep "systematics" '+str(runcmsgrid_file)+' | grep -c aMCatNLO').read())
+                            print "##################################################"
+                            if mg_lo > 0 and mg_nlo > 0:
+                                "* [ERROR] something's wrong - LO and NLO configs together."
+                                error += 1
+                            if mg_lo > 0:
+                                print "* The MG5_aMC ME is running at LO"
+                            if mg_nlo > 0:
+                                print "* The MG5_aMC ME is running at NLO"
+                            print "##################################################"
+                            if mg_nlo > 0 and mg5_aMC_version >= 260:
+                                if os.path.isfile(fname) is True :
+                                    store_rwgt_info = os.popen('more '+fname+' | tr -s \' \' | grep "store_rwgt_info"').read()
+                                elif os.path.isfile(fname2) is True :
+                                    store_rwgt_info = os.popen('more '+fname2+' | tr -s \' \' | grep "store_rwgt_info"').read()
+                                if len(store_rwgt_info) != 0:
+                                    store_rwgt_info_a = store_rwgt_info.split('=')
+                                    if "false" in store_rwgt_info_a[0].lower():
+                                        print "* [ERROR] store_rwgt_info set to"+ str(store_rwgt_info_a[0]) +" for MG5_aMC >= 260."
+                                        error += 1
+                                if len(store_rwgt_info) == 0:
+                                    print "* [ERROR] No store_rwgt_info set for MG5_aMC >= 260."
+                                    error += 1
+                            if mg_lo > 0 and mg5_aMC_version >= 260:
+                                if os.path.isfile(fname) is True :
+                                    use_syst = os.popen('more '+fname+' | tr -s \' \' | grep "use_syst"').read()
+                                elif os.path.isfile(fname2) is True :
+                                    use_syst = os.popen('more '+fname2+' | tr -s \' \' | grep "use_syst"').read()
+                                if len(use_syst) != 0:
+                                    use_syst_a = use_syst.split('=')
+                                    if "false" in use_syst_a[0].lower():
+                                        print "* [ERROR] use_syst set to"+ str(use_syst_a[0]) +" for MG5_aMC >= 260."
+                                        error += 1
+                                if len(use_syst) == 0:
+                                    print "* [ERROR] No use_syst set for MG5_aMC >= 260."
+                                    error += 1
                             if mg5_aMC_version < 260:
                                 continue
                             mg_me_pdf_list = mg_me_pdf_list[0].split('=')[1].split('\"')[1].split(',')
@@ -1106,6 +1147,7 @@ for num in range(0,len(prepid)):
                 elif matching == 1 and check[0] == 0 and check[1] == 0 and check[2] == 0 :
                     print "* [OK] no known inconsistency in the fragment w.r.t. the name of the dataset "+word
                     if matching_c != 0:
+                        mg_lo_w_matching = 1
                         print "* [WARNING] To check manually - This is a matched MadGraph LO sample. Please check 'JetMatching:nJetMax' ="+str(nJetMax)+" is OK and"
                         print "*            correctly set as number of partons in born matrix element for highest multiplicity."
                         warning += 1
