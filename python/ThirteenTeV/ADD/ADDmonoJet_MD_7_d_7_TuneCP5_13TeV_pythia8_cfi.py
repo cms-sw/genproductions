@@ -16,7 +16,7 @@ generator = cms.EDFilter('Pythia8GeneratorFilter',
         pythia8CP5SettingsBlock,
         pythia8PSweightsSettingsBlock,
         pdfSettings = cms.vstring(
-            'PDF:pSet = LHAPDF6:NNPDF31_lo_as_0130',
+            'PDF:pSet = LHAPDF6:NNPDF31_nnlo_as_0118',
             ),
         processParameters = cms.vstring(
             'ExtraDimensionsLED:monojet = on',
