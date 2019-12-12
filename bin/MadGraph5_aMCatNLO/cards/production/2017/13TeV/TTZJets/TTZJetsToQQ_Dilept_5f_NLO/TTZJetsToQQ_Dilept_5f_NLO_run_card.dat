@@ -144,4 +144,4 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! reweight to get PDF uncertainty
 #***********************************************************************
  5 = maxjetflavor
 #***********************************************************************
-True = store_rwgt_info ! Store info for reweighting in LHE file
+ .true. = store_rwgt_info ! Store info for reweighting in LHE file
