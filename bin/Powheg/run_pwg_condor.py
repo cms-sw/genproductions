@@ -304,8 +304,9 @@ def runGetSource(parstage, xgrid, folderName, powInputName, process, noPdfCheck,
 def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag, process, seed) :
     print 'run : submitting jobs'
   
-    sedcommand = 'sed -i "s/NEVENTS/2000/ ; s/parallelstage.*/parallelstage ' + parstage + '/ ; s/xgriditeration.*/xgriditeration 1/ ; s/iseed.*/iseed '+str(seed)+'/" '+folderName+'/powheg.input'
+    inputName = folderName + "/powheg.input"
 
+    sedcommand = 'sed -i "s/NEVENTS/2000/ ; s/iseed.*/iseed '+str(seed)+'/" '+inputName
     runCommand(sedcommand)
     
     if (parstage in ['2', '3']) :
