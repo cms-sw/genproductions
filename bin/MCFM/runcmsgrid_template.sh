@@ -58,7 +58,8 @@ export LHAPATH=$LHADPDF_DATA_PATH
 #idea taken from https://github.com/cms-sw/genproductions/blob/733f0729283054fc381f1035616d6793db0ea33c/bin/MadGraph5_aMCatNLO/runcmsgrid_LO.sh#L68
 #but the implementation is a little different, because the problem isn't requesting too many events, it's the job crashing when it hits nan
 
-echo 0 > produced_lhe
+cp INPUT.DAT INPUT.DAT.orig
+produced_lhe=0
 run_counter=0
 inputseed=$rnum
 
@@ -70,7 +71,7 @@ if [  $run_random_start -gt "89999990" ]; then
     run_random_start=$(echo "print str($run_random_start)[1:]" | python)
 fi
 
-while [ $(cat produced_lhe | paste -sd+ | bc) -lt ${nevt} ]; do
+while [ ${produced_lhe} -lt ${nevt} ]; do
   # set the incremental iteration seed
   run_random_seed=$(echo $run_random_start + $run_counter | bc)
   # increase the iteration counter
@@ -82,54 +83,21 @@ while [ $(cat produced_lhe | paste -sd+ | bc) -lt ${nevt} ]; do
       break
   fi
 
-  (
-    echo "Running MCFM for the $run_counter time"
-    mkdir running_$run_counter
-    cd running_$run_counter
-    ln -s ../*.DAT ../*.dat ../br.sm* ../*_grid ../*.bin .
-    rm readInput.DAT
-    cp ../readInput.DAT readInput.DAT
-    inputnevt=$( echo "(${nevt} - $(cat ../produced_lhe | paste -sd+ | bc)) * 1.1 / $ncpu" | bc)
-    inputnevt=${inputnevt%.*}
-    sed -i "s/NEVENT/"$inputnevt"/" readInput.DAT
-    sed -i "s/SEED/"$run_random_seed"/" readInput.DAT
-    ../Bin/mcfm readInput.DAT |& tee log
-    lhefiles=($(ls *.lhe | grep -v cmsgrid_))
-    if [ ${#lhefiles[@]} -ne 1 ];then exit 1; else FILENAME=${lhefiles[0]}; fi
-    grep "</event>" $FILENAME | wc -l >> ../produced_lhe
-    mv $FILENAME $LHEWORKDIR/cmsgrid_${run_counter}.lhe
-  ) &
-
-  while [ $( jobs | grep '^\[' | wc -l ) -ge $ncpu ]; do
-    jobs > /dev/null  #otherwise it does an infinite loop.  not sure why this happens.
-    echo "$( jobs | grep '^\[' | wc -l ) jobs running"
-    sleep 10s
-  done
-
-  submitmorejobs=false
-  if ! cat produced_lhe | grep [1-9]; then
-    submitmorejobs=true
-  fi
-  while ! $submitmorejobs; do
-    jobs > /dev/null
-    njobsrunning=$(jobs | grep '^\[' | wc -l)
-    njobsfinished=$(cat produced_lhe | grep [1-9] | wc -l)
-    eventsproduced=$(cat produced_lhe | paste -sd+ | bc)
-    nprojectedevents=$(echo "$eventsproduced * ($njobsrunning + $njobsfinished) / $njobsfinished" | bc)
-    if [ $nprojectedevents -lt ${nevt} ] || [ $eventsproduced -ge ${nevt} ]; then
-      submitmorejobs=true
-    else
-      echo "When the current jobs are done, we will have about $nprojectedevents events"
-      echo "No need to start more jobs"
-      sleep 10s
-    fi
-  done
+  echo "Running MCFM for the "$run_counter" time"
+  cp INPUT.DAT.orig INPUT.DAT
+  inputnevt=$( echo "(${nevt} - ${produced_lhe}) * 1.1" | bc)
+  inputnevt=${inputnevt%.*}
+  sed -i "s/NEVENT/"$inputnevt"/" INPUT.DAT
+  sed -i "s/SEED/"$run_random_seed"/" INPUT.DAT
+  ./mcfm INPUT.DAT
+  lhefiles=($(ls *.lhe | grep -v cmsgrid_))
+  if [ ${#lhefiles[@]} -ne 1 ];then exit 1; else FILENAME=${lhefiles[0]}; fi
+  produced_lhe=$(echo $produced_lhe + $(grep "</event>" $FILENAME | wc -l) | bc)
+  mv $FILENAME $LHEWORKDIR/cmsgrid_${run_counter}.lhe
 done
 
-wait
-
 cd $LHEWORKDIR
-python adjlheevent.py ${nevt} $(cat produced_lhe | paste -sd+ | bc) ${rnum} cmsgrid_*.lhe
+python adjlheevent.py ${nevt} ${produced_lhe} ${rnum} cmsgrid_*.lhe
 
 ls -l
 echo

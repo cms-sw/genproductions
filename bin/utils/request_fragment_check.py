@@ -20,13 +20,16 @@ parser = argparse.ArgumentParser(
                and does a patch for the MG5_aMC LO nthreads problem if needed.
 
                WARNINGS:
-                  * [WARNING] comphep, calchep, or herwigpp request. Please check manually
-                  * [WARNING] if time per event > 150 seconds
+                  * [WARNING] comphep or calchep request. Please check manually
+                  * [WARNING] Large time/event (> 150 sec)=xx - please check
                   * [WARNING] if CMSSW version is not 10_6, 10_2, 9_3, and 7_1 or (8_0 but not Summer16FSPremix) or (9_4 but not Fall17FSPremix)
-                  * [WARNING] total number of events > 100000000
-                  * [WARNING] CMSSW version is different than its base UL17 request
+                  *           Are you sure you want to use a release which is not standard which may not have all the necessary GEN code.
+                  * [WARNING] total number of events > 100000000 - Is xx events what you really wanted - please check!
+                  * [WARNING] CMSSW version is different than its base UL17 request.
+                  *           Please make sure that the request has _exactly_ the same settings as the base request.
                   * [WARNING] No fragment associated to this request"
-                  *           is this the hadronizer you intended to use?:
+                  *           is this the hadronizer you intended to use?
+                  * [WARNING] Not checking sherpacks for now.
                   * [WARNING] PDF:pSet is missing (if you want to use NNPDF3.1)
                   *           For requests made with >= CMSSW_10_5_0_pre2 and <= CMSSW_10_6_0_patch1
                   *           PDF access method should be like"
@@ -35,8 +38,9 @@ parser = argparse.ArgumentParser(
                   *           e.g. for CP5 use 'PDF:pSet=LHAPDF6:NNPDF31_nnlo_as_0118'"
                   * [WARNING] Dataset name is not regular:
                   *           Please add the Generator name to the dataset.
-                  * [WARNING] gridpack patch problem (this is still being investigated)
-                  * [WARNING] You may try to request more events per phase-space region in the gridpack.
+                  * [WARNING] gridpack patch problem
+                  *           You may try to request more events per phase-space region in the gridpack.
+                  * [WARNING] The gridpack uses PDF = xx but not the recommended sets for UL requests
                   * [WARNING] Didn't find powheg process in runcmsgrid.sh
                   * [WARNING] nJetMax(=X) is not equal to the number of jets specified in the proc card(=Y).
                   *            Is it because this is an exclusive production with additional samples with higher multiplicity generated separately?
@@ -55,6 +59,8 @@ parser = argparse.ArgumentParser(
                   * [WARNING] ncall2 = X, should be at least 75000 (may be ok if hmass < 150 GeV, please check!)
                   * [WARNING] foldcsi = X, should be at least 2 (may be ok if hmass < 150 GeV, please check!)
                   * [WARNING] itmx1 = X, should be at least 7 (may be ok if hmass < 150 GeV, please check!)
+                  * [WARNING] There may be a problem with scale variations. Please check pwg-rwl.dat
+                  * [WARNING] There may be a problem with PDF variations. Please check pwg-rwl.dat
                   * [WARNING] powheg+pythia sample contains Pythia8PowhegEmissionVetoSettings
                               - warning to check whether it is a loop induced process
                   * [WARNING] if this is a Powheg request but loop induced process such as gg->ZH,
@@ -66,19 +72,28 @@ parser = argparse.ArgumentParser(
                   * [WARNING] No automated check of Sherpa ps/tune parameters yet
                   * [WARNING] Number of extra or replaced tune parameters is at least
                   *           Please check tune configuration carefully (e.g. are the non-replaced parameters the ones you want)
-		  * [WARNING] None standard tune - please check the fragment carefully.
+                  * [WARNING] None standard tune - please check the fragment carefully.
                   * [WARNING] Do you really want to have tune X in this campaign?
                   * [WARNING] No parton shower weights configuration in the fragment. In the Fall18 campaign, we recommend to include Parton Shower weights
-		  * [WARNING] Filters in the fragment but filter efficiency = 1
+                  * [WARNING] Filters in the fragment but filter efficiency = 1
                   * [WARNING] bwcutoff set to X (> 15 GeV). Note that large bwcutoff values can cause problems in production.
                   * [WARNING] Matched sample but matching efficiency is 1!
                   * [WARNING] Please remove aMCatNLO or POWHEG settings if this is a pure Pythia request.
                   *           If it's not a pure request, in the future, please include madgraph/powheg or amcatnlo
                   *           in the name of the dataset
-                  * [WARNING] bornonly = 1 (if (Pythia8PowhegEmissionVetoSettings or SpaceShower:pTmaxMatch or  TimeShower:pTmaxMatch) this becomes an error.
-
+                  * [WARNING] bornonly = xx (if xx = 1 and if (Pythia8PowhegEmissionVetoSettings or SpaceShower:pTmaxMatch
+                  *           or  TimeShower:pTmaxMatch) this becomes an error.
+                  * [WARNING] You're using MG5_aMC xx in an Ultra Legacy Campaign. You should use MG5_aMCv2.6.1+.
+                  *           This becomes an error if it is not a PPD request.
+                  * [WARNING] There will be no PDF variations! Please check the runcmsgrid file in the gridpack.
+                  * [WARNING] pdfsets in runcmsgrid file does not contain one of the recommended sets: xxxx
+                  *           Your runcmsgrid file contains these sets: xxxx
+                  * [WARNING] Main pdf recommended set xx or yy is listed in runcmsgrid file but it is
+                  *             also included as a variation??
 
                ERRORS:
+                  * [ERROR] No corresponing UL17 request to compare to for consistency.
+                  *         Please first create the corresponding UL17 requests.
                   * [ERROR] Fragment of XX is different than its base UL17 request:
                   *         Please make sure that XX has _exactly_ the same settings as XX
                   * [ERROR] missing fragment line(s) for herwig
@@ -89,7 +104,7 @@ parser = argparse.ArgumentParser(
                   * [ERROR] herwig7LHEMG5aMCatNLOSettingsBlock missing for MG5_aMC[NLO]+herwig7 request
                   * [ERROR] hw_lhe_MG5aMCatNLO_settings missing for MG5_aMC[NLO]+herwig7 request
                   * [ERROR] please try to increase the filter efficiency if (8*3600/timeperevent)*filter_eff < 50
-                            and timeperevent > 0 and not a ppd request
+                            and timeperevent > 0 and not a ppd request (this is a CMSSW version dependent check)
                   * [ERROR] 8 core request with memory different from 15900 GB. Please set the memory to 15900 GB if CMSSW version >= 10_6_X and nthreads = 8
                             and mem != 15900 and not ppd request
                   * [ERROR] Memory is not 2300, 4000 or 15900 MB
@@ -102,10 +117,20 @@ parser = argparse.ArgumentParser(
                   * [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix or HINPbPbAutumn18GS campaign: Memory is 4000 but nthreads != 2
                   * [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix or HINPbPbAutumn18GS campaign: Memory is 2300 but nthreads != 1
                   * [ERROR] Gridpack should have used cvmfs path instead of eos path
-                  * [ERROR] minbias in CMSSW_10_X: SigmaTotal:mode should have been set to 0
-                  * [ERROR] minbias in CMSSW_10_X: SigmaTotal:sigmaEl should have been set to 21.89
-                  * [ERROR] minbias in CMSSW_10_X: SigmaTotal:sigmaTot should have been set to 100.309
-                  * [ERROR] minbias in CMSSW_10_X: PDF access method is wrong. Please correct.
+                  * [ERROR] minbias in version >= CMSSW_10_5_0_pre2 and <= CMSSW_10_6_X and not particle gun and not CMSSW_10_6_0 and not CMSSW_10_6_0_patch1:
+                  *         SigmaTotal:mode should have been set to 0
+                  *         SigmaTotal:sigmaEl should have been set to 21.89
+                  *         SigmaTotal:sigmaTot should have been set to 100.309
+                  *         PDF access method is wrong. Please correct.
+                  * [ERROR] SigmaTotal:mode is missing
+                  *         For requests made with >= CMSSW_10_5_0_pre2 and <= CMSSW_10_6_0_patch1
+                  *         SigmaTotal:mode shoud be added by hand and set to 0
+                  * [ERROR] SigmaTotal:sigmaEl is missing"
+                  *         For requests made with >= CMSSW_10_5_0_pre2 and <= CMSSW_10_6_0_patch1
+                  *         SigmaTotal:sigmaEl should be added by hand and set to 21.89
+                  * [ERROR] SigmaTotal:sigmaTot is missing"
+                  *         For requests made with >= CMSSW_10_5_0_pre2 and <= CMSSW_10_6_0_patch1
+                  *         SigmaTotal:sigmaTot should be added by hand and set to 100.309
                   * [ERROR] Dataset name does not have the tune name
                   *         Please add the tune name to the dataset.
                   * [ERROR] Dataset name does not contain a parton shower code name
@@ -139,12 +164,17 @@ parser = argparse.ArgumentParser(
                   *         Please remove all occurances of Pythia8aMCatNLOSettings from the fragment
                   * [ERROR] You are using a loop induced process, [noborn=QCD].
                   *         Please remove all TimeShower:nPartonsInBorn from the fragment
-                  * [ERROR] Tune configuration may be wrong in the fragment
- 	    	  *          or pythia8CUEP8M1Settings are overwritten by some other parameters as in CUETP8M2T4
+                  * [ERROR] Tune configuration may be wrong in the Fragment
+                  *          or pythia8CUEP8M1Settings are overwritten by some other parameters as in CUETP8M2T4
                   * [ERROR] PS weights in config but CMSSW version is < 10_2_3 - please check!
                   * [ERROR] Parton shower weight configuration not OK in the fragment
                   * [ERROR] You're using MG5_aMC version < 2.6.1 in an Ultra Legacy Campaign. You should use MG5_aMCv2.6.1+
                   * [ERROR] bornonly = 1 and (Pythia8PowhegEmissionVetoSettings or SpaceShower:pTmaxMatch or  TimeShower:pTmaxMatch)
+                  * [ERROR] something's wrong - LO and NLO configs together.
+                  * [ERROR] store_rwgt_info set to false for MG5_aMC >= 260.
+                  * [ERROR] No store_rwgt_info set for MG5_aMC >= 260.
+                  * [ERROR] use_syst set to false for MG5_aMC >= 260.
+                  * [ERROR] No use_syst set for MG5_aMC >= 260.
                                                                                     '''))
 parser.add_argument('--prepid', type=str, help="check mcm requests using prepids", nargs='+')
 parser.add_argument('--ticket', type=str, help="check mcm requests using ticket number", nargs=1)
@@ -237,7 +267,6 @@ if args.ticket is not None:
     print "------------------------------------"
     print "--> Ticket = "+ticket
     print "------------------------------------"
-#    print(root_requests_from_ticket(ticket))
     prepid = []
     for rr in root_requests_from_ticket(ticket):
         if 'GS' in rr or 'wmLHE' in rr or 'pLHE' in rr or 'FS' in rr:
@@ -280,11 +309,6 @@ for num in range(0,len(prepid)):
         match_eff = r['generator_parameters'][-1]['match_efficiency']
         print pi+"    Status= "+r['status']
         print dn
-#        os.system('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/reqs_to_bypass_check_cmssw_vs_mg.txt -O reqs_to_bypass_check_cmssw_vs_mg.txt')
-#        file1 = set(line.strip() for line in open('reqs_to_bypass_check_cmssw_vs_mg.txt'))
-#        list_bypass_check = []
-#        for line in file1:
-#            list_bypass_check.append(line)
         if args.bypass_status and r['status'] != "defined":
 	    print "--> Skipping since the request is not in defined state"
 	    print "--> Use --bypass_status option to look at all requests irrespective of state"
@@ -304,6 +328,9 @@ for num in range(0,len(prepid)):
         UL_PDFs= ["NNPDF31_nnlo_as_0118_mc_hessian_pdfas","NNPDF31_nnlo_as_0118_nf_4_mc_hessian"]
         UL_PDFs_N = [325300,325500]
         n_ext_par = 0
+        mg_lo = 0
+        mg_lo_w_matching = 0
+        mg_nlo = 0
         mcatnlo_flag = 0
         loop_flag = 0
         knd =  -1
@@ -340,14 +367,14 @@ for num in range(0,len(prepid)):
             req_type = "plhe"
         if "herwig" in dn.lower():
             herwig_flag = 1
-        if "comphep" in dn.lower() or "calchep" in dn.lower() or "herwigpp" in dn.lower():
-            print "* [WARNING] comphep, calchep, or herwigpp request. Please check manually"
+        if "comphep" in dn.lower() or "calchep" in dn.lower():
+            print "* [WARNING] comphep or calchep request. Please check manually"
             warning += 1
             continue
         for item in te:
             timeperevent = float(item)
         if timeperevent > 150.0 :
-            print "* [WARNING] Large time/event="+str(timeperevent)+" - please check"
+            print "* [WARNING] Large time/event (> 150 sec)="+str(timeperevent)+" - please check"
             warning += 1
         version_not_ok = 0
         if '8_0' in cmssw and "Summer16FSPremix" not in pi:
@@ -416,15 +443,24 @@ for num in range(0,len(prepid)):
         print "##################################################"
         print "* CMSSW release for the request: "+str(cmssw)
         print "* scram_arch = "+str(scram_arch)
-        pythia8_version = "/cvmfs/cms.cern.ch/"+str(scram_arch)+"/cms/cmssw"
+        ps_version = "/cvmfs/cms.cern.ch/"+str(scram_arch)+"/cms/cmssw"
+#        pythia8_version = "/cvmfs/cms.cern.ch/"+str(scram_arch)+"/cms/cmssw"
         if "patch" in cmssw:
-            pythia8_version = pythia8_version + "-patch"
-        pythia8_version = pythia8_version + "/"+str(cmssw)+"/config/toolbox/"+str(scram_arch)+"/tools/selected/pythia8.xml"
-        pythia8_version_file = os.path.isfile(pythia8_version)
-        pythia8_version = "grep version "+pythia8_version
-        if pythia8_version_file is True:
-            pythia8_version = os.popen(pythia8_version).read().rstrip().split('=')[2].replace(">","")
-            print "* PYTHIA8 version = "+str(pythia8_version)
+            ps_version = ps_version + "-patch"
+        if "pythia8" in dn.lower():
+            pythia8_version = ps_version + "/"+str(cmssw)+"/config/toolbox/"+str(scram_arch)+"/tools/selected/pythia8.xml"
+            pythia8_version_file = os.path.isfile(pythia8_version)
+            pythia8_version = "grep version "+pythia8_version
+            if pythia8_version_file is True:
+                pythia8_version = os.popen(pythia8_version).read().rstrip().split('=')[2].replace(">","")
+                print "* PYTHIA8 version = "+str(pythia8_version)
+        if "herwig" in dn.lower():
+            herwig_version = ps_version + "/"+str(cmssw)+"/config/toolbox/"+str(scram_arch)+"/tools/selected/herwigpp.xml"
+            herwig_version_file = os.path.isfile(herwig_version)
+            herwig_version = "grep version "+herwig_version
+            if herwig_version_file is True:
+                herwig_version = os.popen(herwig_version).read().rstrip().split('=')[2].replace(">","")
+                print "* Herwig version = "+str(herwig_version)
         print "##################################################"
         if herwig_flag != 0:
             os.system('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/herwig_frag_lines.txt -O herwig_frag_lines.txt')
@@ -635,7 +671,7 @@ for num in range(0,len(prepid)):
                 print "powheg "+str(pw_gp)
                 print "mg "+str(mg_gp)
                 print "jhugen "+str(jhu_gp)
-                if any(word in dn for word in tunename) or "sherpa" in dn.lower():
+                if any(word in dn for word in tunename) or "sherpa" in dn.lower() or ("herwigpp" in dn.lower() and "eec5" in dn.lower()):
                     print "* [OK] Data set name has a known tune"
                 else:
                     print "* [ERROR] Dataset name does not have the tune name: "+dn
@@ -794,19 +830,6 @@ for num in range(0,len(prepid)):
                                             print"*                                             "+str(UL_PDFs_N[0])+" "+str(UL_PDFs[0])
                                             print"*                                             or "+str(UL_PDFs_N[1])+" "+str(UL_PDFs[1])
                                             warning += 1
-                        with open(os.path.join(my_path, pi, "pwg-rwl.dat")) as f_pdf:
-                            pdf_varext = []
-                            for line in f_pdf:
-                                if line.startswith("<weightgroup name='PDF_variation"):
-                                    t_pdf_l = next(f_pdf,'').strip()
-                                    if str(UL_PDFs_N[0]) not in t_pdf_l or str(UL_PDFs_N[1]) not in t_pdf_l:
-                                        print"* [WARNING] main pdf set in pwg-rwl file does not contain one of the recommended sets:"
-                                        print"*                                             "+str(UL_PDFs_N[0])+" "+str(UL_PDFs[0])
-                                        print"*                                             or "+str(UL_PDFs_N[1])+" "+str(UL_PDFs[1])
-                                    pdf_varext.append(next(f_pdf,'').strip())
-                                    pdf_varext.append(next(f_pdf,'').strip())
-                                    if len(pdf_varext) == 0:
-                                        print"* [WARNING] please check if pdf variations are included in pwg-rwl file"
                     if et_flag == 1:
                         with open(os.path.join(my_path, pi, "external_tarball/powheg.input")) as f:
                             for line in f:
@@ -823,6 +846,35 @@ for num in range(0,len(prepid)):
                                             print"*                                             "+str(UL_PDFs_N[0])+"  "+str(UL_PDFs[0])
                                             print"*                                             or "+str(UL_PDFs_N[1])+"  "+str(UL_PDFs[1])
                                             warning += 1
+                    if et_flag == 0:
+                        pwg_rwl_file = os.path.join(my_path, pi, "pwg-rwl.dat")
+                    if et_flag == 1:
+                        pwg_rwl_file = os.path.join(my_path, pi, "external_tarball/pwg-rwl.dat")
+                    if os.path.isfile(pwg_rwl_file):
+                        with open(os.path.join(my_path, pi, "pwg-rwl.dat")) as f_pdf:
+                            pdf_var_check0 = 0
+                            pdf_var_check1 = 0
+                            scale_var_check0 = 0
+                            scale_var_check1 = 0
+                            for line in f_pdf:
+                                if "scale_variation" in line:
+                                    scale_var_check0 += 1
+                                if "renscfact" in line and "facscfact" in line:
+                                    scale_var_check1 += 1
+                                if "PDF_variation" in line:
+                                    pdf_var_check0 += 1
+                                if str(pw_pdf)[0:3] in line:
+                                    pdf_var_check1 += 1
+                            if scale_var_check0 == 1 and scale_var_check1 == 9:
+                                print "* [OK] Most probably ME scale variations are OK."
+                            else:
+                                print "* [WARNING] There may be a problem with scale variations. Please check pwg-rwl.dat"
+                                warning += 1
+                            if pdf_var_check0 > 0 and pdf_var_check1 > 1:
+                                print "* [OK] Most probably PDF variations are OK."
+                            else:
+                                print "* [WARNING] There may be a problem with PDF variations. Please check pwg-rwl.dat"
+                                warning += 1
                     if bornonly == 1:
                         bornonly_frag_check = 0
                         if int(os.popen('grep -c "Pythia8PowhegEmissionVetoSettings" '+pi).read()) == 1:
@@ -971,28 +1023,68 @@ for num in range(0,len(prepid)):
                         print"*                                             "+str(UL_PDFs_N[0])+" "+str(UL_PDFs[0])
                         print"*                                             or "+str(UL_PDFs_N[1])+" "+str(UL_PDFs[1])
                         warning += 1
-                    if "UL" in pi and mg_gp is True:
-                        with open(os.path.join(my_path, pi, "runcmsgrid.sh")) as fmg:
+                    if mg_gp is True:
+                        runcmsgrid_file = os.path.join(my_path, pi, "runcmsgrid.sh")
+                        with open(runcmsgrid_file) as fmg:
                             fmg_f = fmg.read()
                             fmg_f = re.sub(r'(?m)^ *#.*\n?', '',fmg_f)
                             mg_me_pdf_list = re.findall('pdfsets=\S+',fmg_f)
+                            mg_lo = int(os.popen('grep "systematics" '+str(runcmsgrid_file)+' | grep -c madevent').read())
+                            mg_nlo = int(os.popen('grep "systematics" '+str(runcmsgrid_file)+' | grep -c aMCatNLO').read())
+                            print "##################################################"
+                            if mg_lo > 0 and mg_nlo > 0:
+                                "* [ERROR] something's wrong - LO and NLO configs together."
+                                error += 1
+                            if mg_lo > 0:
+                                print "* The MG5_aMC ME is running at LO"
+                            if mg_nlo > 0:
+                                print "* The MG5_aMC ME is running at NLO"
+                            print "##################################################"
+                            if mg_nlo > 0 and mg5_aMC_version >= 260:
+                                if os.path.isfile(fname) is True :
+                                    store_rwgt_info = os.popen('more '+fname+' | tr -s \' \' | grep "store_rwgt_info"').read()
+                                elif os.path.isfile(fname2) is True :
+                                    store_rwgt_info = os.popen('more '+fname2+' | tr -s \' \' | grep "store_rwgt_info"').read()
+                                if len(store_rwgt_info) != 0:
+                                    store_rwgt_info_a = store_rwgt_info.split('=')
+                                    if "false" in store_rwgt_info_a[0].lower():
+                                        print "* [ERROR] store_rwgt_info set to"+ str(store_rwgt_info_a[0]) +" for MG5_aMC >= 260."
+                                        error += 1
+                                if len(store_rwgt_info) == 0:
+                                    print "* [ERROR] No store_rwgt_info set for MG5_aMC >= 260."
+                                    error += 1
+                            if mg_lo > 0 and mg5_aMC_version >= 260:
+                                if os.path.isfile(fname) is True :
+                                    use_syst = os.popen('more '+fname+' | tr -s \' \' | grep "use_syst"').read()
+                                elif os.path.isfile(fname2) is True :
+                                    use_syst = os.popen('more '+fname2+' | tr -s \' \' | grep "use_syst"').read()
+                                if len(use_syst) != 0:
+                                    use_syst_a = use_syst.split('=')
+                                    if "false" in use_syst_a[0].lower():
+                                        print "* [ERROR] use_syst set to"+ str(use_syst_a[0]) +" for MG5_aMC >= 260."
+                                        error += 1
+                                if len(use_syst) == 0:
+                                    print "* [ERROR] No use_syst set for MG5_aMC >= 260."
+                                    error += 1
                             if mg5_aMC_version < 260:
                                 continue
                             mg_me_pdf_list = mg_me_pdf_list[0].split('=')[1].split('\"')[1].split(',')
                             var_count = [s for s in mg_me_pdf_list if "@0" in s]
                             if len(var_count) < 1:
-                                    print"* [WARNING] There will be no PDF variations! Please check the runcmsgrid file in the gridpacl."
-                                    warning += 1
-                            if mg_me_pdf_list.count(UL_PDFs_N[0]) != 1 and mg_me_pdf_list.count(UL_PDFs_N[1]) != 1:
-                                    print"* [WARNING] pdfsets in runcmsgrid file does not contain one of the recommended sets:"
-                                    print"*                                             "+str(UL_PDFs_N[0])+"("+str(UL_PDFs[0])+")"
-                                    print"*                                             or "+str(UL_PDFs_N[1])+"("+str(UL_PDFs[1])+")"
-                                    print"* Your runcmsgrid file contains these sets:"
-                                    print(mg_me_pdf_list)
-                                    warning += 1
+                                print"* [WARNING] There will be no PDF variations! Please check the runcmsgrid file in the gridpack."
+                                warning += 1
+                            else:
+                                print"* [OK] There are some PDF variations."
+                            if "UL" in pi and mg_me_pdf_list.count(UL_PDFs_N[0]) != 1 and mg_me_pdf_list.count(UL_PDFs_N[1]) != 1:
+                                print"* [WARNING] pdfsets in runcmsgrid file does not contain one of the recommended sets:"
+                                print"*                                             "+str(UL_PDFs_N[0])+"("+str(UL_PDFs[0])+")"
+                                print"*                                             or "+str(UL_PDFs_N[1])+"("+str(UL_PDFs[1])+")"
+                                print"* Your runcmsgrid file contains these sets:"
+                                print(mg_me_pdf_list)
+                                warning += 1
                             if (mg_me_pdf_list.count(str(UL_PDFs_N[0])) > 0 and mg_me_pdf_list.count(str(UL_PDFs_N[0])+"@0") != 0) or (mg_me_pdf_list.count(str(UL_PDFs_N[1])) > 0 and mg_me_pdf_list.count(str(UL_PDFs_N[1])+"@0") != 0):
-                                    print"* [WARNING] Main pdf recommended set ("+str(UL_PDFs_N[0])+" or "+str(UL_PDFs_N[1])+") is listed in runcmsgrid file but it is also included as a variation??"
-                                    warning += 1
+                                print"* [WARNING] Main pdf recommended set ("+str(UL_PDFs_N[0])+" or "+str(UL_PDFs_N[1])+") is listed in runcmsgrid file but it is also included as a variation??"
+                                warning += 1
                     matching = int(re.search(r'\d+',ickkw).group())
                     ickkw = str(ickkw)
                     if matching == 1 or matching == 2:
@@ -1085,6 +1177,7 @@ for num in range(0,len(prepid)):
                 elif matching == 1 and check[0] == 0 and check[1] == 0 and check[2] == 0 :
                     print "* [OK] no known inconsistency in the fragment w.r.t. the name of the dataset "+word
                     if matching_c != 0:
+                        mg_lo_w_matching = 1
                         print "* [WARNING] To check manually - This is a matched MadGraph LO sample. Please check 'JetMatching:nJetMax' ="+str(nJetMax)+" is OK and"
                         print "*            correctly set as number of partons in born matrix element for highest multiplicity."
                         warning += 1
