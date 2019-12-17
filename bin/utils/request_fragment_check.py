@@ -138,7 +138,7 @@ parser = argparse.ArgumentParser(
                   * [ERROR] herwigpp = parton_shower not in run_card.dat
                   * [ERROR] Although the name of the dataset has ~Madgraph, the gridpack doesn't seem to be a MG5_aMC one. Please check.
                   * [ERROR] Please add \'set FxFxHandler:MergeMode FxFx\'
-	              *         and set FxFxHandler:njetsmax 4
+	              *         and set FxFxHandler:njetsmax to the number of additional partons in the proc_card
                   * [ERROR] Please load herwig7CommonMergingSettingsBlock
                   * [ERROR] MG5_aMC@NLO multi-run patch missing in gridpack - please re-create a gridpack
                   *            using updated genproductions area
@@ -727,7 +727,7 @@ for num in range(0,len(prepid)):
                             error += 1
                         if int(os.popen('grep -c "set FxFxHandler:MergeMode FxFx" '+pi).read()) == 0:
 			    print "* [ERROR] Please add \'set FxFxHandler:MergeMode FxFx\'"
-			    print "*         and set FxFxHandler:njetsmax 4"
+			    print "*         and set FxFxHandler:njetsmax to the number of additional partons in the proc_card"
 			    error += 1
                     if matching_c == 2 and herwig_flag != 0:
 			if int(os.popen('grep -c herwig7CommonMergingSettingsBlock').read()) == 0:
