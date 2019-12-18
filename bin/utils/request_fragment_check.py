@@ -666,7 +666,7 @@ for num in range(0,len(prepid)):
                 os.system('tar xf '+gridpack_cvmfs_path+' -C '+my_path+'/'+pi)
                 jhu_gp = os.path.isfile(my_path+'/'+pi+'/'+'JHUGen.input')
                 pw_gp = os.path.isfile(my_path+'/'+pi+'/'+'powheg.input')
-                mg_gp = os.path.isfile(my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat')
+                mg_gp = os.path.isfile(my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat') or os.path.isfile(my_path+'/'+pi+'/'+'process/Cards/run_card.dat')
                 amcnlo_gp = os.path.isfile(my_path+'/'+pi+'/'+'process/Cards/run_card.dat')
                 print "powheg "+str(pw_gp)
                 print "mg "+str(mg_gp)
@@ -715,13 +715,17 @@ for num in range(0,len(prepid)):
                         print "*           You may try to request more events per phase-space region in the gridpack."
                         warning += 1
                 if mg_gp is True:
-                    ickkw_c = os.popen('more '+my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat'+' | tr -s \' \' | grep "= ickkw"').read()
+                    filename = my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat'
+                    fname_p2 = my_path+'/'+pi+'/'+'process/Cards/run_card.dat'
+                    if os.path.isfile(fname_p2) is True :
+                        filename = fname_p2
+                    ickkw_c = os.popen('more '+filename+' | tr -s \' \' | grep "= ickkw"').read()
                     matching_c = int(re.search(r'\d+',ickkw_c).group())
-                    maxjetflavor = os.popen('more '+my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat'+' | tr -s \' \' | grep "= maxjetflavor"').read()
+                    maxjetflavor = os.popen('more '+filename+' | tr -s \' \' | grep "= maxjetflavor"').read()
                     maxjetflavor = int(re.search(r'\d+',maxjetflavor).group())
                     print "maxjetflavor = "+str(maxjetflavor)
                     if matching_c == 3 and herwig_flag != 0:
-                        ps_hw = os.popen('grep parton_shower '+my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat')
+                        ps_hw = os.popen('grep parton_shower '+filename)
                         if herwigpp not in ps_hw:
                             print "* [ERROR] herwigpp = parton_shower not in run_card.dat"
                             error += 1
@@ -948,6 +952,9 @@ for num in range(0,len(prepid)):
                     if os.path.isfile(fname_p3) is True :
                         filename = fname_p3
                     if os.path.isfile(filename) is True :
+                        print("@@@@@@@@@@@@@@0",filename)
+                        mg_nlo = int(os.popen('grep -c "\[QCD\]" '+filename).read())
+                        print("@@@@@@@@@@@@@@1",mg_nlo)
                         loop_flag = int(os.popen('more '+filename+' | grep -c "noborn=QCD"').read())
                         gen_line = os.popen('grep generate '+filename).read()
                         print(gen_line)
@@ -1032,6 +1039,9 @@ for num in range(0,len(prepid)):
                             if mg5_aMC_version >= 260:
                                 mg_lo = int(os.popen('grep "systematics" '+str(runcmsgrid_file)+' | grep -c madevent').read())
                                 mg_nlo = int(os.popen('grep "systematics" '+str(runcmsgrid_file)+' | grep -c aMCatNLO').read())
+                                print("@@@@@@@@@@@@2",mg_nlo)
+                            if mg5_aMC_version < 260:
+                                mg_lo = int(os.popen('grep -c syscalc '+str(runcmsgrid_file)).read())
                             print "##################################################"
                             if mg_lo > 0 and mg_nlo > 0:
                                 "* [ERROR] something's wrong - LO and NLO configs together."
