@@ -952,9 +952,7 @@ for num in range(0,len(prepid)):
                     if os.path.isfile(fname_p3) is True :
                         filename = fname_p3
                     if os.path.isfile(filename) is True :
-                        print("@@@@@@@@@@@@@@0",filename)
                         mg_nlo = int(os.popen('grep -c "\[QCD\]" '+filename).read())
-                        print("@@@@@@@@@@@@@@1",mg_nlo)
                         loop_flag = int(os.popen('more '+filename+' | grep -c "noborn=QCD"').read())
                         gen_line = os.popen('grep generate '+filename).read()
                         print(gen_line)
@@ -1039,7 +1037,6 @@ for num in range(0,len(prepid)):
                             if mg5_aMC_version >= 260:
                                 mg_lo = int(os.popen('grep "systematics" '+str(runcmsgrid_file)+' | grep -c madevent').read())
                                 mg_nlo = int(os.popen('grep "systematics" '+str(runcmsgrid_file)+' | grep -c aMCatNLO').read())
-                                print("@@@@@@@@@@@@2",mg_nlo)
                             if mg5_aMC_version < 260:
                                 mg_lo = int(os.popen('grep -c syscalc '+str(runcmsgrid_file)).read())
                             print "##################################################"
