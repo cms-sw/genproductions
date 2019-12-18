@@ -1029,8 +1029,9 @@ for num in range(0,len(prepid)):
                             fmg_f = fmg.read()
                             fmg_f = re.sub(r'(?m)^ *#.*\n?', '',fmg_f)
                             mg_me_pdf_list = re.findall('pdfsets=\S+',fmg_f)
-                            mg_lo = int(os.popen('grep "systematics" '+str(runcmsgrid_file)+' | grep -c madevent').read())
-                            mg_nlo = int(os.popen('grep "systematics" '+str(runcmsgrid_file)+' | grep -c aMCatNLO').read())
+                            if mg5_aMC_version >= 260:
+                                mg_lo = int(os.popen('grep "systematics" '+str(runcmsgrid_file)+' | grep -c madevent').read())
+                                mg_nlo = int(os.popen('grep "systematics" '+str(runcmsgrid_file)+' | grep -c aMCatNLO').read())
                             print "##################################################"
                             if mg_lo > 0 and mg_nlo > 0:
                                 "* [ERROR] something's wrong - LO and NLO configs together."
@@ -1092,6 +1093,7 @@ for num in range(0,len(prepid)):
                             print "* [WARNING] Matched sample but matching efficiency is 1!"
                             warning += 1
                     if ind < 2:
+                        print "****************"+str(mg_nlo)+" "+str(mg_lo)
                         MGpatch.append(int(os.popen('more '+my_path+'/'+pi+'/'+'runcmsgrid.sh | grep -c "FORCE IT TO"').read()))
                         MGpatch.append(int(os.popen('grep -c _CONDOR_SCRATCH_DIR '+my_path+'/'+pi+'/'+'mgbasedir/Template/LO/SubProcesses/refine.sh').read()))
                         MGpatch.append(int(os.popen('grep -c _CONDOR_SCRATCH_DIR '+my_path+'/'+pi+'/'+'process/madevent/SubProcesses/refine.sh').read()))
