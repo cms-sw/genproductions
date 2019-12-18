@@ -360,13 +360,16 @@ else
 fi
 
 forDYNNLOPS=0
-if [ "$process" = "Zj" ] || [ "$process" = "Wj" ]; then
+if [ "$process" = "Wj" ]; then
     forDYNNLOPS=1
 fi
 
+forMiNNLO=0
+grep -q "^minnlo\\s*1" powheg.input; test $? -eq 1 || forMiNNLO=1
+
 cd $WORKDIR
 cd ${name}
-python ../make_rwl.py ${is5FlavorScheme} ${defaultPDF} ${forDYNNLOPS}
+python ../make_rwl.py ${is5FlavorScheme} ${defaultPDF} ${forDYNNLOPS} ${forMiNNLO}
 
 if [ -s ../JHUGen.input ]; then
   cp -p ../JHUGen.input JHUGen.input
@@ -392,7 +395,7 @@ if [[ -s ./JHUGen.input ]]; then
 fi
 
 ### retrieve the powheg source tar ball
-export POWHEGSRC=powhegboxV2_rev3633_date20190225_testggHH.tar.gz
+export POWHEGSRC=powhegboxV2_rev3691_date20191021.tar.gz
 
 if [ "$process" = "b_bbar_4l" ] || [ "$process" = "HWJ_ew" ] || [ "$process" = "HW_ew" ] || [ "$process" = "HZJ_ew" ] || [ "$process" = "HZ_ew" ]; then 
   export POWHEGSRC=powhegboxRES_rev3478_date20180122.tar.gz 
@@ -438,9 +441,6 @@ if [ "$process" = "WWJ" ]; then
     patch -l -p0 -i ${WORKDIR}/patches/wwj-weights.patch
     cp ${WORKDIR}/patches/rwl_write_weights2_extra.f POWHEG-BOX/$process/
 fi
-if [ "$process" = "Zj" ] || [ "$process" = "Wj" ]; then
-    patch -l -p0 -i ${WORKDIR}/patches/pwhg_write_weights_nnlo.patch
-fi
 
 
 sed -i -e "s#500#1200#g"  POWHEG-BOX/include/pwhg_rwl.h
@@ -449,17 +449,20 @@ echo ${POWHEGSRC} > VERSION
 
 cd POWHEG-BOX/${process}
 
+if [ $forMiNNLO -eq 1 ]; then
+    cd ${process}MiNNLO
+fi
+
 # This is just to please gcc 4.8.1
 mkdir -p include
 
-if [ "$process" = "Zj" ] || [ "$process" = "Wj" ]; then
+if [ "$process" = "Wj" ]; then
     tar zxf ../DYNNLOPS.tgz
     wget --no-verbose --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/slc6_amd64_gcc481/powheg/V2.0/src/nnlops_fast_patch3_${process:0:1}.tgz
     tar zxf nnlops_fast_patch3_${process:0:1}.tgz
     mv -v Makefile-NNLOPS Makefile
     cp -v nnlops_fast/rwl_write_*.f ../include/
 fi
-
 
 # Use dynamic linking and lhapdf
 sed -i -e "s#STATIC[ \t]*=[ \t]*-static#STATIC=-dynamic#g" Makefile
@@ -808,7 +811,7 @@ EOF
 
 fi  
 
-if [ "$process" = "Zj" ] || [ "$process" = "Wj" ]; then
+if [ "$process" = "Wj" ]; then
   echo "Compiling DYNNLO...."
   wget --no-verbose --no-check-certificate http://theory.fi.infn.it/grazzini/codes/dynnlo-v1.5.tgz
   tar -xzvf dynnlo-v1.5.tgz
