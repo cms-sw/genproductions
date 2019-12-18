@@ -1093,7 +1093,6 @@ for num in range(0,len(prepid)):
                             print "* [WARNING] Matched sample but matching efficiency is 1!"
                             warning += 1
                     if ind < 2:
-                        print "****************"+str(mg_nlo)+" "+str(mg_lo)
                         MGpatch.append(int(os.popen('more '+my_path+'/'+pi+'/'+'runcmsgrid.sh | grep -c "FORCE IT TO"').read()))
                         MGpatch.append(int(os.popen('grep -c _CONDOR_SCRATCH_DIR '+my_path+'/'+pi+'/'+'mgbasedir/Template/LO/SubProcesses/refine.sh').read()))
                         MGpatch.append(int(os.popen('grep -c _CONDOR_SCRATCH_DIR '+my_path+'/'+pi+'/'+'process/madevent/SubProcesses/refine.sh').read()))
