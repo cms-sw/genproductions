@@ -236,6 +236,13 @@ def get_requests_from_datasetname(dn):
 
     return result
 
+def find_file(dir_path,patt):
+#    dir_path = os.path.dirname(os.path.realpath(__file__)) 
+    for root, dirs, files in os.walk(dir_path): 
+        for file in files:  
+            if file.endswith(patt): 
+                return root+'/'+str(file) 
+
 if args.dev:
     print "Running on McM DEV!\n"
 
@@ -715,17 +722,17 @@ for num in range(0,len(prepid)):
                         print "*           You may try to request more events per phase-space region in the gridpack."
                         warning += 1
                 if mg_gp is True:
-                    filename = my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat'
+                    filename_rc = my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat'
                     fname_p2 = my_path+'/'+pi+'/'+'process/Cards/run_card.dat'
                     if os.path.isfile(fname_p2) is True :
-                        filename = fname_p2
-                    ickkw_c = os.popen('more '+filename+' | tr -s \' \' | grep "= ickkw"').read()
+                        filename_rc = fname_p2
+                    ickkw_c = os.popen('more '+filename_rc+' | tr -s \' \' | grep "= ickkw"').read()
                     matching_c = int(re.search(r'\d+',ickkw_c).group())
-                    maxjetflavor = os.popen('more '+filename+' | tr -s \' \' | grep "= maxjetflavor"').read()
+                    maxjetflavor = os.popen('more '+filename_rc+' | tr -s \' \' | grep "= maxjetflavor"').read()
                     maxjetflavor = int(re.search(r'\d+',maxjetflavor).group())
                     print "maxjetflavor = "+str(maxjetflavor)
                     if matching_c == 3 and herwig_flag != 0:
-                        ps_hw = os.popen('grep parton_shower '+filename)
+                        ps_hw = os.popen('grep parton_shower '+filename_rc)
                         if herwigpp not in ps_hw:
                             print "* [ERROR] herwigpp = parton_shower not in run_card.dat"
                             error += 1
@@ -944,19 +951,19 @@ for num in range(0,len(prepid)):
                 if ind > 0 and ind < 3:
                     if gp_size == 0:
                         break
-                    filename = my_path+'/'+pi+'/'+'process/madevent/Cards/proc_card_mg5.dat'
+                    filename_pc = my_path+'/'+pi+'/'+'process/madevent/Cards/proc_card_mg5.dat'
                     fname_p2 = my_path+'/'+pi+'/'+'process/Cards/proc_card.dat'
                     fname_p3 = my_path+'/'+pi+'/'+'process/Cards/proc_card_mg5.dat'
                     if os.path.isfile(fname_p2) is True :
-                        filename = fname_p2
+                        filename_pc = fname_p2
                     if os.path.isfile(fname_p3) is True :
-                        filename = fname_p3
-                    if os.path.isfile(filename) is True :
-                        mg_nlo = int(os.popen('grep -c "\[QCD\]" '+filename).read())
-                        loop_flag = int(os.popen('more '+filename+' | grep -c "noborn=QCD"').read())
-                        gen_line = os.popen('grep generate '+filename).read()
+                        filename_pc = fname_p3
+                    if os.path.isfile(filename_pc) is True :
+                        mg_nlo = int(os.popen('grep -c "\[QCD\]" '+filename_pc).read())
+                        loop_flag = int(os.popen('more '+filename_pc+' | grep -c "noborn=QCD"').read())
+                        gen_line = os.popen('grep generate '+filename_pc).read()
                         print(gen_line)
-                        proc_line = os.popen('grep process '+filename).read()
+                        proc_line = os.popen('grep process '+filename_pc).read()
                         print(proc_line)
                         if gen_line.count('@') <= proc_line.count('@'):
                             nproc = proc_line.count('@')
@@ -983,16 +990,10 @@ for num in range(0,len(prepid)):
                             print "* [WARNING] nJetMax(="+str(nJetMax)+") is not equal to the number of jets specified in the proc card(="+str(jet_count)+")."
                             print "*           Is it because this is an exclusive production with additional samples with higher multiplicity generated separately?"
                             warning += 1
-                    fname = my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat'
-                    fname2 = my_path+'/'+pi+'/'+'process/Cards/run_card.dat'
-                    if os.path.isfile(fname) is True :
-                        ickkw = os.popen('more '+fname+' | tr -s \' \' | grep "= ickkw"').read()
-                        bw = os.popen('more '+fname+' | tr -s \' \' | grep "= bwcutoff"').read()
-                        mg_pdf = os.popen('more '+fname+' | tr -s \' \' | grep "= lhaid"').read()
-                    elif os.path.isfile(fname2) is True :
-                        ickkw = os.popen('more '+fname2+' | tr -s \' \' | grep "= ickkw"').read()
-                        bw = os.popen('more '+fname2+' | tr -s \' \' | grep "= bwcutoff"').read()
-                        mg_pdf = os.popen('more '+fname2+' | tr -s \' \' | grep "= lhaid"').read()
+                    if os.path.isfile(filename_rc) is True :
+                        ickkw = os.popen('more '+filename_rc+' | tr -s \' \' | grep "= ickkw"').read()
+                        bw = os.popen('more '+filename_rc+' | tr -s \' \' | grep "= bwcutoff"').read()
+                        mg_pdf = os.popen('more '+filename_rc+' | tr -s \' \' | grep "= lhaid"').read()
                     else:
                         if gp_size != 0:
                             print "* [ERROR] Although the name of the dataset has ~Madgraph, the gridpack doesn't seem to be a MG5_aMC one. Please check."
@@ -1039,6 +1040,19 @@ for num in range(0,len(prepid)):
                                 mg_nlo = int(os.popen('grep "systematics" '+str(runcmsgrid_file)+' | grep -c aMCatNLO').read())
                             if mg5_aMC_version < 260:
                                 mg_lo = int(os.popen('grep -c syscalc '+str(runcmsgrid_file)).read())
+                                if mg_nlo > 0:
+                                    r_scale = os.popen('more '+filename_rc+' | tr -s \' \' | grep "reweight_scale"').read()
+                                    r_scale = r_scale.split()[0].split('.')[1]
+                                    if len(r_scale) == 0 or "true" not in str(r_scale).lower():
+                                        print "* [ERROR] For NLO MG5_aMC version < 260, one should have .true. = reweight_scale"
+                                        error += 1
+                                    dir_path = os.path.join(my_path, pi, "InputCards") 
+                                    input_cards_run_card = find_file(dir_path,"run_card.dat")
+                                    r_pdf = os.popen('more '+str(input_cards_run_card)+' | tr -s \' \' | grep "reweight_PDF"').read()
+                                    r_pdf = r_pdf.split()[0]
+                                    if len(r_pdf) == 0 or "$DEFAULT_PDF_MEMBERS" not in r_pdf:
+                                        print "* [ERROR] For NLO MG5_aMC version < 260, one should have $DEFAULT_PDF_MEMBERS = reweight_PDF"
+                                        error += 1
                             print "##################################################"
                             if mg_lo > 0 and mg_nlo > 0:
                                 "* [ERROR] something's wrong - LO and NLO configs together."
@@ -1049,10 +1063,8 @@ for num in range(0,len(prepid)):
                                 print "* The MG5_aMC ME is running at NLO"
                             print "##################################################"
                             if mg_nlo > 0 and mg5_aMC_version >= 260:
-                                if os.path.isfile(fname) is True :
-                                    store_rwgt_info = os.popen('more '+fname+' | tr -s \' \' | grep "store_rwgt_info"').read()
-                                elif os.path.isfile(fname2) is True :
-                                    store_rwgt_info = os.popen('more '+fname2+' | tr -s \' \' | grep "store_rwgt_info"').read()
+                                if os.path.isfile(filename_rc) is True :
+                                    store_rwgt_info = os.popen('more '+filename_rc+' | tr -s \' \' | grep "store_rwgt_info"').read()
                                 if len(store_rwgt_info) != 0:
                                     store_rwgt_info_a = store_rwgt_info.split('=')
                                     if "false" in store_rwgt_info_a[0].lower():
@@ -1062,10 +1074,8 @@ for num in range(0,len(prepid)):
                                     print "* [ERROR] No store_rwgt_info set for MG5_aMC >= 260."
                                     error += 1
                             if mg_lo > 0 and mg5_aMC_version >= 260:
-                                if os.path.isfile(fname) is True :
-                                    use_syst = os.popen('more '+fname+' | tr -s \' \' | grep "use_syst"').read()
-                                elif os.path.isfile(fname2) is True :
-                                    use_syst = os.popen('more '+fname2+' | tr -s \' \' | grep "use_syst"').read()
+                                if os.path.isfile(filename_rc) is True :
+                                    use_syst = os.popen('more '+filename_rc+' | tr -s \' \' | grep "use_syst"').read()
                                 if len(use_syst) != 0:
                                     use_syst_a = use_syst.split('=')
                                     if "false" in use_syst_a[0].lower():
@@ -1074,6 +1084,7 @@ for num in range(0,len(prepid)):
                                 if len(use_syst) == 0:
                                     print "* [ERROR] No use_syst set for MG5_aMC >= 260."
                                     error += 1
+                                    
                             if mg5_aMC_version < 260:
                                 continue
                             mg_me_pdf_list = mg_me_pdf_list[0].split('=')[1].split('\"')[1].split(',')
