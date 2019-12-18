@@ -19,6 +19,7 @@ Example of usage for 4F:  python make_rwl.py 0 320900
 is5FlavorScheme = str(sys.argv[1])
 CentralPDF = str(sys.argv[2])
 forDYNNLOPS = bool(int(sys.argv[3])) if len(sys.argv) > 3 else False
+forMiNNLO = bool(int(sys.argv[4])) if len(sys.argv) > 4 else False
 
 # is5FlavorScheme = True
 # CentralPDF = 306000
@@ -62,8 +63,9 @@ if forDYNNLOPS:
 		  
   fout.write("</weightgroup>\n")
 
-  print("DYNNLOPS: PDF variations will be reduced for generation speed")
-    # reduced 5F PDF for DYNNLOPS
+if forDYNNLOPS or forMiNNLO:
+  print("DYNNLOPS/MiNNLO: PDF variations will be reduced for generation speed")
+  # reduced 5F PDF for DYNNLOPS
   pdf_sets = {
             # weight id, LHAPDF id, name, replicas to be written
             "PDF_variation1 , hessian" :
