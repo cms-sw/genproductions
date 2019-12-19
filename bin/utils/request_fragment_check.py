@@ -237,10 +237,10 @@ def get_requests_from_datasetname(dn):
     return result
 
 def find_file(dir_path,patt):
-    for root, dirs, files in os.walk(dir_path): 
-        for file in files:  
-            if file.endswith(patt): 
-                return root+'/'+str(file) 
+    for root, dirs, files in os.walk(dir_path):
+        for file in files:
+            if file.endswith(patt):
+                return root+'/'+str(file)
 
 if args.dev:
     print "Running on McM DEV!\n"
@@ -1045,7 +1045,7 @@ for num in range(0,len(prepid)):
                                     if len(r_scale) == 0 or "true" not in str(r_scale).lower():
                                         print "* [ERROR] For NLO MG5_aMC version < 260, one should have .true. = reweight_scale"
                                         error += 1
-                                    dir_path = os.path.join(my_path, pi, "InputCards") 
+                                    dir_path = os.path.join(my_path, pi, "InputCards")
                                     input_cards_run_card = find_file(dir_path,"run_card.dat")
                                     r_pdf = os.popen('more '+str(input_cards_run_card)+' | tr -s \' \' | grep "reweight_PDF"').read()
                                     r_pdf = r_pdf.split()[0]
@@ -1083,7 +1083,7 @@ for num in range(0,len(prepid)):
                                 if len(use_syst) == 0:
                                     print "* [ERROR] No use_syst set for MG5_aMC >= 260."
                                     error += 1
-                                    
+
                             if mg5_aMC_version < 260:
                                 continue
                             mg_me_pdf_list = mg_me_pdf_list[0].split('=')[1].split('\"')[1].split(',')
@@ -1093,13 +1093,17 @@ for num in range(0,len(prepid)):
                                 warning += 1
                             else:
                                 print"* [OK] There are some PDF variations."
-                            if "UL" in pi and mg_me_pdf_list.count(UL_PDFs_N[0]) != 1 and mg_me_pdf_list.count(UL_PDFs_N[1]) != 1:
-                                print"* [WARNING] pdfsets in runcmsgrid file does not contain one of the recommended sets:"
-                                print"*                                             "+str(UL_PDFs_N[0])+"("+str(UL_PDFs[0])+")"
-                                print"*                                             or "+str(UL_PDFs_N[1])+"("+str(UL_PDFs[1])+")"
+                            if "UL" in pi and mg_me_pdf_list.count(str(UL_PDFs_N[0])) != 1 and mg_me_pdf_list.count(str(UL_PDFs_N[1])) != 1:
+                                if mg_me_pdf_list.count(str(UL_PDFs_N[0])) > 1 or mg_me_pdf_list.count(str(UL_PDFs_N[1])) > 1:
+                                    print " [WARNING] At least one of the default PDF sets ("+UL_PDFs_N+") appear as variation as well or listed more than once."
+                                    warning += 1
+                                else:
+                                    print"* [WARNING] pdfsets in runcmsgrid file does not contain one of the recommended sets:"
+                                    print"*                                             "+str(UL_PDFs_N[0])+"("+str(UL_PDFs[0])+")"
+                                    print"*                                             or "+str(UL_PDFs_N[1])+"("+str(UL_PDFs[1])+")"
+                                    warning += 1
                                 print"* Your runcmsgrid file contains these sets:"
                                 print(mg_me_pdf_list)
-                                warning += 1
                             if (mg_me_pdf_list.count(str(UL_PDFs_N[0])) > 0 and mg_me_pdf_list.count(str(UL_PDFs_N[0])+"@0") != 0) or (mg_me_pdf_list.count(str(UL_PDFs_N[1])) > 0 and mg_me_pdf_list.count(str(UL_PDFs_N[1])+"@0") != 0):
                                 print"* [WARNING] Main pdf recommended set ("+str(UL_PDFs_N[0])+" or "+str(UL_PDFs_N[1])+") is listed in runcmsgrid file but it is also included as a variation??"
                                 warning += 1
