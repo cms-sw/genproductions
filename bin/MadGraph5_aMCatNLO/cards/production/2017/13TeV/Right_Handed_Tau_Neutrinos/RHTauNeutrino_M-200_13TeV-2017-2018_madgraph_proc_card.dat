@@ -10,5 +10,5 @@ define lep = e+ e- mu+ mu- ta+ ta-
 define lepnu = ve ve~ vm vm~ vt vt~
 generate p p > w+ > nr ta+ , ( nr > lepnu lep lep)
 add process p p > w- > nr ta- , ( nr > lepnu lep lep)
-output RHTauNeutrino_M-200_13TeV-2017-2018_madgraph_MLM -nojpeg
+output RHTauNeutrino_M-200_13TeV-2017-2018_madgraph -nojpeg
 
