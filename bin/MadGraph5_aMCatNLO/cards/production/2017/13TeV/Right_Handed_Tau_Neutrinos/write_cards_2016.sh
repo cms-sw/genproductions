@@ -105,7 +105,7 @@ do
 	echo "# PDF CHOICE: this automatically fixes also alpha_s and its evol.    *" >> $run_card
 	echo "#*********************************************************************" >> $run_card
 	echo " lhapdf= pdlabel ! PDF set" >> $run_card                                    
-	echo " 263000= lhaid ! if pdlabel=lhapdf, this is the lhapdf number" >> $run_card
+	echo " 263400= lhaid ! if pdlabel=lhapdf, this is the lhapdf number" >> $run_card
 	echo ' $DEFAULT_PDF_MEMBERS  = reweight_PDF' >> $run_card
 	#	echo "     nn23lo1    = pdlabel     ! PDF set " >> $run_card
 	echo "#*********************************************************************" >> $run_card
