@@ -5,7 +5,7 @@ import os
 process = 'iDM'
 #template = 'iDM_DarkPhotonToMuMu_ctau-XXX_TuneCP5_13TeV_pythia8_cff.py'
 template = 'iDM_DarkPhotonToMuMu_ctau-XXX_TuneCP5_13TeV_MLM_4f_max2j_pythia8_cff.py'
-template_2016 = 'iDM_DarkPhotonToMuMu_2016_ctau-XXX_TuneCP5_13TeV_MLM_4f_max2j_pythia8_cff.py'
+template_2016 = 'iDM_DarkPhotonToMuMu_2016_ctau-XXX_TuneCUEP8M1_13TeV_MLM_4f_max2j_pythia8_cff.py'
 
 verbose = False
 
