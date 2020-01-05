@@ -1,19 +1,11 @@
 import model sm-ckm_no_b_mass
 
-define ell+ = e+ mu+ ta+
-define ell- = e- mu- ta-
+define ell = e+ e- mu+ mu- ta+ ta-
+define vl  = ve ve~ vm vm~ vt vt~ 
 
-generate p p > ell+ vl $$ t t~ h @0
-add process p p > j ell+ vl $$ t t~ h @1
-add process p p > j j ell+ vl $$ t t~ h @2
-add process p p > j j j ell+ vl $$ t t~ h @3
-add process p p > j j j j ell+ vl $$ t t~ h @4
-
-add process p p > ell- vl~ $$ t t~ h @5
-add process p p > j ell- vl~ $$ t t~ h @6
-add process p p > j j ell- vl~ $$ t t~ h @7
-add process p p > j j j ell- vl~ $$ t t~ h @8
-add process p p > j j j j ell- vl~ $$ t t~ h @9
+generate p p > ell vl $$ t t~ h @0
+add process p p > ell vl j $$ t t~ h @1
+add process p p > ell vl j $$ t t~ h @2
 
 output WJetsToLNu_HT-0toInf -nojpeg
 

@@ -165,7 +165,7 @@ mv process/$event_file process/madevent/Events/${runlabel}/events.lhe.gz
 # Add scale and PDF weights using systematics module
 #
 pushd process/madevent
-pdfsets="PDF_SETS_REPLACE"
+pdfsets=306000
 scalevars="--mur=1,2,0.5 --muf=1,2,0.5 --together=muf,mur,dyn --dyn=-1,1,2,3,4 --alps=0.5,1,2"
 
 if [ "$doreweighting" -gt "0" ] ; then 
