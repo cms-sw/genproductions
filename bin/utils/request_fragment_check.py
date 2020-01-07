@@ -483,7 +483,7 @@ for num in range(0,len(prepid)):
                 herwig_count.append(herwig_check[0].count('hw_lhe_common_settings'))
                 herwig_count.append(herwig_check[1].count('herwig7LHECommonSettingsBlock'))
                 herwig_count.append(herwig_check[2].count('from Configuration.Generator.Herwig7Settings.Herwig7LHECommonSettings_cfi import *'))
-                if all(x == 1 for x in herwig_count) and any("cd /Herwig/MatrixElements/" in x for x in list(file2)):
+                if all(x == 1 for x in herwig_count) and any("insert SubProcess:MatrixElements" in x for x in list(file2)):
                     herwig7_bypass_error = 1
                 if herwig7_bypass_error == 0:
                     print "* [ERROR] "+ str(len(herwig_check)) + " missing fragment line(s) for herwig:"
