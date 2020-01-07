@@ -360,6 +360,8 @@ for num in range(0,len(prepid)):
         et_flag = 0
         bornonly = 0
         herwig_flag = 0
+        herwig_count = []
+        herwig7_bypass_error = 0
         pf = []
         ppd = 0
         if "ppd" in pi.lower():
@@ -478,9 +480,16 @@ for num in range(0,len(prepid)):
                 if line not in file2:
                     herwig_check.append(line)
             if len(herwig_check) != 0:
-                print "* [ERROR] "+ str(len(herwig_check)) + " missing fragment line(s) for herwig:"
-                print herwig_check
-                error = error + len(herwig_check)
+                herwig_count.append(herwig_check[0].count('hw_lhe_common_settings'))
+                herwig_count.append(herwig_check[1].count('herwig7LHECommonSettingsBlock'))
+                herwig_count.append(herwig_check[2].count('from Configuration.Generator.Herwig7Settings.Herwig7LHECommonSettings_cfi import *'))
+                if all(x == 1 for x in herwig_count) and any("cd /Herwig/MatrixElements/" in x for x in list(file2)):
+                    herwig7_bypass_error = 1
+                if herwig7_bypass_error == 0:
+                    print "* [ERROR] "+ str(len(herwig_check)) + " missing fragment line(s) for herwig:"
+                    print "*          lines for internal matrix element are missing in the fragment."
+                    print herwig_check
+                    error = error + len(herwig_check)
             if "powheg" in dn.lower():
                 if int(os.popen('grep -c Herwig7LHEPowhegSettings_cfi '+pi).read()) == 0:
                     print "* [ERROR] Herwig7LHEPowhegSettings_cfi should be loaded in the fragment"
