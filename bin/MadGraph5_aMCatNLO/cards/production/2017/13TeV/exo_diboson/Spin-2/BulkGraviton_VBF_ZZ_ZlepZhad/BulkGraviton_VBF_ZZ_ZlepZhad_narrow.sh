@@ -1,6 +1,6 @@
 #!/bin/bash                                                                                                                                                                                                 
 
-masses=(600 800 1000 1200 1400 1600 1800 2000 2500 3000 3500 4000 4500 5000 6000 7000 8000)
+masses=(400 450 500 550 600 800 1000 1200 1400 1600 1800 2000 2500 3000 3500 4000 4500 5000 6000 7000 8000)
 
 sample=BulkGraviton_VBF_ZZ_ZlepZhad_narrow_M
 
@@ -14,6 +14,6 @@ for mass in ${masses[*]}; do
     mkdir ${sample}${mass}
 
     for i in {0..3}; do
-        sed "s/<MASS>/${mass}/g" ${sample}/${sample}${postfix[$i]} > ${sample}$mass/${sample}$mass${postfix[$i]}
+      sed "s/<MASS>/${mass}/g" ${sample}/${sample}${postfix[$i]} > ${sample}$mass/${sample}$mass${postfix[$i]}
     done
 done
