@@ -25,8 +25,7 @@ set max_running_process 1
 
 define q = u c d s b u~ c~ d~ s~ b~
 
-decay w+ > q q
-decay w- > q q
+decay z > q q
 
 # running the actual code
 launch
