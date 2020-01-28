@@ -420,7 +420,11 @@ make_gridpack () {
       echo "copying custom reweight file"
       cp $CARDSDIR/${name}_reweight_card.dat ./Cards/reweight_card.dat
     fi
-    
+   
+    if [ -e $CARDSDIR/${name}_param_card.dat ]; then
+      echo "copying custom params file"
+      cp $CARDSDIR/${name}_param_card.dat ./Cards/param_card.dat
+    fi 
     
     #automatically detect NLO mode or LO mode from output directory
     isnlo=0
