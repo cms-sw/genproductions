@@ -7,7 +7,7 @@ for mass in 5 10 20 30 50 70 100 130 150 200 250 300 350 400 500 600 800 1000
 do
     cd $code_dir
     echo $mass;
-    dir1=$code_dir"/RHTauNeutrino_M-"$mass"_13TeV-2016_madgraph_MLM"
+    dir1=$code_dir"/RHTauNeutrino_M-"$mass"_13TeV-2016_madgraph"
     mkdir $dir1
     cd $dir1
     
@@ -15,10 +15,10 @@ do
 	#do
 	 #   touch VectorLikeLeptons_TAUprimeNUTAUprime$mode"_M-"$mass"_13TeV-madgraph_"$card".dat"	   
 	#done
-	customize_card=RHTauNeutrino_M-$mass"_13TeV-2016_madgraph_MLM_customizecards.dat"
-	extramodels=RHTauNeutrino_M-$mass"_13TeV-2016_madgraph_MLM_extramodels.dat"
-	proc_card=RHTauNeutrino_M-$mass"_13TeV-2016_madgraph_MLM_proc_card.dat"
-	run_card=RHTauNeutrino_M-$mass"_13TeV-2016_madgraph_MLM_run_card.dat"	
+	customize_card=RHTauNeutrino_M-$mass"_13TeV-2016_madgraph_customizecards.dat"
+	extramodels=RHTauNeutrino_M-$mass"_13TeV-2016_madgraph_extramodels.dat"
+	proc_card=RHTauNeutrino_M-$mass"_13TeV-2016_madgraph_proc_card.dat"
+	run_card=RHTauNeutrino_M-$mass"_13TeV-2016_madgraph_run_card.dat"	
 	touch $customize_card
  	touch $extramodels
 	touch $proc_card
@@ -47,7 +47,7 @@ do
 	echo "define lepnu = ve ve~ vm vm~ vt vt~" >> $proc_card
 	echo "generate p p > w+ > nr ta+ , ( nr > lepnu lep lep)" >> $proc_card
 	echo "add process p p > w- > nr ta- , ( nr > lepnu lep lep)" >> $proc_card
-	echo "output RHTauNeutrino_M-"$mass"_13TeV-2016_madgraph_MLM -nojpeg" >> $proc_card
+	echo "output RHTauNeutrino_M-"$mass"_13TeV-2016_madgraph -nojpeg" >> $proc_card
 	echo "" >> $proc_card
 	#echo "# To generate events, you can go to the created directory and " >> $proc_card
 	#echo "# run ./bin/generate_events" >> $proc_card
@@ -105,11 +105,9 @@ do
 	echo "# PDF CHOICE: this automatically fixes also alpha_s and its evol.    *" >> $run_card
 	echo "#*********************************************************************" >> $run_card
 	echo " lhapdf= pdlabel ! PDF set" >> $run_card                                    
-	echo " 292000= lhaid ! if pdlabel=lhapdf, this is the lhapdf number" >> $run_card
-#	echo ' $DEFAULT_PDF_SETS = lhaid' >> $run_card
-#	echo ' $DEFAULT_PDF_MEMBERS  = reweight_PDF' >> $run_card
-#	echo "     nn23lo1    = pdlabel     ! PDF set                                     " >> $run_card
-#	echo "     230000    = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number" >> $run_card
+	echo " 263400= lhaid ! if pdlabel=lhapdf, this is the lhapdf number" >> $run_card
+	echo ' $DEFAULT_PDF_MEMBERS  = reweight_PDF' >> $run_card
+	#	echo "     nn23lo1    = pdlabel     ! PDF set " >> $run_card
 	echo "#*********************************************************************" >> $run_card
 	echo "# Renormalization and factorization scales                           *" >> $run_card
 	echo "#*********************************************************************" >> $run_card
@@ -169,7 +167,7 @@ do
 	echo "#*********************************************************************" >> $run_card
 	echo "# Minimum and maximum pt's (for max, -1 means no cut)                *" >> $run_card
 	echo "#*********************************************************************" >> $run_card
-	echo " 20.0  = ptj       ! minimum pt for the jets " >> $run_card
+	echo " 15.0  = ptj       ! minimum pt for the jets " >> $run_card
 	echo " 0.0  = ptb       ! minimum pt for the b " >> $run_card
 	echo " 10.0  = pta       ! minimum pt for the photons " >> $run_card
 	echo " 10.0  = ptl       ! minimum pt for the charged leptons " >> $run_card
@@ -196,8 +194,8 @@ do
 	echo "#*********************************************************************" >> $run_card
 	echo "  5.0 = etaj    ! max rap for the jets " >> $run_card
 	echo "  -1.0  = etab    ! max rap for the b" >> $run_card
-	echo " 2.5  = etaa    ! max rap for the photons " >> $run_card
-	echo " 2.5  = etal    ! max rap for the charged leptons " >> $run_card
+	echo " 3.0  = etaa    ! max rap for the photons " >> $run_card
+	echo " 3.0  = etal    ! max rap for the charged leptons " >> $run_card
 	echo " 0.0  = etajmin ! min rap for the jets" >> $run_card
 	echo " 0.0  = etabmin ! min rap for the b" >> $run_card
 	echo " 0.0  = etaamin ! min rap for the photons" >> $run_card
@@ -205,16 +203,16 @@ do
 	echo "#*********************************************************************" >> $run_card
 	echo "# Minimum and maximum DeltaR distance                                *" >> $run_card
 	echo "#*********************************************************************" >> $run_card
-	echo " 0.4 = drjj    ! min distance between jets " >> $run_card
+	echo " 0.2 = drjj    ! min distance between jets " >> $run_card
 	echo " 0.0   = drbb    ! min distance between b's " >> $run_card
-	echo " 0.4 = drll    ! min distance between leptons " >> $run_card
+	echo " 0.2 = drll    ! min distance between leptons " >> $run_card
 	echo " 0.4 = draa    ! min distance between gammas " >> $run_card
 	echo " 0.0   = drbj    ! min distance between b and jet " >> $run_card
 	echo " 0.4 = draj    ! min distance between gamma and jet " >> $run_card
-	echo " 0.4 = drjl    ! min distance between jet and lepton " >> $run_card
+	echo " 0.2 = drjl    ! min distance between jet and lepton " >> $run_card
 	echo " 0.0   = drab    ! min distance between gamma and b " >> $run_card
 	echo " 0.0   = drbl    ! min distance between b and lepton " >> $run_card
-	echo " 0.4 = dral    ! min distance between gamma and lepton " >> $run_card
+	echo " 0.2 = dral    ! min distance between gamma and lepton " >> $run_card
 	echo " -1.0  = drjjmax ! max distance between jets" >> $run_card
 	echo " -1.0  = drbbmax ! max distance between b's" >> $run_card
 	echo " -1.0  = drllmax ! max distance between leptons" >> $run_card

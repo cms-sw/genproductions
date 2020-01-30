@@ -138,7 +138,7 @@ parser = argparse.ArgumentParser(
                   * [ERROR] herwigpp = parton_shower not in run_card.dat
                   * [ERROR] Although the name of the dataset has ~Madgraph, the gridpack doesn't seem to be a MG5_aMC one. Please check.
                   * [ERROR] Please add \'set FxFxHandler:MergeMode FxFx\'
-	              *         and set FxFxHandler:njetsmax 4
+	              *         and set FxFxHandler:njetsmax to the number of additional partons in the proc_card
                   * [ERROR] Please load herwig7CommonMergingSettingsBlock
                   * [ERROR] MG5_aMC@NLO multi-run patch missing in gridpack - please re-create a gridpack
                   *            using updated genproductions area
@@ -235,6 +235,12 @@ def get_requests_from_datasetname(dn):
         return {}
 
     return result
+
+def find_file(dir_path,patt):
+    for root, dirs, files in os.walk(dir_path):
+        for file in files:
+            if file.endswith(patt):
+                return root+'/'+str(file)
 
 if args.dev:
     print "Running on McM DEV!\n"
@@ -354,6 +360,8 @@ for num in range(0,len(prepid)):
         et_flag = 0
         bornonly = 0
         herwig_flag = 0
+        herwig_count = []
+        herwig7_bypass_error = 0
         pf = []
         ppd = 0
         if "ppd" in pi.lower():
@@ -472,9 +480,16 @@ for num in range(0,len(prepid)):
                 if line not in file2:
                     herwig_check.append(line)
             if len(herwig_check) != 0:
-                print "* [ERROR] "+ str(len(herwig_check)) + " missing fragment line(s) for herwig:"
-                print herwig_check
-                error = error + len(herwig_check)
+                herwig_count.append(herwig_check[0].count('hw_lhe_common_settings'))
+                herwig_count.append(herwig_check[1].count('herwig7LHECommonSettingsBlock'))
+                herwig_count.append(herwig_check[2].count('from Configuration.Generator.Herwig7Settings.Herwig7LHECommonSettings_cfi import *'))
+                if all(x == 1 for x in herwig_count) and any("insert SubProcess:MatrixElements" in x for x in list(file2)):
+                    herwig7_bypass_error = 1
+                if herwig7_bypass_error == 0:
+                    print "* [ERROR] "+ str(len(herwig_check)) + " missing fragment line(s) for herwig:"
+                    print "*          lines for internal matrix element are missing in the fragment."
+                    print herwig_check
+                    error = error + len(herwig_check)
             if "powheg" in dn.lower():
                 if int(os.popen('grep -c Herwig7LHEPowhegSettings_cfi '+pi).read()) == 0:
                     print "* [ERROR] Herwig7LHEPowhegSettings_cfi should be loaded in the fragment"
@@ -666,7 +681,7 @@ for num in range(0,len(prepid)):
                 os.system('tar xf '+gridpack_cvmfs_path+' -C '+my_path+'/'+pi)
                 jhu_gp = os.path.isfile(my_path+'/'+pi+'/'+'JHUGen.input')
                 pw_gp = os.path.isfile(my_path+'/'+pi+'/'+'powheg.input')
-                mg_gp = os.path.isfile(my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat')
+                mg_gp = os.path.isfile(my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat') or os.path.isfile(my_path+'/'+pi+'/'+'process/Cards/run_card.dat')
                 amcnlo_gp = os.path.isfile(my_path+'/'+pi+'/'+'process/Cards/run_card.dat')
                 print "powheg "+str(pw_gp)
                 print "mg "+str(mg_gp)
@@ -715,19 +730,23 @@ for num in range(0,len(prepid)):
                         print "*           You may try to request more events per phase-space region in the gridpack."
                         warning += 1
                 if mg_gp is True:
-                    ickkw_c = os.popen('more '+my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat'+' | tr -s \' \' | grep "= ickkw"').read()
+                    filename_rc = my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat'
+                    fname_p2 = my_path+'/'+pi+'/'+'process/Cards/run_card.dat'
+                    if os.path.isfile(fname_p2) is True :
+                        filename_rc = fname_p2
+                    ickkw_c = os.popen('more '+filename_rc+' | tr -s \' \' | grep "= ickkw"').read()
                     matching_c = int(re.search(r'\d+',ickkw_c).group())
-                    maxjetflavor = os.popen('more '+my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat'+' | tr -s \' \' | grep "= maxjetflavor"').read()
+                    maxjetflavor = os.popen('more '+filename_rc+' | tr -s \' \' | grep "= maxjetflavor"').read()
                     maxjetflavor = int(re.search(r'\d+',maxjetflavor).group())
                     print "maxjetflavor = "+str(maxjetflavor)
                     if matching_c == 3 and herwig_flag != 0:
-                        ps_hw = os.popen('grep parton_shower '+my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat')
+                        ps_hw = os.popen('grep parton_shower '+filename_rc)
                         if herwigpp not in ps_hw:
                             print "* [ERROR] herwigpp = parton_shower not in run_card.dat"
                             error += 1
                         if int(os.popen('grep -c "set FxFxHandler:MergeMode FxFx" '+pi).read()) == 0:
 			    print "* [ERROR] Please add \'set FxFxHandler:MergeMode FxFx\'"
-			    print "*         and set FxFxHandler:njetsmax 4"
+			    print "*         and set FxFxHandler:njetsmax to the number of additional partons in the proc_card"
 			    error += 1
                     if matching_c == 2 and herwig_flag != 0:
 			if int(os.popen('grep -c herwig7CommonMergingSettingsBlock').read()) == 0:
@@ -940,18 +959,19 @@ for num in range(0,len(prepid)):
                 if ind > 0 and ind < 3:
                     if gp_size == 0:
                         break
-                    filename = my_path+'/'+pi+'/'+'process/madevent/Cards/proc_card_mg5.dat'
+                    filename_pc = my_path+'/'+pi+'/'+'process/madevent/Cards/proc_card_mg5.dat'
                     fname_p2 = my_path+'/'+pi+'/'+'process/Cards/proc_card.dat'
                     fname_p3 = my_path+'/'+pi+'/'+'process/Cards/proc_card_mg5.dat'
                     if os.path.isfile(fname_p2) is True :
-                        filename = fname_p2
+                        filename_pc = fname_p2
                     if os.path.isfile(fname_p3) is True :
-                        filename = fname_p3
-                    if os.path.isfile(filename) is True :
-                        loop_flag = int(os.popen('more '+filename+' | grep -c "noborn=QCD"').read())
-                        gen_line = os.popen('grep generate '+filename).read()
+                        filename_pc = fname_p3
+                    if os.path.isfile(filename_pc) is True :
+                        mg_nlo = int(os.popen('grep -c "\[QCD\]" '+filename_pc).read())
+                        loop_flag = int(os.popen('more '+filename_pc+' | grep -c "noborn=QCD"').read())
+                        gen_line = os.popen('grep generate '+filename_pc).read()
                         print(gen_line)
-                        proc_line = os.popen('grep process '+filename).read()
+                        proc_line = os.popen('grep process '+filename_pc).read()
                         print(proc_line)
                         if gen_line.count('@') <= proc_line.count('@'):
                             nproc = proc_line.count('@')
@@ -978,16 +998,10 @@ for num in range(0,len(prepid)):
                             print "* [WARNING] nJetMax(="+str(nJetMax)+") is not equal to the number of jets specified in the proc card(="+str(jet_count)+")."
                             print "*           Is it because this is an exclusive production with additional samples with higher multiplicity generated separately?"
                             warning += 1
-                    fname = my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat'
-                    fname2 = my_path+'/'+pi+'/'+'process/Cards/run_card.dat'
-                    if os.path.isfile(fname) is True :
-                        ickkw = os.popen('more '+fname+' | tr -s \' \' | grep "= ickkw"').read()
-                        bw = os.popen('more '+fname+' | tr -s \' \' | grep "= bwcutoff"').read()
-                        mg_pdf = os.popen('more '+fname+' | tr -s \' \' | grep "= lhaid"').read()
-                    elif os.path.isfile(fname2) is True :
-                        ickkw = os.popen('more '+fname2+' | tr -s \' \' | grep "= ickkw"').read()
-                        bw = os.popen('more '+fname2+' | tr -s \' \' | grep "= bwcutoff"').read()
-                        mg_pdf = os.popen('more '+fname2+' | tr -s \' \' | grep "= lhaid"').read()
+                    if os.path.isfile(filename_rc) is True :
+                        ickkw = os.popen('more '+filename_rc+' | tr -s \' \' | grep "= ickkw"').read()
+                        bw = os.popen('more '+filename_rc+' | tr -s \' \' | grep "= bwcutoff"').read()
+                        mg_pdf = os.popen('more '+filename_rc+' | tr -s \' \' | grep "= lhaid"').read()
                     else:
                         if gp_size != 0:
                             print "* [ERROR] Although the name of the dataset has ~Madgraph, the gridpack doesn't seem to be a MG5_aMC one. Please check."
@@ -1029,8 +1043,24 @@ for num in range(0,len(prepid)):
                             fmg_f = fmg.read()
                             fmg_f = re.sub(r'(?m)^ *#.*\n?', '',fmg_f)
                             mg_me_pdf_list = re.findall('pdfsets=\S+',fmg_f)
-                            mg_lo = int(os.popen('grep "systematics" '+str(runcmsgrid_file)+' | grep -c madevent').read())
-                            mg_nlo = int(os.popen('grep "systematics" '+str(runcmsgrid_file)+' | grep -c aMCatNLO').read())
+                            if mg5_aMC_version >= 260:
+                                mg_lo = int(os.popen('grep "systematics" '+str(runcmsgrid_file)+' | grep -c madevent').read())
+                                mg_nlo = int(os.popen('grep "systematics" '+str(runcmsgrid_file)+' | grep -c aMCatNLO').read())
+                            if mg5_aMC_version < 260:
+                                mg_lo = int(os.popen('grep -c syscalc '+str(runcmsgrid_file)).read())
+                                if mg_nlo > 0:
+                                    r_scale = os.popen('more '+filename_rc+' | tr -s \' \' | grep "reweight_scale"').read()
+                                    r_scale = r_scale.split()[0].split('.')[1]
+                                    if len(r_scale) == 0 or "true" not in str(r_scale).lower():
+                                        print "* [ERROR] For NLO MG5_aMC version < 260, one should have .true. = reweight_scale"
+                                        error += 1
+                                    dir_path = os.path.join(my_path, pi, "InputCards")
+                                    input_cards_run_card = find_file(dir_path,"run_card.dat")
+                                    r_pdf = os.popen('more '+str(input_cards_run_card)+' | tr -s \' \' | grep "reweight_PDF"').read()
+                                    r_pdf = r_pdf.split()[0]
+                                    if len(r_pdf) == 0 or "$DEFAULT_PDF_MEMBERS" not in r_pdf:
+                                        print "* [ERROR] For NLO MG5_aMC version < 260, one should have $DEFAULT_PDF_MEMBERS = reweight_PDF"
+                                        error += 1
                             print "##################################################"
                             if mg_lo > 0 and mg_nlo > 0:
                                 "* [ERROR] something's wrong - LO and NLO configs together."
@@ -1041,10 +1071,8 @@ for num in range(0,len(prepid)):
                                 print "* The MG5_aMC ME is running at NLO"
                             print "##################################################"
                             if mg_nlo > 0 and mg5_aMC_version >= 260:
-                                if os.path.isfile(fname) is True :
-                                    store_rwgt_info = os.popen('more '+fname+' | tr -s \' \' | grep "store_rwgt_info"').read()
-                                elif os.path.isfile(fname2) is True :
-                                    store_rwgt_info = os.popen('more '+fname2+' | tr -s \' \' | grep "store_rwgt_info"').read()
+                                if os.path.isfile(filename_rc) is True :
+                                    store_rwgt_info = os.popen('more '+filename_rc+' | tr -s \' \' | grep "store_rwgt_info"').read()
                                 if len(store_rwgt_info) != 0:
                                     store_rwgt_info_a = store_rwgt_info.split('=')
                                     if "false" in store_rwgt_info_a[0].lower():
@@ -1054,10 +1082,8 @@ for num in range(0,len(prepid)):
                                     print "* [ERROR] No store_rwgt_info set for MG5_aMC >= 260."
                                     error += 1
                             if mg_lo > 0 and mg5_aMC_version >= 260:
-                                if os.path.isfile(fname) is True :
-                                    use_syst = os.popen('more '+fname+' | tr -s \' \' | grep "use_syst"').read()
-                                elif os.path.isfile(fname2) is True :
-                                    use_syst = os.popen('more '+fname2+' | tr -s \' \' | grep "use_syst"').read()
+                                if os.path.isfile(filename_rc) is True :
+                                    use_syst = os.popen('more '+filename_rc+' | tr -s \' \' | grep "use_syst"').read()
                                 if len(use_syst) != 0:
                                     use_syst_a = use_syst.split('=')
                                     if "false" in use_syst_a[0].lower():
@@ -1066,6 +1092,7 @@ for num in range(0,len(prepid)):
                                 if len(use_syst) == 0:
                                     print "* [ERROR] No use_syst set for MG5_aMC >= 260."
                                     error += 1
+
                             if mg5_aMC_version < 260:
                                 continue
                             mg_me_pdf_list = mg_me_pdf_list[0].split('=')[1].split('\"')[1].split(',')
@@ -1075,13 +1102,17 @@ for num in range(0,len(prepid)):
                                 warning += 1
                             else:
                                 print"* [OK] There are some PDF variations."
-                            if "UL" in pi and mg_me_pdf_list.count(UL_PDFs_N[0]) != 1 and mg_me_pdf_list.count(UL_PDFs_N[1]) != 1:
-                                print"* [WARNING] pdfsets in runcmsgrid file does not contain one of the recommended sets:"
-                                print"*                                             "+str(UL_PDFs_N[0])+"("+str(UL_PDFs[0])+")"
-                                print"*                                             or "+str(UL_PDFs_N[1])+"("+str(UL_PDFs[1])+")"
+                            if "UL" in pi and mg_me_pdf_list.count(str(UL_PDFs_N[0])) != 1 and mg_me_pdf_list.count(str(UL_PDFs_N[1])) != 1:
+                                if mg_me_pdf_list.count(str(UL_PDFs_N[0])) > 1 or mg_me_pdf_list.count(str(UL_PDFs_N[1])) > 1:
+                                    print " [WARNING] At least one of the default PDF sets ("+UL_PDFs_N+") appear as variation as well or listed more than once."
+                                    warning += 1
+                                else:
+                                    print"* [WARNING] pdfsets in runcmsgrid file does not contain one of the recommended sets:"
+                                    print"*                                             "+str(UL_PDFs_N[0])+"("+str(UL_PDFs[0])+")"
+                                    print"*                                             or "+str(UL_PDFs_N[1])+"("+str(UL_PDFs[1])+")"
+                                    warning += 1
                                 print"* Your runcmsgrid file contains these sets:"
                                 print(mg_me_pdf_list)
-                                warning += 1
                             if (mg_me_pdf_list.count(str(UL_PDFs_N[0])) > 0 and mg_me_pdf_list.count(str(UL_PDFs_N[0])+"@0") != 0) or (mg_me_pdf_list.count(str(UL_PDFs_N[1])) > 0 and mg_me_pdf_list.count(str(UL_PDFs_N[1])+"@0") != 0):
                                 print"* [WARNING] Main pdf recommended set ("+str(UL_PDFs_N[0])+" or "+str(UL_PDFs_N[1])+") is listed in runcmsgrid file but it is also included as a variation??"
                                 warning += 1
