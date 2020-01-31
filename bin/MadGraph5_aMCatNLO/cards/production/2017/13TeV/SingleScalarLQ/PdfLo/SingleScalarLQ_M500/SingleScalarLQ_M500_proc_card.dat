@@ -1,0 +1,7 @@
+import model LQ_LO
+define p = p b b~
+generate    p p > s3_-13 vt~, s3_-13 > ta- t
+add process p p > s3_+13 vt , s3_+13 > ta+ t~
+add process p p > s3_-13 vt~, s3_-13 > b vt
+add process p p > s3_+13 vt , s3_+13 > b~ vt~
+output SingleScalarLQ_MASS -nojpeg
