@@ -388,11 +388,6 @@ make_gridpack () {
     #################################
     #Add PDF info and copy run card #
     #################################
-    script_dir="${PRODHOME%genproductions*}/genproductions/Utilities/scripts"
-    if [ ! -d "$script_dir" ]; then
-      script_dir=$(git rev-parse --show-toplevel)/Utilities/scripts
-    fi
-    
     prepare_run_card $name $CARDSDIR $is5FlavorScheme $script_dir
     
     #copy provided custom fks params or cuts
@@ -642,12 +637,25 @@ if [ -z "$PRODHOME" ]; then
 fi 
 
 # Folder structure is different on CMSConnect
-helpers_dir=${PRODHOME%genproductions*}/genproductions/Utilities
-if [ ! -d "$helpers_dir" ]; then
+helpers_dir=""
+script_dir=""
+if command -v git && git rev-parse --is-inside-work-tree; then
     helpers_dir=$(git rev-parse --show-toplevel)/bin/MadGraph5_aMCatNLO/Utilities
+    script_dir=$(git rev-parse --show-toplevel)/Utilities/scripts
+else
+    helpers_dir=${PRODHOME%genproductions*}/genproductions/bin/MadGraph5_aMCatNLO/Utilities
+    script_dir="${PRODHOME%genproductions*}/genproductions/Utilities/scripts"
 fi
-source ${helpers_dir}/gridpack_helpers.sh 
 
+if [ ! -d "$script_dir" ]; then
+    echo "ERROR: Failed to find directory ${script_dir}. You should run from inside the genproductions repository"
+    exit 1
+elif [ ! -d "$helpers_dir" ]; then
+    echo "ERROR: Failed to find directory ${helpers_dir}. You should run from inside the genproductions repository"
+    exit 1
+fi
+
+source ${helpers_dir}/gridpack_helpers.sh 
 
 if [ ! -z ${CMSSW_BASE} ]; then
   echo "Error: This script must be run in a clean environment as it sets up CMSSW itself.  You already have a CMSSW environment set up for ${CMSSW_VERSION}."
