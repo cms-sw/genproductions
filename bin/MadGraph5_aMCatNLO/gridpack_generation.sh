@@ -90,7 +90,7 @@ make_gridpack () {
     MGBASEDIR=mgbasedir
     
     MG_EXT=".tar.gz"
-    MG=MG5_aMC_v2.6.5$MG_EXT
+    MG=MG5_aMC_v2.6.7$MG_EXT
     MGSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$MG
     
     MGBASEDIRORIG=$(echo ${MG%$MG_EXT} | tr "." "_")
@@ -588,10 +588,6 @@ name=${1}
 # name of the run
 carddir=${2}
 
-if [ -z ${carddir} ]; then
-    echo "Card directory not provided"
-fi
-
 # which queue
 queue=${3}
 
@@ -641,6 +637,10 @@ fi
 
 #catch unset variables
 set -u
+
+if [ -z ${carddir} ]; then
+    echo "Card directory not provided"
+fi
 
 if [ -z ${name} ]; then
   echo "Process/card name not provided"
