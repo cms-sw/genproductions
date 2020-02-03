@@ -108,7 +108,7 @@ if [ "$$process" = "Zj" ] || [ "$$process" = "Wj" ]; then
 fi
 
 
-sed -i -e "s#500#1200#g"  POWHEG-BOX/include/pwhg_rwl.h
+sed -i -e "s#500#1350#g"  POWHEG-BOX/include/pwhg_rwl.h
 
 echo $${POWHEGSRC} > VERSION
 
