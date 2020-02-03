@@ -10,6 +10,6 @@ define l- = e- mu- ta-
 define vl = ve vm vt
 define vl~ = ve~ vm~ vt~
 
-generate p p > l+ l+ vl vl j j QCD=0 SMHLOOP=0 @1
-add process p p > l- l- vl~ vl~ j j QCD=0 SMHLOOP=0 @2
+generate p p > l+ l+ vl vl j j QCD=0 SMHLOOP=0 NP=0 @1
+add process p p > l- l- vl~ vl~ j j QCD=0 SMHLOOP=0 NP=0 @2
 output SSWW_SMlimit
