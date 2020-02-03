@@ -1,12 +1,22 @@
 ! ST-tchannel inputs
 
+#smartsig       1 
 withdamp       1
-hdamp 237.8775 ! 1.379*mtop nominal value for hdamp for Fall18
+hdamp 150.7305   ! 0.8738*mtop for hdampdown for Fall18
+
+withnegweights 0   ! will generate also events with negative-weight 
 
 renscfact  1d0    ! (default 1d0) ren scale factor: muren  = muref * renscfact 
 facscfact  1d0    ! (default 1d0) fac scale factor: mufact = muref * facscfact 
 
+#bornonly   1     ! (default 0) if 1 do Born only
+#testplots  1     ! (default 0, do not) do NLO and PWHG distributions
+
 iseed    SEED    ! initialize random number sequence 
+#rand1     0      ! initialize random number sequence 
+#rand2     0      ! initialize random number sequence 
+#manyseeds 1   
+
 
 numevts NEVENTS     ! number of events to be generated
 ih1   1           ! hadron 1 (1 for protons, -1 for antiprotons)
@@ -15,9 +25,10 @@ ih2   1           ! hadron 2 (1 for protons, -1 for antiprotons)
 ebeam1 6500
 ebeam2 6500
 
+
 ! To be set only if using LHA pdfs
-lhans1 306000    ! 5FS
-lhans2 306000    ! 5FS
+lhans1 320900
+lhans2 320900
 
 ! Parameters to allow or not the use of stored data
 use-old-grid    1 ! if 1 use old grid if file pwggrids.dat is present (<> 1 regenerate)
@@ -35,21 +46,14 @@ icsimax  1        ! <= 100, number of csi subdivision when computing the upper b
 iymax    1        ! <= 100, number of y subdivision when computing the upper bounds
 xupbound 2d0      ! increase upper bound for radiation generation
 
-ttype        1
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! PROCESS SPECIFIC PARAMETERS
 
-! mandatory parameters used in decay generation
-topdecaymode 11111   ! decay mode: the 5 digits correspond to the following
-                     ! top-decay channels (l,mu,tau,u,c) 
-                     ! 0 means close, 1 open
-wdecaymode 11111     ! decay mode: the 5 digits correspond to the following
-                     ! primary-w-decay channels (l,mu,tau,u,c) 
-                     ! 0 means close, 1 open
 tdec/elbranching 0.108  ! W electronic branching fraction
 tdec/sin2cabibbo 0.051
-topwidth 1.31 ! 1.33 
+topwidth 1.33
 
-! optional production parameters 
-! (defaults defined in init_couplings.f)
+ttype        -1
 topmass      172.5
 wmass        80.4
 wwidth       2.141
@@ -70,7 +74,6 @@ bottomthrpdf 4.8
 charmthr     1.27
 charmthrpdf  1.27
 
-
 ! PDG Values http://pdg.lbl.gov/2019/reviews/rpp2018-rev-ckm-matrix.pdf
 CKM_Vud   0.97420
 CKM_Vus   0.2243
@@ -81,7 +84,3 @@ CKM_Vcb   0.0422
 CKM_Vtd   0.0081
 CKM_Vts   0.0394
 CKM_Vtb   1.0
-
-pdfreweight 0
-storeinfo_rwgt 0 ! store weight information
-withnegweights 1 ! default 0
