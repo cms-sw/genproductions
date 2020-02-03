@@ -1122,7 +1122,7 @@ for num in range(0,len(prepid)):
                         if match_eff == 1:
                             print "* [WARNING] Matched sample but matching efficiency is 1!"
                             warning += 1
-                    if ind < 2:
+                    if ind < 2 and mg_nlo != 1:
                         MGpatch.append(int(os.popen('more '+my_path+'/'+pi+'/'+'runcmsgrid.sh | grep -c "FORCE IT TO"').read()))
                         MGpatch.append(int(os.popen('grep -c _CONDOR_SCRATCH_DIR '+my_path+'/'+pi+'/'+'mgbasedir/Template/LO/SubProcesses/refine.sh').read()))
                         MGpatch.append(int(os.popen('grep -c _CONDOR_SCRATCH_DIR '+my_path+'/'+pi+'/'+'process/madevent/SubProcesses/refine.sh').read()))
@@ -1222,10 +1222,10 @@ for num in range(0,len(prepid)):
                         print "*                                                  (before resonance decays) in born matrix element."
                         warning += 1
                 else:
-                    if word != "powheg":
+                    if word != "powheg" and (word == "madgraph" and mg_nlo != 1):
                         print "* [ERROR] Fragment may be wrong: check "+word+" settings in the fragment"
                         error += 1
-                    if matching <= 1 and word == "madgraph":
+                    if matching <= 1 and word == "madgraph" and mg_nlo != 1:
                         print "* [ERROR] You run MG5_aMC@NLO at LO but you have  Pythia8aMCatNLOSettings_cfi in fragment"
                         print "*           --> please remove it from the fragment"
                         error += 1
