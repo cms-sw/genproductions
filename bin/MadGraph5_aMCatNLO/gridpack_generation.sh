@@ -588,10 +588,6 @@ name=${1}
 # name of the run
 carddir=${2}
 
-if [ -z ${carddir} ]; then
-    echo "Card directory not provided"
-fi
-
 # which queue
 queue=${3}
 
@@ -641,6 +637,10 @@ fi
 
 #catch unset variables
 set -u
+
+if [ -z ${carddir} ]; then
+    echo "Card directory not provided"
+fi
 
 if [ -z ${name} ]; then
   echo "Process/card name not provided"
