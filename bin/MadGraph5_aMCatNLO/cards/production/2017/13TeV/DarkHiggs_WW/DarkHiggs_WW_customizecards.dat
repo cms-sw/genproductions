@@ -1,6 +1,5 @@
 #put card customizations here
 
-set param_card mass 52 DMMASS 
 set param_card mass 52 DMMASS                                                                                                    
 set param_card mass 54 DHMASS
 set param_card decay 54 auto    
