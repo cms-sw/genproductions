@@ -1,0 +1,4 @@
+import model Suu_diquark_UFO
+define p = p b  b~
+generate p p > suu > chi chi
+output Suu_Diquark_S8000_chi1900 -nojpeg
