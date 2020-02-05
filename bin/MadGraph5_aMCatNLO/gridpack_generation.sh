@@ -56,7 +56,26 @@ make_gridpack () {
     echo "queue: ${queue}"
     echo "scram_arch: ${scram_arch}"
     echo "cmssw_version: ${cmssw_version}"
-    
+
+    ########################
+    #Locating the proc card#
+    ########################
+
+    if [ ! -d $CARDSDIR ]; then
+      echo $CARDSDIR " does not exist!"
+      if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
+    fi
+
+    if [ ! -e $CARDSDIR/${name}_proc_card.dat ]; then
+      echo $CARDSDIR/${name}_proc_card.dat " does not exist!"
+      if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
+    fi
+
+    if [ ! -e $CARDSDIR/${name}_run_card.dat ]; then
+      echo $CARDSDIR/${name}_run_card.dat " does not exist!"
+      if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
+    fi
+
     # CMS Connect runs git status inside its own script.
     if [ $iscmsconnect -eq 0 ]; then
       cd $PRODHOME
@@ -218,31 +237,7 @@ make_gridpack () {
       fi
     
       echo `pwd`
-    
-    
-      if [ -z ${carddir} ]; then
-        echo "Card directory not provided"
-        if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
-      fi
-    
-      if [ ! -d $CARDSDIR ]; then
-        echo $CARDSDIR " does not exist!"
-        if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
-      fi  
-      
-      ########################
-      #Locating the proc card#
-      ########################
-      if [ ! -e $CARDSDIR/${name}_proc_card.dat ]; then
-        echo $CARDSDIR/${name}_proc_card.dat " does not exist!"
-        if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
-      fi
-    
-      if [ ! -e $CARDSDIR/${name}_run_card.dat ]; then
-        echo $CARDSDIR/${name}_run_card.dat " does not exist!"
-        if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
-      fi  
-      
+
       cp $CARDSDIR/${name}_proc_card.dat ${name}_proc_card.dat
       
       #*FIXME* workaround for broken cluster_local_path handling. 
@@ -339,21 +334,6 @@ make_gridpack () {
           if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
         fi
       fi
-      
-      if [ -z ${carddir} ]; then
-        echo "Card directory not provided"
-        if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
-      fi
-    
-      if [ ! -d $CARDSDIR ]; then
-        echo $CARDSDIR " does not exist!"
-        if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
-      fi
-      
-      if [ ! -e $CARDSDIR/${name}_run_card.dat ]; then
-        echo $CARDSDIR/${name}_run_card.dat " does not exist!"
-        if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
-      fi  
     
     fi  
     
@@ -657,6 +637,10 @@ fi
 
 #catch unset variables
 set -u
+
+if [ -z ${carddir} ]; then
+    echo "Card directory not provided"
+fi
 
 if [ -z ${name} ]; then
   echo "Process/card name not provided"
