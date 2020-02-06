@@ -4,7 +4,7 @@
 
   % scales, tags for scale variations
   FSF:=1.; RSF:=1.; QSF:=1.;
-  SCALES METS{FSF*MU_F2}{RSF*MU_R2}{QSF*MU_Q2};
+  SCALES STRICT_METS{FSF*MU_F2}{RSF*MU_R2}{QSF*MU_Q2};
   SCALE_VARIATIONS 0.25,0.25 0.25,1. 1.,0.25 1.,1. 1.,4. 4.,1. 4.,4.;
   ASSOCIATED_CONTRIBUTIONS_VARIATIONS EW EW|LO1;
 
@@ -18,9 +18,6 @@
   LOOPGEN:=OpenLoops;
   PP_RS_SCALE VAR{0.25*H_Tp2};
 
-  
- % exclude tau from lepton container
-  MASSIVE[15] 1;
   
   % collider setup
   BEAM_1 2212; BEAM_ENERGY_1 = 6500.;
