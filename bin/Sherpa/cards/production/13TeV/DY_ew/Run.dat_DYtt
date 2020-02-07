@@ -13,7 +13,7 @@
 
   % me generator settings
   ME_SIGNAL_GENERATOR Comix Amegic LOOPGEN;
-  EVENT_GENERATION_MODE P;
+  EVENT_GENERATION_MODE PartiallyUnweighted;
   OL_PARAMETERS ew_renorm_scheme 1;
   LOOPGEN:=OpenLoops;
   PP_RS_SCALE VAR{0.25*H_Tp2};
