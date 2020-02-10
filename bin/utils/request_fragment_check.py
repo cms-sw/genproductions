@@ -1049,6 +1049,10 @@ for num in range(0,len(prepid)):
                             if mg5_aMC_version < 260:
                                 mg_lo = int(os.popen('grep -c syscalc '+str(runcmsgrid_file)).read())
                                 if mg_nlo > 0:
+                                    if mg5_aMC_version < 242:
+                                        print "* [WARNING] No automated PDF check for this version."
+                                        warning += 1
+                                        continue
                                     r_scale = os.popen('more '+filename_rc+' | tr -s \' \' | grep "reweight_scale"').read()
                                     r_scale = r_scale.split()[0].split('.')[1]
                                     if len(r_scale) == 0 or "true" not in str(r_scale).lower():
