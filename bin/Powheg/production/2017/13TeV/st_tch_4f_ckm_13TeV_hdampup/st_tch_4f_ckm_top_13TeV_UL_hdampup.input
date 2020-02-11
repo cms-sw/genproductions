@@ -64,13 +64,13 @@ lhfm/emass   0.00051
 lhfm/mumass  0.1057
 lhfm/taumass 1.777
 lhfm/cmass   1.27
-lhfm/bmass   4.8
+lhfm/bmass   4.18
 tdec/emass   0.00051
 tdec/mumass  0.1057
 tdec/taumass 1.777
 
-bottomthr    4.8
-bottomthrpdf 4.8
+bottomthr    4.18
+bottomthrpdf 4.18
 charmthr     1.27
 charmthrpdf  1.27
 
