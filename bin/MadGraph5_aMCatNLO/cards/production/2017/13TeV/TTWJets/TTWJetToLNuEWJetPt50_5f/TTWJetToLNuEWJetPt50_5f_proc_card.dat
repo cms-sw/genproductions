@@ -6,5 +6,5 @@ define ell- = e- mu- ta-
 generate p p > t t~ w+ j QED<=3 QCD<=1
 add process p p > t t~ w- j QED<=3 QCD<=1
 
-output TTWJetToLNuEWJetPt50_5f_NLO_FXFX -nojpeg
+output TTWJetToLNuEWJetPt50_5f -nojpeg
 
