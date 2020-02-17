@@ -479,7 +479,7 @@ for num in range(0,len(prepid)):
             for line in file1:
                 if line not in file2:
                     herwig_check.append(line)
-            if len(herwig_check) != 0:
+            if len(herwig_check) != 0 and "eec5" not in dn.lower():
                 herwig_count.append(herwig_check[0].count('hw_lhe_common_settings'))
                 herwig_count.append(herwig_check[1].count('herwig7LHECommonSettingsBlock'))
                 herwig_count.append(herwig_check[2].count('from Configuration.Generator.Herwig7Settings.Herwig7LHECommonSettings_cfi import *'))
