@@ -127,10 +127,10 @@
 #*********************************************************************
 # Maximum and minimum absolute rapidity (for max, -1 means no cut)   *
 #*********************************************************************
-  5.0 = etaj    ! max rap for the jets 
+  -1.0  = etaj    ! max rap for the jets 
   -1.0  = etab    ! max rap for the b
- 2.5  = etaa    ! max rap for the photons 
- 2.5  = etal    ! max rap for the charged leptons 
+  -1.0  = etaa    ! max rap for the photons 
+  -1.0  = etal    ! max rap for the charged leptons 
  0.0  = etajmin ! min rap for the jets
  0.0  = etabmin ! min rap for the b
  0.0  = etaamin ! min rap for the photons
@@ -140,16 +140,16 @@
 #*********************************************************************
 # Minimum and maximum DeltaR distance                                *
 #*********************************************************************
- 0.4 = drjj    ! min distance between jets 
- 0.0   = drbb    ! min distance between b's 
- 0.4 = drll    ! min distance between leptons 
- 0.4 = draa    ! min distance between gammas 
- 0.0   = drbj    ! min distance between b and jet 
- 0.4 = draj    ! min distance between gamma and jet 
- 0.4 = drjl    ! min distance between jet and lepton 
- 0.0   = drab    ! min distance between gamma and b 
- 0.0   = drbl    ! min distance between b and lepton 
- 0.4 = dral    ! min distance between gamma and lepton 
+ -1.0 = drjj    ! min distance between jets 
+ -1.0   = drbb    ! min distance between b's 
+ -1.0 = drll    ! min distance between leptons 
+ -1.0 = draa    ! min distance between gammas 
+ -1.0   = drbj    ! min distance between b and jet 
+ -1.0 = draj    ! min distance between gamma and jet 
+ -1.0 = drjl    ! min distance between jet and lepton 
+ -1.0   = drab    ! min distance between gamma and b 
+ -1.0   = drbl    ! min distance between b and lepton 
+ -1.0 = dral    ! min distance between gamma and lepton 
  -1.0  = drjjmax ! max distance between jets
  -1.0  = drbbmax ! max distance between b's
  -1.0  = drllmax ! max distance between leptons
