@@ -1,17 +1,3 @@
-#*********************************************************************
-#                       MadGraph5_aMC@NLO                            *
-#                                                                    *
-#                     run_card.dat MadEvent                          *
-#                                                                    *
-#  This file is used to set the parameters of the run.               *
-#                                                                    *
-#  Some notation/conventions:                                        *
-#                                                                    *
-#   Lines starting with a '# ' are info or comments                  *
-#                                                                    *
-#   mind the format:   value    = variable     ! comment             *
-#*********************************************************************
-#
 #*******************                                                 
 # Running parameters
 #*******************                                                 
@@ -45,7 +31,8 @@
 # PDF CHOICE: this automatically fixes also alpha_s and its evol.    *
 #*********************************************************************
  'lhapdf'    = pdlabel     ! PDF set                                  
-  263400    = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number 
+ $DEFAULT_PDF_SETS = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number 
+ $DEFAULT_PDF_MEMBERS = reweight_PDF
 #*********************************************************************
 # Renormalization and factorization scales                           *
 #*********************************************************************
@@ -68,7 +55,7 @@
 #*********************************************************************
 # Matching parameter (MLM only)
 #*********************************************************************
- 1 = ickkw            ! 0 no matching, 1 MLM
+ 0 = ickkw            ! 0 no matching, 1 MLM
  1.0 = alpsfact         ! scale factor for QCD emission vx
  False = chcluster        ! cluster only according to channel diag
  4 = asrwgtflavor     ! highest quark flavor for a_s reweight
@@ -265,17 +252,17 @@
 # Store info for systematics studies                                 *
 # WARNING: Do not use for interference type of computation           *
 #*********************************************************************
-   True  = use_syst      ! Enable systematics studies
+#   True  = use_syst      ! Enable systematics studies
 #
 #**************************************
 # Parameter of the systematics study
 #  will be used by SysCalc (if installed)
 #**************************************                                  
 #
-0.5 1 2 = sys_scalefact  # factorization/renormalization scale factor
-None = sys_alpsfact  # \alpha_s emission scale factors
-auto = sys_matchscale # variation of merging scale
+#0.5 1 2 = sys_scalefact  # factorization/renormalization scale factor
+#None = sys_alpsfact  # \alpha_s emission scale factors
+#auto = sys_matchscale # variation of merging scale
 # PDF sets and number of members (0 or none for all members).
-NNPDF23_lo_as_0130_qed = sys_pdf # list of pdf sets
+#NNPDF23_lo_as_0130_qed = sys_pdf # list of pdf sets
 # MSTW2008nlo68cl.LHgrid 1  = sys_pdf
 #
