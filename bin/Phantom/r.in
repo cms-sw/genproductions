@@ -1,0 +1,634 @@
+****** IF (IONESH.EQ.0) THEN
+*  CALL iread('iproc',iproc,8)    ! process
+iproc    -4 -4 -3 -3 11 -12 13 -14
+****** ENDIF
+
+****** IF (IONESH.EQ.0) THEN
+*  CALL iread('iproc',iproc,8)    ! process
+iproc    2 2 2 1 11 -11 14 -13
+****** ENDIF
+
+
+*      CALL iread('idum',idum,1)   ! idum=initialization random number seed
+*                                !  must be a large negative number
+idum  -123456789
+
+*      CALL cread('PDFname',PDFname)
+
+PDFname NNPDF31_nnlo_hessian_pdfas
+
+*      CALL iread('i_PDFscale',i_PDFscale,1) ! selects the way of 
+*                                            ! calculating the PDF scale:
+*        ! =1 for all processes, based on pT's of ALL OUTGOING PARTICLES
+*        ! =2 process by process, based on pT of the (RECONSTRUCTED) TOP
+*        !    if possible, otherwise as done in option 1
+*        ! =3 Q a fixed numerical scale given in this file
+*        ! =4 Q=(invariant mass of the 4 leptons)/sqrt(2) 
+*        !        (for prosesses with four outgoing leptons)
+*              =(invariant mass of the 2 central jets and of 2 leptons)/sqrt(2)
+*        !        (for processes with two outoging leptons)
+*        ! =5  Q= sqrt(ptj1*ptj2) square-root of the product of pt's of the 2 jets
+*	 !     with largest pt (only for processes with at least 2 final statejets)
+
+i_PDFscale 4
+
+* Here give the numerical value for Q if i_PDFscale=3 (for all other choices
+*    the value is irrelevant)    
+*      if (i_PDFscale.eq.3) then
+*        CALL rread('fixed_PDFscale',fixed_PDFscale,1)
+*      endif
+
+fixed_PDFscale 125
+
+*      CALL iread('i_coll',i_coll,1) !  determines the type of accelerator:
+*                                    !   i_coll=1 => p-p
+*                                    !   i_coll=2 => p-pbar
+*                                    !   i_coll=3 => e+e-
+i_coll  1
+
+*  IF(i_coll.EQ.3)  CALL iread('i_isr',i_isr,1) ! yes/no initial state radiation
+*                                               ! (ISR) for e+e- collider only
+i_isr   0
+
+*  IF(i_coll.EQ.3)  CALL iread('i_beamstrahlung',i_beamstrahlung,1) 
+*                                                   ! yes/no beamstrahlung
+*                                                   ! for e+e- collider only
+i_beamstrahlung   0
+
+      CALL iread('perturbativeorder',i_pertorder,1 )
+              !i_pertorder = 1 alpha_em^6 with dedicated amp
+              !            = 2 alpha_s^2alpha_em^4
+              !            = 3 alpha_em^6 + alpha_s^2alpha_em^4
+              !            = 0 alpha_em^6 with amp8fqcd (for test only)
+perturbativeorder 1
+      CALL iread('i_massive',i_massive,1 )
+             !i_massive = 0 use faster massless amplitudes unless there is 
+             !             at least a b quark
+             !          = 1 always use massive amplitudes (massive Z-lines)
+i_massive 0
+
+*      CALL iread('ionesh',ionesh,1) 
+*           ! 0= normal run of one process   
+*           ! 1= one shot unweighted event generation of all processes
+*           !  corresponding to phavegas files indicated at the end after nfiles
+ionesh 0
+
+*      CALL rread('ecoll',ecoll,1)    ! collider energy
+ecoll 13000
+
+*      CALL rread('rmh',rmh,1)   ! Higgs mass (GeV)
+*	                         ! <0 means no Higgs  
+rmh 125
+*      CALL rread('ghfactor',ghfactor,1)   ! factor which multiplies SM higgs
+*                                          ! couplings
+*                     ! for SM use    ghfactor    1.d0    
+*                     ! when i_singlet=1 (see below) ghfactor not considered !!!
+
+ghfactor 1
+*      CALL rread('gamh',gamh,1)   ! Higgs width (GeV)
+*                                  ! <0 means computed by phantom
+*	                           ! in this last case SM gamh is multiplied
+*                                  ! by ghfactor**2 
+*                                  ! or by rcosa**2 if i_singlet=1 (see below)
+gamh 0.004088
+
+*                                    WARNING:
+*      RESONANT COMPUTATIONS, ON SHELL PROJECTIONS AND POLARIZATIONS
+*        CAN BE USED ONLY FOR EW   (i_pertorder = 1 alpha_em^6)
+*      IF ONE WANTS TO COMPUTE THEM ONLY FOR PROCESSES WITHOUT EXTERNAL b QUARKS
+*             (e.g. to avoid top ew resonances with final W's)
+*           ONE MUST USE setupdir2_nob.pl or setupdirall_nob.pl 
+*
+*    WHEN COMPUTING RESONANT CONTRIBUTIONS THE PARTICLES DECAYNG FROM THE 
+*    RESONANCE CANNOT HAVE ANOTHER IDENTICAL PARTICLE IN THE FINAL STATE 
+
+*      CALL iread('i_ww',i_ww,1) ! i_ww= 0 full computation
+*                                ! i_ww= 1 only 1 resonant  w diagrams 
+*                                ! i_ww= 2 only 2 resonant  w diagrams 
+ 
+i_ww 2
+
+*       if (i_ww.ge.1) then
+*         CALL iread('idw',idw,4)!(four numbers must be given, 
+*                                ! but only the first two are considered
+*                                !  if i_ww=1, all of them if i_ww=2)
+*                                ! the first two correspond to the decay of the
+*                                ! first w , the second two eventually 
+*                                ! to the decay of the second w
+*                                ! The first number of any couple must 
+*                                ! correspond to the particle, the second to 
+*                                ! the antiparticle (negative) of the decay 
+
+idw 13 -14 11 -12
+
+*         CALL iread('ipolw',ipolw,2) ! the first index refers to the 
+*                                      ! polarization of the first w, 
+*                                      ! the second of the second if i_ww=2
+*                                      ! the indexes can be: 
+*                                      ! 0 no polarization, 1 longitudinal,
+*                                      ! 2 left, 3 right ,4 transverse 
+*       endif
+
+ipolw 1 1
+
+*      CALL iread('i_zz',i_zz,1) ! i_zz= 0 full computation
+*                                ! i_zz= 1 only 1 resonant  z diagrams
+*                                ! i_zz= 2 only 2 resonant  z diagrams
+ 
+i_zz 0
+
+*       if (i_zz.ge.1) then
+*         CALL iread('idz',idz,4)!(four numbers must be given, 
+*                                ! but only the first two are considered
+*                                !  if i_zz=1, all of them if i_zz=2)
+*                                ! the first two correspond to the decay of the
+*                                ! first z , the second two eventually 
+*                                ! to the decay of the second z
+*                                ! The first number of any couple must 
+*                                ! correspond to the particle, the second to 
+*                                ! the antiparticle (negative) of the decay  
+
+idz    11 -11  13 -13
+
+*         CALL iread('ipolz',ipolz,2) ! the first index refers to the 
+*                                      ! polarization of the first z, 
+*                                      ! the second of the second if i_zz=2
+*                                      ! the indexes can be: 
+*                                      ! 0 no polarization, 1 longitudinal,
+*                                      ! 2 left, 3 right ,4 transverse 
+
+ipolz   0 0
+
+*       endif
+       
+* comment: 1 res w  and 1 res z diagrams are obtained fixing i_ww=1 and i_zz=1
+
+*      if (i_ww.ge.1.or.i_zz.ge.1 ) then
+*       CALL iread('i_osp',i_osp,1) ! i_osp = 0  no kinematics change
+*                                   ! i_osp = 1  on shell projection scheme for
+*                                   !             1 boson decaying
+*                                   ! i_osp = 2  on shell projection scheme for
+*                                   !             2 bosons decaying to letptons
+*      endif
+
+i_osp 1
+ 
+*         if (i_osp.gt.0) then
+*           CALL iread('idosp',idosp,4) ! identity of the particles which must
+*                                       ! be projected. Only the first couple
+*                                       ! counts if i_osp.eq.1.
+*                                       ! For every couple the first is the 
+*                                       ! particle, the second the antiparticle
+
+idosp    14 -13   11 -11
+
+*         endif
+
+*      CALL iread('i_signal',i_signal,1) ! i_signal= 0 full computation 
+*                                        ! i_signal> 0 Higgs signal only 
+*                                        !        (only for i_pertorder = 1 
+*                                        !                       alpha_em^6
+*                                        !              and i_unitarize = 0)
+*                                        ! i_signal= 1 s channel contributions 
+*                                        !        to boson boson scattering 
+*                                        !  (boson boson-> Higgs -> boson boson)
+*                                        ! i_signal= 2 all contributions 
+*                                        !        (s+t+u channels)
+*                                        !        to boson boson scattering 
+*                                        ! i_signal= 3 all contributions 
+*                                        !        (s+t+u channels)
+*                                        !        to boson boson scattering 
+*                                        !        and Higgstrahlung with 
+*                                        !           H -> boson boson
+*        for grid computation with i_signal=1 use setupdir2.pl with -Hs flag
+*        for grid computation with i_signal=2 use setupdir2.pl with -S flag
+*        for grid computation with i_signal=3 use setupdir2.pl as for i_signal=0
+
+i_signal 0
+
+* heavh
+
+* SINGLET MODEL OPTION
+
+* singlet model implementation (see e.g. Pruna Roberts arXiv:1303.1150)
+
+*      CALL iread('i_singlet',i_singlet,1) ! yes/no singlet implementation 
+
+i_singlet 0
+
+* SINGLET MODEL PARAMETERS
+*      if (i_singlet.eq.1) then
+
+*        CALL rread('rmhh',rmhh,1) ! mass of the heavier higgs
+
+rmhh 600.d0
+
+*        CALL rread('rcosa',rcosa,1) ! parameter cos alfa of arXiv:1303.1150
+
+rcosa 0.9
+
+*        CALL rread('tgbeta',tgbeta,1) ! parameter  tg beta of arXiv:1303.1150
+
+tgbeta 2.d0
+
+*        CALL rread('gamhh',gamhh,1) ! heavier Higgs width (GeV)
+*                                    ! <0 means computed by phantom
+*                                    ! in this last case SM gamh is multiplied
+*                                    ! by (1-rcosa**2) + decay of heavy higgs 
+*                                    !     to 2 light ones: hh-> h+h 
+
+gamhh -12
+
+*      endif
+
+* HEAVY HIGGS NOT IN THE SINGLET CONTEST (for test only)
+
+*      CALL iread('i_hh',i_hh,1) ! yes/no heavy higgs (not singlet) 
+
+i_hh 0
+
+*      if (i_hh.eq. 1) then
+
+*   from now on parameters regarding a second heavier higgs scalar
+****    hh stays for heavy higgs. 
+  
+*        CALL rread('rmhh_ns',rmhh,1)   ! heavier higgs mass (GeV) (not singlet)
+
+rmhh_ns 500.d0
+
+*        CALL rread('ghhfactor',ghhfactor,1) ! factor for second higgs, 
+*                                          ! which multiplies SM higgs
+*                                          ! couplings 
+*                ! if ghhfactor is negative, ghhfactor=sqrt(1-ghfactor**2)  
+ghhfactor -1.d0
+
+*        CALL rread('gamhh_ns',gamhh,1)  ! heavier Higgs width (GeV) (not singlet)
+*                                    ! <0 means computed by phantom
+*	                             ! in this last case SM gamh is multiplied
+*                                    ! by ghhfactor**2 
+
+gamhh_ns -41.62d0
+
+*      endif
+
+* heavhend   end of singlet model and the heavier higgs 
+
+*                                   WARNING
+*     i_ccfam must be 0 if i_ww greater than 0 and/or i_zz greater than 0
+*          and one computes polarized cross sections
+*  
+*    if one sets i_ccfam=0 one must use setupdirall.pl or setupdirall_nob.pl
+
+*      CALL iread('i_ccfam',i_ccfam,1)           ! family+CC conjugate
+i_ccfam  0
+
+* READ INPUT FOR CUTS
+
+* CALL iread('i_e_min_lep',i_e_min_lep,1) 
+*                               ! yes/no lepton energy lower cuts (GeV)
+i_e_min_lep    0
+
+*      IF(i_e_min_lep.EQ.1) CALL rread('e_min_lep',e_min_lep,1)  
+e_min_lep      20.d0
+
+* CALL iread('i_pt_min_lep',i_pt_min_lep,1) 
+*                               !  yes/no lepton pt lower cuts (GeV)
+i_pt_min_lep 1
+
+*      IF(i_pt_min_lep.EQ.1) CALL rread('pt_min_lep',pt_min_lep,1)
+pt_min_lep 25.d0
+
+* CALL iread('i_eta_max_onelep',i_eta_max_onelep,1)
+*  the following cut requires that at least one lepton is contained in
+*  absval of eta_max_onelep. However if no leptons are present in the final
+*  state this cut is ignored 
+i_eta_max_onelep 0
+
+*      IF(i_eta_max_onelep.EQ.1) CALL rread('eta_max_onelep',eta_max_onelep,1) 
+*       (absval)
+eta_max_onelep    3.d0
+
+* CALL iread('i_eta_max_lep',i_eta_max_lep,1) 
+*                      ! yes/no lepton rapidity upper cuts 
+i_eta_max_lep 1
+
+*      IF(i_eta_max_lep.EQ.1) CALL rread('eta_max_lep',eta_max_lep,1)  (absval)
+eta_max_lep 3d0
+
+* CALL iread('i_ptmiss_min',i_ptmiss_min,1) ! yes/no missing pt lower cuts 
+i_ptmiss_min 1
+
+*      IF(i_ptmiss_min.EQ.1) CALL rread('ptmiss_min',ptmiss_min,1)  (GeV)
+ptmiss_min 25.d0
+
+* CALL iread('i_e_min_j',i_e_min_j,1) ! yes/no jet energy lower cuts (GeV)
+i_e_min_j     0
+
+*      IF(i_e_min_j.EQ.1) CALL rread('e_min_j',e_min_j,1)
+e_min_j       20.d0
+
+* CALL iread('i_pt_min_j',i_pt_min_j,1) ! yes/no jet pt lower cuts (GeV)
+i_pt_min_j 1
+
+*      IF(i_pt_min_j.EQ.1) CALL rread('pt_min_j',pt_min_j,1)  (GeV)
+pt_min_j 20.d0
+
+* CALL iread('i_eta_max_j',i_eta_max_j,1) ! yes/no jet rapidity upper cuts 
+i_eta_max_j 1
+
+*      IF(i_eta_max_j.EQ.1) CALL rread('eta_max_j',eta_max_j,1)  (absval)
+eta_max_j 5.4d0
+
+* CALL iread('i_eta_jf_jb_jc',i_eta_jf_jb_jc,1) ! yes/no the following 3 cuts
+i_eta_jf_jb_jc   0
+
+* IF(i_eta_jf_jb_jc.EQ.1) THEN
+* CALL rread('eta_def_jf_min',eta_def_jf_min,1) 
+*	                        ! min rapidity for a jet to be called forward
+eta_def_jf_min 1.d0
+
+* CALL rread('eta_def_jb_max',eta_def_jb_max,1) 
+*	                       ! max rapidity for a jet to be called backward
+eta_def_jb_max -1.d0
+
+* CALL rread('eta_def_jc_max',eta_def_jc_max,1) 
+*	         ! max rapidity for a jet to be called central (absval)
+eta_def_jc_max 3.d0
+
+* ENDIF   !  (i_eta_jf_jb_jc.EQ.1)
+	    
+* CALL iread('i_pt_min_jcjc',i_pt_min_jcjc,1) ! pt lower cuts 
+*                                             ! on two centraljets (GeV)
+i_pt_min_jcjc 0
+
+*      IF(i_pt_min_jcjc.EQ.1) CALL rread('pt_min_jcjc',pt_min_jcjc,1)
+pt_min_jcjc 50.d0
+
+* CALL iread('i_rm_min_jj',i_rm_min_jj,1) ! yes/no minimum invariant mass
+*                                         ! between jets (GeV)
+i_rm_min_jj 1
+
+*      IF(i_rm_min_jj.EQ.1) CALL rread('rm_min_jj',rm_min_jj,1)
+rm_min_jj 30.d0
+
+*                                      WARNING  !!!
+*   THE CUT rm_min_ll CANNOT BE ZERO FOR PROCESSES WITH OPPOSITE SIGN 
+*   SAME   FLAVOUR LEPTONS, AS THE AMPLITUDE DIVERGES!!!
+*   MOREOVER FOR rm_min_ll  LOWER THAN 30 GeV  THE CODE BECOMES LESS 
+*   ANd LESS EFFICIENT AND WE RECOMMEND NOT TO USE LOW VALUES 
+*   IF NOT NEEDED
+
+* CALL iread('i_rm_min_ll',i_rm_min_ll,1) ! yes/no minimum invariant mass
+*                                         ! between charged leptons (GeV)
+i_rm_min_ll 1
+
+*      IF(i_rm_min_ll.EQ.1) CALL rread('rm_min_ll',rm_min_ll,1)
+rm_min_ll 20.d0
+
+* CALL iread('i_rm_min_jlep',i_rm_min_jlep,1) ! yes/no minimum invariant mass
+*                                           ! between jets and lepton (GeV)
+i_rm_min_jlep 0
+
+*      IF(i_rm_min_jlep.EQ.1) CALL rread('rm_min_jlep',rm_min_jlep,1)
+rm_min_jlep 30.d0
+
+* CALL iread('i_rm_min_jcjc',i_rm_min_jcjc,1) ! yes/no minimum invariant mass
+*                                              ! between central jets (GeV)
+i_rm_min_jcjc 0
+
+*      IF(i_rm_min_jcjc.EQ.1) CALL rread('rm_min_jcjc',rm_min_jcjc,1) 
+rm_min_jcjc 20.d0
+ 
+* CALL iread('i_rm_max_jcjc',i_rm_max_jcjc,1) ! yes/no maximum invariant mass
+*                                             ! between central jets (GeV)
+i_rm_max_jcjc 0
+
+*      IF(i_rm_max_jcjc.EQ.1) CALL rread('rm_max_jcjc',rm_max_jcjc,1) 
+rm_max_jcjc 14000.d0
+
+* CALL iread('i_rm_min_jfjb',i_rm_min_jfjb,1) ! yes/no minimum invariant mass
+*                            ! between forward and backward jets (GeV)
+i_rm_min_jfjb 1
+
+*      IF(i_rm_min_jfjb.EQ.1) CALL rread('rm_min_jfjb',rm_min_jfjb,1) 
+rm_min_jfjb 450.d0
+
+* six
+
+* CALL iread('i_rm_min_4l',i_rm_min_4l,1) !yes/no minimum invariant mass 
+                                          ! of 4 leptons for processes with 4l
+i_rm_min_4l  1
+
+*      IF(i_rm_min_4l.EQ.1) CALL rread('rm_min_4l',rm_min_4l,1)
+
+rm_min_4l  250.d0
+
+* CALL iread('i_rm_min_2l2cq',i_rm_min_2l2cq,1) ! yes/no minimum invariant mass 
+                         !of 2 leptons and 2 central quark for processes with 2l
+i_rm_min_2l2cq  0
+
+*      IF(i_rm_min_2l2cq.EQ.1) CALL rread('rm_min_2l2cq',rm_min_2l2cq,1)
+rm_min_2l2cq  130.d0
+
+* YR
+
+* CALL iread('i_rm_max_4l',i_rm_max_4l,1) !yes/no maximum invariant mass 
+                                          ! of 4 leptons for processes with 4l
+i_rm_max_4l  0
+
+*      IF(i_rm_max_4l.EQ.1) CALL rread('rm_max_4l',rm_max_4l,1)
+
+rm_max_4l  350.d0
+
+* CALL iread('i_rm_max_2l2cq',i_rm_max_2l2cq,1) ! yes/no maximum invariant mass 
+                         !of 2 leptons and 2 central quark for processes with 2l
+i_rm_max_2l2cq  0
+
+*      IF(i_rm_max_2l2cq.EQ.1) CALL rread('rm_max_2l2cq',rm_max_2l2cq,1)
+rm_max_2l2cq 130.d0
+
+* YRend
+
+* sixend
+* cuttop
+
+*      CALL iread('i_deltacuttop',i_deltacuttop,1) 
+*                     ! yes/no cut on the invariant mass of all triplets of
+*                     ! particles who could form a top 
+*                     ! to avoid top contributions
+*                     ! The corresponding deltacuttop fixes the 
+*                     ! interval excluded : topmas +- deltatacuttop
+i_deltacuttop   0
+ 
+*      IF(i_deltacuttop.EQ.1) 
+*     &     CALL rread('deltacuttop',deltacuttop,1)
+deltacuttop  10.d0
+
+* cuttopend
+
+*ww
+* rcutwlept
+*      CALL iread('i_cutwlept',i_cutwlept,1) 
+*                     ! yes/no cut on the invariant mass of all couples
+*                     ! of letpons who could form a W+ or W- 
+*                     ! The corresponding rcutwlept fixes the 
+*                     ! interval remaining : Wmass +- rcutwlept
+i_cutwlept   0
+ 
+*      IF(i_cutwlept.EQ.1) 
+*     &     CALL rread('rcutwlept',rcutwlept,1)
+rcutwlept  5.d0
+
+* rcutptwelectron
+
+*     CALL iread('i_cutptwelectron',i_cutptwelectron,1) 
+*                     ! yes/no cut on the pT of the electron-antineutrino
+*                     ! electron pair
+i_cutptwelectron   0
+
+*      IF(i_cutptwelectron.EQ.1) 
+*     &     CALL rread('rcutptwelectron',rcutptwelectron,1)
+rcutptwelectron  800.d0
+
+*wwend
+
+*zw
+*      CALL iread('i_cutzlept',i_cutzlept,1) 
+*                     ! yes/no cut on the invariant mass of all couples
+*                     ! of letpons who could form a Z 
+*                     ! The corresponding rcutzlept fixes the 
+*                     ! interval remaining : Zmass +- rcutwlept
+
+i_cutzlept 1
+
+*      IF(i_cutwlept.EQ.1) 
+*     &     CALL rread('rcutzlept',rcutzlept,1)
+
+rcutzlept 15.d0
+
+*zwend
+
+
+* CALL iread('i_eta_min_jfjb',i_eta_min_jfjb,1) ! yes/no minimum rapidity 
+*                             difference between forward and backward jet
+i_eta_min_jfjb 1
+
+*      IF(i_eta_min_jfjb.EQ.1) CALL rread('eta_min_jfjb',eta_min_jfjb,1)
+eta_min_jfjb 3.d0
+
+* CALL iread('i_d_ar_jj',i_d_ar_jj,1) ! yes/no minimum delta_R separation
+*                                     ! between jets
+i_d_ar_jj 0
+
+*      IF(i_d_ar_jj.EQ.1) CALL rread('d_ar_jj',d_ar_jj,1)
+d_ar_jj 4.8d0
+
+* CALL iread('i_d_ar_jlep',i_d_ar_jlep,1) ! yes/no minimum delta_R separation
+*                                       ! between jets and lepton
+i_d_ar_jlep 0
+
+*      IF(i_d_ar_jlep.EQ.1) CALL rread('d_ar_jlep',d_ar_jlep,1)
+d_ar_jlep 0.7d0
+
+* CALL iread('i_d_ar_leplep',i_d_ar_leplep,1) ! yes/no minimum delta_R separation
+*                                       ! between two charged  leptons
+i_d_ar_leplep 0
+
+*      IF(i_d_ar_leplep.EQ.1) CALL rread('d_ar_leplep',d_ar_leplep,1)
+d_ar_leplep 0.5d0
+
+* CALL iread('i_thetamin_jj',i_thetamin_jj,1) ! minimum angle separation
+*                                             ! between jets (cosine)
+i_thetamin_jj 0
+
+*      IF(i_thetamin_jj.EQ.1) CALL rread('thetamin_jj',thetamin_jj,1)
+thetamin_jj    15.d0
+
+* CALL iread('i_thetamin_jlep',i_thetamin_jlep,1) ! minimum angle separation
+*                                          ! between jets  and lepton (cosine)
+i_thetamin_jlep 0
+
+*      IF(i_thetamin_jlep.EQ.1) CALL rread('thetamin_jlep',thetamin_jlep,1)
+thetamin_jlep    15.d0
+
+* CALL iread('i_thetamin_leplep',i_thetamin_leplep,1) ! minimum angle separation
+*                                             ! between charged leptons (cosine)
+i_thetamin_leplep 0
+
+*      IF(i_thetamin_leplep.EQ.1) CALL rread('thetamin_leplep'
+*         ,thetamin_leplep,1)
+thetamin_leplep    15.d0
+
+* CALL iread('i_usercuts',i_usercuts,1) ! yes/no (1/0) additional
+*                                         user-defined cuts
+i_usercuts 0
+
+****** IF (IONESH.EQ.0) THEN 
+*        CALL rread('acc_therm',acc_therm,1)   ! thermalization accuracy
+acc_therm     0.01d0
+
+*        CALL iread('ncall_therm',ncall_therm,2) 
+*                                 ! thermalization calls per iteration
+                                  ! The first component refers to the 
+                                  ! number of calls for the first 3 
+                                  ! iterations, the second one to the 
+                                  ! calls for the remaining iterations.
+ncall_therm   2000000  2000000
+
+*        CALL iread('itmx_therm',itmx_therm,1) ! thermalization iterations
+itmx_therm    5
+
+*        CALL rread('acc',acc,1)               ! integration accuracy
+acc           0.005d0
+
+*        CALL iread('ncall',ncall,1)           ! integration calls per iteration
+ncall         10000000
+
+*        CALL iread('itmx',itmx,1)             ! integration iterations 
+itmx          5
+
+*        CALL iread('iflat',iflat,1)           ! yes/no flat event generation
+iflat         1
+
+
+****** ELSEIF (IONESH.EQ.1) THEN
+
+*        CALL rread('scalemax',scalemax,1) 
+*                            !scale factor for the maximum
+scalemax  1.1d0
+
+*        CALL iread ('nunwevts',nunwevts,1)	 
+*               !  number of unweighted events to be produced
+nunwevts   10000
+
+*        CALL iread('iwrite_event',iwrite_event,1)
+*                  ! yes/no momenta of flat events written in .dat files
+iwrite_event 1
+
+*        CALL iread('iwrite_mothers',iwrite_mothers,1)
+*                  ! yes/no information about intermediate particles (mothers) 
+*	           ! in .dat files
+iwrite_mothers 1
+
+*        CALL iread('ihadronize',ihadronize,1) 
+*                                ! yes/no call to hadronization
+ihadronize   0
+
+*        CALL iread('i_exchincoming',i_exchincoming,1)  
+i_exchincoming  1
+
+
+*  nfiles= number of files from which take the input for oneshot=1 generation
+*    it corresponds to the number of phavegas.. .dat files generated by running
+*    all single processes in the inoheshot=0 calculations.
+*    Immediately after the line nfiles, the full address of all files 
+*      phavegas...dat must be written, one per line 
+*nel file setp2 le righe che seguono sono da cancellare
+
+nfiles   3
+..../phavegas01.dat
+..../phavegas02.dat
+..../phavegas03.dat
+
+
+****** ENDIF
