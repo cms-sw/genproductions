@@ -68,7 +68,7 @@
  1 = ktscheme         ! for ickkw=1, 1 Durham kT, 2 Pythia pTE
  1.0 = alpsfact         ! scale factor for QCD emission vx
  False = chcluster        ! cluster only according to channel diag
- True = pdfwgt           ! for ickkw=1, perform pdf reweighting
+ False = pdfwgt           ! for ickkw=1, perform pdf reweighting
  4 = asrwgtflavor     ! highest quark flavor for a_s reweight
  True = clusinfo         ! include clustering tag in output
  3.0 = lhe_version       ! Change the way clustering information pass to shower.
