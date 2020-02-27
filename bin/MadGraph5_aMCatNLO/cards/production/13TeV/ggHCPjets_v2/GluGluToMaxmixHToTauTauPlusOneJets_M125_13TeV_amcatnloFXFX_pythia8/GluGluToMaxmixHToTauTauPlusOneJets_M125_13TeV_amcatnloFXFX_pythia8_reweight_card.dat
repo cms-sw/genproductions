@@ -1,4 +1,4 @@
-change mode NLO
+change mode LO+NLO
 change rwgt_dir rwgt
 
 launch --rwgt_name=sm_weight

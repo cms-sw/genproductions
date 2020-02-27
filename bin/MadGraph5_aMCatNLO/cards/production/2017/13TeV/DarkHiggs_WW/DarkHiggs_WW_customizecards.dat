@@ -1,0 +1,10 @@
+#put card customizations here
+
+set param_card mass 52 mdm                                                                                                    
+set param_card mass 54 mhs
+set param_card decay 54 auto    
+set param_card mass 55 mzp
+set param_card decay 55 auto
+
+
+
