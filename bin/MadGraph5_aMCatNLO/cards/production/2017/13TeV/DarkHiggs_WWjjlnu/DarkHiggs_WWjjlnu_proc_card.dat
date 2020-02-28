@@ -1,6 +1,5 @@
 import model ZpHiggs_UFO
 
-define j = u u~ d d~ c c~ s s~ b b~
 define l = e+ e- mu+ mu- ta+ ta-
 define vl = ve ve~ vm vm~ vt vt~
 
