@@ -1055,6 +1055,8 @@ for num in range(0,len(prepid)):
                                         continue
                                     r_scale = os.popen('more '+filename_rc+' | tr -s \' \' | grep "reweight_scale"').read()
                                     r_scale = r_scale.split()[0]#.split('.')[1]
+                                    if "." in r_scale:
+                                        r_scale = r_scale.split('.')[1]
                                     if len(r_scale) == 0 or "true" not in str(r_scale).lower():
                                         print "* [ERROR] For NLO MG5_aMC version < 260, one should have .true. = reweight_scale"
                                         error += 1
