@@ -15,9 +15,12 @@ average = event_norm ! Normalize events to sum or average to the X sect.
     1   = lpp2    ! beam 2 type (0 = no PDF)
  6500   = ebeam1  ! beam 1 energy in GeV
  6500   = ebeam2  ! beam 2 energy in GeV
- lhapdf    = pdlabel   ! PDF set
-# nn23nlo  = pdlabel
+#*********************************************************************
+# PDF CHOICE: this automatically fixes also alpha_s and its evol.    *
+#*********************************************************************
+ 'lhapdf'    = pdlabel   ! PDF set
 $DEFAULT_PDF_SETS = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number
+$DEFAULT_PDF_MEMBERS = reweight_PDF     ! reweight to get PDF uncertainty
   PYTHIA8   = parton_shower
  F        = fixed_ren_scale  ! if .true. use fixed ren scale
  F        = fixed_fac_scale  ! if .true. use fixed fac scale
@@ -35,9 +38,6 @@ $DEFAULT_PDF_SETS = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number
   2.0     = rw_Rscale_up     ! upper bound for ren scale variations
   0.5     = rw_Fscale_down   ! lower bound for fact scale variations
   2.0     = rw_Fscale_up     ! upper bound for fact scale variations
-$DEFAULT_PDF_MEMBERS = reweight_PDF     ! reweight to get PDF uncertainty
-      ! First of the error PDF sets 
-      ! Last of the error PDF sets
  0        = ickkw            ! 0 no merging, 3 FxFx merging
  15  = bwcutoff
    1  = jetalgo   ! FastJet jet algorithm (1=kT, 0=C/A, -1=anti-kT)
