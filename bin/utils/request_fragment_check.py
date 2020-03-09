@@ -840,6 +840,14 @@ for num in range(0,len(prepid)):
                         with open(os.path.join(my_path, pi, "external_tarball/runcmsgrid.sh")) as f2:
                             content2 = f2.read()
                             match = re.search(r"""process=(["']?)([^"']*)\1""", content2)
+			    xml = re.findall('xmllint.*',content2)
+			    if "--stream" not in xml:
+			       print("* [WARNING] --stream option is missing in XMLLINT, updating runcmsgrid")
+			       warning += 1	
+			       content2 = re.sub("xmllint","xmllint --stream",content2)
+			       f2.seek(0)
+			       f2.write(content)
+			       f2.truncate()
                             et_flag = 1
                     if et_flag == 0:
                         with open(os.path.join(my_path, pi, "powheg.input")) as f:
