@@ -830,7 +830,7 @@ for num in range(0,len(prepid)):
                         match = re.search(r"""process=(["']?)([^"']*)\1""", content)
 			xml = re.findall('xmllint.*',content)
 			if "--stream" not in xml:
-			    print("* [WARNING] --stream option is missing in XMLLINT, updating runcmsgrid")
+			    print("* [WARNING] --stream option is missing in XMLLINT, updating runcmsgrid.")
 			    warning += 1	
 			    content = re.sub("xmllint","xmllint --stream",content)
 			    f.seek(0)
@@ -842,7 +842,7 @@ for num in range(0,len(prepid)):
                             match = re.search(r"""process=(["']?)([^"']*)\1""", content2)
 			    xml = re.findall('xmllint.*',content2)
 			    if "--stream" not in xml:
-			       print("* [WARNING] --stream option is missing in XMLLINT, updating runcmsgrid")
+			       print("* [WARNING] --stream option is missing in XMLLINT, updating runcmsgrid.")
 			       warning += 1	
 			       content2 = re.sub("xmllint","xmllint --stream",content2)
 			       f2.seek(0)
