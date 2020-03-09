@@ -825,9 +825,17 @@ for num in range(0,len(prepid)):
                         if nfinstatpar != nFinal :
                             print "* [WARNING] nFinal(="+str(nFinal) + ") may not be equal to the number of final state particles before decays (="+str(nfinstatpar)+")"
                             warning += 1
-                    with open(os.path.join(my_path, pi, "runcmsgrid.sh")) as f:
+                    with open(os.path.join(my_path, pi, "runcmsgrid.sh"),'r+') as f:
                         content = f.read()
                         match = re.search(r"""process=(["']?)([^"']*)\1""", content)
+			xml = re.findall('xmllint.*',content)
+			if "--stream" not in xml:
+			    print("* [WARNING] --stream option is missing in XMLLINT, updating runcmsgrid")
+			    warning += 1	
+			    content = re.sub("xmllint","xmllint --stream",content)
+			    f.seek(0)
+			    f.write(content)
+			    f.truncate()
                     if os.path.isfile(my_path+'/'+pi+'/'+'external_tarball/runcmsgrid.sh') is True:
                         with open(os.path.join(my_path, pi, "external_tarball/runcmsgrid.sh")) as f2:
                             content2 = f2.read()
