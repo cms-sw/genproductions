@@ -242,6 +242,53 @@ def find_file(dir_path,patt):
             if file.endswith(patt):
                 return root+'/'+str(file)
 
+def xml_check_and_patch(f,cont,warning,error,gridpack_eos_path,my_path,pi):
+    xml = str(re.findall('xmllint.*',cont))
+    cur_dir = os.popen('pwd').read()
+    if "stream" not in xml:
+	targz_flag = 0
+	print "* [WARNING] --stream option is missing in XMLLINT, will update runcmsgrid."
+	warning += 1
+	if ".tar.gz" in gridpack_eos_path:
+	  targz_flag = 1
+	  gridpack_eos_path_backup = gridpack_eos_path.replace('.tar.xz','_original.tar.xz')
+	if ".tgz" in gridpack_eos_path:
+	  gridpack_eos_path_backup = gridpack_eos_path.replace('.tgz','_original.tgz')
+	if not os.path.exists(gridpack_eos_path_backup):
+	  print "* Backup gridpack is not existing."
+	  print "* Copying "+gridpack_eos_path+" to "+gridpack_eos_path_backup+" before patching runcms.grid"
+	  os.system('cp -n '+gridpack_eos_path+' '+gridpack_eos_path_backup)
+	md5_1 = os.popen('md5sum'+' '+gridpack_eos_path).read().split(' ')[0]
+	md5_2 = os.popen('md5sum'+' '+gridpack_eos_path_backup).read().split(' ')[0]
+	if md5_1 == md5_2:
+	  print "* Backup and original file checksums are equal."
+	else:
+	  print "* [ERROR] backup gridpack has a problem." 
+	  error += 1
+	print "* Updating XMLLINT line in runcmsgrid."
+	cont = re.sub("xmllint","xmllint --stream",cont)
+	f.seek(0)
+	f.write(cont)
+	f.truncate()
+	os.system('cd '+my_path+pi)
+	if targz_flag == 0:
+	  gridpackname = "gridpack.tgz"
+	if targz_flag == 1:
+	  gridpackname = "gridpack.tar.gz"
+	os.system('tar -czvf ../'+gridpackname+' *')
+	os.system('cd ..')
+	os.system('cp '+gridpackname+' '+gridpack_eos_path)
+	md5_1 = os.popen('md5sum '+gridpackname).read().split(' ')[0]
+	md5_2 = os.popen('md5sum'+' '+gridpack_eos_path).read().split(' ')[0]
+	if md5_1 == md5_2:
+	  print "* Updated gridpack copied succesfully."
+	else:
+	  print "* [ERROR] there was a copying in the updated gridpack to eos."
+	  error += 1
+	os.system('cd cur_dir')
+    return warning,error
+    
+
 if args.dev:
     print "Running on McM DEV!\n"
 
@@ -828,26 +875,15 @@ for num in range(0,len(prepid)):
                     with open(os.path.join(my_path, pi, "runcmsgrid.sh"),'r+') as f:
                         content = f.read()
                         match = re.search(r"""process=(["']?)([^"']*)\1""", content)
-			xml = re.findall('xmllint.*',content)
-			if "--stream" not in xml:
-			    print("* [WARNING] --stream option is missing in XMLLINT, updating runcmsgrid.")
-			    warning += 1	
-			    content = re.sub("xmllint","xmllint --stream",content)
-			    f.seek(0)
-			    f.write(content)
-			    f.truncate()
+			warning += xml_check_and_patch(f,content,warning,error,gridpack_eos_path,my_path,pi)[0]
+			error += xml_check_and_patch(f,content,warning,error,gridpack_eos_path,my_path,pi)[1]
+			f.close()
                     if os.path.isfile(my_path+'/'+pi+'/'+'external_tarball/runcmsgrid.sh') is True:
-                        with open(os.path.join(my_path, pi, "external_tarball/runcmsgrid.sh")) as f2:
+                        with open(os.path.join(my_path, pi, "external_tarball/runcmsgrid.sh"),'r+') as f2:
                             content2 = f2.read()
                             match = re.search(r"""process=(["']?)([^"']*)\1""", content2)
-			    xml = re.findall('xmllint.*',content2)
-			    if "--stream" not in xml:
-			       print("* [WARNING] --stream option is missing in XMLLINT, updating runcmsgrid.")
-			       warning += 1	
-			       content2 = re.sub("xmllint","xmllint --stream",content2)
-			       f2.seek(0)
-			       f2.write(content)
-			       f2.truncate()
+			    warning += xml_check_and_patch(f,content,warning,error,gridpack_eos_path,my_path,pi)[0]
+			    error += xml_check_and_patch(f,content,warning,error,gridpack_eos_path,my_path,pi)[1]
                             et_flag = 1
                     if et_flag == 0:
                         with open(os.path.join(my_path, pi, "powheg.input")) as f:
