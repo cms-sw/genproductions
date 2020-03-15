@@ -107,15 +107,15 @@ parser = argparse.ArgumentParser(
                             and timeperevent > 0 and not a ppd request (this is a CMSSW version dependent check)
                   * [ERROR] 8 core request with memory different from 15900 GB. Please set the memory to 15900 GB if CMSSW version >= 10_6_X and nthreads = 8
                             and mem != 15900 and not ppd request
-                  * [ERROR] Memory is not 2300, 4000 or 15900 MB
-                  * [ERROR] Memory is 2300 MB while number of cores is XX but not = 1
+                  * [ERROR] Memory is not <=2300,  or =4000 or =15900 MB
+                  * [ERROR] Memory is <=2300 MB while number of cores is XX but not = 1
                   * [ERROR] Memory is 4000 MB while number of cores is 1 but not = 2,4 or 8
                   * [ERROR] Memory is 15900 MB while number of cores is not 8 and 16
-                  * [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix or HINPbPbAutumn18GS campaign but Memory is not 14700, 5900, 400, or 2300 MB
+                  * [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix or HINPbPbAutumn18GS campaign but Memory is not 14700, 5900, 400, or <=2300 MB
                   * [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix or HINPbPbAutumn18GS campaign: Memory is 14700 but nthreads != 8
                   * [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix or HINPbPbAutumn18GS campaign: Memory is 5900 but nthreads != 4
                   * [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix or HINPbPbAutumn18GS campaign: Memory is 4000 but nthreads != 2
-                  * [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix or HINPbPbAutumn18GS campaign: Memory is 2300 but nthreads != 1
+                  * [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix or HINPbPbAutumn18GS campaign: Memory is <=2300 but nthreads != 1
                   * [ERROR] Gridpack should have used cvmfs path instead of eos path
                   * [ERROR] minbias in version >= CMSSW_10_5_0_pre2 and <= CMSSW_10_6_X and not particle gun and not CMSSW_10_6_0 and not CMSSW_10_6_0_patch1:
                   *         SigmaTotal:mode should have been set to 0
@@ -586,10 +586,10 @@ for num in range(0,len(prepid)):
             print ("* [ERROR] 8 core request with memory different from 15900 GB. Please set the memory to 15900 GB")
             error += 1
         if "HIN-HINPbPbAutumn18GSHIMix" not in pi and "HINPbPbAutumn18wmLHEGSHIMix" not in pi and "HINPbPbAutumn18GS" not in pi and ppd == 0:
-            if mem != 2300 and mem != 4000 and mem != 15900:
-                print "* [ERROR] Memory is not 2300, 4000 or 15900 MB"
+            if mem > 2300 and mem != 4000 and mem != 15900:
+                print "* [ERROR] Memory is not <=2300, =4000 or =15900 MB"
                 error += 1
-            if mem == 2300 and nthreads != 1 :
+            if mem <= 2300 and nthreads != 1 :
                 print "* [ERROR] Memory is "+str(mem)+" MB while number of cores is "+str(nthreads)+" but not = 1"
                 error += 1
             if mem == 4000 and nthreads == 1 :
@@ -599,8 +599,8 @@ for num in range(0,len(prepid)):
                 print "* [ERROR] Memory is "+str(mem)+" MB while number of cores is "+str(nthreads)+" but not = 8 or 16"
                 error += 1
         if "HIN-HINPbPbAutumn18GSHIMix" in pi or "HINPbPbAutumn18wmLHEGSHIMix" in pi or "HINPbPbAutumn18GS" in pi and ppd == 0:
-            if mem != 14700 and mem != 5900 and mem != 4000 and mem != 2300:
-                print "* [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix or HINPbPbAutumn18GS campaign but Memory is not 14700, 5900, 400, or 2300 MB"
+            if mem != 14700 and mem != 5900 and mem != 4000 and mem > 2300:
+                print "* [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix or HINPbPbAutumn18GS campaign but Memory is not 14700, 5900, 400, or <= 2300 MB"
                 error += 1
             if mem == 14700 and nthreads != 8 :
                 print "* [ERROR] Memory is "+str(mem)+" MB while number of cores is "+str(nthreads)+" but not = 8"
@@ -611,7 +611,7 @@ for num in range(0,len(prepid)):
             if mem == 4000 and nthreads != 2 :
                 print "* [ERROR] Memory is "+str(mem)+" MB while number of cores is "+str(nthreads)+" but not = 2"
                 error += 1
-            if mem == 2300 and nthreads != 1:
+            if mem <= 2300 and nthreads != 1:
                 print "* [ERROR] Memory is "+str(mem)+" MB while number of cores is "+str(nthreads)+" but not = 1"
                 error += 1
 
