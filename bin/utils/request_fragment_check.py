@@ -242,6 +242,53 @@ def find_file(dir_path,patt):
             if file.endswith(patt):
                 return root+'/'+str(file)
 
+def xml_check_and_patch(f,cont,warning,error,gridpack_eos_path,my_path,pi):
+    xml = str(re.findall('xmllint.*',cont))
+    cur_dir = os.getcwd()
+    if "stream" not in xml:
+	targz_flag = 0
+	print "* [WARNING] --stream option is missing in XMLLINT, will update runcmsgrid."
+	warning += 1
+	if ".tar.gz" in gridpack_eos_path:
+	  targz_flag = 1
+	  gridpack_eos_path_backup = gridpack_eos_path.replace('.tar.xz','_original.tar.xz')
+	if ".tgz" in gridpack_eos_path:
+	  gridpack_eos_path_backup = gridpack_eos_path.replace('.tgz','_original.tgz')
+	if not os.path.exists(gridpack_eos_path_backup):
+	  print "* Backup gridpack is not existing."
+	  print "* Copying "+gridpack_eos_path+" to "+gridpack_eos_path_backup+" before patching runcms.grid"
+	  os.system('cp -n -p'+gridpack_eos_path+' '+gridpack_eos_path_backup)
+	  md5_1 = os.popen('md5sum'+' '+gridpack_eos_path).read().split(' ')[0]
+	  md5_2 = os.popen('md5sum'+' '+gridpack_eos_path_backup).read().split(' ')[0]
+	  if md5_1 == md5_2:
+	    print "* Backup and original file checksums are equal."
+	  else:
+	    print "* [ERROR] backup gridpack has a problem."
+	    error += 1
+	print "* Updating XMLLINT line in runcmsgrid."
+        os.chdir(my_path+'/'+pi)
+	cont = re.sub("xmllint","xmllint --stream",cont)
+	f.seek(0)
+	f.write(cont)
+	f.truncate()
+    	if targz_flag == 0:
+	  gridpackname = "gridpack.tgz"
+	if targz_flag == 1:
+	  gridpackname = "gridpack.tar.gz"
+        os.chdir(my_path+'/'+pi)
+	os.system('tar cfJ '+gridpackname+' ./* --exclude='+gridpackname+' --exclude='+pi)
+	os.system('cp '+gridpackname+' '+gridpack_eos_path)
+	md5_1 = os.popen('md5sum '+gridpackname).read().split(' ')[0]
+	md5_2 = os.popen('md5sum'+' '+gridpack_eos_path).read().split(' ')[0]
+	if md5_1 == md5_2:
+	  print "* Updated gridpack copied succesfully."
+	else:
+	  print "* [ERROR] there was a copying in the updated gridpack to eos."
+	  error += 1
+	os.chdir(cur_dir)
+    return warning,error
+
+
 if args.dev:
     print "Running on McM DEV!\n"
 
@@ -825,13 +872,18 @@ for num in range(0,len(prepid)):
                         if nfinstatpar != nFinal :
                             print "* [WARNING] nFinal(="+str(nFinal) + ") may not be equal to the number of final state particles before decays (="+str(nfinstatpar)+")"
                             warning += 1
-                    with open(os.path.join(my_path, pi, "runcmsgrid.sh")) as f:
+                    with open(os.path.join(my_path, pi, "runcmsgrid.sh"),'r+') as f:
                         content = f.read()
                         match = re.search(r"""process=(["']?)([^"']*)\1""", content)
+			warning += xml_check_and_patch(f,content,warning,error,gridpack_eos_path,my_path,pi)[0]
+			error += xml_check_and_patch(f,content,warning,error,gridpack_eos_path,my_path,pi)[1]
+			f.close()
                     if os.path.isfile(my_path+'/'+pi+'/'+'external_tarball/runcmsgrid.sh') is True:
-                        with open(os.path.join(my_path, pi, "external_tarball/runcmsgrid.sh")) as f2:
+                        with open(os.path.join(my_path, pi, "external_tarball/runcmsgrid.sh"),'r+') as f2:
                             content2 = f2.read()
                             match = re.search(r"""process=(["']?)([^"']*)\1""", content2)
+			    warning += xml_check_and_patch(f,content,warning,error,gridpack_eos_path,my_path,pi)[0]
+			    error += xml_check_and_patch(f,content,warning,error,gridpack_eos_path,my_path,pi)[1]
                             et_flag = 1
                     if et_flag == 0:
                         with open(os.path.join(my_path, pi, "powheg.input")) as f:
