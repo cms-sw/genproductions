@@ -257,7 +257,7 @@ def xml_check_and_patch(f,cont,warning,error,gridpack_eos_path,my_path,pi):
 	if not os.path.exists(gridpack_eos_path_backup):
 	  print "* Backup gridpack is not existing."
 	  print "* Copying "+gridpack_eos_path+" to "+gridpack_eos_path_backup+" before patching runcms.grid"
-	  os.system('cp -n -p'+gridpack_eos_path+' '+gridpack_eos_path_backup)
+	  os.system('cp -n -p '+gridpack_eos_path+' '+gridpack_eos_path_backup)
 	  md5_1 = os.popen('md5sum'+' '+gridpack_eos_path).read().split(' ')[0]
 	  md5_2 = os.popen('md5sum'+' '+gridpack_eos_path_backup).read().split(' ')[0]
 	  if md5_1 == md5_2:
