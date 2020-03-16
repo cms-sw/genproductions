@@ -1,0 +1,11 @@
+#put card customizations here
+
+set param_card frblock 2 0.400000e+00 # rtc
+set param_card frblock 3 0.000000e+00 # rtu
+set param_card frblock 4 0.600000e+00 # rtt
+set param_card mass 5000003 3.000000e+02 # MHpm
+set param_card decay 5000003 5.763450e+00 # WHpm
+set param_card qnumbers 5000003 1 3 # 3 times electric charge
+set param_card qnumbers 5000003 2 1 # number of spin states (2S+1)
+set param_card qnumbers 5000003 3 1 # colour rep (1: singlet, 3: triplet, 8: octet)
+set param_card qnumbers 5000003 4 1 # Particle/Antiparticle distinction (0=own anti)

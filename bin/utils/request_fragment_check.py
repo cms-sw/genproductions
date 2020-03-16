@@ -107,15 +107,15 @@ parser = argparse.ArgumentParser(
                             and timeperevent > 0 and not a ppd request (this is a CMSSW version dependent check)
                   * [ERROR] 8 core request with memory different from 15900 GB. Please set the memory to 15900 GB if CMSSW version >= 10_6_X and nthreads = 8
                             and mem != 15900 and not ppd request
-                  * [ERROR] Memory is not 2300, 4000 or 15900 MB
-                  * [ERROR] Memory is 2300 MB while number of cores is XX but not = 1
+                  * [ERROR] Memory is not <=2300,  or =4000 or =15900 MB
+                  * [ERROR] Memory is <=2300 MB while number of cores is XX but not = 1
                   * [ERROR] Memory is 4000 MB while number of cores is 1 but not = 2,4 or 8
                   * [ERROR] Memory is 15900 MB while number of cores is not 8 and 16
-                  * [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix or HINPbPbAutumn18GS campaign but Memory is not 14700, 5900, 400, or 2300 MB
+                  * [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix or HINPbPbAutumn18GS campaign but Memory is not 14700, 5900, 400, or <=2300 MB
                   * [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix or HINPbPbAutumn18GS campaign: Memory is 14700 but nthreads != 8
                   * [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix or HINPbPbAutumn18GS campaign: Memory is 5900 but nthreads != 4
                   * [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix or HINPbPbAutumn18GS campaign: Memory is 4000 but nthreads != 2
-                  * [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix or HINPbPbAutumn18GS campaign: Memory is 2300 but nthreads != 1
+                  * [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix or HINPbPbAutumn18GS campaign: Memory is <=2300 but nthreads != 1
                   * [ERROR] Gridpack should have used cvmfs path instead of eos path
                   * [ERROR] minbias in version >= CMSSW_10_5_0_pre2 and <= CMSSW_10_6_X and not particle gun and not CMSSW_10_6_0 and not CMSSW_10_6_0_patch1:
                   *         SigmaTotal:mode should have been set to 0
@@ -241,6 +241,53 @@ def find_file(dir_path,patt):
         for file in files:
             if file.endswith(patt):
                 return root+'/'+str(file)
+
+def xml_check_and_patch(f,cont,warning,error,gridpack_eos_path,my_path,pi):
+    xml = str(re.findall('xmllint.*',cont))
+    cur_dir = os.getcwd()
+    if "stream" not in xml:
+	targz_flag = 0
+	print "* [WARNING] --stream option is missing in XMLLINT, will update runcmsgrid."
+	warning += 1
+	if ".tar.gz" in gridpack_eos_path:
+	  targz_flag = 1
+	  gridpack_eos_path_backup = gridpack_eos_path.replace('.tar.xz','_original.tar.xz')
+	if ".tgz" in gridpack_eos_path:
+	  gridpack_eos_path_backup = gridpack_eos_path.replace('.tgz','_original.tgz')
+	if not os.path.exists(gridpack_eos_path_backup):
+	  print "* Backup gridpack is not existing."
+	  print "* Copying "+gridpack_eos_path+" to "+gridpack_eos_path_backup+" before patching runcms.grid"
+	  os.system('cp -n -p '+gridpack_eos_path+' '+gridpack_eos_path_backup)
+	  md5_1 = os.popen('md5sum'+' '+gridpack_eos_path).read().split(' ')[0]
+	  md5_2 = os.popen('md5sum'+' '+gridpack_eos_path_backup).read().split(' ')[0]
+	  if md5_1 == md5_2:
+	    print "* Backup and original file checksums are equal."
+	  else:
+	    print "* [ERROR] backup gridpack has a problem."
+	    error += 1
+	print "* Updating XMLLINT line in runcmsgrid."
+        os.chdir(my_path+'/'+pi)
+	cont = re.sub("xmllint","xmllint --stream",cont)
+	f.seek(0)
+	f.write(cont)
+	f.truncate()
+    	if targz_flag == 0:
+	  gridpackname = "gridpack.tgz"
+	if targz_flag == 1:
+	  gridpackname = "gridpack.tar.gz"
+        os.chdir(my_path+'/'+pi)
+	os.system('tar cfJ '+gridpackname+' ./* --exclude='+gridpackname+' --exclude='+pi)
+	os.system('cp '+gridpackname+' '+gridpack_eos_path)
+	md5_1 = os.popen('md5sum '+gridpackname).read().split(' ')[0]
+	md5_2 = os.popen('md5sum'+' '+gridpack_eos_path).read().split(' ')[0]
+	if md5_1 == md5_2:
+	  print "* Updated gridpack copied succesfully."
+	else:
+	  print "* [ERROR] there was a copying in the updated gridpack to eos."
+	  error += 1
+	os.chdir(cur_dir)
+    return warning,error
+
 
 if args.dev:
     print "Running on McM DEV!\n"
@@ -479,7 +526,7 @@ for num in range(0,len(prepid)):
             for line in file1:
                 if line not in file2:
                     herwig_check.append(line)
-            if len(herwig_check) != 0:
+            if len(herwig_check) != 0 and "eec5" not in dn.lower():
                 herwig_count.append(herwig_check[0].count('hw_lhe_common_settings'))
                 herwig_count.append(herwig_check[1].count('herwig7LHECommonSettingsBlock'))
                 herwig_count.append(herwig_check[2].count('from Configuration.Generator.Herwig7Settings.Herwig7LHECommonSettings_cfi import *'))
@@ -539,10 +586,10 @@ for num in range(0,len(prepid)):
             print ("* [ERROR] 8 core request with memory different from 15900 GB. Please set the memory to 15900 GB")
             error += 1
         if "HIN-HINPbPbAutumn18GSHIMix" not in pi and "HINPbPbAutumn18wmLHEGSHIMix" not in pi and "HINPbPbAutumn18GS" not in pi and ppd == 0:
-            if mem != 2300 and mem != 4000 and mem != 15900:
-                print "* [ERROR] Memory is not 2300, 4000 or 15900 MB"
+            if mem > 2300 and mem != 4000 and mem != 15900:
+                print "* [ERROR] Memory is not <=2300, =4000 or =15900 MB"
                 error += 1
-            if mem == 2300 and nthreads != 1 :
+            if mem <= 2300 and nthreads != 1 :
                 print "* [ERROR] Memory is "+str(mem)+" MB while number of cores is "+str(nthreads)+" but not = 1"
                 error += 1
             if mem == 4000 and nthreads == 1 :
@@ -552,8 +599,8 @@ for num in range(0,len(prepid)):
                 print "* [ERROR] Memory is "+str(mem)+" MB while number of cores is "+str(nthreads)+" but not = 8 or 16"
                 error += 1
         if "HIN-HINPbPbAutumn18GSHIMix" in pi or "HINPbPbAutumn18wmLHEGSHIMix" in pi or "HINPbPbAutumn18GS" in pi and ppd == 0:
-            if mem != 14700 and mem != 5900 and mem != 4000 and mem != 2300:
-                print "* [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix or HINPbPbAutumn18GS campaign but Memory is not 14700, 5900, 400, or 2300 MB"
+            if mem != 14700 and mem != 5900 and mem != 4000 and mem > 2300:
+                print "* [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix or HINPbPbAutumn18GS campaign but Memory is not 14700, 5900, 400, or <= 2300 MB"
                 error += 1
             if mem == 14700 and nthreads != 8 :
                 print "* [ERROR] Memory is "+str(mem)+" MB while number of cores is "+str(nthreads)+" but not = 8"
@@ -564,7 +611,7 @@ for num in range(0,len(prepid)):
             if mem == 4000 and nthreads != 2 :
                 print "* [ERROR] Memory is "+str(mem)+" MB while number of cores is "+str(nthreads)+" but not = 2"
                 error += 1
-            if mem == 2300 and nthreads != 1:
+            if mem <= 2300 and nthreads != 1:
                 print "* [ERROR] Memory is "+str(mem)+" MB while number of cores is "+str(nthreads)+" but not = 1"
                 error += 1
 
@@ -825,13 +872,18 @@ for num in range(0,len(prepid)):
                         if nfinstatpar != nFinal :
                             print "* [WARNING] nFinal(="+str(nFinal) + ") may not be equal to the number of final state particles before decays (="+str(nfinstatpar)+")"
                             warning += 1
-                    with open(os.path.join(my_path, pi, "runcmsgrid.sh")) as f:
+                    with open(os.path.join(my_path, pi, "runcmsgrid.sh"),'r+') as f:
                         content = f.read()
                         match = re.search(r"""process=(["']?)([^"']*)\1""", content)
+			warning += xml_check_and_patch(f,content,warning,error,gridpack_eos_path,my_path,pi)[0]
+			error += xml_check_and_patch(f,content,warning,error,gridpack_eos_path,my_path,pi)[1]
+			f.close()
                     if os.path.isfile(my_path+'/'+pi+'/'+'external_tarball/runcmsgrid.sh') is True:
-                        with open(os.path.join(my_path, pi, "external_tarball/runcmsgrid.sh")) as f2:
+                        with open(os.path.join(my_path, pi, "external_tarball/runcmsgrid.sh"),'r+') as f2:
                             content2 = f2.read()
                             match = re.search(r"""process=(["']?)([^"']*)\1""", content2)
+			    warning += xml_check_and_patch(f,content,warning,error,gridpack_eos_path,my_path,pi)[0]
+			    error += xml_check_and_patch(f,content,warning,error,gridpack_eos_path,my_path,pi)[1]
                             et_flag = 1
                     if et_flag == 0:
                         with open(os.path.join(my_path, pi, "powheg.input")) as f:
@@ -1049,8 +1101,14 @@ for num in range(0,len(prepid)):
                             if mg5_aMC_version < 260:
                                 mg_lo = int(os.popen('grep -c syscalc '+str(runcmsgrid_file)).read())
                                 if mg_nlo > 0:
+                                    if mg5_aMC_version < 242:
+                                        print "* [WARNING] No automated PDF check for this version."
+                                        warning += 1
+                                        continue
                                     r_scale = os.popen('more '+filename_rc+' | tr -s \' \' | grep "reweight_scale"').read()
-                                    r_scale = r_scale.split()[0].split('.')[1]
+                                    r_scale = r_scale.split()[0]#.split('.')[1]
+                                    if "." in r_scale:
+                                        r_scale = r_scale.split('.')[1]
                                     if len(r_scale) == 0 or "true" not in str(r_scale).lower():
                                         print "* [ERROR] For NLO MG5_aMC version < 260, one should have .true. = reweight_scale"
                                         error += 1
