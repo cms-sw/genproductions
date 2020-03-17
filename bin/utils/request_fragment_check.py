@@ -526,7 +526,7 @@ for num in range(0,len(prepid)):
             for line in file1:
                 if line not in file2:
                     herwig_check.append(line)
-            if len(herwig_check) != 0 and "eec5" not in dn.lower():
+            if len(herwig_check) != 0 and "eec5" not in dn.lower() and "ee5c" not in dn.lower():
                 herwig_count.append(herwig_check[0].count('hw_lhe_common_settings'))
                 herwig_count.append(herwig_check[1].count('herwig7LHECommonSettingsBlock'))
                 herwig_count.append(herwig_check[2].count('from Configuration.Generator.Herwig7Settings.Herwig7LHECommonSettings_cfi import *'))
@@ -733,7 +733,7 @@ for num in range(0,len(prepid)):
                 print "powheg "+str(pw_gp)
                 print "mg "+str(mg_gp)
                 print "jhugen "+str(jhu_gp)
-                if any(word in dn for word in tunename) or "sherpa" in dn.lower() or ("herwigpp" in dn.lower() and "eec5" in dn.lower()):
+                if any(word in dn for word in tunename) or "sherpa" in dn.lower() or ("herwigpp" in dn.lower() and ("eec5" in dn.lower() or "ee5c" in dn.lower())):
                     print "* [OK] Data set name has a known tune"
                 else:
                     print "* [ERROR] Dataset name does not have the tune name: "+dn
