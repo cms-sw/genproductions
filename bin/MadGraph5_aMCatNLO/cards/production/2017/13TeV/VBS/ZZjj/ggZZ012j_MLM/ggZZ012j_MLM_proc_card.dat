@@ -1,0 +1,8 @@
+import model loop_sm-ckm_no_b_mass
+
+generate g g > z z [noborn=QCD] @0  #equivalent as p p > z z [noborn=QCD], since all q q-bar initial state diagrams are discarded
+add process p p > z z j [noborn=QCD] @1
+add process p p > z z j j [noborn=QCD] @2
+
+output ggZZ012j_MLM -nojpeg
+
