@@ -299,8 +299,8 @@ def xml_check_and_patch(f,cont,gridpack_eos_path,my_path,pi):
 	if md5_1 == md5_2:
 	  print "* Updated gridpack copied succesfully."
 	else:
-	  print "* [ERROR] there was a copying in the updated gridpack to eos."
-	  error += 1
+	  print "* [ERROR] there was a problem copying in the updated gridpack to eos."
+	  error_xml += 1
 	os.chdir(cur_dir)
     return warning_xml,error_xml
 
