@@ -242,18 +242,27 @@ def find_file(dir_path,patt):
             if file.endswith(patt):
                 return root+'/'+str(file)
 
-def xml_check_and_patch(f,cont,warning,error,gridpack_eos_path,my_path,pi):
+def xml_check_and_patch(f,cont,gridpack_eos_path,my_path,pi):
     xml = str(re.findall('xmllint.*',cont))
     cur_dir = os.getcwd()
-    if "stream" not in xml:
+    warning_xml = 0
+    error_xml = 0
+    if "stream" not in xml or len(xml) < 3:
 	targz_flag = 0
-	print "* [WARNING] --stream option is missing in XMLLINT, will update runcmsgrid."
-	warning += 1
+	if "stream" not in xml and len(xml) > 3:
+	  print "* [WARNING] --stream option is missing in XMLLINT, will update runcmsgrid."
+	  warning_xml += 1
+        if len(xml) < 3:
+	  print "* [WARNING] XMLLINT does not exist in runcmsgrid, will update it."
+          warning_xml += 1
 	if ".tar.gz" in gridpack_eos_path:
 	  targz_flag = 1
-	  gridpack_eos_path_backup = gridpack_eos_path.replace('.tar.xz','_original.tar.xz')
+	  gridpack_eos_path_backup = gridpack_eos_path.replace('.tar.gz','_original.tar.gz')
 	if ".tgz" in gridpack_eos_path:
 	  gridpack_eos_path_backup = gridpack_eos_path.replace('.tgz','_original.tgz')
+    	if ".tar.xz" in gridpack_eos_path:
+      	  gridpack_eos_path_backup = gridpack_eos_path.replace('.tar.xz','_original.tar.xz')
+	  targz_flag = 2
 	if not os.path.exists(gridpack_eos_path_backup):
 	  print "* Backup gridpack is not existing."
 	  print "* Copying "+gridpack_eos_path+" to "+gridpack_eos_path_backup+" before patching runcms.grid"
@@ -264,10 +273,15 @@ def xml_check_and_patch(f,cont,warning,error,gridpack_eos_path,my_path,pi):
 	    print "* Backup and original file checksums are equal."
 	  else:
 	    print "* [ERROR] backup gridpack has a problem."
-	    error += 1
+	    error_xml += 1
 	print "* Updating XMLLINT line in runcmsgrid."
         os.chdir(my_path+'/'+pi)
-	cont = re.sub("xmllint","xmllint --stream",cont)
+	if "stream" not in xml and len(xml) > 3:
+	  cont = re.sub("xmllint","xmllint --stream",cont)
+	if len(xml) < 3:
+          newlinetoadd = 'xmllint --stream --noout ${file}_final.lhe > /dev/null 2>&1; test $? -eq 0 || fail_exit "xmllint --stream integrity check failed on pwgevents.lhe" \ncp ${file}_final.lhe ${WORKDIR}/.'
+          string_orig = "cp \$\{file\}\_final.lhe \$\{WORKDIR\}\/\."
+          cont = re.sub(string_orig,newlinetoadd,cont)		
 	f.seek(0)
 	f.write(cont)
 	f.truncate()
@@ -275,6 +289,8 @@ def xml_check_and_patch(f,cont,warning,error,gridpack_eos_path,my_path,pi):
 	  gridpackname = "gridpack.tgz"
 	if targz_flag == 1:
 	  gridpackname = "gridpack.tar.gz"
+        if targz_flag == 2:
+	  gridpackname = "gridpack.tar.xz"
         os.chdir(my_path+'/'+pi)
 	os.system('tar cfJ '+gridpackname+' ./* --exclude='+gridpackname+' --exclude='+pi)
 	os.system('cp '+gridpackname+' '+gridpack_eos_path)
@@ -286,7 +302,7 @@ def xml_check_and_patch(f,cont,warning,error,gridpack_eos_path,my_path,pi):
 	  print "* [ERROR] there was a copying in the updated gridpack to eos."
 	  error += 1
 	os.chdir(cur_dir)
-    return warning,error
+    return warning_xml,error_xml
 
 
 if args.dev:
@@ -875,15 +891,15 @@ for num in range(0,len(prepid)):
                     with open(os.path.join(my_path, pi, "runcmsgrid.sh"),'r+') as f:
                         content = f.read()
                         match = re.search(r"""process=(["']?)([^"']*)\1""", content)
-			warning += xml_check_and_patch(f,content,warning,error,gridpack_eos_path,my_path,pi)[0]
-			error += xml_check_and_patch(f,content,warning,error,gridpack_eos_path,my_path,pi)[1]
+			warning1,error1 = xml_check_and_patch(f,content,gridpack_eos_path,my_path,pi)
+		        warning += warning1
+ 			error += error1	
 			f.close()
                     if os.path.isfile(my_path+'/'+pi+'/'+'external_tarball/runcmsgrid.sh') is True:
                         with open(os.path.join(my_path, pi, "external_tarball/runcmsgrid.sh"),'r+') as f2:
                             content2 = f2.read()
                             match = re.search(r"""process=(["']?)([^"']*)\1""", content2)
-			    warning += xml_check_and_patch(f,content,warning,error,gridpack_eos_path,my_path,pi)[0]
-			    error += xml_check_and_patch(f,content,warning,error,gridpack_eos_path,my_path,pi)[1]
+			    warning1,error1 = xml_check_and_patch(f,content,gridpack_eos_path,my_path,pi)	
                             et_flag = 1
                     if et_flag == 0:
                         with open(os.path.join(my_path, pi, "powheg.input")) as f:
