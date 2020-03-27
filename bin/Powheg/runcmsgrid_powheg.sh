@@ -97,9 +97,8 @@ export PYTHONPATH=.:${PYTHONPATH}
 #ln -s `which gfortran` g77
 export PATH=`pwd`:${PATH}
 
-if [[ -e ${WORKDIR}/pwggrid.dat ]]; then
-    cp -p ${WORKDIR}/pwg*.dat .
-fi
+cp -p ${WORKDIR}/pwg*.dat .
+
 if [ -e  ${WORKDIR}/vbfnlo.input ]; then
     cp -p ${WORKDIR}/vbfnlo.input .
 fi
