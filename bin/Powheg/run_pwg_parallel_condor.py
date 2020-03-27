@@ -70,24 +70,27 @@ if __name__ == "__main__":
     if '1' in args.parstage:
         for ix in range(1, int(args.numX)+1):
             steps.append(
-            ('grid production 1-'+str(ix),'-p 1 -x '+str(ix),args.folderName+'/run_1_'+str(ix)+'.log'))
+            ('grid production 1-'+str(ix),'-p 1 -x '+str(ix), 'run_'+args.folderName+'_1_'+str(ix)+'.condorConf'))
     if '2' in args.parstage:
         steps.append(
-            ('grid production 2',         '-p 2',args.folderName+'/run_2_1.log'))
+            ('grid production 2',         '-p 2', 'run_'+args.folderName+'_2_1.condorConf'))
     if '3' in args.parstage:
         if args.step3pilot:
             steps.append(
-            ('grid production 3 pilot',   '-p 3',args.folderName+'/run_3_1.log'))
+            ('grid production 3 pilot',   '-p 3', 'run_'+args.folderName+'_3_1_pilot.condorConf'))
         steps.append(
-            ('grid production 3',         '-p 3',args.folderName+'/run_3_1.log'))
+            ('grid production 3',         '-p 3', 'run_'+args.folderName+'_3_1.condorConf'))
     if '9' in args.parstage:
         steps.append(
             ('grid production 9',         '-p 9 -k 1','null'))
 
-    for step,extraOpt,logf in steps:
+    for step,extraOpt,condorFile in steps:
         print '*'*50,step,'*'*5,extraOpt,'*'*50
-        njobs = '1' if 'pilot' in step else args.numJobs
-        commonOpts='-i '+args.inputTemplate+' -m '+args.prcName+' -f '+args.folderName+' -j '+njobs
+        njobs = args.numJobs
+        if 'pilot' in step:
+            njobs = '1'
+        
+        commonOpts='-i '+args.inputTemplate+' -m '+args.prcName+' -f '+args.folderName+' -j '+njobs+' --fordag 1'
         if args.eosFolder != 'NONE': commonOpts+=' -e '+args.eosFolder
         if extraOpt!='-p 0' and extraOpt!='-p 9 -k 1': commonOpts = commonOpts+' -q '+args.doQueue
         command = 'python ./run_pwg_condor.py %s %s'%(extraOpt,commonOpts)
@@ -95,11 +98,23 @@ if __name__ == "__main__":
         if args.dryrun: continue
         command_out = commands.getstatusoutput(command)[1]
         print command_out
-        if extraOpt!='-p 0' and extraOpt!='-p 9 -k 1': 
- #           print command
-            command = 'condor_wait -status %s'%(logf)  
-            command_out = commands.getstatusoutput(command)[1]
-            print command_out
-        sleep(5)   
-
-        
+    
+    dagfilename = 'run_' + args.folderName + '.dag'
+    dagfile = open(dagfilename, 'w')
+    for step,extraOpt,condorFile in steps:
+        if 'condorConf' in condorFile:
+            cleanstep = ''.join(e for e in step if e.isalnum())
+            dagfile.write('JOB '+cleanstep+' '+condorFile)
+            dagfile.write('\n')
+    dagfile.write('SCRIPT POST ALL_NODES check_dag_success.py run_%s.nodes.log $JOB\n' % dagfilename)
+    for i in range(len(steps)-1):
+        condorFile_current = steps[i  ][2]
+        condorFile_next    = steps[i+1][2]
+        step_current = ''.join(e for e in steps[i  ][0] if e.isalnum())
+        step_next    = ''.join(e for e in steps[i+1][0] if e.isalnum())
+        if 'condorConf' in condorFile_current and 'condorConf' in condorFile_next:
+            dagfile.write('PARENT '+step_current+' CHILD '+step_next)
+            dagfile.write('\n')
+    dagfile.close()
+    
+            
