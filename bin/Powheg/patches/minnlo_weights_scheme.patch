@@ -1,0 +1,121 @@
+Index: rwl_setup_param_weights.f
+===================================================================
+--- rwl_setup_param_weights.f	(revision 3720)
++++ rwl_setup_param_weights.f	(working copy)
+@@ -3,9 +3,12 @@
+       integer count
+       integer, save :: old_pdf1,old_pdf2
+       real * 8, save :: old_facfact,old_renfact
++      real * 8, save :: old_sthw2,old_Zmass,old_Wmass,old_Zwidth,old_Wwidth
++      real*8 osWmass,osWwidth,osZmass,osZwidth
+       include 'pwhg_rwl.h'
+       include 'pwhg_pdf.h'
+       include 'pwhg_st.h'
++      include 'PhysPars.h'
+       logical rwl_keypresent
+       real * 8 val
+       character * 5 scheme
+@@ -17,11 +20,31 @@
+          old_pdf2=pdf_ndns2
+          old_facfact = st_facfact
+          old_renfact = st_renfact
++         old_sthw2 = ph_sthw2
++         old_Zmass = ph_Zmass
++         old_Wmass = ph_Wmass
++         old_Zwidth = ph_Zwidth
++         old_Wwidth = ph_Wwidth
+       elseif(count == -1) then
+          pdf_ndns1 = old_pdf1
+          pdf_ndns2 = old_pdf2
+          st_facfact = old_facfact
+          st_renfact = old_renfact
++         
++         ph_sthw2 = old_sthw2
++         ph_sthw = sqrt(ph_sthw2)
++         ph_cthw = sqrt(1-ph_sthw2)
++         
++         ph_Zmass = old_Zmass
++         ph_Zmass2 = ph_Zmass**2
++         ph_ZmZw = ph_Zmass * ph_Zwidth
++         ph_Zwidth = old_Zwidth
++         
++         ph_Wmass = old_Wmass
++         ph_Wmass2 = ph_Wmass**2
++         ph_WmWw = ph_Wmass * ph_Wwidth
++         ph_Wwidth = old_Wwidth
++         
+          call genericpdfpar(pdf_ndns1,pdf_ih1,st_lambda5MSB,
+      1        scheme,iorder,iret)
+       else
+@@ -43,5 +66,39 @@
+          if(rwl_keypresent(count,'renscfact',val)) then
+             st_renfact = val
+          endif
++         if(rwl_keypresent(count,'sthw2',val)) then
++            ph_sthw2 = val
++            ph_sthw = sqrt(ph_sthw2)
++            ph_cthw = sqrt(1-ph_sthw2)
++            ph_Wmass = sqrt(ph_Zmass**2*(1d0-ph_sthw2))
++         endif
++         if(rwl_keypresent(count,'zmass',val)) then
++            ph_Zmass = val
++            osZmass= ph_Zmass
++            osZwidth= ph_Zwidth
++            ph_Zmass= osZmass/sqrt(1.d0+(osZwidth/osZmass)**2)
++            ph_Zwidth= osZwidth/sqrt(1.d0+(osZwidth/osZmass)**2)
++            
++            ph_Zmass2 = ph_Zmass**2
++            ph_ZmZw = ph_Zmass * ph_Zwidth
++            
++            ph_sthw2 = abs(1d0-(ph_Wmass/ph_Zmass)**2)
++            ph_sthw = sqrt(ph_sthw2)
++            ph_cthw = sqrt(1-ph_sthw2)
++         endif
++         if(rwl_keypresent(count,'wmass',val)) then
++            ph_Wmass = val
++            osWmass= ph_Wmass
++            osWwidth= ph_Wwidth
++            ph_Wmass= osWmass/sqrt(1.d0+(osWwidth/osWmass)**2)
++            ph_Wwidth= osWwidth/sqrt(1.d0+(osWwidth/osWmass)**2)
++            
++            ph_Wmass2 = ph_Wmass**2
++            ph_WmWw = ph_Wmass * ph_Wwidth
++            
++            ph_sthw2 = abs(1d0-(ph_Wmass/ph_Zmass)**2)
++            ph_sthw = sqrt(ph_sthw2)
++            ph_cthw = sqrt(1-ph_sthw2)
++         endif
+       endif
+       end
+Index: init_couplings.f
+===================================================================
+--- init_couplings.f	(revision 3720)
++++ init_couplings.f	(working copy)
+@@ -14,6 +14,7 @@
+       real * 8 masswindow_low,masswindow_high,zmasslow,zmasshigh
+       real *8 powheginput,pwhg_alphas
+       external powheginput,pwhg_alphas
++      real*8 osWmass,osWwidth,osZmass,osZwidth
+       logical verbose
+       parameter(verbose=.true.)
+ 
+@@ -65,6 +66,19 @@
+       if (ph_Zmass.le.0d0) ph_Zmass  = 91.1876d0     
+       ph_Zwidth = powheginput("#Zwidth")
+       if (ph_Zwidth.le.0d0) ph_Zwidth =  2.4952d0
++      
++c     correct masses fixed-width -> width-dependent scheme
++      osWmass= ph_Wmass
++      osWwidth= ph_Wwidth
++      ph_Wmass= osWmass/sqrt(1.d0+(osWwidth/osWmass)**2)
++      ph_Wwidth= osWwidth/sqrt(1.d0+(osWwidth/osWmass)**2)
++      
++      osZmass= ph_Zmass
++      osZwidth= ph_Zwidth
++      ph_Zmass= osZmass/sqrt(1.d0+(osZwidth/osZmass)**2)
++      ph_Zwidth= osZwidth/sqrt(1.d0+(osZwidth/osZmass)**2)
++
++c     calculate weak mixing angle
+       ph_sthw2 = powheginput("#sthw2")
+       if (ph_sthw2.le.0d0) ph_sthw2 = abs(1d0-(ph_Wmass/ph_Zmass)**2)
+ 

@@ -33,7 +33,7 @@ def runCommand(command, printIt = False, doIt = 1, TESTING = 0) :
     
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
-def prepareCondorScript( tag, i, folderName, queue, SCALE = '0', runInBatchDir = False):
+def prepareCondorScript( tag, i, folderName, queue, SCALE = '0', njobs = 0, runInBatchDir = False):
    '''prepare the Condor submission script'''
 
    filename = 'run_' + folderName + '_' + tag + '.condorConf'
@@ -72,6 +72,8 @@ def prepareCondorScript( tag, i, folderName, queue, SCALE = '0', runInBatchDir =
    f.write('periodic_remove         = JobStatus == 5  \n')
    f.write('WhenToTransferOutput    = ON_EXIT_OR_EVICT \n')
    f.write('transfer_output_files   = "" \n')
+   if njobs > 0:
+       f.write('queue '+str(njobs)+'\n')
  
    f.write('\n')
  
@@ -203,10 +205,6 @@ def runParallelXgrid(parstage, xgrid, folderName, nEvents, njobs, powInputName, 
         if not 'manyseeds' in open(inputName).read() :
             runCommand("echo \'manyseeds 1\' >> "+ inputName)
 
-        if not 'fakevirt' in open(inputName).read() :
-            if process != 'b_bbar_4l':
-                runCommand("echo \'fakevirt 1\' >> "+inputName)
-
     runCommand('cp -p '+inputName+' '+inputName+'.'+parstage+'_'+str(xgrid))
 
     for i in range (0, njobs) :
@@ -216,10 +214,13 @@ def runParallelXgrid(parstage, xgrid, folderName, nEvents, njobs, powInputName, 
         filename = folderName+'/run_' + jobID + '.sh'
         f = open(filename, 'a')
         #f.write('cd '+rootfolder+'/'+folderName+'/ \n')
-        f.write('echo ' + str(i+1) + ' | ./pwhg_main &> run_' + jobID + '.log ' + '\n')
-        f.write('cp -p *.top ' + rootfolder + '/' + folderName + '/. \n')
-        f.write('cp -p *.dat ' + rootfolder + '/' + folderName + '/. \n')
-        f.write('cp -p *.log ' + rootfolder + '/' + folderName + '/. \n')
+        f.write('cp -p ' + rootfolder + '/' + folderName + '/powheg.input.'+parstage+'_'+str(xgrid) + ' ./powheg.input' + '\n') # copy input file for this stage explicitly, needed by condor dag
+        f.write('echo ' + str(i+1) + ' | ./pwhg_main \n')
+        f.write('echo "Workdir after run:" \n')
+        f.write('ls -ltr \n')
+        f.write('cp -p -v -u *.top ' + rootfolder + '/' + folderName + '/. \n')
+        f.write('cp -p -v -u *.dat ' + rootfolder + '/' + folderName + '/. \n')
+        f.write('cp -p -v -u *.log ' + rootfolder + '/' + folderName + '/. \n')
         f.write('exit 0 \n')
 
         f.close()
@@ -236,8 +237,8 @@ def runParallelXgrid(parstage, xgrid, folderName, nEvents, njobs, powInputName, 
 
     else:
         print 'Submitting to condor queues:  \n'
-        condorfile = prepareCondorScript(jobtag, 'multiple', args.folderName, QUEUE, runInBatchDir=True) 
-        runCommand ('condor_submit ' + condorfile + ' -queue '+ str(njobs), TESTING == 0)
+        condorfile = prepareCondorScript(jobtag, 'multiple', args.folderName, QUEUE, njobs=njobs, runInBatchDir=True) 
+        runCommand ('condor_submit ' + condorfile + ' -queue '+ str(njobs))
 
 
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
@@ -360,10 +361,6 @@ else
 fi
 
 forDYNNLOPS=0
-if [ "$process" = "Wj" ]; then
-    forDYNNLOPS=1
-fi
-
 forMiNNLO=0
 grep -q "^minnlo\\s*1" powheg.input; test $? -eq 1 || forMiNNLO=1
 
@@ -394,21 +391,24 @@ if [[ -s ./JHUGen.input ]]; then
 
 fi
 
-### retrieve the powheg source tar ball
-export POWHEGSRC=powhegboxV2_rev3691_date20191021.tar.gz
+#### retrieve the powheg source tar ball
+#export POWHEGSRC=powhegboxV2_rev3710_date20200108.tar.gz 
+#
+#if [ "$process" = "b_bbar_4l" ] || [ "$process" = "HWJ_ew" ] || [ "$process" = "HW_ew" ] || [ "$process" = "HZJ_ew" ] || [ "$process" = "HZ_ew" ]; then 
+#  export POWHEGSRC=powhegboxRES_rev3478_date20180122.tar.gz 
+#fi
+#
+#echo 'D/L POWHEG source...'
+#
+#if [ ! -f ${POWHEGSRC} ]; then
+#  wget --no-verbose --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/slc6_amd64_gcc481/powheg/V2.0/src/${POWHEGSRC} || fail_exit "Failed to get powheg tar ball "
+#fi
+##cp -p ../${POWHEGSRC} .
+#
+#tar zxf ${POWHEGSRC}
 
-if [ "$process" = "b_bbar_4l" ] || [ "$process" = "HWJ_ew" ] || [ "$process" = "HW_ew" ] || [ "$process" = "HZJ_ew" ] || [ "$process" = "HZ_ew" ]; then 
-  export POWHEGSRC=powhegboxRES_rev3478_date20180122.tar.gz 
-fi
-
-echo 'D/L POWHEG source...'
-
-if [ ! -f ${POWHEGSRC} ]; then
-  wget --no-verbose --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/slc6_amd64_gcc481/powheg/V2.0/src/${POWHEGSRC} || fail_exit "Failed to get powheg tar ball "
-fi
-#cp -p ../${POWHEGSRC} .
-
-tar zxf ${POWHEGSRC}
+### retrieve powheg source from svn
+svn checkout --revision 3720 --username anonymous --password anonymous svn://powhegbox.mib.infn.it/trunk/POWHEG-BOX-V2 POWHEG-BOX
 
 # increase maxseeds to 10000
 sed -i -e "s#par_maxseeds=200,#par_maxseeds=10000,#g" POWHEG-BOX/include/pwhg_par.h
@@ -417,6 +417,10 @@ if [ -e POWHEG-BOX/${process}.tgz ]; then
   cd POWHEG-BOX/
   tar zxf ${process}.tgz
   cd -
+else
+  cd POWHEG-BOX/
+  svn co --revision 3720 --username anonymous --password anonymous svn://powhegbox.mib.infn.it/trunk/User-Processes-V2/${process}
+  cd -
 fi
 
 patch -l -p0 -i ${WORKDIR}/patches/pdfweights.patch
@@ -424,6 +428,10 @@ patch -l -p0 -i ${WORKDIR}/patches/pwhg_lhepdf.patch
 
 if [ "$process" = "WZ" ] || [ "$process" = "ZZ" ]; then
    patch -l -p0 -i ${WORKDIR}/patches/lhapdf_zanderighi.patch
+fi
+
+if [ "$process" = "Wj" ]; then
+   patch -l -p0 -i ${WORKDIR}/patches/pwhg_minnlo_wj.patch
 fi
 
 if [ "$process" = "b_bbar_4l" ]; then
@@ -450,19 +458,20 @@ echo ${POWHEGSRC} > VERSION
 cd POWHEG-BOX/${process}
 
 if [ $forMiNNLO -eq 1 ]; then
-    cd ${process}MiNNLO
+    if [ "$process" = "Wj" ]; then
+        wget --no-verbose --no-check-certificate https://mseidel.web.cern.ch/mseidel/public/WjMiNNLO2.tar
+        tar xf WjMiNNLO2.tar
+        cd ${process}MiNNLO
+        make clean
+        make veryclean
+    else
+        cd ${process}MiNNLO
+    fi
+    patch -l -p0 -i ${WORKDIR}/patches/minnlo_weights_scheme.patch
 fi
 
 # This is just to please gcc 4.8.1
 mkdir -p include
-
-if [ "$process" = "Wj" ]; then
-    tar zxf ../DYNNLOPS.tgz
-    wget --no-verbose --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/slc6_amd64_gcc481/powheg/V2.0/src/nnlops_fast_patch3_${process:0:1}.tgz
-    tar zxf nnlops_fast_patch3_${process:0:1}.tgz
-    mv -v Makefile-NNLOPS Makefile
-    cp -v nnlops_fast/rwl_write_*.f ../include/
-fi
 
 # Use dynamic linking and lhapdf
 sed -i -e "s#STATIC[ \t]*=[ \t]*-static#STATIC=-dynamic#g" Makefile
@@ -811,60 +820,6 @@ EOF
 
 fi  
 
-if [ "$process" = "Wj" ]; then
-  echo "Compiling DYNNLO...."
-  wget --no-verbose --no-check-certificate http://theory.fi.infn.it/grazzini/codes/dynnlo-v1.5.tgz
-  tar -xzvf dynnlo-v1.5.tgz
-  cd dynnlo-v1.5
-  cp ../POWHEG-BOX/${process}/DYNNLOPS/${process:0:1}NNLOPS/dynnlo-patches/dynnlo.makefile ./makefile
-  cp -r -L ../POWHEG-BOX/${process}/DYNNLOPS/${process:0:1}NNLOPS/dynnlo-patches ./
-  cd src/Need/
-  cat pdfset_lhapdf.f | sed -e "s#30#40#g" | sed -e "s#20#30#g" | sed -e "s#oldPDFname(1:i-1)//'.LHgrid'#oldPDFname(1:i-1)#g" | sed -e "s#oldPDFname(1:i-1)//'.LHpdf'#oldPDFname(1:i-1)#g" | sed -e "s#InitPDFset('PDFsets/'//PDFname)#InitPDFsetByName(PDFname)#g" > pdfset_lhapdf.f.new
-  mv pdfset_lhapdf.f.new pdfset_lhapdf.f
-  cd -
-  cat makefile | sed -e "s#LHAPDFLIB=.\+#LHAPDFLIB=$(scram tool info lhapdf | grep LIBDIR | cut -d "=" -f2)#g" > makefile
-  make || fail_exit "Failed to compile DYNNLO"
-
-  cp -p bin/dynnlo ${WORKDIR}/${name}/
-
-  cd ${WORKDIR}/${name}/POWHEG-BOX/${process}/DYNNLOPS/aux
-  gfortran -mcmodel=medium -o merge3ddata merge3ddata.f  || fail_exit "Failed to compile merge3ddata"
-  cp merge3ddata ${WORKDIR}/${name}/
-  gfortran -mcmodel=medium -o mergedata mergedata.f  || fail_exit "Failed to compile mergedata"
-  cp mergedata ${WORKDIR}/${name}/
-  
-  cd ${WORKDIR}/${name}/POWHEG-BOX/${process}
-  make lhef_analysis_3d || fail_exit "Failed to compile lhef_analysis_3d"
-  cp lhef_analysis_3d ${WORKDIR}/${name}/
-
-  cd ${WORKDIR}/${name}
-  VMASS=`cat powheg.input | grep "^Wmass\|^Zmass" | awk '{print $2}' | cut -d "d" -f1`
-  VMASSEXP=`cat powheg.input | grep "^Wmass\|^Zmass" | awk '{print $2}' | cut -d "d" -f2`
-  VMASS=`echo "( $VMASS*10^$VMASSEXP )" | bc`
-  VMASSMIN=`cat powheg.input | grep "^min_W_mass\|^min_Z_mass" | awk '{print $2}'`
-  VMASSMAX=`cat powheg.input | grep "^max_W_mass\|^max_Z_mass" | awk '{print $2}'`
-  echo $VMASS
-  DYNNLOPROC=3
-  if [ "$process" = "Wj" ]; then
-    DYNNLOPROC=1
-    VID=`cat powheg.input | grep "^idvecbos" | awk '{print $2}'`;
-    if [ "$VID" = "-24" ]; then
-      DYNNLOPROC=2
-    fi
-  fi
-  BEAM=`cat powheg.input | grep "^ebeam1" | cut -d " " -f2 | tr "d" "."`;
-  COMENERGY=`echo "( $BEAM*2 )" | bc`
-  
-  cp POWHEG-BOX/${process}/DYNNLOPS/${process:0:1}NNLOPS/dynnlo-patches/dynnlo.infile dynnlo.infile.orig
-  gawk "/sroot/{gsub(/.*!/,$COMENERGY \\\" !\\\")};\\
-        /nproc/{gsub(/.*!/,$DYNNLOPROC \\\" !\\\")};\\
-        /mur/{gsub(/.*!/, $VMASS \\\" \\\" $VMASS \\\" !\\\")};\\
-        /mwmin/{gsub(/.*!/, $VMASSMIN \\\" \\\" $VMASSMAX \\\" !\\\")};\\
-        /rseed/{gsub(/.*!/,\\\"SEED !\\\")};\\
-        /runstring/{gsub(/.*!/,\\\"'SEED' !\\\")};\\
-        {print}" dynnlo.infile.orig | tee DYNNLO.input
-fi
-
 #mkdir -p workdir
 #cd workdir
 localDir=`pwd`
@@ -951,10 +906,6 @@ def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag, proc
 
         if not 'manyseeds' in open(inputName).read() :
             runCommand("echo \'manyseeds 1\' >> "+ inputName)
-
-        if not 'fakevirt' in open(inputName).read() :
-            if process != 'b_bbar_4l':
-                runCommand("echo \'fakevirt 1\' >> "+inputName)
     
     runCommand('cp -p ' + folderName + '/powheg.input ' + folderName + '/powheg.input.' + parstage)
 
@@ -968,10 +919,13 @@ def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag, proc
         filename = folderName+'/run_' + tag + '.sh'
         f = open (filename, 'a')
         #f.write('cd '+rootfolder+'/'+folderName+'/ \n')
-        f.write('echo ' + str (i) + ' | ./pwhg_main &> run_' + tag + '.log ' + '\n')
-        f.write('cp -p *.top ' + rootfolder + '/' + folderName + '/. \n')
-        f.write('cp -p *.dat ' + rootfolder + '/' + folderName + '/. \n')
-        f.write('cp -p *.log ' + rootfolder + '/' + folderName + '/. \n')
+        f.write('cp -p ' + rootfolder + '/' + folderName + '/powheg.input.' + parstage + ' ./powheg.input' + '\n') # copy input file for this stage explicitly, needed by condor dag
+        f.write('echo ' + str (i) + ' | ./pwhg_main \n')
+        f.write('echo "Workdir after run:" \n')
+        f.write('ls -ltr \n')
+        f.write('cp -p -v -u *.top ' + rootfolder + '/' + folderName + '/. \n')
+        f.write('cp -p -v -u *.dat ' + rootfolder + '/' + folderName + '/. \n')
+        f.write('cp -p -v -u *.log ' + rootfolder + '/' + folderName + '/. \n')
         f.write('exit 0 \n')
         f.close()
 
@@ -987,8 +941,8 @@ def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag, proc
             
     else:
         print 'Submitting to condor queues:  \n'
-        condorfile = prepareCondorScript(jobtag, 'multiple', args.folderName, QUEUE, runInBatchDir=True) 
-        runCommand ('condor_submit ' + condorfile + ' -queue '+ str(njobs), TESTING == 0)
+        condorfile = prepareCondorScript(jobtag, 'multiple', args.folderName, QUEUE, njobs=njobs, runInBatchDir=True) 
+        runCommand ('condor_submit ' + condorfile + ' -queue '+ str(njobs))
      
 
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
@@ -1025,6 +979,12 @@ cp -p $WORKDIR/run_pwg.py $WORKDIR/$folderName
 if [ -e $WORKDIR/$folderName/pwggrid-0001.dat ]; then
   cp -p $WORKDIR/$folderName/pwggrid-0001.dat $WORKDIR/$folderName/pwggrid.dat
   cp -p $WORKDIR/$folderName/pwg-0001-stat.dat $WORKDIR/$folderName/pwg-stat.dat
+elif [ -e $WORKDIR/$folderName/pwggrid-0002.dat ]; then
+  cp -p $WORKDIR/$folderName/pwggrid-0002.dat $WORKDIR/$folderName/pwggrid.dat
+  cp -p $WORKDIR/$folderName/pwg-0002-stat.dat $WORKDIR/$folderName/pwg-stat.dat
+elif [ -e $WORKDIR/$folderName/pwggrid-0003.dat ]; then
+  cp -p $WORKDIR/$folderName/pwggrid-0003.dat $WORKDIR/$folderName/pwggrid.dat
+  cp -p $WORKDIR/$folderName/pwg-0003-stat.dat $WORKDIR/$folderName/pwg-stat.dat
 fi
 
 
@@ -1130,10 +1090,10 @@ fi
 if [ $keepTop == '1' ]; then
     echo 'Keeping validation plots.'
     echo 'Packing...' ${WORKDIR}'/'${process}'_'${SCRAM_ARCH}'_'${CMSSW_VERSION}'_'${folderName}'.tgz'
-    tar zcf ${WORKDIR}'/'${process}'_'${SCRAM_ARCH}'_'${CMSSW_VERSION}'_'${folderName}'.tgz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.lhe --exclude=run_*.sh --exclude=*temp --exclude=pwgbtlupb-*.dat --exclude=pwgrmupb-*.dat --exclude=run_*.out --exclude=run_*.err --exclude=run_*.log --exclude=minlo-run --exclude=dynnlo*
+    tar zcf ${WORKDIR}'/'${process}'_'${SCRAM_ARCH}'_'${CMSSW_VERSION}'_'${folderName}'.tgz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.lhe --exclude=run_*.sh --exclude=*temp --exclude=pwgbtlupb-*.dat --exclude=pwgrmupb-*.dat --exclude=pwgbtildeupb-*.dat --exclude=pwgremnupb-*.dat --exclude=run_*.out --exclude=run_*.err --exclude=run_*.log --exclude=minlo-run --exclude=dynnlo*
 else
     echo 'Packing...' ${WORKDIR}'/'${process}'_'${SCRAM_ARCH}'_'${CMSSW_VERSION}'_'${folderName}'.tgz'
-    tar zcf ${WORKDIR}'/'${process}'_'${SCRAM_ARCH}'_'${CMSSW_VERSION}'_'${folderName}'.tgz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.top --exclude=*.lhe --exclude=run_*.sh --exclude=*temp --exclude=pwgbtlupb-*.dat --exclude=pwgrmupb-*.dat --exclude=run_*.out --exclude=run_*.err --exclude=run_*.log --exclude=minlo-run --exclude=dynnlo* 
+    tar zcf ${WORKDIR}'/'${process}'_'${SCRAM_ARCH}'_'${CMSSW_VERSION}'_'${folderName}'.tgz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.top --exclude=*.lhe --exclude=run_*.sh --exclude=*temp --exclude=pwgbtlupb-*.dat --exclude=pwgrmupb-*.dat --exclude=pwgbtildeupb-*.dat --exclude=pwgremnupb-*.dat --exclude=run_*.out --exclude=run_*.err --exclude=run_*.log --exclude=minlo-run --exclude=dynnlo* 
 fi
 
 cd ${WORKDIR}
@@ -1191,7 +1151,7 @@ cp log_${seed}.txt ${base}
     print 'Submitting to condor queues \n'
     tagName = 'hnnlo_' + scale 
     condorfile = prepareCondorScript(tagName, 'hnnlo', folderName, QUEUE, scale) 
-    runCommand ('condor_submit ' + condorfile + ' -queue '+ str(njobs), TESTING == 0)
+    runCommand ('condor_submit ' + condorfile + ' -queue '+ str(njobs))
    
 
 
@@ -1255,7 +1215,7 @@ cp *.top ${eosbase}
             
             print 'Submitting to condor queues \n'
             condorfile = prepareCondorScript(subfolderName, 'dynnlo', folderName, QUEUE, subfolderName, runInBatchDir=True) 
-            runCommand ('condor_submit ' + condorfile + ' -queue '+ str(njobs), TESTING == 0)
+            runCommand ('condor_submit ' + condorfile + ' -queue '+ str(njobs))
 
 
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
@@ -1348,7 +1308,7 @@ cp MINLO*.top ${eosbase}/$seed/
     
     print 'Submitting to condor queues \n'
     condorfile = prepareCondorScript('minlo', 'minlo', folderName, QUEUE, runInBatchDir=True) 
-    runCommand ('condor_submit ' + condorfile + ' -queue '+ str(njobs), TESTING == 0)
+    runCommand ('condor_submit ' + condorfile + ' -queue '+ str(njobs))
 
 
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
@@ -1457,6 +1417,7 @@ if __name__ == "__main__":
     parser.add_option('-m', '--prcName'       , dest="prcName",       default= 'DMGG',           help='POWHEG process name [DMGG]')
     parser.add_option('-k', '--keepTop'       , dest="keepTop",       default= '0',           help='Keep the validation top draw plots [0]')
     parser.add_option('-d', '--noPdfCheck'    , dest="noPdfCheck",    default= '0',           help='If 1, deactivate automatic PDF check [0]')
+    parser.add_option('--fordag'    , dest="fordag",    default= '0',           help='If 1, deactivate submission, expect condor DAG file to be created')
 
     # args = parser.parse_args ()
     (args, opts) = parser.parse_args(sys.argv)
@@ -1531,6 +1492,9 @@ if __name__ == "__main__":
 
     powInputName = args.inputTemplate
     jobtag = args.parstage + '_' + args.xgrid
+    # different tag for stage3 pilot run
+    if args.parstage == '3' and njobs == 1:
+        jobtag = jobtag+'_pilot'
 
     if len(sys.argv) <= 1 :
         print "\t argument '-p', '--parstage'      , default= '0'"
@@ -1629,7 +1593,7 @@ if __name__ == "__main__":
         else:
             print 'Submitting to condor queues \n'
             condorfile = prepareCondorScript(tagName, '', '.', QUEUE) 
-            runCommand ('condor_submit ' + condorfile + ' -queue 1', TESTING == 0)
+            runCommand ('condor_submit ' + condorfile + ' -queue 1', TESTING == 0, doIt = (args.fordag == '0'))
 
     elif args.parstage == '1' :
         runParallelXgrid(args.parstage, args.xgrid, args.folderName,
@@ -1657,7 +1621,7 @@ if __name__ == "__main__":
         else:
             print 'Submitting to condor queues  \n'
             condorfile = prepareCondorScript(tagName, '', args.folderName, QUEUE, runInBatchDir=True) 
-            runCommand ('condor_submit ' + condorfile + ' -queue 1', TESTING == 0)
+            runCommand ('condor_submit ' + condorfile + ' -queue 1', TESTING == 0, doIt = (args.fordag == '0'))
 
     elif args.parstage == '0123' or args.parstage == 'a' : # compile & run
         tagName = 'all_'+args.folderName
@@ -1681,7 +1645,7 @@ if __name__ == "__main__":
         else:
             print 'Submitting to condor queues  \n'
             condorfile = prepareCondorScript(tagName, '', '.', QUEUE, runInBatchDir=True) 
-            runCommand ('condor_submit ' + condorfile + ' -queue 1', TESTING == 0)
+            runCommand ('condor_submit ' + condorfile + ' -queue 1', TESTING == 0, doIt = (args.fordag == '0'))
 
     elif args.parstage == '01239' or args.parstage == 'f' : # full single grid in oneshot 
         tagName = 'full_'+args.folderName
@@ -1705,7 +1669,7 @@ if __name__ == "__main__":
         else:
             print 'Submitting to condor queues  \n'
             condorfile = prepareCondorScript(tagName, '', '.', QUEUE, runInBatchDir=True) 
-            runCommand ('condor_submit ' + condorfile + ' -queue 1', TESTING == 0)
+            runCommand ('condor_submit ' + condorfile + ' -queue 1', TESTING == 0, doIt = (args.fordag == '0'))
 
     elif args.parstage == '7' :
         print "preparing for NNLO reweighting"
