@@ -277,7 +277,7 @@ False = pdfwgt ! for MLM matching, pdf reweighting should be set to false
 # maximal pdg code for quark to be considered as a light jet         *
 # (otherwise b cuts are applied)                                     *
 #*********************************************************************
- 5 = maxjetflavor    ! Maximum jet pdg code
+ 4 = maxjetflavor    ! Maximum jet pdg code
 #*********************************************************************
 #
 #*********************************************************************
