@@ -46,7 +46,7 @@ wdecaymode 11111     ! decay mode: the 5 digits correspond to the following
                      ! 0 means close, 1 open
 tdec/elbranching 0.108  ! W electronic branching fraction
 tdec/sin2cabibbo 0.051
-topwidth 1.31 ! 1.33 
+topwidth 1.33 
 
 ! optional production parameters 
 ! (defaults defined in init_couplings.f)
