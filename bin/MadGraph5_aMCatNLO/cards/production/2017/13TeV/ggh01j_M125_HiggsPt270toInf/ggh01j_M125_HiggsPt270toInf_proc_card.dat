@@ -1,0 +1,4 @@
+import model heft-full
+generate p p > h
+add process p p > h j
+output ggh01j_M125_HiggsPt270toInf
