@@ -5,7 +5,7 @@ import re
 
 #5000000 s0
 #5000001 a0
-particle = "a0" 
+particle = "s0" 
 #frblock --> rtu,rtc,rtt
 rtu = 0.0
 rtc = 0.4
@@ -99,9 +99,7 @@ temp_extramodels = 'ttc/g2HDM_ttc_a0_extramodels.dat'
 temp_customizecards= 'ttc/g2HDM_ttc_a0_customizecards.dat'
 
 with open(temp_customizecards) as f_cust:
-    cust = f_cust.read().splitlines()
-with open(temp_proc_card) as f_proc:
-    proc = f_proc.read()
+    cust = f_cust.read().splitlines()    
 
 for ind, m in enumerate(mass):
     if rtu > 0.000001 and rtc < 0.000001:
@@ -135,17 +133,17 @@ for ind, m in enumerate(mass):
 	cust[5]=cust[5].replace(str(cust[5].split(' ')[4]),str(0.0))
 	cust[6]=cust[6].replace(str(cust[6].split(' ')[4]),str(width_a0))
     print cust
-    
-    if "a0" in particle:
-	mod_proc = proc.replace('/ a0','/ '+particle).replace('_s0','_a0')
-    if "s0" in particle:
-	mod_proc = proc.replace('/ s0','/ '+particle).replace('_a0','_s0')
-    mod_proc = proc.replace('g2HDM_ttc_'+particle,'g2HDM_'+f_name)
-    
+   
+    proc = open(temp_proc_card,'r')
     f_name_proc = f_name+'/g2HDM_'+f_name+'_proc_card.dat'
     f_name_cust = f_name+'/g2HDM_'+f_name+'_customizecards.dat'
     with open(f_name_proc,'w') as proc_file:
-	proc_file.write(mod_proc)
+	for line in proc:
+	    if "s0" in particle:
+		linep = line.replace('/ s0','/ a0').replace('_a0','_s0').replace('g2HDM_ttc_'+particle,'g2HDM_'+f_name)
+	    else:
+		linep = line
+	    proc_file.write(linep)
     with open(f_name_cust,'w') as cust_file:
 	for el in cust:
 	    print >> cust_file, el
