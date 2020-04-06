@@ -99,11 +99,7 @@ temp_extramodels = 'ttc/g2HDM_ttc_a0_extramodels.dat'
 temp_customizecards= 'ttc/g2HDM_ttc_a0_customizecards.dat'
 
 with open(temp_customizecards) as f_cust:
-    cust = f_cust.read().splitlines()
-#with open(temp_proc_card) as f_proc:
-#    proc = f_proc.read()
-    
-
+    cust = f_cust.read().splitlines()    
 
 for ind, m in enumerate(mass):
     if rtu > 0.000001 and rtc < 0.000001:
