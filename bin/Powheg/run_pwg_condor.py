@@ -370,7 +370,7 @@ grep -q "^minnlo\\s*1" powheg.input; test $? -eq 1 || forMiNNLO=1
 
 cd $WORKDIR
 cd ${name}
-python ../make_rwl.py ${is5FlavorScheme} ${defaultPDF} ${forDYNNLOPS} ${forMiNNLO}
+python ../make_rwl.py ${is5FlavorScheme} ${defaultPDF} ${forDYNNLOPS} ${forMiNNLO} ${process}
 
 if [ -s ../JHUGen.input ]; then
   cp -p ../JHUGen.input JHUGen.input
@@ -434,10 +434,6 @@ if [ "$process" = "WZ" ] || [ "$process" = "ZZ" ]; then
    patch -l -p0 -i ${WORKDIR}/patches/lhapdf_zanderighi.patch
 fi
 
-if [ "$process" = "Wj" ]; then
-   patch -l -p0 -i ${WORKDIR}/patches/pwhg_minnlo_wj.patch
-fi
-
 if [ "$process" = "b_bbar_4l" ]; then
     cd POWHEG-BOX
     patch -l -p0 -i ${WORKDIR}/patches/res_openloops_long_install_dir.patch
@@ -461,17 +457,18 @@ echo ${POWHEGSRC} > VERSION
 
 cd POWHEG-BOX/${process}
 
+if [ "$process" = "Zj" ]; then
+   patch -l -p0 -i ${WORKDIR}/patches/zj_minnlo_scheme_weights.patch
+fi
+
 if [ $forMiNNLO -eq 1 ]; then
     if [ "$process" = "Wj" ]; then
-        wget --no-verbose --no-check-certificate https://mseidel.web.cern.ch/mseidel/public/WjMiNNLO2.tar
-        tar xf WjMiNNLO2.tar
-        cd ${process}MiNNLO
-        make clean
-        make veryclean
+        patch -l -p0 -i ${WORKDIR}/patches/wj_minnlo_scheme_weights.patch
+        cp -r  ${WORKDIR}/patches/WjMiNNLO .
     else
-        cd ${process}MiNNLO
+        patch -l -p0 -i ${WORKDIR}/patches/zj_minnlo_scheme_weights.patch
     fi
-    patch -l -p0 -i ${WORKDIR}/patches/minnlo_weights_scheme.patch
+    cd ${process}MiNNLO
 fi
 
 # This is just to please gcc 4.8.1

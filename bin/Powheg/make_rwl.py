@@ -20,6 +20,7 @@ is5FlavorScheme = str(sys.argv[1])
 CentralPDF = str(sys.argv[2])
 forDYNNLOPS = bool(int(sys.argv[3])) if len(sys.argv) > 3 else False
 forMiNNLO = bool(int(sys.argv[4])) if len(sys.argv) > 4 else False
+process = str(sys.argv[5]) if len(sys.argv) > 5 else ''
 
 # is5FlavorScheme = True
 # CentralPDF = 306000
@@ -38,6 +39,7 @@ m_idx = 1001
 
 fout = open(m_outfile, 'w')
 
+# scale variations
 fout.write("<initrwgt>\n")
 fout.write("<weightgroup name='scale_variation' combine='envelope' >\n")
 
@@ -49,6 +51,7 @@ for m_rensc in m_factor :
 		  
 fout.write("</weightgroup>\n")
 
+# additional NNLOPS scale variations
 if forDYNNLOPS:
   print("DYNNLOPS: Scale variations will be duplicated for 9x9 final NNLOxMINLO weights")
   
@@ -62,6 +65,41 @@ if forDYNNLOPS:
         m_idx = m_idx + 1
 		  
   fout.write("</weightgroup>\n")
+
+if forMiNNLO:
+  # additional MiNNLO scale variations (NNPDF 3.0)
+  fout.write("<weightgroup name='scale_variation_nnpdf30' combine='envelope' >\n")
+
+  for m_rensc in m_factor :
+    for m_facsc in m_factor :
+      fout.write("<weight id='"+str(m_idx)+"'> lhapdf=303200 renscfact="+ \
+                m_rensc+" facscfact="+m_facsc+" </weight>\n")
+      m_idx = m_idx + 1
+        
+  fout.write("</weightgroup>\n")
+  
+  # variations for sthw2 and W/Z masses
+  if process == 'Zj':
+    fout.write("<weightgroup name='zmass_variation' combine='envelope' >\n")
+    mz = 911876
+    for val in range(mz-1000, mz+1000+50, 50):
+      fout.write("<weight id='%i'> zmass=%.4f </weight>\n" % (m_idx, val/10000.))
+      m_idx = m_idx + 1
+    fout.write("</weightgroup>\n")
+    
+    fout.write("<weightgroup name='sthw2_variation' combine='envelope' >\n")
+    for val in [0.22295429900600761, 0.2300, 0.2305, 0.2310, 0.2315, 0.2320, 0.2325, 0.2330]:
+      fout.write("<weight id='%i'> sthw2=%.4f </weight>\n" % (m_idx, val))
+      m_idx = m_idx + 1
+    fout.write("</weightgroup>\n")
+    
+  if process == 'Wj':
+    fout.write("<weightgroup name='wmass_variation' combine='envelope' >\n")
+    mw = 803790
+    for val in range(mw-1000, mw+1000+50, 50):
+      fout.write("<weight id='%i'> wmass=%.4f </weight>\n" % (m_idx, val/10000.))
+      m_idx = m_idx + 1
+    fout.write("</weightgroup>\n")
 
 if forDYNNLOPS or forMiNNLO:
   print("DYNNLOPS/MiNNLO: PDF variations will be reduced for generation speed")
@@ -83,6 +121,11 @@ if forDYNNLOPS or forMiNNLO:
               [2400, 325900, 'NNPDF31_nnlo_as_0118_CMSW2_hessian_100', 101],
               [2600, 326100, 'NNPDF31_nnlo_as_0118_CMSW3_hessian_100', 101],
               [2800, 326300, 'NNPDF31_nnlo_as_0118_CMSW4_hessian_100', 101],
+              [3000, 303200, 'NNPDF30_nnlo_as_0118_hessian', 101],
+              [3102, 268000, 'NNPDF30_nnlo_as_0115', 1],
+              [3103, 269000, 'NNPDF30_nnlo_as_0117', 1],
+              [3104, 270000, 'NNPDF30_nnlo_as_0119', 1],
+              [3105, 271000, 'NNPDF30_nnlo_as_0121', 1],
               [5000, 13000, 'CT14nnlo', 57],
               [5060, 13065, 'CT14nnlo_as_0116', 1],
               [5070, 13069, 'CT14nnlo_as_0120', 1],

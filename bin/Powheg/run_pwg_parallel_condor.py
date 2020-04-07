@@ -106,7 +106,8 @@ if __name__ == "__main__":
             cleanstep = ''.join(e for e in step if e.isalnum())
             dagfile.write('JOB '+cleanstep+' '+condorFile)
             dagfile.write('\n')
-    dagfile.write('SCRIPT POST ALL_NODES check_dag_success.py run_%s.nodes.log $JOB\n' % dagfilename)
+    cwd = os.getcwd()
+    dagfile.write('SCRIPT POST ALL_NODES %s/check_dag_success.py %s/%s.nodes.log $JOB\n' % (cwd, cwd, dagfilename))
     for i in range(len(steps)-1):
         condorFile_current = steps[i  ][2]
         condorFile_next    = steps[i+1][2]
