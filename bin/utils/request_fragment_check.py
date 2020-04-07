@@ -804,7 +804,7 @@ for num in range(0,len(prepid)):
                     print "maxjetflavor = "+str(maxjetflavor)
                     if matching_c == 3 and herwig_flag != 0:
                         ps_hw = os.popen('grep parton_shower '+filename_rc)
-                        if herwigpp not in ps_hw:
+                        if "herwigpp" not in ps_hw:
                             print "* [ERROR] herwigpp = parton_shower not in run_card.dat"
                             error += 1
                         if int(os.popen('grep -c "set FxFxHandler:MergeMode FxFx" '+pi).read()) == 0:
@@ -821,7 +821,7 @@ for num in range(0,len(prepid)):
                     print ickkw_c
                     if herwig_flag != 0:
                         ps_hw = os.popen('grep parton_shower '+my_path+'/'+pi+'/'+'process/Cards/run_card.dat')
-                        if herwigpp not in ps_hw:
+                        if "herwigpp" not in ps_hw:
                             print "* [ERROR] herwigpp = parton_shower not in run_card.dat"
                             error += 1
 
