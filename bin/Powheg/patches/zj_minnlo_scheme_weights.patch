@@ -2,7 +2,7 @@ Index: PhysPars.h
 ===================================================================
 --- PhysPars.h	(revision 3720)
 +++ PhysPars.h	(working copy)
-@@ -1,12 +1,12 @@
+@@ -1,12 +1,14 @@
  c -*- Fortran -*-
 -      real * 8 ph_alphaem,ph_Zmass,ph_Zwidth,ph_Wmass,ph_Wwidth,ph_cthw,
 +      real * 8 ph_alphaem,ph_Zmass,ph_Zwidth,osZwidth,ph_Wmass,ph_Wwidth,ph_cthw,
@@ -10,15 +10,50 @@ Index: PhysPars.h
       $     ph_Wmass2,ph_Wmass2low,ph_Wmass2high ,ph_ZmZw,ph_WmWw,
 -     $     ph_unit_e, ph_CKM(3,3)
 -      common/ph_common/ph_alphaem,ph_Zmass,ph_Zwidth,ph_Wmass,ph_Wwidth,
++     $     ps_Zmass,ps_Zmass2,ps_ZmZw,
 +     $     ph_unit_e, ph_gmu, ph_CKM(3,3)
 +      common/ph_common/ph_alphaem,ph_Zmass,ph_Zwidth,osZwidth,ph_Wmass,ph_Wwidth,
       $     ph_cthw,ph_sthw,ph_sthw2,ph_Zmass2,ph_Zmass2low,
-      $     ph_Zmass2high,ph_Wmass2,ph_Wmass2low,ph_Wmass2high ,ph_ZmZw,
+-     $     ph_Zmass2high,ph_Wmass2,ph_Wmass2low,ph_Wmass2high ,ph_ZmZw,
 -     $     ph_WmWw,ph_unit_e,ph_CKM
-+     $     ph_WmWw,ph_unit_e,ph_gmu,ph_CKM
++     $     ph_Zmass2high,ph_Wmass2,ph_Wmass2low,ph_Wmass2high ,ph_ZmZw,ph_WmWw,
++     $     ps_Zmass,ps_Zmass2,ps_ZmZw,
++     $     ph_unit_e,ph_gmu,ph_CKM
  
  ccccccccccccccccccccccccccccccc
  c     to include Z->bb
+Index: Born_phsp.f
+===================================================================
+--- Born_phsp.f	(revision 3720)
++++ Born_phsp.f	(working copy)
+@@ -25,13 +25,13 @@
+ c d omegadec/(8*(2 pi)^2)
+ c omega: 3d angle in CM system
+ c omegadec: 3d angle in CM system of Z decay products
+-      zlow=atan((ph_Zmass2low  - ph_Zmass2)/ph_ZmZw)
+-      zhigh=atan((min(ph_Zmass2high,kn_sbeams)  - ph_Zmass2)/ph_ZmZw)
++      zlow=atan((ph_Zmass2low  - ps_Zmass2)/ps_ZmZw)
++      zhigh=atan((min(ph_Zmass2high,kn_sbeams)  - ps_Zmass2)/ps_ZmZw)
+       z=zlow+(zhigh-zlow)*xborn(1)
+       xjac=zhigh-zlow
+-      m2=ph_ZmZw*tan(z)+ph_Zmass2
++      m2=ps_ZmZw*tan(z)+ps_Zmass2
+ c d m^2/(2pi) jacobian
+-      xjac=xjac*ph_ZmZw/cos(z)**2/(2*pi)
++      xjac=xjac*ps_ZmZw/cos(z)**2/(2*pi)
+ c d x1 d x2 = d tau d y;
+       taumin=( sqrt(m2+kn_ktmin**2) + kn_ktmin )**2/kn_sbeams
+       tau=exp(log(taumin)*(1-xborn(2)**2))
+@@ -182,7 +182,7 @@
+          mur=sqrt(pt2)
+          muf=mur
+       else
+-         muf=ph_Zmass
+-         mur=ph_Zmass
++         muf=ps_Zmass
++         mur=ps_Zmass
+       endif
+       end
 Index: ZjMiNNLO/init_couplings.f
 ===================================================================
 --- ZjMiNNLO/init_couplings.f	(revision 3720)
@@ -126,15 +161,31 @@ Index: ZjMiNNLO/init_couplings.f
  c     number of light flavors
        st_nlight = 5
  c Masses of light leptons for Z decays:
-@@ -138,15 +159,17 @@
-       endif
+@@ -117,7 +138,13 @@
+ cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+       ph_sthw = sqrt(ph_sthw2)
+       ph_cthw = sqrt(1-ph_sthw2)
++      
+       ph_Zmass2 = ph_Zmass**2
++      ph_ZmZw = ph_Zmass * ph_Zwidth
++      
++      ps_Zmass = ph_Zmass
++      ps_Zmass2 = ph_Zmass2
++      ps_ZmZw = ph_ZmZw
  
-       ph_ZmZw = ph_Zmass * ph_Zwidth
+ c     set mass windows around Z-mass peak in unit of ph_Zwidth
+ c     It is used in the generation of the Born phase space
+@@ -136,17 +163,17 @@
+          masswindow_high = 15
+          ph_Zmass2high=(ph_Zmass+masswindow_high*ph_Zwidth)**2
+       endif
 +      
 +      ph_Wmass = sqrt(ph_Zmass**2*(1d0-ph_sthw2))
 +      ph_unit_e = sqrt(ph_gmu * 8d0/sqrt(2d0) * ph_Wmass**2 * ph_sthw2)
 +      ph_alphaem = ph_unit_e*ph_unit_e/4d0/pi
  
+-      ph_ZmZw = ph_Zmass * ph_Zwidth
+-
 -      ph_unit_e = sqrt(4*pi*ph_alphaem)
 -
        if(verbose) then
