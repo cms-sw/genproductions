@@ -64,35 +64,47 @@ if __name__ == "__main__":
     print
 
 
+    # parse differe
+    queues = {}
+    if ',' in args.doQueue:
+        for pair in args.doQueue.split(','):
+            istep,queue = pair.split(':')
+            queues[int(istep)] = queue
+    
     steps = []
     if '0' in args.parstage:
-        steps.append(('compile',                   '-p 0','null'))
+        steps.append((0, 'compile',                   '-p 0','null'))
     if '1' in args.parstage:
         for ix in range(1, int(args.numX)+1):
             steps.append(
-            ('grid production 1-'+str(ix),'-p 1 -x '+str(ix), 'run_'+args.folderName+'_1_'+str(ix)+'.condorConf'))
+            (1, 'grid production 1-'+str(ix),'-p 1 -x '+str(ix), 'run_'+args.folderName+'_1_'+str(ix)+'.condorConf'))
     if '2' in args.parstage:
         steps.append(
-            ('grid production 2',         '-p 2', 'run_'+args.folderName+'_2_1.condorConf'))
+            (2, 'grid production 2',         '-p 2', 'run_'+args.folderName+'_2_1.condorConf'))
     if '3' in args.parstage:
         if args.step3pilot:
             steps.append(
-            ('grid production 3 pilot',   '-p 3', 'run_'+args.folderName+'_3_1_pilot.condorConf'))
+            (3, 'grid production 3 pilot',   '-p 3', 'run_'+args.folderName+'_3_1_pilot.condorConf'))
         steps.append(
-            ('grid production 3',         '-p 3', 'run_'+args.folderName+'_3_1.condorConf'))
+            (3, 'grid production 3',         '-p 3', 'run_'+args.folderName+'_3_1.condorConf'))
     if '9' in args.parstage:
         steps.append(
-            ('grid production 9',         '-p 9 -k 1','null'))
+            (9, 'grid production 9',         '-p 9 -k 1','null'))
 
-    for step,extraOpt,condorFile in steps:
+    for istep,step,extraOpt,condorFile in steps:
         print '*'*50,step,'*'*5,extraOpt,'*'*50
         njobs = args.numJobs
         if 'pilot' in step:
             njobs = '1'
         
         commonOpts='-i '+args.inputTemplate+' -m '+args.prcName+' -f '+args.folderName+' -j '+njobs+' --fordag 1'
-        if args.eosFolder != 'NONE': commonOpts+=' -e '+args.eosFolder
-        if extraOpt!='-p 0' and extraOpt!='-p 9 -k 1': commonOpts = commonOpts+' -q '+args.doQueue
+        if args.eosFolder != 'NONE':
+            commonOpts+=' -e '+args.eosFolder
+        if extraOpt!='-p 0' and extraOpt!='-p 9 -k 1':
+            if len(queues) > 0:
+                commonOpts = commonOpts+' -q '+queues[istep]
+            else:
+                commonOpts = commonOpts+' -q '+args.doQueue
         command = 'python ./run_pwg_condor.py %s %s'%(extraOpt,commonOpts)
         print command
         if args.dryrun: continue
@@ -101,7 +113,7 @@ if __name__ == "__main__":
     
     dagfilename = 'run_' + args.folderName + '.dag'
     dagfile = open(dagfilename, 'w')
-    for step,extraOpt,condorFile in steps:
+    for istep,step,extraOpt,condorFile in steps:
         if 'condorConf' in condorFile:
             cleanstep = ''.join(e for e in step if e.isalnum())
             dagfile.write('JOB '+cleanstep+' '+condorFile)
@@ -109,13 +121,17 @@ if __name__ == "__main__":
     cwd = os.getcwd()
     dagfile.write('SCRIPT POST ALL_NODES %s/check_dag_success.py %s/%s.nodes.log $JOB\n' % (cwd, cwd, dagfilename))
     for i in range(len(steps)-1):
-        condorFile_current = steps[i  ][2]
-        condorFile_next    = steps[i+1][2]
-        step_current = ''.join(e for e in steps[i  ][0] if e.isalnum())
-        step_next    = ''.join(e for e in steps[i+1][0] if e.isalnum())
+        condorFile_current = steps[i  ][3]
+        condorFile_next    = steps[i+1][3]
+        step_current = ''.join(e for e in steps[i  ][1] if e.isalnum())
+        step_next    = ''.join(e for e in steps[i+1][1] if e.isalnum())
         if 'condorConf' in condorFile_current and 'condorConf' in condorFile_next:
             dagfile.write('PARENT '+step_current+' CHILD '+step_next)
             dagfile.write('\n')
     dagfile.close()
     
-            
+    command = 'condor_submit_dag %s'%(dagfilename)
+    print command
+    if not args.dryrun:
+        command_out = commands.getstatusoutput(command)[1]
+        print command_out

@@ -457,15 +457,11 @@ echo ${POWHEGSRC} > VERSION
 
 cd POWHEG-BOX/${process}
 
-if [ "$process" = "Zj" ]; then
-   patch -l -p0 -i ${WORKDIR}/patches/zj_minnlo_scheme_weights.patch
-fi
-
 if [ $forMiNNLO -eq 1 ]; then
     if [ "$process" = "Wj" ]; then
         patch -l -p0 -i ${WORKDIR}/patches/wj_minnlo_scheme_weights.patch
         cp -r  ${WORKDIR}/patches/WjMiNNLO .
-    else
+    elif [ "$process" = "Zj" ]; then
         patch -l -p0 -i ${WORKDIR}/patches/zj_minnlo_scheme_weights.patch
     fi
     cd ${process}MiNNLO
