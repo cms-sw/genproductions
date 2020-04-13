@@ -135,7 +135,7 @@ parser = argparse.ArgumentParser(
                   *         Please add the tune name to the dataset.
                   * [ERROR] Dataset name does not contain a parton shower code name
                   *         Please add the parton shower name to the dataset name.
-                  * [ERROR] HERWIGPP = parton_shower not in run_card.dat
+                  * [ERROR] herwigpp = parton_shower not in run_card.dat
                   * [ERROR] Although the name of the dataset has ~Madgraph, the gridpack doesn't seem to be a MG5_aMC one. Please check.
                   * [ERROR] Please add \'set FxFxHandler:MergeMode FxFx\'
 	              *         and set FxFxHandler:njetsmax to the number of additional partons in the proc_card
@@ -804,8 +804,8 @@ for num in range(0,len(prepid)):
                     print "maxjetflavor = "+str(maxjetflavor)
                     if matching_c == 3 and herwig_flag != 0:
                         ps_hw = os.popen('grep parton_shower '+filename_rc)
-                        if "HERWIGPP" not in ps_hw.upper():
-                            print "* [ERROR] HERWIGPP = parton_shower not in run_card.dat"
+                        if "herwigpp" not in ps_hw:
+                            print "* [ERROR] herwigpp = parton_shower not in run_card.dat"
                             error += 1
                         if int(os.popen('grep -c "set FxFxHandler:MergeMode FxFx" '+pi).read()) == 0:
 			    print "* [ERROR] Please add \'set FxFxHandler:MergeMode FxFx\'"
@@ -821,8 +821,8 @@ for num in range(0,len(prepid)):
                     print ickkw_c
                     if herwig_flag != 0:
                         ps_hw = os.popen('grep parton_shower '+my_path+'/'+pi+'/'+'process/Cards/run_card.dat')
-                        if "HERWIGPP" not in ps_hw.upper():
-                            print "* [ERROR] HERWIGPP = parton_shower not in run_card.dat"
+                        if "herwigpp" not in ps_hw:
+                            print "* [ERROR] herwigpp = parton_shower not in run_card.dat"
                             error += 1
 
         if "jhugen" in dn.lower():
@@ -933,12 +933,12 @@ for num in range(0,len(prepid)):
                                             print"*                                             "+str(UL_PDFs_N[0])+"  "+str(UL_PDFs[0])
                                             print"*                                             or "+str(UL_PDFs_N[1])+"  "+str(UL_PDFs[1])
                                             warning += 1
-                    if et_flag == 0:
+		    if os.path.isfile(my_path+'/'+pi+'/'+'external_tarball/pwg-rwl.dat') is True:	
+			pwg_rwl_file = os.path.join(my_path, pi, "external_tarball/pwg-rwl.dat")
+                    else:
                         pwg_rwl_file = os.path.join(my_path, pi, "pwg-rwl.dat")
-                    if et_flag == 1:
-                        pwg_rwl_file = os.path.join(my_path, pi, "external_tarball/pwg-rwl.dat")
                     if os.path.isfile(pwg_rwl_file):
-                        with open(os.path.join(my_path, pi, "pwg-rwl.dat")) as f_pdf:
+                        with open(pwg_rwl_file) as f_pdf:
                             pdf_var_check0 = 0
                             pdf_var_check1 = 0
                             scale_var_check0 = 0
