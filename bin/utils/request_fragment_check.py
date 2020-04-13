@@ -933,12 +933,12 @@ for num in range(0,len(prepid)):
                                             print"*                                             "+str(UL_PDFs_N[0])+"  "+str(UL_PDFs[0])
                                             print"*                                             or "+str(UL_PDFs_N[1])+"  "+str(UL_PDFs[1])
                                             warning += 1
-                    if et_flag == 0:
+		    if os.path.isfile(my_path+'/'+pi+'/'+'external_tarball/pwg-rwl.dat') is True:	
+			pwg_rwl_file = os.path.join(my_path, pi, "external_tarball/pwg-rwl.dat")
+                    else:
                         pwg_rwl_file = os.path.join(my_path, pi, "pwg-rwl.dat")
-                    if et_flag == 1:
-                        pwg_rwl_file = os.path.join(my_path, pi, "external_tarball/pwg-rwl.dat")
                     if os.path.isfile(pwg_rwl_file):
-                        with open(os.path.join(my_path, pi, "pwg-rwl.dat")) as f_pdf:
+                        with open(pwg_rwl_file) as f_pdf:
                             pdf_var_check0 = 0
                             pdf_var_check1 = 0
                             scale_var_check0 = 0
