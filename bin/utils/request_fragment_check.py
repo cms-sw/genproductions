@@ -803,7 +803,7 @@ for num in range(0,len(prepid)):
                     maxjetflavor = int(re.search(r'\d+',maxjetflavor).group())
                     print "maxjetflavor = "+str(maxjetflavor)
                     if matching_c == 3 and herwig_flag != 0:
-                        ps_hw = os.popen('grep parton_shower '+filename_rc)
+                        ps_hw = os.popen('grep parton_shower '+filename_rc).read()
                         if "HERWIGPP" not in ps_hw.upper():
                             print "* [ERROR] HERWIGPP = parton_shower not in run_card.dat"
                             error += 1
@@ -820,7 +820,7 @@ for num in range(0,len(prepid)):
                     matching_c = int(re.search(r'\d+',ickkw_c).group())
                     print ickkw_c
                     if herwig_flag != 0:
-                        ps_hw = os.popen('grep parton_shower '+my_path+'/'+pi+'/'+'process/Cards/run_card.dat')
+                        ps_hw = os.popen('grep parton_shower '+my_path+'/'+pi+'/'+'process/Cards/run_card.dat').read()
                         if "HERWIGPP" not in ps_hw.upper():
                             print "* [ERROR] HERWIGPP = parton_shower not in run_card.dat"
                             error += 1
