@@ -10,7 +10,7 @@ def makeMassPoint(mass):
   templates = [join(templDir, card) for card in  [
                                                         "ZpHgamma_UFO-M1200_proc_card.dat"   ,
                                                         "ZpHgamma_UFO-M1200_extramodels.dat" ,
-                                                        "ZpHgamma_UFO-M1200_run_card.dat"    
+                                                        "ZpHgamma_UFO-M1200_run_card.dat"
                                                       ]
               ]
   for template in templates:
@@ -25,8 +25,6 @@ if __name__ == "__main__":
   if len(argv) != 2:
     print "please run this script with one argument, the mass of the Zp->Gh sample to make"
     exit(1)
-  
+
   mass = int(argv[1])
   makeMassPoint(mass)
-
-
