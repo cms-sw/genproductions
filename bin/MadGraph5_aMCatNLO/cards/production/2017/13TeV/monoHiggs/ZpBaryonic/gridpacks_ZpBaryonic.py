@@ -1,3 +1,5 @@
+## written by Fasya Khuzaimah and Shu-Xiao Liu
+
 import os
 import shutil
 
