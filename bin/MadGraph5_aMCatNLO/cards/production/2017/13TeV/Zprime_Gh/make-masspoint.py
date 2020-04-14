@@ -8,7 +8,6 @@ def makeMassPoint(mass):
   mkdir(outDir)
 
   templates = [join(templDir, card) for card in  [
-                                                   "ZpHgamma_UFO-M1200_proc_card.dat"   ,
                                                    "ZpHgamma_UFO-M1200_extramodels.dat" ,
                                                    "ZpHgamma_UFO-M1200_run_card.dat"
                                                  ]
@@ -18,6 +17,12 @@ def makeMassPoint(mass):
   with open(join(outDir, "ZpHgamma_UFO-M%i_customizecards.dat" % mass), "w") as cc:
     cc.write("set param_card MZp %i\n" % mass)
     cc.write("set param_card WZp %0.3f" % (mass/float(1e4)))
+  with open(join(templDir, "ZpHgamma_UFO-M1200_proc_card.dat"), "r") as procTempl:
+    with open(join(outDir, "ZpHgamma_UFO-M%i_proc_card.dat" % mass), "w") as procOut:
+      for line in procTempl:
+        if "ZpHgamma_UFO-M1200" in line:
+          line = line.replace("ZpHgamma_UFO-M1200", "ZpHgamma_UFO-M%i" % mass)
+        procOut.write(line)
 
 if __name__ == "__main__":
   from sys import argv
