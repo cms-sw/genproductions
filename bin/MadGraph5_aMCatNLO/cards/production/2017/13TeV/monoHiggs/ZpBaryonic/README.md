@@ -14,7 +14,7 @@ after executing python script, gridpacks will be generated in several minutes
 git clone git@github.com:cms-sw/genproductions.git
 # Produce cards
 cd genproductions/bin/MadGraph5_aMCatNLO/
-cp cards/production/2017/13TeV/monoHiggs/ZpBaryonic/gridpacks_ZpBaryonic.py
+cp cards/production/2017/13TeV/monoHiggs/ZpBaryonic/gridpacks_ZpBaryonic.py .
 cp cards/production/2017/13TeV/monoHiggs/ZpBaryonic/pdflist_4f_2017.dat ../../MetaData/.
 cp -r cards/production/2017/13TeV/monoHiggs/ZpBaryonic/cards/* cards/. 
 python gridpacks_ZpBaryonic.py
