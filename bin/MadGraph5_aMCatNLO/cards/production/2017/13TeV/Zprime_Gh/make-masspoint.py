@@ -8,10 +8,10 @@ def makeMassPoint(mass):
   mkdir(outDir)
 
   templates = [join(templDir, card) for card in  [
-                                                        "ZpHgamma_UFO-M1200_proc_card.dat"   ,
-                                                        "ZpHgamma_UFO-M1200_extramodels.dat" ,
-                                                        "ZpHgamma_UFO-M1200_run_card.dat"
-                                                      ]
+                                                   "ZpHgamma_UFO-M1200_proc_card.dat"   ,
+                                                   "ZpHgamma_UFO-M1200_extramodels.dat" ,
+                                                   "ZpHgamma_UFO-M1200_run_card.dat"
+                                                 ]
               ]
   for template in templates:
     copyfile(template, template.replace("1200", str(mass)))
