@@ -1,8 +1,8 @@
 import os
 import shutil
 
-#exe=0 to produce cards only   
-exe = 0 #exe=1 to run locally in lxplus
+exe=0 #to produce cards only   
+#exe=1 #to run locally in lxplus
 
 
 def mkDir(dirName):

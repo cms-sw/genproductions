@@ -36,7 +36,7 @@ modified in the future. Therefore, please double check the following change:
 
 ### Structure
 To generate gridpack, you need to prepare some cards for gridpack
-[here](cards/) are the template cards for ZpBaryonic
+[here](cards/) are the template cards for ZpBaryonic. 
 [python script](gridpacks_ZpBaryonic.py) copies template cards and replace the parameters of the cards after preparing cards, jobs to generate gridpack will be sent to batch system and it will finished in several minutes 
 
 ### How do I use it?
