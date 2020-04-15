@@ -2,26 +2,19 @@ Index: PhysPars.h
 ===================================================================
 --- PhysPars.h	(revision 3720)
 +++ PhysPars.h	(working copy)
-@@ -1,12 +1,14 @@
- c -*- Fortran -*-
--      real * 8 ph_alphaem,ph_Zmass,ph_Zwidth,ph_Wmass,ph_Wwidth,ph_cthw,
-+      real * 8 ph_alphaem,ph_Zmass,ph_Zwidth,osZwidth,ph_Wmass,ph_Wwidth,ph_cthw,
+@@ -2,10 +2,12 @@
+       real * 8 ph_alphaem,ph_Zmass,ph_Zwidth,ph_Wmass,ph_Wwidth,ph_cthw,
       $     ph_sthw,ph_sthw2,ph_Zmass2,ph_Zmass2low,ph_Zmass2high,
       $     ph_Wmass2,ph_Wmass2low,ph_Wmass2high ,ph_ZmZw,ph_WmWw,
--     $     ph_unit_e, ph_CKM(3,3)
--      common/ph_common/ph_alphaem,ph_Zmass,ph_Zwidth,ph_Wmass,ph_Wwidth,
-+     $     ps_Zmass,ps_Zmass2,ps_ZmZw,
-+     $     ph_unit_e, ph_gmu, ph_CKM(3,3)
-+      common/ph_common/ph_alphaem,ph_Zmass,ph_Zwidth,osZwidth,ph_Wmass,ph_Wwidth,
++     $     ps_Zmass,ps_Zmass2,ps_ZmZw,ps_Zwidth,ph_gmu,
+      $     ph_unit_e, ph_CKM(3,3)
+       common/ph_common/ph_alphaem,ph_Zmass,ph_Zwidth,ph_Wmass,ph_Wwidth,
       $     ph_cthw,ph_sthw,ph_sthw2,ph_Zmass2,ph_Zmass2low,
--     $     ph_Zmass2high,ph_Wmass2,ph_Wmass2low,ph_Wmass2high ,ph_ZmZw,
--     $     ph_WmWw,ph_unit_e,ph_CKM
-+     $     ph_Zmass2high,ph_Wmass2,ph_Wmass2low,ph_Wmass2high ,ph_ZmZw,ph_WmWw,
-+     $     ps_Zmass,ps_Zmass2,ps_ZmZw,
-+     $     ph_unit_e,ph_gmu,ph_CKM
+      $     ph_Zmass2high,ph_Wmass2,ph_Wmass2low,ph_Wmass2high ,ph_ZmZw,
++     $     ps_Zmass,ps_Zmass2,ps_ZmZw,ps_Zwidth,ph_gmu,
+      $     ph_WmWw,ph_unit_e,ph_CKM
  
  ccccccccccccccccccccccccccccccc
- c     to include Z->bb
 Index: Born_phsp.f
 ===================================================================
 --- Born_phsp.f	(revision 3720)
@@ -58,64 +51,15 @@ Index: ZjMiNNLO/init_couplings.f
 ===================================================================
 --- ZjMiNNLO/init_couplings.f	(revision 3720)
 +++ ZjMiNNLO/init_couplings.f	(working copy)
-@@ -14,60 +14,81 @@
+@@ -14,6 +14,7 @@
        real * 8 masswindow_low,masswindow_high,zmasslow,zmasshigh
        real *8 powheginput,pwhg_alphas
        external powheginput,pwhg_alphas
-+      real*8 osZmass
++      real*8 osZmass,osZwidth
        logical verbose
        parameter(verbose=.true.)
--
-+      
-       flg_minnlo=powheginput('#minnlo').eq.1
-       flg_uubornonly=powheginput('#uubornonly').eq.1
-       if (flg_uubornonly) then
--         flg_bornonly = .true.
-+            flg_bornonly = .true.
-       endif
- c     If minlo is not present in the input card, but minnlo is,
- c     then set also flg_minlo to true, so that we are sure all is done
- c     properly in setlocalscales and for all other occurencies of
- c     flg_minlo.
-       if(flg_minnlo) flg_minlo=.true.
--
--
-+      
-+      
-       if(powheginput("#par_isrtinycsi").gt.0) 
-      $     par_isrtinycsi = powheginput("#par_isrtinycsi")
--
-+      
-       if(powheginput("#par_fsrtinycsi").gt.0) 
-      $     par_fsrtinycsi = powheginput("#par_fsrtinycsi")
--
-+      
-       if(powheginput("#par_isrtinyy").gt.0) 
-      $     par_isrtinyy = powheginput("#par_isrtinyy")
--
-+      
-       if(powheginput("#par_fsrtinyy").gt.0) 
-      $     par_fsrtinyy = powheginput("#par_fsrtinyy")
--
--
-+      
-+      
-       flg_withdamp=.true.
-       flg_bornzerodamp=.true.
-       if(powheginput('#withdamp').eq.0) then
--         flg_withdamp=.false.
--         flg_bornzerodamp=.false.
-+            flg_withdamp=.false.
-+            flg_bornzerodamp=.false.
-       endif
--
--
--
--
-+      
-+      
-+      
-+      
+ 
+@@ -55,18 +56,44 @@
  cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
  cccccc   INDEPENDENT QUANTITIES       
  cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
@@ -140,10 +84,14 @@ Index: ZjMiNNLO/init_couplings.f
 +      ph_gmu = powheginput("#gmu")
 +      if (ph_gmu.le.0) ph_gmu = 1.1663787d-5
 +      
++      ps_Zmass = powheginput("#psZmass")
++      if (ps_Zmass.le.0d0) ps_Zmass = ph_Zmass
++      
 +      if(verbose) then
 +            write(*,*) '*************************************'
 +            write(*,*) 'Using GF,mZ,sthw2 input scheme'
 +            write(*,*) 'input Z mass = ',ph_Zmass
++            write(*,*) 'input Z mass (phsp) = ',ps_Zmass
 +            write(*,*) 'input Z width = ',ph_Zwidth
 +            write(*,*) 'input W width = ',ph_Wwidth
 +            write(*,*) 'input sthw2 = ',ph_sthw2
@@ -156,12 +104,13 @@ Index: ZjMiNNLO/init_couplings.f
 +      osZwidth= ph_Zwidth
 +      ph_Zmass= osZmass/sqrt(1.d0+(osZwidth/osZmass)**2)
 +      ph_Zwidth= osZwidth/sqrt(1.d0+(osZwidth/osZmass)**2)
++      
++      ps_Zwidth= osZwidth/sqrt(1.d0+(osZwidth/ps_Zmass)**2)
++      ps_Zmass= ps_Zmass/sqrt(1.d0+(osZwidth/ps_Zmass)**2)
  
-+
  c     number of light flavors
        st_nlight = 5
- c Masses of light leptons for Z decays:
-@@ -117,7 +138,13 @@
+@@ -117,7 +144,12 @@
  cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
        ph_sthw = sqrt(ph_sthw2)
        ph_cthw = sqrt(1-ph_sthw2)
@@ -169,13 +118,12 @@ Index: ZjMiNNLO/init_couplings.f
        ph_Zmass2 = ph_Zmass**2
 +      ph_ZmZw = ph_Zmass * ph_Zwidth
 +      
-+      ps_Zmass = ph_Zmass
-+      ps_Zmass2 = ph_Zmass2
-+      ps_ZmZw = ph_ZmZw
++      ps_Zmass2 = ps_Zmass**2
++      ps_ZmZw = ps_Zmass * ps_Zwidth
  
  c     set mass windows around Z-mass peak in unit of ph_Zwidth
  c     It is used in the generation of the Born phase space
-@@ -136,17 +163,17 @@
+@@ -136,17 +168,18 @@
           masswindow_high = 15
           ph_Zmass2high=(ph_Zmass+masswindow_high*ph_Zwidth)**2
        endif
@@ -191,6 +139,7 @@ Index: ZjMiNNLO/init_couplings.f
        if(verbose) then
        write(*,*) '*************************************'
        write(*,*) 'Z mass = ',ph_Zmass
++      write(*,*) 'Z mass (phsp) = ',ps_Zmass
        write(*,*) 'Z width = ',ph_Zwidth
 -c      write(*,*) 'W mass = ',ph_Wmass
 -c      write(*,*) 'W width = ',ph_Wwidth
@@ -199,68 +148,3 @@ Index: ZjMiNNLO/init_couplings.f
        write(*,*) '1/alphaem = ',1d0/ph_alphaem
        write(*,*) 'alphaem = ',ph_alphaem
        write(*,*) 'sthw2 = ',ph_sthw2
-Index: ZjMiNNLO/rwl_setup_param_weights.f
-===================================================================
---- ZjMiNNLO/rwl_setup_param_weights.f	(revision 3720)
-+++ ZjMiNNLO/rwl_setup_param_weights.f	(working copy)
-@@ -3,9 +3,12 @@
-       integer count
-       integer, save :: old_pdf1,old_pdf2
-       real * 8, save :: old_facfact,old_renfact
-+      real * 8, save :: old_sthw2,old_Zmass,old_Zwidth
-       include 'pwhg_rwl.h'
-       include 'pwhg_pdf.h'
-       include 'pwhg_st.h'
-+      include 'pwhg_math.h'
-+      include 'PhysPars.h'
-       logical rwl_keypresent
-       real * 8 val
-       character * 5 scheme
-@@ -17,11 +20,26 @@
-          old_pdf2=pdf_ndns2
-          old_facfact = st_facfact
-          old_renfact = st_renfact
-+         old_sthw2 = ph_sthw2
-+         old_Zmass = ph_Zmass
-       elseif(count == -1) then
-          pdf_ndns1 = old_pdf1
-          pdf_ndns2 = old_pdf2
-          st_facfact = old_facfact
-          st_renfact = old_renfact
-+         
-+         ph_sthw2 = old_sthw2
-+         ph_sthw = sqrt(ph_sthw2)
-+         ph_cthw = sqrt(1-ph_sthw2)
-+         
-+         ph_Zmass = old_Zmass
-+         ph_Zmass2 = ph_Zmass**2
-+         ph_ZmZw = ph_Zmass * ph_Zwidth
-+         
-+         ph_Wmass = sqrt(ph_Zmass**2*(1d0-ph_sthw2))
-+         ph_unit_e = sqrt(ph_gmu * 8d0/sqrt(2d0) * ph_Wmass**2 * ph_sthw2)
-+         ph_alphaem = ph_unit_e*ph_unit_e/4d0/pi
-+         
-          call genericpdfpar(pdf_ndns1,pdf_ih1,st_lambda5MSB,
-      1        scheme,iorder,iret)
-       else
-@@ -43,5 +61,20 @@
-          if(rwl_keypresent(count,'renscfact',val)) then
-             st_renfact = val
-          endif
-+         if(rwl_keypresent(count,'sthw2',val)) then
-+            ph_sthw2 = val
-+            ph_sthw = sqrt(ph_sthw2)
-+            ph_cthw = sqrt(1-ph_sthw2)
-+         endif
-+         if(rwl_keypresent(count,'zmass',val)) then
-+            ph_Zmass = val
-+            ph_Zmass = ph_Zmass/sqrt(1.d0+(osZwidth/ph_Zmass)**2)
-+            
-+            ph_Zmass2 = ph_Zmass**2
-+            ph_ZmZw = ph_Zmass * ph_Zwidth
-+         endif
-+         ph_Wmass = sqrt(ph_Zmass**2*(1d0-ph_sthw2))
-+         ph_unit_e = sqrt(ph_gmu * 8d0/sqrt(2d0) * ph_Wmass**2 * ph_sthw2)
-+         ph_alphaem = ph_unit_e*ph_unit_e/4d0/pi
-       endif
-       end

@@ -168,6 +168,70 @@ sed -e "/#new weight/d" -e "/<wgt id='c'>/d" -e "/<weight id='c'>/d" pwgevents.l
 mv pwgevents.lhe.tmp pwgevents.lhe 
 cp powheg.input powheg.input.noweight
 
+MINNLO="false"
+grep -q "minnlo 1" powheg.input ; test $? -ne 0 || MINNLO="true"
+
+if [ "$MINNLO" == "true" ]; then
+    echo -e "\ncomputing MiNNLO mass weights\n"
+    if [ "$process" == "Zj" ]; then
+        MASSES=(91.0876 91.0976 91.1076 91.1176 91.1276 91.1376 91.1476 91.1576 91.1676 91.1776 91.1876 91.1976 91.2076 91.2176 91.2276 91.2376 91.2476 91.2576 91.2676 91.2776 91.2876)
+        PSMASS=91.1876
+    elif [ "$process" == "Wj" ]; then
+        MASSES=(80.279 80.289 80.299 80.309 80.319 80.329 80.339 80.349 80.359 80.369 80.379 80.389 80.399 80.409 80.419 80.429 80.439 80.449 80.459 80.469 80.479)
+        PSMASS=80.379
+    fi
+    counter=1100
+    for MASS in ${MASSES[@]}
+    do
+        echo -e "\n doing mass ${MASS}\n"
+        cp powheg.input.noweight powheg.input
+        sed -i '/rwl_file/d' powheg.input
+        echo "rwl_file '-'" >> powheg.input
+        echo "rwl_add 1" >> powheg.input
+        echo "<initrwgt>" >> powheg.input
+        echo "<weightgroup name='mass_variation'>" >> powheg.input
+        echo "<weight id='${counter}'> mass=${MASS} </weight>" >> powheg.input
+        echo "</weightgroup>" >> powheg.input
+        echo "</initrwgt>" >> powheg.input
+        if [ "$process" == "Zj" ]; then
+            echo "Zmass ${MASS}" >> powheg.input
+            echo "psZmass ${PSMASS}" >> powheg.input
+        elif [ "$process" == "Wj" ]; then
+            echo "Wmass ${MASS}" >> powheg.input
+            echo "psWmass ${PSMASS}" >> powheg.input
+        fi
+        
+        ../pwhg_main &> logrew_${process}_${seed}.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
+        
+        mv pwgevents-rwgt.lhe pwgevents.lhe
+        
+        counter=$(( counter + 1 ))
+    done
+    if [ "$process" == "Zj" ]; then
+        SINW2S=(0.23154 0.2230 0.2300 0.2305 0.2310 0.2315 0.2320 0.2325 0.2330)
+        for SINW2 in ${SINW2S[@]}
+        do
+            echo -e "\n doing sthw2 ${SINW2}\n"
+            cp powheg.input.noweight powheg.input
+            sed -i '/rwl_file/d' powheg.input
+            echo "rwl_file '-'" >> powheg.input
+            echo "rwl_add 1" >> powheg.input
+            echo "<initrwgt>" >> powheg.input
+            echo "<weightgroup name='sthw2_variation'>" >> powheg.input
+            echo "<weight id='${counter}'> sthw2=${SINW2} </weight>" >> powheg.input
+            echo "</weightgroup>" >> powheg.input
+            echo "</initrwgt>" >> powheg.input
+            echo "sthw2 ${SINW2}" >> powheg.input
+            
+            ../pwhg_main &> logrew_${process}_${seed}.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
+            
+            mv pwgevents-rwgt.lhe pwgevents.lhe
+            
+            counter=$(( counter + 1 ))
+        done
+    fi
+fi
+
 if [ "$produceWeights" == "true" ]; then
 
    echo "   ______________________________________     "
