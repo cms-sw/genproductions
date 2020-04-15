@@ -77,29 +77,6 @@ if forMiNNLO:
       m_idx = m_idx + 1
         
   fout.write("</weightgroup>\n")
-  
-  # variations for sthw2 and W/Z masses
-  if process == 'Zj':
-    fout.write("<weightgroup name='zmass_variation' combine='envelope' >\n")
-    mz = 911876
-    for val in range(mz-1000, mz+1000+50, 50):
-      fout.write("<weight id='%i'> zmass=%.4f </weight>\n" % (m_idx, val/10000.))
-      m_idx = m_idx + 1
-    fout.write("</weightgroup>\n")
-    
-    fout.write("<weightgroup name='sthw2_variation' combine='envelope' >\n")
-    for val in [0.22295429900600761, 0.2300, 0.2305, 0.2310, 0.2315, 0.2320, 0.2325, 0.2330]:
-      fout.write("<weight id='%i'> sthw2=%.4f </weight>\n" % (m_idx, val))
-      m_idx = m_idx + 1
-    fout.write("</weightgroup>\n")
-    
-  if process == 'Wj':
-    fout.write("<weightgroup name='wmass_variation' combine='envelope' >\n")
-    mw = 803790
-    for val in range(mw-1000, mw+1000+50, 50):
-      fout.write("<weight id='%i'> wmass=%.4f </weight>\n" % (m_idx, val/10000.))
-      m_idx = m_idx + 1
-    fout.write("</weightgroup>\n")
 
 if forDYNNLOPS or forMiNNLO:
   print("DYNNLOPS/MiNNLO: PDF variations will be reduced for generation speed")
