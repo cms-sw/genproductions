@@ -4,6 +4,7 @@ import sys
 import re
 import argparse
 import textwrap
+import fnmatch
 #import json
 from datetime import datetime
 ###########Needed to check for ultra-legacy sample consistency check############################################
@@ -421,6 +422,7 @@ for num in range(0,len(prepid)):
         error = 0
         warning = 0
         et_flag = 0
+        et_flag_external = 0
         bornonly = 0
         herwig_flag = 0
         herwig_count = []
@@ -901,38 +903,36 @@ for num in range(0,len(prepid)):
                             match = re.search(r"""process=(["']?)([^"']*)\1""", content2)
 			    warning1,error1 = xml_check_and_patch(f,content,gridpack_eos_path,my_path,pi)	
                             et_flag = 1
-                    if et_flag == 0:
-                        with open(os.path.join(my_path, pi, "powheg.input")) as f:
-                            for line in f:
-                                if line.startswith("!") == False and line.startswith("#") == False:
-                                    if "bornonly" in line:
-                                        bornonly = int(re.split(r'\s+',line)[1])
-                                    if "lhans1" in line:
-                                        pw_pdf = int(re.split(r'\s+', line)[1])
-                                        print "##################################################"
-                                        print "* Powheg PDF used is: "+str(pw_pdf)
-                                        print "##################################################"
-                                        if "UL" in pi and pw_pdf not in UL_PDFs_N:
-                                            print"* [WARNING] The gridpack uses PDF="+str(pw_pdf)+" but not the recommended sets for UL requests:"
-                                            print"*                                             "+str(UL_PDFs_N[0])+" "+str(UL_PDFs[0])
-                                            print"*                                             or "+str(UL_PDFs_N[1])+" "+str(UL_PDFs[1])
-                                            warning += 1
-                    if et_flag == 1:
-                        with open(os.path.join(my_path, pi, "external_tarball/powheg.input")) as f:
-                            for line in f:
-                                if line.startswith("!") == False and line.startswith("#") == False:
-                                    if "bornonly" in line:
-                                        bornonly = int(re.split(r'\s+',line)[1])
-                                    if "lhans1" in line:
-                                        pw_pdf = int(re.split(r'\s+', line)[1])
-                                        print "##################################################"
-                                        print "* Powheg PDF used is: "+str(pw_pdf)
-                                        print "##################################################"
-                                        if "UL" in pi and pw_pdf not in UL_PDFs_N:
-                                            print"* [WARNING] The gridpack uses PDF="+str(pw_pdf)+" but not the recommended sets for UL requests:"
-                                            print"*                                             "+str(UL_PDFs_N[0])+"  "+str(UL_PDFs[0])
-                                            print"*                                             or "+str(UL_PDFs_N[1])+"  "+str(UL_PDFs[1])
-                                            warning += 1
+		    for file in os.listdir(my_path+'/'+pi+'/.'):	
+                    	if fnmatch.fnmatch(file,'*.dat'):
+			   et_flag_external = 1
+                    if et_flag_external == 1:
+			with open(my_path+'/'+pi+'/'+file) as f_ext:
+			    for line in f_ext:
+                                if line.startswith("EXTERNAL_TARBALL") == True:
+				    powheg_gp = line.split('\"')[1]
+                                    os.system('mkdir '+my_path+'/'+pi+'_powheg_gridpack')     
+				    os.system('tar xf '+powheg_gp+' -C '+my_path+'/'+pi+'_powheg_gridpack')
+				    powheg_input = os.path.join(my_path,pi+'_powheg_gridpack', "powheg.input")	
+                    if et_flag == 0 and et_flag_external == 0:
+			powheg_input = os.path.join(my_path, pi, "powheg.input")
+                    if et_flag == 1 and et_flag_external == 0:
+		        powheg_input = os.path.join(my_path, pi, "external_tarball/powheg.input")
+                    with open(powheg_input) as f:
+                        for line in f:
+                            if line.startswith("!") == False and line.startswith("#") == False:
+                                if "bornonly" in line:
+                                    bornonly = int(re.split(r'\s+',line)[1])
+                                if "lhans1" in line:
+                                    pw_pdf = int(re.split(r'\s+', line)[1])
+                                    print "##################################################"
+                                    print "* Powheg PDF used is: "+str(pw_pdf)
+                                    print "##################################################"
+                                    if "UL" in pi and pw_pdf not in UL_PDFs_N:
+                                        print"* [WARNING] The gridpack uses PDF="+str(pw_pdf)+" but not the recommended sets for UL requests:"
+                                        print"*                                             "+str(UL_PDFs_N[0])+" "+str(UL_PDFs[0])
+                                        print"*                                             or "+str(UL_PDFs_N[1])+" "+str(UL_PDFs[1])
+                                        warning += 1
 		    if os.path.isfile(my_path+'/'+pi+'/'+'external_tarball/pwg-rwl.dat') is True:	
 			pwg_rwl_file = os.path.join(my_path, pi, "external_tarball/pwg-rwl.dat")
                     else:
@@ -998,11 +998,11 @@ for num in range(0,len(prepid)):
                               "foldy": 5,
                               "foldphi": 2,
                             }
-                            if et_flag == 0:
+                            if et_flag == 0 and et_flag_external == 0:
                                 with open(os.path.join(my_path, pi, "powheg.input")) as f:
                                     content = f.read()
                                     matches = dict((name, re.search(r"^"+name+" *([0-9]+)", content, flags=re.MULTILINE)) for name in desiredvalues)
-                            if et_flag == 1:
+                            if et_flag == 1 and et_flag_external == 0:
                                 with open(os.path.join(my_path, pi, "external_tarball/powheg.input")) as f:
                                     content = f.read()
                                     matches = dict((name, re.search(r"^"+name+" *([0-9]+)", content, flags=re.MULTILINE)) for name in desiredvalues)
