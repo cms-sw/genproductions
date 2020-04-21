@@ -101,6 +101,11 @@
  11082   = PDF_set_min      ! First of the error PDF sets 
  11083   = PDF_set_max      ! Last of the error PDF sets
 #***********************************************************************
+# Store reweight information in the LHE file for off-line model-       *
+# parameter reweighting at NLO+PS accuracy                             *
+#***********************************************************************
+ True = store_rwgt_info ! Store info for reweighting in LHE file
+#***********************************************************************
 # ickkw parameter:                                                     *
 #   0: No merging                                                      *
 #   3: FxFx Merging - WARNING! Applies merging only at the hard-event  *
