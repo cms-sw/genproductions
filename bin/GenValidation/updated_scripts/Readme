@@ -1,5 +1,5 @@
 step 0: This script is using the cmsconnect, so you need a cmsconnect account firstly.
-Now, the script runs on two gridpacks for test, the gridpacks could be accessed at http://stash.osgconnect.net/+melu/, the process is DY01jets using MLM, and the fragment under directory is specially for it. 
+Now, the script runs on two gridpacks for test, the gridpacks could be accessed at http://stash.osgconnect.net/+melu/, the process is DY01jets using MLM, and the fragment under directory 'Fragments' is specially for it. 
 
 step 1: To run this script, you can download the gridapcks and put them at ~/stash/public in your cmsconnect.
 
