@@ -27,7 +27,7 @@
 #***********************************************************************
   1500 = nevents ! Number of unweighted events requested 
  0.001 = req_acc ! Required accuracy (-1=auto determined from nevents)
-    -1 = nevt_job! Max number of events per job in event generation. 
+    20 = nevt_job! Max number of events per job in event generation. 
                  !  (-1= no split).
 average = event_norm ! Normalize events to sum or average to the X sect.
 #***********************************************************************
@@ -63,6 +63,8 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
 # WARNING: PYTHIA6PT works only for processes without FSR!!!!          *
 #***********************************************************************
   PYTHIA8   = parton_shower
+  1.0       = shower_scale_factor ! multiply default shower starting  
+				  ! scale by this factor 
 #***********************************************************************
 # Renormalization and factorization scales                             *
 # (Default functional form for the non-fixed scales is the sum of      *
@@ -72,6 +74,7 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
  F        = fixed_ren_scale  ! if .true. use fixed ren scale
  F        = fixed_fac_scale  ! if .true. use fixed fac scale
  91.188   = muR_ref_fixed    ! fixed ren reference scale 
+ 91.188   = muF_ref_fixed    ! fixed fact reference scale 
  91.188   = muF1_ref_fixed   ! fixed fact reference scale for pdf1
  91.188   = muF2_ref_fixed   ! fixed fact reference scale for pdf2
 #***********************************************************************
