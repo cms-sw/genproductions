@@ -45,7 +45,7 @@
 #*********************************************************************
      lhapdf    = pdlabel     ! PDF set                                     
      $DEFAULT_PDF_SETS = lhaid
-     #306000    = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number
+     $DEFAULT_PDF_MEMBERS = reweight_PDF
 # To see heavy ion options: type "update ion_pdf"
 #*********************************************************************
 # Renormalization and factorization scales                           *
@@ -268,7 +268,7 @@
 # maximal pdg code for quark to be considered as a light jet         *
 # (otherwise b cuts are applied)                                     *
 #*********************************************************************
- 4 = maxjetflavor    ! Maximum jet pdg code
+ 5 = maxjetflavor    ! Maximum jet pdg code
 #*********************************************************************
 #
 #*********************************************************************
@@ -276,7 +276,4 @@
 # WARNING: Do not use for interference type of computation           *
 #*********************************************************************
    T  = use_syst      ! Enable systematics studies
-#
-#systematics = systematics_program ! none, systematics [python], SysCalc [depreceted, C++]
-#['--mur=0.5,1,2', '--muf=0.5,1,2', '--pdf=errorset'] = systematics_arguments ! see: https://cp3.irmp.ucl.ac.be/projects/madgraph/wiki/Systematics#Systematicspythonmodule
-# Syscalc is deprecated but to see the associate options type'update syscalc'
+
