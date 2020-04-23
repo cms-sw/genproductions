@@ -3,7 +3,7 @@
 # step1 make sandbox
 
 # number of events per job 
-NEVTS=500
+NEVTS=5000
 WORKDIR=`pwd -P`
 SCRAM_ARCH=slc6_amd64_gcc630
 RELEASE=CMSSW_9_3_16
@@ -69,7 +69,7 @@ EOF
 	### make validation fragment 
 	cmsDriver.py MY/PRO/python/${CONFIG} \
         -n ${NEVTS} --mc --no_exec --python_filename cmsrun_${OTAG}.py \
-        -s LHE,GEN --datatier GEN,GEN-SIM,DQMIO --eventcontent LHE,RAWSIM,DQM \
+        -s LHE,GEN,VALIDATION:genvalid_dy --datatier GEN,GEN-SIM,DQMIO --eventcontent LHE,RAWSIM,DQM \
         --conditions 93X_mc2017_realistic_v3 --beamspot Realistic25ns13TeVEarly2017Collision
 done
 
@@ -97,6 +97,7 @@ echo \$3
 exit \$2
 fi
 }
+USER=melu
 INIT_PATH=\`pwd -P\`
 OTAGLIST=()
 OTAGLIST+=( dyee01j_2p6p5 )
