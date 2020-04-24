@@ -904,16 +904,17 @@ for num in range(0,len(prepid)):
 			    warning1,error1 = xml_check_and_patch(f,content,gridpack_eos_path,my_path,pi)	
                             et_flag = 1
 		    for file in os.listdir(my_path+'/'+pi+'/.'):	
-                    	if fnmatch.fnmatch(file,'*.dat'):
-			   et_flag_external = 1
+                    	if fnmatch.fnmatch(file,'*externaltarball.dat'):
+			   file_i = file	
+			   et_flag_external = 1			   
                     if et_flag_external == 1:
-			with open(my_path+'/'+pi+'/'+file) as f_ext:
+			with open(my_path+'/'+pi+'/'+file_i) as f_ext:
 			    for line in f_ext:
                                 if line.startswith("EXTERNAL_TARBALL") == True:
 				    powheg_gp = line.split('\"')[1]
                                     os.system('mkdir '+my_path+'/'+pi+'_powheg_gridpack')     
 				    os.system('tar xf '+powheg_gp+' -C '+my_path+'/'+pi+'_powheg_gridpack')
-				    powheg_input = os.path.join(my_path,pi+'_powheg_gridpack', "powheg.input")	
+				    powheg_input = os.path.join(my_path,pi+'_powheg_gridpack', "powheg.input")
                     if et_flag == 0 and et_flag_external == 0:
 			powheg_input = os.path.join(my_path, pi, "powheg.input")
                     if et_flag == 1 and et_flag_external == 0:
