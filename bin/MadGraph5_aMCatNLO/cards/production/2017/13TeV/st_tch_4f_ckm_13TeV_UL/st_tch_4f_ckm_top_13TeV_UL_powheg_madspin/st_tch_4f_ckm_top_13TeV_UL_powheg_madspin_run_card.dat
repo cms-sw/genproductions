@@ -77,7 +77,7 @@
  91.118   = muR_ref_fixed    ! fixed ren reference scale 
  91.118   = muF1_ref_fixed   ! fixed fact reference scale for pdf1
  91.118   = muF2_ref_fixed   ! fixed fact reference scale for pdf2
- 0 = dynamical_scale_choice ! Choose one of the preselected dynamical choices
+ 10 = dynamical_scale_choice ! Choose one of the preselected dynamical choices
 #***********************************************************************
 # Renormalization and factorization scales (advanced and NLO options)  *
 #***********************************************************************
@@ -104,7 +104,7 @@
 # Store reweight information in the LHE file for off-line model-       *
 # parameter reweighting at NLO+PS accuracy                             *
 #***********************************************************************
- True = store_rwgt_info ! Store info for reweighting in LHE file
+# True = store_rwgt_info ! Store info for reweighting in LHE file
 #***********************************************************************
 # ickkw parameter:                                                     *
 #   0: No merging                                                      *

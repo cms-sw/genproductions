@@ -208,10 +208,10 @@ c
       function muR_ref_dynamic(pp)
 c This is a function of the kinematic configuration pp, which returns
 c a scale to be used as a reference for renormalization scale
+      use extra_weights
       implicit none
       include 'genps.inc'
       include 'nexternal.inc'
-      include 'reweight0.inc'
       include 'run.inc'
       include 'cuts.inc'
       double precision muR_ref_dynamic,pp(0:3,nexternal)
@@ -237,7 +237,10 @@ c FxFx
      $     ,FxFx_fac_scale
 c
       tmp=0
-      if(ickkw.eq.3)then
+      if (nincoming.eq.1) then
+         tmp=pp(0,1) ! mass of the decaying particle
+         temp_scale_id='Mass of decaying particle'
+      elseif(ickkw.eq.3)then
 c FxFx merging scale:
 c     Note that nFxFx_ren_scales includes the one scale that corresponds
 c     to the real-emission one (and is zero for the n-body conf.). Skip
@@ -411,7 +414,7 @@ c
       tmp=0
       if(ickkw.eq.3)then
 c FxFx merging scale:
-        tmp=min(FxFx_fac_scale(1),FxFx_fac_scale(2))
+        tmp=(FxFx_fac_scale(1)+FxFx_fac_scale(2))/2d0
         temp_scale_id='FxFx merging scale'
       elseif(imuftype.eq.1)then
         tmp=scale_global_reference(pp)
@@ -490,7 +493,10 @@ c a scale to be used as a reference for Ellis-Sexton scale
       parameter (iQEStype=1)
 c
       tmp=0
-      if(iQEStype.eq.1)then
+      if (nincoming.eq.1) then
+         tmp=pp(0,1) ! mass of the decaying particle
+         temp_scale_id='Mass of decaying particle'
+      elseif(iQEStype.eq.1)then
         tmp=scale_global_reference(pp)
       elseif(iQEStype.eq.2)then
         do i=nincoming+1,nexternal
@@ -552,15 +558,15 @@ c         m^2+pt^2=p(0)^2-p(3)^2=(p(0)+p(3))*(p(0)-p(3))
           enddo
           tmp=tmp/2d0
           temp_scale_id='H_T/2 := sum_i mT(i)/2, i=final state'
-      elseif(dynamical_scale_choice.eq.4) then
-c         \sqrt(s), partonic energy
-          tmp=dsqrt(2d0*dot(pp(0,1),pp(0,2)))
-          temp_scale_id='\sqrt(s), partonic energy'
       elseif(dynamical_scale_choice.eq.0) then
+c         fixed scale
+          tmp=muR_ref_fixed
+          temp_scale_id='fixed scale'
+      elseif(dynamical_scale_choice.eq.10) then
 ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
 cc      USER-DEFINED SCALE: ENTER YOUR CODE HERE                                 cc
 cc      to use this code you must set                                            cc
-cc                 dynamical_scale_choice = 0                                    cc
+cc                 dynamical_scale_choice = 10                                   cc
 cc      in the run_card (run_card.dat)                                           cc
 ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
          temp_scale_id='4*Sqrt[m(b)**2 + pT(b)**2]' 
