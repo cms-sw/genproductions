@@ -901,7 +901,7 @@ for num in range(0,len(prepid)):
                         with open(os.path.join(my_path, pi, "external_tarball/runcmsgrid.sh"),'r+') as f2:
                             content2 = f2.read()
                             match = re.search(r"""process=(["']?)([^"']*)\1""", content2)
-			    warning1,error1 = xml_check_and_patch(f,content,gridpack_eos_path,my_path,pi)	
+			    warning1,error1 = xml_check_and_patch(f2,content,gridpack_eos_path,my_path,pi)	
                             et_flag = 1
 		    for file in os.listdir(my_path+'/'+pi+'/.'):	
                     	if fnmatch.fnmatch(file,'*externaltarball.dat'):
