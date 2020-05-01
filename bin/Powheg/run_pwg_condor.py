@@ -977,15 +977,11 @@ rm -f $WORKDIR/$folderName'_'$process'.tgz'
 
 cp -p $WORKDIR/run_pwg.py $WORKDIR/$folderName
 
-if [ -e $WORKDIR/$folderName/pwggrid-0001.dat ]; then
-  cp -p $WORKDIR/$folderName/pwggrid-0001.dat $WORKDIR/$folderName/pwggrid.dat
+if [ -e $WORKDIR/$folderName/pwg-0001-stat.dat ]; then
   cp -p $WORKDIR/$folderName/pwg-0001-stat.dat $WORKDIR/$folderName/pwg-stat.dat
-elif [ -e $WORKDIR/$folderName/pwggrid-0002.dat ]; then
-  cp -p $WORKDIR/$folderName/pwggrid-0002.dat $WORKDIR/$folderName/pwggrid.dat
-  cp -p $WORKDIR/$folderName/pwg-0002-stat.dat $WORKDIR/$folderName/pwg-stat.dat
-elif [ -e $WORKDIR/$folderName/pwggrid-0003.dat ]; then
-  cp -p $WORKDIR/$folderName/pwggrid-0003.dat $WORKDIR/$folderName/pwggrid.dat
-  cp -p $WORKDIR/$folderName/pwg-0003-stat.dat $WORKDIR/$folderName/pwg-stat.dat
+fi
+if [ -e $WORKDIR/$folderName/pwg-st3-0001-stat.dat ]; then
+  cp -p $WORKDIR/$folderName/pwg-st3-0001-stat.dat $WORKDIR/$folderName/pwg-stat.dat
 fi
 
 
