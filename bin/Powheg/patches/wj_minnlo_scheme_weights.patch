@@ -2,18 +2,48 @@ Index: PhysPars.h
 ===================================================================
 --- PhysPars.h	(revision 3720)
 +++ PhysPars.h	(working copy)
-@@ -1,12 +1,12 @@
- c -*- Fortran -*-
--      real * 8 ph_alphaem,ph_Zmass,ph_Zwidth,ph_Wmass,ph_Wwidth,ph_cthw,
-+      real * 8 ph_alphaem,ph_Zmass,ph_Zwidth,osZwidth,ph_Wmass,ph_Wwidth,osWwidth,ph_cthw,
+@@ -2,10 +2,12 @@
+       real * 8 ph_alphaem,ph_Zmass,ph_Zwidth,ph_Wmass,ph_Wwidth,ph_cthw,
       $     ph_sthw,ph_sthw2,ph_Zmass2,ph_Zmass2low,ph_Zmass2high,
       $     ph_Wmass2,ph_Wmass2low,ph_Wmass2high ,ph_ZmZw,ph_WmWw,
--     $     ph_unit_e, ph_CKM(3,3)
--      common/ph_common/ph_alphaem,ph_Zmass,ph_Zwidth,ph_Wmass,ph_Wwidth,
-+     $     ph_unit_e, ph_gmu, ph_CKM(3,3)
-+      common/ph_common/ph_alphaem,ph_Zmass,ph_Zwidth,osZwidth,ph_Wmass,ph_Wwidth,osWwidth,
++     $     ps_Wmass,ps_Wmass2,ps_WmWw,ps_Wwidth,ph_gmu,
+      $     ph_unit_e, ph_CKM(3,3)
+       common/ph_common/ph_alphaem,ph_Zmass,ph_Zwidth,ph_Wmass,ph_Wwidth,
       $     ph_cthw,ph_sthw,ph_sthw2,ph_Zmass2,ph_Zmass2low,
       $     ph_Zmass2high,ph_Wmass2,ph_Wmass2low,ph_Wmass2high ,ph_ZmZw,
--     $     ph_WmWw,ph_unit_e,ph_CKM
-+     $     ph_WmWw,ph_unit_e,ph_gmu,ph_CKM
- 
++     $     ps_Wmass,ps_Wmass2,ps_WmWw,ps_Wwidth,ph_gmu,
+      $     ph_WmWw,ph_unit_e,ph_CKM
+       
+       
+Index: Born_phsp.f
+===================================================================
+--- Born_phsp.f	(revision 3720)
++++ Born_phsp.f	(working copy)
+@@ -25,13 +25,13 @@
+ c d omegadec/(8*(2 pi)^2)
+ c omega: 3d angle in CM system
+ c omegadec: 3d angle in CM system of W decay products
+-      zlow=atan((ph_Wmass2low  - ph_Wmass2)/ph_WmWw)
+-      zhigh=atan((min(ph_Wmass2high,kn_sbeams)  - ph_Wmass2)/ph_WmWw)
++      zlow=atan((ph_Wmass2low  - ps_Wmass2)/ps_WmWw)
++      zhigh=atan((min(ph_Wmass2high,kn_sbeams)  - ps_Wmass2)/ps_WmWw)
+       z=zlow+(zhigh-zlow)*xborn(1)
+       xjac=zhigh-zlow
+-      m2=ph_WmWw*tan(z)+ph_Wmass2
++      m2=ps_WmWw*tan(z)+ps_Wmass2
+ c d m^2/(2pi) jacobian
+-      xjac=xjac*ph_WmWw/cos(z)**2/(2*pi)
++      xjac=xjac*ps_WmWw/cos(z)**2/(2*pi)
+ c d x1 d x2 = d tau d y;
+       taumin=( sqrt(m2+kn_ktmin**2) + kn_ktmin )**2/kn_sbeams
+       tau=exp(log(taumin)*(1-xborn(2)**2))
+@@ -182,7 +182,7 @@
+          mur=sqrt(pt2)
+          muf=mur
+       else
+-         muf=ph_Wmass
+-         mur=ph_Wmass
++         muf=ps_Wmass
++         mur=ps_Wmass
+       endif
+       end

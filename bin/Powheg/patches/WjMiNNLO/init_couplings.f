@@ -12,7 +12,8 @@
       real * 8 masswindow_low,masswindow_high,wmasslow,wmasshigh
       real * 8 powheginput
       external powheginput
-      real*8 osWmass,osZmass
+      real*8 osWmass,osWwidth
+      real*8 osZmass,osZwidth
       logical verbose
       parameter(verbose=.true.)
       integer i,j
@@ -64,12 +65,16 @@ cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
       ph_gmu = powheginput("#gmu")
       if (ph_gmu.le.0) ph_gmu = 1.1663787d-5
       
+      ps_Wmass = powheginput("#psWmass")
+      if (ps_Wmass.le.0d0) ps_Wmass = ph_Wmass
+      
       if(verbose) then
             write(*,*) '*************************************'
             write(*,*) 'Using GF,mZ,mW input scheme'
             write(*,*) 'input Z mass = ',ph_Zmass
             write(*,*) 'input Z width = ',ph_Zwidth
             write(*,*) 'input W mass = ',ph_Wmass
+            write(*,*) 'input W mass (phsp) = ',ps_Wmass
             write(*,*) 'input W width = ',ph_Wwidth
             write(*,*) 'input gmu = ',ph_gmu
             write(*,*) '*************************************'
@@ -80,6 +85,9 @@ c     correct masses fixed-width -> width-dependent scheme
       osWwidth= ph_Wwidth
       ph_Wmass= osWmass/sqrt(1.d0+(osWwidth/osWmass)**2)
       ph_Wwidth= osWwidth/sqrt(1.d0+(osWwidth/osWmass)**2)
+      
+      ps_Wwidth= osWwidth/sqrt(1.d0+(osWwidth/ps_Wmass)**2)
+      ps_Wmass= ps_Wmass/sqrt(1.d0+(osWwidth/ps_Wmass)**2)
       
       osZmass= ph_Zmass
       osZwidth= ph_Zwidth
@@ -125,7 +133,8 @@ cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
       ph_Zmass2 = ph_Zmass**2
       ph_Wmass2 = ph_Wmass**2
 
-
+      ps_Wmass2 = ps_Wmass**2
+      ps_WmWw = ps_Wmass * ps_Wwidth
 
 c     set mass windows around W-mass peak in unit of ph_Wwidth
 c     It is used in the generation of the Born phase space
@@ -160,6 +169,7 @@ C     the default vale is 30
       write(*,*) 'Z mass = ',ph_Zmass
       write(*,*) 'Z width = ',ph_Zwidth
       write(*,*) 'W mass = ',ph_Wmass
+      write(*,*) 'W mass (phsp) = ',ps_Wmass
       write(*,*) 'W width = ',ph_Wwidth
       write(*,*) '1/alphaem = ',1d0/ph_alphaem
       write(*,*) 'alphaem = ',ph_alphaem
