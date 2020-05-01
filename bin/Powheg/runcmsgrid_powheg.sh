@@ -230,6 +230,60 @@ if [ "$MINNLO" == "true" ]; then
             counter=$(( counter + 1 ))
         done
     fi
+    if [ "$process" == "Wj" ]; then
+        echo -e "\n doing CKM Cabibbo\n"
+        cp powheg.input.noweight powheg.input
+        sed -i '/rwl_file/d' powheg.input
+        echo "rwl_file '-'" >> powheg.input
+        echo "rwl_add 1" >> powheg.input
+        echo "<initrwgt>" >> powheg.input
+        echo "<weightgroup name='ckm_variation'>" >> powheg.input
+        echo "<weight id='${counter}'> ckm_cabibbo=1 </weight>" >> powheg.input
+        echo "</weightgroup>" >> powheg.input
+        echo "</initrwgt>" >> powheg.input
+        sed -i "s/CKM_Vud .*/CKM_Vud 0.975d0/g" powheg.input
+        sed -i "s/CKM_Vus .*/CKM_Vus 0.222d0/g" powheg.input
+        sed -i "s/CKM_Vub .*/CKM_Vub 1d-10/g" powheg.input
+        sed -i "s/CKM_Vcd .*/CKM_Vcd 0.222d0/g" powheg.input
+        sed -i "s/CKM_Vcs .*/CKM_Vcs 0.975d0/g" powheg.input
+        sed -i "s/CKM_Vcb .*/CKM_Vcb 1d-10/g" powheg.input
+        sed -i "s/CKM_Vtd .*/CKM_Vtd 1d-10/g" powheg.input
+        sed -i "s/CKM_Vts .*/CKM_Vts 1d-10/g" powheg.input
+        sed -i "s/CKM_Vtb .*/CKM_Vtb 1d0/g" powheg.input
+        
+        ../pwhg_main &> logrew_${process}_${seed}.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
+        
+        mv pwgevents-rwgt.lhe pwgevents.lhe
+        
+        counter=$(( counter + 1 ))
+        
+        
+        echo -e "\n doing CKM diagonal\n"
+        cp powheg.input.noweight powheg.input
+        sed -i '/rwl_file/d' powheg.input
+        echo "rwl_file '-'" >> powheg.input
+        echo "rwl_add 1" >> powheg.input
+        echo "<initrwgt>" >> powheg.input
+        echo "<weightgroup name='ckm_variation'>" >> powheg.input
+        echo "<weight id='${counter}'> ckm_diagonal=1 </weight>" >> powheg.input
+        echo "</weightgroup>" >> powheg.input
+        echo "</initrwgt>" >> powheg.input
+        sed -i "s/CKM_Vud .*/CKM_Vud 1.000/g" powheg.input
+        sed -i "s/CKM_Vus .*/CKM_Vus 1d-10/g" powheg.input
+        sed -i "s/CKM_Vub .*/CKM_Vub 1d-10/g" powheg.input
+        sed -i "s/CKM_Vcd .*/CKM_Vcd 1d-10/g" powheg.input
+        sed -i "s/CKM_Vcs .*/CKM_Vcs 1.000/g" powheg.input
+        sed -i "s/CKM_Vcb .*/CKM_Vcb 1d-10/g" powheg.input
+        sed -i "s/CKM_Vtd .*/CKM_Vtd 1d-10/g" powheg.input
+        sed -i "s/CKM_Vts .*/CKM_Vts 1d-10/g" powheg.input
+        sed -i "s/CKM_Vtb .*/CKM_Vtb 1.000/g" powheg.input
+        
+        ../pwhg_main &> logrew_${process}_${seed}.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
+        
+        mv pwgevents-rwgt.lhe pwgevents.lhe
+        
+        counter=$(( counter + 1 ))
+    fi
 fi
 
 if [ "$produceWeights" == "true" ]; then
