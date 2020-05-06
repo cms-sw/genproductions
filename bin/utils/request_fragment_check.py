@@ -4,6 +4,7 @@ import sys
 import re
 import argparse
 import textwrap
+import fnmatch
 #import json
 from datetime import datetime
 ###########Needed to check for ultra-legacy sample consistency check############################################
@@ -135,7 +136,7 @@ parser = argparse.ArgumentParser(
                   *         Please add the tune name to the dataset.
                   * [ERROR] Dataset name does not contain a parton shower code name
                   *         Please add the parton shower name to the dataset name.
-                  * [ERROR] herwigpp = parton_shower not in run_card.dat
+                  * [ERROR] HERWIGPP = parton_shower not in run_card.dat
                   * [ERROR] Although the name of the dataset has ~Madgraph, the gridpack doesn't seem to be a MG5_aMC one. Please check.
                   * [ERROR] Please add \'set FxFxHandler:MergeMode FxFx\'
 	              *         and set FxFxHandler:njetsmax to the number of additional partons in the proc_card
@@ -242,18 +243,27 @@ def find_file(dir_path,patt):
             if file.endswith(patt):
                 return root+'/'+str(file)
 
-def xml_check_and_patch(f,cont,warning,error,gridpack_eos_path,my_path,pi):
+def xml_check_and_patch(f,cont,gridpack_eos_path,my_path,pi):
     xml = str(re.findall('xmllint.*',cont))
     cur_dir = os.getcwd()
-    if "stream" not in xml:
+    warning_xml = 0
+    error_xml = 0
+    if "stream" not in xml or len(xml) < 3:
 	targz_flag = 0
-	print "* [WARNING] --stream option is missing in XMLLINT, will update runcmsgrid."
-	warning += 1
+	if "stream" not in xml and len(xml) > 3:
+	  print "* [WARNING] --stream option is missing in XMLLINT, will update runcmsgrid."
+	  warning_xml += 1
+        if len(xml) < 3:
+	  print "* [WARNING] XMLLINT does not exist in runcmsgrid, will update it."
+          warning_xml += 1
 	if ".tar.gz" in gridpack_eos_path:
 	  targz_flag = 1
-	  gridpack_eos_path_backup = gridpack_eos_path.replace('.tar.xz','_original.tar.xz')
+	  gridpack_eos_path_backup = gridpack_eos_path.replace('.tar.gz','_original.tar.gz')
 	if ".tgz" in gridpack_eos_path:
 	  gridpack_eos_path_backup = gridpack_eos_path.replace('.tgz','_original.tgz')
+    	if ".tar.xz" in gridpack_eos_path:
+      	  gridpack_eos_path_backup = gridpack_eos_path.replace('.tar.xz','_original.tar.xz')
+	  targz_flag = 2
 	if not os.path.exists(gridpack_eos_path_backup):
 	  print "* Backup gridpack is not existing."
 	  print "* Copying "+gridpack_eos_path+" to "+gridpack_eos_path_backup+" before patching runcms.grid"
@@ -264,10 +274,15 @@ def xml_check_and_patch(f,cont,warning,error,gridpack_eos_path,my_path,pi):
 	    print "* Backup and original file checksums are equal."
 	  else:
 	    print "* [ERROR] backup gridpack has a problem."
-	    error += 1
+	    error_xml += 1
 	print "* Updating XMLLINT line in runcmsgrid."
         os.chdir(my_path+'/'+pi)
-	cont = re.sub("xmllint","xmllint --stream",cont)
+	if "stream" not in xml and len(xml) > 3:
+	  cont = re.sub("xmllint","xmllint --stream",cont)
+	if len(xml) < 3:
+          newlinetoadd = 'xmllint --stream --noout ${file}_final.lhe > /dev/null 2>&1; test $? -eq 0 || fail_exit "xmllint --stream integrity check failed on pwgevents.lhe" \ncp ${file}_final.lhe ${WORKDIR}/.'
+          string_orig = "cp \$\{file\}\_final.lhe \$\{WORKDIR\}\/\."
+          cont = re.sub(string_orig,newlinetoadd,cont)		
 	f.seek(0)
 	f.write(cont)
 	f.truncate()
@@ -275,6 +290,8 @@ def xml_check_and_patch(f,cont,warning,error,gridpack_eos_path,my_path,pi):
 	  gridpackname = "gridpack.tgz"
 	if targz_flag == 1:
 	  gridpackname = "gridpack.tar.gz"
+        if targz_flag == 2:
+	  gridpackname = "gridpack.tar.xz"
         os.chdir(my_path+'/'+pi)
 	os.system('tar cfJ '+gridpackname+' ./* --exclude='+gridpackname+' --exclude='+pi)
 	os.system('cp '+gridpackname+' '+gridpack_eos_path)
@@ -283,10 +300,10 @@ def xml_check_and_patch(f,cont,warning,error,gridpack_eos_path,my_path,pi):
 	if md5_1 == md5_2:
 	  print "* Updated gridpack copied succesfully."
 	else:
-	  print "* [ERROR] there was a copying in the updated gridpack to eos."
-	  error += 1
+	  print "* [ERROR] there was a problem copying in the updated gridpack to eos."
+	  error_xml += 1
 	os.chdir(cur_dir)
-    return warning,error
+    return warning_xml,error_xml
 
 
 if args.dev:
@@ -405,6 +422,7 @@ for num in range(0,len(prepid)):
         error = 0
         warning = 0
         et_flag = 0
+        et_flag_external = 0
         bornonly = 0
         herwig_flag = 0
         herwig_count = []
@@ -526,7 +544,7 @@ for num in range(0,len(prepid)):
             for line in file1:
                 if line not in file2:
                     herwig_check.append(line)
-            if len(herwig_check) != 0 and "eec5" not in dn.lower():
+            if len(herwig_check) != 0 and "eec5" not in dn.lower() and "ee5c" not in dn.lower():
                 herwig_count.append(herwig_check[0].count('hw_lhe_common_settings'))
                 herwig_count.append(herwig_check[1].count('herwig7LHECommonSettingsBlock'))
                 herwig_count.append(herwig_check[2].count('from Configuration.Generator.Herwig7Settings.Herwig7LHECommonSettings_cfi import *'))
@@ -733,7 +751,7 @@ for num in range(0,len(prepid)):
                 print "powheg "+str(pw_gp)
                 print "mg "+str(mg_gp)
                 print "jhugen "+str(jhu_gp)
-                if any(word in dn for word in tunename) or "sherpa" in dn.lower() or ("herwigpp" in dn.lower() and "eec5" in dn.lower()):
+                if any(word in dn for word in tunename) or "sherpa" in dn.lower() or ("herwigpp" in dn.lower() and ("eec5" in dn.lower() or "ee5c" in dn.lower())):
                     print "* [OK] Data set name has a known tune"
                 else:
                     print "* [ERROR] Dataset name does not have the tune name: "+dn
@@ -787,9 +805,9 @@ for num in range(0,len(prepid)):
                     maxjetflavor = int(re.search(r'\d+',maxjetflavor).group())
                     print "maxjetflavor = "+str(maxjetflavor)
                     if matching_c == 3 and herwig_flag != 0:
-                        ps_hw = os.popen('grep parton_shower '+filename_rc)
-                        if herwigpp not in ps_hw:
-                            print "* [ERROR] herwigpp = parton_shower not in run_card.dat"
+                        ps_hw = os.popen('grep parton_shower '+filename_rc).read()
+                        if ("HERWIGPP" not in ps_hw.upper()) or ("HERWIG7" not in ps_hw.upper() and herwig7_bypass_error == 1):
+                            print "* [ERROR] HERWIGPP or HERWIG7 = parton_shower not in run_card.dat"
                             error += 1
                         if int(os.popen('grep -c "set FxFxHandler:MergeMode FxFx" '+pi).read()) == 0:
 			    print "* [ERROR] Please add \'set FxFxHandler:MergeMode FxFx\'"
@@ -804,9 +822,9 @@ for num in range(0,len(prepid)):
                     matching_c = int(re.search(r'\d+',ickkw_c).group())
                     print ickkw_c
                     if herwig_flag != 0:
-                        ps_hw = os.popen('grep parton_shower '+my_path+'/'+pi+'/'+'process/Cards/run_card.dat')
-                        if herwigpp not in ps_hw:
-                            print "* [ERROR] herwigpp = parton_shower not in run_card.dat"
+                        ps_hw = os.popen('grep parton_shower '+my_path+'/'+pi+'/'+'process/Cards/run_card.dat').read()
+			if ("HERWIGPP" not in ps_hw.upper()) or ("HERWIG7" not in ps_hw.upper() and herwig7_bypass_error == 1):
+                            print "* [ERROR] HERWIGPP or HERWIG7 = parton_shower not in run_card.dat"
                             error += 1
 
         if "jhugen" in dn.lower():
@@ -875,54 +893,53 @@ for num in range(0,len(prepid)):
                     with open(os.path.join(my_path, pi, "runcmsgrid.sh"),'r+') as f:
                         content = f.read()
                         match = re.search(r"""process=(["']?)([^"']*)\1""", content)
-			warning += xml_check_and_patch(f,content,warning,error,gridpack_eos_path,my_path,pi)[0]
-			error += xml_check_and_patch(f,content,warning,error,gridpack_eos_path,my_path,pi)[1]
+			warning1,error1 = xml_check_and_patch(f,content,gridpack_eos_path,my_path,pi)
+		        warning += warning1
+ 			error += error1	
 			f.close()
                     if os.path.isfile(my_path+'/'+pi+'/'+'external_tarball/runcmsgrid.sh') is True:
                         with open(os.path.join(my_path, pi, "external_tarball/runcmsgrid.sh"),'r+') as f2:
                             content2 = f2.read()
                             match = re.search(r"""process=(["']?)([^"']*)\1""", content2)
-			    warning += xml_check_and_patch(f,content,warning,error,gridpack_eos_path,my_path,pi)[0]
-			    error += xml_check_and_patch(f,content,warning,error,gridpack_eos_path,my_path,pi)[1]
+			    warning1,error1 = xml_check_and_patch(f2,content,gridpack_eos_path,my_path,pi)	
                             et_flag = 1
-                    if et_flag == 0:
-                        with open(os.path.join(my_path, pi, "powheg.input")) as f:
-                            for line in f:
-                                if line.startswith("!") == False and line.startswith("#") == False:
-                                    if "bornonly" in line:
-                                        bornonly = int(re.split(r'\s+',line)[1])
-                                    if "lhans1" in line:
-                                        pw_pdf = int(re.split(r'\s+', line)[1])
-                                        print "##################################################"
-                                        print "* Powheg PDF used is: "+str(pw_pdf)
-                                        print "##################################################"
-                                        if "UL" in pi and pw_pdf not in UL_PDFs_N:
-                                            print"* [WARNING] The gridpack uses PDF="+str(pw_pdf)+" but not the recommended sets for UL requests:"
-                                            print"*                                             "+str(UL_PDFs_N[0])+" "+str(UL_PDFs[0])
-                                            print"*                                             or "+str(UL_PDFs_N[1])+" "+str(UL_PDFs[1])
-                                            warning += 1
-                    if et_flag == 1:
-                        with open(os.path.join(my_path, pi, "external_tarball/powheg.input")) as f:
-                            for line in f:
-                                if line.startswith("!") == False and line.startswith("#") == False:
-                                    if "bornonly" in line:
-                                        bornonly = int(re.split(r'\s+',line)[1])
-                                    if "lhans1" in line:
-                                        pw_pdf = int(re.split(r'\s+', line)[1])
-                                        print "##################################################"
-                                        print "* Powheg PDF used is: "+str(pw_pdf)
-                                        print "##################################################"
-                                        if "UL" in pi and pw_pdf not in UL_PDFs_N:
-                                            print"* [WARNING] The gridpack uses PDF="+str(pw_pdf)+" but not the recommended sets for UL requests:"
-                                            print"*                                             "+str(UL_PDFs_N[0])+"  "+str(UL_PDFs[0])
-                                            print"*                                             or "+str(UL_PDFs_N[1])+"  "+str(UL_PDFs[1])
-                                            warning += 1
-                    if et_flag == 0:
+		    for file in os.listdir(my_path+'/'+pi+'/.'):	
+                    	if fnmatch.fnmatch(file,'*externaltarball.dat'):
+			   file_i = file	
+			   et_flag_external = 1			   
+                    if et_flag_external == 1:
+			with open(my_path+'/'+pi+'/'+file_i) as f_ext:
+			    for line in f_ext:
+                                if line.startswith("EXTERNAL_TARBALL") == True:
+				    powheg_gp = line.split('\"')[1]
+                                    os.system('mkdir '+my_path+'/'+pi+'_powheg_gridpack')     
+				    os.system('tar xf '+powheg_gp+' -C '+my_path+'/'+pi+'_powheg_gridpack')
+				    powheg_input = os.path.join(my_path,pi+'_powheg_gridpack', "powheg.input")
+                    if et_flag == 0 and et_flag_external == 0:
+			powheg_input = os.path.join(my_path, pi, "powheg.input")
+                    if et_flag == 1 and et_flag_external == 0:
+		        powheg_input = os.path.join(my_path, pi, "external_tarball/powheg.input")
+                    with open(powheg_input) as f:
+                        for line in f:
+                            if line.startswith("!") == False and line.startswith("#") == False:
+                                if "bornonly" in line:
+                                    bornonly = int(re.split(r'\s+',line)[1])
+                                if "lhans1" in line:
+                                    pw_pdf = int(re.split(r'\s+', line)[1])
+                                    print "##################################################"
+                                    print "* Powheg PDF used is: "+str(pw_pdf)
+                                    print "##################################################"
+                                    if "UL" in pi and pw_pdf not in UL_PDFs_N:
+                                        print"* [WARNING] The gridpack uses PDF="+str(pw_pdf)+" but not the recommended sets for UL requests:"
+                                        print"*                                             "+str(UL_PDFs_N[0])+" "+str(UL_PDFs[0])
+                                        print"*                                             or "+str(UL_PDFs_N[1])+" "+str(UL_PDFs[1])
+                                        warning += 1
+		    if os.path.isfile(my_path+'/'+pi+'/'+'external_tarball/pwg-rwl.dat') is True:	
+			pwg_rwl_file = os.path.join(my_path, pi, "external_tarball/pwg-rwl.dat")
+                    else:
                         pwg_rwl_file = os.path.join(my_path, pi, "pwg-rwl.dat")
-                    if et_flag == 1:
-                        pwg_rwl_file = os.path.join(my_path, pi, "external_tarball/pwg-rwl.dat")
                     if os.path.isfile(pwg_rwl_file):
-                        with open(os.path.join(my_path, pi, "pwg-rwl.dat")) as f_pdf:
+                        with open(pwg_rwl_file) as f_pdf:
                             pdf_var_check0 = 0
                             pdf_var_check1 = 0
                             scale_var_check0 = 0
@@ -982,11 +999,11 @@ for num in range(0,len(prepid)):
                               "foldy": 5,
                               "foldphi": 2,
                             }
-                            if et_flag == 0:
+                            if et_flag == 0 and et_flag_external == 0:
                                 with open(os.path.join(my_path, pi, "powheg.input")) as f:
                                     content = f.read()
                                     matches = dict((name, re.search(r"^"+name+" *([0-9]+)", content, flags=re.MULTILINE)) for name in desiredvalues)
-                            if et_flag == 1:
+                            if et_flag == 1 and et_flag_external == 0:
                                 with open(os.path.join(my_path, pi, "external_tarball/powheg.input")) as f:
                                     content = f.read()
                                     matches = dict((name, re.search(r"^"+name+" *([0-9]+)", content, flags=re.MULTILINE)) for name in desiredvalues)
