@@ -15,5 +15,4 @@ add process p p > j j ell- vl~ $$ t t~ h @7
 add process p p > j j j ell- vl~ $$ t t~ h @8
 add process p p > j j j j ell- vl~ $$ t t~ h @9
 
-output WJetsToLNu_HT-0toInf -nojpeg
-
+output WJetsToLNu_HT-70to100 -nojpeg
