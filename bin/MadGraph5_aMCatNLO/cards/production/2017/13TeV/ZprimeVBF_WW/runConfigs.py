@@ -55,8 +55,12 @@ for i_mzp in zprimeMasses:
                 fileNew=open("%s_param_card.dat"%(name),"w+")
                 fileNew.write(newText)
                 fileNew.close()
-
+                
+                model="ssmzp_nonuniversal_v4"
+                if i_gl==0:
+                        model="ssmzp_nonuniversal_no_light_v4"
                 d = dict(
+                    modelfile="%s"%(),
                     NAME="%s"%(name),
                 )
                 file=open("proc_card_mg5.template","r")
@@ -71,9 +75,9 @@ for i_mzp in zprimeMasses:
                 fileNew=open("%s_extramodels.dat"%(name),"w+")
                 text="""ssmzp_nonuniversal_v4.zip
 """
-                # if i_gl==0:
-                        # text="""ssmzp_nonuniversal_no_light_v4.zip
-# """
+                if i_gl==0:
+                        text="""ssmzp_nonuniversal_no_light_v4.zip
+"""
                 fileNew.write(text)
                 fileNew.close()
 
