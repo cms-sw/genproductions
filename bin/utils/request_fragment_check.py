@@ -91,6 +91,8 @@ parser = argparse.ArgumentParser(
                   * [WARNING] Main pdf recommended set xx or yy is listed in runcmsgrid file but it is
                   *             also included as a variation??
                   * [WARNING] Are you sure EvtGenExtraParticles extension is not needed?
+                  * [WARNING] Are you sure you do not want the 2014 evt pdl table?
+                  * [WARNING] Are you sure you do not want the 2014 decay dec table?
 
                ERRORS:
                   * [ERROR] No corresponing UL17 request to compare to for consistency.
@@ -1402,6 +1404,12 @@ for num in range(0,len(prepid)):
             if int(os.popen('grep -c -i EvtGen '+pi).read()) != 0 and int(os.popen('grep -c -i "convertPythiaCodes = cms.untracked.bool(False)" '+pi).read()) == 0:
                 print "* [ERROR] Turn off the PythiaCodes conversion when using EvtGen"
                 error += 1
+	    if int(os.popen('grep -c -i evt_2014.pdl '+pi).read()) == 0:
+                print "* [WARNING] Are you sure you do not want the 2014 evt pdl table?"
+                warning += 1
+            if int(os.popen('grep -c -i DECAY_2014 '+pi).read()) == 0:
+                print "* [WARNING] Are you sure you do not want the 2014 decay dec table?"
+                warning += 1
             if int(os.popen('grep -c -i EvtGen '+pi).read()) != 0 and int(os.popen('grep -c -i "generator.PythiaParameters.processParameters.extend(EvtGenExtraParticles)" '+pi).read()) == 0:
                 print "* [WARNING] Are you sure EvtGenExtraParticles extension is not needed?"
                 warning += 1
