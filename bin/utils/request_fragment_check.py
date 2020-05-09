@@ -546,9 +546,15 @@ for num in range(0,len(prepid)):
             evtgen_version = ps_version + "/"+str(cmssw)+"/config/toolbox/"+str(scram_arch)+"/tools/selected/evtgen.xml"
             evtgen_version_file = os.path.isfile(evtgen_version)
             evtgen_version = "grep version "+evtgen_version
+	    photos_version = ps_version + "/"+str(cmssw)+"/config/toolbox/"+str(scram_arch)+"/tools/selected/photospp.xml"
+	    photos_version_file = os.path.isfile(photos_version)
+	    photos_version =  "grep version "+photos_version
             if evtgen_version_file is True:
                 evtgen_version = os.popen(evtgen_version).read().rstrip().split('=')[2].replace(">","")
                 print "* EvtGen version = "+str(evtgen_version)
+	    if photos_version_file is True:
+		photos_version = os.popen(photos_version).read().rstrip().split('=')[2].replace(">","")
+		print "* PHOTOS version = "+str(photos_version)
         print "##################################################"
         if herwig_flag != 0:
             os.system('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/herwig_frag_lines.txt -O herwig_frag_lines.txt')
