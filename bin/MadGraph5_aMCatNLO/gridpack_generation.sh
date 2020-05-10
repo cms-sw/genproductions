@@ -382,6 +382,12 @@ make_gridpack () {
     
     cd processtmp
     
+    #automatically detect NLO mode or LO mode from output directory
+    isnlo=0
+    if [ -e ./MCatNLO ]; then
+      isnlo=1
+    fi
+    
     #################################
     #Add PDF info and copy run card #
     #################################
@@ -390,7 +396,7 @@ make_gridpack () {
       script_dir=$(git rev-parse --show-toplevel)/Utilities/scripts
     fi
     
-    prepare_run_card $name $CARDSDIR $is5FlavorScheme $script_dir
+    prepare_run_card $name $CARDSDIR $is5FlavorScheme $script_dir $isnlo
     
     #copy provided custom fks params or cuts
     if [ -e $CARDSDIR/${name}_cuts.f ]; then
@@ -423,12 +429,6 @@ make_gridpack () {
       cp $CARDSDIR/${name}_param_card.dat ./Cards/param_card.dat
     fi
      
-    #automatically detect NLO mode or LO mode from output directory
-    isnlo=0
-    if [ -e ./MCatNLO ]; then
-      isnlo=1
-    fi
-    
     if [ "$isnlo" -gt "0" ]; then
     #NLO mode  
       #######################
