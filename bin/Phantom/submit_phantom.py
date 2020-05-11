@@ -49,6 +49,8 @@ import math
 import ConfigParser
 import re
 import time
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_pdf import PdfPages
 import math
@@ -80,7 +82,7 @@ def replaceParameterInFile (inputFile, outputFile, substitute):
 def execute (command, verbosity = False) :
     if (verbosity == True):
         print '---> running:'
-        print command
+	print command
     retCode = getstatusoutput (command)
     if (verbosity == True):
         for ri in retCode: print ri
@@ -801,6 +803,7 @@ def gridpackGeneration (full,debugging):
     submitfile = open (submitfilename, 'read')
     for line in submitfile.readlines () :
         if 'bsub' in line: processoutputs.append (line.split()[6])
+        if 'condor' in line: processoutputs.append (line.split()[1].replace('condor.sub','run.out'))
     submitfile.close ()
 
     # add to the submit file the environment setupdir

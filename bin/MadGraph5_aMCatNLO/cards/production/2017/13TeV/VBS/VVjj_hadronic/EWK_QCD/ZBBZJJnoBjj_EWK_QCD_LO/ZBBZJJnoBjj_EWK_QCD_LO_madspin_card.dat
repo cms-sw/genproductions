@@ -1,0 +1,7 @@
+set BW_cut 15
+set ms_dir ./madspingrid
+set max_running_process 1
+define j_nob = u c d s u~ c~ d~ s~
+decay z > b b~
+decay z > j_nob j_nob
+launch
