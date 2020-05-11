@@ -30,7 +30,7 @@ xupbound 2d0   ! increase upper bound for radiation generation
 
 
 withdamp       1
-hdamp  236.4985 ! 1.379*171.5    
+hdamp 237.8775 ! 1.379*172.5
 
 
 ! mandatory production parameters
