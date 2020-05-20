@@ -1,3 +1,0 @@
-<tool name="py2-backports_abc" version="0.5-mlhled2">
-  <use name="py2-pippkgs"/>
-</tool>

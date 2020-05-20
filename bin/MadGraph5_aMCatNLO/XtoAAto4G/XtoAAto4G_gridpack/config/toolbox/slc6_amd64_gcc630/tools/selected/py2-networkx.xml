@@ -1,3 +1,0 @@
-<tool name="py2-networkx" version="1.11-mlhled2">
-  <use name="py2-pippkgs"/>
-</tool>

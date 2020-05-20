@@ -1,8 +1,0 @@
-<tool name="das_client" version="v03.01.00-mlhled2">
-  <client>
-    <environment name="DAS_CLIENT_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc630/cms/das_client/v03.01.00-mlhled2"/>
-  </client>
-  <runtime name="PATH"       value="$DAS_CLIENT_BASE/bin" type="path"/>
-  <runtime name="PYTHONPATH" value="$DAS_CLIENT_BASE/bin" type="path"/>
-  <use name="python"/>
-</tool>

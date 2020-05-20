@@ -1,3 +1,0 @@
-<tool name="py2-thriftpy" version="0.3.9">
-  <use name="py2-pippkgs_depscipy"/>
-</tool>

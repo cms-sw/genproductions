@@ -1,3 +1,0 @@
-<tool name="py2-ptyprocess" version="0.5.1-mlhled2">
-  <use name="py2-pippkgs"/>
-</tool>

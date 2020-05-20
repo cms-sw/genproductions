@@ -1,7 +1,0 @@
-<tool name="rootgraphics" version="6.10.04-ghjeda">
-  <info url="http://root.cern.ch/root/"/>
-  <lib name="TreePlayer"/>
-  <lib name="Graf3d"/>
-  <lib name="Postscript"/>
-  <use name="rootgpad"/>
-</tool>

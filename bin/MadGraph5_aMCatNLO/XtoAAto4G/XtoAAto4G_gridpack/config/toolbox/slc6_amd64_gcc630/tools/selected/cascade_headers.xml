@@ -1,8 +1,0 @@
-<tool name="cascade_headers" version="2.2.04-ghjeda4">
-  <client>
-    <environment name="CASCADE_HEADERS_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/cascade/2.2.04-ghjeda4"/>
-    <environment name="INCLUDE" default="$CASCADE_HEADERS_BASE/include"/>
-  </client>
-  <runtime name="ROOT_INCLUDE_PATH" value="$INCLUDE" type="path"/>
-  <use name="root_cxxdefaults"/>
-</tool>

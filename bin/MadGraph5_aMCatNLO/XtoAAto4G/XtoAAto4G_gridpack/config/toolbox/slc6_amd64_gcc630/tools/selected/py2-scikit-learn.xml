@@ -1,3 +1,0 @@
-<tool name="py2-scikit-learn" version="0.18.1-mlhled4">
-  <use name="py2-pippkgs_depscipy"/>
-</tool>

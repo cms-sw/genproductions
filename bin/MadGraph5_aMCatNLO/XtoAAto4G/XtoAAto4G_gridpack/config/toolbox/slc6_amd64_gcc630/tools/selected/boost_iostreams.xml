@@ -1,5 +1,0 @@
-<tool name="boost_iostreams" version="1.63.0-mlhled2">
-  <info url="http://www.boost.org"/>
-  <lib name=""/>
-  <use name="boost"/>
-</tool>

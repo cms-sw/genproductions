@@ -1,3 +1,0 @@
-<tool name="py2-mpmath" version="0.19-mlhled2">
-  <use name="py2-pippkgs"/>
-</tool>

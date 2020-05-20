@@ -1,3 +1,0 @@
-<tool name="py2-protobuf" version="3.2.0-njopjo">
-  <use name="py2-pippkgs_depscipy"/>
-</tool>

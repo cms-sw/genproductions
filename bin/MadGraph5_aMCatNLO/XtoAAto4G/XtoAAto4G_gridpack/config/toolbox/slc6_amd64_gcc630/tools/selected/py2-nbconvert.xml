@@ -1,3 +1,0 @@
-<tool name="py2-nbconvert" version="5.2.1-ghjeda">
-  <use name="py2-pippkgs"/>
-</tool>

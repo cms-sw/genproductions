@@ -1,3 +1,0 @@
-<tool name="py2-entrypoints" version="0.2.3">
-  <use name="py2-pippkgs"/>
-</tool>

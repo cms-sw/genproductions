@@ -1,3 +1,0 @@
-<tool name="py2-testpath" version="0.3.1">
-  <use name="py2-pippkgs"/>
-</tool>

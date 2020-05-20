@@ -1,3 +1,0 @@
-<tool name="py2-h5py" version="2.7">
-  <use name="py2-pippkgs_depscipy"/>
-</tool>

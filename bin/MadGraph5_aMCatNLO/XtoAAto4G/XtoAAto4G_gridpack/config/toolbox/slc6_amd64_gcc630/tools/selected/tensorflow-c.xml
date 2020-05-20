@@ -1,8 +1,0 @@
-<tool name="tensorflow-c" version="1.1.0-ghjeda2">
-  <lib name="tensorflow"/>
-  <client>
-    <environment name="TENSORFLOW_C_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/tensorflow-c/1.1.0-ghjeda2"/>
-    <environment name="LIBDIR" default="$TENSORFLOW_C_BASE/lib"/>
-    <environment name="INCLUDE" default="$TENSORFLOW_C_BASE/include"/>
-  </client>
-</tool>

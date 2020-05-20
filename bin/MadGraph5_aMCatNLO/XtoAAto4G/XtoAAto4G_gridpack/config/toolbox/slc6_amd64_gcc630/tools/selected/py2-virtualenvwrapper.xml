@@ -1,3 +1,0 @@
-<tool name="py2-virtualenvwrapper" version="4.7.2">
-  <use name="py2-pippkgs"/>
-</tool>

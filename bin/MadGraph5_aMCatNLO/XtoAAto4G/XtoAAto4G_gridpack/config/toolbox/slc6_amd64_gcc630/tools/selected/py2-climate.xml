@@ -1,3 +1,0 @@
-<tool name="py2-climate" version="0.4.6">
-  <use name="py2-pippkgs"/>
-</tool>

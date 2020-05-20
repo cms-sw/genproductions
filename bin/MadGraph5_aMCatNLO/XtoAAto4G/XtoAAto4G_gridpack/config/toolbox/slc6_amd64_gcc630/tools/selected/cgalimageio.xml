@@ -1,7 +1,0 @@
-<tool name="cgalimageio" version="4.2-mlhled2">
-  <info url="http://www.cgal.org/"/>
-  <lib name="CGAL_ImageIO"/>
-  <use name="zlib"/>
-  <use name="boost_system"/>
-  <use name="cgal"/>
-</tool>

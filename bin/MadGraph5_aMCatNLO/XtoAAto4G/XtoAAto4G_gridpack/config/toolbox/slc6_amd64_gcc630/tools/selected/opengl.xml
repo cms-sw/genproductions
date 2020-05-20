@@ -1,6 +1,0 @@
-  <tool name="opengl" version="XFree4.2">
-    <lib name="GL"/>
-    <lib name="GLU"/>
-    <use name="x11"/>
-    <environment name="ORACLE_ADMINDIR" default="/etc"/>
-  </tool>

@@ -1,3 +1,0 @@
-<tool name="py2-pkgconfig" version="1.2.2-mlhled">
-  <use name="py2-pippkgs"/>
-</tool>

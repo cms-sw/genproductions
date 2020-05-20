@@ -1,9 +1,0 @@
-<tool name="boost_header" version="1.63.0-mlhled2">
-  <info url="http://www.boost.org"/>
-  <client>
-    <environment name="BOOSTHEADER_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/boost/1.63.0-mlhled2"/>
-    <environment name="INCLUDE" default="$BOOSTHEADER_BASE/include"/>
-  </client>
-  <runtime name="ROOT_INCLUDE_PATH" value="$INCLUDE" type="path"/>
-  <use name="root_cxxdefaults"/>
-</tool>

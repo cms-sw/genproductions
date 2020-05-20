@@ -1,3 +1,0 @@
-<tool name="py2-certifi" version="2017.4.17">
-  <use name="py2-pippkgs"/>
-</tool>

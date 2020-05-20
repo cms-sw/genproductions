@@ -1,3 +1,0 @@
-<tool name="py2-backportsssl_match_hostname" version="3.5.0.1-mlhled2">
-  <use name="py2-pippkgs"/>
-</tool>

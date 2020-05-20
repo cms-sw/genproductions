@@ -1,8 +1,0 @@
-<tool name="py2-dablooms" version="0.9.1-mlhled2">
-  <info url="https://github.com/bitly/dablooms"/>
-  <client>
-    <environment name="PY2_DABLOOMS" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/py2-dablooms/0.9.1-mlhled2"/>
-    <environment name="LIBDIR" default="$PY2_DABLOOMS/lib"/>
-    <runtime name="PYTHONPATH" value="$PY2_DABLOOMS/lib/python2.7/site-packages" type="path"/>
-  </client>
-</tool>

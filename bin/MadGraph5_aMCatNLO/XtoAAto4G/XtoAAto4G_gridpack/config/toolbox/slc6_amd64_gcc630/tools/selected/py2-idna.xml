@@ -1,3 +1,0 @@
-<tool name="py2-idna" version="2.5">
-  <use name="py2-pippkgs"/>
-</tool>

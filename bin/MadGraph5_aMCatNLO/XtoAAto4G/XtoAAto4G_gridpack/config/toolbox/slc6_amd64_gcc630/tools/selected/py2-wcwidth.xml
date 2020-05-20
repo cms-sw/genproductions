@@ -1,3 +1,0 @@
-<tool name="py2-wcwidth" version="0.1.7-mlhled2">
-  <use name="py2-pippkgs"/>
-</tool>

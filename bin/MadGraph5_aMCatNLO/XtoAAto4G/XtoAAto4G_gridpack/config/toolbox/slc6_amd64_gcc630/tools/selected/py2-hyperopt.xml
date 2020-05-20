@@ -1,3 +1,0 @@
-<tool name="py2-hyperopt" version="0.1">
-  <use name="py2-pippkgs_depscipy"/>
-</tool>

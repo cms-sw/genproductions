@@ -1,3 +1,0 @@
-<tool name="py2-terminado" version="0.6-njopjo">
-  <use name="py2-pippkgs"/>
-</tool>

@@ -1,3 +1,0 @@
-<tool name="py2-notebook" version="4.3.1-ghjeda">
-  <use name="py2-pippkgs"/>
-</tool>

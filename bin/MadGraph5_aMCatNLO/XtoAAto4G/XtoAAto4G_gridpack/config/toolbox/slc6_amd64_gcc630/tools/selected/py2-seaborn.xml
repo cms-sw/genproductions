@@ -1,3 +1,0 @@
-<tool name="py2-seaborn" version="0.7.1">
-  <use name="py2-pippkgs_depscipy"/>
-</tool>

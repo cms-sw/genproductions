@@ -1,8 +1,0 @@
-<tool name="root_cxxdefaults" version="6.10.04-ghjeda">
-  <runtime name="ROOT_GCC_TOOLCHAIN" value="/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/gcc/6.3.0" type="path"/>
-  <runtime name="ROOT_INCLUDE_PATH" value="/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/gcc/6.3.0/include/c++/6.3.0" type="path"/>
-  <runtime name="ROOT_INCLUDE_PATH" value="/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/gcc/6.3.0/include/c++/6.3.0/x86_64-unknown-linux-gnu" type="path"/>
-  <runtime name="ROOT_INCLUDE_PATH" value="/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/gcc/6.3.0/include/c++/6.3.0/backward" type="path"/>
-  <runtime name="ROOT_INCLUDE_PATH" value="/usr/local/include" type="path"/>
-  <runtime name="ROOT_INCLUDE_PATH" value="/usr/include" type="path"/>
-</tool>

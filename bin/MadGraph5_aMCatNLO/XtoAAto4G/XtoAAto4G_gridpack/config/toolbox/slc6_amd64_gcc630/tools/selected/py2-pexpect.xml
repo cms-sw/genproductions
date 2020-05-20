@@ -1,3 +1,0 @@
-<tool name="py2-pexpect" version="4.2.1-mlhled2">
-  <use name="py2-pippkgs"/>
-</tool>

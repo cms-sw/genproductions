@@ -1,5 +1,0 @@
-<tool name="rootmlp" version="6.10.04-ghjeda">
-  <info url="http://root.cern.ch/root/"/>
-  <lib name="MLP"/>
-  <use name="rootgraphics"/>
-</tool>

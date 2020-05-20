@@ -1,3 +1,0 @@
-<tool name="py2-configparser" version="3.5.0-mlhled2">
-  <use name="py2-pippkgs"/>
-</tool>

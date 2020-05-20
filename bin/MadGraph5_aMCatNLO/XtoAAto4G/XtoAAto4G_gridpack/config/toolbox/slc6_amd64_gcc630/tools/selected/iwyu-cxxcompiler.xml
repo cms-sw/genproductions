@@ -1,7 +1,0 @@
-  <tool name="iwyu-cxxcompiler" version="4.0.0-njopjo" type="compiler">
-    <use name="llvm-cxxcompiler"/>
-    <client>
-      <environment name="LLVM_CXXCOMPILER_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/llvm/4.0.0-njopjo"/>
-      <environment name="CXX" value="$LLVM_CXXCOMPILER_BASE/bin/include-what-you-use"/>
-    </client>
-  </tool>

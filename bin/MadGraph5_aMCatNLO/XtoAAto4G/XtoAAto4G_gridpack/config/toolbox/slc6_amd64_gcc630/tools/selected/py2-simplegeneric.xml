@@ -1,3 +1,0 @@
-<tool name="py2-simplegeneric" version="0.8.1-mlhled2">
-  <use name="py2-pippkgs"/>
-</tool>

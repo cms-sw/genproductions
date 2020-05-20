@@ -1,9 +1,0 @@
-<tool name="dmtcp" version="3.0.0-dev">
-  <info url="http://dmtcp.sourceforge.net/"/>
-  <client>
-    <environment name="DMTCP_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/dmtcp/3.0.0-dev"/>
-    <environment name="LIBDIR" default="$DMTCP_BASE/lib"/>
-    <environment name="LIBDIR" default="$DMTCP_BASE/lib/dmtcp"/>
-  </client>
-  <runtime name="PATH" value="$DMTCP_BASE/bin" type="path"/>
-</tool>
