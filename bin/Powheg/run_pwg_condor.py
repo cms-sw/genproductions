@@ -412,7 +412,7 @@ fi
 #tar zxf ${POWHEGSRC}
 
 ### retrieve powheg source from svn
-svn checkout --revision 3720 --username anonymous --password anonymous svn://powhegbox.mib.infn.it/trunk/POWHEG-BOX-V2 POWHEG-BOX
+svn checkout --revision 3741 --username anonymous --password anonymous svn://powhegbox.mib.infn.it/trunk/POWHEG-BOX-V2 POWHEG-BOX
 
 # increase maxseeds to 10000
 sed -i -e "s#par_maxseeds=200,#par_maxseeds=10000,#g" POWHEG-BOX/include/pwhg_par.h
@@ -423,7 +423,7 @@ if [ -e POWHEG-BOX/${process}.tgz ]; then
   cd -
 else
   cd POWHEG-BOX/
-  svn co --revision 3720 --username anonymous --password anonymous svn://powhegbox.mib.infn.it/trunk/User-Processes-V2/${process}
+  svn co --revision 3741 --username anonymous --password anonymous svn://powhegbox.mib.infn.it/trunk/User-Processes-V2/${process}
   cd -
 fi
 
@@ -460,7 +460,6 @@ cd POWHEG-BOX/${process}
 if [ $forMiNNLO -eq 1 ]; then
     if [ "$process" = "Wj" ]; then
         patch -l -p0 -i ${WORKDIR}/patches/wj_minnlo_scheme_weights.patch
-        cp -r  ${WORKDIR}/patches/WjMiNNLO .
     elif [ "$process" = "Zj" ]; then
         patch -l -p0 -i ${WORKDIR}/patches/zj_minnlo_scheme_weights.patch
     fi
