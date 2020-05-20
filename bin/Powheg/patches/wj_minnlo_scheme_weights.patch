@@ -47,3 +47,108 @@ Index: Born_phsp.f
 +         mur=ps_Wmass
        endif
        end
+
+
+Index: WjMiNNLO/init_couplings.f
+===================================================================
+--- WjMiNNLO/init_couplings.f	(revision 3741)
++++ WjMiNNLO/init_couplings.f	(working copy)
+@@ -12,6 +12,8 @@
+       real * 8 masswindow_low,masswindow_high,wmasslow,wmasshigh
+       real * 8 powheginput
+       external powheginput
++      real*8 osWmass,osWwidth
++      real*8 osZmass,osZwidth
+       logical verbose
+       parameter(verbose=.true.)
+       integer i,j
+@@ -51,18 +53,47 @@
+ cccccc   INDEPENDENT QUANTITIES       
+ cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+       ph_Wmass = powheginput("#Wmass")
+-      if (ph_Wmass.le.0d0) ph_Wmass  = 80.398d0     
++      if (ph_Wmass.le.0d0) ph_Wmass  = 80.379d0
+       ph_Wwidth = powheginput("#Wwidth")
+-      if (ph_Wwidth.le.0d0) ph_Wwidth =  2.141d0
+-      ph_alphaem = powheginput("#alphaem")
+-      if (ph_alphaem.le.0d0) ph_alphaem = 1d0/128.89d0
++      if (ph_Wwidth.le.0d0) ph_Wwidth =  2.085d0
++      ! ph_alphaem = powheginput("#alphaem")
++      ! if (ph_alphaem.le.0d0) ph_alphaem = 1d0/128.89d0
+       ph_Zmass = powheginput("#Zmass")
+       if (ph_Zmass.le.0d0) ph_Zmass  = 91.1876d0     
+       ph_Zwidth = powheginput("#Zwidth")
+       if (ph_Zwidth.le.0d0) ph_Zwidth =  2.4952d0
+-      ph_sthw2 = powheginput("#sthw2")
+-      if (ph_sthw2.le.0d0) ph_sthw2 = abs(1d0-(ph_Wmass/ph_Zmass)**2)
+-
++      ph_gmu = powheginput("#gmu")
++      if (ph_gmu.le.0) ph_gmu = 1.1663787d-5
++      
++      ps_Wmass = powheginput("#psWmass")
++      if (ps_Wmass.le.0d0) ps_Wmass = ph_Wmass
++      
++      if(verbose) then
++            write(*,*) '*************************************'
++            write(*,*) 'Using GF,mZ,mW input scheme'
++            write(*,*) 'input Z mass = ',ph_Zmass
++            write(*,*) 'input Z width = ',ph_Zwidth
++            write(*,*) 'input W mass = ',ph_Wmass
++            write(*,*) 'input W mass (phsp) = ',ps_Wmass
++            write(*,*) 'input W width = ',ph_Wwidth
++            write(*,*) 'input gmu = ',ph_gmu
++            write(*,*) '*************************************'
++      endif
++            
++c     correct masses fixed-width -> width-dependent scheme
++      osWmass= ph_Wmass
++      osWwidth= ph_Wwidth
++      ph_Wmass= osWmass/sqrt(1.d0+(osWwidth/osWmass)**2)
++      ph_Wwidth= osWwidth/sqrt(1.d0+(osWwidth/osWmass)**2)
++      
++      ps_Wwidth= osWwidth/sqrt(1.d0+(osWwidth/ps_Wmass)**2)
++      ps_Wmass= ps_Wmass/sqrt(1.d0+(osWwidth/ps_Wmass)**2)
++      
++      osZmass= ph_Zmass
++      osZwidth= ph_Zwidth
++      ph_Zmass= osZmass/sqrt(1.d0+(osZwidth/osZmass)**2)
++      ph_Zwidth= osZwidth/sqrt(1.d0+(osZwidth/osZmass)**2)
++      
+ c     CAVEAT: 
+       ph_CKM(1,1) = powheginput("#CKM_Vud")
+       if (ph_CKM(1,1).le.0d0) ph_CKM(1,1)=0.975d0 
+@@ -96,12 +127,14 @@
+ cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+ cccccc   DEPENDENT QUANTITIES       
+ cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
++      ph_sthw2 = abs(1d0-(ph_Wmass/ph_Zmass)**2)
+       ph_sthw = sqrt(ph_sthw2)
+       ph_cthw = sqrt(1-ph_sthw2)
+       ph_Zmass2 = ph_Zmass**2
+       ph_Wmass2 = ph_Wmass**2
+ 
+-
++      ps_Wmass2 = ps_Wmass**2
++      ps_WmWw = ps_Wmass * ps_Wwidth
+ 
+ c     set mass windows around W-mass peak in unit of ph_Wwidth
+ c     It is used in the generation of the Born phase space
+@@ -128,13 +161,15 @@
+ 
+       ph_WmWw = ph_Wmass * ph_wwidth
+ 
+-      ph_unit_e = sqrt(4*pi*ph_alphaem)
++      ph_unit_e = sqrt(ph_gmu * 8d0/sqrt(2d0) * ph_Wmass**2 * ph_sthw2)
++      ph_alphaem = ph_unit_e*ph_unit_e/4d0/pi
+ 
+       if(verbose) then
+       write(*,*) '*************************************'
+-c      write(*,*) 'Z mass = ',ph_Zmass
+-c      write(*,*) 'Z width = ',ph_Zwidth
++      write(*,*) 'Z mass = ',ph_Zmass
++      write(*,*) 'Z width = ',ph_Zwidth
+       write(*,*) 'W mass = ',ph_Wmass
++      write(*,*) 'W mass (phsp) = ',ps_Wmass
+       write(*,*) 'W width = ',ph_Wwidth
+       write(*,*) '1/alphaem = ',1d0/ph_alphaem
+       write(*,*) 'alphaem = ',ph_alphaem
