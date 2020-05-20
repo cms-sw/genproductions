@@ -1,0 +1,3 @@
+<tool name="py2-nose" version="1.3.7-mlhled2">
+  <use name="py2-pippkgs"/>
+</tool>

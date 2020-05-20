@@ -1,0 +1,210 @@
+Starting job on  Wed May 20 17:25:48 CEST 2020
+Running on  Linux lxplus601.cern.ch 2.6.32-754.28.1.el6.x86_64 #1 SMP Thu Mar 12 13:39:11 CET 2020 x86_64 x86_64 x86_64 GNU/Linux
+System release  Scientific Linux CERN SLC release 6.10 (Carbon)
+name: XtoAAto4G
+carddir: cards/production/2017/13TeV/XtoAAto4G/
+queue: local
+scram_arch: slc6_amd64_gcc630
+cmssw_version: CMSSW_9_3_16
+# On branch master
+# Your branch is ahead of 'origin/master' by 1 commit.
+#
+# Changed but not updated:
+#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#	modified:   cards/production/2017/13TeV/XtoAAto4G/XtoAAto4G_X500A5_customizecards.dat
+#	modified:   cards/production/2017/13TeV/XtoAAto4G/XtoAAto4G_X500A5_run_card.dat
+#
+# Untracked files:
+#   (use "git add <file>..." to include in what will be committed)
+#
+#	XtoAAto4G.log
+no changes added to commit (use "git add" and/or "git commit -a")
+Current git revision is:
+68e3f1242ec12c777194782f82ae646c44511e9b
+diff --git a/bin/MadGraph5_aMCatNLO/cards/production/2017/13TeV/XtoAAto4G/XtoAAto4G_X500A5_customizecards.dat b/bin/MadGraph5_aMCatNLO/cards/production/2017/13TeV/XtoAAto4G/XtoAAto4G_X500A5_customizecards.dat
+index cf563f5..d68bc66 100644
+--- a/bin/MadGraph5_aMCatNLO/cards/production/2017/13TeV/XtoAAto4G/XtoAAto4G_X500A5_customizecards.dat
++++ b/bin/MadGraph5_aMCatNLO/cards/production/2017/13TeV/XtoAAto4G/XtoAAto4G_X500A5_customizecards.dat
+@@ -1,4 +1,18 @@
+ set param_card mass 54 5.000000e+02
++set param_card decay 54 7.956155e-03
+ set param_card mass 90000054 5.000000e+00
++set param_card decay 90000054 4.325050e-01
+ set param_card mass 6 1.000000e+04
+ set param_card decay 6 3.281569e+05
++set param_card dminputs 1.000000e+00 
++set param_card dminputs 2 0.000000e+00
++set param_card dminputs 3 1.000000e+00
++set param_card dminputs 4 0.000000e+00
++set param_card dminputs 5 1.000000e+00
++set param_card dminputs 6 1.000000e+00
++set param_card dminputs 7 0.000000e+00
++set param_card dminputs 8 0.000000e+00
++set param_card dminputs 9 1.000000e+01
++set param_card dminputs 10 1.000000e+04
++set param_card dminputs 11 1.000000e+00
++set param_card dminputs 12 0.000000e+00
+diff --git a/bin/MadGraph5_aMCatNLO/cards/production/2017/13TeV/XtoAAto4G/XtoAAto4G_X500A5_run_card.dat b/bin/MadGraph5_aMCatNLO/cards/production/2017/13TeV/XtoAAto4G/XtoAAto4G_X500A5_run_card.dat
+index ba0305f..f529e50 100644
+--- a/bin/MadGraph5_aMCatNLO/cards/production/2017/13TeV/XtoAAto4G/XtoAAto4G_X500A5_run_card.dat
++++ b/bin/MadGraph5_aMCatNLO/cards/production/2017/13TeV/XtoAAto4G/XtoAAto4G_X500A5_run_card.dat
+@@ -27,7 +27,7 @@
+ # Number of events and rnd seed                                      *
+ # Warning: Do not generate more than 1M events in a single run       *
+ #*********************************************************************
+-  100 = nevents ! Number of unweighted events requested 
++  1000 = nevents ! Number of unweighted events requested 
+   0   = iseed   ! rnd seed (0=assigned automatically=default))
+ #*********************************************************************
+ # Collider type and energy                                           *
+@@ -43,7 +43,7 @@
+ # PDF CHOICE: this automatically fixes also alpha_s and its evol.    *
+ #*********************************************************************
+      lhapdf    = pdlabel     ! PDF set                                     
+-     325300    = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number
++     30600    = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number
+ # To see heavy ion options: type "update ion_pdf"
+ #*********************************************************************
+ # Renormalization and factorization scales                           *
+@@ -67,7 +67,7 @@
+ #*********************************************************************
+ # Matching parameter (MLM only)
+ #*********************************************************************
+- 0 = ickkw            ! 0 no matching, 1 MLM
++ 1 = ickkw            ! 0 no matching, 1 MLM
+  1 = highestmult      ! for ickkw=2, highest mult group
+  1     = ktscheme ! for ickkw=1, 1 Durham kT, 2 Pythia pTE
+  1.0 = alpsfact         ! scale factor for QCD emission vx
+@@ -76,7 +76,7 @@
+  5 = asrwgtflavor     ! highest quark flavor for a_s reweight
+  True  = auto_ptj_mjj  ! Automatic setting of ptj and mjj if xqcut >0
+                                    ! (turn off for VBF and single top processes) 
+- 0.0   = xqcut   ! minimum kt jet measure between partons
++ 100.0   = xqcut   ! minimum kt jet measure between partons
+ #*********************************************************************
+ #
+ #*********************************************************************
+@@ -259,7 +259,7 @@
+ # maximal pdg code for quark to be considered as a light jet         *
+ # (otherwise b cuts are applied)                                     *
+ #*********************************************************************
+- 4 = maxjetflavor    ! Maximum jet pdg code
++ 5 = maxjetflavor    ! Maximum jet pdg code
+ #*********************************************************************
+ #
+ #*********************************************************************
+/afs/cern.ch/user/s/stclark/public/XaaPhotonProduction/genproductions/bin/MadGraph5_aMCatNLO
+patching file models/loop_qcd_qed_sm/restrict_lepton_masses_no_lepton_yukawas.dat
+patching file models/loop_sm/restrict_ckm_no_b_mass.dat
+patching file models/sm/restrict_ckm_lepton_masses.dat
+patching file models/sm/restrict_ckm_lepton_masses_no_b_mass.dat
+patching file models/sm/restrict_ckm_no_b_mass.dat
+patching file models/sm/restrict_lepton_masses_no_b_mass.dat
+patching file Template/NLO/SubProcesses/MCmasses_PYTHIA8.inc
+patching file madgraph/interface/reweight_interface.py
+patching file madgraph/interface/loop_interface.py
+patching file madgraph/various/systematics.py
+Hunk #1 succeeded at 325 (offset 97 lines).
+Hunk #2 succeeded at 359 (offset 98 lines).
+Hunk #3 succeeded at 533 (offset 117 lines).
+patching file Template/LO/Source/.make_opts
+Hunk #1 succeeded at 118 (offset 4 lines).
+patching file Template/NLO/Source/make_opts.inc
+patching file madgraph/iolibs/export_v4.py
+Hunk #1 succeeded at 521 (offset 23 lines).
+patching file madgraph/iolibs/template_files/pdf_opendata.f
+patching file madgraph/iolibs/template_files/pdf_wrap_lhapdf.f
+Hunk #2 succeeded at 38 with fuzz 1.
+patching file Template/LO/SubProcesses/refine.sh
+patching file Template/LO/SubProcesses/refine_splitted.sh
+patching file Template/LO/SubProcesses/survey.sh
+patching file Template/NLO/SubProcesses/ajob_template
+patching file Template/NLO/SubProcesses/reweight_xsec_events.local
+patching file Template/LO/Source/.make_opts
+Hunk #1 succeeded at 100 (offset 4 lines).
+patching file Template/LO/Source/PDF/pdf_lhapdf6.cc
+Hunk #1 succeeded at 16 with fuzz 2 (offset 4 lines).
+patching file Template/NLO/Source/PDF/pdf_lhapdf6.cc
+Hunk #1 succeeded at 16 with fuzz 2 (offset 4 lines).
+patching file Template/NLO/Source/make_opts.inc
+patching file madgraph/iolibs/template_files/pdf_wrap_lhapdf.f
+patching file Template/LO/SubProcesses/refine.sh
+Hunk #3 succeeded at 113 with fuzz 2.
+patching file Template/LO/SubProcesses/refine_splitted.sh
+patching file Template/LO/SubProcesses/survey.sh
+patching file Template/NLO/SubProcesses/ajob_template
+patching file Template/NLO/SubProcesses/reweight_xsec_events.local
+patching file madgraph/interface/reweight_interface.py
+Hunk #1 succeeded at 1885 (offset 37 lines).
+patching file madgraph/interface/common_run_interface.py
+Hunk #1 succeeded at 1701 (offset 101 lines).
+patching file Template/LO/SubProcesses/refine.sh
+patching file Template/LO/SubProcesses/refine_splitted.sh
+patching file Template/LO/SubProcesses/survey.sh
+patching file Template/NLO/SubProcesses/ajob_template
+patching file Template/NLO/SubProcesses/reweight_xsec_events.local
+patching file madgraph/various/misc.py
+Hunk #1 succeeded at 450 (offset 48 lines).
+patching file madgraph/interface/amcatnlo_run_interface.py
+patching file madgraph/interface/madevent_interface.py
+Hunk #1 succeeded at 6598 (offset 17 lines).
+Hunk #2 succeeded at 6614 (offset 17 lines).
+[?1034h************************************************************
+*                                                          *
+*                     W E L C O M E to                     *
+*              M A D G R A P H 5 _ a M C @ N L O           *
+*                                                          *
+*                                                          *
+*                 *                       *                *
+*                   *        * *        *                  *
+*                     * * * * 5 * * * *                    *
+*                   *        * *        *                  *
+*                 *                       *                *
+*                                                          *
+*         VERSION 2.6.5                 2018-02-03         *
+*                                                          *
+*    The MadGraph5_aMC@NLO Development Team - Find us at   *
+*    https://server06.fynu.ucl.ac.be/projects/madgraph     *
+*                            and                           *
+*            http://amcatnlo.web.cern.ch/amcatnlo/         *
+*                                                          *
+*               Type 'help' for in-line help.              *
+*           Type 'tutorial' to learn how MG5 works         *
+*    Type 'tutorial aMCatNLO' to learn how aMC@NLO works   *
+*    Type 'tutorial MadLoop' to learn how MadLoop works    *
+*                                                          *
+************************************************************
+load MG5 configuration from input/mg5_configuration.txt 
+fastjet-config does not seem to correspond to a valid fastjet-config executable (v3+). We will use fjcore instead.
+ Please set the 'fastjet'variable to the full (absolute) /PATH/TO/fastjet-config (including fastjet-config).
+ MG5_aMC> set fastjet /PATH/TO/fastjet-config
+
+lhapdf-config does not seem to correspond to a valid lhapdf-config executable. 
+Please set the 'lhapdf' variable to the (absolute) /PATH/TO/lhapdf-config (including lhapdf-config).
+Note that you can still compile and run aMC@NLO with the built-in PDFs
+ MG5_aMC> set lhapdf /PATH/TO/lhapdf-config
+
+Using default eps viewer "evince". Set another one in ./input/mg5_configuration.txt
+Using default web browser "firefox". Set another one in ./input/mg5_configuration.txt
+import /afs/cern.ch/user/s/stclark/public/XaaPhotonProduction/genproductions/bin/MadGraph5_aMCatNLO/XtoAAto4G/XtoAAto4G_gridpack/work/MG5_aMC_v2_6_5/mgconfigscript
+The import format was not given, so we guess it as command
+set auto_update 0
+save options auto_update
+save configuration file to /afs/cern.ch/user/s/stclark/public/XaaPhotonProduction/genproductions/bin/MadGraph5_aMCatNLO/XtoAAto4G/XtoAAto4G_gridpack/work/MG5_aMC_v2_6_5/input/mg5_configuration.txt
+set automatic_html_opening False
+This option will be the default in any output that you are going to create in this session.
+In order to keep this changes permanent please run 'save options'
+set lhapdf /cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/lhapdf/6.2.1-ghjeda2/share/LHAPDF/../../bin/lhapdf-config
+set lhapdf to /cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/lhapdf/6.2.1-ghjeda2/share/LHAPDF/../../bin/lhapdf-config
+save options lhapdf
+save configuration file to /afs/cern.ch/user/s/stclark/public/XaaPhotonProduction/genproductions/bin/MadGraph5_aMCatNLO/XtoAAto4G/XtoAAto4G_gridpack/work/MG5_aMC_v2_6_5/input/mg5_configuration.txt
+set run_mode 2
+This option will be the default in any output that you are going to create in this session.
+In order to keep this changes permanent please run 'save options'
+save options
+save configuration file to /afs/cern.ch/user/s/stclark/public/XaaPhotonProduction/genproductions/bin/MadGraph5_aMCatNLO/XtoAAto4G/XtoAAto4G_gridpack/work/MG5_aMC_v2_6_5/input/mg5_configuration.txt
+quit
+/afs/cern.ch/user/s/stclark/public/XaaPhotonProduction/genproductions/bin/MadGraph5_aMCatNLO/XtoAAto4G/XtoAAto4G_gridpack/work
+/afs/cern.ch/user/s/stclark/public/XaaPhotonProduction/genproductions/bin/MadGraph5_aMCatNLO/cards/production/2017/13TeV/XtoAAto4G//XtoAAto4G_proc_card.dat  does not exist!

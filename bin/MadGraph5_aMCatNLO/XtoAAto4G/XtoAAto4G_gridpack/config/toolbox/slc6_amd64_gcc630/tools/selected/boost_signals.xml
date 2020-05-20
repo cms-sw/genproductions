@@ -1,0 +1,5 @@
+<tool name="boost_signals" version="1.63.0-mlhled2">
+  <info url="http://www.boost.org"/>
+  <lib name="boost_signals"/>
+  <use name="boost"/>
+</tool>

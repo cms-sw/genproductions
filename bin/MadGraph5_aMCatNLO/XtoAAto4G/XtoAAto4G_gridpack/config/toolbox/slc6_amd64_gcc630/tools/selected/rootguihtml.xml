@@ -1,0 +1,5 @@
+<tool name="rootguihtml" version="6.10.04-ghjeda">
+  <info url="http://root.cern.ch/root/"/>
+  <lib name="GuiHtml"/>
+  <use name="rootinteractive"/>
+</tool>

@@ -1,0 +1,33 @@
+<tool name="geant4core" version="10.02.p02-ghjeda5">
+  <info url="http://geant4.web.cern.ch/geant4/"/>
+  <lib name="G4digits_hits"/>
+  <lib name="G4error_propagation"/>
+  <lib name="G4event"/>
+  <lib name="G4geometry"/>
+  <lib name="G4global"/>
+  <lib name="G4graphics_reps"/>
+  <lib name="G4intercoms"/>
+  <lib name="G4interfaces"/>
+  <lib name="G4materials"/>
+  <lib name="G4parmodels"/>
+  <lib name="G4particles"/>
+  <lib name="G4persistency"/>
+  <lib name="G4physicslists"/>
+  <lib name="G4processes"/>
+  <lib name="G4readout"/>
+  <lib name="G4run"/>
+  <lib name="G4tracking"/>
+  <lib name="G4track"/>
+  <lib name="G4analysis"/>
+  <flags CXXFLAGS="-DG4MULTITHREADED -DG4USE_STD11 -ftls-model=global-dynamic -pthread"/>
+  <client>
+    <environment name="GEANT4CORE_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/geant4/10.02.p02-ghjeda5"/>
+    <environment name="LIBDIR" default="$GEANT4CORE_BASE/lib"/>
+    <environment name="G4LIB" value="$LIBDIR"/>
+    <environment name="INCLUDE" default="$GEANT4CORE_BASE/include/Geant4"/>
+  </client>
+  <runtime name="ROOT_INCLUDE_PATH"  value="$INCLUDE" type="path"/>
+  <flags cppdefines="GNU_GCC G4V9"/>
+  <use name="clhep"/>
+  <use name="root_cxxdefaults"/>
+</tool>

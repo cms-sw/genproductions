@@ -1,0 +1,6 @@
+<tool name="geant4" version="10.02.p02-ghjeda5">
+  <info url="http://geant4.web.cern.ch/geant4/"/>
+  <use name="geant4core"/>
+  <use name="geant4vis"/>
+  <use name="xerces-c"/>
+</tool>

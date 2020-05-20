@@ -1,0 +1,17 @@
+<tool name="boost" version="1.63.0-mlhled2">
+  <info url="http://www.boost.org"/>
+  <lib name="boost_thread"/>
+  <lib name="boost_signals"/>
+  <lib name="boost_date_time"/>
+  <client>
+    <environment name="BOOST_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/boost/1.63.0-mlhled2"/>
+    <environment name="LIBDIR" default="$BOOST_BASE/lib"/>
+    <environment name="INCLUDE" default="$BOOST_BASE/include"/>
+  </client>
+  <runtime name="CMSSW_FWLITE_INCLUDE_PATH" value="$BOOST_BASE/include" type="path"/>
+  <runtime name="ROOT_INCLUDE_PATH" value="$INCLUDE" type="path"/>
+  <use name="root_cxxdefaults"/>
+  <flags CPPDEFINES="BOOST_SPIRIT_THREADSAFE PHOENIX_THREADSAFE"/>
+  <flags CXXFLAGS="-Wno-error=unused-variable"/>
+  <use name="sockets"/>
+</tool>

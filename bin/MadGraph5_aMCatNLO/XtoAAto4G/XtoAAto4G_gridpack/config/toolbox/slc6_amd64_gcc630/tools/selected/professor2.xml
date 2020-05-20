@@ -1,0 +1,13 @@
+<tool name="professor2" version="2.2.1-ghjeda6">
+<client>
+<environment name="PROFESSOR2_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/professor2/2.2.1-ghjeda6"/>
+</client>
+<use name="py2-numpy"/>
+<use name="py2-sympy"/>
+<use name="py2-matplotlib"/>
+<use name="root"/>
+<use name="yoda"/>
+<use name="eigen"/>
+<runtime name="PATH" value="$PROFESSOR2_BASE/bin" type="path"/>
+<runtime name="PYTHONPATH" value="$PROFESSOR2_BASE/lib/python2.7/site-packages" type="path"/>
+</tool>

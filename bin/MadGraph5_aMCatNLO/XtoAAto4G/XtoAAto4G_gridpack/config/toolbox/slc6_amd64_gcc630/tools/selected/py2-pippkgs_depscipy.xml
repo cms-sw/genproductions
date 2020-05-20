@@ -1,0 +1,7 @@
+<tool name="py2-pippkgs_depscipy" version="3.0-ghjeda8">
+  <client>
+    <environment name="PY2_PIPPKGS_DEPSCIPY" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/py2-pippkgs_depscipy/3.0-ghjeda8"/>
+  </client>
+  <runtime name="PYTHONPATH" value="$PY2_PIPPKGS_DEPSCIPY/lib/python2.7/site-packages" type="path"/>
+  <runtime name="PATH" value="$PY2_PIPPKGS_DEPSCIPY/bin" type="path"/>
+</tool>

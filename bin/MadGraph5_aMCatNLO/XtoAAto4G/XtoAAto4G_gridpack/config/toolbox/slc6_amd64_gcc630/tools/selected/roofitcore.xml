@@ -1,0 +1,17 @@
+<tool name="roofitcore" version="6.10.04-ghjeda">
+  <info url="http://root.cern.ch/root/"/>
+  <lib name="RooFitCore"/>
+  <client>
+    <environment name="ROOFIT_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc630/lcg/root/6.10.04-ghjeda"/>
+    <environment name="LIBDIR" default="$ROOFIT_BASE/lib"/>
+    <environment name="INCLUDE" default="$ROOFIT_BASE/include"/>
+  </client>
+  <runtime name="ROOFITSYS" value="$ROOFIT_BASE/"/>
+  <runtime name="PATH"      value="$ROOFIT_BASE/bin" type="path"/>
+  <runtime name="ROOT_INCLUDE_PATH" value="$INCLUDE" type="path"/>
+  <use name="rootcore"/>
+  <use name="roothistmatrix"/>
+  <use name="rootgpad"/>
+  <use name="rootminuit"/>
+  <use name="root_cxxdefaults"/>
+</tool>

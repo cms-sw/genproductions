@@ -1,0 +1,7 @@
+<tool name="py2-pippkgs" version="5.0-ghjeda6">
+  <client>
+    <environment name="PY2_PIPPKGS" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/py2-pippkgs/5.0-ghjeda6"/>
+  </client>
+  <runtime name="PYTHONPATH" value="$PY2_PIPPKGS/lib/python2.7/site-packages" type="path"/>
+  <runtime name="PATH" value="$PY2_PIPPKGS/bin" type="path"/>
+</tool>

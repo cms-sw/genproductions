@@ -1,0 +1,14 @@
+<tool name="thepeg" version="2.1.4-ghjeda">
+  <lib name="ThePEG"/>
+  <lib name="LesHouches"/>
+  <client>
+    <environment name="THEPEG_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/thepeg/2.1.4-ghjeda"/>
+    <environment name="LIBDIR" default="$THEPEG_BASE/lib/ThePEG"/>
+    <environment name="INCLUDE" default="$THEPEG_BASE/include"/>
+  </client>
+  <runtime name="THEPEGPATH" value="$THEPEG_BASE/share/ThePEG"/>
+  <runtime name="ROOT_INCLUDE_PATH" value="$INCLUDE" type="path"/>
+  <use name="root_cxxdefaults"/>
+  <use name="lhapdf"/>
+  <use name="gsl"/>
+</tool>

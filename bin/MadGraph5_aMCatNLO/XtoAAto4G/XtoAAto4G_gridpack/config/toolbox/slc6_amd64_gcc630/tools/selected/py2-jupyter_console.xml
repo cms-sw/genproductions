@@ -1,0 +1,3 @@
+<tool name="py2-jupyter_console" version="5.1.0">
+  <use name="py2-pippkgs"/>
+</tool>

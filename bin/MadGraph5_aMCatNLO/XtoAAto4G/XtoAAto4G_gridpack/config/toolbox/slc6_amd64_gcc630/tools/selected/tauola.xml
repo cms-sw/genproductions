@@ -1,0 +1,10 @@
+<tool name="tauola" version="27.121.5">
+  <lib name="pretauola"/>
+  <lib name="tauola"/>
+  <client>
+    <environment name="TAUOLA_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/tauola/27.121.5"/>
+    <environment name="LIBDIR" default="$TAUOLA_BASE/lib"/>
+  </client>
+  <use name="f77compiler"/>
+  <use name="tauola_headers"/>
+</tool>

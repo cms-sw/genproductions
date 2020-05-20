@@ -1,0 +1,7 @@
+<tool name="qgraf" version="3.1.4-omkpbe">
+  <client>
+    <environment name="QGRAF_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/qgraf/3.1.4-omkpbe"/>
+    <environment name="BINDIR" default="$QGRAF_BASE/bin"/>
+  </client>
+  <runtime name="PATH" default="$BINDIR" type="path"/>
+</tool>

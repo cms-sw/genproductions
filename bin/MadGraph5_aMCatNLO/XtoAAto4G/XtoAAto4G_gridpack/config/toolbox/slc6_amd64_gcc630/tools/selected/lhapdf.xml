@@ -1,0 +1,12 @@
+<tool name="lhapdf" version="6.2.1-ghjeda2">
+  <lib name="LHAPDF"/>
+  <client>
+    <environment name="LHAPDF_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/lhapdf/6.2.1-ghjeda2"/>
+    <environment name="LIBDIR" default="$LHAPDF_BASE/lib"/>
+    <environment name="INCLUDE" default="$LHAPDF_BASE/include"/>
+  </client>
+  <runtime name="LHAPDF_DATA_PATH" value="$LHAPDF_BASE/share/LHAPDF"/>
+  <use name="yaml-cpp"/>
+  <runtime name="ROOT_INCLUDE_PATH" value="$INCLUDE" type="path"/>
+  <use name="root_cxxdefaults"/>
+</tool>

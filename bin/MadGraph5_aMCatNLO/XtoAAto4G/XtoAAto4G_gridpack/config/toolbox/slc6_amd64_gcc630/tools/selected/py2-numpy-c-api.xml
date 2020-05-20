@@ -1,0 +1,7 @@
+<tool name="py2-numpy-c-api" version="1.12.1-mlhled2">
+  <client>
+    <environment name="PY2_NUMPY_C_API_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/py2-numpy/1.12.1-mlhled2"/>
+    <environment name="INCLUDE" default="$PY2_NUMPY_C_API_BASE/c-api/core/include"/>
+  </client>
+  <use name="python"/>
+</tool>

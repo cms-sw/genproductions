@@ -1,0 +1,12 @@
+<tool name="gsl" version="2.2.1">
+  <info url="http://www.gnu.org/software/gsl/gsl.html"/>
+  <lib name="gsl"/>
+  <lib name="gslcblas"/>
+  <client>
+    <environment name="GSL_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/gsl/2.2.1"/>
+    <environment name="LIBDIR" default="$GSL_BASE/lib"/>
+    <environment name="INCLUDE" default="$GSL_BASE/include"/>
+  </client>
+  <runtime name="ROOT_INCLUDE_PATH" value="$INCLUDE" type="path"/>
+  <use name="root_cxxdefaults"/>
+</tool>

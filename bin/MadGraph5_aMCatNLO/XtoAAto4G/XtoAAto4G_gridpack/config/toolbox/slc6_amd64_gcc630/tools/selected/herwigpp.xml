@@ -1,0 +1,17 @@
+<tool name="herwigpp" version="7.1.4-ghjeda2">
+  <lib name="HerwigAPI"/>
+  <client>
+    <environment name="HERWIGPP_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/herwigpp/7.1.4-ghjeda2"/>
+    <environment name="LIBDIR" default="$HERWIGPP_BASE/lib/Herwig"/>
+    <environment name="INCLUDE" default="$HERWIGPP_BASE/include"/>
+    <environment name="BINDIR" default="$HERWIGPP_BASE/bin"/>
+  </client>
+  <runtime name="HERWIGPATH" value="$HERWIGPP_BASE/share/Herwig"/>
+  <runtime name="ROOT_INCLUDE_PATH" value="$INCLUDE" type="path"/>
+  <runtime name="PATH" default="$BINDIR" type="path"/>
+  <use name="root_cxxdefaults"/>
+  <use name="lhapdf"/>
+  <use name="thepeg"/>
+  <use name="madgraph5amcatnlo"/>
+  <use name="openloops"/>
+</tool>

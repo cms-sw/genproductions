@@ -1,0 +1,16 @@
+<tool name="oracle" version="12.1.0.2.0">
+  <lib name="clntsh"/>
+  
+  <client>
+    <environment name="ORACLE_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/oracle/12.1.0.2.0"/>
+    <environment name="ORACLE_ADMINDIR" value="/etc"/>
+    <environment name="LIBDIR" value="$ORACLE_BASE/lib"/>
+    <environment name="BINDIR" value="$ORACLE_BASE/bin"/>
+    <environment name="INCLUDE" value="$ORACLE_BASE/include"/>
+  </client>
+  <runtime name="PATH" value="$BINDIR" type="path"/>
+  <runtime name="TNS_ADMIN" default="$ORACLE_ADMINDIR"/>
+  <runtime name="ROOT_INCLUDE_PATH" value="$INCLUDE" type="path"/>
+  <use name="root_cxxdefaults"/>
+  <use name="sockets"/>
+</tool>

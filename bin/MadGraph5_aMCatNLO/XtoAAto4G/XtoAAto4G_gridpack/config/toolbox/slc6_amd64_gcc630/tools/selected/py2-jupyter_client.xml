@@ -1,0 +1,3 @@
+<tool name="py2-jupyter_client" version="5.0.1">
+  <use name="py2-pippkgs"/>
+</tool>

@@ -1,0 +1,3 @@
+<tool name="py2-pickleshare" version="0.7.4-njopjo">
+  <use name="py2-pippkgs"/>
+</tool>

@@ -1,0 +1,6 @@
+<tool name="lapack" version="3.6.1-mlhled">
+  <client>
+    <environment name="LAPACK_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/lapack/3.6.1-mlhled"/>
+    <environment name="LIBDIR" default="$LAPACK_BASE/lib64"/>
+  </client>
+</tool>

@@ -1,0 +1,3 @@
+<tool name="py2-sympy" version="1.0-mlhled2">
+  <use name="py2-pippkgs"/>
+</tool>

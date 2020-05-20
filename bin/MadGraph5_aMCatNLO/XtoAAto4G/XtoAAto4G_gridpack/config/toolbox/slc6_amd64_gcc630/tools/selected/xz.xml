@@ -1,0 +1,12 @@
+  <tool name="xz" version="5.2.2-oenich">
+    <info url="http://tukaani.org/xz/"/>
+    <lib name="lzma"/>
+    <client>
+      <environment name="XZ_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/xz/5.2.2-oenich"/>
+      <environment name="LIBDIR" default="$XZ_BASE/lib"/>
+      <environment name="INCLUDE" default="$XZ_BASE/include"/>
+    </client>
+    <runtime name="PATH" value="$XZ_BASE/bin" type="path"/>
+    <runtime name="ROOT_INCLUDE_PATH" value="$INCLUDE" type="path"/>
+    <use name="root_cxxdefaults"/>
+  </tool>

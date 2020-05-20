@@ -1,0 +1,3 @@
+<tool name="py2-psutil" version="5.2.2">
+  <use name="py2-pippkgs"/>
+</tool>

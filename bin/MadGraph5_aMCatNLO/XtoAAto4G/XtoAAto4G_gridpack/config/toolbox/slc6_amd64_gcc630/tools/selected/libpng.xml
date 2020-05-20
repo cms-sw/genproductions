@@ -1,0 +1,12 @@
+<tool name="libpng" version="1.6.16-oenich">
+  <info url="http://www.libpng.org/"/>
+  <lib name="png"/>
+  <client>
+    <environment name="LIBPNG_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/libpng/1.6.16-oenich"/>
+    <environment name="LIBDIR" default="$LIBPNG_BASE/lib"/>
+    <environment name="INCLUDE" default="$LIBPNG_BASE/include"/>
+  </client>
+  <runtime name="ROOT_INCLUDE_PATH" value="$INCLUDE" type="path"/>
+  <use name="root_cxxdefaults"/>
+  <use name="zlib"/>
+</tool>

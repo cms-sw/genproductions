@@ -1,0 +1,3 @@
+<tool name="py2-setuptools" version="28.3.0-mlhled2">
+  <use name="py2-pippkgs"/>
+</tool>

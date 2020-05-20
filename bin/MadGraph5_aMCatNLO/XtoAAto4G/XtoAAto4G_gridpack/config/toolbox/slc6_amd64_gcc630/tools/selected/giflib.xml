@@ -1,0 +1,12 @@
+  <tool name="giflib" version="4.2.3-oenich">
+    <info url="http://giflib.sourceforge.net"/>
+    <lib name="gif"/>
+    <client>
+      <environment name="GIFLIB_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/giflib/4.2.3-oenich"/>
+      <environment name="LIBDIR" default="$GIFLIB_BASE/lib"/>
+      <environment name="INCLUDE" default="$GIFLIB_BASE/include"/>
+    </client>
+    <runtime name="PATH" value="$GIFLIB_BASE/bin" type="path"/>
+    <runtime name="ROOT_INCLUDE_PATH" value="$INCLUDE" type="path"/>
+    <use name="root_cxxdefaults"/>
+  </tool>

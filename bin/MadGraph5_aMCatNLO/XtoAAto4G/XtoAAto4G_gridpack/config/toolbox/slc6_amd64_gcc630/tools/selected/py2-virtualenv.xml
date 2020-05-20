@@ -1,0 +1,3 @@
+<tool name="py2-virtualenv" version="15.1.0">
+  <use name="py2-pippkgs"/>
+</tool>

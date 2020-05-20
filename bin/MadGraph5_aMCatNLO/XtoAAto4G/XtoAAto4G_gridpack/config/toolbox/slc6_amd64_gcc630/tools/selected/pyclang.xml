@@ -1,0 +1,7 @@
+<tool name="pyclang" version="4.0.0-njopjo">
+  <client>
+    <environment name="PYCLANG_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/llvm/4.0.0-njopjo"/>
+  </client>
+  <runtime name="PYTHONPATH" value="$PYCLANG_BASE/lib64/python2.7/site-packages" type="path"/>
+  <use name="python"/>
+</tool>

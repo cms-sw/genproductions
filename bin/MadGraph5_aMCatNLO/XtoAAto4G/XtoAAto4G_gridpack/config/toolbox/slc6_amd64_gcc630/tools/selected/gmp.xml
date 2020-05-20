@@ -1,0 +1,9 @@
+<tool name="gmp" version="6.1.0-oenich">
+  <lib name="gmp"/>
+  <client>
+    <environment name="GMP_BASE"  default="/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/gmp-static/6.1.0-oenich"/>
+    <environment name="INCLUDE"   default="$GMP_BASE/include"/>
+    <environment name="LIBDIR"    default="$GMP_BASE/lib"/>
+  </client>
+  <use name="mpfr"/>
+</tool>

@@ -1,0 +1,13 @@
+<tool name="libtiff" version="4.0.3-oenich">
+  <info url="http://www.libtiff.org/"/>
+  <lib name="tiff"/>
+  <client>
+    <environment name="LIBTIFF_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/libtiff/4.0.3-oenich"/>
+    <environment name="LIBDIR" default="$LIBTIFF_BASE/lib"/>
+    <environment name="INCLUDE" default="$LIBTIFF_BASE/include"/>
+  </client>
+  <runtime name="ROOT_INCLUDE_PATH" value="$INCLUDE" type="path"/>
+  <use name="root_cxxdefaults"/>
+  <use name="libjpeg-turbo"/>
+  <use name="zlib"/>
+</tool>

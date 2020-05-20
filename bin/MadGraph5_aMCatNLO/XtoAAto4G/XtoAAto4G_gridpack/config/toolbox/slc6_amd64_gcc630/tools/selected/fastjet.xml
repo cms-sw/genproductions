@@ -1,0 +1,15 @@
+  <tool name="fastjet" version="3.1.0">
+    <info url="http://www.lpthe.jussieu.fr/~salam/fastjet/"/>
+    <lib name="fastjetplugins"/>
+    <lib name="fastjettools"/>
+    <lib name="siscone"/>
+    <lib name="siscone_spherical"/>
+    <lib name="fastjet"/>
+    <client>
+      <environment name="FASTJET_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/fastjet/3.1.0"/>
+      <environment name="LIBDIR" default="$FASTJET_BASE/lib"/>
+      <environment name="INCLUDE" default="$FASTJET_BASE/include"/>
+    </client>
+    <runtime name="ROOT_INCLUDE_PATH" value="$INCLUDE" type="path"/>
+    <use name="root_cxxdefaults"/>
+  </tool>

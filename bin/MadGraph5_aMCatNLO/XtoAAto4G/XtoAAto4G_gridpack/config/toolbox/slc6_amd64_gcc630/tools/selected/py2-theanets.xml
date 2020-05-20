@@ -1,0 +1,3 @@
+<tool name="py2-theanets" version="0.7.3-ghjeda">
+  <use name="py2-pippkgs_depscipy"/>
+</tool>

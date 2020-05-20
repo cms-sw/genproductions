@@ -1,0 +1,10 @@
+<tool name="valgrind" version="3.12.0-oenich">
+  <client>
+    <environment name="VALGRIND_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/valgrind/3.12.0-oenich"/>
+    <environment name="INCLUDE" default="$VALGRIND_BASE/include"/>
+  </client>
+  <runtime name="PATH" value="$VALGRIND_BASE/bin" type="path"/>
+  <runtime name="VALGRIND_LIB" value="$VALGRIND_BASE/lib/valgrind"/>
+  <runtime name="ROOT_INCLUDE_PATH" value="$INCLUDE" type="path"/>
+  <use name="root_cxxdefaults"/>
+</tool>

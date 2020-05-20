@@ -1,0 +1,10 @@
+<tool name="OpenBLAS" version="0.2.19-mlhled2">
+  <lib name="openblas"/>
+  <client>
+    <environment name="OPENBLAS_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/OpenBLAS/0.2.19-mlhled2"/>
+    <environment name="INCLUDE" default="$OPENBLAS_BASE/include"/>
+    <environment name="LIBDIR" default="$OPENBLAS_BASE/lib"/>
+    <environment name="BINDIR" default="$OPENBLAS_BASE/bin"/>
+  </client>
+  <runtime name="OPENBLAS_NUM_THREADS" value="1"/>
+</tool>

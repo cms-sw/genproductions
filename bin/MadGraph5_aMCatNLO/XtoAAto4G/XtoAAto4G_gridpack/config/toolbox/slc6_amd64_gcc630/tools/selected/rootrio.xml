@@ -1,0 +1,5 @@
+<tool name="rootrio" version="6.10.04-ghjeda">
+  <info url="http://root.cern.ch/root/"/>
+  <lib name="RIO"/>
+  <use name="rootcling"/>
+</tool>

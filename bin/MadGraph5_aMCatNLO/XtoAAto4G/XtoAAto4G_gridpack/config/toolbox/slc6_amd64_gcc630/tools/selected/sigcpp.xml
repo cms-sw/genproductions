@@ -1,0 +1,10 @@
+<tool name="sigcpp" version="2.6.2-oenich">
+  <lib name="sigc-2.0"/>
+  <client>
+    <environment name="SIGCPP_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/sigcpp/2.6.2-oenich"/>
+    <environment name="LIBDIR" default="$SIGCPP_BASE/lib"/>
+    <environment name="INCLUDE" default="$SIGCPP_BASE/include/sigc++-2.0"/>
+  </client>
+  <runtime name="ROOT_INCLUDE_PATH" value="$INCLUDE" type="path"/>
+  <use name="root_cxxdefaults"/>
+</tool>

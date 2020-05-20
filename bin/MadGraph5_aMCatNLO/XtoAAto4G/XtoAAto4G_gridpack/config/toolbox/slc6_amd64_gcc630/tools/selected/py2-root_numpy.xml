@@ -1,0 +1,3 @@
+<tool name="py2-root_numpy" version="4.7.2-ghjeda4">
+  <use name="py2-pippkgs_depscipy"/>
+</tool>

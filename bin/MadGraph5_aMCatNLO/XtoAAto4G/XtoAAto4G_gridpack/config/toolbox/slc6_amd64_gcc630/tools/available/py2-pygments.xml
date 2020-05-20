@@ -1,0 +1,3 @@
+<tool name="py2-Pygments" version="2.2.0-mlhled2">
+  <use name="py2-pippkgs"/>
+</tool>

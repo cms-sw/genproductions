@@ -1,0 +1,6 @@
+<tool name="boost_chrono" version="1.63.0-mlhled2">
+  <info url="http://www.boost.org"/>
+  <lib name="boost_chrono"/>
+  <use name="boost_system"/>
+  <use name="boost"/>
+</tool>

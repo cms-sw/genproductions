@@ -1,0 +1,3 @@
+<tool name="py2-pytz" version="2017.2">
+  <use name="py2-pippkgs"/>
+</tool>

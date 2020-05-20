@@ -1,0 +1,9 @@
+<tool name="py2-pip" version="9.0.1-mlhled2">
+  <info url="https://pypi.python.org/pypi/pip"/>
+  <client>
+    <environment name="PY2_PIP" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/py2-pip/9.0.1-mlhled2"/>
+    <environment name="LIBDIR" default="$PY2_PIP/lib"/>
+    <runtime name="PYTHONPATH" value="$PY2_PIP/lib/python2.7/site-packages" type="path"/>
+    <runtime name="PATH" value="$PY2_PIP/bin" type="path"/>
+  </client>
+</tool>

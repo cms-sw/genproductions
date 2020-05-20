@@ -1,0 +1,3 @@
+<tool name="py2-rootpy" version="0.9.1-ghjeda3">
+  <use name="py2-pippkgs_depscipy"/>
+</tool>

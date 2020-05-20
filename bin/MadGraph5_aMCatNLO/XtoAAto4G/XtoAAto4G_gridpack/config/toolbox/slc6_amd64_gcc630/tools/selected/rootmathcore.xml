@@ -1,0 +1,5 @@
+<tool name="rootmathcore" version="6.10.04-ghjeda">
+  <info url="http://root.cern.ch/root/"/>
+  <lib name="MathCore"/>
+  <use name="rootcling"/>
+</tool>

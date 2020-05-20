@@ -1,0 +1,13 @@
+<tool name="jemalloc" version="4.5.0">
+  <architecture name="slc.*|fc.*">
+    <lib name="jemalloc"/>
+  </architecture>
+  <client>
+    <environment name="JEMALLOC_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/jemalloc/4.5.0"/>
+    <environment name="LIBDIR"        default="$JEMALLOC_BASE/lib"/>
+    <environment name="INCLUDE"        default="$JEMALLOC_BASE/include"/>
+  </client>
+  <runtime name="MALLOC_CONF" value="lg_chunk:18,lg_dirty_mult:4"/>
+  <runtime name="ROOT_INCLUDE_PATH" value="$INCLUDE" type="path"/>
+  <use name="root_cxxdefaults"/>
+</tool>

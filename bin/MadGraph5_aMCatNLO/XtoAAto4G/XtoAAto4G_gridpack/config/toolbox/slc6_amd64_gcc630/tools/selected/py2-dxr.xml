@@ -1,0 +1,13 @@
+<tool name="py2-dxr" version="1.0-ghjeda6">
+  <info url="https://dxr.readthedocs.org/"/>
+  <client>
+    <environment name="PY2_DXR_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/py2-dxr/1.0-ghjeda6"/>
+    <environment name="LIBDIR" default="$PY2_DXR_BASE/lib"/>
+  </client>
+    <runtime name="PYTHONPATH" value="$PY2_DXR_BASE/lib/python2.7/site-packages" type="path"/>
+    <runtime name="PATH" value="$PY2_DXR_BASE/bin" type="path"/>
+    <use name="python"/>
+    <use name="sqlite"/>
+    <use name="py2-pysqlite"/>
+    <use name="py2-pippkgs"/>
+</tool>

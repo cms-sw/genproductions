@@ -1,0 +1,5 @@
+<tool name="boost_serialization" version="1.63.0-mlhled2">
+  <info url="http://www.boost.org"/>
+  <lib name="boost_serialization"/>
+  <use name="boost"/>
+</tool>

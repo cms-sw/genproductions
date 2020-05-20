@@ -1,0 +1,3 @@
+<tool name="py2-singledispatch" version="3.4.0.3-mlhled2">
+  <use name="py2-pippkgs"/>
+</tool>

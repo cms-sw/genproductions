@@ -1,0 +1,3 @@
+<tool name="py2-webencodings" version="0.5.1">
+  <use name="py2-pippkgs"/>
+</tool>

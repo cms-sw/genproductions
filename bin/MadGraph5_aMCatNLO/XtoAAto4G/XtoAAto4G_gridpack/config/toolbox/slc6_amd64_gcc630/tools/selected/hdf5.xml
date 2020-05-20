@@ -1,0 +1,9 @@
+<tool name="hdf5" version="1.8.17-oenich">
+  <info url="https://support.hdfgroup.org/HDF5/"/>
+  <lib name="hdf5"/>
+  <client>
+    <environment name="HDF5_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/hdf5/1.8.17-oenich"/>
+    <environment name="LIBDIR" default="$HDF5_BASE/lib"/>
+    <environment name="INCLUDE" default="$HDF5_BASE/include"/>
+  </client>
+</tool>

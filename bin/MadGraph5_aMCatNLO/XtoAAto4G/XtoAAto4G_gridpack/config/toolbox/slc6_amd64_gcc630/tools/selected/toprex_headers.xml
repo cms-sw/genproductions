@@ -1,0 +1,8 @@
+<tool name="toprex_headers" version="4.23">
+  <client>
+    <environment name="TOPREX_HEADERS_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/toprex/4.23"/>
+    <environment name="INCLUDE" default="$TOPREX_HEADERS_BASE/include"/>
+  </client>
+  <runtime name="ROOT_INCLUDE_PATH" value="$INCLUDE" type="path"/>
+  <use name="root_cxxdefaults"/>
+</tool>

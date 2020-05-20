@@ -1,0 +1,3 @@
+<tool name="py2-pathlib2" version="2.3.0">
+  <use name="py2-pippkgs"/>
+</tool>

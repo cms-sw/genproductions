@@ -1,0 +1,13 @@
+<tool name="libjpeg-turbo" version="1.3.1">
+  <info url="http://libjpeg-turbo.virtualgl.org"/>
+  <lib name="jpeg"/>
+  <lib name="turbojpeg"/>
+  <client>
+    <environment name="LIBJPEG_TURBO_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/libjpeg-turbo/1.3.1"/>
+    <environment name="LIBDIR" default="$LIBJPEG_TURBO_BASE/lib"/>
+    <environment name="INCLUDE" default="$LIBJPEG_TURBO_BASE/include"/>
+  </client>
+  <runtime name="ROOT_INCLUDE_PATH" value="$INCLUDE" type="path"/>
+  <runtime name="PATH" value="$LIBJPEG_TURBO_BASE/bin" type="path"/>
+  <use name="root_cxxdefaults"/>
+</tool>

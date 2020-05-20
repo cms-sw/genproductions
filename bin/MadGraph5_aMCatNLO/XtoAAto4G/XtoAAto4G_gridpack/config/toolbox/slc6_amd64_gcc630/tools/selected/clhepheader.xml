@@ -1,0 +1,10 @@
+<tool name="clhepheader" version="2.3.4.2-mlhled2">
+  <info url="http://wwwinfo.cern.ch/asd/lhc++/clhep"/>
+  <client>
+    <environment name="CLHEPHEADER_BASE" default="/cvmfs/cms.cern.ch/slc6_amd64_gcc630/external/clhep/2.3.4.2-mlhled2"/>
+    <environment name="INCLUDE"    default="$CLHEPHEADER_BASE/include"/>
+  </client>
+  <runtime name="ROOT_INCLUDE_PATH"  value="$INCLUDE" type="path"/>
+  <flags CXXFLAGS="-Wno-error=unused-variable"/>
+  <use name="root_cxxdefaults"/>
+</tool>
