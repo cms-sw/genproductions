@@ -5,7 +5,7 @@ import re
 
 #5000000 s0
 #5000001 a0
-particle = "s0" 
+particle = "a0"
 #frblock --> rtu,rtc,rtt
 rtu = 0.0
 rtc = 0.4
@@ -99,7 +99,7 @@ temp_extramodels = 'ttc/g2HDM_ttc_a0_extramodels.dat'
 temp_customizecards= 'ttc/g2HDM_ttc_a0_customizecards.dat'
 
 with open(temp_customizecards) as f_cust:
-    cust = f_cust.read().splitlines()    
+    cust = f_cust.read().splitlines()
 
 for ind, m in enumerate(mass):
     if rtu > 0.000001 and rtc < 0.000001:
@@ -107,17 +107,17 @@ for ind, m in enumerate(mass):
 	width_a0 = decay_width_a0_rtu[ind]
     if rtu < 0.000001 and rtc > 0.000001:
 	width_s0 = decay_width_s0_rtc[ind]
-	width_a0 = decay_width_a0_rtc[ind]		
+	width_a0 = decay_width_a0_rtc[ind]
     print str(ind)+" "+str(m)+" "+str(width_s0)+" "+str(width_a0)
     f_name = "ttc_"+particle+"_M"+str(m)+"_rhotu"+str(rtu).replace('.','') \
 		 +"_rhotc"+str(rtc).replace('.','')+"_rhott"+str(rtt).replace('.','')
-    		 
+
     print "creating folder: "+f_name
     os.system('mkdir -p %s' %f_name)
     os.system('cp ttc/g2HDM_ttc_a0_extramodels.dat '+f_name+'/g2HDM_'+\
 		f_name+'_extramodels.dat')
     os.system('cp ttc/g2HDM_ttc_a0_run_card.dat '+f_name+'/g2HDM_'+\
-		f_name+'_run_card.dat')    
+		f_name+'_run_card.dat')
     print str(cust[0].split(' ')[4])
     cust[0]=cust[0].replace(str(cust[0].split(' ')[4]),str(rtu))
     cust[1]=cust[1].replace(str(cust[1].split(' ')[4]),str(rtc))
@@ -133,7 +133,7 @@ for ind, m in enumerate(mass):
 	cust[5]=cust[5].replace(str(cust[5].split(' ')[4]),str(0.0))
 	cust[6]=cust[6].replace(str(cust[6].split(' ')[4]),str(width_a0))
     print cust
-   
+
     proc = open(temp_proc_card,'r')
     f_name_proc = f_name+'/g2HDM_'+f_name+'_proc_card.dat'
     f_name_cust = f_name+'/g2HDM_'+f_name+'_customizecards.dat'
@@ -142,7 +142,7 @@ for ind, m in enumerate(mass):
 	    if "s0" in particle:
 		linep = line.replace('/ s0','/ a0').replace('_a0','_s0').replace('g2HDM_ttc_'+particle,'g2HDM_'+f_name)
 	    else:
-		linep = line
+		linep = line.replace('g2HDM_ttc_'+particle,'g2HDM_'+f_name)
 	    proc_file.write(linep)
     with open(f_name_cust,'w') as cust_file:
 	for el in cust:
