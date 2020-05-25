@@ -148,3 +148,19 @@ Index: ZjMiNNLO/init_couplings.f
        write(*,*) '1/alphaem = ',1d0/ph_alphaem
        write(*,*) 'alphaem = ',ph_alphaem
        write(*,*) 'sthw2 = ',ph_sthw2
+
+Index: ZjMiNNLO/pwhg_analysis-minnlo.f
+===================================================================
+--- ZjMiNNLO/pwhg_analysis-minnlo.f      (revision 3741)
++++ ZjMiNNLO/pwhg_analysis-minnlo.f      (working copy)
+@@ -237,8 +237,8 @@
+ 
+       do ihep=1,nhep
+ c         print*, ihep,jmohep(1,ihep),idhep(ihep)
+-         iseminus=idhep(ihep).eq.11
+-         iseplus=idhep(ihep).eq.-11
++         iseminus=idhep(ihep).eq.11 .or. idhep(ihep).eq.13 .or. idhep(ihep).eq.15
++         iseplus=idhep(ihep).eq.-11 .or. idhep(ihep).eq.-13 .or. idhep(ihep).eq.-15
+ c     I require ihep>3 to make sure I don't pick up jmohep(1,ihep)=0, as this
+ c     gives a bound violation when computing idhep(jmohep(1,ihep))=idhep(0)...
+          if(whcprg.eq.'PY8'.and.ihep.gt.3) then
