@@ -176,9 +176,11 @@ if [ "$MINNLO" == "true" ]; then
     if [ "$process" == "Zj" ]; then
         MASSES=(91.1855 91.1897 91.0876 91.0976 91.1076 91.1176 91.1276 91.1376 91.1476 91.1576 91.1676 91.1776 91.1876 91.1976 91.2076 91.2176 91.2276 91.2376 91.2476 91.2576 91.2676 91.2776 91.2876)
         PSMASS=91.1876
+        WIDTHS=(2.49333 2.49493 2.4929 2.4952 2.4975)
     elif [ "$process" == "Wj" ]; then
         MASSES=(80.279 80.289 80.299 80.309 80.319 80.329 80.339 80.349 80.359 80.369 80.379 80.389 80.399 80.409 80.419 80.429 80.439 80.449 80.459 80.469 80.479)
         PSMASS=80.379
+        WIDTHS=(2.09053 2.09173 2.043 2.085 2.127)
     fi
     counter=1100
     for MASS in ${MASSES[@]}
@@ -201,7 +203,31 @@ if [ "$MINNLO" == "true" ]; then
             echo "psWmass ${PSMASS}" >> powheg.input
         fi
         
-        ../pwhg_main &> logrew_${process}_${seed}.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
+        ../pwhg_main &> logrew_${process}_${seed}_mass_${MASS}.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
+        
+        mv pwgevents-rwgt.lhe pwgevents.lhe
+        
+        counter=$(( counter + 1 ))
+    done
+    for WIDTH in ${WIDTHS[@]}
+    do
+        echo -e "\n doing width ${WIDTH}\n"
+        cp powheg.input.noweight powheg.input
+        sed -i '/rwl_file/d' powheg.input
+        echo "rwl_file '-'" >> powheg.input
+        echo "rwl_add 1" >> powheg.input
+        echo "<initrwgt>" >> powheg.input
+        echo "<weightgroup name='width_variation'>" >> powheg.input
+        echo "<weight id='${counter}'> width=${WIDTH} </weight>" >> powheg.input
+        echo "</weightgroup>" >> powheg.input
+        echo "</initrwgt>" >> powheg.input
+        if [ "$process" == "Zj" ]; then
+            echo "Zwidth ${WIDTH}" >> powheg.input
+        elif [ "$process" == "Wj" ]; then
+            echo "Wwidth ${WIDTH}" >> powheg.input
+        fi
+        
+        ../pwhg_main &> logrew_${process}_${seed}_width_${WIDTH}.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
         
         mv pwgevents-rwgt.lhe pwgevents.lhe
         
@@ -223,7 +249,7 @@ if [ "$MINNLO" == "true" ]; then
             echo "</initrwgt>" >> powheg.input
             echo "sthw2 ${SINW2}" >> powheg.input
             
-            ../pwhg_main &> logrew_${process}_${seed}.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
+            ../pwhg_main &> logrew_${process}_${seed}_sinw2_${SINW2}.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
             
             mv pwgevents-rwgt.lhe pwgevents.lhe
             
@@ -251,7 +277,7 @@ if [ "$MINNLO" == "true" ]; then
         sed -i "s/CKM_Vts .*/CKM_Vts 1d-10/g" powheg.input
         sed -i "s/CKM_Vtb .*/CKM_Vtb 1d0/g" powheg.input
         
-        ../pwhg_main &> logrew_${process}_${seed}.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
+        ../pwhg_main &> logrew_${process}_${seed}_ckm_cabibbo.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
         
         mv pwgevents-rwgt.lhe pwgevents.lhe
         
@@ -278,7 +304,7 @@ if [ "$MINNLO" == "true" ]; then
         sed -i "s/CKM_Vts .*/CKM_Vts 1d-10/g" powheg.input
         sed -i "s/CKM_Vtb .*/CKM_Vtb 1.000/g" powheg.input
         
-        ../pwhg_main &> logrew_${process}_${seed}.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
+        ../pwhg_main &> logrew_${process}_${seed}_ckm_diagonal.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
         
         mv pwgevents-rwgt.lhe pwgevents.lhe
         
