@@ -91,6 +91,9 @@ parser = argparse.ArgumentParser(
                   *           Your runcmsgrid file contains these sets: xxxx
                   * [WARNING] Main pdf recommended set xx or yy is listed in runcmsgrid file but it is
                   *             also included as a variation??
+                  * [WARNING] Are you sure EvtGenExtraParticles extension is not needed?
+                  * [WARNING] Are you sure you do not want the 2014 evt pdl table?
+                  * [WARNING] Are you sure you do not want the 2014 decay dec table?
 
                ERRORS:
                   * [ERROR] No corresponing UL17 request to compare to for consistency.
@@ -176,6 +179,10 @@ parser = argparse.ArgumentParser(
                   * [ERROR] No store_rwgt_info set for MG5_aMC >= 260.
                   * [ERROR] use_syst set to false for MG5_aMC >= 260.
                   * [ERROR] No use_syst set for MG5_aMC >= 260.
+                  * [ERROR] evtgen flag defined in dataset name but not set within the fragment
+                  * [ERROR] EvtGenInterface not definied within the fragment
+                  * [ERROR] Turn off the PythiaCodes conversion when using EvtGen
+                  * [ERROR] EvtGen settings within fragment but no evtgen flag at dataset name
                                                                                     '''))
 parser.add_argument('--prepid', type=str, help="check mcm requests using prepids", nargs='+')
 parser.add_argument('--ticket', type=str, help="check mcm requests using ticket number", nargs=1)
@@ -427,6 +434,7 @@ for num in range(0,len(prepid)):
         herwig_flag = 0
         herwig_count = []
         herwig7_bypass_error = 0
+        evtgen_flag = 0
         pf = []
         ppd = 0
         if "ppd" in pi.lower():
@@ -440,6 +448,8 @@ for num in range(0,len(prepid)):
             req_type = "plhe"
         if "herwig" in dn.lower():
             herwig_flag = 1
+        if "evtgen" in dn.lower():
+            evtgen_flag = 1
         if "comphep" in dn.lower() or "calchep" in dn.lower():
             print "* [WARNING] comphep or calchep request. Please check manually"
             warning += 1
@@ -534,6 +544,19 @@ for num in range(0,len(prepid)):
             if herwig_version_file is True:
                 herwig_version = os.popen(herwig_version).read().rstrip().split('=')[2].replace(">","")
                 print "* Herwig version = "+str(herwig_version)
+        if "evtgen" in dn.lower():
+            evtgen_version = ps_version + "/"+str(cmssw)+"/config/toolbox/"+str(scram_arch)+"/tools/selected/evtgen.xml"
+            evtgen_version_file = os.path.isfile(evtgen_version)
+            evtgen_version = "grep version "+evtgen_version
+	    photos_version = ps_version + "/"+str(cmssw)+"/config/toolbox/"+str(scram_arch)+"/tools/selected/photospp.xml"
+	    photos_version_file = os.path.isfile(photos_version)
+	    photos_version =  "grep version "+photos_version
+            if evtgen_version_file is True:
+                evtgen_version = os.popen(evtgen_version).read().rstrip().split('=')[2].replace(">","")
+                print "* EvtGen version = "+str(evtgen_version)
+	    if photos_version_file is True:
+		photos_version = os.popen(photos_version).read().rstrip().split('=')[2].replace(">","")
+		print "* PHOTOS version = "+str(photos_version)
         print "##################################################"
         if herwig_flag != 0:
             os.system('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/herwig_frag_lines.txt -O herwig_frag_lines.txt')
@@ -901,19 +924,20 @@ for num in range(0,len(prepid)):
                         with open(os.path.join(my_path, pi, "external_tarball/runcmsgrid.sh"),'r+') as f2:
                             content2 = f2.read()
                             match = re.search(r"""process=(["']?)([^"']*)\1""", content2)
-			    warning1,error1 = xml_check_and_patch(f,content,gridpack_eos_path,my_path,pi)	
+			    warning1,error1 = xml_check_and_patch(f2,content2,gridpack_eos_path,my_path,pi)	
                             et_flag = 1
 		    for file in os.listdir(my_path+'/'+pi+'/.'):	
-                    	if fnmatch.fnmatch(file,'*.dat'):
-			   et_flag_external = 1
+                    	if fnmatch.fnmatch(file,'*externaltarball.dat'):
+			   file_i = file	
+			   et_flag_external = 1			   
                     if et_flag_external == 1:
-			with open(my_path+'/'+pi+'/'+file) as f_ext:
+			with open(my_path+'/'+pi+'/'+file_i) as f_ext:
 			    for line in f_ext:
                                 if line.startswith("EXTERNAL_TARBALL") == True:
 				    powheg_gp = line.split('\"')[1]
                                     os.system('mkdir '+my_path+'/'+pi+'_powheg_gridpack')     
 				    os.system('tar xf '+powheg_gp+' -C '+my_path+'/'+pi+'_powheg_gridpack')
-				    powheg_input = os.path.join(my_path,pi+'_powheg_gridpack', "powheg.input")	
+				    powheg_input = os.path.join(my_path,pi+'_powheg_gridpack', "powheg.input")
                     if et_flag == 0 and et_flag_external == 0:
 			powheg_input = os.path.join(my_path, pi, "powheg.input")
                     if et_flag == 1 and et_flag_external == 0:
@@ -1377,6 +1401,28 @@ for num in range(0,len(prepid)):
                 else:
                     print "* [ERROR] Parton shower weight configuration not OK in the fragment"
                     error += 1
+        if evtgen_flag == 1 and fsize != 0:
+            if int(os.popen('grep -c -i EvtGen '+pi).read()) == 0:
+                print "* [ERROR] evtgen flag defined in dataset name but not set within the fragment"
+                error += 1
+            if int(os.popen('grep -c -i EvtGen '+pi).read()) != 0 and int(os.popen('grep -c -i "from GeneratorInterface.EvtGenInterface.EvtGenSetting_cff import *" '+pi).read()) == 0:
+                print "* [ERROR] EvtGenInterface not definied within the fragment"
+                error += 1
+            if int(os.popen('grep -c -i EvtGen '+pi).read()) != 0 and int(os.popen('grep -c -i "convertPythiaCodes = cms.untracked.bool(False)" '+pi).read()) == 0:
+                print "* [ERROR] Turn off the PythiaCodes conversion when using EvtGen"
+                error += 1
+	    if int(os.popen('grep -c -i evt_2014.pdl '+pi).read()) == 0:
+                print "* [WARNING] Are you sure you do not want the 2014 evt pdl table?"
+                warning += 1
+            if int(os.popen('grep -c -i DECAY_2014 '+pi).read()) == 0:
+                print "* [WARNING] Are you sure you do not want the 2014 decay dec table?"
+                warning += 1
+            if int(os.popen('grep -c -i EvtGen '+pi).read()) != 0 and int(os.popen('grep -c -i "generator.PythiaParameters.processParameters.extend(EvtGenExtraParticles)" '+pi).read()) == 0:
+                print "* [WARNING] Are you sure EvtGenExtraParticles extension is not needed?"
+                warning += 1
+        if evtgen_flag == 0 and fsize != 0 and int(os.popen('grep -c -i EvtGen '+pi).read()) != 0:
+            print "* [ERROR] EvtGen settings within fragment but no evtgen flag at dataset name"
+            error += 1
         if int(os.popen('grep -c -i filter '+pi).read()) > 3 and filter_eff == 1:
             print "* [WARNING] Filters in the fragment but filter efficiency = 1"
             warning += 1

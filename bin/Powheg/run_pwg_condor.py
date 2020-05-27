@@ -278,7 +278,7 @@ def runGetSource(parstage, xgrid, folderName, powInputName, process, noPdfCheck,
 
     fourFlavorProcesses = ["ST_tch_4f", "bbH", "Wbb_dec", "Wbbj", "WWJ"]
     template_dict["isFiveFlavor"] = int(process not in fourFlavorProcesses)
-    template_dict["defaultPDF"] = 306000 if template_dict["isFiveFlavor"] else 320900
+    template_dict["defaultPDF"] = 325300 if template_dict["isFiveFlavor"] else 325500
 
     DYNNLOPS = ["Zj", "Wj"]
     if process in DYNNLOPS:

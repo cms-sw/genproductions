@@ -1,0 +1,5 @@
+import model_v4 $modelfile
+define p = g u c d s u~ c~ d~ s~
+define j = g u c d s u~ c~ d~ s~
+generate p p > zp j j , ( zp > w+ w- )
+output $NAME -nojpeg
