@@ -5,5 +5,5 @@ add process p p > w- a [QCD] @1
 add process p p > w+ a j [QCD] @2
 add process p p > w- a j [QCD] @3
 
-output WATojjA_01j_SM_5f_NLO_FXFX -nojpeg
+output WATojjA_01j_SM_5f_pta150_NLO_FXFX -nojpeg
 
