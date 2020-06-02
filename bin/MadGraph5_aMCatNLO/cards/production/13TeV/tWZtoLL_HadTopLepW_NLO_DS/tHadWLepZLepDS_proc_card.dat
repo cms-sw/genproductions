@@ -1,0 +1,7 @@
+import model loop_sm-no_b_mass
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
+define had = u c d s u~ c~ d~ s~
+generate p p > t W- Z [QCD]
+add process p p > t~ W+ Z [QCD]
+output tWZtoLL_LepTopHadW_NLO_DR
