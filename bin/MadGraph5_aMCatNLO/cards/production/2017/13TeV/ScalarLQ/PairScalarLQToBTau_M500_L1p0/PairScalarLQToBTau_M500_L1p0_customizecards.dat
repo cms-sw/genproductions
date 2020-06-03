@@ -8,3 +8,4 @@ set run_card fixed_fac_scale T
 set run_card scale 500
 set run_card dsqrt_q2fact1 500
 set run_card dsqrt_q2fact2 500
+set run_card lhaid 315200

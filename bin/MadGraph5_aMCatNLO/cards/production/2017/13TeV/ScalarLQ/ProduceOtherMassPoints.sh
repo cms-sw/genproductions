@@ -3,6 +3,9 @@
 PROCS="Pair Single" #NonRes
 MASSES=800 #`seq 800 300 2300`
 LAMBDAS="1.5" # 2.0 2.5"
+PDF=315200 # NNPDF31_lo_as_0130
+#PDF=247000 # NNPDF23_lo_as_0130_qed
+
 
 for proc in $PROCS; do
   proc="${proc}ScalarLQToBTau"
@@ -34,6 +37,7 @@ for proc in $PROCS; do
       done
       sed -i -e "s/FRBLOCK 3 1.0/FRBLOCK 3 ${lambda}/" $CARDDIR/${SAMPLE}_customizecards.dat
       sed -i -e "s/MASS 9000006 500/MASS 9000006 ${mass}/" $CARDDIR/${SAMPLE}_customizecards.dat
+      sed -i -e "s/lhaid [0-9]\+/lhaid ${PDF}/" $CARDDIR/${SAMPLE}_customizecards.dat
       sed -i -e "s/output $SAMPLE0/output $SAMPLE/" $CARDDIR/${SAMPLE}_proc_card.dat
       
     done
