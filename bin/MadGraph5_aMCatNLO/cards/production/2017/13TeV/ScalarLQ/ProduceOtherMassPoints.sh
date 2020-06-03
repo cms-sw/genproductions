@@ -34,7 +34,7 @@ for proc in $PROCS; do
       done
       sed -i -e "s/FRBLOCK 3 1.0/FRBLOCK 3 ${lambda}/" $CARDDIR/${SAMPLE}_customizecards.dat
       sed -i -e "s/MASS 9000006 500/MASS 9000006 ${mass}/" $CARDDIR/${SAMPLE}_customizecards.dat
-      sed -i -e "s/output ${proc}_M500/output $CARDDIR/" $CARDDIR/${SAMPLE}_proc_card.dat
+      sed -i -e "s/output $SAMPLE0/output $SAMPLE/" $CARDDIR/${SAMPLE}_proc_card.dat
       
     done
   done
