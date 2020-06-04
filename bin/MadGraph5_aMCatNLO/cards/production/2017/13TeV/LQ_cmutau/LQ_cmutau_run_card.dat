@@ -72,7 +72,7 @@
  0 = ickkw            ! 0 no matching, 1 MLM
  1.0 = alpsfact         ! scale factor for QCD emission vx
  False = chcluster        ! cluster only according to channel diag
- 5 = asrwgtflavor     ! highest quark flavor for a_s reweight
+ 4 = asrwgtflavor     ! highest quark flavor for a_s reweight
  False  = auto_ptj_mjj  ! Automatic setting of ptj and mjj if xqcut >0
                                    ! (turn off for VBF and single top processes) 
  #10.0   = xqcut   ! minimum kt jet measure between partons
@@ -268,7 +268,7 @@
 # maximal pdg code for quark to be considered as a light jet         *
 # (otherwise b cuts are applied)                                     *
 #*********************************************************************
- 5 = maxjetflavor    ! Maximum jet pdg code
+ 4 = maxjetflavor    ! Maximum jet pdg code
 #*********************************************************************
 #
 #*********************************************************************
