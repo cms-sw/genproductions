@@ -66,7 +66,6 @@
 #***********************************************************************
   lhapdf	= pdlabel ! PDF set
   $DEFAULT_PDF_SETS = lhaid
-  $DEFAULT_PDF_MEMBERS  = reweight_PDF
 
 #***********************************************************************
 # Include the NLO Monte Carlo subtr. terms for the following parton    *
@@ -93,22 +92,23 @@
   1.0	   = mur_over_ref ! ratio of current muR over reference muR
   1.0	   = muf_over_ref ! ratio of current muF over reference muF
 #*********************************************************************** 
-# Reweight variables for scale dependence and PDF uncertainty          *
+# Reweight flags to get scale dependence and PDF uncertainty           *
+# For scale dependence: factor rw_scale_up/down around central scale   *
+# For PDF uncertainty: use LHAPDF with supported set                   *
 #***********************************************************************
-  1.0, 2.0, 0.5	= rw_rscale ! muR factors to be included by reweighting
-  1.0, 2.0, 0.5	= rw_fscale ! muF factors to be included by reweighting
-  True = reweight_scale ! Reweight to get scale variation using the 
-            ! rw_rscale and rw_fscale factors. Should be a list of 
-            ! booleans of equal length to dynamical_scale_choice to
-            ! specify for which choice to include scale dependence.
-  False	    = reweight_pdf ! Reweight to get PDF uncertainty. Should be a
-            ! list booleans of equal length to lhaid to specify for
-            !  which PDF set to include the uncertainties.
+ .true.   = reweight_scale   ! reweight to get scale dependence
+  0.5     = rw_Rscale_down   ! lower bound for ren scale variations
+  2.0     = rw_Rscale_up     ! upper bound for ren scale variations
+  0.5     = rw_Fscale_down   ! lower bound for fact scale variations
+  2.0     = rw_Fscale_up     ! upper bound for fact scale variations
+$DEFAULT_PDF_MEMBERS = reweight_PDF     ! reweight to get PDF uncertainty
+      ! First of the error PDF sets 
+      ! Last of the error PDF sets
 #***********************************************************************
 # Store reweight information in the LHE file for off-line model-       *
 # parameter reweighting at NLO+PS accuracy                             *
 #***********************************************************************
-  False	= store_rwgt_info ! Store info for reweighting in LHE file
+  True	= store_rwgt_info ! Store info for reweighting in LHE file
 #***********************************************************************
 # Parameters relevant for the MasSTR plugin:                           *
 # iSTR controls the strategy for the resonance treatment               *
