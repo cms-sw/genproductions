@@ -1,11 +1,10 @@
 #! /bin/bash
 
-PROCS="Pair Single" #NonRes
-MASSES=800 #`seq 800 300 2300`
-LAMBDAS="1.5" # 2.0 2.5"
+PROCS="Single" #Pair NonRes"
+MASSES=`seq 500 300 2300`
+LAMBDAS="1.5 2.0 2.5"
 PDF=315200 # NNPDF31_lo_as_0130
 #PDF=247000 # NNPDF23_lo_as_0130_qed
-
 
 for proc in $PROCS; do
   proc="${proc}ScalarLQToBTau"
