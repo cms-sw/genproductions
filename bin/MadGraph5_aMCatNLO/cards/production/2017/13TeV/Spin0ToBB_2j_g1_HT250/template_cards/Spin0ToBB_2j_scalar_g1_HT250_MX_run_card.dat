@@ -69,7 +69,6 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
 #*********************************************************************
 # Matching parameter (MLM only)
 #*********************************************************************
-  1    = ickkw ! 0 no matching, 1 MLM
   1    = ickkw            ! 0 no matching, 1 MLM, 2 CKKW matching
   1    = highestmult      ! for ickkw=2, highest mult group
   1    = ktscheme         ! for ickkw=1, 1 Durham kT, 2 Pythia pTE
