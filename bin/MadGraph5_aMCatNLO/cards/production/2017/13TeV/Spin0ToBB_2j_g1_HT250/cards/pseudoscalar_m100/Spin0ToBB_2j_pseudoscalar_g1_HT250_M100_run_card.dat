@@ -275,7 +275,4 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
 #********************************************************************* 
 #  Additional parameter
 #*********************************************************************
-  False	= pdfwgt # hidden parameter
-  1	= highestmult # hidden parameter
-  1	= ktscheme # hidden parameter
 
