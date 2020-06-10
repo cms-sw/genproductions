@@ -6,4 +6,4 @@ define j = j b b~
 define had = u c d s u~ c~ d~ s~
 generate p p > t W- Z [QCD]
 add process p p > t~ W+ Z [QCD]
-output tWZtoLL_LepTopHadW_NLO_DS -nojpeg
+output tHadWLepZLepDR -nojpeg

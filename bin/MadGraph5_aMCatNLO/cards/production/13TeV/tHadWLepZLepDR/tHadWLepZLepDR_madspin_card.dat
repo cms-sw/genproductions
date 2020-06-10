@@ -25,7 +25,7 @@ set ms_dir ./madspingrid
 decay t > w+ b, w+ > had had
 decay t~ > w- b~, w- > had had
 decay w+ > l+ vl
-decay w- > l- vl
+decay w- > l- vl~
 decay z > l+ l-
 # running the actual code
 launch
