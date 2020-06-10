@@ -321,10 +321,6 @@ def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag, proc
         if not 'manyseeds' in open(inputName).read() :
             runCommand("echo \'manyseeds 1\' >> "+ inputName)
 
-        if not 'fakevirt' in open(inputName).read() :
-            if process != 'b_bbar_4l':
-                runCommand("echo \'fakevirt 1\' >> "+inputName)
-    
     runCommand('cp -p ' + folderName + '/powheg.input ' + folderName + '/powheg.input.' + parstage)
 
     with open(os.path.join(folderName, "pwgseeds.dat"), "w") as f:
