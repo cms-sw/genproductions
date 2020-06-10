@@ -5,7 +5,7 @@ import re
 
 #5000000 s0
 #5000001 a0
-particle = "a0"
+particle = "s0"
 #frblock --> rtu,rtc,rtt
 rtu = 0.0
 rtc = 0.4
@@ -33,23 +33,23 @@ decay_width_a0_rtc = [
 ]
 
 decay_width_s0_rtc = [
-0.12934508621581797,
-0.6620367149982869,
-1.2908503997418217,
-1.922771826658552,
-2.537695807588128,
-3.1332454135298784,
-3.7114205206577124,
-4.274993296127559,
-4.826529926450234,
-5.368176477386871,
-5.901667474368654,
-6.428390460485142,
-6.949455137894594,
-7.465752857356995,
-7.978004202103315,
-8.486795980248855,
-8.992609692246806
+0.12934508621581797, #200
+0.6620367149982869, #250
+1.2908503997418217, #300
+1.922771826658552, #350
+2.537695807588128, #400
+3.1332454135298784, #450
+3.7114205206577124, #500
+4.274993296127559, #550
+4.826529926450234, #600
+5.368176477386871, #650
+5.901667474368654, #700
+6.428390460485142, #750
+6.949455137894594, #800
+7.465752857356995, #850
+7.978004202103315, #900
+8.486795980248855, #950
+8.992609692246806 #1000
 ]
 
 #these values are for rtu,rtc,rtt=0.1,0.0,0.0
@@ -123,27 +123,31 @@ for ind, m in enumerate(mass):
     cust[1]=cust[1].replace(str(cust[1].split(' ')[4]),str(rtc))
     cust[2]=cust[2].replace(str(cust[2].split(' ')[4]),str(rtt))
     if "s0" in particle:
-	cust[3]=cust[3].replace(str(cust[3].split(' ')[4]),str(m))
-	cust[4]=cust[4].replace(str(cust[4].split(' ')[4]),str(0.0))
-	cust[5]=cust[5].replace(str(cust[5].split(' ')[4]),str(width_s0))
-	cust[6]=cust[6].replace(str(cust[6].split(' ')[4]),str(0.0))
+        old = str(cust[3].split(' ')[4])
+        temp = str(m).join(str(cust[3]).rsplit(old,1))
+        cust[3] = temp
+        cust[4]=cust[4].replace(str(cust[4].split(' ')[4]),str(0.0))
+        cust[5]=cust[5].replace(str(cust[5].split(' ')[4]),str(width_s0))
+        cust[6]=cust[6].replace(str(cust[6].split(' ')[4]),str(0.0))
     if "a0" in particle:
-	cust[3]=cust[3].replace(str(cust[3].split(' ')[4]),str(0.0))
-	cust[4]=cust[4].replace(str(cust[4].split(' ')[4]),str(m))
-	cust[5]=cust[5].replace(str(cust[5].split(' ')[4]),str(0.0))
-	cust[6]=cust[6].replace(str(cust[6].split(' ')[4]),str(width_a0))
+        cust[3]=cust[3].replace(str(cust[3].split(' ')[4]),str(0.0))
+        old = str(cust[4].split(' ')[4])
+        temp = str(m).join(str(cust[4]).rsplit(old,1))
+        cust[4] = temp
+        cust[5]=cust[5].replace(str(cust[5].split(' ')[4]),str(0.0))
+        cust[6]=cust[6].replace(str(cust[6].split(' ')[4]),str(width_a0))
     print cust
 
     proc = open(temp_proc_card,'r')
     f_name_proc = f_name+'/g2HDM_'+f_name+'_proc_card.dat'
     f_name_cust = f_name+'/g2HDM_'+f_name+'_customizecards.dat'
     with open(f_name_proc,'w') as proc_file:
-	for line in proc:
-	    if "s0" in particle:
-		linep = line.replace('/ s0','/ a0').replace('_a0','_s0').replace('g2HDM_ttc_'+particle,'g2HDM_'+f_name)
-	    else:
-		linep = line.replace('g2HDM_ttc_'+particle,'g2HDM_'+f_name)
-	    proc_file.write(linep)
+        for line in proc:
+            if "s0" in particle:
+                linep = line.replace('/ s0','/ a0').replace('_a0','_s0').replace('g2HDM_ttc_'+particle,'g2HDM_'+f_name)
+            else:
+                linep = line.replace('g2HDM_ttc_'+particle,'g2HDM_'+f_name)
+            proc_file.write(linep)
     with open(f_name_cust,'w') as cust_file:
 	for el in cust:
 	    print >> cust_file, el
