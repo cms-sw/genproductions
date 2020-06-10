@@ -46,5 +46,5 @@
   DeltaR 22 90 0.05 10000.0;
   Mass 93 93 120 E_CMS;
   Mass 90 90 50 E_CMS;
-  IsolationCut 22 0.4 1 1;
+  IsolationCut 22 0.05 1 1;
 }(selector)
