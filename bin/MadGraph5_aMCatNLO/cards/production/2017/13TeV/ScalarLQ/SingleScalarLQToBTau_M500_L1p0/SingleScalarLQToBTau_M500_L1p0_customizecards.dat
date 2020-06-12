@@ -3,9 +3,3 @@ set param_card DECAY 9000006 AUTO
 set param_card FRBLOCK 1 0.0
 set param_card FRBLOCK 2 0.0
 set param_card FRBLOCK 3 1.0
-set run_card fixed_ren_scale T
-set run_card fixed_fac_scale T
-set run_card scale 500
-set run_card dsqrt_q2fact1 500
-set run_card dsqrt_q2fact2 500
-set run_card lhaid 315200
