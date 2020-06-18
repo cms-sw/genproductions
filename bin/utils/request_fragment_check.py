@@ -480,6 +480,7 @@ for num in range(0,len(prepid)):
         # Ultra-legacy sample settings' compatibility
         if "Summer19UL16" in pi or "Summer19UL18" in pi:
             prime = get_requests_from_datasetname(dn)
+	    mark_ul17 = 0	
             if len(prime) == 0:
                 print "* [ERROR] No corresponing UL17 request to compare to for consistency."
                 print "*         Please first create the corresponding UL17 requests."
@@ -491,27 +492,34 @@ for num in range(0,len(prepid)):
                     if 'UL17' in pi_prime and 'GEN' in pi_prime:
                         pi_prime = pi_prime
                         break
-                print"This is an UL16 or UL18 request so GEN settings will be compared to the corresponding UL17 request: "+pi_prime
-                os.popen('wget -q '+mcm_link+'public/restapi/requests/get_fragment/'+pi_prime+' -O '+pi_prime).read()
-                f1_prime = open(pi_prime,"r")
-                f2_prime = open(pi_prime+"_tmp","w")
-                data_f1_prime = f1_prime.read()
-                data_f2_prime = re.sub(r'(?m)^ *#.*\n?', '',data_f1_prime)
-                if (data_f2 == data_f2_prime) == True:
-                    print"[OK] Two requests have the same fragment."
-                else:
-                    print"[ERROR] Fragment of "+pi+" is different than its base UL17 request: "+pi_prime
-                    print"        Please make sure that "+pi+" has _exactly_ the same settings as "+pi_prime
-                    error += 1
-                if (cmssw == cmssw_prime) == True:
-                    print"[OK] Two requests have the same CMSSW version."
-                else:
-                    print"[WARNING] CMSSW version of "+pi+" is different than its base UL17 request: "+pi_prime
-                    print"        Please make sure that "+pi+" has _exactly_ the same settings as "+pi_prime
-                    warning += 1
-                    f1_prime.close()
-                    f2_prime.write(data_f2_prime)
-                    f2_prime.close()
+                    if 'UL17' not in pi_prime and 'GEN' in pi_prime:
+			mark_ul17 = mark_ul17+1
+                if mark_ul17 != 0:
+		    print "* [ERROR] No corresponing UL17 request to compare to for consistency."
+                    print "*         Please first create the corresponding UL17 requests."
+		    error = error + 1
+		if mark_ul17 == 0:
+                    print"This is an UL16 or UL18 request so GEN settings will be compared to the corresponding UL17 request: "+pi_prime
+                    os.popen('wget -q '+mcm_link+'public/restapi/requests/get_fragment/'+pi_prime+' -O '+pi_prime).read()
+                    f1_prime = open(pi_prime,"r")
+                    f2_prime = open(pi_prime+"_tmp","w")
+                    data_f1_prime = f1_prime.read()
+                    data_f2_prime = re.sub(r'(?m)^ *#.*\n?', '',data_f1_prime)
+                    if (data_f2 == data_f2_prime) == True:
+                        print"[OK] Two requests have the same fragment."
+                    else:
+                        print"[ERROR] Fragment of "+pi+" is different than its base UL17 request: "+pi_prime
+                        print"        Please make sure that "+pi+" has _exactly_ the same settings as "+pi_prime
+                        error += 1
+                    if (cmssw == cmssw_prime) == True:
+                        print"[OK] Two requests have the same CMSSW version."
+                    else:
+                        print"[WARNING] CMSSW version of "+pi+" is different than its base UL17 request: "+pi_prime
+                        print"        Please make sure that "+pi+" has _exactly_ the same settings as "+pi_prime
+                        warning += 1
+                        f1_prime.close()
+                        f2_prime.write(data_f2_prime)
+                        f2_prime.close()
         f1.close()
         f2.write(data_f2)
         f2.close()
