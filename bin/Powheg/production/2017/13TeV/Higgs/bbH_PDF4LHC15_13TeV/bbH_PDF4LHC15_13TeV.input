@@ -56,7 +56,7 @@ icsimax  1     ! <= 100, number of csi subdivision when computing the upper boun
 iymax    1     ! <= 100, number of y subdivision when computing the upper bounds
 xupbound 2d0   ! increase upper bound for radiation generation
 
-runningscales 1	   ! default 0 (no running scales); 1,2,3: use running scales. 3 only works with mods in Born_phsp.f
+runningscales 3	   ! default 0 (no running scales); 1,2,3: use running scales
 btlscalereal 1d0   ! use real kinematics for scales, if appropriate
 renscfact 1d0   ! (default 1d0) ren scale factor: muren  = muref * renscfact 
 facscfact 1d0   ! (default 1d0) fac scale factor: mufact = muref * facscfact 

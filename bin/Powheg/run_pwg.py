@@ -408,7 +408,9 @@ if [ "$process" = "WWJ" ]; then
     patch -l -p0 -i ${WORKDIR}/patches/wwj-weights.patch
     cp ${WORKDIR}/patches/rwl_write_weights2_extra.f POWHEG-BOX/$process/
 fi
-
+if [ "$process" = "bbH" ]; then
+    cp ${WORKDIR}/patches/Born_phsp.f_runningscalespatch POWHEG-BOX/$process/Born_phsp.f
+fi
 
 sed -i -e "s#500#1200#g"  POWHEG-BOX/include/pwhg_rwl.h
 
@@ -944,6 +946,8 @@ sed -i "s/^withnegweights/#withnegweights 1/g" powheg.input
 # parallel re-weighting calculation
 if [ "$process" = "HW_ew" ] || [ "$process" = "HZ_ew" ] || [ "$process" = "HZJ_ew" ] || [ "$process" = "HWJ_ew" ] ; then
    echo "# no reweighting in first runx" >> powheg.input
+elif [ "$process" = "bbH" ] ; then
+   echo "Reweighting is disabled for bbH!" 
 else 
    echo "rwl_group_events 2000" >> powheg.input
    echo "lhapdf6maxsets 50" >> powheg.input
