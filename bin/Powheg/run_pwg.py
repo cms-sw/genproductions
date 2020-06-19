@@ -946,8 +946,8 @@ sed -i "s/^withnegweights/#withnegweights 1/g" powheg.input
 # parallel re-weighting calculation
 if [ "$process" = "HW_ew" ] || [ "$process" = "HZ_ew" ] || [ "$process" = "HZJ_ew" ] || [ "$process" = "HWJ_ew" ] ; then
    echo "# no reweighting in first runx" >> powheg.input
-elif [ "$process" = "bbH" ] ; then
-   echo "Reweighting is disabled for bbH!" 
+elif [ "$process" = "bbH" ] && ( grep -q -E "lhans1[ ]+92000" powheg.input ); then
+   echo "Reweighting is disabled for bbH with this pdf-set!" 
 else 
    echo "rwl_group_events 2000" >> powheg.input
    echo "lhapdf6maxsets 50" >> powheg.input
