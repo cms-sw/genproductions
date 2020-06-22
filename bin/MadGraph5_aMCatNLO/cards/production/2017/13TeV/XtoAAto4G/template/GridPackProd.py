@@ -13,7 +13,7 @@ with open("ParticleWidths.csv") as csvfile:
 	W = csv.reader(csvfile)
 	for R in W:
 		print R
-		N = "XtoAAto4G_X"+R[0]+"A"+R[1]
+		N = "XtoAAto4G_X"+R[0]+"A"+R[1].replace(".","p")
 		print "Creating: " + N
 		try:
 			os.stat("./"+N)
