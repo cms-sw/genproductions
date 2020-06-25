@@ -24,7 +24,6 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
             'JetMatching:slowJetPower = 1',
             'JetMatching:qCut = 50.', #this is the actual merging scale
             'JetMatching:doFxFx = off',
-            'JetMatching:qCutME = 35.',#this must match the ptj cut in the lhe generation step
             'JetMatching:nQmatch = 5', #5 for 5-flavour scheme (matching of b-quarks)
             'JetMatching:nJetMax = 1', #number of partons in born matrix element for highest multiplicity
             'JetMatching:doShowerKt = off', #off for MLM matching, turn on for shower-kT matching
