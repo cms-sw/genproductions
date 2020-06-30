@@ -1,5 +1,5 @@
---- helas_objects.py	2020-06-30 18:48:27.201724766 +0200
-+++ MG5_aMC_v2_6_5/madgraph/core/helas_objects.py	2020-06-30 18:52:42.309735446 +0200
+--- a/madgraph/core/helas_objects.py	2020-06-30 18:48:27.201724766 +0200
++++ b/madgraph/core/helas_objects.py	2020-06-30 18:52:42.309735446 +0200
 @@ -5748,9 +5748,16 @@
                     diagram_generation.DiagramTag.reorder_permutation(\
                         proc_perm, org_perm)])
