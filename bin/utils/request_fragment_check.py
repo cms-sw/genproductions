@@ -384,6 +384,7 @@ for num in range(0,len(prepid)):
         mem = r['memory']
         filter_eff = r['generator_parameters'][-1]['filter_efficiency']
         match_eff = r['generator_parameters'][-1]['match_efficiency']
+	ext = r['extension']
         print pi+"    Status= "+r['status']
         print dn
         if args.bypass_status and r['status'] != "defined":
@@ -487,10 +488,9 @@ for num in range(0,len(prepid)):
                 error = error + 1
             if len(prime) != 0:
                 for rr in prime:
-                    if "UL17" in rr['prepid'] and "GEN" in rr['prepid']:
+                    if "UL17" in rr['prepid'] and "GEN" in rr['prepid'] and ext == rr['extension']:
                         pi_prime = rr['prepid']
                         cmssw_prime = rr['cmssw_release']
-			print(pi_prime)	
             if "NULL" in pi_prime:
 	       print "* [ERROR] No corresponing UL17 request to compare to for consistency."
                print "*         Please first create the corresponding UL17 requests."
@@ -517,6 +517,7 @@ for num in range(0,len(prepid)):
                   f1_prime.close()
                   f2_prime.write(data_f2_prime)
                   f2_prime.close()
+		  sys.exit()
         f1.close()
         f2.write(data_f2)
         f2.close()
