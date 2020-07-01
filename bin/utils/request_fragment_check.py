@@ -289,7 +289,7 @@ def xml_check_and_patch(f,cont,gridpack_eos_path,my_path,pi):
 	if len(xml) < 3:
           newlinetoadd = 'xmllint --stream --noout ${file}_final.lhe > /dev/null 2>&1; test $? -eq 0 || fail_exit "xmllint --stream integrity check failed on pwgevents.lhe" \ncp ${file}_final.lhe ${WORKDIR}/.'
           string_orig = "cp \$\{file\}\_final.lhe \$\{WORKDIR\}\/\."
-          cont = re.sub(string_orig,newlinetoadd,cont)		
+          cont = re.sub(string_orig,newlinetoadd,cont)
 	f.seek(0)
 	f.write(cont)
 	f.truncate()
@@ -478,48 +478,45 @@ for num in range(0,len(prepid)):
         data_f1 = f1.read()
         data_f2 = re.sub(r'(?m)^ *#.*\n?', '',data_f1)
         # Ultra-legacy sample settings' compatibility
+        pi_prime = "NULL"
         if "Summer19UL16" in pi or "Summer19UL18" in pi:
             prime = get_requests_from_datasetname(dn)
-	    mark_ul17 = 0	
             if len(prime) == 0:
                 print "* [ERROR] No corresponing UL17 request to compare to for consistency."
                 print "*         Please first create the corresponding UL17 requests."
                 error = error + 1
             if len(prime) != 0:
                 for rr in prime:
-                    pi_prime = rr['prepid']
-                    cmssw_prime = rr['cmssw_release']
-                    if 'UL17' in pi_prime and 'GEN' in pi_prime:
-                        pi_prime = pi_prime
-                        break
-                    if 'UL17' not in pi_prime and 'GEN' in pi_prime:
-			mark_ul17 = mark_ul17+1
-                if mark_ul17 != 0:
-		    print "* [ERROR] No corresponing UL17 request to compare to for consistency."
-                    print "*         Please first create the corresponding UL17 requests."
-		    error = error + 1
-		if mark_ul17 == 0:
-                    print"This is an UL16 or UL18 request so GEN settings will be compared to the corresponding UL17 request: "+pi_prime
-                    os.popen('wget -q '+mcm_link+'public/restapi/requests/get_fragment/'+pi_prime+' -O '+pi_prime).read()
-                    f1_prime = open(pi_prime,"r")
-                    f2_prime = open(pi_prime+"_tmp","w")
-                    data_f1_prime = f1_prime.read()
-                    data_f2_prime = re.sub(r'(?m)^ *#.*\n?', '',data_f1_prime)
-                    if (data_f2 == data_f2_prime) == True:
-                        print"[OK] Two requests have the same fragment."
-                    else:
-                        print"[ERROR] Fragment of "+pi+" is different than its base UL17 request: "+pi_prime
-                        print"        Please make sure that "+pi+" has _exactly_ the same settings as "+pi_prime
-                        error += 1
-                    if (cmssw == cmssw_prime) == True:
-                        print"[OK] Two requests have the same CMSSW version."
-                    else:
-                        print"[WARNING] CMSSW version of "+pi+" is different than its base UL17 request: "+pi_prime
-                        print"        Please make sure that "+pi+" has _exactly_ the same settings as "+pi_prime
-                        warning += 1
-                        f1_prime.close()
-                        f2_prime.write(data_f2_prime)
-                        f2_prime.close()
+                    if "UL17" in rr['prepid'] and "GEN" in rr['prepid']:
+                        pi_prime = rr['prepid']
+                        cmssw_prime = rr['cmssw_release']
+			print(pi_prime)	
+            if "NULL" in pi_prime:
+	       print "* [ERROR] No corresponing UL17 request to compare to for consistency."
+               print "*         Please first create the corresponding UL17 requests."
+	       error = error + 1
+	    else:
+               print"This is an UL16 or UL18 request so GEN settings will be compared to the corresponding UL17 request: "+pi_prime
+               os.popen('wget -q '+mcm_link+'public/restapi/requests/get_fragment/'+pi_prime+' -O '+pi_prime).read()
+               f1_prime = open(pi_prime,"r")
+               f2_prime = open(pi_prime+"_tmp","w")
+               data_f1_prime = f1_prime.read()
+               data_f2_prime = re.sub(r'(?m)^ *#.*\n?', '',data_f1_prime)
+               if (data_f2 == data_f2_prime) == True:
+                  print"[OK] Two requests have the same fragment."
+               else:
+                  print"[ERROR] Fragment of "+pi+" is different than its base UL17 request: "+pi_prime
+                  print"        Please make sure that "+pi+" has _exactly_ the same settings as "+pi_prime
+                  error += 1
+               if (cmssw == cmssw_prime) == True:
+                  print"[OK] Two requests have the same CMSSW version."
+               else:
+                  print"[WARNING] CMSSW version of "+pi+" is different than its base UL17 request: "+pi_prime
+                  print"        Please make sure that "+pi+" has _exactly_ the same settings as "+pi_prime
+                  warning += 1
+                  f1_prime.close()
+                  f2_prime.write(data_f2_prime)
+                  f2_prime.close()
         f1.close()
         f2.write(data_f2)
         f2.close()
@@ -926,24 +923,24 @@ for num in range(0,len(prepid)):
                         match = re.search(r"""process=(["']?)([^"']*)\1""", content)
 			warning1,error1 = xml_check_and_patch(f,content,gridpack_eos_path,my_path,pi)
 		        warning += warning1
- 			error += error1	
+ 			error += error1
 			f.close()
                     if os.path.isfile(my_path+'/'+pi+'/'+'external_tarball/runcmsgrid.sh') is True:
                         with open(os.path.join(my_path, pi, "external_tarball/runcmsgrid.sh"),'r+') as f2:
                             content2 = f2.read()
                             match = re.search(r"""process=(["']?)([^"']*)\1""", content2)
-			    warning1,error1 = xml_check_and_patch(f2,content2,gridpack_eos_path,my_path,pi)	
+			    warning1,error1 = xml_check_and_patch(f2,content2,gridpack_eos_path,my_path,pi)
                             et_flag = 1
-		    for file in os.listdir(my_path+'/'+pi+'/.'):	
+		    for file in os.listdir(my_path+'/'+pi+'/.'):
                     	if fnmatch.fnmatch(file,'*externaltarball.dat'):
-			   file_i = file	
-			   et_flag_external = 1			   
+			   file_i = file
+			   et_flag_external = 1
                     if et_flag_external == 1:
 			with open(my_path+'/'+pi+'/'+file_i) as f_ext:
 			    for line in f_ext:
                                 if line.startswith("EXTERNAL_TARBALL") == True:
 				    powheg_gp = line.split('\"')[1]
-                                    os.system('mkdir '+my_path+'/'+pi+'_powheg_gridpack')     
+                                    os.system('mkdir '+my_path+'/'+pi+'_powheg_gridpack')
 				    os.system('tar xf '+powheg_gp+' -C '+my_path+'/'+pi+'_powheg_gridpack')
 				    powheg_input = os.path.join(my_path,pi+'_powheg_gridpack', "powheg.input")
                     if et_flag == 0 and et_flag_external == 0:
@@ -965,7 +962,7 @@ for num in range(0,len(prepid)):
                                         print"*                                             "+str(UL_PDFs_N[0])+" "+str(UL_PDFs[0])
                                         print"*                                             or "+str(UL_PDFs_N[1])+" "+str(UL_PDFs[1])
                                         warning += 1
-		    if os.path.isfile(my_path+'/'+pi+'/'+'external_tarball/pwg-rwl.dat') is True:	
+		    if os.path.isfile(my_path+'/'+pi+'/'+'external_tarball/pwg-rwl.dat') is True:
 			pwg_rwl_file = os.path.join(my_path, pi, "external_tarball/pwg-rwl.dat")
                     else:
                         pwg_rwl_file = os.path.join(my_path, pi, "pwg-rwl.dat")
