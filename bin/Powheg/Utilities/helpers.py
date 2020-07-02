@@ -159,11 +159,11 @@ if [ ! -f LoopTools-2.14.tar.gz ]; then\n \
   wget --no-verbose http://www.feynarts.de/looptools/LoopTools-2.14.tar.gz || fail_exit \"Failed to get LoopTools tar ball \"\n \
 fi\n \
 tar xvf LoopTools-2.14.tar.gz\n \
-cd LoopTools-2.14a\n \
+cd LoopTools-2.14\n \
 ./configure --prefix=`pwd`/..\n \
 make install\n \
 cd ..\n \
-sed -i -e 's/^LT\=$.*/LT=$\(PWD\)/' Makefile\n \
+sed -i -e \"s#LT=PathToLoopTools#LT=.#\" Makefile\n \
 export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:${LD_LIBRARY_PATH}\n \
 mkdir obj-gfortran",
 
@@ -248,71 +248,7 @@ COMENERGY=`echo \"( $BEAM*2 )\" | bc`\n \
 gawk \"/sroot/{gsub(/8000/,$COMENERGY)};/hmass/{gsub(/125.5/, ${HMASS})};/mur,muf/{gsub(/62.750/, $(( $HMASS/2 )))};{print}\" POWHEG-BOX/HJ/PaperRun/HNNLO-LHC8-R04-APX2-11.input | sed -e \"s#10103#SEED#g\" | sed -e \"s#HNNLO-LHC8-R04-APX2-11#HNNLO-LHC13-R04-APX2-11#g\"> HNNLO-LHC13-R04-APX2-11.input\n \
 gawk \"/sroot/{gsub(/8000/,$COMENERGY)};/hmass/{gsub(/125.5/, ${HMASS})};/mur,muf/{gsub(/62.750/, $(( $HMASS )))};{print}\" POWHEG-BOX/HJ/PaperRun/HNNLO-LHC8-R04-APX2-11.input | sed -e \"s#10103#SEED#g\" | sed -e \"s#HNNLO-LHC8-R04-APX2-11#HNNLO-LHC13-R04-APX2-22#g\"> HNNLO-LHC13-R04-APX2-22.input\n \
 gawk \"/sroot/{gsub(/8000/,$COMENERGY)};/hmass/{gsub(/125.5/, ${HMASS})};/mur,muf/{gsub(/62.750/, $(( $HMASS/4 )))};{print}\" POWHEG-BOX/HJ/PaperRun/HNNLO-LHC8-R04-APX2-11.input | sed -e \"s#10103#SEED#g\" | sed -e \"s#HNNLO-LHC8-R04-APX2-11#HNNLO-LHC13-R04-APX2-0505#g\"> HNNLO-LHC13-R04-APX2-0505.input\n \
-cat << EOF > nnlopsreweighter.input\n \
-# a line beginning with 'lhfile' followed by the name of the event file\n\n \
-\
-lhfile pwgevents.lhe\n \
-rwl_format_rwgt\n\n \
-\
-# weights present in the lhfile: 'mtinf', 'mt', 'mtmb', 'mtmb-bminlo'\n\n\n \
-\
-\
-# a line with: 'nnlofiles'\n \
-# followed by a quoted label and the name of a HNNLO output file.\n \
-# In the following the 3 ouput refer to mt=infinity approx,\n \
-# finite mt, and finite mt and mb.\n\n \
-\
-nnlofiles\n \
-'nn-mtmb-11' HNNLO-11.top\n \
-'nn-mtmb-22' HNNLO-22.top\n \
-'nn-mtmb-0505' HNNLO-0505.top\n\n \
-\
-# The new desired weights, in the Les Houches format.\n \
-# The user can choose to group them in the way he prefers, and give them\n \
-# the id's he likes.\n \
-# The program determined how to compute each weights from the description\n \
-# line. It loops through the weights id's present in the pwgevents.lhe file\n \
-# and through the labels of the nnlofiles. If a label of a weight and\n \
-# a label of the nnlofiles are both present in the description field\n \
-# of a weight mentioned here, it computes that weight by reweighting\n \
-# the corresponding weights in the lhe file with the nnlo result present\n \
-# in the nnlofiles associated with the label. For example, in the\n \
-# nnlops-mt id in the following it reweights the nn-mtinf weight present\n \
-# in the .lhe file with the nnlo result present in the\n \
-# HNNLO-LHC8-R04-APX0-11.top file.\n\n \
-\
-<initrwgt>\n \
-<weightgroup name='nnl'>\n \
-<weight id='nnlops-11-1'> combines 'nn-mtmb-11' with '1001' </weight>\n \
-<weight id='nnlops-11-2'> combines 'nn-mtmb-11' with '1002' </weight>\n \
-<weight id='nnlops-11-3'> combines 'nn-mtmb-11' with '1003' </weight>\n \
-<weight id='nnlops-11-4'> combines 'nn-mtmb-11' with '1004' </weight>\n \
-<weight id='nnlops-11-5'> combines 'nn-mtmb-11' with '1005' </weight>\n \
-<weight id='nnlops-11-6'> combines 'nn-mtmb-11' with '1006' </weight>\n \
-<weight id='nnlops-11-7'> combines 'nn-mtmb-11' with '1007' </weight>\n \
-<weight id='nnlops-11-8'> combines 'nn-mtmb-11' with '1008' </weight>\n \
-<weight id='nnlops-11-9'> combines 'nn-mtmb-11' with '1009' </weight>\n \
-<weight id='nnlops-22-1'> combines 'nn-mtmb-22' with '1001' </weight>\n \
-<weight id='nnlops-22-2'> combines 'nn-mtmb-22' with '1002' </weight>\n \
-<weight id='nnlops-22-3'> combines 'nn-mtmb-22' with '1003' </weight>\n \
-<weight id='nnlops-22-4'> combines 'nn-mtmb-22' with '1004' </weight>\n \
-<weight id='nnlops-22-5'> combines 'nn-mtmb-22' with '1005' </weight>\n \
-<weight id='nnlops-22-6'> combines 'nn-mtmb-22' with '1006' </weight>\n \
-<weight id='nnlops-22-7'> combines 'nn-mtmb-22' with '1007' </weight>\n \
-<weight id='nnlops-22-8'> combines 'nn-mtmb-22' with '1008' </weight>\n \
-<weight id='nnlops-22-9'> combines 'nn-mtmb-22' with '1009' </weight>\n \
-<weight id='nnlops-0505-1'> combines 'nn-mtmb-0505' with '1001' </weight>\n \
-<weight id='nnlops-0505-2'> combines 'nn-mtmb-0505' with '1002' </weight>\n \
-<weight id='nnlops-0505-3'> combines 'nn-mtmb-0505' with '1003' </weight>\n \
-<weight id='nnlops-0505-4'> combines 'nn-mtmb-0505' with '1004' </weight>\n \
-<weight id='nnlops-0505-5'> combines 'nn-mtmb-0505' with '1005' </weight>\n \
-<weight id='nnlops-0505-6'> combines 'nn-mtmb-0505' with '1006' </weight>\n \
-<weight id='nnlops-0505-7'> combines 'nn-mtmb-0505' with '1007' </weight>\n \
-<weight id='nnlops-0505-8'> combines 'nn-mtmb-0505' with '1008' </weight>\n \
-<weight id='nnlops-0505-9'> combines 'nn-mtmb-0505' with '1009' </weight>\n \
-</weightgroup>\n \
-</initrwgt>\n \
-EOF",
+cp ../../../Utilities/nnlopsreweighter.input .",
 
     "Zj" : "echo \"Compiling DYNNLO....\"\n \
 wget --no-verbose --no-check-certificate http://theory.fi.infn.it/grazzini/codes/dynnlo-v1.5.tgz\n \

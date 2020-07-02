@@ -16,8 +16,8 @@ from Utilities import helpers
 TESTING = 0
 QUEUE = ''
 
-POWHEG_SOURCE = "powhegboxV2_rev3710_date20200108.tar.gz"
-POWHEGRES_SOURCE = "powhegboxRES_rev3660_date20190828.tar.gz"
+POWHEG_SOURCE = "powhegboxV2_rev3728_date20200429.tar.gz"
+POWHEGRES_SOURCE = "powhegboxRES_rev3748_date20200615.tar.gz"
 
 rootfolder = os.getcwd()
 
