@@ -19,7 +19,11 @@ cd ..",
     "WWJ" : "patch -l -p0 -i ${patches_dir}/wwj-weights.patch\n \
 cp ${patches_dir}/rwl_write_weights2_extra.f POWHEG-BOX/$process/",
     "Zj" : "patch -l -p0 -i ${patches_dir}/pwhg_write_weights_nnlo.patch",
-    "Wj" : "patch -l -p0 -i ${patches_dir}/pwhg_write_weights_nnlo.patch", 
+    "Wj" : "patch -l -p0 -i ${patches_dir}/pwhg_write_weights_nnlo.patch",
+    "VBF_H_smeft" : "cd POWHEG-BOX/VBF_H_smeft\n \
+head -n 966 pwhg_analysis.f | tail -n 12 > pwhg_analysis_new.f\n \
+mv pwhg_analysis_new.f pwhg_analysis.f\n \
+cd ../..", 
     }.get(process,"")
 
 def runGetSource_patch_2(process) :
@@ -59,7 +63,10 @@ rm -rf ../progress/bbinit.f",
     "VBF_HJJJ" : "sed -i 's/..\/pwhg_book.h/pwhg_book.h/g' pwhg_analysis-dummy.f",
     "VBF_H" : "sed -i '/pwhginihist/d' pwhg_analysis-dummy.f\n \
 patch -l -p0 -i ${patches_dir}/vbf_h_init_couplings.patch",
+    "VBF_H_smeft" : "sed -i -e \"s#reshufflemoms.o#reshufflemoms.o pwhg_analysis.o#g\" Makefile",
     "VBF_Z_Z" : "patch -l -p0 -i ${patches_dir}/vbf_z_z_init_couplings.patch",
+    "Wbb_nodec" : "sed -i -e \"s#reshufflemoms.o#reshufflemoms.o lhefread.o rwl_weightlists.o rwl_setup_param_weights.o pwhg_io_interface.o#g\" Makefile\n \
+    rm -f pwhg_analysis_driver.f",
     "Wgamma" : "patch -l -p0 -i ${patches_dir}/pwhg_analysis_driver.patch",
     "W_ew-BMNNP" : "patch -l -p0 -i ${patches_dir}/pwhg_analysis_driver.patch",
     "HW_ew" : "patch -l -p0 -i ${patches_dir}/hwew.patch",
@@ -113,13 +120,15 @@ cp -p ../gg_H_quark-mass-effects/SLHADefs.h .",
 def runGetSource_patch_5(process) :
   return {
     "Wgamma" : "echo \"PWHGANAL=$BOOK_HISTO pwhg_analysis-dummy.o uti.o \" >> tmpfile",
-    }.get(process,"echo \"PWHGANAL=$BOOK_HISTO pwhg_analysis-dummy.o \" >> tmpfile")
+     }.get(process,"echo \"PWHGANAL=$BOOK_HISTO pwhg_analysis-dummy.o \" >> tmpfile")
 
 def runGetSource_patch_6(process) :
   return {
     "WWJ" : "cp Makefile Makefile.orig\n \
 cat Makefile.orig | sed -e \"s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d \"=\" -f2)/bin/fastjet-config#g\" | sed -e \"s#cs_angles.o#cs_angles.o fastjetfortran.o observables.o pwhg_bookhist-multi-new.o#g\" | sed -e \"s#\#\ FASTJET_CONFIG#FASTJET_CONFIG#g\" | sed -e \"s#\#\ LIBSFASTJET#LIBSFASTJET#g\" | sed -e \"s#\#\ FJCXXFLAGS#FJCXXFLAGS#g\" | sed -e \"s#rwl_write_weights_extra.f#rwl_write_weights_extra.f\ rwl_write_weights2_extra.f#g\" > Makefile",
-
+    "ttbarj" : "cp Makefile Makefile.orig\n \
+cat Makefile.orig | sed -e \"s#OLPATH=.\+#OLPATH=$(scram tool info OpenLoops | grep BASE | cut -d \"=\" -f2)#g\" > Makefile\n \
+sed -i -e \"s#Pythia8Plugins#Pythia8Plugins \$(shell \$(LHAPDF_CONFIG) --cxxflags )#g\" Makefile",
     "gg_H_2HDM" : "echo \"Adding CHAPLIN 1.2 library\"\n \
 if [ ! -f chaplin-1.2.tar ]; then\n \
   wget --no-verbose http://chaplin.hepforge.org/code/chaplin-1.2.tar || fail_exit \"Failed to get CHAPLIN tar ball \"\n \
@@ -217,7 +226,7 @@ cd ..",
 
 def runGetSource_patch_8(process) :
   return {
-    "HJ" : "echo \"Compilinig HNNLO....\"\n \
+    "HJ" : "echo \"Compiling HNNLO....\"\n \
 wget --no-verbose http://theory.fi.infn.it/grazzini/codes/hnnlo-v2.0.tgz\n \
 tar -xzvf hnnlo-v2.0.tgz\n \
 cd hnnlo-v2.0\n \
@@ -248,7 +257,7 @@ COMENERGY=`echo \"( $BEAM*2 )\" | bc`\n \
 gawk \"/sroot/{gsub(/8000/,$COMENERGY)};/hmass/{gsub(/125.5/, ${HMASS})};/mur,muf/{gsub(/62.750/, $(( $HMASS/2 )))};{print}\" POWHEG-BOX/HJ/PaperRun/HNNLO-LHC8-R04-APX2-11.input | sed -e \"s#10103#SEED#g\" | sed -e \"s#HNNLO-LHC8-R04-APX2-11#HNNLO-LHC13-R04-APX2-11#g\"> HNNLO-LHC13-R04-APX2-11.input\n \
 gawk \"/sroot/{gsub(/8000/,$COMENERGY)};/hmass/{gsub(/125.5/, ${HMASS})};/mur,muf/{gsub(/62.750/, $(( $HMASS )))};{print}\" POWHEG-BOX/HJ/PaperRun/HNNLO-LHC8-R04-APX2-11.input | sed -e \"s#10103#SEED#g\" | sed -e \"s#HNNLO-LHC8-R04-APX2-11#HNNLO-LHC13-R04-APX2-22#g\"> HNNLO-LHC13-R04-APX2-22.input\n \
 gawk \"/sroot/{gsub(/8000/,$COMENERGY)};/hmass/{gsub(/125.5/, ${HMASS})};/mur,muf/{gsub(/62.750/, $(( $HMASS/4 )))};{print}\" POWHEG-BOX/HJ/PaperRun/HNNLO-LHC8-R04-APX2-11.input | sed -e \"s#10103#SEED#g\" | sed -e \"s#HNNLO-LHC8-R04-APX2-11#HNNLO-LHC13-R04-APX2-0505#g\"> HNNLO-LHC13-R04-APX2-0505.input\n \
-cp ../../../Utilities/nnlopsreweighter.input .",
+cp ${WORKDIR}/Utilities/nnlopsreweighter.input .",
 
     "Zj" : "echo \"Compiling DYNNLO....\"\n \
 wget --no-verbose --no-check-certificate http://theory.fi.infn.it/grazzini/codes/dynnlo-v1.5.tgz\n \
