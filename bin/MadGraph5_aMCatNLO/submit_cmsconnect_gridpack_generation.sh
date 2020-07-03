@@ -20,7 +20,7 @@ cat<<-EOF
         +IsGridpack=true
         +GridpackCard = "${card_name}"
 	
-	+REQUIRED_OS = "rhel6"
+	+REQUIRED_OS = "rhel7"
 	request_cpus = $cores
 	request_memory = $memory
 	Queue 1
