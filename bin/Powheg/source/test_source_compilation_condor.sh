@@ -21,6 +21,7 @@ source_name="${source_name%.*}"
 source_name="${source_name%.*}"
 
 cat << EOF > source_compilation_${source_name}_$2_$3.sh
+#!/bin/bash
 
 # Define a few variables
 genproduction_dir=$PWD/../../..
@@ -76,6 +77,8 @@ echo "PDF REPOSITORY/VERSION: "${LHAPDF_DATA_PATH}
 cp    $genproduction_dir/bin/Powheg/*.py .
 cp    $genproduction_dir/bin/Powheg/*.sh .
 cp -r $genproduction_dir/bin/Powheg/patches .
+cp -r $genproduction_dir/bin/Powheg/Templates .
+cp -r $genproduction_dir/bin/Powheg/Utilities .
 
 # Replace the standard source tarball with the one passed as argument to the script
 sed -i "/export\ POWHEG_SOURCE\=/c export\ POWHEG_SOURCE\=${source_file}" run_pwg_condor.py
@@ -84,7 +87,7 @@ sed -i "/export\ POWHEGRES_SOURCE\=/c export\ POWHEGRES_SOURCE\=${source_file}" 
 # check whether the script needs to run on all the processes 
 # or on a (sub)set defined in the variable "processes"
 if [ -z "$processes" ]; then 
-    process_list=`tar -tvf $source_file 'POWHEG-BOX/*.tgz' | awk '{print $6}'`
+    process_list=`tar -tvf $source_dir 'POWHEG-BOX/*.tgz' | awk '{print $6}'`
     process_list=$(echo $process_list | sed 's/POWHEG\-BOX\///g')
     process_list=$(echo $process_list | sed 's/\.tgz//g')
 else 
@@ -120,11 +123,10 @@ EOF
 
 cat << EOF > condor_${source_name}_$2_$3.sub
 
-executable              = $PWD/source_compilation_${source_name}_$2_$3.sh
-arguments               = $1 $2 $3
-output                  = $PWD/\$(ClusterId).\$(ProcId).out
-error                   = $PWD/\$(ClusterId).\$(ProcId).err
-log                     = $PWD/\$(ClusterId).log
+executable              = source_compilation_${source_name}_$2_$3.sh
+output                  = \$(ClusterId).\$(ProcId).out
+error                   = \$(ClusterId).\$(ProcId).err
+log                     = \$(ClusterId).log
 +JobFlavour             = "tomorrow"
 
 should_transfer_files = YES
