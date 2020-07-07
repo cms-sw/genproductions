@@ -1,4 +1,4 @@
-import model DMsimp_s_spin1_UFO ../models/DMsimp_s_spin1_UFO/param_card.dat --bypass_check
+import model DM_KinMix_Med_Spin1_Scalar_Prds.gz
 define p = g u c d s u~ c~ d~ s~
 generate p p > ZD, (ZD > SD SD~, SD > mu+ mu-, SD~ > mu+ mu-)
 output MASS -nojpeg #name of the directory
