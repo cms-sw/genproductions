@@ -1,0 +1,90 @@
+--- a/Template/NLO/SubProcesses/handling_lhe_events.f	2019-02-04 12:19:42.000000000 +0100
++++ b/Template/NLO/SubProcesses/handling_lhe_events.f	2020-01-31 23:34:54.026678000 +0100
+@@ -665,8 +665,10 @@
+ c     if event_id is zero or positive (that means that there was a call
+ c     to write_lhef_header_banner) update it and write it
+ c RF: don't use the event_id:
++      logical do_rwgt
+       event_id = -99
+ c
++      do_rwgt = do_rwgt_scale .or. do_rwgt_pdf .or. store_rwgt_info
+       if (event_id.ge.0) then
+          event_id=event_id+1
+          if (event_id.le.9) then
+@@ -720,7 +722,7 @@
+      #                  PUP(1,I),PUP(2,I),PUP(3,I),PUP(4,I),PUP(5,I),
+      #                  VTIMUP(I),SPINUP(I)
+       enddo
+-      if(buff(1:1).eq.'#' .and. (do_rwgt_scale .or. do_rwgt_pdf .or.
++      if(buff(1:1).eq.'#' .and. (do_rwgt .or.
+      &     jwgtinfo.lt.0)) then
+          write(ifile,'(a)') buff(1:len_trim(buff))
+          read(buff,*)ch1,iSorH_lhe,ifks_lhe,jfks_lhe,
+--- a//madgraph/interface/amcatnlo_run_interface.py	2019-02-04 12:19:42.000000000 +0100
++++ b//madgraph/interface/amcatnlo_run_interface.py	2020-01-31 23:34:54.150507000 +0100
+@@ -3600,7 +3600,8 @@
+         """
+         scale_pdf_info=[]
+         if any(self.run_card['reweight_scale']) or any(self.run_card['reweight_PDF']) or \
+-           len(self.run_card['dynamical_scale_choice']) > 1 or len(self.run_card['lhaid']) > 1:
++           len(self.run_card['dynamical_scale_choice']) > 1 or len(self.run_card['lhaid']) > 1\
++           or self.run_card['store_rwgt_info']:
+             scale_pdf_info = self.run_reweight(options['reweightonly'])
+         self.update_status('Collecting events', level='parton', update_results=True)
+         misc.compile(['collect_events'], 
+--- a/madgraph/interface/reweight_interface.py	2019-02-04 12:19:42.000000000 +0100
++++ b/madgraph/interface/reweight_interface.py	2020-01-31 23:34:54.199002000 +0100
+@@ -643,15 +643,15 @@
+             logger.info('Event %s have now the additional weight' % self.lhe_input.name)
+         elif self.output_type == "unweight":
+             for key in output:
+-                output[key].write('</LesHouchesEvents>\n')
+-                output.close()
++                #output[key].write('</LesHouchesEvents>\n')
++                #output.close()
+                 lhe = lhe_parser.EventFile(output[key].name)
+                 nb_event = lhe.unweight(target)
+                 if self.mother and  hasattr(self.mother, 'results'):
+                     results = self.mother.results
+                     results.add_detail('nb_event', nb_event)
+                     results.current.parton.append('lhe')
+-                logger.info('Event %s is now unweighted under the new theory' % lhe.name)                
++                logger.info('Event %s is now unweighted under the new theory: %s(%s)' % (lhe.name, target, nb_event)) 
+         else:
+             if self.mother and  hasattr(self.mother, 'results'):
+                 results = self.mother.results
+@@ -1781,7 +1781,10 @@
+                 if 'virt' in onedir:
+                     tag = (tag, 'V')
+                 prefix = all_prefix[i]
+-                hel = hel_dict[prefix]
++                if prefix in hel_dict:
++                    hel = hel_dict[prefix]
++                else:
++                    hel = {}
+                 if tag in data:
+                     oldpdg = data[tag][0][0]+data[tag][0][1]
+                     if all_prefix[all_pdgs.index(pdg)] == all_prefix[all_pdgs.index(oldpdg)]:
+--- a/Template/NLO/SubProcesses/driver_mintFO.f	2019-02-04 12:19:42.000000000 +0100
++++ b/Template/NLO/SubProcesses/driver_mintFO.f	2020-01-31 23:34:54.007582000 +0100
+@@ -186,7 +186,7 @@
+                enddo
+             enddo
+          else
+-            doreweight=do_rwgt_scale.or.do_rwgt_pdf
++            doreweight=do_rwgt_scale.or.do_rwgt_pdf.or.store_rwgt_info
+ c to restore grids:
+             open (unit=12, file='mint_grids',status='old')
+             do kchan=1,nchans
+--- a/Template/NLO/SubProcesses/driver_mintMC.f	2019-02-04 12:19:42.000000000 +0100
++++ b/Template/NLO/SubProcesses/driver_mintMC.f	2020-01-31 23:34:54.015293000 +0100
+@@ -141,7 +141,7 @@
+      &     ixi_i,iphi_i,iy_ij,SHsep)
+ c Only do the reweighting when actually generating the events
+       if (imode.eq.2) then
+-         doreweight=do_rwgt_scale.or.do_rwgt_pdf
++         doreweight=do_rwgt_scale.or.do_rwgt_pdf.or.store_rwgt_info
+       else
+          doreweight=.false.
+          do_rwgt_scale=.false.
+
