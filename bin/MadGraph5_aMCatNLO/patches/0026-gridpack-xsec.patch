@@ -1,0 +1,22 @@
+--- a/madgraph/interface/madevent_interface.py	2017-12-13 05:19:14.000000000 +0800
++++ b/madgraph/interface/madevent_interface.py	2019-06-07 09:38:05.471124637 +0800
+@@ -6581,7 +6581,8 @@
+         
+         if not hasattr(self,'proc_characteristic'):
+             self.proc_characteristic = self.get_characteristics()
+-            
++
++	self.banner.add_generation_info(sum_xsec, self.nb_event)            
+         nb_event = AllEvent.unweight(pjoin(outdir, self.run_name, "unweighted_events.lhe.gz"),
+                           get_wgt, trunc_error=1e-2, event_target=self.nb_event,
+                           log_level=logging.DEBUG, normalization=self.run_card['event_norm'],
+@@ -6596,7 +6597,8 @@
+                     os.remove(pjoin(outdir, self.run_name, "partials%s.lhe" % i))
+                    
+         self.results.add_detail('nb_event', nb_event)
+-    
++
++	self.banner.add_generation_info(sum_xsec, nb_event)    
+         if self.run_card['bias_module'].lower() not in  ['dummy', 'none']:
+             self.correct_bias()
+
