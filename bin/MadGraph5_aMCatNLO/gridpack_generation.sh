@@ -90,8 +90,9 @@ make_gridpack () {
     MGBASEDIR=mgbasedir
     
     MG_EXT=".tar.gz"
-    MG=MG5_aMC_v2.6.5$MG_EXT
-    MGSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$MG
+    MG=MG5_aMC_v2.7.3$MG_EXT
+    ## MGSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$MG
+    MGSOURCE=https://launchpad.net/mg5amcnlo/2.0/2.7.x/+download/MG5_aMC_v2.7.3.tar.gz
     
     MGBASEDIRORIG=$(echo ${MG%$MG_EXT} | tr "." "_")
     isscratchspace=0
@@ -136,7 +137,8 @@ make_gridpack () {
       #############################################
     
       cd $MGBASEDIRORIG
-      cat $PRODHOME/patches/*.patch | patch -p1
+      ## cat $PRODHOME/patches/*.patch | patch -p1
+      for j in $PRODHOME/patches/*.patch; do echo "apply patches " $j; cat $j | patch -p1;done
       cp -r $PRODHOME/PLUGIN/CMS_CLUSTER/ PLUGIN/ 
       # Intended for expert use only!
       if ls $CARDSDIR/${name}*.patch; then
@@ -615,7 +617,7 @@ if [ -n "$5" ]
   then
     scram_arch=${5}
   else
-    scram_arch=slc6_amd64_gcc630 #slc6_amd64_gcc481
+    scram_arch=slc7_amd64_gcc630 #slc6_amd64_gcc481
 fi
 
 # Require OS and scram_arch to be consistent
