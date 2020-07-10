@@ -409,7 +409,7 @@ if [ "$process" = "WWJ" ]; then
     cp ${WORKDIR}/patches/rwl_write_weights2_extra.f POWHEG-BOX/$process/
 fi
 if [ "$process" = "bbH" ]; then
-    cp ${WORKDIR}/patches/Born_phsp.f_runningscalespatch POWHEG-BOX/$process/Born_phsp.f
+    patch POWHEG-BOX/${process}/Born_phsp.f -l -p0 -i ${WORKDIR}/patches/born_phsp.patch
 fi
 
 sed -i -e "s#500#1200#g"  POWHEG-BOX/include/pwhg_rwl.h
