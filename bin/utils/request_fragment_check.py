@@ -84,6 +84,7 @@ parser = argparse.ArgumentParser(
                   *           in the name of the dataset
                   * [WARNING] bornonly = xx (if xx = 1 and if (Pythia8PowhegEmissionVetoSettings or SpaceShower:pTmaxMatch
                   *           or  TimeShower:pTmaxMatch) this becomes an error.
+                  * [ERROR]   parton_shower in  mg5_aMC NLO configurations is not consistent with PS (HERWIGX or PYTHIA8)
                   * [WARNING] You're using MG5_aMC xx in an Ultra Legacy Campaign. You should use MG5_aMCv2.6.1+.
                   *           This becomes an error if it is not a PPD request.
                   * [WARNING] There will be no PDF variations! Please check the runcmsgrid file in the gridpack.
@@ -435,6 +436,7 @@ for num in range(0,len(prepid)):
         herwig_flag = 0
         herwig_count = []
         herwig7_bypass_error = 0
+        pythia8_flag = 0
         evtgen_flag = 0
         pf = []
         ppd = 0
@@ -537,6 +539,7 @@ for num in range(0,len(prepid)):
         if "patch" in cmssw:
             ps_version = ps_version + "-patch"
         if "pythia8" in dn.lower():
+            pythia8_flag = 1
             pythia8_version = ps_version + "/"+str(cmssw)+"/config/toolbox/"+str(scram_arch)+"/tools/selected/pythia8.xml"
             pythia8_version_file = os.path.isfile(pythia8_version)
             pythia8_version = "grep version "+pythia8_version
@@ -833,6 +836,11 @@ for num in range(0,len(prepid)):
                     maxjetflavor = os.popen('more '+filename_rc+' | tr -s \' \' | grep "= maxjetflavor"').read()
                     maxjetflavor = int(re.search(r'\d+',maxjetflavor).group())
                     print "maxjetflavor = "+str(maxjetflavor)
+                    if matching_c == 3 and pythia8_flag != 0:
+                        ps_hw = os.popen('grep parton_shower '+filename_rc).read()
+                        if "PYTHIA8" not in ps_hw.upper():
+                            print "* [ERROR] PYTHIA8 = parton_shower not in run_card.dat"
+                            error += 1
                     if matching_c == 3 and herwig_flag != 0:
                         ps_hw = os.popen('grep parton_shower '+filename_rc).read()
                         if ("HERWIGPP" not in ps_hw.upper()) or ("HERWIG7" not in ps_hw.upper() and herwig7_bypass_error == 1):
@@ -850,6 +858,11 @@ for num in range(0,len(prepid)):
                     ickkw_c = os.popen('more '+my_path+'/'+pi+'/'+'process/Cards/run_card.dat'+' | tr -s \' \' | grep "= ickkw"').read()
                     matching_c = int(re.search(r'\d+',ickkw_c).group())
                     print ickkw_c
+                    if pythia8_flag != 0:
+                        ps_hw = os.popen('grep parton_shower '+my_path+'/'+pi+'/'+'process/Cards/run_card.dat').read()
+                        if "PYTHIA8" not in ps_hw.upper():
+                            print "* [ERROR] PYTHIA8 = parton_shower not in run_card.dat"
+                            error += 1
                     if herwig_flag != 0:
                         ps_hw = os.popen('grep parton_shower '+my_path+'/'+pi+'/'+'process/Cards/run_card.dat').read()
 			if ("HERWIGPP" not in ps_hw.upper()) or ("HERWIG7" not in ps_hw.upper() and herwig7_bypass_error == 1):
