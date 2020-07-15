@@ -177,17 +177,23 @@ if [ "$domadspin" -gt "0" ] ; then
 fi
 mv process/$event_file process/madevent/Events/${runlabel}/events.lhe
 
-# Add scale and PDF weights using systematics module
-#
+# add scale and PDF weights using systematics module
 pushd process/madevent
 pdfsets="PDF_SETS_REPLACE"
 scalevars="--mur=1,2,0.5 --muf=1,2,0.5 --together=muf,mur,dyn --dyn=-1,1,2,3,4 --alps=0.5,1,2"
 echo "systematics $runlabel --start_id=1001 --pdf=$pdfsets $scalevars" | ./bin/madevent
 popd
 
+# check lhe output  
+echo -e "\nRun xml check" 
+xmllint --stream --noout ${LHEWORKDIR}/process/madevent/Events/${runlabel}/events.lhe ; test $? -eq 0 || exit 1 
+echo "Number of weights that are NaN:" 
+grep  NaN  ${LHEWORKDIR}/process/madevent/Events/${runlabel}/events.lhe | grep "</wgt>" | wc -l ; test $? -eq 0 || exit 1 
+echo -e "All checks passed \n" 
+
+# copy output and print directory 
 mv ${LHEWORKDIR}/process/madevent/Events/${runlabel}/events.lhe ${LHEWORKDIR}/cmsgrid_final.lhe
-
 ls -l
-echo
 
+# exit 
 exit 0
