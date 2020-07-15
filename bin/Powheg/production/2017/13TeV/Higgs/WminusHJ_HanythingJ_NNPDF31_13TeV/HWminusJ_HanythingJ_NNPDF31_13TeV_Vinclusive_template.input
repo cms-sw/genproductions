@@ -5,8 +5,8 @@ hdecaymode        -1    ! undecayed Higgs boson (for PYTHIA and HERWIG)
 hmass  {mass}d0        ! Higgs boson mass 
 hwidth {width}d0     ! Higgs boson width 
 
-min_h_mass    10d0      
-max_h_mass  1000d0 
+min_h_mass  {min_h_mass}d0      
+max_h_mass  {max_h_mass}d0 
 
 min_w_mass     10d0
 max_w_mass   1000d0
