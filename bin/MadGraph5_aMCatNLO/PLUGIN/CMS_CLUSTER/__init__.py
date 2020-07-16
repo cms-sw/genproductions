@@ -361,9 +361,8 @@ class CMSCondorCluster(CondorCluster):
                             self.hold_msg = "ClusterId %s with HoldReason: %s" % (str(id), job["HoldReason"])
                             logger.warning(self.hold_msg)
                             fail += 1
-                elif status == 'C':
-                    if self.spool:
-                        self.retrieve_output(id)
+                elif status == 'C' and self.spool:
+                    self.retrieve_output(id)
                 else:
                     logger.warning("Failed condor job " + str(id) + " with status " + status)
                     logger.warning( job )
