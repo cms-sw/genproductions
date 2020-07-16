@@ -107,7 +107,7 @@ if [ ! -e $LHEWORKDIR/header_for_madspin.txt ]; then
 	if grep -R "<initrwgt>" events.lhe ; then
 	    sed -n '/<initrwgt>/,/<\/initrwgt>/p' events.lhe >  initrwgt.txt
 	fi        
-        #when MADSPIN=OFF is applied, mg5_aMC moves reweight_card.dat to .reweight_card.dat
+        #when MADSPIN=OFF is applied, mg5_aMC moves madspin_card.dat to .madspin_card.dat
         mv ./Cards/.madspin_card.dat ./Cards/madspin_card.dat
         echo "import events.lhe" > madspinrun.dat
         cat ./Cards/madspin_card.dat >> madspinrun.dat
