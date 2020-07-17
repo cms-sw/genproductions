@@ -16,8 +16,8 @@ from Utilities import helpers
 TESTING = 0
 QUEUE = ''
 
-POWHEG_SOURCE = "powhegboxV2_rev3710_date20200108.tar.gz"
-POWHEGRES_SOURCE = "powhegboxRES_rev3660_date20190828.tar.gz"
+POWHEG_SOURCE = "powhegboxV2_rev3728_date20200429.tar.gz"
+POWHEGRES_SOURCE = "powhegboxRES_rev3748_date20200615.tar.gz"
 
 rootfolder = os.getcwd()
 
@@ -251,7 +251,7 @@ def runSingleXgrid(parstage, xgrid, folderName, nEvents, powInputName, seed, pro
         f.write('sed -i "s/fakevirt.*/fakevirt 0/g" powheg.input \n')
         f.write('./pwhg_main \n')
 
-    f.write('echo "\\nEnd of job on " `date` "\\n" \n')
+    f.write('echo -e "\\nEnd of job on " `date` "\\n" \n\n')
     f.close()
 
     os.system('chmod 755 '+filename)
@@ -273,8 +273,16 @@ def runGetSource(parstage, xgrid, folderName, powInputName, process, noPdfCheck,
         "process" : process,
         "noPdfCheck" : noPdfCheck,
         "rootfolder" : rootfolder,
+        "patches_dir" : os.path.dirname(os.path.realpath(__file__)) + "/patches",
+        "patch_1" : helpers.runGetSource_patch_1(process),
+        "patch_2" : helpers.runGetSource_patch_2(process),
+        "patch_3" : helpers.runGetSource_patch_3(process),
+        "patch_4" : helpers.runGetSource_patch_4(process),
+        "patch_5" : helpers.runGetSource_patch_5(process),
+        "patch_6" : helpers.runGetSource_patch_6(process),
+        "patch_7" : helpers.runGetSource_patch_7(process),
+        "patch_8" : helpers.runGetSource_patch_8(process),
     }
-    template_dict["patches_dir"] = os.path.dirname(os.path.realpath(__file__)) + "/patches"
 
     fourFlavorProcesses = ["ST_tch_4f", "bbH", "Wbb_dec", "Wbbj", "WWJ"]
     template_dict["isFiveFlavor"] = int(process not in fourFlavorProcesses)
@@ -723,30 +731,31 @@ if __name__ == "__main__":
         prepareJob(tagName, '', '.')
 
         if not os.path.exists(args.inputTemplate) :
-            m_ret = os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate+' -O '+args.folderName+'/powheg.input')
+            m_ret = os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate+' -O '+args.folderName+'/powheg.input') 
 
             os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate)
         
-        os.system('mkdir -p '+rootfolder+'/'+args.folderName)
+        os.system('mkdir -p '+rootfolder+'/'+args.folderName) 
+
         if not os.path.exists(args.inputTemplate) :
             os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate+' -O '+args.folderName+'/powheg.input')
         else :
-            os.system('cp -p '+args.inputTemplate+' '+args.folderName+'/powheg.input')
+            os.system('cp -p '+args.inputTemplate+' '+args.folderName+'/powheg.input') 
 
-        os.system('rm -rf JHUGen.input')
+        os.system('rm -rf JHUGen.input') 
         inputJHUGen = args.inputJHUGen
         if args.inputJHUGen == "":
-            inputJHUGen = '/'.join(powInputName.split('/')[0:-1])+'/JHUGen.input'
+            inputJHUGen = '/'.join(powInputName.split('/')[0:-1])+'/JHUGen.input' 
 
         if not os.path.exists(inputJHUGen) :
             m_ret = os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+inputJHUGen+' -O '+args.folderName+'/JHUGen.input')
             if ((m_ret>>8) & 255) != 0 :
-                os.system('rm -rf '+args.folderName+'/JHUGen.input')
+                os.system('rm -rf '+args.folderName+'/JHUGen.input') 
 
         else :
             os.system('cp -p '+inputJHUGen+' '+args.folderName+'/JHUGen.input')
 
-        if os.path.exists(args.folderName+'/powheg.input') :
+        if os.path.exists(args.folderName+'/powheg.input') : 
             test_pdf1 = 0
             test_pdf2 = 0
 
@@ -780,10 +789,10 @@ if __name__ == "__main__":
         tagName = 'src_'+args.folderName
         filename = './run_'+tagName+'.sh'
 
-        prepareJob(tagName, '', '.')
+        prepareJob(tagName, '', '.') 
 
         runGetSource(args.parstage, args.xgrid, args.folderName,
-                     powInputName, args.prcName, args.noPdfCheck, tagName)
+                     powInputName, args.prcName, args.noPdfCheck, tagName) 
 
         if QUEUE == 'none':
             print 'Direct compiling... \n'

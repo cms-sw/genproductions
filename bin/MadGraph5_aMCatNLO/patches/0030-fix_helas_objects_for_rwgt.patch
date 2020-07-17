@@ -1,0 +1,20 @@
+--- a/madgraph/core/helas_objects.py	2020-06-30 18:48:27.201724766 +0200
++++ b/madgraph/core/helas_objects.py	2020-06-30 18:52:42.309735446 +0200
+@@ -5748,9 +5748,16 @@
+                    diagram_generation.DiagramTag.reorder_permutation(\
+                        proc_perm, org_perm)])
+         new_proc = copy.copy(process)
++        if org_perm == proc_perm:
++            return new_proc
++
++        if  len(org_perm) != len(process.get('legs_with_decays')):
++            raise Exception, "issue on symmetry between process"
++
+         new_proc.set('legs_with_decays', leglist)
+ 
+         if not new_proc.get('decay_chains'):
+             new_proc.set('legs', leglist)
+-
++            assert len(process.get('legs')) == len(leglist)
++     
+         return new_proc

@@ -105,9 +105,6 @@ make_gridpack () {
     
       cd $GEN_FOLDER
     
-    #   export SCRAM_ARCH=slc6_amd64_gcc472 #Here one should select the correct architechture corresponding with the CMSSW release
-    #   export RELEASE=CMSSW_5_3_32_patch3
-    
       export SCRAM_ARCH=${scram_arch}
       export RELEASE=${cmssw_version}
     
