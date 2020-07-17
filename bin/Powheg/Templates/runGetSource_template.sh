@@ -138,6 +138,7 @@ if [ `grep particle_identif pwhg_analysis-dummy.f` = ""]; then
 fi
 sed -i -e "s#PWHGANAL[ \t]*=[ \t]*#\#PWHGANAL=#g" Makefile
 sed -i -e "s#ANALYSIS[ \t]*=[ \t]*#\#ANALYSIS=#g" Makefile
+sed -i -e "s#_\#ANALYSIS*#_ANALYSIS=#g" Makefile
 sed -i -e "s#LHAPDF_CONFIG[ \t]*=[ \t]*#\#LHAPDF_CONFIG=#g" Makefile
 sed -i -e "s#pwhg_bookhist.o# #g" Makefile
 sed -i -e "s#pwhg_bookhist-new.o# #g" Makefile

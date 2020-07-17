@@ -1,10 +1,8 @@
 #!/bin/bash
 
 # SCRIPT TO TEST COMPILATION OF POWHEG PROCESSES CONTAINED IN A GIVEN SOURCE TARBALL
-# THE SCRIPT IS MEANT TO BE RUN ON LXPLUS, THE COMMAND "screen" IS SUGGESTED.
-# THE SCRIPT CAN BE RUN WHERE IT IS, IT WILL REDIRECT THE OUTPUT TO THE /tmp/$USER/ FOLDER
-# THE TEST ON ALL PROCESSES TAKES ~6h, THE OUTPUT FOLDER OCCUPIES ~24GB
-# THE OUTPUT IS A LOG FILE COLLECTIONG ALL THE COMPILATION LOGs, TO APPEAR IN THE WORKING DIR
+# THE SCRIPT IS MEANT TO BE RUN ON CONDOR
+# THE OUTPUT IS A LOG FILE COLLECTING ALL THE COMPILATION LOGs, TO APPEAR IN THE WORKING DIR
 
 EXPECTED_ARGS=3
 if [ $# -ne $EXPECTED_ARGS ]
@@ -17,6 +15,26 @@ fi
 echo "   ______________________________________________________    "
 echo "         Running Powheg script "$(basename "$0")"                          "
 echo "   ______________________________________________________    "
+
+source_name=$1
+source_name="${source_name%.*}"
+source_name="${source_name%.*}"
+
+cat << EOF > source_compilation_${source_name}_$2_$3.sh
+#!/bin/bash
+
+# Define a few variables
+genproduction_dir=$PWD/../../..
+topdir=$PWD
+source_file=$1
+source_dir=/afs/cern.ch/cms/generators/www/slc6_amd64_gcc481/powheg/V2.0/src/$1
+scram_arch_version=$2
+cmssw_version=$3
+workdir=test
+
+EOF
+
+cat << 'EOF' >> source_compilation_${source_name}_$2_$3.sh
 
 ##################################################################################
 ##################################################################################
@@ -32,26 +50,19 @@ echo "   ______________________________________________________    "
            # 'dijet' 'dislepton-jet' 'disquark' 'ggHH' 'ggHZ' 'gg_H' 'gg_H_2HDM' 'gg_H_MSSM' \
            # 'gg_H_quark-mass-effects' 'hvq' 'trijet' 'ttH' 'ttb_NLO_dec' 'ttb_dec' 'vbf_wp_wp' 'weakinos');
 
-# processes=('Wbbj' 'Wbb_dec' 'trijet' 'HZJ' 'ggHH' 'gg_H' 'disquark');
+#processes=('Wbbj' 'Wbb_dec' 'trijet' 'HZJ' 'ggHH' 'gg_H' 'disquark');
 
 ##################################################################################
 ##################################################################################
 
-# Define a few variables
-genproduction_dir=`awk -F genproductions '{print $1}' <<< $PWD`"/genproductions"
-topdir=$PWD
-source_file="/afs/cern.ch/cms/generators/www/slc6_amd64_gcc481/powheg/V2.0/src/"${1}
-echo "source file: "$source_file
-scram_arch_version=$2
-cmssw_version=$3
-workdir=/tmp/$USER/"${0%.*}"
+echo "source file: "$source_dir
 
 source_name=$(basename "$source_file")
 source_name="${source_name%.*}"
 source_name="${source_name%.*}"
 
 # store the lxplus node to retrieve the output in case of disconnection
-hostname > lxplus_node.log
+#hostname > lxplus_node.log
 
 # Download the CMSSW release
 mkdir -p $workdir
@@ -66,14 +77,17 @@ echo "PDF REPOSITORY/VERSION: "${LHAPDF_DATA_PATH}
 cp    $genproduction_dir/bin/Powheg/*.py .
 cp    $genproduction_dir/bin/Powheg/*.sh .
 cp -r $genproduction_dir/bin/Powheg/patches .
+cp -r $genproduction_dir/bin/Powheg/Templates .
+cp -r $genproduction_dir/bin/Powheg/Utilities .
 
 # Replace the standard source tarball with the one passed as argument to the script
-sed -i "/export\ POWHEGSRC\=/c export\ POWHEGSRC\=$1" run_pwg.py
+sed -i "/export\ POWHEG_SOURCE\=/c export\ POWHEG_SOURCE\=${source_file}" run_pwg_condor.py
+sed -i "/export\ POWHEGRES_SOURCE\=/c export\ POWHEGRES_SOURCE\=${source_file}" run_pwg_condor.py
 
 # check whether the script needs to run on all the processes 
 # or on a (sub)set defined in the variable "processes"
 if [ -z "$processes" ]; then 
-    process_list=`tar -tvf $source_file 'POWHEG-BOX/*.tgz' | awk '{print $6}'`
+    process_list=`tar -tvf $source_dir 'POWHEG-BOX/*.tgz' | awk '{print $6}'`
     process_list=$(echo $process_list | sed 's/POWHEG\-BOX\///g')
     process_list=$(echo $process_list | sed 's/\.tgz//g')
 else 
@@ -81,12 +95,12 @@ else
     process_list=${process_list:1}
 fi
 
-process_list=`echo "$process_list" | sed -e "s/"DYNNLOPS"//"` # DYNNLOPS is not meant to be compiled
+process_list=`echo "$process_list"` # DYNNLOPS is not meant to be compiled
 
 echo "PROCESS LIST: "${process_list}
 
 # copy random powheg.input (since only the compilation is tested, this should be OK)
-cp ${genproduction_dir}/bin/Powheg/examples/V2/Z_ee_NNPDF30_13TeV/Z_ee_NNPDF30_13TeV.input powheg.input
+cp ${genproduction_dir}/bin/Powheg/examples/V2/gg_H_quark-mass-effects_NNPDF30_13TeV/gg_H_quark-mass-effects_NNPDF30_13TeV.input powheg.input
 
 rm ${topdir}/compile_report_-_${source_name}_-_${scram_arch_version}_-_${cmssw_version}.log
 
@@ -96,11 +110,31 @@ do
     process="${file%.*}"
     echo "compiling $process"
     echo ${PWD}
-    echo "python ./run_pwg.py -p 0 -i powheg.input -m ${process} -f my_${process} -d 1"
-    python ./run_pwg.py -p 0 -i powheg.input -m ${process} -f my_${process} -d 1
+    echo "python ./run_pwg_condor.py -p 0 -i powheg.input -m ${process} -f my_${process} -d 1"
+    python ./run_pwg_condor.py -p 0 -i powheg.input -m ${process} -f my_${process} -d 1
     echo "=========== LAST 10 COMPILATION LINES FOR PROCESS ${process} ===========" >> ${topdir}/compile_report_-_${source_name}_-_${scram_arch_version}_-_${cmssw_version}.log
     echo "" >> ${topdir}/compile_report_-_${source_name}_-_${scram_arch_version}_-_${cmssw_version}.log
     tail run_src_my_${process}.log >> ${topdir}/compile_report_-_${source_name}_-_${scram_arch_version}_-_${cmssw_version}.log
     echo "" >> ${topdir}/compile_report_-_${source_name}_-_${scram_arch_version}_-_${cmssw_version}.log
-    
+    rm -rf my_${process}
 done
+
+EOF
+
+cat << EOF > condor_${source_name}_$2_$3.sub
+
+executable              = source_compilation_${source_name}_$2_$3.sh
+output                  = \$(ClusterId).\$(ProcId).out
+error                   = \$(ClusterId).\$(ProcId).err
+log                     = \$(ClusterId).log
++JobFlavour             = "tomorrow"
+
+should_transfer_files = YES
+when_to_transfer_output = ON_EXIT
+
+Queue 1
+
+EOF
+
+echo "If you want, select some specific processes in source_compilation_${source_name}_$2_$3.sh"
+echo "When ready run: \"condor_submit condor_${source_name}_$2_$3.sub\" "
