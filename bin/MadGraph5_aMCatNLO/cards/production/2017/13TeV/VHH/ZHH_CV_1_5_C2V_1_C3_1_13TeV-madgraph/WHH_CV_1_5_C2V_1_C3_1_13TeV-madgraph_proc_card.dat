@@ -5,7 +5,6 @@ set complex_mass_scheme False
 import model SM_HEL_UFO_noLightYukawa
 define p = u c d s u~ c~ d~ s~
 define j = p
-define v = z w+ w-
 import model SM_HEL_UFO_noLightYukawa
-generate p p > h h v / a j QED=4
-output VHH_CV_1_0_C2V_0_C3_1_13TeV-madgraph -nojpeg
+generate p p > h h z / a j QED=4
+output VHH_CV_1_5_C2V_1_C3_1_13TeV-madgraph -nojpeg
