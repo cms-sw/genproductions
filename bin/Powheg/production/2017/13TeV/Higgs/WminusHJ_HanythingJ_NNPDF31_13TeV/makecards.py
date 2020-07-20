@@ -54,6 +54,7 @@ args = parser.parse_args()
 
 mass_points = args.mass_points
 decay_mode = args.decay_mode
+template_filename = 'HWminusJ_HanythingJ_NNPDF31_13TeV_V{decay_mode}_template.input'.format(decay_mode=decay_mode)
 
 # Automatically to be appended to the end of powheg input file
 endfile = '''
@@ -63,8 +64,6 @@ rwl_file 'pwg-rwl.dat'
 rwl_format_rwgt 1
 '''
 
-template_filename = 'ggHZ_HanythingJ_NNPDF31_13TeV_V{decay_mode}_template.input'.format(decay_mode=decay_mode)
-
 with open(template_filename) as f:
   template = f.read()
 
@@ -72,7 +71,7 @@ for mass, width in masswidth:
   if mass not in mass_points:
     continue
   print "creating cards for mass", mass 
-  with open("ggHZ_HanythingJ_NNPDF31_13TeV_M{mass}_V{decay_mode}.input".format(mass=mass, decay_mode=decay_mode), "w") as f:
+  with open("HWminusJ_HanythingJ_NNPDF31_13TeV_M{mass}_V{decay_mode}.input".format(mass=mass, decay_mode=decay_mode), "w") as f:
     # Calculate minimum and maximum Higgs masses to go into the Powheg card
     min_h_mass = mass / 10
     max_h_mass = mass * 10
