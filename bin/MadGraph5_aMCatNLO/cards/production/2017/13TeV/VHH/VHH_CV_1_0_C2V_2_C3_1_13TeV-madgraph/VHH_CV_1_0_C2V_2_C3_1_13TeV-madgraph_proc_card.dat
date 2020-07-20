@@ -7,5 +7,5 @@ define p = u c d s u~ c~ d~ s~
 define j = p
 define v = z w+ w-
 import model SM_HEL_UFO_noLightYukawa
-generate p p > h h v $$ z w+ w-  / a j QED=4
+generate p p > h h v / a j QED=4
 output VHH_CV_1_0_C2V_2_C3_1_13TeV-madgraph -nojpeg
