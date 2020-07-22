@@ -42,7 +42,7 @@ if [ "$use_gridpack_env" = true ]
     eval `scramv1 runtime -sh`
 fi
 
-if [ -z "${PYTHONPATH}" ] ; then export PYTHONPATH=${PYTHON27PATH} ; fi 
+if [ ! -z "${PYTHON27PATH}" ] ; then export PYTHONPATH=${PYTHON27PATH} ; fi 
 
 cd $LHEWORKDIR/process
 
