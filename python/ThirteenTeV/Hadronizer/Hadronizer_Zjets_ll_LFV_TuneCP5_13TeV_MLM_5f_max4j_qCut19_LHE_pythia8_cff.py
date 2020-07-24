@@ -23,7 +23,7 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
             'JetMatching:qCut = 19.', #this is the actual merging scale
             'JetMatching:nQmatch = 5', #5 for 5-flavour scheme (matching of b-quarks)
             'JetMatching:nJetMax = 4', #number of partons in born matrix element for highest multiplicity
-            'JetMatching:doShowerKt = off', #off for MLM matching, turn on for shower-kT matching
+            'JetMatching:doShowerKt = off', #off for MLM matching,turn on for shower-kT matching
             'TimeShower:mMaxGamma = 4.0',
         ),
         parameterSets = cms.vstring('pythia8CommonSettings',
