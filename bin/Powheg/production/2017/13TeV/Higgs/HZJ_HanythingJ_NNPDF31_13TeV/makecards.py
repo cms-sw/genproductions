@@ -56,14 +56,6 @@ mass_points = args.mass_points
 decay_mode = args.decay_mode
 template_filename = 'HZJ_HanythingJ_NNPDF31_13TeV_V{decay_mode}_template.input'.format(decay_mode=decay_mode)
 
-# Automatically to be appended to the end of powheg input file
-endfile = '''
-rwl_group_events 2000
-lhapdf6maxsets 50
-rwl_file 'pwg-rwl.dat'
-rwl_format_rwgt 1
-'''
-
 with open(template_filename) as f:
   template = f.read()
 
@@ -76,6 +68,4 @@ for mass, width in masswidth:
     min_h_mass = mass / 10
     max_h_mass = mass * 10
     f.write(template.format(mass=mass, width=width, min_h_mass=min_h_mass, max_h_mass=max_h_mass))
-
-    f.write(endfile)
 

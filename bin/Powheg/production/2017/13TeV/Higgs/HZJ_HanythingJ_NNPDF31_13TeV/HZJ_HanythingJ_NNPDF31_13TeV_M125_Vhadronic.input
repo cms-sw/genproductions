@@ -103,7 +103,3 @@ doublefsr 1
 
 nohad   1
 
-rwl_group_events 2000
-lhapdf6maxsets 50
-rwl_file 'pwg-rwl.dat'
-rwl_format_rwgt 1
