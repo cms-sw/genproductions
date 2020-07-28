@@ -63,8 +63,8 @@ nubound 100000 ! number of calls to set up the upper bounding norms for radiatio
 
 ! OPTIONAL PARAMETERS
 
-#withnegweights 1 1  ! (default 0) if on (1) use negative weights
-#bornonly 1        ! (default 0) if 1 do Born only
+withnegweights 1  ! (default 0) if on (1) use negative weights
+#bornonly 1       ! (default 0) if 1 do Born only
 testplots  1      ! (default 0, do not) do NLO and PWHG distributions
 
 #xupbound 2d0   ! increase upper bound for radiation generation
