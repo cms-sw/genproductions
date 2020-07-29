@@ -25,7 +25,7 @@ do
         sed -i '' "s/MASS/${mp}/g" "ZDsD_M${mp}-pythia8_customizecards.dat"
 
         #run_card.dat
-        sed -i '' "s/EVENTS/50000/g" "ZDsD_M${mp}-pythia8_run_card.dat"
+        sed -i '' "s/EVENTS/5000/g" "ZDsD_M${mp}-pythia8_run_card.dat"
         
         #param_card.dat
         
