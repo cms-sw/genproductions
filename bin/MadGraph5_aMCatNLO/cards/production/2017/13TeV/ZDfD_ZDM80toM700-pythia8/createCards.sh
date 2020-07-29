@@ -17,28 +17,14 @@ do
     cp "${template_dir}ZDfD-pythia8_extramodels.dat" "${dir}ZDfD_M${mp}-pythia8_extramodels.dat"
     cp "${template_dir}ZDfD-pythia8_proc_card.dat" "${dir}ZDfD_M${mp}-pythia8_proc_card.dat"
     cp "${template_dir}ZDfD-pythia8_run_card.dat" "${dir}ZDfD_M${mp}-pythia8_run_card.dat"
-    cp "${template_dir}ZDfD-pythia8_customizecards.dat" "${dir}ZDfD_M${mp}-pythia8_customizecards.dat"
-    
-    
-    case mp in
-        80)
-            event=500000
-            ;;
-        91.11876)
-            event=150000
-            ;;
-        *)
-            event=50000
-            ;;
-    esac
-    
+    cp "${template_dir}ZDfD-pythia8_customizecards.dat" "${dir}ZDfD_M${mp}-pythia8_customizecards.dat"    
     
     cd ${dir}
         #customizecard.dat
         sed -i '' "s/MASS/${mp}/g" "ZDfD_M${mp}-pythia8_customizecards.dat"
 
         #run_card.dat
-        sed -i '' "s/EVENTS/${event}/g" "ZDfD_M${mp}-pythia8_run_card.dat"
+        sed -i '' "s/EVENTS/5000/g" "ZDfD_M${mp}-pythia8_run_card.dat"
         
         #param_card.dat
         
