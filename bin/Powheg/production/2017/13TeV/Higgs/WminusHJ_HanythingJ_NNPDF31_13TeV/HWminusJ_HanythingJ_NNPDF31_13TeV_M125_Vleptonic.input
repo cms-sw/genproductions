@@ -56,11 +56,6 @@ iseed    SEED        !  Start the random number generator with seed iseed
 fastbtlbound 1
 storemintupb 1
 
-storeinfo_rwgt 0   ! store info to allow for reweighting
-pdfreweight 0
-
-
-
 minlo 1    
 minlo_nnll 1  
 

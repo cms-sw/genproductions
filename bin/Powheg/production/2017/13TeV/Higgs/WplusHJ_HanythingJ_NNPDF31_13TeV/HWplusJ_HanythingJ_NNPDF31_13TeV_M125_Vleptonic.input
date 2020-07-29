@@ -51,16 +51,9 @@ nubound 600000 ! number of calls to set up the upper bounding norms for radiatio
 withnegweights 1  ! (default 0) if on (1) use negative weights
 testplots  1      ! (default 0, do not) do NLO and PWHG distributions
 
-
-
 iseed    SEED        !  Start the random number generator with seed iseed
 fastbtlbound 1
 storemintupb 1
-
-storeinfo_rwgt 0   ! store info to allow for reweighting
-pdfreweight 0
-
-
 
 minlo 1    
 minlo_nnll 1  
