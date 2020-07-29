@@ -19,25 +19,13 @@ do
     cp "${template_dir}ZDfDsD_ZDscan_fDdecay-pythia8_run_card.dat" "${dir}ZDfDsD_ZDscan_fDdecay_M${mp}-pythia8_run_card.dat"
     cp "${template_dir}ZDfDsD_ZDscan_fDdecay-pythia8_customizecards.dat" "${dir}ZDfDsD_ZDscan_fDdecay_M${mp}-pythia8_customizecards.dat"
     
-    case mp in
-        80)
-            event=200000
-            ;;
-        91.11876)
-            event=100000
-            ;;
-        *)
-            event=50000
-            ;;
-    esac
-    
     
     cd ${dir}
         #customizecard.dat
         sed -i '' "s/MASS/${mp}/g" "ZDfDsD_ZDscan_fDdecay_M${mp}-pythia8_customizecards.dat"
 
         #run_card.dat
-        sed -i '' "s/EVENTS/${event}/g" "ZDfDsD_ZDscan_fDdecay_M${mp}-pythia8_run_card.dat"
+        sed -i '' "s/EVENTS/5000/g" "ZDfDsD_ZDscan_fDdecay_M${mp}-pythia8_run_card.dat"
         
         #param_card.dat
         
