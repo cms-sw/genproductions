@@ -19,7 +19,6 @@ ebeam2 6500d0     ! energy of beam 2
 
 bornktmin 0d0      ! (default 0d0) generation cut. Minimum kt in underlying Born
 bornsuppfact 0d0 ! (default 0d0)  mass param for Born suppression factor. If < 0 suppfact = 1
-pdfreweight 0
 
 lhans1  260000         ! pdf set for hadron 1 (LHA numbering)
 lhans2  260000         ! pdf set for hadron 2 (LHA numbering)	
@@ -53,7 +52,6 @@ testplots  1      ! (default 0, do not) do NLO and PWHG distributions
 iseed    SEED         !  Start the random number generator with seed iseed
 fastbtlbound 1
 
-storeinfo_rwgt 0   ! store info to allow for reweighting
 withnegweights 1
 
 doublefsr 1 
