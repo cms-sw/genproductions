@@ -18,4 +18,4 @@ do
     sed -i 's/AMASS/'$m'.0/g' $newdir/"$default"_M"$m"_customizecards.dat
 done
 
-# ./gridpack_generation.sh AToZhToLLTT_01j_4f_M300 cards/production/13TeV/AToZhToLLTT_01j_4f/M300/ #1nd
+# ./gridpack_generation.sh BBAToZhToLLTT_4f_M300 cards/production/13TeV/BBAToZhToLLTT_4f_M300/ #1nd
