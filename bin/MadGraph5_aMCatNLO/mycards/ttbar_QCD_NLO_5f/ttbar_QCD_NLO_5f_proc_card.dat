@@ -1,0 +1,3 @@
+import model sm
+generate p p > t t~ [QCD] 
+output ttbar_QCD_NLO_5f -nojpeg
