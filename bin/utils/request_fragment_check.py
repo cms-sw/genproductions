@@ -121,7 +121,7 @@ parser = argparse.ArgumentParser(
                   * [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix or HINPbPbAutumn18GS campaign: Memory is 5900 but nthreads != 4
                   * [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix or HINPbPbAutumn18GS campaign: Memory is 4000 but nthreads != 2
                   * [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix or HINPbPbAutumn18GS campaign: Memory is <=2300 but nthreads != 1
-                  * [ERROR] Gridpack should have used cvmfs path instead of eos path
+                  * [ERROR] Gridpack should be in cvmfs
                   * [ERROR] minbias in version >= CMSSW_10_5_0_pre2 and <= CMSSW_10_6_X and not particle gun and not CMSSW_10_6_0 and not CMSSW_10_6_0_patch1:
                   *         SigmaTotal:mode should have been set to 0
                   *         SigmaTotal:sigmaEl should have been set to 21.89
@@ -674,8 +674,8 @@ for num in range(0,len(prepid)):
                         warning += 1
 			gp_size = 0
         if fsize != 0:
-            if int(os.popen('grep -c eos '+pi).read()) == 1 :
-                print "* [ERROR] Gridpack should have used cvmfs path instead of eos path"
+            if int(os.popen('grep -c cvmfs '+pi).read()) != 1:
+                print "* [ERROR] Gridpack should be in cvmfs"
                 error += 1
             if int(os.popen('grep -c nPartonsInBorn '+pi).read()) == 1:
                 nPartonsInBorn_flag = 1
