@@ -674,9 +674,6 @@ for num in range(0,len(prepid)):
                         warning += 1
 			gp_size = 0
         if fsize != 0:
-            if int(os.popen('grep -c cvmfs '+pi).read()) != 1:
-                print "* [ERROR] Gridpack should be in cvmfs"
-                error += 1
             if int(os.popen('grep -c nPartonsInBorn '+pi).read()) == 1:
                 nPartonsInBorn_flag = 1
                 print(os.popen('grep nPartonsInBorn '+pi).read())
@@ -758,6 +755,10 @@ for num in range(0,len(prepid)):
 
             if gp_size != 0:
                 gridpack_cvmfs_path_tmp = re.findall("/cvmfs/cms\.cern\.ch/phys_generator/gridpacks/.*?tar.xz|/cvmfs/cms\.cern\.ch/phys_generator/gridpacks/.*?tgz|/cvmfs/cms\.cern\.ch/phys_generator/gridpacks/.*?tar.gz",gridpack_cvmfs_path_tmp)
+                if not gridpack_cvmfs_path_tmp:
+                    print "* [ERROR] Gridpack should be in cvmfs in the dedicated folder location. "
+                    error += 1
+                    break
                 gridpack_cvmfs_path = gridpack_cvmfs_path_tmp[0]
                 gridpack_eos_path = gridpack_cvmfs_path.replace("/cvmfs/cms.cern.ch/phys_generator","/eos/cms/store/group/phys_generator/cvmfs")
                 print gridpack_cvmfs_path
