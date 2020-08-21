@@ -8,4 +8,4 @@ define j = p
 define w = w+ w-
 import model SM_HEL_UFO_noLightYukawa
 generate p p > h h w  QED=4
-output VHH_CV_1_0_C2V_0_C3_1_13TeV-madgraph -nojpeg
+output WHH_CV_TEMPCV_C2V_TEMPC2V_C3_TEMPKL_13TeV-madgraph -nojpeg
