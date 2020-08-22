@@ -84,7 +84,7 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! reweight to get PDF uncertainty
 # Automatic ptj and mjj cuts if xqcut > 0
 # (turn off for VBF and single top processes)
 #**********************************************************
-  False	= auto_ptj_mjj ! Automatic setting of ptj and mjj
+  True	= auto_ptj_mjj ! Automatic setting of ptj and mjj
 #**********************************************************
 #                                                                    
 #**********************************
