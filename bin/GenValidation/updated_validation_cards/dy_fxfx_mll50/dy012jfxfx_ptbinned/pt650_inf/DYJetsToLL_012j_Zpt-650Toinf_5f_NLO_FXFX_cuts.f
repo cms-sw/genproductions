@@ -1,4 +1,4 @@
-c *This file contains cuts(650~inf) on the ZpT: line429-442*
+c *This file contains cuts(650~inf) on the ZpT: line413-427*
 c This file contains the default cuts (as defined in the run_card.dat)
 c and can easily be extended by the user to include other.  This
 c function should return true if event passes cuts
@@ -73,7 +73,7 @@ c logicals that define if particles are leptons, jets or photons. These
 c are filled from the PDG codes (iPDG array) in this function.
       logical is_a_lp(nexternal),is_a_lm(nexternal),is_a_j(nexternal)
      $     ,is_a_ph(nexternal)
-      double precision  sumdot
+
       passcuts_user=.true. ! event is okay; otherwise it is changed
 
 C***************************************************************
@@ -410,6 +410,21 @@ C PUT HERE YOUR USER-DEFINED CUTS
 C***************************************************************
 C***************************************************************
 C
+      do i=nincoming+1,nexternal   ! loop over all external particles
+         if (istatus(i).eq.1    ! final state particle
+     &        .and. ( ipdg(i).eq.11 .or. ipdg(i).eq.13 .or.
+     &        ipdg(i).eq.15)) then    ! leptons
+            do j=nincoming+1,nexternal
+               if (istatus(j).eq.1 .and. ( ipdg(j).eq.-11 .or.
+     &         ipdg(j).eq.-13 .or. ipdg(j).eq.-15)) then
+                  if ( (p(1,i)+p(1,j))**2+(p(2,i)+p(2,j))**2 .le.650d0**2 ) then
+                     passcuts_user=.false.
+                     return
+                  endif
+               endif
+            enddo
+         endif
+      enddo
 c$$$C EXAMPLE: cut on top quark pT
 c$$$C          Note that PDG specific cut are more optimised than simple user cut
 c$$$      do i=1,nexternal   ! loop over all external particles
@@ -425,21 +440,6 @@ c$$$            endif
 c$$$         endif
 c$$$      enddo
 c
-
-      do i=nincoming+1,nexternal   ! loop over all external particles
-         if (istatus(i).eq.1    ! final state particle
-     &        .and. ( ipdg(i).eq.11 .or. ipdg(i).eq.13 .or. ipdg(i).eq.15)) then    ! leptons
-            do j=nincoming+1,nexternal
-               if (istatus(j).eq.1 .and. ( ipdg(j).eq.-11 .or. ipdg(j).eq.-13 .or. ipdg(j).eq.-15)) then
-                    if ( (p(1,i)+p(1,j))**2+(p(2,i)+p(2,j))**2 .le.650d0**2) then
-                     passcuts_user=.false.
-                     return
-                  endif
-               endif
-            enddo
-          endif
-      enddo
-
       return
       end
 
@@ -568,10 +568,10 @@ C
 C
     2 IF (N.EQ.1)            RETURN
       IF (MODE)    10,20,30
-   10 CALL SORTTI (A,INDEX,N)
+   10 STOP 5 ! CALL SORTTI (A,INDEX,N)
       GO TO 40
 C
-   20 CALL SORTTC(A,INDEX,N)
+   20 STOP 5 ! CALL SORTTC(A,INDEX,N)
       GO TO 40
 C
    30 CALL SORTTF (A,INDEX,N)
