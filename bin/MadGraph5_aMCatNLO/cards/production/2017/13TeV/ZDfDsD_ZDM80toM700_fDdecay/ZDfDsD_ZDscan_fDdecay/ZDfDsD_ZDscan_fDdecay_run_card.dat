@@ -23,7 +23,7 @@
 # Number of events and rnd seed                                      *
 # Warning: Do not generate more than 1M events in a single run       *
 #*********************************************************************
-  1000 = nevents ! Number of unweighted events requested
+  EVENTS = nevents ! Number of unweighted events requested
   0   = iseed   ! rnd seed (0=assigned automatically=default))
 #*********************************************************************
 # Collider type and energy                                           *
@@ -136,7 +136,6 @@
 #*********************************************************************
 # Inclusive cuts                                                     *
 #*********************************************************************
- 0.0  = ptheavy   ! minimum pt for at least one heavy final state
  0.0  = xptl ! minimum pt for at least one charged lepton
  #*********************************************************************
  # Control the pt's of leptons sorted by pt                           *
@@ -162,6 +161,4 @@
 #*********************************************************************
    True  = use_syst      ! Enable systematics studies
 #
-systematics = systematics_program ! none, systematics [python], SysCalc [depreceted, C++]
-['--mur=0.5,1,2', '--muf=0.5,1,2', '--pdf=errorset'] = systematics_arguments ! see: https://cp3.irmp.ucl.ac.be/projects/madgraph/wiki/Systematics#Systematicspythonmodule
 # Syscalc is deprecated but to see the associate options type'update syscalc'
