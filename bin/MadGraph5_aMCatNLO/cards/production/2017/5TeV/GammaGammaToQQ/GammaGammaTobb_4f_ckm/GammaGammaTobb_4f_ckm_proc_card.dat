@@ -1,0 +1,7 @@
+import model sm-ckm
+
+# Specify process(es) to run
+generate a a > b b~
+
+# Output processes to MadEvent directory
+output GammaGammaTobb_4f_ckm -nojpeg
