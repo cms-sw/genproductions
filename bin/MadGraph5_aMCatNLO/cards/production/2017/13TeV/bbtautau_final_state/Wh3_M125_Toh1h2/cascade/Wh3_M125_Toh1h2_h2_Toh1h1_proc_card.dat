@@ -6,7 +6,7 @@ set complex_mass_scheme False
 
 import model TRSM --modelname
 
-define lep = e+ mu+ tau+ e- mu- tau-
+define lep = e+ mu+ ta+ e- mu- ta-
 define neut = ve vm vt ve~ vm~ vt~ 
 define V = w+ w-
 
