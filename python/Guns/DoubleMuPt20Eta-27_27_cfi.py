@@ -11,7 +11,7 @@ generator = cms.EDProducer("FlatRandomPtGunProducer",
         MinPhi = cms.double(-3.14159265359) ## in radians
 
     ),
-    Verbosity = cms.untracked.int32(1), ## set to 1 (or greater)  for printouts
+    Verbosity = cms.untracked.int32(2), ## set to 1 (or greater)  for printouts
 
     psethack = cms.string('single mu pt 20'),
     AddAntiParticle = cms.bool(True),
