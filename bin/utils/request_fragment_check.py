@@ -887,7 +887,8 @@ for num in range(0,len(prepid)):
                     jhu_in = f.read()
                     jhu_in = re.sub(r'(?m)^ *#.*\n?', '',jhu_in)
                     jhu_pdf = re.findall('LHAPDF=\S+',jhu_in)
-                    jhu_pdf = jhu_pdf[0].split('=')[1].split('/')[1]
+                    if jhu_pdf: 
+                        jhu_pdf = jhu_pdf[0].split('=')[1].split('/')[1]
                     print "##################################################"
                     print "* The PDF set used by JHUGEN is:"+ str(jhu_pdf)
                     print "##################################################"
