@@ -1,4 +1,4 @@
-import model lfv
+import model_v4 $modelfile
 
 define p = g u c d s b u~ c~ d~ s~ b~
 define j = g u c d s b u~ c~ d~ s~ b~
