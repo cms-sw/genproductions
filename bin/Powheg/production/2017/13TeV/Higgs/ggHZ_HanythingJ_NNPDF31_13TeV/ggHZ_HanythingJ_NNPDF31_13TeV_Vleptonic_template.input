@@ -60,7 +60,4 @@ doublefsr 1
 
 nohad   1
 
-
-LOevents 1
-# with LOevents equal 1, bornonly must be set equal to 1
-bornonly 1 
+bornonly 0 
