@@ -25,5 +25,5 @@ add process p p > lepmu lepta j j / h @12
 add process p p > lepmu lepta j j j / h @13
 add process p p > lepmu lepta j j j j/ h @14
 
-output Z_LFV -nojpeg 
+output LFV_Z -nojpeg 
 
