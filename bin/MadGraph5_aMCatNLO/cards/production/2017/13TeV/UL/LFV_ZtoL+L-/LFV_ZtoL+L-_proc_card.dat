@@ -1,0 +1,29 @@
+import model_v4 $modelfile
+
+define p = g u c d s b u~ c~ d~ s~ b~
+define j = g u c d s b u~ c~ d~ s~ b~
+
+define lepe = e+ e-
+define lepmu = mu+ mu-
+define lepta = ta+ ta-
+ 
+generate p p > lepe lepmu / h @0
+add process p p > lepe lepmu j / h @ 1
+add process p p > lepe lepmu j j / h @2
+add process p p > lepe lepmu j j j / h @3
+add process p p > lepe lepmu j j j j / h @4
+
+add process p p > lepe lepta / h @5
+add process p p > lepe lepta j / h @6
+add process p p > lepe lepta j j / h @7
+add process p p > lepe lepta j j j / h @8
+add process p p > lepe lepta j j j j / h @9
+
+add process p p > lepmu lepta / h @10
+add process p p > lepmu lepta j / h @11
+add process p p > lepmu lepta j j / h @12
+add process p p > lepmu lepta j j j / h @13
+add process p p > lepmu lepta j j j j/ h @14
+
+output LFV_ZtoL+L- -nojpeg 
+
