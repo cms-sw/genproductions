@@ -1,2 +1,7 @@
 *.pyc
+*.tar.xz
+*.lhe
+*.lhe.gz
+*.lhe.rwgt
+work*/
 __init__.py
