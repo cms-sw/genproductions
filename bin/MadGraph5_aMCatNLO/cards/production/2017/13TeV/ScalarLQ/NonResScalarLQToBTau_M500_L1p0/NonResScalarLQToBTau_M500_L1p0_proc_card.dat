@@ -8,4 +8,4 @@ set max_npoint_for_channel 0
 import model LQ_UFO
 define p = p b b~
 generate p p > ta+ ta- NP=2 QED=0
-output NonRes_M500 -nojpeg
+output NonResScalarLQToBTau_M500_L1p0 -nojpeg
