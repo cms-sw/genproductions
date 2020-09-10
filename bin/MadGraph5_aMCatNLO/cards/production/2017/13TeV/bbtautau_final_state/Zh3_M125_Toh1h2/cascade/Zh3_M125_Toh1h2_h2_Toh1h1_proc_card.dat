@@ -6,8 +6,8 @@ set complex_mass_scheme False
 
 import model TRSM --modelname
 
-define l+ = e+ mu+ tau+
-define l- = e- mu- tau-
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
 
 generate p p  > z h3 , z > l+ l-, (h3 > h1 h2, h2 > h1 h1)
 
