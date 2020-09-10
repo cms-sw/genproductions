@@ -1,0 +1,7 @@
+set param_card dim6 1 12.000000e+00  
+set param_card dim6 2 20.000000e+00  
+set param_card dim6 3 60.000000e+00  
+#set param_card dim6 4 0.000000e+00  
+#set param_card dim6 5 0.000000e+00  
+#set param_card mass 5 0.000000e+00  
+#set param_card yukawa 5 0.000000e+00 

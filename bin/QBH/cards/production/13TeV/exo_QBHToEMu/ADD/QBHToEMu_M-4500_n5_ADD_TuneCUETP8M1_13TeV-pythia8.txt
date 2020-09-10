@@ -1,0 +1,61 @@
+    /// QCD scale definition
+    qbh->setQscale(false); /// Definition of QCD scale for PDFs false(= QBH mass), true (= inverse gravitational radius) (Default = true)
+
+    /// Yoshino-Rychkov stuff
+    qbh->setYRform(false); /// Use YR-factors (Default = false)
+    qbh->setTrap(false); /// User YR trapped surface calculation (Default = false)
+
+    /// SM symmetries
+    qbh->setSM(false); /// Conserve global symmetries (Default = true)
+
+    /// Majorana neutrinos
+    qbh->setMajorana(false); /// neutrinos are majorana (true) or dirac (false) (Default = false) 
+
+    /// Neutrino handedness
+    qbh->setChiral(true); /// neutrinos are left-handed only (false) or left and right-handed (true) (Default = true)
+
+    /// Higgs
+    qbh->setHiggs(false); /// Include Higgs as allowed particle (Default = true)
+
+    /// Graviton
+    qbh->setGraviton(false); /// Include Graviton as allowed particle (Default = true)
+
+    /// Totel number of dimensions
+    qbh->setTotdim(4 + 5); /// Total number of spacetime dimensions 5-11 allowed (Default = 10)
+
+    /// Planck scale definition
+    /// RS or ADD black hole
+    qbh->setPlanckdef(3); /// Definition of the planck scale 1 (= Randall-Sundrum), 2 (= Dimopoulos-Landsberg), 3 (= PDG), else (= Giddings-Thomas definition) (Default = 3)
+    qbh->setRS1(false); /// false (= ADD black hole), true (= Randall-Sundrum type-1 black hole) (Default = false)
+
+    /// Planck mass
+    qbh->setMplanck(4500); /// fundamental planck scale (Default = 1000)
+
+    /// Electric charge
+    qbh->setQstate(0); /// Three time electric charge [-4,-3,-2,-1,0,1,2,3,4] allowed, 9 for all partons (Default = 9)
+
+    /// Initial state
+    qbh->setIstate(2); /// Initial state 0 (q-q), 1 (q-g), 2 (g-g), 3 (all) (Default = 3)
+
+    /// Min QBH mass
+    qbh->setMinmass(4500); /// Minimum quantum black hole mass (Default = 1000)
+
+    /// Max QBH mass
+    qbh->setMaxmass(14000); /// Maximum qunatum black hole mass (Default = 14000)
+
+    /// Center of mass energy
+    qbh->setEcm(13000); /// Proton-proton center of mass energy (Default = 14000)
+
+    /// Initialize PDFs.
+    qbh->setLHAglue(10042);  ///CTEQ6L1
+
+    (void)pythia->readString("SoftQCD:nonDiffractive = off");
+    (void)pythia->readString("SoftQCD:all       = off");
+    (void)pythia->readString("PartonLevel:ISR   = off");
+    (void)pythia->readString("PartonLevel:FSR   = off");
+    (void)pythia->readString("PartonLevel:MPI    = off");
+    (void)pythia->readString("HadronLevel:all   = off");
+    (void)pythia->readString("Check:history     = on");
+    (void)pythia->readString("Check:nErrList    = 10");
+
+

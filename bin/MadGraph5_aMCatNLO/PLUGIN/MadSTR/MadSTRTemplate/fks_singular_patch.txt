@@ -1,0 +1,25 @@
+--- ../Template/NLO/SubProcesses/fks_singular.f	2018-09-07 11:12:25.000000000 +0200
++++ SubProcesses/fks_singular.f	2018-09-13 15:09:49.000000000 +0200
+@@ -3011,22 +3011,6 @@
+          wgt=wgt*xi_i_fks**2*(1d0-y_ij_fks)
+       endif
+ 
+-      if(wgt.lt.0.d0)then
+-         icount=icount+1
+-         if (icount.le.10) then
+-            write(*,*) 'Warning, numerical problem found in sreal. '/
+-     $           /'Setting weight to zero',wgt,xi_i_fks,y_ij_fks
+-            do i=1,nexternal
+-               write(*,*) 'particle ',i,', ',(pp(j,i),j=0,3)
+-            enddo
+-            if (icount.eq.25) then
+-               write (*,*) 'ERROR 25 problems found... '/
+-     $              /'stopping the code'
+-               stop
+-            endif
+-         endif
+-         wgt=0d0
+-      endif
+ 
+       return
+       end

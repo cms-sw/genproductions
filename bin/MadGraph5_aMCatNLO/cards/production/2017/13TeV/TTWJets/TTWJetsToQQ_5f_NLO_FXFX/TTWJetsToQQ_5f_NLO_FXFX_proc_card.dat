@@ -1,0 +1,9 @@
+import model loop_sm-no_b_mass
+
+define w = w+ w-
+
+generate p p > t t~ w [QCD] @0
+add process p p > t t~ w j [QCD] @1
+
+output TTWJetsToQQ_5f_NLO_FXFX -nojpeg
+

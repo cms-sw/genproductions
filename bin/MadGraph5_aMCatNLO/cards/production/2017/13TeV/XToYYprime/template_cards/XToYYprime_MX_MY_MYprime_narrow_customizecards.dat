@@ -1,0 +1,9 @@
+set param_card mass 9000001 <MASS_X>
+set param_card mass 9000002 <MASS_X>
+set param_card rhoinputs 2 <MASS_X>
+set param_card DECAY 9000001 1.000000e-03
+set param_card DECAY 9000002 1.000000e-03
+set param_card mass 25 <MASS_Yprime>
+set param_card mass 23 <MASS_Y>
+set param_card DECAY 25 1.000000e-03
+set param_card DECAY 23 1.000000e-03

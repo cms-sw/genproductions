@@ -1,0 +1,21 @@
+RPV_res_tau_sneutrino
+ Particles 
+Full   Name     | P | aP|  number  |spin2|mass|width|color|aux| LaTeX(A)       |  LateX(A+)      |
+photon          |A  |A  |22        |2    |0   |0    |1    |G  |A               |A
+Z boson         |Z  |Z  |23        |2    |MZ  |wZ   |1    |G  |Z               |Z
+W boson         |W+ |W- |24        |2    |MW  |wW   |1    |G  |W^+             |W^-
+gluon           |G  |G  |21        |2    |0   |0    |8    |G  |g               |g
+electron        |e  |E  |11        |1    |Me  |0    |1    |   |e               |E
+e-neutrino      |ne |Ne |12        |1    |0   |0    |1    |L  |ne              |Ne
+muon            |m  |M  |13        |1    |Mm  |0    |1    |   |m               |M
+mu-neutrino     |nm |Nm |14        |1    |0   |0    |1    |L  |nm              |Nm
+tau-neutrino    |nl |Nl |16        |1    |0   |0    |1    |L  |nl              |Nl
+tau-lepton      |l  |L  |15        |1    |Ml  |0    |1    |   |l               |L
+s-quark         |s  |S  |3         |1    |Ms  |0    |3    |   |s               |\bar{s}
+c-quark         |c  |C  |4         |1    |Mc  |0    |3    |   |c               |\bar{c}
+u-quark         |u  |U  |2         |1    |Mu  |0    |3    |   |u               |\bar{u}
+d-quark         |d  |D  |1         |1    |Md  |0    |3    |   |d               |\bar{d}
+t-quark         |t  |T  |6         |1    |Mt  |wt   |3    |   |t               |\bar{t}
+b-quark         |b  |B  |5         |1    |Mb  |0    |3    |   |b               |\bar{b}
+tau-sneutrino   |~nl|~Nl|1000016   |0    |MSnl|!wSnl|1    |   |(nl)            |(Nl)
+==================================================================================================

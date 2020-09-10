@@ -1,0 +1,29 @@
+--- POWHEG-BOX/lhefwrite.f.org  2015-09-29 18:51:10.000000000 +0800
++++ POWHEG-BOX/lhefwrite.f      2015-11-18 20:09:55.160747624 +0800
+@@ -7,6 +7,7 @@
+       include 'pwhg_rad.h'
+       include 'pwhg_flg.h'
+       include 'pwhg_lhrwgt.h'
++      include 'pwhg_pdf.h'
+       integer nlf
+       real * 8 version
+       common/cversion/version
+@@ -34,10 +35,15 @@
+ c     write(nlf,'(a)') '</header>'
+       endif
+       call  pwhg_io_write(nlf,'<init>')
+ c      write(nlf,'(a)') '<init>'
+-      write(buffer,110) idbmup(1),idbmup(2),ebmup(1),ebmup(2),
+-     1     pdfgup(1),pdfgup(2),pdfsup(1),pdfsup(2),idwtup,nprup
++      if(pdfsup(1).ne.-1 .and. pdfsup(2).ne.-1) then
++         write(buffer,110) idbmup(1),idbmup(2),ebmup(1),ebmup(2),
++     1     pdfgup(1),pdfgup(2),pdfsup(1),pdfsup(2),idwtup,nprup
++      else
++         write(buffer,110) idbmup(1),idbmup(2),ebmup(1),ebmup(2),
++     1   0,0,pdf_ndns1,pdf_ndns2,idwtup,nprup
++      endif
+       call  pwhg_io_write(nlf,trim(buffer))
+       do 100 ipr=1,nprup
+          write(buffer,120) xsecup(ipr),xerrup(ipr),xmaxup(ipr),
+      &        lprup(ipr)
+

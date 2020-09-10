@@ -1,0 +1,9 @@
+import model loop_sm
+define w = w+ w-
+define lep+ = e+ mu+ ta+
+define lep- = e- mu- ta-
+# exclude s-channel top contribution to avoid
+# overlap with TTZ sample
+generate p p > w w lep+ lep- $$ t t~ h [QCD] 
+output WWZTo4L_new_4f_NLO -nojpeg
+

@@ -1,0 +1,39 @@
+#************************************************************
+#*                        MadGraph 5                        *
+#*                                                          *
+#*                *                       *                 *
+#*                  *        * *        *                   *
+#*                    * * * * 5 * * * *                     *
+#*                  *        * *        *                   *
+#*                *                       *                 *
+#*                                                          *
+#*                                                          *
+#*         VERSION 1.5.11                2013-06-21         *
+#*                                                          *
+#*    The MadGraph Development Team - Please visit us at    *
+#*    https://server06.fynu.ucl.ac.be/projects/madgraph     *
+#*                                                          *
+#************************************************************
+#*                                                          *
+#*               Command File for MadGraph 5                *
+#*                                                          *
+#*     run as ./bin/mg5  filename                           *
+#*                                                          *
+#************************************************************
+
+import model sm-ckm_no_b_mass
+define p = g u c d s b u~ c~ d~ s~ b~
+define j = g u c d s b u~ c~ d~ s~ b~
+define l+ =  mu+
+define l- =  mu-
+define vl = vm 
+define vl~ = vm~
+# Define multiparticle labels
+# Specify process(es) to run
+generate p p > l+ l- / h @0
+add process p p > l+ l- j / h @1
+add process p p > l+ l- j j / h @2
+add process p p > l+ l- j j j / h @3
+add process p p > l+ l- j j j j / h @4
+# Output processes to MadEvent directory
+output DYJetsToMuMu_HT_mll105 -nojpeg

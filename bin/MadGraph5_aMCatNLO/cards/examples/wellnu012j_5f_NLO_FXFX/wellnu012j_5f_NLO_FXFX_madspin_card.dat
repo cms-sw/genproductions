@@ -29,6 +29,7 @@ set max_running_process 1
 #decay w- > ell- vl~
 
 #dummy decay
+set onlyhelicity True
 decay w+ > ta+ vt
 
 

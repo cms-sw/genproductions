@@ -1,0 +1,152 @@
+**********************************************************************
+********************  CHARYBDIS2 RUN PARAMETERS  *********************
+**********************************************************************
+
+INSTRUCTIONS/DESCRIPTION (PLEASE READ CAREFULLY!!!):
+
+Below is a list of all the switches that may be changed from the internal default values in charybdis2. This has been divided into logical sections to facilitate the identification of the parameter you want to change from default.
+
+The basic rules are:
+
+    1) First write the name of the variable you want to set in the begining of the line followed by a colon ':' without spaces; 
+
+    2) In the next line you write the value you want to give it. If you do not wish to change the default value you can just write "default" instead (quotes not present -- see for example the variable PDFGUP below) or remove the variable from the list (the former is preferred).
+
+Any other lines that you enter are treated as comments as long as they don't start with the name of a valid variable.
+---
+The list below has been constructed using this rule. In addition, extra lines with informative text were introduced. For example, in front of the name of the varable, any extra information can be entered. Examples of such are the default values for each variable which are provided in parenthesis in front of the name of the variable (see any below).
+
+Even though the extra informative lines and comments in this file are not used, we advise you to keep them to make it more readable and self explanatory.
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!      WARNING: Do not remove or change the    !!!!!!!!!!!!!!
+!!!!!!!!!!!  "END OF INPUT" line at the end of the file! !!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+**********************************************************************
+**********************  START OF INPUT OPTIONS  **********************
+**********************************************************************
+
+----------------------------
+----- Beams & Energies -----
+----------------------------
+IDBMUP(1): (default is 2212)
+2212
+IDBMUP(2): (default is 2212)
+2212
+EBMUP(1): (default is 7000.0)
+6500.0
+EBMUP(2): (default is 7000.0)
+6500.0
+MINMSS: (default is 5000.0)
+9000
+MAXMSS: (default is 14000.0)
+13000.0
+PDFGUP(1): (Default depends on specific implementation)
+default
+PDFGUP(2): (Default depends on specific implementation)
+default
+LHAPDFSET: (default is 10000 -- needs to be set if you're using LHAPDF)
+21000
+-----------------------
+----- MC & OUTPUT -----
+-----------------------
+CHNMAXEV: (default is 100)
+10000
+NRN(1): (default is 245234)
+245234
+NRN(2): (default is 42542)
+42542
+LHEFILENAME: (default is lhouches -- must be exactly 8 characters long!!!)
+lhouches
+HISFILENAME: (default is histfile -- must be exactly 8 characters long!!!)
+histfile
+BHLHOUCHES: (default is F -- means .FALSE.)
+F
+IBHPRN: (default is 1)
+1
+--------------------------------------------
+----- Model parameters and conventions -----
+--------------------------------------------
+TOTDIM: (default is 6)
+10
+MPLNCK: (default is 1000.0)
+3000
+MSSDEF: (default is 3 -- PDG definition)
+3
+YRCSEC: (default is T -- means .TRUE.)
+T
+MJLOST: (default is T -- means .TRUE.)
+T
+USEMINMSSBH: (default is T -- means .TRUE.)
+T
+CVBIAS: (default is F -- means .FALSE.)
+F
+FMLOST: (default is 0.99)
+0.99
+GTSCA: (default is F)
+F
+NLEPTONCSV(0): (default is F -- means .FALSE.)
+F
+NLEPTONCSV(1): (default is F -- means .FALSE.)
+F
+NLEPTONCSV(2): (default is F -- means .FALSE.)
+F
+NLEPTONCSV(3): (default is F -- means .FALSE.)
+F
+DGSB: (default is F)
+F
+DGGS: (default is 0.3)
+0.3
+DGMS: (default is 1000.0)
+1000.0
+--------------------------------
+----- Evaporation switches -----
+--------------------------------
+BHSPIN: (default is T)
+T
+BHJVAR: (default is T)
+T
+BHANIS: (default is T)
+T
+GRYBDY: (default is T)
+T
+TIMVAR: (default is T)
+T
+MSSDEC: (default is 3)
+3
+RECOIL: (default is 2)
+2
+THWMAX: (default is 1000.0)
+3000
+DGTENSION: (default is 1000.0)
+1000.0
+---------------------------------------------------
+----- Switches for termination of evaporation -----
+---------------------------------------------------
+NBODYAVERAGE: (default is T)
+F
+KINCUT: (default is F)
+F
+SKIP2REMNANT: (default is F)
+F
+----------------------------------
+----- Remnant model switches -----
+----------------------------------
+NBODY: (default is 2)
+2
+NBODYPHASE: (default is F)
+T
+NBODYVAR: (default is F)
+T
+RMBOIL: (default is F)
+F
+RMSTAB: (default is F)
+F
+RMMINM: (default is 100.0)
+100.0
+**********************************************************************
+*****************************END*OF*INPUT*****************************
+**********************************************************************
+
+

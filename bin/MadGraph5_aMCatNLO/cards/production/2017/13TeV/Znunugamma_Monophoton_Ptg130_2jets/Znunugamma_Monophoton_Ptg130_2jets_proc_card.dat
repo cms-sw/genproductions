@@ -1,0 +1,11 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set loop_optimized_output True
+set complex_mass_scheme False
+import model sm-ckm_no_b_mass
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+generate p p > vl vl~ a @1
+add process p p > vl vl~ a j @2
+add process p p > vl vl~ a j j @3
+output Znunugamma_Monophoton_Ptg130_2jets -nojpeg

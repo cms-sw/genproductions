@@ -1,0 +1,495 @@
+<header>
+<hepml>
+<samples xmlns="http://mcdb.cern.ch/hepml/0.2/"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://mcdb.cern.ch/hepml/0.2/ http://mcdb.cern.ch/hepml/0.2/hepml.xsd">
+    <files>
+        <file>
+            <eventsNumber> 1000          </eventsNumber>
+            <crossSection unit="pb">5.6230E-02</crossSection>
+            <fileSize> 986703           </fileSize>
+            <comments> </comments>
+            <location>
+            </location>
+        </file>
+    </files>
+    <description>
+        <title>  </title>
+        <abstract> </abstract>
+        <authorComments> </authorComments>
+	<experimentGroup>
+	    <experiment> </experiment>
+	    <group> </group>
+	    <responsiblePerson> </responsiblePerson>
+	    <description>  </description>
+	</experimentGroup>
+        <generator>
+            <name>CalcHEP</name>
+            <version> 3.6.25 </version>
+            <homepage>http://theory.sinp.msu.ru/~pukhov/calchep.html</homepage>
+            <description>
+ CalcHEP - a package for calculation of Feynman diagrams
+ integration over multi-particle phase space,
+ generation of events and application of decay processes
+            </description>
+        </generator>
+        <model>
+             <name> </name>
+             <description>Standard Model</description>
+            <parameters>
+                <parameter>
+                    <name>EE</name>
+                    <value>0.313430</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>alfSMZ</name>
+                    <value>0.118400</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Q</name>
+                    <value>100.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>s12</name>
+                    <value>0.221000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>s23</name>
+                    <value>0.041000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>s13</name>
+                    <value>0.003500</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Mm</name>
+                    <value>0.105700</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Ml</name>
+                    <value>1.777000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>McMc</name>
+                    <value>1.200000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>MbMb</name>
+                    <value>4.250000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Mtp</name>
+                    <value>172.500000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>MZ</name>
+                    <value>91.188000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>MW</name>
+                    <value>80.385000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Mh</name>
+                    <value>125.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>wt</name>
+                    <value>1.590000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>wZ</name>
+                    <value>2.494440</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>wW</name>
+                    <value>2.088950</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+            </parameters>
+        </model>
+        <process>
+            <beam1>
+                <particle KFcode="2212">p</particle>
+                <energy unit="GeV">6.500E+03</energy>
+                <pdf name= "cteq6l(proton)"> </pdf>
+            </beam1>
+            <beam2>
+                <particle KFcode="2212">p</particle>
+                <energy unit="GeV">6.500E+03</energy>
+                <pdf name= "cteq6l(proton)"> </pdf>
+            </beam2>
+	    <finalState>
+		<state>
+                </state>
+		<notation>
+		    <plain>
+                   </plain>
+		    <Latex> </Latex>
+		</notation>
+	    </finalState>
+            <crossSection unit="pb">5.623E-02</crossSection>
+            <subprocesses>
+              <subprocess cutset_id="1" >
+                <notation> S(-3),s(3) -> m(13),m(13),M(-13),M(-13) </notation>
+                <crossSection unit="pb"> 4.285007E-03 </crossSection>
+              </subprocess>
+              <subprocess cutset_id="2" >
+                <notation> B(-5),b(5) -> m(13),m(13),M(-13),M(-13) </notation>
+                <crossSection unit="pb"> 1.122541E-03 </crossSection>
+              </subprocess>
+              <subprocess cutset_id="3" >
+                <notation> s(3),S(-3) -> m(13),m(13),M(-13),M(-13) </notation>
+                <crossSection unit="pb"> 4.159055E-03 </crossSection>
+              </subprocess>
+              <subprocess cutset_id="4" >
+                <notation> C(-4),c(4) -> m(13),m(13),M(-13),M(-13) </notation>
+                <crossSection unit="pb"> 2.588032E-03 </crossSection>
+              </subprocess>
+              <subprocess cutset_id="5" >
+                <notation> u(2),U(-2) -> m(13),m(13),M(-13),M(-13) </notation>
+                <crossSection unit="pb"> 1.037077E-02 </crossSection>
+              </subprocess>
+              <subprocess cutset_id="6" >
+                <notation> d(1),D(-1) -> m(13),m(13),M(-13),M(-13) </notation>
+                <crossSection unit="pb"> 9.673646E-03 </crossSection>
+              </subprocess>
+              <subprocess cutset_id="7" >
+                <notation> D(-1),d(1) -> m(13),m(13),M(-13),M(-13) </notation>
+                <crossSection unit="pb"> 1.017154E-02 </crossSection>
+              </subprocess>
+              <subprocess cutset_id="8" >
+                <notation> U(-2),u(2) -> m(13),m(13),M(-13),M(-13) </notation>
+                <crossSection unit="pb"> 1.002367E-02 </crossSection>
+              </subprocess>
+              <subprocess cutset_id="9" >
+                <notation> b(5),B(-5) -> m(13),m(13),M(-13),M(-13) </notation>
+                <crossSection unit="pb"> 1.211834E-03 </crossSection>
+              </subprocess>
+              <subprocess cutset_id="10" >
+                <notation> c(4),C(-4) -> m(13),m(13),M(-13),M(-13) </notation>
+                <crossSection unit="pb"> 2.623812E-03 </crossSection>
+              </subprocess>
+            </subprocesses>
+        </process>
+        <cuts>
+            <cutSet cutset_id="1">
+                <cut>
+                    <object>
+                        <name> </name>
+                        <notation>
+                            <plain> </plain>
+                            <Latex> </Latex>
+                        </notation>
+                    </object>
+                    <minValue> </minValue>
+                    <maxValue> </maxValue>
+                    <logic> </logic>
+                </cut>
+            </cutSet>
+        </cuts>
+        <authors>
+       	   <author>
+       	      <firstName>CalcHEP</firstName>
+              <lastName> </lastName>
+              <email>calchep[at]goolegroups.com</email>  
+              <experiment> </experiment>
+              <group> </group>
+       	      <organization> </organization>
+   	   </author>
+         </authors>
+    </description>
+</samples>
+</hepml>
+<slha>
+BLOCK MASS
+ 25    1.250000E+02 # 
+
+DECAY 25  3.909740E-03 # h 
+ 2.815049E-02  2  23  23  # Z,Z 
+ 2.258366E-01  2  24  -24  # W+,W- 
+ 2.423391E-04  2  13  -13  # m,M 
+ 6.841060E-02  2  15  -15  # l,L 
+ 2.612805E-02  2  4  -4  # c,C 
+ 6.512320E-01  2  5  -5  # b,B 
+</slha>
+
+<calchep-batch>
+<![CDATA[
+#########################################
+#            Model Info                 #
+#########################################
+Model:     Standard Model
+#
+Gauge:     Feynman
+
+
+#########################################
+#            Processes                  #
+#########################################
+Process   :    p,p->m,M,m,M
+Remove    :0: h
+Alias :    p=u,U,d,D,s,S,c,C,b,B,G
+Alias :    mu=m,M
+
+#########################################
+#            PDF's                      #
+#########################################
+pdf1 :       cteq6l(proton)
+pdf2 :       cteq6l(proton)
+
+
+#########################################
+#            Momenta                    #
+#########################################
+p1 :         6500
+p2 :         6500
+
+
+#########################################
+#            Parameters                 #
+#########################################
+Parameter:   EE=0.31343
+Parameter:   alfSMZ=0.1184
+Parameter:   Q=100
+Parameter:   s12=0.221
+Parameter:   s23=0.041
+Parameter:   s13=0.0035
+Parameter:   Mm=0.1057
+Parameter:   Ml=1.777
+Parameter:   McMc=1.2
+Parameter:   MbMb=4.25
+Parameter:   Mtp=172.5
+Parameter:   MZ=91.188
+Parameter:   MW=80.385
+Parameter:   Mh=125
+Parameter:   wt=1.59
+Parameter:   wZ=2.49444
+Parameter:   wW=2.08895
+
+#########################################
+#            QCD running info           #
+#########################################
+parton dist. alpha : 1
+alpha(MZ)          : 0.1172
+alpha nf           : 5
+alpha order        : 2
+mb(mb)             : 4.2
+Mtop(pole)         : 175
+alpha Fact Q :0: MZ
+alpha Ren Q :0: MZ
+
+#########################################
+#            Breit-Wigner               #
+#########################################
+Breit Wigner range : 2.7
+T-channel widths   : OFF
+GI in T-channel    : OFF
+GI in S-channel    : OFF
+
+#########################################
+#            Cuts                       #
+#########################################
+Cut parameter :0: T(mu)
+Cut invert    :0: False
+Cut min       :0: 5.0
+Cut max       :0: 
+Cut parameter :0: T^(mu)
+Cut invert    :0: False
+Cut min       :0: 15.0
+Cut max       :0: 
+Cut parameter :0: N(mu)
+Cut invert    :0: False
+Cut min       :0: -2.5
+Cut max       :0: 2.5
+
+#########################################
+#            Kinematics                 #
+#########################################
+Kinematics :0: 12->3,456
+Kinematics :0: 456->4,56
+Kinematics :0: 56->5,6
+
+#########################################
+#            Regularization             #
+#########################################
+Regularization momentum :0: 34
+Regularization mass     :0: MZ
+Regularization width    :0: wZ
+Regularization power    :0: 2
+Regularization momentum :0: 36
+Regularization mass     :0: MZ
+Regularization width    :0: wZ
+Regularization power    :0: 2
+Regularization momentum :0: 54
+Regularization mass     :0: MZ
+Regularization width    :0: wZ
+Regularization power    :0: 2
+Regularization momentum :0: 56
+Regularization mass     :0: MZ
+Regularization width    :0: wZ
+Regularization power    :0: 2
+Regularization momentum :0: 34
+Regularization mass     :0: 0
+Regularization width    :0: 0
+Regularization power    :0: 2
+Regularization momentum :0: 36
+Regularization mass     :0: 0
+Regularization width    :0: 0
+Regularization power    :0: 2
+Regularization momentum :0: 54
+Regularization mass     :0: 0
+Regularization width    :0: 0
+Regularization power    :0: 2
+Regularization momentum :0: 56
+Regularization mass     :0: 0
+Regularization width    :0: 0
+Regularization power    :0: 2
+
+#########################################
+#            Distributions              #
+#########################################
+Dist parameter          : M(m,M)
+Dist min                : 0.0
+Dist max                : 200.0
+Dist n bins             : 100
+Dist title              : p,p->4mu
+Dist x-title            : M(m,M) (GeV)
+
+Dist parameter          : T(mu)
+Dist min                : 0.0
+Dist max                : 50.0
+Dist n bins             : 100
+Dist title              : p,p->4mu
+Dist x-title            : pT(mu) (GeV)
+
+Dist parameter          : T^(mu)
+Dist min                : 0.0
+Dist max                : 50.0
+Dist n bins             : 100
+Dist title              : p,p->4mu
+Dist x-title            : pT_max(mu) (GeV)
+
+
+#########################################
+#            Events Generation          #
+#########################################
+Number of events (per run step): 1000
+Max lumi [1/fb]                : 1000000000
+Filename                       : EWK_pp_4mu_13TeV_calchep_3.6.25_1K-single
+Cleanup                        : False
+
+#########################################
+#            Parallelization info       #
+#########################################
+Parallelization method : this computer
+Que                    : 
+Walltime               : 0
+Memory                 : 0
+email                  : 
+Max number of cpus     : 8
+sleep time             : 3
+nice level             : 19
+
+#########################################
+#            Vegas                      #
+#########################################
+nSess_1  : 5
+nCalls_1 : 1000000
+nSess_2  : 5
+nCalls_2 : 1000000
+
+#########################################
+#           Event Generator             #
+#########################################
+sub-cubes      : 10000
+MAX*N          : 2.000000
+find new MAX   : 50
+
+]]>
+</calchep-batch>
+</header>

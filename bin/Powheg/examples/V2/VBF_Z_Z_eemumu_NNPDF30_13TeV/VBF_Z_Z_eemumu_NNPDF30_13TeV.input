@@ -80,7 +80,7 @@ zz_res_type    1   ! 1:ZZ continuum; 2:Higgs resonance
 storeinfo_rwgt 1   ! store info for reweighting events 
 
 pdfreweight 1
-withnegweights 0
+withnegweights 1
 
 xgriditeration 1   ! identifier for grid generation
 #parallelstage  1   ! identifier for parallel running stages

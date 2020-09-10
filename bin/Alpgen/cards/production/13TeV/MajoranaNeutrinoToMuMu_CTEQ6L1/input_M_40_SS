@@ -1,0 +1,31 @@
+1           ! imode
+hvyn        ! label for files
+0 	    ! start with: 0=new grid, 1=previous warmup grid, 2=previous generation grid
+10000   4   ! Nevents/iteration,  N(warm-up iterations)
+30000000    ! Nevents generated after warm-up - (it depends on how many events wants to be generated for each mass)
+*** The above 5 lines provide mandatory inputs for all processes
+*** (Comment lines are introduced by the three asteriscs)
+*** The lines below modify existing defaults for the hard process under study
+*** For a complete list of accessible parameters and their values,
+*** input 'print 1' (to display on the screen) or 'print 2' to write to file
+iqopt 1          # Options for Factorization/renormalization scale Q.
+qfac  1            
+ih2   1		 # p-p collisions (1) or p-antip collisions (2).
+ebeam 6500.
+ndns   9	! ndns is the PDF choice code in ALPGEN documentation
+ptlmin 5.
+etalmax 10.
+drlmin  0.
+v21  0.00d0      !  v21  0.0054d0
+v22  0.01d0      !  v22  0.0096.d0
+v23  0.00d0      !  v23  0.016.d0
+ilnv 1            # 1 for LNV (SS) and 0 for LNC (OS)
+il1  2             
+il2  2
+ima  1               
+***
+***
+indec 1           # dilepton final state subprocess
+idf   1           # for Z and H decay modes
+mn   40.d0
+mh 125 ! updated mass of Higgs

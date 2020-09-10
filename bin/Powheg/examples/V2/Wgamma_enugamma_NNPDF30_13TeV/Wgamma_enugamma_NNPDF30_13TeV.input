@@ -1,0 +1,90 @@
+idvecbos 24   ! PDG code for vector boson to be produced ( W+:24 W-:-24)
+vdecaymode 1  ! (1:electronic decay, 2: muonic decay, 3: tauonic decay)
+
+! CKM matrix entries
+#CKM_Vud 1 
+#CKM_Vus 0
+#CKM_Vub 0
+#CKM_Vcd 0
+#CKM_Vcs 1
+#CKM_Vcb 0
+#CKM_Vtd 0
+#CKM_Vts 0
+#CKM_Vtb 1
+ 
+numevts NEVENTS ! number of events to be generated
+ih1   1        ! hadron 1 (1 for protons, -1 for antiprotons)
+ih2   1        ! hadron 2 (1 for protons, -1 for antiprotons)
+ndns1 131      ! pdf set for hadron 1 (mlm numbering)
+ndns2 131      ! pdf set for hadron 2 (mlm numbering)
+ebeam1 6500d0  ! energy of beam 1
+ebeam2 6500d0  ! energy of beam 2
+! To be set only if using LHA pdfs
+lhans1  260000  ! pdf set for hadron 1 (LHA numbering)
+lhans2  260000  ! pdf set for hadron 2 (LHA numbering)
+ 
+! Parameters to allow or not the use of stored data
+use-old-grid    1 ! if 1 use old grid if file pwggrids.dat is present (<> 1 regenerate)
+use-old-ubound  1 ! if 1 use norm of upper bounding function stored in pwgubound.dat, if present (<> 1 regenerate)
+ 
+ncall1 30000   ! number of calls for initializing the integration grid
+itmx1   5      ! number of iterations for initializing the integration grid
+ncall2 100000  ! number of calls for computing the integral and finding upper bound
+itmx2   5      ! number of iterations for computing the integral and finding upper bound
+
+foldcsi   1     ! number of folds on csi integration
+foldy     1     ! number of folds on y integration
+foldphi   1     ! number of folds on phi integration
+nubound 100000  ! number of bbarra calls to setup norm of upper bounding function
+icsimax  1      ! <= 100, number of csi subdivision when computing the upper bounds
+iymax    1      ! <= 100, number of y subdivision when computing the upper bounds
+xupbound 2d0    ! increase upper bound for radiation generation
+
+! process dependent settings
+bornktmin  1d0       ! kt_min at Born level for gamma in Wgamma (or j in Wj)
+minlo 1              ! use MiNLO (default=1) 
+powheg-c-lo  1       ! competition-at-lo scheme (default=0, competition-at-nlo scheme)
+phspseparation 0.5d0 ! weight for phase space dual-channel sampling (default=0d0)
+kt2minqed 0.8d0      ! kt2_rad_min for photon radiation from leptons (default=0.8)
+modept2gamlep 0      ! pt_rel definition in setlocalscales (default=0)
+! settings for shower with pythia6 
+use_photos 0         ! if 1 use photos for photon radiation from leptons (default: do not use)
+pythiatune 320       ! choose tune for pythia6 (default 320, Perugia tune)
+! settings for shower with pythia8
+py8tune  5           ! choose tune for pythia8 (default 5) (14 -> Monash2013 tune)
+nohad    0           ! (default 0) if 1 switch off hadronization
+py8veto  1           ! (default 0, use scalupveto routines) if 1 use pythia8 internal routines 
+
+#compute_rwgt 1   ! uncomment in order to reweight events for scale variations 
+renscfact  1d0   ! (default 1d0) ren scale factor: muren  = muref * renscfact
+facscfact  1d0   ! (default 1d0) fac scale factor: mufact = muref * facscfact
+#ptsupp     0     ! (default 0d0)  mass param for Born suppression factor (generation cut) If < 0 su\
+ppfact  1
+bornonly   0      ! (default 0) if 1 do Born only
+#withnegweights 1 ! (default 1) allows negative weighted events
+#olddij 1         ! (default 0) if 1 use old dijterm definition 
+#smartsig   0     ! (default 1) remember equal amplitudes (0 do not remember)
+#withsubtr  0     ! (default 1) subtract real counterterms (0 do not subtract)
+withdamp    1     ! (default 0, do not use) use Born-zero damping factor
+#ptsqmin    0.8   ! (default 0.8 GeV) minimum pt for generation of radiation
+#charmthr   1.5   ! (default 1.5 GeV) charm treshold for gluon splitting
+#bottomthr  5.0   ! (default 5.0 GeV) bottom treshold for gluon splitting
+testplots  1      ! (default 0, do not) do NLO and PWHG distributions
+#testsuda  1      ! (default 0, do not test) test Sudakov form factor
+#radregion 1      ! (default all regions) only generate radiation in the selected singular region
+#charmthrpdf  1.5 ! (default 1.5 GeV) pdf charm treshold
+#bottomthrpdf 5.0 ! (default 5.0 GeV) pdf bottom treshold
+ 
+iseed SEED     ! initialize random number sequence
+#rand1     -1     ! initialize random number sequence
+#rand2     -1     ! initialize random number sequence
+             
+#iupperisr 1  ! (default 1) choice of ISR upper bounding functional form
+#iupperfsr 2  ! (default 2) choice of FSR upper bounding functional form
+ 
+pdfreweight 1 ! (default 0) write extra pdf infos on LHEF
+storeinfo_rwgt 1
+
+#parallelstage 1
+#xgriditeration 1
+#manyseeds 1

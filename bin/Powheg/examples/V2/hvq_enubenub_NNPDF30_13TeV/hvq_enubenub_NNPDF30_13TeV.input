@@ -1,4 +1,5 @@
-randomseed SEED ! uncomment to set the random seed to a value of your choice.
+iseed    SEED       ! Start the random number generator with seed iseed 
+#randomseed SEED ! uncomment to set the random seed to a value of your choice.
                    ! It generates the call RM48IN(352345,0,0) (see the RM48 manual).
                    ! THIS MAY ONLY AFFECTS THE GENERATION OF POWHEG EVENTS!
                    ! If POWHEG is interfaced to a shower MC, refer to the shower MC

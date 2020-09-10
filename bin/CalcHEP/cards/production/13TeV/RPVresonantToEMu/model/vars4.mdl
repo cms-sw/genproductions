@@ -1,0 +1,61 @@
+RPV_res_tau_sneutrino
+ Variables 
+ Name  | Value       |>  Comment                                   <|
+EE     |0.31223      |Electromagnetic coupling constant (<->1/128.9)
+SW     |0.481        |sin of the Weinberg angle (PDG-96)
+s12    |0.221        |Parameter of C-K-M matrix (PDG-96)
+s23    |0.041        |Parameter of C-K-M matrix (PDG-96)
+s13    |0.0035       |Parameter of C-K-M matrix (PDG-96)
+MZ     |91.1884      |Z mass
+MW     |80.385       |W mass
+GG     |1.238        |Strong coupling
+Mt     |174.3        |top quark mass
+Mb     |4.25         |b-quark mass
+Me     |0.000511     |electron mass
+Mm     |0.1057       |mass of muon
+Mu     |0.046        |u-quark mass
+Md     |0.046        |d-quark mass
+Mc     |1.42         |c-quark mass
+Ms     |0.2          |s-quark mass
+Ml     |1.777        |mass of tau-lepton
+wt     |1.7524       |t-quark width
+wZ     |2.4944       |Z-boson width
+wW     |2.08895      |W-boson width
+MSnl   |100          |
+Ll121  |0            |
+Ll122  |0            |
+Ll123  |0            |
+Ll131  |0            |
+Ll132  |0            |
+Ll133  |0.1            |
+Ll231  |0            |
+Ll232  |0            |
+Ll233  |0            |
+Lq111  |0            |
+Lq112  |0            |
+Lq113  |0            |
+Lq121  |0            |
+Lq122  |0            |
+Lq123  |0            |
+Lq131  |0            |
+Lq132  |0            |
+Lq133  |0            |
+Lq211  |0            |
+Lq212  |0            |
+Lq213  |0            |
+Lq221  |0            |
+Lq222  |0            |
+Lq223  |0            |
+Lq231  |0            |
+Lq232  |0            |
+Lq233  |0            |
+Lq311  |0.1            |
+Lq312  |0            |
+Lq313  |0            |
+Lq321  |0            |
+Lq322  |0            |
+Lq323  |0            |
+Lq331  |0            |
+Lq332  |0            |
+Lq333  |0            |
+=====================================================================

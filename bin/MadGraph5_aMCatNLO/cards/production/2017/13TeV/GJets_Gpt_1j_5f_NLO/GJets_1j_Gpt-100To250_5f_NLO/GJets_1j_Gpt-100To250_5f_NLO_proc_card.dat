@@ -1,0 +1,6 @@
+import model loop_sm-ckm_no_b_mass
+
+add process p p > a j [QCD] @0
+
+output GJets_1j_Gpt-100To250_5f_NLO -nojpeg
+

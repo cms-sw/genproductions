@@ -1,0 +1,38 @@
+--- pwhg_analysis_driver_offshellmap.f	2015-07-30 14:35:42.000000001 +0200
++++ pwhg_analysis_driver.f.new	2015-08-01 14:49:57.000000001 +0200
+@@ -103,3 +103,35 @@
+       enddo
+       end
+ 
++c     This is to store in common block extra information on the
++c     partonic NLO event
++C     type is either: 'born', 'virt', 'real', 'realct'
++C     narr number of entries  in the array arr 
++C     weight is the integration weight 
++      subroutine analysis_extrainfo(type,narr,arr,weight)
++      implicit none
++      include 'nlegborn.h'
++      include 'pwhg_flg.h'
++      include 'pwhg_anexinf.h'
++      character *(*) type
++      integer narr
++      real * 8 arr(narr),weight
++      integer marr,dummy
++      
++      if(.not.flg_analysisextrainfo) return
++      if(narr.gt.maxalr) then
++         write(*,*) ' analysis_extrainfo: arr dimension too big '
++         write(*,*) ' exiting ...'
++         call exit(-1) 
++      endif
++      anexinf_sigarr(1:narr) = arr * weight
++      anexinf_narr = narr
++      anexinf_type = type
++      if(anexinf_type.ne.type) then
++         write(*,*) 'anexinf_type',anexinf_type
++         write(*,*) 'type', type
++         write(*,*) ' analysis_extrainfo: type string too long '
++         write(*,*) ' exiting ...'
++         call exit(-1) 
++      endif
++      end

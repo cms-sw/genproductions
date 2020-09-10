@@ -1,0 +1,11 @@
+set param_card mn1 400
+set param_card mn2 1.0e+12
+set param_card mn3 1.0e+12
+set param_card mzr 1000
+set param_card mwr 5000
+compute_widths zr
+compute_widths wr+
+compute_widths wr-
+compute_widths n1 
+set param_card wn2 50
+set param_card wn3 50

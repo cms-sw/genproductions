@@ -1,0 +1,2 @@
+# Link to cards: https://github.com/cms-sw/genproductions/blob/master/bin/Powheg/production/2017/13TeV/st_tch_4f_ckm_13TeV_mtop1755/st_tch_4f_ckm_top_13TeV_mtop1755_UL.input
+EXTERNAL_TARBALL="/cvmfs/cms.cern.ch/phys_generator/gridpacks/UL/13TeV/powheg/V2/st_tch_4f_ckm_13TeV/ST_tch_4f_slc6_amd64_gcc630_CMSSW_9_3_0_my_st_tch_4f_ckm_top_13TeV_mtop1755_UL.tgz"

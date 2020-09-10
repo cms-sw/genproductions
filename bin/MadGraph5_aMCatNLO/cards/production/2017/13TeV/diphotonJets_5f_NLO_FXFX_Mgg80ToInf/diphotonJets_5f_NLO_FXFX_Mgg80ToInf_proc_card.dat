@@ -1,0 +1,7 @@
+import model loop_sm-ckm_no_b_mass
+
+generate p p > a a [QCD] @0
+add process p p > a a j [QCD] @1
+add process p p > a a j j [QCD] @2
+
+output diphotonJets_5f_NLO_FXFX_Mgg80ToInf -nojpeg

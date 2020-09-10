@@ -1,0 +1,8 @@
+
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set gauge unitary
+set complex_mass_scheme False
+import model_v4 vlq_new
+generate p p > qd qd~, qd > j w-, qd~ > j w+
+output VLQ_QDQDTojWjW -nojpeg

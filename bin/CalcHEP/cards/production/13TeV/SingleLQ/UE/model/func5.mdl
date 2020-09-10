@@ -1,0 +1,49 @@
+LQ_P&B_1st_gen
+ Constraints 
+  Name |> Expression                                                                        <|> Comment                      <|
+ pi    |acos(-1)                                                                             |
+% g1r  |g1l                                                                                  |
+% g2r  |g2l                                                                                  |
+% gt2r |gt2l                                                                                 |
+% h1r  |h1l                                                                                  |
+% h2r  |h2l                                                                                  |
+% M2GU1|MU1^2*(h1l^2+h1r^2+h1l^2)*2/3                                                        |
+% M2GS1|MS1^2*(g1l^2+g1r^2+g1l^2)                                                            |
+% M2GS0|MS0^2*g3l^2                                                                          |
+ OMKG  |1-KG                                                                                 |
+ CW    |sqrt(1-SW^2)                                                                         |cos of the Weinberg angle
+ MW    |MZ*CW                                                                                |mass of W boson
+MU3    |MLQ                                                                                  |
+MU1    |MLQ                                                                                  |
+MUT    |MLQ                                                                                  |
+MRP    |MLQ                                                                                  |
+MRM    |MLQ                                                                                  |
+MW2    |MLQ                                                                                  |
+MV2    |MLQ                                                                                  |
+MTP    |MLQ                                                                                  |
+MTM    |MLQ                                                                                  |
+MSP    |MLQ                                                                                  |
+MS0    |MLQ                                                                                  |
+MSM    |MLQ                                                                                  |
+MST    |MLQ                                                                                  |
+MS1    |MLQ                                                                                  |
+ MUP   |MU3                                                                                  |
+ MU0   |MU3                                                                                  |
+ MUM   |MU3                                                                                  |
+ MWP   |MW2                                                                                  |
+ MWM   |MW2                                                                                  |
+ MVP   |MV2                                                                                  |
+ MVM   |MV2                                                                                  |
+ c12   |sqrt(1-s12^2)                                                                        |parameter  of C-K-M matrix
+ c23   |sqrt(1-s23^2)                                                                        |parameter  of C-K-M matrix
+ c13   |sqrt(1-s13^2)                                                                        |parameter  of C-K-M matrix
+ Vud   |c12*c13                                                                              |C-K-M matrix element
+ Vus   |s12*c13                                                                              |C-K-M matrix element
+ Vub   |s13                                                                                  |C-K-M matrix element
+ Vcd   |-s12*c23-c12*s23*s13                                                                 |C-K-M matrix element
+ Vcs   |c12*c23-s12*s23*s13                                                                  |C-K-M matrix element
+ Vcb   |s23*c13                                                                              |C-K-M matrix element
+ Vtd   |s12*s23-c12*c23*s13                                                                  |C-K-M matrix element
+ Vts   |-c12*s23-s12*c23*s13                                                                 |C-K-M matrix element
+ Vtb   |c23*c13                                                                              |C-K-M matrix element
+===============================================================================================================================

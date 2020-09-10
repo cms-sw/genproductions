@@ -1,0 +1,620 @@
+<header>
+<hepml>
+<samples xmlns="http://mcdb.cern.ch/hepml/0.2/"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://mcdb.cern.ch/hepml/0.2/ http://mcdb.cern.ch/hepml/0.2/hepml.xsd">
+    <files>
+        <file>
+            <eventsNumber> 100000        </eventsNumber>
+            <crossSection unit="pb">5.6872E-06</crossSection>
+            <fileSize> 111819208        </fileSize>
+            <comments> </comments>
+            <location>
+            </location>
+        </file>
+    </files>
+    <description>
+        <title>  </title>
+        <abstract> </abstract>
+        <authorComments> </authorComments>
+	<experimentGroup>
+	    <experiment> </experiment>
+	    <group> </group>
+	    <responsiblePerson> </responsiblePerson>
+	    <description>  </description>
+	</experimentGroup>
+        <generator>
+            <name>CalcHEP</name>
+            <version> 3.6.25 </version>
+            <homepage>http://theory.sinp.msu.ru/~pukhov/calchep.html</homepage>
+            <description>
+ CalcHEP - a package for calculation of Feynman diagrams
+ integration over multi-particle phase space,
+ generation of events and application of decay processes
+            </description>
+        </generator>
+        <model>
+             <name> </name>
+             <description>MajN_2</description>
+            <parameters>
+                <parameter>
+                    <name>cabi</name>
+                    <value>0.227736</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>aEWM1</name>
+                    <value>127.900000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Gf</name>
+                    <value>0.000012</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>aS</name>
+                    <value>0.118400</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>ymb</name>
+                    <value>4.700000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>ymt</name>
+                    <value>172.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>ymtau</name>
+                    <value>1.777000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>f3u</name>
+                    <value>1.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>f3d</name>
+                    <value>1.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>f3e</name>
+                    <value>1.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>lc</name>
+                    <value>25000.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>MUU</name>
+                    <value>3500.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>MZ</name>
+                    <value>91.187600</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>MTA</name>
+                    <value>1.777000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>MT</name>
+                    <value>172.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>MB</name>
+                    <value>4.700000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>MH</name>
+                    <value>120.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>MU</name>
+                    <value>10000.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>E</name>
+                    <value>2.718282</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Pi</name>
+                    <value>3.141593</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+            </parameters>
+        </model>
+        <process>
+            <beam1>
+                <particle KFcode="2212">p</particle>
+                <energy unit="GeV">6.500E+03</energy>
+                <pdf name= "LHA:NNPDF30_lo_as_0130:0:1"> </pdf>
+            </beam1>
+            <beam2>
+                <particle KFcode="2212">p</particle>
+                <energy unit="GeV">6.500E+03</energy>
+                <pdf name= "LHA:NNPDF30_lo_as_0130:0:1"> </pdf>
+            </beam2>
+	    <finalState>
+		<state>
+                </state>
+		<notation>
+		    <plain>
+                   </plain>
+		    <Latex> </Latex>
+		</notation>
+	    </finalState>
+            <crossSection unit="pb">5.687E-06</crossSection>
+            <subprocesses>
+              <subprocess cutset_id="1" >
+                <notation> u~(-2),s(3) -> e-(11),NEs(4000013) </notation>
+                <crossSection unit="pb"> 6.011074E-08 </crossSection>
+              </subprocess>
+              <subprocess cutset_id="2" >
+                <notation> b~(-5),u(2) -> e+(-11),NEs(4000013) </notation>
+                <crossSection unit="pb"> 1.169279E-07 </crossSection>
+              </subprocess>
+              <subprocess cutset_id="3" >
+                <notation> s(3),c~(-4) -> e-(11),NEs(4000013) </notation>
+                <crossSection unit="pb"> 1.098609E-08 </crossSection>
+              </subprocess>
+              <subprocess cutset_id="4" >
+                <notation> d(1),u~(-2) -> e-(11),NEs(4000013) </notation>
+                <crossSection unit="pb"> 3.772381E-07 </crossSection>
+              </subprocess>
+              <subprocess cutset_id="5" >
+                <notation> s~(-3),c(4) -> e+(-11),NEs(4000013) </notation>
+                <crossSection unit="pb"> 1.099837E-08 </crossSection>
+              </subprocess>
+              <subprocess cutset_id="6" >
+                <notation> c~(-4),d(1) -> e-(11),NEs(4000013) </notation>
+                <crossSection unit="pb"> 5.717532E-08 </crossSection>
+              </subprocess>
+              <subprocess cutset_id="7" >
+                <notation> u~(-2),b(5) -> e-(11),NEs(4000013) </notation>
+                <crossSection unit="pb"> 2.406382E-09 </crossSection>
+              </subprocess>
+              <subprocess cutset_id="8" >
+                <notation> d~(-1),c(4) -> e+(-11),NEs(4000013) </notation>
+                <crossSection unit="pb"> 5.507423E-09 </crossSection>
+              </subprocess>
+              <subprocess cutset_id="9" >
+                <notation> c(4),s~(-3) -> e+(-11),NEs(4000013) </notation>
+                <crossSection unit="pb"> 1.099571E-08 </crossSection>
+              </subprocess>
+              <subprocess cutset_id="10" >
+                <notation> s~(-3),u(2) -> e+(-11),NEs(4000013) </notation>
+                <crossSection unit="pb"> 2.190240E-06 </crossSection>
+              </subprocess>
+              <subprocess cutset_id="11" >
+                <notation> d(1),c~(-4) -> e-(11),NEs(4000013) </notation>
+                <crossSection unit="pb"> 5.712681E-08 </crossSection>
+              </subprocess>
+              <subprocess cutset_id="12" >
+                <notation> c(4),d~(-1) -> e+(-11),NEs(4000013) </notation>
+                <crossSection unit="pb"> 5.503345E-09 </crossSection>
+              </subprocess>
+              <subprocess cutset_id="13" >
+                <notation> u(2),s~(-3) -> e+(-11),NEs(4000013) </notation>
+                <crossSection unit="pb"> 2.191808E-06 </crossSection>
+              </subprocess>
+              <subprocess cutset_id="14" >
+                <notation> u~(-2),d(1) -> e-(11),NEs(4000013) </notation>
+                <crossSection unit="pb"> 3.771442E-07 </crossSection>
+              </subprocess>
+              <subprocess cutset_id="15" >
+                <notation> d~(-1),u(2) -> e+(-11),NEs(4000013) </notation>
+                <crossSection unit="pb"> 1.199688E-06 </crossSection>
+              </subprocess>
+              <subprocess cutset_id="16" >
+                <notation> u(2),b~(-5) -> e+(-11),NEs(4000013) </notation>
+                <crossSection unit="pb"> 1.169010E-07 </crossSection>
+              </subprocess>
+              <subprocess cutset_id="17" >
+                <notation> u(2),d~(-1) -> e+(-11),NEs(4000013) </notation>
+                <crossSection unit="pb"> 1.200050E-06 </crossSection>
+              </subprocess>
+              <subprocess cutset_id="18" >
+                <notation> c~(-4),s(3) -> e-(11),NEs(4000013) </notation>
+                <crossSection unit="pb"> 1.099474E-08 </crossSection>
+              </subprocess>
+              <subprocess cutset_id="19" >
+                <notation> b(5),u~(-2) -> e-(11),NEs(4000013) </notation>
+                <crossSection unit="pb"> 2.406624E-09 </crossSection>
+              </subprocess>
+              <subprocess cutset_id="20" >
+                <notation> s(3),u~(-2) -> e-(11),NEs(4000013) </notation>
+                <crossSection unit="pb"> 6.012548E-08 </crossSection>
+              </subprocess>
+            </subprocesses>
+        </process>
+        <cuts>
+            <cutSet cutset_id="1">
+                <cut>
+                    <object>
+                        <name> </name>
+                        <notation>
+                            <plain> </plain>
+                            <Latex> </Latex>
+                        </notation>
+                    </object>
+                    <minValue> </minValue>
+                    <maxValue> </maxValue>
+                    <logic> </logic>
+                </cut>
+            </cutSet>
+        </cuts>
+        <authors>
+       	   <author>
+       	      <firstName>CalcHEP</firstName>
+              <lastName> </lastName>
+              <email>calchep[at]goolegroups.com</email>  
+              <experiment> </experiment>
+              <group> </group>
+       	      <organization> </organization>
+   	   </author>
+         </authors>
+    </description>
+</samples>
+</hepml>
+<slha>
+BLOCK QNUMBERS 4000002 # Us
+ 1 5
+ 2 2
+ 3 3
+ 4 1
+
+BLOCK QNUMBERS 4000004 # Cs
+ 1 5
+ 2 2
+ 3 3
+ 4 1
+
+BLOCK QNUMBERS 4000006 # Ts
+ 1 5
+ 2 2
+ 3 3
+ 4 1
+
+BLOCK QNUMBERS 4000008 # Ds
+ 1 -4
+ 2 2
+ 3 3
+ 4 1
+
+BLOCK QNUMBERS 4000010 # Ss
+ 1 -4
+ 2 2
+ 3 3
+ 4 1
+
+BLOCK QNUMBERS 4000012 # Bs
+ 1 -4
+ 2 2
+ 3 3
+ 4 1
+
+BLOCK QNUMBERS 4000013 # NEs
+ 1 0
+ 2 2
+ 3 1
+ 4 0
+
+BLOCK QNUMBERS 4000014 # NMus
+ 1 0
+ 2 2
+ 3 1
+ 4 0
+
+BLOCK QNUMBERS 4000016 # NTau
+ 1 0
+ 2 2
+ 3 1
+ 4 0
+
+BLOCK QNUMBERS 4000018 # Es
+ 1 -6
+ 2 2
+ 3 1
+ 4 1
+
+BLOCK QNUMBERS 4000020 # Mus
+ 1 -6
+ 2 2
+ 3 1
+ 4 1
+
+BLOCK QNUMBERS 4000022 # Taus
+ 1 -6
+ 2 2
+ 3 1
+ 4 1
+
+BLOCK MASS
+ 25    1.200000E+02 # 
+ 4000002    3.500000E+03 # 
+ 4000004    3.500000E+03 # 
+ 4000006    3.500000E+03 # 
+ 4000008    3.500000E+03 # 
+ 4000010    3.500000E+03 # 
+ 4000012    3.500000E+03 # 
+ 4000013    3.500000E+03 # 
+ 4000014    3.500000E+03 # 
+ 4000016    3.500000E+03 # 
+ 4000018    3.500000E+03 # 
+ 4000020    3.500000E+03 # 
+ 4000022    3.500000E+03 # 
+
+DECAY 25  5.970935E-03 # H 
+ 8.740601E-03  2  23  23  # Z,Z 
+ 8.358379E-02  2  24  -24  # W+,W- 
+ 4.159620E-02  2  15  -15  # ta-,ta+ 
+ 8.660794E-01  2  5  -5  # b,b~ 
+DECAY 4000002  5.733205E-01 # Us 
+ 9.999999E-01  2  24  2  # W+,u 
+DECAY 4000004  5.733205E-01 # Cs 
+ 9.999999E-01  2  24  4  # W+,c 
+DECAY 4000006  5.691736E-01 # Ts 
+ 1.000000E+00  2  24  6  # W+,t 
+DECAY 4000008  5.733205E-01 # Ds 
+ 9.999999E-01  2  -24  1  # W-,d 
+DECAY 4000010  5.733205E-01 # Ss 
+ 9.999999E-01  2  -24  3  # W-,s 
+DECAY 4000012  5.733174E-01 # Bs 
+ 1.000000E+00  2  -24  5  # W-,b 
+DECAY 4000013  9.476067E-01 # NEs 
+ 1.513730E-01  2  22  12  # a,ve 
+ 4.611729E-02  2  23  12  # Z,ve 
+ 1.513730E-01  2  22  -12  # a,ve~ 
+ 4.611729E-02  2  23  -12  # Z,ve~ 
+ 3.025098E-01  2  24  11  # W+,e- 
+ 3.025098E-01  2  -24  -11  # W-,e+ 
+DECAY 4000014  9.476067E-01 # NMus 
+ 1.513730E-01  2  22  14  # a,vm 
+ 4.611729E-02  2  23  14  # Z,vm 
+ 1.513730E-01  2  22  -14  # a,vm~ 
+ 4.611729E-02  2  23  -14  # Z,vm~ 
+ 3.025098E-01  2  24  13  # W+,mu- 
+ 3.025098E-01  2  -24  -13  # W-,mu+ 
+DECAY 4000016  9.476063E-01 # NTau 
+ 1.513731E-01  2  22  16  # a,vt 
+ 4.611731E-02  2  23  16  # Z,vt 
+ 1.513731E-01  2  22  -16  # a,vt~ 
+ 4.611731E-02  2  23  -16  # Z,vt~ 
+ 3.025096E-01  2  24  15  # W+,ta- 
+ 3.025096E-01  2  -24  -15  # W-,ta+ 
+DECAY 4000018  5.733205E-01 # Es 
+ 9.999999E-01  2  -24  11  # W-,e- 
+DECAY 4000020  5.733205E-01 # Mus 
+ 9.999999E-01  2  -24  13  # W-,mu- 
+DECAY 4000022  5.733201E-01 # Taus 
+ 1.000000E+00  2  -24  15  # W-,ta- 
+</slha>
+
+<calchep-batch>
+<![CDATA[
+#########################################
+#            Model Info                 #
+#########################################
+Model:     MajN_2
+#http://feynrules.phys.ucl.ac.be
+Gauge:     Feynman
+
+
+#########################################
+#            Processes                  #
+#########################################
+Process   :    p,p->e,NEs
+Decay     :     NEs->e,jet,jet
+Alias :    p=u,u~,d,d~,s,s~,c,c~,b,b~
+Alias :    jet=u,u~,d,d~,s,s~,c,c~,t,t~,b,b~
+Alias :    e=e+,e-
+
+#########################################
+#            PDF's                      #
+#########################################
+pdf1 :       LHA:NNPDF30_lo_as_0130:0:1
+pdf2 :       LHA:NNPDF30_lo_as_0130:0:1
+
+
+#########################################
+#            Momenta                    #
+#########################################
+p1 :         6500
+p2 :         6500
+
+
+#########################################
+#            Parameters                 #
+#########################################
+Parameter:   cabi=0.227736
+Parameter:   aEWM1=127.9
+Parameter:   Gf=0.0000116637
+Parameter:   aS=0.1184
+Parameter:   ymb=4.7
+Parameter:   ymt=172
+Parameter:   ymtau=1.777
+Parameter:   f3u=1.
+Parameter:   f3d=1.
+Parameter:   f3e=1.
+Parameter:   lc=25000
+Parameter:   MUU=3500
+Parameter:   GG=1.21977796370
+Parameter:   MZ=91.1876
+Parameter:   MTA=1.777
+Parameter:   MT=172
+Parameter:   MB=4.7
+Parameter:   MH=120
+Parameter:   MU=10000
+Parameter:   E=2.71828182845
+Parameter:   Pi=3.14159265358
+
+#########################################
+#            QCD running info           #
+#########################################
+parton dist. alpha : 1
+alpha(MZ)          : 0.1172
+alpha nf           : 5
+alpha order        : 2
+mb(mb)             : 4.2
+Mtop(pole)         : 175
+alpha Fact Q :0: MUU
+alpha Ren Q :0: MUU
+
+#########################################
+#            Breit-Wigner               #
+#########################################
+Breit Wigner range : 2.7
+T-channel widths   : OFF
+GI in T-channel    : OFF
+GI in S-channel    : OFF
+
+#########################################
+#            Cuts                       #
+#########################################
+
+#########################################
+#            Kinematics                 #
+#########################################
+
+#########################################
+#            Regularization             #
+#########################################
+
+#########################################
+#            Distributions              #
+#########################################
+
+#########################################
+#            Events Generation          #
+#########################################
+Number of events (per run step): 100000
+Max lumi [1/fb]                : 1000000000
+Filename                       : ExtendedWeakIsospinModel_eejj_L25000_M3500_nnpdf30lo-single
+Cleanup                        : False
+
+#########################################
+#            Parallelization info       #
+#########################################
+Parallelization method : this computer
+Que                    : 
+Walltime               : 0
+Memory                 : 0
+email                  : 
+Max number of cpus     : 1
+sleep time             : 3
+nice level             : 19
+
+#########################################
+#            Vegas                      #
+#########################################
+nSess_1  : 5
+nCalls_1 : 10000
+nSess_2  : 5
+nCalls_2 : 100000
+
+#########################################
+#           Event Generator             #
+#########################################
+sub-cubes      : 10000
+MAX*N          : 2.000000
+find new MAX   : 50
+
+]]>
+</calchep-batch>
+</header>
