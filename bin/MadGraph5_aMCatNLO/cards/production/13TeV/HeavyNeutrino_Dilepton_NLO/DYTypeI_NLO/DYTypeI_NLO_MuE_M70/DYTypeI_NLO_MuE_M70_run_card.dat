@@ -79,8 +79,7 @@
   False	=  fixed_ren_scale   ! if .true. use fixed ren scale
   False	=  fixed_fac_scale   ! if .true. use fixed fac scale
   91.118	=  muR_ref_fixed     ! fixed ren reference scale 
-  91.118	=  muF1_ref_fixed    ! fixed fact reference scale for pdf1
-  91.118	=  muF2_ref_fixed    ! fixed fact reference scale for pdf2
+  91.118	=  muF_ref_fixed    ! fixed fact reference scale
   -1	=  dynamical_scale_choice  ! Choose one of the preselected dynamical choices
 #***********************************************************************
 # Renormalization and factorization scales (advanced and NLO options)  *
@@ -88,8 +87,7 @@
   False	=  fixed_QES_scale   ! if .true. use fixed Ellis-Sexton scale
   91.118	=  QES_ref_fixed     ! fixed Ellis-Sexton reference scale
   1.0	=  muR_over_ref      ! ratio of current muR over reference muR
-  1.0	=  muF1_over_ref     ! ratio of current muF1 over reference muF1
-  1.0	=  muF2_over_ref     ! ratio of current muF2 over reference muF2
+  1.0	=  muF_over_ref     ! ratio of current muF over reference muF
   1.0	=  QES_over_ref      ! ratio of current QES over reference QES
 #*********************************************************************** 
 # Reweight flags to get scale dependence and PDF uncertainty           *
@@ -97,11 +95,8 @@
 # For PDF uncertainty: use LHAPDF with supported set                   *
 #***********************************************************************
   True	=  reweight_scale    ! reweight to get scale dependence
-  0.5	=  rw_Rscale_down    ! lower bound for ren scale variations
-  2.0	=  rw_Rscale_up      ! upper bound for ren scale variations
-  0.5	=  rw_Fscale_down    ! lower bound for fact scale variations
-  2.0	=  rw_Fscale_up      ! upper bound for fact scale variations
-  True	=  reweight_PDF      ! reweight to get PDF uncertainty
+  1.0, 2.0, 0.5 = rw_rscale ! muR factors to be included by reweighting
+  1.0, 2.0, 0.5 = rw_fscale ! muF factors to be included by reweighting
 #***********************************************************************
 #***********************************************************************
 # Store reweight information in the LHE file for off-line model-       *
