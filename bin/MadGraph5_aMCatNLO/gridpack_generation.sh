@@ -523,11 +523,36 @@ make_gridpack () {
       tar -xzf $WORKDIR/pilotrun_gridpack.tar.gz
       echo "cleaning temporary gridpack"
       rm $WORKDIR/pilotrun_gridpack.tar.gz
-      
+
       # precompile reweighting if necessary
       if [ -e $CARDSDIR/${name}_reweight_card.dat ]; then
           echo "preparing reweighting step"
-          prepare_reweight $isnlo $WORKDIR $scram_arch $CARDSDIR/${name}_reweight_card.dat 
+          prepare_reweight $isnlo $WORKDIR $scram_arch $CARDSDIR/${name}_reweight_card.dat
+	  hasauto=$(grep "auto" $CARDSDIR/${name}_reweight_card.dat | egrep -v "#")
+	  if [[ ${hasauto} != "" ]]; then
+	     echo "extract computed widths and rewrite reweight card"
+	     cp ${WORKDIR}/process/madevent/Events/pilotrun/unweighted_events.lhe.gz temp.lhe.gz
+	     gzip -d temp.lhe.gz
+	     ./madevent/bin/internal/extract_banner-pl temp.lhe banner.txt	     
+	     IFSd=$IFS; IFS=$'\n'
+	     pd=($(grep "rwgt_" banner.txt | grep "decay" | sed "s%.*decay %%g" | sed "s% # orig.*%%g"))
+	     IFS=$IFSd
+	     rm banner.txt temp.lhe
+             c=0
+	     rm -rf $CARDSDIR/${name}_reweight_card_temp.dat
+	     while IFS= read -r line; do
+	       linem=${line}
+	       hasauto=$(echo ${line} | grep "auto" | egrep -v "#")
+	       if [[ ${hasauto} != "" ]]; then
+	           t=(${pd[${c}]})
+	           linem=$(echo $linem | sed "s%auto%${t[1]}%g")
+		   c=$[$c+1]
+	       fi
+	       echo "$linem" >> $CARDSDIR/${name}_reweight_card_temp.dat
+	     done < $CARDSDIR/${name}_reweight_card.dat
+	     cp $CARDSDIR/${name}_reweight_card_temp.dat $WORKDIR/process/reweight_card.dat
+	     mv $CARDSDIR/${name}_reweight_card_temp.dat $WORKDIR/process/madevent/Cards/reweight_card.dat 
+	  fi
       fi
     
       #prepare madspin grids if necessary
