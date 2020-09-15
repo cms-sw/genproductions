@@ -568,7 +568,7 @@ for num in range(0,len(prepid)):
 		photos_version = os.popen(photos_version).read().rstrip().split('=')[2].replace(">","")
 		print "* PHOTOS version = "+str(photos_version)
         print "##################################################"
-        if herwig_flag != 0:
+        if herwig_flag != 0 and "9_3" not in str(cmssw) and "7_1" not in str(cmssw):
             os.system('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/herwig_frag_lines.txt -O herwig_frag_lines.txt')
             file1 = set(line.strip().replace(",","")  for line in open('herwig_frag_lines.txt'))
             file2 = set(line.strip().replace(",","") for line in open(pi))
