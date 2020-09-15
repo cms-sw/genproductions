@@ -121,7 +121,7 @@ parser = argparse.ArgumentParser(
                   * [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix or HINPbPbAutumn18GS campaign: Memory is 5900 but nthreads != 4
                   * [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix or HINPbPbAutumn18GS campaign: Memory is 4000 but nthreads != 2
                   * [ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix or HINPbPbAutumn18GS campaign: Memory is <=2300 but nthreads != 1
-                  * [ERROR] Gridpack should have used cvmfs path instead of eos path
+                  * [ERROR] Gridpack should be in cvmfs
                   * [ERROR] minbias in version >= CMSSW_10_5_0_pre2 and <= CMSSW_10_6_X and not particle gun and not CMSSW_10_6_0 and not CMSSW_10_6_0_patch1:
                   *         SigmaTotal:mode should have been set to 0
                   *         SigmaTotal:sigmaEl should have been set to 21.89
@@ -490,6 +490,7 @@ for num in range(0,len(prepid)):
                 error = error + 1
             if len(prime) != 0:
                 for rr in prime:
+                    print(rr['prepid'],rr['extension'],ext)
                     if "UL17" in rr['prepid'] and "GEN" in rr['prepid'] and ext == rr['extension']:
                         pi_prime = rr['prepid']
                         cmssw_prime = rr['cmssw_release']
@@ -573,6 +574,7 @@ for num in range(0,len(prepid)):
             file2 = set(line.strip().replace(",","") for line in open(pi))
             herwig_check = []
             herwig_mat_err = 0
+            herwig_psweight_tag = 0
             for line in file1:
                 if line not in file2:
                     herwig_check.append(line)
@@ -582,7 +584,11 @@ for num in range(0,len(prepid)):
                 herwig_count.append(herwig_check[2].count('from Configuration.Generator.Herwig7Settings.Herwig7LHECommonSettings_cfi import *'))
                 if all(x == 1 for x in herwig_count) and any("insert SubProcess:MatrixElements" in x for x in list(file2)):
                     herwig7_bypass_error = 1
-                if herwig7_bypass_error == 0:
+                if "PSWeights" not in herwig_check:
+                    herwig_psweight_tag = 1
+                    print "* [WARNING] Parton shower weights are missing in the Herwig7 fragment."
+                    warning = warning + 1
+                if herwig7_bypass_error == 0 and herwig_psweight_tag == 0:
                     print "* [ERROR] "+ str(len(herwig_check)) + " missing fragment line(s) for herwig:"
                     print "*          lines for internal matrix element are missing in the fragment."
                     print herwig_check
@@ -674,9 +680,6 @@ for num in range(0,len(prepid)):
                         warning += 1
 			gp_size = 0
         if fsize != 0:
-            if int(os.popen('grep -c eos '+pi).read()) == 1 :
-                print "* [ERROR] Gridpack should have used cvmfs path instead of eos path"
-                error += 1
             if int(os.popen('grep -c nPartonsInBorn '+pi).read()) == 1:
                 nPartonsInBorn_flag = 1
                 print(os.popen('grep nPartonsInBorn '+pi).read())
@@ -758,6 +761,10 @@ for num in range(0,len(prepid)):
 
             if gp_size != 0:
                 gridpack_cvmfs_path_tmp = re.findall("/cvmfs/cms\.cern\.ch/phys_generator/gridpacks/.*?tar.xz|/cvmfs/cms\.cern\.ch/phys_generator/gridpacks/.*?tgz|/cvmfs/cms\.cern\.ch/phys_generator/gridpacks/.*?tar.gz",gridpack_cvmfs_path_tmp)
+                if not gridpack_cvmfs_path_tmp:
+                    print "* [ERROR] Gridpack should be in cvmfs in the dedicated folder location. "
+                    error += 1
+                    break
                 gridpack_cvmfs_path = gridpack_cvmfs_path_tmp[0]
                 gridpack_eos_path = gridpack_cvmfs_path.replace("/cvmfs/cms.cern.ch/phys_generator","/eos/cms/store/group/phys_generator/cvmfs")
                 print gridpack_cvmfs_path
@@ -886,7 +893,8 @@ for num in range(0,len(prepid)):
                     jhu_in = f.read()
                     jhu_in = re.sub(r'(?m)^ *#.*\n?', '',jhu_in)
                     jhu_pdf = re.findall('LHAPDF=\S+',jhu_in)
-                    jhu_pdf = jhu_pdf[0].split('=')[1].split('/')[1]
+                    if jhu_pdf:
+                        jhu_pdf = jhu_pdf[0].split('=')[1].split('/')[1]
                     print "##################################################"
                     print "* The PDF set used by JHUGEN is:"+ str(jhu_pdf)
                     print "##################################################"
