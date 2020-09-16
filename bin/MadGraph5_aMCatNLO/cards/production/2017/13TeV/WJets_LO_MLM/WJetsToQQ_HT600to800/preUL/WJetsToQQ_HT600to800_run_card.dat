@@ -19,7 +19,7 @@
 #*********************************************************************
 # Tag name for the run (one word)                                    *
 #*********************************************************************
-  VjetsHT400to600     = run_tag ! name of the run 
+  wjets     = run_tag ! name of the run 
 #*********************************************************************
 # Run to generate the grid pack                                      *
 #*********************************************************************
@@ -68,7 +68,7 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
  1        = ktscheme         ! for ickkw=1, 1 Durham kT, 2 Pythia pTE
  1        = alpsfact         ! scale factor for QCD emission vx
  F        = chcluster        ! cluster only according to channel diag
- F        = pdfwgt           ! for ickkw=1, perform pdf reweighting
+ T        = pdfwgt           ! for ickkw=1, perform pdf reweighting
  5        = asrwgtflavor     ! highest quark flavor for a_s reweight
  T        = clusinfo         ! include clustering tag in output
  3.0      = lhe_version       ! Change the way clustering information pass to shower.        
@@ -85,7 +85,7 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
 #**********************************
 # BW cutoff (M+/-bwcutoff*Gamma)
 #**********************************
-  15  = bwcutoff      ! (M+/-bwcutoff*Gamma)
+  15000  = bwcutoff      ! (M+/-bwcutoff*Gamma)
 #**********************************************************
 # Apply pt/E/eta/dr/mij cuts on decay products or not
 # (note that etmiss/ptll/ptheavy/ht/sorted cuts always apply)
@@ -111,7 +111,7 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
   0  = ptl       ! minimum pt for the charged leptons 
   0  = misset    ! minimum missing Et (sum of neutrino's momenta)
   0  = ptheavy   ! minimum pt for one heavy final state
-#  0  = ptonium   ! minimum pt for the quarkonium states
+  0  = ptonium   ! minimum pt for the quarkonium states
  -1  = ptjmax    ! maximum pt for the jets
  -1  = ptbmax    ! maximum pt for the b
  -1  = ptamax    ! maximum pt for the photons
@@ -135,7 +135,7 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
   -1  = etab    ! max rap for the b
   -1  = etaa    ! max rap for the photons 
   -1  = etal    ! max rap for the charged leptons 
-#  -1  = etaonium ! max rap for the quarkonium states
+  -1  = etaonium ! max rap for the quarkonium states
    0  = etajmin ! min rap for the jets
    0  = etabmin ! min rap for the b
    0  = etaamin ! min rap for the photons
@@ -219,8 +219,8 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
 #*********************************************************************
 # Control the Ht(k)=Sum of k leading jets                            *
 #*********************************************************************
- 800   = htjmin ! minimum jet HT=Sum(jet pt)
-  -1  = htjmax ! maximum jet HT=Sum(jet pt)
+ 600   = htjmin ! minimum jet HT=Sum(jet pt)
+ 800  = htjmax ! maximum jet HT=Sum(jet pt)
  0   = ihtmin  !inclusive Ht for all partons (including b)
  -1  = ihtmax  !inclusive Ht for all partons (including b)
  0   = ht2min ! minimum Ht for the two leading jets
@@ -235,10 +235,10 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
 # When ptgmin>0, pta and draj are not going to be used                 *
 #***********************************************************************
    0 = ptgmin ! Min photon transverse momentum
-# 0.4 = R0gamma ! Radius of isolation code
-# 1.0 = xn ! n parameter of eq.(3.4) in hep-ph/9801442
-# 1.0 = epsgamma ! epsilon_gamma parameter of eq.(3.4) in hep-ph/9801442
-# .true. = isoEM ! isolate photons from EM energy (photons and leptons)
+ 0.4 = R0gamma ! Radius of isolation code
+ 1.0 = xn ! n parameter of eq.(3.4) in hep-ph/9801442
+ 1.0 = epsgamma ! epsilon_gamma parameter of eq.(3.4) in hep-ph/9801442
+ .true. = isoEM ! isolate photons from EM energy (photons and leptons)
 #*********************************************************************
 # WBF cuts                                                           *
 #*********************************************************************

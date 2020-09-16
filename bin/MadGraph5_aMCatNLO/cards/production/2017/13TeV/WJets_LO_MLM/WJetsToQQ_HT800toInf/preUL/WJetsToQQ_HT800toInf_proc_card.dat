@@ -10,4 +10,4 @@ add process p p > w- j, w- > j j $$ t t~ h @5
 add process p p > w- j j, w- > j j $$ t t~ h @6
 add process p p > w- j j j, w- > j j $$ t t~ h @7
 
-output WJetsToQQ_HT800toInf -nojpeg
+output WJetsToQQ_HT-800toInf -nojpeg
