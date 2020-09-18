@@ -209,6 +209,9 @@ tar xvf QCDLoop-1.96.tar.gz\n \
 mv QCDLoop-1.96 QCDLoop-1.9\n \
 sed -i -e 's#/Users/ellis/QCDLoop#./QCDLoop#' ff/ffinit_mine.f\n \
 cd QCDLoop-1.9\n \
+sed -i -e 's#FFLAGS = #FFLAGS = -std=legacy #g' makefile\n \
+sed -i -e 's#FFLAGS        = #FFLAGS        = -std=legacy #g' ff/makefile\n \
+sed -i -e 's#FFLAGS  = #FFLAGS  = -std=legacy #g' ql/makefile\n \
 make\n \
 cd ..",
 
@@ -220,6 +223,9 @@ tar xvf QCDLoop-1.96.tar.gz\n \
 mv QCDLoop-1.96 QCDLoop-1.9\n \
 sed -i -e 's#/Users/ellis/QCDLoop#./QCDLoop#' ff/ffinit_mine.f\n \
 cd QCDLoop-1.9\n \
+sed -i -e 's#FFLAGS = #FFLAGS = -std=legacy #g' makefile\n \
+sed -i -e 's#FFLAGS        = #FFLAGS        = -std=legacy #g' ff/makefile\n \
+sed -i -e 's#FFLAGS  = #FFLAGS  = -std=legacy #g' ql/makefile\n \
 make\n \
 cd ..",
     }.get(process,"")
