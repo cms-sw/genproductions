@@ -1,4 +1,4 @@
-c *This file contains cuts(650~inf) on the ZpT: line413-427*
+c *This file contains cuts(0~50) on the WpT: line413-428*
 c This file contains the default cuts (as defined in the run_card.dat)
 c and can easily be extended by the user to include other.  This
 c function should return true if event passes cuts
@@ -410,20 +410,21 @@ C PUT HERE YOUR USER-DEFINED CUTS
 C***************************************************************
 C***************************************************************
 C
-      do i=nincoming+1,nexternal   ! loop over all external particles
-         if (istatus(i).eq.1    ! final state particle
-     &        .and. ( ipdg(i).eq.11 .or. ipdg(i).eq.13 .or.
-     &        ipdg(i).eq.15)) then    ! leptons
-            do j=nincoming+1,nexternal
-               if (istatus(j).eq.1 .and. ( ipdg(j).eq.-11 .or.
-     &         ipdg(j).eq.-13 .or. ipdg(j).eq.-15)) then
-                  if ( (p(1,i)+p(1,j))**2+(p(2,i)+p(2,j))**2 .le. 650d0**2) then
-                     passcuts_user=.false.
-                     return
-                  endif
-               endif
-            enddo
-         endif
+      do i=0,nexternal
+         do j=i+1,nexternal
+            if (((abs(ipdg(i)).eq.12.or.abs(ipdg(i)).eq.14.or.
+     &        abs(ipdg(i)).eq.16).and.
+     &        (ipdg(j).eq.-sign(abs(ipdg(i))-1,ipdg(i)))).or.
+     &        ((abs(ipdg(i)).eq.11.or.abs(ipdg(i)).eq.13.or.
+     &        abs(ipdg(i)).eq.15).and.
+     &        (ipdg(j).eq.-sign(abs(ipdg(i))+1,ipdg(i))))) then
+              ptw=dsqrt((p(1,i)+p(1,j))**2 + (p(2,i)+p(2,j))**2)
+              if (ptw.gt.50) then
+                passcuts_user=.false.
+                return
+              endif
+            endif
+         enddo
       enddo
 c$$$C EXAMPLE: cut on top quark pT
 c$$$C          Note that PDG specific cut are more optimised than simple user cut

@@ -1,4 +1,4 @@
-c *This file contains cuts(50~100) on the ZpT: line413-430*
+c *This file contains cuts(50~100) on the ZpT: line413-427*
 c This file contains the default cuts (as defined in the run_card.dat)
 c and can easily be extended by the user to include other.  This
 c function should return true if event passes cuts
@@ -416,14 +416,12 @@ C
      &        ipdg(i).eq.15)) then    ! leptons
             do j=nincoming+1,nexternal
                if (istatus(j).eq.1 .and. ( ipdg(j).eq.-11 .or.
-     &           ipdg(j).eq.-13 .or. ipdg(j).eq.-15)) then
-                    if ( (p(1,i)+p(1,j))**2+(p(2,i)+p(2,j))**2
-     &                  .gt.100d0**2
-     &                  .or. (p(1,i)+p(1,j))**2+(p(2,i)+p(2,j))**2
-     &                  .le.50d0**2 ) then
+     &         ipdg(j).eq.-13 .or. ipdg(j).eq.-15)) then
+                  if ( (p(1,i)+p(1,j))**2+(p(2,i)+p(2,j))**2 .gt. 100d0**2
+     &              .or. (p(1,i)+p(1,j))**2+(p(2,i)+p(2,j))**2 .le.50d0**2 ) then
                      passcuts_user=.false.
                      return
-                    endif
+                  endif
                endif
             enddo
          endif

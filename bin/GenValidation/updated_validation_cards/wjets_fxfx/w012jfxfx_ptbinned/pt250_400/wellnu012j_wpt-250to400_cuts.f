@@ -1,4 +1,4 @@
-c *This file contains cuts(250~400) on the WpT: line413-432*
+c *This file contains cuts(250~400) on the WpT: line413-428*
 c This file contains the default cuts (as defined in the run_card.dat)
 c and can easily be extended by the user to include other.  This
 c function should return true if event passes cuts
@@ -419,11 +419,7 @@ C
      &        abs(ipdg(i)).eq.15).and.
      &        (ipdg(j).eq.-sign(abs(ipdg(i))+1,ipdg(i))))) then
               ptw=dsqrt((p(1,i)+p(1,j))**2 + (p(2,i)+p(2,j))**2)
-              if (ptw.le.250) then
-                passcuts_user=.false.
-                return
-              endif
-              if (ptw.gt.400) then
+              if ((ptw .le. 250) .or. (ptw .gt. 400)) then
                 passcuts_user=.false.
                 return
               endif
