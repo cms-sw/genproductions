@@ -13,11 +13,12 @@ rm -f $$WORKDIR/$$folderName'_'$$process'.tgz'
 
 cp -p $$WORKDIR/run_pwg.py $$WORKDIR/$$folderName
 
-if [ -e $$WORKDIR/$$folderName/pwggrid-0001.dat ]; then
-  cp -p $$WORKDIR/$$folderName/pwggrid-0001.dat $$WORKDIR/$$folderName/pwggrid.dat
+if [ -e $$WORKDIR/$$folderName/pwg-0001-stat.dat ]; then
   cp -p $$WORKDIR/$$folderName/pwg-0001-stat.dat $$WORKDIR/$$folderName/pwg-stat.dat
 fi
-
+if [ -e $$WORKDIR/$$folderName/pwg-st3-0001-stat.dat ]; then
+  cp -p $$WORKDIR/$$folderName/pwg-st3-0001-stat.dat $$WORKDIR/$$folderName/pwg-stat.dat
+fi
 
 FULLGRIDRM=`ls $${WORKDIR}/$${folderName} | grep fullgrid-rm`
 FULLGRIDBTL=`ls $${WORKDIR}/$${folderName} | grep fullgrid-btl`

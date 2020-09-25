@@ -1,0 +1,32 @@
+*** a/madgraph/loop/loop_diagram_generation.py	2019-10-09 20:21:52.000000001 +0200
+--- b/madgraph/loop/loop_diagram_generation.py	2019-10-12 19:16:57.000000001 +0200
+***************
+*** 384,390 ****
+          # By default the user filter does nothing if filter is not set, 
+          # if you want to turn it on and edit it by hand, then set the 
+          # variable edit_filter_manually to True
+!         edit_filter_manually = False 
+          if not edit_filter_manually and filter in [None,'None']:
+              return
+          if isinstance(filter,str) and  filter.lower() == 'true':
+--- 384,390 ----
+          # By default the user filter does nothing if filter is not set, 
+          # if you want to turn it on and edit it by hand, then set the 
+          # variable edit_filter_manually to True
+!         edit_filter_manually = True 
+          if not edit_filter_manually and filter in [None,'None']:
+              return
+          if isinstance(filter,str) and  filter.lower() == 'true':
+***************
+*** 415,420 ****
+--- 415,424 ----
+                      raise InvalidCmd("The user-defined filter '%s' did not"%filter+
+                                   " returned the following error:\n       > %s"%str(e))
+  
++             if any([abs(pdg) not in range(1,7) for pdg in diag.get_loop_lines_pdgs()]) or \
++                  all([pdg in [21] for pdg in diag.get_pdgs_attached_to_loop(structs)]) or (25 in diag.get_pdgs_attached_to_loop(structs)):
++                 valid_diag = False
++ 
+  #            if any([abs(pdg) not in range(1,7) for pdg in diag.get_loop_lines_pdgs()]):
+  #                valid_diag = False
+  
