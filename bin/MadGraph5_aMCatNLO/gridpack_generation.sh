@@ -637,10 +637,12 @@ fi
 
 # Folder structure is different on CMSConnect
 helpers_dir=${PRODHOME%genproductions*}/genproductions/Utilities
-if [ ! -d "$helpers_dir" ]; then
+helpers_file=${helpers_dir}/gridpack_helpers.sh
+if [ ! -f "$helpers_file" ]; then
     helpers_dir=$(git rev-parse --show-toplevel)/bin/MadGraph5_aMCatNLO/Utilities
+    helpers_file=${helpers_dir}/gridpack_helpers.sh
 fi
-source ${helpers_dir}/gridpack_helpers.sh 
+source ${helpers_file}
 
 
 if [ ! -z ${CMSSW_BASE} ]; then
