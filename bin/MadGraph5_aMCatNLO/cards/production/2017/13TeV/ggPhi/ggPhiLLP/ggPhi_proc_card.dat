@@ -1,4 +1,4 @@
 import model sm-full
 import model sm__hgg_plugin-full
-generate g g > h j
+generate g g > h
 output ggPhi
