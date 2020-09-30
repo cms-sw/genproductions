@@ -1,0 +1,3 @@
+import model sm
+generate p p > z j j a , z > mu+ mu-
+output VBF_Zgamma_ZTomumu_Mjj_200 -nojpeg
