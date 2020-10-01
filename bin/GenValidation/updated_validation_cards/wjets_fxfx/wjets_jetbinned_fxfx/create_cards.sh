@@ -9,6 +9,7 @@ for((i=0;i<${#jet_array[*]};i++))
 do
 	bin_num=${jet_array[i]}
 	mkdir w${bin_num}jfxfx
+	cp ../w012jfxfx_inc/*custo* w${bin_num}jfxfx/wellnu${bin_num}j_5f_NLO_FXFX_customizecards.dat 
 	cp ../w012jfxfx_inc/*proc* w${bin_num}jfxfx/wellnu${bin_num}j_5f_NLO_FXFX_proc_card.dat
 	sed -i "16s/wellnu012j_5f_NLO_FXFX/wellnu${bin_num}j_5f_NLO_FXFX/g" w${bin_num}jfxfx/*proc_card.dat
 	cp ../w012jfxfx_inc/*run* w${bin_num}jfxfx/wellnu${bin_num}j_5f_NLO_FXFX_run_card.dat

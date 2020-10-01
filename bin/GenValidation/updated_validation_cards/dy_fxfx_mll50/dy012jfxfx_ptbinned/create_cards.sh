@@ -12,6 +12,7 @@ do
 	bin_high=${Pt_array[i+1]}
 	if [[ "$bin_low" -eq "${Pt_array[5]}" ]];then
      		mkdir pt${bin_low}_inf
+		cp ../dy012jfxfx_inc/*custom* pt${bin_low}_inf/DYJetsToLL_012j_Zpt-${bin_low}Toinf_5f_NLO_FXFX_customizecards.dat
 		cp ../dy012jfxfx_inc/*proc* pt${bin_low}_inf/DYJetsToLL_012j_Zpt-${bin_low}Toinf_5f_NLO_FXFX_proc_card.dat
 		sed -i "9s/dyellell012j_5f_NLO_FXFX/DYJetsToLL_012j_Zpt-${bin_low}Toinf_5f_NLO_FXFX/g" pt${bin_low}_inf/*proc_card.dat
 		cp ../dy012jfxfx_inc/*run* pt${bin_low}_inf/DYJetsToLL_012j_Zpt-${bin_low}Toinf_5f_NLO_FXFX_run_card.dat
@@ -21,6 +22,7 @@ do
 		sed -i "420s/gt/le/g" pt${bin_low}_inf/*cuts.f
 	else
 		mkdir pt${bin_low}_${bin_high}
+		cp ../dy012jfxfx_inc/*custom* pt${bin_low}_${bin_high}/DYJetsToLL_012j_Zpt-${bin_low}To${bin_high}_5f_NLO_FXFX_customizecards.dat
 		cp ../dy012jfxfx_inc/*proc* pt${bin_low}_${bin_high}/DYJetsToLL_012j_Zpt-${bin_low}To${bin_high}_5f_NLO_FXFX_proc_card.dat
 		sed -i "9s/dyellell012j_5f_NLO_FXFX/DYJetsToLL_012j_Zpt-${bin_low}To${bin_high}_5f_NLO_FXFX/g" pt${bin_low}_${bin_high}/*proc_card.dat
 		cp ../dy012jfxfx_inc/*run* pt${bin_low}_${bin_high}/DYJetsToLL_012j_Zpt-${bin_low}To${bin_high}_5f_NLO_FXFX_run_card.dat

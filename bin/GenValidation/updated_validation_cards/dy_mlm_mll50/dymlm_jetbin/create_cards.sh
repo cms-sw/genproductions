@@ -9,6 +9,7 @@ for((i=0;i<${#jet_array[*]};i++))
 do
 	bin_num=${jet_array[i]}
 	mkdir dy${bin_num}jmlm
+	cp ../dy01234mlm_inc/*custo* dy${bin_num}jmlm/dyellell${bin_num}j_5f_LO_MLM_customizecards.dat
 	cp ../dy01234mlm_inc/*proc* dy${bin_num}jmlm/dyellell${bin_num}j_5f_LO_MLM_proc_card.dat
 	sed -i "11s/dyellell01234j_5f_LO_MLM/dyellell${bin_num}j_5f_LO_MLM/g" dy${bin_num}jmlm/*proc_card.dat
 	cp ../dy01234mlm_inc/*run* dy${bin_num}jmlm/dyellell${bin_num}j_5f_LO_MLM_run_card.dat
