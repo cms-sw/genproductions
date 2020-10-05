@@ -128,3 +128,46 @@ prepare_reweight () {
     done
     cd ..      
 }
+
+# Extract decay width in reweighting
+extract_width () {
+
+    isnlo=$1
+    wd=$2
+    cdir=$3
+    name=$4
+        
+    hasauto=$(grep "auto" ${cdir}/${name}_reweight_card.dat | egrep -v "#")
+    
+    if [[ ${hasauto} != "" ]]; then
+      echo "extract computed widths and rewrite reweight card"
+
+      if [ "$isnlo" -gt "0" ]; then
+        cp ${wd}/processtmp/Events/pilotrun/events.lhe.gz temp.lhe.gz
+        gzip -d temp.lhe.gz
+        ./MG5_aMC_v2_6_5/Template/LO/bin/internal/extract_banner-pl temp.lhe banner.txt
+      else
+        cp ${wd}/process/madevent/Events/pilotrun/unweighted_events.lhe.gz temp.lhe.gz
+        gzip -d temp.lhe.gz
+        ./madevent/bin/internal/extract_banner-pl temp.lhe banner.txt
+      fi
+        IFSd=$IFS; IFS=$'\n'
+        pd=($(grep "rwgt_" banner.txt | grep "decay" | sed "s%.*decay %%g" | sed "s% # orig.*%%g"))
+        IFS=$IFSd
+        rm banner.txt temp.lhe
+        c=0
+        rm -rf ${cdir}/${name}_reweight_card_temp.dat
+        while IFS= read -r line; do
+          linem=${line}
+          hasauto=$(echo ${line} | grep "auto" | egrep -v "#")
+          if [[ ${hasauto} != "" ]]; then
+            t=(${pd[${c}]})
+            linem=$(echo $linem | sed "s%auto%${t[1]}%g")
+            c=$[$c+1]
+          fi
+          echo "$linem" >> ${cdir}/${name}_reweight_card_temp.dat
+        done < ${cdir}/${name}_reweight_card.dat
+        cp ${cdir}/${name}_reweight_card_temp.dat ${wd}/process/reweight_card.dat
+        mv ${cdir}/${name}_reweight_card_temp.dat ${wd}/process/madevent/Cards/reweight_card.dat
+    fi  
+}
