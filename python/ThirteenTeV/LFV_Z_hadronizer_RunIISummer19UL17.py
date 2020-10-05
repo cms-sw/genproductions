@@ -1,13 +1,5 @@
 import FWCore.ParameterSet.Config as cms
-
-externalLHEProducer = cms.EDProducer("ExternalLHEProducer",
-    args = cms.vstring('../Zjets_ll_LFV_tarball.tar.xz'),
-    nEvents = cms.untracked.uint32(5000),
-    numberOfParameters = cms.uint32(1),
-    outputFile = cms.string('cmsgrid_final.lhe'),
-    scriptName = cms.FileInPath('GeneratorInterface/LHEInterface/data/run_generic_tarball_cvmfs.sh')
-)
-
+ 
 #Link to datacards:
 #https://github.com/cms-sw/genproductions/tree/master/bin/MadGraph5_aMCatNLO/cards/production/2017/13TeV/DYJets_HT_LO_MLM_pdfwgt_F/DYJets_HT_mll50/DYJets_HT-incl
 
