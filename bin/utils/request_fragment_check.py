@@ -8,7 +8,7 @@ import fnmatch
 #import json
 from datetime import datetime
 ###########Needed to check for ultra-legacy sample consistency check############################################
-os.system('cern-get-sso-cookie -u https://cms-pdmv.cern.ch/mcm/ -o cookiefile.txt --krb --reprocess')
+os.system('env -i KRB5CCNAME="$KRB5CCNAME" cern-get-sso-cookie -u https://cms-pdmv.cern.ch/mcm/ -o cookiefile.txt --krb --reprocess')
 ################################################################################################################
 sys.path.append('/afs/cern.ch/cms/PPD/PdmV/tools/McM/')
 from rest import McM
@@ -500,9 +500,9 @@ for num in range(0,len(prepid)):
                             pi_prime = rr['prepid']
                             cmssw_prime = rr['cmssw_release']
             if "NULL" in pi_prime:
-	       print "* [ERROR] No corresponing UL17 request to compare to for consistency."
-               print "*         Please first create the corresponding UL17 requests."
-	       error = error + 1
+                print "* [ERROR] No corresponing UL17 request to compare to for consistency."
+                print "*         Please first create the corresponding UL17 requests."
+                error = error + 1
 	    else:
                print"This is an UL16 or UL18 request so GEN settings will be compared to the corresponding UL17 request: "+pi_prime
                os.popen('wget -q '+mcm_link+'public/restapi/requests/get_fragment/'+pi_prime+' -O '+pi_prime).read()
