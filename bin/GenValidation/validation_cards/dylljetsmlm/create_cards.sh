@@ -4,7 +4,7 @@ SETUP=()
 JETBIN=() ; MLLBIN=() ; HTBIN=()
 
 for iJETBIN in 0 1 2 3 4 01234 ; do 
-    for iMLLBIN in 0-50 50-INF ; do 
+    for iMLLBIN in 1-10 10-50 50-INF ; do 
         for iHTBIN in 0-INF 0-40 40-70 70-100 100-200 200-400 400-600 600-800 800-1200 1200-2500 2500-INF ; do 
         JETBIN+=( ${iJETBIN} )
         MLLBIN+=( ${iMLLBIN} )
