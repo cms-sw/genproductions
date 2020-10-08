@@ -482,7 +482,8 @@ for num in range(0,len(prepid)):
         data_f2 = re.sub(r'(?m)^ *#.*\n?', '',data_f1)
         # Ultra-legacy sample settings' compatibility
         pi_prime = "NULL"
-        if "Summer19UL16" in pi or "Summer19UL18" in pi:
+        prime_tmp = []
+        if "Summer19UL16" in pi or "Summer19UL18" in pi or "Summer20UL16" in pi or "Summer20UL18":
             prime = get_requests_from_datasetname(dn)
             if len(prime) == 0:
                 print "* [ERROR] No corresponing UL17 request to compare to for consistency."
@@ -492,8 +493,12 @@ for num in range(0,len(prepid)):
                 for rr in prime:
                     print(rr['prepid'],rr['extension'],ext)
                     if "UL17" in rr['prepid'] and "GEN" in rr['prepid'] and ext == rr['extension']:
-                        pi_prime = rr['prepid']
-                        cmssw_prime = rr['cmssw_release']
+                        if "Summer19" in pi and "Summer19" in rr['prepid']:
+                            pi_prime = rr['prepid']
+                            cmssw_prime = rr['cmssw_release']
+                        if "Summer20" in pi and "Summer20" in rr['prepid']:
+                            pi_prime = rr['prepid']
+                            cmssw_prime = rr['cmssw_release']
             if "NULL" in pi_prime:
 	       print "* [ERROR] No corresponing UL17 request to compare to for consistency."
                print "*         Please first create the corresponding UL17 requests."
@@ -1408,7 +1413,7 @@ for num in range(0,len(prepid)):
         elif 3 in tunecheck:
             print "* [OK] Tune configuration probably OK in the fragment"
             if tunecheck[0] > 2 :
-                if 'Summer19UL' not in pi and 'Fall18' not in pi and 'Fall17' not in pi and 'Run3' not in pi:
+                if 'Summer20UL' not in pi and 'Summer19UL' not in pi and 'Fall18' not in pi and 'Fall17' not in pi and 'Run3' not in pi:
                     print "* [WARNING] Do you really want to have tune "+tune[0] +" in this campaign?"
                     warning += 1
         if 'Fall18' in pi and 'UL' in pi and fsize != 0 and herwig_flag == 0:
