@@ -483,7 +483,7 @@ for num in range(0,len(prepid)):
         # Ultra-legacy sample settings' compatibility
         pi_prime = "NULL"
         prime_tmp = []
-        if "Summer19UL16" in pi or "Summer19UL18" in pi or "Summer20UL16" in pi or "Summer20UL18":
+        if "Summer19UL16" in pi or "Summer19UL18" in pi or "Summer20UL16" in pi or "Summer20UL18" in pi:
             prime = get_requests_from_datasetname(dn)
             if len(prime) == 0:
                 print "* [ERROR] No corresponing UL17 request to compare to for consistency."
