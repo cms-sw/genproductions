@@ -29,15 +29,15 @@ for((iSETUP=0;iSETUP<${#SETUP[*]};iSETUP++)) ; do
     done
     # complete process card according to jet multiplicity 
 	if [[ "${JETBIN[${iSETUP}]}" == "0" ]] ; then
-        echo "generate process p p > ell+ ell- @0" >> ${SETUP[${iSETUP}]}_proc_card.dat  
+        echo "generate process p p > ell+ ell- " >> ${SETUP[${iSETUP}]}_proc_card.dat  
 	elif [[ "${JETBIN[${iSETUP}]}" == "1" ]] ; then
-        echo "generate process p p > ell+ ell- j @1" >> ${SETUP[${iSETUP}]}_proc_card.dat  
+        echo "generate process p p > ell+ ell- j " >> ${SETUP[${iSETUP}]}_proc_card.dat  
 	elif [[ "${JETBIN[${iSETUP}]}" == "2" ]] ; then
-        echo "generate process p p > ell+ ell- j j @2" >> ${SETUP[${iSETUP}]}_proc_card.dat  
+        echo "generate process p p > ell+ ell- j j " >> ${SETUP[${iSETUP}]}_proc_card.dat  
 	elif [[ "${JETBIN[${iSETUP}]}" == "3" ]] ; then
-        echo "generate process p p > ell+ ell- j j j @3" >> ${SETUP[${iSETUP}]}_proc_card.dat  
+        echo "generate process p p > ell+ ell- j j j " >> ${SETUP[${iSETUP}]}_proc_card.dat  
 	elif [[ "${JETBIN[${iSETUP}]}" == "4" ]] ; then
-        echo "generate process p p > ell+ ell- j j j j @4" >> ${SETUP[${iSETUP}]}_proc_card.dat  
+        echo "generate process p p > ell+ ell- j j j j " >> ${SETUP[${iSETUP}]}_proc_card.dat  
 	elif [[ "${JETBIN[${iSETUP}]}" == "01234" ]] ; then
         echo "generate process p p > ell+ ell- @0" >> ${SETUP[${iSETUP}]}_proc_card.dat  
 	    echo "add process p p > ell+ ell- j @1" >> ${SETUP[${iSETUP}]}_proc_card.dat  
