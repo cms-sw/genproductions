@@ -633,10 +633,18 @@ for num in range(0,len(prepid)):
             print "*           is this the hadronizer you intended to use?: "+gettest
             warning += 1
         ttxt = os.popen('grep nThreads '+pi+'_get_test').read()
-        if int(os.popen('grep -c nThreads '+pi+'_get_test').read()) == 0 :
-            nthreads = 1
-        else :
-            nthreads = int(re.search('nThreads(.*?) --',ttxt).group(1))
+	ntread_new = 1
+	if not ttxt:
+	    ttxt = os.popen('grep "Threads for each sequence" '+pi+'_get_test').read()	
+	    print(ttxt)	
+	    nthreads = int(re.search(r'\d+',ttxt).group())	
+	    if not nthreads:
+		ntread_new = 0	
+        if ntread_new == 0:
+	    if int(os.popen('grep -c nThreads '+pi+'_get_test').read()) == 0 :
+                nthreads = 1
+            else :
+                nthreads = int(re.search('nThreads(.*?) --',ttxt).group(1))
         if  (8*3600/timeperevent)*filter_eff < 50 and timeperevent > 0 and int(test_cs_version[1]) > 9 and ppd == 0:
             print ("* [ERROR] please try to increase the filter efficiency")
             error += 1
