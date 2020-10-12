@@ -635,7 +635,7 @@ for num in range(0,len(prepid)):
         ttxt = os.popen('grep nThreads '+pi+'_get_test').read()
         ntread_new = 1
         if not ttxt:
-            ttxt = os.popen('grep "Threads for each sequence" '+pi+'_get_test').read()	
+            ttxt = os.popen('grep "# Threads for each sequence" '+pi+'_get_test').read()	
             print(ttxt)
             nthreads = int(re.search(r'\d+',ttxt).group())
             if not nthreads:
@@ -645,6 +645,7 @@ for num in range(0,len(prepid)):
                 nthreads = 1
             else :
                 nthreads = int(re.search('nThreads(.*?) --',ttxt).group(1))
+
         if  (8*3600/timeperevent)*filter_eff < 50 and timeperevent > 0 and int(test_cs_version[1]) > 9 and ppd == 0:
             print ("* [ERROR] please try to increase the filter efficiency")
             error += 1
