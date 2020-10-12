@@ -633,15 +633,15 @@ for num in range(0,len(prepid)):
             print "*           is this the hadronizer you intended to use?: "+gettest
             warning += 1
         ttxt = os.popen('grep nThreads '+pi+'_get_test').read()
-	ntread_new = 1
-	if not ttxt:
-	    ttxt = os.popen('grep "Threads for each sequence" '+pi+'_get_test').read()	
-	    print(ttxt)	
-	    nthreads = int(re.search(r'\d+',ttxt).group())	
-	    if not nthreads:
-		ntread_new = 0	
+        ntread_new = 1
+        if not ttxt:
+            ttxt = os.popen('grep "Threads for each sequence" '+pi+'_get_test').read()	
+            print(ttxt)
+            nthreads = int(re.search(r'\d+',ttxt).group())
+            if not nthreads:
+                ntread_new = 0
         if ntread_new == 0:
-	    if int(os.popen('grep -c nThreads '+pi+'_get_test').read()) == 0 :
+            if int(os.popen('grep -c nThreads '+pi+'_get_test').read()) == 0 :
                 nthreads = 1
             else :
                 nthreads = int(re.search('nThreads(.*?) --',ttxt).group(1))
