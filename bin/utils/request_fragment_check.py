@@ -483,28 +483,30 @@ for num in range(0,len(prepid)):
         # Ultra-legacy sample settings' compatibility
         pi_prime = "NULL"
         prime_tmp = []
-        if "Summer19UL16" in pi or "Summer19UL18" in pi or "Summer20UL16" in pi or "Summer20UL18" in pi:
+        if "Summer20UL18" in pi or "Summer20UL17" in pi or "Summer20UL16wmLHEGENAPV" in pi or "Summer20UL16GENAPV" in pi or "Summer20UL16" in pi and "GEN" in pi:
             prime = get_requests_from_datasetname(dn)
             if len(prime) == 0:
-                print "* [ERROR] No corresponing UL17 request to compare to for consistency."
-                print "*         Please first create the corresponding UL17 requests."
+                print "* [ERROR] No corresponing Summer20UL16 request to compare to for consistency."
+                print "*         Please first create the corresponding Summer20UL16 requests."
                 error = error + 1
             if len(prime) != 0:
                 for rr in prime:
                     print(rr['prepid'],rr['extension'],ext)
-                    if ("UL17" in rr['prepid'] or "20UL16wmLHEGENAPV" in rr['prepid'] or "20UL16GENAPV") and "GEN" in rr['prepid'] and ext == rr['extension']:
-                        if "Summer19" in pi and "Summer19" in rr['prepid']:
-                            pi_prime = rr['prepid']
-                            cmssw_prime = rr['cmssw_release']
-                        if "Summer20" in pi and "Summer20" in rr['prepid']:
-                            pi_prime = rr['prepid']
-                            cmssw_prime = rr['cmssw_release']
+                    if "Summer20UL16" in rr['prepid'] and "GEN" in rr['prepid'] and ext == rr['extension'] and "APV" not in rr['prepid'] and ("Summer20UL18" in pi or "Summer20UL17" in pi or "Summer20UL16wmLHEGENAPV" in pi or "Summer20UL16GENAPV" in pi):
+                        pi_prime = rr['prepid']
+                        cmssw_prime = rr['cmssw_release']
+                    if "Summer20UL16" in pi and "APV" not in pi and "GEN" in rr['prepid'] and ext == rr['extension'] and "Summer19UL17" in rr['prepid']:
+                        pi_prime = rr['prepid']
+                        cmssw_prime = rr['cmssw_release']
             if "NULL" in pi_prime:
-                print "* [ERROR] No corresponing UL17 request to compare to for consistency."
-                print "*         Please first create the corresponding UL17 requests."
+                print "* [ERROR] No corresponing Summer20UL16 request to compare to for consistency."
+                print "*         Please first create the corresponding Summer20UL16 requests."
                 error = error + 1
 	    else:
-               print"This is an UL16 or UL18 request so GEN settings will be compared to the corresponding UL17 request: "+pi_prime
+               if "APV" in pi or "Summer20UL18" in pi or "Summer20UL17" in pi:
+                  print"This is a Summer20UL16APV, UL17 or UL18 request so GEN settings will be compared to the corresponding Summer20UL16 request: "+pi_prime
+               if "APV" not in pi:
+                  print"This is a Summer20UL16 requests so GEN setting will be compared to the corresponding Summer19UL17 request: "+pi_prime
                os.popen('wget -q '+mcm_link+'public/restapi/requests/get_fragment/'+pi_prime+' -O '+pi_prime).read()
                f1_prime = open(pi_prime,"r")
                f2_prime = open(pi_prime+"_tmp","w")
@@ -518,14 +520,13 @@ for num in range(0,len(prepid)):
                   error += 1
                if (cmssw == cmssw_prime) == True:
                   print"[OK] Two requests have the same CMSSW version."
-               else:
+               elif "Summer20UL16wmLHEGENAPV" in pi or "Summer20UL16GENAPV" in pi or "Summer20UL18" in pi or "Summer20UL17" in pi:
                   print"[WARNING] CMSSW version of "+pi+" is different than its base UL17 request: "+pi_prime
                   print"        Please make sure that "+pi+" has _exactly_ the same settings as "+pi_prime
                   warning += 1
-                  f1_prime.close()
-                  f2_prime.write(data_f2_prime)
-                  f2_prime.close()
-		  sys.exit()
+               f1_prime.close()
+               f2_prime.write(data_f2_prime)
+               f2_prime.close()
         f1.close()
         f2.write(data_f2)
         f2.close()
