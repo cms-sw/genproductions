@@ -492,7 +492,7 @@ for num in range(0,len(prepid)):
             if len(prime) != 0:
                 for rr in prime:
                     print(rr['prepid'],rr['extension'],ext)
-                    if "UL17" in rr['prepid'] and "GEN" in rr['prepid'] and ext == rr['extension']:
+                    if ("UL17" in rr['prepid'] or "20UL16wmLHEGENAPV" in rr['prepid'] or "20UL16GENAPV") and "GEN" in rr['prepid'] and ext == rr['extension']:
                         if "Summer19" in pi and "Summer19" in rr['prepid']:
                             pi_prime = rr['prepid']
                             cmssw_prime = rr['cmssw_release']
