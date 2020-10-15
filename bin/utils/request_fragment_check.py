@@ -498,11 +498,15 @@ for num in range(0,len(prepid)):
                     if "Summer20UL16" in pi and "APV" not in pi and "GEN" in rr['prepid'] and ext == rr['extension'] and "Summer19UL17" in rr['prepid']:
                         pi_prime = rr['prepid']
                         cmssw_prime = rr['cmssw_release']
-            if "NULL" in pi_prime:
+            if "NULL" in pi_prime and "APV" in pi or "Summer20UL18" in pi or "Summer20UL17" in pi:
                 print "* [ERROR] No corresponing Summer20UL16 request to compare to for consistency."
                 print "*         Please first create the corresponding Summer20UL16 requests."
                 error = error + 1
-	    else:
+            if "NULL" in pi_prime and "APV" not in pi:
+		print "* [WARNING] No corresponing Summer19UL17 request to compare to for consistency."
+		print "  LEVEL2 Conevers - please chech the request VERY CAREFULLY!"
+		warning = warning + 1
+	    if "NULL" not in pi_prime: #
                if "APV" in pi or "Summer20UL18" in pi or "Summer20UL17" in pi:
                   print"This is a Summer20UL16APV, UL17 or UL18 request so GEN settings will be compared to the corresponding Summer20UL16 request: "+pi_prime
                if "APV" not in pi:
