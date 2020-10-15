@@ -506,7 +506,7 @@ for num in range(0,len(prepid)):
 		print "* [WARNING] No corresponing Summer19UL17 request to compare to for consistency."
 		print "  LEVEL2 Conevers - please chech the request VERY CAREFULLY!"
 		warning = warning + 1
-	    if "NULL" not in pi_prime:
+	    if "NULL" not in pi_prime: #
                if "APV" in pi or "Summer20UL18" in pi or "Summer20UL17" in pi:
                   print"This is a Summer20UL16APV, UL17 or UL18 request so GEN settings will be compared to the corresponding Summer20UL16 request: "+pi_prime
                if "APV" not in pi:
