@@ -1,0 +1,10 @@
+import model_v4 2HDMC
+define hc = h- h+
+define w = w+ w-
+define l = l+ l-
+define v = vl vl~
+generate p p > hc h1, h1 > b b~, (hc > h1 w, h1 > b b~, w > l v)
+add process p p > hc h1 j, h1 > b b~, (hc > h1 w, h1 > b b~, w > l v)
+add process p p > hc h1 j j, h1 > b b~, (hc > h1 w, h1 > b b~, w > l v)
+set automatic_html_opening False
+output HPlusAndH_ToWHH_ToL4B
