@@ -490,8 +490,8 @@ for num in range(0,len(prepid)):
                 print "*         Please first create the corresponding Summer20UL16 requests."
                 error = error + 1
             if len(prime) != 0:
+		print "Related requests:"
                 for rr in prime:
-		    print "Related requests"	
                     print(rr['prepid'],rr['extension'],ext)
                     if "Summer20UL16" in rr['prepid'] and "GEN" in rr['prepid'] and ext == rr['extension'] and "APV" not in rr['prepid'] and ("Summer20UL18" in pi or "Summer20UL17" in pi or "Summer20UL16wmLHEGENAPV" in pi or "Summer20UL16GENAPV" in pi):
                         pi_prime = rr['prepid']
