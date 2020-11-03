@@ -87,7 +87,7 @@ def prepareCondorScript( tag, i, folderName, queue, SCALE = '0', njobs = 0, runI
        ff.write('cat ' + filenamenew + ' additional.condorConf > ' + filename + '\n')
        ff.write('rm -f ' + filenamenew + '\n') 
        ff.close()
-       runCommand('source mergeCondorConf.sh')
+       runCommand('sh mergeCondorConf.sh')
 
    return filename
 
@@ -408,7 +408,7 @@ fi
 #tar zxf ${POWHEGSRC}
 
 ### retrieve powheg source from svn
-svn checkout --revision 3741 --username anonymous --password anonymous svn://powhegbox.mib.infn.it/trunk/POWHEG-BOX-V2 POWHEG-BOX
+svn checkout --revision 3756 --username anonymous --password anonymous svn://powhegbox.mib.infn.it/trunk/POWHEG-BOX-V2 POWHEG-BOX
 
 # increase maxseeds to 10000
 sed -i -e "s#par_maxseeds=200,#par_maxseeds=10000,#g" POWHEG-BOX/include/pwhg_par.h
@@ -419,7 +419,7 @@ if [ -e POWHEG-BOX/${process}.tgz ]; then
   cd -
 else
   cd POWHEG-BOX/
-  svn co --revision 3741 --username anonymous --password anonymous svn://powhegbox.mib.infn.it/trunk/User-Processes-V2/${process}
+  svn co --revision 3756 --username anonymous --password anonymous svn://powhegbox.mib.infn.it/trunk/User-Processes-V2/${process}
   cd -
 fi
 
@@ -446,6 +446,13 @@ if [ "$process" = "WWJ" ]; then
     cp ${WORKDIR}/patches/rwl_write_weights2_extra.f POWHEG-BOX/$process/
 fi
 
+if [ $forMiNNLO -eq 1 ]; then
+    cd POWHEG-BOX
+    patch -l -p0 -i ${WORKDIR}/patches/pwhg_rm_bad_st1.patch
+    patch -l -p2 -i ${WORKDIR}/patches/minnlo_pdf_weights.patch
+    patch -l -p2 -i ${WORKDIR}/patches/minnlo_pdf_ymax.patch
+    cd ..
+fi
 
 sed -i -e "s#500#1200#g"  POWHEG-BOX/include/pwhg_rwl.h
 
@@ -460,6 +467,7 @@ if [ $forMiNNLO -eq 1 ]; then
         patch -l -p0 -i ${WORKDIR}/patches/zj_minnlo_scheme_weights.patch
     fi
     cd ${process}MiNNLO
+    patch -l -p0 -i ${WORKDIR}/patches/vj_minnlo_rwl_pdf_optimization.patch
 fi
 
 # This is just to please gcc 4.8.1
@@ -538,12 +546,12 @@ fi
 if [ `grep particle_identif pwhg_analysis-dummy.f` = ""]; then
    cp ../pwhg_analysis-dummy.f .
 fi
-sed -i -e "s#PWHGANAL[ \t]*=[ \t]*#\#PWHGANAL=#g" Makefile
-sed -i -e "s#ANALYSIS[ \t]*=[ \t]*#\#ANALYSIS=#g" Makefile
+# sed -i -e "s#PWHGANAL[ \t]*=[ \t]*#\#PWHGANAL=#g" Makefile
+# sed -i -e "s#ANALYSIS[ \t]*=[ \t]*#\#ANALYSIS=#g" Makefile
 sed -i -e "s#LHAPDF_CONFIG[ \t]*=[ \t]*#\#LHAPDF_CONFIG=#g" Makefile
-sed -i -e "s#pwhg_bookhist.o# #g" Makefile
-sed -i -e "s#pwhg_bookhist-new.o# #g" Makefile
-sed -i -e "s#pwhg_bookhist-multi.o# #g" Makefile
+# sed -i -e "s#pwhg_bookhist.o# #g" Makefile
+# sed -i -e "s#pwhg_bookhist-new.o# #g" Makefile
+# sed -i -e "s#pwhg_bookhist-multi.o# #g" Makefile
 
 # Use option O0 for bbH (O2 too long)
 if [ "$process" = "bbH" ]; then
@@ -1004,6 +1012,7 @@ grep -q "withnegweights" powheg.input; test $? -eq 0 || printf "\\nwithnegweight
 sed -i "s/^pdfreweight.*/#pdfreweight 0/g" powheg.input
 sed -i "s/^storeinfo_rwgt.*/#storeinfo_rwgt 0/g" powheg.input
 sed -i "s/^withnegweights/#withnegweights 1/g" powheg.input
+sed -i "s/^testplots/#testplots/g" powheg.input
 
 # parallel re-weighting calculation
 if [ "$process" = "HW_ew" ] || [ "$process" = "HZ_ew" ] || [ "$process" = "HZJ_ew" ] || [ "$process" = "HWJ_ew" ] ; then
