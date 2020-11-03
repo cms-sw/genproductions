@@ -483,7 +483,7 @@ for num in range(0,len(prepid)):
         # Ultra-legacy sample settings' compatibility
         pi_prime = "NULL"
         prime_tmp = []
-        if "Summer20UL18" in pi or "Summer20UL17" in pi or "Summer20UL16wmLHEGENAPV" in pi or "Summer20UL16GENAPV" in pi or "Summer20UL16" in pi and "GEN" in pi:
+        if "Summer20UL18" in pi or "Summer20UL17" in pi or "Summer20UL16wmLHEGENAPV" in pi or "Summer20UL16GENAPV" in pi or "Summer20UL16" in pi and "GEN" in pi and "pLHE" not in pi:
             prime = get_requests_from_datasetname(dn)
             if len(prime) == 0:
                 print "* [ERROR] No corresponing Summer20UL16 request to compare to for consistency."
@@ -505,7 +505,7 @@ for num in range(0,len(prepid)):
                 error = error + 1
             if "NULL" in pi_prime and "APV" not in pi:
 		print "* [WARNING] No corresponing Summer19UL17 request to compare to for consistency."
-		print "  LEVEL2 Conevers - please chech the request VERY CAREFULLY!"
+		print "  LEVEL2 Conveners - please chech the request VERY CAREFULLY!"
 		warning = warning + 1
 	    if "NULL" not in pi_prime: #
                if "APV" in pi or "Summer20UL18" in pi or "Summer20UL17" in pi:
@@ -840,7 +840,10 @@ for num in range(0,len(prepid)):
                         if matching_c == 3:
                             dn = dn + "-amcatnloFXFX"
                 gp_log_loc = my_path+'/'+pi+'/gridpack_generation.log'
-                if mg_gp is True or amcnlo_gp is True and os.path.isfile(gp_log_loc) is True:
+		if os.path.isfile(gp_log_loc) is False:
+		    print "* [WARNING] No gridpack generation.log"
+		    warning += 1			 
+                if (mg_gp is True or amcnlo_gp is True) and os.path.isfile(gp_log_loc) is True:
                     pf.append(os.popen('grep \"saving rejects to\" '+gp_log_loc).read())
                     pf.append(os.popen('grep \"INFO: fail to reach target\" '+gp_log_loc).read())
                     pf.append(os.popen('grep \"INFO: Not enough events for at least one production mode\" '+gp_log_loc).read())
@@ -861,6 +864,7 @@ for num in range(0,len(prepid)):
                     ickkw_c = os.popen('more '+filename_rc+' | tr -s \' \' | grep "= ickkw"').read()
                     matching_c = int(re.search(r'\d+',ickkw_c).group())
                     maxjetflavor = os.popen('more '+filename_rc+' | tr -s \' \' | grep "= maxjetflavor"').read()
+                    print(ickkw_c, matching_c, maxjetflavor)
                     maxjetflavor = int(re.search(r'\d+',maxjetflavor).group())
                     print "maxjetflavor = "+str(maxjetflavor)
                     if matching_c == 3 and pythia8_flag != 0:
