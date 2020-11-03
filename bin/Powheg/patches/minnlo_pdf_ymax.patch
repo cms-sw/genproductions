@@ -1,0 +1,12 @@
+diff --git a/POWHEG-BOX-V2/MiNNLOStuff/pdfs_tools.f90 b/POWHEG-BOX-V2/MiNNLOStuff/pdfs_tools.f90
+index 26c8571..6a59b99 100644
+--- a/POWHEG-BOX-V2/MiNNLOStuff/pdfs_tools.f90
++++ b/POWHEG-BOX-V2/MiNNLOStuff/pdfs_tools.f90
+@@ -45,7 +45,7 @@ module pdfs_tools
+   !----------------------------------------------------------------
+   real(dp) :: PDF_cutoff
+   integer, parameter  :: pdf_fit_order = -5
+-  real(dp), parameter :: dy = 0.10_dp, ymax = 15.0_dp, dlnlnQ = dy/4.0_dp
++  real(dp), parameter :: dy = 0.10_dp, ymax = 20.0_dp, dlnlnQ = dy/4.0_dp
+   
+ contains
