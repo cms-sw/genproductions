@@ -192,6 +192,7 @@ parser.add_argument('--bypass_validation', help="proceed to next prepid even if 
 parser.add_argument('--apply_many_threads_patch', help="apply the many threads MG5_aMC@NLO LO patch if necessary", action='store_true')
 parser.add_argument('--dev', help="Run on DEV instance of McM", action='store_true')
 parser.add_argument('--debug', help="Print debugging information", action='store_true')
+parser.add_argument('--develop', help="Option to make modifications of the script", action='store_true')
 args = parser.parse_args()
 
 if args.prepid is not None:
@@ -202,7 +203,19 @@ if args.prepid is not None:
     prepid = args.prepid
 print " "
 
-
+if args.develop is False:
+   os.popen('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/request_fragment_check.py -O req_script_master.py').read()
+   scr_master_check = []
+   scr_file1 = open('req_script_master.py',"r")
+   scr_file2 = open('request_fragment_check.py',"r")
+   for line in scr_file1:
+       if line not in scr_file2:
+           scr_master_check.append(line)
+   os.popen('rm req_script_master.py').read()
+   if len(scr_master_check)!= 0:
+       print "* Please use the github master version of the script. Exiting"
+       sys.exit()
+	
 # Use no-id as identification mode in order not to use a SSO cookie
 mcm = McM(id='no-id', dev=args.dev, debug=args.debug)
 mcm2 = McM(cookie='cookiefile.txt', dev=args.dev, debug=args.debug)
