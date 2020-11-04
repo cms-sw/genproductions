@@ -211,6 +211,7 @@ if args.develop is False:
    for line in scr_file1:
        if line not in scr_file2:
            scr_master_check.append(line)
+   os.popen('rm req_script_master.py').read()
    if len(scr_master_check)!= 0:
        print "* Please use the github master version of the script. Exiting"
        sys.exit()
