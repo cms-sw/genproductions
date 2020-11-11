@@ -29,8 +29,8 @@
 # Warning: Do not generate more than 1M events in a single run       *
 # If you want to run Pythia, avoid more than 50k events in a run.    *
 #*********************************************************************
- 1 = nevents ! Number of unweighted events requested 
-      0       = iseed   ! rnd seed (0=assigned automatically=default))
+  1= nevents ! Number of unweighted events requested 
+  0       = iseed   ! rnd seed (0=assigned automatically=default))
 #*********************************************************************
 # Collider type and energy                                           *
 # lpp: 0=No PDF, 1=proton, -1=antiproton, 2=photon from proton,      *
@@ -41,37 +41,29 @@
      6500     = ebeam1  ! beam 1 total energy in GeV
      6500     = ebeam2  ! beam 2 total energy in GeV
 #*********************************************************************
-# Beam polarization from -100 (left-handed) to 100 (right-handed)    *
-#*********************************************************************
-        0     = polbeam1 ! beam polarization for beam 1
-        0     = polbeam2 ! beam polarization for beam 2
-#*********************************************************************
 # PDF CHOICE: this automatically fixes also alpha_s and its evol.    *
 #*********************************************************************
- nn23lo1    = pdlabel     ! PDF set                                     
- 230000     = lhaid       ! if pdlabel=lhapdf, this is the lhapdf number
+ lhapdf    = pdlabel     ! PDF set                                     
+ $DEFAULT_PDF_SETS = lhaid
+ $DEFAULT_PDF_MEMBERS = reweight_PDF
 
 #*********************************************************************
 # Renormalization and factorization scales                           *
 #*********************************************************************
- F        = fixed_ren_scale  ! if .true. use fixed ren scale
- F        = fixed_fac_scale  ! if .true. use fixed fac scale
+ False        = fixed_ren_scale  ! if .true. use fixed ren scale
+ False        = fixed_fac_scale  ! if .true. use fixed fac scale
  91.1880  = scale            ! fixed ren scale
  91.1880  = dsqrt_q2fact1    ! fixed fact scale for pdf1
  91.1880  = dsqrt_q2fact2    ! fixed fact scale for pdf2
- 1        = scalefact        ! scale factor for event-by-event scales
+ -1 = dynamic_scale_choice ! Choose one of the preselected dynamical choice
+ 1.0        = scalefact        ! scale factor for event-by-event scales
 #*********************************************************************
 # Matching - Warning! ickkw > 1 is still beta
 #*********************************************************************
  0        = ickkw            ! 0 no matching, 1 MLM, 2 CKKW matching
- 1        = highestmult      ! for ickkw=2, highest mult group
- 1        = ktscheme         ! for ickkw=1, 1 Durham kT, 2 Pythia pTE
  1        = alpsfact         ! scale factor for QCD emission vx
- F        = chcluster        ! cluster only according to channel diag
- F        = pdfwgt           ! for ickkw=1, perform pdf reweighting
- 5        = asrwgtflavor     ! highest quark flavor for a_s reweight
- T        = clusinfo         ! include clustering tag in output
- 3.0      = lhe_version       ! Change the way clustering information pass to shower.        
+ False        = chcluster        ! cluster only according to channel diag
+ 4        = asrwgtflavor     ! highest quark flavor for a_s reweight
  0.0	  = time_of_flight   ! Time of Flight information added
 #*********************************************************************
 #**********************************************************
@@ -80,18 +72,18 @@
 # Automatic ptj and mjj cuts if xqcut > 0
 # (turn off for VBF and single top processes)
 #**********************************************************
-   T  = auto_ptj_mjj  ! Automatic setting of ptj and mjj
+   False  = auto_ptj_mjj  ! Automatic setting of ptj and mjj
 #**********************************************************
 #                                                                    
 #**********************************
 # BW cutoff (M+/-bwcutoff*Gamma)
 #**********************************
-  15000  = bwcutoff      ! (M+/-bwcutoff*Gamma)
+  15.0  = bwcutoff      ! (M+/-bwcutoff*Gamma)
 #**********************************************************
 # Apply pt/E/eta/dr/mij cuts on decay products or not
 # (note that etmiss/ptll/ptheavy/ht/sorted cuts always apply)
 #**********************************************************
-   T  = cut_decays    ! Cut decay products 
+   False  = cut_decays    ! Cut decay products 
 #*************************************************************
 # Number of helicities to sum per event (0 = all helicities)
 # 0 gives more stable result, but longer run time (needed for
@@ -107,9 +99,9 @@
 # Minimum and maximum pt's (for max, -1 means no cut)                *
 #*********************************************************************
  10  = ptj       ! minimum pt for the jets 
-  0  = ptb       ! minimum pt for the b 
- 10  = pta       ! minimum pt for the photons 
-  0  = ptl       ! minimum pt for the charged leptons 
+ 10  = ptb       ! minimum pt for the b 
+ 5  = pta       ! minimum pt for the photons 
+ 5  = ptl       ! minimum pt for the charged leptons 
   0  = misset    ! minimum missing Et (sum of neutrino's momenta)
   0  = ptheavy   ! minimum pt for one heavy final state
  -1  = ptjmax    ! maximum pt for the jets
@@ -132,9 +124,9 @@
 # Maximum and minimum absolute rapidity (for max, -1 means no cut)   *
 #*********************************************************************
    5  = etaj    ! max rap for the jets 
-  -1  = etab    ! max rap for the b
-  -1  = etaa    ! max rap for the photons 
-  -1  = etal    ! max rap for the charged leptons 
+   5  = etab    ! max rap for the b
+   5  = etaa    ! max rap for the photons 
+   5  = etal    ! max rap for the charged leptons 
    0  = etajmin ! min rap for the jets
    0  = etabmin ! min rap for the b
    0  = etaamin ! min rap for the photons
@@ -248,6 +240,7 @@
 #*********************************************************************
  -1    =  ktdurham        
  0.4  =  dparameter 
+ -1.0 = ptlund
 #*********************************************************************
 # maximal pdg code for quark to be considered as a light jet         *
 # (otherwise b cuts are applied)                                     *
