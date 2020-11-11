@@ -3,5 +3,5 @@ define l+ = e+ mu+ ta+
 define l- = e- mu- ta-
 define vl = ve vm vt
 define vl~ = ve~ vm~ vt~
-generate p p > psiplus psiminus , ( psiplus > w+ psil, w+ > l+ vl), ( psiminus > w- psil, w- > l- vl~) @0
+generate p p > psiplus psiminus , psiplus > psil l+ vl , psiminus > psil l- vl~ @0
 output Singlet_Triplet_Higgs_portal_DM -nojpeg
