@@ -805,16 +805,20 @@ for num in range(0,len(prepid)):
                 if int(os.popen('grep -c slha '+pi).read()) != 0 or int(os.popen('grep -c \%i '+pi).read()) != 0 or int(os.popen('grep -c \%s '+pi).read()) != 0:
                     slha_flag = 1
                 if slha_flag == 1:
-                    if int(os.popen('grep -c \%i '+pi).read()) != 0:
-                        gridpack_cvmfs_path = gridpack_cvmfs_path.replace("%i","*")
-                    if int(os.popen('grep -c \%s '+pi).read()) != 0:
+                    if "%i" in gridpack_cvmfs_path:
+                        gridpack_cvmfs_path = gridpack_cvmfs_path.replace("%i","*") 	
+                    elif "%s" in gridpack_cvmfs_path:
                         gridpack_cvmfs_path = gridpack_cvmfs_path.replace("%s","*")
-                    if int(os.popen('grep -c \%d '+pi).read()) != 0:
+		    elif "%d" in gridpack_cvmfs_path:
                         gridpack_cvmfs_path = gridpack_cvmfs_path.replace("%d","*")
-                    slha_all_path = os.path.dirname(gridpack_eos_path)
-                    gridpack_cvmfs_path = os.popen('ls '+ gridpack_cvmfs_path+' | head -1 | tr \'\n\' \' \'').read()
-                    print "SLHA request - checking single gridpack:"
-                    print gridpack_cvmfs_path
+		    else:
+                        slha_flag = 0
+                    if slha_flag == 1:
+                        slha_all_path = os.path.dirname(gridpack_eos_path)
+                        list_gridpack_cvmfs_path = 'ls '+ gridpack_cvmfs_path+' | head -1 | tr \'\n\' \' \''
+                        gridpack_cvmfs_path = os.popen(list_gridpack_cvmfs_path).read()
+                        print "SLHA request - checking single gridpack:"
+                        print gridpack_cvmfs_path
                 os.system('tar xf '+gridpack_cvmfs_path+' -C '+my_path+'/'+pi)
                 jhu_gp = os.path.isfile(my_path+'/'+pi+'/'+'JHUGen.input')
                 pw_gp = os.path.isfile(my_path+'/'+pi+'/'+'powheg.input')
@@ -1327,10 +1331,14 @@ for num in range(0,len(prepid)):
                         ppp_ind_range = 0
                         if slha_flag == 1:
                             slha_file_list =  os.listdir(slha_all_path)
+                            print(slha_file_list)
+                            print("request gridpacks:", gridpack_cvmfs_path_to_comp_for_slha)
                             ppp_ind_range = len(slha_file_list)
                         if slha_flag == 0:
                             ppp_ind_range = 1
+                        #slha_flag = 0
                         for ppp in range(0,ppp_ind_range):
+			    print "@@@@@@@@@"+str(ppp)
                             if gp_size == 0:
                                 break
                             del MGpatch2[:]
@@ -1340,6 +1348,7 @@ for num in range(0,len(prepid)):
                                     continue
                                 gridpack_cvmfs_path = gridpack_cvmfs_path_tmp
                                 gridpack_eos_path = gridpack_cvmfs_path_tmp.replace("/cvmfs/cms.cern.ch/phys_generator","/eos/cms/store/group/phys_generator/cvmfs")
+                            print(gridpack_eos_path)
                             os.system('tar xf '+gridpack_eos_path+' -C '+my_path+'/eos/'+pi)
                             MGpatch2.append(int(os.popen('more '+my_path+'/'+pi+'/'+'runcmsgrid.sh | grep -c "To overcome problem of taking toomanythreads"').read()))
                             MGpatch2.append(int(os.popen('more '+my_path+'/eos/'+pi+'/'+'runcmsgrid.sh | grep -c "To overcome problem of taking toomanythreads"').read()))
