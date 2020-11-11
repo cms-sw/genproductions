@@ -1338,7 +1338,6 @@ for num in range(0,len(prepid)):
                             ppp_ind_range = 1
                         #slha_flag = 0
                         for ppp in range(0,ppp_ind_range):
-			    print "@@@@@@@@@"+str(ppp)
                             if gp_size == 0:
                                 break
                             del MGpatch2[:]
