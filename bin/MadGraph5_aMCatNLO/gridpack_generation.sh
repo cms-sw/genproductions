@@ -19,6 +19,24 @@
 #If QUEUE_SELECTION is omitted, then run on local machine only (using multiple cores)    #
 ##########################################################################################
 
+############################################################################
+# Warn about observed instability when running this script from a CERN EOS #
+# based path. By juska@cern.ch 11 Nov 2020                                 #
+############################################################################
+
+echo ""
+echo "Warning for CERN EOS and cernbox users!"
+echo ""
+echo "Running this script in a CERN EOS based directory has been observed"
+echo "to introduce instability which makes the majority of the processes to"
+echo "fail with varying obscure error messages pointing to missing directories etc."
+echo "The reason for this is not yet understood, but it looks like a race condition problem."
+echo "If you experience problems with EOS, please try in an AFS-based directory instead."
+echo "http://juska.web.cern.ch/juska/zprime/error_gallery.txt"
+echo "https://hypernews.cern.ch/HyperNews/CMS/get/generators/4761.html"
+echo ""
+sleep 5
+
 # Create tarball with very aggressive xz settings.
 # (trade memory and cpu usage for compression ratio)
 make_tarball () {
