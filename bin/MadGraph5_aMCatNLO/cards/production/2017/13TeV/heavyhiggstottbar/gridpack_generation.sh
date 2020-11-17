@@ -36,7 +36,7 @@ make_tarball () {
 
     EXTRA_TAR_ARGS=""
     if [ -e $CARDSDIR/${name}_externaltarball.dat ]; then
-        EXTRA_TAR_ARGS="${name}_externaltarball.dat header_for_madspin.txt"
+        EXTRA_TAR_ARGS="external_tarball header_for_madspin.txt"
     fi
     XZ_OPT="$XZ_OPT" tar -cJpsf ${PRODHOME}/${name}_${scram_arch}_${cmssw_version}_tarball.tar.xz mgbasedir process runcmsgrid.sh gridpack_generation*.log InputCards $EXTRA_TAR_ARGS
 
@@ -56,7 +56,26 @@ make_gridpack () {
     echo "queue: ${queue}"
     echo "scram_arch: ${scram_arch}"
     echo "cmssw_version: ${cmssw_version}"
-    
+
+    ########################
+    #Locating the proc card#
+    ########################
+
+    if [ ! -d $CARDSDIR ]; then
+      echo $CARDSDIR " does not exist!"
+      if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
+    fi
+
+    if [ ! -e $CARDSDIR/${name}_proc_card.dat ]; then
+      echo $CARDSDIR/${name}_proc_card.dat " does not exist!"
+      if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
+    fi
+
+    if [ ! -e $CARDSDIR/${name}_run_card.dat ]; then
+      echo $CARDSDIR/${name}_run_card.dat " does not exist!"
+      if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
+    fi
+
     # CMS Connect runs git status inside its own script.
     if [ $iscmsconnect -eq 0 ]; then
       cd $PRODHOME
@@ -71,7 +90,7 @@ make_gridpack () {
     MGBASEDIR=mgbasedir
     
     MG_EXT=".tar.gz"
-    MG=MG5_aMC_v2.6.0$MG_EXT
+    MG=MG5_aMC_v2.6.5$MG_EXT
     MGSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$MG
     
     MGBASEDIRORIG=$(echo ${MG%$MG_EXT} | tr "." "_")
@@ -188,7 +207,7 @@ make_gridpack () {
       if [ -e $CARDSDIR/${name}_extramodels.dat ]; then
         echo "Loading extra models specified in $CARDSDIR/${name}_extramodels.dat"
         #strip comments
-        sed 's:#.*$::g' $CARDSDIR/${name}_extramodels.dat | while read model
+        sed 's:#.*$::g' $CARDSDIR/${name}_extramodels.dat | while read -r model || [ -n "$model" ]
         do
           #get needed BSM model
           if [[ $model = *[!\ ]* ]]; then
@@ -218,31 +237,7 @@ make_gridpack () {
       fi
     
       echo `pwd`
-    
-    
-      if [ -z ${carddir} ]; then
-        echo "Card directory not provided"
-        if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
-      fi
-    
-      if [ ! -d $CARDSDIR ]; then
-        echo $CARDSDIR " does not exist!"
-        if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
-      fi  
-      
-      ########################
-      #Locating the proc card#
-      ########################
-      if [ ! -e $CARDSDIR/${name}_proc_card.dat ]; then
-        echo $CARDSDIR/${name}_proc_card.dat " does not exist!"
-        if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
-      fi
-    
-      if [ ! -e $CARDSDIR/${name}_run_card.dat ]; then
-        echo $CARDSDIR/${name}_run_card.dat " does not exist!"
-        if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
-      fi  
-      
+
       cp $CARDSDIR/${name}_proc_card.dat ${name}_proc_card.dat
       
       #*FIXME* workaround for broken cluster_local_path handling. 
@@ -255,41 +250,51 @@ make_gridpack () {
       ########################
     
       sed -i '$ a display multiparticles' ${name}_proc_card.dat
-      ./$MGBASEDIRORIG/bin/mg5_aMC ${name}_proc_card.dat
 
-      # agrohsje/jrittmey Interference
-
-      if  grep -q "generate g g > t t~ / h0 HIG<=2" ${name}_proc_card.dat  ; then  
-	  echo "Modify matrix1.f for the case of pseudoscalars!"
-	  # A0 Interference
-	  for file in `find ${name}/SubProcesses/. -name matrix1.f`; do
-	      sed -i "/INCLUDE 'coupl.inc'/d" $file
-	      sed -i "/IMPLICIT NONE/a\      INCLUDE 'coupl.inc'" $file
-	      sed -i '/T=MATRIX1(P ,NHEL(1,I),JC(1))/a\            GC_85=-GC_85' $file
-	      sed -i '/T=MATRIX1(P ,NHEL(1,I),JC(1))/a\            T=5D-1*(T-MATRIX1(P ,NHEL(1,I),JC(1)))' $file
-	      sed -i '/T=MATRIX1(P ,NHEL(1,I),JC(1))/a\            GC_85=-GC_85' $file
-	  done
-      elif  grep -q "generate g g > t t~ / a0 HIG<=2" ${name}_proc_card.dat  ; then  
-	      # H0 Interference
-	  echo "Modify matrix1.f for the case of scalars!"
-	  for file in `find ${name}/SubProcesses/. -name matrix1.f`; do
-	      sed -i "/INCLUDE 'coupl.inc'/d" $file
-	      sed -i "/IMPLICIT NONE/a\      INCLUDE 'coupl.inc'" $file
-	      sed -i '/T=MATRIX1(P ,NHEL(1,I),JC(1))/a\            GC_86=-GC_86' $file
-              sed -i '/T=MATRIX1(P ,NHEL(1,I),JC(1))/a\            T=5D-1*(T-MATRIX1(P ,NHEL(1,I),JC(1)))' $file
-              sed -i '/T=MATRIX1(P ,NHEL(1,I),JC(1))/a\            GC_86=-GC_86' $file
-	  done
+      #check if MadSTR plugin is needed (DR/DS removal,  https://arxiv.org/pdf/1907.04898.pdf)
+      runMadSTR=`grep "istr" $CARDSDIR/${name}_run_card.dat | grep -v "#" |  cut -d  "="  -f 1`
+      if [ -z ${runMadSTR} ] ; then
+          runMadSTR=0 # plugin settings not found in run_card
+      else
+          if [ "${runMadSTR}" -lt 1 ] || [ "${runMadSTR}" -gt 6 ] ; then
+              echo "istr should be between 1 and 6" # wrong settings 
+              exit 1
+	  fi
       fi
-
-
-
-
-#agrohsje/jrittmey manual exit
-#return
-    
+      if [  "$runMadSTR" == 0 ]; then 
+	  ./$MGBASEDIRORIG/bin/mg5_aMC ${name}_proc_card.dat # normal run without plugin 
+      else
+	  echo "Invoke MadSTR plugin when starting MG5_aMC@NLO" 
+	  cp -r $PRODHOME/PLUGIN/MadSTR $MGBASEDIRORIG/PLUGIN/ # copy plugin 
+          ./$MGBASEDIRORIG/bin/mg5_aMC --mode=MadSTR ${name}_proc_card.dat # run invoking MadSTR plugin
+      fi
+	
       is5FlavorScheme=0
       if tail -n 20 $LOGFILE | grep -q -e "^p *=.*b\~.*b" -e "^p *=.*b.*b\~"; then 
         is5FlavorScheme=1
+      fi
+
+      if  grep -q "generate p p > t t~ / h0 HIG<=2" ${name}_proc_card.dat  ; then
+	      # A0 Interference
+	      echo "Modify matrix1.f for the case of pseudoscalars!"
+          for file in `find ${name}/. -name matrix1.f`; do
+              sed -i "/INCLUDE 'coupl.inc'/d" $file
+              sed -i "/IMPLICIT NONE/a\      INCLUDE 'coupl.inc'" $file
+              sed -i '/T=MATRIX1(P ,NHEL(1,I),JC(1))/a\            GC_85=-GC_85' $file
+              sed -i '/T=MATRIX1(P ,NHEL(1,I),JC(1))/a\            T=5D-1*(T-MATRIX1(P ,NHEL(1,I),JC(1)))' $file
+              sed -i '/T=MATRIX1(P ,NHEL(1,I),JC(1))/a\            GC_85=-GC_85' $file
+	  done
+      
+      elif  grep -q "generate p p > t t~ / a0 HIG<=2" ${name}_proc_card.dat  ; then
+          # H0 Interference
+          echo "Modify matrix1.f for the case of scalars!"
+          for file in `find ${name}/. -name matrix1.f`; do
+              sed -i "/INCLUDE 'coupl.inc'/d" $file
+              sed -i "/IMPLICIT NONE/a\      INCLUDE 'coupl.inc'" $file
+              sed -i '/T=MATRIX1(P ,NHEL(1,I),JC(1))/a\            GC_86=-GC_86' $file
+              sed -i '/T=MATRIX1(P ,NHEL(1,I),JC(1))/a\            T=5D-1*(T-MATRIX1(P ,NHEL(1,I),JC(1)))' $file
+              sed -i '/T=MATRIX1(P ,NHEL(1,I),JC(1))/a\            GC_86=-GC_86' $file
+          done
       fi
     
        #*FIXME* workaround for broken set cluster_queue and run_mode handling
@@ -369,21 +374,6 @@ make_gridpack () {
           if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
         fi
       fi
-      
-      if [ -z ${carddir} ]; then
-        echo "Card directory not provided"
-        if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
-      fi
-    
-      if [ ! -d $CARDSDIR ]; then
-        echo $CARDSDIR " does not exist!"
-        if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
-      fi
-      
-      if [ ! -e $CARDSDIR/${name}_run_card.dat ]; then
-        echo $CARDSDIR/${name}_run_card.dat " does not exist!"
-        if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
-      fi  
     
     fi  
     
@@ -415,6 +405,12 @@ make_gridpack () {
     
     cd processtmp
     
+    #automatically detect NLO mode or LO mode from output directory
+    isnlo=0
+    if [ -e ./MCatNLO ]; then
+      isnlo=1
+    fi
+    
     #################################
     #Add PDF info and copy run card #
     #################################
@@ -423,8 +419,7 @@ make_gridpack () {
       script_dir=$(git rev-parse --show-toplevel)/Utilities/scripts
     fi
     
-    prepare_run_card $name $CARDSDIR $is5FlavorScheme $script_dir
-
+    prepare_run_card $name $CARDSDIR $is5FlavorScheme $script_dir $isnlo
     
     #copy provided custom fks params or cuts
     if [ -e $CARDSDIR/${name}_cuts.f ]; then
@@ -451,48 +446,12 @@ make_gridpack () {
       echo "copying custom reweight file"
       cp $CARDSDIR/${name}_reweight_card.dat ./Cards/reweight_card.dat
     fi
-    
-    
-    #automatically detect NLO mode or LO mode from output directory
-    isnlo=0
-    if [ -e ./MCatNLO ]; then
-      isnlo=1
+   
+    if [ -e $CARDSDIR/${name}_param_card.dat ]; then
+      echo "copying custom params file"
+      cp $CARDSDIR/${name}_param_card.dat ./Cards/param_card.dat
     fi
-
-if grep -q -e "\$DEFAULT_PDF_SETS" -e "\$DEFAULT_PDF_MEMBERS" $CARDSDIR/${name}_run_card.dat; then
-    echo "INFO: Using default PDF sets for 2017 production"
-    if [ "$isnlo" -gt "0" ]; then
-        if [ $is5FlavorScheme -eq 1 ]; then
-            # 5F PDF
-                  sed "s/\$DEFAULT_PDF_SETS/306000,322500,322700,322900,323100,323300,323500,323700,323900,305800,13000,13065,13069,13100,13163,13167,13200,25200,25300,25000,42780,90200,91200,90400,91400,61100,61130,61200,61230,13400,82200,292200,292600,315000,315200,262000,263000/" $CARDSDIR/${name}_run_card.dat > ./Cards/run_card.dat
-            sed -i "s/\$DEFAULT_PDF_MEMBERS/True,False,False,False,False,False,False,False,False,True,True,False,False,True,False,False,False,True,True,False,True,True,True,True,True,True,True,True,True,True,True,True,False,False,False,False,False/" ./Cards/run_card.dat
-        else
-            # 4F PDF
-                  sed "s/\$DEFAULT_PDF_SETS/320900,11082,13091,13191,13202,23100,23300,23490,23600,23790,25410,25510,25570,25605,25620,25710,25770,25805,25840,92000,306000,320500,260400,262400,263400,292000,292400/" $CARDSDIR/${name}_run_card.dat > ./Cards/run_card.dat
-            sed -i "s/\$DEFAULT_PDF_MEMBERS/True,True,False,False,False,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,False,False,True,False/" ./Cards/run_card.dat
-        fi
-    elif [ "$isnlo" -eq "0" ]; then
-        # 5F PDF
-        if [ $is5FlavorScheme -eq 1 ]; then
-            sed "s/\$DEFAULT_PDF_SETS/306000/g" $CARDSDIR/${name}_run_card.dat > ./Cards/run_card.dat
-        else
-            sed "s/\$DEFAULT_PDF_SETS/320900/g" $CARDSDIR/${name}_run_card.dat > ./Cards/run_card.dat
-        # 4F PDF
-        fi
-        sed -i "s/ *\$DEFAULT_PDF_MEMBERS.*=.*//g" ./Cards/run_card.dat
-    fi
-else
-    echo ""
-    echo "WARNING: You've chosen not to use the PDF sets recommended for 2017 production!"
-    echo "If this isn't intentional, and you prefer to use the recommended sets,"
-    echo "insert the following lines into your process-name_run_card.dat:"
-    echo "    '\$DEFAULT_PDF_SETS = lhaid'"
-    echo "    '\$DEFAULT_PDF_MEMBERS = reweight_PDF'"
-    echo ""
-    echo "copying run_card.dat file"
-    cp $CARDSDIR/${name}_run_card.dat ./Cards/run_card.dat
-fi
-    
+     
     if [ "$isnlo" -gt "0" ]; then
     #NLO mode  
       #######################
@@ -512,7 +471,7 @@ fi
               echo "" >> makegrid.dat
       fi
       echo "done" >> makegrid.dat
-    
+
       cat makegrid.dat | ./bin/generate_events -n pilotrun
       # Run this step separately in debug mode since it gives so many problems
       if [ -e $CARDSDIR/${name}_reweight_card.dat ]; then
@@ -567,22 +526,18 @@ fi
       echo "done" >> makegrid.dat
     
     #   set +e
-      # agrohsje replace setscale with customized one
-      find . -name setscales.f -exec cp ${PRODHOME}/addons/code/setscales.f {}  \;
       cat makegrid.dat | ./bin/generate_events pilotrun
       echo "finished pilot run"
-      # agrohsje exit
-      #exit
     
       cd $WORKDIR
       
-      # echo "creating debug tarball"
-      # cp ${LOGFILE} ./gridpack_generation.log
-      # DEBUGTARBALL=${name}_debug_tarball.tar.gz
-      # tar -czps --ignore-failed-read -f ${DEBUGTARBALL} processtmp gridpack_generation.log
-      # echo "moving tarball to ${PRODHOME}/${DEBUGTARBALL}"
-      # mv ${DEBUGTARBALL} ${PRODHOME}/${DEBUGTARBALL}
-      # set -e
+    #   echo "creating debug tarball"
+    #   cp ${LOGFILE} ./gridpack_generation.log
+    #   DEBUGTARBALL=${name}_debug_tarball.tar.gz
+    #   tar -czps --ignore-failed-read -f ${DEBUGTARBALL} processtmp gridpack_generation.log
+    #   echo "moving tarball to ${PRODHOME}/${DEBUGTARBALL}"
+    #   mv ${DEBUGTARBALL} ${PRODHOME}/${DEBUGTARBALL}
+    #   set -e
       
       echo "cleaning temporary output"
       mv $WORKDIR/processtmp/pilotrun_gridpack.tar.gz $WORKDIR/
@@ -605,7 +560,7 @@ fi
       if [ -e $CARDSDIR/${name}_madspin_card.dat ]; then
         echo "import $WORKDIR/unweighted_events.lhe.gz" > madspinrun.dat
         cat $CARDSDIR/${name}_madspin_card.dat >> madspinrun.dat
-        cat madspinrun.dat | $WORKDIR/$MGBASEDIRORIG/MadSpin/madspin
+        $WORKDIR/$MGBASEDIRORIG/MadSpin/madspin madspinrun.dat 
         rm madspinrun.dat
         rm -rf tmp*
         cp $CARDSDIR/${name}_madspin_card.dat $WORKDIR/process/madspin_card.dat
@@ -686,11 +641,18 @@ if [ -n "$5" ]
     scram_arch=slc6_amd64_gcc630 #slc6_amd64_gcc481
 fi
 
+# Require OS and scram_arch to be consistent
+export SYSTEM_RELEASE=`cat /etc/redhat-release`
+if { [[ $SYSTEM_RELEASE == *"release 6"* ]] && [[ $scram_arch == *"slc7"* ]]; } || { [[ $SYSTEM_RELEASE == *"release 7"* ]] && [[ $scram_arch == *"slc6"* ]]; }; then
+  echo "Mismatch between architecture (${scram_arch}) and OS (${SYSTEM_RELEASE})"
+  if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
+fi
+
 if [ -n "$6" ]
   then
     cmssw_version=${6}
   else
-    cmssw_version=CMSSW_9_3_8 #CMSSW_7_1_30
+    cmssw_version=CMSSW_9_3_16 #CMSSW_7_1_30
 fi
  
 # jobstep can be 'ALL','CODEGEN', 'INTEGRATE', 'MADSPIN'
@@ -715,6 +677,10 @@ fi
 
 #catch unset variables
 set -u
+
+if [ -z ${carddir} ]; then
+    echo "Card directory not provided"
+fi
 
 if [ -z ${name} ]; then
   echo "Process/card name not provided"
