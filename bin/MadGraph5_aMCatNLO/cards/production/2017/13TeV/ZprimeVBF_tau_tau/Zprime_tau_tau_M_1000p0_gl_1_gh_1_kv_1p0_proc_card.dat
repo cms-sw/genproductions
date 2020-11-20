@@ -1,0 +1,5 @@
+import model_v4 ssmzp_nonuniversal_v4
+define p = g u c d s u~ c~ d~ s~
+define j = g u c d s u~ c~ d~ s~
+generate p p > zp j j QCD=0, zp > ta+ ta-
+output Zprime_tau_tau_M_1000p0_gl_1_gh_1_kv_1p0 -nojpeg
