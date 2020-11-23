@@ -24,18 +24,17 @@ index dd2be33..6796e51 100755
 +
              if cumul:
                  break
-         
+
 diff --git a/madgraph/interface/common_run_interface.py b/madgraph/interface/common_run_interface.py
-index 4265aea..da84476 100755
+index 49ae661..8efde64 100755
 --- a/madgraph/interface/common_run_interface.py
 +++ b/madgraph/interface/common_run_interface.py
-@@ -3678,8 +3678,9 @@ class CommonRunCmd(HelpToCmd, CheckValidForCmd, cmd.Cmd):
-         for key, value in self.options.items():
+@@ -3697,7 +3697,8 @@ class CommonRunCmd(HelpToCmd, CheckValidForCmd, cmd.Cmd):
              if isinstance(value, str):
-                 madspin_cmd.mg5cmd.exec_cmd( 'set %s %s' %(key,value), errorhandling=False, printcmd=False, precmd=False, postcmd=True)
-+
+                 madspin_cmd.mg5cmd.exec_cmd( 'set %s %s --no_save' %(key,value), errorhandling=False, printcmd=False, precmd=False, postcmd=True)
          madspin_cmd.cluster = self.cluster
 -        
++
 +        madspin_cmd.mother = self
          madspin_cmd.update_status = lambda *x,**opt: self.update_status(*x, level='madspin',**opt)
  
