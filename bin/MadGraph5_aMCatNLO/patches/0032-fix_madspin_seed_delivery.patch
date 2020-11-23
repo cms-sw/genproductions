@@ -31,7 +31,7 @@ index 49ae661..1dfcaaa 100755
 +++ b/madgraph/interface/common_run_interface.py
 @@ -3697,7 +3697,8 @@ class CommonRunCmd(HelpToCmd, CheckValidForCmd, cmd.Cmd):
              if isinstance(value, str):
-                 madspin_cmd.mg5cmd.exec_cmd( 'set %s %s --no_save' %(key,value), errorhandling=False, p
+                 madspin_cmd.mg5cmd.exec_cmd( 'set %s %s --no_save' %(key,value), errorhandling=False, printcmd=False, precmd=False, postcmd=True)
          madspin_cmd.cluster = self.cluster
 -        
 +
