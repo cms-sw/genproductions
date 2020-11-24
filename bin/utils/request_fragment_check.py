@@ -532,10 +532,15 @@ for num in range(0,len(prepid)):
                data_f2_prime = re.sub(r'(?m)^ *#.*\n?', '',data_f1_prime)
                if (data_f2 == data_f2_prime) == True:
                   print"[OK] Two requests have the same fragment."
-               else:
-                  print"[ERROR] Fragment of "+pi+" is different than its base UL17 request: "+pi_prime
-                  print"        Please make sure that "+pi+" has _exactly_ the same settings as "+pi_prime
-                  error += 1
+               else: 
+		  if "Summer20UL16" not in pi:
+		    print"[ERROR] Fragment of "+pi+" is different than its base UL17 request: "+pi_prime
+		    print"        Please make sure that "+pi+" has _exactly_ the same settings as "+pi_prime
+		    error += 1
+		  if "Summer20UL16" in pi:
+		    print"[WARNING] Fragment of "+pi+" is different than its base UL17 request: "+pi_prime
+		    print"        Please make sure that "+pi+" has _exactly_ the same settings as "+pi_prime
+		    warning += 1  		
                if (cmssw == cmssw_prime) == True:
                   print"[OK] Two requests have the same CMSSW version."
                elif "Summer20UL16wmLHEGENAPV" in pi or "Summer20UL16GENAPV" in pi or "Summer20UL18" in pi or "Summer20UL17" in pi:
