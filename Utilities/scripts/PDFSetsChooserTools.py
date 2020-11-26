@@ -9,7 +9,7 @@ class PDFSetHelper(object):
 
     def readDefaultPDFsFile(self, is5FlavorScheme):
         base_dir = os.path.dirname(os.path.realpath(__file__)) 
-        meta_data_dir = base_dir.replace("Utilities/python", "MetaData") 
+        meta_data_dir = base_dir.replace("Utilities/scripts", "MetaData") 
 
         self.pdflist_file = meta_data_dir + "/" + ("pdflist_5f_2017.dat" \
             if is5FlavorScheme else "pdflist_4f_2017.dat")
