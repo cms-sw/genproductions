@@ -111,6 +111,7 @@ make_gridpack () {
       ############################
       #Create a workplace to work#
       ############################
+      source /cvmfs/cms.cern.ch/cmsset_default.sh
       scram project -n ${name}_gridpack CMSSW ${RELEASE} ;
       if [ ! -d ${name}_gridpack ]; then  
         if [ "${BASH_SOURCE[0]}" != "${0}" ]; then echo "yes here"; return 1; else exit 1; fi
@@ -608,25 +609,35 @@ queue=${3}
 # processing options
 jobstep=${4}
 
-if [ -n "$5" ]
-  then
-    scram_arch=${5}
-  else
-    scram_arch=slc6_amd64_gcc630 #slc6_amd64_gcc481
-fi
-
-# Require OS and scram_arch to be consistent
+# sync default cmssw with the current OS 
 export SYSTEM_RELEASE=`cat /etc/redhat-release`
-if { [[ $SYSTEM_RELEASE == *"release 6"* ]] && [[ $scram_arch == *"slc7"* ]]; } || { [[ $SYSTEM_RELEASE == *"release 7"* ]] && [[ $scram_arch == *"slc6"* ]]; }; then
-  echo "Mismatch between architecture (${scram_arch}) and OS (${SYSTEM_RELEASE})"
-  if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
+
+# set scram_arch 
+if [ -n "$5" ]; then
+    scram_arch=${5}
+else
+    if [[ $SYSTEM_RELEASE == *"release 6"* ]]; then 
+        scram_arch=slc6_amd64_gcc700 
+    elif [[ $SYSTEM_RELEASE == *"release 7"* ]]; then 
+        scram_arch=slc7_amd64_gcc700 
+    else 
+        echo "No default scram_arch for current OS!"
+        if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi        
+    fi
 fi
 
-if [ -n "$6" ]
-  then
+#set cmssw 
+if [ -n "$6" ]; then
     cmssw_version=${6}
-  else
-    cmssw_version=CMSSW_9_3_16 #CMSSW_7_1_30
+else
+    if [[ $SYSTEM_RELEASE == *"release 6"* ]]; then 
+        cmssw_version=CMSSW_10_2_24_patch1 
+    elif [[ $SYSTEM_RELEASE == *"release 7"* ]]; then 
+        cmssw_version=CMSSW_10_6_19 
+    else 
+        echo "No default CMSSW for current OS!"
+        if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi        
+    fi
 fi
  
 # jobstep can be 'ALL','CODEGEN', 'INTEGRATE', 'MADSPIN'
