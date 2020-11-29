@@ -1,5 +1,5 @@
 c *This file contains maximum cuts(M<10) on the dilepton mass: line 136-142*
-c 
+c
 c This file contains the default cuts (as defined in the run_card.dat)
 c and can easily be extended by the user to include other.  This
 c function should return true if event passes cuts
@@ -408,7 +408,6 @@ C***************************************************************
       include 'run.inc'
       include 'genps.inc'
       include 'cuts.inc'
-      include 'timing_variables.inc'
       REAL*8 P(0:3,nexternal),rwgt
       integer i,j,istatus(nexternal),iPDG(nexternal)
 c For boosts
@@ -429,7 +428,6 @@ c PDG codes of particles
       common /c_leshouche_inc/idup,mothup,icolup,niprocs
       logical passcuts_user
       external passcuts_user
-      call cpu_time(tBefore)
 c Make sure have reasonable 4-momenta
       if (p(0,1) .le. 0d0) then
          passcuts=.false.
@@ -465,12 +463,9 @@ c Fill the arrays (momenta, status and PDG):
          enddo
          pp(4,i)=pmass(i)
          ipdg(i)=idup(i,1)
-         if (ipdg(i).eq.-21) ipdg(i)=21
       enddo
 c Call the actual cuts function  
       passcuts = passcuts_user(pp,istatus,ipdg)
-      call cpu_time(tAfter)
-      t_cuts=t_cuts+(tAfter-tBefore)
       RETURN
       END
 
@@ -925,7 +920,7 @@ c
 
 c How to enhance the tails is very process dependent. But, it is
 c probably easiest to enhance the tails using shat, e.g.:
-c      shat=sumdot(p_born(0,1),p_born(0,2),1d0)
+c      shat=sumdot(p(0,1),p(0,2),1d0)
 c      bias_wgt=max(100d0**2,shat)/100d0**2
 c      bias_wgt=bias_wgt**2
       return
