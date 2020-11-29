@@ -1,5 +1,5 @@
 c *This file contains maximum cuts(M<10) on the dilepton mass: line 136-142*
-c
+c 
 c This file contains the default cuts (as defined in the run_card.dat)
 c and can easily be extended by the user to include other.  This
 c function should return true if event passes cuts
@@ -407,6 +407,8 @@ C***************************************************************
       include "nexternal.inc"
       include 'run.inc'
       include 'genps.inc'
+      include 'cuts.inc'
+      include 'timing_variables.inc'
       REAL*8 P(0:3,nexternal),rwgt
       integer i,j,istatus(nexternal),iPDG(nexternal)
 c For boosts
@@ -422,13 +424,12 @@ c Masses of external particles
       double precision pmass(nexternal)
       common/to_mass/pmass
 c PDG codes of particles
-      integer maxflow
-      parameter (maxflow=999)
       integer idup(nexternal,maxproc),mothup(2,nexternal,maxproc),
-     &     icolup(2,nexternal,maxflow)
-      common /c_leshouche_inc/idup,mothup,icolup
+     &     icolup(2,nexternal,maxflow),niprocs
+      common /c_leshouche_inc/idup,mothup,icolup,niprocs
       logical passcuts_user
       external passcuts_user
+      call cpu_time(tBefore)
 c Make sure have reasonable 4-momenta
       if (p(0,1) .le. 0d0) then
          passcuts=.false.
@@ -464,9 +465,12 @@ c Fill the arrays (momenta, status and PDG):
          enddo
          pp(4,i)=pmass(i)
          ipdg(i)=idup(i,1)
+         if (ipdg(i).eq.-21) ipdg(i)=21
       enddo
 c Call the actual cuts function  
       passcuts = passcuts_user(pp,istatus,ipdg)
+      call cpu_time(tAfter)
+      t_cuts=t_cuts+(tAfter-tBefore)
       RETURN
       END
 
@@ -512,10 +516,10 @@ C
 C
     2 IF (N.EQ.1)            RETURN
       IF (MODE)    10,20,30
-   10 CALL SORTTI (A,INDEX,N)
+   10 STOP 5 ! CALL SORTTI (A,INDEX,N)
       GO TO 40
 C
-   20 CALL SORTTC(A,INDEX,N)
+   20 STOP 5 ! CALL SORTTC(A,INDEX,N)
       GO TO 40
 C
    30 CALL SORTTF (A,INDEX,N)
@@ -858,12 +862,10 @@ c-----
       implicit none
       include "genps.inc"
       include 'nexternal.inc'
-      integer maxflow
-      parameter (maxflow=999)
       integer idup(nexternal,maxproc),mothup(2,nexternal,maxproc),
-     &     icolup(2,nexternal,maxflow)
+     &     icolup(2,nexternal,maxflow),niprocs
 c      include 'leshouche.inc'
-      common /c_leshouche_inc/idup,mothup,icolup
+      common /c_leshouche_inc/idup,mothup,icolup,niprocs
       integer IDUP_tmp(nexternal),i
 c
       do i=1,nexternal
@@ -877,8 +879,6 @@ c
       implicit none
       include "genps.inc"
       include 'nexternal.inc'
-      integer    maxflow
-      parameter (maxflow=999)
       integer idup(nexternal,maxproc)
       integer mothup(2,nexternal,maxproc)
       integer icolup(2,nexternal,maxflow)
@@ -894,32 +894,40 @@ c
       end
 
 
-      subroutine unweight_function(p_born,unwgtfun)
-c This is a user-defined function to which to unweight the events
-c A non-flat distribution will generate events with a certain
-c weight. This is particularly useful to generate more events
-c (with smaller weight) in tails of distributions.
-c It computes the unwgt factor from the momenta and multiplies
-c the weight that goes into MINT (or vegas) with this factor.
-c Before writing out the events (or making the plots), this factor
-c is again divided out.
-c This function should be called with the Born momenta to be sure
-c that it stays the same for the events, counter-events, etc.
-c A value different from 1 makes that MINT (or vegas) does not list
-c the correct cross section.
+      subroutine bias_weight_function(p,ipdg,bias_wgt)
+c This is a user-defined function to which to bias the event generation.
+c A non-flat distribution will generate events with a certain weight
+c inversely proportinal to the bias_wgt. This is particularly useful to
+c generate more events (with smaller weight) in tails of distributions.
+c It computes the bias_wgt factor from the momenta and multiplies the
+c weight that goes into MINT (or vegas) with this factor.  Before
+c writing out the events (or making the plots), this factor is again
+c divided out. A value different from 1 makes that MINT (or vegas) does
+c not list the correct cross section, but the cross section can still be
+c computed from summing all the weights of the events (and dividing by
+c the number of events). Since the weights of the events are no longer
+c identical for all events, the statistical uncertainty on this total
+c cross section can be much larger than without including the bias.
+c
+c The 'bias_wgt' should be a IR-safe function of the momenta.
+c      
+c For this to be used, the 'event_norm' option in the run_card should be
+c set to
+c      'bias' = event_norm      
+c
       implicit none
       include 'nexternal.inc'
-      double precision unwgtfun,p_born(0:3,nexternal-1),shat,sumdot
+      double precision bias_wgt,p(0:3,nexternal),shat,sumdot
+      integer ipdg(nexternal),i
       external sumdot
 
-      unwgtfun=1d0
+      bias_wgt=1d0
 
 c How to enhance the tails is very process dependent. But, it is
 c probably easiest to enhance the tails using shat, e.g.:
 c      shat=sumdot(p_born(0,1),p_born(0,2),1d0)
-c      unwgtfun=max(100d0**2,shat)/100d0**2
-c      unwgtfun=unwgtfun**2
-
+c      bias_wgt=max(100d0**2,shat)/100d0**2
+c      bias_wgt=bias_wgt**2
       return
       end
 
