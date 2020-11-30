@@ -612,7 +612,7 @@ if [ -n "$5" ]
   then
     scram_arch=${5}
   else
-    scram_arch=slc6_amd64_gcc630 #slc6_amd64_gcc481
+    scram_arch=slc7_amd64_gcc630 #slc6_amd64_gcc630 #slc6_amd64_gcc481
 fi
 
 # Require OS and scram_arch to be consistent
