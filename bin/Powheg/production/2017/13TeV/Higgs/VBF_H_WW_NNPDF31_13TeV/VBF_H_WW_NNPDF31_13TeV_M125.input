@@ -35,8 +35,8 @@ withnegweights 1 ! default 0,
 
 iseed    SEED    ! initialize random number sequence
 
-hmass    {mass}d0       ! Higgs boson mass
-hwidth   {width}d0    ! Higgs boson width
+hmass    125d0       ! Higgs boson mass
+hwidth   0.00407d0    ! Higgs boson width
 hdecaymode -1   ! -1 no decay
                 ! 0 all decay channels open
                 ! 1-6 d dbar, u ubar,..., t tbar
