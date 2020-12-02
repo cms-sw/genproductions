@@ -110,10 +110,8 @@ done
 ls -lrt events*.lhe.gz
 if [  $run_counter -gt "1" ]; then
     echo "Merging files and deleting unmerged ones"
-    cp /cvmfs/cms.cern.ch/phys_generator/gridpacks/lhe_merger/merge.pl ./
-    chmod 755 merge.pl
-    # ./madevent/bin/internal/merge.pl events*.lhe.gz events.lhe.gz banner.txt
-    ./merge.pl events*.lhe.gz events.lhe.gz banner.txt
+    # use version in genproduction, not cvmfs, nor mg5_amc@nlo default 
+    perl $LHEWORKDIR/merge.pl events*.lhe.gz events.lhe.gz banner.txt
     rm events_*.lhe.gz banner.txt;
 else
     mv events_${run_counter}.lhe.gz events.lhe.gz
