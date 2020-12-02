@@ -36,7 +36,7 @@ make_tarball () {
 
     EXTRA_TAR_ARGS=""
     if [ -e $CARDSDIR/${name}_externaltarball.dat ]; then
-        EXTRA_TAR_ARGS="${name}_externaltarball.dat header_for_madspin.txt"
+        EXTRA_TAR_ARGS="external_tarball header_for_madspin.txt"
     fi
     XZ_OPT="$XZ_OPT" tar -cJpsf ${PRODHOME}/${name}_${scram_arch}_${cmssw_version}_tarball.tar.xz mgbasedir process runcmsgrid.sh gridpack_generation*.log InputCards $EXTRA_TAR_ARGS
 
@@ -56,7 +56,26 @@ make_gridpack () {
     echo "queue: ${queue}"
     echo "scram_arch: ${scram_arch}"
     echo "cmssw_version: ${cmssw_version}"
-    
+
+    ########################
+    #Locating the proc card#
+    ########################
+
+    if [ ! -d $CARDSDIR ]; then
+      echo $CARDSDIR " does not exist!"
+      if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
+    fi
+
+    if [ ! -e $CARDSDIR/${name}_proc_card.dat ]; then
+      echo $CARDSDIR/${name}_proc_card.dat " does not exist!"
+      if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
+    fi
+
+    if [ ! -e $CARDSDIR/${name}_run_card.dat ]; then
+      echo $CARDSDIR/${name}_run_card.dat " does not exist!"
+      if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
+    fi
+
     # CMS Connect runs git status inside its own script.
     if [ $iscmsconnect -eq 0 ]; then
       cd $PRODHOME
@@ -86,9 +105,6 @@ make_gridpack () {
     
       cd $GEN_FOLDER
     
-    #   export SCRAM_ARCH=slc6_amd64_gcc472 #Here one should select the correct architechture corresponding with the CMSSW release
-    #   export RELEASE=CMSSW_5_3_32_patch3
-    
       export SCRAM_ARCH=${scram_arch}
       export RELEASE=${cmssw_version}
     
@@ -103,8 +119,9 @@ make_gridpack () {
       cd ${name}_gridpack ; mkdir -p work ; cd work
       WORKDIR=`pwd`
       eval `scram runtime -sh`
-    
-    
+
+      if [ ! -z "${PYTHON27PATH}" ] ; then export PYTHONPATH=${PYTHON27PATH} ; fi 
+
       #############################################
       #Copy, Unzip and Delete the MadGraph tarball#
       #############################################
@@ -218,31 +235,7 @@ make_gridpack () {
       fi
     
       echo `pwd`
-    
-    
-      if [ -z ${carddir} ]; then
-        echo "Card directory not provided"
-        if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
-      fi
-    
-      if [ ! -d $CARDSDIR ]; then
-        echo $CARDSDIR " does not exist!"
-        if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
-      fi  
-      
-      ########################
-      #Locating the proc card#
-      ########################
-      if [ ! -e $CARDSDIR/${name}_proc_card.dat ]; then
-        echo $CARDSDIR/${name}_proc_card.dat " does not exist!"
-        if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
-      fi
-    
-      if [ ! -e $CARDSDIR/${name}_run_card.dat ]; then
-        echo $CARDSDIR/${name}_run_card.dat " does not exist!"
-        if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
-      fi  
-      
+
       cp $CARDSDIR/${name}_proc_card.dat ${name}_proc_card.dat
       
       #*FIXME* workaround for broken cluster_local_path handling. 
@@ -255,8 +248,25 @@ make_gridpack () {
       ########################
     
       sed -i '$ a display multiparticles' ${name}_proc_card.dat
-      ./$MGBASEDIRORIG/bin/mg5_aMC ${name}_proc_card.dat
-    
+
+      #check if MadSTR plugin is needed (DR/DS removal,  https://arxiv.org/pdf/1907.04898.pdf)
+      runMadSTR=`grep "istr" $CARDSDIR/${name}_run_card.dat | grep -v "#" |  cut -d  "="  -f 1`
+      if [ -z ${runMadSTR} ] ; then
+          runMadSTR=0 # plugin settings not found in run_card
+      else
+          if [ "${runMadSTR}" -lt 1 ] || [ "${runMadSTR}" -gt 6 ] ; then
+              echo "istr should be between 1 and 6" # wrong settings 
+              exit 1
+	  fi
+      fi
+      if [  "$runMadSTR" == 0 ]; then 
+	  ./$MGBASEDIRORIG/bin/mg5_aMC ${name}_proc_card.dat # normal run without plugin 
+      else
+	  echo "Invoke MadSTR plugin when starting MG5_aMC@NLO" 
+	  cp -r $PRODHOME/PLUGIN/MadSTR $MGBASEDIRORIG/PLUGIN/ # copy plugin 
+          ./$MGBASEDIRORIG/bin/mg5_aMC --mode=MadSTR ${name}_proc_card.dat # run invoking MadSTR plugin
+      fi
+	
       is5FlavorScheme=0
       if tail -n 20 $LOGFILE | grep -q -e "^p *=.*b\~.*b" -e "^p *=.*b.*b\~"; then 
         is5FlavorScheme=1
@@ -339,21 +349,6 @@ make_gridpack () {
           if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
         fi
       fi
-      
-      if [ -z ${carddir} ]; then
-        echo "Card directory not provided"
-        if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
-      fi
-    
-      if [ ! -d $CARDSDIR ]; then
-        echo $CARDSDIR " does not exist!"
-        if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
-      fi
-      
-      if [ ! -e $CARDSDIR/${name}_run_card.dat ]; then
-        echo $CARDSDIR/${name}_run_card.dat " does not exist!"
-        if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
-      fi  
     
     fi  
     
@@ -385,6 +380,12 @@ make_gridpack () {
     
     cd processtmp
     
+    #automatically detect NLO mode or LO mode from output directory
+    isnlo=0
+    if [ -e ./MCatNLO ]; then
+      isnlo=1
+    fi
+    
     #################################
     #Add PDF info and copy run card #
     #################################
@@ -393,7 +394,7 @@ make_gridpack () {
       script_dir=$(git rev-parse --show-toplevel)/Utilities/scripts
     fi
     
-    prepare_run_card $name $CARDSDIR $is5FlavorScheme $script_dir
+    prepare_run_card $name $CARDSDIR $is5FlavorScheme $script_dir $isnlo
     
     #copy provided custom fks params or cuts
     if [ -e $CARDSDIR/${name}_cuts.f ]; then
@@ -420,14 +421,12 @@ make_gridpack () {
       echo "copying custom reweight file"
       cp $CARDSDIR/${name}_reweight_card.dat ./Cards/reweight_card.dat
     fi
-    
-    
-    #automatically detect NLO mode or LO mode from output directory
-    isnlo=0
-    if [ -e ./MCatNLO ]; then
-      isnlo=1
+   
+    if [ -e $CARDSDIR/${name}_param_card.dat ]; then
+      echo "copying custom params file"
+      cp $CARDSDIR/${name}_param_card.dat ./Cards/param_card.dat
     fi
-    
+     
     if [ "$isnlo" -gt "0" ]; then
     #NLO mode  
       #######################
@@ -447,7 +446,7 @@ make_gridpack () {
               echo "" >> makegrid.dat
       fi
       echo "done" >> makegrid.dat
-    
+
       cat makegrid.dat | ./bin/generate_events -n pilotrun
       # Run this step separately in debug mode since it gives so many problems
       if [ -e $CARDSDIR/${name}_reweight_card.dat ]; then
@@ -653,6 +652,10 @@ fi
 
 #catch unset variables
 set -u
+
+if [ -z ${carddir} ]; then
+    echo "Card directory not provided"
+fi
 
 if [ -z ${name} ]; then
   echo "Process/card name not provided"

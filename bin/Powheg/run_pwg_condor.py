@@ -948,11 +948,7 @@ def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag, proc
 
         if not 'manyseeds' in open(inputName).read() :
             runCommand("echo \'manyseeds 1\' >> "+ inputName)
-
-        if not 'fakevirt' in open(inputName).read() :
-            if process != 'b_bbar_4l':
-                runCommand("echo \'fakevirt 1\' >> "+inputName)
-    
+  
     runCommand('cp -p ' + folderName + '/powheg.input ' + folderName + '/powheg.input.' + parstage)
 
     with open(os.path.join(folderName, "pwgseeds.dat"), "w") as f:
@@ -1023,9 +1019,11 @@ rm -f $WORKDIR/$folderName'_'$process'.tgz'
 
 cp -p $WORKDIR/run_pwg.py $WORKDIR/$folderName
 
-if [ -e $WORKDIR/$folderName/pwggrid-0001.dat ]; then
-  cp -p $WORKDIR/$folderName/pwggrid-0001.dat $WORKDIR/$folderName/pwggrid.dat
+if [ -e $WORKDIR/$folderName/pwg-0001-stat.dat ]; then
   cp -p $WORKDIR/$folderName/pwg-0001-stat.dat $WORKDIR/$folderName/pwg-stat.dat
+fi
+if [ -e $WORKDIR/$folderName/pwg-st3-0001-stat.dat ]; then
+  cp -p $WORKDIR/$folderName/pwg-st3-0001-stat.dat $WORKDIR/$folderName/pwg-stat.dat
 fi
 
 

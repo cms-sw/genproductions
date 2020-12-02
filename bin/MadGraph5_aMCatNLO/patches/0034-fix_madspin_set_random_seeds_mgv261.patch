@@ -1,0 +1,12 @@
+diff --git a/MadSpin/interface_madspin.py b/MadSpin/interface_madspin.py
+index f096faf..51f83c7 100755
+--- a/MadSpin/interface_madspin.py
++++ b/MadSpin/interface_madspin.py
+@@ -678,6 +678,7 @@ class MadSpinInterface(extended_cmd.Cmd):
+         # NOW we have all the information available for RUNNING
+         
+         if self.seed:
++            self.seed = self.seed
+             #seed is specified need to use that one:
+             open(pjoin(self.options['ms_dir'],'seeds.dat'),'w').write('%s\n'%self.seed)
+             #remove all ranmar_state
