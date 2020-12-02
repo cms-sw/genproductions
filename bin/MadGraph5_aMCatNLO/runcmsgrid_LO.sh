@@ -41,6 +41,9 @@ if [ "$use_gridpack_env" = true ]
     cd ${cmssw_version}/src
     eval `scramv1 runtime -sh`
 fi
+
+if [ ! -z "${PYTHON27PATH}" ] ; then export PYTHONPATH=${PYTHON27PATH} ; fi 
+
 cd $LHEWORKDIR/process
 
 #make sure lhapdf points to local cmssw installation area

@@ -125,7 +125,8 @@ make_gridpack () {
       WORKDIR=`pwd`
       eval `scram runtime -sh`
     
-    
+      if [ ! -z "${PYTHON27PATH}" ] ; then export PYTHONPATH=${PYTHON27PATH} ; fi 
+          
       #############################################
       #Copy, Unzip and Delete the MadGraph tarball#
       #############################################
