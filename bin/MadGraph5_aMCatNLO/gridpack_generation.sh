@@ -36,7 +36,11 @@ make_tarball () {
 
     EXTRA_TAR_ARGS=""
     if [ -e $CARDSDIR/${name}_externaltarball.dat ]; then
-        EXTRA_TAR_ARGS="external_tarball header_for_madspin.txt"
+        EXTRA_TAR_ARGS="external_tarball header_for_madspin.txt "
+    fi
+    ### include merge.pl script for LO event merging 
+    if [ -e merge.pl ]; then
+        EXTRA_TAR_ARGS+="merge.pl "
     fi
     XZ_OPT="$XZ_OPT" tar -cJpsf ${PRODHOME}/${name}_${scram_arch}_${cmssw_version}_tarball.tar.xz mgbasedir process runcmsgrid.sh gridpack_generation*.log InputCards $EXTRA_TAR_ARGS
 
@@ -591,6 +595,11 @@ make_gridpack () {
         cd ..
         rm $tarname
     fi
+    
+    # copy merge.pl from Utilities to allow merging LO events
+    cd $WORKDIR/gridpack
+    cp $PRODHOME/Utilities/merge.pl . 
+
 }
 
 #exit on first error
