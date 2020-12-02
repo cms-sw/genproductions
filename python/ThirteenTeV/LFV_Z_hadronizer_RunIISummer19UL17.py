@@ -9,8 +9,7 @@ externalLHEProducer = cms.EDProducer("ExternalLHEProducer",
 )
 
 #Link to datacards:
-#https://github.com/cms-sw/genproductions/tree/master/bin/MadGraph5_aMCatNLO/cards/production/2017/13TeV/DYJets_HT_LO_MLM_pdfwgt_F/DYJets_HT_mll50/DYJets_HT-incl
-
+#https://github.com/cms-sw/genproductions/tree/UL2019/bin/MadGraph5_aMCatNLO/cards/production/2017/13TeV/UL/LFV_ZtoL%2BL-
 from Configuration.Generator.Pythia8CommonSettings_cfi import *
 from Configuration.Generator.MCTunes2017.PythiaCP5Settings_cfi import *
 from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *
