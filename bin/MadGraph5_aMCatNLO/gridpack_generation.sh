@@ -115,7 +115,9 @@ make_gridpack () {
       ############################
       #Create a workplace to work#
       ############################
-      source /cvmfs/cms.cern.ch/cmsset_default.sh
+      export VO_CMS_SW_DIR=/cvmfs/cms.cern.ch
+      source $VO_CMS_SW_DIR/cmsset_default.sh
+
       scram project -n ${name}_gridpack CMSSW ${RELEASE} ;
       if [ ! -d ${name}_gridpack ]; then  
         if [ "${BASH_SOURCE[0]}" != "${0}" ]; then echo "yes here"; return 1; else exit 1; fi
