@@ -152,7 +152,7 @@ grep -q "pdfreweight 1" powheg.input ; test $? -eq 0 || produceWeights="false"
 grep -q "first runx" powheg.input ; test $? -ne 0 || produceWeights="true"
 
 cat powheg.input
-../pwhg_main &> log_${process}_${seed}.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
+../pwhg_main 2>&1 | tee log_${process}_${seed}.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
 
 if [ "$produceWeightsNNLO" == "true" ]; then
     echo -e "\ncomputing weights for NNLOPS\n"
@@ -184,7 +184,7 @@ if [ "$produceWeights" == "true" ]; then
    sed -i -e "s#select_EW#\#select_EW#g" powheg.input
    echo "select_EW_virt 1" >> powheg.input
 
-   ../pwhg_main &> logrew_${process}_${seed}.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"   
+   ../pwhg_main 2>&1 | tee logrew_${process}_${seed}.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"   
 
    cat pwgevents-rwgt.lhe | grep -v "Random number generator exit values" > ${file}_final.lhe
 else 

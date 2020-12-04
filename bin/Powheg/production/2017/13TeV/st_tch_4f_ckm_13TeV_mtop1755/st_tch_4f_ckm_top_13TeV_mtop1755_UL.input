@@ -1,7 +1,7 @@
 ! ST-tchannel inputs
 
 withdamp       1
-hdamp 242.0145 ! 1.379*mtop
+hdamp 237.8775 ! 1.379*172.5
 
 withnegweights 0   ! will generate also events with negative-weight 
 

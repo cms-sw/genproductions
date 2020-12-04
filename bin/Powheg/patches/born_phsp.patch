@@ -1,0 +1,18 @@
+390,391c390,391
+<       logical gscale,hscale
+<       save gscale, hscale
+---
+>       logical gscale,hscale,bscale
+>       save gscale, hscale, bscale
+400a401
+>          bscale = .false.
+410a412,414
+>          elseif(powheginput('#runningscales').eq.3) then
+>             runningscales=.true.
+>             bscale = .true.
+423a428,429
+>          elseif (bscale) then
+>             write(*,*) '[ mT(Higgs) + mT(b) + mT(bbar) ]/4'
+460a467,468
+>          elseif (bscale) then
+>             muf = 0.25d0*(mt_higgs+mt_b+mt_bbar)
