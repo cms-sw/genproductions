@@ -1,4 +1,3 @@
-c *This file contains maximum cuts(M<10) on the dilepton mass: line 136-142*
 c
 c This file contains the default cuts (as defined in the run_card.dat)
 c and can easily be extended by the user to include other.  This
@@ -41,6 +40,8 @@ C     file, others are in ./Source/kin_functions.f
       external R2_04,invm2_04,pt_04,eta_04,pt,eta
 c local integers
       integer i,j
+c temporary variable for caching locally computation
+      double precision tmpvar
 c jet cluster algorithm
       integer nQCD,NJET,JET(nexternal)
       double precision pQCD(0:3,nexternal),PJET(0:3,nexternal)
@@ -63,6 +64,12 @@ c The UNLOPS cut
       double precision p_unlops(0:3,nexternal)
       include "run.inc" ! includes the ickkw parameter
       logical passUNLOPScuts
+c PDG specific cut
+      double precision etmin(nincoming+1:nexternal-1)
+      double precision etmax(nincoming+1:nexternal-1)
+      double precision
+mxxmin(nincoming+1:nexternal-1,nincoming+1:nexternal-1)
+      common /to_cuts/etmin,etmax,mxxmin
 c logicals that define if particles are leptons, jets or photons. These
 c are filled from the PDG codes (iPDG array) in this function.
       logical is_a_lp(nexternal),is_a_lm(nexternal),is_a_j(nexternal)
@@ -78,7 +85,8 @@ C***************************************************************
 c
 c CHARGED LEPTON CUTS
 c
-c find the charged leptons (also used in the photon isolation cuts below)
+c find the charged leptons (also used in the photon isolation cuts
+below)
       do i=1,nexternal
          if(istatus(i).eq.1 .and.
      &    (ipdg(i).eq.11 .or. ipdg(i).eq.13 .or. ipdg(i).eq.15)) then
@@ -185,7 +193,7 @@ c more than the Born).
          enddo
       endif
 
-c The UNLOPS cut:
+c THE UNLOPS CUT:
       if (ickkw.eq.4 .and. ptj.gt.0d0) then
 c Use special pythia pt cut for minimal pT
          do i=1,nexternal
@@ -200,13 +208,26 @@ c Use special pythia pt cut for minimal pT
          endif
 c Bypass normal jet cuts
          goto 122
+c THE VETO XSEC CUT:
+      elseif (ickkw.eq.-1 .and. ptj.gt.0d0) then
+c Use veto'ed Xsec for analytic NNLL resummation
+         if (nQCD.ne.1) then
+            write (*,*) 'ERROR: more than one QCD parton in '/
+     $           /'this event in cuts.f. There should only be one'
+            stop
+         endif
+         if (pt(pQCD(0,1)) .gt. ptj) then
+            passcuts_user=.false.
+            return
+         endif
       endif
 
 
       if (ptj.gt.0d0.and.nQCD.gt.1) then
 
 c Cut some peculiar momentum configurations, i.e. two partons very soft.
-c This is needed to get rid of numerical instabilities in the Real emission
+c This is needed to get rid of numerical instabilities in the Real
+emission
 c matrix elements when the Born has a massless final-state parton, but
 c no possible divergence related to it (e.g. t-channel single top)
          mm=0
@@ -220,7 +241,8 @@ c no possible divergence related to it (e.g. t-channel single top)
 
 
 c Define jet clustering parameters (from cuts.inc via the run_card.dat)
-         palg=JETALGO           ! jet algorithm: 1.0=kt, 0.0=C/A, -1.0 = anti-kt
+         palg=JETALGO           ! jet algorithm: 1.0=kt, 0.0=C/A, -1.0 =
+anti-kt
          rfj=JETRADIUS          ! the radius parameter
          sycut=PTJ              ! minimum transverse momentum
 
@@ -228,18 +250,23 @@ c******************************************************************************
 c     call FASTJET to get all the jets
 c
 c     INPUT:
-c     input momenta:               pQCD(0:3,nexternal), energy is 0th component
+c     input momenta:               pQCD(0:3,nexternal), energy is 0th
+component
 c     number of input momenta:     nQCD
 c     radius parameter:            rfj
 c     minumum jet pt:              sycut
 c     jet algorithm:               palg, 1.0=kt, 0.0=C/A, -1.0 = anti-kt
 c
 c     OUTPUT:
-c     jet momenta:                           pjet(0:3,nexternal), E is 0th cmpnt
+c     jet momenta:                           pjet(0:3,nexternal), E is
+0th cmpnt
 c     the number of jets (with pt > SYCUT):  njet
-c     the jet for a given particle 'i':      jet(i),   note that this is the
-c                                            particle in pQCD, which doesn't
-c                                            necessarily correspond to the particle
+c     the jet for a given particle 'i':      jet(i),   note that this is
+the
+c                                            particle in pQCD, which
+doesn't
+c                                            necessarily correspond to
+the particle
 c                                            label in the process
 c
          call amcatnlo_fastjetppgenkt_etamax_timed(
@@ -368,6 +395,31 @@ c End of loop over photons
 c End photon isolation
       endif
 
+C
+C     PDG SPECIFIC CUTS (PT/M_IJ)
+C
+      do i=nincoming+1,nexternal-1
+         if(etmin(i).gt.0d0 .or. etmax(i).gt.0d0)then
+            tmpvar = pt_04(p(0,i))
+            if (tmpvar.lt.etmin(i)) then
+               passcuts_user=.false.
+               return
+            elseif (tmpvar.gt.etmax(i) .and. etmax(i).gt.0d0) then
+               passcuts_user=.false.
+               return
+            endif
+         endif
+         do j=i+1, nexternal-1
+            if (mxxmin(i,j).gt.0d0)then
+               if (invm2_04(p(0,i),p(0,j),1d0).lt.mxxmin(i,j)**2)then
+                  passcuts_user=.false.
+                  return
+               endif
+            endif
+         enddo
+      enddo
+
+
 C***************************************************************
 C***************************************************************
 C PUT HERE YOUR USER-DEFINED CUTS
@@ -375,6 +427,8 @@ C***************************************************************
 C***************************************************************
 C
 c$$$C EXAMPLE: cut on top quark pT
+c$$$C          Note that PDG specific cut are more optimised than simple
+user cut
 c$$$      do i=1,nexternal   ! loop over all external particles
 c$$$         if (istatus(i).eq.1    ! final state particle
 c$$$     &        .and. abs(ipdg(i)).eq.6) then    ! top quark
@@ -408,6 +462,7 @@ C***************************************************************
       include 'run.inc'
       include 'genps.inc'
       include 'cuts.inc'
+      include 'timing_variables.inc'
       REAL*8 P(0:3,nexternal),rwgt
       integer i,j,istatus(nexternal),iPDG(nexternal)
 c For boosts
@@ -428,6 +483,7 @@ c PDG codes of particles
       common /c_leshouche_inc/idup,mothup,icolup,niprocs
       logical passcuts_user
       external passcuts_user
+      call cpu_time(tBefore)
 c Make sure have reasonable 4-momenta
       if (p(0,1) .le. 0d0) then
          passcuts=.false.
@@ -443,7 +499,8 @@ c Also make sure there's no INF or NAN
          enddo
       enddo
       rwgt=1d0
-c Boost the momenta p(0:3,nexternal) to the lab frame plab(0:3,nexternal)
+c Boost the momenta p(0:3,nexternal) to the lab frame
+plab(0:3,nexternal)
       chybst=cosh(ybst_til_tolab)
       shybst=sinh(ybst_til_tolab)
       chybstmo=chybst-1.d0
@@ -463,9 +520,12 @@ c Fill the arrays (momenta, status and PDG):
          enddo
          pp(4,i)=pmass(i)
          ipdg(i)=idup(i,1)
+         if (ipdg(i).eq.-21) ipdg(i)=21
       enddo
 c Call the actual cuts function  
       passcuts = passcuts_user(pp,istatus,ipdg)
+      call cpu_time(tAfter)
+      t_cuts=t_cuts+(tAfter-tBefore)
       RETURN
       END
 
@@ -511,10 +571,10 @@ C
 C
     2 IF (N.EQ.1)            RETURN
       IF (MODE)    10,20,30
-   10 STOP 5 ! CALL SORTTI (A,INDEX,N)
+   10 CALL SORTTI (A,INDEX,N)
       GO TO 40
 C
-   20 STOP 5 ! CALL SORTTC(A,INDEX,N)
+   20 CALL SORTTC(A,INDEX,N)
       GO TO 40
 C
    30 CALL SORTTF (A,INDEX,N)
@@ -912,18 +972,23 @@ c      'bias' = event_norm
 c
       implicit none
       include 'nexternal.inc'
-      double precision bias_wgt,p(0:3,nexternal),shat,sumdot
+      double precision bias_wgt,p(0:3,nexternal),H_T
       integer ipdg(nexternal),i
-      external sumdot
 
       bias_wgt=1d0
 
-c How to enhance the tails is very process dependent. But, it is
-c probably easiest to enhance the tails using shat, e.g.:
-c      shat=sumdot(p(0,1),p(0,2),1d0)
-c      bias_wgt=max(100d0**2,shat)/100d0**2
-c      bias_wgt=bias_wgt**2
+c How to enhance the tails is very process dependent. For example for
+c top quark production one could use:
+c      do i=1,nexternal
+c         if (ipdg(i).eq.6) then
+c            bias_wgt=sqrt(p(1,i)**2+p(2,i)**2)**3
+c         endif
+c      enddo
+c Or to use H_T^2 one does     
+c      H_T=0d0
+c      do i=3,nexternal
+c         H_T=H_T+sqrt(max(0d0,(p(0,i)+p(3,i))*(p(0,i)-p(3,i))))
+c      enddo
+c      bias_wgt=H_T**2
       return
       end
-
-
