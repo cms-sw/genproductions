@@ -171,3 +171,27 @@ Index: ZjMiNNLO/pwhg_analysis-minnlo.f
  c     I require ihep>3 to make sure I don't pick up jmohep(1,ihep)=0, as this
  c     gives a bound violation when computing idhep(jmohep(1,ihep))=idhep(0)...
           if(whcprg.eq.'PY8'.and.ihep.gt.3) then
+
+
+Index: ZjMiNNLO/process_dependent_minnlo.f
+===================================================================
+--- ZjMiNNLO/process_dependent_minnlo.f (revision 3756)
++++ ZjMiNNLO/process_dependent_minnlo.f (working copy)
+@@ -3,7 +3,7 @@
+       implicit none
+       double precision powheginput
+       include 'PhysPars.h'
+-      if(powheginput('#zmass') .ge. 0d0) ph_zmass = powheginput('#zmass') 
++      ! if(powheginput('#zmass') .ge. 0d0) ph_zmass = powheginput('#zmass') 
+       call set_masses(ph_zmass)
+       end
+ 
+@@ -19,7 +19,7 @@
+       implicit none
+       double precision get_M_for_init_Dterms, powheginput
+       include 'PhysPars.h'
+-      if(powheginput('#zmass') .ge. 0d0) ph_zmass = powheginput('#zmass')
++      ! if(powheginput('#zmass') .ge. 0d0) ph_zmass = powheginput('#zmass')
+       get_M_for_init_Dterms = ph_zmass
+       end
+ c DUMMY routine for bmass used in setlocalscales.f for Higgs

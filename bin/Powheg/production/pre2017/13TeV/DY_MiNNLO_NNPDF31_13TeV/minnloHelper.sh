@@ -10,7 +10,7 @@ fi
 
 ARCH=slc6_amd64_gcc700
 CMSSW=CMSSW_10_2_23
-SUFFIX=powheg-MiNNLO31-svn3756-ew-rwl5-j200-st2fix-ana-hoppetweights-ymax20-newgrids
+SUFFIX=powheg-MiNNLO31-svn3756-ew-rwl6-j200-st2fix-ana-hoppetweights-ymax20
 
 PROCS=(ZJToMuMu-suggested-nnpdf31-ncalls-doublefsr-q139 WplusJToMuNu-suggested-nnpdf31-ncalls-doublefsr-q139-ckm WminusJToMuNu-suggested-nnpdf31-ncalls-doublefsr-q139-ckm)
 
