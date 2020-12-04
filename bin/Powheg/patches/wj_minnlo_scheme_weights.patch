@@ -165,3 +165,27 @@ Index: WjMiNNLO/init_couplings.f
        write(*,*) '1/alphaem = ',1d0/ph_alphaem
        write(*,*) 'alphaem = ',ph_alphaem
        write(*,*) 'sthw2 = ',ph_sthw2
+
+
+Index: WjMiNNLO/process_dependent_minnlo.f
+===================================================================
+--- WjMiNNLO/process_dependent_minnlo.f (revision 3756)
++++ WjMiNNLO/process_dependent_minnlo.f (working copy)
+@@ -3,7 +3,7 @@
+       implicit none
+       double precision powheginput
+       include 'PhysPars.h'
+-      if(powheginput('#zmass') .ge. 0d0) ph_zmass = powheginput('#zmass')
++      ! if(powheginput('#zmass') .ge. 0d0) ph_zmass = powheginput('#zmass')
+       call set_masses(ph_zmass)
+       end
+ 
+@@ -19,7 +19,7 @@
+       implicit none
+       double precision get_M_for_init_Dterms, powheginput
+       include 'PhysPars.h'
+-      if(powheginput('#Wmass') .ge. 0d0) ph_wmass = powheginput('#Wmass')
++      ! if(powheginput('#Wmass') .ge. 0d0) ph_wmass = powheginput('#Wmass')
+       get_M_for_init_Dterms = ph_wmass
+       end
+ c DUMMY routine for bmass used in setlocalscales.f for Higgs
