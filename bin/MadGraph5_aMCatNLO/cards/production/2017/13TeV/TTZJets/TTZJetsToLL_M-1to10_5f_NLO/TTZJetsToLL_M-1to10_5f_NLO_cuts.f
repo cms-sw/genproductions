@@ -1,4 +1,4 @@
-c
+c This file contains and mll_sf < 10 cut as defined in lines 138-146
 c This file contains the default cuts (as defined in the run_card.dat)
 c and can easily be extended by the user to include other.  This
 c function should return true if event passes cuts
@@ -67,14 +67,11 @@ c The UNLOPS cut
 c PDG specific cut
       double precision etmin(nincoming+1:nexternal-1)
       double precision etmax(nincoming+1:nexternal-1)
-      double precision
-mxxmin(nincoming+1:nexternal-1,nincoming+1:nexternal-1)
+      double precision mxxmin(nincoming+1:nexternal-1,nincoming+1:nexternal-1)
       common /to_cuts/etmin,etmax,mxxmin
 c logicals that define if particles are leptons, jets or photons. These
 c are filled from the PDG codes (iPDG array) in this function.
-      logical is_a_lp(nexternal),is_a_lm(nexternal),is_a_j(nexternal)
-     $     ,is_a_ph(nexternal)
-
+      logical is_a_lp(nexternal),is_a_lm(nexternal),is_a_j(nexternal),is_a_ph(nexternal)
       passcuts_user=.true. ! event is okay; otherwise it is changed
 
 C***************************************************************
@@ -85,17 +82,14 @@ C***************************************************************
 c
 c CHARGED LEPTON CUTS
 c
-c find the charged leptons (also used in the photon isolation cuts
-below)
+c find the charged leptons (also used in the photon isolation cuts below)
       do i=1,nexternal
-         if(istatus(i).eq.1 .and.
-     &    (ipdg(i).eq.11 .or. ipdg(i).eq.13 .or. ipdg(i).eq.15)) then
+         if(istatus(i).eq.1 .and. (ipdg(i).eq.11 .or. ipdg(i).eq.13 .or. ipdg(i).eq.15)) then
             is_a_lm(i)=.true.
          else
             is_a_lm(i)=.false.
          endif
-         if(istatus(i).eq.1 .and.
-     &    (ipdg(i).eq.-11 .or. ipdg(i).eq.-13 .or. ipdg(i).eq.-15)) then
+         if(istatus(i).eq.1 .and. (ipdg(i).eq.-11 .or. ipdg(i).eq.-13 .or. ipdg(i).eq.-15)) then
             is_a_lp(i)=.true.
          else
             is_a_lp(i)=.false.
@@ -142,15 +136,13 @@ c DeltaR and invariant mass cuts
                            endif
                         endif
                         if (mll_sf.gt.0d0) then
-                           if (invm2_04(p(0,i),p(0,j),1d0).gt.10**2)
-     $                          then
+                           if (invm2_04(p(0,i),p(0,j),1d0).gt.10**2) then
                               passcuts_user=.false.
                               return
                            endif
                         endif
                         if (mll_sf.gt.0d0) then
-                           if (invm2_04(p(0,i),p(0,j),1d0).lt.mll_sf**2)
-     $                          then
+                           if (invm2_04(p(0,i),p(0,j),1d0).lt.mll_sf**2) then
                               passcuts_user=.false.
                               return
                            endif
@@ -166,8 +158,7 @@ c JET CUTS
 c
 c find the jets
       do i=1,nexternal
-         if (istatus(i).eq.1 .and.
-     &        (abs(ipdg(i)).le.maxjetflavor .or. ipdg(i).eq.21)) then
+         if (istatus(i).eq.1 .and. (abs(ipdg(i)).le.maxjetflavor .or. ipdg(i).eq.21)) then
             is_a_j(i)=.true.
          else
             is_a_j(i)=.false.
@@ -212,8 +203,7 @@ c THE VETO XSEC CUT:
       elseif (ickkw.eq.-1 .and. ptj.gt.0d0) then
 c Use veto'ed Xsec for analytic NNLL resummation
          if (nQCD.ne.1) then
-            write (*,*) 'ERROR: more than one QCD parton in '/
-     $           /'this event in cuts.f. There should only be one'
+            write (*,*) 'ERROR: more than one QCD parton in this event in cuts.f. There should only be one'
             stop
          endif
          if (pt(pQCD(0,1)) .gt. ptj) then
@@ -226,8 +216,7 @@ c Use veto'ed Xsec for analytic NNLL resummation
       if (ptj.gt.0d0.and.nQCD.gt.1) then
 
 c Cut some peculiar momentum configurations, i.e. two partons very soft.
-c This is needed to get rid of numerical instabilities in the Real
-emission
+c This is needed to get rid of numerical instabilities in the Real emission
 c matrix elements when the Born has a massless final-state parton, but
 c no possible divergence related to it (e.g. t-channel single top)
          mm=0
@@ -241,8 +230,7 @@ c no possible divergence related to it (e.g. t-channel single top)
 
 
 c Define jet clustering parameters (from cuts.inc via the run_card.dat)
-         palg=JETALGO           ! jet algorithm: 1.0=kt, 0.0=C/A, -1.0 =
-anti-kt
+         palg=JETALGO           ! jet algorithm: 1.0=kt, 0.0=C/A, -1.0 = anti-kt
          rfj=JETRADIUS          ! the radius parameter
          sycut=PTJ              ! minimum transverse momentum
 
@@ -250,27 +238,21 @@ c******************************************************************************
 c     call FASTJET to get all the jets
 c
 c     INPUT:
-c     input momenta:               pQCD(0:3,nexternal), energy is 0th
-component
+c     input momenta:               pQCD(0:3,nexternal), energy is 0th component
 c     number of input momenta:     nQCD
 c     radius parameter:            rfj
 c     minumum jet pt:              sycut
 c     jet algorithm:               palg, 1.0=kt, 0.0=C/A, -1.0 = anti-kt
 c
 c     OUTPUT:
-c     jet momenta:                           pjet(0:3,nexternal), E is
-0th cmpnt
+c     jet momenta:                           pjet(0:3,nexternal), E is 0th cmpnt
 c     the number of jets (with pt > SYCUT):  njet
-c     the jet for a given particle 'i':      jet(i),   note that this is
-the
-c                                            particle in pQCD, which
-doesn't
-c                                            necessarily correspond to
-the particle
+c     the jet for a given particle 'i':      jet(i),   note that this is the
+c                                            particle in pQCD, which does'nt
+c                                            necessarily correspond to the particle
 c                                            label in the process
 c
-         call amcatnlo_fastjetppgenkt_etamax_timed(
-     $    pQCD,nQCD,rfj,sycut,etaj,palg,pjet,njet,jet)
+         call amcatnlo_fastjetppgenkt_etamax_timed(pQCD,nQCD,rfj,sycut,etaj,palg,pjet,njet,jet)
 c
 c******************************************************************************
 
@@ -354,9 +336,7 @@ c Isolate from hadronic energy
                endif
             enddo
             do i=1,nin
-               alliso=alliso .and.
-     $              Etsum(i).le.chi_gamma_iso(dble(drlist(isorted(i))),
-     $              R0gamma,xn,epsgamma,ptg)
+               alliso=alliso .and. Etsum(i).le.chi_gamma_iso(dble(drlist(isorted(i))),R0gamma,xn,epsgamma,ptg)
             enddo
             
 c Isolate from EM energy
@@ -380,9 +360,7 @@ c First of list must be the photon: check this, and drop it
                   endif
                enddo
                do i=1,nin
-                  alliso=alliso .and.
-     $               Etsum(i).le.chi_gamma_iso(dble(drlist(isorted(i))),
-     $               R0gamma,xn,epsgamma,ptg)
+                  alliso=alliso .and. Etsum(i).le.chi_gamma_iso(dble(drlist(isorted(i))),R0gamma,xn,epsgamma,ptg)
                enddo
             endif
 c End of loop over photons
@@ -427,8 +405,7 @@ C***************************************************************
 C***************************************************************
 C
 c$$$C EXAMPLE: cut on top quark pT
-c$$$C          Note that PDG specific cut are more optimised than simple
-user cut
+c$$$C          Note that PDG specific cut are more optimised than simple user cut
 c$$$      do i=1,nexternal   ! loop over all external particles
 c$$$         if (istatus(i).eq.1    ! final state particle
 c$$$     &        .and. abs(ipdg(i)).eq.6) then    ! top quark
@@ -467,8 +444,7 @@ C***************************************************************
       integer i,j,istatus(nexternal),iPDG(nexternal)
 c For boosts
       double precision ybst_til_tolab,ybst_til_tocm,sqrtshat,shat
-      common/parton_cms_stuff/ybst_til_tolab,ybst_til_tocm,
-     #                        sqrtshat,shat
+      common/parton_cms_stuff/ybst_til_tolab,ybst_til_tocm,sqrtshat,shat
       double precision chybst,shybst,chybstmo
       double precision xd(1:3)
       data (xd(i),i=1,3)/0,0,1/
@@ -478,8 +454,7 @@ c Masses of external particles
       double precision pmass(nexternal)
       common/to_mass/pmass
 c PDG codes of particles
-      integer idup(nexternal,maxproc),mothup(2,nexternal,maxproc),
-     &     icolup(2,nexternal,maxflow),niprocs
+      integer idup(nexternal,maxproc),mothup(2,nexternal,maxproc),icolup(2,nexternal,maxflow),niprocs
       common /c_leshouche_inc/idup,mothup,icolup,niprocs
       logical passcuts_user
       external passcuts_user
@@ -489,7 +464,7 @@ c Make sure have reasonable 4-momenta
          passcuts=.false.
          return
       endif
-c Also make sure there's no INF or NAN
+c Also make sure there is no INF or NAN
       do i=1,nexternal
          do j=0,3
             if(p(j,i).gt.1d32.or.p(j,i).ne.p(j,i))then
@@ -499,14 +474,12 @@ c Also make sure there's no INF or NAN
          enddo
       enddo
       rwgt=1d0
-c Boost the momenta p(0:3,nexternal) to the lab frame
-plab(0:3,nexternal)
+c Boost the momenta p(0:3,nexternal) to the lab frame plab(0:3,nexternal)
       chybst=cosh(ybst_til_tolab)
       shybst=sinh(ybst_til_tolab)
       chybstmo=chybst-1.d0
       do i=1,nexternal
-         call boostwdir2(chybst,shybst,chybstmo,xd,
-     &        p(0,i),plab(0,i))
+         call boostwdir2(chybst,shybst,chybstmo,xd,p(0,i),plab(0,i))
       enddo
 c Fill the arrays (momenta, status and PDG):
       do i=1,nexternal
@@ -917,8 +890,7 @@ c-----
       implicit none
       include "genps.inc"
       include 'nexternal.inc'
-      integer idup(nexternal,maxproc),mothup(2,nexternal,maxproc),
-     &     icolup(2,nexternal,maxflow),niprocs
+      integer idup(nexternal,maxproc),mothup(2,nexternal,maxproc),icolup(2,nexternal,maxflow),niprocs
 c      include 'leshouche.inc'
       common /c_leshouche_inc/idup,mothup,icolup,niprocs
       integer IDUP_tmp(nexternal),i
