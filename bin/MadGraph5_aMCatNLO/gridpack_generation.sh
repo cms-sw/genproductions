@@ -130,7 +130,8 @@ make_gridpack () {
       eval `scram runtime -sh`
     
       if [ ! -z "${PYTHON27PATH}" ] ; then export PYTHONPATH=${PYTHON27PATH} ; fi 
-          
+      if [ ! -z "${PYTHON_BINDINGS}" ] ; then export PYTHONPATH=${PYTHONPATH}:${PYTHON_BINDINGS} ; fi
+   
       #############################################
       #Copy, Unzip and Delete the MadGraph tarball#
       #############################################
