@@ -125,8 +125,10 @@ make_gridpack () {
       eval `scram runtime -sh`
 
       # use python 2.7 and include python bindings from default to allow "import htcondor" after cmsenv
+      set +u 
       if [ ! -z "${PYTHON27PATH}" ] ; then export PYTHONPATH=${PYTHON27PATH} ; fi 
       if [ ! -z "${PYTHON_BINDINGS}" ] ; then export PYTHONPATH=${PYTHONPATH}:${PYTHON_BINDINGS} ; fi
+      set -u 
       
       #############################################
       #Copy, Unzip and Delete the MadGraph tarball#
