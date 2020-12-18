@@ -1,5 +1,5 @@
 import model_v4 $modelfile
 define p = g u c d s u~ c~ d~ s~
 define j = g u c d s u~ c~ d~ s~
-generate p p > zp j j , ( zp > w+ w- )
+generate p p > zp j j QCD=0,  zp > w+ w- @0
 output $NAME -nojpeg
