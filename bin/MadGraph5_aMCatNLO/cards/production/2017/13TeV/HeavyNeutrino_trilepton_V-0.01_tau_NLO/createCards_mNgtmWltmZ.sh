@@ -1,4 +1,4 @@
-masspoints=(82 90)
+masspoints=(90)
 
 template_dir="HeavyNeutrino_trilepton_mNgtmWltmZ_V-0.01_tau_NLO/" 
 

@@ -21,5 +21,5 @@ define w = w- w+
 import model SM_HeavyN_NLO
 define p = p b b~
 define j = p
-generate p p > n1 l [QCD]
+generate p p > l n1 [QCD]
 output HeavyNeutrino_trilepton_M-HNLMASS_V-0.01_tau_NLO -nojpeg

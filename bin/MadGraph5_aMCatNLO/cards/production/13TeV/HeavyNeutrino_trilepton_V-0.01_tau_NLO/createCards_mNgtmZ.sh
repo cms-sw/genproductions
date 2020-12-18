@@ -1,4 +1,4 @@
-masspoints=(92 100 125 150 175 200 250 300 350 400 450 500 600 700 800 900 1000)
+masspoints=(100 125 150 175 200 250 300 350 400 450 500 600 700 800 900 1000)
 
 template_dir="HeavyNeutrino_trilepton_mNgtmZ_V-0.01_tau_NLO/" 
 
