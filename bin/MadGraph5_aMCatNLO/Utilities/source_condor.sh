@@ -19,4 +19,5 @@ else
   else
       export PYTHONPATH="$PYTHON_BINDINGS"
   fi
+  export PYTHON_BINDINGS="$PYTHON_BINDINGS"
 fi

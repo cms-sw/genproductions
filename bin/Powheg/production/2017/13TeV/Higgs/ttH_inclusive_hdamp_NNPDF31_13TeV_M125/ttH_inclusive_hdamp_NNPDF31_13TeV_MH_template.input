@@ -43,7 +43,7 @@ renscfact 1d0   ! (default 1d0) ren scale factor: muren  = muref * renscfact
 facscfact 1d0   ! (default 1d0) fac scale factor: mufact = muref * facscfact
 testplots  1       ! (default 0, do not) do NLO and PWHG distributions
 
-fakevirt   1      ! (default 0) if 1 use Born for virtuals
+fakevirt   0      ! (default 0) if 1 use Born for virtuals
 
 iseed    SEED
 

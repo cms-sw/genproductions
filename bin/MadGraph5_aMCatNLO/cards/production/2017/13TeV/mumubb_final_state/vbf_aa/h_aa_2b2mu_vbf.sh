@@ -1,6 +1,6 @@
 #!/bin/bash
 
-masses=(20 30 40 50 60)
+masses=(10 20 30 40 50 60)
 sample=vbfh01_M125_Toa01a01_Tomumubb_M
 
 postfix=(_run_card.dat _customizecards.dat _proc_card.dat _extramodels.dat)

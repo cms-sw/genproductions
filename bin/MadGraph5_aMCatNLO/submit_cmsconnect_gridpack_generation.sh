@@ -14,13 +14,13 @@ cat<<-EOF
 	Log = condor_log/job.log.\$(Cluster) 
 	
 	transfer_input_files = $input_files, gridpack_generation.sh, /usr/bin/unzip
-	transfer_output_files = ${card_name}.log
+	transfer_output_files = ${card_name}.log, ${sandbox_output}
 	transfer_output_remaps = "${card_name}.log = ${card_name}_codegen.log"
 	+WantIOProxy=true
         +IsGridpack=true
         +GridpackCard = "${card_name}"
 	
-	+REQUIRED_OS = "rhel6"
+	+REQUIRED_OS = "${rhel_ver}"
 	request_cpus = $cores
 	request_memory = $memory
 	Queue 1
@@ -77,21 +77,23 @@ cat<<-EOF
 	    echo "The xrdcp command below failed:"
 	    echo "xrdcp -f \${condor_scratch}$sandbox_output root://stash.osgconnect.net:1094/${stash_tmpdir##/stash}/$sandbox_output"
 	fi
-	# Second, try condor_chirp
-	echo ">> Copying sandbox via condor_chirp"
-	CONDOR_CHIRP_BIN=\$(command -v condor_chirp)
-	if [ \$? != 0 ]; then
-	    if [ -n "\${CONDOR_CONFIG}" ]; then
-	        CONDOR_CHIRP_BIN="\$(dirname \$CONDOR_CONFIG)/main/condor/libexec/condor_chirp"
-	    fi
-	fi
-	"\${CONDOR_CHIRP_BIN}" put -perm 644 "\${condor_scratch}/$sandbox_output" "$sandbox_output"
-	exitcode=\$?
-	if [ \$exitcode -ne 0 ]; then
-	    echo "condor_chirp failed. Exiting with error code 210."
-	    exit 210
-	fi
-	rm "\${condor_scratch}/$sandbox_output"
+        # Temporarily disable condor_chirp
+        # until this feature comes back in CMS
+	## Second, try condor_chirp
+	#echo ">> Copying sandbox via condor_chirp"
+	#CONDOR_CHIRP_BIN=\$(command -v condor_chirp)
+	#if [ \$? != 0 ]; then
+	#    if [ -n "\${CONDOR_CONFIG}" ]; then
+	#        CONDOR_CHIRP_BIN="\$(dirname \$CONDOR_CONFIG)/main/condor/libexec/condor_chirp"
+	#    fi
+	#fi
+	#"\${CONDOR_CHIRP_BIN}" put -perm 644 "\${condor_scratch}/$sandbox_output" "$sandbox_output"
+	#exitcode=\$?
+	#if [ \$exitcode -ne 0 ]; then
+	#    echo "condor_chirp failed. Exiting with error code 210."
+	#    exit 210
+	#fi
+	#rm "\${condor_scratch}/$sandbox_output"
 
 EOF
 }
@@ -165,6 +167,28 @@ cores="${3:-1}"
 memory="${4:-2 Gb}"
 scram_arch="${5:-}"
 cmssw_version="${6:-}"
+
+export SYSTEM_RELEASE=`cat /etc/redhat-release`
+
+if [ -n "$5" ]; then
+  if [[ $scram_arch == *"slc6"* ]]; then
+    rhel_ver="rhel6"
+  elif [[ $scram_arch == *"slc7"* ]]; then
+    rhel_ver="rhel7"
+  else
+    echo "Invalid scram_arch is specified!"
+    if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
+  fi
+else
+  if [[ $SYSTEM_RELEASE == *"release 6"* ]]; then
+    rhel_ver="rhel6"
+  elif [[ $SYSTEM_RELEASE == *"release 7"* ]]; then
+    rhel_ver="rhel7"
+  else 
+    echo "No default CMSSW for current OS!"
+      if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi        
+  fi
+fi
 
 parent_dir=$PWD
 

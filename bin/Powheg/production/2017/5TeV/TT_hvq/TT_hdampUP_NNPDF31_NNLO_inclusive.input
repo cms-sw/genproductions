@@ -14,7 +14,7 @@ ebeam2 2510    ! energy of beam 2
 qmass  172.5     ! mass of heavy quark in GeV
 facscfact 1    ! factorization scale factor: mufact=muref*facscfact 
 renscfact 1    ! renormalization scale factor: muren=muref*renscfact 
-hdamp 284.1171
+hdamp 397.6125 ! 2.305 x mtop,  https://gitlab.cern.ch/cms-gen/Tuning/-/merge_requests/11
 
 topdecaymode 22222   ! an integer of 5 digits that are either 0, or 2, representing in 
                      ! the order the maximum number of the following particles(antiparticles)

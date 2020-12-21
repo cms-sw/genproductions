@@ -362,7 +362,7 @@ if [[ -s ./JHUGen.input ]]; then
 fi
 
 ### retrieve the powheg source tar ball
-export POWHEGSRC=powhegboxV2_rev3592_date20180904.tar.gz
+export POWHEGSRC=powhegboxV2_rev3728_date20200429.tar.gz
 
 if [ "$process" = "b_bbar_4l" ] || [ "$process" = "HWJ_ew" ] || [ "$process" = "HW_ew" ] || [ "$process" = "HZJ_ew" ] || [ "$process" = "HZ_ew" ]; then 
   export POWHEGSRC=powhegboxRES_rev3478_date20180122.tar.gz 
@@ -409,6 +409,9 @@ if [ "$process" = "WWJ" ]; then
     cp ${WORKDIR}/patches/rwl_write_weights2_extra.f POWHEG-BOX/$process/
 fi
 
+if [ "$process" = "bbH" ]; then
+    patch POWHEG-BOX/${process}/Born_phsp.f -l -p0 -i ${WORKDIR}/patches/born_phsp.patch
+fi
 
 sed -i -e "s#500#1200#g"  POWHEG-BOX/include/pwhg_rwl.h
 

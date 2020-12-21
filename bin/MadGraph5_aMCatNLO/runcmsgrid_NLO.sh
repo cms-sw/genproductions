@@ -20,17 +20,17 @@ fi
 if [ "$use_gridpack_env" = true ]
   then
     if [ -n "$5" ]
-      then
+    then
         scram_arch_version=${5}
-      else
+    else
         scram_arch_version=SCRAM_ARCH_VERSION_REPLACE
     fi
     echo "%MSG-MG5 SCRAM_ARCH version = $scram_arch_version"
-
+    
     if [ -n "$6" ]
-      then
+    then
         cmssw_version=${6}
-      else
+    else
         cmssw_version=CMSSW_VERSION_REPLACE
     fi
     echo "%MSG-MG5 CMSSW version = $cmssw_version"
@@ -41,9 +41,10 @@ if [ "$use_gridpack_env" = true ]
     cd ${cmssw_version}/src
     eval `scramv1 runtime -sh`
 fi
-cd $LHEWORKDIR
 
-cd process
+if [ ! -z "${PYTHON27PATH}" ] ; then export PYTHONPATH=${PYTHON27PATH} ; fi 
+
+cd $LHEWORKDIR/process
 
 #make sure lhapdf points to local cmssw installation area
 LHAPDFCONFIG=`echo "$LHAPDF_DATA_PATH/../../bin/lhapdf-config"`
@@ -53,9 +54,10 @@ echo "lhapdf = $LHAPDFCONFIG" >> ./Cards/amcatnlo_configuration.txt
 
 echo "run_mode = 2" >> ./Cards/amcatnlo_configuration.txt
 echo "nb_core = $ncpu" >> ./Cards/amcatnlo_configuration.txt
-
-echo "reweight=OFF" > runscript.dat
+echo "madspin=OFF" > runscript.dat 
+echo "reweight=OFF" >> runscript.dat
 echo "done" >> runscript.dat
+
 echo "set nevents $nevt" >> runscript.dat
 echo "set iseed $rnum" >> runscript.dat
 
@@ -66,7 +68,6 @@ if [ "$nevtjob" -lt "10" ]; then
 fi
 
 echo "set nevt_job ${nevtjob}" >> runscript.dat
-
 echo "done" >> runscript.dat
 
 domadspin=0
@@ -91,25 +92,51 @@ runname=cmsgrid
 if [ ! -e $LHEWORKDIR/header_for_madspin.txt ]; then
   
     cat runscript.dat | ./bin/generate_events -ox -n $runname
-
     runlabel=$runname
-    if [ "$domadspin" -gt "0" ] ; then 
-      runlabel=${runname}_decayed_1
-    fi
 
-    if [ "$doreweighting" -gt "0" ] ; then 
+    if [ "$doreweighting" -gt "0" ] ; then
         #when REWEIGHT=OFF is applied, mg5_aMC moves reweight_card.dat to .reweight_card.dat
         mv ./Cards/.reweight_card.dat ./Cards/reweight_card.dat
         rwgt_dir="$LHEWORKDIR/process/rwgt"
         export PYTHONPATH=$rwgt_dir:$PYTHONPATH
         echo "0" | ./bin/aMCatNLO --debug reweight $runname
     fi
+    gzip -d $LHEWORKDIR/process/Events/${runlabel}/events.lhe 
+
+    if [ "$domadspin" -gt "0" ] ; then
+	mv $LHEWORKDIR/process/Events/${runlabel}/events.lhe events.lhe
+        # extract header as overwritten by madspin 
+	if grep -R "<initrwgt>" events.lhe ; then
+	    sed -n '/<initrwgt>/,/<\/initrwgt>/p' events.lhe >  initrwgt.txt
+	fi        
+        #when MADSPIN=OFF is applied, mg5_aMC moves madspin_card.dat to .madspin_card.dat
+        mv ./Cards/.madspin_card.dat ./Cards/madspin_card.dat
+        echo "import events.lhe" > madspinrun.dat
+        cat ./Cards/madspin_card.dat >> madspinrun.dat
+        $LHEWORKDIR/mgbasedir/MadSpin/madspin madspinrun.dat 
+        # add header back 
+	gzip -d events_decayed.lhe.gz  
+	if [ -e initrwgt.txt ]; then
+	    sed -i "/<\/header>/ {
+             h
+             r initrwgt.txt
+             g
+             N
+        }" events_decayed.lhe
+	    rm initrwgt.txt
+	fi
+	runlabel=${runname}_decayed_1
+	mkdir -p ./Events/${runlabel}
+        
+	mv $LHEWORKDIR/process/events_decayed.lhe $LHEWORKDIR/process/Events/${runlabel}/events.lhe
+    fi
 
     pdfsets="PDF_SETS_REPLACE"
     scalevars="--mur=1,2,0.5 --muf=1,2,0.5 --together=muf,mur --dyn=-1"
 
-    echo "systematics $runlabel --remove_wgts=all --start_id=1001 --pdf=$pdfsets $scalevars" | ./bin/aMCatNLO
-	cp ./Events/${runlabel}/events.lhe.gz $LHEWORKDIR/${runname}_final.lhe.gz
+    echo "systematics $runlabel --start_id=1001 --pdf=$pdfsets $scalevars" | ./bin/aMCatNLO
+
+    cp $LHEWORKDIR/process/Events/${runlabel}/events.lhe $LHEWORKDIR/${runname}_final.lhe
 
 #else handle external tarball
 else
@@ -140,26 +167,34 @@ else
     rm madspinrun.dat
     rm cmsgrid_predecay.lhe.gz
     mv cmsgrid_predecay_decayed.lhe.gz cmsgrid_final.lhe.gz
-    
+    gzip -d cmsgrid_final.lhe.gz
+
     if [ -e initrwgt.txt ];then
-    	gzip -d cmsgrid_final.lhe.gz
-    	sed -i "/<\/header>/ {
+	sed -i "/<\/header>/ {
              h
              r initrwgt.txt
              g
              N
         }" cmsgrid_final.lhe
         rm initrwgt.txt
-        gzip cmsgrid_final.lhe
     fi
-
     
 fi
 
 cd $LHEWORKDIR
-gzip -d ${runname}_final.lhe.gz
 sed -i -e '/<mgrwgt/,/mgrwgt>/d' ${runname}_final.lhe 
-ls -l
-echo
 
+# check lhe output  
+mv ${LHEWORKDIR}/${runname}_final.lhe ${LHEWORKDIR}/test.lhe 
+echo -e "\nRun xml check" 
+xmllint --stream --noout ${LHEWORKDIR}/test.lhe ; test $? -eq 0 || exit 1 
+echo "Number of weights that are NaN:" 
+grep  NaN  ${LHEWORKDIR}/test.lhe | grep "</wgt>" | wc -l ; test $? -eq 0 || exit 1 
+echo -e "All checks passed \n" 
+
+# copy output and print directory 
+mv ${LHEWORKDIR}/test.lhe ${LHEWORKDIR}/${runname}_final.lhe
+ls -l
+
+# exit 
 exit 0

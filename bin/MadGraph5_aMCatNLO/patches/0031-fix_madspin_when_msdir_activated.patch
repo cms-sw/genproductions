@@ -1,0 +1,240 @@
+diff --git a/MadSpin/interface_madspin.py b/MadSpin/interface_madspin.py
+index d183576..dd2be33 100755
+--- a/MadSpin/interface_madspin.py
++++ b/MadSpin/interface_madspin.py
+@@ -1189,7 +1189,6 @@ class MadSpinInterface(extended_cmd.Cmd):
+                         run_card = self.run_card
+                     else:
+                         run_card = banner.RunCard(pjoin(decay_dir, "Cards", "run_card.dat"))                        
+-                    
+                     run_card["iseed"] = self.options['seed']
+                     run_card['gridpack'] = True
+                     run_card['systematics_program'] = 'False'
+@@ -1198,6 +1197,7 @@ class MadSpinInterface(extended_cmd.Cmd):
+                     param_card = self.banner['slha']
+                     open(pjoin(decay_dir, "Cards", "param_card.dat"),"w").write(param_card)
+                     self.options['seed'] += 1
++                    self.seed = self.options['seed']
+                     # actually creation
+                     me5_cmd.exec_cmd("generate_events run_01 -f")
+                     if output_width:
+@@ -1207,9 +1207,11 @@ class MadSpinInterface(extended_cmd.Cmd):
+                             width *= me5_cmd.results.current['cross']
+                     me5_cmd.exec_cmd("exit")                        
+                     #remove pointless informat
+-                    misc.call(["rm", "Cards", "bin", 'Source', 'SubProcesses'], cwd=decay_dir)
+-                    misc.call(['tar', '-xzpvf', 'run_01_gridpack.tar.gz'], cwd=decay_dir)
+-            
++                    if not os.path.exists(pjoin(decay_dir, 'run.sh')):
++                        devnull = open('/dev/null','w')
++                        misc.call(["rm", "Cards", "bin", 'Source', 'SubProcesses'], cwd=decay_dir,stdout=devnull, stderr=-2)
++                        misc.call(['tar', '-xzpvf', 'run_01_gridpack.tar.gz'], cwd=decay_dir,stdout=devnull, stderr=-2)
++                        devnull.close()
+             # Now generate the events
+             if not self.options['ms_dir']:
+                 if decay_dir in self.me_int:
+diff --git a/Template/LO/Source/PDF/PhotonFlux.f b/Template/LO/Source/PDF/PhotonFlux.f
+index 6c16f0f..e45abb7 100644
+--- a/Template/LO/Source/PDF/PhotonFlux.f
++++ b/Template/LO/Source/PDF/PhotonFlux.f
+@@ -1,7 +1,8 @@
+ c/* ********************************************************* */
+ c/*  Equivalent photon approximation structure function.   * */
+-c/*     Improved Weizsaecker-Williams formula              * */
+ c/*   V.M.Budnev et al., Phys.Rep. 15C (1975) 181          * */
++c/*     Improved Weizsaecker-Williams formula              * */
++c/*     http://inspirehep.net/record/359425                * */
+ c/* ********************************************************* */
+ c   provided by Tomasz Pierzchala - UCL
+ 
+diff --git a/madgraph/interface/madevent_interface.py b/madgraph/interface/madevent_interface.py
+index 9cb7f9a..f042350 100755
+--- a/madgraph/interface/madevent_interface.py
++++ b/madgraph/interface/madevent_interface.py
+@@ -2442,7 +2442,8 @@ class MadEventCmd(CompleteForCmd, CmdExtended, HelpToCmd, common_run.CommonRunCm
+         
+         #self.exec_cmd('combine_events', postcmd=False)
+         #self.exec_cmd('store_events', postcmd=False)
+-        self.exec_cmd('decay_events -from_cards', postcmd=False)
++        with misc.TMP_variable(self, 'run_name', self.run_name):
++            self.exec_cmd('decay_events -from_cards', postcmd=False)
+         self.exec_cmd('create_gridpack', postcmd=False)
+         
+     
+diff --git a/madgraph/interface/madgraph_interface.py b/madgraph/interface/madgraph_interface.py
+index b00f516..bb4bdd4 100755
+--- a/madgraph/interface/madgraph_interface.py
++++ b/madgraph/interface/madgraph_interface.py
+@@ -6237,18 +6237,18 @@ os.system('%s  -O -W ignore::DeprecationWarning %s %s --mode={0}' %(sys.executab
+ 
+             if sys.platform == "darwin":
+                 logger.info('Downloading TD for Mac')
+-                target = 'http://madgraph.phys.ucl.ac.be/Downloads/td_mac_intel.tar.gz'
++                target = 'https://home.fnal.gov/~parke/TD/td_mac_intel64.tar.gz'
+                 misc.wget(target, 'td.tgz', cwd=pjoin(MG5DIR,'td'))
+                 misc.call(['tar', '-xzpvf', 'td.tgz'],
+                                                   cwd=pjoin(MG5DIR,'td'))
+-                files.mv(MG5DIR + '/td/td_mac_intel',MG5DIR+'/td/td')
++                files.mv(MG5DIR + '/td/td_intel_mac64',MG5DIR+'/td/td')
+             else:
+                 if sys.maxsize > 2**32:
+                     logger.info('Downloading TD for Linux 64 bit')
+-                    target = 'http://madgraph.phys.ucl.ac.be/Downloads/td64/td'
+-                    logger.warning('''td program (needed by MadAnalysis) is not compile for 64 bit computer.
+-                In 99% of the case, this is perfectly fine. If you do not have plot, please follow 
+-                instruction in https://cp3.irmp.ucl.ac.be/projects/madgraph/wiki/TopDrawer .''')
++                    target = 'https://home.fnal.gov/~parke/TD/td_linux_64bit.tar.gz'
++                    #logger.warning('''td program (needed by MadAnalysis) is not compile for 64 bit computer.
++                    #In 99% of the case, this is perfectly fine. If you do not have plot, please follow 
++                    #instruction in https://cp3.irmp.ucl.ac.be/projects/madgraph/wiki/TopDrawer .''')
+                 else:                    
+                     logger.info('Downloading TD for Linux 32 bit')
+                     target = 'http://madgraph.phys.ucl.ac.be/Downloads/td'
+diff --git a/Template/LO/bin/internal/restore_data b/Template/LO/bin/internal/restore_data
+index f480ba5..c4c56b4 100755
+--- a/Template/LO/bin/internal/restore_data
++++ b/Template/LO/bin/internal/restore_data
+@@ -30,14 +30,22 @@ if [[  "$1" == ""  ]]; then
+     exit
+ fi
+ 
++if [[ -e $1_results.dat ]]; then
++    cp  $1_results.dat results.dat  >& /dev/null
++else
++    cp  results.dat $1_results.dat  >& /dev/null
++fi
+ 
+-cp  $1_results.dat results.dat  >& /dev/null
+ for i in `cat subproc.mg` ; do
+     cd $i
+     echo $i
+     rm -f ftn25 ftn26 >& /dev/null
+-    cp $1_results.dat results.dat  >& /dev/null
+-    for k in G* ; do
++    if [[ -e $1_results.dat ]]; then
++        cp  $1_results.dat results.dat  >& /dev/null
++    else
++        cp  results.dat $1_results.dat  >& /dev/null
++    fi
++	for k in G* ; do
+ 	if [[ ! -d $k ]]; then
+ 	    continue
+ 	fi
+@@ -45,6 +53,8 @@ for i in `cat subproc.mg` ; do
+ 	for j in $1_results.dat ; do
+ 	    if [[ -e $j ]] ; then
+ 		cp  $j results.dat
++        else
++		cp results.dat $j
+ 	    fi
+ 	done
+ 	for j in $1_ftn26.gz ; do
+diff --git a/madgraph/interface/madevent_interface.py b/madgraph/interface/madevent_interface.py
+index f042350..f797ad9 100755
+--- a/madgraph/interface/madevent_interface.py
++++ b/madgraph/interface/madevent_interface.py
+@@ -6412,6 +6412,12 @@ class GridPackCmd(MadEventCmd):
+             misc.call([pjoin(self.me_dir,'bin','internal','restore_data'),
+                          'default'], cwd=self.me_dir)
+ 
++        if self.run_card['python_seed'] == -2:
++            import random
++            random.seed(seed)
++        elif self.run_card['python_seed'] > 0:
++            import random
++            random.seed(self.run_card['python_seed'])
+         # 2) Run the refine for the grid
+         self.update_status('Generating Events', level=None)
+         #misc.call([pjoin(self.me_dir,'bin','refine4grid'),
+diff --git a/madgraph/interface/madevent_interface.py b/madgraph/interface/madevent_interface.py
+index f797ad9..923628c 100755
+--- a/madgraph/interface/madevent_interface.py
++++ b/madgraph/interface/madevent_interface.py
+@@ -3766,6 +3766,16 @@ Beware that this can be dangerous for local multicore runs.""")
+         self.update_status('Creating gridpack', level='parton')
+         # compile gen_ximprove
+         misc.compile(['../bin/internal/gen_ximprove'], cwd=pjoin(self.me_dir, "Source"))
++
++        Gdir = self.get_Gdir()
++        Pdir = set([os.path.dirname(G) for G in Gdir])
++        for P in Pdir:
++            allG = misc.glob('G*', path=P)
++            for G in allG:
++                if pjoin(P, G) not in Gdir:
++                    logger.debug('removing %s', pjoin(P,G))
++                    shutil.rmtree(pjoin(P,G))
++
+         args = self.split_arg(line)
+         self.check_combine_events(args)
+         if not self.run_tag: self.run_tag = 'tag_1'
+diff --git a/Template/loop_material/StandAlone/SubProcesses/MadLoopCommons.inc b/Template/loop_material/StandAlone/SubProcesses/MadLoopCommons.inc
+index f42d342..71a660b 100644
+--- a/Template/loop_material/StandAlone/SubProcesses/MadLoopCommons.inc
++++ b/Template/loop_material/StandAlone/SubProcesses/MadLoopCommons.inc
+@@ -141,7 +141,8 @@ C ----------
+ 
+       character(512) path
+       character(512) dummy      
+-
++      character(512) epath ! path of the executable
++      integer pos
+       character(512) prefix,fpath
+       character(17) nameToCheck
+       parameter (nameToCheck='MadLoopParams.dat')
+@@ -185,11 +186,42 @@ C     Try to automatically find the path
+           close(1)
+           prefix='../MadLoop5_resources/'
+           call joinPath(prefix,nameToCheck,fpath)
+-          OPEN(1, FILE=fpath, ERR=66, STATUS='OLD',ACTION='READ')
++          OPEN(1, FILE=fpath, ERR=3, STATUS='OLD',ACTION='READ')
++          MLPath=prefix
++          goto 10
++3         continue
++          close(1)
++c
++c     Try to automatically find the path from the executable location
++c     particularly usefull in gridpack readonly mode
++c
++          call getarg(0,path) !path is the PATH to the madevent executable (either global or from launching directory)
++          pos = index(path,'/',.true.)
++          prefix = path(:pos)
++          call joinPath(prefix,nameToCheck,fpath)
++          write(*,*) 'test', fpath
++          OPEN(1, FILE=fpath, ERR=4, STATUS='OLD',ACTION='READ')
++          MLPath=prefix
++          goto 10
++4         continue
++          close(1)
++          prefix= prefix // '/MadLoop5_resources/'
++          call joinPath(prefix,nameToCheck,fpath)
++          write(*,*) 'test', fpath
++          OPEN(1, FILE=fpath, ERR=5, STATUS='OLD',ACTION='READ')
+           MLPath=prefix
+           goto 10
+-66        continue
++5         continue
+           close(1)
++          prefix= path(:pos) // '/../MadLoop5_resources/'
++          call joinPath(prefix,nameToCheck,fpath)
++          write(*,*) 'test', fpath
++          OPEN(1, FILE=fpath, ERR=6, STATUS='OLD',ACTION='READ')
++          MLPath=prefix
++          goto 10
++6         continue
++          close(1)
++
+ c     We could not automatically find the auxiliary files
+           write(*,*) '==='
+           write(*,*) 'ERROR: MadLoop5 could not automatically find the file MadLoopParams.dat.'
+@@ -215,9 +247,9 @@ C     Make sure there is a separator added
+ 
+ C     Check that the FilePath set is correct
+       call joinPath(MLPath,nameToCheck,fpath)
+-      OPEN(1, FILE=fpath, ERR=3, STATUS='OLD',ACTION='READ')
++      OPEN(1, FILE=fpath, ERR=33, STATUS='OLD',ACTION='READ')
+       goto 11
+-3     continue
++33    continue
+       close(1)
+       write(*,*) '==='
+       write(*,*) 'ERROR: The MadLoop5 auxiliary files could not be found in ',MLPath
