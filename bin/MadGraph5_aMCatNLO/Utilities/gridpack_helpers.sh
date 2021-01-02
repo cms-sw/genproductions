@@ -106,6 +106,12 @@ prepare_reweight () {
         export LIBRARY_PATH=$LD_LIBRARY_PATH
     fi
 
+    # Use f2py2 instead of f2py to install a py2 version of "rwgt2py"
+    # (occurs in CMSSW_10_6_19 where default f2py points to a py3 version)
+    if [ -e $(readlink -f `which f2py`)2 ]; then
+        echo "f2py_compiler="$(readlink -f `which f2py`)2 >> $config
+    fi
+
     if [ "$isnlo" -gt "0" ]; then
         # Needed to get around python import errors
         rwgt_dir="$WORKDIR/process/rwgt"
