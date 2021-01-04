@@ -1047,11 +1047,9 @@ for num in range(0,len(prepid)):
                                     scale_var_check1 += 1
                                 if "PDF_variation" in line:
                                     pdf_var_check0 += 1
-                                    print(line)	
 #                                if str(pw_pdf)[0:3] in line:
 				if str(pw_pdf+1) in line:
                                     pdf_var_check1 += 1
-                                    print(line)
                             if scale_var_check0 == 1 and scale_var_check1 == 9:
                                 print "* [OK] Most probably ME scale variations are OK."
                             else:
