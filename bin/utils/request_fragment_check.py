@@ -824,7 +824,12 @@ for num in range(0,len(prepid)):
                         gridpack_cvmfs_path = os.popen(list_gridpack_cvmfs_path).read()
                         print "SLHA request - checking single gridpack:"
                         print gridpack_cvmfs_path
-                os.system('tar xf '+gridpack_cvmfs_path+' -C '+my_path+'/'+pi)
+                if os.path.isfile(gridpack_cvmfs_path) is True:
+                    os.system('tar xf '+gridpack_cvmfs_path+' -C '+my_path+'/'+pi)
+	        else:
+                    error += 1
+                    print ("* [ERROR] Gridpack ",gridpack_cvmfs_path," does not exist!") 
+                    break
                 jhu_gp = os.path.isfile(my_path+'/'+pi+'/'+'JHUGen.input')
                 pw_gp = os.path.isfile(my_path+'/'+pi+'/'+'powheg.input')
                 mg_gp = os.path.isfile(my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat') or os.path.isfile(my_path+'/'+pi+'/'+'process/Cards/run_card.dat')
@@ -862,7 +867,7 @@ for num in range(0,len(prepid)):
                         if matching_c == 3:
                             dn = dn + "-amcatnloFXFX"
                 gp_log_loc = my_path+'/'+pi+'/gridpack_generation.log'
-		if os.path.isfile(gp_log_loc) is False:
+		if os.path.isfile(gp_log_loc) is False and jhu_gp is False:
 		    print "* [WARNING] No gridpack generation.log"
 		    warning += 1			 
                 if (mg_gp is True or amcnlo_gp is True) and os.path.isfile(gp_log_loc) is True:
@@ -986,13 +991,17 @@ for num in range(0,len(prepid)):
                         if nfinstatpar != nFinal :
                             print "* [WARNING] nFinal(="+str(nFinal) + ") may not be equal to the number of final state particles before decays (="+str(nfinstatpar)+")"
                             warning += 1
-                    with open(os.path.join(my_path, pi, "runcmsgrid.sh"),'r+') as f:
-                        content = f.read()
-                        match = re.search(r"""process=(["']?)([^"']*)\1""", content)
-			warning1,error1 = xml_check_and_patch(f,content,gridpack_eos_path,my_path,pi)
-		        warning += warning1
- 			error += error1
-			f.close()
+                    if os.path.isfile(my_path+'/'+pi+'/'+'runcmsgrid.sh') is True: 
+                        with open(os.path.join(my_path, pi, "runcmsgrid.sh"),'r+') as f:
+                            content = f.read()
+                            match = re.search(r"""process=(["']?)([^"']*)\1""", content)
+			    warning1,error1 = xml_check_and_patch(f,content,gridpack_eos_path,my_path,pi)
+		            warning += warning1
+ 			    error += error1
+			    f.close()
+                    else:
+			print ("* [ERROR] ", my_path+'/'+pi+'/'+'runcmsgrid.sh', "does not exists")
+			error += 1
                     if os.path.isfile(my_path+'/'+pi+'/'+'external_tarball/runcmsgrid.sh') is True:
                         with open(os.path.join(my_path, pi, "external_tarball/runcmsgrid.sh"),'r+') as f2:
                             content2 = f2.read()
@@ -1015,21 +1024,22 @@ for num in range(0,len(prepid)):
 			powheg_input = os.path.join(my_path, pi, "powheg.input")
                     if et_flag == 1 and et_flag_external == 0:
 		        powheg_input = os.path.join(my_path, pi, "external_tarball/powheg.input")
-                    with open(powheg_input) as f:
-                        for line in f:
-                            if line.startswith("!") == False and line.startswith("#") == False:
-                                if "bornonly" in line:
-                                    bornonly = int(re.split(r'\s+',line)[1])
-                                if "lhans1" in line:
-                                    pw_pdf = int(re.split(r'\s+', line)[1])
-                                    print "##################################################"
-                                    print "* Powheg PDF used is: "+str(pw_pdf)
-                                    print "##################################################"
-                                    if "UL" in pi and pw_pdf not in UL_PDFs_N:
-                                        print"* [WARNING] The gridpack uses PDF="+str(pw_pdf)+" but not the recommended sets for UL requests:"
-                                        print"*                                             "+str(UL_PDFs_N[0])+" "+str(UL_PDFs[0])
-                                        print"*                                             or "+str(UL_PDFs_N[1])+" "+str(UL_PDFs[1])
-                                        warning += 1
+                    if os.path.isfile(powheg_input) is True:
+                        with open(powheg_input) as f:
+                            for line in f:
+                                if line.startswith("!") == False and line.startswith("#") == False:
+                                    if "bornonly" in line:
+                                        bornonly = int(re.split(r'\s+',line)[1])
+                                    if "lhans1" in line:
+                                        pw_pdf = int(re.split(r'\s+', line)[1])
+                                        print "##################################################"
+                                        print "* Powheg PDF used is: "+str(pw_pdf)
+                                        print "##################################################"
+                                        if "UL" in pi and pw_pdf not in UL_PDFs_N:
+                                            print"* [WARNING] The gridpack uses PDF="+str(pw_pdf)+" but not the recommended sets for UL requests:"
+                                            print"*                                             "+str(UL_PDFs_N[0])+" "+str(UL_PDFs[0])
+                                            print"*                                             or "+str(UL_PDFs_N[1])+" "+str(UL_PDFs[1])
+                                            warning += 1
 		    if os.path.isfile(my_path+'/'+pi+'/'+'external_tarball/pwg-rwl.dat') is True:
 			pwg_rwl_file = os.path.join(my_path, pi, "external_tarball/pwg-rwl.dat")
                     else:
