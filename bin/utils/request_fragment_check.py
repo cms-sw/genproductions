@@ -1047,7 +1047,8 @@ for num in range(0,len(prepid)):
                                     scale_var_check1 += 1
                                 if "PDF_variation" in line:
                                     pdf_var_check0 += 1
-                                if str(pw_pdf)[0:3] in line:
+#                                if str(pw_pdf)[0:3] in line:
+				if str(pw_pdf+1) in line:
                                     pdf_var_check1 += 1
                             if scale_var_check0 == 1 and scale_var_check1 == 9:
                                 print "* [OK] Most probably ME scale variations are OK."
@@ -1057,7 +1058,7 @@ for num in range(0,len(prepid)):
                             if pdf_var_check0 > 0 and pdf_var_check1 > 1:
                                 print "* [OK] Most probably PDF variations are OK."
                             else:
-                                print "* [WARNING] There may be a problem with PDF variations. Please check pwg-rwl.dat"
+                                print "* [ERROR] There may be a problem with PDF variations. Please check pwg-rwl.dat"
                                 warning += 1
                     if bornonly == 1:
                         bornonly_frag_check = 0
