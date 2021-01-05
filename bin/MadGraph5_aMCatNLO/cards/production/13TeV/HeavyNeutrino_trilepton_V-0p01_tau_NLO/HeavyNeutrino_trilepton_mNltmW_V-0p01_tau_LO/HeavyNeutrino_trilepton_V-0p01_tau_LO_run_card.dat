@@ -50,7 +50,7 @@
 # PDF choice: this automatically fixes also alpha_s(MZ) and its evol.  *
 #***********************************************************************
   lhapdf        =  pdlabel    ! PDF set
-  292600        =  lhaid      ! if pdlabel=lhapdf, this is the lhapdf number
+  262000        =  lhaid      ! if pdlabel=lhapdf, this is the lhapdf number
 #*********************************************************************
 # Renormalization and factorization scales                           *
 #*********************************************************************
