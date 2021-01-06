@@ -387,7 +387,6 @@ for num in range(0,len(prepid)):
     # Create an array of one element so further for loop would not be removed and code re-indented
     res = [res]
     for r in res:
-        history = r['history']
         pi = r['prepid']
         dn = r['dataset_name']
         te = r['time_event']
