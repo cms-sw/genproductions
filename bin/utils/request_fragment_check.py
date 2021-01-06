@@ -505,9 +505,9 @@ for num in range(0,len(prepid)):
                data_f1_clone = f1_clone.read()
                data_f2_clone = re.sub(r'(?m)^ *#.*\n?', '',data_f1_clone)
                if (data_f2 == data_f2_clone) == True:
-                  print "* [OK] The base request and the cloned request have the same fragment."
+                  print "* [OK] The base request and the cloned request used for the extension have the same fragment."
                else:
-                  print "* [ERROR] The base request and the cloned request don't have the same fragment!"
+                  print "* [ERROR] The base request and the cloned request used for the extension don't have the same fragment!"
                   print "Below is the diff of the base and and the cloned request:"
                   print "---------------------------------------------------------------------------------"
                   print(os.popen('diff '+pi+' '+pi_clone_entries).read())
@@ -1089,7 +1089,7 @@ for num in range(0,len(prepid)):
                                 print "* [OK] Most probably PDF variations are OK."
                             else:
                                 print "* [ERROR] There may be a problem with PDF variations. Please check pwg-rwl.dat"
-                                warning += 1
+                                error += 1
                     if bornonly == 1:
                         bornonly_frag_check = 0
                         if int(os.popen('grep -c "Pythia8PowhegEmissionVetoSettings" '+pi).read()) == 1:
