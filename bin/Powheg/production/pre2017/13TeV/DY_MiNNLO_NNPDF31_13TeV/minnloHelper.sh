@@ -12,7 +12,13 @@ ARCH=slc6_amd64_gcc700
 CMSSW=CMSSW_10_2_23
 SUFFIX=powheg-MiNNLO31-svn3756-ew-rwl6-j200-st2fix-ana-hoppetweights-ymax20
 
-PROCS=(ZJToMuMu-suggested-nnpdf31-ncalls-doublefsr-q139 WplusJToMuNu-suggested-nnpdf31-ncalls-doublefsr-q139-ckm WminusJToMuNu-suggested-nnpdf31-ncalls-doublefsr-q139-ckm)
+# PROCS=(ZJToMuMu-suggested-nnpdf31-ncalls-doublefsr-q139 WplusJToMuNu-suggested-nnpdf31-ncalls-doublefsr-q139-ckm WminusJToMuNu-suggested-nnpdf31-ncalls-doublefsr-q139-ckm)
+
+PROCS=(ZJToMuMu-5TeV-suggested-nnpdf31-ncalls-doublefsr-q139 WplusJToMuNu-5TeV-suggested-nnpdf31-ncalls-doublefsr-q139-ckm WminusJToMuNu-5TeV-suggested-nnpdf31-ncalls-doublefsr-q139-ckm)
+
+#SUFFIX=powheg-MiNNLO31-svn3756-ew-rwl6-j200-st2fix-ana-hoppetweights-ymax20-addmassweights
+#PROCS=(ZJToMuMu-suggested-nnpdf31-ncalls-doublefsr-q139)
+#PROCS=(WplusJToMuNu-suggested-nnpdf31-ncalls-doublefsr-q139-ckm WminusJToMuNu-suggested-nnpdf31-ncalls-doublefsr-q139-ckm)
 
 case $WHAT in
 
@@ -93,8 +99,8 @@ case $WHAT in
         do
             python ./run_pwg_condor.py -p 9 -m ${PROC:0:1}j -f ${PROC}-${SUFFIX} 
         done
-        ./minnloHelper.sh PACK_REDUCED
-        ./minnloHelper.sh PACK_NORWL
+        # ./minnloHelper.sh PACK_REDUCED
+        # ./minnloHelper.sh PACK_NORWL
     ;;
     
     TEST )
@@ -125,7 +131,6 @@ case $WHAT in
     
     PACK_REDUCED )
         mkdir PACK_REDUCED; cd PACK_REDUCED
-        eval `scramv1 runtime -sh`
         for PROC in ${PROCS[@]}
         do
             DIR=${PROC}-${SUFFIX}
@@ -152,7 +157,6 @@ case $WHAT in
     
     PACK_LEP )
         mkdir PACK_LEP; cd PACK_LEP
-        eval `scramv1 runtime -sh`
         for PROC in ${PROCS[@]}
         do
             for LEP in E Tau
@@ -175,7 +179,6 @@ case $WHAT in
     
     COPY_LEP )
         cd PACK_LEP
-        eval `scramv1 runtime -sh`
         for PROC in ${PROCS[@]}
         do
             for LEP in E Tau
@@ -188,7 +191,6 @@ case $WHAT in
     
     PACK_NORWL )
         mkdir PACK_REDUCED; cd PACK_REDUCED
-        eval `scramv1 runtime -sh`
         for PROC in ${PROCS[@]}
         do
             DIR=${PROC}-${SUFFIX}-norwl
@@ -227,11 +229,70 @@ case $WHAT in
     ;;
     
     COPY_GRIDS )
-        OLDSUFFIX=powheg-MiNNLO31-svn3756-ew-rwl5-j200-st2fix-ana-hoppetweights
+        OLDSUFFIX=powheg-MiNNLO31-svn3756-ew-rwl5-j200-st2fix-ana-hoppetweights-ymax20-newgrids
+        #OLDSUFFIX=powheg-MiNNLO31-svn3756-ew-rwl5-j200-st2fix-ana-hoppetweights-ymax20
         for PROC in ${PROCS[@]}
         do
             cp ${PROC}-${OLDSUFFIX}/*.dat ${PROC}-${SUFFIX}/
             cp ${PROC}-${OLDSUFFIX}/*.top ${PROC}-${SUFFIX}/
+        done
+    ;;
+    
+    MAKE_MASSRWGT )
+        mkdir PACK_MASSRWGT; cd PACK_MASSRWGT
+        for PROC in ${PROCS[@]}
+        do
+            DIR=${PROC}-${SUFFIX}
+            rm -r ${DIR}; mkdir ${DIR}; cd ${DIR}
+            tar -xzf ../../${PROC:0:1}j_${ARCH}_${CMSSW}_${PROC}-${SUFFIX}.tgz
+            PROCSPLIT=(`echo ${PROC} | tr "-" "\n"`)
+            cp ../../DY_MiNNLO_NNPDF31_13TeV/lheWriter_cfg.py .
+            sed -i "s/ZJToMuMu/${PROCSPLIT[0]}/g" lheWriter_cfg.py
+            diff ../../DY_MiNNLO_NNPDF31_13TeV/lheWriter_cfg.py lheWriter_cfg.py
+            cp ../../DY_MiNNLO_NNPDF31_13TeV/runcmsgrid_addMassWeights.sh runcmsgrid.sh
+            sed -i "s/process=.*/process=\"${PROC:0:1}j\"/g" runcmsgrid.sh
+            diff ../../DY_MiNNLO_NNPDF31_13TeV/runcmsgrid_addMassWeights.sh runcmsgrid.sh
+            tar zcf ../${PROC:0:1}j_${ARCH}_${CMSSW}_${PROC}-${SUFFIX}.tgz *
+            cd ..
+        done
+    ;;
+    
+    MAKE_MASSRWGT_LEP )
+        mkdir PACK_MASSRWGT; cd PACK_MASSRWGT
+        for PROC in ${PROCS[@]}
+        do
+            for LEP in E Tau
+            do
+                NEWPROC=${PROC//Mu/$LEP}
+                DIR=${NEWPROC}-${SUFFIX}
+                rm -r ${DIR}; mkdir ${DIR}; cd ${DIR}
+                tar -xzf ../${PROC:0:1}j_${ARCH}_${CMSSW}_${PROC}-${SUFFIX}.tgz
+                if [ "$LEP" == "E" ]; then
+                    LEPID=1
+                elif [ "$LEP" == "Tau" ]; then
+                    LEPID=3
+                fi
+                sed -i "s/vdecaymode .*/vdecaymode ${LEPID}/g" powheg.input
+                PROCSPLIT=(`echo ${PROC} | tr "-" "\n"`)
+                NEWPROCSPLIT=(`echo ${NEWPROC} | tr "-" "\n"`)
+                sed -i "s/${PROCSPLIT[0]}/${NEWPROCSPLIT[0]}/g" lheWriter_cfg.py
+                diff ../../DY_MiNNLO_NNPDF31_13TeV/lheWriter_cfg.py lheWriter_cfg.py
+                diff ../../DY_MiNNLO_NNPDF31_13TeV/runcmsgrid.sh runcmsgrid.sh
+                tar zcf ../${PROC:0:1}j_${ARCH}_${CMSSW}_${NEWPROC}-${SUFFIX}.tgz *
+                cd ..
+            done
+        done
+    ;;
+    
+    COPY_MASSRWGT )
+        cd PACK_MASSRWGT
+        for PROC in ${PROCS[@]}
+        do
+            for LEP in E Mu Tau
+            do
+                NEWPROC=${PROC//Mu/$LEP}
+                cp -p -v ${PROC:0:1}j_${ARCH}_${CMSSW}_${NEWPROC}-${SUFFIX}.tgz /afs/cern.ch/work/m/mseidel/public/MiNNLO-gridpacks/
+            done
         done
     ;;
     
