@@ -361,6 +361,11 @@ if [ "$MINNLO" == "true" ]; then
     fi
 fi
 
+if [ "$process" = "Z_ew-BMNNPV" ] || [ "$process" = "W_ew-BMNNP" ]; then
+  ../main-PHOTOS-lhef 2>&1 | tee logphotos_${process}_${seed}.txt; test $? -eq 0 || fail_exit "main-PHOTOS-lhef: exit code not 0"
+  mv pwgevents_photos.lhe pwgevents.lhe
+fi
+
 if [ "$produceWeights" == "true" ]; then
 
    echo "   ______________________________________     "

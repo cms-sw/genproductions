@@ -33,8 +33,11 @@ def runCommand(command, printIt = False, doIt = 1, TESTING = 0) :
     
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
-def prepareCondorScript( tag, i, folderName, queue, SCALE = '0', njobs = 0, runInBatchDir = False):
+def prepareCondorScript( tag, i, folderName, queue, SCALE = '0', njobs = 0, runInBatchDir = False, slc6 = 0):
    '''prepare the Condor submission script'''
+   
+   if (slc6):
+       print('Preparing to run in slc6 using singularity')
 
    filename = 'run_' + folderName + '_' + tag + '.condorConf'
    execname = 'run_' + tag
@@ -46,7 +49,11 @@ def prepareCondorScript( tag, i, folderName, queue, SCALE = '0', njobs = 0, runI
    f = open(filename, 'w')
   
    if (i == 'multiple') :
-       f.write('executable              = ' + execname + '_$(ProcId).sh \n')
+       if (slc6) :
+          f.write('executable             = %s/slc6wrapper.sh \n' % rootfolder)
+          f.write('arguments              = ' + execname + '_$(ProcId).sh \n')
+       else:
+          f.write('executable              = ' + execname + '_$(ProcId).sh \n')
    elif (i == 'hnnlo') :
        f.write('executable              = ' + folderName + '/' + SCALE + '/' + 'launch_NNLO.sh \n')
        f.write('arguments               = HNNLO-LHC13-R04-APX2-' + SCALE + '.input $(ClusterId)$(ProcId) \n')
@@ -237,7 +244,7 @@ def runParallelXgrid(parstage, xgrid, folderName, nEvents, njobs, powInputName, 
 
     else:
         print 'Submitting to condor queues:  \n'
-        condorfile = prepareCondorScript(jobtag, 'multiple', args.folderName, QUEUE, njobs=njobs, runInBatchDir=True) 
+        condorfile = prepareCondorScript(jobtag, 'multiple', args.folderName, QUEUE, njobs=njobs, runInBatchDir=True, slc6=args.slc6) 
         runCommand ('condor_submit ' + condorfile + ' -queue '+ str(njobs))
 
 
@@ -675,6 +682,17 @@ if [ "$process" = "directphoton" ]; then
   mkdir obj-gfortran
 fi
 
+if [ "$process" = "Z_ew-BMNNPV" ] || [ "$process" = "W_ew-BMNNP" ]; then
+    ## put the correct library names for PHOTOS++ into the Makefile
+    echo "Linking PHOTOS++ libraries in the Makefile"
+    sed -i 's+^PHOTOSCC_LOCATION=.*+PHOTOSCC_LOCATION=/cvmfs/cms.cern.ch/slc6_amd64_gcc700/external/photospp/3.61-omkpbe2+g' Makefile
+    sed -i '/lPhotosFortran/s/^/#/g' Makefile
+    sed -i '/lPhotospp/s/^# //g' Makefile
+    ## make the main-PHOTOS-lhef
+    echo "Making main-PHOTOS-lhef"
+    make main-PHOTOS-lhef
+fi
+
 
 echo 'Compiling pwhg_main...'
 pwd
@@ -702,6 +720,11 @@ make pwhg_main || fail_exit "Failed to compile pwhg_main"
 
 mkdir -p ${WORKDIR}/${name}
 cp -p pwhg_main ${WORKDIR}/${name}/.
+
+if [ "$process" = "Z_ew-BMNNPV" ] || [ "$process" = "W_ew-BMNNP" ]; then
+    echo "copying main-PHOTOS-lhef in the same place as pwhg_main."
+    cp -p main-PHOTOS-lhef ${WORKDIR}/${name}/.
+fi
 
 if [ -d ./lib ]; then
   cp -a ./lib ${WORKDIR}/${name}/.
@@ -942,7 +965,7 @@ def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag, proc
             
     else:
         print 'Submitting to condor queues:  \n'
-        condorfile = prepareCondorScript(jobtag, 'multiple', args.folderName, QUEUE, njobs=njobs, runInBatchDir=True) 
+        condorfile = prepareCondorScript(jobtag, 'multiple', args.folderName, QUEUE, njobs=njobs, runInBatchDir=True, slc6=args.slc6) 
         runCommand ('condor_submit ' + condorfile + ' -queue '+ str(njobs))
      
 
@@ -1148,7 +1171,7 @@ cp log_${seed}.txt ${base}
      
     print 'Submitting to condor queues \n'
     tagName = 'hnnlo_' + scale 
-    condorfile = prepareCondorScript(tagName, 'hnnlo', folderName, QUEUE, scale) 
+    condorfile = prepareCondorScript(tagName, 'hnnlo', folderName, QUEUE, scale, slc6=args.slc6) 
     runCommand ('condor_submit ' + condorfile + ' -queue '+ str(njobs))
    
 
@@ -1212,7 +1235,7 @@ cp *.top ${eosbase}
             os.system('chmod 755 ' + filename)
             
             print 'Submitting to condor queues \n'
-            condorfile = prepareCondorScript(subfolderName, 'dynnlo', folderName, QUEUE, subfolderName, runInBatchDir=True) 
+            condorfile = prepareCondorScript(subfolderName, 'dynnlo', folderName, QUEUE, subfolderName, runInBatchDir=True, slc6=args.slc6) 
             runCommand ('condor_submit ' + condorfile + ' -queue '+ str(njobs))
 
 
@@ -1305,7 +1328,7 @@ cp MINLO*.top ${eosbase}/$seed/
     os.system('chmod 755 ' + filename)
     
     print 'Submitting to condor queues \n'
-    condorfile = prepareCondorScript('minlo', 'minlo', folderName, QUEUE, runInBatchDir=True) 
+    condorfile = prepareCondorScript('minlo', 'minlo', folderName, QUEUE, runInBatchDir=True, slc6=args.slc6) 
     runCommand ('condor_submit ' + condorfile + ' -queue '+ str(njobs))
 
 
@@ -1416,6 +1439,7 @@ if __name__ == "__main__":
     parser.add_option('-k', '--keepTop'       , dest="keepTop",       default= '0',           help='Keep the validation top draw plots [0]')
     parser.add_option('-d', '--noPdfCheck'    , dest="noPdfCheck",    default= '0',           help='If 1, deactivate automatic PDF check [0]')
     parser.add_option('--fordag'    , dest="fordag",    default= '0',           help='If 1, deactivate submission, expect condor DAG file to be created')
+    parser.add_option('--slc6'    , dest="slc6",    default= '0',           help='If 1, use slc6 singularity')
 
     # args = parser.parse_args ()
     (args, opts) = parser.parse_args(sys.argv)
@@ -1432,6 +1456,8 @@ if __name__ == "__main__":
     print '                working folder : ' + args.folderName
     print '                EOS folder (stages 4,7,8) : ' + args.eosFolder + '/' + EOSfolder
     print '                base folder : ' + rootfolder
+    print '                forDAG : ' + args.fordag
+    print '                SLC6 : ' + args.slc6
     print
  
     if (TESTING == 1) :     
@@ -1590,7 +1616,7 @@ if __name__ == "__main__":
         
         else:
             print 'Submitting to condor queues \n'
-            condorfile = prepareCondorScript(tagName, '', '.', QUEUE) 
+            condorfile = prepareCondorScript(tagName, '', '.', QUEUE, slc6=args.slc6) 
             runCommand ('condor_submit ' + condorfile + ' -queue 1', TESTING == 0, doIt = (args.fordag == '0'))
 
     elif args.parstage == '1' :
@@ -1618,7 +1644,7 @@ if __name__ == "__main__":
                     
         else:
             print 'Submitting to condor queues  \n'
-            condorfile = prepareCondorScript(tagName, '', args.folderName, QUEUE, runInBatchDir=True) 
+            condorfile = prepareCondorScript(tagName, '', args.folderName, QUEUE, runInBatchDir=True, slc6=args.slc6) 
             runCommand ('condor_submit ' + condorfile + ' -queue 1', TESTING == 0, doIt = (args.fordag == '0'))
 
     elif args.parstage == '0123' or args.parstage == 'a' : # compile & run
@@ -1642,7 +1668,7 @@ if __name__ == "__main__":
                       scriptName.split('.sh')[0]+'.log &')
         else:
             print 'Submitting to condor queues  \n'
-            condorfile = prepareCondorScript(tagName, '', '.', QUEUE, runInBatchDir=True) 
+            condorfile = prepareCondorScript(tagName, '', '.', QUEUE, runInBatchDir=True, slc6=args.slc6) 
             runCommand ('condor_submit ' + condorfile + ' -queue 1', TESTING == 0, doIt = (args.fordag == '0'))
 
     elif args.parstage == '01239' or args.parstage == 'f' : # full single grid in oneshot 
@@ -1666,7 +1692,7 @@ if __name__ == "__main__":
                       scriptName.split('.sh')[0]+'.log &')
         else:
             print 'Submitting to condor queues  \n'
-            condorfile = prepareCondorScript(tagName, '', '.', QUEUE, runInBatchDir=True) 
+            condorfile = prepareCondorScript(tagName, '', '.', QUEUE, runInBatchDir=True, slc6=args.slc6) 
             runCommand ('condor_submit ' + condorfile + ' -queue 1', TESTING == 0, doIt = (args.fordag == '0'))
 
     elif args.parstage == '7' :
