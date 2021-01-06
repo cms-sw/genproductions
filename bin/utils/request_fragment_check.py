@@ -5,7 +5,6 @@ import re
 import argparse
 import textwrap
 import fnmatch
-import difflib
 #import json
 from datetime import datetime
 ###########Needed to check for ultra-legacy sample consistency check############################################
