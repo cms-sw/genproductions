@@ -5,6 +5,7 @@ import re
 import argparse
 import textwrap
 import fnmatch
+import difflib
 #import json
 from datetime import datetime
 ###########Needed to check for ultra-legacy sample consistency check############################################
@@ -387,6 +388,7 @@ for num in range(0,len(prepid)):
     # Create an array of one element so further for loop would not be removed and code re-indented
     res = [res]
     for r in res:
+        history = r['history']
         pi = r['prepid']
         dn = r['dataset_name']
         te = r['time_event']
@@ -493,8 +495,32 @@ for num in range(0,len(prepid)):
         f2 = open(pi+"_tmp","w")
         data_f1 = f1.read()
         data_f2 = re.sub(r'(?m)^ *#.*\n?', '',data_f1)
+        # Extension compatibility
+        if int(ext) > 0:
+           clone_entries = [i for i in r['history'] if i['action'] == 'clone']
+           if clone_entries:
+               pi_clone_entries = clone_entries[0]['step']
+               print("Request cloned from = ",pi_clone_entries)
+               os.popen('wget -q '+mcm_link+'public/restapi/requests/get_fragment/'+pi_clone_entries+' -O '+pi_clone_entries).read()
+               f1_clone = open(pi_clone_entries,"r")
+               f2_clone = open(pi_clone_entries+"_tmp","w")
+               data_f1_clone = f1_clone.read()
+               data_f2_clone = re.sub(r'(?m)^ *#.*\n?', '',data_f1_clone)
+               if (data_f2 == data_f2_clone) == True:
+                  print "* [OK] The base request and the cloned request have the same fragment."
+               else:
+                  print "* [ERROR] The base request and the cloned request don't have the same fragment!"
+                  print "Below is the diff of the base and and the cloned request:"
+                  print "---------------------------------------------------------------------------------"
+                  print(os.popen('diff '+pi+' '+pi_clone_entries).read())
+                  print "---------------------------------------------------------------------------------" 
+                  error += 1		
+           else:
+               print('This request is not cloned from any request') 
+        
         # Ultra-legacy sample settings' compatibility
         pi_prime = "NULL"
+        pi_ext = "NULL"
         prime_tmp = []
         if "Summer20UL18" in pi or "Summer20UL17" in pi or "Summer20UL16wmLHEGENAPV" in pi or "Summer20UL16GENAPV" in pi or "Summer20UL16" in pi and "GEN" in pi and "pLHE" not in pi:
             prime = get_requests_from_datasetname(dn)
@@ -506,6 +532,9 @@ for num in range(0,len(prepid)):
 		print "Related requests:"
                 for rr in prime:
                     print(rr['prepid'],rr['extension'],ext)
+                    if int(rr['extension']) == int(ext):
+                        pi_ext = rr['prepid']
+                        cmssw_ext = rr['cmssw_release'] 
                     if "Summer20UL16" in rr['prepid'] and "GEN" in rr['prepid'] and ext == rr['extension'] and "APV" not in rr['prepid'] and ("Summer20UL18" in pi or "Summer20UL17" in pi or "Summer20UL16wmLHEGENAPV" in pi or "Summer20UL16GENAPV" in pi):
                         pi_prime = rr['prepid']
                         cmssw_prime = rr['cmssw_release']
