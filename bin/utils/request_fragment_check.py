@@ -515,7 +515,6 @@ for num in range(0,len(prepid)):
                   error += 1		
         # Ultra-legacy sample settings' compatibility
         pi_prime = "NULL"
-        pi_ext = "NULL"
         prime_tmp = []
         if "Summer20UL18" in pi or "Summer20UL17" in pi or "Summer20UL16wmLHEGENAPV" in pi or "Summer20UL16GENAPV" in pi or "Summer20UL16" in pi and "GEN" in pi and "pLHE" not in pi:
             prime = get_requests_from_datasetname(dn)
@@ -527,9 +526,6 @@ for num in range(0,len(prepid)):
 		print "Related requests:"
                 for rr in prime:
                     print(rr['prepid'],rr['extension'],ext)
-                    if int(rr['extension']) == int(ext):
-                        pi_ext = rr['prepid']
-                        cmssw_ext = rr['cmssw_release'] 
                     if "Summer20UL16" in rr['prepid'] and "GEN" in rr['prepid'] and ext == rr['extension'] and "APV" not in rr['prepid'] and ("Summer20UL18" in pi or "Summer20UL17" in pi or "Summer20UL16wmLHEGENAPV" in pi or "Summer20UL16GENAPV" in pi):
                         pi_prime = rr['prepid']
                         cmssw_prime = rr['cmssw_release']
