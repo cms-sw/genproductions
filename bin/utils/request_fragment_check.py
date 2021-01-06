@@ -493,6 +493,26 @@ for num in range(0,len(prepid)):
         f2 = open(pi+"_tmp","w")
         data_f1 = f1.read()
         data_f2 = re.sub(r'(?m)^ *#.*\n?', '',data_f1)
+        # Extension compatibility
+        if int(ext) > 0:
+           clone_entries = [i for i in r['history'] if i['action'] == 'clone']
+           if clone_entries:
+               pi_clone_entries = clone_entries[0]['step']
+               print("Request cloned from = ",pi_clone_entries)
+               os.popen('wget -q '+mcm_link+'public/restapi/requests/get_fragment/'+pi_clone_entries+' -O '+pi_clone_entries).read()
+               f1_clone = open(pi_clone_entries,"r")
+               f2_clone = open(pi_clone_entries+"_tmp","w")
+               data_f1_clone = f1_clone.read()
+               data_f2_clone = re.sub(r'(?m)^ *#.*\n?', '',data_f1_clone)
+               if (data_f2 == data_f2_clone) == True:
+                  print "* [OK] The base request and the cloned request have the same fragment."
+               else:
+                  print "* [ERROR] The base request and the cloned request don't have the same fragment!"
+                  print "Below is the diff of the base and and the cloned request:"
+                  print "---------------------------------------------------------------------------------"
+                  print(os.popen('diff '+pi+' '+pi_clone_entries).read())
+                  print "---------------------------------------------------------------------------------" 
+                  error += 1		
         # Ultra-legacy sample settings' compatibility
         pi_prime = "NULL"
         prime_tmp = []
