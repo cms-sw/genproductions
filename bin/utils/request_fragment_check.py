@@ -514,9 +514,6 @@ for num in range(0,len(prepid)):
                   print(os.popen('diff '+pi+' '+pi_clone_entries).read())
                   print "---------------------------------------------------------------------------------" 
                   error += 1		
-           else:
-               print('This request is not cloned from any request') 
-        
         # Ultra-legacy sample settings' compatibility
         pi_prime = "NULL"
         pi_ext = "NULL"
