@@ -43,7 +43,7 @@ if __name__ == "__main__":
     parser.add_option('-m', '--prcName'       , dest="prcName",       default= 'DMGG',         help='POWHEG process name [DMGG]')
     parser.add_option(      '--step3pilot'    , dest="step3pilot",    default= False,          help='do a pilot job to combine the grids, calculate upper bounds afterwards (otherwise afs jobs might fail)', action='store_true')
     parser.add_option(      '--dry-run'       , dest="dryrun",        default= False,          help='show commands only, do not submit', action='store_true')
-    parser.add_option(      '--slc6'       , dest="slc6",        default= False,          help='Run in slc6 using singularity', action='store_true')
+    parser.add_option(      '--slc'       , dest="slc",        default='7',          help='If 6, run in slc6 using singularity')
 
     (args, opts) = parser.parse_args(sys.argv)
     
@@ -62,6 +62,7 @@ if __name__ == "__main__":
     print '                powheg process name   = ' + args.prcName
     print '                do step 3 pilot run   = ' + str(args.step3pilot)
     print '                dry run               = ' + str(args.dryrun)
+    print '                SLC                   = ' + str(args.slc)
     print
 
 
@@ -99,7 +100,7 @@ if __name__ == "__main__":
             njobs = '1'
         
         commonOpts='-i '+args.inputTemplate+' -m '+args.prcName+' -f '+args.folderName+' -j '+njobs+' --fordag 1'
-        if args.slc6:
+        if args.slc == '6':
             commonOpts+=' --slc6 1 '
         if args.eosFolder != 'NONE':
             commonOpts+=' -e '+args.eosFolder
