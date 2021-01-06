@@ -21,6 +21,10 @@ PROCS=(ZToMuMu-8TeV-runtest)
 
 case $WHAT in
 
+    SLC6 )
+        cmssw-cc6 --command-to-run ./$0 $PARAM
+    ;;
+    
     INIT )
         ln -s genproductions/bin/Powheg/*.py .
         ln -s genproductions/bin/Powheg/*.sh .
@@ -48,8 +52,7 @@ case $WHAT in
     GRIDS )
         for PROC in ${PROCS[@]}
         do
-            MPROC=${procmap[${PROC:0:1}]}
-            k5reauth -R -- python ./run_pwg_parallel_condor.py -p 123 -i DY_EW_NNPDF31_13TeV/${PROC}-powheg.input -m ${MPROC} -f ${PROC}-${SUFFIX} -q 1:longlunch,2:workday,3:longlunch --step3pilot --slc6 -x 3 -j 20
+            k5reauth -R -- python ./run_pwg_parallel_condor.py -p 123 -i DY_MiNNLO_NNPDF31_13TeV/${PROC}-powheg.input -m ${PROC:0:1}j -f ${PROC}-${SUFFIX} -q 1:longlunch,2:workday,3:longlunch --step3pilot -x 3 -j 200 --slc ${ARCH:3:1}
         done
     ;;
     
@@ -61,10 +64,6 @@ case $WHAT in
         done
     ;;
     
-    PACK6 )
-        cmssw-cc6 --command-to-run ./nloewHelper.sh PACK
-    ;;
-    
     PACK )
         eval `scramv1 runtime -sh`
         for PROC in ${PROCS[@]}
@@ -74,10 +73,6 @@ case $WHAT in
         done
         ./nloewHelper.sh PACK_REDUCED
         # ./nloewHelper.sh PACK_NORWL
-    ;;
-    
-    TEST6 )
-        cmssw-cc6 --command-to-run ./nloewHelper.sh TEST
     ;;
     
     TEST )
@@ -120,10 +115,6 @@ case $WHAT in
             tar zcf ../${MPROC}_${ARCH}_${CMSSW}_${PROC}-${SUFFIX}-reducedrwl.tgz *
             cd ..
         done
-    ;;
-    
-    TEST_REDUCED6 )
-        cmssw-cc6 --command-to-run ./nloewHelper.sh TEST_REDUCED
     ;;
     
     TEST_REDUCED )
