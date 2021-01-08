@@ -17,7 +17,7 @@ CMSSW=CMSSW_10_2_23
 SUFFIX=powheg-NLOEW-svn3756-j20
 
 PROCS=(ZToMuMu-8TeV-runtest)
-
+PROCS=(ZToMuMu-7TeV-minnlolike ZToMuMu-7TeV-minnlolike-noew ZToMuMu-7TeV-minnlolike-ewho)
 
 case $WHAT in
 
@@ -45,14 +45,14 @@ case $WHAT in
         for PROC in ${PROCS[@]}
         do
             MPROC=${procmap[${PROC:0:1}]}
-            cmssw-cc6 --command-to-run python ./run_pwg_condor.py -p 0 -i DY_EW_NNPDF31_13TeV/${PROC}-powheg.input -m ${MPROC} -f ${PROC}-${SUFFIX} -d 1
+            python ./run_pwg_condor.py -p 0 -i DY_EW_NNPDF31_13TeV/${PROC}-powheg.input -m ${MPROC} -f ${PROC}-${SUFFIX} -d 1
         done
     ;;
 
     GRIDS )
         for PROC in ${PROCS[@]}
         do
-            k5reauth -R -- python ./run_pwg_parallel_condor.py -p 123 -i DY_MiNNLO_NNPDF31_13TeV/${PROC}-powheg.input -m ${PROC:0:1}j -f ${PROC}-${SUFFIX} -q 1:longlunch,2:workday,3:longlunch --step3pilot -x 3 -j 200 --slc ${ARCH:3:1}
+            k5reauth -R -- python ./run_pwg_parallel_condor.py -p 123 -i DY_MiNNLO_NNPDF31_13TeV/${PROC}-powheg.input -m ${PROC:0:1}j -f ${PROC}-${SUFFIX} -q 1:longlunch,2:workday,3:longlunch --step3pilot -x 3 -j 20 --slc ${ARCH:3:1}
         done
     ;;
     
