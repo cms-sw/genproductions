@@ -104,8 +104,8 @@ case $WHAT in
         do
             python ./run_pwg_condor.py -p 9 -m ${PROC:0:1}j -f ${PROC}-${SUFFIX} 
         done
-        # ./minnloHelper.sh PACK_REDUCED
-        # ./minnloHelper.sh PACK_NORWL
+        ./minnloHelper.sh PACK_REDUCED
+        ./minnloHelper.sh PACK_NORWL
     ;;
     
     TEST )
