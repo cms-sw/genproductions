@@ -1,6 +1,6 @@
-set param_card MASS 34 5.00000e+02
-set param_card WPRIMECOUPLINGS 1 1.000000e-01
-set param_card WPRIMECOUPLINGS 2 1.000000e-01
-set param_card WPRIMECOUPLINGS 3 1.000000e-01
-set param_card WPRIMECOUPLINGS 4 1.000000e-01
+set param_card MASS 34 AMASS
+set param_card WPRIMECOUPLINGS 1 0.1
+set param_card WPRIMECOUPLINGS 2 0.1
+set param_card WPRIMECOUPLINGS 3 0.1
+set param_card WPRIMECOUPLINGS 4 0.1
 set param_card DECAY 34 Auto
