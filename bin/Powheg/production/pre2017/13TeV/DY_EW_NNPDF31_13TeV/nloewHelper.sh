@@ -52,7 +52,7 @@ case $WHAT in
     GRIDS )
         for PROC in ${PROCS[@]}
         do
-            k5reauth -R -- python ./run_pwg_parallel_condor.py -p 123 -i DY_MiNNLO_NNPDF31_13TeV/${PROC}-powheg.input -m ${PROC:0:1}j -f ${PROC}-${SUFFIX} -q 1:longlunch,2:workday,3:longlunch --step3pilot -x 3 -j 20 --slc ${ARCH:3:1}
+            k5reauth -R -- python ./run_pwg_parallel_condor.py -p 123 -i DY_EW_NNPDF31_13TeV/${PROC}-powheg.input -m ${PROC:0:1}j -f ${PROC}-${SUFFIX} -q 1:longlunch,2:workday,3:longlunch --step3pilot -x 3 -j 20 --slc ${ARCH:3:1}
         done
     ;;
     
