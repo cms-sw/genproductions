@@ -6,12 +6,10 @@ define wp = wp+ wp-
 define ls = l+ l- vl vl~
 define ws = w+ w-
 define ts = t t~
-generate p p > wp, (wp > ts bs, (ts > ws bs, ws > ls ls) )
-add process p p > wp j, (wp > ts bs, (ts > ws bs, ws > ls ls) )
-add process p p > wp, (wp > ts bs j, (ts > ws bs, ws > ls ls) )
-add process p p > wp, (wp > ts bs, (ts > ws bs j, ws > ls ls) )
-add process p p > wp j j, (wp > ts bs, (ts > ws bs, ws > ls ls) )
-add process p p > wp j, (wp > ts bs j, (ts > ws bs, ws > ls ls) )
-add process p p > wp j, (wp > ts bs, (ts > ws bs j, ws > ls ls) )
-add process p p > wp, (wp > ts bs j, (ts > ws bs j, ws > ls ls) )
+generate p p > wp+ > bs ts, (ts > ws bs, ws > ls ls) @0
+add process p p > wp- > bs ts, (ts > ws bs, ws > ls ls) @0
+add process p p > wp+ > bs ts j, (ts > ws bs, ws > ls ls) @1
+add process p p > wp- > bs ts j, (ts > ws bs, ws > ls ls) @1
+add process p p > wp+ > bs ts j j, (ts > ws bs, ws > ls ls) @2
+add process p p > wp- > bs ts j j, (ts > ws bs, ws > ls ls) @2
 output WPrime_tb -nojpeg
