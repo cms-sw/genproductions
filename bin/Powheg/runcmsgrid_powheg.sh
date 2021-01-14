@@ -150,6 +150,11 @@ grep -q "storeinfo_rwgt 1" powheg.input ; test $? -eq 0  || produceWeights="fals
 grep -q "pdfreweight 1" powheg.input ; test $? -eq 0 || produceWeights="false"
 grep -q "first runx" powheg.input ; test $? -ne 0 || produceWeights="true"
 
+if [ "$process" = "Z_ew-BMNNPV" ] || [ "$process" = "W_ew-BMNNP" ]; then
+  # Photos matching removes weights, so we will calculate them afterwards
+  sed -i '/rwl_file/d' powheg.input
+fi
+
 cat powheg.input
 ../pwhg_main 2>&1 | tee log_${process}_${seed}.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
 
@@ -363,7 +368,18 @@ fi
 
 if [ "$process" = "Z_ew-BMNNPV" ] || [ "$process" = "W_ew-BMNNP" ]; then
   ../main-PHOTOS-lhef 2>&1 | tee logphotos_${process}_${seed}.txt; test $? -eq 0 || fail_exit "main-PHOTOS-lhef: exit code not 0"
+  mv pwgevents.lhe pwgevents_nophotos.lhe
   mv pwgevents_photos.lhe pwgevents.lhe
+  
+  echo -e "\n doing rwl\n"
+  cp powheg.input.noweight powheg.input
+  sed -i '/rwl_file/d' powheg.input
+  echo "rwl_file 'pwg-rwl.dat'" >> powheg.input
+  echo "rwl_add 1" >> powheg.input
+  
+  ../pwhg_main 2>&1 | tee logrew_${process}.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
+  mv pwgevents.lhe pwgevents_photos.lhe
+  mv pwgevents-rwgt.lhe pwgevents.lhe
 fi
 
 if [ "$produceWeights" == "true" ]; then
