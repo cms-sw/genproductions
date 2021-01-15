@@ -5,14 +5,14 @@
 #*********************************************************************
 # Tag name for the run (one word)                                    *
 #*********************************************************************
-  $NAME     = run_tag ! name of the run 
+  Zprime_tau_tau_M_1000p0_gl_0_gh_1_kv_1p0     = run_tag ! name of the run 
 #*********************************************************************
 # Number of events and rnd seed                                      *
 # Warning: Do not generate more than 1M events in a single run       *
 # If you want to run Pythia, avoid more than 50k events in a run.    *
 #*********************************************************************
   100000 = nevents ! Number of unweighted events requested 
-  $SEED   = iseed   ! rnd seed (0=assigned automatically=default))
+  84200   = iseed   ! rnd seed (0=assigned automatically=default))
 #*********************************************************************
 # Collider type and energy                                           *
 # lpp: 0=No PDF, 1=proton, -1=antiproton, 2=photon from proton,      *
