@@ -11,8 +11,8 @@
 # Warning: Do not generate more than 1M events in a single run       *
 # If you want to run Pythia, avoid more than 50k events in a run.    *
 #*********************************************************************
-  100000 = nevents ! Number of unweighted events requested 
-  $SEED   = iseed   ! rnd seed (0=assigned automatically=default))
+  5000 = nevents ! Number of unweighted events requested 
+   0   = iseed   ! rnd seed (0=assigned automatically=default))
 #*********************************************************************
 # Collider type and energy                                           *
 # lpp: 0=No PDF, 1=proton, -1=antiproton, 2=photon from proton,      *
@@ -32,7 +32,6 @@
 #*********************************************************************
  'lhapdf'    = pdlabel     ! PDF set                                  
  lhapdf = pdlabel ! PDF set
-# 315200 = lhaid
  $DEFAULT_PDF_SETS = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number 
  $DEFAULT_PDF_MEMBERS = reweight_PDF
 #*********************************************************************
