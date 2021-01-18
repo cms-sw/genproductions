@@ -1085,7 +1085,7 @@ for num in range(0,len(prepid)):
                             else:
                                 print "* [WARNING] There may be a problem with scale variations. Please check pwg-rwl.dat"
                                 warning += 1
-                            if pdf_var_check0 > 0 and pdf_var_check1 > 1:
+                            if pdf_var_check0 > 0 and pdf_var_check1 >= 1:
                                 print "* [OK] Most probably PDF variations are OK."
                             else:
                                 print "* [ERROR] There may be a problem with PDF variations. Please check pwg-rwl.dat"
