@@ -687,6 +687,12 @@ if [ "$process" = "directphoton" ]; then
 fi
 
 if [ "$process" = "Z_ew-BMNNPV" ] || [ "$process" = "W_ew-BMNNP" ]; then
+    # patch
+    if [ "$process" = "Z_ew-BMNNPV" ]; then
+        patch -l -p0 -i ${WORKDIR}/patches/z_ew.patch
+    elif [ "$process" = "W_ew-BMNNP" ]; then
+        patch -l -p0 -i ${WORKDIR}/patches/w_ew.patch
+    fi
     ## put the correct library names for PHOTOS++ into the Makefile
     echo "Linking PHOTOS++ libraries in the Makefile"
     sed -i 's+^PHOTOSCC_LOCATION=.*+PHOTOSCC_LOCATION=/cvmfs/cms.cern.ch/slc6_amd64_gcc700/external/photospp/3.61-omkpbe2+g' Makefile
