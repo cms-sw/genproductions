@@ -1,4 +1,4 @@
-set param_card mass 9900012 1000
+set param_card mass 9900012 HNLMASS
 set param_card numixing 1 0.000000e+00
 set param_card numixing 2 0.000000e+00
 set param_card numixing 3 0.000000e+00

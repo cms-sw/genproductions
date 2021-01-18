@@ -5,7 +5,7 @@ set loop_color_flows False
 set gauge unitary
 set complex_mass_scheme False
 set max_npoint_for_channel 0
-import model sm
+import SM_HeavyN_AllMassive_LO
 define p = g u c d s u~ c~ d~ s~
 define j = g u c d s u~ c~ d~ s~
 define l+ = ta+
@@ -18,8 +18,7 @@ define vl = ve vm vt
 define vl~ = ve~ vm~ vt~
 define v = vl vl~
 define w = w- w+
-import model SM_HeavyN_NLO
 define p = p b b~
 define j = p
-generate p p > n1 l [QCD]
-output HeavyNeutrino_trilepton_M-1000_V-0.01_tau_NLO -nojpeg
+generate p p > l n1, (n1 > ldecay ldecay v)
+output HeavyNeutrino_trilepton_M-HNLMASS_V-0p01_tau_LO -nojpeg
