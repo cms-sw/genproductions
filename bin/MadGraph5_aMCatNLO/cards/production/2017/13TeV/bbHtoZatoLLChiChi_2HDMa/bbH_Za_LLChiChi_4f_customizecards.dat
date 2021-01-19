@@ -1,0 +1,6 @@
+set param_card MASS 35 herereplacemassofH
+set param_card MASS 36 herereplacemassofH
+set param_card MASS 37 herereplacemassofH
+set param_card MASS 54 herereplacemassofa
+set param_card DECAY 35 herereplacewidthofH
+set param_card DECAY 54 herereplacewidthofa
