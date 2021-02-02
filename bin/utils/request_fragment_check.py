@@ -914,7 +914,11 @@ for num in range(0,len(prepid)):
                     matching_c = int(re.search(r'\d+',ickkw_c).group())
                     maxjetflavor = os.popen('more '+filename_rc+' | tr -s \' \' | grep "= maxjetflavor"').read()
                     print(ickkw_c, matching_c, maxjetflavor)
-                    maxjetflavor = int(re.search(r'\d+',maxjetflavor).group())
+                    if len(maxjetflavor) != 0:
+                        maxjetflavor = int(re.search(r'\d+',maxjetflavor).group())
+                    else:
+                        print"* [WARNING] maxjetflavor not defined in run_card.dat"
+                        warning += 1
                     print "maxjetflavor = "+str(maxjetflavor)
                     if matching_c == 3 and pythia8_flag != 0:
                         ps_hw = os.popen('grep parton_shower '+filename_rc).read()
