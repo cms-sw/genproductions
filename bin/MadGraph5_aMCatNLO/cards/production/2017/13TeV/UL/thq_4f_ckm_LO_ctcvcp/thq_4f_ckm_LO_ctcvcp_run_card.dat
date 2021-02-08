@@ -1,17 +1,3 @@
-#*********************************************************************
-#                       MadGraph5_aMC@NLO                            *
-#                                                                    *
-#                     run_card.dat MadEvent                          *
-#                                                                    *
-#  This file is used to set the parameters of the run.               *
-#                                                                    *
-#  Some notation/conventions:                                        *
-#                                                                    *
-#   Lines starting with a '# ' are info or comments                  *
-#                                                                    *
-#   mind the format:   value    = variable     ! comment             *
-#*********************************************************************
-#
 #*******************                                                 
 # Running parameters
 #*******************                                                 
@@ -266,9 +252,5 @@
 #          reweighting into account!                                 *
 #*********************************************************************
   True	=  use_syst       ! Enable systematics studies
-#
-#**************************************
-# Parameter of the systematics study
-#  will be used by SysCalc (if installed)
-#**************************************                                  
+
 
