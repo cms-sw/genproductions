@@ -21,6 +21,7 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
     PythiaParameters = cms.PSet(
         pythia8CommonSettingsBlock,
         pythia8CP5SettingsBlock,
+        pythia8PSweightsSettingsBlock,
         processParameters = cms.vstring(
             'SUSY:all = off',
             'SUSY:qqbar2chi+chi- = on',
@@ -33,6 +34,7 @@ generator = cms.EDFilter("Pythia8GeneratorFilter",
         parameterSets = cms.vstring(
             'pythia8CommonSettings',
             'pythia8CP5Settings',
+            'pythia8PSweightsSettings',
             'processParameters')
     ),
     # The following parameters are required by Exotica_HSCP_SIM_cfi:
