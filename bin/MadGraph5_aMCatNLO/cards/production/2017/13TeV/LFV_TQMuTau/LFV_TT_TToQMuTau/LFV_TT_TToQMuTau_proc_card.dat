@@ -3,4 +3,4 @@ generate p p > t t~, (t > b w+, w+ > j j), (t~ > c~ mu+ ta-)
 add process p p > t t~, (t > b w+, w+ > j j), (t~ > c~ mu- ta+)
 add process p p > t t~, (t > c mu+ ta-), (t~ > b~ w-, w- > j j)
 add process p p > t t~, (t > c mu- ta+), (t~ > b~ w-, w- > j j)
-output LFV_TT_TToCMuTau_Scalar
+output LFV_TT_TToQMuTau
