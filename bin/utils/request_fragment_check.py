@@ -1498,7 +1498,7 @@ for num in range(0,len(prepid)):
                 if 'Summer20UL' not in pi and 'Summer19UL' not in pi and 'Fall18' not in pi and 'Fall17' not in pi and 'Run3' not in pi:
                     print "* [WARNING] Do you really want to have tune "+tune[0] +" in this campaign?"
                     warning += 1
-        if ('Fall18' in pi or 'UL' in pi) and fsize != 0 and herwig_flag == 0:
+        if fsize != 0 and herwig_flag == 0:
             if int(os.popen('grep -c "from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *" '+pi).read()) != 1 :
                 print "* [WARNING] No parton shower weights configuration in the fragment. In the Fall18 campaign, we recommend to include Parton Shower weights"
                 warning += 1
