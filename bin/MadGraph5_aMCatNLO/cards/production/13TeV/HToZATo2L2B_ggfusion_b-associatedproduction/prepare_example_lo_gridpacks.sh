@@ -18,7 +18,7 @@ if [[ ! -d "$GenDIR" ]]; then
     git remote add upstream git@github.com:kjaffel/genproductions.git
 fi
 pushd genproductions
-git checkout UL2019
+git checkout master
 git pull
 pushd bin/MadGraph5_aMCatNLO/cards/production/13TeV/
 CardsDIR= "HToZATo2L2B_ggfusion_b-associatedproduction"

@@ -1,10 +1,10 @@
 # H->ZA->llbb gridpacks production:
-##Default: Preparing Cards 
+#Default: Preparing Cards 
 - You need 2HDMC which is a general-purpose calculator for the two-Higgs doublet model. It allows parametrization of the Higgs potential in many different ways, convenient specification of generic Yukawa sectors, the evaluation of decay widths (including higher-order QCD corrections), theoretical constraints and much more.
-- You can either Install Calculators42HDM either with Conda or in a CMSSW relase, details [here](https://github.com/kjaffel/Calculators42HDM#install-with-conda-from-pdavid)
+- You can either install Calculators42HDM with Conda or in a CMSSW release, details [here](https://github.com/kjaffel/Calculators42HDM#install-with-conda-from-pdavid)
 ```bash
 # We will use CMSSW relase here
-#setup your env 
+# Setup your env 
 module load gcc/gcc-7.3.0-sl7_amd64 lhapdf/6.1.6-sl7_gcc73
 # Install a CMSSW release .eg. CMSSW_10_2_22
 cmsrel CMSSW_10_2_22
@@ -18,14 +18,13 @@ source sushi_2hdmc_cmssw.sh
 # Setup github remotes
 source first_setup.sh
 ```
+- Run as follow:
 ```bash
-Run as follow:
 ./prepare_MG5_cards.py --order --test
 The script will look for example_cards/template_HToZATo2L2B_200_50_1_bbH4F_TuneCP5_13TeV-amcatnloFXFX-pythia8 if --order NLO
                      and example_cards/template_HToZATo2L2B_200_50_1_ggH_TuneCP5_13TeV-amcatnloFXFX-pythia8   if --order LO  
 in order to be able to produce the needed .dat cards for the requested signal mass points and tb values 
 ```
-
 ```
 --order : LO or NLO computation 
     LO   ggfusion - loop induced
@@ -40,7 +39,7 @@ in order to be able to produce the needed .dat cards for the requested signal ma
     $DEFAULT_PDF_MEMBERS  = reweight_PDF
 --queue : 1nh
 ```
-##Genrate gridpacks:
+#Genrate gridpacks:
 ```bash
 ./prepare_example_nlo_gridpacks.sh
 ./prepare_example_lo_gridpacks.sh
