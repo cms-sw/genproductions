@@ -4,7 +4,7 @@
 # - you must not have setup any cmsenv
 # - each gridpack generation should take about 5 minutes
 set -x
-ZADIR= ZAPrivateProduction
+ZADIR= "ZAPrivateProduction"
 if [[ ! -d "$ZADIR" ]]; then
     git clone -o upstream git@github.com:cp3-llbb/ZAPrivateProduction.git
     git remote add origin git@github.com:kjaffel/ZAPrivateProduction.git
@@ -12,7 +12,7 @@ fi
 pushd ZAPrivateProduction
 git fetch origin
 git checkout origin/master
-GenDIR= genproductions
+GenDIR= "genproductions"
 if [[ ! -d "$GenDIR" ]]; then
     git clone  -o origin https://github.com/cms-sw/genproductions.git
     git remote add upstream git@github.com:kjaffel/genproductions.git
@@ -21,7 +21,7 @@ pushd genproductions
 git checkout UL2019
 git pull
 pushd bin/MadGraph5_aMCatNLO/cards/production/13TeV/
-CardsDIR= HToZATo2L2B_ggfusion_b-associatedproduction
+CardsDIR= "HToZATo2L2B_ggfusion_b-associatedproduction"
 if [[ ! -d "$CardsDIR" ]]; then
     mkdir HToZATo2L2B_ggfusion_b-associatedproduction/
 fi

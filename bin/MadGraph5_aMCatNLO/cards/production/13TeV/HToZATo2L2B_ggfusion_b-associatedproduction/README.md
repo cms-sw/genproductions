@@ -1,15 +1,38 @@
 # H->ZA->llbb gridpacks production:
 ##Default: Preparing Cards 
+- You need 2HDMC which is a general-purpose calculator for the two-Higgs doublet model. It allows parametrization of the Higgs potential in many different ways, convenient specification of generic Yukawa sectors, the evaluation of decay widths (including higher-order QCD corrections), theoretical constraints and much more.
+- You can either Install Calculators42HDM either with Conda or in a CMSSW relase, details [here](https://github.com/kjaffel/Calculators42HDM#install-with-conda-from-pdavid)
+```bash
+# We will use CMSSW relase here
+#setup your env 
+module load gcc/gcc-7.3.0-sl7_amd64 lhapdf/6.1.6-sl7_gcc73
+# Install a CMSSW release .eg. CMSSW_10_2_22
+cmsrel CMSSW_10_2_22
+cmsenv
+git cms-init
+
+# Get and execute the install script
+wget https://github.com/kjaffel/Calculators42HDM/master/sushi_2hdmc_cmssw.sh
+source sushi_2hdmc_cmssw.sh
+
+# Setup github remotes
+source first_setup.sh
+```
 ```bash
 Run as follow:
 ./prepare_MG5_cards.py --order --test
+The script will look for example_cards/template_HToZATo2L2B_200_50_1_bbH4F_TuneCP5_13TeV-amcatnloFXFX-pythia8 if --order NLO
+                     and example_cards/template_HToZATo2L2B_200_50_1_ggH_TuneCP5_13TeV-amcatnloFXFX-pythia8   if --order LO  
+in order to be able to produce the needed .dat cards for the requested signal mass points and tb values 
 ```
+
 ```
 --order : LO or NLO computation 
     LO   ggfusion - loop induced
     NLO  b-associated production 
---test : will produce 1 set of cards for ecah process, saved by defauly in example_cards/ and 2 bash scripts prepare_example_{order}_gridpacks.sh to genrate the gridpacks
-    LO   tb= 1.5 , MH= 500, MA=300 ,
+--test : will produce 1 set of cards for each process, saved by default in example_cards/ 
+                  and 2 bash scripts prepare_example_{order}_gridpacks.sh to genrate the gridpacks
+    LO   tb= 1.5 , MH= 500, MA=300
     NLO  tb= 20. , MH=500, MA=300
 -- lhaid : will be set to $DEFAULT_PDF_SETS as shortcuts to have the PDF sets automatically and added to the run_card at run time to avoid specifying them directly
     lhapdf = pdlabel ! PDF set
