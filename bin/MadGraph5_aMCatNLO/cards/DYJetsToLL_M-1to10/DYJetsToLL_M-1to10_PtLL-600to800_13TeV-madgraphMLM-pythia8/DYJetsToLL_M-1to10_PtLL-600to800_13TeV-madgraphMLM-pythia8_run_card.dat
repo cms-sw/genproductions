@@ -275,6 +275,4 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
 #********************************************************************* 
 #  Additional parameter
 #*********************************************************************
-  0.0	= ptonium # hidden parameter
-  -1.0	= etaonium # hidden parameter
     

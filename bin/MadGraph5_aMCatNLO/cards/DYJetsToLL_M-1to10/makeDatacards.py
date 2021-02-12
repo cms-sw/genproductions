@@ -13,7 +13,8 @@ for b in bins:
         bstring = ""
     else:
         bstring = binning+"-"+b+"_"
-    fDir = "cards/mycards/DYJetsToLL_M-1to10_"+bstring+"13TeV-madgraphMLM-pythia8/"
+    #fDir = "cards/mycards/DYJetsToLL_M-1to10_"+bstring+"13TeV-madgraphMLM-pythia8/"
+    fDir = "DYJetsToLL_M-1to10_"+bstring+"13TeV-madgraphMLM-pythia8/"
     if not os.path.exists(fDir):
         mkdir = "mkdir "+fDir
         os.system(mkdir)
@@ -27,6 +28,8 @@ for b in bins:
     else:
         minptll = b.split("to")[0]
         maxptll = b.split("to")[1]
+        if maxptll == "Inf":
+            maxptll = "-1"
     f1.writelines("""
 import model sm-ckm_no_b_mass
 
@@ -318,8 +321,6 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
 #********************************************************************* 
 #  Additional parameter
 #*********************************************************************
-  0.0	= ptonium # hidden parameter
-  -1.0	= etaonium # hidden parameter
     """)
     
     

@@ -189,7 +189,7 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
 # Minimum and maximum pt for 4-momenta sum of leptons                *
 #*********************************************************************
   1200	= ptllmin ! Minimum pt for 4-momenta sum of leptons(l and vl)
-  Inf	= ptllmax ! Maximum pt for 4-momenta sum of leptons(l and vl)
+  -1	= ptllmax ! Maximum pt for 4-momenta sum of leptons(l and vl)
 #*********************************************************************
 # Inclusive cuts                                                     *
 #*********************************************************************
@@ -275,6 +275,4 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
 #********************************************************************* 
 #  Additional parameter
 #*********************************************************************
-  0.0	= ptonium # hidden parameter
-  -1.0	= etaonium # hidden parameter
     
