@@ -91,8 +91,7 @@ make_gridpack () {
     
     MG_EXT=".tar.gz"
     MG=MG5_aMC_v2.7.3$MG_EXT
-    ## MGSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$MG
-    MGSOURCE=https://launchpad.net/mg5amcnlo/2.0/2.7.x/+download/MG5_aMC_v2.7.3.tar.gz
+    MGSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$MG
     
     MGBASEDIRORIG=$(echo ${MG%$MG_EXT} | tr "." "_")
     isscratchspace=0
