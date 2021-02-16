@@ -1,5 +1,2 @@
 set param_card mass 9000005 20
 set param_card decay 9000005 auto
-set ptl 0.0  
-set etal -1.0
-set mmll 4.0 

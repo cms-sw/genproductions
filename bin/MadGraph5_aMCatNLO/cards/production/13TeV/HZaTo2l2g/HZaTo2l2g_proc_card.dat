@@ -22,13 +22,12 @@
 #************************************************************
 define p = g u c d s u~ c~ d~ s~ b b~ 
 define j = g u c d s u~ c~ d~ s~ b b~ 
-#define l+ = e+ mu+
-#define l- = e- mu-
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
 
 import model sm
 import model ALP
 
-#generate p p > h, (h > ALP ALP, ( ALP > mu+ mu- ) )
 generate p p > h > Z alp , Z > l+ l- , alp > a a
 
 output ALP -nojpeg 
