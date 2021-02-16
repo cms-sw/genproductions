@@ -95,9 +95,9 @@
 #*********************************************************************
 # Minimum and maximum pt's (for max, -1 means no cut)                *
 #*********************************************************************
- 20.0  = ptj       ! minimum pt for the jets 
+ 0.0  = ptj       ! minimum pt for the jets 
  0.0  = ptb       ! minimum pt for the b 
- 10.0  = ptl       ! minimum pt for the charged leptons 
+ 0.0  = ptl       ! minimum pt for the charged leptons 
  -1.0  = ptjmax    ! maximum pt for the jets
  -1.0  = ptbmax    ! maximum pt for the b
  -1.0  = ptlmax    ! maximum pt for the charged leptons
@@ -109,9 +109,9 @@
 #*********************************************************************
 # Maximum and minimum absolute rapidity (for max, -1 means no cut)   *
 #*********************************************************************
- 5.0 = etaj    ! max rap for the jets 
+ -1.0 = etaj    ! max rap for the jets 
  -1.0  = etab    ! max rap for the b
- 2.5  = etal    ! max rap for the charged leptons 
+ -1.0  = etal    ! max rap for the charged leptons 
  0.0  = etabmin ! min rap for the b
  0.0  = etalmin ! main rap for the charged leptons
  {} = eta_min_pdg ! rap cut for other particles (use pdg code). Applied on particle and anti-particle
