@@ -2,119 +2,78 @@ processes=(LFV_ST_T LFV_TT_TTo)
 general=QMuTau
 quarktypes=(UMuTau CMuTau)
 classes=(Scalar Vector Tensor)
-vectors=(Clq Clu Cqe Ceu)
-c_types=(2x3x2x3 2x3x3x2 3x2x2x3 3x2x3x2)
-u_types=(2x3x1x3 2x3x3x1 3x2x1x3 3x2x3x1)
-u_antitypes=(1x3x2x3 1x3x3x2 3x1x2x3 3x1x3x2)
+sca_block=frblock8  # Clequ1
+vec_block=(frblock10 frblock12 frblock5 frblock13) # Clq1, Clu, Ceu, Cqe
+ten_block=frblock9  # Clequ3
+
+declare -a c_types=("2 3 2 3" "2 3 3 2" "3 2 2 3" "3 2 3 2")
+declare -a u_types=("2 3 1 3" "2 3 3 1" "3 2 1 3" "3 2 3 1")
+declare -a u_antitypes=("1 3 2 3" "1 3 3 2" "3 1 2 3" "3 1 3 2")
 
 for process in ${processes[*]}; do
     generalfolder=${process}${general}
     for qtype in ${quarktypes[*]}; do
         folder=${process}${qtype}
         echo ${folder}
-        if [ ${qtype} = "UMuTau" ]
-        then
-            for class in ${classes[*]}; do
-                classfolder=${folder}_${class}
-                echo Copying folder to ${folder}_${class}
-                cp -r ./${generalfolder} ./${folder}_${class}
+        for class in ${classes[*]}; do
+            classfolder=${folder}_${class}
+            echo Copying folder to ${classfolder}
+            cp -r ./${generalfolder} ./${classfolder}
 
-                if [ $class = "Vector" ]
+            if [ ${qtype} = "UMuTau" ]
+            then
+                if [ $class = "Scalar" ]
                 then
-                    for v in ${vectors[*]}; do
-                        if [ $v = "Clq" ]
+                    for tp in "${u_types[@]}"; do
+                        echo "set param_card $sca_block $tp 1.00" >> ./${classfolder}/${generalfolder}_customizecards.dat
+                    done
+                elif [ $class = "Vector" ]
+                then
+                    for v in ${vec_block[*]}; do
+                        if [ $v = "frblock13" ]
                         then
-                            for t in ${u_types[*]}; do
-                                sed -i "46,212s/0.000000e+00 # ${v}1${t}/1.000000e+00 # ${v}1${t}/g" ./${folder}_${class}/${generalfolder}_param_card.dat
+                            for tp in "${u_antitypes[@]}"; do
+                                echo "set param_card $v $tp 1.00" >> ./${classfolder}/${generalfolder}_customizecards.dat
                             done
-                        elif [ $v = "Clu" ]
-                        then
-                            for t in ${u_types[*]}; do
-                                sed -i "218,298s/0.000000e+00 # ${v}${t}/1.000000e+00 # ${v}${t}/g" ./${folder}_${class}/${generalfolder}_param_card.dat
-                            done
-
-                        elif [ $v = "Cqe" ]
-                        then
-                            for t in ${u_antitypes[*]}; do
-                                sed -i "304,384s/0.000000e+00 # ${v}${t}/1.000000e+00 # ${v}${t}/g" ./${folder}_${class}/${generalfolder}_param_card.dat
-                            done
-                        elif [ $v = "Ceu" ]
-                        then
-                            for t in ${u_types[*]}; do
-                                sed -i "504,584s/0.000000e+00 # ${v}${t}/1.000000e+00 # ${v}${t}/g" ./${folder}_${class}/${generalfolder}_param_card.dat
+                        else
+                            for tp in "${u_types[@]}"; do
+                                echo "set param_card $v $tp 1.00" >> ./${classfolder}/${generalfolder}_customizecards.dat
                             done
                         fi
                     done
-                elif [ $class = "Scalar" ]
+                elif [ $class = "Tensor" ]
                 then
-                    for t in ${u_types[*]}; do
-                        sed -i "762,842s/0.000000e+00 # Clequ1${t}/1.000000e+00 # Clequ1${t}/g" ./${folder}_${class}/${generalfolder}_param_card.dat
+                    for tp in "${u_types[@]}"; do
+                        echo "set param_card $ten_block $tp 1.00" >> ./${classfolder}/${generalfolder}_customizecards.dat
+                    done
+                fi
+            elif [ ${qtype} = "CMuTau" ]
+            then
+                if [ $class = "Scalar" ]
+                then
+                    for tp in "${c_types[@]}"; do
+                        echo "set param_card $sca_block $tp 1.00" >> ./${classfolder}/${generalfolder}_customizecards.dat
+                    done
+                elif [ $class = "Vector" ]
+                then
+                    for v in ${vec_block[*]}; do
+                        for tp in "${c_types[@]}"; do
+                            echo "set param_card $v $tp 1.00" >> ./${classfolder}/${generalfolder}_customizecards.dat
+                        done
                     done
                 elif [ $class = "Tensor" ]
                 then
-                    for t in ${u_types[*]}; do
-                        sed -i "848,928s/0.000000e+00 # Clequ3${t}/1.000000e+00 # Clequ3${t}/g" ./${folder}_${class}/${generalfolder}_param_card.dat
+                    for tp in "${c_types[@]}"; do
+                        echo "set param_card $ten_block $tp 1.00" >> ./${classfolder}/${generalfolder}_customizecards.dat
                     done
                 fi
 
-                sed -i "s/${generalfolder}/${folder}_${class}/g" ./${folder}_${class}/${generalfolder}_proc_card.dat
+            fi
+            sed -i "s/${generalfolder}/${classfolder}/g" ./${classfolder}/${generalfolder}_proc_card.dat
 
-                rename ./${folder}_${class}/${generalfolder} ./${folder}_${class}/${folder}_${class} ./${folder}_${class}/${generalfolder}*
-            done
-        elif [ ${qtype} = "CMuTau" ]
-        then
-            for class in ${classes[*]}; do
-                echo Copying folder to ${folder}_${class}
-                cp -r ./${generalfolder} ./${folder}_${class}
-
-                if [ $class = "Vector" ]
-                then
-                    for v in ${vectors[*]}; do
-                        if [ $v = "Clq" ]
-                        then
-                            for t in ${c_types[*]}; do
-                                sed -i "46,212s/0.000000e+00 # ${v}1${t}/1.000000e+00 # ${v}1${t}/g" ./${folder}_${class}/${generalfolder}_param_card.dat
-                            done
-                        elif [ $v = "Clu" ]
-                        then
-                            for t in ${c_types[*]}; do
-                                sed -i "218,298s/0.000000e+00 # ${v}${t}/1.000000e+00 # ${v}${t}/g" ./${folder}_${class}/${generalfolder}_param_card.dat
-                            done
-
-                        elif [ $v = "Cqe" ]
-                        then
-                            for t in ${c_types[*]}; do
-                                sed -i "304,384s/0.000000e+00 # ${v}${t}/1.000000e+00 # ${v}${t}/g" ./${folder}_${class}/${generalfolder}_param_card.dat
-                            done
-                        elif [ $v = "Ceu" ]
-                        then
-                            for t in ${c_types[*]}; do
-                                sed -i "504,584s/0.000000e+00 # ${v}${t}/1.000000e+00 # ${v}${t}/g" ./${folder}_${class}/${generalfolder}_param_card.dat
-                            done
-                        fi
-                    done
-                elif [ $class = "Scalar" ]
-                then
-                    for t in ${c_types[*]}; do
-                        sed -i "762,842s/0.000000e+00 # Clequ1${t}/1.000000e+00 # Clequ1${t}/g" ./${folder}_${class}/${generalfolder}_param_card.dat
-                    done
-                elif [ $class = "Tensor" ]
-                then
-                    for t in ${c_types[*]}; do
-                        sed -i "848,928s/0.000000e+00 # Clequ3${t}/1.000000e+00 # Clequ3${t}/g" ./${folder}_${class}/${generalfolder}_param_card.dat
-                    done
-                fi
-
-                sed -i "s/${generalfolder}/${folder}_${class}/g" ./${folder}_${class}/${generalfolder}_proc_card.dat
-
-                rename ./${folder}_${class}/${generalfolder} ./${folder}_${class}/${folder}_${class} ./${folder}_${class}/${generalfolder}*
-            done
-        fi
+            rename ./${classfolder}/${generalfolder} ./${classfolder}/${classfolder} ./${classfolder}/${generalfolder}*
+        done
     done
 done
 
 ls ./LF*/
-
-#    echo Deleting folder for ${folder}_${class}
-#    rm -rf ./${folder}_${class}
-#done
