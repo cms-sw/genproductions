@@ -1,7 +1,7 @@
 ###N1MASSHERE
 ###N1ELMIXHERE
 ###N1MUMIXHERE
-set param_card wn1 0.01
+set param_card wn1 AUTO
 set param_card mn2 999999
 set param_card mn3 999999
 set param_card ven2 0.0
