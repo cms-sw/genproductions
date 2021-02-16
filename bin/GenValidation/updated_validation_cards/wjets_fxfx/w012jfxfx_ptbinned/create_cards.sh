@@ -19,8 +19,8 @@ do
 		sed -i "16s/wellnu012j_5f_NLO_FXFX/wellnu012j_wpt-${bin_low}toinf/g" pt${bin_low}_inf/*proc_card.dat
 		cp ./wpt-0to50_cuts_template.f pt${bin_low}_inf/wellnu012j_wpt-${bin_low}toinf_cuts.f
 		sed -i '1s/0\~50/600\~inf/g' pt${bin_low}_inf/*cuts.f
-		sed -i "422s/50/$bin_low/g" pt${bin_low}_inf/*cuts.f
-		sed -i "422s/gt/le/g" pt${bin_low}_inf/*cuts.f
+		sed -i "421s/50/$bin_low/g" pt${bin_low}_inf/*cuts.f
+		sed -i "421s/gt/le/g" pt${bin_low}_inf/*cuts.f
 	else
 		mkdir pt${bin_low}_${bin_high}
         cp ../w012jfxfx_inc/*custo* pt${bin_low}_${bin_high}/wellnu012j_wpt-${bin_low}to${bin_high}_customizecards.dat
@@ -30,9 +30,11 @@ do
         sed -i "16s/wellnu012j_5f_NLO_FXFX/wellnu012j_wpt-${bin_low}to${bin_high}/g" pt${bin_low}_${bin_high}/*proc_card.dat
         cp ./wpt-0to50_cuts_template.f pt${bin_low}_${bin_high}/wellnu012j_wpt-${bin_low}to${bin_high}_cuts.f
 		if [[ "$bin_low" -ne "${Pt_array[0]}" ]];then
-            sed -i "1s/0\~50/$bin_low\~$bin_high/g" pt${bin_low}_${bin_high}/*cuts.f
-            sed -i "422s/ptw.gt.50/(ptw .le. $bin_low) .or. (ptw .gt. $bin_high)/g" pt${bin_low}_$bin_high/*cuts.f
-            
+            	  sed -i "1s/0\~50/$bin_low\~$bin_high/g" pt${bin_low}_${bin_high}/*cuts.f
+            	  sed -i "421s/50/$bin_high/g" pt${bin_low}_${bin_high}/*cuts.f
+            	  sed -i "421s/) then//g" pt${bin_low}_${bin_high}/*cuts.f
+	    	  sed -i "421a&              .or. (p(1,i)+p(1,j))**2+(p(2,i)+p(2,j))**2 .le.${bin_low}d0**2 ) then" pt${bin_low}_${bin_high}/*cuts.f
+	    	  sed -i '422s/^/     /g' pt${bin_low}_${bin_high}/*cuts.f
 		fi			
 	fi
 done
