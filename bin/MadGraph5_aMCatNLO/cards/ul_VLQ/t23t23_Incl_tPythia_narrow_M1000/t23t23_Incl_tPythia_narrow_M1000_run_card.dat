@@ -30,10 +30,10 @@
 # Warning: Do not generate more than 1M events in a single run       *
 # If you want to run Pythia, avoid more than 50k events in a run.    *
 #*********************************************************************
-  1000 = nevents ! Number of unweighted events requested
+  50000 = nevents ! Number of unweighted events requested
 ## BELOW IS NEW
  0.001 = req_acc ! Required accuracy (-1=auto determined from nevents)
- 20 = nevt_job! Max number of events per job in event generation. 
+ -1 = nevt_job! Max number of events per job in event generation. 
                  !  (-1= no split).
 ### ABOVE IS NEW
 #***********************************************************************
@@ -187,7 +187,7 @@
 #  5  = ptj       ! minimum pt for the jets
 #  0  = ptb       ! minimum pt for the b
 #  0  = pta       ! minimum pt for the photons
-  0  = ptl       ! minimum pt for the charged leptons
+#  0  = ptl       ! minimum pt for the charged leptons
 #  0  = misset    ! minimum missing Et (sum of neutrino's momenta)
 #  0  = ptheavy   ! minimum pt for one heavy final state
 # 1.0 = ptonium   ! minimum pt for the quarkonium states
@@ -213,7 +213,7 @@
 #   5  = etaj    ! max rap for the jets
 #   5  = etab    ! max rap for the b
 # 2.5  = etaa    ! max rap for the photons
-  -1  = etal    ! max rap for the charged leptons
+#  -1  = etal    ! max rap for the charged leptons
 # 0.6  = etaonium ! max rap for the quarkonium states
 #   0  = etajmin ! min rap for the jets
 #   0  = etabmin ! min rap for the b
@@ -224,8 +224,8 @@
 #*********************************************************************
 # 0.01   = drjj    ! min distance between jets
 # 0.01   = drbb    ! min distance between b's
- 0   = drll    ! min distance between leptons
- 0.0  = drll_sf ! Min distance between opp. sign same-flavor lepton pairs
+# 0   = drll    ! min distance between leptons
+# 0.0  = drll_sf ! Min distance between opp. sign same-flavor lepton pairs
 # 0   = draa    ! min distance between gammas
 # 0.01   = drbj    ! min distance between b and jet
 # 0   = draj    ! min distance between gamma and jet
@@ -252,8 +252,8 @@
 # 0   = mmbb    ! min invariant mass of a b pair 
 # 0   = mmaa    ! min invariant mass of gamma gamma pair
 # 0   = mmll    ! min invariant mass of l+l- (same flavour) lepton pair
- 0.0  = mll     ! Min inv. mass of all opposite sign lepton pairs
- 30.0  = mll_sf  ! Min inv. mass of all opp. sign same-flavor lepton pairs
+# 0.0  = mll     ! Min inv. mass of all opposite sign lepton pairs
+# 30.0  = mll_sf  ! Min inv. mass of all opp. sign same-flavor lepton pairs
 # -1  = mmjjmax ! max invariant mass of a jet pair
 # -1  = mmbbmax ! max invariant mass of a b pair
 # -1  = mmaamax ! max invariant mass of gamma gamma pair
