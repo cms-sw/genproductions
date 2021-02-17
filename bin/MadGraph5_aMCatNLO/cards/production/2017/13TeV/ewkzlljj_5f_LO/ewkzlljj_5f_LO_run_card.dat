@@ -79,7 +79,7 @@
 # Automatic ptj and mjj cuts if xqcut > 0
 # (turn off for VBF and single top processes)
 #**********************************************************
-   T  = auto_ptj_mjj  ! Automatic setting of ptj and mjj
+   F  = auto_ptj_mjj  ! Automatic setting of ptj and mjj
 #**********************************************************
 #                                                                    
 #**********************************
@@ -257,7 +257,7 @@
 #*********************************************************************
 # Jet measure cuts                                                   *
 #*********************************************************************
- 10   = xqcut   ! minimum kt jet measure between partons
+ 0   = xqcut   ! minimum kt jet measure between partons
 #*********************************************************************
 #
 #*********************************************************************
