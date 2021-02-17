@@ -12,4 +12,4 @@ define vl~ = ve~ vm~ vt~
 import model GM_UFO
 generate p p > H5pp j j, (H5pp > w+ w+)
 add process p p > H5pp~ j j, (H5pp~ > w- w-)
-output DoublyChargedHiggsGMmodel_HWW_M500
+output DoublyChargedHiggsGMmodel_HWW
