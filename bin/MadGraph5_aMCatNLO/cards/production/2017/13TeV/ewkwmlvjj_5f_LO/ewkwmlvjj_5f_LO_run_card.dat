@@ -79,7 +79,7 @@
 # Automatic ptj and mjj cuts if xqcut > 0
 # (turn off for VBF and single top processes)
 #**********************************************************
-   T  = auto_ptj_mjj  ! Automatic setting of ptj and mjj
+   F  = auto_ptj_mjj  ! Automatic setting of ptj and mjj
 #**********************************************************
 #                                                                    
 #**********************************
@@ -134,7 +134,7 @@
    6.5  = etaj    ! max rap for the jets 
   -1  = etab    ! max rap for the b
  2.5  = etaa    ! max rap for the photons 
- 2.6  = etal    ! max rap for the charged leptons 
+  -1  = etal    ! max rap for the charged leptons 
   -1  = etaonium ! max rap for the quarkonium states
    0  = etajmin ! min rap for the jets
    0  = etabmin ! min rap for the b
@@ -257,7 +257,7 @@
 #*********************************************************************
 # Jet measure cuts                                                   *
 #*********************************************************************
- 15   = xqcut   ! minimum kt jet measure between partons
+ 0   = xqcut   ! minimum kt jet measure between partons
 #*********************************************************************
 #
 #*********************************************************************
