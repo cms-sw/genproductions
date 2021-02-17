@@ -264,6 +264,15 @@ def find_file(dir_path,patt):
             if file.endswith(patt):
                 return root+'/'+str(file)
 
+def check_replace(runcmsgridfile):
+    error_check_replace = 0
+    replace_mccont = os.popen('grep "_REPLACE" '+str(runcmsgridfile)).read()
+    if len(replace_mccont):
+        print "* [ERROR] Incomplete gridpack. Replace _REPLACE strings in runcmsgrid.sh:"
+        print (replace_mccont)
+        error_check_replace += 1
+    return error_check_replace 
+
 def xml_check_and_patch(f,cont,gridpack_eos_path,my_path,pi):
     xml = str(re.findall('xmllint.*',cont))
     cur_dir = os.getcwd()
@@ -1022,6 +1031,7 @@ for num in range(0,len(prepid)):
                     if os.path.isfile(my_path+'/'+pi+'/'+'runcmsgrid.sh') is True: 
                         with open(os.path.join(my_path, pi, "runcmsgrid.sh"),'r+') as f:
                             content = f.read()
+                            error += check_replace(content)
                             match = re.search(r"""process=(["']?)([^"']*)\1""", content)
 			    warning1,error1 = xml_check_and_patch(f,content,gridpack_eos_path,my_path,pi)
 		            warning += warning1
@@ -1033,6 +1043,7 @@ for num in range(0,len(prepid)):
                     if os.path.isfile(my_path+'/'+pi+'/'+'external_tarball/runcmsgrid.sh') is True:
                         with open(os.path.join(my_path, pi, "external_tarball/runcmsgrid.sh"),'r+') as f2:
                             content2 = f2.read()
+                            error += check_replace(content2)
                             match = re.search(r"""process=(["']?)([^"']*)\1""", content2)
 			    warning1,error1 = xml_check_and_patch(f2,content2,gridpack_eos_path,my_path,pi)
                             et_flag = 1
@@ -1245,6 +1256,7 @@ for num in range(0,len(prepid)):
                         runcmsgrid_file = os.path.join(my_path, pi, "runcmsgrid.sh")
                         with open(runcmsgrid_file) as fmg:
                             fmg_f = fmg.read()
+                            error += check_replace(runcmsgrid_file)
                             fmg_f = re.sub(r'(?m)^ *#.*\n?', '',fmg_f)
                             mg_me_pdf_list = re.findall('pdfsets=\S+',fmg_f)
                             if mg5_aMC_version >= 260:
