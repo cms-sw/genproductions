@@ -842,8 +842,10 @@ for num in range(0,len(prepid)):
                         slha_flag = 0
                     if slha_flag == 1:
                         slha_all_path = os.path.dirname(gridpack_eos_path)
-                        list_gridpack_cvmfs_path = 'ls '+ gridpack_cvmfs_path+' | head -1 | tr \'\n\' \' \''
-                        gridpack_cvmfs_path = os.popen(list_gridpack_cvmfs_path).read()
+                        print "Directory: "+slha_all_path
+                        list_gridpack_cvmfs_path = os.listdir(slha_all_path)[0]
+                        print list_gridpack_cvmfs_path
+                        gridpack_cvmfs_path = slha_all_path+'/'+list_gridpack_cvmfs_path
                         print "SLHA request - checking single gridpack:"
                         print gridpack_cvmfs_path
                 if os.path.isfile(gridpack_cvmfs_path) is True:
