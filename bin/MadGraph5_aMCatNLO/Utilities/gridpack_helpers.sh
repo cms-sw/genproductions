@@ -145,7 +145,8 @@ extract_width () {
       if [ "$isnlo" -gt "0" ]; then
         cp ${wd}/processtmp/Events/pilotrun/events.lhe.gz temp.lhe.gz
         gzip -d temp.lhe.gz
-        ./MG5_aMC_v2_6_5/Template/LO/bin/internal/extract_banner-pl temp.lhe banner.txt
+	mgv=$(ls | grep 'MG5_aMC_v')
+        ./${mgv}/Template/LO/bin/internal/extract_banner-pl temp.lhe banner.txt
       else
         cp ${wd}/process/madevent/Events/pilotrun/unweighted_events.lhe.gz temp.lhe.gz
         gzip -d temp.lhe.gz
