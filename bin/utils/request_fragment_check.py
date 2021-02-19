@@ -1041,9 +1041,10 @@ for num in range(0,len(prepid)):
                             print "* [WARNING] nFinal(="+str(nFinal) + ") may not be equal to the number of final state particles before decays (="+str(nfinstatpar)+")"
                             warning += 1
                     if os.path.isfile(my_path+'/'+pi+'/'+'runcmsgrid.sh') is True: 
-                        with open(os.path.join(my_path, pi, "runcmsgrid.sh"),'r+') as f:
+                        runcmsgrid_file = my_path+'/'+pi+'/'+'runcmsgrid.sh'
+                        with open(runcmsgrid_file,'r+') as f:
                             content = f.read()
-                            error += check_replace(content)
+                            error += check_replace(runcmsgrid_file)
                             match = re.search(r"""process=(["']?)([^"']*)\1""", content)
 			    warning1,error1 = xml_check_and_patch(f,content,gridpack_eos_path,my_path,pi)
 		            warning += warning1
