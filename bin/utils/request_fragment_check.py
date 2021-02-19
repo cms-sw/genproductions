@@ -917,6 +917,18 @@ for num in range(0,len(prepid)):
                         print "*           You may try to request more events per phase-space region in the gridpack."
                         warning += 1
                 if mg_gp is True:
+                    dir_path = os.path.join(my_path,pi,"InputCards")
+                    if os.path.isdir(dir_path):
+                        input_cards_customize_card = find_file(dir_path,"customizecards.dat")
+                        if input_cards_customize_card:
+                            cw_cnt = os.popen('grep -c compute_widths '+input_cards_customize_card).read()
+                            if cw_cnt > 0:
+                                print "* [ERROR] compute_widths should not be used in customizecards."
+                                print "*         Instead use \"set width X auto\" to compute the widths for X and change the parameter card settings."  
+                                error += 1
+                            else:
+                                print "* [OK] customizecards.dat doesn't have compute_widths."                    
+                if mg_gp is True:
                     filename_rc = my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat'
                     fname_p2 = my_path+'/'+pi+'/'+'process/Cards/run_card.dat'
                     if os.path.isfile(fname_p2) is True :
@@ -1554,8 +1566,9 @@ for num in range(0,len(prepid)):
         if int(os.popen('grep -c -i filter '+pi).read()) > 3 and filter_eff == 1:
             print "* [WARNING] Filters in the fragment but filter efficiency = 1"
             warning += 1
-        os.popen("rm -rf "+my_path+pi).read()
-        os.popen("rm -rf "+my_path+'eos/'+pi).read()
+        if args.develop is False:
+            os.popen("rm -rf "+my_path+pi).read()
+            os.popen("rm -rf "+my_path+'eos/'+pi).read()
         print "***********************************************************************************"
         print "Number of warnings = "+ str(warning)
         print "Number of errors = "+ str(error)
