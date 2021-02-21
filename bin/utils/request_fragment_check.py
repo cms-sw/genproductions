@@ -921,7 +921,7 @@ for num in range(0,len(prepid)):
                     if os.path.isdir(dir_path):
                         input_cards_customize_card = find_file(dir_path,"customizecards.dat")
                         if input_cards_customize_card:
-                            cw_cnt = os.popen('grep -c compute_widths '+input_cards_customize_card).read()
+                            cw_cnt = int(os.popen('grep -c compute_widths '+input_cards_customize_card).read())
                             if cw_cnt > 0:
                                 print "* [ERROR] compute_widths should not be used in customizecards."
                                 print "*         Instead use \"set width X auto\" to compute the widths for X and change the parameter card settings."  
