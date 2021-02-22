@@ -4,13 +4,10 @@ set loop_optimized_output True
 set complex_mass_scheme False
 import model sm
 define p = g u c d s u~ c~ d~ s~
-define j = g u c d s u~ c~ d~ s~
 define l+ = e+ mu+ ta+
 define l- = e- mu- ta-
 define vl = ve vm vt
 define vl~ = ve~ vm~ vt~
-define ll = l+ l-
-define vll = vl vl~
 define wdec = u c d s u~ c~ d~ s~ l+ l- vl vl~
 import model HC_NLO_X0_UFO
 generate p p > x0 t t~, (t > b w+, w+ > wdec wdec), (t~ > b~ w-, w- > wdec wdec)
