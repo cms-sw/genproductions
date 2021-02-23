@@ -167,6 +167,13 @@ if [ -f ./madspin_card.dat ] ;then
     fi
 fi
 
+# Test if time_of_flight is set to a positive floating point value
+has_time_of_flight=$(egrep "^\s*\+?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?\s*=\s*time_of_flight" ./madevent/Cards/run_card.dat)
+if [ ! -z "$has_time_of_flight" ] ; then
+    ./madevent/bin/madevent add_time_of_flight events.lhe.gz
+fi
+    
+
 cd $LHEWORKDIR
 
 runlabel=GridRun_PostProc_${rnum}

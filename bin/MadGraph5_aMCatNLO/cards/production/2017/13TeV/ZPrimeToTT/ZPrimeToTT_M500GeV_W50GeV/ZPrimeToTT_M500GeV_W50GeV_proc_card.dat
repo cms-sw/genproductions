@@ -1,0 +1,12 @@
+import model topBSM_UFO-ckm_no_b_mass
+define p = g u c d s b u~ c~ d~ s~ b~ 
+define j = g u c d s b u~ c~ d~ s~ b~
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+generate p p > s1 > t t~ , (t > W+ b , W+ > l+ vl ), (t~ > W- b~ , W- > j j ) 
+add process p p > s1 > t t~ , (t > W+ b , W+ > j j ), (t~ > W- b~ , W- > l- vl~ ) 
+add process p p > s1 > t t~ , (t > W+ b , W+ > j j ), (t~ > W- b~ , W- > j j ) 
+add process p p > s1 > t t~ , (t > W+ b , W+ > l+ vl ), (t~ > W- b~ , W- > l- vl~ ) 
+output ZPrimeToTT_M500GeV_W50GeV -nojpeg

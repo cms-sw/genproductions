@@ -264,6 +264,15 @@ def find_file(dir_path,patt):
             if file.endswith(patt):
                 return root+'/'+str(file)
 
+def check_replace(runcmsgridfile):
+    error_check_replace = 0
+    replace_mccont = os.popen('grep "_REPLACE" '+str(runcmsgridfile)).read()
+    if len(replace_mccont):
+        print "* [ERROR] Incomplete gridpack. Replace _REPLACE strings in runcmsgrid.sh:"
+        print (replace_mccont)
+        error_check_replace += 1
+    return error_check_replace 
+
 def xml_check_and_patch(f,cont,gridpack_eos_path,my_path,pi):
     xml = str(re.findall('xmllint.*',cont))
     cur_dir = os.getcwd()
@@ -493,10 +502,31 @@ for num in range(0,len(prepid)):
         f2 = open(pi+"_tmp","w")
         data_f1 = f1.read()
         data_f2 = re.sub(r'(?m)^ *#.*\n?', '',data_f1)
+        # Extension compatibility
+        if int(ext) > 0:
+           clone_entries = [i for i in r['history'] if i['action'] == 'clone']
+           if clone_entries:
+               pi_clone_entries = clone_entries[0]['step']
+               print("Request cloned from = ",pi_clone_entries)
+               os.popen('wget -q '+mcm_link+'public/restapi/requests/get_fragment/'+pi_clone_entries+' -O '+pi_clone_entries).read()
+               f1_clone = open(pi_clone_entries,"r")
+               f2_clone = open(pi_clone_entries+"_tmp","w")
+               data_f1_clone = f1_clone.read()
+               data_f2_clone = re.sub(r'(?m)^ *#.*\n?', '',data_f1_clone)
+               if (data_f2 == data_f2_clone) == True:
+                  print "* [OK] The base request and the cloned request used for the extension have the same fragment."
+               else:
+                  print "* [ERROR] The base request and the cloned request used for the extension don't have the same fragment!"
+                  print "Below is the diff of the base and and the cloned request:"
+                  print "---------------------------------------------------------------------------------"
+                  print(os.popen('diff '+pi+' '+pi_clone_entries).read())
+                  print "---------------------------------------------------------------------------------" 
+                  error += 1		
         # Ultra-legacy sample settings' compatibility
         pi_prime = "NULL"
         prime_tmp = []
-        if "Summer20UL18" in pi or "Summer20UL17" in pi or "Summer20UL16wmLHEGENAPV" in pi or "Summer20UL16GENAPV" in pi or "Summer20UL16" in pi and "GEN" in pi and "pLHE" not in pi:
+#        if "Summer20UL18" in pi or "Summer20UL17" in pi or "Summer20UL16wmLHEGENAPV" in pi or "Summer20UL16GENAPV" in pi or "Summer20UL16" in pi and "GEN" in pi and "pLHE" not in pi:
+        if "Summer20UL18" in pi or "Summer20UL17" in pi or "Summer20UL16wmLHEGENAPV" in pi or "Summer20UL16GENAPV" in pi or "Summer20UL16" in pi and "GEN" in pi:
             prime = get_requests_from_datasetname(dn)
             if len(prime) == 0:
                 print "* [ERROR] No corresponing Summer20UL16 request to compare to for consistency."
@@ -506,7 +536,8 @@ for num in range(0,len(prepid)):
 		print "Related requests:"
                 for rr in prime:
                     print(rr['prepid'],rr['extension'],ext)
-                    if "Summer20UL16" in rr['prepid'] and "GEN" in rr['prepid'] and ext == rr['extension'] and "APV" not in rr['prepid'] and ("Summer20UL18" in pi or "Summer20UL17" in pi or "Summer20UL16wmLHEGENAPV" in pi or "Summer20UL16GENAPV" in pi):
+#                    if "Summer20UL16" in rr['prepid'] and "GEN" in rr['prepid'] and ext == rr['extension'] and "APV" not in rr['prepid'] and ("Summer20UL18" in pi or "Summer20UL17" in pi or "Summer20UL16wmLHEGENAPV" in pi or "Summer20UL16GENAPV" in pi):
+                    if "Summer20UL16" in rr['prepid'] and "GEN" in rr['prepid'] and "APV" not in rr['prepid'] and ("Summer20UL18" in pi or "Summer20UL17" in pi or "Summer20UL16wmLHEGENAPV" in pi or "Summer20UL16GENAPV" in pi):
                         pi_prime = rr['prepid']
                         cmssw_prime = rr['cmssw_release']
                     if "Summer20UL16" in pi and "APV" not in pi and "GEN" in rr['prepid'] and ext == rr['extension'] and "Summer19UL17" in rr['prepid']:
@@ -820,11 +851,18 @@ for num in range(0,len(prepid)):
                         slha_flag = 0
                     if slha_flag == 1:
                         slha_all_path = os.path.dirname(gridpack_eos_path)
-                        list_gridpack_cvmfs_path = 'ls '+ gridpack_cvmfs_path+' | head -1 | tr \'\n\' \' \''
-                        gridpack_cvmfs_path = os.popen(list_gridpack_cvmfs_path).read()
+                        print "Directory: "+slha_all_path
+                        list_gridpack_cvmfs_path = os.listdir(slha_all_path)[0]
+                        print list_gridpack_cvmfs_path
+                        gridpack_cvmfs_path = slha_all_path+'/'+list_gridpack_cvmfs_path
                         print "SLHA request - checking single gridpack:"
                         print gridpack_cvmfs_path
-                os.system('tar xf '+gridpack_cvmfs_path+' -C '+my_path+'/'+pi)
+                if os.path.isfile(gridpack_cvmfs_path) is True:
+                    os.system('tar xf '+gridpack_cvmfs_path+' -C '+my_path+'/'+pi)
+	        else:
+                    error += 1
+                    print ("* [ERROR] Gridpack ",gridpack_cvmfs_path," does not exist!") 
+                    break
                 jhu_gp = os.path.isfile(my_path+'/'+pi+'/'+'JHUGen.input')
                 pw_gp = os.path.isfile(my_path+'/'+pi+'/'+'powheg.input')
                 mg_gp = os.path.isfile(my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat') or os.path.isfile(my_path+'/'+pi+'/'+'process/Cards/run_card.dat')
@@ -862,7 +900,7 @@ for num in range(0,len(prepid)):
                         if matching_c == 3:
                             dn = dn + "-amcatnloFXFX"
                 gp_log_loc = my_path+'/'+pi+'/gridpack_generation.log'
-		if os.path.isfile(gp_log_loc) is False:
+		if os.path.isfile(gp_log_loc) is False and jhu_gp is False:
 		    print "* [WARNING] No gridpack generation.log"
 		    warning += 1			 
                 if (mg_gp is True or amcnlo_gp is True) and os.path.isfile(gp_log_loc) is True:
@@ -879,6 +917,18 @@ for num in range(0,len(prepid)):
                         print "*           You may try to request more events per phase-space region in the gridpack."
                         warning += 1
                 if mg_gp is True:
+                    dir_path = os.path.join(my_path,pi,"InputCards")
+                    if os.path.isdir(dir_path):
+                        input_cards_customize_card = find_file(dir_path,"customizecards.dat")
+                        if input_cards_customize_card:
+                            cw_cnt = int(os.popen('grep -c compute_widths '+input_cards_customize_card).read())
+                            if cw_cnt > 0:
+                                print "* [ERROR] compute_widths should not be used in customizecards."
+                                print "*         Instead use \"set width X auto\" to compute the widths for X and change the parameter card settings."  
+                                error += 1
+                            else:
+                                print "* [OK] customizecards.dat doesn't have compute_widths."                    
+                if mg_gp is True:
                     filename_rc = my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat'
                     fname_p2 = my_path+'/'+pi+'/'+'process/Cards/run_card.dat'
                     if os.path.isfile(fname_p2) is True :
@@ -887,7 +937,11 @@ for num in range(0,len(prepid)):
                     matching_c = int(re.search(r'\d+',ickkw_c).group())
                     maxjetflavor = os.popen('more '+filename_rc+' | tr -s \' \' | grep "= maxjetflavor"').read()
                     print(ickkw_c, matching_c, maxjetflavor)
-                    maxjetflavor = int(re.search(r'\d+',maxjetflavor).group())
+                    if len(maxjetflavor) != 0:
+                        maxjetflavor = int(re.search(r'\d+',maxjetflavor).group())
+                    else:
+                        print"* [WARNING] maxjetflavor not defined in run_card.dat"
+                        warning += 1
                     print "maxjetflavor = "+str(maxjetflavor)
                     if matching_c == 3 and pythia8_flag != 0:
                         ps_hw = os.popen('grep parton_shower '+filename_rc).read()
@@ -986,16 +1040,23 @@ for num in range(0,len(prepid)):
                         if nfinstatpar != nFinal :
                             print "* [WARNING] nFinal(="+str(nFinal) + ") may not be equal to the number of final state particles before decays (="+str(nfinstatpar)+")"
                             warning += 1
-                    with open(os.path.join(my_path, pi, "runcmsgrid.sh"),'r+') as f:
-                        content = f.read()
-                        match = re.search(r"""process=(["']?)([^"']*)\1""", content)
-			warning1,error1 = xml_check_and_patch(f,content,gridpack_eos_path,my_path,pi)
-		        warning += warning1
- 			error += error1
-			f.close()
+                    if os.path.isfile(my_path+'/'+pi+'/'+'runcmsgrid.sh') is True: 
+                        runcmsgrid_file = my_path+'/'+pi+'/'+'runcmsgrid.sh'
+                        with open(runcmsgrid_file,'r+') as f:
+                            content = f.read()
+                            error += check_replace(runcmsgrid_file)
+                            match = re.search(r"""process=(["']?)([^"']*)\1""", content)
+			    warning1,error1 = xml_check_and_patch(f,content,gridpack_eos_path,my_path,pi)
+		            warning += warning1
+ 			    error += error1
+			    f.close()
+                    else:
+			print ("* [ERROR] ", my_path+'/'+pi+'/'+'runcmsgrid.sh', "does not exists")
+			error += 1
                     if os.path.isfile(my_path+'/'+pi+'/'+'external_tarball/runcmsgrid.sh') is True:
                         with open(os.path.join(my_path, pi, "external_tarball/runcmsgrid.sh"),'r+') as f2:
                             content2 = f2.read()
+                            error += check_replace(content2)
                             match = re.search(r"""process=(["']?)([^"']*)\1""", content2)
 			    warning1,error1 = xml_check_and_patch(f2,content2,gridpack_eos_path,my_path,pi)
                             et_flag = 1
@@ -1015,21 +1076,22 @@ for num in range(0,len(prepid)):
 			powheg_input = os.path.join(my_path, pi, "powheg.input")
                     if et_flag == 1 and et_flag_external == 0:
 		        powheg_input = os.path.join(my_path, pi, "external_tarball/powheg.input")
-                    with open(powheg_input) as f:
-                        for line in f:
-                            if line.startswith("!") == False and line.startswith("#") == False:
-                                if "bornonly" in line:
-                                    bornonly = int(re.split(r'\s+',line)[1])
-                                if "lhans1" in line:
-                                    pw_pdf = int(re.split(r'\s+', line)[1])
-                                    print "##################################################"
-                                    print "* Powheg PDF used is: "+str(pw_pdf)
-                                    print "##################################################"
-                                    if "UL" in pi and pw_pdf not in UL_PDFs_N:
-                                        print"* [WARNING] The gridpack uses PDF="+str(pw_pdf)+" but not the recommended sets for UL requests:"
-                                        print"*                                             "+str(UL_PDFs_N[0])+" "+str(UL_PDFs[0])
-                                        print"*                                             or "+str(UL_PDFs_N[1])+" "+str(UL_PDFs[1])
-                                        warning += 1
+                    if os.path.isfile(powheg_input) is True:
+                        with open(powheg_input) as f:
+                            for line in f:
+                                if line.startswith("!") == False and line.startswith("#") == False:
+                                    if "bornonly" in line:
+                                        bornonly = int(re.split(r'\s+',line)[1])
+                                    if "lhans1" in line:
+                                        pw_pdf = int(re.split(r'\s+', line)[1])
+                                        print "##################################################"
+                                        print "* Powheg PDF used is: "+str(pw_pdf)
+                                        print "##################################################"
+                                        if "UL" in pi and pw_pdf not in UL_PDFs_N:
+                                            print"* [WARNING] The gridpack uses PDF="+str(pw_pdf)+" but not the recommended sets for UL requests:"
+                                            print"*                                             "+str(UL_PDFs_N[0])+" "+str(UL_PDFs[0])
+                                            print"*                                             or "+str(UL_PDFs_N[1])+" "+str(UL_PDFs[1])
+                                            warning += 1
 		    if os.path.isfile(my_path+'/'+pi+'/'+'external_tarball/pwg-rwl.dat') is True:
 			pwg_rwl_file = os.path.join(my_path, pi, "external_tarball/pwg-rwl.dat")
                     else:
@@ -1047,18 +1109,19 @@ for num in range(0,len(prepid)):
                                     scale_var_check1 += 1
                                 if "PDF_variation" in line:
                                     pdf_var_check0 += 1
-                                if str(pw_pdf)[0:3] in line:
+#                                if str(pw_pdf)[0:3] in line:
+				if str(pw_pdf+1) in line:
                                     pdf_var_check1 += 1
                             if scale_var_check0 == 1 and scale_var_check1 == 9:
                                 print "* [OK] Most probably ME scale variations are OK."
                             else:
                                 print "* [WARNING] There may be a problem with scale variations. Please check pwg-rwl.dat"
                                 warning += 1
-                            if pdf_var_check0 > 0 and pdf_var_check1 > 1:
+                            if pdf_var_check0 > 0 and pdf_var_check1 >= 1:
                                 print "* [OK] Most probably PDF variations are OK."
                             else:
-                                print "* [WARNING] There may be a problem with PDF variations. Please check pwg-rwl.dat"
-                                warning += 1
+                                print "* [ERROR] There may be a problem with PDF variations. Please check pwg-rwl.dat"
+                                error += 1
                     if bornonly == 1:
                         bornonly_frag_check = 0
                         if int(os.popen('grep -c "Pythia8PowhegEmissionVetoSettings" '+pi).read()) == 1:
@@ -1206,6 +1269,7 @@ for num in range(0,len(prepid)):
                         runcmsgrid_file = os.path.join(my_path, pi, "runcmsgrid.sh")
                         with open(runcmsgrid_file) as fmg:
                             fmg_f = fmg.read()
+                            error += check_replace(runcmsgrid_file)
                             fmg_f = re.sub(r'(?m)^ *#.*\n?', '',fmg_f)
                             mg_me_pdf_list = re.findall('pdfsets=\S+',fmg_f)
                             if mg5_aMC_version >= 260:
@@ -1461,7 +1525,7 @@ for num in range(0,len(prepid)):
                 if 'Summer20UL' not in pi and 'Summer19UL' not in pi and 'Fall18' not in pi and 'Fall17' not in pi and 'Run3' not in pi:
                     print "* [WARNING] Do you really want to have tune "+tune[0] +" in this campaign?"
                     warning += 1
-        if 'Fall18' in pi and 'UL' in pi and fsize != 0 and herwig_flag == 0:
+        if fsize != 0 and herwig_flag == 0:
             if int(os.popen('grep -c "from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *" '+pi).read()) != 1 :
                 print "* [WARNING] No parton shower weights configuration in the fragment. In the Fall18 campaign, we recommend to include Parton Shower weights"
                 warning += 1
@@ -1503,8 +1567,9 @@ for num in range(0,len(prepid)):
         if int(os.popen('grep -c -i filter '+pi).read()) > 3 and filter_eff == 1:
             print "* [WARNING] Filters in the fragment but filter efficiency = 1"
             warning += 1
-        os.popen("rm -rf "+my_path+pi).read()
-        os.popen("rm -rf "+my_path+'eos/'+pi).read()
+        if args.develop is False:
+            os.popen("rm -rf "+my_path+pi).read()
+            os.popen("rm -rf "+my_path+'eos/'+pi).read()
         print "***********************************************************************************"
         print "Number of warnings = "+ str(warning)
         print "Number of errors = "+ str(error)
