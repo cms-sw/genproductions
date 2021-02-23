@@ -921,13 +921,26 @@ for num in range(0,len(prepid)):
                     if os.path.isdir(dir_path):
                         input_cards_customize_card = find_file(dir_path,"customizecards.dat")
                         if input_cards_customize_card:
-                            cw_cnt = int(os.popen('grep -c compute_widths '+input_cards_customize_card).read())
-                            if cw_cnt > 0:
-                                print "* [ERROR] compute_widths should not be used in customizecards."
+                            c_w_line = []
+                            s_line = []
+                            with open(input_cards_customize_card, 'r+') as f_cust:
+                                for num, lc in enumerate(f_cust, 0):
+                                    if "compute_widths " in lc.lower():
+                                        c_w_line.append(num)
+                                    if "set " in lc.lower():
+                                        s_line.append(num)
+                            customize_widths_flag = 0
+                            if len(c_w_line) > 0 and len(s_line) > 0:
+                                for x in c_w_line:
+                                    for y in s_line:
+                                        if int(x) < int(y):
+                                            customize_widths_flag = 1
+                            if customize_widths_flag > 0:
+                                print "* [ERROR] COMPUTE_WIDTHS followed by SET command(s) should not be used in customizecards."
                                 print "*         Instead use \"set width X auto\" to compute the widths for X and change the parameter card settings."  
                                 error += 1
                             else:
-                                print "* [OK] customizecards.dat doesn't have compute_widths."                    
+                                print "* [OK] customizecards.dat doesn't have COMPUTE_WIDTHS followed by SET command(s)."                    
                 if mg_gp is True:
                     filename_rc = my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat'
                     fname_p2 = my_path+'/'+pi+'/'+'process/Cards/run_card.dat'
