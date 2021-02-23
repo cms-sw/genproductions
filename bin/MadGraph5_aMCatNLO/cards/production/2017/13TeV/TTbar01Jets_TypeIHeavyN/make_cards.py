@@ -77,6 +77,7 @@ for i_procs in range(len(procs)):
       os.system("sed -i \'s|###PROCESSHERE|"+process_line+"|g\' "+this_name+"/"+this_name+"_proc_card.dat")
       os.system("sed -i \'s|###OUTPUTHERE|output "+this_name+" --nojpeg|g\' "+this_name+"/"+this_name+"_proc_card.dat")
 
+      os.system("cp skeleton/extramodels.dat "+this_name+"/"+this_name+"_extramodels.dat")
       os.system("cp skeleton/run_card.dat "+this_name+"/"+this_name+"_run_card.dat")
       os.system("sed -i \'s|###XQCUT| "+xqcut+"   = xqcut|g\'  "+this_name+"/"+this_name+"_run_card.dat")
       os.system("cp skeleton/customizecards.dat "+this_name+"/"+this_name+"_customizecards.dat")
