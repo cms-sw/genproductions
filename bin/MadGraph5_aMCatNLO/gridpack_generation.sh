@@ -725,6 +725,15 @@ fi
 
 #For correct running you should place at least the run and proc card in a folder under the name "cards" in the same folder where you are going to run the script
 RUNHOME=`pwd`
+
+if [[ `uname -a` == *"lxplus"* ]]; then
+  if [[ $RUNHOME == *"/eos/home-"* ]]; then
+      echo "Running in /eos/home-X/~ which is not really stable. Use /eos/user/X/ instead."
+      exit 1;
+      #Preventing the use of /eos/home-X/ solely based on experience! Might not be a REAL problem.
+  fi
+fi
+
 LOGFILE=${RUNHOME}/${name}.log
 LOGFILE_NAME=${LOGFILE/.log/}
 
