@@ -53,7 +53,7 @@ for process in ${processes[*]}; do
                     echo "add process p p > t t~, (t > b w+, w+ > j j), (t~ > u~ mu- ta+)" >> ./${classfolder}/${generalfolder}_proc_card.dat
                     echo "add process p p > t t~, (t > u mu+ ta-), (t~ > b~ w-, w- > j j)" >> ./${classfolder}/${generalfolder}_proc_card.dat
                     echo "add process p p > t t~, (t > u mu- ta+), (t~ > b~ w-, w- > j j)" >> ./${classfolder}/${generalfolder}_proc_card.dat
-                    echo "output LFV_TT_TToUMuTau_Scalar" >> ./${classfolder}/${generalfolder}_proc_card.dat
+                    echo "output LFV_TT_TToUMuTau_${class}" >> ./${classfolder}/${generalfolder}_proc_card.dat
                 elif [ $process = "LFV_ST_T" ]
                 then
                     sed -i "s/${generalfolder}/${classfolder}/g" ./${classfolder}/${generalfolder}_proc_card.dat
@@ -84,7 +84,7 @@ for process in ${processes[*]}; do
                     echo "add process p p > t t~, (t > b w+, w+ > j j), (t~ > c~ mu- ta+)" >> ./${classfolder}/${generalfolder}_proc_card.dat
                     echo "add process p p > t t~, (t > c mu+ ta-), (t~ > b~ w-, w- > j j)" >> ./${classfolder}/${generalfolder}_proc_card.dat
                     echo "add process p p > t t~, (t > c mu- ta+), (t~ > b~ w-, w- > j j)" >> ./${classfolder}/${generalfolder}_proc_card.dat
-                    echo "output LFV_TT_TToCMuTau_Scalar" >> ./${classfolder}/${generalfolder}_proc_card.dat
+                    echo "output LFV_TT_TToCMuTau_${class}" >> ./${classfolder}/${generalfolder}_proc_card.dat
                 elif [ $process = "LFV_ST_T" ]
                 then
                     sed -i "s/${generalfolder}/${classfolder}/g" ./${classfolder}/${generalfolder}_proc_card.dat
