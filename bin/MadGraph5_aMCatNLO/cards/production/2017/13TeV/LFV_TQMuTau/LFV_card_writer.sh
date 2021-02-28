@@ -47,6 +47,17 @@ for process in ${processes[*]}; do
                         echo "set param_card $ten_block $tp 1.00" >> ./${classfolder}/${generalfolder}_customizecards.dat
                     done
                 fi
+                if [ $process = "LFV_TT_TTo" ]
+                then
+                    echo "generate p p > t t~, (t > b w+, w+ > j j), (t~ > u~ mu+ ta-)" >> ./${classfolder}/${generalfolder}_proc_card.dat
+                    echo "add process p p > t t~, (t > b w+, w+ > j j), (t~ > u~ mu- ta+)" >> ./${classfolder}/${generalfolder}_proc_card.dat
+                    echo "add process p p > t t~, (t > u mu+ ta-), (t~ > b~ w-, w- > j j)" >> ./${classfolder}/${generalfolder}_proc_card.dat
+                    echo "add process p p > t t~, (t > u mu- ta+), (t~ > b~ w-, w- > j j)" >> ./${classfolder}/${generalfolder}_proc_card.dat
+                    echo "output LFV_TT_TToUMuTau_Scalar" >> ./${classfolder}/${generalfolder}_proc_card.dat
+                elif [ $process = "LFV_ST_T" ]
+                then
+                    sed -i "s/${generalfolder}/${classfolder}/g" ./${classfolder}/${generalfolder}_proc_card.dat
+                fi
             elif [ ${qtype} = "CMuTau" ]
             then
                 if [ $class = "Scalar" ]
@@ -67,10 +78,18 @@ for process in ${processes[*]}; do
                         echo "set param_card $ten_block $tp 1.00" >> ./${classfolder}/${generalfolder}_customizecards.dat
                     done
                 fi
-
+                if [ $process = "LFV_TT_TTo" ]
+                then
+                    echo "generate p p > t t~, (t > b w+, w+ > j j), (t~ > c~ mu+ ta-)" >> ./${classfolder}/${generalfolder}_proc_card.dat
+                    echo "add process p p > t t~, (t > b w+, w+ > j j), (t~ > c~ mu- ta+)" >> ./${classfolder}/${generalfolder}_proc_card.dat
+                    echo "add process p p > t t~, (t > c mu+ ta-), (t~ > b~ w-, w- > j j)" >> ./${classfolder}/${generalfolder}_proc_card.dat
+                    echo "add process p p > t t~, (t > c mu- ta+), (t~ > b~ w-, w- > j j)" >> ./${classfolder}/${generalfolder}_proc_card.dat
+                    echo "output LFV_TT_TToCMuTau_Scalar" >> ./${classfolder}/${generalfolder}_proc_card.dat
+                elif [ $process = "LFV_ST_T" ]
+                then
+                    sed -i "s/${generalfolder}/${classfolder}/g" ./${classfolder}/${generalfolder}_proc_card.dat
+                fi
             fi
-            sed -i "s/${generalfolder}/${classfolder}/g" ./${classfolder}/${generalfolder}_proc_card.dat
-
             rename ./${classfolder}/${generalfolder} ./${classfolder}/${classfolder} ./${classfolder}/${generalfolder}*
         done
     done
