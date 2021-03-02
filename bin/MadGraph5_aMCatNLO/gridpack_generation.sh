@@ -82,8 +82,8 @@ make_gridpack () {
     if [ -e $CARDSDIR/${name}_customizecards.dat ]; then
       if grep -F "compute_widths" $CARDSDIR/${name}_customizecards.dat ; then
         echo "<<compute_widths X>> is used in your customizecards.dat"
-        echo "This could be problematic from time to time, so instead use <<set decay wX AUTO>> for width computations"
-        echo "https://www.desy.de/~agrohsje/hidden/compute_width_sihyun.pdf"
+        echo "This could be problematic from time to time, so instead use <<set decay wX AUTO>> for width computations. Please take a look for \"compute_widths\" under \"Troubleshooting_and_Suggestions\" section."
+        echo "https://twiki.cern.ch/twiki/bin/view/CMS/QuickGuideMadGraph5aMCatNLO#Troubleshooting_and_Suggestions"
         exit 1;
       fi
       else return 1;
