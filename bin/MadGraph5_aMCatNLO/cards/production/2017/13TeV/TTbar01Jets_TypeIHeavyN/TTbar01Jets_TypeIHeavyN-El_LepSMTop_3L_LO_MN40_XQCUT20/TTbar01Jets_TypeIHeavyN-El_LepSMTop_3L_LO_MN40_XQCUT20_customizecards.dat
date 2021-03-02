@@ -13,6 +13,6 @@ set param_card vtan2 0.0
 set param_card vtan3 0.0
 set param_card wn2 100
 set param_card wn3 100
-set param_card mass 6 172.9
-set param_card yukawa 6 172.9
-set param_card wt 1.42
+set param_card mass 6 172.5
+set param_card yukawa 6 172.5
+set param_card wt AUTO
