@@ -431,7 +431,7 @@ c photon pT cuts
             do j=1,nexternal
                if ( i.ne.j ) then
                   if (abs(ipdg(j)).eq.22) then
-                     if(ptg.lt.ptgmin.and.ptg.gt.130d0)then
+                     if(ptg.lt.ptgmin.or.ptg.gt.130d0)then
                         passcuts_user=.false.
                         return      
                      endif
