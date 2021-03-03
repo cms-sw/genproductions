@@ -79,6 +79,15 @@ make_gridpack () {
       echo $CARDSDIR/${name}_run_card.dat " does not exist!"
       if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
     fi
+    if [ -e $CARDSDIR/${name}_customizecards.dat ]; then
+      if grep -F "compute_widths" $CARDSDIR/${name}_customizecards.dat ; then
+        echo "<<compute_widths X>> is used in your customizecards.dat"
+        echo "This could be problematic from time to time, so instead use <<set decay wX AUTO>> for width computations. Please take a look at \"compute_widths\" under \"Troubleshooting_and_Suggestions\" section."
+        echo "https://twiki.cern.ch/twiki/bin/view/CMS/QuickGuideMadGraph5aMCatNLO#Troubleshooting_and_Suggestions"
+        exit 1;
+      fi
+      else return 1;
+    fi
 
     # CMS Connect runs git status inside its own script.
     if [ $iscmsconnect -eq 0 ]; then
