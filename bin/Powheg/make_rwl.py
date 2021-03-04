@@ -99,7 +99,8 @@ elif int(is5FlavorScheme) == 1:
             # weight id, LHAPDF id, name, replicas to be written
             "PDF_variation1 , hessian" :
             [
-              [2000, 320900, 'NNPDF31_nnlo_hessian_pdfas', 101],
+              [3200, 325300, 'NNPDF31_nnlo_as_0118_mc_hessian_pdfas', 103],
+              [2000, 306000, 'NNPDF31_nnlo_hessian_pdfas', 103],
               [2104, 322500, 'NNPDF31_nnlo_as_0108', 1],
               [2105, 322700, 'NNPDF31_nnlo_as_0110', 1],
               [2106, 322900, 'NNPDF31_nnlo_as_0112', 1],
@@ -133,6 +134,7 @@ elif int(is5FlavorScheme) == 1:
             ],
             "PDF_variation2 , replica" :
             [
+              [3400, 316200, 'NNPDF31_nnlo_as_0118_mc', 101],
               [1500, 292200, 'NNPDF30_nlo_nf_5_pdfas', 103],
               [1700, 292600, 'NNPDF30_nnlo_nf_5_pdfas', 1],
               [1800, 315000, 'NNPDF31_lo_as_0118', 1],
@@ -147,7 +149,7 @@ else:
             # weight id, LHAPDF id, name, replicas to be written
             "PDF_variation1 , hessian" :
             [
-              [1500, 306000, 'NNPDF31_nnlo_hessian_pdfas', 103],
+              [1500, 325500, 'NNPDF31_nnlo_as_0118_nf_4_mc_hessian', 101],
               [3400, 11082, 'CT10nlo_nf4', 2],
               [3450, 13091, 'CT14nnlo_NF4', 1],
               [3500, 13191, 'CT14nlo_NF4', 1],

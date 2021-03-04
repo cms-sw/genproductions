@@ -19,6 +19,7 @@ else
   else
       export PYTHONPATH="$PYTHON_BINDINGS"
   fi
+  export PYTHON_BINDINGS="$PYTHON_BINDINGS"
 fi
 
 #export _condor_SCHEDD_HOST=bigbird17.cern.ch

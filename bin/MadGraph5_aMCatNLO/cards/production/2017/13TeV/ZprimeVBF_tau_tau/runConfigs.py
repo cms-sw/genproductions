@@ -12,11 +12,13 @@ import numpy as np
 
 
 kv=[0.1,0.25,0.5,0.75,1.]
-gl=[0.,1.]
+#kv=[0.5,0.75,1.]
+#gl=[0.,1.]
+gl=[0., 1.]
 gh=[1.]
 #zprimeMasses=[500.,800.,1000.,2000.,3000.,4000.]
 zprimeMasses=[250., 500., 750., 1000., 1250., 1500., 1750., 2000., 2250., 2500.]
-
+#zprimeMasses=[500.]
 mw=80.2673592
 
 sinthetaW=0.23126
@@ -46,7 +48,7 @@ for i_mzp in zprimeMasses:
                     GH='%g'%(i_gh),
                     GZPVV='%g'%(gzpvv),
                 )
-                print( "mzp: {0}    mwp_width: {1}  gl: {2}    gh: {3}\n\n".format(i_mzp,width, i_gl, i_gh)  )
+                #print( "mzp: {0}    mwp_width: {1}  gl: {2}    gh: {3}\n\n".format(i_mzp,width, i_gl, i_gh)  )
 
                 file=open("param_card.template","r")
                 text=file.read()
@@ -61,7 +63,7 @@ for i_mzp in zprimeMasses:
                 if i_gl==0:
                         model="ssmzp_nonuniversal_no_light_v4"
                 d = dict(
-                    modelfile="%s"%(),
+                    modelfile="%s"%(model),
                     NAME="%s"%(name),
                 )
                 file=open("proc_card_mg5.template","r")

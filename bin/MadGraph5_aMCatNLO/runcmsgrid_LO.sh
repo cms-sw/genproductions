@@ -41,6 +41,9 @@ if [ "$use_gridpack_env" = true ]
     cd ${cmssw_version}/src
     eval `scramv1 runtime -sh`
 fi
+
+if [ ! -z "${PYTHON27PATH}" ] ; then export PYTHONPATH=${PYTHON27PATH} ; fi 
+
 cd $LHEWORKDIR/process
 
 #make sure lhapdf points to local cmssw installation area
@@ -110,10 +113,8 @@ done
 ls -lrt events*.lhe.gz
 if [  $run_counter -gt "1" ]; then
     echo "Merging files and deleting unmerged ones"
-    cp /cvmfs/cms.cern.ch/phys_generator/gridpacks/lhe_merger/merge.pl ./
-    chmod 755 merge.pl
-    # ./madevent/bin/internal/merge.pl events*.lhe.gz events.lhe.gz banner.txt
-    ./merge.pl events*.lhe.gz events.lhe.gz banner.txt
+    # use version in genproduction, not cvmfs, nor mg5_amc@nlo default 
+    perl $LHEWORKDIR/merge.pl events*.lhe.gz events.lhe.gz banner.txt
     rm events_*.lhe.gz banner.txt;
 else
     mv events_${run_counter}.lhe.gz events.lhe.gz
@@ -165,6 +166,13 @@ if [ -f ./madspin_card.dat ] ;then
 	rm initrwgt.txt
     fi
 fi
+
+# Test if time_of_flight is set to a positive floating point value
+has_time_of_flight=$(egrep "^\s*\+?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?\s*=\s*time_of_flight" ./madevent/Cards/run_card.dat)
+if [ ! -z "$has_time_of_flight" ] ; then
+    ./madevent/bin/madevent add_time_of_flight events.lhe.gz
+fi
+    
 
 cd $LHEWORKDIR
 

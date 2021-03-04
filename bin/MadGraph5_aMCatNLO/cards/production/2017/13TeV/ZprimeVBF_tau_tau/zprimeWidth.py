@@ -90,8 +90,9 @@ def zprimeTotal(mzp,cf_l,cf_h,gv,ch):
 def zprimeTotal_pdg(mzp,cf_l,cf_h,gv,ch):
     # return zprimeallferions_pdg(mzp,cf_l,cf_h,gv)
     #return zprimeBoson(mzp,ch,gv)
-    return zprimeBoson(mzp,ch,gv)+ zprimeallferions_pdg(mzp,cf_l,cf_h,gv)
-    #+zprimeBoson(mzp,ch,gv)
+#    return zprimeBoson(mzp,ch,gv)+ zprimeallferions_pdg(mzp,cf_l,cf_h,gv)
+     return zprimeallferions_pdg(mzp,cf_l,cf_h,gv) 
+   #+zprimeBoson(mzp,ch,gv)
 
 def wprimeTotal(mw):
     #from arxiv:hep-ph/0207290
