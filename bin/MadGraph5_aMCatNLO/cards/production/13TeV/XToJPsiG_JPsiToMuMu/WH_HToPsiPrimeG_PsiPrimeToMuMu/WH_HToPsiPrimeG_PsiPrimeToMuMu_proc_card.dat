@@ -7,8 +7,9 @@ set gauge unitary
 set complex_mass_scheme False
 set max_npoint_for_channel 0
 import model jpsi_sm
-define p = g u c d s u~ c~ d~ s~
-define w = w+ w-
-generate p p > w h $$ p / u c d s b t u~ c~ d~ s~ b~ t~, (h > jpsi a\
-, jpsi > mu+ mu-)
+add model sm
+define p   = g u c d s u~ c~ d~ s~
+define all = g u c d s t b u~ c~ d~ s~ t~ b~ ve vm vt e- mu- ta- ve~ vm~ vt~ e+ mu+ ta+
+generate    p p > w+ > w+ h, (h > jpsi a, jpsi > mu+ mu-), (w+ > all all)
+add process p p > w- > w- h, (h > jpsi a, jpsi > mu+ mu-), (w- > all all)
 output WH_HToPsiPrimeG_PsiPrimeToMuMu -nojpeg

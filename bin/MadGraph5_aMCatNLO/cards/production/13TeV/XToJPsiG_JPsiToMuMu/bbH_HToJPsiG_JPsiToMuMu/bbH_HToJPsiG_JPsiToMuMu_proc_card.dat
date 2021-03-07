@@ -8,6 +8,5 @@ set complex_mass_scheme False
 set max_npoint_for_channel 0
 import model jpsi_sm
 define p = g u c d s u~ c~ d~ s~
-generate p p > b b~ h $$ u c d s b t u~ c~ d~ s~ b~ t~ g / u c d s t u\
-~ c~ d~ s~ t~ g, (h > jpsi a, jpsi > mu+ mu-)
+generate p p > b b~ h HIG<=0 QED<=1, (h > jpsi a, jpsi > mu+ mu-)
 output bbH_HToJPsiG_JPsiToMuMu -nojpeg
