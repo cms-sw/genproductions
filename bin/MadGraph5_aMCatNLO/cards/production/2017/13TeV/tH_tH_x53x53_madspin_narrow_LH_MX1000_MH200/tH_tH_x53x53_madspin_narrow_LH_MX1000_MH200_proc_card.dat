@@ -1,0 +1,12 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set loop_optimized_output True
+set complex_mass_scheme False
+import model X53_XSP_diagonalCKM_5FS_UFO 
+define l+ = e+ mu+
+define l- = e- mu- 
+define v  = ve vm 
+define v~ = ve~ vm~ 
+define all = g a ve vm ve~ vm~ u c t d s b u~ c~ t~ d~ s~ b~ e- mu- e+ mu+ 
+generate p p > x x~, (x > t S+, (S+ > l+ v)), (x~ > t~ S-, (S- > l- v~)) 
+output tH_tH_x53x53_madspin_narrow_LH_MX1000_MH200 -nojpeg
