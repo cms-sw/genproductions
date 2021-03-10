@@ -744,6 +744,9 @@ for num in range(0,len(prepid)):
         if int(os.popen('grep -c grid_points '+pi).read()) != 0:
             grid_points_flag = 1
         gp_size = len(gridpack_cvmfs_path_tmp)
+        if any(word in dn for word in MEname) and gp_size == 0:
+            print "* [ERROR] gridpack path is not properly specified - most probably reason might be that it is not a cvmfs path."
+            error += 1
 	if "sherpa" in dn.lower():
                         print("* [WARNING] Not checking sherpacks for now.")
                         warning += 1
@@ -826,7 +829,7 @@ for num in range(0,len(prepid)):
                     if int(PDF_pSet[0]) != 1:
                         print "* [WARNING] PDF access method is wrong (if you want to use NNPDF3.1). Please correct:"
                         print "*         e.g. for CP5 use 'PDF:pSet=LHAPDF6:NNPDF31_nnlo_as_0118'"
-                        warning += 1
+                        warning += 1 
 
             if gp_size != 0:
                 gridpack_cvmfs_path_tmp = re.findall("/cvmfs/cms\.cern\.ch/phys_generator/gridpacks/.*?tar.xz|/cvmfs/cms\.cern\.ch/phys_generator/gridpacks/.*?tgz|/cvmfs/cms\.cern\.ch/phys_generator/gridpacks/.*?tar.gz",gridpack_cvmfs_path_tmp)
@@ -947,9 +950,9 @@ for num in range(0,len(prepid)):
                     if os.path.isfile(fname_p2) is True :
                         filename_rc = fname_p2
                     ickkw_c = os.popen('more '+filename_rc+' | tr -s \' \' | grep "= ickkw"').read()
-                    matching_c = int(re.search(r'\d+',ickkw_c).group())
+                    if ickkw_c:
+                        matching_c = int(re.search(r'\d+',ickkw_c).group())
                     maxjetflavor = os.popen('more '+filename_rc+' | tr -s \' \' | grep "= maxjetflavor"').read()
-                    print(ickkw_c, matching_c, maxjetflavor)
                     if len(maxjetflavor) != 0:
                         maxjetflavor = int(re.search(r'\d+',maxjetflavor).group())
                     else:
@@ -1364,8 +1367,11 @@ for num in range(0,len(prepid)):
                             if (mg_me_pdf_list.count(str(UL_PDFs_N[0])) > 0 and mg_me_pdf_list.count(str(UL_PDFs_N[0])+"@0") != 0) or (mg_me_pdf_list.count(str(UL_PDFs_N[1])) > 0 and mg_me_pdf_list.count(str(UL_PDFs_N[1])+"@0") != 0):
                                 print"* [WARNING] Main pdf recommended set ("+str(UL_PDFs_N[0])+" or "+str(UL_PDFs_N[1])+") is listed in runcmsgrid file but it is also included as a variation??"
                                 warning += 1
-                    matching = int(re.search(r'\d+',ickkw).group())
-                    ickkw = str(ickkw)
+                    if len(ickkw) !=0:
+                        matching = int(re.search(r'\d+',ickkw).group())
+                        ickkw = str(ickkw)
+                    else:
+                        matching = 0
                     if matching == 1 or matching == 2:
                         if match_eff == 1:
                             print "* [WARNING] Matched sample but matching efficiency is 1!"
