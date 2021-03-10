@@ -745,7 +745,7 @@ for num in range(0,len(prepid)):
             grid_points_flag = 1
         gp_size = len(gridpack_cvmfs_path_tmp)
         if any(word in dn for word in MEname) and gp_size == 0:
-            print "* [ERROR] gridpack path is not properly specified - most probably reason might be that it is not a cvmfs path."
+            print "* [ERROR] gridpack path is not properly specified - most probable reason is that it is not a cvmfs path."
             error += 1
 	if "sherpa" in dn.lower():
                         print("* [WARNING] Not checking sherpacks for now.")
