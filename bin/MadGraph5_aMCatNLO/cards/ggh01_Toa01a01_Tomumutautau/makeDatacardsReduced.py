@@ -39,22 +39,11 @@ for m_h in mh:
             f2.writelines("""set param_card mass 25 """+h_string+"""
 set param_card mass 36 """+a_string+"""
       """)
-            f3.writelines("""set loop_color_flows False
-set max_npoint_for_channel 0
-set group_subprocesses Auto
-set ignore_six_quark_processes False
-set loop_optimized_output True
-set gauge unitary
-set complex_mass_scheme False
-import model sm
-define p = g u c d s u~ c~ d~ s~
-define j = g u c d s u~ c~ d~ s~
-define l+ = e+ mu+
-define l- = e- mu-
-define vl = ve vm vt
-define vl~ = ve~ vm~ vt~
+            f3.writelines("""
 import model NMSSMHET --modelname
+
 generate p p  > h01 , (h01 > a01 a01, a01 > tau+ tau-, a01 > mu+ mu-)
+
 output ggh01_M"""+h_string+"""_Toa01a01_M"""+a_string+"""_Tomumutautau -nojpeg
 """)
             f4.writelines("""#*********************************************************************
@@ -330,15 +319,4 @@ output ggh01_M"""+h_string+"""_Toa01a01_M"""+a_string+"""_Tomumutautau -nojpeg
 #          reweighting into account!                                 *
 #*********************************************************************
     True=  use_syst       ! Enable systematics studies
-#
-#**************************************
-# Parameter of the systematics study
-#  will be used by SysCalc (if installed)
-#**************************************                                  
-#
-#********************************************************************* 
-#  Additional parameter
-#*********************************************************************
-    1.0= ptonium # hidden parameter
-    0.6= etaonium # hidden parameter
             """)
