@@ -21,8 +21,8 @@ ebeam2 6500d0     ! energy of beam 2
 bornktmin 0.26d0      ! (default 0d0) generation cut. Minimum kt in underlying Born
 bornsuppfact 0d0 ! (default 0d0)  mass param for Born suppression factor. If < 0 suppfact = 1
 
-lhans1  306000         ! pdf set for hadron 1 (LHA numbering)
-lhans2  306000         ! pdf set for hadron 2 (LHA numbering)	
+lhans1  325300         ! pdf set for hadron 1 (LHA numbering)
+lhans2  325300         ! pdf set for hadron 2 (LHA numbering)	
 
 renscfact  1d0   ! (default 1d0) ren scale factor: muren  = muref * renscfact 
 facscfact  1d0   ! (default 1d0) fac scale factor: mufact = muref * facscfact 

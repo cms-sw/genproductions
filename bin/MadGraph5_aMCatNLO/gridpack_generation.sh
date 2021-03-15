@@ -475,7 +475,8 @@ make_gridpack () {
       # Run this step separately in debug mode since it gives so many problems
       if [ -e $CARDSDIR/${name}_reweight_card.dat ]; then
           echo "preparing reweighting step"
-          prepare_reweight $isnlo $WORKDIR $scram_arch $CARDSDIR/${name}_reweight_card.dat 
+          prepare_reweight $isnlo $WORKDIR $scram_arch $CARDSDIR/${name}_reweight_card.dat
+	  extract_width $isnlo $WORKDIR $CARDSDIR ${name}
       fi
       
       echo "finished pilot run"
@@ -548,13 +549,14 @@ make_gridpack () {
       tar -xzf $WORKDIR/pilotrun_gridpack.tar.gz
       echo "cleaning temporary gridpack"
       rm $WORKDIR/pilotrun_gridpack.tar.gz
-      
+
       # precompile reweighting if necessary
       if [ -e $CARDSDIR/${name}_reweight_card.dat ]; then
           echo "preparing reweighting step"
-          prepare_reweight $isnlo $WORKDIR $scram_arch $CARDSDIR/${name}_reweight_card.dat 
+          prepare_reweight $isnlo $WORKDIR $scram_arch $CARDSDIR/${name}_reweight_card.dat
+	  extract_width $isnlo $WORKDIR $CARDSDIR ${name}
       fi
-    
+      
       #prepare madspin grids if necessary
       if [ -e $CARDSDIR/${name}_madspin_card.dat ]; then
         echo "import $WORKDIR/unweighted_events.lhe.gz" > madspinrun.dat
@@ -730,6 +732,15 @@ fi
 
 #For correct running you should place at least the run and proc card in a folder under the name "cards" in the same folder where you are going to run the script
 RUNHOME=`pwd`
+
+if [[ `uname -a` == *"lxplus"* ]]; then
+  if [[ $RUNHOME == *"/eos/home-"* ]]; then
+      echo "Running in /eos/home-X/~ which is not really stable. Use /eos/user/X/ instead."
+      exit 1;
+      #Preventing the use of /eos/home-X/ solely based on experience! Might not be a REAL problem.
+  fi
+fi
+
 LOGFILE=${RUNHOME}/${name}.log
 LOGFILE_NAME=${LOGFILE/.log/}
 
