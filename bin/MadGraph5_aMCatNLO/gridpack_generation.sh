@@ -85,8 +85,6 @@ make_gridpack () {
         echo "This could be problematic from time to time, so instead use <<set decay wX AUTO>> for width computations"
         echo "https://www.desy.de/~agrohsje/hidden/compute_width_sihyun.pdf"
         exit 1;
-      fi
-      else return 1;
     fi
 
     # CMS Connect runs git status inside its own script.
