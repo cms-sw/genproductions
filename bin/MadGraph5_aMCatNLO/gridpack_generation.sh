@@ -85,8 +85,6 @@ make_gridpack () {
         echo "This could be problematic from time to time, so instead use <<set decay wX AUTO>> for width computations. Please take a look at \"compute_widths\" under \"Troubleshooting_and_Suggestions\" section."
         echo "https://twiki.cern.ch/twiki/bin/view/CMS/QuickGuideMadGraph5aMCatNLO#Troubleshooting_and_Suggestions"
         exit 1;
-      else return 1;
-      fi
     fi
 
     # CMS Connect runs git status inside its own script.
