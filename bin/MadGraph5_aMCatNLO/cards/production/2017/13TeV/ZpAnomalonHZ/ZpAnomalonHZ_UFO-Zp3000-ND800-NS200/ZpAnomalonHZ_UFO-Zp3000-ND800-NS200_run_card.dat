@@ -10,6 +10,9 @@
 #   Lines starting with a '# ' are info or comments                  *
 #                                                                    *
 #   mind the format:   value    = variable     ! comment             *
+#                                                                    *
+#   To display more options, you can type the command:               *
+#      update full_run_card                                          *
 #*********************************************************************
 #
 #*******************                                                 
@@ -36,11 +39,7 @@
      1        = lpp2    ! beam 2 type
      6500.0     = ebeam1  ! beam 1 total energy in GeV
      6500.0     = ebeam2  ! beam 2 total energy in GeV
-#*********************************************************************
-# Beam polarization from -100 (left-handed) to 100 (right-handed)    *
-#*********************************************************************
-     0.0     = polbeam1 ! beam polarization for beam 1
-     0.0     = polbeam2 ! beam polarization for beam 2
+# To see polarised beam options: type "update beam_pol"
 #*********************************************************************
 # PDF CHOICE: this automatically fixes also alpha_s and its evol.    *
 #*********************************************************************
@@ -119,6 +118,8 @@
  -1.0  = ptamax    ! maximum pt for the photons
  -1.0  = ptlmax    ! maximum pt for the charged leptons
  -1.0  = missetmax ! maximum missing Et (sum of neutrino's momenta)
+ {} = pt_min_pdg ! pt cut for other particles (use pdg code). Applied on particle and anti-particle
+ {}	= pt_max_pdg ! pt cut for other particles (syntax e.g. {6: 100, 25: 50}) 
 #*********************************************************************
 # Minimum and maximum E's (in the center of mass frame)              *
 #*********************************************************************
@@ -130,6 +131,8 @@
  -1.0   = ebmax ! maximum E for the b
  -1.0   = eamax ! maximum E for the photons
  -1.0   = elmax ! maximum E for the charged leptons
+ {} = e_min_pdg ! E cut for other particles (use pdg code). Applied on particle and anti-particle
+ {} = e_max_pdg ! E cut for other particles (syntax e.g. {6: 100, 25: 50}) 
 #*********************************************************************
 # Maximum and minimum absolute rapidity (for max, -1 means no cut)   *
 #*********************************************************************
@@ -141,6 +144,8 @@
  0.0  = etabmin ! min rap for the b
  0.0  = etaamin ! min rap for the photons
  0.0  = etalmin ! main rap for the charged leptons
+ {} = eta_min_pdg ! rap cut for other particles (use pdg code). Applied on particle and anti-particle
+ {} = eta_max_pdg ! rap cut for other particles (syntax e.g. {6: 2.5, 23: 5})
 #*********************************************************************
 # Minimum and maximum DeltaR distance                                *
 #*********************************************************************
@@ -177,6 +182,9 @@
  -1.0  = mmbbmax ! max invariant mass of a b pair
  -1.0  = mmaamax ! max invariant mass of gamma gamma pair
  -1.0  = mmllmax ! max invariant mass of l+l- (same flavour) lepton pair
+ {} = mxx_min_pdg ! min invariant mass of a pair of particles X/X~ (e.g. {6:250})
+ {'default': False} = mxx_only_part_antipart ! if True the invariant mass is applied only 
+                       ! to pairs of particle/antiparticle and not to pairs of the same pdg codes.  
 #*********************************************************************
 # Minimum and maximum invariant mass for all letpons                 *
 #*********************************************************************
