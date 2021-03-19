@@ -31,6 +31,11 @@ cp -rp POWHEG-BOX/X0jj/* .\n \
 echo 'Patch Makefile'\n \
 sed -i -e 's#../svnversion#POWHEG-BOX/svnversion#g' Makefile\n \
 sed -i -e 's#BOX=/[\*]*/POWHEG-BOX-V2#BOX=POWHEG-BOX#g' Makefile\n \
+echo 'Copy files for MadLoopParams'\n \
+cp SubProcesses/MadLoopParams.dat ${WORKDIR}/${name}\n \
+for f in `ls  SubProcesses/MadLoop5_resources/*` ; do\n \
+    ln -sf $MG_NAME/${process}/$f ${WORKDIR}/${name}\n \
+done\n \
 echo 'MADGRAPH+POWHEG END-INSTALL'",
     }.get(process,"")
 
