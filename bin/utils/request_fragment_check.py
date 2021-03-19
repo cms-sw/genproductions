@@ -701,12 +701,13 @@ for num in range(0,len(prepid)):
             else :
                 nthreads = int(re.search('nThreads(.*?) --',ttxt).group(1))
 
+        nevts = 100.
         if timeperevent > 0:   
             nevts = (8*3600/timeperevent)*filter_eff
-        if  nevts < 50 and int(test_cs_version[1]) > 9 and ppd == 0:
+        if  nevts < 50. and int(test_cs_version[1]) > 9 and ppd == 0:
             print ("* [ERROR] The expected number of events is too small (<50):", nevts,"Either the timeperevent value is incorrect (too large) or the filter efficiency is too small. Please check, timeperevent=",timeperevent, "filter_eff=",filter_eff)
             error += 1
-        if  nevts < 50 and int(test_cs_version[1]) <= 9 and ppd == 0:
+        if  nevts < 50. and int(test_cs_version[1]) <= 9 and ppd == 0:
             print ("* [ERROR] The expected number of events is too small (<50):", nevts,"Either the timeperevent value is incorrect (too large) or the filter efficiency is too small. Please check, timeperevent=",timeperevent, "filter_eff=",filter_eff)
             error += 1
         if int(test_cs_version[1]) >= 10 and int(test_cs_version[2]) >= 6 and nthreads == 8 and mem != 15900 and ppd == 0:
