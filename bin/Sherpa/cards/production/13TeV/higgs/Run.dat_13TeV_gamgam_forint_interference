@@ -41,15 +41,5 @@
  End process;
 }(processes);
  (selector){
- #  "PT" 22 20,E_CMS:10,E_CMS [PT_UP];
  Mass 22 22 20 E_CMS;
- #  IsolationCut 22 0.2 1 0.065;
- #  Rapidity 22 -3.0 3.0;
 }(selector);
- (analysis){
- BEGIN_RIVET {
- USE_HEPMC_SHORT 1
- # SPLITSH 1
- -a ATLAS-CONF-2017-046
-} END_RIVET
-}(analysis)
