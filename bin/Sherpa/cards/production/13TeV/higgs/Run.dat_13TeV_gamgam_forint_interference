@@ -37,7 +37,6 @@
  Integrator PS2;
  RS_Integrator PS3;
  Loop_Generator Higgs;
- Print_Graphs Graphs_HGG_Int_NLO_Sherpa_fromRajdeep_fromATLAS_interference;
  End process;
 }(processes);
  (selector){

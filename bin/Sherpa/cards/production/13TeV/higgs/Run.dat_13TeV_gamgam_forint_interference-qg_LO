@@ -34,7 +34,6 @@
  Order (*,2); Enable_MHV 10;
  Integrator PS3;
  Loop_Generator Higgs;
- Print_Graphs graphs;
  End process;
 }(processes);
  (selector){
