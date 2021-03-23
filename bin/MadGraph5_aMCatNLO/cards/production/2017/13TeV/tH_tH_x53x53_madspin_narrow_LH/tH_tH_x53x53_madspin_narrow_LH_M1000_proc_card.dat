@@ -1,0 +1,10 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set loop_optimized_output True
+set complex_mass_scheme False
+import model  X53_SVP_SVPP_diagonalCKM_5FS_UFO
+define Topo = x x~
+define all = g a ve vm vt ve~ vm~ vt~ u c t d s b u~ c~ t~ d~ s~ b~ e- mu- ta- e+ mu+ ta+
+generate p p > x x~, > t S+, t~ S- 
+output tH_tH_x53x53_madspin_narrow_LH_M1000 -nojpeg
+
