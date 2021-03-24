@@ -97,6 +97,13 @@ export PYTHONPATH=.:${PYTHONPATH}
 #ln -s `which gfortran` g77
 export PATH=`pwd`:${PATH}
 
+if [ "${process}" == "X0jj" ]; then
+    cp -p ${WORKDIR}/MadLoopParams.dat .
+    for f in `ls ${WORKDIR}/MG5_aMC_v2_6_7/X0jj/SubProcesses/MadLoop5_resources/*`
+    do
+	ln -sf $f ./
+    done
+fi
 if [[ -e ${WORKDIR}/pwggrid.dat ]]; then
     cp -p ${WORKDIR}/pwg*.dat .
 fi
