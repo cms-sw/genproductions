@@ -11,6 +11,4 @@ set param_card KXWUR 2 0
 set param_card KXWUL 3 1
 set param_card KXWUR 3 0
 set param_card mass 6000007 1100
-set param_card DECAY  6000007 52.7236
 set param_card mass 6100027 400
-set param_card DECAY  6100027 15.3604
