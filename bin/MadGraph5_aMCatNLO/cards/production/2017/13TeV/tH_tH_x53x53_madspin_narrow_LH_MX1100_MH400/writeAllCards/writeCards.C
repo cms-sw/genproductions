@@ -49,9 +49,7 @@ void writeCards( double m_bstar, double m_h, std::string coupling, std::string p
   f << "set param_card KXWUR 3 " << r << std::endl;
    
   f << "set param_card mass 6000007 " << stream.str() << std::endl;
-  f << "set param_card DECAY  6000007 " << calcWidth(m_bstar) << std::endl;
   f << "set param_card mass 6100027 " << stream2.str() << std::endl;
-  f << "set param_card DECAY  6100027 " << calcWidth(m_h) << std::endl;
 
   f.close();
 }
