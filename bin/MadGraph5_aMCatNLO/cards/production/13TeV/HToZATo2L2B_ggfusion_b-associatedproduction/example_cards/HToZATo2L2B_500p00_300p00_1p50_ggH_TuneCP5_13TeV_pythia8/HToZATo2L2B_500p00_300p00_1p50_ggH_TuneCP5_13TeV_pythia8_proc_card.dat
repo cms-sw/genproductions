@@ -1,0 +1,4 @@
+import model 2HDMtII_NLO
+#gg fusion -loop induced
+generate p p > h2 > h3 Z [QCD] @0
+output HToZATo2L2B_500p00_300p00_1p50_ggH_TuneCP5_13TeV_pythia8 -nojpeg
