@@ -8,4 +8,4 @@ set param_card numixing 6 0.000000e+00
 set param_card numixing 7 1.000000E-02
 set param_card numixing 8 0.000000e+00
 set param_card numixing 9 0.000000e+00
-compute_widths 9900012
+set param_card decay 9900012 Auto
