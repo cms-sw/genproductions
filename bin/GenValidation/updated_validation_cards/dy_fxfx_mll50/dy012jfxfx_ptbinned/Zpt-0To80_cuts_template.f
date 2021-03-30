@@ -417,7 +417,7 @@ C
             do j=nincoming+1,nexternal
                if (istatus(j).eq.1 .and. ( ipdg(j).eq.-11 .or.
      &         ipdg(j).eq.-13 .or. ipdg(j).eq.-15)) then
-                  if ( (p(1,i)+p(1,j))**2+(p(2,i)+p(2,j))**2 .gt. 50d0**2) then
+                  if ( (p(1,i)+p(1,j))**2+(p(2,i)+p(2,j))**2 .gt. 80d0**2) then
                      passcuts_user=.false.
                      return
                   endif
