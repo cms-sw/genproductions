@@ -4,13 +4,15 @@ echo `pwd`
 echo 'set up pt-binned cards'
 
 #1000 will be replaced by infinite
-Pt_array=(0 50 100 250 400 600 1000)
+#Pt_array=(0 50 100 250 400 600 1000)
+Pt_array_low=(0 20 70 220 370 550)
+Pt_array_high=(80 130 280 430 650 1000)
 
-for((i=0;i<${#Pt_array[*]}-1;i++))
+for((i=0;i<${#Pt_array_low[*]};i++))
 do
-	bin_low=${Pt_array[i]}
-	bin_high=${Pt_array[i+1]}
-	if [[ "$bin_low" -eq "${Pt_array[5]}" ]];then
+	bin_low=${Pt_array_low[i]}
+	bin_high=${Pt_array_high[i]}
+	if [[ "$bin_low" -eq "${Pt_array_low[5]}" ]];then
      	mkdir pt${bin_low}_inf
         cp ../w012jfxfx_inc/*custo* pt${bin_low}_inf/wellnu012j_wpt-${bin_low}toinf_customizecards.dat
 		cp ../w012jfxfx_inc/*madspin* pt${bin_low}_inf/wellnu012j_wpt-${bin_low}toinf_madspin_card.dat
