@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#put this script under the log directory after crab submission, and execute 'sh nanaXS.sh'
+
 Xs_arr=()
 Xserr_arr=()
 nTotal_arr=()
