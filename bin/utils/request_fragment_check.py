@@ -525,24 +525,28 @@ for num in range(0,len(prepid)):
         # Ultra-legacy sample settings' compatibility
         pi_prime = "NULL"
         prime_tmp = []
-#        if "Summer20UL18" in pi or "Summer20UL17" in pi or "Summer20UL16wmLHEGENAPV" in pi or "Summer20UL16GENAPV" in pi or "Summer20UL16" in pi and "GEN" in pi and "pLHE" not in pi:
-        if "Summer20UL18" in pi or "Summer20UL17" in pi or "Summer20UL16wmLHEGENAPV" in pi or "Summer20UL16GENAPV" in pi or "Summer20UL16" in pi and "GEN" in pi:
+        if "Summer20UL18" in pi or "Summer20UL17" in pi or "Summer20UL16wmLHEGENAPV" in pi or "APV" in pi or "Summer20UL16" in pi and "GEN" in pi:
             prime = get_requests_from_datasetname(dn)
             if len(prime) == 0:
-                print "* [ERROR] No corresponing Summer20UL16 request to compare to for consistency."
-                print "*         Please first create the corresponding Summer20UL16 requests."
-                error = error + 1
+                if "Summer20UL16" not in pi:
+                    print "* [ERROR] No corresponing Summer20UL16 request to compare to for consistency."
+                    print "*         Please first create the corresponding Summer20UL16 requests."
+                    error += 1
+                else:
+                    print "* [WARNING] No corresponing Summer19UL16 request to compare to for consistency."
+                    print "*           Please check CAREFULLY!"
+                    warning += 1
             if len(prime) != 0:
-		print "Related requests:"
+		print "Related UL16 requests:"
                 for rr in prime:
-                    print(rr['prepid'],rr['extension'],ext)
-#                    if "Summer20UL16" in rr['prepid'] and "GEN" in rr['prepid'] and ext == rr['extension'] and "APV" not in rr['prepid'] and ("Summer20UL18" in pi or "Summer20UL17" in pi or "Summer20UL16wmLHEGENAPV" in pi or "Summer20UL16GENAPV" in pi):
-                    if "Summer20UL16" in rr['prepid'] and "GEN" in rr['prepid'] and "APV" not in rr['prepid'] and ("Summer20UL18" in pi or "Summer20UL17" in pi or "Summer20UL16wmLHEGENAPV" in pi or "Summer20UL16GENAPV" in pi):
+                    if "Summer20UL16" in rr['prepid'] and "GEN" in rr['prepid'] and "APV" not in rr['prepid'] and ("Summer20UL18" in pi or "Summer20UL17" in pi or "APV" in pi):
+                        print(rr['prepid'],rr['extension'],ext)
                         pi_prime = rr['prepid']
                         cmssw_prime = rr['cmssw_release']
                     if "Summer20UL16" in pi and "APV" not in pi and "GEN" in rr['prepid'] and ext == rr['extension'] and "Summer19UL17" in rr['prepid']:
                         pi_prime = rr['prepid']
                         cmssw_prime = rr['cmssw_release']
+            print("pi_prime=",pi_prime)
             if "NULL" in pi_prime and ("APV" in pi or "Summer20UL18" in pi or "Summer20UL17" in pi):
                 print "* [ERROR] No corresponing Summer20UL16 request to compare to for consistency."
                 print "*         Please first create the corresponding Summer20UL16 requests."
@@ -565,11 +569,15 @@ for num in range(0,len(prepid)):
                   print"[OK] Two requests have the same fragment."
                else: 
 		  if "Summer20UL16" not in pi:
-		    print"[ERROR] Fragment of "+pi+" is different than its base UL17 request: "+pi_prime
+		    print"[ERROR] Fragment of "+pi+" is different than its base UL request: "+pi_prime
 		    print"        Please make sure that "+pi+" has _exactly_ the same settings as "+pi_prime
 		    error += 1
-		  if "Summer20UL16" in pi:
-		    print"[WARNING] Fragment of "+pi+" is different than its base UL17 request: "+pi_prime
+                  if "Summer20UL16" in pi and "APV" in pi:
+                    print"[ERROR] Fragment of "+pi+" is different than its base Summer20UL16 request: "+pi_prime
+                    print"        Please make sure that "+pi+" has _exactly_ the same settings as "+pi_prime
+                    error += 1
+		  if "Summer20UL16" in pi and "APV" not in pi:
+		    print"[WARNING] Fragment of "+pi+" is different than its base Summer19UL17 request: "+pi_prime
 		    print"        Please make sure that "+pi+" has _exactly_ the same settings as "+pi_prime
 		    warning += 1  		
                if (cmssw == cmssw_prime) == True:
