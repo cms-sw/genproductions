@@ -1,4 +1,4 @@
-import FWCore.ParameterSet.Config as cms
+Bimport FWCore.ParameterSet.Config as cms
 
 from Configuration.Generator.Pythia8CommonSettings_cfi import *
 from Configuration.Generator.Pythia8CUEP8M1Settings_cfi import *
@@ -23,22 +23,8 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
                          PythiaParameters=cms.PSet(
                              pythia8CommonSettingsBlock,
                              pythia8CUEP8M1SettingsBlock,
-                             processParameters=cms.vstring(
-                                 'JetMatching:setMad = off',
-                                 'JetMatching:scheme = 1',
-                                 'JetMatching:merge = on',
-                                 'JetMatching:jetAlgorithm = 2',
-                                 'JetMatching:etaJetMax = 5.',
-                                 'JetMatching:coneRadius = 1.',
-                                 'JetMatching:slowJetPower = 1',
-                                 'JetMatching:qCut = 30.',
-                                 'JetMatching:nQmatch = 5',
-                                 'JetMatching:nJetMax = 1',
-                                 'JetMatching:doShowerKt = off',
-                             ),
                              parameterSets=cms.vstring('pythia8CommonSettings',
                                                        'pythia8CUEP8M1Settings',
-                                                       'processParameters',
                                                        )
                          )
                          )
