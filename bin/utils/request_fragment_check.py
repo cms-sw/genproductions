@@ -525,24 +525,28 @@ for num in range(0,len(prepid)):
         # Ultra-legacy sample settings' compatibility
         pi_prime = "NULL"
         prime_tmp = []
-#        if "Summer20UL18" in pi or "Summer20UL17" in pi or "Summer20UL16wmLHEGENAPV" in pi or "Summer20UL16GENAPV" in pi or "Summer20UL16" in pi and "GEN" in pi and "pLHE" not in pi:
-        if "Summer20UL18" in pi or "Summer20UL17" in pi or "Summer20UL16wmLHEGENAPV" in pi or "Summer20UL16GENAPV" in pi or "Summer20UL16" in pi and "GEN" in pi:
+        if "Summer20UL18" in pi or "Summer20UL17" in pi or "Summer20UL16wmLHEGENAPV" in pi or "APV" in pi or "Summer20UL16" in pi and "GEN" in pi:
             prime = get_requests_from_datasetname(dn)
             if len(prime) == 0:
-                print "* [ERROR] No corresponing Summer20UL16 request to compare to for consistency."
-                print "*         Please first create the corresponding Summer20UL16 requests."
-                error = error + 1
+                if "Summer20UL16" not in pi:
+                    print "* [ERROR] No corresponing Summer20UL16 request to compare to for consistency."
+                    print "*         Please first create the corresponding Summer20UL16 requests."
+                    error += 1
+                else:
+                    print "* [WARNING] No corresponing Summer19UL16 request to compare to for consistency."
+                    print "*           Please check CAREFULLY!"
+                    warning += 1
             if len(prime) != 0:
-		print "Related requests:"
+		print "Related UL16 requests:"
                 for rr in prime:
-                    print(rr['prepid'],rr['extension'],ext)
-#                    if "Summer20UL16" in rr['prepid'] and "GEN" in rr['prepid'] and ext == rr['extension'] and "APV" not in rr['prepid'] and ("Summer20UL18" in pi or "Summer20UL17" in pi or "Summer20UL16wmLHEGENAPV" in pi or "Summer20UL16GENAPV" in pi):
-                    if "Summer20UL16" in rr['prepid'] and "GEN" in rr['prepid'] and "APV" not in rr['prepid'] and ("Summer20UL18" in pi or "Summer20UL17" in pi or "Summer20UL16wmLHEGENAPV" in pi or "Summer20UL16GENAPV" in pi):
+                    if "Summer20UL16" in rr['prepid'] and "GEN" in rr['prepid'] and "APV" not in rr['prepid'] and ("Summer20UL18" in pi or "Summer20UL17" in pi or "APV" in pi):
+                        print(rr['prepid'],rr['extension'],ext)
                         pi_prime = rr['prepid']
                         cmssw_prime = rr['cmssw_release']
                     if "Summer20UL16" in pi and "APV" not in pi and "GEN" in rr['prepid'] and ext == rr['extension'] and "Summer19UL17" in rr['prepid']:
                         pi_prime = rr['prepid']
                         cmssw_prime = rr['cmssw_release']
+            print("pi_prime=",pi_prime)
             if "NULL" in pi_prime and ("APV" in pi or "Summer20UL18" in pi or "Summer20UL17" in pi):
                 print "* [ERROR] No corresponing Summer20UL16 request to compare to for consistency."
                 print "*         Please first create the corresponding Summer20UL16 requests."
@@ -565,11 +569,15 @@ for num in range(0,len(prepid)):
                   print"[OK] Two requests have the same fragment."
                else: 
 		  if "Summer20UL16" not in pi:
-		    print"[ERROR] Fragment of "+pi+" is different than its base UL17 request: "+pi_prime
+		    print"[ERROR] Fragment of "+pi+" is different than its base UL request: "+pi_prime
 		    print"        Please make sure that "+pi+" has _exactly_ the same settings as "+pi_prime
 		    error += 1
-		  if "Summer20UL16" in pi:
-		    print"[WARNING] Fragment of "+pi+" is different than its base UL17 request: "+pi_prime
+                  if "Summer20UL16" in pi and "APV" in pi:
+                    print"[ERROR] Fragment of "+pi+" is different than its base Summer20UL16 request: "+pi_prime
+                    print"        Please make sure that "+pi+" has _exactly_ the same settings as "+pi_prime
+                    error += 1
+		  if "Summer20UL16" in pi and "APV" not in pi:
+		    print"[WARNING] Fragment of "+pi+" is different than its base Summer19UL17 request: "+pi_prime
 		    print"        Please make sure that "+pi+" has _exactly_ the same settings as "+pi_prime
 		    warning += 1  		
                if (cmssw == cmssw_prime) == True:
@@ -701,11 +709,14 @@ for num in range(0,len(prepid)):
             else :
                 nthreads = int(re.search('nThreads(.*?) --',ttxt).group(1))
 
-        if  (8*3600/timeperevent)*filter_eff < 50 and timeperevent > 0 and int(test_cs_version[1]) > 9 and ppd == 0:
-            print ("* [ERROR] please try to increase the filter efficiency")
+        nevts = 100.
+        if timeperevent > 0:   
+            nevts = (8*3600/timeperevent)*filter_eff
+        if  nevts < 50. and int(test_cs_version[1]) > 9 and ppd == 0:
+            print ("* [ERROR] The expected number of events is too small (<50):", nevts,"Either the timeperevent value is incorrect (too large) or the filter efficiency is too small. Please check, timeperevent=",timeperevent, "filter_eff=",filter_eff)
             error += 1
-        if  (8*3600/timeperevent)*filter_eff < 50 and timeperevent > 0 and int(test_cs_version[1]) <= 9 and ppd == 0:
-            print ("* [ERROR] please try to increase the filter efficiency")
+        if  nevts < 50. and int(test_cs_version[1]) <= 9 and ppd == 0:
+            print ("* [ERROR] The expected number of events is too small (<50):", nevts,"Either the timeperevent value is incorrect (too large) or the filter efficiency is too small. Please check, timeperevent=",timeperevent, "filter_eff=",filter_eff)
             error += 1
         if int(test_cs_version[1]) >= 10 and int(test_cs_version[2]) >= 6 and nthreads == 8 and mem != 15900 and ppd == 0:
             print ("* [ERROR] 8 core request with memory different from 15900 GB. Please set the memory to 15900 GB")
@@ -744,6 +755,9 @@ for num in range(0,len(prepid)):
         if int(os.popen('grep -c grid_points '+pi).read()) != 0:
             grid_points_flag = 1
         gp_size = len(gridpack_cvmfs_path_tmp)
+        if any(word in dn for word in MEname) and gp_size == 0:
+            print "* [ERROR] gridpack path is not properly specified - most probable reason is that it is not a cvmfs path."
+            error += 1
 	if "sherpa" in dn.lower():
                         print("* [WARNING] Not checking sherpacks for now.")
                         warning += 1
@@ -826,7 +840,7 @@ for num in range(0,len(prepid)):
                     if int(PDF_pSet[0]) != 1:
                         print "* [WARNING] PDF access method is wrong (if you want to use NNPDF3.1). Please correct:"
                         print "*         e.g. for CP5 use 'PDF:pSet=LHAPDF6:NNPDF31_nnlo_as_0118'"
-                        warning += 1
+                        warning += 1 
 
             if gp_size != 0:
                 gridpack_cvmfs_path_tmp = re.findall("/cvmfs/cms\.cern\.ch/phys_generator/gridpacks/.*?tar.xz|/cvmfs/cms\.cern\.ch/phys_generator/gridpacks/.*?tgz|/cvmfs/cms\.cern\.ch/phys_generator/gridpacks/.*?tar.gz",gridpack_cvmfs_path_tmp)
@@ -947,9 +961,9 @@ for num in range(0,len(prepid)):
                     if os.path.isfile(fname_p2) is True :
                         filename_rc = fname_p2
                     ickkw_c = os.popen('more '+filename_rc+' | tr -s \' \' | grep "= ickkw"').read()
-                    matching_c = int(re.search(r'\d+',ickkw_c).group())
+                    if ickkw_c:
+                        matching_c = int(re.search(r'\d+',ickkw_c).group())
                     maxjetflavor = os.popen('more '+filename_rc+' | tr -s \' \' | grep "= maxjetflavor"').read()
-                    print(ickkw_c, matching_c, maxjetflavor)
                     if len(maxjetflavor) != 0:
                         maxjetflavor = int(re.search(r'\d+',maxjetflavor).group())
                     else:
@@ -1364,8 +1378,11 @@ for num in range(0,len(prepid)):
                             if (mg_me_pdf_list.count(str(UL_PDFs_N[0])) > 0 and mg_me_pdf_list.count(str(UL_PDFs_N[0])+"@0") != 0) or (mg_me_pdf_list.count(str(UL_PDFs_N[1])) > 0 and mg_me_pdf_list.count(str(UL_PDFs_N[1])+"@0") != 0):
                                 print"* [WARNING] Main pdf recommended set ("+str(UL_PDFs_N[0])+" or "+str(UL_PDFs_N[1])+") is listed in runcmsgrid file but it is also included as a variation??"
                                 warning += 1
-                    matching = int(re.search(r'\d+',ickkw).group())
-                    ickkw = str(ickkw)
+                    if len(ickkw) !=0:
+                        matching = int(re.search(r'\d+',ickkw).group())
+                        ickkw = str(ickkw)
+                    else:
+                        matching = 0
                     if matching == 1 or matching == 2:
                         if match_eff == 1:
                             print "* [WARNING] Matched sample but matching efficiency is 1!"
