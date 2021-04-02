@@ -9,7 +9,7 @@
 double lambda(double xh, double xf);
 double calcWidth(double m_bstar);
 
-void writeCards( double m_bstar, double m_h, std::string coupling, std::string path) {
+void writeCards( double m_bstar, double m_h, std::string path) {
 
   std::string filename;
   std::stringstream stream;
@@ -18,36 +18,10 @@ void writeCards( double m_bstar, double m_h, std::string coupling, std::string p
   stream << std::fixed << std::setprecision(0) << m_bstar;
   stream2 << std::fixed << std::setprecision(0) << m_h;
 
-  filename = path + "tH_tH_x53x53_madspin_narrow_" + coupling +"_MX" + stream.str() + "_MH"+ stream2.str() + "_customizecards.dat";
-  int l, r;
-  if (coupling=="LH")
-    {
-      l = 1;
-      r = 0;
-    }
-  else
-    {
-      l = 0;
-      r = 1;
-    }
-
+  filename = path + "tH_tH_x53x53_narrow" +"_MX" + stream.str() + "_MH"+ stream2.str() + "_customizecards.dat";
   ofstream f;
   f.open(filename);
  
-  f << "set param_card KXSPUL 1 " << l << std::endl;
-  f << "set param_card KXSPUR 1 " << r << std::endl;
-  f << "set param_card KXSPUL 2 " << l << std::endl;
-  f << "set param_card KXSPUR 2 " << r << std::endl;
-  f << "set param_card KXSPUL 3 " << l << std::endl;
-  f << "set param_card KXSPUR 3 " << r << std::endl;
-
-  f << "set param_card KXWUL 1 " << l << std::endl;
-  f << "set param_card KXWUR 1 " << r << std::endl;
-  f << "set param_card KXWUL 2 " << l << std::endl;
-  f << "set param_card KXWUR 2 " << r << std::endl;
-  f << "set param_card KXWUL 3 " << l << std::endl;
-  f << "set param_card KXWUR 3 " << r << std::endl;
-   
   f << "set param_card mass 6000007 " << stream.str() << std::endl;
   f << "set param_card mass 6100027 " << stream2.str() << std::endl;
 
