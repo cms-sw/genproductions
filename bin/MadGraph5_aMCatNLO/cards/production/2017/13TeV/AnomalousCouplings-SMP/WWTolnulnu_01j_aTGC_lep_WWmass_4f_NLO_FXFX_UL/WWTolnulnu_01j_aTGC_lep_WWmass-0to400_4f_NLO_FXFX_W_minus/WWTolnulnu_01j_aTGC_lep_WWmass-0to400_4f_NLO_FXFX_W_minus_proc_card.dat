@@ -14,5 +14,5 @@ add process p p > ell+ vl w- j $$ t t~ H QED=3 [QCD] @1
 #add process p p > ell- vl~ w+ $$ t t~ H QED=3 [QCD] @2
 #add process p p > ell- vl~ w+ j $$ t t~ H QED=3 [QCD] @3
 
-output WWTolnulnu_01j_aTGC_lep_WWmass-0to400_4f_NLO_FXFX -nojpeg
+output WWTolnulnu_01j_aTGC_lep_WWmass-0to400_4f_NLO_FXFX_W_minus -nojpeg
 
