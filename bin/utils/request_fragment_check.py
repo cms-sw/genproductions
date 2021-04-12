@@ -1030,12 +1030,24 @@ for num in range(0,len(prepid)):
                         print"*                                   "+str(UL_PDFs_N[0])+" "+str(UL_PDFs[0])
                         print"*                                or "+str(UL_PDFs_N[1])+" "+str(UL_PDFs[1])
                         warning += 1
+            if os.path.isfile(jhufilename) is True and pw_gp is True:
+                with open(jhufilename) as f:
+                    jhu_in = f.read()
+                    jhu_in = re.sub(r'(?m)^ *#.*\n?', '',jhu_in)
+                    jhu_wfe = re.findall(r'(.*?WriteFailedEvents.*?)\n',jhu_in)
+                    if "2" not in str(jhu_wfe):
+                        print "########################################################################################"
+                        print "* [ERROR] WriteFailedEvents should be set to 2 in JHUGen.input in jhugen+powheg samples."
+                        print "########################################################################################"
+                        error += 1
+                    else:
+                        print "* [OK] "+str(jhu_wfe)+" for this jhugen+powheg sample." 
         for ind, word in enumerate(MEname):
             if fsize == 0:
                 break
             if ind == 3:
                 break
-            if word in dn.lower() :
+            if word in dn.lower():
                 if ind == 2 :
                     knd = 1
                 else :
