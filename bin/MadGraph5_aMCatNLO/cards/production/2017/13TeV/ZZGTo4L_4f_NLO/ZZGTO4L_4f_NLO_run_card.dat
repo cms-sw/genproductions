@@ -93,8 +93,6 @@ $DEFAULT_PDF_SETS = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number
   0.5     = rw_Fscale_down   ! lower bound for fact scale variations
   2.0     = rw_Fscale_up     ! upper bound for fact scale variations
 $DEFAULT_PDF_MEMBERS = reweight_PDF     ! reweight to get PDF uncertainty
- #292201   = PDF_set_min      ! First of the error PDF sets
- #292302   = PDF_set_max      ! Last of the error PDF sets
 #***********************************************************************
 # Merging - WARNING! Applies merging only at the hard-event level.     *
 # After showering an MLM-type merging should be applied as well.       *
@@ -124,10 +122,10 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! reweight to get PDF uncertainty
 #***********************************************************************
    3  = ptl     ! Min lepton transverse momentum
   -1  = etal    ! Max lepton abs(pseudo-rap) (a value .lt.0 means no cut)
-   0.1  = drll    ! Min distance between opposite sign lepton pairs
+   0  = drll    ! Min distance between opposite sign lepton pairs
    0  = drll_sf ! Min distance between opp. sign same-flavor lepton pairs
-   0  = mll     ! Min inv. mass of all opposite sign lepton pairs
-   0  = mll_sf  ! Min inv. mass of all opp. sign same-flavor lepton pairs
+   1  = mll     ! Min inv. mass of all opposite sign lepton pairs
+   1  = mll_sf  ! Min inv. mass of all opp. sign same-flavor lepton pairs
 #***********************************************************************
 # Photon-isolation cuts, according to hep-ph/9801442                   *
 # When ptgmin=0, all the other parameters are ignored                  *
