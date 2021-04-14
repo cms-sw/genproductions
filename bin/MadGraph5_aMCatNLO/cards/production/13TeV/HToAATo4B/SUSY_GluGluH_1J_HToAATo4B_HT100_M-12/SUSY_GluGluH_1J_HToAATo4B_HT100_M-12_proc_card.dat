@@ -1,0 +1,12 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set loop_optimized_output True
+set gauge unitary
+set complex_mass_scheme False
+
+import model NMSSMHET --modelname
+## import model NMSSM --modelname
+
+generate p p  > h01 j $$ w+ w- z , (h01 > a01 a01, a01 > b b~, a01 > b b~)
+
+output SUSY_GluGluH_1J_HToAATo4B_HT100_M-12 -nojpeg
