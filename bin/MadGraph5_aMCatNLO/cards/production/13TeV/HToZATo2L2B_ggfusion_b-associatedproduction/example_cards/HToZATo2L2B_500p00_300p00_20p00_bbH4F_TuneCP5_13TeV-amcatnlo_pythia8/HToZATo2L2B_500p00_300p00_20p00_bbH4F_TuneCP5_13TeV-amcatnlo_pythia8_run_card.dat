@@ -31,7 +31,7 @@
 # (relative) accuracy on the Xsec.                                     *
 # These values are ignored for fixed order runs                        *
 #***********************************************************************
-  10000	= nevents ! Number of unweighted events requested 
+  5000	= nevents ! Number of unweighted events requested 
   -1	= req_acc ! Required accuracy (-1=auto determined from nevents)
   -1	= nevt_job ! Max number of events per job in event generation. 
                  !  (-1= no split).
@@ -65,7 +65,7 @@
 # PDF choice: this automatically fixes also alpha_s(MZ) and its evol.  *
 #***********************************************************************
   lhapdf	= pdlabel ! PDF set
-325500 = lhaid ! if pdlabel=lhapdf, this is the lhapdf number
+$DEFAULT_PDF_SETS = lhaid ! if pdlabel=lhapdf, this is the lhapdf number
               ! numbers for central PDF sets are allowed. Can be a list; 
               ! PDF sets beyond the first are included via reweighting.
 #***********************************************************************
@@ -88,9 +88,10 @@
   -1	= dynamical_scale_choice ! Choose one (or more) of the predefined
            ! dynamical choices. Can be a list; scale choices beyond the
            ! first are included via reweighting
-  91.118  = mur_ref_fixed  ! fixed ren reference scale
-  91.118  = muf1_ref_fixed ! fixed fact reference scale for pdf1
-  91.118  = muf2_ref_fixed ! fixed fact reference scale for pdf2
+  91.118  = mur_ref_fixed    ! fixed ren reference scale
+  91.118  = muf_ref_fixed ! fixed fact reference scale
+  1.0   = mur_over_ref ! ratio of current muR over reference muR
+  1.0   = muf_over_ref ! ratio of current muF over reference muF 
 #*********************************************************************** 
 # Reweight variables for scale dependence and PDF uncertainty          *
 #***********************************************************************
@@ -114,8 +115,6 @@
   91.118	= qes_ref_fixed   ! fixed Ellis-Sexton reference scale
   1.0	= mur_over_ref ! ratio of current muR over reference muR
   1.0	= qes_over_ref ! ratio of current QES over reference QES
-  1.0   = muf1_over_ref ! ratio of current muF2 over reference muF1
-  1.0   = muf2_over_ref ! ratio of current muF2 over reference muF2
 #***********************************************************************
 # Store reweight information in the LHE file for off-line model-       *
 # parameter reweighting at NLO+PS accuracy                             *
@@ -147,7 +146,7 @@
 #***********************************************************************
   1.0	= jetalgo ! FastJet jet algorithm (1=kT, 0=C/A, -1=anti-kT)
   1.0	= jetradius ! The radius parameter for the jet algorithm
-  10.	= ptj ! Min jet transverse momentum
+  0.01	= ptj ! Min jet transverse momentum
   -1.0	= etaj ! Max jet abs(pseudo-rap) (a value .lt.0 means no cut)
 #***********************************************************************
 # Cuts on the charged leptons (e+, e-, mu+, mu-, tau+ and tau-)        *
@@ -158,7 +157,7 @@
   0.0	= drll ! Min distance between opposite sign lepton pairs
   0.0	= drll_sf ! Min distance between opp. sign same-flavor lepton pairs
   0.0	= mll ! Min inv. mass of all opposite sign lepton pairs
-  50.0	= mll_sf ! Min inv. mass of all opp. sign same-flavor lepton pairs
+  30.0	= mll_sf ! Min inv. mass of all opp. sign same-flavor lepton pairs
 #***********************************************************************
 # Photon-isolation cuts, according to hep-ph/9801442. When ptgmin=0,   *
 # all the other parameters are ignored.                                *
@@ -185,7 +184,6 @@
   0	= iappl ! aMCfast switch (0=OFF, 1=prepare grids, 2=fill grids)
 #***********************************************************************
 ## Maximal PDG code for quark to be considered a jet when applying cuts.*
-## At least all massless quarks of the model should be included here.   *
-#*********************************************************************
+### At least all massless quarks of the model should be included here.  *
   4	= maxjetflavor 
 #********************************************************************* 
