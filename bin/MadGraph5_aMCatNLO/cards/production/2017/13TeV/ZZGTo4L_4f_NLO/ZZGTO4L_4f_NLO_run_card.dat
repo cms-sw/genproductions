@@ -125,12 +125,12 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! reweight to get PDF uncertainty
    0  = drll    ! Min distance between opposite sign lepton pairs
    0  = drll_sf ! Min distance between opp. sign same-flavor lepton pairs
    1  = mll     ! Min inv. mass of all opposite sign lepton pairs
-   1  = mll_sf  ! Min inv. mass of all opp. sign same-flavor lepton pairs
+   4  = mll_sf  ! Min inv. mass of all opp. sign same-flavor lepton pairs
 #***********************************************************************
 # Photon-isolation cuts, according to hep-ph/9801442                   *
 # When ptgmin=0, all the other parameters are ignored                  *
 #***********************************************************************
-  8  = ptgmin    ! Min photon transverse momentum
+  10  = ptgmin    ! Min photon transverse momentum
   -1  = etagamma  ! Max photon abs(pseudo-rap)
  0.05  = R0gamma   ! Radius of isolation code
  1.0  = xn        ! n parameter of eq.(3.4) in hep-ph/9801442
