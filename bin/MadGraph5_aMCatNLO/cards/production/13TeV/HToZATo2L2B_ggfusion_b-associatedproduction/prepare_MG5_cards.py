@@ -503,7 +503,7 @@ def prepare_all_MG5_cards(process=None, flavourscheme=None, lhapdfsets=None, lha
     if not customizecards:
         logger.warning(' Please run_madwidths.sh to overwrite the param_card before you lunch your gridpack generations !')
         logger.warning('cd MG5_aMC_vX_X_X')
-        logger.warning('./bin/mg_aMC run_madwidths.sh')
+        logger.warning('./bin/mg5_aMC run_madwidths.sh')
         logger.warning('./run_yukawa_to_mbonshell.sh')
     print ('All commands prepared in ./prepare_{}_{}_gridpacks.sh'.format(suffix, OrderOfcomputation.lower()))
 
