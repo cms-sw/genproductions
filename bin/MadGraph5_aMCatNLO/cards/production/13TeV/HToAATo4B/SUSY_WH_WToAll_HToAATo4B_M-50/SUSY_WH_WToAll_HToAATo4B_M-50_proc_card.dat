@@ -4,9 +4,9 @@ set loop_optimized_output True
 set gauge unitary
 set complex_mass_scheme False
 
-define V = w+ w-
 import model NMSSM --modelname
 
-generate p p  > V h01 , (h01 > a01 a01, a01 > b b~, a01 > b b~)
+generate p p  > w+ h01 , (h01 > a01 a01, a01 > b b~, a01 > b b~)
+generate p p  > w- h01 , (h01 > a01 a01, a01 > b b~, a01 > b b~)
 
 output SUSY_WH_WToAll_HToAATo4B_M-50 -nojpeg
