@@ -218,9 +218,9 @@
 #*********************************************************************
 # Control the Ht(k)=Sum of k leading jets                            *
 #*********************************************************************
-100  = htjmin ! minimum jet HT=Sum(jet pt)
+ 0   = htjmin ! minimum jet HT=Sum(jet pt)
  -1  = htjmax ! maximum jet HT=Sum(jet pt)
- 0   = ihtmin  !inclusive Ht for all partons (including b)
+ 100 = ihtmin  !inclusive Ht for all partons (including b)
  -1  = ihtmax  !inclusive Ht for all partons (including b)
  0   = ht2min ! minimum Ht for the two leading jets
  0   = ht3min ! minimum Ht for the three leading jets
