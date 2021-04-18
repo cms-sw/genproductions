@@ -1,11 +1,11 @@
 
 ## Higgs production mode
-prodmodes=(#"SUSY_GluGluH_01J_HToAATo4B_M-"
-           "SUSY_GluGluH_1J_HToAATo4B_HT100_M-")
-           #"SUSY_VBFH_HToAATo4B_M-"
-           #"SUSY_WH_WToAll_HToAATo4B_M-"
-           #"SUSY_ZH_ZToAll_HToAATo4B_M-"
-           #"SUSY_TTH_TTToAll_HToAATo4B_M-")
+prodmodes=("SUSY_GluGluH_01J_HToAATo4B_M-"
+           "SUSY_GluGluH_1J_HToAATo4B_HT100_M-"
+           "SUSY_VBFH_HToAATo4B_M-"
+           "SUSY_WH_WToAll_HToAATo4B_M-"
+           "SUSY_ZH_ZToAll_HToAATo4B_M-"
+           "SUSY_TTH_TTToAll_HToAATo4B_M-")
 
 ## "a" boson mass points
 masspoints=(12 15 20 25 30 35 40 45 50 55 60)
