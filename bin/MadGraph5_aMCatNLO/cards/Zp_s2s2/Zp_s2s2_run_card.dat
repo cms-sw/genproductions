@@ -44,8 +44,8 @@
 #*********************************************************************
 # PDF CHOICE: this automatically fixes also alpha_s and its evol.    *
 #*********************************************************************
-     nn23lo1    = pdlabel     ! PDF set                                     
-     #230000    = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number
+     #nn23lo1    = pdlabel     ! PDF set                                     
+     230000    = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number
     # These lines are recommended when running the cmsgridpack to use the PDF sets recommended for 2017 production
     $DEFAULT_PDF_SETS = lhaid
     $DEFAULT_PDF_MEMBERS = reweight_PDF
@@ -72,13 +72,13 @@
 #*********************************************************************
 # Matching parameter (MLM only)
 #*********************************************************************
- 1 = ickkw            ! 0 no matching, 1 MLM
+ 0 = ickkw            ! 0 no matching, 1 MLM
  1.0 = alpsfact         ! scale factor for QCD emission vx
  False = chcluster        ! cluster only according to channel diag
  4 = asrwgtflavor     ! highest quark flavor for a_s reweight
  False  = auto_ptj_mjj  ! Automatic setting of ptj and mjj if xqcut >0
                                    ! (turn off for VBF and single top processes) 
- 30.0   = xqcut   ! minimum kt jet measure between partons
+ 0   = xqcut   ! minimum kt jet measure between partons
 #*********************************************************************
 #
 #*********************************************************************
@@ -279,16 +279,3 @@
 # WARNING: Do not use for interference type of computation           *
 #*********************************************************************
    True  = use_syst      ! Enable systematics studies
-#
-#**************************************
-# Parameter of the systematics study
-#  will be used by SysCalc (if installed)
-#**************************************                                  
-#
-0.5 1 2 = sys_scalefact  # factorization/renormalization scale factor
-0.5 1 2 = sys_alpsfact  # \alpha_s emission scale factors
-auto = sys_matchscale # variation of merging scale
-# PDF sets and number of members (0 or none for all members).
-NNPDF23_lo_as_0130_qed = sys_pdf # list of pdf sets
-# MSTW2008nlo68cl.LHgrid 1  = sys_pdf
-
