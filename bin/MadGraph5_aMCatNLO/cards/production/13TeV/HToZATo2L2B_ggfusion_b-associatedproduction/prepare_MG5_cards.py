@@ -122,29 +122,29 @@ def Fix_Yukawa_sector(mh2=None, mh3=None, tanbeta=None, sinbma=None, wh2tobb=Non
     MZ= 9.118760e+01
     MW= math.sqrt(MZ**2/2. + math.sqrt(MZ**4/4. - (aEW*math.pi*MZ**2)/(Gf*math.sqrt(2))))
 
-    ee = 2*math.sqrt(aEW)*math.sqrt(math.pi)
-    sw2 = 1 - MW**2/MZ**2
+    ee = 2.*math.sqrt(aEW)*math.sqrt(math.pi)
+    sw2 = 1. - MW**2/MZ**2
     sw = math.sqrt(sw2)
-    vev = (2*MW*sw)/ee
+    vev = (2.*MW*sw)/ee
     
     TH1x1 = sinbma
-    TH1x2 = math.sqrt(1 - sinbma**2)
-    TH2x1 = -math.sqrt(1 - sinbma**2)
+    TH1x2 = math.sqrt(1. - sinbma**2)
+    TH2x1 = -math.sqrt(1. - sinbma**2)
     TH2x2 = sinbma
     TH3x3 = 1.
     
-    const1_A = (3*mh3**2*tanbeta**2*TH3x3**2*math.sqrt(-4*MB**2*mh3**2 + mh3**4))
+    const1_A = (3.*mh3**2*tanbeta**2*TH3x3**2*math.sqrt(-4.*MB**2*mh3**2 + mh3**4))
     const2_A = (8.*math.pi*vev**2*abs(mh3)**3)
 
     ymb_A = math.sqrt((const2_A * wh3tobb)/const1_A)
     yb_A = ((ymb_A*math.sqrt(2))/vev)
 
-    const1_H = (2*(-12*MB**2*TH1x2**2 + 3*mh2**2*TH1x2**2)/(vev**2))
-    const2_H = ((24*MB**2*tanbeta**2*TH2x2**2)/vev**2)
-    const3_H = ((6*mh2**2*tanbeta**2*TH2x2**2)/vev**2)
-    const4_H = (((math.sqrt(2))/vev )*((24*MB**2*tanbeta*TH1x2*TH2x2*math.sqrt(2))/vev))
-    const5_H = (((math.sqrt(2))/vev)*((6*mh2**2*tanbeta*TH1x2*TH2x2*math.sqrt(2))/vev ))
-    const6_H = math.sqrt(-4*MB**2*mh2**2 + mh2**4)
+    const1_H = (2.*(-12.*MB**2*TH1x2**2 + 3.*mh2**2*TH1x2**2)/(vev**2))
+    const2_H = ((24.*MB**2*tanbeta**2*TH2x2**2)/vev**2)
+    const3_H = ((6.*mh2**2*tanbeta**2*TH2x2**2)/vev**2)
+    const4_H = (((math.sqrt(2))/vev )*((24.*MB**2*tanbeta*TH1x2*TH2x2*math.sqrt(2))/vev))
+    const5_H = (((math.sqrt(2))/vev)*((6.*mh2**2*tanbeta*TH1x2*TH2x2*math.sqrt(2))/vev ))
+    const6_H = math.sqrt(-4.*MB**2*mh2**2 + mh2**4)
     const7_H = (16.*math.pi*abs(mh2)**3)
 
     ymb_H= math.sqrt(((const7_H * wh2tobb ) /(const6_H *(const1_H - const2_H + const3_H - const4_H + const5_H))))
@@ -165,11 +165,15 @@ def Fix_Yukawa_sector(mh2=None, mh3=None, tanbeta=None, sinbma=None, wh2tobb=Non
                 logger.critical('will differs from the one in the banner by %d percent if you do not pass the param_card and you pass the customized cards instead' % (diff*100))
     return ymb_H, ymb_A 
 
-def compute_widths_BR_and_lambdas(mH, mA, mh, tb, pdfName="DEFAULT", saveprocessinfos=False):
+def compute_widths_BR_and_lambdas(mH, mA, mh, tb, process =None, pdfName="DEFAULT", saveprocessinfos=False):
     xsec_ggH = 0.
     xsec_bbH = 0.
     err_integration_ggH = 0.
     err_integration_bbH = 0.
+   
+    mb = 4.92 # mb(OS) pole mass
+    mb__tilde__ = 4.92 # mb~
+    MZ= 9.118760e+01
     
     if mA > mH:
         print("MA_{} > MH_{} switching to A->ZH mode!".format(mA, mH))
@@ -194,8 +198,12 @@ def compute_widths_BR_and_lambdas(mH, mA, mh, tb, pdfName="DEFAULT", saveprocess
     cwd = os.getcwd()
     #os.chdir(os.path.join(CMSSW_Calculators42HDM, 'out'))
     os.chdir(CMSSW_Calculators42HDM)
-    muR = mH/2
-    muF = muR
+    if process =='ggH':
+        muR = mH/2
+        muF = muR
+    elif process == 'bbH':
+        muR = (mA + MZ + mb + mb__tilde__ )
+        muF =muR
     res = Calc2HDM(mode = mode, sqrts = sqrts, type = type,
                    tb = tb, m12 = m12, mh = mh, mH = mH, mA = mA, mhc = mhc, sba = sinbma,
                    outputFile = outputFile, muR =muR, muF =muF)
@@ -216,7 +224,8 @@ def compute_widths_BR_and_lambdas(mH, mA, mh, tb, pdfName="DEFAULT", saveprocess
     wh3tobb = res.wh3tobb
     wh2tobb = res.wh2tobb
     if saveprocessinfos:
-        xsec_ggH, err_integration_ggH, err_muRm_ggH, err_muRp_ggH, xsec_bbH, err_integration_bbH =  res.getXsecFromSusHi()
+        sushiCardName = '{}_{}_{}_{}_{}'.format(mass_to_string(mH), mass_to_string(mA), mass_to_string( tb), mass_to_string( muR), mass_to_string( muF))
+        xsec_ggH, err_integration_ggH, err_muRm_ggH, err_muRp_ggH, xsec_bbH, err_integration_bbH, mb_MSscheme_muR=  res.getXsecFromSusHi(sushiCardName=sushiCardName, return_xsc_byComputationOrder = False)
     
     os.chdir(cwd)
     return wH, wA, wh2tobb, wh3tobb, l2, l3, lR7, sinbma, tb , xsec_ggH, err_integration_ggH, xsec_bbH, err_integration_bbH, HtoZABR, AtobbBR
@@ -249,31 +258,31 @@ def prepare_param_cards(mH=None, mA=None, mh=None, mhc=None, MB=None, l2=None, l
             for line in inf:
                 # BLOCK MASS #
                 if " MB " in line and pass_ymbandmb_toparamcards:
-                    outf.write('    5 {:.6f}   # MB\n'.format(MB))
+                    outf.write('    5 {}   # MB\n'.format(MB))
                 elif "mhc" in line and pass_ymbandmb_toparamcards:
-                    outf.write('   37 {:.6f}   # mhc\n'.format(mhc))
+                    outf.write('   37 {:.8e}   # mhc\n'.format(mhc))
                 # BLOCK YUKAWA # 
                 elif "ymb" in line and pass_ymbandmb_toparamcards:
-                    outf.write('    5 {:.8f}   # ymb\n'.format(ymb))
+                    outf.write('    5 {}   # ymb\n'.format(ymb))
                 # BLOCK FRBLOCK # 
                 elif "tanbeta" in line:
-                    outf.write('    1 {:.6f}   # tanbeta\n'.format(tb))
+                    outf.write('    1 {:.8e}   # tanbeta\n'.format(tb))
                 elif "sinbma" in line:
-                    outf.write('    2 {:.8f}   # sinbma\n'.format(sinbma))
+                    outf.write('    2 {:.8e}   # sinbma\n'.format(sinbma))
                 # BLOCK HIGGS # 
                 elif "l2" in line:
-                    outf.write('    1 {:.6f}   # l2\n'.format(l2))
+                    outf.write('    1 {:.8e}   # l2\n'.format(l2))
                 elif "l3" in line:
-                    outf.write('    2 {:.6f}   # l3\n'.format(l3))
+                    outf.write('    2 {:.8e}   # l3\n'.format(l3))
                 elif "lR7" in line:
-                    outf.write('    3 {:.6f}   # lR7\n'.format(lR7))
+                    outf.write('    3 {:.8e}   # lR7\n'.format(lR7))
                 # BLOCK MASS #
                 elif "mh1" in line:
-                    outf.write('   25 {:.6f}   # mh1\n'.format(mh))
+                    outf.write('   25 {:.8e}   # mh1\n'.format(mh))
                 elif "mh2" in line:
-                    outf.write('   35 {:.6f}   # mh2\n'.format(mH))
+                    outf.write('   35 {:.8e}   # mh2\n'.format(mH))
                 elif "mh3" in line:
-                    outf.write('   36 {:.6f}   # mh3\n'.format(mA))
+                    outf.write('   36 {:.8e}   # mh3\n'.format(mA))
                 else:
                     outf.write(line)
     return
@@ -374,7 +383,7 @@ def prepare_all_MG5_cards(process=None, flavourscheme=None, lhapdfsets=None, lha
     outputDIR = ( 'example_cards' if test else('benchmarks' if benchmarks else('fullsim' if fullsim else('PrivateProd_run2'))))
 
     mh=125.
-    mb = 4.75
+    mb = 4.92 # mb(OS) https://arxiv.org/pdf/1610.07922.pdf page 7
     pdfName, lhaid = getLHAPDF(lhapdfsets=lhapdfsets, lhaid=lhaid, flavourscheme=flavourscheme)
   
     if process=='ggH':
@@ -448,9 +457,9 @@ def prepare_all_MG5_cards(process=None, flavourscheme=None, lhapdfsets=None, lha
             #    outf.write(s + '\n')
             #    continue
             for tb in tb_list:
-                wH, wA, wh2tobb, wh3tobb, l2, l3, lR7, sinbma, tb, xsec_ggH, err_integration_ggH, xsec_bbH, err_integration_bbH, HtoZABR, AtobbBR = compute_widths_BR_and_lambdas(mH, mA, mh, tb, pdfName=pdfName, saveprocessinfos=saveprocessinfos)
+                wH, wA, wh2tobb, wh3tobb, l2, l3, lR7, sinbma, tb, xsec_ggH, err_integration_ggH, xsec_bbH, err_integration_bbH, HtoZABR, AtobbBR = compute_widths_BR_and_lambdas(mH, mA, mh, tb, process = process, pdfName=pdfName, saveprocessinfos=saveprocessinfos)
                 ymb_H, ymb_A = Fix_Yukawa_sector(H, A, tb, sinbma, wh2tobb, wh3tobb, customizecards)
-                print( ymb_H, ymb_A , ymb_H/ymb_A)
+                logger.info( 'ymb_H: {}       ymb_A: {} '.format(ymb_H, ymb_A))
                 prepare_cards(mH, mA, mh, mHc, mb, wH, wA, l2, l3, lR7, sinbma, tb, ymb_A, lhaid, smpdetails, templateDIR, outputDIR, customizecards)
 
                 cardname = "HToZATo2L2B_{}_{}_{}_{}".format(mass_to_string(mH), mass_to_string(mA), mass_to_string(tb), smpdetails)
@@ -518,7 +527,7 @@ if __name__ == '__main__':
     parser.add_argument('--test', action='store_true', help='Generate 1 set of cards stored by default in  example_cards/')
     parser.add_argument('--benchmarks', action='store_true', help='Generate 3benchmarks scenarios for at high and low mass region of (MH, MA) for 5 different tb values, cards stored by default in  benchmarks/')
     parser.add_argument('--fullsim', action='store_true', help='Generate 21 signal mass points saved by default in fullsim/')
-    parser.add_argument('--saveprocessinfos', action='store_true', help='store xsc for each process in .txt file in ./gridpoints')
+    parser.add_argument('--saveprocessinfos', action='store_true', default= False, help='store xsc for each process in .txt file in ./gridpoints')
     parser.add_argument('--templates', required=True, help='''Directory with 5 templates cards for your requested process:\n 
                             [ template_customizecards.dat, template_extramodels.dat, template_madspin_card.dat,  template_proc_card.dat, template_run_card.dat]\n''')
     # If you are not sure about your pdf sets setting, better use DEFAULT !
