@@ -104,7 +104,7 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! reweight to get PDF uncertainty
 #***********************************************************************
 # BW cutoff (M+/-bwcutoff*Gamma)                                       *
 #***********************************************************************
- 30  = bwcutoff
+ 15  = bwcutoff
 #***********************************************************************
 # Cuts on the jets                                                     *
 # Jet clustering is performed by FastJet.
