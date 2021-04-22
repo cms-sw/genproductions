@@ -1,6 +1,6 @@
 # script to create production cards for 2016 bstar from example card (bstar_tW_Left_M700)
 
-masspoints=( 500 600 700 800 900 1000 1100)
+masspoints=( 500 600 700 800 900 1000 1100 1200 1300)
 masspointsH=( 200 400 600 800 1000 )  
 base_dir="2017/13TeV"
 template_dir="${base_dir}/tH_tH_x53x53_narrow_MX1100_MH400/"
