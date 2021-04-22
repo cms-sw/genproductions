@@ -22,5 +22,5 @@ else
   export PYTHON_BINDINGS="$PYTHON_BINDINGS"
 fi
 
-export _condor_SCHEDD_HOST=bigbird17.cern.ch
-export _condor_CREDD_HOST=bigbird17.cern.ch
+#export _condor_SCHEDD_HOST=bigbird17.cern.ch
+#export _condor_CREDD_HOST=bigbird17.cern.ch
