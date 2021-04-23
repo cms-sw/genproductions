@@ -1,0 +1,12 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set loop_optimized_output True
+set gauge unitary
+set complex_mass_scheme False
+
+import model BSMMODEL --modelname
+
+PROCESSA
+PROCESSB
+
+output TEMPLATE -nojpeg
