@@ -525,7 +525,6 @@ for num in range(0,len(prepid)):
         # Ultra-legacy sample settings' compatibility
         pi_prime = "NULL"
         prime_tmp = []
-        jhugen_exceptionalism = 0
         jhu_gp = os.path.isfile(my_path+'/'+pi+'/'+'JHUGen.input')
         if "Summer20UL18" in pi or "Summer20UL17" in pi or "Summer20UL16wmLHEGENAPV" in pi or "APV" in pi or "Summer20UL16" in pi and "GEN" in pi:
             prime = get_requests_from_datasetname(dn)
@@ -1019,10 +1018,10 @@ for num in range(0,len(prepid)):
       		    if "JHUGen.input" in name:
 			print"* Found the JHUGen input file: "+os.path.join(root, name)
 			jhufilename = os.path.join(root, name)
-        for name in dirs:
-            if "JHUGen.input" in name:
-                print"* Found the JHUGen input file: "+os.path.join(root, name)
-                jhufilename = os.path.join(root, name)
+                for name in dirs:
+                    if "JHUGen.input" in name:
+                        print"* Found the JHUGen input file: "+os.path.join(root, name)
+                        jhufilename = os.path.join(root, name)
             if os.path.isfile(jhufilename) is True and pw_gp is False:
                 with open(jhufilename) as f:
                     jhu_in = f.read()
