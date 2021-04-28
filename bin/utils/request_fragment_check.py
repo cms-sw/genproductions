@@ -525,6 +525,8 @@ for num in range(0,len(prepid)):
         # Ultra-legacy sample settings' compatibility
         pi_prime = "NULL"
         prime_tmp = []
+        jhugen_exceptionalism = 0
+        jhu_gp = os.path.isfile(my_path+'/'+pi+'/'+'JHUGen.input')
         if "Summer20UL18" in pi or "Summer20UL17" in pi or "Summer20UL16wmLHEGENAPV" in pi or "APV" in pi or "Summer20UL16" in pi and "GEN" in pi:
             prime = get_requests_from_datasetname(dn)
             if len(prime) == 0:
@@ -565,21 +567,27 @@ for num in range(0,len(prepid)):
                f2_prime = open(pi_prime+"_tmp","w")
                data_f1_prime = f1_prime.read()
                data_f2_prime = re.sub(r'(?m)^ *#.*\n?', '',data_f1_prime)
-               if (data_f2 == data_f2_prime) == True:
-                  print"[OK] Two requests have the same fragment."
-               else: 
-		  if "Summer20UL16" not in pi:
-		    print"[ERROR] Fragment of "+pi+" is different than its base UL request: "+pi_prime
-		    print"        Please make sure that "+pi+" has _exactly_ the same settings as "+pi_prime
-		    error += 1
-                  if "Summer20UL16" in pi and "APV" in pi:
-                    print"[ERROR] Fragment of "+pi+" is different than its base Summer20UL16 request: "+pi_prime
-                    print"        Please make sure that "+pi+" has _exactly_ the same settings as "+pi_prime
-                    error += 1
-		  if "Summer20UL16" in pi and "APV" not in pi:
-		    print"[WARNING] Fragment of "+pi+" is different than its base Summer19UL17 request: "+pi_prime
-		    print"        Please make sure that "+pi+" has _exactly_ the same settings as "+pi_prime
-		    warning += 1  		
+               if (jhu_gp):
+                   data_f2_jhu = re.sub(r'args.*', '',data_f2)  
+                   data_f2_jhu_prime = re.sub(r'args.*', '',data_f2_prime)
+                   if (data_f2_jhu == data_f2_jhu_prime) == True:
+                       print"[OK] Two requests have the same fragment (except may be the gridpack)"
+               else:
+                   if (data_f2 == data_f2_prime) == True:
+                       print"[OK] Two requests have the same fragment."
+                   else: 
+		       if "Summer20UL16" not in pi:
+		           print"[ERROR] Fragment of "+pi+" is different than its base UL request: "+pi_prime
+		           print"        Please make sure that "+pi+" has _exactly_ the same settings as "+pi_prime
+		           error += 1
+                       if "Summer20UL16" in pi and "APV" in pi:
+                           print"[ERROR] Fragment of "+pi+" is different than its base Summer20UL16 request: "+pi_prime
+                           print"        Please make sure that "+pi+" has _exactly_ the same settings as "+pi_prime
+                           error += 1
+		       if "Summer20UL16" in pi and "APV" not in pi:
+		           print"[WARNING] Fragment of "+pi+" is different than its base Summer19UL17 request: "+pi_prime
+		           print"        Please make sure that "+pi+" has _exactly_ the same settings as "+pi_prime
+		           warning += 1  		
                if (cmssw == cmssw_prime) == True:
                   print"[OK] Two requests have the same CMSSW version."
                elif "Summer20UL16wmLHEGENAPV" in pi or "Summer20UL16GENAPV" in pi or "Summer20UL18" in pi or "Summer20UL17" in pi:
@@ -877,7 +885,7 @@ for num in range(0,len(prepid)):
                     error += 1
                     print ("* [ERROR] Gridpack ",gridpack_cvmfs_path," does not exist!") 
                     break
-                jhu_gp = os.path.isfile(my_path+'/'+pi+'/'+'JHUGen.input')
+		jhu_gp = os.path.isfile(my_path+'/'+pi+'/'+'JHUGen.input')
                 pw_gp = os.path.isfile(my_path+'/'+pi+'/'+'powheg.input')
                 mg_gp = os.path.isfile(my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat') or os.path.isfile(my_path+'/'+pi+'/'+'process/Cards/run_card.dat')
                 amcnlo_gp = os.path.isfile(my_path+'/'+pi+'/'+'process/Cards/run_card.dat')
@@ -1011,10 +1019,10 @@ for num in range(0,len(prepid)):
       		    if "JHUGen.input" in name:
 			print"* Found the JHUGen input file: "+os.path.join(root, name)
 			jhufilename = os.path.join(root, name)
-   		for name in dirs:
-      	            if "JHUGen.input" in name:
-	                print"* Found the JHUGen input file: "+os.path.join(root, name)
-			jhufilename = os.path.join(root, name)
+        for name in dirs:
+            if "JHUGen.input" in name:
+                print"* Found the JHUGen input file: "+os.path.join(root, name)
+                jhufilename = os.path.join(root, name)
             if os.path.isfile(jhufilename) is True and pw_gp is False:
                 with open(jhufilename) as f:
                     jhu_in = f.read()
@@ -1041,6 +1049,7 @@ for num in range(0,len(prepid)):
                         print "########################################################################################"
                         error += 1
                     else:
+                        WriteFailedEvents_flag = 1
                         print "* [OK] "+str(jhu_wfe)+" for this jhugen+powheg sample."
         for ind, word in enumerate(MEname):
             if fsize == 0:
