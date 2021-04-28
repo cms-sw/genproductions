@@ -1276,7 +1276,8 @@ for num in range(0,len(prepid)):
                     if os.path.isfile(filename_rc) is True :
                         ickkw = os.popen('more '+filename_rc+' | tr -s \' \' | grep "= ickkw"').read()
                         bw = os.popen('more '+filename_rc+' | tr -s \' \' | grep "= bwcutoff"').read()
-                        mg_pdf = os.popen('more '+filename_rc+' | tr -s \' \' | grep "= lhaid"').read()
+                        mg_pdf = os.popen('more '+filename_rc+' | tr -s \' \' | grep "lhaid"').read()
+                        mg_pdf = mg_pdf.split("=")[0].split()[0]
                     else:
                         if gp_size != 0:
                             print "* [ERROR] Although the name of the dataset has ~Madgraph, the gridpack doesn't seem to be a MG5_aMC one. Please check."
@@ -1303,12 +1304,11 @@ for num in range(0,len(prepid)):
                     if float(test_bw[0]) > 15.:
                         print " [WARNING] bwcutoff set to "+str(test_bw[0])+". Note that large bwcutoff values can cause problems in production."
                         warning += 1
-                    mg_pdf = mg_pdf.split()
                     print "##################################################"
-                    print "* The MG5_aMC PDF set is:"+str(mg_pdf[0])
+                    print "* The MG5_aMC PDF set is:"+str(mg_pdf)
                     print "##################################################"
-                    if "UL" in pi and int(mg_pdf[0]) != UL_PDFs_N[0] and int(mg_pdf[0]) != UL_PDFs_N[1]:
-                        print"* [WARNING] The gridpack uses PDF="+str(mg_pdf[0])+" but not the recommended sets for UL requests:"
+                    if "UL" in pi and int(mg_pdf) != UL_PDFs_N[0] and int(mg_pdf) != UL_PDFs_N[1]:
+                        print"* [WARNING] The gridpack uses PDF="+str(mg_pdf)+" but not the recommended sets for UL requests:"
                         print"*                                             "+str(UL_PDFs_N[0])+" "+str(UL_PDFs[0])
                         print"*                                             or "+str(UL_PDFs_N[1])+" "+str(UL_PDFs[1])
                         warning += 1
