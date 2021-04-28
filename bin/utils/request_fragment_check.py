@@ -962,6 +962,17 @@ for num in range(0,len(prepid)):
                                 error += 1
                             else:
                                 print "* [OK] customizecards.dat doesn't have COMPUTE_WIDTHS followed by SET command(s)."                    
+                        input_cards_reweight_card = find_file(dir_path,"reweight_card.dat")
+                        if input_cards_reweight_card:
+                            reweights = os.popen('more '+input_cards_reweight_card+' | tr -s \' \' | grep "rwgt_name"').read()
+                            reweights = re.sub("launch --rwgt_name",'',reweights)
+                            reweights = re.sub("=",'',reweights)
+                            chars_to_check = set('@#$%^&*()+-[]{}.\ ')
+                            if any((chars in chars_to_check) for chars in reweights):
+                                print "* [ERROR] Please remove problematic characters (at least one of @#$%^&*()+-[]{}.\) from rwgt_names."
+                                error += 1
+                            else:
+                                print "* [OK] No bad characters in the reweight_card.dat file for launch --rwgt_name= ...."
                 if mg_gp is True:
                     filename_rc = my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat'
                     fname_p2 = my_path+'/'+pi+'/'+'process/Cards/run_card.dat'
