@@ -485,7 +485,7 @@ make_gridpack () {
       echo "reweight=OFF" >> makegrid.dat
       echo "done" >> makegrid.dat
       if [ -e $CARDSDIR/${name}_customizecards.dat ]; then
-              cat $CARDSDIR/${name}_customizecards.dat >> makegrid.dat
+              cat $CARDSDIR/${name}_customizecards.dat | sed '/^$/d;/^#.*$/d' >> makegrid.dat
               echo "" >> makegrid.dat
       fi
       echo "done" >> makegrid.dat
@@ -539,7 +539,7 @@ make_gridpack () {
       echo "done" > makegrid.dat
       echo "set gridpack True" >> makegrid.dat
       if [ -e $CARDSDIR/${name}_customizecards.dat ]; then
-              cat $CARDSDIR/${name}_customizecards.dat >> makegrid.dat
+              cat $CARDSDIR/${name}_customizecards.dat | sed '/^$/d;/^#.*$/d' >> makegrid.dat
               echo "" >> makegrid.dat
       fi
       echo "done" >> makegrid.dat
