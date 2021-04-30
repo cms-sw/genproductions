@@ -273,6 +273,86 @@ def check_replace(runcmsgridfile):
         error_check_replace += 1
     return error_check_replace 
 
+def ul_consistency(dn,pi,jhu_gp):
+    pi_prime = "NULL"
+    prime_tmp = []
+    warning_ul = 0
+    error_ul = 0
+    if "Summer20UL18" in pi or "Summer20UL17" in pi or "Summer20UL16wmLHEGENAPV" in pi or "APV" in pi or "Summer20UL16" in pi and "GEN" in pi:
+        prime = get_requests_from_datasetname(dn)
+        if len(prime) == 0:
+            if "Summer20UL16" not in pi:
+                print "* [ERROR] No corresponing Summer20UL16 request to compare to for consistency."
+                print "*         Please first create the corresponding Summer20UL16 requests."
+                error_ul += 1
+            else:
+                print "* [WARNING] No corresponing Summer19UL16 request to compare to for consistency."
+                print "*           Please check CAREFULLY!"
+                warning_ul += 1
+        if len(prime) != 0:
+            print "Related UL16 requests:"
+            for rr in prime:
+                if "Summer20UL16" in rr['prepid'] and "GEN" in rr['prepid'] and "APV" not in rr['prepid'] and ("Summer20UL18" in pi or "Summer20UL17" in pi or "APV" in pi):
+                    print(rr['prepid'],rr['extension'],ext)
+                    pi_prime = rr['prepid']
+                    cmssw_prime = rr['cmssw_release']
+                if "Summer20UL16" in pi and "APV" not in pi and "GEN" in rr['prepid'] and ext == rr['extension'] and "Summer19UL17" in rr['prepid']:
+                    pi_prime = rr['prepid']
+                    cmssw_prime = rr['cmssw_release']
+        print("pi_prime=",pi_prime)
+        if "NULL" in pi_prime and ("APV" in pi or "Summer20UL18" in pi or "Summer20UL17" in pi):
+            print "* [ERROR] No corresponing Summer20UL16 request to compare to for consistency."
+            print "*         Please first create the corresponding Summer20UL16 requests."
+            error_ += 1
+        if "NULL" in pi_prime and "APV" not in pi:
+            print "* [WARNING] No corresponing Summer19UL17 request to compare to for consistency."
+            print "  LEVEL2 Conveners - please chech the request VERY CAREFULLY!"
+            warning_ul += 1
+        if "NULL" not in pi_prime: #
+            if "APV" in pi or "Summer20UL18" in pi or "Summer20UL17" in pi:
+                print"This is a Summer20UL16APV, UL17 or UL18 request so GEN settings will be compared to the corresponding Summer20UL16 request: "+pi_prime
+            if "APV" not in pi and "Summer20UL16" in pi:
+                print"This is a Summer20UL16 requests so GEN setting will be compared to the corresponding Summer19UL17 request: "+pi_prime
+            os.popen('wget -q '+mcm_link+'public/restapi/requests/get_fragment/'+pi_prime+' -O '+pi_prime).read()
+            f1_prime = open(pi_prime,"r")
+            f2_prime = open(pi_prime+"_tmp","w")
+            data_f1_prime = f1_prime.read()
+            data_f2_prime = re.sub(r'(?m)^ *#.*\n?', '',data_f1_prime)
+            if jhu_gp:
+                data_f2_jhu = re.sub(r'args.*', '',data_f2)  
+                data_f2_jhu_prime = re.sub(r'args.*', '',data_f2_prime)
+                if (data_f2_jhu == data_f2_jhu_prime) == True:
+                    print"* [OK] Two requests have the same fragment (except may be the gridpack)"
+                else:
+                    print"* [ERROR] Two requests don't have the same fragment (note that grodpacks haven't been compared)"
+                    error_ul += 1
+            else:
+                if (data_f2 == data_f2_prime) == True:
+                    print"[OK] Two requests have the same fragment."
+                else: 
+                    if "Summer20UL16" not in pi:
+                        print"[ERROR] Fragment of "+pi+" is different than its base UL request: "+pi_prime
+                        print"        Please make sure that "+pi+" has _exactly_ the same settings as "+pi_prime
+                        error_ul += 1
+                    if "Summer20UL16" in pi and "APV" in pi:
+                        print"[ERROR] Fragment of "+pi+" is different than its base Summer20UL16 request: "+pi_prime
+                        print"        Please make sure that "+pi+" has _exactly_ the same settings as "+pi_prime
+                        error_ul += 1
+                    if "Summer20UL16" in pi and "APV" not in pi:
+                        print"[WARNING] Fragment of "+pi+" is different than its base Summer19UL17 request: "+pi_prime
+                        print"        Please make sure that "+pi+" has _exactly_ the same settings as "+pi_prime
+                        warning_ul += 1          
+            if (cmssw == cmssw_prime) == True:
+                print"[OK] Two requests have the same CMSSW version."
+            elif "Summer20UL16wmLHEGENAPV" in pi or "Summer20UL16GENAPV" in pi or "Summer20UL18" in pi or "Summer20UL17" in pi:
+                print"* [WARNING] CMSSW version of "+pi+" is different than its base UL17 request: "+pi_prime
+                print"        Please make sure that "+pi+" has _exactly_ the same settings as "+pi_prime
+                warning_ul += 1
+            f1_prime.close()
+            f2_prime.write(data_f2_prime)
+            f2_prime.close()
+    return warning_ul,error_ul
+
 def xml_check_and_patch(f,cont,gridpack_eos_path,my_path,pi):
     xml = str(re.findall('xmllint.*',cont))
     cur_dir = os.getcwd()
@@ -522,73 +602,6 @@ for num in range(0,len(prepid)):
                   print(os.popen('diff '+pi+' '+pi_clone_entries).read())
                   print "---------------------------------------------------------------------------------" 
                   error += 1		
-        # Ultra-legacy sample settings' compatibility
-        pi_prime = "NULL"
-        prime_tmp = []
-        if "Summer20UL18" in pi or "Summer20UL17" in pi or "Summer20UL16wmLHEGENAPV" in pi or "APV" in pi or "Summer20UL16" in pi and "GEN" in pi:
-            prime = get_requests_from_datasetname(dn)
-            if len(prime) == 0:
-                if "Summer20UL16" not in pi:
-                    print "* [ERROR] No corresponing Summer20UL16 request to compare to for consistency."
-                    print "*         Please first create the corresponding Summer20UL16 requests."
-                    error += 1
-                else:
-                    print "* [WARNING] No corresponing Summer19UL16 request to compare to for consistency."
-                    print "*           Please check CAREFULLY!"
-                    warning += 1
-            if len(prime) != 0:
-		print "Related UL16 requests:"
-                for rr in prime:
-                    if "Summer20UL16" in rr['prepid'] and "GEN" in rr['prepid'] and "APV" not in rr['prepid'] and ("Summer20UL18" in pi or "Summer20UL17" in pi or "APV" in pi):
-                        print(rr['prepid'],rr['extension'],ext)
-                        pi_prime = rr['prepid']
-                        cmssw_prime = rr['cmssw_release']
-                    if "Summer20UL16" in pi and "APV" not in pi and "GEN" in rr['prepid'] and ext == rr['extension'] and "Summer19UL17" in rr['prepid']:
-                        pi_prime = rr['prepid']
-                        cmssw_prime = rr['cmssw_release']
-            print("pi_prime=",pi_prime)
-            if "NULL" in pi_prime and ("APV" in pi or "Summer20UL18" in pi or "Summer20UL17" in pi):
-                print "* [ERROR] No corresponing Summer20UL16 request to compare to for consistency."
-                print "*         Please first create the corresponding Summer20UL16 requests."
-                error = error + 1
-            if "NULL" in pi_prime and "APV" not in pi:
-		print "* [WARNING] No corresponing Summer19UL17 request to compare to for consistency."
-		print "  LEVEL2 Conveners - please chech the request VERY CAREFULLY!"
-		warning = warning + 1
-	    if "NULL" not in pi_prime: #
-               if "APV" in pi or "Summer20UL18" in pi or "Summer20UL17" in pi:
-                  print"This is a Summer20UL16APV, UL17 or UL18 request so GEN settings will be compared to the corresponding Summer20UL16 request: "+pi_prime
-               if "APV" not in pi and "Summer20UL16" in pi:
-                  print"This is a Summer20UL16 requests so GEN setting will be compared to the corresponding Summer19UL17 request: "+pi_prime
-               os.popen('wget -q '+mcm_link+'public/restapi/requests/get_fragment/'+pi_prime+' -O '+pi_prime).read()
-               f1_prime = open(pi_prime,"r")
-               f2_prime = open(pi_prime+"_tmp","w")
-               data_f1_prime = f1_prime.read()
-               data_f2_prime = re.sub(r'(?m)^ *#.*\n?', '',data_f1_prime)
-               if (data_f2 == data_f2_prime) == True:
-                  print"[OK] Two requests have the same fragment."
-               else: 
-		  if "Summer20UL16" not in pi:
-		    print"[ERROR] Fragment of "+pi+" is different than its base UL request: "+pi_prime
-		    print"        Please make sure that "+pi+" has _exactly_ the same settings as "+pi_prime
-		    error += 1
-                  if "Summer20UL16" in pi and "APV" in pi:
-                    print"[ERROR] Fragment of "+pi+" is different than its base Summer20UL16 request: "+pi_prime
-                    print"        Please make sure that "+pi+" has _exactly_ the same settings as "+pi_prime
-                    error += 1
-		  if "Summer20UL16" in pi and "APV" not in pi:
-		    print"[WARNING] Fragment of "+pi+" is different than its base Summer19UL17 request: "+pi_prime
-		    print"        Please make sure that "+pi+" has _exactly_ the same settings as "+pi_prime
-		    warning += 1  		
-               if (cmssw == cmssw_prime) == True:
-                  print"[OK] Two requests have the same CMSSW version."
-               elif "Summer20UL16wmLHEGENAPV" in pi or "Summer20UL16GENAPV" in pi or "Summer20UL18" in pi or "Summer20UL17" in pi:
-                  print"[WARNING] CMSSW version of "+pi+" is different than its base UL17 request: "+pi_prime
-                  print"        Please make sure that "+pi+" has _exactly_ the same settings as "+pi_prime
-                  warning += 1
-               f1_prime.close()
-               f2_prime.write(data_f2_prime)
-               f2_prime.close()
         f1.close()
         f2.write(data_f2)
         f2.close()
@@ -670,8 +683,8 @@ for num in range(0,len(prepid)):
                     print "* [ERROR] herwig7LHEPowhegSettingsBlock missing for powheg+herwig7 request"
                     error += 1
                     herwig_mat_err = 1
-                if int(os.popen('grep -c hw_lhe_Powheg_settings '+pi).read()) == 0:
-                    print "* [ERROR] hw_lhe_Powheg_settings missing for powheg+herwig7 request"
+                if int(os.popen('grep -c hw_lhe_powheg_settings '+pi).read()) == 0:
+                    print "* [ERROR] hw_lhe_powheg_settings missing for powheg+herwig7 request"
                     error += 1
                     herwig_mat_err = 1
             if "mcatnlo" in dn.lower():
@@ -877,13 +890,14 @@ for num in range(0,len(prepid)):
                     error += 1
                     print ("* [ERROR] Gridpack ",gridpack_cvmfs_path," does not exist!") 
                     break
-                jhu_gp = os.path.isfile(my_path+'/'+pi+'/'+'JHUGen.input')
+		jhu_gp = os.path.isfile(my_path+'/'+pi+'/'+'JHUGen.input')
                 pw_gp = os.path.isfile(my_path+'/'+pi+'/'+'powheg.input')
                 mg_gp = os.path.isfile(my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat') or os.path.isfile(my_path+'/'+pi+'/'+'process/Cards/run_card.dat')
                 amcnlo_gp = os.path.isfile(my_path+'/'+pi+'/'+'process/Cards/run_card.dat')
                 print "powheg "+str(pw_gp)
                 print "mg "+str(mg_gp)
                 print "jhugen "+str(jhu_gp)
+                ul_consistency(dn,pi,jhu_gp)
                 if any(word in dn for word in tunename) or "sherpa" in dn.lower() or ("herwigpp" in dn.lower() and ("eec5" in dn.lower() or "ee5c" in dn.lower())):
                     print "* [OK] Data set name has a known tune"
                 else:
@@ -955,6 +969,17 @@ for num in range(0,len(prepid)):
                                 error += 1
                             else:
                                 print "* [OK] customizecards.dat doesn't have COMPUTE_WIDTHS followed by SET command(s)."                    
+                        input_cards_reweight_card = find_file(dir_path,"reweight_card.dat")
+                        if input_cards_reweight_card:
+                            reweights = os.popen('more '+input_cards_reweight_card+' | tr -s \' \' | grep "rwgt_name"').read()
+                            reweights = re.sub("launch --rwgt_name",'',reweights)
+                            reweights = re.sub("=",'',reweights)
+                            chars_to_check = set('@#$%^&*()+-[]{}.\ ')
+                            if any((chars in chars_to_check) for chars in reweights):
+                                print "* [ERROR] Please remove problematic characters (at least one of @#$%^&*()+-[]{}.\) from rwgt_names."
+                                error += 1
+                            else:
+                                print "* [OK] No bad characters in the reweight_card.dat file for launch --rwgt_name= ...."
                 if mg_gp is True:
                     filename_rc = my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat'
                     fname_p2 = my_path+'/'+pi+'/'+'process/Cards/run_card.dat'
@@ -1011,10 +1036,10 @@ for num in range(0,len(prepid)):
       		    if "JHUGen.input" in name:
 			print"* Found the JHUGen input file: "+os.path.join(root, name)
 			jhufilename = os.path.join(root, name)
-   		for name in dirs:
-      	            if "JHUGen.input" in name:
-	                print"* Found the JHUGen input file: "+os.path.join(root, name)
-			jhufilename = os.path.join(root, name)
+                for name in dirs:
+                    if "JHUGen.input" in name:
+                        print"* Found the JHUGen input file: "+os.path.join(root, name)
+                        jhufilename = os.path.join(root, name)
             if os.path.isfile(jhufilename) is True and pw_gp is False:
                 with open(jhufilename) as f:
                     jhu_in = f.read()
@@ -1041,6 +1066,7 @@ for num in range(0,len(prepid)):
                         print "########################################################################################"
                         error += 1
                     else:
+                        WriteFailedEvents_flag = 1
                         print "* [OK] "+str(jhu_wfe)+" for this jhugen+powheg sample."
         for ind, word in enumerate(MEname):
             if fsize == 0:
@@ -1268,7 +1294,8 @@ for num in range(0,len(prepid)):
                     if os.path.isfile(filename_rc) is True :
                         ickkw = os.popen('more '+filename_rc+' | tr -s \' \' | grep "= ickkw"').read()
                         bw = os.popen('more '+filename_rc+' | tr -s \' \' | grep "= bwcutoff"').read()
-                        mg_pdf = os.popen('more '+filename_rc+' | tr -s \' \' | grep "= lhaid"').read()
+                        mg_pdf = os.popen('more '+filename_rc+' | tr -s \' \' | grep "lhaid"').read()
+                        mg_pdf = mg_pdf.split("=")[0].split()[0]
                     else:
                         if gp_size != 0:
                             print "* [ERROR] Although the name of the dataset has ~Madgraph, the gridpack doesn't seem to be a MG5_aMC one. Please check."
@@ -1295,12 +1322,11 @@ for num in range(0,len(prepid)):
                     if float(test_bw[0]) > 15.:
                         print " [WARNING] bwcutoff set to "+str(test_bw[0])+". Note that large bwcutoff values can cause problems in production."
                         warning += 1
-                    mg_pdf = mg_pdf.split()
                     print "##################################################"
-                    print "* The MG5_aMC PDF set is:"+str(mg_pdf[0])
+                    print "* The MG5_aMC PDF set is:"+str(mg_pdf)
                     print "##################################################"
-                    if "UL" in pi and int(mg_pdf[0]) != UL_PDFs_N[0] and int(mg_pdf[0]) != UL_PDFs_N[1]:
-                        print"* [WARNING] The gridpack uses PDF="+str(mg_pdf[0])+" but not the recommended sets for UL requests:"
+                    if "UL" in pi and int(mg_pdf) != UL_PDFs_N[0] and int(mg_pdf) != UL_PDFs_N[1]:
+                        print"* [WARNING] The gridpack uses PDF="+str(mg_pdf)+" but not the recommended sets for UL requests:"
                         print"*                                             "+str(UL_PDFs_N[0])+" "+str(UL_PDFs[0])
                         print"*                                             or "+str(UL_PDFs_N[1])+" "+str(UL_PDFs[1])
                         warning += 1
