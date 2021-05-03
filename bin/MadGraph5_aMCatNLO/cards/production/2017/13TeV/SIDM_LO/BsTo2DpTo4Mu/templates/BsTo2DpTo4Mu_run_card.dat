@@ -21,10 +21,6 @@
 #*********************************************************************
   tag_1     = run_tag ! name of the run 
 #*********************************************************************
-# Run to generate the grid pack                                      *
-#*********************************************************************
-  False     = gridpack  !True = setting up the grid pack
-#*********************************************************************
 # Number of events and rnd seed                                      *
 # Warning: Do not generate more than 1M events in a single run       *
 # If you want to run Pythia, avoid more than 50k events in a run.    *
@@ -61,51 +57,55 @@
  -1 = dynamical_scale_choice ! Choose one of the preselected dynamical choices
  1.0  = scalefact        ! scale factor for event-by-event scales
 #*********************************************************************
-# Time of flight information. (-1 means not run)
+# Type and output format
 #*********************************************************************
- -1 = time_of_flight ! threshold below which info is not written
+  False     = gridpack  !True = setting up the grid pack
+  0.01 = time_of_flight ! threshold (in mm) below which the invariant livetime is not written (-1 means not written)
+  3.0 = lhe_version       ! Change the way clustering information pass to shower.        
+  True = clusinfo         ! include clustering tag in output
+  average =  event_norm       ! average/sum. Normalization of the weight in the LHEF
+
 #*********************************************************************
-# Matching - Warning! ickkw > 1 is still beta
+# Matching parameter (MLM only)
 #*********************************************************************
- 0 = ickkw            ! 0 no matching, 1 MLM, 2 CKKW matching
- 1 = highestmult      ! for ickkw=2, highest mult group
- 1 = ktscheme         ! for ickkw=1, 1 Durham kT, 2 Pythia pTE
+ 0 = ickkw            ! 0 no matching, 1 MLM
  1.0 = alpsfact         ! scale factor for QCD emission vx
  False = chcluster        ! cluster only according to channel diag
- T = pdfwgt           ! for ickkw=1, perform pdf reweighting
  4 = asrwgtflavor     ! highest quark flavor for a_s reweight
- True = clusinfo         ! include clustering tag in output
- 3.0 = lhe_version       ! Change the way clustering information pass to shower.        
+ False  = auto_ptj_mjj  ! Automatic setting of ptj and mjj if xqcut >0
+                                   ! (turn off for VBF and single top processes) 
+ 0.0   = xqcut   ! minimum kt jet measure between partons
 #*********************************************************************
-#**********************************************************
 #
-#**********************************************************
-# Automatic ptj and mjj cuts if xqcut > 0
-# (turn off for VBF and single top processes)
-#**********************************************************
-   True  = auto_ptj_mjj  ! Automatic setting of ptj and mjj
-#**********************************************************
+#*********************************************************************
+# handling of the helicities:
+#  0: sum over all helicities
+#  1: importance sampling over helicities
+#*********************************************************************
+   0  = nhel          ! using helicities importance sampling or not.
+#*********************************************************************
+# Generation bias, check the wiki page below for more information:   *
+#  'cp3.irmp.ucl.ac.be/projects/madgraph/wiki/LOEventGenerationBias' *
+#*********************************************************************
+ None = bias_module  ! Bias type of bias, [None, ptj_bias, -custom_folder-]
+ {} = bias_parameters ! Specifies the parameters of the module.
+#
+#*******************************                                                 
+# Parton level cuts definition *
+#*******************************                                     
 #                                                                    
-#**********************************
-# BW cutoff (M+/-bwcutoff*Gamma)
-#**********************************
+#
+#*********************************************************************
+# BW cutoff (M+/-bwcutoff*Gamma) ! Define on/off-shell for "$" and decay  
+#*********************************************************************
   15.0  = bwcutoff      ! (M+/-bwcutoff*Gamma)
-#**********************************************************
+#*********************************************************************
 # Apply pt/E/eta/dr/mij/kt_durham cuts on decay products or not
 # (note that etmiss/ptll/ptheavy/ht/sorted cuts always apply)
-#*************************************************************
+#*********************************************************************
    False  = cut_decays    ! Cut decay products 
-#*************************************************************
-# Number of helicities to sum per event (0 = all helicities)
-# 0 gives more stable result, but longer run time (needed for
-# long decay chains e.g.).
-# Use >=2 if most helicities contribute, e.g. pure QCD.
-#*************************************************************
-   0  = nhel          ! Number of helicities used per event
-#*******************                                                 
-# Standard Cuts
-#*******************                                                 
-#                                                                    
+#*********************************************************************
+# Standard Cuts                                                      *
 #*********************************************************************
 # Minimum and maximum pt's (for max, -1 means no cut)                *
 #*********************************************************************
@@ -246,27 +246,23 @@
 #*********************************************************************
  0.0   = xetamin ! minimum rapidity for two jets in the WBF case  
  0.0   = deltaeta ! minimum rapidity for two jets in the WBF case 
-#*********************************************************************
-# KT DURHAM CUT                                                      *
-#*********************************************************************
- -1.0    =  ktdurham        
- 0.4  =  dparameter 
+#***********************************************************************
+# Turn on either the ktdurham or ptlund cut to activate                *
+# CKKW(L) merging with Pythia8 [arXiv:1410.3012, arXiv:1109.4829]      *
+#***********************************************************************
+ -1.0  =  ktdurham        
+ 0.4   =  dparameter
+ -1.0  =  ptlund
+ 1, 2, 3, 4, 5, 6, 21, 5100002, 5100004, 5100006  =  pdgs_for_merging_cut ! PDGs for two cuts above   
 #*********************************************************************
 # maximal pdg code for quark to be considered as a light jet         *
 # (otherwise b cuts are applied)                                     *
 #*********************************************************************
  4 = maxjetflavor    ! Maximum jet pdg code
 #*********************************************************************
-# Jet measure cuts                                                   *
-#*********************************************************************
- 0.0   = xqcut   ! minimum kt jet measure between partons
-#*********************************************************************
 #
 #*********************************************************************
 # Store info for systematics studies                                 *
-# WARNING: If use_syst is T, matched Pythia output is                *
-#          meaningful ONLY if plotted taking matchscale              *
-#          reweighting into account!                                 *
+# WARNING: Do not use for interference type of computation           *
 #*********************************************************************
    True  = use_syst      ! Enable systematics studies
-#
