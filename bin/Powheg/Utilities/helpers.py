@@ -11,10 +11,11 @@ def runGetSource_patch_0(process) :
   return {
    "X0jj" :"echo ' MADGRAPH+POWHEG INSTALL '\n \
 cd ${WORKDIR}/${name}\n \
-export REPOSITORY=/afs/cern.ch/user/g/gumoret/cernbox/www/for_MG_PWG\n \
+export REPOSITORY=${WORKDIR}\n \
 export MG_NAME=MG5_aMC_v2_6_7\n \
 echo 'Untar MG5_aMC_v2.6.7'\n \
-tar xzvf $REPOSITORY/MG5_aMC_v2.6.7.tar.gz\n \
+wget https://launchpad.net/mg5amcnlo/2.0/2.6.x/+download/MG5_aMC_v2.6.7.tar.gz\n \
+tar xzvf MG5_aMC_v2.6.7.tar.gz\n \
 cd $MG_NAME\n \
 echo 'Untar Powheg plugin'\n \
 cd PLUGIN\n \
