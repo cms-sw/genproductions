@@ -119,7 +119,7 @@
 #  istr = 5 -> DS with reshuffling on all FS particles, standard BW    *
 #  istr = 6 -> DS with reshuffling on all FS particles, running BW     *
 #***********************************************************************
-    3    = istr             ! strategy to be used to remove resonances
+    5    = istr             ! strategy to be used to remove resonances
                             ! appearing in real emissions
     True = str_include_pdf  ! compensate for PDFs when doing reshuffling
     True = str_include_flux ! compensate for flux when doing reshuffling
