@@ -1,0 +1,19 @@
+set loop_color_flows False
+set gauge unitary
+set max_npoint_for_channel 0
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set loop_optimized_output True
+set complex_mass_scheme False  
+import model SMEFTsim_topU3l_MwScheme_UFO-massless_VH
+define p = g u c d s u~ c~ d~ s~
+define j = g u c d s u~ c~ d~ s~
+define l+ = e+ mu+
+define l- = e- mu-
+define p = g u c d s b u~ c~ d~ s~ b~
+define j = p
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
+generate p p > z h SMHLOOP=0 NPprop=0 NP=1, z > l+ l- ALL<=99, h > b b~ ALL<=99
+add process p p > z h j SMHLOOP=0 NPprop=0 NP=1, z > l+ l- ALL<=99, h > b b~ ALL<=99
+output ZH_ZToLL_1j_SMEFTsim_topU3l -nojpeg
