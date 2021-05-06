@@ -1,0 +1,5 @@
+set BW_cut 15
+set ms_dir ./madspingrid
+set max_running_process 1
+decay z > j j
+launch

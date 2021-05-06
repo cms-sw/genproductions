@@ -19,3 +19,4 @@
 +	self.banner.add_generation_info(sum_xsec, nb_event)    
          if self.run_card['bias_module'].lower() not in  ['dummy', 'none']:
              self.correct_bias()
+

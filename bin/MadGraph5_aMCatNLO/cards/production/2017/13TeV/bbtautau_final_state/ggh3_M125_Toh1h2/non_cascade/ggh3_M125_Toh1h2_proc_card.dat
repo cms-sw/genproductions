@@ -1,0 +1,12 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set loop_optimized_output True
+set gauge unitary
+set complex_mass_scheme False
+
+import model TRSM --modelname
+
+generate p p  > h3 , (h3 > h1 h2)
+
+output ggh3_M125_Toh1h2_h1MASS_h2MASS -nojpeg
+

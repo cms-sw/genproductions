@@ -1,0 +1,5 @@
+set param_card mass 66 200.0
+set param_card decay 66 AUTO
+set param_card bmlblock thm 0.000000e+00
+set param_card bmlblock the 0.000000e+00
+set param_card bmlblock tht 1.000000e-02

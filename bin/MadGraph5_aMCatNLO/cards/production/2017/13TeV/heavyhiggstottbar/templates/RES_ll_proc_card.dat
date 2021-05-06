@@ -1,0 +1,8 @@
+import model Massive_Higgs_UFO
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+generate p p > SUBCP > t t~ , (t > b w+ , w+ > l+ vl ) , (t~ > b~ w- , w- > l- vl~ )
+
+output SUBSETUP -nojpeg

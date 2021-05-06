@@ -6,7 +6,6 @@ define lepall = lep+ lep-
 define vlall = vl vl~ 
 # exclude s-channel top contribution to avoid
 # overlap with TTZ sample
-generate p p > w lepall vlall lep+ lep- $$ t t~ h [QCD] @0
-add process p p > w lepall vlall lep+ lep- j $$ t t~ h [QCD] @1
+generate p p > w lepall vlall lep+ lep- $$ t t~ h [QCD]
 output WWZTo3L_4f_NLO -nojpeg
 

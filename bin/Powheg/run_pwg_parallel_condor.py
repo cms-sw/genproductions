@@ -3,7 +3,7 @@
 # EXAMPLE ON HOW TO RUN
 # python ./run_pwg_parallel.py -i powheg_Zj.input -m Zj -f my_Zj -q 1nd -j 10
 
-from optparse import OptionParser
+import argparse
 import os
 import sys
 import commands
@@ -32,19 +32,19 @@ if __name__ == "__main__":
 
     eoscmd = '/afs/cern.ch/project/eos/installation/cms/bin/eos.select' ;
 
-    parser = OptionParser()
-    parser.add_option('-p', '--parstage'      , dest="parstage",      default= '01239',        help='stage of the production process [01239]')
-    parser.add_option('-f', '--folderName'    , dest="folderName",    default='testProd',      help='local folder and last eos folder name[testProd]')
-    parser.add_option('-j', '--numJobs'       , dest="numJobs",       default= '10',           help='number of jobs to be used for multicore grid step 1,2,3')
-    parser.add_option('-x', '--numX'          , dest="numX",          default= '5',            help='number of xgrid iterations for multicore grid step 1')
-    parser.add_option('-i', '--inputTemplate' , dest="inputTemplate", default= 'powheg.input', help='input cfg file (fixed) [=powheg.input]')
-    parser.add_option('-q', '--doQueue'       , dest="doQueue",       default= 'longlunch',          help='Condor job flavor [longlunch]')
-    parser.add_option('-m', '--prcName'       , dest="prcName",       default= 'DMGG',         help='POWHEG process name [DMGG]')
-    parser.add_option(      '--step3pilot'    , dest="step3pilot",    default= False,          help='do a pilot job to combine the grids, calculate upper bounds afterwards (otherwise afs jobs might fail)', action='store_true')
-    parser.add_option(      '--dry-run'       , dest="dryrun",        default= False,          help='show commands only, do not submit', action='store_true')
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-p', '--parstage'      , dest="parstage",      default= '01239',        help='stage of the production process [01239]')
+    parser.add_argument('-f', '--folderName'    , dest="folderName",    default='testProd',      help='local folder and last eos folder name[testProd]')
+    parser.add_argument('-j', '--numJobs'       , dest="numJobs",       default= '10',           help='number of jobs to be used for multicore grid step 1,2,3')
+    parser.add_argument('-x', '--numX'          , dest="numX",          default= '5',            help='number of xgrid iterations for multicore grid step 1')
+    parser.add_argument('-i', '--inputTemplate' , dest="inputTemplate", default= 'powheg.input', help='input cfg file (fixed) [=powheg.input]')
+    parser.add_argument('-q', '--doQueue'       , dest="doQueue",       default= 'longlunch',          help='Condor job flavor [longlunch]')
+    parser.add_argument('-m', '--prcName'       , dest="prcName",       default= 'DMGG',         help='POWHEG process name [DMGG]')
+    parser.add_argument(      '--step3pilot'    , dest="step3pilot",    default= False,          help='do a pilot job to combine the grids, calculate upper bounds afterwards (otherwise afs jobs might fail)', action='store_true')
+    parser.add_argument(      '--dry-run'       , dest="dryrun",        default= False,          help='show commands only, do not submit', action='store_true')
 
-    (args, opts) = parser.parse_args(sys.argv)
-    
+    args = parser.parse_args ()
+
     QUEUE = args.doQueue
     EOSfolder = args.folderName
 
