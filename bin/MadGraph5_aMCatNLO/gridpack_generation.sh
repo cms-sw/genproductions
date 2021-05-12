@@ -90,6 +90,16 @@ make_gridpack () {
         fi
     fi
 
+    # avoid compute_widths in customizecards 
+    if [ -e $CARDSDIR/${name}_madspin_card.dat ]; then
+        if grep -F "Nevents_for_max_weigth" $CARDSDIR/${name}_madspin_card.dat ; then
+            echo "Nevents_for_max_weigth typo is fixed to Nevents_for_max_weight in MGv2.7.x releases."
+            echo "$CARDSDIR/${name}_madspin_card.dat contains Nevents_for_max_weigth instead of Nevents_for_max_weight."
+            echo "Please correct the typo."
+            exit 1;
+        fi
+    fi
+
     # avoid characters in weight names that potentially corrupt lhe header 
     if [ -e $CARDSDIR/${name}_reweight_card.dat ]; then
         for weightname in `grep rwgt_name $CARDSDIR/${name}_reweight_card.dat` ; do
@@ -122,7 +132,7 @@ make_gridpack () {
     MGBASEDIR=mgbasedir
     
     MG_EXT=".tar.gz"
-    MG=MG5_aMC_v2.6.5$MG_EXT
+    MG=MG5_aMC_v2.7.3$MG_EXT
     MGSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$MG
     
     MGBASEDIRORIG=$(echo ${MG%$MG_EXT} | tr "." "_")
