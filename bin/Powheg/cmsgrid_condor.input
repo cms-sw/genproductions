@@ -1,8 +1,0 @@
-
-executable=cmsgrid_condor.sh
-arguments=1000 $(ProcId)
-output=cmsgrid-$(ProcId).out
-error=cmsgrid-$(ProcId).err
-log=cmsgrid-$(ProcId).log
-+JobFlavour="workday"
-queue 100

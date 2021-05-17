@@ -11,7 +11,6 @@ def runGetSource_patch_0(process) :
   return {
    "X0jj" :"echo ' MADGRAPH+POWHEG INSTALL '\n \
 cd ${WORKDIR}/${name}\n \
-export REPOSITORY=${WORKDIR}\n \
 export MG_NAME=MG5_aMC_v2_6_7\n \
 echo 'Untar MG5_aMC_v2.6.7'\n \
 wget https://launchpad.net/mg5amcnlo/2.0/2.6.x/+download/MG5_aMC_v2.6.7.tar.gz\n \
@@ -19,10 +18,11 @@ tar xzvf MG5_aMC_v2.6.7.tar.gz\n \
 cd $MG_NAME\n \
 echo 'Untar Powheg plugin'\n \
 cd PLUGIN\n \
-tar xzvf $REPOSITORY/v0.tgz\n \
+wget https://cms-project-generators.web.cern.ch/cms-project-generators/PWG_MG5_plugin_v0.tgz\n \
+tar xzvf PWG_MG5_plugin_v0.tgz\n \
 cd ..\n \
 echo 'Run mg5_aMC'\n \
-./bin/mg5_aMC --mode=MG5aMC_PWG --file=$REPOSITORY/mg5.cmd\n \
+./bin/mg5_aMC --mode=MG5aMC_PWG --file=../../examples/V2/X0jj_13TeV/mg5.cmd\n \
 echo 'Make POWHEG-BOX link'\n \
 cd ${process}\n \
 ln -s ../../POWHEG-BOX POWHEG-BOX\n \
