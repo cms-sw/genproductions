@@ -339,11 +339,11 @@ if __name__ == "__main__":
 	# mass points as a dictionary
 	# key: MHc, value: MAs
 	mass_points = dict()
-	mass_points[160] = [15, 45, 75, 85, 120, 155]
-	mass_points[130] = [15, 45, 55, 90, 125]
-	mass_points[100] = [15, 25, 60, 95]
-	mass_points[80] = [15, 45, 75]
-
+	mass_points[160] = [15, 85, 120, 155]
+	mass_points[130] = [15, 55, 90, 125]
+	mass_points[100] = [15, 60, 95]
+	mass_points[80] = [15, 75]
+	
 	# create base directory
 	try:
 		if os.listdir("13Tev/TTToHcToWA_AToMuMu"):
