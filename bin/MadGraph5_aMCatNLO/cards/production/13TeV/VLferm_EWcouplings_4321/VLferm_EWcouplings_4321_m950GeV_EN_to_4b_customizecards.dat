@@ -1,0 +1,7 @@
+../../../../cards/production/13TeV/VLferm_EWcouplings_4321/param_card.cat
+set param_card mln 950
+set param_card mle 950
+update dependent
+set decay wLn Auto
+set decay wLe Auto
+update dependent
