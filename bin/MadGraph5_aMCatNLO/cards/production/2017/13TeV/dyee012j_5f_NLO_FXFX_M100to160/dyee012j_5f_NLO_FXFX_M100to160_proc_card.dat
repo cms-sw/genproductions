@@ -7,5 +7,4 @@ generate p p > e+ e- [QCD] @0
 add process p p > e+ e- j [QCD] @1
 add process p p > e+ e- j j [QCD] @2
 
-output dyee012j_5f_NLO_FXFX_M105to160 -nojpeg
-
+output dyee012j_5f_NLO_FXFX_M100to160 -nojpeg
