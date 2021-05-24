@@ -1,4 +1,4 @@
-../../../../cards/production/13TeV/VLferm_EWcouplings_4321/param_card.cat
+../../../../cards/production/13TeV/VLferm_EWcouplings_4321/param_card.dat
 set param_card mln 900
 set param_card mle 900
 update dependent
