@@ -40,7 +40,8 @@ def zprimefermion_single_pdg(mzp,cf,gv,Qf,T3):
     
 def zprimeallferions_pdg(mzp,cf_l,cf_h,gv):
     #from 1402.4431 HVT model
-    Nc=3.
+    #Nc=3.
+    Nc = 1.
     #l_quarks=Nc*2.*(zprimefermion_single_pdg(mzp,cf_l,gv,-1./3.,-0.5)+zprimefermion_single_pdg(mzp,cf_l,gv,2./3.,0.5))
     l_up=(zprimefermion_single_pdg(mzp,cf_l,gv,2./3.,0.5))
     l_down=(zprimefermion_single_pdg(mzp,cf_l,gv,-1./3.,-0.5))
@@ -62,7 +63,7 @@ def zprimeallferions_pdg(mzp,cf_l,cf_h,gv):
     h_neut=(zprimefermion_single_pdg(mzp,cf_h,gv,0,0.5))
     #h_lep=zprimefermion_single_pdg(mzp,cf_h,gv,0,0.5)+zprimefermion_single_pdg(mzp,cf_h,gv,-1.,-0.5)
     
-    print(("neutrino: ",l_neut,"  lepton:  ",l_lep, "  up:  ",l_up, "  down: ",l_down))
+    #print(("neutrino: ",l_neut,"  lepton:  ",l_lep, "  up:  ",l_up, "  down: ",l_down))
     return 2.*l_neut+h_neut+  2.*l_lep+h_lep   + 2.*Nc*l_up + Nc*h_up + 2.*Nc*l_down + Nc*h_down
 
 
@@ -80,8 +81,8 @@ def zprimeBoson(mzp,ch,gv):
     #factor of 2 for Z'-> WW and Z'->Zh
     #gv<sqrt(0.5*192.*pi/(ch**2)
     #print( (192.*pi/cos2tw)**(1./4.)  )
-    return (gv**2)*cos2tw*(mzp**5)/(mW**4)/(192.*pi) * (1.- 4.* mW**2/mzp**2)**(3./2.)* (1.+ 20. * (mW/mzp)**2 + 12.*(mW/mzp)**4)
-    #return 2.*gv**2*ch**2*mzp/(192.*pi)
+    return (gv**2.)*(mzp)/(mZ**4.)/(192.*pi) * (1.- 4.* mW**2/mzp**2)**(3./2.)*(1.+ 20. * (mW/mzp)**2 + 12.*(mW/mzp)**4)
+    #print gv
     
 def zprimeTotal(mzp,cf_l,cf_h,gv,ch):
     return zprimeallferions(mzp,cf_l,cf_h,gv)+zprimeBoson(mzp,ch,gv)

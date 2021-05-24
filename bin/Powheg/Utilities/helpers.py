@@ -19,7 +19,11 @@ cd ..",
     "WWJ" : "patch -l -p0 -i ${patches_dir}/wwj-weights.patch\n \
 cp ${patches_dir}/rwl_write_weights2_extra.f POWHEG-BOX/$process/",
     "Zj" : "patch -l -p0 -i ${patches_dir}/pwhg_write_weights_nnlo.patch",
-    "Wj" : "patch -l -p0 -i ${patches_dir}/pwhg_write_weights_nnlo.patch", 
+    "Wj" : "patch -l -p0 -i ${patches_dir}/pwhg_write_weights_nnlo.patch",
+    "VBF_H_smeft" : "cd POWHEG-BOX/VBF_H_smeft\n \
+head -n 966 pwhg_analysis.f | tail -n 12 > pwhg_analysis_new.f\n \
+mv pwhg_analysis_new.f pwhg_analysis.f\n \
+cd ../..", 
     }.get(process,"")
 
 def runGetSource_patch_2(process) :
@@ -59,7 +63,10 @@ rm -rf ../progress/bbinit.f",
     "VBF_HJJJ" : "sed -i 's/..\/pwhg_book.h/pwhg_book.h/g' pwhg_analysis-dummy.f",
     "VBF_H" : "sed -i '/pwhginihist/d' pwhg_analysis-dummy.f\n \
 patch -l -p0 -i ${patches_dir}/vbf_h_init_couplings.patch",
+    "VBF_H_smeft" : "sed -i -e \"s#reshufflemoms.o#reshufflemoms.o pwhg_analysis.o#g\" Makefile",
     "VBF_Z_Z" : "patch -l -p0 -i ${patches_dir}/vbf_z_z_init_couplings.patch",
+    "Wbb_nodec" : "sed -i -e \"s#reshufflemoms.o#reshufflemoms.o lhefread.o rwl_weightlists.o rwl_setup_param_weights.o pwhg_io_interface.o#g\" Makefile\n \
+    rm -f pwhg_analysis_driver.f",
     "Wgamma" : "patch -l -p0 -i ${patches_dir}/pwhg_analysis_driver.patch",
     "W_ew-BMNNP" : "patch -l -p0 -i ${patches_dir}/pwhg_analysis_driver.patch",
     "HW_ew" : "patch -l -p0 -i ${patches_dir}/hwew.patch",
@@ -113,13 +120,15 @@ cp -p ../gg_H_quark-mass-effects/SLHADefs.h .",
 def runGetSource_patch_5(process) :
   return {
     "Wgamma" : "echo \"PWHGANAL=$BOOK_HISTO pwhg_analysis-dummy.o uti.o \" >> tmpfile",
-    }.get(process,"echo \"PWHGANAL=$BOOK_HISTO pwhg_analysis-dummy.o \" >> tmpfile")
+     }.get(process,"echo \"PWHGANAL=$BOOK_HISTO pwhg_analysis-dummy.o \" >> tmpfile")
 
 def runGetSource_patch_6(process) :
   return {
     "WWJ" : "cp Makefile Makefile.orig\n \
 cat Makefile.orig | sed -e \"s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d \"=\" -f2)/bin/fastjet-config#g\" | sed -e \"s#cs_angles.o#cs_angles.o fastjetfortran.o observables.o pwhg_bookhist-multi-new.o#g\" | sed -e \"s#\#\ FASTJET_CONFIG#FASTJET_CONFIG#g\" | sed -e \"s#\#\ LIBSFASTJET#LIBSFASTJET#g\" | sed -e \"s#\#\ FJCXXFLAGS#FJCXXFLAGS#g\" | sed -e \"s#rwl_write_weights_extra.f#rwl_write_weights_extra.f\ rwl_write_weights2_extra.f#g\" > Makefile",
-
+    "ttbarj" : "cp Makefile Makefile.orig\n \
+cat Makefile.orig | sed -e \"s#OLPATH=.\+#OLPATH=$(scram tool info OpenLoops | grep BASE | cut -d \"=\" -f2)#g\" > Makefile\n \
+sed -i -e \"s#Pythia8Plugins#Pythia8Plugins \$(shell \$(LHAPDF_CONFIG) --cxxflags )#g\" Makefile",
     "gg_H_2HDM" : "echo \"Adding CHAPLIN 1.2 library\"\n \
 if [ ! -f chaplin-1.2.tar ]; then\n \
   wget --no-verbose http://chaplin.hepforge.org/code/chaplin-1.2.tar || fail_exit \"Failed to get CHAPLIN tar ball \"\n \
@@ -159,11 +168,11 @@ if [ ! -f LoopTools-2.14.tar.gz ]; then\n \
   wget --no-verbose http://www.feynarts.de/looptools/LoopTools-2.14.tar.gz || fail_exit \"Failed to get LoopTools tar ball \"\n \
 fi\n \
 tar xvf LoopTools-2.14.tar.gz\n \
-cd LoopTools-2.14a\n \
+cd LoopTools-2.14\n \
 ./configure --prefix=`pwd`/..\n \
 make install\n \
 cd ..\n \
-sed -i -e 's/^LT\=$.*/LT=$\(PWD\)/' Makefile\n \
+sed -i -e \"s#LT=PathToLoopTools#LT=.#\" Makefile\n \
 export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:${LD_LIBRARY_PATH}\n \
 mkdir obj-gfortran",
 
@@ -182,7 +191,7 @@ cd obj-gfortran/proclib\n \
 cp ../../recola2-collier-2.2.0/recola2-2.2.0/librecola.so .\n \
 cd ../..\n \
 cp Makefile Makefile.orig\n \
-cat Makefile.orig | sed -e \"s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d \"=\" -f2)/bin/fastjet-config#g\" | sed -e \"s#/archive/mpellen/Programs/Recolas/Powheg/recola-1.3.6#$\(PWD\)/recola2-collier-2.2.0/recola2-2.2.0#g\" | sed -e \"s# real16.o##g\" | sed -e '154d;164d' > Makefile\n \
+cat Makefile.orig | sed -e \"s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d \"=\" -f2)/bin/fastjet-config#g\" | sed -e \"s#RECOLALOCATION=.\+#RECOLALOCATION=$\(PWD\)/recola2-collier-2.2.0/recola2-2.2.0#g\" | sed -e \"s# real16.o##g\" | sed -e \"s#test#none#g\" | sed -e \"s#none_Suda#test_Suda#g\" > Makefile\n \
 export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:${LD_LIBRARY_PATH}",
     }.get(process,"")
 
@@ -200,6 +209,9 @@ tar xvf QCDLoop-1.96.tar.gz\n \
 mv QCDLoop-1.96 QCDLoop-1.9\n \
 sed -i -e 's#/Users/ellis/QCDLoop#./QCDLoop#' ff/ffinit_mine.f\n \
 cd QCDLoop-1.9\n \
+sed -i -e 's#FFLAGS = #FFLAGS = -std=legacy #g' makefile\n \
+sed -i -e 's#FFLAGS        = #FFLAGS        = -std=legacy #g' ff/makefile\n \
+sed -i -e 's#FFLAGS  = #FFLAGS  = -std=legacy #g' ql/makefile\n \
 make\n \
 cd ..",
 
@@ -211,13 +223,16 @@ tar xvf QCDLoop-1.96.tar.gz\n \
 mv QCDLoop-1.96 QCDLoop-1.9\n \
 sed -i -e 's#/Users/ellis/QCDLoop#./QCDLoop#' ff/ffinit_mine.f\n \
 cd QCDLoop-1.9\n \
+sed -i -e 's#FFLAGS = #FFLAGS = -std=legacy #g' makefile\n \
+sed -i -e 's#FFLAGS        = #FFLAGS        = -std=legacy #g' ff/makefile\n \
+sed -i -e 's#FFLAGS  = #FFLAGS  = -std=legacy #g' ql/makefile\n \
 make\n \
 cd ..",
     }.get(process,"")
 
 def runGetSource_patch_8(process) :
   return {
-    "HJ" : "echo \"Compilinig HNNLO....\"\n \
+    "HJ" : "echo \"Compiling HNNLO....\"\n \
 wget --no-verbose http://theory.fi.infn.it/grazzini/codes/hnnlo-v2.0.tgz\n \
 tar -xzvf hnnlo-v2.0.tgz\n \
 cd hnnlo-v2.0\n \
@@ -248,71 +263,7 @@ COMENERGY=`echo \"( $BEAM*2 )\" | bc`\n \
 gawk \"/sroot/{gsub(/8000/,$COMENERGY)};/hmass/{gsub(/125.5/, ${HMASS})};/mur,muf/{gsub(/62.750/, $(( $HMASS/2 )))};{print}\" POWHEG-BOX/HJ/PaperRun/HNNLO-LHC8-R04-APX2-11.input | sed -e \"s#10103#SEED#g\" | sed -e \"s#HNNLO-LHC8-R04-APX2-11#HNNLO-LHC13-R04-APX2-11#g\"> HNNLO-LHC13-R04-APX2-11.input\n \
 gawk \"/sroot/{gsub(/8000/,$COMENERGY)};/hmass/{gsub(/125.5/, ${HMASS})};/mur,muf/{gsub(/62.750/, $(( $HMASS )))};{print}\" POWHEG-BOX/HJ/PaperRun/HNNLO-LHC8-R04-APX2-11.input | sed -e \"s#10103#SEED#g\" | sed -e \"s#HNNLO-LHC8-R04-APX2-11#HNNLO-LHC13-R04-APX2-22#g\"> HNNLO-LHC13-R04-APX2-22.input\n \
 gawk \"/sroot/{gsub(/8000/,$COMENERGY)};/hmass/{gsub(/125.5/, ${HMASS})};/mur,muf/{gsub(/62.750/, $(( $HMASS/4 )))};{print}\" POWHEG-BOX/HJ/PaperRun/HNNLO-LHC8-R04-APX2-11.input | sed -e \"s#10103#SEED#g\" | sed -e \"s#HNNLO-LHC8-R04-APX2-11#HNNLO-LHC13-R04-APX2-0505#g\"> HNNLO-LHC13-R04-APX2-0505.input\n \
-cat << EOF > nnlopsreweighter.input\n \
-# a line beginning with 'lhfile' followed by the name of the event file\n\n \
-\
-lhfile pwgevents.lhe\n \
-rwl_format_rwgt\n\n \
-\
-# weights present in the lhfile: 'mtinf', 'mt', 'mtmb', 'mtmb-bminlo'\n\n\n \
-\
-\
-# a line with: 'nnlofiles'\n \
-# followed by a quoted label and the name of a HNNLO output file.\n \
-# In the following the 3 ouput refer to mt=infinity approx,\n \
-# finite mt, and finite mt and mb.\n\n \
-\
-nnlofiles\n \
-'nn-mtmb-11' HNNLO-11.top\n \
-'nn-mtmb-22' HNNLO-22.top\n \
-'nn-mtmb-0505' HNNLO-0505.top\n\n \
-\
-# The new desired weights, in the Les Houches format.\n \
-# The user can choose to group them in the way he prefers, and give them\n \
-# the id's he likes.\n \
-# The program determined how to compute each weights from the description\n \
-# line. It loops through the weights id's present in the pwgevents.lhe file\n \
-# and through the labels of the nnlofiles. If a label of a weight and\n \
-# a label of the nnlofiles are both present in the description field\n \
-# of a weight mentioned here, it computes that weight by reweighting\n \
-# the corresponding weights in the lhe file with the nnlo result present\n \
-# in the nnlofiles associated with the label. For example, in the\n \
-# nnlops-mt id in the following it reweights the nn-mtinf weight present\n \
-# in the .lhe file with the nnlo result present in the\n \
-# HNNLO-LHC8-R04-APX0-11.top file.\n\n \
-\
-<initrwgt>\n \
-<weightgroup name='nnl'>\n \
-<weight id='nnlops-11-1'> combines 'nn-mtmb-11' with '1001' </weight>\n \
-<weight id='nnlops-11-2'> combines 'nn-mtmb-11' with '1002' </weight>\n \
-<weight id='nnlops-11-3'> combines 'nn-mtmb-11' with '1003' </weight>\n \
-<weight id='nnlops-11-4'> combines 'nn-mtmb-11' with '1004' </weight>\n \
-<weight id='nnlops-11-5'> combines 'nn-mtmb-11' with '1005' </weight>\n \
-<weight id='nnlops-11-6'> combines 'nn-mtmb-11' with '1006' </weight>\n \
-<weight id='nnlops-11-7'> combines 'nn-mtmb-11' with '1007' </weight>\n \
-<weight id='nnlops-11-8'> combines 'nn-mtmb-11' with '1008' </weight>\n \
-<weight id='nnlops-11-9'> combines 'nn-mtmb-11' with '1009' </weight>\n \
-<weight id='nnlops-22-1'> combines 'nn-mtmb-22' with '1001' </weight>\n \
-<weight id='nnlops-22-2'> combines 'nn-mtmb-22' with '1002' </weight>\n \
-<weight id='nnlops-22-3'> combines 'nn-mtmb-22' with '1003' </weight>\n \
-<weight id='nnlops-22-4'> combines 'nn-mtmb-22' with '1004' </weight>\n \
-<weight id='nnlops-22-5'> combines 'nn-mtmb-22' with '1005' </weight>\n \
-<weight id='nnlops-22-6'> combines 'nn-mtmb-22' with '1006' </weight>\n \
-<weight id='nnlops-22-7'> combines 'nn-mtmb-22' with '1007' </weight>\n \
-<weight id='nnlops-22-8'> combines 'nn-mtmb-22' with '1008' </weight>\n \
-<weight id='nnlops-22-9'> combines 'nn-mtmb-22' with '1009' </weight>\n \
-<weight id='nnlops-0505-1'> combines 'nn-mtmb-0505' with '1001' </weight>\n \
-<weight id='nnlops-0505-2'> combines 'nn-mtmb-0505' with '1002' </weight>\n \
-<weight id='nnlops-0505-3'> combines 'nn-mtmb-0505' with '1003' </weight>\n \
-<weight id='nnlops-0505-4'> combines 'nn-mtmb-0505' with '1004' </weight>\n \
-<weight id='nnlops-0505-5'> combines 'nn-mtmb-0505' with '1005' </weight>\n \
-<weight id='nnlops-0505-6'> combines 'nn-mtmb-0505' with '1006' </weight>\n \
-<weight id='nnlops-0505-7'> combines 'nn-mtmb-0505' with '1007' </weight>\n \
-<weight id='nnlops-0505-8'> combines 'nn-mtmb-0505' with '1008' </weight>\n \
-<weight id='nnlops-0505-9'> combines 'nn-mtmb-0505' with '1009' </weight>\n \
-</weightgroup>\n \
-</initrwgt>\n \
-EOF",
+cp ${WORKDIR}/Utilities/nnlopsreweighter.input .",
 
     "Zj" : "echo \"Compiling DYNNLO....\"\n \
 wget --no-verbose --no-check-certificate http://theory.fi.infn.it/grazzini/codes/dynnlo-v1.5.tgz\n \

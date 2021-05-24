@@ -1,4 +1,4 @@
-from python.PDFSetsChooserTools import PDFSetHelper_MG5_aMC
+from PDFSetsChooserTools import PDFSetHelper_MG5_aMC
 import argparse
 
 parser = argparse.ArgumentParser()

@@ -20,7 +20,7 @@ cat<<-EOF
         +IsGridpack=true
         +GridpackCard = "${card_name}"
 	
-	+REQUIRED_OS = "rhel6"
+	+REQUIRED_OS = "${rhel_ver}"
 	request_cpus = $cores
 	request_memory = $memory
 	Queue 1
@@ -167,6 +167,28 @@ cores="${3:-1}"
 memory="${4:-2 Gb}"
 scram_arch="${5:-}"
 cmssw_version="${6:-}"
+
+export SYSTEM_RELEASE=`cat /etc/redhat-release`
+
+if [ -n "$5" ]; then
+  if [[ $scram_arch == *"slc6"* ]]; then
+    rhel_ver="rhel6"
+  elif [[ $scram_arch == *"slc7"* ]]; then
+    rhel_ver="rhel7"
+  else
+    echo "Invalid scram_arch is specified!"
+    if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
+  fi
+else
+  if [[ $SYSTEM_RELEASE == *"release 6"* ]]; then
+    rhel_ver="rhel6"
+  elif [[ $SYSTEM_RELEASE == *"release 7"* ]]; then
+    rhel_ver="rhel7"
+  else 
+    echo "No default CMSSW for current OS!"
+      if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi        
+  fi
+fi
 
 parent_dir=$PWD
 
