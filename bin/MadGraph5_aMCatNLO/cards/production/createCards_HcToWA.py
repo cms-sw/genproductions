@@ -2,10 +2,7 @@ import os, shutil
 
 # make proc card
 def make_proc_card(MHc, MA):
-	MW = 80.4
-	card = ""
-	if MHc - MA > MW:
-		card = """import model 2HDM_UFO-type1_5FS
+	card = """import model 2HDM_UFO-type1_5FS
 
 define p = g u d c s b u~ d~ c~ s~ b~
 define j = p
@@ -15,24 +12,14 @@ define vl = ve vm vt
 definve vl~ = ve~ vm~ vt~
 
 generate p p > t t~, (t > b h+, (h+ > w+ h3, (h3 > mu+ mu-), (w+ > l+ vl))), (t~ > b~ w-, (w- > j j )) @0
-add process p p > t t~,(t > b h+,(h+ > w+ h3,(h3 > mu+ mu-),(w+ > j j))),(t~ > b~ w-,(w- > l- vl~)) @1
-add process p p > t t~,(t > b h+,(h+ > w+ h3,(h3 > mu+ mu-),(w+ > l+ vl))),(t~ > b~ w-,(w- > l- vl~)) @2
+add process p p > t t~, (t > b h+, (h+ > h3 l+ vl, (h3 > mu+ mu-))), (t~ > b~ w-, (w- > j j )) @ 1
+add process p p > t t~,(t > b h+,(h+ > w+ h3,(h3 > mu+ mu-),(w+ > j j))),(t~ > b~ w-,(w- > l- vl~)) @2
+add process p p > t t~, (t > b h+, (h+ > h3 j j, (h3 > mu+ mu-))), (t~ > b~ w-, (w- > l- vl~)) @3
+add process p p > t t~,(t > b h+,(h+ > w+ h3,(h3 > mu+ mu-),(w+ > l+ vl))),(t~ > b~ w-,(w- > l- vl~)) @4
+add process p p > t t~, (t > b h+, (h+ > h3 l+ vl, (h3 > mu+ mu-))), (t~ > b~ w-, (w- > l- vl~)) @5
 output TTToHcToWA_AToMuMu_MHc{}_MA{} -nojpeg
 """.format(MHc, MA)
-	else:
-		card = """import model 2HDM_UFO-type1_5FS
 
-define p = g u d c s b u~ d~ c~ s~ b~
-define j = p
-define l+ = e+ mu+ ta+
-define l- = e- mu- ta-
-define vl = ve vm vt
-definve vl~ = ve~ vm~ vt~
-
-generate p p > t t~, (t > b h+, (h+ > h3 l+ vl, (h3 > mu+ mu-))), (t~ > b~ w-, (w- > j j )) @ 0
-add process p p > t t~, (t > b h+, (h+ > h3 j j, (h3 > mu+ mu-))), (t~ > b~ w-, (w- > l- vl~)) @1
-add process p p > t t~, (t > b h+, (h+ > h3 l+ vl, (h3 > mu+ mu-))), (t~ > b~ w-, (w- > l- vl~)) @2
-output TTToHcToWA_AToMuMu_MHc{}_MA{} -nojpeg""".format(MHc, MA)
 	return card
 
 def make_run_card():
@@ -66,7 +53,7 @@ def make_run_card():
 # Warning: Do not generate more than 1M events in a single run       *
 # If you want to run Pythia, avoid more than 50k events in a run.    *
 #*********************************************************************
-  10000 = nevents ! Number of unweighted events requested
+  2000 = nevents ! Number of unweighted events requested
   0   = iseed   ! rnd seed (0=assigned automatically=default))
 #*********************************************************************
 # Collider type and energy                                           *
@@ -311,11 +298,8 @@ def make_run_card():
 # Store info for systematics studies                                 *
 # WARNING: Do not use for interference type of computation           *
 #*********************************************************************
-   True  = use_syst      ! Enable systematics studies
-#
-systematics = systematics_program ! none, systematics [python], SysCalc [depreceted, C++]
-['--mur=0.5,1,2', '--muf=0.5,1,2', '--pdf=errorset'] = systematics_arguments ! see: https://cp3.irmp.ucl.ac.be/projects/madgraph/wiki/Systematics#Systematicspythonmodule
-# Syscalc is deprecated but to see the associate options type'update syscalc'"""
+   True  = use_syst      ! Enable systematics studies"""
+	
 	return card
 
 def make_customizecards(MHc, MA):
