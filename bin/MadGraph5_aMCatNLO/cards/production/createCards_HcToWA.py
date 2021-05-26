@@ -9,7 +9,7 @@ define j = p
 define l+ = e+ mu+ ta+
 define l- = e- mu- ta-
 define vl = ve vm vt
-definve vl~ = ve~ vm~ vt~
+define vl~ = ve~ vm~ vt~
 
 generate p p > t t~, (t > b h+, (h+ > w+ h3, (h3 > mu+ mu-), (w+ > l+ vl))), (t~ > b~ w-, (w- > j j )) @0
 add process p p > t t~, (t > b h+, (h+ > h3 l+ vl, (h3 > mu+ mu-))), (t~ > b~ w-, (w- > j j )) @ 1
@@ -17,6 +17,12 @@ add process p p > t t~,(t > b h+,(h+ > w+ h3,(h3 > mu+ mu-),(w+ > j j))),(t~ > b
 add process p p > t t~, (t > b h+, (h+ > h3 j j, (h3 > mu+ mu-))), (t~ > b~ w-, (w- > l- vl~)) @3
 add process p p > t t~,(t > b h+,(h+ > w+ h3,(h3 > mu+ mu-),(w+ > l+ vl))),(t~ > b~ w-,(w- > l- vl~)) @4
 add process p p > t t~, (t > b h+, (h+ > h3 l+ vl, (h3 > mu+ mu-))), (t~ > b~ w-, (w- > l- vl~)) @5
+add process p p > t t~, (t > b w+, (w+ > j j )), (t~ > b~ h-, (h- > w- h3, (h3 > mu+ mu-), (w- > l- vl~))) @6
+add process p p > t t~, (t > b w+, (w+ > j j )), (t~ > b~ h-, (h- > h3 l- vl~, (h3 > mu+ mu-))) @ 7
+add process p p > t t~, (t > b w+, (w+ > l+ vl)), (t~ > b~ h-, (h- > w- h3, (h3 > mu+ mu-), (w- > j j))) @8
+add process p p > t t~, (t > b w+, (w+ > l+ vl)), (t~ > b~ h-, (h- > h3 j j, (h3  > mu+ mu-))) @9
+add process p p > t t~, (t > b w+, (w+ > l+ vl)), (t~ > b~ h-, (h- > w- h3, (h3 > mu+ mu-), (w- > l- vl~))) @10
+add process p p > t t~, (t > b w+, (w+ > l+ vl)), (t~ > b~ h-, (h- > h3 l- vl~, (h3 > mu+ mu-))) @ 11
 output TTToHcToWA_AToMuMu_MHc{}_MA{} -nojpeg
 """.format(MHc, MA)
 
