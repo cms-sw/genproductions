@@ -23,7 +23,7 @@
 # Number of events and rnd seed                                      *
 # Warning: Do not generate more than 1M events in a single run       *
 #*********************************************************************
-  10000	= nevents ! Number of unweighted events requested 
+  20000	= nevents ! Number of unweighted events requested 
   0	= iseed ! rnd seed (0=assigned automatically=default))
 #*********************************************************************
 # Collider type and energy                                           *
@@ -56,7 +56,7 @@
 #*********************************************************************
 # Type and output format
 #*********************************************************************
-  False	= gridpack !True = setting up the grid pack
+  True	= gridpack !True = setting up the grid pack
   average   = event_norm ! average/sum. Normalization of the weight in the LHEF
   -1.0 = time_of_flight ! threshold (in mm) below which the invariant livetime is not written (-1 means not written)
 #*********************************************************************
