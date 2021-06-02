@@ -12,14 +12,14 @@
 #   mind the format:   value    = variable     ! comment             *
 #*********************************************************************
 #
-#*******************                                                 
+#*******************
 # Running parameters
-#*******************                                                 
-#                                                                    
+#*******************
+#
 #*********************************************************************
 # Tag name for the run (one word)                                    *
 #*********************************************************************
-  tag_1     = run_tag ! name of the run 
+  tag_1     = run_tag ! name of the run
 #*********************************************************************
 # Run to generate the grid pack                                      *
 #*********************************************************************
@@ -29,14 +29,14 @@
 # Warning: Do not generate more than 1M events in a single run       *
 # If you want to run Pythia, avoid more than 50k events in a run.    *
 #*********************************************************************
-  1000 = nevents ! Number of unweighted events requested 
+  1000 = nevents ! Number of unweighted events requested
       0       = iseed   ! rnd seed (0=assigned automatically=default))
 #*********************************************************************
 # Collider type and energy                                           *
 # lpp: 0=No PDF, 1=proton, -1=antiproton, 2=photon from proton,      *
 #                                         3=photon from electron     *
 #*********************************************************************
-        1     = lpp1    ! beam 1 type 
+        1     = lpp1    ! beam 1 type
         1     = lpp2    ! beam 2 type
      6500     = ebeam1  ! beam 1 total energy in GeV
      6500     = ebeam2  ! beam 2 total energy in GeV
@@ -48,8 +48,8 @@
 #*********************************************************************
 # PDF CHOICE: this automatically fixes also alpha_s and its evol.    *
 #*********************************************************************
- 'lhapdf'    = pdlabel     ! PDF set                                  
- 260000 = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number 
+ 'lhapdf'    = pdlabel     ! PDF set
+ 260000 = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number
 #*********************************************************************
 # Renormalization and factorization scales                           *
 #*********************************************************************
@@ -70,7 +70,7 @@
  T        = pdfwgt           ! for ickkw=1, perform pdf reweighting
  5        = asrwgtflavor     ! highest quark flavor for a_s reweight
  T        = clusinfo         ! include clustering tag in output
- 3.0      = lhe_version       ! Change the way clustering information pass to shower.        
+ 3.0      = lhe_version       ! Change the way clustering information pass to shower.
 #*********************************************************************
 #**********************************************************
 #
@@ -80,7 +80,7 @@
 #**********************************************************
    T  = auto_ptj_mjj  ! Automatic setting of ptj and mjj
 #**********************************************************
-#                                                                    
+#
 #**********************************
 # BW cutoff (M+/-bwcutoff*Gamma)
 #**********************************
@@ -89,7 +89,7 @@
 # Apply pt/E/eta/dr/mij cuts on decay products or not
 # (note that etmiss/ptll/ptheavy/ht/sorted cuts always apply)
 #**********************************************************
-   F  = cut_decays    ! Cut decay products 
+   F  = cut_decays    ! Cut decay products
 #*************************************************************
 # Number of helicities to sum per event (0 = all helicities)
 # 0 gives more stable result, but longer run time (needed for
@@ -97,17 +97,17 @@
 # Use >=2 if most helicities contribute, e.g. pure QCD.
 #*************************************************************
    0  = nhel          ! Number of helicities used per event
-#*******************                                                 
+#*******************
 # Standard Cuts
-#*******************                                                 
-#                                                                    
+#*******************
+#
 #*********************************************************************
 # Minimum and maximum pt's (for max, -1 means no cut)                *
 #*********************************************************************
- 15  = ptj       ! minimum pt for the jets 
-  0  = ptb       ! minimum pt for the b 
- 20  = pta       ! minimum pt for the photons 
-  0  = ptl       ! minimum pt for the charged leptons 
+ 15  = ptj       ! minimum pt for the jets
+  0  = ptb       ! minimum pt for the b
+ 10  = pta       ! minimum pt for the photons
+  0  = ptl       ! minimum pt for the charged leptons
   0  = misset    ! minimum missing Et (sum of neutrino's momenta)
   0  = ptheavy   ! minimum pt for one heavy final state
   0  = ptonium   ! minimum pt for the quarkonium states
@@ -119,10 +119,10 @@
 #*********************************************************************
 # Minimum and maximum E's (in the center of mass frame)              *
 #*********************************************************************
-  0  = ej     ! minimum E for the jets 
-  0  = eb     ! minimum E for the b 
-  0  = ea     ! minimum E for the photons 
-  0  = el     ! minimum E for the charged leptons 
+  0  = ej     ! minimum E for the jets
+  0  = eb     ! minimum E for the b
+  0  = ea     ! minimum E for the photons
+  0  = el     ! minimum E for the charged leptons
  -1   = ejmax ! maximum E for the jets
  -1   = ebmax ! maximum E for the b
  -1   = eamax ! maximum E for the photons
@@ -130,10 +130,10 @@
 #*********************************************************************
 # Maximum and minimum absolute rapidity (for max, -1 means no cut)   *
 #*********************************************************************
-   5  = etaj    ! max rap for the jets 
+   5  = etaj    ! max rap for the jets
   -1  = etab    ! max rap for the b
-  2.5  = etaa    ! max rap for the photons 
-  2.5  = etal    ! max rap for the charged leptons 
+   3  = etaa    ! max rap for the photons
+   3  = etal    ! max rap for the charged leptons
   -1  = etaonium ! max rap for the quarkonium states
    0  = etajmin ! min rap for the jets
    0  = etabmin ! min rap for the b
@@ -142,16 +142,16 @@
 #*********************************************************************
 # Minimum and maximum DeltaR distance                                *
 #*********************************************************************
- 0.1 = drjj    ! min distance between jets 
- 0   = drbb    ! min distance between b's 
- 0   = drll    ! min distance between leptons 
- 0   = draa    ! min distance between gammas 
- 0   = drbj    ! min distance between b and jet 
- 0.1 = draj    ! min distance between gamma and jet 
- 0   = drjl    ! min distance between jet and lepton 
- 0   = drab    ! min distance between gamma and b 
- 0   = drbl    ! min distance between b and lepton 
- 0.1 = dral    ! min distance between gamma and lepton 
+ 0.1 = drjj    ! min distance between jets
+ 0   = drbb    ! min distance between b's
+ 0   = drll    ! min distance between leptons
+ 0   = draa    ! min distance between gammas
+ 0   = drbj    ! min distance between b and jet
+ 0.1 = draj    ! min distance between gamma and jet
+ 0   = drjl    ! min distance between jet and lepton
+ 0   = drab    ! min distance between gamma and b
+ 0   = drbl    ! min distance between b and lepton
+ 0.1 = dral    ! min distance between gamma and lepton
  -1  = drjjmax ! max distance between jets
  -1  = drbbmax ! max distance between b's
  -1  = drllmax ! max distance between leptons
@@ -165,10 +165,10 @@
 #*********************************************************************
 # Minimum and maximum invariant mass for pairs                       *
 # WARNING: for four lepton final state mmll cut require to have      *
-#          different lepton masses for each flavor!                  *           
+#          different lepton masses for each flavor!                  *
 #*********************************************************************
- 0   = mmjj    ! min invariant mass of a jet pair 
- 0   = mmbb    ! min invariant mass of a b pair 
+ 0   = mmjj    ! min invariant mass of a jet pair
+ 0   = mmbb    ! min invariant mass of a b pair
  0   = mmaa    ! min invariant mass of gamma gamma pair
  4   = mmll    ! min invariant mass of l+l- (same flavour) lepton pair
  -1  = mmjjmax ! max invariant mass of a jet pair
@@ -178,8 +178,8 @@
 #*********************************************************************
 # Minimum and maximum invariant mass for all letpons                 *
 #*********************************************************************
-  0  = mmnl    ! min invariant mass for all letpons (l+- and vl) 
- -1  = mmnlmax ! max invariant mass for all letpons (l+- and vl) 
+  0  = mmnl    ! min invariant mass for all letpons (l+- and vl)
+ -1  = mmnlmax ! max invariant mass for all letpons (l+- and vl)
 #*********************************************************************
 # Minimum and maximum pt for 4-momenta sum of leptons                *
 #*********************************************************************
@@ -188,10 +188,10 @@
 #*********************************************************************
 # Inclusive cuts                                                     *
 #*********************************************************************
- 0  = xptj ! minimum pt for at least one jet  
- 0  = xptb ! minimum pt for at least one b 
- 0  = xpta ! minimum pt for at least one photon 
- 0  = xptl ! minimum pt for at least one charged lepton 
+ 0  = xptj ! minimum pt for at least one jet
+ 0  = xptb ! minimum pt for at least one b
+ 0  = xpta ! minimum pt for at least one photon
+ 0  = xptl ! minimum pt for at least one charged lepton
 #*********************************************************************
 # Control the pt's of the jets sorted by pt                          *
 #*********************************************************************
@@ -199,7 +199,7 @@
  0   = ptj2min ! minimum pt for the second jet in pt
  0   = ptj3min ! minimum pt for the third jet in pt
  0   = ptj4min ! minimum pt for the fourth jet in pt
- -1  = ptj1max ! maximum pt for the leading jet in pt 
+ -1  = ptj1max ! maximum pt for the leading jet in pt
  -1  = ptj2max ! maximum pt for the second jet in pt
  -1  = ptj3max ! maximum pt for the third jet in pt
  -1  = ptj4max ! maximum pt for the fourth jet in pt
@@ -211,7 +211,7 @@
  0   = ptl2min ! minimum pt for the second lepton in pt
  0   = ptl3min ! minimum pt for the third lepton in pt
  0   = ptl4min ! minimum pt for the fourth lepton in pt
- -1  = ptl1max ! maximum pt for the leading lepton in pt 
+ -1  = ptl1max ! maximum pt for the leading lepton in pt
  -1  = ptl2max ! maximum pt for the second lepton in pt
  -1  = ptl3max ! maximum pt for the third lepton in pt
  -1  = ptl4max ! maximum pt for the fourth lepton in pt
@@ -241,13 +241,13 @@
 #*********************************************************************
 # WBF cuts                                                           *
 #*********************************************************************
- 0   = xetamin ! minimum rapidity for two jets in the WBF case  
- 0   = deltaeta ! minimum rapidity for two jets in the WBF case 
+ 0   = xetamin ! minimum rapidity for two jets in the WBF case
+ 0   = deltaeta ! minimum rapidity for two jets in the WBF case
 #*********************************************************************
 # KT DURHAM CUT                                                      *
 #*********************************************************************
- 1    =  ktdurham        
- 0.4  =  dparameter 
+ 1    =  ktdurham
+ 0.4  =  dparameter
 #*********************************************************************
 # maximal pdg code for quark to be considered as a light jet         *
 # (otherwise b cuts are applied)                                     *
