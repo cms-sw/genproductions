@@ -106,7 +106,7 @@
 #*********************************************************************
  15  = ptj       ! minimum pt for the jets
   0  = ptb       ! minimum pt for the b
- 10  = pta       ! minimum pt for the photons
+ 20  = pta       ! minimum pt for the photons
   0  = ptl       ! minimum pt for the charged leptons
   0  = misset    ! minimum missing Et (sum of neutrino's momenta)
   0  = ptheavy   ! minimum pt for one heavy final state
@@ -233,7 +233,7 @@
 # When ptgmin=0, all the other parameters are ignored                  *
 # When ptgmin>0, pta and draj are not going to be used                 *
 #***********************************************************************
-   20 = ptgmin ! Min photon transverse momentum
+   0 = ptgmin ! Min photon transverse momentum
  0.4 = R0gamma ! Radius of isolation code
  1.0 = xn ! n parameter of eq.(3.4) in hep-ph/9801442
  1.0 = epsgamma ! epsilon_gamma parameter of eq.(3.4) in hep-ph/9801442
