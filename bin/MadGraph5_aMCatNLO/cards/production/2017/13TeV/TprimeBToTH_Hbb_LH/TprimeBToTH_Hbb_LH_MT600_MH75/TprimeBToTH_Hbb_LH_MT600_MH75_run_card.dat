@@ -40,7 +40,7 @@ tag_1     = run_tag ! name of the run
 # PDF CHOICE: this automatically fixes also alpha_s and its evol.    *
 #*********************************************************************
 'lhapdf' = pdlabel     ! PDF set
-320900 = lhaid
+325500 = lhaid
 # To see heavy ion options: type "update ion_pdf"
 #*********************************************************************
 # Renormalization and factorization scales                           *
