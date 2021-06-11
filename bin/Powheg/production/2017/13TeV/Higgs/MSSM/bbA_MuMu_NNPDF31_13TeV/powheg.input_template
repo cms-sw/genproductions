@@ -81,7 +81,7 @@ manyseeds  0       ! Used to perform multiple runs with different random
                    ! sequence for the generation of the event.
                    ! The event file is called pwgevents-'j'.lhe
 
-storeinfo_rwgt 1   ! store info for reweighting events 
+
 #compute_rwgt 1    ! store info for reweighting events 
 #xgriditeration 1   ! identifier for grid generation
 #parallelstage  0   ! identifier for parallel running stages
