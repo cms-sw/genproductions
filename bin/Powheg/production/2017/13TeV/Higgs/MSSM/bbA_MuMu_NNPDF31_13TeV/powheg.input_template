@@ -20,23 +20,9 @@ ih2   1           ! hadron 2 (1 for protons, -1 for antiprotons)
 ebeam1 6500d0     ! energy of beam 1
 ebeam2 6500d0     ! energy of beam 2
 
-! To be set only if using 'native' pdfs
-! ndns1 131         ! pdf set for hadron 1 (mlm numbering)
-! ndns2 131         ! pdf set for hadron 2 (mlm numbering)
-
 ! To be set only if using LHA pdfs
 lhans1  325500      ! pdf set for hadron 1 (LHA numbering)
 lhans2  325500      ! pdf set for hadron 2 (LHA numbering)
-
-! To be set only if using LHA pdfs
-! 10050 cteq6m
-! 10042 cteq6l with LO alphas (corr. to vbfnlo LO set)
-! 10041 cteq6l with NLO alphas
-! 21000 MSTW2008 LO
-! 21100 MSTW2008 NLO
-! 23300 MSTW2008 NLO, NF=4
-! 11082 !CT10 Nf4 (default)
-! 92000 ! PDF4LHC with nf=4 
 
 #bornktmin 1d0    ! Generation cut; minimmum kt in underlying born
 #bornsuppfact 1d0 ! (default 0d0) mass param for Born suppression factor. If < 0 suppfact = 1
