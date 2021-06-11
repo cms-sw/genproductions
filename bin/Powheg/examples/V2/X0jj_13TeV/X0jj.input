@@ -3,11 +3,11 @@ ih1   1           ! hadron 1 (1 for protons, -1 for antiprotons)
 ih2   1           ! hadron 2 (1 for protons, -1 for antiprotons)
 ebeam1 6500d0    ! energy of beam 1
 ebeam2 6500d0    ! energy of beam 2
-ndns1 131         ! pdf set for hadron 1 (mlm numbering)
-ndns2 131         ! pdf set for hadron 2 (mlm numbering)
+! ndns1 131         ! pdf set for hadron 1 (mlm numbering)
+! ndns2 131         ! pdf set for hadron 2 (mlm numbering)
 ! To be set only if using LHA pdfs
-lhans1 230000      ! pdf set for hadron 1 (LHA numbering)
-lhans2 230000      ! pdf set for hadron 2 (LHA numbering)	
+lhans1 325300      ! pdf set for hadron 1 (LHA numbering)
+lhans2 325300      ! pdf set for hadron 2 (LHA numbering)	
 ! To be set only if using different pdf sets for the two incoming hadrons
 ! QCDLambda5  0.25 ! for not equal pdf sets 
 
@@ -64,14 +64,6 @@ iseed    SEED    ! initialize random number sequence
 #rand1     -1      ! initialize random number sequence 
 #rand2     -1      ! initialize random number sequence 
 
-# Uncomment the following group for paralle runs
-# End group for parallel run
-
-
-
-mass_low 50         ! lower limit for dilepton mass
-mass_high 1d20      ! upper limit for dilepton mass
-
 
 # Option for alternative splitting R-> R_s + R_f
 # These were study to see the effect on the unphysical negative value of the a0
@@ -89,19 +81,6 @@ mass_high 1d20      ! upper limit for dilepton mass
 
 # withnegweights 1   ! (1 default) If 1 output negative weighted events.
                    ! If 0 descard them
-
-# reweighting info
-# compute_rwgt 1
-
-# parallel stages;
-# parallelstage 1
-# 1: importance sampling grid,
-# 2: upper bounding envelope for generation of underlying Born configurations
-# 3: upper bounds for radiation
-# 4: events
-# xgriditeration 1
-# Set it to 1 for the first grid iteration, 2 for the second, etc.
-
 
 
 bornsuppfact 30  ! if minlo is active, set it to zero
