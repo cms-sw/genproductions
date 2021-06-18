@@ -21,19 +21,9 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
         pythia8CommonSettingsBlock,
         pythia8CP5SettingsBlock,
         pythia8PSweightsSettingsBlock,
-        processParameters = cms.vstring(
-            'Higgs:useBSM = on',# allow BSM Higgs production
-            '36:onMode = off' , # turn off all h3 decays
-            '36:onIfAny = 5',   # turn on only h3 to b b~
-        
-            # the Z decay in the ME now !
-            #'23:onMode = off' , # turn off all Z decays
-            #'23:onIfAny = 11 13 15',  # turn on only decays Z to leptons
-        ),
         parameterSets = cms.vstring('pythia8CommonSettings',
                                     'pythia8CP5Settings',
                                     'pythia8PSweightsSettings',
-                                    'processParameters'
                                     )
     )
 )
