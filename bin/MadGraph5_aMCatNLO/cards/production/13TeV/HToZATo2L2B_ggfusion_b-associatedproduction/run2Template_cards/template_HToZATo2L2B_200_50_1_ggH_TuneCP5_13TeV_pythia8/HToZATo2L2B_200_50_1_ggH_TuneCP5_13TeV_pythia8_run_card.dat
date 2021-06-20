@@ -40,9 +40,7 @@
 # PDF CHOICE: this automatically fixes also alpha_s and its evol.    *
 #*********************************************************************
   lhapdf	= pdlabel ! PDF set                                     
-  $DEFAULT_PDF_SETS	= lhaid ! if pdlabel=lhapdf, this is the lhapdf number. Only
-                ! numbers for central PDF sets are allowed. Can be a list;
-                ! PDF sets beyond the first are included via reweighting.
+  $DEFAULT_PDF_SETS	= lhaid ! if pdlabel=lhapdf, this is the lhapdf number.
 #*********************************************************************
 # To see heavy ion options: type "update ion_pdf"
 #*********************************************************************

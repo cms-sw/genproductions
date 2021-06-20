@@ -359,13 +359,18 @@ def prepare_cards(mH, mA, mh, mHc, mb, wH, wA, l2, l3, lR7, sinbma, tb, ymb, lha
                 else:
                     outf.write(line)
     suffix = 'run_card'
+    suf = '  ' if 'ggH' in smpdetails else ' '
     with open(os.path.join(templateDIR, filename(suffix, smpdetails, template=True)), 'r') as inf:
          with open(os.path.join(outputDIR, filename(suffix, smpdetails, mH=mH, mA=mA, tb=tb)), 'w+') as outf:
              for line in inf:
                  if 'lhaid' in line:
-                     outf.write('{} = lhaid ! if pdlabel=lhapdf, this is the lhapdf number\n'.format(lhaid))
-                     if lhaid is '$DEFAULT_PDF_SETS':
-                         outf.write('$DEFAULT_PDF_MEMBERS  = reweight_PDF\n')
+                     outf.write('{}{} = lhaid ! if pdlabel=lhapdf, this is the lhapdf number. Only\n'.format(suf, lhaid))
+                     outf.write('       ! numbers for central PDF sets are allowed. Can be a list;\n')
+                     outf.write('       ! PDF sets beyond the first are included via reweighting.\n')
+                     if lhaid == '$DEFAULT_PDF_SETS':
+                         outf.write('{}$DEFAULT_PDF_MEMBERS  = reweight_PDF ! Reweight to get PDF uncertainty. Should be a\n'.format(suf))
+                         outf.write('                            ! list booleans of equal length to lhaid to specify for\n')
+                         outf.write('                            !  which PDF set to include the uncertainties.\n')
                  else:
                      outf.write(line)
     suffix = 'madspin_card'
