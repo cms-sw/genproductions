@@ -768,7 +768,7 @@ for num in range(0,len(prepid)):
         if int(os.popen('grep -c grid_points '+pi).read()) != 0:
             grid_points_flag = 1
         gp_size = len(gridpack_cvmfs_path_tmp)
-        if any(word in dn for word in MEname) and gp_size == 0:
+        if any(word in dn for word in MEname) and gp_size == 0 and "plhe" not in pi.lower():
             print "* [ERROR] gridpack path is not properly specified - most probable reason is that it is not a cvmfs path."
             error += 1
 	if "sherpa" in dn.lower():
@@ -1119,9 +1119,10 @@ for num in range(0,len(prepid)):
 			print ("* [ERROR] ", my_path+'/'+pi+'/'+'runcmsgrid.sh', "does not exists")
 			error += 1
                     if os.path.isfile(my_path+'/'+pi+'/'+'external_tarball/runcmsgrid.sh') is True:
-                        with open(os.path.join(my_path, pi, "external_tarball/runcmsgrid.sh"),'r+') as f2:
+                        runcmsgrid_file = my_path+'/'+pi+'/'+'external_tarball/runcmsgrid.sh'
+                        with open(runcmsgrid_file,'r+') as f2:
                             content2 = f2.read()
-                            error += check_replace(content2)
+                            error += check_replace(runcmsgrid_file)
                             match = re.search(r"""process=(["']?)([^"']*)\1""", content2)
 			    warning1,error1 = xml_check_and_patch(f2,content2,gridpack_eos_path,my_path,pi)
                             et_flag = 1

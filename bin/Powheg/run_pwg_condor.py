@@ -16,7 +16,9 @@ from Utilities import helpers
 TESTING = 0
 QUEUE = ''
 
-POWHEG_SOURCE = "powhegboxV2_rev3728_date20200429.tar.gz"
+
+#POWHEG_SOURCE = "powhegboxV2_rev3728_date20200429.tar.gz"
+POWHEG_SOURCE = "powhegboxV2_rev3828_date20210215.tar.gz"
 POWHEGRES_SOURCE = "powhegboxRES_rev3748_date20200615.tar.gz"
 
 rootfolder = os.getcwd()
@@ -274,6 +276,7 @@ def runGetSource(parstage, xgrid, folderName, powInputName, process, noPdfCheck,
         "noPdfCheck" : noPdfCheck,
         "rootfolder" : rootfolder,
         "patches_dir" : os.path.dirname(os.path.realpath(__file__)) + "/patches",
+        "patch_0" : helpers.runGetSource_patch_0(process),
         "patch_1" : helpers.runGetSource_patch_1(process),
         "patch_2" : helpers.runGetSource_patch_2(process),
         "patch_3" : helpers.runGetSource_patch_3(process),
