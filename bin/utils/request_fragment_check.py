@@ -487,6 +487,7 @@ for num in range(0,len(prepid)):
         mem = r['memory']
         filter_eff = r['generator_parameters'][-1]['filter_efficiency']
         match_eff = r['generator_parameters'][-1]['match_efficiency']
+	cross_section = r['generator_parameters'][-1]['cross_section']
 	ext = r['extension']
         print pi+"    Status= "+r['status']
         print dn
@@ -582,6 +583,23 @@ for num in range(0,len(prepid)):
         f2 = open(pi+"_tmp","w")
         data_f1 = f1.read()
         data_f2 = re.sub(r'(?m)^ *#.*\n?', '',data_f1)
+	cross_section_fragment = re.findall('crossSection.*?\S+\S+',data_f2)[0]
+	cross_section_fragment = re.findall('\((.*?)\)',cross_section_fragment)[0]
+	filter_eff_fragment = re.findall('filterEfficiency.*?\S+\S+',data_f2)[0]
+	filter_eff_fragment = re.findall('\((.*?)\)',filter_eff_fragment)[0]
+	print"##################################################"
+	print "Cross section in the fragment =" + str(cross_section_fragment) +" pb"
+	print "Cross section from generator parameters field = "+str(cross_section)+" pb"
+	if (cross_section_fragment and cross_section and cross_section_fragment != cross_section):
+	    print "* [ERROR] Cross section in the generator parameters field and the one in the fragment do not match!"
+	    error += 1
+	print ""
+	print "Filter efficiency in fragment =" + str(filter_eff_fragment)
+	print "Filter efficiency from generator parameters field = "+str(filter_eff)
+	if (filter_eff_fragment and filter_eff and filter_eff_fragment != filter_eff):
+	    print "* [ERROR] Filter efficiency in the generator parameters field and the one in the fragment do not match!"
+	    error += 1    
+	
         # Extension compatibility
         if int(ext) > 0:
            clone_entries = [i for i in r['history'] if i['action'] == 'clone']
