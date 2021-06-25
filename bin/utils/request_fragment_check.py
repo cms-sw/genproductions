@@ -487,6 +487,7 @@ for num in range(0,len(prepid)):
         mem = r['memory']
         filter_eff = r['generator_parameters'][-1]['filter_efficiency']
         match_eff = r['generator_parameters'][-1]['match_efficiency']
+	cross_section = r['generator_parameters'][-1]['cross_section']
 	ext = r['extension']
         print pi+"    Status= "+r['status']
         print dn
@@ -582,6 +583,27 @@ for num in range(0,len(prepid)):
         f2 = open(pi+"_tmp","w")
         data_f1 = f1.read()
         data_f2 = re.sub(r'(?m)^ *#.*\n?', '',data_f1)
+	cross_section_fragment = re.findall('crossSection.*?\S+\S+',data_f2)
+	if (cross_section_fragment):
+	    cross_section_fragment=cross_section_fragment[0]
+	    cross_section_fragment = re.findall('\((.*?)\)',cross_section_fragment)[0]
+	filter_eff_fragment = re.findall('filterEfficiency.*?\S+\S+',data_f2)    
+	if (filter_eff_fragment):    
+	    filter_eff_fragment=filter_eff_fragment[0]
+	    filter_eff_fragment = re.findall('\((.*?)\)',filter_eff_fragment)[0]
+	print"##################################################"
+	print "Cross section in the fragment =" + str(cross_section_fragment) +" pb"
+	print "Cross section from generator parameters field = "+str(cross_section)+" pb"
+	if (cross_section_fragment and cross_section and cross_section_fragment != cross_section):
+	    print "* [ERROR] Cross section in the generator parameters field and the one in the fragment do not match!"
+	    error += 1
+	print ""
+	print "Filter efficiency in fragment =" + str(filter_eff_fragment)
+	print "Filter efficiency from generator parameters field = "+str(filter_eff)
+	if (filter_eff_fragment and filter_eff and float(filter_eff_fragment) != float(filter_eff)):
+	    print "* [ERROR] Filter efficiency in the generator parameters field and the one in the fragment do not match!"
+	    error += 1    
+	
         # Extension compatibility
         if int(ext) > 0:
            clone_entries = [i for i in r['history'] if i['action'] == 'clone']
@@ -768,7 +790,7 @@ for num in range(0,len(prepid)):
         if int(os.popen('grep -c grid_points '+pi).read()) != 0:
             grid_points_flag = 1
         gp_size = len(gridpack_cvmfs_path_tmp)
-        if any(word in dn for word in MEname) and gp_size == 0:
+        if any(word in dn for word in MEname) and gp_size == 0 and "plhe" not in pi.lower():
             print "* [ERROR] gridpack path is not properly specified - most probable reason is that it is not a cvmfs path."
             error += 1
 	if "sherpa" in dn.lower():
@@ -1119,9 +1141,10 @@ for num in range(0,len(prepid)):
 			print ("* [ERROR] ", my_path+'/'+pi+'/'+'runcmsgrid.sh', "does not exists")
 			error += 1
                     if os.path.isfile(my_path+'/'+pi+'/'+'external_tarball/runcmsgrid.sh') is True:
-                        with open(os.path.join(my_path, pi, "external_tarball/runcmsgrid.sh"),'r+') as f2:
+                        runcmsgrid_file = my_path+'/'+pi+'/'+'external_tarball/runcmsgrid.sh'
+                        with open(runcmsgrid_file,'r+') as f2:
                             content2 = f2.read()
-                            error += check_replace(content2)
+                            error += check_replace(runcmsgrid_file)
                             match = re.search(r"""process=(["']?)([^"']*)\1""", content2)
 			    warning1,error1 = xml_check_and_patch(f2,content2,gridpack_eos_path,my_path,pi)
                             et_flag = 1

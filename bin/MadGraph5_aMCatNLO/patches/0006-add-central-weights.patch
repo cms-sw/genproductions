@@ -1,6 +1,6 @@
---- a/madgraph/various/systematics.py	2017-05-01 21:02:10.402600552 +0300
-+++ b/madgraph/various/systematics.py	2017-05-01 21:01:44.759601146 +0300
-@@ -228,7 +228,7 @@
+--- a/madgraph/various/systematics.py	2019-02-04 12:19:42.000000000 +0100
++++ b/madgraph/various/systematics.py	2021-05-14 02:58:04.293017000 +0200
+@@ -325,7 +325,7 @@
          else:
              lowest_id = self.get_id()        
  
@@ -9,7 +9,7 @@
          all_cross = [0 for i in range(len(self.args))]
          
          self.input.parsing = False
-@@ -261,7 +261,7 @@
+@@ -359,7 +359,7 @@
                  print event
                  raise Exception
              
@@ -18,14 +18,21 @@
              all_cross = [(all_cross[j] + event.wgt*wgts[j]/wgts[0]) for j in range(len(wgts))]
              
              rwgt_data = event.parse_reweight()
-@@ -416,7 +416,7 @@
+@@ -533,7 +533,7 @@
          text = ''
          
          default = self.args[0]
 -        for arg in self.args[1:]:
-+        for arg in self.args:
++        for arg in self.args[0:]:
              mur, muf, alps, dyn, pdf = arg[:5]
              if pdf == self.orig_pdf and alps ==1 and (mur!=1 or muf!=1 or dyn!=-1):
                  if not in_scale:
-         
-         
+@@ -554,7 +554,7 @@
+                 text += "</weightgroup> # ALPS\n"
+                 in_alps=False
+             
+-            if mur == muf == 1 and dyn==-1 and alps ==1:
++            if mur == muf == 1 and dyn==-1 and alps ==1 and cid!=lowest_id:
+                 if pdf.lhapdfID < 0:
+                     for central,sets in self.pdfsets.items():
+                         if pdf in sets.set():

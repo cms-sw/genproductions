@@ -115,6 +115,14 @@ if [[ -e ${WORKDIR}/Virt_full_cHHH_0.0.grid ]]; then
     cp -p ${WORKDIR}/events.cdf .
 fi
 
+if [ "${process}" == "X0jj" ]; then
+    cp -p ${WORKDIR}/MadLoopParams.dat .
+    for f in `ls ${WORKDIR}/MG5_aMC_v2_6_7/X0jj/SubProcesses/MadLoop5_resources/*`
+    do
+	ln -sf $f ./
+    done
+fi
+
 if [[ ! -e ${card} ]]; then
  fail_exit "powheg.input not found!"
 fi

@@ -7,6 +7,39 @@ def fillTemplatedFile(template_file_name, out_file_name, template_dict, openmode
     with open(out_file_name, openmode) as outFile:
         outFile.write(result)
 
+def runGetSource_patch_0(process) :
+  return {
+   "X0jj" :"echo ' MADGRAPH+POWHEG INSTALL '\n \
+cd ${WORKDIR}/${name}\n \
+export MG_NAME=MG5_aMC_v2_6_7\n \
+echo 'Untar MG5_aMC_v2.6.7'\n \
+wget https://launchpad.net/mg5amcnlo/2.0/2.6.x/+download/MG5_aMC_v2.6.7.tar.gz\n \
+tar xzvf MG5_aMC_v2.6.7.tar.gz\n \
+cd $MG_NAME\n \
+echo 'Untar Powheg plugin'\n \
+cd PLUGIN\n \
+wget https://cms-project-generators.web.cern.ch/cms-project-generators/PWG_MG5_plugin_v0.tgz\n \
+tar xzvf PWG_MG5_plugin_v0.tgz\n \
+cd ..\n \
+echo 'Run mg5_aMC'\n \
+./bin/mg5_aMC --mode=MG5aMC_PWG --file=../../examples/V2/X0jj_13TeV/mg5.cmd\n \
+echo 'Make POWHEG-BOX link'\n \
+cd ${process}\n \
+ln -s ../../POWHEG-BOX POWHEG-BOX\n \
+echo 'Checkout source'\n \
+POWHEG-BOX/X0jj/clean_BEFORE_svn-save.sh\n \
+cp -rp POWHEG-BOX/X0jj/* .\n \
+echo 'Patch Makefile'\n \
+sed -i -e 's#../svnversion#POWHEG-BOX/svnversion#g' Makefile\n \
+sed -i -e 's#BOX=/[\*]*/POWHEG-BOX-V2#BOX=POWHEG-BOX#g' Makefile\n \
+echo 'Copy files for MadLoopParams'\n \
+cp SubProcesses/MadLoopParams.dat ${WORKDIR}/${name}\n \
+for f in `ls  SubProcesses/MadLoop5_resources/*` ; do\n \
+    ln -sf $MG_NAME/${process}/$f ${WORKDIR}/${name}\n \
+done\n \
+echo 'MADGRAPH+POWHEG END-INSTALL'",
+    }.get(process,"")
+
 def runGetSource_patch_1(process) :
   return {
     "WZ" : "patch -l -p0 -i ${patches_dir}/lhapdf_zanderighi.patch",

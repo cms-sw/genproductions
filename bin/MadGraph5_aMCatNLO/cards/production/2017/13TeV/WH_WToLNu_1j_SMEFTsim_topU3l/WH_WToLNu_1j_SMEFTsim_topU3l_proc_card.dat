@@ -1,0 +1,13 @@
+import model SMEFTsim_topU3l_MwScheme_UFO-massless_VH
+define p = g u c d s b u~ c~ d~ s~ b~
+define j = p
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+define w = w+ w-
+define lp = l+ l-
+define vp = vl vl~
+generate p p > w h SMHLOOP=0 NPprop=0 NP=1, w > lp vp ALL<=99, h > b b~ ALL<=99
+add process p p > w h j SMHLOOP=0 NPprop=0 NP=1, w > lp vp ALL<=99, h > b b~ ALL<=99
+output WH_WToLNu_1j_SMEFTsim_topU3l -nojpeg
