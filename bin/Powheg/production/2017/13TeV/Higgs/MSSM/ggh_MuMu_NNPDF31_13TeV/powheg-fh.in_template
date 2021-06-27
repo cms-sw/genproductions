@@ -1,0 +1,35 @@
+MW           80.398
+MZ           91.1876
+GF           0.0000116637
+AlfasMZ      0.119
+MT           172.5
+MB           4.18
+M3SQ         1500
+M3SU         1500
+M3SD         1500
+M3SL         2000
+M3SE         2000
+Abs(Xt)      2800
+M2SQ         2000
+M2SU         2000
+M2SD         2000
+M2SL         2000
+M2SE         2000
+M1SQ         2000
+M1SU         2000
+M1SD         2000
+M1SL         2000
+M1SE         2000
+Abs(Ac)      0
+Abs(As)      0
+Abs(Amu)     0
+Abs(M_3)     2500
+Abs(M_2)     1000
+Abs(M_1)     1000
+Abs(MUE)     1000
+MA0          {mass}.000000
+TB           {tanb}.000000
+
+# FeynHiggs example/LHCHXSWG/lightstop-LHCHXSWG.in 400242110
+
+
