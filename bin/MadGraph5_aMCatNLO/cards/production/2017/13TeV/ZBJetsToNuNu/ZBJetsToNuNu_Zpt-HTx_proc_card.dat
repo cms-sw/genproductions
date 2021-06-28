@@ -2,8 +2,8 @@ import model sm-ckm_no_b_mass
 define bquark = b b~
 define vl = ve vm vt
 define vl~ = ve~ vm~ vt~
-generate p p > vl vl~ bquark / h @0
-add process p p > vl vl~ bquark j / h @1
-add process p p > vl vl~  bquark j j / h @2
-add process p p > vl vl~  bquark j j j/ h @3
+generate p p > vl vl~ bquark  @0
+add process p p > vl vl~ bquark j  @1
+add process p p > vl vl~  bquark j j  @2
+add process p p > vl vl~  bquark j j j @3
 output ZBJetsToNuNu_Zpt-HTx -nojpeg
