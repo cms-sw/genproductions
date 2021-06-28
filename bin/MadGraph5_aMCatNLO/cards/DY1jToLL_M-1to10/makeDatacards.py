@@ -1,4 +1,45 @@
+import os, sys
 
+binning = "HT"
+#binning = "inclusive"
+
+if binning == "HT":
+    bins = ["0to70", "70to100", "100to200", "200to400", "400to600", "600toInf"]
+elif binning == "inclusive":
+    bins = [""]
+
+for b in bins:
+    if b == "":
+        bstring = ""
+    else:
+        bstring = binning+"-"+b+"_"
+    fDir = "DY1jToLL_M-1to10_"+bstring+"13TeV-madgraph-pythia8/"
+    if not os.path.exists(fDir):
+        mkdir = "mkdir "+fDir
+        os.system(mkdir)
+    fName1 = "DY1jToLL_M-1to10_"+bstring+"13TeV-madgraph-pythia8_proc_card.dat"
+    fName2 = "DY1jToLL_M-1to10_"+bstring+"13TeV-madgraph-pythia8_run_card.dat"
+    f1 = open(fDir+fName1,"w")
+    f2 = open(fDir+fName2,"w")
+    if b == "":
+        minht = "0.0"
+        maxht = "-1.0"
+    else:
+        minht = b.split("to")[0]
+        maxht = b.split("to")[1]
+        if maxht == "Inf":
+            maxht = "-1"
+    f1.writelines("""
+import model sm-ckm_no_b_mass
+
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
+
+generate p p > l+ l- j /h @1
+
+output DY1jToLL_M-1to10_"""+bstring+"""13TeV-madgraph-pythia8 -nojpeg
+    """)
+    f2.writelines("""
 #*********************************************************************
 #                       MadGraph5_aMC@NLO                            *
 #                                                                    *
@@ -69,7 +110,7 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
 #*********************************************************************
 # Matching - Warning! ickkw > 1 is still beta
 #*********************************************************************
-  1	= ickkw ! 0 no matching, 1 MLM, 2 CKKW matching
+  0	= ickkw ! 0 no matching, 1 MLM, 2 CKKW matching
   1	= highestmult ! for ickkw=2, highest mult group
   1	= ktscheme ! for ickkw=1, 1 Durham kT, 2 Pythia pTE
   1.0	= alpsfact ! scale factor for QCD emission vx
@@ -188,8 +229,8 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
 #*********************************************************************
 # Minimum and maximum pt for 4-momenta sum of leptons                *
 #*********************************************************************
-  250	= ptllmin ! Minimum pt for 4-momenta sum of leptons(l and vl)
-  400	= ptllmax ! Maximum pt for 4-momenta sum of leptons(l and vl)
+  0.0	= ptllmin ! Minimum pt for 4-momenta sum of leptons(l and vl)
+  -1.0	= ptllmax ! Maximum pt for 4-momenta sum of leptons(l and vl)
 #*********************************************************************
 # Inclusive cuts                                                     *
 #*********************************************************************
@@ -223,8 +264,8 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
 #*********************************************************************
 # Control the Ht(k)=Sum of k leading jets                            *
 #*********************************************************************
-  0.0	= htjmin ! minimum jet HT=Sum(jet pt)
-  -1.0	= htjmax ! maximum jet HT=Sum(jet pt)
+  """+minht+"""	= htjmin ! minimum jet HT=Sum(jet pt)
+  """+maxht+"""	= htjmax ! maximum jet HT=Sum(jet pt)
   0.0	= ihtmin !inclusive Ht for all partons (including b)
   -1.0	= ihtmax !inclusive Ht for all partons (including b)
   0.0	= ht2min ! minimum Ht for the two leading jets
@@ -275,4 +316,6 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
 #********************************************************************* 
 #  Additional parameter
 #*********************************************************************
+    """)
+    
     

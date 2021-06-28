@@ -69,7 +69,7 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
 #*********************************************************************
 # Matching - Warning! ickkw > 1 is still beta
 #*********************************************************************
-  1	= ickkw ! 0 no matching, 1 MLM, 2 CKKW matching
+  0	= ickkw ! 0 no matching, 1 MLM, 2 CKKW matching
   1	= highestmult ! for ickkw=2, highest mult group
   1	= ktscheme ! for ickkw=1, 1 Durham kT, 2 Pythia pTE
   1.0	= alpsfact ! scale factor for QCD emission vx
@@ -188,8 +188,8 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
 #*********************************************************************
 # Minimum and maximum pt for 4-momenta sum of leptons                *
 #*********************************************************************
-  800	= ptllmin ! Minimum pt for 4-momenta sum of leptons(l and vl)
-  1200	= ptllmax ! Maximum pt for 4-momenta sum of leptons(l and vl)
+  0.0	= ptllmin ! Minimum pt for 4-momenta sum of leptons(l and vl)
+  -1.0	= ptllmax ! Maximum pt for 4-momenta sum of leptons(l and vl)
 #*********************************************************************
 # Inclusive cuts                                                     *
 #*********************************************************************
@@ -223,8 +223,8 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
 #*********************************************************************
 # Control the Ht(k)=Sum of k leading jets                            *
 #*********************************************************************
-  0.0	= htjmin ! minimum jet HT=Sum(jet pt)
-  -1.0	= htjmax ! maximum jet HT=Sum(jet pt)
+  600	= htjmin ! minimum jet HT=Sum(jet pt)
+  -1	= htjmax ! maximum jet HT=Sum(jet pt)
   0.0	= ihtmin !inclusive Ht for all partons (including b)
   -1.0	= ihtmax !inclusive Ht for all partons (including b)
   0.0	= ht2min ! minimum Ht for the two leading jets
