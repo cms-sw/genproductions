@@ -48,8 +48,8 @@
 #*********************************************************************
 # PDF CHOICE: this automatically fixes also alpha_s and its evol.    *
 #*********************************************************************
- lhapdf       = pdlabel     ! PDF set                                     
- 325300       = lhaid
+ lhapdf            = pdlabel     ! PDF set                                     
+ $DEFAULT_PDF_SETS = lhaid
 #*********************************************************************
 # Renormalization and factorization scales                           *
 #*********************************************************************
@@ -68,7 +68,7 @@
  1        = alpsfact         ! scale factor for QCD emission vx
  F        = chcluster        ! cluster only according to channel diag
  F        = pdfwgt           ! for ickkw=1, perform pdf reweighting
- 5        = asrwgtflavor     ! highest quark flavor for a_s reweight
+ 4        = asrwgtflavor     ! highest quark flavor for a_s reweight
  T        = clusinfo         ! include clustering tag in output
  3.0      = lhe_version       ! Change the way clustering information pass to shower.        
 #*********************************************************************
@@ -147,11 +147,11 @@
  0   = drll    ! min distance between leptons 
  0   = draa    ! min distance between gammas 
  0   = drbj    ! min distance between b and jet 
- 0.1 = draj    ! min distance between gamma and jet 
+0.01 = draj    ! min distance between gamma and jet 
  0   = drjl    ! min distance between jet and lepton 
  0   = drab    ! min distance between gamma and b 
  0   = drbl    ! min distance between b and lepton 
- 0.1 = dral    ! min distance between gamma and lepton 
+0.01 = dral    ! min distance between gamma and lepton 
  -1  = drjjmax ! max distance between jets
  -1  = drbbmax ! max distance between b's
  -1  = drllmax ! max distance between leptons
@@ -252,7 +252,7 @@
 # maximal pdg code for quark to be considered as a light jet         *
 # (otherwise b cuts are applied)                                     *
 #*********************************************************************
- 5 = maxjetflavor    ! Maximum jet pdg code
+ 4 = maxjetflavor    ! Maximum jet pdg code
 #*********************************************************************
 # Jet measure cuts                                                   *
 #*********************************************************************
