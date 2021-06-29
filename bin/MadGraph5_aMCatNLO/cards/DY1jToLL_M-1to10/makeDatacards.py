@@ -35,7 +35,7 @@ import model sm-ckm_no_b_mass
 define l+ = e+ mu+ ta+
 define l- = e- mu- ta-
 
-generate p p > l+ l- j /h @1
+generate p p > l+ l- j
 
 output DY1jToLL_M-1to10_"""+bstring+"""13TeV-madgraph-pythia8 -nojpeg
     """)
@@ -302,7 +302,7 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
 #*********************************************************************
 # Jet measure cuts                                                   *
 #*********************************************************************
-  10.0	= xqcut ! minimum kt jet measure between partons
+  0.0	= xqcut ! minimum kt jet measure between partons
 #*********************************************************************
 #
 #*********************************************************************
