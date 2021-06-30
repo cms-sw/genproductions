@@ -6,5 +6,5 @@ define l- = e- mu- ta-
 
 generate p p > l+ l- j
 
-output DY1jToLL_M-1to10_HT-0to70_13TeV-madgraph-pythia8 -nojpeg
+output DY1jToLL_M-1to10_Pt-0to70_13TeV-madgraph-pythia8 -nojpeg
     

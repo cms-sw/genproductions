@@ -1,9 +1,9 @@
 import os, sys
 
-binning = "HT"
+binning = "Pt"
 #binning = "inclusive"
 
-if binning == "HT":
+if binning == "Pt":
     bins = ["0to70", "70to100", "100to200", "200to400", "400to600", "600toInf"]
 elif binning == "inclusive":
     bins = [""]
@@ -241,11 +241,11 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
 #*********************************************************************
 # Control the pt's of the jets sorted by pt                          *
 #*********************************************************************
-  0.0	= ptj1min ! minimum pt for the leading jet in pt
+  """+minht+"""	= ptj1min ! minimum pt for the leading jet in pt
   0.0	= ptj2min ! minimum pt for the second jet in pt
   0.0	= ptj3min ! minimum pt for the third jet in pt
   0.0	= ptj4min ! minimum pt for the fourth jet in pt
-  -1.0	= ptj1max ! maximum pt for the leading jet in pt 
+  """+maxht+"""	= ptj1max ! maximum pt for the leading jet in pt 
   -1.0	= ptj2max ! maximum pt for the second jet in pt
   -1.0	= ptj3max ! maximum pt for the third jet in pt
   -1.0	= ptj4max ! maximum pt for the fourth jet in pt
@@ -264,8 +264,8 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
 #*********************************************************************
 # Control the Ht(k)=Sum of k leading jets                            *
 #*********************************************************************
-  """+minht+"""	= htjmin ! minimum jet HT=Sum(jet pt)
-  """+maxht+"""	= htjmax ! maximum jet HT=Sum(jet pt)
+  0.0	= htjmin ! minimum jet HT=Sum(jet pt)
+  -1.0	= htjmax ! maximum jet HT=Sum(jet pt)
   0.0	= ihtmin !inclusive Ht for all partons (including b)
   -1.0	= ihtmax !inclusive Ht for all partons (including b)
   0.0	= ht2min ! minimum Ht for the two leading jets
