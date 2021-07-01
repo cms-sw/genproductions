@@ -1,0 +1,6 @@
+import model loop_sm 
+define p = u c d s u~ c~ d~ s~
+define j = p
+define w = w+ w-
+generate p p > h h w  [QCD]
+output WHH_NLO_CV_1_0_C2V_1_0_C3_1_0_13TeV-madgraph -nojpeg
