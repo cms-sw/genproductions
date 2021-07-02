@@ -29,7 +29,7 @@
 # Warning: Do not generate more than 1M events in a single run       *
 # If you want to run Pythia, avoid more than 50k events in a run.    *
 #*********************************************************************
-  100 = nevents ! Number of unweighted events requested
+ 2500 = nevents ! Number of unweighted events requested
   0   = iseed   ! rnd seed (0=assigned automatically=default))
 #*********************************************************************
 # Collider type and energy                                           *
@@ -68,7 +68,7 @@
  1 = ktscheme         ! for ickkw=1, 1 Durham kT, 2 Pythia pTE
  1.0 = alpsfact         ! scale factor for QCD emission vx
  False = chcluster        ! cluster only according to channel diag
- True = pdfwgt           ! for ickkw=1, perform pdf reweighting
+ False = pdfwgt           ! for ickkw=1, perform pdf reweighting
  4 = asrwgtflavor     ! highest quark flavor for a_s reweight
  True = clusinfo         ! include clustering tag in output
  3.0 = lhe_version       ! Change the way clustering information pass to shower.
@@ -105,7 +105,7 @@
 #*********************************************************************
 # Minimum and maximum pt's (for max, -1 means no cut)                *
 #*********************************************************************
- 2.0  = ptj       ! minimum pt for the jets
+ 0.0  = ptj       ! minimum pt for the jets
  0.0  = ptb       ! minimum pt for the b
  1.0  = pta       ! minimum pt for the photons
  1.0  = ptl       ! minimum pt for the charged leptons 
