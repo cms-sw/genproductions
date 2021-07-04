@@ -12,4 +12,4 @@ define vl~ = ve~ vm~ vt~
 
 generate    p p > W+ Z j j QED=4 QCD=0 NP=1 @ 1
 add process p p > W- Z j j QED=4 QCD=0 NP=1 @ 2
-output WLLjj_dim8_ewk
+output WZjj_dim8_ewk
