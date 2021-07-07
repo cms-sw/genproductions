@@ -8,4 +8,4 @@ add process p p > e+ e- NP^2>0 @3
 add process p p > e+ e- j NP^2>0 @4
 add process p p > e+ e- j j NP^2>0 @5
 
-output bbll_4FermionCI_M-200To500_Lambda-8TeV_constLL_XQCUT-20
+output bbll_4FermionCI_M-200To500_Lambda-1TeV_constLL_XQCUT-30

@@ -1,10 +1,10 @@
 import os
 
 massRanges = [["200", "500"]] # [["200", "-1"]]
-xqCuts = ["20"] # ["10", "20", "30"]
+xqCuts = ["30"] # ["10", "20", "30"]
 interTerms = ["const"]  # ["const", "dest"]
 helicityCombs = ["LL"] # ["LL", "RR", "LR", "RL", "ALL"]
-lambdaSs = ["8000"] # ["4000", "6000", "8000", "1000", "10000000000"]
+lambdaSs = ["1000"] # ["1000", "4000", "8000", "10000", "-1"] 
 
 for XQCUT in xqCuts:
 
@@ -23,8 +23,9 @@ for XQCUT in xqCuts:
           MMLL = massRange[0]
           MMLLMAX = massRange[1]
           MASSRANGE = "M-{0}To{1}".format(MMLL,MMLLMAX.replace("-1","Inf"))
+          LAMBDAS = LAMBDAS.replace("-1","10000000000")
           LAMBDA = LAMBDAS.replace("10000000000","Inf")
-          LAMBDA = LAMBDA.replace("000","TeV")
+          if LAMBDA!="Inf": LAMBDA = str(int(int(LAMBDA)/1000)).replace("000","")+"TeV"
 
           datasetName =  "bbll_4FermionCI_{0}_Lambda-{1}_{3}{2}_XQCUT-{4}".format(MASSRANGE, LAMBDA, HELICITYCOMB, INTERTERM, XQCUT)
 
@@ -56,6 +57,4 @@ for XQCUT in xqCuts:
               os.system("sed -i 's|###CMUBB{0}###|{1}|g' {2}/{3}_customizecards.dat".format(writeHel,coupling,datasetName,datasetName))
               os.system("sed -i 's|###CELBB{0}###|{1}|g' {2}/{3}_customizecards.dat".format(writeHel,coupling,datasetName,datasetName))
 
-#          if (HELICITYCOMB == "ALL"):
-#            if (LAMBDA == "8TeV"):
-#              print "./gridpack_generation.sh {0} cards/shjeon/bbll/{1}".format(datasetName, datasetName)
+          print "./gridpack_generation.sh {0} cards/shjeon/bbll/{1}".format(datasetName, datasetName)

@@ -6,4 +6,4 @@ set param_card celbbll 1.256637e+01
 set param_card celbbrl 0.0
 set param_card celbblr 0.0
 set param_card celbbrr 0.0
-set param_card lambdas 8000
+set param_card lambdas 1000
