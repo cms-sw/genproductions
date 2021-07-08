@@ -318,12 +318,17 @@ def ul_consistency(dn,pi,jhu_gp):
             f2_prime = open(pi_prime+"_tmp","w")
             data_f1_prime = f1_prime.read()
             data_f2_prime = re.sub(r'(?m)^ *#.*\n?', '',data_f1_prime)
-            if jhu_gp:
+            excep = 0
+            with open('exceptions.txt') as file_ex:
+                for line in file_ex:
+                    if pi in line:
+                        excep = 1 
+            if jhu_gp or excep:
                 data_f2_jhu = re.sub(r'args.*', '',data_f2)  
                 data_f2_jhu_prime = re.sub(r'args.*', '',data_f2_prime)
                 if (data_f2_jhu == data_f2_jhu_prime) == True:
                     print"* [WARNING] Two requests have the same fragment (except may be the gridpack)"
-		    error_ul += 1
+		    warning_ul += 1
                 else:
                     print"* [ERROR] Two requests don't have the same fragment (note that gridpacks haven't been compared)"
                     error_ul += 1
@@ -924,7 +929,6 @@ for num in range(0,len(prepid)):
                 print "powheg "+str(pw_gp)
                 print "mg "+str(mg_gp)
                 print "jhugen "+str(jhu_gp)
-                ul_consistency(dn,pi,jhu_gp)
 		w_temp, e_temp = ul_consistency(dn,pi,jhu_gp)
 		warning += w_temp
 		error += e_temp
