@@ -322,9 +322,10 @@ def ul_consistency(dn,pi,jhu_gp):
                 data_f2_jhu = re.sub(r'args.*', '',data_f2)  
                 data_f2_jhu_prime = re.sub(r'args.*', '',data_f2_prime)
                 if (data_f2_jhu == data_f2_jhu_prime) == True:
-                    print"* [OK] Two requests have the same fragment (except may be the gridpack)"
+                    print"* [WARNING] Two requests have the same fragment (except may be the gridpack)"
+		    error_ul += 1
                 else:
-                    print"* [ERROR] Two requests don't have the same fragment (note that grodpacks haven't been compared)"
+                    print"* [ERROR] Two requests don't have the same fragment (note that gridpacks haven't been compared)"
                     error_ul += 1
             else:
                 if (data_f2 == data_f2_prime) == True:
@@ -678,9 +679,13 @@ for num in range(0,len(prepid)):
             herwig_check = []
             herwig_mat_err = 0
             herwig_psweight_tag = 0
+	    for line in file2:
+		print(line)
+	    print("-----")	 
             for line in file1:
+		print(line)
                 if line not in file2:
-                    herwig_check.append(line)
+                    herwig_check.append(line)	
             if len(herwig_check) != 0 and "eec5" not in dn.lower() and "ee5c" not in dn.lower():
                 herwig_count.append(herwig_check[0].count('hw_lhe_common_settings'))
                 herwig_count.append(herwig_check[1].count('herwig7LHECommonSettingsBlock'))
@@ -920,6 +925,9 @@ for num in range(0,len(prepid)):
                 print "mg "+str(mg_gp)
                 print "jhugen "+str(jhu_gp)
                 ul_consistency(dn,pi,jhu_gp)
+		w_temp, e_temp = ul_consistency(dn,pi,jhu_gp)
+		warning += w_temp
+		error += e_temp
                 if any(word in dn for word in tunename) or "sherpa" in dn.lower() or ("herwigpp" in dn.lower() and ("eec5" in dn.lower() or "ee5c" in dn.lower())):
                     print "* [OK] Data set name has a known tune"
                 else:
@@ -1612,7 +1620,7 @@ for num in range(0,len(prepid)):
 		warning += 1
         elif 3 in tunecheck:
             print "* [OK] Tune configuration probably OK in the fragment"
-#            if tunecheck[0] > 2 :
+#            if tunecheck[0] > 2 
 #                if 'Summer20UL' not in pi and 'Summer19UL' not in pi and 'Fall18' not in pi and 'Fall17' not in pi and 'Run3' not in pi:
 #                   print "* [WARNING] Do you really want to have tune "+tune[0] +" in this campaign?"
 #                   warning += 1
