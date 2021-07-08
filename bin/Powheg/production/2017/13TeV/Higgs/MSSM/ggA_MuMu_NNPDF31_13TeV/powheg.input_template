@@ -96,4 +96,4 @@ FHdecaywidth 1 ! 1 = use the decay width provided by FeynHiggs
 
 !!!!!!!!!!! MSSM DRbar parameter  !!!!!!!!!
 mssmmbatmh 0 ! 1 = mb(mh) is used (from mssm-param-mh.slha), 0 = mb(M_susy) is used
-withnegweights 0 ! default 0, 
+withnegweights 1 ! default 0, 
