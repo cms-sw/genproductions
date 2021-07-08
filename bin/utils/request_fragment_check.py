@@ -691,6 +691,7 @@ for num in range(0,len(prepid)):
             print "mg "+str(mg_gp)
             print "jhugen "+str(jhu_gp)
         if herwig_flag != 0:
+	    os.system('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/herwig_common.txt -O herwig_common.txt') 
 	    file2 = set(line.strip().replace(",","") for line in open(pi))
 	    file1 = set(line.strip().replace(",","") for line in open('herwig_common.txt'))
 	    for line in file1:
@@ -698,18 +699,21 @@ for num in range(0,len(prepid)):
 		    print "* [ERROR] Missing herwig setting in fragment: "+line
 		    error += 1
 	    if pw_gp != 0:
+	       os.system('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/herwig_powheg.txt -O herwig_powheg.txt')	
 	       file_me = set(line.strip().replace(",","") for line in open('herwig_powheg.txt'))
 	       for line in file_me:
 		   if line not in file2:
 		       print "* [ERROR] Missing herwig powheg specific setting in fragment: "+line
 		       error += 1
 	    if mg_gp !=0:
+	       os.system('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/herwig_mg.txt -O herwig_mg.txt') 
 	       file_me = set(line.strip().replace(",","") for line in open('herwig_mg.txt'))
 	       for line in file_me:
 		   if line not in file2:
 		       print "* [ERROR] Missing herwig mg5_amc specific setting in fragment: "+line
 		       error += 1 
 	    if amcnlo_gp !=0:
+	       os.system('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/herwig_mcnlo.txt -O herwig_mcnlo.txt')
 	       file_me = set(line.strip().replace(",","") for line in open('herwig_mcnlo.txt'))
 	       for line in file_me:
 		   if line not in file2:
