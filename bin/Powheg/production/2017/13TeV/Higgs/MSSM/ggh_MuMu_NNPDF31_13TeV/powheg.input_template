@@ -17,7 +17,7 @@ zerowidth 0 ! Control if the Higgs boson is to be produced on-shell or not: 1 = 
 bwshape 1	! BW shape: 1 running width BW, 2 fixed width BW
 masswindow_high 5d0 ! number of widths around hmass in the BW for an off-shell Higgs boson  upper limit
 masswindow_low 5d0  ! number of widths around hmass in the BW for an off-shell Higgs boson  lower limit
-ew 0                     ! ew = 0 disable EW corrections - ew = 1 enable EW corrections
+ew 1                     ! ew = 0 disable EW corrections - ew = 1 enable EW corrections
 fastew 1                   ! fast ew corrections evaluations by mass sampling
 nosquarks 0 ! 1 = No scalars, 0/not defined = scalars enabled
 lhsquarks 0 ! 1 = Scalars contribution are taken in the infinite mass limit, 0 = full mass dependence
@@ -96,4 +96,4 @@ FHdecaywidth 1 ! 1 = use the decay width provided by FeynHiggs
 
 !!!!!!!!!!! MSSM DRbar parameter  !!!!!!!!!
 mssmmbatmh 0 ! 1 = mb(mh) is used (from mssm-param-mh.slha), 0 = mb(M_susy) is used
-withnegweights 0 ! default 0, 
+withnegweights 1 ! default 0, 
