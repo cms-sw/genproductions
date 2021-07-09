@@ -141,7 +141,7 @@ def ul_consistency(dn,pi,jhu_gp):
             error_ += 1
         if "NULL" in pi_prime and "APV" not in pi:
             print "[WARNING] No corresponing Summer19UL17 request to compare to for consistency."
-            print " LEVEL2 Conveners - please chech the request VERY CAREFULLY!"
+            print " LEVEL2 Conveners - please check the request VERY CAREFULLY!"
             warning_ul += 1
         if "NULL" not in pi_prime: #
             if "APV" in pi or "Summer20UL18" in pi or "Summer20UL17" in pi:
@@ -441,7 +441,9 @@ for num in range(0,len(prepid)):
 	print "Filter efficiency in fragment =" + str(filter_eff_fragment)
 	print "Filter efficiency from generator parameters field = "+str(filter_eff)
 	if (filter_eff_fragment and filter_eff and float(filter_eff_fragment) != float(filter_eff)):
+	    print "_____________________________________________________________________________________________________"
 	    print "[ERROR] Filter efficiency in the generator parameters field and the one in the fragment do not match!"
+	    print "_____________________________________________________________________________________________________"
 	    error += 1    
 	
         # Extension compatibility
@@ -517,9 +519,10 @@ for num in range(0,len(prepid)):
             pw_gp = os.path.isfile(my_path+'/'+pi+'/'+'powheg.input')
             mg_gp = os.path.isfile(my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat') or os.path.isfile(my_path+'/'+pi+'/'+'process/Cards/run_card.dat')
             amcnlo_gp = os.path.isfile(my_path+'/'+pi+'/'+'process/Cards/run_card.dat')
-	    print "powheg "+str(pw_gp)
-            print "mg "+str(mg_gp)
-            print "jhugen "+str(jhu_gp)
+	    print "path powheg "+str(pw_gp)
+            print "path mg "+str(mg_gp)
+	    print "path amcnlo "+str(amcnlo_gp)
+            print "path jhugen "+str(jhu_gp)
 	    if mg_gp is True:
 	        filename_mggpc = my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat'
 		fname_p2 = my_path+'/'+pi+'/'+'process/Cards/run_card.dat'
@@ -934,11 +937,9 @@ for num in range(0,len(prepid)):
                     knd = 1
                 else :
                     knd = ind
-		print "************* KND = "+str(knd)+"   "+ME[knd]
                 check.append(int(os.popen('grep -c pythia8'+ME[knd]+'Settings '+pi).read()))
                 check.append(int(os.popen('grep -c "from Configuration.Generator.Pythia8'+ME[knd]+'Settings_cfi import *" '+pi).read()))
                 check.append(int(os.popen('grep -c "pythia8'+ME[knd]+'SettingsBlock," '+pi).read()))
-		print(check[0],check[1],check[2])
                 if check[2] == 1:
                     mcatnlo_flag = 1
                 if ind == 0:
@@ -1147,7 +1148,7 @@ for num in range(0,len(prepid)):
                         bw = os.popen('more '+filename_mggpc+' | tr -s \' \' | grep "= bwcutoff"').read()
                         mg_pdf = os.popen('more '+filename_mggpc+' | tr -s \' \' | grep "lhaid"').read()
                         mg_pdf = mg_pdf.split("=")[0].split()[0]
-                    elif gp_size != 0:
+                    elif gp_size != 0 and mg_gp is False:
 			print "[ERROR] Although the name of the dataset has ~Madgraph, the gridpack doesn't seem to be a MG5_aMC one. Please check."
 			error += 1
 			break
@@ -1348,18 +1349,17 @@ for num in range(0,len(prepid)):
                         print "              set correctly as number of final state particles (BEFORE THE DECAYS)"
                         print "                                  in the LHE other than emitted extra parton."
                         warning += 1
-                if alt_ickkw_c == 1 and check[0] == 0 and check[1] == 0 and check[2] == 0 :
+                if alt_ickkw_c == 1 and check[0] == 0 and check[1] == 0 and check[2] == 0 and mg_lo > 0:
 		    print "[WARNING] To check manually - This is a matched MadGraph LO sample. Please check 'JetMatching:nJetMax' ="+str(nJetMax)+" is OK and"
 		    print "           correctly set as number of partons in born matrix element for highest multiplicity."
 		    warning += 1
-                if alt_ickkw_c == 0 and word == "mcatnlo" and check[0] == 2 and check[1] == 1 and check[2] == 1 and loop_flag != 1:
+                if alt_ickkw_c == 0 and word == "mcatnlo" and mg_nlo > 0 and check[0] == 2 and check[1] == 1 and check[2] == 1 and loop_flag != 1:
 		    print "[WARNING] This a MadGraph NLO sample without matching. Please check 'TimeShower:nPartonsInBorn'"
 		    print "                                                  is set correctly as number of coloured particles"
 		    print "                                                 (before resonance decays) in born matrix element."
 		    warning += 1
 		if alt_ickkw_c <= 1 and word == "madgraph" and mg_nlo != 1 and amcnlo_gp is False and (check[0] != 0 or check[1] != 0 or check[2] != 0):
 		    print "[ERROR] You run MG5_aMC@NLO at LO but you have  Pythia8aMCatNLOSettings_cfi in fragment"
-		    print "          --> please remove it from the fragment"
 		    error += 1
         if knd == 1 :
              powhegcheck.append(int(os.popen('grep -c -i PowhegEmission '+pi).read()))
