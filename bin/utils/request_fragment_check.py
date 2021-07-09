@@ -5,6 +5,7 @@ import re
 import argparse
 import textwrap
 import fnmatch
+import os.path
 #import json
 from datetime import datetime
 ###########Needed to check for ultra-legacy sample consistency check############################################
@@ -514,68 +515,81 @@ for num in range(0,len(prepid)):
         if int(os.popen('grep -c grid_points '+pi).read()) != 0:
             grid_points_flag = 1
         gp_size = len(gridpack_cvmfs_path_tmp)
+        print(gridpack_cvmfs_path_tmp)
 	if gp_size:
+            gridpack_cvmfs_path_tmp = re.findall("/cvmfs/cms\.cern\.ch/phys_generator/gridpacks/.*?tar.xz|/cvmfs/cms\.cern\.ch/phys_generator/gridpacks/.*?tgz|/cvmfs/cms\.cern\.ch/phys_generator/gridpacks/.*?tar.gz",gridpack_cvmfs_path_tmp)
+            if not gridpack_cvmfs_path_tmp:
+                print "[ERROR] Gridpack should be in cvmfs in the dedicated folder location. "
+                error += 1
+                break
+            gridpack_cvmfs_path = gridpack_cvmfs_path_tmp[0]
+            gridpack_eos_path = gridpack_cvmfs_path.replace("/cvmfs/cms.cern.ch/phys_generator","/eos/cms/store/group/phys_generator/cvmfs")
+            print "Gridpack location in cvmfs and eos:"
+            print gridpack_cvmfs_path
+            print gridpack_eos_path
+            os.system('tar xf '+gridpack_cvmfs_path+' -C '+my_path+'/'+pi)
             jhu_gp = os.path.isfile(my_path+'/'+pi+'/'+'JHUGen.input')
             pw_gp = os.path.isfile(my_path+'/'+pi+'/'+'powheg.input')
-            mg_gp = os.path.isfile(my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat') or os.path.isfile(my_path+'/'+pi+'/'+'process/Cards/run_card.dat')
+            mg_f1 = my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat'
+            mg_f2 = my_path+'/'+pi+'/'+'process/Cards/run_card.dat'
             amcnlo_gp = os.path.isfile(my_path+'/'+pi+'/'+'process/Cards/run_card.dat')
-	    print "path powheg "+str(pw_gp)
+            mg_gp = os.path.isfile(mg_f1) or os.path.isfile(mg_f2)
+            print "path powheg "+str(pw_gp)
             print "path mg "+str(mg_gp)
-	    print "path amcnlo "+str(amcnlo_gp)
+            print "path amcnlo "+str(amcnlo_gp)
             print "path jhugen "+str(jhu_gp)
             if mg_gp is False and "madgraph" in dn.lower():
                 print "[ERROR] Although the name of the dataset has ~Madgraph, the gridpack doesn't seem to be a MG5_aMC one."
                 error += 1
-	    if mg_gp is True:
-	        filename_mggpc = my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat'
-		fname_p2 = my_path+'/'+pi+'/'+'process/Cards/run_card.dat'
-		if os.path.isfile(fname_p2) is True :
-		    filename_mggpc = fname_p2
-		alt_ickkw_c = os.popen('more '+filename_mggpc+' | tr -s \' \' | grep "= ickkw"').read()
-		print(alt_ickkw_c)
-		alt_ickkw_c = int(re.search(r'\d+',alt_ickkw_c).group())
-		print "MG5 matching/merging: "+str(alt_ickkw_c)
-		maxjetflavor = os.popen('more '+filename_mggpc+' | tr -s \' \' | grep "= maxjetflavor"').read()
-		if len(maxjetflavor) != 0:
+            if mg_gp is True:
+                filename_mggpc = my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat'
+                fname_p2 = my_path+'/'+pi+'/'+'process/Cards/run_card.dat'
+                if os.path.isfile(fname_p2) is True :
+                    filename_mggpc = fname_p2
+                alt_ickkw_c = os.popen('more '+filename_mggpc+' | tr -s \' \' | grep "= ickkw"').read()
+                alt_ickkw_c = int(re.search(r'\d+',alt_ickkw_c).group())
+                print "MG5 matching/merging: "+str(alt_ickkw_c)
+                maxjetflavor = os.popen('more '+filename_mggpc+' | tr -s \' \' | grep "= maxjetflavor"').read()
+                if len(maxjetflavor) != 0:
                         maxjetflavor = int(re.search(r'\d+',maxjetflavor).group())
-		else:
-		    print"[WARNING] maxjetflavor not defined in run_card.dat"
-		    warning += 1
-		print "maxjetflavor = "+str(maxjetflavor)
+                else:
+                    print"[WARNING] maxjetflavor not defined in run_card.dat"
+                    warning += 1
+                print "maxjetflavor = "+str(maxjetflavor)
         if herwig_flag != 0:
 	    os.system('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/herwig_common.txt -O herwig_common.txt') 
 	    file2 = set(line.strip().replace(",","") for line in open(pi))
 	    file1 = set(line.strip().replace(",","") for line in open('herwig_common.txt'))
-	    for line in file1:
-		if line not in file2:
-		    print "[ERROR] Missing herwig setting in fragment: "+line
-		    error += 1
+            for line in file1:
+                if line not in file2:
+                    print "[ERROR] Missing herwig setting in fragment: "+line
+                    error += 1
 	    if pw_gp != 0:
 	       os.system('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/herwig_powheg.txt -O herwig_powheg.txt')	
 	       file_me = set(line.strip().replace(",","") for line in open('herwig_powheg.txt'))
-	       for line in file_me:
-		   if line not in file2:
-		       print "[ERROR] Missing herwig powheg specific setting in fragment: "+line
-		       error += 1
+               for line in file_me:
+                   if line not in file2:
+                       print "[ERROR] Missing herwig powheg specific setting in fragment: "+line
+                       error += 1
 	    if mg_gp !=0:
 	       os.system('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/herwig_mg.txt -O herwig_mg.txt') 
 	       file_me = set(line.strip().replace(",","") for line in open('herwig_mg.txt'))
-	       for line in file_me:
-		   if line not in file2:
-		       print "[ERROR] Missing herwig mg5_amc specific setting in fragment: "+line
-		       error += 1 
-	       if alt_ickkw_c == 3:#fxfx
-		   if "set FxFxHandler:MergeMode FxFx" not in file2:
-		       print "[ERROR] Missing set FxFxHandler:MergeMode FxFx in the user settings block"
-		       error += 1
-		   if "set FxFxHandler:njetsmax" not in file2:
-		       print "[ERROR] Missing set FxFxHandler:njetsmax MAX_N_ADDITIONAL_JETS in the user settings block"
-		       error += 1
-	       if alt_ickkw_c == 1:#mlm
-		   if "set FxFxHandler:MergeMode TreeMG5" not in file2:
-		       print "[ERROR] Missing set FxFxHandler:MergeMode TreeMG5 in the user settings block"
-		       error += 1 
-	    if amcnlo_gp !=0 or alt_ickkw_c == 0:
+               for line in file_me:
+                   if line not in file2:
+                       print "[ERROR] Missing herwig mg5_amc specific setting in fragment: "+line
+                       error += 1 
+               if alt_ickkw_c == 3:#fxfx
+                   if "set FxFxHandler:MergeMode FxFx" not in file2:
+                       print "[ERROR] Missing set FxFxHandler:MergeMode FxFx in the user settings block"
+                       error += 1
+                   if "set FxFxHandler:njetsmax" not in file2:
+                       print "[ERROR] Missing set FxFxHandler:njetsmax MAX_N_ADDITIONAL_JETS in the user settings block"
+                       error += 1
+               if alt_ickkw_c == 1:#mlm
+                   if "set FxFxHandler:MergeMode TreeMG5" not in file2:
+                       print "[ERROR] Missing set FxFxHandler:MergeMode TreeMG5 in the user settings block"
+                       error += 1 
+            if amcnlo_gp !=0 or alt_ickkw_c == 0:
 	       os.system('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/herwig_mcnlo.txt -O herwig_mcnlo.txt')
 	       file_me = set(line.strip().replace(",","") for line in open('herwig_mcnlo.txt'))
 	       for line in file_me:
@@ -756,15 +770,6 @@ for num in range(0,len(prepid)):
                         warning += 1 
 
             if gp_size != 0:
-                gridpack_cvmfs_path_tmp = re.findall("/cvmfs/cms\.cern\.ch/phys_generator/gridpacks/.*?tar.xz|/cvmfs/cms\.cern\.ch/phys_generator/gridpacks/.*?tgz|/cvmfs/cms\.cern\.ch/phys_generator/gridpacks/.*?tar.gz",gridpack_cvmfs_path_tmp)
-                if not gridpack_cvmfs_path_tmp:
-                    print "[ERROR] Gridpack should be in cvmfs in the dedicated folder location. "
-                    error += 1
-                    break
-                gridpack_cvmfs_path = gridpack_cvmfs_path_tmp[0]
-                gridpack_eos_path = gridpack_cvmfs_path.replace("/cvmfs/cms.cern.ch/phys_generator","/eos/cms/store/group/phys_generator/cvmfs")
-                print gridpack_cvmfs_path
-                print gridpack_eos_path
                 if int(os.popen('grep -c slha '+pi).read()) != 0 or int(os.popen('grep -c \%i '+pi).read()) != 0 or int(os.popen('grep -c \%s '+pi).read()) != 0:
                     slha_flag = 1
                 if slha_flag == 1:
