@@ -62,7 +62,7 @@
 #*********************************************************************
 # Matching - Warning! ickkw > 1 is still beta
 #*********************************************************************
- 1        = ickkw            ! 0 no matching, 1 MLM, 2 CKKW matching
+ 0        = ickkw            ! 0 no matching, 1 MLM, 2 CKKW matching
  1        = highestmult      ! for ickkw=2, highest mult group
  1        = ktscheme         ! for ickkw=1, 1 Durham kT, 2 Pythia pTE
  1        = alpsfact         ! scale factor for QCD emission vx
@@ -78,7 +78,7 @@
 # Automatic ptj and mjj cuts if xqcut > 0
 # (turn off for VBF and single top processes)
 #**********************************************************
-   T  = auto_ptj_mjj  ! Automatic setting of ptj and mjj
+   F  = auto_ptj_mjj  ! Automatic setting of ptj and mjj
 #**********************************************************
 #                                                                    
 #**********************************
