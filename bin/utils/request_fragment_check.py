@@ -523,6 +523,9 @@ for num in range(0,len(prepid)):
             print "path mg "+str(mg_gp)
 	    print "path amcnlo "+str(amcnlo_gp)
             print "path jhugen "+str(jhu_gp)
+            if mg_gp is False and "madgraph" in dn.lower():
+                print "[ERROR] Although the name of the dataset has ~Madgraph, the gridpack doesn't seem to be a MG5_aMC one."
+                error += 1
 	    if mg_gp is True:
 	        filename_mggpc = my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat'
 		fname_p2 = my_path+'/'+pi+'/'+'process/Cards/run_card.dat'
@@ -1148,10 +1151,6 @@ for num in range(0,len(prepid)):
                         bw = os.popen('more '+filename_mggpc+' | tr -s \' \' | grep "= bwcutoff"').read()
                         mg_pdf = os.popen('more '+filename_mggpc+' | tr -s \' \' | grep "lhaid"').read()
                         mg_pdf = mg_pdf.split("=")[0].split()[0]
-                    elif gp_size != 0 and mg_gp is False:
-			print "[ERROR] Although the name of the dataset has ~Madgraph, the gridpack doesn't seem to be a MG5_aMC one. Please check."
-			error += 1
-			break
                     version_file = my_path+'/'+pi+'/'+'mgbasedir/VERSION'
                     if os.path.isfile(version_file) is True:
                         mgversion_tmp = os.popen('grep version '+version_file).read()
@@ -1268,7 +1267,6 @@ for num in range(0,len(prepid)):
                         MGpatch.append(int(os.popen('grep -c _CONDOR_SCRATCH_DIR '+my_path+'/'+pi+'/'+'mgbasedir/Template/LO/SubProcesses/refine.sh').read()))
                         MGpatch.append(int(os.popen('grep -c _CONDOR_SCRATCH_DIR '+my_path+'/'+pi+'/'+'process/madevent/SubProcesses/refine.sh').read()))
                         if MGpatch[0] == 1 and MGpatch[1] == 1 and MGpatch[2] == 1:
-                            print "*"
                             print "[OK] MG5_aMC@NLO leading order patches OK in gridpack"
                         if MGpatch[0] != 1:
                             print "[ERROR] MG5_aMC@NLO multi-run patch missing in gridpack - please re-create a gridpack"
@@ -1301,7 +1299,6 @@ for num in range(0,len(prepid)):
                                     print "And the request is using a version "+str(cmssw)+" that does not contain the patch."
                                     print "In this release, please at least use CMSSW_10_2_0_pre2"
                                     error += 1
-                        print "*"
                         print "-------------------------MG5_aMC LO/MLM Many Threads Patch Check --------------------------------------"
                         ppp_ind_range = 0
                         if slha_flag == 1:
