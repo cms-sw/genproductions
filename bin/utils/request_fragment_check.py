@@ -330,6 +330,7 @@ for num in range(0,len(prepid)):
         mem = r['memory']
         filter_eff = r['generator_parameters'][-1]['filter_efficiency']
         match_eff = r['generator_parameters'][-1]['match_efficiency']
+        total_eff = filter_eff*match_eff 
 	cross_section = r['generator_parameters'][-1]['cross_section']
 	ext = r['extension']
         print pi+"    Status= "+r['status']
@@ -404,6 +405,7 @@ for num in range(0,len(prepid)):
             continue
         for item in te:
             timeperevent = float(item)
+            print "time per event (sec/event) = "+str(timeperevent)
         if timeperevent > 150.0 :
             print "[WARNING] Large time/event (> 150 sec)="+str(timeperevent)+" - please check"
             warning += 1
@@ -643,12 +645,14 @@ for num in range(0,len(prepid)):
 
         nevts = 100.
         if timeperevent > 0:   
-            nevts = (8*3600/timeperevent)*filter_eff
-        if  nevts < 50. and int(test_cs_version[1]) > 9 and ppd == 0:
-            print ("[ERROR] The expected number of events is too small (<50):", nevts,"Either the timeperevent value is incorrect (too large) or the filter efficiency is too small. Please check, timeperevent=",timeperevent, "filter_eff=",filter_eff)
-            error += 1
-        if  nevts < 50. and int(test_cs_version[1]) <= 9 and ppd == 0:
-            print ("[ERROR] The expected number of events is too small (<50):", nevts,"Either the timeperevent value is incorrect (too large) or the filter efficiency is too small. Please check, timeperevent=",timeperevent, "filter_eff=",filter_eff)
+            nevts = (8*3600/timeperevent)*total_eff
+            print "Expected number of events = "+str(nevts)
+        if  nevts < 50. and ppd == 0:
+            print "[ERROR] The expected number of events is too small (<50): "+str(nevts)
+            print          "Either the timeperevent value is incorrect (too large) or the filter efficiency is too small. Note that total_efficiency = filter_efficiency x matching_efficiency. Please check or improve:" 
+            print "time per event = "+str(timeperevent)
+            print "filter efficiency = "+str(filter_eff)
+            print "matching efficiency = "+str(match_eff)
             error += 1
         if int(test_cs_version[1]) >= 10 and int(test_cs_version[2]) >= 6 and nthreads == 8 and mem != 15900 and ppd == 0:
             print ("[ERROR] 8 core request with memory different from 15900 GB. Please set the memory to 15900 GB")
