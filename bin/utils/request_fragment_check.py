@@ -649,10 +649,12 @@ for num in range(0,len(prepid)):
             print "Expected number of events = "+str(nevts)
         if  nevts < 50. and ppd == 0:
             print "[ERROR] The expected number of events is too small (<50): "+str(nevts)
-            print          "Either the timeperevent value is incorrect (too large) or the filter efficiency is too small. Note that total_efficiency = filter_efficiency x matching_efficiency. Please check or improve:" 
-            print "time per event = "+str(timeperevent)
-            print "filter efficiency = "+str(filter_eff)
-            print "matching efficiency = "+str(match_eff)
+            print "        Either the timeperevent value is too large or the filter or matching efficiency is too small. "
+            print "        Note that total_efficiency = filter_efficiency x matching_efficiency." 
+            print "        Please check or improve:" 
+            print "            time per event = "+str(timeperevent)
+            print "            filter efficiency = "+str(filter_eff)
+            print "            matching efficiency = "+str(match_eff)
             error += 1
         if int(test_cs_version[1]) >= 10 and int(test_cs_version[2]) >= 6 and nthreads == 8 and mem != 15900 and ppd == 0:
             print ("[ERROR] 8 core request with memory different from 15900 GB. Please set the memory to 15900 GB")
