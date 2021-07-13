@@ -330,6 +330,7 @@ for num in range(0,len(prepid)):
         mem = r['memory']
         filter_eff = r['generator_parameters'][-1]['filter_efficiency']
         match_eff = r['generator_parameters'][-1]['match_efficiency']
+        total_eff = filter_eff*match_eff
 	cross_section = r['generator_parameters'][-1]['cross_section']
 	ext = r['extension']
         print pi+"    Status= "+r['status']
@@ -643,7 +644,7 @@ for num in range(0,len(prepid)):
 
         nevts = 100.
         if timeperevent > 0:   
-            nevts = (8*3600/timeperevent)*filter_eff
+            nevts = (8*3600/timeperevent)*total_eff
         if  nevts < 50. and int(test_cs_version[1]) > 9 and ppd == 0:
             print ("[ERROR] The expected number of events is too small (<50):", nevts,"Either the timeperevent value is incorrect (too large) or the filter efficiency is too small. Please check, timeperevent=",timeperevent, "filter_eff=",filter_eff)
             error += 1
