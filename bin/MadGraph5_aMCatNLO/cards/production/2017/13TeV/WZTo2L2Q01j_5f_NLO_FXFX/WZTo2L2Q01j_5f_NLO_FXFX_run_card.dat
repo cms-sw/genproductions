@@ -83,10 +83,12 @@ average = event_norm ! Normalize events to sum or average to the X sect.
  1        = muF1_over_ref    ! ratio of current muF1 over reference muF1
  1        = muF2_over_ref    ! ratio of current muF2 over reference muF2
  1        = QES_over_ref     ! ratio of current QES over reference QES
-#***********************************************************************## Store reweight information in the LHE file for off-line model-       *
+#************************************************************************
+## Store reweight information in the LHE file for off-line model-       *
 ## parameter reweighting at NLO+PS accuracy                             *
 ##***********************************************************************
  True = store_rwgt_info ! Store info for reweighting in LHE file
+#***********************************************************************
 # Reweight flags to get scale dependence and PDF uncertainty           *
 # For scale dependence: factor rw_scale_up/down around central scale   *
 # For PDF uncertainty: use LHAPDF with supported set                   *
