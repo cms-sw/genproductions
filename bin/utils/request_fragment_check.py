@@ -832,8 +832,11 @@ for num in range(0,len(prepid)):
                     pf.append(os.popen('grep \"INFO: fail to reach target\" '+gp_log_loc).read())
                     pf.append(os.popen('grep \"INFO: Not enough events for at least one production mode\" '+gp_log_loc).read())
                     if len(pf[0]) != 0:
+                        print("#################################################################")
                         print("[WARNING] "+pf[0])
-                        print("            gridpack patch problem.")
+                        print("            Gridpack PATCH problem!")
+                        print("            Please use the master branch of genproductions!")
+                        print("#################################################################")
                         warning += 1
                     if len(pf[1]) !=0 or len(pf[2]) != 0:
                         print("[WARNING] "+pf[1])
