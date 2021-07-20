@@ -1347,9 +1347,9 @@ for num in range(0,len(prepid)):
                                 if args.apply_many_threads_patch:
                                     print("Patching for nthreads problem... please be patient.")
                                     if slha_flag == 0:
-                                        os.system('python ../../Utilities/scripts/update_gridpacks_mg242_thread.py --prepid '+pi)
+                                        os.system('python2 ../../Utilities/scripts/update_gridpacks_mg242_thread.py --prepid '+pi)
                                     if slha_flag == 1:
-                                        os.system('python ../../Utilities/scripts/update_gridpacks_mg242_thread.py --gridpack '+gridpack_cvmfs_path)
+                                        os.system('python2 ../../Utilities/scripts/update_gridpacks_mg242_thread.py --gridpack '+gridpack_cvmfs_path)
                             print("-------------------------EOF MG5_aMC LO/MLM Many Threads Patch Check ----------------------------------")
                             print("*")
                 if alt_ickkw_c >= 2 and check[0] == 2 and check[1] == 1 and check[2] == 1 :
