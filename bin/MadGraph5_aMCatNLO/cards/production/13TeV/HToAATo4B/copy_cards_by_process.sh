@@ -8,7 +8,7 @@ prodmodes=("SUSY_GluGluH_01J_HToAATo4B_M-"
            "SUSY_TTH_TTToAll_HToAATo4B_M-")
 
 ## "a" boson mass points
-masspoints=(15 20 25 30 35 40 45 50 55 60)
+masspoints=(12 15 20 25 30 35 40 45 50 55 60)
 
 ## Loop over all Higgs production modes
 for prod in "${prodmodes[@]}"
