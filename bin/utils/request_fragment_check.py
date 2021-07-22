@@ -139,7 +139,7 @@ def ul_consistency(dn,pi,jhu_gp):
         if "NULL" in pi_prime and ("APV" in pi or "Summer20UL18" in pi or "Summer20UL17" in pi):
             print("[ERROR] No corresponing Summer20UL16 request to compare to for consistency.")
             print("        Please first create the corresponding Summer20UL16 requests.")
-            error_ += 1
+            error_ul += 1
         if "NULL" in pi_prime and "APV" not in pi:
             print("[WARNING] No corresponing Summer19UL17 request to compare to for consistency.")
             print(" LEVEL2 Conveners - please check the request VERY CAREFULLY!")
