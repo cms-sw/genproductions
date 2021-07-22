@@ -194,6 +194,8 @@ def ul_consistency(dn,pi,jhu_gp):
             f1_prime.close()
             f2_prime.write(data_f2_prime)
             f2_prime.close()
+    if not error_ul:
+        print("UL consistency check is OK.")
     return warning_ul,error_ul
 
 def xml_check_and_patch(f,cont,gridpack_eos_path,my_path,pi):
@@ -799,9 +801,10 @@ for num in range(0,len(prepid)):
                     error += 1
                     print(("[ERROR] Gridpack ",gridpack_cvmfs_path," does not exist!")) 
                     break
-                w_temp, e_temp = ul_consistency(dn,pi,jhu_gp)
-                warning += w_temp
-                error += e_temp
+                if "ppd" not in pi.lower():
+                    w_temp, e_temp = ul_consistency(dn,pi,jhu_gp)
+                    warning += w_temp
+                    error += e_temp
                 if not (any(word in dn for word in tunename) or "sherpa" in dn.lower() or ("herwigpp" in dn.lower() and ("eec5" in dn.lower() or "ee5c" in dn.lower()))):
                     print("[ERROR] Dataset name does not have the tune name: "+dn)
                     error += 1
