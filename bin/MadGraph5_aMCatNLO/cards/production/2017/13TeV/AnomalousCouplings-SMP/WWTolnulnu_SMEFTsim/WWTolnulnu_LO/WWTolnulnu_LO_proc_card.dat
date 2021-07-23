@@ -1,0 +1,13 @@
+import model SMEFTsim_U35_MwScheme_UFO-cW_massless
+
+define p = g u c d s u~ c~ d~ s~
+define j = g u c d s u~ c~ d~ s~
+define l+ = e+ mu+
+define l- = e- mu-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+generate p p > e+ ve mu- vm~ NP=1  
+add process p p > e- ve~ mu+ vm NP=1 
+
+output WWTolnulnu_LO -nojpeg
+

@@ -1,0 +1,13 @@
+change helicity False
+change rwgt_dir rwgt
+change mode LO
+
+
+launch
+   set SMEFT 2 -1
+
+launch
+   set SMEFT 2 0
+
+launch
+   set SMEFT 2 1
