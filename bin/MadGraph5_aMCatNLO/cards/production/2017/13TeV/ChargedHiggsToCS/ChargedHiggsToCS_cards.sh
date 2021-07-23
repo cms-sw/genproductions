@@ -15,7 +15,7 @@ for charge in ${charges[*]};do
     for mass in ${masses[*]}; do
         echo generating cards $charge, for M = $mass GeV
 	madspin=H${charge}ToCS_M${mass}_madspin_card.dat
-	echo "ecset ms_dir ./madspingrid">$madspin
+	echo "set ms_dir ./madspingrid">$madspin
 	echo "set Nevents_for_max_weigth 500">>$madspin 
  	echo "set max_weight_ps_point 400">>$madspin
 	echo "set max_running_process 1">>$madspin
