@@ -801,7 +801,7 @@ for num in range(0,len(prepid)):
                     error += 1
                     print(("[ERROR] Gridpack ",gridpack_cvmfs_path," does not exist!")) 
                     break
-                if "ppd" not in pi.lower():
+                if "ppd" not in pi.lower() and "Summer20UL17pp5TeV" not in pi:
                     w_temp, e_temp = ul_consistency(dn,pi,jhu_gp)
                     warning += w_temp
                     error += e_temp
