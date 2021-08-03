@@ -1,6 +1,6 @@
 #!/bin/bash
 
-masses=(80 90 100 110 120 130 140 150 160)
+masses=(80 90 100 110 120 130 140 150 155 160)
 #masses=(80) 
 charges=("plus" "minus")
 
