@@ -12,5 +12,5 @@ define l- = e- mu-
 define vl = ve vm vt
 define vl~ = ve~ vm~ vt~
 
-generate p p > z l+ l- j j QCD=0 SMHLOOP=0 NP=1, z > vl vl~
+generate p p > z vl vl~ j j QCD=0 SMHLOOP=0 NP=1, z > l+ l-
 output ZZjj_llvvjj_ewk_aQGC -nojpeg
