@@ -1,0 +1,6 @@
+set ms_dir ./madspingrid
+set BW_cut 15 # cut on how far the particle can be off-shell
+set max_running_process 1
+decay w+ > l+ vl
+decay w- > j j
+launch

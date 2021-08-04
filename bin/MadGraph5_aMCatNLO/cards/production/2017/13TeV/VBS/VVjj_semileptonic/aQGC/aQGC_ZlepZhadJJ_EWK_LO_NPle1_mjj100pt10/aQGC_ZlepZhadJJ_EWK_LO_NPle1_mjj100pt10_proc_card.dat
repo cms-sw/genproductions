@@ -1,0 +1,12 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set complex_mass_scheme False
+import model SM_Ltotal_Ind5v2020v2_UFO
+define p = g u c d s u~ c~ d~ s~ 
+define j = g u c d s u~ c~ d~ s~ b b~
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+generate p p > z z j j QED=4 QCD=0 NP=1
+output aQGC_ZlepZhadJJ_EWK_LO_NPle1_mjj100pt10 --nojpeg
