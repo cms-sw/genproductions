@@ -5,7 +5,7 @@ set complex_mass_scheme False
 
 import model SM_Ltotal_Ind5v2020v2_UFO 
 
-define p = g u c d s u~ c~ d~ s~
+define p = g u c d s b u~ c~ d~ s~ b~
 define j = p
 define l+ = e+ mu+
 define l- = e- mu-
