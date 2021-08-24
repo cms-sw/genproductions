@@ -106,7 +106,7 @@
 # Minimum and maximum pt's (for max, -1 means no cut)                *
 #*********************************************************************
   10.0    =  ptj        ! minimum pt for the jets 
-  0.0    =  ptb        ! minimum pt for the b 
+  10.0    =  ptb        ! minimum pt for the b 
   0.0    =  pta        ! minimum pt for the photons 
   0.0    =  ptl        ! minimum pt for the charged leptons 
   0.0    =  misset     ! minimum missing Et (sum of neutrino's momenta)
@@ -132,7 +132,7 @@
 # Maximum and minimum absolute rapidity (for max, -1 means no cut)   *
 #*********************************************************************
   6.5    =  etaj     ! max rap for the jets 
-  -1    =  etab     ! max rap for the b
+  6.5    =  etab     ! max rap for the b
   2.5    =  etaa     ! max rap for the photons 
   -1.0    =  etal     ! max rap for the charged leptons 
   0.6   = etaonium  ! max rap for the quarkonium states
@@ -144,14 +144,14 @@
 # Minimum and maximum DeltaR distance                                *
 #*********************************************************************
   0.4    =  drjj     ! min distance between jets 
-  0.0    =  drbb     ! min distance between b's 
+  0.4    =  drbb     ! min distance between b's 
   0.4    =  drll     ! min distance between leptons 
   0.0    =  draa     ! min distance between gammas 
-  0.0    =  drbj     ! min distance between b and jet 
+  0.4    =  drbj     ! min distance between b and jet 
   0.0    =  draj     ! min distance between gamma and jet 
   0.4    =  drjl     ! min distance between jet and lepton 
   0.0    =  drab     ! min distance between gamma and b 
-  0.0    =  drbl     ! min distance between b and lepton 
+  0.4    =  drbl     ! min distance between b and lepton 
   0.0    =  dral     ! min distance between gamma and lepton 
   -1.0    =  drjjmax  ! max distance between jets
   -1.0    =  drbbmax  ! max distance between b's
@@ -169,7 +169,7 @@
 #          different lepton masses for each flavor!                  *           
 #*********************************************************************
   100.0    =  mmjj     ! min invariant mass of a jet pair 
-  0.0    =  mmbb     ! min invariant mass of a b pair 
+  100.0    =  mmbb     ! min invariant mass of a b pair 
   0.0    =  mmaa     ! min invariant mass of gamma gamma pair
   0.0    =  mmll     ! min invariant mass of l+l- (same flavour) lepton pair
   -1.0    =  mmjjmax  ! max invariant mass of a jet pair
@@ -253,7 +253,7 @@
 # maximal pdg code for quark to be considered as a light jet         *
 # (otherwise b cuts are applied)                                     *
 #*********************************************************************
-  4    =  maxjetflavor     ! Maximum jet pdg code
+  5    =  maxjetflavor     ! Maximum jet pdg code
 #*********************************************************************
 # Jet measure cuts                                                   *
 #*********************************************************************
