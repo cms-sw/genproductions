@@ -12,8 +12,8 @@ set param_card FM7 32.0e-12
 set param_card FT0 1.0e-12
 set param_card FT1 1.0e-12
 set param_card FT2 2.0e-12
-set param_card FT3 0.0
-set param_card FT4 0.0
+set param_card FT3 2.0e-12
+set param_card FT4 2.0e-12
 set param_card FT5 2.0e-12
 set param_card FT6 2.0e-12
 set param_card FT7 4.0e-12
