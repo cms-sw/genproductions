@@ -109,6 +109,15 @@ def check_replace(runcmsgridfile):
         error_check_replace += 1
     return error_check_replace 
 
+def concurrency_check(fragment):
+    conc_check = 0
+    if "generateConcurrently" in fragment and "Pythia8ConcurrentHadronizerFilter" in fragment and "Pythia8HadronizerFilter" not in fragment:
+        conc_check = 1
+        print("The request will be generated concurrently")
+    else:
+        print("The request will not be generated concurrently")
+    return conc_check
+   
 def ul_consistency(dn,pi,jhu_gp):
     pi_prime = "NULL"
     prime_tmp = []
@@ -386,6 +395,7 @@ for num in range(0,len(prepid)):
         herwig7_bypass_error = 0
         pythia8_flag = 0
         evtgen_flag = 0
+        concornot = 0 
         pf = []
         ppd = 0
         if "ppd" in pi.lower():
@@ -424,11 +434,22 @@ for num in range(0,len(prepid)):
             print("[WARNING] Is "+str(totalevents)+" events what you really wanted - please check!")
             warning += 1
         os.popen('wget -q '+mcm_link+'public/restapi/requests/get_fragment/'+pi+' -O '+pi).read()
+
         fsize = os.path.getsize(pi)
         f1 = open(pi,"r")
         f2 = open(pi+"_tmp","w")
+        f1_rem = open("pi_rem","w")
+        f2_rem = open("pi_rem_clone","w") 
         data_f1 = f1.read()
+
+        if concurrency_check(data_f1):
+            with open(pi,'r') as ff1:
+                for line in ff1:
+                    if "script" not in line and "generateConcurrently" not in line and "HadronizerFilter" not in line:
+                        f1_rem.write(line)
+            f1_rem.close()         
         data_f2 = re.sub(r'(?m)^ *#.*\n?', '',data_f1)
+
         cross_section_fragment = re.findall('crossSection.*?\S+\S+',data_f2)
         if (cross_section_fragment):
             cross_section_fragment=cross_section_fragment[0]
@@ -460,15 +481,35 @@ for num in range(0,len(prepid)):
                f2_clone = open(pi_clone_entries+"_tmp","w")
                data_f1_clone = f1_clone.read()
                data_f2_clone = re.sub(r'(?m)^ *#.*\n?', '',data_f1_clone)
-               if (data_f2 == data_f2_clone) == True:
-                  print("[OK] The base request and the cloned request used for the extension have the same fragment.")
-               else:
-                  print("[ERROR] The base request and the cloned request used for the extension don't have the same fragment!")
-                  print("Below is the diff of the base and and the cloned request:")
-                  print("---------------------------------------------------------------------------------")
-                  print((os.popen('diff '+pi+' '+pi_clone_entries).read()))
-                  print("---------------------------------------------------------------------------------") 
-                  error += 1		
+               if concurrency_check(data_f1):
+                   with open(pi_clone_entries,'r') as ff2:
+                       for line in ff2:
+                           if "script" not in line and "HadronizerFilter" not in line:
+                               f2_rem.write(line)
+                   f2_rem.close() 
+                   f1_rem_o = open("pi_rem",'r')
+                   f2_rem_o = open("pi_rem_clone",'r')
+                   data_f1_rem = f1_rem_o.read()
+                   data_f2_rem = f2_rem_o.read()
+                   if (data_f1_rem == data_f2_rem) == True:
+                       print("[OK] The base request and the cloned request used for the extension have the same fragment.")
+                   else:
+                       print("[ERROR] The base request and the cloned request used for the extension don't have the same fragment!")
+                       print("Below is the diff of the base and and the cloned request:")
+                       print("---------------------------------------------------------------------------------")
+                       print((os.popen('diff '+pi_rem+' '+pi_rem_clone).read()))
+                       print("---------------------------------------------------------------------------------")
+                       error += 1
+               if concurrency_check(data_f1) == 0:
+                   if (data_f2 == data_f2_clone) == True:
+                       print("[OK] The base request and the cloned request used for the extension have the same fragment.")
+                   else:
+                       print("[ERROR] The base request and the cloned request used for the extension don't have the same fragment!")
+                       print("Below is the diff of the base and and the cloned request:")
+                       print("---------------------------------------------------------------------------------")
+                       print((os.popen('diff '+pi+' '+pi_clone_entries).read()))
+                       print("---------------------------------------------------------------------------------") 
+                       error += 1		
         f1.close()
         f2.write(data_f2)
         f2.close()
@@ -1467,6 +1508,7 @@ for num in range(0,len(prepid)):
         if args.develop is False:
             os.popen("rm -rf "+my_path+pi).read()
             os.popen("rm -rf "+my_path+'eos/'+pi).read()
+        os.popen("rm pi_rem*").read()
         print("***********************************************************************************")
         print("Number of warnings = "+ str(warning))
         print("Number of errors = "+ str(error))
