@@ -6,7 +6,7 @@ export WORKDIR=$rootfolder
 export patches_dir=$patches_dir 
 # Release to be used to define the environment and the compiler needed
 export RELEASE=$${CMSSW_VERSION}
-export jhugenversion="v7.2.7" 
+export jhugenversion="v7.5.0" 
 
 cd $$WORKDIR
 pwd

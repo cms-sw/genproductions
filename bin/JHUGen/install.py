@@ -9,7 +9,7 @@ import shutil
 import subprocess
 import textwrap
 
-JHUGenversion = "v7.2.7"
+JHUGenversion = "v7.5.0"
 
 if __name__ == "__main__":
   parser = argparse.ArgumentParser(description="Make JHUGen gridpack")
