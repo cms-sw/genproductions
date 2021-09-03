@@ -1,0 +1,7 @@
+set ms_dir ./madspingrid
+set Nevents_for_max_weigth 500
+set max_weight_ps_point 400
+set max_running_process 1
+decay t~ > w- b~, w- > l- vl~
+decay t > h+ b, h+ > c s~
+launch

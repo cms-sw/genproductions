@@ -1,0 +1,6 @@
+import model loop_sm
+
+generate p p >  e+ ve mu- vm~ a [QCD]    @0
+add process p p >  mu+ vm e- ve~ a [QCD]    @1
+
+output WWAToEMuA_4f_NLO -nojpeg

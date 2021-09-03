@@ -1,0 +1,8 @@
+import model ALP
+
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
+
+generate p p > h > Z alp , Z > l+ l- , alp > a a
+
+output HZaTo2l2g -nojpeg
