@@ -1,10 +1,14 @@
 import os
 
-print "This script will create the DR2 variations for the dilep tW sample. This should be executed from this very folder."
+print "This script will create the DR2 as well as DS, DS_IS, DS_IS_runningBW and DS_runningBW variations for the dilep tW sample. This should be executed from this very folder."
 
 prename = "ST_tW_5f_NLO_dilep_DR"
 
-thedict = {"DR2" : 2}
+thedict = {"DR2"             : 2,
+           "DS_IS"           : 3,
+           "DS_IS_runningBW" : 4,
+           "DS"              : 5,
+           "DS_runningBW"    : 6,}
 
 for el in thedict:
     newprename = prename.replace("DR", el)
