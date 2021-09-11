@@ -13,6 +13,9 @@ nPassNeg_arr=()
 count=0
 
 for filein in $(ls ${PWD} | grep .gz);do
+  pass_filter_all=0
+  pass_filter_neg_fra_temp=0
+  pass_filter_neg_fra=0
   tar zxf $filein
   num=$(echo $filein | cut -d '.' -f 1 | cut -d '_' -f 2)
   if [ $count -eq 0 ]
@@ -29,6 +32,16 @@ for filein in $(ls ${PWD} | grep .gz);do
   nPass_temp=$(cat cmsRun-stdout-${num}.log | tail -n +${linetemp2} | head -n 1 | cut -f 5)
   nPassPos_temp=$(cat cmsRun-stdout-${num}.log | tail -n +${linetemp2} | head -n 1 | cut -f 6)
   nPassNeg_temp=$(cat cmsRun-stdout-${num}.log | tail -n +${linetemp2} | head -n 1 | cut -f 7)
+  
+  if [ $(cat cmsRun-stdout-${num}.log | grep "Filter efficiency (event-level)" | wc -l) -gt 0 ]
+  then
+    pass_filter_all=$(cat cmsRun-stdout-${num}.log | grep "Filter efficiency (event-level)" -n | cut -d '=' -f 2 | cut -d '/' -f 1 | sed 's/(//' | sed 's/)//')
+    pass_filter_neg_fra_temp=$(cat cmsRun-stdout-${num}.log | grep "final fraction of events with negative weights" -n  | cut -d '=' -f 2 | cut -d '+' -f 1 | sed 's/ //')
+    pass_filter_neg_fra=$(printf "%10.4f" $pass_filter_neg_fra_temp)
+    nPass_temp=$pass_filter_all
+    nPassNeg_temp=$(echo "scale=0; $nPass_temp*$pass_filter_neg_fra" | bc)
+    nPassPos_temp=$(echo "scale=0; $nPass_temp - $nPassNeg_temp"| bc)
+  fi
 
   Xs_arr[$count]=$xs_temp
   Xserr_arr[$count]=$xserr_temp
@@ -93,8 +106,8 @@ PassPos_output=$(printf "%10.0f" $PassPos_sum)
 PassNeg_output=$(printf "%10.0f" $PassNeg_sum)
 echo 'Total Positive events number before matching:' $TotalPos_output
 echo 'Total Negative events number before matching:' $TotalNeg_output
-echo 'Total Positive events number after matching:' $PassPos_output
-echo 'Total Negative events number after matching:' $PassNeg_output
+echo 'Total Positive events number after matching and filter:' $PassPos_output
+echo 'Total Negative events number after matching and filter:' $PassNeg_output
 
 nabsTotal_temp=$(echo "scale=0; $TotalPos_sum - $TotalNeg_sum"|bc)
 nabsTotal=$(printf "%10.0f" $nabsTotal_temp)
@@ -139,7 +152,7 @@ else
 #  echo 'Xserr_after:' $Xserr_after
   Xs_final=$(printf "%10.2f" $Xs_after)
   Xserr_final=$(printf "%10.2f" $Xserr_after)
-  echo "Cross section after matching is:" $Xs_final " +- " $Xserr_final $unit
+  echo "Cross section after matching (and filtering) is:" $Xs_final " +- " $Xserr_final $unit
   rm *.log
   rm *.xml
 fi
