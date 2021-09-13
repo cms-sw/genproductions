@@ -344,6 +344,7 @@ for num in range(0,len(prepid)):
         total_eff = filter_eff*match_eff 
         cross_section = r['generator_parameters'][-1]['cross_section']
         ext = r['extension']
+        print("Extension or not: "+str(ext))
         print(pi+"    Status= "+r['status'])
         print(dn)
         if args.bypass_status and r['status'] != "defined":
@@ -466,7 +467,7 @@ for num in range(0,len(prepid)):
         print("")
         print("Filter efficiency in fragment =" + str(filter_eff_fragment))
         print("Filter efficiency from generator parameters field = "+str(filter_eff))
-        if (filter_eff_fragment and filter_eff and float(filter_eff_fragment) != float(filter_eff)):
+        if (filter_eff_fragment and filter_eff and float(filter_eff_fragment and int(ext) == 0) != float(filter_eff)):
             print("[ERROR] Filter efficiency in the generator parameters field and the one in the fragment do not match!")
             error += 1    
 	
