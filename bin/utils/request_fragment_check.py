@@ -460,7 +460,7 @@ for num in range(0,len(prepid)):
             filter_eff_fragment = re.findall('\((.*?)\)',filter_eff_fragment)[0]
         print("Cross section in the fragment =" + str(cross_section_fragment) +" pb")
         print("Cross section from generator parameters field = "+str(cross_section)+" pb")
-        if (cross_section_fragment and cross_section and float(cross_section_fragment) != float(cross_section)):
+        if (cross_section_fragment and cross_section and float(cross_section_fragment and int(ext) == 0) != float(cross_section)):
             print("[ERROR] Cross section in the generator parameters field and the one in the fragment do not match!")
             error += 1
         print("")
