@@ -1,17 +1,3 @@
-#*********************************************************************
-#                       MadGraph5_aMC@NLO                            *
-#                                                                    *
-#                     run_card.dat MadEvent                          *
-#                                                                    *
-#  This file is used to set the parameters of the run.               *
-#                                                                    *
-#  Some notation/conventions:                                        *
-#                                                                    *
-#   Lines starting with a '# ' are info or comments                  *
-#                                                                    *
-#   mind the format:   value    = variable     ! comment             *
-#*********************************************************************
-#
 #*******************                                                 
 # Running parameters
 #*******************                                                 
@@ -25,7 +11,7 @@
 # Warning: Do not generate more than 1M events in a single run       *
 # If you want to run Pythia, avoid more than 50k events in a run.    *
 #*********************************************************************
-  10000 = nevents ! Number of unweighted events requested 
+  3000 = nevents ! Number of unweighted events requested 
   0   = iseed   ! rnd seed (0=assigned automatically=default))
 #*********************************************************************
 # Collider type and energy                                           *
@@ -110,10 +96,10 @@
 #*********************************************************************
 # Minimum and maximum pt's (for max, -1 means no cut)                *
 #*********************************************************************
- 20.0  = ptj       ! minimum pt for the jets 
+ 0.0  = ptj       ! minimum pt for the jets 
  0.0  = ptb       ! minimum pt for the b 
- 10.0  = pta       ! minimum pt for the photons 
- 10.0  = ptl       ! minimum pt for the charged leptons 
+ 0.0  = pta       ! minimum pt for the photons 
+ 0.0  = ptl       ! minimum pt for the charged leptons 
  0.0  = misset    ! minimum missing Et (sum of neutrino's momenta)
  0.0  = ptheavy   ! minimum pt for one heavy final state
  -1.0  = ptjmax    ! maximum pt for the jets
@@ -129,16 +115,16 @@
   0.0  = ea     ! minimum E for the photons 
   0.0  = el     ! minimum E for the charged leptons 
   -1.0   = ejmax ! maximum E for the jets
- -1.0   = ebmax ! maximum E for the b
- -1.0   = eamax ! maximum E for the photons
- -1.0   = elmax ! maximum E for the charged leptons
+  -1.0   = ebmax ! maximum E for the b
+  -1.0   = eamax ! maximum E for the photons
+  -1.0   = elmax ! maximum E for the charged leptons
 #*********************************************************************
 # Maximum and minimum absolute rapidity (for max, -1 means no cut)   *
 #*********************************************************************
-  5.0 = etaj    ! max rap for the jets 
-  -1.0  = etab    ! max rap for the b
- 2.5  = etaa    ! max rap for the photons 
- 2.5  = etal    ! max rap for the charged leptons 
+ -1.0  = etaj    ! max rap for the jets 
+ -1.0  = etab    ! max rap for the b
+ -1.0  = etaa    ! max rap for the photons 
+ -1.0  = etal    ! max rap for the charged leptons 
  0.0  = etajmin ! min rap for the jets
  0.0  = etabmin ! min rap for the b
  0.0  = etaamin ! min rap for the photons
@@ -146,16 +132,16 @@
 #*********************************************************************
 # Minimum and maximum DeltaR distance                                *
 #*********************************************************************
- 0.4 = drjj    ! min distance between jets 
+ 0.01 = drjj    ! min distance between jets 
  0.0   = drbb    ! min distance between b's 
- 0.4 = drll    ! min distance between leptons 
- 0.4 = draa    ! min distance between gammas 
+ 0.01 = drll    ! min distance between leptons 
+ 0.01 = draa    ! min distance between gammas 
  0.0   = drbj    ! min distance between b and jet 
- 0.4 = draj    ! min distance between gamma and jet 
- 0.4 = drjl    ! min distance between jet and lepton 
+ 0.01 = draj    ! min distance between gamma and jet 
+ 0.01 = drjl    ! min distance between jet and lepton 
  0.0   = drab    ! min distance between gamma and b 
  0.0   = drbl    ! min distance between b and lepton 
- 0.4 = dral    ! min distance between gamma and lepton 
+ 0.01 = dral    ! min distance between gamma and lepton 
  -1.0  = drjjmax ! max distance between jets
  -1.0  = drbbmax ! max distance between b's
  -1.0  = drllmax ! max distance between leptons
@@ -267,16 +253,3 @@
 # WARNING: Do not use for interference type of computation           *
 #*********************************************************************
    True  = use_syst      ! Enable systematics studies
-#
-#**************************************
-# Parameter of the systematics study
-#  will be used by SysCalc (if installed)
-#**************************************                                  
-#
-0.5 1 2 = sys_scalefact  # factorization/renormalization scale factor
-None = sys_alpsfact  # \alpha_s emission scale factors
-auto = sys_matchscale # variation of merging scale
-# PDF sets and number of members (0 or none for all members).
-NNPDF23_lo_as_0130_qed = sys_pdf # list of pdf sets
-# MSTW2008nlo68cl.LHgrid 1  = sys_pdf
-#

@@ -1,25 +1,3 @@
-#************************************************************
-#*                     MadGraph5_aMC@NLO                    *
-#*                                                          *
-#*                *                       *                 *
-#*                  *        * *        *                   *
-#*                    * * * * 5 * * * *                     *
-#*                  *        * *        *                   *
-#*                *                       *                 *
-#*                                                          *
-#*                                                          *
-#*         VERSION 2.5.5                 2017-05-26         *
-#*                                                          *
-#*    The MadGraph5_aMC@NLO Development Team - Find us at   *
-#*    https://server06.fynu.ucl.ac.be/projects/madgraph     *
-#*                                                          *
-#************************************************************
-#*                                                          *
-#*               Command File for MadGraph5_aMC@NLO         *
-#*                                                          *
-#*     run as ./bin/mg5_aMC  filename                       *
-#*                                                          *
-#************************************************************
 set group_subprocesses Auto
 set ignore_six_quark_processes False
 set loop_optimized_output True
@@ -27,14 +5,12 @@ set loop_color_flows False
 set gauge unitary
 set complex_mass_scheme False
 set max_npoint_for_channel 0
-import model sm
 define p = g u c d s u~ c~ d~ s~
-define j = g u c d s u~ c~ d~ s~
 define l+ = e+ mu+
 define l- = e- mu-
-define vl = ve vm vt
-define vl~ = ve~ vm~ vt~
+define vl = ve vm 
+define vl~ = ve~ vm~ 
 import model UMSSM -modelname
-generate p p > zp > c1 c1bar, (c1 > wm n1, (wm > l- vl~)), (c1bar > wm\
-c n1, (wmc > l+ vl))
+generate p p > zp, (zp > c1 c1bar, (c1 > wm n1, (wm > l- vl~)), (c1bar > wm\
+c n1, (wmc > l+ vl)))
 output ZprimeTo2ChiTo2L
