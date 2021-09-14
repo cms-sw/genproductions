@@ -1,6 +1,6 @@
-import model UMSSM -modelname
 define l+ = e+ mu+ ta+
 define l- = e- mu- ta- 
+import model UMSSM -modelname
 generate p p > zp, (zp > c1 c1bar, (c1 > wm n1, (wm > l- vl~)), (c1bar > wm\
 c n1, (wmc > l+ vl)))
 output ZprimeTo2ChiTo2L
