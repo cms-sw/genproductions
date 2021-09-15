@@ -467,7 +467,7 @@ for num in range(0,len(prepid)):
         print("")
         print("Filter efficiency in fragment =" + str(filter_eff_fragment))
         print("Filter efficiency from generator parameters field = "+str(filter_eff))
-        if (filter_eff_fragment and filter_eff and float(filter_eff_fragment and int(ext) == 0) != float(filter_eff)):
+        if (filter_eff_fragment and filter_eff and int(ext) == 0 and float(filter_eff_fragment) != float(filter_eff)):
             print("[ERROR] Filter efficiency in the generator parameters field and the one in the fragment do not match!")
             error += 1    
 	
@@ -492,7 +492,9 @@ for num in range(0,len(prepid)):
                    f2_rem_o = open("pi_rem_clone",'r')
                    data_f1_rem = f1_rem_o.read()
                    data_f2_rem = f2_rem_o.read()
-                   if (data_f1_rem == data_f2_rem) == True:
+                   data_f1_rem_strip=re.sub(r'\s+', ' ',data_f1_rem).strip()
+                   data_f2_rem_strip=re.sub(r'\s+', ' ',data_f2_rem).strip()
+                   if (data_f1_rem_strip == data_f2_rem_strip) == True:
                        print("[OK] The base request and the cloned request used for the extension have the same fragment.")
                    else:
                        print("[ERROR] The base request and the cloned request used for the extension don't have the same fragment!")
@@ -502,10 +504,12 @@ for num in range(0,len(prepid)):
                        print("---------------------------------------------------------------------------------")
                        error += 1
                if concurrency_check(data_f1) == 0:
-                   if (data_f2 == data_f2_clone) == True:
+                   data_f2_strip=re.sub(r'\s+', ' ', data_f2).strip()
+                   data_f2_clone_strip=re.sub(r'\s+', ' ', data_f2_clone).strip()
+                   if (data_f2_strip == data_f2_clone_strip) == True:
                        print("[OK] The base request and the cloned request used for the extension have the same fragment.")
                    else:
-                       print("[ERROR] The base request and the cloned request used for the extension don't have the same fragment!")
+                       print("[ERROR] The base request "+pi+" and the cloned request "+pi_clone_entries+" used for the extension don't have the same fragment!")
                        print("Below is the diff of the base and and the cloned request:")
                        print("---------------------------------------------------------------------------------")
                        print((os.popen('diff '+pi+' '+pi_clone_entries).read()))
