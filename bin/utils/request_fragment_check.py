@@ -179,7 +179,9 @@ def ul_consistency(dn,pi,jhu_gp):
                     print("* [ERROR] Two requests don't have the same fragment (note that gridpacks haven't been compared)")
                     error_ul += 1
             else:
-                if (data_f2 == data_f2_prime) == True:
+                data_f2_strip = re.sub(r'\s+', ' ', data_f2).strip()
+                data_f2_prime_strip = re.sub(r'\s+', ' ',data_f2_prime).strip()
+                if (data_f2_strip == data_f2_prime_strip) == True:
                     print("[OK] Two requests have the same fragment.")
                 else: 
                     if "Summer20UL16" not in pi:
@@ -461,13 +463,13 @@ for num in range(0,len(prepid)):
             filter_eff_fragment = re.findall('\((.*?)\)',filter_eff_fragment)[0]
         print("Cross section in the fragment =" + str(cross_section_fragment) +" pb")
         print("Cross section from generator parameters field = "+str(cross_section)+" pb")
-        if (cross_section_fragment and cross_section and float(cross_section_fragment and int(ext) == 0) != float(cross_section)):
+        if cross_section_fragment and cross_section and int(ext) == 0 and float(cross_section_fragment) != float(cross_section):
             print("[ERROR] Cross section in the generator parameters field and the one in the fragment do not match!")
             error += 1
         print("")
         print("Filter efficiency in fragment =" + str(filter_eff_fragment))
         print("Filter efficiency from generator parameters field = "+str(filter_eff))
-        if (filter_eff_fragment and filter_eff and int(ext) == 0 and float(filter_eff_fragment) != float(filter_eff)):
+        if filter_eff_fragment and filter_eff and int(ext) == 0 and float(filter_eff_fragment) != float(filter_eff):
             print("[ERROR] Filter efficiency in the generator parameters field and the one in the fragment do not match!")
             error += 1    
 	
