@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for i in 2000 3000 4000; do
+for i in 2000 3000 5000; do
     for j in 25 80 170 400; do
 	cp -v QstarToQW_M_2000_mW_25_TuneCUETP8M1_13TeV_pythia8_cfi.py $(echo QstarToQW_M_2000_mW_25_TuneCUETP8M1_13TeV_pythia8_cfi.py | sed "s/2000/$i/" | sed "s/25/$j/")
 	cp -v QstarToQW_M_2000_mW_25_Tune4C_13TeV_pythia8_cfi.py $(echo QstarToQW_M_2000_mW_25_Tune4C_13TeV_pythia8_cfi.py | sed "s/2000/$i/" | sed "s/25/$j/")
