@@ -618,7 +618,7 @@ for num in range(0,len(prepid)):
             os.system('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/herwig_common.txt -O herwig_common.txt') 
             file2 = set(line.strip().replace(",","") for line in open(pi))
             file1 = set(line.strip().replace(",","") for line in open('herwig_common.txt'))
-            for line in file1:
+            for line in file1:                
                 if line not in file2:
                     print("[ERROR] Missing herwig setting in fragment: "+line)
                     error += 1
@@ -637,14 +637,14 @@ for num in range(0,len(prepid)):
                        print("[ERROR] Missing herwig mg5_amc specific setting in fragment: "+line)
                        error += 1 
                if alt_ickkw_c == 3:#fxfx
-                   if "set FxFxHandler:MergeMode FxFx" not in file2:
+                   if "'set FxFxHandler:MergeMode FxFx'" not in file2:
                        print("[ERROR] Missing set FxFxHandler:MergeMode FxFx in the user settings block")
                        error += 1
-                   if "set FxFxHandler:njetsmax" not in file2:
+                   if "'set FxFxHandler:njetsmax'" not in file2:
                        print("[ERROR] Missing set FxFxHandler:njetsmax MAX_N_ADDITIONAL_JETS in the user settings block")
                        error += 1
                if alt_ickkw_c == 1:#mlm
-                   if "set FxFxHandler:MergeMode TreeMG5" not in file2:
+                   if "'set FxFxHandler:MergeMode TreeMG5'" not in file2:
                        print("[ERROR] Missing set FxFxHandler:MergeMode TreeMG5 in the user settings block")
                        error += 1 
             if amcnlo_gp is True or alt_ickkw_c == 0:
