@@ -463,7 +463,10 @@ for num in range(0,len(prepid)):
             filter_eff_fragment = re.findall('\((.*?)\)',filter_eff_fragment)[0]
         print("Cross section in the fragment =" + str(cross_section_fragment) +" pb")
         print("Cross section from generator parameters field = "+str(cross_section)+" pb")
-        if cross_section_fragment and cross_section and int(ext) == 0 and float(cross_section_fragment) != float(cross_section):
+        if str(cross_section_fragment).isdigit() is False:
+            print("[WARNING] Skipping the cross section consistency check in generator parameters field and the fragment")
+            print("          This is most probably because the cross section is defined through a variable") 
+        if str(cross_section_fragment).isdigit() is True and cross_section_fragment and cross_section and int(ext) == 0 and float(cross_section_fragment) != float(cross_section):
             print("[ERROR] Cross section in the generator parameters field and the one in the fragment do not match!")
             error += 1
         print("")
@@ -566,6 +569,11 @@ for num in range(0,len(prepid)):
             grid_points_flag = 1
         gp_size = len(gridpack_cvmfs_path_tmp)
         print(gridpack_cvmfs_path_tmp)
+
+        pw_gp = False
+        amcnlo_gp = False
+        mg_gp = False
+
         if gp_size:
             gridpack_cvmfs_path_tmp = re.findall("/cvmfs/cms\.cern\.ch/phys_generator/gridpacks/.*?tar.xz|/cvmfs/cms\.cern\.ch/phys_generator/gridpacks/.*?tgz|/cvmfs/cms\.cern\.ch/phys_generator/gridpacks/.*?tar.gz",gridpack_cvmfs_path_tmp)
             if not gridpack_cvmfs_path_tmp:
@@ -614,14 +622,14 @@ for num in range(0,len(prepid)):
                 if line not in file2:
                     print("[ERROR] Missing herwig setting in fragment: "+line)
                     error += 1
-            if pw_gp != 0:
+            if pw_gp is True:
                os.system('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/herwig_powheg.txt -O herwig_powheg.txt')	
                file_me = set(line.strip().replace(",","") for line in open('herwig_powheg.txt'))
                for line in file_me:
                    if line not in file2:
                        print("[ERROR] Missing herwig powheg specific setting in fragment: "+line)
                        error += 1
-            if mg_gp !=0:
+            if mg_gp is True:
                os.system('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/herwig_mg.txt -O herwig_mg.txt') 
                file_me = set(line.strip().replace(",","") for line in open('herwig_mg.txt'))
                for line in file_me:
@@ -639,7 +647,7 @@ for num in range(0,len(prepid)):
                    if "set FxFxHandler:MergeMode TreeMG5" not in file2:
                        print("[ERROR] Missing set FxFxHandler:MergeMode TreeMG5 in the user settings block")
                        error += 1 
-            if amcnlo_gp !=0 or alt_ickkw_c == 0:
+            if amcnlo_gp is True or alt_ickkw_c == 0:
                os.system('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/herwig_mcnlo.txt -O herwig_mcnlo.txt')
                file_me = set(line.strip().replace(",","") for line in open('herwig_mcnlo.txt'))
                for line in file_me:
