@@ -173,10 +173,10 @@ def ul_consistency(dn,pi,jhu_gp):
                 data_f2_jhu = re.sub(r'args.*', '',data_f2)  
                 data_f2_jhu_prime = re.sub(r'args.*', '',data_f2_prime)
                 if (data_f2_jhu == data_f2_jhu_prime) == True:
-                    print("* [WARNING] Two requests have the same fragment (except may be the gridpack)")
+                    print("[WARNING] Two requests have the same fragment (except may be the gridpack)")
                     warning_ul += 1
                 else:
-                    print("* [ERROR] Two requests don't have the same fragment (note that gridpacks haven't been compared)")
+                    print("[ERROR] Two requests don't have the same fragment (note that gridpacks haven't been compared)")
                     error_ul += 1
             else:
                 data_f2_strip = re.sub(r'\s+', ' ', data_f2).strip()
@@ -199,7 +199,7 @@ def ul_consistency(dn,pi,jhu_gp):
             if (cmssw == cmssw_prime) == True:
                 print("[OK] Two requests have the same CMSSW version.")
             elif "Summer20UL16wmLHEGENAPV" in pi or "Summer20UL16GENAPV" in pi or "Summer20UL18" in pi or "Summer20UL17" in pi:
-                print("* [WARNING] CMSSW version of "+pi+" is different than its base UL17 request: "+pi_prime)
+                print("[WARNING] CMSSW version of "+pi+" is different than its base UL17 request: "+pi_prime)
                 print("        Please make sure that "+pi+" has _exactly_ the same settings as "+pi_prime)
                 warning_ul += 1
             f1_prime.close()
@@ -217,10 +217,10 @@ def xml_check_and_patch(f,cont,gridpack_eos_path,my_path,pi):
     if "stream" not in xml or len(xml) < 3:
         targz_flag = 0
         if "stream" not in xml and len(xml) > 3:
-          print("* [WARNING] --stream option is missing in XMLLINT, will update runcmsgrid.")
+          print("[WARNING] --stream option is missing in XMLLINT, will update runcmsgrid.")
           warning_xml += 1
         if len(xml) < 3:
-          print("* [WARNING] XMLLINT does not exist in runcmsgrid, will update it.")
+          print("[WARNING] XMLLINT does not exist in runcmsgrid, will update it.")
           warning_xml += 1
         if ".tar.gz" in gridpack_eos_path:
           targz_flag = 1
@@ -231,17 +231,17 @@ def xml_check_and_patch(f,cont,gridpack_eos_path,my_path,pi):
           gridpack_eos_path_backup = gridpack_eos_path.replace('.tar.xz','_original.tar.xz')
           targz_flag = 2
         if not os.path.exists(gridpack_eos_path_backup):
-          print("* Backup gridpack is not existing.")
-          print("* Copying "+gridpack_eos_path+" to "+gridpack_eos_path_backup+" before patching runcms.grid")
+          print("Backup gridpack does not exist.")
+          print("Copying "+gridpack_eos_path+" to "+gridpack_eos_path_backup+" before patching runcms.grid")
           os.system('cp -n -p '+gridpack_eos_path+' '+gridpack_eos_path_backup)
           md5_1 = os.popen('md5sum'+' '+gridpack_eos_path).read().split(' ')[0]
           md5_2 = os.popen('md5sum'+' '+gridpack_eos_path_backup).read().split(' ')[0]
           if md5_1 == md5_2:
-            print("* Backup and original file checksums are equal.")
+            print("Backup and original file checksums are equal.")
           else:
-            print("* [ERROR] backup gridpack has a problem.")
+            print("[ERROR] backup gridpack has a problem.")
             error_xml += 1
-        print("* Updating XMLLINT line in runcmsgrid.")
+        print("Updating XMLLINT line in runcmsgrid.")
         os.chdir(my_path+'/'+pi)
         if "stream" not in xml and len(xml) > 3:
           cont = re.sub("xmllint","xmllint --stream",cont)
@@ -264,9 +264,9 @@ def xml_check_and_patch(f,cont,gridpack_eos_path,my_path,pi):
         md5_1 = os.popen('md5sum '+gridpackname).read().split(' ')[0]
         md5_2 = os.popen('md5sum'+' '+gridpack_eos_path).read().split(' ')[0]
         if md5_1 == md5_2:
-          print("* Updated gridpack copied succesfully.")
+          print("Updated gridpack copied succesfully.")
         else:
-          print("* [ERROR] there was a problem copying in the updated gridpack to eos.")
+          print("[ERROR] there was a problem copying in the updated gridpack to eos.")
           error_xml += 1
         os.chdir(cur_dir)
     return warning_xml,error_xml
@@ -608,7 +608,7 @@ for num in range(0,len(prepid)):
                 os.system('tar xf '+gridpack_cvmfs_path+' -C '+my_path+'/'+pi)
             else:
                 error += 1
-                print ("* [ERROR] Gridpack ",gridpack_cvmfs_path," does not exist!") 
+                print ("[ERROR] Gridpack ",gridpack_cvmfs_path," does not exist!") 
                 break
             jhu_gp = os.path.isfile(my_path+'/'+pi+'/'+'JHUGen.input')
             pw_gp = os.path.isfile(my_path+'/'+pi+'/'+'powheg.input')
