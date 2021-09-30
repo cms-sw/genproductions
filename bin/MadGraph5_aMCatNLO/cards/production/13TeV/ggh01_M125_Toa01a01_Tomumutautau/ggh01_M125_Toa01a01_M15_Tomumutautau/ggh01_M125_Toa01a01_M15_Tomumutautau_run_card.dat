@@ -75,7 +75,7 @@
   1.0	=  alpsfact          ! scale factor for QCD emission vx
   False	=  chcluster         ! cluster only according to channel diag
   False	=  pdfwgt            ! for ickkw=1, perform pdf reweighting
-  5	=  asrwgtflavor      ! highest quark flavor for a_s reweight
+  4	=  asrwgtflavor      ! highest quark flavor for a_s reweight
   True	=  clusinfo          ! include clustering tag in output
   3.0	=  lhe_version        ! Change the way clustering information pass to shower.        
 #*********************************************************************
@@ -111,9 +111,9 @@
 #*********************************************************************
 # Minimum and maximum pt's (for max, -1 means no cut)                *
 #*********************************************************************
-  20.0	=  ptj        ! minimum pt for the jets 
+  0.0	=  ptj        ! minimum pt for the jets 
   0.0	=  ptb        ! minimum pt for the b 
-  10.0	=  pta        ! minimum pt for the photons 
+  0.0	=  pta        ! minimum pt for the photons 
   0.0	=  ptl        ! minimum pt for the charged leptons 
   0.0	=  misset     ! minimum missing Et (sum of neutrino's momenta)
   0.0	=  ptheavy    ! minimum pt for one heavy final state
@@ -136,9 +136,9 @@
 #*********************************************************************
 # Maximum and minimum absolute rapidity (for max, -1 means no cut)   *
 #*********************************************************************
-  5.0	=  etaj     ! max rap for the jets 
-  -1.0	=  etab     ! max rap for the b
-  2.5	=  etaa     ! max rap for the photons 
+  6.0	 =  etaj     ! max rap for the jets 
+  6.0	 =  etab     ! max rap for the b
+  -1.0 =  etaa     ! max rap for the photons 
   -1.0	=  etal     ! max rap for the charged leptons 
   0.0	=  etajmin  ! min rap for the jets
   0.0	=  etabmin  ! min rap for the b
@@ -147,16 +147,16 @@
 #*********************************************************************
 # Minimum and maximum DeltaR distance                                *
 #*********************************************************************
-  0.4	=  drjj     ! min distance between jets 
-  0.0	=  drbb     ! min distance between b's 
-  0.0	=  drll     ! min distance between leptons 
-  0.4	=  draa     ! min distance between gammas 
-  0.0	=  drbj     ! min distance between b and jet 
-  0.4	=  draj     ! min distance between gamma and jet 
-  0.4	=  drjl     ! min distance between jet and lepton 
-  0.0	=  drab     ! min distance between gamma and b 
-  0.0	=  drbl     ! min distance between b and lepton 
-  0.4	=  dral     ! min distance between gamma and lepton 
+  0.01	=  drjj     ! min distance between jets 
+  0.01  =  drbb     ! min distance between b's 
+  0.01	=  drll     ! min distance between leptons 
+  0.01	=  draa     ! min distance between gammas 
+  0.01	=  drbj     ! min distance between b and jet 
+  0.01  =  draj     ! min distance between gamma and jet 
+  0.01	=  drjl     ! min distance between jet and lepton 
+  0.01	=  drab     ! min distance between gamma and b 
+  0.01	=  drbl     ! min distance between b and lepton 
+  0.01	=  dral     ! min distance between gamma and lepton 
   -1.0	=  drjjmax  ! max distance between jets
   -1.0	=  drbbmax  ! max distance between b's
   -1.0	=  drllmax  ! max distance between leptons
@@ -272,19 +272,4 @@
 #*********************************************************************
   True	=  use_syst       ! Enable systematics studies
 #
-#**************************************
-# Parameter of the systematics study
-#  will be used by SysCalc (if installed)
-#**************************************                                  
-#
-  0.5 1 2	=  sys_scalefact   # factorization/renormalization scale factor
-  0.5 1 2	=  sys_alpsfact   # alpha_s emission scale factors
-  30 50	=  sys_matchscale  # variation of merging scale
-# PDF sets and number of members (0 or none for all members).
-  CT10nlo.LHgrid	=  sys_pdf  # matching scales
-# MSTW2008nlo68cl.LHgrid 1  = sys_pdf
-#********************************************************************* 
-#  Additional parameter
-#*********************************************************************
-  1.0	= ptonium # hidden parameter
-  0.6	= etaonium # hidden parameter
+
