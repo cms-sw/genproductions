@@ -583,7 +583,6 @@ make_gridpack () {
         $WORKDIR/$MGBASEDIRORIG/MadSpin/madspin madspinrun.dat 
         rm madspinrun.dat
         rm -rf tmp*
-        cp $CARDSDIR/${name}_madspin_card.dat $WORKDIR/process/madspin_card.dat
       fi
     
       echo "preparing final gridpack"
