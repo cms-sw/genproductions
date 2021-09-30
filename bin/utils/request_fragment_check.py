@@ -585,7 +585,31 @@ for num in range(0,len(prepid)):
             print("Gridpack location in cvmfs and eos:")
             print(gridpack_cvmfs_path)
             print(gridpack_eos_path)
-            os.system('tar xf '+gridpack_cvmfs_path+' -C '+my_path+'/'+pi)
+            if int(os.popen('grep -c slha '+pi).read()) != 0 or int(os.popen('grep -c \%i '+pi).read()) != 0 or int(os.popen('grep -c \%s '+pi).read()) != 0:
+                slha_flag = 1
+            if slha_flag == 1:
+                if "%i" in gridpack_cvmfs_path:
+                    gridpack_cvmfs_path = gridpack_cvmfs_path.replace("%i","*")
+                elif "%s" in gridpack_cvmfs_path:
+                    gridpack_cvmfs_path = gridpack_cvmfs_path.replace("%s","*")
+                elif "%d" in gridpack_cvmfs_path:
+                    gridpack_cvmfs_path = gridpack_cvmfs_path.replace("%d","*")
+                else:
+                    slha_flag = 0
+                if slha_flag == 1:
+                    slha_all_path = os.path.dirname(gridpack_eos_path)
+                    print("Directory: "+slha_all_path)
+                    list_gridpack_cvmfs_path = os.listdir(slha_all_path)[0]
+                    print(list_gridpack_cvmfs_path)
+                    gridpack_cvmfs_path = slha_all_path+'/'+list_gridpack_cvmfs_path
+                    print("SLHA request - checking single gridpack:")
+                    print(gridpack_cvmfs_path)
+            if os.path.isfile(gridpack_cvmfs_path) is True:
+                os.system('tar xf '+gridpack_cvmfs_path+' -C '+my_path+'/'+pi)
+            else:
+                error += 1
+                print ("* [ERROR] Gridpack ",gridpack_cvmfs_path," does not exist!") 
+                break
             jhu_gp = os.path.isfile(my_path+'/'+pi+'/'+'JHUGen.input')
             pw_gp = os.path.isfile(my_path+'/'+pi+'/'+'powheg.input')
             mg_f1 = my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat'
@@ -832,31 +856,6 @@ for num in range(0,len(prepid)):
                         warning += 1 
 
             if gp_size != 0:
-                if int(os.popen('grep -c slha '+pi).read()) != 0 or int(os.popen('grep -c \%i '+pi).read()) != 0 or int(os.popen('grep -c \%s '+pi).read()) != 0:
-                    slha_flag = 1
-                if slha_flag == 1:
-                    if "%i" in gridpack_cvmfs_path:
-                        gridpack_cvmfs_path = gridpack_cvmfs_path.replace("%i","*") 	
-                    elif "%s" in gridpack_cvmfs_path:
-                        gridpack_cvmfs_path = gridpack_cvmfs_path.replace("%s","*")
-                    elif "%d" in gridpack_cvmfs_path:
-                        gridpack_cvmfs_path = gridpack_cvmfs_path.replace("%d","*")
-                    else:
-                        slha_flag = 0
-                    if slha_flag == 1:
-                        slha_all_path = os.path.dirname(gridpack_eos_path)
-                        print("Directory: "+slha_all_path)
-                        list_gridpack_cvmfs_path = os.listdir(slha_all_path)[0]
-                        print(list_gridpack_cvmfs_path)
-                        gridpack_cvmfs_path = slha_all_path+'/'+list_gridpack_cvmfs_path
-                        print("SLHA request - checking single gridpack:")
-                        print(gridpack_cvmfs_path)
-                if os.path.isfile(gridpack_cvmfs_path) is True:
-                    os.system('tar xf '+gridpack_cvmfs_path+' -C '+my_path+'/'+pi)
-                else:
-                    error += 1
-                    print(("[ERROR] Gridpack ",gridpack_cvmfs_path," does not exist!")) 
-                    break
                 if "ppd" not in pi.lower() and "Summer20UL17pp5TeV" not in pi:
                     w_temp, e_temp = ul_consistency(dn,pi,jhu_gp)
                     warning += w_temp
