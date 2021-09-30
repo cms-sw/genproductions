@@ -59,12 +59,10 @@ facscfact   1d0      ! (default 1d0) fac scale factor: mufact = muref * facscfac
 renscfact   1d0      ! (default 1d0) ren scale factor: muren  = muref * renscfact
 
 ! Born, plots and powheg strategy:
-#bornonly         1  ! (default 0) if 1 do Born only
 testplots         1  ! (default 0, do not) do NLO and PWHG distributions
 fastbtlbound      1  ! fast evaluation of Btilde upper bounds
 storemintupb      1  ! store function calls in binary file for more precise generation
 ubexcess_correct  1  ! corrects for error in upper bound estimate
-#storeinfo_rwgt 0
 softtest          0  ! no check of the soft limit in the real
 colltest          0  ! no check of the collinear limit in the real
 
@@ -74,35 +72,10 @@ hdamp           250
 ! PARAMETERS for parallel runnning
 ! - non parallel (for testing purposes only)
 iseed SEED
-#rand1     0         !  skipping  rand2*100000000+rand1 numbers.  
-#rand2     0         !  (see RM48 short writeup in CERNLIB)              
-
-! - parallel
-#manyseeds 1
-                     ! seeds in the same directory.
-                     ! If set to 1, the program asks for an integer j;
-                     ! The file pwgseeds.dat at line j is read, and the
-                     ! integer at line j is used to initialize the random
-                     ! sequence for the generation of the event.
-                     ! The event file is called pwgevents-'j'.lhe
-#parallelstage 4
-#xgriditeration 1 1
-#maxseeds    1000
-
-! PARAMETERS for reweighting
-#rwl_file 'reweight_setup.xml'
-
-
-! PARAMETERS for Pythia8
-#py8tune  xxx
-#py8hepmc 1
-#py8nohad 1
-#py8nompi 1
 
 check_bad_st1 1
 check_bad_st2 1
 max_io_bufsize  2000000
-
 
 
 fakevirt 1
