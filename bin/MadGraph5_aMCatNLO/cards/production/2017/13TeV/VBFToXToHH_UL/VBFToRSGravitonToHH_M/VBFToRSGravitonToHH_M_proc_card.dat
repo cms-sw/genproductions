@@ -8,5 +8,5 @@ define vl~ = ve~ vm~ vt~
 import model RS_exovv
 define q = u c d s b u~ c~ d~ s~ b~
 define p = u c d s b u~ c~ d~ s~ b~ 
-generate p p > y q q / g h , ( y > h h )
+generate p p > y q q , ( y > h h )
 output VBFToRSGravitonToHH_M<MASS> -nojpeg

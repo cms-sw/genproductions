@@ -8,5 +8,5 @@ define vl~ = ve~ vm~ vt~
 import model heft_radion
 define q = u c d s b u~ c~ d~ s~ b~
 define p = u c d s b u~ c~ d~ s~ b~ 
-generate p p > h2 q q  / g h , ( h2 > h h )
+generate p p > h2 q q , ( h2 > h h )
 output VBFToRadionToHH_M<MASS> -nojpeg
