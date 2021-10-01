@@ -29,7 +29,7 @@
 # Warning: Do not generate more than 1M events in a single run       *
 # If you want to run Pythia, avoid more than 50k events in a run.    *
 #*********************************************************************
-  10000    =  nevents  ! Number of unweighted events requested 
+  3000    =  nevents  ! Number of unweighted events requested 
   0    =  iseed    ! rnd seed (0=assigned automatically=default))
 #*********************************************************************
 # Collider type and energy                                           *
@@ -143,15 +143,15 @@
 #*********************************************************************
 # Minimum and maximum DeltaR distance                                *
 #*********************************************************************
-  0.4    =  drjj     ! min distance between jets 
-  0.4    =  drbb     ! min distance between b's 
-  0.4    =  drll     ! min distance between leptons 
+  0.0    =  drjj     ! min distance between jets 
+  0.0    =  drbb     ! min distance between b's 
+  0.0    =  drll     ! min distance between leptons 
   0.0    =  draa     ! min distance between gammas 
-  0.4    =  drbj     ! min distance between b and jet 
+  0.0    =  drbj     ! min distance between b and jet 
   0.0    =  draj     ! min distance between gamma and jet 
-  0.4    =  drjl     ! min distance between jet and lepton 
+  0.0    =  drjl     ! min distance between jet and lepton 
   0.0    =  drab     ! min distance between gamma and b 
-  0.4    =  drbl     ! min distance between b and lepton 
+  0.0    =  drbl     ! min distance between b and lepton 
   0.0    =  dral     ! min distance between gamma and lepton 
   -1.0    =  drjjmax  ! max distance between jets
   -1.0    =  drbbmax  ! max distance between b's
