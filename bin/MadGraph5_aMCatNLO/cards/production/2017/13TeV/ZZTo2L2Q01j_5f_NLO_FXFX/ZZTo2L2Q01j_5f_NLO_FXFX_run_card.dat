@@ -83,7 +83,12 @@ average = event_norm ! Normalize events to sum or average to the X sect.
  1        = muF1_over_ref    ! ratio of current muF1 over reference muF1
  1        = muF2_over_ref    ! ratio of current muF2 over reference muF2
  1        = QES_over_ref     ! ratio of current QES over reference QES
-#*********************************************************************** 
+#************************************************************************
+## Store reweight information in the LHE file for off-line model-       *
+## parameter reweighting at NLO+PS accuracy                             *
+##***********************************************************************
+ True = store_rwgt_info ! Store info for reweighting in LHE file
+#***********************************************************************
 # Reweight flags to get scale dependence and PDF uncertainty           *
 # For scale dependence: factor rw_scale_up/down around central scale   *
 # For PDF uncertainty: use LHAPDF with supported set                   *
@@ -93,8 +98,6 @@ average = event_norm ! Normalize events to sum or average to the X sect.
   2.0     = rw_Rscale_up     ! upper bound for ren scale variations
   0.5     = rw_Fscale_down   ! lower bound for fact scale variations
   2.0     = rw_Fscale_up     ! upper bound for fact scale variations
- 292201   = PDF_set_min      ! First of the error PDF sets 
- 292302   = PDF_set_max      ! Last of the error PDF sets
 #***********************************************************************
 # Merging - WARNING! Applies merging only at the hard-event level.     *
 # After showering an MLM-type merging should be applied as well.       *

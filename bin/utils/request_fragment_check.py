@@ -109,6 +109,15 @@ def check_replace(runcmsgridfile):
         error_check_replace += 1
     return error_check_replace 
 
+def concurrency_check(fragment):
+    conc_check = 0
+    if "generateConcurrently" in fragment and "Pythia8ConcurrentHadronizerFilter" in fragment and "Pythia8HadronizerFilter" not in fragment:
+        conc_check = 1
+        print("The request will be generated concurrently")
+    else:
+        print("The request will not be generated concurrently")
+    return conc_check
+   
 def ul_consistency(dn,pi,jhu_gp):
     pi_prime = "NULL"
     prime_tmp = []
@@ -164,13 +173,15 @@ def ul_consistency(dn,pi,jhu_gp):
                 data_f2_jhu = re.sub(r'args.*', '',data_f2)  
                 data_f2_jhu_prime = re.sub(r'args.*', '',data_f2_prime)
                 if (data_f2_jhu == data_f2_jhu_prime) == True:
-                    print("* [WARNING] Two requests have the same fragment (except may be the gridpack)")
+                    print("[WARNING] Two requests have the same fragment (except may be the gridpack)")
                     warning_ul += 1
                 else:
-                    print("* [ERROR] Two requests don't have the same fragment (note that gridpacks haven't been compared)")
+                    print("[ERROR] Two requests don't have the same fragment (note that gridpacks haven't been compared)")
                     error_ul += 1
             else:
-                if (data_f2 == data_f2_prime) == True:
+                data_f2_strip = re.sub(r'\s+', ' ', data_f2).strip()
+                data_f2_prime_strip = re.sub(r'\s+', ' ',data_f2_prime).strip()
+                if (data_f2_strip == data_f2_prime_strip) == True:
                     print("[OK] Two requests have the same fragment.")
                 else: 
                     if "Summer20UL16" not in pi:
@@ -188,7 +199,7 @@ def ul_consistency(dn,pi,jhu_gp):
             if (cmssw == cmssw_prime) == True:
                 print("[OK] Two requests have the same CMSSW version.")
             elif "Summer20UL16wmLHEGENAPV" in pi or "Summer20UL16GENAPV" in pi or "Summer20UL18" in pi or "Summer20UL17" in pi:
-                print("* [WARNING] CMSSW version of "+pi+" is different than its base UL17 request: "+pi_prime)
+                print("[WARNING] CMSSW version of "+pi+" is different than its base UL17 request: "+pi_prime)
                 print("        Please make sure that "+pi+" has _exactly_ the same settings as "+pi_prime)
                 warning_ul += 1
             f1_prime.close()
@@ -206,10 +217,10 @@ def xml_check_and_patch(f,cont,gridpack_eos_path,my_path,pi):
     if "stream" not in xml or len(xml) < 3:
         targz_flag = 0
         if "stream" not in xml and len(xml) > 3:
-          print("* [WARNING] --stream option is missing in XMLLINT, will update runcmsgrid.")
+          print("[WARNING] --stream option is missing in XMLLINT, will update runcmsgrid.")
           warning_xml += 1
         if len(xml) < 3:
-          print("* [WARNING] XMLLINT does not exist in runcmsgrid, will update it.")
+          print("[WARNING] XMLLINT does not exist in runcmsgrid, will update it.")
           warning_xml += 1
         if ".tar.gz" in gridpack_eos_path:
           targz_flag = 1
@@ -220,17 +231,17 @@ def xml_check_and_patch(f,cont,gridpack_eos_path,my_path,pi):
           gridpack_eos_path_backup = gridpack_eos_path.replace('.tar.xz','_original.tar.xz')
           targz_flag = 2
         if not os.path.exists(gridpack_eos_path_backup):
-          print("* Backup gridpack is not existing.")
-          print("* Copying "+gridpack_eos_path+" to "+gridpack_eos_path_backup+" before patching runcms.grid")
+          print("Backup gridpack does not exist.")
+          print("Copying "+gridpack_eos_path+" to "+gridpack_eos_path_backup+" before patching runcms.grid")
           os.system('cp -n -p '+gridpack_eos_path+' '+gridpack_eos_path_backup)
           md5_1 = os.popen('md5sum'+' '+gridpack_eos_path).read().split(' ')[0]
           md5_2 = os.popen('md5sum'+' '+gridpack_eos_path_backup).read().split(' ')[0]
           if md5_1 == md5_2:
-            print("* Backup and original file checksums are equal.")
+            print("Backup and original file checksums are equal.")
           else:
-            print("* [ERROR] backup gridpack has a problem.")
+            print("[ERROR] backup gridpack has a problem.")
             error_xml += 1
-        print("* Updating XMLLINT line in runcmsgrid.")
+        print("Updating XMLLINT line in runcmsgrid.")
         os.chdir(my_path+'/'+pi)
         if "stream" not in xml and len(xml) > 3:
           cont = re.sub("xmllint","xmllint --stream",cont)
@@ -253,9 +264,9 @@ def xml_check_and_patch(f,cont,gridpack_eos_path,my_path,pi):
         md5_1 = os.popen('md5sum '+gridpackname).read().split(' ')[0]
         md5_2 = os.popen('md5sum'+' '+gridpack_eos_path).read().split(' ')[0]
         if md5_1 == md5_2:
-          print("* Updated gridpack copied succesfully.")
+          print("Updated gridpack copied succesfully.")
         else:
-          print("* [ERROR] there was a problem copying in the updated gridpack to eos.")
+          print("[ERROR] there was a problem copying in the updated gridpack to eos.")
           error_xml += 1
         os.chdir(cur_dir)
     return warning_xml,error_xml
@@ -335,6 +346,7 @@ for num in range(0,len(prepid)):
         total_eff = filter_eff*match_eff 
         cross_section = r['generator_parameters'][-1]['cross_section']
         ext = r['extension']
+        print("Extension or not: "+str(ext))
         print(pi+"    Status= "+r['status'])
         print(dn)
         if args.bypass_status and r['status'] != "defined":
@@ -386,6 +398,7 @@ for num in range(0,len(prepid)):
         herwig7_bypass_error = 0
         pythia8_flag = 0
         evtgen_flag = 0
+        concornot = 0 
         pf = []
         ppd = 0
         if "ppd" in pi.lower():
@@ -424,11 +437,22 @@ for num in range(0,len(prepid)):
             print("[WARNING] Is "+str(totalevents)+" events what you really wanted - please check!")
             warning += 1
         os.popen('wget -q '+mcm_link+'public/restapi/requests/get_fragment/'+pi+' -O '+pi).read()
+
         fsize = os.path.getsize(pi)
         f1 = open(pi,"r")
         f2 = open(pi+"_tmp","w")
+        f1_rem = open("pi_rem","w")
+        f2_rem = open("pi_rem_clone","w") 
         data_f1 = f1.read()
+
+        if concurrency_check(data_f1):
+            with open(pi,'r') as ff1:
+                for line in ff1:
+                    if "script" not in line and "generateConcurrently" not in line and "HadronizerFilter" not in line:
+                        f1_rem.write(line)
+            f1_rem.close()         
         data_f2 = re.sub(r'(?m)^ *#.*\n?', '',data_f1)
+
         cross_section_fragment = re.findall('crossSection.*?\S+\S+',data_f2)
         if (cross_section_fragment):
             cross_section_fragment=cross_section_fragment[0]
@@ -439,13 +463,16 @@ for num in range(0,len(prepid)):
             filter_eff_fragment = re.findall('\((.*?)\)',filter_eff_fragment)[0]
         print("Cross section in the fragment =" + str(cross_section_fragment) +" pb")
         print("Cross section from generator parameters field = "+str(cross_section)+" pb")
-        if (cross_section_fragment and cross_section and float(cross_section_fragment) != float(cross_section)):
+        if str(cross_section_fragment).isdigit() is False:
+            print("[WARNING] Skipping the cross section consistency check in generator parameters field and the fragment")
+            print("          This is most probably because the cross section is defined through a variable") 
+        if str(cross_section_fragment).isdigit() is True and cross_section_fragment and cross_section and int(ext) == 0 and float(cross_section_fragment) != float(cross_section):
             print("[ERROR] Cross section in the generator parameters field and the one in the fragment do not match!")
             error += 1
         print("")
         print("Filter efficiency in fragment =" + str(filter_eff_fragment))
         print("Filter efficiency from generator parameters field = "+str(filter_eff))
-        if (filter_eff_fragment and filter_eff and float(filter_eff_fragment) != float(filter_eff)):
+        if filter_eff_fragment and filter_eff and int(ext) == 0 and float(filter_eff_fragment) != float(filter_eff):
             print("[ERROR] Filter efficiency in the generator parameters field and the one in the fragment do not match!")
             error += 1    
 	
@@ -460,15 +487,39 @@ for num in range(0,len(prepid)):
                f2_clone = open(pi_clone_entries+"_tmp","w")
                data_f1_clone = f1_clone.read()
                data_f2_clone = re.sub(r'(?m)^ *#.*\n?', '',data_f1_clone)
-               if (data_f2 == data_f2_clone) == True:
-                  print("[OK] The base request and the cloned request used for the extension have the same fragment.")
-               else:
-                  print("[ERROR] The base request and the cloned request used for the extension don't have the same fragment!")
-                  print("Below is the diff of the base and and the cloned request:")
-                  print("---------------------------------------------------------------------------------")
-                  print((os.popen('diff '+pi+' '+pi_clone_entries).read()))
-                  print("---------------------------------------------------------------------------------") 
-                  error += 1		
+               if concurrency_check(data_f1):
+                   with open(pi_clone_entries,'r') as ff2:
+                       for line in ff2:
+                           if "script" not in line and "HadronizerFilter" not in line:
+                               f2_rem.write(line)
+                   f2_rem.close() 
+                   f1_rem_o = open("pi_rem",'r')
+                   f2_rem_o = open("pi_rem_clone",'r')
+                   data_f1_rem = f1_rem_o.read()
+                   data_f2_rem = f2_rem_o.read()
+                   data_f1_rem_strip=re.sub(r'\s+', ' ',data_f1_rem).strip()
+                   data_f2_rem_strip=re.sub(r'\s+', ' ',data_f2_rem).strip()
+                   if (data_f1_rem_strip == data_f2_rem_strip) == True:
+                       print("[OK] The base request and the cloned request used for the extension have the same fragment.")
+                   else:
+                       print("[ERROR] The base request and the cloned request used for the extension don't have the same fragment!")
+                       print("Below is the diff of the base and and the cloned request:")
+                       print("---------------------------------------------------------------------------------")
+                       print((os.popen('diff '+pi_rem+' '+pi_rem_clone).read()))
+                       print("---------------------------------------------------------------------------------")
+                       error += 1
+               if concurrency_check(data_f1) == 0:
+                   data_f2_strip=re.sub(r'\s+', ' ', data_f2).strip()
+                   data_f2_clone_strip=re.sub(r'\s+', ' ', data_f2_clone).strip()
+                   if (data_f2_strip == data_f2_clone_strip) == True:
+                       print("[OK] The base request and the cloned request used for the extension have the same fragment.")
+                   else:
+                       print("[ERROR] The base request "+pi+" and the cloned request "+pi_clone_entries+" used for the extension don't have the same fragment!")
+                       print("Below is the diff of the base and and the cloned request:")
+                       print("---------------------------------------------------------------------------------")
+                       print((os.popen('diff '+pi+' '+pi_clone_entries).read()))
+                       print("---------------------------------------------------------------------------------") 
+                       error += 1		
         f1.close()
         f2.write(data_f2)
         f2.close()
@@ -518,6 +569,11 @@ for num in range(0,len(prepid)):
             grid_points_flag = 1
         gp_size = len(gridpack_cvmfs_path_tmp)
         print(gridpack_cvmfs_path_tmp)
+
+        pw_gp = False
+        amcnlo_gp = False
+        mg_gp = False
+
         if gp_size:
             gridpack_cvmfs_path_tmp = re.findall("/cvmfs/cms\.cern\.ch/phys_generator/gridpacks/.*?tar.xz|/cvmfs/cms\.cern\.ch/phys_generator/gridpacks/.*?tgz|/cvmfs/cms\.cern\.ch/phys_generator/gridpacks/.*?tar.gz",gridpack_cvmfs_path_tmp)
             if not gridpack_cvmfs_path_tmp:
@@ -529,7 +585,31 @@ for num in range(0,len(prepid)):
             print("Gridpack location in cvmfs and eos:")
             print(gridpack_cvmfs_path)
             print(gridpack_eos_path)
-            os.system('tar xf '+gridpack_cvmfs_path+' -C '+my_path+'/'+pi)
+            if int(os.popen('grep -c slha '+pi).read()) != 0 or int(os.popen('grep -c \%i '+pi).read()) != 0 or int(os.popen('grep -c \%s '+pi).read()) != 0:
+                slha_flag = 1
+            if slha_flag == 1:
+                if "%i" in gridpack_cvmfs_path:
+                    gridpack_cvmfs_path = gridpack_cvmfs_path.replace("%i","*")
+                elif "%s" in gridpack_cvmfs_path:
+                    gridpack_cvmfs_path = gridpack_cvmfs_path.replace("%s","*")
+                elif "%d" in gridpack_cvmfs_path:
+                    gridpack_cvmfs_path = gridpack_cvmfs_path.replace("%d","*")
+                else:
+                    slha_flag = 0
+                if slha_flag == 1:
+                    slha_all_path = os.path.dirname(gridpack_eos_path)
+                    print("Directory: "+slha_all_path)
+                    list_gridpack_cvmfs_path = os.listdir(slha_all_path)[0]
+                    print(list_gridpack_cvmfs_path)
+                    gridpack_cvmfs_path = slha_all_path+'/'+list_gridpack_cvmfs_path
+                    print("SLHA request - checking single gridpack:")
+                    print(gridpack_cvmfs_path)
+            if os.path.isfile(gridpack_cvmfs_path) is True:
+                os.system('tar xf '+gridpack_cvmfs_path+' -C '+my_path+'/'+pi)
+            else:
+                error += 1
+                print ("[ERROR] Gridpack ",gridpack_cvmfs_path," does not exist!") 
+                break
             jhu_gp = os.path.isfile(my_path+'/'+pi+'/'+'JHUGen.input')
             pw_gp = os.path.isfile(my_path+'/'+pi+'/'+'powheg.input')
             mg_f1 = my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat'
@@ -562,18 +642,18 @@ for num in range(0,len(prepid)):
             os.system('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/herwig_common.txt -O herwig_common.txt') 
             file2 = set(line.strip().replace(",","") for line in open(pi))
             file1 = set(line.strip().replace(",","") for line in open('herwig_common.txt'))
-            for line in file1:
+            for line in file1:                
                 if line not in file2:
                     print("[ERROR] Missing herwig setting in fragment: "+line)
                     error += 1
-            if pw_gp != 0:
+            if pw_gp is True:
                os.system('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/herwig_powheg.txt -O herwig_powheg.txt')	
                file_me = set(line.strip().replace(",","") for line in open('herwig_powheg.txt'))
                for line in file_me:
                    if line not in file2:
                        print("[ERROR] Missing herwig powheg specific setting in fragment: "+line)
                        error += 1
-            if mg_gp !=0:
+            if mg_gp is True:
                os.system('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/herwig_mg.txt -O herwig_mg.txt') 
                file_me = set(line.strip().replace(",","") for line in open('herwig_mg.txt'))
                for line in file_me:
@@ -581,17 +661,17 @@ for num in range(0,len(prepid)):
                        print("[ERROR] Missing herwig mg5_amc specific setting in fragment: "+line)
                        error += 1 
                if alt_ickkw_c == 3:#fxfx
-                   if "set FxFxHandler:MergeMode FxFx" not in file2:
+                   if "'set FxFxHandler:MergeMode FxFx'" not in file2:
                        print("[ERROR] Missing set FxFxHandler:MergeMode FxFx in the user settings block")
                        error += 1
-                   if "set FxFxHandler:njetsmax" not in file2:
+                   if "'set FxFxHandler:njetsmax'" not in file2:
                        print("[ERROR] Missing set FxFxHandler:njetsmax MAX_N_ADDITIONAL_JETS in the user settings block")
                        error += 1
                if alt_ickkw_c == 1:#mlm
-                   if "set FxFxHandler:MergeMode TreeMG5" not in file2:
+                   if "'set FxFxHandler:MergeMode TreeMG5'" not in file2:
                        print("[ERROR] Missing set FxFxHandler:MergeMode TreeMG5 in the user settings block")
                        error += 1 
-            if amcnlo_gp !=0 or alt_ickkw_c == 0:
+            if amcnlo_gp is True or alt_ickkw_c == 0:
                os.system('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/herwig_mcnlo.txt -O herwig_mcnlo.txt')
                file_me = set(line.strip().replace(",","") for line in open('herwig_mcnlo.txt'))
                for line in file_me:
@@ -776,31 +856,6 @@ for num in range(0,len(prepid)):
                         warning += 1 
 
             if gp_size != 0:
-                if int(os.popen('grep -c slha '+pi).read()) != 0 or int(os.popen('grep -c \%i '+pi).read()) != 0 or int(os.popen('grep -c \%s '+pi).read()) != 0:
-                    slha_flag = 1
-                if slha_flag == 1:
-                    if "%i" in gridpack_cvmfs_path:
-                        gridpack_cvmfs_path = gridpack_cvmfs_path.replace("%i","*") 	
-                    elif "%s" in gridpack_cvmfs_path:
-                        gridpack_cvmfs_path = gridpack_cvmfs_path.replace("%s","*")
-                    elif "%d" in gridpack_cvmfs_path:
-                        gridpack_cvmfs_path = gridpack_cvmfs_path.replace("%d","*")
-                    else:
-                        slha_flag = 0
-                    if slha_flag == 1:
-                        slha_all_path = os.path.dirname(gridpack_eos_path)
-                        print("Directory: "+slha_all_path)
-                        list_gridpack_cvmfs_path = os.listdir(slha_all_path)[0]
-                        print(list_gridpack_cvmfs_path)
-                        gridpack_cvmfs_path = slha_all_path+'/'+list_gridpack_cvmfs_path
-                        print("SLHA request - checking single gridpack:")
-                        print(gridpack_cvmfs_path)
-                if os.path.isfile(gridpack_cvmfs_path) is True:
-                    os.system('tar xf '+gridpack_cvmfs_path+' -C '+my_path+'/'+pi)
-                else:
-                    error += 1
-                    print(("[ERROR] Gridpack ",gridpack_cvmfs_path," does not exist!")) 
-                    break
                 if "ppd" not in pi.lower() and "Summer20UL17pp5TeV" not in pi:
                     w_temp, e_temp = ul_consistency(dn,pi,jhu_gp)
                     warning += w_temp
@@ -1467,6 +1522,7 @@ for num in range(0,len(prepid)):
         if args.develop is False:
             os.popen("rm -rf "+my_path+pi).read()
             os.popen("rm -rf "+my_path+'eos/'+pi).read()
+        os.popen("rm pi_rem*").read()
         print("***********************************************************************************")
         print("Number of warnings = "+ str(warning))
         print("Number of errors = "+ str(error))
