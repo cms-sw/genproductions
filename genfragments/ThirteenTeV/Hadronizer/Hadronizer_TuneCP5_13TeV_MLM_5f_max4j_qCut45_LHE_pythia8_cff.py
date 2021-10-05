@@ -1,5 +1,15 @@
 import FWCore.ParameterSet.Config as cms
 
+externalLHEProducer = cms.EDProducer("ExternalLHEProducer",
+    args = cms.vstring('XY-Hadronzer_Path/processname_tarball.tar.xz'),
+    nEvents = cms.untracked.uint32(5000),
+    numberOfParameters = cms.uint32(1),
+    outputFile = cms.string('cmsgrid_final.lhe'),
+    scriptName = cms.FileInPath('GeneratorInterface/LHEInterface/data/run_generic_tarball_cvmfs.sh')
+)
+
+import FWCore.ParameterSet.Config as cms
+
 from Configuration.Generator.Pythia8CommonSettings_cfi import *
 from Configuration.Generator.MCTunes2017.PythiaCP5Settings_cfi import *
 from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *
@@ -23,7 +33,7 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
             'JetMatching:coneRadius = 1.',
             'JetMatching:slowJetPower = 1',
             'JetMatching:qCut = 45.', #this is the actual merging scale
-            'JetMatching:nQmatch = 5', #5 for 5-flavour scheme (matching of b-quarks)
+            'JetMatching:nQmatch = 5', #4 corresponds to 4-flavour scheme (no matching of b-quarks), 5 for 5-flavour scheme
             'JetMatching:nJetMax = 4', #number of partons in born matrix element for highest multiplicity
             'JetMatching:doShowerKt = off', #off for MLM matching, turn on for shower-kT matching
         ),
