@@ -1191,18 +1191,22 @@ for num in range(0,len(prepid)):
                         print(gen_line)
                         proc_line = os.popen('grep process '+filename_pc).read()
                         print(proc_line)
-                        if gen_line.count('@') <= proc_line.count('@'):
-                            nproc = proc_line.count('@')
-                            nproc = '@'+str(nproc)
+                        proc_line = gen_line.replace('generate','') + "\n" + proc_line 
+                        print("Simplified process lines:")
+                        if (gen_line.count('@') <= proc_line.count('@')) or (proc_line.count('add') > 0):
                             proc_line = proc_line.split('add process')
-                            jet_line = proc_line[len(proc_line)-1]
-                            jet_line_arr = jet_line.split(',')
-                            for x in range(0,len(jet_line_arr)):
-                                nbtomatch = jet_line_arr[x].count('b') if maxjetflavor > 4 else 0
-                                nc = jet_line_arr[x].count('c') if "chi" not in jet_line_arr[x] else 0
-                                if "excl" in jet_line_arr[x] and nc != 0:
+                            for y in range(0,len(proc_line)):
+                                if proc_line[y].startswith("set"):
+                                    continue
+                                zz = proc_line[y] 
+                                if "," in proc_line[y]:
+                                    zz = proc_line[y].split(',')[0]
+                                print(zz) 
+                                nbtomatch = zz.count('b') if maxjetflavor > 4 else 0
+                                nc = zz.count('c') if "chi" not in zz else 0
+                                if "excl" in zz and nc != 0:
                                     nc = nc -1
-                                jet_count_tmp.append(jet_line_arr[x].count('j') + nbtomatch + nc)
+                                jet_count_tmp.append(zz.count('j') + nbtomatch + nc)
                             jet_count = max(jet_count_tmp)
                         else :
                             jet_line = gen_line.replace('generate','')
@@ -1210,6 +1214,9 @@ for num in range(0,len(prepid)):
                         if nJetMax == jet_count:
                             print("[OK] nJetMax(="+str(nJetMax) + ") is equal to the number of jets in the process(="+str(jet_count)+")")
                         if nJetMax != jet_count and gen_line.count('@') != 0 and alt_ickkw_c !=0:
+                            print("[WARNING] nJetMax(="+str(nJetMax)+") is NOT equal to the number of jets specified in the proc card(="+str(jet_count)+")")
+                            warning += 1
+                        if nJetMax != jet_count and jet_count > 0 and alt_ickkw_c !=0:
                             print("[WARNING] nJetMax(="+str(nJetMax)+") is NOT equal to the number of jets specified in the proc card(="+str(jet_count)+")")
                             warning += 1
                         if nJetMax != jet_count and str(jet_count)+"jet" in dn.lower() and alt_ickkw_c !=0:
