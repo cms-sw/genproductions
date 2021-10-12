@@ -1381,7 +1381,6 @@ for num in range(0,len(prepid)):
                         if slha_flag == 1:
                             slha_file_list =  os.listdir(slha_all_path)
                             print(slha_file_list)
-                            print(("request gridpacks:", gridpack_cvmfs_path_to_comp_for_slha))
                             ppp_ind_range = len(slha_file_list)
                         if slha_flag == 0:
                             ppp_ind_range = 1
