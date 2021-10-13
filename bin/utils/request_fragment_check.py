@@ -568,18 +568,66 @@ for num in range(0,len(prepid)):
         if int(os.popen('grep -c grid_points '+pi).read()) != 0:
             grid_points_flag = 1
         gp_size = len(gridpack_cvmfs_path_tmp)
-        print(gridpack_cvmfs_path_tmp)
 
         pw_gp = False
         amcnlo_gp = False
         mg_gp = False
+        jhu_gp = False
+        sherpa_gp = False
+        sherpa_flag = False
+        openloops_flag = False
 
-        if gp_size:
+        gp_full_path = True
+
+        if "sherpacklocation" in gridpack_cvmfs_path_tmp.lower():
+            sherpa_flag = True
+            tmpsher = re.findall("'.*'",gridpack_cvmfs_path_tmp)[0].replace("'","")
+            sherpack_gp = os.path.join(tmpsher,os.listdir(tmpsher)[0])
+            print("Sherpack Location = ",sherpack_gp)  
+            sp_list = sherpack_gp.split("/")
+            scram_sherpa = [s for s in sp_list if "gcc" in s]
+            if len(scram_sherpa):
+                scram_sherpa = scram_sherpa[0]
+                print ("scram_arch for Sherpa = ",scram_sherpa) 
+                if scram_sherpa == scram_arch:
+                    print ("[OK] scram_arch for Sherpa and CMSSW are the same")
+                else:
+                    print ("[ERROR] scram_arch for Sherpa and CMSSW are NOT the same")
+                    error += 1
+                print("      but note that this check is done based on folder names except the one for CMSSW")  
+            else:
+                print ("[WARNING] scram_arch for Sherpa unidentifiable")
+                warning += 1
+            sv_tmp = re.findall("sherpa/.*/",gridpack_cvmfs_path_tmp)[0].split("/")[1].split(".")
+            if "v" in sv_tmp[0].lower():
+                sv_tmp[0] = sv_tmp[0].replace("v","")
+                sv_tmp[0] = sv_tmp[0].replace("V","")
+            sherpa_version = int(sv_tmp[0])*1000 + int(sv_tmp[1])*100 + int(sv_tmp[2])
+            print ("Sherpa Version = ", sherpa_version)
+            if sherpa_version < 2211:
+                print("[WARNING] Sherpa older than version 2.2.11")
+                warning += 1
+        if "openloops" in gridpack_cvmfs_path_tmp.lower():
+            openloops_flag = True
+            OL_list = os.popen('grep openloops '+pi).read().split("/")
+            scram_OL = [s for s in OL_list if "gcc" in s]
+            if len(scram_OL):
+                scram_OL = scram_OL[0]
+                print ("scram_arch for OpenLoops = ",scram_OL)
+                if scram_OL == scram_sherpa:
+                    print ("[OK] scram_arch for Sherpa and OpenLoops are the same")
+                else:
+                    print ("[ERROR] scram_arch for Sherpa and OpenLoops are NOT the same")
+                    error += 1
+                print("      but note that this check is done based on folder names except the one for CMSSW")
+
+        if gp_size and sherpa_flag == 0:
             gridpack_cvmfs_path_tmp = re.findall("/cvmfs/cms\.cern\.ch/phys_generator/gridpacks/.*?tar.xz|/cvmfs/cms\.cern\.ch/phys_generator/gridpacks/.*?tgz|/cvmfs/cms\.cern\.ch/phys_generator/gridpacks/.*?tar.gz",gridpack_cvmfs_path_tmp)
             if not gridpack_cvmfs_path_tmp:
-                print("[ERROR] Gridpack should be in cvmfs in the dedicated folder location. ")
+                print("[ERROR] Gridpack should be in cvmfs in the dedicated folder location with the full path to the file given. ")
                 error += 1
-                break
+                gp_full_path = False
+        if gp_size and gp_full_path and sherpa_flag == 0:
             gridpack_cvmfs_path = gridpack_cvmfs_path_tmp[0]
             gridpack_eos_path = gridpack_cvmfs_path.replace("/cvmfs/cms.cern.ch/phys_generator","/eos/cms/store/group/phys_generator/cvmfs")
             print("Gridpack location in cvmfs and eos:")
@@ -773,9 +821,9 @@ for num in range(0,len(prepid)):
             print("[ERROR] gridpack path is not properly specified - most probable reason is that it is not a cvmfs path.")
             error += 1
         if "sherpa" in dn.lower():
-            print("[WARNING] Not checking sherpacks for now.")
+            print("[WARNING] Not checking sherpacks in too much detail for now. Please do independent tests.")
             warning += 1
-            gp_size = 0
+#            gp_size = 0
         if fsize != 0:
             if int(os.popen('grep -c nPartonsInBorn '+pi).read()) == 1:
                 nPartonsInBorn_flag = 1
@@ -882,7 +930,7 @@ for num in range(0,len(prepid)):
                         if alt_ickkw_c == 3:
                             dn = dn + "-amcatnloFXFX"
                 gp_log_loc = my_path+'/'+pi+'/gridpack_generation.log'
-                if os.path.isfile(gp_log_loc) is False and jhu_gp is False:
+                if os.path.isfile(gp_log_loc) is False and jhu_gp is False and sherpa_flag is False:
                     print("[WARNING] No gridpack generation.log")
                     warning += 1			 
                 elif (mg_gp is True or amcnlo_gp is True) and os.path.isfile(gp_log_loc) is True:
@@ -1465,7 +1513,7 @@ for num in range(0,len(prepid)):
         if 'sherpa' in dn.lower():
             print("[WARNING] No automated check of Sherpa ps/tune parameters yet")
             warning += 1
-        if 3 not in tunecheck and herwig_flag == 0:
+        if 3 not in tunecheck and herwig_flag == 0 and sherpa_flag == 0:
             with open(pi) as f:
                 tot = f.read()
                 n_ext_par += tot.count('MultipartonInteractions')
@@ -1476,7 +1524,7 @@ for num in range(0,len(prepid)):
                 print("[WARNING] Number of extra or replaced tune parameters is at least "+str(n_ext_par))
                 print("          Please check tune configuration carefully (e.g. are the non-replaced parameters the ones you want)")
                 warning += 1
-        if 3 not in tunecheck and 'sherpa' not in dn.lower() and fsize != 0 and n_ext_par == 0 and herwig_flag == 0:
+        if 3 not in tunecheck and fsize != 0 and n_ext_par == 0 and herwig_flag == 0 and sherpa_flag == 0:
             if  any(tunecheck[0]<3 and it!=0 for it in tunecheck) :
                 print(tunecheck)
                 print("[ERROR] Tune configuration may be wrong in the fragment")
@@ -1485,7 +1533,7 @@ for num in range(0,len(prepid)):
             else :
                 print("[WARNING] None standard tune - please check the fragment carefully.")
                 warning += 1
-        if fsize != 0 and herwig_flag == 0:
+        if fsize != 0 and herwig_flag == 0 and sherpa_flag == 0:
             if int(os.popen('grep -c "from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *" '+pi).read()) != 1 :
                 print("[WARNING] No parton shower weights configuration in the fragment. In the Fall18 campaign, we recommend to include Parton Shower weights")
                 warning += 1
