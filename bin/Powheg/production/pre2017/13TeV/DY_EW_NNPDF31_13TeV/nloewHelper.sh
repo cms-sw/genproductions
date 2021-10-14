@@ -14,10 +14,20 @@ procmap[W]="W_ew-BMNNP"
 
 ARCH=slc6_amd64_gcc700
 CMSSW=CMSSW_10_2_23
-SUFFIX=powheg-NLOEW-svn3756-j20
+SUFFIX=powheg-NLOEW-svn3900-j20
 
 PROCS=(ZToMuMu-8TeV-runtest)
 PROCS=(ZToMuMu-7TeV-minnlolike ZToMuMu-7TeV-minnlolike-noew ZToMuMu-7TeV-minnlolike-ewho)
+# PROCS=(ZToMuMu-7TeV-minnlolike)
+# PROCS=(WplusToMuNu-13TeV-minnlolike)
+PROCS=(ZToMuMu-8TeV-minnlolike ZToMuMu-8TeV-minnlolike-noew)
+PROCS=(ZToMuMu-13TeV-minnlolike ZToMuMu-13TeV-minnlolike-noew)
+# PROCS=(ZToMuMu-7TeV-minnlolike-luxqed ZToMuMu-13TeV-minnlolike-luxqed)
+PROCS=(ZToMuMu-7TeV-minnlolike ZToMuMu-7TeV-minnlolike-luxqed-phind)
+PROCS=(ZToMuMu-7TeV-minnlolike-m20 ZToMuMu-7TeV-minnlolike-m20-noew)
+PROCS=(ZToMuMu-7TeV-minnlolike-qedonly ZToMuMu-7TeV-minnlolike-weakonly)
+PROCS=(ZToMuMu-7TeV-minnlolike ZToMuMu-7TeV-minnlolike-noew)
+PROCS=(WplusToMuNu-13TeV-minnlolike WplusToMuNu-13TeV-minnlolike-noew WminusToMuNu-13TeV-minnlolike WminusToMuNu-13TeV-minnlolike-noew)
 
 case $WHAT in
 
@@ -130,6 +140,18 @@ case $WHAT in
             cd ..
         done
     ;;
-    
+
+    COPY )
+        for PROC in ${PROCS[@]}
+        do
+            MPROC=${procmap[${PROC:0:1}]}
+            echo ${MPROC}_${ARCH}_${CMSSW}_${PROC}-${SUFFIX}.tgz
+            echo ${MPROC}_${ARCH}_${CMSSW}_${PROC}-${SUFFIX}-reducedrwl.tgz
+            echo ${MPROC}_${ARCH}_${CMSSW}_${PROC}-${SUFFIX}-norwl.tgz
+            cp -p -v ${MPROC}_${ARCH}_${CMSSW}_${PROC}-${SUFFIX}.tgz /afs/cern.ch/work/m/mseidel/public/MiNNLO-gridpacks/
+            cp -p -v PACK_REDUCED/${MPROC}_${ARCH}_${CMSSW}_${PROC}-${SUFFIX}-reducedrwl.tgz /afs/cern.ch/work/m/mseidel/public/MiNNLO-gridpacks/
+            cp -p -v PACK_REDUCED/${MPROC}_${ARCH}_${CMSSW}_${PROC}-${SUFFIX}-norwl.tgz /afs/cern.ch/work/m/mseidel/public/MiNNLO-gridpacks/
+        done
+    ;;
 
 esac
