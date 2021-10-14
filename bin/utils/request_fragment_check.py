@@ -170,8 +170,8 @@ def ul_consistency(dn,pi,jhu_gp):
                     if pi in line:
                         excep = 1 
             if jhu_gp or excep:
-                data_f2_jhu = re.sub(r'args.*', '',data_f2)  
-                data_f2_jhu_prime = re.sub(r'args.*', '',data_f2_prime)
+                data_f2_jhu = re.sub(r'args.*', '',data_f2).replace(" ","").replace(",generateConcurrently=cms.untracked.bool(True)","").replace("Concurrent","")  
+                data_f2_jhu_prime = re.sub(r'args.*', '',data_f2_prime).replace(" ","").replace(",generateConcurrently=cms.untracked.bool(True)","").replace("Concurrent","")
                 if (data_f2_jhu == data_f2_jhu_prime) == True:
                     print("[WARNING] Two requests have the same fragment (except may be the gridpack)")
                     warning_ul += 1
@@ -179,8 +179,8 @@ def ul_consistency(dn,pi,jhu_gp):
                     print("[ERROR] Two requests don't have the same fragment (note that gridpacks haven't been compared)")
                     error_ul += 1
             else:
-                data_f2_strip = re.sub(r'\s+', ' ', data_f2).strip()
-                data_f2_prime_strip = re.sub(r'\s+', ' ',data_f2_prime).strip()
+                data_f2_strip = re.sub(r'\s+', ' ', data_f2).strip().replace(" ","").replace(",generateConcurrently=cms.untracked.bool(True)","").replace("Concurrent","")
+                data_f2_prime_strip = re.sub(r'\s+', ' ',data_f2_prime).strip().replace(" ","").replace(",generateConcurrently=cms.untracked.bool(True)","").replace("Concurrent","")
                 if (data_f2_strip == data_f2_prime_strip) == True:
                     print("[OK] Two requests have the same fragment.")
                 else: 
@@ -444,6 +444,7 @@ for num in range(0,len(prepid)):
         f1_rem = open("pi_rem","w")
         f2_rem = open("pi_rem_clone","w") 
         data_f1 = f1.read()
+
 
         if concurrency_check(data_f1):
             with open(pi,'r') as ff1:
