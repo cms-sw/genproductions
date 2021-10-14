@@ -1262,11 +1262,11 @@ for num in range(0,len(prepid)):
                         if nJetMax == jet_count:
                             print("[OK] nJetMax(="+str(nJetMax) + ") is equal to the number of jets in the process(="+str(jet_count)+")")
                         if nJetMax != jet_count and gen_line.count('@') != 0 and alt_ickkw_c !=0:
-                            print("[ERROR] nJetMax(="+str(nJetMax)+") is NOT equal to the number of jets specified in the proc card(="+str(jet_count)+")")
-                            error += 1
+                            print("[WARNING] nJetMax(="+str(nJetMax)+") is NOT equal to the number of jets specified in the proc card(="+str(jet_count)+")")
+                            warning += 1
                         if nJetMax != jet_count and jet_count > 0 and alt_ickkw_c !=0:
-                            print("[ERROR] nJetMax(="+str(nJetMax)+") is NOT equal to the number of jets specified in the proc card(="+str(jet_count)+")")
-                            error += 1
+                            print("[WARNING] nJetMax(="+str(nJetMax)+") is NOT equal to the number of jets specified in the proc card(="+str(jet_count)+")")
+                            warning += 1
                         if nJetMax != jet_count and str(jet_count)+"jet" in dn.lower() and alt_ickkw_c !=0:
                             print("[WARNING] nJetMax(="+str(nJetMax)+") is not equal to the number of jets specified in the proc card(="+str(jet_count)+").")
                             print("          Is it because this is an exclusive production with additional samples with higher multiplicity generated separately?")
