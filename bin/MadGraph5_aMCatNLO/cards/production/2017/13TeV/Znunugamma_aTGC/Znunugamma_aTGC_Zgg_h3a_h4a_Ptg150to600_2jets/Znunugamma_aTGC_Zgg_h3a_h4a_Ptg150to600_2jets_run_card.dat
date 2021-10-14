@@ -88,7 +88,7 @@
 # Minimum and maximum pt's (for max, -1 means no cut)                *
 #*********************************************************************
   10	=  ptj        ! minimum pt for the jets 
-  0	=  ptb        ! minimum pt for the b 
+  10	=  ptb        ! minimum pt for the b 
   150	=  pta        ! minimum pt for the photons 
   0	=  ptl        ! minimum pt for the charged leptons 
   0	=  misset     ! minimum missing Et (sum of neutrino's momenta)
@@ -114,7 +114,7 @@
 # Maximum and minimum absolute rapidity (for max, -1 means no cut)   *
 #*********************************************************************
   5	=  etaj     ! max rap for the jets 
-  -1	=  etab     ! max rap for the b
+  5	=  etab     ! max rap for the b
   3.5	=  etaa     ! max rap for the photons 
   -1	=  etal     ! max rap for the charged leptons 
   0.6	=  etaonium  ! max rap for the quarkonium states
@@ -132,7 +132,7 @@
   0.0	= drbj ! min distance between b and jet 
   0.1	= draj ! min distance between gamma and jet 
   0.0	= drjl ! min distance between jet and lepton 
-  0.0	= drab ! min distance between gamma and b 
+  0.1	= drab ! min distance between gamma and b 
   0.0	= drbl ! min distance between b and lepton 
   0.1	= dral ! min distance between gamma and lepton 
   -1.0	= drjjmax ! max distance between jets
