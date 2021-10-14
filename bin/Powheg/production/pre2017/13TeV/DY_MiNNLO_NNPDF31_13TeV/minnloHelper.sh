@@ -10,7 +10,7 @@ fi
 
 ARCH=slc6_amd64_gcc700
 CMSSW=CMSSW_10_2_23
-SUFFIX=powheg-MiNNLO31-svn3756-ew-rwl6-j200-st2fix-ana-hoppetweights-ymax20
+SUFFIX=powheg-MiNNLO31-svn3900-ew-rwl6-j200-st2fix-ana-hoppetweights-ymax20
 
 # PROCS=(ZJToMuMu-suggested-nnpdf31-ncalls-doublefsr-q139 WplusJToMuNu-suggested-nnpdf31-ncalls-doublefsr-q139-ckm WminusJToMuNu-suggested-nnpdf31-ncalls-doublefsr-q139-ckm)
 
@@ -18,8 +18,7 @@ PROCS=(ZJToMuMu-5TeV-suggested-nnpdf31-ncalls-doublefsr-q139 WplusJToMuNu-5TeV-s
 PROCS=(ZJToMuMu-7TeV-suggested-nnpdf31-ncalls-doublefsr-q139)
 
 #SUFFIX=powheg-MiNNLO31-svn3756-ew-rwl6-j200-st2fix-ana-hoppetweights-ymax20-addmassweights
-#PROCS=(ZJToMuMu-suggested-nnpdf31-ncalls-doublefsr-q139)
-#PROCS=(WplusJToMuNu-suggested-nnpdf31-ncalls-doublefsr-q139-ckm WminusJToMuNu-suggested-nnpdf31-ncalls-doublefsr-q139-ckm)
+PROCS=(ZJToMuMu-suggested-nnpdf31-ncalls-doublefsr-q139 WplusJToMuNu-suggested-nnpdf31-ncalls-doublefsr-q139-ckm WminusJToMuNu-suggested-nnpdf31-ncalls-doublefsr-q139-ckm)
 
 case $WHAT in
 
@@ -48,6 +47,17 @@ case $WHAT in
         done
     ;;
     
+    RECOMPILE )
+        eval `scramv1 runtime -sh`
+        for PROC in ${PROCS[@]}
+        do
+            DIR=${PROC}-${SUFFIX}
+            cd ${DIR}/POWHEG-BOX/${PROC:0:1}j/${PROC:0:1}jMiNNLO
+            make
+            cd ..
+        done
+    ;;
+    
     ONESHOT )
         for PROC in ${PROCS[@]}
         do
@@ -59,6 +69,15 @@ case $WHAT in
         for PROC in ${PROCS[@]}
         do
             k5reauth -R -- python ./run_pwg_parallel_condor.py -p 123 -i DY_MiNNLO_NNPDF31_13TeV/${PROC}-powheg.input -m ${PROC:0:1}j -f ${PROC}-${SUFFIX} -q 1:longlunch,2:workday,3:longlunch --step3pilot -x 3 -j 200 --slc ${ARCH:3:1}
+        done
+    ;;
+    
+    DAG )
+        for PROC in ${PROCS[@]}
+        do
+            if [ ! -f "${PROC}-${SUFFIX}/pwg-st3-0000-stat.dat" ]; then
+                condor_submit_dag run_${PROC}-${SUFFIX}.dag
+            fi
         done
     ;;
     
