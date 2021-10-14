@@ -48,5 +48,6 @@ Index: rwl_setup_param_weights.f
 +            pre_pdf1=pdf_ndns1
 +            pre_pdf2=pdf_ndns2
 +         endif
+          include 'extraweightshook.h'
        endif
        end

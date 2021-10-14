@@ -419,7 +419,7 @@ fi
 #tar zxf ${POWHEGSRC}
 
 ### retrieve powheg source from svn
-svn checkout --revision 3756 --username anonymous --password anonymous svn://powhegbox.mib.infn.it/trunk/POWHEG-BOX-V2 POWHEG-BOX
+svn checkout --revision 3900 --username anonymous --password anonymous svn://powhegbox.mib.infn.it/trunk/POWHEG-BOX-V2 POWHEG-BOX
 
 # increase maxseeds to 10000
 sed -i -e "s#par_maxseeds=200,#par_maxseeds=10000,#g" POWHEG-BOX/include/pwhg_par.h
@@ -430,7 +430,7 @@ if [ -e POWHEG-BOX/${process}.tgz ]; then
   cd -
 else
   cd POWHEG-BOX/
-  svn co --revision 3756 --username anonymous --password anonymous svn://powhegbox.mib.infn.it/trunk/User-Processes-V2/${process}
+  svn co --revision 3900 --username anonymous --password anonymous svn://powhegbox.mib.infn.it/trunk/User-Processes-V2/${process}
   cd -
 fi
 
@@ -461,7 +461,7 @@ if [ $forMiNNLO -eq 1 ]; then
     cd POWHEG-BOX
     patch -l -p0 -i ${WORKDIR}/patches/pwhg_rm_bad_st1.patch
     patch -l -p0 -i ${WORKDIR}/patches/pwhg_rwl_add_random.patch
-    patch -l -p2 -i ${WORKDIR}/patches/minnlo_pdf_weights.patch
+    patch -l -p0 -i ${WORKDIR}/patches/minnlo_pdf_weights.patch
     patch -l -p2 -i ${WORKDIR}/patches/minnlo_pdf_ymax.patch
     cd ..
 fi
