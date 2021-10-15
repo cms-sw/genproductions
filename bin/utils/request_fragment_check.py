@@ -108,14 +108,14 @@ def check_replace(runcmsgridfile):
 
 def concurrency_check(fragment,prepid):
     conc_check = 0
-    fragment = fragment.replace(" ","") 
-    if "ExternalLHEProducer" in fragment and "Herwig7GeneratorFilter" not in fragment:
-        if "generateConcurrently=cms.untracked.bool(True)" in fragment: conc_check = 1
-    if "ExternalLHEProducer" in fragment and "Herwig7GeneratorFilter" not in fragment:
-        if "generateConcurrently=cms.untracked.bool(True)" in fragment and "postGenerationCommand=cms.untracked.vstring('mergeLHE.py','-i','thread*/cmsgrid_final.lhe','-o','cmsgrid_final.lhe')" in fragment: conc_check = 1
+    fragment = fragment.replace(" ","")
+    if "ExternalLHEProducer" in fragment and "generateConcurrently=cms.untracked.bool(True)" in fragment:
+        if "Herwig7GeneratorFilter" not in fragment: conc_check = 1
+        if "Herwig7GeneratorFilter" in fragment:
+            if "postGenerationCommand=cms.untracked.vstring('mergeLHE.py','-i','thread*/cmsgrid_final.lhe','-o','cmsgrid_final.lhe')" in fragment: conc_check = 1 
     if "ExternalDecays" not in fragment and "Pythia8ConcurrentHadronizerFilter" in fragment: conc_check = 1
     if "PythiaConcurrentGeneratorFilter" in fragment and "ExternalDecays" not in fragment and "RandomizedParameters" not in fragment: conc_check = 1
-    if "_generator=cms.EDFilter" in fragment and "fromGeneratorInterface.Core.ExternalGeneratorFilterimportExternalGeneratorFilter" in fragment and "generator=ExternalGeneratorFilter(_generator)" in fragment:
+    if "ExternalLHEProducer" not in fragment and "_generator=cms.EDFilter" in fragment and "fromGeneratorInterface.Core.ExternalGeneratorFilterimportExternalGeneratorFilter" in fragment and "generator=ExternalGeneratorFilter(_generator)" in fragment:
         if "Pythia8GeneratorFilter" in fragment and "tauola" not in fragment.lower(): conc_check = 1
         if "Pythia8GeneratorFilter" in fragment and "tauola" in fragment.lower() and "_external_process_components_=cms.vstring(\"HepPDTESSource\")" in fragment: conc_check = 1
         if "AMPTGeneratorFilter" in fragment or "HydjetGeneratorFilter" in fragment or "PyquenGeneratorFilter" in fragment or "Pythia6GeneratorFilter": conc_check = 1
