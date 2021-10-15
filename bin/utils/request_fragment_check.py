@@ -164,8 +164,10 @@ def ul_consistency(dn,pi,jhu_gp):
                 for line in file_ex:
                     if pi in line: excep = 1 
             if jhu_gp or excep:
-                data_f2_jhu = re.sub(r'args.*', '',data_f2).replace(" ","").replace(",generateConcurrently=cms.untracked.bool(True)","").replace("Concurrent","").replace("Concurrent","").replace(",postGenerationCommand=cms.untracked.vstring('mergeLHE.py','-i','thread*/cmsgrid_final.lhe','-o','cmsgrid_final.lhe')","") 
-                data_f2_jhu_prime = re.sub(r'args.*', '',data_f2_prime).replace(" ","").replace(",generateConcurrently=cms.untracked.bool(True)","").replace("Concurrent","").replace("Concurrent","").replace(",postGenerationCommand=cms.untracked.vstring('mergeLHE.py','-i','thread*/cmsgrid_final.lhe','-o','cmsgrid_final.lhe')","")
+                data_f2_jhu = re.sub(r'args.*', '',data_f2) 
+                data_f2_jhu = exception_for_ul_check(data_f2_jhu)
+                data_f2_jhu_prime = re.sub(r'args.*', '',data_f2_prime)
+                data_f2_jhu_prime = exception_for_ul_check(data_f2_jhu_prime)
                 if (data_f2_jhu == data_f2_jhu_prime) == True:
                     print("[WARNING] Two requests have the same fragment (except may be the gridpack)")
                     warning_ul += 1
@@ -173,8 +175,10 @@ def ul_consistency(dn,pi,jhu_gp):
                     print("[ERROR] Two requests don't have the same fragment (note that gridpacks haven't been compared)")
                     error_ul += 1
             else:
-                data_f2_strip = re.sub(r'\s+', ' ', data_f2).strip().replace(" ","").replace(",generateConcurrently=cms.untracked.bool(True)","").replace("Concurrent","").replace(",postGenerationCommand=cms.untracked.vstring('mergeLHE.py','-i','thread*/cmsgrid_final.lhe','-o','cmsgrid_final.lhe')","")
-                data_f2_prime_strip = re.sub(r'\s+', ' ',data_f2_prime).strip().replace(" ","").replace(",generateConcurrently=cms.untracked.bool(True)","").replace("Concurrent","").replace(",postGenerationCommand=cms.untracked.vstring('mergeLHE.py','-i','thread*/cmsgrid_final.lhe','-o','cmsgrid_final.lhe')","")
+                data_f2_strip = re.sub(r'\s+', ' ', data_f2).strip()
+                data_f2_strip = exception_for_ul_check(data_f2_strip)
+                data_f2_prime_strip = re.sub(r'\s+', ' ',data_f2_prime).strip()
+                data_f2_prime_strip = exception_for_ul_check(data_f2_prime_strip)
                 if (data_f2_strip == data_f2_prime_strip) == True:
                     print("[OK] Two requests have the same fragment.")
                 else: 
@@ -259,6 +263,12 @@ def xml_check_and_patch(f,cont,gridpack_eos_path,my_path,pi):
         os.chdir(cur_dir)
     return warning_xml,error_xml
 
+def exception_for_ul_check(datatobereplaced):
+    new_data = datatobereplaced.replace(" ","")
+    new_data = new_data.replace(",generateConcurrently=cms.untracked.bool(True)","")
+    new_data = new_data.replace("Concurrent","")
+    new_data = new_data.replace(",postGenerationCommand=cms.untracked.vstring('mergeLHE.py','-i','thread*/cmsgrid_final.lhe','-o','cmsgrid_final.lhe')","")
+    return new_data
 
 if args.dev:
     print("Running on McM DEV!\n")
