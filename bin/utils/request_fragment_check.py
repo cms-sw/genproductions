@@ -106,13 +106,25 @@ def check_replace(runcmsgridfile):
         error_check_replace += 1
     return error_check_replace 
 
-def concurrency_check(fragment):
+def concurrency_check(fragment,prepid):
     conc_check = 0
-    if "generateConcurrently" in fragment and "Pythia8ConcurrentHadronizerFilter" in fragment and "Pythia8HadronizerFilter" not in fragment:
-        conc_check = 1
+    fragment = fragment.replace(" ","") 
+    if "ExternalLHEProducer" in fragment and "Herwig7GeneratorFilter" not in fragment:
+        if "generateConcurrently=cms.untracked.bool(True)" in fragment: conc_check = 1
+    if "ExternalLHEProducer" in fragment and "Herwig7GeneratorFilter" not in fragment:
+        if "generateConcurrently=cms.untracked.bool(True)" in fragment and "postGenerationCommand=cms.untracked.vstring('mergeLHE.py','-i','thread*/cmsgrid_final.lhe','-o','cmsgrid_final.lhe')" in fragment: conc_check = 1
+    if "ExternalDecays" not in fragment and "Pythia8ConcurrentHadronizerFilter" in fragment: conc_check = 1
+    if "PythiaConcurrentGeneratorFilter" in fragment and "ExternalDecays" not in fragment and "RandomizedParameters" not in fragment: conc_check = 1
+    if "_generator=cms.EDFilter" in fragment and "fromGeneratorInterface.Core.ExternalGeneratorFilterimportExternalGeneratorFilter" in fragment and "generator=ExternalGeneratorFilter(_generator)" in fragment:
+        if "Pythia8GeneratorFilter" in fragment and "tauola" not in fragment.lower(): conc_check = 1
+        if "Pythia8GeneratorFilter" in fragment and "tauola" in fragment.lower() and "_external_process_components_=cms.vstring(\"HepPDTESSource\")" in fragment: conc_check = 1
+        if "AMPTGeneratorFilter" in fragment or "HydjetGeneratorFilter" in fragment or "PyquenGeneratorFilter" in fragment or "Pythia6GeneratorFilter": conc_check = 1
+        if "ReggeGribovPartonMCGeneratorFilter" in fragment or "SherpaGeneratorFilter" in fragment: conc_check = 1
+        if "Herwig7GeneratorFilter" in fragment and "wmlhegen" not in pi and "phlegen" not in pi: conc_check = 1 
+    if conc_check:
         print("The request will be generated concurrently")
     else:
-        print("The request will not be generated concurrently")
+        print("[ERROR] Concurrent generation parameters missing or wrong. Please check https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookGenMultithread")
     return conc_check
    
 def ul_consistency(dn,pi,jhu_gp):
@@ -434,8 +446,8 @@ for num in range(0,len(prepid)):
         f2_rem = open("pi_rem_clone","w") 
         data_f1 = f1.read()
 
-
-        if concurrency_check(data_f1):
+        concurrency_check(data_f1,pi)
+        if concurrency_check(data_f1,pi):
             with open(pi,'r') as ff1:
                 for line in ff1:
                     if "script" not in line and "generateConcurrently" not in line and "HadronizerFilter" not in line: f1_rem.write(line)
@@ -476,7 +488,7 @@ for num in range(0,len(prepid)):
                f2_clone = open(pi_clone_entries+"_tmp","w")
                data_f1_clone = f1_clone.read()
                data_f2_clone = re.sub(r'(?m)^ *#.*\n?', '',data_f1_clone)
-               if concurrency_check(data_f1):
+               if concurrency_check(data_f1,pi):
                    with open(pi_clone_entries,'r') as ff2:
                        for line in ff2:
                            if "script" not in line and "HadronizerFilter" not in line: f2_rem.write(line)
