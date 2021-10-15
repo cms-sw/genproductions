@@ -110,21 +110,30 @@ def concurrency_check(fragment,prepid):
     conc_check = 0
     fragment = fragment.replace(" ","")
     if "ExternalLHEProducer" in fragment and "generateConcurrently=cms.untracked.bool(True)" in fragment:
-        if "Herwig7GeneratorFilter" not in fragment: conc_check = 1
-        if "Herwig7GeneratorFilter" in fragment:
-            if "postGenerationCommand=cms.untracked.vstring('mergeLHE.py','-i','thread*/cmsgrid_final.lhe','-o','cmsgrid_final.lhe')" in fragment: conc_check = 1 
-    if "ExternalDecays" not in fragment and "Pythia8ConcurrentHadronizerFilter" in fragment: conc_check = 1
-    if "PythiaConcurrentGeneratorFilter" in fragment and "ExternalDecays" not in fragment and "RandomizedParameters" not in fragment: conc_check = 1
+        if "Herwig7GeneratorFilter" not in fragment: 
+            conc_check = 1
+        else:
+            if "postGenerationCommand=cms.untracked.vstring('mergeLHE.py','-i','thread*/cmsgrid_final.lhe','-o','cmsgrid_final.lhe')" in fragment: 
+                conc_check = 1 
+    if "ExternalDecays" not in fragment and "Pythia8ConcurrentHadronizerFilter" in fragment: 
+        conc_check = 1
+    if "PythiaConcurrentGeneratorFilter" in fragment and "ExternalDecays" not in fragment and "RandomizedParameters" not in fragment: 
+        conc_check = 1
     if "ExternalLHEProducer" not in fragment and "_generator=cms.EDFilter" in fragment and "fromGeneratorInterface.Core.ExternalGeneratorFilterimportExternalGeneratorFilter" in fragment and "generator=ExternalGeneratorFilter(_generator)" in fragment:
-        if "Pythia8GeneratorFilter" in fragment and "tauola" not in fragment.lower(): conc_check = 1
-        if "Pythia8GeneratorFilter" in fragment and "tauola" in fragment.lower() and "_external_process_components_=cms.vstring(\"HepPDTESSource\")" in fragment: conc_check = 1
-        if "AMPTGeneratorFilter" in fragment or "HydjetGeneratorFilter" in fragment or "PyquenGeneratorFilter" in fragment or "Pythia6GeneratorFilter": conc_check = 1
-        if "ReggeGribovPartonMCGeneratorFilter" in fragment or "SherpaGeneratorFilter" in fragment: conc_check = 1
-        if "Herwig7GeneratorFilter" in fragment and "wmlhegen" not in pi and "phlegen" not in pi: conc_check = 1 
+        if "Pythia8GeneratorFilter" in fragment and "tauola" not in fragment.lower(): 
+            conc_check = 1
+        if "Pythia8GeneratorFilter" in fragment and "tauola" in fragment.lower() and "_external_process_components_=cms.vstring(\"HepPDTESSource\")" in fragment:
+            conc_check = 1
+        if "AMPTGeneratorFilter" in fragment or "HydjetGeneratorFilter" in fragment or "PyquenGeneratorFilter" in fragment or "Pythia6GeneratorFilter": 
+            conc_check = 1
+        if "ReggeGribovPartonMCGeneratorFilter" in fragment or "SherpaGeneratorFilter" in fragment: 
+            conc_check = 1
+        if "Herwig7GeneratorFilter" in fragment and "wmlhegen" not in pi and "phlegen" not in pi: 
+            conc_check = 1 
     if conc_check:
         print("The request will be generated concurrently")
     else:
-        print("[ERROR] Concurrent generation parameters missing or wrong. Please check https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookGenMultithread")
+        print("[ERROR] Concurrent generation parameters missing or wrong. Please see https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookGenMultithread")
     return conc_check
    
 def ul_consistency(dn,pi,jhu_gp):
@@ -447,6 +456,7 @@ for num in range(0,len(prepid)):
         data_f1 = f1.read()
 
         concurrency_check(data_f1,pi)
+        if concurrency_check(data_f1,pi) == 0: error += 1
         if concurrency_check(data_f1,pi):
             with open(pi,'r') as ff1:
                 for line in ff1:
