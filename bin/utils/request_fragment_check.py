@@ -131,7 +131,7 @@ def concurrency_check(fragment,prepid):
         if "Herwig7GeneratorFilter" in fragment and "wmlhegen" not in pi and "phlegen" not in pi: 
             conc_check = 1 
     if conc_check:
-        print("The request will be generated concurrently")
+        print("\n The request will be generated concurrently\n")
     else:
         print("[ERROR] Concurrent generation parameters missing or wrong. Please see https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookGenMultithread")
     return conc_check
@@ -289,6 +289,15 @@ def exception_for_ul_check(datatobereplaced):
     new_data = new_data.replace(",generateConcurrently=cms.untracked.bool(True)","")
     new_data = new_data.replace("Concurrent","")
     new_data = new_data.replace(",postGenerationCommand=cms.untracked.vstring('mergeLHE.py','-i','thread*/cmsgrid_final.lhe','-o','cmsgrid_final.lhe')","")
+    new_data = new_data.replace("Pythia8ConcurrentHadronizerFilter","Pythia8HadronizerFilter")
+    new_data = new_data.replace('_generator = cms.EDFilter\("Pythia8GeneratorFilter"','')
+    new_data = new_data.replace('_generator = cms.EDFilter\("AMPTGeneratorFilter"','')
+    new_data = new_data.replace('_generator = cms.EDFilter\("HydjetGeneratorFilter"','')
+    new_data = new_data.replace('_generator = cms.EDFilter\("PyquenGeneratorFilter"','')
+    new_data = new_data.replace('_generator = cms.EDFilter\("Pythia6GeneratorFilter"','')
+    new_data = new_data.replace('_generator = cms.EDFilter\("ReggeGribovPartonMCGeneratorFilter"','')
+    new_data = new_data.replace('_generator = cms.EDFilter\("SherpaGeneratorFilter"','')  
+    new_data = new_data.replace('_generator = cms.EDFilter\("Herwig7GeneratorFilter"','')
     return new_data
 
 if args.dev:
