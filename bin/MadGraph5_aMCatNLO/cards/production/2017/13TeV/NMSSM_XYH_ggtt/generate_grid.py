@@ -1,7 +1,8 @@
 import os
 
 # the prototype name of the production folder
-prod_proto = "NMSSM_XYH_ggtata_MX_{0}_MY_{1}"
+prod_proto_Y_tautau = "NMSSM_XYH_Y_tautau_H_gg_MX_{0}_MY_{1}"
+prod_proto_Y_gg = "NMSSM_XYH_Y_gg_H_tautau_MX_{0}_MY_{1}"
 
 ### things to replace are
 ### TEMPLATEMH02 [mX]
@@ -29,8 +30,10 @@ def change_cards(cardname, replacements):
     os.system('rm %s' % bkpname)
 
 
-def do_point(mx, my):
+def do_point(mx, my, Y_decay):
     # 1 - create the folder
+    if Y_decay == "tautau": prod_proto = prod_proto_Y_tautau
+    else:                   prod_proto = prod_proto_Y_gg
     folder = prod_proto.format(mx, my)
     if os.path.isdir(folder):
         print " >> folder", folder, "already existing, forcing its deletion"
@@ -41,11 +44,13 @@ def do_point(mx, my):
     template_flrd = 'Template'
     
     run_card      = 'run_card.dat'
-    proc_card     = 'proc_card.dat'
     # param_card    = 'param_card.dat'
     extramodels   = 'extramodels.dat'
     customizecard = 'customizecards.dat'
-    
+   
+    if Y_decay == "tautau": proc_card = "proc_card_Y_tautau_H_gg.dat"
+    else:                   proc_card = "proc_card_Y_gg_H_tautau.dat"
+ 
     # to_copy = [run_card, proc_card, param_card, extramodels, customizecard]
     to_copy = [run_card, proc_card, extramodels, customizecard]
 
@@ -61,6 +66,9 @@ def do_point(mx, my):
     # change_cards('%s/%s_%s' % (folder, folder, param_card), replacements)
     change_cards('%s/%s_%s' % (folder, folder, customizecard), replacements)
     change_cards('%s/%s_%s' % (folder, folder, proc_card), replacements)
+
+    # 4 - rename proc card
+    os.system('mv %s/%s_%s %s/%s_proc_card.dat'%(folder, folder, proc_card, folder, folder))
 
 
 ####################################################################################
@@ -81,4 +89,5 @@ for i in range(len(Xs)):
 
 for p in points:
     print '... generating', p
-    do_point(*p)
+    do_point(p[0], p[1], "tautau")
+    do_point(p[0], p[1], "gg")
