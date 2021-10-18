@@ -106,14 +106,38 @@ def check_replace(runcmsgridfile):
         error_check_replace += 1
     return error_check_replace 
 
-def concurrency_check(fragment):
+def concurrency_check(fragment,prepid):
     conc_check = 0
-    if "generateConcurrently" in fragment and "Pythia8ConcurrentHadronizerFilter" in fragment and "Pythia8HadronizerFilter" not in fragment:
+    conc_check_lhe = 0
+    fragment = fragment.replace(" ","").replace("\"","'")#
+    if "ExternalLHEProducer" in fragment and "generateConcurrently=cms.untracked.bool(True)" in fragment:
+        if "Herwig7GeneratorFilter" not in fragment: 
+            conc_check_lhe = 1
+        else:
+            if "postGenerationCommand=cms.untracked.vstring('mergeLHE.py','-i','thread*/cmsgrid_final.lhe','-o','cmsgrid_final.lhe')" in fragment: 
+                conc_check_lhe = 1# 
+    elif "ExternalLHEProducer" not in fragment:#
+        conc_check_lhe = 1#
+    if "ExternalDecays" not in fragment and "Pythia8ConcurrentHadronizerFilter" in fragment: 
         conc_check = 1
-        print("The request will be generated concurrently")
+    if "Pythia8ConcurrentGeneratorFilter" in fragment and "ExternalDecays" not in fragment and "RandomizedParameters" not in fragment: 
+        conc_check = 1
+    if "ExternalLHEProducer" not in fragment and "_generator=cms.EDFilter" in fragment and "fromGeneratorInterface.Core.ExternalGeneratorFilterimportExternalGeneratorFilter" in fragment and "generator=ExternalGeneratorFilter(_generator" in fragment:
+        if "Pythia8GeneratorFilter" in fragment and "tauola" not in fragment.lower(): 
+            conc_check = 1
+        if "Pythia8GeneratorFilter" in fragment and "tauola" in fragment.lower() and "_external_process_components_=cms.vstring('HepPDTESSource')" in fragment:
+            conc_check = 1
+        if "AMPTGeneratorFilter" in fragment or "HydjetGeneratorFilter" in fragment or "PyquenGeneratorFilter" in fragment or "Pythia6GeneratorFilter": 
+            conc_check = 1
+        if "ReggeGribovPartonMCGeneratorFilter" in fragment or "SherpaGeneratorFilter" in fragment: 
+            conc_check = 1
+        if "Herwig7GeneratorFilter" in fragment and "wmlhegen" not in pi.lower() and "phlegen" not in pi.lower(): 
+            conc_check = 1 
+    if conc_check_lhe and conc_check:
+        print("\n The request will be generated concurrently\n")
     else:
-        print("The request will not be generated concurrently")
-    return conc_check
+        print("[ERROR] Concurrent generation parameters missing or wrong. Please see https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookGenMultithread")
+    return conc_check_lhe and conc_check
    
 def ul_consistency(dn,pi,jhu_gp):
     pi_prime = "NULL"
@@ -164,8 +188,10 @@ def ul_consistency(dn,pi,jhu_gp):
                 for line in file_ex:
                     if pi in line: excep = 1 
             if jhu_gp or excep:
-                data_f2_jhu = re.sub(r'args.*', '',data_f2).replace(" ","").replace(",generateConcurrently=cms.untracked.bool(True)","").replace("Concurrent","")  
-                data_f2_jhu_prime = re.sub(r'args.*', '',data_f2_prime).replace(" ","").replace(",generateConcurrently=cms.untracked.bool(True)","").replace("Concurrent","")
+                data_f2_jhu = re.sub(r'args.*', '',data_f2) 
+                data_f2_jhu = exception_for_ul_check(data_f2_jhu)
+                data_f2_jhu_prime = re.sub(r'args.*', '',data_f2_prime)
+                data_f2_jhu_prime = exception_for_ul_check(data_f2_jhu_prime)
                 if (data_f2_jhu == data_f2_jhu_prime) == True:
                     print("[WARNING] Two requests have the same fragment (except may be the gridpack)")
                     warning_ul += 1
@@ -173,8 +199,10 @@ def ul_consistency(dn,pi,jhu_gp):
                     print("[ERROR] Two requests don't have the same fragment (note that gridpacks haven't been compared)")
                     error_ul += 1
             else:
-                data_f2_strip = re.sub(r'\s+', ' ', data_f2).strip().replace(" ","").replace(",generateConcurrently=cms.untracked.bool(True)","").replace("Concurrent","")
-                data_f2_prime_strip = re.sub(r'\s+', ' ',data_f2_prime).strip().replace(" ","").replace(",generateConcurrently=cms.untracked.bool(True)","").replace("Concurrent","")
+                data_f2_strip = re.sub(r'\s+', ' ', data_f2).strip()
+                data_f2_strip = exception_for_ul_check(data_f2_strip)
+                data_f2_prime_strip = re.sub(r'\s+', ' ',data_f2_prime).strip()
+                data_f2_prime_strip = exception_for_ul_check(data_f2_prime_strip)
                 if (data_f2_strip == data_f2_prime_strip) == True:
                     print("[OK] Two requests have the same fragment.")
                 else: 
@@ -259,6 +287,23 @@ def xml_check_and_patch(f,cont,gridpack_eos_path,my_path,pi):
         os.chdir(cur_dir)
     return warning_xml,error_xml
 
+def exception_for_ul_check(datatobereplaced):
+    new_data = datatobereplaced.replace(" ","")
+    new_data = new_data.replace(",generateConcurrently=cms.untracked.bool(True)","")
+    new_data = new_data.replace("Concurrent","")
+    new_data = new_data.replace(",postGenerationCommand=cms.untracked.vstring('mergeLHE.py','-i','thread*/cmsgrid_final.lhe','-o','cmsgrid_final.lhe')","")
+    new_data = new_data.replace("Pythia8ConcurrentHadronizerFilter","Pythia8HadronizerFilter")
+    new_data = new_data.replace('_generator=cms.EDFilter("Pythia8GeneratorFilter"','')
+    new_data = new_data.replace('_generator=cms.EDFilter("AMPTGeneratorFilter"','')
+    new_data = new_data.replace('_generator=cms.EDFilter("HydjetGeneratorFilter"','')
+    new_data = new_data.replace('_generator=cms.EDFilter("PyquenGeneratorFilter"','')
+    new_data = new_data.replace('_generator=cms.EDFilter("Pythia6GeneratorFilter"','')
+    new_data = new_data.replace('_generator=cms.EDFilter("ReggeGribovPartonMCGeneratorFilter"','')
+    new_data = new_data.replace('_generator=cms.EDFilter("SherpaGeneratorFilter"','')  
+    new_data = new_data.replace('_generator=cms.EDFilter("Herwig7GeneratorFilter"','')
+    new_data = new_data.replace('fromGeneratorInterface.Core.ExternalGeneratorFilterimportExternalGeneratorFilter','')
+    new_data = new_data.replace('generator=ExternalGeneratorFilter(_generator','')
+    return new_data
 
 if args.dev:
     print("Running on McM DEV!\n")
@@ -420,16 +465,10 @@ for num in range(0,len(prepid)):
         fsize = os.path.getsize(pi)
         f1 = open(pi,"r")
         f2 = open(pi+"_tmp","w")
-        f1_rem = open("pi_rem","w")
-        f2_rem = open("pi_rem_clone","w") 
         data_f1 = f1.read()
 
-
-        if concurrency_check(data_f1):
-            with open(pi,'r') as ff1:
-                for line in ff1:
-                    if "script" not in line and "generateConcurrently" not in line and "HadronizerFilter" not in line: f1_rem.write(line)
-            f1_rem.close()         
+        if concurrency_check(data_f1,pi) == 0: 
+            error += 1
         data_f2 = re.sub(r'(?m)^ *#.*\n?', '',data_f1)
 
         cross_section_fragment = re.findall('crossSection.*?\S+\S+',data_f2)
@@ -466,38 +505,19 @@ for num in range(0,len(prepid)):
                f2_clone = open(pi_clone_entries+"_tmp","w")
                data_f1_clone = f1_clone.read()
                data_f2_clone = re.sub(r'(?m)^ *#.*\n?', '',data_f1_clone)
-               if concurrency_check(data_f1):
-                   with open(pi_clone_entries,'r') as ff2:
-                       for line in ff2:
-                           if "script" not in line and "HadronizerFilter" not in line: f2_rem.write(line)
-                   f2_rem.close() 
-                   f1_rem_o = open("pi_rem",'r')
-                   f2_rem_o = open("pi_rem_clone",'r')
-                   data_f1_rem = f1_rem_o.read()
-                   data_f2_rem = f2_rem_o.read()
-                   data_f1_rem_strip=re.sub(r'\s+', ' ',data_f1_rem).strip()
-                   data_f2_rem_strip=re.sub(r'\s+', ' ',data_f2_rem).strip()
-                   if (data_f1_rem_strip == data_f2_rem_strip) == True:
-                       print("[OK] The base request and the cloned request used for the extension have the same fragment.")
-                   else:
-                       print("[ERROR] The base request and the cloned request used for the extension don't have the same fragment!")
-                       print("Below is the diff of the base and and the cloned request:")
-                       print("---------------------------------------------------------------------------------")
-                       print((os.popen('diff '+pi_rem+' '+pi_rem_clone).read()))
-                       print("---------------------------------------------------------------------------------")
-                       error += 1
-               if concurrency_check(data_f1) == 0:
-                   data_f2_strip=re.sub(r'\s+', ' ', data_f2).strip()
-                   data_f2_clone_strip=re.sub(r'\s+', ' ', data_f2_clone).strip()
-                   if (data_f2_strip == data_f2_clone_strip) == True:
-                       print("[OK] The base request and the cloned request used for the extension have the same fragment.")
-                   else:
-                       print("[ERROR] The base request "+pi+" and the cloned request "+pi_clone_entries+" used for the extension don't have the same fragment!")
-                       print("Below is the diff of the base and and the cloned request:")
-                       print("---------------------------------------------------------------------------------")
-                       print((os.popen('diff '+pi+' '+pi_clone_entries).read()))
-                       print("---------------------------------------------------------------------------------") 
-                       error += 1		
+               data_f2_strip=re.sub(r'\s+', ' ', data_f2).strip()
+               data_f2_strip=exception_for_ul_check(data_f2_strip)
+               data_f2_clone_strip=re.sub(r'\s+', ' ', data_f2_clone).strip()
+               data_f2_clone_strip=exception_for_ul_check(data_f2_clone_strip)
+               if (data_f2_strip == data_f2_clone_strip) == True:
+                   print("[OK] The base request and the cloned request used for the extension have the same fragment.")
+               else:
+                   print("[ERROR] The base request "+pi+" and the cloned request "+pi_clone_entries+" used for the extension don't have the same fragment!")
+                   print("Below is the diff of the base and and the cloned request:")
+                   print("---------------------------------------------------------------------------------")
+                   print((os.popen('diff '+pi+' '+pi_clone_entries).read()))
+                   print("---------------------------------------------------------------------------------") 
+                   error += 1		
         f1.close()
         f2.write(data_f2)
         f2.close()
@@ -1502,7 +1522,6 @@ for num in range(0,len(prepid)):
         if args.develop is False:
             os.popen("rm -rf "+my_path+pi).read()
             os.popen("rm -rf "+my_path+'eos/'+pi).read()
-        os.popen("rm pi_rem*").read()
         print("***********************************************************************************")
         print("Number of warnings = "+ str(warning))
         print("Number of errors = "+ str(error))
