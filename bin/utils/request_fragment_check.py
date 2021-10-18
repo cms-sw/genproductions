@@ -108,33 +108,36 @@ def check_replace(runcmsgridfile):
 
 def concurrency_check(fragment,prepid):
     conc_check = 0
-    fragment = fragment.replace(" ","")
+    conc_check_lhe = 0
+    fragment = fragment.replace(" ","").replace("\"","'")#
     if "ExternalLHEProducer" in fragment and "generateConcurrently=cms.untracked.bool(True)" in fragment:
         if "Herwig7GeneratorFilter" not in fragment: 
-            conc_check = 1
+            conc_check_lhe = 1
         else:
             if "postGenerationCommand=cms.untracked.vstring('mergeLHE.py','-i','thread*/cmsgrid_final.lhe','-o','cmsgrid_final.lhe')" in fragment: 
-                conc_check = 1 
+                conc_check_lhe = 1# 
+    elif "ExternalLHEProducer" not in fragment:#
+        conc_check_lhe = 1#
     if "ExternalDecays" not in fragment and "Pythia8ConcurrentHadronizerFilter" in fragment: 
         conc_check = 1
-    if "PythiaConcurrentGeneratorFilter" in fragment and "ExternalDecays" not in fragment and "RandomizedParameters" not in fragment: 
+    if "Pythia8ConcurrentGeneratorFilter" in fragment and "ExternalDecays" not in fragment and "RandomizedParameters" not in fragment: 
         conc_check = 1
-    if "ExternalLHEProducer" not in fragment and "_generator=cms.EDFilter" in fragment and "fromGeneratorInterface.Core.ExternalGeneratorFilterimportExternalGeneratorFilter" in fragment and "generator=ExternalGeneratorFilter(_generator)" in fragment:
+    if "ExternalLHEProducer" not in fragment and "_generator=cms.EDFilter" in fragment and "fromGeneratorInterface.Core.ExternalGeneratorFilterimportExternalGeneratorFilter" in fragment and "generator=ExternalGeneratorFilter(_generator" in fragment:
         if "Pythia8GeneratorFilter" in fragment and "tauola" not in fragment.lower(): 
             conc_check = 1
-        if "Pythia8GeneratorFilter" in fragment and "tauola" in fragment.lower() and "_external_process_components_=cms.vstring(\"HepPDTESSource\")" in fragment:
+        if "Pythia8GeneratorFilter" in fragment and "tauola" in fragment.lower() and "_external_process_components_=cms.vstring('HepPDTESSource')" in fragment:
             conc_check = 1
         if "AMPTGeneratorFilter" in fragment or "HydjetGeneratorFilter" in fragment or "PyquenGeneratorFilter" in fragment or "Pythia6GeneratorFilter": 
             conc_check = 1
         if "ReggeGribovPartonMCGeneratorFilter" in fragment or "SherpaGeneratorFilter" in fragment: 
             conc_check = 1
-        if "Herwig7GeneratorFilter" in fragment and "wmlhegen" not in pi and "phlegen" not in pi: 
+        if "Herwig7GeneratorFilter" in fragment and "wmlhegen" not in pi.lower() and "phlegen" not in pi.lower(): 
             conc_check = 1 
-    if conc_check:
+    if conc_check_lhe and conc_check:
         print("\n The request will be generated concurrently\n")
     else:
         print("[ERROR] Concurrent generation parameters missing or wrong. Please see https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookGenMultithread")
-    return conc_check
+    return conc_check_lhe and conc_check
    
 def ul_consistency(dn,pi,jhu_gp):
     pi_prime = "NULL"
@@ -290,14 +293,16 @@ def exception_for_ul_check(datatobereplaced):
     new_data = new_data.replace("Concurrent","")
     new_data = new_data.replace(",postGenerationCommand=cms.untracked.vstring('mergeLHE.py','-i','thread*/cmsgrid_final.lhe','-o','cmsgrid_final.lhe')","")
     new_data = new_data.replace("Pythia8ConcurrentHadronizerFilter","Pythia8HadronizerFilter")
-    new_data = new_data.replace('_generator = cms.EDFilter\("Pythia8GeneratorFilter"','')
-    new_data = new_data.replace('_generator = cms.EDFilter\("AMPTGeneratorFilter"','')
-    new_data = new_data.replace('_generator = cms.EDFilter\("HydjetGeneratorFilter"','')
-    new_data = new_data.replace('_generator = cms.EDFilter\("PyquenGeneratorFilter"','')
-    new_data = new_data.replace('_generator = cms.EDFilter\("Pythia6GeneratorFilter"','')
-    new_data = new_data.replace('_generator = cms.EDFilter\("ReggeGribovPartonMCGeneratorFilter"','')
-    new_data = new_data.replace('_generator = cms.EDFilter\("SherpaGeneratorFilter"','')  
-    new_data = new_data.replace('_generator = cms.EDFilter\("Herwig7GeneratorFilter"','')
+    new_data = new_data.replace('_generator=cms.EDFilter\("Pythia8GeneratorFilter"','')
+    new_data = new_data.replace('_generator=cms.EDFilter\("AMPTGeneratorFilter"','')
+    new_data = new_data.replace('_generator=cms.EDFilter\("HydjetGeneratorFilter"','')
+    new_data = new_data.replace('_generator=cms.EDFilter\("PyquenGeneratorFilter"','')
+    new_data = new_data.replace('_generator=cms.EDFilter\("Pythia6GeneratorFilter"','')
+    new_data = new_data.replace('_generator=cms.EDFilter\("ReggeGribovPartonMCGeneratorFilter"','')
+    new_data = new_data.replace('_generator=cms.EDFilter\("SherpaGeneratorFilter"','')  
+    new_data = new_data.replace('_generator=cms.EDFilter\("Herwig7GeneratorFilter"','')
+    new_data = new_data.replace('fromGeneratorInterface.Core.ExternalGeneratorFilterimportExternalGeneratorFilter','')
+    new_data = new_data.replace('generator=ExternalGeneratorFilter\(_generator','')
     return new_data
 
 if args.dev:
