@@ -136,7 +136,13 @@ def concurrency_check(fragment,prepid):
     if conc_check_lhe and conc_check:
         print("\n The request will be generated concurrently\n")
     else:
-        print("[ERROR] Concurrent generation parameters missing or wrong. Please see https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookGenMultithread")
+        if "Pythia8HadronizerFilter" in fragment and ("evtgen" in fragment.lower() or "tauola" in fragment.lower() or photos in fragment.lower()):
+            print("\n Pythia8HadronizerFilter with EvtGen, Tauola, or Photos can not be made concurrently.\n")
+            # note that now foir these exceptional cases, the conc_check's are set to 1. This may be done differently later if something depends on conc_check values. 
+            conc_check_lhe = 1
+            conc_check = 1 
+        else:
+            print("[ERROR] Concurrent generation parameters missing or wrong. Please see https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookGenMultithread")
     return conc_check_lhe and conc_check
    
 def ul_consistency(dn,pi,jhu_gp):
