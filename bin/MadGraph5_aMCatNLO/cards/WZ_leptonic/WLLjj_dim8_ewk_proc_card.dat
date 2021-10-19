@@ -7,6 +7,6 @@ define l- = e- mu- ta-
 define vl = ve vm vt
 define vl~ = ve~ vm~ vt~
 
-generate    p p > W+ Z j j QED=4 QCD=0 NP=1 @ 1, w+ > l+ vl, z > l+ l-
-add process p p > W- Z j j QED=4 QCD=0 NP=1 @ 2, w- > l- vl~, z > l+ l-
+generate    p p > w+ z j j QED=4 QCD=0 NP=1 @ 1, w+ > l+ vl, z > l+ l-
+add process p p > w- z j j QED=4 QCD=0 NP=1 @ 2, w- > l- vl~, z > l+ l-
 output WZjj_dim8_ewk
