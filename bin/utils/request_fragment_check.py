@@ -106,7 +106,7 @@ def check_replace(runcmsgridfile):
         error_check_replace += 1
     return error_check_replace 
 
-def concurrency_check(fragment,prepid):
+def concurrency_check(fragment,pi):
     conc_check = 0
     conc_check_lhe = 0
     fragment = fragment.replace(" ","").replace("\"","'")#
@@ -136,7 +136,13 @@ def concurrency_check(fragment,prepid):
     if conc_check_lhe and conc_check:
         print("\n The request will be generated concurrently\n")
     else:
-        print("[ERROR] Concurrent generation parameters missing or wrong. Please see https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookGenMultithread")
+        if "Pythia8HadronizerFilter" in fragment and ("evtgen" in fragment.lower() or "tauola" in fragment.lower() or photos in fragment.lower()):
+            print("\n Pythia8HadronizerFilter with EvtGen, Tauola, or Photos can not be made concurrently.\n")
+            # note that now foir these exceptional cases, the conc_check's are set to 1. This may be done differently later if something depends on conc_check values. 
+            conc_check_lhe = 1
+            conc_check = 1 
+        else:
+            print("[ERROR] Concurrent generation parameters missing or wrong. Please see https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookGenMultithread")
     return conc_check_lhe and conc_check
    
 def ul_consistency(dn,pi,jhu_gp):
@@ -286,6 +292,31 @@ def xml_check_and_patch(f,cont,gridpack_eos_path,my_path,pi):
           error_xml += 1
         os.chdir(cur_dir)
     return warning_xml,error_xml
+
+def evtgen_check(fragment):
+    err = 0
+    warn = 0
+    fragment = fragment.replace(" ","")
+    if "evtgen" not in fragment.lower():
+        print("[ERROR] evtgen flag defined in dataset name but not set within the fragment")
+        err = 1
+    else:
+        if "fromGeneratorInterface.EvtGenInterface.EvtGenSetting_cffimport*" not in fragment:
+            print("[ERROR] EvtGenInterface not definied within the fragment")
+            err = 1
+        if "convertPythiaCodes=cms.untracked.bool(False)" not in fragment:
+            print("[ERROR] Turn off the PythiaCodes conversion when using EvtGen")
+            err = 1
+        if "generator.PythiaParameters.processParameters.extend(EvtGenExtraParticles)" not in fragment:
+            print("[WARNING] Are you sure EvtGenExtraParticles extension is not needed?")
+            warn = 1      
+    if "evt_2014.pdl" not in fragment:
+        print("[WARNING] Are you sure you do not want the 2014 evt pdl table?")
+        warn = 1   
+    if "DECAY_2014" not in fragment:
+        print("[WARNING] Are you sure you do not want the 2014 decay dec table?")
+        warn = 1
+    return warn, err
 
 def exception_for_ul_check(datatobereplaced):
     new_data = datatobereplaced.replace(" ","")
@@ -1495,24 +1526,9 @@ for num in range(0,len(prepid)):
                     print("[ERROR] Parton shower weight configuration not OK in the fragment")
                     error += 1
         if evtgen_flag == 1 and fsize != 0:
-            if int(os.popen('grep -c -i EvtGen '+pi).read()) == 0:
-                print("[ERROR] evtgen flag defined in dataset name but not set within the fragment")
-                error += 1
-            if int(os.popen('grep -c -i EvtGen '+pi).read()) != 0 and int(os.popen('grep -c -i "from GeneratorInterface.EvtGenInterface.EvtGenSetting_cff import *" '+pi).read()) == 0:
-                print("[ERROR] EvtGenInterface not definied within the fragment")
-                error += 1
-            if int(os.popen('grep -c -i EvtGen '+pi).read()) != 0 and int(os.popen('grep -c -i "convertPythiaCodes = cms.untracked.bool(False)" '+pi).read()) == 0:
-                print("[ERROR] Turn off the PythiaCodes conversion when using EvtGen")
-                error += 1
-            if int(os.popen('grep -c -i evt_2014.pdl '+pi).read()) == 0:
-                print("[WARNING] Are you sure you do not want the 2014 evt pdl table?")
-                warning += 1
-            if int(os.popen('grep -c -i DECAY_2014 '+pi).read()) == 0:
-                print("[WARNING] Are you sure you do not want the 2014 decay dec table?")
-                warning += 1
-            if int(os.popen('grep -c -i EvtGen '+pi).read()) != 0 and int(os.popen('grep -c -i "generator.PythiaParameters.processParameters.extend(EvtGenExtraParticles)" '+pi).read()) == 0:
-                print("[WARNING] Are you sure EvtGenExtraParticles extension is not needed?")
-                warning += 1
+            w_tmp, err_tmp = evtgen_check(data_f1)
+            warning += w_tmp
+            error += err_tmp               
         if evtgen_flag == 0 and fsize != 0 and int(os.popen('grep -c -i EvtGen '+pi).read()) != 0:
             print("[ERROR] EvtGen settings within fragment but no evtgen flag at dataset name")
             error += 1
