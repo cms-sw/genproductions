@@ -132,8 +132,8 @@ make_gridpack () {
     MGBASEDIR=mgbasedir
     
     MG_EXT=".tar.gz"
-    MG=MG5_aMC_v2.7.3$MG_EXT
-    MGSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$MG
+    MG=MG5_aMC_v3.2.0$MG_EXT
+    MGSOURCE=https://launchpad.net/mg5amcnlo/3.0/3.2.x/+download/$MG
     
     MGBASEDIRORIG=$(echo ${MG%$MG_EXT} | tr "." "_")
     isscratchspace=0
@@ -675,10 +675,8 @@ export SYSTEM_RELEASE=`cat /etc/redhat-release`
 if [ -n "$5" ]; then
     scram_arch=${5}
 else
-    if [[ $SYSTEM_RELEASE == *"release 6"* ]]; then 
-        scram_arch=slc6_amd64_gcc700 
-    elif [[ $SYSTEM_RELEASE == *"release 7"* ]]; then 
-        scram_arch=slc7_amd64_gcc700 
+    if [[ $SYSTEM_RELEASE == *"release 7"* ]]; then 
+        scram_arch=slc7_amd64_gcc900 
     else 
         echo "No default scram_arch for current OS!"
         if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi        
@@ -689,10 +687,8 @@ fi
 if [ -n "$6" ]; then
     cmssw_version=${6}
 else
-    if [[ $SYSTEM_RELEASE == *"release 6"* ]]; then 
-        cmssw_version=CMSSW_10_2_24_patch1 
-    elif [[ $SYSTEM_RELEASE == *"release 7"* ]]; then 
-        cmssw_version=CMSSW_10_6_19 
+    if [[ $SYSTEM_RELEASE == *"release 7"* ]]; then 
+        cmssw_version=CMSSW_12_0_2
     else 
         echo "No default CMSSW for current OS!"
         if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi        
