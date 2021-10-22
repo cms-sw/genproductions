@@ -1,4 +1,4 @@
-import model WPrimetb_UFO
+import model WPrimetb_5f_UFO
 define bs = b b~
 define p = p bs
 define j = j bs
