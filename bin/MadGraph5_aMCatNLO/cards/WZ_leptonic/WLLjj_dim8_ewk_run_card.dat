@@ -29,7 +29,7 @@
 # Warning: Do not generate more than 1M events in a single run       *
 # If you want to run Pythia, avoid more than 50k events in a run.    *
 #*********************************************************************
-    1000     = nevents ! Number of unweighted events requested 
+    10000     = nevents ! Number of unweighted events requested 
       0       = iseed   ! rnd seed (0=assigned automatically=default))
 #*********************************************************************
 # Collider type and energy                                           *
@@ -48,7 +48,7 @@
 #*********************************************************************
 # PDF CHOICE: this automatically fixes also alpha_s and its evol.    *
 #*********************************************************************
- 'lhapdf'    = pdlabel     ! PDF set
+ 'lhapdf'    = pdlabel     ! PDF set                                     
 $DEFAULT_PDF_SETS = lhaid
 $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf number
 #*********************************************************************
@@ -68,7 +68,7 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
  1        = ktscheme         ! for ickkw=1, 1 Durham kT, 2 Pythia pTE
  1        = alpsfact         ! scale factor for QCD emission vx
  F        = chcluster        ! cluster only according to channel diag
- T        = pdfwgt           ! for ickkw=1, perform pdf reweighting
+ F        = pdfwgt           ! for ickkw=1, perform pdf reweighting
  5        = asrwgtflavor     ! highest quark flavor for a_s reweight
  T        = clusinfo         ! include clustering tag in output
  3.0      = lhe_version       ! Change the way clustering information pass to shower.        
@@ -106,7 +106,7 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
 # Minimum and maximum pt's (for max, -1 means no cut)                *
 #*********************************************************************
  10  = ptj       ! minimum pt for the jets 
- 10  = ptb       ! minimum pt for the b 
+  0  = ptb       ! minimum pt for the b 
   0  = pta       ! minimum pt for the photons 
   0  = ptl       ! minimum pt for the charged leptons 
   0  = misset    ! minimum missing Et (sum of neutrino's momenta)
@@ -131,7 +131,7 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
 #*********************************************************************
 # Maximum and minimum absolute rapidity (for max, -1 means no cut)   *
 #*********************************************************************
-  -1  = etaj    ! max rap for the jets 
+ 6.5  = etaj    ! max rap for the jets 
   -1  = etab    ! max rap for the b
  2.5  = etaa    ! max rap for the photons 
   -1  = etal    ! max rap for the charged leptons 
@@ -143,16 +143,16 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
 #*********************************************************************
 # Minimum and maximum DeltaR distance                                *
 #*********************************************************************
- 0.0 = drjj    ! min distance between jets 
- 0.0 = drbb    ! min distance between b's 
+ 0.01 = drjj    ! min distance between jets 
+ 0.01 = drbb    ! min distance between b's 
  0.01 = drll    ! min distance between leptons 
- 0.0 = draa    ! min distance between gammas 
- 0.0 = drbj    ! min distance between b and jet 
- 0.0 = draj    ! min distance between gamma and jet 
- 0.0 = drjl    ! min distance between jet and lepton 
- 0.0 = drab    ! min distance between gamma and b 
- 0.0 = drbl    ! min distance between b and lepton 
- 0.0 = dral    ! min distance between gamma and lepton 
+ 0.01 = draa    ! min distance between gammas 
+ 0.01 = drbj    ! min distance between b and jet 
+ 0.01 = draj    ! min distance between gamma and jet 
+ 0.01 = drjl    ! min distance between jet and lepton 
+ 0.01 = drab    ! min distance between gamma and b 
+ 0.01 = drbl    ! min distance between b and lepton 
+ 0.01 = dral    ! min distance between gamma and lepton 
  -1  = drjjmax ! max distance between jets
  -1  = drbbmax ! max distance between b's
  -1  = drllmax ! max distance between leptons
@@ -168,11 +168,11 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
 # WARNING: for four lepton final state mmll cut require to have      *
 #          different lepton masses for each flavor!                  *           
 #*********************************************************************
-100 = mmjj ! min invariant mass of a jet pair
-100 = mmbb ! min invariant mass of a b pair
-0 = mmaa ! min invariant mass of gamma gamma pair
-0 = mmll ! min invariant mass of l+l- (same flavour) lepton pair
--1  = mmjjmax ! max invariant mass of a jet pair
+ 100 = mmjj    ! min invariant mass of a jet pair 
+ 0   = mmbb    ! min invariant mass of a b pair 
+ 0   = mmaa    ! min invariant mass of gamma gamma pair
+ 0   = mmll    ! min invariant mass of l+l- (same flavour) lepton pair
+ -1  = mmjjmax ! max invariant mass of a jet pair
  -1  = mmbbmax ! max invariant mass of a b pair
  -1  = mmaamax ! max invariant mass of gamma gamma pair
  -1  = mmllmax ! max invariant mass of l+l- (same flavour) lepton pair
@@ -253,7 +253,7 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
 # maximal pdg code for quark to be considered as a light jet         *
 # (otherwise b cuts are applied)                                     *
 #*********************************************************************
- 4 = maxjetflavor    ! Maximum jet pdg code
+ 5 = maxjetflavor    ! Maximum jet pdg code
 #*********************************************************************
 # Jet measure cuts                                                   *
 #*********************************************************************
@@ -266,4 +266,6 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
 #          meaningful ONLY if plotted taking matchscale              *
 #          reweighting into account!                                 *
 #*********************************************************************
-   True  = use_syst      ! Enable systematics studies
+   T  = use_syst      ! Enable systematics studies
+#
+#**************************************
