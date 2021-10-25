@@ -164,9 +164,10 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
   {} = pt_max_pdg ! Max pT for a massive particle
   {} = mxx_min_pdg ! inv. mass for any pair of (anti)particles
 #***********************************************************************
-# For aMCfast+APPLGRID use in PDF fitting (http://amcfast.hepforge.org)*
+# Use PineAPPL to generate PDF-independent fast-interpolation grid     *
+# (https://zenodo.org/record/3992765#.X2EWy5MzbVo)                     *
 #***********************************************************************
- 0 = iappl ! aMCfast switch (0=OFF, 1=prepare grids, 2=fill grids)
+ False = pineappl ! PineAPPL switch
 #***********************************************************************
 ## Maximal PDG code for quark to be considered a jet when applying cuts.*
 ## At least all massless quarks of the model should be included here.   *
