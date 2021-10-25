@@ -165,8 +165,11 @@ make_gridpack () {
       WORKDIR=`pwd`
       eval `scram runtime -sh`
 
-      source ${PRODHOME}/Utilities/source_condor.sh
-        
+      if [[ $queue == *"condor"* ]]; then
+        echo "Use HTCondor for gridpack generation"
+        source ${PRODHOME}/Utilities/source_condor.sh
+      fi
+
       #############################################
       #Copy, Unzip and Delete the MadGraph tarball#
       #############################################
