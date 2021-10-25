@@ -164,12 +164,8 @@ make_gridpack () {
       cd ${name}_gridpack ; mkdir -p work ; cd work
       WORKDIR=`pwd`
       eval `scram runtime -sh`
-    
-      # use python 2.7 and include python bindings from default to allow "import htcondor" after cmsenv
-      set +u 
-      if [ ! -z "${PYTHON27PATH}" ] ; then export PYTHONPATH=${PYTHON27PATH} ; fi 
-      if [ ! -z "${PYTHON_BINDINGS}" ] ; then export PYTHONPATH=${PYTHONPATH}:${PYTHON_BINDINGS} ; fi
-      set -u 
+
+      source ${PRODHOME}/Utilities/source_condor.sh
         
       #############################################
       #Copy, Unzip and Delete the MadGraph tarball#
@@ -203,7 +199,7 @@ make_gridpack () {
         echo "set output_dependencies internal" >> mgconfigscript
       fi
     #  echo "set output_dependencies internal" >> mgconfigscript
-      echo "set lhapdf $LHAPDFCONFIG" >> mgconfigscript
+      echo "set lhapdf_py3 $LHAPDFCONFIG" >> mgconfigscript
     #   echo "set ninja $PWD/HEPTools/lib" >> mgconfigscript
     
       if [ "$queue" == "local" ]; then
@@ -287,10 +283,11 @@ make_gridpack () {
 
       cp $CARDSDIR/${name}_proc_card.dat ${name}_proc_card.dat
       
-      #*FIXME* workaround for broken cluster_local_path handling. 
+      #*FIXME* workaround for broken cluster_local_path & lhapdf_py3 handling.
       # This needs to happen before the code-generation step, as fortran templates
       # are modified based on this parameter.
       echo "cluster_local_path = `${LHAPDFCONFIG} --datadir`" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt 
+      echo "lhapdf_py3 = $LHAPDFCONFIG" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
     
       ########################
       #Run the code-generation step to create the process directory
@@ -337,9 +334,10 @@ make_gridpack () {
          echo "cluster_type = cms_condor_spool" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
        fi
     
-      # Previous cluster_local_path setting  gets erased after
+      # Previous settings get erased after
       # code-generation mg5_aMC execution, set it up again before the integrate step.
-      echo "cluster_local_path = `${LHAPDFCONFIG} --datadir`" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt    
+      echo "cluster_local_path = `${LHAPDFCONFIG} --datadir`" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
+      echo "lhapdf_py3 = $LHAPDFCONFIG" >> ./$MGBASEDIRORIG/input/mg5_configuration.txt
       
       if [ -e $CARDSDIR/${name}_patch_me.sh ]; then
           echo "Patching generated matrix element code with " $CARDSDIR/${name}_patch_me.sh

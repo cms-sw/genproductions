@@ -49,7 +49,7 @@ cd $LHEWORKDIR/process
 #make sure lhapdf points to local cmssw installation area
 LHAPDFCONFIG=`echo "$LHAPDF_DATA_PATH/../../bin/lhapdf-config"`
 
-echo "lhapdf = $LHAPDFCONFIG" >> ./madevent/Cards/me5_configuration.txt
+echo "lhapdf_py3 = $LHAPDFCONFIG" >> ./madevent/Cards/me5_configuration.txt
 # echo "cluster_local_path = `${LHAPDFCONFIG} --datadir`" >> ./madevent/Cards/me5_configuration.txt
 #To overcome problem of taking toomanythreads
 #if [ "$ncpu" -gt "1" ]; then
