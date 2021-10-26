@@ -25,17 +25,17 @@ rootfolder = os.getcwd()
 
 
 def runCommand(command, printIt = False, doIt = 1, TESTING = 0) :
-    if TESTING : 
+    if TESTING :
         printIt = 1
         doIt = 0
     if printIt : print ('> ' + command)
-    if doIt : 
+    if doIt :
         commandOutput = commands.getstatusoutput(command)
         if printIt : print commandOutput[1]
         return commandOutput[0]
     else :    print ('    jobs not submitted')
     return 1
-    
+
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
 def prepareCondorScript( tag, i, folderName, queue, SCALE = '0', runInBatchDir = False):
@@ -49,7 +49,7 @@ def prepareCondorScript( tag, i, folderName, queue, SCALE = '0', runInBatchDir =
        execname = rootfolder + '/' + execname
        logname =  folderName + '/run_' + tag
    f = open(filename, 'w')
-  
+
    if (i == 'multiple') :
        f.write('executable              = ' + execname + '_$(ProcId).sh \n')
    elif (i == 'hnnlo') :
@@ -63,20 +63,21 @@ def prepareCondorScript( tag, i, folderName, queue, SCALE = '0', runInBatchDir =
        f.write('arguments               = ' + 'powheg.input $(ClusterId)$(ProcId) \n')
    else :
        f.write('executable              = ' + execname + '.sh \n')
+   f.write('getenv                 =  True \n')
    f.write('output                  = ' + logname + '_$(ProcId).out \n')
    f.write('error                   = ' + logname + '_$(ProcId).err \n')
    f.write('log                     = ' + logname + '.log \n')
    if not runInBatchDir:
        f.write('initialdir              = ' + rootfolder + '/' + folderName + '\n')
 
-   f.write('+JobFlavour             = "'+ queue +'" \n') 
+   f.write('+JobFlavour             = "'+ queue +'" \n')
 
    f.write('periodic_remove         = JobStatus == 5  \n')
    f.write('WhenToTransferOutput    = ON_EXIT_OR_EVICT \n')
    f.write('transfer_output_files   = "" \n')
- 
+
    f.write('\n')
- 
+
    f.close()
 
    if os.path.exists('additional.condorConf') :
@@ -85,7 +86,7 @@ def prepareCondorScript( tag, i, folderName, queue, SCALE = '0', runInBatchDir =
        ff.write('#!/bin/bash \n \n')
        ff.write('mv ' + filename + ' ' + filenamenew + '\n')
        ff.write('cat ' + filenamenew + ' additional.condorConf > ' + filename + '\n')
-       ff.write('rm -f ' + filenamenew + '\n') 
+       ff.write('rm -f ' + filenamenew + '\n')
        ff.close()
        runCommand('source mergeCondorConf.sh')
 
@@ -190,7 +191,7 @@ def runParallelXgrid(parstage, xgrid, folderName, nEvents, njobs, powInputName, 
 
     else:
         print 'Submitting to condor queues:  \n'
-        condorfile = prepareCondorScript(jobtag, 'multiple', args.folderName, QUEUE, runInBatchDir=True) 
+        condorfile = prepareCondorScript(jobtag, 'multiple', args.folderName, QUEUE, runInBatchDir=True)
         runCommand ('condor_submit ' + condorfile + ' -queue '+ str(njobs), TESTING == 0)
 
 
@@ -198,7 +199,7 @@ def runParallelXgrid(parstage, xgrid, folderName, nEvents, njobs, powInputName, 
 def runSingleXgrid(parstage, xgrid, folderName, nEvents, powInputName, seed, process, scriptName) :
 
     print 'Running single job for grid'
- 
+
     inputName = folderName + "/powheg.input"
 
     sedcommand = 'sed "s/NEVENTS/' + nEvents + '/ ; s/SEED/' + seed + '/" ' + powInputName + ' > ' + folderName + '/powheg.input'
@@ -211,7 +212,7 @@ def runSingleXgrid(parstage, xgrid, folderName, nEvents, powInputName, seed, pro
     f.write('cd '+rootfolder+'/'+folderName+'/ \n')
 
     f.write('export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:`pwd`/obj-gfortran/proclib/:${LD_LIBRARY_PATH} \n\n')
- 
+
     f.write('sed -i "s/NEVENTS/'+nEvents+'/ ; s/SEED/'+seed+'/" powheg.input\n\n')
 
     if process == 'gg_H_MSSM' :
@@ -318,12 +319,12 @@ def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag, proc
 
     sedcommand = 'sed -i "s/NEVENTS/2000/ ; s/iseed.*/iseed '+str(seed)+'/" '+inputName
     runCommand(sedcommand)
-    
+
     if (parstage in ['2', '3']) :
-        
+
         sedcommand = 'sed -i "s/#manyseeds/manyseeds/ ; s/.*parallelstage.*/parallelstage ' + parstage + '/ ; s/.*xgriditeration.*/xgriditeration 1/ ; s/.*manyseeds.*/manyseeds 1/ " '+inputName
         runCommand(sedcommand)
-    
+
         if not 'parallelstage' in open(inputName).read() :
             runCommand("echo \'\n\nparallelstage "+parstage+"\' >> "+inputName)
         if not 'xgriditeration' in open(inputName).read() :
@@ -344,7 +345,7 @@ def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag, proc
         if parstage == '4' : jobname = prepareJobForEvents(tag, i, folderName, EOSfolder)
         else               : jobname = prepareJob(tag, i, folderName)
         jobID = jobtag + '_' + str (i)
-    
+
         filename = folderName+'/run_' + tag + '.sh'
         f = open (filename, 'a')
         #f.write('cd '+rootfolder+'/'+folderName+'/ \n')
@@ -360,16 +361,16 @@ def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag, proc
     if QUEUE == 'none':
         print 'Direct running... #'+str(i)+' \n'
         os.system('cd '+rootfolder+'/'+folderName)
-        
+
         for i in range (0, njobs) :
             jobID = jobtag + '_' + str(i)
             os.system('bash run_'+jobID+'.sh &')
-            
+
     else:
         print 'Submitting to condor queues:  \n'
-        condorfile = prepareCondorScript(jobtag, 'multiple', args.folderName, QUEUE, runInBatchDir=True) 
+        condorfile = prepareCondorScript(jobtag, 'multiple', args.folderName, QUEUE, runInBatchDir=True)
         runCommand ('condor_submit ' + condorfile + ' -queue '+ str(njobs), TESTING == 0)
-     
+
 
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
@@ -394,7 +395,7 @@ def createTarBall(parstage, folderName, prcName, keepTop, seed, scriptName) :
 
     template_file = "%s/Templates/createTarBall_template.sh" % rootfolder
     helpers.fillTemplatedFile(template_file, filename, template_dict)
-    
+
     if prcName in ['Zj', 'Wj']:
         if os.path.isfile(folderName + '/DYNNLO_mur1_muf1_3D.top'):
             make_nnlo_rwl(folderName)
@@ -414,7 +415,7 @@ def runhnnlo(folderName, njobs, QUEUE):
   scales = ["11", "22", "0505"]
   for scale in scales:
     os.system('rm -rf '+ folderName+"/"+scale)
-    os.system('mkdir -p '+ folderName+"/"+scale) 
+    os.system('mkdir -p '+ folderName+"/"+scale)
     filename = folderName+"/"+scale+"/launch_NNLO.sh"
 
     template_dict["scale"] = scale
@@ -422,12 +423,12 @@ def runhnnlo(folderName, njobs, QUEUE):
     template_file = "%s/Templates/runhnnlo_template.sh" % rootfolder
     helpers.fillTemplatedFile(template_file, filename, template_dict, "w")
     os.chmod(filename, 0o755)
-     
+
     print 'Submitting to condor queues \n'
-    tagName = 'hnnlo_%s' % scale 
-    condorfile = prepareCondorScript(tagName, 'hnnlo', folderName, QUEUE, scale) 
+    tagName = 'hnnlo_%s' % scale
+    condorfile = prepareCondorScript(tagName, 'hnnlo', folderName, QUEUE, scale)
     runCommand ('condor_submit ' + condorfile + ' -queue '+ str(njobs), TESTING == 0)
-   
+
 
 
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
@@ -471,7 +472,7 @@ def rundynnlo(folderName, njobs, QUEUE):
             os.chmod(filename, 0o755)
 
             print 'Submitting to condor queues \n'
-            condorfile = prepareCondorScript(subfolderName, 'dynnlo', folderName, QUEUE, subfolderName, runInBatchDir=True) 
+            condorfile = prepareCondorScript(subfolderName, 'dynnlo', folderName, QUEUE, subfolderName, runInBatchDir=True)
             runCommand ('condor_submit ' + condorfile + ' -queue '+ str(njobs), TESTING == 0)
 
 
@@ -497,7 +498,7 @@ def mergedynnlo(folderName, process):
             print('Using %i files with size = %i, %i files discarded' % (len(selfiles), medianSize, len(files)-len(selfiles)))
             runCommand ('cd %s; ./merge3ddata 1 ' % folderName + ' '.join(selfiles), printIt = True)
             runCommand ('cd %s; mv fort.12 ' % folderName + 'DYNNLO_mur%s_muf%s_3D.top' % (mur, muf), printIt = True)
-            
+
     #runCommand ('cd %s; for dir in dynnlo_*/; do echo "Removing empty files"; find ${dir} -name "*3D.top" -size  0 -print -delete; echo "Merging files..."; ./merge3ddata 1 ${dir\%?}/*3D.top; mv fort.12 ${dir\%?}_3D.top; done' % (folderName), printIt = True)
 
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
@@ -507,12 +508,12 @@ def dynnlops_runminlo(folderName, njobs, QUEUE, eosdir):
     if 'NONE' in eosdir:
         print('WARNING: using workdir for output files, you may run out of disk space')
         eosdir = os.getcwd()+"/"+folderName
-    
+
     os.system('rm -rf ' + folderName + "/minlo-run")
     os.system('mkdir -p ' + folderName + "/minlo-run")
     os.system('rm -rf ' + eosdir + "/minlo-run")
     os.system('mkdir -p ' + eosdir + "/minlo-run")
-    
+
     m_outfile = folderName + '/pwg-rwl-scalesonly.dat'
     m_factor = ['1d0', '2d0', '0.5d0']
     m_idx = 1001
@@ -538,9 +539,9 @@ def dynnlops_runminlo(folderName, njobs, QUEUE, eosdir):
     template_file = "%s/Templates/dynnlops_runminlo_template.sh" % rootfolder
     helpers.fillTemplatedFile(template_file, filename, template_dict, "w")
     os.chmod(filename, 0o755)
-    
+
     print 'Submitting to condor queues \n'
-    condorfile = prepareCondorScript(folderName + '_minlo', 'minlo', folderName, QUEUE, runInBatchDir=True) 
+    condorfile = prepareCondorScript(folderName + '_minlo', 'minlo', folderName, QUEUE, runInBatchDir=True)
     runCommand ('condor_submit ' + condorfile + ' -queue '+ str(njobs), TESTING == 0)
 
 
@@ -597,13 +598,13 @@ def make_nnlo_rwl(folderName):
     else:
         exit('Please implement simplified NNLO=MINLO scale variations if you need that mode')
     nweights = open(rwlfile).read().count('weight id')
-    
+
     # write nnlo lists
     nnlo_outfile  = folderName + '/list_nnlo.txt'
     minlo_outfile = folderName + '/list_minlo.txt'
     nnlo_fout  = open(nnlo_outfile, 'w')
     minlo_fout = open(minlo_outfile, 'w')
-    
+
     # crossed scale variations
     scales = ["1", "2", "0.5"]
     for mur in scales:
@@ -618,13 +619,13 @@ def make_nnlo_rwl(folderName):
                 nnlo_fout.write(nnlo+'\n')
                 minlo_fout.write(minlo+'\n')
                 nweights -= 1
-    
+
     # weight pdf variations with nominal ratio
     while nweights > 0:
         nnlo_fout.write("DYNNLO_mur1_muf1_3D.top\n")
         minlo_fout.write("MINLO-W1-denom.top\n")
         nweights -= 1
-    
+
     nnlo_fout.close()
     minlo_fout.close()
 
@@ -652,22 +653,22 @@ if __name__ == "__main__":
     parser.add_argument('-d', '--noPdfCheck'    , dest="noPdfCheck",    default= '0',           help='If 1, deactivate automatic PDF check [0]')
 
     args = parser.parse_args ()
-    
+
     QUEUE = args.doQueue
     EOSfolder = args.folderName
 
     print
-    print 'RUNNING PARAMS: parstage = ' + args.parstage + ' , xgrid = ' + args.xgrid  + ' , folderName = ' + args.folderName 
-    print '                Total Events = ' + args.totEvents 
-    print '                Number of Events = ' + args.numEvents 
-    print '                powheg input cfg file : ' + args.inputTemplate 
+    print 'RUNNING PARAMS: parstage = ' + args.parstage + ' , xgrid = ' + args.xgrid  + ' , folderName = ' + args.folderName
+    print '                Total Events = ' + args.totEvents
+    print '                Number of Events = ' + args.numEvents
+    print '                powheg input cfg file : ' + args.inputTemplate
     print '                powheg process name : ' + args.prcName
     print '                working folder : ' + args.folderName
     print '                EOS folder (stages 4,7,8) : ' + args.eosFolder + '/' + EOSfolder
     print '                base folder : ' + rootfolder
     print
- 
-    if (TESTING == 1) :     
+
+    if (TESTING == 1) :
         print '  --- TESTING, NO submissions will happen ---  '
         print
 
@@ -715,7 +716,7 @@ if __name__ == "__main__":
                 fseed.write(str(ii)+'\n')
             fseed.close()
 
-    if args.parstage == '4' :    
+    if args.parstage == '4' :
         runCommand (eoscmd + ' mkdir /eos/cms/store/user/${user}/LHE/powheg/' + args.eosFolder, 1, 1)
         runCommand (eoscmd + ' mkdir /eos/cms/store/user/${user}/LHE/powheg/' + args.eosFolder + '/' + EOSfolder, 1, 1)
 
@@ -726,7 +727,7 @@ if __name__ == "__main__":
 
     if args.parstage == '0' or \
        args.parstage == '0123' or args.parstage == 'a' or \
-       args.parstage == '01239' or args.parstage == 'f' : # full single grid in oneshot 
+       args.parstage == '01239' or args.parstage == 'f' : # full single grid in oneshot
 
         tagName = 'src_'+args.folderName
         filename = './run_'+tagName+'.sh'
@@ -734,31 +735,31 @@ if __name__ == "__main__":
         prepareJob(tagName, '', '.')
 
         if not os.path.exists(args.inputTemplate) :
-            m_ret = os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate+' -O '+args.folderName+'/powheg.input') 
+            m_ret = os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate+' -O '+args.folderName+'/powheg.input')
 
             os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate)
-        
-        os.system('mkdir -p '+rootfolder+'/'+args.folderName) 
+
+        os.system('mkdir -p '+rootfolder+'/'+args.folderName)
 
         if not os.path.exists(args.inputTemplate) :
             os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate+' -O '+args.folderName+'/powheg.input')
         else :
-            os.system('cp -p '+args.inputTemplate+' '+args.folderName+'/powheg.input') 
+            os.system('cp -p '+args.inputTemplate+' '+args.folderName+'/powheg.input')
 
-        os.system('rm -rf JHUGen.input') 
+        os.system('rm -rf JHUGen.input')
         inputJHUGen = args.inputJHUGen
         if args.inputJHUGen == "":
-            inputJHUGen = '/'.join(powInputName.split('/')[0:-1])+'/JHUGen.input' 
+            inputJHUGen = '/'.join(powInputName.split('/')[0:-1])+'/JHUGen.input'
 
         if not os.path.exists(inputJHUGen) :
             m_ret = os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+inputJHUGen+' -O '+args.folderName+'/JHUGen.input')
             if ((m_ret>>8) & 255) != 0 :
-                os.system('rm -rf '+args.folderName+'/JHUGen.input') 
+                os.system('rm -rf '+args.folderName+'/JHUGen.input')
 
         else :
             os.system('cp -p '+inputJHUGen+' '+args.folderName+'/JHUGen.input')
 
-        if os.path.exists(args.folderName+'/powheg.input') : 
+        if os.path.exists(args.folderName+'/powheg.input') :
             test_pdf1 = 0
             test_pdf2 = 0
 
@@ -792,18 +793,18 @@ if __name__ == "__main__":
         tagName = 'src_'+args.folderName
         filename = './run_'+tagName+'.sh'
 
-        prepareJob(tagName, '', '.') 
+        prepareJob(tagName, '', '.')
 
         runGetSource(args.parstage, args.xgrid, args.folderName,
-                     powInputName, args.prcName, args.noPdfCheck, tagName) 
+                     powInputName, args.prcName, args.noPdfCheck, tagName)
 
         if QUEUE == 'none':
             print 'Direct compiling... \n'
             os.system('bash '+filename+' 2>&1 | tee '+filename.split('.sh')[0]+'.log')
-        
+
         else:
             print 'Submitting to condor queues \n'
-            condorfile = prepareCondorScript(tagName, '', '.', QUEUE) 
+            condorfile = prepareCondorScript(tagName, '', '.', QUEUE)
             runCommand ('condor_submit ' + condorfile + ' -queue 1', TESTING == 0)
 
     elif args.parstage == '1' :
@@ -828,10 +829,10 @@ if __name__ == "__main__":
         if QUEUE == 'none':
             print 'Direct running single grid... \n'
             os.system('bash '+scriptName+' >& '+scriptName.split('.sh')[0]+'.log &')
-                    
+
         else:
             print 'Submitting to condor queues  \n'
-            condorfile = prepareCondorScript(tagName, '', args.folderName, QUEUE, runInBatchDir=True) 
+            condorfile = prepareCondorScript(tagName, '', args.folderName, QUEUE, runInBatchDir=True)
             runCommand ('condor_submit ' + condorfile + ' -queue 1', TESTING == 0)
 
     elif args.parstage == '0123' or args.parstage == 'a' : # compile & run
@@ -855,10 +856,10 @@ if __name__ == "__main__":
                       scriptName.split('.sh')[0]+'.log &')
         else:
             print 'Submitting to condor queues  \n'
-            condorfile = prepareCondorScript(tagName, '', '.', QUEUE, runInBatchDir=True) 
+            condorfile = prepareCondorScript(tagName, '', '.', QUEUE, runInBatchDir=True)
             runCommand ('condor_submit ' + condorfile + ' -queue 1', TESTING == 0)
 
-    elif args.parstage == '01239' or args.parstage == 'f' : # full single grid in oneshot 
+    elif args.parstage == '01239' or args.parstage == 'f' : # full single grid in oneshot
         tagName = 'full_'+args.folderName
         scriptName = './run_'+tagName+'.sh'
 
@@ -879,7 +880,7 @@ if __name__ == "__main__":
                       scriptName.split('.sh')[0]+'.log &')
         else:
             print 'Submitting to condor queues  \n'
-            condorfile = prepareCondorScript(tagName, '', '.', QUEUE, runInBatchDir=True) 
+            condorfile = prepareCondorScript(tagName, '', '.', QUEUE, runInBatchDir=True)
             runCommand ('condor_submit ' + condorfile + ' -queue 1', TESTING == 0)
 
     elif args.parstage == '7' :
@@ -893,18 +894,18 @@ if __name__ == "__main__":
         print "merging DYNNLO files for NNLOPS"
         if args.prcName in ["Zj", "Wj"]:
             mergedynnlo(args.folderName, args.prcName)
-    
+
     elif args.parstage == '8' :
         print "preparing MINLO files for NNLOPS"
         os.system('cp -p '+args.inputTemplate+' '+args.folderName+'/powheg.input')
         if args.prcName in ["Zj", "Wj"]:
             dynnlops_runminlo(args.folderName, njobs, QUEUE, args.eosFolder + '/' + EOSfolder)
-    
+
     elif args.parstage == '88' :
         print "merging MINLO files for NNLOPS"
         if args.prcName in ["Zj", "Wj"]:
             dynnlops_mergeminlo(args.folderName, args.prcName, args.eosFolder + '/' + EOSfolder)
-    
+
     elif args.parstage == '9' :
         # overwriting with original
         scriptName = './run_tar_'+args.folderName+'.sh'
