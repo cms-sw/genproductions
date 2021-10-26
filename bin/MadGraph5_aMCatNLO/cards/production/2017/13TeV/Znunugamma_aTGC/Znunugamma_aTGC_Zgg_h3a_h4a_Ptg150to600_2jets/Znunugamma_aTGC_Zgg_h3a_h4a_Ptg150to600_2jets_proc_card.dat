@@ -1,0 +1,7 @@
+import model NTGC_UFO
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+generate p p > vl vl~ a  NP8=1 @1
+add process p p > vl vl~ a j  NP8=1 @2
+add process p p > vl vl~ a j j  N8P=1 @3
+output Znunugamma_aTGC_Zgg_h3a_h4a_Ptg150to600_2jets -nojpeg
