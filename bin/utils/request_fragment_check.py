@@ -106,7 +106,7 @@ def check_replace(runcmsgridfile):
         error_check_replace += 1
     return error_check_replace 
 
-def concurrency_check(fragment,pi,cmssw):
+def concurrency_check(fragment,pi):
     conc_check = 0
     conc_check_lhe = 0
     fragment = fragment.replace(" ","").replace("\"","'")#
@@ -510,8 +510,11 @@ for num in range(0,len(prepid)):
         cmssw_version    = int(re.search("_[0-9]?[0-9]_[0-9]?[0-9]_[0-9]?[0-9]",cmssw).group().replace('_',''))
         if "SnowmassWinter21GEN" not in pi and "SnowmassWinter21wmLHEGEN" not in pi and particle_gun == 0 and randomizedparameters == 0:
             if cmssw_version >= int('10_6_28'.replace('_','')):
-                if concurrency_check(data_f1,pi,cmssw) == 0: 
+                if concurrency_check(data_f1,pi) == 0: 
                     error += 1
+            elif concurrency_check(data_f1,pi) == 1:
+                error += 1
+                print("[ERROR] You can't use concurrent generation with CMSSW versions older than 10_6_28") 
         else:
             print("[WARNING] Skipping the concurrency check since these are (wmLHE)GEN-only campaigns or the request is using randamized parameter scan.")
             warning += 1
