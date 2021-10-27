@@ -136,7 +136,7 @@ def concurrency_check(fragment,pi):
     if conc_check_lhe and conc_check:
         print("\n The request will be generated concurrently\n")
     else:
-        if "Pythia8HadronizerFilter" in fragment and ("evtgen" in fragment.lower() or "tauola" in fragment.lower() or photos in fragment.lower()):
+        if "Pythia8HadronizerFilter" in fragment and ("evtgen" in fragment.lower() or "tauola" in fragment.lower() or "photos" in fragment.lower()):
             print("\n Pythia8HadronizerFilter with EvtGen, Tauola, or Photos can not be made concurrently.\n")
             # note that now foir these exceptional cases, the conc_check's are set to 1. This may be done differently later if something depends on conc_check values. 
             conc_check_lhe = 1
@@ -498,8 +498,14 @@ for num in range(0,len(prepid)):
         f2 = open(pi+"_tmp","w")
         data_f1 = f1.read()
 
-        if concurrency_check(data_f1,pi) == 0: 
-            error += 1
+        if int(os.popen('grep -c FlatRandomEGunProducer '+pi).read()) == 1 or int(os.popen('grep -c FlatRandomPtGunProducer '+pi).read()) == 1: 
+            particle_gun = 1
+        if "SnowmassWinter21GEN" not in pi and "SnowmassWinter21wmLHEGEN" not in pi and particle_gun == 0:
+            if concurrency_check(data_f1,pi) == 0: 
+                error += 1
+        else:
+            print("[WARNING] Skipping the concurrency check since these are (wmLHE)GEN-only campaigns")
+            warning += 1
         data_f2 = re.sub(r'(?m)^ *#.*\n?', '',data_f1)
 
         cross_section_fragment = re.findall('crossSection.*?\S+\S+',data_f2)
@@ -806,38 +812,6 @@ for num in range(0,len(prepid)):
             print("            filter efficiency = "+str(filter_eff))
             print("            matching efficiency = "+str(match_eff))
             error += 1
-        if int(test_cs_version[1]) >= 10 and int(test_cs_version[2]) >= 6 and nthreads == 8 and mem != 15900 and ppd == 0:
-            print ("[ERROR] 8 core request with memory different from 15900 GB. Please set the memory to 15900 GB")
-            error += 1
-        if "HIN-HINPbPbAutumn18GSHIMix" not in pi and "HINPbPbAutumn18wmLHEGSHIMix" not in pi and "HINPbPbAutumn18GS" not in pi and ppd == 0:
-            if mem > 2300 and mem != 4000 and mem != 15900:
-                print("[ERROR] Memory is not <=2300, =4000 or =15900 MB")
-                error += 1
-            if mem <= 2300 and nthreads != 1 :
-                print("[ERROR] Memory is "+str(mem)+" MB while number of cores is "+str(nthreads)+" but not = 1")
-                error += 1
-            if mem == 4000 and nthreads == 1 :
-                print("[ERROR] Memory is "+str(mem)+" MB while number of cores is "+str(nthreads)+" but not = 2,4 or 8")
-                error += 1
-            if mem == 15900 and (nthreads != 8 and nthreads != 16) :
-                print("[ERROR] Memory is "+str(mem)+" MB while number of cores is "+str(nthreads)+" but not = 8 or 16")
-                error += 1
-        if "HIN-HINPbPbAutumn18GSHIMix" in pi or "HINPbPbAutumn18wmLHEGSHIMix" in pi or "HINPbPbAutumn18GS" in pi and ppd == 0:
-            if mem != 14700 and mem != 5900 and mem != 4000 and mem > 2300:
-                print("[ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix or HINPbPbAutumn18GS campaign but Memory is not 14700, 5900, 400, or <= 2300 MB")
-                error += 1
-            if mem == 14700 and nthreads != 8 :
-                print("[ERROR] Memory is "+str(mem)+" MB while number of cores is "+str(nthreads)+" but not = 8")
-                error += 1
-            if mem == 5900 and nthreads != 4 :
-                print("[ERROR] Memory is "+str(mem)+" MB while number of cores is "+str(nthreads)+" but not = 4")
-                error += 1
-            if mem == 4000 and nthreads != 2 :
-                print("[ERROR] Memory is "+str(mem)+" MB while number of cores is "+str(nthreads)+" but not = 2")
-                error += 1
-            if mem <= 2300 and nthreads != 1:
-                print("[ERROR] Memory is "+str(mem)+" MB while number of cores is "+str(nthreads)+" but not = 1")
-                error += 1
 
         if any(word in dn for word in MEname) and gp_size == 0 and "plhe" not in pi.lower():
             print("[ERROR] gridpack path is not properly specified - most probable reason is that it is not a cvmfs path.")
@@ -870,7 +844,6 @@ for num in range(0,len(prepid)):
                 nFinal =  re.findall('\d+',nFinal)
                 nFinal = int(nFinal[0])
                 print("nFinal="+str(nFinal))
-            if int(os.popen('grep -c FlatRandomEGunProducer '+pi).read()) == 1 or int(os.popen('grep -c FlatRandomPtGunProducer '+pi).read()) == 1: particle_gun = 1
             if int(test_cs_version[2]) == 6 and ('CMSSW_10_6_0' not in cmssw or 'CMSSW_10_6_0_patch1' not in cmssw): tunparmark = 1
             if int(test_cs_version[1]) >= 10 and int(test_cs_version[2]) >= 5 and int(test_cs_version[2]) <= 6 and int(test_cs_version[3]) >= 0 and '10_5_0_pre1' not in cmssw and particle_gun == 0 and tunparmark == 0 and herwig_flag == 0:
                 mb_mode = os.popen('grep SigmaTotal:mode '+pi).read()
