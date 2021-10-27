@@ -136,7 +136,7 @@ def concurrency_check(fragment,pi):
     if conc_check_lhe and conc_check:
         print("\n The request will be generated concurrently\n")
     else:
-        if "Pythia8HadronizerFilter" in fragment and ("evtgen" in fragment.lower() or "tauola" in fragment.lower() or photos in fragment.lower()):
+        if "Pythia8HadronizerFilter" in fragment and ("evtgen" in fragment.lower() or "tauola" in fragment.lower() or "photos" in fragment.lower()):
             print("\n Pythia8HadronizerFilter with EvtGen, Tauola, or Photos can not be made concurrently.\n")
             # note that now foir these exceptional cases, the conc_check's are set to 1. This may be done differently later if something depends on conc_check values. 
             conc_check_lhe = 1
@@ -498,8 +498,12 @@ for num in range(0,len(prepid)):
         f2 = open(pi+"_tmp","w")
         data_f1 = f1.read()
 
-        if concurrency_check(data_f1,pi) == 0: 
-            error += 1
+        if "SnowmassWinter21GEN" not in pi and "SnowmassWinter21wmLHEGEN" not in pi:
+            if concurrency_check(data_f1,pi) == 0: 
+                error += 1
+        else:
+            print("[WARNING] Skipping the concurrency check since these are (wmLHE)GEN-only campaigns")
+            warning += 1
         data_f2 = re.sub(r'(?m)^ *#.*\n?', '',data_f1)
 
         cross_section_fragment = re.findall('crossSection.*?\S+\S+',data_f2)
