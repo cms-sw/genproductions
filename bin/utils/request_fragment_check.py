@@ -446,6 +446,7 @@ for num in range(0,len(prepid)):
         maxjetflavor = 0
         nJetMax = 100
         particle_gun = 0
+        randomizedparameters = 0
         tunparmark = 0
         jet_count_tmp = []
         nFinal = 100
@@ -500,11 +501,13 @@ for num in range(0,len(prepid)):
 
         if int(os.popen('grep -c FlatRandomEGunProducer '+pi).read()) == 1 or int(os.popen('grep -c FlatRandomPtGunProducer '+pi).read()) == 1: 
             particle_gun = 1
-        if "SnowmassWinter21GEN" not in pi and "SnowmassWinter21wmLHEGEN" not in pi and particle_gun == 0:
+        if int(os.popen('grep -c -i randomizedparameters '+pi).read()) > 0:
+            randomizedparameters = 1
+        if "SnowmassWinter21GEN" not in pi and "SnowmassWinter21wmLHEGEN" not in pi and particle_gun == 0 and randomizedparameters == 0:
             if concurrency_check(data_f1,pi) == 0: 
                 error += 1
         else:
-            print("[WARNING] Skipping the concurrency check since these are (wmLHE)GEN-only campaigns")
+            print("[WARNING] Skipping the concurrency check since these are (wmLHE)GEN-only campaigns or the request is using randamized parameter scan.")
             warning += 1
         data_f2 = re.sub(r'(?m)^ *#.*\n?', '',data_f1)
 
