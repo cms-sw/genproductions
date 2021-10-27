@@ -498,7 +498,9 @@ for num in range(0,len(prepid)):
         f2 = open(pi+"_tmp","w")
         data_f1 = f1.read()
 
-        if "SnowmassWinter21GEN" not in pi and "SnowmassWinter21wmLHEGEN" not in pi:
+        if int(os.popen('grep -c FlatRandomEGunProducer '+pi).read()) == 1 or int(os.popen('grep -c FlatRandomPtGunProducer '+pi).read()) == 1: 
+            particle_gun = 1
+        if "SnowmassWinter21GEN" not in pi and "SnowmassWinter21wmLHEGEN" not in pi and particle_gun == 0:
             if concurrency_check(data_f1,pi) == 0: 
                 error += 1
         else:
@@ -874,7 +876,6 @@ for num in range(0,len(prepid)):
                 nFinal =  re.findall('\d+',nFinal)
                 nFinal = int(nFinal[0])
                 print("nFinal="+str(nFinal))
-            if int(os.popen('grep -c FlatRandomEGunProducer '+pi).read()) == 1 or int(os.popen('grep -c FlatRandomPtGunProducer '+pi).read()) == 1: particle_gun = 1
             if int(test_cs_version[2]) == 6 and ('CMSSW_10_6_0' not in cmssw or 'CMSSW_10_6_0_patch1' not in cmssw): tunparmark = 1
             if int(test_cs_version[1]) >= 10 and int(test_cs_version[2]) >= 5 and int(test_cs_version[2]) <= 6 and int(test_cs_version[3]) >= 0 and '10_5_0_pre1' not in cmssw and particle_gun == 0 and tunparmark == 0 and herwig_flag == 0:
                 mb_mode = os.popen('grep SigmaTotal:mode '+pi).read()
