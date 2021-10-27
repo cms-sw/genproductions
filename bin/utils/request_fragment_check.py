@@ -812,38 +812,6 @@ for num in range(0,len(prepid)):
             print("            filter efficiency = "+str(filter_eff))
             print("            matching efficiency = "+str(match_eff))
             error += 1
-        if int(test_cs_version[1]) >= 10 and int(test_cs_version[2]) >= 6 and nthreads == 8 and mem != 15900 and ppd == 0:
-            print ("[ERROR] 8 core request with memory different from 15900 GB. Please set the memory to 15900 GB")
-            error += 1
-        if "HIN-HINPbPbAutumn18GSHIMix" not in pi and "HINPbPbAutumn18wmLHEGSHIMix" not in pi and "HINPbPbAutumn18GS" not in pi and ppd == 0:
-            if mem > 2300 and mem != 4000 and mem != 15900:
-                print("[ERROR] Memory is not <=2300, =4000 or =15900 MB")
-                error += 1
-            if mem <= 2300 and nthreads != 1 :
-                print("[ERROR] Memory is "+str(mem)+" MB while number of cores is "+str(nthreads)+" but not = 1")
-                error += 1
-            if mem == 4000 and nthreads == 1 :
-                print("[ERROR] Memory is "+str(mem)+" MB while number of cores is "+str(nthreads)+" but not = 2,4 or 8")
-                error += 1
-            if mem == 15900 and (nthreads != 8 and nthreads != 16) :
-                print("[ERROR] Memory is "+str(mem)+" MB while number of cores is "+str(nthreads)+" but not = 8 or 16")
-                error += 1
-        if "HIN-HINPbPbAutumn18GSHIMix" in pi or "HINPbPbAutumn18wmLHEGSHIMix" in pi or "HINPbPbAutumn18GS" in pi and ppd == 0:
-            if mem != 14700 and mem != 5900 and mem != 4000 and mem > 2300:
-                print("[ERROR] HIN-HINPbPbAutumn18GSHIMix or HINPbPbAutumn18wmLHEGSHIMix or HINPbPbAutumn18GS campaign but Memory is not 14700, 5900, 400, or <= 2300 MB")
-                error += 1
-            if mem == 14700 and nthreads != 8 :
-                print("[ERROR] Memory is "+str(mem)+" MB while number of cores is "+str(nthreads)+" but not = 8")
-                error += 1
-            if mem == 5900 and nthreads != 4 :
-                print("[ERROR] Memory is "+str(mem)+" MB while number of cores is "+str(nthreads)+" but not = 4")
-                error += 1
-            if mem == 4000 and nthreads != 2 :
-                print("[ERROR] Memory is "+str(mem)+" MB while number of cores is "+str(nthreads)+" but not = 2")
-                error += 1
-            if mem <= 2300 and nthreads != 1:
-                print("[ERROR] Memory is "+str(mem)+" MB while number of cores is "+str(nthreads)+" but not = 1")
-                error += 1
 
         if any(word in dn for word in MEname) and gp_size == 0 and "plhe" not in pi.lower():
             print("[ERROR] gridpack path is not properly specified - most probable reason is that it is not a cvmfs path.")
