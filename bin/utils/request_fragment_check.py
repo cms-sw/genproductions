@@ -136,13 +136,17 @@ def concurrency_check(fragment,pi):
     if conc_check_lhe and conc_check:
         print("\n The request will be generated concurrently\n")
     else:
-        if "Pythia8HadronizerFilter" in fragment and ("evtgen" in fragment.lower() or "tauola" in fragment.lower() or "photos" in fragment.lower()):
+        if "Pythia8HadronizerFilter" in fragment and ("evtgen" in fragment.lower() or "tauola" in fragment.lower() or "photos" in fragment.lower()) and "randomizedparameters" not in fragment.lower():
             print("\n Pythia8HadronizerFilter with EvtGen, Tauola, or Photos can not be made concurrently.\n")
             # note that now foir these exceptional cases, the conc_check's are set to 1. This may be done differently later if something depends on conc_check values. 
             conc_check_lhe = 1
             conc_check = 1 
-        else:
+        elif "randomizedparameters" not in fragment.lower():
             print("[ERROR] Concurrent generation parameters missing or wrong. Please see https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookGenMultithread")
+    if "randomizedparameters" in fragment.lower() and (conc_check_lhe or conc_check):
+        print("[ERROR] Concurrent generation parameters used along with RandomizedParameter scan.")    
+        conc_check_lhe = 0
+        conc_check = 0 
     return conc_check_lhe and conc_check
    
 def ul_consistency(dn,pi,jhu_gp):
@@ -509,6 +513,8 @@ for num in range(0,len(prepid)):
         else:
             print("[WARNING] Skipping the concurrency check since these are (wmLHE)GEN-only campaigns or the request is using randamized parameter scan.")
             warning += 1
+        if randomizedparameters == 1:
+            concurrency_check(data_f1,pi)
         data_f2 = re.sub(r'(?m)^ *#.*\n?', '',data_f1)
 
         cross_section_fragment = re.findall('crossSection.*?\S+\S+',data_f2)
