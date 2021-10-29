@@ -87,7 +87,7 @@
 #  'cp3.irmp.ucl.ac.be/projects/madgraph/wiki/LOEventGenerationBias' *
 #*********************************************************************
  mll_bias = bias_module  ! Bias type of bias, [None, ptj_bias, -custom_folder-]
- {'mll_bias_target_mll': 2500.0,'mll_bias_enhancement_power': 4.0} = bias_parameters ! Specifies the parameters of the module.
+ {'mll_bias_target_mll': 1000.0,'mll_bias_enhancement_power': 2.0} = bias_parameters ! Specifies the parameters of the module.
 
 #**********************************
 # BW cutoff (M+/-bwcutoff*Gamma)
@@ -150,9 +150,9 @@
 #*********************************************************************
 # Minimum and maximum DeltaR distance                                *
 #*********************************************************************
-  0.4    =  drjj     ! min distance between jets
+  0.0    =  drjj     ! min distance between jets
   0.0    =  drbb     ! min distance between b's
-  0.4    =  drll     ! min distance between leptons
+  0.0    =  drll     ! min distance between leptons
   0.0    =  draa     ! min distance between gammas
   0.0    =  drbj     ! min distance between b and jet
   0.0    =  draj     ! min distance between gamma and jet
@@ -260,7 +260,7 @@
 # maximal pdg code for quark to be considered as a light jet         *
 # (otherwise b cuts are applied)                                     *
 #*********************************************************************
-  5    =  maxjetflavor     ! Maximum jet pdg code
+  4    =  maxjetflavor     ! Maximum jet pdg code
 #*********************************************************************
 # Jet measure cuts                                                   *
 #*********************************************************************
