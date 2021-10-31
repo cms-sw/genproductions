@@ -88,10 +88,10 @@ Block SMEFT
    1 0            # cG
    2 9.999999e-01 # cW
    3 0            # cH
-   4 9.999999e-01 # cHbox
+   4 0		  # cHbox
    5 9.999999e-01 # cHDD
    6 0            # cHG
-   7 9.999999e-01 # cHW
+   7 0		  # cHW
    8 0            # cHB
    9 9.999999e-01 # cHWB
    10 0            # ceHRe

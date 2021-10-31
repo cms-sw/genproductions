@@ -6,9 +6,7 @@ change mode LO
 
 launch
 set SMEFT 2 0
-set SMEFT 4 0
 set SMEFT 5 0
-set SMEFT 7 0
 set SMEFT 9 0
 set SMEFT 21 0
 set SMEFT 22 0
@@ -20,9 +18,7 @@ set SMEFT 30 0
 
 launch
 set SMEFT 2 1
-set SMEFT 4 0
 set SMEFT 5 0
-set SMEFT 7 0
 set SMEFT 9 0
 set SMEFT 21 0
 set SMEFT 22 0
@@ -32,21 +28,7 @@ set SMEFT 30 0
 
 launch
 set SMEFT 2 0
-set SMEFT 4 1
-set SMEFT 5 0
-set SMEFT 7 0
-set SMEFT 9 0
-set SMEFT 21 0
-set SMEFT 22 0
-set SMEFT 24 0
-set SMEFT 25 0
-set SMEFT 30 0
-
-launch
-set SMEFT 2 0
-set SMEFT 4 0
 set SMEFT 5 1
-set SMEFT 7 0
 set SMEFT 9 0
 set SMEFT 21 0
 set SMEFT 22 0
@@ -56,21 +38,7 @@ set SMEFT 30 0
 
 launch
 set SMEFT 2 0
-set SMEFT 4 0
 set SMEFT 5 0
-set SMEFT 7 1
-set SMEFT 9 0
-set SMEFT 21 0
-set SMEFT 22 0
-set SMEFT 24 0
-set SMEFT 25 0
-set SMEFT 30 0
-
-launch
-set SMEFT 2 0
-set SMEFT 4 0
-set SMEFT 5 0
-set SMEFT 7 0
 set SMEFT 9 1
 set SMEFT 21 0
 set SMEFT 22 0
@@ -80,9 +48,7 @@ set SMEFT 30 0
 
 launch
 set SMEFT 2 0
-set SMEFT 4 0
 set SMEFT 5 0
-set SMEFT 7 0
 set SMEFT 9 0
 set SMEFT 21 1
 set SMEFT 22 0
@@ -92,9 +58,7 @@ set SMEFT 30 0
 
 launch
 set SMEFT 2 0
-set SMEFT 4 0
 set SMEFT 5 0
-set SMEFT 7 0
 set SMEFT 9 0
 set SMEFT 21 0
 set SMEFT 22 1
@@ -104,9 +68,7 @@ set SMEFT 30 0
 
 launch
 set SMEFT 2 0
-set SMEFT 4 0
 set SMEFT 5 0
-set SMEFT 7 0
 set SMEFT 9 0
 set SMEFT 21 0
 set SMEFT 22 0
@@ -116,9 +78,7 @@ set SMEFT 30 0
 
 launch
 set SMEFT 2 0
-set SMEFT 4 0
 set SMEFT 5 0
-set SMEFT 7 0
 set SMEFT 9 0
 set SMEFT 21 0
 set SMEFT 22 0
@@ -128,9 +88,7 @@ set SMEFT 30 0
 
 launch
 set SMEFT 2 0
-set SMEFT 4 0
 set SMEFT 5 0
-set SMEFT 7 0
 set SMEFT 9 0
 set SMEFT 21 0
 set SMEFT 22 0
@@ -140,9 +98,7 @@ set SMEFT 30 1
 
 launch
 set SMEFT 2 -1
-set SMEFT 4 0
 set SMEFT 5 0
-set SMEFT 7 0
 set SMEFT 9 0
 set SMEFT 21 0
 set SMEFT 22 0
@@ -152,21 +108,7 @@ set SMEFT 30 0
 
 launch
 set SMEFT 2 0
-set SMEFT 4 -1
-set SMEFT 5 0
-set SMEFT 7 0
-set SMEFT 9 0
-set SMEFT 21 0
-set SMEFT 22 0
-set SMEFT 24 0
-set SMEFT 25 0
-set SMEFT 30 0
-
-launch
-set SMEFT 2 0
-set SMEFT 4 0
 set SMEFT 5 -1
-set SMEFT 7 0
 set SMEFT 9 0
 set SMEFT 21 0
 set SMEFT 22 0
@@ -176,21 +118,7 @@ set SMEFT 30 0
 
 launch
 set SMEFT 2 0
-set SMEFT 4 0
 set SMEFT 5 0
-set SMEFT 7 -1
-set SMEFT 9 0
-set SMEFT 21 0
-set SMEFT 22 0
-set SMEFT 24 0
-set SMEFT 25 0
-set SMEFT 30 0
-
-launch
-set SMEFT 2 0
-set SMEFT 4 0
-set SMEFT 5 0
-set SMEFT 7 0
 set SMEFT 9 -1
 set SMEFT 21 0
 set SMEFT 22 0
@@ -200,9 +128,7 @@ set SMEFT 30 0
 
 launch
 set SMEFT 2 0
-set SMEFT 4 0
 set SMEFT 5 0
-set SMEFT 7 0
 set SMEFT 9 0
 set SMEFT 21 -1
 set SMEFT 22 0
@@ -212,9 +138,7 @@ set SMEFT 30 0
 
 launch
 set SMEFT 2 0
-set SMEFT 4 0
 set SMEFT 5 0
-set SMEFT 7 0
 set SMEFT 9 0
 set SMEFT 21 0
 set SMEFT 22 -1
@@ -224,9 +148,7 @@ set SMEFT 30 0
 
 launch
 set SMEFT 2 0
-set SMEFT 4 0
 set SMEFT 5 0
-set SMEFT 7 0
 set SMEFT 9 0
 set SMEFT 21 0
 set SMEFT 22 0
@@ -236,9 +158,7 @@ set SMEFT 30 0
 
 launch
 set SMEFT 2 0
-set SMEFT 4 0
 set SMEFT 5 0
-set SMEFT 7 0
 set SMEFT 9 0
 set SMEFT 21 0
 set SMEFT 22 0
@@ -248,9 +168,7 @@ set SMEFT 30 0
 
 launch
 set SMEFT 2 0
-set SMEFT 4 0
 set SMEFT 5 0
-set SMEFT 7 0
 set SMEFT 9 0
 set SMEFT 21 0
 set SMEFT 22 0
@@ -262,9 +180,7 @@ set SMEFT 30 -1
 
 launch
 set SMEFT 2 1
-set SMEFT 4 1
-set SMEFT 5 0
-set SMEFT 7 0
+set SMEFT 5 1
 set SMEFT 9 0
 set SMEFT 21 0
 set SMEFT 22 0
@@ -274,33 +190,7 @@ set SMEFT 30 0
 
 launch
 set SMEFT 2 1
-set SMEFT 4 0
-set SMEFT 5 1
-set SMEFT 7 0
-set SMEFT 9 0
-set SMEFT 21 0
-set SMEFT 22 0
-set SMEFT 24 0
-set SMEFT 25 0
-set SMEFT 30 0
-
-launch
-set SMEFT 2 1
-set SMEFT 4 0
 set SMEFT 5 0
-set SMEFT 7 1
-set SMEFT 9 0
-set SMEFT 21 0
-set SMEFT 22 0
-set SMEFT 24 0
-set SMEFT 25 0
-set SMEFT 30 0
-
-launch
-set SMEFT 2 1
-set SMEFT 4 0
-set SMEFT 5 0
-set SMEFT 7 0
 set SMEFT 9 1
 set SMEFT 21 0
 set SMEFT 22 0
@@ -310,9 +200,7 @@ set SMEFT 30 0
 
 launch
 set SMEFT 2 1
-set SMEFT 4 0
 set SMEFT 5 0
-set SMEFT 7 0
 set SMEFT 9 0
 set SMEFT 21 1
 set SMEFT 22 0
@@ -322,9 +210,7 @@ set SMEFT 30 0
 
 launch
 set SMEFT 2 1
-set SMEFT 4 0
 set SMEFT 5 0
-set SMEFT 7 0
 set SMEFT 9 0
 set SMEFT 21 0
 set SMEFT 22 1
@@ -334,9 +220,7 @@ set SMEFT 30 0
 
 launch
 set SMEFT 2 1
-set SMEFT 4 0
 set SMEFT 5 0
-set SMEFT 7 0
 set SMEFT 9 0
 set SMEFT 21 0
 set SMEFT 22 0
@@ -346,9 +230,7 @@ set SMEFT 30 0
 
 launch
 set SMEFT 2 1
-set SMEFT 4 0
 set SMEFT 5 0
-set SMEFT 7 0
 set SMEFT 9 0
 set SMEFT 21 0
 set SMEFT 22 0
@@ -358,9 +240,7 @@ set SMEFT 30 0
 
 launch
 set SMEFT 2 1
-set SMEFT 4 0
 set SMEFT 5 0
-set SMEFT 7 0
 set SMEFT 9 0
 set SMEFT 21 0
 set SMEFT 22 0
@@ -370,33 +250,7 @@ set SMEFT 30 1
 
 launch
 set SMEFT 2 0
-set SMEFT 4 1
 set SMEFT 5 1
-set SMEFT 7 0
-set SMEFT 9 0
-set SMEFT 21 0
-set SMEFT 22 0
-set SMEFT 24 0
-set SMEFT 25 0
-set SMEFT 30 0
-
-launch
-set SMEFT 2 0
-set SMEFT 4 1
-set SMEFT 5 0
-set SMEFT 7 1
-set SMEFT 9 0
-set SMEFT 21 0
-set SMEFT 22 0
-set SMEFT 24 0
-set SMEFT 25 0
-set SMEFT 30 0
-
-launch
-set SMEFT 2 0
-set SMEFT 4 1
-set SMEFT 5 0
-set SMEFT 7 0
 set SMEFT 9 1
 set SMEFT 21 0
 set SMEFT 22 0
@@ -406,9 +260,7 @@ set SMEFT 30 0
 
 launch
 set SMEFT 2 0
-set SMEFT 4 1
-set SMEFT 5 0
-set SMEFT 7 0
+set SMEFT 5 1
 set SMEFT 9 0
 set SMEFT 21 1
 set SMEFT 22 0
@@ -418,9 +270,7 @@ set SMEFT 30 0
 
 launch
 set SMEFT 2 0
-set SMEFT 4 1
-set SMEFT 5 0
-set SMEFT 7 0
+set SMEFT 5 1
 set SMEFT 9 0
 set SMEFT 21 0
 set SMEFT 22 1
@@ -430,9 +280,7 @@ set SMEFT 30 0
 
 launch
 set SMEFT 2 0
-set SMEFT 4 1
-set SMEFT 5 0
-set SMEFT 7 0
+set SMEFT 5 1
 set SMEFT 9 0
 set SMEFT 21 0
 set SMEFT 22 0
@@ -442,9 +290,7 @@ set SMEFT 30 0
 
 launch
 set SMEFT 2 0
-set SMEFT 4 1
-set SMEFT 5 0
-set SMEFT 7 0
+set SMEFT 5 1
 set SMEFT 9 0
 set SMEFT 21 0
 set SMEFT 22 0
@@ -454,9 +300,7 @@ set SMEFT 30 0
 
 launch
 set SMEFT 2 0
-set SMEFT 4 1
-set SMEFT 5 0
-set SMEFT 7 0
+set SMEFT 5 1
 set SMEFT 9 0
 set SMEFT 21 0
 set SMEFT 22 0
@@ -466,165 +310,7 @@ set SMEFT 30 1
 
 launch
 set SMEFT 2 0
-set SMEFT 4 0
-set SMEFT 5 1
-set SMEFT 7 1
-set SMEFT 9 0
-set SMEFT 21 0
-set SMEFT 22 0
-set SMEFT 24 0
-set SMEFT 25 0
-set SMEFT 30 0
-
-launch
-set SMEFT 2 0
-set SMEFT 4 0
-set SMEFT 5 1
-set SMEFT 7 0
-set SMEFT 9 1
-set SMEFT 21 0
-set SMEFT 22 0
-set SMEFT 24 0
-set SMEFT 25 0
-set SMEFT 30 0
-
-launch
-set SMEFT 2 0
-set SMEFT 4 0
-set SMEFT 5 1
-set SMEFT 7 0
-set SMEFT 9 0
-set SMEFT 21 1
-set SMEFT 22 0
-set SMEFT 24 0
-set SMEFT 25 0
-set SMEFT 30 0
-
-launch
-set SMEFT 2 0
-set SMEFT 4 0
-set SMEFT 5 1
-set SMEFT 7 0
-set SMEFT 9 0
-set SMEFT 21 0
-set SMEFT 22 1
-set SMEFT 24 0
-set SMEFT 25 0
-set SMEFT 30 0
-
-launch
-set SMEFT 2 0
-set SMEFT 4 0
-set SMEFT 5 1
-set SMEFT 7 0
-set SMEFT 9 0
-set SMEFT 21 0
-set SMEFT 22 0
-set SMEFT 24 1
-set SMEFT 25 0
-set SMEFT 30 0
-
-launch
-set SMEFT 2 0
-set SMEFT 4 0
-set SMEFT 5 1
-set SMEFT 7 0
-set SMEFT 9 0
-set SMEFT 21 0
-set SMEFT 22 0
-set SMEFT 24 0
-set SMEFT 25 1
-set SMEFT 30 0
-
-launch
-set SMEFT 2 0
-set SMEFT 4 0
-set SMEFT 5 1
-set SMEFT 7 0
-set SMEFT 9 0
-set SMEFT 21 0
-set SMEFT 22 0
-set SMEFT 24 0
-set SMEFT 25 0
-set SMEFT 30 1
-
-launch
-set SMEFT 2 0
-set SMEFT 4 0
 set SMEFT 5 0
-set SMEFT 7 1
-set SMEFT 9 1
-set SMEFT 21 0
-set SMEFT 22 0
-set SMEFT 24 0
-set SMEFT 25 0
-set SMEFT 30 0
-
-launch
-set SMEFT 2 0
-set SMEFT 4 0
-set SMEFT 5 0
-set SMEFT 7 1
-set SMEFT 9 0
-set SMEFT 21 1
-set SMEFT 22 0
-set SMEFT 24 0
-set SMEFT 25 0
-set SMEFT 30 0
-
-launch
-set SMEFT 2 0
-set SMEFT 4 0
-set SMEFT 5 0
-set SMEFT 7 1
-set SMEFT 9 0
-set SMEFT 21 0
-set SMEFT 22 1
-set SMEFT 24 0
-set SMEFT 25 0
-set SMEFT 30 0
-
-launch
-set SMEFT 2 0
-set SMEFT 4 0
-set SMEFT 5 0
-set SMEFT 7 1
-set SMEFT 9 0
-set SMEFT 21 0
-set SMEFT 22 0
-set SMEFT 24 1
-set SMEFT 25 0
-set SMEFT 30 0
-
-launch
-set SMEFT 2 0
-set SMEFT 4 0
-set SMEFT 5 0
-set SMEFT 7 1
-set SMEFT 9 0
-set SMEFT 21 0
-set SMEFT 22 0
-set SMEFT 24 0
-set SMEFT 25 1
-set SMEFT 30 0
-
-launch
-set SMEFT 2 0
-set SMEFT 4 0
-set SMEFT 5 0
-set SMEFT 7 1
-set SMEFT 9 0
-set SMEFT 21 0
-set SMEFT 22 0
-set SMEFT 24 0
-set SMEFT 25 0
-set SMEFT 30 1
-
-launch
-set SMEFT 2 0
-set SMEFT 4 0
-set SMEFT 5 0
-set SMEFT 7 0
 set SMEFT 9 1
 set SMEFT 21 1
 set SMEFT 22 0
@@ -634,9 +320,7 @@ set SMEFT 30 0
 
 launch
 set SMEFT 2 0
-set SMEFT 4 0
 set SMEFT 5 0
-set SMEFT 7 0
 set SMEFT 9 1
 set SMEFT 21 0
 set SMEFT 22 1
@@ -646,9 +330,7 @@ set SMEFT 30 0
 
 launch
 set SMEFT 2 0
-set SMEFT 4 0
 set SMEFT 5 0
-set SMEFT 7 0
 set SMEFT 9 1
 set SMEFT 21 0
 set SMEFT 22 0
@@ -658,9 +340,7 @@ set SMEFT 30 0
 
 launch
 set SMEFT 2 0
-set SMEFT 4 0
 set SMEFT 5 0
-set SMEFT 7 0
 set SMEFT 9 1
 set SMEFT 21 0
 set SMEFT 22 0
@@ -670,9 +350,7 @@ set SMEFT 30 0
 
 launch
 set SMEFT 2 0
-set SMEFT 4 0
 set SMEFT 5 0
-set SMEFT 7 0
 set SMEFT 9 1
 set SMEFT 21 0
 set SMEFT 22 0
@@ -682,9 +360,7 @@ set SMEFT 30 1
 
 launch
 set SMEFT 2 0
-set SMEFT 4 0
 set SMEFT 5 0
-set SMEFT 7 0
 set SMEFT 9 0
 set SMEFT 21 1
 set SMEFT 22 1
@@ -694,9 +370,7 @@ set SMEFT 30 0
 
 launch
 set SMEFT 2 0
-set SMEFT 4 0
 set SMEFT 5 0
-set SMEFT 7 0
 set SMEFT 9 0
 set SMEFT 21 1
 set SMEFT 22 0
@@ -706,9 +380,7 @@ set SMEFT 30 0
 
 launch
 set SMEFT 2 0
-set SMEFT 4 0
 set SMEFT 5 0
-set SMEFT 7 0
 set SMEFT 9 0
 set SMEFT 21 1
 set SMEFT 22 0
@@ -718,9 +390,7 @@ set SMEFT 30 0
 
 launch
 set SMEFT 2 0
-set SMEFT 4 0
 set SMEFT 5 0
-set SMEFT 7 0
 set SMEFT 9 0
 set SMEFT 21 1
 set SMEFT 22 0
@@ -730,9 +400,7 @@ set SMEFT 30 1
 
 launch
 set SMEFT 2 0
-set SMEFT 4 0
 set SMEFT 5 0
-set SMEFT 7 0
 set SMEFT 9 0
 set SMEFT 21 0
 set SMEFT 22 1
@@ -742,9 +410,7 @@ set SMEFT 30 0
 
 launch
 set SMEFT 2 0
-set SMEFT 4 0
 set SMEFT 5 0
-set SMEFT 7 0
 set SMEFT 9 0
 set SMEFT 21 0
 set SMEFT 22 1
@@ -754,9 +420,7 @@ set SMEFT 30 0
 
 launch
 set SMEFT 2 0
-set SMEFT 4 0
 set SMEFT 5 0
-set SMEFT 7 0
 set SMEFT 9 0
 set SMEFT 21 0
 set SMEFT 22 1
@@ -766,9 +430,7 @@ set SMEFT 30 1
 
 launch
 set SMEFT 2 0
-set SMEFT 4 0
 set SMEFT 5 0
-set SMEFT 7 0
 set SMEFT 9 0
 set SMEFT 21 0
 set SMEFT 22 0
@@ -778,9 +440,7 @@ set SMEFT 30 0
 
 launch
 set SMEFT 2 0
-set SMEFT 4 0
 set SMEFT 5 0
-set SMEFT 7 0
 set SMEFT 9 0
 set SMEFT 21 0
 set SMEFT 22 0
@@ -790,9 +450,7 @@ set SMEFT 30 1
 
 launch
 set SMEFT 2 0
-set SMEFT 4 0
 set SMEFT 5 0
-set SMEFT 7 0
 set SMEFT 9 0
 set SMEFT 21 0
 set SMEFT 22 0
