@@ -232,8 +232,8 @@ make_gridpack () {
             cd ..
           fi
         done
-	cp /afs/cern.ch/user/f/fernanpe/public/D6EFTStudies/restrict_* models/SMEFTsim_U35_MwScheme_UFO/
-	cp -r /afs/cern.ch/work/f/fernanpe/genproductions/bin/MadGraph5_aMCatNLO/mll_bias Template/LO/Source/BIAS/
+	cp restrict_cHDD_cHWB_cHq1_cHl3_cW_cHl1_cll1_cHq3_massless.dat models/SMEFTsim_U35_MwScheme_UFO/
+	cp -r mll_bias Template/LO/Source/BIAS/
       fi
     
       cd $WORKDIR
