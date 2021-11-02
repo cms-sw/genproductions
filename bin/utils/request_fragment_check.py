@@ -106,48 +106,51 @@ def check_replace(runcmsgridfile):
         error_check_replace += 1
     return error_check_replace 
 
-def concurrency_check(fragment,pi):
+def concurrency_check(fragment,pi,cmssw_version):
     conc_check = 0
     conc_check_lhe = 0
+    error_conc = 0
     fragment = fragment.replace(" ","").replace("\"","'")#
-    if "ExternalLHEProducer" in fragment and "generateConcurrently=cms.untracked.bool(True)" in fragment:
-        if "Herwig7GeneratorFilter" not in fragment: 
-            conc_check_lhe = 1
+    if cmssw_version >= int('10_6_28'.replace('_','')):
+        if "ExternalLHEProducer" in fragment and "generateConcurrently=cms.untracked.bool(True)" in fragment:
+            if "Herwig7GeneratorFilter" not in fragment: 
+                conc_check_lhe = 1
+            else:
+                if "postGenerationCommand=cms.untracked.vstring('mergeLHE.py','-i','thread*/cmsgrid_final.lhe','-o','cmsgrid_final.lhe')" in fragment: 
+                    conc_check_lhe = 1# 
+        elif "ExternalLHEProducer" not in fragment:#
+            conc_check_lhe = 1#
+        if "ExternalDecays" not in fragment and "Pythia8ConcurrentHadronizerFilter" in fragment: 
+            conc_check = 1
+        if "Pythia8ConcurrentGeneratorFilter" in fragment and "ExternalDecays" not in fragment and "RandomizedParameters" not in fragment: 
+            conc_check = 1
+        if "ExternalLHEProducer" not in fragment and "_generator=cms.EDFilter" in fragment and "fromGeneratorInterface.Core.ExternalGeneratorFilterimportExternalGeneratorFilter" in fragment and "generator=ExternalGeneratorFilter(_generator" in fragment:
+            if "Pythia8GeneratorFilter" in fragment and "tauola" not in fragment.lower(): 
+                conc_check = 1
+            if "Pythia8GeneratorFilter" in fragment and "tauola" in fragment.lower() and "_external_process_components_=cms.vstring('HepPDTESSource')" in fragment:
+                conc_check = 1
+            if "AMPTGeneratorFilter" in fragment or "HydjetGeneratorFilter" in fragment or "PyquenGeneratorFilter" in fragment or "Pythia6GeneratorFilter": 
+                conc_check = 1
+            if "ReggeGribovPartonMCGeneratorFilter" in fragment or "SherpaGeneratorFilter" in fragment: 
+                conc_check = 1
+            if "Herwig7GeneratorFilter" in fragment and "wmlhegen" not in pi.lower() and "phlegen" not in pi.lower(): 
+                conc_check = 1 
+        if conc_check_lhe and conc_check:
+            print("\n The request will be generated concurrently\n")
+            if "randomizedparameters" in fragment.lower():
+                print("[ERROR] Concurrent generation parameters used along with RandomizedParameter scan.")
+                error_conc = 1
         else:
-            if "postGenerationCommand=cms.untracked.vstring('mergeLHE.py','-i','thread*/cmsgrid_final.lhe','-o','cmsgrid_final.lhe')" in fragment: 
-                conc_check_lhe = 1# 
-    elif "ExternalLHEProducer" not in fragment:#
-        conc_check_lhe = 1#
-    if "ExternalDecays" not in fragment and "Pythia8ConcurrentHadronizerFilter" in fragment: 
-        conc_check = 1
-    if "Pythia8ConcurrentGeneratorFilter" in fragment and "ExternalDecays" not in fragment and "RandomizedParameters" not in fragment: 
-        conc_check = 1
-    if "ExternalLHEProducer" not in fragment and "_generator=cms.EDFilter" in fragment and "fromGeneratorInterface.Core.ExternalGeneratorFilterimportExternalGeneratorFilter" in fragment and "generator=ExternalGeneratorFilter(_generator" in fragment:
-        if "Pythia8GeneratorFilter" in fragment and "tauola" not in fragment.lower(): 
-            conc_check = 1
-        if "Pythia8GeneratorFilter" in fragment and "tauola" in fragment.lower() and "_external_process_components_=cms.vstring('HepPDTESSource')" in fragment:
-            conc_check = 1
-        if "AMPTGeneratorFilter" in fragment or "HydjetGeneratorFilter" in fragment or "PyquenGeneratorFilter" in fragment or "Pythia6GeneratorFilter": 
-            conc_check = 1
-        if "ReggeGribovPartonMCGeneratorFilter" in fragment or "SherpaGeneratorFilter" in fragment: 
-            conc_check = 1
-        if "Herwig7GeneratorFilter" in fragment and "wmlhegen" not in pi.lower() and "phlegen" not in pi.lower(): 
-            conc_check = 1 
-    if conc_check_lhe and conc_check:
-        print("\n The request will be generated concurrently\n")
+            if "Pythia8HadronizerFilter" in fragment and ("evtgen" in fragment.lower() or "tauola" in fragment.lower() or "photos" in fragment.lower()) and "randomizedparameters" not in fragment.lower():
+                print("\n Pythia8HadronizerFilter with EvtGen, Tauola, or Photos can not be made concurrently.\n")
+            elif "randomizedparameters" not in fragment.lower():
+                print("[ERROR] Concurrent generation parameters missing or wrong. Please see https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookGenMultithread")
+                error_conc = 1
     else:
-        if "Pythia8HadronizerFilter" in fragment and ("evtgen" in fragment.lower() or "tauola" in fragment.lower() or "photos" in fragment.lower()) and "randomizedparameters" not in fragment.lower():
-            print("\n Pythia8HadronizerFilter with EvtGen, Tauola, or Photos can not be made concurrently.\n")
-            # note that now foir these exceptional cases, the conc_check's are set to 1. This may be done differently later if something depends on conc_check values. 
-            conc_check_lhe = 1
-            conc_check = 1 
-        elif "randomizedparameters" not in fragment.lower():
-            print("[ERROR] Concurrent generation parameters missing or wrong. Please see https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookGenMultithread")
-    if "randomizedparameters" in fragment.lower() and (conc_check_lhe or conc_check):
-        print("[ERROR] Concurrent generation parameters used along with RandomizedParameter scan.")    
-        conc_check_lhe = 0
-        conc_check = 0 
-    return conc_check_lhe and conc_check
+        if "concurrent" in fragment.lower():
+            print("[ERROR] Concurrent generation is not supported for versions < CMSSW_10_6_28")
+            error_conc = 1
+    return conc_check_lhe and conc_check, error_conc
    
 def ul_consistency(dn,pi,jhu_gp):
     pi_prime = "NULL"
@@ -508,18 +511,12 @@ for num in range(0,len(prepid)):
         if int(os.popen('grep -c -i randomizedparameters '+pi).read()) > 0:
             randomizedparameters = 1
         cmssw_version    = int(re.search("_[0-9]?[0-9]_[0-9]?[0-9]_[0-9]?[0-9]",cmssw).group().replace('_',''))
-        if "SnowmassWinter21GEN" not in pi and "SnowmassWinter21wmLHEGEN" not in pi and particle_gun == 0 and randomizedparameters == 0:
-            if cmssw_version >= int('10_6_28'.replace('_','')):
-                if concurrency_check(data_f1,pi) == 0: 
-                    error += 1
-            elif concurrency_check(data_f1,pi) == 1:
-                error += 1
-                print("[ERROR] You can't use concurrent generation with CMSSW versions older than 10_6_28") 
+        if "SnowmassWinter21GEN" not in pi and "SnowmassWinter21wmLHEGEN" not in pi and particle_gun == 0:
+            conc_check_result, tmp_err = concurrency_check(data_f1,pi,cmssw_version)
+            error += tmp_err
         else:
-            print("[WARNING] Skipping the concurrency check since these are (wmLHE)GEN-only campaigns or the request is using randamized parameter scan.")
+            print("[WARNING] Skipping the concurrency check since these are (wmLHE)GEN-only campaigns or a particle gun.")
             warning += 1
-        if randomizedparameters == 1:
-            concurrency_check(data_f1,pi)
         data_f2 = re.sub(r'(?m)^ *#.*\n?', '',data_f1)
 
         cross_section_fragment = re.findall('crossSection.*?\S+\S+',data_f2)
