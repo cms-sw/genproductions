@@ -1,0 +1,202 @@
+change rwgt_dir rwgt
+
+
+launch --rwgt_name=EFTrwgt0_cS_5.96_cT_5.48
+    set param_card aaa3x1 5.96
+    set param_card bbb3x1 5.96
+    set param_card ccc1x2 5.96
+    set param_card ddd1x2 5.96
+    set param_card aaaprime3x2 5.48
+    set param_card bbbprime3x2 5.48
+    set param_card cccprime1x1 5.48
+    set param_card dddprime1x1 5.48
+
+launch --rwgt_name=EFTrwgt1_cS_0.35_cT_5.81
+    set param_card aaa3x1 0.35
+    set param_card bbb3x1 0.35
+    set param_card ccc1x2 0.35
+    set param_card ddd1x2 0.35
+    set param_card aaaprime3x2 5.81
+    set param_card bbbprime3x2 5.81
+    set param_card cccprime1x1 5.81
+    set param_card dddprime1x1 5.81
+
+launch --rwgt_name=EFTrwgt2_cS_9.93_cT_4.6
+    set param_card aaa3x1 9.93
+    set param_card bbb3x1 9.93
+    set param_card ccc1x2 9.93
+    set param_card ddd1x2 9.93
+    set param_card aaaprime3x2 4.6
+    set param_card bbbprime3x2 4.6
+    set param_card cccprime1x1 4.6
+    set param_card dddprime1x1 4.6
+
+launch --rwgt_name=EFTrwgt3_cS_6.55_cT_5.0
+    set param_card aaa3x1 6.55
+    set param_card bbb3x1 6.55
+    set param_card ccc1x2 6.55
+    set param_card ddd1x2 6.55
+    set param_card aaaprime3x2 5.0
+    set param_card bbbprime3x2 5.0
+    set param_card cccprime1x1 5.0
+    set param_card dddprime1x1 5.0
+
+launch --rwgt_name=EFTrwgt4_cS_6.16_cT_9.52
+    set param_card aaa3x1 6.16
+    set param_card bbb3x1 6.16
+    set param_card ccc1x2 6.16
+    set param_card ddd1x2 6.16
+    set param_card aaaprime3x2 9.52
+    set param_card bbbprime3x2 9.52
+    set param_card cccprime1x1 9.52
+    set param_card dddprime1x1 9.52
+
+launch --rwgt_name=EFTrwgt5_cS_4.88_cT_4.88
+    set param_card aaa3x1 4.88
+    set param_card bbb3x1 4.88
+    set param_card ccc1x2 4.88
+    set param_card ddd1x2 4.88
+    set param_card aaaprime3x2 4.88
+    set param_card bbbprime3x2 4.88
+    set param_card cccprime1x1 4.88
+    set param_card dddprime1x1 4.88
+
+launch --rwgt_name=EFTrwgt6_cS_6.66_cT_2.02
+    set param_card aaa3x1 6.66
+    set param_card bbb3x1 6.66
+    set param_card ccc1x2 6.66
+    set param_card ddd1x2 6.66
+    set param_card aaaprime3x2 2.02
+    set param_card bbbprime3x2 2.02
+    set param_card cccprime1x1 2.02
+    set param_card dddprime1x1 2.02
+
+launch --rwgt_name=EFTrwgt7_cS_6.34_cT_4.0
+    set param_card aaa3x1 6.34
+    set param_card bbb3x1 6.34
+    set param_card ccc1x2 6.34
+    set param_card ddd1x2 6.34
+    set param_card aaaprime3x2 4.0
+    set param_card bbbprime3x2 4.0
+    set param_card cccprime1x1 4.0
+    set param_card dddprime1x1 4.0
+
+launch --rwgt_name=EFTrwgt8_cS_4.39_cT_9.28
+    set param_card aaa3x1 4.39
+    set param_card bbb3x1 4.39
+    set param_card ccc1x2 4.39
+    set param_card ddd1x2 4.39
+    set param_card aaaprime3x2 9.28
+    set param_card bbbprime3x2 9.28
+    set param_card cccprime1x1 9.28
+    set param_card dddprime1x1 9.28
+
+launch --rwgt_name=EFTrwgt9_cS_3.92_cT_0.16
+    set param_card aaa3x1 3.92
+    set param_card bbb3x1 3.92
+    set param_card ccc1x2 3.92
+    set param_card ddd1x2 3.92
+    set param_card aaaprime3x2 0.16
+    set param_card bbbprime3x2 0.16
+    set param_card cccprime1x1 0.16
+    set param_card dddprime1x1 0.16
+
+launch --rwgt_name=EFTrwgt10_cS_1.46_cT_2.51
+    set param_card aaa3x1 1.46
+    set param_card bbb3x1 1.46
+    set param_card ccc1x2 1.46
+    set param_card ddd1x2 1.46
+    set param_card aaaprime3x2 2.51
+    set param_card bbbprime3x2 2.51
+    set param_card cccprime1x1 2.51
+    set param_card dddprime1x1 2.51
+
+launch --rwgt_name=EFTrwgt11_cS_8.56_cT_1.67
+    set param_card aaa3x1 8.56
+    set param_card bbb3x1 8.56
+    set param_card ccc1x2 8.56
+    set param_card ddd1x2 8.56
+    set param_card aaaprime3x2 1.67
+    set param_card bbbprime3x2 1.67
+    set param_card cccprime1x1 1.67
+    set param_card dddprime1x1 1.67
+
+launch --rwgt_name=EFTrwgt12_cS_0.21_cT_5.3
+    set param_card aaa3x1 0.21
+    set param_card bbb3x1 0.21
+    set param_card ccc1x2 0.21
+    set param_card ddd1x2 0.21
+    set param_card aaaprime3x2 5.3
+    set param_card bbbprime3x2 5.3
+    set param_card cccprime1x1 5.3
+    set param_card dddprime1x1 5.3
+
+launch --rwgt_name=EFTrwgt13_cS_1.76_cT_6.51
+    set param_card aaa3x1 1.76
+    set param_card bbb3x1 1.76
+    set param_card ccc1x2 1.76
+    set param_card ddd1x2 1.76
+    set param_card aaaprime3x2 6.51
+    set param_card bbbprime3x2 6.51
+    set param_card cccprime1x1 6.51
+    set param_card dddprime1x1 6.51
+
+launch --rwgt_name=EFTrwgt14_cS_3.22_cT_3.99
+    set param_card aaa3x1 3.22
+    set param_card bbb3x1 3.22
+    set param_card ccc1x2 3.22
+    set param_card ddd1x2 3.22
+    set param_card aaaprime3x2 3.99
+    set param_card bbbprime3x2 3.99
+    set param_card cccprime1x1 3.99
+    set param_card dddprime1x1 3.99
+
+launch --rwgt_name=EFTrwgt15_cS_5.54_cT_1.26
+    set param_card aaa3x1 5.54
+    set param_card bbb3x1 5.54
+    set param_card ccc1x2 5.54
+    set param_card ddd1x2 5.54
+    set param_card aaaprime3x2 1.26
+    set param_card bbbprime3x2 1.26
+    set param_card cccprime1x1 1.26
+    set param_card dddprime1x1 1.26
+
+launch --rwgt_name=EFTrwgt16_cS_8.88_cT_7.41
+    set param_card aaa3x1 8.88
+    set param_card bbb3x1 8.88
+    set param_card ccc1x2 8.88
+    set param_card ddd1x2 8.88
+    set param_card aaaprime3x2 7.41
+    set param_card bbbprime3x2 7.41
+    set param_card cccprime1x1 7.41
+    set param_card dddprime1x1 7.41
+
+launch --rwgt_name=EFTrwgt17_cS_6.92_cT_3.97
+    set param_card aaa3x1 6.92
+    set param_card bbb3x1 6.92
+    set param_card ccc1x2 6.92
+    set param_card ddd1x2 6.92
+    set param_card aaaprime3x2 3.97
+    set param_card bbbprime3x2 3.97
+    set param_card cccprime1x1 3.97
+    set param_card dddprime1x1 3.97
+
+launch --rwgt_name=EFTrwgt18_cS_4.01_cT_5.34
+    set param_card aaa3x1 4.01
+    set param_card bbb3x1 4.01
+    set param_card ccc1x2 4.01
+    set param_card ddd1x2 4.01
+    set param_card aaaprime3x2 5.34
+    set param_card bbbprime3x2 5.34
+    set param_card cccprime1x1 5.34
+    set param_card dddprime1x1 5.34
+
+launch --rwgt_name=EFTrwgt19_cS_4.57_cT_8.37
+    set param_card aaa3x1 4.57
+    set param_card bbb3x1 4.57
+    set param_card ccc1x2 4.57
+    set param_card ddd1x2 4.57
+    set param_card aaaprime3x2 8.37
+    set param_card bbbprime3x2 8.37
+    set param_card cccprime1x1 8.37
+    set param_card dddprime1x1 8.37

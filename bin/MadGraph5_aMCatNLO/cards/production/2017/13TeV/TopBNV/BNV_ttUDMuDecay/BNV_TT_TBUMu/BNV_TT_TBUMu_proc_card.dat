@@ -1,0 +1,5 @@
+import model bnv_mediator_ufo
+define p = g u c d s u~ c~ d~ s~
+generate  p p > t t~ BNV=0 /h a z ,  (t > u~ b~ mu+) @0
+add process  p p > t t~ BNV=0 /h a z , (t~ > u b mu-)@1
+output BNV_TT_TBUMu -f -nojpeg

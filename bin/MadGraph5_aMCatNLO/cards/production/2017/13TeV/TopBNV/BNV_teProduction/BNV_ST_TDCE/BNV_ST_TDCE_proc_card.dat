@@ -1,0 +1,5 @@
+import model bnv_mediator_ufo
+define p =  c d c~ d~
+generate p p > t~ e+
+add process p p > t e-
+output BNV_ST_TDCE -f -nojpeg
