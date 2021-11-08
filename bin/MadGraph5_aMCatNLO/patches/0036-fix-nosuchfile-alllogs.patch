@@ -1,0 +1,23 @@
+--- a/madgraph/interface/amcatnlo_run_interface.py
++++ b/madgraph/interface/amcatnlo_run_interface.py
+@@ -2020,16 +2020,16 @@ class aMCatNLOCmd(CmdExtended, HelpToCmd, CompleteForCmd, common_run.CommonRunCm
+ 
+             event_norm=self.run_card['event_norm']
+             # gather the various orders tag and write include files
+-            self.write_orders_tag_info()
++            self.write_orders_tag_info(integration_step)
+ 
+             return self.reweight_and_collect_events(options, mode, nevents, event_norm)
+ 
+ 
+-    def write_orders_tag_info(self):
++    def write_orders_tag_info(self,integration_step):
+         """Collects the informations on the orders_tag variable from the 
+         different channels and writes a file, linked to the P0 dirs
+         """
+-        log = pjoin(self.me_dir, 'Events', self.run_name, 'alllogs_0.html')
++        log = pjoin(self.me_dir, 'Events', self.run_name, 'alllogs_%d.html' % (integration_step+1))
+         content = open(log).read()
+         taglines = [l for l in content.split('\n') if 'orders_tag_plot=' in l]
+         orderstags = []
+
