@@ -1,4 +1,4 @@
-import model WPrimetb_UFO
+import model WPrimetb_5f_UFO
 define bs = b b~
 define p = p bs
 define j = j bs
@@ -12,4 +12,4 @@ add process p p > wp+ > bs ts j, (ts > ws bs, ws > ls ls) @1
 add process p p > wp- > bs ts j, (ts > ws bs, ws > ls ls) @1
 add process p p > wp+ > bs ts j j, (ts > ws bs, ws > ls ls) @2
 add process p p > wp- > bs ts j j, (ts > ws bs, ws > ls ls) @2
-output WPrime_tb -nojpeg
+output {name} -nojpeg
