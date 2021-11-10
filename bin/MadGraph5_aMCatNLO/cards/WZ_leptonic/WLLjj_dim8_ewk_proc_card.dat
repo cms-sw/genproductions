@@ -1,4 +1,4 @@
-import model SM_Ltotal_Ind5v2020v2_UFO
+import model quarticCKM21v2
 
 define p = g u c d s b u~ c~ d~ s~ b~
 define j = p
