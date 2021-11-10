@@ -111,7 +111,7 @@ def concurrency_check(fragment,pi,cmssw_version):
     conc_check_lhe = 0
     error_conc = 0
     fragment = fragment.replace(" ","").replace("\"","'")#
-    if cmssw_version >= int('10_06_28'.replace('_','')):
+    if cmssw_version >= int('10_60_28'.replace('_','')):
         if "ExternalLHEProducer" in fragment and "generateConcurrently=cms.untracked.bool(True)" in fragment:
             if "Herwig7GeneratorFilter" not in fragment: 
                 conc_check_lhe = 1
@@ -135,6 +135,7 @@ def concurrency_check(fragment,pi,cmssw_version):
                 conc_check = 1
             if "Herwig7GeneratorFilter" in fragment and "wmlhegen" not in pi.lower() and "phlegen" not in pi.lower(): 
                 conc_check = 1 
+        print("Concurrency check LHE = ",conc_check_lhe,"  Concurrency check GEN = ",conc_check)
         if conc_check_lhe and conc_check:
             print("\n The request will be generated concurrently\n")
             if "randomizedparameters" in fragment.lower():
