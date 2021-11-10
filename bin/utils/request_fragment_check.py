@@ -111,7 +111,7 @@ def concurrency_check(fragment,pi,cmssw_version):
     conc_check_lhe = 0
     error_conc = 0
     fragment = fragment.replace(" ","").replace("\"","'")#
-    if cmssw_version >= int('10_6_28'.replace('_','')):
+    if cmssw_version >= int('10_06_28'.replace('_','')):
         if "ExternalLHEProducer" in fragment and "generateConcurrently=cms.untracked.bool(True)" in fragment:
             if "Herwig7GeneratorFilter" not in fragment: 
                 conc_check_lhe = 1
@@ -510,7 +510,15 @@ for num in range(0,len(prepid)):
             particle_gun = 1
         if int(os.popen('grep -c -i randomizedparameters '+pi).read()) > 0:
             randomizedparameters = 1
-        cmssw_version    = int(re.search("_[0-9]?[0-9]_[0-9]?[0-9]_[0-9]?[0-9]",cmssw).group().replace('_',''))
+#        cmssw_version    = int(re.search("_[0-9]?[0-9]_[0-9]?[0-9]_[0-9]?[0-9]",cmssw).group().replace('_',''))
+        cmssw_version    = re.search("_[0-9]?[0-9]_[0-9]?[0-9]_[0-9]?[0-9]",cmssw).group().split("_")
+        if len(cmssw_version[1]) != 2:
+           cmssw_version[1] += "0"
+        if len(cmssw_version[2]) != 2:
+           cmssw_version[2] += "0"
+        if len(cmssw_version[3]) != 2:
+           cmssw_version[3] += "0"
+        cmssw_version=int(cmssw_version[1]+cmssw_version[2]+cmssw_version[3])
         if "SnowmassWinter21GEN" not in pi and "SnowmassWinter21wmLHEGEN" not in pi and particle_gun == 0:
             conc_check_result, tmp_err = concurrency_check(data_f1,pi,cmssw_version)
             error += tmp_err
@@ -1500,7 +1508,7 @@ for num in range(0,len(prepid)):
                 warning += 1
             if int(os.popen('grep -c "from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *" '+pi).read()) == 1 :
                 cmssw_version    = int(re.search("_[0-9]?[0-9]_[0-9]?[0-9]_[0-9]?[0-9]",cmssw).group().replace('_',''))
-                if cmssw_version < int('10_2_3'.replace('_','')) :
+                if cmssw_version < int('10_02_30'.replace('_','')) :
                     print("[ERROR] PS weights in config but CMSSW version is < 10_2_3 - please check!")
                     error += 1
                 psweightscheck.append(int(os.popen('grep -c "from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *" '+pi).read()))
