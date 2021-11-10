@@ -1508,8 +1508,7 @@ for num in range(0,len(prepid)):
                 print("[WARNING] No parton shower weights configuration in the fragment. In the Fall18 campaign, we recommend to include Parton Shower weights")
                 warning += 1
             if int(os.popen('grep -c "from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *" '+pi).read()) == 1 :
-                cmssw_version    = int(re.search("_[0-9]?[0-9]_[0-9]?[0-9]_[0-9]?[0-9]",cmssw).group().replace('_',''))
-                if cmssw_version < int('10_02_30'.replace('_','')) :
+                if cmssw_version < int('10_20_30'.replace('_','')) :
                     print("[ERROR] PS weights in config but CMSSW version is < 10_2_3 - please check!")
                     error += 1
                 psweightscheck.append(int(os.popen('grep -c "from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *" '+pi).read()))
