@@ -144,11 +144,8 @@ def concurrency_check(fragment,pi,cmssw_version):
         else:
             if "Pythia8HadronizerFilter" in fragment and ("evtgen" in fragment.lower() or "tauola" in fragment.lower() or "photos" in fragment.lower()) and "randomizedparameters" not in fragment.lower():
                 print("\n Pythia8HadronizerFilter with EvtGen, Tauola, or Photos can not be made concurrently.\n")
-            if "Herwig7GeneratorFilter" in fragment and ("wmlhegen" in pi.lower() or "plhegen" in pi.lower()): 
+            elif "Herwig7GeneratorFilter" in fragment and ("wmlhegen" in pi.lower() or "plhegen" in pi.lower()): 
                 print("Herwig7GeneratorFilter in the wmLHEGEN or pLHEGEN campaign cannot run concurrently.")
-                if conc_check_lhe == 1 or conc_check == 1:
-                    print("[ERROR] Herwig7GeneratorFilter in the wmLHEGEN or pLHEGEN campaign cannot run concurrently but there are settings in the fragment to run concurrently - please remove them")
-                    error_conc = 1
             elif "randomizedparameters" not in fragment.lower():
                 print("[ERROR] Concurrent generation parameters missing or wrong. Please see https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookGenMultithread")
                 error_conc = 1
