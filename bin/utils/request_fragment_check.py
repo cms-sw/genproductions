@@ -113,6 +113,7 @@ def concurrency_check(fragment,pi,cmssw_version):
     fragment = fragment.replace(" ","").replace("\"","'")#
     if cmssw_version >= int('10_60_28'.replace('_','')):
         if "ExternalLHEProducer" in fragment and "generateConcurrently=cms.untracked.bool(True)" in fragment:
+            # first check if the code has correctly implemented concurrent features. Mark conc_check_lhe (LHE step) or conc_check (GEN step) as True if features are found
             if "Herwig7GeneratorFilter" not in fragment: 
                 conc_check_lhe = 1
             else:
@@ -142,11 +143,15 @@ def concurrency_check(fragment,pi,cmssw_version):
                 print("[ERROR] Concurrent generation parameters used along with RandomizedParameter scan.")
                 error_conc = 1
         else:
-            if "Pythia8HadronizerFilter" in fragment and ("evtgen" in fragment.lower() or "tauola" in fragment.lower() or "photos" in fragment.lower()) and "randomizedparameters" not in fragment.lower():
+            # then if not both the LHE and GEN step turns on concurrent features, we check if for some cases it is ok not to have concurrency
+            if "Pythia8HadronizerFilter" in fragment and ("evtgen" in fragment.lower() or "tauola" in fragment.lower() or "photos" in fragment.lower()):
                 print("\n Pythia8HadronizerFilter with EvtGen, Tauola, or Photos can not be made concurrently.\n")
             elif "Herwig7GeneratorFilter" in fragment and ("wmlhegen" in pi.lower() or "plhegen" in pi.lower()): 
                 print("Herwig7GeneratorFilter in the wmLHEGEN or pLHEGEN campaign cannot run concurrently.")
-            elif "randomizedparameters" not in fragment.lower():
+            elif "Pythia8GeneratorFilter" in fragment and "randomizedparameters" in fragment.lower():
+                print("Pythia8GeneratorFilter with RandomizedParameter scan cannot run concurrently")
+            # for other cases, it is either concurrent generation parameters are missing or wrong
+            else:
                 print("[ERROR] Concurrent generation parameters missing or wrong. Please see https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookGenMultithread")
                 error_conc = 1
     else:
