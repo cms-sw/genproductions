@@ -73,7 +73,7 @@ False	=  fixed_fac_scale   ! if .true. use fixed fac scale
 1	=  ktscheme          ! for ickkw=1, 1 Durham kT, 2 Pythia pTE
 1.0	=  alpsfact          ! scale factor for QCD emission vx
 False	=  chcluster         ! cluster only according to channel diag
-True	=  pdfwgt            ! for ickkw=1, perform pdf reweighting
+False	=  pdfwgt            ! for ickkw=1, perform pdf reweighting
 4	=  asrwgtflavor      ! highest quark flavor for a_s reweight
 True	=  clusinfo          ! include clustering tag in output
 3.0	=  lhe_version        ! Change the way clustering information pass to shower.
@@ -136,7 +136,7 @@ False	=  cut_decays     ! Cut decay products
 # Maximum and minimum absolute rapidity (for max, -1 means no cut)   *
 #*********************************************************************
 5.0	=  etaj     ! max rap for the jets
--1.0	=  etab     ! max rap for the b
+5.0	=  etab     ! max rap for the b
 5.0	=  etaa     ! max rap for the photons
 5.0	=  etal     ! max rap for the charged leptons
 0.0	=  etajmin  ! min rap for the jets
@@ -147,14 +147,14 @@ False	=  cut_decays     ! Cut decay products
 # Minimum and maximum DeltaR distance                                *
 #*********************************************************************
 0.001	=  drjj     ! min distance between jets
-0.0	=  drbb     ! min distance between b's
+0.001	=  drbb     ! min distance between b's
 0.001	=  drll     ! min distance between leptons
 0.001	=  draa     ! min distance between gammas
-0.0	=  drbj     ! min distance between b and jet
+0.001	=  drbj     ! min distance between b and jet
 0.001	=  draj     ! min distance between gamma and jet
 0.001	=  drjl     ! min distance between jet and lepton
-0.0	=  drab     ! min distance between gamma and b
-0.0	=  drbl     ! min distance between b and lepton
+0.001	=  drab     ! min distance between gamma and b
+0.001	=  drbl     ! min distance between b and lepton
 0.001	=  dral     ! min distance between gamma and lepton
 -1.0	=  drjjmax  ! max distance between jets
 -1.0	=  drbbmax  ! max distance between b's
