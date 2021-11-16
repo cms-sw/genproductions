@@ -1,0 +1,10 @@
+import model SMEFTsim_general_MwScheme_UFO-SMEFT_massless_private_vec
+define p = g u c d s b u~ c~ d~ s~ b~
+define j = p
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
+
+generate    p p > z z, z > l+ l-    NPprop=0 SMHLOOP=0 NP=1
+add process p p > z z j, z > l+ l-  NPprop=0 SMHLOOP=0 NP=1 @1
+
+output ZZ-vec
