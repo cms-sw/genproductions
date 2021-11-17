@@ -209,7 +209,7 @@ def ul_consistency(dn,pi,jhu_gp):
                 for line in file_ex:
                     if pi in line: excep = 1 
             if jhu_gp or excep:
-                data_f2_jhu = re.sub(r'args.*', '',data_f2) 
+                data_f2_jhu = re.sub(r'args.*', '',data_f2)   
                 data_f2_jhu = exception_for_ul_check(data_f2_jhu)
                 data_f2_jhu_prime = re.sub(r'args.*', '',data_f2_prime)
                 data_f2_jhu_prime = exception_for_ul_check(data_f2_jhu_prime)
@@ -222,8 +222,12 @@ def ul_consistency(dn,pi,jhu_gp):
             else:
                 data_f2_strip = re.sub(r'\s+', ' ', data_f2).strip()
                 data_f2_strip = exception_for_ul_check(data_f2_strip)
-                data_f2_prime_strip = re.sub(r'\s+', ' ',data_f2_prime).strip()
+                data_f2_prime_strip = re.sub(r'\s+', ' ',data_f2_prime).strip().replace(" ","").replace(",generateConcurrently=cms.untracked.bool(True)","").replace("Concurrent","")
                 data_f2_prime_strip = exception_for_ul_check(data_f2_prime_strip)
+                print(data_f2_strip)
+                print("----")
+                print(data_f2_prime_strip)
+                sys.exit()
                 if (data_f2_strip == data_f2_prime_strip) == True:
                     print("[OK] Two requests have the same fragment.")
                 else: 
@@ -520,7 +524,7 @@ for num in range(0,len(prepid)):
             randomizedparameters = 1
 #        cmssw_version    = int(re.search("_[0-9]?[0-9]_[0-9]?[0-9]_[0-9]?[0-9]",cmssw).group().replace('_',''))
         cmssw_version    = re.search("_[0-9]?[0-9]_[0-9]?[0-9]_[0-9]?[0-9]",cmssw).group().split("_")
-        if len(cmssw_version[1]) != 2:
+        if len(cmssw_version[1]) != 2 and int(cmssw_version[1]) > 9:
            cmssw_version[1] += "0"
         if len(cmssw_version[2]) != 2:
            cmssw_version[2] += "0"
@@ -573,6 +577,9 @@ for num in range(0,len(prepid)):
                data_f2_strip=exception_for_ul_check(data_f2_strip)
                data_f2_clone_strip=re.sub(r'\s+', ' ', data_f2_clone).strip()
                data_f2_clone_strip=exception_for_ul_check(data_f2_clone_strip)
+               print (data_f2_strip)
+               print("---")
+               print(data_f2_clone_strip)
                if (data_f2_strip == data_f2_clone_strip) == True:
                    print("[OK] The base request and the cloned request used for the extension have the same fragment.")
                else:
@@ -1515,8 +1522,8 @@ for num in range(0,len(prepid)):
                 print("[WARNING] No parton shower weights configuration in the fragment. In the Fall18 campaign, we recommend to include Parton Shower weights")
                 warning += 1
             if int(os.popen('grep -c "from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *" '+pi).read()) == 1 :
-                if cmssw_version < int('10_20_30'.replace('_','')) :
-                    print("[ERROR] PS weights in config but CMSSW version is < 10_2_3 - please check!")
+                if (int(str(cmssw_version)[:1]) <= 9 and cmssw_version < 93019) or (int(str(cmssw_version)[:1]) > 9 and cmssw_version < 102030):
+                    print("[ERROR] PS weights in config but CMSSW version is < 10_2_3 for CMSSW version >= 10_X_X or is < 9_3_10 for CMSSW version <= 9_X_X - please check!")
                     error += 1
                 psweightscheck.append(int(os.popen('grep -c "from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *" '+pi).read()))
                 psweightscheck.append(int(os.popen('grep -c "pythia8PSweightsSettingsBlock," '+pi).read()))
