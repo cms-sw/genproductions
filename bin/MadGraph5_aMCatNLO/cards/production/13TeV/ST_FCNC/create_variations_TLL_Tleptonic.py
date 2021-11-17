@@ -21,7 +21,7 @@ for el in sampledict:
     outproccard = ""
     with open("./orig_cards/proc_card.dat", "r") as theF:
         for line in theF.readlines():
-            outproccard += line.replace("PROCNAME", el).replace("MODEL", sampledict[el]["MODELNAME"])
+            outproccard += line.replace("PROCNAME", el).replace("MODELNAME", sampledict[el]["MODELNAME"])
     outprocF = open("./" + el + "/" + el + "_proc_card.dat", "w")
     outprocF.write(outproccard)
     outprocF.close(); del outprocF
