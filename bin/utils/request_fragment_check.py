@@ -224,9 +224,6 @@ def ul_consistency(dn,pi,jhu_gp):
                 data_f2_strip = exception_for_ul_check(data_f2_strip)
                 data_f2_prime_strip = re.sub(r'\s+', ' ',data_f2_prime).strip()
                 data_f2_prime_strip = exception_for_ul_check(data_f2_prime_strip)
-                print(data_f2_strip)
-                print("----")
-                print(data_f2_prime_strip)
                 sys.exit()
                 if (data_f2_strip == data_f2_prime_strip) == True:
                     print("[OK] Two requests have the same fragment.")
