@@ -111,8 +111,9 @@ def concurrency_check(fragment,pi,cmssw_version):
     conc_check_lhe = 0
     error_conc = 0
     fragment = fragment.replace(" ","").replace("\"","'")#
-    if cmssw_version >= int('10_6_28'.replace('_','')):
+    if cmssw_version >= int('10_60_28'.replace('_','')):
         if "ExternalLHEProducer" in fragment and "generateConcurrently=cms.untracked.bool(True)" in fragment:
+            # first check if the code has correctly implemented concurrent features. Mark conc_check_lhe (LHE step) or conc_check (GEN step) as True if features are found
             if "Herwig7GeneratorFilter" not in fragment: 
                 conc_check_lhe = 1
             else:
@@ -133,17 +134,24 @@ def concurrency_check(fragment,pi,cmssw_version):
                 conc_check = 1
             if "ReggeGribovPartonMCGeneratorFilter" in fragment or "SherpaGeneratorFilter" in fragment: 
                 conc_check = 1
-            if "Herwig7GeneratorFilter" in fragment and "wmlhegen" not in pi.lower() and "phlegen" not in pi.lower(): 
+            if "Herwig7GeneratorFilter" in fragment and "wmlhegen" not in pi.lower() and "plhegen" not in pi.lower(): 
                 conc_check = 1 
+        print("Concurrency check LHE = ",conc_check_lhe,"  Concurrency check GEN = ",conc_check)
         if conc_check_lhe and conc_check:
             print("\n The request will be generated concurrently\n")
             if "randomizedparameters" in fragment.lower():
                 print("[ERROR] Concurrent generation parameters used along with RandomizedParameter scan.")
                 error_conc = 1
         else:
-            if "Pythia8HadronizerFilter" in fragment and ("evtgen" in fragment.lower() or "tauola" in fragment.lower() or "photos" in fragment.lower()) and "randomizedparameters" not in fragment.lower():
+            # then if not both the LHE and GEN step turns on concurrent features, we check if for some cases it is ok not to have concurrency
+            if "Pythia8HadronizerFilter" in fragment and ("evtgen" in fragment.lower() or "tauola" in fragment.lower() or "photos" in fragment.lower()):
                 print("\n Pythia8HadronizerFilter with EvtGen, Tauola, or Photos can not be made concurrently.\n")
-            elif "randomizedparameters" not in fragment.lower():
+            elif "Herwig7GeneratorFilter" in fragment and ("wmlhegen" in pi.lower() or "plhegen" in pi.lower()): 
+                print("Herwig7GeneratorFilter in the wmLHEGEN or pLHEGEN campaign cannot run concurrently.")
+            elif "Pythia8GeneratorFilter" in fragment and "randomizedparameters" in fragment.lower():
+                print("Pythia8GeneratorFilter with RandomizedParameter scan cannot run concurrently")
+            # for other cases, it is either concurrent generation parameters are missing or wrong
+            else:
                 print("[ERROR] Concurrent generation parameters missing or wrong. Please see https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookGenMultithread")
                 error_conc = 1
     else:
@@ -510,7 +518,15 @@ for num in range(0,len(prepid)):
             particle_gun = 1
         if int(os.popen('grep -c -i randomizedparameters '+pi).read()) > 0:
             randomizedparameters = 1
-        cmssw_version    = int(re.search("_[0-9]?[0-9]_[0-9]?[0-9]_[0-9]?[0-9]",cmssw).group().replace('_',''))
+#        cmssw_version    = int(re.search("_[0-9]?[0-9]_[0-9]?[0-9]_[0-9]?[0-9]",cmssw).group().replace('_',''))
+        cmssw_version    = re.search("_[0-9]?[0-9]_[0-9]?[0-9]_[0-9]?[0-9]",cmssw).group().split("_")
+        if len(cmssw_version[1]) != 2:
+           cmssw_version[1] += "0"
+        if len(cmssw_version[2]) != 2:
+           cmssw_version[2] += "0"
+        if len(cmssw_version[3]) != 2:
+           cmssw_version[3] += "0"
+        cmssw_version=int(cmssw_version[1]+cmssw_version[2]+cmssw_version[3])
         if "SnowmassWinter21GEN" not in pi and "SnowmassWinter21wmLHEGEN" not in pi and particle_gun == 0:
             conc_check_result, tmp_err = concurrency_check(data_f1,pi,cmssw_version)
             error += tmp_err
@@ -1499,8 +1515,7 @@ for num in range(0,len(prepid)):
                 print("[WARNING] No parton shower weights configuration in the fragment. In the Fall18 campaign, we recommend to include Parton Shower weights")
                 warning += 1
             if int(os.popen('grep -c "from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *" '+pi).read()) == 1 :
-                cmssw_version    = int(re.search("_[0-9]?[0-9]_[0-9]?[0-9]_[0-9]?[0-9]",cmssw).group().replace('_',''))
-                if cmssw_version < int('10_2_3'.replace('_','')) :
+                if cmssw_version < int('10_20_30'.replace('_','')) :
                     print("[ERROR] PS weights in config but CMSSW version is < 10_2_3 - please check!")
                     error += 1
                 psweightscheck.append(int(os.popen('grep -c "from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *" '+pi).read()))
