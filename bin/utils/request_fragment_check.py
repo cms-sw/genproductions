@@ -110,8 +110,9 @@ def concurrency_check(fragment,pi,cmssw_version):
     conc_check = 0
     conc_check_lhe = 0
     error_conc = 0
+    fragment = re.sub(r'(?m)^ *#.*\n?', '',fragment) # remove lines starting with #
     fragment = fragment.replace(" ","").replace("\"","'")#
-    if cmssw_version >= int('10_60_28'.replace('_','')):
+    if cmssw_version >= int('10_60_28'.replace('_','')) and int(str(cmssw_version)[:2]) != 11:
         if "ExternalLHEProducer" in fragment and "generateConcurrently=cms.untracked.bool(True)" in fragment:
             # first check if the code has correctly implemented concurrent features. Mark conc_check_lhe (LHE step) or conc_check (GEN step) as True if features are found
             if "Herwig7GeneratorFilter" not in fragment: 
@@ -743,6 +744,25 @@ for num in range(0,len(prepid)):
                     print("[WARNING] maxjetflavor not defined in run_card.dat")
                     warning += 1
                 print("maxjetflavor = "+str(maxjetflavor))
+                if alt_ickkw_c == 3:
+                    qCutME = os.popen('grep "qCutME" '+pi).read()
+                    qCutME = qCutME.replace(" ","")
+                    qCutME = re.findall('qCutME=\d+',qCutME)[0].split("=")[1]
+                    print("qCutME = ",qCutME)
+                    ptj_runcard = os.popen('grep "ptj" '+filename_mggpc).read()
+                    ptj_runcard = ptj_runcard.replace(" ","")
+                    ptj_runcard = re.findall('\d+=ptj',ptj_runcard)[0].split("=")[0]
+                    print("ptj_runcard =", ptj_runcard)
+                    if float(qCutME) != float(ptj_runcard):
+                        error += 1
+                        print("[ERROR] qCutME in PS settings and ptj in run_card in gridpack do not match.")
+                    nQmatch = os.popen('grep "nQmatch" '+pi).read()
+                    nQmatch = nQmatch.replace(" ","")
+                    nQmatch = re.findall('nQmatch=\d+',nQmatch)[0].split("=")[1]
+                    print("nQmatch = ",nQmatch)
+                    if int(nQmatch) != int(maxjetflavor):
+                        error += 1
+                        print("[ERROR] nQmatch in PS settings and maxjetflavor in run_card in gridpack do not match.")
         if herwig_flag != 0:
             os.system('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/herwig_common.txt -O herwig_common.txt') 
             file2 = set(line.strip().replace(",","") for line in open(pi))
