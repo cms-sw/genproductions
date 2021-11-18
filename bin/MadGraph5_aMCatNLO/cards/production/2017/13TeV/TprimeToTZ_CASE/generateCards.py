@@ -4,8 +4,11 @@ import os, shutil, subprocess
 
 Ref_dir = "tZ_b_LH"
 
-MassesTp = [2000, 3000, 5000]
-MassesZ = [25,80,170,400]
+#MassesTp = [2000, 3000, 5000]
+#MassesZ = [25,80,170,400]
+
+MassesTp = [2000]
+MassesZ = [170]
 
 for mtp in MassesTp:
         for mz in MassesZ:
@@ -24,8 +27,7 @@ for mtp in MassesTp:
                 with open("{0}/{0}_proc_card.dat".format(sampleName), "a") as f:
                         f.write("output "+sampleName)
                 with open("{0}/{0}_customizecards.dat".format(sampleName), "a") as f:
+                        f.write("set param_card DECAY 8000001 %e\n" % (mtp * 0.03))
                         f.write("set param_card mass 8000001 %e\n" % mtp)
                         f.write("set param_card mass 23 %e\n" % mz)
-                        #f.write("set param_card decay 6000024 %e\n" % (mwp * WidthWp))
-                        #f.write("set param_card decay "+pdgid+" %e\n" % (mbp * WidthBp))
-                        #f.write("set param_card mass 6 %e\n" % mt)
+
