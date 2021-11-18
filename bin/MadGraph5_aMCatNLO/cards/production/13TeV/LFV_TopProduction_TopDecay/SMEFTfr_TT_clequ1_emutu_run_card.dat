@@ -56,9 +56,9 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
 #*********************************************************************
  F        = fixed_ren_scale  ! if .true. use fixed ren scale
  F        = fixed_fac_scale  ! if .true. use fixed fac scale
- 471  = scale            ! fixed ren scale
- 471  = dsqrt_q2fact1    ! fixed fact scale for pdf1
- 471  = dsqrt_q2fact2    ! fixed fact scale for pdf2
+ 91.188   = scale            ! fixed ren scale
+ 91.188   = dsqrt_q2fact1    ! fixed fact scale for pdf1
+ 91.188   = dsqrt_q2fact2    ! fixed fact scale for pdf2
  1        = scalefact        ! scale factor for event-by-event scales
 #*********************************************************************
 # Matching - Warning! ickkw > 1 is still beta
