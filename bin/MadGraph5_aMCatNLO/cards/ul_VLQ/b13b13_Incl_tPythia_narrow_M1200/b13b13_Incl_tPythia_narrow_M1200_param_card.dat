@@ -137,13 +137,13 @@ DECAY  24 2.085000e+00 # WW
 DECAY  25 4.070000e-03 # WH 
 DECAY 6000005 5.000000e+00 # WX 
 #         PDG            Width
-DECAY 6000006 1.000000e+01 # WTP
+DECAY 6000006 1.500000e+01 # WTP
+DECAY 6000007 1.200000e+01 # WBP 
 #          BR         NDA      ID1       ID2
-     0.33333333E+00    2           5        24   # BR(t' ->  b    W+)
-     0.33333333E+00    2           6        23   # BR(t' ->  t    Z)
-     0.33333333E+00    2           6        25   # BR(t' ->  t    H)
+     0.33333333E+00    2           6        -24   # BR(t' ->  t    W-)
+     0.33333333E+00    2           5        23   # BR(t' ->  b    Z)
+     0.33333333E+00    2           5        25   # BR(t' ->  b    H)
 #
-DECAY 6000007 5.000000e+00 # WBP 
 DECAY 6000008 5.000000e+00 # WY 
 ## Dependent parameters, given by model restrictions.
 ## Those values should be edited following the 

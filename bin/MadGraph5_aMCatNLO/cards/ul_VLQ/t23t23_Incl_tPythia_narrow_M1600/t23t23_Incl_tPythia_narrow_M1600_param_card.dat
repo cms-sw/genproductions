@@ -137,7 +137,7 @@ DECAY  24 2.085000e+00 # WW
 DECAY  25 4.070000e-03 # WH 
 DECAY 6000005 5.000000e+00 # WX 
 #         PDG            Width
-DECAY 6000006 1.000000e+01 # WTP
+DECAY 6000006 1.600000e+01 # WTP
 #          BR         NDA      ID1       ID2
      0.33333333E+00    2           5        24   # BR(t' ->  b    W+)
      0.33333333E+00    2           6        23   # BR(t' ->  t    Z)
