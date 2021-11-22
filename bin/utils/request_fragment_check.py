@@ -210,9 +210,9 @@ def ul_consistency(dn,pi,jhu_gp):
                 for line in file_ex:
                     if pi in line: excep = 1 
             if jhu_gp or excep:
-                data_f2_jhu = re.sub(r'args.*', '',data_f2) 
+                data_f2_jhu = re.sub(r'\s+', ' ', data_f2).strip()
                 data_f2_jhu = exception_for_ul_check(data_f2_jhu)
-                data_f2_jhu_prime = re.sub(r'args.*', '',data_f2_prime)
+                data_f2_jhu_prime = re.sub(r'\s+', ' ',data_f2_prime).strip()
                 data_f2_jhu_prime = exception_for_ul_check(data_f2_jhu_prime)
                 if (data_f2_jhu == data_f2_jhu_prime) == True:
                     print("[WARNING] Two requests have the same fragment (except may be the gridpack)")
