@@ -110,8 +110,9 @@ def concurrency_check(fragment,pi,cmssw_version):
     conc_check = 0
     conc_check_lhe = 0
     error_conc = 0
+    fragment = re.sub(r'(?m)^ *#.*\n?', '',fragment) # remove lines starting with #
     fragment = fragment.replace(" ","").replace("\"","'")#
-    if cmssw_version >= int('10_60_28'.replace('_','')):
+    if cmssw_version >= int('10_60_28'.replace('_','')) and int(str(cmssw_version)[:2]) != 11:
         if "ExternalLHEProducer" in fragment and "generateConcurrently=cms.untracked.bool(True)" in fragment:
             # first check if the code has correctly implemented concurrent features. Mark conc_check_lhe (LHE step) or conc_check (GEN step) as True if features are found
             if "Herwig7GeneratorFilter" not in fragment: 
@@ -209,9 +210,9 @@ def ul_consistency(dn,pi,jhu_gp):
                 for line in file_ex:
                     if pi in line: excep = 1 
             if jhu_gp or excep:
-                data_f2_jhu = re.sub(r'args.*', '',data_f2) 
+                data_f2_jhu = re.sub(r'\s+', ' ', data_f2).strip()
                 data_f2_jhu = exception_for_ul_check(data_f2_jhu)
-                data_f2_jhu_prime = re.sub(r'args.*', '',data_f2_prime)
+                data_f2_jhu_prime = re.sub(r'\s+', ' ',data_f2_prime).strip()
                 data_f2_jhu_prime = exception_for_ul_check(data_f2_jhu_prime)
                 if (data_f2_jhu == data_f2_jhu_prime) == True:
                     print("[WARNING] Two requests have the same fragment (except may be the gridpack)")
@@ -238,7 +239,7 @@ def ul_consistency(dn,pi,jhu_gp):
                     if "Summer20UL16" in pi and "APV" not in pi:
                         print("[WARNING] Fragment of "+pi+" is different than its base Summer19UL17 request: "+pi_prime)
                         print("        Please make sure that "+pi+" has _exactly_ the same settings as "+pi_prime)
-                        warning_ul += 1          
+                        warning_ul += 1           
             if (cmssw == cmssw_prime) == True:
                 print("[OK] Two requests have the same CMSSW version.")
             elif "Summer20UL16wmLHEGENAPV" in pi or "Summer20UL16GENAPV" in pi or "Summer20UL18" in pi or "Summer20UL17" in pi:
@@ -345,10 +346,10 @@ def exception_for_ul_check(datatobereplaced):
     new_data = new_data.replace('_generator=cms.EDFilter("PyquenGeneratorFilter"','')
     new_data = new_data.replace('_generator=cms.EDFilter("Pythia6GeneratorFilter"','')
     new_data = new_data.replace('_generator=cms.EDFilter("ReggeGribovPartonMCGeneratorFilter"','')
-    new_data = new_data.replace('_generator=cms.EDFilter("SherpaGeneratorFilter"','')  
+    new_data = new_data.replace('_generator=cms.EDFilter("SherpaGeneratorFilter"','generator=cms.EDFilter("SherpaGeneratorFilter"')
     new_data = new_data.replace('_generator=cms.EDFilter("Herwig7GeneratorFilter"','')
     new_data = new_data.replace('fromGeneratorInterface.Core.ExternalGeneratorFilterimportExternalGeneratorFilter','')
-    new_data = new_data.replace('generator=ExternalGeneratorFilter(_generator','')
+    new_data = new_data.replace('generator=ExternalGeneratorFilter(_generator)','')
     return new_data
 
 if args.dev:
@@ -520,7 +521,7 @@ for num in range(0,len(prepid)):
             randomizedparameters = 1
 #        cmssw_version    = int(re.search("_[0-9]?[0-9]_[0-9]?[0-9]_[0-9]?[0-9]",cmssw).group().replace('_',''))
         cmssw_version    = re.search("_[0-9]?[0-9]_[0-9]?[0-9]_[0-9]?[0-9]",cmssw).group().split("_")
-        if len(cmssw_version[1]) != 2:
+        if len(cmssw_version[1]) != 2 and int(cmssw_version[1]) > 9:
            cmssw_version[1] += "0"
         if len(cmssw_version[2]) != 2:
            cmssw_version[2] += "0"
@@ -743,6 +744,25 @@ for num in range(0,len(prepid)):
                     print("[WARNING] maxjetflavor not defined in run_card.dat")
                     warning += 1
                 print("maxjetflavor = "+str(maxjetflavor))
+                if alt_ickkw_c == 3:
+                    qCutME = os.popen('grep "qCutME" '+pi).read()
+                    qCutME = qCutME.replace(" ","")
+                    qCutME = re.findall('qCutME=\d+',qCutME)[0].split("=")[1]
+                    print("qCutME = ",qCutME)
+                    ptj_runcard = os.popen('grep "ptj" '+filename_mggpc).read()
+                    ptj_runcard = ptj_runcard.replace(" ","")
+                    ptj_runcard = re.findall('\d+=ptj',ptj_runcard)[0].split("=")[0]
+                    print("ptj_runcard =", ptj_runcard)
+                    if float(qCutME) != float(ptj_runcard):
+                        error += 1
+                        print("[ERROR] qCutME in PS settings and ptj in run_card in gridpack do not match.")
+                    nQmatch = os.popen('grep "nQmatch" '+pi).read()
+                    nQmatch = nQmatch.replace(" ","")
+                    nQmatch = re.findall('nQmatch=\d+',nQmatch)[0].split("=")[1]
+                    print("nQmatch = ",nQmatch)
+                    if int(nQmatch) != int(maxjetflavor):
+                        error += 1
+                        print("[ERROR] nQmatch in PS settings and maxjetflavor in run_card in gridpack do not match.")
         if herwig_flag != 0:
             os.system('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/herwig_common.txt -O herwig_common.txt') 
             file2 = set(line.strip().replace(",","") for line in open(pi))
@@ -992,6 +1012,8 @@ for num in range(0,len(prepid)):
                             chars_to_check = set('@#$%^&*()+-[]{}.\ ')
                             if any((chars in chars_to_check) for chars in reweights):
                                 print("[ERROR] Please remove problematic characters (at least one of @#$%^&*()+-[]{}.\) from rwgt_names.")
+                                print("        See https://github.com/cms-sw/genproductions/blob/master/bin/MadGraph5_aMCatNLO/gridpack_generation.sh#L102")
+                                print("        This causes the header in mg5 to be corrupted and nano-aod will not work.") 
                                 error += 1
                 if mg_gp is True:
                     if alt_ickkw_c == 3 and pythia8_flag != 0:
@@ -1515,8 +1537,8 @@ for num in range(0,len(prepid)):
                 print("[WARNING] No parton shower weights configuration in the fragment. In the Fall18 campaign, we recommend to include Parton Shower weights")
                 warning += 1
             if int(os.popen('grep -c "from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *" '+pi).read()) == 1 :
-                if cmssw_version < int('10_20_30'.replace('_','')) :
-                    print("[ERROR] PS weights in config but CMSSW version is < 10_2_3 - please check!")
+                if (int(str(cmssw_version)[:1]) == 9 and cmssw_version < 93019) or (int(str(cmssw_version)[:1]) > 9 and cmssw_version < 102030) or (int(str(cmssw_version)[:1]) == 7 and cmssw_version < 71047):
+                    print("[ERROR] PS weights in config but CMSSW version is < 10_2_3 for CMSSW version >= 10_X_X or is < 9_3_10 for CMSSW version <= 9_X_X - please check!")
                     error += 1
                 psweightscheck.append(int(os.popen('grep -c "from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *" '+pi).read()))
                 psweightscheck.append(int(os.popen('grep -c "pythia8PSweightsSettingsBlock," '+pi).read()))

@@ -1,0 +1,11 @@
+import model QCKM_5_Aug21v2
+
+define p = g u c d s b u~ c~ d~ s~ b~
+define j = p
+define l+ = e+ mu+
+define l- = e- mu-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+
+generate p p > z vl vl~ j j QCD=0 SMHLOOP=0 NP=1, z > l+ l-
+output ZZjj_llvvjj_ewk_aQGC -nojpeg
