@@ -239,7 +239,7 @@ def ul_consistency(dn,pi,jhu_gp):
                     if "Summer20UL16" in pi and "APV" not in pi:
                         print("[WARNING] Fragment of "+pi+" is different than its base Summer19UL17 request: "+pi_prime)
                         print("        Please make sure that "+pi+" has _exactly_ the same settings as "+pi_prime)
-                        warning_ul += 1          
+                        warning_ul += 1           
             if (cmssw == cmssw_prime) == True:
                 print("[OK] Two requests have the same CMSSW version.")
             elif "Summer20UL16wmLHEGENAPV" in pi or "Summer20UL16GENAPV" in pi or "Summer20UL18" in pi or "Summer20UL17" in pi:
@@ -346,10 +346,10 @@ def exception_for_ul_check(datatobereplaced):
     new_data = new_data.replace('_generator=cms.EDFilter("PyquenGeneratorFilter"','')
     new_data = new_data.replace('_generator=cms.EDFilter("Pythia6GeneratorFilter"','')
     new_data = new_data.replace('_generator=cms.EDFilter("ReggeGribovPartonMCGeneratorFilter"','')
-    new_data = new_data.replace('_generator=cms.EDFilter("SherpaGeneratorFilter"','')  
+    new_data = new_data.replace('_generator=cms.EDFilter("SherpaGeneratorFilter"','generator=cms.EDFilter("SherpaGeneratorFilter"')
     new_data = new_data.replace('_generator=cms.EDFilter("Herwig7GeneratorFilter"','')
     new_data = new_data.replace('fromGeneratorInterface.Core.ExternalGeneratorFilterimportExternalGeneratorFilter','')
-    new_data = new_data.replace('generator=ExternalGeneratorFilter(_generator','')
+    new_data = new_data.replace('generator=ExternalGeneratorFilter(_generator)','')
     return new_data
 
 if args.dev:
@@ -1012,6 +1012,8 @@ for num in range(0,len(prepid)):
                             chars_to_check = set('@#$%^&*()+-[]{}.\ ')
                             if any((chars in chars_to_check) for chars in reweights):
                                 print("[ERROR] Please remove problematic characters (at least one of @#$%^&*()+-[]{}.\) from rwgt_names.")
+                                print("        See https://github.com/cms-sw/genproductions/blob/master/bin/MadGraph5_aMCatNLO/gridpack_generation.sh#L102")
+                                print("        This causes the header in mg5 to be corrupted and nano-aod will not work.") 
                                 error += 1
                 if mg_gp is True:
                     if alt_ickkw_c == 3 and pythia8_flag != 0:
