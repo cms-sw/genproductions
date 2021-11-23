@@ -211,9 +211,9 @@ def ul_consistency(dn,pi,jhu_gp):
                     if pi in line: excep = 1 
             if jhu_gp or excep:
                 data_f2_jhu = re.sub(r'\s+', ' ', data_f2).strip()
-                data_f2_jhu = exception_for_ul_check(data_f2_jhu,cross_section,cross_section_fragment)
+                data_f2_jhu = exception_for_ul_check(data_f2_jhu,cross_section_fragment)
                 data_f2_jhu_prime = re.sub(r'\s+', ' ',data_f2_prime).strip()
-                data_f2_jhu_prime = exception_for_ul_check(data_f2_jhu_prime,cross_section,cross_section_fragment)
+                data_f2_jhu_prime = exception_for_ul_check(data_f2_jhu_prime,cross_section_fragment)
                 if (data_f2_jhu == data_f2_jhu_prime) == True:
                     print("[WARNING] Two requests have the same fragment (except may be the gridpack)")
                     warning_ul += 1
@@ -222,9 +222,9 @@ def ul_consistency(dn,pi,jhu_gp):
                     error_ul += 1
             else:
                 data_f2_strip = re.sub(r'\s+', ' ', data_f2).strip()
-                data_f2_strip = exception_for_ul_check(data_f2_strip,cross_section,cross_section_fragment)
+                data_f2_strip = exception_for_ul_check(data_f2_strip,cross_section_fragment)
                 data_f2_prime_strip = re.sub(r'\s+', ' ',data_f2_prime).strip()
-                data_f2_prime_strip = exception_for_ul_check(data_f2_prime_strip,cross_section,cross_section_fragment)
+                data_f2_prime_strip = exception_for_ul_check(data_f2_prime_strip,cross_section_fragment)
                 if (data_f2_strip == data_f2_prime_strip) == True:
                     print("[OK] Two requests have the same fragment.")
                 else: 
@@ -334,7 +334,7 @@ def evtgen_check(fragment):
         warn = 1
     return warn, err
 
-def exception_for_ul_check(datatobereplaced,cross_section,cross_section_fragment):
+def exception_for_ul_check(datatobereplaced,cross_section_fragment):
     new_data = datatobereplaced.replace(" ","")
     new_data = new_data.replace(",generateConcurrently=cms.untracked.bool(True)","")
     new_data = new_data.replace("Concurrent","")
@@ -350,7 +350,7 @@ def exception_for_ul_check(datatobereplaced,cross_section,cross_section_fragment
     new_data = new_data.replace('_generator=cms.EDFilter("Herwig7GeneratorFilter"','')
     new_data = new_data.replace('fromGeneratorInterface.Core.ExternalGeneratorFilterimportExternalGeneratorFilter','')
     new_data = new_data.replace('generator=ExternalGeneratorFilter(_generator)','')
-    if float(cross_section_fragment) == 0 or float(cross_section_fragment) == 1 or float(cross_section_fragment) == -1:
+    if str(cross_section_fragment).isdigit() is True and (float(cross_section_fragment) == 0 or float(cross_section_fragment) == 1 or float(cross_section_fragment) == -1):
         new_data = new_data.replace('crossSection=cms.untracked.double(0)','')
         new_data = new_data.replace('crossSection=cms.untracked.double(1)','')
         new_data = new_data.replace('crossSection=cms.untracked.double(-1)','')
@@ -575,9 +575,9 @@ for num in range(0,len(prepid)):
                data_f1_clone = f1_clone.read()
                data_f2_clone = re.sub(r'(?m)^ *#.*\n?', '',data_f1_clone)
                data_f2_strip=re.sub(r'\s+', ' ', data_f2).strip()
-               data_f2_strip=exception_for_ul_check(data_f2_strip,cross_section,cross_section_fragment)
+               data_f2_strip=exception_for_ul_check(data_f2_strip,cross_section_fragment)
                data_f2_clone_strip=re.sub(r'\s+', ' ', data_f2_clone).strip()
-               data_f2_clone_strip=exception_for_ul_check(data_f2_clone_strip,cross_section,cross_section_fragment)
+               data_f2_clone_strip=exception_for_ul_check(data_f2_clone_strip,cross_section_fragment)
                if (data_f2_strip == data_f2_clone_strip) == True:
                    print("[OK] The base request and the cloned request used for the extension have the same fragment.")
                else:
