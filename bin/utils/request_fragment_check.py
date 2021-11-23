@@ -1013,7 +1013,10 @@ for num in range(0,len(prepid)):
                             reweights = os.popen('more '+input_cards_reweight_card+' | tr -s \' \' | grep "rwgt_name"').read()
                             reweights = re.sub("launch --rwgt_name",'',reweights)
                             reweights = re.sub("=",'',reweights)
-                            chars_to_check = set('@#$%^&*()+-[]{}.\ ')
+                            #There is an xml check in the gridpack generation for this. 
+                            #In principle we could drop the tests for the characters below if we assume all gridpacks start from master. 
+                            #However, this might not always be true, so the check stays but if needed it can be made looser. 
+                            chars_to_check = set('@#$%^&*()+-[]{}\ ')
                             if any((chars in chars_to_check) for chars in reweights):
                                 print("[ERROR] Please remove problematic characters (at least one of @#$%^&*()+-[]{}.\) from rwgt_names.")
                                 print("        See https://github.com/cms-sw/genproductions/blob/master/bin/MadGraph5_aMCatNLO/gridpack_generation.sh#L102")
