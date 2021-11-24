@@ -1,4 +1,4 @@
-import model QCKM_5_Aug21v2
+import model quarticCKM21v2.tgz
 define p = g u c d s b u~ c~ d~ s~ b~
 define j = p
 define l+ = e+ mu+ ta+
