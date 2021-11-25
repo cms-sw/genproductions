@@ -719,7 +719,8 @@ for num in range(0,len(prepid)):
             else:
                 error += 1
                 print ("[ERROR] Gridpack ",gridpack_cvmfs_path," does not exist!") 
-                break
+                print ("    ..... exiting ....")
+                sys.exit()
             jhu_gp = os.path.isfile(my_path+'/'+pi+'/'+'JHUGen.input')
             pw_gp = os.path.isfile(my_path+'/'+pi+'/'+'powheg.input')
             mg_f1 = my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat'
@@ -1017,11 +1018,16 @@ for num in range(0,len(prepid)):
                             #In principle we could drop the tests for the characters below if we assume all gridpacks start from master. 
                             #However, this might not always be true, so the check stays but if needed it can be made looser. 
                             chars_to_check = set('@#$%^&*()+-[]{}\ ')
+                            chars_to_check_warning = set('.')
                             if any((chars in chars_to_check) for chars in reweights):
                                 print("[ERROR] Please remove problematic characters (at least one of @#$%^&*()+-[]{}.\) from rwgt_names.")
                                 print("        See https://github.com/cms-sw/genproductions/blob/master/bin/MadGraph5_aMCatNLO/gridpack_generation.sh#L102")
                                 print("        This causes the header in mg5 to be corrupted and nano-aod will not work.") 
                                 error += 1
+                            if any((chars in chars_to_check_warning) for chars in reweights):
+                                print('[WARNING] The existence of a "." in reweight_card will result in the name of the weight not to be shown in the header.')
+                                print("          Please make sure if this is a problem for your analysis, if not, please remove the dot.")
+                                warning += 1
                 if mg_gp is True:
                     if alt_ickkw_c == 3 and pythia8_flag != 0:
                         ps_hw = os.popen('grep parton_shower '+filename_mggpc).read()
