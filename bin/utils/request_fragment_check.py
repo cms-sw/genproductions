@@ -719,7 +719,8 @@ for num in range(0,len(prepid)):
             else:
                 error += 1
                 print ("[ERROR] Gridpack ",gridpack_cvmfs_path," does not exist!") 
-                break
+                print ("    ..... exiting ....")
+                sys.exit()
             jhu_gp = os.path.isfile(my_path+'/'+pi+'/'+'JHUGen.input')
             pw_gp = os.path.isfile(my_path+'/'+pi+'/'+'powheg.input')
             mg_f1 = my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat'
