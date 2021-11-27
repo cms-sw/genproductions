@@ -99,7 +99,7 @@ make_gridpack () {
             else
                 continue
             fi
-            if [[ $weightname == *['!'@#\$%^\&*()\+\-\[\]{}\.]* ]]; then 
+            if [[ $weightname == *['!'@#\$%^\&*()\+\[\]{}]* ]]; then 
                 echo " Please remove problematic characters from weight name: $weightname"  
                 exit 1;    
             fi
