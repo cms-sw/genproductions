@@ -114,11 +114,23 @@ function makecards
   cat $card1 > $card2
 
   # param_card.dat
-  card1=${repo}/madspin_card/${model}_param_card_madspin.dat
+  card1=${repo}/madspin_card/param_card.dat
   card2=${carddir}/${name}_param_card.dat
   if [ ! -f $card1 ]; then echo "Error: no $card1"; exit 1; fi
   echo "copying $card1 to $card2"
-  cat $card1 | sed -e 's/xyi/xyi/' > $card2
+
+  sedcomm=""
+  if   [[ $model == "zeta_zut" ]];  then sedcomm="s/1 0.000000e+00 #  zzq1/1 9.916830e-01 #  zzq1/";
+  elif [[ $model == "zeta_zct" ]];  then sedcomm="s/2 0.000000e+00 #  zzq2/2 9.916831e-01 #  zzq2/";
+  elif [[ $model == "kappa_zut" ]]; then sedcomm="s/1 0.000000e+00 #  kzq1/1 3.179691e-03 #  kzq1/";
+  elif [[ $model == "kappa_zct" ]]; then sedcomm="s/2 0.000000e+00 #  kzq2/2 3.179691e-03 #  kzq2/";
+  elif [[ $model == "kappa_aut" ]]; then sedcomm="s/1 0.000000e+00 #  kaq1/1 2.889977e-03 #  kaq1/";
+  elif [[ $model == "kappa_act" ]]; then sedcomm="s/2 0.000000e+00 #  kaq2/2 2.889977e-03 #  kaq2/";
+  elif [[ $model == "eta_hut" ]];   then sedcomm="s/1 0.000000e+00 #  ehq1/1 9.306701e-01 #  ehq1/";
+  elif [[ $model == "eta_hct" ]];   then sedcomm="s/2 0.000000e+00 #  ehq2/2 9.306702e-01 #  ehq2/";
+  fi;
+
+  cat $card1 | sed -e 's/xyi/xyi/' | sed -e "$sedcomm" > $card2
 
   # madspin_card.dat
   card1=${repo}/madspin_card/${model}_T${decay}_madspin_card${decayTopSign}.dat
