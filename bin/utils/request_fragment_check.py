@@ -211,9 +211,9 @@ def ul_consistency(dn,pi,jhu_gp):
                     if pi in line: excep = 1 
             if jhu_gp or excep:
                 data_f2_jhu = re.sub(r'\s+', ' ', data_f2).strip()
-                data_f2_jhu = exception_for_ul_check(data_f2_jhu)
+                data_f2_jhu = exception_for_ul_check(data_f2_jhu,cross_section_fragment)
                 data_f2_jhu_prime = re.sub(r'\s+', ' ',data_f2_prime).strip()
-                data_f2_jhu_prime = exception_for_ul_check(data_f2_jhu_prime)
+                data_f2_jhu_prime = exception_for_ul_check(data_f2_jhu_prime,cross_section_fragment)
                 if (data_f2_jhu == data_f2_jhu_prime) == True:
                     print("[WARNING] Two requests have the same fragment (except may be the gridpack)")
                     warning_ul += 1
@@ -222,9 +222,9 @@ def ul_consistency(dn,pi,jhu_gp):
                     error_ul += 1
             else:
                 data_f2_strip = re.sub(r'\s+', ' ', data_f2).strip()
-                data_f2_strip = exception_for_ul_check(data_f2_strip)
+                data_f2_strip = exception_for_ul_check(data_f2_strip,cross_section_fragment)
                 data_f2_prime_strip = re.sub(r'\s+', ' ',data_f2_prime).strip()
-                data_f2_prime_strip = exception_for_ul_check(data_f2_prime_strip)
+                data_f2_prime_strip = exception_for_ul_check(data_f2_prime_strip,cross_section_fragment)
                 if (data_f2_strip == data_f2_prime_strip) == True:
                     print("[OK] Two requests have the same fragment.")
                 else: 
@@ -334,7 +334,7 @@ def evtgen_check(fragment):
         warn = 1
     return warn, err
 
-def exception_for_ul_check(datatobereplaced):
+def exception_for_ul_check(datatobereplaced,cross_section_fragment):
     new_data = datatobereplaced.replace(" ","")
     new_data = new_data.replace(",generateConcurrently=cms.untracked.bool(True)","")
     new_data = new_data.replace("Concurrent","")
@@ -350,6 +350,10 @@ def exception_for_ul_check(datatobereplaced):
     new_data = new_data.replace('_generator=cms.EDFilter("Herwig7GeneratorFilter"','')
     new_data = new_data.replace('fromGeneratorInterface.Core.ExternalGeneratorFilterimportExternalGeneratorFilter','')
     new_data = new_data.replace('generator=ExternalGeneratorFilter(_generator)','')
+    if str(cross_section_fragment).isdigit() is True and (float(cross_section_fragment) == 0 or float(cross_section_fragment) == 1 or float(cross_section_fragment) == -1):
+        new_data = new_data.replace('crossSection=cms.untracked.double(0)','')
+        new_data = new_data.replace('crossSection=cms.untracked.double(1)','')
+        new_data = new_data.replace('crossSection=cms.untracked.double(-1)','')
     return new_data
 
 if args.dev:
@@ -528,11 +532,22 @@ for num in range(0,len(prepid)):
         if len(cmssw_version[3]) != 2:
            cmssw_version[3] += "0"
         cmssw_version=int(cmssw_version[1]+cmssw_version[2]+cmssw_version[3])
-        if "SnowmassWinter21GEN" not in pi and "SnowmassWinter21wmLHEGEN" not in pi and particle_gun == 0:
+        concurrency_check_exception_list = ["HIG-RunIISummer20UL16GENAPV-00063",
+                                            "HIG-RunIISummer20UL16GEN-00072",
+                                            "HIG-RunIISummer20UL17GEN-00007",
+                                            "HIG-RunIISummer20UL17GEN-00008",
+                                            "HIG-RunIISummer20UL17GEN-00009",
+                                            "HIG-RunIISummer20UL17GEN-00010",
+                                            "HIG-RunIISummer20UL18GEN-00007", 
+                                            "HIG-RunIISummer20UL18GEN-00008", 
+                                            "HIG-RunIISummer20UL18GEN-00009", 
+                                            "HIG-RunIISummer20UL18GEN-00010" 
+                                           ]
+        if "SnowmassWinter21GEN" not in pi and "SnowmassWinter21wmLHEGEN" not in pi and particle_gun == 0 and pi not in concurrency_check_exception_list:
             conc_check_result, tmp_err = concurrency_check(data_f1,pi,cmssw_version)
             error += tmp_err
         else:
-            print("[WARNING] Skipping the concurrency check since these are (wmLHE)GEN-only campaigns or a particle gun.")
+            print("[WARNING] Skipping the concurrency check since these are (wmLHE)GEN-only campaigns or a particle gun or Sherpa Diphoton sample.")
             warning += 1
         data_f2 = re.sub(r'(?m)^ *#.*\n?', '',data_f1)
 
@@ -571,9 +586,9 @@ for num in range(0,len(prepid)):
                data_f1_clone = f1_clone.read()
                data_f2_clone = re.sub(r'(?m)^ *#.*\n?', '',data_f1_clone)
                data_f2_strip=re.sub(r'\s+', ' ', data_f2).strip()
-               data_f2_strip=exception_for_ul_check(data_f2_strip)
+               data_f2_strip=exception_for_ul_check(data_f2_strip,cross_section_fragment)
                data_f2_clone_strip=re.sub(r'\s+', ' ', data_f2_clone).strip()
-               data_f2_clone_strip=exception_for_ul_check(data_f2_clone_strip)
+               data_f2_clone_strip=exception_for_ul_check(data_f2_clone_strip,cross_section_fragment)
                if (data_f2_strip == data_f2_clone_strip) == True:
                    print("[OK] The base request and the cloned request used for the extension have the same fragment.")
                else:
@@ -715,7 +730,8 @@ for num in range(0,len(prepid)):
             else:
                 error += 1
                 print ("[ERROR] Gridpack ",gridpack_cvmfs_path," does not exist!") 
-                break
+                print ("    ..... exiting ....")
+                sys.exit()
             jhu_gp = os.path.isfile(my_path+'/'+pi+'/'+'JHUGen.input')
             pw_gp = os.path.isfile(my_path+'/'+pi+'/'+'powheg.input')
             mg_f1 = my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat'
@@ -1009,12 +1025,20 @@ for num in range(0,len(prepid)):
                             reweights = os.popen('more '+input_cards_reweight_card+' | tr -s \' \' | grep "rwgt_name"').read()
                             reweights = re.sub("launch --rwgt_name",'',reweights)
                             reweights = re.sub("=",'',reweights)
-                            chars_to_check = set('@#$%^&*()+-[]{}.\ ')
+                            #There is an xml check in the gridpack generation for this. 
+                            #In principle we could drop the tests for the characters below if we assume all gridpacks start from master. 
+                            #However, this might not always be true, so the check stays but if needed it can be made looser. 
+                            chars_to_check = set('@#$%^&*()+-[]{}\ ')
+                            chars_to_check_warning = set('.')
                             if any((chars in chars_to_check) for chars in reweights):
                                 print("[ERROR] Please remove problematic characters (at least one of @#$%^&*()+-[]{}.\) from rwgt_names.")
                                 print("        See https://github.com/cms-sw/genproductions/blob/master/bin/MadGraph5_aMCatNLO/gridpack_generation.sh#L102")
                                 print("        This causes the header in mg5 to be corrupted and nano-aod will not work.") 
                                 error += 1
+                            if any((chars in chars_to_check_warning) for chars in reweights):
+                                print('[WARNING] The existence of a "." in reweight_card will result in the name of the weight not to be shown in the header.')
+                                print("          Please make sure if this is a problem for your analysis, if not, please remove the dot.")
+                                warning += 1
                 if mg_gp is True:
                     if alt_ickkw_c == 3 and pythia8_flag != 0:
                         ps_hw = os.popen('grep parton_shower '+filename_mggpc).read()
