@@ -532,11 +532,22 @@ for num in range(0,len(prepid)):
         if len(cmssw_version[3]) != 2:
            cmssw_version[3] += "0"
         cmssw_version=int(cmssw_version[1]+cmssw_version[2]+cmssw_version[3])
-        if "SnowmassWinter21GEN" not in pi and "SnowmassWinter21wmLHEGEN" not in pi and particle_gun == 0:
+        concurrency_check_exception_list = ["HIG-RunIISummer20UL16GENAPV-00063",
+                                            "HIG-RunIISummer20UL16GEN-00072",
+                                            "HIG-RunIISummer20UL17GEN-00007",
+                                            "HIG-RunIISummer20UL17GEN-00008",
+                                            "HIG-RunIISummer20UL17GEN-00009",
+                                            "HIG-RunIISummer20UL17GEN-00010",
+                                            "HIG-RunIISummer20UL18GEN-00007", 
+                                            "HIG-RunIISummer20UL18GEN-00008", 
+                                            "HIG-RunIISummer20UL18GEN-00009", 
+                                            "HIG-RunIISummer20UL18GEN-00010" 
+                                           ]
+        if "SnowmassWinter21GEN" not in pi and "SnowmassWinter21wmLHEGEN" not in pi and particle_gun == 0 and pi not in concurrency_check_exception_list:
             conc_check_result, tmp_err = concurrency_check(data_f1,pi,cmssw_version)
             error += tmp_err
         else:
-            print("[WARNING] Skipping the concurrency check since these are (wmLHE)GEN-only campaigns or a particle gun.")
+            print("[WARNING] Skipping the concurrency check since these are (wmLHE)GEN-only campaigns or a particle gun or Sherpa Diphoton sample.")
             warning += 1
         data_f2 = re.sub(r'(?m)^ *#.*\n?', '',data_f1)
 
