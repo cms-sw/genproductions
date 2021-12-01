@@ -9,10 +9,10 @@ for((i=0;i<${#jet_array[*]};i++))
 do
 	bin_num=${jet_array[i]}
 	mkdir dy${bin_num}jmlm
-	cp ../inc/*custo* dy${bin_num}jmlm/dyellell${bin_num}j_mll10to50_5f_LO_MLM_customizecards.dat
-	cp ../inc/*proc* dy${bin_num}jmlm/dyellell${bin_num}j_mll10to50_5f_LO_MLM_proc_card.dat
+	cp ../mll10to50/*custo* dy${bin_num}jmlm/dyellell${bin_num}j_mll10to50_5f_LO_MLM_customizecards.dat
+	cp ../mll10to50/*proc* dy${bin_num}jmlm/dyellell${bin_num}j_mll10to50_5f_LO_MLM_proc_card.dat
 	sed -i "11s/dyellell01234j_mll10to50_5f_LO_MLM/dyellell${bin_num}j_mll10to50_5f_LO_MLM/g" dy${bin_num}jmlm/*proc_card.dat
-	cp ../inc/*run* dy${bin_num}jmlm/dyellell${bin_num}j_mll10to50_5f_LO_MLM_run_card.dat
+	cp ../mll10to50/*run* dy${bin_num}jmlm/dyellell${bin_num}j_mll10to50_5f_LO_MLM_run_card.dat
 	
 	if [[ "$bin_num" -eq 0 ]];then
 		sed -i '7d' dy${bin_num}jmlm/*proc_card.dat

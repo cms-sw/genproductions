@@ -11,18 +11,18 @@ do
     echo generating cards for ${dir}
     mkdir ${dir} 
     #copy inclusive cards
-    cp ../inc/*custo* ${dir}/dyellell012j_mll${lowMass}to${highMass}_5f_NLO_FXFX_customizecards.dat 
-    cp ../inc/*proc* ${dir}/dyellell012j_mll${lowMass}to${highMass}_5f_NLO_FXFX_proc_card.dat
+    cp ../mll10to50/*custo* ${dir}/dyellell012j_mll${lowMass}to${highMass}_5f_NLO_FXFX_customizecards.dat 
+    cp ../mll10to50/*proc* ${dir}/dyellell012j_mll${lowMass}to${highMass}_5f_NLO_FXFX_proc_card.dat
     #replace inside
     sed -i "9s/dyellell012j_mll10to50_5f_NLO_FXFX/dyellell012j_mll${lowMass}to${highMass}_5f_NLO_FXFX/g" ${dir}/*proc_card.dat
     
     # copy other cards
-    cp ../inc/*run* ${dir}/dyellell012j_mll${lowMass}to${highMass}_5f_NLO_FXFX_run_card.dat
+    cp ../mll10to50/*run* ${dir}/dyellell012j_mll${lowMass}to${highMass}_5f_NLO_FXFX_run_card.dat
     #replace the "10.0  = mll_sf" with corresponding low cut
     sed -i "145s/10.0  = mll_sf/${lowMass}.0  = mll_sf/g" ${dir}/*run_card.dat
 
     #copy cuts.f file
-    cp ../inc/*cuts* ${dir}/dyellell012j_mll${lowMass}to${highMass}_5f_NLO_FXFX_cuts.f 
+    cp ../mll10to50/*cuts* ${dir}/dyellell012j_mll${lowMass}to${highMass}_5f_NLO_FXFX_cuts.f 
     sed -i "143s/gt.50/gt.${highMass}/g" ${dir}/*_cuts.f
     
 done
