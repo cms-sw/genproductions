@@ -1,0 +1,12 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set loop_color_flows False
+set gauge unitary
+set complex_mass_scheme False
+set max_npoint_for_channel 0
+import model MCHM5_UFO
+define nb = h z 
+generate p p > x53 x53~, x53 > w+ nb t, x53~ > w- t~
+add process p p > x53 x53~, x53 > w+ t, x53~ > w- nb t~
+output double_prod_X53_3body_decay_MCHM5_C9 -nojpeg
+
