@@ -214,11 +214,15 @@ def ul_consistency(dn,pi,jhu_gp):
                 data_f2_jhu = exception_for_ul_check(data_f2_jhu,cross_section_fragment)
                 data_f2_jhu_prime = re.sub(r'\s+', ' ',data_f2_prime).strip()
                 data_f2_jhu_prime = exception_for_ul_check(data_f2_jhu_prime,cross_section_fragment)
+                ### skip gp comparison to be able to have WriteFailedEvents = 2  JHUGen.input
+                data_f2_jhu = re.sub("args=cms.vstring\(.*?\)","args=cms.vstring()",data_f2_jhu)
+                data_f2_jhu_prime = re.sub("args=cms.vstring\(.*?\)","args=cms.vstring()",data_f2_jhu_prime)
+                ########
                 if (data_f2_jhu == data_f2_jhu_prime) == True:
                     print("[WARNING] Two requests have the same fragment (except may be the gridpack)")
                     warning_ul += 1
                 else:
-                    print("[ERROR] Two requests don't have the same fragment (note that gridpacks haven't been compared)")
+                    print("[ERROR] Two requests don't have the same fragment (note that gridpacks haven't been compared to be able to have WriteFailedEvents = 2  JHUGen.input)")
                     error_ul += 1
             else:
                 data_f2_strip = re.sub(r'\s+', ' ', data_f2).strip()
