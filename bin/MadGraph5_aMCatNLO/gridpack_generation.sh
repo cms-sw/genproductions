@@ -144,7 +144,9 @@ make_gridpack () {
       #Create a workplace to work#
       ############################
       export VO_CMS_SW_DIR=/cvmfs/cms.cern.ch
+      set +u
       source $VO_CMS_SW_DIR/cmsset_default.sh
+      set -u
 
       scram project -n ${name}_gridpack CMSSW ${RELEASE} ;
       if [ ! -d ${name}_gridpack ]; then  
@@ -779,7 +781,7 @@ if [ "${name}" != "interactive" ]; then
     set -o pipefail
     # Do not exit main shell if make_gridpack fails. We want to return rather than exit if we are sourcing this script.
     set +e
-    make_gridpack | tee $LOGFILE
+    make_gridpack |& tee $LOGFILE
     pipe_status=$PIPESTATUS
     # tee above will create a subshell, so exit calls inside function will just affect that subshell instance and return the exitcode in this shell.
     # This breaks cases when the calls inside make_gridpack try to exit the main shell with some error, hence not having the gridpack directory.
