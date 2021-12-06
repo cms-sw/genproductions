@@ -1,0 +1,7 @@
+import model top3decays_ufo
+
+define wdecay = u d s c b u~ d~ s~ c~ b~ vl vl~ e+ e- mu+ mu- ta+ ta-
+generate p p > tp tp~, ( tp > g t, ( t > b w+, w+ > wdecay wdecay ) ), ( tp~ > a t~, ( t~ > b~ w-, w- > wdecay wdecay ) )
+add process p p > tp tp~, ( tp > a t, ( t > b w+, w+ > wdecay wdecay ) ), ( tp~ > g t~, ( t~ > b~ w-, w- > wdecay wdecay ) )
+
+output TpTp_M1500_ttga_channel -nojpeg
