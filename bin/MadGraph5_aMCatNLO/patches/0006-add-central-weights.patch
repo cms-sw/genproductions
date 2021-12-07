@@ -1,6 +1,6 @@
 --- a/madgraph/various/systematics.py
 +++ b/madgraph/various/systematics.py
-@@ -390,7 +390,7 @@ class Systematics(object):
+@@ -397,7 +397,7 @@ class Systematics(object):
          else:
              lowest_id = self.get_id()        
  
@@ -9,7 +9,7 @@
          #ids = [lowest_id+i for i in range(len(self.args)-1)]
          all_cross = [0 for i in range(len(self.args))]
          
-@@ -427,7 +427,7 @@ class Systematics(object):
+@@ -434,7 +434,7 @@ class Systematics(object):
                  print(event)
                  raise Exception
              
@@ -18,7 +18,7 @@
              all_cross = [(all_cross[j] + event.wgt*wgts[j]/wgts[0]) for j in range(len(wgts))]
              
              rwgt_data = event.parse_reweight()
-@@ -607,7 +607,7 @@ class Systematics(object):
+@@ -614,7 +614,7 @@ class Systematics(object):
          text = ''
  
          default = self.args[0]
