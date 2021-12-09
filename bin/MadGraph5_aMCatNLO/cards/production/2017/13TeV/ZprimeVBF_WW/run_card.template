@@ -11,8 +11,8 @@
 # Warning: Do not generate more than 1M events in a single run       *
 # If you want to run Pythia, avoid more than 50k events in a run.    *
 #*********************************************************************
-  100000 = nevents ! Number of unweighted events requested 
-  $SEED   = iseed   ! rnd seed (0=assigned automatically=default))
+  5000 = nevents ! Number of unweighted events requested 
+   0   = iseed   ! rnd seed (0=assigned automatically=default))
 #*********************************************************************
 # Collider type and energy                                           *
 # lpp: 0=No PDF, 1=proton, -1=antiproton, 2=photon from proton,      *
@@ -31,6 +31,7 @@
 # PDF CHOICE: this automatically fixes also alpha_s and its evol.    *
 #*********************************************************************
  'lhapdf'    = pdlabel     ! PDF set                                  
+ lhapdf = pdlabel ! PDF set
  $DEFAULT_PDF_SETS = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number 
  $DEFAULT_PDF_MEMBERS = reweight_PDF
 #*********************************************************************
@@ -59,9 +60,9 @@
  1.0 = alpsfact         ! scale factor for QCD emission vx
  False = chcluster        ! cluster only according to channel diag
  4 = asrwgtflavor     ! highest quark flavor for a_s reweight
- True  = auto_ptj_mjj  ! Automatic setting of ptj and mjj if xqcut >0
+ False  = auto_ptj_mjj  ! Automatic setting of ptj and mjj if xqcut >0
                                    ! (turn off for VBF and single top processes) 
- 10.0   = xqcut   ! minimum kt jet measure between partons
+ 0.0   = xqcut   ! minimum kt jet measure between partons
 #*********************************************************************
 #
 #*********************************************************************
@@ -85,7 +86,7 @@
 #*********************************************************************
 # BW cutoff (M+/-bwcutoff*Gamma) ! Define on/off-shell for "$" and decay  
 #*********************************************************************
-  15000  = bwcutoff      ! (M+/-bwcutoff*Gamma)
+  15  = bwcutoff      ! (M+/-bwcutoff*Gamma)
 #*********************************************************************
 # Apply pt/E/eta/dr/mij/kt_durham cuts on decay products or not
 # (note that etmiss/ptll/ptheavy/ht/sorted cuts always apply)
@@ -96,7 +97,7 @@
 #*********************************************************************
 # Minimum and maximum pt's (for max, -1 means no cut)                *
 #*********************************************************************
- 10.0  = ptj       ! minimum pt for the jets 
+ 20.0  = ptj       ! minimum pt for the jets 
  0.0  = ptb       ! minimum pt for the b 
  10.0  = pta       ! minimum pt for the photons 
  10.0  = ptl       ! minimum pt for the charged leptons 
@@ -232,7 +233,7 @@
 # WBF cuts                                                           *
 #*********************************************************************
  0.0   = xetamin ! minimum rapidity for two jets in the WBF case  
- 0.0   = deltaeta ! minimum rapidity for two jets in the WBF case 
+ 3.0   = deltaeta ! minimum rapidity for two jets in the WBF case 
 #***********************************************************************
 # Turn on either the ktdurham or ptlund cut to activate                *
 # CKKW(L) merging with Pythia8 [arXiv:1410.3012, arXiv:1109.4829]      *

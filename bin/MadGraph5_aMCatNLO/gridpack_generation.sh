@@ -79,6 +79,32 @@ make_gridpack () {
       echo $CARDSDIR/${name}_run_card.dat " does not exist!"
       if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
     fi
+    
+    # avoid compute_widths in customizecards 
+    if [ -e $CARDSDIR/${name}_customizecards.dat ]; then
+        if grep -F "compute_widths" $CARDSDIR/${name}_customizecards.dat ; then
+            echo "<<compute_widths X>> is used in your customizecards.dat"
+            echo "This could be problematic from time to time, so instead use <<set decay wX AUTO>> for width computations. Please take a look at \"compute_widths\" under \"Troubleshooting_and_Suggestions\" section."
+            echo "https://twiki.cern.ch/twiki/bin/view/CMS/QuickGuideMadGraph5aMCatNLO#Troubleshooting_and_Suggestions"
+            exit 1;
+        fi
+    fi
+
+    # avoid characters in weight names that potentially corrupt lhe header 
+    if [ -e $CARDSDIR/${name}_reweight_card.dat ]; then
+        for weightname in `grep rwgt_name $CARDSDIR/${name}_reweight_card.dat` ; do
+            if [[ "$weightname" == *"rwgt_name="* ]]; then
+                remove="rwgt_name="
+                weightname=${weightname#*$remove}
+            else
+                continue
+            fi
+            if [[ $weightname == *['!'@#\$%^\&*()\+\[\]{}]* ]]; then 
+                echo " Please remove problematic characters from weight name: $weightname"  
+                exit 1;    
+            fi
+        done 
+    fi
 
     # CMS Connect runs git status inside its own script.
     if [ $iscmsconnect -eq 0 ]; then
@@ -118,7 +144,9 @@ make_gridpack () {
       #Create a workplace to work#
       ############################
       export VO_CMS_SW_DIR=/cvmfs/cms.cern.ch
+      set +u
       source $VO_CMS_SW_DIR/cmsset_default.sh
+      set -u
 
       scram project -n ${name}_gridpack CMSSW ${RELEASE} ;
       if [ ! -d ${name}_gridpack ]; then  
@@ -459,7 +487,7 @@ make_gridpack () {
       echo "reweight=OFF" >> makegrid.dat
       echo "done" >> makegrid.dat
       if [ -e $CARDSDIR/${name}_customizecards.dat ]; then
-              cat $CARDSDIR/${name}_customizecards.dat >> makegrid.dat
+              cat $CARDSDIR/${name}_customizecards.dat | sed '/^$/d;/^#.*$/d' >> makegrid.dat
               echo "" >> makegrid.dat
       fi
       echo "done" >> makegrid.dat
@@ -468,7 +496,8 @@ make_gridpack () {
       # Run this step separately in debug mode since it gives so many problems
       if [ -e $CARDSDIR/${name}_reweight_card.dat ]; then
           echo "preparing reweighting step"
-          prepare_reweight $isnlo $WORKDIR $scram_arch $CARDSDIR/${name}_reweight_card.dat 
+          prepare_reweight $isnlo $WORKDIR $scram_arch $CARDSDIR/${name}_reweight_card.dat
+	  extract_width $isnlo $WORKDIR $CARDSDIR ${name}
       fi
       
       echo "finished pilot run"
@@ -512,7 +541,7 @@ make_gridpack () {
       echo "done" > makegrid.dat
       echo "set gridpack True" >> makegrid.dat
       if [ -e $CARDSDIR/${name}_customizecards.dat ]; then
-              cat $CARDSDIR/${name}_customizecards.dat >> makegrid.dat
+              cat $CARDSDIR/${name}_customizecards.dat | sed '/^$/d;/^#.*$/d' >> makegrid.dat
               echo "" >> makegrid.dat
       fi
       echo "done" >> makegrid.dat
@@ -541,13 +570,14 @@ make_gridpack () {
       tar -xzf $WORKDIR/pilotrun_gridpack.tar.gz
       echo "cleaning temporary gridpack"
       rm $WORKDIR/pilotrun_gridpack.tar.gz
-      
+
       # precompile reweighting if necessary
       if [ -e $CARDSDIR/${name}_reweight_card.dat ]; then
           echo "preparing reweighting step"
-          prepare_reweight $isnlo $WORKDIR $scram_arch $CARDSDIR/${name}_reweight_card.dat 
+          prepare_reweight $isnlo $WORKDIR $scram_arch $CARDSDIR/${name}_reweight_card.dat
+	  extract_width $isnlo $WORKDIR $CARDSDIR ${name}
       fi
-    
+      
       #prepare madspin grids if necessary
       if [ -e $CARDSDIR/${name}_madspin_card.dat ]; then
         echo "import $WORKDIR/unweighted_events.lhe.gz" > madspinrun.dat
@@ -555,7 +585,6 @@ make_gridpack () {
         $WORKDIR/$MGBASEDIRORIG/MadSpin/madspin madspinrun.dat 
         rm madspinrun.dat
         rm -rf tmp*
-        cp $CARDSDIR/${name}_madspin_card.dat $WORKDIR/process/madspin_card.dat
       fi
     
       echo "preparing final gridpack"
@@ -723,6 +752,15 @@ fi
 
 #For correct running you should place at least the run and proc card in a folder under the name "cards" in the same folder where you are going to run the script
 RUNHOME=`pwd`
+
+if [[ `uname -a` == *"lxplus"* ]]; then
+  if [[ $RUNHOME == *"/eos/home-"* ]]; then
+      echo "Running in /eos/home-X/~ which is not really stable. Use /eos/user/X/ instead."
+      exit 1;
+      #Preventing the use of /eos/home-X/ solely based on experience! Might not be a REAL problem.
+  fi
+fi
+
 LOGFILE=${RUNHOME}/${name}.log
 LOGFILE_NAME=${LOGFILE/.log/}
 
@@ -743,7 +781,7 @@ if [ "${name}" != "interactive" ]; then
     set -o pipefail
     # Do not exit main shell if make_gridpack fails. We want to return rather than exit if we are sourcing this script.
     set +e
-    make_gridpack | tee $LOGFILE
+    make_gridpack |& tee $LOGFILE
     pipe_status=$PIPESTATUS
     # tee above will create a subshell, so exit calls inside function will just affect that subshell instance and return the exitcode in this shell.
     # This breaks cases when the calls inside make_gridpack try to exit the main shell with some error, hence not having the gridpack directory.

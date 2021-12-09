@@ -1,0 +1,5 @@
+'hw_lhe_common_settings'
+'hw_lhe_powheg_settings'
+from Configuration.Generator.Herwig7Settings.Herwig7LHEPowhegSettings_cfi import *
+herwig7LHEPowhegSettingsBlock
+'hw_lhe_powheg_settings'
