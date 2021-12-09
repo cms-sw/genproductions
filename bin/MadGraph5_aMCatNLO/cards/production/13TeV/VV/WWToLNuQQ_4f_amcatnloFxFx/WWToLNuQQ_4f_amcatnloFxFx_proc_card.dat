@@ -1,7 +1,4 @@
-import model loop_sm-no_b_mass
-
-define p = p b b~
-define j = j b b~
+import model loop_sm
 
 define ell+ = e+ mu+ ta+
 define ell- = e- mu- ta-
@@ -13,4 +10,4 @@ add process p p > ell+ vl w- j [QCD] @1
 add process p p > ell- vl~ w+ [QCD] @2
 add process p p > ell- vl~ w+ j [QCD] @3
 
-output WWToLNuQQ_5f_amcatnloFxFx -nojpeg
+output WWToLNuQQ_4f_amcatnloFxFx -nojpeg

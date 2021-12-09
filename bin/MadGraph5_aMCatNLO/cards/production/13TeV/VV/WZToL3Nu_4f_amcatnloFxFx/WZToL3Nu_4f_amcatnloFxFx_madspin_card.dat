@@ -7,8 +7,7 @@ set max_weight_ps_point 400  # number of PS to estimate the maximum for each eve
 
 set max_running_process 1
 
-decay w+ > j j
-decay w- > j j
+{decay}
 #set onlyhelicity True
 #dummy decay
 
