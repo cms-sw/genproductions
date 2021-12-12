@@ -219,7 +219,7 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
 #*********************************************************************
 # Control the Ht(k)=Sum of k leading jets                            *
 #*********************************************************************
- 0   = htjmin ! minimum jet HT=Sum(jet pt)
+ 2500   = htjmin ! minimum jet HT=Sum(jet pt)
  -1  = htjmax ! maximum jet HT=Sum(jet pt)
  0   = ihtmin  !inclusive Ht for all partons (including b)
  -1  = ihtmax  !inclusive Ht for all partons (including b)
