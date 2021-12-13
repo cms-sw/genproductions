@@ -373,9 +373,9 @@ def root_requests_from_ticket(ticket_prepid, include_docs=False):
     mccm = get_ticket(ticket_prepid)
     query = ''
     for root_request in mccm.get('requests',[]):
-        if isinstance(root_request,str) or isinstance(root_request,str):
+       if isinstance(root_request,(str,unicode)):
             query += '%s\n' % (root_request)
-        elif isinstance(root_request,list):
+       elif isinstance(root_request,list):
              # List always contains two elements - start and end of a range
             query += '%s -> %s\n' % (root_request[0], root_request[1])
     requests = get_range_of_requests(query)
@@ -395,10 +395,9 @@ if args.ticket is not None:
     for rr in root_requests_from_ticket(ticket):
         if 'GS' in rr or 'wmLHE' in rr or 'pLHE' in rr or 'FS' in rr: prepid.append(rr)
 
-
 prepid = list(set(prepid)) #to avoid requests appearing x times if x chains have the same request
-
 print("Current date and time: %s" % (datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
+print("Prepid(s):")
 for x in prepid:
     print(x)
 
@@ -1597,7 +1596,8 @@ for num in range(0,len(prepid)):
             error = 255
 
 # Exit with code, 0 - good, not 0 is bad
-        if args.bypass_validation:
-            continue
-        else:
-            sys.exit(error)
+        if args.ticket is None:
+            if args.bypass_validation:
+                continue
+            else:
+                sys.exit(error)
