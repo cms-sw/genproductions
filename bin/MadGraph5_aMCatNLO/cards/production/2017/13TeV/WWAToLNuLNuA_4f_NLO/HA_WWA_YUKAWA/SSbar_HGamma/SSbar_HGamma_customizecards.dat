@@ -1,0 +1,6 @@
+set param_card MASS 1 0.00469
+set param_card YUKAWA 1 0.00469
+set param_card MASS 2 0.00220
+set param_card YUKAWA 2 0.00220
+set param_card MASS 3 0.0931
+set param_card YUKAWA 3 0.0931
