@@ -82,8 +82,8 @@ if [ -e POWHEG-BOX/$${process}.tgz ]; then
   cd -
 fi
 
-patch -l -p0 -i ${patches_dir}/pdfweights.patch
-patch -l -p0 -i ${patches_dir}/pwhg_lhepdf.patch
+patch -l -p0 -i ${patches_dir}/pdfweights_new.patch
+#patch -l -p0 -i ${patches_dir}/pwhg_lhepdf.patch
 
 $patch_1 
 
