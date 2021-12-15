@@ -157,7 +157,7 @@ def concurrency_check(fragment,pi,cmssw_version):
                 error_conc = 1
     else:
         if "concurrent" in fragment.lower():
-            print("[ERROR] Concurrent generation is not supported for versions < CMSSW_10_6_28")
+            print("[ERROR] Concurrent generation is not supported for versions < CMSSW_10_6_28 or CMSSW_11_X_X series")
             error_conc = 1
     return conc_check_lhe and conc_check, error_conc
    
