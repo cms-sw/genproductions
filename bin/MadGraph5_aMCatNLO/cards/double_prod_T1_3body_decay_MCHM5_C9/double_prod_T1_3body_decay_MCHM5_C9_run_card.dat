@@ -86,7 +86,13 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF      ! if pdlabel=lhapdf, this is the lhapdf
 #**********************************************************
   .false.	=  auto_ptj_mjj   ! Automatic setting of ptj and mjj
 #**********************************************************
-#                                                                    
+#
+#*********************************************************************
+# Phase-Space Optim (advanced)
+#*********************************************************************
+   1 =  hard_survey ! force to have better estimate of the integral at survey for difficult mode like interference          
+#*********************************************************************
+#                                                               
 #**********************************
 # BW cutoff (M+/-bwcutoff*Gamma)
 #**********************************
