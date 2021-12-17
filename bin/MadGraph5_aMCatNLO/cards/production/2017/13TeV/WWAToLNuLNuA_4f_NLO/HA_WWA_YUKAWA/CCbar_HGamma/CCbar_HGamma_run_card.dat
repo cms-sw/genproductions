@@ -123,7 +123,7 @@
 # BW cutoff (M+/-bwcutoff*Gamma). Determines which resonances are      *
 # written in the LHE event file                                        *
 #***********************************************************************
- 30  = bwcutoff
+ 15  = bwcutoff
 #***********************************************************************
 # Cuts on the jets. Jet clustering is performed by FastJet.            *
 #  - When matching to a parton shower, these generation cuts should be *
