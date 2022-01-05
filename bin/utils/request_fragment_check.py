@@ -770,7 +770,7 @@ for num in range(0,len(prepid)):
                     print("qCutME = ",qCutME)
                     ptj_runcard = os.popen('grep "ptj" '+filename_mggpc).read()
                     ptj_runcard = ptj_runcard.replace(" ","")
-                    ptj_runcard = re.findall('\d+=ptj',ptj_runcard)[0].split("=")[0]
+                    ptj_runcard = re.findall('\d*\.?\d+',ptj_runcard)[0].split("=")[0]
                     print("ptj_runcard =", ptj_runcard)
                     if float(qCutME) != float(ptj_runcard):
                         error += 1
