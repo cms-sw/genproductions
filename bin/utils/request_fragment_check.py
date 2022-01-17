@@ -6,6 +6,7 @@ import argparse
 import textwrap
 import fnmatch
 import os.path
+import string
 #import json
 from datetime import datetime
 ###########Needed to check for ultra-legacy sample consistency check############################################
@@ -360,6 +361,38 @@ def exception_for_ul_check(datatobereplaced,cross_section_fragment):
         new_data = new_data.replace('crossSection=cms.untracked.double(-1)','')
     return new_data
 
+def vbf_dipole_recoil_check(vbf_lo,vbf_nlo,data_f2,pw_gp,dn):
+    dipole_recoil_flag = 0
+    dipole_recoil = re.findall('SpaceShower:dipoleRecoil.*?\S+\S+',data_f2)
+    warning_dipole = 0
+    error_dipole = 0
+    if "vbf" not in dn.lower():
+        warning_dipole += 1
+        print("[WARNING] VBF not in dataset name.")
+    if len(dipole_recoil):
+        dipole_recoil = dipole_recoil[0].split("=")[1].replace('"', '').replace('\'', '')
+        if "on" in dipole_recoil:
+            dipole_recoil_flag = 1 
+    if pw_gp is False:
+        if vbf_lo and dipole_recoil_flag == 0:
+            warning_dipole = 1
+            print("[WARNING] LO VBF with global recoil --> SpaceShower:dipoleRecoil = 0 SMP/HIG groups are moving to local recoil but currently using global recoil. See https://arxiv.org/pdf/1803.07943.pdf")
+        if vbf_lo and dipole_recoil_flag:
+            print("[OK] LO VBF with local recoil. --> SpaceShower:dipoleRecoil = 1")
+        if vbf_nlo and dipole_recoil_flag == 0:
+            print("[OK] NLO VBF with global recoil --> SpaceShower:dipoleRecoil = 0")
+        if vbf_nlo and dipole_recoil_flag:
+            error_dipole = 1
+            print("[ERROR] NLO VBF with local recoil. --> SpaceShower:dipoleRecoil = 1 aMC@NLO should not be used with local recoil. See https://arxiv.org/pdf/1803.07943.pdf")
+    else:
+        if "vbf" in dn.lower() and dipole_recoil_flag == 0:
+            warning_dipole = 1
+            print("[WARNING] VBF POWHEG with global recoil --> SpaceShower:dipoleRecoil = 0. See https://arxiv.org/pdf/1803.07943.pdf")
+        if "vbf" in dn.lower() and dipole_recoil_flag == 1:
+            print("[OK] VBF POWHEG with local recoil --> SpaceShower:dipoleRecoil = 1.")  
+    return warning_dipole, error_dipole  
+
+
 if args.dev:
     print("Running on McM DEV!\n")
 
@@ -458,6 +491,8 @@ for num in range(0,len(prepid)):
         mg_nlo = 0
         mcatnlo_flag = 0
         loop_flag = 0
+        vbf_lo = 0
+        vbf_nlo = 0
         knd =  -1
         slha_flag = 0
         grid_points_flag = 0
@@ -782,6 +817,10 @@ for num in range(0,len(prepid)):
                     if int(nQmatch) != int(maxjetflavor):
                         error += 1
                         print("[ERROR] nQmatch in PS settings and maxjetflavor in run_card in gridpack do not match.")
+        if herwig_flag == 0 and pw_gp is True:
+            warn_tmp , err_tmp = vbf_dipole_recoil_check(vbf_lo,vbf_nlo,data_f2,pw_gp,dn)
+            warning += warn_tmp
+            error += err_tmp
         if herwig_flag != 0:
             os.system('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/herwig_common.txt -O herwig_common.txt') 
             file2 = set(line.strip().replace(",","") for line in open(pi))
@@ -1278,18 +1317,21 @@ for num in range(0,len(prepid)):
                         loop_flag = int(os.popen('more '+filename_pc+' | grep -c "noborn=QCD"').read())
                         gen_line = os.popen('grep generate '+filename_pc).read()
                         print(gen_line)
-                        proc_line = os.popen('grep process '+filename_pc).read()
+                        proc_line = os.popen('grep process '+filename_pc+' | grep -v set').read()
                         print(proc_line)
                         proc_line = gen_line.replace('generate','') + "\n" + proc_line 
                         print("Simplified process lines:")
-                        if (gen_line.count('@') <= proc_line.count('@')) or (proc_line.count('add') > 0):
+                        if (gen_line.count('@') > 0 and gen_line.count('@') <= proc_line.count('@')) or (proc_line.count('add') > 0):
                             proc_line = proc_line.split('add process')
+                            print(proc_line)
                             for y in range(0,len(proc_line)):
                                 if proc_line[y].startswith("set"): continue
                                 zz = proc_line[y] 
                                 if "," in proc_line[y]: zz = proc_line[y].split(',')[0]
-                                print(zz) 
+                                zz = zz.translate(str.maketrans('','',string.punctuation))
+                                sys.exit()
                                 nbtomatch = zz.count('b') if maxjetflavor > 4 else 0
+                                print(zz.count('c'))
                                 nc = zz.count('c') if "chi" not in zz else 0
                                 if "excl" in zz and nc != 0: nc = nc -1
                                 jet_count_tmp.append(zz.count('j') + nbtomatch + nc)
@@ -1308,6 +1350,17 @@ for num in range(0,len(prepid)):
                             print("[WARNING] nJetMax(="+str(nJetMax)+") is not equal to the number of jets specified in the proc card(="+str(jet_count)+").")
                             print("          Is it because this is an exclusive production with additional samples with higher multiplicity generated separately?")
                             warning += 1
+                        print("Jet Count = "+str(jet_count))
+                        if jet_count >= 2 and alt_ickkw_c == 0:
+                            if mg_nlo:
+                                vbf_nlo = 1
+                                print("VBF process at NLO")
+                            else:
+                                vbf_lo = 1   
+                                print("VBF process at LO")
+                        warn_tmp , err_tmp = vbf_dipole_recoil_check(vbf_lo,vbf_nlo,data_f2,pw_gp,dn)
+                        warning += warn_tmp
+                        error += err_tmp
                     if os.path.isfile(filename_mggpc) is True :
                         ickkw = os.popen('more '+filename_mggpc+' | tr -s \' \' | grep "= ickkw"').read()
                         bw = os.popen('more '+filename_mggpc+' | tr -s \' \' | grep "= bwcutoff"').read()
