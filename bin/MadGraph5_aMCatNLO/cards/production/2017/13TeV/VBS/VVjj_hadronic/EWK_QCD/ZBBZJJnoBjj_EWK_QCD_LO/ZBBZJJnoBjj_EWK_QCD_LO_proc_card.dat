@@ -1,7 +1,4 @@
-set group_subprocesses Auto
-set ignore_six_quark_processes False
-set loop_optimized_output True
-set complex_mass_scheme False
 import model sm-ckm_no_b_mass
-generate p p > z z j j  QED=4 QCD=99
+define j_nob = u c d s u~ c~ d~ s~
+generate p p > z z j j  QED=4 QCD=99, z > j_nob j_nob, z > b b~
 output ZBBZJJnoBjj_EWK_QCD_LO -nojpeg

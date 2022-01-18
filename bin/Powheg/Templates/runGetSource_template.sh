@@ -205,6 +205,9 @@ pwd
 
 $patch_7 
 
+#Here the patch_0: MadGraph + Powheg plugin installing 
+$patch_0 
+
 export PYTHONPATH=./Virtual/:$$PYTHONPATH
 make pwhg_main || fail_exit "Failed to compile pwhg_main"
 

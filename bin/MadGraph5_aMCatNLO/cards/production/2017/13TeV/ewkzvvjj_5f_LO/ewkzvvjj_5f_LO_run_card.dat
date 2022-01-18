@@ -29,7 +29,7 @@
 # Warning: Do not generate more than 1M events in a single run       *
 # If you want to run Pythia, avoid more than 50k events in a run.    *
 #*********************************************************************
-  250 	      = nevents ! Number of unweighted events requested 
+  2500        = nevents ! Number of unweighted events requested 
       0       = iseed   ! rnd seed (0=assigned automatically=default))
 #*********************************************************************
 # Collider type and energy                                           *
@@ -79,7 +79,7 @@
 # Automatic ptj and mjj cuts if xqcut > 0
 # (turn off for VBF and single top processes)
 #**********************************************************
-   T  = auto_ptj_mjj  ! Automatic setting of ptj and mjj
+   F  = auto_ptj_mjj  ! Automatic setting of ptj and mjj
 #**********************************************************
 #                                                                    
 #**********************************
@@ -134,7 +134,7 @@
    6.5  = etaj    ! max rap for the jets 
   -1  = etab    ! max rap for the b
  2.5  = etaa    ! max rap for the photons 
- 2.6  = etal    ! max rap for the charged leptons 
+  -1  = etal    ! max rap for the charged leptons 
   -1  = etaonium ! max rap for the quarkonium states
    0  = etajmin ! min rap for the jets
    0  = etabmin ! min rap for the b
@@ -143,7 +143,7 @@
 #*********************************************************************
 # Minimum and maximum DeltaR distance                                *
 #*********************************************************************
- 0.4 = drjj    ! min distance between jets 
+ 0   = drjj    ! min distance between jets 
  0   = drbb    ! min distance between b's 
  0   = drll    ! min distance between leptons 
  0   = draa    ! min distance between gammas 
@@ -257,7 +257,7 @@
 #*********************************************************************
 # Jet measure cuts                                                   *
 #*********************************************************************
- 10   = xqcut   ! minimum kt jet measure between partons
+ 0   = xqcut   ! minimum kt jet measure between partons
 #*********************************************************************
 #
 #*********************************************************************
@@ -267,6 +267,5 @@
 #          reweighting into account!                                 *
 #*********************************************************************
    T  = use_syst      ! Enable systematics studies
-   F  = mc_grouped_subproc
 #
 #**************************************

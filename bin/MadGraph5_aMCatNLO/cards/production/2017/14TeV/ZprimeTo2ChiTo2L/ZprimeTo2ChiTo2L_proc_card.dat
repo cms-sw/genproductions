@@ -1,0 +1,9 @@
+import model UMSSM -modelname
+define p = g u1 u2 d1 d2 u1bar u2bar d1bar d2bar
+define l- = e1 e2 e3
+define l+ = e1bar e2bar e3bar
+define vl = nu1 nu2 nu3
+define vl~ = nu1bar nu2bar nu3bar
+generate p p > zp, (zp > c1 c1bar, (c1 > wm n1, (wm > l- vl~)), (c1bar > wm\
+c n1, (wmc > l+ vl)))
+output ZprimeTo2ChiTo2L

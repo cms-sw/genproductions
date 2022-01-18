@@ -1,0 +1,10 @@
+import model SM_HeavyN_Gen3Mass_NLO
+define em = e+ e- mu+ mu-
+define ll = e+ e- mu+ mu- ta+ ta-
+define vv = ve ve~ vm vm~ vt vt~
+generate p p > t t~, (t > b w+, (w+ > ll vv)), (t~ > b~ em n1, (n1 > em j j)) @0
+add process p p > t t~ j, (t > b w+, (w+ > ll vv)), (t~ > b~ em n1, (n1 > em j j)) @1
+add process p p > t t~, (t > b em n1, (n1 > em j j)), (t~ > b~ w-, (w- > ll vv)) @2
+add process p p > t t~ j, (t > b em n1, (n1 > em j j)), (t~ > b~ w-, (w- > ll vv)) @3
+
+output TTbar01Jets_TypeIHeavyN-El_LepSMTop_3L_LO_MN40_XQCUT20 --nojpeg

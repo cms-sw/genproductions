@@ -4,8 +4,8 @@ ih2   1           ! hadron 2 (1 for protons, -1 for antiprotons)
 ebeam1 6500     ! energy of beam 1
 ebeam2 6500    ! energy of beam 2
 
-lhans1 306000       ! pdf set for hadron 1 (LHA numbering)
-lhans2 306000       ! pdf set for hadron 2 (LHA numbering)
+lhans1 325300       ! pdf set for hadron 1 (LHA numbering)
+lhans2 325300       ! pdf set for hadron 2 (LHA numbering)
 
 ! Parameters to allow or not the use of stored data
 use-old-grid    1 ! if 1 use old grid if file pwggrids.dat is present (<> 1 regenerate)
