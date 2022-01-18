@@ -256,7 +256,7 @@ condor_wait "$LOG_FILE" "$CLUSTER_ID"
 # If querying job exitcode fails, retry
 status_n_retries=10
 for ((i=0; i<=$status_n_retries; ++i)); do
-    condor_exitcode=$(condor_history ${CLUSTERID} -limit 1 -format "%s" ExitCode)
+    condor_exitcode=$(condor_history ${CLUSTER_ID} -limit 1 -format "%s" ExitCode)
     if [ "x$condor_exitcode" != "x" ]; then
         break
     fi
