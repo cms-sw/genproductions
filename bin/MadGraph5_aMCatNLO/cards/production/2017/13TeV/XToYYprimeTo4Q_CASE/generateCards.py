@@ -8,10 +8,6 @@ MassesX = [2000, 3000, 5000]
 MassesY = [25,80,170,400]
 MassesYprime = [25,80,170,400]
 
-MassesX = [2000]
-MassesY = [400]
-MassesYprime = [400]
-
 for mx in MassesX:
         for my in MassesY:
                 for myp in MassesYprime:
