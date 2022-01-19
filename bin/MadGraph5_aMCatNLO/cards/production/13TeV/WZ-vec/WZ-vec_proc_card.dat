@@ -1,4 +1,4 @@
-import model SMEFTsim_general_MwScheme_UFO-SMEFT_massless_private_vec
+import model SMEFTsim_general_MwScheme_UFO-SMEFT_massless_noBmass_private_vec
 define p = g u c d s b u~ c~ d~ s~ b~
 define j = p
 define l+ = e+ mu+ ta+
