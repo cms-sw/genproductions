@@ -128,12 +128,13 @@ proxy-watcher -start
 # HOLD CODES AND WALLTIMES
 #########################
 #26:119 : CVMFS failed
+#26:120 : CPU overuse
 #30:256: Job put on hold by remote host
 #13: condor_starter or shadow failed to send job
 #12:28 : (errno 28) No space left on device
 
 if [ -z "$CONDOR_RELEASE_HOLDCODES" ]; then
-  export CONDOR_RELEASE_HOLDCODES="26:119,13,30:256,12:28,6:0"
+  export CONDOR_RELEASE_HOLDCODES="26:119,26:120,13,30:256,12:28,6:0"
 fi
 if [ -z "$CONDOR_RELEASE_HOLDCODES_SHADOW_LIM" ]; then
   export CONDOR_RELEASE_HOLDCODES_SHADOW_LIM="19"
