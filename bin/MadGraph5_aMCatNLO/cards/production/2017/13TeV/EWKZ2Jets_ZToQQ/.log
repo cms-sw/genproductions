@@ -1,0 +1,9 @@
+Starting job on  Tue Jan 18 14:07:20 CST 2022
+Running on  Linux cmslpc160.fnal.gov 3.10.0-1160.45.1.el7.x86_64 #1 SMP Tue Oct 12 08:40:46 CDT 2021 x86_64 x86_64 x86_64 GNU/Linux
+System release  Scientific Linux release 7.9 (Nitrogen)
+name: EWKZ2Jets_ZToQQ_TuneCP5_13TeV-madgraph-pythia8/
+carddir: ewkzjjjj_5f_LO
+queue: local
+scram_arch: slc7_amd64_gcc700
+cmssw_version: CMSSW_10_6_19
+/uscms/home/jennetd/nobackup/mc-gen/genproductions/bin/MadGraph5_aMCatNLO/ewkzjjjj_5f_LO  does not exist!
