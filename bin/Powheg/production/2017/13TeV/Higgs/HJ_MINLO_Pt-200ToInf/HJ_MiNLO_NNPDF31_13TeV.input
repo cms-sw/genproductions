@@ -42,13 +42,8 @@ withnegweights 1  ! (1 default) If 1 output negative weighted events.
 
 renscfact  1d0   ! (default 1d0) ren scale factor: muren  = muref * renscfact 
 facscfact  1d0   ! (default 1d0) fac scale factor: mufact = muref * facscfact 
-pdfreweight 0       ! PDF reweighting
 
 bornktmin 200.0    ! Minimum transverse momentum of the Higgs at the underlying Born level
-
-storeinfo_rwgt 0   ! store info to allow for reweighting
-
-flg_debug      1   ! store extra event info for debugging
 
 minlo 1            ! default 0, set to 1 to use minlo
 
@@ -63,5 +58,3 @@ quarkmasseffects 1   ! Include quark mass effects
 topmass 172.5d0      ! top quark mass (172.5 in HNNLO-patches/mdata.f)
 bottommass 3.38d0    ! bottom quark mass in MSbar at MH
 bmass_in_minlo 1     ! Include quark mass effects in Sudakov exponent
-
-fakevirt 1
