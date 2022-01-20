@@ -24,10 +24,10 @@ for mY in MassesY:
         shutil.copyfile(Ref_dir+ 'madspin_card.dat',sampleName+'/'+sampleName+'_madspin_card.dat')
         shutil.copyfile(Ref_dir+ 'extramodels.dat',sampleName+'/'+sampleName+'_extramodels.dat')
         shutil.copyfile(Ref_dir + 'proc_card.dat',sampleName+'/'+sampleName+'_proc_card.dat')
-        shutil.copyfile(Ref_dir + 'customizecards.dat',sampleName+'/'+sampleName+'_customizecards.dat')
         #customization
         with open("{0}/{0}_proc_card.dat".format(sampleName), "a") as f:
             f.write("output "+sampleName)
+        #create customization card
         with open("{0}/{0}_customizecards.dat".format(sampleName), "w") as f:
             f.write("set param_card mass %s %e\n" % (H_pdgid, mH))
             f.write("set param_card mass %s %e\n" % (Y_pdgid, mY))
