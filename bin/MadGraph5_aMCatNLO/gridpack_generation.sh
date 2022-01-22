@@ -133,7 +133,7 @@ make_gridpack () {
     
     MG_EXT=".tar.gz"
     MG=MG5_aMC_v3.3.1$MG_EXT
-    MGSOURCE=https://launchpad.net/mg5amcnlo/3.0/3.3.x/+download/$MG
+    MGSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$MG
     
     MGBASEDIRORIG=$(echo ${MG%$MG_EXT} | tr "." "_")
     isscratchspace=0
@@ -198,6 +198,7 @@ make_gridpack () {
     
       echo "set auto_update 0" > mgconfigscript
       echo "set automatic_html_opening False" >> mgconfigscript
+      echo "set auto_convert_model True" >> mgconfigscript
       if [ $iscmsconnect -gt 0 ]; then
         echo "set output_dependencies internal" >> mgconfigscript
       fi
