@@ -219,7 +219,7 @@ True    =  use_syst       ! Enable systematics studies
 for el in sampledict:
     os.system("mkdir -p ./" + el)
 
-    for ejC in ["customizecards.dat", "extramodels.dat"]:
+    for ejC in ["extramodels.dat"]:
         os.system("cp ./orig_cards/" + ejC + " ./" + el + "/" + el + "_" + ejC)
 
     # proc card
@@ -254,7 +254,6 @@ for el in sampledict:
 
 
     # param card
-    #os.system("cp ./orig_cards/" + el + "_param_card.dat ./" + el + "/")
     outparamcard = ""
     with open("./orig_cards/param_card.dat", "r") as theF:
         for line in theF.readlines():
