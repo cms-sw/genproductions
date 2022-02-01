@@ -257,7 +257,7 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF      ! PDF number used ONLY for LHAPDF
 #*********************************************************************
 # Jet measure cuts                                                   *
 #*********************************************************************
- 80   = xqcut   ! minimum kt jet measure between partons
+ 0   = xqcut   ! minimum kt jet measure between partons
 #*********************************************************************
 #
 #*********************************************************************
