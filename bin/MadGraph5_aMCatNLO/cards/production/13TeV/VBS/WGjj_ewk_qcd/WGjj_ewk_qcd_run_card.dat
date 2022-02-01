@@ -85,7 +85,7 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
 #**********************************
 # BW cutoff (M+/-bwcutoff*Gamma)
 #**********************************
-  15.0  = bwcutoff      ! (M+/-bwcutoff*Gamma)
+  20.0  = bwcutoff      ! (M+/-bwcutoff*Gamma)
 #**********************************************************
 # Apply pt/E/eta/dr/mij cuts on decay products or not
 # (note that etmiss/ptll/ptheavy/ht/sorted cuts always apply)
@@ -105,9 +105,9 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
 #*********************************************************************
 # Minimum and maximum pt's (for max, -1 means no cut)                *
 #*********************************************************************
- 20  = ptj       ! minimum pt for the jets 
- 20  = ptb       ! minimum pt for the b 
- 10  = pta       ! minimum pt for the photons 
+ 10  = ptj       ! minimum pt for the jets 
+ 10  = ptb       ! minimum pt for the b 
+  0  = pta       ! minimum pt for the photons 
   0  = ptl       ! minimum pt for the charged leptons 
   0  = misset    ! minimum missing Et (sum of neutrino's momenta)
   0  = ptheavy   ! minimum pt for one heavy final state
@@ -131,11 +131,11 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
 #*********************************************************************
 # Maximum and minimum absolute rapidity (for max, -1 means no cut)   *
 #*********************************************************************
- 6.5  = etaj    ! max rap for the jets 
-  -1  = etab    ! max rap for the b
+ 5.0  = etaj    ! max rap for the jets 
+ 5.0  = etab    ! max rap for the b
  3.0  = etaa    ! max rap for the photons 
-  -1  = etal    ! max rap for the charged leptons 
- 0.6  = etaonium ! max rap for the quarkonium states
+ 3.0  = etal    ! max rap for the charged leptons 
+   0  = etaonium ! max rap for the quarkonium states
    0  = etajmin ! min rap for the jets
    0  = etabmin ! min rap for the b
    0  = etaamin ! min rap for the photons
@@ -148,11 +148,11 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
  0.01 = drll    ! min distance between leptons 
  0.0 = draa    ! min distance between gammas 
  0.01 = drbj    ! min distance between b and jet 
- 0.05 = draj    ! min distance between gamma and jet 
+ 0.0 = draj    ! min distance between gamma and jet 
  0.01 = drjl    ! min distance between jet and lepton 
  0.0 = drab    ! min distance between gamma and b 
  0.01 = drbl    ! min distance between b and lepton 
- 0.05 = dral    ! min distance between gamma and lepton 
+ 0.0 = dral    ! min distance between gamma and lepton 
  -1  = drjjmax ! max distance between jets
  -1  = drbbmax ! max distance between b's
  -1  = drllmax ! max distance between leptons
