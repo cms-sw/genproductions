@@ -90,7 +90,7 @@
 # Apply pt/E/eta/dr/mij cuts on decay products or not
 # (note that etmiss/ptll/ptheavy/ht/sorted cuts always apply)
 #**********************************************************
-   T  = cut_decays    ! Cut decay products 
+   F  = cut_decays    ! Cut decay products 
 #*************************************************************
 # Number of helicities to sum per event (0 = all helicities)
 # 0 gives more stable result, but longer run time (needed for
@@ -141,7 +141,7 @@
 #*********************************************************************
 # Minimum and maximum DeltaR distance                                *
 #*********************************************************************
- 0.4 = drjj    ! min distance between jets 
+ 0.1 = drjj    ! min distance between jets 
  0   = drbb    ! min distance between b's 
  0   = drll    ! min distance between leptons 
  0   = draa    ! min distance between gammas 
@@ -166,7 +166,7 @@
 # WARNING: for four lepton final state mmll cut require to have      *
 #          different lepton masses for each flavor!                  *           
 #*********************************************************************
- 10   = mmjj    ! min invariant mass of a jet pair 
+ 200   = mmjj    ! min invariant mass of a jet pair 
  0   = mmbb    ! min invariant mass of a b pair 
  0   = mmaa    ! min invariant mass of gamma gamma pair
  0   = mmll    ! min invariant mass of l+l- (same flavour) lepton pair
