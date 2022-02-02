@@ -285,6 +285,7 @@ set param_card mass 6 172.5
 set param_card mass 25 125.0
 set param_card yukawa 6 172.5
 set param_card mass 600 %i
+set decay 6 AUTO
 set decay 600 AUTO
 """
 
