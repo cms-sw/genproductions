@@ -1,0 +1,8 @@
+set BW_cut 15
+set ms_dir ./madspingrid
+set max_running_process 1
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
+decay z > l+ l-
+decay w+ > j j
+launch
