@@ -1,5 +1,5 @@
 import model sm-ckm_no_b_mass
-define vl = ve vm vt
-define vl~ = ve~ vm~ vt~
-generate p p > w+ z j j  QED=4 QCD=99, w+ > j j, z > vl vl~
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
+generate p p > w+ z j j  QED=4 QCD=99, w+ > j j, z > l+ l-
 output WPhadZlepJJ_EWK_QCD_LO_SM_mjj100_pTj10 --nojpeg
