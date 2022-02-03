@@ -5,5 +5,6 @@ define l+ = e+ mu+ ta+
 define l- = e- mu- ta-
 define vl = ve vm vt
 define vl~ = ve~ vm~ vt~
-generate  p p > z z j j QED=4 QCD=0, z > l+ l-, z > l+ l-
-output ZZ4ljj_ewk
+generate p p > w+ w+ j j $ t t~ QED=2 QCD=99, w+ > l+ vl @ 1
+add process p p > w- w- j j $ t t~ QED=2 QCD=99, w- > l- vl~ @ 2
+output WWjj_SS_qcd

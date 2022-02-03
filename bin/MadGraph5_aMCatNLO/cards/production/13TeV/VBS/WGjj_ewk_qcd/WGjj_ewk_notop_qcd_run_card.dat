@@ -85,7 +85,7 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
 #**********************************
 # BW cutoff (M+/-bwcutoff*Gamma)
 #**********************************
-  20.0  = bwcutoff      ! (M+/-bwcutoff*Gamma)
+  15  = bwcutoff      ! (M+/-bwcutoff*Gamma)
 #**********************************************************
 # Apply pt/E/eta/dr/mij cuts on decay products or not
 # (note that etmiss/ptll/ptheavy/ht/sorted cuts always apply)
@@ -269,10 +269,3 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
    T  = use_syst      ! Enable systematics studies
 #
 ##**************************************
-## Parameter of the systematics study
-##  will be used by SysCalc (if installed)
-##**************************************                                  
-#
-0.5 1 2 = sys_scalefact  # factorization/renormalization scale factor
-0.5 1 2 = sys_alpsfact  # \alpha_s emission scale factors
-30 50 = sys_matchscale # variation of merging scale

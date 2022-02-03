@@ -85,7 +85,7 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
 #**********************************
 # BW cutoff (M+/-bwcutoff*Gamma)
 #**********************************
-   20  = bwcutoff      ! (M+/-bwcutoff*Gamma)
+   15  = bwcutoff      ! (M+/-bwcutoff*Gamma)
 #**********************************************************
 # Apply pt/E/eta/dr/mij cuts on decay products or not
 # (note that etmiss/ptll/ptheavy/ht/sorted cuts always apply)
@@ -132,9 +132,9 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
 # Maximum and minimum absolute rapidity (for max, -1 means no cut)   *
 #*********************************************************************
  5.0  = etaj    ! max rap for the jets 
- 5.0   = etab    ! max rap for the b
+ 5.0  = etab    ! max rap for the b
  3.0  = etaa    ! max rap for the photons 
- 3.0   = etal    ! max rap for the charged leptons 
+ 3.0  = etal    ! max rap for the charged leptons 
    0  = etaonium ! max rap for the quarkonium states
    0  = etajmin ! min rap for the jets
    0  = etabmin ! min rap for the b
