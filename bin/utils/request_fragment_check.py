@@ -1329,7 +1329,6 @@ for num in range(0,len(prepid)):
                                 zz = proc_line[y] 
                                 if "," in proc_line[y]: zz = proc_line[y].split(',')[0]
                                 zz = zz.translate(str.maketrans('','',string.punctuation))
-                                sys.exit()
                                 nbtomatch = zz.count('b') if maxjetflavor > 4 else 0
                                 print(zz.count('c'))
                                 nc = zz.count('c') if "chi" not in zz else 0
