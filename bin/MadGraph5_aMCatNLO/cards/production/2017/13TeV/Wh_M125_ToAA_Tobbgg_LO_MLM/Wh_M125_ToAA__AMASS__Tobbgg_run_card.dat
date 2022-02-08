@@ -29,7 +29,7 @@
 # Warning: Do not generate more than 1M events in a single run       *
 # If you want to run Pythia, avoid more than 50k events in a run.    *
 #*********************************************************************
-      500000 = nevents ! Number of unweighted events requested 
+      5000 = nevents ! Number of unweighted events requested 
       0       = iseed   ! rnd seed (0=assigned automatically=default))
 #*********************************************************************
 # Collider type and energy                                           *
@@ -69,7 +69,7 @@
  1        = alpsfact         ! scale factor for QCD emission vx
  F        = chcluster        ! cluster only according to channel diag
  T        = pdfwgt           ! for ickkw=1, perform pdf reweighting
- 5        = asrwgtflavor     ! highest quark flavor for a_s reweight
+ 4        = asrwgtflavor     ! highest quark flavor for a_s reweight
  T        = clusinfo         ! include clustering tag in output
  3.0      = lhe_version       ! Change the way clustering information pass to shower.        
 #*********************************************************************
@@ -142,16 +142,16 @@
 #*********************************************************************
 # Minimum and maximum DeltaR distance                                *
 #*********************************************************************
- 0.4 = drjj    ! min distance between jets 
- 0.4   = drbb    ! min distance between b's 
+ 0.1 = drjj    ! min distance between jets 
+ 0.0   = drbb    ! min distance between b's 
  0.0 = drll    ! min distance between leptons 
- 0.4 = draa    ! min distance between gammas 
+ 0.1 = draa    ! min distance between gammas 
  0   = drbj    ! min distance between b and jet 
- 0.4 = draj    ! min distance between gamma and jet 
- 0.4 = drjl    ! min distance between jet and lepton 
- 0.4   = drab    ! min distance between gamma and b 
+ 0.1 = draj    ! min distance between gamma and jet 
+ 0.1 = drjl    ! min distance between jet and lepton 
+ 0.0   = drab    ! min distance between gamma and b 
  0   = drbl    ! min distance between b and lepton 
- 0.4 = dral    ! min distance between gamma and lepton 
+ 0.1 = dral    ! min distance between gamma and lepton 
  -1  = drjjmax ! max distance between jets
  -1  = drbbmax ! max distance between b's
  -1  = drllmax ! max distance between leptons
@@ -252,11 +252,11 @@
 # maximal pdg code for quark to be considered as a light jet         *
 # (otherwise b cuts are applied)                                     *
 #*********************************************************************
- 5 = maxjetflavor    ! Maximum jet pdg code
+ 4 = maxjetflavor    ! Maximum jet pdg code
 #*********************************************************************
 # Jet measure cuts                                                   *
 #*********************************************************************
- 0.0   = xqcut   ! minimum kt jet measure between partons
+ 15.0   = xqcut   ! minimum kt jet measure between partons
 #*********************************************************************
 #
 #*********************************************************************
