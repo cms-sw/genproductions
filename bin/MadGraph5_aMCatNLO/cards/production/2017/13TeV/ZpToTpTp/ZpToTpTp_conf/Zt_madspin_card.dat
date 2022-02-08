@@ -4,7 +4,7 @@ set Nevents_for_max_weigth 250 # number of events for the estimate of the max. w
 #set BW_cut 15                # cut on how far the particle can be off-shell
 set max_weight_ps_point 400  # number of PS to estimate the maximum for each event
 
-define dec = g u c d s b u~ c~ d~ s~ b~ a ve vm vt e- mu- ve~ vm~ vt~ e+ mu+ ta- ta+
+define dec = u c d s u~ c~ d~ s~ ve vm vt e- mu- ve~ vm~ vt~ e+ mu+ ta- ta+
 
 
 # specify the decay for tops
