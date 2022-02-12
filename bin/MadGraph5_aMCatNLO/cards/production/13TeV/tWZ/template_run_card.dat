@@ -65,7 +65,7 @@
 # PDF choice: this automatically fixes also alpha_s(MZ) and its evol.  *
 #***********************************************************************
   lhapdf	= pdlabel ! PDF set
-  $DEFAULT_PDF_SETS = lhaid
+  $$DEFAULT_PDF_SETS = lhaid
 
 #***********************************************************************
 # Include the NLO Monte Carlo subtr. terms for the following parton    *
@@ -101,7 +101,7 @@
   2.0     = rw_Rscale_up     ! upper bound for ren scale variations
   0.5     = rw_Fscale_down   ! lower bound for fact scale variations
   2.0     = rw_Fscale_up     ! upper bound for fact scale variations
-$DEFAULT_PDF_MEMBERS = reweight_PDF     ! reweight to get PDF uncertainty
+$$DEFAULT_PDF_MEMBERS = reweight_PDF     ! reweight to get PDF uncertainty
       ! First of the error PDF sets 
       ! Last of the error PDF sets
 #***********************************************************************
@@ -119,7 +119,7 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! reweight to get PDF uncertainty
 #  istr = 5 -> DS with reshuffling on all FS particles, standard BW    *
 #  istr = 6 -> DS with reshuffling on all FS particles, running BW     *
 #***********************************************************************
-  5	= istr ! strategy to be used to remove resonances 
+  $DRS	= istr ! strategy to be used to remove resonances 
                          ! appearing in real emissions
   True			 = str_include_pdf ! compensate for PDFs when doing reshuffling
   True			 = str_include_flux ! compensate for flux when doing reshuffling
@@ -178,7 +178,7 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! reweight to get PDF uncertainty
 # POSITIVE PDG CODES only. Example of the syntax is {6 : 100} or       *
 # {6:100, 25:200} for multiple particles                               *
 #***********************************************************************
-  {}	= pt_min_pdg ! Min pT for a massive particle
+  {$BOOSTED}	= pt_min_pdg ! Min pT for a massive particle
   {}	= pt_max_pdg ! Max pT for a massive particle
   {}	= mxx_min_pdg ! inv. mass for any pair of (anti)particles
 #***********************************************************************
