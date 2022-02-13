@@ -254,7 +254,7 @@ def main(args):
       shutil.rmtree("data/")
 
   with cd(JHUbasedir):
-    subprocess.check_call(["tar", "-czvf", "../%s_%s_%s.tgz" % (args.name, os.environ["SCRAM_ARCH"], os.environ["CMSSW_VERSION"])] + glob.glob("*"))
+    subprocess.check_call(["tar", "czvf", "../JHUGen_%s_%s_%s.tgz" % (args.name, os.environ["SCRAM_ARCH"], os.environ["CMSSW_VERSION"])] + glob.glob("*"))
 
 if __name__ == "__main__":
   main(args)
