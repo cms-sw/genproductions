@@ -53,8 +53,7 @@ Block sminputs
 ## INFORMATION FOR YUKAWA
 ###################################
 Block yukawa 
-#    4 0.986000e+00 # ymc(3 GeV), only to be used with proper MG5 patch
-    4 1.55000e+00 # ymc(3 GeV), only to be used with proper MG5 patch
+    4 0.986000e+00 # ymc(3 GeV), only to be used with proper MG5 patch
     5 0.000000e+00 # ymb 
     6 0.000000e+00 # ymt 
    11 0.000000e+00 # yme 
