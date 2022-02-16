@@ -339,6 +339,19 @@ def evtgen_check(fragment):
         warn = 1
     return warn, err
 
+def run3_checks(fragment):
+    err = 0
+    warn = 0
+    fragment = fragment.replace(" ","")
+    print("======> Run3 Fragment check")
+    if "comEnergy" in fragment:
+        comline = re.findall('comEnergy=\S+',fragment)
+        if "13600" not in comline:
+            print(comline[0])
+            print("[ERROR] The c.o.m. energy is not specified as 13600 GeV in the fragment")
+            err = 1
+    return err
+
 def exception_for_ul_check(datatobereplaced,cross_section_fragment):
     new_data = datatobereplaced.replace(" ","")
     new_data = new_data.replace(",generateConcurrently=cms.untracked.bool(True)","")
@@ -1635,6 +1648,9 @@ for num in range(0,len(prepid)):
         if int(os.popen('grep -c -i filter '+pi).read()) > 3 and filter_eff == 1:
             print("[WARNING] Filters in the fragment but filter efficiency = 1")
             warning += 1
+        if "Run3" in pi:
+            err_tmp = run3_checks(data_f1)
+            error += err_tmp
         if args.develop is False:
             os.popen("rm -rf "+my_path+pi).read()
             os.popen("rm -rf "+my_path+'eos/'+pi).read()
