@@ -352,6 +352,17 @@ def run3_checks(fragment):
             err = 1
     return err
 
+def run3_run_card_check(filename_mggpc):
+    err = 0
+    beamenergy1 = os.popen('grep ebeam1 '+filename_mggpc).read()
+    beamenergy2 = os.popen('grep ebeam2 '+filename_mggpc).read()
+    print("======> Run3 run_card check for MG5aMC") 
+    print(beamenergy1,beamenergy2)
+    if "6800" not in beamenergy1 or "6800" not in beamenergy2:
+        print("[ERROR] The beam energy is not specified as 6800 GeV in the run_card")
+        err = 1
+    return err 
+
 def exception_for_ul_check(datatobereplaced,cross_section_fragment):
     new_data = datatobereplaced.replace(" ","")
     new_data = new_data.replace(",generateConcurrently=cms.untracked.bool(True)","")
@@ -801,6 +812,10 @@ for num in range(0,len(prepid)):
                 fname_p2 = my_path+'/'+pi+'/'+'process/Cards/run_card.dat'
                 if os.path.isfile(fname_p2) is True :
                     filename_mggpc = fname_p2
+                #file_run_card = open(filename_mggpc,"r")
+                if "Run3" in pi:
+                    err_tmp = run3_run_card_check(filename_mggpc)
+                    error += err_tmp
                 alt_ickkw_c = os.popen('more '+filename_mggpc+' | tr -s \' \' | grep "= ickkw"').read()
                 alt_ickkw_c = int(re.search(r'\d+',alt_ickkw_c).group())
                 print("MG5 matching/merging: "+str(alt_ickkw_c))
