@@ -147,7 +147,7 @@ def concurrency_check(fragment,pi,cmssw_version):
         else:
             # then if not both the LHE and GEN step turns on concurrent features, we check if for some cases it is ok not to have concurrency
             if "Pythia8HadronizerFilter" in fragment and ("evtgen" in fragment.lower() or "tauola" in fragment.lower() or "photos" in fragment.lower()):
-                print("\n Pythia8HadronizerFilter with EvtGen, Tauola, or Photos can not be made concurrently.\n")
+                print("\n Pythia8HadronizerFilter with EvtGen, Tauola, Photos, or hydjet can not be made concurrently.\n")
             elif "Herwig7GeneratorFilter" in fragment and ("wmlhegen" in pi.lower() or "plhegen" in pi.lower()): 
                 print("Herwig7GeneratorFilter in the wmLHEGEN or pLHEGEN campaign cannot run concurrently.")
             elif "Pythia8GeneratorFilter" in fragment and "randomizedparameters" in fragment.lower():
@@ -597,6 +597,7 @@ for num in range(0,len(prepid)):
         if len(cmssw_version[3]) != 2:
            cmssw_version[3] += "0"
         cmssw_version=int(cmssw_version[1]+cmssw_version[2]+cmssw_version[3])
+        data_f2 = re.sub(r'(?m)^ *#.*\n?', '',data_f1)
         concurrency_check_exception_list = ["HIG-RunIISummer20UL16GENAPV-00063",
                                             "HIG-RunIISummer20UL16GEN-00072",
                                             "HIG-RunIISummer20UL17GEN-00007",
@@ -608,13 +609,13 @@ for num in range(0,len(prepid)):
                                             "HIG-RunIISummer20UL18GEN-00009", 
                                             "HIG-RunIISummer20UL18GEN-00010" 
                                            ]
-        if "SnowmassWinter21GEN" not in pi and "SnowmassWinter21wmLHEGEN" not in pi and particle_gun == 0 and pi not in concurrency_check_exception_list:
+        if "SnowmassWinter21GEN" not in pi and "SnowmassWinter21wmLHEGEN" not in pi and particle_gun == 0 and pi not in concurrency_check_exception_list and "Hydjet" not in data_f2:
             conc_check_result, tmp_err = concurrency_check(data_f1,pi,cmssw_version)
             error += tmp_err
         else:
-            print("[WARNING] Skipping the concurrency check since these are (wmLHE)GEN-only campaigns or a particle gun or Sherpa Diphoton sample.")
+            print("[WARNING] Skipping the concurrency check since these are (wmLHE)GEN-only campaigns or a particle gun or Sherpa Diphoton or a Hydjet sample.")
             warning += 1
-        data_f2 = re.sub(r'(?m)^ *#.*\n?', '',data_f1)
+#        data_f2 = re.sub(r'(?m)^ *#.*\n?', '',data_f1)
 
         cross_section_fragment = re.findall('crossSection.*?\S+\S+',data_f2)
         if (cross_section_fragment):
@@ -816,7 +817,7 @@ for num in range(0,len(prepid)):
                 if os.path.isfile(fname_p2) is True :
                     filename_mggpc = fname_p2
                 #file_run_card = open(filename_mggpc,"r")
-                if "Run3" in pi:
+                if "Run3" in pi and "PbPb" not in pi:
                     err_tmp = run3_run_card_check(filename_mggpc)
                     error += err_tmp
                 alt_ickkw_c = os.popen('more '+filename_mggpc+' | tr -s \' \' | grep "= ickkw"').read()
@@ -1666,7 +1667,7 @@ for num in range(0,len(prepid)):
         if int(os.popen('grep -c -i filter '+pi).read()) > 3 and filter_eff == 1:
             print("[WARNING] Filters in the fragment but filter efficiency = 1")
             warning += 1
-        if "Run3" in pi:
+        if "Run3" in pi and "PbPb" not in pi:
             err_tmp = run3_checks(data_f1,dn)
             error += err_tmp
         if args.develop is False:
