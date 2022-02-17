@@ -343,7 +343,7 @@ def run3_checks(fragment,dn):
     err = 0
     warn = 0
     fragment = fragment.replace(" ","")
-    print("======> Run3 Fragment and dataset name checks")
+    print("======> Run3 Fragment and dataset name checks:")
     if "comEnergy" in fragment:
         comline = re.findall('comEnergy=\S+',fragment)
         if "13600" not in comline:
