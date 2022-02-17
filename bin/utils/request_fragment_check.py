@@ -147,7 +147,7 @@ def concurrency_check(fragment,pi,cmssw_version):
         else:
             # then if not both the LHE and GEN step turns on concurrent features, we check if for some cases it is ok not to have concurrency
             if "Pythia8HadronizerFilter" in fragment and ("evtgen" in fragment.lower() or "tauola" in fragment.lower() or "photos" in fragment.lower()):
-                print("\n Pythia8HadronizerFilter with EvtGen, Tauola, Photos, or hydjet can not be made concurrently.\n")
+                print("\n Pythia8HadronizerFilter with EvtGen, Tauola, or Photos can not be made concurrently.\n")
             elif "Herwig7GeneratorFilter" in fragment and ("wmlhegen" in pi.lower() or "plhegen" in pi.lower()): 
                 print("Herwig7GeneratorFilter in the wmLHEGEN or pLHEGEN campaign cannot run concurrently.")
             elif "Pythia8GeneratorFilter" in fragment and "randomizedparameters" in fragment.lower():
