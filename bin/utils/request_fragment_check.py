@@ -339,7 +339,7 @@ def evtgen_check(fragment):
         warn = 1
     return warn, err
 
-def run3_checks(fragment):
+def run3_checks(fragment,dn):
     err = 0
     warn = 0
     fragment = fragment.replace(" ","")
@@ -349,7 +349,10 @@ def run3_checks(fragment):
         if "13600" not in comline:
             print(comline[0])
             print("[ERROR] The c.o.m. energy is not specified as 13600 GeV in the fragment")
-            err = 1
+            err += 1
+    if "13p6TeV" not in dn:
+        print("[ERROR] The data set name does not contain 13p6TeV for this Run3 request")
+        err += 1
     return err
 
 def run3_run_card_check(filename_mggpc):
@@ -1664,7 +1667,7 @@ for num in range(0,len(prepid)):
             print("[WARNING] Filters in the fragment but filter efficiency = 1")
             warning += 1
         if "Run3" in pi:
-            err_tmp = run3_checks(data_f1)
+            err_tmp = run3_checks(data_f1,dn)
             error += err_tmp
         if args.develop is False:
             os.popen("rm -rf "+my_path+pi).read()
