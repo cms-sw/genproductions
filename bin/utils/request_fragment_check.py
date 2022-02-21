@@ -346,7 +346,7 @@ def run3_checks(fragment,dn):
     print("======> Run3 Fragment and dataset name checks:")
     if "comEnergy" in fragment:
         comline = re.findall('comEnergy=\S+',fragment)
-        if "13600" not in comline:
+        if "13600" not in comline[0]:
             print(comline[0])
             print("[ERROR] The c.o.m. energy is not specified as 13600 GeV in the fragment")
             err += 1
