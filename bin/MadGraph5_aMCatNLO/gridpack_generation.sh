@@ -431,6 +431,11 @@ make_gridpack () {
     #Add PDF info and copy run card #
     #################################
     script_dir="${PRODHOME}/Utilities/scripts"
+    echo "CHECK ================================================"
+    echo ${PRODHOME}
+    ls
+    pwd
+    echo "CHECK ================================================"
     if [ ! -d "$script_dir" ]; then
       if ! [ -x "$(command -v git)" ]; then
         script_dir=${PRODHOME%genproductions*}/genproductions/Utilities/scripts
@@ -438,7 +443,12 @@ make_gridpack () {
         script_dir=$(git rev-parse --show-toplevel)/Utilities/scripts
       fi
     fi
-    
+
+    echo "CHECK ================================================"
+    echo ${PRODHOME}
+    ls
+    pwd
+    echo "CHECK ================================================"    
     prepare_run_card $name $CARDSDIR $is5FlavorScheme $script_dir $isnlo
     
     #copy provided custom fks params or cuts
