@@ -1,0 +1,551 @@
+change rwgt_dir ./rwgt
+
+launch
+set mass 6 1.7250000e+02
+set yukawa 6 1.7250000e+02
+set DECAY 6 10.00000e+00
+
+launch
+set mass 6 1.7250000e+02
+set yukawa 6 1.7250000e+02
+set DECAY 6 9.50000e+00
+
+launch
+set mass 6 1.7250000e+02
+set yukawa 6 1.7250000e+02
+set DECAY 6 9.00000e+00
+
+launch
+set mass 6 1.7250000e+02
+set yukawa 6 1.7250000e+02
+set DECAY 6 8.50000e+00
+
+launch
+set mass 6 1.7250000e+02
+set yukawa 6 1.7250000e+02
+set DECAY 6 8.00000e+00
+
+launch
+set mass 6 1.7250000e+02
+set yukawa 6 1.7250000e+02
+set DECAY 6 7.50000e+00
+
+launch
+set mass 6 1.7250000e+02
+set yukawa 6 1.7250000e+02
+set DECAY 6 7.00000e+00
+
+launch
+set mass 6 1.7250000e+02
+set yukawa 6 1.7250000e+02
+set DECAY 6 6.50000e+00
+
+launch
+set mass 6 1.7250000e+02
+set yukawa 6 1.7250000e+02
+set DECAY 6 6.00000e+00
+
+launch
+set mass 6 1.7250000e+02
+set yukawa 6 1.7250000e+02
+set DECAY 6 5.50000e+00
+
+launch
+set mass 6 1.7250000e+02
+set yukawa 6 1.7250000e+02
+set DECAY 6 5.00000e+00
+
+launch
+set mass 6 1.7250000e+02
+set yukawa 6 1.7250000e+02
+set DECAY 6 4.50000e+00
+
+launch
+set mass 6 1.7250000e+02
+set yukawa 6 1.7250000e+02
+set DECAY 6 4.00000e+00
+
+launch
+set mass 6 1.7250000e+02
+set yukawa 6 1.7250000e+02
+set DECAY 6 3.50000e+00
+
+launch
+set mass 6 1.7250000e+02
+set yukawa 6 1.7250000e+02
+set DECAY 6 3.00000e+00
+
+launch
+set mass 6 1.7250000e+02
+set yukawa 6 1.7250000e+02
+set DECAY 6 2.50000e+00
+
+launch
+set mass 6 1.7250000e+02
+set yukawa 6 1.7250000e+02
+set DECAY 6 2.00000e+00
+
+launch
+set mass 6 1.7250000e+02
+set yukawa 6 1.7250000e+02
+set DECAY 6 1.50000e+00
+
+launch
+set mass 6 1.7250000e+02
+set yukawa 6 1.7250000e+02
+set DECAY 6 1.322000e+00
+
+launch
+set mass 6 1.7250000e+02
+set yukawa 6 1.7250000e+02
+set DECAY 6 1.00000e+00
+
+launch
+set mass 6 1.7250000e+02
+set yukawa 6 1.7250000e+02
+set DECAY 6 0.50000e+00
+
+
+
+
+
+launch
+set mass 6 1.7300000e+02
+set yukawa 6 1.7300000e+02
+set DECAY 6 10.00000e+00
+
+launch
+set mass 6 1.7300000e+02
+set yukawa 6 1.7300000e+02
+set DECAY 6 9.50000e+00
+
+launch
+set mass 6 1.7300000e+02
+set yukawa 6 1.7300000e+02
+set DECAY 6 9.00000e+00
+
+launch
+set mass 6 1.7300000e+02
+set yukawa 6 1.7300000e+02
+set DECAY 6 8.50000e+00
+
+launch
+set mass 6 1.7300000e+02
+set yukawa 6 1.7300000e+02
+set DECAY 6 8.00000e+00
+
+launch
+set mass 6 1.7300000e+02
+set yukawa 6 1.7300000e+02
+set DECAY 6 7.50000e+00
+
+launch
+set mass 6 1.7300000e+02
+set yukawa 6 1.7300000e+02
+set DECAY 6 7.00000e+00
+
+launch
+set mass 6 1.7300000e+02
+set yukawa 6 1.7300000e+02
+set DECAY 6 6.50000e+00
+
+launch
+set mass 6 1.7300000e+02
+set yukawa 6 1.7300000e+02
+set DECAY 6 6.00000e+00
+
+launch
+set mass 6 1.7300000e+02
+set yukawa 6 1.7300000e+02
+set DECAY 6 5.50000e+00
+
+launch
+set mass 6 1.7300000e+02
+set yukawa 6 1.7300000e+02
+set DECAY 6 5.00000e+00
+
+launch
+set mass 6 1.7300000e+02
+set yukawa 6 1.7300000e+02
+set DECAY 6 4.50000e+00
+
+launch
+set mass 6 1.7300000e+02
+set yukawa 6 1.7300000e+02
+set DECAY 6 4.00000e+00
+
+launch
+set mass 6 1.7300000e+02
+set yukawa 6 1.7300000e+02
+set DECAY 6 3.50000e+00
+
+launch
+set mass 6 1.7300000e+02
+set yukawa 6 1.7300000e+02
+set DECAY 6 3.00000e+00
+
+launch
+set mass 6 1.7300000e+02
+set yukawa 6 1.7300000e+02
+set DECAY 6 2.50000e+00
+
+launch
+set mass 6 1.7300000e+02
+set yukawa 6 1.7300000e+02
+set DECAY 6 2.00000e+00
+
+launch
+set mass 6 1.7300000e+02
+set yukawa 6 1.7300000e+02
+set DECAY 6 1.50000e+00
+
+launch
+set mass 6 1.7300000e+02
+set yukawa 6 1.7300000e+02
+set DECAY 6 1.322000e+00
+
+launch
+set mass 6 1.7300000e+02
+set yukawa 6 1.7300000e+02
+set DECAY 6 1.00000e+00
+
+launch
+set mass 6 1.7300000e+02
+set yukawa 6 1.7300000e+02
+set DECAY 6 0.50000e+00
+
+
+
+
+
+
+
+
+launch
+set mass 6 1.7350000e+02
+set yukawa 6 1.7350000e+02
+set DECAY 6 10.00000e+00
+
+launch
+set mass 6 1.7350000e+02
+set yukawa 6 1.7350000e+02
+set DECAY 6 9.50000e+00
+
+launch
+set mass 6 1.7350000e+02
+set yukawa 6 1.7350000e+02
+set DECAY 6 9.00000e+00
+
+launch
+set mass 6 1.7350000e+02
+set yukawa 6 1.7350000e+02
+set DECAY 6 8.50000e+00
+
+launch
+set mass 6 1.7350000e+02
+set yukawa 6 1.7350000e+02
+set DECAY 6 8.00000e+00
+
+launch
+set mass 6 1.7350000e+02
+set yukawa 6 1.7350000e+02
+set DECAY 6 7.50000e+00
+
+launch
+set mass 6 1.7350000e+02
+set yukawa 6 1.7350000e+02
+set DECAY 6 7.00000e+00
+
+launch
+set mass 6 1.7350000e+02
+set yukawa 6 1.7350000e+02
+set DECAY 6 6.50000e+00
+
+launch
+set mass 6 1.7350000e+02
+set yukawa 6 1.7350000e+02
+set DECAY 6 6.00000e+00
+
+launch
+set mass 6 1.7350000e+02
+set yukawa 6 1.7350000e+02
+set DECAY 6 5.50000e+00
+
+launch
+set mass 6 1.7350000e+02
+set yukawa 6 1.7350000e+02
+set DECAY 6 5.00000e+00
+
+launch
+set mass 6 1.7350000e+02
+set yukawa 6 1.7350000e+02
+set DECAY 6 4.50000e+00
+
+launch
+set mass 6 1.7350000e+02
+set yukawa 6 1.7350000e+02
+set DECAY 6 4.00000e+00
+
+launch
+set mass 6 1.7350000e+02
+set yukawa 6 1.7350000e+02
+set DECAY 6 3.50000e+00
+
+launch
+set mass 6 1.7350000e+02
+set yukawa 6 1.7350000e+02
+set DECAY 6 3.00000e+00
+
+launch
+set mass 6 1.7350000e+02
+set yukawa 6 1.7350000e+02
+set DECAY 6 2.50000e+00
+
+launch
+set mass 6 1.7350000e+02
+set yukawa 6 1.7350000e+02
+set DECAY 6 2.00000e+00
+
+launch
+set mass 6 1.7350000e+02
+set yukawa 6 1.7350000e+02
+set DECAY 6 1.50000e+00
+
+launch
+set mass 6 1.7350000e+02
+set yukawa 6 1.7350000e+02
+set DECAY 6 1.322000e+00
+
+launch
+set mass 6 1.7350000e+02
+set yukawa 6 1.7350000e+02
+set DECAY 6 1.00000e+00
+
+launch
+set mass 6 1.7350000e+02
+set yukawa 6 1.7350000e+02
+set DECAY 6 0.50000e+00
+
+
+
+
+
+
+
+
+launch
+set mass 6 1.7200000e+02
+set yukawa 6 1.7200000e+02
+set DECAY 6 10.00000e+00
+
+launch
+set mass 6 1.7200000e+02
+set yukawa 6 1.7200000e+02
+set DECAY 6 9.50000e+00
+
+launch
+set mass 6 1.7200000e+02
+set yukawa 6 1.7200000e+02
+set DECAY 6 9.00000e+00
+
+launch
+set mass 6 1.7200000e+02
+set yukawa 6 1.7200000e+02
+set DECAY 6 8.50000e+00
+
+launch
+set mass 6 1.7200000e+02
+set yukawa 6 1.7200000e+02
+set DECAY 6 8.00000e+00
+
+launch
+set mass 6 1.7200000e+02
+set yukawa 6 1.7200000e+02
+set DECAY 6 7.50000e+00
+
+launch
+set mass 6 1.7200000e+02
+set yukawa 6 1.7200000e+02
+set DECAY 6 7.00000e+00
+
+launch
+set mass 6 1.7200000e+02
+set yukawa 6 1.7200000e+02
+set DECAY 6 6.50000e+00
+
+launch
+set mass 6 1.7200000e+02
+set yukawa 6 1.7200000e+02
+set DECAY 6 6.00000e+00
+
+launch
+set mass 6 1.7200000e+02
+set yukawa 6 1.7200000e+02
+set DECAY 6 5.50000e+00
+
+launch
+set mass 6 1.7200000e+02
+set yukawa 6 1.7200000e+02
+set DECAY 6 5.00000e+00
+
+launch
+set mass 6 1.7200000e+02
+set yukawa 6 1.7200000e+02
+set DECAY 6 4.50000e+00
+
+launch
+set mass 6 1.7200000e+02
+set yukawa 6 1.7200000e+02
+set DECAY 6 4.00000e+00
+
+launch
+set mass 6 1.7200000e+02
+set yukawa 6 1.7200000e+02
+set DECAY 6 3.50000e+00
+
+launch
+set mass 6 1.7200000e+02
+set yukawa 6 1.7200000e+02
+set DECAY 6 3.00000e+00
+
+launch
+set mass 6 1.7200000e+02
+set yukawa 6 1.7200000e+02
+set DECAY 6 2.50000e+00
+
+launch
+set mass 6 1.7200000e+02
+set yukawa 6 1.7200000e+02
+set DECAY 6 2.00000e+00
+
+launch
+set mass 6 1.7200000e+02
+set yukawa 6 1.7200000e+02
+set DECAY 6 1.50000e+00
+
+launch
+set mass 6 1.7200000e+02
+set yukawa 6 1.7200000e+02
+set DECAY 6 1.322000e+00
+
+launch
+set mass 6 1.7200000e+02
+set yukawa 6 1.7200000e+02
+set DECAY 6 1.00000e+00
+
+launch
+set mass 6 1.7200000e+02
+set yukawa 6 1.7200000e+02
+set DECAY 6 0.50000e+00
+
+
+
+
+
+
+
+launch
+set mass 6 1.7150000e+02
+set yukawa 6 1.7150000e+02
+set DECAY 6 10.00000e+00
+
+launch
+set mass 6 1.7150000e+02
+set yukawa 6 1.7150000e+02
+set DECAY 6 9.50000e+00
+
+launch
+set mass 6 1.7150000e+02
+set yukawa 6 1.7150000e+02
+set DECAY 6 9.00000e+00
+
+launch
+set mass 6 1.7150000e+02
+set yukawa 6 1.7150000e+02
+set DECAY 6 8.50000e+00
+
+launch
+set mass 6 1.7150000e+02
+set yukawa 6 1.7150000e+02
+set DECAY 6 8.00000e+00
+
+launch
+set mass 6 1.7150000e+02
+set yukawa 6 1.7150000e+02
+set DECAY 6 7.50000e+00
+
+launch
+set mass 6 1.7150000e+02
+set yukawa 6 1.7150000e+02
+set DECAY 6 7.00000e+00
+
+launch
+set mass 6 1.7150000e+02
+set yukawa 6 1.7150000e+02
+set DECAY 6 6.50000e+00
+
+launch
+set mass 6 1.7150000e+02
+set yukawa 6 1.7150000e+02
+set DECAY 6 6.00000e+00
+
+launch
+set mass 6 1.7150000e+02
+set yukawa 6 1.7150000e+02
+set DECAY 6 5.50000e+00
+
+launch
+set mass 6 1.7150000e+02
+set yukawa 6 1.7150000e+02
+set DECAY 6 5.00000e+00
+
+launch
+set mass 6 1.7150000e+02
+set yukawa 6 1.7150000e+02
+set DECAY 6 4.50000e+00
+
+launch
+set mass 6 1.7150000e+02
+set yukawa 6 1.7150000e+02
+set DECAY 6 4.00000e+00
+
+launch
+set mass 6 1.7150000e+02
+set yukawa 6 1.7150000e+02
+set DECAY 6 3.50000e+00
+
+launch
+set mass 6 1.7150000e+02
+set yukawa 6 1.7150000e+02
+set DECAY 6 3.00000e+00
+
+launch
+set mass 6 1.7150000e+02
+set yukawa 6 1.7150000e+02
+set DECAY 6 2.50000e+00
+
+launch
+set mass 6 1.7150000e+02
+set yukawa 6 1.7150000e+02
+set DECAY 6 2.00000e+00
+
+launch
+set mass 6 1.7150000e+02
+set yukawa 6 1.7150000e+02
+set DECAY 6 1.50000e+00
+
+launch
+set mass 6 1.7150000e+02
+set yukawa 6 1.7150000e+02
+set DECAY 6 1.322000e+00
+
+launch
+set mass 6 1.7150000e+02
+set yukawa 6 1.7150000e+02
+set DECAY 6 1.00000e+00
+
+launch
+set mass 6 1.7150000e+02
+set yukawa 6 1.7150000e+02
+set DECAY 6 0.50000e+00
+

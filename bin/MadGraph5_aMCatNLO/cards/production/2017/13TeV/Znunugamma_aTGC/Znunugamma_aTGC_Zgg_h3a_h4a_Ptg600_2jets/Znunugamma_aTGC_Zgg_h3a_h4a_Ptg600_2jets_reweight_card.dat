@@ -1,0 +1,592 @@
+change rwgt_dir rwgt
+launch --rwgt_name=Zggh3am4em4h4am5em7
+set f4a 0.0
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a -4e-4
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a -5e-7
+set h4Z 0.0
+
+launch --rwgt_name=Zggh3am4em4h4am4em7
+set f4a 0.0
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a -4e-4
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a -4e-7
+set h4Z 0.0
+
+launch --rwgt_name=Zggh3am4em4h4am2em7
+set f4a 0.0
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a -4e-4
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a -2e-7
+set h4Z 0.0
+
+launch --rwgt_name=Zggh3am4em4h4a0p0
+set f4a 0.0
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a -4e-4
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z 0.0
+
+launch --rwgt_name=Zggh3am4em4h4a2em7
+set f4a 0.0
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a -4e-4
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 2e-7
+set h4Z 0.0
+
+launch --rwgt_name=Zggh3am4em4h4a4em7
+set f4a 0.0
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a -4e-4
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 4e-7
+set h4Z 0.0
+
+launch --rwgt_name=Zggh3am4em4h4a5em7
+set f4a 0.0
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a -4e-4
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 5e-7
+set h4Z 0.0
+
+launch --rwgt_name=Zggh3am3p5em4h4am5em7
+set f4a 0.0
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a -3.5e-4
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a -5e-7
+set h4Z 0.0
+
+launch --rwgt_name=Zggh3am3p5em4h4am4em7
+set f4a 0.0
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a -3.5e-4
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a -4e-7
+set h4Z 0.0
+
+launch --rwgt_name=Zggh3am3p5em4h4am2em7
+set f4a 0.0
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a -3.5e-4
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a -2e-7
+set h4Z 0.0
+
+launch --rwgt_name=Zggh3am3p5em4h4a0p0
+set f4a 0.0
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a -3.5e-4
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z 0.0
+
+launch --rwgt_name=Zggh3am3p5em4h4a2em7
+set f4a 0.0
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a -3.5e-4
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 2e-7
+set h4Z 0.0
+
+launch --rwgt_name=Zggh3am3p5em4h4a4em7
+set f4a 0.0
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a -3.5e-4
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 4e-7
+set h4Z 0.0
+
+launch --rwgt_name=Zggh3am3p5em4h4a5em7
+set f4a 0.0
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a -3.5e-4
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 5e-7
+set h4Z 0.0
+
+launch --rwgt_name=Zggh3a2em4h4am5em7
+set f4a 0.0
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 2e-4
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a -5e-7
+set h4Z 0.0
+
+launch --rwgt_name=Zggh3a2em4h4am4em7
+set f4a 0.0
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 2e-4
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a -4e-7
+set h4Z 0.0
+
+launch --rwgt_name=Zggh3a2em4h4am2em7
+set f4a 0.0
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 2e-4
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a -2e-7
+set h4Z 0.0
+
+launch --rwgt_name=Zggh3a2em4h4a0p0
+set f4a 0.0
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 2e-4
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z 0.0
+
+launch --rwgt_name=Zggh3a2em4h4a2em7
+set f4a 0.0
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 2e-4
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 2e-7
+set h4Z 0.0
+
+launch --rwgt_name=Zggh3a2em4h4a4em7
+set f4a 0.0
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 2e-4
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 4e-7
+set h4Z 0.0
+
+launch --rwgt_name=Zggh3a2em4h4p5em7
+set f4a 0.0
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 2e-4
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 5e-7
+set h4Z 0.0
+
+launch --rwgt_name=Zggh3a0p0h4am5em7
+set f4a 0.0
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 0.0
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a -5e-7
+set h4Z 0.0
+
+launch --rwgt_name=Zggh3a0p0h4am4em7
+set f4a 0.0
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 0.0
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a -4e-7
+set h4Z 0.0
+
+launch --rwgt_name=Zggh3a0p0h4am2em7
+set f4a 0.0
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 0.0
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a -2e-7
+set h4Z 0.0
+
+launch --rwgt_name=Zggh3a0p0h4a0p0
+set f4a 0.0
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 0.0
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z 0.0
+
+launch --rwgt_name=Zggh3a0p0h4a2em7
+set f4a 0.0
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 0.0
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 2e-7
+set h4Z 0.0
+
+launch --rwgt_name=Zggh3a0p0h4a4em7
+set f4a 0.0
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 0.0
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 4e-7
+set h4Z 0.0
+
+launch --rwgt_name=Zggh3a0p0h4a5em7
+set f4a 0.0
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 0.0
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 5e-7
+set h4Z 0.0
+
+launch --rwgt_name=Zggh3a3p5em4h4am5em7
+set f4a 0.0
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 3.5e-4
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a -5e-7
+set h4Z 0.0
+
+launch --rwgt_name=Zggh3a3p5em4h4am4em7
+set f4a 0.0
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 3.5e-4
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a -4e-7
+set h4Z 0.0
+
+launch --rwgt_name=Zggh3a3p5em4h4am2em7
+set f4a 0.0
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 3.5e-4
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a -2e-7
+set h4Z 0.0
+
+launch --rwgt_name=Zggh3a3p5em4h4a0p0
+set f4a 0.0
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 3.5e-4
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z 0.0
+
+launch --rwgt_name=Zggh3a3p5em4h4a2em7
+set f4a 0.0
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 3.5e-4
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 2e-7
+set h4Z 0.0
+
+launch --rwgt_name=Zggh3a3p5em4h4a4em7
+set f4a 0.0
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 3.5e-4
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 4e-7
+set h4Z 0.0
+
+launch --rwgt_name=Zggh3a3p5em4h4a5em7
+set f4a 0.0
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 3.5e-4
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 5e-7
+set h4Z 0.0
+
+launch --rwgt_name=Zggh3a4em4h4am5em7
+set f4a 0.0
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 4e-4
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a -5e-7
+set h4Z 0.0
+
+launch --rwgt_name=Zggh3a4em4h4am4em7
+set f4a 0.0
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 4e-4
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a -4e-7
+set h4Z 0.0
+
+launch --rwgt_name=Zggh3a4em4h4am2em7
+set f4a 0.0
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 4e-4
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a -2e-7
+set h4Z 0.0
+
+launch --rwgt_name=Zggh3a4em4h4a0p0
+set f4a 0.0
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 4e-4
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z 0.0
+
+launch --rwgt_name=Zggh3a4em4h4a2em7
+set f4a 0.0
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 4e-4
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 2e-7
+set h4Z 0.0
+
+launch --rwgt_name=Zggh3a4em4h4a4em7
+set f4a 0.0
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 4e-4
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 4e-7
+set h4Z 0.0
+
+launch --rwgt_name=Zggh3a4em4h4a5em7
+set f4a 0.0
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 4e-4
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 5e-7
+set h4Z 0.0
+
+
+
+

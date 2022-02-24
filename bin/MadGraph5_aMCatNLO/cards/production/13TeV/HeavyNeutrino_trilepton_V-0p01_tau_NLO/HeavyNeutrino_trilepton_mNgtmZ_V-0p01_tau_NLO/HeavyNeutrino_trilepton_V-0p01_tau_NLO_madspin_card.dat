@@ -1,0 +1,9 @@
+set ms_dir ./madspingrid
+set Nevents_for_max_weigth 250
+set max_weight_ps_point 400
+set spinmode full
+set max_running_process 1
+define w = w+ w-
+decay n1 > l w, w > ldecay v
+decay n1 > v z, z > ldecay ldecay
+launch

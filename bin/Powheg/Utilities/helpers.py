@@ -1,4 +1,4 @@
-import string 
+import string
 
 def fillTemplatedFile(template_file_name, out_file_name, template_dict, openmode = "a"):
     with open(template_file_name, "r") as templateFile:
@@ -6,6 +6,39 @@ def fillTemplatedFile(template_file_name, out_file_name, template_dict, openmode
         result = source.substitute(template_dict)
     with open(out_file_name, openmode) as outFile:
         outFile.write(result)
+
+def runGetSource_patch_0(process) :
+  return {
+   "X0jj" :"echo ' MADGRAPH+POWHEG INSTALL '\n \
+cd ${WORKDIR}/${name}\n \
+export MG_NAME=MG5_aMC_v2_6_7\n \
+echo 'Untar MG5_aMC_v2.6.7'\n \
+wget https://launchpad.net/mg5amcnlo/2.0/2.6.x/+download/MG5_aMC_v2.6.7.tar.gz\n \
+tar xzvf MG5_aMC_v2.6.7.tar.gz\n \
+cd $MG_NAME\n \
+echo 'Untar Powheg plugin'\n \
+cd PLUGIN\n \
+wget https://cms-project-generators.web.cern.ch/cms-project-generators/PWG_MG5_plugin_v0.tgz\n \
+tar xzvf PWG_MG5_plugin_v0.tgz\n \
+cd ..\n \
+echo 'Run mg5_aMC'\n \
+./bin/mg5_aMC --mode=MG5aMC_PWG --file=../../examples/V2/X0jj_13TeV/mg5.cmd\n \
+echo 'Make POWHEG-BOX link'\n \
+cd ${process}\n \
+ln -s ../../POWHEG-BOX POWHEG-BOX\n \
+echo 'Checkout source'\n \
+POWHEG-BOX/X0jj/clean_BEFORE_svn-save.sh\n \
+cp -rp POWHEG-BOX/X0jj/* .\n \
+echo 'Patch Makefile'\n \
+sed -i -e 's#../svnversion#POWHEG-BOX/svnversion#g' Makefile\n \
+sed -i -e 's#BOX=/[\*]*/POWHEG-BOX-V2#BOX=POWHEG-BOX#g' Makefile\n \
+echo 'Copy files for MadLoopParams'\n \
+cp SubProcesses/MadLoopParams.dat ${WORKDIR}/${name}\n \
+for f in `ls  SubProcesses/MadLoop5_resources/*` ; do\n \
+    ln -sf $MG_NAME/${process}/$f ${WORKDIR}/${name}\n \
+done\n \
+echo 'MADGRAPH+POWHEG END-INSTALL'",
+    }.get(process,"")
 
 def runGetSource_patch_1(process) :
   return {
@@ -23,7 +56,7 @@ cp ${patches_dir}/rwl_write_weights2_extra.f POWHEG-BOX/$process/",
     "VBF_H_smeft" : "cd POWHEG-BOX/VBF_H_smeft\n \
 head -n 966 pwhg_analysis.f | tail -n 12 > pwhg_analysis_new.f\n \
 mv pwhg_analysis_new.f pwhg_analysis.f\n \
-cd ../..", 
+cd ../..",
     }.get(process,"")
 
 def runGetSource_patch_2(process) :
@@ -193,6 +226,105 @@ cd ../..\n \
 cp Makefile Makefile.orig\n \
 cat Makefile.orig | sed -e \"s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d \"=\" -f2)/bin/fastjet-config#g\" | sed -e \"s#RECOLALOCATION=.\+#RECOLALOCATION=$\(PWD\)/recola2-collier-2.2.0/recola2-2.2.0#g\" | sed -e \"s# real16.o##g\" | sed -e \"s#test#none#g\" | sed -e \"s#none_Suda#test_Suda#g\" > Makefile\n \
 export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:${LD_LIBRARY_PATH}",
+
+"Wtt_dec" : " cd ../../\n \
+echo \"Adding NLOX libraries to: $(pwd)\"\n \
+if [ ! -f NLOX_util_1.2.0.tar.gz ]; then\n \
+  wget --no-verbose --user NLOX --password LoopsAreCool http://www.hep.fsu.edu/~nlox/downloads/v1.2.0/NLOX_util_1.2.0.tar.gz || fail_exit \"Failed to get NLOX_util_1.2.0 tar ball\"\n \
+fi\n \
+if [ ! -f NLOX_1.2.0.tar.gz ]; then\n \
+  wget --user NLOX --password LoopsAreCool http://www.hep.fsu.edu/~nlox/downloads/v1.2.0/NLOX_1.2.0.tar.gz || fail_exit \"Failed to get NLOX_1.2.0 tar ball\"\n \
+fi\n \
+if [ ! -d NLOX_util_1.2.0 ]; then\n \
+    tar -xzvf NLOX_util_1.2.0.tar.gz\n \
+fi\n \
+if [ ! -d NLOX_1.2.0 ]; then\n \
+    tar -xzvf NLOX_1.2.0.tar.gz\n \
+fi\n \
+cd NLOX_util_1.2.0\n \
+export abs_NLOX_util_path=$(pwd)\n \
+echo \"Setting abs_NLOX_util_path=\"${abs_NLOX_util_path}\n \
+./install_nlox_util.sh --prefix=${abs_NLOX_util_path}\n \
+cd OneLOop-3.6\n \
+export abs_OneLOop_path=$(pwd)\n \
+echo \"Exporting OneLOop-3.6 path: \" ${abs_OneLOop_path} \n \
+cd ../QCDLoop-1.95\n \
+export abs_QCDLoop_path=`pwd`\n \
+echo \"Exporting QCDLoop-1.95 path:\" ${abs_QCDLoop_path}\n \
+cd ../../NLOX_1.2.0\n \
+export abs_NLOX_path=`pwd`\n \
+echo \"Setting abs_NLOX_path=\" ${abs_NLOX_path}\n \
+./install_nlox.sh --with-nloxutil=${abs_NLOX_util_path}\n \
+if [ ! -f pp_Wpttbar.tar.gz ]; then\n \
+  wget --user NLOX --password LoopsAreCool http://www.hep.fsu.edu/~nlox/downloads/processes/v1.2.0/pp_Wpttbar.tar.gz || fail_exit \"Failed to get pp_Wpttbar tar ball\"\n \
+fi\n \
+if [ ! -f pp_Wmttbar.tar.gz ]; then\n \
+  wget --user NLOX --password LoopsAreCool http://www.hep.fsu.edu/~nlox/downloads/processes/v1.2.0/pp_Wmttbar.tar.gz || fail_exit \"Failed to get pp_Wmttbar tar ball\"\n \
+fi\n \
+tar -xzvf pp_Wpttbar.tar.gz\n \
+tar -xzvf pp_Wmttbar.tar.gz\n \
+cd pp_Wpttbar\n \
+echo \"Editing and compiling Makefiles in \" $(pwd)\n \
+sed -i -e \"s|# NLOX_DIR=<nlox_builddir>|NLOX_DIR=${abs_NLOX_path}|\" Makefile_process\n \
+sed -i -e \"s|# NLOX_UTIL_DIR=<nlox_util_builddir>|NLOX_UTIL_DIR=${abs_NLOX_util_path}|\" Makefile_process\n \
+make -j 10 library flibrary -f Makefile_process\n \
+cd ../pp_Wmttbar\n \
+echo \"Editing and compiling Makefiles in $(pwd)/pp_Wmttbar\"\n \
+sed -i -e \"s|# NLOX_DIR=<nlox_builddir>|NLOX_DIR=${abs_NLOX_path}|\" Makefile_process\n \
+sed -i -e \"s|# NLOX_UTIL_DIR=<nlox_util_builddir>|NLOX_UTIL_DIR=${abs_NLOX_util_path}|\" Makefile_process\n \
+make -j 10 library flibrary -f Makefile_process\n \
+cd ../..\n \
+export process=\"Wtt_dec\"\n \
+cd POWHEG-BOX/${process}/pp_ttWp_EW\n \
+echo \"Editing and compiling Makefiles in `pwd`\"\n \
+LHAPDF_BASE=`scram tool info lhapdf | grep LHAPDF_BASE |cut -d \"=\" -f2`\n \
+echo \"LHAPDF_BASE: ${LHAPDF_BASE}\"\n \
+sed -i -e \"s|ONELOOPDIR=\$(NLOX_UTIL_DIR)\/lib\/NLOX_util\/|ONELOOPDIR=${abs_OneLOop_path}|\" Makefile\n \
+sed -i -e \"s|QCDLOOPDIR=\$(ONELOOPDIR)|QCDLOOPDIR=${abs_QCDLoop_path}|\" Makefile\n \
+sed -i -e \"s|COMMON_LIB_DIRS+=-L\$(QCDLOOPDIR)/lib64|COMMON_LIB_DIRS+=-L\$(QCDLOOPDIR)/ff/|\" Makefile\n \
+sed -i \"0,/COMMON_LIB_DIRS+=-L\$(QCDLOOPDIR)/! {0,/COMMON_LIB_DIRS+=-L\$(QCDLOOPDIR)/ s/COMMON_LIB_DIRS+=-L\$(QCDLOOPDIR)/COMMON_LIB_DIRS += -L\$(QCDLOOPDIR)\/ql\//}\" Makefile\n \
+sed -i -e \"s|#LHAPDF_CONFIG=\$(HOME)\/local|LHAPDF_CONFIG=${LHAPDF_BASE}|\" Makefile\n \
+sed -i -e \"s|#NLOX_DIR=\$(HOME)\/NLOX|NLOX_DIR=${abs_NLOX_path}|\" Makefile\n \
+sed -i -e \"s|#NLOX_UTIL_DIR=\$(HOME)\/NLOX\/UTIL\/|NLOX_UTIL_DIR=${abs_NLOX_util_path}|\" Makefile\n \
+make clean \n \
+make\n \
+cd ../pp_ttWp_QCD\n \
+echo \"Editing and compiling Makefiles in `pwd`\"\n \
+sed -i -e \"s|ONELOOPDIR=\$(NLOX_UTIL_DIR)\/lib\/NLOX_util\/|ONELOOPDIR=${abs_OneLOop_path}|\" Makefile\n \
+sed -i -e \"s|QCDLOOPDIR=\$(ONELOOPDIR)|QCDLOOPDIR=${abs_QCDLoop_path}|\" Makefile\n \
+sed -i -e \"s|COMMON_LIB_DIRS+=-L\$(QCDLOOPDIR)/lib64|COMMON_LIB_DIRS+=-L\$(QCDLOOPDIR)/ff/|\" Makefile\n \
+sed -i \"0,/COMMON_LIB_DIRS+=-L\$(QCDLOOPDIR)/! {0,/COMMON_LIB_DIRS+=-L\$(QCDLOOPDIR)/ s/COMMON_LIB_DIRS+=-L\$(QCDLOOPDIR)/COMMON_LIB_DIRS += -L\$(QCDLOOPDIR)\/ql\//}\" Makefile\n \
+sed -i -e \"s|#LHAPDF_CONFIG=\$(HOME)\/local|LHAPDF_CONFIG=${LHAPDF_BASE}|\" Makefile\n \
+sed -i -e \"s|#NLOX_DIR=\$(HOME)\/NLOX|NLOX_DIR=${abs_NLOX_path}|\" Makefile\n \
+sed -i -e \"s|#NLOX_UTIL_DIR=\$(HOME)\/NLOX\/UTIL\/|NLOX_UTIL_DIR=${abs_NLOX_util_path}|\" Makefile\n \
+make clean \n \
+make\n \
+cd ../pp_ttWm_EW\n \
+echo \"Editing and compiling Makefiles in `pwd`\"\n \
+sed -i -e \"s|ONELOOPDIR=\$(NLOX_UTIL_DIR)\/lib\/NLOX_util\/|ONELOOPDIR=${abs_OneLOop_path}|\" Makefile\n \
+sed -i -e \"s|QCDLOOPDIR=\$(ONELOOPDIR)|QCDLOOPDIR=${abs_QCDLoop_path}|\" Makefile\n \
+sed -i -e \"s|COMMON_LIB_DIRS+=-L\$(QCDLOOPDIR)/lib64|COMMON_LIB_DIRS+=-L\$(QCDLOOPDIR)/ff/|\" Makefile\n \
+sed -i \"0,/COMMON_LIB_DIRS+=-L\$(QCDLOOPDIR)/! {0,/COMMON_LIB_DIRS+=-L\$(QCDLOOPDIR)/ s/COMMON_LIB_DIRS+=-L\$(QCDLOOPDIR)/COMMON_LIB_DIRS += -L\$(QCDLOOPDIR)\/ql\//}\" Makefile\n \
+sed -i -e \"s|#LHAPDF_CONFIG=\$(HOME)\/local|LHAPDF_CONFIG=${LHAPDF_BASE}|\" Makefile\n \
+sed -i -e \"s|#NLOX_DIR=\$(HOME)\/NLOX|NLOX_DIR=${abs_NLOX_path}|\" Makefile\n \
+sed -i -e \"s|#NLOX_UTIL_DIR=\$(HOME)\/NLOX\/UTIL\/|NLOX_UTIL_DIR=${abs_NLOX_util_path}|\" Makefile\n \
+make clean \n \
+make\n \
+cd ../pp_ttWm_QCD\n \
+echo \"Editing and compiling Makefiles in $(pwd)\"\n \
+sed -i -e \"s|ONELOOPDIR=\$(NLOX_UTIL_DIR)\/lib\/NLOX_util\/|ONELOOPDIR=${abs_OneLOop_path}|\" Makefile\n \
+sed -i -e \"s|QCDLOOPDIR=\$(ONELOOPDIR)|QCDLOOPDIR=${abs_QCDLoop_path}|\" Makefile\n \
+sed -i -e \"s|COMMON_LIB_DIRS+=-L\$(QCDLOOPDIR)/lib64|COMMON_LIB_DIRS+=-L\$(QCDLOOPDIR)/ff/|\" Makefile\n \
+sed -i \"0,/COMMON_LIB_DIRS+=-L\$(QCDLOOPDIR)/! {0,/COMMON_LIB_DIRS+=-L\$(QCDLOOPDIR)/ s/COMMON_LIB_DIRS+=-L\$(QCDLOOPDIR)/COMMON_LIB_DIRS += -L\$(QCDLOOPDIR)\/ql\//}\" Makefile\n \
+sed -i -e \"s|#LHAPDF_CONFIG=\$(HOME)\/local|LHAPDF_CONFIG=${LHAPDF_BASE}|\" Makefile\n \
+sed -i -e \"s|#NLOX_DIR=\$(HOME)\/NLOX|NLOX_DIR=${abs_NLOX_path}|\" Makefile\n \
+sed -i -e \"s|#NLOX_UTIL_DIR=\$(HOME)\/NLOX\/UTIL\/|NLOX_UTIL_DIR=${abs_NLOX_util_path}|\" Makefile\n \
+make clean \n \
+make\n \
+cd ../\n \
+echo \"Leaving patch6 for ${process} in directory $(pwd)\"\n \
+    ",
+    
     }.get(process,"")
 
 def runGetSource_patch_7(process) :

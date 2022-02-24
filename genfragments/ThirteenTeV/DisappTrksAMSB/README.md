@@ -1,7 +1,6 @@
 # Disappearing Tracks AMSB
 https://indico.cern.ch/event/725187/contributions/3018385/attachments/1656960/2652924/disappTrksMCRequest.pdf
 
-    cd $CMSSW_BASE/src/Configuration/GenProduction/python/ThirteenTeV/DisappTrksAMSB/
     ./createPoints.py
     cd $CMSSW_BASE/src
     scramv1 b -j 9

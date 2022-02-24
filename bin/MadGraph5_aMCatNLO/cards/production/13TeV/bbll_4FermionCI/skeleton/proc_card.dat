@@ -1,0 +1,11 @@
+import model bbll_UFO
+define p = u d c s b u~ d~ c~ s~ b~ g
+define j = p
+generate p p > mu+ mu- NP^2>0 @0
+add process p p > mu+ mu- j NP^2>0 @1
+add process p p > mu+ mu- j j NP^2>0 @2
+add process p p > e+ e- NP^2>0 @3
+add process p p > e+ e- j NP^2>0 @4
+add process p p > e+ e- j j NP^2>0 @5
+
+output ###OUTPUT###
