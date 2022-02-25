@@ -16,6 +16,8 @@
 # Running parameters
 #*******************
 #
+average  = event_norm ! valid settings: average, sum, bias
+False    = pdfwgt
 #*********************************************************************
 # Tag name for the run (one word)                                    *
 #*********************************************************************
