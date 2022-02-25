@@ -4,8 +4,8 @@
 
 git apply cards/production/2017/13TeV/st_tch_4f_ckm_13TeV_UL/st_tch_4f_ckm_width_variations/gridpack_generation_topwidth.patch
 
-NOMINAL_WIDTH=1.476400
-WIDTH_VARIATIONS=(0.55 0.7 0.85 1.15 1.3 1.45)
+NOMINAL_WIDTH=1.31 # NLO width, as in TT_hvq cards
+WIDTH_VARIATIONS=(0.55 0.7 0.85 1.0 1.15 1.3 1.45)
 
 for variation in ${WIDTH_VARIATIONS[@]}; do
     for charge in top antitop; do
