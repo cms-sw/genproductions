@@ -124,3 +124,4 @@ $DEFAULT_PDF_SETS = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number
 #***********************************************************************
  5 = maxjetflavor
 #***********************************************************************
+True = store_rwgt_info
