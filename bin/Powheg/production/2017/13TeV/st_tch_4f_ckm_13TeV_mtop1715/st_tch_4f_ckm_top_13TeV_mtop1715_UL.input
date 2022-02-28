@@ -40,25 +40,11 @@ xupbound 2d0      ! increase upper bound for radiation generation
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ! PROCESS SPECIFIC PARAMETERS
 
-tdec/elbranching 0.108  ! W electronic branching fraction
-tdec/sin2cabibbo 0.051
-topwidth 1.30
-
 ttype        1
 topmass      171.5
 wmass        80.4
-wwidth       2.141
 sthw2        0.231295
 alphaem_inv  137.0360098
-
-lhfm/emass   0.00051
-lhfm/mumass  0.1057
-lhfm/taumass 1.777
-lhfm/cmass   1.27
-lhfm/bmass   4.18
-tdec/emass   0.00051
-tdec/mumass  0.1057
-tdec/taumass 1.777
 
 bottomthr    4.18
 bottomthrpdf 4.18
