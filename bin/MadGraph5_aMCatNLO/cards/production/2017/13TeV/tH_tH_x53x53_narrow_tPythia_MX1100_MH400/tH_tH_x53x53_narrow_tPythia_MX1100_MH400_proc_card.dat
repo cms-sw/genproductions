@@ -1,8 +1,0 @@
-set group_subprocesses Auto
-set ignore_six_quark_processes False
-set loop_optimized_output True
-set complex_mass_scheme False
-import model X53_XSP_diagonalCKM_5FS_UFO 
-generate p p > x x~ , (x > t S+), (x~ > t~ S-)
-output tH_tH_x53x53_narrow_tPythia_MX1100_MH400 -nojpeg
-
