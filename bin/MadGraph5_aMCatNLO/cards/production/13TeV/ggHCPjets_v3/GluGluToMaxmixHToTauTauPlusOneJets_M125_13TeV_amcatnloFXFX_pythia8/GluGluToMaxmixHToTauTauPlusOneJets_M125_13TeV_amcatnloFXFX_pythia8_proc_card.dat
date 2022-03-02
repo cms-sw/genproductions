@@ -1,0 +1,3 @@
+import model HC_NLO_X0_UFO-heft
+generate p p > x0 j / t [QCD]
+output GluGluToMaxmixHToTauTauPlusOneJets_M125_13TeV_amcatnloFXFX_pythia8 -nojpeg

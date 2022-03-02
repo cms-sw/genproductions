@@ -1,0 +1,8 @@
+import model loop_sm
+
+define ell+ = e+ mu+ ta+
+define ell- = e- mu- ta-
+
+generate p p >  ell+ vl ell- vl~ a [QCD]  $z  @0
+
+output WWAToLNuLNuA_4f_NLO_2 -nojpeg

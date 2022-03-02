@@ -27,7 +27,7 @@
 #***********************************************************************
   1500 = nevents ! Number of unweighted events requested 
  0.001 = req_acc ! Required accuracy (-1=auto determined from nevents)
-  100  = nevt_job! Max number of events per job in event generation. 
+  -1  = nevt_job! Max number of events per job in event generation. 
                  !  (-1= no split).
 average = event_norm ! Normalize events to sum or average to the X sect.
 #***********************************************************************
@@ -55,7 +55,8 @@ average = event_norm ! Normalize events to sum or average to the X sect.
 # PDF choice: this automatically fixes also alpha_s(MZ) and its evol.  *
 #***********************************************************************
  lhapdf    = pdlabel   ! PDF set                                     
-$DEFAULT_PDF_SETS = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number
+ $DEFAULT_PDF_SETS    = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number
+ $DEFAULT_PDF_MEMBERS  = reweight_PDF     ! reweight to get PDF uncertainty
 #***********************************************************************
 # Include the NLO Monte Carlo subtr. terms for the following parton    *
 # shower (HERWIG6 | HERWIGPP | PYTHIA6Q | PYTHIA6PT | PYTHIA8)         *
@@ -82,7 +83,12 @@ $DEFAULT_PDF_SETS = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number
  1        = muF1_over_ref    ! ratio of current muF1 over reference muF1
  1        = muF2_over_ref    ! ratio of current muF2 over reference muF2
  1        = QES_over_ref     ! ratio of current QES over reference QES
-#*********************************************************************** 
+#************************************************************************
+## Store reweight information in the LHE file for off-line model-       *
+## parameter reweighting at NLO+PS accuracy                             *
+##***********************************************************************
+ True = store_rwgt_info ! Store info for reweighting in LHE file
+#***********************************************************************
 # Reweight flags to get scale dependence and PDF uncertainty           *
 # For scale dependence: factor rw_scale_up/down around central scale   *
 # For PDF uncertainty: use LHAPDF with supported set                   *
@@ -92,7 +98,6 @@ $DEFAULT_PDF_SETS = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number
   2.0     = rw_Rscale_up     ! upper bound for ren scale variations
   0.5     = rw_Fscale_down   ! lower bound for fact scale variations
   2.0     = rw_Fscale_up     ! upper bound for fact scale variations
-$DEFAULT_PDF_MEMBERS = reweight_PDF     ! reweight to get PDF uncertainty
 #***********************************************************************
 # Merging - WARNING! Applies merging only at the hard-event level.     *
 # After showering an MLM-type merging should be applied as well.       *

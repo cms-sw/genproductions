@@ -1,0 +1,78 @@
+numevts NEVENTS  ! number of events to be generated
+
+! Production parameters for ttH production 
+hmass {mass}      ! mass of the HIggs boson [GeV]
+hwidth {width}       ! width of the Higgs boson [GeV]
+
+hdecaymode 8    ! -1 no decay                
+                ! 0 all decay channels open
+                ! 1-6 d dbar, u ubar,..., t tbar 
+                ! 7-9 e+ e-, mu+ mu-, tau+ tau-
+                ! 10  W+W-
+                ! 11  ZZ
+                ! 12  gamma gamma     
+
+#pythiatune 320	! PYTHIA tune
+
+
+ih1   1           ! hadron 1 (1 for protons, -1 for antiprotons)
+ih2   1           ! hadron 2 (1 for protons, -1 for antiprotons)
+ebeam1 6500d0     ! energy of beam 1
+ebeam2 6500d0     ! energy of beam 2
+
+! To be set only if using LHA pdfs
+lhans1  325500      ! pdf set for hadron 1 (LHA numbering)
+lhans2  325500      ! pdf set for hadron 2 (LHA numbering)
+
+#bornktmin 1d0    ! Generation cut; minimmum kt in underlying born
+#bornsuppfact 1d0 ! (default 0d0) mass param for Born suppression factor. If < 0 suppfact = 1
+delta_mbbmin 0d0 ! generation cut on mtt (no gencut used, if set to 0)
+
+use-old-grid    1 ! if 1 use old grid if file pwggrids.dat is present (<> 1 regenerate)
+use-old-ubound  1 ! if 1 use norm of upper bounding function stored in pwgubound.dat, if present; <> 1 regenerate
+
+#skipbtlgrid 0     ! default 0; if 1 skip calculation of btlgrid  
+#skiprmngrid 0     ! default 0; if 1 skip calculation of rmngrid  
+
+ncall1  100000  ! number of calls for initializing the integration grid
+itmx1    1     ! number of iterations for initializing the integration grid
+ncall2  100000  ! number of calls for computing the integral and finding upper bound
+itmx2     5     ! number of iterations for computing the integral and finding upper bound
+foldcsi   1    ! number of folds on csi integration
+foldy     1    ! number of folds on  y  integration
+foldphi   1    ! number of folds on phi integration
+nubound 200000  ! number of bbarra calls to setup norm of upper bounding function
+icsimax  1     ! <= 100, number of csi subdivision when computing the upper bounds
+iymax    1     ! <= 100, number of y subdivision when computing the upper bounds
+xupbound 2d0   ! increase upper bound for radiation generation
+
+msbar 1d0      ! msbar renormalization used for b-quark
+hdamp {hdamp}	   ! h parameter for hdamp function: 1/4 (mH+2mb)
+runningscales 3	   ! default 0 (no running scales); 1,2,3: use running scales
+btlscalereal 1d0   ! use real kinematics for scales, if appropriate
+renscfact 1d0   ! (default 1d0) ren scale factor: muren  = muref * renscfact 
+facscfact 1d0   ! (default 1d0) fac scale factor: mufact = muref * facscfact 
+testplots  1       ! (default 0, do not) do NLO and PWHG distributions
+
+#bornonly   1      ! (default 0) if 1 do Born only
+#fakevirt   1      ! (default 0) if 1 use Born for virtuals
+
+iseed    SEED
+
+manyseeds  0       ! Used to perform multiple runs with different random
+                   ! seeds in the same directory.
+                   ! If set to 1, the program asks for an integer j;
+                   ! The file pwgseeds.dat at line j is read, and the
+                   ! integer at line j is used to initialize the random
+                   ! sequence for the generation of the event.
+                   ! The event file is called pwgevents-'j'.lhe
+
+
+#compute_rwgt 1    ! store info for reweighting events 
+#xgriditeration 1   ! identifier for grid generation
+#parallelstage  0   ! identifier for parallel running stages
+withnegweights 1 ! default 0,
+toploop 1	! 0/1 disregard/include top loop effects
+
+check_bad_st1 1
+check_bad_st2 1
