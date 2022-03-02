@@ -6,7 +6,7 @@ export WORKDIR=$rootfolder
 export patches_dir=$patches_dir 
 # Release to be used to define the environment and the compiler needed
 export RELEASE=$${CMSSW_VERSION}
-export jhugenversion="v7.2.7" 
+export jhugenversion="v7.5.1" 
 
 cd $$WORKDIR
 pwd
@@ -184,7 +184,7 @@ if [ $$jhugen = 1 ]; then
   fi
 
   tar zxf JHUGenerator.$${jhugenversion}.tar.gz
-  cd JHUGenerator
+  cd JHUGenerator.$${jhugenversion}/JHUGenerator
   sed -i -e "s#Comp = ifort#Comp = gfort#g" makefile
   sed -i -e "s#linkMELA = Yes#linkMELA = No#g" makefile
   make
@@ -204,6 +204,9 @@ echo 'Compiling pwhg_main...'
 pwd
 
 $patch_7 
+
+#Here the patch_0: MadGraph + Powheg plugin installing 
+$patch_0 
 
 export PYTHONPATH=./Virtual/:$$PYTHONPATH
 make pwhg_main || fail_exit "Failed to compile pwhg_main"

@@ -9,7 +9,7 @@ import shutil
 import subprocess
 import textwrap
 
-JHUGenversion = "v7.2.7"
+JHUGenversion = "v7.5.1"
 
 if __name__ == "__main__":
   parser = argparse.ArgumentParser(description="Make JHUGen gridpack")
@@ -59,7 +59,7 @@ def main(args):
         errortext += "  To check the status of the jobs, use the --check-jobs option."
       raise OSError(errortext)
   if args.link_mela:
-    os.environ["LD_LIBRARY_PATH"] = (os.path.join(JHUbasedir, "JHUGenMELA", "MELA", "data", "slc6_amd64_gcc530") + ":" + os.environ["LD_LIBRARY_PATH"]).rstrip(":")
+    os.environ["LD_LIBRARY_PATH"] = (os.path.join(JHUbasedir, "JHUGenMELA", "MELA", "data", os.environ["SCRAM_ARCH"]) + ":" + os.environ["LD_LIBRARY_PATH"]).rstrip(":")
 
   command="./JHUGen $(cat ../JHUGen.input) VegasNc2=${nevt} Seed=${rnum}"
   if args.decay_card is not None:
@@ -75,11 +75,15 @@ def main(args):
       subprocess.check_call(["wget", "--no-check-certificate", "http://spin.pha.jhu.edu/Generator/JHUGenerator."+JHUGenversion+".tar.gz", "-O", "JHUGenerator.tar.gz"])
       subprocess.check_call(["tar", "xvzf", "JHUGenerator.tar.gz"])
       os.remove("JHUGenerator.tar.gz")
-      os.remove("manJHUGenerator."+JHUGenversion+".pdf")
-      shutil.rmtree("AnalyticMELA")
+      shutil.move("JHUGenerator."+JHUGenversion+"/JHUGenerator","./")
+      shutil.move("JHUGenerator."+JHUGenversion+"/JHUGenMELA","./")
+      shutil.rmtree("JHUGenerator."+JHUGenversion)
       if args.link_mela:
-        with cd("JHUGenMELA/MELA"):
-          subprocess.check_call(["./setup.sh"])
+        subprocess.check_call(["scramv1","project","CMSSW",os.environ['CMSSW_VERSION']])
+        shutil.move("JHUGenMELA",os.environ['CMSSW_VERSION']+"/src")
+        os.environ["LD_LIBRARY_PATH"] = (os.path.join(JHUbasedir, os.environ['CMSSW_VERSION'], "src", "JHUGenMELA", "MELA", "data", os.environ["SCRAM_ARCH"]) + ":" + os.environ["LD_LIBRARY_PATH"]).rstrip(":")
+        with cd(os.environ['CMSSW_VERSION']+"/src/JHUGenMELA/MELA"):
+          subprocess.check_call(["./setup.sh","-j"])
       else:
         shutil.rmtree("JHUGenMELA")
       with cd("JHUGenerator"):
@@ -92,7 +96,11 @@ def main(args):
 
         find = "(^MELADir *= *).*"
         assert re.search(find, makefile, flags=re.MULTILINE)
-        makefile = re.sub(find, r"\1../JHUGenMELA/MELA", makefile, flags=re.MULTILINE) #use the RELATIVE path.  make creates symlinks that have to be valid wherever the gridpack is opened.
+        makefile = re.sub(find, r"\1../"+os.environ['CMSSW_VERSION']+"/src/JHUGenMELA/MELA", makefile, flags=re.MULTILINE) #use the RELATIVE path.  make creates symlinks that have to be valid wherever the gridpack is opened.
+
+        find = "(^  MELADir *= *).*"
+        assert re.search(find, makefile, flags=re.MULTILINE)
+        makefile = re.sub(find, r"\1$(Here)/../"+os.environ['CMSSW_VERSION']+"/src/JHUGenMELA/MELA", makefile, flags=re.MULTILINE)
 
         find = "(^UseLHAPDF *= *)(Yes|No)"
         assert re.search(find, makefile, flags=re.MULTILINE)
