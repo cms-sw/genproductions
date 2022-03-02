@@ -34,7 +34,7 @@ do
                 sed -i '7d' dy${bin_num}jmlm/*proc_card.dat
                 sed -i '6s/@2//g' dy${bin_num}jmlm/*proc_card.dat
                 sed -i '6s/add process/generate/g' dy${bin_num}jmlm/*proc_card.dat
-	elif [[ "$bin_num" -eq 1 ]];then
+	elif [[ "$bin_num" -eq 3 ]];then
                 sed -i '6d' dy${bin_num}jmlm/*proc_card.dat
                 sed -i '6d' dy${bin_num}jmlm/*proc_card.dat
                 sed -i '6d' dy${bin_num}jmlm/*proc_card.dat

@@ -1,0 +1,4 @@
+set param_card MASS 34 2.400000e+03
+set param_card wpcoup 1 0.70710678e+00
+set param_card wpcoup 2 0.70710678e+00
+set param_card DECAY 34 2.400000e+01

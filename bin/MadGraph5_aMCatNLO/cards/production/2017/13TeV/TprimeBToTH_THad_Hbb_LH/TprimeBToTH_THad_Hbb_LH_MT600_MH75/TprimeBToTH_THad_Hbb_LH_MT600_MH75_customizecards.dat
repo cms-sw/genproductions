@@ -1,0 +1,5 @@
+set param_card mass 6000006 600
+set param_card ktlh 3 0.100000e+00
+set param_card mass 25 75
+set param_card decay 25 4.07e-03
+set param_card decay 600006 5

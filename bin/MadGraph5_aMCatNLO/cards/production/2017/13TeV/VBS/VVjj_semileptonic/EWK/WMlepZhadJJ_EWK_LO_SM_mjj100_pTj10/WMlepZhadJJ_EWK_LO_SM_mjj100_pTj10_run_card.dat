@@ -84,7 +84,7 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
 # Automatic ptj and mjj cuts if xqcut > 0
 # (turn off for VBF and single top processes)
 #**********************************************************
-   True  = auto_ptj_mjj  ! Automatic setting of ptj and mjj
+   F  = auto_ptj_mjj  ! Automatic setting of ptj and mjj
 #**********************************************************
 #                                                                    
 #**********************************
@@ -146,16 +146,16 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
 #*********************************************************************
 # Minimum and maximum DeltaR distance                                *
 #*********************************************************************
- 0.4   = drjj    ! min distance between jets 
- 0.4   = drbb    ! min distance between b's 
- 0.4   = drll    ! min distance between leptons 
- 0.4   = draa    ! min distance between gammas 
- 0.4   = drbj    ! min distance between b and jet 
- 0.4   = draj    ! min distance between gamma and jet 
- 0.4   = drjl    ! min distance between jet and lepton 
+ 0.01   = drjj    ! min distance between jets 
+ 0.01   = drbb    ! min distance between b's 
+ 0.01   = drll    ! min distance between leptons 
+ 0.01   = draa    ! min distance between gammas 
+ 0.01   = drbj    ! min distance between b and jet 
+ 0.01   = draj    ! min distance between gamma and jet 
+ 0.01   = drjl    ! min distance between jet and lepton 
  0.0   = drab    ! min distance between gamma and b 
  0.0   = drbl    ! min distance between b and lepton 
- 0.4   = dral    ! min distance between gamma and lepton 
+ 0.01   = dral    ! min distance between gamma and lepton 
  -1.0  = drjjmax ! max distance between jets
  -1.0  = drbbmax ! max distance between b's
  -1.0  = drllmax ! max distance between leptons

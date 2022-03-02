@@ -1,0 +1,7 @@
+set max_weight_ps_point 400  # number of PS to estimate the maximum for each event
+set ms_dir ./madspingrid
+# specify the decay for the final state particles
+decay s2 > a a
+decay s2~ > a a
+# running the actual code
+launch

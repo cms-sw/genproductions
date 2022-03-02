@@ -1,0 +1,10 @@
+import model --modelname  HAHM_MG5model_v3/HAHM_variableMW_v3_UFO
+
+define p = g u c d s b u~ c~ d~ s~ b~
+define j = g u c d s u~ c~ d~ s~
+define l+ = e+ m+
+define l- = e- m-
+define higgs = h hs
+generate     p p > m+ m- zp /higgs 
+
+output darkphotonDimuon_DPMass5e-1MeV_DF1e-2 -nojpeg 
