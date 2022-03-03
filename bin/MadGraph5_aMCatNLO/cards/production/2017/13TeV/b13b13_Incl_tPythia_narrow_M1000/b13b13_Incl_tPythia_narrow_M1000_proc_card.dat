@@ -2,10 +2,9 @@ set group_subprocesses Auto
 set ignore_six_quark_processes False
 set loop_optimized_output True
 set complex_mass_scheme False
-import model STP_UFO_freeWidth
-define Topo = b13 b13~
+import model VLQ_v4_4FNS_UFO
 define bb = b b~
 define tt = t t~
 define WW = w+ w-
-generate p p > topo topo / h a z ww
-output b13b13_Incl_tPythia_narrow_M1000
+generate p p > tp tp~ / h a z ww [QCD]
+output b13b13_Incl_tPythia_narrow_M1000 
