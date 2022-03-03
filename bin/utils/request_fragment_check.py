@@ -940,15 +940,15 @@ for num in range(0,len(prepid)):
         if timeperevent > 0:   
             nevts = (8*3600/timeperevent)*total_eff
             print("Expected number of events = "+str(nevts))
-        if  nevts < 50. and ppd == 0:
-            print("[ERROR] The expected number of events is too small (<50): "+str(nevts))
-            print("        Either the timeperevent value is too large or the filter or matching efficiency is too small. ")
-            print("        Note that total_efficiency = filter_efficiency x matching_efficiency.") 
-            print("        Please check or improve:") 
-            print("            time per event = "+str(timeperevent))
-            print("            filter efficiency = "+str(filter_eff))
-            print("            matching efficiency = "+str(match_eff))
-            error += 1
+#        if  nevts < 50. and ppd == 0:
+#            print("[ERROR] The expected number of events is too small (<50): "+str(nevts))
+#            print("        Either the timeperevent value is too large or the filter or matching efficiency is too small. ")
+#            print("        Note that total_efficiency = filter_efficiency x matching_efficiency.") 
+#            print("        Please check or improve:") 
+#            print("            time per event = "+str(timeperevent))
+#            print("            filter efficiency = "+str(filter_eff))
+#            print("            matching efficiency = "+str(match_eff))
+#            error += 1
 
         if any(word in dn for word in MEname) and gp_size == 0 and "plhe" not in pi.lower():
             print("[ERROR] gridpack path is not properly specified - most probable reason is that it is not a cvmfs path.")
