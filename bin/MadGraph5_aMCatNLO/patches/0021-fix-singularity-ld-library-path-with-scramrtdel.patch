@@ -23,7 +23,7 @@
  if [[ -e MadLoop5_resources.tar.gz && ! -e MadLoop5_resources ]]; then
  tar -xzf MadLoop5_resources.tar.gz
  fi
-@@ -80,7 +96,11 @@ j=%(directory)s
+@@ -82,7 +98,11 @@ j=%(directory)s
       if [[ $status_code -ne 0 ]]; then 
  	 rm results.dat
  	 echo "ERROR DETECTED"
@@ -36,7 +36,7 @@
       fi     
       if [[ -e ftn26 ]]; then
           cp ftn26 ftn25
-@@ -98,3 +118,6 @@ j=%(directory)s
+@@ -100,3 +120,6 @@ j=%(directory)s
  
       cd ../
  
@@ -154,7 +154,7 @@
  tarCounter=0
  while [[ (-f MadLoop5_resources.tar.gz) && (! -f MadLoop5_resources/HelConfigs.dat) && ($tarCounter < 10) ]]; do
      if [[ $tarCounter > 0 ]]; then
-@@ -101,6 +117,13 @@ TAGTAGTAGTAGTAGTAGTAG for i in 1 ; do
+@@ -97,6 +113,13 @@ TAGTAGTAGTAGTAGTAGTAG for i in 1 ; do
          ../madevent_mintMC > log.txt <input_app.txt 2>&1
      fi
      status=$?

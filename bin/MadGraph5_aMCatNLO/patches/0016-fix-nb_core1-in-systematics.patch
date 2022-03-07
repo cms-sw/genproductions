@@ -1,6 +1,6 @@
 --- a/madgraph/interface/common_run_interface.py
 +++ b/madgraph/interface/common_run_interface.py
-@@ -1788,7 +1788,7 @@ class CommonRunCmd(HelpToCmd, CheckValidForCmd, cmd.Cmd):
+@@ -1732,7 +1732,7 @@ class CommonRunCmd(HelpToCmd, CheckValidForCmd, cmd.Cmd):
                      break
              else:
                  raise self.InvalidCmd('Invalid run name. Please retry')

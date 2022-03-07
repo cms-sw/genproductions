@@ -13,7 +13,7 @@ diff --git a/Template/NLO/Source/make_opts.inc b/Template/NLO/Source/make_opts.i
 diff --git a/madgraph/iolibs/export_v4.py b/madgraph/iolibs/export_v4.py
 --- a/madgraph/iolibs/export_v4.py
 +++ b/madgraph/iolibs/export_v4.py
-@@ -557,6 +557,9 @@ class ProcessExporterFortran(VirtualExporter):
+@@ -529,6 +529,9 @@ class ProcessExporterFortran(VirtualExporter):
           LHAPath='%(path)s/../lhapdf/pdfsets/'
           Inquire(File=LHAPath, exist=exists)
           if(exists)return  
