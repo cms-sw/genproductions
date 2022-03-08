@@ -20,7 +20,7 @@
              rwgt_data = event.parse_reweight()
 @@ -548,7 +548,7 @@ class Systematics(object):
          text = ''
- 
+         
          default = self.args[0]
 -        for arg in self.args[1:]:
 +        for arg in self.args:
