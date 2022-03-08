@@ -1,0 +1,10 @@
+#import model sm-no_b_mass
+generate p a > t t~ [QCD]
+set automatic_html_opening False
+output jam_lpp2_2_photo_NLO_ttbar_pp_13TeV
+launch
+launch
+set lpp2 2
+
+
+
