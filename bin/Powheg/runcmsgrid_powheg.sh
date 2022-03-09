@@ -88,14 +88,22 @@ if [[ -e ${myDir} ]]; then
   mv cmsgrid_final.lhe old_cmsgrid_final.lhe
 fi
 
-export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:${LD_LIBRARY_PATH}
+export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:`pwd`/obj-gfortran/proclib/:${LD_LIBRARY_PATH}
 mkdir ${myDir}; cd ${myDir} ;  
+export PYTHONPATH=.:${PYTHONPATH}
 
 # force the f77 compiler to be the CMS defined one
 #ln -s `which gfortran` f77
 #ln -s `which gfortran` g77
 export PATH=`pwd`:${PATH}
 
+if [ "${process}" == "X0jj" ]; then
+    cp -p ${WORKDIR}/MadLoopParams.dat .
+    for f in `ls ${WORKDIR}/MG5_aMC_v2_6_7/X0jj/SubProcesses/MadLoop5_resources/*`
+    do
+	ln -sf $f ./
+    done
+fi
 if [[ -e ${WORKDIR}/pwggrid.dat ]]; then
     cp -p ${WORKDIR}/pwg*.dat .
 fi
@@ -117,6 +125,24 @@ if [[ -d ${WORKDIR}/obj-gfortran ]]; then
     ln -s ${WORKDIR}/obj-gfortran .
     cp -p ${WORKDIR}/pwg*.dat .
 fi
+### For the WW process
+if [[ -d ${WORKDIR}/WW_MATRIX ]]; then
+    ln -s ${WORKDIR}/WW_MATRIX .
+    ln -s ${WORKDIR}/WW_MINLO .
+    cp -p ${WORKDIR}/binvalues-WW.top .
+fi
+### For DYNNLOPS
+if [[ -e ${WORKDIR}/DYNNLO_mur1_muf1_3D.top ]]; then
+    ln -s ${WORKDIR}/DYNNLO*.top .
+    ln -s ${WORKDIR}/MINLO*.top .
+    ln -s ${WORKDIR}/list*.txt .
+fi
+### For the ggHH process
+if [[ -e ${WORKDIR}/Virt_full_cHHH_0.0.grid ]]; then
+    ln -s ${WORKDIR}/Virt_full_cHHH_* .
+    ln -s ${WORKDIR}/creategrid.py .
+    cp -p ${WORKDIR}/events.cdf .
+fi
 
 if [[ ! -e ${card} ]]; then
  fail_exit "powheg.input not found!"
@@ -133,7 +159,7 @@ grep -q "pdfreweight 1" powheg.input ; test $? -eq 0 || produceWeights="false"
 grep -q "first runx" powheg.input ; test $? -ne 0 || produceWeights="true"
 
 cat powheg.input
-../pwhg_main &> log_${process}_${seed}.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
+../pwhg_main 2>&1 | tee log_${process}_${seed}.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
 
 if [ "$produceWeightsNNLO" == "true" ]; then
     echo -e "\ncomputing weights for NNLOPS\n"
@@ -165,7 +191,7 @@ if [ "$produceWeights" == "true" ]; then
    sed -i -e "s#select_EW#\#select_EW#g" powheg.input
    echo "select_EW_virt 1" >> powheg.input
 
-   ../pwhg_main &> logrew_${process}_${seed}.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"   
+   ../pwhg_main 2>&1 | tee logrew_${process}_${seed}.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"   
 
    cat pwgevents-rwgt.lhe | grep -v "Random number generator exit values" > ${file}_final.lhe
 else 
@@ -218,3 +244,4 @@ cp ${file}_final.lhe ${WORKDIR}/.
 echo "Output ready with ${file}_final.lhe at $WORKDIR"
 echo "End of job on " `date`
 exit 0;
+

@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 '''
 Script for POWHEG generator production
@@ -286,7 +286,7 @@ def runGetSource(parstage, xgrid, folderName, powInputName, process, noPdfCheck,
 '''
 # Release to be used to define the environment and the compiler needed
 export RELEASE=${CMSSW_VERSION}
-export jhugenversion="v7.1.4"
+export jhugenversion="v7.5.1"
 
 cd $WORKDIR
 pwd
@@ -319,13 +319,13 @@ fi
 
 # 5F
 is5FlavorScheme=1
-defaultPDF=306000
+defaultPDF=325300
 
 
-if [[ "$process" == "ST_tch_4f" ]] || [[ "$process" == "bbH" ]] || [[ "$process" == "Wbb_dec" ]] || [[ "$process" == "Wbbj" ]]; then
+if [[ "$process" == "ST_tch_4f" ]] || [[ "$process" == "bbH" ]] || [[ "$process" == "Wbb_dec" ]] || [[ "$process" == "Wbbj" ]] || [[ "$process" == "WWJ" ]]; then
     # 4F
     is5FlavorScheme=0
-    defaultPDF=320900
+    defaultPDF=325500
 fi
 
 if [[ $is5FlavorScheme -eq 1 ]]; then
@@ -362,7 +362,7 @@ if [[ -s ./JHUGen.input ]]; then
 fi
 
 ### retrieve the powheg source tar ball
-export POWHEGSRC=powhegboxV2_rev3511_date20180410.tar.gz
+export POWHEGSRC=powhegboxV2_rev3728_date20200429.tar.gz
 
 if [ "$process" = "b_bbar_4l" ] || [ "$process" = "HWJ_ew" ] || [ "$process" = "HW_ew" ] || [ "$process" = "HZJ_ew" ] || [ "$process" = "HZ_ew" ]; then 
   export POWHEGSRC=powhegboxRES_rev3478_date20180122.tar.gz 
@@ -404,7 +404,14 @@ fi
 if [ "$process" = "ZZ" ]; then
     patch -l -p0 -i ${WORKDIR}/patches/zz_m4lcut.patch
 fi
+if [ "$process" = "WWJ" ]; then
+    patch -l -p0 -i ${WORKDIR}/patches/wwj-weights.patch
+    cp ${WORKDIR}/patches/rwl_write_weights2_extra.f POWHEG-BOX/$process/
+fi
 
+if [ "$process" = "bbH" ]; then
+    patch POWHEG-BOX/${process}/Born_phsp.f -l -p0 -i ${WORKDIR}/patches/born_phsp.patch
+fi
 
 sed -i -e "s#500#1200#g"  POWHEG-BOX/include/pwhg_rwl.h
 
@@ -422,6 +429,7 @@ mkdir -p include
 # Use dynamic linking and lhapdf
 sed -i -e "s#STATIC[ \t]*=[ \t]*-static#STATIC=-dynamic#g" Makefile
 sed -i -e "s#PDF[ \t]*=[ \t]*native#PDF=lhapdf#g" Makefile
+sed -i -e "s# -lLHAPDF# -lLHAPDF \$(RPATHLIBS)#g" Makefile
 
 # Use gfortran, not other compilers which are not free/licensed
 sed -i -e "s#COMPILER[ \t]*=[ \t]*ifort#COMPILER=gfortran#g" Makefile
@@ -444,7 +452,7 @@ if [ `echo ${POWHEGSRC} | cut -d "_" -f 1` = "powhegboxV1" ]; then
    BOOK_HISTO="pwhg_bookhist.o"
 fi 
 
-if [ "$process" = "gg_H" ] || [ "$process" = "ggHH" ]; then
+if [ "$process" = "gg_H" ] || [ "$process" = "ggHH" ] || [ "$process" = "WWJ" ]; then
    BOOK_HISTO=""
    echo "Process using pwhg_bookhist-multi-new"
 fi
@@ -531,10 +539,15 @@ fi
   
 echo "ANALYSIS=none " >> tmpfile
 
+# Add libraries now
+NEWRPATH1=`ls /cvmfs/cms.cern.ch/${SCRAM_ARCH}/external/gcc/*/* | grep "/lib64" | head -n 1`
+NEWRPATH1=${NEWRPATH1%?}
+NEWRPATH2=`ls /cvmfs/cms.cern.ch/${SCRAM_ARCH}/external/zlib-x86_64/*/* | grep "/lib" | head -n 1`
+NEWRPATH2=${NEWRPATH2%?}
+echo "RPATHLIBS= -Wl,-rpath,${NEWRPATH1} -L${NEWRPATH1} -lgfortran -lstdc++ -Wl,-rpath,${NEWRPATH2} -L${NEWRPATH2} -lz" >> tmpfile
+
 if [ "$process" = "Wgamma" ]; then
   echo "PWHGANAL=$BOOK_HISTO pwhg_analysis-dummy.o uti.o " >> tmpfile
-#elif [ "$process" = "HW_ew" ] || [ "$process" = "HWJ_ew" ]; then 
-#  echo "PWHGANAL=$BOOK_HISTO pwhg_analysis-HWnJ_res.o pwhg_analysis_paper-HWnJ_res.o observables.o multi_plot.o " >> tmpfile
 else
   echo "PWHGANAL=$BOOK_HISTO pwhg_analysis-dummy.o " >> tmpfile
 fi
@@ -542,9 +555,6 @@ echo "LHAPDF_CONFIG=${LHAPDF_BASE}/bin/lhapdf-config" >> tmpfile
 mv Makefile Makefile.interm
 cat tmpfile Makefile.interm > Makefile
 rm -f Makefile.interm tmpfile
-
-# Add libraries
-echo "LIBS+=-lz -lstdc++" >> Makefile
 
 # Add extra packages
 if [ $jhugen = 1 ]; then
@@ -565,6 +575,12 @@ if [ $jhugen = 1 ]; then
 
   cd ..
 fi
+
+if [ "$process" = "WWJ" ]; then
+  cp Makefile Makefile.orig
+  cat Makefile.orig |  sed -e "s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d "=" -f2)/bin/fastjet-config#g" | sed -e "s#cs_angles.o#cs_angles.o fastjetfortran.o observables.o pwhg_bookhist-multi-new.o#g" | sed -e "s#\#\ FASTJET_CONFIG#FASTJET_CONFIG#g" | sed -e "s#\#\ LIBSFASTJET#LIBSFASTJET#g" | sed -e "s#\#\ FJCXXFLAGS#FJCXXFLAGS#g" | sed -e "s#rwl_write_weights_extra.f#rwl_write_weights_extra.f\ rwl_write_weights2_extra.f#g"> Makefile
+fi
+
 if [ "$process" = "gg_H_2HDM" ] || [ "$process" = "gg_H_MSSM" ]; then
   echo "Adding CHAPLIN 1.2 library"
   if [ ! -f chaplin-1.2.tar ]; then
@@ -951,10 +967,12 @@ fi
 
 sed -i 's/pwggrid.dat ]]/pwggrid.dat ]] || [ -e ${WORKDIR}\/pwggrid-0001.dat ]/g' runcmsgrid.sh
 
-#if [ "$process" = "HJ" ]; then
-#  cat runcmsgrid.sh  | gawk '/produceWeightsNNLO/{gsub(/false/, \"true\")};{print}' > runcmsgrid_tmp.sh
-#  mv runcmsgrid_tmp.sh runcmsgrid.sh
-#fi  
+if [ "$process" = "WWJ" ]; then
+   cp -p ${WORKDIR}/$folderName/POWHEG-BOX/$process/testrun-nnlops/binvalues-WW.top .
+   cp -r ${WORKDIR}/$folderName/POWHEG-BOX/$process/testrun-nnlops/WW_MATRIX .
+   cp -r ${WORKDIR}/$folderName/POWHEG-BOX/$process/testrun-nnlops/WW_MINLO .
+   keepTop='1'
+fi  
 
 sed -i s/SCRAM_ARCH_VERSION_REPLACE/${SCRAM_ARCH}/g runcmsgrid.sh
 sed -i s/CMSSW_VERSION_REPLACE/${CMSSW_VERSION}/g runcmsgrid.sh
@@ -1230,10 +1248,10 @@ if __name__ == "__main__":
             test_pdf1 = 0
             test_pdf2 = 0
 
-            default_pdf = "306000"  # for 5 flavours
+            default_pdf = "325300"  # for 5 flavours
 
             if args.prcName=="ST_tch_4f" or args.prcName=="bbH" or args.prcName=="Wbb_dec" or args.prcName=="Wbbj" :
-                default_pdf = "320900"  # for 4 flavours
+                default_pdf = "325500"  # for 4 flavours
 
             for line in open(args.folderName+'/powheg.input') :
                 n_column = line.split()
@@ -1247,7 +1265,7 @@ if __name__ == "__main__":
 
             if test_pdf1 != default_pdf :
 #                print "PDF in card: ", test_pdf1, "PDF default: ", default_pdf, test_pdf1==default_pdf
-                message = "The input card does not have the standard 2017 PDF (NNPDF31 NNLO, 306000 for 5F, 320900 for 4F): {0}. Either change the card or run again with -d 1 to ignore this message.\n".format(test_pdf1)
+                message = "The input card does not have the standard Ultralegacy PDF (NNPDF31 NNLO, 325300 for 5F, 325500 for 4F): {0}. Either change the card or run again with -d 1 to ignore this message.\n".format(test_pdf1)
 
                 if args.noPdfCheck == '0' :
                     raise RuntimeError(message)

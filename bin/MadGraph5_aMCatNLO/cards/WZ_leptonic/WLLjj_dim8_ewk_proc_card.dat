@@ -1,0 +1,10 @@
+import model QCKM_5_Aug21v2
+define p = g u c d s b u~ c~ d~ s~ b~
+define j = p
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+generate    p p > w+ z j j QED=4 QCD=0 NP=1 @ 1, w+ > l+ vl, z > l+ l-
+add process p p > w- z j j QED=4 QCD=0 NP=1 @ 2, w- > l- vl~, z > l+ l-
+output WZjj_dim8_ewk

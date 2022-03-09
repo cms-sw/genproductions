@@ -1,0 +1,11 @@
+--- a/madgraph/interface/reweight_interface.py	
++++ b/madgraph/interface/reweight_interface.py	
+@@ -750,7 +750,7 @@
+                 misc.sprint(blockpat.pattern, self.banner['initrwgt'])
+                 before, content, after = blockpat.split(self.banner['initrwgt'])
+                 header_rwgt_other = before + after
+-                pattern = re.compile('<weight id=\'(?:rwgt_(?P<id>\d+)|(?P<id2>[_\w]+))(?P<rwgttype>\s*|_\w+)\'>(?P<info>.*?)</weight>', re.S+re.I+re.M)
++                pattern = re.compile('<weight id=\'(?:rwgt_(?P<id>\d+)|(?P<id2>[_\w\-\.]+))(?P<rwgttype>\s*|_\w+)\'>(?P<info>.*?)</weight>', re.S+re.I+re.M)
+                 mg_rwgt_info = pattern.findall(content)
+                 
+                 maxid = 0

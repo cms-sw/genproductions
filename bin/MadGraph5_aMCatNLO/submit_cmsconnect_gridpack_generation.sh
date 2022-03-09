@@ -1,7 +1,7 @@
 #!/bin/bash
 
-source cmsconnect_utils.sh
-source source_condor.sh
+source Utilities/cmsconnect_utils.sh
+source Utilities/source_condor.sh
 
 create_codegen_jdl(){
 cat<<-EOF
@@ -14,13 +14,13 @@ cat<<-EOF
 	Log = condor_log/job.log.\$(Cluster) 
 	
 	transfer_input_files = $input_files, gridpack_generation.sh, /usr/bin/unzip
-	transfer_output_files = ${card_name}.log
+	transfer_output_files = ${card_name}.log, ${sandbox_output}
 	transfer_output_remaps = "${card_name}.log = ${card_name}_codegen.log"
 	+WantIOProxy=true
         +IsGridpack=true
         +GridpackCard = "${card_name}"
 	
-	+REQUIRED_OS = "rhel6"
+	+REQUIRED_OS = "${rhel_ver}"
 	request_cpus = $cores
 	request_memory = $memory
 	Queue 1
@@ -77,21 +77,23 @@ cat<<-EOF
 	    echo "The xrdcp command below failed:"
 	    echo "xrdcp -f \${condor_scratch}$sandbox_output root://stash.osgconnect.net:1094/${stash_tmpdir##/stash}/$sandbox_output"
 	fi
-	# Second, try condor_chirp
-	echo ">> Copying sandbox via condor_chirp"
-	CONDOR_CHIRP_BIN=\$(command -v condor_chirp)
-	if [ \$? != 0 ]; then
-	    if [ -n "\${CONDOR_CONFIG}" ]; then
-	        CONDOR_CHIRP_BIN="\$(dirname \$CONDOR_CONFIG)/main/condor/libexec/condor_chirp"
-	    fi
-	fi
-	"\${CONDOR_CHIRP_BIN}" put -perm 644 "\${condor_scratch}/$sandbox_output" "$sandbox_output"
-	exitcode=\$?
-	if [ \$exitcode -ne 0 ]; then
-	    echo "condor_chirp failed. Exiting with error code 210."
-	    exit 210
-	fi
-	rm "\${condor_scratch}/$sandbox_output"
+        # Temporarily disable condor_chirp
+        # until this feature comes back in CMS
+	## Second, try condor_chirp
+	#echo ">> Copying sandbox via condor_chirp"
+	#CONDOR_CHIRP_BIN=\$(command -v condor_chirp)
+	#if [ \$? != 0 ]; then
+	#    if [ -n "\${CONDOR_CONFIG}" ]; then
+	#        CONDOR_CHIRP_BIN="\$(dirname \$CONDOR_CONFIG)/main/condor/libexec/condor_chirp"
+	#    fi
+	#fi
+	#"\${CONDOR_CHIRP_BIN}" put -perm 644 "\${condor_scratch}/$sandbox_output" "$sandbox_output"
+	#exitcode=\$?
+	#if [ \$exitcode -ne 0 ]; then
+	#    echo "condor_chirp failed. Exiting with error code 210."
+	#    exit 210
+	#fi
+	#rm "\${condor_scratch}/$sandbox_output"
 
 EOF
 }
@@ -126,20 +128,21 @@ proxy-watcher -start
 # HOLD CODES AND WALLTIMES
 #########################
 #26:119 : CVMFS failed
+#26:120 : CPU overuse
 #30:256: Job put on hold by remote host
 #13: condor_starter or shadow failed to send job
 #12:28 : (errno 28) No space left on device
 
 if [ -z "$CONDOR_RELEASE_HOLDCODES" ]; then
-  export CONDOR_RELEASE_HOLDCODES="26:119,13,30:256,12:28,6:0"
+  export CONDOR_RELEASE_HOLDCODES="26:119,26:120,13,30:256,12:28,6:0"
 fi
 if [ -z "$CONDOR_RELEASE_HOLDCODES_SHADOW_LIM" ]; then
-  export CONDOR_RELEASE_HOLDCODES_SHADOW_LIM="10"
+  export CONDOR_RELEASE_HOLDCODES_SHADOW_LIM="19"
 fi
 # Set a list of maxwalltime in minutes
 # Pilots maximum life is 48h or 2880 minutes
 if [ -z "$CONDOR_SET_MAXWALLTIMES" ]; then
-  export CONDOR_SET_MAXWALLTIMES="500,960,2160,2820,4200"
+  export CONDOR_SET_MAXWALLTIMES="500,960,2160,2820"
 fi
 
 ##########################
@@ -152,9 +155,9 @@ if [ -z "$CONDOR_QUERY_SLEEP_PER_RETRY" ]; then
   export CONDOR_QUERY_SLEEP_PER_RETRY="30"
 fi
 
-#########################
-# INPUT PARAMENTERS
-#########################
+###########################
+# INPUT PARAMETERS
+###########################
 
 card_name=$1
 card_dir=$2
@@ -165,6 +168,28 @@ cores="${3:-1}"
 memory="${4:-2 Gb}"
 scram_arch="${5:-}"
 cmssw_version="${6:-}"
+
+export SYSTEM_RELEASE=`cat /etc/redhat-release`
+
+if [ -n "$5" ]; then
+  if [[ $scram_arch == *"slc6"* ]]; then
+    rhel_ver="rhel6"
+  elif [[ $scram_arch == *"slc7"* ]]; then
+    rhel_ver="rhel7"
+  else
+    echo "Invalid scram_arch is specified!"
+    if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
+  fi
+else
+  if [[ $SYSTEM_RELEASE == *"release 6"* ]]; then
+    rhel_ver="rhel6"
+  elif [[ $SYSTEM_RELEASE == *"release 7"* ]]; then
+    rhel_ver="rhel7"
+  else 
+    echo "No default CMSSW for current OS!"
+      if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi        
+  fi
+fi
 
 parent_dir=$PWD
 
@@ -195,9 +220,10 @@ codegen_jdl="codegen_${card_name}.jdl"
 # Those will be input files for the condor CODEGEN step.
 input_files="input_${card_name}.tar.gz"
 patches_directory="./patches"
-
+utilities_dir="./Utilities"
+plugin_directory="./PLUGIN"
 if [ -e "$input_files" ]; then rm "$input_files"; fi
-tar -zcf "$input_files" "$card_dir" "$patches_directory"
+tar -zchf "$input_files" "$card_dir" "$patches_directory" "$utilities_dir" "${plugin_directory}"
 
 ## Create a submit file for a single job
 # create_codegen_exe arguments are:
@@ -231,7 +257,7 @@ condor_wait "$LOG_FILE" "$CLUSTER_ID"
 # If querying job exitcode fails, retry
 status_n_retries=10
 for ((i=0; i<=$status_n_retries; ++i)); do
-    condor_exitcode=$(condor_history ${CLUSTERID} -limit 1 -format "%s" ExitCode)
+    condor_exitcode=$(condor_history ${CLUSTER_ID} -limit 1 -format "%s" ExitCode)
     if [ "x$condor_exitcode" != "x" ]; then
         break
     fi

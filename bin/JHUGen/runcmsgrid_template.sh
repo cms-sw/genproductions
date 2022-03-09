@@ -40,9 +40,16 @@ if [ "$use_gridpack_env" = true ]
     cd ${cmssw_version}/src
     eval `scramv1 runtime -sh`
 fi
+
+set -euo pipefail
+
 cd $LHEWORKDIR
 
-cd BASEDIR/
+if [ -d CMSSW_VERSION_REPLACE/src/JHUGenMELA ]; then
+  export LD_LIBRARY_PATH=../CMSSW_VERSION_REPLACE/src/JHUGenMELA/MELA/data/$SCRAM_ARCH/:${LD_LIBRARY_PATH}
+fi
+
+cd JHUGenerator/
 
 GENCOMMAND
 

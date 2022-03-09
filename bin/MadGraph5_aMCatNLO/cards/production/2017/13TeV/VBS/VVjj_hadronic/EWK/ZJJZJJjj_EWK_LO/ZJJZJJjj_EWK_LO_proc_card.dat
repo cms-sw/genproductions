@@ -1,0 +1,3 @@
+import model sm-ckm_no_b_mass
+generate p p > z z j j  QED=4 QCD=0, z > j j
+output ZJJZJJjj_EWK_LO -nojpeg

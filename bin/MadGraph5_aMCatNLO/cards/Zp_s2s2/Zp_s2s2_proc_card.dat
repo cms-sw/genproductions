@@ -1,0 +1,3 @@
+import model Zp_2LLP
+generate p p > zp > s2 s2~ / x2 s2 j
+output Zp_s2s2 -nojpeg
