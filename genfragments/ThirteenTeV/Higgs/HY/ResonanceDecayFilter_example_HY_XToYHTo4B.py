@@ -26,9 +26,9 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
         pythia8PSweightsSettingsBlock,
         processParameters = cms.vstring(
             '25:onMode = off', # Turn off all H decays
-            '25:onIfMatch = 5 -5',  # H->bb
+            '25:oneChannel = 1 1 100 5 -5', # H->gamma gamma
             '35:onMode = off',
-            '35:onIfMatch = 5 -5',  # Y->bb
+            '35:oneChannel = 1 1 100 5 -5',  # Y->WW
             'ResonanceDecayFilter:filter = on',
             'ResonanceDecayFilter:exclusive = on', #off: require at least the specified number of daughters, on: require exactly the specified number of daughters
             'ResonanceDecayFilter:mothers = 25,35', #list of mothers not specified -> count all particles in hard process+resonance decays (better to avoid specifying mothers when including leptons from the lhe in counting, since intermediate resonances are not gauranteed to appear in general
