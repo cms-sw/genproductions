@@ -34,6 +34,10 @@ make_tarball () {
     mkdir InputCards
     cp $CARDSDIR/${name}*.* InputCards
 
+    if [ -e $CARDSDIR/BIAS ]; then
+      cp -r $CARDSDIR/BIAS InputCards/
+    fi
+
     EXTRA_TAR_ARGS=""
     if [ -e $CARDSDIR/${name}_externaltarball.dat ]; then
         EXTRA_TAR_ARGS="external_tarball header_for_madspin.txt "
@@ -181,6 +185,19 @@ make_gridpack () {
       if ls $CARDSDIR/${name}*.patch; then
         echo "    WARNING: Applying custom user patch. I hope you know what you're doing!"
         cat $CARDSDIR/${name}*.patch | patch -p1
+      fi
+
+      # Copy bias module (cp3.irmp.ucl.ac.be/projects/madgraph/wiki/LOEventGenerationBias)
+      # Expected structure: 
+      # $CARDSDIR/BIAS/{module_name}/...
+      #     .../makefile (mandatory)
+      #     .../{module_name}.f (mandatory)
+      #     .../bias_dependencies (optional)
+      if [ -e $CARDSDIR/BIAS ]; then
+        echo "copying bias module folder. Current dir:"
+        pwd
+        ls -lrth
+        cp -r $CARDSDIR/BIAS/* $MGBASEDIRORIG/Template/LO/Source/BIAS
       fi
     
       LHAPDFCONFIG=`echo "$LHAPDF_DATA_PATH/../../bin/lhapdf-config"`
