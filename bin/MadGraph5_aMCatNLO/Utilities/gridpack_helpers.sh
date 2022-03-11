@@ -96,7 +96,7 @@ prepare_reweight () {
 	mkdir -p madevent/Events/pilotrun
         cp $WORKDIR/unweighted_events.lhe.gz madevent/Events/pilotrun
         cd madevent
-        config=./madevent/Cards/me5_configuration.txt
+        config=./Cards/me5_configuration.txt # already in madevent dir
     fi
 
     # No longer necessary in gcc6
