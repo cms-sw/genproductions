@@ -1,7 +1,6 @@
 ### Gridpacks for H+c and H+b MC samples
 
 * [General Information](#general-information)
-* [Gridpack production](#gridpack-production)
 
 ----------
 
