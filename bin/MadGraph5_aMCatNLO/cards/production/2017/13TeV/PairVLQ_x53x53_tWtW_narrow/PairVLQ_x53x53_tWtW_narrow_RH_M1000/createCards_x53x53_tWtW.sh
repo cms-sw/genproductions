@@ -2,8 +2,8 @@
 
 masspoints=(900 1000 1100 1200 1300 1400 1500 1600 1700)
 couplings=( "LH" "RH" )
-base_dir="2017/13TeV"
-template_dir="2017/13TeV/PairVLQ_x53x53_tWtW_narrow_M1000/"
+base_dir="2017/13TeV/PairVLQ_x53x53_tWtW_narrow/"
+template_dir="2017/13TeV/PairVLQ_x53x53_tWtW_narrow/PairVLQ_x53x53_tWtW_narrow_M1000/"
 
 # loop over all masspoints
 for handedness in "${couplings[@]}"
