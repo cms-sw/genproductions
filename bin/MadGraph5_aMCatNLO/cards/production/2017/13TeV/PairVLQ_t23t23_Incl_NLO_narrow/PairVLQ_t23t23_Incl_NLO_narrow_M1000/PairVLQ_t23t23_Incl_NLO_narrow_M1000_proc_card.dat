@@ -7,4 +7,4 @@ define bb = b b~
 define tt = t t~
 define WW = w+ w-
 generate p p > tp tp~ / h a z ww [QCD]
-output t23t23_Incl_tPythia_narrow_M1000 
+output PairVLQ_t23t23_Incl_NLO_narrow_M1000 
