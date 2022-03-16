@@ -200,6 +200,9 @@ make_gridpack () {
     
       if [ "$queue" == "local" ]; then
           echo "set run_mode 2" >> mgconfigscript
+      elif [ "$queue" == "pdmv" ]; then
+          echo "set run_mode 2" >> mgconfigscript
+	  echo "set nb_core $NB_CORE" >> mgconfigscript
       else
           #suppress lsf emails
           export LSB_JOB_REPORT_MAIL="N"
