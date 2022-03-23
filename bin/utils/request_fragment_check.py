@@ -350,7 +350,8 @@ def run3_checks(fragment,dn):
             print(comline[0])
             print("[ERROR] The c.o.m. energy is not specified as 13600 GeV in the fragment")
             err += 1
-    if "13p6TeV" not in dn:
+
+    if "FlatRandomEGunProducer" not in fragment and "FlatRandomPtGunProducer" not in fragment and "Pythia8EGun" not in fragment and "13p6TeV" not in dn:
         print("[ERROR] The data set name does not contain 13p6TeV for this Run3 request")
         err += 1
     return err
