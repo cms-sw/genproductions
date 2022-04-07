@@ -194,7 +194,7 @@ if [ $$jhugen = 1 ]; then
   cp -pr pdfs $${WORKDIR}/$${name}/.
 
 
-  cd ..
+  cd ../..
 fi
 
 $patch_6 
