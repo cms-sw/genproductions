@@ -458,6 +458,7 @@ if [ $forMiNNLO -eq 1 ]; then
     patch -l -p0 -i ${WORKDIR}/patches/pwhg_rm_bad_st1.patch
     patch -l -p0 -i ${WORKDIR}/patches/pwhg_rwl_add_random.patch
     patch -l -p0 -i ${WORKDIR}/patches/minnlo_pdf_weights.patch
+    patch -l -p0 -i ${WORKDIR}/patches/pdf_representations.patch
     patch -l -p2 -i ${WORKDIR}/patches/minnlo_pdf_ymax.patch
     cd ..
 fi
@@ -476,6 +477,7 @@ if [ $forMiNNLO -eq 1 ]; then
     fi
     cd ${process}MiNNLO
     patch -l -p0 -i ${WORKDIR}/patches/vj_minnlo_rwl_pdf_optimization.patch
+    patch -l -p0 -i ${WORKDIR}/patches/vj_minnlo_compiler_flags.patch
 fi
 
 # This is just to please gcc 4.8.1
