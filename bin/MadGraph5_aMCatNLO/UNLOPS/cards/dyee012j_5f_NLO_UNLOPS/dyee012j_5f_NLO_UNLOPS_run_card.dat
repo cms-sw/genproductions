@@ -86,7 +86,7 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
  False    = fixed_fac_scale  ! if .true. use fixed fac scale
  91.118   = muR_ref_fixed    ! fixed ren reference scale 
  91.118   = muF_ref_fixed    ! fixed fact reference scale
- -1 = dynamical_scale_choice ! Choose one (or more) of the predefined
+  3 = dynamical_scale_choice ! Choose one (or more) of the predefined
            ! dynamical choices. Can be a list; scale choices beyond the
            ! first are included via reweighting
  1.0  = muR_over_ref  ! ratio of current muR over reference muR
@@ -115,7 +115,7 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
 #      MG5_aMC available, but available in Pythia8.                    *
 #  -1: NNLL+NLO jet-veto computation. See arxiv:1412.8408 [hep-ph].    *
 #***********************************************************************
- 4        = ickkw
+ 0        = ickkw
 #***********************************************************************
 #
 #***********************************************************************
@@ -131,7 +131,7 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
 #***********************************************************************
   1.0  = jetalgo   ! FastJet jet algorithm (1=kT, 0=C/A, -1=anti-kT)
   1.0  = jetradius ! The radius parameter for the jet algorithm
- 10.0  = ptj       ! Min jet transverse momentum
+  5.0  = ptj       ! Min jet transverse momentum
  -1.0  = etaj      ! Max jet abs(pseudo-rap) (a value .lt.0 means no cut)
 #***********************************************************************
 # Cuts on the charged leptons (e+, e-, mu+, mu-, tau+ and tau-)        *
