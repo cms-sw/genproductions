@@ -1,0 +1,3 @@
+import model NMSSMHET --modelname
+generate p p  > h01 , (h01 > a01 a01, a01 > tau+ tau-, a01 > mu+ mu-)
+output ggh01_M125_Toa01a01_M15_Tomumutautau -nojpeg

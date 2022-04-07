@@ -1,0 +1,3 @@
+#the original UFO can be found in https://feynrules.irmp.ucl.ac.be/wiki/TopBNV
+#We use the following modified version of the the model including a small width for the propagator and rescaling the BNV couplings (X --> sqrt(X))
+bnv_mediator_ufo.tar.gz
