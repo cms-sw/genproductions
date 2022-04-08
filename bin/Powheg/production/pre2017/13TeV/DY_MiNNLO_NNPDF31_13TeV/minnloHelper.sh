@@ -8,9 +8,9 @@ if [ "$#" -lt 1 ]; then
     exit 1;
 fi
 
-ARCH=slc6_amd64_gcc700
-CMSSW=CMSSW_10_2_23
-SUFFIX=powheg-MiNNLO31-svn3900-ew-rwl6-j200-st2fix-ana-hoppetweights-ymax20
+ARCH=slc7_amd64_gcc900
+CMSSW=CMSSW_12_2_3
+SUFFIX=powheg-MiNNLO31-svn3900-ew-rwl6-j200-st2fix-ana-hoppetweights-ymax20-pdf2
 
 # PROCS=(ZJToMuMu-suggested-nnpdf31-ncalls-doublefsr-q139 WplusJToMuNu-suggested-nnpdf31-ncalls-doublefsr-q139-ckm WminusJToMuNu-suggested-nnpdf31-ncalls-doublefsr-q139-ckm)
 
