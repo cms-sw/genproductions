@@ -462,7 +462,7 @@ if [ $forMiNNLO -eq 1 ]; then
     patch -l -p0 -i ${WORKDIR}/patches/pwhg_rm_bad_st1.patch
     patch -l -p0 -i ${WORKDIR}/patches/pwhg_rwl_add_random.patch
     patch -l -p0 -i ${WORKDIR}/patches/minnlo_pdf_weights.patch
-    patch -l -p0 -i ${WORKDIR}/patches/pdf_representations.patch
+    patch -l -p0 -i ${WORKDIR}/patches/minnlo_pdf_representations_init.patch
     patch -l -p2 -i ${WORKDIR}/patches/minnlo_pdf_ymax.patch
     cd ..
 fi
