@@ -1454,8 +1454,8 @@ if __name__ == "__main__":
     parser.add_option('-m', '--prcName'       , dest="prcName",       default= 'DMGG',           help='POWHEG process name [DMGG]')
     parser.add_option('-k', '--keepTop'       , dest="keepTop",       default= '0',           help='Keep the validation top draw plots [0]')
     parser.add_option('-d', '--noPdfCheck'    , dest="noPdfCheck",    default= '0',           help='If 1, deactivate automatic PDF check [0]')
-    parser.add_option('--fordag'    , dest="fordag",    default= '0',           help='If 1, deactivate submission, expect condor DAG file to be created')
-    parser.add_option('--slc6'    , dest="slc6",    default= '0',           help='If 1, use slc6 singularity')
+    parser.add_option('--fordag'    , dest="fordag",    default= 0,           help='If 1, deactivate submission, expect condor DAG file to be created')
+    parser.add_option('--slc6'    , dest="slc6",    default= 0,           help='If 1, use slc6 singularity')
 
     # args = parser.parse_args ()
     (args, opts) = parser.parse_args(sys.argv)
@@ -1472,8 +1472,8 @@ if __name__ == "__main__":
     print '                working folder : ' + args.folderName
     print '                EOS folder (stages 4,7,8) : ' + args.eosFolder + '/' + EOSfolder
     print '                base folder : ' + rootfolder
-    print '                forDAG : ' + args.fordag
-    print '                SLC6 : ' + args.slc6
+    print '                forDAG : ' + str(args.fordag)
+    print '                SLC6 : ' + str(args.slc6)
     print
  
     if (TESTING == 1) :     
