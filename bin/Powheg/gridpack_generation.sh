@@ -25,11 +25,11 @@ create_setup () {
         exit 1
     fi
 
-    if [ ! -e ${CARDDIR}/process.input ]; then
-        echo "${CARDDIR}/process.input does not exist. Please provide the Powheg process name in a card called process.input."
+    if [ ! -e ${CARDDIR}/process.dat ]; then
+        echo "${CARDDIR}/process.dat does not exist. Please provide the Powheg process name in a card called process.dat."
         exit 1
     else 
-        PROCESS=`cat ${CARDDIR}/process.input`
+        PROCESS=`cat ${CARDDIR}/process.dat`
     fi
 
     WORKDIR=${POWHEGGENPRODDIR}/${CMSSW_VERSION}/work 
