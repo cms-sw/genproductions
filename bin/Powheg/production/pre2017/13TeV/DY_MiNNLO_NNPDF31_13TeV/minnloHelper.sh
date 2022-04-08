@@ -275,6 +275,8 @@ case $WHAT in
             diff ../../DY_MiNNLO_NNPDF31_13TeV/lheWriter_cfg.py lheWriter_cfg.py
             cp ../../DY_MiNNLO_NNPDF31_13TeV/runcmsgrid_addMassWeights.sh runcmsgrid.sh
             sed -i "s/process=.*/process=\"${PROC:0:1}j\"/g" runcmsgrid.sh
+            sed -i s/SCRAM_ARCH_VERSION_REPLACE/${ARCH}/g runcmsgrid.sh
+            sed -i s/CMSSW_VERSION_REPLACE/${CMSSW}/g runcmsgrid.sh
             diff ../../DY_MiNNLO_NNPDF31_13TeV/runcmsgrid_addMassWeights.sh runcmsgrid.sh
             tar zcf ../${PROC:0:1}j_${ARCH}_${CMSSW}_${PROC}-${SUFFIX}-addmassweights.tgz *
             cd ..
