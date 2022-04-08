@@ -253,12 +253,12 @@ case $WHAT in
     ;;
     
     COPY_GRIDS )
-        OLDSUFFIX=powheg-MiNNLO31-svn3756-ew-rwl5-j200-st2fix-ana-hoppetweights-ymax20-newgrids
-        #OLDSUFFIX=powheg-MiNNLO31-svn3756-ew-rwl5-j200-st2fix-ana-hoppetweights-ymax20
+        OLDPATH=/afs/cern.ch/work/m/mseidel/generator/CMSSW_10_2_23/src/
+        OLDSUFFIX=powheg-MiNNLO31-svn3900-ew-rwl6-j200-st2fix-ana-hoppetweights-ymax20
         for PROC in ${PROCS[@]}
         do
-            cp ${PROC}-${OLDSUFFIX}/*.dat ${PROC}-${SUFFIX}/
-            cp ${PROC}-${OLDSUFFIX}/*.top ${PROC}-${SUFFIX}/
+            cp ${OLDPATH}/${PROC}-${OLDSUFFIX}/*.dat ${PROC}-${SUFFIX}/
+            cp ${OLDPATH}/${PROC}-${OLDSUFFIX}/*.top ${PROC}-${SUFFIX}/
         done
     ;;
     
@@ -276,7 +276,7 @@ case $WHAT in
             cp ../../DY_MiNNLO_NNPDF31_13TeV/runcmsgrid_addMassWeights.sh runcmsgrid.sh
             sed -i "s/process=.*/process=\"${PROC:0:1}j\"/g" runcmsgrid.sh
             diff ../../DY_MiNNLO_NNPDF31_13TeV/runcmsgrid_addMassWeights.sh runcmsgrid.sh
-            tar zcf ../${PROC:0:1}j_${ARCH}_${CMSSW}_${PROC}-${SUFFIX}.tgz *
+            tar zcf ../${PROC:0:1}j_${ARCH}_${CMSSW}_${PROC}-${SUFFIX}-addmassweights.tgz *
             cd ..
         done
     ;;
@@ -290,7 +290,7 @@ case $WHAT in
                 NEWPROC=${PROC//Mu/$LEP}
                 DIR=${NEWPROC}-${SUFFIX}
                 rm -r ${DIR}; mkdir ${DIR}; cd ${DIR}
-                tar -xzf ../${PROC:0:1}j_${ARCH}_${CMSSW}_${PROC}-${SUFFIX}.tgz
+                tar -xzf ../${PROC:0:1}j_${ARCH}_${CMSSW}_${PROC}-${SUFFIX}-addmassweights.tgz
                 if [ "$LEP" == "E" ]; then
                     LEPID=1
                 elif [ "$LEP" == "Tau" ]; then
@@ -302,7 +302,7 @@ case $WHAT in
                 sed -i "s/${PROCSPLIT[0]}/${NEWPROCSPLIT[0]}/g" lheWriter_cfg.py
                 diff ../../DY_MiNNLO_NNPDF31_13TeV/lheWriter_cfg.py lheWriter_cfg.py
                 diff ../../DY_MiNNLO_NNPDF31_13TeV/runcmsgrid.sh runcmsgrid.sh
-                tar zcf ../${PROC:0:1}j_${ARCH}_${CMSSW}_${NEWPROC}-${SUFFIX}.tgz *
+                tar zcf ../${PROC:0:1}j_${ARCH}_${CMSSW}_${NEWPROC}-${SUFFIX}-addmassweights.tgz *
                 cd ..
             done
         done
@@ -315,7 +315,7 @@ case $WHAT in
             for LEP in E Mu Tau
             do
                 NEWPROC=${PROC//Mu/$LEP}
-                cp -p -v ${PROC:0:1}j_${ARCH}_${CMSSW}_${NEWPROC}-${SUFFIX}.tgz /afs/cern.ch/work/m/mseidel/public/MiNNLO-gridpacks/
+                cp -p -v ${PROC:0:1}j_${ARCH}_${CMSSW}_${NEWPROC}-${SUFFIX}-addmassweights.tgz /afs/cern.ch/work/m/mseidel/public/MiNNLO-gridpacks/
             done
         done
     ;;
