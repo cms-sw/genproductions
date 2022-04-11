@@ -49,7 +49,8 @@
 # PDF CHOICE: this automatically fixes also alpha_s and its evol.    *
 #*********************************************************************
  'lhapdf'    = pdlabel     ! PDF set                                  
- 263400    = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number 
+ $DEFAULT_PDF_SETS = lhaid
+ $DEFAULT_PDF_MEMBERS = reweight_PDF
 
 #*********************************************************************
 # Renormalization and factorization scales                           *
@@ -68,10 +69,8 @@
   1	= ktscheme ! for ickkw=1, 1 Durham kT, 2 Pythia pTE
   1.0	= alpsfact ! scale factor for QCD emission vx
   F	= chcluster ! cluster only according to channel diag
-  T	= pdfwgt ! for ickkw=1, perform pdf reweighting
- 263401   = PDF_set_min      ! First of the error PDF sets 
- 263500   = PDF_set_max      ! Last of the error PDF sets
-  4	= asrwgtflavor ! highest quark flavor for a_s reweight
+  F	= pdfwgt ! for ickkw=1, perform pdf reweighting
+  5	= asrwgtflavor ! highest quark flavor for a_s reweight
   T	= clusinfo ! include clustering tag in output
   3.0	= lhe_version ! Change the way clustering information pass to shower.        
 #*********************************************************************       
@@ -88,7 +87,7 @@
 #**********************************
 # BW cutoff (M+/-bwcutoff*Gamma)
 #**********************************
-  15000  = bwcutoff      ! (M+/-bwcutoff*Gamma)
+  15  = bwcutoff      ! (M+/-bwcutoff*Gamma)
 #**********************************************************
 # Apply pt/E/eta/dr/mij cuts on decay products or not
 # (note that etmiss/ptll/ptheavy/ht/sorted cuts always apply)
@@ -256,7 +255,7 @@
 # maximal pdg code for quark to be considered as a light jet         *
 # (otherwise b cuts are applied)                                     *
 #*********************************************************************
- 4 = maxjetflavor    ! Maximum jet pdg code
+ 5 = maxjetflavor    ! Maximum jet pdg code
 #*********************************************************************
 # Jet measure cuts                                                   *
 #*********************************************************************
