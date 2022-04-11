@@ -53,6 +53,20 @@ if [ "$use_gridpack_env" = true ]
     echo "%MSG-MG5 CMSSW version = $cmssw_version"
     export VO_CMS_SW_DIR=/cvmfs/cms.cern.ch
     source $VO_CMS_SW_DIR/cmsset_default.sh
+
+    eval `scramv1 unsetenv -sh`
+    olddir=$PWD
+    newdir=${PWD/CMSSW*/}
+    # Make a directory that doesn't overlap
+    if [[ $newdir != $olddir ]]; then
+        cd $newdir
+        base=`basename $olddir`
+        if [ ! -d $base ]; then
+            mkdir $base
+            cd $base
+        fi
+    fi
+
     export SCRAM_ARCH=${scram_arch_version}
     scramv1 project CMSSW ${cmssw_version}
     cd ${cmssw_version}/src
