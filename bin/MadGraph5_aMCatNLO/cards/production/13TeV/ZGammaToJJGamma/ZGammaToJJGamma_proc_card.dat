@@ -2,8 +2,8 @@ set low_mem_multicore_nlo_generation True
 
 import model loop_sm-ckm_no_b_mass
 
-generate p p > z [QCD] @0
-add process p p > z j [QCD] @1
-add process p p > z j j [QCD] @2
+generate p p > z a [QCD] @0
+add process p p > z a j [QCD] @1
+add process p p > z a j j [QCD] @2
 
 output ZGammaToJJGamma -nojpeg
