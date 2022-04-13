@@ -1,9 +1,0 @@
-set group_subprocesses Auto
-set ignore_six_quark_processes False
-set loop_optimized_output True
-set complex_mass_scheme False
-import model VLQ_v4_4FNS_UFO  
-define ww = w+ w-
-define all = g a ve vm vt ve~ vm~ vt~ u c t d s b u~ c~ t~ d~ s~ b~ e- mu- ta- e+ mu+ ta+
-generate p p > x x~ , (x > t w+), (x~ > t~ w-)
-output x53x53_tW_tPythia_narrow_RH_M1000
