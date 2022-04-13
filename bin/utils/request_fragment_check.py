@@ -350,7 +350,7 @@ def run3_checks(fragment,dn):
             print(comline[0])
             print("[ERROR] The c.o.m. energy is not specified as 13600 GeV in the fragment")
             err += 1
-    if "13p6TeV" not in dn:
+    if "FlatRandomEGunProducer" not in fragment and "FlatRandomPtGunProducer" not in fragment and "Pythia8EGun" not in fragment and "13p6TeV" not in dn:
         print("[ERROR] The data set name does not contain 13p6TeV for this Run3 request")
         err += 1
     return err
@@ -584,7 +584,7 @@ for num in range(0,len(prepid)):
         f2 = open(pi+"_tmp","w")
         data_f1 = f1.read()
 
-        if int(os.popen('grep -c FlatRandomEGunProducer '+pi).read()) == 1 or int(os.popen('grep -c FlatRandomPtGunProducer '+pi).read()) == 1: 
+        if int(os.popen('grep -c FlatRandomEGunProducer '+pi).read()) == 1 or int(os.popen('grep -c FlatRandomPtGunProducer '+pi).read()) == 1 or int(os.popen('grep -c Pythia8EGun '+pi).read()) == 1: 
             particle_gun = 1
         if int(os.popen('grep -c -i randomizedparameters '+pi).read()) > 0:
             randomizedparameters = 1
@@ -940,15 +940,15 @@ for num in range(0,len(prepid)):
         if timeperevent > 0:   
             nevts = (8*3600/timeperevent)*total_eff
             print("Expected number of events = "+str(nevts))
-        if  nevts < 50. and ppd == 0:
-            print("[ERROR] The expected number of events is too small (<50): "+str(nevts))
-            print("        Either the timeperevent value is too large or the filter or matching efficiency is too small. ")
-            print("        Note that total_efficiency = filter_efficiency x matching_efficiency.") 
-            print("        Please check or improve:") 
-            print("            time per event = "+str(timeperevent))
-            print("            filter efficiency = "+str(filter_eff))
-            print("            matching efficiency = "+str(match_eff))
-            error += 1
+#        if  nevts < 50. and ppd == 0:
+#            print("[ERROR] The expected number of events is too small (<50): "+str(nevts))
+#            print("        Either the timeperevent value is too large or the filter or matching efficiency is too small. ")
+#            print("        Note that total_efficiency = filter_efficiency x matching_efficiency.") 
+#            print("        Please check or improve:") 
+#            print("            time per event = "+str(timeperevent))
+#            print("            filter efficiency = "+str(filter_eff))
+#            print("            matching efficiency = "+str(match_eff))
+#            error += 1
 
         if any(word in dn for word in MEname) and gp_size == 0 and "plhe" not in pi.lower():
             print("[ERROR] gridpack path is not properly specified - most probable reason is that it is not a cvmfs path.")
@@ -1038,10 +1038,10 @@ for num in range(0,len(prepid)):
                     w_temp, e_temp = ul_consistency(dn,pi,jhu_gp)
                     warning += w_temp
                     error += e_temp
-                if not (any(word in dn for word in tunename) or "sherpa" in dn.lower() or ("herwigpp" in dn.lower() and ("eec5" in dn.lower() or "ee5c" in dn.lower()))):
+                if "fall18" not in pi.lower() and not (any(word in dn for word in tunename) or "sherpa" in dn.lower() or ("herwigpp" in dn.lower() and ("eec5" in dn.lower() or "ee5c" in dn.lower()))):
                     print("[ERROR] Dataset name does not have the tune name: "+dn)
                     error += 1
-                if not any(word in dn.lower() for word in psname):
+                if "fall18" not in pi.lower() and not any(word in dn.lower() for word in psname):
                     print("[ERROR] Dataset name does not contain a parton shower code name: "+dn)
                     error += 1
                 if not any(word in dn.lower() for word in MEname):
@@ -1171,7 +1171,7 @@ for num in range(0,len(prepid)):
                 with open(jhufilename) as f:
                     jhu_in = f.read()
                     jhu_in = re.sub(r'(?m)^ *#.*\n?', '',jhu_in)
-                    jhu_wfe = str(re.findall(r'(.*?WriteFailedEvents.*?)\n',jhu_in))
+                    jhu_wfe = str(re.findall(r'(.*?WriteFailedEvents.*?)',jhu_in))
                     if (not jhu_wfe or jhu_wfe.isspace()) or (jhu_wfe and not jhu_wfe.isspace() and "2" not in jhu_wfe): 
                         print("[ERROR] WriteFailedEvents should be set to 2 in JHUGen.input in jhugen+powheg samples.")
                         error += 1
