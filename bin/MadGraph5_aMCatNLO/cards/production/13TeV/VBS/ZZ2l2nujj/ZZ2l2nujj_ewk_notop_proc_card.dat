@@ -1,0 +1,9 @@
+import model sm-ckm_no_b_mass
+define p = g u c d s b u~ c~ d~ s~ b~
+define j = p
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+generate  p p > z vl vl~ j j $ t t~ QED=5 QCD=0, z > l+ l-
+output ZZ2l2nujj_ewk_notop

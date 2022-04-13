@@ -200,6 +200,9 @@ make_gridpack () {
     
       if [ "$queue" == "local" ]; then
           echo "set run_mode 2" >> mgconfigscript
+      elif [ "$queue" == "pdmv" ]; then
+          echo "set run_mode 2" >> mgconfigscript
+	  echo "set nb_core $NB_CORE" >> mgconfigscript
       else
           #suppress lsf emails
           export LSB_JOB_REPORT_MAIL="N"
@@ -348,7 +351,7 @@ make_gridpack () {
       echo "WARNING: If you changed the process card you need to clean the folder and run from scratch"
     
       if [ "$is5FlavorScheme" -eq -1 ]; then
-        if cat $LOGFILE_NAME*.log | grep -q -e "^p *=.*b\~.*b" -e "^p *=.*b.*b\~"; then 
+        if grep -q -e "^p *=.*b\~.*b" -e "^p *=.*b.*b\~" $LOGFILE_NAME*.log; then 
             is5FlavorScheme=1
         else
             is5FlavorScheme=0
@@ -700,7 +703,7 @@ fi
 helpers_dir=${PRODHOME%genproductions*}/genproductions/Utilities
 helpers_file=${helpers_dir}/gridpack_helpers.sh
 if [ ! -f "$helpers_file" ]; then
-  if ! [ -x "$(command -v git)" ]; then
+  if [ -f "${PRODHOME}/Utilities/gridpack_helpers.sh" ]; then
     helpers_dir=${PRODHOME}/Utilities
   else
     helpers_dir=$(git rev-parse --show-toplevel)/bin/MadGraph5_aMCatNLO/Utilities

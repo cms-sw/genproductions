@@ -1,0 +1,5 @@
+import model loop_sm
+
+generate p p > h b b~ [QCD]
+
+output bbH<MASS>_NLO_HtoMuMuGamma -nojpeg
