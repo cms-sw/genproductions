@@ -1038,10 +1038,10 @@ for num in range(0,len(prepid)):
                     w_temp, e_temp = ul_consistency(dn,pi,jhu_gp)
                     warning += w_temp
                     error += e_temp
-                if not (any(word in dn for word in tunename) or "sherpa" in dn.lower() or ("herwigpp" in dn.lower() and ("eec5" in dn.lower() or "ee5c" in dn.lower()))):
+                if "fall18" not in pi.lower() and not (any(word in dn for word in tunename) or "sherpa" in dn.lower() or ("herwigpp" in dn.lower() and ("eec5" in dn.lower() or "ee5c" in dn.lower()))):
                     print("[ERROR] Dataset name does not have the tune name: "+dn)
                     error += 1
-                if not any(word in dn.lower() for word in psname):
+                if "fall18" not in pi.lower() and not any(word in dn.lower() for word in psname):
                     print("[ERROR] Dataset name does not contain a parton shower code name: "+dn)
                     error += 1
                 if not any(word in dn.lower() for word in MEname):
