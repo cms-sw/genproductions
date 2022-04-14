@@ -9,11 +9,11 @@ import sys
 import os
 
 if len(sys.argv) < 3:
-    print """\
+    print("""
 ERROR: Please specify if the Flavor scheme for which you want to define the weights is 5F (1) or 4F (0), and the central PDF
 Example of usage for 5F:  python make_rwl.py 1 306000
 Example of usage for 4F:  python make_rwl.py 0 320900
-"""
+""")
     sys.exit(1)
 
 is5FlavorScheme = str(sys.argv[1])
@@ -98,16 +98,17 @@ if forDYNNLOPS or forMiNNLO:
               [3000, 303200, 'NNPDF30_nnlo_as_0118_hessian', 101],
               [3103, 269000, 'NNPDF30_nnlo_as_0117', 1],
               [3104, 270000, 'NNPDF30_nnlo_as_0119', 1],
-              [5100, 14000, 'CT18NNLO', 59],
-              [5170, 14066, 'CT18NNLO_as_0116', 1],
-              [5171, 14067, 'CT18NNLO_as_0117', 1],
-              [5172, 14069, 'CT18NNLO_as_0119', 1],
-              [5173, 14070, 'CT18NNLO_as_0120', 1],
-              [5200, 14100, 'CT18ZNNLO', 59],
-              [5270, 14166, 'CT18ZNNLO_as_0116', 1],
-              [5271, 14167, 'CT18ZNNLO_as_0117', 1],
-              [5272, 14169, 'CT18ZNNLO_as_0119', 1],
-              [5273, 14170, 'CT18ZNNLO_as_0120', 1],
+              [4000, 93300, 'PDF4LHC21_40_pdfas', 43],
+              [5000, 14000, 'CT18NNLO', 59],
+              [5070, 14066, 'CT18NNLO_as_0116', 1],
+              [5071, 14067, 'CT18NNLO_as_0117', 1],
+              [5072, 14069, 'CT18NNLO_as_0119', 1],
+              [5073, 14070, 'CT18NNLO_as_0120', 1],
+              [5100, 14100, 'CT18ZNNLO', 59],
+              [5170, 14166, 'CT18ZNNLO_as_0116', 1],
+              [5171, 14167, 'CT18ZNNLO_as_0117', 1],
+              [5172, 14169, 'CT18ZNNLO_as_0119', 1],
+              [5173, 14170, 'CT18ZNNLO_as_0120', 1],
               [6000, 27400, 'MSHT20nnlo_as118', 65],
               [6070, 27500, 'MSHT20nnlo_as_smallrange', 7],
               [6080, 27910, 'MSHT20nnlo_mcrange_nf5', 9],
@@ -118,6 +119,9 @@ if forDYNNLOPS or forMiNNLO:
               [8050, 43050, 'ABMP16als116_5_nlo', 1],
               [8051, 43110, 'ABMP16als118_5_nlo', 1],
               [8052, 43170, 'ABMP16als120_5_nlo', 1],
+              [9000, 65200, 'ATLASepWZVjet20-EIG', 33],
+              [10000, 65240, 'ATLASepWZVjet20-MOD', 9],
+              [11000, 65250, 'ATLASepWZVjet20-PAR', 18],
               [13000, 61200, 'HERAPDF20_NNLO_EIG', 29],
               [13050, 61230, 'HERAPDF20_NNLO_VAR', 14],
               [13100, 61746, 'HERAPDF20_NNLO_ALPHAS_116', 1],
@@ -214,13 +218,13 @@ else:
           }
   
 pdf_count = 0
-for key, pdfsets in sorted(pdf_sets.iteritems()):
+for key, pdfsets in sorted(pdf_sets.items()):
   weightgroup_name = key.replace(" ", "").split(',')[0]
   combine = key.replace(" ", "").split(',')[1]
-  print 'weightgroup_name',weightgroup_name,'combine',combine
+  print('weightgroup_name',weightgroup_name,'combine',combine)
   fout.write("<weightgroup name='"+weightgroup_name+"' combine='"+combine+"' >\n")
   for pdf in pdfsets:
-    print 'pdf',pdf
+    print('pdf',pdf)
     m_idx = pdf[0]
     pdf_member_start = pdf[1]
     pdf_member_end = pdf[1] + pdf[3]
@@ -234,4 +238,4 @@ fout.write("</initrwgt>\n")
 
 fout.close()
 
-print 'pdf_count = ',pdf_count
+print('pdf_count = ',pdf_count)
