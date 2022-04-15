@@ -1667,7 +1667,7 @@ for num in range(0,len(prepid)):
         if int(os.popen('grep -c -i filter '+pi).read()) > 3 and filter_eff == 1:
             print("[WARNING] Filters in the fragment but filter efficiency = 1")
             warning += 1
-        if "Run3" in pi and "PbPb" not in pi:
+        if "Run3" in pi and "PbPb" not in pi and "Run3Summer21" not in pi:
             err_tmp = run3_checks(data_f1,dn)
             error += err_tmp
         if args.develop is False:
