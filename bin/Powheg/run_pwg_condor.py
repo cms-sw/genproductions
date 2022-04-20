@@ -170,6 +170,12 @@ def runParallelXgrid(parstage, xgrid, folderName, nEvents, njobs, powInputName, 
         filename = folderName+'/run_' + jobID + '.sh'
         f = open(filename, 'a')
         #f.write('cd '+rootfolder+'/'+folderName+'/ \n')
+        if process == 'WWJ' :
+          f.write('echo \"Copy TwoLoops grids\"\n')
+          f.write('ls\n') 
+          f.write('wget https://wwwth.mpp.mpg.de/members/wieseman/download/codes/WW_MiNNLO/VVamp_interpolation_grids/WW_MiNNLO_2loop_grids_reduced1.tar.gz\n')
+          f.write('tar xzf WW_MiNNLO_2loop_grids_reduced1.tar.gz\n')
+          f.write('ls\n') 
         f.write('echo ' + str(i+1) + ' | ./pwhg_main &> run_' + jobID + '.log ' + '\n')
         f.write('cp -p *.top ' + rootfolder + '/' + folderName + '/. \n')
         f.write('cp -p *.dat ' + rootfolder + '/' + folderName + '/. \n')
@@ -297,8 +303,12 @@ def runGetSource(parstage, xgrid, folderName, powInputName, process, noPdfCheck,
     else:
         template_dict["forDYNNLOPS"] = 0
 
-    powhegResProcesses = ["b_bbar_4l", "HWJ_ew", "HW_ew", "HZJ_ew", "HZ_ew", "vbs-ssww-nloew"]
+    powhegResProcesses = ["b_bbar_4l", "HWJ_ew", "HW_ew", "HZJ_ew", "HZ_ew", "vbs-ssww-nloew", "WWJ"]
     if process in powhegResProcesses:
+        if process == 'WWJ':
+            POWHEGRES_SOURCE = "powhegboxRES_rev3970_date20220324.tar.gz"
+        else:
+            pass
         template_dict["powhegSrc"] = POWHEGRES_SOURCE
     else:
         template_dict["powhegSrc"] = POWHEG_SOURCE
@@ -348,8 +358,14 @@ def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag, proc
         filename = folderName+'/run_' + tag + '.sh'
         f = open (filename, 'a')
         #f.write('cd '+rootfolder+'/'+folderName+'/ \n')
+        if process == 'WWJ' :
+          f.write('echo \"Copy TwoLoops grids\"\n')
+          f.write('ls\n') 
+          f.write('wget https://wwwth.mpp.mpg.de/members/wieseman/download/codes/WW_MiNNLO/VVamp_interpolation_grids/WW_MiNNLO_2loop_grids_reduced1.tar.gz\n')
+          f.write('tar xzf WW_MiNNLO_2loop_grids_reduced1.tar.gz\n')
+          f.write('ls\n') 
         f.write('echo ' + str (i) + ' | ./pwhg_main &> run_' + tag + '.log ' + '\n')
-        f.write('cp -p *.top ' + rootfolder + '/' + folderName + '/. \n')
+        #f.write('cp -p *.top ' + rootfolder + '/' + folderName + '/. \n')
         f.write('cp -p *.dat ' + rootfolder + '/' + folderName + '/. \n')
         f.write('cp -p *.log ' + rootfolder + '/' + folderName + '/. \n')
         f.write('exit 0 \n')
