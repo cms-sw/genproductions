@@ -45,7 +45,6 @@
 #*********************************************************************
   lhapdf	= pdlabel ! PDF set
   325300	= lhaid ! if pdlabel=lhapdf, this is the lhapdf number
-#  230000	= lhaid ! if pdlabel=lhapdf, this is the lhapdf number
 # To see heavy ion options: type "update ion_pdf"
 #*********************************************************************
 # Renormalization and factorization scales                           *
@@ -276,10 +275,3 @@
 # WARNING: Do not use for interference type of computation           *
 #*********************************************************************
   True	= use_syst ! Enable systematics studies
-#
-  systematics	= systematics_program ! none, systematics [python], SysCalc [depreceted, C++]
-['--mur=0.5,1,2', '--muf=0.5,1,2', '--pdf=errorset'] = systematics_arguments ! see: https://cp3.irmp.ucl.ac.be/projects/madgraph/wiki/Systematics#Systematicspythonmodule
-# Syscalc is deprecated but to see the associate options type'update syscalc'#*********************************************************************
-#  Additional hidden parameters
-#*********************************************************************
-  ['--mur=0.5,1,2', '--muf=0.5,1,2', '--pdf=errorset']	= systematics_arguments # Choose the argment to pass to the systematics command. like --mur=0.25,1,4. Look at the help of the systematics function for more details.
