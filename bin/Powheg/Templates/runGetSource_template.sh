@@ -152,17 +152,9 @@ fi
 if [ `grep particle_identif pwhg_analysis-dummy.f` = ""]; then
    cp ../pwhg_analysis-dummy.f .
 fi
-#sed -i -e "s#PWHGANAL[ \t]*=[ \t]*#\#PWHGANAL=#g" Makefile
-#sed -i -e "s#ANALYSIS[ \t]*=[ \t]*#\#ANALYSIS=#g" Makefile
-#sed -i -e "s#_\#ANALYSIS*#_ANALYSIS=#g" Makefile
 sed -i -e "s#LHAPDF_CONFIG[ \t]*=[ \t]*#\#LHAPDF_CONFIG=#g" Makefile
-#sed -i -e "s#pwhg_bookhist.o# #g" Makefile
-#sed -i -e "s#pwhg_bookhist-new.o# #g" Makefile
-#sed -i -e "s#pwhg_bookhist-multi.o# #g" Makefile
-
 $patch_4 
 
-#echo "ANALYSIS=none " >> tmpfile
 
 # Add libraries now
 NEWRPATH1=`ls /cvmfs/cms.cern.ch/$${SCRAM_ARCH}/external/gcc/*/* | grep "/lib64" | head -n 1`
