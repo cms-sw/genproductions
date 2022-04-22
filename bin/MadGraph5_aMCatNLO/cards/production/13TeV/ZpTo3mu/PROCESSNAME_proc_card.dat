@@ -5,7 +5,7 @@ set loop_color_flows False
 set gauge unitary
 set complex_mass_scheme False
 set max_npoint_for_channel 0
-import model Leptophilic_UFO
+import model Leptophilic_UFO-no_b_mass
 define p = g u c d s b u~ c~ d~ s~ b~
 define j = g u c d s b u~ c~ d~ s~ b~
 generate p p > zp > PRODUCTS / h
