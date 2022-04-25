@@ -136,7 +136,7 @@
    -1  = etaj    ! max rap for the jets 
   -1  = etab    ! max rap for the b
   -1  = etaa    ! max rap for the photons 
-  2.5  = etal    ! max rap for the charged leptons 
+  3.0  = etal    ! max rap for the charged leptons 
   #0 = etaonium ! max rap for the quarkonium states
    0  = etajmin ! min rap for the jets
    0  = etabmin ! min rap for the b
