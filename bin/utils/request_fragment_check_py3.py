@@ -932,7 +932,7 @@ for num in range(0,len(prepid)):
                 with open(jhufilename) as f:
                     jhu_in = f.read()
                     jhu_in = re.sub(r'(?m)^ *#.*\n?', '',jhu_in)
-                    jhu_wfe = str(re.findall(r'(.*?WriteFailedEvents.*?)\n',jhu_in))
+                    jhu_wfe = str(re.findall(r'(WriteFailedEvents.*(?=\s))',jhu_in))
                     if (not jhu_wfe or jhu_wfe.isspace()) or (jhu_wfe and not jhu_wfe.isspace() and "2" not in jhu_wfe): 
                         print("[ERROR] WriteFailedEvents should be set to 2 in JHUGen.input in jhugen+powheg samples.")
                         error += 1
