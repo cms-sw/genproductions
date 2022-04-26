@@ -27,10 +27,10 @@ case $WHAT in
     ;;
     
     INIT )
-        ln -s genproductions/bin/Powheg/*.py .
-        ln -s genproductions/bin/Powheg/*.sh .
-        ln -s genproductions/bin/Powheg/patches .
-        ln -s genproductions/bin/Powheg/production/pre2017/13TeV/DY_MiNNLO_NNPDF31_13TeV .
+        ln -s ../../genproductions/bin/Powheg/*.py .
+        ln -s ../../genproductions/bin/Powheg/*.sh .
+        ln -s ../../genproductions/bin/Powheg/patches .
+        ln -s ../../genproductions/bin/Powheg/production/pre2017/13TeV/DY_MiNNLO_NNPDF31_13TeV .
     ;;
     
     PRINT )
