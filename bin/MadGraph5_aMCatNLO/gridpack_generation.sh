@@ -571,7 +571,6 @@ make_gridpack () {
       
       echo "cleaning temporary output"
       mv $WORKDIR/processtmp/pilotrun_gridpack.tar.gz $WORKDIR/
-      mv $WORKDIR/processtmp/Events/pilotrun/unweighted_events.lhe.gz $WORKDIR/
       rm -rf processtmp
       mkdir process
       cd process
@@ -579,6 +578,11 @@ make_gridpack () {
       tar -xzf $WORKDIR/pilotrun_gridpack.tar.gz
       echo "cleaning temporary gridpack"
       rm $WORKDIR/pilotrun_gridpack.tar.gz
+
+      # as of mg29x, it does not generate any event if 'True = gridpack' in the run card
+      # generate a few events manually
+      ./run.sh 1000 234567 # nevents seed
+      mv events.lhe.gz $WORKDIR/unweighted_events.lhe.gz
 
       # precompile reweighting if necessary
       if [ -e $CARDSDIR/${name}_reweight_card.dat ]; then
