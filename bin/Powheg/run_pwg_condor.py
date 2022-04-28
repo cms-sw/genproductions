@@ -19,7 +19,7 @@ QUEUE = ''
 
 #POWHEG_SOURCE = "powhegboxV2_rev3728_date20200429.tar.gz"
 POWHEG_SOURCE = "powhegboxV2_rev3828_date20210215.tar.gz"
-POWHEGRES_SOURCE = "powhegboxRES_rev3748_date20200615.tar.gz"
+POWHEGRES_SOURCE = "powhegboxRES_rev3970_date20220324.tar.gz"
 
 rootfolder = os.getcwd()
 
@@ -305,10 +305,6 @@ def runGetSource(parstage, xgrid, folderName, powInputName, process, noPdfCheck,
 
     powhegResProcesses = ["b_bbar_4l", "HWJ_ew", "HW_ew", "HZJ_ew", "HZ_ew", "vbs-ssww-nloew", "WWJ"]
     if process in powhegResProcesses:
-        if process == 'WWJ':
-            POWHEGRES_SOURCE = "powhegboxRES_rev3970_date20220324.tar.gz"
-        else:
-            pass
         template_dict["powhegSrc"] = POWHEGRES_SOURCE
     else:
         template_dict["powhegSrc"] = POWHEG_SOURCE
