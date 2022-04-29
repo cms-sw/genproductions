@@ -2,20 +2,26 @@ import os
 import sys
 
 mixings = ["El", "Mu"]
-processes = ["DY", "W"]
-amcatnlo = {"W": "generate p p > llp n1 \[QCD\]\\nadd process p p > llm n1 \[QCD\]\\n", "DY": "generate p p > vv n1 \[QCD\]\\nadd process p p > vvx n1 \[QCD\]\\n"}
-madspin = {"W": "decay n1 > vv z, z > j j\\ndecay n1 > vvx z, z > j j\\ndecay n1 > vv h, h > b b~\\ndecay n1 > vvx h, h > b b~\\n", "DY": "decay n1 > llp w-, w- > j j\\ndecay n1 > llm w+, w- > j j\\n"}
+processes = ["DY", "W", "Wbb"]
+amcatnlo = {"W": "generate p p > llp n1 \[QCD\]\\nadd process p p > llm n1 \[QCD\]\\n", "DY": "generate p p > vv n1 \[QCD\]\\nadd process p p > vvx n1 \[QCD\]\\n", "Wbb": "generate p p > llp n1 \[QCD\]\\nadd process p p > llm n1 \[QCD\]\\n"}
+madspin = {"W": "decay n1 > vv z, z > j j\\ndecay n1 > vvx z, z > j j\\n", "DY": "decay n1 > llp w-, w- > j j\\ndecay n1 > llm w+, w- > j j\\n", "Wbb": ["decay n1 > vv z, z > b b~\\ndecay n1 > vvx z, z > b b~\\n", "decay n1 > vv h, h > b b~\\ndecay n1 > vvx h, h > b b~\\ndecay n1 > vv z, z > b b~\\ndecay n1 > vvx z, z > b b~\\n"]}
 masses = ["100", "200", "300", "500", "1000", "1500", "2000"]
-
-mixings = ["Mu"]
-masses = ["500"]
 
 for m in masses:
     for p in processes:
         for mi in mixings:
-            datasetname = p + "toLNuJJ_TypeIHeavyN-" + mi + "_1L_NLO_MN" + m + "_TuneCP5_13TeV-amcatnlo-pythia8"
+            if p == "W": datasetname = p + "toLNuJJ_TypeIHeavyN-" + mi + "_1L_NLO_MN" + m + "_TuneCP5_13TeV-amcatnlo-pythia8"
+            elif p == "Wbb": datasetname = "WtoLNuBB_TypeIHeavyN-" + mi + "_1L_NLO_MN" + m + "_TuneCP5_13TeV-amcatnlo-pythia8"
+            elif p == "DY": datasetname = p + "toLNuJJ_TypeIHeavyN-" + mi + "_1L_NLO_MN" + m + "_TuneCP5_13TeV-amcatnlo-pythia8"
+
             process = amcatnlo[p]
-            decay = madspin[p]
+            if p == "Wbb":
+                if int(m) > 150:
+                    decay = madspin[p][1]
+                else:
+                    decay = madspin[p][0]
+            else:
+                decay = madspin[p]
             os.system("mkdir -p " + p + "/" + datasetname)
 
             os.system("cp skeleton/extramodels.dat " + p + "/" + datasetname + "/" + datasetname + "_extramodels.dat")
