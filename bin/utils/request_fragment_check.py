@@ -339,6 +339,33 @@ def evtgen_check(fragment):
         warn = 1
     return warn, err
 
+def run3_checks(fragment,dn):
+    err = 0
+    warn = 0
+    fragment = fragment.replace(" ","")
+    print("======> Run3 Fragment and dataset name checks:")
+    if "comEnergy" in fragment:
+        comline = re.findall('comEnergy=\S+',fragment)
+        if "13600" not in comline[0]:
+            print(comline[0])
+            print("[ERROR] The c.o.m. energy is not specified as 13600 GeV in the fragment")
+            err += 1
+    if "FlatRandomEGunProducer" not in fragment and "FlatRandomPtGunProducer" not in fragment and "Pythia8EGun" not in fragment and "13p6TeV" not in dn:
+        print("[ERROR] The data set name does not contain 13p6TeV for this Run3 request")
+        err += 1
+    return err
+
+def run3_run_card_check(filename_mggpc):
+    err = 0
+    beamenergy1 = os.popen('grep ebeam1 '+filename_mggpc).read()
+    beamenergy2 = os.popen('grep ebeam2 '+filename_mggpc).read()
+    print("======> Run3 run_card check for MG5aMC") 
+    print(beamenergy1,beamenergy2)
+    if "6800" not in beamenergy1 or "6800" not in beamenergy2:
+        print("[ERROR] The beam energy is not specified as 6800 GeV in the run_card")
+        err = 1
+    return err 
+
 def exception_for_ul_check(datatobereplaced,cross_section_fragment):
     new_data = datatobereplaced.replace(" ","")
     new_data = new_data.replace(",generateConcurrently=cms.untracked.bool(True)","")
@@ -557,7 +584,7 @@ for num in range(0,len(prepid)):
         f2 = open(pi+"_tmp","w")
         data_f1 = f1.read()
 
-        if int(os.popen('grep -c FlatRandomEGunProducer '+pi).read()) == 1 or int(os.popen('grep -c FlatRandomPtGunProducer '+pi).read()) == 1: 
+        if int(os.popen('grep -c FlatRandomEGunProducer '+pi).read()) == 1 or int(os.popen('grep -c FlatRandomPtGunProducer '+pi).read()) == 1 or int(os.popen('grep -c Pythia8EGun '+pi).read()) == 1: 
             particle_gun = 1
         if int(os.popen('grep -c -i randomizedparameters '+pi).read()) > 0:
             randomizedparameters = 1
@@ -570,6 +597,7 @@ for num in range(0,len(prepid)):
         if len(cmssw_version[3]) != 2:
            cmssw_version[3] += "0"
         cmssw_version=int(cmssw_version[1]+cmssw_version[2]+cmssw_version[3])
+        data_f2 = re.sub(r'(?m)^ *#.*\n?', '',data_f1)
         concurrency_check_exception_list = ["HIG-RunIISummer20UL16GENAPV-00063",
                                             "HIG-RunIISummer20UL16GEN-00072",
                                             "HIG-RunIISummer20UL17GEN-00007",
@@ -585,9 +613,9 @@ for num in range(0,len(prepid)):
             conc_check_result, tmp_err = concurrency_check(data_f1,pi,cmssw_version)
             error += tmp_err
         else:
-            print("[WARNING] Skipping the concurrency check since these are (wmLHE)GEN-only campaigns or a particle gun or Sherpa Diphoton sample.")
+            print("[WARNING] Skipping the concurrency check since these are (wmLHE)GEN-only campaigns or a particle gun or a Sherpa Diphoton sample.")
             warning += 1
-        data_f2 = re.sub(r'(?m)^ *#.*\n?', '',data_f1)
+#        data_f2 = re.sub(r'(?m)^ *#.*\n?', '',data_f1)
 
         cross_section_fragment = re.findall('crossSection.*?\S+\S+',data_f2)
         if (cross_section_fragment):
@@ -788,6 +816,10 @@ for num in range(0,len(prepid)):
                 fname_p2 = my_path+'/'+pi+'/'+'process/Cards/run_card.dat'
                 if os.path.isfile(fname_p2) is True :
                     filename_mggpc = fname_p2
+                #file_run_card = open(filename_mggpc,"r")
+                if "Run3" in pi and "PbPb" not in pi:
+                    err_tmp = run3_run_card_check(filename_mggpc)
+                    error += err_tmp
                 alt_ickkw_c = os.popen('more '+filename_mggpc+' | tr -s \' \' | grep "= ickkw"').read()
                 alt_ickkw_c = int(re.search(r'\d+',alt_ickkw_c).group())
                 print("MG5 matching/merging: "+str(alt_ickkw_c))
@@ -908,15 +940,15 @@ for num in range(0,len(prepid)):
         if timeperevent > 0:   
             nevts = (8*3600/timeperevent)*total_eff
             print("Expected number of events = "+str(nevts))
-        if  nevts < 50. and ppd == 0:
-            print("[ERROR] The expected number of events is too small (<50): "+str(nevts))
-            print("        Either the timeperevent value is too large or the filter or matching efficiency is too small. ")
-            print("        Note that total_efficiency = filter_efficiency x matching_efficiency.") 
-            print("        Please check or improve:") 
-            print("            time per event = "+str(timeperevent))
-            print("            filter efficiency = "+str(filter_eff))
-            print("            matching efficiency = "+str(match_eff))
-            error += 1
+#        if  nevts < 50. and ppd == 0:
+#            print("[ERROR] The expected number of events is too small (<50): "+str(nevts))
+#            print("        Either the timeperevent value is too large or the filter or matching efficiency is too small. ")
+#            print("        Note that total_efficiency = filter_efficiency x matching_efficiency.") 
+#            print("        Please check or improve:") 
+#            print("            time per event = "+str(timeperevent))
+#            print("            filter efficiency = "+str(filter_eff))
+#            print("            matching efficiency = "+str(match_eff))
+#            error += 1
 
         if any(word in dn for word in MEname) and gp_size == 0 and "plhe" not in pi.lower():
             print("[ERROR] gridpack path is not properly specified - most probable reason is that it is not a cvmfs path.")
@@ -1006,10 +1038,10 @@ for num in range(0,len(prepid)):
                     w_temp, e_temp = ul_consistency(dn,pi,jhu_gp)
                     warning += w_temp
                     error += e_temp
-                if not (any(word in dn for word in tunename) or "sherpa" in dn.lower() or ("herwigpp" in dn.lower() and ("eec5" in dn.lower() or "ee5c" in dn.lower()))):
+                if "fall18" not in pi.lower() and not (any(word in dn for word in tunename) or "sherpa" in dn.lower() or ("herwigpp" in dn.lower() and ("eec5" in dn.lower() or "ee5c" in dn.lower()))):
                     print("[ERROR] Dataset name does not have the tune name: "+dn)
                     error += 1
-                if not any(word in dn.lower() for word in psname):
+                if "fall18" not in pi.lower() and not any(word in dn.lower() for word in psname):
                     print("[ERROR] Dataset name does not contain a parton shower code name: "+dn)
                     error += 1
                 if not any(word in dn.lower() for word in MEname):
@@ -1139,7 +1171,7 @@ for num in range(0,len(prepid)):
                 with open(jhufilename) as f:
                     jhu_in = f.read()
                     jhu_in = re.sub(r'(?m)^ *#.*\n?', '',jhu_in)
-                    jhu_wfe = str(re.findall(r'(.*?WriteFailedEvents.*?)\n',jhu_in))
+                    jhu_wfe = str(re.findall(r'(WriteFailedEvents.*(?=\s))',jhu_in))
                     if (not jhu_wfe or jhu_wfe.isspace()) or (jhu_wfe and not jhu_wfe.isspace() and "2" not in jhu_wfe): 
                         print("[ERROR] WriteFailedEvents should be set to 2 in JHUGen.input in jhugen+powheg samples.")
                         error += 1
@@ -1613,7 +1645,7 @@ for num in range(0,len(prepid)):
                 warning += 1
         if fsize != 0 and herwig_flag == 0 and sherpa_flag == 0:
             if int(os.popen('grep -c "from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *" '+pi).read()) != 1 :
-                print("[WARNING] No parton shower weights configuration in the fragment. In the Fall18 campaign, we recommend to include Parton Shower weights")
+                print("[WARNING] No parton shower weights configuration in the fragment. Since the Fall18 campaign, we recommend to include Parton Shower weights")
                 warning += 1
             if int(os.popen('grep -c "from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *" '+pi).read()) == 1 :
                 if (int(str(cmssw_version)[:1]) == 9 and cmssw_version < 93019) or (int(str(cmssw_version)[:1]) > 9 and cmssw_version < 102030) or (int(str(cmssw_version)[:1]) == 7 and cmssw_version < 71047):
@@ -1635,6 +1667,9 @@ for num in range(0,len(prepid)):
         if int(os.popen('grep -c -i filter '+pi).read()) > 3 and filter_eff == 1:
             print("[WARNING] Filters in the fragment but filter efficiency = 1")
             warning += 1
+        if "Run3" in pi and "PbPb" not in pi and "Run3Summer21" not in pi:
+            err_tmp = run3_checks(data_f1,dn)
+            error += err_tmp
         if args.develop is False:
             os.popen("rm -rf "+my_path+pi).read()
             os.popen("rm -rf "+my_path+'eos/'+pi).read()
