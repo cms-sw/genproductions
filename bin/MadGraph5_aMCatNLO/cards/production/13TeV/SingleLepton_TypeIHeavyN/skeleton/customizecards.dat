@@ -13,4 +13,4 @@ set param_card vtan3 0.000000e+00
 set param_card wn1 Auto
 set param_card wn2 10
 set param_card wn3 10
-set param_card mb 0.0
+set param_card ymb 4.7

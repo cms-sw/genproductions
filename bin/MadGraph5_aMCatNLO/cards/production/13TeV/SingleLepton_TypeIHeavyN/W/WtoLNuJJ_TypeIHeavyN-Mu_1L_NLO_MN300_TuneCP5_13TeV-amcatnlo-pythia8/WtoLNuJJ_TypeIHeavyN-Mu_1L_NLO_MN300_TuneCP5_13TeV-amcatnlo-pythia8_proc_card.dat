@@ -1,4 +1,4 @@
-import model SM_HeavyN_Gen3Mass_NLO
+import model SM_HeavyN_NLO
 
 define p = u d c s b u~ d~ c~ s~ b~ g
 define j = p
@@ -11,4 +11,4 @@ define vvx = vm~
 generate p p > llp n1 [QCD]
 add process p p > llm n1 [QCD]
 
-output WtoLNuJJ_TypeIHeavyN-Mu_1L_NLO_MN500_TuneCP5_13TeV-amcatnlo-pythia8
+output WtoLNuJJ_TypeIHeavyN-Mu_1L_NLO_MN300_TuneCP5_13TeV-amcatnlo-pythia8

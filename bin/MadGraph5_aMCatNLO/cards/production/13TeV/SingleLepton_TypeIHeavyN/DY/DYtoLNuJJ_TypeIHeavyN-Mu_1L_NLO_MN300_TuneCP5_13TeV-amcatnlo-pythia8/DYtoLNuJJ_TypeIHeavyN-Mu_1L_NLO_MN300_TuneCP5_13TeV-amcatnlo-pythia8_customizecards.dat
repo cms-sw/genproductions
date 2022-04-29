@@ -1,4 +1,4 @@
-set param_card mn1 500
+set param_card mn1 300
 set param_card mn2 9999999
 set param_card mn3 9999999
 set param_card ven1 0.0
@@ -13,4 +13,4 @@ set param_card vtan3 0.000000e+00
 set param_card wn1 Auto
 set param_card wn2 10
 set param_card wn3 10
-set param_card mb 0.0
+set param_card ymb 4.7

@@ -1,4 +1,4 @@
-import model SM_HeavyN_Gen3Mass_NLO
+import model SM_HeavyN_NLO
 
 define p = u d c s b u~ d~ c~ s~ b~ g
 define j = p
