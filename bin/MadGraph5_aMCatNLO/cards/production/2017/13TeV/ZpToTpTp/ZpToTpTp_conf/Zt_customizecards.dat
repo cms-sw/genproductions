@@ -1,0 +1,8 @@
+set param_card kzpsm  1 1.000000e-01
+set param_card kzpsm  7 1.000000e-01
+set param_card kzpsm  13 1.000000e-01
+set param_card kzpsm  19 1.000000e-01
+set param_card kzpvlq 1 1.000000e-01
+set param_card kzpvlq 5 1.000000e-01
+set param_card ktsm  15 1.000000e-01
+set param_card ktsm  6  1.000000e-01
