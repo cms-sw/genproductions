@@ -368,10 +368,10 @@ def run3_run_card_check(filename_mggpc,pi):
     beamenergy2 = os.popen('grep ebeam2 '+filename_mggpc).read()
     print("======> Run3 run_card check for MG5aMC") 
     print(beamenergy1,beamenergy2)
-    if "run3winter22" in pi.lower() and "6800" not in beamenergy1 or "6800" not in beamenergy2:
+    if "run3winter22" in pi.lower() and ("6800" not in beamenergy1 or "6800" not in beamenergy2):
         print("[ERROR] The beam energy is not specified as 6800 GeV in the run_card")
         err = 1
-    if "run3winter21" in pi.lower() and "7000" not in beamenergy1 or "7000" not in beamenergy2:
+    if "run3winter21" in pi.lower() and ("7000" not in beamenergy1 or "7000" not in beamenergy2):
         print("[ERROR] The beam energy is not specified as 7000 GeV in the run_card")
         err = 1
     return err 
