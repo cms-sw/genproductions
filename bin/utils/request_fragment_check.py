@@ -339,30 +339,40 @@ def evtgen_check(fragment):
         warn = 1
     return warn, err
 
-def run3_checks(fragment,dn):
+def run3_checks(fragment,dn,pi):
     err = 0
     warn = 0
     fragment = fragment.replace(" ","")
     print("======> Run3 Fragment and dataset name checks:")
     if "comEnergy" in fragment:
         comline = re.findall('comEnergy=\S+',fragment)
-        if "13600" not in comline[0]:
+        if "run3winter22" in pi.lower() and "13600" not in comline[0]:
             print(comline[0])
             print("[ERROR] The c.o.m. energy is not specified as 13600 GeV in the fragment")
             err += 1
-    if "FlatRandomEGunProducer" not in fragment and "FlatRandomPtGunProducer" not in fragment and "Pythia8EGun" not in fragment and "13p6TeV" not in dn:
+        if "run3winter21" in pi.lower() and "14000" not in comline[0]: 
+            print(comline[0])
+            print("[ERROR] The c.o.m. energy is not specified as 14000 GeV in the fragment")
+            err += 1 
+    if "run3winter22" in pi.lower() and ("FlatRandomEGunProducer" not in fragment and "FlatRandomPtGunProducer" not in fragment and "Pythia8EGun" not in fragment and "13p6TeV" not in dn):
         print("[ERROR] The data set name does not contain 13p6TeV for this Run3 request")
         err += 1
+    if "run3winter21" in pi.lower() and ("FlatRandomEGunProducer" not in fragment and "FlatRandomPtGunProducer" not in fragment and "Pythia8EGun" not in fragment and "14TeV" not in dn):
+        print("[ERROR] The data set name does not contain 14TeV for this Run3 request")
+        err += 1 
     return err
 
-def run3_run_card_check(filename_mggpc):
+def run3_run_card_check(filename_mggpc,pi):
     err = 0
     beamenergy1 = os.popen('grep ebeam1 '+filename_mggpc).read()
     beamenergy2 = os.popen('grep ebeam2 '+filename_mggpc).read()
     print("======> Run3 run_card check for MG5aMC") 
     print(beamenergy1,beamenergy2)
-    if "6800" not in beamenergy1 or "6800" not in beamenergy2:
+    if "run3winter22" in pi.lower() and ("6800" not in beamenergy1 or "6800" not in beamenergy2):
         print("[ERROR] The beam energy is not specified as 6800 GeV in the run_card")
+        err = 1
+    if "run3winter21" in pi.lower() and ("7000" not in beamenergy1 or "7000" not in beamenergy2):
+        print("[ERROR] The beam energy is not specified as 7000 GeV in the run_card")
         err = 1
     return err 
 
@@ -818,7 +828,7 @@ for num in range(0,len(prepid)):
                     filename_mggpc = fname_p2
                 #file_run_card = open(filename_mggpc,"r")
                 if "Run3" in pi and "PbPb" not in pi:
-                    err_tmp = run3_run_card_check(filename_mggpc)
+                    err_tmp = run3_run_card_check(filename_mggpc,pi)
                     error += err_tmp
                 alt_ickkw_c = os.popen('more '+filename_mggpc+' | tr -s \' \' | grep "= ickkw"').read()
                 alt_ickkw_c = int(re.search(r'\d+',alt_ickkw_c).group())
@@ -1171,7 +1181,7 @@ for num in range(0,len(prepid)):
                 with open(jhufilename) as f:
                     jhu_in = f.read()
                     jhu_in = re.sub(r'(?m)^ *#.*\n?', '',jhu_in)
-                    jhu_wfe = str(re.findall(r'(.*?WriteFailedEvents.*?)',jhu_in))
+                    jhu_wfe = str(re.findall(r'(WriteFailedEvents.*(?=\s))',jhu_in))
                     if (not jhu_wfe or jhu_wfe.isspace()) or (jhu_wfe and not jhu_wfe.isspace() and "2" not in jhu_wfe): 
                         print("[ERROR] WriteFailedEvents should be set to 2 in JHUGen.input in jhugen+powheg samples.")
                         error += 1
@@ -1645,7 +1655,7 @@ for num in range(0,len(prepid)):
                 warning += 1
         if fsize != 0 and herwig_flag == 0 and sherpa_flag == 0:
             if int(os.popen('grep -c "from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *" '+pi).read()) != 1 :
-                print("[WARNING] No parton shower weights configuration in the fragment. In the Fall18 campaign, we recommend to include Parton Shower weights")
+                print("[WARNING] No parton shower weights configuration in the fragment. Since the Fall18 campaign, we recommend to include Parton Shower weights")
                 warning += 1
             if int(os.popen('grep -c "from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *" '+pi).read()) == 1 :
                 if (int(str(cmssw_version)[:1]) == 9 and cmssw_version < 93019) or (int(str(cmssw_version)[:1]) > 9 and cmssw_version < 102030) or (int(str(cmssw_version)[:1]) == 7 and cmssw_version < 71047):
@@ -1667,8 +1677,8 @@ for num in range(0,len(prepid)):
         if int(os.popen('grep -c -i filter '+pi).read()) > 3 and filter_eff == 1:
             print("[WARNING] Filters in the fragment but filter efficiency = 1")
             warning += 1
-        if "Run3" in pi and "PbPb" not in pi:
-            err_tmp = run3_checks(data_f1,dn)
+        if "Run3" in pi and "PbPb" not in pi and "Run3Summer21" not in pi:
+            err_tmp = run3_checks(data_f1,dn,pi)
             error += err_tmp
         if args.develop is False:
             os.popen("rm -rf "+my_path+pi).read()
