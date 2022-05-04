@@ -18,8 +18,6 @@ for mass in masses:
     for coupling in kR: 
         print(WprimeWidth(mass,coupling))
         directory = "WprimeToTauNu_M-"+str(mass)+"_kR-"+str(coupling)+"_LO_NNPDF31nnlo" # Set the output name
-        if os.path.exists(directory): # Check if directiory exists already
-            shutil.rmtree(directory)  # Delete if it already exists
         os.makedirs(directory)        # Create the output directory
         with open(directory+"/"+directory+"_customizecards.dat", "w") as new_cust_file: # Create the output customizecards file
             with open(template_dir+ 'WprimeToTauNu_M-6000_kR-0.01_LO_NNPDF31nnlo_customizecards.dat', 'r') as f_cust: # Read in the template file 
