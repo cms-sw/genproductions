@@ -443,7 +443,7 @@ def root_requests_from_ticket(ticket_prepid, include_docs=False):
     mccm = get_ticket(ticket_prepid)
     query = ''
     for root_request in mccm.get('requests',[]):
-       if isinstance(root_request,(str,unicode)):
+       if isinstance(root_request,str):
             query += '%s\n' % (root_request)
        elif isinstance(root_request,list):
              # List always contains two elements - start and end of a range
