@@ -6,8 +6,8 @@ ebeam2 6500d0    ! energy of beam 2
 ndns1 131         ! pdf set for hadron 1 (mlm numbering)
 ndns2 131         ! pdf set for hadron 2 (mlm numbering)
 ! To be set only if using LHA pdfs
-lhans1 230000      ! pdf set for hadron 1 (LHA numbering)
-lhans2 230000      ! pdf set for hadron 2 (LHA numbering)	
+lhans1 325300     ! pdf set for hadron 1 (LHA numbering)
+lhans2 325300     ! pdf set for hadron 2 (LHA numbering)	
 ! To be set only if using different pdf sets for the two incoming hadrons
 ! QCDLambda5  0.25 ! for not equal pdf sets 
 
@@ -33,14 +33,14 @@ bwcutoff 15       ! Mass window is hmass +- bwcutoff*hwidth
 
 # fullphsp 1         ! use ISR/FSR phase space parametrization, default 0
 
-ncall1 15000   ! number of calls for initializing the integration grid
+ncall1 100000   ! number of calls for initializing the integration grid
 itmx1    1     ! number of iterations for initializing the integration grid
-ncall2 20000   ! number of calls for computing the integral and finding upper bound
-itmx2    2     ! number of iterations for computing the integral and finding upper bound
-foldcsi   1    ! number of folds on csi integration
-foldy     1    ! number of folds on  y  integration
-foldphi   1    ! number of folds on phi integration
-nubound 20000  ! number of bbarra calls to setup norm of upper bounding function
+ncall2 100000   ! number of calls for computing the integral and finding upper bound
+itmx2    5     ! number of iterations for computing the integral and finding upper bound
+foldcsi   2    ! number of folds on csi integration
+foldy     5    ! number of folds on  y  integration
+foldphi   2    ! number of folds on phi integration
+nubound 200000  ! number of bbarra calls to setup norm of upper bounding function
 icsimax  1     ! <= 100, number of csi subdivision when computing the upper bounds
 iymax    1     ! <= 100, number of y subdivision when computing the upper bounds
 xupbound 2d0   ! increase upper bound for radiation generation
