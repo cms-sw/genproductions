@@ -1474,9 +1474,11 @@ for num in range(0,len(prepid)):
                                     store_rwgt_info_a = store_rwgt_info.split('=')
                                     if "false" in store_rwgt_info_a[0].lower():
                                         print("[ERROR] store_rwgt_info set to"+ str(store_rwgt_info_a[0]) +" for MG5_aMC >= 260.")
+                                        print("        This is needed to evaluate systematics. See eg. https://hypernews.cern.ch/HyperNews/CMS/get/generators/4513/1/1/1/1/1/2.html")
                                         error += 1
                                 if len(store_rwgt_info) == 0:
                                     print("[ERROR] No store_rwgt_info set for MG5_aMC >= 260.")
+                                    print("        This is needed to evaluate systematics. See eg. https://hypernews.cern.ch/HyperNews/CMS/get/generators/4513/1/1/1/1/1/2.html")
                                     error += 1
                             if mg_lo > 0 and mg5_aMC_version >= 260:
                                 if os.path.isfile(filename_mggpc) is True : use_syst = os.popen('more '+filename_mggpc+' | tr -s \' \' | grep "use_syst"').read()
