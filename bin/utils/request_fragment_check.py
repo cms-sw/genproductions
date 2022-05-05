@@ -339,30 +339,40 @@ def evtgen_check(fragment):
         warn = 1
     return warn, err
 
-def run3_checks(fragment,dn):
+def run3_checks(fragment,dn,pi):
     err = 0
     warn = 0
     fragment = fragment.replace(" ","")
     print("======> Run3 Fragment and dataset name checks:")
     if "comEnergy" in fragment:
         comline = re.findall('comEnergy=\S+',fragment)
-        if "13600" not in comline[0]:
+        if "run3winter22" in pi.lower() and "13600" not in comline[0]:
             print(comline[0])
             print("[ERROR] The c.o.m. energy is not specified as 13600 GeV in the fragment")
             err += 1
-    if "FlatRandomEGunProducer" not in fragment and "FlatRandomPtGunProducer" not in fragment and "Pythia8EGun" not in fragment and "13p6TeV" not in dn:
+        if "run3winter21" in pi.lower() and "14000" not in comline[0]: 
+            print(comline[0])
+            print("[ERROR] The c.o.m. energy is not specified as 14000 GeV in the fragment")
+            err += 1 
+    if "run3winter22" in pi.lower() and ("FlatRandomEGunProducer" not in fragment and "FlatRandomPtGunProducer" not in fragment and "Pythia8EGun" not in fragment and "13p6TeV" not in dn):
         print("[ERROR] The data set name does not contain 13p6TeV for this Run3 request")
         err += 1
+    if "run3winter21" in pi.lower() and ("FlatRandomEGunProducer" not in fragment and "FlatRandomPtGunProducer" not in fragment and "Pythia8EGun" not in fragment and "14TeV" not in dn):
+        print("[ERROR] The data set name does not contain 14TeV for this Run3 request")
+        err += 1 
     return err
 
-def run3_run_card_check(filename_mggpc):
+def run3_run_card_check(filename_mggpc,pi):
     err = 0
     beamenergy1 = os.popen('grep ebeam1 '+filename_mggpc).read()
     beamenergy2 = os.popen('grep ebeam2 '+filename_mggpc).read()
     print("======> Run3 run_card check for MG5aMC") 
     print(beamenergy1,beamenergy2)
-    if "6800" not in beamenergy1 or "6800" not in beamenergy2:
+    if "run3winter22" in pi.lower() and ("6800" not in beamenergy1 or "6800" not in beamenergy2):
         print("[ERROR] The beam energy is not specified as 6800 GeV in the run_card")
+        err = 1
+    if "run3winter21" in pi.lower() and ("7000" not in beamenergy1 or "7000" not in beamenergy2):
+        print("[ERROR] The beam energy is not specified as 7000 GeV in the run_card")
         err = 1
     return err 
 
@@ -433,7 +443,7 @@ def root_requests_from_ticket(ticket_prepid, include_docs=False):
     mccm = get_ticket(ticket_prepid)
     query = ''
     for root_request in mccm.get('requests',[]):
-       if isinstance(root_request,(str,unicode)):
+       if isinstance(root_request,str):
             query += '%s\n' % (root_request)
        elif isinstance(root_request,list):
              # List always contains two elements - start and end of a range
@@ -818,7 +828,7 @@ for num in range(0,len(prepid)):
                     filename_mggpc = fname_p2
                 #file_run_card = open(filename_mggpc,"r")
                 if "Run3" in pi and "PbPb" not in pi:
-                    err_tmp = run3_run_card_check(filename_mggpc)
+                    err_tmp = run3_run_card_check(filename_mggpc,pi)
                     error += err_tmp
                 alt_ickkw_c = os.popen('more '+filename_mggpc+' | tr -s \' \' | grep "= ickkw"').read()
                 alt_ickkw_c = int(re.search(r'\d+',alt_ickkw_c).group())
@@ -1668,7 +1678,7 @@ for num in range(0,len(prepid)):
             print("[WARNING] Filters in the fragment but filter efficiency = 1")
             warning += 1
         if "Run3" in pi and "PbPb" not in pi and "Run3Summer21" not in pi:
-            err_tmp = run3_checks(data_f1,dn)
+            err_tmp = run3_checks(data_f1,dn,pi)
             error += err_tmp
         if args.develop is False:
             os.popen("rm -rf "+my_path+pi).read()
