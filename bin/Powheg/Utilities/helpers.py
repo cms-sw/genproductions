@@ -18,15 +18,13 @@ wget https://launchpad.net/mg5amcnlo/2.0/2.6.x/+download/MG5_aMC_v2.6.7.tar.gz\n
 tar xzvf MG5_aMC_v2.6.7.tar.gz\n \
 cd $MG_NAME\n \
 echo 'Untar Powheg plugin'\n \
-bzr branch lp:~mg5amc-pwg-team/mg5amc-pwg/v0\n \
-cp -r x0/MG5aMC_PWG PLUGIN/.\n \
-#cd PLUGIN\n \
-#tar xzvf $REPOSITORY/v0.tgz\n \
+cd PLUGIN\n \
+tar xzvf $REPOSITORY/v0.tgz\n \
 cd ..\n \
 echo 'Run mg5_aMC'\n \
 echo 'import model HC_NLO_X0_UFO-heft' > $REPOSITORY/mg5.cmd\n \
 echo set lhapdf ${LHAPDF_BASE}/bin/lhapdf-config/ >> $REPOSITORY/mg5.cmd\n \
-echo 'generate p p > x0 / t [QCD]' >> $REPOSITORY/mg5.cmd\n \
+echo 'generate p p > x0 j j / t [QCD]' >> $REPOSITORY/mg5.cmd\n \
 echo 'install ninja' >> $REPOSITORY/mg5.cmd\n \
 echo 'install collier' >> $REPOSITORY/mg5.cmd\n \
 echo 'output X0jj' >> $REPOSITORY/mg5.cmd\n \
@@ -35,6 +33,7 @@ echo 'checking'\n \
 ./bin/mg5_aMC --mode=MG5aMC_PWG --file=$REPOSITORY/mg5.cmd\n \
 echo 'Make POWHEG-BOX link'\n \
 cd ${process}\n \
+sed -i '/kAgg/c\   15 0.666667e+00 # kAgg' Cards/param_card.dat\n \
 ln -s ../../POWHEG-BOX POWHEG-BOX\n \
 echo 'Checkout source'\n \
 POWHEG-BOX/X0jj/clean_BEFORE_svn-save.sh\n \
@@ -49,12 +48,6 @@ for f in `ls  SubProcesses/MadLoop5_resources/*` ; do\n \
 done\n \
 echo 'MADGRAPH+POWHEG END-INSTALL'",
     }.get(process,"")
-
-#export LHAPDF_BASE=$(scram tool info lhapdf | grep LHAPDF_BASE | sed -e s%LHAPDF_BASE=%%)\n \
-#export LHAPDF_BASE=$(scram tool info lhapdf | grep LHAPDF_BASE | sed -e s%LHAPDF_BASE=%%)\n \ 
-#echo '${LHAPDF_BASE}'\n \
-#export lhapdf_path=\"$(echo \"$LHAPDF_BASE/bin/lhapdf-config/g\" | sed -e 's/[()&]/\\&/g')\"\n \
-#sed -i \"s/lhapdf_path/${lhapdf_path}\/bin\/lhapdf-config/g\" $REPOSITORY/mg5.cmd\n \
 
 def runGetSource_patch_1(process) :
   return {

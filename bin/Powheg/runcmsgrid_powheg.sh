@@ -161,6 +161,31 @@ grep -q "first runx" powheg.input ; test $? -ne 0 || produceWeights="true"
 cat powheg.input
 ../pwhg_main 2>&1 | tee log_${process}_${seed}.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
 
+if [ "${process}" == "X0jj" ]; then
+    # now run reweighting for X0jj process
+    # also need to modify powheg.input inbetween these calls
+    cp powheg.input powheg.input.noweight
+    sed -i "/compute_rwgt/c\compute_rwgt 1" powheg.input
+
+    # sm weight
+    sed -i "/lhrwgt_id/c\lhrwgt_id \'sm_weight\'" powheg.input
+    sed -i "/MGcosa/c\MGcosa    1d0" powheg.input
+    ../pwhg_main 2>&1 | tee logrew_${process}_${seed}_sm.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0" 
+    mv pwgevents-rwgt.lhe pwgevents.lhe
+    
+    # ps weight
+    sed -i "/lhrwgt_id/c\lhrwgt_id \'ps_weight\'" powheg.input
+    sed -i "/MGcosa/c\MGcosa    0d0" powheg.input
+    ../pwhg_main 2>&1 | tee logrew_${process}_${seed}_ps.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"  
+    mv pwgevents-rwgt.lhe pwgevents.lhe
+
+    # mm weight
+    sed -i "/lhrwgt_id/c\lhrwgt_id \'mm_weight\'" powheg.input
+    sed -i "/MGcosa/c\MGcosa    -0.707107d0" powheg.input 
+    ../pwhg_main 2>&1 | tee logrew_${process}_${seed}_mm.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"   
+    mv pwgevents-rwgt.lhe pwgevents.lhe
+fi
+
 if [ "$produceWeightsNNLO" == "true" ]; then
     echo -e "\ncomputing weights for NNLOPS\n"
     mv pwgevents.lhe fornnlops
