@@ -44,7 +44,7 @@
 #*********************************************************************
 # PDF CHOICE: this automatically fixes also alpha_s and its evol.    *
 #*********************************************************************
-     nn23lo1    = pdlabel     ! PDF set                                     
+     lhapdf = pdlabel     ! PDF set                                     
 $DEFAULT_PDF_SETS = lhaid
 $DEFAULT_PDF_MEMBERS = reweight_PDF        ! if pdlabel=lhapdf, this is the lhapdf number
 #*********************************************************************
