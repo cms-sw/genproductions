@@ -12,8 +12,8 @@ ebeam2 6800d0     ! energy of beam 2
 ! 19150 cteq4m
 ! 19170 cteq4l
 ! 10050 cteq6m
-lhans1  260000         ! pdf set for hadron 1 (LHA numbering)
-lhans2  260000         ! pdf set for hadron 2 (LHA numbering)	
+lhans1  325300         ! pdf set for hadron 1 (LHA numbering)
+lhans2  325300         ! pdf set for hadron 2 (LHA numbering)	
 ! To be set only if using different pdf sets for the two incoming hadrons
 ! QCDLambda5  0.25 ! for not equal pdf sets 
 
