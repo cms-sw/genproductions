@@ -72,10 +72,10 @@ fi
 sed -i 's/pwggrid.dat ]]/pwggrid.dat ]] || [ -e $${WORKDIR}\/pwggrid-0001.dat ]/g' runcmsgrid.sh
 
 if [ "$$process" = "WWJ" ]; then
-   cp -pr $${WORKDIR}/WWJTo2L2Nu_NNLOPS/POWHEG-BOX/WWJ/TWOLOOP_GRIDS_reg1 .
-   cp -pr $${WORKDIR}/WWJTo2L2Nu_NNLOPS/POWHEG-BOX/WWJ/TWOLOOP_GRIDS_reg2 .
-   cp -pr $${WORKDIR}/WWJTo2L2Nu_NNLOPS/POWHEG-BOX/WWJ/TWOLOOP_GRIDS_reg3 .
-   cp -pr $${WORKDIR}/WWJTo2L2Nu_NNLOPS/POWHEG-BOX/WWJ/TWOLOOP_GRIDS_reg4 .
+   cp -pr $${WORKDIR}/$${folderName}/POWHEG-BOX/WWJ/TWOLOOP_GRIDS_reg1 .
+   cp -pr $${WORKDIR}/$${folderName}/POWHEG-BOX/WWJ/TWOLOOP_GRIDS_reg2 .
+   cp -pr $${WORKDIR}/$${folderName}/POWHEG-BOX/WWJ/TWOLOOP_GRIDS_reg3 .
+   cp -pr $${WORKDIR}/$${folderName}/POWHEG-BOX/WWJ/TWOLOOP_GRIDS_reg4 .
    #force keep top = 0 in this case 
    keepTop='0'
 fi  
