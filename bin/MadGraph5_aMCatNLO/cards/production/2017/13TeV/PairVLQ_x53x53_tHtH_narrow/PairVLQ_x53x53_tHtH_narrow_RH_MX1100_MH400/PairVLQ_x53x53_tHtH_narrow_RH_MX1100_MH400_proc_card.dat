@@ -3,5 +3,5 @@ set ignore_six_quark_processes False
 set loop_optimized_output True
 set complex_mass_scheme False
 import model X53_XSP_diagonalCKM_5FS_UFO 
-generate p p > x x~ , (x > t S+), (x~ > t~ S-)
+generate p p > x x~ , (x > t S+, (S+ > t b~, t > w+ b, w+ > all all)), (x~ > t~ S-, (S- > t~ b, t~ > w- b~, w- > all all))
 output PairVLQ_x53x53_tHtH_narrow_RH_MX1100_MH400 -nojpeg
