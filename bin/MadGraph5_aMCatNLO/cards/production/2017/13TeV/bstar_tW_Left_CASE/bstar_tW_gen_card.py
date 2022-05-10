@@ -11,7 +11,11 @@ MassesW = [29,80,170,400]
 
 for mbs in MassesBStar:
         for mw in MassesW:
-                sampleName = Ref_dir+'_MB'+str(mbs)+'_MW'+str(mw)
+                sampleName = ''
+                if(mw == 29):
+                        sampleName = Ref_dir+'_MB'+str(mbs)+'_MW'+str(25) #here, MW will be about 25.  Other MZ points give MZ ~ MW
+                else:
+                        sampleName = Ref_dir+'_MB'+str(mbs)+'_MW'+str(mw)
                 print sampleName
                 if os.path.isdir(sampleName):
                         shutil.rmtree(sampleName)
