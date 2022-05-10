@@ -4,12 +4,10 @@ import os, shutil, subprocess
 
 Ref_dir = "bstar_tW"
 pdgidBStar = '1005'
-pdgidW = '24'
+pdgidZ = '23'
 
 MassesBStar = [2000, 3000, 5000]
-MassesW = [25,80,170,400]
-
-WidthBStar = 0.03
+MassesW = [29,80,170,400]
 
 for mbs in MassesBStar:
         for mw in MassesW:
@@ -28,5 +26,6 @@ for mbs in MassesBStar:
                         f.write("output "+sampleName)
                 with open("{0}/{0}_customizecards.dat".format(sampleName), "a") as f:
                         f.write("set param_card mass "+pdgidBStar+" %e\n" % mbs)
-                        f.write("set param_card mass "+pdgidW+" %e\n" % mw)
-                        f.write("set param_card DECAY "+pdgidBStar+" %e\n" % (mbs * WidthBStar))
+                        f.write("set param_card mass "+pdgidZ+" %e\n" % mw)
+                        f.write("set param_card DECAY "+pdgidBStar+" Auto\n")
+
