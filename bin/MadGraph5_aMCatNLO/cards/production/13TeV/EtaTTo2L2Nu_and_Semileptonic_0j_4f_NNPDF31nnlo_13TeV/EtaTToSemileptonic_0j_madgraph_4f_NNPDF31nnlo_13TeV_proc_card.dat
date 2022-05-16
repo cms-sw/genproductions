@@ -9,4 +9,4 @@ define p = g u c d s u~ c~ d~ s~ b b~
 define j = g u c d s u~ c~ d~ s~ b b~
 generate p p > eta, (eta > w+ w- b b~, w+ > l+ vl, w- > j j)
 add process p p > eta, (eta > w+ w- b b~, w+ > j j, w- > l- vl~)
-output EtaTToLNu2Q_0j_madgraph_4f_NNPDF31nnlo_13TeV -nojpeg
+output EtaTToSemileptonic_0j_madgraph_4f_NNPDF31nnlo_13TeV -nojpeg
