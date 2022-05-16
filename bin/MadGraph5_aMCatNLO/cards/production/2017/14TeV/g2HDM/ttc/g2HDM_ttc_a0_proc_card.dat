@@ -1,0 +1,17 @@
+import model gen2HDM_cg_to_ttc_ttt_ttS_UFO
+define p = p b b~
+define j = p
+generate p p > t t / s0  QCD= 99 , (t > W+ b , W+ > l+ vl), (t > W+ b \
+, W+ > l+ vl)
+add process p p > t t  j / s0 QCD= 99 , (t > W+ b , W+ > l+ vl), (t > \
+W+ b , W+ > l+ vl)
+add process p p > t~ t~ / s0 QCD= 99 , (t~ > W- b~ , W- > l- vl~),   (\
+t~ > W- b~ , W- > l- vl~)
+add process p p > t~ t~ j / s0 QCD= 99 , (t~ > W- b~ , W- > l- vl~), (\
+t~ > W- b~ , W- > l- vl~)
+add process p p > t t j j / s0 QCD= 99 , (t > W+ b , W+ > l+ vl),    (\
+t > W+ b , W+ > l+ vl)
+add process p p > t~ t~ j j / s0 QCD= 99 , (t~ > W- b~ , W- > l- vl~),\
+ (t~ > W- b~ , W- > l- vl~)
+
+output g2HDM_ttc_a0 -nojpeg

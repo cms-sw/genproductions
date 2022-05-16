@@ -1,0 +1,7 @@
+import model NMSSMHET_UFO --modelname
+define p = g u c d s u~ c~ d~ s~
+define j = p
+define lep = e+ mu+ tau+ e- mu- tau-
+define nut = ve vm vt ve~ vm~ vt~
+generate g g > h03 , (h03 > h02 h01, h02 > b b~, h01 >  j j lep nut)
+output NMSSM_XYH_YTobb_HToWWTo2QLNu_MX_mMX_MY_mMY -nojpeg

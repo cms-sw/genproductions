@@ -1,0 +1,10 @@
+import model loop_sm
+define p = g u c d s u~ c~ d~ s~
+define j = g u c d s u~ c~ d~ s~
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+define ell+ = e+ mu+ ta+
+define ell- = e- mu- ta-
+
+generate p p > ell+ ell- ell+ ell- a [QCD]
+output ZZGTO4L_4f_NLO -nojpeg

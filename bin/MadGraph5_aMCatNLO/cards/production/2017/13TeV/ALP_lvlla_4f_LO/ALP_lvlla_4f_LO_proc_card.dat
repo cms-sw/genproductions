@@ -1,0 +1,6 @@
+import model Relaxion_Full_UFO
+
+generate p p > l+ vl l+ l- a QED>6
+add process p p > l- vl~ l+ l- a QED>6
+
+output ALP_lvlla_4f_LO -nojpeg

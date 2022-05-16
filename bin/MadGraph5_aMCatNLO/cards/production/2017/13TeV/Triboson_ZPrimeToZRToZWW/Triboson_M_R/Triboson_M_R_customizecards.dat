@@ -1,0 +1,6 @@
+set param_card kkinputs 5 <MASS>
+set param_card kkinputs 2 6.708000e+00
+set param_card mass 9000025 <MASS_R>
+set param_card mass 9000023 <MASS>
+set param_card DECAY 9000023 <WIDTH>
+set param_card DECAY 9000025 <WIDTH_R>

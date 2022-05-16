@@ -52,14 +52,15 @@ diff --git a/Template/NLO/Source/make_opts.inc b/Template/NLO/Source/make_opts.i
 index f41a7eb..4b03a8b 100644
 --- a/Template/NLO/Source/make_opts.inc
 +++ b/Template/NLO/Source/make_opts.inc
-@@ -86,6 +86,7 @@ endif
- 
+@@ -86,6 +86,7 @@
+
  ifneq ($(lhapdf),)
    CXXFLAGS += $(shell $(lhapdf) --cppflags)
 +  CXXFLAGS += -I$(BOOSTINCLUDES)
-   alfas_functions=alfas_functions_lhapdf
-   llhapdf = $(shell $(lhapdf) --libs)
-   reweight_xsec_events_pdf_dummy=
+   ifeq ($(lhapdfversion),6)
+     alfas_functions=alfas_functions_lhapdf6
+   else
+
 diff --git a/madgraph/iolibs/template_files/pdf_wrap_lhapdf.f b/madgraph/iolibs/template_files/pdf_wrap_lhapdf.f
 index b06677d..0a53fd6 100644
 --- a/madgraph/iolibs/template_files/pdf_wrap_lhapdf.f

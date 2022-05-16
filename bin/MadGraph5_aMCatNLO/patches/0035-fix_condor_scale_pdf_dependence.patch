@@ -1,0 +1,13 @@
+--- a/madgraph/various/cluster.py
++++ b/madgraph/various/cluster.py
+@@ -392,8 +392,8 @@ Press ctrl-C to force the update.''' % self.options['cluster_status_update'][0])
+         for path in args['required_output']:
+             if args['cwd']:
+                 path = pjoin(args['cwd'], path)
+-# check that file exists and is not empty.
+-            if not (os.path.exists(path) and os.stat(path).st_size != 0) :
++# check that file exists - allow empty file, scale_pdf_dependence.dat is often empty
++            if not os.path.exists(path) :
+                 break
+         else:
+             # all requested output are present

@@ -88,7 +88,7 @@ if [[ -e ${myDir} ]]; then
   mv cmsgrid_final.lhe old_cmsgrid_final.lhe
 fi
 
-export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:${LD_LIBRARY_PATH}
+export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:`pwd`/obj-gfortran/proclib/:${LD_LIBRARY_PATH}
 mkdir ${myDir}; cd ${myDir} ;  
 export PYTHONPATH=.:${PYTHONPATH}
 
@@ -99,6 +99,13 @@ export PATH=`pwd`:${PATH}
 
 cp -p ${WORKDIR}/pwg*.dat .
 
+if [ "${process}" == "X0jj" ]; then
+    cp -p ${WORKDIR}/MadLoopParams.dat .
+    for f in `ls ${WORKDIR}/MG5_aMC_v2_6_7/X0jj/SubProcesses/MadLoop5_resources/*`
+    do
+	ln -sf $f ./
+    done
+fi
 if [ -e  ${WORKDIR}/vbfnlo.input ]; then
     cp -p ${WORKDIR}/vbfnlo.input .
 fi
@@ -450,3 +457,4 @@ cp ${file}_final.lhe ${WORKDIR}/.
 echo "Output ready with ${file}_final.lhe at $WORKDIR"
 echo "End of job on " `date`
 exit 0;
+

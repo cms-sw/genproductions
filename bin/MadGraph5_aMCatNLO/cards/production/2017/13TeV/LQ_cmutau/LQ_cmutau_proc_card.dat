@@ -1,0 +1,8 @@
+import model LeptoQ_UFO
+define lep+ = e+ mu+ ta+
+define lep- = e- mu- ta-
+generate p p > t t~, (t > b w+, w+ > lep+ vl), (t~ > c~ ta+ mu-)
+add process p p > t t~, (t > b w+, w+ > j j), (t~ > c~ ta+ mu-)
+add process p p > t t~, (t > c ta- mu+), (t~ > b~ w-, w- > lep- vl~)
+add process p p > t t~, (t > c ta- mu+), (t~ > b~ w-, w- > j j)
+output LQ_cmutau

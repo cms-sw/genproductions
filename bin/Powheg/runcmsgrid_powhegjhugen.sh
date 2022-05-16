@@ -87,7 +87,7 @@ if [[ -e ${myDir} ]]; then
   mv cmsgrid_final.lhe old_cmsgrid_final.lhe
 fi
 
-export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:${LD_LIBRARY_PATH}
+export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:`pwd`/obj-gfortran/proclib/:${LD_LIBRARY_PATH}
 mkdir ${myDir}; cd ${myDir} ;  
 export PYTHONPATH=.:${PYTHONPATH}
 
@@ -113,6 +113,14 @@ if [[ -e ${WORKDIR}/Virt_full_cHHH_0.0.grid ]]; then
     ln -s ${WORKDIR}/Virt_full_cHHH_* .
     ln -s ${WORKDIR}/creategrid.py .
     cp -p ${WORKDIR}/events.cdf .
+fi
+
+if [ "${process}" == "X0jj" ]; then
+    cp -p ${WORKDIR}/MadLoopParams.dat .
+    for f in `ls ${WORKDIR}/MG5_aMC_v2_6_7/X0jj/SubProcesses/MadLoop5_resources/*`
+    do
+	ln -sf $f ./
+    done
 fi
 
 if [[ ! -e ${card} ]]; then

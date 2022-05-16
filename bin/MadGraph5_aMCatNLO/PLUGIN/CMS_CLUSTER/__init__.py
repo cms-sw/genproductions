@@ -173,6 +173,7 @@ class CMSCondorCluster(CondorCluster):
             return 0
 
         q = self.query([str(id)], ["JobDuration", "MaxWallTimeMins", "LastMaxWalltimeUpdate_JobDuration"], lim=1)
+        if len(q)==0: return 0
         job_maxwalltime = q[0]["MaxWallTimeMins"] if "MaxWallTimeMins" in q[0] else 0
         if hasattr(job_maxwalltime, "eval"):
             job_maxwalltime = job_maxwalltime.eval()
@@ -359,11 +360,13 @@ class CMSCondorCluster(CondorCluster):
                             run += 1
                         else:
                             self.hold_msg = "ClusterId %s with HoldReason: %s" % (str(id), job["HoldReason"])
+                            logger.warning(self.hold_msg)
                             fail += 1
-                elif status == 'C' and self.spool:
-                    self.retrieve_output(id)
+                elif status == 'C':
+                    if self.spool:
+                        self.retrieve_output(id)
                 else:
-                    logger.warning("Failed condor job = " + str(id))
+                    logger.warning("Failed condor job " + str(id) + " with status " + status)
                     logger.warning( job )
                     fail += 1
 

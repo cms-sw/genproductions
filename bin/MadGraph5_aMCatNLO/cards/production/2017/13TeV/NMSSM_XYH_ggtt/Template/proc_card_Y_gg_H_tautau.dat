@@ -1,0 +1,3 @@
+import model NMSSMHET_UFO --modelname
+generate g g > h03 , (h03 > h02 h01, h02 > a a, h01 > tau+ tau-)
+output NMSSM_XYH_Y_gg_H_tautau_MX_TEMPLATEMH03_MY_TEMPLATEMH02 -nojpeg

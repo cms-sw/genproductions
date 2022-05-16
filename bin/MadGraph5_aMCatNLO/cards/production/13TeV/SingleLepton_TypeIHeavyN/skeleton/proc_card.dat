@@ -1,0 +1,8 @@
+import model SM_HeavyN_Gen3Mass_NLO
+
+define p = u d c s u~ d~ c~ s~ g
+define j = p
+
+__particle__
+__process__
+__output__
