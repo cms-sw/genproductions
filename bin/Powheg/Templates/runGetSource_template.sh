@@ -32,13 +32,12 @@ else
   echo "INFO: The process $$process uses the 4F PDF scheme"
 fi
 
-forDYNNLOPS=0
 forMiNNLO=0
 grep -q "^minnlo\\s*1" powheg.input; test $$? -eq 1 || forMiNNLO=1
 
 cd $$WORKDIR
 cd $${name}
-python ../make_rwl.py $${is5FlavorScheme} $${defaultPDF} $${forDYNNLOPS} $${forMiNNLO}
+python ../make_rwl.py $${is5FlavorScheme} $${defaultPDF} $${forMiNNLO}
 
 if [ -s ../JHUGen.input ]; then
   cp -p ../JHUGen.input JHUGen.input

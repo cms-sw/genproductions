@@ -62,15 +62,6 @@ def prepareCondorScript( tag, i, folderName, queue, SCALE = '0', njobs = 0, runI
    elif (i == 'hnnlo') :
        f.write('executable              = ' + folderName + '/' + SCALE + '/' + 'launch_NNLO.sh \n')
        f.write('arguments               = HNNLO-LHC13-R04-APX2-' + SCALE + '.input $(ClusterId)$(ProcId) \n')
-   elif (i == 'dynnlo') :
-       f.write('executable              = ' + folderName + '/' +  SCALE + '/' + 'launch_NNLO.sh \n')
-       f.write('arguments               = ' + SCALE + '.input $(ClusterId)$(ProcId) \n')
-       logname =  folderName + '/' +  SCALE + '/run_' + tag
-   elif (i == 'minlo') :
-       f.write('executable              = ' + folderName + '/minlo-run/launch_minlo.sh \n')
-       f.write('arguments               = ' + 'powheg.input $(ProcId) \n')
-       f.write('max_retries             = 10\n')
-       logname =  folderName + '/minlo-run/run_' + tag
    else :
        f.write('executable              = ' + execname + '.sh \n')
    f.write('getenv                 =  True \n')
@@ -410,10 +401,6 @@ def createTarBall(parstage, folderName, prcName, keepTop, seed, scriptName) :
     template_file = "%s/Templates/createTarBall_template.sh" % rootfolder
     helpers.fillTemplatedFile(template_file, filename, template_dict)
 
-    if prcName in ['Zj', 'Wj']:
-        if os.path.isfile(folderName + '/DYNNLO_mur1_muf1_3D.top'):
-            make_nnlo_rwl(folderName)
-
     os.chmod(filename, 0o755)
 
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
@@ -445,209 +432,6 @@ def runhnnlo(folderName, njobs, QUEUE):
    
 
 
-# ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-
-
-def makedynnloconfig(folderName, baseconfig, config, murfac, muffac):
-    with open(folderName+'/'+baseconfig, 'r') as infile:
-        with open(folderName+'/'+config, 'w') as outfile:
-            for line in infile:
-                if 'mur' in line:
-                    mass = float(line.split()[0])
-                    mur = mass*murfac
-                    muf = mass*muffac
-                    newline = '%s %s  ! mur, muf\n' % (str(mur), str(muf))
-                    outfile.write(newline)
-                else:
-                    outfile.write(line)
-
-
-def rundynnlo(folderName, njobs, QUEUE, eosdir):
-    if 'NONE' in eosdir:
-        print('WARNING: using workdir for output files, you may run out of disk space')
-        eosdir  = os.getcwd()+"/"+folderName
-
-    template_dict = {
-        "rootfolder" : rootfolder,
-        "folderName" : folderName,
-        "eosdir" : eosdir,
-    }
-
-    scales = ["1", "2", "0.5"]
-    baseconfig = "DYNNLO.input"
-    for mur in scales:
-        for muf in scales:
-            config = "dynnlo_mur%s_muf%s.input" % (mur, muf)
-            makedynnloconfig(folderName, baseconfig, config, float(mur), float(muf))
-            subfolderName = "dynnlo_mur%s_muf%s" % (mur, muf)
-            template_dict["subfolderName"] = subfolderName
-
-            os.system('mkdir -p ' + folderName + "/" + subfolderName)
-            os.system('mkdir -p ' + eosdir + "/" + subfolderName)
-            filename = folderName+"/"+subfolderName+"/launch_NNLO.sh"
-
-            template_file = "%s/Templates/rundynnlo_template.sh" % rootfolder
-            helpers.fillTemplatedFile(template_file, filename, template_dict, "w")
-            os.chmod(filename, 0o755)
-
-            print 'Submitting to condor queues \n'
-            condorfile = prepareCondorScript(subfolderName, 'dynnlo', folderName, QUEUE, subfolderName, runInBatchDir=True, slc6=args.slc6)
-            runCommand ('condor_submit ' + condorfile + ' -queue '+ str(njobs), TESTING == 0)
-
-
-# ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-
-
-def mergedynnlo(folderName, process):
-    folderName = folderName + '/'
-    from numpy import median
-    # Just recompile this in the default environment
-    runCommand ('cd %s; gfortran -o merge3ddata POWHEG-BOX/%s/DYNNLOPS/aux/merge3ddata.f' % (folderName, process), printIt = True)
-    # Do the work
-    scales = ["1", "2", "0.5"]
-    for mur in scales:
-        for muf in scales:
-            path = 'dynnlo_mur%s_muf%s/' % (mur, muf)
-            files = [path + f for f in os.listdir(folderName+path) if '3D.top' in f]
-            sizes = []
-            for f in files:
-                sizes.append(os.path.getsize(folderName+'/'+f))
-            medianSize = median(sizes)
-            selfiles = [path + f for f in os.listdir(folderName+path) if '3D.top' in f and os.path.getsize(folderName + path + f) == medianSize]
-            print('Using %i files with size = %i, %i files discarded' % (len(selfiles), medianSize, len(files)-len(selfiles)))
-            runCommand ('cd %s; ./merge3ddata 1 ' % folderName + ' '.join(selfiles), printIt = True)
-            runCommand ('cd %s; mv fort.12 ' % folderName + 'DYNNLO_mur%s_muf%s_3D.top' % (mur, muf), printIt = True)
-
-    #runCommand ('cd %s; for dir in dynnlo_*/; do echo "Removing empty files"; find ${dir} -name "*3D.top" -size  0 -print -delete; echo "Merging files..."; ./merge3ddata 1 ${dir\%?}/*3D.top; mv fort.12 ${dir\%?}_3D.top; done' % (folderName), printIt = True)
-
-# ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-
-
-def dynnlops_runminlo(folderName, njobs, QUEUE, eosdir):
-    if 'NONE' in eosdir:
-        print('WARNING: using workdir for output files, you may run out of disk space')
-        eosdir = os.getcwd()+"/"+folderName
-    
-    print("Cleaning old MINLO files")
-    os.system('rm -rf ' + folderName + "/minlo-run")
-    os.system('mkdir -p ' + folderName + "/minlo-run")
-    os.system('rm -rf ' + eosdir + "/minlo-run")
-    os.system('mkdir -p ' + eosdir + "/minlo-run")
-
-    m_outfile = folderName + '/pwg-rwl-scalesonly.dat'
-    m_factor = ['1d0', '2d0', '0.5d0']
-    m_idx = 1001
-    fout = open(m_outfile, 'w')
-    fout.write("<initrwgt>\n")
-    fout.write("<weightgroup name='scale_variation' combine='envelope' >\n")
-    for m_rensc in m_factor :
-      for m_facsc in m_factor :
-        fout.write("<weight id='"+str(m_idx)+"'> renscfact=" + m_rensc + " facscfact=" + m_facsc + " </weight>\n")
-        m_idx = m_idx + 1
-    fout.write("</weightgroup>\n")
-    fout.write("</initrwgt>\n")
-    fout.close()
-
-    filename = folderName+"/minlo-run/launch_minlo.sh"
-
-    template_dict = {
-        "rootfolder" : rootfolder,
-        "folderName" : folderName,
-        "eosdir" : eosdir,
-    }
-
-    template_file = "%s/Templates/dynnlops_runminlo_template.sh" % rootfolder
-    helpers.fillTemplatedFile(template_file, filename, template_dict, "w")
-    os.chmod(filename, 0o755)
-
-    print 'Submitting to condor queues \n'
-    condorfile = prepareCondorScript(folderName + '_minlo', 'minlo', folderName, QUEUE, runInBatchDir=True, slc6=args.slc6)
-    runCommand ('condor_submit ' + condorfile + ' -queue '+ str(njobs), TESTING == 0)
-
-
-# ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-
-
-def dynnlops_mergeminlo(folderName, process, eosdir):
-    from numpy import median
-    # Just recompile this in the default environment
-    runCommand ('cd %s; gfortran -o merge3ddata POWHEG-BOX/%s/DYNNLOPS/aux/merge3ddata.f' % (folderName, process), printIt = True)
-    # Do the work
-    import getpass
-    user = getpass.getuser()
-    runCommand ('mkdir -p /tmp/%s/%s' % (user, folderName), printIt = True)
-    jobdirs = os.listdir(eosdir + '/minlo-run/')
-    # loop over 9 mur+muf combinations
-    for w in range(1, 10):
-        files = []
-        for jd in jobdirs:
-            filename = eosdir + '/minlo-run/' + jd + '/MINLO-W%i-denom.top' % w
-            if os.path.isfile(filename):
-                files.append(filename)
-        sizes = []
-        for f in files:
-            sizes.append(os.path.getsize(f))
-        medianSize = median(sizes)
-        selfiles = []
-        for f in files:
-            if os.path.getsize(f) == medianSize:
-                selfiles.append(f)
-        print('Using %i files with size = %i, %i files discarded' % (len(selfiles), medianSize, len(files)-len(selfiles)))
-        # split into chunks of 10 files
-        n = 10
-        chunks = [selfiles[i:i + n] for i in xrange(0, len(selfiles), n)]
-        # merge
-        temps = []
-        for c in range(len(chunks)):
-            runCommand ('cd %s; ./merge3ddata 1 ' % folderName + ' '.join(chunks[c]), printIt = True)
-            if os.path.isfile(folderName + '/fort.12'):
-                temps.append('/tmp/%s/%s/MINLO-W%i-%i-denom.top' % (user, folderName, w, c))
-                runCommand ('cd %s; mv fort.12 ' % folderName + temps[-1], printIt = True)
-        runCommand ('cd %s; ./merge3ddata 1 ' % folderName + ' '.join(temps), printIt = True)
-        runCommand ('cd %s; mv fort.12 ' % folderName + 'MINLO-W%i-denom.top' % w, printIt = True)
-
-
-# ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-
-
-def make_nnlo_rwl(folderName):
-    # check pwg-rwl.dat
-    rwlfile = folderName + '/pwg-rwl.dat'
-    if 'scale_variation2' in open(rwlfile).read():
-        print('Creating 9x9 NNLOxMINLO scale variations')
-    else:
-        exit('Please implement simplified NNLO=MINLO scale variations if you need that mode')
-    nweights = open(rwlfile).read().count('weight id')
-
-    # write nnlo lists
-    nnlo_outfile  = folderName + '/list_nnlo.txt'
-    minlo_outfile = folderName + '/list_minlo.txt'
-    nnlo_fout  = open(nnlo_outfile, 'w')
-    minlo_fout = open(minlo_outfile, 'w')
-
-    # crossed scale variations
-    scales = ["1", "2", "0.5"]
-    for mur in scales:
-        for muf in scales:
-            nnlo = "DYNNLO_mur%s_muf%s_3D.top" % (mur, muf)
-            if not os.path.isfile(folderName + '/' + nnlo):
-                exit('%s is missing, exiting!' % nnlo)
-            for i in range(1,10):
-                minlo = 'MINLO-W%i-denom.top' % i
-                if not os.path.isfile(folderName + '/' + minlo):
-                    print('%s is missing, exiting!' % minlo)
-                nnlo_fout.write(nnlo+'\n')
-                minlo_fout.write(minlo+'\n')
-                nweights -= 1
-
-    # weight pdf variations with nominal ratio
-    while nweights > 0:
-        nnlo_fout.write("DYNNLO_mur1_muf1_3D.top\n")
-        minlo_fout.write("MINLO-W1-denom.top\n")
-        nweights -= 1
-
-    nnlo_fout.close()
-    minlo_fout.close()
 
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
@@ -916,24 +700,6 @@ if __name__ == "__main__":
         print "preparing for NNLO reweighting"
         if args.prcName == "HJ":
             runhnnlo(args.folderName, njobs, QUEUE)
-        if args.prcName in ["Zj", "Wj"]:
-            rundynnlo(args.folderName, njobs, QUEUE, args.eosFolder + '/' + EOSfolder)
-
-    elif args.parstage == '77' :
-        print "merging DYNNLO files for NNLOPS"
-        if args.prcName in ["Zj", "Wj"]:
-            mergedynnlo(args.folderName, args.prcName, args.eosFolder + '/' + EOSfolder)
-    
-    elif args.parstage == '8' :
-        print "preparing MINLO files for NNLOPS"
-        os.system('cp -p '+args.inputTemplate+' '+args.folderName+'/powheg.input')
-        if args.prcName in ["Zj", "Wj"]:
-            dynnlops_runminlo(args.folderName, njobs, QUEUE, args.eosFolder + '/' + EOSfolder)
-
-    elif args.parstage == '88' :
-        print "merging MINLO files for NNLOPS"
-        if args.prcName in ["Zj", "Wj"]:
-            dynnlops_mergeminlo(args.folderName, args.prcName, args.eosFolder + '/' + EOSfolder)
 
     elif args.parstage == '9' :
         # overwriting with original

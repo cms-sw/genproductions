@@ -18,9 +18,8 @@ Example of usage for 4F:  python make_rwl.py 0 325500
 
 is5FlavorScheme = str(sys.argv[1])
 CentralPDF = str(sys.argv[2])
-forDYNNLOPS = bool(int(sys.argv[3])) if len(sys.argv) > 3 else False
-forMiNNLO = bool(int(sys.argv[4])) if len(sys.argv) > 4 else False
-process = str(sys.argv[5]) if len(sys.argv) > 5 else ''
+forMiNNLO = bool(int(sys.argv[3])) if len(sys.argv) > 3 else False
+process = str(sys.argv[4]) if len(sys.argv) > 4 else ''
 
 # is5FlavorScheme = True
 # CentralPDF = 325300
@@ -51,21 +50,6 @@ for m_rensc in m_factor :
 		  
 fout.write("</weightgroup>\n")
 
-# additional NNLOPS scale variations
-if forDYNNLOPS:
-  print("DYNNLOPS: Scale variations will be duplicated for 9x9 final NNLOxMINLO weights")
-  
-  fout.write("<weightgroup name='scale_variation2' combine='envelope' >\n")
-
-  for i in range(8):
-    for m_rensc in m_factor :
-      for m_facsc in m_factor :
-        fout.write("<weight id='"+str(m_idx)+"'> lhapdf="+str(CentralPDF)+" renscfact="+ \
-                  m_rensc+" facscfact="+m_facsc+" </weight>\n")
-        m_idx = m_idx + 1
-		  
-  fout.write("</weightgroup>\n")
-
 if forMiNNLO:
   # additional MiNNLO scale variations (NNPDF 3.0)
   fout.write("<weightgroup name='scale_variation_nnpdf30' combine='envelope' >\n")
@@ -78,9 +62,8 @@ if forMiNNLO:
         
   fout.write("</weightgroup>\n")
 
-if forDYNNLOPS or forMiNNLO:
-  print("DYNNLOPS/MiNNLO: PDF variations will be reduced for generation speed")
-  # reduced 5F PDF for DYNNLOPS
+  print("MiNNLO: PDF variations will be reduced for generation speed")
+  # custom 5F PDF for MiNNLO
   pdf_sets = {
             # weight id, LHAPDF id, name, replicas to be written
             "PDF_variation1 , hessian" :
