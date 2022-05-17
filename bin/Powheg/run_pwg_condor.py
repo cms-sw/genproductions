@@ -691,6 +691,7 @@ if __name__ == "__main__":
     print '                base folder : ' + rootfolder
     print '                forDAG : ' + str(args.fordag)
     print '                SLC6 : ' + str(args.slc6)
+    print '                SVN : ' + str(args.svnRev)
     print
 
     if (TESTING == 1) :

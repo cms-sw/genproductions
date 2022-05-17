@@ -8,9 +8,10 @@ if [ "$#" -lt 1 ]; then
     exit 1;
 fi
 
+SVN=3900
 ARCH=slc7_amd64_gcc900
 CMSSW=CMSSW_12_2_3
-SUFFIX=powheg-MiNNLO31-svn3900-ew-rwl6-j200-st2fix-ana-hoppetweights-ymax20-pdf2
+SUFFIX=powheg-MiNNLO31-svn${SVN}-ew-rwl6-j200-st2fix-ana-hoppetweights-ymax20-pdf2
 
 # PROCS=(ZJToMuMu-suggested-nnpdf31-ncalls-doublefsr-q139 WplusJToMuNu-suggested-nnpdf31-ncalls-doublefsr-q139-ckm WminusJToMuNu-suggested-nnpdf31-ncalls-doublefsr-q139-ckm)
 
@@ -43,7 +44,7 @@ case $WHAT in
     COMPILE )
         for PROC in ${PROCS[@]}
         do
-            python ./run_pwg_condor.py -p 0 -i DY_MiNNLO_NNPDF31_13TeV/${PROC}-powheg.input -m ${PROC:0:1}j -f ${PROC}-${SUFFIX} -d 1
+            python ./run_pwg_condor.py -p 0 -i DY_MiNNLO_NNPDF31_13TeV/${PROC}-powheg.input -m ${PROC:0:1}j -f ${PROC}-${SUFFIX} -d 1 --svn ${SVN}
         done
     ;;
     
@@ -61,7 +62,7 @@ case $WHAT in
     ONESHOT )
         for PROC in ${PROCS[@]}
         do
-            python ./run_pwg_condor.py -p f -i DY_MiNNLO_NNPDF31_13TeV/${PROC}-powheg.input -m ${PROC:0:1}j -f ${PROC}-${SUFFIX} -d 1
+            python ./run_pwg_condor.py -p f -i DY_MiNNLO_NNPDF31_13TeV/${PROC}-powheg.input -m ${PROC:0:1}j -f ${PROC}-${SUFFIX} -d 1 --svn ${SVN}
         done
     ;;
 

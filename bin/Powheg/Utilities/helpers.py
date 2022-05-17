@@ -51,20 +51,24 @@ cd ..",
     "ttb_NLO_dec" : "patch -l -p0 -i ${patches_dir}/pwhg_ttb_NLO_dec_gen_radiation_hook.patch",
     "WWJ" : "patch -l -p0 -i ${patches_dir}/wwj-weights.patch\n \
 cp ${patches_dir}/rwl_write_weights2_extra.f POWHEG-BOX/$process/",
-    "Zj" : "cd POWHEG-BOX\n \
+    "Zj" : "if [ ${forMiNNLO} -eq 1 ]; then\n \
+cd POWHEG-BOX\n \
 patch -l -p0 -i ${patches_dir}/pwhg_rm_bad_st1.patch\n \
 patch -l -p0 -i ${patches_dir}/pwhg_rwl_add_random.patch\n \
 patch -l -p0 -i ${patches_dir}/minnlo_pdf_weights.patch\n \
 patch -l -p0 -i ${patches_dir}/minnlo_pdf_representations_init.patch\n \
 patch -l -p2 -i ${patches_dir}/minnlo_pdf_ymax.patch\n \
-cd ..",
-    "Wj" : "cd POWHEG-BOX\n \
+cd ..\n \
+fi",
+    "Wj" : "if [ ${forMiNNLO} -eq 1 ]; then\n \
+cd POWHEG-BOX\n \
 patch -l -p0 -i ${patches_dir}/pwhg_rm_bad_st1.patch\n \
 patch -l -p0 -i ${patches_dir}/pwhg_rwl_add_random.patch\n \
 patch -l -p0 -i ${patches_dir}/minnlo_pdf_weights.patch\n \
 patch -l -p0 -i ${patches_dir}/minnlo_pdf_representations_init.patch\n \
 patch -l -p2 -i ${patches_dir}/minnlo_pdf_ymax.patch\n \
-cd ..",
+cd ..\n \
+fi",
     "VBF_H_smeft" : "cd POWHEG-BOX/VBF_H_smeft\n \
 head -n 966 pwhg_analysis.f | tail -n 12 > pwhg_analysis_new.f\n \
 mv pwhg_analysis_new.f pwhg_analysis.f\n \
