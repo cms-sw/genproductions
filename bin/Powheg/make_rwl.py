@@ -21,6 +21,9 @@ CentralPDF = str(sys.argv[2])
 forMiNNLO = bool(int(sys.argv[3])) if len(sys.argv) > 3 else False
 process = str(sys.argv[4]) if len(sys.argv) > 4 else ''
 
+if forMiNNLO:
+  CentralPDF=306000
+
 # is5FlavorScheme = True
 # CentralPDF = 325300
 # processes4Flavor = ['ST_tch_4f', 'bbH', 'Wbb_dec', 'Wbbj',]
