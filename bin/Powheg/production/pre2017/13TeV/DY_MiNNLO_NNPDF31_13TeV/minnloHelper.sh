@@ -8,18 +8,20 @@ if [ "$#" -lt 1 ]; then
     exit 1;
 fi
 
+NJOBS=200
 SVN=3900
-ARCH=slc7_amd64_gcc900
-CMSSW=CMSSW_12_2_3
-SUFFIX=powheg-MiNNLO31-svn${SVN}-ew-rwl6-j200-st2fix-ana-hoppetweights-ymax20-pdf2
+ARCH=slc7_amd64_gcc10
+CMSSW=CMSSW_12_3_1
+SUFFIX=powheg-MiNNLO31-svn${SVN}-ew-rwl6-j${NJOBS}-st2fix-ana-hoppetweights-ymax20-pdf2-merge
 
 # PROCS=(ZJToMuMu-suggested-nnpdf31-ncalls-doublefsr-q139 WplusJToMuNu-suggested-nnpdf31-ncalls-doublefsr-q139-ckm WminusJToMuNu-suggested-nnpdf31-ncalls-doublefsr-q139-ckm)
 
 PROCS=(ZJToMuMu-5TeV-suggested-nnpdf31-ncalls-doublefsr-q139 WplusJToMuNu-5TeV-suggested-nnpdf31-ncalls-doublefsr-q139-ckm WminusJToMuNu-5TeV-suggested-nnpdf31-ncalls-doublefsr-q139-ckm)
 PROCS=(ZJToMuMu-7TeV-suggested-nnpdf31-ncalls-doublefsr-q139)
 
-#SUFFIX=powheg-MiNNLO31-svn3756-ew-rwl6-j200-st2fix-ana-hoppetweights-ymax20-addmassweights
+#SUFFIX=powheg-MiNNLO31-svn${SVN}-ew-rwl6-j${NJOBS}-st2fix-ana-hoppetweights-ymax20-addmassweights
 PROCS=(ZJToMuMu-suggested-nnpdf31-ncalls-doublefsr-q139 WplusJToMuNu-suggested-nnpdf31-ncalls-doublefsr-q139-ckm WminusJToMuNu-suggested-nnpdf31-ncalls-doublefsr-q139-ckm)
+PROCS=(ZJToMuMu-suggested-nnpdf31-ncalls-doublefsr-q139)
 
 case $WHAT in
 
@@ -31,6 +33,8 @@ case $WHAT in
         ln -s ../../genproductions/bin/Powheg/*.py .
         ln -s ../../genproductions/bin/Powheg/*.sh .
         ln -s ../../genproductions/bin/Powheg/patches .
+        ln -s ../../genproductions/bin/Powheg/Templates .
+        ln -s ../../genproductions/bin/Powheg/Utilities .
         ln -s ../../genproductions/bin/Powheg/production/pre2017/13TeV/DY_MiNNLO_NNPDF31_13TeV .
     ;;
     
@@ -42,6 +46,7 @@ case $WHAT in
     ;;
     
     COMPILE )
+        eval `scramv1 runtime -sh`
         for PROC in ${PROCS[@]}
         do
             python ./run_pwg_condor.py -p 0 -i DY_MiNNLO_NNPDF31_13TeV/${PROC}-powheg.input -m ${PROC:0:1}j -f ${PROC}-${SUFFIX} -d 1 --svn ${SVN}
@@ -69,7 +74,7 @@ case $WHAT in
     GRIDS )
         for PROC in ${PROCS[@]}
         do
-            k5reauth -R -- python ./run_pwg_parallel_condor.py -p 123 -i DY_MiNNLO_NNPDF31_13TeV/${PROC}-powheg.input -m ${PROC:0:1}j -f ${PROC}-${SUFFIX} -q 1:longlunch,2:workday,3:longlunch --step3pilot -x 3 -j 200 --slc ${ARCH:3:1}
+            k5reauth -R -- python ./run_pwg_parallel_condor.py -p 123 -i DY_MiNNLO_NNPDF31_13TeV/${PROC}-powheg.input -m ${PROC:0:1}j -f ${PROC}-${SUFFIX} -q 1:longlunch,2:workday,3:longlunch --step3pilot -x 3 -j ${NJOBS} --slc ${ARCH:3:1}
         done
     ;;
     
@@ -85,28 +90,28 @@ case $WHAT in
     LONGGRIDS )
         for PROC in ${PROCS[@]}
         do
-            k5reauth -R -- python ./run_pwg_parallel_condor.py -p 123 -i DY_MiNNLO_NNPDF31_13TeV/${PROC}-powheg.input -m ${PROC:0:1}j -f ${PROC}-${SUFFIX} -q 1:workday,2:tomorrow,3:longlunch --step3pilot -x 3 -j 200
+            k5reauth -R -- python ./run_pwg_parallel_condor.py -p 123 -i DY_MiNNLO_NNPDF31_13TeV/${PROC}-powheg.input -m ${PROC:0:1}j -f ${PROC}-${SUFFIX} -q 1:workday,2:tomorrow,3:longlunch --step3pilot -x 3 -j ${NJOBS}
         done
     ;;
     
     GRIDS1 )
         for PROC in ${PROCS[@]}
         do
-            k5reauth -R -- python ./run_pwg_parallel_condor.py -p 1 -i DY_MiNNLO_NNPDF31_13TeV/${PROC}-powheg.input -m ${PROC:0:1}j -f ${PROC}-${SUFFIX} -q workday -j200
+            k5reauth -R -- python ./run_pwg_parallel_condor.py -p 1 -i DY_MiNNLO_NNPDF31_13TeV/${PROC}-powheg.input -m ${PROC:0:1}j -f ${PROC}-${SUFFIX} -q workday -j ${NJOBS}
         done
     ;;
     
     GRIDS2 )
         for PROC in ${PROCS[@]}
         do
-            k5reauth -R -- python ./run_pwg_parallel_condor.py -p 2 -i DY_MiNNLO_NNPDF31_13TeV/${PROC}-powheg.input -m ${PROC:0:1}j -f ${PROC}-${SUFFIX} -q workday -j 200
+            k5reauth -R -- python ./run_pwg_parallel_condor.py -p 2 -i DY_MiNNLO_NNPDF31_13TeV/${PROC}-powheg.input -m ${PROC:0:1}j -f ${PROC}-${SUFFIX} -q workday -j ${NJOBS}
         done
     ;;
     
     GRIDS3 )
         for PROC in ${PROCS[@]}
         do
-            k5reauth -R -- python ./run_pwg_parallel_condor.py -p 3 -i DY_MiNNLO_NNPDF31_13TeV/${PROC}-powheg.input -m ${PROC:0:1}j -f ${PROC}-${SUFFIX} -q longlunch -j 200 --step3pilot &
+            k5reauth -R -- python ./run_pwg_parallel_condor.py -p 3 -i DY_MiNNLO_NNPDF31_13TeV/${PROC}-powheg.input -m ${PROC:0:1}j -f ${PROC}-${SUFFIX} -q longlunch -j ${NJOBS} --step3pilot &
         done
     ;;
     
@@ -255,7 +260,7 @@ case $WHAT in
     
     COPY_GRIDS )
         OLDPATH=/afs/cern.ch/work/m/mseidel/generator/CMSSW_10_2_23/src/
-        OLDSUFFIX=powheg-MiNNLO31-svn3900-ew-rwl6-j200-st2fix-ana-hoppetweights-ymax20
+        OLDSUFFIX=powheg-MiNNLO31-svn3900-ew-rwl6-j${NJOBS}-st2fix-ana-hoppetweights-ymax20
         for PROC in ${PROCS[@]}
         do
             cp ${OLDPATH}/${PROC}-${OLDSUFFIX}/*.dat ${PROC}-${SUFFIX}/

@@ -465,7 +465,7 @@ def makedynnloconfig(folderName, baseconfig, config, murfac, muffac):
 def rundynnlo(folderName, njobs, QUEUE, eosdir):
     if 'NONE' in eosdir:
         print('WARNING: using workdir for output files, you may run out of disk space')
-         = os.getcwd()+"/"+folderName
+        eosdir  = os.getcwd()+"/"+folderName
 
     template_dict = {
         "rootfolder" : rootfolder,

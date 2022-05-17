@@ -34,7 +34,7 @@ fi
 
 forDYNNLOPS=0
 forMiNNLO=0
-grep -q "^minnlo\\s*1" powheg.input; test $? -eq 1 || forMiNNLO=1
+grep -q "^minnlo\\s*1" powheg.input; test $$? -eq 1 || forMiNNLO=1
 
 cd $$WORKDIR
 cd $${name}
@@ -88,7 +88,7 @@ if [ -e POWHEG-BOX/$${process}.tgz ]; then
   cd -
 else
   cd POWHEG-BOX/
-  svn co --revision $svnRev --username anonymous --password anonymous $svnProcRepo/$process
+  svn co --revision $svnRev --username anonymous --password anonymous $svnProc/$process
   cd -
 fi
 

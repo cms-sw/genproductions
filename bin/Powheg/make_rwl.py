@@ -13,7 +13,7 @@ if len(sys.argv) < 3:
 ERROR: Please specify if the Flavor scheme for which you want to define the weights is 5F (1) or 4F (0), and the central PDF
 Example of usage for 5F:  python make_rwl.py 1 325300
 Example of usage for 4F:  python make_rwl.py 0 325500
-"""
+""")
     sys.exit(1)
 
 is5FlavorScheme = str(sys.argv[1])
