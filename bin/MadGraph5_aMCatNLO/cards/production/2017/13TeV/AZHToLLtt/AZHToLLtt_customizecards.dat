@@ -4,8 +4,6 @@ set param_card mass 25 125.0
 set param_card mass 35 HMASS
 set param_card mass 36 AMASS
 set param_card mass 37 AMASS
-set param_card mass 23 9.118760e+01
-set param_card mass 24 80.379
 set param_card width 35 Auto
-set param_card width 23 2.4952
+set param_card width 36 Auto
 set param_card width 37 Auto

@@ -4,12 +4,10 @@ set ignore_six_quark_processes False
 set gauge unitary
 set complex_mass_scheme False
 
-import model 2HDM
+import model 2HDMtII_NLO 
 define l+ = e+ mu+ 
 define l- = e- mu- 
-define vl = ve vm
-define vl~ = ve~ vm~
 
-generate p p > h3 > h2 z
+generate p p > h3 > h2 z [QCD]
 output AZHToLLtt -nojpeg
 
