@@ -7,6 +7,6 @@ define q = u c d s b
 define q~ = u~ c~ d~ s~ b~
 define p = g u c d s u~ c~ d~ s~ b b~
 define j = g u c d s u~ c~ d~ s~ b b~
-generate p p > eta, (eta > w+ w- b b~, w+ > l+ vl, w- > j j)
-add process p p > eta, (eta > w+ w- b b~, w+ > j j, w- > l- vl~)
+generate p p > eta, (eta > w+ w- b b~, w+ > l+ vl, w- > q q~)
+add process p p > eta, (eta > w+ w- b b~, w+ > q q~, w- > l- vl~)
 output EtaTToSemileptonic_0j_madgraph_4f_NNPDF31nnlo_13TeV -nojpeg
