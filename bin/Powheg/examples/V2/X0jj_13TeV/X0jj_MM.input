@@ -33,9 +33,9 @@ bwcutoff 15       ! Mass window is hmass +- bwcutoff*hwidth
 
 # fullphsp 1         ! use ISR/FSR phase space parametrization, default 0
 
-ncall1 50000   ! number of calls for initializing the integration grid
+ncall1 30000   ! number of calls for initializing the integration grid
 itmx1    1     ! number of iterations for initializing the integration grid
-ncall2 100000   ! number of calls for computing the integral and finding upper bound
+ncall2 5000   ! number of calls for computing the integral and finding upper bound
 itmx2    5     ! number of iterations for computing the integral and finding upper bound
 foldcsi   2    ! number of folds on csi integration
 foldy     5    ! number of folds on  y  integration
