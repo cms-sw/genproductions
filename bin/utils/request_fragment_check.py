@@ -167,7 +167,7 @@ def ul_consistency(dn,pi,jhu_gp):
     prime_tmp = []
     warning_ul = 0
     error_ul = 0
-    if "Summer20UL18" in pi or "Summer20UL17" in pi or "Summer20UL16wmLHEGENAPV" in pi or "APV" in pi or "Summer20UL16" in pi and "GEN" in pi:
+    if ("Summer20UL18" in pi or "Summer20UL17" in pi or "Summer20UL16wmLHEGENAPV" in pi or "APV" in pi or "Summer20UL16" in pi) and "GEN" in pi and "lowpu" not in dn.lower():
         prime = get_requests_from_datasetname(dn)
         if len(prime) == 0:
             if "Summer20UL16" not in pi:
