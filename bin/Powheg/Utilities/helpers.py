@@ -46,6 +46,8 @@ cp SubProcesses/MadLoopParams.dat ${WORKDIR}/${name}\n \
 for f in `ls  SubProcesses/MadLoop5_resources/*` ; do\n \
     ln -sf $MG_NAME/${process}/$f ${WORKDIR}/${name}\n \
 done\n \
+echo 'Compiling MADGRAPH+POWHEG interface'\n \
+make\n \
 echo 'MADGRAPH+POWHEG END-INSTALL'",
     }.get(process,"")
 
