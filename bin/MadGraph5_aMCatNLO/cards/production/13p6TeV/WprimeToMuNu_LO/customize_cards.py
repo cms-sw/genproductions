@@ -5,12 +5,10 @@ import shutil
 from WprimeWidth import *
 
 #### Set mass ranges to produce ####
-# ~ masses = range(600, 6800, 200)
-#masses = range(600, 800, 200)
-masses = [800]
+masses = range(600, 6800, 200)
+
 #### Set couplings to produce ####
-# ~ kR = [0.0001, 0.001, 0.01, 0.1, 1.0, 2.0, 3.0, 5.0]
-kR = [0.001]
+kR = [0.0001, 0.001, 0.01, 0.1, 1.0, 2.0, 3.0, 5.0]
 
 #### Set dir with template cards to adjust ####
 template_dir = "WprimeToMuNu_M-1800_kR-0p1_LO_NNPDF31nnlo/"
