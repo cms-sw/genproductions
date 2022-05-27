@@ -13,3 +13,4 @@ do
     cp ChargedHiggsToCB_M160_proc_card.dat ChargedHiggsToCB_M${mass}/ChargedHiggsToCB_M${mass}_proc_card.dat
     sed -i 's|output ChargedHiggsToCB_M160 -nojpeg|output ChargedHiggsToCB_M'"${mass}"' -nojpeg|g' ChargedHiggsToCB_M${mass}/ChargedHiggsToCB_M${mass}_proc_card.dat
 done
+ 
