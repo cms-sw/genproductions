@@ -38,7 +38,11 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Build gridpack
-        run: docker run --rm -v /cvmfs:/cvmfs -v $PWD:$PWD -w $PWD gitlab-registry.cern.ch/cms-cloud/cmssw-docker/cc7-cms bash bin/Powheg/test/test_build.sh -r ${{ matrix.cmssw_release }} -a ${{ matrix.scram_arch }} -p ${{ matrix.proc }}
+        uses: nick-fields/retry@v2
+        with:
+          max_attempts: 5
+          retry_on_exit_code: 10001 # failed CMSSW setup, likely due to cvmfs connectivity
+          command: docker run --rm -v /cvmfs:/cvmfs -v $PWD:$PWD -w $PWD gitlab-registry.cern.ch/cms-cloud/cmssw-docker/cc7-cms bash bin/Powheg/test/test_build.sh -r ${{ matrix.cmssw_release }} -a ${{ matrix.scram_arch }} -p ${{ matrix.proc }}
 
       - name: Check pwg-stat.dat
         run: git diff --exit-code bin/Powheg/test/pwg-stat.dat.${{ matrix.proc }}_${{ matrix.scram_arch }}_${{ matrix.cmssw_release }}
