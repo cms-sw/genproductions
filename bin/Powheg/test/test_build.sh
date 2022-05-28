@@ -41,14 +41,8 @@ cd $BASE_DIR
 source /cvmfs/cms.cern.ch/cmsset_default.sh
 /cvmfs/cms.cern.ch/common/scramv1 project CMSSW  $CMSSW_RELEASE
 if [ ! -e $CMSSW_RELEASE ]; then
-    echo "Error: no CMSSW area, wait a little to recover CVMFS issue"
-    sleep 10
-    source /cvmfs/cms.cern.ch/cmsset_default.sh
-    /cvmfs/cms.cern.ch/common/scramv1 project CMSSW  $CMSSW_RELEASE
-    if [ ! -e $CMSSW_RELEASE ]; then
-        echo "Error: no CMSSW area, aborting"
-        exit 1
-    fi
+    echo "Error: no CMSSW area, aborting"
+    exit 111
 fi
 cd $CMSSW_RELEASE/src
 eval `/cvmfs/cms.cern.ch/common/scramv1 runtime -sh`
