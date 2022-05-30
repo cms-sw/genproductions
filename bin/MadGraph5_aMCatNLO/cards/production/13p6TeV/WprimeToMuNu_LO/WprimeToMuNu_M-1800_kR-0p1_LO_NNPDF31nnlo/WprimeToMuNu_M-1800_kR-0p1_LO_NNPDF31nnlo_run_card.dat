@@ -46,9 +46,8 @@
 #          none=No PDF, same as lhapdf with lppx=0                   *
 #*********************************************************************
       lhapdf    = pdlabel     ! PDF set 
-#     nn23lo1    = pdlabel1     ! PDF type for beam #1
-#     nn23lo1    = pdlabel2     ! PDF type for beam #2
-#     230000    = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number
+      $DEFAULT_PDF_SETS = lhaid
+      $DEFAULT_PDF_MEMBERS = reweight_PDF
 # To see heavy ion options: type "update ion_pdf"
 #*********************************************************************
 # Renormalization and factorization scales                           *
@@ -116,7 +115,7 @@
 #*********************************************************************
 # Maximum and minimum absolute rapidity (for max, -1 means no cut)   *
 #*********************************************************************
- 2.5  = etal    ! max rap for the charged leptons 
+ 3.0  = etal    ! max rap for the charged leptons 
  0.0  = etalmin ! main rap for the charged leptons
  {} = eta_min_pdg ! rap cut for other particles (use pdg code). Applied on particle and anti-particle
  {} = eta_max_pdg ! rap cut for other particles (syntax e.g. {6: 2.5, 23: 5})
@@ -153,7 +152,5 @@
 # WARNING: Do not use for interference type of computation           *
 #*********************************************************************
    True  = use_syst      ! Enable systematics studies
-#
-systematics = systematics_program ! none, systematics [python], SysCalc [depreceted, C++]
-['--mur=0.5,1,2', '--muf=0.5,1,2', '--pdf=errorset'] = systematics_arguments ! see: https://cp3.irmp.ucl.ac.be/projects/madgraph/wiki/Systematics#Systematicspythonmodule
 
+ 1e-12 = small_width_treatment
