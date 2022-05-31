@@ -20,7 +20,7 @@ fi
 
 # define test input for each process
 case $PROC in
-    hvq) INPUT=production/2017/13TeV/TT_hvq/TT_hdamp_NNPDF31_NNLO_ljets.input;;
+    hvq) INPUT=production/2017/13TeV/TT_hvq/TT_hdamp_NNPDF31_NNLO_inclusive.input;;
     *) echo "Error: process $PROC not defined in test script"; exit 1;;
 esac
 
