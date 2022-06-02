@@ -91,6 +91,7 @@ prepare_reweight () {
     if [ "$isnlo" -gt "0" ]; then
         cd $WORKDIR/processtmp
         config=./Cards/amcatnlo_configuration.txt
+        echo “nb_core = 1” >> $config
     else
         cd $WORKDIR/process
 	mkdir -p madevent/Events/pilotrun
