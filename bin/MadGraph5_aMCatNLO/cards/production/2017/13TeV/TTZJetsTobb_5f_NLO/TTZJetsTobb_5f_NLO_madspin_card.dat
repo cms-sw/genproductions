@@ -20,14 +20,11 @@ set ms_dir ./madspingrid
 
 set max_running_process 1
 
-define q = b
-define q~ = b~
-
 # specify the decay for the final state particles
 #(inclusive top decays in this case)
 decay t > w+ b, w+ > all all
 decay t~ > w- b~, w- > all all
-decay z > q q~
+decay z > b b~
 
 # running the actual code
 launch
