@@ -51,8 +51,24 @@ cd ..",
     "ttb_NLO_dec" : "patch -l -p0 -i ${patches_dir}/pwhg_ttb_NLO_dec_gen_radiation_hook.patch",
     "WWJ" : "patch -l -p0 -i ${patches_dir}/wwj-weights.patch\n \
 cp ${patches_dir}/rwl_write_weights2_extra.f POWHEG-BOX/$process/",
-    "Zj" : "patch -l -p0 -i ${patches_dir}/pwhg_write_weights_nnlo.patch",
-    "Wj" : "patch -l -p0 -i ${patches_dir}/pwhg_write_weights_nnlo.patch",
+    "Zj" : "if [ ${forMiNNLO} -eq 1 ]; then\n \
+cd POWHEG-BOX\n \
+patch -l -p0 -i ${patches_dir}/pwhg_rm_bad_st1.patch\n \
+patch -l -p0 -i ${patches_dir}/pwhg_rwl_add_random.patch\n \
+patch -l -p0 -i ${patches_dir}/minnlo_pdf_weights.patch\n \
+patch -l -p0 -i ${patches_dir}/minnlo_pdf_representations_init.patch\n \
+patch -l -p2 -i ${patches_dir}/minnlo_pdf_ymax.patch\n \
+cd ..\n \
+fi",
+    "Wj" : "if [ ${forMiNNLO} -eq 1 ]; then\n \
+cd POWHEG-BOX\n \
+patch -l -p0 -i ${patches_dir}/pwhg_rm_bad_st1.patch\n \
+patch -l -p0 -i ${patches_dir}/pwhg_rwl_add_random.patch\n \
+patch -l -p0 -i ${patches_dir}/minnlo_pdf_weights.patch\n \
+patch -l -p0 -i ${patches_dir}/minnlo_pdf_representations_init.patch\n \
+patch -l -p2 -i ${patches_dir}/minnlo_pdf_ymax.patch\n \
+cd ..\n \
+fi",
     "VBF_H_smeft" : "cd POWHEG-BOX/VBF_H_smeft\n \
 head -n 966 pwhg_analysis.f | tail -n 12 > pwhg_analysis_new.f\n \
 mv pwhg_analysis_new.f pwhg_analysis.f\n \
@@ -61,14 +77,18 @@ cd ../..",
 
 def runGetSource_patch_2(process) :
   return {
-    "Zj" : "tar zxf ../DYNNLOPS.tgz\n \
-wget --no-verbose --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/slc6_amd64_gcc481/powheg/V2.0/src/nnlops_fast_patch3_${process:0:1}.tgz\n \
-tar zxf nnlops_fast_patch3_${process:0:1}.tgz\n \
-mv Makefile-NNLOPS Makefile",
-    "Wj" : "tar zxf ../DYNNLOPS.tgz\n \
-wget --no-verbose --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/slc6_amd64_gcc481/powheg/V2.0/src/nnlops_fast_patch3_${process:0:1}.tgz\n \
-tar zxf nnlops_fast_patch3_${process:0:1}.tgz\n \
-mv Makefile-NNLOPS Makefile",
+    "Zj" : "if [ ${forMiNNLO} -eq 1 ]; then\n \
+patch -l -p0 -i ${WORKDIR}/patches/zj_minnlo_scheme_weights.patch\n \
+cd ZjMiNNLO\n \
+patch -l -p0 -i ${WORKDIR}/patches/vj_minnlo_rwl_pdf_optimization.patch\n \
+patch -l -p0 -i ${WORKDIR}/patches/vj_minnlo_compiler_flags.patch\n \
+fi",
+    "Wj" : "if [ ${forMiNNLO} -eq 1 ]; then\n \
+patch -l -p0 -i ${WORKDIR}/patches/wj_minnlo_scheme_weights.patch\n \
+cd WjMiNNLO\n \
+patch -l -p0 -i ${WORKDIR}/patches/vj_minnlo_rwl_pdf_optimization.patch\n \
+patch -l -p0 -i ${WORKDIR}/patches/vj_minnlo_compiler_flags.patch\n \
+fi",
     }.get(process,"")
 
 def runGetSource_patch_3(process) :
@@ -324,7 +344,24 @@ make\n \
 cd ../\n \
 echo \"Leaving patch6 for ${process} in directory $(pwd)\"\n \
     ",
-    
+    "Z_ew-BMNNPV" : "patch -l -p0 -i ${patches_dir}/z_ew.patch\n \
+## put the correct library names for PHOTOS++ into the Makefile\n \
+echo 'Linking PHOTOS++ libraries in the Makefile'\n \
+sed -i 's+^PHOTOSCC_LOCATION=.*+PHOTOSCC_LOCATION=/cvmfs/cms.cern.ch/slc6_amd64_gcc700/external/photospp/3.61-omkpbe2+g' Makefile\n \
+sed -i '/lPhotosFortran/s/^/#/g' Makefile\n \
+sed -i '/lPhotospp/s/^# //g' Makefile\n \
+## make the main-PHOTOS-lhef\n \
+echo 'Making main-PHOTOS-lhef'\n \
+make main-PHOTOS-lhef",
+    "W_ew-BMNNP" : "patch -l -p0 -i ${patches_dir}/w_ew.patch\n \
+## put the correct library names for PHOTOS++ into the Makefile\n \
+echo 'Linking PHOTOS++ libraries in the Makefile'\n \
+sed -i 's+^PHOTOSCC_LOCATION=.*+PHOTOSCC_LOCATION=/cvmfs/cms.cern.ch/slc6_amd64_gcc700/external/photospp/3.61-omkpbe2+g' Makefile\n \
+sed -i '/lPhotosFortran/s/^/#/g' Makefile\n \
+sed -i '/lPhotospp/s/^# //g' Makefile\n \
+## make the main-PHOTOS-lhef\n \
+echo 'Making main-PHOTOS-lhef'\n \
+make main-PHOTOS-lhef",
     }.get(process,"")
 
 def runGetSource_patch_7(process) :
@@ -396,98 +433,4 @@ gawk \"/sroot/{gsub(/8000/,$COMENERGY)};/hmass/{gsub(/125.5/, ${HMASS})};/mur,mu
 gawk \"/sroot/{gsub(/8000/,$COMENERGY)};/hmass/{gsub(/125.5/, ${HMASS})};/mur,muf/{gsub(/62.750/, $(( $HMASS )))};{print}\" POWHEG-BOX/HJ/PaperRun/HNNLO-LHC8-R04-APX2-11.input | sed -e \"s#10103#SEED#g\" | sed -e \"s#HNNLO-LHC8-R04-APX2-11#HNNLO-LHC13-R04-APX2-22#g\"> HNNLO-LHC13-R04-APX2-22.input\n \
 gawk \"/sroot/{gsub(/8000/,$COMENERGY)};/hmass/{gsub(/125.5/, ${HMASS})};/mur,muf/{gsub(/62.750/, $(( $HMASS/4 )))};{print}\" POWHEG-BOX/HJ/PaperRun/HNNLO-LHC8-R04-APX2-11.input | sed -e \"s#10103#SEED#g\" | sed -e \"s#HNNLO-LHC8-R04-APX2-11#HNNLO-LHC13-R04-APX2-0505#g\"> HNNLO-LHC13-R04-APX2-0505.input\n \
 cp ${WORKDIR}/Utilities/nnlopsreweighter.input .",
-
-    "Zj" : "echo \"Compiling DYNNLO....\"\n \
-wget --no-verbose --no-check-certificate http://theory.fi.infn.it/grazzini/codes/dynnlo-v1.5.tgz\n \
-tar -xzvf dynnlo-v1.5.tgz\n \
-cd dynnlo-v1.5\n \
-cp ../POWHEG-BOX/${process}/DYNNLOPS/${process:0:1}NNLOPS/dynnlo-patches/dynnlo.makefile ./makefile\n \
-cp -r -L ../POWHEG-BOX/${process}/DYNNLOPS/${process:0:1}NNLOPS/dynnlo-patches ./\n \
-cd src/Need/\n \
-cat pdfset_lhapdf.f | sed -e \"s#30#40#g\" | sed -e \"s#20#30#g\" | sed -e \"s#oldPDFname(1:i-1)//'.LHgrid'#oldPDFname(1:i-1)#g\" | sed -e \"s#oldPDFname(1:i-1)//'.LHpdf'#oldPDFname(1:i-1)#g\" | sed -e \"s#InitPDFset('PDFsets/'//PDFname)#InitPDFsetByName(PDFname)#g\" > pdfset_lhapdf.f.new\n \
-mv pdfset_lhapdf.f.new pdfset_lhapdf.f\n \
-cd -\n \
-cat makefile | sed -e \"s#LHAPDFLIB=.\+#LHAPDFLIB=$(scram tool info lhapdf | grep LIBDIR | cut -d \"=\" -f2)#g\" > makefile\n \
-make || fail_exit \"Failed to compile DYNNLO\"\n\n \
-\
-cp -p bin/dynnlo ${WORKDIR}/${name}/\n\n \
-\
-cd ${WORKDIR}/${name}/POWHEG-BOX/${process}/DYNNLOPS/aux\n \
-gfortran -mcmodel=medium -o merge3ddata merge3ddata.f  || fail_exit \"Failed to compile merge3ddata\"\n \
-cp merge3ddata ${WORKDIR}/${name}/\n \
-gfortran -mcmodel=medium -o mergedata mergedata.f  || fail_exit \"Failed to compile mergedata\"\n \
-cp mergedata ${WORKDIR}/${name}/\n\n \
-\
-cd ${WORKDIR}/${name}/POWHEG-BOX/${process}\n \
-make lhef_analysis_3d || fail_exit \"Failed to compile lhef_analysis_3d\"\n \
-cp lhef_analysis_3d ${WORKDIR}/${name}/\n\n \
-\
-cd ${WORKDIR}/${name}\n \
-VMASS=`cat powheg.input | grep \"^Wmass\|^Zmass\" | awk '{print $2}' | cut -d \"d\" -f1`\n \
-VMASSEXP=`cat powheg.input | grep \"^Wmass\|^Zmass\" | awk '{print $2}' | cut -d \"d\" -f2`\n \
-VMASS=`echo \"( $VMASS*10^$VMASSEXP )\" | bc`\n \
-VMASSMIN=`cat powheg.input | grep \"^min_W_mass\|^min_Z_mass\" | awk '{print $2}'`\n \
-VMASSMAX=`cat powheg.input | grep \"^max_W_mass\|^max_Z_mass\" | awk '{print $2}'`\n \
-echo $VMASS\n \
-DYNNLOPROC=3\n \
-BEAM=`cat powheg.input | grep \"^ebeam1\" | cut -d \" \" -f2 | tr \"d\" \".\"`;\n \
-COMENERGY=`echo \"( $BEAM*2 )\" | bc`\n\n \
-\
-cp POWHEG-BOX/${process}/DYNNLOPS/${process:0:1}NNLOPS/dynnlo-patches/dynnlo.infile dynnlo.infile.orig\n \
-gawk \"/sroot/{gsub(/.*!/,$COMENERGY \\\" !\\\")};\\ \n \
-      /nproc/{gsub(/.*!/,$DYNNLOPROC \\\" !\\\")};\\ \n \
-      /mur/{gsub(/.*!/, $VMASS \\\" \\\" $VMASS \\\" !\\\")};\\ \n \
-      /mwmin/{gsub(/.*!/, $VMASSMIN \\\" \\\" $VMASSMAX \\\" !\\\")};\\ \n \
-      /rseed/{gsub(/.*!/,\\\"SEED !\\\")};\\ \n \
-      /runstring/{gsub(/.*!/,\\\"'SEED' !\\\")};\\ \n \
-      {print}\" dynnlo.infile.orig | tee DYNNLO.input",
-
-    "Wj" : "echo \"Compiling DYNNLO....\"\n \
-wget --no-verbose --no-check-certificate http://theory.fi.infn.it/grazzini/codes/dynnlo-v1.5.tgz\n \
-tar -xzvf dynnlo-v1.5.tgz\n \
-cd dynnlo-v1.5\n \
-cp ../POWHEG-BOX/${process}/DYNNLOPS/${process:0:1}NNLOPS/dynnlo-patches/dynnlo.makefile ./makefile\n \
-cp -r -L ../POWHEG-BOX/${process}/DYNNLOPS/${process:0:1}NNLOPS/dynnlo-patches ./\n \
-cd src/Need/\n \
-cat pdfset_lhapdf.f | sed -e \"s#30#40#g\" | sed -e \"s#20#30#g\" | sed -e \"s#oldPDFname(1:i-1)//'.LHgrid'#oldPDFname(1:i-1)#g\" | sed -e \"s#oldPDFname(1:i-1)//'.LHpdf'#oldPDFname(1:i-1)#g\" | sed -e \"s#InitPDFset('PDFsets/'//PDFname)#InitPDFsetByName(PDFname)#g\" > pdfset_lhapdf.f.new\n \
-mv pdfset_lhapdf.f.new pdfset_lhapdf.f\n \
-cd -\n \
-cat makefile | sed -e \"s#LHAPDFLIB=.\+#LHAPDFLIB=$(scram tool info lhapdf | grep LIBDIR | cut -d \"=\" -f2)#g\" > makefile\n \
-make || fail_exit \"Failed to compile DYNNLO\"\n\n \
-\
-cp -p bin/dynnlo ${WORKDIR}/${name}/\n\n \
-\
-cd ${WORKDIR}/${name}/POWHEG-BOX/${process}/DYNNLOPS/aux\n \
-gfortran -mcmodel=medium -o merge3ddata merge3ddata.f  || fail_exit \"Failed to compile merge3ddata\"\n \
-cp merge3ddata ${WORKDIR}/${name}/\n \
-gfortran -mcmodel=medium -o mergedata mergedata.f  || fail_exit \"Failed to compile mergedata\"\n \
-cp mergedata ${WORKDIR}/${name}/\n\n \
-\
-cd ${WORKDIR}/${name}/POWHEG-BOX/${process}\n \
-make lhef_analysis_3d || fail_exit \"Failed to compile lhef_analysis_3d\"\n \
-cp lhef_analysis_3d ${WORKDIR}/${name}/\n\n \
-\
-cd ${WORKDIR}/${name}\n \
-VMASS=`cat powheg.input | grep \"^Wmass\|^Zmass\" | awk '{print $2}' | cut -d \"d\" -f1`\n \
-VMASSEXP=`cat powheg.input | grep \"^Wmass\|^Zmass\" | awk '{print $2}' | cut -d \"d\" -f2`\n \
-VMASS=`echo \"( $VMASS*10^$VMASSEXP )\" | bc`\n \
-VMASSMIN=`cat powheg.input | grep \"^min_W_mass\|^min_Z_mass\" | awk '{print $2}'`\n \
-VMASSMAX=`cat powheg.input | grep \"^max_W_mass\|^max_Z_mass\" | awk '{print $2}'`\n \
-echo $VMASS\n \
-DYNNLOPROC=1\n \
-VID=`cat powheg.input | grep \"^idvecbos\" | awk '{print $2}'`;\n \
-if [ \"$VID\" = \"-24\" ]; then\n \
-  DYNNLOPROC=2\n \
-fi\n \
-BEAM=`cat powheg.input | grep \"^ebeam1\" | cut -d \" \" -f2 | tr \"d\" \".\"`;\n \
-COMENERGY=`echo \"( $BEAM*2 )\" | bc`\n\n \
-\
-cp POWHEG-BOX/${process}/DYNNLOPS/${process:0:1}NNLOPS/dynnlo-patches/dynnlo.infile dynnlo.infile.orig\n \
-gawk \"/sroot/{gsub(/.*!/,$COMENERGY \\\" !\\\")};\\ \n \
-      /nproc/{gsub(/.*!/,$DYNNLOPROC \\\" !\\\")};\\ \n \
-      /mur/{gsub(/.*!/, $VMASS \\\" \\\" $VMASS \\\" !\\\")};\\ \n \
-      /mwmin/{gsub(/.*!/, $VMASSMIN \\\" \\\" $VMASSMAX \\\" !\\\")};\\ \n \
-      /rseed/{gsub(/.*!/,\\\"SEED !\\\")};\\ \n \
-      /runstring/{gsub(/.*!/,\\\"'SEED' !\\\")};\\ \n \
-      {print}\" dynnlo.infile.orig | tee DYNNLO.input",
     }.get(process,"")
