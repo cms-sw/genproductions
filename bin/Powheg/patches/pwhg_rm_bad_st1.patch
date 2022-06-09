@@ -1,0 +1,17 @@
+Index: bbinit.f
+===================================================================
+--- bbinit.f	(revision 3741)
++++ bbinit.f	(working copy)
+@@ -1338,6 +1338,12 @@
+             read(iun,iostat=ios) ndim0
+             if(ios.ne.0.or.ndim0.ne.ndiminteg) goto 111
+             read(iun,iostat=ios) tmp
++            if(abs(tmp) .gt. 1d6) then
++               write(*,*) ' Removing bad grid ', jfile, tmp
++               goodentries(jfile) = .false.
++               jfound=jfound-1
++               cycle
++            endif
+             ans = ans + tmp
+             if(ios.ne.0) goto 111
+             read(iun,iostat=ios) xgrid(0:nintervals,1:ndiminteg)

@@ -1,0 +1,69 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ master ]
+    paths:
+      - '.github/workflows/**'
+      - 'bin/Powheg/**'
+      - '!**/*.input'
+  pull_request:
+    branches: [ master ]
+    paths:
+      - '.github/workflows/**'
+      - 'bin/Powheg/**'
+      - '!**/*.input'
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  powheg:
+    strategy:
+      matrix:
+        proc: [hvq]
+        cmssw_release: [CMSSW_10_6_30, CMSSW_11_0_1, CMSSW_12_3_1]
+        include:
+          - cmssw_release: CMSSW_10_6_30
+            scram_arch: slc7_amd64_gcc700
+          - cmssw_release: CMSSW_11_0_1
+            scram_arch: slc7_amd64_gcc820
+          - cmssw_release: CMSSW_12_3_1
+            scram_arch: slc7_amd64_gcc10
+      fail-fast: false
+    # The type of runner that the job will run on
+    runs-on: [self-hosted, linux, x64]
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      - name: Build gridpack
+        uses: nick-fields/retry@v2
+        with:
+          max_attempts: 5
+          timeout_minutes: 60
+          retry_on_exit_code: 111 # failed CMSSW setup, likely due to cvmfs connectivity
+          command: docker run --rm -v /cvmfs:/cvmfs -v $PWD:$PWD -w $PWD gitlab-registry.cern.ch/cms-cloud/cmssw-docker/cc7-cms bash bin/Powheg/test/test_build.sh -r ${{ matrix.cmssw_release }} -a ${{ matrix.scram_arch }} -p ${{ matrix.proc }}
+
+      - name: Check pwg-stat.dat
+        run: git diff --exit-code bin/Powheg/test/pwg-stat.dat.${{ matrix.proc }}_${{ matrix.scram_arch }}_${{ matrix.cmssw_release }}
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4
+        with:
+          commit-message: Automated addition ${{ matrix.proc }}_${{ matrix.scram_arch }}_${{ matrix.cmssw_release }}
+          branch: create-pull-request/${{ matrix.proc }}_${{ matrix.scram_arch }}_${{ matrix.cmssw_release }}
+          delete-branch: true
+          base: master
+          title: Automated addition ${{ matrix.proc }}_${{ matrix.scram_arch }}_${{ matrix.cmssw_release }}
+          body: |
+            Automated addition by [create-pull-request](https://github.com/peter-evans/create-pull-request) GitHub action.
+            Please review the cross section file carefully!

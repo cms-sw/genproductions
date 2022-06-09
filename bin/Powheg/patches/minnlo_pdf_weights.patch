@@ -1,0 +1,233 @@
+Index: MiNNLOStuff/hoppet/pdf_tabulate.f90
+===================================================================
+--- MiNNLOStuff/hoppet/pdf_tabulate.f90	(revision 3900)
++++ MiNNLOStuff/hoppet/pdf_tabulate.f90	(working copy)
+@@ -40,6 +40,7 @@
+   type pdf_table
+      ! basic elements of a pdf_table, common regardless of whether we
+      ! additionally have the nf segments...
++     logical :: allocated = .false.
+      type(grid_def) :: grid
+      real(dp) :: default_dlnlnQ
+      real(dp) :: lnlnQ_min, lnlnQ_max, lambda_eff
+@@ -122,9 +123,11 @@
+   !! More sensible extrapolation beyond Q range offers scope for future 
+   !! improvement here!
+   !!
++  !! If the pdf_table had previously been allocated, then delete its
++  !! contents before the new allocations
+   subroutine pdftab_AllocTab_(grid, tab, Qmin, Qmax, dlnlnQ, lnlnQ_order, freeze_at_Qmin)
+-    type(grid_def),    intent(in)  :: grid
+-    type(pdf_table),      intent(out) :: tab
++    type(grid_def),    intent(in)    :: grid
++    type(pdf_table),   intent(inout) :: tab
+     real(dp), intent(in)           :: Qmin, Qmax
+     real(dp), intent(in), optional :: dlnlnQ
+     integer,  intent(in), optional :: lnlnQ_order
+@@ -131,6 +134,10 @@
+     logical,  intent(in), optional :: freeze_at_Qmin
+     !----------------------------------------------
+     integer :: iQ
++
++    ! clear memory if the table was already allocated
++    if (tab%allocated) call Delete(tab)
++
+     tab%grid = grid
+     tab%lambda_eff = min(half*Qmin, default_lambda_eff)
+     tab%lnlnQ_min = lnln(tab,Qmin)
+@@ -156,7 +163,9 @@
+        tab%lnlnQ_vals(iQ) = tab%lnlnQ_min + iQ * tab%dlnlnQ
+        tab%Q_vals(iQ) = invlnln(tab,tab%lnlnQ_vals(iQ))
+     end do
+-    
++
++    ! label this tab as allocated
++    tab%allocated = .true.
+   end subroutine pdftab_AllocTab_
+ 
+ 
+@@ -164,8 +173,8 @@
+   !---------------------------------------------------------
+   !! 1d overloaded version of AllocPdfTable
+   subroutine pdftab_AllocTab_1d(grid, tab, Qmin, Qmax, dlnlnQ, lnlnQ_order, freeze_at_Qmin)
+-    type(grid_def), intent(in)     :: grid
+-    type(pdf_table),   intent(out)    :: tab(:)
++    type(grid_def),    intent(in)     :: grid
++    type(pdf_table),   intent(inout)  :: tab(:)
+     real(dp), intent(in)           :: Qmin, Qmax
+     real(dp), intent(in), optional :: dlnlnQ
+     integer,  intent(in), optional :: lnlnQ_order
+@@ -318,8 +327,8 @@
+   !! tab are not however copied.
+   !! 
+   subroutine pdftab_AllocTab_fromorig(tab, origtab)
+-    type(pdf_table), intent(out) :: tab
+-    type(pdf_table), intent(in)  :: origtab
++    type(pdf_table), intent(inout) :: tab
++    type(pdf_table), intent(in)    :: origtab
+ 
+     tab = origtab
+     !-- this is the only thing that is not taken care of...
+@@ -342,8 +351,8 @@
+   !---------------------------------------------------------
+   !! 1d-overloaded version of pdftab_AllocTab_fromorig
+   subroutine pdftab_AllocTab_fromorig_1d(tab, origtab)
+-    type(pdf_table), intent(out) :: tab(:)
+-    type(pdf_table), intent(in)  :: origtab
++    type(pdf_table), intent(inout) :: tab(:)
++    type(pdf_table), intent(in)    :: origtab
+     integer :: i
+     do i = 1, size(tab)
+        call pdftab_AllocTab_fromorig(tab(i), origtab)
+@@ -722,6 +731,9 @@
+        !write(*,*) "CURRENTLY UNABLE TO DELETE EVOP CONTENTS"
+        deallocate(tab%evops)
+     end if
++    ! reset the information about allocation so that we don't
++    ! try to delete something that has already been deleted
++    tab%allocated = .false.
+   end subroutine pdftab_DelTab_0d
+   subroutine pdftab_DelTab_1d(tab)
+     type(pdf_table), intent(inout) :: tab(:)
+Index: MiNNLOStuff/hoppetif.f
+===================================================================
+--- MiNNLOStuff/hoppetif.f	(revision 3900)
++++ MiNNLOStuff/hoppetif.f	(working copy)
+@@ -8,6 +8,7 @@
+       include 'pwhg_st.h'
+       include 'minnlo_flg.h'
+       integer ndns
++      integer,save:: pre_ndns
+       character*100 pdf_name
+       character*100 string
+       integer stringlength
+@@ -29,7 +30,7 @@
+ 
+ c signal that we entered here already
+       whichpdfconst=whichpdfconst0
+-      if(ini) then
++      if(ini .or. ndns.ne.pre_ndns) then
+ c     Here we deal with all inputs that will be needed by hoppet (name
+ c     of pdf, definition of z mass)
+          string = " "
+@@ -93,6 +94,7 @@
+          flg_hoppet_initialized = .true.
+ 
+          ini = .false.
++         pre_ndns = ndns
+       endif
+       asmz=alphasPDF(mz_input)
+       if(iord.eq.0) then
+Index: MiNNLOStuff/pdfs_tools.f90
+===================================================================
+--- MiNNLOStuff/pdfs_tools.f90	(revision 3900)
++++ MiNNLOStuff/pdfs_tools.f90	(working copy)
+@@ -69,9 +69,11 @@
+   subroutine init_grid_and_dglap(Qmax)
+     use coefficient_functions_VH
+     real(dp), intent(in), optional :: Qmax
++    logical,save:: ini=.true.
+     !-----------------------------------------------------
+     type(grid_def) ::  gdarray(4) ! grid
+ 
++    if (ini) then
+     ! build the PDF grid 
+     call InitGridDef(gdarray(4),dy/27.0_dp, 0.2_dp, order=pdf_fit_order)
+     call InitGridDef(gdarray(3),dy/9.0_dp,  0.5_dp, order=pdf_fit_order)
+@@ -86,7 +88,10 @@
+     !>> set Nf in qcd module (beta functions, KCMW, ...)
+     call qcd_SetNf(nf_lcl)
+     !>> initialise splitting functions
+-    call InitDglapHolder(grid, dglap_h,  factscheme = factscheme_MSbar, nloop = 3)
++    !call InitDglapHolder(grid, dglap_h,  factscheme = factscheme_MSbar, nloop = 3)
++    ! GPS, even with nflo, nfhi range, this should leave everything
++    ! pointing to the same nf_lcl as above
++    call InitDglapHolder(grid, dglap_h,  factscheme = factscheme_MSbar, nloop = 3,nflo=3,nfhi=6)
+ 
+     call InitCoeffMatrix(grid, C1_matrix, C2_matrix, G1_matrix)
+ 
+@@ -95,6 +100,8 @@
+     else
+        call AllocPdfTable(grid, PDFs, PDF_cutoff, 2d4, dlnlnQ=dlnlnQ, freeze_at_Qmin = .true.)
+     end if
++    ini = .false.
++    end if
+   end subroutine init_grid_and_dglap
+ 
+   !=======================================================================================
+@@ -106,11 +113,10 @@
+     logical, optional,  intent(in) :: set_pdfs_to_zero_when_negative
+     !--------------------------------------------------
+     !--------------------------------------------------
+-    type(pdf_table) :: PDFs_lowQ
+-    real(dp), pointer :: pdf_Q(:,:)
++    type(pdf_table),save :: PDFs_lowQ
+     real(dp) :: alphasMZ, alphasPDF, LHAPDF_cutoff2, LHAPDF_cutoff
+     real(dp) :: ref_Q, alphas_Q, threshold_Q, quark_masses(4:6)
+-    real(dp), pointer :: pdf_at_ref_Q(:,:)
++    real(dp), pointer, save :: pdf_at_ref_Q(:,:) => null()
+     integer  :: nf_active, i
+     real(dp) :: Qmax
+     !--------------------------------------------------
+@@ -183,10 +189,6 @@
+        write(*,*) 'Performing backward evolution from scale Q = ', LHAPDF_cutoff, ', with nf = ', nf_active
+        write(*,*) 'Quark thresholds at ', quark_masses
+     end if
+-
+-    !>> Delete and reinitialize dglap holders with new flavour information (not very elegant, look for a better way)
+-    call Delete(dglap_h)
+-    call InitDglapHolder(grid, dglap_h, factscheme = factscheme_MSbar, nloop = 3, nflo = nf_active, nfhi = 6)
+     
+     ! fill the PDF grid in the large momentum region (from LHAPDF):
+     call FillPdfTable_LHAPDF(PDFs, evolvePDF)
+@@ -213,7 +215,7 @@
+     ! extract the PDF at our reference Q value
+     ref_Q  = LHAPDF_cutoff
+     alphas_Q = alphasPDF(ref_Q)
+-    call AllocPDF(PDFs%grid, pdf_at_ref_Q)
++    if (.not. associated(pdf_at_ref_Q)) call AllocPDF(PDFs%grid, pdf_at_ref_Q)
+     call InitPDF_LHAPDF(grid, pdf_at_ref_Q, evolvePDF, ref_Q)
+ 
+     ! now evolve them and store the result into PDFs_lowQ
+@@ -533,8 +535,11 @@
+     real(dp) :: Qmax, muF_ref
+     integer  :: iQ
+     real(dp) :: out(-6:6)
++    integer,save :: pre_nf_lcl
+     !----------------------------------------------
+     
++    if(nf_lcl.ne.pre_nf_lcl) then
++    pre_nf_lcl = nf_lcl
+     call AllocSplitMat(grid, P0_matrix, nf_lcl)
+     call AllocSplitMat(grid, P1_matrix, nf_lcl)
+     call AllocSplitMat(grid, P2_matrix, nf_lcl)
+@@ -553,6 +558,7 @@
+     call SetToConvolution(P0_x_P1_matrix, dglap_h%P_LO, dglap_h%P_NLO) 
+     call AllocSplitMat(grid, C1_x_P1_matrix, nf_lcl)
+     call SetToConvolution(C1_x_P1_matrix,  C1_matrix, dglap_h%P_NLO) 
++    end if
+     
+     ! O(as) coefficient functions with spin correlations don't receive any resummation
+     ! scale dependence, therefore they remain unchanged
+Index: MiNNLOStuff/setlocalscales.f
+===================================================================
+--- MiNNLOStuff/setlocalscales.f	(revision 3900)
++++ MiNNLOStuff/setlocalscales.f	(working copy)
+@@ -52,6 +52,7 @@
+       double precision, save :: Qsmear
+       logical flg_profiledscales,flg_largeptscales,flg_rescaleQ0
+       save flg_profiledscales,flg_largeptscales,flg_rescaleQ0
++      integer,save:: pre_ndns
+       real *8 ckappaq
+       common/common_kappaQ/ckappaq
+       real *8 ckill_D3
+@@ -87,7 +88,8 @@
+          call exit(-1)
+       endif
+ 
+-      if(ini) then
++      if(ini .or. pdf_ndns1.ne.pre_ndns) then
++         pre_ndns = pdf_ndns1
+         
+          ckappaq = -1d0
+          ckill_D3 = -1d0

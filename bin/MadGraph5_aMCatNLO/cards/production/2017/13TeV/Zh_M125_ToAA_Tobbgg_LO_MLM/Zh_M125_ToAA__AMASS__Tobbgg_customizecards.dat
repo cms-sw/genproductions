@@ -1,0 +1,7 @@
+set param_card mzdinput _ZDMASS_
+set param_card mhsinput _AMASS_
+set param_card epsilon 1.000000e-10
+set param_card kap 5.000000e-01
+set param_card whs 5.237950e-03
+set param_card mass 35 _AMASS_
+set param_card mass 1023 _ZDMASS_

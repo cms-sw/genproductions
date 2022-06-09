@@ -164,6 +164,9 @@ produce_grids
 #create final tarball 
 make_tarball 
 
+#copy tarball to main path                                                                                                                                                                                         
+mv ${POWHEGGENPRODDIR}/${CMSSW_VERSION}/work/${PROCESS}_${SCRAM_ARCH}_${CMSSW_VERSION}_*.tgz ${POWHEGGENPRODDIR}/.
+
 exit 0 
 
 
