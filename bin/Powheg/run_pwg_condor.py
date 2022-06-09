@@ -689,8 +689,8 @@ if __name__ == "__main__":
 
         if QUEUE == 'none':
             print 'Direct running in one shot... \n'
-            os.system('bash '+scriptName+' >& '+
-                      scriptName.split('.sh')[0]+'.log &')
+            os.system('bash '+scriptName+' | tee '+
+                      scriptName.split('.sh')[0]+'.log')
         else:
             print 'Submitting to condor queues  \n'
             condorfile = prepareCondorScript(tagName, '', '.', QUEUE, runInBatchDir=True, slc6=args.slc6) 

@@ -1,2 +1,3 @@
 *.pyc
 __init__.py
+additional.condorConf
