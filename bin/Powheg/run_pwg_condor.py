@@ -297,6 +297,11 @@ def runGetSource(parstage, xgrid, folderName, powInputName, process, noPdfCheck,
     else:
         template_dict["forDYNNLOPS"] = 0
 
+    if process in 'X0jj':
+        template_dict["forX0jj"] = 1
+    else:
+        template_dict["forX0jj"] = 0
+
     powhegResProcesses = ["b_bbar_4l", "HWJ_ew", "HW_ew", "HZJ_ew", "HZ_ew", "vbs-ssww-nloew"]
     if process in powhegResProcesses:
         template_dict["powhegSrc"] = POWHEGRES_SOURCE
@@ -390,6 +395,7 @@ def createTarBall(parstage, folderName, prcName, keepTop, seed, scriptName) :
         "keepTop" : keepTop,
         "rootfolder" : rootfolder,
         "seed" : seed,
+        "exclude_extra" : "exclude_extra",
     }
 
     template_file = "%s/Templates/createTarBall_template.sh" % rootfolder

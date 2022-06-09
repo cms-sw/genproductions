@@ -33,10 +33,11 @@ else
 fi
 
 forDYNNLOPS=$forDYNNLOPS
+forX0jj=$forX0jj
 
 cd $$WORKDIR
 cd $${name}
-python ../make_rwl.py $${is5FlavorScheme} $${defaultPDF} $${forDYNNLOPS}
+python ../make_rwl.py $${is5FlavorScheme} $${defaultPDF} $${forDYNNLOPS} $${forX0jj}
 
 if [ -s ../JHUGen.input ]; then
   cp -p ../JHUGen.input JHUGen.input
