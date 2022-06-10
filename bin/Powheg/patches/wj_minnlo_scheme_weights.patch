@@ -1,0 +1,191 @@
+Index: PhysPars.h
+===================================================================
+--- PhysPars.h	(revision 3720)
++++ PhysPars.h	(working copy)
+@@ -2,10 +2,12 @@
+       real * 8 ph_alphaem,ph_Zmass,ph_Zwidth,ph_Wmass,ph_Wwidth,ph_cthw,
+      $     ph_sthw,ph_sthw2,ph_Zmass2,ph_Zmass2low,ph_Zmass2high,
+      $     ph_Wmass2,ph_Wmass2low,ph_Wmass2high ,ph_ZmZw,ph_WmWw,
++     $     ps_Wmass,ps_Wmass2,ps_WmWw,ps_Wwidth,ph_gmu,
+      $     ph_unit_e, ph_CKM(3,3)
+       common/ph_common/ph_alphaem,ph_Zmass,ph_Zwidth,ph_Wmass,ph_Wwidth,
+      $     ph_cthw,ph_sthw,ph_sthw2,ph_Zmass2,ph_Zmass2low,
+      $     ph_Zmass2high,ph_Wmass2,ph_Wmass2low,ph_Wmass2high ,ph_ZmZw,
++     $     ps_Wmass,ps_Wmass2,ps_WmWw,ps_Wwidth,ph_gmu,
+      $     ph_WmWw,ph_unit_e,ph_CKM
+       
+       
+Index: Born_phsp.f
+===================================================================
+--- Born_phsp.f	(revision 3720)
++++ Born_phsp.f	(working copy)
+@@ -25,13 +25,13 @@
+ c d omegadec/(8*(2 pi)^2)
+ c omega: 3d angle in CM system
+ c omegadec: 3d angle in CM system of W decay products
+-      zlow=atan((ph_Wmass2low  - ph_Wmass2)/ph_WmWw)
+-      zhigh=atan((min(ph_Wmass2high,kn_sbeams)  - ph_Wmass2)/ph_WmWw)
++      zlow=atan((ph_Wmass2low  - ps_Wmass2)/ps_WmWw)
++      zhigh=atan((min(ph_Wmass2high,kn_sbeams)  - ps_Wmass2)/ps_WmWw)
+       z=zlow+(zhigh-zlow)*xborn(1)
+       xjac=zhigh-zlow
+-      m2=ph_WmWw*tan(z)+ph_Wmass2
++      m2=ps_WmWw*tan(z)+ps_Wmass2
+ c d m^2/(2pi) jacobian
+-      xjac=xjac*ph_WmWw/cos(z)**2/(2*pi)
++      xjac=xjac*ps_WmWw/cos(z)**2/(2*pi)
+ c d x1 d x2 = d tau d y;
+       taumin=( sqrt(m2+kn_ktmin**2) + kn_ktmin )**2/kn_sbeams
+       tau=exp(log(taumin)*(1-xborn(2)**2))
+@@ -182,7 +182,7 @@
+          mur=sqrt(pt2)
+          muf=mur
+       else
+-         muf=ph_Wmass
+-         mur=ph_Wmass
++         muf=ps_Wmass
++         mur=ps_Wmass
+       endif
+       end
+
+
+Index: WjMiNNLO/init_couplings.f
+===================================================================
+--- WjMiNNLO/init_couplings.f	(revision 3741)
++++ WjMiNNLO/init_couplings.f	(working copy)
+@@ -12,6 +12,10 @@
+       real * 8 masswindow_low,masswindow_high,wmasslow,wmasshigh
+       real * 8 powheginput
+       external powheginput
++      real*8 osWmass,osWwidth,ps_osWwidth
++      real*8 osZmass,osZwidth
++      real*8 pdgfit_Wmass,pdgfit_Wwidth
++      real*8 pdgfit_Zmass,pdgfit_Zwidth
+       logical verbose
+       parameter(verbose=.true.)
+       integer i,j
+@@ -51,18 +55,55 @@
+ cccccc   INDEPENDENT QUANTITIES       
+ cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+       ph_Wmass = powheginput("#Wmass")
+-      if (ph_Wmass.le.0d0) ph_Wmass  = 80.398d0     
+-      ph_Wwidth = powheginput("#Wwidth")
+-      if (ph_Wwidth.le.0d0) ph_Wwidth =  2.141d0
+-      ph_alphaem = powheginput("#alphaem")
+-      if (ph_alphaem.le.0d0) ph_alphaem = 1d0/128.89d0
++      if (ph_Wmass.le.0d0) ph_Wmass  = 80.379d0
+       ph_Zmass = powheginput("#Zmass")
+       if (ph_Zmass.le.0d0) ph_Zmass  = 91.1876d0     
++      ph_gmu = powheginput("#gmu")
++      if (ph_gmu.le.0) ph_gmu = 1.1663787d-5
++      
++      ps_Wmass = powheginput("#psWmass")
++      if (ps_Wmass.le.0d0) ps_Wmass = ph_Wmass
++      
++      ! calculate widths as (m/m(pdgfit))**3 * w(pdgfit)
++      pdgfit_Zmass = 91.1884
++      pdgfit_Zwidth = 2.4942
+       ph_Zwidth = powheginput("#Zwidth")
+-      if (ph_Zwidth.le.0d0) ph_Zwidth =  2.4952d0
+-      ph_sthw2 = powheginput("#sthw2")
+-      if (ph_sthw2.le.0d0) ph_sthw2 = abs(1d0-(ph_Wmass/ph_Zmass)**2)
+-
++      if (ph_Zwidth.le.0d0) ph_Zwidth =  (ph_Zmass/pdgfit_Zmass)**3 * pdgfit_Zwidth
++      
++      pdgfit_Wmass = 80.358
++      pdgfit_Wwidth = 2.0895
++      ph_Wwidth = powheginput("#Wwidth")
++      if (ph_Wwidth.le.0d0) ph_Wwidth =  (ph_Wmass/pdgfit_Wmass)**3 * pdgfit_Wwidth
++      
++      ps_Wwidth =  (ps_Wmass/pdgfit_Wmass)**3 * pdgfit_Wwidth
++      
++      if(verbose) then
++            write(*,*) '*************************************'
++            write(*,*) 'Using GF,mZ,mW input scheme'
++            write(*,*) 'input Z mass = ',ph_Zmass
++            write(*,*) 'Z width = ',ph_Zwidth
++            write(*,*) 'input W mass = ',ph_Wmass
++            write(*,*) 'input W mass (phsp) = ',ps_Wmass
++            write(*,*) 'W width = ',ph_Wwidth
++            write(*,*) 'input gmu = ',ph_gmu
++            write(*,*) '*************************************'
++      endif
++            
++c     correct masses fixed-width -> width-dependent scheme
++      osWmass= ph_Wmass
++      osWwidth= ph_Wwidth
++      ph_Wmass= osWmass/sqrt(1.d0+(osWwidth/osWmass)**2)
++      ph_Wwidth= osWwidth/sqrt(1.d0+(osWwidth/osWmass)**2)
++      
++      ps_osWwidth= ps_Wwidth
++      ps_Wwidth= ps_osWwidth/sqrt(1.d0+(ps_osWwidth/ps_Wmass)**2)
++      ps_Wmass= ps_Wmass/sqrt(1.d0+(ps_osWwidth/ps_Wmass)**2)
++      
++      osZmass= ph_Zmass
++      osZwidth= ph_Zwidth
++      ph_Zmass= osZmass/sqrt(1.d0+(osZwidth/osZmass)**2)
++      ph_Zwidth= osZwidth/sqrt(1.d0+(osZwidth/osZmass)**2)
++      
+ c     CAVEAT: 
+       ph_CKM(1,1) = powheginput("#CKM_Vud")
+       if (ph_CKM(1,1).le.0d0) ph_CKM(1,1)=0.975d0 
+@@ -96,11 +137,14 @@
+ cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+ cccccc   DEPENDENT QUANTITIES       
+ cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
++      ph_sthw2 = abs(1d0-(ph_Wmass/ph_Zmass)**2)
+       ph_sthw = sqrt(ph_sthw2)
+       ph_cthw = sqrt(1-ph_sthw2)
+       ph_Zmass2 = ph_Zmass**2
+       ph_Wmass2 = ph_Wmass**2
+ 
++      ps_Wmass2 = ps_Wmass**2
++      ps_WmWw = ps_Wmass * ps_Wwidth
+ 
+ 
+ c     set mass windows around W-mass peak in unit of ph_Wwidth
+@@ -128,14 +172,17 @@
+ 
+       ph_WmWw = ph_Wmass * ph_wwidth
+ 
+-      ph_unit_e = sqrt(4*pi*ph_alphaem)
++      ph_unit_e = sqrt(ph_gmu * 8d0/sqrt(2d0) * ph_Wmass**2 * ph_sthw2)
++      ph_alphaem = ph_unit_e*ph_unit_e/4d0/pi
+ 
+       if(verbose) then
+       write(*,*) '*************************************'
+-c      write(*,*) 'Z mass = ',ph_Zmass
+-c      write(*,*) 'Z width = ',ph_Zwidth
++      write(*,*) 'Z mass = ',ph_Zmass
++      write(*,*) 'Z width = ',ph_Zwidth
+       write(*,*) 'W mass = ',ph_Wmass
++      write(*,*) 'W mass (phsp) = ',ps_Wmass
+       write(*,*) 'W width = ',ph_Wwidth
++      write(*,*) 'W width (phsp) = ',ps_Wwidth
+       write(*,*) '1/alphaem = ',1d0/ph_alphaem
+       write(*,*) 'alphaem = ',ph_alphaem
+       write(*,*) 'sthw2 = ',ph_sthw2
+
+
+Index: WjMiNNLO/process_dependent_minnlo.f
+===================================================================
+--- WjMiNNLO/process_dependent_minnlo.f (revision 3756)
++++ WjMiNNLO/process_dependent_minnlo.f (working copy)
+@@ -3,7 +3,7 @@
+       implicit none
+       double precision powheginput
+       include 'PhysPars.h'
+-      if(powheginput('#zmass') .ge. 0d0) ph_zmass = powheginput('#zmass')
++      ! if(powheginput('#zmass') .ge. 0d0) ph_zmass = powheginput('#zmass')
+       call set_masses(ph_zmass)
+       end
+ 
+@@ -19,7 +19,7 @@
+       implicit none
+       double precision get_M_for_init_Dterms, powheginput
+       include 'PhysPars.h'
+-      if(powheginput('#Wmass') .ge. 0d0) ph_wmass = powheginput('#Wmass')
++      ! if(powheginput('#Wmass') .ge. 0d0) ph_wmass = powheginput('#Wmass')
+       get_M_for_init_Dterms = ph_wmass
+       end
+ c DUMMY routine for bmass used in setlocalscales.f for Higgs

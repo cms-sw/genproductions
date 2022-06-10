@@ -99,7 +99,7 @@ make_gridpack () {
             else
                 continue
             fi
-            if [[ $weightname == *['!'@#\$%^\&*()\+\-\[\]{}\.]* ]]; then 
+            if [[ $weightname == *['!'@#\$%^\&*()\+\[\]{}]* ]]; then 
                 echo " Please remove problematic characters from weight name: $weightname"  
                 exit 1;    
             fi
@@ -144,7 +144,9 @@ make_gridpack () {
       #Create a workplace to work#
       ############################
       export VO_CMS_SW_DIR=/cvmfs/cms.cern.ch
+      set +u
       source $VO_CMS_SW_DIR/cmsset_default.sh
+      set -u
 
       scram project -n ${name}_gridpack CMSSW ${RELEASE} ;
       if [ ! -d ${name}_gridpack ]; then  
@@ -198,6 +200,9 @@ make_gridpack () {
     
       if [ "$queue" == "local" ]; then
           echo "set run_mode 2" >> mgconfigscript
+      elif [ "$queue" == "pdmv" ]; then
+          echo "set run_mode 2" >> mgconfigscript
+	  echo "set nb_core $NB_CORE" >> mgconfigscript
       else
           #suppress lsf emails
           export LSB_JOB_REPORT_MAIL="N"
@@ -346,7 +351,7 @@ make_gridpack () {
       echo "WARNING: If you changed the process card you need to clean the folder and run from scratch"
     
       if [ "$is5FlavorScheme" -eq -1 ]; then
-        if cat $LOGFILE_NAME*.log | grep -q -e "^p *=.*b\~.*b" -e "^p *=.*b.*b\~"; then 
+        if grep -q -e "^p *=.*b\~.*b" -e "^p *=.*b.*b\~" $LOGFILE_NAME*.log; then 
             is5FlavorScheme=1
         else
             is5FlavorScheme=0
@@ -583,7 +588,6 @@ make_gridpack () {
         $WORKDIR/$MGBASEDIRORIG/MadSpin/madspin madspinrun.dat 
         rm madspinrun.dat
         rm -rf tmp*
-        cp $CARDSDIR/${name}_madspin_card.dat $WORKDIR/process/madspin_card.dat
       fi
     
       echo "preparing final gridpack"
@@ -699,7 +703,7 @@ fi
 helpers_dir=${PRODHOME%genproductions*}/genproductions/Utilities
 helpers_file=${helpers_dir}/gridpack_helpers.sh
 if [ ! -f "$helpers_file" ]; then
-  if ! [ -x "$(command -v git)" ]; then
+  if [ -f "${PRODHOME}/Utilities/gridpack_helpers.sh" ]; then
     helpers_dir=${PRODHOME}/Utilities
   else
     helpers_dir=$(git rev-parse --show-toplevel)/bin/MadGraph5_aMCatNLO/Utilities
@@ -780,7 +784,7 @@ if [ "${name}" != "interactive" ]; then
     set -o pipefail
     # Do not exit main shell if make_gridpack fails. We want to return rather than exit if we are sourcing this script.
     set +e
-    make_gridpack | tee $LOGFILE
+    make_gridpack |& tee $LOGFILE
     pipe_status=$PIPESTATUS
     # tee above will create a subshell, so exit calls inside function will just affect that subshell instance and return the exitcode in this shell.
     # This breaks cases when the calls inside make_gridpack try to exit the main shell with some error, hence not having the gridpack directory.
