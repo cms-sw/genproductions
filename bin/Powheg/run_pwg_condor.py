@@ -176,10 +176,13 @@ def runParallelXgrid(parstage, xgrid, folderName, nEvents, njobs, powInputName, 
           f.write('wget https://wwwth.mpp.mpg.de/members/wieseman/download/codes/WW_MiNNLO/VVamp_interpolation_grids/WW_MiNNLO_2loop_grids_reduced1.tar.gz\n')
           f.write('tar xzf WW_MiNNLO_2loop_grids_reduced1.tar.gz\n')
           f.write('ls\n') 
-        f.write('echo ' + str(i+1) + ' | ./pwhg_main &> run_' + jobID + '.log ' + '\n')
-        f.write('cp -p *.top ' + rootfolder + '/' + folderName + '/. \n')
-        f.write('cp -p *.dat ' + rootfolder + '/' + folderName + '/. \n')
-        f.write('cp -p *.log ' + rootfolder + '/' + folderName + '/. \n')
+        f.write('cp -p ' + rootfolder + '/' + folderName + '/powheg.input.'+parstage+'_'+str(xgrid) + ' ./powheg.input' + '\n') # copy input file for this stage explicitly, needed by condor dag
+        f.write('echo ' + str(i+1) + ' | ./pwhg_main \n')
+        f.write('echo "Workdir after run:" \n')
+        f.write('ls -ltr \n')
+        f.write('cp -p -v -u *.top ' + rootfolder + '/' + folderName + '/. \n')
+        f.write('cp -p -v -u *.dat ' + rootfolder + '/' + folderName + '/. \n')
+        f.write('cp -p -v -u *.log ' + rootfolder + '/' + folderName + '/. \n')        
         f.write('exit 0 \n')
 
         f.close()
@@ -297,12 +300,6 @@ def runGetSource(parstage, xgrid, folderName, powInputName, process, noPdfCheck,
     template_dict["isFiveFlavor"] = int(process not in fourFlavorProcesses)
     template_dict["defaultPDF"] = 325300 if template_dict["isFiveFlavor"] else 325500
 
-    DYNNLOPS = ["Zj", "Wj"]
-    if process in DYNNLOPS:
-        template_dict["forDYNNLOPS"] = 1
-    else:
-        template_dict["forDYNNLOPS"] = 0
-
     powhegResProcesses = ["b_bbar_4l", "HWJ_ew", "HW_ew", "HZJ_ew", "HZ_ew", "vbs-ssww-nloew", "WWJ"]
     if process in powhegResProcesses:
         template_dict["powhegSrc"] = POWHEGRES_SOURCE
@@ -360,10 +357,13 @@ def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag, proc
           f.write('wget https://wwwth.mpp.mpg.de/members/wieseman/download/codes/WW_MiNNLO/VVamp_interpolation_grids/WW_MiNNLO_2loop_grids_reduced1.tar.gz\n')
           f.write('tar xzf WW_MiNNLO_2loop_grids_reduced1.tar.gz\n')
           f.write('ls\n') 
-        f.write('echo ' + str (i) + ' | ./pwhg_main &> run_' + tag + '.log ' + '\n')
-        f.write('cp -p *.top ' + rootfolder + '/' + folderName + '/. \n')
-        f.write('cp -p *.dat ' + rootfolder + '/' + folderName + '/. \n')
-        f.write('cp -p *.log ' + rootfolder + '/' + folderName + '/. \n')
+        f.write('cp -p ' + rootfolder + '/' + folderName + '/powheg.input.'+parstage+'_'+str(xgrid) + ' ./powheg.input' + '\n') # copy input file for this stage explicitly, needed by condor dag
+        f.write('echo ' + str(i+1) + ' | ./pwhg_main \n')
+        f.write('echo "Workdir after run:" \n')
+        f.write('ls -ltr \n')
+        f.write('cp -p -v -u *.top ' + rootfolder + '/' + folderName + '/. \n')
+        f.write('cp -p -v -u *.dat ' + rootfolder + '/' + folderName + '/. \n')
+        f.write('cp -p -v -u *.log ' + rootfolder + '/' + folderName + '/. \n')
         f.write('exit 0 \n')
         f.close()
 
