@@ -182,7 +182,7 @@ def runParallelXgrid(parstage, xgrid, folderName, nEvents, njobs, powInputName, 
         f.write('ls -ltr \n')
         f.write('cp -p -v -u *.top ' + rootfolder + '/' + folderName + '/. \n')
         f.write('cp -p -v -u *.dat ' + rootfolder + '/' + folderName + '/. \n')
-        f.write('cp -p -v -u *.log ' + rootfolder + '/' + folderName + '/. \n')        
+        f.write('cp -p -v -u *.log ' + rootfolder + '/' + folderName + '/. \n') 
         f.write('exit 0 \n')
 
         f.close()
@@ -357,8 +357,8 @@ def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag, proc
           f.write('wget https://wwwth.mpp.mpg.de/members/wieseman/download/codes/WW_MiNNLO/VVamp_interpolation_grids/WW_MiNNLO_2loop_grids_reduced1.tar.gz\n')
           f.write('tar xzf WW_MiNNLO_2loop_grids_reduced1.tar.gz\n')
           f.write('ls\n') 
-        f.write('cp -p ' + rootfolder + '/' + folderName + '/powheg.input.'+parstage+'_'+str(xgrid) + ' ./powheg.input' + '\n') # copy input file for this stage explicitly, needed by condor dag
-        f.write('echo ' + str(i+1) + ' | ./pwhg_main \n')
+        f.write('cp -p ' + rootfolder + '/' + folderName + '/powheg.input.' + parstage + ' ./powheg.input' + '\n') # copy input file for this stage explicitly, needed by condor dag
+        f.write('echo ' + str (i) + ' | ./pwhg_main \n')        
         f.write('echo "Workdir after run:" \n')
         f.write('ls -ltr \n')
         f.write('cp -p -v -u *.top ' + rootfolder + '/' + folderName + '/. \n')
