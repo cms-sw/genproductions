@@ -5,13 +5,13 @@ a repository with instructions and scripts for producing HJJ CP samples
 
     The following input files are used for producing gridpacks:
 
-    SM with bornsuppfact: examples/V2/X0jj_13TeV/X0jj_SM.input 
+    SM without bornsuppfact: examples/V2/X0jj_13TeV/X0jj_SM.input 
     
-    PS with bornsuppfact: examples/V2/X0jj_13TeV/X0jj_PS.input 
+    PS without bornsuppfact: examples/V2/X0jj_13TeV/X0jj_PS.input 
     
-    MM with bornsuppfact: examples/V2/X0jj_13TeV/X0jj_MM.input 
+    MM without bornsuppfact: examples/V2/X0jj_13TeV/X0jj_MM.input 
 
-    The bornsuppfact ensures that most of the events are produced with additional jets, the generator weight is then adjusted to give the correct distributions.
+    Note the bornsuppfact option ensures that most of the events are produced with additional jets, the generator weight is then adjusted to give the correct distributions, however, we found that this resulted in a few events with very large weights passing the final selections and as this results in large bbb uncertainties in some cases we decided to remove it
   
 
 ## Producing gridpacks

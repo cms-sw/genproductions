@@ -105,7 +105,7 @@ lhrwgt_id 'nominal'
 # Set it to 1 for the first grid iteration, 2 for the second, etc.
 
 
-bornsuppfact 30  ! if minlo is active, set it to zero
+#bornsuppfact 30  ! if minlo is active, set it to zero
 # use minlo
 minlo   1
 
