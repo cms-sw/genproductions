@@ -10,13 +10,13 @@ set_run_card_pdf () {
     fi
 
     if grep -q -e "\$DEFAULT_PDF_SETS" $CARDSDIR/${name}_run_card.dat; then
-        local central_set=$(python ${script_dir}/getMG5_aMC_PDFInputs.py -f "central" -c 2017 $pdfExtraArgs)
+        local central_set=$(python3 ${script_dir}/getMG5_aMC_PDFInputs.py -f "central" -c 2017 $pdfExtraArgs)
         echo "INFO: Using default PDF sets for 2017 production"
 
         sed "s/\$DEFAULT_PDF_SETS/${central_set}/g" $CARDSDIR/${name}_run_card.dat > ./Cards/run_card.dat
         sed -i "s/ *\$DEFAULT_PDF_MEMBERS.*=.*//g" ./Cards/run_card.dat
     elif grep -q -e "\$DEFAULT_PDF_SETS" -e "\$DEFAULT_PDF_MEMBERS" $CARDSDIR/${name}_run_card.dat; then
-        local central_set=$(python ${script_dir}/getMG5_aMC_PDFInputs.py -f "central" -c 2016 $pdfExtraArgs)
+        local central_set=$(python3 ${script_dir}/getMG5_aMC_PDFInputs.py -f "central" -c 2016 $pdfExtraArgs)
 
         echo "INFO: Using default PDF sets for 2017 production"
         sed "s/\$DEFAULT_2016_PDF_SETS/${central_set}/g" $CARDSDIR/${name}_run_card.dat > ./Cards/run_card.dat
