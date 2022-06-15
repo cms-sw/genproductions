@@ -18,22 +18,22 @@ if args.pdf_choice == '2017':
     helper.readDefaultPDFsFile(args.is5FlavorScheme)
 else:
     #TODO Implement option for custom PDF list
-    print "Custom sets not yet supported!"
+    print("Custom sets not yet supported!")
     exit(1)
 
 if args.format == "central":
-    print helper.getListOfLHAPDFIds(False)
+    print(helper.getListOfLHAPDFIds(False))
     exit(0)
 elif args.format == "sets":
-    print helper.getListOfLHAPDFIds(args.isNLO)
+    print(helper.getListOfLHAPDFIds(args.isNLO))
     exit(0)
 elif args.format == "members":
     # Only used for NLO 
-    print helper.getListOfMembersToStore()
+    print(helper.getListOfMembersToStore())
     exit(0)
 # Format pdf list for systematics program
 # See https://cp3.irmp.ucl.ac.be/projects/madgraph/wiki/Systematics
 elif args.format == "systematics":
-    print helper.getListOfLHAPDFIdsForSystematics()
+    print(helper.getListOfLHAPDFIdsForSystematics())
     exit(0)
 
