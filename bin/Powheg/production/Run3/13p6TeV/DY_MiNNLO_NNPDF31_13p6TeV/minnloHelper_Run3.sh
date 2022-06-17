@@ -57,7 +57,8 @@ case $WHAT in
             DIR=${PROC}-${SUFFIX}
             cd ${DIR}/POWHEG-BOX/${PROC:0:1}j/${PROC:0:1}jMiNNLO
             make
-            cd ..
+            cd -
+            cp -v ${DIR}/POWHEG-BOX/${PROC:0:1}j/${PROC:0:1}jMiNNLO/pwhg_main ${DIR}/
         done
     ;;
     
