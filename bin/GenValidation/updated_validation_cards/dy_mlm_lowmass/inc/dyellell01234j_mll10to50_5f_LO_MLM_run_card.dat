@@ -25,6 +25,21 @@
 #*********************************************************************
   True	= gridpack !True = setting up the grid pack
 #*********************************************************************
+# Phase-Space Optimization strategy (basic options)
+#*********************************************************************
+   0  = nhel          ! using helicities importance sampling or not.
+                             ! 0: sum over helicity, 1: importance sampling
+   1  = sde_strategy  ! default integration strategy (hep-ph/2021.xxxxx)
+                             ! 1 is old strategy (using amp square)
+                             ! 2 is new strategy (using only the denominator)
+# To see advanced option for Phase-Space optimization: type "update psoptim"
+#*********************************************************************
+# Generation bias, check the wiki page below for more information:   *
+#  'cp3.irmp.ucl.ac.be/projects/madgraph/wiki/LOEventGenerationBias' *
+#*********************************************************************
+  None = bias_module  ! Bias type of bias, [None, ptj_bias, -custom_folder-]
+  {} = bias_parameters ! Specifies the parameters of the module.
+#*********************************************************************
 # Number of events and rnd seed                                      *
 # Warning: Do not generate more than 1M events in a single run       *
 # If you want to run Pythia, avoid more than 50k events in a run.    *
@@ -121,6 +136,8 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
   -1.0	= ptamax ! maximum pt for the photons
   -1.0	= ptlmax ! maximum pt for the charged leptons
   -1.0	= missetmax ! maximum missing Et (sum of neutrino's momenta)
+  {} = pt_min_pdg ! pt cut for other particles (use pdg code). Applied on particle and anti-particle
+  {}     = pt_max_pdg ! pt cut for other particles (syntax e.g. {6: 100, 25: 50})
 #*********************************************************************
 # Minimum and maximum E's (in the center of mass frame)              *
 #*********************************************************************
@@ -143,6 +160,8 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
   0.0	= etabmin ! min rap for the b
   0.0	= etaamin ! min rap for the photons
   0.0	= etalmin ! main rap for the charged leptons
+  {} = eta_min_pdg ! rap cut for other particles (use pdg code). Applied on particle and anti-particle
+  {} = eta_max_pdg ! rap cut for other particles (syntax e.g. {6: 2.5, 23: 5})
 #*********************************************************************
 # Minimum and maximum DeltaR distance                                *
 #*********************************************************************
@@ -179,6 +198,9 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
   -1.0	= mmbbmax ! max invariant mass of a b pair
   -1.0	= mmaamax ! max invariant mass of gamma gamma pair
   50.0	= mmllmax ! max invariant mass of l+l- (same flavour) lepton pair
+  {} = mxx_min_pdg ! min invariant mass of a pair of particles X/X~ (e.g. {6:250})
+  {'default': False} = mxx_only_part_antipart ! if True the invariant mass is applied only
+                       ! to pairs of particle/antiparticle and not to pairs of the same pdg codes.
 #*********************************************************************
 # Minimum and maximum invariant mass for all letpons                 *
 #*********************************************************************
