@@ -5,8 +5,8 @@ set gauge unitary
 set complex_mass_scheme False
 
 import model 2HDMtII_NLO 
-define l+ = e+ mu+ tau+ 
-define l- = e- mu- tau-
+define l+ = e+ mu+ ta+ 
+define l- = e- mu- ta-
 generate p p > h3 > h2 z [QCD]
 output AZHToLLtt -nojpeg
 
