@@ -87,15 +87,6 @@ storeinfo_rwgt 1
 # compute_rwgt 1
 lhrwgt_id 'nominal'
 
-# parallel stages;
-# parallelstage 1
-# 1: importance sampling grid,
-# 2: upper bounding envelope for generation of underlying Born configurations
-# 3: upper bounds for radiation
-# 4: events
-# xgriditeration 1
-# Set it to 1 for the first grid iteration, 2 for the second, etc.
-
 
 #bornsuppfact 30  ! if minlo is active, set it to zero
 
