@@ -32,15 +32,18 @@ create_setup () {
         PROCESS=`cat ${CARDDIR}/process.dat`
     fi
 
-    WORKDIR=${POWHEGGENPRODDIR}/${CMSSW_VERSION}/work 
-    if [ ! -d ${WORKDIR} ]; then
-        #directory doesn't exist, create working directory and set up environment
-        export VO_CMS_SW_DIR=/cvmfs/cms.cern.ch
-        source ${VO_CMS_SW_DIR}/cmsset_default.sh
-        cd ${POWHEGGENPRODDIR}
-        scram project -n ${CMSSW_VERSION} CMSSW ${CMSSW_VERSION} 
+    WORKDIR=${POWHEGGENPRODDIR}/${DATASETNAME}/${CMSSW_VERSION}/work 
+    if [ -d ${POWHEGGENPRODDIR}/${DATASETNAME} ]; then 
+        rm -rf ${POWHEGGENPRODDIR}/${DATASETNAME}/*
+    else
+        mkdir -p ${POWHEGGENPRODDIR}/${DATASETNAME} 
     fi
-    cd ${POWHEGGENPRODDIR}/${CMSSW_VERSION} ; mkdir -p work ; cd work
+    cd ${POWHEGGENPRODDIR}/${DATASETNAME}
+    #set up environment and working directory 
+    export VO_CMS_SW_DIR=/cvmfs/cms.cern.ch
+    source ${VO_CMS_SW_DIR}/cmsset_default.sh
+    scram project -n ${CMSSW_VERSION} CMSSW ${CMSSW_VERSION} 
+    cd ${POWHEGGENPRODDIR}/${DATASETNAME}/${CMSSW_VERSION} ; mkdir -p work ; cd work
     WORKDIR=`pwd -P`
     eval `scram runtime -sh`
 
@@ -164,8 +167,8 @@ produce_grids
 #create final tarball 
 make_tarball 
 
-#copy tarball to main path                                                                                                                                                                                         
-mv ${POWHEGGENPRODDIR}/${CMSSW_VERSION}/work/${PROCESS}_${SCRAM_ARCH}_${CMSSW_VERSION}_*.tgz ${POWHEGGENPRODDIR}/.
+#copy tarball to main path
+mv ${WORKDIR}/${PROCESS}_${SCRAM_ARCH}_${CMSSW_VERSION}_*.tgz ${POWHEGGENPRODDIR}/.
 
 exit 0 
 
