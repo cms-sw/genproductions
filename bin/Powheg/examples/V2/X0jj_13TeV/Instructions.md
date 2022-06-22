@@ -1,5 +1,4 @@
-# README
-a repository with instructions and scripts for producing HJJ CP samples
+Instructions for producing HJJ CP samples
 
 ## Powheg input files
 
