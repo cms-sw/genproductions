@@ -22,7 +22,6 @@ wget https://cms-project-generators.web.cern.ch/cms-project-generators/PWG_MG5_p
 tar xzvf PWG_MG5_plugin_v0.tgz\n \
 cd ..\n \
 echo 'Run mg5_aMC'\n \
-echo 'checking'\n \
 ./bin/mg5_aMC --mode=MG5aMC_PWG --file=../../examples/V2/X0jj_13TeV/mg5.cmd\n \
 echo 'Make POWHEG-BOX link'\n \
 cd ${process}\n \
