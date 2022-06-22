@@ -22,15 +22,8 @@ wget https://cms-project-generators.web.cern.ch/cms-project-generators/PWG_MG5_p
 tar xzvf PWG_MG5_plugin_v0.tgz\n \
 cd ..\n \
 echo 'Run mg5_aMC'\n \
-echo 'import model HC_NLO_X0_UFO-heft' > $REPOSITORY/mg5.cmd\n \
-echo set lhapdf ${LHAPDF_BASE}/bin/lhapdf-config/ >> $REPOSITORY/mg5.cmd\n \
-echo 'generate p p > x0 j j / t [QCD]' >> $REPOSITORY/mg5.cmd\n \
-echo 'install ninja' >> $REPOSITORY/mg5.cmd\n \
-echo 'install collier' >> $REPOSITORY/mg5.cmd\n \
-echo 'output X0jj' >> $REPOSITORY/mg5.cmd\n \
-echo 'exit' >> $REPOSITORY/mg5.cmd\n \
 echo 'checking'\n \
-./bin/mg5_aMC --mode=MG5aMC_PWG --file=$REPOSITORY/mg5.cmd\n \
+./bin/mg5_aMC --mode=MG5aMC_PWG --file=../../examples/V2/X0jj_13TeV/mg5.cmd\n \
 echo 'Make POWHEG-BOX link'\n \
 cd ${process}\n \
 sed -i '/kAgg/c\   15 0.666667e+00 # kAgg' Cards/param_card.dat\n \
