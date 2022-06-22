@@ -11,8 +11,6 @@ pwd
 
 rm -f $$WORKDIR/$$folderName'_'$$process'.tgz'
 
-cp -p $$WORKDIR/run_pwg.py $$WORKDIR/$$folderName
-
 if [ -e $$WORKDIR/$$folderName/pwg-0001-stat.dat ]; then
   cp -p $$WORKDIR/$$folderName/pwg-0001-stat.dat $$WORKDIR/$$folderName/pwg-stat.dat
 fi

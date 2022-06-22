@@ -1,0 +1,10 @@
+# Define Higgs mass
+# 25:h, 35:H, 36: A, 37: Hc
+set param_card mass 25 125.1
+set param_card mass 35 3000.0
+set param_card mass 36 120
+set param_card mass 37 160
+set param_card DECAY 25 0.013
+# set param_card DECAY 35 0.001
+set param_card DECAY 36 0.001
+set param_card DECAY 37 0.001

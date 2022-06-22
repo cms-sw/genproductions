@@ -1,0 +1,8 @@
+import model VLQ_v4_4FNS_UFO
+define bb = b b~
+define WW = w+ w-
+define tt = t t~
+define Topo = tp tp~
+define qq = u c d s b u~ c~ d~ s~ b~
+generate p p > j bb Topo  / h , ( Topo > h tt / z w+ w-, tt > qq qq bb, h > b b~)
+output TprimeBToTH_THad_Hbb_LH_MT600_MH75 --nojpeg

@@ -1,0 +1,16 @@
+import model sm-no_b_mass
+
+define p = u d c s b u~ d~ c~ s~ b~ g
+define j = p
+define ell+ = e+ mu+ ta+
+define ell- = e- mu- ta-
+define nu = ve vm vt
+define nubar = ve~ vm~ vt~
+
+generate p p > ell+ ell- @0
+add process p p > ell+ ell- j @1
+add process p p > ell+ ell- j j @2
+add process p p > ell+ ell- j j j @3
+add process p p > ell+ ell- j j j j @4
+
+output DY01234j_LO_5f

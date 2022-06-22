@@ -9,17 +9,21 @@ import sys
 import os
 
 if len(sys.argv) < 3:
-    print """\
+    print("""
 ERROR: Please specify if the Flavor scheme for which you want to define the weights is 5F (1) or 4F (0), and the central PDF
 Example of usage for 5F:  python make_rwl.py 1 325300
 Example of usage for 4F:  python make_rwl.py 0 325500
-"""
+""")
     sys.exit(1)
 
 is5FlavorScheme = str(sys.argv[1])
 CentralPDF = str(sys.argv[2])
-forDYNNLOPS = bool(int(sys.argv[3])) if len(sys.argv) > 3 else False
-forX0jj = bool(int(sys.argv[4])) if len(sys.argv) > 4 else False
+forMiNNLO = bool(int(sys.argv[3])) if len(sys.argv) > 3 else False
+process = str(sys.argv[4]) if len(sys.argv) > 4 else ''
+forX0jj = bool(int(sys.argv[5])) if len(sys.argv) > 5 else False
+
+if forMiNNLO:
+  CentralPDF=306000
 
 # is5FlavorScheme = True
 # CentralPDF = 325300
@@ -38,6 +42,7 @@ m_idx = 1001
 
 fout = open(m_outfile, 'w')
 
+# scale variations
 fout.write("<initrwgt>\n")
 fout.write("<weightgroup name='scale_variation' combine='envelope' >\n")
 
@@ -49,48 +54,65 @@ for m_rensc in m_factor :
 		  
 fout.write("</weightgroup>\n")
 
-if forDYNNLOPS:
-  print("DYNNLOPS: Scale variations will be duplicated for 9x9 final NNLOxMINLO weights")
-  
-  fout.write("<weightgroup name='scale_variation2' combine='envelope' >\n")
+if forMiNNLO:
+  # additional MiNNLO scale variations (NNPDF 3.0)
+  fout.write("<weightgroup name='scale_variation_nnpdf30' combine='envelope' >\n")
 
-  for i in range(8):
-    for m_rensc in m_factor :
-      for m_facsc in m_factor :
-        fout.write("<weight id='"+str(m_idx)+"'> lhapdf="+str(CentralPDF)+" renscfact="+ \
-                  m_rensc+" facscfact="+m_facsc+" </weight>\n")
-        m_idx = m_idx + 1
-		  
+  for m_rensc in m_factor :
+    for m_facsc in m_factor :
+      fout.write("<weight id='"+str(m_idx)+"'> lhapdf=303200 renscfact="+ \
+                m_rensc+" facscfact="+m_facsc+" </weight>\n")
+      m_idx = m_idx + 1
+        
   fout.write("</weightgroup>\n")
 
-  print("DYNNLOPS: PDF variations will be reduced for generation speed")
-    # reduced 5F PDF for DYNNLOPS
+  print("MiNNLO: PDF variations will be reduced for generation speed")
+  # custom 5F PDF for MiNNLO
   pdf_sets = {
             # weight id, LHAPDF id, name, replicas to be written
             "PDF_variation1 , hessian" :
             [
-              [2000, 325300, 'NNPDF31_nnlo_as_0118_mc_hessian_pdfas', 103],
-              [2104, 322500, 'NNPDF31_nnlo_as_0108', 1],
-              [2105, 322700, 'NNPDF31_nnlo_as_0110', 1],
-              [2106, 322900, 'NNPDF31_nnlo_as_0112', 1],
-              [2107, 323100, 'NNPDF31_nnlo_as_0114', 1],
+              [2000, 306000, 'NNPDF31_nnlo_hessian_pdfas', 103],
               [2108, 323300, 'NNPDF31_nnlo_as_0117', 1],
               [2109, 323500, 'NNPDF31_nnlo_as_0119', 1],
-              [2110, 323700, 'NNPDF31_nnlo_as_0122', 1],
-              [2111, 323900, 'NNPDF31_nnlo_as_0124', 1],
-              [2200, 325700, 'NNPDF31_nnlo_as_0118_CMSW1_hessian_100', 101],
+              [2200, 331600, 'NNPDF40_nnlo_hessian_pdfas', 53],
+              [2260, 332700, 'NNPDF40_nnlo_as_01160', 1],
+              [2270, 333700, 'NNPDF40_nnlo_as_01120', 1],
+              [2300, 332100, 'NNPDF40_nnlo_pch_as_01180', 1],
               [2400, 325900, 'NNPDF31_nnlo_as_0118_CMSW2_hessian_100', 101],
               [2600, 326100, 'NNPDF31_nnlo_as_0118_CMSW3_hessian_100', 101],
               [2800, 326300, 'NNPDF31_nnlo_as_0118_CMSW4_hessian_100', 101],
-              [5000, 13000, 'CT14nnlo', 57],
-              [5060, 13065, 'CT14nnlo_as_0116', 1],
-              [5070, 13069, 'CT14nnlo_as_0120', 1],
+              [3000, 303200, 'NNPDF30_nnlo_as_0118_hessian', 101],
+              [3103, 269000, 'NNPDF30_nnlo_as_0117', 1],
+              [3104, 270000, 'NNPDF30_nnlo_as_0119', 1],
+              [4000, 93300, 'PDF4LHC21_40_pdfas', 43],
+              [5000, 14000, 'CT18NNLO', 59],
+              [5070, 14066, 'CT18NNLO_as_0116', 1],
+              [5071, 14067, 'CT18NNLO_as_0117', 1],
+              [5072, 14069, 'CT18NNLO_as_0119', 1],
+              [5073, 14070, 'CT18NNLO_as_0120', 1],
+              [5100, 14100, 'CT18ZNNLO', 59],
+              [5170, 14166, 'CT18ZNNLO_as_0116', 1],
+              [5171, 14167, 'CT18ZNNLO_as_0117', 1],
+              [5172, 14169, 'CT18ZNNLO_as_0119', 1],
+              [5173, 14170, 'CT18ZNNLO_as_0120', 1],
+              [6000, 27400, 'MSHT20nnlo_as118', 65],
+              [6070, 27500, 'MSHT20nnlo_as_smallrange', 7],
+              [6080, 27910, 'MSHT20nnlo_mcrange_nf5', 9],
+              [6090, 27950, 'MSHT20nnlo_mbrange_nf5', 7],
               [7000, 25300, 'MMHT2014nnlo68cl', 51],
               [7060, 25360, 'MMHT2014nnlo_asmzsmallrange', 3],
               [8000, 42560, 'ABMP16_5_nnlo', 30],
+              [8050, 43050, 'ABMP16als116_5_nlo', 1],
+              [8051, 43110, 'ABMP16als118_5_nlo', 1],
+              [8052, 43170, 'ABMP16als120_5_nlo', 1],
+              [9000, 65200, 'ATLASepWZVjet20-EIG', 33],
+              [10000, 65240, 'ATLASepWZVjet20-MOD', 9],
+              [11000, 65250, 'ATLASepWZVjet20-PAR', 18],
               [13000, 61200, 'HERAPDF20_NNLO_EIG', 29],
               [13050, 61230, 'HERAPDF20_NNLO_VAR', 14],
-              [13100, 61740, 'HERAPDF20_NNLO_ALPHAS', 21],
+              [13100, 61746, 'HERAPDF20_NNLO_ALPHAS_116', 1],
+              [13200, 61750, 'HERAPDF20_NNLO_ALPHAS_120', 1],
             ],
           }
 elif forX0jj:
@@ -196,13 +218,13 @@ else:
           }
   
 pdf_count = 0
-for key, pdfsets in sorted(pdf_sets.iteritems()):
+for key, pdfsets in sorted(pdf_sets.items()):
   weightgroup_name = key.replace(" ", "").split(',')[0]
   combine = key.replace(" ", "").split(',')[1]
-  print 'weightgroup_name',weightgroup_name,'combine',combine
+  print('weightgroup_name',weightgroup_name,'combine',combine)
   fout.write("<weightgroup name='"+weightgroup_name+"' combine='"+combine+"' >\n")
   for pdf in pdfsets:
-    print 'pdf',pdf
+    print('pdf',pdf)
     m_idx = pdf[0]
     pdf_member_start = pdf[1]
     pdf_member_end = pdf[1] + pdf[3]
@@ -216,4 +238,4 @@ fout.write("</initrwgt>\n")
 
 fout.close()
 
-print 'pdf_count = ',pdf_count
+print('pdf_count = ',pdf_count)

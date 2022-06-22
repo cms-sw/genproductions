@@ -91,6 +91,7 @@ prepare_reweight () {
     if [ "$isnlo" -gt "0" ]; then
         cd $WORKDIR/processtmp
         config=./Cards/amcatnlo_configuration.txt
+        echo “nb_core = 1” >> $config
     else
         cd $WORKDIR/process
 	mkdir -p madevent/Events/pilotrun
@@ -104,6 +105,12 @@ prepare_reweight () {
         echo "f2py_compiler=" `which gfortran` >> $config
         #need to set library path or f2py won't find libraries
         export LIBRARY_PATH=$LD_LIBRARY_PATH
+    fi
+
+    # Use f2py2 instead of f2py to install a py2 version of "rwgt2py"
+    # (occurs in CMSSW_10_6_19 where default f2py points to a py3 version)
+    if [ -e $(readlink -f `which f2py`)2 ]; then
+        echo "f2py_compiler="$(readlink -f `which f2py`)2 >> $config
     fi
 
     if [ "$isnlo" -gt "0" ]; then
@@ -127,4 +134,48 @@ prepare_reweight () {
         cd -
     done
     cd ..      
+}
+
+# Extract decay width in reweighting
+extract_width () {
+
+    isnlo=$1
+    wd=$2
+    cdir=$3
+    name=$4
+        
+    hasauto=$(grep "auto" ${cdir}/${name}_reweight_card.dat | egrep -v "#")
+    
+    if [[ ${hasauto} != "" ]]; then
+      echo "extract computed widths and rewrite reweight card"
+
+      if [ "$isnlo" -gt "0" ]; then
+        cp ${wd}/processtmp/Events/pilotrun/events.lhe.gz temp.lhe.gz
+        gzip -d temp.lhe.gz
+	mgv=$(ls | grep 'MG5_aMC_v')
+        ./${mgv}/Template/LO/bin/internal/extract_banner-pl temp.lhe banner.txt
+      else
+        cp ${wd}/process/madevent/Events/pilotrun/unweighted_events.lhe.gz temp.lhe.gz
+        gzip -d temp.lhe.gz
+        ./madevent/bin/internal/extract_banner-pl temp.lhe banner.txt
+      fi
+        IFSd=$IFS; IFS=$'\n'
+        pd=($(grep "rwgt_" banner.txt | grep "decay" | sed "s%.*decay %%g" | sed "s% # orig.*%%g"))
+        IFS=$IFSd
+        rm banner.txt temp.lhe
+        c=0
+        rm -rf ${cdir}/${name}_reweight_card_temp.dat
+        while IFS= read -r line; do
+          linem=${line}
+          hasauto=$(echo ${line} | grep "auto" | egrep -v "#")
+          if [[ ${hasauto} != "" ]]; then
+            t=(${pd[${c}]})
+            linem=$(echo $linem | sed "s%auto%${t[1]}%g")
+            c=$[$c+1]
+          fi
+          echo "$linem" >> ${cdir}/${name}_reweight_card_temp.dat
+        done < ${cdir}/${name}_reweight_card.dat
+        cp ${cdir}/${name}_reweight_card_temp.dat ${wd}/process/reweight_card.dat
+        mv ${cdir}/${name}_reweight_card_temp.dat ${wd}/process/madevent/Cards/reweight_card.dat
+    fi  
 }

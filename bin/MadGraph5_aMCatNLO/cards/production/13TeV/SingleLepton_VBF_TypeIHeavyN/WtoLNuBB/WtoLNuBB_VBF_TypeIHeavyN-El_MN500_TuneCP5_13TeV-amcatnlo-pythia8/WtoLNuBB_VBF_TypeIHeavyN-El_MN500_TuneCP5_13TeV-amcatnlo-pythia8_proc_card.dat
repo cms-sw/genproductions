@@ -1,0 +1,16 @@
+import model SM_HeavyN_Gen3Mass_NLO
+
+define p = u d c s u~ d~ c~ s~ g
+define j = p
+
+define llp = e+
+define llm = e-
+define vv = ve
+define vvx = ve~
+
+generate p a > llp n1 j [QCD]
+add process a p > llp n1 j [QCD]
+add process p a > llm n1 j [QCD]
+add process a p > llm n1 j [QCD]
+
+output WtoLNuBB_VBF_TypeIHeavyN-El_MN500_TuneCP5_13TeV-amcatnlo-pythia8

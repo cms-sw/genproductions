@@ -1,5 +1,4 @@
-c *This file contains maximum cuts(M<10) on the dilepton mass: line 136-142*
-c
+c This file contains and mll_sf < 10 cut as defined in lines 138-146
 c This file contains the default cuts (as defined in the run_card.dat)
 c and can easily be extended by the user to include other.  This
 c function should return true if event passes cuts
@@ -41,6 +40,8 @@ C     file, others are in ./Source/kin_functions.f
       external R2_04,invm2_04,pt_04,eta_04,pt,eta
 c local integers
       integer i,j
+c temporary variable for caching locally computation
+      double precision tmpvar
 c jet cluster algorithm
       integer nQCD,NJET,JET(nexternal)
       double precision pQCD(0:3,nexternal),PJET(0:3,nexternal)
@@ -63,11 +64,14 @@ c The UNLOPS cut
       double precision p_unlops(0:3,nexternal)
       include "run.inc" ! includes the ickkw parameter
       logical passUNLOPScuts
+c PDG specific cut
+      double precision etmin(nincoming+1:nexternal-1)
+      double precision etmax(nincoming+1:nexternal-1)
+      double precision mxxmin(nincoming+1:nexternal-1,nincoming+1:nexternal-1)
+      common /to_cuts/etmin,etmax,mxxmin
 c logicals that define if particles are leptons, jets or photons. These
 c are filled from the PDG codes (iPDG array) in this function.
-      logical is_a_lp(nexternal),is_a_lm(nexternal),is_a_j(nexternal)
-     $     ,is_a_ph(nexternal)
-
+      logical is_a_lp(nexternal),is_a_lm(nexternal),is_a_j(nexternal),is_a_ph(nexternal)
       passcuts_user=.true. ! event is okay; otherwise it is changed
 
 C***************************************************************
@@ -80,14 +84,12 @@ c CHARGED LEPTON CUTS
 c
 c find the charged leptons (also used in the photon isolation cuts below)
       do i=1,nexternal
-         if(istatus(i).eq.1 .and.
-     &    (ipdg(i).eq.11 .or. ipdg(i).eq.13 .or. ipdg(i).eq.15)) then
+         if(istatus(i).eq.1 .and. (ipdg(i).eq.11 .or. ipdg(i).eq.13 .or. ipdg(i).eq.15)) then
             is_a_lm(i)=.true.
          else
             is_a_lm(i)=.false.
          endif
-         if(istatus(i).eq.1 .and.
-     &    (ipdg(i).eq.-11 .or. ipdg(i).eq.-13 .or. ipdg(i).eq.-15)) then
+         if(istatus(i).eq.1 .and. (ipdg(i).eq.-11 .or. ipdg(i).eq.-13 .or. ipdg(i).eq.-15)) then
             is_a_lp(i)=.true.
          else
             is_a_lp(i)=.false.
@@ -134,15 +136,13 @@ c DeltaR and invariant mass cuts
                            endif
                         endif
                         if (mll_sf.gt.0d0) then
-                           if (invm2_04(p(0,i),p(0,j),1d0).gt.10**2)
-     $                          then
+                           if (invm2_04(p(0,i),p(0,j),1d0).gt.10**2) then
                               passcuts_user=.false.
                               return
                            endif
                         endif
                         if (mll_sf.gt.0d0) then
-                           if (invm2_04(p(0,i),p(0,j),1d0).lt.mll_sf**2)
-     $                          then
+                           if (invm2_04(p(0,i),p(0,j),1d0).lt.mll_sf**2) then
                               passcuts_user=.false.
                               return
                            endif
@@ -158,8 +158,7 @@ c JET CUTS
 c
 c find the jets
       do i=1,nexternal
-         if (istatus(i).eq.1 .and.
-     &        (abs(ipdg(i)).le.maxjetflavor .or. ipdg(i).eq.21)) then
+         if (istatus(i).eq.1 .and. (abs(ipdg(i)).le.maxjetflavor .or. ipdg(i).eq.21)) then
             is_a_j(i)=.true.
          else
             is_a_j(i)=.false.
@@ -185,7 +184,7 @@ c more than the Born).
          enddo
       endif
 
-c The UNLOPS cut:
+c THE UNLOPS CUT:
       if (ickkw.eq.4 .and. ptj.gt.0d0) then
 c Use special pythia pt cut for minimal pT
          do i=1,nexternal
@@ -200,6 +199,17 @@ c Use special pythia pt cut for minimal pT
          endif
 c Bypass normal jet cuts
          goto 122
+c THE VETO XSEC CUT:
+      elseif (ickkw.eq.-1 .and. ptj.gt.0d0) then
+c Use veto'ed Xsec for analytic NNLL resummation
+         if (nQCD.ne.1) then
+            write (*,*) 'ERROR: more than one QCD parton in this event in cuts.f. There should only be one'
+            stop
+         endif
+         if (pt(pQCD(0,1)) .gt. ptj) then
+            passcuts_user=.false.
+            return
+         endif
       endif
 
 
@@ -238,12 +248,11 @@ c     OUTPUT:
 c     jet momenta:                           pjet(0:3,nexternal), E is 0th cmpnt
 c     the number of jets (with pt > SYCUT):  njet
 c     the jet for a given particle 'i':      jet(i),   note that this is the
-c                                            particle in pQCD, which doesn't
+c                                            particle in pQCD, which does'nt
 c                                            necessarily correspond to the particle
 c                                            label in the process
 c
-         call amcatnlo_fastjetppgenkt_etamax_timed(
-     $    pQCD,nQCD,rfj,sycut,etaj,palg,pjet,njet,jet)
+         call amcatnlo_fastjetppgenkt_etamax_timed(pQCD,nQCD,rfj,sycut,etaj,palg,pjet,njet,jet)
 c
 c******************************************************************************
 
@@ -327,9 +336,7 @@ c Isolate from hadronic energy
                endif
             enddo
             do i=1,nin
-               alliso=alliso .and.
-     $              Etsum(i).le.chi_gamma_iso(dble(drlist(isorted(i))),
-     $              R0gamma,xn,epsgamma,ptg)
+               alliso=alliso .and. Etsum(i).le.chi_gamma_iso(dble(drlist(isorted(i))),R0gamma,xn,epsgamma,ptg)
             enddo
             
 c Isolate from EM energy
@@ -353,9 +360,7 @@ c First of list must be the photon: check this, and drop it
                   endif
                enddo
                do i=1,nin
-                  alliso=alliso .and.
-     $               Etsum(i).le.chi_gamma_iso(dble(drlist(isorted(i))),
-     $               R0gamma,xn,epsgamma,ptg)
+                  alliso=alliso .and. Etsum(i).le.chi_gamma_iso(dble(drlist(isorted(i))),R0gamma,xn,epsgamma,ptg)
                enddo
             endif
 c End of loop over photons
@@ -368,6 +373,31 @@ c End of loop over photons
 c End photon isolation
       endif
 
+C
+C     PDG SPECIFIC CUTS (PT/M_IJ)
+C
+      do i=nincoming+1,nexternal-1
+         if(etmin(i).gt.0d0 .or. etmax(i).gt.0d0)then
+            tmpvar = pt_04(p(0,i))
+            if (tmpvar.lt.etmin(i)) then
+               passcuts_user=.false.
+               return
+            elseif (tmpvar.gt.etmax(i) .and. etmax(i).gt.0d0) then
+               passcuts_user=.false.
+               return
+            endif
+         endif
+         do j=i+1, nexternal-1
+            if (mxxmin(i,j).gt.0d0)then
+               if (invm2_04(p(0,i),p(0,j),1d0).lt.mxxmin(i,j)**2)then
+                  passcuts_user=.false.
+                  return
+               endif
+            endif
+         enddo
+      enddo
+
+
 C***************************************************************
 C***************************************************************
 C PUT HERE YOUR USER-DEFINED CUTS
@@ -375,6 +405,7 @@ C***************************************************************
 C***************************************************************
 C
 c$$$C EXAMPLE: cut on top quark pT
+c$$$C          Note that PDG specific cut are more optimised than simple user cut
 c$$$      do i=1,nexternal   ! loop over all external particles
 c$$$         if (istatus(i).eq.1    ! final state particle
 c$$$     &        .and. abs(ipdg(i)).eq.6) then    ! top quark
@@ -407,12 +438,13 @@ C***************************************************************
       include "nexternal.inc"
       include 'run.inc'
       include 'genps.inc'
+      include 'cuts.inc'
+      include 'timing_variables.inc'
       REAL*8 P(0:3,nexternal),rwgt
       integer i,j,istatus(nexternal),iPDG(nexternal)
 c For boosts
       double precision ybst_til_tolab,ybst_til_tocm,sqrtshat,shat
-      common/parton_cms_stuff/ybst_til_tolab,ybst_til_tocm,
-     #                        sqrtshat,shat
+      common/parton_cms_stuff/ybst_til_tolab,ybst_til_tocm,sqrtshat,shat
       double precision chybst,shybst,chybstmo
       double precision xd(1:3)
       data (xd(i),i=1,3)/0,0,1/
@@ -422,19 +454,17 @@ c Masses of external particles
       double precision pmass(nexternal)
       common/to_mass/pmass
 c PDG codes of particles
-      integer maxflow
-      parameter (maxflow=999)
-      integer idup(nexternal,maxproc),mothup(2,nexternal,maxproc),
-     &     icolup(2,nexternal,maxflow)
-      common /c_leshouche_inc/idup,mothup,icolup
+      integer idup(nexternal,maxproc),mothup(2,nexternal,maxproc),icolup(2,nexternal,maxflow),niprocs
+      common /c_leshouche_inc/idup,mothup,icolup,niprocs
       logical passcuts_user
       external passcuts_user
+      call cpu_time(tBefore)
 c Make sure have reasonable 4-momenta
       if (p(0,1) .le. 0d0) then
          passcuts=.false.
          return
       endif
-c Also make sure there's no INF or NAN
+c Also make sure there is no INF or NAN
       do i=1,nexternal
          do j=0,3
             if(p(j,i).gt.1d32.or.p(j,i).ne.p(j,i))then
@@ -449,8 +479,7 @@ c Boost the momenta p(0:3,nexternal) to the lab frame plab(0:3,nexternal)
       shybst=sinh(ybst_til_tolab)
       chybstmo=chybst-1.d0
       do i=1,nexternal
-         call boostwdir2(chybst,shybst,chybstmo,xd,
-     &        p(0,i),plab(0,i))
+         call boostwdir2(chybst,shybst,chybstmo,xd,p(0,i),plab(0,i))
       enddo
 c Fill the arrays (momenta, status and PDG):
       do i=1,nexternal
@@ -464,9 +493,12 @@ c Fill the arrays (momenta, status and PDG):
          enddo
          pp(4,i)=pmass(i)
          ipdg(i)=idup(i,1)
+         if (ipdg(i).eq.-21) ipdg(i)=21
       enddo
 c Call the actual cuts function  
       passcuts = passcuts_user(pp,istatus,ipdg)
+      call cpu_time(tAfter)
+      t_cuts=t_cuts+(tAfter-tBefore)
       RETURN
       END
 
@@ -858,12 +890,9 @@ c-----
       implicit none
       include "genps.inc"
       include 'nexternal.inc'
-      integer maxflow
-      parameter (maxflow=999)
-      integer idup(nexternal,maxproc),mothup(2,nexternal,maxproc),
-     &     icolup(2,nexternal,maxflow)
+      integer idup(nexternal,maxproc),mothup(2,nexternal,maxproc),icolup(2,nexternal,maxflow),niprocs
 c      include 'leshouche.inc'
-      common /c_leshouche_inc/idup,mothup,icolup
+      common /c_leshouche_inc/idup,mothup,icolup,niprocs
       integer IDUP_tmp(nexternal),i
 c
       do i=1,nexternal
@@ -877,8 +906,6 @@ c
       implicit none
       include "genps.inc"
       include 'nexternal.inc'
-      integer    maxflow
-      parameter (maxflow=999)
       integer idup(nexternal,maxproc)
       integer mothup(2,nexternal,maxproc)
       integer icolup(2,nexternal,maxflow)
@@ -894,33 +921,46 @@ c
       end
 
 
-      subroutine unweight_function(p_born,unwgtfun)
-c This is a user-defined function to which to unweight the events
-c A non-flat distribution will generate events with a certain
-c weight. This is particularly useful to generate more events
-c (with smaller weight) in tails of distributions.
-c It computes the unwgt factor from the momenta and multiplies
-c the weight that goes into MINT (or vegas) with this factor.
-c Before writing out the events (or making the plots), this factor
-c is again divided out.
-c This function should be called with the Born momenta to be sure
-c that it stays the same for the events, counter-events, etc.
-c A value different from 1 makes that MINT (or vegas) does not list
-c the correct cross section.
+      subroutine bias_weight_function(p,ipdg,bias_wgt)
+c This is a user-defined function to which to bias the event generation.
+c A non-flat distribution will generate events with a certain weight
+c inversely proportinal to the bias_wgt. This is particularly useful to
+c generate more events (with smaller weight) in tails of distributions.
+c It computes the bias_wgt factor from the momenta and multiplies the
+c weight that goes into MINT (or vegas) with this factor.  Before
+c writing out the events (or making the plots), this factor is again
+c divided out. A value different from 1 makes that MINT (or vegas) does
+c not list the correct cross section, but the cross section can still be
+c computed from summing all the weights of the events (and dividing by
+c the number of events). Since the weights of the events are no longer
+c identical for all events, the statistical uncertainty on this total
+c cross section can be much larger than without including the bias.
+c
+c The 'bias_wgt' should be a IR-safe function of the momenta.
+c      
+c For this to be used, the 'event_norm' option in the run_card should be
+c set to
+c      'bias' = event_norm      
+c
       implicit none
       include 'nexternal.inc'
-      double precision unwgtfun,p_born(0:3,nexternal-1),shat,sumdot
-      external sumdot
+      double precision bias_wgt,p(0:3,nexternal),H_T
+      integer ipdg(nexternal),i
 
-      unwgtfun=1d0
+      bias_wgt=1d0
 
-c How to enhance the tails is very process dependent. But, it is
-c probably easiest to enhance the tails using shat, e.g.:
-c      shat=sumdot(p_born(0,1),p_born(0,2),1d0)
-c      unwgtfun=max(100d0**2,shat)/100d0**2
-c      unwgtfun=unwgtfun**2
-
+c How to enhance the tails is very process dependent. For example for
+c top quark production one could use:
+c      do i=1,nexternal
+c         if (ipdg(i).eq.6) then
+c            bias_wgt=sqrt(p(1,i)**2+p(2,i)**2)**3
+c         endif
+c      enddo
+c Or to use H_T^2 one does     
+c      H_T=0d0
+c      do i=3,nexternal
+c         H_T=H_T+sqrt(max(0d0,(p(0,i)+p(3,i))*(p(0,i)-p(3,i))))
+c      enddo
+c      bias_wgt=H_T**2
       return
       end
-
-

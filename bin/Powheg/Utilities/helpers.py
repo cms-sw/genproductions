@@ -1,4 +1,4 @@
-import string 
+import string
 
 def fillTemplatedFile(template_file_name, out_file_name, template_dict, openmode = "a"):
     with open(template_file_name, "r") as templateFile:
@@ -11,7 +11,6 @@ def runGetSource_patch_0(process) :
   return {
    "X0jj" :"echo ' MADGRAPH+POWHEG INSTALL '\n \
 cd ${WORKDIR}/${name}\n \
-export REPOSITORY=${WORKDIR}\n \
 export MG_NAME=MG5_aMC_v2_6_7\n \
 echo 'Untar MG5_aMC_v2.6.7'\n \
 wget https://launchpad.net/mg5amcnlo/2.0/2.6.x/+download/MG5_aMC_v2.6.7.tar.gz\n \
@@ -19,7 +18,8 @@ tar xzvf MG5_aMC_v2.6.7.tar.gz\n \
 cd $MG_NAME\n \
 echo 'Untar Powheg plugin'\n \
 cd PLUGIN\n \
-tar xzvf $REPOSITORY/v0.tgz\n \
+wget https://cms-project-generators.web.cern.ch/cms-project-generators/PWG_MG5_plugin_v0.tgz\n \
+tar xzvf PWG_MG5_plugin_v0.tgz\n \
 cd ..\n \
 echo 'Run mg5_aMC'\n \
 echo 'import model HC_NLO_X0_UFO-heft' > $REPOSITORY/mg5.cmd\n \
@@ -62,24 +62,44 @@ cd ..",
     "ttb_NLO_dec" : "patch -l -p0 -i ${patches_dir}/pwhg_ttb_NLO_dec_gen_radiation_hook.patch",
     "WWJ" : "patch -l -p0 -i ${patches_dir}/wwj-weights.patch\n \
 cp ${patches_dir}/rwl_write_weights2_extra.f POWHEG-BOX/$process/",
-    "Zj" : "patch -l -p0 -i ${patches_dir}/pwhg_write_weights_nnlo.patch",
-    "Wj" : "patch -l -p0 -i ${patches_dir}/pwhg_write_weights_nnlo.patch",
+    "Zj" : "if [ ${forMiNNLO} -eq 1 ]; then\n \
+cd POWHEG-BOX\n \
+patch -l -p0 -i ${patches_dir}/pwhg_rm_bad_st1.patch\n \
+patch -l -p0 -i ${patches_dir}/pwhg_rwl_add_random.patch\n \
+patch -l -p0 -i ${patches_dir}/minnlo_pdf_weights.patch\n \
+patch -l -p0 -i ${patches_dir}/minnlo_pdf_representations_init.patch\n \
+patch -l -p2 -i ${patches_dir}/minnlo_pdf_ymax.patch\n \
+cd ..\n \
+fi",
+    "Wj" : "if [ ${forMiNNLO} -eq 1 ]; then\n \
+cd POWHEG-BOX\n \
+patch -l -p0 -i ${patches_dir}/pwhg_rm_bad_st1.patch\n \
+patch -l -p0 -i ${patches_dir}/pwhg_rwl_add_random.patch\n \
+patch -l -p0 -i ${patches_dir}/minnlo_pdf_weights.patch\n \
+patch -l -p0 -i ${patches_dir}/minnlo_pdf_representations_init.patch\n \
+patch -l -p2 -i ${patches_dir}/minnlo_pdf_ymax.patch\n \
+cd ..\n \
+fi",
     "VBF_H_smeft" : "cd POWHEG-BOX/VBF_H_smeft\n \
 head -n 966 pwhg_analysis.f | tail -n 12 > pwhg_analysis_new.f\n \
 mv pwhg_analysis_new.f pwhg_analysis.f\n \
-cd ../..", 
+cd ../..",
     }.get(process,"")
 
 def runGetSource_patch_2(process) :
   return {
-    "Zj" : "tar zxf ../DYNNLOPS.tgz\n \
-wget --no-verbose --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/slc6_amd64_gcc481/powheg/V2.0/src/nnlops_fast_patch3_${process:0:1}.tgz\n \
-tar zxf nnlops_fast_patch3_${process:0:1}.tgz\n \
-mv Makefile-NNLOPS Makefile",
-    "Wj" : "tar zxf ../DYNNLOPS.tgz\n \
-wget --no-verbose --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/slc6_amd64_gcc481/powheg/V2.0/src/nnlops_fast_patch3_${process:0:1}.tgz\n \
-tar zxf nnlops_fast_patch3_${process:0:1}.tgz\n \
-mv Makefile-NNLOPS Makefile",
+    "Zj" : "if [ ${forMiNNLO} -eq 1 ]; then\n \
+patch -l -p0 -i ${WORKDIR}/patches/zj_minnlo_scheme_weights.patch\n \
+cd ZjMiNNLO\n \
+patch -l -p0 -i ${WORKDIR}/patches/vj_minnlo_rwl_pdf_optimization.patch\n \
+patch -l -p0 -i ${WORKDIR}/patches/vj_minnlo_compiler_flags.patch\n \
+fi",
+    "Wj" : "if [ ${forMiNNLO} -eq 1 ]; then\n \
+patch -l -p0 -i ${WORKDIR}/patches/wj_minnlo_scheme_weights.patch\n \
+cd WjMiNNLO\n \
+patch -l -p0 -i ${WORKDIR}/patches/vj_minnlo_rwl_pdf_optimization.patch\n \
+patch -l -p0 -i ${WORKDIR}/patches/vj_minnlo_compiler_flags.patch\n \
+fi",
     }.get(process,"")
 
 def runGetSource_patch_3(process) :
@@ -237,6 +257,122 @@ cd ../..\n \
 cp Makefile Makefile.orig\n \
 cat Makefile.orig | sed -e \"s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d \"=\" -f2)/bin/fastjet-config#g\" | sed -e \"s#RECOLALOCATION=.\+#RECOLALOCATION=$\(PWD\)/recola2-collier-2.2.0/recola2-2.2.0#g\" | sed -e \"s# real16.o##g\" | sed -e \"s#test#none#g\" | sed -e \"s#none_Suda#test_Suda#g\" > Makefile\n \
 export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:${LD_LIBRARY_PATH}",
+
+"Wtt_dec" : " cd ../../\n \
+echo \"Adding NLOX libraries to: $(pwd)\"\n \
+if [ ! -f NLOX_util_1.2.0.tar.gz ]; then\n \
+  wget --no-verbose --user NLOX --password LoopsAreCool http://www.hep.fsu.edu/~nlox/downloads/v1.2.0/NLOX_util_1.2.0.tar.gz || fail_exit \"Failed to get NLOX_util_1.2.0 tar ball\"\n \
+fi\n \
+if [ ! -f NLOX_1.2.0.tar.gz ]; then\n \
+  wget --user NLOX --password LoopsAreCool http://www.hep.fsu.edu/~nlox/downloads/v1.2.0/NLOX_1.2.0.tar.gz || fail_exit \"Failed to get NLOX_1.2.0 tar ball\"\n \
+fi\n \
+if [ ! -d NLOX_util_1.2.0 ]; then\n \
+    tar -xzvf NLOX_util_1.2.0.tar.gz\n \
+fi\n \
+if [ ! -d NLOX_1.2.0 ]; then\n \
+    tar -xzvf NLOX_1.2.0.tar.gz\n \
+fi\n \
+cd NLOX_util_1.2.0\n \
+export abs_NLOX_util_path=$(pwd)\n \
+echo \"Setting abs_NLOX_util_path=\"${abs_NLOX_util_path}\n \
+./install_nlox_util.sh --prefix=${abs_NLOX_util_path}\n \
+cd OneLOop-3.6\n \
+export abs_OneLOop_path=$(pwd)\n \
+echo \"Exporting OneLOop-3.6 path: \" ${abs_OneLOop_path} \n \
+cd ../QCDLoop-1.95\n \
+export abs_QCDLoop_path=`pwd`\n \
+echo \"Exporting QCDLoop-1.95 path:\" ${abs_QCDLoop_path}\n \
+cd ../../NLOX_1.2.0\n \
+export abs_NLOX_path=`pwd`\n \
+echo \"Setting abs_NLOX_path=\" ${abs_NLOX_path}\n \
+./install_nlox.sh --with-nloxutil=${abs_NLOX_util_path}\n \
+if [ ! -f pp_Wpttbar.tar.gz ]; then\n \
+  wget --user NLOX --password LoopsAreCool http://www.hep.fsu.edu/~nlox/downloads/processes/v1.2.0/pp_Wpttbar.tar.gz || fail_exit \"Failed to get pp_Wpttbar tar ball\"\n \
+fi\n \
+if [ ! -f pp_Wmttbar.tar.gz ]; then\n \
+  wget --user NLOX --password LoopsAreCool http://www.hep.fsu.edu/~nlox/downloads/processes/v1.2.0/pp_Wmttbar.tar.gz || fail_exit \"Failed to get pp_Wmttbar tar ball\"\n \
+fi\n \
+tar -xzvf pp_Wpttbar.tar.gz\n \
+tar -xzvf pp_Wmttbar.tar.gz\n \
+cd pp_Wpttbar\n \
+echo \"Editing and compiling Makefiles in \" $(pwd)\n \
+sed -i -e \"s|# NLOX_DIR=<nlox_builddir>|NLOX_DIR=${abs_NLOX_path}|\" Makefile_process\n \
+sed -i -e \"s|# NLOX_UTIL_DIR=<nlox_util_builddir>|NLOX_UTIL_DIR=${abs_NLOX_util_path}|\" Makefile_process\n \
+make -j 10 library flibrary -f Makefile_process\n \
+cd ../pp_Wmttbar\n \
+echo \"Editing and compiling Makefiles in $(pwd)/pp_Wmttbar\"\n \
+sed -i -e \"s|# NLOX_DIR=<nlox_builddir>|NLOX_DIR=${abs_NLOX_path}|\" Makefile_process\n \
+sed -i -e \"s|# NLOX_UTIL_DIR=<nlox_util_builddir>|NLOX_UTIL_DIR=${abs_NLOX_util_path}|\" Makefile_process\n \
+make -j 10 library flibrary -f Makefile_process\n \
+cd ../..\n \
+export process=\"Wtt_dec\"\n \
+cd POWHEG-BOX/${process}/pp_ttWp_EW\n \
+echo \"Editing and compiling Makefiles in `pwd`\"\n \
+LHAPDF_BASE=`scram tool info lhapdf | grep LHAPDF_BASE |cut -d \"=\" -f2`\n \
+echo \"LHAPDF_BASE: ${LHAPDF_BASE}\"\n \
+sed -i -e \"s|ONELOOPDIR=\$(NLOX_UTIL_DIR)\/lib\/NLOX_util\/|ONELOOPDIR=${abs_OneLOop_path}|\" Makefile\n \
+sed -i -e \"s|QCDLOOPDIR=\$(ONELOOPDIR)|QCDLOOPDIR=${abs_QCDLoop_path}|\" Makefile\n \
+sed -i -e \"s|COMMON_LIB_DIRS+=-L\$(QCDLOOPDIR)/lib64|COMMON_LIB_DIRS+=-L\$(QCDLOOPDIR)/ff/|\" Makefile\n \
+sed -i \"0,/COMMON_LIB_DIRS+=-L\$(QCDLOOPDIR)/! {0,/COMMON_LIB_DIRS+=-L\$(QCDLOOPDIR)/ s/COMMON_LIB_DIRS+=-L\$(QCDLOOPDIR)/COMMON_LIB_DIRS += -L\$(QCDLOOPDIR)\/ql\//}\" Makefile\n \
+sed -i -e \"s|#LHAPDF_CONFIG=\$(HOME)\/local|LHAPDF_CONFIG=${LHAPDF_BASE}|\" Makefile\n \
+sed -i -e \"s|#NLOX_DIR=\$(HOME)\/NLOX|NLOX_DIR=${abs_NLOX_path}|\" Makefile\n \
+sed -i -e \"s|#NLOX_UTIL_DIR=\$(HOME)\/NLOX\/UTIL\/|NLOX_UTIL_DIR=${abs_NLOX_util_path}|\" Makefile\n \
+make clean \n \
+make\n \
+cd ../pp_ttWp_QCD\n \
+echo \"Editing and compiling Makefiles in `pwd`\"\n \
+sed -i -e \"s|ONELOOPDIR=\$(NLOX_UTIL_DIR)\/lib\/NLOX_util\/|ONELOOPDIR=${abs_OneLOop_path}|\" Makefile\n \
+sed -i -e \"s|QCDLOOPDIR=\$(ONELOOPDIR)|QCDLOOPDIR=${abs_QCDLoop_path}|\" Makefile\n \
+sed -i -e \"s|COMMON_LIB_DIRS+=-L\$(QCDLOOPDIR)/lib64|COMMON_LIB_DIRS+=-L\$(QCDLOOPDIR)/ff/|\" Makefile\n \
+sed -i \"0,/COMMON_LIB_DIRS+=-L\$(QCDLOOPDIR)/! {0,/COMMON_LIB_DIRS+=-L\$(QCDLOOPDIR)/ s/COMMON_LIB_DIRS+=-L\$(QCDLOOPDIR)/COMMON_LIB_DIRS += -L\$(QCDLOOPDIR)\/ql\//}\" Makefile\n \
+sed -i -e \"s|#LHAPDF_CONFIG=\$(HOME)\/local|LHAPDF_CONFIG=${LHAPDF_BASE}|\" Makefile\n \
+sed -i -e \"s|#NLOX_DIR=\$(HOME)\/NLOX|NLOX_DIR=${abs_NLOX_path}|\" Makefile\n \
+sed -i -e \"s|#NLOX_UTIL_DIR=\$(HOME)\/NLOX\/UTIL\/|NLOX_UTIL_DIR=${abs_NLOX_util_path}|\" Makefile\n \
+make clean \n \
+make\n \
+cd ../pp_ttWm_EW\n \
+echo \"Editing and compiling Makefiles in `pwd`\"\n \
+sed -i -e \"s|ONELOOPDIR=\$(NLOX_UTIL_DIR)\/lib\/NLOX_util\/|ONELOOPDIR=${abs_OneLOop_path}|\" Makefile\n \
+sed -i -e \"s|QCDLOOPDIR=\$(ONELOOPDIR)|QCDLOOPDIR=${abs_QCDLoop_path}|\" Makefile\n \
+sed -i -e \"s|COMMON_LIB_DIRS+=-L\$(QCDLOOPDIR)/lib64|COMMON_LIB_DIRS+=-L\$(QCDLOOPDIR)/ff/|\" Makefile\n \
+sed -i \"0,/COMMON_LIB_DIRS+=-L\$(QCDLOOPDIR)/! {0,/COMMON_LIB_DIRS+=-L\$(QCDLOOPDIR)/ s/COMMON_LIB_DIRS+=-L\$(QCDLOOPDIR)/COMMON_LIB_DIRS += -L\$(QCDLOOPDIR)\/ql\//}\" Makefile\n \
+sed -i -e \"s|#LHAPDF_CONFIG=\$(HOME)\/local|LHAPDF_CONFIG=${LHAPDF_BASE}|\" Makefile\n \
+sed -i -e \"s|#NLOX_DIR=\$(HOME)\/NLOX|NLOX_DIR=${abs_NLOX_path}|\" Makefile\n \
+sed -i -e \"s|#NLOX_UTIL_DIR=\$(HOME)\/NLOX\/UTIL\/|NLOX_UTIL_DIR=${abs_NLOX_util_path}|\" Makefile\n \
+make clean \n \
+make\n \
+cd ../pp_ttWm_QCD\n \
+echo \"Editing and compiling Makefiles in $(pwd)\"\n \
+sed -i -e \"s|ONELOOPDIR=\$(NLOX_UTIL_DIR)\/lib\/NLOX_util\/|ONELOOPDIR=${abs_OneLOop_path}|\" Makefile\n \
+sed -i -e \"s|QCDLOOPDIR=\$(ONELOOPDIR)|QCDLOOPDIR=${abs_QCDLoop_path}|\" Makefile\n \
+sed -i -e \"s|COMMON_LIB_DIRS+=-L\$(QCDLOOPDIR)/lib64|COMMON_LIB_DIRS+=-L\$(QCDLOOPDIR)/ff/|\" Makefile\n \
+sed -i \"0,/COMMON_LIB_DIRS+=-L\$(QCDLOOPDIR)/! {0,/COMMON_LIB_DIRS+=-L\$(QCDLOOPDIR)/ s/COMMON_LIB_DIRS+=-L\$(QCDLOOPDIR)/COMMON_LIB_DIRS += -L\$(QCDLOOPDIR)\/ql\//}\" Makefile\n \
+sed -i -e \"s|#LHAPDF_CONFIG=\$(HOME)\/local|LHAPDF_CONFIG=${LHAPDF_BASE}|\" Makefile\n \
+sed -i -e \"s|#NLOX_DIR=\$(HOME)\/NLOX|NLOX_DIR=${abs_NLOX_path}|\" Makefile\n \
+sed -i -e \"s|#NLOX_UTIL_DIR=\$(HOME)\/NLOX\/UTIL\/|NLOX_UTIL_DIR=${abs_NLOX_util_path}|\" Makefile\n \
+make clean \n \
+make\n \
+cd ../\n \
+echo \"Leaving patch6 for ${process} in directory $(pwd)\"\n \
+    ",
+    "Z_ew-BMNNPV" : "patch -l -p0 -i ${patches_dir}/z_ew.patch\n \
+## put the correct library names for PHOTOS++ into the Makefile\n \
+echo 'Linking PHOTOS++ libraries in the Makefile'\n \
+sed -i 's+^PHOTOSCC_LOCATION=.*+PHOTOSCC_LOCATION=/cvmfs/cms.cern.ch/slc6_amd64_gcc700/external/photospp/3.61-omkpbe2+g' Makefile\n \
+sed -i '/lPhotosFortran/s/^/#/g' Makefile\n \
+sed -i '/lPhotospp/s/^# //g' Makefile\n \
+## make the main-PHOTOS-lhef\n \
+echo 'Making main-PHOTOS-lhef'\n \
+make main-PHOTOS-lhef",
+    "W_ew-BMNNP" : "patch -l -p0 -i ${patches_dir}/w_ew.patch\n \
+## put the correct library names for PHOTOS++ into the Makefile\n \
+echo 'Linking PHOTOS++ libraries in the Makefile'\n \
+sed -i 's+^PHOTOSCC_LOCATION=.*+PHOTOSCC_LOCATION=/cvmfs/cms.cern.ch/slc6_amd64_gcc700/external/photospp/3.61-omkpbe2+g' Makefile\n \
+sed -i '/lPhotosFortran/s/^/#/g' Makefile\n \
+sed -i '/lPhotospp/s/^# //g' Makefile\n \
+## make the main-PHOTOS-lhef\n \
+echo 'Making main-PHOTOS-lhef'\n \
+make main-PHOTOS-lhef",
     }.get(process,"")
 
 def runGetSource_patch_7(process) :
@@ -308,98 +444,4 @@ gawk \"/sroot/{gsub(/8000/,$COMENERGY)};/hmass/{gsub(/125.5/, ${HMASS})};/mur,mu
 gawk \"/sroot/{gsub(/8000/,$COMENERGY)};/hmass/{gsub(/125.5/, ${HMASS})};/mur,muf/{gsub(/62.750/, $(( $HMASS )))};{print}\" POWHEG-BOX/HJ/PaperRun/HNNLO-LHC8-R04-APX2-11.input | sed -e \"s#10103#SEED#g\" | sed -e \"s#HNNLO-LHC8-R04-APX2-11#HNNLO-LHC13-R04-APX2-22#g\"> HNNLO-LHC13-R04-APX2-22.input\n \
 gawk \"/sroot/{gsub(/8000/,$COMENERGY)};/hmass/{gsub(/125.5/, ${HMASS})};/mur,muf/{gsub(/62.750/, $(( $HMASS/4 )))};{print}\" POWHEG-BOX/HJ/PaperRun/HNNLO-LHC8-R04-APX2-11.input | sed -e \"s#10103#SEED#g\" | sed -e \"s#HNNLO-LHC8-R04-APX2-11#HNNLO-LHC13-R04-APX2-0505#g\"> HNNLO-LHC13-R04-APX2-0505.input\n \
 cp ${WORKDIR}/Utilities/nnlopsreweighter.input .",
-
-    "Zj" : "echo \"Compiling DYNNLO....\"\n \
-wget --no-verbose --no-check-certificate http://theory.fi.infn.it/grazzini/codes/dynnlo-v1.5.tgz\n \
-tar -xzvf dynnlo-v1.5.tgz\n \
-cd dynnlo-v1.5\n \
-cp ../POWHEG-BOX/${process}/DYNNLOPS/${process:0:1}NNLOPS/dynnlo-patches/dynnlo.makefile ./makefile\n \
-cp -r -L ../POWHEG-BOX/${process}/DYNNLOPS/${process:0:1}NNLOPS/dynnlo-patches ./\n \
-cd src/Need/\n \
-cat pdfset_lhapdf.f | sed -e \"s#30#40#g\" | sed -e \"s#20#30#g\" | sed -e \"s#oldPDFname(1:i-1)//'.LHgrid'#oldPDFname(1:i-1)#g\" | sed -e \"s#oldPDFname(1:i-1)//'.LHpdf'#oldPDFname(1:i-1)#g\" | sed -e \"s#InitPDFset('PDFsets/'//PDFname)#InitPDFsetByName(PDFname)#g\" > pdfset_lhapdf.f.new\n \
-mv pdfset_lhapdf.f.new pdfset_lhapdf.f\n \
-cd -\n \
-cat makefile | sed -e \"s#LHAPDFLIB=.\+#LHAPDFLIB=$(scram tool info lhapdf | grep LIBDIR | cut -d \"=\" -f2)#g\" > makefile\n \
-make || fail_exit \"Failed to compile DYNNLO\"\n\n \
-\
-cp -p bin/dynnlo ${WORKDIR}/${name}/\n\n \
-\
-cd ${WORKDIR}/${name}/POWHEG-BOX/${process}/DYNNLOPS/aux\n \
-gfortran -mcmodel=medium -o merge3ddata merge3ddata.f  || fail_exit \"Failed to compile merge3ddata\"\n \
-cp merge3ddata ${WORKDIR}/${name}/\n \
-gfortran -mcmodel=medium -o mergedata mergedata.f  || fail_exit \"Failed to compile mergedata\"\n \
-cp mergedata ${WORKDIR}/${name}/\n\n \
-\
-cd ${WORKDIR}/${name}/POWHEG-BOX/${process}\n \
-make lhef_analysis_3d || fail_exit \"Failed to compile lhef_analysis_3d\"\n \
-cp lhef_analysis_3d ${WORKDIR}/${name}/\n\n \
-\
-cd ${WORKDIR}/${name}\n \
-VMASS=`cat powheg.input | grep \"^Wmass\|^Zmass\" | awk '{print $2}' | cut -d \"d\" -f1`\n \
-VMASSEXP=`cat powheg.input | grep \"^Wmass\|^Zmass\" | awk '{print $2}' | cut -d \"d\" -f2`\n \
-VMASS=`echo \"( $VMASS*10^$VMASSEXP )\" | bc`\n \
-VMASSMIN=`cat powheg.input | grep \"^min_W_mass\|^min_Z_mass\" | awk '{print $2}'`\n \
-VMASSMAX=`cat powheg.input | grep \"^max_W_mass\|^max_Z_mass\" | awk '{print $2}'`\n \
-echo $VMASS\n \
-DYNNLOPROC=3\n \
-BEAM=`cat powheg.input | grep \"^ebeam1\" | cut -d \" \" -f2 | tr \"d\" \".\"`;\n \
-COMENERGY=`echo \"( $BEAM*2 )\" | bc`\n\n \
-\
-cp POWHEG-BOX/${process}/DYNNLOPS/${process:0:1}NNLOPS/dynnlo-patches/dynnlo.infile dynnlo.infile.orig\n \
-gawk \"/sroot/{gsub(/.*!/,$COMENERGY \\\" !\\\")};\\ \n \
-      /nproc/{gsub(/.*!/,$DYNNLOPROC \\\" !\\\")};\\ \n \
-      /mur/{gsub(/.*!/, $VMASS \\\" \\\" $VMASS \\\" !\\\")};\\ \n \
-      /mwmin/{gsub(/.*!/, $VMASSMIN \\\" \\\" $VMASSMAX \\\" !\\\")};\\ \n \
-      /rseed/{gsub(/.*!/,\\\"SEED !\\\")};\\ \n \
-      /runstring/{gsub(/.*!/,\\\"'SEED' !\\\")};\\ \n \
-      {print}\" dynnlo.infile.orig | tee DYNNLO.input",
-
-    "Wj" : "echo \"Compiling DYNNLO....\"\n \
-wget --no-verbose --no-check-certificate http://theory.fi.infn.it/grazzini/codes/dynnlo-v1.5.tgz\n \
-tar -xzvf dynnlo-v1.5.tgz\n \
-cd dynnlo-v1.5\n \
-cp ../POWHEG-BOX/${process}/DYNNLOPS/${process:0:1}NNLOPS/dynnlo-patches/dynnlo.makefile ./makefile\n \
-cp -r -L ../POWHEG-BOX/${process}/DYNNLOPS/${process:0:1}NNLOPS/dynnlo-patches ./\n \
-cd src/Need/\n \
-cat pdfset_lhapdf.f | sed -e \"s#30#40#g\" | sed -e \"s#20#30#g\" | sed -e \"s#oldPDFname(1:i-1)//'.LHgrid'#oldPDFname(1:i-1)#g\" | sed -e \"s#oldPDFname(1:i-1)//'.LHpdf'#oldPDFname(1:i-1)#g\" | sed -e \"s#InitPDFset('PDFsets/'//PDFname)#InitPDFsetByName(PDFname)#g\" > pdfset_lhapdf.f.new\n \
-mv pdfset_lhapdf.f.new pdfset_lhapdf.f\n \
-cd -\n \
-cat makefile | sed -e \"s#LHAPDFLIB=.\+#LHAPDFLIB=$(scram tool info lhapdf | grep LIBDIR | cut -d \"=\" -f2)#g\" > makefile\n \
-make || fail_exit \"Failed to compile DYNNLO\"\n\n \
-\
-cp -p bin/dynnlo ${WORKDIR}/${name}/\n\n \
-\
-cd ${WORKDIR}/${name}/POWHEG-BOX/${process}/DYNNLOPS/aux\n \
-gfortran -mcmodel=medium -o merge3ddata merge3ddata.f  || fail_exit \"Failed to compile merge3ddata\"\n \
-cp merge3ddata ${WORKDIR}/${name}/\n \
-gfortran -mcmodel=medium -o mergedata mergedata.f  || fail_exit \"Failed to compile mergedata\"\n \
-cp mergedata ${WORKDIR}/${name}/\n\n \
-\
-cd ${WORKDIR}/${name}/POWHEG-BOX/${process}\n \
-make lhef_analysis_3d || fail_exit \"Failed to compile lhef_analysis_3d\"\n \
-cp lhef_analysis_3d ${WORKDIR}/${name}/\n\n \
-\
-cd ${WORKDIR}/${name}\n \
-VMASS=`cat powheg.input | grep \"^Wmass\|^Zmass\" | awk '{print $2}' | cut -d \"d\" -f1`\n \
-VMASSEXP=`cat powheg.input | grep \"^Wmass\|^Zmass\" | awk '{print $2}' | cut -d \"d\" -f2`\n \
-VMASS=`echo \"( $VMASS*10^$VMASSEXP )\" | bc`\n \
-VMASSMIN=`cat powheg.input | grep \"^min_W_mass\|^min_Z_mass\" | awk '{print $2}'`\n \
-VMASSMAX=`cat powheg.input | grep \"^max_W_mass\|^max_Z_mass\" | awk '{print $2}'`\n \
-echo $VMASS\n \
-DYNNLOPROC=1\n \
-VID=`cat powheg.input | grep \"^idvecbos\" | awk '{print $2}'`;\n \
-if [ \"$VID\" = \"-24\" ]; then\n \
-  DYNNLOPROC=2\n \
-fi\n \
-BEAM=`cat powheg.input | grep \"^ebeam1\" | cut -d \" \" -f2 | tr \"d\" \".\"`;\n \
-COMENERGY=`echo \"( $BEAM*2 )\" | bc`\n\n \
-\
-cp POWHEG-BOX/${process}/DYNNLOPS/${process:0:1}NNLOPS/dynnlo-patches/dynnlo.infile dynnlo.infile.orig\n \
-gawk \"/sroot/{gsub(/.*!/,$COMENERGY \\\" !\\\")};\\ \n \
-      /nproc/{gsub(/.*!/,$DYNNLOPROC \\\" !\\\")};\\ \n \
-      /mur/{gsub(/.*!/, $VMASS \\\" \\\" $VMASS \\\" !\\\")};\\ \n \
-      /mwmin/{gsub(/.*!/, $VMASSMIN \\\" \\\" $VMASSMAX \\\" !\\\")};\\ \n \
-      /rseed/{gsub(/.*!/,\\\"SEED !\\\")};\\ \n \
-      /runstring/{gsub(/.*!/,\\\"'SEED' !\\\")};\\ \n \
-      {print}\" dynnlo.infile.orig | tee DYNNLO.input",
     }.get(process,"")
