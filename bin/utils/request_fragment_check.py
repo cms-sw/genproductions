@@ -167,7 +167,7 @@ def ul_consistency(dn,pi,jhu_gp):
     prime_tmp = []
     warning_ul = 0
     error_ul = 0
-    if "Summer20UL18" in pi or "Summer20UL17" in pi or "Summer20UL16wmLHEGENAPV" in pi or "APV" in pi or "Summer20UL16" in pi and "GEN" in pi:
+    if ("Summer20UL18" in pi or "Summer20UL17" in pi or "Summer20UL16wmLHEGENAPV" in pi or "APV" in pi or "Summer20UL16" in pi) and "GEN" in pi and "lowpu" not in dn.lower():
         prime = get_requests_from_datasetname(dn)
         if len(prime) == 0:
             if "Summer20UL16" not in pi:
@@ -443,7 +443,7 @@ def root_requests_from_ticket(ticket_prepid, include_docs=False):
     mccm = get_ticket(ticket_prepid)
     query = ''
     for root_request in mccm.get('requests',[]):
-       if isinstance(root_request,(str,unicode)):
+       if isinstance(root_request,str):
             query += '%s\n' % (root_request)
        elif isinstance(root_request,list):
              # List always contains two elements - start and end of a range
@@ -594,7 +594,7 @@ for num in range(0,len(prepid)):
         f2 = open(pi+"_tmp","w")
         data_f1 = f1.read()
 
-        if int(os.popen('grep -c FlatRandomEGunProducer '+pi).read()) == 1 or int(os.popen('grep -c FlatRandomPtGunProducer '+pi).read()) == 1 or int(os.popen('grep -c Pythia8EGun '+pi).read()) == 1: 
+        if int(os.popen('grep -c FlatRandomEGunProducer '+pi).read()) == 1 or int(os.popen('grep -c FlatRandomPtGunProducer '+pi).read()) == 1 or int(os.popen('grep -c Pythia8EGun '+pi).read()) == 1 or int(os.popen('grep -c Pythia8PtGun '+pi).read()) ==1: 
             particle_gun = 1
         if int(os.popen('grep -c -i randomizedparameters '+pi).read()) > 0:
             randomizedparameters = 1
@@ -1048,10 +1048,10 @@ for num in range(0,len(prepid)):
                     w_temp, e_temp = ul_consistency(dn,pi,jhu_gp)
                     warning += w_temp
                     error += e_temp
-                if "fall18" not in pi.lower() and not (any(word in dn for word in tunename) or "sherpa" in dn.lower() or ("herwigpp" in dn.lower() and ("eec5" in dn.lower() or "ee5c" in dn.lower()))):
+                if "fall18" not in pi.lower() and "fall17" not in pi.lower() and "winter15" not in pi.lower() and not (any(word in dn for word in tunename) or "sherpa" in dn.lower() or ("herwigpp" in dn.lower() and ("eec5" in dn.lower() or "ee5c" in dn.lower()))):
                     print("[ERROR] Dataset name does not have the tune name: "+dn)
                     error += 1
-                if "fall18" not in pi.lower() and not any(word in dn.lower() for word in psname):
+                if "fall18" not in pi.lower() and "fall17" not in pi.lower() and "winter15" not in pi.lower() and not any(word in dn.lower() for word in psname):
                     print("[ERROR] Dataset name does not contain a parton shower code name: "+dn)
                     error += 1
                 if not any(word in dn.lower() for word in MEname):
@@ -1181,7 +1181,7 @@ for num in range(0,len(prepid)):
                 with open(jhufilename) as f:
                     jhu_in = f.read()
                     jhu_in = re.sub(r'(?m)^ *#.*\n?', '',jhu_in)
-                    jhu_wfe = str(re.findall(r'(WriteFailedEvents.*(?=\s))',jhu_in))
+                    jhu_wfe = str(re.findall(r'(WriteFailedEvents.*(?=))',jhu_in))
                     if (not jhu_wfe or jhu_wfe.isspace()) or (jhu_wfe and not jhu_wfe.isspace() and "2" not in jhu_wfe): 
                         print("[ERROR] WriteFailedEvents should be set to 2 in JHUGen.input in jhugen+powheg samples.")
                         error += 1
@@ -1474,9 +1474,11 @@ for num in range(0,len(prepid)):
                                     store_rwgt_info_a = store_rwgt_info.split('=')
                                     if "false" in store_rwgt_info_a[0].lower():
                                         print("[ERROR] store_rwgt_info set to"+ str(store_rwgt_info_a[0]) +" for MG5_aMC >= 260.")
+                                        print("        This is needed to evaluate systematics. See eg. https://hypernews.cern.ch/HyperNews/CMS/get/generators/4513/1/1/1/1/1/2.html")
                                         error += 1
                                 if len(store_rwgt_info) == 0:
                                     print("[ERROR] No store_rwgt_info set for MG5_aMC >= 260.")
+                                    print("        This is needed to evaluate systematics. See eg. https://hypernews.cern.ch/HyperNews/CMS/get/generators/4513/1/1/1/1/1/2.html")
                                     error += 1
                             if mg_lo > 0 and mg5_aMC_version >= 260:
                                 if os.path.isfile(filename_mggpc) is True : use_syst = os.popen('more '+filename_mggpc+' | tr -s \' \' | grep "use_syst"').read()

@@ -1,0 +1,76 @@
+Index: pwhg_rwl.h                                                                    
+===================================================================                  
+--- pwhg_rwl.h  (revision 3756)                                                      
++++ pwhg_rwl.h  (working copy)    
+@@ -28,7 +28,7 @@                                                                    
+
+       real * 4, pointer :: rwl_weights(:)
+
+-      integer, parameter :: rwl_maxweights=500,rwl_maxgroups=50
++      integer, parameter :: rwl_maxweights=1200,rwl_maxgroups=50                    
+       integer :: rwl_num_weights, rwl_num_groups
+       type(rwl_weight_info) rwl_weights_array(rwl_maxweights)
+       type(rwl_group_info) rwl_groups_array(rwl_maxgroups)
+
+Index: gen_radiation.f
+===================================================================
+--- gen_radiation.f     (revision 3756)
++++ gen_radiation.f     (working copy)
+@@ -15,6 +15,9 @@
+       integer mcalls,icalls
+       data mcalls,icalls/0,0/
+       save mcalls,icalls
++      integer mcallsrmn,icallsrmn
++      data mcallsrmn,icallsrmn/0,0/
++      save mcallsrmn,icallsrmn
+       real * 8 pwhg_pt2,pt2max_regular
+       external pwhg_pt2,pt2max_regular
+       real * 8 weight
+@@ -104,7 +107,7 @@
+       else
+ c generate remnant n+1 body cross section
+          call reset_timer
+-         call gen_sigremnant
++         call gen_sigremnant(mcallsrmn,icallsrmn)
+          if(notfinite_kin('Real')) goto 1
+          call get_timer(seconds)
+          call addtocnt("remnant time (sec)",seconds)
+
+Index: hadr5n16.f
+===================================================================
+--- hadr5n16.f  (revision 3756)
++++ hadr5n16.f  (working copy)
+@@ -215,8 +215,8 @@
+        IMPLICIT NONE
+        INTEGER NB,I,J
+        PARAMETER(NB=2174)
+-       REAL ESA(NB),DAS(NB,2),DGS(NB,2)
+-       COMMON /DATS16/ESA,DAS,DGS
++       REAL ESA(NB),DAS(NB,2),DGS(NB,2),DGS3(NB,2)
++       COMMON /DATS16/ESA,DAS,DGS,DGS3
+ c 
+ c******************************************************************************
+ c*                                                                            *
+@@ -3750,8 +3750,8 @@
+        IMPLICIT NONE
+        INTEGER NC,I,J
+        PARAMETER(NC=200)
+-       REAL EMA(NC),DAM(NC,2),DGM(NC,2)
+-       COMMON /DATM16/EMA,DAM,DGM
++       REAL EMA(NC),DAM(NC,2),DGM(NC,2),DGM3(NC,2)
++       COMMON /DATM16/EMA,DAM,DGM,DGM3
+ c 
+ c******************************************************************************
+ c*                                                                            *
+@@ -4067,9 +4067,9 @@
+        IMPLICIT NONE
+        INTEGER NA,NC,I,J
+        PARAMETER(NA=979,NC=200)
+-       REAL ETA(NA),DAT(NA,2),DGT(NA,2)
++       REAL ETA(NA),DAT(NA,2),DGT(NA,2),DGT3(NA,2)
+        REAL XXX(NC),YGG(NC,2),Y3G(NC,2)
+-       COMMON /DATT16/ETA,DAT,DGT
++       COMMON /DATT16/ETA,DAT,DGT,DGT3
+        COMMON /DATH16/XXX,YGG,Y3G
+ c 
+ c******************************************************************************

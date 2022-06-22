@@ -44,7 +44,11 @@ void writeCards( double m_bstar, double m_h, std::string coupling, std::string p
   f << "set param_card KXSPuR 3 " << r << std::endl;
   f << "set param_card mass 6000007 " << stream.str() << std::endl;
   f << "set param_card mass 6100027 " << stream2.str() << std::endl;
-
+  f << "set param_card mass 6200027 500" << std::endl;
+  f << "set param_card mass 71000027 500" << std::endl;
+  f << "set param_card mass 72000027 500" << std::endl;
+  f << "set param_card decay 6000007 auto" << std::endl;
+  f << "set param_card decay 6100027 auto" << std::endl;
   f.close();
 }
 
