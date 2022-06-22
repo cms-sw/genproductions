@@ -1,8 +1,8 @@
 #!/bin/bash
 
-masses=(300 400 500 600 700 800 900 1000)
+masses=(165 175 200 220 250 300 400 500 600 700 800 900 1000)
 
-sample=ChargedHiggs_hw_mh2_200_NLO
+sample=ChargedHiggs_hw_mh1_80_NLO
 postfix=(_run_card.dat _customizecards.dat _proc_card.dat _extramodels.dat _madspin_card.dat)
 
 #echo ${masses[*]}
