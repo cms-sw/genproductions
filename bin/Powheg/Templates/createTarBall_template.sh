@@ -122,8 +122,7 @@ fi
 exclude_extra=""
 if [ "$$process" = "X0jj" ] ; then
   # for X0jj we exclude some additional files to prevent the gridpacks becomming too large - warning 
-  echo "WARNING: you are excluding some of the .dat files produced during the gridpack generation, if you used a different number of jobs for each stage and/or a different number of iterations for stage 1 this will likely lead to too many/too few files being excluded so you will need to adjust exclude_extra in Templates/createTarBall_template.sh accordingly"
-  exclude_extra="--exclude=MG5_aMC*.tar.gz --exclude=pwgbtildeupb-*.dat  --exclude=pwgremnupb-*.dat --exclude=pwgcounters-st1-*.dat --exclude=pwgcounters-st2-*.dat --exclude=pwgcounters-st3-*.dat --exclude=pwg-*-stat.dat --exclude=pwggridinfo-rmn-xg{1,2,3,4}-*.dat --exclude=pwggridinfo-btl-xg{1,2,3,4}-*.dat --exclude=pwgfullgrid-000{0,2,3,4,5,6,7,8,9}.dat"
+  exclude_extra="--exclude=MG5_aMC*.tar.gz --exclude=pwgbtildeupb-*.dat  --exclude=pwgremnupb-*.dat --exclude=pwgcounters-st1-*.dat --exclude=pwgcounters-st2-*.dat --exclude=pwgcounters-st3-*.dat --exclude=pwg-*-stat.dat"
 fi
 
 
