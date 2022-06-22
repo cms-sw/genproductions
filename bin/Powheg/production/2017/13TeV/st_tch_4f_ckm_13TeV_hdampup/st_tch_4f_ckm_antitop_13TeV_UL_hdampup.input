@@ -51,6 +51,7 @@ xupbound 2d0      ! increase upper bound for radiation generation
 
 ttype        -1
 topmass      172.5
+bmass        4.18
 wmass        80.4
 sthw2        0.231295
 alphaem_inv  137.0360098
