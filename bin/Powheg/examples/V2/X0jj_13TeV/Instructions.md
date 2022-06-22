@@ -40,5 +40,5 @@ a repository with instructions and scripts for producing HJJ CP samples
 
     python ./run_pwg_condor.py -p 9 -i examples/V2/X0jj_13TeV/X0jj_SM.input -m X0jj -f X0jj_SM_HTT_v1
 
-    Note that for stage 9 in order to keep the gridpacks from being too large we dont use the -k 1 option, and we also modified Templates/createTarBall_template.sh adding the exclude_extra parameter to remove some of the .dat files that are produced during the gridpack generation that aren't needed in the tarball - BUT if you used different number of jobs for each stage and/or a different number of iterations for stage 1 then this may result in too-many / too few .dat files being removed so the exclude_extra parameter should be checked and modified accordingly. 
+    Note that for stage 9 in order to keep the gridpacks from being too large we dont use the -k 1 option, and we also modified Templates/createTarBall_template.sh adding the exclude_extra parameter to remove some of the .dat files that are produced during the gridpack generation that aren't needed in the tarball 
 

@@ -121,7 +121,7 @@ fi
 
 exclude_extra=""
 if [ "$$process" = "X0jj" ] ; then
-  # for X0jj we exclude some additional files to prevent the gridpacks becomming too large - warning 
+  # for X0jj we exclude some additional files to prevent the gridpacks becomming too large
   exclude_extra="--exclude=MG5_aMC*.tar.gz --exclude=pwgbtildeupb-*.dat  --exclude=pwgremnupb-*.dat --exclude=pwgcounters-st1-*.dat --exclude=pwgcounters-st2-*.dat --exclude=pwgcounters-st3-*.dat --exclude=pwg-*-stat.dat"
 fi
 
