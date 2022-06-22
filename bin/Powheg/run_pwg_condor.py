@@ -76,9 +76,8 @@ def prepareCondorScript( tag, i, folderName, queue, SCALE = '0', njobs = 0, runI
    f.write('periodic_remove         = JobStatus == 5  \n')
    f.write('WhenToTransferOutput    = ON_EXIT_OR_EVICT \n')
    f.write('transfer_output_files   = "" \n')
-   if njobs > 0:
-       f.write('queue '+str(njobs)+'\n')
- 
+   #if njobs > 0:
+   #    f.write('queue '+str(njobs)+'\n')
    f.write('\n')
 
    f.close()
@@ -193,9 +192,8 @@ def runParallelXgrid(parstage, xgrid, folderName, nEvents, njobs, powInputName, 
 
     else:
         print 'Submitting to condor queues:  \n'
-        condorfile = prepareCondorScript(jobtag, 'multiple', args.folderName, QUEUE, njobs=njobs, runInBatchDir=True, slc6=args.slc6) 
-        runCommand ('condor_submit ' + condorfile + ' -queue '+ str(njobs))
-
+        condorfile = prepareCondorScript(jobtag, 'multiple', args.folderName, QUEUE, njobs=njobs, runInBatchDir=True, slc6=args.slc6)
+        runCommand ('condor_submit ' + condorfile + ' -queue '+ str(njobs), TESTING == 0)
 
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 def runSingleXgrid(parstage, xgrid, folderName, nEvents, powInputName, seed, process, scriptName) :
