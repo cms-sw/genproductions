@@ -96,6 +96,9 @@ patch -l -p0 -i ${patches_dir}/pwhg_lhepdf.patch
 
 $patch_1 
 
+### agrohsje: fix lhapdf6if for single top, informed ER, PN end 2021 but no fix provided yet, will ping again (today: 22.6.2022)
+if [ $process == "ST_tch_4f" ] ; then mv POWHEG-BOX/lhapdf6if.f POWHEG-BOX/$process/. ; fi 
+
 sed -i -e "s#500#1350#g"  POWHEG-BOX/include/pwhg_rwl.h
 
 echo $${POWHEGSRC} > VERSION

@@ -17,8 +17,8 @@ TESTING = 0
 QUEUE = ''
 
 
-#POWHEG_SOURCE = "powhegboxV2_rev3728_date20200429.tar.gz"
-POWHEG_SOURCE = "powhegboxV2_rev3828_date20210215.tar.gz"
+#POWHEG_SOURCE = "powhegboxV2_rev3828_date20210215.tar.gz"
+POWHEG_SOURCE = "powhegboxV2_rev3987_date20220622.tar.gz"
 POWHEGRES_SOURCE = "powhegboxRES_rev3748_date20200615.tar.gz"
 
 rootfolder = os.getcwd()
