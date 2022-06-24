@@ -146,7 +146,7 @@ else
     if [[ $SYSTEM_RELEASE == *"release 6"* ]]; then 
         CMSSW_VERSION=CMSSW_10_2_28 
     elif [[ $SYSTEM_RELEASE == *"release 7"* ]]; then 
-        CMSSW_VERSION=CMSSW_10_2_4_patch1 
+        CMSSW_VERSION=CMSSW_12_2_4_patch1 
     else 
         echo "No default CMSSW for current OS"
         exit 1        
