@@ -54,9 +54,9 @@ create_setup () {
         cp -rp ${POWHEGGENPRODDIR}/${TOCOPY} ${WORKDIR}/.
     done
     #temporary fix for early run 3 production 
-    echo "Note that we are taking PDF from https://www.desy.de/~agrohsje/make_rwl.dat. Please remove the following line if you are using this script for your gridpacks to have default PDFs"
-    wget https://www.desy.de/~agrohsje/make_rwl.dat 
-    mv make_rwl.dat ${WORKDIR}/.
+    echo "Note that we are taking PDF from https://www.desy.de/~agrohsje/make_rwl.py. Please remove the following line if you are using this script for your gridpacks to have default PDFs"
+    wget https://www.desy.de/~agrohsje/make_rwl.py 
+    mv make_rwl.py ${WORKDIR}/.
  }
 
 compile_process(){
