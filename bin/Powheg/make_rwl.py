@@ -163,12 +163,9 @@ else:
   
 pdf_count = 0
 for key, pdfsets in sorted(pdf_sets.items()):
-  print (" agrohsje key is " , key ) 
   weightgroup_name = key.replace(" ", "").split(',')[0]
   combine = key.replace(" ", "").split(',')[1]
-  print (" agrohsje combine is " , combine  ) 
   print('weightgroup_name',weightgroup_name,'combine',combine)
-  print (" agrohsje weight group name " , weightgroup_name ) 
   fout.write("<weightgroup name='"+weightgroup_name+"' combine='"+combine+"' >\n")
   for pdf in pdfsets:
     print('pdf',pdf)
