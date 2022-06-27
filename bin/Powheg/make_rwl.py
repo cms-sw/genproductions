@@ -119,7 +119,7 @@ elif int(is5FlavorScheme) == 1:
   # 5F PDF
   pdf_sets = {
             # weight id, LHAPDF id, name, replicas to be written
-            "PDF_variations" :
+            "PDF_variation1 , hessian" :
             [
               [1500, 325300, 'NNPDF31_nnlo_as_0118_mc_hessian_pdfas', 103],
               [2000, 306000, 'NNPDF31_nnlo_hessian_pdfas', 103],
@@ -147,7 +147,7 @@ else:
   # 4F PDF    
   pdf_sets = {
             # weight id, LHAPDF id, name, replicas to be written
-            "PDF_variations" :
+            "PDF_variation1 , hessian" :
             [
               [1500, 325500, 'NNPDF31_nnlo_as_0118_nf_4_mc_hessian', 101],
               [2000, 320900, 'NNPDF31_nnlo_as_0118_nf_4', 101],
@@ -163,9 +163,12 @@ else:
   
 pdf_count = 0
 for key, pdfsets in sorted(pdf_sets.items()):
+  print (" agrohsje key is " , key ) 
   weightgroup_name = key.replace(" ", "").split(',')[0]
   combine = key.replace(" ", "").split(',')[1]
+  print (" agrohsje combine is " , combine  ) 
   print('weightgroup_name',weightgroup_name,'combine',combine)
+  print (" agrohsje weight group name " , weightgroup_name ) 
   fout.write("<weightgroup name='"+weightgroup_name+"' combine='"+combine+"' >\n")
   for pdf in pdfsets:
     print('pdf',pdf)
