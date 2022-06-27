@@ -53,10 +53,6 @@ create_setup () {
         runcmsgrid_powheg.sh runcmsgrid_powhegjhugen.sh run_nnlops.sh ; do 
         cp -rp ${POWHEGGENPRODDIR}/${TOCOPY} ${WORKDIR}/.
     done
-    #temporary fix for early run 3 production 
-    echo "Note that we are taking PDF from https://www.desy.de/~agrohsje/make_rwl.py. Please remove the following line if you are using this script for your gridpacks to have default PDFs"
-    wget https://www.desy.de/~agrohsje/make_rwl.py 
-    mv make_rwl.py ${WORKDIR}/.
  }
 
 compile_process(){
@@ -160,7 +156,6 @@ create_setup
 # agrohsje 
 # due to a bug in current (23/06/22) Powheg setup (missing files when tarball done separately), running in one go 
 # compile process  
-# compile_process 
 
 #run sampling 
 #for STEP in 1 2 3 ; do 
