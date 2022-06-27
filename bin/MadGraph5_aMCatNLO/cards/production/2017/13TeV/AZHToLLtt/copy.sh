@@ -7,7 +7,8 @@ js=(600 2000 350 400 1000 1400 1000 1600 350 350 850 1600 370 370 370 400 400 40
 for idx in "${!is[@]}"; do
    mA=${is[$idx]}
    mH=${js[$idx]}
-
+   ks=0.03
+   echo $wA
     echo "Copying mass (mA,mH)" # ($mA,$mH)
     newdir="$default"_mA"$mA"_mH"$mH"
     mkdir $newdir
@@ -21,6 +22,8 @@ for idx in "${!is[@]}"; do
     # Modify mass parameter
     sed -i 's/AMASS/'$mA'.0/g' $newdir/"$default"_mA"$mA"_mH"$mH"_customizecards.dat
     sed -i 's/HMASS/'$mH'.0/g' $newdir/"$default"_mA"$mA"_mH"$mH"_customizecards.dat
+    sed -i 's/HWIDTH/'$(bc <<< "$ks * $mH")'/g' $newdir/"$default"_mA"$mA"_mH"$mH"_customizecards.dat
+    sed -i 's/AWIDTH/'$(bc <<< "$ks * $mA")'/g' $newdir/"$default"_mA"$mA"_mH"$mH"_customizecards.dat
 done
 
 
