@@ -15,4 +15,4 @@ add process p p > x x~, (x > t w+, (t > w+ b , w+ > had had ), (w+ > had had) ),
 add process p p > x x~, (x > t w+, (t > w+ b , w+ > had had ), (w+ > had had) ), (x~ > t~ w-, (t~ > w- b~ , w- > had had) , (w- > l- vl~) )
 add process p p > x x~, (x > t w+, (t > w+ b , w+ > l+  vl ), (w+ > l+ vl) ), (x~ > t~ w-, (t~ > w- b~ , w- > had had) , (w- > had had) )
 add process p p > x x~, (x > t w+, (t > w+ b , w+ > had had ), (w+ > had had) ), (x~ > t~ w-, (t~ > w- b~ , w- > l- vl~) , (w- > l- vl~) )
-output PairVLQ_x53x53_tWtW_narrow_RH_M1000
+output PairVLQ_x53x53_tWtW_narrow_RH_RH_M1000
