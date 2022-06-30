@@ -18,14 +18,14 @@ void writeCards(double m_bstar, std::string coupling, std::string path) {
   float l, r;
   if (coupling=="LH")
     {
-      l = 1.;
+      l = 0.3;
       r = 0;
 
     }
   else
     {
       l = 0;
-      r = 1.;
+      r = 0.3;
     }
 
   ofstream f;
