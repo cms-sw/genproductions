@@ -18,23 +18,23 @@ void writeCards(double m_bstar, std::string coupling, std::string path) {
   float l, r;
   if (coupling=="LH")
     {
-      l = 0.3;
+      l = 0.1;
       r = 0;
 
     }
   else
     {
       l = 0;
-      r = 0.3;
+      r = 0.1;
     }
 
   ofstream f;
   f.open(filename);
-  f << "set param_card kxl1 0 " << std::endl;
-  f << "set param_card kxl2 0 " << std::endl;
+  f << "set param_card kxl1 " << l << std::endl;
+  f << "set param_card kxl2 " << l << std::endl;
   f << "set param_card kxl3 " << l << std::endl;
-  f << "set param_card kxr1 0 "  << std::endl;
-  f << "set param_card kxr2 0 " << std::endl;
+  f << "set param_card kxr1 " << r << std::endl;
+  f << "set param_card kxr2 " << r << std::endl;
   f << "set param_card kxr3 " << r << std::endl;
   f << "set param_card mass 6000005 " << stream.str() << std::endl;
   f << "set param_card decay 6000005 auto" << std::endl;

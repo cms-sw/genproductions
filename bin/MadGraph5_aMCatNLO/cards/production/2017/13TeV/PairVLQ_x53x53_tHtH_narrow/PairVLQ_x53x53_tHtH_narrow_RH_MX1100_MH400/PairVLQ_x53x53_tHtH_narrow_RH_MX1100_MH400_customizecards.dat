@@ -1,8 +1,8 @@
 set param_card KXSPuL 1 0 
 set param_card KXSPuL 2 0 
 set param_card KXSPuL 3 0
-set param_card KXSPuR 1 0 
-set param_card KXSPuR 2 0 
+set param_card KXSPuR 1 1 
+set param_card KXSPuR 2 1 
 set param_card KXSPuR 3 1
 set param_card KSPEN 1 0 
 set param_card KSPEN 2 0 
