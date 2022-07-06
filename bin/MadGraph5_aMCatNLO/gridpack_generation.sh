@@ -253,8 +253,14 @@ make_gridpack () {
         do
           #get needed BSM model
           if [[ $model = *[!\ ]* ]]; then
-            echo "Loading extra model $model"
-            wget --no-check-certificate https://cms-project-generators.web.cern.ch/cms-project-generators/$model	
+            if [[ $model == "/"* ]]; then
+              echo "Loading extra model from (assumed) local path $model. Please eventually put it in https://twiki.cern.ch/twiki/bin/view/CMS/GeneratorWebRepo"
+              cp $model $(basename $model)
+              model=$(basename $model)
+            else
+              echo "Loading extra model $model from cms-project-generators.web.cern.ch"
+              wget --no-check-certificate https://cms-project-generators.web.cern.ch/cms-project-generators/$model
+            fi
             cd models
             if [[ $model == *".zip"* ]]; then
               unzip ../$model
