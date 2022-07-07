@@ -134,4 +134,4 @@ MGcosa 0d0   	  ! cosine of alpha; alpha parametrises the CP nature
 #rwl_group_events 2000
 #lhapdf6maxsets 50
 #rwl_file 'pwg-rwl.dat'
-#rwl_format_rwgt 1
+#rwl_format_rwgt 1 
