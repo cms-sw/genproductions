@@ -31,7 +31,7 @@ bwcutoff 15       ! Mass window is hmass +- bwcutoff*hwidth
                   ! factorization and renormalization scale;
                   ! if 1 use the Ht scale
 
-# fullphsp 1         ! use ISR/FSR phase space parametrization, default 0
+# fullphsp 1         ! use ISR/FSR phase space parametrization, default 0 
 
 ncall1 15000   ! number of calls for initializing the integration grid
 itmx1    1     ! number of iterations for initializing the integration grid
