@@ -5,4 +5,4 @@ set gauge unitary
 set complex_mass_scheme False
 import model NMSSMHET_UFO --modelname
 generate g g > h03, (h03 > h01 h02, (h02 > h01 h01) )
-output NMSSM_XYH_YToHH_6b_MX_1200_MY_500 -nojpeg
+output NMSSM_XYH_YToHH_MX_1200_MY_500 -nojpeg
