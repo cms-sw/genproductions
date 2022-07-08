@@ -36,11 +36,11 @@ void writeCards( double m_bstar, double m_h, std::string coupling, std::string p
   ofstream f;
   f.open(filename);
 
-  f << "set param_card KXSPuL 1 " << l << std::endl;
-  f << "set param_card KXSPuL 2 " << l << std::endl;
+  f << "set param_card KXSPuL 1 0 " << std::endl;
+  f << "set param_card KXSPuL 2 0 " << std::endl;
   f << "set param_card KXSPuL 3 " << l << std::endl;
-  f << "set param_card KXSPuR 1 " << r << std::endl;
-  f << "set param_card KXSPuR 2 " << r << std::endl;
+  f << "set param_card KXSPuR 1 0 " << std::endl;
+  f << "set param_card KXSPuR 2 0 " << std::endl;
   f << "set param_card KXSPuR 3 " << r << std::endl;
   f << "set param_card KSPEN 1 0 " << std::endl;
   f << "set param_card KSPEN 2 0 " << std::endl; 

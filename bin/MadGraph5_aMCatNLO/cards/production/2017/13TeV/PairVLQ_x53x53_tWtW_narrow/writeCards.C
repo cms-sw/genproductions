@@ -30,11 +30,11 @@ void writeCards(double m_bstar, std::string coupling, std::string path) {
 
   ofstream f;
   f.open(filename);
-  f << "set param_card kxl1 " << l << std::endl;
-  f << "set param_card kxl2 " << l << std::endl;
+  f << "set param_card kxl1 0 " << std::endl;
+  f << "set param_card kxl2 0 " << std::endl;
   f << "set param_card kxl3 " << l << std::endl;
-  f << "set param_card kxr1 " << r << std::endl;
-  f << "set param_card kxr2 " << r << std::endl;
+  f << "set param_card kxr1 0 " << std::endl;
+  f << "set param_card kxr2 0 " << std::endl;
   f << "set param_card kxr3 " << r << std::endl;
   f << "set param_card mass 6000005 " << stream.str() << std::endl;
   f << "set param_card decay 6000005 auto" << std::endl;
