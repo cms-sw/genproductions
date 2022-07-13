@@ -1,6 +1,6 @@
 --- a/madgraph/interface/loop_interface.py	2019-07-06 03:19:30.000000002 +0200
 +++ b/madgraph/interface/loop_interface.py	2019-07-06 03:22:46.000000002 +0200
-@@ -501,7 +501,7 @@
+@@ -502,7 +502,7 @@
          opt = self.options
                  
          # Check if first time:
