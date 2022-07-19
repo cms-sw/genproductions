@@ -560,6 +560,7 @@ for num in range(0,len(prepid)):
         concornot = 0 
         pf = []
         ppd = 0
+        store_rwgt_info_exception = 0 
         if "ppd" in pi.lower(): ppd = 1
         req_type = "dummy"
         if "gen" in pi.lower(): req_type = "genonly"
@@ -1048,10 +1049,10 @@ for num in range(0,len(prepid)):
                     w_temp, e_temp = ul_consistency(dn,pi,jhu_gp)
                     warning += w_temp
                     error += e_temp
-                if "fall18" not in pi.lower() and not (any(word in dn for word in tunename) or "sherpa" in dn.lower() or ("herwigpp" in dn.lower() and ("eec5" in dn.lower() or "ee5c" in dn.lower()))):
+                if "fall18" not in pi.lower() and "fall17" not in pi.lower() and "winter15" not in pi.lower() and not (any(word in dn for word in tunename) or "sherpa" in dn.lower() or ("herwigpp" in dn.lower() and ("eec5" in dn.lower() or "ee5c" in dn.lower()))):
                     print("[ERROR] Dataset name does not have the tune name: "+dn)
                     error += 1
-                if "fall18" not in pi.lower() and not any(word in dn.lower() for word in psname):
+                if "fall18" not in pi.lower() and "fall17" not in pi.lower() and "winter15" not in pi.lower() and not any(word in dn.lower() for word in psname):
                     print("[ERROR] Dataset name does not contain a parton shower code name: "+dn)
                     error += 1
                 if not any(word in dn.lower() for word in MEname):
@@ -1088,6 +1089,18 @@ for num in range(0,len(prepid)):
                     dir_path = os.path.join(my_path,pi,"InputCards")
                     if os.path.isdir(dir_path):
                         input_cards_customize_card = find_file(dir_path,"customizecards.dat")
+                        input_patch = find_file(dir_path,"patch")
+                        if input_patch:
+                            print("Checking running Yukawa coupling:")
+                            print("input patch file: "+input_patch)
+                            with open(input_patch, 'r+') as f_patch:
+                                for line in f_patch.readlines():
+                                    if "runfac" in line and "integer,parameter" in line:
+                                        store_rwgt_info_exception = line.split("::")[1].split("=")[1]   
+                                        store_rwgt_info_exception = re.sub(r'(?m)^ *#.*\n?', '',store_rwgt_info_exception)
+                                        store_rwgt_info_exception = int(store_rwgt_info_exception)
+                                        if store_rwgt_info_exception:
+                                            print("store_rwgt_info_exception="+str(store_rwgt_info_exception)+"--> See https://cms-talk.web.cern.ch/t/validate-requests-with-store-rwgt-info-false-in-gridpacks/12417\n")
                         if input_cards_customize_card:
                             c_w_line = []
                             s_line = []
@@ -1470,9 +1483,12 @@ for num in range(0,len(prepid)):
                             if mg_nlo > 0: print("The MG5_aMC ME is running at NLO")
                             if mg_nlo > 0 and mg5_aMC_version >= 260:
                                 if os.path.isfile(filename_mggpc) is True : store_rwgt_info = os.popen('more '+filename_mggpc+' | tr -s \' \' | grep "store_rwgt_info"').read()
+                                print("store_rwgt_info_exception ="+str(store_rwgt_info_exception))
                                 if len(store_rwgt_info) != 0:
                                     store_rwgt_info_a = store_rwgt_info.split('=')
-                                    if "false" in store_rwgt_info_a[0].lower():
+                                    if store_rwgt_info_exception == 1:
+                                        print("Running Yukawa coupling: Skipping store_rwgt_info check")
+                                    elif "false" in store_rwgt_info_a[0].lower():
                                         print("[ERROR] store_rwgt_info set to"+ str(store_rwgt_info_a[0]) +" for MG5_aMC >= 260.")
                                         print("        This is needed to evaluate systematics. See eg. https://hypernews.cern.ch/HyperNews/CMS/get/generators/4513/1/1/1/1/1/2.html")
                                         error += 1

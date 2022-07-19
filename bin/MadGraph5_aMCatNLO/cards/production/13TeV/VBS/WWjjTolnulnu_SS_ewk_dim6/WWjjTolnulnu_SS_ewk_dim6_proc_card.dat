@@ -1,0 +1,10 @@
+import model SMEFTsim_U35_MwScheme_UFO-cW_cHWB_cHDD_cHbox_cHW_cHl1_cHl3_cHq1_cHq3_cqq1_cqq11_cqq31_cqq3_cll_cll1_massless
+define p = g u c d s b u~ c~ d~ s~ b~
+define j = p
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+generate p p > l+ vl l+ vl j j SMHLOOP=0 QCD=0 NP=1
+add process p p > l- vl~ l- vl~ j j SMHLOOP=0 QCD=0 NP=1 
+output WWjjTolnulnu_SS_ewk_dim6

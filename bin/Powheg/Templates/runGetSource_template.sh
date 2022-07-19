@@ -96,6 +96,7 @@ patch -l -p0 -i ${patches_dir}/pwhg_lhepdf.patch
 
 $patch_1 
 
+
 sed -i -e "s#500#1350#g"  POWHEG-BOX/include/pwhg_rwl.h
 
 echo $${POWHEGSRC} > VERSION

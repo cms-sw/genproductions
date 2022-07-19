@@ -32,15 +32,18 @@ create_setup () {
         PROCESS=`cat ${CARDDIR}/process.dat`
     fi
 
-    WORKDIR=${POWHEGGENPRODDIR}/${CMSSW_VERSION}/work 
-    if [ ! -d ${WORKDIR} ]; then
-        #directory doesn't exist, create working directory and set up environment
-        export VO_CMS_SW_DIR=/cvmfs/cms.cern.ch
-        source ${VO_CMS_SW_DIR}/cmsset_default.sh
-        cd ${POWHEGGENPRODDIR}
-        scram project -n ${CMSSW_VERSION} CMSSW ${CMSSW_VERSION} 
+    WORKDIR=${POWHEGGENPRODDIR}/${DATASETNAME}/${CMSSW_VERSION}/work 
+    if [ -d ${POWHEGGENPRODDIR}/${DATASETNAME} ]; then 
+        rm -rf ${POWHEGGENPRODDIR}/${DATASETNAME}/*
+    else
+        mkdir -p ${POWHEGGENPRODDIR}/${DATASETNAME} 
     fi
-    cd ${POWHEGGENPRODDIR}/${CMSSW_VERSION} ; mkdir -p work ; cd work
+    cd ${POWHEGGENPRODDIR}/${DATASETNAME}
+    #set up environment and working directory 
+    export VO_CMS_SW_DIR=/cvmfs/cms.cern.ch
+    source ${VO_CMS_SW_DIR}/cmsset_default.sh
+    scram project -n ${CMSSW_VERSION} CMSSW ${CMSSW_VERSION} 
+    cd ${POWHEGGENPRODDIR}/${DATASETNAME}/${CMSSW_VERSION} ; mkdir -p work ; cd work
     WORKDIR=`pwd -P`
     eval `scram runtime -sh`
 
@@ -50,30 +53,35 @@ create_setup () {
         runcmsgrid_powheg.sh runcmsgrid_powhegjhugen.sh run_nnlops.sh ; do 
         cp -rp ${POWHEGGENPRODDIR}/${TOCOPY} ${WORKDIR}/.
     done
-}
+ }
 
 compile_process(){
     cd ${WORKDIR}
     # compile the powheg process 
-    python ./run_pwg_condor.py -d 1 -p 0 -i ${CARDDIR}/powheg.input -m ${PROCESS} -f ${DATASETNAME} 
+    python ./run_pwg_condor.py -d 1 -p 0 -i ${POWHEGGENPRODDIR}/${CARDDIR}/powheg.input -m ${PROCESS} -f ${DATASETNAME} 
 }
 
 produce_grids(){
     cd ${WORKDIR}
-    # check that all inputs are available and correct 
-    if [ -f ${DATASETNAME}/pwgevents.lhe ] ; then
-        echo "Remove pwgevents.lhe from previous run"
-        rm -rf ${DATASETNAME}/pwgevents.lhe    
-    fi
     # run sampling in one step 
-    python ./run_pwg_condor.py -d 1 -p 123 -i ${CARDDIR}/powheg.input -m ${PROCESS} -f ${DATASETNAME}
-#    python ./run_pwg_condor.py -d 1 -p ${STEP} -i ${CARDDIR}/powheg.input -m ${PROCESS} -f ${DATASETNAME}
+    #python ./run_pwg_condor.py -d 1 -p 123 -i ${POWHEGGENPRODDIR}/${CARDDIR}/powheg.input -m ${PROCESS} -f ${DATASETNAME} 
+    #python ./run_pwg_condor.py -d 1 -p ${STEP} -i ${POWHEGGENPRODDIR}/${CARDDIR}/powheg.input -m ${PROCESS} -f ${DATASETNAME}
+    python ./run_pwg_condor.py -d 1 -p 01239 -i ${POWHEGGENPRODDIR}/${CARDDIR}/powheg.input -m ${PROCESS} -f ${DATASETNAME} -k1 
+
 }
 
 make_tarball(){
     cd ${WORKDIR}
-    python ./run_pwg_condor.py -d 1 -p 9 -i ${CARDDIR}/powheg.input -m ${PROCESS} -f ${DATASETNAME} -k1
+    python ./run_pwg_condor.py -d 1 -p 9 -i ${POWHEGGENPRODDIR}/${CARDDIR}/powheg.input -m ${PROCESS} -f ${DATASETNAME} -k 1
 }
+
+# set up internal pathes and variables 
+POWHEGGENPRODDIR=`pwd -P` 
+# make sure that this is the path from which gridpack_generation.sh is executed 
+if [ ! -f ${POWHEGGENPRODDIR}/gridpack_generation.sh ] ; then 
+    echo "Cannot locate gridpack_generation.sh in current path"
+    exit 1 
+fi 
 
 # read in external settings and assign proper default 
 # dataset name 
@@ -119,7 +127,7 @@ else
     if [[ $SYSTEM_RELEASE == *"release 6"* ]]; then 
         SCRAM_ARCH=slc6_amd64_gcc700 
     elif [[ $SYSTEM_RELEASE == *"release 7"* ]]; then 
-        SCRAM_ARCH=slc7_amd64_gcc700 
+        SCRAM_ARCH=slc7_amd64_gcc900 
     else 
         echo "No default scram_arch for current OS"
         exit 1        
@@ -134,7 +142,7 @@ else
     if [[ $SYSTEM_RELEASE == *"release 6"* ]]; then 
         CMSSW_VERSION=CMSSW_10_2_28 
     elif [[ $SYSTEM_RELEASE == *"release 7"* ]]; then 
-        CMSSW_VERSION=CMSSW_10_6_30 
+        CMSSW_VERSION=CMSSW_12_2_4_patch1 
     else 
         echo "No default CMSSW for current OS"
         exit 1        
@@ -142,19 +150,12 @@ else
 fi
 export CMSSW_VERSION=${CMSSW_VERSION}
 
-# set up internal pathes and variables 
-POWHEGGENPRODDIR=`pwd -P` 
-# make sure that this is the path from which gridpack_generation.sh is executed 
-if [ ! -f ${POWHEGGENPRODDIR}/gridpack_generation.sh ] ; then 
-    echo "Cannot locate gridpack_generation.sh in current path"
-    exit 1 
-fi 
-
 # create gridpack in split steps 
 create_setup
 
 # agrohsje 
-compile_process 
+# due to a bug in current (23/06/22) Powheg setup (missing files when tarball done separately), running in one go 
+# compile process  
 
 #run sampling 
 #for STEP in 1 2 3 ; do 
@@ -162,10 +163,10 @@ produce_grids
 #done 
 
 #create final tarball 
-make_tarball 
+#make_tarball 
 
-#copy tarball to main path                                                                                                                                                                                         
-mv ${POWHEGGENPRODDIR}/${CMSSW_VERSION}/work/${PROCESS}_${SCRAM_ARCH}_${CMSSW_VERSION}_*.tgz ${POWHEGGENPRODDIR}/.
+#copy tarball to main path
+mv ${WORKDIR}/${PROCESS}_${SCRAM_ARCH}_${CMSSW_VERSION}_*.tgz ${POWHEGGENPRODDIR}/.
 
 exit 0 
 

@@ -1,0 +1,8 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set loop_optimized_output True
+set complex_mass_scheme False
+import model VLQ_v4_4FNS_UFO
+define ww = w+ w-
+generate p p > tp tp~ / h a z ww [QCD]
+output PairVLQ_t23t23_Incl_NLO_narrow_M1000 

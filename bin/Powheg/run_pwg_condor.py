@@ -18,8 +18,9 @@ QUEUE = ''
 
 
 #POWHEG_SOURCE = "powhegboxV2_rev3728_date20200429.tar.gz"
-POWHEG_SOURCE = "powhegboxV2_rev3828_date20210215.tar.gz"
+POWHEG_SOURCE = "powhegboxV2_rev3987_date20220622.tar.gz"
 POWHEGRES_SOURCE = "powhegboxRES_rev3970_date20220324.tar.gz"
+
 
 rootfolder = os.getcwd()
 
@@ -496,6 +497,10 @@ if __name__ == "__main__":
 
     res = os.path.exists(rootfolder+'/'+args.folderName)
 
+    ### agrohsje still need an old version for ST_tch_4f; informed ER, PN end 2021 but no fix provided yet, pinged again (today: 27.6.2022)
+    if args.prcName == "ST_tch_4f":
+        POWHEG_SOURCE="powhegboxV2_rev3624_date20190117.tar.gz" 
+        
     if args.parstage == '1' and args.xgrid == '1' and (not res) :
         print 'Creating working folder ' + args.folderName + '...'
         # Assuming the generator binaries are in the current folder.

@@ -380,7 +380,8 @@ sed -i -e 's#FFLAGS = #FFLAGS = -std=legacy #g' makefile\n \
 sed -i -e 's#FFLAGS        = #FFLAGS        = -std=legacy #g' ff/makefile\n \
 sed -i -e 's#FFLAGS  = #FFLAGS  = -std=legacy #g' ql/makefile\n \
 make\n \
-cd ..",
+cd ..\n \
+sed -i -e 's#QCDLoop-1.98#QCDLoop-1.9#g' Makefile",
 
     "ST_wtch_DS" : "echo \"D/L QCDLoop-1.9 library\"\n \
 if [ ! -f FeynHiggs-2.10.2.tar.gz ]; then\n \
