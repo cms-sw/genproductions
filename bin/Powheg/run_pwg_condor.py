@@ -292,10 +292,6 @@ def runGetSource(parstage, xgrid, folderName, powInputName, process, noPdfCheck,
     template_dict["isFiveFlavor"] = int(process not in fourFlavorProcesses)
     template_dict["defaultPDF"] = 325300 if template_dict["isFiveFlavor"] else 325500
 
-    #if process in 'X0jj':
-    #    template_dict["forX0jj"] = 1
-    #else:
-    #    template_dict["forX0jj"] = 0
 
     powhegResProcesses = ["b_bbar_4l", "HWJ_ew", "HW_ew", "HZJ_ew", "HZ_ew", "vbs-ssww-nloew"]
     if process in powhegResProcesses:
