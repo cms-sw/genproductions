@@ -34,7 +34,8 @@ fi
 
 forMiNNLO=0
 grep -q "^minnlo\\s*1" powheg.input; test $$? -eq 1 || forMiNNLO=1
-forX0jj=$forX0jj
+forX0jj=0
+grep -q "MGcosa" powheg.input; test $$? -eq 1 || forX0jj=1
 
 cd $$WORKDIR
 cd $${name}

@@ -19,8 +19,9 @@ Example of usage for 4F:  python make_rwl.py 0 325500
 is5FlavorScheme = str(sys.argv[1])
 CentralPDF = str(sys.argv[2])
 forMiNNLO = bool(int(sys.argv[3])) if len(sys.argv) > 3 else False
-process = str(sys.argv[4]) if len(sys.argv) > 4 else ''
-forX0jj = bool(int(sys.argv[5])) if len(sys.argv) > 5 else False
+forX0jj = bool(int(sys.argv[4])) if len(sys.argv) > 4 else False
+process = str(sys.argv[5]) if len(sys.argv) > 5 else ''
+
 
 if forMiNNLO:
   CentralPDF=306000
