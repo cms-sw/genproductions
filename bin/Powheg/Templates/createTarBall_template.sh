@@ -70,10 +70,12 @@ fi
 sed -i 's/pwggrid.dat ]]/pwggrid.dat ]] || [ -e $${WORKDIR}\/pwggrid-0001.dat ]/g' runcmsgrid.sh
 
 if [ "$$process" = "WWJ" ]; then
-   cp -p $${WORKDIR}/$$folderName/POWHEG-BOX/$$process/testrun-nnlops/binvalues-WW.top .
-   cp -r $${WORKDIR}/$$folderName/POWHEG-BOX/$$process/testrun-nnlops/WW_MATRIX .
-   cp -r $${WORKDIR}/$$folderName/POWHEG-BOX/$$process/testrun-nnlops/WW_MINLO .
-   keepTop='1'
+   cp -pr $${WORKDIR}/$${folderName}/POWHEG-BOX/WWJ/TWOLOOP_GRIDS_reg1 .
+   cp -pr $${WORKDIR}/$${folderName}/POWHEG-BOX/WWJ/TWOLOOP_GRIDS_reg2 .
+   cp -pr $${WORKDIR}/$${folderName}/POWHEG-BOX/WWJ/TWOLOOP_GRIDS_reg3 .
+   cp -pr $${WORKDIR}/$${folderName}/POWHEG-BOX/WWJ/TWOLOOP_GRIDS_reg4 .
+   #force keep top = 0 in this case 
+   keepTop='0'
 fi  
 
 sed -i s/SCRAM_ARCH_VERSION_REPLACE/$${SCRAM_ARCH}/g runcmsgrid.sh
@@ -122,8 +124,14 @@ if [ $$keepTop == '1' ]; then
     echo 'Packing...' $${WORKDIR}'/'$${process}'_'$${SCRAM_ARCH}'_'$${CMSSW_VERSION}'_'$${folderName}'.tgz'
     tar zcf $${WORKDIR}'/'$${process}'_'$${SCRAM_ARCH}'_'$${CMSSW_VERSION}'_'$${folderName}'.tgz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.lhe --exclude=run_*.sh --exclude=*temp --exclude=pwgbtlupb-*.dat --exclude=pwgrmupb-*.dat --exclude=run_*.out --exclude=run_*.err --exclude=run_*.log --exclude=minlo-run --exclude=dynnlo*
 else
+  if [ $$process == 'WWJ']; then
+    echo 'Preparing WWJ gridpack'
+    echo 'Packing...' $${WORKDIR}'/'$${process}'_'$${SCRAM_ARCH}'_'$${CMSSW_VERSION}'_'$${folderName}'.tar.xz'
+    tar -cJpsf $${WORKDIR}'/'$${process}'_'$${SCRAM_ARCH}'_'$${CMSSW_VERSION}'_'$${folderName}'.tar.xz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.top --exclude=*.lhe --exclude=run_*.sh --exclude=*temp --exclude=pwgbtlupb-*.dat --exclude=pwgrmupb-*.dat --exclude=run_*.out --exclude=run_*.err --exclude=run_*.log --exclude=minlo-run --exclude=dynnlo*
+  else
     echo 'Packing...' $${WORKDIR}'/'$${process}'_'$${SCRAM_ARCH}'_'$${CMSSW_VERSION}'_'$${folderName}'.tgz'
     tar zcf $${WORKDIR}'/'$${process}'_'$${SCRAM_ARCH}'_'$${CMSSW_VERSION}'_'$${folderName}'.tgz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.top --exclude=*.lhe --exclude=run_*.sh --exclude=*temp --exclude=pwgbtlupb-*.dat --exclude=pwgrmupb-*.dat --exclude=run_*.out --exclude=run_*.err --exclude=run_*.log --exclude=minlo-run --exclude=dynnlo*
+  fi
 fi
 
 cd $${WORKDIR}
