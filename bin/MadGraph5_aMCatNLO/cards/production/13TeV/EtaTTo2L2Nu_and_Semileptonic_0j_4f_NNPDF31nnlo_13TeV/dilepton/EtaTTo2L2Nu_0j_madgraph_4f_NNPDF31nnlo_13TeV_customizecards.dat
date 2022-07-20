@@ -1,0 +1,6 @@
+set param_card MASS 6 172.5
+set param_card YUKAWA 6 172.5
+set param_card MASS 9000005 343.0
+set param_card DECAY 9000005 7.0
+set param_card ETA 1 0.1
+set param_card ETA 2 0.00001

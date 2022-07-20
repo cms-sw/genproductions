@@ -18,8 +18,9 @@ QUEUE = ''
 
 
 #POWHEG_SOURCE = "powhegboxV2_rev3728_date20200429.tar.gz"
-POWHEG_SOURCE = "powhegboxV2_rev3828_date20210215.tar.gz"
-POWHEGRES_SOURCE = "powhegboxRES_rev3748_date20200615.tar.gz"
+POWHEG_SOURCE = "powhegboxV2_rev3987_date20220622.tar.gz"
+POWHEGRES_SOURCE = "powhegboxRES_rev3970_date20220324.tar.gz"
+
 
 rootfolder = os.getcwd()
 
@@ -169,6 +170,12 @@ def runParallelXgrid(parstage, xgrid, folderName, nEvents, njobs, powInputName, 
         filename = folderName+'/run_' + jobID + '.sh'
         f = open(filename, 'a')
         #f.write('cd '+rootfolder+'/'+folderName+'/ \n')
+        if process == 'WWJ' :
+          f.write('echo \"Copy TwoLoops grids\"\n')
+          f.write('ls\n') 
+          f.write('wget https://wwwth.mpp.mpg.de/members/wieseman/download/codes/WW_MiNNLO/VVamp_interpolation_grids/WW_MiNNLO_2loop_grids_reduced1.tar.gz\n')
+          f.write('tar xzf WW_MiNNLO_2loop_grids_reduced1.tar.gz\n')
+          f.write('ls\n') 
         f.write('cp -p ' + rootfolder + '/' + folderName + '/powheg.input.'+parstage+'_'+str(xgrid) + ' ./powheg.input' + '\n') # copy input file for this stage explicitly, needed by condor dag
         f.write('echo ' + str(i+1) + ' | ./pwhg_main \n')
         f.write('echo "Workdir after run:" \n')
@@ -292,8 +299,7 @@ def runGetSource(parstage, xgrid, folderName, powInputName, process, noPdfCheck,
     template_dict["isFiveFlavor"] = int(process not in fourFlavorProcesses)
     template_dict["defaultPDF"] = 325300 if template_dict["isFiveFlavor"] else 325500
 
-
-    powhegResProcesses = ["b_bbar_4l", "HWJ_ew", "HW_ew", "HZJ_ew", "HZ_ew", "vbs-ssww-nloew"]
+    powhegResProcesses = ["b_bbar_4l", "HWJ_ew", "HW_ew", "HZJ_ew", "HZ_ew", "vbs-ssww-nloew", "WWJ"]
     if process in powhegResProcesses:
         template_dict["powhegSrc"] = POWHEGRES_SOURCE
         template_dict["svnRepo"] = "svn://powhegbox.mib.infn.it/trunk/POWHEG-BOX-RES"
@@ -350,6 +356,12 @@ def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag, proc
         filename = folderName+'/run_' + tag + '.sh'
         f = open (filename, 'a')
         #f.write('cd '+rootfolder+'/'+folderName+'/ \n')
+        if process == 'WWJ' :
+          f.write('echo \"Copy TwoLoops grids\"\n')
+          f.write('ls\n') 
+          f.write('wget https://wwwth.mpp.mpg.de/members/wieseman/download/codes/WW_MiNNLO/VVamp_interpolation_grids/WW_MiNNLO_2loop_grids_reduced1.tar.gz\n')
+          f.write('tar xzf WW_MiNNLO_2loop_grids_reduced1.tar.gz\n')
+          f.write('ls\n')
         f.write('cp -p ' + rootfolder + '/' + folderName + '/powheg.input.' + parstage + ' ./powheg.input' + '\n') # copy input file for this stage explicitly, needed by condor dag
         f.write('echo ' + str (i) + ' | ./pwhg_main \n')
         f.write('echo "Workdir after run:" \n')
@@ -484,6 +496,10 @@ if __name__ == "__main__":
 
     res = os.path.exists(rootfolder+'/'+args.folderName)
 
+    ### agrohsje still need an old version for ST_tch_4f; informed ER, PN end 2021 but no fix provided yet, pinged again (today: 27.6.2022)
+    if args.prcName == "ST_tch_4f":
+        POWHEG_SOURCE="powhegboxV2_rev3624_date20190117.tar.gz" 
+        
     if args.parstage == '1' and args.xgrid == '1' and (not res) :
         print 'Creating working folder ' + args.folderName + '...'
         # Assuming the generator binaries are in the current folder.
