@@ -8,4 +8,5 @@ set param_card mass 37 AMASS
 set param_card width 35 HWIDTH 
 set param_card width 36 AWIDTH 
 set param_card width 37 AWIDTH 
-
+set param_card higgs 1 lambda2
+set param_card higgs 2 lambda3 
