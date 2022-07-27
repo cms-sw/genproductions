@@ -1,0 +1,10 @@
+import model sm-no_b_mass
+#switch to diagonal ckm matrix if relevant for speed
+#import model sm-lepton_masses
+
+define ell+ = e+ mu+ ta+
+define ell- = e- mu- ta-
+
+generate p p > z{T} z{T}, z > ell+ ell-
+
+output ZTZT_LO -nojpeg
