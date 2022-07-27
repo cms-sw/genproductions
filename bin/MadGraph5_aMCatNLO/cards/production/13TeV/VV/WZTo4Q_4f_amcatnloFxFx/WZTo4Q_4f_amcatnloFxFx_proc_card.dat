@@ -7,7 +7,7 @@ define vl~ = ve~ vm~ vt~
 
 generate p p > w+ z [QCD] @0
 add process p p > w+ z j [QCD] @1
-generate p p > w- z [QCD] @2
+add process p p > w- z [QCD] @2
 add process p p > w- z j [QCD] @3
 
 output WZTo4Q_4f_amcatnloFxFx -nojpeg
