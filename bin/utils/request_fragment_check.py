@@ -326,7 +326,7 @@ def evtgen_check(fragment):
             print("[ERROR] EvtGenInterface not definied within the fragment")
             err = 1
         if "convertPythiaCodes=cms.untracked.bool(False)" not in fragment:
-            print("[ERROR] Turn off the PythiaCodes conversion when using EvtGen")
+            print("[ERROR] Turn off the PythiaCodes conversion when using EvtGen, i.e. Add convertPythiaCodes=cms.untracked.bool(False) in the fragment.")
             err = 1
         if "generator.PythiaParameters.processParameters.extend(EvtGenExtraParticles)" not in fragment:
             print("[WARNING] Are you sure EvtGenExtraParticles extension is not needed?")
