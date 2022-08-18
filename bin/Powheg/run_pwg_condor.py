@@ -439,7 +439,7 @@ def runhnnlo(folderName, njobs, QUEUE):
 
     print 'Submitting to condor queues \n'
     tagName = 'hnnlo_%s' % scale
-    condorfile = prepareCondorScript(tagName, 'hnnlo', folderName, QUEUE, njobs=njobs, scale, slc6=args.slc6) 
+    condorfile = prepareCondorScript(tagName, 'hnnlo', folderName, QUEUE, njobs=njobs, runInBatchDir=scale, slc6=args.slc6) 
     runCommand ('condor_submit ' + condorfile)
    
 
