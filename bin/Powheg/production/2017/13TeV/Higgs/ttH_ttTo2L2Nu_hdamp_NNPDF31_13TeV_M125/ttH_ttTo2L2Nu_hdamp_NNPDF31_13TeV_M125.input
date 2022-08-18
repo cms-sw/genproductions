@@ -18,8 +18,8 @@ ih2   1           ! hadron 2 (1 for protons, -1 for antiprotons)
 ebeam1 6500d0     ! energy of beam 1
 ebeam2 6500d0     ! energy of beam 2
 
-lhans1  306000      ! pdf set for hadron 1 (LHA numbering)
-lhans2  306000      ! pdf set for hadron 2 (LHA numbering)
+lhans1  325300      ! pdf set for hadron 1 (LHA numbering)
+lhans2  325300      ! pdf set for hadron 2 (LHA numbering)
 
 delta_mttmin 0d0 ! (default 0d0) if not zero, use generation cut on mtt
 
@@ -43,7 +43,7 @@ renscfact 1d0   ! (default 1d0) ren scale factor: muren  = muref * renscfact
 facscfact 1d0   ! (default 1d0) fac scale factor: mufact = muref * facscfact
 testplots  1       ! (default 0, do not) do NLO and PWHG distributions
 
-fakevirt   1      ! (default 0) if 1 use Born for virtuals
+fakevirt   0      ! (default 0) if 1 use Born for virtuals
 
 iseed    SEED
 
