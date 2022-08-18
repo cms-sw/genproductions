@@ -77,8 +77,8 @@ def prepareCondorScript( tag, i, folderName, queue, SCALE = '0', njobs = 0, runI
    f.write('periodic_remove         = JobStatus == 5  \n')
    f.write('WhenToTransferOutput    = ON_EXIT_OR_EVICT \n')
    f.write('transfer_output_files   = "" \n')
-   #if njobs > 0:
-   #    f.write('queue '+str(njobs)+'\n')
+   if njobs > 0:
+       f.write('queue '+str(njobs)+'\n')
    f.write('\n')
 
    f.close()
@@ -200,7 +200,7 @@ def runParallelXgrid(parstage, xgrid, folderName, nEvents, njobs, powInputName, 
     else:
         print 'Submitting to condor queues:  \n'
         condorfile = prepareCondorScript(jobtag, 'multiple', args.folderName, QUEUE, njobs=njobs, runInBatchDir=True, slc6=args.slc6)
-        runCommand ('condor_submit ' + condorfile + ' -queue '+ str(njobs), TESTING == 0)
+        runCommand ('condor_submit ' + condorfile, TESTING == 0)
 
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 def runSingleXgrid(parstage, xgrid, folderName, nEvents, powInputName, seed, process, scriptName) :
@@ -385,7 +385,7 @@ def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag, proc
     else:
         print 'Submitting to condor queues:  \n'
         condorfile = prepareCondorScript(jobtag, 'multiple', args.folderName, QUEUE, njobs=njobs, runInBatchDir=True, slc6=args.slc6) 
-        runCommand ('condor_submit ' + condorfile + ' -queue '+ str(njobs))
+        runCommand ('condor_submit ' + condorfile)
      
 
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
@@ -439,8 +439,8 @@ def runhnnlo(folderName, njobs, QUEUE):
 
     print 'Submitting to condor queues \n'
     tagName = 'hnnlo_%s' % scale
-    condorfile = prepareCondorScript(tagName, 'hnnlo', folderName, QUEUE, scale, slc6=args.slc6) 
-    runCommand ('condor_submit ' + condorfile + ' -queue '+ str(njobs))
+    condorfile = prepareCondorScript(tagName, 'hnnlo', folderName, QUEUE, njobs=njobs, scale, slc6=args.slc6) 
+    runCommand ('condor_submit ' + condorfile)
    
 
 
@@ -633,8 +633,8 @@ if __name__ == "__main__":
 
         else:
             print 'Submitting to condor queues \n'
-            condorfile = prepareCondorScript(tagName, '', '.', QUEUE, slc6=args.slc6) 
-            runCommand ('condor_submit ' + condorfile + ' -queue 1', TESTING == 0, doIt = (args.fordag == '0'))
+            condorfile = prepareCondorScript(tagName, '', '.', QUEUE, njobs=1, slc6=args.slc6) 
+            runCommand ('condor_submit ' + condorfile, TESTING == 0, doIt = (args.fordag == '0'))
 
     elif args.parstage == '1' :
         runParallelXgrid(args.parstage, args.xgrid, args.folderName,
@@ -661,8 +661,8 @@ if __name__ == "__main__":
 
         else:
             print 'Submitting to condor queues  \n'
-            condorfile = prepareCondorScript(tagName, '', args.folderName, QUEUE, runInBatchDir=True, slc6=args.slc6) 
-            runCommand ('condor_submit ' + condorfile + ' -queue 1', TESTING == 0, doIt = (args.fordag == '0'))
+            condorfile = prepareCondorScript(tagName, '', args.folderName, QUEUE, njobs=1, runInBatchDir=True, slc6=args.slc6) 
+            runCommand ('condor_submit ' + condorfile, TESTING == 0, doIt = (args.fordag == '0'))
 
     elif args.parstage == '0123' or args.parstage == 'a' : # compile & run
         tagName = 'all_'+args.folderName
@@ -685,8 +685,8 @@ if __name__ == "__main__":
                       scriptName.split('.sh')[0]+'.log &')
         else:
             print 'Submitting to condor queues  \n'
-            condorfile = prepareCondorScript(tagName, '', '.', QUEUE, runInBatchDir=True, slc6=args.slc6) 
-            runCommand ('condor_submit ' + condorfile + ' -queue 1', TESTING == 0, doIt = (args.fordag == '0'))
+            condorfile = prepareCondorScript(tagName, '', '.', QUEUE, njobs=1, runInBatchDir=True, slc6=args.slc6) 
+            runCommand ('condor_submit ' + condorfile, TESTING == 0, doIt = (args.fordag == '0'))
 
     elif args.parstage == '01239' or args.parstage == 'f' : # full single grid in oneshot
         tagName = 'full_'+args.folderName
@@ -709,8 +709,8 @@ if __name__ == "__main__":
                       scriptName.split('.sh')[0]+'.log')
         else:
             print 'Submitting to condor queues  \n'
-            condorfile = prepareCondorScript(tagName, '', '.', QUEUE, runInBatchDir=True, slc6=args.slc6) 
-            runCommand ('condor_submit ' + condorfile + ' -queue 1', TESTING == 0, doIt = (args.fordag == '0'))
+            condorfile = prepareCondorScript(tagName, '', '.', QUEUE, njobs=1, runInBatchDir=True, slc6=args.slc6) 
+            runCommand ('condor_submit ' + condorfile, TESTING == 0, doIt = (args.fordag == '0'))
 
     elif args.parstage == '7' :
         print "preparing for NNLO reweighting"
