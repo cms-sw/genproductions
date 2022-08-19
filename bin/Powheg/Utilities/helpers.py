@@ -25,6 +25,7 @@ echo 'Run mg5_aMC'\n \
 ./bin/mg5_aMC --mode=MG5aMC_PWG --file=../../examples/V2/X0jj_13TeV/mg5.cmd\n \
 echo 'Make POWHEG-BOX link'\n \
 cd ${process}\n \
+sed -i '/kAgg/c\   15 0.666667e+00 # kAgg' Cards/param_card.dat\n \
 ln -s ../../POWHEG-BOX POWHEG-BOX\n \
 echo 'Checkout source'\n \
 POWHEG-BOX/X0jj/clean_BEFORE_svn-save.sh\n \

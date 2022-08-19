@@ -16,7 +16,7 @@ use-old-grid    1 ! if 1 use old grid if file pwggrids.dat is present (<> 1 rege
 use-old-ubound  1 ! if 1 use norm of upper bounding function stored in pwgubound.dat, if present; <> 1 regenerate
 
 hmass  125             ! Higgs mass
-hwidth 5.75308848E-03  ! Higgs width
+hwidth 0.00409d0  ! Higgs width
 
 bwcutoff 15       ! Mass window is hmass +- bwcutoff*hwidth
 
@@ -33,22 +33,22 @@ bwcutoff 15       ! Mass window is hmass +- bwcutoff*hwidth
 
 # fullphsp 1         ! use ISR/FSR phase space parametrization, default 0
 
-ncall1 15000   ! number of calls for initializing the integration grid
+ncall1 30000   ! number of calls for initializing the integration grid
 itmx1    1     ! number of iterations for initializing the integration grid
-ncall2 20000   ! number of calls for computing the integral and finding upper bound
-itmx2    2     ! number of iterations for computing the integral and finding upper bound
-foldcsi   1    ! number of folds on csi integration
-foldy     1    ! number of folds on  y  integration
-foldphi   1    ! number of folds on phi integration
-nubound 20000  ! number of bbarra calls to setup norm of upper bounding function
+ncall2 5000   ! number of calls for computing the integral and finding upper bound
+itmx2    5     ! number of iterations for computing the integral and finding upper bound
+foldcsi   2    ! number of folds on csi integration
+foldy     5    ! number of folds on  y  integration
+foldphi   2    ! number of folds on phi integration
+nubound 200000  ! number of bbarra calls to setup norm of upper bounding function
 icsimax  1     ! <= 100, number of csi subdivision when computing the upper bounds
 iymax    1     ! <= 100, number of y subdivision when computing the upper bounds
 xupbound 2d0   ! increase upper bound for radiation generation
 
 ! OPTIONAL PARAMETERS
 
-#renscfact  1d0   ! (default 1d0) ren scale factor: muren  = muref * renscfact 
-#facscfact  1d0   ! (default 1d0) fac scale factor: mufact = muref * facscfact 
+renscfact  1d0   ! (default 1d0) ren scale factor: muren  = muref * renscfact 
+facscfact  1d0   ! (default 1d0) fac scale factor: mufact = muref * facscfact 
 #bornonly   1      ! (default 0) if 1 do Born only
 #smartsig   0      ! (default 1) remember equal amplitudes (0 do not remember)
 #ptsqmin    0.8    ! (default 0.8 GeV) minimum pt for generation of radiation
@@ -79,11 +79,17 @@ iseed    SEED    ! initialize random number sequence
                     ! You can experiment with other values. Remember: too small  hnew_damp and/or hdamp factors can cause troubles,
                     ! check that you get a nice sudakov shape of the vector boson pt.
 
-# withnegweights 1   ! (1 default) If 1 output negative weighted events.
+ withnegweights 1   ! (1 default) If 1 output negative weighted events.
                    ! If 0 descard them
 
+# reweighting info
+storeinfo_rwgt 1
+# compute_rwgt 1
+lhrwgt_id 'nominal'
 
-bornsuppfact 30  ! if minlo is active, set it to zero
+
+#bornsuppfact 30  ! if minlo is active, set it to zero
+
 # use minlo
 minlo   1
 
@@ -97,6 +103,6 @@ storemintupb 1
 
 
 
-MGcosa 1d0   	  ! cosine of alpha; alpha parametrises the CP nature
+MGcosa 0d0   	  ! cosine of alpha; alpha parametrises the CP nature
 
 
