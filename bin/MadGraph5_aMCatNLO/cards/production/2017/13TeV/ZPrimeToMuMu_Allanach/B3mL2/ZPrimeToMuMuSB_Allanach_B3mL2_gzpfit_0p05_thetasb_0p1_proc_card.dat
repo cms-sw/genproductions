@@ -1,0 +1,15 @@
+import model VPrime_Allanach_B3mL2_UFO
+
+define p = g s s~ b b~
+define r = s s~ b b~
+define j = b b~
+
+generate g g > Zp b b~, Zp > mu+ mu-
+add process g g > Zp b s~, Zp > mu+ mu-
+add process g g > Zp s b~, Zp > mu+ mu-
+add process g r > Zp j, Zp > mu+ mu-
+add process r g > Zp j, Zp > mu+ mu-
+add process r r > Zp g, Zp > mu+ mu-
+
+
+output ZPrimeToMuMuSB_Allanach_B3mL2_gzpfit_0p05_thetasb_0p1 -nojpeg
