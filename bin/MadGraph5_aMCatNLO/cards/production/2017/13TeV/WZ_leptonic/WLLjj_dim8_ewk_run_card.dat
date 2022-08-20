@@ -90,7 +90,7 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
 # Apply pt/E/eta/dr/mij cuts on decay products or not
 # (note that etmiss/ptll/ptheavy/ht/sorted cuts always apply)
 #**********************************************************
-   T  = cut_decays    ! Cut decay products 
+   F  = cut_decays    ! Cut decay products 
 #*************************************************************
 # Number of helicities to sum per event (0 = all helicities)
 # 0 gives more stable result, but longer run time (needed for
@@ -171,7 +171,7 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
  100 = mmjj    ! min invariant mass of a jet pair 
  100 = mmbb    ! min invariant mass of a b pair 
  0   = mmaa    ! min invariant mass of gamma gamma pair
- 40  = mmll    ! min invariant mass of l+l- (same flavour) lepton pair
+ 50  = mmll    ! min invariant mass of l+l- (same flavour) lepton pair
  -1  = mmjjmax ! max invariant mass of a jet pair
  -1  = mmbbmax ! max invariant mass of a b pair
  -1  = mmaamax ! max invariant mass of gamma gamma pair
