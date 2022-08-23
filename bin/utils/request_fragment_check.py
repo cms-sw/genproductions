@@ -326,7 +326,7 @@ def evtgen_check(fragment):
             print("[ERROR] EvtGenInterface not definied within the fragment")
             err = 1
         if "convertPythiaCodes=cms.untracked.bool(False)" not in fragment:
-            print("[ERROR] Turn off the PythiaCodes conversion when using EvtGen")
+            print("[ERROR] Turn off the PythiaCodes conversion when using EvtGen, i.e. Add convertPythiaCodes=cms.untracked.bool(False) in the fragment.")
             err = 1
         if "generator.PythiaParameters.processParameters.extend(EvtGenExtraParticles)" not in fragment:
             print("[WARNING] Are you sure EvtGenExtraParticles extension is not needed?")
@@ -595,7 +595,7 @@ for num in range(0,len(prepid)):
         f2 = open(pi+"_tmp","w")
         data_f1 = f1.read()
 
-        if int(os.popen('grep -c FlatRandomEGunProducer '+pi).read()) == 1 or int(os.popen('grep -c FlatRandomPtGunProducer '+pi).read()) == 1 or int(os.popen('grep -c Pythia8EGun '+pi).read()) == 1 or int(os.popen('grep -c Pythia8PtGun '+pi).read()) ==1: 
+        if int(os.popen('grep -c FlatRandomEGunProducer '+pi).read()) == 1 or int(os.popen('grep -c FlatRandomPtGunProducer '+pi).read()) == 1 or int(os.popen('grep -c Pythia8EGun '+pi).read()) == 1 or int(os.popen('grep -c Pythia8PtGun '+pi).read()) ==1 or int(os.popen('grep -c FlatRandomPtAndDxyGunProducer '+pi).read()): 
             particle_gun = 1
         if int(os.popen('grep -c -i randomizedparameters '+pi).read()) > 0:
             randomizedparameters = 1
@@ -853,13 +853,17 @@ for num in range(0,len(prepid)):
                     if float(qCutME) != float(ptj_runcard):
                         error += 1
                         print("[ERROR] qCutME in PS settings and ptj in run_card in gridpack do not match.")
-                    nQmatch = os.popen('grep "nQmatch" '+pi).read()
-                    nQmatch = nQmatch.replace(" ","")
-                    nQmatch = re.findall('nQmatch=\d+',nQmatch)[0].split("=")[1]
-                    print("nQmatch = ",nQmatch)
-                    if int(nQmatch) != int(maxjetflavor):
-                        error += 1
-                        print("[ERROR] nQmatch in PS settings and maxjetflavor in run_card in gridpack do not match.")
+                    if int(os.popen('grep -c nQmatch '+pi).read()) == 1:
+                        nQmatch = os.popen('grep "nQmatch" '+pi).read()
+                        nQmatch = nQmatch.replace(" ","")
+                        nQmatch = re.findall('nQmatch=\d+',nQmatch)[0].split("=")[1]
+                        print("nQmatch = ",nQmatch)
+                        if int(nQmatch) != int(maxjetflavor):
+                            error += 1
+                            print("[ERROR] nQmatch in PS settings and maxjetflavor in run_card in gridpack do not match.")
+                    else:
+                        warning += 1
+                        print("[WARNING] nQmatch in PS settings is not specified. Please check.") 
         if herwig_flag == 0 and pw_gp is True:
             warn_tmp , err_tmp = vbf_dipole_recoil_check(vbf_lo,vbf_nlo,data_f2,pw_gp,dn)
             warning += warn_tmp

@@ -34,10 +34,12 @@ fi
 
 forMiNNLO=0
 grep -q "^minnlo\\s*1" powheg.input; test $$? -eq 1 || forMiNNLO=1
+forX0jj=0
+grep -q "MGcosa" powheg.input; test $$? -eq 1 || forX0jj=1
 
 cd $$WORKDIR
 cd $${name}
-python ../make_rwl.py $${is5FlavorScheme} $${defaultPDF} $${forMiNNLO}
+python ../make_rwl.py $${is5FlavorScheme} $${defaultPDF} $${forMiNNLO} $${forX0jj}
 
 if [ -s ../JHUGen.input ]; then
   cp -p ../JHUGen.input JHUGen.input
