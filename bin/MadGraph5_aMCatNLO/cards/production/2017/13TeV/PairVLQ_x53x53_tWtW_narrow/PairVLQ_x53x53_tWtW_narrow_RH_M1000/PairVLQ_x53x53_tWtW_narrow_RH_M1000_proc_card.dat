@@ -1,0 +1,18 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set loop_optimized_output True
+set complex_mass_scheme False
+import model VLQ_v4_4FNS_UFO  
+define ww = w+ w-
+define had = g a u c d s b u~ c~ d~ s~ b~
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
+define vl  = ve vm vt
+define vl~ = ve~ vm~ vt~
+generate p p > x x~, (x > t w+, (t > w+ b , w+ > had had ), (w+ > l+ vl) ), (x~ > t~ w-, (t~ > w- b~ , w- > had had ) , (w- > had had) )
+add process p p > x x~, (x > t w+, (t > w+ b , w+ > l+ vl ), (w+ > had had) ), (x~ > t~ w-, (t~ > w- b~ , w- > had had ) , (w- > had had) )
+add process p p > x x~, (x > t w+, (t > w+ b , w+ > had had ), (w+ > had had) ), (x~ > t~ w-, (t~ > w- b~ , w- > l- vl~ ) , (w- > had had))
+add process p p > x x~, (x > t w+, (t > w+ b , w+ > had had ), (w+ > had had) ), (x~ > t~ w-, (t~ > w- b~ , w- > had had) , (w- > l- vl~) )
+add process p p > x x~, (x > t w+, (t > w+ b , w+ > l+  vl ), (w+ > l+ vl) ), (x~ > t~ w-, (t~ > w- b~ , w- > had had) , (w- > had had) )
+add process p p > x x~, (x > t w+, (t > w+ b , w+ > had had ), (w+ > had had) ), (x~ > t~ w-, (t~ > w- b~ , w- > l- vl~) , (w- > l- vl~) )
+output PairVLQ_x53x53_tWtW_narrow_RH_M1000

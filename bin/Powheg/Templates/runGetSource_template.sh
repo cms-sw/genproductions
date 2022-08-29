@@ -34,10 +34,12 @@ fi
 
 forMiNNLO=0
 grep -q "^minnlo\\s*1" powheg.input; test $$? -eq 1 || forMiNNLO=1
+forX0jj=0
+grep -q "MGcosa" powheg.input; test $$? -eq 1 || forX0jj=1
 
 cd $$WORKDIR
 cd $${name}
-python ../make_rwl.py $${is5FlavorScheme} $${defaultPDF} $${forMiNNLO}
+python ../make_rwl.py $${is5FlavorScheme} $${defaultPDF} $${forMiNNLO} $${forX0jj}
 
 if [ -s ../JHUGen.input ]; then
   cp -p ../JHUGen.input JHUGen.input
@@ -95,6 +97,7 @@ patch -l -p0 -i ${patches_dir}/pdfweights.patch
 patch -l -p0 -i ${patches_dir}/pwhg_lhepdf.patch
 
 $patch_1 
+
 
 sed -i -e "s#500#1350#g"  POWHEG-BOX/include/pwhg_rwl.h
 
@@ -161,17 +164,9 @@ fi
 if [ `grep particle_identif pwhg_analysis-dummy.f` = ""]; then
    cp ../pwhg_analysis-dummy.f .
 fi
-sed -i -e "s#PWHGANAL[ \t]*=[ \t]*#\#PWHGANAL=#g" Makefile
-sed -i -e "s#ANALYSIS[ \t]*=[ \t]*#\#ANALYSIS=#g" Makefile
-sed -i -e "s#_\#ANALYSIS*#_ANALYSIS=#g" Makefile
 sed -i -e "s#LHAPDF_CONFIG[ \t]*=[ \t]*#\#LHAPDF_CONFIG=#g" Makefile
-sed -i -e "s#pwhg_bookhist.o# #g" Makefile
-sed -i -e "s#pwhg_bookhist-new.o# #g" Makefile
-sed -i -e "s#pwhg_bookhist-multi.o# #g" Makefile
-
 $patch_4 
 
-echo "ANALYSIS=none " >> tmpfile
 
 # Add libraries now
 NEWRPATH1=`ls /cvmfs/cms.cern.ch/$${SCRAM_ARCH}/external/gcc/*/* | grep "/lib64" | head -n 1`
@@ -208,6 +203,16 @@ fi
 
 $patch_6 
 
+if [[ $$process = "WWJ" ]]; then
+  cd $${WORKDIR}/$${name}/POWHEG-BOX/MATRIXStuff
+  ./matrix --minnlo_interface
+  cd -
+  cd $${WORKDIR}/$${name}/POWHEG-BOX/WWJ
+  wget --no-verbose --no-check-certificate https://wwwth.mpp.mpg.de/members/wieseman/download/codes/WW_MiNNLO/VVamp_interpolation_grids/WW_MiNNLO_2loop_grids_reduced1.tar.gz
+  tar xzf WW_MiNNLO_2loop_grids_reduced1.tar.gz
+  cd -
+  source /cvmfs/cms.cern.ch/$${SCRAM_ARCH}/external/cmake/3.10.0/etc/profile.d/init.sh
+fi
 
 echo 'Compiling pwhg_main...'
 pwd

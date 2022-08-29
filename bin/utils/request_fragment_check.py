@@ -326,7 +326,7 @@ def evtgen_check(fragment):
             print("[ERROR] EvtGenInterface not definied within the fragment")
             err = 1
         if "convertPythiaCodes=cms.untracked.bool(False)" not in fragment:
-            print("[ERROR] Turn off the PythiaCodes conversion when using EvtGen")
+            print("[ERROR] Turn off the PythiaCodes conversion when using EvtGen, i.e. Add convertPythiaCodes=cms.untracked.bool(False) in the fragment.")
             err = 1
         if "generator.PythiaParameters.processParameters.extend(EvtGenExtraParticles)" not in fragment:
             print("[WARNING] Are you sure EvtGenExtraParticles extension is not needed?")
@@ -560,6 +560,7 @@ for num in range(0,len(prepid)):
         concornot = 0 
         pf = []
         ppd = 0
+        store_rwgt_info_exception = 0 
         if "ppd" in pi.lower(): ppd = 1
         req_type = "dummy"
         if "gen" in pi.lower(): req_type = "genonly"
@@ -594,7 +595,7 @@ for num in range(0,len(prepid)):
         f2 = open(pi+"_tmp","w")
         data_f1 = f1.read()
 
-        if int(os.popen('grep -c FlatRandomEGunProducer '+pi).read()) == 1 or int(os.popen('grep -c FlatRandomPtGunProducer '+pi).read()) == 1 or int(os.popen('grep -c Pythia8EGun '+pi).read()) == 1 or int(os.popen('grep -c Pythia8PtGun '+pi).read()) ==1: 
+        if int(os.popen('grep -c FlatRandomEGunProducer '+pi).read()) == 1 or int(os.popen('grep -c FlatRandomPtGunProducer '+pi).read()) == 1 or int(os.popen('grep -c Pythia8EGun '+pi).read()) == 1 or int(os.popen('grep -c Pythia8PtGun '+pi).read()) ==1 or int(os.popen('grep -c FlatRandomPtAndDxyGunProducer '+pi).read()): 
             particle_gun = 1
         if int(os.popen('grep -c -i randomizedparameters '+pi).read()) > 0:
             randomizedparameters = 1
@@ -852,13 +853,17 @@ for num in range(0,len(prepid)):
                     if float(qCutME) != float(ptj_runcard):
                         error += 1
                         print("[ERROR] qCutME in PS settings and ptj in run_card in gridpack do not match.")
-                    nQmatch = os.popen('grep "nQmatch" '+pi).read()
-                    nQmatch = nQmatch.replace(" ","")
-                    nQmatch = re.findall('nQmatch=\d+',nQmatch)[0].split("=")[1]
-                    print("nQmatch = ",nQmatch)
-                    if int(nQmatch) != int(maxjetflavor):
-                        error += 1
-                        print("[ERROR] nQmatch in PS settings and maxjetflavor in run_card in gridpack do not match.")
+                    if int(os.popen('grep -c nQmatch '+pi).read()) == 1:
+                        nQmatch = os.popen('grep "nQmatch" '+pi).read()
+                        nQmatch = nQmatch.replace(" ","")
+                        nQmatch = re.findall('nQmatch=\d+',nQmatch)[0].split("=")[1]
+                        print("nQmatch = ",nQmatch)
+                        if int(nQmatch) != int(maxjetflavor):
+                            error += 1
+                            print("[ERROR] nQmatch in PS settings and maxjetflavor in run_card in gridpack do not match.")
+                    else:
+                        warning += 1
+                        print("[WARNING] nQmatch in PS settings is not specified. Please check.") 
         if herwig_flag == 0 and pw_gp is True:
             warn_tmp , err_tmp = vbf_dipole_recoil_check(vbf_lo,vbf_nlo,data_f2,pw_gp,dn)
             warning += warn_tmp
@@ -1048,10 +1053,10 @@ for num in range(0,len(prepid)):
                     w_temp, e_temp = ul_consistency(dn,pi,jhu_gp)
                     warning += w_temp
                     error += e_temp
-                if "fall18" not in pi.lower() and "fall17" not in pi.lower() and "winter15" not in pi.lower() and not (any(word in dn for word in tunename) or "sherpa" in dn.lower() or ("herwigpp" in dn.lower() and ("eec5" in dn.lower() or "ee5c" in dn.lower()))):
+                if "fall18" not in pi.lower() and "fall17" not in pi.lower() and "winter15" not in pi.lower() and "summer15" not in pi.lower() and not (any(word in dn for word in tunename) or "sherpa" in dn.lower() or ("herwigpp" in dn.lower() and ("eec5" in dn.lower() or "ee5c" in dn.lower()))):
                     print("[ERROR] Dataset name does not have the tune name: "+dn)
                     error += 1
-                if "fall18" not in pi.lower() and "fall17" not in pi.lower() and "winter15" not in pi.lower() and not any(word in dn.lower() for word in psname):
+                if "fall18" not in pi.lower() and "fall17" not in pi.lower() and "winter15" not in pi.lower() and "summer15" not in pi.lower() and not any(word in dn.lower() for word in psname):
                     print("[ERROR] Dataset name does not contain a parton shower code name: "+dn)
                     error += 1
                 if not any(word in dn.lower() for word in MEname):
@@ -1088,6 +1093,18 @@ for num in range(0,len(prepid)):
                     dir_path = os.path.join(my_path,pi,"InputCards")
                     if os.path.isdir(dir_path):
                         input_cards_customize_card = find_file(dir_path,"customizecards.dat")
+                        input_patch = find_file(dir_path,"patch")
+                        if input_patch:
+                            print("Checking running Yukawa coupling:")
+                            print("input patch file: "+input_patch)
+                            with open(input_patch, 'r+') as f_patch:
+                                for line in f_patch.readlines():
+                                    if "runfac" in line and "integer,parameter" in line:
+                                        store_rwgt_info_exception = line.split("::")[1].split("=")[1]   
+                                        store_rwgt_info_exception = re.sub(r'(?m)^ *#.*\n?', '',store_rwgt_info_exception)
+                                        store_rwgt_info_exception = int(store_rwgt_info_exception)
+                                        if store_rwgt_info_exception:
+                                            print("store_rwgt_info_exception="+str(store_rwgt_info_exception)+"--> See https://cms-talk.web.cern.ch/t/validate-requests-with-store-rwgt-info-false-in-gridpacks/12417\n")
                         if input_cards_customize_card:
                             c_w_line = []
                             s_line = []
@@ -1470,9 +1487,12 @@ for num in range(0,len(prepid)):
                             if mg_nlo > 0: print("The MG5_aMC ME is running at NLO")
                             if mg_nlo > 0 and mg5_aMC_version >= 260:
                                 if os.path.isfile(filename_mggpc) is True : store_rwgt_info = os.popen('more '+filename_mggpc+' | tr -s \' \' | grep "store_rwgt_info"').read()
+                                print("store_rwgt_info_exception ="+str(store_rwgt_info_exception))
                                 if len(store_rwgt_info) != 0:
                                     store_rwgt_info_a = store_rwgt_info.split('=')
-                                    if "false" in store_rwgt_info_a[0].lower():
+                                    if store_rwgt_info_exception == 1:
+                                        print("Running Yukawa coupling: Skipping store_rwgt_info check")
+                                    elif "false" in store_rwgt_info_a[0].lower():
                                         print("[ERROR] store_rwgt_info set to"+ str(store_rwgt_info_a[0]) +" for MG5_aMC >= 260.")
                                         print("        This is needed to evaluate systematics. See eg. https://hypernews.cern.ch/HyperNews/CMS/get/generators/4513/1/1/1/1/1/2.html")
                                         error += 1

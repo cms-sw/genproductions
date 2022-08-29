@@ -25,6 +25,7 @@ echo 'Run mg5_aMC'\n \
 ./bin/mg5_aMC --mode=MG5aMC_PWG --file=../../examples/V2/X0jj_13TeV/mg5.cmd\n \
 echo 'Make POWHEG-BOX link'\n \
 cd ${process}\n \
+sed -i '/kAgg/c\   15 0.666667e+00 # kAgg' Cards/param_card.dat\n \
 ln -s ../../POWHEG-BOX POWHEG-BOX\n \
 echo 'Checkout source'\n \
 POWHEG-BOX/X0jj/clean_BEFORE_svn-save.sh\n \
@@ -49,8 +50,6 @@ patch -l -p0 -i ${patches_dir}/zz_m4lcut.patch",
 patch -l -p0 -i ${patches_dir}/res_openloops_long_install_dir.patch\n \
 cd ..",
     "ttb_NLO_dec" : "patch -l -p0 -i ${patches_dir}/pwhg_ttb_NLO_dec_gen_radiation_hook.patch",
-    "WWJ" : "patch -l -p0 -i ${patches_dir}/wwj-weights.patch\n \
-cp ${patches_dir}/rwl_write_weights2_extra.f POWHEG-BOX/$process/",
     "Zj" : "if [ ${forMiNNLO} -eq 1 ]; then\n \
 cd POWHEG-BOX\n \
 patch -l -p0 -i ${patches_dir}/pwhg_rm_bad_st1.patch\n \
@@ -178,7 +177,7 @@ def runGetSource_patch_5(process) :
 def runGetSource_patch_6(process) :
   return {
     "WWJ" : "cp Makefile Makefile.orig\n \
-cat Makefile.orig | sed -e \"s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d \"=\" -f2)/bin/fastjet-config#g\" | sed -e \"s#cs_angles.o#cs_angles.o fastjetfortran.o observables.o pwhg_bookhist-multi-new.o#g\" | sed -e \"s#\#\ FASTJET_CONFIG#FASTJET_CONFIG#g\" | sed -e \"s#\#\ LIBSFASTJET#LIBSFASTJET#g\" | sed -e \"s#\#\ FJCXXFLAGS#FJCXXFLAGS#g\" | sed -e \"s#rwl_write_weights_extra.f#rwl_write_weights_extra.f\ rwl_write_weights2_extra.f#g\" > Makefile",
+cat Makefile.orig | sed -e \"s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d \"=\" -f2)/bin/fastjet-config#g\" | sed -e \"s#\#\ FASTJET_CONFIG#FASTJET_CONFIG#g\" | sed -e \"s#\#\ LIBSFASTJET#LIBSFASTJET#g\" | sed -e \"s#\#\ FJCXXFLAGS#FJCXXFLAGS#g\" > Makefile",
     "ttbarj" : "cp Makefile Makefile.orig\n \
 cat Makefile.orig | sed -e \"s#OLPATH=.\+#OLPATH=$(scram tool info OpenLoops | grep BASE | cut -d \"=\" -f2)#g\" > Makefile\n \
 sed -i -e \"s#Pythia8Plugins#Pythia8Plugins \$(shell \$(LHAPDF_CONFIG) --cxxflags )#g\" Makefile",
@@ -382,7 +381,8 @@ sed -i -e 's#FFLAGS = #FFLAGS = -std=legacy #g' makefile\n \
 sed -i -e 's#FFLAGS        = #FFLAGS        = -std=legacy #g' ff/makefile\n \
 sed -i -e 's#FFLAGS  = #FFLAGS  = -std=legacy #g' ql/makefile\n \
 make\n \
-cd ..",
+cd ..\n \
+sed -i -e 's#QCDLoop-1.98#QCDLoop-1.9#g' Makefile",
 
     "ST_wtch_DS" : "echo \"D/L QCDLoop-1.9 library\"\n \
 if [ ! -f FeynHiggs-2.10.2.tar.gz ]; then\n \
