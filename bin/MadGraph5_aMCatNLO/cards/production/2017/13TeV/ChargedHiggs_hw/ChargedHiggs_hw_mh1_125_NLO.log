@@ -1,9 +1,0 @@
-Starting job on  Τετ 22 Ιούν 2022 12:43:36 μμ EEST
-Running on  Linux heptaur 3.10.0-1127.13.1.el7.x86_64 #1 SMP Tue Jun 23 15:46:38 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux
-System release  CentOS Linux release 7.8.2003 (Core)
-name: cards/production/2017/13TeV/ChargedHiggs_hw/ChargedHiggs_hw_mh1_125_NLO
-carddir: 
-queue: local
-scram_arch: slc7_amd64_gcc700
-cmssw_version: CMSSW_10_6_19
-/home/kchris05/newGridPacks/genproductions/bin/MadGraph5_aMCatNLO//cards/production/2017/13TeV/ChargedHiggs_hw/ChargedHiggs_hw_mh1_125_NLO_proc_card.dat  does not exist!
