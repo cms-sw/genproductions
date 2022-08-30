@@ -10,7 +10,7 @@ set_run_card_pdf () {
     fi
 
     if grep -q -e "\$DEFAULT_PDF_SETS" $CARDSDIR/${name}_run_card.dat; then
-        local central_set=$(python3 ${script_dir}/getMG5_aMC_PDFInputs.py -f "central" -c run3run3run3run3run3run3run3run3run3 $pdfExtraArgs)
+        local central_set=$(python3 ${script_dir}/getMG5_aMC_PDFInputs.py -f "central" -c run3 $pdfExtraArgs)
         echo "INFO: Using default PDF sets for run3 production"
 
         sed "s/\$DEFAULT_PDF_SETS/${central_set}/g" $CARDSDIR/${name}_run_card.dat > ./Cards/run_card.dat
