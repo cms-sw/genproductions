@@ -39,9 +39,9 @@ logger = logging.getLogger('madgraph.cluster')
 try:
     from madgraph import MadGraph5Error
     import madgraph.various.misc as misc
-except Exception, error:
+except Exception as error:
     if __debug__:
-        print  str(error)
+        print(str(error))
     from internal import MadGraph5Error
     import internal.misc as misc
 
@@ -72,8 +72,8 @@ class CMSCondorCluster(CondorCluster):
             import htcondor
             self.schedd = htcondor.Schedd()
             self._action = htcondor.JobAction
-        except Exception, error:
-            raise ClusterManagmentError, 'could not import htcondor python API: \n%s' % error
+        except Exception as error:
+            raise ClusterManagmentError('could not import htcondor python API: \n%s' % error)
         self.hold_list = os.environ.get("CONDOR_RELEASE_HOLDCODES", "")
         self.max_shadows = os.environ.get("CONDOR_RELEASE_HOLDCODES_SHADOW_LIM", "")
         self.walltimes = os.environ.get("CONDOR_SET_MAXWALLTIMES", "")
@@ -283,7 +283,7 @@ class CMSCondorCluster(CondorCluster):
             cmd.append("-spool")
         a = subprocess.Popen(cmd, stdout=subprocess.PIPE,
                              stdin=subprocess.PIPE)
-        output, _ = a.communicate(text % dico)
+        output, _ = a.communicate((text % dico).encode())
         #output = a.stdout.read()
         #Submitting job(s).
         #Logging submit event(s).
@@ -291,11 +291,12 @@ class CMSCondorCluster(CondorCluster):
         if self.debug_print : logger.info( output )
             
         pat = re.compile("submitted to cluster (\d*)",re.MULTILINE)
+        output = output.decode()
         try:
             id = pat.search(output).groups()[0]
         except:
-            raise ClusterManagmentError, 'fail to submit to the cluster: \n%s' \
-                                                                        % output 
+            raise ClusterManagmentError('fail to submit to the cluster: \n%s' \
+                                                                        % output)
         self.submitted += 1
         self.submitted_ids.append(id)
         return id
@@ -310,8 +311,8 @@ class CMSCondorCluster(CondorCluster):
         q = self.query([str(id)], ["JobStatus", "HoldReason"], lim=1)
         try:
             status = q[0]["JobStatus"]
-        except Exception, error:
-            raise ClusterManagmentError, 'could not retrieve job query:\n%s' % error
+        except Exception as error:
+            raise ClusterManagmentError('could not retrieve job query:\n%s' % error)
 
         s = self.status_map(status)
 
@@ -419,7 +420,6 @@ class CMSLSFCluster(LSFCluster):
 
         if self.temp_dir!=None:
             self.dorsync = True
-            #print "starting rsync"
           
             cwd = os.getcwd()
 
@@ -434,7 +434,6 @@ class CMSLSFCluster(LSFCluster):
             sock.close()    
             
             self.rsyncport = port
-            #print self.rsyncport
             
             rsynclog = os.path.join(cwd, 'rsyncd_%i.log' % self.rsyncport)
             rsynclock = os.path.join(cwd, 'rsyncd_%i.lock' % self.rsyncport)
@@ -447,11 +446,10 @@ class CMSLSFCluster(LSFCluster):
             rsyncsecrets = "%s:%s" % (self.rsyncuser,rsyncpasswd)
             rsyncsecretsfile = os.path.join(cwd, 'rsyncsecrets_%i' % self.rsyncport)
             secretsh = open(rsyncsecretsfile,'w')
-            os.chmod(rsyncsecretsfile, 0600)
+            os.chmod(rsyncsecretsfile, 0o600)
             secretsh.write(rsyncsecrets)
           
             os.environ["MADGRAPHRSYNCPASSWD_%i" % self.rsyncport] = rsyncpasswd
-            #print rsyncpasswd
 
             rsyncconf = """
               port = %(rsyncport)s
@@ -528,11 +526,11 @@ class CMSLSFCluster(LSFCluster):
         try:
             id = output.split('>',1)[0].split('<')[1]
         except:
-            raise ClusterManagmentError, 'fail to submit to the cluster: \n%s' \
-                                                                        % output 
+            raise ClusterManagmentError('fail to submit to the cluster: \n%s' \
+                                                                        % output) 
         if not id.isdigit():
-            raise ClusterManagmentError, 'fail to submit to the cluster: \n%s' \
-                                                                        % output 
+            raise ClusterManagmentError('fail to submit to the cluster: \n%s' \
+                                                                        % output)
         self.submitted += 1
         self.submitted_ids.append(id)
         return id        
@@ -544,8 +542,6 @@ class CMSLSFCluster(LSFCluster):
             log=None, input_files=[], output_files=[], required_output=[],nb_submit=0):
         """How to make one submission. Return status id on the cluster.
         NO SHARE DISK"""
-
-        #print "running lsf submit2"
 
         if cwd is None:
             cwd = os.getcwd()
@@ -660,11 +656,11 @@ class CMSLSFCluster(LSFCluster):
         try:
             id = output.split('>',1)[0].split('<')[1]
         except:
-            raise ClusterManagmentError, 'fail to submit to the cluster: \n%s' \
-            % output
+            raise ClusterManagmentError('fail to submit to the cluster: \n%s' \
+            % output)
         if not id.isdigit():
-            raise ClusterManagmentError, 'fail to submit to the cluster: \n%s' \
-            % output
+            raise ClusterManagmentError('fail to submit to the cluster: \n%s' \
+            % output)
         self.submitted += 1
         self.submitted_ids.append(id)
         return id         

@@ -1,80 +1,195 @@
-diff --git a/Template/LO/SubProcesses/refine.sh b/Template/LO/SubProcesses/refine.sh
-index 87cc4a8..fb131dd 100644
 --- a/Template/LO/SubProcesses/refine.sh
 +++ b/Template/LO/SubProcesses/refine.sh
-@@ -11,6 +11,11 @@ if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRT" ]; then
-     export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRT:$LD_LIBRARY_PATH"
-   fi
+@@ -5,6 +5,22 @@ if [ $CLUSTER_LHAPATH ]; then
+   export LHAPATH=$CLUSTER_LHAPATH;
  fi
+ 
++# Add CVMFS libraries to LD_LIBRARY_PATH, if not present already
++if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRT" ]; then
++  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRT}*}" ]; then
++    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRT:$LD_LIBRARY_PATH"
++  fi
++fi
++
 +if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRTDEL" ]; then
 +  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRTDEL}*}" ]; then
 +    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRTDEL:$LD_LIBRARY_PATH"
 +  fi
 +fi
++
++# If TMPDIR is unset, set it to the condor scratch area if present and fallback to /tmp
++export TMPDIR=${TMPDIR:-${_CONDOR_SCRATCH_DIR:-/tmp}}
++
+ if [[ -e MadLoop5_resources.tar.gz && ! -e MadLoop5_resources ]]; then
+ tar -xzf MadLoop5_resources.tar.gz
+ fi
+@@ -82,7 +98,11 @@ j=%(directory)s
+      if [[ $status_code -ne 0 ]]; then 
+ 	 rm results.dat
+ 	 echo "ERROR DETECTED"
+-	 echo "end-code not correct $status_code" > results.dat
++   echo "end-code not correct $status_code" >> log.txt
++   echo "+ Hostname:" >> log.txt
++   hostname >> log.txt
++   echo "+ Printing job environment:" >> log.txt
++   env >> log.txt
+      fi     
+      if [[ -e ftn26 ]]; then
+          cp ftn26 ftn25
+@@ -100,3 +120,6 @@ j=%(directory)s
  
- # If TMPDIR is unset, set it to the condor scratch area if present
- # and fallback to /tmp
-diff --git a/Template/LO/SubProcesses/refine_splitted.sh b/Template/LO/SubProcesses/refine_splitted.sh
-index bd1b78c..7ab0f31 100644
+      cd ../
+ 
++if [[ $status_code -ne 0 ]]; then
++  exit $status_code
++fi
 --- a/Template/LO/SubProcesses/refine_splitted.sh
 +++ b/Template/LO/SubProcesses/refine_splitted.sh
-@@ -11,6 +11,11 @@ if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRT" ]; then
-     export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRT:$LD_LIBRARY_PATH"
-   fi
+@@ -4,6 +4,23 @@
+ if [ $CLUSTER_LHAPATH ]; then
+   export LHAPATH=$CLUSTER_LHAPATH;
  fi
-+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRTDEL" ]; then 
++
++# Add CVMFS libraries to LD_LIBRARY_PATH, if not present already
++if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRT" ]; then
++  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRT}*}" ]; then
++    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRT:$LD_LIBRARY_PATH"
++  fi
++fi
++
++if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRTDEL" ]; then
 +  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRTDEL}*}" ]; then
 +    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRTDEL:$LD_LIBRARY_PATH"
 +  fi
 +fi
++
++# If TMPDIR is unset, set it to the condor scratch area if present and fallback to /tmp
++export TMPDIR=${TMPDIR:-${_CONDOR_SCRATCH_DIR:-/tmp}}
++
+ if [[ -e MadLoop5_resources.tar.gz && ! -e MadLoop5_resources ]]; then
+ tar -xzf MadLoop5_resources.tar.gz
+ fi
+@@ -73,7 +90,15 @@ fi
+ if [[ $status_code -ne 0 ]]; then 
+ 	 rm results.dat
+ 	 echo "ERROR DETECTED"
+-	 echo "end code not correct $status_code" > results.dat
++   echo "end-code not correct $status_code" >> log.txt
++   echo "+ Hostname:" >> log.txt
++   hostname >> log.txt
++   echo "+ Printing job environment:" >> log.txt
++   env >> log.txt
+ fi
  
- # If TMPDIR is unset, set it to the condor scratch area if present
- # and fallback to /tmp
-diff --git a/Template/LO/SubProcesses/survey.sh b/Template/LO/SubProcesses/survey.sh
-index ebe9369..f56a773 100755
+-cd ../
+\ No newline at end of file
++cd ../
++
++if [[ $status_code -ne 0 ]]; then
++   exit $status_code
++fi
+\ No newline at end of file
 --- a/Template/LO/SubProcesses/survey.sh
 +++ b/Template/LO/SubProcesses/survey.sh
-@@ -11,6 +11,11 @@ if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRT" ]; then
-     export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRT:$LD_LIBRARY_PATH"
-   fi
+@@ -5,6 +5,22 @@ if [ $CLUSTER_LHAPATH ]; then
+   export LHAPATH=$CLUSTER_LHAPATH;
  fi
-+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRTDEL" ]; then 
+ 
++# Add CVMFS libraries to LD_LIBRARY_PATH, if not present already
++if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRT" ]; then
++  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRT}*}" ]; then
++    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRT:$LD_LIBRARY_PATH"
++  fi
++fi
++
++if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRTDEL" ]; then
 +  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRTDEL}*}" ]; then
 +    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRTDEL:$LD_LIBRARY_PATH"
 +  fi
 +fi
++
++# If TMPDIR is unset, set it to the condor scratch area if present and fallback to /tmp
++export TMPDIR=${TMPDIR:-${_CONDOR_SCRATCH_DIR:-/tmp}}
++
+ if [[ -e MadLoop5_resources.tar.gz && ! -e MadLoop5_resources ]]; then
+ tar -xzf MadLoop5_resources.tar.gz;
+ fi
+@@ -72,7 +88,13 @@ for i in $@ ; do
+      if [[ $status_code -ne 0 ]]; then 
+ 	 rm results.dat
+ 	 echo "ERROR DETECTED"
+-	 echo "end code not correct $status_code" > results.dat
++	 echo "end code not correct $status_code" >> log.txt
++   echo "+ Hostname:" >> log.txt
++   hostname >> log.txt
++   echo "+ Printing job environment:" >> log.txt
++   env >> log.txt
++   cd ../
++   exit $status_code
+      fi
+      cd ../;
  
- # If TMPDIR is unset, set it to the condor scratch area if present
- # and fallback to /tmp
-diff --git a/Template/NLO/SubProcesses/ajob_template b/Template/NLO/SubProcesses/ajob_template
-index 6144c59..d142f90 100755
 --- a/Template/NLO/SubProcesses/ajob_template
 +++ b/Template/NLO/SubProcesses/ajob_template
-@@ -18,6 +18,11 @@ if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRT" ]; then
-     export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRT:$LD_LIBRARY_PATH"
-   fi
+@@ -12,6 +12,22 @@ if [ $CLUSTER_LHAPATH ]; then
+    export LHAPATH=$CLUSTER_LHAPATH;
  fi
-+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRTDEL" ]; then 
+ 
++# Add CVMFS libraries to LD_LIBRARY_PATH, if not present already
++if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRT" ]; then
++  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRT}*}" ]; then
++    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRT:$LD_LIBRARY_PATH"
++  fi
++fi
++
++if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRTDEL" ]; then
 +  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRTDEL}*}" ]; then
 +    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRTDEL:$LD_LIBRARY_PATH"
 +  fi
 +fi
- 
- # If TMPDIR is unset, set it to the condor scratch area if present
- # and fallback to /tmp
-diff --git a/Template/NLO/SubProcesses/reweight_xsec_events.local b/Template/NLO/SubProcesses/reweight_xsec_events.local
-index fa64a85..f05ab88 100644
++
++# If TMPDIR is unset, set it to the condor scratch area if present and fallback to /tmp
++export TMPDIR=${TMPDIR:-${_CONDOR_SCRATCH_DIR:-/tmp}}
++
+ tarCounter=0
+ while [[ (-f MadLoop5_resources.tar.gz) && (! -f MadLoop5_resources/HelConfigs.dat) && ($tarCounter < 10) ]]; do
+     if [[ $tarCounter > 0 ]]; then
+@@ -97,6 +113,13 @@ TAGTAGTAGTAGTAGTAGTAG for i in 1 ; do
+         ../madevent_mintMC > log.txt <input_app.txt 2>&1
+     fi
+     status=$?
++    if [[ $status -ne 0 ]]; then
++      echo "Error: Status code $status" >> log.txt
++      echo "+ Hostname:" >> log.txt
++      hostname >> log.txt
++      echo "+ Printing environment" >> log.txt
++      env >> log.txt
++    fi
+     T="$(($(date +%s)-T))"
+     echo "Time in seconds: ${T}" >>log.txt
+     cp -f log.txt log_MINT$integration_step.txt  >/dev/null 2>&1
 --- a/Template/NLO/SubProcesses/reweight_xsec_events.local
 +++ b/Template/NLO/SubProcesses/reweight_xsec_events.local
-@@ -14,6 +14,11 @@ if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRT" ]; then
-     export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRT:$LD_LIBRARY_PATH"
-   fi
+@@ -8,6 +8,22 @@ if [ $CLUSTER_LHAPATH ]; then
+   export LHAPATH=$CLUSTER_LHAPATH;
  fi
-+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRTDEL" ]; then 
+ 
++# Add CVMFS libraries to LD_LIBRARY_PATH, if not present already
++if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRT" ]; then
++  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRT}*}" ]; then
++    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRT:$LD_LIBRARY_PATH"
++  fi
++fi
++
++if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRTDEL" ]; then
 +  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRTDEL}*}" ]; then
 +    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRTDEL:$LD_LIBRARY_PATH"
 +  fi
 +fi
- 
- # If TMPDIR is unset, set it to the condor scratch area if present
- # and fallback to /tmp
++
++# If TMPDIR is unset, set it to the condor scratch area if present and fallback to /tmp
++export TMPDIR=${TMPDIR:-${_CONDOR_SCRATCH_DIR:-/tmp}}
++
+ if [[ -e ./reweight_xsec_events ]]
+ then
+     (echo $event_file; echo $save_wgts) | ./reweight_xsec_events > reweight_xsec_events.output
