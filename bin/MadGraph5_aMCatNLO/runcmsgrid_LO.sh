@@ -55,7 +55,7 @@ LHAPDFPYTHONVER=`find $LHAPDFLIBS -name "python*" -type d -exec basename {} \;`
 LHAPDFPYTHONLIB=`find $LHAPDFLIBS/$LHAPDFPYTHONVER/site-packages -name "*.egg" -type d -exec basename {} \;`
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$LHAPDFLIBS
 
-if [ -z "${LHAPDFPYTHONLIB}" ] ; then
+if [ ! -z "${LHAPDFPYTHONLIB}" ] ; then
   export PYTHONPATH=$PYTHONPATH:$LHAPDFLIBS/$LHAPDFPYTHONVER/site-packages/$LHAPDFPYTHONLIB
 else
   export PYTHONPATH=$PYTHONPATH:$LHAPDFLIBS/$LHAPDFPYTHONVER/site-packages
