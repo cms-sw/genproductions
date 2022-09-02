@@ -394,10 +394,16 @@ make_gridpack () {
         if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
       fi
       cd $WORKDIR
-    
+
       eval `scram runtime -sh`
       export BOOSTINCLUDES=`scram tool tag boost INCLUDE`
-    
+
+      # need to source condor once more if the codegen & integrate steps are separated
+      if [[ $queue == *"condor"* ]]; then
+        echo "Use HTCondor for gridpack generation"
+        source ${PRODHOME}/Utilities/source_condor.sh
+      fi
+
       #if lhapdf6 external is available then above points to lhapdf5 and needs to be overridden
       LHAPDF6TOOLFILE=$CMSSW_BASE/config/toolbox/$SCRAM_ARCH/tools/available/lhapdf6.xml
       if [ -e $LHAPDF6TOOLFILE ]; then
