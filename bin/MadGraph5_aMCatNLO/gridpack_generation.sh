@@ -709,7 +709,7 @@ if [ -n "$5" ]; then
     scram_arch=${5}
 else
     if [[ $SYSTEM_RELEASE == *"release 7"* ]]; then 
-        scram_arch=slc7_amd64_gcc900 
+        scram_arch=slc7_amd64_gcc10 
     elif [[ $SYSTEM_RELEASE == *"release 8"* ]]; then
         scram_arch=el8_amd64_gcc10
     else 
@@ -723,9 +723,9 @@ if [ -n "$6" ]; then
     cmssw_version=${6}
 else
     if [[ $SYSTEM_RELEASE == *"release 7"* ]]; then 
-        cmssw_version=CMSSW_12_0_2
+        cmssw_version=CMSSW_12_4_8
     elif [[ $SYSTEM_RELEASE == *"release 8"* ]]; then
-        cmssw_version=CMSSW_12_4_0
+        cmssw_version=CMSSW_12_4_8
     else 
         echo "No default CMSSW for current OS!"
         if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi        
