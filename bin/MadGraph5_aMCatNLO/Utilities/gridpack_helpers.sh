@@ -10,21 +10,15 @@ set_run_card_pdf () {
     fi
 
     if grep -q -e "\$DEFAULT_PDF_SETS" $CARDSDIR/${name}_run_card.dat; then
-        local central_set=$(python3 ${script_dir}/getMG5_aMC_PDFInputs.py -f "central" -c 2017 $pdfExtraArgs)
-        echo "INFO: Using default PDF sets for 2017 production"
+        local central_set=$(python3 ${script_dir}/getMG5_aMC_PDFInputs.py -f "central" -c run3 $pdfExtraArgs)
+        echo "INFO: Using default PDF sets for run3 production"
 
         sed "s/\$DEFAULT_PDF_SETS/${central_set}/g" $CARDSDIR/${name}_run_card.dat > ./Cards/run_card.dat
-        sed -i "s/ *\$DEFAULT_PDF_MEMBERS.*=.*//g" ./Cards/run_card.dat
-    elif grep -q -e "\$DEFAULT_PDF_SETS" -e "\$DEFAULT_PDF_MEMBERS" $CARDSDIR/${name}_run_card.dat; then
-        local central_set=$(python3 ${script_dir}/getMG5_aMC_PDFInputs.py -f "central" -c 2016 $pdfExtraArgs)
-
-        echo "INFO: Using default PDF sets for 2017 production"
-        sed "s/\$DEFAULT_2016_PDF_SETS/${central_set}/g" $CARDSDIR/${name}_run_card.dat > ./Cards/run_card.dat
         sed -i "s/ *\$DEFAULT_PDF_MEMBERS.*=.*//g" ./Cards/run_card.dat
     else
         cat << EOF
 
-        WARNING: You've chosen not to use the PDF sets recommended for 2017 production!
+        WARNING: You've chosen not to use the PDF sets recommended for run3 production!
         If this isn't intentional, and you prefer to use the recommended sets,
         insert the following lines into your process-name_run_card.dat:
 
