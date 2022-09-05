@@ -23,7 +23,7 @@ qmass  172.5     ! mass of heavy quark in GeV
 facscfact 1    ! factorization scale factor: mufact=muref*facscfact 
 renscfact 1    ! renormalization scale factor: muren=muref*renscfact 
 
-hdamp 237.8775
+hdamp 250 ! common MC v0.2
 
 topdecaymode 22200   ! an integer of 5 digits that are either 0, or 2, representing in 
                      ! the order the maximum number of the following particles(antiparticles)
@@ -44,17 +44,17 @@ topdecaymode 22200   ! an integer of 5 digits that are either 0, or 2, represent
 
 ! Parameters for the generation of spin correlations in t tbar decays
 tdec/wmass 80.4  ! W mass for top decay
-tdec/wwidth 2.141
-tdec/bmass 4.8
-tdec/twidth  1.31 ! 1.33 using PDG LO formula
-tdec/elbranching 0.108
+tdec/wwidth 2.085 ! common MC v0.2 
+tdec/bmass 5.06 ! common MC v0.2
+tdec/twidth  1.311 ! commomn MC v0.2
+tdec/elbranching 0.1083 ! common MC v0.2  
 tdec/emass 0.00051
 tdec/mumass 0.1057
 tdec/taumass 1.777
-tdec/dmass   0.100
-tdec/umass   0.100
-tdec/smass   0.200
-tdec/cmass   1.5
+tdec/dmass   0.21 ! common MC v0.2
+tdec/umass   0.21 ! common MC v0.2
+tdec/smass   0.35 ! common MC v0.2
+tdec/cmass   1.525 ! common MC v0.2
 tdec/sin2cabibbo 0.051
 ! Parameters to allow-disallow use of stored data
 use-old-grid 1    ! if 1 use old grid if file pwggrids.dat is present (# 1: regenerate)
