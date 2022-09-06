@@ -28,7 +28,7 @@
 # (relative) accuracy on the Xsec.                                     *
 # These values are ignored for fixed order runs                        *
 #***********************************************************************
- 300 = nevents ! Number of unweighted events requested 
+ 3000 = nevents ! Number of unweighted events requested 
  0.001 = req_acc ! Required accuracy (-1=auto determined from nevents)
  20 = nevt_job! Max number of events per job in event generation. 
                  !  (-1= no split).
@@ -131,10 +131,10 @@
 #    considerably softer than the analysis cuts.                       *
 #  - More specific cuts can be specified in SubProcesses/cuts.f        *
 #***********************************************************************
- -1.0 = jetalgo   ! FastJet jet algorithm (1=kT, 0=C/A, -1=anti-kT)
- 0.4  = jetradius ! The radius parameter for the jet algorithm
+ 1.0 = jetalgo   ! FastJet jet algorithm (1=kT, 0=C/A, -1=anti-kT)
+ 0.7  = jetradius ! The radius parameter for the jet algorithm
  25.0 = ptj       ! Min jet transverse momentum
- 5.5  = etaj      ! Max jet abs(pseudo-rap) (a value .lt.0 means no cut)
+ 6.5  = etaj      ! Max jet abs(pseudo-rap) (a value .lt.0 means no cut)
 #***********************************************************************
 # Cuts on the charged leptons (e+, e-, mu+, mu-, tau+ and tau-)        *
 # More specific cuts can be specified in SubProcesses/cuts.f           *
