@@ -144,4 +144,3 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! reweight to get PDF uncertainty
  5 = maxjetflavor
 #***********************************************************************
 
-#https://github.com/cms-sw/genproductions/blob/master/bin/MadGraph5_aMCatNLO/cards/production/2017/13TeV/WZTo2L2Q01j_5f_NLO_FXFX/WZTo2L2Q01j_5f_NLO_FXFX_run_card.dat
