@@ -1,0 +1,9 @@
+import model loop_sm-ckm_no_b_mass
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+define ell+ = e+
+define ell- = e-
+generate p p > ell+ ell- [QCD] @0
+add process p p > ell+ ell- j [QCD] @1
+add process p p > ell+ ell- j j [QCD] @2
+output DYJets_HT-570to830 -nojpeg
