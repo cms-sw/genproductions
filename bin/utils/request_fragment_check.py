@@ -640,7 +640,8 @@ for num in range(0,len(prepid)):
         print("Cross section from generator parameters field = "+str(cross_section)+" pb")
         if str(cross_section_fragment).isdigit() is False:
             print("[WARNING] Skipping the cross section consistency check in generator parameters field and the fragment")
-            print("          This is most probably because the cross section is defined through a variable") 
+            print("          This is most probably because the cross section is defined through a variable")
+            warning += 1 
         if str(cross_section_fragment).isdigit() is True and cross_section_fragment and cross_section and int(ext) == 0 and float(cross_section_fragment) != float(cross_section):
             print("[ERROR] Cross section in the generator parameters field and the one in the fragment do not match!")
             error += 1
