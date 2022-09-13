@@ -1,4 +1,4 @@
-import model loop_sm-no_b_mass
+import model loop_sm-ckm_no_b_mass
 
 
 define ell+ = e+  mu+ ta+
@@ -13,4 +13,4 @@ add process p p > ell- vl~ z [QCD] @2
 add process p p > ell- vl~ z j [QCD] @3
 
 
-output WZToLNuQQ_5f_amcatnloFxFx -nojpeg
+output WZToLNuQQ01j_5f_amcatnloFxFx -nojpeg
