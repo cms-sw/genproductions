@@ -14,11 +14,11 @@ ih2   1        ! hadron 2
 
 
 ! To be set only if using LHA pdfs
-lhans1 306000
-lhans2 306000
+lhans1 325300 
+lhans2 325300
 ! NNPDF31_nnlo_as_0118
-ebeam1 6500    ! energy of beam 1
-ebeam2 6500    ! energy of beam 2
+ebeam1 6800    ! energy of beam 1
+ebeam2 6800    ! energy of beam 2
 qmass  172.5     ! mass of heavy quark in GeV
 facscfact 1    ! factorization scale factor: mufact=muref*facscfact 
 renscfact 1    ! renormalization scale factor: muren=muref*renscfact 
