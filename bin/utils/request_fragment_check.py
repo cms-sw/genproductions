@@ -724,6 +724,9 @@ for num in range(0,len(prepid)):
         gp_size = len(gridpack_cvmfs_path_tmp)
 
         pw_gp = False
+        madloop_in_gp = False
+        minlo = False
+        minnlo = False
         amcnlo_gp = False
         mg_gp = False
         jhu_gp = False
@@ -812,11 +815,13 @@ for num in range(0,len(prepid)):
                 sys.exit()
             jhu_gp = os.path.isfile(my_path+'/'+pi+'/'+'JHUGen.input')
             pw_gp = os.path.isfile(my_path+'/'+pi+'/'+'powheg.input')
+            madloop_in_gp = os.path.isfile(my_path+'/'+pi+'/'+'MadLoopParams.dat')
             mg_f1 = my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat'
             mg_f2 = my_path+'/'+pi+'/'+'process/Cards/run_card.dat'
             amcnlo_gp = os.path.isfile(my_path+'/'+pi+'/'+'process/Cards/run_card.dat')
             mg_gp = os.path.isfile(mg_f1) or os.path.isfile(mg_f2)
             print("path powheg "+str(pw_gp))
+            print("path madloop "+str(madloop_in_gp))
             print("path mg "+str(mg_gp))
             print("path amcnlo "+str(amcnlo_gp))
             print("path jhugen "+str(jhu_gp))
@@ -1286,6 +1291,12 @@ for num in range(0,len(prepid)):
                                             print("                                            "+str(UL_PDFs_N[0])+" "+str(UL_PDFs[0]))
                                             print("                                            or "+str(UL_PDFs_N[1])+" "+str(UL_PDFs[1]))
                                             warning += 1
+                                    if "minlo" in line:
+                                        minlo = int(re.split(r'\s+', line)[1])
+                                        print("MINLO = "+str(minlo))
+                                    if "minnlo" in line:
+                                        minnlo = int(re.split(r'\s+', line)[1])
+                                        print("MINNLO = "+str(minlo))
                     if os.path.isfile(my_path+'/'+pi+'/'+'external_tarball/pwg-rwl.dat') is True:
                         pwg_rwl_file = os.path.join(my_path, pi, "external_tarball/pwg-rwl.dat")
                     else:
@@ -1425,6 +1436,16 @@ for num in range(0,len(prepid)):
                         bw = os.popen('more '+filename_mggpc+' | tr -s \' \' | grep "= bwcutoff"').read()
                         mg_pdf = os.popen('more '+filename_mggpc+' | tr -s \' \' | grep "lhaid"').read()
                         mg_pdf = mg_pdf.split("=")[0].split()[0]
+                        test_bw = bw.split()
+                        if float(test_bw[0]) > 15.:
+                            print("[WARNING] bwcutoff set to "+str(test_bw[0])+". Note that large bwcutoff values can cause problems in production.")
+                            warning += 1
+                        print("The MG5_aMC PDF set is:"+str(mg_pdf))
+                        if "UL" in pi and int(mg_pdf) != UL_PDFs_N[0] and int(mg_pdf) != UL_PDFs_N[1]:
+                            print("[WARNING] The gridpack uses PDF="+str(mg_pdf)+" but not the recommended sets for UL requests:")
+                            print("                                            "+str(UL_PDFs_N[0])+" "+str(UL_PDFs[0]))
+                            print("                                            or "+str(UL_PDFs_N[1])+" "+str(UL_PDFs[1]))
+                            warning += 1
                     version_file = my_path+'/'+pi+'/'+'mgbasedir/VERSION'
                     if os.path.isfile(version_file) is True:
                         mgversion_tmp = os.popen('grep version '+version_file).read()
@@ -1440,16 +1461,7 @@ for num in range(0,len(prepid)):
                             else:
                                 print("[ERROR] You're using MG5_aMC "+str(mg5_aMC_version)+" in an Ultra Legacy Campaign. You should use MG5_aMCv2.6.1+")
                                 error += 1
-                    test_bw = bw.split()
-                    if float(test_bw[0]) > 15.:
-                        print("[WARNING] bwcutoff set to "+str(test_bw[0])+". Note that large bwcutoff values can cause problems in production.")
-                        warning += 1
-                    print("The MG5_aMC PDF set is:"+str(mg_pdf))
-                    if "UL" in pi and int(mg_pdf) != UL_PDFs_N[0] and int(mg_pdf) != UL_PDFs_N[1]:
-                        print("[WARNING] The gridpack uses PDF="+str(mg_pdf)+" but not the recommended sets for UL requests:")
-                        print("                                            "+str(UL_PDFs_N[0])+" "+str(UL_PDFs[0]))
-                        print("                                            or "+str(UL_PDFs_N[1])+" "+str(UL_PDFs[1]))
-                        warning += 1
+
                     if mg_gp is True:
                         runcmsgrid_file = os.path.join(my_path, pi, "runcmsgrid.sh")
                         with open(runcmsgrid_file) as fmg:
@@ -1627,7 +1639,7 @@ for num in range(0,len(prepid)):
                     error += 1
         if knd == 1 :
              powhegcheck.append(int(os.popen('grep -c -i PowhegEmission '+pi).read()))
-             if powhegcheck[0] > 0 :
+             if powhegcheck[0] > 0 and madloop_in_gp is False:
                  print("[ERROR] Please remove POWHEG settings for MG requests.")
                  error += 1
         if knd == -1 :
