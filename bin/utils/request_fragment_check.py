@@ -733,6 +733,7 @@ for num in range(0,len(prepid)):
         sherpa_gp = False
         sherpa_flag = False
         openloops_flag = False
+        pw_mg = 0
 
         gp_full_path = True
 
@@ -825,6 +826,10 @@ for num in range(0,len(prepid)):
             print("path mg "+str(mg_gp))
             print("path amcnlo "+str(amcnlo_gp))
             print("path jhugen "+str(jhu_gp))
+            if pw_gp is True:
+                direc_list = os.listdir(my_path+'/'+pi+'/')
+                pw_mg = len([x for x in direc_list if "mg5" in x.lower()])
+                print("MG5_aMC + POWHEG sample.")
             if mg_gp is False and "madgraph" in dn.lower():
                 print("[ERROR] Although the name of the dataset has ~Madgraph, the gridpack doesn't seem to be a MG5_aMC one.")
                 error += 1
@@ -1639,7 +1644,7 @@ for num in range(0,len(prepid)):
                     error += 1
         if knd == 1 :
              powhegcheck.append(int(os.popen('grep -c -i PowhegEmission '+pi).read()))
-             if powhegcheck[0] > 0 and madloop_in_gp is False:
+             if powhegcheck[0] > 0 and pw_mg == 0:
                  print("[ERROR] Please remove POWHEG settings for MG requests.")
                  error += 1
         if knd == -1 :
