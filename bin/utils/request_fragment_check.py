@@ -898,10 +898,18 @@ for num in range(0,len(prepid)):
             if mg_gp is True:
                os.system('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/herwig_mg.txt -O herwig_mg.txt') 
                file_me = set(line.strip().replace(",","") for line in open('herwig_mg.txt'))
-               for line in file_me:
-                   if line not in file2:
-                       print("[ERROR] Missing herwig mg5_amc specific setting in fragment: "+line)
-                       error += 1 
+               os.system('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/herwig_mg_wo_merging.txt -O herwig_mg_wo_merging.txt')
+               file_me_wo_merg = set(line.strip().replace(",","") for line in open('herwig_mg_wo_merging.txt'))
+               if alt_ickkw_c != 0:
+                   for line in file_me:
+                       if line not in file2:
+                           print("[ERROR] Missing herwig mg5_amc specific setting in fragment: "+line)
+                           error += 1 
+               else:
+                   for line in file_me_wo_merg:
+                       if line not in file2:
+                           print("[ERROR] Missing herwig mg5_amc specific setting in fragment: "+line)
+                           error += 1 
                if alt_ickkw_c == 3:#fxfx
                    if "'set FxFxHandler:MergeMode FxFx'" not in file2:
                        print("[ERROR] Missing set FxFxHandler:MergeMode FxFx in the user settings block")
