@@ -905,6 +905,9 @@ for num in range(0,len(prepid)):
                        if line not in file2:
                            print("[ERROR] Missing herwig mg5_amc specific setting in fragment: "+line)
                            error += 1 
+                       if "'set FxFxHandler:njetsmax'" not in file2:
+                           print("[ERROR] Missing set FxFxHandler:njetsmax MAX_N_ADDITIONAL_JETS in the user settings block")
+                           error += 1
                else:
                    for line in file_me_wo_merg:
                        if line not in file2:
@@ -913,9 +916,6 @@ for num in range(0,len(prepid)):
                if alt_ickkw_c == 3:#fxfx
                    if "'set FxFxHandler:MergeMode FxFx'" not in file2:
                        print("[ERROR] Missing set FxFxHandler:MergeMode FxFx in the user settings block")
-                       error += 1
-                   if "'set FxFxHandler:njetsmax'" not in file2:
-                       print("[ERROR] Missing set FxFxHandler:njetsmax MAX_N_ADDITIONAL_JETS in the user settings block")
                        error += 1
                if alt_ickkw_c == 1:#mlm
                    if "'set FxFxHandler:MergeMode TreeMG5'" not in file2:
