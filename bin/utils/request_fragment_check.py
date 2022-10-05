@@ -917,9 +917,6 @@ for num in range(0,len(prepid)):
                    if "'set FxFxHandler:MergeMode FxFx'" not in file2:
                        print("[ERROR] Missing set FxFxHandler:MergeMode FxFx in the user settings block")
                        error += 1
-#                   if "'set FxFxHandler:njetsmax'" not in file2:
-#                       print("[ERROR] Missing set FxFxHandler:njetsmax MAX_N_ADDITIONAL_JETS in the user settings block")
-#                       error += 1
                if alt_ickkw_c == 1:#mlm
                    if "'set FxFxHandler:MergeMode TreeMG5'" not in file2:
                        print("[ERROR] Missing set FxFxHandler:MergeMode TreeMG5 in the user settings block")
