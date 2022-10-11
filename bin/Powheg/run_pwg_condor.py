@@ -280,7 +280,7 @@ def runGetSource(parstage, xgrid, folderName, powInputName, process, noPdfCheck,
     template_dict = {
         "folderName" : folderName,
         "powInputName" : powInputName,
-        "process" : process,
+        "processtemp" : process,
         "noPdfCheck" : noPdfCheck,
         "rootfolder" : rootfolder,
         "patches_dir" : os.path.dirname(os.path.realpath(__file__)) + "/patches",
@@ -472,6 +472,11 @@ if __name__ == "__main__":
     parser.add_argument('--svn'    , dest="svnRev",    default= 0,           help='SVN revision. If 0, use tarball [0]')
 
     args = parser.parse_args ()
+
+    message2 = "After step 0, you must input the process name _without_ the slash (e.g. HJ/MiNNLOPS must be just HJ)"
+
+    if args.parstage != '0' and '/' in args.prcName:
+        raise RuntimeError(message2)
 
     QUEUE = args.doQueue
     EOSfolder = args.folderName
