@@ -632,11 +632,11 @@ for num in range(0,len(prepid)):
         if (cross_section_fragment):
             cross_section_fragment=cross_section_fragment[0]
             cross_section_fragment = re.findall('\((.*?)\)',cross_section_fragment)[0]
-#        filter_eff_fragment = re.findall('filterEfficiency.*?\S+\S+',data_f2)    
-#        if (filter_eff_fragment):    
-#            filter_eff_fragment=filter_eff_fragment[0]
-#            filter_eff_fragment = re.findall('\((.*?)\)',filter_eff_fragment)[0]
-#        print("Filter efficiency in the fragment ="+ str(filter_eff_fragment))
+        filter_eff_fragment = re.findall('filterEfficiency.*?\S+\S+',data_f2)    
+        if (filter_eff_fragment):    
+            filter_eff_fragment=filter_eff_fragment[0]
+            filter_eff_fragment = re.findall('\((.*?)\)',filter_eff_fragment)[0]
+        print("Filter efficiency in the fragment ="+ str(filter_eff_fragment))
         print("Cross section in the fragment =" + str(cross_section_fragment) +" pb")
         print("Cross section from generator parameters field = "+str(cross_section)+" pb")
         if str(cross_section_fragment).isdigit() is False:
@@ -647,11 +647,12 @@ for num in range(0,len(prepid)):
             print("[ERROR] Cross section in the generator parameters field and the one in the fragment do not match!")
             error += 1
         print("")
-#        print("Filter efficiency in fragment =" + str(filter_eff_fragment))
+        print("Filter efficiency in fragment =" + str(filter_eff_fragment))
         print("Filter efficiency from generator parameters field = "+str(filter_eff))
-#        if filter_eff_fragment and filter_eff and int(ext) == 0 and float(filter_eff_fragment) != float(filter_eff):
-#            print("[ERROR] Filter efficiency in the generator parameters field and the one in the fragment do not match!")
-#            error += 1    
+        # see https://github.com/cms-sw/genproductions/issues/3269
+        if len(filter_eff_fragment) > 0 and float(filter_eff_fragment) < 1.0:
+            print("[ERROR] In general, filter efficiency in the fragment is not taken into accout. Please make sure that the filter efficiency in the generator parameters field is correct!")
+            error += 1   
 	
         # Extension compatibility
         if int(ext) > 0:
