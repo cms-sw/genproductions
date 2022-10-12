@@ -651,8 +651,9 @@ for num in range(0,len(prepid)):
         print("Filter efficiency from generator parameters field = "+str(filter_eff))
         # see https://github.com/cms-sw/genproductions/issues/3269
         if len(filter_eff_fragment) > 0 and float(filter_eff_fragment) < 1.0:
-            print("[ERROR] In general, filter efficiency in the fragment is not taken into accout. Please make sure that the filter efficiency in the generator parameters field is correct!")
-            error += 1   
+            if filter_eff_fragment and filter_eff and int(ext) == 0 and float(filter_eff_fragment) != float(filter_eff):
+                print("[ERROR] In general, filter efficiency in the fragment is not taken into accout. Please make sure that the filter efficiency in the generator parameters field is correct!")
+                error += 1   
 	
         # Extension compatibility
         if int(ext) > 0:
