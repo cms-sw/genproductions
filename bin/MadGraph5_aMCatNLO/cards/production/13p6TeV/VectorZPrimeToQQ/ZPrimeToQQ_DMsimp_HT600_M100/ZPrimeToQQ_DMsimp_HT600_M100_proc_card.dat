@@ -1,0 +1,7 @@
+import DMsimp_s_spin1
+define p = 21 2 4 1 3 -2 -4 -1 -3 5 -5
+define j = g u c d s b u~ c~ d~ s~ b~
+generate p p > y1, y1 > j j
+add process p p > y1 j, y1 > j j
+add process p p > y1 j j, y1 > j j
+output ZPrimeToQQ_DMsimp_HT600_M100 -nojpeg
