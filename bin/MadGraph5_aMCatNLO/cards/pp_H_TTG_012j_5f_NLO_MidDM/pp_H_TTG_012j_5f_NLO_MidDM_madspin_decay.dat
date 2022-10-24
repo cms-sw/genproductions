@@ -19,7 +19,9 @@
  set spinmode none          # Use one of the madspin special mode
  set max_weight_ps_point 400  # number of PS to estimate the maximum for each event
 
-import model DipoleMomentMid_UFO models/DipoleMomentMid_UFO/param_test.dat --bypass_check
+#import model DipoleMomentMid_UFO models/DipoleMomentMid_UFO/param_test.dat --bypass_check
+#import model DipoleMomentMid_UFO models/DipoleMomentMid_UFO/param_signal.dat --bypass_check
+import model DipoleMomentMid_UFO ./param_signal.dat --bypass_check #unsure what to specify param_signal.dat relative to
 
 # specify the decay for the final state particles
 decay h > ta+ ta- a
