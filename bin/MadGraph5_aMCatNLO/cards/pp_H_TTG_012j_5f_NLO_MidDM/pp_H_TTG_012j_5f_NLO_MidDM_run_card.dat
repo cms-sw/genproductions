@@ -39,8 +39,13 @@
 #*********************************************************************
 # PDF CHOICE: this automatically fixes also alpha_s and its evol.    *
 #*********************************************************************
-     nn23lo1    = pdlabel     ! PDF set                                     
-     230000    = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number
+     #nn23lo1    = pdlabel     ! PDF set                                     
+     #230000    = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number
+
+     lhapdf = pdlabel ! PDF set
+     $DEFAULT_PDF_SETS = lhaid ! if pdlabel=lhapdf, this is the lhapdf number
+     $DEFAULT_PDF_MEMBERS = reweight_PDF ! reweight to get PDF uncertainty
+
 # To see heavy ion options: type "update ion_pdf"
 #*********************************************************************
 # Renormalization and factorization scales                           *
