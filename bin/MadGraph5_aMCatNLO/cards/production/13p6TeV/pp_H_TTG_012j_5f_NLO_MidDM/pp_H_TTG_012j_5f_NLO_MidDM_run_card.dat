@@ -1,4 +1,5 @@
-#*********************************************************************
+#
+#********************************************************************
 #                       MadGraph5_aMC@NLO                            *
 #                                                                    *
 #                     run_card.dat MadEvent                          *
@@ -23,7 +24,7 @@
 # Number of events and rnd seed                                      *
 # Warning: Do not generate more than 1M events in a single run       *
 #*********************************************************************
-  100 = nevents ! Number of unweighted events requested 
+  1000 = nevents ! Number of unweighted events requested 
   0   = iseed   ! rnd seed (0=assigned automatically=default))
 #*********************************************************************
 # Collider type and energy                                           *
