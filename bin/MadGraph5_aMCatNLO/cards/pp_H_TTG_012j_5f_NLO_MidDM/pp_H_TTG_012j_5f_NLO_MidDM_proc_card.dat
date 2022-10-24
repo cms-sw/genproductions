@@ -1,7 +1,5 @@
 define j = j b b~
 
 generate p p > h [QCD]
-#add process p p > H > ta+ ta- a j [QCD] @1
-#add process p p > H > ta+ ta- a j j [QCD] @2
 
 output pp_H_TTG_012j_5f_NLO_MidDM -nojpeg
