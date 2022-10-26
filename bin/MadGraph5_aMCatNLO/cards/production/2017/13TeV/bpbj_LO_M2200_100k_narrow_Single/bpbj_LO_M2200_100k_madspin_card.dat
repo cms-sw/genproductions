@@ -1,0 +1,5 @@
+# specify the decay for the final state particles
+decay bp > b h
+decay bp~ > b~ h
+# running the actual code
+launch
