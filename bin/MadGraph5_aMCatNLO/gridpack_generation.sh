@@ -26,7 +26,7 @@ make_tarball () {
     cd $WORKDIR/gridpack
 
     if [ $iscmsconnect -gt 0 ]; then
-        XZ_OPT="--lzma2=preset=2,dict=25  MiB"
+        XZ_OPT="--lzma2=preset=2,dict=256MiB"
     else
         XZ_OPT="--lzma2=preset=9,dict=512MiB"
     fi
@@ -110,7 +110,7 @@ make_gridpack () {
     if [ $iscmsconnect -eq 0 ]; then
       cd $PRODHOME
       if [ -x "$(command -v git)" ]; then
-        # git status
+        git status
         echo "Current git revision is:"
         git rev-parse HEAD
         git diff | cat
