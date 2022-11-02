@@ -884,17 +884,16 @@ for num in range(0,len(prepid)):
             error += err_tmp
         if herwig_flag != 0:
             os.system('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/herwig_common.txt -O herwig_common.txt') 
-            file2 = set(line.strip().replace(",","") for line in open(pi))
             file1 = set(line.strip().replace(",","") for line in open('herwig_common.txt'))
             for line in file1:                
-                if line not in file2:
+                if line not in data_f1:
                     print("[ERROR] Missing herwig setting in fragment: "+line)
                     error += 1
             if pw_gp is True:
                os.system('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/herwig_powheg.txt -O herwig_powheg.txt')	
                file_me = set(line.strip().replace(",","") for line in open('herwig_powheg.txt'))
                for line in file_me:
-                   if line not in file2:
+                   if line not in data_f1:
                        print("[ERROR] Missing herwig powheg specific setting in fragment: "+line)
                        error += 1
             if mg_gp is True:
@@ -903,31 +902,31 @@ for num in range(0,len(prepid)):
                os.system('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/herwig_mg_wo_merging.txt -O herwig_mg_wo_merging.txt')
                file_me_wo_merg = set(line.strip().replace(",","") for line in open('herwig_mg_wo_merging.txt'))
                if alt_ickkw_c != 0:
-                   for line in file_me:
-                       if line not in file2:
+                   for line in file_me:                   
+                       if line not in data_f1:
                            print("[ERROR] Missing herwig mg5_amc specific setting in fragment: "+line)
                            error += 1 
-                       if "'set FxFxHandler:njetsmax'" not in file2:
+                       if "set FxFxHandler:njetsmax" not in data_f1:
                            print("[ERROR] Missing set FxFxHandler:njetsmax MAX_N_ADDITIONAL_JETS in the user settings block")
                            error += 1
                else:
                    for line in file_me_wo_merg:
-                       if line not in file2:
+                       if line not in data_f1:
                            print("[ERROR] Missing herwig mg5_amc specific setting in fragment: "+line)
                            error += 1 
                if alt_ickkw_c == 3:#fxfx
-                   if "'set FxFxHandler:MergeMode FxFx'" not in file2:
+                   if "'set FxFxHandler:MergeMode FxFx'" not in data_f1:
                        print("[ERROR] Missing set FxFxHandler:MergeMode FxFx in the user settings block")
                        error += 1
                if alt_ickkw_c == 1:#mlm
-                   if "'set FxFxHandler:MergeMode TreeMG5'" not in file2:
+                   if "'set FxFxHandler:MergeMode TreeMG5'" not in data_f1:
                        print("[ERROR] Missing set FxFxHandler:MergeMode TreeMG5 in the user settings block")
                        error += 1 
             if amcnlo_gp is True or alt_ickkw_c == 0:
                os.system('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/herwig_mcnlo.txt -O herwig_mcnlo.txt')
                file_me = set(line.strip().replace(",","") for line in open('herwig_mcnlo.txt'))
                for line in file_me:
-                   if line not in file2:
+                   if line not in data_f1:
                        print("[ERROR] Missing herwig MG with 0 jets or mc@nlo specific setting in fragment: "+line)
                        error += 1 
             if "9_3" not in str(cmssw) and "7_1" not in str(cmssw) and pw_gp != 0 and mg_gp !=0 and amcnlo_qg !=0:
@@ -935,17 +934,17 @@ for num in range(0,len(prepid)):
                 file1 = set(line.strip().replace(",","")  for line in open('herwig_frag_lines.txt'))
                 herwig_check = []
                 herwig_psweight_tag = 0
-                for line in file2: print(line)
+                for line in data_f1: print(line)
                 print("-----")	 
                 for line in file1:
                     print(line)
-                    if line not in file2:
+                    if line not in data_f1:
                         herwig_check.append(line)	
                 if len(herwig_check) != 0 and "eec5" not in dn.lower() and "ee5c" not in dn.lower():
                     herwig_count.append(herwig_check[0].count('hw_lhe_common_settings'))
                     herwig_count.append(herwig_check[1].count('herwig7LHECommonSettingsBlock'))
                     herwig_count.append(herwig_check[2].count('from Configuration.Generator.Herwig7Settings.Herwig7LHECommonSettings_cfi import *'))
-                    if all(x == 1 for x in herwig_count) and any("insert SubProcess:MatrixElements" in x for x in list(file2)):
+                    if all(x == 1 for x in herwig_count) and any("insert SubProcess:MatrixElements" in x for x in list(data_f1)):
                         herwig7_bypass_error = 1
                     if "PSWeights" not in herwig_check:
                         herwig_psweight_tag = 1
