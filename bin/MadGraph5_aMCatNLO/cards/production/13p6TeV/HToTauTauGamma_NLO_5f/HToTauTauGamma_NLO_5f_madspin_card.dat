@@ -1,5 +1,5 @@
-import model DipoleMomentMid_UFO ../models/DipoleMomentMid_UFO/param_card.dat
 
+import model DipoleMomentMid_UFO --bypass_check
 set ms_dir ./madspingrid
 
 #initialization parameters
