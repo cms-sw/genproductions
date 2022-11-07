@@ -1,0 +1,16 @@
+set param_card frblock10 1 3 1 3 1.0
+set param_card frblock10 1 3 3 1 1.0
+set param_card frblock10 3 1 1 3 1.0
+set param_card frblock10 3 1 3 1 1.0
+set param_card frblock5 1 3 1 3 1.0
+set param_card frblock5 1 3 3 1 1.0
+set param_card frblock5 3 1 1 3 1.0
+set param_card frblock5 3 1 3 1 1.0
+set param_card frblock12 1 3 1 3 1.0
+set param_card frblock12 1 3 3 1 1.0
+set param_card frblock12 3 1 1 3 1.0
+set param_card frblock12 3 1 3 1 1.0
+set param_card frblock13 1 3 1 3 1.0
+set param_card frblock13 3 1 1 3 1.0
+set param_card frblock13 1 3 3 1 1.0
+set param_card frblock13 3 1 3 1 1.0
