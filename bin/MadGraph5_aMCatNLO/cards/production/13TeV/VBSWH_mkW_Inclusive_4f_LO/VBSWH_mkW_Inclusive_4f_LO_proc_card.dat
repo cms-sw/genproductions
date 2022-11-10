@@ -1,4 +1,3 @@
-import model sm
 import model sm_mkw
 
 define w = w+ w-
