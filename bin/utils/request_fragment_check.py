@@ -145,7 +145,7 @@ def concurrency_check(fragment,pi,cmssw_version):
                 print("[ERROR] Concurrent generation parameters used along with RandomizedParameter scan.")
                 error_conc = 1
             if "plhegen" in pi.lower():
-                print("[ERROR] Concurrent generation parameters used along with a pLHE request.")
+                print("[ERROR] Concurrent generation parameters used along with a pLHEGEN request.")
                 error_conc = 1
         else:
             # then if not both the LHE and GEN step turns on concurrent features, we check if for some cases it is ok not to have concurrency
@@ -990,7 +990,6 @@ for num in range(0,len(prepid)):
 #            print("            filter efficiency = "+str(filter_eff))
 #            print("            matching efficiency = "+str(match_eff))
 #            error += 1
-
         if any(word in dn for word in MEname) and gp_size == 0 and "plhe" not in pi.lower():
             print("[ERROR] gridpack path is not properly specified - most probable reason is that it is not a cvmfs path.")
             error += 1
@@ -1196,9 +1195,8 @@ for num in range(0,len(prepid)):
                         if ("HERWIGPP" not in ps_hw.upper()) or ("HERWIG7" not in ps_hw.upper() and herwig7_bypass_error == 1):
                             print("[ERROR] HERWIGPP or HERWIG7 = parton_shower not in run_card.dat")
                             error += 1
-
-        if "jhugen" in dn.lower():
-            if gp_size == 0: break
+        
+        if "jhugen" in dn.lower() and gp_size != 0 and "plhe" not in pi.lower():
             for root, dirs, files in os.walk(os.path.join(my_path, pi, "."), topdown=False):
                 for name in files:
                     if "JHUGen.input" in name:
@@ -1231,6 +1229,7 @@ for num in range(0,len(prepid)):
                     else:
                         WriteFailedEvents_flag = 1
                         print("[OK] "+str(jhu_wfe)+" for this jhugen+powheg sample.")
+
         for ind, word in enumerate(MEname):
             if fsize == 0: break
             if ind == 3: break
