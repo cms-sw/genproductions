@@ -1447,9 +1447,9 @@ for num in range(0,len(prepid)):
                             else:
                                 vbf_lo = 1   
                                 print("VBF process at LO")
-                        warn_tmp , err_tmp = vbf_dipole_recoil_check(vbf_lo,vbf_nlo,data_f2,pw_gp,dn)
-                        warning += warn_tmp
-                        error += err_tmp
+                            warn_tmp , err_tmp = vbf_dipole_recoil_check(vbf_lo,vbf_nlo,data_f2,pw_gp,dn)
+                            warning += warn_tmp
+                            error += err_tmp
                     if os.path.isfile(filename_mggpc) is True :
                         ickkw = os.popen('more '+filename_mggpc+' | tr -s \' \' | grep "= ickkw"').read()
                         bw = os.popen('more '+filename_mggpc+' | tr -s \' \' | grep "= bwcutoff"').read()
