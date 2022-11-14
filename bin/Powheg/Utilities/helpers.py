@@ -167,7 +167,9 @@ sed -i 's/4.5d0/4.75d0/g' init_couplings.f",
     "gg_H_MSSM" : "sed -i 's/leq/le/g' nloreal.F\n \
 cp -p ../gg_H_quark-mass-effects/SLHA.h .\n \
 cp -p ../gg_H_quark-mass-effects/SLHADefs.h .",
-    }.get(process,"")
+    "HJ/HJMiNNLO" : "sed -i -e \"s#PDF=hoppet#PDF=lhapdf#\" Makefile \n \
+     sed -i -e \"s#internal_parameters.o coefficient_functions_nnlops.o#internal_parameters.o coefficient_functions_nnlops.o sudakov_radiators.o#\" Makefile",    
+  }.get(process,"")
 
 def runGetSource_patch_5(process) :
   return {

@@ -1,12 +1,21 @@
 export name=$folderName
 export cardInput=$powInputName
-export process=$process
+export processtemp=$processtemp
 export noPdfCheck=$noPdfCheck
 export WORKDIR=$rootfolder
 export patches_dir=$patches_dir 
 # Release to be used to define the environment and the compiler needed
 export RELEASE=$${CMSSW_VERSION}
 export jhugenversion="v7.5.2" 
+
+### Check if subdirectory
+process=$$(echo $${processtemp} | cut -f1 -d "/")
+subprocess=$$(echo $${processtemp} | cut -f2 -d "/")
+echo "Process is: $${process}";
+if [[ $${process} = $${subprocess} ]]; then
+  subprocess=''
+fi
+echo "Sub-process (if available) is: $${subprocess}";
 
 cd $$WORKDIR
 pwd
@@ -89,7 +98,7 @@ if [ -e POWHEG-BOX/$${process}.tgz ]; then
   cd -
 else
   cd POWHEG-BOX/
-  svn co --revision $svnRev --username anonymous --password anonymous $svnProc/$process
+  svn co --revision $svnRev --username anonymous --password anonymous $svnProc/$${process}
   cd -
 fi
 
@@ -103,7 +112,7 @@ sed -i -e "s#500#1350#g"  POWHEG-BOX/include/pwhg_rwl.h
 
 echo $${POWHEGSRC} > VERSION
 
-cd POWHEG-BOX/$${process}
+cd POWHEG-BOX/$${process}/$${subprocess}
 
 # This is just to please gcc 4.8.1
 mkdir -p include
