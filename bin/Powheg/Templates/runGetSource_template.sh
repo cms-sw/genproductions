@@ -211,17 +211,6 @@ fi
 
 $patch_6 
 
-if [[ $$process = "WWJ" ]]; then
-  cd $${WORKDIR}/$${name}/POWHEG-BOX/MATRIXStuff
-  ./matrix --minnlo_interface
-  cd -
-  cd $${WORKDIR}/$${name}/POWHEG-BOX/WWJ
-  wget --no-verbose --no-check-certificate https://wwwth.mpp.mpg.de/members/wieseman/download/codes/WW_MiNNLO/VVamp_interpolation_grids/WW_MiNNLO_2loop_grids_reduced1.tar.gz
-  tar xzf WW_MiNNLO_2loop_grids_reduced1.tar.gz
-  cd -
-  source /cvmfs/cms.cern.ch/$${SCRAM_ARCH}/external/cmake/3.10.0/etc/profile.d/init.sh
-fi
-
 echo 'Compiling pwhg_main...'
 pwd
 
