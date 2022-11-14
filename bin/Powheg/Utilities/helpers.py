@@ -186,26 +186,26 @@ def runGetSource_patch_6(process) :
   return {
     "WWJ" : "cp Makefile Makefile.orig\n \
 cat Makefile.orig | sed -e \"s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d \"=\" -f2)/bin/fastjet-config#g\" | sed -e \"s#\#\ FASTJET_CONFIG#FASTJET_CONFIG#g\" | sed -e \"s#\#\ LIBSFASTJET#LIBSFASTJET#g\" | sed -e \"s#\#\ FJCXXFLAGS#FJCXXFLAGS#g\" > Makefile\n \
-cd $${WORKDIR}/$${name}/POWHEG-BOX/MATRIXStuff\n \
+cd ${WORKDIR}/${name}/POWHEG-BOX/MATRIXStuff\n \
 ./matrix --minnlo_interface\n \
 cd -\n \
-cd $${WORKDIR}/$${name}/POWHEG-BOX/WWJ\n \
+cd ${WORKDIR}/${name}/POWHEG-BOX/WWJ\n \
 wget --no-verbose --no-check-certificate https://wwwth.mpp.mpg.de/members/wieseman/download/codes/WW_MiNNLO/VVamp_interpolation_grids/WW_MiNNLO_2loop_grids_reduced1.tar.gz\n \
 tar xzf WW_MiNNLO_2loop_grids_reduced1.tar.gz\n \
 cd -\n \
-source /cvmfs/cms.cern.ch/$${SCRAM_ARCH}/external/cmake/3.10.0/etc/profile.d/init.sh",
+source /cvmfs/cms.cern.ch/${SCRAM_ARCH}/external/cmake/3.10.0/etc/profile.d/init.sh",
     "ZZJ" : "cp Makefile Makefile.orig\n \
 cat Makefile.orig | sed -e \"s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d \"=\" -f2)/bin/fastjet-config#g\" | sed -e \"s#\#\ FASTJET_CONFIG#FASTJET_CONFIG#g\" | sed -e \"s#\#\ LIBSFASTJET#LIBSFASTJET#g\" | sed -e \"s#\#\ FJCXXFLAGS#FJCXXFLAGS#g\" > Makefile\n \
-cd $${WORKDIR}/$${name}/POWHEG-BOX/MATRIXStuff\n \
+cd ${WORKDIR}/${name}/POWHEG-BOX/MATRIXStuff\n \
 ./matrix --minnlo_interface\n \
 cd -\n \
-source /cvmfs/cms.cern.ch/$${SCRAM_ARCH}/external/cmake/3.10.0/etc/profile.d/init.sh",
+source /cvmfs/cms.cern.ch/${SCRAM_ARCH}/external/cmake/3.10.0/etc/profile.d/init.sh",
     "ZgamJ" : "cp Makefile Makefile.orig\n \
 cat Makefile.orig | sed -e \"s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d \"=\" -f2)/bin/fastjet-config#g\" | sed -e \"s#\#\ FASTJET_CONFIG#FASTJET_CONFIG#g\" | sed -e \"s#\#\ LIBSFASTJET#LIBSFASTJET#g\" | sed -e \"s#\#\ FJCXXFLAGS#FJCXXFLAGS#g\" > Makefile\n \
-cd $${WORKDIR}/$${name}/POWHEG-BOX/MATRIXStuff\n \
+cd ${WORKDIR}/${name}/POWHEG-BOX/MATRIXStuff\n \
 ./matrix --minnlo_interface\n \
 cd -\n \
-source /cvmfs/cms.cern.ch/$${SCRAM_ARCH}/external/cmake/3.10.0/etc/profile.d/init.sh",
+source /cvmfs/cms.cern.ch/${SCRAM_ARCH}/external/cmake/3.10.0/etc/profile.d/init.sh",
     "ttbarj" : "cp Makefile Makefile.orig\n \
 cat Makefile.orig | sed -e \"s#OLPATH=.\+#OLPATH=$(scram tool info OpenLoops | grep BASE | cut -d \"=\" -f2)#g\" > Makefile\n \
 sed -i -e \"s#Pythia8Plugins#Pythia8Plugins \$(shell \$(LHAPDF_CONFIG) --cxxflags )#g\" Makefile",
