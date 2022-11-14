@@ -128,6 +128,8 @@ else
         SCRAM_ARCH=slc6_amd64_gcc700 
     elif [[ $SYSTEM_RELEASE == *"release 7"* ]]; then 
         SCRAM_ARCH=slc7_amd64_gcc900 
+    elif [[ $SYSTEM_RELEASE == *"release 8"* ]]; then
+        scram_arch=el8_amd64_gcc10
     else 
         echo "No default scram_arch for current OS"
         exit 1        
@@ -143,6 +145,8 @@ else
         CMSSW_VERSION=CMSSW_10_2_28 
     elif [[ $SYSTEM_RELEASE == *"release 7"* ]]; then 
         CMSSW_VERSION=CMSSW_12_2_4_patch1 
+    elif [[ $SYSTEM_RELEASE == *"release 8"* ]]; then 
+        CMSSW_VERSION=CMSSW_12_4_11
     else 
         echo "No default CMSSW for current OS"
         exit 1        
