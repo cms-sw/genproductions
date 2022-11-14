@@ -190,8 +190,7 @@ cd $${WORKDIR}/$${name}/POWHEG-BOX/MATRIXStuff\n \
 ./matrix --minnlo_interface\n \
 cd -\n \
 cd $${WORKDIR}/$${name}/POWHEG-BOX/WWJ\n \
-wget --no-verbose --no-check-certificate https://wwwth.mpp.mpg.de/members/wieseman/download/codes/WW_MiNNLO/VVamp_inte
-rpolation_grids/WW_MiNNLO_2loop_grids_reduced1.tar.gz\n \
+wget --no-verbose --no-check-certificate https://wwwth.mpp.mpg.de/members/wieseman/download/codes/WW_MiNNLO/VVamp_interpolation_grids/WW_MiNNLO_2loop_grids_reduced1.tar.gz\n \
 tar xzf WW_MiNNLO_2loop_grids_reduced1.tar.gz\n \
 cd -\n \
 source /cvmfs/cms.cern.ch/$${SCRAM_ARCH}/external/cmake/3.10.0/etc/profile.d/init.sh",
