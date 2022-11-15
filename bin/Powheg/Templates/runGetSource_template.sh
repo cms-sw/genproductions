@@ -164,7 +164,7 @@ fi
 if [ `grep particle_identif pwhg_analysis-dummy.f` = ""]; then
    cp ../pwhg_analysis-dummy.f .
 fi
-if [[ $$process != "WWJ" ]]; then
+if [[ $$process != "WWJ" && $$process != "ZgamJ" && $$process != "ZZJ" && $$process != "Zgam" ]]; then
   sed -i -e "s#PWHGANAL[ \t]*=[ \t]*#\#PWHGANAL=#g" Makefile
   sed -i -e "s#ANALYSIS[ \t]*=[ \t]*#\#ANALYSIS=#g" Makefile
   sed -i -e "s#_\#ANALYSIS*#_ANALYSIS=#g" Makefile
