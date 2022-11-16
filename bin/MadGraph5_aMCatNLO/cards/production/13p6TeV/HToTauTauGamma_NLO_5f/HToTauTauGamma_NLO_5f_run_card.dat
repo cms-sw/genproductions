@@ -165,3 +165,4 @@
 #*********************************************************************
    True  = use_syst      ! Enable systematics studies
 #
+ 1 = hard_survey
