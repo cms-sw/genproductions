@@ -250,7 +250,6 @@ elif Period == "Run2UL":
                 [13000, 61200, 'HERAPDF20_NNLO_EIG', 29],
                 [13050, 61230, 'HERAPDF20_NNLO_VAR', 14],
                 [14000, 13400, 'CT14qed_inc_proton', 31],
-                [15000, 82200, 'LUXqed17_plus_PDF4LHC15_nnlo_100', 108],
             ],
             "PDF_variation2 , replica" :
             [
@@ -261,6 +260,8 @@ elif Period == "Run2UL":
                 [1850, 315200, 'NNPDF31_lo_as_0130', 1],
                 [1900, 262000, 'NNPDF30_lo_as_0118', 1],
                 [1950, 263000, 'NNPDF30_lo_as_0130', 1],
+                [15000, 82200, 'LUXqed17_plus_PDF4LHC15_nnlo_100', 108],
+                [16000, 325100, 'NNPDF31_nnlo_as_0118_luxqed', 101],
             ],
         }
     else:
