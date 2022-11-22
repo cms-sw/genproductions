@@ -173,7 +173,7 @@ fi
 if [ `grep particle_identif pwhg_analysis-dummy.f` = ""]; then
    cp ../pwhg_analysis-dummy.f .
 fi
-if [[ $$process != "WWJ" ]]; then
+if [[ $$process != "WWJ" && $$process != "ZgamJ" && $$process != "ZZJ" && $$process != "Zgam" ]]; then
   sed -i -e "s#PWHGANAL[ \t]*=[ \t]*#\#PWHGANAL=#g" Makefile
   sed -i -e "s#ANALYSIS[ \t]*=[ \t]*#\#ANALYSIS=#g" Makefile
   sed -i -e "s#_\#ANALYSIS*#_ANALYSIS=#g" Makefile
@@ -219,17 +219,6 @@ if [ $$jhugen = 1 ]; then
 fi
 
 $patch_6 
-
-if [[ $$process = "WWJ" ]]; then
-  cd $${WORKDIR}/$${name}/POWHEG-BOX/MATRIXStuff
-  ./matrix --minnlo_interface
-  cd -
-  cd $${WORKDIR}/$${name}/POWHEG-BOX/WWJ
-  wget --no-verbose --no-check-certificate https://wwwth.mpp.mpg.de/members/wieseman/download/codes/WW_MiNNLO/VVamp_interpolation_grids/WW_MiNNLO_2loop_grids_reduced1.tar.gz
-  tar xzf WW_MiNNLO_2loop_grids_reduced1.tar.gz
-  cd -
-  source /cvmfs/cms.cern.ch/$${SCRAM_ARCH}/external/cmake/3.10.0/etc/profile.d/init.sh
-fi
 
 echo 'Compiling pwhg_main...'
 pwd
