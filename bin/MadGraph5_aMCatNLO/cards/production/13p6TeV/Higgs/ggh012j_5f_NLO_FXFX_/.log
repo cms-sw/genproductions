@@ -1,9 +1,0 @@
-Starting job on  Fri Nov 4 13:17:19 CET 2022
-Running on  Linux lxplus796.cern.ch 3.10.0-1160.76.1.el7.x86_64 #1 SMP Wed Aug 10 16:21:17 UTC 2022 x86_64 x86_64 x86_64 GNU/Linux
-System release  CentOS Linux release 7.9.2009 (Core)
-name: ggf_125/
-carddir: ggh012j_5f_NLO_FXFX_125
-queue: condor
-scram_arch: slc7_amd64_gcc10
-cmssw_version: CMSSW_12_4_8
-/afs/cern.ch/user/c/chuw/chuw/gridpack/genproductions/bin/MadGraph5_aMCatNLO/ggh012j_5f_NLO_FXFX_125  does not exist!
