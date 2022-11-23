@@ -1,16 +1,16 @@
---- a/madgraph/various/systematics.py	2019-02-04 12:19:42.000000000 +0100
-+++ b/madgraph/various/systematics.py	2021-05-14 02:58:04.293017000 +0200
-@@ -325,7 +325,7 @@
+--- a/madgraph/various/systematics.py
++++ b/madgraph/various/systematics.py
+@@ -339,7 +339,7 @@ class Systematics(object):
          else:
              lowest_id = self.get_id()        
  
--        ids = [lowest_id+i for i in range(len(self.args)-1)]
-+        ids = [lowest_id+i for i in range(len(self.args))]
+-        ids = [self.get_wgt_name(*self.args[i][:5], cid=lowest_id+i) for i in range(len(self.args)-1)]
++        ids = [self.get_wgt_name(*self.args[i][:5], cid=lowest_id+i) for i in range(len(self.args))]
+         #ids = [lowest_id+i for i in range(len(self.args)-1)]
          all_cross = [0 for i in range(len(self.args))]
          
-         self.input.parsing = False
-@@ -359,7 +359,7 @@
-                 print event
+@@ -374,7 +374,7 @@ class Systematics(object):
+                 print(event)
                  raise Exception
              
 -            wgt = [event.wgt*wgts[i]/wgts[0] for i in range(1,len(wgts))]
@@ -18,7 +18,7 @@
              all_cross = [(all_cross[j] + event.wgt*wgts[j]/wgts[0]) for j in range(len(wgts))]
              
              rwgt_data = event.parse_reweight()
-@@ -533,7 +533,7 @@
+@@ -548,7 +548,7 @@ class Systematics(object):
          text = ''
          
          default = self.args[0]
@@ -27,12 +27,3 @@
              mur, muf, alps, dyn, pdf = arg[:5]
              if pdf == self.orig_pdf and alps ==1 and (mur!=1 or muf!=1 or dyn!=-1):
                  if not in_scale:
-@@ -554,7 +554,7 @@
-                 text += "</weightgroup> # ALPS\n"
-                 in_alps=False
-             
--            if mur == muf == 1 and dyn==-1 and alps ==1:
-+            if mur == muf == 1 and dyn==-1 and alps ==1 and cid!=lowest_id:
-                 if pdf.lhapdfID < 0:
-                     for central,sets in self.pdfsets.items():
-                         if pdf in sets.set():

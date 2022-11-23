@@ -53,6 +53,19 @@ if [ "$use_gridpack_env" = true ]
     echo "%MSG-MG5 CMSSW version = $cmssw_version"
     export VO_CMS_SW_DIR=/cvmfs/cms.cern.ch
     source $VO_CMS_SW_DIR/cmsset_default.sh
+
+    eval `scramv1 unsetenv -sh`
+    # Make a directory that doesn't overlap
+    if [ ! -d $CMSSW_BASE ] && [[ $PWD == ${CMSSW_BASE}/* ]]; then
+        base=`basename $PWD`
+        cd ${CMSSW_BASE}/..
+        if [ ! -d $base ]; then
+            mkdir $base
+            cd $base
+        fi
+    fi
+
+
     export SCRAM_ARCH=${scram_arch_version}
     scramv1 project CMSSW ${cmssw_version}
     cd ${cmssw_version}/src
@@ -97,15 +110,14 @@ export PYTHONPATH=.:${PYTHONPATH}
 #ln -s `which gfortran` g77
 export PATH=`pwd`:${PATH}
 
+cp -p ${WORKDIR}/pwg*.dat .
+
 if [ "${process}" == "X0jj" ]; then
     cp -p ${WORKDIR}/MadLoopParams.dat .
     for f in `ls ${WORKDIR}/MG5_aMC_v2_6_7/X0jj/SubProcesses/MadLoop5_resources/*`
     do
 	ln -sf $f ./
     done
-fi
-if [[ -e ${WORKDIR}/pwggrid.dat ]]; then
-    cp -p ${WORKDIR}/pwg*.dat .
 fi
 if [ -e  ${WORKDIR}/vbfnlo.input ]; then
     cp -p ${WORKDIR}/vbfnlo.input .
@@ -131,12 +143,6 @@ if [[ -d ${WORKDIR}/WW_MATRIX ]]; then
     ln -s ${WORKDIR}/WW_MINLO .
     cp -p ${WORKDIR}/binvalues-WW.top .
 fi
-### For DYNNLOPS
-if [[ -e ${WORKDIR}/DYNNLO_mur1_muf1_3D.top ]]; then
-    ln -s ${WORKDIR}/DYNNLO*.top .
-    ln -s ${WORKDIR}/MINLO*.top .
-    ln -s ${WORKDIR}/list*.txt .
-fi
 ### For the ggHH process
 if [[ -e ${WORKDIR}/Virt_full_cHHH_0.0.grid ]]; then
     ln -s ${WORKDIR}/Virt_full_cHHH_* .
@@ -158,8 +164,38 @@ grep -q "storeinfo_rwgt 1" powheg.input ; test $? -eq 0  || produceWeights="fals
 grep -q "pdfreweight 1" powheg.input ; test $? -eq 0 || produceWeights="false"
 grep -q "first runx" powheg.input ; test $? -ne 0 || produceWeights="true"
 
+if [ "$process" = "Z_ew-BMNNPV" ] || [ "$process" = "W_ew-BMNNP" ]; then
+  # Photos matching removes weights, so we will calculate them afterwards
+  sed -i '/rwl_file/d' powheg.input
+fi
+
 cat powheg.input
 ../pwhg_main 2>&1 | tee log_${process}_${seed}.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
+
+if [ "${process}" == "X0jj" ]; then
+    # now run reweighting for X0jj process
+    # also need to modify powheg.input inbetween these calls
+    cp powheg.input powheg.input.noweight
+    sed -nir '/compute_rwgt/!p;$acompute_rwgt 1' powheg.input 
+
+    # sm weight
+    sed -nir '/lhrwgt_id/!p;$alhrwgt_id '\''sm_weight'\''' powheg.input 
+    sed -nir '/MGcosa/!p;$aMGcosa    1d0' powheg.input 
+    ../pwhg_main 2>&1 | tee logrew_${process}_${seed}_sm.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0" 
+    mv pwgevents-rwgt.lhe pwgevents.lhe
+    
+    # ps weight
+    sed -nir '/lhrwgt_id/!p;$alhrwgt_id '\''ps_weight'\''' powheg.input 
+    sed -nir '/MGcosa/!p;$aMGcosa    0d0' powheg.input 
+    ../pwhg_main 2>&1 | tee logrew_${process}_${seed}_ps.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"  
+    mv pwgevents-rwgt.lhe pwgevents.lhe
+
+    # mm weight
+    sed -nir '/lhrwgt_id/!p;$alhrwgt_id '\''mm_weight'\''' powheg.input 
+    sed -nir '/MGcosa/!p;$aMGcosa    -0.707107d0' powheg.input 
+    ../pwhg_main 2>&1 | tee logrew_${process}_${seed}_mm.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"   
+    mv pwgevents-rwgt.lhe pwgevents.lhe
+fi
 
 if [ "$produceWeightsNNLO" == "true" ]; then
     echo -e "\ncomputing weights for NNLOPS\n"
@@ -174,7 +210,216 @@ fi
 
 sed -e "/#new weight/d" -e "/<wgt id='c'>/d" -e "/<weight id='c'>/d" pwgevents.lhe > pwgevents.lhe.tmp
 mv pwgevents.lhe.tmp pwgevents.lhe 
+if [[ $(grep -c "</event" pwgevents.lhe) -ne ${nevt} ]]; then
+    fail_exit "pwhg_main error: Did not produce expected number of events"
+fi
 cp powheg.input powheg.input.noweight
+
+MINNLO="false"
+grep -q "minnlo 1" powheg.input ; test $? -ne 0 || MINNLO="true"
+
+if [ "$MINNLO" == "true" ]; then
+    echo -e "\ncomputing MiNNLO extra weights\n"
+    if [ "$process" == "Zj" ]; then
+        MASSES=(91.0876 91.0976 91.1076 91.1176 91.1276 91.1376 91.1476 91.1576 91.1676 91.1776 91.1876 91.1976 91.2076 91.2176 91.2276 91.2376 91.2476 91.2576 91.2676 91.2776 91.2876 91.1855 91.1897)
+        PSMASS=91.1876
+        WIDTHS=(2.49333 2.49493 2.4929 2.4952 2.4975)
+    elif [ "$process" == "Wj" ]; then
+        MASSES=(80.279 80.289 80.299 80.309 80.319 80.329 80.339 80.349 80.359 80.369 80.379 80.389 80.399 80.409 80.419 80.429 80.439 80.449 80.459 80.469 80.479)
+        PSMASS=80.379
+        WIDTHS=(2.09053 2.09173 2.043 2.085 2.127)
+    fi
+    counter=1100
+    # Mass
+    for MASS in ${MASSES[@]}
+    do
+        echo -e "\n doing mass ${MASS}\n"
+        cp powheg.input.noweight powheg.input
+        sed -i '/rwl_file/d' powheg.input
+        echo "rwl_file '-'" >> powheg.input
+        echo "rwl_add 1" >> powheg.input
+        echo "<initrwgt>" >> powheg.input
+        echo "<weightgroup name='mass_variation'>" >> powheg.input
+        echo "<weight id='${counter}'> mass=${MASS} </weight>" >> powheg.input
+        echo "</weightgroup>" >> powheg.input
+        echo "</initrwgt>" >> powheg.input
+        if [ "$process" == "Zj" ]; then
+            echo "Zmass ${MASS}" >> powheg.input
+            echo "psZmass ${PSMASS}" >> powheg.input
+        elif [ "$process" == "Wj" ]; then
+            echo "Wmass ${MASS}" >> powheg.input
+            echo "psWmass ${PSMASS}" >> powheg.input
+        fi
+        
+        ../pwhg_main 2>&1 | tee logrew_${process}_${seed}_mass_${MASS}.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
+        
+        mv pwgevents-rwgt.lhe pwgevents.lhe
+        
+        counter=$(( counter + 1 ))
+    done
+    # Width
+    for WIDTH in ${WIDTHS[@]}
+    do
+        echo -e "\n doing width ${WIDTH}\n"
+        cp powheg.input.noweight powheg.input
+        sed -i '/rwl_file/d' powheg.input
+        echo "rwl_file '-'" >> powheg.input
+        echo "rwl_add 1" >> powheg.input
+        echo "<initrwgt>" >> powheg.input
+        echo "<weightgroup name='width_variation'>" >> powheg.input
+        echo "<weight id='${counter}'> width=${WIDTH} </weight>" >> powheg.input
+        echo "</weightgroup>" >> powheg.input
+        echo "</initrwgt>" >> powheg.input
+        if [ "$process" == "Zj" ]; then
+            echo "Zwidth ${WIDTH}" >> powheg.input
+        elif [ "$process" == "Wj" ]; then
+            echo "Wwidth ${WIDTH}" >> powheg.input
+        fi
+        
+        ../pwhg_main 2>&1 | tee logrew_${process}_${seed}_width_${WIDTH}.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
+        
+        mv pwgevents-rwgt.lhe pwgevents.lhe
+        
+        counter=$(( counter + 1 ))
+    done
+    # Q0
+    QS=(2.0 1.0 0.5 0.0)
+    for Q in ${QS[@]}
+    do
+        echo -e "\n doing Q0 ${Q}\n"
+        cp powheg.input.noweight powheg.input
+        sed -i '/rwl_file/d' powheg.input
+        sed -i '/Q0/d' powheg.input
+        echo "rwl_file '-'" >> powheg.input
+        echo "rwl_add 1" >> powheg.input
+        echo "<initrwgt>" >> powheg.input
+        echo "<weightgroup name='q0_variation'>" >> powheg.input
+        echo "<weight id='${counter}'> Q0=${Q} </weight>" >> powheg.input
+        echo "</weightgroup>" >> powheg.input
+        echo "</initrwgt>" >> powheg.input
+        echo "Q0 ${Q}" >> powheg.input
+        
+        ../pwhg_main 2>&1 | tee logrew_${process}_${seed}_q0_${Q}.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
+        
+        mv pwgevents-rwgt.lhe pwgevents.lhe
+        
+        counter=$(( counter + 1 ))
+    done
+    # largeptscales
+    echo -e "\n doing largeptscales 1\n"
+    cp powheg.input.noweight powheg.input
+    sed -i '/rwl_file/d' powheg.input
+    sed -i '/largeptscales/d' powheg.input
+    echo "rwl_file '-'" >> powheg.input
+    echo "rwl_add 1" >> powheg.input
+    echo "<initrwgt>" >> powheg.input
+    echo "<weightgroup name='largeptscales_variation'>" >> powheg.input
+    echo "<weight id='${counter}'> largeptscales=1 </weight>" >> powheg.input
+    echo "</weightgroup>" >> powheg.input
+    echo "</initrwgt>" >> powheg.input
+    echo "largeptscales 1" >> powheg.input
+
+    ../pwhg_main 2>&1 | tee logrew_${process}_${seed}_largeptscales_1.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
+
+    mv pwgevents-rwgt.lhe pwgevents.lhe
+
+    counter=$(( counter + 1 ))
+    # sin2theta
+    if [ "$process" == "Zj" ]; then
+        SINW2S=(0.23151 0.23154 0.23157 0.2230 0.2300 0.2305 0.2310 0.2315 0.2320 0.2325 0.2330)
+        for SINW2 in ${SINW2S[@]}
+        do
+            echo -e "\n doing sthw2 ${SINW2}\n"
+            cp powheg.input.noweight powheg.input
+            sed -i '/rwl_file/d' powheg.input
+            echo "rwl_file '-'" >> powheg.input
+            echo "rwl_add 1" >> powheg.input
+            echo "<initrwgt>" >> powheg.input
+            echo "<weightgroup name='sthw2_variation'>" >> powheg.input
+            echo "<weight id='${counter}'> sthw2=${SINW2} </weight>" >> powheg.input
+            echo "</weightgroup>" >> powheg.input
+            echo "</initrwgt>" >> powheg.input
+            echo "sthw2 ${SINW2}" >> powheg.input
+            
+            ../pwhg_main 2>&1 | tee logrew_${process}_${seed}_sinw2_${SINW2}.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
+            
+            mv pwgevents-rwgt.lhe pwgevents.lhe
+            
+            counter=$(( counter + 1 ))
+        done
+    fi
+    # CKM
+    if [ "$process" == "Wj" ]; then
+        echo -e "\n doing CKM Cabibbo\n"
+        cp powheg.input.noweight powheg.input
+        sed -i '/rwl_file/d' powheg.input
+        echo "rwl_file '-'" >> powheg.input
+        echo "rwl_add 1" >> powheg.input
+        echo "<initrwgt>" >> powheg.input
+        echo "<weightgroup name='ckm_variation'>" >> powheg.input
+        echo "<weight id='${counter}'> ckm_cabibbo=1 </weight>" >> powheg.input
+        echo "</weightgroup>" >> powheg.input
+        echo "</initrwgt>" >> powheg.input
+        sed -i "s/CKM_Vud .*/CKM_Vud 0.975d0/g" powheg.input
+        sed -i "s/CKM_Vus .*/CKM_Vus 0.222d0/g" powheg.input
+        sed -i "s/CKM_Vub .*/CKM_Vub 1d-10/g" powheg.input
+        sed -i "s/CKM_Vcd .*/CKM_Vcd 0.222d0/g" powheg.input
+        sed -i "s/CKM_Vcs .*/CKM_Vcs 0.975d0/g" powheg.input
+        sed -i "s/CKM_Vcb .*/CKM_Vcb 1d-10/g" powheg.input
+        sed -i "s/CKM_Vtd .*/CKM_Vtd 1d-10/g" powheg.input
+        sed -i "s/CKM_Vts .*/CKM_Vts 1d-10/g" powheg.input
+        sed -i "s/CKM_Vtb .*/CKM_Vtb 1d0/g" powheg.input
+        
+        ../pwhg_main 2>&1 | tee logrew_${process}_${seed}_ckm_cabibbo.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
+        
+        mv pwgevents-rwgt.lhe pwgevents.lhe
+        
+        counter=$(( counter + 1 ))
+        
+        
+        echo -e "\n doing CKM diagonal\n"
+        cp powheg.input.noweight powheg.input
+        sed -i '/rwl_file/d' powheg.input
+        echo "rwl_file '-'" >> powheg.input
+        echo "rwl_add 1" >> powheg.input
+        echo "<initrwgt>" >> powheg.input
+        echo "<weightgroup name='ckm_variation'>" >> powheg.input
+        echo "<weight id='${counter}'> ckm_diagonal=1 </weight>" >> powheg.input
+        echo "</weightgroup>" >> powheg.input
+        echo "</initrwgt>" >> powheg.input
+        sed -i "s/CKM_Vud .*/CKM_Vud 1.000/g" powheg.input
+        sed -i "s/CKM_Vus .*/CKM_Vus 1d-10/g" powheg.input
+        sed -i "s/CKM_Vub .*/CKM_Vub 1d-10/g" powheg.input
+        sed -i "s/CKM_Vcd .*/CKM_Vcd 1d-10/g" powheg.input
+        sed -i "s/CKM_Vcs .*/CKM_Vcs 1.000/g" powheg.input
+        sed -i "s/CKM_Vcb .*/CKM_Vcb 1d-10/g" powheg.input
+        sed -i "s/CKM_Vtd .*/CKM_Vtd 1d-10/g" powheg.input
+        sed -i "s/CKM_Vts .*/CKM_Vts 1d-10/g" powheg.input
+        sed -i "s/CKM_Vtb .*/CKM_Vtb 1.000/g" powheg.input
+        
+        ../pwhg_main 2>&1 | tee logrew_${process}_${seed}_ckm_diagonal.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
+        
+        mv pwgevents-rwgt.lhe pwgevents.lhe
+        
+        counter=$(( counter + 1 ))
+    fi
+fi
+
+if [ "$process" = "Z_ew-BMNNPV" ] || [ "$process" = "W_ew-BMNNP" ]; then
+  ../main-PHOTOS-lhef 2>&1 | tee logphotos_${process}_${seed}.txt; test $? -eq 0 || fail_exit "main-PHOTOS-lhef: exit code not 0"
+  mv pwgevents.lhe pwgevents_nophotos.lhe
+  mv pwgevents_photos.lhe pwgevents.lhe
+  
+  echo -e "\n doing rwl\n"
+  cp powheg.input.noweight powheg.input
+  sed -i '/rwl_file/d' powheg.input
+  echo "rwl_file 'pwg-rwl.dat'" >> powheg.input
+  echo "rwl_add 1" >> powheg.input
+  
+  ../pwhg_main 2>&1 | tee logrew_${process}.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
+  mv pwgevents.lhe pwgevents_photos.lhe
+  mv pwgevents-rwgt.lhe pwgevents.lhe
+fi
 
 if [ "$produceWeights" == "true" ]; then
 

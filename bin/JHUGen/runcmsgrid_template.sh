@@ -46,7 +46,7 @@ set -euo pipefail
 cd $LHEWORKDIR
 
 if [ -d CMSSW_VERSION_REPLACE/src/JHUGenMELA ]; then
-  export LD_LIBRARY_PATH=../CMSSW_VERSION_REPLACE/src/JHUGenMELA/MELA/data/$SCRAM_ARCH/:${LD_LIBRARY_PATH}
+  eval $(CMSSW_VERSION_REPLACE/src/JHUGenMELA/MELA/setup.sh env)
 fi
 
 cd JHUGenerator/

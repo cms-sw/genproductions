@@ -1,0 +1,5 @@
+import model loop_sm-ckm
+
+generate p p > a j j QCD=0 [QCD]
+
+output AJJ_EWK_SM_4f_NLO -nojpeg

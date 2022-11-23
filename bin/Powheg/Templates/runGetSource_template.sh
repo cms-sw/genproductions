@@ -1,12 +1,21 @@
 export name=$folderName
 export cardInput=$powInputName
-export process=$process
+export processtemp=$processtemp
 export noPdfCheck=$noPdfCheck
 export WORKDIR=$rootfolder
 export patches_dir=$patches_dir 
 # Release to be used to define the environment and the compiler needed
 export RELEASE=$${CMSSW_VERSION}
-export jhugenversion="v7.5.1" 
+export jhugenversion="v7.5.2" 
+
+### Check if subdirectory
+process=$$(echo $${processtemp} | cut -f1 -d "/")
+subprocess=$$(echo $${processtemp} | cut -f2 -d "/")
+echo "Process is: $${process}";
+if [[ $${process} = $${subprocess} ]]; then
+  subprocess=''
+fi
+echo "Sub-process (if available) is: $${subprocess}";
 
 cd $$WORKDIR
 pwd
@@ -32,11 +41,14 @@ else
   echo "INFO: The process $$process uses the 4F PDF scheme"
 fi
 
-forDYNNLOPS=$forDYNNLOPS
+forMiNNLO=0
+grep -q "^minnlo\\s*1" powheg.input; test $$? -eq 1 || forMiNNLO=1
+forX0jj=0
+grep -q "MGcosa" powheg.input; test $$? -eq 1 || forX0jj=1
 
 cd $$WORKDIR
 cd $${name}
-python ../make_rwl.py $${is5FlavorScheme} $${defaultPDF} $${forDYNNLOPS}
+python ../make_rwl.py $${is5FlavorScheme} $${defaultPDF} $${forMiNNLO} $${forX0jj}
 
 if [ -s ../JHUGen.input ]; then
   cp -p ../JHUGen.input JHUGen.input
@@ -66,12 +78,16 @@ export POWHEGSRC=$powhegSrc
 
 echo 'D/L POWHEG source...'
 
-if [ ! -f $${POWHEGSRC} ]; then
-  wget --no-verbose --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/slc6_amd64_gcc481/powheg/V2.0/src/$${POWHEGSRC} || fail_exit "Failed to get powheg tar ball "
+if [ $svnRev -eq 0 ]; then
+  if [ ! -f $${POWHEGSRC} ]; then
+    wget --no-verbose --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/slc6_amd64_gcc481/powheg/V2.0/src/$${POWHEGSRC} || fail_exit "Failed to get powheg tar ball "
+  fi
+  tar zxf $${POWHEGSRC}
+else
+  ### retrieve powheg source from svn
+  svn checkout --revision $svnRev --username anonymous --password anonymous $svnRepo POWHEG-BOX
 fi
 #cp -p ../$${POWHEGSRC} .
-
-tar zxf $${POWHEGSRC}
 
 # increase maxseeds to 10000
 sed -i -e "s#par_maxseeds=200,#par_maxseeds=10000,#g" POWHEG-BOX/include/pwhg_par.h
@@ -80,6 +96,10 @@ if [ -e POWHEG-BOX/$${process}.tgz ]; then
   cd POWHEG-BOX/
   tar zxf $${process}.tgz
   cd -
+else
+  cd POWHEG-BOX/
+  svn co --revision $svnRev --username anonymous --password anonymous $svnProc/$${process}
+  cd -
 fi
 
 patch -l -p0 -i ${patches_dir}/pdfweights.patch
@@ -87,11 +107,12 @@ patch -l -p0 -i ${patches_dir}/pwhg_lhepdf.patch
 
 $patch_1 
 
+
 sed -i -e "s#500#1350#g"  POWHEG-BOX/include/pwhg_rwl.h
 
 echo $${POWHEGSRC} > VERSION
 
-cd POWHEG-BOX/$${process}
+cd POWHEG-BOX/$${process}/$${subprocess}
 
 # This is just to please gcc 4.8.1
 mkdir -p include
@@ -152,17 +173,17 @@ fi
 if [ `grep particle_identif pwhg_analysis-dummy.f` = ""]; then
    cp ../pwhg_analysis-dummy.f .
 fi
-sed -i -e "s#PWHGANAL[ \t]*=[ \t]*#\#PWHGANAL=#g" Makefile
-sed -i -e "s#ANALYSIS[ \t]*=[ \t]*#\#ANALYSIS=#g" Makefile
-sed -i -e "s#_\#ANALYSIS*#_ANALYSIS=#g" Makefile
+if [[ $$process != "WWJ" && $$process != "ZgamJ" && $$process != "ZZJ" && $$process != "Zgam" ]]; then
+  sed -i -e "s#PWHGANAL[ \t]*=[ \t]*#\#PWHGANAL=#g" Makefile
+  sed -i -e "s#ANALYSIS[ \t]*=[ \t]*#\#ANALYSIS=#g" Makefile
+  sed -i -e "s#_\#ANALYSIS*#_ANALYSIS=#g" Makefile
+  sed -i -e "s#pwhg_bookhist.o# #g" Makefile
+  sed -i -e "s#pwhg_bookhist-new.o# #g" Makefile
+  sed -i -e "s#pwhg_bookhist-multi.o# #g" Makefile
+fi
 sed -i -e "s#LHAPDF_CONFIG[ \t]*=[ \t]*#\#LHAPDF_CONFIG=#g" Makefile
-sed -i -e "s#pwhg_bookhist.o# #g" Makefile
-sed -i -e "s#pwhg_bookhist-new.o# #g" Makefile
-sed -i -e "s#pwhg_bookhist-multi.o# #g" Makefile
-
 $patch_4 
 
-echo "ANALYSIS=none " >> tmpfile
 
 # Add libraries now
 NEWRPATH1=`ls /cvmfs/cms.cern.ch/$${SCRAM_ARCH}/external/gcc/*/* | grep "/lib64" | head -n 1`
@@ -194,11 +215,10 @@ if [ $$jhugen = 1 ]; then
   cp -pr pdfs $${WORKDIR}/$${name}/.
 
 
-  cd ..
+  cd ../..
 fi
 
 $patch_6 
-
 
 echo 'Compiling pwhg_main...'
 pwd
@@ -228,6 +248,10 @@ fi
 if [ -d ./QCDLoop-1.9 ]; then                                 
   cp -a ./QCDLoop-1.9 $${WORKDIR}/$${name}/.                    
   cp -a ./QCDLoop-1.9/ff/ff*.dat $${WORKDIR}/$${name}/.      
+fi
+if [ -f main-PHOTOS-lhef ]; then
+    echo "copying main-PHOTOS-lhef in the same place as pwhg_main."
+    cp -p main-PHOTOS-lhef $${WORKDIR}/$${name}/.
 fi
 
 cd $${WORKDIR}/$${name}

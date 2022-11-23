@@ -18,3 +18,28 @@ find ./ -name "ftn26" | xargs -r rm
 find ./ -name "core.*" | xargs -r rm
 find ./ -name "LSFJOB_*" | xargs -r rm -r
 find ./ -wholename "*SubProcesses/*/*.o" | xargs -r rm
+
+find ./ -name "*.ps" | xargs -r rm 
+find ./ -name "*.log" | xargs -r rm 
+find ./ -name "log*.txt" | xargs -r rm 
+find ./ -name "*.tex" | xargs -r rm 
+find ./ -name "*.o" | xargs -r rm 
+find ./ -name "*.tar.gz" | xargs -r rm 
+find ./ -name "*.f90" | xargs -r rm 
+find ./ -name "*.cpp" | xargs -r rm 
+find ./ -name "*.h" | xargs -r rm 
+find ./ -name "test_soft_col_limits" | xargs -r rm 
+
+rm -r mgbasedir/tests/
+rm -r mgbasedir/doc mgbasedir/doc.tgz
+rm -r mgbasedir/LICENSE 
+rm -r mgbasedir/VERSION 
+rm -r mgbasedir/README 
+rm -r mgbasedir/UpdateNotes.txt
+
+if [ -d ./process/SubProcesses ]; then 
+    rm `ls ./process/SubProcesses/P*/*.inc | grep -v born_leshouche`
+else  
+    rm `ls ./process/madevent/SubProcesses/P*/*.inc | grep -v born_leshouche`
+fi
+
