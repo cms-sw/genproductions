@@ -1,0 +1,2 @@
+lhapdf6ifcc.o: lhapdf6ifcc.cc
+	$(CXX) $(DEBUG) -c -o $(OBJ)/$@ $^ $(shell $(LHAPDF_CONFIG) --cxxflags)
