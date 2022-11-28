@@ -58,21 +58,21 @@ create_setup () {
 compile_process(){
     cd ${WORKDIR}
     # compile the powheg process 
-    python ./run_pwg_condor.py -d 1 -p 0 -i ${POWHEGGENPRODDIR}/${CARDDIR}/powheg.input -m ${PROCESS} -f ${DATASETNAME} 
+    python2 ./run_pwg_condor.py -d 1 -p 0 -i ${POWHEGGENPRODDIR}/${CARDDIR}/powheg.input -m ${PROCESS} -f ${DATASETNAME} 
 }
 
 produce_grids(){
     cd ${WORKDIR}
     # run sampling in one step 
-    #python ./run_pwg_condor.py -d 1 -p 123 -i ${POWHEGGENPRODDIR}/${CARDDIR}/powheg.input -m ${PROCESS} -f ${DATASETNAME} 
-    #python ./run_pwg_condor.py -d 1 -p ${STEP} -i ${POWHEGGENPRODDIR}/${CARDDIR}/powheg.input -m ${PROCESS} -f ${DATASETNAME}
-    python ./run_pwg_condor.py -d 1 -p 01239 -i ${POWHEGGENPRODDIR}/${CARDDIR}/powheg.input -m ${PROCESS} -f ${DATASETNAME} -k1 
+    #python2 ./run_pwg_condor.py -d 1 -p 123 -i ${POWHEGGENPRODDIR}/${CARDDIR}/powheg.input -m ${PROCESS} -f ${DATASETNAME} 
+    #python2 ./run_pwg_condor.py -d 1 -p ${STEP} -i ${POWHEGGENPRODDIR}/${CARDDIR}/powheg.input -m ${PROCESS} -f ${DATASETNAME}
+    python2 ./run_pwg_condor.py -d 1 -p 01239 -i ${POWHEGGENPRODDIR}/${CARDDIR}/powheg.input -m ${PROCESS} -f ${DATASETNAME} -k 1 
 
 }
 
 make_tarball(){
     cd ${WORKDIR}
-    python ./run_pwg_condor.py -d 1 -p 9 -i ${POWHEGGENPRODDIR}/${CARDDIR}/powheg.input -m ${PROCESS} -f ${DATASETNAME} -k 1
+    python2 ./run_pwg_condor.py -d 1 -p 9 -i ${POWHEGGENPRODDIR}/${CARDDIR}/powheg.input -m ${PROCESS} -f ${DATASETNAME} -k 1
 }
 
 # set up internal pathes and variables 
