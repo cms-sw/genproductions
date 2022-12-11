@@ -1,0 +1,8 @@
+import model SM_HeavyN_NLO
+define p = g u c d s u~ c~ d~ s~
+define j = p
+define l = l+ l-
+define w = w- w+
+generate p p > ta+ ta+ j j QED=4 QCD=0
+add process p p > ta- ta- j j QED=4 QCD=0
+output WWFusion_secondParYYY_firstParXXX
