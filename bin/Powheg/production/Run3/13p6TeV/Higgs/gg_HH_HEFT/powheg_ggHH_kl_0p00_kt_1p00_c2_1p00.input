@@ -9,13 +9,13 @@ topmass 173          ! top quark mass (THIS VALUE IS HARD CODED IN THE VIRTUAL
                      ! MATRIX ELEMENT AND FOR CONSISTENCY HAS NOT TO BE CHANGED WHEN
                      ! RUNNING FULL THEORY PREDICTIONS - i.e. mtdep 1
 hdecaymode -1        ! PDG code for Higgs boson decay products (it affects only the SMC)
-!                      allowed values are:  
+!                      allowed values are:
 !                      0 all decay channels open
 !                      1-6 d dbar, u ubar,..., t tbar (as in HERWIG)
 !                      7-9 e+ e-, mu+ mu-, tau+ tau-
 !                      10  W+W-
 !                      11  ZZ
-!                      12  gamma gamma      
+!                      12  gamma gamma
 !                      -1  all decay channels closed
 
 ! Values of the Higgs couplings w.r.t SM
@@ -39,7 +39,7 @@ lhans2 325300       ! pdf set for hadron 2 (LHA numbering)
 # ndns1 131          ! pdf set for hadron 1 (mlm numbering)
 # ndns2 131          ! pdf set for hadron 2 (mlm numbering)
 ! To be set only if using different pdf sets for the two incoming hadrons
-! QCDLambda5 0.25    ! for not equal pdf sets 
+! QCDLambda5 0.25    ! for not equal pdf sets
 
 ! Parameters to allow or not the use of stored data
 use-old-grid    1    ! if 1 use old grid if file pwggrids.dat is present (<> 1 regenerate)
@@ -66,8 +66,8 @@ facscfact   1d0      ! (default 1d0) fac scale factor: mufact = muref * facscfac
 renscfact   1d0      ! (default 1d0) ren scale factor: muren  = muref * renscfact, muref=mHH/2
 
 ! Born, plots and powheg strategy:
-bornonly          1  ! (default 0) if 1 do Born only
-LOevents          1  !
+bornonly          0  ! (default 0) if 1 do Born only
+LOevents          0  !
 #testplots 1
 fastbtlbound      1  ! fast evaluation of Btilde upper bounds
 storemintupb      1  ! store function calls in binary file for more precise generation
@@ -83,8 +83,8 @@ hdamp           250
 ! PARAMETERS for parallel runnning
 ! -- non parallel (for testing purposes only)
 #iseed    547        !  Start the random number generator with seed iseed
-#rand1     0         !  skipping  rand2*100000000+rand1 numbers.  
-#rand2     0         !  (see RM48 short writeup in CERNLIB)              
+#rand1     0         !  skipping  rand2*100000000+rand1 numbers.
+#rand2     0         !  (see RM48 short writeup in CERNLIB)
 
 ! -- parallel
 manyseeds 1          ! Used to perform multiple runs with different random
@@ -115,4 +115,3 @@ maxseeds    9999
 
 check_bad_st1 1
 check_bad_st2 1
-

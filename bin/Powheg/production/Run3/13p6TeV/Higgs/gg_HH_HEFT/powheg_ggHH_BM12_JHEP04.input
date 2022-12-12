@@ -66,8 +66,8 @@ facscfact   1d0      ! (default 1d0) fac scale factor: mufact = muref * facscfac
 renscfact   1d0      ! (default 1d0) ren scale factor: muren  = muref * renscfact, muref=mHH/2
 
 ! Born, plots and powheg strategy:
-bornonly          1  ! (default 0) if 1 do Born only
-LOevents          1  !
+bornonly          0  ! (default 0) if 1 do Born only
+LOevents          0  !
 #testplots 1
 fastbtlbound      1  ! fast evaluation of Btilde upper bounds
 storemintupb      1  ! store function calls in binary file for more precise generation
