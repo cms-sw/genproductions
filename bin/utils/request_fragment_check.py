@@ -107,6 +107,14 @@ def check_replace(runcmsgridfile):
         error_check_replace += 1
     return error_check_replace 
 
+def tunes_settings_check(fragment,pi):
+    error_tunes_check = 0
+    if "Summer22" in pi:
+        if "Configuration.Generator.MCTunesRun3ECM13p6TeV.PythiaCP5Settings_cfi import *" not in fragment or "from Configuration.Generator.MCTunes2017.PythiaCP5Settings_cfi import *" in fragment:
+            error_tunes_check +=1 
+            print("[ERROR] For Summer22 samples, please use from Configuration.Generator.MCTunesRun3ECM13p6TeV.PythiaCP5Settings_cfi import * in your fragment instead of from Configuration.Generator.MCTunes2017.PythiaCP5Settings_cfi import *")
+    return error_tunes_check                
+ 
 def concurrency_check(fragment,pi,cmssw_version):
     conc_check = 0
     conc_check_lhe = 0
@@ -633,6 +641,8 @@ for num in range(0,len(prepid)):
             warning += 1
 #        data_f2 = re.sub(r'(?m)^ *#.*\n?', '',data_f1)
 
+        error += tunes_settings_check(data_f1,pi)
+      
         cross_section_fragment = re.findall('crossSection.*?\S+\S+',data_f2)
         if (cross_section_fragment):
             cross_section_fragment=cross_section_fragment[0]
