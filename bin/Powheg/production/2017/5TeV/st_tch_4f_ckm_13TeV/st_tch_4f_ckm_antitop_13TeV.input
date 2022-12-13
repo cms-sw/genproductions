@@ -1,0 +1,74 @@
+! ST-tchannel inputs
+
+#smartsig       1 
+withdamp       1
+hdamp 237.8775 ! 1.379*mtop
+
+withnegweights 0   ! will generate also events with negative-weight 
+
+renscfact  1d0    ! (default 1d0) ren scale factor: muren  = muref * renscfact 
+facscfact  1d0    ! (default 1d0) fac scale factor: mufact = muref * facscfact 
+
+#bornonly   1     ! (default 0) if 1 do Born only
+#testplots  1     ! (default 0, do not) do NLO and PWHG distributions
+
+iseed    SEED    ! initialize random number sequence 
+#rand1     0      ! initialize random number sequence 
+#rand2     0      ! initialize random number sequence 
+#manyseeds 1   
+
+
+numevts NEVENTS     ! number of events to be generated
+ih1   1           ! hadron 1 (1 for protons, -1 for antiprotons)
+ih2   1           ! hadron 2 (1 for protons, -1 for antiprotons)
+
+ebeam1 2510
+ebeam2 2510
+
+
+! To be set only if using LHA pdfs
+lhans1 306900
+lhans2 306900
+
+! Parameters to allow or not the use of stored data
+use-old-grid    1 ! if 1 use old grid if file pwggrids.dat is present (<> 1 regenerate)
+use-old-ubound  1 ! if 1 use norm of upper bounding function stored in pwgubound.dat, if present; <> 1 regenerate
+
+ncall1 100000     ! number of calls for initializing the integration grid
+itmx1   4         ! number of iterations for initializing the integration grid
+ncall2 100000     ! number of calls for computing the integral and finding upper bound
+itmx2   4         ! number of iterations for computing the integral and finding upper bound
+foldcsi   5       ! number of folds on csi integration
+foldy     5       ! number of folds on  y  integration
+foldphi   1       ! number of folds on phi integration
+nubound  100000   ! number of bbarra calls to setup norm of upper bounding function
+icsimax  1        ! <= 100, number of csi subdivision when computing the upper bounds
+iymax    1        ! <= 100, number of y subdivision when computing the upper bounds
+xupbound 2d0      ! increase upper bound for radiation generation
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! PROCESS SPECIFIC PARAMETERS
+! According to other previous rereco 5TeV samples produced. New values used in UL have not been propagated.
+ttype        -1
+topmass      172.5
+bmass        4.78
+wmass        80.385
+sthw2        0.231295
+alphaem_inv  137.0360098
+
+bottomthr    4.78 ! Adjusted to its mass (derived from other 5 TeV rereco samples for coherence)
+bottomthrpdf 4.78 ! idem
+charmthr     1.67 ! idem
+charmthrpdf  1.67 ! idem
+
+! PDG Values http://pdg.lbl.gov/2019/reviews/rpp2018-rev-ckm-matrix.pdf
+! Adjusted according to oher rereco 5 TeV samples.
+CKM_Vud   0.97434
+CKM_Vus   0.22506
+CKM_Vub   0.00357
+CKM_Vcd   0.22492
+CKM_Vcs   0.97351
+CKM_Vcb   0.0411
+CKM_Vtd   0.00875
+CKM_Vts   0.0403
+CKM_Vtb   0.99915
