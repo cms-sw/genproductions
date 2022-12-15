@@ -85,7 +85,7 @@ case $WHAT in
     LONGGRIDS )
         for PROC in ${PROCS[@]}
         do
-            k5reauth -R -- python ./run_pwg_parallel_condor.py -p 123 -i DY_MiNNLO_NNPDF31_13TeV/${PROC}-powheg.input -m ${PROC:0:1}j -f ${PROC}-${SUFFIX} -q 1:workday,2:tomorrow,3:longlunch --step3pilot -x 3 -j ${NJOBS}
+            k5reauth -R -- python ./run_pwg_parallel_condor.py -p 123 -i DY_MiNNLO_NNPDF31_13TeV/${PROC}-powheg.input -m ${PROC:0:1}j -f ${PROC}-${SUFFIX} -q 1:workday,2:tomorrow,3:longlunch --step3pilot -x 3 -j ${NJOBS} --slc ${ARCH:3:1}
         done
     ;;
     
