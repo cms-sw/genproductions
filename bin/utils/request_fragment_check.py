@@ -109,7 +109,7 @@ def check_replace(runcmsgridfile):
 
 def tunes_settings_check(fragment,pi):
     error_tunes_check = 0
-    if "Summer22" in pi:
+    if "Summer22" in pi and "FlatRandomEGunProducer" not in fragment and "FlatRandomPtGunProducer" not in fragment and "Pythia8EGun" not in fragment and "Pythia8PtGun" not in fragment and "FlatRandomPtAndDxyGunProducer" not in fragment:
         if "Configuration.Generator.MCTunesRun3ECM13p6TeV.PythiaCP5Settings_cfi import *" not in fragment or "from Configuration.Generator.MCTunes2017.PythiaCP5Settings_cfi import *" in fragment:
             error_tunes_check +=1 
             print("[ERROR] For Summer22 samples, please use from Configuration.Generator.MCTunesRun3ECM13p6TeV.PythiaCP5Settings_cfi import * in your fragment instead of from Configuration.Generator.MCTunes2017.PythiaCP5Settings_cfi import *")
@@ -359,7 +359,7 @@ def run3_checks(fragment,dn,pi):
     print("======> Run3 Fragment and dataset name checks:")
     if "comEnergy" in fragment:
         comline = re.findall('comEnergy=\S+',fragment)
-        if "run3winter22" in pi.lower() and "13600" not in comline[0]:
+        if ("run3winter22" in pi.lower() or "summer22" in pi.lower()) and "13600" not in comline[0]:
             print(comline[0])
             print("[ERROR] The c.o.m. energy is not specified as 13600 GeV in the fragment")
             err += 1
