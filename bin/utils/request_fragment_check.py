@@ -110,7 +110,7 @@ def check_replace(runcmsgridfile):
 def tunes_settings_check(fragment,pi):
     error_tunes_check = 0
     if "Summer22" in pi and "FlatRandomEGunProducer" not in fragment and "FlatRandomPtGunProducer" not in fragment and "Pythia8EGun" not in fragment and "Pythia8PtGun" not in fragment and "FlatRandomPtAndDxyGunProducer" not in fragment:
-        if "Configuration.Generator.MCTunesRun3ECM13p6TeV.PythiaCP5Settings_cfi import *" not in fragment or "from Configuration.Generator.MCTunes2017.PythiaCP5Settings_cfi import *" in fragment:
+        if "Configuration.Generator.MCTunesRun3ECM13p6TeV" not in fragment or "from Configuration.Generator.MCTunes2017" in fragment:
             error_tunes_check +=1 
             print("[ERROR] For Summer22 samples, please use from Configuration.Generator.MCTunesRun3ECM13p6TeV.PythiaCP5Settings_cfi import * in your fragment instead of from Configuration.Generator.MCTunes2017.PythiaCP5Settings_cfi import *")
     return error_tunes_check                
