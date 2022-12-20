@@ -107,12 +107,16 @@ def check_replace(runcmsgridfile):
         error_check_replace += 1
     return error_check_replace 
 
-def tunes_settings_check(fragment,pi):
+def tunes_settings_check(dn,fragment,pi):
     error_tunes_check = 0
     if "Summer22" in pi and "FlatRandomEGunProducer" not in fragment and "FlatRandomPtGunProducer" not in fragment and "Pythia8EGun" not in fragment and "Pythia8PtGun" not in fragment and "FlatRandomPtAndDxyGunProducer" not in fragment:
         if "Configuration.Generator.MCTunesRun3ECM13p6TeV.PythiaCP5Settings_cfi import *" not in fragment or "from Configuration.Generator.MCTunes2017.PythiaCP5Settings_cfi import *" in fragment:
             error_tunes_check +=1 
             print("[ERROR] For Summer22 samples, please use from Configuration.Generator.MCTunesRun3ECM13p6TeV.PythiaCP5Settings_cfi import * in your fragment instead of from Configuration.Generator.MCTunes2017.PythiaCP5Settings_cfi import *")
+    if "Run3" in pi and (dn.startswith("DYto") or dn.startswith("Wto")):
+        if "ktdard" in fragment and "0.248" not in fragment:
+            print("[ERROR] 'kthard = 0.248' not in fragment for DY or Wjets MG5_aMC request for Run3. Please fix.")
+            error_tunes_check +=1 
     return error_tunes_check                
  
 def concurrency_check(fragment,pi,cmssw_version):
@@ -641,7 +645,7 @@ for num in range(0,len(prepid)):
             warning += 1
 #        data_f2 = re.sub(r'(?m)^ *#.*\n?', '',data_f1)
 
-        error += tunes_settings_check(data_f1,pi)
+        error += tunes_settings_check(dn,data_f1,pi)
       
         cross_section_fragment = re.findall('crossSection.*?\S+\S+',data_f2)
         if (cross_section_fragment):
@@ -852,6 +856,7 @@ for num in range(0,len(prepid)):
                 print("[ERROR] Although the name of the dataset has ~Madgraph, the gridpack doesn't seem to be a MG5_aMC one.")
                 error += 1
             if mg_gp is True:
+                error += tunes_settings_check(dn,data_f1,pi)
                 filename_mggpc = my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat'
                 fname_p2 = my_path+'/'+pi+'/'+'process/Cards/run_card.dat'
                 if os.path.isfile(fname_p2) is True :
