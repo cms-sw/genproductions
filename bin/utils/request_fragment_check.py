@@ -872,16 +872,20 @@ for num in range(0,len(prepid)):
                 print("maxjetflavor = "+str(maxjetflavor))
                 if alt_ickkw_c == 3:
                     qCutME = os.popen('grep "qCutME" '+pi).read()
-                    qCutME = qCutME.replace(" ","")
-                    qCutME = re.findall('qCutME=\d+',qCutME)[0].split("=")[1]
-                    print("qCutME = ",qCutME)
-                    ptj_runcard = os.popen('grep "ptj" '+filename_mggpc).read()
-                    ptj_runcard = ptj_runcard.replace(" ","")
-                    ptj_runcard = re.findall('\d*\.?\d+',ptj_runcard)[0].split("=")[0]
-                    print("ptj_runcard =", ptj_runcard)
-                    if float(qCutME) != float(ptj_runcard):
-                        error += 1
-                        print("[ERROR] qCutME in PS settings and ptj in run_card in gridpack do not match.")
+                    if len(qCutME) == 0:
+                        print("[ERROR] For FxFx setups qCutME should be specified in the fragment.")
+                        error+= 1
+                    else:
+                        qCutME = qCutME.replace(" ","")
+                        qCutME = re.findall('qCutME=\d+',qCutME)[0].split("=")[1]
+                        print("qCutME = ",qCutME)
+                        ptj_runcard = os.popen('grep "ptj" '+filename_mggpc).read()
+                        ptj_runcard = ptj_runcard.replace(" ","")
+                        ptj_runcard = re.findall('\d*\.?\d+',ptj_runcard)[0].split("=")[0]
+                        print("ptj_runcard =", ptj_runcard)
+                        if float(qCutME) != float(ptj_runcard):
+                            error += 1
+                            print("[ERROR] qCutME in PS settings and ptj in run_card in gridpack do not match.")
                     if int(os.popen('grep -c nQmatch '+pi).read()) == 1:
                         nQmatch = os.popen('grep "nQmatch" '+pi).read()
                         nQmatch = nQmatch.replace(" ","")
