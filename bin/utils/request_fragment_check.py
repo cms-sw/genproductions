@@ -1320,12 +1320,12 @@ for num in range(0,len(prepid)):
                                             print("                                            "+str(UL_PDFs_N[0])+" "+str(UL_PDFs[0]))
                                             print("                                            or "+str(UL_PDFs_N[1])+" "+str(UL_PDFs[1]))
                                             warning += 1
-                                    if "minlo" in line:
+                                    if "minlo" in line and "modlog_p" not in line:
                                         minlo = int(re.split(r'\s+', line)[1])
                                         print("MINLO = "+str(minlo))
-                                    if "minnlo" in line:
+                                    if "minnlo" in line and "modlog_p" not in line:
                                         minnlo = int(re.split(r'\s+', line)[1])
-                                        print("MINNLO = "+str(minlo))
+                                        print("MINNLO = "+str(minnlo))
                     if os.path.isfile(my_path+'/'+pi+'/'+'external_tarball/pwg-rwl.dat') is True:
                         pwg_rwl_file = os.path.join(my_path, pi, "external_tarball/pwg-rwl.dat")
                     else:
