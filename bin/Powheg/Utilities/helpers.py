@@ -469,7 +469,7 @@ cd ..",
 def runGetSource_patch_8(process) :
   return {
     "HJ" : "echo \"Compiling HNNLO....\"\n \
-wget --no-verbose http://theory.fi.infn.it/grazzini/codes/hnnlo-v2.0.tgz\n \
+wget --no-verbose https://www.physik.uzh.ch/~grazzini/codes/hnnlo-v2.0.tgz\n \
 tar -xzvf hnnlo-v2.0.tgz\n \
 cd hnnlo-v2.0\n \
 cp ../POWHEG-BOX/HJ/NNLOPS-mass-effects/HNNLO-makefile ./makefile\n \
