@@ -1,21 +1,15 @@
---- POWHEG-BOX/lhapdf6if.f.orig	2017-10-05 15:15:25.000000001 +0200
-+++ POWHEG-BOX/lhapdf6if.f	2018-01-16 11:01:14.000000001 +0100
-@@ -181,6 +181,13 @@
-       real*8 photon
+--- POWHEG-BOX/lhapdf6if.f.orig	2022-12-15 22:11:41.000000001 +0100
++++ POWHEG-BOX/lhapdf6if.f	2022-12-15 22:12:52.000000001 +0100
+@@ -195,6 +195,12 @@
+ 
        call genericpdfset(ndns)
  
-+
-+      if (xmu2 /= xmu2 .or. xmu2 +1d0 == xmu2 .or. xmu2 <= 0d0) then 
-+         write(*,*) 'xmu2', xmu2 
-+         write(*,*) 'setting to zero' 
-+         xmu2 = 0d0 
++      if (xmu2 /= xmu2 .or. xmu2 +1d0 == xmu2 .or. xmu2 <= 0d0) then
++         write(*,*) 'xmu2', xmu2
++         write(*,*) 'setting to zero'
++         xmu2 = 0d0
 +      endif
 +
-       call xfxq2(iset,x,xmu2,fxlha)
- c photon induced work only with MRST2004QED (ndns = 20460)
-       if (ndns.eq.20460) then
-@@ -268,3 +275,4 @@
-       alphaspdf=tmp
-       return
-       end
-+
+       mu2_loc=xmu2
+       if(mu2_loc.lt.(pdf_cutoff_fact**2 *pdf_q2min)) then
+          mu2_loc=pdf_cutoff_fact**2 *pdf_q2min
