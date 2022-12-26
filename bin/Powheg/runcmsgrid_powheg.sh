@@ -144,7 +144,7 @@ if [[ -d ${WORKDIR}/WW_MATRIX ]]; then
     cp -p ${WORKDIR}/binvalues-WW.top .
 fi
 ### For the ggHH process
-if [[ -e ${WORKDIR}/Virt_full_cHHH_0.0.grid ]]; then
+if [[ "${process}" == "ggHH" ]]; then
     ln -s ${WORKDIR}/Virt_full_cHHH_* .
     ln -s ${WORKDIR}/creategrid.py .
     cp -p ${WORKDIR}/events.cdf .

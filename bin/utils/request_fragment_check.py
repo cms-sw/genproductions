@@ -107,12 +107,16 @@ def check_replace(runcmsgridfile):
         error_check_replace += 1
     return error_check_replace 
 
-def tunes_settings_check(fragment,pi):
+def tunes_settings_check(dn,fragment,pi):
     error_tunes_check = 0
     if "Summer22" in pi and "FlatRandomEGunProducer" not in fragment and "FlatRandomPtGunProducer" not in fragment and "Pythia8EGun" not in fragment and "Pythia8PtGun" not in fragment and "FlatRandomPtAndDxyGunProducer" not in fragment:
-        if "Configuration.Generator.MCTunesRun3ECM13p6TeV.PythiaCP5Settings_cfi import *" not in fragment or "from Configuration.Generator.MCTunes2017.PythiaCP5Settings_cfi import *" in fragment:
+        if "Configuration.Generator.MCTunesRun3ECM13p6TeV" not in fragment or "from Configuration.Generator.MCTunes2017" in fragment:
             error_tunes_check +=1 
             print("[ERROR] For Summer22 samples, please use from Configuration.Generator.MCTunesRun3ECM13p6TeV.PythiaCP5Settings_cfi import * in your fragment instead of from Configuration.Generator.MCTunes2017.PythiaCP5Settings_cfi import *")
+    if "Run3" in pi and (dn.startswith("DYto") or dn.startswith("Wto")):
+        if "ktdard" in fragment and "0.248" not in fragment:
+            print("[ERROR] 'kthard = 0.248' not in fragment for DY or Wjets MG5_aMC request for Run3. Please fix.")
+            error_tunes_check +=1 
     return error_tunes_check                
  
 def concurrency_check(fragment,pi,cmssw_version):
@@ -641,7 +645,7 @@ for num in range(0,len(prepid)):
             warning += 1
 #        data_f2 = re.sub(r'(?m)^ *#.*\n?', '',data_f1)
 
-        error += tunes_settings_check(data_f1,pi)
+        error += tunes_settings_check(dn,data_f1,pi)
       
         cross_section_fragment = re.findall('crossSection.*?\S+\S+',data_f2)
         if (cross_section_fragment):
@@ -852,6 +856,7 @@ for num in range(0,len(prepid)):
                 print("[ERROR] Although the name of the dataset has ~Madgraph, the gridpack doesn't seem to be a MG5_aMC one.")
                 error += 1
             if mg_gp is True:
+                error += tunes_settings_check(dn,data_f1,pi)
                 filename_mggpc = my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat'
                 fname_p2 = my_path+'/'+pi+'/'+'process/Cards/run_card.dat'
                 if os.path.isfile(fname_p2) is True :
@@ -872,16 +877,20 @@ for num in range(0,len(prepid)):
                 print("maxjetflavor = "+str(maxjetflavor))
                 if alt_ickkw_c == 3:
                     qCutME = os.popen('grep "qCutME" '+pi).read()
-                    qCutME = qCutME.replace(" ","")
-                    qCutME = re.findall('qCutME=\d+',qCutME)[0].split("=")[1]
-                    print("qCutME = ",qCutME)
-                    ptj_runcard = os.popen('grep "ptj" '+filename_mggpc).read()
-                    ptj_runcard = ptj_runcard.replace(" ","")
-                    ptj_runcard = re.findall('\d*\.?\d+',ptj_runcard)[0].split("=")[0]
-                    print("ptj_runcard =", ptj_runcard)
-                    if float(qCutME) != float(ptj_runcard):
-                        error += 1
-                        print("[ERROR] qCutME in PS settings and ptj in run_card in gridpack do not match.")
+                    if len(qCutME) == 0:
+                        print("[ERROR] For FxFx setups qCutME should be specified in the fragment.")
+                        error+= 1
+                    else:
+                        qCutME = qCutME.replace(" ","")
+                        qCutME = re.findall('qCutME=\d+',qCutME)[0].split("=")[1]
+                        print("qCutME = ",qCutME)
+                        ptj_runcard = os.popen('grep "ptj" '+filename_mggpc).read()
+                        ptj_runcard = ptj_runcard.replace(" ","")
+                        ptj_runcard = re.findall('\d*\.?\d+',ptj_runcard)[0].split("=")[0]
+                        print("ptj_runcard =", ptj_runcard)
+                        if float(qCutME) != float(ptj_runcard):
+                            error += 1
+                            print("[ERROR] qCutME in PS settings and ptj in run_card in gridpack do not match.")
                     if int(os.popen('grep -c nQmatch '+pi).read()) == 1:
                         nQmatch = os.popen('grep "nQmatch" '+pi).read()
                         nQmatch = nQmatch.replace(" ","")
@@ -1320,12 +1329,12 @@ for num in range(0,len(prepid)):
                                             print("                                            "+str(UL_PDFs_N[0])+" "+str(UL_PDFs[0]))
                                             print("                                            or "+str(UL_PDFs_N[1])+" "+str(UL_PDFs[1]))
                                             warning += 1
-                                    if "minlo" in line:
+                                    if "minlo" in line and "modlog_p" not in line:
                                         minlo = int(re.split(r'\s+', line)[1])
                                         print("MINLO = "+str(minlo))
-                                    if "minnlo" in line:
+                                    if "minnlo" in line and "modlog_p" not in line:
                                         minnlo = int(re.split(r'\s+', line)[1])
-                                        print("MINNLO = "+str(minlo))
+                                        print("MINNLO = "+str(minnlo))
                     if os.path.isfile(my_path+'/'+pi+'/'+'external_tarball/pwg-rwl.dat') is True:
                         pwg_rwl_file = os.path.join(my_path, pi, "external_tarball/pwg-rwl.dat")
                     else:
