@@ -1,0 +1,2 @@
+'hw_lhe_common_settings'
+'hw_lhe_MG5aMCatNLO_settings'

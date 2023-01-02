@@ -11,8 +11,6 @@ pwd
 
 rm -f $$WORKDIR/$$folderName'_'$$process'.tgz'
 
-cp -p $$WORKDIR/run_pwg.py $$WORKDIR/$$folderName
-
 if [ -e $$WORKDIR/$$folderName/pwg-0001-stat.dat ]; then
   cp -p $$WORKDIR/$$folderName/pwg-0001-stat.dat $$WORKDIR/$$folderName/pwg-stat.dat
 fi
@@ -72,10 +70,12 @@ fi
 sed -i 's/pwggrid.dat ]]/pwggrid.dat ]] || [ -e $${WORKDIR}\/pwggrid-0001.dat ]/g' runcmsgrid.sh
 
 if [ "$$process" = "WWJ" ]; then
-   cp -p $${WORKDIR}/$$folderName/POWHEG-BOX/$$process/testrun-nnlops/binvalues-WW.top .
-   cp -r $${WORKDIR}/$$folderName/POWHEG-BOX/$$process/testrun-nnlops/WW_MATRIX .
-   cp -r $${WORKDIR}/$$folderName/POWHEG-BOX/$$process/testrun-nnlops/WW_MINLO .
-   keepTop='1'
+   cp -pr $${WORKDIR}/$${folderName}/POWHEG-BOX/WWJ/TWOLOOP_GRIDS_reg1 .
+   cp -pr $${WORKDIR}/$${folderName}/POWHEG-BOX/WWJ/TWOLOOP_GRIDS_reg2 .
+   cp -pr $${WORKDIR}/$${folderName}/POWHEG-BOX/WWJ/TWOLOOP_GRIDS_reg3 .
+   cp -pr $${WORKDIR}/$${folderName}/POWHEG-BOX/WWJ/TWOLOOP_GRIDS_reg4 .
+   #force keep top = 0 in this case 
+   keepTop='0'
 fi  
 
 sed -i s/SCRAM_ARCH_VERSION_REPLACE/$${SCRAM_ARCH}/g runcmsgrid.sh
@@ -119,13 +119,26 @@ if [ "$$process" = "Zj" ] || [ "$$process" = "Wj" ]; then
   fi
 fi
 
+exclude_extra=""
+if [ "$$process" = "X0jj" ] ; then
+  # for X0jj we exclude some additional files to prevent the gridpacks becoming too large
+  exclude_extra="--exclude=MG5_aMC*.tar.gz --exclude=pwgbtildeupb-*.dat  --exclude=pwgremnupb-*.dat --exclude=pwgcounters-st1-*.dat --exclude=pwgcounters-st2-*.dat --exclude=pwgcounters-st3-*.dat --exclude=pwg-*-stat.dat"
+fi
+
+
 if [ $$keepTop == '1' ]; then
     echo 'Keeping validation plots.'
     echo 'Packing...' $${WORKDIR}'/'$${process}'_'$${SCRAM_ARCH}'_'$${CMSSW_VERSION}'_'$${folderName}'.tgz'
-    tar zcf $${WORKDIR}'/'$${process}'_'$${SCRAM_ARCH}'_'$${CMSSW_VERSION}'_'$${folderName}'.tgz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.lhe --exclude=run_*.sh --exclude=*temp --exclude=pwgbtlupb-*.dat --exclude=pwgrmupb-*.dat --exclude=run_*.out --exclude=run_*.err --exclude=run_*.log --exclude=minlo-run --exclude=dynnlo*
+    tar zcf $${WORKDIR}'/'$${process}'_'$${SCRAM_ARCH}'_'$${CMSSW_VERSION}'_'$${folderName}'.tgz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.lhe --exclude=run_*.sh --exclude=*temp --exclude=pwgbtlupb-*.dat --exclude=pwgrmupb-*.dat --exclude=run_*.out --exclude=run_*.err --exclude=run_*.log --exclude=minlo-run --exclude=dynnlo* $$exclude_extra
 else
+  if [ $$process == 'WWJ' ]; then
+    echo 'Preparing WWJ gridpack'
+    echo 'Packing...' $${WORKDIR}'/'$${process}'_'$${SCRAM_ARCH}'_'$${CMSSW_VERSION}'_'$${folderName}'.tar.xz'
+    tar -cJpsf $${WORKDIR}'/'$${process}'_'$${SCRAM_ARCH}'_'$${CMSSW_VERSION}'_'$${folderName}'.tar.xz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.top --exclude=*.lhe --exclude=run_*.sh --exclude=*temp --exclude=pwgbtlupb-*.dat --exclude=pwgrmupb-*.dat --exclude=run_*.out --exclude=run_*.err --exclude=run_*.log --exclude=minlo-run --exclude=dynnlo*
+  else
     echo 'Packing...' $${WORKDIR}'/'$${process}'_'$${SCRAM_ARCH}'_'$${CMSSW_VERSION}'_'$${folderName}'.tgz'
-    tar zcf $${WORKDIR}'/'$${process}'_'$${SCRAM_ARCH}'_'$${CMSSW_VERSION}'_'$${folderName}'.tgz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.top --exclude=*.lhe --exclude=run_*.sh --exclude=*temp --exclude=pwgbtlupb-*.dat --exclude=pwgrmupb-*.dat --exclude=run_*.out --exclude=run_*.err --exclude=run_*.log --exclude=minlo-run --exclude=dynnlo*
+    tar zcf $${WORKDIR}'/'$${process}'_'$${SCRAM_ARCH}'_'$${CMSSW_VERSION}'_'$${folderName}'.tgz' * --exclude=POWHEG-BOX --exclude=powhegbox*.tar.gz --exclude=*.top --exclude=*.lhe --exclude=run_*.sh --exclude=*temp --exclude=pwgbtlupb-*.dat --exclude=pwgrmupb-*.dat --exclude=run_*.out --exclude=run_*.err --exclude=run_*.log --exclude=minlo-run --exclude=dynnlo* $$exclude_extra
+  fi
 fi
 
 cd $${WORKDIR}
