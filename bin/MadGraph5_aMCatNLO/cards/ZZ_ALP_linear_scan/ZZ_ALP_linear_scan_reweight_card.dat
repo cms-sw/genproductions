@@ -1,0 +1,163 @@
+change helicity False
+change rwgt_dir rwgt
+
+
+
+launch --rwgt_name=FA_1T_cg1_cw1_cb1_aphi0
+	set  ALPPARS 2 1.000000e+00
+	set  ALPPARS 3 1.000000e+00
+	set  ALPPARS 4 1.000000e+00
+	set  ALPPARS 5 0.000000e+00
+
+
+launch --rwgt_name=FA_1T_cgpt17_cwpt17_cb0_aphi1
+	set  ALPPARS 2 17.000000e-02
+	set  ALPPARS 3 17.000000e-02
+	set  ALPPARS 4 0.000000e+00
+
+launch --rwgt_name=FA_1T_cgpt17_cwpt17_cbpt5_aphi1
+	set  ALPPARS 2 17.000000e-02
+	set  ALPPARS 3 17.000000e-02
+	set  ALPPARS 4 5.000000e-01
+
+launch --rwgt_name=FA_1T_cgpt17_cwpt17_cb1_aphi1
+	set  ALPPARS 2 17.000000e-02
+	set  ALPPARS 3 17.000000e-02
+
+launch --rwgt_name=FA_1T_cgpt15_cwpt15_cb0_aphi1
+	set  ALPPARS 2 15.000000e-02
+	set  ALPPARS 3 15.000000e-02
+	set  ALPPARS 4 0.000000e+00
+
+launch --rwgt_name=FA_1T_cgpt15_cwpt15_cbpt5_aphi1
+	set  ALPPARS 2 15.000000e-02
+	set  ALPPARS 3 15.000000e-02
+	set  ALPPARS 4 5.000000e-01
+
+launch --rwgt_name=FA_1T_cgpt15_cwpt15_cb1_aphi1
+	set  ALPPARS 2 15.000000e-02
+	set  ALPPARS 3 15.000000e-02
+
+
+launch --rwgt_name=FA_1T_cgpt1_cwpt1_cb0_aphi1
+	set  ALPPARS 2 1.000000e-01
+	set  ALPPARS 3 1.000000e-01
+	set  ALPPARS 4 0.000000e+00
+
+launch --rwgt_name=FA_1T_cgpt1_cwpt1_cb1_aphi1
+	set  ALPPARS 2 1.000000e-01
+	set  ALPPARS 3 1.000000e-01
+
+launch --rwgt_name=FA_1T_cgpt1_cwpt1_cbpt5_aphi1
+	set  ALPPARS 2 1.000000e-01
+	set  ALPPARS 3 1.000000e-01
+	set  ALPPARS 4 5.000000e-01
+
+
+launch --rwgt_name=FA_3T_cg1_cw1_cb1_aphi1
+       	set  ALPPARS 1 3.000000e+03
+
+
+launch --rwgt_name=FA_3T_cgpt17_cwpt17_cb0_aphi1
+       	set  ALPPARS 1 3.000000e+03
+	set  ALPPARS 2 17.000000e-02
+	set  ALPPARS 3 17.000000e-02
+	set  ALPPARS 4 0.000000e+00
+
+launch --rwgt_name=FA_3T_cgpt17_cwpt17_cbpt5_aphi1
+       	set  ALPPARS 1 3.000000e+03
+	set  ALPPARS 2 17.000000e-02
+	set  ALPPARS 3 17.000000e-02
+	set  ALPPARS 4 5.000000e-01
+
+launch --rwgt_name=FA_3T_cgpt17_cwpt17_cb1_aphi1
+       	set  ALPPARS 1 3.000000e+03
+	set  ALPPARS 2 17.000000e-02
+	set  ALPPARS 3 17.000000e-02
+
+launch --rwgt_name=FA_3T_cgpt15_cwpt15_cb0_aphi1
+       	set  ALPPARS 1 3.000000e+03
+	set  ALPPARS 2 15.000000e-02
+	set  ALPPARS 3 15.000000e-02
+	set  ALPPARS 4 0.000000e+00
+
+launch --rwgt_name=FA_3T_cgpt15_cwpt15_cbpt5_aphi1
+       	set  ALPPARS 1 3.000000e+03
+	set  ALPPARS 2 15.000000e-02
+	set  ALPPARS 3 15.000000e-02
+	set  ALPPARS 4 5.000000e-01
+
+launch --rwgt_name=FA_3T_cgpt15_cwpt15_cb1_aphi1
+       	set  ALPPARS 1 3.000000e+03
+	set  ALPPARS 2 15.000000e-02
+	set  ALPPARS 3 15.000000e-02
+
+
+launch --rwgt_name=FA_3T_cgpt1_cwpt1_cb0_aphi1
+       	set  ALPPARS 1 3.000000e+03
+	set  ALPPARS 2 1.000000e-01
+	set  ALPPARS 3 1.000000e-01
+	set  ALPPARS 4 0.000000e+00
+
+launch --rwgt_name=FA_3T_cgpt1_cwpt1_cb1_aphi1
+       	set  ALPPARS 1 3.000000e+03
+	set  ALPPARS 2 1.000000e-01
+	set  ALPPARS 3 1.000000e-01
+
+
+launch --rwgt_name=FA_6T_cg1_cw1_cb1_aphi1
+       	set  ALPPARS 1 6.000000e+03
+
+
+
+launch --rwgt_name=FA_6T_cgpt17_cwpt17_cb0_aphi1
+       	set  ALPPARS 1 6.000000e+03
+	set  ALPPARS 2 17.000000e-02
+	set  ALPPARS 3 17.000000e-02
+	set  ALPPARS 4 0.000000e+00
+
+launch --rwgt_name=FA_6T_cgpt17_cwpt17_cbpt5_aphi1
+       	set  ALPPARS 1 6.000000e+03
+	set  ALPPARS 2 17.000000e-02
+	set  ALPPARS 3 17.000000e-02
+	set  ALPPARS 4 5.000000e-01
+
+launch --rwgt_name=FA_6T_cgpt17_cwpt17_cb1_aphi1
+       	set  ALPPARS 1 6.000000e+03
+	set  ALPPARS 2 17.000000e-02
+	set  ALPPARS 3 17.000000e-02
+
+launch --rwgt_name=FA_6T_cgpt15_cwpt15_cb0_aphi1
+       	set  ALPPARS 1 6.000000e+03
+	set  ALPPARS 2 15.000000e-02
+	set  ALPPARS 3 15.000000e-02
+	set  ALPPARS 4 0.000000e+00
+
+launch --rwgt_name=FA_6T_cgpt15_cwpt15_cbpt5_aphi1
+       	set  ALPPARS 1 6.000000e+03
+	set  ALPPARS 2 15.000000e-02
+	set  ALPPARS 3 15.000000e-02
+	set  ALPPARS 4 5.000000e-01
+
+launch --rwgt_name=FA_6T_cgpt15_cwpt15_cb1_aphi1
+       	set  ALPPARS 1 6.000000e+03
+	set  ALPPARS 2 15.000000e-02
+	set  ALPPARS 3 15.000000e-02
+
+
+launch --rwgt_name=FA_6T_cgpt1_cwpt1_cb0_aphi1
+       	set  ALPPARS 1 6.000000e+03
+	set  ALPPARS 2 1.000000e-01
+	set  ALPPARS 3 1.000000e-01
+	set  ALPPARS 4 0.000000e+00
+
+launch --rwgt_name=FA_6T_cgpt1_cwpt1_cb1_aphi1
+       	set  ALPPARS 1 6.000000e+03
+	set  ALPPARS 2 1.000000e-01
+	set  ALPPARS 3 1.000000e-01
+
+
+
+
+
+
