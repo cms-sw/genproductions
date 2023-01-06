@@ -1,0 +1,822 @@
+change mode NLO       # Define type of Reweighting. For LO sample this command
+                      # has no effect since only LO mode is allowed. 
+change helicity False # has also been done in the example I got from Kenneth 
+change rwgt_dir rwgt
+
+#Standard Model
+launch --rwgt_name=EFT__SM
+set SMEFT 2 0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[1/90] cW:-10.0
+launch --rwgt_name=EFT__cW_m10.00
+set SMEFT 2 -10.0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[2/90] cW:-5.0
+launch --rwgt_name=EFT__cW_m5.00
+set SMEFT 2 -5.0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[3/90] cW:-1.0
+launch --rwgt_name=EFT__cW_m1.00
+set SMEFT 2 -1.0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[4/90] cW:-0.7
+launch --rwgt_name=EFT__cW_m0.70
+set SMEFT 2 -0.7 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[5/90] cW:-0.5
+launch --rwgt_name=EFT__cW_m0.50
+set SMEFT 2 -0.5 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[6/90] cW:-0.3
+launch --rwgt_name=EFT__cW_m0.30
+set SMEFT 2 -0.3 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[7/90] cW:-0.1
+launch --rwgt_name=EFT__cW_m0.10
+set SMEFT 2 -0.1 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[8/90] cW:-0.05
+launch --rwgt_name=EFT__cW_m0.05
+set SMEFT 2 -0.05 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[9/90] cW:-0.01
+launch --rwgt_name=EFT__cW_m0.01
+set SMEFT 2 -0.01 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[10/90] cW:0.01
+launch --rwgt_name=EFT__cW_p0.01
+set SMEFT 2 0.01 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[11/90] cW:0.05
+launch --rwgt_name=EFT__cW_p0.05
+set SMEFT 2 0.05 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[12/90] cW:0.1
+launch --rwgt_name=EFT__cW_p0.10
+set SMEFT 2 0.1 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[13/90] cW:0.3
+launch --rwgt_name=EFT__cW_p0.30
+set SMEFT 2 0.3 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[14/90] cW:0.5
+launch --rwgt_name=EFT__cW_p0.50
+set SMEFT 2 0.5 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[15/90] cW:0.7
+launch --rwgt_name=EFT__cW_p0.70
+set SMEFT 2 0.7 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[16/90] cW:1.0
+launch --rwgt_name=EFT__cW_p1.00
+set SMEFT 2 1.0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[17/90] cW:5.0
+launch --rwgt_name=EFT__cW_p5.00
+set SMEFT 2 5.0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[18/90] cW:10.0
+launch --rwgt_name=EFT__cW_p10.00
+set SMEFT 2 10.0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[19/90] cHDD:-100.0
+launch --rwgt_name=EFT__cHDD_m100.00
+set SMEFT 2 0 # cW
+set SMEFT 5 -100.0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[20/90] cHDD:-50.0
+launch --rwgt_name=EFT__cHDD_m50.00
+set SMEFT 2 0 # cW
+set SMEFT 5 -50.0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[21/90] cHDD:-10.0
+launch --rwgt_name=EFT__cHDD_m10.00
+set SMEFT 2 0 # cW
+set SMEFT 5 -10.0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[22/90] cHDD:-7.0
+launch --rwgt_name=EFT__cHDD_m7.00
+set SMEFT 2 0 # cW
+set SMEFT 5 -7.0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[23/90] cHDD:-5.0
+launch --rwgt_name=EFT__cHDD_m5.00
+set SMEFT 2 0 # cW
+set SMEFT 5 -5.0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[24/90] cHDD:-3.0
+launch --rwgt_name=EFT__cHDD_m3.00
+set SMEFT 2 0 # cW
+set SMEFT 5 -3.0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[25/90] cHDD:-1.0
+launch --rwgt_name=EFT__cHDD_m1.00
+set SMEFT 2 0 # cW
+set SMEFT 5 -1.0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[26/90] cHDD:-0.5
+launch --rwgt_name=EFT__cHDD_m0.50
+set SMEFT 2 0 # cW
+set SMEFT 5 -0.5 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[27/90] cHDD:-0.1
+launch --rwgt_name=EFT__cHDD_m0.10
+set SMEFT 2 0 # cW
+set SMEFT 5 -0.1 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[28/90] cHDD:0.1
+launch --rwgt_name=EFT__cHDD_p0.10
+set SMEFT 2 0 # cW
+set SMEFT 5 0.1 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[29/90] cHDD:0.5
+launch --rwgt_name=EFT__cHDD_p0.50
+set SMEFT 2 0 # cW
+set SMEFT 5 0.5 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[30/90] cHDD:1.0
+launch --rwgt_name=EFT__cHDD_p1.00
+set SMEFT 2 0 # cW
+set SMEFT 5 1.0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[31/90] cHDD:3.0
+launch --rwgt_name=EFT__cHDD_p3.00
+set SMEFT 2 0 # cW
+set SMEFT 5 3.0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[32/90] cHDD:5.0
+launch --rwgt_name=EFT__cHDD_p5.00
+set SMEFT 2 0 # cW
+set SMEFT 5 5.0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[33/90] cHDD:7.0
+launch --rwgt_name=EFT__cHDD_p7.00
+set SMEFT 2 0 # cW
+set SMEFT 5 7.0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[34/90] cHDD:10.0
+launch --rwgt_name=EFT__cHDD_p10.00
+set SMEFT 2 0 # cW
+set SMEFT 5 10.0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[35/90] cHDD:50.0
+launch --rwgt_name=EFT__cHDD_p50.00
+set SMEFT 2 0 # cW
+set SMEFT 5 50.0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[36/90] cHDD:100.0
+launch --rwgt_name=EFT__cHDD_p100.00
+set SMEFT 2 0 # cW
+set SMEFT 5 100.0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[37/90] cHW:-10.0
+launch --rwgt_name=EFT__cHW_m10.00
+set SMEFT 2 0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 -10.0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[38/90] cHW:-5.0
+launch --rwgt_name=EFT__cHW_m5.00
+set SMEFT 2 0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 -5.0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[39/90] cHW:-1.0
+launch --rwgt_name=EFT__cHW_m1.00
+set SMEFT 2 0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 -1.0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[40/90] cHW:-0.7
+launch --rwgt_name=EFT__cHW_m0.70
+set SMEFT 2 0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 -0.7 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[41/90] cHW:-0.5
+launch --rwgt_name=EFT__cHW_m0.50
+set SMEFT 2 0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 -0.5 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[42/90] cHW:-0.3
+launch --rwgt_name=EFT__cHW_m0.30
+set SMEFT 2 0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 -0.3 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[43/90] cHW:-0.1
+launch --rwgt_name=EFT__cHW_m0.10
+set SMEFT 2 0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 -0.1 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[44/90] cHW:-0.05
+launch --rwgt_name=EFT__cHW_m0.05
+set SMEFT 2 0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 -0.05 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[45/90] cHW:-0.01
+launch --rwgt_name=EFT__cHW_m0.01
+set SMEFT 2 0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 -0.01 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[46/90] cHW:0.01
+launch --rwgt_name=EFT__cHW_p0.01
+set SMEFT 2 0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0.01 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[47/90] cHW:0.05
+launch --rwgt_name=EFT__cHW_p0.05
+set SMEFT 2 0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0.05 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[48/90] cHW:0.1
+launch --rwgt_name=EFT__cHW_p0.10
+set SMEFT 2 0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0.1 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[49/90] cHW:0.3
+launch --rwgt_name=EFT__cHW_p0.30
+set SMEFT 2 0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0.3 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[50/90] cHW:0.5
+launch --rwgt_name=EFT__cHW_p0.50
+set SMEFT 2 0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0.5 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[51/90] cHW:0.7
+launch --rwgt_name=EFT__cHW_p0.70
+set SMEFT 2 0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0.7 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[52/90] cHW:1.0
+launch --rwgt_name=EFT__cHW_p1.00
+set SMEFT 2 0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 1.0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[53/90] cHW:5.0
+launch --rwgt_name=EFT__cHW_p5.00
+set SMEFT 2 0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 5.0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[54/90] cHW:10.0
+launch --rwgt_name=EFT__cHW_p10.00
+set SMEFT 2 0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 10.0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[55/90] cHB:-100.0
+launch --rwgt_name=EFT__cHB_m100.00
+set SMEFT 2 0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 -100.0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[56/90] cHB:-50.0
+launch --rwgt_name=EFT__cHB_m50.00
+set SMEFT 2 0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 -50.0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[57/90] cHB:-10.0
+launch --rwgt_name=EFT__cHB_m10.00
+set SMEFT 2 0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 -10.0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[58/90] cHB:-7.0
+launch --rwgt_name=EFT__cHB_m7.00
+set SMEFT 2 0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 -7.0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[59/90] cHB:-5.0
+launch --rwgt_name=EFT__cHB_m5.00
+set SMEFT 2 0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 -5.0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[60/90] cHB:-3.0
+launch --rwgt_name=EFT__cHB_m3.00
+set SMEFT 2 0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 -3.0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[61/90] cHB:-1.0
+launch --rwgt_name=EFT__cHB_m1.00
+set SMEFT 2 0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 -1.0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[62/90] cHB:-0.5
+launch --rwgt_name=EFT__cHB_m0.50
+set SMEFT 2 0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 -0.5 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[63/90] cHB:-0.1
+launch --rwgt_name=EFT__cHB_m0.10
+set SMEFT 2 0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 -0.1 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[64/90] cHB:0.1
+launch --rwgt_name=EFT__cHB_p0.10
+set SMEFT 2 0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0.1 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[65/90] cHB:0.5
+launch --rwgt_name=EFT__cHB_p0.50
+set SMEFT 2 0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0.5 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[66/90] cHB:1.0
+launch --rwgt_name=EFT__cHB_p1.00
+set SMEFT 2 0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 1.0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[67/90] cHB:3.0
+launch --rwgt_name=EFT__cHB_p3.00
+set SMEFT 2 0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 3.0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[68/90] cHB:5.0
+launch --rwgt_name=EFT__cHB_p5.00
+set SMEFT 2 0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 5.0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[69/90] cHB:7.0
+launch --rwgt_name=EFT__cHB_p7.00
+set SMEFT 2 0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 7.0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[70/90] cHB:10.0
+launch --rwgt_name=EFT__cHB_p10.00
+set SMEFT 2 0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 10.0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[71/90] cHB:50.0
+launch --rwgt_name=EFT__cHB_p50.00
+set SMEFT 2 0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 50.0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[72/90] cHB:100.0
+launch --rwgt_name=EFT__cHB_p100.00
+set SMEFT 2 0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 100.0 # cHB
+set SMEFT 9 0 # cHWB
+
+
+#[73/90] cHWB:-100.0
+launch --rwgt_name=EFT__cHWB_m100.00
+set SMEFT 2 0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 -100.0 # cHWB
+
+
+#[74/90] cHWB:-50.0
+launch --rwgt_name=EFT__cHWB_m50.00
+set SMEFT 2 0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 -50.0 # cHWB
+
+
+#[75/90] cHWB:-10.0
+launch --rwgt_name=EFT__cHWB_m10.00
+set SMEFT 2 0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 -10.0 # cHWB
+
+
+#[76/90] cHWB:-7.0
+launch --rwgt_name=EFT__cHWB_m7.00
+set SMEFT 2 0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 -7.0 # cHWB
+
+
+#[77/90] cHWB:-5.0
+launch --rwgt_name=EFT__cHWB_m5.00
+set SMEFT 2 0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 -5.0 # cHWB
+
+
+#[78/90] cHWB:-3.0
+launch --rwgt_name=EFT__cHWB_m3.00
+set SMEFT 2 0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 -3.0 # cHWB
+
+
+#[79/90] cHWB:-1.0
+launch --rwgt_name=EFT__cHWB_m1.00
+set SMEFT 2 0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 -1.0 # cHWB
+
+
+#[80/90] cHWB:-0.5
+launch --rwgt_name=EFT__cHWB_m0.50
+set SMEFT 2 0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 -0.5 # cHWB
+
+
+#[81/90] cHWB:-0.1
+launch --rwgt_name=EFT__cHWB_m0.10
+set SMEFT 2 0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 -0.1 # cHWB
+
+
+#[82/90] cHWB:0.1
+launch --rwgt_name=EFT__cHWB_p0.10
+set SMEFT 2 0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0.1 # cHWB
+
+
+#[83/90] cHWB:0.5
+launch --rwgt_name=EFT__cHWB_p0.50
+set SMEFT 2 0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 0.5 # cHWB
+
+
+#[84/90] cHWB:1.0
+launch --rwgt_name=EFT__cHWB_p1.00
+set SMEFT 2 0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 1.0 # cHWB
+
+
+#[85/90] cHWB:3.0
+launch --rwgt_name=EFT__cHWB_p3.00
+set SMEFT 2 0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 3.0 # cHWB
+
+
+#[86/90] cHWB:5.0
+launch --rwgt_name=EFT__cHWB_p5.00
+set SMEFT 2 0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 5.0 # cHWB
+
+
+#[87/90] cHWB:7.0
+launch --rwgt_name=EFT__cHWB_p7.00
+set SMEFT 2 0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 7.0 # cHWB
+
+
+#[88/90] cHWB:10.0
+launch --rwgt_name=EFT__cHWB_p10.00
+set SMEFT 2 0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 10.0 # cHWB
+
+
+#[89/90] cHWB:50.0
+launch --rwgt_name=EFT__cHWB_p50.00
+set SMEFT 2 0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 50.0 # cHWB
+
+
+#[90/90] cHWB:100.0
+launch --rwgt_name=EFT__cHWB_p100.00
+set SMEFT 2 0 # cW
+set SMEFT 5 0 # cHDD
+set SMEFT 7 0 # cHW
+set SMEFT 8 0 # cHB
+set SMEFT 9 100.0 # cHWB
