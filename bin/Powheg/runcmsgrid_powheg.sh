@@ -145,7 +145,7 @@ if [[ -d ${WORKDIR}/WW_MATRIX ]]; then
 fi
 ### For the ggHH process
 if [[ "${process}" == "ggHH" ]]; then
-    ln -s ${WORKDIR}/Virt_full_cHHH_* .
+    ln -s ${WORKDIR}/Virt* .
     ln -s ${WORKDIR}/creategrid.py .
     cp -p ${WORKDIR}/events.cdf .
 fi

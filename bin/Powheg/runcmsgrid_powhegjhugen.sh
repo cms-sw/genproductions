@@ -109,8 +109,8 @@ if [ -e  ${WORKDIR}/powheg-fh.in ]; then
   cp -p ${WORKDIR}/powheg-fh.in .
 fi
 ### For the ggHH process
-if [[ -e ${WORKDIR}/Virt_full_cHHH_0.0.grid ]]; then
-    ln -s ${WORKDIR}/Virt_full_cHHH_* .
+if [[ "${process}" == "ggHH" ]]; then
+    ln -s ${WORKDIR}/Virt* .
     ln -s ${WORKDIR}/creategrid.py .
     cp -p ${WORKDIR}/events.cdf .
 fi
