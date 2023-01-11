@@ -1,0 +1,5 @@
+import model ALP_linear_UFO
+define q = u c d s b u~ c~ d~ s~ b~
+
+generate g g > w+ w-, w+ > q q, w- > q q
+output WWhad_ALP_linear -nojpeg

@@ -1,0 +1,6 @@
+import model ALP_linear_UFO
+define q = u c d s b u~ c~ d~ s~ b~
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
+generate g g > z z, z > q q
+output ZZhad_ALP_linear -nojpeg
