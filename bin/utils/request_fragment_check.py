@@ -156,9 +156,6 @@ def concurrency_check(fragment,pi,cmssw_version):
             if "randomizedparameters" in fragment.lower():
                 print("[ERROR] Concurrent generation parameters used along with RandomizedParameter scan.")
                 error_conc = 1
-            if "plhegen" in pi.lower():
-                print("[ERROR] Concurrent generation parameters used along with a pLHEGEN request.") #pLHE+GEN is OK
-                error_conc = 1
         else:
             # then if not both the LHE and GEN step turns on concurrent features, we check if for some cases it is ok not to have concurrency
             if "Pythia8HadronizerFilter" in fragment and ("evtgen" in fragment.lower() or "tauola" in fragment.lower() or "photos" in fragment.lower()):
@@ -167,14 +164,12 @@ def concurrency_check(fragment,pi,cmssw_version):
                 print("Herwig7GeneratorFilter in the wmLHEGEN or pLHEGEN campaign cannot run concurrently.")
             elif "Pythia8GeneratorFilter" in fragment and "randomizedparameters" in fragment.lower():
                 print("Pythia8GeneratorFilter with RandomizedParameter scan cannot run concurrently")
-            elif "plhegen" in pi.lower():
-                print("pLHE cannot run concurrently")
             # for other cases, it is either concurrent generation parameters are missing or wrong
             else:
                 print("[ERROR] Concurrent generation parameters missing or wrong. Please see https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookGenMultithread")
                 error_conc = 1
     else:
-        if "concurrent" in fragment.lower() and "plhegen" not in pi.lower():
+        if "concurrent" in fragment.lower():
             print("[ERROR] Concurrent generation is not supported for versions < CMSSW_10_6_28 and CMSSW_11_X_X series")
             error_conc = 1
     return conc_check_lhe and conc_check, error_conc
