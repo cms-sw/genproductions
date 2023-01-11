@@ -126,6 +126,9 @@ def concurrency_check(fragment,pi,cmssw_version):
     fragment = re.sub(r'(?m)^ *#.*\n?', '',fragment) # remove lines starting with #
     fragment = fragment.replace(" ","").replace("\"","'")#
     if cmssw_version >= int('10_60_28'.replace('_','')) and int(str(cmssw_version)[:2]) != 11:
+        if "generateConcurrently=cms.untracked.bool(False)" in fragment and "Pythia8Concurrent" in fragment:
+            print("[ERROR] Concurrent parameters used with generateConcurrently=cms.untracked.bool(False) in fragment.")
+            error_conc = 1
         if "ExternalLHEProducer" in fragment and "generateConcurrently=cms.untracked.bool(True)" in fragment: 
             # first check if the code has correctly implemented concurrent features. Mark conc_check_lhe (LHE step) or conc_check (GEN step) as True if features are found
             if "Herwig7GeneratorFilter" not in fragment: 
