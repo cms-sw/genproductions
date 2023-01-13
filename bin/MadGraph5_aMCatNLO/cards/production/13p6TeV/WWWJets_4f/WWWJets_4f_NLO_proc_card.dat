@@ -1,14 +1,4 @@
-set group_subprocesses Auto
-set ignore_six_quark_processes False
-set loop_optimized_output True
-set complex_mass_scheme False
-import model loop_sm-no_b_mass
-define l+ = e+ mu+
-define l- = e- mu-
-define vl = ve vm vt
-define vl~ = ve~ vm~ vt~
-define p = g u c d s u~ c~ d~ s~
-define j = g u c d s u~ c~ d~ s~
+import model loop_sm
 define w = w+ w-
 generate p p > w w w $$ t t~ [QCD] @0
 output WWWJets_4f_NLO -nojpeg
