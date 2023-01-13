@@ -26,7 +26,7 @@ cggh      0.26666666       ! Effective gluon-gluon-Higgs coupling
 cgghh     0.0               ! Effective two-gluon-two-Higgses coupling
 
 ! general parameters:
-numevts 100000        ! number of events to be generated
+numevts NEVENTS        ! number of events to be generated
 ih1         1        ! hadron 1 (1 for protons, -1 for antiprotons)
 ih2         1        ! hadron 2 (1 for protons, -1 for antiprotons)
 ebeam1 6800     ! energy of beam 1
@@ -81,7 +81,7 @@ hdamp           250
 
 ! PARAMETERS for parallel runnning
 ! -- non parallel (for testing purposes only)
-#iseed    547        !  Start the random number generator with seed iseed
+iseed SEED           !  Start the random number generator with seed iseed
 #rand1     0         !  skipping  rand2*100000000+rand1 numbers.
 #rand2     0         !  (see RM48 short writeup in CERNLIB)
 
