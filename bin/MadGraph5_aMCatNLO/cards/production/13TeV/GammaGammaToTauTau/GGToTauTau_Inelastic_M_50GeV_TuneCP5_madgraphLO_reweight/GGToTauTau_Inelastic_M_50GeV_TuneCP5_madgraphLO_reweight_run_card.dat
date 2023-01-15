@@ -40,7 +40,8 @@
 # PDF CHOICE: this automatically fixes also alpha_s and its evol.    *
 #*********************************************************************
  lhapdf    = pdlabel   ! PDF set
- 325100    = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number
+# 26500     = lhaid     ! MSHT20qed_nnlo_inelastic (available form LHAPDF 6.3)
+ 325100     = lhaid     ! NNPDF+QED (inelastic is not working) FIXME
 
 # To see heavy ion options: type "update ion_pdf"
 #*********************************************************************
