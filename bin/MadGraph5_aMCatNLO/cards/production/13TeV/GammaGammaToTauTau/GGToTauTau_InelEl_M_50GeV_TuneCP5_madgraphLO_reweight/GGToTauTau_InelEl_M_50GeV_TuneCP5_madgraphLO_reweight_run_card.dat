@@ -41,7 +41,7 @@
 #*********************************************************************
   26500   = lhaid      ! MSHT20qed_nnlo_inelastic (available form LHAPDF 6.3) 
   lhapdf  = pdlabel1   ! PDF set                                                                     
-  edff    = pdlabel2   ! PDF set                                                                     
+  chff    = pdlabel2   ! PDF set                                                                     
 # To see heavy ion options: type "update ion_pdf"
 #*********************************************************************
 # Renormalization and factorization scales                           *

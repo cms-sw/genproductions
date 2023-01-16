@@ -39,8 +39,8 @@
 #*********************************************************************
 # PDF CHOICE: this automatically fixes also alpha_s and its evol.    *
 #*********************************************************************
-  edff    = pdlabel1   ! PDF set                                                                     
-  edff    = pdlabel2   ! PDF set                                                                     
+  chff    = pdlabel1   ! PDF set                                                                     
+  chff    = pdlabel2   ! PDF set                                                                     
 # To see heavy ion options: type "update ion_pdf"
 #*********************************************************************
 # Renormalization and factorization scales                           *
