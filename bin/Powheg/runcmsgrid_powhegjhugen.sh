@@ -41,7 +41,7 @@ if [ "$use_gridpack_env" = true ]
       else
         scram_arch_version=SCRAM_ARCH_VERSION_REPLACE
     fi
-    echo "%MSG-MG5 SCRAM_ARCH version = $scram_arch_version"
+    echo "%MSG-POWHEG SCRAM_ARCH version = $scram_arch_version"
 
     if [ -n "$6" ]
       then
@@ -49,7 +49,7 @@ if [ "$use_gridpack_env" = true ]
       else
         cmssw_version=CMSSW_VERSION_REPLACE
     fi
-    echo "%MSG-MG5 CMSSW version = $cmssw_version"
+    echo "%MSG-POWHEG CMSSW version = $cmssw_version"
     export VO_CMS_SW_DIR=/cvmfs/cms.cern.ch
     source $VO_CMS_SW_DIR/cmsset_default.sh
     export SCRAM_ARCH=${scram_arch_version}
@@ -109,8 +109,8 @@ if [ -e  ${WORKDIR}/powheg-fh.in ]; then
   cp -p ${WORKDIR}/powheg-fh.in .
 fi
 ### For the ggHH process
-if [[ -e ${WORKDIR}/Virt_full_cHHH_0.0.grid ]]; then
-    ln -s ${WORKDIR}/Virt_full_cHHH_* .
+if [[ "${process}" == "ggHH" ]]; then
+    ln -s ${WORKDIR}/Virt* .
     ln -s ${WORKDIR}/creategrid.py .
     cp -p ${WORKDIR}/events.cdf .
 fi
@@ -139,6 +139,31 @@ grep -q "first runx" powheg.input ; test $? -ne 0 || produceWeights="true"
 
 cat powheg.input
 ../pwhg_main &> log_${process}_${seed}.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
+
+if [ "${process}" == "X0jj" ]; then
+    # now run reweighting for X0jj process
+    # also need to modify powheg.input inbetween these calls
+    cp powheg.input powheg.input.noweight
+    sed -nir '/compute_rwgt/!p;$acompute_rwgt 1' powheg.input
+
+    # sm weight
+    sed -nir '/lhrwgt_id/!p;$alhrwgt_id '\''sm_weight'\''' powheg.input
+    sed -nir '/MGcosa/!p;$aMGcosa    1d0' powheg.input
+    ../pwhg_main 2>&1 | tee logrew_${process}_${seed}_sm.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
+    mv pwgevents-rwgt.lhe pwgevents.lhe
+
+    # ps weight
+    sed -nir '/lhrwgt_id/!p;$alhrwgt_id '\''ps_weight'\''' powheg.input
+    sed -nir '/MGcosa/!p;$aMGcosa    0d0' powheg.input
+    ../pwhg_main 2>&1 | tee logrew_${process}_${seed}_ps.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
+    mv pwgevents-rwgt.lhe pwgevents.lhe
+
+    # mm weight
+    sed -nir '/lhrwgt_id/!p;$alhrwgt_id '\''mm_weight'\''' powheg.input
+    sed -nir '/MGcosa/!p;$aMGcosa    -0.707107d0' powheg.input
+    ../pwhg_main 2>&1 | tee logrew_${process}_${seed}_mm.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
+    mv pwgevents-rwgt.lhe pwgevents.lhe
+fi
 
 if [ "$produceWeightsNNLO" == "true" ]; then
     echo -e "\ncomputing weights for NNLOPS\n"

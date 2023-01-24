@@ -1,0 +1,9 @@
+import model WPrimetb_5f_UFO
+define bs = b b~
+define wp = wp+ wp-
+define ls = l+ l- vl vl~
+define ws = w+ w-
+define ts = t t~
+generate p p > ts wp, (ts > bs ws, ws > ls ls ),(wp > bs ts, (ts > bs ws, ws > j j))
+add process p p > ts wp j, (ts > bs ws, ws > ls ls ),(wp > bs ts, (ts > bs ws, ws > j j))
+output {name} -nojpeg

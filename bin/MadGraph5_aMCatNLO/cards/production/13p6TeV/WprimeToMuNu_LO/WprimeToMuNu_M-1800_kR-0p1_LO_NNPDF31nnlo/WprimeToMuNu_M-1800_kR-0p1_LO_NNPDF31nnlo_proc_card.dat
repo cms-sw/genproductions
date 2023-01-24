@@ -1,0 +1,4 @@
+import model WEff_UFO
+generate p p > wp+ > mu+ vm
+add process p p > wp- > mu- vm~
+output WprimeToMuNu_M-1800_kR-0p1_LO_NNPDF31nnlo  -nojpeg

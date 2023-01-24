@@ -14,8 +14,8 @@ hdecaywidth 0        ! If equals to 1 read total decay width from HDECAY sm.br2 
 bwcutoff 15        ! how many W widths below and above the Higgs mass are included
 
 ! To be set only if using LHA pdfs
-lhans1   306000      ! pdf set for hadron 1 (LHA numbering)
-lhans2   306000     ! pdf set for hadron 2 (LHA numbering)
+lhans1   325300      ! pdf set for hadron 1 (LHA numbering)
+lhans2   325300     ! pdf set for hadron 2 (LHA numbering)
 
 ! Parameters to allow or not the use of stored data
 use-old-grid    1 ! if 1 use old grid if file pwggrids.dat is present (<> 1 regenerate)
@@ -46,10 +46,6 @@ pdfreweight 0       ! PDF reweighting
 
 bornktmin 0.26    ! Minimum transverse momentum of the Higgs at the underlying Born level
 
-storeinfo_rwgt 0   ! store info to allow for reweighting
-
-flg_debug      1   ! store extra event info for debugging
-
 minlo 1            ! default 0, set to 1 to use minlo
 
 factsc2min 2       ! at this value the factorization scale is frozen (neede with minlo)
@@ -64,4 +60,3 @@ topmass 172.5d0      ! top quark mass (172.5 in HNNLO-patches/mdata.f)
 bottommass 3.38d0    ! bottom quark mass in MSbar at MH
 bmass_in_minlo 1     ! Include quark mass effects in Sudakov exponent
 
-fakevirt 1

@@ -1,0 +1,63 @@
+--- POWHEG-BOX/include/pwhg_lhrwgt.h	2015-01-30 09:54:31.845227920 +0100
++++ ../roberto/POWHEG-BOX/include/pwhg_lhrwgt.h	   2015-02-18 14:29:12.772549580 +0100
+@@ -2,7 +2,7 @@
+ 
+ c Maximum number of weights
+       integer lhrwgt_maxnheader
+-      parameter (lhrwgt_maxnheader=200)
++      parameter (lhrwgt_maxnheader=400)
+       integer  lhrwgt_max_header_columns
+       parameter ( lhrwgt_max_header_columns=200)
+       character * (lhrwgt_max_header_columns)
+--- ../my_testNNLOPS2/POWHEG-BOX/rwl_weightlists.f	2018-09-04 10:13:18.000000001 +0200
++++ POWHEG-BOX/rwl_weightlists.f			2018-11-22 10:37:02.000000001 +0100
+@@ -558,6 +558,8 @@
+       call nextword(jpos,iv,jv)
+ c No key found
+       if(iv>lb) goto 998
++c for NNLOPS
++      if(buf(iv:jv) == 'combines') goto 998 
+       if(buf(iv:jv) == 'default') then
+ c     In this case we do not expect a value
+          val = 0
+--- POWHEG-BOX/lhefwrite.f	2021-12-15 15:46:15.000000001 +0100
++++ ../boh/POWHEG-BOX/lhefwrite.f	   2021-12-15 15:47:45.000000001 +0100
+@@ -7,6 +7,7 @@
+       include 'pwhg_rad.h'
+       include 'pwhg_flg.h'
+       include 'pwhg_lhrwgt.h'
++      include 'pwhg_pdf.h'
+       integer nlf
+       real * 8 version
+       common/cversion/version
+@@ -50,8 +51,13 @@
+       endif
+       call  pwhg_io_write(nlf,'<init>')
+ c      write(nlf,'(a)') '<init>'
+-      write(buffer,110) idbmup(1),idbmup(2),ebmup(1),ebmup(2),
++      if(pdfsup(1).ne.-1 .and. pdfsup(2).ne.-1) then
++         write(buffer,110) idbmup(1),idbmup(2),ebmup(1),ebmup(2),
+      1     pdfgup(1),pdfgup(2),pdfsup(1),pdfsup(2),idwtup,nprup
++      else
++         write(buffer,110) idbmup(1),idbmup(2),ebmup(1),ebmup(2),
++     1   0,0,pdf_ndns1,pdf_ndns2,idwtup,nprup
++      endif
+       call  pwhg_io_write(nlf,trim(buffer))
+       do 100 ipr=1,nprup
+          write(buffer,120) xsecup(ipr),xerrup(ipr),xmaxup(ipr),
+@@ -99,6 +105,7 @@
+      & vtimup(i),spinup(i)
+          call  pwhg_io_write(nlf,trim(buffer))
+  200  continue
++      if(flg_pdfreweight) call lhefwritepdfrw(nlf)
+       if(flg_reweight .or. flg_rwl) then
+          call lhefwriteevrw(nlf)
+          if(flg_rwl) then
+@@ -111,7 +118,6 @@
+ c            write(nlf,'(a)')'</rwgt>'
+          endif
+       endif
+-      if(flg_pdfreweight) call lhefwritepdfrw(nlf)
+       if(flg_debug) call lhefwritextra(nlf)
+       call  pwhg_io_write(nlf,'</event>')
+ c      write(nlf,'(a)')'</event>'

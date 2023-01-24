@@ -1,0 +1,10 @@
+import model diquarkut2021_UFO
+define l+ = e+ mu+ ta+ 
+define l- = e- mu- ta-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+
+generate p p > u t, (t > w+ b, w+ > l+ vl)
+
+output diquark_Suu_ut -nojpeg
+

@@ -3,7 +3,7 @@
 # Polynomial order: 2
 change rwgt_dir rwgt
 
-launch --rwgt_name=dummy # Name of first argument seems to be rwgt_1. Add dummy to fix it.
+launch --rwgt_name=dummy
 
 launch --rwgt_name=cHq1Re11_0p_cHq1Re22_0p_cHq1Re33_0p_cHq3Re11_0p_cHq3Re22_0p_cHq3Re33_0p_cHuRe11_0p_cHuRe22_0p_cHuRe33_0p_cHdRe11_0p_cHdRe22_0p_cHdRe33_0p_cW_0p_cWtil_0p
 set cHq1Re11 0.000000

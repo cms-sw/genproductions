@@ -1,0 +1,28 @@
+Index: pwhg_main.f
+===================================================================
+--- pwhg_main.f (revision 3756)
++++ pwhg_main.f (working copy)
+@@ -326,7 +326,9 @@
+             call rwl_setup_params_weights(0)
+ c     save random status, not to alter the sequence of generated events
+ c     due to the addition of weights
++            if(.not. flg_rwl_add) then
+             call randomsave
++            endif
+ c     retrieve events and add weights
+             do count_weights = num_old_weights+1, num_weights
+ c     setup parameters for current weight
+@@ -343,11 +345,13 @@
+ c     restore current parameters
+                call rwl_setup_params_weights(-1)
+             enddo
++            if(.not. flg_rwl_add) then
+             call randomrestore
+ c     cache full random status before call to next event. This call does not
+ c     alter the sequence of random number generator, but it provide a starting
+ c     point to reach faster subsequent random number.
+             call cachefullrandomstatus
++            endif
+             do k_stored_evt=1,count_stored_evt
+ c copy stored event to LH common block
+                call rwl_handle_lhe('get',count_stored_evt,k_stored_evt)
