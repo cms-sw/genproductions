@@ -165,7 +165,7 @@ $patch_3
 if [ -d ./Virtual/ ]; then
   cp ./Virtual/events.cdf $${WORKDIR}/$${name}/
   cp ./Virtual/creategrid.py* $${WORKDIR}/$${name}/
-  cp ./Virtual/Virt_full_cHHH*.grid $${WORKDIR}/$${name}/
+  cp ./Virtual/Virt*.grid $${WORKDIR}/$${name}/
 fi
 
 # Remove ANY kind of analysis with parton shower
