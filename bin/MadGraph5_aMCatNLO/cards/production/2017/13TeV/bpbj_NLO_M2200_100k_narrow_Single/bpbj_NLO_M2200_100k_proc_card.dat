@@ -1,0 +1,12 @@
+import model VLQ_v4_4FNS_UFO
+define q = u c d s u~ c~ d~ s~
+define p = g u c d s u~ c~ d~ s~
+define j = g u c d s u~ c~ d~ s~
+define l+ = e+ mu+
+define l- = e- mu-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+define myb = b b~
+define mybp = bp bp~
+generate p p > myb mybp j [QCD]
+output bpbj_NLO_M2200_100k
