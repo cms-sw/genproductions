@@ -1,0 +1,16 @@
+import model sm-no_b_mass
+
+define p = u d c s b u~ d~ c~ s~ b~ g
+define j = p
+define l+ = ta+
+define l- = ta-
+define nu = ve vm vt
+define nubar = ve~ vm~ vt~
+
+generate p p > l+ l- @0
+add process p p > l+ l- j @1
+add process p p > l+ l- j j @2
+add process p p > l+ l- j j j @3
+add process p p > l+ l- j j j j @4
+
+output DY01234jToTauTau_LO_5f
