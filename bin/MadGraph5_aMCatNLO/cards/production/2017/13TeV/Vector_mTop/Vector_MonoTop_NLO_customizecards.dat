@@ -1,0 +1,36 @@
+#put card customizations here (change top and higgs mass for example)
+set param_card mass 6 172.5
+set param_card yukawa 6 172.5
+set param_card gVXc 0.0
+set param_card gVXd 1.0
+set param_card gAXd 0.0
+set param_card gVd11 0.0
+set param_card gVu11 0.0
+set param_card gVd22 0.0
+set param_card gVu22 0.0
+set param_card gVd33 0.0
+set param_card gVu33 0.0
+set param_card gVl11 0.0
+set param_card gVl22 0.0
+set param_card gVl33 0.0
+set param_card gAd11 0.0
+set param_card gAu11 0.0
+set param_card gAd22 0.0
+set param_card gAu22 0.0
+set param_card gAd33 0.0
+set param_card gAu33 0.0
+set param_card gAl11 0.0
+set param_card gAl22 0.0
+set param_card gAl33 0.0
+set param_card gnu11 0.0
+set param_card gnu22 0.0
+set param_card gnu33 0.0
+set param_card gVu31 0.25
+set param_card gAu31 0.0
+set param_card gVd31 0.25
+set param_card gAd31 0.0
+set param_card gVh 0.0
+set param_card MY1   MassPhi
+set param_card MXd   MassChi
+set param_card DECAY 5000001 AUTO
+set param_card DECAY 6 AUTO
