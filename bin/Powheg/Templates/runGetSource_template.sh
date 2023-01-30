@@ -107,7 +107,7 @@ patch -l -p0 -i ${patches_dir}/pdfweights_new.patch
 $patch_1 
 
 
-sed -i -e "s#500#1350#g"  POWHEG-BOX/include/pwhg_rwl.h
+sed -i -e "s#500#2000#g"  POWHEG-BOX/include/pwhg_rwl.h
 
 echo $${POWHEGSRC} > VERSION
 
