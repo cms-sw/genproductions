@@ -68,6 +68,15 @@ patch -l -p0 -i ${patches_dir}/minnlo_pdf_representations_init.patch\n \
 patch -l -p2 -i ${patches_dir}/minnlo_pdf_ymax.patch\n \
 cd ..\n \
 fi",
+    "HJ" : "if [ ${forMiNNLO} -eq 1 ]; then\n \
+cd POWHEG-BOX\n \
+patch -l -p0 -i ${patches_dir}/pwhg_rm_bad_st1.patch\n \
+patch -l -p0 -i ${patches_dir}/pwhg_rwl_add_random.patch\n \
+patch -l -p0 -i ${patches_dir}/minnlo_pdf_weights.patch\n \
+patch -l -p0 -i ${patches_dir}/minnlo_pdf_representations_init.patch\n \
+patch -l -p2 -i ${patches_dir}/minnlo_pdf_ymax.patch\n \
+cd ..\n \
+fi",
     "VBF_H_smeft" : "cd POWHEG-BOX/VBF_H_smeft\n \
 head -n 966 pwhg_analysis.f | tail -n 12 > pwhg_analysis_new.f\n \
 mv pwhg_analysis_new.f pwhg_analysis.f\n \
@@ -85,6 +94,11 @@ fi",
     "Wj" : "if [ ${forMiNNLO} -eq 1 ]; then\n \
 patch -l -p0 -i ${WORKDIR}/patches/wj_minnlo_scheme_weights.patch\n \
 cd WjMiNNLO\n \
+patch -l -p0 -i ${WORKDIR}/patches/vj_minnlo_rwl_pdf_optimization.patch\n \
+patch -l -p0 -i ${WORKDIR}/patches/vj_minnlo_compiler_flags.patch\n \
+fi",
+    "HJ" : "if [ ${forMiNNLO} -eq 1 ]; then\n \
+cd HJMiNNLO\n \
 patch -l -p0 -i ${WORKDIR}/patches/vj_minnlo_rwl_pdf_optimization.patch\n \
 patch -l -p0 -i ${WORKDIR}/patches/vj_minnlo_compiler_flags.patch\n \
 fi",
@@ -135,14 +149,19 @@ sed -i -e \"s#\$(PWD)/\$(OBJ)#\$(OBJ)#g\" Makefile\n \
 sed -i -e \"s#\$(OLPATH)/lib_src#lib_src#g\" Makefile\n \
 sed -i -e \"s#cd \$(OLPATH)#cp -r \$(OLPATH)/* .#g\" Makefile\n \
 sed -i -e \"s#abspath(os.path.join(config#relpath(os.path.join(config#g\" ../OpenLoopsStuff/OpenLoops/SConstruct\n \
-sed -i -e \"s#rpath=\$(PWD)/\$(OBJDIR) -L\$(PWD)/\$(OBJDIR)#rpath=\$(OBJDIR) -L\$(OBJDIR)#g\" Makefile",
+sed -i -e \"s#rpath=\$(PWD)/\$(OBJDIR) -L\$(PWD)/\$(OBJDIR)#rpath=\$(OBJDIR) -L\$(OBJDIR)#g\" Makefile\n \
+sed -i -e \"s#PDFPACK=lhapdfif.o#PDFPACK=lhapdf6if.o lhapdf6ifcc.o#g\" Makefile\n \
+cat ${patches_dir}/missing_lhapdf6.txt >> Makefile",   
     "HZ_ew" : "# fix fortran options/linking to OpenLoops/missing libraries in VH_ew\n \
 sed -i -e \"s#OL_process_src#OL_process_src f90_flags=-ffree-line-length-none#g\" Makefile\n \
 sed -i -e \"s#\$(PWD)/\$(OBJ)#\$(OBJ)#g\" Makefile\n \
 sed -i -e \"s#\$(OLPATH)/lib_src#lib_src#g\" Makefile\n \
 sed -i -e \"s#cd \$(OLPATH)#cp -r \$(OLPATH)/* .#g\" Makefile\n \
 sed -i -e \"s#abspath(os.path.join(config#relpath(os.path.join(config#g\" ../OpenLoopsStuff/OpenLoops/SConstruct\n \
-sed -i -e \"s#rpath=\$(PWD)/\$(OBJDIR) -L\$(PWD)/\$(OBJDIR)#rpath=\$(OBJDIR) -L\$(OBJDIR)#g\" Makefile",
+sed -i -e \"s#rpath=\$(PWD)/\$(OBJDIR) -L\$(PWD)/\$(OBJDIR)#rpath=\$(OBJDIR) -L\$(OBJDIR)#g\" Makefile\n \
+sed -i -e \"s#opencount.o#opencount.o sigequiv_hook.o#g\" Makefile\n \
+sed -i -e \"s#PDFPACK=lhapdfif.o#PDFPACK=lhapdf6if.o lhapdf6ifcc.o#g\" Makefile\n \
+cat ${patches_dir}/missing_lhapdf6.txt >> Makefile",
     "HZJ_ew" : "# fix fortran options/linking to OpenLoops/missing libraries in VH_ew\n \
 sed -i -e \"s#OL_process_src#OL_process_src f90_flags=-ffree-line-length-none#g\" Makefile\n \
 sed -i -e \"s#\$(PWD)/\$(OBJ)#\$(OBJ)#g\" Makefile\n \
@@ -158,7 +177,10 @@ sed -i -e \"s#\$(OLPATH)/lib_src#lib_src#g\" Makefile\n \
 sed -i -e \"s#cd \$(OLPATH)#cp -r \$(OLPATH)/* .#g\" Makefile\n \
 sed -i -e \"s#abspath(os.path.join(config#relpath(os.path.join(config#g\" ../OpenLoopsStuff/OpenLoops/SConstruct\n \
 sed -i -e \"s#rpath=\$(PWD)/\$(OBJDIR) -L\$(PWD)/\$(OBJDIR)#rpath=\$(OBJDIR) -L\$(OBJDIR)#g\" Makefile\n \
-sed -i -e \"s#boostrot.o#boostrot.o boostrot4.o#g\" Makefile",
+sed -i -e \"s#opencount.o#opencount.o sigequiv_hook.o#g\" Makefile\n \
+sed -i -e \"s#PDFPACK=lhapdfif.o#PDFPACK=lhapdf6if.o lhapdf6ifcc.o#g\" Makefile\n \
+sed -i -e \"s#boostrot.o#boostrot.o boostrot4.o#g\" Makefile\n \
+cat ${patches_dir}/missing_lhapdf6.txt >> Makefile",
     "ttJ" : "sed -i -e \"s#_PATH) -L#_PATH) #g\" Makefile\n \
 sed -i -e \"s# -lvirtual#/libvirtual.so.1.0.0#g\" Makefile",
     "ttH" : "# Use option O0 for ttH (O2 too long)\n \
@@ -167,7 +189,9 @@ sed -i 's/4.5d0/4.75d0/g' init_couplings.f",
     "gg_H_MSSM" : "sed -i 's/leq/le/g' nloreal.F\n \
 cp -p ../gg_H_quark-mass-effects/SLHA.h .\n \
 cp -p ../gg_H_quark-mass-effects/SLHADefs.h .",
-    }.get(process,"")
+    "HJ/HJMiNNLO" : "sed -i -e \"s#PDF=hoppet#PDF=lhapdf#\" Makefile \n \
+     sed -i -e \"s#internal_parameters.o coefficient_functions_nnlops.o#internal_parameters.o coefficient_functions_nnlops.o sudakov_radiators.o#\" Makefile",    
+  }.get(process,"")
 
 def runGetSource_patch_5(process) :
   return {
@@ -177,7 +201,28 @@ def runGetSource_patch_5(process) :
 def runGetSource_patch_6(process) :
   return {
     "WWJ" : "cp Makefile Makefile.orig\n \
-cat Makefile.orig | sed -e \"s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d \"=\" -f2)/bin/fastjet-config#g\" | sed -e \"s#\#\ FASTJET_CONFIG#FASTJET_CONFIG#g\" | sed -e \"s#\#\ LIBSFASTJET#LIBSFASTJET#g\" | sed -e \"s#\#\ FJCXXFLAGS#FJCXXFLAGS#g\" > Makefile",
+cat Makefile.orig | sed -e \"s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d \"=\" -f2)/bin/fastjet-config#g\" | sed -e \"s#\#\ FASTJET_CONFIG#FASTJET_CONFIG#g\" | sed -e \"s#\#\ LIBSFASTJET#LIBSFASTJET#g\" | sed -e \"s#\#\ FJCXXFLAGS#FJCXXFLAGS#g\" > Makefile\n \
+cd ${WORKDIR}/${name}/POWHEG-BOX/MATRIXStuff\n \
+./matrix --minnlo_interface\n \
+cd -\n \
+cd ${WORKDIR}/${name}/POWHEG-BOX/WWJ\n \
+wget --no-verbose --no-check-certificate https://wwwth.mpp.mpg.de/members/wieseman/download/codes/WW_MiNNLO/VVamp_interpolation_grids/WW_MiNNLO_2loop_grids_reduced1.tar.gz\n \
+tar xzf WW_MiNNLO_2loop_grids_reduced1.tar.gz\n \
+cd -\n \
+source /cvmfs/cms.cern.ch/${SCRAM_ARCH}/external/cmake/3.10.0/etc/profile.d/init.sh",
+    "ZZJ" : "cp Makefile Makefile.orig\n \
+cat Makefile.orig | sed -e \"s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d \"=\" -f2)/bin/fastjet-config#g\" | sed -e \"s#\#\ FASTJET_CONFIG#FASTJET_CONFIG#g\" > Makefile\n \
+cd ${WORKDIR}/${name}/POWHEG-BOX/MATRIXStuff\n \
+./matrix --minnlo_interface\n \
+cd -\n \
+source /cvmfs/cms.cern.ch/${SCRAM_ARCH}/external/cmake/3.10.0/etc/profile.d/init.sh",
+    "ZgamJ" : "cp Makefile Makefile.orig\n \
+cat Makefile.orig | sed -e \"s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d \"=\" -f2)/bin/fastjet-config#g\" | sed -e \"s#\#\ FASTJET_CONFIG#FASTJET_CONFIG#g\" > Makefile\n \
+tail -n 13 ../MiNNLOStuff/setlocalscales.f >> setlocalscales.f\n \
+cd ${WORKDIR}/${name}/POWHEG-BOX/MATRIXStuff\n \
+./matrix --minnlo_interface\n \
+cd -\n \
+source /cvmfs/cms.cern.ch/${SCRAM_ARCH}/external/cmake/3.10.0/etc/profile.d/init.sh",
     "ttbarj" : "cp Makefile Makefile.orig\n \
 cat Makefile.orig | sed -e \"s#OLPATH=.\+#OLPATH=$(scram tool info OpenLoops | grep BASE | cut -d \"=\" -f2)#g\" > Makefile\n \
 sed -i -e \"s#Pythia8Plugins#Pythia8Plugins \$(shell \$(LHAPDF_CONFIG) --cxxflags )#g\" Makefile",
@@ -246,7 +291,43 @@ cp Makefile Makefile.orig\n \
 cat Makefile.orig | sed -e \"s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d \"=\" -f2)/bin/fastjet-config#g\" | sed -e \"s#RECOLALOCATION=.\+#RECOLALOCATION=$\(PWD\)/recola2-collier-2.2.0/recola2-2.2.0#g\" | sed -e \"s# real16.o##g\" | sed -e \"s#test#none#g\" | sed -e \"s#none_Suda#test_Suda#g\" > Makefile\n \
 export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:${LD_LIBRARY_PATH}",
 
-"Wtt_dec" : " cd ../../\n \
+    "HJJ_ew" : "echo \"Adding Recola2.2.0 library\"\n \
+if [ ! -f recola2-collier-2.2.0.tar.gz ]; then\n \
+  wget --no-verbose -O recola2-collier-2.2.0.tar.gz https://recola.hepforge.org/downloads/?f=recola2-collier-2.2.0.tar.gz || fail_exit \"Failed to get Recola tar ball \"\n \
+fi\n \
+tar -zxvf recola2-collier-2.2.0.tar.gz\n \
+cd recola2-collier-2.2.0/build\n \
+cmake .. -DCMAKE_Fortran_COMPILER=gfortran -Dmodel=SM\n \
+make -j 1\n \
+make install\n \
+cd ../..\n \
+mkdir obj-gfortran/proclib\n \
+cd obj-gfortran/proclib\n \
+cp ../../recola2-collier-2.2.0/recola2-2.2.0/librecola.so .\n \
+cd ../..\n \
+cp Makefile Makefile.orig\n \
+cat Makefile.orig | sed -e \"s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d \"=\" -f2)/bin/fastjet-config#g\" | sed -e \"s#RECOLALOCATION=.\+#RECOLALOCATION=$\(PWD\)/recola2-collier-2.2.0/recola2-2.2.0#g\" > Makefile\n \
+export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:${LD_LIBRARY_PATH}",
+
+    "VV_dec_ew" : "echo \"Adding Recola2.2.0 library\"\n \
+if [ ! -f recola2-collier-2.2.0.tar.gz ]; then\n \
+  wget --no-verbose -O recola2-collier-2.2.0.tar.gz https://recola.hepforge.org/downloads/?f=recola2-collier-2.2.0.tar.gz || fail_exit \"Failed to get Recola tar ball \"\n \
+fi\n \
+tar -zxvf recola2-collier-2.2.0.tar.gz\n \
+cd recola2-collier-2.2.0/build\n \
+cmake .. -DCMAKE_Fortran_COMPILER=gfortran -Dmodel=SM\n \
+make -j 1\n \
+make install\n \
+cd ../..\n \
+mkdir obj-gfortran/proclib\n \
+cd obj-gfortran/proclib\n \
+cp ../../recola2-collier-2.2.0/recola2-2.2.0/librecola.so .\n \
+cd ../..\n \
+cp Makefile Makefile.orig\n \
+cat Makefile.orig | sed -e \"s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d \"=\" -f2)/bin/fastjet-config#g\" | sed -e \"s#RECOLALOCATION=.\+#RECOLALOCATION=$\(PWD\)/recola2-collier-2.2.0/recola2-2.2.0#g\" > Makefile\n \
+export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:${LD_LIBRARY_PATH}",
+
+    "Wtt_dec" : " cd ../../\n \
 echo \"Adding NLOX libraries to: $(pwd)\"\n \
 if [ ! -f NLOX_util_1.2.0.tar.gz ]; then\n \
   wget --no-verbose --user NLOX --password LoopsAreCool http://www.hep.fsu.edu/~nlox/downloads/v1.2.0/NLOX_util_1.2.0.tar.gz || fail_exit \"Failed to get NLOX_util_1.2.0 tar ball\"\n \
@@ -401,7 +482,8 @@ cd ..",
 
 def runGetSource_patch_8(process) :
   return {
-    "HJ" : "echo \"Compiling HNNLO....\"\n \
+    "HJ" : "if [ ${forMiNNLO} -eq 0 ]; then\n \
+echo \"Compiling HNNLO....\"\n \
 wget --no-verbose http://theory.fi.infn.it/grazzini/codes/hnnlo-v2.0.tgz\n \
 tar -xzvf hnnlo-v2.0.tgz\n \
 cd hnnlo-v2.0\n \
@@ -432,5 +514,6 @@ COMENERGY=`echo \"( $BEAM*2 )\" | bc`\n \
 gawk \"/sroot/{gsub(/8000/,$COMENERGY)};/hmass/{gsub(/125.5/, ${HMASS})};/mur,muf/{gsub(/62.750/, $(( $HMASS/2 )))};{print}\" POWHEG-BOX/HJ/PaperRun/HNNLO-LHC8-R04-APX2-11.input | sed -e \"s#10103#SEED#g\" | sed -e \"s#HNNLO-LHC8-R04-APX2-11#HNNLO-LHC13-R04-APX2-11#g\"> HNNLO-LHC13-R04-APX2-11.input\n \
 gawk \"/sroot/{gsub(/8000/,$COMENERGY)};/hmass/{gsub(/125.5/, ${HMASS})};/mur,muf/{gsub(/62.750/, $(( $HMASS )))};{print}\" POWHEG-BOX/HJ/PaperRun/HNNLO-LHC8-R04-APX2-11.input | sed -e \"s#10103#SEED#g\" | sed -e \"s#HNNLO-LHC8-R04-APX2-11#HNNLO-LHC13-R04-APX2-22#g\"> HNNLO-LHC13-R04-APX2-22.input\n \
 gawk \"/sroot/{gsub(/8000/,$COMENERGY)};/hmass/{gsub(/125.5/, ${HMASS})};/mur,muf/{gsub(/62.750/, $(( $HMASS/4 )))};{print}\" POWHEG-BOX/HJ/PaperRun/HNNLO-LHC8-R04-APX2-11.input | sed -e \"s#10103#SEED#g\" | sed -e \"s#HNNLO-LHC8-R04-APX2-11#HNNLO-LHC13-R04-APX2-0505#g\"> HNNLO-LHC13-R04-APX2-0505.input\n \
-cp ${WORKDIR}/Utilities/nnlopsreweighter.input .",
+cp ${WORKDIR}/Utilities/nnlopsreweighter.input .\n \
+fi",
     }.get(process,"")

@@ -107,6 +107,18 @@ def check_replace(runcmsgridfile):
         error_check_replace += 1
     return error_check_replace 
 
+def tunes_settings_check(dn,fragment,pi):
+    error_tunes_check = 0
+    if "Summer22" in pi and "FlatRandomEGunProducer" not in fragment and "FlatRandomPtGunProducer" not in fragment and "Pythia8EGun" not in fragment and "Pythia8PtGun" not in fragment and "FlatRandomPtAndDxyGunProducer" not in fragment:
+        if "Configuration.Generator.MCTunesRun3ECM13p6TeV" not in fragment or "from Configuration.Generator.MCTunes2017" in fragment:
+            error_tunes_check +=1 
+            print("[ERROR] For Summer22 samples, please use from Configuration.Generator.MCTunesRun3ECM13p6TeV.PythiaCP5Settings_cfi import * in your fragment instead of from Configuration.Generator.MCTunes2017.PythiaCP5Settings_cfi import *")
+    if "Run3" in pi and (dn.startswith("DYto") or dn.startswith("Wto")):
+        if "ktdard" in fragment and "0.248" not in fragment:
+            print("[ERROR] 'kthard = 0.248' not in fragment for DY or Wjets MG5_aMC request for Run3. Please fix.")
+            error_tunes_check +=1 
+    return error_tunes_check                
+ 
 def concurrency_check(fragment,pi,cmssw_version):
     conc_check = 0
     conc_check_lhe = 0
@@ -114,13 +126,16 @@ def concurrency_check(fragment,pi,cmssw_version):
     fragment = re.sub(r'(?m)^ *#.*\n?', '',fragment) # remove lines starting with #
     fragment = fragment.replace(" ","").replace("\"","'")#
     if cmssw_version >= int('10_60_28'.replace('_','')) and int(str(cmssw_version)[:2]) != 11:
-        if "ExternalLHEProducer" in fragment and "generateConcurrently=cms.untracked.bool(True)" in fragment:
+        if "generateConcurrently=cms.untracked.bool(False)" in fragment and "Pythia8Concurrent" in fragment:
+            print("[ERROR] Concurrent parameters used with generateConcurrently=cms.untracked.bool(False) in fragment.")
+            error_conc = 1
+        if "ExternalLHEProducer" in fragment and "generateConcurrently=cms.untracked.bool(True)" in fragment: 
             # first check if the code has correctly implemented concurrent features. Mark conc_check_lhe (LHE step) or conc_check (GEN step) as True if features are found
             if "Herwig7GeneratorFilter" not in fragment: 
                 conc_check_lhe = 1
             else:
                 if "postGenerationCommand=cms.untracked.vstring('mergeLHE.py','-i','thread*/cmsgrid_final.lhe','-o','cmsgrid_final.lhe')" in fragment: 
-                    conc_check_lhe = 1# 
+                    conc_check_lhe = 1#    
         elif "ExternalLHEProducer" not in fragment:#
             conc_check_lhe = 1#
         if "ExternalDecays" not in fragment and "Pythia8ConcurrentHadronizerFilter" in fragment: 
@@ -346,7 +361,7 @@ def run3_checks(fragment,dn,pi):
     print("======> Run3 Fragment and dataset name checks:")
     if "comEnergy" in fragment:
         comline = re.findall('comEnergy=\S+',fragment)
-        if "run3winter22" in pi.lower() and "13600" not in comline[0]:
+        if ("run3winter22" in pi.lower() or "summer22" in pi.lower()) and "13600" not in comline[0]:
             print(comline[0])
             print("[ERROR] The c.o.m. energy is not specified as 13600 GeV in the fragment")
             err += 1
@@ -628,6 +643,8 @@ for num in range(0,len(prepid)):
             warning += 1
 #        data_f2 = re.sub(r'(?m)^ *#.*\n?', '',data_f1)
 
+        error += tunes_settings_check(dn,data_f1,pi)
+      
         cross_section_fragment = re.findall('crossSection.*?\S+\S+',data_f2)
         if (cross_section_fragment):
             cross_section_fragment=cross_section_fragment[0]
@@ -636,20 +653,24 @@ for num in range(0,len(prepid)):
         if (filter_eff_fragment):    
             filter_eff_fragment=filter_eff_fragment[0]
             filter_eff_fragment = re.findall('\((.*?)\)',filter_eff_fragment)[0]
+        print("Filter efficiency in the fragment ="+ str(filter_eff_fragment))
         print("Cross section in the fragment =" + str(cross_section_fragment) +" pb")
         print("Cross section from generator parameters field = "+str(cross_section)+" pb")
         if str(cross_section_fragment).isdigit() is False:
             print("[WARNING] Skipping the cross section consistency check in generator parameters field and the fragment")
-            print("          This is most probably because the cross section is defined through a variable") 
+            print("          This is most probably because the cross section is defined through a variable")
+            warning += 1 
         if str(cross_section_fragment).isdigit() is True and cross_section_fragment and cross_section and int(ext) == 0 and float(cross_section_fragment) != float(cross_section):
             print("[ERROR] Cross section in the generator parameters field and the one in the fragment do not match!")
             error += 1
         print("")
         print("Filter efficiency in fragment =" + str(filter_eff_fragment))
         print("Filter efficiency from generator parameters field = "+str(filter_eff))
-        if filter_eff_fragment and filter_eff and int(ext) == 0 and float(filter_eff_fragment) != float(filter_eff):
-            print("[ERROR] Filter efficiency in the generator parameters field and the one in the fragment do not match!")
-            error += 1    
+        # see https://github.com/cms-sw/genproductions/issues/3269
+        if len(filter_eff_fragment) > 0 and float(filter_eff_fragment) < 1.0:
+            if filter_eff_fragment and filter_eff and int(ext) == 0 and float(filter_eff_fragment) != float(filter_eff):
+                print("[ERROR] In general, filter efficiency in the fragment is not taken into accout. Please make sure that the filter efficiency in the generator parameters field is correct!")
+                error += 1   
 	
         # Extension compatibility
         if int(ext) > 0:
@@ -723,12 +744,16 @@ for num in range(0,len(prepid)):
         gp_size = len(gridpack_cvmfs_path_tmp)
 
         pw_gp = False
+        madloop_in_gp = False
+        minlo = False
+        minnlo = False
         amcnlo_gp = False
         mg_gp = False
         jhu_gp = False
         sherpa_gp = False
         sherpa_flag = False
         openloops_flag = False
+        pw_mg = 0
 
         gp_full_path = True
 
@@ -811,18 +836,25 @@ for num in range(0,len(prepid)):
                 sys.exit()
             jhu_gp = os.path.isfile(my_path+'/'+pi+'/'+'JHUGen.input')
             pw_gp = os.path.isfile(my_path+'/'+pi+'/'+'powheg.input')
+            madloop_in_gp = os.path.isfile(my_path+'/'+pi+'/'+'MadLoopParams.dat')
             mg_f1 = my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat'
             mg_f2 = my_path+'/'+pi+'/'+'process/Cards/run_card.dat'
             amcnlo_gp = os.path.isfile(my_path+'/'+pi+'/'+'process/Cards/run_card.dat')
             mg_gp = os.path.isfile(mg_f1) or os.path.isfile(mg_f2)
             print("path powheg "+str(pw_gp))
+            print("path madloop "+str(madloop_in_gp))
             print("path mg "+str(mg_gp))
             print("path amcnlo "+str(amcnlo_gp))
             print("path jhugen "+str(jhu_gp))
+            if pw_gp is True:
+                direc_list = os.listdir(my_path+'/'+pi+'/')
+                pw_mg = len([x for x in direc_list if "mg5" in x.lower()])
+                print("MG5_aMC + POWHEG sample.")
             if mg_gp is False and "madgraph" in dn.lower():
                 print("[ERROR] Although the name of the dataset has ~Madgraph, the gridpack doesn't seem to be a MG5_aMC one.")
                 error += 1
             if mg_gp is True:
+                error += tunes_settings_check(dn,data_f1,pi)
                 filename_mggpc = my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat'
                 fname_p2 = my_path+'/'+pi+'/'+'process/Cards/run_card.dat'
                 if os.path.isfile(fname_p2) is True :
@@ -843,16 +875,20 @@ for num in range(0,len(prepid)):
                 print("maxjetflavor = "+str(maxjetflavor))
                 if alt_ickkw_c == 3:
                     qCutME = os.popen('grep "qCutME" '+pi).read()
-                    qCutME = qCutME.replace(" ","")
-                    qCutME = re.findall('qCutME=\d+',qCutME)[0].split("=")[1]
-                    print("qCutME = ",qCutME)
-                    ptj_runcard = os.popen('grep "ptj" '+filename_mggpc).read()
-                    ptj_runcard = ptj_runcard.replace(" ","")
-                    ptj_runcard = re.findall('\d*\.?\d+',ptj_runcard)[0].split("=")[0]
-                    print("ptj_runcard =", ptj_runcard)
-                    if float(qCutME) != float(ptj_runcard):
-                        error += 1
-                        print("[ERROR] qCutME in PS settings and ptj in run_card in gridpack do not match.")
+                    if len(qCutME) == 0:
+                        print("[ERROR] For FxFx setups qCutME should be specified in the fragment.")
+                        error+= 1
+                    else:
+                        qCutME = qCutME.replace(" ","")
+                        qCutME = re.findall('qCutME=\d+',qCutME)[0].split("=")[1]
+                        print("qCutME = ",qCutME)
+                        ptj_runcard = os.popen('grep "ptj" '+filename_mggpc).read()
+                        ptj_runcard = ptj_runcard.replace(" ","")
+                        ptj_runcard = re.findall('\d*\.?\d+',ptj_runcard)[0].split("=")[0]
+                        print("ptj_runcard =", ptj_runcard)
+                        if float(qCutME) != float(ptj_runcard):
+                            error += 1
+                            print("[ERROR] qCutME in PS settings and ptj in run_card in gridpack do not match.")
                     if int(os.popen('grep -c nQmatch '+pi).read()) == 1:
                         nQmatch = os.popen('grep "nQmatch" '+pi).read()
                         nQmatch = nQmatch.replace(" ","")
@@ -870,42 +906,49 @@ for num in range(0,len(prepid)):
             error += err_tmp
         if herwig_flag != 0:
             os.system('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/herwig_common.txt -O herwig_common.txt') 
-            file2 = set(line.strip().replace(",","") for line in open(pi))
             file1 = set(line.strip().replace(",","") for line in open('herwig_common.txt'))
             for line in file1:                
-                if line not in file2:
+                if line not in data_f1:
                     print("[ERROR] Missing herwig setting in fragment: "+line)
                     error += 1
             if pw_gp is True:
                os.system('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/herwig_powheg.txt -O herwig_powheg.txt')	
                file_me = set(line.strip().replace(",","") for line in open('herwig_powheg.txt'))
                for line in file_me:
-                   if line not in file2:
+                   if line not in data_f1:
                        print("[ERROR] Missing herwig powheg specific setting in fragment: "+line)
                        error += 1
             if mg_gp is True:
                os.system('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/herwig_mg.txt -O herwig_mg.txt') 
                file_me = set(line.strip().replace(",","") for line in open('herwig_mg.txt'))
-               for line in file_me:
-                   if line not in file2:
-                       print("[ERROR] Missing herwig mg5_amc specific setting in fragment: "+line)
-                       error += 1 
+               os.system('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/herwig_mg_wo_merging.txt -O herwig_mg_wo_merging.txt')
+               file_me_wo_merg = set(line.strip().replace(",","") for line in open('herwig_mg_wo_merging.txt'))
+               if alt_ickkw_c != 0:
+                   for line in file_me:                   
+                       if line not in data_f1:
+                           print("[ERROR] Missing herwig mg5_amc specific setting in fragment: "+line)
+                           error += 1 
+                       if "set FxFxHandler:njetsmax" not in data_f1:
+                           print("[ERROR] Missing set FxFxHandler:njetsmax MAX_N_ADDITIONAL_JETS in the user settings block")
+                           error += 1
+               else:
+                   for line in file_me_wo_merg:
+                       if line not in data_f1:
+                           print("[ERROR] Missing herwig mg5_amc specific setting in fragment: "+line)
+                           error += 1 
                if alt_ickkw_c == 3:#fxfx
-                   if "'set FxFxHandler:MergeMode FxFx'" not in file2:
+                   if "'set FxFxHandler:MergeMode FxFx'" not in data_f1:
                        print("[ERROR] Missing set FxFxHandler:MergeMode FxFx in the user settings block")
                        error += 1
-                   if "'set FxFxHandler:njetsmax'" not in file2:
-                       print("[ERROR] Missing set FxFxHandler:njetsmax MAX_N_ADDITIONAL_JETS in the user settings block")
-                       error += 1
                if alt_ickkw_c == 1:#mlm
-                   if "'set FxFxHandler:MergeMode TreeMG5'" not in file2:
+                   if "'set FxFxHandler:MergeMode TreeMG5'" not in data_f1:
                        print("[ERROR] Missing set FxFxHandler:MergeMode TreeMG5 in the user settings block")
                        error += 1 
             if amcnlo_gp is True or alt_ickkw_c == 0:
                os.system('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/herwig_mcnlo.txt -O herwig_mcnlo.txt')
                file_me = set(line.strip().replace(",","") for line in open('herwig_mcnlo.txt'))
                for line in file_me:
-                   if line not in file2:
+                   if line not in data_f1:
                        print("[ERROR] Missing herwig MG with 0 jets or mc@nlo specific setting in fragment: "+line)
                        error += 1 
             if "9_3" not in str(cmssw) and "7_1" not in str(cmssw) and pw_gp != 0 and mg_gp !=0 and amcnlo_qg !=0:
@@ -913,17 +956,17 @@ for num in range(0,len(prepid)):
                 file1 = set(line.strip().replace(",","")  for line in open('herwig_frag_lines.txt'))
                 herwig_check = []
                 herwig_psweight_tag = 0
-                for line in file2: print(line)
+                for line in data_f1: print(line)
                 print("-----")	 
                 for line in file1:
                     print(line)
-                    if line not in file2:
+                    if line not in data_f1:
                         herwig_check.append(line)	
                 if len(herwig_check) != 0 and "eec5" not in dn.lower() and "ee5c" not in dn.lower():
                     herwig_count.append(herwig_check[0].count('hw_lhe_common_settings'))
                     herwig_count.append(herwig_check[1].count('herwig7LHECommonSettingsBlock'))
                     herwig_count.append(herwig_check[2].count('from Configuration.Generator.Herwig7Settings.Herwig7LHECommonSettings_cfi import *'))
-                    if all(x == 1 for x in herwig_count) and any("insert SubProcess:MatrixElements" in x for x in list(file2)):
+                    if all(x == 1 for x in herwig_count) and any("insert SubProcess:MatrixElements" in x for x in list(data_f1)):
                         herwig7_bypass_error = 1
                     if "PSWeights" not in herwig_check:
                         herwig_psweight_tag = 1
@@ -964,7 +1007,6 @@ for num in range(0,len(prepid)):
 #            print("            filter efficiency = "+str(filter_eff))
 #            print("            matching efficiency = "+str(match_eff))
 #            error += 1
-
         if any(word in dn for word in MEname) and gp_size == 0 and "plhe" not in pi.lower():
             print("[ERROR] gridpack path is not properly specified - most probable reason is that it is not a cvmfs path.")
             error += 1
@@ -997,7 +1039,7 @@ for num in range(0,len(prepid)):
                 nFinal = int(nFinal[0])
                 print("nFinal="+str(nFinal))
             if int(test_cs_version[2]) == 6 and ('CMSSW_10_6_0' not in cmssw or 'CMSSW_10_6_0_patch1' not in cmssw): tunparmark = 1
-            if int(test_cs_version[1]) >= 10 and int(test_cs_version[2]) >= 5 and int(test_cs_version[2]) <= 6 and int(test_cs_version[3]) >= 0 and '10_5_0_pre1' not in cmssw and particle_gun == 0 and tunparmark == 0 and herwig_flag == 0:
+            if int(test_cs_version[1]) == 10 and int(test_cs_version[2]) >= 5 and int(test_cs_version[2]) <= 6 and int(test_cs_version[3]) >= 0 and '10_5_0_pre1' not in cmssw and particle_gun == 0 and tunparmark == 0 and herwig_flag == 0:
                 mb_mode = os.popen('grep SigmaTotal:mode '+pi).read()
                 mb_mode = re.findall('\d*\.\d+|\d+',mb_mode)
                 mb_SigmaEl = os.popen('grep SigmaTotal:sigmaEl '+pi).read()
@@ -1170,9 +1212,8 @@ for num in range(0,len(prepid)):
                         if ("HERWIGPP" not in ps_hw.upper()) or ("HERWIG7" not in ps_hw.upper() and herwig7_bypass_error == 1):
                             print("[ERROR] HERWIGPP or HERWIG7 = parton_shower not in run_card.dat")
                             error += 1
-
-        if "jhugen" in dn.lower():
-            if gp_size == 0: break
+        
+        if "jhugen" in dn.lower() and gp_size != 0 and "plhe" not in pi.lower():
             for root, dirs, files in os.walk(os.path.join(my_path, pi, "."), topdown=False):
                 for name in files:
                     if "JHUGen.input" in name:
@@ -1205,6 +1246,7 @@ for num in range(0,len(prepid)):
                     else:
                         WriteFailedEvents_flag = 1
                         print("[OK] "+str(jhu_wfe)+" for this jhugen+powheg sample.")
+
         for ind, word in enumerate(MEname):
             if fsize == 0: break
             if ind == 3: break
@@ -1285,6 +1327,12 @@ for num in range(0,len(prepid)):
                                             print("                                            "+str(UL_PDFs_N[0])+" "+str(UL_PDFs[0]))
                                             print("                                            or "+str(UL_PDFs_N[1])+" "+str(UL_PDFs[1]))
                                             warning += 1
+                                    if "minlo" in line and "modlog_p" not in line:
+                                        minlo = int(re.split(r'\s+', line)[1])
+                                        print("MINLO = "+str(minlo))
+                                    if "minnlo" in line and "modlog_p" not in line:
+                                        minnlo = int(re.split(r'\s+', line)[1])
+                                        print("MINNLO = "+str(minnlo))
                     if os.path.isfile(my_path+'/'+pi+'/'+'external_tarball/pwg-rwl.dat') is True:
                         pwg_rwl_file = os.path.join(my_path, pi, "external_tarball/pwg-rwl.dat")
                     else:
@@ -1416,14 +1464,24 @@ for num in range(0,len(prepid)):
                             else:
                                 vbf_lo = 1   
                                 print("VBF process at LO")
-                        warn_tmp , err_tmp = vbf_dipole_recoil_check(vbf_lo,vbf_nlo,data_f2,pw_gp,dn)
-                        warning += warn_tmp
-                        error += err_tmp
+                            warn_tmp , err_tmp = vbf_dipole_recoil_check(vbf_lo,vbf_nlo,data_f2,pw_gp,dn)
+                            warning += warn_tmp
+                            error += err_tmp
                     if os.path.isfile(filename_mggpc) is True :
                         ickkw = os.popen('more '+filename_mggpc+' | tr -s \' \' | grep "= ickkw"').read()
                         bw = os.popen('more '+filename_mggpc+' | tr -s \' \' | grep "= bwcutoff"').read()
                         mg_pdf = os.popen('more '+filename_mggpc+' | tr -s \' \' | grep "lhaid"').read()
                         mg_pdf = mg_pdf.split("=")[0].split()[0]
+                        test_bw = bw.split()
+                        if float(test_bw[0]) > 15.:
+                            print("[WARNING] bwcutoff set to "+str(test_bw[0])+". Note that large bwcutoff values can cause problems in production.")
+                            warning += 1
+                        print("The MG5_aMC PDF set is:"+str(mg_pdf))
+                        if "UL" in pi and int(mg_pdf) != UL_PDFs_N[0] and int(mg_pdf) != UL_PDFs_N[1]:
+                            print("[WARNING] The gridpack uses PDF="+str(mg_pdf)+" but not the recommended sets for UL requests:")
+                            print("                                            "+str(UL_PDFs_N[0])+" "+str(UL_PDFs[0]))
+                            print("                                            or "+str(UL_PDFs_N[1])+" "+str(UL_PDFs[1]))
+                            warning += 1
                     version_file = my_path+'/'+pi+'/'+'mgbasedir/VERSION'
                     if os.path.isfile(version_file) is True:
                         mgversion_tmp = os.popen('grep version '+version_file).read()
@@ -1439,16 +1497,7 @@ for num in range(0,len(prepid)):
                             else:
                                 print("[ERROR] You're using MG5_aMC "+str(mg5_aMC_version)+" in an Ultra Legacy Campaign. You should use MG5_aMCv2.6.1+")
                                 error += 1
-                    test_bw = bw.split()
-                    if float(test_bw[0]) > 15.:
-                        print("[WARNING] bwcutoff set to "+str(test_bw[0])+". Note that large bwcutoff values can cause problems in production.")
-                        warning += 1
-                    print("The MG5_aMC PDF set is:"+str(mg_pdf))
-                    if "UL" in pi and int(mg_pdf) != UL_PDFs_N[0] and int(mg_pdf) != UL_PDFs_N[1]:
-                        print("[WARNING] The gridpack uses PDF="+str(mg_pdf)+" but not the recommended sets for UL requests:")
-                        print("                                            "+str(UL_PDFs_N[0])+" "+str(UL_PDFs[0]))
-                        print("                                            or "+str(UL_PDFs_N[1])+" "+str(UL_PDFs[1]))
-                        warning += 1
+
                     if mg_gp is True:
                         runcmsgrid_file = os.path.join(my_path, pi, "runcmsgrid.sh")
                         with open(runcmsgrid_file) as fmg:
@@ -1626,7 +1675,7 @@ for num in range(0,len(prepid)):
                     error += 1
         if knd == 1 :
              powhegcheck.append(int(os.popen('grep -c -i PowhegEmission '+pi).read()))
-             if powhegcheck[0] > 0 :
+             if powhegcheck[0] > 0 and pw_mg == 0:
                  print("[ERROR] Please remove POWHEG settings for MG requests.")
                  error += 1
         if knd == -1 :
