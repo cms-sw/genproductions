@@ -1,0 +1,34 @@
+{
+  "INCLUDE": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/lhapdf/6.4.0-68defff11ffd434c73727d03802bfb85/include"
+  ],
+  "LHAPDF_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/lhapdf/6.4.0-68defff11ffd434c73727d03802bfb85",
+  "LIB": [
+    "LHAPDF"
+  ],
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/lhapdf/6.4.0-68defff11ffd434c73727d03802bfb85/lib"
+  ],
+  "RUNTIME": {
+    "LHAPDF_DATA_PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/lhapdf/6.4.0-68defff11ffd434c73727d03802bfb85/share/LHAPDF"
+    ],
+    "PATH:PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/lhapdf/6.4.0-68defff11ffd434c73727d03802bfb85/bin"
+    ],
+    "PATH:ROOT_INCLUDE_PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/lhapdf/6.4.0-68defff11ffd434c73727d03802bfb85/include"
+    ]
+  },
+  "TOOLNAME": "lhapdf",
+  "TOOLVERSION": "6.4.0-68defff11ffd434c73727d03802bfb85",
+  "USE": [
+    "pythia6",
+    "root_cxxdefaults"
+  ],
+  "VARIABLES": [
+    "LHAPDF_BASE",
+    "LIBDIR",
+    "INCLUDE"
+  ]
+}

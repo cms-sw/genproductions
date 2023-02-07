@@ -1,0 +1,19 @@
+{
+  "INCLUDE": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/libffi/3.4.2-482b99521caf507051a7a5dce0eb5926/include"
+  ],
+  "LIB": [
+    "ffi"
+  ],
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/libffi/3.4.2-482b99521caf507051a7a5dce0eb5926/lib64"
+  ],
+  "LIBFFI_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/libffi/3.4.2-482b99521caf507051a7a5dce0eb5926",
+  "TOOLNAME": "libffi",
+  "TOOLVERSION": "3.4.2-482b99521caf507051a7a5dce0eb5926",
+  "VARIABLES": [
+    "LIBFFI_BASE",
+    "LIBDIR",
+    "INCLUDE"
+  ]
+}

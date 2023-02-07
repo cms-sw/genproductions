@@ -1,0 +1,27 @@
+{
+  "INCLUDE": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/zlib/1.2.11-71514f01d2850dfd0bcd391557259a58/include"
+  ],
+  "LIB": [
+    "z"
+  ],
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/zlib/1.2.11-71514f01d2850dfd0bcd391557259a58/lib"
+  ],
+  "RUNTIME": {
+    "PATH:ROOT_INCLUDE_PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/zlib/1.2.11-71514f01d2850dfd0bcd391557259a58/include"
+    ]
+  },
+  "TOOLNAME": "zlib",
+  "TOOLVERSION": "1.2.11-71514f01d2850dfd0bcd391557259a58",
+  "USE": [
+    "root_cxxdefaults"
+  ],
+  "VARIABLES": [
+    "ZLIB_BASE",
+    "INCLUDE",
+    "LIBDIR"
+  ],
+  "ZLIB_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/zlib/1.2.11-71514f01d2850dfd0bcd391557259a58"
+}

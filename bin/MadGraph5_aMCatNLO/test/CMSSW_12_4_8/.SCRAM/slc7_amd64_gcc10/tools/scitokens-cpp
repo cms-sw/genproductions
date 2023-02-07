@@ -1,0 +1,24 @@
+{
+  "INCLUDE": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/scitokens-cpp/0.7.0-652b557d24b1c5b9c5497cec97566cfe/include"
+  ],
+  "LIB": [
+    "SciTokens"
+  ],
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/scitokens-cpp/0.7.0-652b557d24b1c5b9c5497cec97566cfe/lib64"
+  ],
+  "LIBSCITOKENS_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/scitokens-cpp/0.7.0-652b557d24b1c5b9c5497cec97566cfe",
+  "TOOLNAME": "scitokens-cpp",
+  "TOOLVERSION": "0.7.0-652b557d24b1c5b9c5497cec97566cfe",
+  "USE": [
+    "sqlite",
+    "libuuid",
+    "curl"
+  ],
+  "VARIABLES": [
+    "LIBSCITOKENS_BASE",
+    "LIBDIR",
+    "INCLUDE"
+  ]
+}

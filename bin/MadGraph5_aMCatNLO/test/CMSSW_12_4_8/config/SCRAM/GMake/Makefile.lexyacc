@@ -1,0 +1,37 @@
+# Flex Generaton
+define generate_lex
+  @$(startlog_$(2))$(CMD_echo) "Flex: Generating $@ from $<" &&\
+  $(VERB_ECHO) $(LEX) -o$@ -P$(patsubst %lex,%,$*) $< &&\
+  ($(LEX) -o$@ -P$(patsubst %lex,%,$*) $< || ($(CMD_rm) -f $@ && exit 1))$(endlog_$(2))
+endef
+define generate_parse
+  @$(startlog_$(2))$(CMD_echo) "Bison: Generating $@ from $<" &&\
+  $(VERB_ECHO) $(YACC) -p$(patsubst %parse,%,$*) --defines=$(basename $@).h -o$(basename $@).cc $< &&\
+  ($(YACC) -p$(patsubst %parse,%,$*) --defines=$(basename $@).h -o$(basename $@).cc $< ||($(CMD_rm) -f $(basename $@).h $(basename $@).cc && exit 1)) &&\
+  $(CMD_cd) $(WORKINGDIR)/$(3) &&\
+  $(CMD_rm) -f $*parse.h && $(CMD_ln) -s $(1)/$*parse.h $*parse.h $(endlog_$(2))
+endef
+
+#safename,path,lexyacc,parseyacc,
+define LexYACC
+$(1)_lex_files     :=  $(3)
+$(1)_yacc_files    :=  $(4)
+$(1)_generated_hdr := $$(addprefix $($(1)_objdir)/, $$(addsuffix .h,  $$(basename $$(notdir $$($(1)_yacc_files)))))
+$(1)_generated_src := $$(addprefix $($(1)_objdir)/, $$(addsuffix .cc, $$(basename $$(notdir $$($(1)_lex_files)))))
+$(1)_generated_src += $$(addprefix $($(1)_objdir)/, $$(addsuffix .cc, $$(basename $$(notdir $$($(1)_yacc_files)))))
+ifneq ($$(strip $$($(1)_generated_src)),)
+$(1)_LOC_FLAGS_CPPFLAGS  += -I$(LOCALTOP)/$(WORKINGDIR)/$(SCRAM_SOURCEDIR)
+endif
+$(1)_objs          += $$(addsuffix $(OBJEXT),$$($(1)_generated_src))
+$(1)_extra_files    += $$($(1)_generated_src) $$($(1)_generated_hdr)
+.PRECIOUS: $$($(1)_generated_src) $$($(1)_generated_hdr)
+$($(1)_objdir)/%lex.cc: $($(1)_srcdir)/%lex.l $($(1)_config)
+	$$(call generate_lex,$(1),$(1))
+$($(1)_objdir)/%parse.cc $($(1)_objdir)/%parse.h: $($(1)_srcdir)/%parse.y $($(1)_config)
+	$$(call generate_parse,$(1),$(1),$(2))
+$($(1)_objdir)/%lex.cc.$(OBJEXT): $($(1)_objdir)/%lex.cc $($(1)_objdir)/precompile
+       $$(call compile_cxx,$(1),$(1))
+$($(1)_objdir)/%parse.cc.$(OBJEXT): $($(1)_objdir)/%parse.cc $($(1)_objdir)/precompile
+       $$(call compile_cxx,$(1),$(1))
+endef
+

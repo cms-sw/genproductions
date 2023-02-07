@@ -1,0 +1,220 @@
+SCRAMSTORENAME_BIGLIB_RELPATH:=$(shell $(CMD_echo) $(SCRAMSTORENAME_BIGLIB)/ | $(CMD_sed) -e 's|[^/]*/|../|g;s|/*$$||')
+
+define CheckBigProductsDeps
+$(info >> Checking Big Products dependency)\
+$(eval ALL_$(1)_LIBS:=$(foreach s,$($(1)_PACKAGES),$(if $(strip $(filter $($(s)),$($($(s))_EX_LIB_ALL))),$s)))\
+$(eval ALL_NON_TEST:=$(strip $(ALL_EXTERNAL_PRODS) $(foreach p,$(filter-out $(ALL_BINARIES),$(ALL_PRODS)),$(if $(strip $(filter-out TEST%,$($p_CLASS))),$p))))\
+$(foreach p,$(filter-out $($(1)_BIGOBJS),$(ALL_NON_TEST)),$(eval $p_$1_BIGERR:=$(strip $(filter $(filter $($(1)_PACKAGES),$($(p)_EX_USE) $($(p)_LOC_USE)),$(ALL_$(1)_LIBS)))))\
+$(foreach p,$(ALL_NON_TEST),$(if $($p_$1_BIGERR),$(info >> $p depends on big product $1 via $($p_$1_BIGERR))))\
+$(info >> Done checking Big Products dependency)
+endef
+define BigObjAdjustFlags
+$(strip $(filter-out $(strip $(foreach f,$3,$($($(1)_bigobj)_LOC_FLAGS_REM_BIGOBJ_$f) $($($(1)_bigobj)_LOC_FLAGS_REM_$f) $(REM_BIGOBJ_$f) $(USER_REM_BIGOBJ_$f))),$(strip $(call AdjustFlags,$1,$2,$3,,,$4) $(foreach f,$3,$($($(1)_bigobj)_LOC_FLAGS_BIGOBJ_$f) $(BIGOBJ_$f) $(USER_BIGOBJ_$f)))))
+endef
+define BigObjectsPaths
+$(foreach o,$($(1)_BIGOBJS),$(if $(strip $($(o)_bigobj)),$(SCRAMSTORENAME_OBJS)/$(o).$(BIGLIB_OBJEXT),$(if $(strip $(wildcard external/$(SCRAM_ARCH)/objs-base/$(o).$(BIGLIB_OBJEXT))),external/$(SCRAM_ARCH)/objs-base/$(o).$(BIGLIB_OBJEXT),external/$(SCRAM_ARCH)/objs-full/$(o).$(BIGLIB_OBJEXT))))
+endef
+define BigProductVars
+ifeq ($(strip $(filter $($(1)_SUBSYSTEM),$(ALL_SUBSYSTEMS))),)
+ALL_SUBSYSTEMS+=$($(1)_SUBSYSTEM)
+subdirs_$(SCRAM_SOURCEDIR)_$($(1)_SUBSYSTEM) = $(SCRAM_SOURCEDIR)_$($(1)_SUBSYSTEM)_$(1)
+subdirs_$(SCRAM_SOURCEDIR) += $(SCRAM_SOURCEDIR)_$($(1)_SUBSYSTEM)
+endif
+$(foreach f,CXXFLAGS REM_CXXFLAGS,$(eval $(1)_LOC_FLAGS_$(f) += $(foreach pk,$($(1)_PACKAGES),$(foreach p,$($(pk)_forbigobj) $($(pk)_relbigobj),$($(p)_LOC_FLAGS_$(f))))))
+$(foreach t,LIB USE,$(eval $(1)_LOC_$(t)+=$(sort $(foreach pk,$($(1)_PACKAGES),$(foreach p,$($(pk)_forbigobj) $($(pk)_relbigobj),$($(p)_LOC_$(t)))))))
+$(1)_BIGOBJS:=$(foreach pk,$($(1)_PACKAGES),$(foreach p,$($(pk)_forbigobj) $($(pk)_relbigobj),$p))
+$(foreach pk,$($(1)_PACKAGES),$(foreach p,$($(pk)_forbigobj),$(eval $(p)_bigobj := $(1))))
+endef
+#############################################################################
+define bigedm_register_plugin
+  @$(startlog_$(2)) $(CMD_touch) $(LOCALTOP)/$(SCRAM_INTwork)/cache/bigedm_edmPluginRefresh &&\
+  if [ -f $< ] ; then \
+    [ -d $(@D) ] || $(CMD_mkdir) -p $(@D) &&\
+    $(CMD_echo) "module $(<F)" > $(<D)/$(1).edmplugin &&\
+    ($(call install_name_tool,$(<F),$<) || ($(CMD_rm) -f $< $(<D)/$(<F) && exit 1)) &&\
+    $(CMD_cp) -f $< $@ && $(CMD_cp) $(<D)/$(1).edmplugin $(@D)/$(1).edmplugin &&\
+    $(CMD_echo) "01:$(CMD_rm) -f $(@D)/$(1).edmplugin $(@D)/$(<F)" > $(call AutoCleanFile,$<,bigedm) &&\
+    $(CMD_echo) "90:edmPluginRefresh $(@D)" >> $(call AutoCleanFile,$<,bigedm) &&\
+    $(CMD_echo) "--- Registered EDM Plugin: $(1)"; \
+  else \
+    $(CMD_rm) -f $(2)/$(1).edmplugin $(2)/$(<F) ;\
+  fi $(endlog_$(2))
+endef
+#############################################################################
+define big_obj
+  @$(startlog_$(2))$(CMD_echo) ">> Building $5 big object file $@" &&\
+  $(VERB_ECHO) $(CMD_ld) $(LD_UNIT) -o $@ $(3) &&\
+  (            $(CMD_ld) $(LD_UNIT) -o $@ $(3) || ($(call delete_build_prod,$(4)) && exit 1)) $(endlog_$(2))
+endef
+define bigobj_compile_cxx
+  $(call compile_cxx_common,$1,$2,$(call BigObjAdjustFlags,$1,,CPPFLAGS CXXFLAGS,$3),$3 bigobj,,1)
+endef
+define bigobj_compile_cxx_edm
+  $(call compile_cxx_common,$1,$2,$(call BigObjAdjustFlags,$1,EDM,CPPFLAGS CXXFLAGS,$3),$3 bigobj edm plugin,,1)
+endef
+define bigobj_compile_c
+  $(call compile_c_common,$1,$2,$(call BigObjAdjustFlags,$1,,CPPFLAGS CFLAGS,$3),$3 bigobj,,1)
+endef
+define bigobj_compile_c_edm
+  $(call compile_c_common,$1,$2,$(call BigObjAdjustFlags,$1,EDM,CPPFLAGS CFLAGS,$3),$3 bigobj edm plugin,,1)
+endef  
+define bigobj_compile_fortran
+  $(call compile_fortran_common,$1,$2,$(call BigObjAdjustFlags,$1,,CPPFLAGS FFLAGS,$3),$3 bigobj,,1)
+endef
+define bigobj_compile_cude
+  $(call compile_cude_common,$1,$2,$(call BigObjAdjustFlags,$1,,CPPFLAGS,$3),$3 bigobj,,1)
+endef
+define bigobj_compile_lcgdict
+  @$(startlog_$(2)) [ -d $(@D) ] ||  $(CMD_mkdir) -p $(@D) &&\
+  $(CMD_echo) ">> Compiling Bigobj LCG dictionary: $<" &&\
+  $(VERB_ECHO)                   $(call GetCXX,$1) $(COMPILE_OPTIONS) -I$(LOCALTOP) $(call BigObjAdjustFlags,$1,LCGDICT,CPPFLAGS CXXFLAGS) $(CXXOPTIMISEDFLAGS) $(CXXSHAREDOBJECTFLAGS) $(1)/$(patsubst $($(1)_objdir)/%,%,$<) -o $(1)/$(patsubst $($(1)_objdir)/%,%,$@) &&\
+  (($(CMD_cd) $($(1)_objdir)/..; $(call GetCXX,$1) $(COMPILE_OPTIONS) -I$(LOCALTOP) $(call BigObjAdjustFlags,$1,LCGDICT,CPPFLAGS CXXFLAGS) $(CXXOPTIMISEDFLAGS) $(CXXSHAREDOBJECTFLAGS) $(1)/$(patsubst $($(1)_objdir)/%,%,$<) -o $(1)/$(patsubst $($(1)_objdir)/%,%,$@)) || ($(CMD_rm) -f $< && exit 1)) $(endlog_$(2))
+endef
+#############################################################################
+define bigobj_link_plugin
+  @$(startlog_$(1))$(CMD_echo) ">> Building $3 big plugin $@" &&\
+  [ -d $(@D) ] || $(CMD_mkdir) -p $(@D) &&\
+  $(VERB_ECHO) $(call GetCXX,$1) $(call BigObjAdjustFlags,$1,EDM,CXXFLAGS,$3) $(CXXSHAREDFLAGS) $(MISSING_SYMBOL_FLAGS) $(2) -o $@ $(filter-out $(strip $(foreach l,$($(1)_BIGOBJS),-l$l)),$(call BigObjAdjustFlags,$1,,LDFLAGS,$3)) &&\
+  (            $(call GetCXX,$1) $(call BigObjAdjustFlags,$1,EDM,CXXFLAGS,$3) $(CXXSHAREDFLAGS) $(MISSING_SYMBOL_FLAGS) $(2) -o $@ $(filter-out $(strip $(foreach l,$($(1)_BIGOBJS),-l$l)),$(call BigObjAdjustFlags,$1,,LDFLAGS,$3))) $(endlog_$(1))
+endef
+#############################################################################
+#Compiler Rules for big objects
+define CXXCompileRuleBigObj
+$($(1)_objdir)/bigobj/$(5)%.$(2).$(OBJEXT): $($(1)_srcdir)/%.$(2) $($(1)_objdir)/%.$(2).$(OBJEXT) $($($(1)_bigobj)_BuildFile)
+	$$(call bigobj_compile_cxx$(4),$(1),$(3),$(subst /,,$(5)))
+endef
+define CCompileRuleBigObj
+$($(1)_objdir)/bigobj/$(5)%.$(2).$(OBJEXT): $($(1)_srcdir)/%.$(2) $($(1)_objdir)/%.$(2).$(OBJEXT) $($($(1)_bigobj)_BuildFile)
+	$$(call bigobj_compile_c$(4),$(1),$(3),$(subst /,,$(5)))
+endef
+define F77CompileRuleBigObj
+$($(1)_objdir)/bigobj/$(5)%.$(2).$(OBJEXT): $($(1)_srcdir)/%.$(2) $($(1)_objdir)/%.$(2).$(OBJEXT) $($($(1)_bigobj)_BuildFile)
+	$$(call bigobj_compile_fortran$(4),$(1),$(3),$(subst /,,$(5)))
+endef
+define CudeCompileRuleBigObj
+$($(1)_objdir)/bigobj/$(5)%.$(2).$(OBJEXT): $($(1)_srcdir)/%.$(2) $($(1)_objdir)/%.$(2).$(OBJEXT) $($($(1)_bigobj)_BuildFile)
+	$$(call bigobj_compile_cude,$(1),$(3),$(subst /,,$(5)))
+endef
+define CompileRulesBigObj
+$(foreach ext,$(filter $(CXXSRC_FILES_SUFFIXES),    $($(1)_files_exts)),$(eval $(call CXXCompileRuleBigObj,$(1),$(ext),$(1),$($(1)_BUILDRULES))))
+$(foreach ext,$(filter $(CSRC_FILES_SUFFIXES),      $($(1)_files_exts)),$(eval $(call CCompileRuleBigObj,$(1),$(ext),$(1),$($(1)_BUILDRULES))))
+$(foreach ext,$(filter $(FORTRANSRC_FILES_SUFFIXES),$($(1)_files_exts)),$(eval $(call F77CompileRuleBigObj,$(1),$(ext),$(1))))
+$(if $(strip $(CUDASRC_FILES_SUFFIXES)),$(foreach ext,$(filter $(CUDASRC_FILES_SUFFIXES),$($(1)_files_exts)),$(eval $(call CudeCompileRuleBigObj,$(1),$(ext),$(1)))))
+$(foreach v,$($(1)_LOC_FLAGS_TARGETS),
+  $(foreach ext,$(filter $(CXXSRC_FILES_SUFFIXES),  $($(1)_files_exts)),$(eval $(call CXXCompileRuleBigObj,$(1),$(ext),$(1),$($(1)_BUILDRULES),$v/)))
+)
+endef
+#############################################################################
+define TargetLcgDict
+$(SCRAMSTORENAME_BIGLIB)/$1/$2: $(SCRAMSTORENAME_BIGLIB)/$2
+	@[ -d $$(@D) ] || $(CMD_mkdir) -p $$(@D) && $(CMD_ln) -sf ../$$(@F) $$@
+endef
+define TargetBigObj
+all_$(1) += $(SCRAMSTORENAME_OBJS)/$(3)/$(1).$(BIGLIB_OBJEXT)
+$(SCRAMSTORENAME_OBJS)/$(3)/$(1).$(BIGLIB_OBJEXT): $($(1)_objdir)/bigobj/$(3)/$(1).$(BIGLIB_OBJEXT)
+	@$$(startlog_$(1)) [ -d $$(@D) ] || $(CMD_mkdir) -p $$(@D) && $(CMD_cp) -fp $$^ $$@ $$(endlog_$(1))
+$($(1)_objdir)/bigobj/$(3)/$(1).$(BIGLIB_OBJEXT): $(subst $($(1)_objdir)/,$($(1)_objdir)/bigobj/$3/,$(call TargetObjs,$1)) \
+                                                  $(subst $($(1)_objdir)/,$($(1)_objdir)/bigobj/,$(call NonTargetObjs,$1))
+	$$(call big_obj,$(2),$(1),$$^,$(SCRAMSTORENAME_OBJS),$3)
+endef
+define TargetBigPlugin
+$(1)_objs_$3:=$(foreach o,$($(1)_objs),$(eval n:=$(basename $(notdir $o)))\
+                  $(if $(strip $(filter $3,$($(n)_LOC_FLAGS_TARGETS))),\
+                       $(subst /$(n).$(BIGLIB_OBJEXT),/$3/$(n).$(BIGLIB_OBJEXT),$o),\
+                    $o))
+$(SCRAMSTORENAME_BIGLIB)/$3/plugin$(1).$(SHAREDSUFFIX): $(WORKINGDIR)/$(2)/$3/plugin$(1).$(SHAREDSUFFIX) $(SCRAMSTORENAME_BIGLIB)/plugin$(1).$(SHAREDSUFFIX) \
+                $(foreach l,$($(1)_xr_dicts),$(SCRAMSTORENAME_BIGLIB)/$3/$l)
+	@[ -d $$(@D) ] || $(CMD_mkdir) -p $$(@D) &&\
+	$(CMD_cp) -f $$< $$@
+$(WORKINGDIR)/$(2)/$3/plugin$(1).$(SHAREDSUFFIX): $$($(1)_objs_$3) $(WORKINGDIR)/$(2)/plugin$(1).$(SHAREDSUFFIX)
+	$$(call bigobj_link_plugin,$1,$$($(1)_objs_$3),$3)
+$(foreach l,$($(1)_xr_dicts),$(eval $(call TargetLcgDict,$3,$l)))
+endef
+
+define AddBigObjRule
+ifneq ($(strip $($(1)_bigobj)),)
+all_$(1) += $(SCRAMSTORENAME_OBJS)/$(1).$(BIGLIB_OBJEXT)
+$(SCRAMSTORENAME_OBJS)/$(1).$(BIGLIB_OBJEXT): $($(1)_objdir)/bigobj/$(1).$(BIGLIB_OBJEXT)
+	@$$(startlog_$(1))$(CMD_cp) -fp $$^ $$@ $$(endlog_$(1))
+$($(1)_objdir)/bigobj/$(1).$(BIGLIB_OBJEXT): $(subst $($(1)_objdir)/,$($(1)_objdir)/bigobj/,$($(1)_objs))
+	$$(call big_obj,$(2),$(1),$$^,$(SCRAMSTORENAME_OBJS))
+$$(foreach v,$($(1)_LOC_FLAGS_TARGETS),$$(eval $$(call TargetBigObj,$1,$2,$$v)))
+endif
+endef
+define AddBigObjCompileRule
+ifneq ($(strip $($(1)_bigobj)),)
+$($(1)_bigobj)_LOC_FLAGS_TARGETS+=$($(1)_LOC_FLAGS_TARGETS)
+$(WORKINGDIR)/cache/prod/bigobj$(1): $($(1)_objdir)/bigobj/$(1).$(BIGLIB_OBJEXT) $(foreach v,$($(1)_LOC_FLAGS_TARGETS),$($(1)_objdir)/bigobj/$(v)/$(1).$(BIGLIB_OBJEXT))
+	@:
+$$(eval $$(call CompileRulesBigObj,$(1)))
+endif
+endef
+define AddBigObjLCGDICTRule
+ifneq ($(strip $($(1)_bigobj)),)
+all_$(1)  += $(SCRAMSTORENAME_BIGLIB)/$(4)
+$($(1)_bigobj)_xr_dicts+=$(4)
+$(SCRAMSTORENAME_BIGLIB)/$(4): $(3)/$(4)
+	@$(CMD_ln) -sf $(SCRAMSTORENAME_BIGLIB_RELPATH)/$(3)/$(4) $$@
+	@$(CMD_echo) "01:$(CMD_rm) -f $$@" > $$(call AutoCleanFile,$($(1)_objdir)/$(1),biglib_lcgdict)
+$($(1)_objdir)/bigobj/$(2)r.cc.$(OBJEXT): $($(1)_objdir)/$(2)r.cc
+	$$(call bigobj_compile_lcgdict,$(1),$(1))
+endif
+endef
+#############################################################################
+#safename,path,safepath
+define BigProductRule
+ifneq ($(strip $(foreach o,$($(1)_BIGOBJS),$($(o)_bigobj))),)
+$(eval $(call LogFile,$(1),$(2)))
+.PHONY: all_$(3) $(3) $(1)
+$(eval $(1)_LOC_FLAGS_TARGETS:=$(sort $($(1)_LOC_FLAGS_TARGETS)))
+$(WORKINGDIR)/cache/msg/$(2)/$(1).msg: $(logfile_$(1)) $(WORKINGDIR)/cache/log/$(2)/build.log FORCE_TARGET
+	@$(DO_BUILD_LOG) $(CMD_echo) ">> Entering Package $(2)" $$(redirectlog_$(1)) &&\
+	$(CMD_echo) ">> Entering Package $(2)" &&\
+	[ -d $$(@D) ] || $(CMD_mkdir) -p $$(@D) && $(CMD_touch) -t $(OLD_TIMESTAMP) $$@
+$(2) $(patsubst $(SCRAM_SOURCEDIR)/%,%,$(2)) $(1) $(3): $(WORKINGDIR)/cache/msg/$(2)/$(1).msg $(SCRAMSTORENAME_BIGLIB)/plugin$(1).$(SHAREDSUFFIX) \
+                                                        $(foreach v,$($(1)_LOC_FLAGS_TARGETS),$(SCRAMSTORENAME_BIGLIB)/$(v)/plugin$(1).$(SHAREDSUFFIX))
+	@$(DO_BUILD_LOG) $(CMD_echo) ">> Leaving Package $(2)"  $$(redirectlog_$(1)) &&\
+	$(DO_BUILD_LOG) $(CMD_echo) ">> Package $(2) built" $$(redirectlog_$(1)) &&\
+	$(DO_BUILD_LOG) $(CMD_cat) $(WORKINGDIR)/cache/log/$(2)/$(1) &&\
+	$(DO_BUILD_LOG) $(CMD_mv) $(WORKINGDIR)/cache/log/$(2)/$(1) $(WORKINGDIR)/cache/log/$(2)/build.log &&\
+	$(CMD_echo) ">> Leaving Package $(2)" &&\
+	$(CMD_echo) ">> Package $(2) built"
+$(1)_objs := $(call BigObjectsPaths,$1)
+$(1)_biglib_lcgdict_pkgs:=$$(strip $$(foreach x,$$(basename $$(notdir %/,,$$(filter external/%,$$($(1)_objs)))),$$(if $$(strip $$($$(x)_LCGDICTS)),$$x)))
+ifneq ($(strip $(RELEASETOP)),)
+$(1)_xr_dicts+=$$(foreach x,$$($(1)_biglib_lcgdict_pkgs),$$(foreach y,$$($$(x)_LCGDICTS),$$(if $$(strip $$(call find_release_file,$(SCRAMSTORENAME_BIGLIB)/$$(x)_$$(y)r_rdict.pcm)),$$(x)_$$(y)r_rdict.pcm)))
+else ifeq ($(strip $(IS_PATCH)),yes)
+$(1)_xr_dicts+=$$(foreach x,$$($(1)_biglib_lcgdict_pkgs),$$(foreach y,$$($$(x)_LCGDICTS),$$(if $$(strip $$(wildcard $(FULL_RELEASE_FOR_A_PATCH)/$(SCRAMSTORENAME_BIGLIB)/$$(x)_$$(y)r_rdict.pcm)),$$(x)_$$(y)r_rdict.pcm)))
+endif
+$(SCRAMSTORENAME_BIGLIB)/plugin$(1).$(SHAREDSUFFIX): $(WORKINGDIR)/$(2)/plugin$(1).$(SHAREDSUFFIX) $$(foreach p,$$($(1)_xr_dicts),$(SCRAMSTORENAME_BIGLIB)/$$p)
+	$$(call bigedm_register_plugin,$1)
+$(WORKINGDIR)/$(2)/plugin$(1).$(SHAREDSUFFIX): $$($(1)_objs) $(call libdeps,$1) $(logfile_$1)
+	$$(call bigobj_link_plugin,$1,$$($(1)_objs))
+$$(foreach v,$($(1)_LOC_FLAGS_TARGETS),$$(eval $$(call TargetBigPlugin,$1,$2,$$v)))
+else
+$(3):
+	@:
+endif
+endef
+#############################################################################
+ifneq ($(strip $(SCRAMSTORENAME_BIGLIB)),)
+bigedmPluginRefresh_cache   := $(SCRAMSTORENAME_BIGLIB)/.edmplugincache
+PLUGIN_REFRESH_CMDS         += bigedmPluginRefresh
+$(SCRAMSTORENAME_BIGLIB)/.edmplugincache: $(SCRAM_INTwork)/cache/bigedm_edmPluginRefresh $(SCRAM_INTwork)/cache/prod/edmPluginRefresh
+	$(call run_plugin_refresh_cmd,edmPluginRefresh)
+$(SCRAM_INTwork)/cache/bigedm_edmPluginRefresh:
+	@:
+ifneq ($(strip $(SCRAM_TARGETS)),)
+  $(foreach v,$(SCRAM_TARGETS),$(eval $(call CreateTargetSymlink,$v,$(SCRAMSTORENAME_BIGLIB)/.edmplugincache)))
+  $(foreach v,$(SCRAM_TARGETS),$(eval bigedmPluginRefresh_cache+=$(SCRAMSTORENAME_BIGLIB)/$v/.edmplugincache))
+endif
+endif
+.PHONY: check_biglib_dependents
+check_dependents_%:
+	@$(if $(strip $(filter $*,$(ALL_BIGPRODS))),$(call CheckBigProductsDeps,$*),$(CMD_echo) ****ERROR: Unknown biglib $* && exit 1)
+$(SCRAMSTORENAME_BIGLIB)/%_xr_rdict.pcm:
+	@if [ -e $(RELEASETOP)/$@ ] ; then \
+	  $(CMD_ln) -sf $(RELEASETOP)/$@  $@ ;\
+	elif [ -e $(FULL_RELEASE_FOR_A_PATCH)/$@ ] ; then \
+	  $(CMD_ln) -sf $(FULL_RELEASE_FOR_A_PATCH)/$@  $@ ;\
+	fi

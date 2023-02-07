@@ -1,0 +1,12 @@
+<tool name="gsl" version="2.6-84974e6daa70611c23ebff30cbb797c4">
+  <info url="http://www.gnu.org/software/gsl/gsl.html"/>
+  <lib name="gsl"/>
+  <client>
+    <environment name="GSL_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/gsl/2.6-84974e6daa70611c23ebff30cbb797c4"/>
+    <environment name="LIBDIR" default="$GSL_BASE/lib"/>
+    <environment name="INCLUDE" default="$GSL_BASE/include"/>
+  </client>
+  <runtime name="ROOT_INCLUDE_PATH" value="$INCLUDE" type="path"/>
+  <use name="OpenBLAS"/>
+  <use name="root_cxxdefaults"/>
+</tool>

@@ -1,0 +1,11 @@
+shower=OFF
+reweight=OFF
+done
+set param_card mass 23 91.153509740726733
+set param_card DECAY 23 2.4932018986110700
+set param_card mass 24 80.351812293789408
+set param_card DECAY 24 2.0904310808144846
+set param_card SMINPUTS 1 132.30648214177197
+set param_card SMINPUTS 2 1.1663787e-05
+
+done

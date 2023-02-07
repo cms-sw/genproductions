@@ -1,0 +1,8 @@
+<tool name="dablooms" version="0.9.1-eeb14a343bb1fca63f5b5f142f398551">
+  <lib name="dablooms"/>
+  <client>
+    <environment name="DABLOOMS_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/dablooms/0.9.1-eeb14a343bb1fca63f5b5f142f398551"/>
+    <environment name="LIBDIR" default="$DABLOOMS_BASE/lib"/>
+    <environment name="INCLUDE" default="$DABLOOMS_BASE/include"/>
+  </client>
+</tool>

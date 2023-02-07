@@ -1,0 +1,26 @@
+{
+  "FASTJET_CONTRIB_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/fastjet-contrib/1.044-b292f1333cc058f1eb62c95f64a3d904",
+  "INCLUDE": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/fastjet-contrib/1.044-b292f1333cc058f1eb62c95f64a3d904/include"
+  ],
+  "LIB": [
+    "EnergyCorrelator",
+    "GenericSubtractor",
+    "JetCleanser",
+    "JetFFMoments",
+    "Nsubjettiness",
+    "ScJet",
+    "SubjetCounting",
+    "VariableR"
+  ],
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/fastjet-contrib/1.044-b292f1333cc058f1eb62c95f64a3d904/lib"
+  ],
+  "TOOLNAME": "fastjet-contrib-archive",
+  "TOOLVERSION": "1.044-b292f1333cc058f1eb62c95f64a3d904",
+  "VARIABLES": [
+    "FASTJET_CONTRIB_BASE",
+    "LIBDIR",
+    "INCLUDE"
+  ]
+}

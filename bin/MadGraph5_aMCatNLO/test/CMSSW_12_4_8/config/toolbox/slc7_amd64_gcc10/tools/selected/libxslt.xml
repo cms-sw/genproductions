@@ -1,0 +1,9 @@
+<tool name="libxslt" version="1.1.28-b6c80d356c801ec87eba8f2085074449">
+  <info url="http://xmlsoft.org/libxslt"/>
+  <lib name="xslt"/>
+  <client>
+    <environment name="LIBXSLT_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/libxslt/1.1.28-b6c80d356c801ec87eba8f2085074449"/>
+    <environment name="LIBDIR" default="$LIBXSLT_BASE/lib"/>
+    <environment name="INCLUDE" default="$LIBXSLT_BASE/include/libxslt"/>
+  </client>
+</tool>

@@ -1,0 +1,9 @@
+{
+  "LIB": [
+    "crypt",
+    "dl",
+    "rt"
+  ],
+  "TOOLNAME": "sockets",
+  "TOOLVERSION": "system"
+}

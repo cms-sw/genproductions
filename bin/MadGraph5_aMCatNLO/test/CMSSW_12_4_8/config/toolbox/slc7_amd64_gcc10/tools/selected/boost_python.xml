@@ -1,0 +1,10 @@
+<tool name="boost_python" version="1.78.0-22078d9ad44a9ee315c3d0995a7d3746">
+  <info url="http://www.boost.org"/>
+  <lib name="boost_python39"/>
+  <client>
+    <environment name="BOOST_PYTHON_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/boost/1.78.0-22078d9ad44a9ee315c3d0995a7d3746"/>
+    <environment name="LIBDIR" default="$BOOST_PYTHON_BASE/lib"/>
+  </client>
+  <use name="boost_header"/>
+  <use name="python3"/>
+</tool>

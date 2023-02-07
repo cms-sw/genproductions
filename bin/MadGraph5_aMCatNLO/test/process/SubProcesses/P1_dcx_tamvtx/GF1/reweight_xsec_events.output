@@ -1,0 +1,26 @@
+==== LHAPDF6 USING DEFAULT-TYPE LHAGLUE INTERFACE ====
+LHAPDF 6.4.0 loading /cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/lhapdf/6.4.0-68defff11ffd434c73727d03802bfb85/share/LHAPDF/NNPDF31_nnlo_as_0118_mc_hessian_pdfas/NNPDF31_nnlo_as_0118_mc_hessian_pdfas_0000.dat
+NNPDF31_nnlo_as_0118_mc_hessian_pdfas PDF set, member #0, version 1; LHAPDF ID = 325300
+Thanks for using LHAPDF 6.4.0. Please make sure to cite the paper:
+  Eur.Phys.J. C75 (2015) 3, 132  (http://arxiv.org/abs/1412.7420)
+ A PDF is used, so alpha_s(MZ) is going to be modified
+ Old value of alpha_s from param_card:   0.11799999999999999     
+ New value of alpha_s from PDF lhapdf :  0.11800208008122040     
+ Enter event file name
+ Enter 1 to save all cross sections on tape
+       0 otherwise
+   
+ The events appear to be unweighted
+  Will store the ratios of recomputed weights
+  over reference weights
+ ================================
+ process combination map (specified per FKS dir):
+  1 map        1
+  1 inv. map   1
+  2 map        1
+  2 inv. map   1
+  3 map        1
+  3 inv. map   1
+  4 map        1
+  4 inv. map   1
+ ================================

@@ -1,0 +1,20 @@
+{
+  "CC": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/gcc",
+  "FLAGS": {
+    "CFLAGS": [
+      "-O2",
+      "-pthread"
+    ],
+    "CSHAREDOBJECTFLAGS": [
+      "-fPIC"
+    ]
+  },
+  "GCC_CCOMPILER_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10",
+  "SCRAM_COMPILER": 1,
+  "TOOLNAME": "gcc-ccompiler",
+  "TOOLVERSION": "10.3.0",
+  "VARIABLES": [
+    "GCC_CCOMPILER_BASE",
+    "CC"
+  ]
+}

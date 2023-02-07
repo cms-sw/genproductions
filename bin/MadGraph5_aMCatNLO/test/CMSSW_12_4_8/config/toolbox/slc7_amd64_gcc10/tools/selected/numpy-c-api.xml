@@ -1,0 +1,10 @@
+<tool name="numpy-c-api" version="1.21.2-99508e874b8d39bfba40879990ed24fc">
+  <lib name="npymath"/>
+  <client>
+    <environment name="NUMPY_C_API_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-numpy/1.21.2-99508e874b8d39bfba40879990ed24fc"/>
+    <environment name="INCLUDE" default="$NUMPY_C_API_BASE/c-api/core/include"/>
+    <environment name="LIBDIR" default="$NUMPY_C_API_BASE/c-api/core/lib"/>
+  </client>
+  <runtime name="ROOT_INCLUDE_PATH" value="$INCLUDE" type="path"/>
+  <use name="root_cxxdefaults"/>
+</tool>

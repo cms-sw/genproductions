@@ -1,0 +1,14 @@
+<tool name="onnxruntime" version="1.10.0-5fc090a038430c3a193a56716f0c6547">
+  <lib name="onnxruntime"/>
+  <client>
+    <environment name="ONNXRUNTIME_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/onnxruntime/1.10.0-5fc090a038430c3a193a56716f0c6547"/>
+    <environment name="INCLUDE" default="$ONNXRUNTIME_BASE/include"/>
+    <environment name="LIBDIR" default="$ONNXRUNTIME_BASE/lib"/>
+  </client>
+  <use name="protobuf"/>
+  <ifarchitecture name="!slc7_aarch64">
+    <use name="cuda"/>
+    <use name="cudnn"/>
+  </ifarchitecture>
+  <runtime name="MLAS_DYNAMIC_CPU_ARCH" value="2"/>
+</tool>

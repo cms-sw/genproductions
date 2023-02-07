@@ -1,0 +1,5 @@
+#!/bin/bash
+#Create local multi-targets is exists in RELEASETOP
+if [ -f "${RELEASETOP}/.SCRAM/${SCRAM_ARCH}/multi-targets" ] ; then
+  touch ${LOCALTOP}/.SCRAM/${SCRAM_ARCH}/multi-targets
+fi

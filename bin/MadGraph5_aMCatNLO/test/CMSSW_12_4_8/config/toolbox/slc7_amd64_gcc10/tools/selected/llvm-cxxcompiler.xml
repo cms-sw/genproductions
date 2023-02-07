@@ -1,0 +1,33 @@
+  <tool name="llvm-cxxcompiler" version="12.0.1-dd4c586a5bebc335346bb0e879f6f0aa" type="compiler">
+    <use name="gcc-cxxcompiler"/>
+    <client>
+      <environment name="LLVM_CXXCOMPILER_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/llvm/12.0.1-dd4c586a5bebc335346bb0e879f6f0aa"/>
+      <environment name="CXX" value="$LLVM_CXXCOMPILER_BASE/bin/clang++"/>
+    </client>
+    # drop flags not supported by llvm
+    # -Wno-non-template-friend removed since it's not supported, yet, by llvm.
+    <flags REM_CXXFLAGS="-Wno-non-template-friend"/>
+    <flags REM_CXXFLAGS="-Werror=format-contains-nul"/>
+    <flags REM_CXXFLAGS="-Werror=maybe-uninitialized"/>
+    <flags REM_CXXFLAGS="-Werror=unused-but-set-variable"/>
+    <flags REM_CXXFLAGS="-Werror=return-local-addr"/>
+    <flags REM_CXXFLAGS="-fipa-pta"/>
+    <flags REM_CXXFLAGS="-frounding-math"/>
+    <flags REM_CXXFLAGS="-mrecip"/>
+    <flags REM_CXXFLAGS="-fno-crossjumping"/>
+    <flags REM_CXXFLAGS="-fno-aggressive-loop-optimizations"/>
+    <flags REM_CXXFLAGS="-funroll-all-loops"/>
+    <flags CXXFLAGS="-Wno-c99-extensions"/>
+    <flags CXXFLAGS="-Wno-c++11-narrowing"/>
+    <flags CXXFLAGS="-D__STRICT_ANSI__"/>
+    <flags CXXFLAGS="-Wno-unused-private-field"/>
+    <flags CXXFLAGS="-Wno-unknown-pragmas"/>
+    <flags CXXFLAGS="-Wno-unused-command-line-argument"/>
+    <flags CXXFLAGS="-Wno-unknown-warning-option"/>
+    <flags CXXFLAGS="-ftemplate-depth=512"/>
+    <flags CXXFLAGS="-Wno-error=potentially-evaluated-expression"/>
+    <flags CXXFLAGS="-Wno-tautological-type-limit-compare"/>
+    <flags CXXFLAGS="-fsized-deallocation"/>
+    <runtime name="LD_LIBRARY_PATH" value="$LLVM_CXXCOMPILER_BASE/lib64" type="path"/>
+    <runtime name="PATH" value="$LLVM_CXXCOMPILER_BASE/bin" type="path"/>
+  </tool>

@@ -1,0 +1,12 @@
+define GenerateAOCX
+$(1)_AOCX:=$(notdir $(basename $(2))).aocx
+all_$(1)+=$(SCRAMSTORENAME_BIN)/$$($(1)_AOCX)
+$($(1)_objdir)/$$($(1)_AOCX): $($(1)_srcdir)/$(2)
+	@$(startlog_$(1))[ -d $$(@D) ] || $(CMD_mkdir) -p $$(@D) &&\
+	$(CMD_echo) ">> Compiling $$< " &&\
+	$(VERB_ECHO) $(AOC) -v $(AOC_OPTIONS) $$< -o $$@ &&\
+	$(AOC) -v $(AOC_OPTIONS) $$< -o $$@ $(endlog_$(1))
+$(SCRAMSTORENAME_BIN)/$$($(1)_AOCX): $($(1)_objdir)/$$($(1)_AOCX)
+	@[ -d $$(@D) ] || $(CMD_mkdir) -p $$(@D) &&\
+	$(CMD_cp) -f $$< $$@
+endef

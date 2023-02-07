@@ -1,0 +1,127 @@
+#! /usr/bin/env python
+# -*- python -*- script
+
+import argparse
+import sys
+from ninjanumgen import *
+
+def list_args(arg):
+    return arg if (arg) else []
+
+def main(args):
+    langdict = {'c++' : CPP,
+                'c' : C,
+                'fortran77' : F77, 'f77' : F77,
+                'fortran90' : F90, 'f90' : F90}
+    exp = DiagramExpansion(infile = args.file,
+                           outfile = args.output,
+                           nlegs = int(args.nlegs), rank = args.rank,
+                           diagname = args.diagname,
+                           formexec = args.formexec,
+                           formflags = args.formflags,
+                           q = args.qvar, mu2 = args.mu2var,
+                           cdiagname = args.cdiagname,
+                           #language = langdict[args.language.lower()],
+                           optimize = int(args.optimize),
+                           header = args.header,
+                           namespace = args.namespace,
+                           include = list_args(args.include),
+                           inline = list_args(args.inline),
+                           inline_evaluate = list_args(args.inline_evaluate),
+                           inline_t3expansion = \
+                               list_args(args.inline_t3expansion),
+                           inline_t2expansion = \
+                               list_args(args.inline_t2expansion),
+                           inline_mu2expansion = \
+                               list_args(args.inline_mu2expansion),
+                           verbose = not args.quiet)
+    try:
+        exp.writeSource()
+    except:
+        sys.exit('ERROR IN NINJANUMGEN: Failed to write the source!')
+    if args.quadninja:
+        exp.writeQuadSource()
+
+
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description=
+                                     'Generates numerator methods'
+                                     ' for the Ninja library.')
+    parser.add_argument('--nlegs','-n',required=True,
+                        help='number of external legs, i.e. of loop propagators'
+                        ' of the diagram')
+    parser.add_argument('--rank','-r',
+                        help='maximum rank of the numerator'
+                        ' [default=NLEGS]')
+    parser.add_argument('--diagname','-d',default='Diagram',
+                        help='name of the numerator expression'
+                        ' in the form file [default=Diagram]')
+    parser.add_argument("--quadninja", help="write QuadNinja source as well",
+                        action="store_true")
+    parser.add_argument('--formexec',default='form',
+                        help='name of the form executable [default=form]')
+    parser.add_argument('--formflags',default='',
+                        help="extra flags to be passed to the form executable")
+    parser.add_argument('--qvar',default='Q',
+                        help='name of the loop momentum variable [default=Q]')
+    parser.add_argument('--mu2var',default='Mu2',
+                        help='name of the loop variable Mu2 [default=Mu2]')
+    parser.add_argument('file',
+                        help='input form file')
+    parser.add_argument('--output','-o', default='ninjanumgen.cc',
+                        help='output source file [default=ninjanumgen.cc]')
+    parser.add_argument('--cdiagname','-c', default=None,
+                        help='Name of the C++ diagram class,'
+                        #' or prefix of the C/Fortran routines for the numerators'
+                        ' file [default=DIAGNAME]')
+    #parser.add_argument('--language','-l', default='c++',
+    #                    help='Programming language of source output:'
+    #                    ' possible options are c++ (default), c, '
+    #                    'fortran77 (or f77), fortran90 (or f90)')
+    parser.add_argument('--optimize','-O', default='2',
+                        help='Form optimization level [default=2]')
+    parser.add_argument('--include','-I', action='append',
+                        help='C++ header file to be included in the generated'
+                        #'C++ or Fortran77 header file,'
+                        #' or Fortran90 module to be included in the generated'
+                        ' source file (can be specified multiple times)')
+    parser.add_argument('--header', default=None,
+                        help='C++ header file containing the definition of the'
+                        ' numerator class: if the file does not exists,'
+                        ' one will be created.'
+                        ' [default= same name as OUTPUT,'
+                        #' but with .hh (C++) or .h (C) extension)'
+                        ' but with .hh extension]'
+                        )
+    parser.add_argument('--namespace', default='0',
+                        help='C++ namespace where the numerator should be put'
+                        ' [default=global namespace]')
+    parser.add_argument('--inline', action='append',
+                        help='code to be inlined in the generated'
+                        ' source file, inside the definition of every method'
+                        ' which computes the'
+                        ' numerator and its expansions'
+                        ' (can be specified multiple times)')
+    parser.add_argument('--inline_evaluate', action='append',
+                        help='code to be inlined in the generated'
+                        ' source file, inside the definition of the method'
+                        ' "evaluate"'
+                        ' (can be specified multiple times)')
+    parser.add_argument('--inline_t3expansion', action='append',
+                        help='code to be inlined in the generated'
+                        ' source file, inside the definition of the method'
+                        ' "t3Expansion"'
+                        ' (can be specified multiple times)')
+    parser.add_argument('--inline_t2expansion', action='append',
+                        help='code to be inlined in the generated'
+                        ' source file, inside the definition of the method'
+                        ' "t2Expansion"'
+                        ' (can be specified multiple times)')
+    parser.add_argument('--inline_mu2expansion', action='append',
+                        help='code to be inlined in the generated'
+                        ' source file, inside the definition of the method'
+                        ' "mu2Expansion"'
+                        ' (can be specified multiple times)')
+    parser.add_argument("-q", "--quiet", help="switch off the verbosity",
+                        action="store_true")
+    main(parser.parse_args())

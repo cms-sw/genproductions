@@ -1,0 +1,13 @@
+{
+  "PY3_PYGMENTS_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-Pygments/2.10.0-40bbed48a4bea8f918d3cb0f63b27de3",
+  "RUNTIME": {
+    "PATH:PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-Pygments/2.10.0-40bbed48a4bea8f918d3cb0f63b27de3/bin"
+    ]
+  },
+  "TOOLNAME": "py3-pygments",
+  "TOOLVERSION": "2.10.0-40bbed48a4bea8f918d3cb0f63b27de3",
+  "VARIABLES": [
+    "PY3_PYGMENTS_BASE"
+  ]
+}

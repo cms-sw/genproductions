@@ -1,0 +1,20 @@
+{
+  "INCLUDE": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/cms/vdt/0.4.3-4cf643375686641d118ddf967ccfd199/include"
+  ],
+  "RUNTIME": {
+    "PATH:ROOT_INCLUDE_PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/cms/vdt/0.4.3-4cf643375686641d118ddf967ccfd199/include"
+    ]
+  },
+  "TOOLNAME": "vdt_headers",
+  "TOOLVERSION": "0.4.3-4cf643375686641d118ddf967ccfd199",
+  "USE": [
+    "root_cxxdefaults"
+  ],
+  "VARIABLES": [
+    "VDT_HEADERS_BASE",
+    "INCLUDE"
+  ],
+  "VDT_HEADERS_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/cms/vdt/0.4.3-4cf643375686641d118ddf967ccfd199"
+}

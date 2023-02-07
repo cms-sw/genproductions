@@ -1,0 +1,10 @@
+{
+  "LIB": [
+    "qd_f_main"
+  ],
+  "TOOLNAME": "qd_f_main",
+  "TOOLVERSION": "2.3.13-8f6f1bb4da96a4cf4b4bf7f79cfac225",
+  "USE": [
+    "qd"
+  ]
+}

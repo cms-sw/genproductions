@@ -1,0 +1,24 @@
+{
+  "FLATBUFFERS_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/flatbuffers/1.12.0-59a938efb15228bcd7242b8e4a7fa616",
+  "INCLUDE": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/flatbuffers/1.12.0-59a938efb15228bcd7242b8e4a7fa616/include"
+  ],
+  "LIB": [
+    "flatbuffers"
+  ],
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/flatbuffers/1.12.0-59a938efb15228bcd7242b8e4a7fa616/lib64"
+  ],
+  "RUNTIME": {
+    "PATH:PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/flatbuffers/1.12.0-59a938efb15228bcd7242b8e4a7fa616/bin"
+    ]
+  },
+  "TOOLNAME": "flatbuffers",
+  "TOOLVERSION": "1.12.0-59a938efb15228bcd7242b8e4a7fa616",
+  "VARIABLES": [
+    "FLATBUFFERS_BASE",
+    "INCLUDE",
+    "LIBDIR"
+  ]
+}

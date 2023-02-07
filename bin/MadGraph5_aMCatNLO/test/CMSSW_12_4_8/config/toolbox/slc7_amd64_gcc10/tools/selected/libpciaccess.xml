@@ -1,0 +1,8 @@
+<tool name="libpciaccess" version="0.16-b067b0011e7283d86403eafb3159e181">
+  <lib name="libpciaccess"/>
+  <client>
+    <environment name="LIBPCIACCESS_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/libpciaccess/0.16-b067b0011e7283d86403eafb3159e181"/>
+    <environment name="LIBDIR"            default="$LIBPCIACCESS_BASE/lib"/>
+    <environment name="INCLUDE"           default="$LIBPCIACCESS_BASE/include"/>
+  </client>
+</tool>

@@ -1,0 +1,13 @@
+{
+  "PY3_IPYTHON_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-ipython/7.31.1-710ff00df81608ebcce7d258e939718e",
+  "RUNTIME": {
+    "PATH:PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-ipython/7.31.1-710ff00df81608ebcce7d258e939718e/bin"
+    ]
+  },
+  "TOOLNAME": "py3-ipython",
+  "TOOLVERSION": "7.31.1-710ff00df81608ebcce7d258e939718e",
+  "VARIABLES": [
+    "PY3_IPYTHON_BASE"
+  ]
+}

@@ -1,0 +1,91 @@
+
+<HTML> 
+<HEAD> 
+     
+    <META HTTP-EQUIV="EXPIRES" CONTENT="20" > 
+    <TITLE>Online Event Generation</TITLE>
+    <link rel=stylesheet href="./HTML/mgstyle.css" type="text/css">
+</HEAD>
+<BODY>
+<script type="text/javascript">
+function UrlExists(url) {
+  var http = new XMLHttpRequest();
+  http.open('HEAD', url, false);
+  try{
+     http.send()
+     }
+  catch(err){
+   return 1==2;
+  }
+  return http.status!=404;
+}
+</script>    
+    <H2 align=center> Results in the loop_sm-ckm_no_b_mass for p p > ell+ vl $$ t t~ h [QCD] @0
+, p p > ell- vl~ $$ t t~ h [QCD] @1
+ </H2> 
+    <HR>
+    
+    <br>
+    <br>
+    <H2 align="center"> Available Results </H2>
+        <TABLE BORDER=2 align="center">  
+            <TR align="center">
+                <TH>Run</TH> 
+                <TH>Collider</TH> 
+                <TH> Banner </TH>
+                <TH> Cross section (pb) </TH> 
+                <TH> Events  </TH>
+                <TH> Data </TH>  
+                <TH>Output</TH>
+                <TH>Action</TH> 
+            </TR>      
+            
+        <tr>
+        <td rowspan=1>pilotrun</td> 
+        <td rowspan=1><center>  p  p <br> 6500.0 x 6500.0  GeV </center></td>
+        
+        <td rowspan=1> <a href="./Events/pilotrun/pilotrun_tag_1_banner.txt">tag_1</a></td>
+        
+        <td rowspan=1><center><a> 6.095e+04 <font face=symbol>&#177;</font> 71 </a>  </center></td>
+        <td rowspan=1><center> 1500<center></td><td> parton noshower </td>
+        <td>  <a href="./Events/pilotrun/summary.txt">summary</a></td>
+        <td> <INPUT TYPE=SUBMIT VALUE='remove run' onClick="alert('Launch ./bin/aMCatNLO in a shell, and run the following command: remove pilotrun parton --tag=tag_1')"></td>
+        </tr>
+        </tr>
+        
+        <tr>
+        <td rowspan=0>pilotrun_decayed_1</td> 
+        <td rowspan=0><center>  p  p <br> 6500.0 x 6500.0  GeV </center></td>
+        
+        </tr>
+        
+        <tr>
+        <td rowspan=1>cmsgrid</td> 
+        <td rowspan=1><center>  p  p <br> 6500.0 x 6500.0  GeV </center></td>
+        
+        <td rowspan=1> <a href="./Events/cmsgrid/cmsgrid_tag_1_banner.txt">tag_1</a></td>
+        
+        <td rowspan=1><center><a href="./HTML/cmsgrid/results.html"> 6.095e+04 <font face=symbol>&#177;</font> 71 </a>  </center></td>
+        <td rowspan=1><center> 100<center></td><td> parton noshower </td>
+        <td>  <a href="./Events/cmsgrid/summary.txt">summary</a></td>
+        <td> <INPUT TYPE=SUBMIT VALUE='remove run' onClick="alert('Launch ./bin/aMCatNLO in a shell, and run the following command: remove cmsgrid parton --tag=tag_1')"></td>
+        </tr>
+        </tr>
+        
+        <tr>
+        <td rowspan=1>cmsgrid_decayed_1</td> 
+        <td rowspan=1><center>  p  p <br> 6500.0 x 6500.0  GeV </center></td>
+        
+        <td rowspan=1> <a href="./Events/cmsgrid_decayed_1/cmsgrid_decayed_1_tag_1_banner.txt">tag_1</a></td>
+        
+        <td rowspan=1><center><a> 0 <font face=symbol>&#177;</font> 0 </a> <font face=symbol>&#177;</font> <a href="./Events/cmsgrid_decayed_1/parton_systematics.log">systematics</a> </center></td>
+        <td rowspan=1><center> 0<center></td><td> parton madevent </td>
+        <td>  <a  id='cmsgrid_decayed_1_tag_1_parton_LHE' href='./Events/cmsgrid_decayed_1/events.lhe.gz'>LHE</a></td>
+        <td> <INPUT TYPE=SUBMIT VALUE='remove run' onClick="alert('Launch ./bin/madevent in a shell, and run the following command: remove cmsgrid_decayed_1 parton --tag=tag_1')"><INPUT TYPE=SUBMIT VALUE='launch detector simulation' onClick="alert('Launch ./bin/madevent in a shell, and run the following command: pythia cmsgrid_decayed_1 ')"></td>
+        </tr>
+        </tr>
+        
+        </TABLE>
+    <H3 align=center><A HREF="./index.html"> Main Page </A></H3>
+</BODY> 
+</HTML> 

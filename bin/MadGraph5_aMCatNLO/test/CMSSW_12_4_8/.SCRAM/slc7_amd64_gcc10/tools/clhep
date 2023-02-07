@@ -1,0 +1,18 @@
+{
+  "CLHEP_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/clhep/2.4.5.1-5bba156cb451d19d7be7ff651e7c5f9f",
+  "LIB": [
+    "CLHEP"
+  ],
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/clhep/2.4.5.1-5bba156cb451d19d7be7ff651e7c5f9f/lib"
+  ],
+  "TOOLNAME": "clhep",
+  "TOOLVERSION": "2.4.5.1-5bba156cb451d19d7be7ff651e7c5f9f",
+  "USE": [
+    "clhepheader"
+  ],
+  "VARIABLES": [
+    "CLHEP_BASE",
+    "LIBDIR"
+  ]
+}

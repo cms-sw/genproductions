@@ -1,0 +1,12 @@
+<tool name="protobuf" version="3.15.1-7e10d5eb9143430224a15d6b61e33af1">
+  <lib name="protobuf"/>
+  <client>
+    <environment name="PROTOBUF_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/protobuf/3.15.1-7e10d5eb9143430224a15d6b61e33af1"/>
+    <environment name="INCLUDE" default="$PROTOBUF_BASE/include"/>
+    <environment name="LIBDIR" default="$PROTOBUF_BASE/lib"/>
+    <environment name="BINDIR" default="$PROTOBUF_BASE/bin"/>
+  </client>
+  <runtime name="PATH" value="$PROTOBUF_BASE/bin" type="path"/>
+  <runtime name="ROOT_INCLUDE_PATH" value="$INCLUDE" type="path"/>
+  <use name="root_cxxdefaults"/>
+</tool>

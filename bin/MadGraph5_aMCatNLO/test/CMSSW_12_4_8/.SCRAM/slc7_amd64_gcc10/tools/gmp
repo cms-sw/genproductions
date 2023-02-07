@@ -1,0 +1,22 @@
+{
+  "GMP_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/gmp-static/6.2.1-e4c905aefc10fb91f8c097e144084d19",
+  "INCLUDE": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/gmp-static/6.2.1-e4c905aefc10fb91f8c097e144084d19/include"
+  ],
+  "LIB": [
+    "gmp"
+  ],
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/gmp-static/6.2.1-e4c905aefc10fb91f8c097e144084d19/lib"
+  ],
+  "TOOLNAME": "gmp",
+  "TOOLVERSION": "6.2.1-e4c905aefc10fb91f8c097e144084d19",
+  "USE": [
+    "mpfr"
+  ],
+  "VARIABLES": [
+    "GMP_BASE",
+    "INCLUDE",
+    "LIBDIR"
+  ]
+}

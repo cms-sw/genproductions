@@ -1,0 +1,8 @@
+  <tool name="gcc-plugin" version="10.3.0">
+    <lib name="cc1plugin cp1plugin"/>
+    <client>
+      <environment name="GCC_PLUGIN_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-unknown-linux-gnu/10.3.0/plugin"/>
+      <environment name="INCLUDE"   default="$GCC_PLUGIN_BASE/include"/>
+      <environment name="LIBDIR"    default="$GCC_PLUGIN_BASE"/>
+    </client>
+  </tool>

@@ -1,0 +1,9 @@
+<tool name="libzmq" version="4.3.2-0d63a298a9394ed57eb0df9b20dfd2a2">
+  <info url="https://zeromq.org"/>
+  <lib name="zmq"/>
+  <client>
+    <environment name="LIBZMQ_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/libzmq/4.3.2-0d63a298a9394ed57eb0df9b20dfd2a2"/>
+    <environment name="LIBDIR" default="$LIBZMQ_BASE/lib"/>
+    <environment name="INCLUDE" default="$LIBZMQ_BASE/include"/>
+  </client>
+</tool>

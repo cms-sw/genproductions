@@ -1,0 +1,1660 @@
+make[1]: Entering directory '/data/pubfs/xiaoj/genval/mg2_9_13/genproductions/bin/MadGraph5_aMCatNLO/wellnu0j_5f_NLO_FXFX/wellnu0j_5f_NLO_FXFX_gridpack/work/MG5_aMC_v2_9_13/vendor/StdHEP/src/stdhep'
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c adumtmp.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c cnv1998to2000.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c cnv2000to2002.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c cnv2000to2002lst.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c cnv2000to2004.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c cnv2000to2004lst.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c cnv2004to2006.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c cnv2004to2006lst.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c cnv98to00lst.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c dpmhep.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c dpmtran.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c dumphepeup.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c dumpheprup.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c gtran.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c hep2geant.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c hepchg.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c hepchg_2002.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c hepchg_2004.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c hepchg_old.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c hepcmp.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c hepcmp_2002.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c hepcmp_2004.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c hepcmp_old.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c heplst.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c hepnam.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c hepnam_2002.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c hepnam_2004.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c hepnam_old.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c heptree.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c hptrlstdpm.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c hptrlsth.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c hptrlsti.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c hptrlstj.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c hptrlstq.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c hwghep.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c hwtran.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c isahep.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c istran.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c lunhep.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c luntmp.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c lutran.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c parsecsv.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c parsecsv_2004.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c pdgprtb.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c pdgrdcsvtb.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c pdgrdtb.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c pdgtonew.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c pdgtran.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c pythia2ev4.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c qqhep.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c qqtran.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c readmadgraph.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c std3to4.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c std3to4lst.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c std3to4prt.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c std3to4tran.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c stdchg.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c stdchgdsclst.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c stdcomp.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c stdcquarks.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c stddautr.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c stddautrlst.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c stddecayqq.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c stddscndlst.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c stdexpname.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c stdfixmass.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c stdfixpart.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c stdflhwxsec.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c stdflisxsec.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c stdflpyxsec.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c stdlst.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c stdmsjet.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c stdparent.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c stdparentlst.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c stdprthd.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c stdqqadd.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c stdqqdcy.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c stdqquset.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c stdquarkcnt.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c stdquarklst.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c stdquarks.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c stdrotboost.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c stdsort.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c stdspin.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c stdstdsclst.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c stdtcopy.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c stdversn.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c stdvtxmatch.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c stdxend.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c stdxrd.F
+stdxrd.F:57:53:
+
+   56 |       call mcfio_InfoEventInt(istream,MCFIO_NUMBLOCKS,numblocks)
+      |                                                      2
+   57 |       call mcfio_InfoEventInt(istream,MCFIO_BLOCKIDS,blkids)
+      |                                                     1
+Warning: Rank mismatch between actual argument at (1) and actual argument at (2) (scalar and rank-1)
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c stdxrdm.F
+stdxrdm.F:67:53:
+
+   66 |       call mcfio_InfoEventInt(istream,MCFIO_NUMBLOCKS,numblocks)
+      |                                                      2
+   67 |       call mcfio_InfoEventInt(istream,MCFIO_BLOCKIDS,blkids)
+      |                                                     1
+Warning: Rank mismatch between actual argument at (1) and actual argument at (2) (scalar and rank-1)
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c stdxrinit.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c stdxropen.F
+stdxropen.F:31:54:
+
+   29 |       call mcfio_InfoStreamInt(istream,MCFIO_NUMEVTS,ntries)
+      |                                                     2 
+   30 |       call mcfio_InfoStreamInt(istream,MCFIO_NUMBLOCKS,numblocks)
+   31 |       call mcfio_InfoStreamInt(istream,MCFIO_BLOCKIDS,blkids)
+      |                                                      1
+Warning: Rank mismatch between actual argument at (1) and actual argument at (2) (scalar and rank-1)
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c stdxwcm1.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c stdxwevt.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c stdxwevtlh.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c stdxwevtup.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c stdxwinit.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c stdxwopen.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c stdxwrt.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c stdzero.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c stdzeroqq.F
+stdzeroqq.F:24:18:
+
+   17 |        call VZERO(IPCDQQ,MCTRK)
+      |                  2
+......
+   24 |        call VZERO(CTTAU,250)
+      |                  1
+Warning: Type mismatch between actual argument at (1) and actual argument at (2) (REAL(8)/INTEGER(4)).
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -c zerohepeup.F
+gcc  -Wno-implicit-function-declaration -I../../src/inc -I../../mcfio/src -c mcf_StdHep_cxx.c
+mcf_StdHep_cxx.c: In function 'xdr_stdhep_cxx_':
+mcf_StdHep_cxx.c:96:42: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+   96 |             &nnmlt, NMXMLT, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                          ^~~~~~~
+      |                                          |
+      |                                          bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_StdHep_cxx.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_StdHep_cxx.c:99:42: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+   99 |             &nnmlt, NMXMLT, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                          ^~~~~~~
+      |                                          |
+      |                                          bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_StdHep_cxx.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_StdHep_cxx.c:102:42: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  102 |             &nnmlt, NMXMLT, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                          ^~~~~~~
+      |                                          |
+      |                                          bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_StdHep_cxx.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_StdHep_cxx.c:105:40: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  105 |             &nnw, NMXHEP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                        ^~~~~~~
+      |                                        |
+      |                                        bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_StdHep_cxx.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_StdHep_cxx.c:108:40: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  108 |             &nnw, NMXHEP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                        ^~~~~~~
+      |                                        |
+      |                                        bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_StdHep_cxx.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_StdHep_cxx.c:111:44: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  111 |                 &nnw, NMXHEP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                            ^~~~~~~
+      |                                            |
+      |                                            bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_StdHep_cxx.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_StdHep_cxx.c:114:44: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  114 |                 &nnw, NMXHEP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                            ^~~~~~~
+      |                                            |
+      |                                            bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_StdHep_cxx.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_StdHep_cxx.c:117:44: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  117 |                 &nnw, NMXHEP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                            ^~~~~~~
+      |                                            |
+      |                                            bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_StdHep_cxx.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_StdHep_cxx.c:120:44: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  120 |                 &nnw, NMXHEP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                            ^~~~~~~
+      |                                            |
+      |                                            bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_StdHep_cxx.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_StdHep_cxx.c:123:44: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  123 |                 &nnw, NMXHEP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                            ^~~~~~~
+      |                                            |
+      |                                            bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_StdHep_cxx.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_StdHep_cxx.c:126:44: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  126 |                 &nnw, NMXHEP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                            ^~~~~~~
+      |                                            |
+      |                                            bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_StdHep_cxx.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_StdHep_cxx.c:129:50: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  129 |                 &nnw4, 4*NMXHEP, sizeof(double), xdr_double) == FALSE) return FALSE;
+      |                                                  ^~~~~~~~~~
+      |                                                  |
+      |                                                  bool_t (*)(XDR *, double *) {aka int (*)(XDR *, double *)}
+In file included from mcf_StdHep_cxx.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, double *)' {aka 'int (*)(XDR *, double *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_StdHep_cxx.c:132:47: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  132 |                 &nnw, NMXHEP, sizeof(double), xdr_double) == FALSE) return FALSE;
+      |                                               ^~~~~~~~~~
+      |                                               |
+      |                                               bool_t (*)(XDR *, double *) {aka int (*)(XDR *, double *)}
+In file included from mcf_StdHep_cxx.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, double *)' {aka 'int (*)(XDR *, double *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_StdHep_cxx.c:135:47: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  135 |                 &nnw, NMXHEP, sizeof(double), xdr_double) == FALSE) return FALSE;
+      |                                               ^~~~~~~~~~
+      |                                               |
+      |                                               bool_t (*)(XDR *, double *) {aka int (*)(XDR *, double *)}
+In file included from mcf_StdHep_cxx.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, double *)' {aka 'int (*)(XDR *, double *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_StdHep_cxx.c:138:50: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  138 |                 &nnw4, 4*NMXHEP, sizeof(double), xdr_double) == FALSE) return FALSE;
+      |                                                  ^~~~~~~~~~
+      |                                                  |
+      |                                                  bool_t (*)(XDR *, double *) {aka int (*)(XDR *, double *)}
+In file included from mcf_StdHep_cxx.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, double *)' {aka 'int (*)(XDR *, double *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_StdHep_cxx.c:141:50: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  141 |                 &nnw4, 4*NMXHEP, sizeof(double), xdr_double) == FALSE) return FALSE;
+      |                                                  ^~~~~~~~~~
+      |                                                  |
+      |                                                  bool_t (*)(XDR *, double *) {aka int (*)(XDR *, double *)}
+In file included from mcf_StdHep_cxx.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, double *)' {aka 'int (*)(XDR *, double *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+gcc  -Wno-implicit-function-declaration -I../../src/inc -I../../mcfio/src -c mcf_Stdhep_xdr.c
+mcf_Stdhep_xdr.c: In function 'xdr_stdhep_':
+mcf_Stdhep_xdr.c:102:37: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  102 |          &nnw, NMXHEP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                     ^~~~~~~
+      |                                     |
+      |                                     bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_Stdhep_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_Stdhep_xdr.c:105:37: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  105 |          &nnw, NMXHEP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                     ^~~~~~~
+      |                                     |
+      |                                     bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_Stdhep_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_Stdhep_xdr.c:108:47: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  108 |                 &nnw2, 2*NMXHEP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                               ^~~~~~~
+      |                                               |
+      |                                               bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_Stdhep_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_Stdhep_xdr.c:111:47: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  111 |                 &nnw2, 2*NMXHEP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                               ^~~~~~~
+      |                                               |
+      |                                               bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_Stdhep_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_Stdhep_xdr.c:114:50: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  114 |                 &nnw5, 5*NMXHEP, sizeof(double), xdr_double) == FALSE) return FALSE;
+      |                                                  ^~~~~~~~~~
+      |                                                  |
+      |                                                  bool_t (*)(XDR *, double *) {aka int (*)(XDR *, double *)}
+In file included from mcf_Stdhep_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, double *)' {aka 'int (*)(XDR *, double *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_Stdhep_xdr.c:117:50: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  117 |                 &nnw4, 4*NMXHEP, sizeof(double), xdr_double) == FALSE) return FALSE;
+      |                                                  ^~~~~~~~~~
+      |                                                  |
+      |                                                  bool_t (*)(XDR *, double *) {aka int (*)(XDR *, double *)}
+In file included from mcf_Stdhep_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, double *)' {aka 'int (*)(XDR *, double *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_Stdhep_xdr.c: In function 'xdr_stdhep_multi_':
+mcf_Stdhep_xdr.c:172:40: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  172 |             &nnw, NMXHEP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                        ^~~~~~~
+      |                                        |
+      |                                        bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_Stdhep_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_Stdhep_xdr.c:175:40: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  175 |             &nnw, NMXHEP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                        ^~~~~~~
+      |                                        |
+      |                                        bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_Stdhep_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_Stdhep_xdr.c:178:47: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  178 |                 &nnw2, 2*NMXHEP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                               ^~~~~~~
+      |                                               |
+      |                                               bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_Stdhep_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_Stdhep_xdr.c:181:47: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  181 |                 &nnw2, 2*NMXHEP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                               ^~~~~~~
+      |                                               |
+      |                                               bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_Stdhep_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_Stdhep_xdr.c:184:50: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  184 |                 &nnw5, 5*NMXHEP, sizeof(double), xdr_double) == FALSE) return FALSE;
+      |                                                  ^~~~~~~~~~
+      |                                                  |
+      |                                                  bool_t (*)(XDR *, double *) {aka int (*)(XDR *, double *)}
+In file included from mcf_Stdhep_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, double *)' {aka 'int (*)(XDR *, double *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_Stdhep_xdr.c:187:50: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  187 |                 &nnw4, 4*NMXHEP, sizeof(double), xdr_double) == FALSE) return FALSE;
+      |                                                  ^~~~~~~~~~
+      |                                                  |
+      |                                                  bool_t (*)(XDR *, double *) {aka int (*)(XDR *, double *)}
+In file included from mcf_Stdhep_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, double *)' {aka 'int (*)(XDR *, double *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_Stdhep_xdr.c:199:37: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  199 |          &nnw, NMXHEP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                     ^~~~~~~
+      |                                     |
+      |                                     bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_Stdhep_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_Stdhep_xdr.c:224:42: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  224 |             &nnmlt, NMXMLT, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                          ^~~~~~~
+      |                                          |
+      |                                          bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_Stdhep_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_Stdhep_xdr.c:227:42: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  227 |             &nnmlt, NMXMLT, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                          ^~~~~~~
+      |                                          |
+      |                                          bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_Stdhep_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_Stdhep_xdr.c:230:42: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  230 |             &nnmlt, NMXMLT, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                          ^~~~~~~
+      |                                          |
+      |                                          bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_Stdhep_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+gcc  -Wno-implicit-function-declaration -I../../src/inc -I../../mcfio/src -c mcf_hepev4_xdr.c
+mcf_hepev4_xdr.c: In function 'xdr_stdhep_4_':
+mcf_hepev4_xdr.c:109:37: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  109 |          &nnw, NMXHEP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                     ^~~~~~~
+      |                                     |
+      |                                     bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_hepev4_xdr.c:30:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepev4_xdr.c:112:37: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  112 |          &nnw, NMXHEP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                     ^~~~~~~
+      |                                     |
+      |                                     bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_hepev4_xdr.c:30:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepev4_xdr.c:115:47: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  115 |                 &nnw2, 2*NMXHEP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                               ^~~~~~~
+      |                                               |
+      |                                               bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_hepev4_xdr.c:30:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepev4_xdr.c:118:47: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  118 |                 &nnw2, 2*NMXHEP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                               ^~~~~~~
+      |                                               |
+      |                                               bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_hepev4_xdr.c:30:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepev4_xdr.c:121:50: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  121 |                 &nnw5, 5*NMXHEP, sizeof(double), xdr_double) == FALSE) return FALSE;
+      |                                                  ^~~~~~~~~~
+      |                                                  |
+      |                                                  bool_t (*)(XDR *, double *) {aka int (*)(XDR *, double *)}
+In file included from mcf_hepev4_xdr.c:30:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, double *)' {aka 'int (*)(XDR *, double *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepev4_xdr.c:124:50: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  124 |                 &nnw4, 4*NMXHEP, sizeof(double), xdr_double) == FALSE) return FALSE;
+      |                                                  ^~~~~~~~~~
+      |                                                  |
+      |                                                  bool_t (*)(XDR *, double *) {aka int (*)(XDR *, double *)}
+In file included from mcf_hepev4_xdr.c:30:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, double *)' {aka 'int (*)(XDR *, double *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepev4_xdr.c:131:42: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  131 |                 &n5, 10, sizeof(double), xdr_double) == FALSE) return FALSE;
+      |                                          ^~~~~~~~~~
+      |                                          |
+      |                                          bool_t (*)(XDR *, double *) {aka int (*)(XDR *, double *)}
+In file included from mcf_hepev4_xdr.c:30:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, double *)' {aka 'int (*)(XDR *, double *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepev4_xdr.c:134:50: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  134 |                 &nnw3, 3*NMXHEP, sizeof(double), xdr_double) == FALSE) return FALSE;
+      |                                                  ^~~~~~~~~~
+      |                                                  |
+      |                                                  bool_t (*)(XDR *, double *) {aka int (*)(XDR *, double *)}
+In file included from mcf_hepev4_xdr.c:30:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, double *)' {aka 'int (*)(XDR *, double *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepev4_xdr.c:137:47: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  137 |                 &nnw2, 2*NMXHEP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                               ^~~~~~~
+      |                                               |
+      |                                               bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_hepev4_xdr.c:30:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepev4_xdr.c: In function 'xdr_stdhep_4_multi_':
+mcf_hepev4_xdr.c:201:40: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  201 |             &nnw, NMXHEP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                        ^~~~~~~
+      |                                        |
+      |                                        bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_hepev4_xdr.c:30:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepev4_xdr.c:204:40: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  204 |             &nnw, NMXHEP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                        ^~~~~~~
+      |                                        |
+      |                                        bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_hepev4_xdr.c:30:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepev4_xdr.c:207:47: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  207 |                 &nnw2, 2*NMXHEP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                               ^~~~~~~
+      |                                               |
+      |                                               bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_hepev4_xdr.c:30:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepev4_xdr.c:210:47: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  210 |                 &nnw2, 2*NMXHEP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                               ^~~~~~~
+      |                                               |
+      |                                               bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_hepev4_xdr.c:30:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepev4_xdr.c:213:50: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  213 |                 &nnw5, 5*NMXHEP, sizeof(double), xdr_double) == FALSE) return FALSE;
+      |                                                  ^~~~~~~~~~
+      |                                                  |
+      |                                                  bool_t (*)(XDR *, double *) {aka int (*)(XDR *, double *)}
+In file included from mcf_hepev4_xdr.c:30:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, double *)' {aka 'int (*)(XDR *, double *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepev4_xdr.c:216:50: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  216 |                 &nnw4, 4*NMXHEP, sizeof(double), xdr_double) == FALSE) return FALSE;
+      |                                                  ^~~~~~~~~~
+      |                                                  |
+      |                                                  bool_t (*)(XDR *, double *) {aka int (*)(XDR *, double *)}
+In file included from mcf_hepev4_xdr.c:30:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, double *)' {aka 'int (*)(XDR *, double *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepev4_xdr.c:223:37: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  223 |          &nnw, NMXHEP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                     ^~~~~~~
+      |                                     |
+      |                                     bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_hepev4_xdr.c:30:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepev4_xdr.c:229:42: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  229 |             &nnmlt, NMXMLT, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                          ^~~~~~~
+      |                                          |
+      |                                          bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_hepev4_xdr.c:30:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepev4_xdr.c:232:42: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  232 |             &nnmlt, NMXMLT, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                          ^~~~~~~
+      |                                          |
+      |                                          bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_hepev4_xdr.c:30:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepev4_xdr.c:235:42: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  235 |             &nnmlt, NMXMLT, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                          ^~~~~~~
+      |                                          |
+      |                                          bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_hepev4_xdr.c:30:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepev4_xdr.c:242:42: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  242 |                 &n5, 10, sizeof(double), xdr_double) == FALSE) return FALSE;
+      |                                          ^~~~~~~~~~
+      |                                          |
+      |                                          bool_t (*)(XDR *, double *) {aka int (*)(XDR *, double *)}
+In file included from mcf_hepev4_xdr.c:30:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, double *)' {aka 'int (*)(XDR *, double *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepev4_xdr.c:245:50: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  245 |                 &nnw3, 3*NMXHEP, sizeof(double), xdr_double) == FALSE) return FALSE;
+      |                                                  ^~~~~~~~~~
+      |                                                  |
+      |                                                  bool_t (*)(XDR *, double *) {aka int (*)(XDR *, double *)}
+In file included from mcf_hepev4_xdr.c:30:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, double *)' {aka 'int (*)(XDR *, double *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepev4_xdr.c:248:47: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  248 |                 &nnw2, 2*NMXHEP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                               ^~~~~~~
+      |                                               |
+      |                                               bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_hepev4_xdr.c:30:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepev4_xdr.c:252:49: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  252 |                 &nnmlt, NMXMLT, sizeof(double), xdr_double) == FALSE) return FALSE;
+      |                                                 ^~~~~~~~~~
+      |                                                 |
+      |                                                 bool_t (*)(XDR *, double *) {aka int (*)(XDR *, double *)}
+In file included from mcf_hepev4_xdr.c:30:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, double *)' {aka 'int (*)(XDR *, double *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepev4_xdr.c:255:49: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  255 |                 &nnmlt, NMXMLT, sizeof(double), xdr_double) == FALSE) return FALSE;
+      |                                                 ^~~~~~~~~~
+      |                                                 |
+      |                                                 bool_t (*)(XDR *, double *) {aka int (*)(XDR *, double *)}
+In file included from mcf_hepev4_xdr.c:30:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, double *)' {aka 'int (*)(XDR *, double *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepev4_xdr.c:258:49: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  258 |                 &nnmlt, NMXMLT, sizeof(double), xdr_double) == FALSE) return FALSE;
+      |                                                 ^~~~~~~~~~
+      |                                                 |
+      |                                                 bool_t (*)(XDR *, double *) {aka int (*)(XDR *, double *)}
+In file included from mcf_hepev4_xdr.c:30:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, double *)' {aka 'int (*)(XDR *, double *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepev4_xdr.c:261:53: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  261 |                 &nnmlt5, 10*NMXMLT, sizeof(double), xdr_double) == FALSE) return FALSE;
+      |                                                     ^~~~~~~~~~
+      |                                                     |
+      |                                                     bool_t (*)(XDR *, double *) {aka int (*)(XDR *, double *)}
+In file included from mcf_hepev4_xdr.c:30:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, double *)' {aka 'int (*)(XDR *, double *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepev4_xdr.c:264:42: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  264 |             &nnmlt, NMXMLT, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                          ^~~~~~~
+      |                                          |
+      |                                          bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_hepev4_xdr.c:30:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+gcc  -Wno-implicit-function-declaration -I../../src/inc -I../../mcfio/src -c mcf_hepup_xdr.c
+mcf_hepup_xdr.c: In function 'xdr_hepeup_':
+mcf_hepup_xdr.c:102:36: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  102 |          &nn, MAXNUP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                    ^~~~~~~
+      |                                    |
+      |                                    bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_hepup_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepup_xdr.c:105:36: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  105 |          &nn, MAXNUP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                    ^~~~~~~
+      |                                    |
+      |                                    bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_hepup_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepup_xdr.c:106:11: warning: assignment to 'int *' from incompatible pointer type 'int (*)[2]' [-Wincompatible-pointer-types]
+  106 |      idat = hepeup_.mothup;
+      |           ^
+mcf_hepup_xdr.c:108:39: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  108 |          &nn2, 2*MAXNUP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                       ^~~~~~~
+      |                                       |
+      |                                       bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_hepup_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepup_xdr.c:109:11: warning: assignment to 'int *' from incompatible pointer type 'int (*)[2]' [-Wincompatible-pointer-types]
+  109 |      idat = hepeup_.icolup;
+      |           ^
+mcf_hepup_xdr.c:111:39: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  111 |          &nn2, 2*MAXNUP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                       ^~~~~~~
+      |                                       |
+      |                                       bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_hepup_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepup_xdr.c:114:42: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  114 |          &nn5, 5*MAXNUP, sizeof(double), xdr_double) == FALSE) return FALSE;
+      |                                          ^~~~~~~~~~
+      |                                          |
+      |                                          bool_t (*)(XDR *, double *) {aka int (*)(XDR *, double *)}
+In file included from mcf_hepup_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, double *)' {aka 'int (*)(XDR *, double *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepup_xdr.c:117:39: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  117 |          &nn, MAXNUP, sizeof(double), xdr_double) == FALSE) return FALSE;
+      |                                       ^~~~~~~~~~
+      |                                       |
+      |                                       bool_t (*)(XDR *, double *) {aka int (*)(XDR *, double *)}
+In file included from mcf_hepup_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, double *)' {aka 'int (*)(XDR *, double *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepup_xdr.c:120:39: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  120 |          &nn, MAXNUP, sizeof(double), xdr_double) == FALSE) return FALSE;
+      |                                       ^~~~~~~~~~
+      |                                       |
+      |                                       bool_t (*)(XDR *, double *) {aka int (*)(XDR *, double *)}
+In file included from mcf_hepup_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, double *)' {aka 'int (*)(XDR *, double *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepup_xdr.c: In function 'xdr_heprup_':
+mcf_hepup_xdr.c:170:34: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  170 |             &n2, 2, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                  ^~~~~~~
+      |                                  |
+      |                                  bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_hepup_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepup_xdr.c:173:41: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  173 |                 &n2, 2, sizeof(double), xdr_double) == FALSE) return FALSE;
+      |                                         ^~~~~~~~~~
+      |                                         |
+      |                                         bool_t (*)(XDR *, double *) {aka int (*)(XDR *, double *)}
+In file included from mcf_hepup_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, double *)' {aka 'int (*)(XDR *, double *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepup_xdr.c:176:34: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  176 |             &n2, 2, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                  ^~~~~~~
+      |                                  |
+      |                                  bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_hepup_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepup_xdr.c:179:34: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  179 |             &n2, 2, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                  ^~~~~~~
+      |                                  |
+      |                                  bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_hepup_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepup_xdr.c:182:46: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  182 |                 &nn, MAXPUP, sizeof(double), xdr_double) == FALSE) return FALSE;
+      |                                              ^~~~~~~~~~
+      |                                              |
+      |                                              bool_t (*)(XDR *, double *) {aka int (*)(XDR *, double *)}
+In file included from mcf_hepup_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, double *)' {aka 'int (*)(XDR *, double *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepup_xdr.c:185:46: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  185 |                 &nn, MAXPUP, sizeof(double), xdr_double) == FALSE) return FALSE;
+      |                                              ^~~~~~~~~~
+      |                                              |
+      |                                              bool_t (*)(XDR *, double *) {aka int (*)(XDR *, double *)}
+In file included from mcf_hepup_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, double *)' {aka 'int (*)(XDR *, double *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepup_xdr.c:188:46: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  188 |                 &nn, MAXPUP, sizeof(double), xdr_double) == FALSE) return FALSE;
+      |                                              ^~~~~~~~~~
+      |                                              |
+      |                                              bool_t (*)(XDR *, double *) {aka int (*)(XDR *, double *)}
+In file included from mcf_hepup_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, double *)' {aka 'int (*)(XDR *, double *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepup_xdr.c:191:39: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  191 |             &nn, MAXPUP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                       ^~~~~~~
+      |                                       |
+      |                                       bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_hepup_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+gcc  -Wno-implicit-function-declaration -I../../src/inc -I../../mcfio/src -c mcf_stdcm1_xdr.c
+gcc  -Wno-implicit-function-declaration -I../../src/inc -I../../mcfio/src -c copy_stdevent.c
+gcc  -Wno-implicit-function-declaration -I../../src/inc -I../../mcfio/src -c sum_4vec_d.c
+gcc  -Wno-implicit-function-declaration -I../../src/inc -I../../mcfio/src -c sum_4vec_f.c
+ar -urs ../../lib/libstdhep.a adumtmp.o cnv1998to2000.o cnv2000to2002.o cnv2000to2002lst.o cnv2000to2004.o cnv2000to2004lst.o cnv2004to2006.o cnv2004to2006lst.o cnv98to00lst.o dpmhep.o dpmtran.o dumphepeup.o dumpheprup.o gtran.o hep2geant.o hepchg.o hepchg_2002.o hepchg_2004.o hepchg_old.o hepcmp.o hepcmp_2002.o hepcmp_2004.o hepcmp_old.o heplst.o hepnam.o hepnam_2002.o hepnam_2004.o hepnam_old.o heptree.o hptrlstdpm.o hptrlsth.o hptrlsti.o hptrlstj.o hptrlstq.o hwghep.o hwtran.o isahep.o istran.o lunhep.o luntmp.o lutran.o parsecsv.o parsecsv_2004.o pdgprtb.o pdgrdcsvtb.o pdgrdtb.o pdgtonew.o pdgtran.o pythia2ev4.o qqhep.o qqtran.o readmadgraph.o std3to4.o std3to4lst.o std3to4prt.o std3to4tran.o stdchg.o stdchgdsclst.o stdcomp.o stdcquarks.o stddautr.o stddautrlst.o stddecayqq.o stddscndlst.o stdexpname.o stdfixmass.o stdfixpart.o stdflhwxsec.o stdflisxsec.o stdflpyxsec.o stdlst.o stdmsjet.o stdparent.o stdparentlst.o stdprthd.o stdqqadd.o stdqqdcy.o stdqquset.o stdquarkcnt.o stdquarklst.o stdquarks.o stdrotboost.o stdsort.o stdspin.o stdstdsclst.o stdtcopy.o stdversn.o stdvtxmatch.o stdxend.o stdxrd.o stdxrdm.o stdxrinit.o stdxropen.o stdxwcm1.o stdxwevt.o stdxwevtlh.o stdxwevtup.o stdxwinit.o stdxwopen.o stdxwrt.o stdzero.o stdzeroqq.o zerohepeup.o \
+	mcf_StdHep_cxx.o mcf_Stdhep_xdr.o mcf_hepev4_xdr.o mcf_hepup_xdr.o mcf_stdcm1_xdr.o \
+                copy_stdevent.o sum_4vec_d.o sum_4vec_f.o
+ar: `u' modifier ignored since `D' is the default (see `U')
+ar: creating ../../lib/libstdhep.a
+gcc  -Wno-implicit-function-declaration -I../../src/inc -I../../mcfio/src -c stdhep_internal_utils.c
+gcc  -Wno-implicit-function-declaration -I../../src/inc -I../../mcfio/src -c stdhep_mcfio.c
+ar -urs ../../lib/libstdhepC.a copy_stdevent.o mcf_StdHep_cxx.o mcf_Stdhep_xdr.o mcf_hepev4_xdr.o mcf_hepup_xdr.o mcf_stdcm1_xdr.o stdhep_internal_utils.o stdhep_mcfio.o sum_4vec_d.o sum_4vec_f.o
+ar: `u' modifier ignored since `D' is the default (see `U')
+ar: creating ../../lib/libstdhepC.a
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o adumtmp_s.o adumtmp.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o cnv1998to2000_s.o cnv1998to2000.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o cnv2000to2002_s.o cnv2000to2002.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o cnv2000to2002lst_s.o cnv2000to2002lst.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o cnv2000to2004_s.o cnv2000to2004.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o cnv2000to2004lst_s.o cnv2000to2004lst.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o cnv2004to2006_s.o cnv2004to2006.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o cnv2004to2006lst_s.o cnv2004to2006lst.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o cnv98to00lst_s.o cnv98to00lst.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o dpmhep_s.o dpmhep.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o dpmtran_s.o dpmtran.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o dumphepeup_s.o dumphepeup.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o dumpheprup_s.o dumpheprup.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o gtran_s.o gtran.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o hep2geant_s.o hep2geant.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o hepchg_s.o hepchg.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o hepchg_2002_s.o hepchg_2002.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o hepchg_2004_s.o hepchg_2004.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o hepchg_old_s.o hepchg_old.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o hepcmp_s.o hepcmp.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o hepcmp_2002_s.o hepcmp_2002.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o hepcmp_2004_s.o hepcmp_2004.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o hepcmp_old_s.o hepcmp_old.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o heplst_s.o heplst.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o hepnam_s.o hepnam.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o hepnam_2002_s.o hepnam_2002.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o hepnam_2004_s.o hepnam_2004.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o hepnam_old_s.o hepnam_old.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o heptree_s.o heptree.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o hptrlstdpm_s.o hptrlstdpm.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o hptrlsth_s.o hptrlsth.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o hptrlsti_s.o hptrlsti.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o hptrlstj_s.o hptrlstj.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o hptrlstq_s.o hptrlstq.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o hwghep_s.o hwghep.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o hwtran_s.o hwtran.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o isahep_s.o isahep.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o istran_s.o istran.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o lunhep_s.o lunhep.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o luntmp_s.o luntmp.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o lutran_s.o lutran.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o parsecsv_s.o parsecsv.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o parsecsv_2004_s.o parsecsv_2004.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o pdgprtb_s.o pdgprtb.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o pdgrdcsvtb_s.o pdgrdcsvtb.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o pdgrdtb_s.o pdgrdtb.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o pdgtonew_s.o pdgtonew.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o pdgtran_s.o pdgtran.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o pythia2ev4_s.o pythia2ev4.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o qqhep_s.o qqhep.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o qqtran_s.o qqtran.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o readmadgraph_s.o readmadgraph.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o std3to4_s.o std3to4.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o std3to4lst_s.o std3to4lst.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o std3to4prt_s.o std3to4prt.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o std3to4tran_s.o std3to4tran.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o stdchg_s.o stdchg.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o stdchgdsclst_s.o stdchgdsclst.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o stdcomp_s.o stdcomp.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o stdcquarks_s.o stdcquarks.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o stddautr_s.o stddautr.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o stddautrlst_s.o stddautrlst.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o stddecayqq_s.o stddecayqq.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o stddscndlst_s.o stddscndlst.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o stdexpname_s.o stdexpname.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o stdfixmass_s.o stdfixmass.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o stdfixpart_s.o stdfixpart.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o stdflhwxsec_s.o stdflhwxsec.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o stdflisxsec_s.o stdflisxsec.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o stdflpyxsec_s.o stdflpyxsec.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o stdlst_s.o stdlst.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o stdmsjet_s.o stdmsjet.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o stdparent_s.o stdparent.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o stdparentlst_s.o stdparentlst.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o stdprthd_s.o stdprthd.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o stdqqadd_s.o stdqqadd.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o stdqqdcy_s.o stdqqdcy.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o stdqquset_s.o stdqquset.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o stdquarkcnt_s.o stdquarkcnt.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o stdquarklst_s.o stdquarklst.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o stdquarks_s.o stdquarks.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o stdrotboost_s.o stdrotboost.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o stdsort_s.o stdsort.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o stdspin_s.o stdspin.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o stdstdsclst_s.o stdstdsclst.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o stdtcopy_s.o stdtcopy.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o stdversn_s.o stdversn.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o stdvtxmatch_s.o stdvtxmatch.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o stdxend_s.o stdxend.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o stdxrd_s.o stdxrd.F
+stdxrd.F:57:53:
+
+   56 |       call mcfio_InfoEventInt(istream,MCFIO_NUMBLOCKS,numblocks)
+      |                                                      2
+   57 |       call mcfio_InfoEventInt(istream,MCFIO_BLOCKIDS,blkids)
+      |                                                     1
+Warning: Rank mismatch between actual argument at (1) and actual argument at (2) (scalar and rank-1)
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o stdxrdm_s.o stdxrdm.F
+stdxrdm.F:67:53:
+
+   66 |       call mcfio_InfoEventInt(istream,MCFIO_NUMBLOCKS,numblocks)
+      |                                                      2
+   67 |       call mcfio_InfoEventInt(istream,MCFIO_BLOCKIDS,blkids)
+      |                                                     1
+Warning: Rank mismatch between actual argument at (1) and actual argument at (2) (scalar and rank-1)
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o stdxrinit_s.o stdxrinit.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o stdxropen_s.o stdxropen.F
+stdxropen.F:31:54:
+
+   29 |       call mcfio_InfoStreamInt(istream,MCFIO_NUMEVTS,ntries)
+      |                                                     2 
+   30 |       call mcfio_InfoStreamInt(istream,MCFIO_NUMBLOCKS,numblocks)
+   31 |       call mcfio_InfoStreamInt(istream,MCFIO_BLOCKIDS,blkids)
+      |                                                      1
+Warning: Rank mismatch between actual argument at (1) and actual argument at (2) (scalar and rank-1)
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o stdxwcm1_s.o stdxwcm1.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o stdxwevt_s.o stdxwevt.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o stdxwevtlh_s.o stdxwevtlh.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o stdxwevtup_s.o stdxwevtup.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o stdxwinit_s.o stdxwinit.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o stdxwopen_s.o stdxwopen.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o stdxwrt_s.o stdxwrt.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o stdzero_s.o stdzero.F
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o stdzeroqq_s.o stdzeroqq.F
+stdzeroqq.F:24:18:
+
+   17 |        call VZERO(IPCDQQ,MCTRK)
+      |                  2
+......
+   24 |        call VZERO(CTTAU,250)
+      |                  1
+Warning: Type mismatch between actual argument at (1) and actual argument at (2) (REAL(8)/INTEGER(4)).
+gfortran -I../../src/inc -I../../mcfio/src -I../../src/inc/isajet -I../../src/inc/pythia -I../../src/inc/herwig -I../../src/inc/qq -I../../src/inc/dpm  -fno-second-underscore -fd-lines-as-code -fPIE -std=legacy -fPIC -c -o zerohepeup_s.o zerohepeup.F
+gcc  -Wno-implicit-function-declaration -I../../src/inc -I../../mcfio/src -fPIC -c -o mcf_StdHep_cxx_s.o mcf_StdHep_cxx.c
+mcf_StdHep_cxx.c: In function 'xdr_stdhep_cxx_':
+mcf_StdHep_cxx.c:96:42: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+   96 |             &nnmlt, NMXMLT, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                          ^~~~~~~
+      |                                          |
+      |                                          bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_StdHep_cxx.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_StdHep_cxx.c:99:42: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+   99 |             &nnmlt, NMXMLT, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                          ^~~~~~~
+      |                                          |
+      |                                          bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_StdHep_cxx.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_StdHep_cxx.c:102:42: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  102 |             &nnmlt, NMXMLT, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                          ^~~~~~~
+      |                                          |
+      |                                          bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_StdHep_cxx.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_StdHep_cxx.c:105:40: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  105 |             &nnw, NMXHEP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                        ^~~~~~~
+      |                                        |
+      |                                        bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_StdHep_cxx.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_StdHep_cxx.c:108:40: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  108 |             &nnw, NMXHEP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                        ^~~~~~~
+      |                                        |
+      |                                        bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_StdHep_cxx.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_StdHep_cxx.c:111:44: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  111 |                 &nnw, NMXHEP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                            ^~~~~~~
+      |                                            |
+      |                                            bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_StdHep_cxx.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_StdHep_cxx.c:114:44: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  114 |                 &nnw, NMXHEP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                            ^~~~~~~
+      |                                            |
+      |                                            bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_StdHep_cxx.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_StdHep_cxx.c:117:44: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  117 |                 &nnw, NMXHEP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                            ^~~~~~~
+      |                                            |
+      |                                            bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_StdHep_cxx.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_StdHep_cxx.c:120:44: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  120 |                 &nnw, NMXHEP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                            ^~~~~~~
+      |                                            |
+      |                                            bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_StdHep_cxx.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_StdHep_cxx.c:123:44: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  123 |                 &nnw, NMXHEP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                            ^~~~~~~
+      |                                            |
+      |                                            bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_StdHep_cxx.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_StdHep_cxx.c:126:44: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  126 |                 &nnw, NMXHEP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                            ^~~~~~~
+      |                                            |
+      |                                            bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_StdHep_cxx.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_StdHep_cxx.c:129:50: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  129 |                 &nnw4, 4*NMXHEP, sizeof(double), xdr_double) == FALSE) return FALSE;
+      |                                                  ^~~~~~~~~~
+      |                                                  |
+      |                                                  bool_t (*)(XDR *, double *) {aka int (*)(XDR *, double *)}
+In file included from mcf_StdHep_cxx.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, double *)' {aka 'int (*)(XDR *, double *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_StdHep_cxx.c:132:47: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  132 |                 &nnw, NMXHEP, sizeof(double), xdr_double) == FALSE) return FALSE;
+      |                                               ^~~~~~~~~~
+      |                                               |
+      |                                               bool_t (*)(XDR *, double *) {aka int (*)(XDR *, double *)}
+In file included from mcf_StdHep_cxx.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, double *)' {aka 'int (*)(XDR *, double *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_StdHep_cxx.c:135:47: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  135 |                 &nnw, NMXHEP, sizeof(double), xdr_double) == FALSE) return FALSE;
+      |                                               ^~~~~~~~~~
+      |                                               |
+      |                                               bool_t (*)(XDR *, double *) {aka int (*)(XDR *, double *)}
+In file included from mcf_StdHep_cxx.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, double *)' {aka 'int (*)(XDR *, double *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_StdHep_cxx.c:138:50: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  138 |                 &nnw4, 4*NMXHEP, sizeof(double), xdr_double) == FALSE) return FALSE;
+      |                                                  ^~~~~~~~~~
+      |                                                  |
+      |                                                  bool_t (*)(XDR *, double *) {aka int (*)(XDR *, double *)}
+In file included from mcf_StdHep_cxx.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, double *)' {aka 'int (*)(XDR *, double *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_StdHep_cxx.c:141:50: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  141 |                 &nnw4, 4*NMXHEP, sizeof(double), xdr_double) == FALSE) return FALSE;
+      |                                                  ^~~~~~~~~~
+      |                                                  |
+      |                                                  bool_t (*)(XDR *, double *) {aka int (*)(XDR *, double *)}
+In file included from mcf_StdHep_cxx.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, double *)' {aka 'int (*)(XDR *, double *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+gcc  -Wno-implicit-function-declaration -I../../src/inc -I../../mcfio/src -fPIC -c -o mcf_Stdhep_xdr_s.o mcf_Stdhep_xdr.c
+mcf_Stdhep_xdr.c: In function 'xdr_stdhep_':
+mcf_Stdhep_xdr.c:102:37: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  102 |          &nnw, NMXHEP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                     ^~~~~~~
+      |                                     |
+      |                                     bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_Stdhep_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_Stdhep_xdr.c:105:37: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  105 |          &nnw, NMXHEP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                     ^~~~~~~
+      |                                     |
+      |                                     bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_Stdhep_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_Stdhep_xdr.c:108:47: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  108 |                 &nnw2, 2*NMXHEP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                               ^~~~~~~
+      |                                               |
+      |                                               bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_Stdhep_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_Stdhep_xdr.c:111:47: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  111 |                 &nnw2, 2*NMXHEP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                               ^~~~~~~
+      |                                               |
+      |                                               bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_Stdhep_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_Stdhep_xdr.c:114:50: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  114 |                 &nnw5, 5*NMXHEP, sizeof(double), xdr_double) == FALSE) return FALSE;
+      |                                                  ^~~~~~~~~~
+      |                                                  |
+      |                                                  bool_t (*)(XDR *, double *) {aka int (*)(XDR *, double *)}
+In file included from mcf_Stdhep_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, double *)' {aka 'int (*)(XDR *, double *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_Stdhep_xdr.c:117:50: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  117 |                 &nnw4, 4*NMXHEP, sizeof(double), xdr_double) == FALSE) return FALSE;
+      |                                                  ^~~~~~~~~~
+      |                                                  |
+      |                                                  bool_t (*)(XDR *, double *) {aka int (*)(XDR *, double *)}
+In file included from mcf_Stdhep_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, double *)' {aka 'int (*)(XDR *, double *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_Stdhep_xdr.c: In function 'xdr_stdhep_multi_':
+mcf_Stdhep_xdr.c:172:40: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  172 |             &nnw, NMXHEP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                        ^~~~~~~
+      |                                        |
+      |                                        bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_Stdhep_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_Stdhep_xdr.c:175:40: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  175 |             &nnw, NMXHEP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                        ^~~~~~~
+      |                                        |
+      |                                        bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_Stdhep_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_Stdhep_xdr.c:178:47: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  178 |                 &nnw2, 2*NMXHEP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                               ^~~~~~~
+      |                                               |
+      |                                               bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_Stdhep_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_Stdhep_xdr.c:181:47: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  181 |                 &nnw2, 2*NMXHEP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                               ^~~~~~~
+      |                                               |
+      |                                               bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_Stdhep_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_Stdhep_xdr.c:184:50: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  184 |                 &nnw5, 5*NMXHEP, sizeof(double), xdr_double) == FALSE) return FALSE;
+      |                                                  ^~~~~~~~~~
+      |                                                  |
+      |                                                  bool_t (*)(XDR *, double *) {aka int (*)(XDR *, double *)}
+In file included from mcf_Stdhep_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, double *)' {aka 'int (*)(XDR *, double *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_Stdhep_xdr.c:187:50: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  187 |                 &nnw4, 4*NMXHEP, sizeof(double), xdr_double) == FALSE) return FALSE;
+      |                                                  ^~~~~~~~~~
+      |                                                  |
+      |                                                  bool_t (*)(XDR *, double *) {aka int (*)(XDR *, double *)}
+In file included from mcf_Stdhep_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, double *)' {aka 'int (*)(XDR *, double *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_Stdhep_xdr.c:199:37: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  199 |          &nnw, NMXHEP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                     ^~~~~~~
+      |                                     |
+      |                                     bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_Stdhep_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_Stdhep_xdr.c:224:42: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  224 |             &nnmlt, NMXMLT, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                          ^~~~~~~
+      |                                          |
+      |                                          bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_Stdhep_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_Stdhep_xdr.c:227:42: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  227 |             &nnmlt, NMXMLT, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                          ^~~~~~~
+      |                                          |
+      |                                          bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_Stdhep_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_Stdhep_xdr.c:230:42: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  230 |             &nnmlt, NMXMLT, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                          ^~~~~~~
+      |                                          |
+      |                                          bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_Stdhep_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+gcc  -Wno-implicit-function-declaration -I../../src/inc -I../../mcfio/src -fPIC -c -o mcf_hepev4_xdr_s.o mcf_hepev4_xdr.c
+mcf_hepev4_xdr.c: In function 'xdr_stdhep_4_':
+mcf_hepev4_xdr.c:109:37: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  109 |          &nnw, NMXHEP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                     ^~~~~~~
+      |                                     |
+      |                                     bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_hepev4_xdr.c:30:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepev4_xdr.c:112:37: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  112 |          &nnw, NMXHEP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                     ^~~~~~~
+      |                                     |
+      |                                     bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_hepev4_xdr.c:30:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepev4_xdr.c:115:47: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  115 |                 &nnw2, 2*NMXHEP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                               ^~~~~~~
+      |                                               |
+      |                                               bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_hepev4_xdr.c:30:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepev4_xdr.c:118:47: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  118 |                 &nnw2, 2*NMXHEP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                               ^~~~~~~
+      |                                               |
+      |                                               bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_hepev4_xdr.c:30:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepev4_xdr.c:121:50: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  121 |                 &nnw5, 5*NMXHEP, sizeof(double), xdr_double) == FALSE) return FALSE;
+      |                                                  ^~~~~~~~~~
+      |                                                  |
+      |                                                  bool_t (*)(XDR *, double *) {aka int (*)(XDR *, double *)}
+In file included from mcf_hepev4_xdr.c:30:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, double *)' {aka 'int (*)(XDR *, double *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepev4_xdr.c:124:50: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  124 |                 &nnw4, 4*NMXHEP, sizeof(double), xdr_double) == FALSE) return FALSE;
+      |                                                  ^~~~~~~~~~
+      |                                                  |
+      |                                                  bool_t (*)(XDR *, double *) {aka int (*)(XDR *, double *)}
+In file included from mcf_hepev4_xdr.c:30:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, double *)' {aka 'int (*)(XDR *, double *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepev4_xdr.c:131:42: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  131 |                 &n5, 10, sizeof(double), xdr_double) == FALSE) return FALSE;
+      |                                          ^~~~~~~~~~
+      |                                          |
+      |                                          bool_t (*)(XDR *, double *) {aka int (*)(XDR *, double *)}
+In file included from mcf_hepev4_xdr.c:30:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, double *)' {aka 'int (*)(XDR *, double *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepev4_xdr.c:134:50: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  134 |                 &nnw3, 3*NMXHEP, sizeof(double), xdr_double) == FALSE) return FALSE;
+      |                                                  ^~~~~~~~~~
+      |                                                  |
+      |                                                  bool_t (*)(XDR *, double *) {aka int (*)(XDR *, double *)}
+In file included from mcf_hepev4_xdr.c:30:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, double *)' {aka 'int (*)(XDR *, double *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepev4_xdr.c:137:47: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  137 |                 &nnw2, 2*NMXHEP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                               ^~~~~~~
+      |                                               |
+      |                                               bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_hepev4_xdr.c:30:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepev4_xdr.c: In function 'xdr_stdhep_4_multi_':
+mcf_hepev4_xdr.c:201:40: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  201 |             &nnw, NMXHEP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                        ^~~~~~~
+      |                                        |
+      |                                        bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_hepev4_xdr.c:30:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepev4_xdr.c:204:40: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  204 |             &nnw, NMXHEP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                        ^~~~~~~
+      |                                        |
+      |                                        bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_hepev4_xdr.c:30:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepev4_xdr.c:207:47: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  207 |                 &nnw2, 2*NMXHEP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                               ^~~~~~~
+      |                                               |
+      |                                               bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_hepev4_xdr.c:30:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepev4_xdr.c:210:47: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  210 |                 &nnw2, 2*NMXHEP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                               ^~~~~~~
+      |                                               |
+      |                                               bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_hepev4_xdr.c:30:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepev4_xdr.c:213:50: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  213 |                 &nnw5, 5*NMXHEP, sizeof(double), xdr_double) == FALSE) return FALSE;
+      |                                                  ^~~~~~~~~~
+      |                                                  |
+      |                                                  bool_t (*)(XDR *, double *) {aka int (*)(XDR *, double *)}
+In file included from mcf_hepev4_xdr.c:30:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, double *)' {aka 'int (*)(XDR *, double *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepev4_xdr.c:216:50: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  216 |                 &nnw4, 4*NMXHEP, sizeof(double), xdr_double) == FALSE) return FALSE;
+      |                                                  ^~~~~~~~~~
+      |                                                  |
+      |                                                  bool_t (*)(XDR *, double *) {aka int (*)(XDR *, double *)}
+In file included from mcf_hepev4_xdr.c:30:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, double *)' {aka 'int (*)(XDR *, double *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepev4_xdr.c:223:37: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  223 |          &nnw, NMXHEP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                     ^~~~~~~
+      |                                     |
+      |                                     bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_hepev4_xdr.c:30:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepev4_xdr.c:229:42: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  229 |             &nnmlt, NMXMLT, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                          ^~~~~~~
+      |                                          |
+      |                                          bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_hepev4_xdr.c:30:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepev4_xdr.c:232:42: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  232 |             &nnmlt, NMXMLT, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                          ^~~~~~~
+      |                                          |
+      |                                          bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_hepev4_xdr.c:30:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepev4_xdr.c:235:42: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  235 |             &nnmlt, NMXMLT, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                          ^~~~~~~
+      |                                          |
+      |                                          bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_hepev4_xdr.c:30:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepev4_xdr.c:242:42: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  242 |                 &n5, 10, sizeof(double), xdr_double) == FALSE) return FALSE;
+      |                                          ^~~~~~~~~~
+      |                                          |
+      |                                          bool_t (*)(XDR *, double *) {aka int (*)(XDR *, double *)}
+In file included from mcf_hepev4_xdr.c:30:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, double *)' {aka 'int (*)(XDR *, double *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepev4_xdr.c:245:50: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  245 |                 &nnw3, 3*NMXHEP, sizeof(double), xdr_double) == FALSE) return FALSE;
+      |                                                  ^~~~~~~~~~
+      |                                                  |
+      |                                                  bool_t (*)(XDR *, double *) {aka int (*)(XDR *, double *)}
+In file included from mcf_hepev4_xdr.c:30:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, double *)' {aka 'int (*)(XDR *, double *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepev4_xdr.c:248:47: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  248 |                 &nnw2, 2*NMXHEP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                               ^~~~~~~
+      |                                               |
+      |                                               bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_hepev4_xdr.c:30:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepev4_xdr.c:252:49: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  252 |                 &nnmlt, NMXMLT, sizeof(double), xdr_double) == FALSE) return FALSE;
+      |                                                 ^~~~~~~~~~
+      |                                                 |
+      |                                                 bool_t (*)(XDR *, double *) {aka int (*)(XDR *, double *)}
+In file included from mcf_hepev4_xdr.c:30:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, double *)' {aka 'int (*)(XDR *, double *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepev4_xdr.c:255:49: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  255 |                 &nnmlt, NMXMLT, sizeof(double), xdr_double) == FALSE) return FALSE;
+      |                                                 ^~~~~~~~~~
+      |                                                 |
+      |                                                 bool_t (*)(XDR *, double *) {aka int (*)(XDR *, double *)}
+In file included from mcf_hepev4_xdr.c:30:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, double *)' {aka 'int (*)(XDR *, double *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepev4_xdr.c:258:49: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  258 |                 &nnmlt, NMXMLT, sizeof(double), xdr_double) == FALSE) return FALSE;
+      |                                                 ^~~~~~~~~~
+      |                                                 |
+      |                                                 bool_t (*)(XDR *, double *) {aka int (*)(XDR *, double *)}
+In file included from mcf_hepev4_xdr.c:30:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, double *)' {aka 'int (*)(XDR *, double *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepev4_xdr.c:261:53: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  261 |                 &nnmlt5, 10*NMXMLT, sizeof(double), xdr_double) == FALSE) return FALSE;
+      |                                                     ^~~~~~~~~~
+      |                                                     |
+      |                                                     bool_t (*)(XDR *, double *) {aka int (*)(XDR *, double *)}
+In file included from mcf_hepev4_xdr.c:30:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, double *)' {aka 'int (*)(XDR *, double *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepev4_xdr.c:264:42: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  264 |             &nnmlt, NMXMLT, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                          ^~~~~~~
+      |                                          |
+      |                                          bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_hepev4_xdr.c:30:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+gcc  -Wno-implicit-function-declaration -I../../src/inc -I../../mcfio/src -fPIC -c -o mcf_hepup_xdr_s.o mcf_hepup_xdr.c
+mcf_hepup_xdr.c: In function 'xdr_hepeup_':
+mcf_hepup_xdr.c:102:36: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  102 |          &nn, MAXNUP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                    ^~~~~~~
+      |                                    |
+      |                                    bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_hepup_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepup_xdr.c:105:36: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  105 |          &nn, MAXNUP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                    ^~~~~~~
+      |                                    |
+      |                                    bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_hepup_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepup_xdr.c:106:11: warning: assignment to 'int *' from incompatible pointer type 'int (*)[2]' [-Wincompatible-pointer-types]
+  106 |      idat = hepeup_.mothup;
+      |           ^
+mcf_hepup_xdr.c:108:39: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  108 |          &nn2, 2*MAXNUP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                       ^~~~~~~
+      |                                       |
+      |                                       bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_hepup_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepup_xdr.c:109:11: warning: assignment to 'int *' from incompatible pointer type 'int (*)[2]' [-Wincompatible-pointer-types]
+  109 |      idat = hepeup_.icolup;
+      |           ^
+mcf_hepup_xdr.c:111:39: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  111 |          &nn2, 2*MAXNUP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                       ^~~~~~~
+      |                                       |
+      |                                       bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_hepup_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepup_xdr.c:114:42: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  114 |          &nn5, 5*MAXNUP, sizeof(double), xdr_double) == FALSE) return FALSE;
+      |                                          ^~~~~~~~~~
+      |                                          |
+      |                                          bool_t (*)(XDR *, double *) {aka int (*)(XDR *, double *)}
+In file included from mcf_hepup_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, double *)' {aka 'int (*)(XDR *, double *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepup_xdr.c:117:39: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  117 |          &nn, MAXNUP, sizeof(double), xdr_double) == FALSE) return FALSE;
+      |                                       ^~~~~~~~~~
+      |                                       |
+      |                                       bool_t (*)(XDR *, double *) {aka int (*)(XDR *, double *)}
+In file included from mcf_hepup_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, double *)' {aka 'int (*)(XDR *, double *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepup_xdr.c:120:39: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  120 |          &nn, MAXNUP, sizeof(double), xdr_double) == FALSE) return FALSE;
+      |                                       ^~~~~~~~~~
+      |                                       |
+      |                                       bool_t (*)(XDR *, double *) {aka int (*)(XDR *, double *)}
+In file included from mcf_hepup_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, double *)' {aka 'int (*)(XDR *, double *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepup_xdr.c: In function 'xdr_heprup_':
+mcf_hepup_xdr.c:170:34: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  170 |             &n2, 2, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                  ^~~~~~~
+      |                                  |
+      |                                  bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_hepup_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepup_xdr.c:173:41: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  173 |                 &n2, 2, sizeof(double), xdr_double) == FALSE) return FALSE;
+      |                                         ^~~~~~~~~~
+      |                                         |
+      |                                         bool_t (*)(XDR *, double *) {aka int (*)(XDR *, double *)}
+In file included from mcf_hepup_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, double *)' {aka 'int (*)(XDR *, double *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepup_xdr.c:176:34: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  176 |             &n2, 2, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                  ^~~~~~~
+      |                                  |
+      |                                  bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_hepup_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepup_xdr.c:179:34: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  179 |             &n2, 2, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                  ^~~~~~~
+      |                                  |
+      |                                  bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_hepup_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepup_xdr.c:182:46: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  182 |                 &nn, MAXPUP, sizeof(double), xdr_double) == FALSE) return FALSE;
+      |                                              ^~~~~~~~~~
+      |                                              |
+      |                                              bool_t (*)(XDR *, double *) {aka int (*)(XDR *, double *)}
+In file included from mcf_hepup_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, double *)' {aka 'int (*)(XDR *, double *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepup_xdr.c:185:46: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  185 |                 &nn, MAXPUP, sizeof(double), xdr_double) == FALSE) return FALSE;
+      |                                              ^~~~~~~~~~
+      |                                              |
+      |                                              bool_t (*)(XDR *, double *) {aka int (*)(XDR *, double *)}
+In file included from mcf_hepup_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, double *)' {aka 'int (*)(XDR *, double *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepup_xdr.c:188:46: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  188 |                 &nn, MAXPUP, sizeof(double), xdr_double) == FALSE) return FALSE;
+      |                                              ^~~~~~~~~~
+      |                                              |
+      |                                              bool_t (*)(XDR *, double *) {aka int (*)(XDR *, double *)}
+In file included from mcf_hepup_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, double *)' {aka 'int (*)(XDR *, double *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+mcf_hepup_xdr.c:191:39: warning: passing argument 6 of 'xdr_array' from incompatible pointer type [-Wincompatible-pointer-types]
+  191 |             &nn, MAXPUP, sizeof(int), xdr_int) == FALSE) return FALSE;
+      |                                       ^~~~~~~
+      |                                       |
+      |                                       bool_t (*)(XDR *, int *) {aka int (*)(XDR *, int *)}
+In file included from mcf_hepup_xdr.c:29:
+/usr/include/rpc/xdr.h:309:48: note: expected 'xdrproc_t' {aka 'int (*)(XDR *, void *, ...)'} but argument is of type 'bool_t (*)(XDR *, int *)' {aka 'int (*)(XDR *, int *)'}
+  309 |     u_int __maxsize, u_int __elsize, xdrproc_t __elproc)
+      |                                      ~~~~~~~~~~^~~~~~~~
+gcc  -Wno-implicit-function-declaration -I../../src/inc -I../../mcfio/src -fPIC -c -o mcf_stdcm1_xdr_s.o mcf_stdcm1_xdr.c
+gcc  -Wno-implicit-function-declaration -I../../src/inc -I../../mcfio/src -fPIC -c -o copy_stdevent_s.o copy_stdevent.c
+gcc  -Wno-implicit-function-declaration -I../../src/inc -I../../mcfio/src -fPIC -c -o sum_4vec_d_s.o sum_4vec_d.c
+gcc  -Wno-implicit-function-declaration -I../../src/inc -I../../mcfio/src -fPIC -c -o sum_4vec_f_s.o sum_4vec_f.c
+Creating shared library ../../lib/libstdhep.so ...
+gcc -Wl,-soname,libstdhep.so -shared -o ../../lib/libstdhep.so \
+	adumtmp_s.o cnv1998to2000_s.o cnv2000to2002_s.o cnv2000to2002lst_s.o cnv2000to2004_s.o cnv2000to2004lst_s.o cnv2004to2006_s.o cnv2004to2006lst_s.o cnv98to00lst_s.o dpmhep_s.o dpmtran_s.o dumphepeup_s.o dumpheprup_s.o gtran_s.o hep2geant_s.o hepchg_s.o hepchg_2002_s.o hepchg_2004_s.o hepchg_old_s.o hepcmp_s.o hepcmp_2002_s.o hepcmp_2004_s.o hepcmp_old_s.o heplst_s.o hepnam_s.o hepnam_2002_s.o hepnam_2004_s.o hepnam_old_s.o heptree_s.o hptrlstdpm_s.o hptrlsth_s.o hptrlsti_s.o hptrlstj_s.o hptrlstq_s.o hwghep_s.o hwtran_s.o isahep_s.o istran_s.o lunhep_s.o luntmp_s.o lutran_s.o parsecsv_s.o parsecsv_2004_s.o pdgprtb_s.o pdgrdcsvtb_s.o pdgrdtb_s.o pdgtonew_s.o pdgtran_s.o pythia2ev4_s.o qqhep_s.o qqtran_s.o readmadgraph_s.o std3to4_s.o std3to4lst_s.o std3to4prt_s.o std3to4tran_s.o stdchg_s.o stdchgdsclst_s.o stdcomp_s.o stdcquarks_s.o stddautr_s.o stddautrlst_s.o stddecayqq_s.o stddscndlst_s.o stdexpname_s.o stdfixmass_s.o stdfixpart_s.o stdflhwxsec_s.o stdflisxsec_s.o stdflpyxsec_s.o stdlst_s.o stdmsjet_s.o stdparent_s.o stdparentlst_s.o stdprthd_s.o stdqqadd_s.o stdqqdcy_s.o stdqquset_s.o stdquarkcnt_s.o stdquarklst_s.o stdquarks_s.o stdrotboost_s.o stdsort_s.o stdspin_s.o stdstdsclst_s.o stdtcopy_s.o stdversn_s.o stdvtxmatch_s.o stdxend_s.o stdxrd_s.o stdxrdm_s.o stdxrinit_s.o stdxropen_s.o stdxwcm1_s.o stdxwevt_s.o stdxwevtlh_s.o stdxwevtup_s.o stdxwinit_s.o stdxwopen_s.o stdxwrt_s.o stdzero_s.o stdzeroqq_s.o zerohepeup_s.o mcf_StdHep_cxx_s.o mcf_Stdhep_xdr_s.o mcf_hepev4_xdr_s.o mcf_hepup_xdr_s.o mcf_stdcm1_xdr_s.o copy_stdevent_s.o sum_4vec_d_s.o sum_4vec_f_s.o
+/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-unknown-linux-gnu/10.3.0/../../../../x86_64-unknown-linux-gnu/bin/ld: mcf_Stdhep_xdr_s.o:(.bss+0x0): multiple definition of `stdver_'; mcf_StdHep_cxx_s.o:(.bss+0x8cad0): first defined here
+/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-unknown-linux-gnu/10.3.0/../../../../x86_64-unknown-linux-gnu/bin/ld: mcf_stdcm1_xdr_s.o:(.bss+0x0): multiple definition of `stdver_'; mcf_StdHep_cxx_s.o:(.bss+0x8cad0): first defined here
+/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-unknown-linux-gnu/10.3.0/../../../../x86_64-unknown-linux-gnu/bin/ld: copy_stdevent_s.o:(.bss+0x0): multiple definition of `stdevent_'; mcf_StdHep_cxx_s.o:(.bss+0x0): first defined here
+collect2: error: ld returned 1 exit status
+make[1]: *** [GNUmakefile:53: ../../lib/libstdhep.so] Error 1
+make[1]: Leaving directory '/data/pubfs/xiaoj/genval/mg2_9_13/genproductions/bin/MadGraph5_aMCatNLO/wellnu0j_5f_NLO_FXFX/wellnu0j_5f_NLO_FXFX_gridpack/work/MG5_aMC_v2_9_13/vendor/StdHEP/src/stdhep'

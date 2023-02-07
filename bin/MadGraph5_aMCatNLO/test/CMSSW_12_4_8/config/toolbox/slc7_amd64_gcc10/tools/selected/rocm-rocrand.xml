@@ -1,0 +1,11 @@
+<tool name="rocm-rocrand" version="5.0.2-95c215630c939706b0552e3eee38861c">
+  <info url="https://github.com/ROCmSoftwarePlatform/rocRAND"/>
+  <use name="rocm"/>
+  <lib name="hiprand"/>
+  <lib name="rocrand"/>
+  <client>
+    <environment name="ROCM_ROCRAND_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/rocm/5.0.2-95c215630c939706b0552e3eee38861c"/>
+    <environment name="INCLUDE" default="$ROCM_ROCRAND_BASE/include/hiprand"/>
+    <environment name="INCLUDE" default="$ROCM_ROCRAND_BASE/include/rocrand"/>
+  </client>
+</tool>

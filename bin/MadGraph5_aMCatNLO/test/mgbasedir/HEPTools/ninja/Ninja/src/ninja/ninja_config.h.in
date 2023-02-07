@@ -1,0 +1,20 @@
+
+/* Define to 1 if ninja is compiled in quadruple precision. */
+#ifndef NINJA_QUADRUPLE
+#undef NINJA_QUADRUPLE
+#endif
+
+/* Define if you have LoopTools. */
+#ifndef NINJA_USE_LOOPTOOLS
+#undef NINJA_USE_LOOPTOOLS
+#endif
+
+/* Define if you have OneLoop. */
+#ifndef NINJA_USE_ONELOOP
+#undef NINJA_USE_ONELOOP
+#endif
+
+/* Define to 1 if quadninja is compiled. */
+#ifndef QUADNINJA
+#undef QUADNINJA
+#endif

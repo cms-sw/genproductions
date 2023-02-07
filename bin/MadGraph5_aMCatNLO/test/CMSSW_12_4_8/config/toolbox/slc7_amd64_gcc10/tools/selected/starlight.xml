@@ -1,0 +1,12 @@
+<tool name="starlight" version="r193-9ea7cad8f726988f0b3d71894f9923c3">
+  <lib name="Starlib"/>
+  <client>
+    <environment name="STARLIGHT_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/starlight/r193-9ea7cad8f726988f0b3d71894f9923c3"/>
+    <environment name="LIBDIR" default="$STARLIGHT_BASE/lib"/>
+    <environment name="INCLUDE" default="$STARLIGHT_BASE/include"/>
+  </client>
+  <runtime name="PATH" value="$STARLIGHT_BASE/bin" type="path"/>
+  <runtime name="ROOT_INCLUDE_PATH" value="$INCLUDE" type="path"/>
+  <use name="root_cxxdefaults"/>
+  <use name="clhep"/>
+</tool>

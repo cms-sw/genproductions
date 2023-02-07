@@ -1,0 +1,19 @@
+<tool name="dd4hep-core" version="v01-19x-dbbf2fdfd6e0bbadd8ab65b744107d5a">
+  <info url="https://github.com/AIDASoft/DD4hep"/>
+  <lib name="DDCore" />
+  <lib name="DDParsers" />
+  <client>
+    <environment name="DD4HEP_CORE_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/dd4hep/v01-19x-dbbf2fdfd6e0bbadd8ab65b744107d5a"/>
+    <environment name="LIBDIR" default="$DD4HEP_CORE_BASE/lib"/>
+    <environment name="INCLUDE" default="$DD4HEP_CORE_BASE/include"/>
+  </client>
+  <runtime name="ROOT_INCLUDE_PATH" value="$INCLUDE" type="path"/>
+  <runtime name="PATH" value="$DD4HEP_CORE_BASE/bin" type="path"/>
+  <flags LISTCOMPONENTS="$(DD4HEP_CORE_BASE)/bin/listcomponents_dd4hep"/>
+  <flags cppdefines="DD4HEP_USE_GEANT4_UNITS=1"/>
+  <use name="root_cxxdefaults"/>
+  <use name="root"/>
+  <use name="boost"/>
+  <use name="xerces-c"/>
+  <use name="clhep"/>
+</tool>

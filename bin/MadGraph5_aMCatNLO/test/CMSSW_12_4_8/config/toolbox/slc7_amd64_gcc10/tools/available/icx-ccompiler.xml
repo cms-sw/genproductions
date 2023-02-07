@@ -1,0 +1,11 @@
+  <tool name="icx-ccompiler" version="2022-ba7554bd0c9ff949b9821d92de403810" type="compiler">
+    <use name="gcc-ccompiler"/>
+    <client>
+      <environment name="ICX_CCOMPILER_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/icx/2022-ba7554bd0c9ff949b9821d92de403810/installation" handler="warn"/>
+      <environment name="CC" value="$ICX_CCOMPILER_BASE/bin/icx" handler="warn"/>
+    </client>
+    <architecture name="_mic_">
+      <flags CFLAGS="-mmic"/>
+    </architecture>
+    <flags SKIP_TOOL_SYMLINKS="1"/>
+  </tool>

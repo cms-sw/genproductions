@@ -1,0 +1,7 @@
+madspin=OFF
+reweight=OFF
+done
+set nevents 100
+set iseed 1
+set nevt_job 100
+done

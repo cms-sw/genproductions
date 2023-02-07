@@ -1,0 +1,13 @@
+{
+  "RUNTIME": {
+    "PATH:ROOT_GCC_TOOLCHAIN": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10"
+    ],
+    "PATH:ROOT_INCLUDE_PATH": [
+      "/usr/local/include",
+      "/usr/include"
+    ]
+  },
+  "TOOLNAME": "root_cxxdefaults",
+  "TOOLVERSION": "system"
+}

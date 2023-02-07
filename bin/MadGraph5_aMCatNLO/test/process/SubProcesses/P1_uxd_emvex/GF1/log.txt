@@ -1,0 +1,300 @@
+==== LHAPDF6 USING DEFAULT-TYPE LHAGLUE INTERFACE ====
+LHAPDF 6.4.0 loading /cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/lhapdf/6.4.0-68defff11ffd434c73727d03802bfb85/share/LHAPDF/NNPDF31_nnlo_as_0118_mc_hessian_pdfas/NNPDF31_nnlo_as_0118_mc_hessian_pdfas_0000.dat
+NNPDF31_nnlo_as_0118_mc_hessian_pdfas PDF set, member #0, version 1; LHAPDF ID = 325300
+ ===============================================================
+ INFO: MadFKS read these parameters from FKS_params.dat                                                  
+ ===============================================================
+  > IRPoleCheckThreshold      =    1.0000000000000001E-005
+  > PrecisionVirtualAtRunTime =    1.0000000000000000E-003
+  > NHelForMCoverHels         =            4
+  > VirtualFraction           =    1.0000000000000000     
+  > MinVirtualFraction        =    5.0000000000000001E-003
+ ===============================================================
+ A PDF is used, so alpha_s(MZ) is going to be modified
+ Old value of alpha_s from param_card:   0.11799999999999999     
+ New value of alpha_s from PDF lhapdf :  0.11800208008122040     
+ using LHAPDF
+ *****************************************************
+ *               MadGraph/MadEvent                   *
+ *        --------------------------------           *
+ *          http://madgraph.hep.uiuc.edu             *
+ *          http://madgraph.phys.ucl.ac.be           *
+ *          http://madgraph.roma2.infn.it            *
+ *        --------------------------------           *
+ *                                                   *
+ *          PARAMETER AND COUPLING VALUES            *
+ *                                                   *
+ *****************************************************
+
+  External Params
+  ---------------------------------
+  
+ MU_R =    91.188000000000002     
+ aEWM1 =    132.30650000000000     
+ mdl_Gf =    1.1663789999999999E-005
+ aS =   0.11799999999999999     
+ mdl_lamWS =   0.22530000000000000     
+ mdl_AWS =   0.80800000000000005     
+ mdl_rhoWS =   0.13200000000000001     
+ mdl_etaWS =   0.34100000000000003     
+ mdl_ymt =    173.00000000000000     
+ mdl_ymtau =    1.7769999999999999     
+ mdl_MT =    173.00000000000000     
+ mdl_MZ =    91.153509999999997     
+ mdl_MH =    125.00000000000000     
+ mdl_MTA =    1.7769999999999999     
+ mdl_WT =    1.4915000000000000     
+ mdl_WZ =    2.4932020000000001     
+ mdl_WW =    2.0904310000000002     
+ mdl_WH =    6.3823389999999999E-003
+  Internal Params
+  ---------------------------------
+  
+ mdl_I1x33 =    0.0000000000000000     
+ mdl_lhv =    1.0000000000000000     
+ mdl_CKM3x3 =    1.0000000000000000     
+ mdl_I4x33 =    0.0000000000000000     
+ mdl_conjg__CKM3x3 =    1.0000000000000000     
+ mdl_CKM33 =    1.0000000000000000     
+ mdl_conjg__CKM33 =    1.0000000000000000     
+ mdl_Ncol =    3.0000000000000000     
+ mdl_CA =    3.0000000000000000     
+ mdl_TF =   0.50000000000000000     
+ mdl_CF =    1.3333333333333333     
+ mdl_lamWS__exp__2 =    5.0760090000000001E-002
+ mdl_CKM11 =               (0.97461995499999998,0.0000000000000000)
+ mdl_CKM12 =               (0.22530000000000000,0.0000000000000000)
+ mdl_complexi =                (0.0000000000000000,1.0000000000000000)
+ mdl_lamWS__exp__3 =    1.1436248277000001E-002
+ mdl_CKM13 =   (1.21974449623171223E-003,-3.15100661526525631E-003)
+ mdl_CKM21 =              (-0.22530000000000000,0.0000000000000000)
+ mdl_CKM22 =               (0.97461995499999998,0.0000000000000000)
+ mdl_CKM23 =          (4.10141527200000022E-002,0.0000000000000000)
+ mdl_CKM31 =   (8.02074411158428847E-003,-3.15100661526525631E-003)
+ mdl_CKM32 =         (-4.10141527200000022E-002,0.0000000000000000)
+ mdl_MZ__exp__2 =    8308.9623853200992     
+ mdl_MZ__exp__4 =    69038855.920664266     
+ mdl_sqrt__2 =    1.4142135623730951     
+ mdl_MH__exp__2 =    15625.000000000000     
+ mdl_CKM1x1 =               (0.97461995499999998,0.0000000000000000)
+ mdl_CKM1x2 =               (0.22530000000000000,0.0000000000000000)
+ mdl_CKM1x3 =   (1.21974449623171223E-003,-3.15100661526525631E-003)
+ mdl_CKM2x1 =              (-0.22530000000000000,0.0000000000000000)
+ mdl_CKM2x2 =               (0.97461995499999998,0.0000000000000000)
+ mdl_CKM2x3 =          (4.10141527200000022E-002,0.0000000000000000)
+ mdl_CKM3x1 =   (8.02074411158428847E-003,-3.15100661526525631E-003)
+ mdl_CKM3x2 =         (-4.10141527200000022E-002,0.0000000000000000)
+ mdl_conjg__CKM1x3 =    (1.21974449623171223E-003,3.15100661526525631E-003)
+ mdl_conjg__CKM2x3 =         (4.10141527200000022E-002,-0.0000000000000000)
+ mdl_conjg__CKM2x1 =             (-0.22530000000000000,-0.0000000000000000)
+ mdl_conjg__CKM3x1 =    (8.02074411158428847E-003,3.15100661526525631E-003)
+ mdl_conjg__CKM2x2 =              (0.97461995499999998,-0.0000000000000000)
+ mdl_conjg__CKM3x2 =        (-4.10141527200000022E-002,-0.0000000000000000)
+ mdl_Ncol__exp__2 =    9.0000000000000000     
+ mdl_MT__exp__2 =    29929.000000000000     
+ mdl_conjg__CKM11 =              (0.97461995499999998,-0.0000000000000000)
+ mdl_conjg__CKM12 =              (0.22530000000000000,-0.0000000000000000)
+ mdl_conjg__CKM13 =    (1.21974449623171223E-003,3.15100661526525631E-003)
+ mdl_conjg__CKM21 =             (-0.22530000000000000,-0.0000000000000000)
+ mdl_conjg__CKM22 =              (0.97461995499999998,-0.0000000000000000)
+ mdl_conjg__CKM23 =         (4.10141527200000022E-002,-0.0000000000000000)
+ mdl_conjg__CKM31 =    (8.02074411158428847E-003,3.15100661526525631E-003)
+ mdl_conjg__CKM32 =        (-4.10141527200000022E-002,-0.0000000000000000)
+ mdl_aEW =    7.5582076466386757E-003
+ mdl_MW =    80.351818954472051     
+ mdl_sqrt__aEW =    8.6937952855117739E-002
+ mdl_ee =   0.30818701865579123     
+ mdl_MW__exp__2 =    6456.4148092922542     
+ mdl_sw2 =   0.22295775213772095     
+ mdl_cw =   0.88149999878745267     
+ mdl_sqrt__sw2 =   0.47218402359431960     
+ mdl_sw =   0.47218402359431960     
+ mdl_g1 =   0.34961658432185805     
+ mdl_gw =   0.65268413003437908     
+ mdl_v =    246.21961912951565     
+ mdl_v__exp__2 =    60624.100844283748     
+ mdl_lam =   0.12886789067712237     
+ mdl_yt =   0.99366146026670099     
+ mdl_ytau =    1.0206568872219234E-002
+ mdl_muH =    88.388347648318444     
+ mdl_AxialZUp =  -0.18510610633357311     
+ mdl_AxialZDown =   0.18510610633357311     
+ mdl_VectorZUp =    7.5050529333307983E-002
+ mdl_VectorZDown =  -0.13007831783344054     
+ mdl_VectorAUp =   0.20545801243719417     
+ mdl_VectorADown =  -0.10272900621859708     
+ mdl_VectorWmDxU =   0.23075868716007589     
+ mdl_AxialWmDxU =  -0.23075868716007589     
+ mdl_VectorWpUxD =   0.23075868716007589     
+ mdl_AxialWpUxD =  -0.23075868716007589     
+ mdl_I2x13 =    (7.96990430634238710E-003,3.13103383463450959E-003)
+ mdl_I2x23 =        (-4.07541828833566863E-002,-0.0000000000000000)
+ mdl_I2x33 =               (0.99366146026670099,0.0000000000000000)
+ mdl_I3x31 =   (7.96990430634238710E-003,-3.13103383463450959E-003)
+ mdl_I3x32 =         (-4.07541828833566863E-002,0.0000000000000000)
+ mdl_I3x33 =               (0.99366146026670099,0.0000000000000000)
+ mdl_Vector_tdGp =  (-7.96990430634238710E-003,-3.13103383463450959E-003)
+ mdl_Vector_tsGp =          (4.07541828833566863E-002,0.0000000000000000)
+ mdl_Vector_tbGp =              (-0.99366146026670099,0.0000000000000000)
+ mdl_Axial_tdGp =  (-7.96990430634238710E-003,-3.13103383463450959E-003)
+ mdl_Axial_tsGp =          (4.07541828833566863E-002,0.0000000000000000)
+ mdl_Axial_tbGp =             (-0.99366146026670099,-0.0000000000000000)
+ mdl_Vector_tdGm =   (7.96990430634238710E-003,-3.13103383463450959E-003)
+ mdl_Vector_tsGm =         (-4.07541828833566863E-002,0.0000000000000000)
+ mdl_Vector_tbGm =               (0.99366146026670099,0.0000000000000000)
+ mdl_Axial_tdGm =   (-7.96990430634238710E-003,3.13103383463450959E-003)
+ mdl_Axial_tsGm =         (4.07541828833566863E-002,-0.0000000000000000)
+ mdl_Axial_tbGm =              (-0.99366146026670099,0.0000000000000000)
+ mdl_gw__exp__2 =   0.42599657359873427     
+ mdl_cw__exp__2 =   0.77704224786227905     
+ mdl_ee__exp__2 =    9.4979238467945010E-002
+ mdl_sw__exp__2 =   0.22295775213772098     
+ mdl_yt__exp__2 =   0.98736309761935259     
+  Internal Params evaluated point by point
+  ----------------------------------------
+  
+ mdl_sqrt__aS =   0.34351128074635334     
+ mdl_G__exp__4 =    2.1987899468922913     
+ mdl_G__exp__2 =    1.4828317324943823     
+ mdl_R2MixedFactor_FIN_ =   -2.5040377713124864E-002
+ mdl_GWcft_UV_t_1EPS_ =   -3.1300472141406080E-003
+ mdl_tWcft_UV_1EPS_ =   -1.8780283284843650E-002
+ mdl_G__exp__3 =    1.8056676068262196     
+ mdl_MU_R__exp__2 =    8315.2513440000002     
+ mdl_GWcft_UV_t_FIN_ =    4.0087659331150384E-003
+ mdl_tWcft_UV_FIN_ =   -9.8778211443463623E-004
+  Couplings of loop_sm-ckm_no_b_mass
+  ---------------------------------
+  
+         GC_5 =   0.00000E+00   0.12177E+01
+      R2_bxuW =  -0.36415E-04  -0.14096E-04
+      R2_bxcW =  -0.00000E+00  -0.47398E-03
+      R2_cxdW =   0.00000E+00   0.26037E-02
+      R2_cxsW =  -0.00000E+00  -0.11263E-01
+      R2_uxbW =   0.36415E-04  -0.14096E-04
+        GC_11 =   0.00000E+00   0.46152E+00
+        GC_12 =   0.00000E+00   0.44980E+00
+        GC_13 =   0.00000E+00   0.10398E+00
+        GC_14 =   0.14542E-02   0.56293E-03
+        GC_17 =   0.00000E+00   0.18929E-01
+        GC_41 =  -0.14542E-02   0.56293E-03
+
+ Collider parameters:
+ --------------------
+
+ Running at P P   machine @    13000.000000000000       GeV
+ PDF set = lhapdf 
+ alpha_s(Mz)= 0.1180 running at 3 loops.
+ alpha_s(Mz)= 0.1180 running at 3 loops.
+ Renormalization scale set on event-by-event basis
+ Factorization   scale set on event-by-event basis
+
+
+ Diagram information for  clustering has been set-up for nFKSprocess           1
+ Diagram information for  clustering has been set-up for nFKSprocess           2
+ Diagram information for  clustering has been set-up for nFKSprocess           3
+ Diagram information for  clustering has been set-up for nFKSprocess           4
+ getting user params
+Enter number of events and iterations: 
+ Number of events and iterations           -1          12
+Enter desired fractional accuracy: 
+ Desired fractional accuracy:    2.7146378552530132E-003
+ Enter alpha, beta for G_soft
+   Enter alpha<0 to set G_soft=1 (no ME soft)
+ for G_soft: alpha=   1.0000000000000000      , beta= -0.10000000000000001     
+ Enter alpha, beta for G_azi
+   Enter alpha>0 to set G_azi=0 (no azi corr)
+ for G_azi: alpha=  -1.0000000000000000      , beta= -0.10000000000000001     
+ Doing the S and H events together
+Suppress amplitude (0 no, 1 yes)? 
+ Using suppressed amplitude.
+Exact helicity sum (0 yes, n = number/event)? 
+ Do MC over helicities for the virtuals
+Enter Configuration Number: 
+Running Configuration Number:    1
+Enter running mode for MINT:
+0 to set-up grids, 1 to integrate, 2 to generate events
+ MINT running mode:           2
+ Generating events, doing only one iteration
+Set the three folding parameters for MINT
+xi_i, phi_i, y_ij
+           1           1           1
+ 'all ', 'born', 'real', 'virt', 'novi' or 'grid'?
+ Enter 'born0' or 'virt0' to perform
+  a pure n-body integration (no S functions)
+ doing the all  of this channel
+ Normal integration (Sfunction != 1)
+ about to integrate            7          -1           1           1
+ Generating           14  events
+ Generating virt :: novi approx.           0          14
+ imode is            2
+Using random seed offsets:     1 ,     27 ,      0
+  with seed                    1
+ Ranmar initialization seeds        3022        9401
+ Total number of FKS directories is           4
+ FKS process map (sum=           3 ) :
+           1 -->           2 :           1           3
+           2 -->           2 :           2           4
+ ================================
+ process combination map (specified per FKS dir):
+  1 map        1   2   3   4
+  1 inv. map   1   2   3   4
+  2 map        1   2   3   4
+  2 inv. map   1   2   3   4
+  3 map        1   2   3   4
+  3 inv. map   1   2   3   4
+  4 map        1   2   3   4
+  4 inv. map   1   2   3   4
+ ================================
+tau_min   1     1 : 0.00000E+00      --       0.80352E+02
+tau_min   2     1 : 0.00000E+00      --       0.80352E+02
+tau_min   3     1 : 0.00000E+00      --       0.80352E+02
+tau_min   4     1 : 0.00000E+00      --       0.80352E+02
+ bpower is   0.0000000000000000     
+ Scale values (may change event by event):
+ muR,  muR_reference:  0.918573D+02 0.918573D+02  1.00
+ muF1, muF1_reference: 0.918573D+02 0.918573D+02  1.00
+ muF2, muF2_reference: 0.918573D+02 0.918573D+02  1.00
+ QES,  QES_reference:  0.414127D+02 0.414127D+02  1.00
+  
+ muR_reference [functional form]:
+    FxFx merging scale
+ muF1_reference [functional form]:
+Thanks for using LHAPDF 6.4.0. Please make sure to cite the paper:
+  Eur.Phys.J. C75 (2015) 3, 132  (http://arxiv.org/abs/1412.7420)
+    FxFx merging scale
+ muF2_reference [functional form]:
+    FxFx merging scale
+ QES_reference [functional form]: 
+    H_T/2 := sum_i mT(i)/2, i=final state
+  
+ alpha_s=  0.11787184022500038     
+ A PDF is used, so alpha_s(MZ) is going to be modified
+ Old value of alpha_s from param_card:   0.11799999999999999     
+ New value of alpha_s from PDF lhapdf :  0.11800208008122040     
+ using LHAPDF
+ another call to          55
+ vetoed calls in          41
+ events gen novi          14
+ Generation efficiencies:  0.25454545454545452       -1.0000000000000000     
+ Time spent in Born :    1.07999891E-04
+ Time spent in PS_Generation :    0.00000000    
+ Time spent in Reals_evaluation:    7.17598572E-03
+ Time spent in MCsubtraction :    4.58002090E-04
+ Time spent in Counter_terms :    5.18696755E-03
+ Time spent in Integrated_CT :    1.81008130E-04
+ Time spent in Virtuals :    0.00000000    
+ Time spent in FxFx_cluster :    1.12200528E-03
+ Time spent in Nbody_prefactor :    1.33004040E-04
+ Time spent in N1body_prefactor :    1.51999295E-04
+ Time spent in Adding_alphas_pdf :    7.46004283E-04
+ Time spent in Reweight_scale :    0.00000000    
+ Time spent in Reweight_pdf :    0.00000000    
+ Time spent in Filling_plots :    0.00000000    
+ Time spent in Applying_cuts :    2.76025385E-04
+ Time spent in Sum_ident_contr :    9.40039754E-05
+ Time spent in Pick_unwgt :    9.99867916E-06
+ Time spent in Write_events :    2.69800052E-03
+ Time spent in Other_tasks :    4.55899909E-02
+ Time spent in Total :    6.39309958E-02
+Time in seconds: 0

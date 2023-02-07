@@ -1,0 +1,138 @@
+{
+  "FLAGS": {
+    "CHECK_PRIVATE_HEADERS": [
+      "1"
+    ],
+    "DEFAULT_COMPILER": [
+      "gcc"
+    ],
+    "EXTERNAL_SYMLINK": [
+      "PATH",
+      "LIBDIR",
+      "CMSSW_SEARCH_PATH"
+    ],
+    "LLVM_ANALYZER": [
+      "llvm-analyzer"
+    ],
+    "NO_EXTERNAL_RUNTIME": [
+      "LD_LIBRARY_PATH",
+      "PATH",
+      "CMSSW_SEARCH_PATH"
+    ],
+    "OVERRIDABLE_FLAGS": [
+      "CPPDEFINES",
+      "CXXFLAGS",
+      "FFLAGS",
+      "CFLAGS",
+      "CPPFLAGS",
+      "LDFLAGS",
+      "CUDA_FLAGS",
+      "CUDA_LDFLAGS"
+    ],
+    "SCRAM_TARGETS": [
+      "haswell",
+      "sandybridge",
+      "nehalem"
+    ],
+    "SKIP_TOOLS_SYMLINK": [
+      "cxxcompiler",
+      "ccompiler",
+      "f77compiler",
+      "gcc-cxxcompiler",
+      "gcc-ccompiler",
+      "gcc-f77compiler",
+      "llvm-cxxcompiler",
+      "llvm-ccompiler",
+      "llvm-f77compiler",
+      "llvm-analyzer-cxxcompiler",
+      "llvm-analyzer-ccompiler",
+      "icc-cxxcompiler",
+      "icc-ccompiler",
+      "icc-f77compiler",
+      "x11",
+      "dpm"
+    ],
+    "SYMLINK_DEPTH_CMSSW_SEARCH_PATH": [
+      "2"
+    ]
+  },
+  "INCLUDE": [
+    "/data/pubfs/xiaoj/genval/mg2_9_13/genproductions/bin/MadGraph5_aMCatNLO/test/CMSSW_12_4_8/src",
+    "/data/pubfs/xiaoj/genval/mg2_9_13/genproductions/bin/MadGraph5_aMCatNLO/test/CMSSW_12_4_8/include/slc7_amd64_gcc10/src",
+    "/data/pubfs/xiaoj/genval/mg2_9_13/genproductions/bin/MadGraph5_aMCatNLO/test/CMSSW_12_4_8/include/LCG",
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/cms/cmssw/CMSSW_12_4_8/src"
+  ],
+  "LIBDIR": [
+    "/data/pubfs/xiaoj/genval/mg2_9_13/genproductions/bin/MadGraph5_aMCatNLO/test/CMSSW_12_4_8/biglib/slc7_amd64_gcc10",
+    "/data/pubfs/xiaoj/genval/mg2_9_13/genproductions/bin/MadGraph5_aMCatNLO/test/CMSSW_12_4_8/lib/slc7_amd64_gcc10",
+    "/data/pubfs/xiaoj/genval/mg2_9_13/genproductions/bin/MadGraph5_aMCatNLO/test/CMSSW_12_4_8/external/slc7_amd64_gcc10/lib",
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/cms/cmssw/CMSSW_12_4_8/biglib/slc7_amd64_gcc10",
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/cms/cmssw/CMSSW_12_4_8/lib/slc7_amd64_gcc10",
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/cms/cmssw/CMSSW_12_4_8/external/slc7_amd64_gcc10/lib"
+  ],
+  "RUNTIME": {
+    "CMSSW_BASE": [
+      "/data/pubfs/xiaoj/genval/mg2_9_13/genproductions/bin/MadGraph5_aMCatNLO/test/CMSSW_12_4_8"
+    ],
+    "CMSSW_GIT_HASH": [
+      "CMSSW_12_4_8"
+    ],
+    "CMSSW_RELEASE_BASE": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/cms/cmssw/CMSSW_12_4_8"
+    ],
+    "CMSSW_VERSION": [
+      "CMSSW_12_4_8"
+    ],
+    "LANG": [
+      "C"
+    ],
+    "LOCALRT": [
+      "/data/pubfs/xiaoj/genval/mg2_9_13/genproductions/bin/MadGraph5_aMCatNLO/test/CMSSW_12_4_8"
+    ],
+    "PATH:CMSSW_SEARCH_PATH": [
+      "/data/pubfs/xiaoj/genval/mg2_9_13/genproductions/bin/MadGraph5_aMCatNLO/test/CMSSW_12_4_8/poison",
+      "/data/pubfs/xiaoj/genval/mg2_9_13/genproductions/bin/MadGraph5_aMCatNLO/test/CMSSW_12_4_8/src",
+      "/data/pubfs/xiaoj/genval/mg2_9_13/genproductions/bin/MadGraph5_aMCatNLO/test/CMSSW_12_4_8/external/slc7_amd64_gcc10/data",
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/cms/cmssw/CMSSW_12_4_8/src",
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/cms/cmssw/CMSSW_12_4_8/external/slc7_amd64_gcc10/data"
+    ],
+    "PATH:LD_LIBRARY_PATH": [
+      "/data/pubfs/xiaoj/genval/mg2_9_13/genproductions/bin/MadGraph5_aMCatNLO/test/CMSSW_12_4_8/biglib/slc7_amd64_gcc10",
+      "/data/pubfs/xiaoj/genval/mg2_9_13/genproductions/bin/MadGraph5_aMCatNLO/test/CMSSW_12_4_8/lib/slc7_amd64_gcc10",
+      "/data/pubfs/xiaoj/genval/mg2_9_13/genproductions/bin/MadGraph5_aMCatNLO/test/CMSSW_12_4_8/external/slc7_amd64_gcc10/lib",
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/cms/cmssw/CMSSW_12_4_8/biglib/slc7_amd64_gcc10",
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/cms/cmssw/CMSSW_12_4_8/lib/slc7_amd64_gcc10",
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/cms/cmssw/CMSSW_12_4_8/external/slc7_amd64_gcc10/lib"
+    ],
+    "PATH:PATH": [
+      "/data/pubfs/xiaoj/genval/mg2_9_13/genproductions/bin/MadGraph5_aMCatNLO/test/CMSSW_12_4_8/bin/slc7_amd64_gcc10",
+      "/data/pubfs/xiaoj/genval/mg2_9_13/genproductions/bin/MadGraph5_aMCatNLO/test/CMSSW_12_4_8/external/slc7_amd64_gcc10/bin",
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/cms/cmssw/CMSSW_12_4_8/bin/slc7_amd64_gcc10",
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/cms/cmssw/CMSSW_12_4_8/external/slc7_amd64_gcc10/bin"
+    ],
+    "PATH:PYTHON3PATH": [
+      "/data/pubfs/xiaoj/genval/mg2_9_13/genproductions/bin/MadGraph5_aMCatNLO/test/CMSSW_12_4_8/python",
+      "/data/pubfs/xiaoj/genval/mg2_9_13/genproductions/bin/MadGraph5_aMCatNLO/test/CMSSW_12_4_8/lib/slc7_amd64_gcc10",
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/cms/cmssw/CMSSW_12_4_8/python",
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/cms/cmssw/CMSSW_12_4_8/lib/slc7_amd64_gcc10"
+    ],
+    "PATH:RIVET_ANALYSIS_PATH": [
+      "/data/pubfs/xiaoj/genval/mg2_9_13/genproductions/bin/MadGraph5_aMCatNLO/test/CMSSW_12_4_8/lib/slc7_amd64_gcc10",
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/cms/cmssw/CMSSW_12_4_8/lib/slc7_amd64_gcc10"
+    ],
+    "PATH:ROOT_INCLUDE_PATH": [
+      "/data/pubfs/xiaoj/genval/mg2_9_13/genproductions/bin/MadGraph5_aMCatNLO/test/CMSSW_12_4_8/src",
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/cms/cmssw/CMSSW_12_4_8/src"
+    ],
+    "PATH:TEST_SRTOPT_PATH": [
+      "/data/pubfs/xiaoj/genval/mg2_9_13/genproductions/bin/MadGraph5_aMCatNLO/test/CMSSW_12_4_8/test/slc7_amd64_gcc10",
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/cms/cmssw/CMSSW_12_4_8/test/slc7_amd64_gcc10"
+    ]
+  },
+  "TOOLNAME": "self",
+  "TOOLVERSION": "SELF",
+  "VARIABLES": [
+    "LIBDIR",
+    "INCLUDE"
+  ]
+}

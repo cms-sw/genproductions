@@ -1,0 +1,6 @@
+<tool name="py3-pygments" version="2.10.0-40bbed48a4bea8f918d3cb0f63b27de3">
+  <client>
+    <environment name="PY3_PYGMENTS_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-Pygments/2.10.0-40bbed48a4bea8f918d3cb0f63b27de3"/>
+  </client>
+  <runtime name="PATH" value="$PY3_PYGMENTS_BASE/bin" type="path"/>
+</tool>
