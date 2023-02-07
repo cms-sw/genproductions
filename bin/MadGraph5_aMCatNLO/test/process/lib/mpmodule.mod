@@ -1,1 +1,0 @@
-/data/pubfs/xiaoj/genval/mg2_9_13/genproductions/bin/MadGraph5_aMCatNLO/wellnu0j_5f_NLO_FXFX/wellnu0j_5f_NLO_FXFX_gridpack/work/MG5_aMC_v2_9_13/vendor/CutTools/includects/mpmodule.mod

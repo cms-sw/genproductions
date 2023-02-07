@@ -1,7 +1,0 @@
-{
-  "TOOLNAME": "x11",
-  "TOOLVERSION": "system",
-  "USE": [
-    "sockets"
-  ]
-}

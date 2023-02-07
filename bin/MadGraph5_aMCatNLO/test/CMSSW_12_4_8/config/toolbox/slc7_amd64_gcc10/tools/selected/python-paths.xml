@@ -1,3 +1,0 @@
-<tool name="python-paths" version="1.0">
-  <runtime name="PYTHON3PATH"  value="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/cms/cmssw-tool-conf/52.0-e908fbd4fcc2752f4ef6523c894a8717/lib/python3.9/site-packages" type="path"/>
-</tool>

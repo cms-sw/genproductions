@@ -1,8 +1,0 @@
-<tool name="TkOnlineSwDB" version="4.2.0-1_gcc7-a301c08bcb310e9e8de6b49167884c26">
-  <info url="http://www.cern.ch/"/>
-  <lib name="DeviceDescriptions"/>
-  <lib name="Fed9UDeviceFactory"/>
-  <use name="tkonlinesw"/>
-  <use name="oracle"/>
-  <use name="oracleocci"/>
-</tool>

@@ -1,5 +1,0 @@
-<tool name="rootgui" version="6.24.07-bf41b0420bc269850b74e23486e2953a">
-  <info url="http://root.cern.ch/root/"/>
-  <lib name="Gui"/>
-  <use name="rootgpad"/>
-</tool>

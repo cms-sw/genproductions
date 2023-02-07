@@ -1,8 +1,0 @@
-
-   --------------------------------------------------------------
-      Summary:
-      Process p p > ell+ vl $$ t t~ h [QCD] @0 ; p p > ell- vl~ $$ t t~ h [QCD] @1
-      Run at p-p collider (6500.0 + 6500.0 GeV)
-      Number of events generated: 1500
-      Total cross section: 6.094e+04 +- 7.1e+01 pb
-   --------------------------------------------------------------

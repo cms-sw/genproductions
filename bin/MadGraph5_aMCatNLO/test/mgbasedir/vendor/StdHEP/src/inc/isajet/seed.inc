@@ -1,5 +1,0 @@
-C
-      COMMON/SEED/XSEED
-      SAVE /SEED/
-      CHARACTER*24 XSEED
-C
