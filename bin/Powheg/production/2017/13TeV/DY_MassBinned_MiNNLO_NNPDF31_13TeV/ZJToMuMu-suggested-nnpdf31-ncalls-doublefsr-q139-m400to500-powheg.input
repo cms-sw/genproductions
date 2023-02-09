@@ -1,0 +1,78 @@
+vdecaymode  2     ! Z decay products (default 2): 1 for electronic
+
+bornktmin 0.26
+
+numevts NEVENTS
+ih1   1           ! hadron 1 (1 for protons, -1 for antiprotons)
+ih2   1           ! hadron 2 (1 for protons, -1 for antiprotons)
+ebeam1 6500d0     ! energy of beam 1
+ebeam2 6500d0     ! energy of beam 2
+
+! ALPHAS AND PDF EVOLUTION
+alphas_from_pdf 1 ! (default 0) if 1, uses alphas from PDF evolution tool (e.g. lhapdf or hoppet)
+
+! MINLO SETTINGS
+minlo 1        ! (default 0) if 1, activate minlo
+minnlo 1       ! (default 0) if 1, activate miNNlo
+modlog_p 6     ! (optional, only works if minnlo is set to 1)
+               ! if present, activate modified logs and set the exponent
+inc_delta_terms 0 ! (default 1) if 0, as^3 NNLO delta terms are not included
+sudscalevar 1   ! (default 1) scale variation also in Sudakov form factors in minlo 
+distribute_by_ub 1 ! (default 0) if 1 distribute d3 terms according to kinematics of ub
+distribute_by_ub_AP 1 ! (default 0) if 1 distribute d3 terms according to kinematics of ub
+alphas_cutoff_fact 0.0 ! ! (Higgs: 2.5, DY: 1.8) see setlocalscales.f
+pdf_cutoff_fact 1.1 ! (Higgs: 2.5, DY: 1.8) see setlocalscales.f
+use_NNLOPS_pdfs 1 ! (default 0)
+negative_pdfs_zero 0 ! setting negative PDFs zero
+
+profiledscales 1 ! (default 0) if 1, use the profiled scales with cutoff Q0 and power npow
+largeptscales 0  ! (default 0) if 0, at large pt, use muR=muF~Q in fixed order part
+                 !             if 1, at large pt, use muR=muF=pt in the fixed-order part
+Q0 1.390985      ! (default 2.) Q0 value used in profiled scales (see 2006.04133 for more details)
+                 !              smaller values can be used too.
+npow 1           ! (default 1) power in profiled scales
+
+withdamp 1
+doublefsr 1
+
+! PROCESS PARAMETERS
+# EW input
+
+min_Z_mass 400d0  ! Lower mass cut-off for Z boson production
+max_Z_mass 500d0 ! Upper mass cut-off for Z boson production
+
+! To be set only if using LHA pdfs
+lhans1   306000     ! pdf set for hadron 1 (LHA numbering)
+lhans2   306000    ! pdf set for hadron 2 (LHA numbering)
+
+! Parameters to allow or not the use of stored data
+use-old-grid    1 ! if 1 use old grid if file pwggrids.dat is present (<> 1 regenerate)
+use-old-ubound  1 ! if 1 use norm of upper bounding function stored in pwgubound.dat, if present; <> 1 regenerate
+
+ncall1   200000     ! number of calls for initializing the integration grid
+itmx1    1        ! number of iterations for initializing the integration grid
+ncall2   200000     ! number of calls for computing the integral and finding upper bound
+itmx2    1        ! number of iterations for computing the integral and finding upper bound
+foldcsi   5       ! number of folds on csi integration
+foldy     2       ! number of folds on  y  integration
+foldphi   2       ! number of folds on phi integration
+nubound 200000 ! number of bbarra calls to setup norm of upper bounding function
+
+check_bad_st1 1
+check_bad_st2 1
+
+ubexcess_correct 1
+
+! OPTIONAL PARAMETERS
+testplots  1       ! (default 0, do not) do NLO and PWHG distributions
+flg_debug  0       ! store extra event info for debugging
+
+iseed SEED        ! initialize random number sequence
+#maxseeds 2000
+#manyseeds 1
+#parallelstage 1
+#xgriditeration 1
+
+storeinfo_rwgt 1   ! store info to allow for reweighting
+#compute_rwgt 1
+

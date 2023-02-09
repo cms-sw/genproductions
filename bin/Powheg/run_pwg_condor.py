@@ -25,7 +25,10 @@ POWHEGRES_SOURCE = "powhegboxRES_rev4004_date20221025.tar.gz"
 rootfolder = os.getcwd()
 
 
-def runCommand(command, printIt = False, doIt = 1, TESTING = 0) :
+def runCommand(command, printIt = False, doIt = 1) :
+    if args.fordag and 'condor_submit' in command:
+        print('No job submission when preparing DAG')
+        return
     if TESTING :
         printIt = 1
         doIt = 0
@@ -200,7 +203,7 @@ def runParallelXgrid(parstage, xgrid, folderName, nEvents, njobs, powInputName, 
     else:
         print 'Submitting to condor queues:  \n'
         condorfile = prepareCondorScript(jobtag, 'multiple', args.folderName, QUEUE, njobs=njobs, runInBatchDir=True, slc6=args.slc6)
-        runCommand ('condor_submit ' + condorfile, TESTING == 0)
+        runCommand ('condor_submit ' + condorfile)
 
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 def runSingleXgrid(parstage, xgrid, folderName, nEvents, powInputName, seed, process, scriptName) :
@@ -499,6 +502,10 @@ if __name__ == "__main__":
         print '  --- TESTING, NO submissions will happen ---  '
         print
 
+    if (args.fordag) :
+        print '  --- Submissions will be done by DAG ---  '
+        print
+
     res = os.path.exists(rootfolder+'/'+args.folderName)
 
     ### agrohsje still need an old version for ST_tch_4f; informed ER, PN end 2021 but no fix provided yet, pinged again (today: 27.6.2022)
@@ -639,7 +646,7 @@ if __name__ == "__main__":
         else:
             print 'Submitting to condor queues \n'
             condorfile = prepareCondorScript(tagName, '', '.', QUEUE, njobs=1, slc6=args.slc6) 
-            runCommand ('condor_submit ' + condorfile, TESTING == 0, doIt = (args.fordag == '0'))
+            runCommand ('condor_submit ' + condorfile)
 
     elif args.parstage == '1' :
         runParallelXgrid(args.parstage, args.xgrid, args.folderName,
@@ -667,7 +674,7 @@ if __name__ == "__main__":
         else:
             print 'Submitting to condor queues  \n'
             condorfile = prepareCondorScript(tagName, '', args.folderName, QUEUE, njobs=1, runInBatchDir=True, slc6=args.slc6) 
-            runCommand ('condor_submit ' + condorfile, TESTING == 0, doIt = (args.fordag == '0'))
+            runCommand ('condor_submit ' + condorfile)
 
     elif args.parstage == '0123' or args.parstage == 'a' : # compile & run
         tagName = 'all_'+args.folderName
@@ -685,13 +692,12 @@ if __name__ == "__main__":
 
         if QUEUE == 'none':
             print 'Direct compiling and running... \n'
-            #runCommand ('bash run_source.sh ', TESTING == 1)
             os.system('bash '+scriptName+' >& '+
                       scriptName.split('.sh')[0]+'.log &')
         else:
             print 'Submitting to condor queues  \n'
             condorfile = prepareCondorScript(tagName, '', '.', QUEUE, njobs=1, runInBatchDir=True, slc6=args.slc6) 
-            runCommand ('condor_submit ' + condorfile, TESTING == 0, doIt = (args.fordag == '0'))
+            runCommand ('condor_submit ' + condorfile)
 
     elif args.parstage == '01239' or args.parstage == 'f' : # full single grid in oneshot
         tagName = 'full_'+args.folderName
@@ -715,7 +721,7 @@ if __name__ == "__main__":
         else:
             print 'Submitting to condor queues  \n'
             condorfile = prepareCondorScript(tagName, '', '.', QUEUE, njobs=1, runInBatchDir=True, slc6=args.slc6) 
-            runCommand ('condor_submit ' + condorfile, TESTING == 0, doIt = (args.fordag == '0'))
+            runCommand ('condor_submit ' + condorfile)
 
     elif args.parstage == '7' :
         print "preparing for NNLO reweighting"
