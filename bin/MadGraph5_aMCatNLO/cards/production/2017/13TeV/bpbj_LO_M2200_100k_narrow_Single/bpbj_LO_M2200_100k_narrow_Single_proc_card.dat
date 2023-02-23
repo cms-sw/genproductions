@@ -10,4 +10,4 @@ define vl~ = ve~ vm~ vt~
 define myb = b b~
 define mybp = bp bp~
 generate p p > myb h mybp j / tp x y QED=1 QCD=1
-output bpbj_LO_M2200_100k_narrow_Single
+output bpbj_LO_M2200_100k
