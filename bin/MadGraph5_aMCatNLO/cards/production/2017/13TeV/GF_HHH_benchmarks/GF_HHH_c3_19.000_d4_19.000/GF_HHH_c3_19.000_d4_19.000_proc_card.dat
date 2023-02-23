@@ -5,5 +5,5 @@ set complex_mass_scheme False
 import model loop_sm_c3d4
 generate p p > h h h [QCD]
 
-output GF_HHH_SM_c3_0_d4_0 -nojpeg 
+output GF_HHH_c3_19.000_d4_19.000 -nojpeg 
 
