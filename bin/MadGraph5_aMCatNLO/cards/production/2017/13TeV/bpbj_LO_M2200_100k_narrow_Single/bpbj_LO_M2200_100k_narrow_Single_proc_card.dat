@@ -1,4 +1,5 @@
-import model VLQ_v4_4FNS_UFO
+import model VLQ_v4_4FNS_UFO-3rdL_noCKM
+set complex_mass_scheme
 define q = u c d s u~ c~ d~ s~
 define p = g u c d s u~ c~ d~ s~
 define j = g u c d s u~ c~ d~ s~
@@ -8,5 +9,5 @@ define vl = ve vm vt
 define vl~ = ve~ vm~ vt~
 define myb = b b~
 define mybp = bp bp~
-generate p p > myb mybp j
+generate p p > myb h mybp j / tp x y QED=1 QCD=1
 output bpbj_LO_M2200_100k_narrow_Single
