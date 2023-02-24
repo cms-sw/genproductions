@@ -59,8 +59,8 @@
 #***********************************************************************
     1       = lpp1      ! beam 1 type (0 = no PDF)
     1       = lpp2      ! beam 2 type (0 = no PDF)
-    6800.0  = ebeam1    ! beam 1 energy in GeV
-    6800.0  = ebeam2    ! beam 2 energy in GeV
+    6500.0  = ebeam1    ! beam 1 energy in GeV
+    6500.0  = ebeam2    ! beam 2 energy in GeV
 #***********************************************************************
 # PDF choice: this automatically fixes also alpha_s(MZ) and its evol.  *
 #***********************************************************************
