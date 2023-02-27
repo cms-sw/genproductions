@@ -13,14 +13,15 @@ def GetName(x):
 couplings={}
 
 # yy > tautau BSM couplings:
-#couplings['ceBRe33'] = np.linspace(-10,10,201)
-#couplings['ceBIm33'] = np.linspace(-10,10,201)
+#couplings['ceBRe33'] = np.linspace(-5,5,101)
+#couplings['ceBIm33'] = np.linspace(-5,5,101)
 
-# yy >WW BSM couplings:
-#couplings['ceBRe33'] = np.linspace(-10,10,201)
-#couplings['ceBIm33'] = np.linspace(-10,10,201)
+# yy > WW BSM couplings:
+#couplings['ceBRe33'] = np.linspace(-10,10,101)
+#couplings['ceBIm33'] = np.linspace(-10,10,101)
 
-couplings['ceBRe33'] = np.linspace(-10,10,3)
+couplings['ceBRe33'] = np.linspace(-10,10,3) # use this line for tests
+
 # output file name
 outfile='reweight_card.dat'
 
