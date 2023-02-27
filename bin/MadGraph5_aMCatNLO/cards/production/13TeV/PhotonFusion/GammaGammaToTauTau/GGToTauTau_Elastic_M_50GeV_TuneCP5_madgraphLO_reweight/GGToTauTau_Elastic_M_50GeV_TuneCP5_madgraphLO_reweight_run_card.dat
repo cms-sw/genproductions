@@ -39,17 +39,17 @@
 #*********************************************************************
 # PDF CHOICE: this automatically fixes also alpha_s and its evol.    *
 #*********************************************************************
-  chff    = pdlabel1   ! PDF set                                                                     
-  chff    = pdlabel2   ! PDF set                                                                     
+  chff    = pdlabel   ! PDF set
+
 # To see heavy ion options: type "update ion_pdf"
 #*********************************************************************
 # Renormalization and factorization scales                           *
 #*********************************************************************
-  False	= fixed_ren_scale ! if .true. use fixed ren scale
-  True	= fixed_fac_scale ! if .true. use fixed fac scale - set scale (new from 2.7.1)
-  91.188	= scale ! fixed ren scale
-  20.000	= dsqrt_q2fact1 ! fixed fact scale for pdf1
-  20.000	= dsqrt_q2fact2 ! fixed fact scale for pdf2
+  False     =  fixed_ren_scale   ! if .true. use fixed ren scale
+  True      =  fixed_fac_scale   ! if .true. use fixed fac scale
+  91.1880       =  scale             ! fixed ren scale
+  20.0000       =  dsqrt_q2fact1     ! fixed fact scale for pdf1
+  20.0000       =  dsqrt_q2fact2     ! fixed fact scale for pdf2
   -1	= dynamical_scale_choice ! Choose one of the preselected dynamical choices
   1.0	= scalefact ! scale factor for event-by-event scales
 #*********************************************************************

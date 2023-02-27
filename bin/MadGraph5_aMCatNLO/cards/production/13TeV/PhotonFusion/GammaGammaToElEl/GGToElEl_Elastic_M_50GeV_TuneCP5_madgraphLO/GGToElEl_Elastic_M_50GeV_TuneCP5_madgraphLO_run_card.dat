@@ -112,7 +112,7 @@
 #*********************************************************************
   -1.0	= etaj ! max rap for the jets 
   -1.0	= etab ! max rap for the b
-  -1.0	= etal ! max rap for the charged leptons 
+  3.0	= etal ! max rap for the charged leptons 
   0.0	= etabmin ! min rap for the b
   0.0	= etalmin ! main rap for the charged leptons
   {}	= eta_min_pdg ! rap cut for other particles (use pdg code). Applied on particle and anti-particle
