@@ -1,0 +1,8 @@
+import model loop_sm
+
+define l- = mu- e- ta-
+define l+ = mu+ e+ ta+
+
+generate g g > w+{T} w-{0} $$ h [noborn=QCD]
+
+output ggWW_TL

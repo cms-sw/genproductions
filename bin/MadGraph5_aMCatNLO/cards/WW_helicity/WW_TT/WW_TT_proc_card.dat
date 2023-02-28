@@ -1,0 +1,6 @@
+define l- = mu- e- ta-
+define l+ = mu+ e+ ta+
+
+generate p p > w+{T} w-{T} $$ h
+
+output WW_TT
