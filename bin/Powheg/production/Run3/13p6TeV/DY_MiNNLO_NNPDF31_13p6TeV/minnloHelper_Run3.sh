@@ -4,7 +4,7 @@ trap "exit" INT
 WHAT=$1;
 PARAM=$2;
 if [ "$#" -lt 1 ]; then
-    echo "minnloHelper.sh <OPTION>";
+    echo "minnloHelper_Run3.sh <OPTION>";
     exit 1;
 fi
 
@@ -14,19 +14,16 @@ ARCH=slc7_amd64_gcc10
 CMSSW=CMSSW_12_3_1
 SUFFIX=powheg-MiNNLO31-svn${SVN}-ew-rwl6-j${NJOBS}-st2fix-ana-hoppetweights-ymax20-pdf2
 
-# PROCS=(ZJToMuMu-suggested-nnpdf31-ncalls-doublefsr-q139 WplusJToMuNu-suggested-nnpdf31-ncalls-doublefsr-q139-ckm WminusJToMuNu-suggested-nnpdf31-ncalls-doublefsr-q139-ckm)
-
-PROCS=(ZJToMuMu-5TeV-suggested-nnpdf31-ncalls-doublefsr-q139 WplusJToMuNu-5TeV-suggested-nnpdf31-ncalls-doublefsr-q139-ckm WminusJToMuNu-5TeV-suggested-nnpdf31-ncalls-doublefsr-q139-ckm)
-PROCS=(ZJToMuMu-7TeV-suggested-nnpdf31-ncalls-doublefsr-q139)
-
-#SUFFIX=powheg-MiNNLO31-svn${SVN}-ew-rwl6-j${NJOBS}-st2fix-ana-hoppetweights-ymax20-addmassweights
-PROCS=(ZJToMuMu-suggested-nnpdf31-ncalls-doublefsr-q139 WplusJToMuNu-suggested-nnpdf31-ncalls-doublefsr-q139-ckm WminusJToMuNu-suggested-nnpdf31-ncalls-doublefsr-q139-ckm)
-PROCS=(ZJToMuMu-suggested-nnpdf31-ncalls-doublefsr-q139)
+PROCS=(ZJToMuMu-13p6TeV-suggested-nnpdf31-ncalls-doublefsr-q139 WplusJToMuNu-13p6TeV-suggested-nnpdf31-ncalls-doublefsr-q139-ckm WminusJToMuNu-13p6TeV-suggested-nnpdf31-ncalls-doublefsr-q139-ckm)
 
 case $WHAT in
 
     SLC6 )
         cmssw-cc6 --command-to-run ./$0 $PARAM
+    ;;
+    
+    SLC7 )
+        cmssw-cc7 --command-to-run ./$0 $PARAM
     ;;
     
     INIT )
@@ -35,7 +32,7 @@ case $WHAT in
         ln -s ../../genproductions/bin/Powheg/patches .
         ln -s ../../genproductions/bin/Powheg/Templates .
         ln -s ../../genproductions/bin/Powheg/Utilities .
-        ln -s ../../genproductions/bin/Powheg/production/pre2017/13TeV/DY_MiNNLO_NNPDF31_13TeV .
+        ln -s ../../genproductions/bin/Powheg/production/Run3/13p6TeV/DY_MiNNLO_NNPDF31_13p6TeV .
     ;;
     
     PRINT )
@@ -49,7 +46,7 @@ case $WHAT in
         eval `scramv1 runtime -sh`
         for PROC in ${PROCS[@]}
         do
-            python ./run_pwg_condor.py -p 0 -i DY_MiNNLO_NNPDF31_13TeV/${PROC}-powheg.input -m ${PROC:0:1}j -f ${PROC}-${SUFFIX} -d 1 --svn ${SVN}
+            python ./run_pwg_condor.py -p 0 -i DY_MiNNLO_NNPDF31_13p6TeV/${PROC}-powheg.input -m ${PROC:0:1}j -f ${PROC}-${SUFFIX} -d 1 --svn ${SVN}
         done
     ;;
     
@@ -68,14 +65,14 @@ case $WHAT in
     ONESHOT )
         for PROC in ${PROCS[@]}
         do
-            python ./run_pwg_condor.py -p f -i DY_MiNNLO_NNPDF31_13TeV/${PROC}-powheg.input -m ${PROC:0:1}j -f ${PROC}-${SUFFIX} -d 1 --svn ${SVN}
+            python ./run_pwg_condor.py -p f -i DY_MiNNLO_NNPDF31_13p6TeV/${PROC}-powheg.input -m ${PROC:0:1}j -f ${PROC}-${SUFFIX} -d 1 --svn ${SVN}
         done
     ;;
 
     GRIDS )
         for PROC in ${PROCS[@]}
         do
-            k5reauth -R -- python ./run_pwg_parallel_condor.py -p 123 -i DY_MiNNLO_NNPDF31_13TeV/${PROC}-powheg.input -m ${PROC:0:1}j -f ${PROC}-${SUFFIX} -q 1:longlunch,2:workday,3:longlunch --step3pilot -x 3 -j ${NJOBS} --slc ${ARCH:3:1}
+            k5reauth -R -- python ./run_pwg_parallel_condor.py -p 123 -i DY_MiNNLO_NNPDF31_13p6TeV/${PROC}-powheg.input -m ${PROC:0:1}j -f ${PROC}-${SUFFIX} -q 1:longlunch,2:workday,3:longlunch --step3pilot -x 3 -j ${NJOBS} --slc ${ARCH:3:1}
         done
     ;;
     
@@ -91,28 +88,28 @@ case $WHAT in
     LONGGRIDS )
         for PROC in ${PROCS[@]}
         do
-            k5reauth -R -- python ./run_pwg_parallel_condor.py -p 123 -i DY_MiNNLO_NNPDF31_13TeV/${PROC}-powheg.input -m ${PROC:0:1}j -f ${PROC}-${SUFFIX} -q 1:workday,2:tomorrow,3:longlunch --step3pilot -x 3 -j ${NJOBS}
+            k5reauth -R -- python ./run_pwg_parallel_condor.py -p 123 -i DY_MiNNLO_NNPDF31_13p6TeV/${PROC}-powheg.input -m ${PROC:0:1}j -f ${PROC}-${SUFFIX} -q 1:workday,2:tomorrow,3:longlunch --step3pilot -x 3 -j ${NJOBS}
         done
     ;;
     
     GRIDS1 )
         for PROC in ${PROCS[@]}
         do
-            k5reauth -R -- python ./run_pwg_parallel_condor.py -p 1 -i DY_MiNNLO_NNPDF31_13TeV/${PROC}-powheg.input -m ${PROC:0:1}j -f ${PROC}-${SUFFIX} -q workday -j ${NJOBS}
+            k5reauth -R -- python ./run_pwg_parallel_condor.py -p 1 -i DY_MiNNLO_NNPDF31_13p6TeV/${PROC}-powheg.input -m ${PROC:0:1}j -f ${PROC}-${SUFFIX} -q workday -j ${NJOBS}
         done
     ;;
     
     GRIDS2 )
         for PROC in ${PROCS[@]}
         do
-            k5reauth -R -- python ./run_pwg_parallel_condor.py -p 2 -i DY_MiNNLO_NNPDF31_13TeV/${PROC}-powheg.input -m ${PROC:0:1}j -f ${PROC}-${SUFFIX} -q workday -j ${NJOBS}
+            k5reauth -R -- python ./run_pwg_parallel_condor.py -p 2 -i DY_MiNNLO_NNPDF31_13p6TeV/${PROC}-powheg.input -m ${PROC:0:1}j -f ${PROC}-${SUFFIX} -q workday -j ${NJOBS}
         done
     ;;
     
     GRIDS3 )
         for PROC in ${PROCS[@]}
         do
-            k5reauth -R -- python ./run_pwg_parallel_condor.py -p 3 -i DY_MiNNLO_NNPDF31_13TeV/${PROC}-powheg.input -m ${PROC:0:1}j -f ${PROC}-${SUFFIX} -q longlunch -j ${NJOBS} --step3pilot &
+            k5reauth -R -- python ./run_pwg_parallel_condor.py -p 3 -i DY_MiNNLO_NNPDF31_13p6TeV/${PROC}-powheg.input -m ${PROC:0:1}j -f ${PROC}-${SUFFIX} -q longlunch -j ${NJOBS} --step3pilot &
         done
     ;;
     
@@ -130,8 +127,8 @@ case $WHAT in
         do
             python ./run_pwg_condor.py -p 9 -m ${PROC:0:1}j -f ${PROC}-${SUFFIX} 
         done
-        ./minnloHelper.sh PACK_REDUCED
-        ./minnloHelper.sh PACK_NORWL
+        ./minnloHelper_Run3.sh PACK_REDUCED
+        ./minnloHelper_Run3.sh PACK_NORWL
     ;;
     
     TEST )
@@ -277,14 +274,14 @@ case $WHAT in
             rm -r ${DIR}; mkdir ${DIR}; cd ${DIR}
             tar -xzf ../../${PROC:0:1}j_${ARCH}_${CMSSW}_${PROC}-${SUFFIX}.tgz
             PROCSPLIT=(`echo ${PROC} | tr "-" "\n"`)
-            cp ../../DY_MiNNLO_NNPDF31_13TeV/lheWriter_cfg.py .
+            cp ../../DY_MiNNLO_NNPDF31_13p6TeV/lheWriter_cfg.py .
             sed -i "s/ZJToMuMu/${PROCSPLIT[0]}/g" lheWriter_cfg.py
-            diff ../../DY_MiNNLO_NNPDF31_13TeV/lheWriter_cfg.py lheWriter_cfg.py
-            cp ../../DY_MiNNLO_NNPDF31_13TeV/runcmsgrid_addMassWeights.sh runcmsgrid.sh
+            diff ../../DY_MiNNLO_NNPDF31_13p6TeV/lheWriter_cfg.py lheWriter_cfg.py
+            cp ../../DY_MiNNLO_NNPDF31_13p6TeV/runcmsgrid_addMassWeights.sh runcmsgrid.sh
             sed -i "s/process=.*/process=\"${PROC:0:1}j\"/g" runcmsgrid.sh
             sed -i s/SCRAM_ARCH_VERSION_REPLACE/${ARCH}/g runcmsgrid.sh
             sed -i s/CMSSW_VERSION_REPLACE/${CMSSW}/g runcmsgrid.sh
-            diff ../../DY_MiNNLO_NNPDF31_13TeV/runcmsgrid_addMassWeights.sh runcmsgrid.sh
+            diff ../../DY_MiNNLO_NNPDF31_13p6TeV/runcmsgrid_addMassWeights.sh runcmsgrid.sh
             tar zcf ../${PROC:0:1}j_${ARCH}_${CMSSW}_${PROC}-${SUFFIX}-addmassweights.tgz *
             cd ..
         done
@@ -309,8 +306,8 @@ case $WHAT in
                 PROCSPLIT=(`echo ${PROC} | tr "-" "\n"`)
                 NEWPROCSPLIT=(`echo ${NEWPROC} | tr "-" "\n"`)
                 sed -i "s/${PROCSPLIT[0]}/${NEWPROCSPLIT[0]}/g" lheWriter_cfg.py
-                diff ../../DY_MiNNLO_NNPDF31_13TeV/lheWriter_cfg.py lheWriter_cfg.py
-                diff ../../DY_MiNNLO_NNPDF31_13TeV/runcmsgrid.sh runcmsgrid.sh
+                diff ../../DY_MiNNLO_NNPDF31_13p6TeV/lheWriter_cfg.py lheWriter_cfg.py
+                diff ../../DY_MiNNLO_NNPDF31_13p6TeV/runcmsgrid.sh runcmsgrid.sh
                 tar zcf ../${PROC:0:1}j_${ARCH}_${CMSSW}_${NEWPROC}-${SUFFIX}-addmassweights.tgz *
                 cd ..
             done
