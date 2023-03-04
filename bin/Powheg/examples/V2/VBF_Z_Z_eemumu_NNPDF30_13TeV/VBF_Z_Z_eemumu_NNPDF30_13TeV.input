@@ -1,6 +1,6 @@
 ! Production parameter for VBF ZZ production 
-vdecaymodeZ1 11  ! PDG code for charged decay product of Z vector boson (11:e;13 mu ...)  
-vdecaymodeZ2 13  ! PDG code for charged decay product of Z vector boson (11:e;13:mu;...)  
+vdecaymodeZ1 11  ! PDG code for charged decay product of Z vector boson (11 e;13 mu;12 nu_e;14 nu_m;1 d;...)  
+vdecaymodeZ2 13  ! PDG code for charged decay product of Z vector boson (... 2 u;3 s; 4 c; 7 d and s;8 u and c;)  
 hmass 125.d0    ! mass of the HIggs boson [GeV]
 hwidth 0.00498d0   ! width of the Higgs boson [GeV]
 wmass 80.419d0    ! mass of the W boson [GeV]
