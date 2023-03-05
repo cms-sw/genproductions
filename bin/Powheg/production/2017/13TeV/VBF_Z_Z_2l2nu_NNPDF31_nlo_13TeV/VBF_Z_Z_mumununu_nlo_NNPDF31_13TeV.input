@@ -1,6 +1,6 @@
 ! Production parameter for VBF ZZ production 
-vdecaymodeZ1 11  ! PDG code for charged decay product of Z vector boson (11:e;13 mu ...)  
-vdecaymodeZ2 12  ! PDG code for charged decay product of Z vector boson (11:e;13:mu;...)  
+vdecaymodeZ1 13  ! PDG code for charged decay product of Z vector boson (11:e;13 mu ...)  
+vdecaymodeZ2 14  ! PDG code for charged decay product of Z vector boson (11:e;13:mu;...)  
 hmass 125.d0    ! mass of the HIggs boson [GeV]
 hwidth 0.00498d0   ! width of the Higgs boson [GeV]
 wmass 80.357973609878d0    ! mass of the W boson [GeV]
@@ -23,8 +23,8 @@ ebeam2 6500d0     ! energy of beam 2
 ! 10041 cteq6l with NLO alphas
 ! 21000 MSTW2008 LO
 ! 21100 MSTW2008 NLO
-lhans1  260000     ! pdf set for hadron 1 (LHA numbering)
-lhans2  260000     ! pdf set for hadron 2 (LHA numbering)
+lhans1  306000     ! pdf set for hadron 1 (LHA numbering)
+lhans2  306000     ! pdf set for hadron 2 (LHA numbering)
 ! To be set only if using different pdf sets for the two incoming hadrons
 ! QCDLambda5  0.25 ! for not equal pdf sets 
 
