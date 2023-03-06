@@ -67,11 +67,13 @@ foreach $infile (@ARGV) {
         if ($gzline =~ s/\s*(.*)\s*=\s*event_norm.*\n/$1/) { $event_norm = $gzline; }
     }
     
-    # Extract <MGGenerationInfo> information
+    # Extract <MGGenerationInfo> information and lhe_version
     if ($initblock == 0) {
       if ($gzline =~ s/#  Number of Events\s*:\s*(.*)\n/$1/) { $noevents = $gzline; }
       if ($gzline =~ s/#  Integrated weight \(pb\)\s*:\s*(.*)\n/$1/) { $xsec = $gzline; }
-      if ($gzline =~ s/\s*(.*)\s*=\s*lhe_version.*\n/$1/) { $lhe_version = $gzline; }
+
+      #if ($gzline =~ s/\s*(.*)\s*=\s*lhe_version.*\n/$1/) { $lhe_version = $gzline; }
+      if ($gzline =~ s/<LesHouchesEvents version=\"(.*)\">/$1/) { $lhe_version = $gzline; }
 
       # Check if we enter <init> block
       if ($gzline =~ m/$begin_init/) { $initblock++; next; }
