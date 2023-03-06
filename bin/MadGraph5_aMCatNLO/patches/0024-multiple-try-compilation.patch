@@ -1,6 +1,6 @@
 --- a/madgraph/various/misc.py
 +++ b/madgraph/various/misc.py
-@@ -470,6 +470,7 @@ def copytree(*args, **opts):
+@@ -475,6 +475,7 @@ def copytree(*args, **opts):
  #===============================================================================
  # Compiler which returns smart output error in case of trouble
  #===============================================================================
