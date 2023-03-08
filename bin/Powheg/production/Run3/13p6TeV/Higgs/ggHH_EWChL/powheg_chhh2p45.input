@@ -38,6 +38,7 @@ lhans2 325300	      ! pdf set for hadron 2 (LHA numbering)
 use-old-grid    1    ! if 1 use old grid if file pwggrids.dat is present (<> 1 regenerate)
 use-old-ubound  1    ! if 1 use norm of upper bounding function stored in pwgubound.dat, if present; <> 1 regenerate
 !
+
 ncall1   10000       ! number of calls for initializing the integration grid
 itmx1        3       ! number of iterations for initializing the integration grid
 ncall2   10000       ! number of calls for computing the integral and finding upper bound

@@ -1,6 +1,6 @@
 --- a/madgraph/interface/reweight_interface.py
 +++ b/madgraph/interface/reweight_interface.py
-@@ -2012,13 +2012,13 @@ class ReweightInterface(extended_cmd.Cmd):
+@@ -2016,13 +2016,13 @@ class ReweightInterface(extended_cmd.Cmd):
          if False:#self.has_nlo and 'NLO' in self.rwgt_mode:
              #use python version
              path = pjoin(obj['rwgt_dir'], 'rw_mevirt','Source')
