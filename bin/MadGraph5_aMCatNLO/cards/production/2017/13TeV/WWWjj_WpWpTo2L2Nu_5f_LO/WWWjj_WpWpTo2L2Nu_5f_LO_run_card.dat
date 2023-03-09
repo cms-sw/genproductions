@@ -62,7 +62,7 @@
 #*********************************************************************
 # Type and output format
 #*********************************************************************
-  False	= gridpack !True = setting up the grid pack
+  True	= gridpack !True = setting up the grid pack
   -1.0	= time_of_flight ! threshold (in mm) below which the invariant livetime is not written (-1 means not written)
   average	= event_norm ! average/sum. Normalization of the weight in the LHEF
 #*********************************************************************
@@ -105,7 +105,7 @@
  # Apply pt/E/eta/dr/mij/kt_durham cuts on decay products or not
  # (note that etmiss/ptll/ptheavy/ht/sorted cuts always apply)
  #*********************************************************************
-  True	= cut_decays ! Cut decay products
+  False	= cut_decays ! Cut decay products
 #*********************************************************************
 # Standard Cuts                                                      *
 #*********************************************************************
