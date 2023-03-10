@@ -1,0 +1,12 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set loop_optimized_output True
+set complex_mass_scheme False
+
+import model VLQ_v4_4FNS_UFO
+define bb = b b~
+define Topo = bp bp~
+
+generate p p > j bb Topo / h @1
+
+output BprimeBToTW_LH_narrow_M1000
