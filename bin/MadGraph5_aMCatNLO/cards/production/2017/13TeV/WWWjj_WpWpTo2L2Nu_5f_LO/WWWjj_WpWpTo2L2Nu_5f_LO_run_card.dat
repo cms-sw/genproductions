@@ -105,7 +105,7 @@
  # Apply pt/E/eta/dr/mij/kt_durham cuts on decay products or not
  # (note that etmiss/ptll/ptheavy/ht/sorted cuts always apply)
  #*********************************************************************
-  False	= cut_decays ! Cut decay products
+  True	= cut_decays ! Cut decay products
 #*********************************************************************
 # Standard Cuts                                                      *
 #*********************************************************************
