@@ -2,6 +2,7 @@ import FWCore.ParameterSet.Config as cms
 
 externalLHEProducer = cms.EDProducer("ExternalLHEProducer",
                                      args = cms.vstring('/afs/cern.ch/work/s/sblancof/public/WW_helicity-Gridpacks/SMP_Polarization/Run3-Gridpacks/WW_LL_slc7_amd64_gcc10_CMSSW_12_4_8_tarball.tar.xz'),
+                                     generateConcurrently = cms.untracked.bool(True),
                                      inputFile = cms.string('unweight_events.lhe'),
                                      nEvents = cms.untracked.uint32(500000),
                                      numberOfParameters = cms.uint32(1),
