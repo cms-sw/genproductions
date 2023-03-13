@@ -1,0 +1,10 @@
+set param_card mass 25 100
+set param_card mass 35 125
+set param_card mass 36 140
+set param_card mass 37 100
+set param_card higgs 5 1.57079632679
+set param_card higgs 1 0.258196179523
+set param_card higgs 2 0.258196179523
+set param_card yukawaglr 3 3 1.02156808957
+set param_card yukawagdr 3 3 -0.000270195274112
+set param_card yukawagur 3 3 -0.00994548562157
