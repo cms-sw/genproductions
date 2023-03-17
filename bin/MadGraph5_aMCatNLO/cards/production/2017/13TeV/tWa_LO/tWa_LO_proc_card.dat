@@ -5,7 +5,6 @@ import model sm-ckm_no_b_mass
 #include b quark in proton and jet definition for consistent 5 flavour scheme treatment
 define p = p b b~
 define j = j b b~
-define part =  ve vm vt e- mu- ve~ vm~ vt~ e+ mu+ ta- ta+
 generate p p > t > l+ l- b a vl vl~ / z a
 add process p p > t~ > l+ l- b~ a vl vl~ / z a
 
