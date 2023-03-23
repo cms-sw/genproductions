@@ -24,7 +24,7 @@ Loop_Generator gg_yy
 End process;
 
 Process 93 93 -> 22 22 93{3};
-Order_EW 2;
+Order (*,2);
 Enhance_Factor 2 {3};
 Enhance_Factor 5 {4};
 Enhance_Factor 10 {5};
