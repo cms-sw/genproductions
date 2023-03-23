@@ -107,6 +107,18 @@ def check_replace(runcmsgridfile):
         error_check_replace += 1
     return error_check_replace 
 
+def tunes_settings_check(dn,fragment,pi):
+    error_tunes_check = 0
+    if "Summer22" in pi and "FlatRandomEGunProducer" not in fragment and "FlatRandomPtGunProducer" not in fragment and "Pythia8EGun" not in fragment and "Pythia8PtGun" not in fragment and "FlatRandomPtAndDxyGunProducer" not in fragment:
+        if "Configuration.Generator.MCTunesRun3ECM13p6TeV" not in fragment or "from Configuration.Generator.MCTunes2017" in fragment:
+            error_tunes_check +=1 
+            print("[ERROR] For Summer22 samples, please use from Configuration.Generator.MCTunesRun3ECM13p6TeV.PythiaCP5Settings_cfi import * in your fragment instead of from Configuration.Generator.MCTunes2017.PythiaCP5Settings_cfi import *")
+    if "Run3" in pi and (dn.startswith("DYto") or dn.startswith("Wto")):
+        if "ktdard" in fragment and "0.248" not in fragment:
+            print("[ERROR] 'kthard = 0.248' not in fragment for DY or Wjets MG5_aMC request for Run3. Please fix.")
+            error_tunes_check +=1 
+    return error_tunes_check                
+ 
 def concurrency_check(fragment,pi,cmssw_version):
     conc_check = 0
     conc_check_lhe = 0
@@ -114,6 +126,9 @@ def concurrency_check(fragment,pi,cmssw_version):
     fragment = re.sub(r'(?m)^ *#.*\n?', '',fragment) # remove lines starting with #
     fragment = fragment.replace(" ","").replace("\"","'")#
     if cmssw_version >= int('10_60_28'.replace('_','')) and int(str(cmssw_version)[:2]) != 11:
+        if "generateConcurrently=cms.untracked.bool(False)" in fragment and "Pythia8Concurrent" in fragment:
+            print("[ERROR] Concurrent parameters used with generateConcurrently=cms.untracked.bool(False) in fragment.")
+            error_conc = 1
         if "ExternalLHEProducer" in fragment and "generateConcurrently=cms.untracked.bool(True)" in fragment: 
             # first check if the code has correctly implemented concurrent features. Mark conc_check_lhe (LHE step) or conc_check (GEN step) as True if features are found
             if "Herwig7GeneratorFilter" not in fragment: 
@@ -144,9 +159,6 @@ def concurrency_check(fragment,pi,cmssw_version):
             if "randomizedparameters" in fragment.lower():
                 print("[ERROR] Concurrent generation parameters used along with RandomizedParameter scan.")
                 error_conc = 1
-            if "plhegen" in pi.lower():
-                print("[ERROR] Concurrent generation parameters used along with a pLHEGEN request.") #pLHE+GEN is OK
-                error_conc = 1
         else:
             # then if not both the LHE and GEN step turns on concurrent features, we check if for some cases it is ok not to have concurrency
             if "Pythia8HadronizerFilter" in fragment and ("evtgen" in fragment.lower() or "tauola" in fragment.lower() or "photos" in fragment.lower()):
@@ -155,14 +167,12 @@ def concurrency_check(fragment,pi,cmssw_version):
                 print("Herwig7GeneratorFilter in the wmLHEGEN or pLHEGEN campaign cannot run concurrently.")
             elif "Pythia8GeneratorFilter" in fragment and "randomizedparameters" in fragment.lower():
                 print("Pythia8GeneratorFilter with RandomizedParameter scan cannot run concurrently")
-            elif "plhegen" in pi.lower():
-                print("pLHE cannot run concurrently")
             # for other cases, it is either concurrent generation parameters are missing or wrong
             else:
                 print("[ERROR] Concurrent generation parameters missing or wrong. Please see https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookGenMultithread")
                 error_conc = 1
     else:
-        if "concurrent" in fragment.lower() and "plhegen" not in pi.lower():
+        if "concurrent" in fragment.lower():
             print("[ERROR] Concurrent generation is not supported for versions < CMSSW_10_6_28 and CMSSW_11_X_X series")
             error_conc = 1
     return conc_check_lhe and conc_check, error_conc
@@ -351,7 +361,7 @@ def run3_checks(fragment,dn,pi):
     print("======> Run3 Fragment and dataset name checks:")
     if "comEnergy" in fragment:
         comline = re.findall('comEnergy=\S+',fragment)
-        if "run3winter22" in pi.lower() and "13600" not in comline[0]:
+        if ("run3winter22" in pi.lower() or "summer22" in pi.lower()) and "13600" not in comline[0]:
             print(comline[0])
             print("[ERROR] The c.o.m. energy is not specified as 13600 GeV in the fragment")
             err += 1
@@ -633,6 +643,8 @@ for num in range(0,len(prepid)):
             warning += 1
 #        data_f2 = re.sub(r'(?m)^ *#.*\n?', '',data_f1)
 
+        error += tunes_settings_check(dn,data_f1,pi)
+      
         cross_section_fragment = re.findall('crossSection.*?\S+\S+',data_f2)
         if (cross_section_fragment):
             cross_section_fragment=cross_section_fragment[0]
@@ -842,6 +854,7 @@ for num in range(0,len(prepid)):
                 print("[ERROR] Although the name of the dataset has ~Madgraph, the gridpack doesn't seem to be a MG5_aMC one.")
                 error += 1
             if mg_gp is True:
+                error += tunes_settings_check(dn,data_f1,pi)
                 filename_mggpc = my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat'
                 fname_p2 = my_path+'/'+pi+'/'+'process/Cards/run_card.dat'
                 if os.path.isfile(fname_p2) is True :
@@ -862,16 +875,20 @@ for num in range(0,len(prepid)):
                 print("maxjetflavor = "+str(maxjetflavor))
                 if alt_ickkw_c == 3:
                     qCutME = os.popen('grep "qCutME" '+pi).read()
-                    qCutME = qCutME.replace(" ","")
-                    qCutME = re.findall('qCutME=\d+',qCutME)[0].split("=")[1]
-                    print("qCutME = ",qCutME)
-                    ptj_runcard = os.popen('grep "ptj" '+filename_mggpc).read()
-                    ptj_runcard = ptj_runcard.replace(" ","")
-                    ptj_runcard = re.findall('\d*\.?\d+',ptj_runcard)[0].split("=")[0]
-                    print("ptj_runcard =", ptj_runcard)
-                    if float(qCutME) != float(ptj_runcard):
-                        error += 1
-                        print("[ERROR] qCutME in PS settings and ptj in run_card in gridpack do not match.")
+                    if len(qCutME) == 0:
+                        print("[ERROR] For FxFx setups qCutME should be specified in the fragment.")
+                        error+= 1
+                    else:
+                        qCutME = qCutME.replace(" ","")
+                        qCutME = re.findall('qCutME=\d+',qCutME)[0].split("=")[1]
+                        print("qCutME = ",qCutME)
+                        ptj_runcard = os.popen('grep "ptj" '+filename_mggpc).read()
+                        ptj_runcard = ptj_runcard.replace(" ","")
+                        ptj_runcard = re.findall('\d*\.?\d+',ptj_runcard)[0].split("=")[0]
+                        print("ptj_runcard =", ptj_runcard)
+                        if float(qCutME) != float(ptj_runcard):
+                            error += 1
+                            print("[ERROR] qCutME in PS settings and ptj in run_card in gridpack do not match.")
                     if int(os.popen('grep -c nQmatch '+pi).read()) == 1:
                         nQmatch = os.popen('grep "nQmatch" '+pi).read()
                         nQmatch = nQmatch.replace(" ","")
@@ -1310,12 +1327,12 @@ for num in range(0,len(prepid)):
                                             print("                                            "+str(UL_PDFs_N[0])+" "+str(UL_PDFs[0]))
                                             print("                                            or "+str(UL_PDFs_N[1])+" "+str(UL_PDFs[1]))
                                             warning += 1
-                                    if "minlo" in line:
+                                    if "minlo" in line and "modlog_p" not in line:
                                         minlo = int(re.split(r'\s+', line)[1])
                                         print("MINLO = "+str(minlo))
-                                    if "minnlo" in line:
+                                    if "minnlo" in line and "modlog_p" not in line:
                                         minnlo = int(re.split(r'\s+', line)[1])
-                                        print("MINNLO = "+str(minlo))
+                                        print("MINNLO = "+str(minnlo))
                     if os.path.isfile(my_path+'/'+pi+'/'+'external_tarball/pwg-rwl.dat') is True:
                         pwg_rwl_file = os.path.join(my_path, pi, "external_tarball/pwg-rwl.dat")
                     else:

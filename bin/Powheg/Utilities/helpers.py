@@ -68,6 +68,15 @@ patch -l -p0 -i ${patches_dir}/minnlo_pdf_representations_init.patch\n \
 patch -l -p2 -i ${patches_dir}/minnlo_pdf_ymax.patch\n \
 cd ..\n \
 fi",
+    "HJ" : "if [ ${forMiNNLO} -eq 1 ]; then\n \
+cd POWHEG-BOX\n \
+patch -l -p0 -i ${patches_dir}/pwhg_rm_bad_st1.patch\n \
+patch -l -p0 -i ${patches_dir}/pwhg_rwl_add_random.patch\n \
+patch -l -p0 -i ${patches_dir}/minnlo_pdf_weights.patch\n \
+patch -l -p0 -i ${patches_dir}/minnlo_pdf_representations_init.patch\n \
+patch -l -p2 -i ${patches_dir}/minnlo_pdf_ymax.patch\n \
+cd ..\n \
+fi",
     "VBF_H_smeft" : "cd POWHEG-BOX/VBF_H_smeft\n \
 head -n 966 pwhg_analysis.f | tail -n 12 > pwhg_analysis_new.f\n \
 mv pwhg_analysis_new.f pwhg_analysis.f\n \
@@ -85,6 +94,11 @@ fi",
     "Wj" : "if [ ${forMiNNLO} -eq 1 ]; then\n \
 patch -l -p0 -i ${WORKDIR}/patches/wj_minnlo_scheme_weights.patch\n \
 cd WjMiNNLO\n \
+patch -l -p0 -i ${WORKDIR}/patches/vj_minnlo_rwl_pdf_optimization.patch\n \
+patch -l -p0 -i ${WORKDIR}/patches/vj_minnlo_compiler_flags.patch\n \
+fi",
+    "HJ" : "if [ ${forMiNNLO} -eq 1 ]; then\n \
+cd HJMiNNLO\n \
 patch -l -p0 -i ${WORKDIR}/patches/vj_minnlo_rwl_pdf_optimization.patch\n \
 patch -l -p0 -i ${WORKDIR}/patches/vj_minnlo_compiler_flags.patch\n \
 fi",
@@ -468,7 +482,8 @@ cd ..",
 
 def runGetSource_patch_8(process) :
   return {
-    "HJ" : "echo \"Compiling HNNLO....\"\n \
+    "HJ" : "if [ ${forMiNNLO} -eq 0 ]; then\n \
+echo \"Compiling HNNLO....\"\n \
 wget --no-verbose http://theory.fi.infn.it/grazzini/codes/hnnlo-v2.0.tgz\n \
 tar -xzvf hnnlo-v2.0.tgz\n \
 cd hnnlo-v2.0\n \
@@ -499,5 +514,6 @@ COMENERGY=`echo \"( $BEAM*2 )\" | bc`\n \
 gawk \"/sroot/{gsub(/8000/,$COMENERGY)};/hmass/{gsub(/125.5/, ${HMASS})};/mur,muf/{gsub(/62.750/, $(( $HMASS/2 )))};{print}\" POWHEG-BOX/HJ/PaperRun/HNNLO-LHC8-R04-APX2-11.input | sed -e \"s#10103#SEED#g\" | sed -e \"s#HNNLO-LHC8-R04-APX2-11#HNNLO-LHC13-R04-APX2-11#g\"> HNNLO-LHC13-R04-APX2-11.input\n \
 gawk \"/sroot/{gsub(/8000/,$COMENERGY)};/hmass/{gsub(/125.5/, ${HMASS})};/mur,muf/{gsub(/62.750/, $(( $HMASS )))};{print}\" POWHEG-BOX/HJ/PaperRun/HNNLO-LHC8-R04-APX2-11.input | sed -e \"s#10103#SEED#g\" | sed -e \"s#HNNLO-LHC8-R04-APX2-11#HNNLO-LHC13-R04-APX2-22#g\"> HNNLO-LHC13-R04-APX2-22.input\n \
 gawk \"/sroot/{gsub(/8000/,$COMENERGY)};/hmass/{gsub(/125.5/, ${HMASS})};/mur,muf/{gsub(/62.750/, $(( $HMASS/4 )))};{print}\" POWHEG-BOX/HJ/PaperRun/HNNLO-LHC8-R04-APX2-11.input | sed -e \"s#10103#SEED#g\" | sed -e \"s#HNNLO-LHC8-R04-APX2-11#HNNLO-LHC13-R04-APX2-0505#g\"> HNNLO-LHC13-R04-APX2-0505.input\n \
-cp ${WORKDIR}/Utilities/nnlopsreweighter.input .",
+cp ${WORKDIR}/Utilities/nnlopsreweighter.input .\n \
+fi",
     }.get(process,"")
