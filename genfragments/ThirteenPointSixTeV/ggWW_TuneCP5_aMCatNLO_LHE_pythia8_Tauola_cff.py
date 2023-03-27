@@ -12,7 +12,7 @@ externalLHEProducer = cms.EDProducer("ExternalLHEProducer",
 
 
 from Configuration.Generator.Pythia8CommonSettings_cfi import *
-from Configuration.Generator.MCTunes2017.PythiaCP5Settings_cfi import *
+from Configuration.Generator.MCTunesRun3ECM13p6TeV.PythiaCP5Settings_cfi import *
 from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *
 from GeneratorInterface.ExternalDecays.TauolaSettings_cff import *
 
