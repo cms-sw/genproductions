@@ -1275,7 +1275,6 @@ for num in range(0,len(prepid)):
                                 if "," in proc_line[y]: zz = proc_line[y].split(',')[0]
                                 zz = zz.translate(str.maketrans('','',string.punctuation))
                                 nbtomatch = zz.count('b') if maxjetflavor > 4 else 0
-                                print(zz.count('c'))
                                 nc = zz.count('c') if "chi" not in zz else 0
                                 if "excl" in zz and nc != 0: nc = nc -1
                                 jet_count_tmp.append(zz.count('j') + nbtomatch + nc)
@@ -1491,14 +1490,14 @@ for num in range(0,len(prepid)):
                 n_ext_par += tot.count('reweightGenEmp')
                 warnings.append("Number of extra or replaced tune parameters is at least "+str(n_ext_par)+"Please check tune configuration carefully (e.g. are the non-replaced parameters the ones you want)")
         if 3 not in tunecheck and fsize != 0 and n_ext_par == 0 and herwig_flag == 0 and sherpa_flag == 0:
-            if  any(tunecheck[0]<3 and it!=0 for it in tunecheck) :
+            if  any(tunecheck[0]<3 and it!=0 for it in tunecheck):
                 errors.append("Tune configuration may be wrong in the fragment or pythia8CUEP8M1Settings are overwritten by some other parameters as in CUETP8M2T4. "+str(tunecheck))
-            else :
+            else:
                 warnings.append("None standard tune - please check the fragment carefully.")
         if fsize != 0 and herwig_flag == 0 and sherpa_flag == 0:
-            if int(os.popen('grep -c "from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *" '+pi).read()) != 1 :
+            if int(os.popen('grep -c "from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *" '+pi).read()) != 1:
                 warnings.append("No parton shower weights configuration in the fragment. Since the Fall18 campaign, we recommend to include Parton Shower weights")
-            if int(os.popen('grep -c "from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *" '+pi).read()) == 1 :
+            else:
                 if (int(str(cmssw_version)[:1]) == 9 and cmssw_version < 93019) or (int(str(cmssw_version)[:1]) > 9 and cmssw_version < 102030) or (int(str(cmssw_version)[:1]) == 7 and cmssw_version < 71047):
                     errors.append("PS weights in config but CMSSW version is < 10_2_3 for CMSSW version >= 10_X_X or is < 9_3_10 for CMSSW version <= 9_X_X - please check!")
                 psweightscheck.append(int(os.popen('grep -c "from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *" '+pi).read()))
