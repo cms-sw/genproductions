@@ -7,7 +7,6 @@ import textwrap
 import fnmatch
 import os.path
 import string
-#import json
 from datetime import datetime
 ###########Needed to check for ultra-legacy sample consistency check############################################
 os.system('env -i KRB5CCNAME="$KRB5CCNAME" cern-get-sso-cookie -u https://cms-pdmv.cern.ch/mcm/ -o cookiefile.txt --krb --reprocess')
@@ -120,7 +119,7 @@ def concurrency_check(fragment,pi,cmssw_version):
     conc_check_lhe = 0
     error_conc = []
     fragment = re.sub(r'(?m)^ *#.*\n?', '',fragment) # remove lines starting with #
-    fragment = fragment.replace(" ","").replace("\"","'")#
+    fragment = fragment.replace(" ","").replace("\"","'")
     if cmssw_version >= int('10_60_28'.replace('_','')) and int(str(cmssw_version)[:2]) != 11:
         if "generateConcurrently=cms.untracked.bool(False)" in fragment and "Pythia8Concurrent" in fragment:
             error_conc.append("Concurrent parameters used with generateConcurrently=cms.untracked.bool(False) in fragment.")
@@ -130,9 +129,9 @@ def concurrency_check(fragment,pi,cmssw_version):
                 conc_check_lhe = 1
             else:
                 if "postGenerationCommand=cms.untracked.vstring('mergeLHE.py','-i','thread*/cmsgrid_final.lhe','-o','cmsgrid_final.lhe')" in fragment: 
-                    conc_check_lhe = 1#    
-        elif "ExternalLHEProducer" not in fragment:#
-            conc_check_lhe = 1#
+                    conc_check_lhe = 1    
+        elif "ExternalLHEProducer" not in fragment:
+            conc_check_lhe = 1
         if "ExternalDecays" not in fragment and "Pythia8ConcurrentHadronizerFilter" in fragment: 
             conc_check = 1
         if "Pythia8ConcurrentGeneratorFilter" in fragment and "ExternalDecays" not in fragment and "RandomizedParameters" not in fragment: 
@@ -258,10 +257,8 @@ def xml_check_and_patch(f,cont,gridpack_eos_path,my_path,pi):
         targz_flag = 0
         if "stream" not in xml and len(xml) > 3:
           warning_xml.append(" --stream option is missing in XMLLINT, will update runcmsgrid.")
-#          warning_xml += 1
         if len(xml) < 3:
           warning_xml.append("[WARNING] XMLLINT does not exist in runcmsgrid, will update it.")
-#          warning_xml += 1
         if ".tar.gz" in gridpack_eos_path:
           targz_flag = 1
           gridpack_eos_path_backup = gridpack_eos_path.replace('.tar.gz','_original.tar.gz')
@@ -379,7 +376,6 @@ def vbf_dipole_recoil_check(vbf_lo,vbf_nlo,data_f2,pw_gp,dn):
     warning_dipole = []
     error_dipole = []
     if "vbf" not in dn.lower():
-#        warning_dipole += 1
         warning_dipole.append("VBF not in dataset name.")
     if len(dipole_recoil):
         dipole_recoil = dipole_recoil[0].split("=")[1].replace('"', '').replace('\'', '')
@@ -387,7 +383,6 @@ def vbf_dipole_recoil_check(vbf_lo,vbf_nlo,data_f2,pw_gp,dn):
             dipole_recoil_flag = 1 
     if pw_gp is False:
         if vbf_lo and dipole_recoil_flag == 0:
-#            warning_dipole = 1
             warning_dipole.append("LO VBF with global recoil --> SpaceShower:dipoleRecoil = 0 SMP/HIG groups are moving to local recoil but currently using global recoil. See https://arxiv.org/pdf/1803.07943.pdf")
         if vbf_lo and dipole_recoil_flag:
             print("[OK] LO VBF with local recoil. --> SpaceShower:dipoleRecoil = 1")
@@ -397,7 +392,6 @@ def vbf_dipole_recoil_check(vbf_lo,vbf_nlo,data_f2,pw_gp,dn):
             error_dipole.append("NLO VBF with local recoil. --> SpaceShower:dipoleRecoil = 1 aMC@NLO should not be used with local recoil. See https://arxiv.org/pdf/1803.07943.pdf")
     else:
         if "vbf" in dn.lower() and dipole_recoil_flag == 0:
-#            warning_dipole = 1
             warning_dipole.append("VBF POWHEG with global recoil --> SpaceShower:dipoleRecoil = 0. See https://arxiv.org/pdf/1803.07943.pdf")
         if "vbf" in dn.lower() and dipole_recoil_flag == 1:
             print("[OK] VBF POWHEG with local recoil --> SpaceShower:dipoleRecoil = 1.")  
@@ -454,9 +448,6 @@ for num in range(0,len(prepid)):
         continue
 
     my_path =  '/tmp/'+os.environ['USER']+'/gridpacks/'
-#    print "JSON Dump:"
-#    print "----------"
-#    print(json.dumps(res,indent = 2))
     print("***********************************************************************************")
 
     # Create an array of one element so further for loop would not be removed and code re-indented
@@ -834,7 +825,6 @@ for num in range(0,len(prepid)):
                         warnings.append("nQmatch in PS settings is not specified. Please check.") 
         if herwig_flag == 0 and pw_gp is True:
             warn_tmp , err_tmp = vbf_dipole_recoil_check(vbf_lo,vbf_nlo,data_f2,pw_gp,dn)
-#            warning += warn_tmp
             warnings.extend(warn_tmp)
             errors.extend(err_tmp)
         if herwig_flag != 0:
@@ -982,7 +972,6 @@ for num in range(0,len(prepid)):
             if gp_size != 0:
                 if "ppd" not in pi.lower() and "Summer20UL17pp5TeV" not in pi:
                     w_temp, e_temp = ul_consistency(dn,pi,jhu_gp)
-#                    warning += w_temp
                     warnings.extend(w_temp)
                     errors.extend(e_temp)
                 if "fall18" not in pi.lower() and "fall17" not in pi.lower() and "winter15" not in pi.lower() and "summer15" not in pi.lower() and not (any(word in dn for word in tunename) or "sherpa" in dn.lower() or ("herwigpp" in dn.lower() and ("eec5" in dn.lower() or "ee5c" in dn.lower()))):
@@ -1144,7 +1133,6 @@ for num in range(0,len(prepid)):
                             errors.extend(check_replace(runcmsgrid_file))
                             match = re.search(r"""process=(["']?)([^"']*)\1""", content)
                             warning1,error1 = xml_check_and_patch(f,content,gridpack_eos_path,my_path,pi)
-#                            warning += warning1
                             warnings.extend(warning1)
                             errors.extend(error1)
                             f.close()
@@ -1311,7 +1299,6 @@ for num in range(0,len(prepid)):
                                 vbf_lo = 1   
                                 print("VBF process at LO")
                             warn_tmp , err_tmp = vbf_dipole_recoil_check(vbf_lo,vbf_nlo,data_f2,pw_gp,dn)
-#                            warning += warn_tmp
                             warnings.extend(warn_tmp)
                             errors.extend(err_tmp)
                     if os.path.isfile(filename_mggpc) is True :
@@ -1505,8 +1492,7 @@ for num in range(0,len(prepid)):
                 warnings.append("Number of extra or replaced tune parameters is at least "+str(n_ext_par)+"Please check tune configuration carefully (e.g. are the non-replaced parameters the ones you want)")
         if 3 not in tunecheck and fsize != 0 and n_ext_par == 0 and herwig_flag == 0 and sherpa_flag == 0:
             if  any(tunecheck[0]<3 and it!=0 for it in tunecheck) :
-                print(tunecheck)
-                errors.append("Tune configuration may be wrong in the fragment or pythia8CUEP8M1Settings are overwritten by some other parameters as in CUETP8M2T4")
+                errors.append("Tune configuration may be wrong in the fragment or pythia8CUEP8M1Settings are overwritten by some other parameters as in CUETP8M2T4. "+str(tunecheck))
             else :
                 warnings.append("None standard tune - please check the fragment carefully.")
         if fsize != 0 and herwig_flag == 0 and sherpa_flag == 0:
