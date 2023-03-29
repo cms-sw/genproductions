@@ -104,6 +104,27 @@ def check_replace(runcmsgridfile):
         error_check_replace.append(" Incomplete gridpack. Replace _REPLACE strings in runcmsgrid.sh:")
     return error_check_replace 
 
+def slha_gp(gridpack_cvmfs_path,slha_flag):
+    if slha_flag == 1:
+        if "%i" in gridpack_cvmfs_path:
+            gridpack_cvmfs_path = gridpack_cvmfs_path.replace("%i","*")
+        elif "%s" in gridpack_cvmfs_path:
+            gridpack_cvmfs_path = gridpack_cvmfs_path.replace("%s","*")
+        elif "%d" in gridpack_cvmfs_path:
+            gridpack_cvmfs_path = gridpack_cvmfs_path.replace("%d","*")
+        else:
+            slha_flag = 0
+        if slha_flag == 1:
+            slha_all_path = os.path.dirname(gridpack_eos_path)
+            print("Directory: "+slha_all_path)
+            list_gridpack_cvmfs_path = os.listdir(slha_all_path)[0]
+            print(list_gridpack_cvmfs_path)
+            gridpack_cvmfs_path = slha_all_path+'/'+list_gridpack_cvmfs_path
+            print("SLHA request - checking single gridpack:")
+            print(gridpack_cvmfs_path)
+        return gridpack_cvmfs_path, slha_all_path, slha_flag
+
+
 def tunes_settings_check(dn,fragment,pi):
     error_tunes_check = []
     if "Summer22" in pi and "FlatRandomEGunProducer" not in fragment and "FlatRandomPtGunProducer" not in fragment and "Pythia8EGun" not in fragment and "Pythia8PtGun" not in fragment and "FlatRandomPtAndDxyGunProducer" not in fragment:
@@ -739,23 +760,7 @@ for num in range(0,len(prepid)):
             print(gridpack_cvmfs_path)
             print(gridpack_eos_path)
             if int(os.popen('grep -c slha '+pi).read()) != 0 or int(os.popen('grep -c \%i '+pi).read()) != 0 or int(os.popen('grep -c \%s '+pi).read()) != 0: slha_flag = 1
-            if slha_flag == 1:
-                if "%i" in gridpack_cvmfs_path:
-                    gridpack_cvmfs_path = gridpack_cvmfs_path.replace("%i","*")
-                elif "%s" in gridpack_cvmfs_path:
-                    gridpack_cvmfs_path = gridpack_cvmfs_path.replace("%s","*")
-                elif "%d" in gridpack_cvmfs_path:
-                    gridpack_cvmfs_path = gridpack_cvmfs_path.replace("%d","*")
-                else:
-                    slha_flag = 0
-                if slha_flag == 1:
-                    slha_all_path = os.path.dirname(gridpack_eos_path)
-                    print("Directory: "+slha_all_path)
-                    list_gridpack_cvmfs_path = os.listdir(slha_all_path)[0]
-                    print(list_gridpack_cvmfs_path)
-                    gridpack_cvmfs_path = slha_all_path+'/'+list_gridpack_cvmfs_path
-                    print("SLHA request - checking single gridpack:")
-                    print(gridpack_cvmfs_path)
+            gridpack_cvmfs_path, slha_all_path, slha_flag = slha_gp(gridpack_cvmfs_path,slha_flag)
             if os.path.isfile(gridpack_cvmfs_path) is True:
                 os.system('tar xf '+gridpack_cvmfs_path+' -C '+my_path+'/'+pi)
             else:
