@@ -516,6 +516,7 @@ for num in range(0,len(prepid)):
         vbf_nlo = 0
         knd =  -1
         slha_flag = 0
+        slha_all_path = 'none'
         grid_points_flag = 0
         nPartonsInBorn_flag = 0
         filename_mggpc = 'del'
@@ -760,7 +761,7 @@ for num in range(0,len(prepid)):
             print(gridpack_cvmfs_path)
             print(gridpack_eos_path)
             if int(os.popen('grep -c slha '+pi).read()) != 0 or int(os.popen('grep -c \%i '+pi).read()) != 0 or int(os.popen('grep -c \%s '+pi).read()) != 0: slha_flag = 1
-            gridpack_cvmfs_path, slha_all_path, slha_flag = slha_gp(gridpack_cvmfs_path,slha_flag)
+            if slha_flag == 1: gridpack_cvmfs_path, slha_all_path, slha_flag = slha_gp(gridpack_cvmfs_path,slha_flag)
             if os.path.isfile(gridpack_cvmfs_path) is True:
                 os.system('tar xf '+gridpack_cvmfs_path+' -C '+my_path+'/'+pi)
             else:
