@@ -18,8 +18,11 @@ if [ -e $$WORKDIR/$$folderName/pwg-st3-0001-stat.dat ]; then
   cp -p $$WORKDIR/$$folderName/pwg-st3-0001-stat.dat $$WORKDIR/$$folderName/pwg-stat.dat
 fi
 
-FULLGRIDRM=`ls $${WORKDIR}/$${folderName} | grep fullgrid-rm`
-FULLGRIDBTL=`ls $${WORKDIR}/$${folderName} | grep fullgrid-btl`
+FULLGRIDRM=`ls $${WORKDIR}/$${folderName} | grep fullgrid-rm | head -n 1`
+FULLGRIDBTL=`ls $${WORKDIR}/$${folderName} | grep fullgrid-btl | head -n 1`
+FULLGRIDRM=$${FULLGRIDRM%?}
+FULLGRIDBTL=$${FULLGRIDBTL%?}
+
 if [ $${#FULLGRIDRM} -gt 0 -a $${#FULLGRIDBTL} -gt 0 ]; then
   cp -p $$WORKDIR/$$folderName/$${FULLGRIDRM} $$WORKDIR/$$folderName/pwgfullgrid-rm.dat
   cp -p $$WORKDIR/$$folderName/$${FULLGRIDBTL} $$WORKDIR/$$folderName/pwgfullgrid-btl.dat
