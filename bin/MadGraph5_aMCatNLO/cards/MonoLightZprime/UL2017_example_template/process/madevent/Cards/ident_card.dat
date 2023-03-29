@@ -1,0 +1,71 @@
+ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+c      written by the UFO converter
+ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+
+ckmblock 1 mdl_cabi
+
+sminputs 1 aEWM1
+
+sminputs 2 mdl_Gf
+
+sminputs 3 aS
+
+yukawa 4 mdl_ymc
+
+yukawa 5 mdl_ymb
+
+yukawa 6 mdl_ymt
+
+yukawa 15 mdl_ymtau
+
+frblock 1 mdl_gzpu
+
+frblock 2 mdl_gchi
+
+frblock 3 mdl_gvhq
+
+frblock 4 mdl_gvhx
+
+frblock 5 mdl_gahq
+
+frblock 6 mdl_gahx
+
+mass 16 mdl_Mv3
+
+mass 11 mdl_Me
+
+mass 13 mdl_MM
+
+mass 15 mdl_MTA
+
+mass 2 mdl_MU
+
+mass 4 mdl_MC
+
+mass 6 mdl_MT
+
+mass 1 mdl_MD
+
+mass 3 mdl_MS
+
+mass 5 mdl_MB
+
+mass 23 mdl_MZ
+
+mass 25 mdl_MH
+
+mass 600001 mdl_MZp
+
+mass 600002 mdl_MZh
+
+decay 6 mdl_WT
+
+decay 23 mdl_WZ
+
+decay 24 mdl_WW
+
+decay 25 mdl_WH
+
+decay 600001 mdl_WZp
+
+decay 600002 mdl_WZh

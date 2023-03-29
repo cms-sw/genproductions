@@ -1,0 +1,5 @@
+set auto_update 0
+set automatic_html_opening False
+set lhapdf /cvmfs/cms.cern.ch/slc7_amd64_gcc700/external/lhapdf/6.2.1-pafccj3/share/LHAPDF/../../bin/lhapdf-config
+set run_mode 2
+save options

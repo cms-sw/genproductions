@@ -1,0 +1,16 @@
+      DATA GFORCEBW(-1,1)/1/
+      DATA GFORCEBW(-2,1)/0/
+      DATA GFORCEBW(-3,1)/0/
+      DATA GFORCEBW(-1,2)/1/
+      DATA GFORCEBW(-2,2)/0/
+      DATA GFORCEBW(-3,2)/0/
+      DATA GFORCEBW(-1,3)/1/
+      DATA GFORCEBW(-2,3)/0/
+      DATA GFORCEBW(-3,3)/0/
+      DATA GFORCEBW(-1,4)/1/
+      DATA GFORCEBW(-2,4)/0/
+      DATA GFORCEBW(-3,4)/0/
+      DATA GFORCEBW(-1,5)/1/
+      DATA GFORCEBW(-2,5)/0/
+      DATA GFORCEBW(-1,6)/0/
+      DATA GFORCEBW(-2,6)/1/
