@@ -522,7 +522,7 @@ for num in range(0,len(prepid)):
         filename_mggpc = 'del'
         ickkw = 'del' # ickkw = matching parameter in madgraph
         ickkw_c = 100
-        alt_ickkw_c = 100
+        alt_ickkw_c = 0
         maxjetflavor = 0
         nJetMax = 100
         particle_gun = 0
@@ -795,9 +795,11 @@ for num in range(0,len(prepid)):
                 if "Run3" in pi and "PbPb" not in pi:
                     err_tmp = run3_run_card_check(filename_mggpc,pi)
                     errors.extend(err_tmp)
-                alt_ickkw_c = os.popen('more '+filename_mggpc+' | tr -s \' \' | grep "= ickkw"').read()
-                alt_ickkw_c = int(re.search(r'\d+',alt_ickkw_c).group())
-                print("MG5 matching/merging: "+str(alt_ickkw_c))
+                grep_txt_tmp = 'more '+filename_mggpc+' | tr -s \' \' | grep -c "= ickkw"'
+                if int(os.popen(grep_txt_tmp).read()) == 1:
+                    alt_ickkw_c = os.popen('more '+filename_mggpc+' | tr -s \' \' | grep "= ickkw"').read()
+                    alt_ickkw_c = int(re.search(r'\d+',alt_ickkw_c).group())
+                    print("MG5 matching/merging: "+str(alt_ickkw_c))
                 maxjetflavor = os.popen('more '+filename_mggpc+' | tr -s \' \' | grep "= maxjetflavor"').read()
                 if len(maxjetflavor) != 0:
                         maxjetflavor = int(re.search(r'\d+',maxjetflavor).group())
