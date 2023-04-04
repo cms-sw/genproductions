@@ -100,7 +100,7 @@
 #*********************************************************************
 # Minimum and maximum pt's (for max, -1 means no cut)                *
 #*********************************************************************
- 20.0  = ptj       ! minimum pt for the jets
+ 0.01  = ptj       ! minimum pt for the jets
  -1.0  = ptjmax    ! maximum pt for the jets
  {} = pt_min_pdg ! pt cut for other particles (use pdg code). Applied on particle and anti-particle
  {}	= pt_max_pdg ! pt cut for other particles (syntax e.g. {6: 100, 25: 50})
@@ -138,7 +138,3 @@
 # WARNING: Do not use for interference type of computation           *
 #*********************************************************************
    True  = use_syst      ! Enable systematics studies
-#
-systematics = systematics_program ! none, systematics [python], SysCalc [depreceted, C++]
-['--mur=0.5,1,2', '--muf=0.5,1,2', '--pdf=errorset', '--alps=0.5,1,2'] = systematics_arguments ! see: https://cp3.irmp.ucl.ac.be/projects/madgraph/wiki/Systematics#Systematicspythonmodule
-# Syscalc is deprecated but to see the associate options type'update syscalc'
