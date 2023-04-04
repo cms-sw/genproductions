@@ -1,0 +1,7 @@
+import model STP_UFO_freeWidth
+define Topo = t23 t23~
+define tt = t t~
+define p = g u c d s u~ c~ d~ s~
+define j = g u c d s u~ c~ d~ s~
+generate p p > Topo Topo > tt h tt h / a h z w+ w-
+output TprimeTprime_ttHH_default -nojpeg
