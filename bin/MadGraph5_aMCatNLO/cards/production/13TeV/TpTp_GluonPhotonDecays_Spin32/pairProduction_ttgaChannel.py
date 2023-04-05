@@ -251,7 +251,7 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
 # maximal pdg code for quark to be considered as a light jet         *
 # (otherwise b cuts are applied)                                     *
 #*********************************************************************
- 5 = maxjetflavor    ! Maximum jet pdg code
+ 4 = maxjetflavor    ! Maximum jet pdg code
 #*********************************************************************
 # Jet measure cuts                                                   *
 #*********************************************************************
@@ -270,17 +270,6 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! if pdlabel=lhapdf, this is the lhapdf 
 """
 
 procCardData="""
-set group_subprocesses Auto
-set ignore_six_quark_processes False
-set loop_optimized_output True
-set complex_mass_scheme False
-import model sm
-define p = g u c d s u~ c~ d~ s~
-define j = g u c d s u~ c~ d~ s~
-define l+ = e+ mu+
-define l- = e- mu-
-define vl = ve vm vt
-define vl~ = ve~ vm~ vt~
 import model Top32_UFO
 define wdec = u d s c b u~ d~ s~ c~ b~ vl vl~ l+ l- ta+ ta-
 generate p p > tstar tstar~ , ( tstar > t g , ( t > b w+ , w+ > wdec w\
