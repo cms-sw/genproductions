@@ -41,7 +41,7 @@ add process p p > t t~ v1 , (v1 > t t~ , (t > b w+, w+ > j j) , (t~ > b~ w-, w- 
 
 add process p p > t t~ v1 , (v1 > t t~ , (t > b w+, w+ > j j) , (t~ > b~ w-, w- > l- vl~)), (t > b w+, w+ > l+ vl) , (t~ > b~ w-, w- > l- vl~) 
 
-add process p p > t t~ v1 , (v1 > t t~ , (t > b w+, w+ > l+ vl) , (t~ > b~ w-, w- > j j)), (t > b w+, w+ > l+ vl) , (t~ > b~ w-, w- > j j) 
+add process p p > t t~ v1 , (v1 > t t~ , (t > b w+, w+ > l+ vl) , (t~ > b~ w-, w- > j j)), (t > b w+, w+ > l+ vl) , (t~ > b~ w-, w- > l- vl~) 
 
 add process p p > t t~ v1 , (v1 > t t~ , (t > b w+, w+ > l+ vl) , (t~ > b~ w-, w- > l- vl~)), (t > b w+, w+ > j j) , (t~ > b~ w-, w- > l- vl~) 
 
