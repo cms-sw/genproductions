@@ -522,7 +522,7 @@ for num in range(0,len(prepid)):
         filename_mggpc = 'del'
         ickkw = 'del' # ickkw = matching parameter in madgraph
         ickkw_c = 100
-        alt_ickkw_c = 100
+        alt_ickkw_c = 0
         maxjetflavor = 0
         nJetMax = 100
         particle_gun = 0
@@ -795,9 +795,11 @@ for num in range(0,len(prepid)):
                 if "Run3" in pi and "PbPb" not in pi:
                     err_tmp = run3_run_card_check(filename_mggpc,pi)
                     errors.extend(err_tmp)
-                alt_ickkw_c = os.popen('more '+filename_mggpc+' | tr -s \' \' | grep "= ickkw"').read()
-                alt_ickkw_c = int(re.search(r'\d+',alt_ickkw_c).group())
-                print("MG5 matching/merging: "+str(alt_ickkw_c))
+                grep_txt_tmp = 'more '+filename_mggpc+' | tr -s \' \' | grep -c "= ickkw"'
+                if int(os.popen(grep_txt_tmp).read()) == 1:
+                    alt_ickkw_c = os.popen('more '+filename_mggpc+' | tr -s \' \' | grep "= ickkw"').read()
+                    alt_ickkw_c = int(re.search(r'\d+',alt_ickkw_c).group())
+                    print("MG5 matching/merging: "+str(alt_ickkw_c))
                 maxjetflavor = os.popen('more '+filename_mggpc+' | tr -s \' \' | grep "= maxjetflavor"').read()
                 if len(maxjetflavor) != 0:
                         maxjetflavor = int(re.search(r'\d+',maxjetflavor).group())
@@ -1392,7 +1394,7 @@ for num in range(0,len(prepid)):
                 if match_eff == 1:
                     warnings.append("Matched sample but matching efficiency is 1!")
 
-            if pw_gp or mg_gp is True or amcnlo_gp is True and mg_nlo != 1:
+            if (pw_gp or mg_gp) and mg_nlo != 1:
                 MGpatch.append(int(os.popen('more '+my_path+'/'+pi+'/'+'runcmsgrid.sh | grep -c "FORCE IT TO"').read()))
                 MGpatch.append(int(os.popen('grep -c _CONDOR_SCRATCH_DIR '+my_path+'/'+pi+'/'+'mgbasedir/Template/LO/SubProcesses/refine.sh').read()))
                 MGpatch.append(int(os.popen('grep -c _CONDOR_SCRATCH_DIR '+my_path+'/'+pi+'/'+'process/madevent/SubProcesses/refine.sh').read()))
@@ -1414,41 +1416,41 @@ for num in range(0,len(prepid)):
                         test_version = cmssw.split('_')
                         if len(test_version) == 4 and int(test_version[3]) < 1:
                             errors.append("At least one of the MG5_aMC@NLO tmpdir patches is missing. And the request is using a version "+str(cmssw)+" that does not contain the patch. In this release, please at least use CMSSW_10_2_0_pre2")
-            print("-------------------------MG5_aMC LO/MLM Many Threads Patch Check --------------------------------------")
-            ppp_ind_range = 0
-            if slha_flag == 1:
-                slha_file_list =  os.listdir(slha_all_path)
-                print(slha_file_list)
-                ppp_ind_range = len(slha_file_list)
-            if slha_flag == 0:
-                ppp_ind_range = 1
-            #slha_flag = 0
-            for ppp in range(0,ppp_ind_range):
-                if gp_size == 0: break
-                del MGpatch2[:]
+                print("-------------------------MG5_aMC LO/MLM Many Threads Patch Check --------------------------------------")
+                ppp_ind_range = 0
                 if slha_flag == 1:
-                    gridpack_cvmfs_path_tmp = slha_all_path+'/'+slha_file_list[ppp]
-                    if "runmode0_TEST" in gridpack_cvmfs_path_tmp: continue
-                    gridpack_cvmfs_path = gridpack_cvmfs_path_tmp
-                    gridpack_eos_path = gridpack_cvmfs_path_tmp.replace("/cvmfs/cms.cern.ch/phys_generator","/eos/cms/store/group/phys_generator/cvmfs")
-                print(gridpack_eos_path)
-                os.system('tar xf '+gridpack_eos_path+' -C '+my_path+'/eos/'+pi)
-                MGpatch2.append(int(os.popen('more '+my_path+'/'+pi+'/'+'runcmsgrid.sh | grep -c "To overcome problem of taking toomanythreads"').read()))
-                MGpatch2.append(int(os.popen('more '+my_path+'/eos/'+pi+'/'+'runcmsgrid.sh | grep -c "To overcome problem of taking toomanythreads"').read()))
-                if MGpatch2[1] == 1: print("[OK] MG5_aMC@NLO LO nthreads patch OK in EOS")
-                if MGpatch2[0] == 1: print("[OK] MG5_aMC@NLO LO nthreads patch OK in CVMFS")
-                if MGpatch2[0] == 0 and MGpatch2[1] == 1: print("[OK] MG5_aMC@NLO LO nthreads patch not made in CVMFS but done in EOS waiting for CVMFS-EOS synch")
-                if MGpatch2[1] == 0:
-                    errors.append("MG5_aMC@NLO LO nthreads patch not made in EOS")
-                    if args.apply_many_threads_patch:
-                        print("Patching for nthreads problem... please be patient.")
-                        if slha_flag == 0:
-                            os.system('python2 ../../Utilities/scripts/update_gridpacks_mg242_thread.py --prepid '+pi)
-                        if slha_flag == 1:
-                            os.system('python2 ../../Utilities/scripts/update_gridpacks_mg242_thread.py --gridpack '+gridpack_cvmfs_path)
-                print("-------------------------EOF MG5_aMC LO/MLM Many Threads Patch Check ----------------------------------")
-                print("*")
-        if  mg_gp is True or amcnlo_gp is True:
+                    slha_file_list =  os.listdir(slha_all_path)
+                    print(slha_file_list)
+                    ppp_ind_range = len(slha_file_list)
+                if slha_flag == 0:
+                    ppp_ind_range = 1
+                #slha_flag = 0
+                for ppp in range(0,ppp_ind_range):
+                    if gp_size == 0: break
+                    del MGpatch2[:]
+                    if slha_flag == 1:
+                        gridpack_cvmfs_path_tmp = slha_all_path+'/'+slha_file_list[ppp]
+                        if "runmode0_TEST" in gridpack_cvmfs_path_tmp: continue
+                        gridpack_cvmfs_path = gridpack_cvmfs_path_tmp
+                        gridpack_eos_path = gridpack_cvmfs_path_tmp.replace("/cvmfs/cms.cern.ch/phys_generator","/eos/cms/store/group/phys_generator/cvmfs")
+                    print(gridpack_eos_path)
+                    os.system('tar xf '+gridpack_eos_path+' -C '+my_path+'/eos/'+pi)
+                    MGpatch2.append(int(os.popen('more '+my_path+'/'+pi+'/'+'runcmsgrid.sh | grep -c "To overcome problem of taking toomanythreads"').read()))
+                    MGpatch2.append(int(os.popen('more '+my_path+'/eos/'+pi+'/'+'runcmsgrid.sh | grep -c "To overcome problem of taking toomanythreads"').read()))
+                    if MGpatch2[1] == 1: print("[OK] MG5_aMC@NLO LO nthreads patch OK in EOS")
+                    if MGpatch2[0] == 1: print("[OK] MG5_aMC@NLO LO nthreads patch OK in CVMFS")
+                    if MGpatch2[0] == 0 and MGpatch2[1] == 1: print("[OK] MG5_aMC@NLO LO nthreads patch not made in CVMFS but done in EOS waiting for CVMFS-EOS synch")
+                    if MGpatch2[1] == 0:
+                        errors.append("MG5_aMC@NLO LO nthreads patch not made in EOS")
+                        if args.apply_many_threads_patch:
+                            print("Patching for nthreads problem... please be patient.")
+                            if slha_flag == 0:
+                                os.system('python2 ../../Utilities/scripts/update_gridpacks_mg242_thread.py --prepid '+pi)
+                            if slha_flag == 1:
+                                os.system('python2 ../../Utilities/scripts/update_gridpacks_mg242_thread.py --gridpack '+gridpack_cvmfs_path)
+                    print("-------------------------EOF MG5_aMC LO/MLM Many Threads Patch Check ----------------------------------")
+                    print("*")
+        if  mg_gp or amcnlo_gp:
             if alt_ickkw_c >= 2 and check[0] == 2 and check[1] == 1 and check[2] == 1 :
                 if alt_ickkw_c > 3 and os.path.isfile(file_pwg_check) is False :
                     warnings.append("To check manually - This is a Powheg NLO sample. Please check 'nFinal' is  set correctly as number of final state particles (BEFORE THE DECAYS) in the LHE other than emitted extra parton.")
