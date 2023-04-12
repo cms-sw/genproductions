@@ -20,7 +20,7 @@ is5FlavorScheme = str(sys.argv[1])
 CentralPDF = str(sys.argv[2])
 # ToDo: clean forMiNNLO,forX0jj up and define specific set of PDF which is called per process or via external argument (e.g. Run2UL)
 # switch for time being to "Run2UL if you need UL style PDF set 
-Period="Run3" # "Run2UL"
+Period="Run2UL"   # "Run3"
 forMiNNLO = bool(int(sys.argv[3])) if len(sys.argv) > 3 else False
 forX0jj = bool(int(sys.argv[4])) if len(sys.argv) > 4 else False
 process = str(sys.argv[5]) if len(sys.argv) > 5 else ''

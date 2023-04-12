@@ -181,12 +181,6 @@ if [[ $$process != "WWJ" && $$process != "ZgamJ" && $$process != "ZZJ" && $$proc
   sed -i -e "s#pwhg_bookhist-multi.o# #g" Makefile
 fi
 sed -i -e "s#LHAPDF_CONFIG[ \t]*=[ \t]*#\#LHAPDF_CONFIG=#g" Makefile
-sed -i -e "s#DEBUG[ \t]*=[ \t]*#\#DEBUG=#g" Makefile
-sed -i -e "s#FPE[ \t]*=[ \t]*#\#FPE=#g" Makefile
-
-if [[ `grep GoSam Makefile` != "" || `grep Gosam Makefile` != "" || `grep GOSAM Makefile` != "" ]]; then
-  sed -i -e "s#-fno-automatic#-fallow-invalid-boz#g" Makefile
-fi
 
 $patch_4 
 
@@ -196,12 +190,8 @@ NEWRPATH1=$${NEWRPATH1%?}
 NEWRPATH2=`ls /cvmfs/cms.cern.ch/$${SCRAM_ARCH}/external/zlib-x86_64/*/* | grep "/lib" | head -n 1`
 NEWRPATH2=$${NEWRPATH2%?}
 
-# Add back python3.6m brutally
-if [[ $$process == "ggHH" || $$process == "ggHH_SMEFT" ]]; then
-  echo "RPATHLIBS= -Wl,-rpath,$${NEWRPATH1} -L$${NEWRPATH1} -lgfortran -lstdc++ -Wl,-rpath,$${NEWRPATH2} -L$${NEWRPATH2} -lz -L/cvmfs/cms.cern.ch/slc7_amd64_gcc900/cms/cmssw/CMSSW_11_0_0_pre13/external/slc7_amd64_gcc900/lib -lpython3.6m" >> tmpfile
-else
-  echo "RPATHLIBS= -Wl,-rpath,$${NEWRPATH1} -L$${NEWRPATH1} -lgfortran -lstdc++ -Wl,-rpath,$${NEWRPATH2} -L$${NEWRPATH2} -lz" >> tmpfile
-fi
+echo "RPATHLIBS= -Wl,-rpath,$${NEWRPATH1} -L$${NEWRPATH1} -lgfortran -lstdc++ -Wl,-rpath,$${NEWRPATH2} -L$${NEWRPATH2} -lz" >> tmpfile
+
 
 $patch_5 
 
