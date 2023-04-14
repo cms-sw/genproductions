@@ -1,4 +1,0 @@
-import model loop_sm
-generate p a > t t~ [QCD]
-add process a p > t t~ [QCD]
-output antoniocotar_ttbar_NLO_photoproduction
