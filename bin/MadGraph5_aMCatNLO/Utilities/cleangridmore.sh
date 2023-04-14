@@ -31,9 +31,8 @@ find ./ -name "*.h" | xargs -r rm
 find ./ -name "test_soft_col_limits" | xargs -r rm 
 
 rm -r mgbasedir/tests/
-rm -r mgbasedir/doc mgbasedir/doc.tgz
+rm -r mgbasedir/doc
 rm -r mgbasedir/LICENSE 
-rm -r mgbasedir/VERSION 
 rm -r mgbasedir/README 
 rm -r mgbasedir/UpdateNotes.txt
 
