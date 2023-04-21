@@ -345,11 +345,11 @@ def run3_checks(fragment,dn,pi):
     print("======> Run3 Fragment and dataset name checks:")
     if "comEnergy" in fragment:
         comline = re.findall('comEnergy=\S+',fragment)
-        if ("run3winter22" in pi.lower() or "summer22" in pi.lower()) and "13600" not in comline[0]:
+        if ("run3winter22" in pi.lower() or "summer2" in pi.lower()) and "13600" not in comline[0]:
             err.append("The c.o.m. energy is not specified as 13600 GeV in the fragment."+comline[0])
         if "run3winter21" in pi.lower() and "14000" not in comline[0]: 
             err.append("The c.o.m. energy is not specified as 14000 GeV in the fragment"+comline[0])
-    if "run3winter22" in pi.lower() and ("FlatRandomEGunProducer" not in fragment and "FlatRandomPtGunProducer" not in fragment and "Pythia8EGun" not in fragment and "13p6TeV" not in dn):
+    if ("run3winter22" in pi.lower() or "summer2" in pi.lower()) and ("FlatRandomEGunProducer" not in fragment and "FlatRandomPtGunProducer" not in fragment and "Pythia8EGun" not in fragment and "13p6TeV" not in dn):
         err.append("The data set name does not contain 13p6TeV for this Run3 request")
     if "run3winter21" in pi.lower() and ("FlatRandomEGunProducer" not in fragment and "FlatRandomPtGunProducer" not in fragment and "Pythia8EGun" not in fragment and "14TeV" not in dn):
         err.append("The data set name does not contain 14TeV for this Run3 request")
@@ -361,7 +361,7 @@ def run3_run_card_check(filename_mggpc,pi):
     beamenergy2 = os.popen('grep ebeam2 '+filename_mggpc).read()
     print("======> Run3 run_card check for MG5aMC") 
     print(beamenergy1,beamenergy2)
-    if "run3winter22" in pi.lower() and ("6800" not in beamenergy1 or "6800" not in beamenergy2):
+    if ("run3winter22" in pi.lower() or "summer2" in pi.lower()) and ("6800" not in beamenergy1 or "6800" not in beamenergy2):
         err.append("The beam energy is not specified as 6800 GeV in the run_card")
     if "run3winter21" in pi.lower() and ("7000" not in beamenergy1 or "7000" not in beamenergy2):
         err.append("The beam energy is not specified as 7000 GeV in the run_card")
@@ -1072,6 +1072,7 @@ for num in range(0,len(prepid)):
                             errors.append("HERWIGPP or HERWIG7 = parton_shower not in run_card.dat")
         
         if "jhugen" in dn.lower() and gp_size != 0 and "plhe" not in pi.lower():
+            jhufilename = "NULL"
             for root, dirs, files in os.walk(os.path.join(my_path, pi, "."), topdown=False):
                 for name in files:
                     if "JHUGen.input" in name:
@@ -1164,6 +1165,7 @@ for num in range(0,len(prepid)):
             if et_flag == 0 and et_flag_external == 0: powheg_input = os.path.join(my_path, pi, "powheg.input")
             if et_flag == 1 and et_flag_external == 0: powheg_input = os.path.join(my_path, pi, "external_tarball/powheg.input")
             if os.path.isfile(powheg_input) is True:
+                pw_pdf = 0
                 with open(powheg_input) as f:
                     for line in f:
                         if line.startswith("!") == False and line.startswith("#") == False:
