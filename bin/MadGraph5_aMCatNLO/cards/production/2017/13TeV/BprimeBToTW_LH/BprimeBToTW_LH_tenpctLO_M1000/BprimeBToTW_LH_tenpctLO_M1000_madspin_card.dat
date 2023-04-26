@@ -22,8 +22,10 @@ set ms_dir ./madspingrid
 set max_running_process 1
 
 # specify the decay for the final state particles
-decay tt > all all
-decay ww > all all
+decay t > all all
+decay t~ > all all
+decay w+ > all all
+decay w- > all all
 
 # running the actual code
 launch
