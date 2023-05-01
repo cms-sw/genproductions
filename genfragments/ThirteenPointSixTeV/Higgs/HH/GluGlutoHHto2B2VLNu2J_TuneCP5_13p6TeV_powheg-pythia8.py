@@ -1,4 +1,3 @@
-import FWCore.ParameterSet.Config as cms
 from Configuration.Generator.Pythia8CommonSettings_cfi import *
 from Configuration.Generator.MCTunesRun3ECM13p6TeV.PythiaCP5Settings_cfi import *
 from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *
@@ -15,13 +14,20 @@ generator = cms.EDFilter("Pythia8ConcurrentHadronizerFilter",
         pythia8PSweightsSettingsBlock,
         pythia8PowhegEmissionVetoSettingsBlock,
         processParameters = cms.vstring(
-            'POWHEG:nFinal = 2',   ## Number of final state particles
-                                   ## (BEFORE THE DECAYS) in the LHE
-                                   ## other than emitted extra parton
-             '25:m0 = 125.0',
-             '25:onMode = off',
-             '25:onIfMatch = 5 -5'
-             #'ResonanceDecayFilter:filter = on'
+            'POWHEG:nFinal = 2',   # Number of final state particles (BEFORE THE DECAYS) in the LHE other than emitted extra parton
+            '24:mMin = 0.05',
+            '24:onMode = on',
+            '25:m0 = 125.0',
+            '25:onMode = off',
+            '25:onIfMatch = 5 -5',
+            '25:onIfMatch = 24 -24',
+            'ResonanceDecayFilter:filter = on',
+            'ResonanceDecayFilter:exclusive = on', #on: require exactly the specified number of daughters
+            'ResonanceDecayFilter:eMuTauAsEquivalent = on', #on: treat electrons, muons , and taus as equivalent
+            'ResonanceDecayFilter:allNuAsEquivalent = on', #on: treat all three neutrino flavours as equivalent
+            'ResonanceDecayFilter:udscAsEquivalent = on', #on: treat udsc quarks as equivalent
+            'ResonanceDecayFilter:mothers = 24,25',
+            'ResonanceDecayFilter:daughters = 5,5,1,1,11,12',
           ),
         parameterSets = cms.vstring('pythia8CommonSettings',
                                     'pythia8CP5Settings',
