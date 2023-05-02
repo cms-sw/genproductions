@@ -3,12 +3,3 @@ define myw = w+ w-
 define myt = t t~
 generate p a > myt myw [QCD]
 output antoniocotar_tw_NLO_photoproduction_positive
-launch
-shower=OFF
-madspin=ON
-set nevents 10000
-set lpp1 1
-set lpp2 2
-set MT 172.5
-set lhaid 324900
-set pdlabel lhapdf
