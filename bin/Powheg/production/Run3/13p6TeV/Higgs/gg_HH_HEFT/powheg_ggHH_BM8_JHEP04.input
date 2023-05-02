@@ -19,11 +19,11 @@ hdecaymode -1        ! PDG code for Higgs boson decay products (it affects only 
 !                      -1  all decay channels closed
 
 ! Values of the Higgs couplings w.r.t SM
-chhh      1.0       ! Trilinear Higgs self-coupling
+chhh      15.0       ! Trilinear Higgs self-coupling
 ct        1.0       ! Top-Higgs Yukawa coupling
-ctt       0.5       ! Two-top-two-Higgs (tthh) coupling
-cggh      0.066666       ! Effective gluon-gluon-Higgs coupling
-cgghh     0.333333       ! Effective two-gluon-two-Higgses coupling
+ctt       0.0       ! Two-top-two-Higgs (tthh) coupling
+cggh      -0.666666       ! Effective gluon-gluon-Higgs coupling
+cgghh     -0.333333       ! Effective two-gluon-two-Higgses coupling
 
 
 ! general parameters:
