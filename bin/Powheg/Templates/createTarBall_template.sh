@@ -20,44 +20,51 @@ fi
 
 FULLGRIDRM=`ls $${WORKDIR}/$${folderName} | grep fullgrid-rm | head -n 1`
 FULLGRIDBTL=`ls $${WORKDIR}/$${folderName} | grep fullgrid-btl | head -n 1`
+UBOUND=`ls $${WORKDIR}/$${folderName} | grep ubound | head -n 1`
+PWGSTAT=`ls $${WORKDIR}/$${folderName} | grep st3-stat | head -n 1`
 FULLGRIDRM=$${FULLGRIDRM%?}
 FULLGRIDBTL=$${FULLGRIDBTL%?}
+UBOUND=$${UBOUND%?} 
+PWGSTAT=$${PWGSTAT%?} 
 
 if [ $${#FULLGRIDRM} -gt 0 -a $${#FULLGRIDBTL} -gt 0 ]; then
   cp -p $$WORKDIR/$$folderName/$${FULLGRIDRM} $$WORKDIR/$$folderName/pwgfullgrid-rm.dat
   cp -p $$WORKDIR/$$folderName/$${FULLGRIDBTL} $$WORKDIR/$$folderName/pwgfullgrid-btl.dat
-  cp -p $$WORKDIR/$$folderName/pwg-0001-st3-stat.dat $$WORKDIR/$$folderName/pwg-stat.dat
+  cp -p $$WORKDIR/$$folderName/$${UBOUND} $$WORKDIR/$$folderName/pwgubound.dat
+  cp -p $$WORKDIR/$$folderName/$${PWGSTAT} $$WORKDIR/$$folderName/pwg-stat.dat
 fi
 
 grep -q "NEVENTS" powheg.input; test $$? -eq 0 || sed -i "s/^numevts.*/numevts NEVENTS/g" powheg.input
 grep -q "SEED" powheg.input; test $$? -eq 0 || sed -i "s/^iseed.*/iseed SEED/g" powheg.input
 
-grep -q "manyseeds" powheg.input; test $$? -eq 0 || printf "\n\nmanyseeds 1\n" >> powheg.input
-grep -q "parallelstage" powheg.input; test $$? -eq 0 || printf "\nparallelstage 4\n" >> powheg.input
-grep -q "xgriditeration" powheg.input; test $$? -eq 0 || printf "\nxgriditeration 1\n" >> powheg.input
-  
 # turn into single run mode
 sed -i "s/^manyseeds.*/#manyseeds 1/g" powheg.input
 sed -i "s/^parallelstage.*/#parallelstage 4/g" powheg.input
 sed -i "s/^xgriditeration/#xgriditeration 1/g" powheg.input
 
 # turn off obsolete stuff
-grep -q "pdfreweight" powheg.input; test $$? -eq 0 || printf "\n\npdfreweight 0\n" >> powheg.input
-grep -q "storeinfo_rwgt" powheg.input; test $$? -eq 0 || printf "\nstoreinfo_rwgt 0\n" >> powheg.input
-grep -q "withnegweights" powheg.input; test $$? -eq 0 || printf "\nwithnegweights 1\n" >> powheg.input
-  
 sed -i "s/^pdfreweight.*/#pdfreweight 0/g" powheg.input
 sed -i "s/^storeinfo_rwgt.*/#storeinfo_rwgt 0/g" powheg.input
 sed -i "s/^withnegweights/#withnegweights 1/g" powheg.input
 
+printf "\npdfreweight 0\n" >> powheg.input
+printf "storeinfo_rwgt 0\n" >> powheg.input
+printf "withnegweights 1\n" >> powheg.input
+  
 # parallel re-weighting calculation
 if [ "$$process" = "HW_ew" ] || [ "$$process" = "HZ_ew" ] || [ "$$process" = "HZJ_ew" ] || [ "$$process" = "HWJ_ew" ] ; then
    echo "# no reweighting in first runx" >> powheg.input
 else
-   grep -q "rwl_group_events" powheg.input; test $$? -eq 0 || echo "rwl_group_events 2000" >> powheg.input
-   grep -q "lhapdf6maxsets" powheg.input; test $$? -eq 0 || echo "lhapdf6maxsets 50" >> powheg.input
-   grep -q "rwl_file" powheg.input; test $$? -eq 0 || echo "rwl_file 'pwg-rwl.dat'" >> powheg.input
-   grep -q "rwl_format_rwgt" powheg.input; test $$? -eq 0 || echo "rwl_format_rwgt 1" >> powheg.input
+   sed -i "s/^rwl_group_events.*/#rwl_group_events 2000/g" powheg.input
+   sed -i "s/^lhapdf6maxsets.*/#lhapdf6maxsets 50/g" powheg.input
+   sed -i "s/^rwl_file.*/#rwl_file '-'/g" powheg.input
+   sed -i "s/^rwl_format_rwgt.*/#rwl_format_rwgt 1/g" powheg.input
+   sed -i "s/^rwl_add.*/#rwl_add 0/g" powheg.input
+   printf "\nrwl_group_events 2000\n" >> powheg.input
+   echo "lhapdf6maxsets 50" >> powheg.input
+   echo "rwl_file 'pwg-rwl.dat'" >> powheg.input
+   echo "rwl_format_rwgt 1" >> powheg.input
+
 fi
 
 if [ -e $${WORKDIR}/$$folderName/cteq6m ]; then
