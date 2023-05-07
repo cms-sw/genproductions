@@ -18,9 +18,10 @@
 }(run)
 
 (processes){  
-Process 21 21 -> 22 22
-Scales VAR{Abs2(p[2]+p[3])}
-Loop_Generator gg_yy
+Process 21 21 -> 22 22;
+Scales VAR{Abs2(p[2]+p[3])};
+ME_Generator Internal;
+Loop_Generator gg_yy;
 End process;
 
 Process 93 93 -> 22 22 93{3};
