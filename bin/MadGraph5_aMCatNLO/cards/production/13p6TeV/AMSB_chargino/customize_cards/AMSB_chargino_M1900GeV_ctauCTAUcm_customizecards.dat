@@ -1,0 +1,189 @@
+set param_card sminputs 1 1.278363e+02
+set param_card sminputs 3 1.172000e-01
+set param_card sminputs 5 4.200000e+00
+set param_card minpar 1 1.500000e+03
+set param_card minpar 2 3.201600e+05
+set param_card minpar 3 5.000000e+00
+set param_card minpar 4 1.000000e+00
+set param_card extpar 0 9.636249e+15
+set param_card mass 1 5.040000e-03
+set param_card mass 2 2.550000e-03
+set param_card mass 3 1.010000e-01
+set param_card mass 4 1.270000e+00
+set param_card mass 5 4.200000e+00
+set param_card mass 6 1.730700e+02
+set param_card mass 11 5.110000e-04
+set param_card mass 13 1.056600e-01
+set param_card mass 15 1.777000e+00
+set param_card mass 23 9.117000e+01
+set param_card mass 24 8.042300e+01
+set param_card mass 25 1.178855e+02
+set param_card mass 35 5.142094e+03
+set param_card mass 36 5.108338e+03
+set param_card mass 37 5.126042e+03
+set param_card mass 1000001 5.844996e+03
+set param_card mass 1000002 5.844453e+03
+set param_card mass 1000003 5.844996e+03
+set param_card mass 1000004 5.844453e+03
+set param_card mass 1000005 5.110841e+03
+set param_card mass 1000006 4.267978e+03
+set param_card mass 1000011 8.444970e+02
+set param_card mass 1000012 7.822946e+02
+set param_card mass 1000013 8.444970e+02
+set param_card mass 1000014 7.822946e+02
+set param_card mass 1000015 4.593910e+02
+set param_card mass 1000016 7.431246e+02
+set param_card mass 1000021 6.022641e+03
+set param_card mass 1000022 1.899858e+03
+set param_card mass 1000023 2.964988e+03
+set param_card mass 1000024 1.900032e+03
+set param_card mass 1000025 -4.944440e+03
+set param_card mass 1000035 4.945486e+03
+set param_card mass 1000037 4.952007e+03
+set param_card mass 2000001 5.944092e+03
+set param_card mass 2000002 5.880741e+03
+set param_card mass 2000003 5.944092e+03
+set param_card mass 2000004 5.880741e+03
+set param_card mass 2000005 5.898244e+03
+set param_card mass 2000006 5.157343e+03
+set param_card mass 2000011 4.419019e+02
+set param_card mass 2000013 4.419019e+02
+set param_card mass 2000015 7.750928e+02
+set param_card nmix 1 1 -7.915966e-04
+set param_card nmix 1 2 9.998692e-01
+set param_card nmix 1 3 -1.560424e-02
+set param_card nmix 1 4 4.200859e-03
+set param_card nmix 2 1 9.998814e-01
+set param_card nmix 2 2 1.027744e-03
+set param_card nmix 2 3 1.286751e-02
+set param_card nmix 2 4 -8.407623e-03
+set param_card nmix 3 1 -3.160983e-03
+set param_card nmix 3 2 8.060570e-03
+set param_card nmix 3 3 7.070253e-01
+set param_card nmix 3 4 7.071356e-01
+set param_card nmix 4 1 1.505649e-02
+set param_card nmix 4 2 -1.399064e-02
+set param_card nmix 4 3 -7.068993e-01
+set param_card nmix 4 4 7.070158e-01
+set param_card umix 1 1 -9.997345e-01
+set param_card umix 1 2 2.304283e-02
+set param_card umix 2 1 -2.304283e-02
+set param_card umix 2 2 -9.997345e-01
+set param_card vmix 1 1 -9.999613e-01
+set param_card vmix 1 2 8.798768e-03
+set param_card vmix 2 1 -8.798768e-03
+set param_card vmix 2 2 -9.999613e-01
+set param_card yu 3 3 8.328927e-01
+set param_card yd 3 3 6.458019e-02
+set param_card ye 3 3 5.145590e-02
+set param_card hmix 1 4.951112e+03
+set param_card hmix 2 5.000000e+00
+set param_card hmix 4 2.609512e+07
+set param_card msoft 1 3.005538e+03
+set param_card msoft 2 8.594595e+02
+set param_card msoft 3 -5.733979e+03
+set param_card decay 6 1.508336e+00
+set param_card decay 23 2.495200e+00
+set param_card decay 24 2.085000e+00
+set param_card decay 25 4.070000e-03
+set param_card decay 1 0.000000e+00
+set param_card decay 2 0.000000e+00
+set param_card decay 3 0.000000e+00
+set param_card decay 4 0.000000e+00
+set param_card decay 5 0.000000e+00
+set param_card decay 11 0.000000e+00
+set param_card decay 12 0.000000e+00
+set param_card decay 13 0.000000e+00
+set param_card decay 14 0.000000e+00
+set param_card decay 15 0.000000e+00
+set param_card decay 16 0.000000e+00
+set param_card decay 21 0.000000e+00
+set param_card decay 22 0.000000e+00
+set param_card decay 1000022 0.000000e+00
+set param_card decay 1000024 WIDTH
+set param_card decay 1000023 0.000000e+00
+set param_card decay 1000025 1.915985e+00
+set param_card decay 1000035 2.585851e+00
+set param_card decay 1000037 2.486895e+00
+set param_card decay 1000021 5.506754e+00
+set param_card decay 35 5.748014e-01
+set param_card decay 36 6.321785e-01
+set param_card decay 37 5.469628e-01
+set param_card decay 1000012 1.498816e-01
+set param_card decay 1000014 1.498816e-01
+set param_card decay 1000016 1.475190e-01
+set param_card decay 1000011 2.136822e-01
+set param_card decay 1000013 2.136822e-01
+set param_card decay 1000015 1.483273e-01
+set param_card decay 2000011 2.161216e-01
+set param_card decay 2000013 2.161216e-01
+set param_card decay 2000015 2.699061e-01
+set param_card decay 1000002 5.477195e+00
+set param_card decay 1000004 5.477195e+00
+set param_card decay 1000006 2.021596e+00
+set param_card decay 2000002 1.152973e+00
+set param_card decay 2000004 1.152973e+00
+set param_card decay 2000006 7.373133e+00
+set param_card decay 1000001 5.312788e+00
+set param_card decay 1000003 5.312788e+00
+set param_card decay 1000005 3.736276e+00
+set param_card decay 2000001 2.858123e-01
+set param_card decay 2000003 2.858123e-01
+set param_card decay 2000005 8.015663e-01
+set param_card usqmix 1 1 1.000000e+00
+set param_card usqmix 2 2 1.000000e+00
+set param_card usqmix 4 4 1.000000e+00
+set param_card usqmix 5 5 1.000000e+00
+set param_card usqmix 3 3 6.919485e-02
+set param_card usqmix 3 6 -9.976032e-01
+set param_card usqmix 6 3 9.976032e-01
+set param_card usqmix 6 6 6.919485e-02
+set param_card dsqmix 1 1 1.000000e+00
+set param_card dsqmix 2 2 1.000000e+00
+set param_card dsqmix 4 4 1.000000e+00
+set param_card dsqmix 5 5 1.000000e+00
+set param_card dsqmix 3 3 9.999878e-01
+set param_card dsqmix 3 6 4.928994e-03
+set param_card dsqmix 6 3 -4.928994e-03
+set param_card dsqmix 6 6 9.999878e-01
+set param_card selmix 1 1 1.000000e+00
+set param_card selmix 2 2 1.000000e+00
+set param_card selmix 4 4 1.000000e+00
+set param_card selmix 5 5 1.000000e+00
+set param_card selmix 3 3 9.168530e-02
+set param_card selmix 3 6 9.957880e-01
+set param_card selmix 6 3 -9.957880e-01
+set param_card selmix 6 6 9.168530e-02
+set param_card vckm 1 1 1.000000e+00
+set param_card vckm 2 2 1.000000e+00
+set param_card vckm 3 3 1.000000e+00
+set param_card snumix 1 1 1.000000e+00
+set param_card snumix 2 2 1.000000e+00
+set param_card snumix 3 3 1.000000e+00
+set param_card upmns 1 1 1.000000e+00
+set param_card upmns 2 2 1.000000e+00
+set param_card upmns 3 3 1.000000e+00
+set param_card te 1 1 3.343775e+03
+set param_card te 2 2 3.343775e+03
+set param_card te 3 3 1.720569e+02
+set param_card tu 1 1 4.935931e+03
+set param_card tu 2 2 4.935931e+03
+set param_card tu 3 3 4.111100e+03
+set param_card td 1 1 1.178580e+04
+set param_card td 2 2 1.178580e+04
+set param_card td 3 3 7.611296e+02
+set param_card msl2 1 1 6.384175e+05
+set param_card msl2 2 2 6.384175e+05
+set param_card msl2 3 3 5.805851e+05
+set param_card mse2 1 1 3.042401e+05
+set param_card mse2 2 2 3.042401e+05
+set param_card mse2 3 3 1.429458e+05
+set param_card msq2 1 1 3.087561e+07
+set param_card msq2 2 2 3.087561e+07
+set param_card msq2 3 3 2.386286e+07
+set param_card msu2 1 1 3.126966e+07
+set param_card msu2 2 2 3.126966e+07
+set param_card msu2 3 3 1.686917e+07
+set param_card msd2 1 1 3.196573e+07
+set param_card msd2 2 2 3.196573e+07
+set param_card msd2 3 3 3.226337e+07

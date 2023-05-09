@@ -42,7 +42,7 @@ if [ "$use_gridpack_env" = true ]
       else
         scram_arch_version=SCRAM_ARCH_VERSION_REPLACE
     fi
-    echo "%MSG-MG5 SCRAM_ARCH version = $scram_arch_version"
+    echo "%MSG-POWHEG SCRAM_ARCH version = $scram_arch_version"
 
     if [ -n "$6" ]
       then
@@ -50,7 +50,7 @@ if [ "$use_gridpack_env" = true ]
       else
         cmssw_version=CMSSW_VERSION_REPLACE
     fi
-    echo "%MSG-MG5 CMSSW version = $cmssw_version"
+    echo "%MSG-POWHEG CMSSW version = $cmssw_version"
     export VO_CMS_SW_DIR=/cvmfs/cms.cern.ch
     source $VO_CMS_SW_DIR/cmsset_default.sh
 
@@ -144,8 +144,8 @@ if [[ -d ${WORKDIR}/WW_MATRIX ]]; then
     cp -p ${WORKDIR}/binvalues-WW.top .
 fi
 ### For the ggHH process
-if [[ -e ${WORKDIR}/Virt_full_cHHH_0.0.grid ]]; then
-    ln -s ${WORKDIR}/Virt_full_cHHH_* .
+if [[ "${process}" == "ggHH" ]]; then
+    ln -s ${WORKDIR}/Virt* .
     ln -s ${WORKDIR}/creategrid.py .
     cp -p ${WORKDIR}/events.cdf .
 fi
