@@ -12,8 +12,6 @@ if not os.path.exists(baseDir + '/geant4_higgsino'):
 	os.mkdir(baseDir + '/geant4_higgsino')
 if not os.path.exists(baseDir + '/hadronizers'):
         os.mkdir(baseDir + '/hadronizers')
-if not os.path.exists(baseDir + '/configs'):
-        os.mkdir(baseDir + '/configs')
 
 def findMassValue(fileName, particleName):
 	inputFile = open(fileName, 'r')
@@ -123,9 +121,16 @@ if scriptStep == 1:
 
 ################################################################
 # step 2: create the GEN-SIM configs
-# https://its.cern.ch/jira/browse/PDMVMCPROD-21
+# https://its.cern.ch/jira/browse/PDMVMCPROD-62
+# https://its.cern.ch/jira/browse/PDMVMCPROD-71
 ################################################################
 if scriptStep == 2:
+
+	if not os.path.exists(baseDir + '/configs'):
+		os.mkdir(baseDir + '/configs')
+	if not os.path.exists(baseDir + '/configsEE'):
+		os.mkdir(baseDir + '/configsEE')
+
 	# first wino-like LSP case
 	cmd = 'cmsDriver.py hadronizers/{0}cm/AMSB_chargino_M{1}GeV_CTau{0}cm_TuneCP5_PSweights_13p6TeV_madgraph5_pythia8_cff.py'
 	cmd += ' --fileout file:AMSB_chargino{1}GeV_ctau{0}cm_step1.root'
@@ -139,8 +144,8 @@ if scriptStep == 2:
 
 	for mass in xsecsWino:
 		for ctau in ctaus:
-                        if not os.path.exists(baseDir + '/configs/'+str(ctau)+'cm'):
-                                os.mkdir(baseDir + '/configs/'+str(ctau)+'cm')
+			if not os.path.exists(baseDir + '/configs/'+str(ctau)+'cm'):
+				os.mkdir(baseDir + '/configs/'+str(ctau)+'cm')
 			os.system(cmd.format(ctau, mass))
 
 	print('Created electroweak (wino-like) GEN-SIM configuration files in directory: ' + os.getcwd() + '/configs')
@@ -162,4 +167,42 @@ if scriptStep == 2:
 				os.mkdir(baseDir + '/configs/'+str(ctau)+'cm')
 			os.system(cmd.format(ctau, mass))
 
-	print('Created electroweak (higgsino-like) GEN-SIM configuration files in directory: ' + os.getcwd() + '/step1/pythia8')
+	print('Created electroweak (higgsino-like) GEN-SIM configuration files in directory: ' + os.getcwd() + '/configs')
+
+	# now wino-like LSP EE case
+	cmd = 'cmsDriver.py hadronizers/{0}cm/AMSB_chargino_M{1}GeV_CTau{0}cm_TuneCP5_PSweights_13p6TeV_madgraph5_pythia8_cff.py'
+	cmd += ' --fileout file:AMSB_chargino{1}GeV_ctau{0}cm_step1EE.root'
+	cmd += ' --mc --eventcontent RAWSIM'
+	cmd += ' --customise Configuration/DataProcessing/Utils.addMonitoring,SimG4Core/CustomPhysics/Exotica_HSCP_SIM_cfi'
+	cmd += ' --datatier GEN-SIM --conditions 124X_mcRun3_2022_realistic_postEE_v1'
+	cmd += ' --beamspot Realistic25ns13p6TeVEarly2022Collision --step LHE,GEN,SIM --geometry DB:Extended'
+	cmd += ' --era Run3'
+	cmd += ' --python_filename configsEE/{0}cm/AMSB_chargino_M{1}GeV_CTau{0}cm_TuneCP5_PSweights_13p6TeV_madgraph5_pythia8_step1.py'
+	cmd += ' --no_exec -n 10'
+
+	for mass in xsecsWino:
+		for ctau in ctaus:
+			if not os.path.exists(baseDir + '/configsEE/'+str(ctau)+'cm'):
+				os.mkdir(baseDir + '/configsEE/'+str(ctau)+'cm')
+			os.system(cmd.format(ctau, mass))
+
+	print('Created electroweak (wino-like) GEN-SIM configuration files in directory: ' + os.getcwd() + '/configsEE')
+
+	# now higgsino-like LSP EE case
+	cmd = 'cmsDriver.py hadronizers/{0}cm/Higgsino_M{1}GeV_CTau{0}cm_TuneCP5_PSweights_13p6TeV_madgraph5_pythia8_cff.py'
+	cmd += ' --fileout file:Higgsino_M{1}GeV_ctau{0}cm_step1EE.root'
+	cmd += ' --mc --eventcontent RAWSIM'
+	cmd += ' --customise Configuration/DataProcessing/Utils.addMonitoring,SimG4Core/CustomPhysics/Exotica_HSCP_SIM_cfi'
+	cmd += ' --datatier GEN-SIM --conditions 124X_mcRun3_2022_realistic_postEE_v1'
+	cmd += ' --beamspot Realistic25ns13p6TeVEarly2022Collision --step LHE,GEN,SIM --geometry DB:Extended'
+	cmd += ' --era Run3'
+	cmd += ' --python_filename configsEE/{0}cm/Higgsino_M{1}GeV_CTau{0}cm_TuneCP5_PSweights_13p6TeV_madgraph5_pythia8_step1.py'
+	cmd += ' --no_exec -n 10'
+
+	for mass in xsecsHiggsino:
+		for ctau in ctaus:
+			if not os.path.exists(baseDir + '/configsEE/'+str(ctau)+'cm'):
+				os.mkdir(baseDir + '/configsEE/'+str(ctau)+'cm')
+			os.system(cmd.format(ctau, mass))
+
+	print('Created electroweak (higgsino-like) GEN-SIM configuration files in directory: ' + os.getcwd() + '/configsEE')
