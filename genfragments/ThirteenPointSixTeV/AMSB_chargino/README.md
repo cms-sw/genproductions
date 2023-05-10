@@ -6,4 +6,4 @@ To create the hadronizers just `python3 create_hadronizer_config.py`. This will 
 
 To create the LHE-GEN-SIM config files just `scram b -j 8` after previous step and `python3 create_hadronizer_config.py 2`. This will create a folder `configs` and subfolders for distinct `CTAU` with the given config files.
 
-*Please, make sure that the path to the gridpack tarball files are correct in files `AMSB_chargino_M-XXXGeV_CTau-YYYcm_TuneCP5_PSweights_13p6TeV_madgraph5_pythia8_cff.py` and `Higgsino_M-XXXGeV_CTau-YYYcm_TuneCP5_PSweights_13p6TeV_madgraph5_pythia8_cff.py`*
+**Please, make sure that the path to the gridpack tarball files are correct in files `AMSB_chargino_M-XXXGeV_CTau-YYYcm_TuneCP5_PSweights_13p6TeV_madgraph5_pythia8_cff.py` and `Higgsino_M-XXXGeV_CTau-YYYcm_TuneCP5_PSweights_13p6TeV_madgraph5_pythia8_cff.py`**
