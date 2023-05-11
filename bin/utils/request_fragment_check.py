@@ -837,7 +837,7 @@ for num in range(0,len(prepid)):
             os.system('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/herwig_common.txt -O herwig_common.txt') 
             file1 = set(line.strip().replace(",","") for line in open('herwig_common.txt'))
             for line in file1:
-                if line not in data_f1:
+                if line not in data_f1 and ("matchbox" in data_f1.lower() and "hw_7p1SettingsFor7p2" not in line):
                     errors.append("Missing herwig setting in fragment: "+line)
             if pw_gp is True:
                os.system('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/herwig_powheg.txt -O herwig_powheg.txt')	
