@@ -34,8 +34,9 @@ if [ $${#FULLGRIDRM} -gt 0 -a $${#FULLGRIDBTL} -gt 0 ]; then
   cp -p $$WORKDIR/$$folderName/$${PWGSTAT} $$WORKDIR/$$folderName/pwg-stat.dat
 fi
 
-grep -q "NEVENTS" powheg.input; test $$? -eq 0 || sed -i "s/^numevts.*/numevts NEVENTS/g" powheg.input
-grep -q "SEED" powheg.input; test $$? -eq 0 || sed -i "s/^iseed.*/iseed SEED/g" powheg.input
+sed -i "s/^numevts.*/numevts NEVENTS/g" powheg.input
+sed -i "s/^iseed.*/iseed SEED/g" powheg.input
+grep -q "withnegweights" powheg.input; test $$? -eq 0 || printf "\nwithnegweights 1\n" >> powheg.input
 
 # turn into single run mode
 sed -i "s/^manyseeds.*/#manyseeds 1/g" powheg.input
@@ -45,11 +46,9 @@ sed -i "s/^xgriditeration/#xgriditeration 1/g" powheg.input
 # turn off obsolete stuff
 sed -i "s/^pdfreweight.*/#pdfreweight 0/g" powheg.input
 sed -i "s/^storeinfo_rwgt.*/#storeinfo_rwgt 0/g" powheg.input
-sed -i "s/^withnegweights/#withnegweights 1/g" powheg.input
 
 printf "\npdfreweight 0\n" >> powheg.input
 printf "storeinfo_rwgt 0\n" >> powheg.input
-printf "withnegweights 1\n" >> powheg.input
   
 # parallel re-weighting calculation
 if [ "$$process" = "HW_ew" ] || [ "$$process" = "HZ_ew" ] || [ "$$process" = "HZJ_ew" ] || [ "$$process" = "HWJ_ew" ] ; then
