@@ -14,9 +14,6 @@ rm -f $$WORKDIR/$$folderName'_'$$process'.tgz'
 if [ -e $$WORKDIR/$$folderName/pwg-0001-stat.dat ]; then
   cp -p $$WORKDIR/$$folderName/pwg-0001-stat.dat $$WORKDIR/$$folderName/pwg-stat.dat
 fi
-if [ -e $$WORKDIR/$$folderName/pwg-st3-0001-stat.dat ]; then
-  cp -p $$WORKDIR/$$folderName/pwg-st3-0001-stat.dat $$WORKDIR/$$folderName/pwg-stat.dat
-fi
 
 FULLGRIDRM=`ls $${WORKDIR}/$${folderName} | grep fullgrid-rm | head -n 1`
 FULLGRIDBTL=`ls $${WORKDIR}/$${folderName} | grep fullgrid-btl | head -n 1`
@@ -30,7 +27,11 @@ PWGSTAT=$${PWGSTAT%?}
 if [ $${#FULLGRIDRM} -gt 0 -a $${#FULLGRIDBTL} -gt 0 ]; then
   cp -p $$WORKDIR/$$folderName/$${FULLGRIDRM} $$WORKDIR/$$folderName/pwgfullgrid-rm.dat
   cp -p $$WORKDIR/$$folderName/$${FULLGRIDBTL} $$WORKDIR/$$folderName/pwgfullgrid-btl.dat
+fi
+if [ $${#UBOUND} -gt 0 ]; then
   cp -p $$WORKDIR/$$folderName/$${UBOUND} $$WORKDIR/$$folderName/pwgubound.dat
+fi
+if [ $${#PWGSTAT} -gt 0 ]; then
   cp -p $$WORKDIR/$$folderName/$${PWGSTAT} $$WORKDIR/$$folderName/pwg-stat.dat
 fi
 
