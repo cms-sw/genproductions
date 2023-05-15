@@ -1,0 +1,8 @@
+import model sm-ckm_no_b_mass
+
+define l- = mu- e- ta-
+define l+ = mu+ e+ ta+
+
+generate p p > w+{0} w-{0} $$ h
+
+output WW_LL

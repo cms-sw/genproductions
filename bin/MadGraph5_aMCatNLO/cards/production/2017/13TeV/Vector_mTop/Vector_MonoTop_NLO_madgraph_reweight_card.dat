@@ -1,0 +1,326 @@
+change mode NLO
+change helicity False
+change rwgt_dir ./rwgt
+#0 start of vector
+launch --rwgt_name=gdmv_0p1_gdma_0_gv_0p25_ga_0
+set dminputs gVXd  0.1
+set dminputs gVu31 0.25
+set dminputs gVd31 0.25
+set dminputs gAXd  0
+set dminputs gAu31 0
+set dminputs gAd31 0
+set DECAY 5000001 AUTO
+launch --rwgt_name=gdmv_0p25_gdma_0_gv_0p25_ga_0
+set dminputs gVXd  0.25
+set dminputs gVu31 0.25
+set dminputs gVd31 0.25
+set dminputs gAXd  0
+set dminputs gAu31 0
+set dminputs gAd31 0
+set DECAY 5000001 AUTO
+launch --rwgt_name=gdmv_0p5_gdma_0_gv_0p25_ga_0
+set dminputs gVXd  0.5
+set dminputs gVu31 0.25
+set dminputs gVd31 0.25
+set dminputs gAXd  0
+set dminputs gAu31 0
+set dminputs gAd31 0
+set DECAY 5000001 AUTO
+launch --rwgt_name=gdmv_1p0_gdma_0_gv_0p1_ga_0
+set dminputs gVXd  1.0
+set dminputs gVu31 0.1
+set dminputs gVd31 0.1
+set dminputs gAXd  0
+set dminputs gAu31 0
+set dminputs gAd31 0
+set DECAY 5000001 AUTO
+launch --rwgt_name=gdmv_1p0_gdma_0_gv_0p5_ga_0
+set dminputs gVXd  1.0
+set dminputs gVu31 0.5
+set dminputs gVd31 0.5
+set dminputs gAXd  0
+set dminputs gAu31 0
+set dminputs gAd31 0
+set DECAY 5000001 AUTO
+launch --rwgt_name=gdmv_1p0_gdma_0_gv_1_ga_0
+set dminputs gVXd  1.0
+set dminputs gVu31 1
+set dminputs gVd31 1
+set dminputs gAXd  0
+set dminputs gAu31 0
+set dminputs gAd31 0
+set DECAY 5000001 AUTO
+launch --rwgt_name=gdmv_2p0_gdma_0_gv_0p25_ga_0
+set dminputs gVXd  2.0
+set dminputs gVu31 0.25
+set dminputs gVd31 0.25
+set dminputs gAXd  0
+set dminputs gAu31 0
+set dminputs gAd31 0
+set DECAY 5000001 AUTO
+#7 start of axial
+launch --rwgt_name=gdmv_0_gdma_0p1_gv_0_ga_0p25
+set dminputs gVXd  0
+set dminputs gVu31 0
+set dminputs gVd31 0
+set dminputs gAXd  0.1
+set dminputs gAu31 0.25
+set dminputs gAd31 0.25
+set DECAY 5000001 AUTO
+launch --rwgt_name=gdmv_0_gdma_0p25_gv_0_ga_0p25
+set dminputs gVXd  0
+set dminputs gVu31 0
+set dminputs gVd31 0
+set dminputs gAXd  0.25
+set dminputs gAu31 0.25
+set dminputs gAd31 0.25
+set DECAY 5000001 AUTO
+launch --rwgt_name=gdmv_0_gdma_0p5_gv_0_ga_0p25
+set dminputs gVXd  0
+set dminputs gVu31 0
+set dminputs gVd31 0
+set dminputs gAXd  0.5
+set dminputs gAu31 0.25
+set dminputs gAd31 0.25
+set DECAY 5000001 AUTO
+launch --rwgt_name=gdmv_0_gdma_1p0_gv_0_ga_0p1
+set dminputs gVXd  0
+set dminputs gVu31 0
+set dminputs gVd31 0
+set dminputs gAXd  1.0
+set dminputs gAu31 0.1
+set dminputs gAd31 0.1
+set DECAY 5000001 AUTO
+launch --rwgt_name=gdmv_0_gdma_1p0_gv_0_ga_0p25
+set dminputs gVXd  0
+set dminputs gVu31 0
+set dminputs gVd31 0
+set dminputs gAXd  1.0
+set dminputs gAu31 0.25
+set dminputs gAd31 0.25
+set DECAY 5000001 AUTO
+launch --rwgt_name=gdmv_0_gdma_1p0_gv_0_ga_0p5
+set dminputs gVXd  0
+set dminputs gVu31 0
+set dminputs gVd31 0
+set dminputs gAXd  1.0
+set dminputs gAu31 0.5
+set dminputs gAd31 0.5
+set DECAY 5000001 AUTO
+launch --rwgt_name=gdmv_0_gdma_1p0_gv_0_ga_1
+set dminputs gVXd  0
+set dminputs gVu31 0
+set dminputs gVd31 0
+set dminputs gAXd  1.0
+set dminputs gAu31 1
+set dminputs gAd31 1
+set DECAY 5000001 AUTO
+launch --rwgt_name=gdmv_0_gdma_2p0_gv_0_ga_0p25
+set dminputs gVXd  0
+set dminputs gVu31 0
+set dminputs gVd31 0
+set dminputs gAXd  2.0
+set dminputs gAu31 0.25
+set dminputs gAd31 0.25
+set DECAY 5000001 AUTO
+#15 start of vector+axial
+launch --rwgt_name=gdmv_0p05_gdma_0p05_gv_0p05_ga_0p05
+set dminputs gVXd  0.05
+set dminputs gVu31 0.05
+set dminputs gVd31 0.05
+set dminputs gAXd  0.05
+set dminputs gAu31 0.05
+set dminputs gAd31 0.05
+set DECAY 5000001 AUTO
+launch --rwgt_name=gdmv_0p05_gdma_0p05_gv_0p125_ga_0p125
+set dminputs gVXd  0.05
+set dminputs gVu31 0.125
+set dminputs gVd31 0.125
+set dminputs gAXd  0.05
+set dminputs gAu31 0.125
+set dminputs gAd31 0.125
+set DECAY 5000001 AUTO
+launch --rwgt_name=gdmv_0p05_gdma_0p05_gv_0p25_ga_0p25
+set dminputs gVXd  0.05
+set dminputs gVu31 0.25
+set dminputs gVd31 0.25
+set dminputs gAXd  0.05
+set dminputs gAu31 0.25
+set dminputs gAd31 0.25
+set DECAY 5000001 AUTO
+launch --rwgt_name=gdmv_0p05_gdma_0p05_gv_0p5_ga_0p5
+set dminputs gVXd  0.05
+set dminputs gVu31 0.5
+set dminputs gVd31 0.5
+set dminputs gAXd  0.05
+set dminputs gAu31 0.5
+set dminputs gAd31 0.5
+set DECAY 5000001 AUTO
+launch --rwgt_name=gdmv_0p05_gdma_0p05_gv_1p0_ga_1p0
+set dminputs gVXd  0.05
+set dminputs gVu31 1.0
+set dminputs gVd31 1.0
+set dminputs gAXd  0.05
+set dminputs gAu31 1.0
+set dminputs gAd31 1.0
+set DECAY 5000001 AUTO
+launch --rwgt_name=gdmv_0p125_gdma_0p125_gv_0p05_ga_0p05
+set dminputs gVXd  0.125
+set dminputs gVu31 0.05
+set dminputs gVd31 0.05
+set dminputs gAXd  0.125
+set dminputs gAu31 0.05
+set dminputs gAd31 0.05
+set DECAY 5000001 AUTO
+launch --rwgt_name=gdmv_0p125_gdma_0p125_gv_0p125_ga_0p125
+set dminputs gVXd  0.125
+set dminputs gVu31 0.125
+set dminputs gVd31 0.125
+set dminputs gAXd  0.125
+set dminputs gAu31 0.125
+set dminputs gAd31 0.125
+set DECAY 5000001 AUTO
+launch --rwgt_name=gdmv_0p125_gdma_0p125_gv_0p25_ga_0p25
+set dminputs gVXd  0.125
+set dminputs gVu31 0.25
+set dminputs gVd31 0.25
+set dminputs gAXd  0.125
+set dminputs gAu31 0.25
+set dminputs gAd31 0.25
+set DECAY 5000001 AUTO
+launch --rwgt_name=gdmv_0p125_gdma_0p125_gv_0p5_ga_0p5
+set dminputs gVXd  0.125
+set dminputs gVu31 0.5
+set dminputs gVd31 0.5
+set dminputs gAXd  0.125
+set dminputs gAu31 0.5
+set dminputs gAd31 0.5
+set DECAY 5000001 AUTO
+launch --rwgt_name=gdmv_0p125_gdma_0p125_gv_1p0_ga_1p0
+set dminputs gVXd  0.125
+set dminputs gVu31 1.0
+set dminputs gVd31 1.0
+set dminputs gAXd  0.125
+set dminputs gAu31 1.0
+set dminputs gAd31 1.0
+set DECAY 5000001 AUTO
+launch --rwgt_name=gdmv_0p25_gdma_0p25_gv_0p05_ga_0p05
+set dminputs gVXd  0.25
+set dminputs gVu31 0.05
+set dminputs gVd31 0.05
+set dminputs gAXd  0.25
+set dminputs gAu31 0.05
+set dminputs gAd31 0.05
+set DECAY 5000001 AUTO
+launch --rwgt_name=gdmv_0p25_gdma_0p25_gv_0p125_ga_0p125
+set dminputs gVXd  0.25
+set dminputs gVu31 0.125
+set dminputs gVd31 0.125
+set dminputs gAXd  0.25
+set dminputs gAu31 0.125
+set dminputs gAd31 0.125
+set DECAY 5000001 AUTO
+launch --rwgt_name=gdmv_0p25_gdma_0p25_gv_0p25_ga_0p25
+set dminputs gVXd  0.25
+set dminputs gVu31 0.25
+set dminputs gVd31 0.25
+set dminputs gAXd  0.25
+set dminputs gAu31 0.25
+set dminputs gAd31 0.25
+set DECAY 5000001 AUTO
+launch --rwgt_name=gdmv_0p25_gdma_0p25_gv_0p5_ga_0p5
+set dminputs gVXd  0.25
+set dminputs gVu31 0.5
+set dminputs gVd31 0.5
+set dminputs gAXd  0.25
+set dminputs gAu31 0.5
+set dminputs gAd31 0.5
+set DECAY 5000001 AUTO
+launch --rwgt_name=gdmv_0p25_gdma_0p25_gv_1p0_ga_1p0
+set dminputs gVXd  0.25
+set dminputs gVu31 1.0
+set dminputs gVd31 1.0
+set dminputs gAXd  0.25
+set dminputs gAu31 1.0
+set dminputs gAd31 1.0
+set DECAY 5000001 AUTO
+launch --rwgt_name=gdmv_0p5_gdma_0p5_gv_0p05_ga_0p05
+set dminputs gVXd  0.5
+set dminputs gVu31 0.05
+set dminputs gVd31 0.05
+set dminputs gAXd  0.5
+set dminputs gAu31 0.05
+set dminputs gAd31 0.05
+set DECAY 5000001 AUTO
+launch --rwgt_name=gdmv_0p5_gdma_0p5_gv_0p125_ga_0p125
+set dminputs gVXd  0.5
+set dminputs gVu31 0.125
+set dminputs gVd31 0.125
+set dminputs gAXd  0.5
+set dminputs gAu31 0.125
+set dminputs gAd31 0.125
+set DECAY 5000001 AUTO
+launch --rwgt_name=gdmv_0p5_gdma_0p5_gv_0p25_ga_0p25
+set dminputs gVXd  0.5
+set dminputs gVu31 0.25
+set dminputs gVd31 0.25
+set dminputs gAXd  0.5
+set dminputs gAu31 0.25
+set dminputs gAd31 0.25
+set DECAY 5000001 AUTO
+launch --rwgt_name=gdmv_0p5_gdma_0p5_gv_0p5_ga_0p5
+set dminputs gVXd  0.5
+set dminputs gVu31 0.5
+set dminputs gVd31 0.5
+set dminputs gAXd  0.5
+set dminputs gAu31 0.5
+set dminputs gAd31 0.5
+set DECAY 5000001 AUTO
+launch --rwgt_name=gdmv_0p5_gdma_0p5_gv_1p0_ga_1p0
+set dminputs gVXd  0.5
+set dminputs gVu31 1.0
+set dminputs gVd31 1.0
+set dminputs gAXd  0.5
+set dminputs gAu31 1.0
+set dminputs gAd31 1.0
+set DECAY 5000001 AUTO
+launch --rwgt_name=gdmv_1p0_gdma_1p0_gv_0p05_ga_0p05
+set dminputs gVXd  1.0
+set dminputs gVu31 0.05
+set dminputs gVd31 0.05
+set dminputs gAXd  1.0
+set dminputs gAu31 0.05
+set dminputs gAd31 0.05
+set DECAY 5000001 AUTO
+launch --rwgt_name=gdmv_1p0_gdma_1p0_gv_0p125_ga_0p125
+set dminputs gVXd  1.0
+set dminputs gVu31 0.125
+set dminputs gVd31 0.125
+set dminputs gAXd  1.0
+set dminputs gAu31 0.125
+set dminputs gAd31 0.125
+set DECAY 5000001 AUTO
+launch --rwgt_name=gdmv_1p0_gdma_1p0_gv_0p25_ga_0p25
+set dminputs gVXd  1.0
+set dminputs gVu31 0.25
+set dminputs gVd31 0.25
+set dminputs gAXd  1.0
+set dminputs gAu31 0.25
+set dminputs gAd31 0.25
+set DECAY 5000001 AUTO
+launch --rwgt_name=gdmv_1p0_gdma_1p0_gv_0p5_ga_0p5
+set dminputs gVXd  1.0
+set dminputs gVu31 0.5
+set dminputs gVd31 0.5
+set dminputs gAXd  1.0
+set dminputs gAu31 0.5
+set dminputs gAd31 0.5
+set DECAY 5000001 AUTO
+launch --rwgt_name=gdmv_1p0_gdma_1p0_gv_1p0_ga_1p0
+set dminputs gVXd  1.0
+set dminputs gVu31 1.0
+set dminputs gVd31 1.0
+set dminputs gAXd  1.0
+set dminputs gAu31 1.0
+set dminputs gAd31 1.0
+set DECAY 5000001 AUTO
