@@ -1,0 +1,18 @@
+import model ALP_chiral_UFO
+define q = u c d s b u~ c~ d~ s~ b~
+define lep+ = e+ mu+ ta+
+define lep- = e- mu- ta-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+
+define vw = w+ w-
+
+
+generate g g > z h, z > q q , h > vw  > lep+ vl lep- vl~
+add process g g > z h, z > q q , h > a  lep+ lep-
+add process g g > z h, z > q q , h > lep+ lep-  lep+ lep-
+add process g g > z h, z > q q , h > z > lep+ lep- vl vl~
+add process g g > z h, z > q q , h > z > lep+ lep- q q
+add process g g > z h, z > q q , h >  q q
+output ZHhad_ALP_chiral -nojpeg 
+

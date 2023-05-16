@@ -102,13 +102,12 @@ else
   cd -
 fi
 
-patch -l -p0 -i ${patches_dir}/pdfweights.patch
-patch -l -p0 -i ${patches_dir}/pwhg_lhepdf.patch
+patch -l -p0 -i ${patches_dir}/pdfweights_new.patch
 
 $patch_1 
 
 
-sed -i -e "s#500#1350#g"  POWHEG-BOX/include/pwhg_rwl.h
+sed -i -e "s#500#2000#g"  POWHEG-BOX/include/pwhg_rwl.h
 
 echo $${POWHEGSRC} > VERSION
 
@@ -139,7 +138,7 @@ pwhg_main:#g' Makefile
 echo "pwhg_main.o: svn.version" >> Makefile
 echo "lhefwrite.o: svn.version" >> Makefile
 
-# Fix gcc8 error
+# Fix gcc>8 error
 sed -i -e "s#F77=gfortran#F77=gfortran -std=legacy#g" Makefile
 sed -i -e "s#F77= gfortran#F77= gfortran -std=legacy#g" Makefile
 sed -i -e "s#FFLAGS= #FFLAGS= -std=legacy #g" virtual/Source/make_opts
@@ -163,10 +162,10 @@ fi
 
 $patch_3 
 
-if [ -e ./Virtual/Virt_full_cHHH_-1.0.grid ]; then
+if [ -d ./Virtual/ ]; then
   cp ./Virtual/events.cdf $${WORKDIR}/$${name}/
   cp ./Virtual/creategrid.py* $${WORKDIR}/$${name}/
-  cp ./Virtual/Virt_full_cHHH*.grid $${WORKDIR}/$${name}/
+  cp ./Virtual/Virt*.grid $${WORKDIR}/$${name}/
 fi
 
 # Remove ANY kind of analysis with parton shower
@@ -182,17 +181,30 @@ if [[ $$process != "WWJ" && $$process != "ZgamJ" && $$process != "ZZJ" && $$proc
   sed -i -e "s#pwhg_bookhist-multi.o# #g" Makefile
 fi
 sed -i -e "s#LHAPDF_CONFIG[ \t]*=[ \t]*#\#LHAPDF_CONFIG=#g" Makefile
-$patch_4 
+sed -i -e "s#DEBUG[ \t]*=[ \t]*#\#DEBUG=#g" Makefile
+sed -i -e "s#FPE[ \t]*=[ \t]*#\#FPE=#g" Makefile
 
+if [[ `grep GoSam Makefile` != "" || `grep Gosam Makefile` != "" || `grep GOSAM Makefile` != "" ]]; then
+  sed -i -e "s#-fno-automatic#-fallow-invalid-boz#g" Makefile
+fi
+
+$patch_4 
 
 # Add libraries now
 NEWRPATH1=`ls /cvmfs/cms.cern.ch/$${SCRAM_ARCH}/external/gcc/*/* | grep "/lib64" | head -n 1`
 NEWRPATH1=$${NEWRPATH1%?}
 NEWRPATH2=`ls /cvmfs/cms.cern.ch/$${SCRAM_ARCH}/external/zlib-x86_64/*/* | grep "/lib" | head -n 1`
 NEWRPATH2=$${NEWRPATH2%?}
-echo "RPATHLIBS= -Wl,-rpath,$${NEWRPATH1} -L$${NEWRPATH1} -lgfortran -lstdc++ -Wl,-rpath,$${NEWRPATH2} -L$${NEWRPATH2} -lz" >> tmpfile
+
+# Add back python3.6m brutally
+if [[ $$process == "ggHH" || $$process == "ggHH_SMEFT" ]]; then
+  echo "RPATHLIBS= -Wl,-rpath,$${NEWRPATH1} -L$${NEWRPATH1} -lgfortran -lstdc++ -Wl,-rpath,$${NEWRPATH2} -L$${NEWRPATH2} -lz -L/cvmfs/cms.cern.ch/slc7_amd64_gcc900/cms/cmssw/CMSSW_11_0_0_pre13/external/slc7_amd64_gcc900/lib -lpython3.6m" >> tmpfile
+else
+  echo "RPATHLIBS= -Wl,-rpath,$${NEWRPATH1} -L$${NEWRPATH1} -lgfortran -lstdc++ -Wl,-rpath,$${NEWRPATH2} -L$${NEWRPATH2} -lz" >> tmpfile
+fi
 
 $patch_5 
+
 echo "LHAPDF_CONFIG=$${LHAPDF_BASE}/bin/lhapdf-config" >> tmpfile
 mv Makefile Makefile.interm
 cat tmpfile Makefile.interm > Makefile
@@ -229,6 +241,8 @@ $patch_7
 $patch_0 
 
 export PYTHONPATH=./Virtual/:$$PYTHONPATH
+export C_INCLUDE_PATH=$$C_INCLUDE_PATH:/usr/include/python3.6m/
+
 make pwhg_main || fail_exit "Failed to compile pwhg_main"
 
 mkdir -p $${WORKDIR}/$${name}

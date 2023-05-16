@@ -1,0 +1,3 @@
+import model loop_sm
+generate p a > t t~ [QCD]
+output antoniocotar_ttbar_positive_NLO_photoproduction_positive
