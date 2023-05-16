@@ -22,7 +22,6 @@ generator = cms.EDFilter("Pythia8ConcurrentHadronizerFilter",
              '25:m0 = 125.0',
              '25:onMode = off',
              '25:onIfMatch = 5 -5'
-             #'ResonanceDecayFilter:filter = on'
           ),
         parameterSets = cms.vstring('pythia8CommonSettings',
                                     'pythia8CP5Settings',
