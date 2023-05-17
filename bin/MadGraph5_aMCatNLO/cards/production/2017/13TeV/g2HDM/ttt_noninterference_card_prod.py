@@ -131,7 +131,7 @@ for ind in mass:
     with open(f_name_proc,'w') as proc_file:
         for line in proc:
             if "s0" in particle:
-                linep = line.replace('/ s0','/ a0').replace('_a0','_s0').replace('g2HDM_ttt_'+particle,'g2HDM_'+f_name)
+                linep = line.replace('a0','s0').replace('_a0','_s0').replace('g2HDM_ttt_'+particle,'g2HDM_'+f_name)
             else:
                 linep = line.replace('g2HDM_ttt_'+particle,'g2HDM_'+f_name)
             proc_file.write(linep)
