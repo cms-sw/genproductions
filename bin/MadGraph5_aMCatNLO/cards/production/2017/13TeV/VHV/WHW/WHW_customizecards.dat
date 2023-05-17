@@ -1,0 +1,5 @@
+set param_card frblock 1 1.00e+00  
+set param_card frblock 2 9.9e-01  
+set param_card higgs 3 0.00e+00
+set param_card mass 25 125.0
+set param_card mass 35 <MASS>

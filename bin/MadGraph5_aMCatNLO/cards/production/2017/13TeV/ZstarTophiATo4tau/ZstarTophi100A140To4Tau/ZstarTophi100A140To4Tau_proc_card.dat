@@ -1,0 +1,5 @@
+import model 2HDM_NLO-typeX_inverted
+define p = g u c d s b u~ c~ d~ s~ b~
+define j = p
+generate p p  > h1 h3 [QCD]
+output ZstarTophi100A140To4Tau -nojpeg 

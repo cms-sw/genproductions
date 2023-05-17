@@ -1,0 +1,11 @@
+import model topponium_UFO
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+define q = u c d s b
+define q~ = u~ c~ d~ s~ b~
+define p = g u c d s u~ c~ d~ s~
+define j = g u c d s u~ c~ d~ s~ b b~
+generate p p > eta, (eta > w+ w- b b~, w+ > q q~, w- > q q~)
+output EtaTToHadronic_0j_madgraph_4f_NNPDF31nnlo_13TeV -nojpeg
