@@ -1,0 +1,8 @@
+<tool name="mpfr" version="4.1.0-bcd1c7f4e9eb71a42fa64fc59379c0b5">
+  <lib name="mpfr"/>
+  <client>
+    <environment name="MPFR_BASE"  default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/mpfr-static/4.1.0-bcd1c7f4e9eb71a42fa64fc59379c0b5"/>
+    <environment name="INCLUDE"   default="$MPFR_BASE/include"/>
+    <environment name="LIBDIR"    default="$MPFR_BASE/lib"/>
+  </client>
+</tool>

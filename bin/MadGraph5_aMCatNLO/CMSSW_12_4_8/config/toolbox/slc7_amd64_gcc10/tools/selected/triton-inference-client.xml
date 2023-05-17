@@ -1,0 +1,12 @@
+<tool name="triton-inference-client" version="2.11.0-4b89370ad1e0fb115c2d67bc03963d3b">
+  <info url="https://github.com/triton-inference-server/client"/>
+  <lib name="grpcclient"/> 
+  <client>
+    <environment name="TRITON_INFERENCE_CLIENT_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/triton-inference-client/2.11.0-4b89370ad1e0fb115c2d67bc03963d3b"/>
+    <environment name="INCLUDE" default="$TRITON_INFERENCE_CLIENT_BASE/include"/>
+    <environment name="LIBDIR"  default="$TRITON_INFERENCE_CLIENT_BASE/lib"/>
+  </client>
+  <use name="protobuf"/>
+  <use name="grpc"/>
+  <use name="cuda"/>
+</tool>

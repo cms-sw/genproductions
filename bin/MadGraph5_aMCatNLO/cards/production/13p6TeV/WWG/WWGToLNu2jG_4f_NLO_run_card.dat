@@ -1,4 +1,4 @@
-#***********************************************************************
+
 #                        MadGraph5_aMC@NLO                             *
 #                                                                      *
 #                      run_card.dat aMC@NLO                            *
@@ -93,7 +93,6 @@ average = event_norm ! Normalize events to sum or average to the X sect.
   2.0     = rw_Rscale_up     ! upper bound for ren scale variations
   0.5     = rw_Fscale_down   ! lower bound for fact scale variations
   2.0     = rw_Fscale_up     ! upper bound for fact scale variations
-#True,True,False,False,False,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,True,False,False,True,False = reweight_PDF     ! reweight to get PDF uncertainty
 #     ! First of the error PDF sets 
      ! Last of the error PDF sets
 #***********************************************************************
@@ -124,7 +123,7 @@ average = event_norm ! Normalize events to sum or average to the X sect.
 # (more specific gen cuts can be specified in SubProcesses/cuts.f)     *
 #***********************************************************************
   20  = ptl     ! Min lepton transverse momentum
-  2.6  = etal    ! Max lepton abs(pseudo-rap) (a value .lt.0 means no cut)
+  3.0  = etal    ! Max lepton abs(pseudo-rap) (a value .lt.0 means no cut)
    0  = drll    ! Min distance between opposite sign lepton pairs
    0  = drll_sf ! Min distance between opp. sign same-flavor lepton pairs
    0  = mll     ! Min inv. mass of all opposite sign lepton pairs

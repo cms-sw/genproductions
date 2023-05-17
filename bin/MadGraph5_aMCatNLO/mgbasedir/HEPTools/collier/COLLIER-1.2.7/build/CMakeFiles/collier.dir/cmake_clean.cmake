@@ -1,0 +1,41 @@
+FILE(REMOVE_RECURSE
+  "CMakeFiles/collier.dir/src/collier_aux.F90.o"
+  "CMakeFiles/collier.dir/src/collier_coefs.F90.o"
+  "CMakeFiles/collier.dir/src/collier_global.F90.o"
+  "CMakeFiles/collier.dir/src/COLLIER.F90.o"
+  "CMakeFiles/collier.dir/src/collier_init.F90.o"
+  "CMakeFiles/collier.dir/src/collier_tensors.F90.o"
+  "CMakeFiles/collier.dir/src/Aux/Combinatorics.F90.o"
+  "CMakeFiles/collier.dir/src/Aux/master.F90.o"
+  "CMakeFiles/collier.dir/src/Aux/cache.F90.o"
+  "CMakeFiles/collier.dir/src/tensors/InitTensors.F90.o"
+  "CMakeFiles/collier.dir/src/tensors/BuildTensors.F90.o"
+  "CMakeFiles/collier.dir/src/tensors/TensorReduction.F90.o"
+  "CMakeFiles/collier.dir/src/COLI/coli_stat.F90.o"
+  "CMakeFiles/collier.dir/src/COLI/reductionAB.F90.o"
+  "CMakeFiles/collier.dir/src/COLI/coli_aux2.F90.o"
+  "CMakeFiles/collier.dir/src/COLI/reductionC.F90.o"
+  "CMakeFiles/collier.dir/src/COLI/reductionD.F90.o"
+  "CMakeFiles/collier.dir/src/COLI/reductionEFG.F90.o"
+  "CMakeFiles/collier.dir/src/COLI/reductionTN.F90.o"
+  "CMakeFiles/collier.dir/src/COLI/coli_b0.F.o"
+  "CMakeFiles/collier.dir/src/COLI/coli_d0.F.o"
+  "CMakeFiles/collier.dir/src/COLI/coli_d0reg.F.o"
+  "CMakeFiles/collier.dir/src/COLI/coli_aux.F.o"
+  "CMakeFiles/collier.dir/src/COLI/coli_c0.F.o"
+  "CMakeFiles/collier.dir/src/DDlib/DD_global.F90.o"
+  "CMakeFiles/collier.dir/src/DDlib/DD_aux.F.o"
+  "CMakeFiles/collier.dir/src/DDlib/DD_5pt.F.o"
+  "CMakeFiles/collier.dir/src/DDlib/DD_6pt.F.o"
+  "CMakeFiles/collier.dir/src/DDlib/DD_3pt.F.o"
+  "CMakeFiles/collier.dir/src/DDlib/DD_to_COLLIER.F.o"
+  "CMakeFiles/collier.dir/src/DDlib/DD_2pt.F.o"
+  "CMakeFiles/collier.dir/src/DDlib/DD_4pt.F.o"
+  "../libcollier.pdb"
+  "../libcollier.a"
+)
+
+# Per-language clean rules from dependency scanning.
+FOREACH(lang Fortran)
+  INCLUDE(CMakeFiles/collier.dir/cmake_clean_${lang}.cmake OPTIONAL)
+ENDFOREACH(lang)

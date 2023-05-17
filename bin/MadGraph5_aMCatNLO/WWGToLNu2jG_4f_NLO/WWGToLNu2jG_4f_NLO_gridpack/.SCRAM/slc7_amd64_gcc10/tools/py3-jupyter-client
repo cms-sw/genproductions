@@ -1,0 +1,13 @@
+{
+  "PY3_JUPYTER_CLIENT_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-jupyter-client/7.0.2-f3ec3def37b2d5c49dea054c63229a53",
+  "RUNTIME": {
+    "PATH:PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-jupyter-client/7.0.2-f3ec3def37b2d5c49dea054c63229a53/bin"
+    ]
+  },
+  "TOOLNAME": "py3-jupyter-client",
+  "TOOLVERSION": "7.0.2-f3ec3def37b2d5c49dea054c63229a53",
+  "VARIABLES": [
+    "PY3_JUPYTER_CLIENT_BASE"
+  ]
+}

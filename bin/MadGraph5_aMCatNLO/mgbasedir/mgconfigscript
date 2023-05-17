@@ -1,0 +1,11 @@
+set auto_update 0
+set automatic_html_opening False
+set auto_convert_model True
+set lhapdf_py3 /cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/lhapdf/6.4.0-68defff11ffd434c73727d03802bfb85/share/LHAPDF/../../bin/lhapdf-config
+set run_mode  1
+set cluster_type cms_condor
+set cluster_queue None
+set cluster_status_update 60 30
+set cluster_nb_retry 3
+set cluster_retry_wait 300
+save options

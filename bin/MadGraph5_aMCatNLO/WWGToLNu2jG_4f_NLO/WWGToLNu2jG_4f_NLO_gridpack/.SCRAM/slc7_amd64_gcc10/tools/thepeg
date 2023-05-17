@@ -1,0 +1,33 @@
+{
+  "INCLUDE": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/thepeg/2.2.2-50ab34ae4be3c629ed007714a7f99a8c/include"
+  ],
+  "LIB": [
+    "ThePEG",
+    "LesHouches"
+  ],
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/thepeg/2.2.2-50ab34ae4be3c629ed007714a7f99a8c/lib/ThePEG"
+  ],
+  "RUNTIME": {
+    "PATH:ROOT_INCLUDE_PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/thepeg/2.2.2-50ab34ae4be3c629ed007714a7f99a8c/include"
+    ],
+    "THEPEGPATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/thepeg/2.2.2-50ab34ae4be3c629ed007714a7f99a8c/share/ThePEG"
+    ]
+  },
+  "THEPEG_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/thepeg/2.2.2-50ab34ae4be3c629ed007714a7f99a8c",
+  "TOOLNAME": "thepeg",
+  "TOOLVERSION": "2.2.2-50ab34ae4be3c629ed007714a7f99a8c",
+  "USE": [
+    "root_cxxdefaults",
+    "lhapdf",
+    "gsl"
+  ],
+  "VARIABLES": [
+    "THEPEG_BASE",
+    "LIBDIR",
+    "INCLUDE"
+  ]
+}

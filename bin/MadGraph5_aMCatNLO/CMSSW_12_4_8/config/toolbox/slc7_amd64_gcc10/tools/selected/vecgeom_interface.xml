@@ -1,0 +1,11 @@
+<tool name="vecgeom_interface" version="v1.1.17-be522ca6cc7ef8812a6c203416720a71">
+  <info url="https://gitlab.cern.ch/VecGeom/VecGeom"/>
+  <client>
+    <environment name="VECGEOM_INTERFACE_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/vecgeom/v1.1.17-be522ca6cc7ef8812a6c203416720a71"/>
+    <environment name="INCLUDE" default="$VECGEOM_INTERFACE_BASE/include"/>
+    <environment name="INCLUDE" default="$VECGEOM_INTERFACE_BASE/include/VecGeom"/>
+  </client>
+  <runtime name="ROOT_INCLUDE_PATH" value="$VECGEOM_INTERFACE_BASE/include" type="path"/>
+  <runtime name="ROOT_INCLUDE_PATH" value="$VECGEOM_INTERFACE_BASE/include/VecGeom" type="path"/>
+  <use name="root_cxxdefaults"/>
+</tool>

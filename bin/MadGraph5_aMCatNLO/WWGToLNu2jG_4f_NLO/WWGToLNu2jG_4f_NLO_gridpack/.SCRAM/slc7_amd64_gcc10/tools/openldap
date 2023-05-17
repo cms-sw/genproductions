@@ -1,0 +1,15 @@
+{
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/openldap/2.4.45-944abf2d19bbc953ec44127851cb5d87/lib"
+  ],
+  "OPENLDAP_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/openldap/2.4.45-944abf2d19bbc953ec44127851cb5d87",
+  "TOOLNAME": "openldap",
+  "TOOLVERSION": "2.4.45-944abf2d19bbc953ec44127851cb5d87",
+  "USE": [
+    "db6"
+  ],
+  "VARIABLES": [
+    "OPENLDAP_BASE",
+    "LIBDIR"
+  ]
+}

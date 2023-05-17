@@ -1,0 +1,13 @@
+
+
+Cross section per integration channel:
+      P0_uux_epvewma               25   7.35330847e-03    6.7759e-05       0.9215%  
+
+
+ABS cross section per integration channel:
+      P0_uux_epvewma               25   8.90616306e-03    5.6406e-05       0.6333%  
+
+Total ABS and 
+Total: 
+                      8.90616306e-03 +- 5.6406e-05  (6.3333e-01%)
+                      7.35330847e-03 +- 6.7759e-05  (9.2147e-01%) 

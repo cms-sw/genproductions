@@ -1,0 +1,10 @@
+<tool name="jemalloc" version="5.3.0-83f4e92d89b06e8d4aeb7f1806365e7c">
+  <lib name="jemalloc"/>
+  <client>
+    <environment name="JEMALLOC_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/jemalloc/5.3.0-83f4e92d89b06e8d4aeb7f1806365e7c"/>
+    <environment name="LIBDIR"        default="$JEMALLOC_BASE/lib"/>
+    <environment name="INCLUDE"        default="$JEMALLOC_BASE/include"/>
+  </client>
+  <runtime name="ROOT_INCLUDE_PATH" value="$INCLUDE" type="path"/>
+  <use name="root_cxxdefaults"/>
+</tool>

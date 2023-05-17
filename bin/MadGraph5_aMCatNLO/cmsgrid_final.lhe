@@ -1,0 +1,1553 @@
+<LesHouchesEvents version="3.0">
+<header>
+<!--
+#*********************************************************************
+#                                                                    *
+#                         MadGraph5_aMC@NLO                          *
+#                                                                    *
+#                   http://madgraph.hep.uiuc.edu                     *
+#                   http://madgraph.phys.ucl.ac.be                   *
+#                   http://amcatnlo.cern.ch                          *
+#                                                                    *
+#                     The MadGraph5_aMC@NLO team                     *
+#                                                                    *
+#....................................................................*
+#                                                                    *
+# This file contains all the information necessary to reproduce      *
+# the events generated                                               *
+#                                                                    *
+# 1. software version                                                *
+# 2. proc_card.dat      : code generation info including model       *
+# 3. param_card.dat     : model primary parameters in the LH format  *
+# 4. run_card.dat       : running parameters (collider and cuts)     *
+#                                                                    *
+#                                                                    *
+#*********************************************************************
+-->
+<MGVersion>
+#5.2.9.9
+</MGVersion>
+<MG5ProcCard>
+<![CDATA[
+#************************************************************                                                                                         
+#*                     MadGraph5_aMC@NLO                    *                                                                                         
+#*                                                          *                                                                                         
+#*                *                       *                 *                                                                                         
+#*                  *        * *        *                   *                                                                                         
+#*                    * * * * 5 * * * *                     *                                                                                         
+#*                  *        * *        *                   *                                                                                         
+#*                *                       *                 *                                                                                         
+#*                                                          *                                                                                         
+#*                                                          *                                                                                         
+#*         VERSION 2.9.9                 2022-02-25         *                                                                                         
+#*                                                          *                                                                                         
+#*    The MadGraph5_aMC@NLO Development Team - Find us at   *                                                                                         
+#*    https://server06.fynu.ucl.ac.be/projects/madgraph     *                                                                                         
+#*                                                          *                                                                                         
+#************************************************************                                                                                         
+#*                                                          *                                                                                         
+#*               Command File for MadGraph5_aMC@NLO         *                                                                                         
+#*                                                          *                                                                                         
+#*     run as ./bin/mg5_aMC  filename                       *                                                                                         
+#*                                                          *                                                                                         
+#************************************************************                                                                                         
+set low_mem_multicore_nlo_generation False                                                                                                            
+set default_unset_couplings 99                                                                                                                        
+set max_t_for_channel 99                                                                                                                              
+set zerowidth_tchannel True                                                                                                                           
+set loop_optimized_output True                                                                                                                        
+set group_subprocesses Auto                                                                                                                           
+set ignore_six_quark_processes False                                                                                                                  
+set loop_color_flows False                                                                                                                            
+set gauge unitary                                                                                                                                     
+set complex_mass_scheme False                                                                                                                         
+set max_npoint_for_channel 0                                                                                                                          
+import model loop_sm                                                                                                                                  
+define l+ = e+ mu+                                                                                                                                    
+define l- = e- mu-                                                                                                                                    
+define vl = ve vm vt                                                                                                                                  
+define vl~ = ve~ vm~ vt~                                                                                                                              
+define p = g u c d s u~ c~ d~ s~                                                                                                                      
+define j = g u c d s u~ c~ d~ s~                                                                                                                      
+define lep = e+ mu+ ta+ e- mu- ta-                                                                                                                    
+define nu = ve vm vt ve~ vm~ vt~                                                                                                                      
+define w = w+ w-                                                                                                                                      
+generate p p > lep nu w a [QCD] @0                                                                                                                    
+output WWGToLNu2jG_4f_NLO -nojpeg
+]]>
+</MG5ProcCard>
+<MGRunCard>
+<![CDATA[
+#***********************************************************************                                                                              
+#                        MadGraph5_aMC@NLO                             *                                                                              
+#                                                                      *                                                                              
+#                      run_card.dat aMC@NLO                            *                                                                              
+#                                                                      *                                                                              
+#  This file is used to set the parameters of the run.                 *                                                                              
+#                                                                      *                                                                              
+#  Some notation/conventions:                                          *                                                                              
+#                                                                      *                                                                              
+#   Lines starting with a hash (#) are info or comments                *                                                                              
+#                                                                      *                                                                              
+#   mind the format:   value    = variable     ! comment               *                                                                              
+#                                                                      *                                                                              
+#   Some of the values of variables can be list. These can either be   *                                                                              
+#   comma or space separated.                                          *                                                                              
+#                                                                      *                                                                              
+#   To display additional parameter, you can use the command:          *                                                                              
+#      update to_full                                                  *                                                                              
+#***********************************************************************                                                                              
+#                                                                                                                                                     
+#*******************                                                                                                                                  
+# Running parameters                                                                                                                                  
+#*******************                                                                                                                                  
+#                                                                                                                                                     
+#***********************************************************************                                                                              
+# Tag name for the run (one word)                                      *                                                                              
+#***********************************************************************                                                                              
+  WWAToLNu2jA_4f_NLO	= run_tag ! name of the run                                                                                                      
+#***********************************************************************                                                                              
+# Number of LHE events (and their normalization) and the required      *                                                                              
+# (relative) accuracy on the Xsec.                                     *                                                                              
+# These values are ignored for fixed order runs                        *                                                                              
+#***********************************************************************                                                                              
+          1 = nevents                                                                                                                                 
+  0.001	= req_acc ! Required accuracy (-1=auto determined from nevents)                                                                               
+  10	= nevt_job ! Max number of events per job in event generation.                                                                                   
+                 !  (-1= no split).                                                                                                                   
+#***********************************************************************                                                                              
+# Normalize the weights of LHE events such that they sum or average to *                                                                              
+# the total cross section                                              *                                                                              
+#***********************************************************************                                                                              
+  average	= event_norm ! valid settings: average, sum, bias                                                                                           
+#***********************************************************************                                                                              
+# Number of points per itegration channel (ignored for aMC@NLO runs)   *                                                                              
+#***********************************************************************                                                                              
+  0.01	= req_acc_fo ! Required accuracy (-1=ignored, and use the                                                                                      
+ 	                   ! number of points and iter. below)                                                                                              
+# These numbers are ignored except if req_acc_FO is equal to -1                                                                                       
+  5000	= npoints_fo_grid ! number of points to setup grids                                                                                            
+  4	= niters_fo_grid ! number of iter. to setup grids                                                                                                 
+  10000	= npoints_fo ! number of points to compute Xsec                                                                                               
+  6	= niters_fo ! number of iter. to compute Xsec                                                                                                     
+#***********************************************************************                                                                              
+# Random number seed                                                   *                                                                              
+#***********************************************************************                                                                              
+          1 =  iseed                                                                                                                                  
+#***********************************************************************                                                                              
+# Collider type and energy                                             *                                                                              
+#***********************************************************************                                                                              
+  1	= lpp1 ! beam 1 type (0 = no PDF)                                                                                                                 
+  1	= lpp2 ! beam 2 type (0 = no PDF)                                                                                                                 
+  6800.0	= ebeam1 ! beam 1 energy in GeV                                                                                                              
+  6800.0	= ebeam2 ! beam 2 energy in GeV                                                                                                              
+#***********************************************************************                                                                              
+# PDF choice: this automatically fixes also alpha_s(MZ) and its evol.  *                                                                              
+#***********************************************************************                                                                              
+  lhapdf	= pdlabel ! PDF set                                                                                                                          
+  325500	= lhaid ! If pdlabel=lhapdf, this is the lhapdf number. Only                                                                                 
+              ! numbers for central PDF sets are allowed. Can be a list;                                                                              
+              ! PDF sets beyond the first are included via reweighting.                                                                               
+#***********************************************************************                                                                              
+# Include the NLO Monte Carlo subtr. terms for the following parton    *                                                                              
+# shower (HERWIG6 | HERWIGPP | PYTHIA6Q | PYTHIA6PT | PYTHIA8)         *                                                                              
+# WARNING: PYTHIA6PT works only for processes without FSR!!!!          *                                                                              
+#***********************************************************************                                                                              
+  PYTHIA8	= parton_shower                                                                                                                             
+  1.0	= shower_scale_factor ! multiply default shower starting                                                                                        
+                                  ! scale by this factor                                                                                              
+#***********************************************************************                                                                              
+# Renormalization and factorization scales                             *                                                                              
+# (Default functional form for the non-fixed scales is the sum of      *                                                                              
+# the transverse masses divided by two of all final state particles    *                                                                              
+# and partons. This can be changed in SubProcesses/set_scales.f or via *                                                                              
+# dynamical_scale_choice option)                                       *                                                                              
+#***********************************************************************                                                                              
+  False	= fixed_ren_scale ! if .true. use fixed ren scale                                                                                             
+  False	= fixed_fac_scale ! if .true. use fixed fac scale                                                                                             
+  91.188	= mur_ref_fixed ! fixed ren reference scale                                                                                                  
+  91.188	= muf_ref_fixed ! fixed fact reference scale                                                                                                 
+  -1	= dynamical_scale_choice ! Choose one (or more) of the predefined                                                                                
+           ! dynamical choices. Can be a list; scale choices beyond the                                                                               
+           ! first are included via reweighting                                                                                                       
+  1.0	= mur_over_ref ! ratio of current muR over reference muR                                                                                        
+  1.0	= muf_over_ref ! ratio of current muF over reference muF                                                                                        
+#***********************************************************************                                                                              
+# Reweight variables for scale dependence and PDF uncertainty          *                                                                              
+#***********************************************************************                                                                              
+  1.0, 2.0, 0.5	= rw_rscale ! muR factors to be included by reweighting                                                                               
+  1.0, 2.0, 0.5	= rw_fscale ! muF factors to be included by reweighting                                                                               
+  False	= reweight_scale ! Reweight to get scale variation using the                                                                                  
+            ! rw_rscale and rw_fscale factors. Should be a list of                                                                                    
+            ! booleans of equal length to dynamical_scale_choice to                                                                                   
+            ! specify for which choice to include scale dependence.                                                                                   
+  False	= reweight_pdf ! Reweight to get PDF uncertainty. Should be a                                                                                 
+            ! list booleans of equal length to lhaid to specify for                                                                                   
+            !  which PDF set to include the uncertainties.                                                                                            
+#***********************************************************************                                                                              
+# Store reweight information in the LHE file for off-line model-       *                                                                              
+# parameter reweighting at NLO+PS accuracy                             *                                                                              
+#***********************************************************************                                                                              
+  True	= store_rwgt_info ! Store info for reweighting in LHE file                                                                                     
+#***********************************************************************                                                                              
+# ickkw parameter:                                                     *                                                                              
+#   0: No merging                                                      *                                                                              
+#   3: FxFx Merging - WARNING! Applies merging only at the hard-event  *                                                                              
+#      level. After showering an MLM-type merging should be applied as *                                                                              
+#      well. See http://amcatnlo.cern.ch/FxFx_merging.htm for details. *                                                                              
+#   4: UNLOPS merging (with pythia8 only). No interface from within    *                                                                              
+#      MG5_aMC available, but available in Pythia8.                    *                                                                              
+#  -1: NNLL+NLO jet-veto computation. See arxiv:1412.8408 [hep-ph].    *                                                                              
+#***********************************************************************                                                                              
+  0	= ickkw                                                                                                                                           
+#***********************************************************************                                                                              
+#                                                                                                                                                     
+#***********************************************************************                                                                              
+# BW cutoff (M+/-bwcutoff*Gamma). Determines which resonances are      *                                                                              
+# written in the LHE event file                                        *                                                                              
+#***********************************************************************                                                                              
+  30.0	= bwcutoff                                                                                                                                     
+#***********************************************************************                                                                              
+# Cuts on the jets. Jet clustering is performed by FastJet.            *                                                                              
+#  - When matching to a parton shower, these generation cuts should be *                                                                              
+#    considerably softer than the analysis cuts.                       *                                                                              
+#  - More specific cuts can be specified in SubProcesses/cuts.f        *                                                                              
+#***********************************************************************                                                                              
+  1.0	= jetalgo ! FastJet jet algorithm (1=kT, 0=C/A, -1=anti-kT)                                                                                     
+  0.7	= jetradius ! The radius parameter for the jet algorithm                                                                                        
+  15.0	= ptj ! Min jet transverse momentum                                                                                                            
+  -1.0	= etaj ! Max jet abs(pseudo-rap) (a value .lt.0 means no cut)                                                                                  
+#***********************************************************************                                                                              
+# Cuts on the charged leptons (e+, e-, mu+, mu-, tau+ and tau-)        *                                                                              
+# More specific cuts can be specified in SubProcesses/cuts.f           *                                                                              
+#***********************************************************************                                                                              
+  20.0	= ptl ! Min lepton transverse momentum                                                                                                         
+  2.6	= etal ! Max lepton abs(pseudo-rap) (a value .lt.0 means no cut)                                                                                
+  0.0	= drll ! Min distance between opposite sign lepton pairs                                                                                        
+  0.0	= drll_sf ! Min distance between opp. sign same-flavor lepton pairs                                                                             
+  0.0	= mll ! Min inv. mass of all opposite sign lepton pairs                                                                                         
+  30.0	= mll_sf ! Min inv. mass of all opp. sign same-flavor lepton pairs                                                                             
+#***********************************************************************                                                                              
+# Photon-isolation cuts, according to hep-ph/9801442. When ptgmin=0,   *                                                                              
+# all the other parameters are ignored.                                *                                                                              
+# More specific cuts can be specified in SubProcesses/cuts.f           *                                                                              
+#***********************************************************************                                                                              
+  20.0	= ptgmin ! Min photon transverse momentum                                                                                                      
+  2.6	= etagamma ! Max photon abs(pseudo-rap)                                                                                                         
+  0.05	= r0gamma ! Radius of isolation code                                                                                                           
+  1.0	= xn ! n parameter of eq.(3.4) in hep-ph/9801442                                                                                                
+  1.0	= epsgamma ! epsilon_gamma parameter of eq.(3.4) in hep-ph/9801442                                                                              
+  True	= isoem ! isolate photons from EM energy (photons and leptons)                                                                                 
+#***********************************************************************                                                                              
+# Cuts associated to MASSIVE particles identified by their PDG codes.  *                                                                              
+# All cuts are applied to both particles and anti-particles, so use    *                                                                              
+# POSITIVE PDG CODES only. Example of the syntax is {6 : 100} or       *                                                                              
+# {6:100, 25:200} for multiple particles                               *                                                                              
+#***********************************************************************                                                                              
+  {}	= pt_min_pdg ! Min pT for a massive particle                                                                                                     
+  {}	= pt_max_pdg ! Max pT for a massive particle                                                                                                     
+  {}	= mxx_min_pdg ! inv. mass for any pair of (anti)particles                                                                                        
+#***********************************************************************                                                                              
+# For aMCfast+APPLGRID use in PDF fitting (http://amcfast.hepforge.org)*                                                                              
+#***********************************************************************                                                                              
+  0	= iappl ! aMCfast switch (0=OFF, 1=prepare grids, 2=fill grids)                                                                                   
+#***********************************************************************                                                                              
+#*********************************************************************                                                                                
+#  Additional hidden parameters                                                                                                                       
+#*********************************************************************                                                                                
+  1.0	= qes_over_ref # hidden_parameter                                                                                                               
+  1.0	= muf1_over_ref # hidden_parameter                                                                                                              
+  0.5	= rw_rscale_down # hidden_parameter                                                                                                             
+  4	= maxjetflavor # hidden_parameter                                                                                                                 
+  91.188	= muf1_ref_fixed # hidden_parameter                                                                                                          
+  2.0	= rw_rscale_up # hidden_parameter                                                                                                               
+  False	= fixed_qes_scale # hidden_parameter                                                                                                          
+  91.188	= qes_ref_fixed # hidden_parameter                                                                                                           
+  0.5	= rw_fscale_down # hidden_parameter                                                                                                             
+  1.0	= muf2_over_ref # hidden_parameter                                                                                                              
+  91.188	= muf2_ref_fixed # hidden_parameter                                                                                                          
+  2.0	= rw_fscale_up # hidden_parameter
+]]>
+</MGRunCard>
+<slha>
+######################################################################                                                                                
+## PARAM_CARD AUTOMATICALY GENERATED BY MG5 FOLLOWING UFO MODEL   ####                                                                                
+######################################################################                                                                                
+##                                                                  ##                                                                                
+##  Width set on Auto will be computed following the information    ##                                                                                
+##        present in the decay.py files of the model.               ##                                                                                
+##        See  arXiv:1402.1178 for more details.                    ##                                                                                
+##                                                                  ##                                                                                
+######################################################################                                                                                
+                                                                                                                                                      
+###################################                                                                                                                   
+## INFORMATION FOR MASS                                                                                                                               
+###################################                                                                                                                   
+Block mass                                                                                                                                            
+    5 4.700000e+00 # MB                                                                                                                               
+    6 1.730000e+02 # MT                                                                                                                               
+   15 1.777000e+00 # MTA                                                                                                                              
+   23 9.118800e+01 # MZ                                                                                                                               
+   25 1.250000e+02 # MH                                                                                                                               
+## Dependent parameters, given by model restrictions.                                                                                                 
+## Those values should be edited following the                                                                                                        
+## analytical expression. MG5 ignores those values                                                                                                    
+## but they are important for interfacing the output of MG5                                                                                           
+## to external program such as Pythia.                                                                                                                
+  1 0.000000e+00 # d : 0.0                                                                                                                            
+  2 0.000000e+00 # u : 0.0                                                                                                                            
+  3 0.000000e+00 # s : 0.0                                                                                                                            
+  4 0.000000e+00 # c : 0.0                                                                                                                            
+  11 0.000000e+00 # e- : 0.0                                                                                                                          
+  12 0.000000e+00 # ve : 0.0                                                                                                                          
+  13 0.000000e+00 # mu- : 0.0                                                                                                                         
+  14 0.000000e+00 # vm : 0.0                                                                                                                          
+  16 0.000000e+00 # vt : 0.0                                                                                                                          
+  21 0.000000e+00 # g : 0.0                                                                                                                           
+  22 0.000000e+00 # a : 0.0                                                                                                                           
+  24 8.041900e+01 # w+ : cmath.sqrt(MZ__exp__2/2. + cmath.sqrt(MZ__exp__4/4. - (aEW*cmath.pi*MZ__exp__2)/(Gf*sqrt__2)))                               
+                                                                                                                                                      
+###################################                                                                                                                   
+## INFORMATION FOR SMINPUTS                                                                                                                           
+###################################                                                                                                                   
+Block sminputs                                                                                                                                        
+    1 1.325070e+02 # aEWM1                                                                                                                            
+    2 1.166390e-05 # Gf                                                                                                                               
+    3 1.180000e-01 # aS (Note that Parameter not used if you use a PDF set)                                                                           
+                                                                                                                                                      
+###################################                                                                                                                   
+## INFORMATION FOR YUKAWA                                                                                                                             
+###################################                                                                                                                   
+Block yukawa                                                                                                                                          
+    5 4.700000e+00 # ymb                                                                                                                              
+    6 1.730000e+02 # ymt                                                                                                                              
+   15 1.777000e+00 # ymtau                                                                                                                            
+                                                                                                                                                      
+###################################                                                                                                                   
+## INFORMATION FOR DECAY                                                                                                                              
+###################################                                                                                                                   
+DECAY   6 1.491500e+00 # WT                                                                                                                           
+DECAY  23 2.441404e+00 # WZ                                                                                                                           
+DECAY  24 2.047600e+00 # WW                                                                                                                           
+DECAY  25 6.382339e-03 # WH                                                                                                                           
+## Dependent parameters, given by model restrictions.                                                                                                 
+## Those values should be edited following the                                                                                                        
+## analytical expression. MG5 ignores those values                                                                                                    
+## but they are important for interfacing the output of MG5                                                                                           
+## to external program such as Pythia.                                                                                                                
+DECAY  1 0.000000e+00 # d : 0.0                                                                                                                       
+DECAY  2 0.000000e+00 # u : 0.0                                                                                                                       
+DECAY  3 0.000000e+00 # s : 0.0                                                                                                                       
+DECAY  4 0.000000e+00 # c : 0.0                                                                                                                       
+DECAY  5 0.000000e+00 # b : 0.0                                                                                                                       
+DECAY  11 0.000000e+00 # e- : 0.0                                                                                                                     
+DECAY  12 0.000000e+00 # ve : 0.0                                                                                                                     
+DECAY  13 0.000000e+00 # mu- : 0.0                                                                                                                    
+DECAY  14 0.000000e+00 # vm : 0.0                                                                                                                     
+DECAY  15 0.000000e+00 # ta- : 0.0                                                                                                                    
+DECAY  16 0.000000e+00 # vt : 0.0                                                                                                                     
+DECAY  21 0.000000e+00 # g : 0.0                                                                                                                      
+DECAY  22 0.000000e+00 # a : 0.0                                                                                                                      
+#===========================================================                                                                                          
+# QUANTUM NUMBERS OF NEW STATE(S) (NON SM PDG CODE)                                                                                                   
+#===========================================================                                                                                          
+                                                                                                                                                      
+Block QNUMBERS 82  # gh                                                                                                                               
+        1 0  # 3 times electric charge                                                                                                                
+        2 1  # number of spin states (2S+1)                                                                                                           
+        3 8  # colour rep (1: singlet, 3: triplet, 8: octet)                                                                                          
+        4 1  # Particle/Antiparticle distinction (0=own anti)
+</slha>
+<initrwgt>
+<weightgroup name="NNPDF31_nnlo_as_0118_nf_4_mc_hessian" combine="symmhessian"> # 325500: Hessian NNPDF31_nnlo_as_0118_nf_4_mc_hessian
+<weight id="1001" MUR="1.0"  MUF="1.0"  PDF="325500" >  </weight>
+<weightgroup name="Central scale variation" combine="envelope">
+</weightgroup> PDF 
+<weight id="1002" MUR="2.0"  MUF="1.0"  PDF="325500" > MUR=2.0  </weight>
+<weight id="1003" MUR="0.5"  MUF="1.0"  PDF="325500" > MUR=0.5  </weight>
+<weight id="1004" MUR="1.0"  MUF="2.0"  PDF="325500" > MUF=2.0  </weight>
+<weight id="1005" MUR="2.0"  MUF="2.0"  PDF="325500" > MUR=2.0 MUF=2.0  </weight>
+<weight id="1006" MUR="0.5"  MUF="2.0"  PDF="325500" > MUR=0.5 MUF=2.0  </weight>
+<weight id="1007" MUR="1.0"  MUF="0.5"  PDF="325500" > MUF=0.5  </weight>
+<weight id="1008" MUR="2.0"  MUF="0.5"  PDF="325500" > MUR=2.0 MUF=0.5  </weight>
+<weight id="1009" MUR="0.5"  MUF="0.5"  PDF="325500" > MUR=0.5 MUF=0.5  </weight>
+</weightgroup> # scale
+<weightgroup name="NNPDF31_nnlo_as_0118_nf_4_mc_hessian" combine="symmhessian"> # 325500: Hessian NNPDF31_nnlo_as_0118_nf_4_mc_hessian
+<weight id="1010" MUR="1.0"  MUF="1.0"  PDF="325500" >  </weight>
+<weight id="1011" MUR="1.0"  MUF="1.0"  PDF="325501" > PDF=325500 MemberID=1 </weight>
+<weight id="1012" MUR="1.0"  MUF="1.0"  PDF="325502" > PDF=325500 MemberID=2 </weight>
+<weight id="1013" MUR="1.0"  MUF="1.0"  PDF="325503" > PDF=325500 MemberID=3 </weight>
+<weight id="1014" MUR="1.0"  MUF="1.0"  PDF="325504" > PDF=325500 MemberID=4 </weight>
+<weight id="1015" MUR="1.0"  MUF="1.0"  PDF="325505" > PDF=325500 MemberID=5 </weight>
+<weight id="1016" MUR="1.0"  MUF="1.0"  PDF="325506" > PDF=325500 MemberID=6 </weight>
+<weight id="1017" MUR="1.0"  MUF="1.0"  PDF="325507" > PDF=325500 MemberID=7 </weight>
+<weight id="1018" MUR="1.0"  MUF="1.0"  PDF="325508" > PDF=325500 MemberID=8 </weight>
+<weight id="1019" MUR="1.0"  MUF="1.0"  PDF="325509" > PDF=325500 MemberID=9 </weight>
+<weight id="1020" MUR="1.0"  MUF="1.0"  PDF="325510" > PDF=325500 MemberID=10 </weight>
+<weight id="1021" MUR="1.0"  MUF="1.0"  PDF="325511" > PDF=325500 MemberID=11 </weight>
+<weight id="1022" MUR="1.0"  MUF="1.0"  PDF="325512" > PDF=325500 MemberID=12 </weight>
+<weight id="1023" MUR="1.0"  MUF="1.0"  PDF="325513" > PDF=325500 MemberID=13 </weight>
+<weight id="1024" MUR="1.0"  MUF="1.0"  PDF="325514" > PDF=325500 MemberID=14 </weight>
+<weight id="1025" MUR="1.0"  MUF="1.0"  PDF="325515" > PDF=325500 MemberID=15 </weight>
+<weight id="1026" MUR="1.0"  MUF="1.0"  PDF="325516" > PDF=325500 MemberID=16 </weight>
+<weight id="1027" MUR="1.0"  MUF="1.0"  PDF="325517" > PDF=325500 MemberID=17 </weight>
+<weight id="1028" MUR="1.0"  MUF="1.0"  PDF="325518" > PDF=325500 MemberID=18 </weight>
+<weight id="1029" MUR="1.0"  MUF="1.0"  PDF="325519" > PDF=325500 MemberID=19 </weight>
+<weight id="1030" MUR="1.0"  MUF="1.0"  PDF="325520" > PDF=325500 MemberID=20 </weight>
+<weight id="1031" MUR="1.0"  MUF="1.0"  PDF="325521" > PDF=325500 MemberID=21 </weight>
+<weight id="1032" MUR="1.0"  MUF="1.0"  PDF="325522" > PDF=325500 MemberID=22 </weight>
+<weight id="1033" MUR="1.0"  MUF="1.0"  PDF="325523" > PDF=325500 MemberID=23 </weight>
+<weight id="1034" MUR="1.0"  MUF="1.0"  PDF="325524" > PDF=325500 MemberID=24 </weight>
+<weight id="1035" MUR="1.0"  MUF="1.0"  PDF="325525" > PDF=325500 MemberID=25 </weight>
+<weight id="1036" MUR="1.0"  MUF="1.0"  PDF="325526" > PDF=325500 MemberID=26 </weight>
+<weight id="1037" MUR="1.0"  MUF="1.0"  PDF="325527" > PDF=325500 MemberID=27 </weight>
+<weight id="1038" MUR="1.0"  MUF="1.0"  PDF="325528" > PDF=325500 MemberID=28 </weight>
+<weight id="1039" MUR="1.0"  MUF="1.0"  PDF="325529" > PDF=325500 MemberID=29 </weight>
+<weight id="1040" MUR="1.0"  MUF="1.0"  PDF="325530" > PDF=325500 MemberID=30 </weight>
+<weight id="1041" MUR="1.0"  MUF="1.0"  PDF="325531" > PDF=325500 MemberID=31 </weight>
+<weight id="1042" MUR="1.0"  MUF="1.0"  PDF="325532" > PDF=325500 MemberID=32 </weight>
+<weight id="1043" MUR="1.0"  MUF="1.0"  PDF="325533" > PDF=325500 MemberID=33 </weight>
+<weight id="1044" MUR="1.0"  MUF="1.0"  PDF="325534" > PDF=325500 MemberID=34 </weight>
+<weight id="1045" MUR="1.0"  MUF="1.0"  PDF="325535" > PDF=325500 MemberID=35 </weight>
+<weight id="1046" MUR="1.0"  MUF="1.0"  PDF="325536" > PDF=325500 MemberID=36 </weight>
+<weight id="1047" MUR="1.0"  MUF="1.0"  PDF="325537" > PDF=325500 MemberID=37 </weight>
+<weight id="1048" MUR="1.0"  MUF="1.0"  PDF="325538" > PDF=325500 MemberID=38 </weight>
+<weight id="1049" MUR="1.0"  MUF="1.0"  PDF="325539" > PDF=325500 MemberID=39 </weight>
+<weight id="1050" MUR="1.0"  MUF="1.0"  PDF="325540" > PDF=325500 MemberID=40 </weight>
+<weight id="1051" MUR="1.0"  MUF="1.0"  PDF="325541" > PDF=325500 MemberID=41 </weight>
+<weight id="1052" MUR="1.0"  MUF="1.0"  PDF="325542" > PDF=325500 MemberID=42 </weight>
+<weight id="1053" MUR="1.0"  MUF="1.0"  PDF="325543" > PDF=325500 MemberID=43 </weight>
+<weight id="1054" MUR="1.0"  MUF="1.0"  PDF="325544" > PDF=325500 MemberID=44 </weight>
+<weight id="1055" MUR="1.0"  MUF="1.0"  PDF="325545" > PDF=325500 MemberID=45 </weight>
+<weight id="1056" MUR="1.0"  MUF="1.0"  PDF="325546" > PDF=325500 MemberID=46 </weight>
+<weight id="1057" MUR="1.0"  MUF="1.0"  PDF="325547" > PDF=325500 MemberID=47 </weight>
+<weight id="1058" MUR="1.0"  MUF="1.0"  PDF="325548" > PDF=325500 MemberID=48 </weight>
+<weight id="1059" MUR="1.0"  MUF="1.0"  PDF="325549" > PDF=325500 MemberID=49 </weight>
+<weight id="1060" MUR="1.0"  MUF="1.0"  PDF="325550" > PDF=325500 MemberID=50 </weight>
+<weight id="1061" MUR="1.0"  MUF="1.0"  PDF="325551" > PDF=325500 MemberID=51 </weight>
+<weight id="1062" MUR="1.0"  MUF="1.0"  PDF="325552" > PDF=325500 MemberID=52 </weight>
+<weight id="1063" MUR="1.0"  MUF="1.0"  PDF="325553" > PDF=325500 MemberID=53 </weight>
+<weight id="1064" MUR="1.0"  MUF="1.0"  PDF="325554" > PDF=325500 MemberID=54 </weight>
+<weight id="1065" MUR="1.0"  MUF="1.0"  PDF="325555" > PDF=325500 MemberID=55 </weight>
+<weight id="1066" MUR="1.0"  MUF="1.0"  PDF="325556" > PDF=325500 MemberID=56 </weight>
+<weight id="1067" MUR="1.0"  MUF="1.0"  PDF="325557" > PDF=325500 MemberID=57 </weight>
+<weight id="1068" MUR="1.0"  MUF="1.0"  PDF="325558" > PDF=325500 MemberID=58 </weight>
+<weight id="1069" MUR="1.0"  MUF="1.0"  PDF="325559" > PDF=325500 MemberID=59 </weight>
+<weight id="1070" MUR="1.0"  MUF="1.0"  PDF="325560" > PDF=325500 MemberID=60 </weight>
+<weight id="1071" MUR="1.0"  MUF="1.0"  PDF="325561" > PDF=325500 MemberID=61 </weight>
+<weight id="1072" MUR="1.0"  MUF="1.0"  PDF="325562" > PDF=325500 MemberID=62 </weight>
+<weight id="1073" MUR="1.0"  MUF="1.0"  PDF="325563" > PDF=325500 MemberID=63 </weight>
+<weight id="1074" MUR="1.0"  MUF="1.0"  PDF="325564" > PDF=325500 MemberID=64 </weight>
+<weight id="1075" MUR="1.0"  MUF="1.0"  PDF="325565" > PDF=325500 MemberID=65 </weight>
+<weight id="1076" MUR="1.0"  MUF="1.0"  PDF="325566" > PDF=325500 MemberID=66 </weight>
+<weight id="1077" MUR="1.0"  MUF="1.0"  PDF="325567" > PDF=325500 MemberID=67 </weight>
+<weight id="1078" MUR="1.0"  MUF="1.0"  PDF="325568" > PDF=325500 MemberID=68 </weight>
+<weight id="1079" MUR="1.0"  MUF="1.0"  PDF="325569" > PDF=325500 MemberID=69 </weight>
+<weight id="1080" MUR="1.0"  MUF="1.0"  PDF="325570" > PDF=325500 MemberID=70 </weight>
+<weight id="1081" MUR="1.0"  MUF="1.0"  PDF="325571" > PDF=325500 MemberID=71 </weight>
+<weight id="1082" MUR="1.0"  MUF="1.0"  PDF="325572" > PDF=325500 MemberID=72 </weight>
+<weight id="1083" MUR="1.0"  MUF="1.0"  PDF="325573" > PDF=325500 MemberID=73 </weight>
+<weight id="1084" MUR="1.0"  MUF="1.0"  PDF="325574" > PDF=325500 MemberID=74 </weight>
+<weight id="1085" MUR="1.0"  MUF="1.0"  PDF="325575" > PDF=325500 MemberID=75 </weight>
+<weight id="1086" MUR="1.0"  MUF="1.0"  PDF="325576" > PDF=325500 MemberID=76 </weight>
+<weight id="1087" MUR="1.0"  MUF="1.0"  PDF="325577" > PDF=325500 MemberID=77 </weight>
+<weight id="1088" MUR="1.0"  MUF="1.0"  PDF="325578" > PDF=325500 MemberID=78 </weight>
+<weight id="1089" MUR="1.0"  MUF="1.0"  PDF="325579" > PDF=325500 MemberID=79 </weight>
+<weight id="1090" MUR="1.0"  MUF="1.0"  PDF="325580" > PDF=325500 MemberID=80 </weight>
+<weight id="1091" MUR="1.0"  MUF="1.0"  PDF="325581" > PDF=325500 MemberID=81 </weight>
+<weight id="1092" MUR="1.0"  MUF="1.0"  PDF="325582" > PDF=325500 MemberID=82 </weight>
+<weight id="1093" MUR="1.0"  MUF="1.0"  PDF="325583" > PDF=325500 MemberID=83 </weight>
+<weight id="1094" MUR="1.0"  MUF="1.0"  PDF="325584" > PDF=325500 MemberID=84 </weight>
+<weight id="1095" MUR="1.0"  MUF="1.0"  PDF="325585" > PDF=325500 MemberID=85 </weight>
+<weight id="1096" MUR="1.0"  MUF="1.0"  PDF="325586" > PDF=325500 MemberID=86 </weight>
+<weight id="1097" MUR="1.0"  MUF="1.0"  PDF="325587" > PDF=325500 MemberID=87 </weight>
+<weight id="1098" MUR="1.0"  MUF="1.0"  PDF="325588" > PDF=325500 MemberID=88 </weight>
+<weight id="1099" MUR="1.0"  MUF="1.0"  PDF="325589" > PDF=325500 MemberID=89 </weight>
+<weight id="1100" MUR="1.0"  MUF="1.0"  PDF="325590" > PDF=325500 MemberID=90 </weight>
+<weight id="1101" MUR="1.0"  MUF="1.0"  PDF="325591" > PDF=325500 MemberID=91 </weight>
+<weight id="1102" MUR="1.0"  MUF="1.0"  PDF="325592" > PDF=325500 MemberID=92 </weight>
+<weight id="1103" MUR="1.0"  MUF="1.0"  PDF="325593" > PDF=325500 MemberID=93 </weight>
+<weight id="1104" MUR="1.0"  MUF="1.0"  PDF="325594" > PDF=325500 MemberID=94 </weight>
+<weight id="1105" MUR="1.0"  MUF="1.0"  PDF="325595" > PDF=325500 MemberID=95 </weight>
+<weight id="1106" MUR="1.0"  MUF="1.0"  PDF="325596" > PDF=325500 MemberID=96 </weight>
+<weight id="1107" MUR="1.0"  MUF="1.0"  PDF="325597" > PDF=325500 MemberID=97 </weight>
+<weight id="1108" MUR="1.0"  MUF="1.0"  PDF="325598" > PDF=325500 MemberID=98 </weight>
+<weight id="1109" MUR="1.0"  MUF="1.0"  PDF="325599" > PDF=325500 MemberID=99 </weight>
+<weight id="1110" MUR="1.0"  MUF="1.0"  PDF="325600" > PDF=325500 MemberID=100 </weight>
+</weightgroup> # PDFSET to PDFSET
+<weightgroup name="NNPDF31_nnlo_as_0118_nf_4" combine="replicas"> # 320900: NNPDF3.1 NNLO global fit, nf=4. mem=0 ; average on replicas; mem=1-100 ; PDF replicas
+<weight id="1111" MUR="1.0"  MUF="1.0"  PDF="320900" > PDF=320900 MemberID=0 </weight>
+<weight id="1112" MUR="1.0"  MUF="1.0"  PDF="320901" > PDF=320900 MemberID=1 </weight>
+<weight id="1113" MUR="1.0"  MUF="1.0"  PDF="320902" > PDF=320900 MemberID=2 </weight>
+<weight id="1114" MUR="1.0"  MUF="1.0"  PDF="320903" > PDF=320900 MemberID=3 </weight>
+<weight id="1115" MUR="1.0"  MUF="1.0"  PDF="320904" > PDF=320900 MemberID=4 </weight>
+<weight id="1116" MUR="1.0"  MUF="1.0"  PDF="320905" > PDF=320900 MemberID=5 </weight>
+<weight id="1117" MUR="1.0"  MUF="1.0"  PDF="320906" > PDF=320900 MemberID=6 </weight>
+<weight id="1118" MUR="1.0"  MUF="1.0"  PDF="320907" > PDF=320900 MemberID=7 </weight>
+<weight id="1119" MUR="1.0"  MUF="1.0"  PDF="320908" > PDF=320900 MemberID=8 </weight>
+<weight id="1120" MUR="1.0"  MUF="1.0"  PDF="320909" > PDF=320900 MemberID=9 </weight>
+<weight id="1121" MUR="1.0"  MUF="1.0"  PDF="320910" > PDF=320900 MemberID=10 </weight>
+<weight id="1122" MUR="1.0"  MUF="1.0"  PDF="320911" > PDF=320900 MemberID=11 </weight>
+<weight id="1123" MUR="1.0"  MUF="1.0"  PDF="320912" > PDF=320900 MemberID=12 </weight>
+<weight id="1124" MUR="1.0"  MUF="1.0"  PDF="320913" > PDF=320900 MemberID=13 </weight>
+<weight id="1125" MUR="1.0"  MUF="1.0"  PDF="320914" > PDF=320900 MemberID=14 </weight>
+<weight id="1126" MUR="1.0"  MUF="1.0"  PDF="320915" > PDF=320900 MemberID=15 </weight>
+<weight id="1127" MUR="1.0"  MUF="1.0"  PDF="320916" > PDF=320900 MemberID=16 </weight>
+<weight id="1128" MUR="1.0"  MUF="1.0"  PDF="320917" > PDF=320900 MemberID=17 </weight>
+<weight id="1129" MUR="1.0"  MUF="1.0"  PDF="320918" > PDF=320900 MemberID=18 </weight>
+<weight id="1130" MUR="1.0"  MUF="1.0"  PDF="320919" > PDF=320900 MemberID=19 </weight>
+<weight id="1131" MUR="1.0"  MUF="1.0"  PDF="320920" > PDF=320900 MemberID=20 </weight>
+<weight id="1132" MUR="1.0"  MUF="1.0"  PDF="320921" > PDF=320900 MemberID=21 </weight>
+<weight id="1133" MUR="1.0"  MUF="1.0"  PDF="320922" > PDF=320900 MemberID=22 </weight>
+<weight id="1134" MUR="1.0"  MUF="1.0"  PDF="320923" > PDF=320900 MemberID=23 </weight>
+<weight id="1135" MUR="1.0"  MUF="1.0"  PDF="320924" > PDF=320900 MemberID=24 </weight>
+<weight id="1136" MUR="1.0"  MUF="1.0"  PDF="320925" > PDF=320900 MemberID=25 </weight>
+<weight id="1137" MUR="1.0"  MUF="1.0"  PDF="320926" > PDF=320900 MemberID=26 </weight>
+<weight id="1138" MUR="1.0"  MUF="1.0"  PDF="320927" > PDF=320900 MemberID=27 </weight>
+<weight id="1139" MUR="1.0"  MUF="1.0"  PDF="320928" > PDF=320900 MemberID=28 </weight>
+<weight id="1140" MUR="1.0"  MUF="1.0"  PDF="320929" > PDF=320900 MemberID=29 </weight>
+<weight id="1141" MUR="1.0"  MUF="1.0"  PDF="320930" > PDF=320900 MemberID=30 </weight>
+<weight id="1142" MUR="1.0"  MUF="1.0"  PDF="320931" > PDF=320900 MemberID=31 </weight>
+<weight id="1143" MUR="1.0"  MUF="1.0"  PDF="320932" > PDF=320900 MemberID=32 </weight>
+<weight id="1144" MUR="1.0"  MUF="1.0"  PDF="320933" > PDF=320900 MemberID=33 </weight>
+<weight id="1145" MUR="1.0"  MUF="1.0"  PDF="320934" > PDF=320900 MemberID=34 </weight>
+<weight id="1146" MUR="1.0"  MUF="1.0"  PDF="320935" > PDF=320900 MemberID=35 </weight>
+<weight id="1147" MUR="1.0"  MUF="1.0"  PDF="320936" > PDF=320900 MemberID=36 </weight>
+<weight id="1148" MUR="1.0"  MUF="1.0"  PDF="320937" > PDF=320900 MemberID=37 </weight>
+<weight id="1149" MUR="1.0"  MUF="1.0"  PDF="320938" > PDF=320900 MemberID=38 </weight>
+<weight id="1150" MUR="1.0"  MUF="1.0"  PDF="320939" > PDF=320900 MemberID=39 </weight>
+<weight id="1151" MUR="1.0"  MUF="1.0"  PDF="320940" > PDF=320900 MemberID=40 </weight>
+<weight id="1152" MUR="1.0"  MUF="1.0"  PDF="320941" > PDF=320900 MemberID=41 </weight>
+<weight id="1153" MUR="1.0"  MUF="1.0"  PDF="320942" > PDF=320900 MemberID=42 </weight>
+<weight id="1154" MUR="1.0"  MUF="1.0"  PDF="320943" > PDF=320900 MemberID=43 </weight>
+<weight id="1155" MUR="1.0"  MUF="1.0"  PDF="320944" > PDF=320900 MemberID=44 </weight>
+<weight id="1156" MUR="1.0"  MUF="1.0"  PDF="320945" > PDF=320900 MemberID=45 </weight>
+<weight id="1157" MUR="1.0"  MUF="1.0"  PDF="320946" > PDF=320900 MemberID=46 </weight>
+<weight id="1158" MUR="1.0"  MUF="1.0"  PDF="320947" > PDF=320900 MemberID=47 </weight>
+<weight id="1159" MUR="1.0"  MUF="1.0"  PDF="320948" > PDF=320900 MemberID=48 </weight>
+<weight id="1160" MUR="1.0"  MUF="1.0"  PDF="320949" > PDF=320900 MemberID=49 </weight>
+<weight id="1161" MUR="1.0"  MUF="1.0"  PDF="320950" > PDF=320900 MemberID=50 </weight>
+<weight id="1162" MUR="1.0"  MUF="1.0"  PDF="320951" > PDF=320900 MemberID=51 </weight>
+<weight id="1163" MUR="1.0"  MUF="1.0"  PDF="320952" > PDF=320900 MemberID=52 </weight>
+<weight id="1164" MUR="1.0"  MUF="1.0"  PDF="320953" > PDF=320900 MemberID=53 </weight>
+<weight id="1165" MUR="1.0"  MUF="1.0"  PDF="320954" > PDF=320900 MemberID=54 </weight>
+<weight id="1166" MUR="1.0"  MUF="1.0"  PDF="320955" > PDF=320900 MemberID=55 </weight>
+<weight id="1167" MUR="1.0"  MUF="1.0"  PDF="320956" > PDF=320900 MemberID=56 </weight>
+<weight id="1168" MUR="1.0"  MUF="1.0"  PDF="320957" > PDF=320900 MemberID=57 </weight>
+<weight id="1169" MUR="1.0"  MUF="1.0"  PDF="320958" > PDF=320900 MemberID=58 </weight>
+<weight id="1170" MUR="1.0"  MUF="1.0"  PDF="320959" > PDF=320900 MemberID=59 </weight>
+<weight id="1171" MUR="1.0"  MUF="1.0"  PDF="320960" > PDF=320900 MemberID=60 </weight>
+<weight id="1172" MUR="1.0"  MUF="1.0"  PDF="320961" > PDF=320900 MemberID=61 </weight>
+<weight id="1173" MUR="1.0"  MUF="1.0"  PDF="320962" > PDF=320900 MemberID=62 </weight>
+<weight id="1174" MUR="1.0"  MUF="1.0"  PDF="320963" > PDF=320900 MemberID=63 </weight>
+<weight id="1175" MUR="1.0"  MUF="1.0"  PDF="320964" > PDF=320900 MemberID=64 </weight>
+<weight id="1176" MUR="1.0"  MUF="1.0"  PDF="320965" > PDF=320900 MemberID=65 </weight>
+<weight id="1177" MUR="1.0"  MUF="1.0"  PDF="320966" > PDF=320900 MemberID=66 </weight>
+<weight id="1178" MUR="1.0"  MUF="1.0"  PDF="320967" > PDF=320900 MemberID=67 </weight>
+<weight id="1179" MUR="1.0"  MUF="1.0"  PDF="320968" > PDF=320900 MemberID=68 </weight>
+<weight id="1180" MUR="1.0"  MUF="1.0"  PDF="320969" > PDF=320900 MemberID=69 </weight>
+<weight id="1181" MUR="1.0"  MUF="1.0"  PDF="320970" > PDF=320900 MemberID=70 </weight>
+<weight id="1182" MUR="1.0"  MUF="1.0"  PDF="320971" > PDF=320900 MemberID=71 </weight>
+<weight id="1183" MUR="1.0"  MUF="1.0"  PDF="320972" > PDF=320900 MemberID=72 </weight>
+<weight id="1184" MUR="1.0"  MUF="1.0"  PDF="320973" > PDF=320900 MemberID=73 </weight>
+<weight id="1185" MUR="1.0"  MUF="1.0"  PDF="320974" > PDF=320900 MemberID=74 </weight>
+<weight id="1186" MUR="1.0"  MUF="1.0"  PDF="320975" > PDF=320900 MemberID=75 </weight>
+<weight id="1187" MUR="1.0"  MUF="1.0"  PDF="320976" > PDF=320900 MemberID=76 </weight>
+<weight id="1188" MUR="1.0"  MUF="1.0"  PDF="320977" > PDF=320900 MemberID=77 </weight>
+<weight id="1189" MUR="1.0"  MUF="1.0"  PDF="320978" > PDF=320900 MemberID=78 </weight>
+<weight id="1190" MUR="1.0"  MUF="1.0"  PDF="320979" > PDF=320900 MemberID=79 </weight>
+<weight id="1191" MUR="1.0"  MUF="1.0"  PDF="320980" > PDF=320900 MemberID=80 </weight>
+<weight id="1192" MUR="1.0"  MUF="1.0"  PDF="320981" > PDF=320900 MemberID=81 </weight>
+<weight id="1193" MUR="1.0"  MUF="1.0"  PDF="320982" > PDF=320900 MemberID=82 </weight>
+<weight id="1194" MUR="1.0"  MUF="1.0"  PDF="320983" > PDF=320900 MemberID=83 </weight>
+<weight id="1195" MUR="1.0"  MUF="1.0"  PDF="320984" > PDF=320900 MemberID=84 </weight>
+<weight id="1196" MUR="1.0"  MUF="1.0"  PDF="320985" > PDF=320900 MemberID=85 </weight>
+<weight id="1197" MUR="1.0"  MUF="1.0"  PDF="320986" > PDF=320900 MemberID=86 </weight>
+<weight id="1198" MUR="1.0"  MUF="1.0"  PDF="320987" > PDF=320900 MemberID=87 </weight>
+<weight id="1199" MUR="1.0"  MUF="1.0"  PDF="320988" > PDF=320900 MemberID=88 </weight>
+<weight id="1200" MUR="1.0"  MUF="1.0"  PDF="320989" > PDF=320900 MemberID=89 </weight>
+<weight id="1201" MUR="1.0"  MUF="1.0"  PDF="320990" > PDF=320900 MemberID=90 </weight>
+<weight id="1202" MUR="1.0"  MUF="1.0"  PDF="320991" > PDF=320900 MemberID=91 </weight>
+<weight id="1203" MUR="1.0"  MUF="1.0"  PDF="320992" > PDF=320900 MemberID=92 </weight>
+<weight id="1204" MUR="1.0"  MUF="1.0"  PDF="320993" > PDF=320900 MemberID=93 </weight>
+<weight id="1205" MUR="1.0"  MUF="1.0"  PDF="320994" > PDF=320900 MemberID=94 </weight>
+<weight id="1206" MUR="1.0"  MUF="1.0"  PDF="320995" > PDF=320900 MemberID=95 </weight>
+<weight id="1207" MUR="1.0"  MUF="1.0"  PDF="320996" > PDF=320900 MemberID=96 </weight>
+<weight id="1208" MUR="1.0"  MUF="1.0"  PDF="320997" > PDF=320900 MemberID=97 </weight>
+<weight id="1209" MUR="1.0"  MUF="1.0"  PDF="320998" > PDF=320900 MemberID=98 </weight>
+<weight id="1210" MUR="1.0"  MUF="1.0"  PDF="320999" > PDF=320900 MemberID=99 </weight>
+<weight id="1211" MUR="1.0"  MUF="1.0"  PDF="321000" > PDF=320900 MemberID=100 </weight>
+</weightgroup> # PDFSET to PDF
+<weight id="1212" MUR="1.0"  MUF="1.0"  PDF="320500" > PDF=320500 MemberID=0 </weight>
+<weightgroup name="NNPDF30_nnlo_nf_4_pdfas" combine="replicas+as"> # 292400: NNPDF3.0 NNLO global fit; mem=0 to mem=100 with alphas(MZ)=0.118, mem=0 ; average on replicas 1-100; mem=1-100 ; PDF replicas with  alphas(MZ)=0.118; mem=101 ; central value for alphas=0.117; mem=102 ; central value for alphas=0.119; maximum number of active flavors NF=4
+<weight id="1213" MUR="1.0"  MUF="1.0"  PDF="292400" > PDF=292400 MemberID=0 </weight>
+<weight id="1214" MUR="1.0"  MUF="1.0"  PDF="292401" > PDF=292400 MemberID=1 </weight>
+<weight id="1215" MUR="1.0"  MUF="1.0"  PDF="292402" > PDF=292400 MemberID=2 </weight>
+<weight id="1216" MUR="1.0"  MUF="1.0"  PDF="292403" > PDF=292400 MemberID=3 </weight>
+<weight id="1217" MUR="1.0"  MUF="1.0"  PDF="292404" > PDF=292400 MemberID=4 </weight>
+<weight id="1218" MUR="1.0"  MUF="1.0"  PDF="292405" > PDF=292400 MemberID=5 </weight>
+<weight id="1219" MUR="1.0"  MUF="1.0"  PDF="292406" > PDF=292400 MemberID=6 </weight>
+<weight id="1220" MUR="1.0"  MUF="1.0"  PDF="292407" > PDF=292400 MemberID=7 </weight>
+<weight id="1221" MUR="1.0"  MUF="1.0"  PDF="292408" > PDF=292400 MemberID=8 </weight>
+<weight id="1222" MUR="1.0"  MUF="1.0"  PDF="292409" > PDF=292400 MemberID=9 </weight>
+<weight id="1223" MUR="1.0"  MUF="1.0"  PDF="292410" > PDF=292400 MemberID=10 </weight>
+<weight id="1224" MUR="1.0"  MUF="1.0"  PDF="292411" > PDF=292400 MemberID=11 </weight>
+<weight id="1225" MUR="1.0"  MUF="1.0"  PDF="292412" > PDF=292400 MemberID=12 </weight>
+<weight id="1226" MUR="1.0"  MUF="1.0"  PDF="292413" > PDF=292400 MemberID=13 </weight>
+<weight id="1227" MUR="1.0"  MUF="1.0"  PDF="292414" > PDF=292400 MemberID=14 </weight>
+<weight id="1228" MUR="1.0"  MUF="1.0"  PDF="292415" > PDF=292400 MemberID=15 </weight>
+<weight id="1229" MUR="1.0"  MUF="1.0"  PDF="292416" > PDF=292400 MemberID=16 </weight>
+<weight id="1230" MUR="1.0"  MUF="1.0"  PDF="292417" > PDF=292400 MemberID=17 </weight>
+<weight id="1231" MUR="1.0"  MUF="1.0"  PDF="292418" > PDF=292400 MemberID=18 </weight>
+<weight id="1232" MUR="1.0"  MUF="1.0"  PDF="292419" > PDF=292400 MemberID=19 </weight>
+<weight id="1233" MUR="1.0"  MUF="1.0"  PDF="292420" > PDF=292400 MemberID=20 </weight>
+<weight id="1234" MUR="1.0"  MUF="1.0"  PDF="292421" > PDF=292400 MemberID=21 </weight>
+<weight id="1235" MUR="1.0"  MUF="1.0"  PDF="292422" > PDF=292400 MemberID=22 </weight>
+<weight id="1236" MUR="1.0"  MUF="1.0"  PDF="292423" > PDF=292400 MemberID=23 </weight>
+<weight id="1237" MUR="1.0"  MUF="1.0"  PDF="292424" > PDF=292400 MemberID=24 </weight>
+<weight id="1238" MUR="1.0"  MUF="1.0"  PDF="292425" > PDF=292400 MemberID=25 </weight>
+<weight id="1239" MUR="1.0"  MUF="1.0"  PDF="292426" > PDF=292400 MemberID=26 </weight>
+<weight id="1240" MUR="1.0"  MUF="1.0"  PDF="292427" > PDF=292400 MemberID=27 </weight>
+<weight id="1241" MUR="1.0"  MUF="1.0"  PDF="292428" > PDF=292400 MemberID=28 </weight>
+<weight id="1242" MUR="1.0"  MUF="1.0"  PDF="292429" > PDF=292400 MemberID=29 </weight>
+<weight id="1243" MUR="1.0"  MUF="1.0"  PDF="292430" > PDF=292400 MemberID=30 </weight>
+<weight id="1244" MUR="1.0"  MUF="1.0"  PDF="292431" > PDF=292400 MemberID=31 </weight>
+<weight id="1245" MUR="1.0"  MUF="1.0"  PDF="292432" > PDF=292400 MemberID=32 </weight>
+<weight id="1246" MUR="1.0"  MUF="1.0"  PDF="292433" > PDF=292400 MemberID=33 </weight>
+<weight id="1247" MUR="1.0"  MUF="1.0"  PDF="292434" > PDF=292400 MemberID=34 </weight>
+<weight id="1248" MUR="1.0"  MUF="1.0"  PDF="292435" > PDF=292400 MemberID=35 </weight>
+<weight id="1249" MUR="1.0"  MUF="1.0"  PDF="292436" > PDF=292400 MemberID=36 </weight>
+<weight id="1250" MUR="1.0"  MUF="1.0"  PDF="292437" > PDF=292400 MemberID=37 </weight>
+<weight id="1251" MUR="1.0"  MUF="1.0"  PDF="292438" > PDF=292400 MemberID=38 </weight>
+<weight id="1252" MUR="1.0"  MUF="1.0"  PDF="292439" > PDF=292400 MemberID=39 </weight>
+<weight id="1253" MUR="1.0"  MUF="1.0"  PDF="292440" > PDF=292400 MemberID=40 </weight>
+<weight id="1254" MUR="1.0"  MUF="1.0"  PDF="292441" > PDF=292400 MemberID=41 </weight>
+<weight id="1255" MUR="1.0"  MUF="1.0"  PDF="292442" > PDF=292400 MemberID=42 </weight>
+<weight id="1256" MUR="1.0"  MUF="1.0"  PDF="292443" > PDF=292400 MemberID=43 </weight>
+<weight id="1257" MUR="1.0"  MUF="1.0"  PDF="292444" > PDF=292400 MemberID=44 </weight>
+<weight id="1258" MUR="1.0"  MUF="1.0"  PDF="292445" > PDF=292400 MemberID=45 </weight>
+<weight id="1259" MUR="1.0"  MUF="1.0"  PDF="292446" > PDF=292400 MemberID=46 </weight>
+<weight id="1260" MUR="1.0"  MUF="1.0"  PDF="292447" > PDF=292400 MemberID=47 </weight>
+<weight id="1261" MUR="1.0"  MUF="1.0"  PDF="292448" > PDF=292400 MemberID=48 </weight>
+<weight id="1262" MUR="1.0"  MUF="1.0"  PDF="292449" > PDF=292400 MemberID=49 </weight>
+<weight id="1263" MUR="1.0"  MUF="1.0"  PDF="292450" > PDF=292400 MemberID=50 </weight>
+<weight id="1264" MUR="1.0"  MUF="1.0"  PDF="292451" > PDF=292400 MemberID=51 </weight>
+<weight id="1265" MUR="1.0"  MUF="1.0"  PDF="292452" > PDF=292400 MemberID=52 </weight>
+<weight id="1266" MUR="1.0"  MUF="1.0"  PDF="292453" > PDF=292400 MemberID=53 </weight>
+<weight id="1267" MUR="1.0"  MUF="1.0"  PDF="292454" > PDF=292400 MemberID=54 </weight>
+<weight id="1268" MUR="1.0"  MUF="1.0"  PDF="292455" > PDF=292400 MemberID=55 </weight>
+<weight id="1269" MUR="1.0"  MUF="1.0"  PDF="292456" > PDF=292400 MemberID=56 </weight>
+<weight id="1270" MUR="1.0"  MUF="1.0"  PDF="292457" > PDF=292400 MemberID=57 </weight>
+<weight id="1271" MUR="1.0"  MUF="1.0"  PDF="292458" > PDF=292400 MemberID=58 </weight>
+<weight id="1272" MUR="1.0"  MUF="1.0"  PDF="292459" > PDF=292400 MemberID=59 </weight>
+<weight id="1273" MUR="1.0"  MUF="1.0"  PDF="292460" > PDF=292400 MemberID=60 </weight>
+<weight id="1274" MUR="1.0"  MUF="1.0"  PDF="292461" > PDF=292400 MemberID=61 </weight>
+<weight id="1275" MUR="1.0"  MUF="1.0"  PDF="292462" > PDF=292400 MemberID=62 </weight>
+<weight id="1276" MUR="1.0"  MUF="1.0"  PDF="292463" > PDF=292400 MemberID=63 </weight>
+<weight id="1277" MUR="1.0"  MUF="1.0"  PDF="292464" > PDF=292400 MemberID=64 </weight>
+<weight id="1278" MUR="1.0"  MUF="1.0"  PDF="292465" > PDF=292400 MemberID=65 </weight>
+<weight id="1279" MUR="1.0"  MUF="1.0"  PDF="292466" > PDF=292400 MemberID=66 </weight>
+<weight id="1280" MUR="1.0"  MUF="1.0"  PDF="292467" > PDF=292400 MemberID=67 </weight>
+<weight id="1281" MUR="1.0"  MUF="1.0"  PDF="292468" > PDF=292400 MemberID=68 </weight>
+<weight id="1282" MUR="1.0"  MUF="1.0"  PDF="292469" > PDF=292400 MemberID=69 </weight>
+<weight id="1283" MUR="1.0"  MUF="1.0"  PDF="292470" > PDF=292400 MemberID=70 </weight>
+<weight id="1284" MUR="1.0"  MUF="1.0"  PDF="292471" > PDF=292400 MemberID=71 </weight>
+<weight id="1285" MUR="1.0"  MUF="1.0"  PDF="292472" > PDF=292400 MemberID=72 </weight>
+<weight id="1286" MUR="1.0"  MUF="1.0"  PDF="292473" > PDF=292400 MemberID=73 </weight>
+<weight id="1287" MUR="1.0"  MUF="1.0"  PDF="292474" > PDF=292400 MemberID=74 </weight>
+<weight id="1288" MUR="1.0"  MUF="1.0"  PDF="292475" > PDF=292400 MemberID=75 </weight>
+<weight id="1289" MUR="1.0"  MUF="1.0"  PDF="292476" > PDF=292400 MemberID=76 </weight>
+<weight id="1290" MUR="1.0"  MUF="1.0"  PDF="292477" > PDF=292400 MemberID=77 </weight>
+<weight id="1291" MUR="1.0"  MUF="1.0"  PDF="292478" > PDF=292400 MemberID=78 </weight>
+<weight id="1292" MUR="1.0"  MUF="1.0"  PDF="292479" > PDF=292400 MemberID=79 </weight>
+<weight id="1293" MUR="1.0"  MUF="1.0"  PDF="292480" > PDF=292400 MemberID=80 </weight>
+<weight id="1294" MUR="1.0"  MUF="1.0"  PDF="292481" > PDF=292400 MemberID=81 </weight>
+<weight id="1295" MUR="1.0"  MUF="1.0"  PDF="292482" > PDF=292400 MemberID=82 </weight>
+<weight id="1296" MUR="1.0"  MUF="1.0"  PDF="292483" > PDF=292400 MemberID=83 </weight>
+<weight id="1297" MUR="1.0"  MUF="1.0"  PDF="292484" > PDF=292400 MemberID=84 </weight>
+<weight id="1298" MUR="1.0"  MUF="1.0"  PDF="292485" > PDF=292400 MemberID=85 </weight>
+<weight id="1299" MUR="1.0"  MUF="1.0"  PDF="292486" > PDF=292400 MemberID=86 </weight>
+<weight id="1300" MUR="1.0"  MUF="1.0"  PDF="292487" > PDF=292400 MemberID=87 </weight>
+<weight id="1301" MUR="1.0"  MUF="1.0"  PDF="292488" > PDF=292400 MemberID=88 </weight>
+<weight id="1302" MUR="1.0"  MUF="1.0"  PDF="292489" > PDF=292400 MemberID=89 </weight>
+<weight id="1303" MUR="1.0"  MUF="1.0"  PDF="292490" > PDF=292400 MemberID=90 </weight>
+<weight id="1304" MUR="1.0"  MUF="1.0"  PDF="292491" > PDF=292400 MemberID=91 </weight>
+<weight id="1305" MUR="1.0"  MUF="1.0"  PDF="292492" > PDF=292400 MemberID=92 </weight>
+<weight id="1306" MUR="1.0"  MUF="1.0"  PDF="292493" > PDF=292400 MemberID=93 </weight>
+<weight id="1307" MUR="1.0"  MUF="1.0"  PDF="292494" > PDF=292400 MemberID=94 </weight>
+<weight id="1308" MUR="1.0"  MUF="1.0"  PDF="292495" > PDF=292400 MemberID=95 </weight>
+<weight id="1309" MUR="1.0"  MUF="1.0"  PDF="292496" > PDF=292400 MemberID=96 </weight>
+<weight id="1310" MUR="1.0"  MUF="1.0"  PDF="292497" > PDF=292400 MemberID=97 </weight>
+<weight id="1311" MUR="1.0"  MUF="1.0"  PDF="292498" > PDF=292400 MemberID=98 </weight>
+<weight id="1312" MUR="1.0"  MUF="1.0"  PDF="292499" > PDF=292400 MemberID=99 </weight>
+<weight id="1313" MUR="1.0"  MUF="1.0"  PDF="292500" > PDF=292400 MemberID=100 </weight>
+<weight id="1314" MUR="1.0"  MUF="1.0"  PDF="292501" > PDF=292400 MemberID=101 </weight>
+<weight id="1315" MUR="1.0"  MUF="1.0"  PDF="292502" > PDF=292400 MemberID=102 </weight>
+</weightgroup> # PDFSET to PDF
+<weight id="1316" MUR="1.0"  MUF="1.0"  PDF="292000" > PDF=292000 MemberID=0 </weight>
+<weightgroup name="NNPDF40_nnlo_nf_4_pdfas" combine="replicas+as"> # 335500: NNPDF4.0 NNLO global fit, nf=4. mem=0 ; average on replicas 1-100, mem=1-100 PDF replicas with alphas(MZ)=0.1180; mem=101 ; central value for alphas(MZ)=0.1170; mem=102 ; central value for alphas(MZ)=0.1190; nf=4"
+<weight id="1317" MUR="1.0"  MUF="1.0"  PDF="335500" > PDF=335500 MemberID=0 </weight>
+<weight id="1318" MUR="1.0"  MUF="1.0"  PDF="335501" > PDF=335500 MemberID=1 </weight>
+<weight id="1319" MUR="1.0"  MUF="1.0"  PDF="335502" > PDF=335500 MemberID=2 </weight>
+<weight id="1320" MUR="1.0"  MUF="1.0"  PDF="335503" > PDF=335500 MemberID=3 </weight>
+<weight id="1321" MUR="1.0"  MUF="1.0"  PDF="335504" > PDF=335500 MemberID=4 </weight>
+<weight id="1322" MUR="1.0"  MUF="1.0"  PDF="335505" > PDF=335500 MemberID=5 </weight>
+<weight id="1323" MUR="1.0"  MUF="1.0"  PDF="335506" > PDF=335500 MemberID=6 </weight>
+<weight id="1324" MUR="1.0"  MUF="1.0"  PDF="335507" > PDF=335500 MemberID=7 </weight>
+<weight id="1325" MUR="1.0"  MUF="1.0"  PDF="335508" > PDF=335500 MemberID=8 </weight>
+<weight id="1326" MUR="1.0"  MUF="1.0"  PDF="335509" > PDF=335500 MemberID=9 </weight>
+<weight id="1327" MUR="1.0"  MUF="1.0"  PDF="335510" > PDF=335500 MemberID=10 </weight>
+<weight id="1328" MUR="1.0"  MUF="1.0"  PDF="335511" > PDF=335500 MemberID=11 </weight>
+<weight id="1329" MUR="1.0"  MUF="1.0"  PDF="335512" > PDF=335500 MemberID=12 </weight>
+<weight id="1330" MUR="1.0"  MUF="1.0"  PDF="335513" > PDF=335500 MemberID=13 </weight>
+<weight id="1331" MUR="1.0"  MUF="1.0"  PDF="335514" > PDF=335500 MemberID=14 </weight>
+<weight id="1332" MUR="1.0"  MUF="1.0"  PDF="335515" > PDF=335500 MemberID=15 </weight>
+<weight id="1333" MUR="1.0"  MUF="1.0"  PDF="335516" > PDF=335500 MemberID=16 </weight>
+<weight id="1334" MUR="1.0"  MUF="1.0"  PDF="335517" > PDF=335500 MemberID=17 </weight>
+<weight id="1335" MUR="1.0"  MUF="1.0"  PDF="335518" > PDF=335500 MemberID=18 </weight>
+<weight id="1336" MUR="1.0"  MUF="1.0"  PDF="335519" > PDF=335500 MemberID=19 </weight>
+<weight id="1337" MUR="1.0"  MUF="1.0"  PDF="335520" > PDF=335500 MemberID=20 </weight>
+<weight id="1338" MUR="1.0"  MUF="1.0"  PDF="335521" > PDF=335500 MemberID=21 </weight>
+<weight id="1339" MUR="1.0"  MUF="1.0"  PDF="335522" > PDF=335500 MemberID=22 </weight>
+<weight id="1340" MUR="1.0"  MUF="1.0"  PDF="335523" > PDF=335500 MemberID=23 </weight>
+<weight id="1341" MUR="1.0"  MUF="1.0"  PDF="335524" > PDF=335500 MemberID=24 </weight>
+<weight id="1342" MUR="1.0"  MUF="1.0"  PDF="335525" > PDF=335500 MemberID=25 </weight>
+<weight id="1343" MUR="1.0"  MUF="1.0"  PDF="335526" > PDF=335500 MemberID=26 </weight>
+<weight id="1344" MUR="1.0"  MUF="1.0"  PDF="335527" > PDF=335500 MemberID=27 </weight>
+<weight id="1345" MUR="1.0"  MUF="1.0"  PDF="335528" > PDF=335500 MemberID=28 </weight>
+<weight id="1346" MUR="1.0"  MUF="1.0"  PDF="335529" > PDF=335500 MemberID=29 </weight>
+<weight id="1347" MUR="1.0"  MUF="1.0"  PDF="335530" > PDF=335500 MemberID=30 </weight>
+<weight id="1348" MUR="1.0"  MUF="1.0"  PDF="335531" > PDF=335500 MemberID=31 </weight>
+<weight id="1349" MUR="1.0"  MUF="1.0"  PDF="335532" > PDF=335500 MemberID=32 </weight>
+<weight id="1350" MUR="1.0"  MUF="1.0"  PDF="335533" > PDF=335500 MemberID=33 </weight>
+<weight id="1351" MUR="1.0"  MUF="1.0"  PDF="335534" > PDF=335500 MemberID=34 </weight>
+<weight id="1352" MUR="1.0"  MUF="1.0"  PDF="335535" > PDF=335500 MemberID=35 </weight>
+<weight id="1353" MUR="1.0"  MUF="1.0"  PDF="335536" > PDF=335500 MemberID=36 </weight>
+<weight id="1354" MUR="1.0"  MUF="1.0"  PDF="335537" > PDF=335500 MemberID=37 </weight>
+<weight id="1355" MUR="1.0"  MUF="1.0"  PDF="335538" > PDF=335500 MemberID=38 </weight>
+<weight id="1356" MUR="1.0"  MUF="1.0"  PDF="335539" > PDF=335500 MemberID=39 </weight>
+<weight id="1357" MUR="1.0"  MUF="1.0"  PDF="335540" > PDF=335500 MemberID=40 </weight>
+<weight id="1358" MUR="1.0"  MUF="1.0"  PDF="335541" > PDF=335500 MemberID=41 </weight>
+<weight id="1359" MUR="1.0"  MUF="1.0"  PDF="335542" > PDF=335500 MemberID=42 </weight>
+<weight id="1360" MUR="1.0"  MUF="1.0"  PDF="335543" > PDF=335500 MemberID=43 </weight>
+<weight id="1361" MUR="1.0"  MUF="1.0"  PDF="335544" > PDF=335500 MemberID=44 </weight>
+<weight id="1362" MUR="1.0"  MUF="1.0"  PDF="335545" > PDF=335500 MemberID=45 </weight>
+<weight id="1363" MUR="1.0"  MUF="1.0"  PDF="335546" > PDF=335500 MemberID=46 </weight>
+<weight id="1364" MUR="1.0"  MUF="1.0"  PDF="335547" > PDF=335500 MemberID=47 </weight>
+<weight id="1365" MUR="1.0"  MUF="1.0"  PDF="335548" > PDF=335500 MemberID=48 </weight>
+<weight id="1366" MUR="1.0"  MUF="1.0"  PDF="335549" > PDF=335500 MemberID=49 </weight>
+<weight id="1367" MUR="1.0"  MUF="1.0"  PDF="335550" > PDF=335500 MemberID=50 </weight>
+<weight id="1368" MUR="1.0"  MUF="1.0"  PDF="335551" > PDF=335500 MemberID=51 </weight>
+<weight id="1369" MUR="1.0"  MUF="1.0"  PDF="335552" > PDF=335500 MemberID=52 </weight>
+<weight id="1370" MUR="1.0"  MUF="1.0"  PDF="335553" > PDF=335500 MemberID=53 </weight>
+<weight id="1371" MUR="1.0"  MUF="1.0"  PDF="335554" > PDF=335500 MemberID=54 </weight>
+<weight id="1372" MUR="1.0"  MUF="1.0"  PDF="335555" > PDF=335500 MemberID=55 </weight>
+<weight id="1373" MUR="1.0"  MUF="1.0"  PDF="335556" > PDF=335500 MemberID=56 </weight>
+<weight id="1374" MUR="1.0"  MUF="1.0"  PDF="335557" > PDF=335500 MemberID=57 </weight>
+<weight id="1375" MUR="1.0"  MUF="1.0"  PDF="335558" > PDF=335500 MemberID=58 </weight>
+<weight id="1376" MUR="1.0"  MUF="1.0"  PDF="335559" > PDF=335500 MemberID=59 </weight>
+<weight id="1377" MUR="1.0"  MUF="1.0"  PDF="335560" > PDF=335500 MemberID=60 </weight>
+<weight id="1378" MUR="1.0"  MUF="1.0"  PDF="335561" > PDF=335500 MemberID=61 </weight>
+<weight id="1379" MUR="1.0"  MUF="1.0"  PDF="335562" > PDF=335500 MemberID=62 </weight>
+<weight id="1380" MUR="1.0"  MUF="1.0"  PDF="335563" > PDF=335500 MemberID=63 </weight>
+<weight id="1381" MUR="1.0"  MUF="1.0"  PDF="335564" > PDF=335500 MemberID=64 </weight>
+<weight id="1382" MUR="1.0"  MUF="1.0"  PDF="335565" > PDF=335500 MemberID=65 </weight>
+<weight id="1383" MUR="1.0"  MUF="1.0"  PDF="335566" > PDF=335500 MemberID=66 </weight>
+<weight id="1384" MUR="1.0"  MUF="1.0"  PDF="335567" > PDF=335500 MemberID=67 </weight>
+<weight id="1385" MUR="1.0"  MUF="1.0"  PDF="335568" > PDF=335500 MemberID=68 </weight>
+<weight id="1386" MUR="1.0"  MUF="1.0"  PDF="335569" > PDF=335500 MemberID=69 </weight>
+<weight id="1387" MUR="1.0"  MUF="1.0"  PDF="335570" > PDF=335500 MemberID=70 </weight>
+<weight id="1388" MUR="1.0"  MUF="1.0"  PDF="335571" > PDF=335500 MemberID=71 </weight>
+<weight id="1389" MUR="1.0"  MUF="1.0"  PDF="335572" > PDF=335500 MemberID=72 </weight>
+<weight id="1390" MUR="1.0"  MUF="1.0"  PDF="335573" > PDF=335500 MemberID=73 </weight>
+<weight id="1391" MUR="1.0"  MUF="1.0"  PDF="335574" > PDF=335500 MemberID=74 </weight>
+<weight id="1392" MUR="1.0"  MUF="1.0"  PDF="335575" > PDF=335500 MemberID=75 </weight>
+<weight id="1393" MUR="1.0"  MUF="1.0"  PDF="335576" > PDF=335500 MemberID=76 </weight>
+<weight id="1394" MUR="1.0"  MUF="1.0"  PDF="335577" > PDF=335500 MemberID=77 </weight>
+<weight id="1395" MUR="1.0"  MUF="1.0"  PDF="335578" > PDF=335500 MemberID=78 </weight>
+<weight id="1396" MUR="1.0"  MUF="1.0"  PDF="335579" > PDF=335500 MemberID=79 </weight>
+<weight id="1397" MUR="1.0"  MUF="1.0"  PDF="335580" > PDF=335500 MemberID=80 </weight>
+<weight id="1398" MUR="1.0"  MUF="1.0"  PDF="335581" > PDF=335500 MemberID=81 </weight>
+<weight id="1399" MUR="1.0"  MUF="1.0"  PDF="335582" > PDF=335500 MemberID=82 </weight>
+<weight id="1400" MUR="1.0"  MUF="1.0"  PDF="335583" > PDF=335500 MemberID=83 </weight>
+<weight id="1401" MUR="1.0"  MUF="1.0"  PDF="335584" > PDF=335500 MemberID=84 </weight>
+<weight id="1402" MUR="1.0"  MUF="1.0"  PDF="335585" > PDF=335500 MemberID=85 </weight>
+<weight id="1403" MUR="1.0"  MUF="1.0"  PDF="335586" > PDF=335500 MemberID=86 </weight>
+<weight id="1404" MUR="1.0"  MUF="1.0"  PDF="335587" > PDF=335500 MemberID=87 </weight>
+<weight id="1405" MUR="1.0"  MUF="1.0"  PDF="335588" > PDF=335500 MemberID=88 </weight>
+<weight id="1406" MUR="1.0"  MUF="1.0"  PDF="335589" > PDF=335500 MemberID=89 </weight>
+<weight id="1407" MUR="1.0"  MUF="1.0"  PDF="335590" > PDF=335500 MemberID=90 </weight>
+<weight id="1408" MUR="1.0"  MUF="1.0"  PDF="335591" > PDF=335500 MemberID=91 </weight>
+<weight id="1409" MUR="1.0"  MUF="1.0"  PDF="335592" > PDF=335500 MemberID=92 </weight>
+<weight id="1410" MUR="1.0"  MUF="1.0"  PDF="335593" > PDF=335500 MemberID=93 </weight>
+<weight id="1411" MUR="1.0"  MUF="1.0"  PDF="335594" > PDF=335500 MemberID=94 </weight>
+<weight id="1412" MUR="1.0"  MUF="1.0"  PDF="335595" > PDF=335500 MemberID=95 </weight>
+<weight id="1413" MUR="1.0"  MUF="1.0"  PDF="335596" > PDF=335500 MemberID=96 </weight>
+<weight id="1414" MUR="1.0"  MUF="1.0"  PDF="335597" > PDF=335500 MemberID=97 </weight>
+<weight id="1415" MUR="1.0"  MUF="1.0"  PDF="335598" > PDF=335500 MemberID=98 </weight>
+<weight id="1416" MUR="1.0"  MUF="1.0"  PDF="335599" > PDF=335500 MemberID=99 </weight>
+<weight id="1417" MUR="1.0"  MUF="1.0"  PDF="335600" > PDF=335500 MemberID=100 </weight>
+<weight id="1418" MUR="1.0"  MUF="1.0"  PDF="335601" > PDF=335500 MemberID=101 </weight>
+<weight id="1419" MUR="1.0"  MUF="1.0"  PDF="335602" > PDF=335500 MemberID=102 </weight>
+</weightgroup> # PDFSET to PDF
+<weight id="1420" MUR="1.0"  MUF="1.0"  PDF="335700" > PDF=335700 MemberID=0 </weight>
+<weight id="1421" MUR="1.0"  MUF="1.0"  PDF="13091" > PDF=13091 MemberID=0 </weight>
+<weight id="1422" MUR="1.0"  MUF="1.0"  PDF="13191" > PDF=13191 MemberID=0 </weight>
+<weight id="1423" MUR="1.0"  MUF="1.0"  PDF="13202" > PDF=13202 MemberID=0 </weight>
+<weightgroup name="MSHT20nnlo_nf4" combine="hessian"> # 27810: "MSHT 2020 NNLO (68% C.L.) set at default fixed alpha_S(M_Z) = 0.118 in the 4-flavour scheme. Note this alpha_S(M_Z) value is the 5-flavour scheme value which is then translated into the 4-flavour scheme. This set has 65 members. mem=0 ; central value; mem=1-64 ; 32 eigenvector sets (+/- directions). Web address: www.hep.ucl.ac.uk/msht"
+<weight id="1424" MUR="1.0"  MUF="1.0"  PDF="27810" > PDF=27810 MemberID=0 </weight>
+<weight id="1425" MUR="1.0"  MUF="1.0"  PDF="27811" > PDF=27810 MemberID=1 </weight>
+<weight id="1426" MUR="1.0"  MUF="1.0"  PDF="27812" > PDF=27810 MemberID=2 </weight>
+<weight id="1427" MUR="1.0"  MUF="1.0"  PDF="27813" > PDF=27810 MemberID=3 </weight>
+<weight id="1428" MUR="1.0"  MUF="1.0"  PDF="27814" > PDF=27810 MemberID=4 </weight>
+<weight id="1429" MUR="1.0"  MUF="1.0"  PDF="27815" > PDF=27810 MemberID=5 </weight>
+<weight id="1430" MUR="1.0"  MUF="1.0"  PDF="27816" > PDF=27810 MemberID=6 </weight>
+<weight id="1431" MUR="1.0"  MUF="1.0"  PDF="27817" > PDF=27810 MemberID=7 </weight>
+<weight id="1432" MUR="1.0"  MUF="1.0"  PDF="27818" > PDF=27810 MemberID=8 </weight>
+<weight id="1433" MUR="1.0"  MUF="1.0"  PDF="27819" > PDF=27810 MemberID=9 </weight>
+<weight id="1434" MUR="1.0"  MUF="1.0"  PDF="27820" > PDF=27810 MemberID=10 </weight>
+<weight id="1435" MUR="1.0"  MUF="1.0"  PDF="27821" > PDF=27810 MemberID=11 </weight>
+<weight id="1436" MUR="1.0"  MUF="1.0"  PDF="27822" > PDF=27810 MemberID=12 </weight>
+<weight id="1437" MUR="1.0"  MUF="1.0"  PDF="27823" > PDF=27810 MemberID=13 </weight>
+<weight id="1438" MUR="1.0"  MUF="1.0"  PDF="27824" > PDF=27810 MemberID=14 </weight>
+<weight id="1439" MUR="1.0"  MUF="1.0"  PDF="27825" > PDF=27810 MemberID=15 </weight>
+<weight id="1440" MUR="1.0"  MUF="1.0"  PDF="27826" > PDF=27810 MemberID=16 </weight>
+<weight id="1441" MUR="1.0"  MUF="1.0"  PDF="27827" > PDF=27810 MemberID=17 </weight>
+<weight id="1442" MUR="1.0"  MUF="1.0"  PDF="27828" > PDF=27810 MemberID=18 </weight>
+<weight id="1443" MUR="1.0"  MUF="1.0"  PDF="27829" > PDF=27810 MemberID=19 </weight>
+<weight id="1444" MUR="1.0"  MUF="1.0"  PDF="27830" > PDF=27810 MemberID=20 </weight>
+<weight id="1445" MUR="1.0"  MUF="1.0"  PDF="27831" > PDF=27810 MemberID=21 </weight>
+<weight id="1446" MUR="1.0"  MUF="1.0"  PDF="27832" > PDF=27810 MemberID=22 </weight>
+<weight id="1447" MUR="1.0"  MUF="1.0"  PDF="27833" > PDF=27810 MemberID=23 </weight>
+<weight id="1448" MUR="1.0"  MUF="1.0"  PDF="27834" > PDF=27810 MemberID=24 </weight>
+<weight id="1449" MUR="1.0"  MUF="1.0"  PDF="27835" > PDF=27810 MemberID=25 </weight>
+<weight id="1450" MUR="1.0"  MUF="1.0"  PDF="27836" > PDF=27810 MemberID=26 </weight>
+<weight id="1451" MUR="1.0"  MUF="1.0"  PDF="27837" > PDF=27810 MemberID=27 </weight>
+<weight id="1452" MUR="1.0"  MUF="1.0"  PDF="27838" > PDF=27810 MemberID=28 </weight>
+<weight id="1453" MUR="1.0"  MUF="1.0"  PDF="27839" > PDF=27810 MemberID=29 </weight>
+<weight id="1454" MUR="1.0"  MUF="1.0"  PDF="27840" > PDF=27810 MemberID=30 </weight>
+<weight id="1455" MUR="1.0"  MUF="1.0"  PDF="27841" > PDF=27810 MemberID=31 </weight>
+<weight id="1456" MUR="1.0"  MUF="1.0"  PDF="27842" > PDF=27810 MemberID=32 </weight>
+<weight id="1457" MUR="1.0"  MUF="1.0"  PDF="27843" > PDF=27810 MemberID=33 </weight>
+<weight id="1458" MUR="1.0"  MUF="1.0"  PDF="27844" > PDF=27810 MemberID=34 </weight>
+<weight id="1459" MUR="1.0"  MUF="1.0"  PDF="27845" > PDF=27810 MemberID=35 </weight>
+<weight id="1460" MUR="1.0"  MUF="1.0"  PDF="27846" > PDF=27810 MemberID=36 </weight>
+<weight id="1461" MUR="1.0"  MUF="1.0"  PDF="27847" > PDF=27810 MemberID=37 </weight>
+<weight id="1462" MUR="1.0"  MUF="1.0"  PDF="27848" > PDF=27810 MemberID=38 </weight>
+<weight id="1463" MUR="1.0"  MUF="1.0"  PDF="27849" > PDF=27810 MemberID=39 </weight>
+<weight id="1464" MUR="1.0"  MUF="1.0"  PDF="27850" > PDF=27810 MemberID=40 </weight>
+<weight id="1465" MUR="1.0"  MUF="1.0"  PDF="27851" > PDF=27810 MemberID=41 </weight>
+<weight id="1466" MUR="1.0"  MUF="1.0"  PDF="27852" > PDF=27810 MemberID=42 </weight>
+<weight id="1467" MUR="1.0"  MUF="1.0"  PDF="27853" > PDF=27810 MemberID=43 </weight>
+<weight id="1468" MUR="1.0"  MUF="1.0"  PDF="27854" > PDF=27810 MemberID=44 </weight>
+<weight id="1469" MUR="1.0"  MUF="1.0"  PDF="27855" > PDF=27810 MemberID=45 </weight>
+<weight id="1470" MUR="1.0"  MUF="1.0"  PDF="27856" > PDF=27810 MemberID=46 </weight>
+<weight id="1471" MUR="1.0"  MUF="1.0"  PDF="27857" > PDF=27810 MemberID=47 </weight>
+<weight id="1472" MUR="1.0"  MUF="1.0"  PDF="27858" > PDF=27810 MemberID=48 </weight>
+<weight id="1473" MUR="1.0"  MUF="1.0"  PDF="27859" > PDF=27810 MemberID=49 </weight>
+<weight id="1474" MUR="1.0"  MUF="1.0"  PDF="27860" > PDF=27810 MemberID=50 </weight>
+<weight id="1475" MUR="1.0"  MUF="1.0"  PDF="27861" > PDF=27810 MemberID=51 </weight>
+<weight id="1476" MUR="1.0"  MUF="1.0"  PDF="27862" > PDF=27810 MemberID=52 </weight>
+<weight id="1477" MUR="1.0"  MUF="1.0"  PDF="27863" > PDF=27810 MemberID=53 </weight>
+<weight id="1478" MUR="1.0"  MUF="1.0"  PDF="27864" > PDF=27810 MemberID=54 </weight>
+<weight id="1479" MUR="1.0"  MUF="1.0"  PDF="27865" > PDF=27810 MemberID=55 </weight>
+<weight id="1480" MUR="1.0"  MUF="1.0"  PDF="27866" > PDF=27810 MemberID=56 </weight>
+<weight id="1481" MUR="1.0"  MUF="1.0"  PDF="27867" > PDF=27810 MemberID=57 </weight>
+<weight id="1482" MUR="1.0"  MUF="1.0"  PDF="27868" > PDF=27810 MemberID=58 </weight>
+<weight id="1483" MUR="1.0"  MUF="1.0"  PDF="27869" > PDF=27810 MemberID=59 </weight>
+</weightgroup> # PDFSET to PDFSET
+<weightgroup name="MSHT20nnlo_as_smallrange_nf4" combine="unknown"> # 27870: "MSHT 2020 NNLO alphas variation set (fits for a small range of alpha_S(M_Z) values) in the 4-flavour scheme. Note the alpha_S(M_Z) values given here in the member assignments are the 5-flavour scheme values, which are then translated into the 4-flavour scheme. This set has 3 members. mem=0 ; default fixed alpha_S(M_Z) = 0.118; mem=1-2 ; alpha_S(M_Z) = 0.117, 0.119. Web address: www.hep.ucl.ac.uk/msht"
+<weight id="1484" MUR="1.0"  MUF="1.0"  PDF="27870" > PDF=27810 MemberID=60 </weight>
+</weightgroup> # PDFSET to PDF
+<weight id="1485" MUR="1.0"  MUF="1.0"  PDF="27871" > PDF=27810 MemberID=61 </weight>
+<weight id="1486" MUR="1.0"  MUF="1.0"  PDF="27872" > PDF=27810 MemberID=62 </weight>
+<weight id="1487" MUR="1.0"  MUF="1.0"  PDF="27873" > PDF=27810 MemberID=63 </weight>
+<weight id="1488" MUR="1.0"  MUF="1.0"  PDF="27874" > PDF=27810 MemberID=64 </weight>
+<weightgroup name="MSHT20nnlo_as_smallrange_nf4" combine="unknown"> # 27870: "MSHT 2020 NNLO alphas variation set (fits for a small range of alpha_S(M_Z) values) in the 4-flavour scheme. Note the alpha_S(M_Z) values given here in the member assignments are the 5-flavour scheme values, which are then translated into the 4-flavour scheme. This set has 3 members. mem=0 ; default fixed alpha_S(M_Z) = 0.118; mem=1-2 ; alpha_S(M_Z) = 0.117, 0.119. Web address: www.hep.ucl.ac.uk/msht"
+<weight id="1489" MUR="1.0"  MUF="1.0"  PDF="27870" > PDF=27870 MemberID=0 </weight>
+<weight id="1490" MUR="1.0"  MUF="1.0"  PDF="27871" > PDF=27870 MemberID=1 </weight>
+<weight id="1491" MUR="1.0"  MUF="1.0"  PDF="27872" > PDF=27870 MemberID=2 </weight>
+</weightgroup> # PDFSET to PDF
+<weight id="1492" MUR="1.0"  MUF="1.0"  PDF="27610" > PDF=27610 MemberID=0 </weight>
+<weightgroup name="PDF4LHC21_40_pdfas_nf4" combine="symmhessian+as"> # 93700: "The PDF4LHC21 Hessian 40 set, 3-loop QCD, alphas(MZ)=0.118, nf=4, large-x positivity. 1+40 symmetric eigenvector sets at alphas(MZ)=0.118; 41 and 42: alphas(MZ)=0.117 and 0.119"
+<weight id="1493" MUR="1.0"  MUF="1.0"  PDF="93700" > PDF=93700 MemberID=0 </weight>
+<weight id="1494" MUR="1.0"  MUF="1.0"  PDF="93701" > PDF=93700 MemberID=1 </weight>
+<weight id="1495" MUR="1.0"  MUF="1.0"  PDF="93702" > PDF=93700 MemberID=2 </weight>
+<weight id="1496" MUR="1.0"  MUF="1.0"  PDF="93703" > PDF=93700 MemberID=3 </weight>
+<weight id="1497" MUR="1.0"  MUF="1.0"  PDF="93704" > PDF=93700 MemberID=4 </weight>
+<weight id="1498" MUR="1.0"  MUF="1.0"  PDF="93705" > PDF=93700 MemberID=5 </weight>
+<weight id="1499" MUR="1.0"  MUF="1.0"  PDF="93706" > PDF=93700 MemberID=6 </weight>
+<weight id="1500" MUR="1.0"  MUF="1.0"  PDF="93707" > PDF=93700 MemberID=7 </weight>
+<weight id="1501" MUR="1.0"  MUF="1.0"  PDF="93708" > PDF=93700 MemberID=8 </weight>
+<weight id="1502" MUR="1.0"  MUF="1.0"  PDF="93709" > PDF=93700 MemberID=9 </weight>
+<weight id="1503" MUR="1.0"  MUF="1.0"  PDF="93710" > PDF=93700 MemberID=10 </weight>
+<weight id="1504" MUR="1.0"  MUF="1.0"  PDF="93711" > PDF=93700 MemberID=11 </weight>
+<weight id="1505" MUR="1.0"  MUF="1.0"  PDF="93712" > PDF=93700 MemberID=12 </weight>
+<weight id="1506" MUR="1.0"  MUF="1.0"  PDF="93713" > PDF=93700 MemberID=13 </weight>
+<weight id="1507" MUR="1.0"  MUF="1.0"  PDF="93714" > PDF=93700 MemberID=14 </weight>
+<weight id="1508" MUR="1.0"  MUF="1.0"  PDF="93715" > PDF=93700 MemberID=15 </weight>
+<weight id="1509" MUR="1.0"  MUF="1.0"  PDF="93716" > PDF=93700 MemberID=16 </weight>
+<weight id="1510" MUR="1.0"  MUF="1.0"  PDF="93717" > PDF=93700 MemberID=17 </weight>
+<weight id="1511" MUR="1.0"  MUF="1.0"  PDF="93718" > PDF=93700 MemberID=18 </weight>
+<weight id="1512" MUR="1.0"  MUF="1.0"  PDF="93719" > PDF=93700 MemberID=19 </weight>
+<weight id="1513" MUR="1.0"  MUF="1.0"  PDF="93720" > PDF=93700 MemberID=20 </weight>
+<weight id="1514" MUR="1.0"  MUF="1.0"  PDF="93721" > PDF=93700 MemberID=21 </weight>
+<weight id="1515" MUR="1.0"  MUF="1.0"  PDF="93722" > PDF=93700 MemberID=22 </weight>
+<weight id="1516" MUR="1.0"  MUF="1.0"  PDF="93723" > PDF=93700 MemberID=23 </weight>
+<weight id="1517" MUR="1.0"  MUF="1.0"  PDF="93724" > PDF=93700 MemberID=24 </weight>
+<weight id="1518" MUR="1.0"  MUF="1.0"  PDF="93725" > PDF=93700 MemberID=25 </weight>
+<weight id="1519" MUR="1.0"  MUF="1.0"  PDF="93726" > PDF=93700 MemberID=26 </weight>
+<weight id="1520" MUR="1.0"  MUF="1.0"  PDF="93727" > PDF=93700 MemberID=27 </weight>
+<weight id="1521" MUR="1.0"  MUF="1.0"  PDF="93728" > PDF=93700 MemberID=28 </weight>
+<weight id="1522" MUR="1.0"  MUF="1.0"  PDF="93729" > PDF=93700 MemberID=29 </weight>
+<weight id="1523" MUR="1.0"  MUF="1.0"  PDF="93730" > PDF=93700 MemberID=30 </weight>
+<weight id="1524" MUR="1.0"  MUF="1.0"  PDF="93731" > PDF=93700 MemberID=31 </weight>
+<weight id="1525" MUR="1.0"  MUF="1.0"  PDF="93732" > PDF=93700 MemberID=32 </weight>
+<weight id="1526" MUR="1.0"  MUF="1.0"  PDF="93733" > PDF=93700 MemberID=33 </weight>
+<weight id="1527" MUR="1.0"  MUF="1.0"  PDF="93734" > PDF=93700 MemberID=34 </weight>
+<weight id="1528" MUR="1.0"  MUF="1.0"  PDF="93735" > PDF=93700 MemberID=35 </weight>
+<weight id="1529" MUR="1.0"  MUF="1.0"  PDF="93736" > PDF=93700 MemberID=36 </weight>
+<weight id="1530" MUR="1.0"  MUF="1.0"  PDF="93737" > PDF=93700 MemberID=37 </weight>
+<weight id="1531" MUR="1.0"  MUF="1.0"  PDF="93738" > PDF=93700 MemberID=38 </weight>
+<weight id="1532" MUR="1.0"  MUF="1.0"  PDF="93739" > PDF=93700 MemberID=39 </weight>
+<weight id="1533" MUR="1.0"  MUF="1.0"  PDF="93740" > PDF=93700 MemberID=40 </weight>
+<weight id="1534" MUR="1.0"  MUF="1.0"  PDF="93741" > PDF=93700 MemberID=41 </weight>
+<weight id="1535" MUR="1.0"  MUF="1.0"  PDF="93742" > PDF=93700 MemberID=42 </weight>
+</weightgroup> # PDFSET to PDFSET
+<weightgroup name="ABMP16_4_nnlo" combine="symmhessian"> # 42530: NNLO 4-flavour PDFs for the ABMP16 set
+<weight id="1536" MUR="1.0"  MUF="1.0"  PDF="42530" > PDF=42530 MemberID=0 </weight>
+<weight id="1537" MUR="1.0"  MUF="1.0"  PDF="42531" > PDF=42530 MemberID=1 </weight>
+<weight id="1538" MUR="1.0"  MUF="1.0"  PDF="42532" > PDF=42530 MemberID=2 </weight>
+<weight id="1539" MUR="1.0"  MUF="1.0"  PDF="42533" > PDF=42530 MemberID=3 </weight>
+<weight id="1540" MUR="1.0"  MUF="1.0"  PDF="42534" > PDF=42530 MemberID=4 </weight>
+<weight id="1541" MUR="1.0"  MUF="1.0"  PDF="42535" > PDF=42530 MemberID=5 </weight>
+<weight id="1542" MUR="1.0"  MUF="1.0"  PDF="42536" > PDF=42530 MemberID=6 </weight>
+<weight id="1543" MUR="1.0"  MUF="1.0"  PDF="42537" > PDF=42530 MemberID=7 </weight>
+<weight id="1544" MUR="1.0"  MUF="1.0"  PDF="42538" > PDF=42530 MemberID=8 </weight>
+<weight id="1545" MUR="1.0"  MUF="1.0"  PDF="42539" > PDF=42530 MemberID=9 </weight>
+<weight id="1546" MUR="1.0"  MUF="1.0"  PDF="42540" > PDF=42530 MemberID=10 </weight>
+<weight id="1547" MUR="1.0"  MUF="1.0"  PDF="42541" > PDF=42530 MemberID=11 </weight>
+<weight id="1548" MUR="1.0"  MUF="1.0"  PDF="42542" > PDF=42530 MemberID=12 </weight>
+<weight id="1549" MUR="1.0"  MUF="1.0"  PDF="42543" > PDF=42530 MemberID=13 </weight>
+<weight id="1550" MUR="1.0"  MUF="1.0"  PDF="42544" > PDF=42530 MemberID=14 </weight>
+<weight id="1551" MUR="1.0"  MUF="1.0"  PDF="42545" > PDF=42530 MemberID=15 </weight>
+<weight id="1552" MUR="1.0"  MUF="1.0"  PDF="42546" > PDF=42530 MemberID=16 </weight>
+<weight id="1553" MUR="1.0"  MUF="1.0"  PDF="42547" > PDF=42530 MemberID=17 </weight>
+<weight id="1554" MUR="1.0"  MUF="1.0"  PDF="42548" > PDF=42530 MemberID=18 </weight>
+<weight id="1555" MUR="1.0"  MUF="1.0"  PDF="42549" > PDF=42530 MemberID=19 </weight>
+<weight id="1556" MUR="1.0"  MUF="1.0"  PDF="42550" > PDF=42530 MemberID=20 </weight>
+<weight id="1557" MUR="1.0"  MUF="1.0"  PDF="42551" > PDF=42530 MemberID=21 </weight>
+<weight id="1558" MUR="1.0"  MUF="1.0"  PDF="42552" > PDF=42530 MemberID=22 </weight>
+<weight id="1559" MUR="1.0"  MUF="1.0"  PDF="42553" > PDF=42530 MemberID=23 </weight>
+<weight id="1560" MUR="1.0"  MUF="1.0"  PDF="42554" > PDF=42530 MemberID=24 </weight>
+<weight id="1561" MUR="1.0"  MUF="1.0"  PDF="42555" > PDF=42530 MemberID=25 </weight>
+<weight id="1562" MUR="1.0"  MUF="1.0"  PDF="42556" > PDF=42530 MemberID=26 </weight>
+<weight id="1563" MUR="1.0"  MUF="1.0"  PDF="42557" > PDF=42530 MemberID=27 </weight>
+<weight id="1564" MUR="1.0"  MUF="1.0"  PDF="42558" > PDF=42530 MemberID=28 </weight>
+<weight id="1565" MUR="1.0"  MUF="1.0"  PDF="42559" > PDF=42530 MemberID=29 </weight>
+</weightgroup> # PDFSET to PDF
+<weight id="1566" MUR="1.0"  MUF="1.0"  PDF="42930" > PDF=42930 MemberID=0 </weight>
+</initrwgt>
+<scalesfunctionalform>
+muR  H_T/2 := sum_i mT(i)/2, i=final state
+    muF1 H_T/2 := sum_i mT(i)/2, i=final state
+    muF2 H_T/2 := sum_i mT(i)/2, i=final state
+    QES  H_T/2 := sum_i mT(i)/2, i=final state
+</scalesfunctionalform>
+<montecarlomasses>
+1   0.000000E+00
+       2   0.000000E+00
+       3   0.000000E+00
+       4   0.000000E+00
+       5   0.000000E+00
+      11   0.000000E+00
+      13   0.000000E+00
+      15   0.000000E+00
+      21   0.000000E+00
+</montecarlomasses>
+</header>
+<init>
+2212   2212 0.68000000E+04 0.68000000E+04 -1 -1   325500   325500 -4   1
+ 0.35910380E+00 0.35023703E-03 0.41695255E+00      0
+</init>
+<event>
+ 8      0 +4.1695255e-01 9.59363400e+01 7.54677110e-03 1.08159790e-01
+        2 -1    0    0  501    0 +0.0000000000e+00 +0.0000000000e+00 +1.9558830093e+02 1.9558830093e+02 0.0000000000e+00 0.0000e+00 9.0000e+00
+       21 -1    0    0  502  501 +0.0000000000e+00 +0.0000000000e+00 -9.0897791445e+01 9.0897791445e+01 0.0000000000e+00 0.0000e+00 9.0000e+00
+       24  2    1    2    0    0 -3.8350948611e+01 +3.5282479085e+01 +7.0735092580e+01 1.1962417924e+02 8.1184003023e+01 0.0000e+00 0.0000e+00
+      -11  1    3    3    0    0 -9.0613501122e+00 +2.5308595760e+01 +4.2656161347e+01 5.0420047461e+01 0.0000000000e+00 0.0000e+00 9.0000e+00
+       12  1    3    3    0    0 -1.9288915413e+01 -1.2445641669e+01 -9.0652548176e+00 2.4680662456e+01 0.0000000000e+00 0.0000e+00 9.0000e+00
+      -24  1    1    2    0    0 +4.0497846291e+01 -7.8591949910e+01 +1.9142216761e+01 1.2103888037e+02 8.0419002446e+01 0.0000e+00 9.0000e+00
+       22  1    3    3    0    0 -1.0000683086e+01 +2.2419524994e+01 +3.7144186051e+01 4.4523469322e+01 0.0000000000e+00 0.0000e+00 9.0000e+00
+        2  1    1    2  502    0 -2.1468976800e+00 +4.3309470826e+01 +1.4813200141e+01 4.5823032759e+01 0.0000000000e+00 0.0000e+00 9.0000e+00
+#aMCatNLO 2  0  0  2  1 0.59908723E+02 0.00000000E+00 -9  7  0 0.00000000E+00 0.00000000E+00 0.00000000E+00 0.00000000E+00 0.00000000E+00
+<rwgt>
+<wgt id='1001'> +4.1695255e-01 </wgt>
+<wgt id='1002'> +3.7739910e-01 </wgt>
+<wgt id='1003'> +4.6610692e-01 </wgt>
+<wgt id='1004'> +4.2964725e-01 </wgt>
+<wgt id='1005'> +3.8888952e-01 </wgt>
+<wgt id='1006'> +4.8029817e-01 </wgt>
+<wgt id='1007'> +3.9900638e-01 </wgt>
+<wgt id='1008'> +3.6115534e-01 </wgt>
+<wgt id='1009'> +4.4604506e-01 </wgt>
+<wgt id='1010'> +4.1695255e-01 </wgt>
+<wgt id='1011'> +4.1707487e-01 </wgt>
+<wgt id='1012'> +4.1684695e-01 </wgt>
+<wgt id='1013'> +4.1686330e-01 </wgt>
+<wgt id='1014'> +4.1758292e-01 </wgt>
+<wgt id='1015'> +4.1750498e-01 </wgt>
+<wgt id='1016'> +4.1664782e-01 </wgt>
+<wgt id='1017'> +4.1918137e-01 </wgt>
+<wgt id='1018'> +4.1827639e-01 </wgt>
+<wgt id='1019'> +4.1796218e-01 </wgt>
+<wgt id='1020'> +4.1650399e-01 </wgt>
+<wgt id='1021'> +4.1500247e-01 </wgt>
+<wgt id='1022'> +4.1753254e-01 </wgt>
+<wgt id='1023'> +4.1623202e-01 </wgt>
+<wgt id='1024'> +4.1658945e-01 </wgt>
+<wgt id='1025'> +4.1749168e-01 </wgt>
+<wgt id='1026'> +4.1534347e-01 </wgt>
+<wgt id='1027'> +4.1563881e-01 </wgt>
+<wgt id='1028'> +4.1663138e-01 </wgt>
+<wgt id='1029'> +4.1779562e-01 </wgt>
+<wgt id='1030'> +4.1609819e-01 </wgt>
+<wgt id='1031'> +4.1761171e-01 </wgt>
+<wgt id='1032'> +4.1845649e-01 </wgt>
+<wgt id='1033'> +4.1615172e-01 </wgt>
+<wgt id='1034'> +4.1586421e-01 </wgt>
+<wgt id='1035'> +4.1621440e-01 </wgt>
+<wgt id='1036'> +4.1637973e-01 </wgt>
+<wgt id='1037'> +4.1823989e-01 </wgt>
+<wgt id='1038'> +4.1735050e-01 </wgt>
+<wgt id='1039'> +4.1720937e-01 </wgt>
+<wgt id='1040'> +4.1731406e-01 </wgt>
+<wgt id='1041'> +4.1760850e-01 </wgt>
+<wgt id='1042'> +4.1656074e-01 </wgt>
+<wgt id='1043'> +4.1734884e-01 </wgt>
+<wgt id='1044'> +4.1696129e-01 </wgt>
+<wgt id='1045'> +4.1763317e-01 </wgt>
+<wgt id='1046'> +4.1775524e-01 </wgt>
+<wgt id='1047'> +4.1644819e-01 </wgt>
+<wgt id='1048'> +4.1760290e-01 </wgt>
+<wgt id='1049'> +4.1783601e-01 </wgt>
+<wgt id='1050'> +4.1744572e-01 </wgt>
+<wgt id='1051'> +4.1823619e-01 </wgt>
+<wgt id='1052'> +4.1684495e-01 </wgt>
+<wgt id='1053'> +4.1526379e-01 </wgt>
+<wgt id='1054'> +4.1750935e-01 </wgt>
+<wgt id='1055'> +4.1718412e-01 </wgt>
+<wgt id='1056'> +4.1774208e-01 </wgt>
+<wgt id='1057'> +4.1644457e-01 </wgt>
+<wgt id='1058'> +4.1695083e-01 </wgt>
+<wgt id='1059'> +4.1662755e-01 </wgt>
+<wgt id='1060'> +4.1708125e-01 </wgt>
+<wgt id='1061'> +4.1728850e-01 </wgt>
+<wgt id='1062'> +4.1750188e-01 </wgt>
+<wgt id='1063'> +4.1647568e-01 </wgt>
+<wgt id='1064'> +4.1687864e-01 </wgt>
+<wgt id='1065'> +4.1698082e-01 </wgt>
+<wgt id='1066'> +4.1797241e-01 </wgt>
+<wgt id='1067'> +4.1726605e-01 </wgt>
+<wgt id='1068'> +4.1703052e-01 </wgt>
+<wgt id='1069'> +4.1669507e-01 </wgt>
+<wgt id='1070'> +4.1691524e-01 </wgt>
+<wgt id='1071'> +4.1714463e-01 </wgt>
+<wgt id='1072'> +4.1662751e-01 </wgt>
+<wgt id='1073'> +4.1705349e-01 </wgt>
+<wgt id='1074'> +4.1715440e-01 </wgt>
+<wgt id='1075'> +4.1675441e-01 </wgt>
+<wgt id='1076'> +4.1719379e-01 </wgt>
+<wgt id='1077'> +4.1682987e-01 </wgt>
+<wgt id='1078'> +4.1709061e-01 </wgt>
+<wgt id='1079'> +4.1720661e-01 </wgt>
+<wgt id='1080'> +4.1650620e-01 </wgt>
+<wgt id='1081'> +4.1701304e-01 </wgt>
+<wgt id='1082'> +4.1745931e-01 </wgt>
+<wgt id='1083'> +4.1704795e-01 </wgt>
+<wgt id='1084'> +4.1740927e-01 </wgt>
+<wgt id='1085'> +4.1670824e-01 </wgt>
+<wgt id='1086'> +4.1689964e-01 </wgt>
+<wgt id='1087'> +4.1716212e-01 </wgt>
+<wgt id='1088'> +4.1712049e-01 </wgt>
+<wgt id='1089'> +4.1656283e-01 </wgt>
+<wgt id='1090'> +4.1736633e-01 </wgt>
+<wgt id='1091'> +4.1700366e-01 </wgt>
+<wgt id='1092'> +4.1678267e-01 </wgt>
+<wgt id='1093'> +4.1722413e-01 </wgt>
+<wgt id='1094'> +4.1712043e-01 </wgt>
+<wgt id='1095'> +4.1709983e-01 </wgt>
+<wgt id='1096'> +4.1684732e-01 </wgt>
+<wgt id='1097'> +4.1739557e-01 </wgt>
+<wgt id='1098'> +4.1684544e-01 </wgt>
+<wgt id='1099'> +4.1707247e-01 </wgt>
+<wgt id='1100'> +4.1699410e-01 </wgt>
+<wgt id='1101'> +4.1707456e-01 </wgt>
+<wgt id='1102'> +4.1707274e-01 </wgt>
+<wgt id='1103'> +4.1717978e-01 </wgt>
+<wgt id='1104'> +4.1709021e-01 </wgt>
+<wgt id='1105'> +4.1691136e-01 </wgt>
+<wgt id='1106'> +4.1703587e-01 </wgt>
+<wgt id='1107'> +4.1698090e-01 </wgt>
+<wgt id='1108'> +4.1700645e-01 </wgt>
+<wgt id='1109'> +4.1688236e-01 </wgt>
+<wgt id='1110'> +4.1695257e-01 </wgt>
+<wgt id='1111'> +4.1695257e-01 </wgt>
+<wgt id='1112'> +4.2310444e-01 </wgt>
+<wgt id='1113'> +4.1280580e-01 </wgt>
+<wgt id='1114'> +4.1325239e-01 </wgt>
+<wgt id='1115'> +4.1187059e-01 </wgt>
+<wgt id='1116'> +4.1699070e-01 </wgt>
+<wgt id='1117'> +4.2208744e-01 </wgt>
+<wgt id='1118'> +4.1827738e-01 </wgt>
+<wgt id='1119'> +4.1345614e-01 </wgt>
+<wgt id='1120'> +4.1131785e-01 </wgt>
+<wgt id='1121'> +4.1454519e-01 </wgt>
+<wgt id='1122'> +4.1835238e-01 </wgt>
+<wgt id='1123'> +4.0544917e-01 </wgt>
+<wgt id='1124'> +4.1430828e-01 </wgt>
+<wgt id='1125'> +4.1459493e-01 </wgt>
+<wgt id='1126'> +4.2831880e-01 </wgt>
+<wgt id='1127'> +4.2585138e-01 </wgt>
+<wgt id='1128'> +4.2591278e-01 </wgt>
+<wgt id='1129'> +4.1194800e-01 </wgt>
+<wgt id='1130'> +4.2147865e-01 </wgt>
+<wgt id='1131'> +4.1606158e-01 </wgt>
+<wgt id='1132'> +4.0889486e-01 </wgt>
+<wgt id='1133'> +4.2030647e-01 </wgt>
+<wgt id='1134'> +4.1942179e-01 </wgt>
+<wgt id='1135'> +4.1464691e-01 </wgt>
+<wgt id='1136'> +4.1024724e-01 </wgt>
+<wgt id='1137'> +4.3008713e-01 </wgt>
+<wgt id='1138'> +4.1753275e-01 </wgt>
+<wgt id='1139'> +4.1076095e-01 </wgt>
+<wgt id='1140'> +4.2945602e-01 </wgt>
+<wgt id='1141'> +4.1441174e-01 </wgt>
+<wgt id='1142'> +4.1815473e-01 </wgt>
+<wgt id='1143'> +4.0528658e-01 </wgt>
+<wgt id='1144'> +4.1355558e-01 </wgt>
+<wgt id='1145'> +4.0999282e-01 </wgt>
+<wgt id='1146'> +4.2872486e-01 </wgt>
+<wgt id='1147'> +4.1358445e-01 </wgt>
+<wgt id='1148'> +4.2208670e-01 </wgt>
+<wgt id='1149'> +4.1513289e-01 </wgt>
+<wgt id='1150'> +4.1623470e-01 </wgt>
+<wgt id='1151'> +4.2107278e-01 </wgt>
+<wgt id='1152'> +4.1916534e-01 </wgt>
+<wgt id='1153'> +4.0975088e-01 </wgt>
+<wgt id='1154'> +4.1611297e-01 </wgt>
+<wgt id='1155'> +4.1353530e-01 </wgt>
+<wgt id='1156'> +4.2342897e-01 </wgt>
+<wgt id='1157'> +4.2788818e-01 </wgt>
+<wgt id='1158'> +4.0668149e-01 </wgt>
+<wgt id='1159'> +4.1046787e-01 </wgt>
+<wgt id='1160'> +4.2398375e-01 </wgt>
+<wgt id='1161'> +4.2570637e-01 </wgt>
+<wgt id='1162'> +4.1711718e-01 </wgt>
+<wgt id='1163'> +4.1087731e-01 </wgt>
+<wgt id='1164'> +4.1734642e-01 </wgt>
+<wgt id='1165'> +4.1889425e-01 </wgt>
+<wgt id='1166'> +4.2278697e-01 </wgt>
+<wgt id='1167'> +4.1174295e-01 </wgt>
+<wgt id='1168'> +4.2181183e-01 </wgt>
+<wgt id='1169'> +4.0852579e-01 </wgt>
+<wgt id='1170'> +4.2349215e-01 </wgt>
+<wgt id='1171'> +4.2281702e-01 </wgt>
+<wgt id='1172'> +4.1436826e-01 </wgt>
+<wgt id='1173'> +4.1677794e-01 </wgt>
+<wgt id='1174'> +4.2342562e-01 </wgt>
+<wgt id='1175'> +4.1392795e-01 </wgt>
+<wgt id='1176'> +4.1747141e-01 </wgt>
+<wgt id='1177'> +4.1553861e-01 </wgt>
+<wgt id='1178'> +4.2132171e-01 </wgt>
+<wgt id='1179'> +4.2286960e-01 </wgt>
+<wgt id='1180'> +4.1684907e-01 </wgt>
+<wgt id='1181'> +4.1170595e-01 </wgt>
+<wgt id='1182'> +4.1840910e-01 </wgt>
+<wgt id='1183'> +4.4130021e-01 </wgt>
+<wgt id='1184'> +4.0084986e-01 </wgt>
+<wgt id='1185'> +4.1655993e-01 </wgt>
+<wgt id='1186'> +4.1707270e-01 </wgt>
+<wgt id='1187'> +4.3048870e-01 </wgt>
+<wgt id='1188'> +4.0899809e-01 </wgt>
+<wgt id='1189'> +4.1658219e-01 </wgt>
+<wgt id='1190'> +4.1607706e-01 </wgt>
+<wgt id='1191'> +4.1571540e-01 </wgt>
+<wgt id='1192'> +4.0793791e-01 </wgt>
+<wgt id='1193'> +4.2585138e-01 </wgt>
+<wgt id='1194'> +4.1389254e-01 </wgt>
+<wgt id='1195'> +4.1545113e-01 </wgt>
+<wgt id='1196'> +4.1393303e-01 </wgt>
+<wgt id='1197'> +4.0815768e-01 </wgt>
+<wgt id='1198'> +4.1455597e-01 </wgt>
+<wgt id='1199'> +4.1458894e-01 </wgt>
+<wgt id='1200'> +4.1414477e-01 </wgt>
+<wgt id='1201'> +4.0956297e-01 </wgt>
+<wgt id='1202'> +4.1961039e-01 </wgt>
+<wgt id='1203'> +4.2086490e-01 </wgt>
+<wgt id='1204'> +4.1979791e-01 </wgt>
+<wgt id='1205'> +4.1911766e-01 </wgt>
+<wgt id='1206'> +4.0970992e-01 </wgt>
+<wgt id='1207'> +4.1301223e-01 </wgt>
+<wgt id='1208'> +4.1372827e-01 </wgt>
+<wgt id='1209'> +4.1633359e-01 </wgt>
+<wgt id='1210'> +4.1759504e-01 </wgt>
+<wgt id='1211'> +4.1862010e-01 </wgt>
+<wgt id='1212'> +4.1737312e-01 </wgt>
+<wgt id='1213'> +4.0432841e-01 </wgt>
+<wgt id='1214'> +4.1002193e-01 </wgt>
+<wgt id='1215'> +3.9933292e-01 </wgt>
+<wgt id='1216'> +3.9914213e-01 </wgt>
+<wgt id='1217'> +3.9678718e-01 </wgt>
+<wgt id='1218'> +4.0740126e-01 </wgt>
+<wgt id='1219'> +4.1175647e-01 </wgt>
+<wgt id='1220'> +4.0336083e-01 </wgt>
+<wgt id='1221'> +4.0203026e-01 </wgt>
+<wgt id='1222'> +4.0167286e-01 </wgt>
+<wgt id='1223'> +3.9569815e-01 </wgt>
+<wgt id='1224'> +4.0288598e-01 </wgt>
+<wgt id='1225'> +3.9430447e-01 </wgt>
+<wgt id='1226'> +4.0917311e-01 </wgt>
+<wgt id='1227'> +4.1546102e-01 </wgt>
+<wgt id='1228'> +4.0675186e-01 </wgt>
+<wgt id='1229'> +3.9573773e-01 </wgt>
+<wgt id='1230'> +4.0966905e-01 </wgt>
+<wgt id='1231'> +4.0225735e-01 </wgt>
+<wgt id='1232'> +4.0080978e-01 </wgt>
+<wgt id='1233'> +4.2457610e-01 </wgt>
+<wgt id='1234'> +4.0326841e-01 </wgt>
+<wgt id='1235'> +4.0118596e-01 </wgt>
+<wgt id='1236'> +4.0053759e-01 </wgt>
+<wgt id='1237'> +4.1287162e-01 </wgt>
+<wgt id='1238'> +4.1062795e-01 </wgt>
+<wgt id='1239'> +3.8630144e-01 </wgt>
+<wgt id='1240'> +4.1181005e-01 </wgt>
+<wgt id='1241'> +4.1015943e-01 </wgt>
+<wgt id='1242'> +3.9797617e-01 </wgt>
+<wgt id='1243'> +4.1568112e-01 </wgt>
+<wgt id='1244'> +4.1066290e-01 </wgt>
+<wgt id='1245'> +4.0091880e-01 </wgt>
+<wgt id='1246'> +4.0708583e-01 </wgt>
+<wgt id='1247'> +4.0291595e-01 </wgt>
+<wgt id='1248'> +4.0143604e-01 </wgt>
+<wgt id='1249'> +4.0533339e-01 </wgt>
+<wgt id='1250'> +3.9562473e-01 </wgt>
+<wgt id='1251'> +4.0188999e-01 </wgt>
+<wgt id='1252'> +3.9525659e-01 </wgt>
+<wgt id='1253'> +4.1931388e-01 </wgt>
+<wgt id='1254'> +4.0450405e-01 </wgt>
+<wgt id='1255'> +4.0919130e-01 </wgt>
+<wgt id='1256'> +3.9439985e-01 </wgt>
+<wgt id='1257'> +4.0281773e-01 </wgt>
+<wgt id='1258'> +4.0063758e-01 </wgt>
+<wgt id='1259'> +4.0839815e-01 </wgt>
+<wgt id='1260'> +4.1220674e-01 </wgt>
+<wgt id='1261'> +4.0168541e-01 </wgt>
+<wgt id='1262'> +3.7897688e-01 </wgt>
+<wgt id='1263'> +4.1549684e-01 </wgt>
+<wgt id='1264'> +4.1341039e-01 </wgt>
+<wgt id='1265'> +4.0066812e-01 </wgt>
+<wgt id='1266'> +4.0328704e-01 </wgt>
+<wgt id='1267'> +4.0356094e-01 </wgt>
+<wgt id='1268'> +4.0335893e-01 </wgt>
+<wgt id='1269'> +4.0111523e-01 </wgt>
+<wgt id='1270'> +3.9877052e-01 </wgt>
+<wgt id='1271'> +3.9739391e-01 </wgt>
+<wgt id='1272'> +4.0818283e-01 </wgt>
+<wgt id='1273'> +4.0965939e-01 </wgt>
+<wgt id='1274'> +4.0564000e-01 </wgt>
+<wgt id='1275'> +3.9500811e-01 </wgt>
+<wgt id='1276'> +4.1203886e-01 </wgt>
+<wgt id='1277'> +4.0711011e-01 </wgt>
+<wgt id='1278'> +3.9934907e-01 </wgt>
+<wgt id='1279'> +4.0302190e-01 </wgt>
+<wgt id='1280'> +4.1525627e-01 </wgt>
+<wgt id='1281'> +4.0360414e-01 </wgt>
+<wgt id='1282'> +3.9924209e-01 </wgt>
+<wgt id='1283'> +4.0714803e-01 </wgt>
+<wgt id='1284'> +4.0301130e-01 </wgt>
+<wgt id='1285'> +4.1540178e-01 </wgt>
+<wgt id='1286'> +4.1021025e-01 </wgt>
+<wgt id='1287'> +3.9817282e-01 </wgt>
+<wgt id='1288'> +4.0127510e-01 </wgt>
+<wgt id='1289'> +4.0682306e-01 </wgt>
+<wgt id='1290'> +4.0282091e-01 </wgt>
+<wgt id='1291'> +4.0623428e-01 </wgt>
+<wgt id='1292'> +4.0375649e-01 </wgt>
+<wgt id='1293'> +4.0217548e-01 </wgt>
+<wgt id='1294'> +4.0785327e-01 </wgt>
+<wgt id='1295'> +3.9873596e-01 </wgt>
+<wgt id='1296'> +3.9896365e-01 </wgt>
+<wgt id='1297'> +4.0477159e-01 </wgt>
+<wgt id='1298'> +4.0149019e-01 </wgt>
+<wgt id='1299'> +3.9525254e-01 </wgt>
+<wgt id='1300'> +4.0666119e-01 </wgt>
+<wgt id='1301'> +4.0114011e-01 </wgt>
+<wgt id='1302'> +3.9283509e-01 </wgt>
+<wgt id='1303'> +4.1081486e-01 </wgt>
+<wgt id='1304'> +3.9323488e-01 </wgt>
+<wgt id='1305'> +4.0301889e-01 </wgt>
+<wgt id='1306'> +4.0003604e-01 </wgt>
+<wgt id='1307'> +4.2525449e-01 </wgt>
+<wgt id='1308'> +4.0766309e-01 </wgt>
+<wgt id='1309'> +4.0615647e-01 </wgt>
+<wgt id='1310'> +4.1608285e-01 </wgt>
+<wgt id='1311'> +4.1505744e-01 </wgt>
+<wgt id='1312'> +3.9574415e-01 </wgt>
+<wgt id='1313'> +4.0830000e-01 </wgt>
+<wgt id='1314'> +4.0321084e-01 </wgt>
+<wgt id='1315'> +4.0435137e-01 </wgt>
+<wgt id='1316'> +4.0346615e-01 </wgt>
+<wgt id='1317'> +4.1525353e-01 </wgt>
+<wgt id='1318'> +4.1244167e-01 </wgt>
+<wgt id='1319'> +4.1443078e-01 </wgt>
+<wgt id='1320'> +4.1680560e-01 </wgt>
+<wgt id='1321'> +4.1368087e-01 </wgt>
+<wgt id='1322'> +4.1768068e-01 </wgt>
+<wgt id='1323'> +4.1693856e-01 </wgt>
+<wgt id='1324'> +4.0846252e-01 </wgt>
+<wgt id='1325'> +4.1563967e-01 </wgt>
+<wgt id='1326'> +4.0975215e-01 </wgt>
+<wgt id='1327'> +4.1564879e-01 </wgt>
+<wgt id='1328'> +4.1539649e-01 </wgt>
+<wgt id='1329'> +4.1555998e-01 </wgt>
+<wgt id='1330'> +4.1527383e-01 </wgt>
+<wgt id='1331'> +4.1922357e-01 </wgt>
+<wgt id='1332'> +4.1972367e-01 </wgt>
+<wgt id='1333'> +4.1549882e-01 </wgt>
+<wgt id='1334'> +4.0956119e-01 </wgt>
+<wgt id='1335'> +4.1718016e-01 </wgt>
+<wgt id='1336'> +4.1780105e-01 </wgt>
+<wgt id='1337'> +4.1907988e-01 </wgt>
+<wgt id='1338'> +4.1982116e-01 </wgt>
+<wgt id='1339'> +4.1687633e-01 </wgt>
+<wgt id='1340'> +4.1707687e-01 </wgt>
+<wgt id='1341'> +4.1807603e-01 </wgt>
+<wgt id='1342'> +4.1318026e-01 </wgt>
+<wgt id='1343'> +4.0938224e-01 </wgt>
+<wgt id='1344'> +4.2032439e-01 </wgt>
+<wgt id='1345'> +4.1822926e-01 </wgt>
+<wgt id='1346'> +4.1733484e-01 </wgt>
+<wgt id='1347'> +4.1363930e-01 </wgt>
+<wgt id='1348'> +4.1557480e-01 </wgt>
+<wgt id='1349'> +4.1236012e-01 </wgt>
+<wgt id='1350'> +4.1611706e-01 </wgt>
+<wgt id='1351'> +4.1209938e-01 </wgt>
+<wgt id='1352'> +4.0969235e-01 </wgt>
+<wgt id='1353'> +4.1477122e-01 </wgt>
+<wgt id='1354'> +4.2195435e-01 </wgt>
+<wgt id='1355'> +4.1640628e-01 </wgt>
+<wgt id='1356'> +4.1907030e-01 </wgt>
+<wgt id='1357'> +4.1922602e-01 </wgt>
+<wgt id='1358'> +4.1626239e-01 </wgt>
+<wgt id='1359'> +4.1982111e-01 </wgt>
+<wgt id='1360'> +4.0707165e-01 </wgt>
+<wgt id='1361'> +4.2255430e-01 </wgt>
+<wgt id='1362'> +4.2109985e-01 </wgt>
+<wgt id='1363'> +4.1962882e-01 </wgt>
+<wgt id='1364'> +4.1519650e-01 </wgt>
+<wgt id='1365'> +4.1371583e-01 </wgt>
+<wgt id='1366'> +4.1797763e-01 </wgt>
+<wgt id='1367'> +4.0967203e-01 </wgt>
+<wgt id='1368'> +4.1482649e-01 </wgt>
+<wgt id='1369'> +4.1552521e-01 </wgt>
+<wgt id='1370'> +4.1172529e-01 </wgt>
+<wgt id='1371'> +4.1266985e-01 </wgt>
+<wgt id='1372'> +4.1837194e-01 </wgt>
+<wgt id='1373'> +4.1413409e-01 </wgt>
+<wgt id='1374'> +4.1465613e-01 </wgt>
+<wgt id='1375'> +4.1759387e-01 </wgt>
+<wgt id='1376'> +4.1460904e-01 </wgt>
+<wgt id='1377'> +4.1724971e-01 </wgt>
+<wgt id='1378'> +4.1210798e-01 </wgt>
+<wgt id='1379'> +4.1683414e-01 </wgt>
+<wgt id='1380'> +3.9977615e-01 </wgt>
+<wgt id='1381'> +4.1597675e-01 </wgt>
+<wgt id='1382'> +4.1540008e-01 </wgt>
+<wgt id='1383'> +4.1770134e-01 </wgt>
+<wgt id='1384'> +4.1695544e-01 </wgt>
+<wgt id='1385'> +4.0715289e-01 </wgt>
+<wgt id='1386'> +4.1712153e-01 </wgt>
+<wgt id='1387'> +4.0904726e-01 </wgt>
+<wgt id='1388'> +4.1388273e-01 </wgt>
+<wgt id='1389'> +4.1324587e-01 </wgt>
+<wgt id='1390'> +4.1726802e-01 </wgt>
+<wgt id='1391'> +4.2224865e-01 </wgt>
+<wgt id='1392'> +4.1240491e-01 </wgt>
+<wgt id='1393'> +4.1767195e-01 </wgt>
+<wgt id='1394'> +4.1411566e-01 </wgt>
+<wgt id='1395'> +4.1139999e-01 </wgt>
+<wgt id='1396'> +4.2034010e-01 </wgt>
+<wgt id='1397'> +4.1370532e-01 </wgt>
+<wgt id='1398'> +4.1473526e-01 </wgt>
+<wgt id='1399'> +4.1063772e-01 </wgt>
+<wgt id='1400'> +4.0916410e-01 </wgt>
+<wgt id='1401'> +4.2173130e-01 </wgt>
+<wgt id='1402'> +4.1378463e-01 </wgt>
+<wgt id='1403'> +4.2058871e-01 </wgt>
+<wgt id='1404'> +4.1664272e-01 </wgt>
+<wgt id='1405'> +4.1499377e-01 </wgt>
+<wgt id='1406'> +4.1816532e-01 </wgt>
+<wgt id='1407'> +4.1614763e-01 </wgt>
+<wgt id='1408'> +4.1521445e-01 </wgt>
+<wgt id='1409'> +4.1721058e-01 </wgt>
+<wgt id='1410'> +4.1824493e-01 </wgt>
+<wgt id='1411'> +4.1585777e-01 </wgt>
+<wgt id='1412'> +4.1218580e-01 </wgt>
+<wgt id='1413'> +4.0630669e-01 </wgt>
+<wgt id='1414'> +4.1018178e-01 </wgt>
+<wgt id='1415'> +4.1545235e-01 </wgt>
+<wgt id='1416'> +4.1499174e-01 </wgt>
+<wgt id='1417'> +4.1679599e-01 </wgt>
+<wgt id='1418'> +4.1231558e-01 </wgt>
+<wgt id='1419'> +4.1853225e-01 </wgt>
+<wgt id='1420'> +4.1279914e-01 </wgt>
+<wgt id='1421'> +4.1435394e-01 </wgt>
+<wgt id='1422'> +4.1226758e-01 </wgt>
+<wgt id='1423'> +3.7967300e-01 </wgt>
+<wgt id='1424'> +4.0269205e-01 </wgt>
+<wgt id='1425'> +4.0176321e-01 </wgt>
+<wgt id='1426'> +4.0388369e-01 </wgt>
+<wgt id='1427'> +4.0236220e-01 </wgt>
+<wgt id='1428'> +4.0299328e-01 </wgt>
+<wgt id='1429'> +4.0237669e-01 </wgt>
+<wgt id='1430'> +4.0320989e-01 </wgt>
+<wgt id='1431'> +4.0156364e-01 </wgt>
+<wgt id='1432'> +4.0360850e-01 </wgt>
+<wgt id='1433'> +4.0311049e-01 </wgt>
+<wgt id='1434'> +4.0226085e-01 </wgt>
+<wgt id='1435'> +4.0148340e-01 </wgt>
+<wgt id='1436'> +4.0385465e-01 </wgt>
+<wgt id='1437'> +4.0338406e-01 </wgt>
+<wgt id='1438'> +4.0220050e-01 </wgt>
+<wgt id='1439'> +4.0265396e-01 </wgt>
+<wgt id='1440'> +4.0278017e-01 </wgt>
+<wgt id='1441'> +4.0166278e-01 </wgt>
+<wgt id='1442'> +4.0339046e-01 </wgt>
+<wgt id='1443'> +4.0183741e-01 </wgt>
+<wgt id='1444'> +4.0387918e-01 </wgt>
+<wgt id='1445'> +4.0314453e-01 </wgt>
+<wgt id='1446'> +4.0192735e-01 </wgt>
+<wgt id='1447'> +4.0233022e-01 </wgt>
+<wgt id='1448'> +4.0356079e-01 </wgt>
+<wgt id='1449'> +4.0232162e-01 </wgt>
+<wgt id='1450'> +4.0307759e-01 </wgt>
+<wgt id='1451'> +4.0294467e-01 </wgt>
+<wgt id='1452'> +4.0203440e-01 </wgt>
+<wgt id='1453'> +4.0100371e-01 </wgt>
+<wgt id='1454'> +4.0364206e-01 </wgt>
+<wgt id='1455'> +4.0299109e-01 </wgt>
+<wgt id='1456'> +4.0173068e-01 </wgt>
+<wgt id='1457'> +4.0274913e-01 </wgt>
+<wgt id='1458'> +4.0263098e-01 </wgt>
+<wgt id='1459'> +4.0364689e-01 </wgt>
+<wgt id='1460'> +4.0136061e-01 </wgt>
+<wgt id='1461'> +4.0124175e-01 </wgt>
+<wgt id='1462'> +4.0348338e-01 </wgt>
+<wgt id='1463'> +4.0274415e-01 </wgt>
+<wgt id='1464'> +4.0262758e-01 </wgt>
+<wgt id='1465'> +4.0440578e-01 </wgt>
+<wgt id='1466'> +4.0100273e-01 </wgt>
+<wgt id='1467'> +4.0063182e-01 </wgt>
+<wgt id='1468'> +4.0474456e-01 </wgt>
+<wgt id='1469'> +4.0219883e-01 </wgt>
+<wgt id='1470'> +4.0234150e-01 </wgt>
+<wgt id='1471'> +4.0242106e-01 </wgt>
+<wgt id='1472'> +4.0423035e-01 </wgt>
+<wgt id='1473'> +4.0279757e-01 </wgt>
+<wgt id='1474'> +4.0213659e-01 </wgt>
+<wgt id='1475'> +4.0318967e-01 </wgt>
+<wgt id='1476'> +4.0237984e-01 </wgt>
+<wgt id='1477'> +4.0151633e-01 </wgt>
+<wgt id='1478'> +4.0282879e-01 </wgt>
+<wgt id='1479'> +4.0464674e-01 </wgt>
+<wgt id='1480'> +4.0062153e-01 </wgt>
+<wgt id='1481'> +4.0201369e-01 </wgt>
+<wgt id='1482'> +4.0308128e-01 </wgt>
+<wgt id='1483'> +4.0274159e-01 </wgt>
+<wgt id='1484'> +4.0266103e-01 </wgt>
+<wgt id='1485'> +4.0170751e-01 </wgt>
+<wgt id='1486'> +4.0237928e-01 </wgt>
+<wgt id='1487'> +4.0326761e-01 </wgt>
+<wgt id='1488'> +4.0394563e-01 </wgt>
+<wgt id='1489'> +4.0269205e-01 </wgt>
+<wgt id='1490'> +4.0036817e-01 </wgt>
+<wgt id='1491'> +4.0562188e-01 </wgt>
+<wgt id='1492'> +4.0382446e-01 </wgt>
+<wgt id='1493'> +4.0809679e-01 </wgt>
+<wgt id='1494'> +4.0870262e-01 </wgt>
+<wgt id='1495'> +4.0521567e-01 </wgt>
+<wgt id='1496'> +4.0824240e-01 </wgt>
+<wgt id='1497'> +4.0467849e-01 </wgt>
+<wgt id='1498'> +4.0846969e-01 </wgt>
+<wgt id='1499'> +4.0778119e-01 </wgt>
+<wgt id='1500'> +4.0833862e-01 </wgt>
+<wgt id='1501'> +4.0227555e-01 </wgt>
+<wgt id='1502'> +4.0915821e-01 </wgt>
+<wgt id='1503'> +4.0708547e-01 </wgt>
+<wgt id='1504'> +4.0916506e-01 </wgt>
+<wgt id='1505'> +4.0891664e-01 </wgt>
+<wgt id='1506'> +4.0813818e-01 </wgt>
+<wgt id='1507'> +4.0867212e-01 </wgt>
+<wgt id='1508'> +4.0842081e-01 </wgt>
+<wgt id='1509'> +4.0929308e-01 </wgt>
+<wgt id='1510'> +4.0808574e-01 </wgt>
+<wgt id='1511'> +4.1297632e-01 </wgt>
+<wgt id='1512'> +4.0822198e-01 </wgt>
+<wgt id='1513'> +4.0863677e-01 </wgt>
+<wgt id='1514'> +4.0769561e-01 </wgt>
+<wgt id='1515'> +4.0794639e-01 </wgt>
+<wgt id='1516'> +4.0785719e-01 </wgt>
+<wgt id='1517'> +4.0821407e-01 </wgt>
+<wgt id='1518'> +4.0820949e-01 </wgt>
+<wgt id='1519'> +4.0757773e-01 </wgt>
+<wgt id='1520'> +4.0836849e-01 </wgt>
+<wgt id='1521'> +4.0764561e-01 </wgt>
+<wgt id='1522'> +4.0773499e-01 </wgt>
+<wgt id='1523'> +4.0950571e-01 </wgt>
+<wgt id='1524'> +4.0763247e-01 </wgt>
+<wgt id='1525'> +4.0798392e-01 </wgt>
+<wgt id='1526'> +4.0813101e-01 </wgt>
+<wgt id='1527'> +4.0835071e-01 </wgt>
+<wgt id='1528'> +4.0801935e-01 </wgt>
+<wgt id='1529'> +4.0887006e-01 </wgt>
+<wgt id='1530'> +4.0829107e-01 </wgt>
+<wgt id='1531'> +4.0804347e-01 </wgt>
+<wgt id='1532'> +4.0979490e-01 </wgt>
+<wgt id='1533'> +4.0806043e-01 </wgt>
+<wgt id='1534'> +4.0623854e-01 </wgt>
+<wgt id='1535'> +4.1065379e-01 </wgt>
+<wgt id='1536'> +4.1799582e-01 </wgt>
+<wgt id='1537'> +4.1783506e-01 </wgt>
+<wgt id='1538'> +4.1854560e-01 </wgt>
+<wgt id='1539'> +4.1799032e-01 </wgt>
+<wgt id='1540'> +4.1790677e-01 </wgt>
+<wgt id='1541'> +4.1745632e-01 </wgt>
+<wgt id='1542'> +4.1838221e-01 </wgt>
+<wgt id='1543'> +4.1828150e-01 </wgt>
+<wgt id='1544'> +4.1707182e-01 </wgt>
+<wgt id='1545'> +4.1861308e-01 </wgt>
+<wgt id='1546'> +4.1745562e-01 </wgt>
+<wgt id='1547'> +4.1752690e-01 </wgt>
+<wgt id='1548'> +4.1784681e-01 </wgt>
+<wgt id='1549'> +4.1822316e-01 </wgt>
+<wgt id='1550'> +4.1866243e-01 </wgt>
+<wgt id='1551'> +4.1824184e-01 </wgt>
+<wgt id='1552'> +4.1704488e-01 </wgt>
+<wgt id='1553'> +4.1835134e-01 </wgt>
+<wgt id='1554'> +4.1832773e-01 </wgt>
+<wgt id='1555'> +4.1735336e-01 </wgt>
+<wgt id='1556'> +4.1700001e-01 </wgt>
+<wgt id='1557'> +4.1877900e-01 </wgt>
+<wgt id='1558'> +4.1651025e-01 </wgt>
+<wgt id='1559'> +4.1794924e-01 </wgt>
+<wgt id='1560'> +4.1793811e-01 </wgt>
+<wgt id='1561'> +4.1962634e-01 </wgt>
+<wgt id='1562'> +4.1857621e-01 </wgt>
+<wgt id='1563'> +4.1717512e-01 </wgt>
+<wgt id='1564'> +4.1776539e-01 </wgt>
+<wgt id='1565'> +4.1565510e-01 </wgt>
+<wgt id='1566'> +4.2944320e-01 </wgt>
+</rwgt>
+</event>
+</LesHouchesEvents>

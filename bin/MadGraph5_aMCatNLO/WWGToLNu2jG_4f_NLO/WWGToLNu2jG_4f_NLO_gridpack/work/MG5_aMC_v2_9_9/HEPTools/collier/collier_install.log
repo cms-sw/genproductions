@@ -1,0 +1,179 @@
+mv: cannot stat ‘COLLIER-*’: No such file or directory
+Decompressing COLLIER
+COLLIER-1.2.7/
+COLLIER-1.2.7/config/
+COLLIER-1.2.7/config/CMakeCheckCompilerFlagCommonPatterns.cmake
+COLLIER-1.2.7/config/CheckFortranCompilerFlag.cmake
+COLLIER-1.2.7/config/PackageConfigVersion.cmake.in
+COLLIER-1.2.7/config/PackageConfigInstall.cmake
+COLLIER-1.2.7/config/CMakeUninstall.cmake.in
+COLLIER-1.2.7/config/CheckFortranSourceCompiles.cmake
+COLLIER-1.2.7/config/PackageConfig.cmake.in
+COLLIER-1.2.7/makefile_basic
+COLLIER-1.2.7/manual/
+COLLIER-1.2.7/manual/collier.tex
+COLLIER-1.2.7/manual/collier.pdf
+COLLIER-1.2.7/manual/collier.bib
+COLLIER-1.2.7/COPYING
+COLLIER-1.2.7/CMakeLists.txt
+COLLIER-1.2.7/demos/
+COLLIER-1.2.7/demos/democache.f90
+COLLIER-1.2.7/demos/demo.f90
+COLLIER-1.2.7/modules/
+COLLIER-1.2.7/src/
+COLLIER-1.2.7/src/COLLIER.F90~
+COLLIER-1.2.7/src/tensors/
+COLLIER-1.2.7/src/tensors/TensorReduction.F90
+COLLIER-1.2.7/src/tensors/BuildTensors.F90
+COLLIER-1.2.7/src/tensors/InitTensors.F90
+COLLIER-1.2.7/src/collier_aux.F90
+COLLIER-1.2.7/src/collier_init.F90
+COLLIER-1.2.7/src/collier_coefs.F90
+COLLIER-1.2.7/src/collier_tensors.F90
+COLLIER-1.2.7/src/collier_global.F90
+COLLIER-1.2.7/src/COLLIER.F90
+COLLIER-1.2.7/src/DDlib/
+COLLIER-1.2.7/src/DDlib/DD_global.F90
+COLLIER-1.2.7/src/DDlib/DD_aux.F
+COLLIER-1.2.7/src/DDlib/DD_6pt.F
+COLLIER-1.2.7/src/DDlib/DD_5pt.F
+COLLIER-1.2.7/src/DDlib/DD_2pt.F
+COLLIER-1.2.7/src/DDlib/DD_to_COLLIER.F
+COLLIER-1.2.7/src/DDlib/makefile
+COLLIER-1.2.7/src/DDlib/DD_3pt.F
+COLLIER-1.2.7/src/DDlib/DD_4pt.F
+COLLIER-1.2.7/src/Aux/
+COLLIER-1.2.7/src/Aux/Combinatorics.F90
+COLLIER-1.2.7/src/Aux/cache.F90
+COLLIER-1.2.7/src/Aux/master.F90
+COLLIER-1.2.7/src/COLI/
+COLLIER-1.2.7/src/COLI/coli_stat.F90
+COLLIER-1.2.7/src/COLI/global_coli.h
+COLLIER-1.2.7/src/COLI/common_coli.h
+COLLIER-1.2.7/src/COLI/interfaceAD.F90
+COLLIER-1.2.7/src/COLI/coli_d0reg.F
+COLLIER-1.2.7/src/COLI/checkparams_coli.h
+COLLIER-1.2.7/src/COLI/reductionD.F90
+COLLIER-1.2.7/src/COLI/reductionC.F90
+COLLIER-1.2.7/src/COLI/reductionAB.F90
+COLLIER-1.2.7/src/COLI/params_coli.h
+COLLIER-1.2.7/src/COLI/coli_d0.F
+COLLIER-1.2.7/src/COLI/coli_c0.F
+COLLIER-1.2.7/src/COLI/reductionEFG.F90
+COLLIER-1.2.7/src/COLI/coli_aux2.F90
+COLLIER-1.2.7/src/COLI/coli_b0.F
+COLLIER-1.2.7/src/COLI/coli_aux.F
+COLLIER-1.2.7/src/COLI/reductionTN.F90
+COLLIER-1.2.7/build/
+Enter COLLIER directory and installing COLLIER
+-- The C compiler identification is GNU 10.3.0
+-- The CXX compiler identification is GNU 10.3.0
+-- Check for working C compiler: /cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/cc
+-- Check for working C compiler: /cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/cc -- works
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working CXX compiler: /cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/g++
+-- Check for working CXX compiler: /cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/g++ -- works
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- The Fortran compiler identification is GNU
+-- Check for working Fortran compiler: /cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/gfortran
+-- Check for working Fortran compiler: /cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/gfortran  -- works
+-- Detecting Fortran compiler ABI info
+-- Detecting Fortran compiler ABI info - done
+-- Checking whether /cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/gfortran supports Fortran 90
+-- Checking whether /cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/gfortran supports Fortran 90 -- yes
+Using Fortran compiler: gfortran
+Build type: Release
+Collier:  Fortran compiler  = gfortran
+          Fortran flags    = -ffixed-line-length-132  -fno-default-integer-8 -O2 -funroll-loops -ffast-math -Wtabs
+
+Building COLLIER as static library
+Collier install include prefix: /usr/local/include
+Collier install library prefix: /usr/local/lib
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /afs/cern.ch/work/s/sverma/genproductions/bin/MadGraph5_aMCatNLO/WWGToLNu2jG_4f_NLO/WWGToLNu2jG_4f_NLO_gridpack/work/MG5_aMC_v2_9_9/HEPTools/collier/COLLIER-1.2.7/build
+make[1]: Entering directory '/afs/cern.ch/work/s/sverma/genproductions/bin/MadGraph5_aMCatNLO/WWGToLNu2jG_4f_NLO/WWGToLNu2jG_4f_NLO_gridpack/work/MG5_aMC_v2_9_9/HEPTools/collier/COLLIER-1.2.7/build'
+make[2]: Entering directory '/afs/cern.ch/work/s/sverma/genproductions/bin/MadGraph5_aMCatNLO/WWGToLNu2jG_4f_NLO/WWGToLNu2jG_4f_NLO_gridpack/work/MG5_aMC_v2_9_9/HEPTools/collier/COLLIER-1.2.7/build'
+Scanning dependencies of target collier
+make[2]: Leaving directory '/afs/cern.ch/work/s/sverma/genproductions/bin/MadGraph5_aMCatNLO/WWGToLNu2jG_4f_NLO/WWGToLNu2jG_4f_NLO_gridpack/work/MG5_aMC_v2_9_9/HEPTools/collier/COLLIER-1.2.7/build'
+make[2]: Entering directory '/afs/cern.ch/work/s/sverma/genproductions/bin/MadGraph5_aMCatNLO/WWGToLNu2jG_4f_NLO/WWGToLNu2jG_4f_NLO_gridpack/work/MG5_aMC_v2_9_9/HEPTools/collier/COLLIER-1.2.7/build'
+make[3]: Entering directory '/afs/cern.ch/work/s/sverma/genproductions/bin/MadGraph5_aMCatNLO/WWGToLNu2jG_4f_NLO/WWGToLNu2jG_4f_NLO_gridpack/work/MG5_aMC_v2_9_9/HEPTools/collier/COLLIER-1.2.7/build'
+[  3%] Building Fortran object CMakeFiles/collier.dir/src/collier_global.F90.o
+make[3]: Leaving directory '/afs/cern.ch/work/s/sverma/genproductions/bin/MadGraph5_aMCatNLO/WWGToLNu2jG_4f_NLO/WWGToLNu2jG_4f_NLO_gridpack/work/MG5_aMC_v2_9_9/HEPTools/collier/COLLIER-1.2.7/build'
+make[3]: Entering directory '/afs/cern.ch/work/s/sverma/genproductions/bin/MadGraph5_aMCatNLO/WWGToLNu2jG_4f_NLO/WWGToLNu2jG_4f_NLO_gridpack/work/MG5_aMC_v2_9_9/HEPTools/collier/COLLIER-1.2.7/build'
+[  6%] Building Fortran object CMakeFiles/collier.dir/src/Aux/Combinatorics.F90.o
+make[3]: Leaving directory '/afs/cern.ch/work/s/sverma/genproductions/bin/MadGraph5_aMCatNLO/WWGToLNu2jG_4f_NLO/WWGToLNu2jG_4f_NLO_gridpack/work/MG5_aMC_v2_9_9/HEPTools/collier/COLLIER-1.2.7/build'
+make[3]: Entering directory '/afs/cern.ch/work/s/sverma/genproductions/bin/MadGraph5_aMCatNLO/WWGToLNu2jG_4f_NLO/WWGToLNu2jG_4f_NLO_gridpack/work/MG5_aMC_v2_9_9/HEPTools/collier/COLLIER-1.2.7/build'
+[  9%] Building Fortran object CMakeFiles/collier.dir/src/Aux/master.F90.o
+make[3]: Leaving directory '/afs/cern.ch/work/s/sverma/genproductions/bin/MadGraph5_aMCatNLO/WWGToLNu2jG_4f_NLO/WWGToLNu2jG_4f_NLO_gridpack/work/MG5_aMC_v2_9_9/HEPTools/collier/COLLIER-1.2.7/build'
+make[3]: Entering directory '/afs/cern.ch/work/s/sverma/genproductions/bin/MadGraph5_aMCatNLO/WWGToLNu2jG_4f_NLO/WWGToLNu2jG_4f_NLO_gridpack/work/MG5_aMC_v2_9_9/HEPTools/collier/COLLIER-1.2.7/build'
+[ 12%] Building Fortran object CMakeFiles/collier.dir/src/COLI/coli_aux2.F90.o
+make[3]: Leaving directory '/afs/cern.ch/work/s/sverma/genproductions/bin/MadGraph5_aMCatNLO/WWGToLNu2jG_4f_NLO/WWGToLNu2jG_4f_NLO_gridpack/work/MG5_aMC_v2_9_9/HEPTools/collier/COLLIER-1.2.7/build'
+make[3]: Entering directory '/afs/cern.ch/work/s/sverma/genproductions/bin/MadGraph5_aMCatNLO/WWGToLNu2jG_4f_NLO/WWGToLNu2jG_4f_NLO_gridpack/work/MG5_aMC_v2_9_9/HEPTools/collier/COLLIER-1.2.7/build'
+[ 15%] Building Fortran object CMakeFiles/collier.dir/src/COLI/coli_stat.F90.o
+make[3]: Leaving directory '/afs/cern.ch/work/s/sverma/genproductions/bin/MadGraph5_aMCatNLO/WWGToLNu2jG_4f_NLO/WWGToLNu2jG_4f_NLO_gridpack/work/MG5_aMC_v2_9_9/HEPTools/collier/COLLIER-1.2.7/build'
+make[3]: Entering directory '/afs/cern.ch/work/s/sverma/genproductions/bin/MadGraph5_aMCatNLO/WWGToLNu2jG_4f_NLO/WWGToLNu2jG_4f_NLO_gridpack/work/MG5_aMC_v2_9_9/HEPTools/collier/COLLIER-1.2.7/build'
+[ 18%] Building Fortran object CMakeFiles/collier.dir/src/collier_aux.F90.o
+make[3]: Leaving directory '/afs/cern.ch/work/s/sverma/genproductions/bin/MadGraph5_aMCatNLO/WWGToLNu2jG_4f_NLO/WWGToLNu2jG_4f_NLO_gridpack/work/MG5_aMC_v2_9_9/HEPTools/collier/COLLIER-1.2.7/build'
+make[3]: Entering directory '/afs/cern.ch/work/s/sverma/genproductions/bin/MadGraph5_aMCatNLO/WWGToLNu2jG_4f_NLO/WWGToLNu2jG_4f_NLO_gridpack/work/MG5_aMC_v2_9_9/HEPTools/collier/COLLIER-1.2.7/build'
+[ 21%] Building Fortran object CMakeFiles/collier.dir/src/Aux/cache.F90.o
+make[3]: Leaving directory '/afs/cern.ch/work/s/sverma/genproductions/bin/MadGraph5_aMCatNLO/WWGToLNu2jG_4f_NLO/WWGToLNu2jG_4f_NLO_gridpack/work/MG5_aMC_v2_9_9/HEPTools/collier/COLLIER-1.2.7/build'
+make[3]: Entering directory '/afs/cern.ch/work/s/sverma/genproductions/bin/MadGraph5_aMCatNLO/WWGToLNu2jG_4f_NLO/WWGToLNu2jG_4f_NLO_gridpack/work/MG5_aMC_v2_9_9/HEPTools/collier/COLLIER-1.2.7/build'
+[ 25%] Building Fortran object CMakeFiles/collier.dir/src/tensors/InitTensors.F90.o
+make[3]: Leaving directory '/afs/cern.ch/work/s/sverma/genproductions/bin/MadGraph5_aMCatNLO/WWGToLNu2jG_4f_NLO/WWGToLNu2jG_4f_NLO_gridpack/work/MG5_aMC_v2_9_9/HEPTools/collier/COLLIER-1.2.7/build'
+make[3]: Entering directory '/afs/cern.ch/work/s/sverma/genproductions/bin/MadGraph5_aMCatNLO/WWGToLNu2jG_4f_NLO/WWGToLNu2jG_4f_NLO_gridpack/work/MG5_aMC_v2_9_9/HEPTools/collier/COLLIER-1.2.7/build'
+[ 28%] Building Fortran object CMakeFiles/collier.dir/src/collier_init.F90.o
+make[3]: Leaving directory '/afs/cern.ch/work/s/sverma/genproductions/bin/MadGraph5_aMCatNLO/WWGToLNu2jG_4f_NLO/WWGToLNu2jG_4f_NLO_gridpack/work/MG5_aMC_v2_9_9/HEPTools/collier/COLLIER-1.2.7/build'
+make[3]: Entering directory '/afs/cern.ch/work/s/sverma/genproductions/bin/MadGraph5_aMCatNLO/WWGToLNu2jG_4f_NLO/WWGToLNu2jG_4f_NLO_gridpack/work/MG5_aMC_v2_9_9/HEPTools/collier/COLLIER-1.2.7/build'
+[ 31%] Building Fortran object CMakeFiles/collier.dir/src/COLI/reductionAB.F90.o
+make[3]: Leaving directory '/afs/cern.ch/work/s/sverma/genproductions/bin/MadGraph5_aMCatNLO/WWGToLNu2jG_4f_NLO/WWGToLNu2jG_4f_NLO_gridpack/work/MG5_aMC_v2_9_9/HEPTools/collier/COLLIER-1.2.7/build'
+make[3]: Entering directory '/afs/cern.ch/work/s/sverma/genproductions/bin/MadGraph5_aMCatNLO/WWGToLNu2jG_4f_NLO/WWGToLNu2jG_4f_NLO_gridpack/work/MG5_aMC_v2_9_9/HEPTools/collier/COLLIER-1.2.7/build'
+[ 34%] Building Fortran object CMakeFiles/collier.dir/src/COLI/reductionC.F90.o
+make[3]: Leaving directory '/afs/cern.ch/work/s/sverma/genproductions/bin/MadGraph5_aMCatNLO/WWGToLNu2jG_4f_NLO/WWGToLNu2jG_4f_NLO_gridpack/work/MG5_aMC_v2_9_9/HEPTools/collier/COLLIER-1.2.7/build'
+make[3]: Entering directory '/afs/cern.ch/work/s/sverma/genproductions/bin/MadGraph5_aMCatNLO/WWGToLNu2jG_4f_NLO/WWGToLNu2jG_4f_NLO_gridpack/work/MG5_aMC_v2_9_9/HEPTools/collier/COLLIER-1.2.7/build'
+[ 37%] Building Fortran object CMakeFiles/collier.dir/src/COLI/reductionD.F90.o
+make[3]: Leaving directory '/afs/cern.ch/work/s/sverma/genproductions/bin/MadGraph5_aMCatNLO/WWGToLNu2jG_4f_NLO/WWGToLNu2jG_4f_NLO_gridpack/work/MG5_aMC_v2_9_9/HEPTools/collier/COLLIER-1.2.7/build'
+make[3]: Entering directory '/afs/cern.ch/work/s/sverma/genproductions/bin/MadGraph5_aMCatNLO/WWGToLNu2jG_4f_NLO/WWGToLNu2jG_4f_NLO_gridpack/work/MG5_aMC_v2_9_9/HEPTools/collier/COLLIER-1.2.7/build'
+[ 40%] Building Fortran object CMakeFiles/collier.dir/src/COLI/reductionEFG.F90.o
+make[3]: Leaving directory '/afs/cern.ch/work/s/sverma/genproductions/bin/MadGraph5_aMCatNLO/WWGToLNu2jG_4f_NLO/WWGToLNu2jG_4f_NLO_gridpack/work/MG5_aMC_v2_9_9/HEPTools/collier/COLLIER-1.2.7/build'
+make[3]: Entering directory '/afs/cern.ch/work/s/sverma/genproductions/bin/MadGraph5_aMCatNLO/WWGToLNu2jG_4f_NLO/WWGToLNu2jG_4f_NLO_gridpack/work/MG5_aMC_v2_9_9/HEPTools/collier/COLLIER-1.2.7/build'
+[ 43%] Building Fortran object CMakeFiles/collier.dir/src/COLI/reductionTN.F90.o
+make[3]: Leaving directory '/afs/cern.ch/work/s/sverma/genproductions/bin/MadGraph5_aMCatNLO/WWGToLNu2jG_4f_NLO/WWGToLNu2jG_4f_NLO_gridpack/work/MG5_aMC_v2_9_9/HEPTools/collier/COLLIER-1.2.7/build'
+make[3]: Entering directory '/afs/cern.ch/work/s/sverma/genproductions/bin/MadGraph5_aMCatNLO/WWGToLNu2jG_4f_NLO/WWGToLNu2jG_4f_NLO_gridpack/work/MG5_aMC_v2_9_9/HEPTools/collier/COLLIER-1.2.7/build'
+[ 46%] Building Fortran object CMakeFiles/collier.dir/src/collier_coefs.F90.o
+make[3]: Leaving directory '/afs/cern.ch/work/s/sverma/genproductions/bin/MadGraph5_aMCatNLO/WWGToLNu2jG_4f_NLO/WWGToLNu2jG_4f_NLO_gridpack/work/MG5_aMC_v2_9_9/HEPTools/collier/COLLIER-1.2.7/build'
+make[3]: Entering directory '/afs/cern.ch/work/s/sverma/genproductions/bin/MadGraph5_aMCatNLO/WWGToLNu2jG_4f_NLO/WWGToLNu2jG_4f_NLO_gridpack/work/MG5_aMC_v2_9_9/HEPTools/collier/COLLIER-1.2.7/build'
+[ 50%] Building Fortran object CMakeFiles/collier.dir/src/tensors/BuildTensors.F90.o
+make[3]: Leaving directory '/afs/cern.ch/work/s/sverma/genproductions/bin/MadGraph5_aMCatNLO/WWGToLNu2jG_4f_NLO/WWGToLNu2jG_4f_NLO_gridpack/work/MG5_aMC_v2_9_9/HEPTools/collier/COLLIER-1.2.7/build'
+make[3]: Entering directory '/afs/cern.ch/work/s/sverma/genproductions/bin/MadGraph5_aMCatNLO/WWGToLNu2jG_4f_NLO/WWGToLNu2jG_4f_NLO_gridpack/work/MG5_aMC_v2_9_9/HEPTools/collier/COLLIER-1.2.7/build'
+[ 53%] Building Fortran object CMakeFiles/collier.dir/src/tensors/TensorReduction.F90.o
+make[3]: Leaving directory '/afs/cern.ch/work/s/sverma/genproductions/bin/MadGraph5_aMCatNLO/WWGToLNu2jG_4f_NLO/WWGToLNu2jG_4f_NLO_gridpack/work/MG5_aMC_v2_9_9/HEPTools/collier/COLLIER-1.2.7/build'
+make[3]: Entering directory '/afs/cern.ch/work/s/sverma/genproductions/bin/MadGraph5_aMCatNLO/WWGToLNu2jG_4f_NLO/WWGToLNu2jG_4f_NLO_gridpack/work/MG5_aMC_v2_9_9/HEPTools/collier/COLLIER-1.2.7/build'
+[ 56%] Building Fortran object CMakeFiles/collier.dir/src/collier_tensors.F90.o
+make[3]: Leaving directory '/afs/cern.ch/work/s/sverma/genproductions/bin/MadGraph5_aMCatNLO/WWGToLNu2jG_4f_NLO/WWGToLNu2jG_4f_NLO_gridpack/work/MG5_aMC_v2_9_9/HEPTools/collier/COLLIER-1.2.7/build'
+make[3]: Entering directory '/afs/cern.ch/work/s/sverma/genproductions/bin/MadGraph5_aMCatNLO/WWGToLNu2jG_4f_NLO/WWGToLNu2jG_4f_NLO_gridpack/work/MG5_aMC_v2_9_9/HEPTools/collier/COLLIER-1.2.7/build'
+[ 59%] Building Fortran object CMakeFiles/collier.dir/src/DDlib/DD_global.F90.o
+make[3]: Leaving directory '/afs/cern.ch/work/s/sverma/genproductions/bin/MadGraph5_aMCatNLO/WWGToLNu2jG_4f_NLO/WWGToLNu2jG_4f_NLO_gridpack/work/MG5_aMC_v2_9_9/HEPTools/collier/COLLIER-1.2.7/build'
+make[2]: Leaving directory '/afs/cern.ch/work/s/sverma/genproductions/bin/MadGraph5_aMCatNLO/WWGToLNu2jG_4f_NLO/WWGToLNu2jG_4f_NLO_gridpack/work/MG5_aMC_v2_9_9/HEPTools/collier/COLLIER-1.2.7/build'
+make[2]: Entering directory '/afs/cern.ch/work/s/sverma/genproductions/bin/MadGraph5_aMCatNLO/WWGToLNu2jG_4f_NLO/WWGToLNu2jG_4f_NLO_gridpack/work/MG5_aMC_v2_9_9/HEPTools/collier/COLLIER-1.2.7/build'
+[ 62%] Building Fortran object CMakeFiles/collier.dir/src/COLLIER.F90.o
+[ 65%] Building Fortran object CMakeFiles/collier.dir/src/COLI/coli_b0.F.o
+[ 68%] Building Fortran object CMakeFiles/collier.dir/src/COLI/coli_d0.F.o
+[ 71%] Building Fortran object CMakeFiles/collier.dir/src/COLI/coli_d0reg.F.o
+[ 75%] Building Fortran object CMakeFiles/collier.dir/src/COLI/coli_aux.F.o
+[ 78%] Building Fortran object CMakeFiles/collier.dir/src/COLI/coli_c0.F.o
+[ 81%] Building Fortran object CMakeFiles/collier.dir/src/DDlib/DD_aux.F.o
+[ 84%] Building Fortran object CMakeFiles/collier.dir/src/DDlib/DD_5pt.F.o
+[ 87%] Building Fortran object CMakeFiles/collier.dir/src/DDlib/DD_6pt.F.o
+[ 90%] Building Fortran object CMakeFiles/collier.dir/src/DDlib/DD_3pt.F.o
+[ 93%] Building Fortran object CMakeFiles/collier.dir/src/DDlib/DD_to_COLLIER.F.o
+[ 96%] Building Fortran object CMakeFiles/collier.dir/src/DDlib/DD_2pt.F.o
+[100%] Building Fortran object CMakeFiles/collier.dir/src/DDlib/DD_4pt.F.o
+Linking Fortran static library ../libcollier.a
+make[2]: Leaving directory '/afs/cern.ch/work/s/sverma/genproductions/bin/MadGraph5_aMCatNLO/WWGToLNu2jG_4f_NLO/WWGToLNu2jG_4f_NLO_gridpack/work/MG5_aMC_v2_9_9/HEPTools/collier/COLLIER-1.2.7/build'
+[100%] Built target collier
+make[1]: Leaving directory '/afs/cern.ch/work/s/sverma/genproductions/bin/MadGraph5_aMCatNLO/WWGToLNu2jG_4f_NLO/WWGToLNu2jG_4f_NLO_gridpack/work/MG5_aMC_v2_9_9/HEPTools/collier/COLLIER-1.2.7/build'
+Copying the static library and modules generated to target directory
+Finished installing COLLIER

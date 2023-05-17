@@ -1,0 +1,9 @@
+{
+  "RUNTIME": {
+    "INTEL_LICENSE_FILE": [
+      "28518@lxlicen01.cern.ch,28518@lxlicen02.cern.ch,28518@lxlicen03.cern.ch"
+    ]
+  },
+  "TOOLNAME": "intel-license",
+  "TOOLVERSION": "2020-140361d19d6a2a288854baa96da3cda5"
+}

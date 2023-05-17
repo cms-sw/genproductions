@@ -1,0 +1,76 @@
+
+   --------------------------------------------------------------
+      Summary:
+      Process p p > lep nu w a [QCD] @0
+      Run at p-p collider (6800.0 + 6800.0 GeV)
+      Number of events generated: 1
+      Total cross section: 7.353e-03 +- 6.8e-05 pb
+   --------------------------------------------------------------
+
+
+
+  Statistics on virtual integration optimization : 
+  Could not find statistics on the integration optimization. 
+
+  Inclusive timing profile :
+    Overall slowest channel          0:00:00 (P0_uux_epvewma/GF25 [step 2])
+    Average channel running time     0:00:00
+    Aggregated total running time    0:00:00
+  Timing profile for <Other_tasks> :
+    Overall fraction of time         42.456 %
+    Largest fraction of time         42.456 % (P0_uux_epvewma/GF25 [step 2])
+    Smallest fraction of time        42.456 % (P0_uux_epvewma/GF25 [step 2])
+  Timing profile for <Reals_evaluation> :
+    Overall fraction of time         16.803 %
+    Largest fraction of time         16.803 % (P0_uux_epvewma/GF25 [step 2])
+    Smallest fraction of time        16.803 % (P0_uux_epvewma/GF25 [step 2])
+  Timing profile for <Nbody_prefactor> :
+    Overall fraction of time         14.750 %
+    Largest fraction of time         14.750 % (P0_uux_epvewma/GF25 [step 2])
+    Smallest fraction of time        14.750 % (P0_uux_epvewma/GF25 [step 2])
+  Timing profile for <MCsubtraction> :
+    Overall fraction of time         9.993 %
+    Largest fraction of time         9.993 % (P0_uux_epvewma/GF25 [step 2])
+    Smallest fraction of time        9.993 % (P0_uux_epvewma/GF25 [step 2])
+  Timing profile for <Counter_terms> :
+    Overall fraction of time         6.521 %
+    Largest fraction of time         6.521 % (P0_uux_epvewma/GF25 [step 2])
+    Smallest fraction of time        6.521 % (P0_uux_epvewma/GF25 [step 2])
+  Timing profile for <N1body_prefactor> :
+    Overall fraction of time         3.555 %
+    Largest fraction of time         3.555 % (P0_uux_epvewma/GF25 [step 2])
+    Smallest fraction of time        3.555 % (P0_uux_epvewma/GF25 [step 2])
+  Timing profile for <Born> :
+    Overall fraction of time         2.982 %
+    Largest fraction of time         2.982 % (P0_uux_epvewma/GF25 [step 2])
+    Smallest fraction of time        2.982 % (P0_uux_epvewma/GF25 [step 2])
+  Timing profile for <Applying_cuts> :
+    Overall fraction of time         1.574 %
+    Largest fraction of time         1.574 % (P0_uux_epvewma/GF25 [step 2])
+    Smallest fraction of time        1.574 % (P0_uux_epvewma/GF25 [step 2])
+  Timing profile for <Write_events> :
+    Overall fraction of time         0.628 %
+    Largest fraction of time         0.628 % (P0_uux_epvewma/GF25 [step 2])
+    Smallest fraction of time        0.628 % (P0_uux_epvewma/GF25 [step 2])
+  Timing profile for <Adding_alphas_pdf> :
+    Overall fraction of time         0.392 %
+    Largest fraction of time         0.392 % (P0_uux_epvewma/GF25 [step 2])
+    Smallest fraction of time        0.392 % (P0_uux_epvewma/GF25 [step 2])
+  Timing profile for <Integrated_CT> :
+    Overall fraction of time         0.277 %
+    Largest fraction of time         0.277 % (P0_uux_epvewma/GF25 [step 2])
+    Smallest fraction of time        0.277 % (P0_uux_epvewma/GF25 [step 2])
+  Timing profile for <Sum_ident_contr> :
+    Overall fraction of time         0.069 %
+    Largest fraction of time         0.069 % (P0_uux_epvewma/GF25 [step 2])
+    Smallest fraction of time        0.069 % (P0_uux_epvewma/GF25 [step 2])
+  Timing profile for <Pick_unwgt> :
+    Overall fraction of time         0.001 %
+    Largest fraction of time         0.001 % (P0_uux_epvewma/GF25 [step 2])
+    Smallest fraction of time        0.001 % (P0_uux_epvewma/GF25 [step 2])
+  Zero time record for PS_Generation.
+  Zero time record for Virtuals.
+  Zero time record for FxFx_cluster.
+  Zero time record for Reweight_scale.
+  Zero time record for Reweight_pdf.
+  Zero time record for Filling_plots.

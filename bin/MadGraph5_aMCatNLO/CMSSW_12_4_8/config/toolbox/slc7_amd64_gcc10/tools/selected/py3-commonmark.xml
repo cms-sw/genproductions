@@ -1,0 +1,6 @@
+<tool name="py3-commonmark" version="0.9.1-4d6a6dae77fd1a2dca420cd2322d93e1">
+  <client>
+    <environment name="PY3_COMMONMARK_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-commonmark/0.9.1-4d6a6dae77fd1a2dca420cd2322d93e1"/>
+  </client>
+  <runtime name="PATH" value="$PY3_COMMONMARK_BASE/bin" type="path"/>
+</tool>

@@ -1,0 +1,191 @@
+      SUBROUTINE LOOP_CT_CALLS_1(P,NHEL,H,IC)
+C     
+C     Modules
+C     
+      USE POLYNOMIAL_CONSTANTS
+C     
+      IMPLICIT NONE
+C     
+C     CONSTANTS
+C     
+      INTEGER    NEXTERNAL
+      PARAMETER (NEXTERNAL=6)
+      INTEGER    NCOMB
+      PARAMETER (NCOMB=96)
+      INTEGER NBORNAMPS
+      PARAMETER (NBORNAMPS=32)
+      INTEGER    NLOOPS, NLOOPGROUPS, NCTAMPS
+      PARAMETER (NLOOPS=92, NLOOPGROUPS=29, NCTAMPS=70)
+      INTEGER    NLOOPAMPS
+      PARAMETER (NLOOPAMPS=162)
+      INTEGER    NWAVEFUNCS,NLOOPWAVEFUNCS
+      PARAMETER (NWAVEFUNCS=73,NLOOPWAVEFUNCS=133)
+      REAL*8     ZERO
+      PARAMETER (ZERO=0D0)
+      REAL*16     MP__ZERO
+      PARAMETER (MP__ZERO=0.0E0_16)
+C     These are constants related to the split orders
+      INTEGER    NSO, NSQUAREDSO, NAMPSO
+      PARAMETER (NSO=1, NSQUAREDSO=1, NAMPSO=2)
+C     
+C     ARGUMENTS
+C     
+      REAL*8 P(0:3,NEXTERNAL)
+      INTEGER NHEL(NEXTERNAL), IC(NEXTERNAL)
+      INTEGER H
+C     
+C     LOCAL VARIABLES
+C     
+      INTEGER I,J,K
+      COMPLEX*16 COEFS(MAXLWFSIZE,0:VERTEXMAXCOEFS-1,MAXLWFSIZE)
+
+      LOGICAL DUMMYFALSE
+      DATA DUMMYFALSE/.FALSE./
+C     
+C     GLOBAL VARIABLES
+C     
+      INCLUDE 'coupl.inc'
+      INCLUDE 'mp_coupl.inc'
+
+      INTEGER HELOFFSET
+      INTEGER GOODHEL(NCOMB)
+      LOGICAL GOODAMP(NSQUAREDSO,NLOOPGROUPS)
+      COMMON/FILTERS/GOODAMP,GOODHEL,HELOFFSET
+
+      LOGICAL CHECKPHASE
+      LOGICAL HELDOUBLECHECKED
+      COMMON/INIT/CHECKPHASE, HELDOUBLECHECKED
+
+      INTEGER SQSO_TARGET
+      COMMON/SOCHOICE/SQSO_TARGET
+
+      LOGICAL UVCT_REQ_SO_DONE,MP_UVCT_REQ_SO_DONE,CT_REQ_SO_DONE
+     $ ,MP_CT_REQ_SO_DONE,LOOP_REQ_SO_DONE,MP_LOOP_REQ_SO_DONE
+     $ ,CTCALL_REQ_SO_DONE,FILTER_SO
+      COMMON/SO_REQS/UVCT_REQ_SO_DONE,MP_UVCT_REQ_SO_DONE
+     $ ,CT_REQ_SO_DONE,MP_CT_REQ_SO_DONE,LOOP_REQ_SO_DONE
+     $ ,MP_LOOP_REQ_SO_DONE,CTCALL_REQ_SO_DONE,FILTER_SO
+
+      INTEGER I_SO
+      COMMON/I_SO/I_SO
+      INTEGER I_LIB
+      COMMON/I_LIB/I_LIB
+
+      COMPLEX*16 AMP(NBORNAMPS)
+      COMMON/AMPS/AMP
+      COMPLEX*16 W(20,NWAVEFUNCS)
+      COMMON/W/W
+
+      COMPLEX*16 WL(MAXLWFSIZE,0:LOOPMAXCOEFS-1,MAXLWFSIZE,
+     $ -1:NLOOPWAVEFUNCS)
+      COMPLEX*16 PL(0:3,-1:NLOOPWAVEFUNCS)
+      COMMON/WL/WL,PL
+
+      COMPLEX*16 AMPL(3,NCTAMPS)
+      COMMON/AMPL/AMPL
+
+C     
+C     ----------
+C     BEGIN CODE
+C     ----------
+
+C     The target squared split order contribution is already reached
+C      if true.
+      IF (FILTER_SO.AND.CTCALL_REQ_SO_DONE) THEN
+        GOTO 1001
+      ENDIF
+
+C     CutTools call for loop numbers 1,5,7,12
+      CALL LOOP_2(18,30,DCMPLX(ZERO),DCMPLX(ZERO),1,I_SO,1)
+C     CutTools call for loop numbers 2
+      CALL LOOP_3(8,18,19,DCMPLX(ZERO),DCMPLX(ZERO),DCMPLX(ZERO),2
+     $ ,I_SO,2)
+C     CutTools call for loop numbers 3,13,19
+      CALL LOOP_2(31,21,DCMPLX(ZERO),DCMPLX(ZERO),1,I_SO,3)
+C     CutTools call for loop numbers 4,14,20
+      CALL LOOP_3(2,8,21,DCMPLX(ZERO),DCMPLX(ZERO),DCMPLX(ZERO),2,I_SO
+     $ ,4)
+C     CutTools call for loop numbers 6,11
+      CALL LOOP_3(2,18,33,DCMPLX(ZERO),DCMPLX(ZERO),DCMPLX(ZERO),2
+     $ ,I_SO,5)
+C     CutTools call for loop numbers 8
+      CALL LOOP_4(2,6,8,18,DCMPLX(ZERO),DCMPLX(ZERO),DCMPLX(ZERO)
+     $ ,DCMPLX(ZERO),3,I_SO,6)
+C     CutTools call for loop numbers 9
+      CALL LOOP_3(6,18,31,DCMPLX(ZERO),DCMPLX(ZERO),DCMPLX(ZERO),2
+     $ ,I_SO,7)
+C     CutTools call for loop numbers 10
+      CALL LOOP_4(2,8,6,18,DCMPLX(ZERO),DCMPLX(ZERO),DCMPLX(ZERO)
+     $ ,DCMPLX(ZERO),3,I_SO,8)
+C     CutTools call for loop numbers 15
+      CALL LOOP_3(5,22,31,DCMPLX(ZERO),DCMPLX(ZERO),DCMPLX(ZERO),2
+     $ ,I_SO,9)
+C     CutTools call for loop numbers 16
+      CALL LOOP_4(2,8,5,22,DCMPLX(ZERO),DCMPLX(ZERO),DCMPLX(ZERO)
+     $ ,DCMPLX(ZERO),3,I_SO,10)
+C     CutTools call for loop numbers 17,23,25,32
+      CALL LOOP_3(1,5,30,DCMPLX(ZERO),DCMPLX(ZERO),DCMPLX(ZERO),2,I_SO
+     $ ,11)
+C     CutTools call for loop numbers 18
+      CALL LOOP_4(1,5,8,19,DCMPLX(ZERO),DCMPLX(ZERO),DCMPLX(ZERO)
+     $ ,DCMPLX(ZERO),3,I_SO,12)
+C     CutTools call for loop numbers 21
+      CALL LOOP_3(1,12,31,DCMPLX(ZERO),DCMPLX(ZERO),DCMPLX(ZERO),2
+     $ ,I_SO,13)
+C     CutTools call for loop numbers 22
+      CALL LOOP_4(1,2,8,12,DCMPLX(ZERO),DCMPLX(ZERO),DCMPLX(ZERO)
+     $ ,DCMPLX(ZERO),3,I_SO,14)
+C     CutTools call for loop numbers 24,31
+      CALL LOOP_4(1,2,33,5,DCMPLX(ZERO),DCMPLX(ZERO),DCMPLX(ZERO)
+     $ ,DCMPLX(ZERO),3,I_SO,15)
+C     CutTools call for loop numbers 26
+      CALL LOOP_5(1,2,6,8,5,DCMPLX(ZERO),DCMPLX(ZERO),DCMPLX(ZERO)
+     $ ,DCMPLX(ZERO),DCMPLX(ZERO),4,I_SO,16)
+C     CutTools call for loop numbers 27
+      CALL LOOP_4(1,6,5,31,DCMPLX(ZERO),DCMPLX(ZERO),DCMPLX(ZERO)
+     $ ,DCMPLX(ZERO),3,I_SO,17)
+C     CutTools call for loop numbers 28
+      CALL LOOP_5(1,2,8,5,6,DCMPLX(ZERO),DCMPLX(ZERO),DCMPLX(ZERO)
+     $ ,DCMPLX(ZERO),DCMPLX(ZERO),4,I_SO,18)
+C     CutTools call for loop numbers 29
+      CALL LOOP_4(1,5,6,31,DCMPLX(ZERO),DCMPLX(ZERO),DCMPLX(ZERO)
+     $ ,DCMPLX(ZERO),3,I_SO,19)
+C     CutTools call for loop numbers 30
+      CALL LOOP_5(1,2,8,6,5,DCMPLX(ZERO),DCMPLX(ZERO),DCMPLX(ZERO)
+     $ ,DCMPLX(ZERO),DCMPLX(ZERO),4,I_SO,20)
+C     CutTools call for loop numbers 33,83,84,85,86,87
+      CALL LOOP_2(19,37,DCMPLX(ZERO),DCMPLX(ZERO),1,I_SO,21)
+C     CutTools call for loop numbers 34,88,89,90,91,92
+      CALL LOOP_3(2,6,37,DCMPLX(ZERO),DCMPLX(ZERO),DCMPLX(ZERO),2,I_SO
+     $ ,22)
+C     CutTools call for loop numbers 35,36,37,38,39
+      CALL LOOP_3(2,22,38,DCMPLX(ZERO),DCMPLX(ZERO),DCMPLX(ZERO),2
+     $ ,I_SO,23)
+C     CutTools call for loop numbers 40,41,42,43,44,45
+      CALL LOOP_2(22,43,DCMPLX(ZERO),DCMPLX(ZERO),1,I_SO,24)
+C     CutTools call for loop numbers 46,47,48,49,50
+      CALL LOOP_3(1,19,38,DCMPLX(ZERO),DCMPLX(ZERO),DCMPLX(ZERO),2
+     $ ,I_SO,25)
+C     CutTools call for loop numbers 51,52,64,72,73
+      CALL LOOP_4(1,2,6,38,DCMPLX(ZERO),DCMPLX(ZERO),DCMPLX(ZERO)
+     $ ,DCMPLX(ZERO),3,I_SO,26)
+C     CutTools call for loop numbers
+C      53,54,55,56,57,58,67,68,69,70,71,74,75,80,81,82
+      CALL LOOP_3(1,2,49,DCMPLX(ZERO),DCMPLX(ZERO),DCMPLX(ZERO),2,I_SO
+     $ ,27)
+C     CutTools call for loop numbers 59,60,65,76,77
+      CALL LOOP_4(1,2,38,6,DCMPLX(ZERO),DCMPLX(ZERO),DCMPLX(ZERO)
+     $ ,DCMPLX(ZERO),3,I_SO,28)
+C     CutTools call for loop numbers 61,62,63,66,78,79
+      CALL LOOP_3(1,6,43,DCMPLX(ZERO),DCMPLX(ZERO),DCMPLX(ZERO),2,I_SO
+     $ ,29)
+C     At this point, all reductions needed for (QCD=2), i.e. of split
+C      order ID=1, are computed.
+      IF(FILTER_SO.AND.SQSO_TARGET.EQ.1) GOTO 5000
+
+      GOTO 1001
+ 5000 CONTINUE
+      CTCALL_REQ_SO_DONE=.TRUE.
+ 1001 CONTINUE
+      END
+

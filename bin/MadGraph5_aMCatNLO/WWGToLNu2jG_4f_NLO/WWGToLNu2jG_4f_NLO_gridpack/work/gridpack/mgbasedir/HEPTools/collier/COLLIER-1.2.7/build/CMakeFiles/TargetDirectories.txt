@@ -1,0 +1,4 @@
+/afs/cern.ch/work/s/sverma/genproductions/bin/MadGraph5_aMCatNLO/WWGToLNu2jG_4f_NLO/WWGToLNu2jG_4f_NLO_gridpack/work/MG5_aMC_v2_9_9/HEPTools/collier/COLLIER-1.2.7/build/CMakeFiles/collier.dir
+/afs/cern.ch/work/s/sverma/genproductions/bin/MadGraph5_aMCatNLO/WWGToLNu2jG_4f_NLO/WWGToLNu2jG_4f_NLO_gridpack/work/MG5_aMC_v2_9_9/HEPTools/collier/COLLIER-1.2.7/build/CMakeFiles/demo.dir
+/afs/cern.ch/work/s/sverma/genproductions/bin/MadGraph5_aMCatNLO/WWGToLNu2jG_4f_NLO/WWGToLNu2jG_4f_NLO_gridpack/work/MG5_aMC_v2_9_9/HEPTools/collier/COLLIER-1.2.7/build/CMakeFiles/democache.dir
+/afs/cern.ch/work/s/sverma/genproductions/bin/MadGraph5_aMCatNLO/WWGToLNu2jG_4f_NLO/WWGToLNu2jG_4f_NLO_gridpack/work/MG5_aMC_v2_9_9/HEPTools/collier/COLLIER-1.2.7/build/CMakeFiles/uninstall.dir

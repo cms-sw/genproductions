@@ -1,0 +1,12 @@
+{
+  "FC": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/gfortran",
+  "SCRAM_COMPILER": 1,
+  "TOOLNAME": "llvm-f77compiler",
+  "TOOLVERSION": "12.0.1-dd4c586a5bebc335346bb0e879f6f0aa",
+  "USE": [
+    "gcc-f77compiler"
+  ],
+  "VARIABLES": [
+    "FC"
+  ]
+}

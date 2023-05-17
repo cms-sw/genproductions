@@ -1,0 +1,13 @@
+Author: Tiziano Peraro                                            
+                                                                  
+The algorithm implemented in the library is based on:
+                                                                  
+    P. Mastrolia, E. Mirabella and T. Peraro,                     
+    "Integrand reduction of one-loop scattering amplitudes through
+    Laurent series expansion,"
+    JHEP 1206 (2012) 095  [arXiv:1203.0291 [hep-ph]].             
+
+    T. Peraro,
+    "Ninja: Automated Integrand Reduction via Laurent Expansion for
+    One-Loop Amplitudes,"
+    Comput. Phys. Commun. 185 (2014) 2771 [arXiv:1403.1229 [hep-ph]]
