@@ -6,5 +6,5 @@ set complex_mass_scheme False
 import model 2HDMtII_NLO 
 
 generate p p > z > z h2  
-output ZHZ_<MASS> -nojpeg
+output ZHtoZhh_mH<MASS> -nojpeg
 
