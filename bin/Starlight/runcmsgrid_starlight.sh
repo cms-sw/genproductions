@@ -1,94 +1,165 @@
-#!/bin/bash
+#!/bin/sh
 
-echo "-------------------"
-echo " Running STARLIGHT "
-echo "-------------------"
+fail_exit() { echo "$@"; exit 1; }
 
-repo=${1}
-echo "%MSG-MG5 repository = $repo"
+read_config(){
+    CollE=$(grep "^COLL_E" ${CONFIG} | cut -d '=' -f 2 | cut -d '#' -f 1 | tr -dc '0-9')
+    Beam1A=$(grep "^BEAM_1_A" ${CONFIG} | cut -d '=' -f 2 | cut -d '#' -f 1 | tr -dc '0-9')
+    Beam1Z=$(grep "^BEAM_1_Z" ${CONFIG} | cut -d '=' -f 2 | cut -d '#' -f 1 | tr -dc '0-9')
+    Beam1G=$(grep "^BEAM_1_GAMMA" ${CONFIG} | cut -d '=' -f 2 | cut -d '#' -f 1 | tr -dc '0-9')
+    Beam2A=$(grep "^BEAM_2_A" ${CONFIG} | cut -d '=' -f 2 | cut -d '#' -f 1 | tr -dc '0-9')
+    Beam2Z=$(grep "^BEAM_2_Z" ${CONFIG} | cut -d '=' -f 2 | cut -d '#' -f 1 | tr -dc '0-9')
+    Beam2G=$(grep "^BEAM_2_GAMMA" ${CONFIG} | cut -d '=' -f 2 | cut -d '#' -f 1 | tr -dc '0-9')
+    GEMin=$(grep "^MIN_GAMMA_ENERGY" ${CONFIG} | cut -d '=' -f 2 | cut -d '#' -f 1 | tr -dc '0-9')
+    GEMax=$(grep "^MAX_GAMMA_ENERGY" ${CONFIG} | cut -d '=' -f 2 | cut -d '#' -f 1 | tr -dc '0-9')
+    ProdM=$(grep "^PROD_MODE" ${CONFIG} | cut -d '=' -f 2 | cut -d '#' -f 1 | tr -dc '0-9')
+    ProdP=$(grep "^PROD_PID" ${CONFIG} | cut -d '=' -f 2 | cut -d '#' -f 1 | tr -dc '0-9')
+}
 
-name=${5}
-echo "%MSG-MG5 gridpack = $name"
+get_beam_energy(){
+    if [ -n "${Beam1G}" ]; then
+        Beam1E=$(echo 0.938272*$Beam1G | bc)
+    fi
+    if [ -n "${Beam2G}" ]; then
+        Beam2E=$(echo 0.938272*$Beam2G | bc)
+    fi
+    if [ -n "${CollE}" ]; then
+        F=$(echo "sqrt(${Beam1A}*${Beam2Z}/${Beam1Z}/${Beam2A})" | bc)
+        Beam1E=$(echo $CollE*$F/2 | bc)
+        Beam2E=$(echo $CollE/$F/2 | bc)
+        Beam1G=$(echo $Beam1E/0.938272 | bc)
+        Beam2G=$(echo $Beam2E/0.938272 | bc)
+    fi
+}
 
-cmsEnergy=${6}
-echo "%MSG-MG5 energy = $cmsEnergy"
+set_starlight_config(){
+    cp ${CONFIG} ${CONFIG}.orig
+    sed -i '/^BEAM_1_GAMMA.*/d' ${CONFIG} ; echo 'BEAM_1_GAMMA = '${Beam1G} >> ${CONFIG}
+    sed -i '/^BEAM_2_GAMMA.*/d' ${CONFIG} ; echo 'BEAM_2_GAMMA = '${Beam2G} >> ${CONFIG}
+    sed -i '/^N_EVENTS.*/d' ${CONFIG} ; echo 'N_EVENTS = '${nevt} >> ${CONFIG}
+    sed -i '/^RND_SEED.*/d' ${CONFIG} ; echo 'RND_SEED = '${rnum} >> ${CONFIG}
+    sed -i '/^PYTHIA_FULL.*/d' ${CONFIG} ; echo 'PYTHIA_FULL_EVENT_RECORD = 0' >> ${CONFIG}
+    sed -i '/^OUTPUT_HEADER.*/d' ${CONFIG} ; echo 'OUTPUT_HEADER = 0' >> ${CONFIG}
+    sed -i '/^baseFileName.*/d' ${CONFIG} ; echo 'baseFileName = slight' >> ${CONFIG}
+}
 
-prodType=${7}
-echo "%MSG-MG5 Using Production mode $prodType"
+set_dpmjet_config(){
+    #Set minimum and maximum photon energies
+    if [ -z "${GEMin}" ]; then
+        GEMin=6.0
+        printf 'MIN_GAMMA_ENERGY = %.1f\n' "${GEMin}" >> ${CONFIG}
+    fi
+    if [ -z "${GEMax}" ]; then
+        GEMax=600000.0
+        printf 'MAX_GAMMA_ENERGY = %.1f\n' "${GEMax}" >> ${CONFIG}
+    fi
+    #Set DPMJET configuration
+    cp ${DPMJETCONFIG} ${DPMJETCONFIG}.orig
+    STR=$(printf 'TARPAR         %.1f      %.1f\r' "${Beam1A}" "${Beam1Z}") ; sed -i "s/^TARPAR.*/${STR}/g" ${DPMJETCONFIG}
+    STR=$(printf 'ENERGY           %.1f  %.1f\r' "${GEMin}" "${GEMax}") ; sed -i "s/^ENERGY.*/${STR}/g" ${DPMJETCONFIG}
+}
 
-nevt=${2}
-echo "%MSG-MG5 number of events requested = $nevt"
+run_starlight(){
+    echo "*** STARTING STARLIGHT PRODUCTION ***"
+    cd ${LHEWORKDIR}/${STARLIGHTDIR}/build
+    if [ "$ProdM" -ge 4 ]; then
+        ./starlight < my.input 2>&1 | tee slight.log; test $? -eq 0 || fail_exit "starlight error: exit code not 0"
+        ${LHEWORKDIR}/macros/convert_SL2LHE slight.out ${Beam1E} ${Beam2E} 0 2>&1 | tee slight.log; test $? -eq 0 || fail_exit "convert_SL2LHE error: exit code not 0"
+        sed -i '/STARLIGHT/a '${DPMJETDIR} slight.lhe
+    else
+        ./starlight 2>&1 | tee slight.log; test $? -eq 0 || fail_exit "starlight error: exit code not 0"
+        ${LHEWORKDIR}/macros/convert_SL2LHE slight.out ${Beam1E} ${Beam2E} ${ProdP} 2>&1 | tee slight.log; test $? -eq 0 || fail_exit "convert_SL2LHE error: exit code not 0"
+    fi
+    sed -i '/STARLIGHT/a '${STARLIGHTDIR} slight.lhe
+    sed -i '/STARLIGHT/r'${CONFIG} slight.lhe
+    mv slight.lhe ${LHEWORKDIR}/cmsgrid_final.lhe
+    echo "***STARLIGHT COMPLETE***"
+}
 
-rnum=${3}
-echo "%MSG-MG5 random seed used for the run = $rnum"
+echo "   ______________________________________     "
+echo "         Running STARlight                    "
+echo "   ______________________________________     "
 
-ncpu=${4}
-echo "%MSG-MG5 number of cpus = $ncpu"
+nevt=${1}
+echo "%MSG-STARLIGHT number of events requested = $nevt"
 
+rnum=${2}
+echo "%MSG-STARLIGHT random seed used for the run = $rnum"
 
-cmsEnergyDiv2=$((cmsEnergy/2))
+ncpu=${3}
+echo "%MSG-STARLIGHT number of cputs for the run = $ncpu"
 
-FILENAME='slightout'
-LHEWORKDIR=`pwd`
+LHEWORKDIR=`pwd -P`
+
 use_gridpack_env=true
-if [ -n "$8" ]
-  then
-  use_gridpack_env=$8
+if [ "$4" = false ]; then
+    use_gridpack_env=$4
 fi
 
-if [ "$use_gridpack_env" = true ]
-  then
-    if [ -n "$9" ]
-      then
-        scram_arch_version=${9}
-      else
+if [ "$use_gridpack_env" = true ]; then
+    if [[ "$5" == *[_]* ]]; then
+        scram_arch_version=${5}
+    else
         scram_arch_version=SCRAM_ARCH_VERSION_REPLACE
     fi
-    echo "%MSG-MG5 SCRAM_ARCH version = $scram_arch_version"
+    echo "%MSG-STARLIGHT SCRAM_ARCH version = $scram_arch_version"
 
-    if [ -n "$10" ]
-      then
-        cmssw_version=${10}
-      else
+    if [[ "$6" == CMSSW_* ]]; then
+        cmssw_version=${6}
+    else
         cmssw_version=CMSSW_VERSION_REPLACE
     fi
-    echo "%MSG-MG5 CMSSW version = $cmssw_version"
+    echo "%MSG-STARLIGHT CMSSW version = $cmssw_version"
+
     export VO_CMS_SW_DIR=/cvmfs/cms.cern.ch
     source $VO_CMS_SW_DIR/cmsset_default.sh
+
+    # Make a directory that doesn't overlap
+    if [[ -d "${CMSSW_BASE}" ]] && [[ "${LHEWORKDIR}" = "${CMSSW_BASE}"/* ]]; then
+        cd ${CMSSW_BASE}/..
+        TPD=${PWD}/lhe1t2m3p
+        [[ ! -d "${TPD}" ]] && mkdir ${TPD}
+        cd ${TPD}
+        echo "Changed to: "${TPD}
+    fi
+
+    eval `scramv1 unsetenv -sh`
     export SCRAM_ARCH=${scram_arch_version}
     scramv1 project CMSSW ${cmssw_version}
     cd ${cmssw_version}/src
     eval `scramv1 runtime -sh`
 fi
+
 cd $LHEWORKDIR
 
-tar xf $repo/$name
+DPMJETDIR=DPMJETDIR_REPLACE
+STARLIGHTDIR=STARLIGHTDIR_REPLACE
+CONFIG=${LHEWORKDIR}/${STARLIGHTDIR}/build/slight.in
+DPMJETCONFIG=${LHEWORKDIR}/${STARLIGHTDIR}/build/my.input
 
-cd starlightTrunk/build
-cat slightTemplateForNextProd.in | sed -e "s#RNDSEED#${rnum}#g" | sed -e "s#NEVT#${nevt}#g" | sed -e "s#B1G#${cmsEnergyDiv2}#g" | sed -e "s#B2G#${cmsEnergyDiv2}#g"  > slight.in
+#Extract parameter settings
+read_config
 
-echo "*** STARTING STARLIGHT PRODUCTION ***"
-if [ $prodType -ge 4 ]; then
-./starlight < my.input &> log_${prodType}_${seed}.txt
-else
-./starlight &> log_${prodType}_${seed}.txt
+#Compute beam energy
+get_beam_energy
+
+#Set STARlight settings
+set_starlight_config
+
+#Set DPMJET settings
+if [ "$ProdM" -ge 4 ]; then
+    set_dpmjet_config
 fi
-#remove the spurious random seed output that is non LHE standard 
-cp slight.out ${LHEWORKDIR}
-cd ${LHEWORKDIR}
-echo "***STARLIGHT COMPLETE***"
 
-#now convert the starlight file to a HepMC file
-#curl https://raw.githubusercontent.com/kurtejung/genproductions/starlight_dev/bin/Starlight/convert_SL2LHE.C > convert_SL2LHE.C
-root -l -b << EOF
-.x convert_SL2LHE.C+(1,"slight.out","FILENAME",$cmsEnergyDiv2,$cmsEnergyDiv2) 
-.q
-EOF
+#Run STARlight generator
+run_starlight
 
-mv FILENAME.lhe $LHEWORKDIR/cmsgrid_final.lhe
-cd $LHEWORKDIR
+#Perform test
+xmllint --stream --noout ${LHEWORKDIR}/cmsgrid_final.lhe > /dev/null 2>&1; test $? -eq 0 || fail_exit "xmllint integrity check failed on cmsgrid_final.lhe"
 
-ls -l
-echo
+#Clean up
+[[ -d "${TPD}" ]] && rm -rf ${TPD}
 
+echo "Output ready with cmsgrid_final.lhe at $LHEWORKDIR"
+echo "End of job on "`date`
 exit 0

@@ -1,0 +1,98 @@
+diff -ruN ./include/lorentzvector.h ../UPDATED/include/lorentzvector.h
+--- ./include/lorentzvector.h	2019-11-20 14:43:10.000000001 +0100
++++ ../UPDATED/include/lorentzvector.h	2023-05-17 17:02:20.000000001 +0200
+@@ -45,6 +45,7 @@
+       
+       lorentzVector();
+       virtual ~lorentzVector();
++      lorentzVector(const lorentzVector&)=default;
+       
+       lorentzVector(double x, double y, double z, double t);
+       
+diff -ruN ./include/reportingUtils.h ../UPDATED/include/reportingUtils.h
+--- ./include/reportingUtils.h	2019-11-20 14:43:10.000000001 +0100
++++ ../UPDATED/include/reportingUtils.h	2023-05-19 13:06:27.000000001 +0200
+@@ -61,7 +61,7 @@
+ 	return prettyFunction;
+ }
+ 
+-#define printErr  std::cerr << "!!! " << __PRETTY_FUNCTION__ << " [" << __FILE__ << ":" << __LINE__ << "]: ERROR: "   << std::flush
++#define printErro std::cerr << "!!! " << __PRETTY_FUNCTION__ << " [" << __FILE__ << ":" << __LINE__ << "]: ERROR: "   << std::flush
+ #define printWarn std::cerr << ">>> " << __PRETTY_FUNCTION__ << " [" << __FILE__ << ":" << __LINE__ << "]: "<<std::endl<<"Warning: " << std::flush 
+ #define printInfo std::cout << ">>> " << getClassMethod__(__PRETTY_FUNCTION__) << "(): Info: "  << std::flush
+ 
+diff -ruN ./include/upcevent.h ../UPDATED/include/upcevent.h
+--- ./include/upcevent.h	2019-11-20 14:43:10.000000001 +0100
++++ ../UPDATED/include/upcevent.h	2023-05-17 17:02:32.000000001 +0200
+@@ -48,6 +48,7 @@
+       upcEvent();
+       upcEvent(starlightConstants::event &ev);
+       ~upcEvent();
++      upcEvent(const upcEvent&)=default;
+ 
+       void addParticle(starlightParticle &part) { _particles.push_back(part); }
+       void addVertex(vector3 &vertex) { _vertices.push_back(vertex); }
+diff -ruN ./include/vector3.h ../UPDATED/include/vector3.h
+--- ./include/vector3.h	2019-11-20 14:43:10.000000001 +0100
++++ ../UPDATED/include/vector3.h	2023-05-17 17:02:26.000000001 +0200
+@@ -46,6 +46,7 @@
+       vector3(double *vec);
+       vector3(double x, double y, double z);
+       virtual ~vector3();
++      vector3(const vector3&)=default;
+       
+       const double* GetVector() const { return _vec; }
+       
+diff -ruN ./src/randomgenerator.cpp ../UPDATED/src/randomgenerator.cpp
+--- ./src/randomgenerator.cpp	2019-11-20 14:43:12.000000001 +0100
++++ ../UPDATED/src/randomgenerator.cpp	2023-05-22 08:34:56.000000001 +0200
+@@ -123,7 +123,7 @@
+    const unsigned int kMatrixA =         0x9908b0df;
+ 
+    if (_count624 >= kN) {
+-      register int i;
++      int i;
+ 
+       for (i=0; i < kN-kM; i++) {
+          y = (_Mt[i] & kUpperMask) | (_Mt[i+1] & kLowerMask);
+diff -ruN ./src/starlight.cpp ../UPDATED/src/starlight.cpp
+--- ./src/starlight.cpp	2019-11-20 14:43:12.000000001 +0100
++++ ../UPDATED/src/starlight.cpp	2023-05-19 13:16:08.000000001 +0200
+@@ -114,16 +114,16 @@
+ 
+ 	// Do some sanity checks of the input parameters here.
+         if( _inputParameters->beam1Z() > _inputParameters->beam1A() ){
+-	  printErr << endl << "A must be >= Z; A beam1 = "<<_inputParameters->beam1A()<<", Z beam1 = "<<_inputParameters->beam1Z()<<". Terminating."<<endl ;
++	  printErro << endl << "A must be >= Z; A beam1 = "<<_inputParameters->beam1A()<<", Z beam1 = "<<_inputParameters->beam1Z()<<". Terminating."<<endl ;
+ 	  return false;
+ 	}
+         if( _inputParameters->beam2Z() > _inputParameters->beam2A() ){
+-	  printErr << endl << "A must be >= Z; A beam2 = "<<_inputParameters->beam2A()<<", Z beam2 = "<<_inputParameters->beam2Z()<<". Terminating."<<endl ;
++	  printErro << endl << "A must be >= Z; A beam2 = "<<_inputParameters->beam2A()<<", Z beam2 = "<<_inputParameters->beam2Z()<<". Terminating."<<endl ;
+ 	  return false;
+ 	}
+ 	if( _inputParameters->interactionType() == PHOTONPOMERONINCOHERENT && _inputParameters->beam1A() == 1 &&
+ 	    _inputParameters->beam1Z() == 1 && _inputParameters->beam2A() == 1 && _inputParameters->beam2Z() ){
+-          printErr << endl << " Do not use PROD_MODE = 4 for pp collisions. Use PROD_MODE = 2 or 3 instead. Terminating."<<endl;
++          printErro << endl << " Do not use PROD_MODE = 4 for pp collisions. Use PROD_MODE = 2 or 3 instead. Terminating."<<endl;
+ 	  return false; 
+ 	}
+ 
+@@ -212,7 +212,7 @@
+ starlight::produceEvent()
+ {
+ 	if (!_isInitialised) {
+-		printErr << "trying to generate event but Starlight is not initialised. aborting." << endl;
++		printErro << "trying to generate event but Starlight is not initialised. aborting." << endl;
+ 		exit(-1);
+ 	}
+ 	return _eventChannel->produceEvent();
+@@ -297,7 +297,7 @@
+ #ifdef ENABLE_PYTHIA
+ 			// PythiaOutput = true;
+  		        cout<<"Pythia is enabled!"<<endl;
+-// 			return true;
++ 			return true;
+ #else
+ 			printWarn << "Starlight is not compiled against Pythia8; "
+ 			          << "jetset event channel cannot be used." << endl;
