@@ -23,7 +23,7 @@ create_setup(){
 
 install_starlight(){
     DPMJET=dpmjet3.0-5
-    STARLIGHT=starlight_r313
+    STARLIGHT=starlight_r317
     cd ${WORKDIR}
 
     echo "Downloading "${DPMJET}
@@ -34,7 +34,8 @@ install_starlight(){
 
     echo "Downloading "${STARLIGHT}
     STARLIGHTDIR=${WORKDIR}/starlight_v${STARLIGHT//[!0-9]/}
-    wget --no-verbose -O ${STARLIGHT}.tar 'https://starlight.hepforge.org/downloads?f='${STARLIGHT}'.tar'
+    #wget --no-verbose -O ${STARLIGHT}.tar 'https://starlight.hepforge.org/downloads?f='${STARLIGHT}'.tar'
+    wget --no-verbose --no-check-certificate 'https://anstahll.web.cern.ch/anstahll/STARLIGHT/'${STARLIGHT}'.tar'
     mkdir -p ${STARLIGHTDIR} && tar -xf ${STARLIGHT}.tar -C ${STARLIGHTDIR}
     [[ -d "${STARLIGHTDIR}/trunk" ]] && mv ${STARLIGHTDIR}/trunk/* ${STARLIGHTDIR} && rm -rf ${STARLIGHTDIR}/trunk
     rm -f ${STARLIGHT}.tar
