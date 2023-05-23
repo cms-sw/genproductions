@@ -1024,10 +1024,18 @@ for num in range(0,len(prepid)):
                         if input_cards_customize_card:
                             c_w_line = []
                             s_line = []
+                            run_card_line = []
                             with open(input_cards_customize_card, 'r+') as f_cust:
                                 for num, lc in enumerate(f_cust, 0):
                                     if "compute_widths " in lc.lower(): c_w_line.append(num)
                                     if "set " in lc.lower(): s_line.append(num)
+                                    if "run_card" in lc.lower(): run_card_line.append(lc.rstrip())
+                                if (run_card_line):
+                                    print("-------")
+                                    print("User settings in customize card for run_card:")
+                                    for lll in run_card_line:
+                                        print(lll)
+                                    print("-------")
                             customize_widths_flag = 0
                             if len(c_w_line) > 0 and len(s_line) > 0:
                                 for x in c_w_line:
@@ -1264,6 +1272,7 @@ for num in range(0,len(prepid)):
                 mg_nlo = int(os.popen('grep -c "\[QCD\]" '+filename_pc).read())
                 loop_flag = int(os.popen('more '+filename_pc+' | grep -c "noborn=QCD"').read())
                 gen_line = os.popen('grep generate '+filename_pc).read()
+                print("Process lines from the proc card:")
                 print(gen_line)
                 proc_line = os.popen('grep process '+filename_pc+' | grep -v set').read()
                 print(proc_line)
