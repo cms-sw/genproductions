@@ -79,7 +79,7 @@ Index: Makefile
  INCLUDE1=$(V2DIR)/include
  #INCLUDE2=$(shell dirname $(PWD))
 -PLUGINSDIR=MiNNLOStuff
-+PLUGINSDIR=$(PWD)/MiNNLOStuff#fixed by Andre
++PLUGINSDIR=$(PWD)/MiNNLOStuff
  PLUGINSDIRINC=$(PLUGINSDIR)/include
  LOCALHOPPET=$(PLUGINSDIR)/hoppet
  #VPATH= .:$(PLUGINSDIR):$(LOCALHOPPET):$(Zj):$(Zj)/Madlib:$(Zj)/MODEL:$(Zj)/DHELAS:$(V2DIR):madgraph/:madgraph/born/:madgraph/real/:madgraph/born_decay/:madgraph/real_decay/

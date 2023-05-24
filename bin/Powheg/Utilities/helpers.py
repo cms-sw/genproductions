@@ -463,31 +463,8 @@ LHAPDF_BASE=/cvmfs/cms.cern.ch/slc7_amd64_gcc900/external/lhapdf/6.3.0/\n \
 echo \"LHAPDF_BASE: ${LHAPDF_BASE}\"\n \
 cp Makefile Makefile.orig\n \
 cat Makefile.orig | sed -e \"s#LHAPDF_CONFIG=.\+#LHAPDF_CONFIG=${LHAPDF_BASE}bin/lhapdf-config#g\" > Makefile\n \
-#exit\n \
 patch -l -p0 -i ${WORKDIR}/patches/ttJ_minnlo_compiler.patch", 
-    "ttJ_MiNNLOPS_v2.1_beta1" :"echo \"Adding CHAPLIN 1.2 library\"\n \
-if [ ! -f chaplin-1.2.tar ]; then\n \
-  wget --no-verbose http://chaplin.hepforge.org/code/chaplin-1.2.tar || fail_exit \"Failed to get CHAPLIN tar ball \"\n \
-fi\n \
-tar xvf chaplin-1.2.tar\n \
-cd chaplin-1.2\n \
-./configure --prefix=`pwd`/..\n \
-make install\n \
-cd ..\n \
-echo \"LIBS+=-L`pwd`/lib/ -L`pwd`/lib64/\" >> Makefile   # be safe \n \
-export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:${LD_LIBRARY_PATH} \n \
-echo \"Editing and compiling Makefiles in `pwd`\" \n \
-patch -l -p0 -i ${WORKDIR}/patches/ttJ_minnlo_rwt_topmass_compiler.patch \n \
-PROCESSDIR=\"${WORKDIR}/${name}/POWHEG-BOX/${process}\" \n \
-cp H2Stuff/virtgg.f  H2Stuff/virtgg.f.orig\n \
-cp H2Stuff/virtqq.f  H2Stuff/virtqq.f.orig\n \
-cat H2Stuff/virtgg.f.orig | sed -e \"s#PROCESSDIR#${PROCESSDIR}#g\" > H2Stuff/virtgg.f \n \
-cat H2Stuff/virtqq.f.orig | sed -e \"s#PROCESSDIR#${PROCESSDIR}#g\" > H2Stuff/virtqq.f \n \
-LHAPDF_BASE=/cvmfs/cms.cern.ch/slc7_amd64_gcc900/external/lhapdf/6.3.0/\n \
-echo \"LHAPDF_BASE: ${LHAPDF_BASE}\"\n \
-cp Makefile Makefile.orig\n \
-cat Makefile.orig | sed -e \"s#LHAPDF_CONFIG=.\+#LHAPDF_CONFIG=${LHAPDF_BASE}bin/lhapdf-config#g\" > Makefile"
-    }.get(process,"")
+}.get(process,"")
 
 def runGetSource_patch_7(process) :
   return {
@@ -562,11 +539,6 @@ gawk \"/sroot/{gsub(/8000/,$COMENERGY)};/hmass/{gsub(/125.5/, ${HMASS})};/mur,mu
 cp ${WORKDIR}/Utilities/nnlopsreweighter.input .\n \
 fi",
     "ttJ_MiNNLO" :"echo \"Renaming pwhg_main-gnu to pwhg_main .\"\n \
-cd ${WORKDIR}/${name}/POWHEG-BOX/${process} \n \
-mv pwhg_main-gnu pwhg_main \n \
-cp -p pwhg_main ${WORKDIR}/${name}/. \n \
-cd -",
-    "ttJ_MiNNLOPS_v2.1_beta1" :"echo \"Renaming pwhg_main-gnu to pwhg_main .\"\n \
 cd ${WORKDIR}/${name}/POWHEG-BOX/${process} \n \
 mv pwhg_main-gnu pwhg_main \n \
 cp -p pwhg_main ${WORKDIR}/${name}/. \n \

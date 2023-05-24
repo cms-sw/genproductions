@@ -17,7 +17,7 @@ echo $$FASTJET_BASE
 echo $$FASTJET_BASE
 
 ### Prepare environments for LHAPDF ### 
-if [ $process == ttJ_MiNNLO ]; then
+if [ "$$process" == "ttJ_MiNNLO" ]; then
   LHAPDF_BASE=/cvmfs/cms.cern.ch/slc7_amd64_gcc900/external/lhapdf/6.3.0
 else
   LHAPDF6TOOLFILE=$$CMSSW_BASE/config/toolbox/$$SCRAM_ARCH/tools/available/lhapdf6.xml    
