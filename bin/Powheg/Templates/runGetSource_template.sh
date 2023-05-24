@@ -46,6 +46,8 @@ grep -q "^minnlo\\s*1" powheg.input; test $$? -eq 1 || forMiNNLO=1
 forX0jj=0
 grep -q "MGcosa" powheg.input; test $$? -eq 1 || forX0jj=1
 
+echo "DEBUG: forMiNNLO=" $$forMiNNLO  
+
 cd $$WORKDIR
 cd $${name}
 python ../make_rwl.py $${is5FlavorScheme} $${defaultPDF} $${forMiNNLO} $${forX0jj}
@@ -75,31 +77,31 @@ fi
 
 ### retrieve the powheg source tar ball
 export POWHEGSRC=$powhegSrc 
+# #Commented out by Andre: doesn not re-download powheg and ttj_MiNNLO over and over again
+# echo 'D/L POWHEG source...'
 
-echo 'D/L POWHEG source...'
+# if [ $svnRev -eq 0 ]; then
+#  if [ ! -f $${POWHEGSRC} ]; then
+#    wget --no-verbose --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/slc6_amd64_gcc481/powheg/V2.0/src/$${POWHEGSRC} || fail_exit "Failed to get powheg tar ball "
+#  fi
+#  tar zxf $${POWHEGSRC}
+# else
+#   ## retrieve powheg source from svn
+#  svn checkout --revision $svnRev --username anonymous --password anonymous $svnRepo POWHEG-BOX
+# fi
+# #cp -p ../$${POWHEGSRC} .
 
-if [ $svnRev -eq 0 ]; then
-  if [ ! -f $${POWHEGSRC} ]; then
-    wget --no-verbose --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/slc6_amd64_gcc481/powheg/V2.0/src/$${POWHEGSRC} || fail_exit "Failed to get powheg tar ball "
-  fi
-  tar zxf $${POWHEGSRC}
-else
-  ### retrieve powheg source from svn
-  svn checkout --revision $svnRev --username anonymous --password anonymous $svnRepo POWHEG-BOX
-fi
-#cp -p ../$${POWHEGSRC} .
-
-# increase maxseeds to 10000
+increase maxseeds to 10000
 sed -i -e "s#par_maxseeds=200,#par_maxseeds=10000,#g" POWHEG-BOX/include/pwhg_par.h
 
 if [ -e POWHEG-BOX/$${process}.tgz ]; then
-  cd POWHEG-BOX/
-  tar zxf $${process}.tgz
-  cd -
+ cd POWHEG-BOX/
+ tar zxf $${process}.tgz
+ cd -
 else
-  cd POWHEG-BOX/
-  svn co --revision $svnRev --username anonymous --password anonymous $svnProc/$${process}
-  cd -
+ cd POWHEG-BOX/
+ svn co --revision $svnRev --username anonymous --password anonymous $svnProc/$${process}
+ cd -
 fi
 
 patch -l -p0 -i ${patches_dir}/pdfweights_new.patch
