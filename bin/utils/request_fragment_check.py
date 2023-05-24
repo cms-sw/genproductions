@@ -602,12 +602,12 @@ for num in range(0,len(prepid)):
                                             "HIG-RunIISummer20UL18GEN-00009", 
                                             "HIG-RunIISummer20UL18GEN-00010" 
                                            ]
-        if "SnowmassWinter21GEN" not in pi and "SnowmassWinter21wmLHEGEN" not in pi and particle_gun == 0 and pi not in concurrency_check_exception_list:
+        if "SnowmassWinter21GEN" not in pi and "SnowmassWinter21wmLHEGEN" not in pi and particle_gun == 0 and pi not in concurrency_check_exception_list and "matchbox" not in data_f1.lower():
             conc_check_result, tmp_err = concurrency_check(data_f1,pi,cmssw_version)
 #            error += tmp_err
             errors.extend(tmp_err)
         else:
-            warnings.append("Skipping the concurrency check since these are (wmLHE)GEN-only campaigns or a particle gun or a Sherpa Diphoton sample.")
+            warnings.append("Skipping the concurrency check since these are (wmLHE)GEN-only campaigns or a particle gun or a Sherpa Diphoton sample or an herwig7 request with Matchbox.")
 #        data_f2 = re.sub(r'(?m)^ *#.*\n?', '',data_f1)
 
         errors.extend(tunes_settings_check(dn,data_f1,pi))
@@ -836,8 +836,8 @@ for num in range(0,len(prepid)):
         if herwig_flag != 0:
             os.system('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/herwig_common.txt -O herwig_common.txt') 
             file1 = set(line.strip().replace(",","") for line in open('herwig_common.txt'))
-            for line in file1:                
-                if line not in data_f1:
+            for line in file1:
+                if line not in data_f1 and ("matchbox" in data_f1.lower() and "hw_7p1SettingsFor7p2" not in line):
                     errors.append("Missing herwig setting in fragment: "+line)
             if pw_gp is True:
                os.system('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/herwig_powheg.txt -O herwig_powheg.txt')	
@@ -851,14 +851,13 @@ for num in range(0,len(prepid)):
                os.system('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/herwig_mg_wo_merging.txt -O herwig_mg_wo_merging.txt')
                file_me_wo_merg = set(line.strip().replace(",","") for line in open('herwig_mg_wo_merging.txt'))
                if alt_ickkw_c != 0:
-                   for line in file_me:                   
+                   for line in file_me:                
                        if line not in data_f1:
                            errors.append("Missing herwig mg5_amc specific setting in fragment: "+line)
                        if "set FxFxHandler:njetsmax" not in data_f1:
                            errors.append("Missing set FxFxHandler:njetsmax MAX_N_ADDITIONAL_JETS in the user settings block")
                else:
                    for line in file_me_wo_merg:
-                       if line not in data_f1:
                            errors.append("Missing herwig mg5_amc specific setting in fragment: "+line)
                if alt_ickkw_c == 3:#fxfx
                    if "'set FxFxHandler:MergeMode FxFx'" not in data_f1:
@@ -869,8 +868,11 @@ for num in range(0,len(prepid)):
             if amcnlo_gp is True or alt_ickkw_c == 0:
                os.system('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/herwig_mcnlo.txt -O herwig_mcnlo.txt')
                file_me = set(line.strip().replace(",","") for line in open('herwig_mcnlo.txt'))
+               if "Matchbox" in data_f1:
+                   if "hw_lhe_MG5aMCatNLO_settings" in data_f1 or "hw_lhe_common_settings" in data_f1 or "'herwig7LHEMG5aMCatNLOSettingsBlock" in data_f1:
+                       errors.append("Extra blocks: 'hw_lhe_MG5aMCatNLO_settings' or 'hw_lhe_common_settings' or 'herwig7LHEMG5aMCatNLOSettingsBlock')")
                for line in file_me:
-                   if line not in data_f1:
+                   if line not in data_f1 and "Matchbox" not in data_f1:
                        errors.append("Missing herwig MG with 0 jets or mc@nlo specific setting in fragment: "+line)
             if "9_3" not in str(cmssw) and "7_1" not in str(cmssw) and pw_gp != 0 and mg_gp !=0 and amcnlo_qg !=0:
                 os.system('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/herwig_frag_lines.txt -O herwig_frag_lines.txt')
@@ -1022,10 +1024,18 @@ for num in range(0,len(prepid)):
                         if input_cards_customize_card:
                             c_w_line = []
                             s_line = []
+                            run_card_line = []
                             with open(input_cards_customize_card, 'r+') as f_cust:
                                 for num, lc in enumerate(f_cust, 0):
                                     if "compute_widths " in lc.lower(): c_w_line.append(num)
                                     if "set " in lc.lower(): s_line.append(num)
+                                    if "run_card" in lc.lower(): run_card_line.append(lc.rstrip())
+                                if (run_card_line):
+                                    print("-------")
+                                    print("User settings in customize card for run_card:")
+                                    for lll in run_card_line:
+                                        print(lll)
+                                    print("-------")
                             customize_widths_flag = 0
                             if len(c_w_line) > 0 and len(s_line) > 0:
                                 for x in c_w_line:
@@ -1262,6 +1272,7 @@ for num in range(0,len(prepid)):
                 mg_nlo = int(os.popen('grep -c "\[QCD\]" '+filename_pc).read())
                 loop_flag = int(os.popen('more '+filename_pc+' | grep -c "noborn=QCD"').read())
                 gen_line = os.popen('grep generate '+filename_pc).read()
+                print("Process lines from the proc card:")
                 print(gen_line)
                 proc_line = os.popen('grep process '+filename_pc+' | grep -v set').read()
                 print(proc_line)

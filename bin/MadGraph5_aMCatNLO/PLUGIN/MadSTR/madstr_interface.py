@@ -16,7 +16,7 @@ import time
 import shutil
 import signal
 import multiprocessing
-import cPickle
+import six.moves.cPickle
 
 from madgraph import MadGraph5Error, InvalidCmd, MG5DIR
 import madgraph.various.progressbar as pbar
@@ -59,7 +59,7 @@ def generate_directories_fks_async(i):
     olpopts = arglist[6]
     
     infile = open(mefile,'rb')
-    me = cPickle.load(infile)
+    me = six.moves.cPickle.load(infile)
     infile.close()      
 
     # here we need to find the OS configuration from the matrix-elements
@@ -182,7 +182,6 @@ class MadSTRInterface(master_interface.MasterCmd):
           'loop_dir': os.path.join(self._mgme_dir,'Template','loop_material'),
           'cuttools_dir': self._cuttools_dir,
           'iregi_dir':self._iregi_dir,
-          'pjfry_dir':self.options['pjfry'],
           'golem_dir':self.options['golem'],
           'samurai_dir':self.options['samurai'],
           'ninja_dir':self.options['ninja'],
@@ -196,8 +195,15 @@ class MadSTRInterface(master_interface.MasterCmd):
           'cluster_local_path': self.options['cluster_local_path'],
           'output_options': {'group_subprocesses': False}
           }
-        # initialize the writer
 
+        try:
+            # pjfry is not supported any more from v 2.7.2
+            # so some special care is needed
+            MadLoop_SA_options['pjfry_dir'] = self.options['pjfry']
+        except KeyError:
+            pass
+
+        # initialize the writer
         if self._export_format in ['NLO']:
             to_pass = dict(MadLoop_SA_options)
             to_pass['mp'] = len(self._fks_multi_proc.get_virt_amplitudes()) > 0
@@ -262,15 +268,14 @@ class MadSTRInterface(master_interface.MasterCmd):
 
             # Sort amplitudes according to number of diagrams,
             # to get most efficient multichannel output
-            self._curr_amps.sort(lambda a1, a2: a2.get_number_of_diagrams() - \
-                                 a1.get_number_of_diagrams())
+            self._curr_amps.sort(key = lambda a: a.get_number_of_diagrams(), reverse=True)
 
             cpu_time1 = time.time()
             ndiags = 0
             if not self._curr_matrix_elements.get_matrix_elements():
                 if group:
-                    raise MadGraph5Error, "Cannot group subprocesses when "+\
-                                                              "exporting to NLO"
+                    raise MadGraph5Error("Cannot group subprocesses when "+\
+                                                              "exporting to NLO")
                 else:
                     if not self.options['low_mem_multicore_nlo_generation']: 
                         # generate the code the old way
@@ -402,7 +407,7 @@ class MadSTRInterface(master_interface.MasterCmd):
                 proc_charac['nexternal'] = max([diroutput[4] for diroutput in diroutputmap])
                 ninitial_set = set([diroutput[3] for diroutput in diroutputmap])
                 if len(ninitial_set) != 1:
-                    raise MadGraph5Error, ("Invalid ninitial values: %s" % ' ,'.join(list(ninitial_set)))    
+                    raise MadGraph5Error("Invalid ninitial values: %s" % ' ,'.join(list(ninitial_set)))    
                 proc_charac['ninitial'] = list(ninitial_set)[0]
 
                 self.born_processes = []
