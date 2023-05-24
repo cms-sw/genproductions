@@ -75,7 +75,6 @@ fi
 
 ### retrieve the powheg source tar ball
 export POWHEGSRC=$powhegSrc 
-#Commented out by Andre: doesn not re-download powheg and ttj_MiNNLO over and over again
 echo 'D/L POWHEG source...'
 
 if [ $svnRev -eq 0 ]; then
@@ -84,22 +83,22 @@ if [ $svnRev -eq 0 ]; then
  fi
  tar zxf $${POWHEGSRC}
 else
-  ## retrieve powheg source from svn
+  # retrieve powheg source from svn
  svn checkout --revision $svnRev --username anonymous --password anonymous $svnRepo POWHEG-BOX
 fi
 #cp -p ../$${POWHEGSRC} .
 
-increase maxseeds to 10000
+#increase maxseeds to 10000
 sed -i -e "s#par_maxseeds=200,#par_maxseeds=10000,#g" POWHEG-BOX/include/pwhg_par.h
 
 if [ -e POWHEG-BOX/$${process}.tgz ]; then
- cd POWHEG-BOX/
- tar zxf $${process}.tgz
- cd -
+  cd POWHEG-BOX/
+  tar zxf $${process}.tgz
+  cd -
 else
- cd POWHEG-BOX/
- svn co --revision $svnRev --username anonymous --password anonymous $svnProc/$${process}
- cd -
+  cd POWHEG-BOX/
+  svn co --revision $svnRev --username anonymous --password anonymous $svnProc/$${process}
+  cd -
 fi
 
 patch -l -p0 -i ${patches_dir}/pdfweights_new.patch

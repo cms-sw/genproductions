@@ -111,7 +111,7 @@ def prepareJob(tag, i, folderName,process) :
     }
 
     template_file = "%s/Templates/prepareJob_template.sh" % rootfolder
-    helpers.fillTemplatedFile(template_file, filename, template_dict,"w")
+    helpers.fillTemplatedFile(template_file, filename, template_dict, "w")
 
     return filename
 

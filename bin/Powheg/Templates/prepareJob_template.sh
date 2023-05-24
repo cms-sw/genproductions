@@ -13,8 +13,6 @@ eval `scramv1 runtime -sh`
 
 export FASTJET_BASE=`scram tool info fastjet | grep FASTJET_BASE | sed -e s%FASTJET_BASE=%%`
 export PATH=$$FASTJET_BASE/bin/:$$PATH 
-echo $$FASTJET_BASE
-echo $$FASTJET_BASE
 
 ### Prepare environments for LHAPDF ### 
 if [ "$$process" == "ttJ_MiNNLO" ]; then
