@@ -7,6 +7,7 @@ import textwrap
 import fnmatch
 import os.path
 import string
+import glob
 from datetime import datetime
 ###########Needed to check for ultra-legacy sample consistency check############################################
 os.system('env -i KRB5CCNAME="$KRB5CCNAME" cern-get-sso-cookie -u https://cms-pdmv.cern.ch/mcm/ -o cookiefile.txt --krb --reprocess')
@@ -757,13 +758,22 @@ for num in range(0,len(prepid)):
         if gp_size and gp_full_path and sherpa_flag == 0:
             gridpack_cvmfs_path = gridpack_cvmfs_path_tmp[0]
             gridpack_eos_path = gridpack_cvmfs_path.replace("/cvmfs/cms.cern.ch/phys_generator","/eos/cms/store/group/phys_generator/cvmfs")
+            print("-----------------------------------")
             print("Gridpack location in cvmfs and eos:")
             print(gridpack_cvmfs_path)
             print(gridpack_eos_path)
+            print ("Gridpack size in MBs: "+str(round(os.path.getsize(gridpack_eos_path)/(1024*1024),3))+ " M")
             if int(os.popen('grep -c slha '+pi).read()) != 0 or int(os.popen('grep -c \%i '+pi).read()) != 0 or int(os.popen('grep -c \%s '+pi).read()) != 0: slha_flag = 1
             if slha_flag == 1: gridpack_cvmfs_path, slha_all_path, slha_flag = slha_gp(gridpack_cvmfs_path,slha_flag)
             if os.path.isfile(gridpack_cvmfs_path) is True:
                 os.system('tar xf '+gridpack_cvmfs_path+' -C '+my_path+'/'+pi)
+                size_after_untar = os.popen("du -h "+my_path+'/'+pi).read().split("\t")[0]
+                print ("Gridpack folder size after untarring: "+size_after_untar)
+                folder = glob.glob(my_path+'/'+pi+'/*')
+                folder_and_subfolder = sum([len(files) for r, d, files in os.walk(my_path+'/'+pi)])
+                print("Number of files and folders in the gridpack excluding the files in subfolders = "+str(len(folder)))
+                print("Number of files and folders in the gridpack including the files in subfolders = "+str(folder_and_subfolder))
+                print("-----------------------------------")
             else:
                 errors.append("Gridpack ",gridpack_cvmfs_path," does not exist! ..... exiting ....")
                 sys.exit()
@@ -1134,7 +1144,7 @@ for num in range(0,len(prepid)):
                 nemitsplit_wo_leptons = [int(x) for x in nemitsplit]
                 nemitsplit_wo_leptons = [abs(x) for x in nemitsplit_wo_leptons]
                 nemitsplit_wo_leptons = [x for x in nemitsplit_wo_leptons if x < 11 or x > 18]
-                nfinstatpar = len(nemitsplit_wo_leptons)-nemitsplit_wo_leptons.count(0)
+                nfinstatpar = len(nemitsplit_wo_leptons)-nemitsplit_wo_leptons.count(0)                
                 if nfinstatpar == nFinal : print("[OK] nFinal(="+str(nFinal) + ") is equal to the number of final state particles before decays (="+str(nfinstatpar)+")")
                 if nfinstatpar != nFinal :
                     warnings.append("nFinal(="+str(nFinal) + ") may not be equal to the number of final state particles before decays (="+str(nfinstatpar)+")")
@@ -1300,18 +1310,19 @@ for num in range(0,len(prepid)):
                 if nJetMax != jet_count and jet_count > 0 and alt_ickkw_c !=0:
                     warnings.append("nJetMax(="+str(nJetMax)+") is NOT equal to the number of jets specified in the proc card(="+str(jet_count)+")")
                 if nJetMax != jet_count and str(jet_count)+"jet" in dn.lower() and alt_ickkw_c !=0:
-                    warnings.append("nJetMax(="+str(nJetMax)+") is not equal to the number of jets specified in the proc card(="+str(jet_count)+").Is it because this is an exclusive production with additional samples with higher multiplicity generated separately?")
+                    warnings.append("nJetMax(="+str(nJetMax)+") is not equal to the number of jets specified in the proc card(="+str(jet_count)+"). Is it because this is an exclusive production with additional samples with higher multiplicity generated separately?")
                 print("Jet Count = "+str(jet_count))
-                if jet_count >= 2 and alt_ickkw_c == 0:
-                    if mg_nlo:
-                        vbf_nlo = 1
-                        print("VBF process at NLO")
-                else:
-                    vbf_lo = 1   
-                    print("VBF process at LO")
-                warn_tmp , err_tmp = vbf_dipole_recoil_check(vbf_lo,vbf_nlo,data_f2,pw_gp,dn)
-                warnings.extend(warn_tmp)
-                errors.extend(err_tmp)
+                if jet_count >= 2 and "dy" not in dn.lower():
+                    if alt_ickkw_c == 0:
+                        if mg_nlo:
+                            vbf_nlo = 1
+                            print("VBF process at NLO")
+                    else:
+                        vbf_lo = 1   
+                        print("VBF process at LO")
+                    warn_tmp , err_tmp = vbf_dipole_recoil_check(vbf_lo,vbf_nlo,data_f2,pw_gp,dn)
+                    warnings.extend(warn_tmp)
+                    errors.extend(err_tmp)
             if os.path.isfile(filename_mggpc) is True :
                 ickkw = os.popen('more '+filename_mggpc+' | tr -s \' \' | grep "= ickkw"').read()
                 bw = os.popen('more '+filename_mggpc+' | tr -s \' \' | grep "= bwcutoff"').read()
