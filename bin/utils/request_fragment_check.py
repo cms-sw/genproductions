@@ -1134,20 +1134,25 @@ for num in range(0,len(prepid)):
         if pw_gp is True:
             file_pwg_check =  my_path+'/'+pi+'/'+'pwhg_checklimits'
             print(file_pwg_check)
-            if os.path.isfile(file_pwg_check) is True :
-                print("grep from powheg pwhg_checklimits files")
-                nemit = os.popen('grep emitter '+file_pwg_check+' | grep process | head -n 1').read().replace('process','').replace('\n','').split(',')
-                nemitsplit = nemit[1].split()
-                nemitsplit_pr = nemitsplit[2:]
-                nemitsplit = [x for x in nemitsplit_pr if x!=nemitsplit[0] and x!=nemitsplit[1]]
-                nemitsplit = [100 if x == "***" else x for x in nemitsplit]
-                nemitsplit_wo_leptons = [int(x) for x in nemitsplit]
-                nemitsplit_wo_leptons = [abs(x) for x in nemitsplit_wo_leptons]
-                nemitsplit_wo_leptons = [x for x in nemitsplit_wo_leptons if x < 11 or x > 18]
-                nfinstatpar = len(nemitsplit_wo_leptons)-nemitsplit_wo_leptons.count(0)                
-                if nfinstatpar == nFinal : print("[OK] nFinal(="+str(nFinal) + ") is equal to the number of final state particles before decays (="+str(nfinstatpar)+")")
-                if nfinstatpar != nFinal :
-                    warnings.append("nFinal(="+str(nFinal) + ") may not be equal to the number of final state particles before decays (="+str(nfinstatpar)+")")
+            if (("dy" in dn.lower() or "ggh" in dn.lower()) and nFinal != 1) or (("glugluh" in dn.lower() or "tth" in dn.lower() or "hzj" in dn.lower() or "hwj" in dn.lower()) and nFinal!= 3) or ("ggzh" in dn.lower() and nFinal!=2):
+                warnings.append("nFinal="+str(nFinal) + " may not be equal to the number of final state particles before decays)")
+            pw_processes = 'dy','ggh','glugluh','tth','hzj','hwj','ggzh'
+            if not any(i in dn.lower() for i in pw_processes):
+                warnings.append("Please check manually if nFinal="+str(nFinal) + " for this process is OK, i.e. equal to the number of final state particles before decays) ")
+#           if os.path.isfile(file_pwg_check) is True :
+#                print("grep from powheg pwhg_checklimits files")
+#                nemit = os.popen('grep emitter '+file_pwg_check+' | grep process | head -n 1').read().replace('process','').replace('\n','').split(',')
+#                nemitsplit = nemit[1].split()
+#                nemitsplit_pr = nemitsplit[2:]
+#                nemitsplit = [x for x in nemitsplit_pr if x!=nemitsplit[0] and x!=nemitsplit[1]]
+#                nemitsplit = [100 if x == "***" else x for x in nemitsplit]
+#                nemitsplit_wo_leptons = [int(x) for x in nemitsplit]
+#                nemitsplit_wo_leptons = [abs(x) for x in nemitsplit_wo_leptons]
+#                nemitsplit_wo_leptons = [x for x in nemitsplit_wo_leptons if x < 11 or x > 18]
+#                nfinstatpar = len(nemitsplit_wo_leptons)-nemitsplit_wo_leptons.count(0)                
+#                if nfinstatpar == nFinal : print("[OK] nFinal(="+str(nFinal) + ") is equal to the number of final state particles before decays (="+str(nfinstatpar)+")")
+#                if nfinstatpar != nFinal :
+#                    warnings.append("nFinal(="+str(nFinal) + ") may not be equal to the number of final state particles before decays (="+str(nfinstatpar)+")")
             if os.path.isfile(my_path+'/'+pi+'/'+'runcmsgrid.sh') is True: 
                 runcmsgrid_file = my_path+'/'+pi+'/'+'runcmsgrid.sh'
                 with open(runcmsgrid_file,'r+') as f:
