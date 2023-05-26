@@ -126,9 +126,9 @@ def slha_gp(gridpack_cvmfs_path,slha_flag):
         return gridpack_cvmfs_path, slha_all_path, slha_flag
 
 
-def tunes_settings_check(dn,fragment,pi):
+def tunes_settings_check(dn,fragment,pi,sherpa_flag):
     error_tunes_check = []
-    if "Summer22" in pi and "FlatRandomEGunProducer" not in fragment and "FlatRandomPtGunProducer" not in fragment and "Pythia8EGun" not in fragment and "Pythia8PtGun" not in fragment and "FlatRandomPtAndDxyGunProducer" not in fragment:
+    if "Summer22" in pi and "FlatRandomEGunProducer" not in fragment and "FlatRandomPtGunProducer" not in fragment and "Pythia8EGun" not in fragment and "Pythia8PtGun" not in fragment and "FlatRandomPtAndDxyGunProducer" not in fragment and sherpa_flag == 0:
         if "Configuration.Generator.MCTunesRun3ECM13p6TeV" not in fragment or "from Configuration.Generator.MCTunes2017" in fragment:
             error_tunes_check.append(" For Summer22 samples, please use from Configuration.Generator.MCTunesRun3ECM13p6TeV.PythiaCP5Settings_cfi import * in your fragment instead of from Configuration.Generator.MCTunes2017.PythiaCP5Settings_cfi import *")
     if "Run3" in pi and (dn.startswith("DYto") or dn.startswith("Wto")):
@@ -611,7 +611,7 @@ for num in range(0,len(prepid)):
             warnings.append("Skipping the concurrency check since these are (wmLHE)GEN-only campaigns or a particle gun or a Sherpa Diphoton sample or an herwig7 request with Matchbox.")
 #        data_f2 = re.sub(r'(?m)^ *#.*\n?', '',data_f1)
 
-        errors.extend(tunes_settings_check(dn,data_f1,pi))
+#        errors.extend(tunes_settings_check(dn,data_f1,pi))
       
         cross_section_fragment = re.findall('crossSection.*?\S+\S+',data_f2)
         if (cross_section_fragment):
@@ -750,6 +750,8 @@ for num in range(0,len(prepid)):
                 else:
                     errors.append("scram_arch for Sherpa and OpenLoops are NOT the same. But note that this check is done based on folder names except the one for CMSSW")
 
+        errors.extend(tunes_settings_check(dn,data_f1,pi,sherpa_flag))
+
         if gp_size and sherpa_flag == 0:
             gridpack_cvmfs_path_tmp = re.findall("/cvmfs/cms\.cern\.ch/phys_generator/gridpacks/.*?tar.xz|/cvmfs/cms\.cern\.ch/phys_generator/gridpacks/.*?tgz|/cvmfs/cms\.cern\.ch/phys_generator/gridpacks/.*?tar.gz",gridpack_cvmfs_path_tmp)
             if not gridpack_cvmfs_path_tmp:
@@ -796,7 +798,7 @@ for num in range(0,len(prepid)):
             if mg_gp is False and "madgraph" in dn.lower():
                 errors.append("Although the name of the dataset has ~Madgraph, the gridpack doesn't seem to be a MG5_aMC one.")
             if mg_gp is True:
-                errors.extend(tunes_settings_check(dn,data_f1,pi))
+                errors.extend(tunes_settings_check(dn,data_f1,pi,sherpa_flag))
                 filename_mggpc = my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat'
                 fname_p2 = my_path+'/'+pi+'/'+'process/Cards/run_card.dat'
                 if os.path.isfile(fname_p2) is True :
