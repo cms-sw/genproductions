@@ -1134,9 +1134,13 @@ for num in range(0,len(prepid)):
             check.append(int(os.popen('grep -c "pythia8'+word+'SettingsBlock," '+pi).read()))
             if check[2] == 1: mcatnlo_flag = 1
         if pw_gp is True:
+            split_dp_gpf = 'del'
             file_pwg_check =  my_path+'/'+pi+'/'+'pwhg_checklimits'
             print(file_pwg_check)
-            if (("dy" in dn.lower() or "ggh" in dn.lower()) and nFinal != 1) or (("glugluh" in dn.lower() or "tth" in dn.lower() or "hzj" in dn.lower() or "hwj" in dn.lower()) and nFinal!= 3) or ("ggzh" in dn.lower() and nFinal!=2):
+            split_dp = gridpack_cvmfs_path.split("/")
+            for i in split_dp:
+                if ("slc" and "CMSSW") in i: split_dp_gpf = i
+            if ((split_dp_gpf.startswith("Z") or split_dp_gpf.startswith("gg_H")) and nFinal != 1) or ((split_dp_gpf.startswith("HJJ") or split_dp_gpf.startswith("ttH") or split_dp_gpf.startswith("HZJ") or split_dp_gpf.startswith("HWJ")) and nFinal!= 3) or (split_dp_gpf.startswith("ggHZ") and nFinal!=2):
                 warnings.append("nFinal="+str(nFinal) + " may not be equal to the number of final state particles before decays)")
             pw_processes = 'dy','ggh','glugluh','tth','hzj','hwj','ggzh'
             if not any(i in dn.lower() for i in pw_processes):
