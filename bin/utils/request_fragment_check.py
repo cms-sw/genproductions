@@ -841,10 +841,10 @@ for num in range(0,len(prepid)):
                             errors.append("nQmatch in PS settings and maxjetflavor in run_card in gridpack do not match.")
                     else:
                         warnings.append("nQmatch in PS settings is not specified. Please check.") 
-        if herwig_flag == 0 and pw_gp is True:
-            warn_tmp , err_tmp = vbf_dipole_recoil_check(vbf_lo,vbf_nlo,data_f2,pw_gp,dn)
-            warnings.extend(warn_tmp)
-            errors.extend(err_tmp)
+#        if herwig_flag == 0 and pw_gp is True:
+#            warn_tmp , err_tmp = vbf_dipole_recoil_check(vbf_lo,vbf_nlo,data_f2,pw_gp,dn)
+#            warnings.extend(warn_tmp)
+#            errors.extend(err_tmp)
         if herwig_flag != 0:
             os.system('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/herwig_common.txt -O herwig_common.txt') 
             file1 = set(line.strip().replace(",","") for line in open('herwig_common.txt'))
@@ -1358,6 +1358,11 @@ for num in range(0,len(prepid)):
                         warnings.append("You're using MG5_aMC "+str(mg5_aMC_version)+" in an Ultra Legacy Campaign. You should use MG5_aMCv2.6.1+")
                     else:
                         errors.append("You're using MG5_aMC "+str(mg5_aMC_version)+" in an Ultra Legacy Campaign. You should use MG5_aMCv2.6.1+")
+
+            if herwig_flag == 0 and pw_gp is True:
+                warn_tmp , err_tmp = vbf_dipole_recoil_check(vbf_lo,vbf_nlo,data_f2,pw_gp,dn)
+                warnings.extend(warn_tmp)
+                errors.extend(err_tmp)
 
             if mg_gp is True:
                 runcmsgrid_file = os.path.join(my_path, pi, "runcmsgrid.sh")
