@@ -8,7 +8,7 @@ NEVENT      [nevtrequested]
 .true.     [creategrid]
 .false.   [writetop]
 .true.    [writedat]
-.false.   [writegnu]
+.true.   [writegnu]
 .false.   [writeroot]
 .false.   [writepwg]
 
