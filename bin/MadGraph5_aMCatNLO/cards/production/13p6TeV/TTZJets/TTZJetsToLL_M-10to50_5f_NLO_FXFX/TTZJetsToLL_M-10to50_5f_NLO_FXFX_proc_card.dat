@@ -7,4 +7,4 @@ generate p p > t t~ l+ l- / h [QCD] @0
 add process p p > t t~ l+ l- j / h [QCD] @1
 
 
-output TTZJetsToLL_M-10to50_5f_NLO -nojpeg
+output TTZJetsToLL_M-10to50_5f_NLO_FXFX -nojpeg
