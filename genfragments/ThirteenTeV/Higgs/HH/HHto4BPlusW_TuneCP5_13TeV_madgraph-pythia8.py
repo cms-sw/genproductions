@@ -16,7 +16,9 @@ generator = cms.EDFilter("Pythia8ConcurrentHadronizerFilter",
         pythia8PSweightsSettingsBlock,
         processParameters = cms.vstring(
                                     '25:onMode = off',
-                                    '25:onIfMatch = 5 -5'
+                                    '25:onIfMatch = 5 -5',
+                                    '24:onMode = off',                                    
+                                    '24::onIfAny = on'
           ),
         parameterSets = cms.vstring('pythia8CommonSettings',
                                     'pythia8CP5Settings',
