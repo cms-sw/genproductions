@@ -1,0 +1,39 @@
+set param_card mass 1000001 100000.0
+set param_card mass 1000002 100000.0
+set param_card mass 1000003 100000.0
+set param_card mass 1000004 100000.0
+set param_card mass 1000005 100000.0
+set param_card mass 1000006 100000.0
+set param_card mass 2000001 100000.0
+set param_card mass 2000002 100000.0
+set param_card mass 2000003 100000.0
+set param_card mass 2000004 100000.0
+set param_card mass 2000005 100000.0
+set param_card mass 2000006 100000.0
+set param_card mass 1000021 100000.0
+set param_card mass 1000022 %MN1%
+set param_card mass 1000023 %MN2%
+set param_card mass 1000024 %MC1%
+set param_card mass 1000025 100000.0
+set param_card mass 1000035 100000.0
+set param_card mass 1000037 100000.0
+set param_card mass 1000039 100000.0
+set param_card mass 1000011 100000.0
+set param_card mass 1000012 100000.0
+set param_card mass 1000013 100000.0
+set param_card mass 1000014 100000.0
+set param_card mass 1000015 %MNLSP%
+set param_card mass 1000016 100000.0
+set param_card mass 2000011 100000.0
+set param_card mass 2000013 100000.0
+set param_card mass 2000015 100000.0
+set param_card mass 35 100000.0
+set param_card mass 36 100000.0
+set param_card mass 37 100000.0
+set param_card staumix 1 1 1.0
+set param_card staumix 1 2 0.0
+set param_card staumix 2 1 0.0
+set param_card staumix 2 2 1.0
+set param_card msoft 1 %MN1%
+set param_card msoft 2 %MN2%
+set param_card msoft 36 %MNLSP%

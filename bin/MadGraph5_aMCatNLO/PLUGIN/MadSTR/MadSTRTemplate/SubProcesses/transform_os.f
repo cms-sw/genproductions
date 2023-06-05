@@ -627,13 +627,20 @@ c
       double precision tiny
       parameter (tiny=1e-6)
       double precision dot, dlum
+      logical samemom
+C this is to check if we are doing soft-coll tests
+C In this case since PDFs are not initialised, just return 1
+      logical softtest,colltest
+      common/sctests/softtest,colltest
 
       pdf_ratio = 0d0
       flux_ratio = 0d0
 
-C if initial momenta are identical, just return 1. for both
-      if (abs(p(0,1)-q(0,1)/p(0,1)+q(0,1)).lt.tiny.and.
-     $    abs(p(0,2)-q(0,2)/p(0,2)+q(0,2)).lt.tiny) then
+C if initial momenta are identical, or, just return 1. for both ratios
+C This is also the case when one does soft/collinear tests
+      samemom = abs((p(0,1)-q(0,1))/(p(0,1)+q(0,1))).lt.tiny.and.
+     $    abs((p(0,2)-q(0,2))/(p(0,2)+q(0,2))).lt.tiny
+      if (samemom.or.colltest.or.softtest) then
         pdf_ratio = 1d0
         flux_ratio = 1d0
         return
