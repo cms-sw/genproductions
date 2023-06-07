@@ -760,13 +760,13 @@ for num in range(0,len(prepid)):
         if gp_size and gp_full_path and sherpa_flag == 0:
             gridpack_cvmfs_path = gridpack_cvmfs_path_tmp[0]
             gridpack_eos_path = gridpack_cvmfs_path.replace("/cvmfs/cms.cern.ch/phys_generator","/eos/cms/store/group/phys_generator/cvmfs")
+            if int(os.popen('grep -c slha '+pi).read()) != 0 or int(os.popen('grep -c \%i '+pi).read()) != 0 or int(os.popen('grep -c \%s '+pi).read()) != 0: slha_flag = 1
+            if slha_flag == 1: gridpack_cvmfs_path, slha_all_path, slha_flag = slha_gp(gridpack_cvmfs_path,slha_flag)
             print("-----------------------------------")
             print("Gridpack location in cvmfs and eos:")
             print(gridpack_cvmfs_path)
             print(gridpack_eos_path)
-            print ("Gridpack size in MBs: "+str(round(os.path.getsize(gridpack_eos_path)/(1024*1024),3))+ " M")
-            if int(os.popen('grep -c slha '+pi).read()) != 0 or int(os.popen('grep -c \%i '+pi).read()) != 0 or int(os.popen('grep -c \%s '+pi).read()) != 0: slha_flag = 1
-            if slha_flag == 1: gridpack_cvmfs_path, slha_all_path, slha_flag = slha_gp(gridpack_cvmfs_path,slha_flag)
+            print ("Gridpack size in MBs: "+str(round(os.path.getsize(gridpack_cvmfs_path)/(1024*1024),3))+ " M")
             if os.path.isfile(gridpack_cvmfs_path) is True:
                 os.system('tar xf '+gridpack_cvmfs_path+' -C '+my_path+'/'+pi)
                 size_after_untar = os.popen("du -h "+my_path+'/'+pi).read().split("\t")[0]
