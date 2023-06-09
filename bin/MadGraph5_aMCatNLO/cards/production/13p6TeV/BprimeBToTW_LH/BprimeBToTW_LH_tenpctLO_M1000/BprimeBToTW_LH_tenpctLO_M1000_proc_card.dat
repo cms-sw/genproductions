@@ -1,0 +1,11 @@
+import model VLQ_v4_4FNS_UFO-3rdL_noCKM
+set complex_mass_scheme
+
+define bb = b b~
+define tt = t t~
+define ww = w+ w-
+define bpp = bp bp~
+
+generate p p > ww tt bb j / tp x y QED=1 QCD=1
+
+output BprimeBToTW_LH_tenpctLO_M1000
