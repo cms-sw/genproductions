@@ -3,17 +3,17 @@
 fail_exit() { echo "$@"; exit 1; }
 
 read_config(){
-    CollE=$(grep "^COLL_E" ${CONFIG} | cut -d '=' -f 2 | cut -d '#' -f 1 | tr -dc '0-9')
-    Beam1A=$(grep "^BEAM_1_A" ${CONFIG} | cut -d '=' -f 2 | cut -d '#' -f 1 | tr -dc '0-9')
-    Beam1Z=$(grep "^BEAM_1_Z" ${CONFIG} | cut -d '=' -f 2 | cut -d '#' -f 1 | tr -dc '0-9')
-    Beam1G=$(grep "^BEAM_1_GAMMA" ${CONFIG} | cut -d '=' -f 2 | cut -d '#' -f 1 | tr -dc '0-9')
-    Beam2A=$(grep "^BEAM_2_A" ${CONFIG} | cut -d '=' -f 2 | cut -d '#' -f 1 | tr -dc '0-9')
-    Beam2Z=$(grep "^BEAM_2_Z" ${CONFIG} | cut -d '=' -f 2 | cut -d '#' -f 1 | tr -dc '0-9')
-    Beam2G=$(grep "^BEAM_2_GAMMA" ${CONFIG} | cut -d '=' -f 2 | cut -d '#' -f 1 | tr -dc '0-9')
-    GEMin=$(grep "^MIN_GAMMA_ENERGY" ${CONFIG} | cut -d '=' -f 2 | cut -d '#' -f 1 | tr -dc '0-9')
-    GEMax=$(grep "^MAX_GAMMA_ENERGY" ${CONFIG} | cut -d '=' -f 2 | cut -d '#' -f 1 | tr -dc '0-9')
-    ProdM=$(grep "^PROD_MODE" ${CONFIG} | cut -d '=' -f 2 | cut -d '#' -f 1 | tr -dc '0-9')
-    ProdP=$(grep "^PROD_PID" ${CONFIG} | cut -d '=' -f 2 | cut -d '#' -f 1 | tr -dc '0-9')
+    CollE=$(grep "^COLL_E" ${CONFIG} | cut -d '=' -f 2 | cut -d '#' -f 1 | tr -dc '[. [:digit:]]')
+    Beam1A=$(grep "^BEAM_1_A" ${CONFIG} | cut -d '=' -f 2 | cut -d '#' -f 1 | tr -dc '[. [:digit:]]')
+    Beam1Z=$(grep "^BEAM_1_Z" ${CONFIG} | cut -d '=' -f 2 | cut -d '#' -f 1 | tr -dc '[. [:digit:]]')
+    Beam1G=$(grep "^BEAM_1_GAMMA" ${CONFIG} | cut -d '=' -f 2 | cut -d '#' -f 1 | tr -dc '[. [:digit:]]')
+    Beam2A=$(grep "^BEAM_2_A" ${CONFIG} | cut -d '=' -f 2 | cut -d '#' -f 1 | tr -dc '[. [:digit:]]')
+    Beam2Z=$(grep "^BEAM_2_Z" ${CONFIG} | cut -d '=' -f 2 | cut -d '#' -f 1 | tr -dc '[. [:digit:]]')
+    Beam2G=$(grep "^BEAM_2_GAMMA" ${CONFIG} | cut -d '=' -f 2 | cut -d '#' -f 1 | tr -dc '[. [:digit:]]')
+    GEMin=$(grep "^MIN_GAMMA_ENERGY" ${CONFIG} | cut -d '=' -f 2 | cut -d '#' -f 1 | tr -dc '[. [:digit:]]')
+    GEMax=$(grep "^MAX_GAMMA_ENERGY" ${CONFIG} | cut -d '=' -f 2 | cut -d '#' -f 1 | tr -dc '[. [:digit:]]')
+    ProdM=$(grep "^PROD_MODE" ${CONFIG} | cut -d '=' -f 2 | cut -d '#' -f 1 | tr -dc '[. [:digit:]]')
+    ProdP=$(grep "^PROD_PID" ${CONFIG} | cut -d '=' -f 2 | cut -d '#' -f 1 | tr -dc '[. [:digit:]]')
 }
 
 get_beam_energy(){

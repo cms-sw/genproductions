@@ -33,16 +33,20 @@ install_starlight(){
     rm -f ${DPMJET}.tar
 
     echo "Downloading "${STARLIGHT}
-    STARLIGHTDIR=${WORKDIR}/starlight_v${STARLIGHT//[!0-9]/}
-    #wget --no-verbose -O ${STARLIGHT}.tar 'https://starlight.hepforge.org/downloads?f='${STARLIGHT}'.tar'
-    wget --no-verbose --no-check-certificate 'https://anstahll.web.cern.ch/anstahll/STARLIGHT/'${STARLIGHT}'.tar'
+    STARLIGHT_VER=${STARLIGHT//[!0-9]/}
+    STARLIGHTDIR=${WORKDIR}/starlight_v${STARLIGHT_VER}
+    wget --no-verbose --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/starlight/${STARLIGHT}.tar
     mkdir -p ${STARLIGHTDIR} && tar -xf ${STARLIGHT}.tar -C ${STARLIGHTDIR}
     [[ -d "${STARLIGHTDIR}/trunk" ]] && mv ${STARLIGHTDIR}/trunk/* ${STARLIGHTDIR} && rm -rf ${STARLIGHTDIR}/trunk
     rm -f ${STARLIGHT}.tar
 
     echo "Patching "${DPMJET}" and "${STARLIGHT}
     patch -ufZs -p1 -i ${PRODDIR}/patches/dpmjet.patch -d ${DPMJETDIR}
-    patch -ufZs -p1 -i ${PRODDIR}/patches/starlight.patch -d ${STARLIGHTDIR}
+    patch -ufZs -p1 -i ${PRODDIR}/patches/starlight_default.patch -d ${STARLIGHTDIR}
+    patch -ufZs -p1 -i ${PRODDIR}/patches/starlight_pythia.patch -d ${STARLIGHTDIR}
+    if [ "$STARLIGHT_VER" -lt 317 ]; then
+        patch -ufZs -p1 -i ${PRODDIR}/patches/starlight_randomgenerator.patch -d ${STARLIGHTDIR}
+    fi
 
     echo "Compiling ${DPMJET}"
     cd ${DPMJETDIR}
@@ -128,9 +132,9 @@ else
     if [[ $SYSTEM_RELEASE == *"release 6"* ]]; then
         CMSSW_VERSION=CMSSW_10_3_5
     elif [[ $SYSTEM_RELEASE == *"release 7"* ]]; then
-        CMSSW_VERSION=CMSSW_13_0_6
+        CMSSW_VERSION=CMSSW_13_0_7
     elif [[ $SYSTEM_RELEASE == *"release 8"* ]]; then
-        CMSSW_VERSION=CMSSW_13_0_6
+        CMSSW_VERSION=CMSSW_13_0_7
     else
         echo "No default CMSSW for current OS"
         exit 1

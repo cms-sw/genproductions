@@ -1,0 +1,33 @@
+diff -ruN ./include/lorentzvector.h ../UPDATED/include/lorentzvector.h
+--- ./include/lorentzvector.h	2019-11-20 14:43:10.000000001 +0100
++++ ../UPDATED/include/lorentzvector.h	2023-05-17 17:02:20.000000001 +0200
+@@ -45,6 +45,7 @@
+       
+       lorentzVector();
+       virtual ~lorentzVector();
++      lorentzVector(const lorentzVector&)=default;
+       
+       lorentzVector(double x, double y, double z, double t);
+       
+diff -ruN ./include/upcevent.h ../UPDATED/include/upcevent.h
+--- ./include/upcevent.h	2019-11-20 14:43:10.000000001 +0100
++++ ../UPDATED/include/upcevent.h	2023-05-17 17:02:32.000000001 +0200
+@@ -48,6 +48,7 @@
+       upcEvent();
+       upcEvent(starlightConstants::event &ev);
+       ~upcEvent();
++      upcEvent(const upcEvent&)=default;
+ 
+       void addParticle(starlightParticle &part) { _particles.push_back(part); }
+       void addVertex(vector3 &vertex) { _vertices.push_back(vertex); }
+diff -ruN ./include/vector3.h ../UPDATED/include/vector3.h
+--- ./include/vector3.h	2019-11-20 14:43:10.000000001 +0100
++++ ../UPDATED/include/vector3.h	2023-05-17 17:02:26.000000001 +0200
+@@ -46,6 +46,7 @@
+       vector3(double *vec);
+       vector3(double x, double y, double z);
+       virtual ~vector3();
++      vector3(const vector3&)=default;
+       
+       const double* GetVector() const { return _vec; }
+       

@@ -42,7 +42,7 @@ void convert_SL2LHE(const std::string& inFileName, const double& beamE1, const d
   if (not outFile.is_open())
     throw std::logic_error("[convert_SL2LHE] Failed to open output file: "+outFileName);
 
-  std::cout << "Converterting STARlight output to LHE format" << std::endl;
+  std::cout << "Converting STARlight output to LHE format" << std::endl;
 
   // Add header
   outFile << "<LesHouchesEvents version=\"3.0\">" << std::endl;
