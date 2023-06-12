@@ -1,0 +1,9 @@
+Starting job on  Mon May 29 21:48:57 CDT 2023
+Running on  Linux cmslpc145.fnal.gov 3.10.0-1160.88.1.el7.x86_64 #1 SMP Tue Mar 7 08:37:40 CST 2023 x86_64 x86_64 x86_64 GNU/Linux
+System release  Scientific Linux release 7.9 (Nitrogen)
+name: cards/production/2017/13TeV/SuuToChiChi_FullyHadronic_WbWb/
+carddir: cards/production/2017/13TeV/SuuToChiChi_FullyHadronic_WbWb/SuuToChiChi_FullyHadronic_WbWb_MSuu8TeV_MChi3TeV/
+queue: local
+scram_arch: slc7_amd64_gcc10
+cmssw_version: CMSSW_12_4_8
+/uscms/home/cannaert/nobackup/gridpackGeneration/genproductions/bin/MadGraph5_aMCatNLO/cards/production/2017/13TeV/SuuToChiChi_FullyHadronic_WbWb/SuuToChiChi_FullyHadronic_WbWb_MSuu8TeV_MChi3TeV//cards/production/2017/13TeV/SuuToChiChi_FullyHadronic_WbWb/_proc_card.dat  does not exist!

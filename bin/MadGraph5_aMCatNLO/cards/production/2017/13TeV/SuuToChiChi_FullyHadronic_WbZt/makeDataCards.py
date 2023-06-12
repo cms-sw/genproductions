@@ -16,7 +16,7 @@ def makeDataCards():
             if mass_Chi == 3.0 and mass_Suu == 8.0:
                 print "skipping template cards"
                 continue
-            newCardFolder = "SuuToChiChi_FullyHadronic_MSuu"+MSuu_str[Suu_index] + "TeV_MChi"+MChi_str[Chi_index]+"TeV"
+            newCardFolder = "SuuToChiChi_FullyHadronic_WbZt_MSuu"+MSuu_str[Suu_index] + "TeV_MChi"+MChi_str[Chi_index]+"TeV"
             for suffix in templateSuffix:
                 templateFile = open(templateFolder+"/"+templateFolder+suffix,"r")
                 if not os.path.exists(newCardFolder):
@@ -26,7 +26,7 @@ def makeDataCards():
                 for line in templateFile:
                     splitLine = line.split()
                     if len(splitLine) and splitLine[0] == "output": # SuuToChiChi_FullyHadronic_MSuu8TeV_MChi3TeV":
-                        cardToCreate.write("output SuuToChiChi_FullyHadronic_MSuu"+MSuu_str[Suu_index]+"TeV_MChi"+MChi_str[Chi_index]+"TeV\n")
+                        cardToCreate.write("output SuuToChiChi_FullyHadronic_WbZt_MSuu"+MSuu_str[Suu_index]+"TeV_MChi"+MChi_str[Chi_index]+"TeV\n")
                         #print(1)
                     elif (len(splitLine) > 3) and (splitLine[0] == "set") and (splitLine[2] == "mass") and (splitLine[3] == "9936661"):
                         cardToCreate.write("set param_card mass 9936661 "+ str(mass_Suu) +"00000e+03\n")
