@@ -1,13 +1,3 @@
-#import FWCore.ParameterSet.Config as cms
-
-#externalLHEProducer = cms.EDProducer("ExternalLHEProducer",
-#    args = cms.vstring('/cvmfs/cms.cern.ch/phys_generator/gridpacks/2017/13TeV/powheg/V2/GluGluToHH/ggHH_EWChL_slc7_amd64_gcc700_CMSSW_10_6_19_cHHH1_working.tgz'),
-#    nEvents = cms.untracked.uint32(5000),
-#    numberOfParameters = cms.uint32(1),
-#    outputFile = cms.string('cmsgrid_final.lhe'),
-#    scriptName = cms.FileInPath('GeneratorInterface/LHEInterface/data/run_generic_tarball_cvmfs.sh')
-#)
-
 #Link to datacards:
 #https://github.com/cms-sw/genproductions/tree/d8108bb9d9db0b61a755c3625e73ee53c7d900dc/bin/Powheg/production/2017/13TeV/ggHH_EWChL
 
