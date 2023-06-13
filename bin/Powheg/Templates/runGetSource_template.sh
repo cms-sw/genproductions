@@ -196,9 +196,11 @@ NEWRPATH1=$${NEWRPATH1%?}
 NEWRPATH2=`ls /cvmfs/cms.cern.ch/$${SCRAM_ARCH}/external/zlib-x86_64/*/* | grep "/lib" | head -n 1`
 NEWRPATH2=$${NEWRPATH2%?}
 
-# Add back python3.6m brutally
+# Add python3 for ggHH 
 if [[ $$process == "ggHH" || $$process == "ggHH_SMEFT" ]]; then
-  echo "RPATHLIBS= -Wl,-rpath,$${NEWRPATH1} -L$${NEWRPATH1} -lgfortran -lstdc++ -Wl,-rpath,$${NEWRPATH2} -L$${NEWRPATH2} -lz -L/cvmfs/cms.cern.ch/slc7_amd64_gcc900/cms/cmssw/CMSSW_11_0_0_pre13/external/slc7_amd64_gcc900/lib -lpython3.6m" >> tmpfile
+  export MYLIBDIR=`scram tool info python3 | grep LIBDIR | sed -e s%LIBDIR=%%` 
+  export MYLIB=`scram tool info python3 | grep 'LIB=' | sed -e s%LIB=%%`
+  echo "RPATHLIBS= -Wl,-rpath,$${NEWRPATH1} -L$${NEWRPATH1} -lgfortran -lstdc++ -Wl,-rpath,$${NEWRPATH2} -L$${NEWRPATH2} -lz -L$${MYLIBDIR} -l$${MYLIB}" >> tmpfile
 else
   echo "RPATHLIBS= -Wl,-rpath,$${NEWRPATH1} -L$${NEWRPATH1} -lgfortran -lstdc++ -Wl,-rpath,$${NEWRPATH2} -L$${NEWRPATH2} -lz" >> tmpfile
 fi
@@ -241,7 +243,10 @@ $patch_7
 $patch_0 
 
 export PYTHONPATH=./Virtual/:$$PYTHONPATH
-export C_INCLUDE_PATH=$$C_INCLUDE_PATH:/usr/include/python3.6m/
+export MYINCLUDE=`scram tool info python3 | grep INCLUDE | sed -e s%INCLUDE=%%` 
+if [[ $$process == "ggHH" || $$process == "ggHH_SMEFT" ]]; then
+    export C_INCLUDE_PATH=$$C_INCLUDE_PATH:$${MYINCLUDE}
+fi
 
 make pwhg_main || fail_exit "Failed to compile pwhg_main"
 
