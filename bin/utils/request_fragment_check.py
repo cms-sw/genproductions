@@ -884,7 +884,7 @@ for num in range(0,len(prepid)):
                    if "hw_lhe_MG5aMCatNLO_settings" in data_f1 or "hw_lhe_common_settings" in data_f1 or "'herwig7LHEMG5aMCatNLOSettingsBlock" in data_f1:
                        errors.append("Extra blocks: 'hw_lhe_MG5aMCatNLO_settings' or 'hw_lhe_common_settings' or 'herwig7LHEMG5aMCatNLOSettingsBlock')")
                for line in file_me:
-                   if line not in data_f1 and "Matchbox" not in data_f1:
+                   if line not in data_f1 and "Matchbox" not in data_f1 and amcnlo_gp:
                        errors.append("Missing herwig MG with 0 jets or mc@nlo specific setting in fragment: "+line)
             if "9_3" not in str(cmssw) and "7_1" not in str(cmssw) and pw_gp != 0 and mg_gp !=0 and amcnlo_qg !=0:
                 os.system('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/herwig_frag_lines.txt -O herwig_frag_lines.txt')
