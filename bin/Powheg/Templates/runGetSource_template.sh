@@ -198,16 +198,13 @@ NEWRPATH2=$${NEWRPATH2%?}
 
 # Include the c++ library Python.h in the correct version
 if [[ $$process == "ggHH" || $$process == "ggHH_SMEFT" ]]; then
-    if [[ $${CMSSW_VERSION} == "CMSSW_10_"* ]]; then
-	echo "RPATHLIBS= -Wl,-rpath,$${NEWRPATH1} -L$${NEWRPATH1} -lgfortran -lstdc++ -Wl,-rpath,$${NEWRPATH2} -L$${NEWRPATH2} -lz -L/cvmfs/cms.cern.ch/slc7_amd64_gcc900/cms/cmssw/CMSSW_11_0_0_pre13/external/slc7_amd64_gcc900/lib -lpython3.6m" >> tmpfile
-    elif [[ $${CMSSW_VERSION} == "CMSSW_12_"* ]]; then
-	echo "RPATHLIBS= -Wl,-rpath,$${NEWRPATH1} -L$${NEWRPATH1} -lgfortran -lstdc++ -Wl,-rpath,$${NEWRPATH2} -L$${NEWRPATH2} -lz -L/cvmfs/cms.cern.ch/slc7_amd64_gcc10/cms/cmssw/CMSSW_12_4_8/external/slc7_amd64_gcc10/lib  -lpython3.9" >> tmpfile
-    elif [[ $${CMSSW_VERSION} == "" ]]; then
+    if [[ $${CMSSW_VERSION} == "" ]]; then
 	echo "ERROR: cannot determine the CMSSW version. Did you run cmsenv before launching the gridpack production?"
 	exit -1
     else
-	echo "ERROR: the setup to compile the ggHH model with the cmssw version $${CMSSW_VERSION} does not exist. If that is the cmssw version that you intend to use, please update Templates/runGetSource_template.sh "
-	exit -1
+	pylibs=$$(scram tool info python3 | grep 'LIBDIR=' | sed 's#LIBDIR=##g')
+	pyv=$$(scram tool info python3 | grep 'LIB=' | sed 's#LIB=##g')
+	echo "RPATHLIBS= -Wl,-rpath,$${NEWRPATH1} -L$${NEWRPATH1} -lgfortran -lstdc++ -Wl,-rpath,$${NEWRPATH2} -L$${NEWRPATH2} -lz -L$$pylibs  -l$$pyv" >> tmpfile
     fi
 fi
 
@@ -250,16 +247,11 @@ $patch_0
 
 export PYTHONPATH=./Virtual/:$$PYTHONPATH
 if [[ $$process == "ggHH" || $$process == "ggHH_SMEFT" ]]; then
-    if [[ $${CMSSW_VERSION} == "CMSSW_10_"* ]]; then
-	export C_INCLUDE_PATH=$$C_INCLUDE_PATH:/usr/include/python3.6m/
-    elif [[ $${CMSSW_VERSION} == "CMSSW_12_"* ]]; then
-	export C_INCLUDE_PATH=$$C_INCLUDE_PATH:/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/python3/3.9.6/include/python3.9/
-    elif [[ $${CMSSW_VERSION} == "" ]]; then
+    if [[ $${CMSSW_VERSION} == "" ]]; then
 	echo "ERROR: cannot determine CMSSW version. Did you run cmsenv before launching the gridpack production?"
 	exit -1
     else
-	echo "ERROR: the setup to compile the ggHH model with the cmssw version $${CMSSW_VERSION} does not exist. If that is the cmssw version that you intend to use, please update Templates/runGetSource_template.sh "
-	exit -1
+	export C_INCLUDE_PATH=$$C_INCLUDE_PATH:$$(scram tool info python3 | grep 'INCLUDE=' | sed 's#INCLUDE=##g')
     fi
 fi
 
