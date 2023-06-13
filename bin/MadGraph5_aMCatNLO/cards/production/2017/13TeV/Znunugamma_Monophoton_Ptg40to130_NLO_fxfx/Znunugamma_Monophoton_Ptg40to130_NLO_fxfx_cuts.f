@@ -1,4 +1,4 @@
-c *This file contains cuts(0~50) on the WpT: line413-428*
+c *This file contains cuts(0~50) on the ZpT: line413-427*
 c This file contains the default cuts (as defined in the run_card.dat)
 c and can easily be extended by the user to include other.  This
 c function should return true if event passes cuts
@@ -167,7 +167,7 @@ c find the jets
 
 c If we do not require a mimimum jet energy, there's no need to apply
 c jet clustering and all that.
-      if (ptj.ne.0d0.or.ptgmax.ne.0d0) then
+      if (ptj.ne.0d0.or.ptgmin.ne.0d0) then
 c Put all (light) QCD partons in momentum array for jet clustering.
 c From the run_card.dat, maxjetflavor defines if b quark should be
 c considered here (via the logical variable 'is_a_jet').  nQCD becomes
@@ -276,7 +276,7 @@ c find the photons
             is_a_ph(i)=.false.
          endif
       enddo
-      if (ptgmax.ne.0d0) then
+      if (ptgmin.ne.0d0) then
          nph=0
          do j=nincoming+1,nexternal
             if (is_a_ph(j)) then
@@ -313,7 +313,11 @@ c Loop over all photons
             j=j+1
             
             ptg=pt(pgamma(0,j))
-            if(ptg.gt.ptgmax)then
+            if(ptg.lt.ptgmin)then
+               passcuts_user=.false.
+               return
+            endif
+            if (ptg.gt.130d0)then
                passcuts_user=.false.
                return
             endif
@@ -410,20 +414,20 @@ C PUT HERE YOUR USER-DEFINED CUTS
 C***************************************************************
 C***************************************************************
 C
-      do i=0,nexternal
-         do j=i+1,nexternal
-            if (((abs(ipdg(i)).eq.12.or.abs(ipdg(i)).eq.14.or.
-     &        abs(ipdg(i)).eq.16).and.
-     &        (ipdg(j).eq.-sign(abs(ipdg(i))-1,ipdg(i)))).or.
-     &        ((abs(ipdg(i)).eq.11.or.abs(ipdg(i)).eq.13.or.
-     &        abs(ipdg(i)).eq.15).and.
-     &        (ipdg(j).eq.-sign(abs(ipdg(i))+1,ipdg(i))))) then
-              if ( (p(1,i)+p(1,j))**2 + (p(2,i)+p(2,j))**2 .gt.80d0**2 ) then
-                passcuts_user=.false.
-                return
-              endif
-            endif
-         enddo
+      do i=nincoming+1,nexternal   ! loop over all external particles
+         if (istatus(i).eq.1    ! final state particle
+     &        .and. ( ipdg(i).eq.11 .or. ipdg(i).eq.13 .or.
+     &        ipdg(i).eq.15)) then    ! leptons
+            do j=nincoming+1,nexternal
+               if (istatus(j).eq.1 .and. ( ipdg(j).eq.-11 .or.
+     &         ipdg(j).eq.-13 .or. ipdg(j).eq.-15)) then
+                  if ( (p(1,i)+p(1,j))**2+(p(2,i)+p(2,j))**2 .gt. 80d0**2) then
+                     passcuts_user=.false.
+                     return
+                  endif
+               endif
+            enddo
+         endif
       enddo
 c$$$C EXAMPLE: cut on top quark pT
 c$$$C          Note that PDG specific cut are more optimised than simple user cut
