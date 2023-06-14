@@ -664,6 +664,9 @@ for num in range(0,len(prepid)):
         os.system('cp '+pi+' '+my_path+'/'+pi+'/.')
         os.system('wget -q '+mcm_link+'public/restapi/requests/get_test/'+pi+' -O '+pi+'_get_test')
         gettest = os.popen('grep cff '+pi+'_get_test'+' | grep curl').read()
+        if os.path.getsize(pi+'_get_test') == 0:
+            print("public/restapi/requests/get_test/ is not acessible for this request. Exiting! Please contact geovanny.gonzalez@cern.ch")
+            sys.exit()
         scram_arch = os.popen('grep SCRAM_ARCH '+pi+'_get_test').read()
         scram_arch = scram_arch.split('=')[1].rstrip()
         print("CMSSW release for the request: "+str(cmssw))
@@ -1351,8 +1354,8 @@ for num in range(0,len(prepid)):
                 mgversion = mgversion_tmp.split()
                 mgversion = mgversion[2].split(".")
                 mgversion_tmp = mgversion_tmp.split("\n")
-                mg5_aMC_version = int(mgversion[0])*100 + int(mgversion[1])*10 + int(mgversion[2])
-                print("The gridpack is made with mg5_aMC version:"+str(mg5_aMC_version))
+                print("The gridpack is made with mg5_aMC version:"+str(mgversion_tmp[0]))   
+                mg5_aMC_version = float(mgversion[0])*100/float(pow(10,len(str(int(mgversion[0])))-1)) + float(mgversion[1])*10/float(pow(10,len(str(int(mgversion[1])))-1)) + float(mgversion[2])/float(pow(10,len(str(int(mgversion[2])))-1))
                 if "UL" in pi and mg5_aMC_version < 261:
                     if "PPD" in pi:
                         warnings.append("You're using MG5_aMC "+str(mg5_aMC_version)+" in an Ultra Legacy Campaign. You should use MG5_aMCv2.6.1+")
