@@ -1168,9 +1168,11 @@ for num in range(0,len(prepid)):
                     content = f.read()
                     errors.extend(check_replace(runcmsgrid_file))
                     match = re.search(r"""process=(["']?)([^"']*)\1""", content)
+                    print(match.group(0))
                     warning1,error1 = xml_check_and_patch(f,content,gridpack_eos_path,my_path,pi)
                     warnings.extend(warning1)
                     errors.extend(error1)
+                    
                     f.close()
             else:
                 errors.append(my_path+'/'+pi+'/'+'runcmsgrid.sh does not exists')
