@@ -1020,6 +1020,11 @@ for num in range(0,len(prepid)):
                         warnings.append(pf[0]+"Gridpack PATCH problem! Please use the master branch of genproductions!")
                     if len(pf[1]) !=0 or len(pf[2]) != 0:
                         warnings.append(pf[1]+"          "+pf[2]+"          You may try to request more events per phase-space region in the gridpack.")
+                if os.path.isfile(gp_log_loc) is True and ('madgraph' in dn.lower() or 'amcatnlo' in dn.lower()):
+                    print("------------------------------------------------------------------------------------")
+                    print("Summary for madgraph for experts fron gridpack log (cross section BEFORE matching (if there is matching/merging)):")
+                    print(os.popen('grep Summary '+gp_log_loc+' -A 5 -B 1').read())
+                    print("------------------------------------------------------------------------------------")
                 if mg_gp is True:
                     dir_path = os.path.join(my_path,pi,"InputCards")
                     if os.path.isdir(dir_path):
@@ -1217,6 +1222,18 @@ for num in range(0,len(prepid)):
                             if "minnlo" in line and "modlog_p" not in line:
                                 minnlo = int(re.split(r'\s+', line)[1])
                                 print("MINNLO = "+str(minnlo))
+            if os.path.isfile(my_path+'/'+pi+'/'+'external_tarball/pwg-stst.dat') is True:
+                pwg_stat_file = os.path.join(my_path, pi, "external_tarball/pwg-stat.dat")
+            else:
+                pwg_stat_file = os.path.join(my_path, pi, "pwg-stat.dat")
+            if os.path.isfile(pwg_stat_file):
+                with open(pwg_stat_file) as f_pwg_stat: 
+                    s_pwg_stat = f_pwg_stat.read()
+                    print("-----------------------------------------------------------------")
+                    print("Summary from pwg-stat.dat from Powheg firdpack (for experts only):")
+                    print("-----------------------------------------------------------------")
+                    print(s_pwg_stat)
+                    print("-----------------------------------------------------------------")
             if os.path.isfile(my_path+'/'+pi+'/'+'external_tarball/pwg-rwl.dat') is True:
                 pwg_rwl_file = os.path.join(my_path, pi, "external_tarball/pwg-rwl.dat")
             else:
@@ -1439,7 +1456,7 @@ for num in range(0,len(prepid)):
                 if match_eff == 1:
                     warnings.append("Matched sample but matching efficiency is 1!")
 
-            if (pw_gp or mg_gp) and mg_nlo != 1:
+            if (pw_gp or mg_gp) and mg_nlo != 1 and mcatnlo_flag != 1:
                 MGpatch.append(int(os.popen('more '+my_path+'/'+pi+'/'+'runcmsgrid.sh | grep -c "FORCE IT TO"').read()))
                 MGpatch.append(int(os.popen('grep -c _CONDOR_SCRATCH_DIR '+my_path+'/'+pi+'/'+'mgbasedir/Template/LO/SubProcesses/refine.sh').read()))
                 MGpatch.append(int(os.popen('grep -c _CONDOR_SCRATCH_DIR '+my_path+'/'+pi+'/'+'process/madevent/SubProcesses/refine.sh').read()))
