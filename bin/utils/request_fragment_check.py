@@ -769,10 +769,10 @@ for num in range(0,len(prepid)):
             print("Gridpack location in cvmfs and eos:")
             print(gridpack_cvmfs_path)
             print(gridpack_eos_path)
-            print ("Gridpack size in MBs: "+str(round(os.path.getsize(gridpack_cvmfs_path)/(1024*1024),3))+ " M")
+            print("Gridpack size in MBs: "+str(round(os.path.getsize(gridpack_cvmfs_path)/(1024*1024),3))+ " M")
             if os.path.isfile(gridpack_cvmfs_path) is True:
                 os.system('tar xf '+gridpack_cvmfs_path+' -C '+my_path+'/'+pi)
-                size_after_untar = os.popen("du -h "+my_path+'/'+pi).read().split("\t")[0]
+                size_after_untar = os.popen("du -h -d 0 "+my_path+'/'+pi).read().split("\t")[0]
                 print ("Gridpack folder size after untarring: "+size_after_untar)
                 folder = glob.glob(my_path+'/'+pi+'/*')
                 folder_and_subfolder = sum([len(files) for r, d, files in os.walk(my_path+'/'+pi)])
