@@ -1306,6 +1306,7 @@ for num in range(0,len(prepid)):
 
         if mg_gp is True or amcnlo_gp is True:
             if gp_size == 0: break
+            bbmark = 0
             filename_pc = my_path+'/'+pi+'/'+'process/madevent/Cards/proc_card_mg5.dat'
             fname_p2 = my_path+'/'+pi+'/'+'process/Cards/proc_card.dat'
             fname_p3 = my_path+'/'+pi+'/'+'process/Cards/proc_card_mg5.dat'
@@ -1315,6 +1316,7 @@ for num in range(0,len(prepid)):
                 mg_nlo = int(os.popen('grep -c "\[QCD\]" '+filename_pc).read())
                 loop_flag = int(os.popen('more '+filename_pc+' | grep -c "noborn=QCD"').read())
                 gen_line = os.popen('grep generate '+filename_pc).read()
+                bbmark = int(os.popen('grep -c "define bb = b b~" '+filename_pc).read())
                 print("Process lines from the proc card:")
                 print(gen_line)
                 proc_line = os.popen('grep process '+filename_pc+' | grep -v set').read()
@@ -1324,7 +1326,9 @@ for num in range(0,len(prepid)):
                 if (gen_line.count('@') > 0 and gen_line.count('@') <= proc_line.count('@')) or (proc_line.count('add') > 0):
                     proc_line = proc_line.split('add process')
                     print(proc_line)
+                    bmark = 0
                     for y in range(0,len(proc_line)):
+                        if "define bb = b b~" in proc_line[y]: bmark = 1  
                         if proc_line[y].startswith("set"): continue
                         zz = proc_line[y] 
                         if "," in proc_line[y]: zz = proc_line[y].split(',')[0]
@@ -1332,6 +1336,7 @@ for num in range(0,len(prepid)):
                         nbtomatch = zz.count('b') if maxjetflavor > 4 else 0
                         nc = zz.count('c') if "chi" not in zz else 0
                         if "excl" in zz and nc != 0: nc = nc -1
+                        if bbmark == 1 and nbtomatch > 1: nbtomatch = nbtomatch - 1
                         jet_count_tmp.append(zz.count('j') + nbtomatch + nc)
                     jet_count = max(jet_count_tmp)
                 else:
