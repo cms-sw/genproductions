@@ -2,7 +2,7 @@ import FWCore.ParameterSet.Config as cms
 
 externalLHEProducer = cms.EDProducer("ExternalLHEProducer",
     #args = cms.vstring('/cvmfs/cms.cern.ch/phys_generator/gridpacks/slc7_amd64_gcc700/13TeV/powhegV2/ttH_inclusive_hdamp_NNPDF31_13TeV_M125/ttH_inclusive_hdamp_NNPDF31_13TeV_M125.tgz'),
-    args = cms.vstring(''),
+    args = cms.vstring('/afs/cern.ch/user/m/moameen/public/gridpacks/ttH_PowhegP8/ttH_slc7_amd64_gcc10_CMSSW_12_4_8_tt_H.tgz'),
     nEvents = cms.untracked.uint32(5000),
     numberOfParameters = cms.uint32(1),
     outputFile = cms.string('cmsgrid_final.lhe'),
@@ -14,7 +14,7 @@ externalLHEProducer = cms.EDProducer("ExternalLHEProducer",
 # For Run-3: https://github.com/cms-sw/genproductions/blob/master/bin/Powheg/production/Run3/13p6TeV/Higgs/ttH_inclusive_hdamp_NNPDF31_13p6TeV_M125/ttH_inclusive_hdamp_NNPDF31_13p6TeV_M125.input
 
 from Configuration.Generator.Pythia8CommonSettings_cfi import *
-from Configuration.Generator.MCTunes2017.PythiaCP5Settings_cfi import *
+from Configuration.Generator.MCTunesRun3ECM13p6TeV.PythiaCP5Settings_cfi import *
 from Configuration.Generator.Pythia8PowhegEmissionVetoSettings_cfi import *
 from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *
 
@@ -41,8 +41,8 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
           ),
         parameterSets = cms.vstring('pythia8CommonSettings',
                                     'pythia8CP5Settings',
-				    				'pythia8PowhegEmissionVetoSettings',
-                    				'pythia8PSweightsSettings',
+				    'pythia8PowhegEmissionVetoSettings',
+                    		    'pythia8PSweightsSettings',
                                     'processParameters'
                                     )
         )
