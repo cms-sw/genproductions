@@ -27,21 +27,29 @@
   0	= iseed ! rnd seed (0=assigned automatically=default))
 #*********************************************************************
 # Collider type and energy                                           *
-# lpp: 0=No PDF, 1=proton, -1=antiproton, 2=photon from proton,      *
-#                                         3=photon from electron     *
+# lpp: 0=No PDF, 1=proton, -1=antiproton,                            *
+#                2=elastic photon of proton/ion beam                 *
+#             +/-3=PDF of electron/positron beam                     *
+#             +/-4=PDF of muon/antimuon beam                         *
 #*********************************************************************
   2	= lpp1 ! beam 1 type (photon)
-  1	= lpp2 ! beam 2 type (proton)
+  1	= lpp2 ! beam 2 type (photon)
   6500.0	= ebeam1 ! beam 1 total energy in GeV
   6500.0	= ebeam2 ! beam 2 total energy in GeV
 # To see polarised beam options: type "update beam_pol"
 
 #*********************************************************************
-# PDF CHOICE: this automatically fixes also alpha_s and its evol.    *
+# PDF CHOICE: this automatically fixes alpha_s and its evol.         *
+# pdlabel: lhapdf=LHAPDF (installation needed) [1412.7420]           *
+#          iww=Improved Weizsaecker-Williams Approx.[hep-ph/9310350] *
+#          eva=Effective W/Z/A Approx.       [2111.02442]            *
+#          edff=EDFF in gamma-UPC            [eq.(11) in 2207.03012] *
+#          chff=ChFF in gamma-UPC            [eq.(13) in 2207.03012] *
+#          none=No PDF, same as lhapdf with lppx=0                   *
 #*********************************************************************
   26500   = lhaid      ! MSHT20qed_nnlo_inelastic (available form LHAPDF 6.3)
   chff    = pdlabel1   ! PDF set                                                                     
-  lhapdf  = pdlabel2   ! PDF set                                                                     
+  lhapdf  = pdlabel2   ! PDF set  
 # To see heavy ion options: type "update ion_pdf"
 #*********************************************************************
 # Renormalization and factorization scales                           *
@@ -54,6 +62,10 @@
   91.188	= dsqrt_q2fact2 ! fixed fact scale for pdf2
   -1	= dynamical_scale_choice ! Choose one of the preselected dynamical choices
   1.0	= scalefact ! scale factor for event-by-event scales
+
+  0	= ievo_eva ! scale evolution for EW pdfs (eva):
+                         ! 0 for evo by q^2; 1 for evo by pT^2
+
 #*********************************************************************
 # Type and output format
 #*********************************************************************
@@ -65,22 +77,24 @@
 #*********************************************************************
 #
 #*********************************************************************
-# handling of the helicities:
-#  0: sum over all helicities
-#  1: importance sampling over helicities
+# Phase-Space Optimization strategy (basic options)
 #*********************************************************************
   0	= nhel ! using helicities importance sampling or not.
+                             ! 0: sum over helicity, 1: importance sampling
+  2	= sde_strategy ! default integration strategy (hep-ph/2021.00773)
+                             ! 1 is old strategy (using amp square)
+			     ! 2 is new strategy (using only the denominator)
+# To see advanced option for Phase-Space optimization: type "update psoptim"			     
 #*********************************************************************
-# Generation bias, check the wiki page below for more information:   *
-#  'cp3.irmp.ucl.ac.be/projects/madgraph/wiki/LOEventGenerationBias' *
+# Customization (custom cuts/scale/bias/...)                         *
+# list of files containing fortran function that overwrite default   *
 #*********************************************************************
-  None	= bias_module ! Bias type of bias, [None, ptj_bias, -custom_folder-]
-  {}	= bias_parameters ! Specifies the parameters of the module.
-#
+   = custom_fcts ! List of files containing user hook function
 #*******************************                                                 
 # Parton level cuts definition *
 #*******************************                                     
-#                                                                    
+  0.0	= dsqrt_shat ! minimal shat for full process
+#
 #
 #*********************************************************************
 # BW cutoff (M+/-bwcutoff*Gamma) ! Define on/off-shell for "$" and decay  
@@ -96,14 +110,8 @@
 #*********************************************************************
 # Minimum and maximum pt's (for max, -1 means no cut)                *
 #*********************************************************************
-  0.0	= ptj ! minimum pt for the jets 
-  0.0	= ptb ! minimum pt for the b 
   0.0	= ptl ! minimum pt for the charged leptons 
-  0.0	= misset ! minimum missing Et (sum of neutrino's momenta)
-  -1.0	= ptjmax ! maximum pt for the jets
-  -1.0	= ptbmax ! maximum pt for the b
   -1.0	= ptlmax ! maximum pt for the charged leptons
-  -1.0	= missetmax ! maximum missing Et (sum of neutrino's momenta)
   {}	= pt_min_pdg ! pt cut for other particles (use pdg code). Applied on particle and anti-particle
   {}	= pt_max_pdg ! pt cut for other particles (syntax e.g. {6: 100, 25: 50}) 
 #
@@ -112,30 +120,20 @@
 #*********************************************************************
 # Maximum and minimum absolute rapidity (for max, -1 means no cut)   *
 #*********************************************************************
-  -1.0	= etaj ! max rap for the jets 
-  -1.0	= etab ! max rap for the b
-  -1.0	= etal ! max rap for the charged leptons 
-  0.0	= etabmin ! min rap for the b
+ -1.0	= etal ! max rap for the charged leptons 
   0.0	= etalmin ! main rap for the charged leptons
   {}	= eta_min_pdg ! rap cut for other particles (use pdg code). Applied on particle and anti-particle
   {}	= eta_max_pdg ! rap cut for other particles (syntax e.g. {6: 2.5, 23: 5})
 #*********************************************************************
 # Minimum and maximum DeltaR distance                                *
 #*********************************************************************
-  0.0	= drbb ! min distance between b's 
-  0.0	= drbj ! min distance between b and jet 
-  0.0	= drjl ! min distance between jet and lepton 
-  0.0	= drbl ! min distance between b and lepton 
-  -1.0	= drbbmax ! max distance between b's
-  -1.0	= drbjmax ! max distance between b and jet
-  -1.0	= drjlmax ! max distance between jet and lepton
-  -1.0	= drblmax ! max distance between b and lepton
+  0.4	= drll ! min distance between leptons 
+  -1.0	= drllmax ! max distance between leptons
 #*********************************************************************
 # Minimum and maximum invariant mass for pairs                       *
 #*********************************************************************
-  0.0	= mmbb ! min invariant mass of a b pair 
-  50.0	= mmll ! min invariant mass of leptons 
-  -1.0	= mmbbmax ! max invariant mass of a b pair
+  50.0	= mmll ! min invariant mass of l+l- (same flavour) lepton pair
+  -1.0	= mmllmax ! max invariant mass of l+l- (same flavour) lepton pair
   {}	= mxx_min_pdg ! min invariant mass of a pair of particles X/X~ (e.g. {6:250})
   {'default': False}	= mxx_only_part_antipart ! if True the invariant mass is applied only 
                        ! to pairs of particle/antiparticle and not to pairs of the same pdg codes.  
@@ -148,19 +146,19 @@
  # Minimum and maximum pt for 4-momenta sum of leptons / neutrino     *
  #  for pair of lepton includes only same flavor, opposite charge
  #*********************************************************************
+  0.0	= ptllmin ! Minimum pt for 4-momenta sum of leptons(l and vl)
+  -1.0	= ptllmax ! Maximum pt for 4-momenta sum of leptons(l and vl)
 #*********************************************************************
 # Inclusive cuts                                                     *
 #*********************************************************************
-  0.0	= xptb ! minimum pt for at least one b 
+  0.0	= xptl ! minimum pt for at least one charged lepton 
  #*********************************************************************
- # Control the Ht(k)=Sum of k leading jets                            *
+ # Control the pt's of leptons sorted by pt                           *
  #*********************************************************************
-  0.0	= ihtmin !inclusive Ht for all partons (including b)
-  -1.0	= ihtmax !inclusive Ht for all partons (including b)
-  0.0	= ht2min ! minimum Ht for the two leading jets
-  0.0	= ht3min ! minimum Ht for the three leading jets
-  -1.0	= ht2max ! maximum Ht for the two leading jets
-  -1.0	= ht3max ! maximum Ht for the three leading jets
+  0.0	= ptl1min ! minimum pt for the leading lepton in pt
+  0.0	= ptl2min ! minimum pt for the second lepton in pt
+  -1.0	= ptl1max ! maximum pt for the leading lepton in pt 
+  -1.0	= ptl2max ! maximum pt for the second lepton in pt
 #*********************************************************************
 # maximal pdg code for quark to be considered as a light jet         *
 # (otherwise b cuts are applied)                                     *

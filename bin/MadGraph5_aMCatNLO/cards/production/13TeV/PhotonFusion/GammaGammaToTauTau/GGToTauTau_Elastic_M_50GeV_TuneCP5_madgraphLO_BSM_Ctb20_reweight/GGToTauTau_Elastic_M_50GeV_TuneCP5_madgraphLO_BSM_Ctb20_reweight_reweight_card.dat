@@ -1,0 +1,412 @@
+#******************************************************************
+#                       Reweight Module                           *
+#******************************************************************
+change rwgt_dir ./rwgt
+
+launch --rwgt_name=dummy
+
+launch --rwgt_name=ceBRe33_m40p0
+set param_card smeft ceBRe33 -4.00000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_m39p2
+set param_card smeft ceBRe33 -3.92000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_m38p4
+set param_card smeft ceBRe33 -3.84000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_m37p6
+set param_card smeft ceBRe33 -3.76000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_m36p8
+set param_card smeft ceBRe33 -3.68000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_m36p0
+set param_card smeft ceBRe33 -3.60000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_m35p2
+set param_card smeft ceBRe33 -3.52000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_m34p4
+set param_card smeft ceBRe33 -3.44000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_m33p6
+set param_card smeft ceBRe33 -3.36000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_m32p8
+set param_card smeft ceBRe33 -3.28000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_m32p0
+set param_card smeft ceBRe33 -3.20000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_m31p2
+set param_card smeft ceBRe33 -3.12000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_m30p4
+set param_card smeft ceBRe33 -3.04000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_m29p6
+set param_card smeft ceBRe33 -2.96000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_m28p8
+set param_card smeft ceBRe33 -2.88000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_m28p0
+set param_card smeft ceBRe33 -2.80000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_m27p2
+set param_card smeft ceBRe33 -2.72000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_m26p4
+set param_card smeft ceBRe33 -2.64000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_m25p6
+set param_card smeft ceBRe33 -2.56000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_m24p8
+set param_card smeft ceBRe33 -2.48000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_m24p0
+set param_card smeft ceBRe33 -2.40000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_m23p2
+set param_card smeft ceBRe33 -2.32000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_m22p4
+set param_card smeft ceBRe33 -2.24000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_m21p6
+set param_card smeft ceBRe33 -2.16000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_m20p8
+set param_card smeft ceBRe33 -2.08000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_m20p0
+set param_card smeft ceBRe33 -2.00000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_m19p2
+set param_card smeft ceBRe33 -1.92000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_m18p4
+set param_card smeft ceBRe33 -1.84000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_m17p6
+set param_card smeft ceBRe33 -1.76000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_m16p8
+set param_card smeft ceBRe33 -1.68000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_m16p0
+set param_card smeft ceBRe33 -1.60000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_m15p2
+set param_card smeft ceBRe33 -1.52000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_m14p4
+set param_card smeft ceBRe33 -1.44000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_m13p6
+set param_card smeft ceBRe33 -1.36000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_m12p8
+set param_card smeft ceBRe33 -1.28000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_m12p0
+set param_card smeft ceBRe33 -1.20000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_m11p2
+set param_card smeft ceBRe33 -1.12000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_m10p4
+set param_card smeft ceBRe33 -1.04000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_m9p6
+set param_card smeft ceBRe33 -9.60000e+00
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_m8p8
+set param_card smeft ceBRe33 -8.80000e+00
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_m8p0
+set param_card smeft ceBRe33 -8.00000e+00
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_m7p2
+set param_card smeft ceBRe33 -7.20000e+00
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_m6p4
+set param_card smeft ceBRe33 -6.40000e+00
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_m5p6
+set param_card smeft ceBRe33 -5.60000e+00
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_m4p8
+set param_card smeft ceBRe33 -4.80000e+00
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_m4p0
+set param_card smeft ceBRe33 -4.00000e+00
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_m3p2
+set param_card smeft ceBRe33 -3.20000e+00
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_m2p4
+set param_card smeft ceBRe33 -2.40000e+00
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_m1p6
+set param_card smeft ceBRe33 -1.60000e+00
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_m0p8
+set param_card smeft ceBRe33 -8.00000e-01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_0p0
+set param_card smeft ceBRe33 0.00000e+00
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_0p8
+set param_card smeft ceBRe33 8.00000e-01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_1p6
+set param_card smeft ceBRe33 1.60000e+00
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_2p4
+set param_card smeft ceBRe33 2.40000e+00
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_3p2
+set param_card smeft ceBRe33 3.20000e+00
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_4p0
+set param_card smeft ceBRe33 4.00000e+00
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_4p8
+set param_card smeft ceBRe33 4.80000e+00
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_5p6
+set param_card smeft ceBRe33 5.60000e+00
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_6p4
+set param_card smeft ceBRe33 6.40000e+00
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_7p2
+set param_card smeft ceBRe33 7.20000e+00
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_8p0
+set param_card smeft ceBRe33 8.00000e+00
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_8p8
+set param_card smeft ceBRe33 8.80000e+00
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_9p6
+set param_card smeft ceBRe33 9.60000e+00
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_10p4
+set param_card smeft ceBRe33 1.04000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_11p2
+set param_card smeft ceBRe33 1.12000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_12p0
+set param_card smeft ceBRe33 1.20000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_12p8
+set param_card smeft ceBRe33 1.28000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_13p6
+set param_card smeft ceBRe33 1.36000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_14p4
+set param_card smeft ceBRe33 1.44000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_15p2
+set param_card smeft ceBRe33 1.52000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_16p0
+set param_card smeft ceBRe33 1.60000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_16p8
+set param_card smeft ceBRe33 1.68000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_17p6
+set param_card smeft ceBRe33 1.76000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_18p4
+set param_card smeft ceBRe33 1.84000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_19p2
+set param_card smeft ceBRe33 1.92000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_20p0
+set param_card smeft ceBRe33 2.00000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_20p8
+set param_card smeft ceBRe33 2.08000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_21p6
+set param_card smeft ceBRe33 2.16000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_22p4
+set param_card smeft ceBRe33 2.24000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_23p2
+set param_card smeft ceBRe33 2.32000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_24p0
+set param_card smeft ceBRe33 2.40000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_24p8
+set param_card smeft ceBRe33 2.48000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_25p6
+set param_card smeft ceBRe33 2.56000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_26p4
+set param_card smeft ceBRe33 2.64000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_27p2
+set param_card smeft ceBRe33 2.72000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_28p0
+set param_card smeft ceBRe33 2.80000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_28p8
+set param_card smeft ceBRe33 2.88000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_29p6
+set param_card smeft ceBRe33 2.96000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_30p4
+set param_card smeft ceBRe33 3.04000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_31p2
+set param_card smeft ceBRe33 3.12000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_32p0
+set param_card smeft ceBRe33 3.20000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_32p8
+set param_card smeft ceBRe33 3.28000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_33p6
+set param_card smeft ceBRe33 3.36000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_34p4
+set param_card smeft ceBRe33 3.44000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_35p2
+set param_card smeft ceBRe33 3.52000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_36p0
+set param_card smeft ceBRe33 3.60000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_36p8
+set param_card smeft ceBRe33 3.68000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_37p6
+set param_card smeft ceBRe33 3.76000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_38p4
+set param_card smeft ceBRe33 3.84000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_39p2
+set param_card smeft ceBRe33 3.92000e+01
+set param_card mass 15 1.777
+
+launch --rwgt_name=ceBRe33_40p0
+set param_card smeft ceBRe33 4.00000e+01
+set param_card mass 15 1.777
+
+

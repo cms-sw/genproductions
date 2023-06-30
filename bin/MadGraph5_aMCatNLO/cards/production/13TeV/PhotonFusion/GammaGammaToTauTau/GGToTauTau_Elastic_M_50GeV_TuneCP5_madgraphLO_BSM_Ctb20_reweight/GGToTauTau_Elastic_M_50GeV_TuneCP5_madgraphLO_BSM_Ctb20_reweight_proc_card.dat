@@ -1,7 +1,7 @@
-import model SMEFTsim_top_MwScheme_UFO-ceB_massless
+import model SMEFTsim_top_MwScheme_UFO
 define l+ = e+ mu+ ta+
 define l- = e- mu- ta-
 define vl = ve vm vt
 define vl~ = ve~ vm~ vt~
 generate a a > ta+ ta- NP<=2
-output GGToTauTau_Elastic_M_50GeV_TuneCP5_madgraphLO_reweight
+output GGToTauTau_Elastic_M_50GeV_TuneCP5_madgraphLO_BSM_Ctb20_reweight

@@ -13,7 +13,7 @@ def GetName(x):
 couplings={}
 
 # yy > tautau BSM couplings:
-couplings['ceBRe33'] = np.linspace(-5,5,101)
+couplings['ceBRe33'] = np.linspace(-40,40,101)
 #couplings['ceBIm33'] = np.linspace(-5,5,101)
 
 # yy > WW BSM couplings:
