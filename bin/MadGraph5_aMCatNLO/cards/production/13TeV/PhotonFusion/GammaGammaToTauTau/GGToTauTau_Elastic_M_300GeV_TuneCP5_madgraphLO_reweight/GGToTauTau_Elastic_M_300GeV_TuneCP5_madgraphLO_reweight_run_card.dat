@@ -125,7 +125,7 @@
 #*********************************************************************
 # Minimum and maximum DeltaR distance                                *
 #*********************************************************************
-  0.4	= drll ! min distance between leptons 
+  0.0	= drll ! min distance between leptons 
   -1.0	= drllmax ! max distance between leptons
 #*********************************************************************
 # Minimum and maximum invariant mass for pairs                       *
