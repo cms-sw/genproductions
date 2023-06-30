@@ -366,7 +366,7 @@ def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag, proc
           f.write('tar xzf WW_MiNNLO_2loop_grids_reduced1.tar.gz\n')
           f.write('ls\n')
         f.write('cp -p ' + rootfolder + '/' + folderName + '/powheg.input.' + parstage + ' ./powheg.input' + '\n') # copy input file for this stage explicitly, needed by condor dag
-        f.write('echo ' + str (i) + ' | ./pwhg_main \n')
+        f.write('echo ' + str (i+1) + ' | ./pwhg_main \n')
         f.write('echo "Workdir after run:" \n')
         f.write('ls -ltr \n')
         f.write('cp -p -v -u *.top ' + rootfolder + '/' + folderName + '/. \n')
