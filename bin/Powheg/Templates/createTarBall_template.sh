@@ -43,8 +43,9 @@ ISVRES="false"
 grep -qi "powhegboxRES" $$WORKDIR/$$folderName/VERSION ; test $$? -ne 0  || ISVRES="true"
 # For Powheg vRES, if the gridpack has been produced in several stages (using manyseeds 1),
 # we need to turn on manyseeds & parallelstage also for the final gridpack.
-# we test whether manyseeds has been used by checking if "pwgubound-0001.dat" exists
-if [ $$ISVRES == "true" -a -f "$$WORKDIR/$$folderName/pwgubound-0001.dat" ]; then
+# we test whether manyseeds has been used by checking if there is more than one "pwgubound-XXXX.dat" file exists
+NUMUBOUND=`ls $${WORKDIR}/$${folderName} | egrep 'pwgubound-.+.dat' | wc -l`
+if [ $$ISVRES == "true" -a $$NUMUBOUND -gt 1 ]; then
   echo "Detected Powheg Box RES and a parallel gridpack production. Turning on manyseeds in final gridpack"
   sed -i "s/^.*manyseeds.*/manyseeds 1/g" powheg.input
   sed -i "s/^.*parallelstage.*/parallelstage 4/g" powheg.input
