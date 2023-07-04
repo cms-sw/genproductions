@@ -1,7 +1,7 @@
 #!/bin/bash
 
-CARDSDIR = ${1}
-WORKDIR = ${2}
+CARDSDIR=${1}
+WORKDIR=${2}
 
 
 cd ${CARDSDIR}/DR_files

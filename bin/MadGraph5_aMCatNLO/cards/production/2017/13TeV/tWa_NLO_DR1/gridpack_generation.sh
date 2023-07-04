@@ -447,7 +447,8 @@ make_gridpack () {
               echo "" >> makegrid.dat
       fi
       echo "done" >> makegrid.dat
-    
+      bash ${CARDSDIR}/copy_files_script.sh ${CARDSDIR} ${WORKDIR}
+
       cat makegrid.dat | ./bin/generate_events -n pilotrun
       # Run this step separately in debug mode since it gives so many problems
       if [ -e $CARDSDIR/${name}_reweight_card.dat ]; then
@@ -501,7 +502,6 @@ make_gridpack () {
       fi
       echo "done" >> makegrid.dat
 
-      bash ${CARDSDIR}/copy_files_script.sh ${CARDSDIR} ${WORKDIR}
     #   set +e
       cat makegrid.dat | ./bin/generate_events pilotrun
       echo "finished pilot run"
