@@ -5,4 +5,4 @@ define bb = b b~
 define ww = w+ w-
 define tpp = tp tp~
 generate p p > h tt bb j / bp x y VLQ^2==2
-output TprimeBtoTH_LH_M1000_decay30pct_int -nojpeg
+output TprimeBToTH_LH_M1000_decay30pct_int -nojpeg
