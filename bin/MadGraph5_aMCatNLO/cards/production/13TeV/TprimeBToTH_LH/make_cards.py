@@ -4,8 +4,8 @@ import sys
 
 def main():
     # make list of parameters
-    mass_list = [700]#, 1000, 1500, 2000]
-    decay_percent = [5]#, 10, 20 ,30]
+    mass_list = [700, 1000, 1500, 2000]
+    decay_percent = [5, 10, 20 ,30]
 
     refFolder = 'TprimeBToTH_LH_M1000_decay30pct'
 
