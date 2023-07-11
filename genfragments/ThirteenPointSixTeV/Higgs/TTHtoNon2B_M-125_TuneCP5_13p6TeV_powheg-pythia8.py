@@ -18,7 +18,7 @@ from Configuration.Generator.MCTunesRun3ECM13p6TeV.PythiaCP5Settings_cfi import 
 from Configuration.Generator.Pythia8PowhegEmissionVetoSettings_cfi import *
 from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *
 
-generator = cms.EDFilter("Pythia8HadronizerFilter",
+generator = cms.EDFilter("Pythia8ConcurrentHadronizerFilter",
                          maxEventsToPrint = cms.untracked.int32(1),
                          pythiaPylistVerbosity = cms.untracked.int32(1),
                          filterEfficiency = cms.untracked.double(1.0),
