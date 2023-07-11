@@ -143,7 +143,3 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF     ! reweight to get PDF uncertainty
 # At least all massless quarks of the model should be included here.   *
 #***********************************************************************
  4 = maxjetflavor
-#*********************************************************************** 
-
-
-
