@@ -103,8 +103,7 @@ def main():
     with uproot.open(fname) as file:
         events = file['Events;1'].arrays()
     #veto all tau events
-    veto_tau = False
-    if veto_tau:
+    if args.Veto_Tau:
         events = events[np.all(np.abs(events.LHEPart_pdgId) != 15, axis=1)]
     w = events.Generator_weight
     #count how many additional jets each event has 
