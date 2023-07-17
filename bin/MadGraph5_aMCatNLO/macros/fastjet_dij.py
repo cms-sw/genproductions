@@ -107,15 +107,12 @@ def main():
         events = events[np.all(np.abs(events.LHEPart_pdgId) != 15, axis=1)]
     w = events.Generator_weight
     #count how many additional jets each event has 
-    #add_part = [len(ev[ev.status==1])-2 for ev in events['LHEPart']]
     add_part = events.LHE_Njets  
     add_part = np.array(add_part)
     dijs = dict()
     #loop over the cases of extra jets 
     for i in range(4):
         ev_per_add_jet = events[add_part==i]
-        #ev_per_add_jet = ev_per_add_jet[((ev_per_add_jet.GenPart_status==1)& (ev_per_add_jet.GenPart_pt>0.01)) & (np.abs(ev_per_add_jet.GenPart_pdgId) != 11)&
-        #                                 (np.abs(ev_per_add_jet.GenPart_pdgId) != 13)& (np.abs(ev_per_add_jet.GenPart_pdgId) != 15)]
         jetdef = fastjet.JetDefinition(fastjet.kt_algorithm, 1)
         data = ak.zip({'pt':ev_per_add_jet.GenPart_pt, 'eta': ev_per_add_jet.GenPart_eta, 'phi': ev_per_add_jet.GenPart_phi, 'M': ev_per_add_jet.GenPart_mass},with_name="Momentum4D",)
         cl_alg = fastjet.ClusterSequence(data, jetdef)
