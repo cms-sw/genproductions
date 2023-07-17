@@ -1,9 +1,7 @@
+''' 
+The script calculates the DJR differentially in the number of additional jets (taken as additional particles in the LHEpart)
+It uses the scikit-hep package of fastjet to calculate the clustering 
 '''
-script to calculate the DRJ differentially in the number of
- additional LHE Particles (based on DY + x Particles)
-'''
-
-import awkward as ak
 import argparse
 import os
 import warnings
@@ -17,73 +15,36 @@ from pathlib import Path
 from coffea.nanoevents import NanoEventsFactory, NanoAODSchema
 warnings.filterwarnings("ignore", message="Missing cross-reference index")
 import fastjet
+import uproot
+import vector 
+import awkward as ak
 
 
 def retrieve_4arr(dict_dij,add_jet):
-    dij1 = [item[0] for item in dict_dij[add_jet]]
-    dij2 = [item[1] for item in dict_dij[add_jet]]
-    dij3 = [item[2] for item in dict_dij[add_jet]]
-    dij4 = [item[3] for item in dict_dij[add_jet]]
-    return dij1, dij2, dij3, dij4
+    '''
+    function to extract the dij from the list into arrays
+    '''
+    dij = dict_dij[add_jet]
+    return dij[0], dij[1], dij[2], dij[3]
 
-def main():
-    parser = argparse.ArgumentParser()
-    #
-    parser.add_argument("-i", "--Input", help= "Input File")
-    parser.add_argument('-vtau', '--VetoTau', help='Veto events with taus in LHE', default=False)
-    parser.add_argument('-s', '--SaveResults', help='enables saving the files as npy files', default=True)
-    args = parser.parse_args()
-    fname = args.Input
-    events = NanoEventsFactory.from_root(
-        fname,schemaclass=NanoAODSchema.v7,
-        metadata={"dataset": "DYJets"},
-    ).events()
-    #veto all tau events
-    if args.VetoTau:
-        events = events[np.all(np.abs(events["LHEPart"].pdgId) != 15, axis=1)]
-    w = events["genWeight"]
-    add_part = list()
-    #count how many additional jets each event has 
-    for ev in events["LHEPart"]:
-        add_part.append(len(ev[ev.status==1])-2)
-    add_part = np.array(add_part)
-    dijs = dict()
-    for i in range(4):
-        mindijs = list()
-        for ev  in tqdm(events["GenPart"][np.where(add_part==i)]):
-                #select (pseudo)particles with status stable, pt>0.01 GeV and rule out the leptons from the DY directly
-                ev = ev[((ev.status==1)& (ev.pt>0.01)) & (np.abs(ev.pdgId) != 11)& (np.abs(ev.pdgId) != 13)& (np.abs(ev.pdgId) != 15)]
-                #print(f'length of event:{(len(ev_prompt))}')
-                fjet_in = [fastjet.PseudoJet(part.px, part.py, part.pz, part.E) for part in ev]
-                #kt, antikt and Radius definition
-                jetdef = fastjet.JetDefinition(fastjet.kt_algorithm, 0.4)
-                cl_alg = fastjet.ClusterSequence(fjet_in, jetdef)
-                mindijs.append([cl_alg.exclusive_dmerge( 0),cl_alg.exclusive_dmerge( 1),cl_alg.exclusive_dmerge( 2),cl_alg.exclusive_dmerge( 3)])
-                dijs[i] = mindijs
 
-    if args.SaveResults:
-        np.save('dijs.npy', dijs) 
-        we_np = ak.to_numpy(w)
-        np.save('weights.npy', we_np)
-        np.save('addpart.npy', add_part)
+def plot(dijs, w, add_part):
+    '''
+    plotting the dijs in 4 plots, separated by the DJR (0to1, 1to2, ...)
+    '''
     #for dijx_y: x: number of additional jets, y:dij at merge for yth jet 
     dij0_1, dij0_2, dij0_3, dij0_4 = retrieve_4arr(dijs, 0)
     dij1_1, dij1_2, dij1_3, dij1_4 = retrieve_4arr(dijs, 1)
     dij2_1, dij2_2, dij2_3, dij2_4 = retrieve_4arr(dijs, 2)
     dij3_1, dij3_2, dij3_3, dij3_4 = retrieve_4arr(dijs, 3)
-
-
     hep.style.use(hep.style.CMS) 
     hep.cms.text('Simulation')
-    binsi = np.logspace(1e-2,5,70)
-    efficiencies = [len(dij0_1), len(dij0_2), len(dij0_3), len(dij0_4),
-                    len(dij1_1), len(dij1_2),len(dij1_3),len(dij1_4),
-                    len(dij2_1), len(dij2_2), len(dij2_3), len(dij2_4),
-                    len(dij3_1),len( dij3_2), len(dij3_3), len(dij3_4)]
-    efficiencies = np.array(efficiencies) / ev_per_job
-    #print(efficiencies)
-
-
+    binsi = np.logspace(1,7,70)
+    efficiencies = [len(dij0_1)/len(w), len(dij0_2/len(w)), len(dij0_3/len(w)), len(dij0_4/len(w)),
+                    len(dij1_1/len(w)), len(dij1_2/len(w)),len(dij1_3/len(w)),len(dij1_4/len(w)),
+                    len(dij2_1/len(w)), len(dij2_2/len(w)), len(dij2_3/len(w)), len(dij2_4/len(w)),
+                    len(dij3_1/len(w)),len( dij3_2/len(w)), len(dij3_3/len(w)), len(dij3_4/len(w))]
+    efficiencies = np.array(efficiencies) 
     plt.hist(dij0_1, weights=w[add_part==0], bins=binsi, histtype="step", label=r"$0 \rightarrow 1$, 0 additional jets, eff: "+str(round(efficiencies[0],3)*100))
     plt.hist(dij1_1, weights=w[add_part==1], bins=binsi, histtype="step", label=r"$0 \rightarrow 1$, 1 additional jet, eff: "+str(round(efficiencies[4],3)*100))
     plt.hist(dij2_1, weights=w[add_part==2], bins=binsi, histtype="step", label=r"$0 \rightarrow 1$, 2 additional jets, eff: "+str(round(efficiencies[8],3)*100))
@@ -128,7 +89,49 @@ def main():
     plt.xlabel(r'dij [GeV]')
     plt.yscale("log")
     plt.xscale("log")
-    plt.savefig('3to4.pdf',dpi=200)
+    plt.savefig('3to4.pdf', dpi=200)
+
+def main():
+    vector.register_awkward()
+    parser = argparse.ArgumentParser()
+    #input file
+    parser.add_argument("-i", "--Input", help= "Input File")
+    parser.add_argument('-vtau', '--Veto_Tau', help='Veto tau events in the LHEpart?', default=False)
+    parser.add_argument('-s', '--SaveResults', help='enables saving the files as npy files', default=True)
+    args = parser.parse_args()
+    fname = args.Input
+    with uproot.open(fname) as file:
+        events = file['Events;1'].arrays()
+    #veto all tau events
+    veto_tau = False
+    if veto_tau:
+        events = events[np.all(np.abs(events.LHEPart_pdgId) != 15, axis=1)]
+    w = events.Generator_weight
+    #count how many additional jets each event has 
+    #add_part = [len(ev[ev.status==1])-2 for ev in events['LHEPart']]
+    add_part = events.LHE_Njets  
+    add_part = np.array(add_part)
+    dijs = dict()
+    #loop over the cases of extra jets 
+    for i in range(4):
+        ev_per_add_jet = events[add_part==i]
+        #ev_per_add_jet = ev_per_add_jet[((ev_per_add_jet.GenPart_status==1)& (ev_per_add_jet.GenPart_pt>0.01)) & (np.abs(ev_per_add_jet.GenPart_pdgId) != 11)&
+        #                                 (np.abs(ev_per_add_jet.GenPart_pdgId) != 13)& (np.abs(ev_per_add_jet.GenPart_pdgId) != 15)]
+        jetdef = fastjet.JetDefinition(fastjet.kt_algorithm, 1)
+        data = ak.zip({'pt':ev_per_add_jet.GenPart_pt, 'eta': ev_per_add_jet.GenPart_eta, 'phi': ev_per_add_jet.GenPart_phi, 'M': ev_per_add_jet.GenPart_mass},with_name="Momentum4D",)
+        cl_alg = fastjet.ClusterSequence(data, jetdef)
+        dijs[i] =  [cl_alg.exclusive_dmerge_max( 0), cl_alg.exclusive_dmerge_max( 1),cl_alg.exclusive_dmerge_max( 2),
+                    cl_alg.exclusive_dmerge_max( 4)]
+    plot(dijs, w, add_part)
+    if args.SaveResults:
+        np.save('dijs.npy', dijs) 
+        we_np = ak.to_numpy(w)
+        np.save('weights.npy', we_np)
+        np.save('addpart.npy', add_part)
+
+
+
+
 
 if __name__== '__main__':
         main()
