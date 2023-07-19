@@ -5,14 +5,11 @@ It uses the scikit-hep package of fastjet to calculate the clustering
 import argparse
 import os
 import warnings
-import coffea
 import numpy as np
 import matplotlib.pyplot as plt
 import mplhep as hep
 from tqdm import tqdm
-#from coffea.nanoevents.methods import vector  
 from pathlib import Path
-from coffea.nanoevents import NanoEventsFactory, NanoAODSchema
 warnings.filterwarnings("ignore", message="Missing cross-reference index")
 import fastjet
 import uproot
