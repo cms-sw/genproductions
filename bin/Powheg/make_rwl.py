@@ -173,12 +173,8 @@ elif process == "b_bbar_4l":
             "PDF_variation2 , replica" :
             [
                 [3400, 316200, 'NNPDF31_nnlo_as_0118_mc', 1],
-                [1500, 292200, 'NNPDF30_nlo_nf_5_pdfas', 1],
-                [1700, 292600, 'NNPDF30_nnlo_nf_5_pdfas', 1],
                 [1800, 315000, 'NNPDF31_lo_as_0118', 1],
                 [1850, 315200, 'NNPDF31_lo_as_0130', 1],
-                [1900, 262000, 'NNPDF30_lo_as_0118', 1],
-                [1950, 263000, 'NNPDF30_lo_as_0130', 1],
                 [15000, 82200, 'LUXqed17_plus_PDF4LHC15_nnlo_100', 1],
                 [16000, 325100, 'NNPDF31_nnlo_as_0118_luxqed', 1],
             ],
