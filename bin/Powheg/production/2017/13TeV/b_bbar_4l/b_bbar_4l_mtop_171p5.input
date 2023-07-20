@@ -39,6 +39,23 @@ withdamp 1                                       ! Turn on calculation of the re
 channel 8                                        ! Full dileptonic decay of WbWb including same-flavour leptons
 
 
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! Physics constants
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+tmass      171.5d0                               ! (default 172.5) top quark mass (in the matrix ele
+tmass_phsp 171.5d0                               ! (default 172.5) top quark mass (in the phase spac
+#twidth                                          ! (default unset) top quark width (calculated from
+#zmass      91.188d0                             ! (default 91.188d0) mass of Z-boson
+#zwidth     2.441d0                              ! (default 2.441d0) width of Z-boson
+#wmass      80.419d0                             ! (default 80.419d0) mass of W-boson
+#wwidth     2.04807d0                            ! (default 2.04807d0) width of W-boson
+#hmass      125d0                                ! (default 125d0) mass of Higgs boson
+#hwidth     0.403d-2                             ! (default 0.403d-2) width of the Higgs boson
+#bmass      4.75d0                               ! (default 4.75d0) mass of the bottom quark
+#ewscheme   2                                    ! (default 2) 1...wmass, zmass, grefmi input; alpha
+#gfermi     1.1658029175194381d-5                ! (default 1.1658029175194381d-5) gfermi
+#alpha      0.007546772                          ! (default 0.007546772) alpha
+
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ! The following is the minimal settings that we used for the publication of our paper.
