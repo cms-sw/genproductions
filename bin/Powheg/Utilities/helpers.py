@@ -452,10 +452,10 @@ sed -i \"s/getq2min(1,tmp)/getq2min(0,tmp)/g\" setlocalscales.f",
 
     "ST_wtch_DR" : "echo \"D/L QCDLoop-1.9 library\"\n \
 if [ ! -f FeynHiggs-2.10.2.tar.gz ]; then\n \
-  wget --no-verbose http://qcdloop.fnal.gov/QCDLoop-1.96.tar.gz || fail_exit \"Failed to get QCDLoop tar ball\"\n \
+  wget --no-verbose http://qcdloop.fnal.gov/QCDLoop-1.98.tar.gz || fail_exit \"Failed to get QCDLoop tar ball\"\n \
 fi\n \
-tar xvf QCDLoop-1.96.tar.gz\n \
-mv QCDLoop-1.96 QCDLoop-1.9\n \
+tar xvf QCDLoop-1.98.tar.gz\n \
+mv QCDLoop-1.98 QCDLoop-1.9\n \
 sed -i -e 's#/Users/ellis/QCDLoop#./QCDLoop#' ff/ffinit_mine.f\n \
 cd QCDLoop-1.9\n \
 sed -i -e 's#FFLAGS = #FFLAGS = -std=legacy #g' makefile\n \
@@ -467,17 +467,18 @@ sed -i -e 's#QCDLoop-1.98#QCDLoop-1.9#g' Makefile",
 
     "ST_wtch_DS" : "echo \"D/L QCDLoop-1.9 library\"\n \
 if [ ! -f FeynHiggs-2.10.2.tar.gz ]; then\n \
-  wget --no-verbose http://qcdloop.fnal.gov/QCDLoop-1.96.tar.gz || fail_exit \"Failed to get QCDLoop tar ball\"\n \
+  wget --no-verbose http://qcdloop.fnal.gov/QCDLoop-1.98.tar.gz || fail_exit \"Failed to get QCDLoop tar ball\"\n \
 fi\n \
-tar xvf QCDLoop-1.96.tar.gz\n \
-mv QCDLoop-1.96 QCDLoop-1.9\n \
+tar xvf QCDLoop-1.98.tar.gz\n \
+mv QCDLoop-1.98 QCDLoop-1.9\n \
 sed -i -e 's#/Users/ellis/QCDLoop#./QCDLoop#' ff/ffinit_mine.f\n \
 cd QCDLoop-1.9\n \
 sed -i -e 's#FFLAGS = #FFLAGS = -std=legacy #g' makefile\n \
 sed -i -e 's#FFLAGS        = #FFLAGS        = -std=legacy #g' ff/makefile\n \
 sed -i -e 's#FFLAGS  = #FFLAGS  = -std=legacy #g' ql/makefile\n \
 make\n \
-cd ..",
+cd ..\n \
+sed -i -e 's#QCDLoop-1.98#QCDLoop-1.9#g' Makefile",
     }.get(process,"")
 
 def runGetSource_patch_8(process) :
