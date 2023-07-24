@@ -90,6 +90,8 @@ if [ -e $LHAPDF6TOOLFILE ]; then
 fi
 #make sure env variable for pdfsets points to the right place
 export LHAPDF_DATA_PATH=`$LHAPDFCONFIG --datadir`
+# local pdf sets
+export LHAPDF_DATA_PATH=$PWD/lhapdf:$LHAPDF_DATA_PATH
 
 # initialize the CMS environment 
 myDir=powhegbox_${process}
