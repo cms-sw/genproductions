@@ -117,6 +117,8 @@ if forMiNNLO:
               [13050, 61230, 'HERAPDF20_NNLO_VAR', 14],
               [13100, 61746, 'HERAPDF20_NNLO_ALPHAS_116', 1],
               [13200, 61750, 'HERAPDF20_NNLO_ALPHAS_120', 1],
+              [29100, 29100, 'MSHT20an3lo_as118', 105],
+              [29400, 29400, 'MSHT20an3lo_as_smallrange', 7],
             ],
           }
 elif forX0jj:

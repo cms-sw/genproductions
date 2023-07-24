@@ -12,7 +12,7 @@ NJOBS=200
 SVN=3900
 ARCH=slc7_amd64_gcc10
 CMSSW=CMSSW_12_3_1
-SUFFIX=powheg-MiNNLO31-svn${SVN}-ew-rwl6-j${NJOBS}-st2fix-ana-hoppetweights-ymax20-pdf2
+SUFFIX=powheg-MiNNLO31-svn${SVN}-ew-rwl6-j${NJOBS}-st2fix-ana-hoppetweights-ymax20-pdf3
 
 # PROCS=(ZJToMuMu-suggested-nnpdf31-ncalls-doublefsr-q139 WplusJToMuNu-suggested-nnpdf31-ncalls-doublefsr-q139-ckm WminusJToMuNu-suggested-nnpdf31-ncalls-doublefsr-q139-ckm)
 
@@ -21,7 +21,6 @@ PROCS=(ZJToMuMu-7TeV-suggested-nnpdf31-ncalls-doublefsr-q139)
 
 #SUFFIX=powheg-MiNNLO31-svn${SVN}-ew-rwl6-j${NJOBS}-st2fix-ana-hoppetweights-ymax20-addmassweights
 PROCS=(ZJToMuMu-suggested-nnpdf31-ncalls-doublefsr-q139 WplusJToMuNu-suggested-nnpdf31-ncalls-doublefsr-q139-ckm WminusJToMuNu-suggested-nnpdf31-ncalls-doublefsr-q139-ckm)
-PROCS=(ZJToMuMu-suggested-nnpdf31-ncalls-doublefsr-q139)
 
 case $WHAT in
 
@@ -128,10 +127,11 @@ case $WHAT in
         eval `scramv1 runtime -sh`
         for PROC in ${PROCS[@]}
         do
+            cd ${PROC}-${SUFFIX}
+            git clone https://gitlab.cern.ch/cms-wmass/lhapdf.git
+            cd -
             python ./run_pwg_condor.py -p 9 -m ${PROC:0:1}j -f ${PROC}-${SUFFIX} 
         done
-        ./minnloHelper.sh PACK_REDUCED
-        ./minnloHelper.sh PACK_NORWL
     ;;
     
     TEST )
@@ -168,6 +168,7 @@ case $WHAT in
             rm -r ${DIR}; mkdir ${DIR}; cd ${DIR}
             tar -xzf ../../${PROC:0:1}j_${ARCH}_${CMSSW}_${PROC}-${SUFFIX}.tgz
             cp ../../pwg-rwl-reduced.dat pwg-rwl.dat
+            rm -rf lhapdf
             tar zcf ../${PROC:0:1}j_${ARCH}_${CMSSW}_${PROC}-${SUFFIX}-reducedrwl.tgz *
             cd ..
         done
@@ -229,6 +230,7 @@ case $WHAT in
             tar -xzf ../../${PROC:0:1}j_${ARCH}_${CMSSW}_${PROC}-${SUFFIX}.tgz
             sed -i '/rwl_file/d' powheg.input
             sed -i '/MINNLO="true"/d' runcmsgrid.sh
+            rm -rf lhapdf
             tar zcf ../${PROC:0:1}j_${ARCH}_${CMSSW}_${PROC}-${SUFFIX}-norwl.tgz *
             cd ..
         done
@@ -329,5 +331,15 @@ case $WHAT in
         done
     ;;
     
+    PDF2_PDF3 )
+        for PROC in ${PROCS[@]}
+        do
+            mkdir ${PROC}-${SUFFIX}; cd ${PROC}-${SUFFIX}
+            tar -xzf /cvmfs/cms.cern.ch/phys_generator/gridpacks/slc7_amd64_gcc10/13TeV/powheg/Vj_MiNNLO/${PROC:0:1}j_${ARCH}_${CMSSW}_${PROC}-${SUFFIX//-pdf3/}.tgz
+            cp ../pwg-rwl.dat .
+            cd -
+        done
+        echo "Now run PACK"
+    ;;
 
 esac
