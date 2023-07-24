@@ -952,6 +952,8 @@ for num in range(0,len(prepid)):
                     nJetMax = os.popen('grep njetsmax '+pi).read()
                     nJetMax = re.findall('\d+',nJetMax)
                     nJetMax = int(nJetMax[0])
+                if int(os.popen('grep -c hw_PSWeights_settings '+pi).read()) == 1:
+                    warnings.append("hw_PSWeights_settings in fragment. These are currently affected by an issue of a very large variance in weights (https://indico.cern.ch/event/1282424/contributions/5392893/attachments/2642930/4574147/presentation.pdf), so we do not recommend including them unless you want to do some particular studies.")
             if int(os.popen('grep -c nFinal '+pi).read()) == 1:
                 nFinal = os.popen('grep nFinal '+pi).read()
                 if grid_points_flag == 1:
