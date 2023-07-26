@@ -136,15 +136,17 @@ def tunes_settings_check(dn,fragment,pi,sherpa_flag):
             error_tunes_check.append(" 'kthard = 0.248' not in fragment for DY or Wjets MG5_aMC request for Run3. Please fix.")
     return error_tunes_check                
  
-def concurrency_check(fragment,pi,cmssw_version):
+def concurrency_check(fragment,pi,cmssw_version,mg_gp):
     conc_check = 0
     conc_check_lhe = 0
     error_conc = []
     fragment = re.sub(r'(?m)^ *#.*\n?', '',fragment) # remove lines starting with #
     fragment = fragment.replace(" ","").replace("\"","'")
     if cmssw_version >= int('10_60_28'.replace('_','')) and int(str(cmssw_version)[:2]) != 11:
-        if "generateConcurrently=cms.untracked.bool(False)" in fragment and "Pythia8Concurrent" in fragment:
+        if "generateConcurrently=cms.untracked.bool(False)" in fragment and "Pythia8Concurrent" in fragment and mg_gp is False:
             error_conc.append("Concurrent parameters used with generateConcurrently=cms.untracked.bool(False) in fragment.")
+        if "generateConcurrently=cms.untracked.bool(True)" in fragment and mg_gp is True:
+            error_conc.append("For MG5_aMC requests, currently the concurrent mode for LHE production is not supported due to heavy I/O. So, please set generateConcurrently = cms.untracked.bool(False) in ExternalLHEProducer.")
         if "ExternalLHEProducer" in fragment and "generateConcurrently=cms.untracked.bool(True)" in fragment: 
             # first check if the code has correctly implemented concurrent features. Mark conc_check_lhe (LHE step) or conc_check (GEN step) as True if features are found
             if "Herwig7GeneratorFilter" not in fragment: 
@@ -182,9 +184,12 @@ def concurrency_check(fragment,pi,cmssw_version):
                 print("Herwig7GeneratorFilter in the wmLHEGEN or pLHEGEN campaign cannot run concurrently.")
             elif "Pythia8GeneratorFilter" in fragment and "randomizedparameters" in fragment.lower():
                 print("Pythia8GeneratorFilter with RandomizedParameter scan cannot run concurrently")
-            # for other cases, it is either concurrent generation parameters are missing or wrong
+            elif mg_gp is True:
+                print("For MG5_aMC requests, currently the concurrent mode for LHE production is not supported due to heavy I/O.")
+            # for other cases, it is either concurrent generation parameters are missing or wrong        
             else:
                 error_conc.append("Concurrent generation parameters missing or wrong. Please see https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookGenMultithread")
+                    
     else:
         if "concurrent" in fragment.lower():
             error_conc.append("Concurrent generation is not supported for versions < CMSSW_10_6_28 and CMSSW_11_X_X series")
@@ -603,15 +608,12 @@ for num in range(0,len(prepid)):
                                             "HIG-RunIISummer20UL18GEN-00009", 
                                             "HIG-RunIISummer20UL18GEN-00010" 
                                            ]
-        if "SnowmassWinter21GEN" not in pi and "SnowmassWinter21wmLHEGEN" not in pi and particle_gun == 0 and pi not in concurrency_check_exception_list and "matchbox" not in data_f1.lower():
-            conc_check_result, tmp_err = concurrency_check(data_f1,pi,cmssw_version)
-#            error += tmp_err
-            errors.extend(tmp_err)
-        else:
-            warnings.append("Skipping the concurrency check since these are (wmLHE)GEN-only campaigns or a particle gun or a Sherpa Diphoton sample or an herwig7 request with Matchbox.")
-#        data_f2 = re.sub(r'(?m)^ *#.*\n?', '',data_f1)
+#        if "SnowmassWinter21GEN" not in pi and "SnowmassWinter21wmLHEGEN" not in pi and particle_gun == 0 and pi not in concurrency_check_exception_list and "matchbox" not in data_f1.lower():
+#            conc_check_result, tmp_err = concurrency_check(data_f1,pi,cmssw_version)
+#            errors.extend(tmp_err)
+#        else:
+#            warnings.append("Skipping the concurrency check since these are (wmLHE)GEN-only campaigns or a particle gun or a Sherpa Diphoton sample or an herwig7 request with Matchbox.")
 
-#        errors.extend(tunes_settings_check(dn,data_f1,pi))
       
         cross_section_fragment = re.findall('crossSection.*?\S+\S+',data_f2)
         if (cross_section_fragment):
@@ -793,7 +795,7 @@ for num in range(0,len(prepid)):
             print("path madloop "+str(madloop_in_gp))
             print("path mg "+str(mg_gp))
             print("path amcnlo "+str(amcnlo_gp))
-            print("path jhugen "+str(jhu_gp))
+            print("path jhugen "+str(jhu_gp))           
             if pw_gp is True:
                 direc_list = os.listdir(my_path+'/'+pi+'/')
                 pw_mg = len([x for x in direc_list if "mg5" in x.lower()])
@@ -928,6 +930,12 @@ for num in range(0,len(prepid)):
             else :
                 nthreads = int(re.search('nThreads(.*?) --',ttxt).group(1))
 
+        if "SnowmassWinter21GEN" not in pi and "SnowmassWinter21wmLHEGEN" not in pi and particle_gun == 0 and pi not in concurrency_check_exception_list and "matchbox" not in data_f1.lower():
+            conc_check_result, tmp_err = concurrency_check(data_f1,pi,cmssw_version,mg_gp)
+            errors.extend(tmp_err)
+        else:
+            warnings.append("Skipping the concurrency check since these are (wmLHE)GEN-only campaigns or a particle gun or a Sherpa Diphoton sample or an herwig7 request with Matchbox.")
+                
         nevts = 100.
         if timeperevent > 0:   
             nevts = (8*3600/timeperevent)*total_eff
