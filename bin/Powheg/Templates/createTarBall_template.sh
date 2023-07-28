@@ -39,10 +39,23 @@ sed -i "s/^numevts.*/numevts NEVENTS/g" powheg.input
 sed -i "s/^iseed.*/iseed SEED/g" powheg.input
 grep -q "withnegweights" powheg.input; test $$? -eq 0 || printf "\nwithnegweights 1\n" >> powheg.input
 
-# turn into single run mode
-sed -i "s/^manyseeds.*/#manyseeds 1/g" powheg.input
-sed -i "s/^parallelstage.*/#parallelstage 4/g" powheg.input
-sed -i "s/^xgriditeration/#xgriditeration 1/g" powheg.input
+ISVRES="false"
+grep -qi "powhegboxRES" $$WORKDIR/$$folderName/VERSION ; test $$? -ne 0  || ISVRES="true"
+# For Powheg vRES, if the gridpack has been produced in several stages (using manyseeds 1),
+# we need to turn on manyseeds & parallelstage also for the final gridpack.
+# we test whether manyseeds has been used by checking if there is more than one "pwgubound-XXXX.dat" file exists
+NUMUBOUND=`ls $${WORKDIR}/$${folderName} | egrep 'pwgubound-.+.dat' | wc -l`
+if [ $$ISVRES == "true" -a $$NUMUBOUND -gt 1 ]; then
+  echo "Detected Powheg Box RES and a parallel gridpack production. Turning on manyseeds in final gridpack"
+  sed -i "s/^.*manyseeds.*/manyseeds 1/g" powheg.input
+  sed -i "s/^.*parallelstage.*/parallelstage 4/g" powheg.input
+  sed -i "s/^.*xgriditeration.*/xgriditeration 1/g" powheg.input
+else
+  # turn into single run mode
+  sed -i "s/^manyseeds.*/#manyseeds 1/g" powheg.input
+  sed -i "s/^parallelstage.*/#parallelstage 4/g" powheg.input
+  sed -i "s/^xgriditeration.*/#xgriditeration 1/g" powheg.input
+fi
 
 # turn off obsolete stuff
 sed -i "s/^pdfreweight.*/#pdfreweight 0/g" powheg.input
