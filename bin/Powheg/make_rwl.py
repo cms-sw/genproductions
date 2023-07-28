@@ -131,6 +131,55 @@ elif forX0jj:
               [3000, 305800, 'NNPDF31_nlo_hessian_pdfas', 1],
             ],
   }
+elif process == "b_bbar_4l":
+    # 5F PDF
+    print("b_bbar_4l: Only using nominals for alternate PDFs for generation speed")
+    pdf_sets = {
+            # weight id, LHAPDF id, name, replicas to be written
+            "PDF_variation1 , hessian" :
+            [
+                [3200, 325300, 'NNPDF31_nnlo_as_0118_mc_hessian_pdfas', 103],
+                [2000, 306000, 'NNPDF31_nnlo_hessian_pdfas', 1],
+                [2104, 322500, 'NNPDF31_nnlo_as_0108', 1],
+                [2105, 322700, 'NNPDF31_nnlo_as_0110', 1],
+                [2106, 322900, 'NNPDF31_nnlo_as_0112', 1],
+                [2107, 323100, 'NNPDF31_nnlo_as_0114', 1],
+                [2108, 323300, 'NNPDF31_nnlo_as_0117', 1],
+                [2109, 323500, 'NNPDF31_nnlo_as_0119', 1],
+                [2110, 323700, 'NNPDF31_nnlo_as_0122', 1],
+                [2111, 323900, 'NNPDF31_nnlo_as_0124', 1],
+                [3000, 305800, 'NNPDF31_nlo_hessian_pdfas', 1],
+                [5000, 13000, 'CT14nnlo', 1],
+                [5060, 13065, 'CT14nnlo_as_0116', 1],
+                [5070, 13069, 'CT14nnlo_as_0120', 1],
+                [4000, 13100, 'CT14nlo', 1],
+                [4060, 13163, 'CT14nlo_as_0116', 1],
+                [4070, 13167, 'CT14nlo_as_0120', 1],
+                [4080, 13200, 'CT14lo', 1],
+                [6000, 25200, 'MMHT2014nlo68clas118', 1],
+                [7000, 25300, 'MMHT2014nnlo68cl', 1],
+                [7060, 25000, 'MMHT2014lo68cl', 1],
+                [8000, 42780, 'ABMP16als118_5_nnlo', 1],
+                [8500, 90200, 'PDF4LHC15_nlo_100_pdfas', 1],
+                [9000, 91200, 'PDF4LHC15_nnlo_100_pdfas', 1],
+                [10000, 90400, 'PDF4LHC15_nlo_30_pdfas', 1],
+                [11000, 91400, 'PDF4LHC15_nnlo_30_pdfas', 1],
+                [12000, 61100, 'HERAPDF20_NLO_EIG', 1],
+                [12050, 61130, 'HERAPDF20_NLO_VAR', 1],
+                [13000, 61200, 'HERAPDF20_NNLO_EIG', 1],
+                [13050, 61230, 'HERAPDF20_NNLO_VAR', 1],
+                [14000, 13400, 'CT14qed_inc_proton', 1],
+            ],
+            "PDF_variation2 , replica" :
+            [
+                [3400, 316200, 'NNPDF31_nnlo_as_0118_mc', 1],
+                [1800, 315000, 'NNPDF31_lo_as_0118', 1],
+                [1850, 315200, 'NNPDF31_lo_as_0130', 1],
+                [15000, 82200, 'LUXqed17_plus_PDF4LHC15_nnlo_100', 1],
+                [16000, 325100, 'NNPDF31_nnlo_as_0118_luxqed', 1],
+            ],
+        }
+
 ### sets for Run3 start up 
 elif Period == "Run3":
     if int(is5FlavorScheme) == 1:

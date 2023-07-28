@@ -102,7 +102,8 @@ cd HJMiNNLO\n \
 patch -l -p0 -i ${WORKDIR}/patches/vj_minnlo_rwl_pdf_optimization.patch\n \
 patch -l -p0 -i ${WORKDIR}/patches/vj_minnlo_compiler_flags.patch\n \
 fi",
-    }.get(process,"")
+    "b_bbar_4l": "patch -l -p0 -i ${WORKDIR}/patches/b_bbar_4l_sameflavour.patch"
+}.get(process,"")
 
 def runGetSource_patch_3(process) :
   return {
