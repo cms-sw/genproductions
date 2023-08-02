@@ -1,0 +1,12 @@
+import model loop_sm-ckm_no_b_mass
+
+define p = p b b~
+define j = j b b~
+generate p p > w+ $$ t t~ h [QCD] @0
+add process p p > w+ j $$ t t~ h [QCD] @1
+add process p p > w+ j j $$ t t~ h [QCD] @2
+add process p p > w- $$ t t~ h [QCD] @3
+add process p p > w- j $$ t t~ h [QCD] @4
+add process p p > w- j j $$ t t~ h [QCD] @5
+
+output WTo3Pi_5f_NLO_FXFX -nojpeg
