@@ -1,0 +1,14 @@
+import model SMEFT_2l2q_UFO_unitary
+define p = g u u~ d d~ c c~ s s~
+define j = g u u~ d d~ c c~ s s~
+define ee = e+ e-
+define mm = mu+ mu-
+define tata = ta+ ta-
+define Dec = ve vm vt ve~ vm~ vt~ u c  d s  u~ c~  d~ s~ e- mu- ta- e+ mu+ ta+
+generate p p > mm tata t NP=1 , (t > w+ b, w+ > Dec Dec) @0
+add process p p > mm tata t~ NP=1 , (t~ > w- b~, w- > Dec Dec) @1
+add process p p > ee mm t NP=1 , (t > w+ b, w+ > Dec Dec) @2
+add process p p > ee mm t~ NP=1 , (t~ > w- b~, w- > Dec Dec) @3
+add process p p > ee tata t NP=1 , (t > w+ b, w+ > Dec Dec) @4
+add process p p > ee tata t~ NP=1 , (t~ > w- b~, w- > Dec Dec) @5
+output SMEFTfr_ST_clequ1_lltu -nojpeg
