@@ -3,5 +3,5 @@ define l+ = e+ mu+ ta+
 define l- = e- mu- ta-
 define vl = ve vm vt
 define vl~ = ve~ vm~ vt~
-generate a a > ta+ ta- NP<=2 NPceB<=2 QED<=2
+generate a a > ta+ ta- / h h1 NP=2 SMHLOOP=0
 output GGToTauTau_ElInel_M_50GeV_TuneCP5_madgraphLO_reweight
