@@ -1,8 +1,8 @@
-idvecbos          -24   !    24:    W+  boson,    -24:    W-  boson
+idvecbos          24    !    24:    W+  boson,    -24:    W-  boson
 vdecaymode        10    ! 1: e-nu, 2: mu-nu, 3: tau-nu, 0: hadronic, 10: inclusive, 11: inclusive leptons
 hdecaymode        -1    ! undecayed Higgs boson (for PYTHIA and HERWIG)
 
-hmass  125d0        ! Higgs boson mass 
+hmass  130d0        ! Higgs boson mass 
 hwidth 0.00407d0     ! Higgs boson width 
 
 min_h_mass    10d0      
@@ -18,11 +18,11 @@ ih2 1             ! hadron 2 (1 for protons, -1 for antiprotons)
 ebeam1 6800d0     ! energy of beam 1
 ebeam2 6800d0     ! energy of beam 2
 
+bornktmin 0.26d0      ! (default 0d0) generation cut. Minimum kt in underlying Born
+bornsuppfact 0d0 ! (default 0d0)  mass param for Born suppression factor. If < 0 suppfact = 1
+
 lhans1  325300         ! pdf set for hadron 1 (LHA numbering)
 lhans2  325300         ! pdf set for hadron 2 (LHA numbering)	
-
-bornktmin 0.26d0 ! (default 0d0) generation cut. Minimum kt in underlying Born
-bornsuppfact 0d0 ! (default 0d0) mass param for Born suppresion factor. If < 0 suppfact = 1
 
 renscfact  1d0   ! (default 1d0) ren scale factor: muren  = muref * renscfact 
 facscfact  1d0   ! (default 1d0) fac scale factor: mufact = muref * facscfact 
@@ -48,16 +48,19 @@ nubound 600000 ! number of calls to set up the upper bounding norms for radiatio
 
 ! OPTIONAL PARAMETERS
 
-withnegweights 1  ! (default 0) if on (1) use negative weights
+withnegweights 1 ! (default 0) if on (1) use negative weights
 testplots  1      ! (default 0, do not) do NLO and PWHG distributions
 
-iseed SEED
 
+
+iseed SEED
 fastbtlbound 1
 storemintupb 1
 
 storeinfo_rwgt 0
 pdfreweight 0
+
+
 
 minlo 1    
 minlo_nnll 1  
