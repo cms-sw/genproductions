@@ -1,3 +1,17 @@
+#*********************************************************************
+#                       MadGraph5_aMC@NLO                            *
+#                                                                    *
+#                     run_card.dat MadEvent                          *
+#                                                                    *
+#  This file is used to set the parameters of the run.               *
+#                                                                    *
+#  Some notation/conventions:                                        *
+#                                                                    *
+#   Lines starting with a '# ' are info or comments                  *
+#                                                                    *
+#   mind the format:   value    = variable     ! comment             *
+#*********************************************************************
+#
 #*******************                                                 
 # Running parameters
 #*******************                                                 
@@ -56,7 +70,7 @@
   1	=  alpsfact          ! scale factor for QCD emission vx
   False	=  chcluster         ! cluster only according to channel diag
   True	=  pdfwgt            ! for ickkw=1, perform pdf reweighting
-  4	=  asrwgtflavor      ! highest quark flavor for a_s reweight
+  5	=  asrwgtflavor      ! highest quark flavor for a_s reweight
   True	=  clusinfo          ! include clustering tag in output
   3.0	=  lhe_version        ! Change the way clustering information pass to shower.        
 #*********************************************************************
@@ -77,7 +91,7 @@
 # Apply pt/E/eta/dr/mij cuts on decay products or not
 # (note that etmiss/ptll/ptheavy/ht/sorted cuts always apply)
 #**********************************************************
-  False	=  cut_decays     ! Cut decay products 
+  True	=  cut_decays     ! Cut decay products 
 #*************************************************************
 # Number of helicities to sum per event (0 = all helicities)
 # 0 gives more stable result, but longer run time (needed for
@@ -252,5 +266,3 @@
 #          reweighting into account!                                 *
 #*********************************************************************
   True	=  use_syst       ! Enable systematics studies
-
-
