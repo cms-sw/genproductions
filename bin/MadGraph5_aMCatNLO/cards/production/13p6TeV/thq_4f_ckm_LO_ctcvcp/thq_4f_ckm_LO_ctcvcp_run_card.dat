@@ -60,7 +60,7 @@
   91.188	=  dsqrt_q2fact1     ! fixed fact scale for pdf1
   91.188	=  dsqrt_q2fact2     ! fixed fact scale for pdf2
   -1	=  dynamical_scale_choice  ! Select one of the preselect dynamical choice
-  0.33 =  scalefact         ! scale factor for event-by-event scales
+  1 =  scalefact         ! scale factor for event-by-event scales
 #*********************************************************************
 # Matching - Warning! ickkw > 1 is still beta
 #*********************************************************************
@@ -70,7 +70,7 @@
   1	=  alpsfact          ! scale factor for QCD emission vx
   False	=  chcluster         ! cluster only according to channel diag
   True	=  pdfwgt            ! for ickkw=1, perform pdf reweighting
-  5	=  asrwgtflavor      ! highest quark flavor for a_s reweight
+  4	=  asrwgtflavor      ! highest quark flavor for a_s reweight
   True	=  clusinfo          ! include clustering tag in output
   3.0	=  lhe_version        ! Change the way clustering information pass to shower.        
 #*********************************************************************
