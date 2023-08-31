@@ -1,0 +1,10 @@
+#import model loop_sm-ckm_no_b_mass
+#switch to diagonal ckm matrix if needed for speed
+import model loop_sm-no_b_mass
+
+define p = p b b~
+define j = j b b~
+
+generate p p > z z a [QCD] @0
+
+output ZZGJets_5f_NLO -nojpeg

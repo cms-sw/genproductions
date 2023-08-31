@@ -1,0 +1,5 @@
+import model UFO_HEFT_h25-restrict
+define p = g u c d s u~ c~ d~ s~
+define j = g u c d s u~ c~ d~ s~
+generate p p > t t~ h h
+output ttHH_HEFT_default -nojpeg

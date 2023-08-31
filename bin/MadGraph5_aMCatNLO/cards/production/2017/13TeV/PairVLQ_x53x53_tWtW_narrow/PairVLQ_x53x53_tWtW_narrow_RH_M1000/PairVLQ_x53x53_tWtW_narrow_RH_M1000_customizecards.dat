@@ -1,0 +1,8 @@
+set param_card kxl1 0 
+set param_card kxl2 0 
+set param_card kxl3 0
+set param_card kxr1 0
+set param_card kxr2 0 
+set param_card kxr3 0.1
+set param_card mass 6000005 1000
+set param_card decay 6000005 auto

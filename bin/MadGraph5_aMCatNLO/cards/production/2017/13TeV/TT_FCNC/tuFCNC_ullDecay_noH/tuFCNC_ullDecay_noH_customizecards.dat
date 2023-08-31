@@ -1,0 +1,37 @@
+set param_card mass   6  172.5
+set param_card yukawa 6  172.5
+set param_card mass   25 125.0
+set param_card cpQMx31 2
+set param_card cptx31 2
+set param_card ctAx31 1
+set param_card ctAx13 1
+set param_card ctZx31 0.5
+set param_card ctZx13 0.5
+set param_card ctGx31 1.0
+set param_card ctGx13 1.0
+set param_card cQlMx1x31 0.2
+set param_card cQlMx2x31 0.2
+set param_card cQlMx3x31 0.2
+set param_card cQex1x31 1.5
+set param_card cQex2x31 1.5
+set param_card cQex3x31 1.5
+set param_card ctlx1x31 1.5
+set param_card ctlx2x31 1.5
+set param_card ctlx3x31 1.5
+set param_card ctex1x31 1.5
+set param_card ctex2x31 1.5
+set param_card ctex3x31 1.5
+set param_card ctlSx1x13 2
+set param_card ctlSx2x13 2
+set param_card ctlSx3x13 2
+set param_card ctlSx1x31 2
+set param_card ctlSx2x31 2
+set param_card ctlSx3x31 2
+set param_card ctlTx1x13 2.5
+set param_card ctlTx2x13 2.5
+set param_card ctlTx3x13 2.5
+set param_card ctlTx1x31 2.5
+set param_card ctlTx2x31 2.5
+set param_card ctlTx3x31 2.5
+set param_card ctpx31 0.7
+set param_card ctpx13 0.7

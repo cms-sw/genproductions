@@ -1,0 +1,10 @@
+import model dim6top_LO_UFO-full --modelname
+define p = g u c d s u~ c~ d~ s~
+define j = g u c d s u~ c~ d~ s~
+define ell+ = e+ mu+ ta+
+define ell- = e- mu- ta-
+define vell = ve vm vt
+define vell~ = ve~ vm~ vt~
+generate  p p > t  ell+ ell- /h DIM6=0 FCNC=1 , (t > w+ b DIM6=0 FCNC=0, w+ > ell+ vell DIM6=0 FCNC=0)@0
+add process  p p > t~  ell+ ell- /h DIM6=0 FCNC=1 , (t~ > w- b~ DIM6=0 FCNC=0, w- > ell- vell~ DIM6=0 FCNC=0) @1
+output tcFCNC_tllProduction_noH  -f -nojpeg

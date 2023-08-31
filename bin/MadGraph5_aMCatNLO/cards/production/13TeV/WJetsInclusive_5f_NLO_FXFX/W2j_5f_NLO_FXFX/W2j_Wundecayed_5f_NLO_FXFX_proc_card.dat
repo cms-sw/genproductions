@@ -1,0 +1,10 @@
+set low_mem_multicore_nlo_generation True
+
+import model loop_sm-ckm_no_b_mass
+
+define p = p b b~
+define j = j b b~
+generate p p > w+ j j $$ t t~ h [QCD] @0
+add process p p > w- j j $$ t t~ h [QCD] @1
+
+output W2j_Wundecayed_5f_NLO_FXFX -nojpeg

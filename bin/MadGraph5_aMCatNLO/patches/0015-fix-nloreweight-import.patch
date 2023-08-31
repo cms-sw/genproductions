@@ -1,8 +1,8 @@
---- a/madgraph/interface/reweight_interface.py 2017-08-17 00:25:24.000000000 +0200
-+++ b/madgraph/interface/reweight_interface.py 2018-02-03 23:58:11.000000000 +0100
-@@ -1848,13 +1848,13 @@
-             logger.info("mode set to %s" % self.rwgt_mode)
-         if self.has_nlo and 'NLO' in self.rwgt_mode:
+--- a/madgraph/interface/reweight_interface.py
++++ b/madgraph/interface/reweight_interface.py
+@@ -2016,13 +2016,13 @@ class ReweightInterface(extended_cmd.Cmd):
+         if False:#self.has_nlo and 'NLO' in self.rwgt_mode:
+             #use python version
              path = pjoin(obj['rwgt_dir'], 'rw_mevirt','Source')
 -            sys.path.insert(0, path)
              try:

@@ -1,0 +1,12 @@
+##https://github.com/cms-sw/genproductions/blob/master/bin/MadGraph5_aMCatNLO/cards/examples/wellnu01234j_5f_LO_MLM/wellnu01234j_5f_LO_MLM_proc_card.dat
+
+import model sm-ckm_no_b_mass
+#switch to diagonal ckm matrix if needed for speed
+#import model sm-no_b_mass
+
+generate p p > mu+ vm
+add process p p  > mu- vm~
+add process p p  > mu+ vm j
+add process p p  > mu- vm~ j
+
+output WToMuNu_M-100-200_LO_NNPDF31nnlo  -nojpeg

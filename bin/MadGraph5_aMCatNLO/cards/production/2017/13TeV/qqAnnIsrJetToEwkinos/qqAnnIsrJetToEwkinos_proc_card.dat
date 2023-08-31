@@ -1,0 +1,18 @@
+import model MSSM_SLHA2
+
+define p = p b b~
+define j = j b b~
+
+define firstgen = ul ul~ ur ur~ dl dl~ dr dr~
+define secondgen = sl sl~ sr sr~ cl cl~ cr cr~
+define thirdgen = t1 t1~ t2 t2~ b1 b1~ b2 b2~
+define sleptons = sve sve~ svm svm~ svt svt~ el- el+ er- er+ mul- mul+ mur- mur+
+define higgses h2 h3 h- h+
+define excl = firstgen secondgen thirdgen go sleptons higgses
+define ewkinos = x1+ x1- n1 n2 ta1- ta1+
+generate p p > ewkinos ewkinos / excl @1
+add process p p > ewkinos ewkinos j / excl @2
+add process p p > ewkinos ewkinos j j / excl @3
+
+output qqAnnIsrJetToEwkinos_mN2-%MN2%_mStau-%MNLSP%_mN1-%MN1% -nojpeg
+

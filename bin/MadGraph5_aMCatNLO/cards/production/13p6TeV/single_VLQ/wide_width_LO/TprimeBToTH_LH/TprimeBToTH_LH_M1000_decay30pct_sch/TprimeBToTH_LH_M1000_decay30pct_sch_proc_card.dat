@@ -1,0 +1,9 @@
+import model VLQ_v4_4FNS_UFO-3rdL_noCKM
+set complex_mass_scheme
+define tt = t t~
+define bb = b b~
+define ww = w+ w-
+define tpp = tp tp~
+generate p p > tp > h tt bb j / bp x y QED=1 QCD=1
+add process p p > tp~ > h tt bb j / bp x y QED=1 QCD=1
+output TprimeBToTH_LH_M1000_decay30pct_sch -nojpeg

@@ -1,0 +1,76 @@
+leptonic            1     ! (default 0) if 1 both Ws will decay into all combinations of leptons
+
+numevts NEVENTS
+ih1                 1    ! hadron 1 (1 for protons, -1 for antiprotons)
+ih2                 1    ! hadron 2 (1 for protons, -1 for antiprotons)
+ebeam1         6800d0    ! energy of beam 1
+ebeam2         6800d0    ! energy of beam 2
+lhans1         325500    ! pdf set for hadron 1 (LHA numbering)
+lhans2         325500    ! pdf set for hadron 2 (LHA numbering)
+
+iseed SEED
+
+use-old-grid        1     ! if 1 use old grid if file pwggrids.dat is present (<> 1 regenerate)
+ncall1          50000     ! number of calls for initializing the integration grid
+itmx1               1     ! number of iterations for initializing the integration grid
+ncall2          100000    ! number of calls for computing the integral and finding upper bound
+itmx2               1     ! number of iterations for computing the integral and finding upper bound
+foldcsi             1     ! number of folds on csi integration
+foldy               1     ! number of folds on  y  integration
+foldphi             1     ! number of folds on phi integration
+use-old-ubound      1    ! if 1 use norm of upper bounding function stored in pwgubound.dat, if present; <> 1 regenerate
+nubound         200000  ! number of bbarra calls to setup norm of upper bounding function
+storemintupb        1    ! Improve upper bounding computation
+xupbound          2d0    ! increase upper bound for radiation generation
+mintupbratlim     1d3    ! technical parameter in upper bound generation
+ubexcess_correct    1    ! corrects for error in upper bound estimate
+
+withdamp            1    ! Split real amplitude into a singular and remnant contribution
+smartsig            1    ! (default 1)
+fastbtlbound        1    ! (default 0), if 1 speed up computation of upper bound of btilde
+check_bad_st1       1    ! (default 0), if 1 takes care of removing bad grids during stage 1
+check_bad_st2       1    ! (default 0), if 1 takes care of removing bad grids during stage 2
+
+alphas_from_pdf     1    ! (default 0) if 1, uses alphas from PDF evolution tool (e.g. lhapdf or hoppet)
+runningscales       0    ! 0 = fixed scale 2*m_W (leave this to 0 when MiN(N)LO is used).
+#                        ! All scale settings is taken care of internally)
+#                        ! 1 = M_WW, 2 = M_{T,W+}+M_{T,W-}
+minlo               1    ! (default 1) if 1, activate MiNLO'
+minnlo              1    ! (default 0) if 1, activate MiNNLO_PS
+modlog_p          6d0    ! (default -1d0; only works when minlo and/or minnlo is set to 1)
+#                        ! if >0d0, activate modified logs and set the exponent
+#                        ! if -1d0, activate piecewise modified log version 1 
+#                        ! if -2d0, activate piecewise modified log version 2
+#                        ! piecewise modified log: log(Q/pT) for pT<Q/2
+#                        !                         zero for pT>Q
+#                        !                         smoothly interpolated inbetween
+#                        ! if 0d0, -log(Q/pT) * theta(Q-pT)  (not recommended)
+Q0                0d0    ! (default 0.) cutoff of profiled scales
+largeptscales       1    ! (default 1) if 0, at large pt, use muR=muF~Q in fixed order part
+#                        !             if 1, at large pt, use muR=muF=pt in the fixed-order part
+smartMiNLO          1    ! (default 1) activate caching/speedup for MiN(N)LO
+use_interpolator    1    ! (default 0) if 1, activates interpolator instead of MATRIX+VVamp
+run_mode            1    ! (default 1) Select running mode for treatment of 2-loop and D-terms
+#                        !  This provides the possibility to speed up the code, by either including 
+#			 !  2-loop through reweighting at event generation level, or evaluating 2-loop
+#			 !  *only* from stage 2 on, or computing MiNLO through reweighting !
+#                        !  1 - standard running mode (2-loop fully included)
+#                        !  2 - compute MiNLO by turning off D-terms
+#                        !  3 - skip 2-loop computation at stage 1 only
+#                        !  4 - switch off 2-loop computation entirely (and include via reweighting, see below)
+renscfact         1d0    ! (default 1d0) ren scale factor: muren  = muref * renscfact
+facscfact         1d0    ! (default 1d0) fac scale factor: mufact = muref * facscfact
+bornktmin      0.26d0    ! Generation cut; minimmum kt in underlying born
+
+ewscheme            1     ! (default 1) if 1 (real) Gmu scheme is used; at the moment no other supported!
+gfermi     1.16639d-5     ! Fermi constant used as input for Gmu scheme
+zmass       91.1876d0     ! Z-boson mass (also input for Gmu scheme)
+wmass        80.385d0     ! W-boson mass (also input for Gmu scheme)
+hmass           125d0     ! Higgs mass (only relevant if fermion loops included, see Makefile)
+tmass         173.2d0     ! top-quark mass (only relevant if fermion loops included, see Makefile)
+bmass          4.92d0     ! bottom-quark mass (only relevant if fermion loops included, see Makefile)
+zwidth       2.4952d0     ! Z-boson width
+wwidth       2.0854d0     ! W-boson width
+twidth      1.44262d0     ! Top-quark width (only relevant if fermion loops included, see Makefile)
+hwidth      0.00407d0     ! Higgs width (only relevant if fermion loops included, see Makefile)
+

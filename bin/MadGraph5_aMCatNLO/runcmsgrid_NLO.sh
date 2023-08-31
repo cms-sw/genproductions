@@ -49,7 +49,19 @@ cd $LHEWORKDIR/process
 #make sure lhapdf points to local cmssw installation area
 LHAPDFCONFIG=`echo "$LHAPDF_DATA_PATH/../../bin/lhapdf-config"`
 
-echo "lhapdf = $LHAPDFCONFIG" >> ./Cards/amcatnlo_configuration.txt
+# workaround for el8
+LHAPDFLIBS=`$LHAPDFCONFIG --libdir`
+LHAPDFPYTHONVER=`find $LHAPDFLIBS -name "python*" -type d -exec basename {} \;`
+LHAPDFPYTHONLIB=`find $LHAPDFLIBS/$LHAPDFPYTHONVER/site-packages -name "*.egg" -type d -exec basename {} \;`
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$LHAPDFLIBS
+
+if [ ! -z "${LHAPDFPYTHONLIB}" ] ; then
+  export PYTHONPATH=$PYTHONPATH:$LHAPDFLIBS/$LHAPDFPYTHONVER/site-packages/$LHAPDFPYTHONLIB
+else
+  export PYTHONPATH=$PYTHONPATH:$LHAPDFLIBS/$LHAPDFPYTHONVER/site-packages
+fi
+
+echo "lhapdf_py3 = $LHAPDFCONFIG" >> ./Cards/amcatnlo_configuration.txt
 # echo "cluster_local_path = `${LHAPDFCONFIG} --datadir`" >> ./Cards/amcatnlo_configuration.txt
 
 echo "run_mode = 2" >> ./Cards/amcatnlo_configuration.txt
