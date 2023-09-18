@@ -9,7 +9,7 @@ import shutil
 import subprocess
 import textwrap
 
-JHUGenversion = "v7.5.2"
+JHUGenversion = "v7.5.3"
 
 if __name__ == "__main__":
   parser = argparse.ArgumentParser(description="Make JHUGen gridpack")
@@ -59,7 +59,20 @@ def main(args):
         errortext += "  To check the status of the jobs, use the --check-jobs option."
       raise OSError(errortext)
   if args.link_mela:
-    os.environ["LD_LIBRARY_PATH"] = (os.path.join(JHUbasedir, "JHUGenMELA", "MELA", "data", os.environ["SCRAM_ARCH"]) + ":" + os.environ["LD_LIBRARY_PATH"]).rstrip(":")
+    # Workaround for loading the correct MELA enviornment #
+    if any(gcc_version in os.environ["SCRAM_ARCH"] for gcc_version in ["gcc43","gcc44","gcc45"]):
+      os.environ["MELA_ARCH"] = "slc7_amd64_gcc434"
+    elif any(gcc_version in os.environ["SCRAM_ARCH"] for gcc_version in ["gcc4","gcc5","gcc6"]):
+      os.environ["MELA_ARCH"] = "slc7_amd64_gcc630"
+    elif any(gcc_version in os.environ["SCRAM_ARCH"] for gcc_version in ["gcc7"]):
+      os.environ["MELA_ARCH"] = "slc7_amd64_gcc700"
+    elif any(gcc_version in os.environ["SCRAM_ARCH"] for gcc_version in ["gcc80","gcc81","gcc82"]):
+      os.environ["MELA_ARCH"] = "slc7_amd64_gcc820"
+    elif any(gcc_version in os.environ["SCRAM_ARCH"] for gcc_version in ["gcc8"]):
+      os.environ["MELA_ARCH"] = "slc7_amd64_gcc830"
+    else:
+      os.environ["MELA_ARCH"] = "slc7_amd64_gcc920"
+    os.environ["LD_LIBRARY_PATH"] = (os.path.join(JHUbasedir, "JHUGenMELA", "MELA", "data", os.environ["MELA_ARCH"]) + ":" + os.environ["LD_LIBRARY_PATH"]).rstrip(":")
 
   command="./JHUGen $(cat ../JHUGen.input) VegasNc2=${nevt} Seed=${rnum}"
   if args.decay_card is not None:
@@ -81,7 +94,7 @@ def main(args):
       if args.link_mela:
         subprocess.check_call(["scramv1","project","CMSSW",os.environ['CMSSW_VERSION']])
         shutil.move("JHUGenMELA",os.environ['CMSSW_VERSION']+"/src")
-        os.environ["LD_LIBRARY_PATH"] = (os.path.join(JHUbasedir, os.environ['CMSSW_VERSION'], "src", "JHUGenMELA", "MELA", "data", os.environ["SCRAM_ARCH"]) + ":" + os.environ["LD_LIBRARY_PATH"]).rstrip(":")
+        os.environ["LD_LIBRARY_PATH"] = (os.path.join(JHUbasedir, os.environ['CMSSW_VERSION'], "src", "JHUGenMELA", "MELA", "data",  os.environ["SCRAM_ARCH"]) + ":" + os.environ["LD_LIBRARY_PATH"]).rstrip(":")
         with cd(os.environ['CMSSW_VERSION']+"/src/JHUGenMELA/MELA"):
           subprocess.check_call(["./setup.sh","-j"])
       else:
@@ -101,6 +114,14 @@ def main(args):
         find = "(^  MELADir *= *).*"
         assert re.search(find, makefile, flags=re.MULTILINE)
         makefile = re.sub(find, r"\1$(Here)/../"+os.environ['CMSSW_VERSION']+"/src/JHUGenMELA/MELA", makefile, flags=re.MULTILINE)
+
+        find = "(^MELALibDir *= *).*"
+        assert re.search(find, makefile, flags=re.MULTILINE)
+        makefile = re.sub(find, r"\1../"+os.environ['CMSSW_VERSION']+"/src/JHUGenMELA/MELA/data/"+os.environ["MELA_ARCH"], makefile, flags=re.MULTILINE)
+
+        find = "(^  MELALibDir *= *).*"
+        assert re.search(find, makefile, flags=re.MULTILINE)
+        makefile = re.sub(find, r"\1$(Here)/../"+os.environ['CMSSW_VERSION']+"/src/JHUGenMELA/MELA/data/"+os.environ["MELA_ARCH"], makefile, flags=re.MULTILINE)
 
         find = "(^UseLHAPDF *= *)(Yes|No)"
         assert re.search(find, makefile, flags=re.MULTILINE)

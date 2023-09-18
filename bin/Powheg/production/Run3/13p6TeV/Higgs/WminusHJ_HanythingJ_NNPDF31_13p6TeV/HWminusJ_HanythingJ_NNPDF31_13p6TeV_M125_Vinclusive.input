@@ -18,9 +18,6 @@ ih2 1             ! hadron 2 (1 for protons, -1 for antiprotons)
 ebeam1 6800d0     ! energy of beam 1
 ebeam2 6800d0     ! energy of beam 2
 
-bornktmin 0.26d0      ! (default 0d0) generation cut. Minimum kt in underlying Born
-bornsuppfact 0d0 ! (default 0d0)  mass param for Born suppression factor. If < 0 suppfact = 1
-
 lhans1  325300         ! pdf set for hadron 1 (LHA numbering)
 lhans2  325300         ! pdf set for hadron 2 (LHA numbering)	
 

@@ -101,10 +101,11 @@ def prepareCondorScript( tag, i, folderName, queue, SCALE = '0', njobs = 0, runI
 
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
-def prepareJob(tag, i, folderName) :
+def prepareJob(tag, i, folderName,process) :
     filename = folderName+'/run_%s.sh' % tag
 
     template_dict = {
+        "process" : process,
         "folderName" : folderName,
         "rootfolder" : rootfolder,
     }
@@ -121,7 +122,7 @@ def prepareJobForEvents (tag, i, folderName, EOSfolder) :
     runCommand('rm ' + rootfolder + '/' + folderName + '/log_' + tag + '.log')
     filename = 'run_%s.sh' % tag
 
-    prepareJob(tag, i, folderName)
+    prepareJob(tag, i, folderName,args.prcName)
 
     template_dict = {
         "folderName" : folderName,
@@ -168,7 +169,7 @@ def runParallelXgrid(parstage, xgrid, folderName, nEvents, njobs, powInputName, 
 
     for i in range (0, njobs) :
         jobID = jobtag + '_' + str(i)
-        jobname = prepareJob(jobID, i, folderName)
+        jobname = prepareJob(jobID, i, folderName,args.prcName)
 
         filename = folderName+'/run_' + jobID + '.sh'
         f = open(filename, 'a')
@@ -276,7 +277,7 @@ def runGetSource(parstage, xgrid, folderName, powInputName, process, noPdfCheck,
 
     print 'Getting and compiling POWHEG source...'
 
-    #prepareJob(tagName, '', '.')
+    #prepareJob(tagName, '', '.',args.prcName)
 
     filename = './run_%s.sh' % tagName
 
@@ -353,7 +354,7 @@ def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag, proc
         tag = jobtag + '_' + str (i)
         # real run
         if parstage == '4' : jobname = prepareJobForEvents(tag, i, folderName, EOSfolder)
-        else               : jobname = prepareJob(tag, i, folderName)
+        else               : jobname = prepareJob(tag, i, folderName,args.prcName)
         jobID = jobtag + '_' + str (i)
 
         filename = folderName+'/run_' + tag + '.sh'
@@ -366,7 +367,7 @@ def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag, proc
           f.write('tar xzf WW_MiNNLO_2loop_grids_reduced1.tar.gz\n')
           f.write('ls\n')
         f.write('cp -p ' + rootfolder + '/' + folderName + '/powheg.input.' + parstage + ' ./powheg.input' + '\n') # copy input file for this stage explicitly, needed by condor dag
-        f.write('echo ' + str (i) + ' | ./pwhg_main \n')
+        f.write('echo ' + str (i+1) + ' | ./pwhg_main \n')
         f.write('echo "Workdir after run:" \n')
         f.write('ls -ltr \n')
         f.write('cp -p -v -u *.top ' + rootfolder + '/' + folderName + '/. \n')
@@ -573,7 +574,7 @@ if __name__ == "__main__":
         tagName = 'src_'+args.folderName
         filename = './run_'+tagName+'.sh'
 
-        prepareJob(tagName, '', '.')
+        prepareJob(tagName, '', '.',args.prcName)
 
         if not os.path.exists(args.inputTemplate) :
             m_ret = os.system('wget --quiet --no-check-certificate -N http://cms-project-generators.web.cern.ch/cms-project-generators/'+args.inputTemplate+' -O '+args.folderName+'/powheg.input')
@@ -634,7 +635,7 @@ if __name__ == "__main__":
         tagName = 'src_'+args.folderName
         filename = './run_'+tagName+'.sh'
 
-        prepareJob(tagName, '', '.')
+        prepareJob(tagName, '', '.',args.prcName)
 
         runGetSource(args.parstage, args.xgrid, args.folderName,
                      powInputName, args.prcName, args.noPdfCheck, tagName, args.svnRev)
@@ -662,7 +663,7 @@ if __name__ == "__main__":
         os.system('sed -i "s/^numevts.*/numevts '+args.totEvents+'/" '+
                   args.folderName+'/powheg.input')
 
-        prepareJob(tagName, '', args.folderName)
+        prepareJob(tagName, '', args.folderName,args.prcName)
         runSingleXgrid(args.parstage, args.xgrid, args.folderName,
                        args.numEvents, powInputName, args.rndSeed,
                        args.prcName, scriptName)
@@ -680,7 +681,7 @@ if __name__ == "__main__":
         tagName = 'all_'+args.folderName
         scriptName = './run_'+tagName+'.sh'
 
-        prepareJob(tagName, '', '.')
+        prepareJob(tagName, '', '.',args.prcName)
         runGetSource(args.parstage, args.xgrid, args.folderName,
                      powInputName, args.prcName, args.noPdfCheck, tagName, args.svnRev)
 
@@ -703,7 +704,7 @@ if __name__ == "__main__":
         tagName = 'full_'+args.folderName
         scriptName = './run_'+tagName+'.sh'
 
-        prepareJob(tagName, '', '.')
+        prepareJob(tagName, '', '.',args.prcName)
         runGetSource(args.parstage, args.xgrid, args.folderName,
                      powInputName, args.prcName, args.noPdfCheck, tagName, args.svnRev)
 

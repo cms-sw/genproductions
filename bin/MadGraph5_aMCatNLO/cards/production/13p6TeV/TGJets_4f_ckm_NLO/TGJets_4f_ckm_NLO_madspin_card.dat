@@ -1,0 +1,11 @@
+set ms_dir ./madspingrid
+
+set Nevents_for_max_weight 250 # number of events for the estimate of the max. weight
+set max_weight_ps_point 400  # number of PS to estimate the maximum for each event
+
+set max_running_process 1
+
+decay t > w+ b, w+ > j j
+decay t~ > w- b~, w- > j j
+
+launch

@@ -1,0 +1,9 @@
+import model loop_sm-no_b_mass
+
+define p = p b b~
+define j = j b b~
+
+generate p p > t t~ t t~ [QCD] @0
+
+
+output TTTT_5f_NLO -nojpeg

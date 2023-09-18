@@ -90,6 +90,8 @@ if [ -e $LHAPDF6TOOLFILE ]; then
 fi
 #make sure env variable for pdfsets points to the right place
 export LHAPDF_DATA_PATH=`$LHAPDFCONFIG --datadir`
+# local pdf sets
+export LHAPDF_DATA_PATH=$PWD/lhapdf:$LHAPDF_DATA_PATH
 
 # initialize the CMS environment 
 myDir=powhegbox_${process}
@@ -169,8 +171,33 @@ if [ "$process" = "Z_ew-BMNNPV" ] || [ "$process" = "W_ew-BMNNP" ]; then
   sed -i '/rwl_file/d' powheg.input
 fi
 
-cat powheg.input
-../pwhg_main 2>&1 | tee log_${process}_${seed}.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
+# Check if we are running with the "manyseeds" option
+manyseeds="false"
+grep -qFx "manyseeds 1" powheg.input ; test $? -ne 0  || manyseeds="true"
+
+if [ "$manyseeds" == "true" ]; then
+  if [ "$produceWeights" == "true" ]; then
+    fail_exit "Error: not implemented"
+  fi
+
+  # With "manyseeds", powheg reads the seed from pwgseeds.dat
+  echo $seed > pwgseeds.dat
+
+  # Powheg expects the index of the seed to use as an command line argument
+  # Since we dont actually use the parallelization functionality of Powheg,
+  # we just write one seed to pwgseeds.dat and always pick seed 1
+  cat powheg.input
+  ../pwhg_main iwhichseed=1 2>&1 | tee log_${process}_${seed}.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
+
+  # Rename the produced LHE file to be what the rest of the script expects
+  mv pwgevents-0001.lhe pwgevents.lhe
+
+else
+  cat powheg.input
+  ../pwhg_main 2>&1 | tee log_${process}_${seed}.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
+  
+fi
+
 
 if [ "${process}" == "X0jj" ]; then
     # now run reweighting for X0jj process

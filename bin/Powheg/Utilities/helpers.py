@@ -442,7 +442,29 @@ sed -i '/lPhotospp/s/^# //g' Makefile\n \
 ## make the main-PHOTOS-lhef\n \
 echo 'Making main-PHOTOS-lhef'\n \
 make main-PHOTOS-lhef",
-    }.get(process,"")
+    "ttJ_MiNNLO" :"echo \"Adding CHAPLIN 1.2 library\"\n \
+if [ ! -f chaplin-1.2.tar ]; then\n \
+  wget --no-verbose http://chaplin.hepforge.org/code/chaplin-1.2.tar || fail_exit \"Failed to get CHAPLIN tar ball \"\n \
+fi\n \
+tar xvf chaplin-1.2.tar\n \
+cd chaplin-1.2\n \
+./configure --prefix=`pwd`/..\n \
+make install\n \
+cd ..\n \
+echo \"LIBS+=-L`pwd`/lib/ -L`pwd`/lib64/\" >> Makefile   # be safe \n \
+export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:${LD_LIBRARY_PATH} \n \
+echo \"Editing and compiling Makefiles in `pwd`\" \n \
+PROCESSDIR=\"${WORKDIR}/${name}/POWHEG-BOX/${process}\" \n \
+cp H2Stuff/virtgg.f  H2Stuff/virtgg.f.orig\n \
+cp H2Stuff/virtqq.f  H2Stuff/virtqq.f.orig\n \
+cat H2Stuff/virtgg.f.orig | sed -e \"s#PROCESSDIR#${PROCESSDIR}#g\" > H2Stuff/virtgg.f \n \
+cat H2Stuff/virtqq.f.orig | sed -e \"s#PROCESSDIR#${PROCESSDIR}#g\" > H2Stuff/virtqq.f \n \
+LHAPDF_BASE=/cvmfs/cms.cern.ch/slc7_amd64_gcc900/external/lhapdf/6.3.0/\n \
+echo \"LHAPDF_BASE: ${LHAPDF_BASE}\"\n \
+cp Makefile Makefile.orig\n \
+cat Makefile.orig | sed -e \"s#LHAPDF_CONFIG=.\+#LHAPDF_CONFIG=${LHAPDF_BASE}bin/lhapdf-config#g\" > Makefile\n \
+patch -l -p0 -i ${WORKDIR}/patches/ttJ_minnlo_compiler.patch", 
+}.get(process,"")
 
 def runGetSource_patch_7(process) :
   return {
@@ -452,10 +474,10 @@ sed -i \"s/getq2min(1,tmp)/getq2min(0,tmp)/g\" setlocalscales.f",
 
     "ST_wtch_DR" : "echo \"D/L QCDLoop-1.9 library\"\n \
 if [ ! -f FeynHiggs-2.10.2.tar.gz ]; then\n \
-  wget --no-verbose http://qcdloop.fnal.gov/QCDLoop-1.96.tar.gz || fail_exit \"Failed to get QCDLoop tar ball\"\n \
+  wget --no-verbose http://qcdloop.fnal.gov/QCDLoop-1.98.tar.gz || fail_exit \"Failed to get QCDLoop tar ball\"\n \
 fi\n \
-tar xvf QCDLoop-1.96.tar.gz\n \
-mv QCDLoop-1.96 QCDLoop-1.9\n \
+tar xvf QCDLoop-1.98.tar.gz\n \
+mv QCDLoop-1.98 QCDLoop-1.9\n \
 sed -i -e 's#/Users/ellis/QCDLoop#./QCDLoop#' ff/ffinit_mine.f\n \
 cd QCDLoop-1.9\n \
 sed -i -e 's#FFLAGS = #FFLAGS = -std=legacy #g' makefile\n \
@@ -467,17 +489,18 @@ sed -i -e 's#QCDLoop-1.98#QCDLoop-1.9#g' Makefile",
 
     "ST_wtch_DS" : "echo \"D/L QCDLoop-1.9 library\"\n \
 if [ ! -f FeynHiggs-2.10.2.tar.gz ]; then\n \
-  wget --no-verbose http://qcdloop.fnal.gov/QCDLoop-1.96.tar.gz || fail_exit \"Failed to get QCDLoop tar ball\"\n \
+  wget --no-verbose http://qcdloop.fnal.gov/QCDLoop-1.98.tar.gz || fail_exit \"Failed to get QCDLoop tar ball\"\n \
 fi\n \
-tar xvf QCDLoop-1.96.tar.gz\n \
-mv QCDLoop-1.96 QCDLoop-1.9\n \
+tar xvf QCDLoop-1.98.tar.gz\n \
+mv QCDLoop-1.98 QCDLoop-1.9\n \
 sed -i -e 's#/Users/ellis/QCDLoop#./QCDLoop#' ff/ffinit_mine.f\n \
 cd QCDLoop-1.9\n \
 sed -i -e 's#FFLAGS = #FFLAGS = -std=legacy #g' makefile\n \
 sed -i -e 's#FFLAGS        = #FFLAGS        = -std=legacy #g' ff/makefile\n \
 sed -i -e 's#FFLAGS  = #FFLAGS  = -std=legacy #g' ql/makefile\n \
 make\n \
-cd ..",
+cd ..\n \
+sed -i -e 's#QCDLoop-1.98#QCDLoop-1.9#g' Makefile",
     }.get(process,"")
 
 def runGetSource_patch_8(process) :
@@ -516,4 +539,9 @@ gawk \"/sroot/{gsub(/8000/,$COMENERGY)};/hmass/{gsub(/125.5/, ${HMASS})};/mur,mu
 gawk \"/sroot/{gsub(/8000/,$COMENERGY)};/hmass/{gsub(/125.5/, ${HMASS})};/mur,muf/{gsub(/62.750/, $(( $HMASS/4 )))};{print}\" POWHEG-BOX/HJ/PaperRun/HNNLO-LHC8-R04-APX2-11.input | sed -e \"s#10103#SEED#g\" | sed -e \"s#HNNLO-LHC8-R04-APX2-11#HNNLO-LHC13-R04-APX2-0505#g\"> HNNLO-LHC13-R04-APX2-0505.input\n \
 cp ${WORKDIR}/Utilities/nnlopsreweighter.input .\n \
 fi",
+    "ttJ_MiNNLO" :"echo \"Renaming pwhg_main-gnu to pwhg_main .\"\n \
+cd ${WORKDIR}/${name}/POWHEG-BOX/${process} \n \
+mv pwhg_main-gnu pwhg_main \n \
+cp -p pwhg_main ${WORKDIR}/${name}/. \n \
+cd -",
     }.get(process,"")
