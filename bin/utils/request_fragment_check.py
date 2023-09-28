@@ -1041,7 +1041,15 @@ for num in range(0,len(prepid)):
                     dir_path = os.path.join(my_path,pi,"InputCards")
                     if os.path.isdir(dir_path):
                         input_cards_customize_card = find_file(dir_path,"customizecards.dat")
+                        input_cards_madspin_card = find_file(dir_path,"madspin_madspin_card.dat")
                         input_patch = find_file(dir_path,"patch")
+                        if input_cards_madspin_card:
+                            print("---------------------------------------------")
+                            print("MadSpin card:")
+                            with open(input_cards_madspin_card, 'r') as f_madspin_card:
+                                for line in f_madspin_card.readlines():
+                                    print(line)
+                            print("End of MadSpin card--------------------------\n")
                         if input_patch:
                             print("Checking running Yukawa coupling:")
                             print("input patch file: "+input_patch)
