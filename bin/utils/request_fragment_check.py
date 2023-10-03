@@ -48,7 +48,7 @@ if args.develop is False:
        sys.exit()
 	
 # Use no-id as identification mode in order not to use a SSO cookie
-mcm = McM(id=McM.SSO, dev=args.dev, debug=args.debug)
+mcm = McM(id=None, dev=args.dev, debug=args.debug)
 mcm_link = mcm.server
 
 def get_request(prepid):
@@ -78,11 +78,12 @@ def get_ticket(prepid):
     return result
 
 def get_requests_from_datasetname(dn):
-    result = mcm.get('requests', query='dataset_name=%s' % (dn))
-    if not result:
-        return {}
-
-    return result
+    raw_result = mcm._McM__get(
+        "public/restapi/requests/from_dataset_name/%s" % (dn)
+    )
+    if not raw_result:
+        return []
+    return raw_result.get("results", [])
 
 def find_file(dir_path,patt):
     for root, dirs, files in os.walk(dir_path):

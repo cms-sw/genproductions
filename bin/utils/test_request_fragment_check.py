@@ -102,7 +102,7 @@ class McMFragmentCheckTest(unittest.TestCase):
         """
         test_command = "%s --bypass_status --prepid %s --dev --develop" % (self.script_path, self.mcm_prepid)
         exit_code, stdout = self.__shell_execution(test_command)
-        self.logger.info('Script output: %s', stdout)
+        self.logger.info('Script output:\n%s', stdout)
         number_of_errors = NUMBER_OF_ERRORS.findall(stdout)
         self.assertEqual(
             0, 
