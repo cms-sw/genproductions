@@ -32,12 +32,12 @@ class McMFragmentCheckTest(unittest.TestCase):
         Returns:
             tuple[int, str]: Status code and standard output
         """
-        # INFO: Do not use `stdout=subprocess.PIPE` if you are
+        # INFO: Do not use `stdout=subprocess.PIPE` if you
         # run the script setting `McM(id=McM.OIDC, ...)` for the 
         # McM REST client. That authentication schema requires
         # human intervention to complete the auth flow. Therefore,
         # the subprocess will be blocked and you can not interact 
-        # with it. If you require to run it with this schema for debug
+        # with it. If you require to run it with this schema for debugging
         # something, just comment that line.
         command_args = command.strip().split(EMPTY_SPACE)
         completed_process = subprocess.Popen(
@@ -107,13 +107,13 @@ class McMFragmentCheckTest(unittest.TestCase):
         self.assertEqual(
             0, 
             exit_code, 
-            'The related McM request is already done, it means this should not fail'
+            'The related McM request should not have validation errors'
         )
         self.assertIsNotNone(
             stdout,
             msg=(
-                'Please make sure you are using the authentication schema `McM(id=McM.SSO, ...)` \n'
-                'and enable `stdout=subprocess.PIPE` inside self.__shell_execution(...) function. \n'
+                'Please make sure you capture the standard output \n'
+                '(have enabled `stdout=subprocess.PIPE` inside self.__shell_execution(...) function) \n'
                 'Script output is None.'
             )
         )
