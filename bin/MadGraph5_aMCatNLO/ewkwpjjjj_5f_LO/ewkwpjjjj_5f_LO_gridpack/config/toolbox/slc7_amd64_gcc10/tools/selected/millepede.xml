@@ -1,0 +1,10 @@
+<tool name="millepede" version="V04-11-01-3513e444a52c773c715b7f2242efa0b0">
+  <info url="http://www.wiki.terascale.de/index.php/Millepede_II"/>
+  <client>
+    <environment name="MILLEPEDE_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/millepede/V04-11-01-3513e444a52c773c715b7f2242efa0b0"/>
+  </client>
+  <runtime name="PATH" value="$MILLEPEDE_BASE/bin" type="path"/>
+  <use name="sockets"/>
+  <use name="pcre"/>
+  <use name="zlib"/>
+</tool>

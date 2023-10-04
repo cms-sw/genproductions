@@ -1,0 +1,6 @@
+<tool name="xrdcl-record" version="5.4.2-1380fa9febbebe37ecb89b82247097b5">
+  <client>
+    <environment name="XRDCL_RECORD_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/xrdcl-record/5.4.2-1380fa9febbebe37ecb89b82247097b5"/>
+  </client>
+  <runtime name="XRDCL_RECORDER_PLUGIN" value="${XRDCL_RECORD_BASE}/lib64/libXrdClRecorder-5.so"/>
+</tool>

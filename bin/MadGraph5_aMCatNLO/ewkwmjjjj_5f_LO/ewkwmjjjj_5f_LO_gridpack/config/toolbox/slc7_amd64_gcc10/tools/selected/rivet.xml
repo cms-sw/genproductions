@@ -1,0 +1,19 @@
+<tool name="rivet" version="3.1.5-8ee7abd849383dd10f16e777771c6564">
+<lib name="Rivet"/>
+<client>
+<environment name="RIVET_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/rivet/3.1.5-8ee7abd849383dd10f16e777771c6564"/>
+<environment name="LIBDIR" default="$RIVET_BASE/lib"/>
+<environment name="INCLUDE" default="$RIVET_BASE/include"/>
+</client>
+<runtime name="PATH" value="$RIVET_BASE/bin" type="path"/>
+<runtime name="RIVET_ANALYSIS_PATH" value="$RIVET_BASE/lib/Rivet" type="path"/>
+<runtime name="RIVET_DATA_PATH" value="$RIVET_BASE/share/Rivet" type="path"/>
+<runtime name="PDFPATH" default="$RIVET_BASE/share" type="path"/>
+<runtime name="ROOT_INCLUDE_PATH" value="$INCLUDE" type="path"/>
+<runtime name="TEXMFHOME" value="$RIVET_BASE/share/Rivet/texmf" type="path"/>
+<use name="hepmc"/>
+<use name="fastjet"/>
+<use name="fastjet-contrib"/>
+<use name="gsl"/>
+<use name="yoda"/>
+</tool>

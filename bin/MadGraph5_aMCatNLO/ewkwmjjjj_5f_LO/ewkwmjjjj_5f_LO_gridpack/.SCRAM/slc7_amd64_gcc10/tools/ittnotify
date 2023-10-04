@@ -1,0 +1,24 @@
+{
+  "INCLUDE": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/ittnotify/16.06.18-9dacc777a1a80aa1b3e442956e72825f/include"
+  ],
+  "ITTNOTIFY_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/ittnotify/16.06.18-9dacc777a1a80aa1b3e442956e72825f",
+  "LIB": [
+    "ittnotify"
+  ],
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/ittnotify/16.06.18-9dacc777a1a80aa1b3e442956e72825f/lib"
+  ],
+  "RUNTIME": {
+    "PATH:ROOT_INCLUDE_PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/ittnotify/16.06.18-9dacc777a1a80aa1b3e442956e72825f/include"
+    ]
+  },
+  "TOOLNAME": "ittnotify",
+  "TOOLVERSION": "16.06.18-9dacc777a1a80aa1b3e442956e72825f",
+  "VARIABLES": [
+    "ITTNOTIFY_BASE",
+    "INCLUDE",
+    "LIBDIR"
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "GIT_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/git/2.35.3-edea708bcb1055383e27f8a28629c20e",
+  "RUNTIME": {
+    "PATH:GIT_EXEC_PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/git/2.35.3-edea708bcb1055383e27f8a28629c20e/libexec/git-core"
+    ],
+    "PATH:GIT_SSL_CAINFO": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/git/2.35.3-edea708bcb1055383e27f8a28629c20e/share/ssl/certs/ca-bundle.crt"
+    ],
+    "PATH:GIT_TEMPLATE_DIR": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/git/2.35.3-edea708bcb1055383e27f8a28629c20e/share/git-core/templates"
+    ],
+    "PATH:PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/git/2.35.3-edea708bcb1055383e27f8a28629c20e/bin",
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/git/2.35.3-edea708bcb1055383e27f8a28629c20e/libexec/git-core"
+    ],
+    "PATH:PERL5LIB": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/git/2.35.3-edea708bcb1055383e27f8a28629c20e/share/perl5"
+    ]
+  },
+  "TOOLNAME": "git",
+  "TOOLVERSION": "2.35.3-edea708bcb1055383e27f8a28629c20e",
+  "VARIABLES": [
+    "GIT_BASE"
+  ]
+}

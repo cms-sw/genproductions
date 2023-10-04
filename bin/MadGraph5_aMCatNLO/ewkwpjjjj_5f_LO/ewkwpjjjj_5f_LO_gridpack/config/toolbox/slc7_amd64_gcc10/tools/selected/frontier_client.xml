@@ -1,0 +1,13 @@
+<tool name="frontier_client" version="2.9.1-8322c58dd76df2f5fed066c5d8e40358">
+  <lib name="frontier_client"/>
+  <client>
+    <environment name="FRONTIER_CLIENT_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/frontier_client/2.9.1-8322c58dd76df2f5fed066c5d8e40358"/>
+    <environment name="INCLUDE" default="$FRONTIER_CLIENT_BASE/include"/>
+    <environment name="LIBDIR" default="$FRONTIER_CLIENT_BASE/lib"/>
+  </client>
+  <runtime name="FRONTIER_CLIENT" value="$FRONTIER_CLIENT_BASE/"/>
+  <runtime name="ROOT_INCLUDE_PATH" value="$INCLUDE" type="path"/>
+  <use name="root_cxxdefaults"/>
+  <use name="zlib"/>
+  <use name="expat"/>
+</tool>

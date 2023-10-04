@@ -1,0 +1,27 @@
+{
+  "FFTW3_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/fftw3/3.3.8-1e8a7f04706607079fcb2980a542baed",
+  "INCLUDE": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/fftw3/3.3.8-1e8a7f04706607079fcb2980a542baed/include"
+  ],
+  "LIB": [
+    "fftw3"
+  ],
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/fftw3/3.3.8-1e8a7f04706607079fcb2980a542baed/lib"
+  ],
+  "RUNTIME": {
+    "PATH:ROOT_INCLUDE_PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/fftw3/3.3.8-1e8a7f04706607079fcb2980a542baed/include"
+    ]
+  },
+  "TOOLNAME": "fftw3",
+  "TOOLVERSION": "3.3.8-1e8a7f04706607079fcb2980a542baed",
+  "USE": [
+    "root_cxxdefaults"
+  ],
+  "VARIABLES": [
+    "FFTW3_BASE",
+    "INCLUDE",
+    "LIBDIR"
+  ]
+}

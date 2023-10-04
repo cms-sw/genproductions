@@ -1,0 +1,30 @@
+{
+  "INCLUDE": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/libxml2/2.9.10-32fb6ccc7a5c1482269c150e9287ec24/include/libxml2"
+  ],
+  "LIB": [
+    "xml2"
+  ],
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/libxml2/2.9.10-32fb6ccc7a5c1482269c150e9287ec24/lib"
+  ],
+  "LIBXML2_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/libxml2/2.9.10-32fb6ccc7a5c1482269c150e9287ec24",
+  "RUNTIME": {
+    "PATH:PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/libxml2/2.9.10-32fb6ccc7a5c1482269c150e9287ec24/bin"
+    ],
+    "PATH:ROOT_INCLUDE_PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/libxml2/2.9.10-32fb6ccc7a5c1482269c150e9287ec24/include/libxml2"
+    ]
+  },
+  "TOOLNAME": "libxml2",
+  "TOOLVERSION": "2.9.10-32fb6ccc7a5c1482269c150e9287ec24",
+  "USE": [
+    "root_cxxdefaults"
+  ],
+  "VARIABLES": [
+    "LIBXML2_BASE",
+    "LIBDIR",
+    "INCLUDE"
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "GSL_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/gsl/2.6-84974e6daa70611c23ebff30cbb797c4",
+  "INCLUDE": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/gsl/2.6-84974e6daa70611c23ebff30cbb797c4/include"
+  ],
+  "LIB": [
+    "gsl"
+  ],
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/gsl/2.6-84974e6daa70611c23ebff30cbb797c4/lib"
+  ],
+  "RUNTIME": {
+    "PATH:ROOT_INCLUDE_PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/gsl/2.6-84974e6daa70611c23ebff30cbb797c4/include"
+    ]
+  },
+  "TOOLNAME": "gsl",
+  "TOOLVERSION": "2.6-84974e6daa70611c23ebff30cbb797c4",
+  "USE": [
+    "openblas",
+    "root_cxxdefaults"
+  ],
+  "VARIABLES": [
+    "GSL_BASE",
+    "LIBDIR",
+    "INCLUDE"
+  ]
+}
