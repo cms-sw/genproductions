@@ -1,0 +1,19 @@
+{
+  "DABLOOMS_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/dablooms/0.9.1-eeb14a343bb1fca63f5b5f142f398551",
+  "INCLUDE": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/dablooms/0.9.1-eeb14a343bb1fca63f5b5f142f398551/include"
+  ],
+  "LIB": [
+    "dablooms"
+  ],
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/dablooms/0.9.1-eeb14a343bb1fca63f5b5f142f398551/lib"
+  ],
+  "TOOLNAME": "dablooms",
+  "TOOLVERSION": "0.9.1-eeb14a343bb1fca63f5b5f142f398551",
+  "VARIABLES": [
+    "DABLOOMS_BASE",
+    "LIBDIR",
+    "INCLUDE"
+  ]
+}

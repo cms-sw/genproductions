@@ -1,0 +1,15 @@
+  <tool name="icc-f77compiler" version="2020-140361d19d6a2a288854baa96da3cda5" type="compiler">
+    <use name="gcc-f77compiler"/>
+    <client>
+      <environment name="ICC_FCOMPILER_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/icc/2020-140361d19d6a2a288854baa96da3cda5/ifort" handler="warn"/>
+      <environment name="FC" default="$ICC_FCOMPILER_BASE/bin/intel64/ifort" handler="warn"/>
+      <environment name="LIBDIR" default="$ICC_FCOMPILER_BASE/compiler/lib/intel64" handler="warn"/>
+    </client>
+    <flags REM_FFLAGS="-fno-second-underscore"/>
+    <architecture name="_mic_">
+      <flags FFLAGS="-mmic"/>
+    </architecture>
+    <runtime name="LD_LIBRARY_PATH" value="$ICC_FCOMPILER_BASE/compiler/lib/intel64" type="path" handler="warn"/>
+    <lib name="ifcore"/>
+    <lib name="ifport"/>
+  </tool>

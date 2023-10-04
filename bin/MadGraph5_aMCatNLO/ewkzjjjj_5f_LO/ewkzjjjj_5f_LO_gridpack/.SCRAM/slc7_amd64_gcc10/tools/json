@@ -1,0 +1,12 @@
+{
+  "INCLUDE": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/json/3.10.2-a6d86565b09ec3d0e02bf7b52c31bbfc/include"
+  ],
+  "JSON_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/json/3.10.2-a6d86565b09ec3d0e02bf7b52c31bbfc",
+  "TOOLNAME": "json",
+  "TOOLVERSION": "3.10.2-a6d86565b09ec3d0e02bf7b52c31bbfc",
+  "VARIABLES": [
+    "JSON_BASE",
+    "INCLUDE"
+  ]
+}

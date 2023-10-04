@@ -1,0 +1,6 @@
+<tool name="py3-fonttools" version="4.31.2-dd2d8ef2d8158f32922baaaa98e1ff69">
+  <client>
+    <environment name="PY3_FONTTOOLS_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-fonttools/4.31.2-dd2d8ef2d8158f32922baaaa98e1ff69"/>
+  </client>
+  <runtime name="PATH" value="$PY3_FONTTOOLS_BASE/bin" type="path"/>
+</tool>

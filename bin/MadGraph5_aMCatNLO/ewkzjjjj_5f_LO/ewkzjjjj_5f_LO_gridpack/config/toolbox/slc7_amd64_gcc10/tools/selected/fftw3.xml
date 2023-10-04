@@ -1,0 +1,10 @@
+<tool name="fftw3" version="3.3.8-1e8a7f04706607079fcb2980a542baed">
+  <lib name="fftw3"/>
+  <client>
+    <environment name="FFTW3_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/fftw3/3.3.8-1e8a7f04706607079fcb2980a542baed"/>
+    <environment name="INCLUDE" default="$FFTW3_BASE/include"/>
+    <environment name="LIBDIR" default="$FFTW3_BASE/lib"/>
+  </client>
+  <runtime name="ROOT_INCLUDE_PATH" value="$INCLUDE" type="path"/>
+  <use name="root_cxxdefaults"/>
+</tool>

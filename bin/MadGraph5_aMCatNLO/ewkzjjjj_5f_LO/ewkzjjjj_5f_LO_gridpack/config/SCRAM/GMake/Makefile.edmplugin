@@ -1,0 +1,250 @@
+ifneq ($(strip $(edmPluginRefresh_cache)),)
+  POISON_EDMPLUGIN_CACHE      := $(strip $(if $(strip $(RELEASETOP)$(IS_PATCH)),yes))
+endif
+ifndef SCRAM_NOEDM_CHECKS
+define run_edm_checks
+  $(if $(strip $($(1)_CLASSES_DEF_XML)),$(call check_edm_class_version,$1,$($(1)_CLASSES_DEF_XML),$3,$4)) \
+  $(if $(strip $($(1)_ROOTMAP_FILES)),$(call check_edm_class_transients,$1,$($(1)_ROOTMAP_FILES),$3,$4))
+endef
+else
+run_edm_checks:=
+endif
+ifneq ($(strip $(SCRAM_TARGETS)),)
+  $(foreach v,$(SCRAM_TARGETS),$(eval $(call CreateTargetSymlink,$v,$(SCRAMSTORENAME_LIB)/.poisonededmplugincache)))
+  $(foreach v,$(SCRAM_TARGETS),$(eval $(call CreateTargetSymlink,$v,$(SCRAMSTORENAME_LIB)/.edmplugincache)))
+  ifneq ($(strip $(edmPluginRefresh_cache)),)
+    $(foreach v,$(SCRAM_TARGETS),$(eval edmPluginRefresh_cache+=$(SCRAMSTORENAME_LIB)/$v/.edmplugincache))
+  endif
+endif
+
+ifndef SCRAM_NOEDMWRITECONFIG
+EDM_WRITE_CONFIG_DB:=edm_write_config
+define edm_write_config
+  $(CMD_rm) -rf $(<D)/$(EDM_WRITE_CONFIG_DB) && $(CMD_mkdir) -p $(<D)/$(EDM_WRITE_CONFIG_DB) &&\
+  $(CMD_echo) "@@@@ Running $(EDM_WRITE_CONFIG) for $(1)" &&\
+  ($(CMD_cd) $(<D)/$(EDM_WRITE_CONFIG_DB) && $(EDM_TOOLS_PREFIX) $(EDM_WRITE_CONFIG) -p $(LOCALTOP)/$<) &&\
+  $(CMD_touch) $(SCRAM_INTwork)/$(SCRAM_SOURCEDIR)/$($(1)_PROD_PACKAGE)/.$(EDM_WRITE_CONFIG_DB) &&\
+  for file in `$(CMD_ls) $(<D)/$(EDM_WRITE_CONFIG_DB)`; do \
+    $(CMD_cp) -f $(<D)/$(EDM_WRITE_CONFIG_DB)/$$file $(SCRAMSTORENAME_CFIPYTHON)/$($(1)_PROD_PACKAGE) &&\
+    $(CMD_echo) "01:$(CMD_rm) -f $(SCRAMSTORENAME_CFIPYTHON)/$($(1)_PROD_PACKAGE)/$$file" >> $(call AutoCleanFile,$<,edm) ;\
+  done
+endef
+define check_duplicate_cfi_config
+  if [ -f $(SCRAM_INTwork)/$(SCRAM_SOURCEDIR)/$(1)/.$(EDM_WRITE_CONFIG_DB) ] ; then \
+    err=0 &&\
+    for cfi in $$($(CMD_find) $(SCRAM_INTwork)/$(SCRAM_SOURCEDIR)/$(1) -mindepth 4 -maxdepth 4 -path "*/$(EDM_WRITE_CONFIG_DB)/*_cfi.py" -type f | $(CMD_sed) "s|.*/$(EDM_WRITE_CONFIG_DB)/||" | $(CMD_sort) | $(CMD_uniq) -c | $(CMD_grep) -v ' 1 ' | $(CMD_sed) 's|.* ||') ; do \
+      if [ "$$err" = "0" ] ; then $(CMD_echo) "****ERROR: Duplicate CFI files generated for Package $1" ; fi ;\
+      err=1 &&\
+      for plugin in $$($(CMD_find) $(SCRAM_INTwork)/$(SCRAM_SOURCEDIR)/$(1) -mindepth 4 -maxdepth 4 -path "*/$(EDM_WRITE_CONFIG_DB)/$$cfi" -type f | $(CMD_sed) "s|/$(EDM_WRITE_CONFIG_DB)/.*||;s|.*/||") ; do\
+        $(CMD_echo) "gmake: *** [$1/$$plugin/$$cfi] Error 1" ;\
+      done;\
+    done;\
+    if [ $$err = 1 ] ; then exit 1 ; fi ;\
+    $(CMD_rm) -f $(SCRAM_INTwork)/$(SCRAM_SOURCEDIR)/$(1)/.$(EDM_WRITE_CONFIG_DB) ;\
+  fi
+endef
+else
+define  check_duplicate_cfi_config
+  $(CMD_echo) "@@@@ Skipping Duplicate CFI check for $1 due to SCRAM_NOEDMWRITECONFIG"
+endef
+define edm_write_config
+  $(CMD_echo) "@@@@ Skipping $(EDM_WRITE_CONFIG) for $(1) due to SCRAM_NOEDMWRITECONFIG"
+endef
+endif
+
+define edm_register_plugin
+  @$(startlog_$(2)) $(CMD_touch) $(LOCALTOP)/$(SCRAM_INTwork)/cache/edm_$($(1)_pluginrefresh) &&\
+  if [ -f $< ] ; then \
+    [ -d $(@D) ] || $(CMD_mkdir) -p $(@D) &&\
+    $(if $(strip $3),$(CMD_echo) ">> Skipping edm_write_config for $3 $1",($(call edm_write_config,$(1)) || ($(CMD_rm) -f $< && exit 1))) &&\
+    plugin=$(patsubst lib%,plugin%,$(<F)) &&\
+    $(CMD_echo) "module $$plugin" > $(<D)/$(@F) &&\
+    ($(call install_name_tool_rpath,$(LOCALTOP)/$(@D),$<) &&\
+    ($(call install_name_tool,@rpath/$$plugin,$<) && $(CMD_cp) -f $< $(@D)/$$plugin) || ($(CMD_rm) -f $< $(<D)/$$plugin && exit 1)) &&\
+    $(CMD_cp) -f $(<D)/$(@F) $@ &&\
+    $(CMD_echo) "01:$(CMD_rm) -f $(@D)/$$plugin $@" > $(call AutoCleanFile,$<,edm) &&\
+    $(CMD_echo) "90:edmPluginRefresh $(@D)" >> $(call AutoCleanFile,$<,edm) &&\
+    $(CMD_echo) "--- Registered EDM Plugin: $(1)"; \
+  else \
+    $(CMD_rm) -f $@ $(@D)/$(patsubst lib%,plugin%,$(<F)) ;\
+  fi $(endlog_$(2))
+endef
+
+define edm_plugin_clean
+  $(call clean_prod,$($(1)_plugindir)/plugin$(1).$(SHAREDSUFFIX))
+  $(call clean_prod,$($(1)_pluginprod))
+endef
+define edmPlugin
+ifneq ($(strip $($(1)_objs)),)
+$$(eval $$(call addPlugin,$1,$2,edm,yes,$3,edmPluginRefresh,.edmplugincache,$(1).edmplugin,$1,$4))
+$(1)_BUILDRULES := _edm
+$(call add_postprocessing,$($(1)_PROD_PACKAGE),50,check_duplicate_cfi_config)
+else
+ifeq ($(strip $($(1)_SKIP_FILES)),)
+$$(info gmake: *** [$4 contains only $(SCRAM_BUILDFILE).xml without any sources. Better to remove $(SCRAM_BUILDFILE).xml too or do not tag this directory] Error 1)
+endif
+endif
+endef
+
+###############################################################################
+ifneq ($(strip $(EDM_CHECK_CLASS_VERSION)),)
+EDM_CHECK_CLASS_VERSION_SCRIPT:=$(call find_project_file,$(EDM_CHECK_CLASS_VERSION))
+ifeq ($(strip $(EDM_CHECK_CLASS_VERSION_SCRIPT)),)
+EDM_CHECK_CLASS_VERSION_SCRIPT:=$(CMD_echo) ">> Skipped running EDM Class Version test" && $(CMD_true)
+endif
+endif
+ifneq ($(strip $(EDM_CHECK_CLASS_TRANSIENTS)),)
+EDM_CHECK_CLASS_TRANSIENTS_SCRIPT:=$(call find_project_file,$(EDM_CHECK_CLASS_TRANSIENTS))
+ifeq ($(strip $(EDM_CHECK_CLASS_TRANSIENTS_SCRIPT)),)
+EDM_CHECK_CLASS_TRANSIENTS_SCRIPT:=$(CMD_echo) ">> Skipped running EDM Class Transients test" && $(CMD_true)
+endif
+endif
+
+#product,list of def.xmls file,plugin,productstore
+ifneq ($(strip $(EDM_CHECK_CLASS_VERSION)),)
+ifneq ($(strip $(UPDATE_CLASSVERSION)),)
+define update_edm_class_version
+  && for x in $2; do \
+    fname=`$(CMD_basename) $$x` &&\
+    $(CMD_echo) ">> Checking $$x for EDM Class Version update" &&\
+    [ -d $(@D)/$$fname ] || $(CMD_mkdir) -p $(@D)/$$fname &&\
+    $(VERB_ECHO)  $(EDM_CHECK_CLASS_VERSION_SCRIPT) -g -l $@ -x $$x &&\
+    (($(CMD_cd) $(@D)/$$fname && $(EDM_CHECK_CLASS_VERSION_SCRIPT) -g -l $(LOCALTOP)/$@ -x $(LOCALTOP)/$$x) || ($(CMD_true))) &&\
+    if [ -f $(@D)/$$fname/classes_def.xml.generated ] ; then \
+      if [ "X`$(CMD_diff) $(@D)/$$fname/classes_def.xml.generated $$x | $(CMD_wc) -l`" != "X0" ] ; then \
+        $(CMD_cp) $(@D)/$$fname/classes_def.xml.generated  $$x.generated &&\
+        $(CMD_echo) ">> New Class Version File:  $$x.generated" ;\
+      fi ;\
+    fi;\
+    $(CMD_rm) -rf $(@D)/$$fname ;\
+  done &&\
+  $(CMD_echo) "@@@@ ----> Generated EDM Class Version"
+endef
+else
+define update_edm_class_version
+endef
+endif
+define check_edm_class_version
+  $(call update_edm_class_version,$1,$2,$3) && for x in $2; do \
+    $(CMD_echo) ">> Checking EDM Class Version for $$x in $(@F)" &&\
+    $(VERB_ECHO) $(EDM_CHECK_CLASS_VERSION_SCRIPT) -l $(@F) -x $(LOCALTOP)/$$x &&\
+    ((cd $(LOCALTOP)/$3 && $(EDM_TOOLS_PREFIX) $(EDM_CHECK_CLASS_VERSION_SCRIPT) -l $(@F) -x $(LOCALTOP)/$$x) || ($(CMD_echo) "$(EDM_CHECKSUM_HELP_MSG)" && $(call delete_build_prod,$(3)) && exit 1)) || exit 1;\
+  done &&\
+  $(CMD_echo) "@@@@ ----> OK  EDM Class Version "
+endef
+else
+define check_edm_class_version
+endef
+endif
+
+ifneq ($(strip $(EDM_CHECK_CLASS_TRANSIENTS)),)
+copy_rootmaps=for r in $($(1)_ROOTMAP_FILES); do $(CMD_cp) $$r $(LOCALTOP)/$2/; done
+clean_rootmaps=for r in $(notdir $($(1)_ROOTMAP_FILES)); do $(CMD_rm) -f $(LOCALTOP)/$2/$$r; done
+define check_edm_class_transients
+  && $(CMD_echo) ">> Checking EDM Class Transients in $(@F)" &&\
+  $(call copy_rootmaps,$1,$3) &&\
+  $(VERB_ECHO) $(EDM_CHECK_CLASS_TRANSIENTS_SCRIPT) -l $(@F) $(foreach r,$(notdir $2),-f $r) &&\
+  ((cd $(LOCALTOP)/$3 && $(EDM_TOOLS_PREFIX) $(EDM_CHECK_CLASS_TRANSIENTS_SCRIPT) -l $(@F) $(foreach r,$(nordir $2),-f $r)) || ($(call clean_rootmaps,$1,$3) && $(call delete_plugin_build_prod,$(3)) && exit 1)) &&\
+  $(CMD_echo) "@@@@ ----> OK  EDM Class Transients "
+endef
+else
+define check_edm_class_transients
+endef
+endif
+###########################################################
+#Poisoned edm plugins Rules
+define getPluginCacheForPackage
+$(strip $(if $(strip $(RELEASETOP)),\
+     $(if $(strip $(IS_PATCH)),\
+          $(if $(strip $($(1)_inpatch)),\
+               $(RELEASETOP)/$(SCRAMSTORENAME_LIB)/.edmplugincache,\
+               $(FULL_RELEASE_FOR_A_PATCH)/$(SCRAMSTORENAME_LIB)/.edmplugincache),\
+          $(RELEASETOP)/$(SCRAMSTORENAME_LIB)/.edmplugincache),\
+     $(FULL_RELEASE_FOR_A_PATCH)/$(SCRAMSTORENAME_LIB)/.edmplugincache))
+endef
+define GetPackagePluginCache
+  [ -d $(@D) ] || $(CMD_mkdir) -p $(@D) &&\
+  $(CMD_touch) $@ &&\
+  cache=$(call getPluginCacheForPackage,$*) &&\
+  for p in $(sort $($*_edm_plugins)); do \
+    $(CMD_grep) "^plugin$$p.$(SHAREDSUFFIX)" $$cache | $(CMD_sed) 's|^plugin|plugin-poisoned-|' >> $@ || true;\
+  done
+endef
+
+.PHONY: poisoned_edmplugins
+ifeq ($(strip $(edmPluginRefresh_cache)),)
+poisoned_edmplugins:
+	@:
+else
+ifneq ($(FULL_RELEASE_FOR_A_PATCH),)
+-include $(FULL_RELEASE_FOR_A_PATCH)/$(PUB_DIRCACHE_MKDIR)/edmplugins
+endif
+ifneq ($(strip $(RELEASETOP)),)
+-include $(RELEASETOP)/$(PUB_DIRCACHE_MKDIR)/edmplugins
+endif
+.PRECIOUS: $(WORKINGDIR)/edmplugins/poison/%/poison_edmplugin
+$(WORKINGDIR)/edmplugins/poison/%/poison_edmplugin:
+	@$(call GetPackagePluginCache)
+$(WORKINGDIR)/$(SCRAM_SOURCEDIR)/%/AUTOCLEAN.poison_edmplugin.clean: $(WORKINGDIR)/edmplugins/poison/%/poison_edmplugin
+	@[ -d $(@D) ] || $(CMD_mkdir) -p $(@D) &&\
+	$(CMD_echo) "01:$(CMD_rm) -rf $(<D)" > $@ &&\
+	$(CMD_echo) "01:$(CMD_touch) $(COMMON_WORKINGDIR)/cache/packs/changed" >> $@
+
+ifneq ($(strip $(filter PostBuild poisoned_edmplugins,$(MAKECMDGOALS))),)
+$(foreach d,edmplugins/poison,$(if $(strip $(wildcard $(WORKINGDIR)/$d)),,$(shell $(CMD_mkdir) -p $(WORKINGDIR)/$(d))))
+ifeq ($(strip $(CHECK_DELETED_PACKS)),YES)
+ALL_KNOWN_DELETED_PACKAGES:=$(strip $(patsubst $(COMMON_WORKINGDIR)/cache/packs/%/poison_edmplugin,%,$(wildcard $(COMMON_WORKINGDIR)/cache/packs/*/*/poison_edmplugin)))
+DELETED_PACKAGES:=$(strip $(filter-out $(ALL_KNOWN_DELETED_PACKAGES),$(ALL_DELETED_PACKAGES)))
+UNDELETED_PACKAGES:=$(strip $(filter-out $(ALL_DELETED_PACKAGES),$(ALL_KNOWN_DELETED_PACKAGES)))
+endif
+
+$(COMMON_WORKINGDIR)/cache/packs/undeleted: FORCE_TARGET
+	@[ -d $(@D) ] || $(CMD_mkdir) -p $(@D) &&\
+	for p in $(UNDELETED_PACKAGES); do \
+	  if [ ! -f $(WORKINGDIR)/$(SCRAM_SOURCEDIR)/$$p/AUTOCLEAN.poison_edmplugin.clean ] ; then \
+	    $(CMD_rm) -rf $(COMMON_WORKINGDIR)/cache/packs/$$p;\
+	  fi;\
+	done;\
+	$(CMD_touch) $@
+
+$(COMMON_WORKINGDIR)/cache/packs/changed: $(foreach d,$(DELETED_PACKAGES),$(COMMON_WORKINGDIR)/cache/packs/$(d)/poison_edmplugin) $(if $(UNDELETED_PACKAGES),$(COMMON_WORKINGDIR)/cache/packs/undeleted)
+	@[ -d $(@D) ] || $(CMD_mkdir) -p $(@D) && $(CMD_touch) $@
+	@for pkg in $(DELETED_PACKAGES) ; do \
+	  $(CMD_echo) ">> Generating python/$$pkg/__init__.py file for deleted packaged" &&\
+	  $(CMD_rm) -rf $(SCRAMSTORENAME_PYTHON)/$$pkg &&\
+	  $(CMD_mkdir) -p $(SCRAMSTORENAME_PYTHON)/$$pkg &&\
+	  $(CMD_touch) $(SCRAMSTORENAME_PYTHON)/$$pkg/__init__.py  &&\
+	  SUBSYS=$$($(CMD_dirname) $$pkg) &&\
+	  if [ ! -f $(SCRAMSTORENAME_PYTHON)/$$SUBSYS/__init__.py ] ; then \
+	    $(CMD_echo) "__path__.append('${RELEASETOP}/$(SCRAMSTORENAME_PYTHON)/$$SUBSYS')" > $(SCRAMSTORENAME_PYTHON)/$$SUBSYS/__init__.py ;\
+	  fi;\
+	done;\
+	[ -f $(SCRAMSTORENAME_PYTHON)/__init__.py ] || $(CMD_touch) $(SCRAMSTORENAME_PYTHON)/__init__.py
+
+$(COMMON_WORKINGDIR)/cache/packs/%/poison_edmplugin:
+	@$(call GetPackagePluginCache)
+
+poisoned_edmplugins: $(if $(strip $(RELEASETOP)),,$(PUB_DIRCACHE_MKDIR)/edmplugins) \
+                     $(if $(POISON_EDMPLUGIN_CACHE),$(SCRAMSTORENAME_LIB)/.poisonededmplugincache \
+                          $(foreach v,$(SCRAM_TARGETS),$(SCRAMSTORENAME_LIB)/$v/.poisonededmplugincache))
+	@$(CMD_echo) ">> Done generating edm plugin poisoned information"
+
+$(PUB_DIRCACHE_MKDIR)/edmplugins:
+	@$(CMD_echo) "#Auto generated EDM Plugins information" > $@
+	@for p in $(ALL_PACKAGES) ; do $(CMD_echo) "$${p}_edm_plugins:=" >> $@; done
+	@$(if $(strip $(IS_PATCH)),for p in $(ALL_PACKAGES) ; do $(CMD_echo) "$${p}_inpatch:=1" >> $@; done, true)
+	@for l in $(foreach p,$(ALL_edm_PLUGINS),$($(p)_PROD_PACKAGE)_edm_plugins+=$(p)) ; do $(CMD_echo) "$$l" >> $@ ; done
+	@$(CMD_echo) ">> Generated $@"
+
+$(SCRAMSTORENAME_LIB)/.poisonededmplugincache: $(COMMON_WORKINGDIR)/cache/packs/changed $(wildcard $(WORKINGDIR)/edmplugins/poison/*/*/poison_edmplugin)
+	@[ -d $(@D) ] || $(CMD_mkdir) -p $(@D) &&\
+	$(CMD_rm) -f $@ && $(CMD_touch) $@ &&\
+	for d in $(WORKINGDIR)/edmplugins/poison $(COMMON_WORKINGDIR)/cache/packs ; do \
+	  [ -d $$d ] || continue ;\
+	  for c in `$(CMD_find) $$d -name poison_edmplugin -type f` ; do \
+	    $(CMD_cat) $$c >> $@;\
+	  done;\
+	done
+endif
+endif
+

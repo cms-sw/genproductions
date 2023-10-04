@@ -1,0 +1,9 @@
+Starting job on  mer 4 ott 2023, 09.42.41, CEST
+Running on  Linux lxplus746.cern.ch 3.10.0-1160.95.1.el7.x86_64 #1 SMP Mon Jul 24 13:59:37 UTC 2023 x86_64 x86_64 x86_64 GNU/Linux
+System release  CentOS Linux release 7.9.2009 (Core)
+name: ewkzjjjj_5f_LO_
+carddir: cards/production/13p6TeV/EWKZ2Jets_ZToQQ
+queue: local
+scram_arch: slc7_amd64_gcc10
+cmssw_version: CMSSW_12_4_8
+/afs/cern.ch/work/a/azaza/MC_EWK_ZWqq/genproductions/bin/MadGraph5_aMCatNLO/cards/production/13p6TeV/EWKZ2Jets_ZToQQ/ewkzjjjj_5f_LO__proc_card.dat  does not exist!
