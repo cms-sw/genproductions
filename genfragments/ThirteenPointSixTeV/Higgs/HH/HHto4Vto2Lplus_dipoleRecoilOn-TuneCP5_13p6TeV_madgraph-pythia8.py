@@ -1,4 +1,5 @@
 import FWCore.ParameterSet.Config as cms
+
 from Configuration.Generator.Pythia8CommonSettings_cfi import *
 from Configuration.Generator.MCTunesRun3ECM13p6TeV.PythiaCP5Settings_cfi import *
 from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *
@@ -24,7 +25,8 @@ generator = cms.EDFilter("Pythia8ConcurrentHadronizerFilter",
             'ResonanceDecayFilter:exclusive = off',
             'ResonanceDecayFilter:mothers = 24,23',
             'ResonanceDecayFilter:eMuTauAsEquivalent = on',
-            'ResonanceDecayFilter:daughters = 11,11,11',
+            'ResonanceDecayFilter:daughters = 11,11',
+            'SpaceShower:dipoleRecoil = on',
           ),
         parameterSets = cms.vstring('pythia8CommonSettings',
                                     'pythia8CP5Settings',
