@@ -6,4 +6,4 @@ define j = g u u~ d d~ s s~ c c~
 generate p p > h [QCD] @0
 add process p p > h j [QCD] @1
 
-output HPlusCharm_4FS_MuRFScaleDynX0p50_HToGG_M125_TuneCP5_13p6TeV_amcatnloFXFX_pythia8 -nojpeg
+output HPlusCharm_4FS_MuRFScaleDynX0p50_M125_TuneCP5_13p6TeV_amcatnloFXFX_pythia8 -nojpeg
