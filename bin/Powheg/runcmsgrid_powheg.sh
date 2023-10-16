@@ -90,8 +90,6 @@ if [ -e $LHAPDF6TOOLFILE ]; then
 fi
 #make sure env variable for pdfsets points to the right place
 export LHAPDF_DATA_PATH=`$LHAPDFCONFIG --datadir`
-# local pdf sets
-export LHAPDF_DATA_PATH=$PWD/lhapdf:$LHAPDF_DATA_PATH
 
 # initialize the CMS environment 
 myDir=powhegbox_${process}
@@ -222,6 +220,89 @@ if [ "${process}" == "X0jj" ]; then
     sed -nir '/MGcosa/!p;$aMGcosa    -0.707107d0' powheg.input 
     ../pwhg_main 2>&1 | tee logrew_${process}_${seed}_mm.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"   
     mv pwgevents-rwgt.lhe pwgevents.lhe
+fi
+
+if [ "${process}" == "gg_H_2HDM" ]; then
+    # now run reweighting for gg_H_2HDM process
+    # also need to modify powheg.input inbetween these calls
+    cp powheg.input powheg.input.noweight
+    sed -nir '/compute_rwgt/!p;$acompute_rwgt 1' powheg.input
+    
+    # rweight h tb
+    sed -nir '/lhrwgt_id/!p;$alhrwgt_id '\''h_tb'\''' powheg.input
+    sed -nir '/notop/!p;$anotop 0' powheg.input 
+    sed -nir '/nobot/!p;$anobot 0' powheg.input
+    sed -nir '/higgstype/!p;$ahiggstype 1' powheg.input
+    ../pwhg_main 2>&1 | tee logrew_${process}_${seed}_h_tb.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0" 
+    mv pwgevents-rwgt.lhe pwgevents.lhe
+    
+    # rweight h t-only
+    sed -nir '/lhrwgt_id/!p;$alhrwgt_id '\''h_t'\''' powheg.input
+    sed -nir '/notop/!p;$anotop 0' powheg.input 
+    sed -nir '/nobot/!p;$anobot 1' powheg.input
+    sed -nir '/higgstype/!p;$ahiggstype 1' powheg.input
+    ../pwhg_main 2>&1 | tee logrew_${process}_${seed}_h_t.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0" 
+    mv pwgevents-rwgt.lhe pwgevents.lhe
+
+    # rweight h b-only
+    sed -nir '/lhrwgt_id/!p;$alhrwgt_id '\''h_b'\''' powheg.input
+    sed -nir '/notop/!p;$anotop 1' powheg.input 
+    sed -nir '/nobot/!p;$anobot 0' powheg.input
+    sed -nir '/higgstype/!p;$ahiggstype 1' powheg.input
+    ../pwhg_main 2>&1 | tee logrew_${process}_${seed}_h_b.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0" 
+    mv pwgevents-rwgt.lhe pwgevents.lhe
+
+    # rweight A tb
+    sed -nir '/lhrwgt_id/!p;$alhrwgt_id '\''A_tb'\''' powheg.input
+    sed -nir '/notop/!p;$anotop 0' powheg.input 
+    sed -nir '/nobot/!p;$anobot 0' powheg.input
+    sed -nir '/higgstype/!p;$ahiggstype 3' powheg.input
+    ../pwhg_main 2>&1 | tee logrew_${process}_${seed}_A_tb.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0" 
+    mv pwgevents-rwgt.lhe pwgevents.lhe
+
+    # rweight A t-only
+    sed -nir '/lhrwgt_id/!p;$alhrwgt_id '\''A_t'\''' powheg.input
+    sed -nir '/notop/!p;$anotop 0' powheg.input 
+    sed -nir '/nobot/!p;$anobot 1' powheg.input
+    sed -nir '/higgstype/!p;$ahiggstype 3' powheg.input
+    ../pwhg_main 2>&1 | tee logrew_${process}_${seed}_A_t.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0" 
+    mv pwgevents-rwgt.lhe pwgevents.lhe
+
+    # rweight A b-only
+    sed -nir '/lhrwgt_id/!p;$alhrwgt_id '\''A_b'\''' powheg.input
+    sed -nir '/notop/!p;$anotop 1' powheg.input 
+    sed -nir '/nobot/!p;$anobot 0' powheg.input
+    sed -nir '/higgstype/!p;$ahiggstype 3' powheg.input
+    ../pwhg_main 2>&1 | tee logrew_${process}_${seed}_A_b.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0" 
+    mv pwgevents-rwgt.lhe pwgevents.lhe
+
+    # # rweight H tb
+    # sed -nir '/lhrwgt_id/!p;$alhrwgt_id '\''H_tb'\''' powheg.input
+    # sed -nir '/notop/!p;$anotop 0' powheg.input 
+    # sed -nir '/nobot/!p;$anobot 0' powheg.input
+    # sed -nir '/higgstype/!p;$ahiggstype 2' powheg.input
+    # sed -nir '/tanb/!p;$atanb 50' powheg.input
+    # ../pwhg_main 2>&1 | tee logrew_${process}_${seed}_H_tb.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0" 
+    # mv pwgevents-rwgt.lhe pwgevents.lhe
+
+    # # rweight H t-only
+    # sed -nir '/lhrwgt_id/!p;$alhrwgt_id '\''H_t'\''' powheg.input
+    # sed -nir '/notop/!p;$anotop 0' powheg.input 
+    # sed -nir '/nobot/!p;$anobot 1' powheg.input
+    # sed -nir '/higgstype/!p;$ahiggstype 2' powheg.input
+    # sed -nir '/tanb/!p;$atanb 50' powheg.input
+    # ../pwhg_main 2>&1 | tee logrew_${process}_${seed}_H_t.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0" 
+    # mv pwgevents-rwgt.lhe pwgevents.lhe
+
+    # # rweight H b-only
+    # sed -nir '/lhrwgt_id/!p;$alhrwgt_id '\''H_b'\''' powheg.input
+    # sed -nir '/notop/!p;$anotop 1' powheg.input 
+    # sed -nir '/nobot/!p;$anobot 0' powheg.input
+    # sed -nir '/higgstype/!p;$ahiggstype 2' powheg.input
+    # sed -nir '/tanb/!p;$atanb 50' powheg.input
+    # ../pwhg_main 2>&1 | tee logrew_${process}_${seed}_H_b.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0" 
+    # mv pwgevents-rwgt.lhe pwgevents.lhe
+    
 fi
 
 if [ "$produceWeightsNNLO" == "true" ]; then
