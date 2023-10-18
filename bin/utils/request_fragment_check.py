@@ -868,6 +868,7 @@ for num in range(0,len(prepid)):
                            errors.append("Missing set FxFxHandler:njetsmax MAX_N_ADDITIONAL_JETS in the user settings block")
                else:
                    for line in file_me_wo_merg:
+                        if line not in data_f1:
                            errors.append("Missing herwig mg5_amc specific setting in fragment: "+line)
                if alt_ickkw_c == 3:#fxfx
                    if "'set FxFxHandler:MergeMode FxFx'" not in data_f1:
