@@ -122,12 +122,12 @@ def slha_gp(gridpack_cvmfs_path,slha_flag):
 def tunes_settings_check(dn,fragment,pi,sherpa_flag):
     error_tunes_check = []
     if "Summer22" in pi and "FlatRandomEGunProducer" not in fragment and "FlatRandomPtGunProducer" not in fragment and "Pythia8EGun" not in fragment and "Pythia8PtGun" not in fragment and "FlatRandomPtAndDxyGunProducer" not in fragment and sherpa_flag == 0:
-        if "Configuration.Generator.MCTunesRun3ECM13p6TeV" not in fragment or "from Configuration.Generator.MCTunes2017" in fragment:
-            error_tunes_check.append(" For Summer22 samples, please use from Configuration.Generator.MCTunesRun3ECM13p6TeV.PythiaCP5Settings_cfi import * in your fragment instead of from Configuration.Generator.MCTunes2017.PythiaCP5Settings_cfi import *")
+        if ("Configuration.Generator.MCTunesRun3ECM13p6TeV" not in fragment) and ("Configuration.Generator.Herwig7Settings.Herwig7CH3TuneSettings_cfi" not in fragment) or ("from Configuration.Generator.MCTunes2017" in fragment):
+            error_tunes_check.append(" For Summer22 samples, please use either:\n from Configuration.Generator.MCTunesRun3ECM13p6TeV.PythiaCP5Settings_cfi import * \n from Configuration.Generator.Herwig7Settings.Herwig7CH3TuneSettings_cfi import * \n in your fragment instead of: from Configuration.Generator.MCTunes2017.PythiaCP5Settings_cfi import *")
     if "Run3" in pi and (dn.startswith("DYto") or dn.startswith("Wto")):
         if "ktdard" in fragment and "0.248" not in fragment:
             error_tunes_check.append(" 'kthard = 0.248' not in fragment for DY or Wjets MG5_aMC request for Run3. Please fix.")
-    return error_tunes_check                
+    return error_tunes_check
  
 def concurrency_check(fragment,pi,cmssw_version,mg_gp):
     conc_check = 0
@@ -868,6 +868,7 @@ for num in range(0,len(prepid)):
                            errors.append("Missing set FxFxHandler:njetsmax MAX_N_ADDITIONAL_JETS in the user settings block")
                else:
                    for line in file_me_wo_merg:
+                        if line not in data_f1:
                            errors.append("Missing herwig mg5_amc specific setting in fragment: "+line)
                if alt_ickkw_c == 3:#fxfx
                    if "'set FxFxHandler:MergeMode FxFx'" not in data_f1:
