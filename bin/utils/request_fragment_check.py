@@ -1035,7 +1035,7 @@ for num in range(0,len(prepid)):
                     dir_path = os.path.join(my_path,pi,"InputCards")
                     if os.path.isdir(dir_path):
                         input_cards_customize_card = find_file(dir_path,"customizecards.dat")
-                        input_cards_madspin_card = find_file(dir_path,"madspin_madspin_card.dat")
+                        input_cards_madspin_card = find_file(dir_path,"madspin_card.dat")
                         input_patch = find_file(dir_path,"patch")
                         if input_cards_madspin_card:
                             print("---------------------------------------------")
