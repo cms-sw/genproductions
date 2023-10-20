@@ -1,0 +1,17 @@
+set default_unset_couplings 99
+set loop_color_flows False
+set max_npoint_for_channel 0
+set loop_optimized_output True
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set gauge unitary
+set complex_mass_scheme False
+import model DMEFT2ZpNewV2_UFO
+define p = g u c d s u~ c~ d~ s~
+define j = g u c d s u~ c~ d~ s~
+define l+ = e+ mu+
+define l- = e- mu-
+define vl = ve vm
+define vl~ = ve~ vm~
+generate p p > vt vt~ Zp QED=0 dmvector=3 dmzpu=1,Zp > u u~
+output DM_MonoZPrime_V_Mx1_Mv1000_gDM1gSM0p25_Zprime1p0

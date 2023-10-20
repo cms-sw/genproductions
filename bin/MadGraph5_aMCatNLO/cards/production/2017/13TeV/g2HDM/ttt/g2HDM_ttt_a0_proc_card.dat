@@ -1,0 +1,8 @@
+import model gen2HDM_cg_to_ttc_ttt_ttS_UFO
+define p = p b b~
+define j = p
+
+generate p p > t a0 QCD=99, (a0 > t t~) 
+add process p p > t a0 j QCD=99, (a0 > t t~)
+
+output g2HDM_ttt_a0 -nojpeg

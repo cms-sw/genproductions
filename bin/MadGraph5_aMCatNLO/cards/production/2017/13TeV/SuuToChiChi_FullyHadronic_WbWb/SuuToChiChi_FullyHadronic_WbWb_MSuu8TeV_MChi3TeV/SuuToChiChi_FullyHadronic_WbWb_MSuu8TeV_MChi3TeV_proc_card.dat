@@ -1,0 +1,6 @@
+import model diquarkVLQ2020_UFO
+define j5 = g u c d s b u~ c~ d~ s~ b~
+
+generate p p > suu > W+ b W+ b, W+ > j5 j5
+
+output SuuToChiChi_FullyHadronic_WbWb_MSuu8TeV_MChi3TeV -nojpeg

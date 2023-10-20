@@ -1,0 +1,429 @@
+Index: Makefile
+===================================================================
+--- Makefile	(revision 3997)
++++ Makefile 	(working copy)
+@@ -1,6 +1,7 @@
+-RPATHLIBS= -Wl,-rpath,/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/gcc/10.2.0/lib64 -L/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/gcc/10.2.0/lib64 -lgfortran -lstdc++ -Wl,-rpath, -L -lz
+-PWHGANAL=pwhg_bookhist-multi.o pwhg_analysis-dummy.o 
++#RPATHLIBS= -Wl,-rpath,/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/gcc/10.2.0/lib64 -L/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/gcc/10.2.0/lib64 -lgfortran -lstdc++ -Wl,-rpath, -L -lz
++PWHGANAL=pwhg_bookhist-multi.o pwhg_analysis-minnlo.o fastjetfortran.o
+ LHAPDF_CONFIG=/cvmfs/cms.cern.ch/slc7_amd64_gcc900/external/lhapdf/6.3.0/bin/lhapdf-config
++
+ #-*- Makefile -*-
+ 
+ OLVERSION=OpenLoops2
+@@ -44,7 +45,7 @@
+ #Choose Analysis: none,  antikt
+ ## default analysis may require FASTJET package, that has to be installed separately (see below)
+ ##ANALYSIS=antikt
+-#ANALYSIS=minnlo
++ANALYSIS=minnlo
+ #
+ #
+ ifeq ("$(COMPILER)","gnu")
+@@ -56,21 +57,22 @@
+ #CC = gcc-9
+ #F77 = $(FC) -fno-automatic -ffixed-line-length-none
+ #F77 = $(FC) -ffixed-line-length-none -ffree-line-length-none -fbounds-check -fno-align-commons
+-F77=gfortran -std=legacy -ffixed-line-length-none -ffree-line-length-none -fbounds-check -fno-align-commons -fdec-static -fno-automatic
++#F77=gfortran -std=legacy -std=legacy -std=legacy -std=legacy -std=legacy -std=legacy -ffixed-line-length-none -ffree-line-length-none -fbounds-check -fno-align-commons -fdec-static -fno-automatic
++F77=gfortran -std=legacy -std=legacy -std=legacy -std=legacy -std=legacy -ffixed-line-length-none -ffree-line-length-none -fbounds-check -fno-align-commons -fdec-static -fno-automatic -fallow-argument-mismatch
+ #JM: Following variable only used for file and directory names (I want to avoid the gnu version there)
+ FCAUX = gfortran
+ ## -fbounds-check sometimes causes a weird error due to non-lazy evaluation
+ ## of boolean in gfortran.
+ #FFLAGS= -fbounds-check -Wall -Wno-unused-variable -Wno-conversion -Wno-character-truncation #-Wimplicit-procedure 
+ ## For floating point exception trapping  uncomment the following 
+-##FPE=-ffpe-trap=invalid,zero,overflow
++#######FPE=-ffpe-trap=invalid,zero,overflow
+ ## gfortran 4.4.1 optimized with -O3 yields erroneous results
+ ## Use -O2 to be on the safe side
+ #OPT=-O3
+ OPT=-O2
+ #OPT=-O0
+ ## For debugging uncomment the following
+-# #DEBUG=-ggdb #-pg
++DEBUG=-ggdb #-pg
+ ##
+ endif
+ 
+@@ -82,10 +84,10 @@
+ LIBS = -limf
+ FFLAGS =  -check #-warn all -module obj-$(COMPILER)/mod 
+ ## For floating point exception trapping  uncomment the following 
+-##FPE=-fpe0
++#######FPE=-fpe0
+ OPT = -O3 #-fast
+ ## For debugging uncomment the following
+-##DEBUG=-debug -g
++######DEBUG=-debug -g
+ #PP=-fpp #-DHELAS_CHECK
+ endif
+ 
+@@ -105,11 +107,9 @@
+ # Path to chaplin installation
+ #DIRCHAPLIN=$(HOME)/chaplin-1.2/install/lib/
+ 
+-DIRCHAPLIN=/usr/local/lib/
++DIRCHAPLIN=$(PWD)/lib
++
+ 
+-ifeq ("$(USER)","nason")
+-DIRCHAPLIN=/home/nason/Pheno/Local/lib/
+-endif
+ 
+ # Path to OpenLoops installation
+ #OLPATH=$(PWD)/../OpenLoopsStuff/OpenLoops
+@@ -137,7 +137,7 @@
+ #INCLUDE1=$(PWD)/include
+ INCLUDE1=$(V2DIR)/include
+ #INCLUDE2=$(shell dirname $(PWD))
+-PLUGINSDIR=MiNNLOStuff
++PLUGINSDIR=$(PWD)/MiNNLOStuff
+ PLUGINSDIRINC=$(PLUGINSDIR)/include
+ LOCALHOPPET=$(PLUGINSDIR)/hoppet
+ #VPATH= .:$(PLUGINSDIR):$(LOCALHOPPET):$(Zj):$(Zj)/Madlib:$(Zj)/MODEL:$(Zj)/DHELAS:$(V2DIR):madgraph/:madgraph/born/:madgraph/real/:madgraph/born_decay/:madgraph/real_decay/
+@@ -149,16 +149,16 @@
+ 
+ INCLUDE =$(wildcard ../include/*.h *.h include/*.h)
+ 
+-FF=$(F77) $(FFLAGS) $(FPE) $(OPT) $(PP) $(DEBUG) -I$(INCLUDE0) -I$(INCLUDE1) -I$(PLUGINSDIRINC) -Jobj-$(COMPILER)
++FF=$(F77) $(FFLAGS) $(FPE) $(OPT) $(PP) $(DEBUG) -I$(INCLUDE0) -I$(INCLUDE1) -I$(PLUGINSDIRINC)
+ 
+ INCLUDE =$(wildcard ../include/*.h *.h include/*.h madgraph/*.inc)
+ 
+ 
+ ifeq ("$(PDF)","lhapdf")
+-#LHAPDF_CONFIG=/cvmfs/cms.cern.ch/slc7_amd64_gcc900/external/lhapdf/6.3.0/bin/lhapdf-config
++LHAPDF_CONFIG=lhapdf-config
+ PDFPACK=lhapdf6if.o lhapdf6ifcc.o
+ FJCXXFLAGS+= $(shell $(LHAPDF_CONFIG) --cxxflags)
+-LIBSLHAPDF= -Wl,-rpath,$(shell $(LHAPDF_CONFIG) --libdir)  -L$(shell $(LHAPDF_CONFIG) --libdir)  -lLHAPDF $(RPATHLIBS) 
++LIBSLHAPDF= -Wl,-rpath,$(shell $(LHAPDF_CONFIG) --libdir)  -L$(shell $(LHAPDF_CONFIG) --libdir)  -lLHAPDF
+ ## If LHAPDF has been compiled with gfortran and you want to link it statically, you have to include
+ ## libgfortran as well. The same holds for libstdc++. 
+ ## One possible solution is to use fastjet, since $(shell $(FASTJET_CONFIG) --libs --plugins ) -lstdc++
+@@ -186,13 +186,14 @@
+ FJCXXFLAGS+= $(shell $(FASTJET_CONFIG) --cxxflags)
+ #PWHGANAL=pwhg_analysis-antikt.o 
+ PWHGANAL+= fastjetfortran.o
++
+ else ifeq ("$(ANALYSIS)","minnlo")
+ ##To include Fastjet configuration uncomment the following lines. 
+ FASTJET_CONFIG=$(shell which fastjet-config)
+ #FASTJET_CONFIG=~/lib/fastjet242/bin/fastjet-config
+ LIBSFASTJET += $(shell $(FASTJET_CONFIG) --libs --plugins ) $(stdclib)
+ FJCXXFLAGS+= $(shell $(FASTJET_CONFIG) --cxxflags)
+-#PWHGANAL=  pwhg_analysis-minnlo.o fastjetfortran.o
++PWHGANAL=pwhg_bookhist-multi.o pwhg_analysis-minnlo.o fastjetfortran.o
+ endif
+ 
+ 
+@@ -340,23 +341,23 @@
+ ################
+ # target to read event file, shower events with HERWIG + analysis
+ HERWIG=main-HERWIG.o herwig.o boostrot.o powheginput.o newunit.o			\
+-	  pwhg_bookhist_add.o $(PWHGANAL) lhefread.o		\
++	pwhg_bookhist.o pwhg_bookhist_add.o $(PWHGANAL) lhefread.o		\
+ 	pdfdummies.o cernroutines.o opencount.o printleshouches.o
+ 
+ HERWIG_DRIVER_NOUE= setup-HERWIG-lhef.o
+ 
+-main-HERWIG-lhef: $(HERWIG) $(HERWIG_DRIVER_NOUE) 
++main-HERWIG-lhef: $(HERWIG) $(HERWIG_DRIVER_NOUE)
+ 	$(FF) $(patsubst %,obj-$(COMPILER)/%, $(HERWIG) $(HERWIG_DRIVER_NOUE))  $(LIBSFASTJET)  -o $@-$(COMPILER)
+ 
+ HERWIG_DRIVER_UE= setup-HERWIG-UE-lhef.o
+ 
+-main-HERWIG-UE-lhef: $(HERWIG) $(HERWIG_DRIVER_UE) 
++main-HERWIG-UE-lhef: $(HERWIG) $(HERWIG_DRIVER_UE)
+ 	$(FF) $(patsubst %,obj-$(COMPILER)/%, $(HERWIG) $(HERWIG_DRIVER_UE))  $(LIBSFASTJET)  -o $@-$(COMPILER)
+ 
+ 
+ # target to read event file, shower events with PYTHIA + analysis
+ PYTHIA=main-PYTHIA.o  pythia.o boostrot.o powheginput.o	\
+-	  pwhg_bookhist_add.o $(PWHGANAL) lhefread.o pdfdummies.o			\
++	pwhg_bookhist.o pwhg_bookhist_add.o $(PWHGANAL) lhefread.o pdfdummies.o			\
+         cernroutines.o opencount.o printleshouches.o newunit.o
+ 
+ PYTHIA_DRIVER_NOMPI=setup-PYTHIA-lhef.o
+@@ -451,7 +452,7 @@
+ 
+ $(LIBVIRTUALS): force_look
+ 	@echo looking2 into subdir $(DIRVIRTUALS)
+-	$(MAKE) --directory=$(DIRVIRTUALS) COMPILER=$(COMPILER) #DEBUG='$(DEBUG)' FC=$(FC) CC=$(CC) CXX=$(CXX)
++	$(MAKE) --directory=$(DIRVIRTUALS) COMPILER=$(COMPILER) DEBUG='$(DEBUG)' FC=$(FC) CC=$(CC) CXX=$(CXX)
+ force_look :
+ 	true
+ ######
+@@ -513,3 +514,4 @@
+ pwhg_main.o: svn.version
+ lhefwrite.o: svn.version
+ LIBS+=-L/afs/cern.ch/work/a/azimermm/CMSSW_12_4_5/src/genproductions/bin/Powheg/my_ttJ_MiNNLO_new/POWHEG-BOX/ttJ_MiNNLO/lib/ -L/afs/cern.ch/work/a/azimermm/CMSSW_12_4_5/src/genproductions/bin/Powheg/my_ttJ_MiNNLO_new/POWHEG-BOX/ttJ_MiNNLO/lib64/
++
+Index: Virtuals/makefile
+===================================================================
+--- Virtuals/makefile	(revision 3997)
++++ Virtuals/makefile (working copy)
+@@ -25,7 +25,7 @@
+   SETCXXOUT = -c -o
+   SETLDOUT = -o
+   LFLAGS = -lgfortran -lm
+-  FFLAGS := $(FFLAGS) -fno-second-underscore -ffixed-line-length-132 -fPIC
++  FFLAGS := $(FFLAGS) -fno-second-underscore -ffixed-line-length-132 -fPIC -fallow-argument-mismatch
+ endif
+
+ CFLAGS := $(CFLAGS) $(DEBUG) -fPIC
+Index: Virtuals/oldf77/makefile
+===================================================================
+--- Virtuals/oldf77/makefile      (revision 3997)
++++ Virtuals/oldf77/makefile      (working copy)
+@@ -14,11 +14,11 @@
+ ifeq ("$(COMPILER)", "gnu")
+ #  CXX = g++
+ #  CC = gcc
+-#  FC = gfortran
++  FC = gfortran
+   SETCXXOUT = -c -o
+   SETLDOUT = -o
+   LFLAGS = -lgfortran -lm
+-  FFLAGS := $(FFLAGS) -fno-second-underscore -ffixed-line-length-132 -fPIC
++  FFLAGS := $(FFLAGS) -fno-second-underscore -ffixed-line-length-132 -std=legacy -ffree-line-length-none -fPIC -fallow-argument-mismatch
+ endif
+ 
+ CFLAGS := $(CFLAGS) $(DEBUG) -fPIC
+Index: Virtuals/ff/makefile
+===================================================================
+--- Virtuals/ff/makefile  (revision 3997)
++++ Virtuals/ff/makefile  (working copy)
+@@ -13,11 +13,11 @@
+ ifeq ("$(COMPILER)", "gnu")
+ #  CXX = g++
+ #  CC = gcc
+-#  FC = gfortran
++  FC = gfortran
+   SETCXXOUT = -c -o
+   SETLDOUT = -o
+   LFLAGS = -lgfortran -lm
+-  FFLAGS := $(FFLAGS) -fno-second-underscore -ffixed-line-length-132 -fPIC -std=legacy
++  FFLAGS := $(FFLAGS) -fno-second-underscore -ffixed-line-length-500 -fPIC -std=legacy
+ endif
+ 
+ CFLAGS := $(CFLAGS) $(DEBUG) -fPIC
+Index: Virtuals/Reduction-1.1/makefile
+===================================================================
+--- Virtuals/Reduction-1.1/makefile  (revision 3997)
++++ Virtuals/Reduction-1.1/makefile  (working copy)
+@@ -15,7 +15,7 @@
+ ifeq ("$(COMPILER)", "gnu")
+ #  CXX = g++
+ #  CC = gcc
+-#  FC = gfortran
++  FC = gfortran
+   SETCXXOUT = -c -o
+   SETLDOUT = -o
+   LFLAGS = -lgfortran -lm
+# Index: Virtuals/makefile
+# ===================================================================
+# --- Virtuals/makefile	(revision 3997)
+# +++ Virtuals/makefile	(working copy)
+# @@ -21,7 +21,7 @@
+#  ifeq ("$(COMPILER)", "gnu")
+#  #  CXX = g++
+#  #  CC = gcc
+# -#  FC = gfortran
+# +  FC = gfortran
+#    SETCXXOUT = -c -o
+#    SETLDOUT = -o
+#    LFLAGS = -lgfortran -lm
+# @@ -59,7 +59,7 @@
+ 
+ 
+#  library: $(ALLLIBS)
+# -	$(MAKE) libvirtual.so.1.0.0
+# +	$(MAKE) libvirtual.so
+ 
+ 
+#  force_look :
+# @@ -142,15 +142,15 @@
+#  	done
+ 
+ 
+# -LVFLAGS := -Wl,-soname,libvirtual.so.1.0.0 -Wl,--version-script,version_script $(LFLAGS) 
+# +LVFLAGS := -Wl,-soname,libvirtual.so -Wl,--version-script,version_script $(LFLAGS) 
+ 
+ 
+# -libvirtual.so.1.0.0: $(OBJECTS) $(ALLLIBS)
+# +libvirtual.so: $(OBJECTS) $(ALLLIBS)
+#  	$(CXX) $(CFLAGS) -shared -o  $(OBJSDIR)/$@ $(IFLAGS) \
+#  	$(patsubst %.o,$(OBJSDIR)/%.o,$(OBJECTS)) $(LIBDIR) $(LVFLAGS) 
+ 
+#  libraryclean: clean
+#  	cd $(OBJSDIR); \
+# -	$(RM) $(RMOPTS) $(ALLLIBS) libvirtual.so.1.0.0
+# +	$(RM) $(RMOPTS) $(ALLLIBS) libvirtual.so
+# Index: Virtuals/ff/makefile
+# ===================================================================
+# --- Virtuals/ff/makefile	(revision 3997)
+# +++ Virtuals/ff/makefile	(working copy)
+# @@ -13,11 +13,11 @@
+#  ifeq ("$(COMPILER)", "gnu")
+#  #  CXX = g++
+#  #  CC = gcc
+# -#  FC = gfortran
+# +  FC = gfortran
+#    SETCXXOUT = -c -o
+#    SETLDOUT = -o
+#    LFLAGS = -lgfortran -lm
+# -  FFLAGS := $(FFLAGS) -fno-second-underscore -ffixed-line-length-132 -fPIC -std=legacy
+# +  FFLAGS := $(FFLAGS) -fno-second-underscore -ffixed-line-length-500 -fPIC -std=legacy
+#  endif
+ 
+#  CFLAGS := $(CFLAGS) $(DEBUG) -fPIC
+Index: H2Stuff/virtgg.f
+===================================================================
+--- H2Stuff/virtgg.f    (revision 3997)
++++ H2Stuff/virtgg.f    (working copy)
+@@ -21,7 +21,7 @@
+ C     Call high-energy expansion
+ C
+          virtgg=beta*(1-beta**2)/4096/Pi*gghe(x,ms,nf)
+-
++
+       elseif(beta.lt.0.0125d0) then
+
+ C     Call threshold expansion
+@@ -29,11 +29,11 @@
+          virtgg=beta*(1-beta**2)/4096/Pi*ggth(beta,ctheta,nf)
+
+       else
+-
++
+ C     Call interpolation
+ C
+          call interpolgg(beta,ctheta,virtgg,nf)
+-
++
+       endif
+       return
+       end
+@@ -43,14 +43,14 @@
+       double precision x1,x2,x1a(1:80),x2a(1:42)
+       double precision ya(1:80,1:42),y2a(1:80,1:42)
+       double precision y,dy,dummy,nf
+-      character*128 fullname,installdirname
++      character*150 fullname,installdirname
+       character*32 name
+       integer n,m,i,j,nflav
+       save x1a,x2a,ya,y2a
+       logical ini
+       data ini/.true./
+       save ini
+-
++
+       nflav = NINT(real(nf))
+
+       m=80
+@@ -62,7 +62,8 @@
+           goto 20
+    10	  continue
+ C     next try using pre-defined environment variable
+-          call getenv("ttjMiNNLOPATH", installdirname)
++C          call getenv("ttjMiNNLOPATH", installdirname)
++          installdirname='PROCESSDIR'
+           name='/H2Stuff/gridgg.dat'
+           fullname=installdirname(1:index(installdirname,' ')-1)//name
+           open(unit=13,file=fullname,status='old')
+@@ -74,19 +75,18 @@
+             read(13,*)x1a(i),x2a(j),ya(i,j),dummy
+           enddo
+         enddo
+-
++
+         close(13)
+-
+-C     Computes second derivatives
++
++C     Computes second derivatives
+         call splie2(x1a,x2a,ya,m,n,y2a)
+-
++
+         ini = .false.
+       endif
+-
++
+ C     Performs interpolation
+-
++
+       call splin2(x1a,x2a,ya,y2a,m,n,x1,x2,y)
+
+       return
+       end
+-
+Index: H2Stuff/virtqq.f
+===================================================================
+--- H2Stuff/virtqq.f     (revision 3997)
++++ H2Stuff/virtqq.f     (working copy)
+@@ -1,7 +1,7 @@
+ C     Finite part of <M0|M2>+cc according to 1312.6279
+ C     The normalisation is defined according to eqs. (3.6)
+ C
+-C     qqbar channel
++C     qqbar channel
+
+       double precision function virtqq(beta,ctheta)
+       implicit none
+@@ -42,14 +42,14 @@
+       double precision x1,x2,x1a(1:80),x2a(1:42)
+       double precision ya(1:80,1:42),y2a(1:80,1:42)
+       double precision y,dy,dummy,nf
+-      character*128 fullname,installdirname
++      character*150 fullname,installdirname
+       character*32 name
+       integer n,m,i,j,nflav
+       save x1a,x2a,ya,y2a
+       logical ini
+       data ini/.true./
+       save ini
+-
++
+       nflav = NINT(real(nf))
+
+       m=80
+@@ -61,7 +61,8 @@
+           goto 20
+    10	  continue
+ C     next try using pre-defined environment variable
+-          call getenv("ttjMiNNLOPATH", installdirname)
++C          call getenv("ttjMiNNLOPATH", installdirname)
++          installdirname='PROCESSDIR'
+           name='/H2Stuff/gridqq.dat'
+           fullname=installdirname(1:index(installdirname,' ')-1)//name
+           open(unit=11,file=fullname,status='old')
+@@ -73,20 +74,18 @@
+             read(11,*)x1a(i),x2a(j),ya(i,j),dummy
+           enddo
+         enddo
+-
++
+         close(11)
+-
+-C     Computes second derivatives
++
++C     Computes second derivatives
+         call splie2(x1a,x2a,ya,m,n,y2a)
+
+-        ini = .false.
++        ini = .false.
+       endif
+-
++
+ C     Performs interpolation
+-
++
+       call splin2(x1a,x2a,ya,y2a,m,n,x1,x2,y)
+
+       return
+       end
+-
+-

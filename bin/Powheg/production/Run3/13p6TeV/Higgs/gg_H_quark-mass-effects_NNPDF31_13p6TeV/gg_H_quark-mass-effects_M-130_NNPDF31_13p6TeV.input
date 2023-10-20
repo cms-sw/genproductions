@@ -1,0 +1,58 @@
+numevts NEVENTS
+ih1   1           ! hadron 1 (1 for protons, -1 for antiprotons)
+ih2   1           ! hadron 2 (1 for protons, -1 for antiprotons)
+ebeam1 6800     ! energy of beam 1
+ebeam2 6800    ! energy of beam 2
+
+lhans1 325300       ! pdf set for hadron 1 (LHA numbering)
+lhans2 325300       ! pdf set for hadron 2 (LHA numbering)
+
+! Parameters to allow or not the use of stored data
+use-old-grid    1 ! if 1 use old grid if file pwggrids.dat is present (<> 1 regenerate)
+use-old-ubound  1 ! if 1 use norm of upper bounding function stored in pwgubound.dat, if present; <> 1 regenerate
+
+ncall1 550000   ! number of calls for initializing the integration grid
+itmx1  7    ! number of iterations for initializing the integration grid
+ncall2 75000    ! number of calls for computing the integral and finding upper bound
+itmx2  5     ! number of iterations for computing the integral and finding upper bound
+foldcsi   2    ! number of folds on csi integration
+foldy     5    ! number of folds on  y  integration
+foldphi   2    ! number of folds on phi integration
+nubound 50000  ! number of bbarra calls to setup norm of upper bounding function
+icsimax  1     ! <= 100, number of csi subdivision when computing the upper bounds
+iymax    1     ! <= 100, number of y subdivision when computing the upper bounds
+xupbound 2d0   ! increase upper bound for radiation generation
+
+! OPTIONAL PARAMETERS
+
+renscfact  1   ! (default 1d0) ren scale factor: muren  = muref * renscfact
+facscfact  1   ! (default 1d0) fac scale factor: mufact = muref * facscfact
+testplots  1      ! (default 0, do not) do NLO and PWHG distributions
+hfact    60.0d0    ! (default no dumping factor) dump factor for high-pt radiation: > 0 dumpfac=h**2/(pt2+h**2)
+runningscale 1    ! 0 = scales equal to the Higgs pole mass; 1  = scales equal to the Higgs virtuality;
+                  ! 2 = scales equal to the Higgs pole mass for Born-like configuration and to the transverse mass for real emission contribution
+
+iseed SEED
+
+! GGF_H production:
+! **** Mandatory parameters for ALL models ****
+massren 0           ! Mass renormalization scheme. 0 = OS, 1 = MSBAR , 2 = DRBAR
+zerowidth 0         ! Control if the Higgs boson is to be produced on-shell or not: 1 = On-Shell; 0 = Off-shell with Breit-Wigner
+ew 1                ! ew = 0 disable EW corrections - ew = 1 enable EW corrections
+model 0
+gfermi 0.116637D-04        ! GF
+hdecaymode -1      ! PDG code for first decay product of the higgs
+masswindow 9999d0  !(default 10d0) number of widths around hmass in the BW for an off-shell Higgs boson
+
+! **** Mandatory parameters for SM or MW ****
+hmass 130d0            ! Higgs boson mass
+hwidth 0.00407D0     ! Higgs boson width
+topmass 172.5        ! top quark mass
+bottommass 4.75d0    ! bottom quark mass - if defined it enables the bottom quark
+
+! Optional
+hdecaywidth 0        ! If equals to 1 read total decay width from HDECAY sm.br2 file
+withnegweights 1 
+pdfreweight 0
+storeinfo_rwgt 0
+bwshape 3 ! complex-pole scheme according to Passarino et al.

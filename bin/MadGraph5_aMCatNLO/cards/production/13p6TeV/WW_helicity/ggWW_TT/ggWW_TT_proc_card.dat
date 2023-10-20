@@ -1,0 +1,5 @@
+import model loop_sm-ckm_no_b_mass
+
+generate g g > w+{T} w-{T} $$ h [noborn=QCD]
+
+output ggWW_TT

@@ -1,0 +1,75 @@
+idvecbos          24    !    24:    W+  boson,    -24:    W-  boson
+vdecaymode        10    ! 1: e-nu, 2: mu-nu, 3: tau-nu, 0: hadronic, 10: inclusive, 11: inclusive leptons
+hdecaymode        -1    ! undecayed Higgs boson (for PYTHIA and HERWIG)
+
+hmass  130d0        ! Higgs boson mass 
+hwidth 0.00407d0     ! Higgs boson width 
+
+min_h_mass    10d0      
+max_h_mass  1000d0 
+
+min_w_mass     10d0
+max_w_mass   1000d0
+
+
+numevts NEVENTS
+ih1 1             ! hadron 1 (1 for protons, -1 for antiprotons)
+ih2 1             ! hadron 2 (1 for protons, -1 for antiprotons)
+ebeam1 6800d0     ! energy of beam 1
+ebeam2 6800d0     ! energy of beam 2
+
+bornktmin 0.26d0      ! (default 0d0) generation cut. Minimum kt in underlying Born
+bornsuppfact 0d0 ! (default 0d0)  mass param for Born suppression factor. If < 0 suppfact = 1
+
+lhans1  325300         ! pdf set for hadron 1 (LHA numbering)
+lhans2  325300         ! pdf set for hadron 2 (LHA numbering)	
+
+renscfact  1d0   ! (default 1d0) ren scale factor: muren  = muref * renscfact 
+facscfact  1d0   ! (default 1d0) fac scale factor: mufact = muref * facscfact 
+
+! Parameters to allow or not the use of stored data
+use-old-grid    1 ! if 1 use old grid if file pwggrids.dat is present (<> 1 regenerate)
+use-old-ubound  1 ! if 1 use norm of upper bounding function stored in pwgubound.dat, if present; <> 1 regenerate
+
+! the typical call uses 1/1400 seconds (1400 calls per second)
+ncall1 400000      ! Number of calls for the construction of the importance sampling grid
+itmx1 1           ! Number of iterations for grid
+ncall2 400000      ! Number of calls for the computation of the upper bounding envelope
+                  ! for the generation of radiation
+itmx2 1           ! Number of iterations for the above
+! Notice: the total number of calls is ncall2*itmx2*foldcsi*foldy*foldphi
+foldcsi 2         ! number of folds on csi integration
+foldy   5         ! number of folds on  y  integration
+foldphi 2         ! number of folds on phi integration
+
+nubound 600000 ! number of calls to set up the upper bounding norms for radiation
+               ! This is performed using only the Born cross section (fast)
+
+
+! OPTIONAL PARAMETERS
+
+withnegweights 1 ! (default 0) if on (1) use negative weights
+testplots  1      ! (default 0, do not) do NLO and PWHG distributions
+
+
+
+iseed SEED
+fastbtlbound 1
+storemintupb 1
+
+storeinfo_rwgt 0
+pdfreweight 0
+
+
+
+minlo 1    
+minlo_nnll 1  
+
+# if running with minlo, set the following to 0
+massivetop   0 
+
+sudscalevar   1
+
+doublefsr 1 
+
+nohad   1

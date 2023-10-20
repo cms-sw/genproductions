@@ -339,7 +339,7 @@ make_gridpack () {
       fi
 	
       is5FlavorScheme=0
-      if tail -n 20 $LOGFILE | grep -q -e "^p *=.*b\~.*b" -e "^p *=.*b.*b\~"; then 
+      if tail -n 999 $LOGFILE | grep -q -e "^p *=.*b\~.*b" -e "^p *=.*b.*b\~"; then 
         is5FlavorScheme=1
       fi
     
