@@ -1,0 +1,73 @@
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! Standard settings which have the same meaning as in POWHEG-BOX-V2
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+numevts NEVENTS
+iseed SEED
+ih1   1                                          ! hadron 1 (1 for protons, -1 for antiprotons)
+ih2   1                                          ! hadron 2 (1 for protons, -1 for antiprotons)
+ebeam1 6800                                      ! energy of beam 1
+ebeam2 6800                                      ! energy of beam 2
+lhans1 325300                                    ! pdf set for hadron 1 (LHA numbering) [if using LHA pdfs]
+lhans2 325300                                    ! pdf set for hadron 2 (LHA numbering) [if using LHA pdfs]
+
+use-old-grid 1                                   ! if 1 use old grid if file pwggrids.dat is present (<> 1 regenerate)
+use-old-ubound 1                                 ! if 1 use norm of upper bounding function stored in pwgubound.dat, if present; <> 1 regenerate
+
+ncall1 80000                                     ! number of calls for initializing the integration grid
+itmx1    5                                       ! number of iterations for initializing the integration grid
+ncall2 100000                                    ! number of calls for computing the integral and finding upper bound
+itmx2   5                                        ! number of iterations for computing the integral and finding upper bound
+foldcsi   1                                      ! number of folds on csi integration
+foldy     1                                      ! number of folds on  y  integration
+foldphi   1                                      ! number of folds on phi integration
+nubound 100000                                   ! number of bbarra calls to setup norm of upper bounding function
+icsimax  1                                       ! <= 100, number of csi subdivision when computing the upper bounds
+iymax    1                                       ! <= 100, number of y subdivision when computing the upper bounds
+xupbound 2d0                                     ! increase upper bound for radiation generation
+storemintupb 1                                   ! (default 0, do not) Store st2 btilde calls to set up upper bounding envelope
+fastbtlbound 1                                   ! (default 0, do not) Turn on fast calculation of the btilde upper bounding envelope
+
+
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! POWHEG-BOX-RES and bb4l relevant settings
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+allrad 1                                         ! (default 0, single shower scheme) Turns on multiple shower scheme
+hdamp 237.8775                                   ! Using a damping factor h**2/(pt2+h**2) to separate real contributions between Sudakov and remnants (should be set to the mass of the top quark)
+withdamp 1                                       ! Turn on calculation of the remnants
+channel 8                                        ! Full dileptonic decay of WbWb including same-flavour leptons
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! Physics constants
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+tmass      173.5d0                               ! (default 172.5) top quark mass (in the matrix ele
+tmass_phsp 173.5d0                               ! (default 172.5) top quark mass (in the phase spac
+#twidth                                          ! (default unset) top quark width (calculated from
+#zmass      91.188d0                             ! (default 91.188d0) mass of Z-boson
+#zwidth     2.441d0                              ! (default 2.441d0) width of Z-boson
+#wmass      80.419d0                             ! (default 80.419d0) mass of W-boson
+#wwidth     2.04807d0                            ! (default 2.04807d0) width of W-boson
+#hmass      125d0                                ! (default 125d0) mass of Higgs boson
+#hwidth     0.403d-2                             ! (default 0.403d-2) width of the Higgs boson
+#bmass      4.75d0                               ! (default 4.75d0) mass of the bottom quark
+#ewscheme   2                                    ! (default 2) 1...wmass, zmass, grefmi input; alpha
+#gfermi     1.1658029175194381d-5                ! (default 1.1658029175194381d-5) gfermi
+#alpha      0.007546772                          ! (default 0.007546772) alpha
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! The following is the minimal settings that we used for the publication of our paper.
+! It performs event generation with the `for_reweighting 1` settings (no virtual and modified subtraction), and then it reweights the events with the full, correct cross section.
+! Thus the 'default' weight has the correct cross section for the parameters given in the powheg.input file. The "xwgtup" value in the Les Houches record does not correspond to
+! a useful cross section.
+! If more weights are needed, they should be included in the <initrwgt> section (see README.Compress-And-Weights for explanations).
+! If weights are added to a previously existing .lhe file, i.e. `rwl_add 1`, the for_reweighting flag is ignored, and the full cross section
+! is always used.
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+for_reweighting 0                                ! (default 0) Explicitly do not use the virtual weight, but generate unweighted events from the start
+
+
+
+
