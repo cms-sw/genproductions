@@ -28,7 +28,6 @@ generator = cms.EDFilter("Pythia8ConcurrentHadronizerFilter",
             'ResonanceDecayFilter:udscAsEquivalent = on', #on: treat udsc quarks as equivalent
             'ResonanceDecayFilter:mothers = 24,25',
             'ResonanceDecayFilter:daughters = 5,5,1,1,11,12',
-            "SpaceShower:dipoleRecoil = on",
             ),
         parameterSets = cms.vstring('pythia8CommonSettings',
                                     'pythia8CP5Settings',
