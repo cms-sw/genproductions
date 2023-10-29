@@ -13,12 +13,12 @@ def GetName(x):
 couplings={}
 
 # yy > tautau BSM couplings:
-couplings['ceBRe33'] = np.linspace(-40,40,101)
-#couplings['ceBIm33'] = np.linspace(-5,5,101)
+couplings['ceBRe'] = [np.linspace(-40,40,101), ('smeft','ceBRe33')]
+couplings['ceBIm'] = [np.linspace(-40,40,101), ('smeftcpv','ceBIm33')]
 
 # yy > WW BSM couplings:
-#couplings['ceBRe33'] = np.linspace(-10,10,101)
-#couplings['ceBIm33'] = np.linspace(-10,10,101)
+#couplings['cw'] = [np.linspace(-10,10,21), ('Dim6','2')]
+#couplings['cb'] = [np.linspace(-20,20,21), ('Dim6','3')]
 
 #couplings['ceBRe33'] = np.linspace(-10,10,3) # use this line for tests
 
@@ -35,9 +35,10 @@ with open(outfile, 'w') as f:
     f.write('launch --rwgt_name=dummy\n')
     f.write('\n')
     for coupling in couplings:
-      for val in couplings[coupling]:
+      model_params = couplings[coupling][1]
+      for val in couplings[coupling][0]:
         f.write('launch --rwgt_name=%s_%s\n'%(coupling,GetName(val)))
-        f.write('set param_card smeft %s %1.5e\n'%(coupling,val))
+        f.write('set param_card %s %s %1.5e\n'%(model_params[0],model_params[1],val))
         f.write('set param_card mass 15 1.777\n')
         f.write('\n')
       f.write('\n')
