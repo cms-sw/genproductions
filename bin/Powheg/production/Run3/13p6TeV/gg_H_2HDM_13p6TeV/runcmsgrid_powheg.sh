@@ -42,7 +42,7 @@ if [ "$use_gridpack_env" = true ]
       else
         scram_arch_version=SCRAM_ARCH_VERSION_REPLACE
     fi
-    echo "%MSG-MG5 SCRAM_ARCH version = $scram_arch_version"
+    echo "%MSG-POWHEG SCRAM_ARCH version = $scram_arch_version"
 
     if [ -n "$6" ]
       then
@@ -50,7 +50,7 @@ if [ "$use_gridpack_env" = true ]
       else
         cmssw_version=CMSSW_VERSION_REPLACE
     fi
-    echo "%MSG-MG5 CMSSW version = $cmssw_version"
+    echo "%MSG-POWHEG CMSSW version = $cmssw_version"
     export VO_CMS_SW_DIR=/cvmfs/cms.cern.ch
     source $VO_CMS_SW_DIR/cmsset_default.sh
 
@@ -90,6 +90,8 @@ if [ -e $LHAPDF6TOOLFILE ]; then
 fi
 #make sure env variable for pdfsets points to the right place
 export LHAPDF_DATA_PATH=`$LHAPDFCONFIG --datadir`
+# local pdf sets
+export LHAPDF_DATA_PATH=$PWD/lhapdf:$LHAPDF_DATA_PATH
 
 # initialize the CMS environment 
 myDir=powhegbox_${process}
@@ -144,8 +146,8 @@ if [[ -d ${WORKDIR}/WW_MATRIX ]]; then
     cp -p ${WORKDIR}/binvalues-WW.top .
 fi
 ### For the ggHH process
-if [[ -e ${WORKDIR}/Virt_full_cHHH_0.0.grid ]]; then
-    ln -s ${WORKDIR}/Virt_full_cHHH_* .
+if [[ "${process}" == "ggHH" ]]; then
+    ln -s ${WORKDIR}/Virt* .
     ln -s ${WORKDIR}/creategrid.py .
     cp -p ${WORKDIR}/events.cdf .
 fi
@@ -169,8 +171,33 @@ if [ "$process" = "Z_ew-BMNNPV" ] || [ "$process" = "W_ew-BMNNP" ]; then
   sed -i '/rwl_file/d' powheg.input
 fi
 
-cat powheg.input
-../pwhg_main 2>&1 | tee log_${process}_${seed}.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
+# Check if we are running with the "manyseeds" option
+manyseeds="false"
+grep -qFx "manyseeds 1" powheg.input ; test $? -ne 0  || manyseeds="true"
+
+if [ "$manyseeds" == "true" ]; then
+  if [ "$produceWeights" == "true" ]; then
+    fail_exit "Error: not implemented"
+  fi
+
+  # With "manyseeds", powheg reads the seed from pwgseeds.dat
+  echo $seed > pwgseeds.dat
+
+  # Powheg expects the index of the seed to use as an command line argument
+  # Since we dont actually use the parallelization functionality of Powheg,
+  # we just write one seed to pwgseeds.dat and always pick seed 1
+  cat powheg.input
+  ../pwhg_main iwhichseed=1 2>&1 | tee log_${process}_${seed}.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
+
+  # Rename the produced LHE file to be what the rest of the script expects
+  mv pwgevents-0001.lhe pwgevents.lhe
+
+else
+  cat powheg.input
+  ../pwhg_main 2>&1 | tee log_${process}_${seed}.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
+  
+fi
+
 
 if [ "${process}" == "X0jj" ]; then
     # now run reweighting for X0jj process
@@ -196,8 +223,6 @@ if [ "${process}" == "X0jj" ]; then
     ../pwhg_main 2>&1 | tee logrew_${process}_${seed}_mm.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"   
     mv pwgevents-rwgt.lhe pwgevents.lhe
 fi
-
-
 
 if [ "${process}" == "gg_H_2HDM" ]; then
     # now run reweighting for gg_H_2HDM process
@@ -281,8 +306,6 @@ if [ "${process}" == "gg_H_2HDM" ]; then
     # mv pwgevents-rwgt.lhe pwgevents.lhe
     
 fi
-
-
 
 if [ "$produceWeightsNNLO" == "true" ]; then
     echo -e "\ncomputing weights for NNLOPS\n"
@@ -576,3 +599,4 @@ cp ${file}_final.lhe ${WORKDIR}/.
 echo "Output ready with ${file}_final.lhe at $WORKDIR"
 echo "End of job on " `date`
 exit 0;
+
