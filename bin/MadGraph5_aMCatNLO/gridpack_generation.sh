@@ -223,8 +223,11 @@ make_gridpack () {
     #  echo "set output_dependencies internal" >> mgconfigscript
       echo "set lhapdf_py3 $LHAPDFCONFIG" >> mgconfigscript
     #   echo "set ninja $PWD/HEPTools/lib" >> mgconfigscript
+      mglib_path=`scram tool info madgraph5amcatnlo | grep MADGRAPH5AMCATNLO_BASE`
+      mglib_path=${mglib_path#*=}/HEPTools/lib
       if [ -n "$mglib_path" ]; then
         echo "set ninja $mglib_path" >> mgconfigscript
+        echo "install collier" >> mgconfigscript
       fi
 
       if [ "$queue" == "local" ]; then
@@ -709,19 +712,15 @@ export SYSTEM_RELEASE=`cat /etc/redhat-release`
 # set scram_arch 
 if [ -n "$5" ]; then
     scram_arch=${5}
-    mglib_path=""
 else
     if [[ $SYSTEM_RELEASE == *"release 7"* ]]; then 
         scram_arch=slc7_amd64_gcc10
-        mg_buildtag=50a30a0356f42c10763f5933e2773041
     elif [[ $SYSTEM_RELEASE == *"release 8"* ]]; then
         scram_arch=el8_amd64_gcc10
-        mg_buildtag=50a30a0356f42c10763f5933e2773041
     else 
         echo "No default scram_arch for current OS!"
         if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi        
     fi
-    mglib_path=/cvmfs/cms.cern.ch/${scram_arch}/external/madgraph5amcatnlo/2.7.3-${mg_buildtag}/HEPTools/lib
 fi
 
 #set cmssw 
