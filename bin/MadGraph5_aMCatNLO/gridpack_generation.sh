@@ -223,7 +223,13 @@ make_gridpack () {
     #  echo "set output_dependencies internal" >> mgconfigscript
       echo "set lhapdf_py3 $LHAPDFCONFIG" >> mgconfigscript
     #   echo "set ninja $PWD/HEPTools/lib" >> mgconfigscript
-    
+      mglib_path=`scram tool info madgraph5amcatnlo | grep MADGRAPH5AMCATNLO_BASE`
+      mglib_path=${mglib_path#*=}/HEPTools/lib
+      if [ -n "$mglib_path" ]; then
+        echo "set ninja $mglib_path" >> mgconfigscript
+        echo "install collier" >> mgconfigscript
+      fi
+
       if [ "$queue" == "local" ]; then
           echo "set run_mode 2" >> mgconfigscript
       elif [ "$queue" == "pdmv" ]; then
@@ -708,7 +714,7 @@ if [ -n "$5" ]; then
     scram_arch=${5}
 else
     if [[ $SYSTEM_RELEASE == *"release 7"* ]]; then 
-        scram_arch=slc7_amd64_gcc10 
+        scram_arch=slc7_amd64_gcc10
     elif [[ $SYSTEM_RELEASE == *"release 8"* ]]; then
         scram_arch=el8_amd64_gcc10
     else 
