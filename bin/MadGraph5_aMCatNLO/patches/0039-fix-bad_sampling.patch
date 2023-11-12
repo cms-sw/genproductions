@@ -1,0 +1,18 @@
+diff --git a/Template/LO/SubProcesses/genps.f b/Template/LO/SubProcesses/genps.f
+index 88482cb..bc3fe41 100644
+--- a/Template/LO/SubProcesses/genps.f
++++ b/Template/LO/SubProcesses/genps.f
+@@ -1543,7 +1543,12 @@ C     &     X(1),TAU,SJACOBI)
+ 
+ C     IF THERE IS NO S CHANNEL POLE USE BELOW:
+ 
+-      TAUMIN = 0d0 !SMIN/S !keep scale fix
++      if((SMIN/S).lt..1) then
++           TAUMIN = 0d0 !SMIN/S !keep scale fix
++      else
++           TAUMIN = SMIN/S
++      endif
++
+       TAUMAX = 1D0
+       TAU    = (TAUMAX-TAUMIN)*X(1)+TAUMIN
+       SJACOBI=  sjacobi*(TAUMAX-TAUMIN)
