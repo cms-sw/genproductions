@@ -6,7 +6,8 @@ By Roberto Covarelli 10/30/2018
 Based on Yuan Chao's script
 '''
 
-import commands
+#import commands
+from subprocess import check_output, CalledProcessError, STDOUT
 import fileinput
 import argparse
 import sys
@@ -32,12 +33,20 @@ def runCommand(command, printIt = False, doIt = 1) :
     if TESTING :
         printIt = 1
         doIt = 0
-    if printIt : print ('> ' + command)
+    if printIt : print('> ' + command)
     if doIt :
-        commandOutput = commands.getstatusoutput(command)
-        if printIt : print commandOutput[1]
+        try:
+            data = check_output(command,shell=True, universal_newlines=True,stderr=STDOUT)
+            status = 0
+        except CalledProcessError as ex:
+            data = ex.output
+            status = ex.returncode
+        if data[-1:] == '\n':
+            data = data[:-1]
+        commandOutput = status, data
+        if printIt : print(commandOutput[1])
         return commandOutput[0]
-    else :    print ('    jobs not submitted')
+    else :    print('    jobs not submitted')
     return 1
 
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
@@ -142,18 +151,18 @@ def prepareJobForEvents (tag, i, folderName, EOSfolder) :
 def runParallelXgrid(parstage, xgrid, folderName, nEvents, njobs, powInputName, jobtag, rndSeed, process) :
     # parstage, xgrid are strings!
 
-    print 'Running parallel jobs for grid'
-    #print folderName
+    print('Running parallel jobs for grid')
+    #print(folderName)
 
     inputName = folderName + "/powheg.input"
 
     sedcommand = 'sed -i "s/NEVENTS/'+nEvents+'/ ; s/SEED/'+rndSeed+'/ ; s/.*parallelstage.*/parallelstage '+parstage+'/ ; s/.*xgriditeration.*/xgriditeration '+xgrid+'/ ; s/.*manyseeds.*/manyseeds 1/ ; s/fakevirt.*// " '+inputName
 
     with open(os.path.join(folderName, "pwgseeds.dat"), "w") as f:
-        for i in xrange(njobs):
+        for i in range(njobs):
             f.write(str(int(rndSeed) + i)+"\n")
 
-    #print sedcommand
+    #print(sedcommand)
     runCommand(sedcommand)
 
     if (parstage == '1') :
@@ -194,22 +203,21 @@ def runParallelXgrid(parstage, xgrid, folderName, nEvents, njobs, powInputName, 
         os.system('chmod 755 '+filename)
 
     if QUEUE == 'none':
-        print 'Direct running... #'+str(i)+' \n'
+        print('Direct running... #'+str(i)+' \n')
         os.system('cd '+rootfolder+'/'+folderName)
-
         for i in range (0, njobs) :
             jobID = jobtag + '_' + str(i)
-            os.system('bash run_'+jobID+'.sh &')
+            os.system('bash '+rootfolder+'/'+folderName+'/run_'+jobID+'.sh &')
 
     else:
-        print 'Submitting to condor queues:  \n'
+        print('Submitting to condor queues:  \n')
         condorfile = prepareCondorScript(jobtag, 'multiple', args.folderName, QUEUE, njobs=njobs, runInBatchDir=True, slc6=args.slc6)
         runCommand ('condor_submit ' + condorfile)
 
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 def runSingleXgrid(parstage, xgrid, folderName, nEvents, powInputName, seed, process, scriptName) :
 
-    print 'Running single job for grid'
+    print('Running single job for grid')
 
     inputName = folderName + "/powheg.input"
 
@@ -253,7 +261,7 @@ def runSingleXgrid(parstage, xgrid, folderName, nEvents, powInputName, seed, pro
         for line in open(inputName) :
             if 'ncall2' in line :
                 m_ncall2 = line.split(" ")[2]
-                print "The original ncall2 is :", m_ncall2
+                print("The original ncall2 is :", m_ncall2)
 
         f.write('sed -i "s/ncall2.*/ncall2 0/g" powheg.input \n')
         f.write('sed -i "s/fakevirt.*/fakevirt 1  ! number of calls for computing the integral and finding upper bound/g" powheg.input \n')
@@ -275,7 +283,7 @@ def runSingleXgrid(parstage, xgrid, folderName, nEvents, powInputName, seed, pro
 def runGetSource(parstage, xgrid, folderName, powInputName, process, noPdfCheck, tagName, svnRev) :
     # parstage, xgrid are strings!
 
-    print 'Getting and compiling POWHEG source...'
+    print('Getting and compiling POWHEG source...')
 
     #prepareJob(tagName, '', '.',args.prcName)
 
@@ -325,7 +333,7 @@ def runGetSource(parstage, xgrid, folderName, powInputName, process, noPdfCheck,
 
 
 def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag, process, seed) :
-    print 'run : submitting jobs'
+    print('run : submitting jobs')
     inputName = folderName + "/powheg.input"
 
     sedcommand = 'sed -i "s/NEVENTS/2000/ ; s/iseed.*/iseed '+str(seed)+'/" '+inputName
@@ -347,7 +355,7 @@ def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag, proc
     runCommand('cp -p ' + folderName + '/powheg.input ' + folderName + '/powheg.input.' + parstage)
 
     with open(os.path.join(folderName, "pwgseeds.dat"), "w") as f:
-        for i in xrange(njobs):
+        for i in range(njobs):
             f.write(str(int(seed) + i)+"\n")
 
     for i in range (0, njobs) :
@@ -358,6 +366,7 @@ def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag, proc
         jobID = jobtag + '_' + str (i)
 
         filename = folderName+'/run_' + tag + '.sh'
+        print(filename)
         f = open (filename, 'a')
         #f.write('cd '+rootfolder+'/'+folderName+'/ \n')
         if process == 'WWJ' :
@@ -379,7 +388,7 @@ def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag, proc
         os.system('chmod 755 '+filename)
 
     if QUEUE == 'none':
-        print 'Direct running... #'+str(i)+' \n'
+        print('Direct running... #'+str(i)+' \n')
         os.system('cd '+rootfolder+'/'+folderName)
 
         for i in range (0, njobs) :
@@ -387,7 +396,7 @@ def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag, proc
             os.system('bash run_'+jobID+'.sh &')
 
     else:
-        print 'Submitting to condor queues:  \n'
+        print('Submitting to condor queues:  \n')
         condorfile = prepareCondorScript(jobtag, 'multiple', args.folderName, QUEUE, njobs=njobs, runInBatchDir=True, slc6=args.slc6) 
         runCommand ('condor_submit ' + condorfile)
      
@@ -395,7 +404,7 @@ def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag, proc
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
 def createTarBall(parstage, folderName, prcName, keepTop, seed, scriptName) :
-    print 'Creating tarball distribution for '+args.folderName+'_'+prcName+'.tgz'
+    print('Creating tarball distribution for '+args.folderName+'_'+prcName+'.tgz')
     print
 
     #inputName = folderName + "/powheg.input"
@@ -441,7 +450,7 @@ def runhnnlo(folderName, njobs, QUEUE):
     helpers.fillTemplatedFile(template_file, filename, template_dict, "w")
     os.chmod(filename, 0o755)
 
-    print 'Submitting to condor queues \n'
+    print('Submitting to condor queues \n')
     tagName = 'hnnlo_%s' % scale
     condorfile = prepareCondorScript(tagName, 'hnnlo', folderName, QUEUE, njobs=njobs, runInBatchDir=scale, slc6=args.slc6) 
     runCommand ('condor_submit ' + condorfile)
@@ -486,25 +495,25 @@ if __name__ == "__main__":
     EOSfolder = args.folderName
 
     print
-    print 'RUNNING PARAMS: parstage = ' + args.parstage + ' , xgrid = ' + args.xgrid  + ' , folderName = ' + args.folderName
-    print '                Total Events = ' + args.totEvents
-    print '                Number of Events = ' + args.numEvents
-    print '                powheg input cfg file : ' + args.inputTemplate
-    print '                powheg process name : ' + args.prcName
-    print '                working folder : ' + args.folderName
-    print '                EOS folder (stages 4,7,8) : ' + args.eosFolder + '/' + EOSfolder
-    print '                base folder : ' + rootfolder
-    print '                forDAG : ' + str(args.fordag)
-    print '                SLC6 : ' + str(args.slc6)
-    print '                SVN : ' + str(args.svnRev)
+    print('RUNNING PARAMS: parstage = ' + args.parstage + ' , xgrid = ' + args.xgrid  + ' , folderName = ' + args.folderName)
+    print('                Total Events = ' + args.totEvents)
+    print('                Number of Events = ' + args.numEvents)
+    print('                powheg input cfg file : ' + args.inputTemplate)
+    print('                powheg process name : ' + args.prcName)
+    print('                working folder : ' + args.folderName)
+    print('                EOS folder (stages 4,7,8) : ' + args.eosFolder + '/' + EOSfolder)
+    print('                base folder : ' + rootfolder)
+    print('                forDAG : ' + str(args.fordag))
+    print('                SLC6 : ' + str(args.slc6))
+    print('                SVN : ' + str(args.svnRev))
     print
 
     if (TESTING == 1) :
-        print '  --- TESTING, NO submissions will happen ---  '
+        print('  --- TESTING, NO submissions will happen ---  ')
         print
 
     if (args.fordag) :
-        print '  --- Submissions will be done by DAG ---  '
+        print('  --- Submissions will be done by DAG ---  ')
         print
 
     res = os.path.exists(rootfolder+'/'+args.folderName)
@@ -514,20 +523,20 @@ if __name__ == "__main__":
         POWHEG_SOURCE="powhegboxV2_rev3624_date20190117.tar.gz" 
         
     if args.parstage == '1' and args.xgrid == '1' and (not res) :
-        print 'Creating working folder ' + args.folderName + '...'
+        print('Creating working folder ' + args.folderName + '...')
         # Assuming the generator binaries are in the current folder.
         os.system('mkdir '+rootfolder+'/'+args.folderName)
         if os.path.exists(rootfolder+'/pwhg_main') :
-            print 'Copy pwhg_main'
+            print('Copy pwhg_main')
             os.system('cp -p pwhg_main '+args.folderName+'/.')
 
         if os.path.exists(rootfolder+'JHUGen') :
-            print 'Copy JHUGen'
+            print('Copy JHUGen')
             os.system('cp -p JHUGen '+args.folderName+'/.')
 
     if args.parstage == '1' and args.xgrid == '1' :
         if not os.path.exists(args.folderName) :
-            print 'Creating working folder ' + args.folderName + '...'
+            print('Creating working folder ' + args.folderName + '...')
             # Assuming the generator binaries are in the current folder.
             os.system('mkdir '+args.folderName)
             if os.path.exists('pwhg_main') :
@@ -621,14 +630,14 @@ if __name__ == "__main__":
                 raise RuntimeError("ERROR: PDF settings not equal for the 2 protons: {0} vs {1}... Please check your datacard".format(test_pdf1, test_pdf2))
 
             if test_pdf1 != default_pdf :
-#                print "PDF in card: ", test_pdf1, "PDF default: ", default_pdf, test_pdf1==default_pdf
+#                print("PDF in card: ", test_pdf1, "PDF default: ", default_pdf, test_pdf1==default_pdf)
                 message = "The input card does not have the standard Ultralegacy PDF (NNPDF31 NNLO, 325300 for 5F, 325500 for 4F): {0}. Either change the card or run again with -d 1 to ignore this message.\n".format(test_pdf1)
 
                 if args.noPdfCheck == '0' :
                     raise RuntimeError(message)
                 else:
-                    print "WARNING:", message
-                    print "FORCING A DIFFERENT PDF SET FOR CENTRAL VALUE\n"
+                    print("WARNING:", message)
+                    print("FORCING A DIFFERENT PDF SET FOR CENTRAL VALUE\n")
 
     if args.parstage == '0' :
 
@@ -641,11 +650,11 @@ if __name__ == "__main__":
                      powInputName, args.prcName, args.noPdfCheck, tagName, args.svnRev)
 
         if QUEUE == 'none':
-            print 'Direct compiling... \n'
+            print('Direct compiling... \n')
             os.system('bash '+filename+' 2>&1 | tee '+filename.split('.sh')[0]+'.log')
 
         else:
-            print 'Submitting to condor queues \n'
+            print('Submitting to condor queues \n')
             condorfile = prepareCondorScript(tagName, '', '.', QUEUE, njobs=1, slc6=args.slc6) 
             runCommand ('condor_submit ' + condorfile)
 
@@ -669,11 +678,11 @@ if __name__ == "__main__":
                        args.prcName, scriptName)
 
         if QUEUE == 'none':
-            print 'Direct running single grid... \n'
+            print('Direct running single grid... \n')
             os.system('bash '+scriptName+' >& '+scriptName.split('.sh')[0]+'.log &')
 
         else:
-            print 'Submitting to condor queues  \n'
+            print('Submitting to condor queues  \n')
             condorfile = prepareCondorScript(tagName, '', args.folderName, QUEUE, njobs=1, runInBatchDir=True, slc6=args.slc6) 
             runCommand ('condor_submit ' + condorfile)
 
@@ -692,11 +701,11 @@ if __name__ == "__main__":
                        args.prcName, scriptName)
 
         if QUEUE == 'none':
-            print 'Direct compiling and running... \n'
+            print('Direct compiling and running... \n')
             os.system('bash '+scriptName+' >& '+
                       scriptName.split('.sh')[0]+'.log &')
         else:
-            print 'Submitting to condor queues  \n'
+            print('Submitting to condor queues  \n')
             condorfile = prepareCondorScript(tagName, '', '.', QUEUE, njobs=1, runInBatchDir=True, slc6=args.slc6) 
             runCommand ('condor_submit ' + condorfile)
 
@@ -716,16 +725,16 @@ if __name__ == "__main__":
                       args.keepTop, args.rndSeed, scriptName)
 
         if QUEUE == 'none':
-            print 'Direct running in one shot... \n'
+            print('Direct running in one shot... \n')
             os.system('bash '+scriptName+' | tee '+
                       scriptName.split('.sh')[0]+'.log')
         else:
-            print 'Submitting to condor queues  \n'
+            print('Submitting to condor queues  \n')
             condorfile = prepareCondorScript(tagName, '', '.', QUEUE, njobs=1, runInBatchDir=True, slc6=args.slc6) 
             runCommand ('condor_submit ' + condorfile)
 
     elif args.parstage == '7' :
-        print "preparing for NNLO reweighting"
+        print("preparing for NNLO reweighting")
         if args.prcName == "HJ":
             runhnnlo(args.folderName, njobs, QUEUE)
 
