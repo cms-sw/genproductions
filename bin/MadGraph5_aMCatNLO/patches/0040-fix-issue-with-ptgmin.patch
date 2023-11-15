@@ -1,7 +1,7 @@
-diff --git a/MG5_aMC_v2_9_13/Template/NLO/SubProcesses/test_soft_col_limits.f b/MG5_aMC_v2_9_13_update/Template/NLO/SubProcesses/test_soft_col_limits.f
+diff --git a/Template/NLO/SubProcesses/test_soft_col_limits.f b/Template/NLO/SubProcesses/test_soft_col_limits.f
 index 9a29aed..4170ca4 100644
---- a/MG5_aMC_v2_9_13/Template/NLO/SubProcesses/test_soft_col_limits.f
-+++ b/MG5_aMC_v2_9_13_update/Template/NLO/SubProcesses/test_soft_col_limits.f
+--- a/Template/NLO/SubProcesses/test_soft_col_limits.f
++++ b/Template/NLO/SubProcesses/test_soft_col_limits.f
 @@ -58,6 +58,10 @@ c*****************************************************************************
        LOGICAL IS_A_J(NEXTERNAL),IS_A_LP(NEXTERNAL),IS_A_LM(NEXTERNAL)
        LOGICAL IS_A_PH(NEXTERNAL)
