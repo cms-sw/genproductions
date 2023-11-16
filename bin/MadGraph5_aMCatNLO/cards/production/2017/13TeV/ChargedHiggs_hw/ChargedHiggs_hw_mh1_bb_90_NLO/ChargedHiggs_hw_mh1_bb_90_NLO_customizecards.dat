@@ -1,0 +1,6 @@
+set param_card mhc <MASS>
+set param_card mh1 90
+set param_card mh2 125
+set param_card mh3 <MASS>
+set param_card tanbeta 5
+set param_card sinbma 0

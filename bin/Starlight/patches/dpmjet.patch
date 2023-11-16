@@ -1,0 +1,94 @@
+diff -ruN ./fpe.c ../DPMJET__UPDATED/fpe.c
+--- ./fpe.c	1970-01-01 01:00:00.000000000 +0100
++++ ../DPMJET__UPDATED/fpe.c	2023-05-17 17:07:20.000000001 +0200
+@@ -0,0 +1,25 @@
++  #define _GNU_SOURCE
++    #include <stdio.h>
++    #include <stdlib.h>
++    #include <fenv.h>
++
++    void enable_exceptions_()
++    {
++         int retval;
++         /* feenableexcept returns the previous exceptions that were  enabled
++            on success, otherwise it returns -1
++         */
++         retval=feenableexcept( FE_DIVBYZERO | FE_INVALID |  FE_OVERFLOW | FE_UNDERFLOW );
++         if ( retval == -1 )
++         {
++             fprintf(stderr, "Warning: call to feenableexcept() failed \n");
++         }
++    }
++
++    /* This second routine is for Fortran compilers such as g77 and  pathf90
++       which follow the f2c name mangling style
++    */
++    void enable_exceptions__()
++    {
++        enable_exceptions_();
++    }
+diff -ruN ./Makefile ../DPMJET__UPDATED/Makefile
+--- ./Makefile	2008-10-28 16:15:10.000000001 +0100
++++ ../DPMJET__UPDATED/Makefile	2023-05-18 02:46:45.000000001 +0200
+@@ -36,14 +36,15 @@
+ #  Linux g77
+ #  ---------
+ # OPT = -C -Wall -malign-double -mpentium -O
+-OPT = -c -O3 -g -mcpu=pentiumpro -fexpensive-optimizations -funroll-loops -fstrength-reduce -Wall -fno-automatic -fno-silent -m32 -ffortran-bounds-check -v
+-FC = g77
+-LD = g77
++#OPT = -c -O3 -g -mcpu=pentiumpro -fexpensive-optimizations -funroll-loops -fstrength-reduce -Wall -fno-automatic -fno-silent  -ffortran-bounds-check -v
++OPT = -c -C -std=legacy -O -O3 -g -fexpensive-optimizations -funroll-loops -fno-automatic -fbounds-check -v -fPIC
++FC = gfortran
++LD = gfortran
+ TRAP = fpe.o
+ 
+ #  Linux gfortran
+ #  --------------
+-# OPT = -c -C -std=legacy -O  -O3 -g -fexpensive-optimizations -funroll-loops -fno-automatic -m32 -fbounds-check -v
++# OPT = -c -C -std=legacy -O  -O3 -g -fexpensive-optimizations -funroll-loops -fno-automatic  -fbounds-check -v
+ # FC = gfortran
+ # LD = gfortran
+ # TRAP = fpe.o
+@@ -57,8 +58,8 @@
+ ############################# libraries ################################
+ 
+ # LIB = -L/cern/pro/lib -lpdflib -lmathlib -lpacklib -lkernlib
+-LIB = -L $(FLUPRO) -lflukahp
+-INC = -I$(FLUPRO)/flukapro
++#LIB = -L $(FLUPRO) -lflukahp
++#INC = -I$(FLUPRO)/flukapro
+ 
+ ########################################################################
+ 
+@@ -68,10 +69,13 @@
+ 	rm -f $(EXE) $(USER).o $(DPMJET).o $(PHOJET).o $(PYTHIA).o \
+               *.prj *.chk core
+ 
+-$(EXE): $(USER).o $(DPMJET).o $(PHOJET).o $(PYTHIA).o Makefile
++$(EXE): $(USER).o $(DPMJET).o $(PHOJET).o $(PYTHIA).o $(TRAP) Makefile
+ 
+-	$(LD) -o $(EXE) -m32 $(USER).o $(DPMJET).o $(PHOJET).o $(PYTHIA).o \
++	$(LD) -o $(EXE) $(USER).o $(DPMJET).o $(PHOJET).o $(PYTHIA).o \
+                         $(LIB) $(TRAP)
+ 
+ .f.o:
+ 	$(FC) -c $(OPT) $(INC) $<
++
++$(TRAP):
++	gcc fpe.c -Wall -g -c
+diff -ruN ./phojet1.12-35c4.f ../DPMJET__UPDATED/phojet1.12-35c4.f
+--- ./phojet1.12-35c4.f	2008-10-31 14:30:22.000000001 +0100
++++ ../DPMJET__UPDATED/phojet1.12-35c4.f	2023-05-17 17:05:45.000000001 +0200
+@@ -29872,7 +29872,10 @@
+ C  elastic/quasi-elastic scattering
+         IF(ISWMDL(13).EQ.0) THEN
+ C  external slope values
+-          PRINT LO,'PHO_DIFSLP:ERROR: this option is not installed !'
++Cms          PRINT LO,'PHO_DIFSLP:ERROR: this option is not installed !'
++          WRITE(LO,'(/1X,A,I2)')
++     &      'PHO_DIFSLP:ERROR: this option is not installed
++     &      !',ISWMDL(13)
+           CALL PHO_ABORT
+         ELSE IF(ISWMDL(13).EQ.1) THEN
+ C  model slopes

@@ -1,0 +1,5 @@
+import model sm-full
+generate p p > mu+ mu+ mu- vm /h z
+add process p p > mu+ mu- mu- vm~ /h z
+output ppW3MuNu_smfull
+

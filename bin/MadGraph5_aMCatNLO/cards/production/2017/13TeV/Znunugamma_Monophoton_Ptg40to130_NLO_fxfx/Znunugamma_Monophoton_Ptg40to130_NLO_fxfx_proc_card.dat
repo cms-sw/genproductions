@@ -1,0 +1,5 @@
+import model loop_sm-no_b_mass
+define nu = ve vm vt ve~ vm~ vt~
+generate p p > nu nu a [QCD] @0
+add process p p > nu nu j a [QCD] @1
+output Znunugamma_Monophoton_Ptg40to130_NLO_fxfx -nojpeg

@@ -1,0 +1,72 @@
+numevts NEVENTS    ! number of events to be generated
+
+hmass 130.d0      ! mass of the Higgs boson [GeV]
+hwidth 0.00407d0  ! width of the Higgs boson [GeV]
+hdamp 237.8775
+
+hdecaymode -1   ! -1 no decay
+                ! 0 all decay channels open
+                ! 1-6 d dbar, u ubar,..., t tbar
+                ! 7-9 e+ e-, mu+ mu-, tau+ tau-
+                ! 10  W+W-
+                ! 11  ZZ
+                ! 12  gamma gamma
+
+
+ih1   1           ! hadron 1 (1 for protons, -1 for antiprotons)
+ih2   1           ! hadron 2 (1 for protons, -1 for antiprotons)
+ebeam1 6800d0     ! energy of beam 1
+ebeam2 6800d0     ! energy of beam 2
+
+lhans1  325300      ! pdf set for hadron 1 (LHA numbering)
+lhans2  325300      ! pdf set for hadron 2 (LHA numbering)
+
+delta_mttmin 0d0 ! (default 0d0) if not zero, use generation cut on mtt
+
+use-old-grid    1 ! if 1 use old grid if file pwggrids.dat is present (<> 1 regenerate)
+use-old-ubound  1 ! if 1 use norm of upper bounding function stored in pwgubound.dat, if present; <> 1 regenerate
+
+ncall1  500000  ! number of calls for initializing the integration grid
+itmx1    2     ! number of iterations for initializing the integration grid
+ncall2  500000  ! Default 500000 number of calls for computing the integral and finding upper bound
+itmx2    1     ! number of iterations for computing the integral and finding upper bound
+foldcsi   1    ! number of folds on csi integration
+foldy      1    ! number of folds on  y  integration
+foldphi   1    ! number of folds on phi integration
+nubound 10000  ! number of bbarra calls to setup norm of upper bounding function
+icsimax  1     ! <= 100, number of csi subdivision when computing the upper bounds
+iymax    1     ! <= 100, number of y subdivision when computing the upper bounds
+xupbound 2d0   ! increase upper bound for radiation generation
+
+runningscales 1    ! default 0 (no running scales); 1: use running scales
+renscfact 1d0   ! (default 1d0) ren scale factor: muren  = muref * renscfact
+facscfact 1d0   ! (default 1d0) fac scale factor: mufact = muref * facscfact
+testplots  1       ! (default 0, do not) do NLO and PWHG distributions
+
+fakevirt   0      ! (default 0) if 1 use Born for virtuals
+
+iseed    SEED
+
+topdecaymode 22222      ! 0 stable tops
+                        ! 20000 both tops decay into b l v
+zerowidth 0         ! if 1, use zero width approximation during decay
+
+tdec/wmass 80.385  ! W mass for top decay
+tdec/wwidth 2.085
+tdec/bmass 4.8
+tdec/twidth  1.41
+tdec/elbranching 0.108 ! W electronic branching fraction
+tdec/emass 0.000548
+tdec/mumass 0.1057
+tdec/taumass 1.777
+tdec/dmass   0.100
+tdec/umass   0.100
+tdec/smass   0.200
+tdec/cmass   1.5
+tdec/sin2cabibbo 0.051
+
+
+pdfreweight 1       ! PDF reweighting
+dampreweight 1      ! h_damp reweighting (mt/2, mt, mt*2)
+storeinfo_rwgt 1    ! store weight information
+withnegweights 1    ! default 0,

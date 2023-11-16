@@ -5,6 +5,7 @@ from Configuration.Generator.Herwig7Settings.Herwig7PSWeightsSettings_cfi import
 generator = cms.EDFilter("Herwig7GeneratorFilter",
 herwig7LHECommonSettingsBlock,
 herwig7StableParticlesForDetectorBlock,
+herwig7p1SettingsFor7p2Block,
 herwig7PSWeightsSettingsBlock,
 herwig7CH3SettingsBlock,
 configFiles = cms.vstring(),

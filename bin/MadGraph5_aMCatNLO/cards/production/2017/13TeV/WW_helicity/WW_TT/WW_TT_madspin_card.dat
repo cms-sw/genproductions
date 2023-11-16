@@ -1,0 +1,23 @@
+#************************************************************
+#*                        MadSpin                           *
+#*                                                          *
+#*    P. Artoisenet, R. Frederix, R. Rietkerk, O. Mattelaer * 
+#*                                                          *
+#*    Part of the MadGraph5_aMC@NLO Framework:              *
+#*    The MadGraph5_aMC@NLO Development Team - Find us at   *
+#*    https://server06.fynu.ucl.ac.be/projects/madgraph     *
+#*                                                          *
+#*    Manual:                                               *
+#*    cp3.irmp.ucl.ac.be/projects/madgraph/wiki/MadSpin     *
+#*                                                          *
+#************************************************************
+
+set ms_dir ./madspingrid
+
+set max_weight_ps_point 400  # number of PS to estimate the maximum for each event
+
+# specify the decay for the final state particles
+decay w+ > l+ vl
+decay w- > l- vl~
+# running the actual code
+launch

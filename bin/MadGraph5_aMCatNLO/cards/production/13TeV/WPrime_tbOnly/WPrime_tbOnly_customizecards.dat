@@ -1,0 +1,6 @@
+set param_card MASS 34 {mass}
+set param_card WPRIMECOUPLINGS 1 {couplinggq}
+set param_card WPRIMECOUPLINGS 2 {couplinggq}
+set param_card WPRIMECOUPLINGS 3 0
+set param_card WPRIMECOUPLINGS 4 {couplinggtau}
+set param_card DECAY 34 Auto
