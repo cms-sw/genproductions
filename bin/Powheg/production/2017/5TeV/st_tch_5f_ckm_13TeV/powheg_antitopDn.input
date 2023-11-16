@@ -1,7 +1,7 @@
 ! ST-tchannel inputs
 
 withdamp       1
-hdamp down: 150.7305 ! 0.8738 x mtop
+hdamp 150.7305 ! 0.8738 x mtop
 
 renscfact  1d0    ! (default 1d0) ren scale factor: muren  = muref * renscfact 
 facscfact  1d0    ! (default 1d0) fac scale factor: mufact = muref * facscfact 
