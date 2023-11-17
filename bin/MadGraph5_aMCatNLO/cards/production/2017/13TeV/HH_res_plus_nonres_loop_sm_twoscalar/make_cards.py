@@ -96,7 +96,8 @@ launch --rwgt_name=box_and_schannel_H_2_$postfix\n\
   set decay 99925 $W\n\n'
 
     for w in widths:
-        reweight_out_string += width_dep_string.replace('$W', '%g' % (float(mass)*w))
+        postfix = ('RelWidth_%g' % (w)).replace('.','p')
+        reweight_out_string += width_dep_string.replace('$W', '%g' % (float(mass)*w)).replace('$postfix', postfix)
 
     with open(out_name+'_reweight_card.dat', "w") as reweightcard_file:
         reweightcard_file.write(reweight_out_string)
