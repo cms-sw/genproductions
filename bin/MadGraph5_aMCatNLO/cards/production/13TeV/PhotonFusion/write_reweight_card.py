@@ -34,11 +34,13 @@ with open(outfile, 'w') as f:
     f.write('\n')
     f.write('launch --rwgt_name=dummy\n')
     f.write('\n')
-    for coupling in couplings:
-      model_params = couplings[coupling][1]
-      for val in couplings[coupling][0]:
-        f.write('launch --rwgt_name=%s_%s\n'%(coupling,GetName(val)))
-        f.write('set param_card %s %s %1.5e\n'%(model_params[0],model_params[1],val))
+    for sel_coupling in couplings:
+      model_params = couplings[sel_coupling][1]
+      for val in couplings[sel_coupling][0]:
+        f.write('launch --rwgt_name=%s_%s\n'%(sel_coupling,GetName(val)))
+        for coupling in couplings:
+          if coupling==sel_coupling: f.write('set param_card %s %s %1.5e\n'%(model_params[0],model_params[1],val))
+          else: f.write('set param_card %s %s %1.5e\n'%(couplings[coupling][1][0],couplings[coupling][1][1],0))
         f.write('set param_card mass 15 1.777\n')
         f.write('\n')
       f.write('\n')

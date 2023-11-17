@@ -7,810 +7,1012 @@ launch --rwgt_name=dummy
 
 launch --rwgt_name=ceBRe_m40p0
 set param_card smeft ceBRe33 -4.00000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_m39p2
 set param_card smeft ceBRe33 -3.92000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_m38p4
 set param_card smeft ceBRe33 -3.84000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_m37p6
 set param_card smeft ceBRe33 -3.76000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_m36p8
 set param_card smeft ceBRe33 -3.68000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_m36p0
 set param_card smeft ceBRe33 -3.60000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_m35p2
 set param_card smeft ceBRe33 -3.52000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_m34p4
 set param_card smeft ceBRe33 -3.44000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_m33p6
 set param_card smeft ceBRe33 -3.36000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_m32p8
 set param_card smeft ceBRe33 -3.28000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_m32p0
 set param_card smeft ceBRe33 -3.20000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_m31p2
 set param_card smeft ceBRe33 -3.12000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_m30p4
 set param_card smeft ceBRe33 -3.04000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_m29p6
 set param_card smeft ceBRe33 -2.96000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_m28p8
 set param_card smeft ceBRe33 -2.88000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_m28p0
 set param_card smeft ceBRe33 -2.80000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_m27p2
 set param_card smeft ceBRe33 -2.72000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_m26p4
 set param_card smeft ceBRe33 -2.64000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_m25p6
 set param_card smeft ceBRe33 -2.56000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_m24p8
 set param_card smeft ceBRe33 -2.48000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_m24p0
 set param_card smeft ceBRe33 -2.40000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_m23p2
 set param_card smeft ceBRe33 -2.32000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_m22p4
 set param_card smeft ceBRe33 -2.24000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_m21p6
 set param_card smeft ceBRe33 -2.16000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_m20p8
 set param_card smeft ceBRe33 -2.08000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_m20p0
 set param_card smeft ceBRe33 -2.00000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_m19p2
 set param_card smeft ceBRe33 -1.92000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_m18p4
 set param_card smeft ceBRe33 -1.84000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_m17p6
 set param_card smeft ceBRe33 -1.76000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_m16p8
 set param_card smeft ceBRe33 -1.68000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_m16p0
 set param_card smeft ceBRe33 -1.60000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_m15p2
 set param_card smeft ceBRe33 -1.52000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_m14p4
 set param_card smeft ceBRe33 -1.44000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_m13p6
 set param_card smeft ceBRe33 -1.36000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_m12p8
 set param_card smeft ceBRe33 -1.28000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_m12p0
 set param_card smeft ceBRe33 -1.20000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_m11p2
 set param_card smeft ceBRe33 -1.12000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_m10p4
 set param_card smeft ceBRe33 -1.04000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_m9p6
 set param_card smeft ceBRe33 -9.60000e+00
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_m8p8
 set param_card smeft ceBRe33 -8.80000e+00
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_m8p0
 set param_card smeft ceBRe33 -8.00000e+00
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_m7p2
 set param_card smeft ceBRe33 -7.20000e+00
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_m6p4
 set param_card smeft ceBRe33 -6.40000e+00
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_m5p6
 set param_card smeft ceBRe33 -5.60000e+00
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_m4p8
 set param_card smeft ceBRe33 -4.80000e+00
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_m4p0
 set param_card smeft ceBRe33 -4.00000e+00
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_m3p2
 set param_card smeft ceBRe33 -3.20000e+00
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_m2p4
 set param_card smeft ceBRe33 -2.40000e+00
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_m1p6
 set param_card smeft ceBRe33 -1.60000e+00
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_m0p8
 set param_card smeft ceBRe33 -8.00000e-01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_0p0
 set param_card smeft ceBRe33 0.00000e+00
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_0p8
 set param_card smeft ceBRe33 8.00000e-01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_1p6
 set param_card smeft ceBRe33 1.60000e+00
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_2p4
 set param_card smeft ceBRe33 2.40000e+00
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_3p2
 set param_card smeft ceBRe33 3.20000e+00
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_4p0
 set param_card smeft ceBRe33 4.00000e+00
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_4p8
 set param_card smeft ceBRe33 4.80000e+00
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_5p6
 set param_card smeft ceBRe33 5.60000e+00
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_6p4
 set param_card smeft ceBRe33 6.40000e+00
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_7p2
 set param_card smeft ceBRe33 7.20000e+00
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_8p0
 set param_card smeft ceBRe33 8.00000e+00
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_8p8
 set param_card smeft ceBRe33 8.80000e+00
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_9p6
 set param_card smeft ceBRe33 9.60000e+00
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_10p4
 set param_card smeft ceBRe33 1.04000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_11p2
 set param_card smeft ceBRe33 1.12000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_12p0
 set param_card smeft ceBRe33 1.20000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_12p8
 set param_card smeft ceBRe33 1.28000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_13p6
 set param_card smeft ceBRe33 1.36000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_14p4
 set param_card smeft ceBRe33 1.44000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_15p2
 set param_card smeft ceBRe33 1.52000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_16p0
 set param_card smeft ceBRe33 1.60000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_16p8
 set param_card smeft ceBRe33 1.68000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_17p6
 set param_card smeft ceBRe33 1.76000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_18p4
 set param_card smeft ceBRe33 1.84000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_19p2
 set param_card smeft ceBRe33 1.92000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_20p0
 set param_card smeft ceBRe33 2.00000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_20p8
 set param_card smeft ceBRe33 2.08000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_21p6
 set param_card smeft ceBRe33 2.16000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_22p4
 set param_card smeft ceBRe33 2.24000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_23p2
 set param_card smeft ceBRe33 2.32000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_24p0
 set param_card smeft ceBRe33 2.40000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_24p8
 set param_card smeft ceBRe33 2.48000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_25p6
 set param_card smeft ceBRe33 2.56000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_26p4
 set param_card smeft ceBRe33 2.64000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_27p2
 set param_card smeft ceBRe33 2.72000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_28p0
 set param_card smeft ceBRe33 2.80000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_28p8
 set param_card smeft ceBRe33 2.88000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_29p6
 set param_card smeft ceBRe33 2.96000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_30p4
 set param_card smeft ceBRe33 3.04000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_31p2
 set param_card smeft ceBRe33 3.12000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_32p0
 set param_card smeft ceBRe33 3.20000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_32p8
 set param_card smeft ceBRe33 3.28000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_33p6
 set param_card smeft ceBRe33 3.36000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_34p4
 set param_card smeft ceBRe33 3.44000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_35p2
 set param_card smeft ceBRe33 3.52000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_36p0
 set param_card smeft ceBRe33 3.60000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_36p8
 set param_card smeft ceBRe33 3.68000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_37p6
 set param_card smeft ceBRe33 3.76000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_38p4
 set param_card smeft ceBRe33 3.84000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_39p2
 set param_card smeft ceBRe33 3.92000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBRe_40p0
 set param_card smeft ceBRe33 4.00000e+01
+set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 
 launch --rwgt_name=ceBIm_m40p0
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 -4.00000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_m39p2
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 -3.92000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_m38p4
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 -3.84000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_m37p6
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 -3.76000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_m36p8
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 -3.68000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_m36p0
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 -3.60000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_m35p2
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 -3.52000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_m34p4
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 -3.44000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_m33p6
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 -3.36000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_m32p8
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 -3.28000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_m32p0
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 -3.20000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_m31p2
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 -3.12000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_m30p4
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 -3.04000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_m29p6
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 -2.96000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_m28p8
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 -2.88000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_m28p0
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 -2.80000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_m27p2
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 -2.72000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_m26p4
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 -2.64000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_m25p6
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 -2.56000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_m24p8
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 -2.48000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_m24p0
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 -2.40000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_m23p2
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 -2.32000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_m22p4
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 -2.24000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_m21p6
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 -2.16000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_m20p8
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 -2.08000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_m20p0
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 -2.00000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_m19p2
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 -1.92000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_m18p4
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 -1.84000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_m17p6
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 -1.76000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_m16p8
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 -1.68000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_m16p0
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 -1.60000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_m15p2
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 -1.52000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_m14p4
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 -1.44000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_m13p6
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 -1.36000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_m12p8
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 -1.28000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_m12p0
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 -1.20000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_m11p2
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 -1.12000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_m10p4
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 -1.04000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_m9p6
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 -9.60000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_m8p8
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 -8.80000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_m8p0
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 -8.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_m7p2
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 -7.20000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_m6p4
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 -6.40000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_m5p6
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 -5.60000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_m4p8
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 -4.80000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_m4p0
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 -4.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_m3p2
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 -3.20000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_m2p4
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 -2.40000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_m1p6
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 -1.60000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_m0p8
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 -8.00000e-01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_0p0
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 0.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_0p8
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 8.00000e-01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_1p6
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 1.60000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_2p4
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 2.40000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_3p2
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 3.20000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_4p0
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 4.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_4p8
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 4.80000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_5p6
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 5.60000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_6p4
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 6.40000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_7p2
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 7.20000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_8p0
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 8.00000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_8p8
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 8.80000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_9p6
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 9.60000e+00
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_10p4
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 1.04000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_11p2
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 1.12000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_12p0
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 1.20000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_12p8
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 1.28000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_13p6
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 1.36000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_14p4
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 1.44000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_15p2
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 1.52000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_16p0
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 1.60000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_16p8
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 1.68000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_17p6
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 1.76000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_18p4
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 1.84000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_19p2
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 1.92000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_20p0
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 2.00000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_20p8
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 2.08000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_21p6
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 2.16000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_22p4
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 2.24000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_23p2
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 2.32000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_24p0
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 2.40000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_24p8
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 2.48000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_25p6
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 2.56000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_26p4
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 2.64000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_27p2
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 2.72000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_28p0
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 2.80000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_28p8
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 2.88000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_29p6
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 2.96000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_30p4
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 3.04000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_31p2
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 3.12000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_32p0
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 3.20000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_32p8
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 3.28000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_33p6
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 3.36000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_34p4
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 3.44000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_35p2
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 3.52000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_36p0
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 3.60000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_36p8
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 3.68000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_37p6
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 3.76000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_38p4
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 3.84000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_39p2
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 3.92000e+01
 set param_card mass 15 1.777
 
 launch --rwgt_name=ceBIm_40p0
+set param_card smeft ceBRe33 0.00000e+00
 set param_card smeftcpv ceBIm33 4.00000e+01
 set param_card mass 15 1.777
 
