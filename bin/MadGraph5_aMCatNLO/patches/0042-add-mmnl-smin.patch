@@ -1,14 +1,14 @@
 diff --git a/Template/LO/SubProcesses/setcuts.f b/Template/LO/SubProcesses/setcuts.f_
-index e266268..9747f5c 100644
+index e266268..7be0f63 100644
 --- a/Template/LO/SubProcesses/setcuts.f
-+++ b/Template/LO/SubProcesses/setcuts.f
++++ b/Template/LO/SubProcesses/setcuts.f_
 @@ -406,7 +406,32 @@ c
       &            s_max(j,i)=mmllmax*dabs(mmllmax)  !only on l+l- pairs (same flavour)
              endif
           enddo
 -      enddo      
-+      enddo     
 +      enddo
++
 +c     detect if mmnl is used for exactly 2 lepton
 +      if (mmnl.ne.0.or.mmnlmax.ne.-1)then
 +          ncheck = 0
