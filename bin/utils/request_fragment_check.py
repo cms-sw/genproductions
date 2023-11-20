@@ -341,6 +341,12 @@ def evtgen_check(fragment):
 def run3_checks(fragment,dn,pi):
     err = []
     fragment = fragment.replace(" ","")
+    run3_checks_exception_list = [
+        "TSG-Run3Summer23BPixGS-00007", 
+        "TSG-Run3Summer23BPixGS-00043", 
+        "TSG-Run3Summer23BPixGS-00044", 
+        "TSG-Run3Summer23BPixGS-00045"
+    ]
     print("======> Run3 Fragment and dataset name checks:")
     if "comEnergy" in fragment:
         comline = re.findall('comEnergy=\S+',fragment)
@@ -348,7 +354,7 @@ def run3_checks(fragment,dn,pi):
             err.append("The c.o.m. energy is not specified as 13600 GeV in the fragment."+comline[0])
         if "run3winter21" in pi.lower() and "14000" not in comline[0]: 
             err.append("The c.o.m. energy is not specified as 14000 GeV in the fragment"+comline[0])
-    if ("run3winter22" in pi.lower() or "summer2" in pi.lower()) and ("FlatRandomEGunProducer" not in fragment and "FlatRandomPtGunProducer" not in fragment and "Pythia8EGun" not in fragment and "13p6TeV" not in dn):
+    if ("run3winter22" in pi.lower() or "summer2" in pi.lower()) and ("FlatRandomEGunProducer" not in fragment and "FlatRandomPtGunProducer" not in fragment and "Pythia8EGun" not in fragment and "13p6TeV" not in dn and pi not in run3_checks_exception_list):
         err.append("The data set name does not contain 13p6TeV for this Run3 request")
     if "run3winter21" in pi.lower() and ("FlatRandomEGunProducer" not in fragment and "FlatRandomPtGunProducer" not in fragment and "Pythia8EGun" not in fragment and "14TeV" not in dn):
         err.append("The data set name does not contain 14TeV for this Run3 request")
@@ -450,6 +456,8 @@ if args.ticket is not None:
     prepid = []
     for rr in root_requests_from_ticket(ticket):
         if 'GS' in rr or 'wmLHE' in rr or 'pLHE' in rr or 'FS' in rr: prepid.append(rr)
+
+
 
 prepid = list(set(prepid)) #to avoid requests appearing x times if x chains have the same request
 print("Current date and time: %s" % (datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
