@@ -11,7 +11,7 @@ args = parser.parse_args()
 
 def WriteExtraModelsCard(out_name):
     with open(out_name+'_extramodels.dat', "w") as extramodels_file:
-        extramodels_file.write('loop_sm_twoscalar.tgz')
+        extramodels_file.write('loop_sm_twoscalar.tar.gz')
 
 def WriteRunCard(out_name):
     os.system('cp run_card_template.dat %s_run_card.dat' % out_name)
@@ -29,6 +29,7 @@ def WriteCustomizeCard(out_name, out_str):
 
 def WriteReweightCard(out_name, mass, non_res_only=False, widths=[0.001,0.01,0.02,0.03,0.04,0.05,0.06,0.07,0.08,0.09,0.1,0.11,0.12,0.13,0.14,0.15,0.16]):
     reweight_out_string='\
+change rwgt_dir ./rwgt\n\
 change process p p > h h [QCD] / iota0\n\
 \n\
 launch --rwgt_name=box\n\
@@ -139,17 +140,19 @@ for m in masses:
     for w in widths:
         ca = 1./math.sqrt(2)
         customizecards_base_file = open("customizecards_template.dat","r")
-        res_customizecards = customizecards_base_file.read().replace('$Weta0','%g' % (w*m)).replace('$Meta0','%g' % m).replace('$A12','%.6f' % 0.785398).replace('$KAP111','31.803878252')
+        res_customizecards = customizecards_base_file.read().replace('$Weta0','%g' % (w*m)).replace('$Meta0','%g' % m).replace('$KAP111','31.803878252')
         for x in ['SChan_eta0', 'BOX_SChan_eta0_inteference', 'SChan_h_SChan_eta0_inteference']:
             out_name = ('%s_M_%g_RelWidth_%g' % (x,m,w)).replace('.','p')
 
-            # for the non-resonant case we have to set A12 to an non-zero value to ensure we have non-zero Yukawas for both scalars. 
+            # for resonant s-channel we set A12 to pi/2 to give Yukawas equal to SM values
+            # for the inteference terms we will require A12 != 0 or pi/2 to have non-zero Yukawas for both the h and the eta0
             # We set this to pi/4, which effectivly means that the Yukawas for both scalars equal 1/sqrt(2) * the SM value
             # To make sure we end up with cross-sections that correspond to kappa=1 (Yukawas = SM value and lambda_hhh and lambda_Hhh equal SM lambda_hhh) we scale KAP112 to compensate for the smaller Yukawa values
             # the sf will be different for each component as they include depend on different orders of the yukawa couplings
-            if x == 'SChan_eta0' or x == 'SChan_h_SChan_eta0_inteference': sf = 1./ca**2
+            if x == 'SChan_eta0': sf = 1.
+            elif x == 'SChan_h_SChan_eta0_inteference': sf = 1./ca**2
             elif x == 'BOX_SChan_eta0_inteference': sf = 1./ca**3
-            res_customizecards_out = res_customizecards.replace('$Weta0','%g' % (w*m)).replace('$KAP112', '%.9f' % (31.803878252*sf))
+            res_customizecards_out = res_customizecards.replace('$Weta0','%g' % (w*m)).replace('$KAP112', '%.9f' % (31.803878252*sf)).replace('$A12','%.6f' % (1.570796 if x == 'SChan_eta0' else 0.785398))
             os.system('mkdir -p HH_loop_sm_twoscalar_%s' % out_name)
 
             if x == 'SChan_eta0': extra = '/ h iota0 LAM112^2==2'

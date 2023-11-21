@@ -1,0 +1,431 @@
+change rwgt_dir ./rwgt
+change process p p > h h [QCD] / iota0
+
+launch --rwgt_name=box
+  set bsm 6 0.785398
+  set bsm 15 0.000000e+00
+  set bsm 16 0.000000e+00
+
+launch --rwgt_name=box_and_schannel_h_1
+  set bsm 6 0.785398
+  set bsm 15 31.803878252
+  set bsm 16 0.000000e+00
+
+launch --rwgt_name=box_and_schannel_h_2
+  set bsm 6 0.785398
+  set bsm 15 318.03878252
+  set bsm 16 0.000000e+00
+
+launch --rwgt_name=all
+  set bsm 6 0.785398
+  set bsm 15 31.803878252
+  set bsm 16 31.803878252
+
+launch --rwgt_name=all_RelWidth_0p001
+  set bsm 6 0.785398
+  set bsm 15 31.803878252
+  set bsm 16 31.803878252
+  set decay 99925 0.6
+
+launch --rwgt_name=schannel_H_RelWidth_0p001
+  set bsm 6 1.570796
+  set bsm 15 0.000000e+00
+  set bsm 16 31.803878252
+  set decay 99925 0.6
+
+launch --rwgt_name=box_and_schannel_H_1_RelWidth_0p001
+  set bsm 6 0.785398
+  set bsm 15 0.000000e+00
+  set bsm 16 31.803878252
+  set decay 99925 0.6
+
+launch --rwgt_name=box_and_schannel_H_2_RelWidth_0p001
+  set bsm 6 0.785398
+  set bsm 15 0.000000e+00
+  set bsm 16 318.03878252
+  set decay 99925 0.6
+
+launch --rwgt_name=all_RelWidth_0p01
+  set bsm 6 0.785398
+  set bsm 15 31.803878252
+  set bsm 16 31.803878252
+  set decay 99925 6
+
+launch --rwgt_name=schannel_H_RelWidth_0p01
+  set bsm 6 1.570796
+  set bsm 15 0.000000e+00
+  set bsm 16 31.803878252
+  set decay 99925 6
+
+launch --rwgt_name=box_and_schannel_H_1_RelWidth_0p01
+  set bsm 6 0.785398
+  set bsm 15 0.000000e+00
+  set bsm 16 31.803878252
+  set decay 99925 6
+
+launch --rwgt_name=box_and_schannel_H_2_RelWidth_0p01
+  set bsm 6 0.785398
+  set bsm 15 0.000000e+00
+  set bsm 16 318.03878252
+  set decay 99925 6
+
+launch --rwgt_name=all_RelWidth_0p02
+  set bsm 6 0.785398
+  set bsm 15 31.803878252
+  set bsm 16 31.803878252
+  set decay 99925 12
+
+launch --rwgt_name=schannel_H_RelWidth_0p02
+  set bsm 6 1.570796
+  set bsm 15 0.000000e+00
+  set bsm 16 31.803878252
+  set decay 99925 12
+
+launch --rwgt_name=box_and_schannel_H_1_RelWidth_0p02
+  set bsm 6 0.785398
+  set bsm 15 0.000000e+00
+  set bsm 16 31.803878252
+  set decay 99925 12
+
+launch --rwgt_name=box_and_schannel_H_2_RelWidth_0p02
+  set bsm 6 0.785398
+  set bsm 15 0.000000e+00
+  set bsm 16 318.03878252
+  set decay 99925 12
+
+launch --rwgt_name=all_RelWidth_0p03
+  set bsm 6 0.785398
+  set bsm 15 31.803878252
+  set bsm 16 31.803878252
+  set decay 99925 18
+
+launch --rwgt_name=schannel_H_RelWidth_0p03
+  set bsm 6 1.570796
+  set bsm 15 0.000000e+00
+  set bsm 16 31.803878252
+  set decay 99925 18
+
+launch --rwgt_name=box_and_schannel_H_1_RelWidth_0p03
+  set bsm 6 0.785398
+  set bsm 15 0.000000e+00
+  set bsm 16 31.803878252
+  set decay 99925 18
+
+launch --rwgt_name=box_and_schannel_H_2_RelWidth_0p03
+  set bsm 6 0.785398
+  set bsm 15 0.000000e+00
+  set bsm 16 318.03878252
+  set decay 99925 18
+
+launch --rwgt_name=all_RelWidth_0p04
+  set bsm 6 0.785398
+  set bsm 15 31.803878252
+  set bsm 16 31.803878252
+  set decay 99925 24
+
+launch --rwgt_name=schannel_H_RelWidth_0p04
+  set bsm 6 1.570796
+  set bsm 15 0.000000e+00
+  set bsm 16 31.803878252
+  set decay 99925 24
+
+launch --rwgt_name=box_and_schannel_H_1_RelWidth_0p04
+  set bsm 6 0.785398
+  set bsm 15 0.000000e+00
+  set bsm 16 31.803878252
+  set decay 99925 24
+
+launch --rwgt_name=box_and_schannel_H_2_RelWidth_0p04
+  set bsm 6 0.785398
+  set bsm 15 0.000000e+00
+  set bsm 16 318.03878252
+  set decay 99925 24
+
+launch --rwgt_name=all_RelWidth_0p05
+  set bsm 6 0.785398
+  set bsm 15 31.803878252
+  set bsm 16 31.803878252
+  set decay 99925 30
+
+launch --rwgt_name=schannel_H_RelWidth_0p05
+  set bsm 6 1.570796
+  set bsm 15 0.000000e+00
+  set bsm 16 31.803878252
+  set decay 99925 30
+
+launch --rwgt_name=box_and_schannel_H_1_RelWidth_0p05
+  set bsm 6 0.785398
+  set bsm 15 0.000000e+00
+  set bsm 16 31.803878252
+  set decay 99925 30
+
+launch --rwgt_name=box_and_schannel_H_2_RelWidth_0p05
+  set bsm 6 0.785398
+  set bsm 15 0.000000e+00
+  set bsm 16 318.03878252
+  set decay 99925 30
+
+launch --rwgt_name=all_RelWidth_0p06
+  set bsm 6 0.785398
+  set bsm 15 31.803878252
+  set bsm 16 31.803878252
+  set decay 99925 36
+
+launch --rwgt_name=schannel_H_RelWidth_0p06
+  set bsm 6 1.570796
+  set bsm 15 0.000000e+00
+  set bsm 16 31.803878252
+  set decay 99925 36
+
+launch --rwgt_name=box_and_schannel_H_1_RelWidth_0p06
+  set bsm 6 0.785398
+  set bsm 15 0.000000e+00
+  set bsm 16 31.803878252
+  set decay 99925 36
+
+launch --rwgt_name=box_and_schannel_H_2_RelWidth_0p06
+  set bsm 6 0.785398
+  set bsm 15 0.000000e+00
+  set bsm 16 318.03878252
+  set decay 99925 36
+
+launch --rwgt_name=all_RelWidth_0p07
+  set bsm 6 0.785398
+  set bsm 15 31.803878252
+  set bsm 16 31.803878252
+  set decay 99925 42
+
+launch --rwgt_name=schannel_H_RelWidth_0p07
+  set bsm 6 1.570796
+  set bsm 15 0.000000e+00
+  set bsm 16 31.803878252
+  set decay 99925 42
+
+launch --rwgt_name=box_and_schannel_H_1_RelWidth_0p07
+  set bsm 6 0.785398
+  set bsm 15 0.000000e+00
+  set bsm 16 31.803878252
+  set decay 99925 42
+
+launch --rwgt_name=box_and_schannel_H_2_RelWidth_0p07
+  set bsm 6 0.785398
+  set bsm 15 0.000000e+00
+  set bsm 16 318.03878252
+  set decay 99925 42
+
+launch --rwgt_name=all_RelWidth_0p08
+  set bsm 6 0.785398
+  set bsm 15 31.803878252
+  set bsm 16 31.803878252
+  set decay 99925 48
+
+launch --rwgt_name=schannel_H_RelWidth_0p08
+  set bsm 6 1.570796
+  set bsm 15 0.000000e+00
+  set bsm 16 31.803878252
+  set decay 99925 48
+
+launch --rwgt_name=box_and_schannel_H_1_RelWidth_0p08
+  set bsm 6 0.785398
+  set bsm 15 0.000000e+00
+  set bsm 16 31.803878252
+  set decay 99925 48
+
+launch --rwgt_name=box_and_schannel_H_2_RelWidth_0p08
+  set bsm 6 0.785398
+  set bsm 15 0.000000e+00
+  set bsm 16 318.03878252
+  set decay 99925 48
+
+launch --rwgt_name=all_RelWidth_0p09
+  set bsm 6 0.785398
+  set bsm 15 31.803878252
+  set bsm 16 31.803878252
+  set decay 99925 54
+
+launch --rwgt_name=schannel_H_RelWidth_0p09
+  set bsm 6 1.570796
+  set bsm 15 0.000000e+00
+  set bsm 16 31.803878252
+  set decay 99925 54
+
+launch --rwgt_name=box_and_schannel_H_1_RelWidth_0p09
+  set bsm 6 0.785398
+  set bsm 15 0.000000e+00
+  set bsm 16 31.803878252
+  set decay 99925 54
+
+launch --rwgt_name=box_and_schannel_H_2_RelWidth_0p09
+  set bsm 6 0.785398
+  set bsm 15 0.000000e+00
+  set bsm 16 318.03878252
+  set decay 99925 54
+
+launch --rwgt_name=all_RelWidth_0p1
+  set bsm 6 0.785398
+  set bsm 15 31.803878252
+  set bsm 16 31.803878252
+  set decay 99925 60
+
+launch --rwgt_name=schannel_H_RelWidth_0p1
+  set bsm 6 1.570796
+  set bsm 15 0.000000e+00
+  set bsm 16 31.803878252
+  set decay 99925 60
+
+launch --rwgt_name=box_and_schannel_H_1_RelWidth_0p1
+  set bsm 6 0.785398
+  set bsm 15 0.000000e+00
+  set bsm 16 31.803878252
+  set decay 99925 60
+
+launch --rwgt_name=box_and_schannel_H_2_RelWidth_0p1
+  set bsm 6 0.785398
+  set bsm 15 0.000000e+00
+  set bsm 16 318.03878252
+  set decay 99925 60
+
+launch --rwgt_name=all_RelWidth_0p11
+  set bsm 6 0.785398
+  set bsm 15 31.803878252
+  set bsm 16 31.803878252
+  set decay 99925 66
+
+launch --rwgt_name=schannel_H_RelWidth_0p11
+  set bsm 6 1.570796
+  set bsm 15 0.000000e+00
+  set bsm 16 31.803878252
+  set decay 99925 66
+
+launch --rwgt_name=box_and_schannel_H_1_RelWidth_0p11
+  set bsm 6 0.785398
+  set bsm 15 0.000000e+00
+  set bsm 16 31.803878252
+  set decay 99925 66
+
+launch --rwgt_name=box_and_schannel_H_2_RelWidth_0p11
+  set bsm 6 0.785398
+  set bsm 15 0.000000e+00
+  set bsm 16 318.03878252
+  set decay 99925 66
+
+launch --rwgt_name=all_RelWidth_0p12
+  set bsm 6 0.785398
+  set bsm 15 31.803878252
+  set bsm 16 31.803878252
+  set decay 99925 72
+
+launch --rwgt_name=schannel_H_RelWidth_0p12
+  set bsm 6 1.570796
+  set bsm 15 0.000000e+00
+  set bsm 16 31.803878252
+  set decay 99925 72
+
+launch --rwgt_name=box_and_schannel_H_1_RelWidth_0p12
+  set bsm 6 0.785398
+  set bsm 15 0.000000e+00
+  set bsm 16 31.803878252
+  set decay 99925 72
+
+launch --rwgt_name=box_and_schannel_H_2_RelWidth_0p12
+  set bsm 6 0.785398
+  set bsm 15 0.000000e+00
+  set bsm 16 318.03878252
+  set decay 99925 72
+
+launch --rwgt_name=all_RelWidth_0p13
+  set bsm 6 0.785398
+  set bsm 15 31.803878252
+  set bsm 16 31.803878252
+  set decay 99925 78
+
+launch --rwgt_name=schannel_H_RelWidth_0p13
+  set bsm 6 1.570796
+  set bsm 15 0.000000e+00
+  set bsm 16 31.803878252
+  set decay 99925 78
+
+launch --rwgt_name=box_and_schannel_H_1_RelWidth_0p13
+  set bsm 6 0.785398
+  set bsm 15 0.000000e+00
+  set bsm 16 31.803878252
+  set decay 99925 78
+
+launch --rwgt_name=box_and_schannel_H_2_RelWidth_0p13
+  set bsm 6 0.785398
+  set bsm 15 0.000000e+00
+  set bsm 16 318.03878252
+  set decay 99925 78
+
+launch --rwgt_name=all_RelWidth_0p14
+  set bsm 6 0.785398
+  set bsm 15 31.803878252
+  set bsm 16 31.803878252
+  set decay 99925 84
+
+launch --rwgt_name=schannel_H_RelWidth_0p14
+  set bsm 6 1.570796
+  set bsm 15 0.000000e+00
+  set bsm 16 31.803878252
+  set decay 99925 84
+
+launch --rwgt_name=box_and_schannel_H_1_RelWidth_0p14
+  set bsm 6 0.785398
+  set bsm 15 0.000000e+00
+  set bsm 16 31.803878252
+  set decay 99925 84
+
+launch --rwgt_name=box_and_schannel_H_2_RelWidth_0p14
+  set bsm 6 0.785398
+  set bsm 15 0.000000e+00
+  set bsm 16 318.03878252
+  set decay 99925 84
+
+launch --rwgt_name=all_RelWidth_0p15
+  set bsm 6 0.785398
+  set bsm 15 31.803878252
+  set bsm 16 31.803878252
+  set decay 99925 90
+
+launch --rwgt_name=schannel_H_RelWidth_0p15
+  set bsm 6 1.570796
+  set bsm 15 0.000000e+00
+  set bsm 16 31.803878252
+  set decay 99925 90
+
+launch --rwgt_name=box_and_schannel_H_1_RelWidth_0p15
+  set bsm 6 0.785398
+  set bsm 15 0.000000e+00
+  set bsm 16 31.803878252
+  set decay 99925 90
+
+launch --rwgt_name=box_and_schannel_H_2_RelWidth_0p15
+  set bsm 6 0.785398
+  set bsm 15 0.000000e+00
+  set bsm 16 318.03878252
+  set decay 99925 90
+
+launch --rwgt_name=all_RelWidth_0p16
+  set bsm 6 0.785398
+  set bsm 15 31.803878252
+  set bsm 16 31.803878252
+  set decay 99925 96
+
+launch --rwgt_name=schannel_H_RelWidth_0p16
+  set bsm 6 1.570796
+  set bsm 15 0.000000e+00
+  set bsm 16 31.803878252
+  set decay 99925 96
+
+launch --rwgt_name=box_and_schannel_H_1_RelWidth_0p16
+  set bsm 6 0.785398
+  set bsm 15 0.000000e+00
+  set bsm 16 31.803878252
+  set decay 99925 96
+
+launch --rwgt_name=box_and_schannel_H_2_RelWidth_0p16
+  set bsm 6 0.785398
+  set bsm 15 0.000000e+00
+  set bsm 16 318.03878252
+  set decay 99925 96
+
