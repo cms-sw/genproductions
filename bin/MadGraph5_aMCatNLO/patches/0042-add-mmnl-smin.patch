@@ -1,4 +1,4 @@
-diff --git a/Template/LO/SubProcesses/setcuts.f b/Template/LO/SubProcesses/setcuts.f_
+diff --git a/Template/LO/SubProcesses/setcuts.f b/Template/LO/SubProcesses/setcuts.f
 index e266268..7be0f63 100644
 --- a/Template/LO/SubProcesses/setcuts.f
 +++ b/Template/LO/SubProcesses/setcuts.f
