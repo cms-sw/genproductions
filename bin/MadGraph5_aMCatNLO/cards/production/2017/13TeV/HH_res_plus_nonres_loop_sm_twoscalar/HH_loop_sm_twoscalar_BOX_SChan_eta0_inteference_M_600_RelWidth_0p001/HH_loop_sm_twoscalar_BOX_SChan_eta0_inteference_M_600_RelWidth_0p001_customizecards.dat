@@ -2,7 +2,7 @@ set param_card bsm  6 0.785398
 set param_card bsm  7 0.000000e-01 
 set param_card bsm  8 0.000000e-01 
 set param_card bsm 15 31.803878252 
-set param_card bsm 16 89.954951920 
+set param_card bsm 16 31.803878252 
 set param_card bsm 17 0.0 
 set param_card bsm 18 0.0 
 set param_card bsm 19 0.0323210144838 
