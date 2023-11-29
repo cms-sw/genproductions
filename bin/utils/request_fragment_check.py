@@ -99,6 +99,7 @@ def check_replace(runcmsgridfile):
     return error_check_replace 
 
 def slha_gp(gridpack_cvmfs_path,slha_flag):
+    slha_all_path = os.path.dirname(gridpack_eos_path)
     if slha_flag == 1:
         if "%i" in gridpack_cvmfs_path:
             gridpack_cvmfs_path = gridpack_cvmfs_path.replace("%i","*")
@@ -109,14 +110,13 @@ def slha_gp(gridpack_cvmfs_path,slha_flag):
         else:
             slha_flag = 0
         if slha_flag == 1:
-            slha_all_path = os.path.dirname(gridpack_eos_path)
             print("Directory: "+slha_all_path)
             list_gridpack_cvmfs_path = os.listdir(slha_all_path)[0]
             print(list_gridpack_cvmfs_path)
             gridpack_cvmfs_path = slha_all_path+'/'+list_gridpack_cvmfs_path
             print("SLHA request - checking single gridpack:")
             print(gridpack_cvmfs_path)
-        return gridpack_cvmfs_path, slha_all_path, slha_flag
+    return gridpack_cvmfs_path, slha_all_path, slha_flag
 
 
 def tunes_settings_check(dn,fragment,pi,sherpa_flag):
