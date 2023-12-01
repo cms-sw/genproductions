@@ -4,4 +4,4 @@ define l- = e- mu- ta-
 define vl = ve vm vt
 define vl~ = ve~ vm~ vt~
 generate a a > e+ e-
-output GGToElEl_Elastic_M_50GeV_TuneCP5_madgraphLO
+output GGToElEl_Elastic_M_50GeV_madgraphLO
