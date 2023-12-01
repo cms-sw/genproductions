@@ -4,4 +4,4 @@ define l- = e- mu- ta-
 define vl = ve vm vt
 define vl~ = ve~ vm~ vt~
 generate a a > h > ta+ ta- NP=0 SMHLOOP<=1
-output GGToHiggsToTauTau_Elastic_MH1000GeV_TuneCP5_madgraphLO
+output GGToScalarToTauTau_Elastic_MH1000GeV_madgraphLO
