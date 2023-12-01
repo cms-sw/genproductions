@@ -1,0 +1,5 @@
+set param_card mass 6 172.5
+set param_card mass 25 800.0
+set param_card yukawa 6 172.5
+set param_card mass 15 1.777
+set param_card smeftcutoff lambdasmeft 2.000000e+03

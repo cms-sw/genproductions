@@ -1,0 +1,7 @@
+import model SMEFTsim_top_MwScheme_UFO
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+generate a a > h > ta+ ta- NP=0 SMHLOOP<=1
+output GGToScalarToTauTau_Elastic_MH1200GeV_NWA_madgraphLO
