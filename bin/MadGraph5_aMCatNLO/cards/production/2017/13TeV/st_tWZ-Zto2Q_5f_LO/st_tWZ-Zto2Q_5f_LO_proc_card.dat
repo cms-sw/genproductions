@@ -7,4 +7,4 @@ define vl = ve vm vt
 define vl~ = ve~ vm~ vt~
 generate p p > t w- z $$ w+ w- /h @0
 add process p p > t~ w+ z $$ w+ w- /h @1
-output st_tWZ-Zto2Q_5f_LO-amcatnlo-pythia8
+output st_tWZ-Zto2Q_5f_LO
