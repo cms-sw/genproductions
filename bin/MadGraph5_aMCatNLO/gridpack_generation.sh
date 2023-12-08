@@ -702,6 +702,7 @@ jobstep=${4}
 
 # sync default cmssw with the current OS 
 export SYSTEM_RELEASE=`cat /etc/redhat-release`
+echo $SYSTEM_RELEASE
 
 # set scram_arch 
 if [ -n "$5" ]; then
