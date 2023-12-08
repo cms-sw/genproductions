@@ -711,6 +711,8 @@ else
         scram_arch=slc7_amd64_gcc10 
     elif [[ $SYSTEM_RELEASE == *"release 8"* ]]; then
         scram_arch=el8_amd64_gcc10
+    elif [[ $SYSTEM_RELEASE == *"release 9"* ]]; then
+        scram_arch=el9_amd64_gcc11
     else 
         echo "No default scram_arch for current OS!"
         if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi        
