@@ -728,6 +728,8 @@ else
         cmssw_version=CMSSW_12_4_8
     elif [[ $SYSTEM_RELEASE == *"release 8"* ]]; then
         cmssw_version=CMSSW_12_4_8
+    elif [[ $SYSTEM_RELEASE == *"release 9"* ]]; then
+	cmssw_version=CMSSW_13_2_9
     else 
         echo "No default CMSSW for current OS!"
         if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi        
