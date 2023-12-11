@@ -73,6 +73,7 @@ run_starlight(){
         ${LHEWORKDIR}/macros/convert_SL2LHE slight.out ${Beam1E} ${Beam2E} ${ProdP} 2>&1 | tee slight.log; test $? -eq 0 || fail_exit "convert_SL2LHE error: exit code not 0"
     fi
     sed -i '/STARLIGHT/a '${STARLIGHTDIR} slight.lhe
+    sed -i 's/--/- -/' ${CONFIG}
     sed -i '/STARLIGHT/r'${CONFIG} slight.lhe
     mv slight.lhe ${LHEWORKDIR}/cmsgrid_final.lhe
     echo "***STARLIGHT COMPLETE***"

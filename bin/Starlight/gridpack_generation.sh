@@ -4,7 +4,7 @@ create_setup(){
     echo "Using scram_arch: ${SCRAM_ARCH}"
     echo "Using cmssw_version: ${CMSSW_VERSION}"
 
-    GENDIR=${PRODDIR}/tarball
+    GENDIR=${PRODDIR}/tarball_$RANDOM
     [[ -d "${GENDIR}" ]] && rm -rf ${GENDIR}
     mkdir -p ${GENDIR} && cd ${GENDIR}
 
@@ -51,7 +51,7 @@ install_starlight(){
     echo "Compiling ${DPMJET}"
     cd ${DPMJETDIR}
     rm -f fpe.o
-    make -j8
+    make -j $(nproc)
 
     echo "Compiling ${STARLIGHT}"
     cd ${STARLIGHTDIR}
@@ -60,12 +60,12 @@ install_starlight(){
     cp ${STARLIGHTDIR}/config/my.input ./
     export PYTHIADIR=$(scram tool tag pythia8 PYTHIA8_BASE)
     cmake ${STARLIGHTDIR} -DENABLE_DPMJET=ON -DENABLE_PYTHIA=ON
-    make -j8
+    make -j $(nproc)
 
     echo "Compiling macros"
     cp -r ${PRODDIR}/macros ${WORKDIR}/
     cd ${WORKDIR}/macros/
-    make -j8
+    make -j $(nproc)
 
     #Set installation parameters
     sed -i 's/SCRAM_ARCH_VERSION_REPLACE/'${SCRAM_ARCH}'/g' ${WORKDIR}/runcmsgrid.sh
@@ -76,13 +76,12 @@ install_starlight(){
 
 make_tarball(){
     #Set tarball name
-    CONFIG=${1}
-    prefix=${CONFIG##*/} ; prefix=${prefix%%.*} ; prefix=${prefix#*starlight_}
+    prefix=${INPUTFILE##*/} ; prefix=${prefix%%.*} ; prefix=${prefix#*starlight_}
     TARBALL=starlight_${prefix}_${SCRAM_ARCH}_${CMSSW_VERSION}_tarball.tgz
 
     echo "Creating tarball"
     cd ${WORKDIR}
-    cp ${CONFIG} ${STARLIGHTDIR}/build/slight.in
+    cp ${INPUTFILE} ${STARLIGHTDIR}/build/slight.in
     tar -czf ${TARBALL} ${STARLIGHTDIR##*/} ${DPMJETDIR##*/} macros runcmsgrid.sh
     mv ${WORKDIR}/${TARBALL} ${PRODDIR}/
     echo "Tarball created successfully at ${PRODDIR}/${TARBALL}"
@@ -118,6 +117,8 @@ else
         SCRAM_ARCH=slc7_amd64_gcc11
     elif [[ $SYSTEM_RELEASE == *"release 8"* ]]; then
         SCRAM_ARCH=el8_amd64_gcc11
+    elif [[ $SYSTEM_RELEASE == *"release 9"* ]]; then
+        SCRAM_ARCH=el9_amd64_gcc11
     else
         echo "No default scram_arch for current OS"
         exit 1
@@ -132,9 +133,11 @@ else
     if [[ $SYSTEM_RELEASE == *"release 6"* ]]; then
         CMSSW_VERSION=CMSSW_10_3_5
     elif [[ $SYSTEM_RELEASE == *"release 7"* ]]; then
-        CMSSW_VERSION=CMSSW_13_0_7
+        CMSSW_VERSION=CMSSW_13_0_16
     elif [[ $SYSTEM_RELEASE == *"release 8"* ]]; then
-        CMSSW_VERSION=CMSSW_13_0_7
+        CMSSW_VERSION=CMSSW_13_0_16
+    elif [[ $SYSTEM_RELEASE == *"release 9"* ]]; then
+        CMSSW_VERSION=CMSSW_13_0_16
     else
         echo "No default CMSSW for current OS"
         exit 1
@@ -149,7 +152,7 @@ create_setup
 install_starlight
 
 #Create tarball
-make_tarball ${INPUTFILE}
+make_tarball
 
 #Clean up
 echo "Removing "${GENDIR}
