@@ -1,0 +1,93 @@
+--- a/Template/NLO/Source/extra_weights.f	2019-10-16 13:39:36.000000000 +0200
++++ b/Template/NLO/Source/extra_weights.f	2021-01-01 00:00:00.000000000 +0200
+@@ -20,9 +20,9 @@
+          character(len=1024),allocatable :: n_ctr_str(:)
+         
+ c input of cpower (checked against calculated value)
+-         double precision,parameter :: cpowerinput=0d0
++         double precision,parameter :: cpowerinput=2d0
+ c switch for running muR-dependent factor runfac=1(running)/0(fixed)
+-         integer,parameter :: runfac=0
++         integer,parameter :: runfac=1
+ c WARNING: If you set runfac=1 to include a muR-dependent factor
+ c          make sure you modified the function rwgt_muR_dep_fac in
+ c	   reweight_xsec.f and compute_cpower in fks_singular.f
+@@ -37,7 +37,7 @@
+ c muR-dependent factor,
+ c e.g. for masses:      ren_group_coeff = gamma0 = 3/2*C_F,
+ c i.e. also for Yukawa: ren_group_coeff = gamma0
+-         integer,parameter :: ren_group_coeff_in=0d0
++         integer,parameter :: ren_group_coeff_in=2d0
+ 
+          save
+       end module extra_weights
+--- a/Template/NLO/SubProcesses/reweight_xsec.f	2019-10-16 13:39:36.000000000 +0200
++++ b/Template/NLO/SubProcesses/reweight_xsec.f	2021-01-01 00:00:00.000000000 +0200
+@@ -18,31 +18,31 @@
+       rwgt_muR_dep_fac = 1d0
+ c     This is relevant for a muR-dependent bottom-mass in Yukawa.
+       IF(wgtcpower .ne. 0d0 .and. runfac .eq. 1) THEN
+-c$$$      vev    = 246.21845813429518469305d0 !vev in aMC@NLO from y_b->m_b
+-c$$$      mbmb = MDL_YB*vev/dsqrt(2d0)
+-c$$$com-- mbmb input for fixed Yukawa bmass in param_card.dat is used here
+-c$$$com-- as start value of running and to remove it from the cross section
+-c$$$c new settings NLO
+-c$$$      apimZ  = alphas(MDL_MZ)/pi
+-c$$$
+-c$$$      if(dabs(scale/central-1d0).lt.tootiny) then
+-c$$$c if scale muR is the same as the central scale of muR, get 
+-c$$$c "input value" mb(muR) with highest possible accuracy
+-c$$$         CALL runalpha(apimZ,MDL_MZ,central,4d0,4,0,apimuR)
+-c$$$         CALL runalpha(apimZ,MDL_MZ,mbmb,4d0,4,0,apimb)
+-c$$$         CALL runmass(mbmb,apimb,apimuR,4d0,4,mbmuR)
+-c$$$      else
+-c$$$c if scale and central are different (muR variations) do two steps:
+-c$$$c step 1: get "input value" mb(central scale) from most accurate running
+-c$$$         CALL runalpha(apimZ,MDL_MZ,central,4d0,4,0,apicentral)
+-c$$$         CALL runalpha(apimZ,MDL_MZ,mbmb,4d0,4,0,apimb)
+-c$$$         CALL runmass(mbmb,apimb,apicentral,4d0,4,mbcentral)
+-c$$$c step 2: get variation around central value, ie mb(muR), with loop 
+-c$$$c         order consistent with computation LO: 1-loop, NLO: 2-loop
+-c$$$         CALL runalpha(apicentral,central,scale,4d0,2,0,apimuR)
+-c$$$         CALL runmass(mbcentral,apicentral,apimuR,4d0,2,mbmuR)
+-c$$$      endif
+-c$$$      rwgt_muR_dep_fac = (mbmuR/mbmb)**wgtcpower
++      vev    = 246.21845813429518469305d0 !vev in aMC@NLO from y_b->m_b
++      mbmb = MDL_YC*vev/dsqrt(2d0)
++com-- mbmb input for fixed Yukawa cmass in param_card.dat is used here
++com-- as start value of running and to remove it from the cross section
++c new settings NLO
++      apimZ  = alphas(MDL_MZ)/pi
++
++      if(dabs(scale/central-1d0).lt.tootiny) then
++c if scale muR is the same as the central scale of muR, get 
++c "input value" mb(muR) with highest possible accuracy
++         CALL runalpha(apimZ,MDL_MZ,central,4d0,4,0,apimuR)
++         CALL runalpha(apimZ,MDL_MZ,3d0,4d0,4,0,apimb)
++         CALL runmass(mbmb,apimb,apimuR,4d0,4,mbmuR)
++      else
++c if scale and central are different (muR variations) do two steps:
++c step 1: get "input value" mb(central scale) from most accurate running
++         CALL runalpha(apimZ,MDL_MZ,central,4d0,4,0,apicentral)
++         CALL runalpha(apimZ,MDL_MZ,3d0,4d0,4,0,apimb)
++         CALL runmass(mbmb,apimb,apicentral,4d0,4,mbcentral)
++c step 2: get variation around central value, ie mb(muR), with loop 
++c         order consistent with computation LO: 1-loop, NLO: 2-loop
++         CALL runalpha(apicentral,central,scale,4d0,2,0,apimuR)
++         CALL runmass(mbcentral,apicentral,apimuR,4d0,2,mbmuR)
++      endif
++      rwgt_muR_dep_fac = (mbmuR/mbmb)**wgtcpower
+       ELSE
+          return
+       ENDIF
+--- a/Template/NLO/SubProcesses/fks_singular.f	2019-10-16 13:39:36.000000000 +0200
++++ b/Template/NLO/SubProcesses/fks_singular.f	2021-01-01 00:00:00.000000000 +0200
+@@ -4645,7 +4645,7 @@
+       double precision tiny
+       parameter (tiny=1d-6)
+ c comment these lines to calculate cpower
+-      cpower = -1d0
++      cpower = cpowerinput
+       return
+ c comment these lines to calculate cpower
+ 

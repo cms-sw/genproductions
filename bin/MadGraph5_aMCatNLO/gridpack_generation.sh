@@ -702,6 +702,7 @@ jobstep=${4}
 
 # sync default cmssw with the current OS 
 export SYSTEM_RELEASE=`cat /etc/redhat-release`
+echo $SYSTEM_RELEASE
 
 # set scram_arch 
 if [ -n "$5" ]; then
@@ -711,6 +712,8 @@ else
         scram_arch=slc7_amd64_gcc10 
     elif [[ $SYSTEM_RELEASE == *"release 8"* ]]; then
         scram_arch=el8_amd64_gcc10
+    elif [[ $SYSTEM_RELEASE == *"release 9"* ]]; then
+        scram_arch=el9_amd64_gcc11
     else 
         echo "No default scram_arch for current OS!"
         if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi        
@@ -725,6 +728,8 @@ else
         cmssw_version=CMSSW_12_4_8
     elif [[ $SYSTEM_RELEASE == *"release 8"* ]]; then
         cmssw_version=CMSSW_12_4_8
+    elif [[ $SYSTEM_RELEASE == *"release 9"* ]]; then
+	cmssw_version=CMSSW_13_2_9
     else 
         echo "No default CMSSW for current OS!"
         if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi        
