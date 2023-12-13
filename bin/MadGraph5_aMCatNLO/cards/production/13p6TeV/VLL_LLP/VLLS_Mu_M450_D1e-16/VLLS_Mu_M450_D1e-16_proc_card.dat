@@ -1,6 +1,0 @@
-import model VLL
-define vll = lp lp~
-define boson = w+ w- z h a
-define muon = mu+ mu- vm vm~
-generate p p > vll vll, vll > boson muon
-output VLLS_Mu_M450_D1e-16 -nojpeg

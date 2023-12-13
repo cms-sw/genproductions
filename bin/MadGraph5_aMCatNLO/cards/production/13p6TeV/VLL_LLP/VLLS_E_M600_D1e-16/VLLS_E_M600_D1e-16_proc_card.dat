@@ -1,6 +1,0 @@
-import model VLL
-define vll = lp lp~
-define boson = w+ w- z h a
-define ele = e+ e- ve ve~
-generate p p > vll vll, vll > boson ele
-output VLLS_E_M600_D1e-16 -nojpeg
