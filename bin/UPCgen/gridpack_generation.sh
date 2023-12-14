@@ -24,14 +24,13 @@ create_setup(){
 }
 
 install_upcgen(){
-    UPCGEN=tag-24-06-22
+    UPCGEN=upcgen-tag-24-06-22
     cd ${WORKDIR}
 
     echo "Downloading UPCGen "${UPCGEN}
     UPCGENDIR=${WORKDIR}/upcgen_v${UPCGEN//[!0-9]/}
-    wget --no-verbose --no-check-certificate https://anstahll.web.cern.ch/anstahll/upcgen/${UPCGEN}.tar.gz
-    #wget --no-verbose https://github.com/nburmaso/upcgen/archive/refs/tags/${UPCGEN}.tar.gz
-    tar -xzf ${UPCGEN}.tar.gz && mv upcgen-${UPCGEN} ${UPCGENDIR}
+    wget --no-verbose --no-check-certificate https://cms-project-generators.web.cern.ch/cms-project-generators/upcgen/${UPCGEN}.tar.gz
+    tar -xzf ${UPCGEN}.tar.gz && mv ${UPCGEN} ${UPCGENDIR}
     rm -f ${UPCGEN}.tar.gz
 
     echo "Patching UPCGen "${UPCGEN}
@@ -41,7 +40,8 @@ install_upcgen(){
     cd ${UPCGENDIR}
     mkdir -p build && cd build
     export PYTHIA8=$(scram tool tag pythia8 PYTHIA8_BASE)
-    cmake .. -DBUILD_WITH_PYTHIA6=OFF
+    CMAKE=$([[ $(cmake --version | grep -cE *"n ([3-9]\.)")>0 ]] && echo "cmake" || echo "cmake3")
+    ${CMAKE} .. -DBUILD_WITH_PYTHIA6=OFF
     make -j $(nproc)
 
     echo "Compiling macros"
@@ -57,9 +57,10 @@ install_upcgen(){
 
 init_upcgen(){
     cd ${UPCGENDIR}/build/
-    cp ${INPUTFILE} parameters.in
-    sed -i '/^NEVENTS.*/d' parameters.in ; echo 'NEVENTS 10' >> parameters.in
+    grep -v -e "PYTHIA" -e "OUTPUT" -e "NEVENTS" ${INPUTFILE} > parameters.in
+    echo 'NEVENTS 1' >> parameters.in
     ./upcgen -nthreads $(nproc) 2>&1 | tee upcgen.log; test $? -eq 0 || fail_exit "upcgen error: exit code not 0"
+    rm events.* ; cp ${INPUTFILE} parameters.in
 }
 
 make_tarball(){
