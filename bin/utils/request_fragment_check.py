@@ -793,7 +793,7 @@ for num in range(0,len(prepid)):
                 print("Number of files and folders in the gridpack including the files in subfolders = "+str(folder_and_subfolder))
                 print("-----------------------------------")
             else:
-                errors.append("Gridpack ",gridpack_cvmfs_path," does not exist! ..... exiting ....")
+                errors.append("Gridpack "+gridpack_cvmfs_path+" does not exist! ..... exiting ....")
                 sys.exit()
             jhu_gp = os.path.isfile(my_path+'/'+pi+'/'+'JHUGen.input')
             pw_gp = os.path.isfile(my_path+'/'+pi+'/'+'powheg.input')
