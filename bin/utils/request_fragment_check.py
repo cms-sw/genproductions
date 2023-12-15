@@ -8,9 +8,12 @@ import fnmatch
 import os.path
 import string
 import glob
+import json
+import ast
 from datetime import datetime
 sys.path.append('/afs/cern.ch/cms/PPD/PdmV/tools/McM-QA/')
 from rest import McM
+from json import dumps
 
 parser = argparse.ArgumentParser(
     formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -27,6 +30,7 @@ parser.add_argument('--apply_many_threads_patch', help="apply the many threads M
 parser.add_argument('--dev', help="Run on DEV instance of McM", action='store_true')
 parser.add_argument('--debug', help="Print debugging information", action='store_true')
 parser.add_argument('--develop', help="Option to make modifications of the script", action='store_true')
+parser.add_argument('--local', help="Option to read fragment locally", action='store_true')
 args = parser.parse_args()
 
 if args.prepid is not None:
@@ -50,6 +54,7 @@ if args.develop is False:
 # Use no-id as identification mode in order not to use a SSO cookie
 mcm = McM(id=None, dev=args.dev, debug=args.debug)
 mcm_link = mcm.server
+
 
 def get_request(prepid):
     result = mcm._McM__get('public/restapi/requests/get/%s' % (prepid))
@@ -221,7 +226,8 @@ def ul_consistency(dn,pi,jhu_gp):
         if "NULL" not in pi_prime: #
             if "APV" in pi or "Summer20UL18" in pi or "Summer20UL17" in pi: print("This is a Summer20UL16APV, UL17 or UL18 request so GEN settings will be compared to the corresponding Summer20UL16 request: "+pi_prime)
             if "APV" not in pi and "Summer20UL16" in pi: print("This is a Summer20UL16 requests so GEN setting will be compared to the corresponding Summer19UL17 request: "+pi_prime)
-            os.popen('wget -q '+mcm_link+'public/restapi/requests/get_fragment/'+pi_prime+' -O '+pi_prime).read()
+            if args.local is False: 
+                os.popen('wget -q '+mcm_link+'public/restapi/requests/get_fragment/'+pi_prime+' -O '+pi_prime).read()
             f1_prime = open(pi_prime,"r")
             f2_prime = open(pi_prime+"_tmp","w")
             data_f1_prime = f1_prime.read()
@@ -579,7 +585,8 @@ for num in range(0,len(prepid)):
             warnings.append("Are you sure you want to use "+cmssw+" release which is not standard which may not have all the necessary GEN code.")
         if totalevents >= 100000000 :
             warnings.append("Is "+str(totalevents)+" events what you really wanted - please check!")
-        os.popen('wget -q '+mcm_link+'public/restapi/requests/get_fragment/'+pi+' -O '+pi).read()
+        if args.local is False:    
+            os.popen('wget -q '+mcm_link+'public/restapi/requests/get_fragment/'+pi+' -O '+pi).read()
 
         fsize = os.path.getsize(pi)
         f1 = open(pi,"r")
@@ -647,7 +654,8 @@ for num in range(0,len(prepid)):
            if clone_entries:
                pi_clone_entries = clone_entries[0]['step']
                print(("Request cloned from = ",pi_clone_entries))
-               os.popen('wget -q '+mcm_link+'public/restapi/requests/get_fragment/'+pi_clone_entries+' -O '+pi_clone_entries).read()
+               if args.local is False: 
+                   os.popen('wget -q '+mcm_link+'public/restapi/requests/get_fragment/'+pi_clone_entries+' -O '+pi_clone_entries).read()
                f1_clone = open(pi_clone_entries,"r")
                f2_clone = open(pi_clone_entries+"_tmp","w")
                data_f1_clone = f1_clone.read()
@@ -1285,7 +1293,7 @@ for num in range(0,len(prepid)):
                 if bornonly_frag_check != 0:
                     errors.append("bornonly = 1 and (Pythia8PowhegEmissionVetoSettings or SpaceShower:pTmaxMatch or  TimeShower:pTmaxMatch)")
                 else:
-                    warnings.append("bornonly = ",bornonly)
+                    warnings.append("bornonly = "+str(bornonly))
             if match:
                 process = match.group(2)
                 if process == "gg_H_quark-mass-effects":
