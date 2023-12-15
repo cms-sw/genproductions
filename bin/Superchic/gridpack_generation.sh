@@ -25,19 +25,18 @@ create_setup(){
 
 install_superchic(){
     SUPERCHIC=superchic4.2
-    SCRAMREL6OR7=$("$SYSTEM_RELEASE" 2>&1 | grep -i -c -E *"release ([6-7]\.)")
-    APFEL=$([[ $SCRAMREL6OR7 -ne 0 ]] && echo APFEL_3.0.6 || echo APFEL_3.1.0)
+    APFEL=APFEL_3.1.0
     cd ${WORKDIR}
 
     echo "Downloading "${APFEL}
     APFELDIR=${WORKDIR}/apfel_v${APFEL//[!0-9]/}
-    wget --no-verbose --no-check-certificate https://anstahll.web.cern.ch/anstahll/superchic/${APFEL}.tar.gz
+    wget --no-verbose --no-check-certificate https://cms-project-generators.web.cern.ch/cms-project-generators/superchic/${APFEL}.tar.gz
     tar -xzf ${APFEL}.tar.gz && mv apfel-${APFEL#*_} ${APFELDIR}
     rm -f ${APFEL}.tar.gz
 
     echo "Downloading "${SUPERCHIC}
     SUPERCHICDIR=${WORKDIR}/superchic_v${SUPERCHIC//[!0-9]/}
-    wget --no-verbose --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/superchic/${SUPERCHIC}.tar.gz
+    wget --no-verbose --no-check-certificate https://cms-project-generators.web.cern.ch/cms-project-generators/superchic/${SUPERCHIC}.tar.gz
     tar -xzf ${SUPERCHIC}.tar.gz && mv ${SUPERCHIC} ${SUPERCHICDIR}
     rm -f ${SUPERCHIC}.tar.gz
 
@@ -46,15 +45,10 @@ install_superchic(){
 
     echo "Compiling ${APFEL}"
     cd ${APFELDIR}
-    if [[ "$SCRAMREL6OR7" -ne 0 ]]; then
-        export FFLAGS="-std=legacy -cpp" CXXFLAGS="-Wno-catch-value -Wno-register"
-        ./configure --prefix=${APFELDIR}/build --disable-pywrap
-        make -j $(nproc) && make install -j $(nproc)
-    else
-        cmake -S . -B BUILD -DCMAKE_INSTALL_PREFIX=${APFELDIR}/build -DAPFEL_ENABLE_PYTHON=OFF -DAPFEL_ENABLE_TESTS=OFF -DCMAKE_Fortran_FLAGS="-std=legacy -cpp" -DCMAKE_CXX_FLAGS="-Wno-catch-value"
-        cmake --build BUILD --target install --parallel $(nproc)
-    fi
-    export APFEL_LIBRARY_PATH=${APFELDIR}/build/$([[ $SCRAMREL6OR7 -ne 0 ]] && echo lib || echo lib64)
+    CMAKE=$([[ $(cmake --version | grep -cE *"n ([3-9]\.)")>0 ]] && echo "cmake" || echo "cmake3")
+    ${CMAKE} -S . -B BUILD -DCMAKE_INSTALL_PREFIX=${APFELDIR}/build -DAPFEL_ENABLE_PYTHON=OFF -DAPFEL_ENABLE_TESTS=OFF -DCMAKE_Fortran_FLAGS="-std=legacy -cpp" -DCMAKE_CXX_FLAGS="-Wno-catch-value"
+    ${CMAKE} --build BUILD --target install --parallel $(nproc)
+    export APFEL_LIBRARY_PATH=${APFELDIR}/build/lib64
 
     echo "Compiling ${SUPERCHIC}"
     cd ${SUPERCHICDIR}
