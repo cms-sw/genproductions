@@ -1,5 +1,5 @@
 diff -ruN ./src/UpcGenerator.cpp ../upcgen_v240622_patch/src/UpcGenerator.cpp
---- ./src/UpcGenerator.cpp	2023-12-17 14:02:50.000000001 +0100
+--- ./src/UpcGenerator.cpp	2023-12-17 15:34:18.000000001 +0100
 +++ ../upcgen_v240622_patch/src/UpcGenerator.cpp	2023-12-17 14:33:32.000000001 +0100
 @@ -730,6 +730,10 @@
      PLOG_INFO << fixed << setprecision(6) << "Cross section with cuts = " << fidCS << " mb";
@@ -12,10 +12,3 @@ diff -ruN ./src/UpcGenerator.cpp ../upcgen_v240622_patch/src/UpcGenerator.cpp
    if (useROOTOut) {
      if (debug > 0) {
        hNucCSM->Write();
-@@ -755,4 +759,4 @@
-     delete hCrossSecsZ_S[i];
-     delete hCrossSecsZ_PS[i];
-   }
--}
-\ No newline at end of file
-+}
