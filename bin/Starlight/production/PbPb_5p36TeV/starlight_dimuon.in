@@ -19,17 +19,9 @@ ETA_MAX = 2.8                # Maximum pseudorapidity
 BREAKUP_MODE = 5             # Controls the nuclear breakup; a 5 here makes no requirement on the breakup of the ions
 INTERFERENCE = 0             # Interference (0 = off, 1 = on)
 IF_STRENGTH = 1.             # % of intefernce (0.0 - 0.1)
-COHERENT = 1                 # Coherent=1,Incoherent=0
-INCO_FACTOR = 1.             # percentage of incoherence
-BFORD = 9.5
 INT_PT_MAX = 0.24            # Maximum pt considered, when interference is turned on
 INT_PT_N_BINS = 120          # Number of pt bins when interference is turned on
 INT_PT_WIDTH = 0             # Used only when the interference option above is turned on. Specifies the width of pT bins
 XSEC_METHOD = 1              # Set to 0 to use old method for calculating gamma-gamma luminosity
 BSLOPE_DEFINITION = 0        # Used for incoherent nuclear collisions to set the t-spectrum
 BSLOPE_VALUE = 0             # When BSLOPE_DEFINITION=1, determines the exponential slope of t-spectrum
-N_THREADS = 1                # Number of threads used for calculating luminosity (when using the new method)
-PYTHIA_FULL_EVENTRECORD = 0  # Write full pythia information to output (vertex, parents, daughter etc).
-
-N_EVENTS = NEVT    #Number of events
-RND_SEED = RNDSEED #Random seed

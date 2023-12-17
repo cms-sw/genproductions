@@ -1,6 +1,6 @@
-diff -ruN ./include/reportingUtils.h ../UPDATED/include/reportingUtils.h
---- ./include/reportingUtils.h	2019-11-20 14:43:10.000000001 +0100
-+++ ../UPDATED/include/reportingUtils.h	2023-05-19 13:06:27.000000001 +0200
+diff -ruN ./include/reportingUtils.h ../starlight_v326_patch/include/reportingUtils.h
+--- ./include/reportingUtils.h	2023-12-16 00:45:24.000000001 +0100
++++ ../starlight_v326_patch/include/reportingUtils.h	2023-12-16 00:45:34.000000001 +0100
 @@ -61,7 +61,7 @@
  	return prettyFunction;
  }
@@ -10,9 +10,9 @@ diff -ruN ./include/reportingUtils.h ../UPDATED/include/reportingUtils.h
  #define printWarn std::cerr << ">>> " << __PRETTY_FUNCTION__ << " [" << __FILE__ << ":" << __LINE__ << "]: "<<std::endl<<"Warning: " << std::flush 
  #define printInfo std::cout << ">>> " << getClassMethod__(__PRETTY_FUNCTION__) << "(): Info: "  << std::flush
  
-diff -ruN ./src/starlight.cpp ../UPDATED/src/starlight.cpp
---- ./src/starlight.cpp	2019-11-20 14:43:12.000000001 +0100
-+++ ../UPDATED/src/starlight.cpp	2023-05-19 13:16:08.000000001 +0200
+diff -ruN ./src/starlight.cpp ../starlight_v326_patch/src/starlight.cpp
+--- ./src/starlight.cpp	2023-12-16 00:45:24.000000001 +0100
++++ ../starlight_v326_patch/src/starlight.cpp	2023-12-16 00:45:34.000000001 +0100
 @@ -114,16 +114,16 @@
  
  	// Do some sanity checks of the input parameters here.
@@ -33,7 +33,7 @@ diff -ruN ./src/starlight.cpp ../UPDATED/src/starlight.cpp
  	  return false; 
  	}
  
-@@ -212,7 +212,7 @@
+@@ -216,7 +216,7 @@
  starlight::produceEvent()
  {
  	if (!_isInitialised) {
@@ -41,8 +41,8 @@ diff -ruN ./src/starlight.cpp ../UPDATED/src/starlight.cpp
 +		printErro << "trying to generate event but Starlight is not initialised. aborting." << endl;
  		exit(-1);
  	}
- 	return _eventChannel->produceEvent();
-@@ -297,7 +297,7 @@
+ 	double gamma1 = _inputParameters->beam1LorentzGamma();
+@@ -322,7 +322,7 @@
  #ifdef ENABLE_PYTHIA
  			// PythiaOutput = true;
   		        cout<<"Pythia is enabled!"<<endl;
