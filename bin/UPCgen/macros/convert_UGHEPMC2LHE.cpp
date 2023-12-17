@@ -12,11 +12,18 @@ void convert_UGHEPMC2LHE(const std::string& inFileName, const double& beamE1, co
   if (not inFile.is_open())
     throw std::logic_error("[convert_UGHEPMC2LHE] Failed to open input file: "+inFileName);
 
+  // Extract cross section
+  double xsec(1);
+  std::ifstream xsecFile(inFileName.substr(0, inFileName.rfind("/")+1)+"xsec.out");
+  if (xsecFile.is_open())
+    xsecFile >> xsec;
+
   // Create output file
   const auto outFileName = inFileName.substr(0, inFileName.rfind(".")).substr(inFileName.rfind("/")+1) + ".lhe";
   std::ofstream outFile(outFileName);
   if (not outFile.is_open())
     throw std::logic_error("[convert_UGHEPMC2LHE] Failed to open output file: "+outFileName);
+  outFile.precision(15);
 
   std::cout << "Converting UPCGen HEPMC output to LHE format" << std::endl;
 
@@ -29,12 +36,11 @@ void convert_UGHEPMC2LHE(const std::string& inFileName, const double& beamE1, co
   outFile << "<init>" << std::endl;
   //beam particle 1, 2, beam energy 1, 2, author group, beam 1, 2, PDFSET beam 1, 2,
   outFile << "22 " << "22 " << beamE1 << " " << beamE2 << " 0 " << "0 " << "0 " << "0 " << "3 " << "1" << std::endl;
-  outFile << "1.0 " << "0.0 " << "3.0 " << "81" << std::endl;
+  outFile << xsec << " " << "0.0 " << "3.0 " << "81" << std::endl;
   outFile << "</init>" << std::endl;
 
   int nEvt(0);
   std::string line, label, version;
-  outFile.precision(10);
 
   // Read input file
   while (getline(inFile, line) &&
