@@ -272,7 +272,7 @@ def runSingleXgrid(parstage, xgrid, folderName, nEvents, powInputName, seed, pro
 
 
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
-def runGetSource(parstage, xgrid, folderName, powInputName, process, noPdfCheck, tagName, svnRev) :
+def runGetSource(parstage, xgrid, folderName, powInputName, process, noPdfCheck, tagName, svnRev, ion) :
     # parstage, xgrid are strings!
 
     print 'Getting and compiling POWHEG source...'
@@ -302,6 +302,11 @@ def runGetSource(parstage, xgrid, folderName, powInputName, process, noPdfCheck,
     fourFlavorProcesses = ["ST_tch_4f", "bbH", "Wbb_dec", "Wbbj", "WWJ", "ZZJ", "Zgam", "ZgamJ", "VV_dec_ew"]
     template_dict["isFiveFlavor"] = int(process not in fourFlavorProcesses)
     template_dict["defaultPDF"] = 325300 if template_dict["isFiveFlavor"] else 325500
+    # switch for time being to "Run2UL if you need UL style PDF set
+    template_dict["period"] = "Run3" # "Run2UL"
+    if ion == "Pb":
+        template_dict["defaultPDF"] = 904400
+        template_dict["period"] = "Run3_Pb"
 
     powhegResProcesses = ["b_bbar_4l", "HWJ_ew", "HW_ew", "HZJ_ew", "HZ_ew", "vbs-ssww-nloew", "WWJ", "ZZJ", "HJJ_ew", "LQ-s-chan", "gg4l", "Zgam", "ZgamJ", "VV_dec_ew"]
     if process in powhegResProcesses:
@@ -474,6 +479,7 @@ if __name__ == "__main__":
     parser.add_argument('--fordag'    , dest="fordag",    default= 0,           help='If 1, deactivate submission, expect condor DAG file to be created [0]')
     parser.add_argument('--slc6'    , dest="slc6",    default= 0,           help='If 1, use slc6 singularity [0]')
     parser.add_argument('--svn'    , dest="svnRev",    default= 0,           help='SVN revision. If 0, use tarball [0]')
+    parser.add_argument('--ion'    , dest="ion",    default= '',           help='Ion type. Options: Pb []')
 
     args = parser.parse_args ()
 
@@ -481,6 +487,8 @@ if __name__ == "__main__":
 
     if args.parstage != '0' and '/' in args.prcName:
         raise RuntimeError(message2)
+    elif args.ion and args.ion not in ['Pb']:
+	    raise RuntimeError("ERROR[run_pwg_condor.py]: Invalid ion type: "+args.ion)
 
     QUEUE = args.doQueue
     EOSfolder = args.folderName
@@ -609,6 +617,8 @@ if __name__ == "__main__":
 
             if args.prcName=="ST_tch_4f" or args.prcName=="bbH" or args.prcName=="Wbb_dec" or args.prcName=="Wbbj" or args.prcName=="WWJ" or args.prcName=="ZZJ" or args.prcName=="Zgam" or args.prcName=="ZgamJ" or args.prcName=="VV_dec_ew":
                 default_pdf = "325500"  # for 4 flavours
+            if args.ion == "Pb":
+                default_pdf = "904400" # EPPS21nlo_CT18Anlo_Pb208
 
             for line in open(args.folderName+'/powheg.input') :
                 n_column = line.split()
@@ -623,6 +633,8 @@ if __name__ == "__main__":
             if test_pdf1 != default_pdf :
 #                print "PDF in card: ", test_pdf1, "PDF default: ", default_pdf, test_pdf1==default_pdf
                 message = "The input card does not have the standard Ultralegacy PDF (NNPDF31 NNLO, 325300 for 5F, 325500 for 4F): {0}. Either change the card or run again with -d 1 to ignore this message.\n".format(test_pdf1)
+                if args.ion == "Pb":
+                     message = "The input card does not have the standard nuclear PDF (EPPS21nlo_CT18Anlo_Pb208, 904400): {0}. Either change the card or run again with -d 1 to ignore this message.\n".format(test_pdf1)
 
                 if args.noPdfCheck == '0' :
                     raise RuntimeError(message)
@@ -638,7 +650,7 @@ if __name__ == "__main__":
         prepareJob(tagName, '', '.',args.prcName)
 
         runGetSource(args.parstage, args.xgrid, args.folderName,
-                     powInputName, args.prcName, args.noPdfCheck, tagName, args.svnRev)
+                     powInputName, args.prcName, args.noPdfCheck, tagName, args.svnRev, args.ion)
 
         if QUEUE == 'none':
             print 'Direct compiling... \n'
@@ -683,7 +695,7 @@ if __name__ == "__main__":
 
         prepareJob(tagName, '', '.',args.prcName)
         runGetSource(args.parstage, args.xgrid, args.folderName,
-                     powInputName, args.prcName, args.noPdfCheck, tagName, args.svnRev)
+                     powInputName, args.prcName, args.noPdfCheck, tagName, args.svnRev, args.ion)
 
         os.system('sed -i "s/^numevts.*/numevts '+args.numEvents+'/" '+
                   args.folderName+'/powheg.input')
@@ -706,7 +718,7 @@ if __name__ == "__main__":
 
         prepareJob(tagName, '', '.',args.prcName)
         runGetSource(args.parstage, args.xgrid, args.folderName,
-                     powInputName, args.prcName, args.noPdfCheck, tagName, args.svnRev)
+                     powInputName, args.prcName, args.noPdfCheck, tagName, args.svnRev, args.ion)
 
         runSingleXgrid(args.parstage, args.xgrid, args.folderName,
                        args.numEvents, powInputName, args.rndSeed,
