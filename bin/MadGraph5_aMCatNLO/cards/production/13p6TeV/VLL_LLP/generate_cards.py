@@ -22,8 +22,9 @@ for flavor in flavors:
 
             massstr  = f'M{mass}'
             decaystr = f'D{decay}'
+            genstr = '13p6TeV-madgraph'
 
-            prefix   = '_'.join([model, flavor, massstr, decaystr])
+            prefix   = '_'.join([model, flavor, massstr, decaystr, genstr])
 
             os.system(f"mkdir {prefix}")
 
