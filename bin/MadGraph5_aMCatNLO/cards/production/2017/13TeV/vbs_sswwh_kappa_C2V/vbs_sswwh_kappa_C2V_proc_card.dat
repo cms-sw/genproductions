@@ -1,0 +1,9 @@
+import model SM_HEL_UFO_noLightYukawa
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+
+generate p p > w+ w+ h j j  QCD=0, w+ > l+ vl @ 1
+add process p p > w- w- h j j  QCD=0, w- > l- vl~ @ 2
+output vbs_sswwh_kappa_C2V -nojpeg
