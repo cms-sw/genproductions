@@ -1,4 +1,4 @@
-import model SMEFTsim_top_MwScheme_UFO
+import model SMEFTsim_top_alphaScheme_UFO
 define l+ = e+ mu+ ta+
 define l- = e- mu- ta-
 define vl = ve vm vt
