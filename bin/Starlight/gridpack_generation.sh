@@ -35,7 +35,7 @@ install_starlight(){
     echo "Downloading "${STARLIGHT}
     STARLIGHT_VER=${STARLIGHT//[!0-9]/}
     STARLIGHTDIR=${WORKDIR}/starlight_v${STARLIGHT_VER}
-    wget --no-verbose --no-check-certificate https://anstahll.web.cern.ch/anstahll/starlight/${STARLIGHT}.tar.gz
+    wget --no-verbose --no-check-certificate https://cms-project-generators.web.cern.ch/cms-project-generators/starlight/${STARLIGHT}.tar.gz
     tar -xzf ${STARLIGHT}.tar.gz && mv ${STARLIGHT} ${STARLIGHTDIR}
     rm -f ${STARLIGHT}.tar.gz
 
