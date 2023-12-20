@@ -1,7 +1,7 @@
-import model SMEFTsim_top_MwScheme_UFO
+import model SMEFTsim_top_alphaScheme_UFO
 define l+ = e+ mu+ ta+
 define l- = e- mu- ta-
 define vl = ve vm vt
 define vl~ = ve~ vm~ vt~
 generate a a > w+ w-, w+ > l+ vl, w- > l- vl~
-output GGToWW_dilep_Elastic_Mll_50GeV_TuneCP5_madgraphLO
+output GGToWW_dilep_Elastic_Mll_50GeV_madgraphLO
