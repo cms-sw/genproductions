@@ -3,4 +3,4 @@ set param_card mass 25 600.0
 set param_card yukawa 6 172.5
 set param_card mass 15 1.777
 set param_card smeftcutoff lambdasmeft 2.000000e+03
-set param_card sminputs 1 7.2992700729927e-03 # aEW
+set param_card sminputs 1 7.2992700729927e-03
