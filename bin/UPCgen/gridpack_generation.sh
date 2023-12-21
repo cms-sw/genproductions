@@ -61,6 +61,9 @@ init_upcgen(){
     grep -v -e "PYTHIA" -e "OUTPUT" -e "NEVENTS" ${INPUTFILE} > parameters.in
     echo 'NEVENTS 1' >> parameters.in
     ./upcgen -nthreads $(nproc) 2>&1 | tee upcgen.log; test $? -eq 0 || fail_exit "upcgen error: exit code not 0"
+    if [[ ! -f "xsec.out" ]]; then
+      fail_exit "upcgen error: cross section calculation failed"
+    fi
     rm events.* ; cp ${INPUTFILE} parameters.in
 }
 
