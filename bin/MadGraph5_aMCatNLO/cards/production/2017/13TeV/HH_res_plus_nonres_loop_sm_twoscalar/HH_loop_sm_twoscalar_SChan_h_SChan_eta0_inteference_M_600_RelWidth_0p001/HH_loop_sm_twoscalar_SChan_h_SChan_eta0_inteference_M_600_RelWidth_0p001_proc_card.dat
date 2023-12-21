@@ -1,0 +1,3 @@
+import model loop_sm_twoscalar
+generate p p > h h [QCD] / iota0 LAM111^2==1 LAM112^2==1
+output HH_loop_sm_twoscalar_SChan_h_SChan_eta0_inteference_M_600_RelWidth_0p001 -nojpeg

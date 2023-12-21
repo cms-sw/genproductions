@@ -8,9 +8,12 @@ import fnmatch
 import os.path
 import string
 import glob
+import json
+import ast
 from datetime import datetime
 sys.path.append('/afs/cern.ch/cms/PPD/PdmV/tools/McM-QA/')
 from rest import McM
+from json import dumps
 
 parser = argparse.ArgumentParser(
     formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -27,6 +30,7 @@ parser.add_argument('--apply_many_threads_patch', help="apply the many threads M
 parser.add_argument('--dev', help="Run on DEV instance of McM", action='store_true')
 parser.add_argument('--debug', help="Print debugging information", action='store_true')
 parser.add_argument('--develop', help="Option to make modifications of the script", action='store_true')
+parser.add_argument('--local', help="Option to read fragment locally", action='store_true')
 args = parser.parse_args()
 
 if args.prepid is not None:
@@ -50,6 +54,7 @@ if args.develop is False:
 # Use no-id as identification mode in order not to use a SSO cookie
 mcm = McM(id=None, dev=args.dev, debug=args.debug)
 mcm_link = mcm.server
+
 
 def get_request(prepid):
     result = mcm._McM__get('public/restapi/requests/get/%s' % (prepid))
@@ -99,6 +104,7 @@ def check_replace(runcmsgridfile):
     return error_check_replace 
 
 def slha_gp(gridpack_cvmfs_path,slha_flag):
+    slha_all_path = os.path.dirname(gridpack_eos_path)
     if slha_flag == 1:
         if "%i" in gridpack_cvmfs_path:
             gridpack_cvmfs_path = gridpack_cvmfs_path.replace("%i","*")
@@ -109,14 +115,13 @@ def slha_gp(gridpack_cvmfs_path,slha_flag):
         else:
             slha_flag = 0
         if slha_flag == 1:
-            slha_all_path = os.path.dirname(gridpack_eos_path)
             print("Directory: "+slha_all_path)
             list_gridpack_cvmfs_path = os.listdir(slha_all_path)[0]
             print(list_gridpack_cvmfs_path)
             gridpack_cvmfs_path = slha_all_path+'/'+list_gridpack_cvmfs_path
             print("SLHA request - checking single gridpack:")
             print(gridpack_cvmfs_path)
-        return gridpack_cvmfs_path, slha_all_path, slha_flag
+    return gridpack_cvmfs_path, slha_all_path, slha_flag
 
 
 def tunes_settings_check(dn,fragment,pi,sherpa_flag):
@@ -140,6 +145,8 @@ def concurrency_check(fragment,pi,cmssw_version,mg_gp):
             error_conc.append("Concurrent parameters used with generateConcurrently=cms.untracked.bool(False) in fragment.")
         if "generateConcurrently=cms.untracked.bool(True)" in fragment and mg_gp is True:
             error_conc.append("For MG5_aMC requests, currently the concurrent mode for LHE production is not supported due to heavy I/O. So, please set generateConcurrently = cms.untracked.bool(False) in ExternalLHEProducer.")
+        if "Pythia8ConcurrentHadronizerFilter" not in fragment and  mg_gp is True and "RandomizedParameters" not in fragment:
+            error_conc.append("For MG5_aMC requests, the concurrent mode for GEN production should be turned on. Please convert Pythia8HadronizerFilter to Pythia8ConcurrentHadronizerFilter in the fragment")   
         if "ExternalLHEProducer" in fragment and "generateConcurrently=cms.untracked.bool(True)" in fragment: 
             # first check if the code has correctly implemented concurrent features. Mark conc_check_lhe (LHE step) or conc_check (GEN step) as True if features are found
             if "Herwig7GeneratorFilter" not in fragment: 
@@ -219,7 +226,8 @@ def ul_consistency(dn,pi,jhu_gp):
         if "NULL" not in pi_prime: #
             if "APV" in pi or "Summer20UL18" in pi or "Summer20UL17" in pi: print("This is a Summer20UL16APV, UL17 or UL18 request so GEN settings will be compared to the corresponding Summer20UL16 request: "+pi_prime)
             if "APV" not in pi and "Summer20UL16" in pi: print("This is a Summer20UL16 requests so GEN setting will be compared to the corresponding Summer19UL17 request: "+pi_prime)
-            os.popen('wget -q '+mcm_link+'public/restapi/requests/get_fragment/'+pi_prime+' -O '+pi_prime).read()
+            if args.local is False: 
+                os.popen('wget -q '+mcm_link+'public/restapi/requests/get_fragment/'+pi_prime+' -O '+pi_prime).read()
             f1_prime = open(pi_prime,"r")
             f2_prime = open(pi_prime+"_tmp","w")
             data_f1_prime = f1_prime.read()
@@ -341,6 +349,12 @@ def evtgen_check(fragment):
 def run3_checks(fragment,dn,pi):
     err = []
     fragment = fragment.replace(" ","")
+    run3_checks_exception_list = [
+        "TSG-Run3Summer23BPixGS-00007", 
+        "TSG-Run3Summer23BPixGS-00043", 
+        "TSG-Run3Summer23BPixGS-00044", 
+        "TSG-Run3Summer23BPixGS-00045"
+    ]
     print("======> Run3 Fragment and dataset name checks:")
     if "comEnergy" in fragment:
         comline = re.findall('comEnergy=\S+',fragment)
@@ -348,7 +362,7 @@ def run3_checks(fragment,dn,pi):
             err.append("The c.o.m. energy is not specified as 13600 GeV in the fragment."+comline[0])
         if "run3winter21" in pi.lower() and "14000" not in comline[0]: 
             err.append("The c.o.m. energy is not specified as 14000 GeV in the fragment"+comline[0])
-    if ("run3winter22" in pi.lower() or "summer2" in pi.lower()) and ("FlatRandomEGunProducer" not in fragment and "FlatRandomPtGunProducer" not in fragment and "Pythia8EGun" not in fragment and "13p6TeV" not in dn):
+    if ("run3winter22" in pi.lower() or "summer2" in pi.lower()) and ("FlatRandomEGunProducer" not in fragment and "FlatRandomPtGunProducer" not in fragment and "Pythia8EGun" not in fragment and "13p6TeV" not in dn and pi not in run3_checks_exception_list):
         err.append("The data set name does not contain 13p6TeV for this Run3 request")
     if "run3winter21" in pi.lower() and ("FlatRandomEGunProducer" not in fragment and "FlatRandomPtGunProducer" not in fragment and "Pythia8EGun" not in fragment and "14TeV" not in dn):
         err.append("The data set name does not contain 14TeV for this Run3 request")
@@ -450,6 +464,8 @@ if args.ticket is not None:
     prepid = []
     for rr in root_requests_from_ticket(ticket):
         if 'GS' in rr or 'wmLHE' in rr or 'pLHE' in rr or 'FS' in rr: prepid.append(rr)
+
+
 
 prepid = list(set(prepid)) #to avoid requests appearing x times if x chains have the same request
 print("Current date and time: %s" % (datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
@@ -569,7 +585,8 @@ for num in range(0,len(prepid)):
             warnings.append("Are you sure you want to use "+cmssw+" release which is not standard which may not have all the necessary GEN code.")
         if totalevents >= 100000000 :
             warnings.append("Is "+str(totalevents)+" events what you really wanted - please check!")
-        os.popen('wget -q '+mcm_link+'public/restapi/requests/get_fragment/'+pi+' -O '+pi).read()
+        if args.local is False:    
+            os.popen('wget -q '+mcm_link+'public/restapi/requests/get_fragment/'+pi+' -O '+pi).read()
 
         fsize = os.path.getsize(pi)
         f1 = open(pi,"r")
@@ -627,7 +644,7 @@ for num in range(0,len(prepid)):
         print("Filter efficiency in fragment =" + str(filter_eff_fragment))
         print("Filter efficiency from generator parameters field = "+str(filter_eff))
         # see https://github.com/cms-sw/genproductions/issues/3269
-        if len(filter_eff_fragment) > 0 and float(filter_eff_fragment) < 1.0:
+        if len(filter_eff_fragment) > 0 and float(filter_eff_fragment) < 1.0 and float(filter_eff_fragment) > 0:
             if filter_eff_fragment and filter_eff and int(ext) == 0 and float(filter_eff_fragment) != float(filter_eff):
                 errors.append("In general, filter efficiency in the fragment is not taken into accout. Please make sure that the filter efficiency in the generator parameters field is correct!")
 	
@@ -637,7 +654,8 @@ for num in range(0,len(prepid)):
            if clone_entries:
                pi_clone_entries = clone_entries[0]['step']
                print(("Request cloned from = ",pi_clone_entries))
-               os.popen('wget -q '+mcm_link+'public/restapi/requests/get_fragment/'+pi_clone_entries+' -O '+pi_clone_entries).read()
+               if args.local is False: 
+                   os.popen('wget -q '+mcm_link+'public/restapi/requests/get_fragment/'+pi_clone_entries+' -O '+pi_clone_entries).read()
                f1_clone = open(pi_clone_entries,"r")
                f2_clone = open(pi_clone_entries+"_tmp","w")
                data_f1_clone = f1_clone.read()
@@ -775,7 +793,7 @@ for num in range(0,len(prepid)):
                 print("Number of files and folders in the gridpack including the files in subfolders = "+str(folder_and_subfolder))
                 print("-----------------------------------")
             else:
-                errors.append("Gridpack ",gridpack_cvmfs_path," does not exist! ..... exiting ....")
+                errors.append("Gridpack "+gridpack_cvmfs_path+" does not exist! ..... exiting ....")
                 sys.exit()
             jhu_gp = os.path.isfile(my_path+'/'+pi+'/'+'JHUGen.input')
             pw_gp = os.path.isfile(my_path+'/'+pi+'/'+'powheg.input')
@@ -1275,7 +1293,7 @@ for num in range(0,len(prepid)):
                 if bornonly_frag_check != 0:
                     errors.append("bornonly = 1 and (Pythia8PowhegEmissionVetoSettings or SpaceShower:pTmaxMatch or  TimeShower:pTmaxMatch)")
                 else:
-                    warnings.append("bornonly = ",bornonly)
+                    warnings.append("bornonly = "+str(bornonly))
             if match:
                 process = match.group(2)
                 if process == "gg_H_quark-mass-effects":
