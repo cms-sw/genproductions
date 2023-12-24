@@ -6,7 +6,7 @@ diff -ruN ./src/starlightStandalone.cpp ../starlight_v326_patch/src/starlightSta
          }  
  
 +    ofstream fileXSec("xsec.out");
-+    if (fileXSec.is_open()) { fileXSec << std::setprecision(15) << 1.E12*selectedCrossSection; fileXSec.close(); }
++    if (fileXSec.is_open()) { fileXSec << std::setprecision(12) << 1.E12*selectedCrossSection << " " << 1.E12*_starlight->getTotalCrossSection(); fileXSec.close(); }
  	return true;
  }
  /**
