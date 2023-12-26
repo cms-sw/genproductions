@@ -16,15 +16,13 @@ run_superchic(){
     LHAPDF_DATA_PATH=${LHAPDF_DATA_PATH}:${LHEWORKDIR}/${SUPERCHICDIR}/lhapdf
     LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${LHEWORKDIR}/${APFELLIB}
     cd ${LHEWORKDIR}/${SUPERCHICDIR}/bin
-    ./superchic < input.DAT 2>&1 | tee input.log; test $? -eq 0 || fail_exit "superchic error: exit code not 0"
-    mv evrecs/evrecout.dat out.lhe
-    sed -i '/.*<LesHouchesEvents.*/,/.*<\/header>.*/d' out.lhe
-    sed -i '1 i\<LesHouchesEvents version="3.0">\n<!--\nProduced using SUPERCHIC generator\n-->' out.lhe
-    sed -i '/SUPERCHIC/a '${APFELDIR} out.lhe
-    sed -i '/SUPERCHIC/a '${SUPERCHICDIR} out.lhe
+    ./superchic < input.DAT 2>&1 | tee input.log; test ${PIPESTATUS[0]} -eq 0 || fail_exit "superchic error: exit code not 0"
+    ${LHEWORKDIR}/macros/convert_SCLHE2LHE evrecs/evrecout.dat 2>&1 | tee upcgen.log; test ${PIPESTATUS[0]} -eq 0 || fail_exit "convert_SCLHE2LHE error: exit code not 0"
+    sed -i '/SUPERCHIC/a '${APFELDIR} evrecout_proc.lhe
+    sed -i '/SUPERCHIC/a '${SUPERCHICDIR} evrecout_proc.lhe
     sed -i 's/--/- -/' ${CONFIG}
-    sed -i '/SUPERCHIC/r'${CONFIG} out.lhe
-    mv out.lhe ${LHEWORKDIR}/cmsgrid_final.lhe
+    sed -i '/SUPERCHIC/r'${CONFIG} evrecout_proc.lhe
+    mv evrecout_proc.lhe ${LHEWORKDIR}/cmsgrid_final.lhe
     echo "***SUPERCHIC COMPLETE***"
 }
 

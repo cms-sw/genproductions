@@ -9,7 +9,7 @@
 'MSHT20qed_nnlo'   ! [PDFname] : PDF set
 0                    ! [PDFmember] : PDF member
 ****************************************************************************************
-57      !  [proc] : Process number (see manual for labelling)
+58      !  [proc] : Process number (see manual for labelling)
 'ion'  ! [beam] : Beam type ('prot', 'ion', 'ionp' or 'el')
 'test'          ! [outtg]
 .false.  !  [sfaci] : Include soft survival effects
@@ -51,8 +51,8 @@
 ****************************************************************************************
 -2.5d0          ! [ymin]
 2.5d0          ! [ymax]
-2d0          ! [mmin]
-202d0          ! [mmax]
+3.56d0          ! [mmin]
+50d0          ! [mmax]
 .false.        ! [gencuts] : Generate cuts below
 .true.        ! [scorr] : Include spin correlations
 .true.	      ! [fwidth] : Include finite width 

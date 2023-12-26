@@ -19,11 +19,16 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
         pythia8PSweightsSettingsBlock,
         exclusive_process = cms.vstring(
             # Recomendation from https://superchic.hepforge.org/superchic4.pdf
-            'PartonLevel:ISR = off',
+            # For photon–initiated lepton pair production
+            'LesHouches:matchInOut = off',
+            'BeamRemnants:primordialKT = off',
             'PartonLevel:MPI = off',
-            'PartonLevel:Remnants = off',
-            'Check:event = off',
-            'LesHouches:matchInOut = off'
+            'PartonLevel:FSR = on',
+            'SpaceShower:dipoleRecoil = on',
+            'SpaceShower:pTmaxMatch = 2',
+            'SpaceShower:QEDshowerByQ = off',
+            'SpaceShower:pTdampMatch=1',
+            'BeamRemnants:unresolvedHadron = 3' #diff= dd: 0, sdb: 1, sda: 2, el: 3 
         ),
         parameterSets = cms.vstring('pythia8CommonSettings','pythia8CP5Settings','pythia8PSweightsSettings','exclusive_process')
     ),

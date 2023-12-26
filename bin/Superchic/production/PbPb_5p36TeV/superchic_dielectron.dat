@@ -9,7 +9,7 @@
 'MSHT20qed_nnlo'   ! [PDFname] : PDF set
 0                    ! [PDFmember] : PDF member
 ****************************************************************************************
-57      !  [proc] : Process number (see manual for labelling)
+56      !  [proc] : Process number (see manual for labelling)
 'ion'  ! [beam] : Beam type ('prot', 'ion', 'ionp' or 'el')
 'test'          ! [outtg]
 .false.  !  [sfaci] : Include soft survival effects

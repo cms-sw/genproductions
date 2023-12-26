@@ -54,6 +54,11 @@ install_superchic(){
     cd ${SUPERCHICDIR}
     make -j $(nproc)
 
+    echo "Compiling macros"
+    cp -r ${PRODDIR}/macros ${WORKDIR}/
+    cd ${WORKDIR}/macros/
+    make -j $(nproc)
+
     #Set installation parameters
     sed -i 's/SCRAM_ARCH_VERSION_REPLACE/'${SCRAM_ARCH}'/g' ${WORKDIR}/runcmsgrid.sh
     sed -i 's/CMSSW_VERSION_REPLACE/'${CMSSW_VERSION}'/g' ${WORKDIR}/runcmsgrid.sh
@@ -71,7 +76,7 @@ init_superchic(){
 
     cd ${SUPERCHICDIR}/bin/
     cp ${INPUTFILE} input.DAT
-    ./init < input.DAT 2>&1 | tee init.log; test $? -eq 0 || fail_exit "superchic error: exit code not 0"
+    ./init < input.DAT 2>&1 | tee init.log; test ${PIPESTATUS[0]} -eq 0 || fail_exit "superchic error: exit code not 0"
 }
 
 make_tarball(){
@@ -81,7 +86,7 @@ make_tarball(){
 
     echo "Creating tarball"
     cd ${WORKDIR}
-    tar -czf ${TARBALL} ${SUPERCHICDIR##*/} ${APFELDIR##*/} runcmsgrid.sh
+    tar -czf ${TARBALL} ${SUPERCHICDIR##*/} ${APFELDIR##*/} macros runcmsgrid.sh
     mv ${WORKDIR}/${TARBALL} ${PRODDIR}/
     echo "Tarball created successfully at ${PRODDIR}/${TARBALL}"
 }
