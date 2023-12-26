@@ -17,8 +17,8 @@ set_upcgen_config(){
 run_upcgen(){
     echo "*** STARTING UPCGEN PRODUCTION ***"
     cd ${LHEWORKDIR}/${UPCGENDIR}/build
-    ./upcgen -debug 0 -nthreads $(nproc) 2>&1 | tee upcgen.log; test $? -eq 0 || fail_exit "upcgen error: exit code not 0"
-    ${LHEWORKDIR}/macros/convert_UGHEPMC2LHE events.hepmc ${BeamE} ${BeamE} 2>&1 | tee upcgen.log; test $? -eq 0 || fail_exit "convert_SC2LHE error: exit code not 0"
+    ./upcgen -debug 0 -nthreads $(nproc) 2>&1 | tee upcgen.log; test ${PIPESTATUS[0]} -eq 0 || fail_exit "upcgen error: exit code not 0"
+    ${LHEWORKDIR}/macros/convert_UGHEPMC2LHE events.hepmc ${BeamE} ${BeamE} 2>&1 | tee upcgen.log; test ${PIPESTATUS[0]} -eq 0 || fail_exit "convert_SC2LHE error: exit code not 0"
     sed -i '/UPCGEN/a '${UPCGENDIR} events.lhe
     sed -i 's/--/- -/' ${CONFIG}
     sed -i '/UPCGEN/r'${CONFIG} events.lhe

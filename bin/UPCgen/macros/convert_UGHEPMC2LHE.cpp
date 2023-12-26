@@ -2,7 +2,6 @@
 #include <fstream>
 #include <vector>
 #include "Math/Vector4D.h"
-#include "Math/GenVector/Boost.h"
 
 
 void convert_UGHEPMC2LHE(const std::string& inFileName, const double& beamE1, const double& beamE2)
@@ -13,17 +12,16 @@ void convert_UGHEPMC2LHE(const std::string& inFileName, const double& beamE1, co
     throw std::logic_error("[convert_UGHEPMC2LHE] Failed to open input file: "+inFileName);
 
   // Extract cross section
-  double xsec(1);
+  double fidxsec(1), totxsec(3);
   std::ifstream xsecFile(inFileName.substr(0, inFileName.rfind("/")+1)+"xsec.out");
   if (xsecFile.is_open())
-    xsecFile >> xsec;
+    xsecFile >> fidxsec >> totxsec;
 
   // Create output file
   const auto outFileName = inFileName.substr(0, inFileName.rfind(".")).substr(inFileName.rfind("/")+1) + ".lhe";
   std::ofstream outFile(outFileName);
   if (not outFile.is_open())
     throw std::logic_error("[convert_UGHEPMC2LHE] Failed to open output file: "+outFileName);
-  outFile.precision(15);
 
   std::cout << "Converting UPCGen HEPMC output to LHE format" << std::endl;
 
@@ -34,13 +32,16 @@ void convert_UGHEPMC2LHE(const std::string& inFileName, const double& beamE1, co
 
   // Put generic initialization-level info since UPCGen doesn't save this
   outFile << "<init>" << std::endl;
-  //beam particle 1, 2, beam energy 1, 2, author group, beam 1, 2, PDFSET beam 1, 2,
-  outFile << "22 " << "22 " << beamE1 << " " << beamE2 << " 0 " << "0 " << "0 " << "0 " << "3 " << "1" << std::endl;
-  outFile << xsec << " " << "0.0 " << "3.0 " << "81" << std::endl;
+  outFile << std::fixed << std::setprecision(8) << std::scientific;
+  //LHE format: https://arxiv.org/pdf/hep-ph/0109068.pdf
+  //beam pdg id (1, 2), beam energy [GeV] (1, 2), PDF author group (1, 2), PDF set id (1, 2), weight strategy, # subprocesses
+  outFile << "2212 2212 " << beamE1 << " " << beamE2 << " 0 0 0 0 3 1" << std::endl;
+  //cross section [pb], cross section stat. unc. [pb], maximum event weight, subprocess id
+  outFile << fidxsec << " " << 0.0 << " " << totxsec << " 81" << std::endl;
   outFile << "</init>" << std::endl;
 
   int nEvt(0);
-  std::string line, label, version;
+  std::string line, label;
 
   // Read input file
   while (getline(inFile, line) &&
@@ -57,42 +58,32 @@ void convert_UGHEPMC2LHE(const std::string& inFileName, const double& beamE1, co
     if (not getline(inFile, line) || not (std::istringstream(line) >> label) || label != "U")
       throw std::logic_error("[convert_UGHEPMC2LHE] Failed to parse event line: "+line);
 
+    // Particle tuple: pdg id, status, mother index, 4-momentum
+    std::vector<std::tuple<int, int, int, ROOT::Math::PxPyPzEVector>> parV(nPar);
+
     // Read particle lines
-    ROOT::Math::PxPyPzEVector momP(0,0,0,0);
-    std::vector<std::string> oLines(nPar+2);
     for (size_t iPar=0; iPar < nPar; iPar++) {
       // P n nv pdgid px py pz e mass status
       double px, py, pz, en, mass;
       int parI, momI, pdgId, status;
       if (not getline(inFile, line) || not (std::istringstream(line) >> label >> parI >> momI >> pdgId >> px >> py >> pz >> en >> mass >> status) || label != "P" || parI != iPar+1 || momI >= parI)
         throw std::logic_error("[convert_UGHEPMC2LHE] Failed to parse track line: "+line);
-      std::ostringstream oLine;
-      oLine << pdgId << " 1 " << (momI>0 ? momI+2 : 1) << " " << momI+2 << " 0 0 " << px << " " << py << " " << pz << " " << en << " " << mass << " 0.0 9.0" << std::endl;
-      oLines[iPar+2] = oLine.str();
+
+      parV[iPar] = {pdgId, 1, momI, ROOT::Math::PxPyPzEVector(px, py, pz, en)};
       if (momI > 0)
-        oLines[momI-1].replace(oLines[momI-1].find(" ")+1, 1, "2");
-      else
-        momP += ROOT::Math::PxPyPzEVector(px, py, pz, en);
+        std::get<1>(parV[momI-1]) = 2;
     }
 
-    // Add fake photons
-    ROOT::Math::Boost boost(momP.BoostToCM());
-    const auto momCM = boost(momP);
-    const auto phoCM = ROOT::Math::PxPyPzMVector(0, 0, momCM.E()/2, 0);
-    boost.Invert();
-    const auto p1 = boost(phoCM);
-    const auto p2 = boost(momCM - phoCM);
-    std::ostringstream fp1, fp2;
-    fp1 << "22 3 0 0 0 0 " << p1.Px() << " " << p1.Py() << " " <<  p1.Pz() << " " << p1.E() << " 0.0 0.0 9.0" << std::endl;
-    fp2 << "22 3 0 0 0 0 " << p2.Px() << " " << p2.Py() << " " <<  p2.Pz() << " " << p2.E() << " 0.0 0.0 9.0" << std::endl;
-    oLines[0] = fp1.str();
-    oLines[1] = fp2.str();
-
-    // Write LHE file
+    // Write event
     outFile << "<event>" << std::endl;
-    outFile << oLines.size() << " 81" << " 1.0 -1.0 -1.0 -1.0" << std::endl;
-    for (const auto& oLine : oLines)
-        outFile << oLine;
+    //# particles, subprocess id, event weight, event scale, alpha_em, alpha_s
+    outFile << parV.size() << " 81 1.0 -1.0 -1.0 -1.0" << std::endl;
+    outFile << std::fixed << std::setprecision(10) << std::scientific;
+    for (const auto& pV : parV) {
+      const auto& [pdgId, status, momI, p] = pV;
+      //particle: pdg id, status, mother index (1, 2), color flow tag (1, 2), (px, py, pz, energy, mass [GeV]), proper lifetime [mm], spin
+      outFile << pdgId << " " << status << " " << momI << " 0 0 0 " << p.Px() << " " << p.Py() << " " << p.Pz() << " " << p.E() << " " << p.M() << " 0.0000e+00 9.0000e+00" << std::endl;
+    }
     outFile << "</event>" << std::endl;
     nEvt++;
   }
