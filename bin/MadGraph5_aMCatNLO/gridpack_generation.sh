@@ -267,7 +267,7 @@ make_gridpack () {
           fi      
       fi
     
-      echo "save options" >> mgconfigscript
+      echo "save options --all" >> mgconfigscript
     
       ./bin/mg5_aMC mgconfigscript
     
