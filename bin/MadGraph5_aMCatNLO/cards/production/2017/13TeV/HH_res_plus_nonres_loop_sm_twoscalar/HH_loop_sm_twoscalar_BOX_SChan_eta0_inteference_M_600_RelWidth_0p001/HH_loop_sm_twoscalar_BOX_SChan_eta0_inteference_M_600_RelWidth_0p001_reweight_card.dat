@@ -1,0 +1,53 @@
+change rwgt_dir ./rwgt
+
+launch --rwgt_name=RelWidth_0p001
+  set decay 99925 0.6
+
+launch --rwgt_name=RelWidth_0p01
+  set decay 99925 6
+
+launch --rwgt_name=RelWidth_0p02
+  set decay 99925 12
+
+launch --rwgt_name=RelWidth_0p03
+  set decay 99925 18
+
+launch --rwgt_name=RelWidth_0p04
+  set decay 99925 24
+
+launch --rwgt_name=RelWidth_0p05
+  set decay 99925 30
+
+launch --rwgt_name=RelWidth_0p06
+  set decay 99925 36
+
+launch --rwgt_name=RelWidth_0p07
+  set decay 99925 42
+
+launch --rwgt_name=RelWidth_0p08
+  set decay 99925 48
+
+launch --rwgt_name=RelWidth_0p09
+  set decay 99925 54
+
+launch --rwgt_name=RelWidth_0p1
+  set decay 99925 60
+
+launch --rwgt_name=RelWidth_0p11
+  set decay 99925 66
+
+launch --rwgt_name=RelWidth_0p12
+  set decay 99925 72
+
+launch --rwgt_name=RelWidth_0p13
+  set decay 99925 78
+
+launch --rwgt_name=RelWidth_0p14
+  set decay 99925 84
+
+launch --rwgt_name=RelWidth_0p15
+  set decay 99925 90
+
+launch --rwgt_name=RelWidth_0p16
+  set decay 99925 96
+

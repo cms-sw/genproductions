@@ -1,0 +1,71 @@
+change rwgt_dir rwgt
+launch --rwgt_name=C3_2
+set param_card new 3 2
+launch --rwgt_name=C3_5
+set param_card new 3 5
+launch --rwgt_name=C3_10
+set param_card new 3 10
+launch --rwgt_name=C3_0p2
+set param_card new 3 0.2
+launch --rwgt_name=C3_0p5
+set param_card new 3 0.5
+launch --rwgt_name=C3_0p1
+set param_card new 3 0.10
+launch --rwgt_name=C3_100
+set param_card new 3 100
+launch --rwgt_name=C3_1000
+set param_card new 3 1000
+launch --rwgt_name=C3_m2
+set param_card new 3 -2
+launch --rwgt_name=C3_m5
+set param_card new 3 -5
+launch --rwgt_name=C3_m10
+set param_card new 3 -10
+launch --rwgt_name=C3_m0p2
+set param_card new 3 -0.2
+launch --rwgt_name=C3_m0p5
+set param_card new 3 -0.5
+launch --rwgt_name=C3_m0p1
+set param_card new 3 -0.10
+launch --rwgt_name=C3_m100
+set param_card new 3 -100
+launch --rwgt_name=C3_m1000
+set param_card new 3 -1000
+launch --rwgt_name=C3_1p333
+set param_card new 3 1.333
+launch --rwgt_name=C3_3p333
+set param_card new 3 3.333
+launch --rwgt_name=C3_6p666
+set param_card new 3 6.666
+launch --rwgt_name=C3_0p133
+set param_card new 3 0.133
+launch --rwgt_name=C3_0p333
+set param_card new 3 0.333
+launch --rwgt_name=C3_0p666
+set param_card new 3 0.666
+launch --rwgt_name=C3_66p666
+set param_card new 3 66.666
+launch --rwgt_name=C3_666p666
+set param_card new 3 666.666
+launch --rwgt_name=C3_m1p333
+set param_card new 3 -1.333
+launch --rwgt_name=C3_m3p333
+set param_card new 3 -3.333
+launch --rwgt_name=C3_m6p666
+set param_card new 3 -6.666
+launch --rwgt_name=C3_m0p133
+set param_card new 3 -0.133
+launch --rwgt_name=C3_m0p333
+set param_card new 3 -0.333
+launch --rwgt_name=C3_m0p666
+set param_card new 3 -0.666
+launch --rwgt_name=C3_m66p666
+set param_card new 3 -66.666
+launch --rwgt_name=C3_m666p666
+set param_card new 3 -666.666
+
+
+
+
+
+

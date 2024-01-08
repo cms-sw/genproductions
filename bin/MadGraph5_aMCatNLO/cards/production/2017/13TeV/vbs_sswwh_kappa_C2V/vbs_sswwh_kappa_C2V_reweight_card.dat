@@ -1,0 +1,247 @@
+change rwgt_dir rwgt
+launch --rwgt_name=C2V_m4p00_C3_0
+set param_card new 3 0
+set param_card new 2 -4.00
+launch --rwgt_name=C2V_m3p75_C3_0
+set param_card new 3 0
+set param_card new 2 -3.75
+launch --rwgt_name=C2V_m3p50_C3_0
+set param_card new 3 0
+set param_card new 2 -3.50
+launch --rwgt_name=C2V_m3p25_C3_0
+set param_card new 3 0
+set param_card new 2 -3.25
+launch --rwgt_name=C2V_m3p00_C3_0
+set param_card new 3 0
+set param_card new 2 -3.00
+launch --rwgt_name=C2V_m2p75_C3_0
+set param_card new 3 0
+set param_card new 2 -2.75
+launch --rwgt_name=C2V_m2p50_C3_0
+set param_card new 3 0
+set param_card new 2 -2.50
+launch --rwgt_name=C2V_m2p25_C3_0
+set param_card new 3 0
+set param_card new 2 -2.25
+launch --rwgt_name=C2V_m2p00_C3_0
+set param_card new 3 0
+set param_card new 2 -2.00
+launch --rwgt_name=C2V_m1p75_C3_0
+set param_card new 3 0
+set param_card new 2 -1.75
+launch --rwgt_name=C2V_m1p50_C3_0
+set param_card new 3 0
+set param_card new 2 -1.50
+launch --rwgt_name=C2V_m1p25_C3_0
+set param_card new 3 0
+set param_card new 2 -1.25
+launch --rwgt_name=C2V_m1p00_C3_0
+set param_card new 3 0
+set param_card new 2 -1.00
+launch --rwgt_name=C2V_m0p75_C3_0
+set param_card new 3 0
+set param_card new 2 -0.75
+launch --rwgt_name=C2V_m0p50_C3_0
+set param_card new 3 0
+set param_card new 2 -0.50
+launch --rwgt_name=C2V_m0p25_C3_0
+set param_card new 3 0
+set param_card new 2 -0.25
+launch --rwgt_name=C2V_0p00_C3_0
+set param_card new 3 0
+set param_card new 2 0.00
+launch --rwgt_name=C2V_0p25_C3_0
+set param_card new 3 0
+set param_card new 2 0.25
+launch --rwgt_name=C2V_0p50_C3_0
+set param_card new 3 0
+set param_card new 2 0.50
+launch --rwgt_name=C2V_0p75_C3_0
+set param_card new 3 0
+set param_card new 2 0.75
+launch --rwgt_name=C2V_1p00_C3_0
+set param_card new 3 0
+set param_card new 2 1.00
+launch --rwgt_name=C2V_1p25_C3_0
+set param_card new 3 0
+set param_card new 2 1.25
+launch --rwgt_name=C2V_1p50_C3_0
+set param_card new 3 0
+set param_card new 2 1.50
+launch --rwgt_name=C2V_1p75_C3_0
+set param_card new 3 0
+set param_card new 2 1.75
+launch --rwgt_name=C2V_2p00_C3_0
+set param_card new 3 0
+set param_card new 2 2.00
+launch --rwgt_name=C2V_2p25_C3_0
+set param_card new 3 0
+set param_card new 2 2.25
+launch --rwgt_name=C2V_2p50_C3_0
+set param_card new 3 0
+set param_card new 2 2.50
+launch --rwgt_name=C2V_2p75_C3_0
+set param_card new 3 0
+set param_card new 2 2.75
+launch --rwgt_name=C2V_3p00_C3_0
+set param_card new 3 0
+set param_card new 2 3.00
+launch --rwgt_name=C2V_3p25_C3_0
+set param_card new 3 0
+set param_card new 2 3.25
+launch --rwgt_name=C2V_3p50_C3_0
+set param_card new 3 0
+set param_card new 2 3.50
+launch --rwgt_name=C2V_3p75_C3_0
+set param_card new 3 0
+set param_card new 2 3.75
+launch --rwgt_name=C2V_4p00_C3_0
+set param_card new 3 0
+set param_card new 2 4.00
+launch --rwgt_name=C2V_4p25_C3_0
+set param_card new 3 0
+set param_card new 2 4.25
+launch --rwgt_name=C2V_4p50_C3_0
+set param_card new 3 0
+set param_card new 2 4.50
+launch --rwgt_name=C2V_4p75_C3_0
+set param_card new 3 0
+set param_card new 2 4.75
+launch --rwgt_name=C2V_5p00_C3_0
+set param_card new 3 0
+set param_card new 2 5.00
+launch --rwgt_name=C2V_5p25_C3_0
+set param_card new 3 0
+set param_card new 2 5.25
+launch --rwgt_name=C2V_5p50_C3_0
+set param_card new 3 0
+set param_card new 2 5.50
+launch --rwgt_name=C2V_5p75_C3_0
+set param_card new 3 0
+set param_card new 2 5.75
+launch --rwgt_name=C2V_6p00_C3_0
+set param_card new 3 0
+set param_card new 2 6.00
+launch --rwgt_name=C2V_m4p00_C3_1
+set param_card new 3 1
+set param_card new 2 -4.00
+launch --rwgt_name=C2V_m3p75_C3_1
+set param_card new 3 1
+set param_card new 2 -3.75
+launch --rwgt_name=C2V_m3p50_C3_1
+set param_card new 3 1
+set param_card new 2 -3.50
+launch --rwgt_name=C2V_m3p25_C3_1
+set param_card new 3 1
+set param_card new 2 -3.25
+launch --rwgt_name=C2V_m3p00_C3_1
+set param_card new 3 1
+set param_card new 2 -3.00
+launch --rwgt_name=C2V_m2p75_C3_1
+set param_card new 3 1
+set param_card new 2 -2.75
+launch --rwgt_name=C2V_m2p50_C3_1
+set param_card new 3 1
+set param_card new 2 -2.50
+launch --rwgt_name=C2V_m2p25_C3_1
+set param_card new 3 1
+set param_card new 2 -2.25
+launch --rwgt_name=C2V_m2p00_C3_1
+set param_card new 3 1
+set param_card new 2 -2.00
+launch --rwgt_name=C2V_m1p75_C3_1
+set param_card new 3 1
+set param_card new 2 -1.75
+launch --rwgt_name=C2V_m1p50_C3_1
+set param_card new 3 1
+set param_card new 2 -1.50
+launch --rwgt_name=C2V_m1p25_C3_1
+set param_card new 3 1
+set param_card new 2 -1.25
+launch --rwgt_name=C2V_m1p00_C3_1
+set param_card new 3 1
+set param_card new 2 -1.00
+launch --rwgt_name=C2V_m0p75_C3_1
+set param_card new 3 1
+set param_card new 2 -0.75
+launch --rwgt_name=C2V_m0p50_C3_1
+set param_card new 3 1
+set param_card new 2 -0.50
+launch --rwgt_name=C2V_m0p25_C3_1
+set param_card new 3 1
+set param_card new 2 -0.25
+launch --rwgt_name=C2V_0p00_C3_1
+set param_card new 3 1
+set param_card new 2 0.00
+launch --rwgt_name=C2V_0p25_C3_1
+set param_card new 3 1
+set param_card new 2 0.25
+launch --rwgt_name=C2V_0p50_C3_1
+set param_card new 3 1
+set param_card new 2 0.50
+launch --rwgt_name=C2V_0p75_C3_1
+set param_card new 3 1
+set param_card new 2 0.75
+launch --rwgt_name=C2V_1p00_C3_1
+set param_card new 3 1
+set param_card new 2 1.00
+launch --rwgt_name=C2V_1p25_C3_1
+set param_card new 3 1
+set param_card new 2 1.25
+launch --rwgt_name=C2V_1p50_C3_1
+set param_card new 3 1
+set param_card new 2 1.50
+launch --rwgt_name=C2V_1p75_C3_1
+set param_card new 3 1
+set param_card new 2 1.75
+launch --rwgt_name=C2V_2p00_C3_1
+set param_card new 3 1
+set param_card new 2 2.00
+launch --rwgt_name=C2V_2p25_C3_1
+set param_card new 3 1
+set param_card new 2 2.25
+launch --rwgt_name=C2V_2p50_C3_1
+set param_card new 3 1
+set param_card new 2 2.50
+launch --rwgt_name=C2V_2p75_C3_1
+set param_card new 3 1
+set param_card new 2 2.75
+launch --rwgt_name=C2V_3p00_C3_1
+set param_card new 3 1
+set param_card new 2 3.00
+launch --rwgt_name=C2V_3p25_C3_1
+set param_card new 3 1
+set param_card new 2 3.25
+launch --rwgt_name=C2V_3p50_C3_1
+set param_card new 3 1
+set param_card new 2 3.50
+launch --rwgt_name=C2V_3p75_C3_1
+set param_card new 3 1
+set param_card new 2 3.75
+launch --rwgt_name=C2V_4p00_C3_1
+set param_card new 3 1
+set param_card new 2 4.00
+launch --rwgt_name=C2V_4p25_C3_1
+set param_card new 3 1
+set param_card new 2 4.25
+launch --rwgt_name=C2V_4p50_C3_1
+set param_card new 3 1
+set param_card new 2 4.50
+launch --rwgt_name=C2V_4p75_C3_1
+set param_card new 3 1
+set param_card new 2 4.75
+launch --rwgt_name=C2V_5p00_C3_1
+set param_card new 3 1
+set param_card new 2 5.00
+launch --rwgt_name=C2V_5p25_C3_1
+set param_card new 3 1
+set param_card new 2 5.25
+launch --rwgt_name=C2V_5p50_C3_1
+set param_card new 3 1
+set param_card new 2 5.50
+launch --rwgt_name=C2V_5p75_C3_1
+set param_card new 3 1
+set param_card new 2 5.75
+launch --rwgt_name=C2V_6p00_C3_1
+set param_card new 3 1
+set param_card new 2 6.00
