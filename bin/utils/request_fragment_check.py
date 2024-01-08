@@ -31,6 +31,8 @@ parser.add_argument('--dev', help="Run on DEV instance of McM", action='store_tr
 parser.add_argument('--debug', help="Print debugging information", action='store_true')
 parser.add_argument('--develop', help="Option to make modifications of the script", action='store_true')
 parser.add_argument('--local', help="Option to read fragment locally", action='store_true')
+parser.add_argument('--download_json', help="Download request json to read fragment locally in a next step", action='store_true')
+
 args = parser.parse_args()
 
 if args.prepid is not None:
@@ -55,14 +57,30 @@ if args.develop is False:
 mcm = McM(id=None, dev=args.dev, debug=args.debug)
 mcm_link = mcm.server
 
-
 def get_request(prepid):
-    result = mcm._McM__get('public/restapi/requests/get/%s' % (prepid))
+    if args.local is False:
+        result = mcm._McM__get('public/restapi/requests/get/%s' % (prepid))
+        if args.download_json is True:
+            with open("request_"+prepid+".json",'w') as f:
+                json.dump(result,f)
+                sys.exit()
+    else:
+        with open("request_"+prepid+".json") as f:
+            print(f)
+            result = json.load(f)
     if not result:
         return {}
 
     result = result.get('results', {})
     return result
+
+#def get_request(prepid):
+#    result = mcm._McM__get('public/restapi/requests/get/%s' % (prepid))
+#    if not result:
+#        return {}
+#
+#    result = result.get('results', {})
+#    return result
 
 
 def get_range_of_requests(query):
