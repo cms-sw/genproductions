@@ -58,6 +58,7 @@ jobs:
           max_attempts: 5
           timeout_minutes: 60
           retry_on_exit_code: 111 # failed CMSSW setup, likely due to cvmfs connectivity
+          if: steps.changes.outputs.powheg1 == 'true'
           command: docker run --rm -v /cvmfs:/cvmfs -v $PWD:$PWD -w $PWD gitlab-registry.cern.ch/cms-cloud/cmssw-docker/cc7-cms bash bin/Powheg/test/test_build.sh -r ${{ matrix.cmssw_release }} -a ${{ matrix.scram_arch }} -p ${{ matrix.proc }}
 
       - name: Check pwg-stat.dat
