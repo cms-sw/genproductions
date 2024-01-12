@@ -30,8 +30,7 @@ jobs:
     strategy:
       matrix:
         proc: [hvq]
-        #cmssw_release: [CMSSW_10_6_30, CMSSW_11_0_1, CMSSW_12_3_1]
-        cmssw_release: [CMSSW_10_6_30]
+        cmssw_release: [CMSSW_10_6_30, CMSSW_11_0_1, CMSSW_12_3_1]
         include:
           - cmssw_release: CMSSW_10_6_30
             scram_arch: slc7_amd64_gcc700
