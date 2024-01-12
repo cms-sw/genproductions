@@ -525,7 +525,9 @@ for num in range(0,len(prepid)):
         cross_section = r['generator_parameters'][-1]['cross_section']
         ext = r['extension']
         print("Extension or not: "+str(ext))
-        print(pi+"    Status= "+r['status'])
+	if args.local is True:       
+            pi =  "bin/utils/"+pi       
+        print(pi+"    Status= "+r['status'])    
         print(dn)
         if args.bypass_status and r['status'] != "defined":
             print("--> Skipping since the request is not in defined state")
