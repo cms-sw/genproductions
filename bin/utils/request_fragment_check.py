@@ -69,7 +69,7 @@ def get_request(prepid):
                 json.dump(result,f)
                 sys.exit()
     else:
-        with open("request_"+prepid+".json") as f:
+        with open("bin/utils/request_"+prepid+".json") as f:
             print(f)
             result = json.load(f)
     if not result:
