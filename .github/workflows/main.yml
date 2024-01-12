@@ -30,7 +30,8 @@ jobs:
     strategy:
       matrix:
         proc: [hvq]
-        cmssw_release: [CMSSW_10_6_30, CMSSW_11_0_1, CMSSW_12_3_1]
+        #cmssw_release: [CMSSW_10_6_30, CMSSW_11_0_1, CMSSW_12_3_1]
+        cmssw_release: [CMSSW_10_6_30]
         include:
           - cmssw_release: CMSSW_10_6_30
             scram_arch: slc7_amd64_gcc700
@@ -97,7 +98,7 @@ jobs:
              - '.github/workflows/**'  
       - uses: actions/setup-python@v4
         with:
-          python-version: '3.9.18'
+          python-version: '3.9'
       - name: Run the request checking script on local mcm requests
         #shell: python
         if: steps.filter.outputs.bin == 'true' || steps.filter.outputs.workflow == 'true'
