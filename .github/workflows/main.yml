@@ -96,7 +96,7 @@ jobs:
             workflow:
              - '.github/workflows/**'  
       - name: Run the request checking script on local mcm requests
-        #shell: python
+        #shell: python#
         if: steps.filter.outputs.bin == 'true' || steps.filter.outputs.workflow == 'true'
         run: |
           python3 bin/utils/request_fragment_check.py --bypass_status --develop --local --prepid SUS-RunIISummer20UL16wmLHEGEN-00768
