@@ -11,8 +11,9 @@ import glob
 import json
 import ast
 from datetime import datetime
-sys.path.append('/afs/cern.ch/cms/PPD/PdmV/tools/McM-QA/')
-from rest import McM
+#
+#sys.path.append('/afs/cern.ch/cms/PPD/PdmV/tools/McM-QA/')
+#from rest import McM
 from json import dumps
 
 parser = argparse.ArgumentParser(
@@ -54,8 +55,11 @@ if args.develop is False:
        sys.exit()
 	
 # Use no-id as identification mode in order not to use a SSO cookie
-mcm = McM(id=None, dev=args.dev, debug=args.debug)
-mcm_link = mcm.server
+if args.local is False:
+    sys.path.append('/afs/cern.ch/cms/PPD/PdmV/tools/McM-QA/')
+    from rest import McM
+    mcm = McM(id=None, dev=args.dev, debug=args.debug)
+    mcm_link = mcm.server
 
 def get_request(prepid):
     if args.local is False:
@@ -473,15 +477,16 @@ def root_requests_from_ticket(ticket_prepid, include_docs=False):
     return requests
 
 
-if args.ticket is not None:
-    ticket = args.ticket
-    ticket = ticket[0]
-    print("------------------------------------")
-    print("--> Ticket = "+ticket)
-    print("------------------------------------")
-    prepid = []
-    for rr in root_requests_from_ticket(ticket):
-        if 'GS' in rr or 'wmLHE' in rr or 'pLHE' in rr or 'FS' in rr: prepid.append(rr)
+if args.local is False:
+    if args.ticket is not None:
+        ticket = args.ticket
+        ticket = ticket[0]
+        print("------------------------------------")
+        print("--> Ticket = "+ticket)
+        print("------------------------------------")
+        prepid = []
+        for rr in root_requests_from_ticket(ticket):
+            if 'GS' in rr or 'wmLHE' in rr or 'pLHE' in rr or 'FS' in rr: prepid.append(rr)
 
 
 
@@ -693,7 +698,8 @@ for num in range(0,len(prepid)):
         os.system('mkdir -p '+my_path+'/eos/'+pi)
         os.system('mv '+pi+'_tmp '+pi)
         os.system('cp '+pi+' '+my_path+'/'+pi+'/.')
-        os.system('wget -q '+mcm_link+'public/restapi/requests/get_test/'+pi+' -O '+pi+'_get_test')
+        if args.local is False:
+            os.system('wget -q '+mcm_link+'public/restapi/requests/get_test/'+pi+' -O '+pi+'_get_test')
         gettest = os.popen('grep cff '+pi+'_get_test'+' | grep curl').read()
         if os.path.getsize(pi+'_get_test') == 0:
             print("public/restapi/requests/get_test/ is not acessible for this request. Exiting! Please send an email to 'cms-ppd-pdmv-dev@cern.ch'")
