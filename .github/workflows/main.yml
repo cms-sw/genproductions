@@ -97,7 +97,7 @@ jobs:
              - '.github/workflows/**'  
       - uses: actions/setup-python@v4
         with:
-          python-version: '3.x'
+          python-version: '3.9.18'
       - name: Run the request checking script on local mcm requests
         #shell: python
         if: steps.filter.outputs.bin == 'true' || steps.filter.outputs.workflow == 'true'
