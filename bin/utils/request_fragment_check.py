@@ -525,7 +525,7 @@ for num in range(0,len(prepid)):
         cross_section = r['generator_parameters'][-1]['cross_section']
         ext = r['extension']
         print("Extension or not: "+str(ext))
-	if args.local is True:       
+        if args.local is True:       
             pi =  "bin/utils/"+pi       
         print(pi+"    Status= "+r['status'])    
         print(dn)
