@@ -88,6 +88,10 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
       - uses: dorny/paths-filter@v2
+      - uses: actions/setup-python@v4
+        with:
+          # Semantic version range syntax or exact version of a Python version
+          python-version: '3.x'
         id: filter
         with:
           filters: |
@@ -97,10 +101,6 @@ jobs:
              - '.github/workflows/**'  
       - name: Run the request checking script on local mcm requests
         #shell: python
-        uses: actions/setup-python@v4
-        with:
-          # Semantic version range syntax or exact version of a Python version
-          python-version: '3.x'
         if: steps.filter.outputs.bin == 'true' || steps.filter.outputs.workflow == 'true'
         run: |
           python bin/utils/request_fragment_check.py --bypass_status --develop --local --prepid SUS-RunIISummer20UL16wmLHEGEN-00768
