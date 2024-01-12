@@ -69,7 +69,7 @@ def get_request(prepid):
                 json.dump(result,f)
                 sys.exit()
     else:
-        with open("bin/utils/request_"+prepid+".json") as f:
+        with open("request_"+prepid+".json") as f:
             print(f)
             result = json.load(f)
     if not result:
@@ -524,9 +524,7 @@ for num in range(0,len(prepid)):
         total_eff = filter_eff*match_eff 
         cross_section = r['generator_parameters'][-1]['cross_section']
         ext = r['extension']
-        print("Extension or not: "+str(ext))
-        if args.local is True:       
-            pi =  "bin/utils/"+pi       
+        print("Extension or not: "+str(ext))    
         print(pi+"    Status= "+r['status'])    
         print(dn)
         if args.bypass_status and r['status'] != "defined":
