@@ -1,0 +1,226 @@
+change mode NLO       # Define type of Reweighting. For LO sample this command
+                      # has no effect since only LO mode is allowed.
+change helicity False # has also been done in the example I got from Kenneth
+change rwgt_dir rwgt
+
+#[1/37] CV:1.0 C2V:-2.0 C3:1.0
+launch --rewgt_name=scan_CV_1p0_C2V_m2p0_C3_1p0
+set NEW 1 1.0 # CV
+set NEW 2 -2.0 # C2V
+set NEW 3 1.0 # C3
+
+#[2/37] CV:1.0 C2V:-1.75 C3:1.0
+launch --rewgt_name=scan_CV_1p0_C2V_m1p75_C3_1p0
+set NEW 1 1.0 # CV
+set NEW 2 -1.75 # C2V
+set NEW 3 1.0 # C3
+
+#[3/37] CV:1.0 C2V:-1.5 C3:1.0
+launch --rewgt_name=scan_CV_1p0_C2V_m1p5_C3_1p0
+set NEW 1 1.0 # CV
+set NEW 2 -1.5 # C2V
+set NEW 3 1.0 # C3
+
+#[4/37] CV:1.0 C2V:-1.25 C3:1.0
+launch --rewgt_name=scan_CV_1p0_C2V_m1p25_C3_1p0
+set NEW 1 1.0 # CV
+set NEW 2 -1.25 # C2V
+set NEW 3 1.0 # C3
+
+#[5/37] CV:1.0 C2V:-1.0 C3:1.0
+launch --rewgt_name=scan_CV_1p0_C2V_m1p0_C3_1p0
+set NEW 1 1.0 # CV
+set NEW 2 -1.0 # C2V
+set NEW 3 1.0 # C3
+
+#[6/37] CV:1.0 C2V:-0.75 C3:1.0
+launch --rewgt_name=scan_CV_1p0_C2V_m0p75_C3_1p0
+set NEW 1 1.0 # CV
+set NEW 2 -0.75 # C2V
+set NEW 3 1.0 # C3
+
+#[7/37] CV:1.0 C2V:-0.5 C3:1.0
+launch --rewgt_name=scan_CV_1p0_C2V_m0p5_C3_1p0
+set NEW 1 1.0 # CV
+set NEW 2 -0.5 # C2V
+set NEW 3 1.0 # C3
+
+#[8/37] CV:1.0 C2V:-0.25 C3:1.0
+launch --rewgt_name=scan_CV_1p0_C2V_m0p25_C3_1p0
+set NEW 1 1.0 # CV
+set NEW 2 -0.25 # C2V
+set NEW 3 1.0 # C3
+
+#[9/37] CV:1.0 C2V:0.0 C3:1.0
+launch --rewgt_name=scan_CV_1p0_C2V_0p0_C3_1p0
+set NEW 1 1.0 # CV
+set NEW 2 0.0 # C2V
+set NEW 3 1.0 # C3
+
+#[10/37] CV:1.0 C2V:0.1 C3:1.0
+launch --rewgt_name=scan_CV_1p0_C2V_0p1_C3_1p0
+set NEW 1 1.0 # CV
+set NEW 2 0.1 # C2V
+set NEW 3 1.0 # C3
+
+#[11/37] CV:1.0 C2V:0.2 C3:1.0
+launch --rewgt_name=scan_CV_1p0_C2V_0p2_C3_1p0
+set NEW 1 1.0 # CV
+set NEW 2 0.2 # C2V
+set NEW 3 1.0 # C3
+
+#[12/37] CV:1.0 C2V:0.3 C3:1.0
+launch --rewgt_name=scan_CV_1p0_C2V_0p3_C3_1p0
+set NEW 1 1.0 # CV
+set NEW 2 0.3 # C2V
+set NEW 3 1.0 # C3
+
+#[13/37] CV:1.0 C2V:0.4 C3:1.0
+launch --rewgt_name=scan_CV_1p0_C2V_0p4_C3_1p0
+set NEW 1 1.0 # CV
+set NEW 2 0.4 # C2V
+set NEW 3 1.0 # C3
+
+#[14/37] CV:1.0 C2V:0.5 C3:1.0
+launch --rewgt_name=scan_CV_1p0_C2V_0p5_C3_1p0
+set NEW 1 1.0 # CV
+set NEW 2 0.5 # C2V
+set NEW 3 1.0 # C3
+
+#[15/37] CV:1.0 C2V:0.6 C3:1.0
+launch --rewgt_name=scan_CV_1p0_C2V_0p6_C3_1p0
+set NEW 1 1.0 # CV
+set NEW 2 0.6 # C2V
+set NEW 3 1.0 # C3
+
+#[16/37] CV:1.0 C2V:0.7 C3:1.0
+launch --rewgt_name=scan_CV_1p0_C2V_0p7_C3_1p0
+set NEW 1 1.0 # CV
+set NEW 2 0.7 # C2V
+set NEW 3 1.0 # C3
+
+#[17/37] CV:1.0 C2V:0.8 C3:1.0
+launch --rewgt_name=scan_CV_1p0_C2V_0p8_C3_1p0
+set NEW 1 1.0 # CV
+set NEW 2 0.8 # C2V
+set NEW 3 1.0 # C3
+
+#[18/37] CV:1.0 C2V:0.9 C3:1.0
+launch --rewgt_name=scan_CV_1p0_C2V_0p9_C3_1p0
+set NEW 1 1.0 # CV
+set NEW 2 0.9 # C2V
+set NEW 3 1.0 # C3
+
+#[19/37] CV:1.0 C2V:1.0 C3:1.0
+launch --rewgt_name=scan_CV_1p0_C2V_1p0_C3_1p0
+set NEW 1 1.0 # CV
+set NEW 2 1.0 # C2V
+set NEW 3 1.0 # C3
+
+#[20/37] CV:1.0 C2V:1.1 C3:1.0
+launch --rewgt_name=scan_CV_1p0_C2V_1p1_C3_1p0
+set NEW 1 1.0 # CV
+set NEW 2 1.1 # C2V
+set NEW 3 1.0 # C3
+
+#[21/37] CV:1.0 C2V:1.2 C3:1.0
+launch --rewgt_name=scan_CV_1p0_C2V_1p2_C3_1p0
+set NEW 1 1.0 # CV
+set NEW 2 1.2 # C2V
+set NEW 3 1.0 # C3
+
+#[22/37] CV:1.0 C2V:1.3 C3:1.0
+launch --rewgt_name=scan_CV_1p0_C2V_1p3_C3_1p0
+set NEW 1 1.0 # CV
+set NEW 2 1.3 # C2V
+set NEW 3 1.0 # C3
+
+#[23/37] CV:1.0 C2V:1.4 C3:1.0
+launch --rewgt_name=scan_CV_1p0_C2V_1p4_C3_1p0
+set NEW 1 1.0 # CV
+set NEW 2 1.4 # C2V
+set NEW 3 1.0 # C3
+
+#[24/37] CV:1.0 C2V:1.5 C3:1.0
+launch --rewgt_name=scan_CV_1p0_C2V_1p5_C3_1p0
+set NEW 1 1.0 # CV
+set NEW 2 1.5 # C2V
+set NEW 3 1.0 # C3
+
+#[25/37] CV:1.0 C2V:1.6 C3:1.0
+launch --rewgt_name=scan_CV_1p0_C2V_1p6_C3_1p0
+set NEW 1 1.0 # CV
+set NEW 2 1.6 # C2V
+set NEW 3 1.0 # C3
+
+#[26/37] CV:1.0 C2V:1.7 C3:1.0
+launch --rewgt_name=scan_CV_1p0_C2V_1p7_C3_1p0
+set NEW 1 1.0 # CV
+set NEW 2 1.7 # C2V
+set NEW 3 1.0 # C3
+
+#[27/37] CV:1.0 C2V:1.8 C3:1.0
+launch --rewgt_name=scan_CV_1p0_C2V_1p8_C3_1p0
+set NEW 1 1.0 # CV
+set NEW 2 1.8 # C2V
+set NEW 3 1.0 # C3
+
+#[28/37] CV:1.0 C2V:1.9 C3:1.0
+launch --rewgt_name=scan_CV_1p0_C2V_1p9_C3_1p0
+set NEW 1 1.0 # CV
+set NEW 2 1.9 # C2V
+set NEW 3 1.0 # C3
+
+#[29/37] CV:1.0 C2V:2.0 C3:1.0
+launch --rewgt_name=scan_CV_1p0_C2V_2p0_C3_1p0
+set NEW 1 1.0 # CV
+set NEW 2 2.0 # C2V
+set NEW 3 1.0 # C3
+
+#[30/37] CV:1.0 C2V:2.25 C3:1.0
+launch --rewgt_name=scan_CV_1p0_C2V_2p25_C3_1p0
+set NEW 1 1.0 # CV
+set NEW 2 2.25 # C2V
+set NEW 3 1.0 # C3
+
+#[31/37] CV:1.0 C2V:2.5 C3:1.0
+launch --rewgt_name=scan_CV_1p0_C2V_2p5_C3_1p0
+set NEW 1 1.0 # CV
+set NEW 2 2.5 # C2V
+set NEW 3 1.0 # C3
+
+#[32/37] CV:1.0 C2V:2.75 C3:1.0
+launch --rewgt_name=scan_CV_1p0_C2V_2p75_C3_1p0
+set NEW 1 1.0 # CV
+set NEW 2 2.75 # C2V
+set NEW 3 1.0 # C3
+
+#[33/37] CV:1.0 C2V:3.0 C3:1.0
+launch --rewgt_name=scan_CV_1p0_C2V_3p0_C3_1p0
+set NEW 1 1.0 # CV
+set NEW 2 3.0 # C2V
+set NEW 3 1.0 # C3
+
+#[34/37] CV:1.0 C2V:3.25 C3:1.0
+launch --rewgt_name=scan_CV_1p0_C2V_3p25_C3_1p0
+set NEW 1 1.0 # CV
+set NEW 2 3.25 # C2V
+set NEW 3 1.0 # C3
+
+#[35/37] CV:1.0 C2V:3.5 C3:1.0
+launch --rewgt_name=scan_CV_1p0_C2V_3p5_C3_1p0
+set NEW 1 1.0 # CV
+set NEW 2 3.5 # C2V
+set NEW 3 1.0 # C3
+
+#[36/37] CV:1.0 C2V:3.75 C3:1.0
+launch --rewgt_name=scan_CV_1p0_C2V_3p75_C3_1p0
+set NEW 1 1.0 # CV
+set NEW 2 3.75 # C2V
+set NEW 3 1.0 # C3
+
+#[37/37] CV:1.0 C2V:4.0 C3:1.0
+launch --rewgt_name=scan_CV_1p0_C2V_4p0_C3_1p0
+set NEW 1 1.0 # CV
+set NEW 2 4.0 # C2V
+set NEW 3 1.0 # C3

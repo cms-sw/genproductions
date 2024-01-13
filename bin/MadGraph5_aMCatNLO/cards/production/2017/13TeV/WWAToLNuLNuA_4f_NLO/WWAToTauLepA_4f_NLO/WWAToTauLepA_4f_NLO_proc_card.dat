@@ -1,0 +1,9 @@
+import model loop_sm
+
+define tau = ta+ ta-
+define lep = e+ e- mu+ mu-
+define vall = vt vt~ ve ve~ vm vm~
+
+generate p p >  tau lep vall vall a [QCD]    @0
+
+output WWAToTauLepA_4f_NLO -nojpeg
