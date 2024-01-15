@@ -86,6 +86,12 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - name: 'Cleanup build folder'
+      run: |
+        ls -la ./
+        rm -rf ./* || true
+        rm -rf ./.??* || true
+        ls -la ./
       - uses: actions/checkout@v3
       - uses: dorny/paths-filter@v2
         id: filter
@@ -106,4 +112,4 @@ jobs:
           python3 bin/utils/request_fragment_check.py --bypass_status --develop --local --prepid GEN-Run3Summer22EEwmLHEGS-00403
           python3 bin/utils/request_fragment_check.py --bypass_status --develop --local --prepid TRK-Run3Summer23wmLHEGS-00002
           python3 bin/utils/request_fragment_check.py --bypass_status --develop --local --prepid TSG-Run3Summer23BPixGS-00007
-          python3 bin/utils/request_fragment_check.py --bypass_status --develop --local --prepid TSG-Run3Summer23BPixGS-00045 
+          python3 bin/utils/request_fragment_check.py --bypass_status --develop --local --prepid TSG-Run3Summer23BPixGS-00045     
