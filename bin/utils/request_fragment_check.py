@@ -1567,7 +1567,7 @@ for num in range(0,len(prepid)):
                     if MGpatch2[1] == 1: print("[OK] MG5_aMC@NLO LO nthreads patch OK in EOS")
                     if MGpatch2[0] == 1: print("[OK] MG5_aMC@NLO LO nthreads patch OK in CVMFS")
                     if MGpatch2[0] == 0 and MGpatch2[1] == 1: print("[OK] MG5_aMC@NLO LO nthreads patch not made in CVMFS but done in EOS waiting for CVMFS-EOS synch")
-                    if MGpatch2[1] == 0:
+                    if MGpatch2[1] == 0 and args.local is False:
                         errors.append("MG5_aMC@NLO LO nthreads patch not made in EOS")
                         if args.apply_many_threads_patch:
                             print("Patching for nthreads problem... please be patient.")
@@ -1648,6 +1648,9 @@ for num in range(0,len(prepid)):
         if args.develop is False:
             os.popen("rm -rf "+my_path+pi).read()
             os.popen("rm -rf "+my_path+'eos/'+pi).read()
+        if (args.develop is True) and (args.local is True):
+            os.popen("rm -rf "+my_path+pi).read()
+            os.popen("rm -rf "+my_path+'eos/'+pi).read()    
         print("***********************************************************************************")
         print("Number of warnings = "+ str(len(warnings)))
         if len(warnings) > 0:
