@@ -44,7 +44,7 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: 'Cleanup build folder'
+      - name: Cleanup build folder
       run: |
         ls -la ./
         rm -rf ./* || true
@@ -91,7 +91,7 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: 'Cleanup build folder'
+      - name: Cleanup build folder
       run: |
         ls -la ./
         rm -rf ./* || true
