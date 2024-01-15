@@ -1,0 +1,62 @@
+import FWCore.ParameterSet.Config as cms
+
+externalLHEProducer = cms.EDProducer("ExternalLHEProducer",
+ args = cms.vstring('/cvmfs/cms.cern.ch/phys_generator/gridpacks/2017/13TeV/madgraph/V5_2.6.5/GKKToGluRadionToGluVV_FixColorIssue/Res1ToRes2GluToGluVV_M1-2000_R-650_slc7_amd64_gcc700_CMSSW_10_6_19_tarball.tar.xz'),
+ nEvents = cms.untracked.uint32(5000),
+ numberOfParameters = cms.uint32(1),
+ outputFile = cms.string('cmsgrid_final.lhe'),
+ scriptName = cms.FileInPath('GeneratorInterface/LHEInterface/data/run_generic_tarball_cvmfs.sh'),
+ generateConcurrently = cms.untracked.bool(False)
+)
+
+
+from Configuration.Generator.Herwig7Settings.Herwig7CH3TuneSettings_cfi import *
+from Configuration.Generator.Herwig7Settings.Herwig7StableParticlesForDetector_cfi import *
+from Configuration.Generator.Herwig7Settings.Herwig7_7p1SettingsFor7p2_cfi import *
+from Configuration.Generator.Herwig7Settings.Herwig7LHECommonSettings_cfi import *
+from Configuration.Generator.Herwig7Settings.Herwig7LHEMG5aMCatNLOSettings_cfi import *
+
+'''
+'hw_PSWeights_settings',
+'hw_mg_merging_settings',
+'''
+
+generator = cms.EDFilter("Herwig7GeneratorFilter",
+    herwig7CH3SettingsBlock,
+    herwig7StableParticlesForDetectorBlock,
+    herwig7p1SettingsFor7p2Block,
+    herwig7LHECommonSettingsBlock,
+    herwig7LHEMG5aMCatNLOSettingsBlock,
+    configFiles = cms.vstring(),
+    hw_user_settings = cms.vstring(
+        'cd /',
+        'cd /Herwig/Particles',
+        'create ThePEG::ParticleData GKK',
+        'setup GKK 9000021 GKK 2000 7.918295 0.0 0.0 0 8 3 0',#setup particle ID PDGname mass width cut ctau charge colour spin stable
+        'create ThePEG::ParticleData R',
+        'setup R 9000025 R 650 0.1065145 0.0 0.0 0 0 1 0',
+        'cd /'
+    ),
+    parameterSets = cms.vstring(
+        'herwig7CH3PDF',
+        'herwig7CH3AlphaS',
+        'herwig7CH3MPISettings',
+        'hw_7p1SettingsFor7p2',
+        'herwig7StableParticlesForDetector',
+        'hw_lhe_common_settings',
+        'hw_lhe_MG5aMCatNLO_settings',
+        'hw_user_settings'
+        ),
+    crossSection = cms.untracked.double(-1),
+    dataLocation = cms.string('${HERWIGPATH:-6}'),
+    eventHandlers = cms.string('/Herwig/EventHandlers'),
+    filterEfficiency = cms.untracked.double(1.0),
+    generatorModule = cms.string('/Herwig/Generators/EventGenerator'),
+    repository = cms.string('${HERWIGPATH}/HerwigDefaults.rpo'),
+    run = cms.string('InterfaceMatchboxTest'),
+    runModeList = cms.untracked.string("read,run"),
+    seed = cms.untracked.int32(12345)
+)
+
+
+ProductionFilterSequence = cms.Sequence(generator)
