@@ -63,6 +63,9 @@ fi
 mkdir lheevent; cd lheevent
 
 #untar the tarball directly from cvmfs
+if [[ ! -f "${path}" ]]; then
+    path=${LHEWORKDIR}/${path##*/}
+fi
 tar -xaf ${path} 
 
 # If TMPDIR is unset, set it to the condor scratch area if present
@@ -80,4 +83,3 @@ cd $LHEWORKDIR
 rm -rf lheevent
 
 exit 0
-

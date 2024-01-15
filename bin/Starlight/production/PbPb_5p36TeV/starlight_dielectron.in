@@ -1,21 +1,21 @@
-PROD_MODE = 5                # gg or gP switch (1 = 2-photon, 2 = coherent vector meson (narrow), 3 = coherent vector meson (wide), 4 = incoherent vector meson)
+PROD_MODE = 1                # gg or gP switch (1 = 2-photon, 2 = coherent vector meson (narrow), 3 = coherent vector meson (wide), 4 = incoherent vector meson)
 PROD_PID = 11                # Channel of interest
 BEAM_1_Z = 82                # Z of projectile
 BEAM_1_A = 208               # A of projectile
 BEAM_2_Z = 82                # Z of target
 BEAM_2_A = 208               # A of target
 COLL_E = 5360                # Collision energy in GeV
-W_MAX = 12.0                 # Max value of w
-W_MIN = 2.0                  # Min value of w
-W_N_BINS = 40                # Bins i w
+W_MAX = 202.0                # Max value of w
+W_MIN = 2                    # Min value of w
+W_N_BINS = 500               # Bins i w
 RAP_MAX = 8.                 # max y
 RAP_N_BINS = 80              # Bins i y
-CUT_PT = 0                   # Cut in pT? 0 = (no, 1 = yes)
-PT_MIN = 1.0                 # Minimum pT in GeV
-PT_MAX = 3.0                 # Maximum pT in GeV
-CUT_ETA = 0                  # Cut in pseudorapidity? (0 = no, 1 = yes)
-ETA_MIN = -6                 # Minimum pseudorapidity
-ETA_MAX = 6                  # Maximum pseudorapidity
+CUT_PT = 1                   # Cut in pT? 0 = (no, 1 = yes)
+PT_MIN = 0.2                 # Minimum pT in GeV
+PT_MAX = 9999.0              # Maximum pT in GeV
+CUT_ETA = 1                  # Cut in pseudorapidity? (0 = no, 1 = yes)
+ETA_MIN = -2.8               # Minimum pseudorapidity
+ETA_MAX = 2.8                # Maximum pseudorapidity
 BREAKUP_MODE = 5             # Controls the nuclear breakup; a 5 here makes no requirement on the breakup of the ions
 INTERFERENCE = 0             # Interference (0 = off, 1 = on)
 IF_STRENGTH = 1.             # % of intefernce (0.0 - 0.1)

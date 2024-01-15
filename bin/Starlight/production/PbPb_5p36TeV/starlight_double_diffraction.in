@@ -1,4 +1,4 @@
-PROD_MODE = 5                # gg or gP switch (1 = 2-photon, 2 = coherent vector meson (narrow), 3 = coherent vector meson (wide), 4 = incoherent vector meson)
+PROD_MODE = 6                # gg or gP switch (1 = 2-photon, 2 = coherent vector meson (narrow), 3 = coherent vector meson (wide), 4 = incoherent vector meson)
 PROD_PID = 11                # Channel of interest
 BEAM_1_Z = 82                # Z of projectile
 BEAM_1_A = 208               # A of projectile
