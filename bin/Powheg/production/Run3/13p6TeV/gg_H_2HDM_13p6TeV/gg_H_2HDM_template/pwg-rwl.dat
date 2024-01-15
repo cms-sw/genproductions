@@ -1,0 +1,49 @@
+<initrwgt>
+<weightgroup name='scale_variation' combine='envelope' >
+<weight id='1001'> lhapdf=90900 renscfact=1d0 facscfact=1d0 </weight>
+<weight id='1002'> lhapdf=90900 renscfact=1d0 facscfact=2d0 </weight>
+<weight id='1003'> lhapdf=90900 renscfact=1d0 facscfact=0.5d0 </weight>
+<weight id='1004'> lhapdf=90900 renscfact=2d0 facscfact=1d0 </weight>
+<weight id='1005'> lhapdf=90900 renscfact=2d0 facscfact=2d0 </weight>
+<weight id='1006'> lhapdf=90900 renscfact=2d0 facscfact=0.5d0 </weight>
+<weight id='1007'> lhapdf=90900 renscfact=0.5d0 facscfact=1d0 </weight>
+<weight id='1008'> lhapdf=90900 renscfact=0.5d0 facscfact=2d0 </weight>
+<weight id='1009'> lhapdf=90900 renscfact=0.5d0 facscfact=0.5d0 </weight>
+<weight id='1010'> lhapdf=90900 renscfact=0.25d0 facscfact=0.25d0 </weight>
+<weight id='1011'> lhapdf=90900 renscfact=0.5d0 facscfact=0.25d0 </weight>
+<weight id='1012'> lhapdf=90900 renscfact=0.25d0 facscfact=0.5d0 </weight>
+</weightgroup>
+<weightgroup name='PDF_variation1' combine='hessian' >
+<weight id='10000'> lhapdf=90900 </weight>
+<weight id='10001'> lhapdf=90901 </weight>
+<weight id='10002'> lhapdf=90902 </weight>
+<weight id='10003'> lhapdf=90903 </weight>
+<weight id='10004'> lhapdf=90904 </weight>
+<weight id='10005'> lhapdf=90905 </weight>
+<weight id='10006'> lhapdf=90906 </weight>
+<weight id='10007'> lhapdf=90907 </weight>
+<weight id='10008'> lhapdf=90908 </weight>
+<weight id='10009'> lhapdf=90909 </weight>
+<weight id='10010'> lhapdf=90910 </weight>
+<weight id='10011'> lhapdf=90911 </weight>
+<weight id='10012'> lhapdf=90912 </weight>
+<weight id='10013'> lhapdf=90913 </weight>
+<weight id='10014'> lhapdf=90914 </weight>
+<weight id='10015'> lhapdf=90915 </weight>
+<weight id='10016'> lhapdf=90916 </weight>
+<weight id='10017'> lhapdf=90917 </weight>
+<weight id='10018'> lhapdf=90918 </weight>
+<weight id='10019'> lhapdf=90919 </weight>
+<weight id='10020'> lhapdf=90920 </weight>
+<weight id='10021'> lhapdf=90921 </weight>
+<weight id='10022'> lhapdf=90922 </weight>
+<weight id='10023'> lhapdf=90923 </weight>
+<weight id='10024'> lhapdf=90924 </weight>
+<weight id='10025'> lhapdf=90925 </weight>
+<weight id='10026'> lhapdf=90926 </weight>
+<weight id='10027'> lhapdf=90927 </weight>
+<weight id='10028'> lhapdf=90928 </weight>
+<weight id='10029'> lhapdf=90929 </weight>
+<weight id='10030'> lhapdf=90930 </weight>
+</weightgroup>
+</initrwgt>
