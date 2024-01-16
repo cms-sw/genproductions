@@ -48,7 +48,7 @@ cd $CMSSW_RELEASE/src
 eval `/cvmfs/cms.cern.ch/common/scramv1 runtime -sh`
 ln -s $POWHEG_DIR/* .
 # run Powheg
-python run_pwg_condor.py -p f -i $INPUT -m $PROC -d 1
+python3 run_pwg_condor.py -p f -i $INPUT -m $PROC -d 1
 cp testProd/pwg-stat.dat test/pwg-stat.dat.${PROC}_${SCRAM_ARCH}_${CMSSW_RELEASE}
 
 GRIDPACK=${PROC}_${SCRAM_ARCH}_${CMSSW_RELEASE}_testProd.tgz

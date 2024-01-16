@@ -48,7 +48,7 @@ grep -q "MGcosa" powheg.input; test $$? -eq 1 || forX0jj=1
 
 cd $$WORKDIR
 cd $${name}
-python ../make_rwl.py $${is5FlavorScheme} $${defaultPDF} $${forMiNNLO} $${forX0jj}
+python3 ../make_rwl.py $${is5FlavorScheme} $${defaultPDF} $${forMiNNLO} $${forX0jj}
 
 if [ -s ../JHUGen.input ]; then
   cp -p ../JHUGen.input JHUGen.input
@@ -80,8 +80,9 @@ echo 'D/L POWHEG source...'
 if [ $svnRev -eq 0 ]; then
  if [ ! -f $${POWHEGSRC} ]; then
    wget --no-verbose --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/slc6_amd64_gcc481/powheg/V2.0/src/$${POWHEGSRC} || fail_exit "Failed to get powheg tar ball "
+#  cp /afs/cern.ch/user/s/shin/private/$powhegSrc .
  fi
- tar zxf $${POWHEGSRC}
+ tar -zxf $powhegSrc
 else
   # retrieve powheg source from svn
  svn checkout --revision $svnRev --username anonymous --password anonymous $svnRepo POWHEG-BOX
@@ -93,7 +94,7 @@ sed -i -e "s#par_maxseeds=200,#par_maxseeds=10000,#g" POWHEG-BOX/include/pwhg_pa
 
 if [ -e POWHEG-BOX/$${process}.tgz ]; then
   cd POWHEG-BOX/
-  tar zxf $${process}.tgz
+  tar -zxf $${process}.tgz
   cd -
 else
   cd POWHEG-BOX/
@@ -101,7 +102,10 @@ else
   cd -
 fi
 
+
+
 patch -l -p0 -i ${patches_dir}/pdfweights_new.patch
+
 
 $patch_1 
 
@@ -116,7 +120,7 @@ cd POWHEG-BOX/$${process}/$${subprocess}
 mkdir -p include
 
 $patch_2 
-
+#
 # Use dynamic linking and lhapdf
 sed -i -e "s#STATIC[ \t]*=[ \t]*-static#STATIC=-dynamic#g" Makefile
 sed -i -e "s#PDF[ \t]*=[ \t]*native#PDF=lhapdf#g" Makefile
@@ -235,7 +239,7 @@ $patch_6
 
 echo 'Compiling pwhg_main...'
 pwd
-
+ls
 $patch_7 
 
 #Here the patch_0: MadGraph + Powheg plugin installing 
@@ -247,6 +251,14 @@ if [[ $$process == "ggHH" || $$process == "ggHH_SMEFT" ]]; then
     export C_INCLUDE_PATH=$$C_INCLUDE_PATH:$${MYINCLUDE}
 fi
 
+
+make pwhg_main
+
+if [ -e scons ]; then
+  echo "Compiling OpenLoops using scons"
+  sed -i "s/python2/python3/g" scons-local/scons.py
+  ./scons
+fi
 make pwhg_main || fail_exit "Failed to compile pwhg_main"
 
 mkdir -p $${WORKDIR}/$${name}

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 '''
 Script for POWHEG generator production
@@ -20,7 +20,8 @@ QUEUE = ''
 
 #POWHEG_SOURCE = "powhegboxV2_rev3728_date20200429.tar.gz"
 POWHEG_SOURCE = "powhegboxV2_rev3987_date20220622.tar.gz"
-POWHEGRES_SOURCE = "powhegboxRES_rev4004_date20221025.tar.gz"
+#POWHEGRES_SOURCE = "powhegboxRES_rev4004_date20221025.tar.gz"
+POWHEGRES_SOURCE = "powhegboxRES_rev4041_date20231121.tar.gz"
 
 
 rootfolder = os.getcwd()
