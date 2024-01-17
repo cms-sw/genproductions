@@ -13,7 +13,7 @@ cgms =["-10.0000000000", "-6.6667000000", "-10.0000000000", "-2.2222000000", "-1
 
 
 
-f=open("ZGtoLLG01j_5f_LO_mlm_sjtu_reweight_card.dat","w")
+f=open("ZGtoLLG01j_5f_LO_mlm_nTGC_sjtu_reweight_card.dat","w")
 f.write("change rwgt_dir ./rwgt\n\n")
 a = 0
 for cg in cgs:
