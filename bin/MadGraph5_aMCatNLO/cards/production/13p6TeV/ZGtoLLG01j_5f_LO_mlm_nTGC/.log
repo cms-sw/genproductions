@@ -1,9 +1,0 @@
-Starting job on  2022年 11月 10日 星期四 20:02:02 CST
-Running on  Linux node05.phy.pku.edu.cn 3.10.0-1160.el7.x86_64 #1 SMP Mon Oct 19 16:18:59 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux
-System release  CentOS Linux release 7.9.2009 (Core)
-name: cards/ZGtoLLG0123j_5f_LO_mlm_sjtu/
-carddir: 
-queue: local
-scram_arch: slc7_amd64_gcc700
-cmssw_version: CMSSW_10_6_19
-/home/pku/muty/genproductions/bin/MadGraph5_aMCatNLO//cards/ZGtoLLG0123j_5f_LO_mlm_sjtu/_proc_card.dat  does not exist!
