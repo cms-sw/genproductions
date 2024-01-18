@@ -1,0 +1,665 @@
+change rwgt_dir ./rwgt
+
+launch --rwgt_name=ZG_h4z_1_0_00023824
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 0.0
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z 0.0002382400
+
+launch --rwgt_name=ZG_h4z_2_0_00004765
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 0.0
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z 0.0000476490
+
+launch --rwgt_name=ZG_h4z_3_0_00002382
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 0.0
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z 0.0000238240
+
+launch --rwgt_name=ZG_h4z_4_0_00001191
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 0.0
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z 0.0000119120
+
+launch --rwgt_name=ZG_h4z_5_0_00000596
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 0.0
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z 0.0000059561
+
+launch --rwgt_name=ZG_h4z_6_0_00000298
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 0.0
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z 0.0000029781
+
+launch --rwgt_name=ZG_h4z_7_0_00000149
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 0.0
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z 0.0000014890
+
+launch --rwgt_name=ZG_h4z_8_0_00000030
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 0.0
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z 0.0000002978
+
+launch --rwgt_name=ZG_h4z_9_0_00000000
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 0.0
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z 0.0000000000
+
+launch --rwgt_name=ZG_h4z_10_n0_00000030
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 0.0
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z -0.0000002978
+
+launch --rwgt_name=ZG_h4z_11_n0_00000149
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 0.0
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z -0.0000014890
+
+launch --rwgt_name=ZG_h4z_12_n0_00000298
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 0.0
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z -0.0000029781
+
+launch --rwgt_name=ZG_h4z_13_n0_00000596
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 0.0
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z -0.0000059561
+
+launch --rwgt_name=ZG_h4z_14_n0_00001191
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 0.0
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z -0.0000119120
+
+launch --rwgt_name=ZG_h4z_15_n0_00002382
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 0.0
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z -0.0000238240
+
+launch --rwgt_name=ZG_h4z_16_n0_00004765
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 0.0
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z -0.0000476490
+
+launch --rwgt_name=ZG_h4z_17_n0_00023824
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 0.0
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z -0.0002382400
+
+launch --rwgt_name=ZG_h3z_1_n0_0044671
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 0.0
+set h3Z -0.0044671000
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z 0.0
+
+launch --rwgt_name=ZG_h3z_2_n0_0029781
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 0.0
+set h3Z -0.0029781000
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z 0.0
+
+launch --rwgt_name=ZG_h3z_3_n0_0014890
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 0.0
+set h3Z -0.0014890000
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z 0.0
+
+launch --rwgt_name=ZG_h3z_4_n0_0007445
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 0.0
+set h3Z -0.0007445100
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z 0.0
+
+launch --rwgt_name=ZG_h3z_5_n0_0003723
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 0.0
+set h3Z -0.0003722600
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z 0.0
+
+launch --rwgt_name=ZG_h3z_6_n0_0001861
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 0.0
+set h3Z -0.0001861300
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z 0.0
+
+launch --rwgt_name=ZG_h3z_7_n0_0000620
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 0.0
+set h3Z -0.0000620430
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z 0.0
+
+launch --rwgt_name=ZG_h3z_8_n0_0000124
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 0.0
+set h3Z -0.0000124090
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z 0.0
+
+launch --rwgt_name=ZG_h3z_9_0_0000000
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 0.0
+set h3Z 0.0000000000
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z 0.0
+
+launch --rwgt_name=ZG_h3z_10_0_0000124
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 0.0
+set h3Z 0.0000124090
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z 0.0
+
+launch --rwgt_name=ZG_h3z_11_0_0000620
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 0.0
+set h3Z 0.0000620430
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z 0.0
+
+launch --rwgt_name=ZG_h3z_12_0_0001861
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 0.0
+set h3Z 0.0001861300
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z 0.0
+
+launch --rwgt_name=ZG_h3z_13_0_0003723
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 0.0
+set h3Z 0.0003722600
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z 0.0
+
+launch --rwgt_name=ZG_h3z_14_0_0007445
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 0.0
+set h3Z 0.0007445100
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z 0.0
+
+launch --rwgt_name=ZG_h3z_15_0_0014890
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 0.0
+set h3Z 0.0014890000
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z 0.0
+
+launch --rwgt_name=ZG_h3z_16_0_0029781
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 0.0
+set h3Z 0.0029781000
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z 0.0
+
+launch --rwgt_name=ZG_h3z_17_0_0044671
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 0.0
+set h3Z 0.0044671000
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z 0.0
+
+launch --rwgt_name=ZG_h3a_1_0_0032892
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 0.0032892000
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z 0.0
+
+launch --rwgt_name=ZG_h3a_2_0_0021928
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 0.0021928000
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z 0.0
+
+launch --rwgt_name=ZG_h3a_3_0_0032892
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 0.0032892000
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z 0.0
+
+launch --rwgt_name=ZG_h3a_4_0_0007309
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 0.0007309300
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z 0.0
+
+launch --rwgt_name=ZG_h3a_5_0_0003655
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 0.0003654700
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z 0.0
+
+launch --rwgt_name=ZG_h3a_6_0_0001827
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 0.0001827300
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z 0.0
+
+launch --rwgt_name=ZG_h3a_7_0_0000609
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 0.0000609110
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z 0.0
+
+launch --rwgt_name=ZG_h3a_8_0_0000122
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 0.0000121820
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z 0.0
+
+launch --rwgt_name=ZG_h3a_9_0_0000000
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a 0.0000000000
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z 0.0
+
+launch --rwgt_name=ZG_h3a_10_n0_0000122
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a -0.0000121820
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z 0.0
+
+launch --rwgt_name=ZG_h3a_11_n0_0000609
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a -0.0000609110
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z 0.0
+
+launch --rwgt_name=ZG_h3a_12_n0_0001827
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a -0.0001827300
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z 0.0
+
+launch --rwgt_name=ZG_h3a_13_n0_0003655
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a -0.0003654700
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z 0.0
+
+launch --rwgt_name=ZG_h3a_14_n0_0007309
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a -0.0007309300
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z 0.0
+
+launch --rwgt_name=ZG_h3a_15_n0_0014619
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a -0.0014619000
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z 0.0
+
+launch --rwgt_name=ZG_h3a_16_n0_0021928
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a -0.0021928000
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z 0.0
+
+launch --rwgt_name=ZG_h3a_17_n0_0032892
+set f4Z 0.0
+set f5a 0.0
+set f5Z 0.0
+set h1a 0.0
+set h1Z 0.0
+set h3a -0.0032892000
+set h3Z 0.0
+set h2a 0.0
+set h2Z 0.0
+set h4a 0.0
+set h4Z 0.0
+
