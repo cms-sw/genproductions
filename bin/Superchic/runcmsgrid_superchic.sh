@@ -14,8 +14,9 @@ set_superchic_config(){
 run_superchic(){
     echo "*** STARTING SUPERCHIC PRODUCTION ***"
     LHAPDF_DATA_PATH=${LHAPDF_DATA_PATH}:${LHEWORKDIR}/${SUPERCHICDIR}/lhapdf
-    LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${LHEWORKDIR}/${APFELLIB}
-    cd ${LHEWORKDIR}/${SUPERCHICDIR}/bin
+    LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${LHEWORKDIR}/${APFELDIR}/build/lib64
+    export SUPERCHIC_DATA_PATH=${LHEWORKDIR}/${SUPERCHICDIR}/build/share/SuperChic
+    cd ${LHEWORKDIR}/${SUPERCHICDIR}/build/bin
     ./superchic < input.DAT 2>&1 | tee input.log; test ${PIPESTATUS[0]} -eq 0 || fail_exit "superchic error: exit code not 0"
     ${LHEWORKDIR}/macros/convert_SCLHE2LHE evrecs/evrecout.dat 2>&1 | tee upcgen.log; test ${PIPESTATUS[0]} -eq 0 || fail_exit "convert_SCLHE2LHE error: exit code not 0"
     sed -i '/SUPERCHIC/a '${APFELDIR} evrecout_proc.lhe
@@ -83,9 +84,8 @@ fi
 cd $LHEWORKDIR
 
 APFELDIR=APFELDIR_REPLACE
-APFELLIB=APFELLIB_REPLACE
 SUPERCHICDIR=SUPERCHICDIR_REPLACE
-CONFIG=${LHEWORKDIR}/${SUPERCHICDIR}/bin/input.DAT
+CONFIG=${LHEWORKDIR}/${SUPERCHICDIR}/build/bin/input.DAT
 
 #Set SuperChic settings
 set_superchic_config
