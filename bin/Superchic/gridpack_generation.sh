@@ -36,7 +36,7 @@ install_superchic(){
 
     echo "Downloading "${SUPERCHIC}
     SUPERCHICDIR=${WORKDIR}/superchic_v${SUPERCHIC//[!0-9]/}
-    wget --no-verbose --no-check-certificate https://anstahll.web.cern.ch/anstahll/superchic/${SUPERCHIC}.tar.gz
+    wget --no-verbose --no-check-certificate https://cms-project-generators.web.cern.ch/cms-project-generators/superchic/${SUPERCHIC}.tar.gz
     tar -xzf ${SUPERCHIC}.tar.gz && mv ${SUPERCHIC} ${SUPERCHICDIR}
     rm -f ${SUPERCHIC}.tar.gz
 
