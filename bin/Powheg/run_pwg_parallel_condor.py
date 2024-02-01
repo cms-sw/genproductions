@@ -43,7 +43,6 @@ if __name__ == "__main__":
     parser.add_argument('-m', '--prcName'       , dest="prcName",       default= 'DMGG',         help='POWHEG process name [DMGG]')
     parser.add_argument(      '--step3pilot'    , dest="step3pilot",    default= False,          help='do a pilot job to combine the grids, calculate upper bounds afterwards (otherwise afs jobs might fail)', action='store_true')
     parser.add_argument(      '--dry-run'       , dest="dryrun",        default= False,          help='show commands only, do not submit', action='store_true')
-    parser.add_argument(      '--slc'           , dest="slc",           default='7',             help='If 6, run in slc6 using singularity')
     parser.add_argument(      '--svn'           , dest="svnRev",        default= 0,              help='SVN revision. If 0, use tarball [0]')
 
     args = parser.parse_args ()
@@ -63,7 +62,6 @@ if __name__ == "__main__":
     print('                powheg process name   = ' + args.prcName)
     print('                do step 3 pilot run   = ' + str(args.step3pilot))
     print('                dry run               = ' + str(args.dryrun))
-    print('                SLC                   = ' + str(args.slc))
     print('                SVN                   = ' + str(args.svnRev))
     print()
 
@@ -103,8 +101,6 @@ if __name__ == "__main__":
         
         commonOpts='-i '+args.inputTemplate+' -m '+args.prcName+' -f '+args.folderName+' -j '+njobs+' --fordag 1'
         commonOpts+=' --svn %i' % args.svnRev
-        if args.slc == '6':
-            commonOpts+=' --slc6 1 '
         if args.eosFolder != 'NONE':
             commonOpts+=' -e '+args.eosFolder
         if extraOpt!='-p 0' and extraOpt!='-p 9 -k 1':
@@ -138,7 +134,7 @@ if __name__ == "__main__":
             dagfile.write('\n')
     dagfile.close()
     
-    command = 'condor_submit_dag %s'%(dagfilename)
+    command = 'sh dag_wrapper.sh %s'%(dagfilename)
     print(command)
     if not args.dryrun:
         command_out = subprocess.getstatusoutput(command)[1]

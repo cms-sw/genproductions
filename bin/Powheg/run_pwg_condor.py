@@ -23,7 +23,14 @@ POWHEGRES_SOURCE = "powhegboxRES_rev4004_date20221025.tar.gz"
 
 
 rootfolder = os.getcwd()
-
+scram_arch = os.environ['SCRAM_ARCH']
+scram_os = scram_arch.split('_')[0]
+want_os = { # https://batchdocs.web.cern.ch/local/submit.html#os-selection-via-containers
+    'slc6': 'el7',
+    'slc7': 'el7',
+    'el8': 'el8',
+    'el9': 'el9',
+}
 
 def runCommand(command, printIt = False, doIt = 1) :
     if args.fordag and 'condor_submit' in command:
@@ -42,11 +49,8 @@ def runCommand(command, printIt = False, doIt = 1) :
 
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
-def prepareCondorScript( tag, i, folderName, queue, SCALE = '0', njobs = 0, runInBatchDir = False, slc6 = 0):
+def prepareCondorScript( tag, i, folderName, queue, SCALE = '0', njobs = 0, runInBatchDir = False):
    '''prepare the Condor submission script'''
-   
-   if (slc6):
-       print('Preparing to run in slc6 using singularity')
 
    filename = 'run_' + folderName + '_' + tag + '.condorConf'
    execname = 'run_' + tag
@@ -58,7 +62,8 @@ def prepareCondorScript( tag, i, folderName, queue, SCALE = '0', njobs = 0, runI
    f = open(filename, 'w')
 
    if (i == 'multiple') :
-       if (slc6) :
+       if (scram_os == 'slc6') :
+          print('Preparing to run in slc6 using singularity')
           f.write('executable             = %s/slc6wrapper.sh \n' % rootfolder)
           f.write('arguments              = ' + execname + '_$(ProcId).sh \n')
        else:
@@ -76,7 +81,7 @@ def prepareCondorScript( tag, i, folderName, queue, SCALE = '0', njobs = 0, runI
        f.write('initialdir              = ' + rootfolder + '/' + folderName + '\n')
 
    f.write('+JobFlavour             = "'+ queue +'" \n')
-
+   f.write('MY.WantOS = "%s" \n' % want_os[scram_os])
    f.write('periodic_remove         = JobStatus == 5  \n')
    f.write('WhenToTransferOutput    = ON_EXIT_OR_EVICT \n')
    f.write('transfer_output_files   = "" \n')
@@ -203,7 +208,7 @@ def runParallelXgrid(parstage, xgrid, folderName, nEvents, njobs, powInputName, 
 
     else:
         print('Submitting to condor queues:  \n')
-        condorfile = prepareCondorScript(jobtag, 'multiple', args.folderName, QUEUE, njobs=njobs, runInBatchDir=True, slc6=args.slc6)
+        condorfile = prepareCondorScript(jobtag, 'multiple', args.folderName, QUEUE, njobs=njobs, runInBatchDir=True)
         runCommand ('condor_submit ' + condorfile)
 
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
@@ -393,7 +398,7 @@ def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag, proc
 
     else:
         print('Submitting to condor queues:  \n')
-        condorfile = prepareCondorScript(jobtag, 'multiple', args.folderName, QUEUE, njobs=njobs, runInBatchDir=True, slc6=args.slc6) 
+        condorfile = prepareCondorScript(jobtag, 'multiple', args.folderName, QUEUE, njobs=njobs, runInBatchDir=True) 
         runCommand ('condor_submit ' + condorfile)
      
 
@@ -448,7 +453,7 @@ def runhnnlo(folderName, njobs, QUEUE):
 
     print('Submitting to condor queues \n')
     tagName = 'hnnlo_%s' % scale
-    condorfile = prepareCondorScript(tagName, 'hnnlo', folderName, QUEUE, njobs=njobs, runInBatchDir=scale, slc6=args.slc6) 
+    condorfile = prepareCondorScript(tagName, 'hnnlo', folderName, QUEUE, njobs=njobs, runInBatchDir=scale) 
     runCommand ('condor_submit ' + condorfile)
    
 
@@ -477,7 +482,6 @@ if __name__ == "__main__":
     parser.add_argument('-k', '--keepTop'       , dest="keepTop",       default= '0',           help='Keep the validation top draw plots [0]')
     parser.add_argument('-d', '--noPdfCheck'    , dest="noPdfCheck",    default= '0',           help='If 1, deactivate automatic PDF check [0]')
     parser.add_argument('--fordag'    , dest="fordag",    default= 0,           help='If 1, deactivate submission, expect condor DAG file to be created [0]')
-    parser.add_argument('--slc6'    , dest="slc6",    default= 0,           help='If 1, use slc6 singularity [0]')
     parser.add_argument('--svn'    , dest="svnRev",    default= 0,           help='SVN revision. If 0, use tarball [0]')
     parser.add_argument('--ion'    , dest="ion",    default= '',           help='Ion type. Options: Pb []')
 
@@ -503,7 +507,7 @@ if __name__ == "__main__":
     print('                EOS folder (stages 4,7,8) : ' + args.eosFolder + '/' + EOSfolder)
     print('                base folder : ' + rootfolder)
     print('                forDAG : ' + str(args.fordag))
-    print('                SLC6 : ' + str(args.slc6))
+    print('                scram_arch (set from environment) : ' + scram_arch)
     print('                SVN : ' + str(args.svnRev))
     print()
 
@@ -658,7 +662,7 @@ if __name__ == "__main__":
 
         else:
             print('Submitting to condor queues \n')
-            condorfile = prepareCondorScript(tagName, '', '.', QUEUE, njobs=1, slc6=args.slc6) 
+            condorfile = prepareCondorScript(tagName, '', '.', QUEUE, njobs=1) 
             runCommand ('condor_submit ' + condorfile)
 
     elif args.parstage == '1' :
@@ -686,7 +690,7 @@ if __name__ == "__main__":
 
         else:
             print('Submitting to condor queues  \n')
-            condorfile = prepareCondorScript(tagName, '', args.folderName, QUEUE, njobs=1, runInBatchDir=True, slc6=args.slc6) 
+            condorfile = prepareCondorScript(tagName, '', args.folderName, QUEUE, njobs=1, runInBatchDir=True) 
             runCommand ('condor_submit ' + condorfile)
 
     elif args.parstage == '0123' or args.parstage == 'a' : # compile & run
@@ -709,7 +713,7 @@ if __name__ == "__main__":
                       scriptName.split('.sh')[0]+'.log &')
         else:
             print('Submitting to condor queues  \n')
-            condorfile = prepareCondorScript(tagName, '', '.', QUEUE, njobs=1, runInBatchDir=True, slc6=args.slc6) 
+            condorfile = prepareCondorScript(tagName, '', '.', QUEUE, njobs=1, runInBatchDir=True) 
             runCommand ('condor_submit ' + condorfile)
 
     elif args.parstage == '01239' or args.parstage == 'f' : # full single grid in oneshot
@@ -733,7 +737,7 @@ if __name__ == "__main__":
                       scriptName.split('.sh')[0]+'.log')
         else:
             print('Submitting to condor queues  \n')
-            condorfile = prepareCondorScript(tagName, '', '.', QUEUE, njobs=1, runInBatchDir=True, slc6=args.slc6) 
+            condorfile = prepareCondorScript(tagName, '', '.', QUEUE, njobs=1, runInBatchDir=True) 
             runCommand ('condor_submit ' + condorfile)
 
     elif args.parstage == '7' :
