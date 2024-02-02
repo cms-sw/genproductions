@@ -60,8 +60,8 @@ jobs:
           rm -rf ./.??* || true
           ls -la ./
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
-      - uses: dorny/paths-filter@v2
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
         id: filter 
         with:
           filters: |
@@ -71,7 +71,7 @@ jobs:
              - '.github/workflows/**' 
       - name: Build gridpack
         if: steps.filter.outputs.powheg1 == 'true' || steps.filter.outputs.workflow == 'true'
-        uses: nick-fields/retry@v2
+        uses: nick-fields/retry@v3
         with:
           max_attempts: 5
           timeout_minutes: 60
@@ -83,7 +83,7 @@ jobs:
         run: git diff --exit-code bin/Powheg/test/pwg-stat.dat.${{ matrix.proc }}_${{ matrix.scram_arch }}_${{ matrix.cmssw_release }}
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v4
+        uses: peter-evans/create-pull-request@v6
         with:
           commit-message: Automated addition ${{ matrix.proc }}_${{ matrix.scram_arch }}_${{ matrix.cmssw_release }}
           branch: create-pull-request/${{ matrix.proc }}_${{ matrix.scram_arch }}_${{ matrix.cmssw_release }}
@@ -107,8 +107,8 @@ jobs:
           rm -rf ./.??* || true
           ls -la ./
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it  
-      - uses: actions/checkout@v3
-      - uses: dorny/paths-filter@v2
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
         id: filter
         with:
           filters: |
