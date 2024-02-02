@@ -1,0 +1,161 @@
+****************************************************************************************
+******  RE-RUN ./init IF FIRST FIVE PARAMETERS ARE CHANGED (and beam = 'prot'):  *******
+****************************************************************************************
+5.36d3           !  [rts] : CMS collision energy (GeV)
+4	       !  [isurv] : Model of soft survival (from 1 -> 4, corresponding to arXiv:1306.2149)
+'in13'         !  [intag] for input files 
+****************************************************************************************
+****************************************************************************************
+'MSHT20qed_nnlo'   ! [PDFname] : PDF set
+0                    ! [PDFmember] : PDF member
+****************************************************************************************
+57      !  [proc] : Process number (see manual for labelling)
+'ion'  ! [beam] : Beam type ('prot', 'ion', 'ionp' or 'el')
+'test'          ! [outtg]
+.false.  !  [sfaci] : Include soft survival effects
+****************************************************************************************
+************************* Dissociation parameters for PI  ******************************
+****************************************************************************************
+'el'    !  [diff] : elastic ('el'), single ('sd','sda','sdb') and double ('dd') dissociation. NB - modes other than 'el' only available for PI lepton pair production!
+****************************************************************************************
+208d0   !  [an] : Ion mass number
+82d0    !  [az] : Ion atomic number
+6.68d0  !  [rz] : Ion proton density - radius
+0.447d0 !  [dz] : Ion proton density - skin thickness
+6.7d0 	!  [rn] : Ion neutron density - radius
+0.55d0  !  [dn] : Ion neutron density - skin thickness
+'coh'   !  [ionqcd] : Coherent ('coh') or incoherent ('incoh') for QCD-induced (ion-ion) processes
+.false.  ! [ionbreakup] : set to .true. if include ion breakup, false if inclusive
+'00'    ! [fAA] : if ionbreakup=.true. then specifies breakup type
+1d0     ! [fracsigX] : multiply sig_(gamA) by this factor (1d0 - default)
+****************************************************************************************
+************************* Integration parameters ***************************************
+****************************************************************************************
+10000       ! [ncall] : Number of calls for preconditioning
+10          ! [itmx] : Number of iterations for preconditioning
+1d0          ! [prec]
+10000       ! [ncall1] : Number of calls in first iteration
+10000       ! [inccall] : Number of increase calls per iteration
+1000        ! [itend] : Maximum number of iterations
+6           ! [iseed] : Random number seed (integer > 0)
+****************************************************************************************
+******************************* Unweighted events **************************************
+****************************************************************************************
+.false.       ! [genunw] : Generate unweighted events
+10           ! [nev] : Number of events ( < 1000000 recommended)
+'lhe'	     ! [erec] : Event record format ('hepmc','lhe','hepevt')
+.false.	     ! [readwt] : Set to true to read in pre-calculated maxium weight below
+0d0          ! [wtmax] : Maximum weight
+****************************************************************************************
+*******************************   general cuts    **************************************
+****************************************************************************************
+-2.5d0          ! [ymin]
+2.5d0          ! [ymax]
+2d0          ! [mmin]
+202d0          ! [mmax]
+.false.        ! [gencuts] : Generate cuts below
+.true.        ! [scorr] : Include spin correlations
+.true.	      ! [fwidth] : Include finite width 
+****************************************************************************************
+************************ See manual for momentum assignments ***************************
+****************************************************************************************
+*********************************** Proton Cuts  ***************************************
+****************************************************************************************
+2d0     ! [ptxmax]
+****************************************************************************************
+************************* 2 body final states : p(a) + p(b) ****************************
+****************************************************************************************
+0d0         ! [ptamin]
+0d0         ! [ptbmin]
+-2.5d0       ! [etaamin]
+2.5d0        ! [etaamax]
+-2.5d0       ! [etabmin]
+2.5d0        ! [etabmax]
+1d10        ! [acoabmax]
+****************************************************************************************
+********************** 3 body final states : p(a) + p(b) + p(c) ************************
+****************************************************************************************
+3d0         ! [ptamin]
+3d0         ! [ptbmin]
+3d0         ! [ptcmin]
+-2.5d0      ! [etaamin]
+2.5d0       ! [etaamax]
+-2.5d0      ! [etabmin]
+2.5d0       ! [etabmax]
+-2.5d0      ! [etacmin]
+2.5d0       ! [etacmax]
+****************************************************************************************
+****************** 4 body final states : p(a) + p(b) + p(c)+ p(d) **********************
+****************************************************************************************
+2d0         ! [ptamin]
+2d0         ! [ptbmin]
+2d0         ! [ptcmin]
+2d0         ! [ptdmin]
+-2.5d0      ! [etaamin]
+2.5d0       ! [etaamax]
+-2.5d0      ! [etabmin]
+2.5d0       ! [etabmax]
+-2.5d0      ! [etacmin]
+2.5d0       ! [etacmax]
+-2.5d0      ! [etadmin]
+2.5d0       ! [etadmax]
+****************************************************************************************
+*********** 6 body final states : p(a) + p(b) + p(c)+ p(d) + p(e) + p(f) ***************
+****************************************************************************************
+0d0         ! [ptamin]
+0d0         ! [ptbmin]
+0d0         ! [ptcmin]
+0d0         ! [ptdmin]
+0d0         ! [ptemin]
+0d0         ! [ptfmin]
+-2.5d1      ! [etaamin]
+2.5d1       ! [etaamax]
+-2.5d1      ! [etabmin]
+2.5d1       ! [etabmax]
+-2.5d1      ! [etacmin]
+2.5d1       ! [etacmax]
+-2.5d1      ! [etadmin]
+2.5d1       ! [etadmax]
+-2.5d1      ! [etaemin]
+2.5d1       ! [etaemax]
+-2.5d1      ! [etafmin]
+2.5d1       ! [etafmax]
+****************************************************************************************
+*******   Jet algorithm parameters
+****************************************************************************************
+0.6d0      ! [rjet] : Jet Radius
+'antikt'   ! [jalg] : Jet algorithm ('antikt','kt')
+****************************************************************************************
+******  chi_c/b two-body decays
+****************************************************************************************
+0.133d0	     ! [m2b] : mass of decay particles
+211          ! [pdgid1] : PDG number particle 1
+-211         ! [pdgid2] : PDG number particle 2
+****************************************************************************************
+****** ALP parameters
+****************************************************************************************
+1200d0        ! [malp] : ALP mass (GeV)
+4d-4        ! [gax] : ALP coupling (GeV^-1)
+'ps'        ! [alpt] : AlP type (scalar - 'sc', pseudoscalar - 'ps')
+****************************************************************************************
+******  Monopole parameters
+****************************************************************************************
+500d0        ! [mpol] : Monopole mass
+933d0        ! [mmon] : Monopolium mass
+10d0         ! [gamm] : Monopolium width
+****************************************************************************************
+******  SUSY parameters
+****************************************************************************************
+100d0   ! [mcharg] : Chargino/Slepton mass
+80d0    ! [mneut]  : Neutralino mass
+****************************************************************************************
+******  W+W- decays
+****************************************************************************************
+'mu'    ! [wlp] : W+ leptonic channel (mu or el)
+'el'    ! [wlm] : W- leptoinc channel (mu or el)
+****************************************************************************************
+******  V+X simplified model
+****************************************************************************************
+0.04d0   ! [tau] : mass distribution decay constant (GeV^-1)
+100d0    ! [mxs] : mass of MX
+****************************************************************************************

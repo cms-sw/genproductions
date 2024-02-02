@@ -25,7 +25,3 @@ INT_PT_WIDTH = 0             # Used only when the interference option above is t
 XSEC_METHOD = 1              # Set to 0 to use old method for calculating gamma-gamma luminosity
 BSLOPE_DEFINITION = 0        # Used for incoherent nuclear collisions to set the t-spectrum
 BSLOPE_VALUE = 0             # When BSLOPE_DEFINITION=1, determines the exponential slope of t-spectrum
-PYTHIA_FULL_EVENTRECORD = 1  # Write full pythia information to output (vertex, parents, daughter etc).
-
-N_EVENTS = NEVT    #Number of events
-RND_SEED = RNDSEED #Random seed

@@ -1,0 +1,7 @@
+import model VLL
+define vll = lp lp~
+define boson = w+ w- z h a
+define ele = e+ e- ve ve~
+define muon = mu+ mu- vm vm~
+generate p p > vll vll, vll > boson flavorholder
+output prefixholder -nojpeg

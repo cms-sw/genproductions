@@ -11,12 +11,14 @@ on:
       - '.github/workflows/**'
       - 'bin/Powheg/**'
       - '!**/*.input'
+      - 'bin/utils/**' 
   pull_request:
     branches: [ master ]
     paths:
       - '.github/workflows/**'
       - 'bin/Powheg/**'
       - '!**/*.input'
+      - 'bin/utils/**' 
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -42,10 +44,24 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      - name: Cleanup build folder
+        run: |
+          ls -la ./
+          rm -rf ./* || true
+          rm -rf ./.??* || true
+          ls -la ./
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-
+      - uses: dorny/paths-filter@v2
+        id: filter 
+        with:
+          filters: |
+            powheg1:
+             - 'bin/Powheg/**'
+            workflow:
+             - '.github/workflows/**' 
       - name: Build gridpack
+        if: steps.filter.outputs.powheg1 == 'true' || steps.filter.outputs.workflow == 'true'
         uses: nick-fields/retry@v2
         with:
           max_attempts: 5
@@ -54,6 +70,7 @@ jobs:
           command: docker run --rm -v /cvmfs:/cvmfs -v $PWD:$PWD -w $PWD gitlab-registry.cern.ch/cms-cloud/cmssw-docker/cc7-cms bash bin/Powheg/test/test_build.sh -r ${{ matrix.cmssw_release }} -a ${{ matrix.scram_arch }} -p ${{ matrix.proc }}
 
       - name: Check pwg-stat.dat
+        if: steps.filter.outputs.powheg1 == 'true' || steps.filter.outputs.workflow == 'true'
         run: git diff --exit-code bin/Powheg/test/pwg-stat.dat.${{ matrix.proc }}_${{ matrix.scram_arch }}_${{ matrix.cmssw_release }}
 
       - name: Create Pull Request
@@ -66,4 +83,39 @@ jobs:
           title: Automated addition ${{ matrix.proc }}_${{ matrix.scram_arch }}_${{ matrix.cmssw_release }}
           body: |
             Automated addition by [create-pull-request](https://github.com/peter-evans/create-pull-request) GitHub action.
-            Please review the cross section file carefully!
+            Please review the cross section file carefully!            
+  #############################################################
+  req_check_script:
+    # The type of runner that the job will run on
+    runs-on: [self-hosted, linux, x64]
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Cleanup build folder
+        run: |
+          ls -la ./
+          rm -rf ./* || true
+          rm -rf ./.??* || true
+          ls -la ./
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it  
+      - uses: actions/checkout@v3
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          filters: |
+            bin:
+             - 'bin/utils/**' 
+            workflow:
+             - '.github/workflows/**'  
+      - name: Run the request checking script on local mcm requests
+        #shell: python#
+        if: steps.filter.outputs.bin == 'true' || steps.filter.outputs.workflow == 'true'
+        run: |
+          python3 bin/utils/request_fragment_check.py --bypass_status --develop --local --prepid SUS-RunIISummer20UL16wmLHEGEN-00768
+          python3 bin/utils/request_fragment_check.py --bypass_status --develop --local --prepid EXO-Run3Summer22wmLHEGS-01444
+          python3 bin/utils/request_fragment_check.py --bypass_status --develop --local --prepid B2G-RunIISummer20UL18wmLHEGEN-03308
+          python3 bin/utils/request_fragment_check.py --bypass_status --develop --local --prepid SMP-RunIISummer20UL16GEN-00050   
+          python3 bin/utils/request_fragment_check.py --bypass_status --develop --local --prepid GEN-Run3Summer22EEwmLHEGS-00403
+          python3 bin/utils/request_fragment_check.py --bypass_status --develop --local --prepid TRK-Run3Summer23wmLHEGS-00002
+          python3 bin/utils/request_fragment_check.py --bypass_status --develop --local --prepid TSG-Run3Summer23BPixGS-00007
+          python3 bin/utils/request_fragment_check.py --bypass_status --develop --local --prepid TSG-Run3Summer23BPixGS-00045     

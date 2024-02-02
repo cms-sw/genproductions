@@ -1,0 +1,14 @@
+diff -ruN ./src/UpcGenerator.cpp ../upcgen_v240622_patch/src/UpcGenerator.cpp
+--- ./src/UpcGenerator.cpp	2023-12-17 15:34:18.000000001 +0100
++++ ../upcgen_v240622_patch/src/UpcGenerator.cpp	2023-12-17 14:33:32.000000001 +0100
+@@ -730,6 +730,10 @@
+     PLOG_INFO << fixed << setprecision(6) << "Cross section with cuts = " << fidCS << " mb";
+   }
+ 
++  ofstream fileXSec("xsec.out");
++  double acc = rejected>0 ? nEvents/double(nEvents + rejected) : 1.;
++  if (fileXSec.is_open()) { fileXSec << std::setprecision(12) << 1.E9*totCS*acc << " " << 1.E9*totCS; fileXSec.close(); }
++
+   if (useROOTOut) {
+     if (debug > 0) {
+       hNucCSM->Write();
