@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # EXAMPLE ON HOW TO RUN
 # python ./run_pwg_parallel.py -i powheg_Zj.input -m Zj -f my_Zj -q 1nd -j 10
@@ -6,7 +6,7 @@
 import argparse
 import os
 import sys
-import commands
+import subprocess
 import re
 import datetime
 from time import sleep
@@ -51,21 +51,21 @@ if __name__ == "__main__":
     QUEUE = args.doQueue
     EOSfolder = args.folderName
 
-    print
-    print 'RUNNING PARAMS: '
-    print '                parstage              = ' + args.parstage
-    print '                folderName            = ' + args.folderName 
-    print '                eosFolder             = ' + args.eosFolder 
-    print '                Number of jobs        = ' + args.numJobs 
-    print '                Number of xgrid iter  = ' + args.numX 
-    print '                Condor Job flavor     = ' + args.doQueue 
-    print '                powheg input cfg file = ' + args.inputTemplate 
-    print '                powheg process name   = ' + args.prcName
-    print '                do step 3 pilot run   = ' + str(args.step3pilot)
-    print '                dry run               = ' + str(args.dryrun)
-    print '                SLC                   = ' + str(args.slc)
-    print '                SVN                   = ' + str(args.svnRev)
-    print
+    print()
+    print('RUNNING PARAMS: ')
+    print('                parstage              = ' + args.parstage)
+    print('                folderName            = ' + args.folderName) 
+    print('                eosFolder             = ' + args.eosFolder) 
+    print('                Number of jobs        = ' + args.numJobs) 
+    print('                Number of xgrid iter  = ' + args.numX) 
+    print('                Condor Job flavor     = ' + args.doQueue) 
+    print('                powheg input cfg file = ' + args.inputTemplate) 
+    print('                powheg process name   = ' + args.prcName)
+    print('                do step 3 pilot run   = ' + str(args.step3pilot))
+    print('                dry run               = ' + str(args.dryrun))
+    print('                SLC                   = ' + str(args.slc))
+    print('                SVN                   = ' + str(args.svnRev))
+    print()
 
 
     # parse differe
@@ -96,7 +96,7 @@ if __name__ == "__main__":
             (9, 'grid production 9',         '-p 9 -k 1','null'))
 
     for istep,step,extraOpt,condorFile in steps:
-        print '*'*50,step,'*'*5,extraOpt,'*'*50
+        print('*'*50,step,'*'*5,extraOpt,'*'*50)
         njobs = args.numJobs
         if 'pilot' in step:
             njobs = '1'
@@ -112,11 +112,12 @@ if __name__ == "__main__":
                 commonOpts = commonOpts+' -q '+queues[istep]
             else:
                 commonOpts = commonOpts+' -q '+args.doQueue
-        command = 'python ./run_pwg_condor.py %s %s'%(extraOpt,commonOpts)
-        print command
-        # if args.dryrun: continue
-        command_out = commands.getstatusoutput(command)[1]
-        print command_out
+        command = 'python3 ./run_pwg_condor.py %s %s'%(extraOpt,commonOpts)
+        print(command)
+        if args.dryrun:
+            continue
+        command_out = subprocess.getstatusoutput(command)[1]
+        print(command_out)
     
     dagfilename = 'run_' + args.folderName + '.dag'
     dagfile = open(dagfilename, 'w')
@@ -138,7 +139,7 @@ if __name__ == "__main__":
     dagfile.close()
     
     command = 'condor_submit_dag %s'%(dagfilename)
-    print command
+    print(command)
     if not args.dryrun:
-        command_out = commands.getstatusoutput(command)[1]
-        print command_out
+        command_out = subprocess.getstatusoutput(command)[1]
+        print(command_out)
