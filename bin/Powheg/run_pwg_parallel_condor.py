@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # EXAMPLE ON HOW TO RUN
 # python ./run_pwg_parallel.py -i powheg_Zj.input -m Zj -f my_Zj -q 1nd -j 10
@@ -6,7 +6,7 @@
 import argparse
 import os
 import sys
-import commands
+import subprocess
 import re
 import datetime
 from time import sleep
@@ -43,7 +43,6 @@ if __name__ == "__main__":
     parser.add_argument('-m', '--prcName'       , dest="prcName",       default= 'DMGG',         help='POWHEG process name [DMGG]')
     parser.add_argument(      '--step3pilot'    , dest="step3pilot",    default= False,          help='do a pilot job to combine the grids, calculate upper bounds afterwards (otherwise afs jobs might fail)', action='store_true')
     parser.add_argument(      '--dry-run'       , dest="dryrun",        default= False,          help='show commands only, do not submit', action='store_true')
-    parser.add_argument(      '--slc'           , dest="slc",           default='7',             help='If 6, run in slc6 using singularity')
     parser.add_argument(      '--svn'           , dest="svnRev",        default= 0,              help='SVN revision. If 0, use tarball [0]')
 
     args = parser.parse_args ()
@@ -51,21 +50,20 @@ if __name__ == "__main__":
     QUEUE = args.doQueue
     EOSfolder = args.folderName
 
-    print
-    print 'RUNNING PARAMS: '
-    print '                parstage              = ' + args.parstage
-    print '                folderName            = ' + args.folderName 
-    print '                eosFolder             = ' + args.eosFolder 
-    print '                Number of jobs        = ' + args.numJobs 
-    print '                Number of xgrid iter  = ' + args.numX 
-    print '                Condor Job flavor     = ' + args.doQueue 
-    print '                powheg input cfg file = ' + args.inputTemplate 
-    print '                powheg process name   = ' + args.prcName
-    print '                do step 3 pilot run   = ' + str(args.step3pilot)
-    print '                dry run               = ' + str(args.dryrun)
-    print '                SLC                   = ' + str(args.slc)
-    print '                SVN                   = ' + str(args.svnRev)
-    print
+    print()
+    print('RUNNING PARAMS: ')
+    print('                parstage              = ' + args.parstage)
+    print('                folderName            = ' + args.folderName) 
+    print('                eosFolder             = ' + args.eosFolder) 
+    print('                Number of jobs        = ' + args.numJobs) 
+    print('                Number of xgrid iter  = ' + args.numX) 
+    print('                Condor Job flavor     = ' + args.doQueue) 
+    print('                powheg input cfg file = ' + args.inputTemplate) 
+    print('                powheg process name   = ' + args.prcName)
+    print('                do step 3 pilot run   = ' + str(args.step3pilot))
+    print('                dry run               = ' + str(args.dryrun))
+    print('                SVN                   = ' + str(args.svnRev))
+    print()
 
 
     # parse differe
@@ -96,15 +94,13 @@ if __name__ == "__main__":
             (9, 'grid production 9',         '-p 9 -k 1','null'))
 
     for istep,step,extraOpt,condorFile in steps:
-        print '*'*50,step,'*'*5,extraOpt,'*'*50
+        print('*'*50,step,'*'*5,extraOpt,'*'*50)
         njobs = args.numJobs
         if 'pilot' in step:
             njobs = '1'
         
         commonOpts='-i '+args.inputTemplate+' -m '+args.prcName+' -f '+args.folderName+' -j '+njobs+' --fordag 1'
         commonOpts+=' --svn %i' % args.svnRev
-        if args.slc == '6':
-            commonOpts+=' --slc6 1 '
         if args.eosFolder != 'NONE':
             commonOpts+=' -e '+args.eosFolder
         if extraOpt!='-p 0' and extraOpt!='-p 9 -k 1':
@@ -112,11 +108,12 @@ if __name__ == "__main__":
                 commonOpts = commonOpts+' -q '+queues[istep]
             else:
                 commonOpts = commonOpts+' -q '+args.doQueue
-        command = 'python ./run_pwg_condor.py %s %s'%(extraOpt,commonOpts)
-        print command
-        # if args.dryrun: continue
-        command_out = commands.getstatusoutput(command)[1]
-        print command_out
+        command = 'python3 ./run_pwg_condor.py %s %s'%(extraOpt,commonOpts)
+        print(command)
+        if args.dryrun:
+            continue
+        command_out = subprocess.getstatusoutput(command)[1]
+        print(command_out)
     
     dagfilename = 'run_' + args.folderName + '.dag'
     dagfile = open(dagfilename, 'w')
@@ -137,8 +134,8 @@ if __name__ == "__main__":
             dagfile.write('\n')
     dagfile.close()
     
-    command = 'condor_submit_dag %s'%(dagfilename)
-    print command
+    command = 'sh dag_wrapper.sh %s'%(dagfilename)
+    print(command)
     if not args.dryrun:
-        command_out = commands.getstatusoutput(command)[1]
-        print command_out
+        command_out = subprocess.getstatusoutput(command)[1]
+        print(command_out)

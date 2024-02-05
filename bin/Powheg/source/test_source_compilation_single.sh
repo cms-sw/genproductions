@@ -113,8 +113,8 @@ rm ${topdir}/compile_report_-_${process}_-_${scram_arch_version}_-_${cmssw_versi
 # Loop on the processes, compile and fetch the last lines of the compilation log
 echo "compiling ${process}"
 echo ${PWD}
-echo "python ./run_pwg_condor.py -p 0 -i powheg.input -m ${process} -f my_${process} -d 1"
-python ./run_pwg_condor.py -p 0 -i powheg.input -m ${process} -f my_${process} -d 1
+echo "python3 ./run_pwg_condor.py -p 0 -i powheg.input -m ${process} -f my_${process} -d 1"
+python3 ./run_pwg_condor.py -p 0 -i powheg.input -m ${process} -f my_${process} -d 1
 echo "=========== LAST 30 COMPILATION LINES FOR PROCESS ${process} ===========" >> ${topdir}/compile_report_-_${process}_-_${scram_arch_version}_-_${cmssw_version}.log
 echo "" >> ${topdir}/compile_report_-_${process}_-_${scram_arch_version}_-_${cmssw_version}.log
 tail -n 30 run_src_my_${process}.log >> ${topdir}/compile_report_-_${process}_-_${scram_arch_version}_-_${cmssw_version}.log
