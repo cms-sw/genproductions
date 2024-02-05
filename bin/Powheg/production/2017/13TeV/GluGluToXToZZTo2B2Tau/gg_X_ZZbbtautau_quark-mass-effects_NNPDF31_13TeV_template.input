@@ -47,7 +47,7 @@ hdecaymode -1      ! PDG code for first decay product of the higgs
 masswindow 9999d0  !(default 10d0) number of widths around hmass in the BW for an off-shell Higgs boson
 
 ! **** Mandatory parameters for SM or MW ****
-hmass 3000d0            ! Higgs boson mass
+hmass MASSd0         ! Higgs boson mass
 hwidth 1.000D-03     ! Higgs boson width
 topmass 172.5        ! top quark mass
 bottommass 4.75d0    ! bottom quark mass - if defined it enables the bottom quark
