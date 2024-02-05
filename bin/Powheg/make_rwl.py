@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 '''
 Script for POWHEG weighting calculation
@@ -11,8 +11,8 @@ import os
 if len(sys.argv) < 3:
     print("""
 ERROR: Please specify if the Flavor scheme for which you want to define the weights is 5F (1) or 4F (0), and the central PDF
-Example of usage for 5F:  python make_rwl.py 1 325300
-Example of usage for 4F:  python make_rwl.py 0 325500
+Example of usage for 5F:  python3 make_rwl.py 1 325300
+Example of usage for 4F:  python3 make_rwl.py 0 325500
 """)
     sys.exit(1)
 

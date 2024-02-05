@@ -110,8 +110,8 @@ do
     process="${file%.*}"
     echo "compiling $process"
     echo ${PWD}
-    echo "python ./run_pwg_condor.py -p 0 -i powheg.input -m ${process} -f my_${process} -d 1"
-    python ./run_pwg_condor.py -p 0 -i powheg.input -m ${process} -f my_${process} -d 1
+    echo "python3 ./run_pwg_condor.py -p 0 -i powheg.input -m ${process} -f my_${process} -d 1"
+    python3 ./run_pwg_condor.py -p 0 -i powheg.input -m ${process} -f my_${process} -d 1
     echo "=========== LAST 10 COMPILATION LINES FOR PROCESS ${process} ===========" >> ${topdir}/compile_report_-_${source_name}_-_${scram_arch_version}_-_${cmssw_version}.log
     echo "" >> ${topdir}/compile_report_-_${source_name}_-_${scram_arch_version}_-_${cmssw_version}.log
     tail run_src_my_${process}.log >> ${topdir}/compile_report_-_${source_name}_-_${scram_arch_version}_-_${cmssw_version}.log
