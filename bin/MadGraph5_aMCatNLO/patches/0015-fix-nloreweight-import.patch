@@ -1,7 +1,7 @@
 diff --git a/madgraph/interface/reweight_interface.py b/madgraph/interface/reweight_interface_patched_0015.py
 index 7b99e6c7b..dbe5dbf03 100755
 --- a/madgraph/interface/reweight_interface.py
-+++ b/madgraph/interface/reweight_interface_patched_0015.py
++++ b/madgraph/interface/reweight_interface.py
 @@ -2022,13 +2022,13 @@ class ReweightInterface(extended_cmd.Cmd):
          if False:#self.has_nlo and 'NLO' in self.rwgt_mode:
              #use python version
