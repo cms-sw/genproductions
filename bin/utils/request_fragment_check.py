@@ -770,10 +770,12 @@ for num in range(0,len(prepid)):
             if len(scram_sherpa):
                 scram_sherpa = scram_sherpa[0]
                 print ("scram_arch for Sherpa = ",scram_sherpa) 
-                if scram_sherpa == scram_arch:
-                    print ("[OK] scram_arch for Sherpa and CMSSW are the same")
-                else:
-                    errors.append("scram_arch for Sherpa and CMSSW are NOT the same. But note that this check is done based on folder names except the one for CMSSW")  
+                print(len(scram_sherpa[0]))
+                if len(scram_sherpa[0]) != 0:
+                    if scram_sherpa == scram_arch:
+                        print ("[OK] scram_arch for Sherpa and CMSSW are the same")
+                    else:
+                        errors.append("scram_arch for Sherpa and CMSSW are NOT the same. But note that this check is done based on folder names except the one for CMSSW")  
             else:
                 warnings.append("scram_arch for Sherpa unidentifiable")
             sv_tmp = re.findall("sherpa/.*/",gridpack_cvmfs_path_tmp)[0].split("/")[1].split(".")
@@ -786,7 +788,8 @@ for num in range(0,len(prepid)):
             openloops_flag = True
             OL_list = os.popen('grep openloops '+pi_file).read().split("/")
             scram_OL = [s for s in OL_list if "gcc" in s]
-            if len(scram_OL):
+            print(scram_OL)
+            if len(scram_OL) and len(scram_sherpa):
                 scram_OL = scram_OL[0]
                 print ("scram_arch for OpenLoops = ",scram_OL)
                 if scram_OL == scram_sherpa:
