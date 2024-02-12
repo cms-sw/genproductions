@@ -1,0 +1,94 @@
+change mode NLO
+change rwgt_dir rwgt
+
+launch --rwgt_name=kHtt_0p5_kAtt_1_alpha_45
+set kHtt 0.5
+set kAtt 1
+set cosa 0.707107
+set kSM 1.414213
+
+launch --rwgt_name=kHtt_0p5_kAtt_1p5_alpha_45
+set kHtt 0.5
+set kAtt 1.5
+set cosa 0.707107
+set kSM 1.414213
+
+launch --rwgt_name=kHtt_1_kAtt_0p5_alpha_45
+set kHtt 1
+set kAtt 0.5
+set cosa 0.707107
+set kSM 1.414213
+
+launch --rwgt_name=kHtt_1_kAtt_1_alpha_45
+set kHtt 1
+set kAtt 1
+set cosa 0.707107
+set kSM 1.414213
+
+launch --rwgt_name=kHtt_1_kAtt_1p5_alpha_45
+set kHtt 1
+set kAtt 1.5
+set cosa 0.707107
+set kSM 1.414213
+
+launch --rwgt_name=kHtt_1p5_kAtt_0p5_alpha_45
+set kHtt 1.5
+set kAtt 0.5
+set cosa 0.707107
+set kSM 1.414213
+
+launch --rwgt_name=kHtt_1p5_kAtt_1_alpha_45
+set kHtt 1.5
+set kAtt 1
+set cosa 0.707107
+set kSM 1.414213
+
+# Angle 90, no kHtt contribution
+launch --rwgt_name=kHtt_1_kAtt_1_alpha_90
+set kAtt 1
+set kAtt 1
+set cosa 0.0001
+set kSM 10000
+
+# Angle 135
+launch --rwgt_name=kHtt_0p5_kAtt_1_alpha_135
+set kHtt 0.5
+set kAtt 1
+set cosa -0.707107
+set kSM -1.414213
+
+launch --rwgt_name=kHtt_0p5_kAtt_1p5_alpha_135
+set kHtt 0.5
+set kAtt 1.5
+set cosa -0.707107
+set kSM -1.414213
+
+launch --rwgt_name=kHtt_1_kAtt_0p5_alpha_135
+set kHtt 1
+set kAtt 0.5
+set cosa -0.707107
+set kSM -1.414213
+
+launch --rwgt_name=kHtt_1_kAtt_1_alpha_135
+set kHtt 1
+set kAtt 1
+set cosa -0.707107
+set kSM -1.414213
+
+launch --rwgt_name=kHtt_1_kAtt_1p5_alpha_135
+set kHtt 1
+set kAtt 1.5
+set cosa -0.707107
+set kSM -1.414213
+
+launch --rwgt_name=kHtt_1p5_kAtt_0p5_alpha_135
+set kHtt 1.5
+set kAtt 0.5
+set cosa -0.707107
+set kSM -1.414213
+
+launch --rwgt_name=kHtt_1p5_kAtt_1_alpha_135
+set kHtt 1.5
+set kAtt 1
+set cosa -0.707107
+set kSM -1.414213
