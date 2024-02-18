@@ -1,4 +1,3 @@
-import model loop_sm-ckm_no_b_mass
 import model HC_NLO_X0_UFO-no_b_mass
 
 generate p p > t t~ x0 [QCD] @0

@@ -1,7 +1,6 @@
-import model loop_sm-ckm
 import model HC_NLO_X0_UFO
 
 generate p p > t x0 b~ j $$ w+ w- [QCD]
 add process p p > t~ x0 b j $$ w+ w- [QCD]
 
-output tHq_4f_ckm_NLO_FXFX_MH125_CP -nojpeg
+output tHq_4f_NLO_MH125_CP -nojpeg
