@@ -182,8 +182,10 @@ def runParallelXgrid(parstage, xgrid, folderName, nEvents, njobs, powInputName, 
         if process == 'WWJ' :
           f.write('echo \"Copy TwoLoops grids\"\n')
           f.write('ls\n') 
-          f.write('wget https://wwwth.mpp.mpg.de/members/wieseman/download/codes/WW_MiNNLO/VVamp_interpolation_grids/WW_MiNNLO_2loop_grids_reduced1.tar.gz\n')
-          f.write('tar xzf WW_MiNNLO_2loop_grids_reduced1.tar.gz\n')
+          f.write('ln -s /cvmfs/cms-griddata.cern.ch/gen/Run2UL_powheg_v2/WW_MiNNLO_2loop_grids_reduced1/TWOLOOP_GRIDS_reg1 TWOLOOP_GRIDS_reg1\n')
+          f.write('ln -s /cvmfs/cms-griddata.cern.ch/gen/Run2UL_powheg_v2/WW_MiNNLO_2loop_grids_reduced1/TWOLOOP_GRIDS_reg2 TWOLOOP_GRIDS_reg2\n')
+          f.write('ln -s /cvmfs/cms-griddata.cern.ch/gen/Run2UL_powheg_v2/WW_MiNNLO_2loop_grids_reduced1/TWOLOOP_GRIDS_reg3 TWOLOOP_GRIDS_reg3\n')
+          f.write('ln -s /cvmfs/cms-griddata.cern.ch/gen/Run2UL_powheg_v2/WW_MiNNLO_2loop_grids_reduced1/TWOLOOP_GRIDS_reg4 TWOLOOP_GRIDS_reg4\n')
           f.write('ls\n') 
         f.write('cp -p ' + rootfolder + '/' + folderName + '/powheg.input.'+parstage+'_'+str(xgrid) + ' ./powheg.input' + '\n') # copy input file for this stage explicitly, needed by condor dag
         f.write('echo ' + str(i+1) + ' | ./pwhg_main \n')
@@ -373,8 +375,10 @@ def runEvents(parstage, folderName, EOSfolder, njobs, powInputName, jobtag, proc
         if process == 'WWJ' :
           f.write('echo \"Copy TwoLoops grids\"\n')
           f.write('ls\n') 
-          f.write('wget https://wwwth.mpp.mpg.de/members/wieseman/download/codes/WW_MiNNLO/VVamp_interpolation_grids/WW_MiNNLO_2loop_grids_reduced1.tar.gz\n')
-          f.write('tar xzf WW_MiNNLO_2loop_grids_reduced1.tar.gz\n')
+          f.write('ln -s /cvmfs/cms-griddata.cern.ch/gen/Run2UL_powheg_v2/WW_MiNNLO_2loop_grids_reduced1/TWOLOOP_GRIDS_reg1 TWOLOOP_GRIDS_reg1\n')
+          f.write('ln -s /cvmfs/cms-griddata.cern.ch/gen/Run2UL_powheg_v2/WW_MiNNLO_2loop_grids_reduced1/TWOLOOP_GRIDS_reg2 TWOLOOP_GRIDS_reg2\n')
+          f.write('ln -s /cvmfs/cms-griddata.cern.ch/gen/Run2UL_powheg_v2/WW_MiNNLO_2loop_grids_reduced1/TWOLOOP_GRIDS_reg3 TWOLOOP_GRIDS_reg3\n')
+          f.write('ln -s /cvmfs/cms-griddata.cern.ch/gen/Run2UL_powheg_v2/WW_MiNNLO_2loop_grids_reduced1/TWOLOOP_GRIDS_reg4 TWOLOOP_GRIDS_reg4\n')
           f.write('ls\n')
         f.write('cp -p ' + rootfolder + '/' + folderName + '/powheg.input.' + parstage + ' ./powheg.input' + '\n') # copy input file for this stage explicitly, needed by condor dag
         f.write('echo ' + str (i+1) + ' | ./pwhg_main \n')

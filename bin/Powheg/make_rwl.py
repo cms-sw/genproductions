@@ -22,9 +22,10 @@ CentralPDF = str(sys.argv[2])
 forMiNNLO = bool(int(sys.argv[3])) if len(sys.argv) > 3 else False
 forX0jj = bool(int(sys.argv[4])) if len(sys.argv) > 4 else False
 Period = str(sys.argv[5]) if len(sys.argv) > 5 else "Run3"
+forWWJ = bool(int(sys.argv[6])) if len(sys.argv) > 6 else False
 
 
-if forMiNNLO:
+if forMiNNLO and not forWWJ:
   CentralPDF=306000
 
 # is5FlavorScheme = True
@@ -56,7 +57,7 @@ for m_rensc in m_factor :
 		  
 fout.write("</weightgroup>\n")
 
-if forMiNNLO:
+if forMiNNLO and not forWWJ:
   # additional MiNNLO scale variations (NNPDF 3.0)
   fout.write("<weightgroup name='scale_variation_nnpdf30' combine='envelope' >\n")
 
@@ -119,6 +120,35 @@ if forMiNNLO:
               [29400, 29400, 'MSHT20an3lo_as_smallrange', 7],
             ],
           }
+
+elif forWWJ:
+  print("WWJ: Going to use only Run 3 4FS central PDFs for generation speed")
+  # 4F PDF    
+  pdf_sets = {
+      # weight id, LHAPDF id, name, replicas to be written
+      "PDF_variation1 , hessian" :
+      [
+          [2000, 325500, 'NNPDF31_nnlo_as_0118_nf_4_mc_hessian', 101],
+          [2200, 320500, 'NNPDF31_nlo_as_0118_nf_4', 1],
+          [2500, 292000, 'NNPDF30_nlo_nf_4_pdfas', 1],
+          [2600, 335700, 'NNPDF40_nlo_nf_4_pdfas', 1],
+          [4000, 13091, 'CT14nnlo_NF4', 1],
+          [4001, 13191, 'CT14nlo_NF4', 1],
+          [5000, 27810, 'MSHT20nnlo_nf4', 1],
+          [5100, 27870, 'MSHT20nnlo_as_smallrange_nf4', 1],
+          [5200, 27610, 'MSHT20nlo_nf4', 1],
+          [6000, 93700, 'PDF4LHC21_40_pdfas_nf4', 1],
+          [7000, 42530, 'ABMP16_4_nnlo', 1],
+          [7100, 42930, 'ABMP16_4_nlo', 1],
+      ],
+      "PDF_variation2 , replica" :
+      [
+          [3000, 320900, 'NNPDF31_nnlo_as_0118_nf_4', 1],
+          [3200, 292400, 'NNPDF30_nnlo_nf_4_pdfas', 1],                
+          [3400, 335500, 'NNPDF40_nnlo_nf_4_pdfas', 1],                
+      ],
+  }
+
 elif forX0jj:
   # 5F PDF
   print("X0jj: PDF variations will be reduced for generation speed")
