@@ -31,7 +31,7 @@ generator = cms.EDFilter("Pythia8ConcurrentHadronizerFilter",
             'ResonanceDecayFilter:allNuAsEquivalent  = on', #on: treat all three neutrino flavours as equivalent
             'ResonanceDecayFilter:udscbAsEquivalent  = on',  #on: treat udscb quarks as equivalent
             'ResonanceDecayFilter:mothers = 35,25,23', #list of mothers not specified -> count all particles in hard process+resonance decays (better to avoid specifying mothers when including leptons from the lhe in counting, since intermediate resonances are not gauranteed to appear in general
-            'ResonanceDecayFilter:daughters = 22,22,11,12,11,12', # gamma gamma ,lnu,lnu
+            'ResonanceDecayFilter:daughters = 22,22,11,11,11,11', # gamma gamma ,lnu,lnu
           ),
         parameterSets = cms.vstring('pythia8CommonSettings',
                                     'pythia8CP5Settings',
