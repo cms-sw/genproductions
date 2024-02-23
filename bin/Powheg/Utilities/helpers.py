@@ -211,7 +211,7 @@ ln -s /cvmfs/cms-griddata.cern.ch/gen/Run2UL_powheg_v2/WW_MiNNLO_2loop_grids_red
 ln -s /cvmfs/cms-griddata.cern.ch/gen/Run2UL_powheg_v2/WW_MiNNLO_2loop_grids_reduced1/TWOLOOP_GRIDS_reg3 TWOLOOP_GRIDS_reg3\n \
 ln -s /cvmfs/cms-griddata.cern.ch/gen/Run2UL_powheg_v2/WW_MiNNLO_2loop_grids_reduced1/TWOLOOP_GRIDS_reg4 TWOLOOP_GRIDS_reg4\n \
 cd -\n \
-source /cvmfs/cms.cern.ch/${SCRAM_ARCH}/external/cmake/3.10.0/etc/profile.d/init.sh",
+source /cvmfs/cms.cern.ch/${SCRAM_ARCH}/external/cmake/3.17.2/etc/profile.d/init.sh",
     "ZZJ" : "cp Makefile Makefile.orig\n \
 cat Makefile.orig | sed -e \"s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d \"=\" -f2)/bin/fastjet-config#g\" | sed -e \"s#\#\ FASTJET_CONFIG#FASTJET_CONFIG#g\" > Makefile\n \
 cd ${WORKDIR}/${name}/POWHEG-BOX/MATRIXStuff\n \
