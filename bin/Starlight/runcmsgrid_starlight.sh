@@ -65,14 +65,15 @@ run_starlight(){
     echo "*** STARTING STARLIGHT PRODUCTION ***"
     cd ${LHEWORKDIR}/${STARLIGHTDIR}/build
     if [ "$ProdM" -ge 4 ]; then
-        ./starlight < my.input 2>&1 | tee slight.log; test $? -eq 0 || fail_exit "starlight error: exit code not 0"
-        ${LHEWORKDIR}/macros/convert_SL2LHE slight.out ${Beam1E} ${Beam2E} 0 2>&1 | tee slight.log; test $? -eq 0 || fail_exit "convert_SL2LHE error: exit code not 0"
+        ./starlight < my.input 2>&1 | tee slight.log; test ${PIPESTATUS[0]} -eq 0 || fail_exit "starlight error: exit code not 0"
+        ${LHEWORKDIR}/macros/convert_SL2LHE slight.out ${Beam1E} ${Beam2E} 0 2>&1 | tee slight.log; test ${PIPESTATUS[0]} -eq 0 || fail_exit "convert_SL2LHE error: exit code not 0"
         sed -i '/STARLIGHT/a '${DPMJETDIR} slight.lhe
     else
-        ./starlight 2>&1 | tee slight.log; test $? -eq 0 || fail_exit "starlight error: exit code not 0"
-        ${LHEWORKDIR}/macros/convert_SL2LHE slight.out ${Beam1E} ${Beam2E} ${ProdP} 2>&1 | tee slight.log; test $? -eq 0 || fail_exit "convert_SL2LHE error: exit code not 0"
+        ./starlight 2>&1 | tee slight.log; test ${PIPESTATUS[0]} -eq 0 || fail_exit "starlight error: exit code not 0"
+        ${LHEWORKDIR}/macros/convert_SL2LHE slight.out ${Beam1E} ${Beam2E} ${ProdP} 2>&1 | tee slight.log; test ${PIPESTATUS[0]} -eq 0 || fail_exit "convert_SL2LHE error: exit code not 0"
     fi
     sed -i '/STARLIGHT/a '${STARLIGHTDIR} slight.lhe
+    sed -i 's/--/- -/' ${CONFIG}
     sed -i '/STARLIGHT/r'${CONFIG} slight.lhe
     mv slight.lhe ${LHEWORKDIR}/cmsgrid_final.lhe
     echo "***STARLIGHT COMPLETE***"

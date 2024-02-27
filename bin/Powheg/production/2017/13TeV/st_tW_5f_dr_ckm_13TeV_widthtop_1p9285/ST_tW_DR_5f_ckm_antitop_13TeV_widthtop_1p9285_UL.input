@@ -1,0 +1,86 @@
+! ST-wtchannel production parameters
+
+! GENERAL POWHEG PARAMETERS
+
+numevts NEVENTS    ! number of events to be generated
+ih1   1           ! hadron 1 (1 for protons, -1 for antiprotons)
+ih2   1           ! hadron 2 (1 for protons, -1 for antiprotons)
+ebeam1 6500d0     ! energy of beam 1
+ebeam2 6500d0     ! energy of beam 2
+
+iseed    SEED    ! initialize random number sequence 
+
+! To be set only if using LHA pdfs
+lhans1 325300      ! pdf set for hadron 1 (LHA numbering)
+lhans2 325300      ! pdf set for hadron 2 (LHA numbering)	
+
+! Parameters to allow or not the use of stored data
+use-old-grid    1 ! if 1 use old grid if file pwggrids.dat is present (<> 1 regenerate)
+use-old-ubound  1 ! if 1 use norm of upper bounding function stored in pwgubound.dat, if present; <> 1 regenerate
+
+ncall1 50000   ! number of calls for initializing the integration grid
+itmx1    5     ! number of iterations for initializing the integration grid
+ncall2 50000   ! number of calls for computing the integral and finding upper bound
+itmx2    5     ! number of iterations for computing the integral and finding upper bound
+foldcsi   5    ! number of folds on csi integration
+foldy     5   ! number of folds on  y  integration
+foldphi   1    ! number of folds on phi integration
+nubound 50000  ! number of bbarra calls to setup norm of upper bounding function
+xupbound 2d0   ! increase upper bound for radiation generation
+
+
+withdamp       1
+hdamp 237.8775   ! 1.379*mtop nominal value for hdamp for Fall18   
+
+
+! mandatory production parameters
+ttype       -1          ! 1 for t, -1 for tbar
+
+
+! mandatory parameters used in decay generation
+topdecaymode 11111   ! decay mode: the 5 digits correspond to the following
+                     ! top-decay channels (l,mu,tau,u,c) 
+                     ! 0 means close, 1 open
+wdecaymode 11111     ! decay mode: the 5 digits correspond to the following
+                     ! primary-w-decay channels (l,mu,tau,u,c) 
+                     ! 0 means close, 1 open
+tdec/elbranching 0.108  ! W electronic branching fraction
+tdec/sin2cabibbo 0.051
+topwidth 1.9285 
+
+! optional production parameters 
+! (defaults defined in init_couplings.f)
+topmass      172.5
+wmass        80.4
+wwidth       2.141
+sthw2        0.231295
+alphaem_inv  137.0360098
+
+lhfm/emass   0.00051
+lhfm/mumass  0.1057
+lhfm/taumass 1.777
+lhfm/cmass   1.27
+lhfm/bmass   4.18
+tdec/emass   0.00051
+tdec/mumass  0.1057
+tdec/taumass 1.777
+
+bottomthr    4.18
+bottomthrpdf 4.18
+charmthr     1.27
+charmthrpdf  1.27
+
+! PDG Values http://pdg.lbl.gov/2019/reviews/rpp2018-rev-ckm-matrix.pdf
+CKM_Vud   0.97420
+CKM_Vus   0.2243
+CKM_Vub   0.00394
+CKM_Vcd   0.218
+CKM_Vcs   0.997
+CKM_Vcb   0.0422
+CKM_Vtd   0.0081
+CKM_Vts   0.0394
+CKM_Vtb   1.0
+
+pdfreweight 0
+storeinfo_rwgt 0 ! store weight information
+withnegweights 1 ! default 0
