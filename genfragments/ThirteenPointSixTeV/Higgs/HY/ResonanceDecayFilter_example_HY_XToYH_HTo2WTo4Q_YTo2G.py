@@ -27,7 +27,7 @@ generator = cms.EDFilter("Pythia8ConcurrentHadronizerFilter",
             '24:onIfAny = 1 2 3 4 5', # W->qq decays
             'ResonanceDecayFilter:filter = on',
             'ResonanceDecayFilter:exclusive = on', #off: require at least the specified number of daughters, on: require exactly the specified number of daughters
-            'ResonanceDecayFilter:udscAsEquivalent  = on',  #on: treat udsc quarks as equivalent
+            'ResonanceDecayFilter:udscbAsEquivalent  = on',  #on: treat udsc quarks as equivalent
             'ResonanceDecayFilter:mothers = 35,25,24', #list of mothers not specified -> count all particles in hard process+resonance decays (better to avoid specifying mothers when including leptons from the lhe in counting, since intermediate resonances are not gauranteed to appear in general
             'ResonanceDecayFilter:daughters = 22,22,1,1,1,1', # gamma gamma,lnu,gg
           ),
