@@ -20,7 +20,7 @@ Y_mass = [50, 60, 70, 80, 90, 95, 100, 125, 150, 170, 200, 250, 300, 350, 400, 4
 
 
 def is_mass_ok(m_x,m_y):
-    return m_y < (m_x-125.)
+    return m_y >= 250. and m_y < (m_x-125.)
 
 Ngridpacks=0
 for X_m in X_mass:
