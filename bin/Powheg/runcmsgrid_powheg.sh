@@ -193,7 +193,7 @@ if [ "$manyseeds" == "true" ]; then
   ../pwhg_main iwhichseed=1 2>&1 | tee log_${process}_${seed}.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
 
   # Rename the produced LHE file to be what the rest of the script expects
-  mv pwgevents-0001.lhe pwgevents.lhe
+  mv pwgevents-00001.lhe pwgevents.lhe
 
 else
   cat powheg.input
