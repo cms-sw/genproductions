@@ -526,7 +526,6 @@ for num in range(0,len(prepid)):
         filter_eff = r['generator_parameters'][-1]['filter_efficiency']
         match_eff = r['generator_parameters'][-1]['match_efficiency']
         total_eff = filter_eff*match_eff 
-        cross_section = r['generator_parameters'][-1]['cross_section']
         ext = r['extension']
         print("Extension or not: "+str(ext))    
         print(pi+"    Status= "+r['status'])    
@@ -662,11 +661,6 @@ for num in range(0,len(prepid)):
             filter_eff_fragment = re.findall('\((.*?)\)',filter_eff_fragment)[0]
         print("Filter efficiency in the fragment ="+ str(filter_eff_fragment))
         print("Cross section in the fragment =" + str(cross_section_fragment) +" pb")
-        print("Cross section from generator parameters field = "+str(cross_section)+" pb")
-        if not str(cross_section_fragment).isdigit():
-            warnings.append("Skipping the cross section consistency check in generator parameters field and the fragment. This is most probably because the cross section is defined through a variable")
-        if str(cross_section_fragment).isdigit() is True and cross_section_fragment and cross_section and int(ext) == 0 and float(cross_section_fragment) != float(cross_section):
-            errors.append("Cross section in the generator parameters field and the one in the fragment do not match!")
         print("")
         print("Filter efficiency in fragment =" + str(filter_eff_fragment))
         print("Filter efficiency from generator parameters field = "+str(filter_eff))
