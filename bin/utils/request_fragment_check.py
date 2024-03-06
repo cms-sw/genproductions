@@ -1079,6 +1079,7 @@ for num in range(0,len(prepid)):
                     if os.path.isdir(dir_path):
                         input_cards_customize_card = find_file(dir_path,"customizecards.dat")
                         input_cards_madspin_card = find_file(dir_path,"madspin_card.dat")
+                        input_cards_reweight_card = find_file(dir_path,"reweight_card.dat")
                         input_patch = find_file(dir_path,"patch")
                         if input_cards_madspin_card:
                             print("---------------------------------------------")
@@ -1120,7 +1121,8 @@ for num in range(0,len(prepid)):
                                         if int(x) < int(y): customize_widths_flag = 1
                             if customize_widths_flag > 0:
                                 errors.append("COMPUTE_WIDTHS followed by SET command(s) should not be used in customizecards. Instead use \"set width X auto\" to compute the widths for X and change the parameter card settings.")  
-                        input_cards_reweight_card = find_file(dir_path,"reweight_card.dat")
+                        if input_cards_reweight_card and input_cards_madspin_card:
+                            errors.append("MadSpin and Reweight used together. The issue is that madspin calculates probabilities based on the input ME. As this is changing through reweighting, it doesn't work properly. Until a fix is done by MG5_aMC these madspin and reweighting should not be used together. See e.g. https://cms-talk.web.cern.ch/t/atgc-with-ewdim6nlo-ufo-for-wv-semileptonic-channel/29869/8")
                         if input_cards_reweight_card:
                             reweights = os.popen('more '+input_cards_reweight_card+' | tr -s \' \' | grep "rwgt_name"').read()
                             reweights = re.sub("launch --rwgt_name",'',reweights)
