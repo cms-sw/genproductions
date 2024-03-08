@@ -15,6 +15,12 @@ set_run_card_pdf () {
 
         sed "s/\$DEFAULT_PDF_SETS/${central_set}/g" $CARDSDIR/${name}_run_card.dat > ./Cards/run_card.dat
         sed -i "s/ *\$DEFAULT_PDF_MEMBERS.*=.*//g" ./Cards/run_card.dat
+    elif grep -q -e "\$DEFAULT_nPDF_SETS" $CARDSDIR/${name}_run_card.dat; then
+        local central_set=$(python3 ${script_dir}/getMG5_aMC_PDFInputs.py -f "central" -c run3 --ion Pb $pdfExtraArgs)
+        echo "INFO: Using default nuclear PDF sets for run3 PbPb production"
+
+        sed "s/\$DEFAULT_nPDF_SETS/${central_set}/g" $CARDSDIR/${name}_run_card.dat > ./Cards/run_card.dat
+        sed -i "s/ *\$DEFAULT_nPDF_MEMBERS.*=.*//g" ./Cards/run_card.dat
     else
         cat << EOF
 
@@ -24,6 +30,11 @@ set_run_card_pdf () {
 
             '\$DEFAULT_PDF_SETS = lhaid'
             '\$DEFAULT_PDF_MEMBERS = reweight_PDF'
+
+        or for nuclear PDF sets insert:
+
+            '\$DEFAULT_nPDF_SETS = lhaid'
+            '\$DEFAULT_nPDF_MEMBERS = reweight_PDF'
         
 EOF
         echo "copying run_card.dat file"

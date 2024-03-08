@@ -18,7 +18,7 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
         pythia8CP5SettingsBlock,
         pythia8PSweightsSettingsBlock,
         exclusive_process = cms.vstring(
-            # Recomendation from SuperChic v5.0
+            # Recomendation from https://anstahll.web.cern.ch/anstahll/superchic/SuperChic_5_1.pdf
             'PartonLevel:ISR = off',
             'PartonLevel:MPI = off',
             'PartonLevel:Remnants = off',
