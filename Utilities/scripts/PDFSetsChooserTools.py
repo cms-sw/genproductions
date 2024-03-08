@@ -7,12 +7,19 @@ class PDFSetHelper(object):
         if self.pdflist_file:
             self.readPDFsFromFile()
 
-    def readDefaultPDFsFile(self, is5FlavorScheme):
+    def readDefaultPDFsFile(self, is5FlavorScheme, ion):
         base_dir = os.path.dirname(os.path.realpath(__file__)) 
         meta_data_dir = base_dir.replace("Utilities/scripts", "MetaData") 
 
-        self.pdflist_file = meta_data_dir + "/" + ("pdflist_5f_run3.dat" \
-            if is5FlavorScheme else "pdflist_4f_run3.dat")
+        if not ion:
+            self.pdflist_file = meta_data_dir + "/" + ("pdflist_5f_run3.dat" \
+                if is5FlavorScheme else "pdflist_4f_run3.dat")
+        elif ion == "Pb" and is5FlavorScheme:
+            self.pdflist_file = meta_data_dir + "/npdflist_Pb_5f_run3.dat"
+        elif not is5FlavorScheme:
+            raise Exception("4 flavor scheme is not available for nuclear PDFs")
+        else:
+            raise Exception("Wrong ion type: %s" % ion)
         self.readPDFsFromFile()
 
     def readPDFsFromFile(self):
