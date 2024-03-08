@@ -24,31 +24,19 @@ create_setup(){
 }
 
 install_superchic(){
-    SUPERCHIC=SuperChic-v.5.0
-    APFEL=APFEL_3.1.0
+    SUPERCHIC=SuperChic-5.1
     cd ${WORKDIR}
-
-    echo "Downloading "${APFEL}
-    APFELDIR=${WORKDIR}/apfel_v${APFEL//[!0-9]/}
-    wget --no-verbose --no-check-certificate https://cms-project-generators.web.cern.ch/cms-project-generators/superchic/${APFEL}.tar.gz
-    tar -xzf ${APFEL}.tar.gz && mv apfel-${APFEL#*_} ${APFELDIR}
-    rm -f ${APFEL}.tar.gz
 
     echo "Downloading "${SUPERCHIC}
     SUPERCHICDIR=${WORKDIR}/superchic_v${SUPERCHIC//[!0-9]/}
-    wget --no-verbose --no-check-certificate https://cms-project-generators.web.cern.ch/cms-project-generators/superchic/${SUPERCHIC}.tar.gz
+    wget --no-verbose --no-check-certificate https://anstahll.web.cern.ch/anstahll/superchic/${SUPERCHIC}.tar.gz
     tar -xzf ${SUPERCHIC}.tar.gz && mv ${SUPERCHIC} ${SUPERCHICDIR}
     rm -f ${SUPERCHIC}.tar.gz
 
-    echo "Compiling ${APFEL}"
-    cd ${APFELDIR}
-    CMAKE=$([[ $(cmake --version | grep -cE *"n ([3-9]\.)")>0 ]] && echo "cmake" || echo "cmake3")
-    ${CMAKE} -S . -B BUILD -DCMAKE_INSTALL_PREFIX=${APFELDIR}/build -DAPFEL_ENABLE_PYTHON=OFF -DAPFEL_ENABLE_TESTS=OFF -DCMAKE_Fortran_FLAGS="-std=legacy -cpp" -DCMAKE_CXX_FLAGS="-Wno-catch-value"
-    ${CMAKE} --build BUILD --target install --parallel $(nproc)
-
     echo "Compiling ${SUPERCHIC}"
     cd ${SUPERCHICDIR}
-    ${CMAKE} -S . -B BUILD -DCMAKE_INSTALL_PREFIX=${SUPERCHICDIR}/build -DAPFEL_DIR=${APFELDIR}/build -DLHAPDF_DIR=$(scram tool tag lhapdf LHAPDF_BASE) -DSUPERCHIC_ENABLE_TESTS=OFF -DSUPERCHIC_ENABLE_FPES=OFF -DSUPERCHIC_ENABLE_DOCS=OFF -DCMAKE_Fortran_COMPILER=gfortran -DCMAKE_Fortran_FLAGS="-O2 -g -ffree-line-length-512 -Wno-unused-label -Wno-integer-division -Wno-conversion -Wno-function-elimination"
+    CMAKE=$([[ $(cmake --version | grep -cE *"n ([3-9]\.)")>0 ]] && echo "cmake" || echo "cmake3")
+    ${CMAKE} -S . -B BUILD -DCMAKE_INSTALL_PREFIX=${SUPERCHICDIR}/build -DLHAPDF_DIR=$(scram tool tag lhapdf LHAPDF_BASE) -DSUPERCHIC_ENABLE_TESTS=OFF -DSUPERCHIC_ENABLE_FPES=OFF -DSUPERCHIC_ENABLE_DOCS=OFF -DCMAKE_Fortran_COMPILER=gfortran -DCMAKE_Fortran_FLAGS="-O2 -g -ffree-line-length-512 -Wno-unused-label -Wno-integer-division -Wno-conversion -Wno-function-elimination"
     ${CMAKE} --build BUILD --target install --parallel $(nproc)
 
     echo "Compiling macros"
@@ -60,7 +48,6 @@ install_superchic(){
     sed -i 's/SCRAM_ARCH_VERSION_REPLACE/'${SCRAM_ARCH}'/g' ${WORKDIR}/runcmsgrid.sh
     sed -i 's/CMSSW_VERSION_REPLACE/'${CMSSW_VERSION}'/g' ${WORKDIR}/runcmsgrid.sh
     sed -i 's/SUPERCHICDIR_REPLACE/'${SUPERCHICDIR##*/}'/g' ${WORKDIR}/runcmsgrid.sh
-    sed -i 's/APFELDIR_REPLACE/'${APFELDIR##*/}'/g' ${WORKDIR}/runcmsgrid.sh
 }
 
 init_superchic(){
@@ -68,7 +55,6 @@ init_superchic(){
     wget --no-verbose https://superchic.hepforge.org/SF_MSHT20qed_nnlo.tar.gz
     tar -xzf SF_MSHT20qed_nnlo.tar.gz && rm SF_MSHT20qed_nnlo.tar.gz
     LHAPDF_DATA_PATH=${LHAPDF_DATA_PATH}:${SUPERCHICDIR}/lhapdf
-    LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${APFELDIR}/build/lib64
 
     cd ${SUPERCHICDIR}/build/bin/
     cp ${INPUTFILE} input.DAT
@@ -82,7 +68,7 @@ make_tarball(){
 
     echo "Creating tarball"
     cd ${WORKDIR}
-    tar -czf ${TARBALL} ${SUPERCHICDIR##*/} ${APFELDIR##*/} macros runcmsgrid.sh
+    tar -czf ${TARBALL} ${SUPERCHICDIR##*/} macros runcmsgrid.sh
     mv ${WORKDIR}/${TARBALL} ${PRODDIR}/
     echo "Tarball created successfully at ${PRODDIR}/${TARBALL}"
 }

@@ -120,7 +120,7 @@ if [ "$use_gridpack_env" = true ]; then
     # Make a directory that doesn't overlap
     if [[ -d "${CMSSW_BASE}" ]] && [[ "${LHEWORKDIR}" = "${CMSSW_BASE}"/* ]]; then
         cd ${CMSSW_BASE}/..
-        TPD=${PWD}/lhe1t2m3p
+        TPD=${PWD}/lhe1t2m3p$RANDOM
         [[ ! -d "${TPD}" ]] && mkdir ${TPD}
         cd ${TPD}
         echo "Changed to: "${TPD}
