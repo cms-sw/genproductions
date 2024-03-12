@@ -26,6 +26,8 @@ set run_card mmjj 120.0
 set run_card mmll 105.0
 set run_card mmllmax 160.0
 set run_card auto_ptj_mjj False
-set run_card ptj 25.0
-set run_card ptb 25.0
-set run_card etal 2.5
+set run_card ptj 5.0
+set run_card ptb 5.0
+set run_card etal 3.0
+set run_card etaj 6.0
+set run_card etab 6.0
