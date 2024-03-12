@@ -526,7 +526,6 @@ for num in range(0,len(prepid)):
         filter_eff = r['generator_parameters'][-1]['filter_efficiency']
         match_eff = r['generator_parameters'][-1]['match_efficiency']
         total_eff = filter_eff*match_eff 
-        cross_section = r['generator_parameters'][-1]['cross_section']
         ext = r['extension']
         print("Extension or not: "+str(ext))    
         print(pi+"    Status= "+r['status'])    
@@ -662,11 +661,6 @@ for num in range(0,len(prepid)):
             filter_eff_fragment = re.findall('\((.*?)\)',filter_eff_fragment)[0]
         print("Filter efficiency in the fragment ="+ str(filter_eff_fragment))
         print("Cross section in the fragment =" + str(cross_section_fragment) +" pb")
-        print("Cross section from generator parameters field = "+str(cross_section)+" pb")
-        if not str(cross_section_fragment).isdigit():
-            warnings.append("Skipping the cross section consistency check in generator parameters field and the fragment. This is most probably because the cross section is defined through a variable")
-        if str(cross_section_fragment).isdigit() is True and cross_section_fragment and cross_section and int(ext) == 0 and float(cross_section_fragment) != float(cross_section):
-            errors.append("Cross section in the generator parameters field and the one in the fragment do not match!")
         print("")
         print("Filter efficiency in fragment =" + str(filter_eff_fragment))
         print("Filter efficiency from generator parameters field = "+str(filter_eff))
@@ -1085,6 +1079,7 @@ for num in range(0,len(prepid)):
                     if os.path.isdir(dir_path):
                         input_cards_customize_card = find_file(dir_path,"customizecards.dat")
                         input_cards_madspin_card = find_file(dir_path,"madspin_card.dat")
+                        input_cards_reweight_card = find_file(dir_path,"reweight_card.dat")
                         input_patch = find_file(dir_path,"patch")
                         if input_cards_madspin_card:
                             print("---------------------------------------------")
@@ -1126,7 +1121,8 @@ for num in range(0,len(prepid)):
                                         if int(x) < int(y): customize_widths_flag = 1
                             if customize_widths_flag > 0:
                                 errors.append("COMPUTE_WIDTHS followed by SET command(s) should not be used in customizecards. Instead use \"set width X auto\" to compute the widths for X and change the parameter card settings.")  
-                        input_cards_reweight_card = find_file(dir_path,"reweight_card.dat")
+                        if input_cards_reweight_card and input_cards_madspin_card:
+                            errors.append("MadSpin and Reweight used together. The issue is that madspin calculates probabilities based on the input ME. As this is changing through reweighting, it doesn't work properly. Until a fix is done by MG5_aMC these madspin and reweighting should not be used together. See e.g. https://cms-talk.web.cern.ch/t/atgc-with-ewdim6nlo-ufo-for-wv-semileptonic-channel/29869/8")
                         if input_cards_reweight_card:
                             reweights = os.popen('more '+input_cards_reweight_card+' | tr -s \' \' | grep "rwgt_name"').read()
                             reweights = re.sub("launch --rwgt_name",'',reweights)

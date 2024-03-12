@@ -129,7 +129,7 @@ else
     elif [[ $SYSTEM_RELEASE == *"release 7"* ]]; then 
         SCRAM_ARCH=slc7_amd64_gcc10 
     elif [[ $SYSTEM_RELEASE == *"release 8"* ]]; then
-        scram_arch=el8_amd64_gcc10
+        SCRAM_ARCH=el8_amd64_gcc10
     else 
         echo "No default scram_arch for current OS"
         exit 1        

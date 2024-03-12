@@ -18,7 +18,7 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
         pythia8CP5SettingsBlock,
         pythia8PSweightsSettingsBlock,
         exclusive_process = cms.vstring(
-            # Recomendation from https://superchic.hepforge.org/superchic4.pdf
+            # Recomendation from https://anstahll.web.cern.ch/anstahll/superchic/SuperChic_5_1.pdf
             # For photon–initiated lepton pair production
             'Check:event = off',
             'PDF:pSet = LHAPDF6:MSHT20qed nnlo',
