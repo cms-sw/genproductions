@@ -46,10 +46,13 @@ forMiNNLO=0
 grep -q "^minnlo\\s*1" powheg.input; test $$? -eq 1 || forMiNNLO=1
 forX0jj=0
 grep -q "MGcosa" powheg.input; test $$? -eq 1 || forX0jj=1
-
+forWWJ=0
+if [[ $$process == "WWJ" ]]; then
+  forWWJ=1
+fi
 cd $$WORKDIR
 cd $${name}
-python3 ../make_rwl.py $${is5FlavorScheme} $${defaultPDF} $${forMiNNLO} $${forX0jj} $${period}
+python3 ../make_rwl.py $${is5FlavorScheme} $${defaultPDF} $${forMiNNLO} $${forX0jj} $${period} $${forWWJ}
 
 if [ -s ../JHUGen.input ]; then
   cp -p ../JHUGen.input JHUGen.input
