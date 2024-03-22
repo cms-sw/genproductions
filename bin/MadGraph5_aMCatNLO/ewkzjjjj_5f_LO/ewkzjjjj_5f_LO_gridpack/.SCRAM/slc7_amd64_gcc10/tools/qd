@@ -1,0 +1,20 @@
+{
+  "INCLUDE": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/qd/2.3.13-8f6f1bb4da96a4cf4b4bf7f79cfac225/include"
+  ],
+  "LIB": [
+    "qdmod",
+    "qd"
+  ],
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/qd/2.3.13-8f6f1bb4da96a4cf4b4bf7f79cfac225/lib"
+  ],
+  "QD_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/qd/2.3.13-8f6f1bb4da96a4cf4b4bf7f79cfac225",
+  "TOOLNAME": "qd",
+  "TOOLVERSION": "2.3.13-8f6f1bb4da96a4cf4b4bf7f79cfac225",
+  "VARIABLES": [
+    "QD_BASE",
+    "LIBDIR",
+    "INCLUDE"
+  ]
+}

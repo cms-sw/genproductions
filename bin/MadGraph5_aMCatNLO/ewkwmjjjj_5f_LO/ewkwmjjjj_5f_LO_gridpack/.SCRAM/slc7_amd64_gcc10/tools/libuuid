@@ -1,0 +1,28 @@
+{
+  "INCLUDE": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/libuuid/2.34-fe91b21b8e54a48f2d45894d9da65f14/include"
+  ],
+  "LIB": [
+    "uuid"
+  ],
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/libuuid/2.34-fe91b21b8e54a48f2d45894d9da65f14/lib64"
+  ],
+  "LIBUUID_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/libuuid/2.34-fe91b21b8e54a48f2d45894d9da65f14",
+  "RUNTIME": {
+    "PATH:ROOT_INCLUDE_PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/libuuid/2.34-fe91b21b8e54a48f2d45894d9da65f14/include"
+    ]
+  },
+  "TOOLNAME": "libuuid",
+  "TOOLVERSION": "2.34-fe91b21b8e54a48f2d45894d9da65f14",
+  "USE": [
+    "root_cxxdefaults",
+    "sockets"
+  ],
+  "VARIABLES": [
+    "LIBUUID_BASE",
+    "LIBDIR",
+    "INCLUDE"
+  ]
+}

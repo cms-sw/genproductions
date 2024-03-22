@@ -1,0 +1,7 @@
+<tool name="dip_interface" version="8693f00cc422b4a15858fcd84249acaeb07b6316-c04a51526b508c0bdbb359410a9a3e8f">
+  <client>
+    <environment name="DIP_INTERFACE_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/dip/8693f00cc422b4a15858fcd84249acaeb07b6316-c04a51526b508c0bdbb359410a9a3e8f"/>
+    <environment name="INCLUDE"            default="$DIP_INTERFACE_BASE/include"/>
+    <environment name="LIBDIR"             default="$DIP_INTERFACE_BASE/lib"/>
+  </client>
+</tool>

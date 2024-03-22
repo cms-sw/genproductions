@@ -1,0 +1,20 @@
+{
+  "INCLUDE": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/cuda/11.5.2-c927b7e765e06433950d8a7eab9eddb4/include"
+  ],
+  "LIB": [
+    "nvperf_host",
+    "nvperf_target"
+  ],
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/cuda/11.5.2-c927b7e765e06433950d8a7eab9eddb4/lib64"
+  ],
+  "NVPERF_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/cuda/11.5.2-c927b7e765e06433950d8a7eab9eddb4",
+  "TOOLNAME": "nvperf",
+  "TOOLVERSION": "11.5.2-c927b7e765e06433950d8a7eab9eddb4",
+  "VARIABLES": [
+    "NVPERF_BASE",
+    "LIBDIR",
+    "INCLUDE"
+  ]
+}

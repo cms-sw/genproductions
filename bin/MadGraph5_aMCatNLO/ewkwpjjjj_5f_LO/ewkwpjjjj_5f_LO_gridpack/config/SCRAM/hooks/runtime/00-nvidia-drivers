@@ -1,0 +1,53 @@
+#! /bin/bash -e
+
+# Check if the system supports the CUDA runtime, either natively, or through the
+# use of the compatibility drivers, and set up the environment accordingly.
+#
+# If the CUDA runtime is not supported, make the CUDA stub libraries available
+# in the environment to keep the compilation and link test working.
+
+# SCRAM environment
+if [ -z "${SCRAM}" ]; then
+  SCRAM=scram
+fi
+
+function scram_tag() {
+  TOOL="$1"
+  TAG="$2"
+  ${SCRAM} tool tag $TOOL $TAG 2> /dev/null || true
+}
+
+CUDA_BASE=$(scram_tag cuda CUDA_BASE)
+RUNTIME_TEST=$(scram_tag cuda-compatible-runtime CUDA_COMPATIBLE_RUNTIME_BASE)/test/cuda-compatible-runtime
+
+# check for the CUDA external
+if [ ! "${CUDA_BASE}" ] || [ ! -d "${CUDA_BASE}/" ]; then
+  exit 0
+fi
+
+# check for the cuda-compatible-runtime test
+if [ ! -x "${RUNTIME_TEST}" ]; then
+  exit 0
+fi
+
+# check if the system supports the CUDA runtime in the current environment
+if $RUNTIME_TEST -k &> /dev/null; then
+  # yes: do not use the compatibility drivers
+  exit 0
+fi
+
+# check if the system supports the CUDA runtime using the compatibility drivers
+CUDA_COMPATIBILITY=${CUDA_BASE}/drivers
+if [ -d "${CUDA_COMPATIBILITY}" ] && LD_LIBRARY_PATH=$CUDA_COMPATIBILITY:$LD_LIBRARY_PATH $RUNTIME_TEST -k &> /dev/null; then
+  # yes: use the compatibility drivers
+  echo "RUNTIME:path:append:LD_LIBRARY_PATH=${CUDA_COMPATIBILITY}"
+  exit 0
+fi
+
+# the system does not support the CUDA runtime; if the CUDA stub libraries are
+# available, add them to the environment to support the link-time build tests
+CUDA_STUBS=${CUDA_BASE}/lib64/stubs
+if [ -d "${CUDA_STUBS}" ]; then
+  echo "RUNTIME:path:append:LD_LIBRARY_PATH=${CUDA_STUBS}"
+  exit 0
+fi

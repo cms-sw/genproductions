@@ -1,0 +1,18 @@
+<tool name="tauolapp" version="1.1.8-c2be28b0c4449b0bbb44705ef0f1a8e9">
+  <lib name="TauolaCxxInterface"/>
+  <lib name="TauolaFortran"/>
+  <lib name="TauolaTauSpinner"/>
+  <lib name="TauolaHepMC"/>
+  <lib name="TauolaHEPEVT"/>
+  <client>
+    <environment name="TAUOLAPP_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/tauolapp/1.1.8-c2be28b0c4449b0bbb44705ef0f1a8e9"/>
+    <environment name="LIBDIR" default="$TAUOLAPP_BASE/lib"/>
+    <environment name="INCLUDE" default="$TAUOLAPP_BASE/include"/>
+  </client>
+  <runtime name="ROOT_INCLUDE_PATH" value="$INCLUDE" type="path"/>
+  <use name="root_cxxdefaults"/>
+  <use name="hepmc"/>
+  <use name="f77compiler"/>
+  <use name="pythia8"/>
+  <use name="lhapdf"/>
+</tool>

@@ -1,0 +1,6 @@
+<tool name="py3-tqdm" version="4.62.2-e203a42b5cad90a84dc0a69793da4320">
+  <client>
+    <environment name="PY3_TQDM_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-tqdm/4.62.2-e203a42b5cad90a84dc0a69793da4320"/>
+  </client>
+  <runtime name="PATH" value="$PY3_TQDM_BASE/bin" type="path"/>
+</tool>

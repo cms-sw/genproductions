@@ -1,0 +1,50 @@
+{
+  "CXX": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/llvm/12.0.1-dd4c586a5bebc335346bb0e879f6f0aa/bin/clang++",
+  "FLAGS": {
+    "CXXFLAGS": [
+      "-Wno-c99-extensions",
+      "-Wno-c++11-narrowing",
+      "-D__STRICT_ANSI__",
+      "-Wno-unused-private-field",
+      "-Wno-unknown-pragmas",
+      "-Wno-unused-command-line-argument",
+      "-Wno-unknown-warning-option",
+      "-ftemplate-depth=512",
+      "-Wno-error=potentially-evaluated-expression",
+      "-Wno-tautological-type-limit-compare",
+      "-fsized-deallocation"
+    ],
+    "REM_CXXFLAGS": [
+      "-Wno-non-template-friend",
+      "-Werror=format-contains-nul",
+      "-Werror=maybe-uninitialized",
+      "-Werror=unused-but-set-variable",
+      "-Werror=return-local-addr",
+      "-fipa-pta",
+      "-frounding-math",
+      "-mrecip",
+      "-fno-crossjumping",
+      "-fno-aggressive-loop-optimizations",
+      "-funroll-all-loops"
+    ]
+  },
+  "LLVM_CXXCOMPILER_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/llvm/12.0.1-dd4c586a5bebc335346bb0e879f6f0aa",
+  "RUNTIME": {
+    "PATH:LD_LIBRARY_PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/llvm/12.0.1-dd4c586a5bebc335346bb0e879f6f0aa/lib64"
+    ],
+    "PATH:PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/llvm/12.0.1-dd4c586a5bebc335346bb0e879f6f0aa/bin"
+    ]
+  },
+  "SCRAM_COMPILER": 1,
+  "TOOLNAME": "llvm-cxxcompiler",
+  "TOOLVERSION": "12.0.1-dd4c586a5bebc335346bb0e879f6f0aa",
+  "USE": [
+    "gcc-cxxcompiler"
+  ],
+  "VARIABLES": [
+    "LLVM_CXXCOMPILER_BASE",
+    "CXX"
+  ]
+}

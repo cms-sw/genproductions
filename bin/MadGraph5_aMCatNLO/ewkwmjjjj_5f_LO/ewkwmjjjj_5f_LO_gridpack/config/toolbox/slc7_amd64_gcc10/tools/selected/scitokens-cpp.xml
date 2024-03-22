@@ -1,0 +1,11 @@
+<tool name="scitokens-cpp" version="0.7.0-652b557d24b1c5b9c5497cec97566cfe">
+  <lib name="SciTokens"/>
+  <client>
+    <environment name="LIBSCITOKENS_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/scitokens-cpp/0.7.0-652b557d24b1c5b9c5497cec97566cfe"/>
+    <environment name="LIBDIR" default="$LIBSCITOKENS_BASE/lib64"/>
+    <environment name="INCLUDE" default="$LIBSCITOKENS_BASE/include"/>
+  </client>
+  <use name="sqlite"/>
+  <use name="libuuid"/>
+  <use name="curl"/>
+</tool>
