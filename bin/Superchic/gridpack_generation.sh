@@ -29,7 +29,7 @@ install_superchic(){
 
     echo "Downloading "${SUPERCHIC}
     SUPERCHICDIR=${WORKDIR}/superchic_v${SUPERCHIC//[!0-9]/}
-    wget --no-verbose --no-check-certificate https://anstahll.web.cern.ch/anstahll/superchic/${SUPERCHIC}.tar.gz
+    wget --no-verbose --no-check-certificate https://cms-project-generators.web.cern.ch/cms-project-generators/superchic/${SUPERCHIC}.tar.gz
     tar -xzf ${SUPERCHIC}.tar.gz && mv ${SUPERCHIC} ${SUPERCHICDIR}
     rm -f ${SUPERCHIC}.tar.gz
 
@@ -38,6 +38,7 @@ install_superchic(){
     CMAKE=$([[ $(cmake --version | grep -cE *"n ([3-9]\.)")>0 ]] && echo "cmake" || echo "cmake3")
     ${CMAKE} -S . -B BUILD -DCMAKE_INSTALL_PREFIX=${SUPERCHICDIR}/build -DLHAPDF_DIR=$(scram tool tag lhapdf LHAPDF_BASE) -DSUPERCHIC_ENABLE_TESTS=OFF -DSUPERCHIC_ENABLE_FPES=OFF -DSUPERCHIC_ENABLE_DOCS=OFF -DCMAKE_Fortran_COMPILER=gfortran -DCMAKE_Fortran_FLAGS="-O2 -g -ffree-line-length-512 -Wno-unused-label -Wno-integer-division -Wno-conversion -Wno-function-elimination"
     ${CMAKE} --build BUILD --target install --parallel $(nproc)
+    rm -rf BUILD share
 
     echo "Compiling macros"
     cp -r ${PRODDIR}/macros ${WORKDIR}/
@@ -51,11 +52,7 @@ install_superchic(){
 }
 
 init_superchic(){
-    mkdir ${SUPERCHICDIR}/lhapdf && cd ${SUPERCHICDIR}/lhapdf
-    wget --no-verbose https://superchic.hepforge.org/SF_MSHT20qed_nnlo.tar.gz
-    tar -xzf SF_MSHT20qed_nnlo.tar.gz && rm SF_MSHT20qed_nnlo.tar.gz
-    LHAPDF_DATA_PATH=${LHAPDF_DATA_PATH}:${SUPERCHICDIR}/lhapdf
-
+    LHAPDF_DATA_PATH=${LHAPDF_DATA_PATH}:${SUPERCHICDIR}/build/share/SuperChic/SF
     cd ${SUPERCHICDIR}/build/bin/
     cp ${INPUTFILE} input.DAT
     ./init < input.DAT 2>&1 | tee init.log; test ${PIPESTATUS[0]} -eq 0 || fail_exit "superchic error: exit code not 0"

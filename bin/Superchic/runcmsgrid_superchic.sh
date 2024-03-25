@@ -13,7 +13,7 @@ set_superchic_config(){
 
 run_superchic(){
     echo "*** STARTING SUPERCHIC PRODUCTION ***"
-    LHAPDF_DATA_PATH=${LHAPDF_DATA_PATH}:${LHEWORKDIR}/${SUPERCHICDIR}/lhapdf
+    LHAPDF_DATA_PATH=${LHAPDF_DATA_PATH}:${LHEWORKDIR}/${SUPERCHICDIR}/build/share/SuperChic/SF
     export SUPERCHIC_DATA_PATH=${LHEWORKDIR}/${SUPERCHICDIR}/build/share/SuperChic
     cd ${LHEWORKDIR}/${SUPERCHICDIR}/build/bin
     ./superchic < input.DAT 2>&1 | tee input.log; test ${PIPESTATUS[0]} -eq 0 || fail_exit "superchic error: exit code not 0"
