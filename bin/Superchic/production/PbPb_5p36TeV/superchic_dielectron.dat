@@ -1,7 +1,7 @@
 ****************************************************************************************
 ******  RE-RUN ./init IF FIRST FIVE PARAMETERS ARE CHANGED (and beam = 'prot'):  *******
 ****************************************************************************************
-5.36d3           !  [rts] : CMS collision energy (GeV)
+5362d0           !  [rts] : CMS collision energy (GeV)
 4	       !  [isurv] : Model of soft survival (from 1 -> 4, corresponding to arXiv:1306.2149)
 'in13'         !  [intag] for input files 
 ****************************************************************************************
