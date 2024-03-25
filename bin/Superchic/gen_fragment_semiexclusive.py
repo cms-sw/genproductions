@@ -17,9 +17,9 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
         pythia8CommonSettingsBlock,
         pythia8CP5SettingsBlock,
         pythia8PSweightsSettingsBlock,
-        exclusive_process = cms.vstring(
+        semiexclusive_process = cms.vstring(
             # Recomendation from https://anstahll.web.cern.ch/anstahll/superchic/SuperChic_5_1.pdf
-            # For photon–initiated lepton pair production
+            # For semi–exclusive photon–initiated production (diff set to sda, sdb, dd)
             'Check:event = off',
             'PDF:pSet = LHAPDF6:MSHT20qed nnlo',
             'LesHouches:matchInOut = off',
@@ -31,9 +31,9 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
             'SpaceShower:pTdampMatch = 1',
             'BeamRemnants:unresolvedHadron = 0' #diff= dd: 0, sdb: 1, sda: 2, el: 3
         ),
-        parameterSets = cms.vstring('pythia8CommonSettings','pythia8CP5Settings','pythia8PSweightsSettings','exclusive_process')
+        parameterSets = cms.vstring('pythia8CommonSettings','pythia8CP5Settings','pythia8PSweightsSettings','semiexclusive_process')
     ),
-    comEnergy = cms.double(5360.0),
+    comEnergy = cms.double(5362.0),
     filterEfficiency = cms.untracked.double(1.0),
     maxEventsToPrint = cms.untracked.int32(1),
     pythiaHepMCVerbosity = cms.untracked.bool(False),
