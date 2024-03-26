@@ -13,14 +13,17 @@ lhans2   904400   ! nPDF: EPPS21nlo_CT18Anlo_Pb208
 ! Parameters to allow or not the use of stored data
 use-old-grid    1 ! if 1 use old grid if file pwggrids.dat is present (<> 1 regenerate)
 use-old-ubound  1 ! if 1 use norm of upper bounding function stored in pwgubound.dat, if present; <> 1 regenerate
-ncall1   1000000   ! number of calls for initializing the integration grid
-itmx1    4        ! number of iterations for initializing the integration grid
+ncall1   1000000  ! number of calls for initializing the integration grid
+itmx1    5        ! number of iterations for initializing the integration grid
 ncall2   1000000  ! number of calls for computing the integral and finding upper bounds
 itmx2    5        ! number of iterations for computing the integral and finding upper bound
-foldcsi   2       ! number of folds on csi integration
-foldy     5       ! number of folds on  y  integration
-foldphi   2       ! number of folds on phi integration
+foldcsi  2        ! number of folds on csi integration
+foldy    5        ! number of folds on  y  integration
+foldphi  2        ! number of folds on phi integration
 nubound  1000000  ! number of bbarra calls to setup norm of upper bounding function
+icsimax  1        ! <= 100, number of csi subdivision when computing the upper bounds
+iymax    1        ! <= 100, number of y subdivision when computing the upper bounds
+xupbound 2d0      ! increase upper bound for radiation generation
 
 ! OPTIONAL PARAMETERS
 leptons-nu 1
