@@ -1,0 +1,13 @@
+import model MSSM_SLHA2
+define p = g u c d s u~ c~ d~ s~
+define j = g u c d s u~ c~ d~ s~
+define p = p b b~
+define j = j b b~
+
+define s1 = ul ur dl dr sl sr cl cr
+define s1bar = ul~ ur~ dl~ dr~ sl~ sr~ cl~ cr~
+
+generate p p > s1 s1bar a @1
+add process p p > s1 s1bar a j @2
+
+output SMS-SqSqPlusGamma_mSq-%MPROD% -nojpeg

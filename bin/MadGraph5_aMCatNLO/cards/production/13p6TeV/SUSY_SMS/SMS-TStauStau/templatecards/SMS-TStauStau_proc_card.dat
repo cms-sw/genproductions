@@ -1,0 +1,16 @@
+import model MSSM_SLHA2
+define p = g u c d s u~ c~ d~ s~
+define j = g u c d s u~ c~ d~ s~
+define p = p b b~
+define j = j b b~
+define sq = go ul ul~ ur ur~ dl dl~ dr dr~ sl sl~ sr sr~ cl cl~ cr cr~ b1 b1~ b2 b2~ t1 t1~ t2 t2~
+define slep = el+ er+ mul+ mur+ ta1+ ta2+ el- er- mul- mur- ta1- ta2- sve svm svt sve~ svm~ svt~
+define ino = n1 n2 n3 n4 x2+ x2- h2 h3 h- h+
+define chi1 = x1+ x1- 
+define stau = ta1+ ta1-
+
+generate p p > stau stau @1
+add process p p > stau stau j @2
+add process p p > stau stau j j @3
+
+output SMS-TStauStau_mStau-%MNLSP% -nojpeg
