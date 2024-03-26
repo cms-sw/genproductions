@@ -4,8 +4,8 @@ vdecaymode 2      !(1:leptonic decay, 2:muonic decay, 3: tauonic decay,...)
 numevts NEVENTS    ! number of events to be generated
 ih1   1           ! hadron 1 (1 for protons, -1 for antiprotons)
 ih2   1          ! hadron 2 (1 for protons, -1 for antiprotons)
-ebeam1 2680d0      ! energy of beam 1
-ebeam2 2680d0      ! energy of beam 2
+ebeam1 2681d0      ! energy of beam 1
+ebeam2 2681d0      ! energy of beam 2
 
 ! To be set only if using LHA pdfs
 lhans1 904400     ! pdf set for hadron 1 (LHA numbering)

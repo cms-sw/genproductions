@@ -9,8 +9,8 @@ ih2   1        ! hadron 2
 ! To be set only if using LHA pdfs
 lhans1 904400  ! nPDF: EPPS21nlo_CT18Anlo_Pb208
 lhans2 904400  ! nPDF: EPPS21nlo_CT18Anlo_Pb208
-ebeam1 2680    ! energy of beam 1
-ebeam2 2680    ! energy of beam 2
+ebeam1 2681d0  ! energy of beam 1
+ebeam2 2681d0  ! energy of beam 2
 qmass  178.5   ! mass of heavy quark in GeV
 facscfact 1    ! factorization scale factor: mufact=muref*facscfact 
 renscfact 1    ! renormalization scale factor: muren=muref*renscfact 

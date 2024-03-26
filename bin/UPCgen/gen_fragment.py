@@ -16,7 +16,7 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
         ),
         parameterSets = cms.vstring('skip_hadronization')
     ),
-    comEnergy = cms.double(5360.0),
+    comEnergy = cms.double(5362.0),
     filterEfficiency = cms.untracked.double(1.0),
     maxEventsToPrint = cms.untracked.int32(1),
     pythiaHepMCVerbosity = cms.untracked.bool(False),
