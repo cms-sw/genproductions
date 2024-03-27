@@ -31,6 +31,11 @@ lll 1
 renscfact  1d0   ! (default 1d0) ren scale factor: muren  = muref * renscfact 
 facscfact  1d0   ! (default 1d0) fac scale factor: mufact = muref * facscfact 
 
+charmthr     1.67 ! https://pdg.lbl.gov/2023/tables/rpp2023-sum-quarks.pdf (pole mass)
+charmthrpdf  1.67 ! https://pdg.lbl.gov/2023/tables/rpp2023-sum-quarks.pdf (pole mass)
+bottomthr    4.78 ! https://pdg.lbl.gov/2023/tables/rpp2023-sum-quarks.pdf (pole mass)
+bottomthrpdf 4.78 ! https://pdg.lbl.gov/2023/tables/rpp2023-sum-quarks.pdf (pole mass)
+
 iseed SEED
 
 pdfreweight 0

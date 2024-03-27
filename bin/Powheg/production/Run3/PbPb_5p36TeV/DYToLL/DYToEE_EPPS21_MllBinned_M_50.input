@@ -34,6 +34,19 @@ testplots  1     ! (default 0, do not) do NLO and PWHG distributions
 iseed    SEED    ! initialize random number sequence 
 mass_low 50      ! M Z > mass_low in GeV
 
+alphaem 0.0072973525693 ! https://pdg.lbl.gov/2023/reviews/rpp2023-rev-phys-constants.pdf
+sthw2   0.23121   ! https://pdg.lbl.gov/2023/reviews/rpp2023-rev-phys-constants.pdf
+Zmass   91.1876   ! https://pdg.lbl.gov/2023/reviews/rpp2023-rev-phys-constants.pdf
+Zwidth  2.4955    ! https://pdg.lbl.gov/2023/tables/rpp2023-sum-gauge-higgs-bosons.pdf
+Wmass   80.377    ! https://pdg.lbl.gov/2023/reviews/rpp2023-rev-phys-constants.pdf
+Wwidth  2.085     ! https://pdg.lbl.gov/2023/tables/rpp2023-sum-gauge-higgs-bosons.pdf
+cmass_lhe    1.67 ! https://pdg.lbl.gov/2023/tables/rpp2023-sum-quarks.pdf (pole mass)
+charmthr     1.67 ! https://pdg.lbl.gov/2023/tables/rpp2023-sum-quarks.pdf (pole mass)
+charmthrpdf  1.67 ! https://pdg.lbl.gov/2023/tables/rpp2023-sum-quarks.pdf (pole mass)
+bmass_lhe    4.78 ! https://pdg.lbl.gov/2023/tables/rpp2023-sum-quarks.pdf (pole mass)
+bottomthr    4.78 ! https://pdg.lbl.gov/2023/tables/rpp2023-sum-quarks.pdf (pole mass)
+bottomthrpdf 4.78 ! https://pdg.lbl.gov/2023/tables/rpp2023-sum-quarks.pdf (pole mass)
+
 pdfreweight 0       ! PDF reweighting
 storeinfo_rwgt 0    ! store weight information
 withnegweights 1 ! default 0, 

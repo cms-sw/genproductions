@@ -35,6 +35,7 @@ topdecaymode 22222   ! an integer of 5 digits that are either 0, or 2, represent
 tdec/wmass 80.377 ! https://pdg.lbl.gov/2023/reviews/rpp2023-rev-phys-constants.pdf
 tdec/wwidth 2.085 ! https://pdg.lbl.gov/2023/tables/rpp2023-sum-gauge-higgs-bosons.pdf
 tdec/bmass 4.78 ! ! https://pdg.lbl.gov/2023/tables/rpp2023-sum-quarks.pdf (pole mass)
+tdec/sin2w 0.23121 ! https://pdg.lbl.gov/2023/reviews/rpp2023-rev-phys-constants.pdf
 tdec/twidth  1.173 ! Eq. (72.1) http://pdg.lbl.gov/2017/reviews/rpp2017-rev-top-quark.pdf
 tdec/elbranching 0.1086 ! https://pdg.lbl.gov/2023/tables/rpp2023-sum-gauge-higgs-bosons.pdf
 tdec/emass 0.000510998950 ! https://pdg.lbl.gov/2023/reviews/rpp2023-rev-phys-constants.pdf
@@ -45,6 +46,10 @@ tdec/umass   0.100 !
 tdec/smass   0.200 ! 
 tdec/cmass   1.67 ! https://pdg.lbl.gov/2023/tables/rpp2023-sum-quarks.pdf (pole mass)
 tdec/sin2cabibbo 0.0506 ! 0.22500*0.22500, CKM_Vus in Table (12.27) https://pdg.lbl.gov/2023/reviews/rpp2023-rev-ckm-matrix.pdf
+charmthr     1.67 ! https://pdg.lbl.gov/2023/tables/rpp2023-sum-quarks.pdf (pole mass)
+charmthrpdf  1.67 ! https://pdg.lbl.gov/2023/tables/rpp2023-sum-quarks.pdf (pole mass)
+bottomthr    4.78 ! https://pdg.lbl.gov/2023/tables/rpp2023-sum-quarks.pdf (pole mass)
+bottomthrpdf 4.78 ! https://pdg.lbl.gov/2023/tables/rpp2023-sum-quarks.pdf (pole mass)
 ! Parameters to allow-disallow use of stored data
 use-old-grid 1    ! if 1 use old grid if file pwggrids.dat is present (# 1: regenerate)
 use-old-ubound 1  ! if 1 use norm of upper bounding function stored in pwgubound.dat, if present; # 1: regenerate
