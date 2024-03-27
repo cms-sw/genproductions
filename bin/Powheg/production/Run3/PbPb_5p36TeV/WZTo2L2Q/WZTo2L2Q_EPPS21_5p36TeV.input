@@ -1,7 +1,7 @@
-! ZZ boson production parameters
+! WZ boson production parameters
 mllmin 4d0         ! default 0.1 GeV this is minimum invar mass for Z leptons
 
-numevts NEVENTS   ! number of events to be generated
+numevts NEVENTS
 ih1   1           ! hadron 1 (1 for protons, -1 for antiprotons)
 ih2   1           ! hadron 2 (1 for protons, -1 for antiprotons)
 ebeam1 2681d0     ! energy of beam 1
@@ -15,7 +15,7 @@ use-old-grid    1 ! if 1 use old grid if file pwggrids.dat is present (<> 1 rege
 use-old-ubound  1 ! if 1 use norm of upper bounding function stored in pwgubound.dat, if present; <> 1 regenerate
 ncall1   1000000  ! number of calls for initializing the integration grid
 itmx1    5        ! number of iterations for initializing the integration grid
-ncall2   1000000  ! number of calls for computing the integral and finding upper bounds
+ncall2   1000000  ! number of calls for computing the integral and finding upper bound
 itmx2    5        ! number of iterations for computing the integral and finding upper bound
 foldcsi  2        ! number of folds on csi integration
 foldy    5        ! number of folds on  y  integration
@@ -26,7 +26,8 @@ iymax    1        ! <= 100, number of y subdivision when computing the upper bou
 xupbound 2d0      ! increase upper bound for radiation generation
 
 ! OPTIONAL PARAMETERS
-leptonic 1
+hll 1
+
 renscfact  1d0   ! (default 1d0) ren scale factor: muren  = muref * renscfact 
 facscfact  1d0   ! (default 1d0) fac scale factor: mufact = muref * facscfact 
 
@@ -35,8 +36,8 @@ charmthrpdf  1.67 ! https://pdg.lbl.gov/2023/tables/rpp2023-sum-quarks.pdf (pole
 bottomthr    4.78 ! https://pdg.lbl.gov/2023/tables/rpp2023-sum-quarks.pdf (pole mass)
 bottomthrpdf 4.78 ! https://pdg.lbl.gov/2023/tables/rpp2023-sum-quarks.pdf (pole mass)
 
-iseed    SEED    ! initialize random number sequence 
+iseed SEED
 
-pdfreweight 0       ! PDF reweighting
+pdfreweight 0
 storeinfo_rwgt 0
-withnegweights 1
+withnegweights 1 
