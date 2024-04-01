@@ -1,0 +1,4 @@
+import model loop_sm-ckm
+generate g g  > h > w+ w- [noborn=QCD]
+output ggWW_off_shell -nojpeg
+
