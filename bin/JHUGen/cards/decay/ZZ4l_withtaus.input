@@ -1,1 +1,1 @@
-DecayMode1=8 DecayMode2=8
+DecayMode1=8 DecayMode2=8 WriteFailedEvents=2
