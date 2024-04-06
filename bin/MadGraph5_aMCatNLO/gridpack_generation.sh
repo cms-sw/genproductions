@@ -137,9 +137,10 @@ make_gridpack () {
     
     MG_EXT=".tar.gz"
     MG=MG5_aMC_v2.9.18$MG_EXT
-    MGSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$MG
-    
-    MGBASEDIRORIG=$(echo ${MG%$MG_EXT} | tr "." "_")
+    #MGSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$MG
+    MGSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/MG5_aMC_v2_9_18_patched.tgz
+    #MGBASEDIRORIG=$(echo ${MG%$MG_EXT} | tr "." "_")
+    MGBASEDIRORIG=MG5_aMC_v2_9_18
     isscratchspace=0
     
     if [ ! -d ${GEN_FOLDER}/${name}_gridpack ]; then
@@ -180,8 +181,8 @@ make_gridpack () {
       #Copy, Unzip and Delete the MadGraph tarball#
       #############################################
       wget --no-check-certificate ${MGSOURCE}
-      tar xzf ${MG}
-      rm "$MG"
+      tar xzf MG5_aMC_v2_9_18_patched.tgz
+      rm MG5_aMC_v2_9_18_patched.tgz
     
       #############################################
       #Apply any necessary patches on top of official release
