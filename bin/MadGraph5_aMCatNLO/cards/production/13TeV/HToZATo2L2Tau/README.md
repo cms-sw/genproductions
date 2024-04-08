@@ -30,7 +30,7 @@ cd ./scripts/
 
 ```
 ## GridPacks Generation:
-Inside the cards output directory (``example_cards``) a simple shell script is generated to produce all the gridpacks for each process.
+Inside the ``scripts`` directory a simple shell script is generated to produce all the gridpacks for each process.
 It should be run from the genproductions/bin/MadGraph5_aMCatNLO directory in a clean environment.
 ```bash
 ./prepare_example_lo_htoza_gridpacks.sh
