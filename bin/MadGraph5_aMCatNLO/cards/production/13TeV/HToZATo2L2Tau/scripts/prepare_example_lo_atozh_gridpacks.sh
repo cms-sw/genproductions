@@ -7,13 +7,3 @@
 # So you have to call : ./submit_condor_gridpack_generation.sh 
 # Now for the real gridpack production
 ./gridpack_generation.sh AToZHTo2L2Tau_300p00_150p00_1p50_ggH_TuneCP5_13TeV_pythia8 cards/production/13TeV/HToZATo2L2Tau/example_cards/AToZHTo2L2Tau_300p00_150p00_1p50_ggH_TuneCP5_13TeV_pythia8  
-./gridpack_generation.sh AToZHTo2L2Tau_500p00_200p00_1p50_ggH_TuneCP5_13TeV_pythia8 cards/production/13TeV/HToZATo2L2Tau/example_cards/AToZHTo2L2Tau_500p00_200p00_1p50_ggH_TuneCP5_13TeV_pythia8  
-./gridpack_generation.sh AToZHTo2L2Tau_600p00_400p00_1p50_ggH_TuneCP5_13TeV_pythia8 cards/production/13TeV/HToZATo2L2Tau/example_cards/AToZHTo2L2Tau_600p00_400p00_1p50_ggH_TuneCP5_13TeV_pythia8  
-./gridpack_generation.sh AToZHTo2L2Tau_700p00_300p00_1p50_ggH_TuneCP5_13TeV_pythia8 cards/production/13TeV/HToZATo2L2Tau/example_cards/AToZHTo2L2Tau_700p00_300p00_1p50_ggH_TuneCP5_13TeV_pythia8  
-./gridpack_generation.sh AToZHTo2L2Tau_700p00_500p00_1p50_ggH_TuneCP5_13TeV_pythia8 cards/production/13TeV/HToZATo2L2Tau/example_cards/AToZHTo2L2Tau_700p00_500p00_1p50_ggH_TuneCP5_13TeV_pythia8  
-# uncomment these lines to Add more commits by pushing to the AToZHTo2L2Tau_run2Cards branch on kjaffel/genproductions.!
-# pushd cards/production/13TeV/
-# git checkout -b AToZHTo2L2Tau_run2Cards
-# git add AToZHTo2L2Tau_ggfusion_b-associatedproduction
-# git commit -m  'update AToZHTo2L2Tau cards'
-# git push upstream AToZHTo2L2Tau_run2Cards

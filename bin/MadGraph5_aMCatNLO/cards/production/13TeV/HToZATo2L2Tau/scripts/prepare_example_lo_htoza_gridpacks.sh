@@ -7,9 +7,3 @@
 # So you have to call : ./submit_condor_gridpack_generation.sh 
 # Now for the real gridpack production
 ./gridpack_generation.sh HToZATo2L2Tau_170p00_50p00_1p50_ggH_TuneCP5_13TeV_pythia8 cards/production/13TeV/HToZATo2L2Tau/example_cards/HToZATo2L2Tau_170p00_50p00_1p50_ggH_TuneCP5_13TeV_pythia8  
-# uncomment these lines to Add more commits by pushing to the HToZATo2L2Tau_run2Cards branch on kjaffel/genproductions.!
-# pushd cards/production/13TeV/
-# git checkout -b HToZATo2L2Tau_run2Cards
-# git add HToZATo2L2Tau_ggfusion_b-associatedproduction
-# git commit -m  'update HToZATo2L2Tau cards'
-# git push upstream HToZATo2L2Tau_run2Cards

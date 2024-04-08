@@ -619,12 +619,12 @@ def prepare_all_MG5_cards(process=None, flavourscheme=None, lhapdfsets=None, lha
                 #if fullsim:
                 #    outf.write('mv {}* /afs/cern.ch/user/k/kjaffel/public/{}_run2gridpacks/\n'.format(cardname, production_mode))
         
-        outf.write('# uncomment these lines to Add more commits by pushing to the {}_run2Cards branch on kjaffel/genproductions.!\n'.format(production_mode))
-        outf.write('# pushd cards/production/13TeV/\n')
-        outf.write('# git checkout -b {}_run2Cards\n'.format(production_mode))
-        outf.write('# git add {}_ggfusion_b-associatedproduction\n'.format(production_mode))
-        outf.write("# git commit -m  'update {} cards'\n".format(production_mode))
-        outf.write('# git push upstream {}_run2Cards\n'.format(production_mode))
+        #outf.write('# uncomment these lines to Add more commits by pushing to the {}_run2Cards branch on kjaffel/genproductions.!\n'.format(production_mode))
+        #outf.write('# pushd cards/production/13TeV/\n')
+        #outf.write('# git checkout -b {}_run2Cards\n'.format(production_mode))
+        #outf.write('# git add {}_ggfusion_b-associatedproduction\n'.format(production_mode))
+        #outf.write("# git commit -m  'update {} cards'\n".format(production_mode))
+        #outf.write('# git push upstream {}_run2Cards\n'.format(production_mode))
 
         #outf.write('set +x\n')
         
