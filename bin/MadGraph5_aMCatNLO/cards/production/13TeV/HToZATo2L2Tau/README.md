@@ -13,8 +13,10 @@ or a conda environment (which requires a few changes to the script), see the [in
 - For each process we have a dir template, HToZA or AToZH!
 ```bash
 # gg Fusion; LO Loop Induced 4F-scheme
-cd run2Template_cards/template_HToZATo2L2Tau_X_X_X_ggH_TuneCP5_13TeV_pythia8
-cd run2Template_cards/template_AToZHTo2L2Tau_X_X_X_ggH_TuneCP5_13TeV_pythia8
+# H -> ZA (mH > mA)
+run2Template_cards/template_HToZATo2L2Tau_X_X_X_ggH_TuneCP5_13TeV_pythia8
+# A -> ZH (mA > mH)
+run2Template_cards/template_AToZHTo2L2Tau_X_X_X_ggH_TuneCP5_13TeV_pythia8
 ```
 ``X_X_X`` : MH_MA_tanbeta parameters
 ### How to Run:
