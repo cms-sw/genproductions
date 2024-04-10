@@ -36,8 +36,7 @@ generator = cms.EDFilter("Pythia8ConcurrentHadronizerFilter",
             'JetMatching:qCutME = 20.',
             'JetMatching:nQmatch = 5',
             'JetMatching:nJetMax = 2',
-            'TimeShower:mMaxGamma = 1.0',#cutting off lepton-pair production
-            'TimeShower:MEcorrections = on'#avoid shifts in the reco top quark mass peak position
+            'TimeShower:mMaxGamma = 4.0'
         ),
         parameterSets = cms.vstring(
             'pythia8CommonSettings',
