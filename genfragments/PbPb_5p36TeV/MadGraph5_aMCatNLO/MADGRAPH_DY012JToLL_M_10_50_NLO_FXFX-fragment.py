@@ -37,7 +37,7 @@ generator = cms.EDFilter("Pythia8ConcurrentHadronizerFilter",
             'JetMatching:nQmatch = 5',
             'JetMatching:nJetMax = 2',
             'TimeShower:mMaxGamma = 4.0',
-            'BeamRemnants:primordialKThard=2.48'
+            'BeamRemnants:primordialKThard=2.13'#kT for 5.36 TeV from GEN-22-001 slope
         ),
         parameterSets = cms.vstring(
             'pythia8CommonSettings',
