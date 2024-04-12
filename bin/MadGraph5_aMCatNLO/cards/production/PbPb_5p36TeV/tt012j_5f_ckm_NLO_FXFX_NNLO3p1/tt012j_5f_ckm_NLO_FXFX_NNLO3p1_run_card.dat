@@ -71,7 +71,7 @@
 # shower (HERWIG6 | HERWIGPP | PYTHIA6Q | PYTHIA6PT | PYTHIA8)         *
 # WARNING: PYTHIA6PT works only for processes without FSR!!!!          *
 #***********************************************************************
-  PYTHIA8  = parton_shower
+  pythia8  = parton_shower
   1.0 = shower_scale_factor ! multiply default shower starting
                                   ! scale by this factor
 #***********************************************************************
@@ -149,7 +149,7 @@
 #***********************************************************************
   0.0  = ptgmin    ! Min photon transverse momentum
  -1.0  = etagamma  ! Max photon abs(pseudo-rap)
-  0.4  = R0gamma   ! Radius of isolation code
+  0.15 = R0gamma   ! Radius of isolation code
   1.0  = xn        ! n parameter of eq.(3.4) in hep-ph/9801442
   1.0  = epsgamma  ! epsilon_gamma parameter of eq.(3.4) in hep-ph/9801442
  True  = isoEM  ! isolate photons from EM energy (photons and leptons)
