@@ -1,0 +1,6 @@
+import model HC_NLO_X0_UFO
+
+generate p p > t x0 b~ j $$ w+ w- [QCD]
+add process p p > t~ x0 b j $$ w+ w- [QCD]
+
+output tHq_4f_NLO_M125_THad_k1_ktilde0 -nojpeg
