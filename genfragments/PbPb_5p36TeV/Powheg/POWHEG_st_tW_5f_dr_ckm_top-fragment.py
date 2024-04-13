@@ -43,11 +43,4 @@ generator = cms.EDFilter("Pythia8ConcurrentHadronizerFilter",
     pythiaPylistVerbosity = cms.untracked.int32(1),
 )
 
-lheGenericFilter = cms.EDFilter("LHEGenericFilter",
-    src = cms.InputTag("externalLHEProducer"),
-    NumRequired = cms.int32(0),
-    ParticleID = cms.vint32(11,13,15),
-    AcceptLogic = cms.string("GT") # LT meaning < NumRequired, GT >, EQ =, NE !=
-)
-
-ProductionFilterSequence = cms.Sequence(lheGenericFilter+generator)
+ProductionFilterSequence = cms.Sequence(generator)
