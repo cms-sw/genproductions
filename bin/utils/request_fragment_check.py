@@ -1138,7 +1138,7 @@ for num in range(0,len(prepid)):
                             chars_to_check = set('@#$%^&*()+-[]{}\ ')
                             chars_to_check_warning = set('.')
                             if any((chars in chars_to_check) for chars in reweights):
-                                errors.append("Please remove problematic characters (at least one of @#$%^&*()+-[]{}.\) from rwgt_names. See https://github.com/cms-sw/genproductions/blob/master/bin/MadGraph5_aMCatNLO/gridpack_generation.sh#L102. This causes the header in mg5 to be corrupted and nano-aod will not work.") 
+                                errors.append("Please remove problematic characters (at least one of @#$%^&*()+-[]{} or 'space') from rwgt_names. See https://github.com/cms-sw/genproductions/blob/d90d07744601da677eff41a17c4398bb2309f0f5/bin/MadGraph5_aMCatNLO/gridpack_generation.sh#L116. This causes the header in mg5 to be corrupted and nano-aod will not work.") 
                             if any((chars in chars_to_check_warning) for chars in reweights):
                                 warnings.append('The existence of a "." in reweight_card will result in the name of the weight not to be shown in the header. Please make sure if this is a problem for your analysis, if not, please remove the dot')
                 if mg_gp is True:
