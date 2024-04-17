@@ -19,7 +19,7 @@ base_dir = './'
 customize_card_changes = {
     'k1_ktilde0':       "\nset param_card kHtt 1.0 \nset param_card kAtt 0.0\nset param_card cosa 1.0",
     'km1_ktilde0':      "\nset param_card kHtt -1.0 \nset param_card kAtt 0.0\nset param_card cosa 1.0",
-    'k0_ktilde0':       "\nset param_card kHtt 0.0 \nset param_card kAtt 0.0\nset param_card cosa 1.0",
+    'k0_ktilde0':       "\nset param_card kHtt 0.0001 \nset param_card kAtt 0.0\nset param_card cosa 1.0",
     'k0_ktilde1':       "\nset param_card kHtt 0.0 \nset param_card kAtt 1.0\nset param_card cosa 0.0001 \nset param_card kSM 10000",
     'k0p7_ktilde0p7':   "\nset param_card kHtt 1.0 \nset param_card kAtt 1.0\nset param_card cosa 0.7071 \nset param_card kSM 1.4142",
     'k0p7_ktildem0p7':  "\nset param_card kHtt 1.0 \nset param_card kAtt -1.0\nset param_card cosa 0.7071 \nset param_card kSM 1.4142",
