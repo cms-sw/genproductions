@@ -26,15 +26,4 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
     pythiaPylistVerbosity = cms.untracked.int32(1)
 )
 
-kkgenfilter = cms.EDFilter("MCParticlePairFilter",
-    Status = cms.untracked.vint32(1, 1),
-    MinPt = cms.untracked.vdouble(0.0, 0.0),
-    MinP = cms.untracked.vdouble(0.0, 0.0),
-    MaxEta = cms.untracked.vdouble(2.5, 2.5),
-    MinEta = cms.untracked.vdouble(-2.5, -2.5),
-    ParticleCharge = cms.untracked.int32(-1),
-    ParticleID1 = cms.untracked.vint32(321),
-    ParticleID2 = cms.untracked.vint32(321)
-)
-
-ProductionFilterSequence = cms.Sequence(generator*kkgenfilter)
+ProductionFilterSequence = cms.Sequence(generator)
