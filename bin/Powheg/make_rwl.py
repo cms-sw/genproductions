@@ -343,7 +343,7 @@ elif Period == "Run3_Pb":
             "PDF_variation1 , hessian" :
             [
                 # Proton PDFs
-                [2000, 325300, 'NNPDF31_nnlo_as_0118_mc_hessian_pdfas', 103],
+                [2000, 325300, 'NNPDF31_nnlo_as_0118_mc_hessian_pdfas', 1],
                 [2200, 306000, 'NNPDF31_nnlo_hessian_pdfas', 1],
                 [2201, 322500, 'NNPDF31_nnlo_as_0108', 1],
                 [2202, 322700, 'NNPDF31_nnlo_as_0110', 1],
@@ -353,10 +353,10 @@ elif Period == "Run3_Pb":
                 [2206, 323500, 'NNPDF31_nnlo_as_0119', 1],
                 [2207, 323700, 'NNPDF31_nnlo_as_0122', 1],
                 [2208, 323900, 'NNPDF31_nnlo_as_0124', 1],
-                [2300, 305800, 'NNPDF31_nlo_hessian_pdfas', 103],
+                [2300, 305800, 'NNPDF31_nlo_hessian_pdfas', 1],
                 [2500, 303200, 'NNPDF30_nnlo_as_0118_hessian', 1],
                 [2501, 292200, 'NNPDF30_nlo_nf_5_pdfas', 1],
-                [2600, 331600, 'NNPDF40_nnlo_hessian_pdfas', 53],
+                [2600, 331600, 'NNPDF40_nnlo_hessian_pdfas', 1],
                 [2700, 332700, 'NNPDF40_nnlo_as_01160', 1],
                 [2701, 332900, 'NNPDF40_nnlo_as_01170', 1],
                 [2702, 333100, 'NNPDF40_nnlo_as_01175', 1],
@@ -364,20 +364,20 @@ elif Period == "Run3_Pb":
                 [2704, 333500, 'NNPDF40_nnlo_as_01190', 1],
                 [2705, 333700, 'NNPDF40_nnlo_as_01200', 1],
                 [2800, 332300, 'NNPDF40_nlo_pch_as_01180', 1],
-                [4000, 14000, 'CT18NNLO', 59],
+                [4000, 14000, 'CT18NNLO', 1],
                 [4100, 14066, 'CT18NNLO_as_0116', 1],
                 [4101, 14067, 'CT18NNLO_as_0117', 1],
                 [4102, 14069, 'CT18NNLO_as_0119', 1],
                 [4103, 14070, 'CT18NNLO_as_0120', 1],
-                [4200, 14100, 'CT18ZNNLO', 59],
+                [4200, 14100, 'CT18ZNNLO', 1],
                 [4300, 14200, 'CT18ANNLO', 1],
                 [4301, 14300, 'CT18XNNLO', 1],
-                [5000, 27400, 'MSHT20nnlo_as118', 65],
+                [5000, 27400, 'MSHT20nnlo_as118', 1],
                 [5100, 27500, 'MSHT20nnlo_as_smallrange', 1],
                 [5101, 27550, 'MSHT20nnlo_as_largerange', 1],
-                [6000, 93300, 'PDF4LHC21_40_pdfas', 43],
-                [7000, 61200, 'HERAPDF20_NNLO_EIG', 29],
-                [8000, 42780, 'ABMP16als118_5_nnlo', 30],
+                [6000, 93300, 'PDF4LHC21_40_pdfas', 1],
+                [7000, 61200, 'HERAPDF20_NNLO_EIG', 1],
+                [8000, 42780, 'ABMP16als118_5_nnlo', 1],
                 # Reference proton PDF of EPPS21nlo nuclear PDF
                 [4400, 14600, 'CT18ANLO', 59],
                 [4500, 14666, 'CT18ANLO_as_0116', 1],
@@ -386,15 +386,16 @@ elif Period == "Run3_Pb":
                 [4503, 14670, 'CT18ANLO_as_0120', 1],
                 # Pb208 nuclear PDFs
                 [9000, 904400, 'EPPS21nlo_CT18Anlo_Pb208', 107],
+                [9150, 901300, 'EPPS16nlo_CT14nlo_Pb208', 1],
                 [9200, 3211600, 'TUJU21_nlo_208_82', 59],
                 [9300, 3216600, 'TUJU21_nnlo_208_82', 59],
             ],
             "PDF_variation2 , replica" :
             [
                 # Proton PDFs
-                [3000, 316200, 'NNPDF31_nnlo_as_0118_mc', 101],
-                [3200, 331300, 'NNPDF40_nnlo_pdfas', 103],
-                [3400, 332100, 'NNPDF40_nnlo_pch_as_01180', 101],
+                [3000, 316200, 'NNPDF31_nnlo_as_0118_mc', 1],
+                [3200, 331300, 'NNPDF40_nnlo_pdfas', 1],
+                [3400, 332100, 'NNPDF40_nnlo_pch_as_01180', 1],
                 # Pb208 nuclear PDFs
                 [9400, 30025400, 'nNNPDF30_nlo_as_0118_A208_Z82', 201],
             ],

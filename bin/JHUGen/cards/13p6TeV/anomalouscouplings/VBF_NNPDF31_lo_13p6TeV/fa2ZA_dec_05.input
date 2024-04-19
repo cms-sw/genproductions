@@ -1,0 +1,1 @@
+Process=60 VegasNc0=99999999 ColliderEnergy=13.6 LHAPDF=NNPDF31_lo_as_0130/NNPDF31_lo_as_0130.info pTjetcut=1 deltaRcut=0 MReso=125 GaReso=0.00407 ReadCSmax ghz1=1,0 ghzgs2=0.0477547,0

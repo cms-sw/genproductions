@@ -1,0 +1,11 @@
+import model MSSM_SLHA2
+define p = g u c d s u~ c~ d~ s~
+define j = g u c d s u~ c~ d~ s~
+define p = p b b~
+define j = j b b~
+
+generate p p > b1 b1~  @1
+add process p p > b1 b1~ j @2
+add process p p > b1 b1~ j j @3
+
+output SMS-SbotSbot_mSbot-%MPROD% -nojpeg

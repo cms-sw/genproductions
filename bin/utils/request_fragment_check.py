@@ -685,9 +685,14 @@ for num in range(0,len(prepid)):
                data_f2_strip=exception_for_ul_check(data_f2_strip,cross_section_fragment)
                data_f2_clone_strip=re.sub(r'\s+', ' ', data_f2_clone).strip()
                data_f2_clone_strip=exception_for_ul_check(data_f2_clone_strip,cross_section_fragment)
+               ext_excep = 0
+               os.system('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/extension_exceptions.txt -O extension_exceptions.txt')
+               with open('extension_exceptions.txt') as file_ext_ex:
+                   for line in file_ext_ex:
+                       if pi in line: ext_excep = 1 
                if (data_f2_strip == data_f2_clone_strip) == True:
                    print("[OK] The base request and the cloned request used for the extension have the same fragment.")
-               else:
+               elif ext_excep == 0:
                    errors.append("The base request "+pi+" and the cloned request "+pi_clone_entries+" used for the extension don't have the same fragment! Here is the diff of the base and and the cloned request: \n"+(os.popen('diff '+pi+' '+pi_clone_entries).read()))
         f1.close()
         f2.write(data_f2)
@@ -1133,7 +1138,7 @@ for num in range(0,len(prepid)):
                             chars_to_check = set('@#$%^&*()+-[]{}\ ')
                             chars_to_check_warning = set('.')
                             if any((chars in chars_to_check) for chars in reweights):
-                                errors.append("Please remove problematic characters (at least one of @#$%^&*()+-[]{}.\) from rwgt_names. See https://github.com/cms-sw/genproductions/blob/master/bin/MadGraph5_aMCatNLO/gridpack_generation.sh#L102. This causes the header in mg5 to be corrupted and nano-aod will not work.") 
+                                errors.append("Please remove problematic characters (at least one of @#$%^&*()+-[]{} or 'space') from rwgt_names. See https://github.com/cms-sw/genproductions/blob/d90d07744601da677eff41a17c4398bb2309f0f5/bin/MadGraph5_aMCatNLO/gridpack_generation.sh#L116. This causes the header in mg5 to be corrupted and nano-aod will not work.") 
                             if any((chars in chars_to_check_warning) for chars in reweights):
                                 warnings.append('The existence of a "." in reweight_card will result in the name of the weight not to be shown in the header. Please make sure if this is a problem for your analysis, if not, please remove the dot')
                 if mg_gp is True:
