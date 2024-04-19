@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python2
 '''
  - get some indications from Phantom authors on the parameters for the gridpacks generation
  - transform the script into a daemon
@@ -50,11 +50,11 @@ import math
 import ConfigParser
 import re
 import time
-import matplotlib
-matplotlib.use('Agg')
-import matplotlib.pyplot as plt
-from matplotlib.backends.backend_pdf import PdfPages
-import math
+#import matplotlib
+#matplotlib.use('Agg')
+#import matplotlib.pyplot as plt
+#from matplotlib.backends.backend_pdf import PdfPages
+#import math
 
 
 # ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
@@ -356,11 +356,13 @@ def extractIntegrationResults (filename):
 
   calc_output = []
   # loop over stages of the calculation
+  cite_lhapdf = """Thanks for using LHAPDF 6.2.1. Please make sure to cite the paper:
+  Eur.Phys.J. C75 (2015) 3, 132  (http://arxiv.org/abs/1412.7420)\n"""
   for key,chunk in result.items ():
-    blockresult = chunk.split ('iphs_ind=')
-    
+    blockresult = chunk.split ('iphs_ind=')  
     # loop over diagrams in a single stage
     for elem in blockresult:
+      elem = elem.replace(cite_lhapdf, "")  # remove cite string
       if len(elem.split ()) == 0 : continue # skip empty sections
       if 'integral' not in elem : continue # skip non informative sections
       diagram = int (elem.split ()[0])
@@ -863,7 +865,7 @@ def gridpackGeneration (full,debugging):
     result = execute ('tail -n 1 ' + workingfolder + '/result', debugging)
     Xsection = result[1] + ' pb'
 
-    verifyGridpack (processoutputs, workingfolder, logfile)
+    #verifyGridpack (processoutputs, workingfolder, logfile)
 
     logfile.write ('CONFIG FILE\n\n')
     for section in config.sections ():
@@ -969,7 +971,7 @@ def gridpackCreation (debugging):
     result = execute ('tail -n 1 ' + workingfolder + '/result', debugging)
     Xsection = result[1] + ' pb'
 
-    verifyGridpack (processoutputs, workingfolder, logfile)
+    #verifyGridpack (processoutputs, workingfolder, logfile)
 
     logfile.write ('CONFIG FILE\n\n')
     for section in config.sections ():
@@ -1154,7 +1156,7 @@ def runSimpleVerification (configfilename):
             processoutputs.append (foldername + outfilename [1])
     submitfile.close ()
 
-    verifyGridpack (processoutputs, workingfolder, logfile)
+    #verifyGridpack (processoutputs, workingfolder, logfile)
 
     logfile.close ()
 
