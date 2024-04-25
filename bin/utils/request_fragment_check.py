@@ -972,11 +972,11 @@ for num in range(0,len(prepid)):
             else :
                 nthreads = int(re.search('nThreads(.*?) --',ttxt).group(1))
 
-        if "SnowmassWinter21GEN" not in pi and "SnowmassWinter21wmLHEGEN" not in pi and particle_gun == 0 and pi not in concurrency_check_exception_list and "matchbox" not in data_f1.lower():
+        if "SnowmassWinter21GEN" not in pi and "SnowmassWinter21wmLHEGEN" not in pi and particle_gun == 0 and pi not in concurrency_check_exception_list and "matchbox" not in data_f1.lower() and "CepGenGeneratorFilter" not in data_f1:
             conc_check_result, tmp_err = concurrency_check(data_f1,pi,cmssw_version,mg_gp)
             errors.extend(tmp_err)
         else:
-            warnings.append("Skipping the concurrency check since these are (wmLHE)GEN-only campaigns or a particle gun or a Sherpa Diphoton sample or an herwig7 request with Matchbox.")
+            warnings.append("Skipping the concurrency check since these are (wmLHE)GEN-only campaigns or a particle gun or a Sherpa Diphoton sample or an herwig7 request with Matchbox or a CepGen sample.")
                 
         nevts = 100.
         if timeperevent > 0:   
