@@ -206,7 +206,7 @@ make_gridpack () {
         echo "copying bias module folder. Current dir:"
         pwd
         ls -lrth
-        cp -r $CARDSDIR/BIAS/* $MGBASEDIRORIG/Template/LO/Source/BIAS
+        cp -r $CARDSDIR/BIAS/* Template/LO/Source/BIAS
       fi
     
       LHAPDFCONFIG=`echo "$LHAPDF_DATA_PATH/../../bin/lhapdf-config"`
