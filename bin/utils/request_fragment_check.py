@@ -746,6 +746,7 @@ for num in range(0,len(prepid)):
         gp_size = len(gridpack_cvmfs_path_tmp)
 
         pw_gp = False
+        pw_external_gp = False
         madloop_in_gp = False
         minlo = False
         minnlo = False
@@ -827,12 +828,15 @@ for num in range(0,len(prepid)):
                 sys.exit()
             jhu_gp = os.path.isfile(my_path+'/'+pi+'/'+'JHUGen.input')
             pw_gp = os.path.isfile(my_path+'/'+pi+'/'+'powheg.input')
+            if pw_gp is False:
+                pw_external_gp = os.path.isfile(my_path+'/'+pi+'/'+"external_tarball/powheg.input")
             madloop_in_gp = os.path.isfile(my_path+'/'+pi+'/'+'MadLoopParams.dat')
             mg_f1 = my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat'
             mg_f2 = my_path+'/'+pi+'/'+'process/Cards/run_card.dat'
             amcnlo_gp = os.path.isfile(my_path+'/'+pi+'/'+'process/Cards/run_card.dat')
             mg_gp = os.path.isfile(mg_f1) or os.path.isfile(mg_f2)
             print("path powheg "+str(pw_gp))
+            print("path external powheg "+str(pw_external_gp))
             print("path madloop "+str(madloop_in_gp))
             print("path mg "+str(mg_gp))
             print("path amcnlo "+str(amcnlo_gp))
@@ -1593,8 +1597,9 @@ for num in range(0,len(prepid)):
                 errors.append("You run MG5_aMC@NLO at LO but you have  Pythia8aMCatNLOSettings_cfi in fragment")
 
         if mg_gp is True or amcnlo_gp is True:
+            input_cards_madspin_card = 0
             powhegcheck.append(int(os.popen('grep -c -i PowhegEmission '+pi_file).read()))
-            if powhegcheck[0] > 0 and pw_mg == 0:
+            if powhegcheck[0] > 0 and pw_mg == 0 and pw_external_gp is False:
                 errors.append("Please remove POWHEG settings for MG requests.")
         if pw_mg is False and mg_gp is False and amcnlo_gp is False and jhu_gp is False and sherpa_gp is False:
              purepythiacheck.append(int(os.popen('grep -c -i Pythia8aMCatNLOSettings '+pi_file).read()))
