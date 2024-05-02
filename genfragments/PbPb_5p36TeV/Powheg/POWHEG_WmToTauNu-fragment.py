@@ -16,8 +16,17 @@ from Configuration.Generator.Pythia8CommonSettings_cfi import *
 from Configuration.Generator.MCTunesRun3ECM13p6TeV.PythiaCP5Settings_cfi import *
 from Configuration.Generator.Pythia8PowhegEmissionVetoSettings_cfi import *
 from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *
+from GeneratorInterface.ExternalDecays.TauolaSettings_cff import *
 
 generator = cms.EDFilter("Pythia8ConcurrentHadronizerFilter",
+    ExternalDecays = cms.PSet(
+        Tauola = cms.untracked.PSet(
+            TauolaPolar,
+            TauolaDefaultInputCards
+        ),
+        parameterSets = cms.vstring('Tauola')
+    ),
+    UseExternalGenerators = cms.untracked.bool(True),
     PythiaParameters = cms.PSet(
         pythia8CommonSettingsBlock,
         pythia8CP5SettingsBlock,
