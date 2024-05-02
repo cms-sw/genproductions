@@ -18,7 +18,7 @@ from Configuration.Generator.Pythia8PowhegEmissionVetoSettings_cfi import *
 from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *
 from GeneratorInterface.ExternalDecays.TauolaSettings_cff import *
 
-generator = cms.EDFilter("Pythia8ConcurrentHadronizerFilter",
+_generator = cms.EDFilter("Pythia8HadronizerFilter",
     ExternalDecays = cms.PSet(
         Tauola = cms.untracked.PSet(
             TauolaPolar,
@@ -52,4 +52,5 @@ generator = cms.EDFilter("Pythia8ConcurrentHadronizerFilter",
     pythiaPylistVerbosity = cms.untracked.int32(1),
 )
 
-ProductionFilterSequence = cms.Sequence(generator)
+from GeneratorInterface.Core.ExternalGeneratorFilter import ExternalGeneratorFilter
+generator = ExternalGeneratorFilter(_generator)
