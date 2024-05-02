@@ -8,4 +8,4 @@ add process p p > w+ z j [QCD] @1
 add process p p > w- z [QCD] @2
 add process p p > w- z j [QCD] @3
 
-output WZTo4Q_45_amcatnloFxFx -nojpeg
+output WZTo4Q_5f_amcatnloFxFx -nojpeg
