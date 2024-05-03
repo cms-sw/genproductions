@@ -1,0 +1,4 @@
+import model GM_UFO
+generate p p > H5pp j j, (H5pp > w+ w+)
+add process p p > H5pp~ j j, (H5pp~ > w- w-)
+output DoublyChargedHiggsGMmodel_HWW

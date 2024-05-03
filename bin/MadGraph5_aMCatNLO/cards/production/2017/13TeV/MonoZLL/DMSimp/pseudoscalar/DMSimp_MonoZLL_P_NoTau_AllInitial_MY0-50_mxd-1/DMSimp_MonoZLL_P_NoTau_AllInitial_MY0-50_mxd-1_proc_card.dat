@@ -1,0 +1,12 @@
+import DMsimp_s_spin0-noboson
+# Define multiparticle labels
+
+define l+ = e+ mu+
+define l- = e- mu-
+generate       p p > xd xd~ l+ l- / h [QCD] @1
+add process    p p > xd xd~ l+ l- j / h [QCD] @2
+
+output DMSimp_MonoZLL_P_NoTau_AllInitial_MY0-50_mxd-1 -nojpeg
+
+
+

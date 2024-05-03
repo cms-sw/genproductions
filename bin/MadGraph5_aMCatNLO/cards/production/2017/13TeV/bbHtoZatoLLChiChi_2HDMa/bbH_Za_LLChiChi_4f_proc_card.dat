@@ -1,0 +1,8 @@
+import model Pseudoscalar_2HDM
+
+define ell+ = e+ mu+ ta+
+define ell- = e- mu- ta-
+
+generate p p > b b~ h2, (h2 > z h4, z > ell+ ell-, h4 > xd xd~)
+
+output bbH_Za_LLChiChi_4f -nojpeg

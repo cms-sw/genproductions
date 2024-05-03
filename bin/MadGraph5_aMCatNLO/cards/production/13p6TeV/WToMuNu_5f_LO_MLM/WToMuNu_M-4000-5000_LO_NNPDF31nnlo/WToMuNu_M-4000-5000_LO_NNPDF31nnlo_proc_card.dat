@@ -1,0 +1,8 @@
+import model sm-ckm_no_b_mass
+
+generate p p > mu+ vm
+add process p p  > mu- vm~
+add process p p  > mu+ vm j
+add process p p  > mu- vm~ j
+
+output WToMuNu_M-4000-5000_LO_NNPDF31nnlo  -nojpeg

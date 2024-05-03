@@ -1,0 +1,14 @@
+# Model
+import model SMCEDM_UFO
+
+# Multiparticles
+define j   = j b b~
+define p   = p b b~
+
+# Processes
+generate p p > t t~ @0
+add process p p > t t~ j @1
+add process p p > t t~ j j @2
+
+# Output folder
+output TTbar_LO_CEDM_dtG0 -nojpeg

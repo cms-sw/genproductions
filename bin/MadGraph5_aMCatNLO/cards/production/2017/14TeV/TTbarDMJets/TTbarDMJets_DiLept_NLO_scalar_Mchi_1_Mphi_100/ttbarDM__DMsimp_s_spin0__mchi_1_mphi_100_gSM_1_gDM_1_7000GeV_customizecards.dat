@@ -1,0 +1,7 @@
+set param_card MASS 6 172.5 
+set param_card DECAY 6 auto 
+set param_card ymt 172.
+set param_card MASS  52 1 
+set param_card MASS  54 100 
+set param_card DECAY 54 auto 
+

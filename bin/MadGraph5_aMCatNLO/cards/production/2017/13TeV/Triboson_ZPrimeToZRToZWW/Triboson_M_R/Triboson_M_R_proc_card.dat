@@ -1,0 +1,4 @@
+import model Radion_EW_all
+generate p p > zkk > z r , r > w+ w-
+
+output Triboson_M<MASS>_R<R> -nojpeg

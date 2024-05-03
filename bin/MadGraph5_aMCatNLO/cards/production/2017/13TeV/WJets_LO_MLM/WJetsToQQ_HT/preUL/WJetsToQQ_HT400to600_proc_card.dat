@@ -1,0 +1,13 @@
+import model sm-ckm_no_b_mass
+
+generate p p > w+, w+ > j j $$ t t~ h @0
+add process p p > w+ j, w+ > j j $$ t t~ h @1
+add process p p > w+ j j, w+ > j j $$ t t~ h @2
+add process p p > w+ j j j, w+ > j j $$ t t~ h @3
+
+add process p p > w-, w- > j j $$ t t~ h @4
+add process p p > w- j, w- > j j $$ t t~ h @5
+add process p p > w- j j, w- > j j $$ t t~ h @6
+add process p p > w- j j j, w- > j j $$ t t~ h @7
+
+output WJetsToQQ_HT400to600 -nojpeg

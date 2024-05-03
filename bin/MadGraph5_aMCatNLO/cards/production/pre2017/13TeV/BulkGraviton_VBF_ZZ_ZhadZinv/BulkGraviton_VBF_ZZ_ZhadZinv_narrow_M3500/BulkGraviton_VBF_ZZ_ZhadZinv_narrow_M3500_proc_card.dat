@@ -1,0 +1,10 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set gauge unitary
+set complex_mass_scheme False
+import model RS_bulk_ktilda
+define p = u c d s u~ c~ d~ s~
+define nu = ve~ vm~ vt~ ve vm vt mu+ mu-
+define j =  p
+generate p p > y j j $$ z w+ w- / g a h, ( y > z z > nu nu j j)
+output BulkGraviton_VBF_ZZ_ZhadZinv_narrow_M3500 -nojpeg

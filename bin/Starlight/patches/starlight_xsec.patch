@@ -1,0 +1,12 @@
+diff -ruN ./src/starlightStandalone.cpp ../starlight_v326_patch/src/starlightStandalone.cpp
+--- ./src/starlightStandalone.cpp	2023-12-16 17:10:13.000000001 +0100
++++ ../starlight_v326_patch/src/starlightStandalone.cpp	2023-12-16 17:26:50.000000001 +0100
+@@ -169,6 +169,8 @@
+ 	  cout<< " The cross section of the generated sample is " <<1.E15*selectedCrossSection<<" femtob."<<endl;
+         }  
+ 
++    ofstream fileXSec("xsec.out");
++    if (fileXSec.is_open()) { fileXSec << std::setprecision(12) << 1.E12*selectedCrossSection << " " << 1.E12*_starlight->getTotalCrossSection(); fileXSec.close(); }
+ 	return true;
+ }
+ /**

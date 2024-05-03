@@ -1,0 +1,6 @@
+#add card customizations here
+set param_card MZp 3000
+set param_card WZp 3
+set param_card MND 800
+set param_card WND .8
+set param_card MNS 200

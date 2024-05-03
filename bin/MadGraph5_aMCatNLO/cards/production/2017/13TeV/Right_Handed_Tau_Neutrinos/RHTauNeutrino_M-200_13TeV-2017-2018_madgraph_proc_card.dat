@@ -1,0 +1,14 @@
+import model sm
+define p = g u c d s u~ c~ d~ s~
+define j = g u c d s u~ c~ d~ s~
+define l+ = e+ mu+
+define l- = e- mu-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+import model SM_RHN_UFO
+define lep = e+ e- mu+ mu- ta+ ta-
+define lepnu = ve ve~ vm vm~ vt vt~
+generate p p > w+ > nr ta+ , ( nr > lepnu lep lep)
+add process p p > w- > nr ta- , ( nr > lepnu lep lep)
+output RHTauNeutrino_M-200_13TeV-2017-2018_madgraph -nojpeg
+

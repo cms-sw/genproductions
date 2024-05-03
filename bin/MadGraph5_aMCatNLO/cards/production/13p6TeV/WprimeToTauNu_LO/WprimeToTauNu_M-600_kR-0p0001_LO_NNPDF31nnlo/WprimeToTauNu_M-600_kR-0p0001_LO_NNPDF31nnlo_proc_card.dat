@@ -1,0 +1,4 @@
+import model WEff_UFO
+generate p p > wp+ > ta+ vt
+add process p p > wp- > ta- vt~
+output WprimeToTauNu_M-600_kR-0p0001_LO_NNPDF31nnlo  -nojpeg

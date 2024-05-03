@@ -1,0 +1,20 @@
+set group_subprocesses Auto 
+
+set ignore_six_quark_processes False 
+
+set loop_optimized_output True 
+
+set complex_mass_scheme False 
+
+import model Top-Philic_UFO_V1 
+
+define p = p b b~ 
+
+define l+ = l+ ta+ 
+
+define l- = l- ta- 
+
+generate p p > t t~ v1 , v1 > t t~  
+
+output ttzp_thetaZZZ_ctYYY_massXXX
+

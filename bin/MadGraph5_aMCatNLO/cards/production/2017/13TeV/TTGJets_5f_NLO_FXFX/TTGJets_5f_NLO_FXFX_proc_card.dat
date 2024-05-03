@@ -1,0 +1,7 @@
+import model loop_sm-ckm_no_b_mass
+
+generate p p > t t~ a [QCD] @0
+add process p p > t t~ a j [QCD] @1
+
+output TTGJets_5f_NLO_FXFX -nojpeg
+

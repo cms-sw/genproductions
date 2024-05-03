@@ -1,0 +1,4 @@
+import model ZpAnomalonHZ_UFO
+generate p p > ND ND~ , (ND > NS H , H > b b~) , (ND~ > NS~ Z , Z > mu\
++ mu-)
+output ZpAnomalonHZ_UFO-Zp3000-ND800-NS200 -nojpeg

@@ -1,0 +1,850 @@
+<header>
+<hepml>
+<samples xmlns="http://mcdb.cern.ch/hepml/0.2/"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://mcdb.cern.ch/hepml/0.2/ http://mcdb.cern.ch/hepml/0.2/hepml.xsd">
+    <files>
+        <file>
+            <eventsNumber> 75000         </eventsNumber>
+            <crossSection unit="pb">2.5631E-01</crossSection>
+            <fileSize> 61824459         </fileSize>
+            <comments> </comments>
+            <location>
+            </location>
+        </file>
+    </files>
+    <description>
+        <title>  </title>
+        <abstract> </abstract>
+        <authorComments> </authorComments>
+	<experimentGroup>
+	    <experiment> </experiment>
+	    <group> </group>
+	    <responsiblePerson> </responsiblePerson>
+	    <description>  </description>
+	</experimentGroup>
+        <generator>
+            <name>CalcHEP</name>
+            <version> 3.6.25 </version>
+            <homepage>http://theory.sinp.msu.ru/~pukhov/calchep.html</homepage>
+            <description>
+ CalcHEP - a package for calculation of Feynman diagrams
+ integration over multi-particle phase space,
+ generation of events and application of decay processes
+            </description>
+        </generator>
+        <model>
+             <name> </name>
+             <description>LQ_PB_1st_gen</description>
+            <parameters>
+                <parameter>
+                    <name>EE</name>
+                    <value>0.312220</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>KG</name>
+                    <value>1.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>LG</name>
+                    <value>0.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>g1l</name>
+                    <value>0.400000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>g1r</name>
+                    <value>0.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>g2l</name>
+                    <value>0.312220</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>g2r</name>
+                    <value>0.312220</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>gt1r</name>
+                    <value>0.312220</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>g3l</name>
+                    <value>0.312220</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>gt2l</name>
+                    <value>0.312220</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>h2l</name>
+                    <value>0.312220</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>h2r</name>
+                    <value>0.312220</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>ht2l</name>
+                    <value>0.312220</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>h1l</name>
+                    <value>0.312220</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>h1r</name>
+                    <value>0.312220</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>ht1r</name>
+                    <value>0.312220</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>h3l</name>
+                    <value>0.312220</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>me</name>
+                    <value>0.000510</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Maux</name>
+                    <value>1000.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>SW</name>
+                    <value>0.474000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>MZ</name>
+                    <value>91.187000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>wZ</name>
+                    <value>2.502000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>wW</name>
+                    <value>2.094000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>ka</name>
+                    <value>0.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>la</name>
+                    <value>0.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>s12</name>
+                    <value>0.221000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>s23</name>
+                    <value>0.040000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>s13</name>
+                    <value>0.003500</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Mm</name>
+                    <value>0.105700</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Mt</name>
+                    <value>1.777000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Mc</name>
+                    <value>1.300000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Ms</name>
+                    <value>0.200000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Mtop</name>
+                    <value>170.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>wtop</name>
+                    <value>1.442000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Mb</name>
+                    <value>4.300000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>MH</name>
+                    <value>200.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>wH</name>
+                    <value>1.461000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>MLQ</name>
+                    <value>600.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+            </parameters>
+        </model>
+        <process>
+            <beam1>
+                <particle KFcode="2212">p</particle>
+                <energy unit="GeV">6.500E+03</energy>
+                <pdf name= "LHA:NNPDF30_lo_as_0130_nf_4:0:1"> </pdf>
+            </beam1>
+            <beam2>
+                <particle KFcode="2212">p</particle>
+                <energy unit="GeV">6.500E+03</energy>
+                <pdf name= "LHA:NNPDF30_lo_as_0130_nf_4:0:1"> </pdf>
+            </beam2>
+	    <finalState>
+		<state>
+                </state>
+		<notation>
+		    <plain>
+                   </plain>
+		    <Latex> </Latex>
+		</notation>
+	    </finalState>
+            <crossSection unit="pb">2.563E-01</crossSection>
+            <subprocesses>
+              <subprocess cutset_id="1" >
+                <notation> G(21),D(-1) -> D(-1),n1(12),N1(-12) </notation>
+                <crossSection unit="pb"> 4.672185E-03 </crossSection>
+              </subprocess>
+              <subprocess cutset_id="2" >
+                <notation> G(21),D(-1) -> U(-2),n1(12),E1(-11) </notation>
+                <crossSection unit="pb"> 4.672305E-03 </crossSection>
+              </subprocess>
+              <subprocess cutset_id="3" >
+                <notation> G(21),U(-2) -> D(-1),N1(-12),e1(11) </notation>
+                <crossSection unit="pb"> 4.172390E-03 </crossSection>
+              </subprocess>
+              <subprocess cutset_id="4" >
+                <notation> G(21),U(-2) -> U(-2),e1(11),E1(-11) </notation>
+                <crossSection unit="pb"> 4.176609E-03 </crossSection>
+              </subprocess>
+              <subprocess cutset_id="5" >
+                <notation> D(-1),G(21) -> D(-1),n1(12),N1(-12) </notation>
+                <crossSection unit="pb"> 4.688978E-03 </crossSection>
+              </subprocess>
+              <subprocess cutset_id="6" >
+                <notation> D(-1),G(21) -> U(-2),n1(12),E1(-11) </notation>
+                <crossSection unit="pb"> 4.678817E-03 </crossSection>
+              </subprocess>
+              <subprocess cutset_id="7" >
+                <notation> U(-2),G(21) -> D(-1),N1(-12),e1(11) </notation>
+                <crossSection unit="pb"> 4.179719E-03 </crossSection>
+              </subprocess>
+              <subprocess cutset_id="8" >
+                <notation> U(-2),G(21) -> U(-2),e1(11),E1(-11) </notation>
+                <crossSection unit="pb"> 4.176841E-03 </crossSection>
+              </subprocess>
+              <subprocess cutset_id="9" >
+                <notation> G(21),d(1) -> d(1),n1(12),N1(-12) </notation>
+                <crossSection unit="pb"> 1.777071E-02 </crossSection>
+              </subprocess>
+              <subprocess cutset_id="10" >
+                <notation> G(21),d(1) -> u(2),N1(-12),e1(11) </notation>
+                <crossSection unit="pb"> 1.777643E-02 </crossSection>
+              </subprocess>
+              <subprocess cutset_id="11" >
+                <notation> G(21),u(2) -> d(1),n1(12),E1(-11) </notation>
+                <crossSection unit="pb"> 3.740432E-02 </crossSection>
+              </subprocess>
+              <subprocess cutset_id="12" >
+                <notation> G(21),u(2) -> u(2),e1(11),E1(-11) </notation>
+                <crossSection unit="pb"> 3.746581E-02 </crossSection>
+              </subprocess>
+              <subprocess cutset_id="13" >
+                <notation> d(1),G(21) -> d(1),n1(12),N1(-12) </notation>
+                <crossSection unit="pb"> 1.775563E-02 </crossSection>
+              </subprocess>
+              <subprocess cutset_id="14" >
+                <notation> d(1),G(21) -> u(2),N1(-12),e1(11) </notation>
+                <crossSection unit="pb"> 1.781370E-02 </crossSection>
+              </subprocess>
+              <subprocess cutset_id="15" >
+                <notation> u(2),G(21) -> d(1),n1(12),E1(-11) </notation>
+                <crossSection unit="pb"> 3.740536E-02 </crossSection>
+              </subprocess>
+              <subprocess cutset_id="16" >
+                <notation> u(2),G(21) -> u(2),e1(11),E1(-11) </notation>
+                <crossSection unit="pb"> 3.749976E-02 </crossSection>
+              </subprocess>
+            </subprocesses>
+        </process>
+        <cuts>
+            <cutSet cutset_id="1">
+                <cut>
+                    <object>
+                        <name> </name>
+                        <notation>
+                            <plain> </plain>
+                            <Latex> </Latex>
+                        </notation>
+                    </object>
+                    <minValue> </minValue>
+                    <maxValue> </maxValue>
+                    <logic> </logic>
+                </cut>
+            </cutSet>
+        </cuts>
+        <authors>
+       	   <author>
+       	      <firstName>CalcHEP</firstName>
+              <lastName> </lastName>
+              <email>calchep[at]goolegroups.com</email>  
+              <experiment> </experiment>
+              <group> </group>
+       	      <organization> </organization>
+   	   </author>
+         </authors>
+    </description>
+</samples>
+</hepml>
+<slha>
+BLOCK QNUMBERS 10001 # up
+ 1 5
+ 2 3
+ 3 3
+ 4 1
+
+BLOCK QNUMBERS 10002 # u0
+ 1 2
+ 2 3
+ 3 3
+ 4 1
+
+BLOCK QNUMBERS 10003 # um
+ 1 -1
+ 2 3
+ 3 3
+ 4 1
+
+BLOCK QNUMBERS 10004 # u1
+ 1 2
+ 2 3
+ 3 3
+ 4 1
+
+BLOCK QNUMBERS 10005 # ut
+ 1 5
+ 2 3
+ 3 3
+ 4 1
+
+BLOCK QNUMBERS 10006 # WP
+ 1 -1
+ 2 3
+ 3 3
+ 4 1
+
+BLOCK QNUMBERS 10007 # WM
+ 1 2
+ 2 3
+ 3 3
+ 4 1
+
+BLOCK QNUMBERS 10008 # VP
+ 1 -4
+ 2 3
+ 3 3
+ 4 1
+
+BLOCK QNUMBERS 10009 # VM
+ 1 -1
+ 2 3
+ 3 3
+ 4 1
+
+BLOCK QNUMBERS 10010 # RP
+ 1 5
+ 2 1
+ 3 3
+ 4 1
+
+BLOCK QNUMBERS 10011 # RM
+ 1 2
+ 2 1
+ 3 3
+ 4 1
+
+BLOCK QNUMBERS 10012 # TP
+ 1 2
+ 2 1
+ 3 3
+ 4 1
+
+BLOCK QNUMBERS 10013 # TM
+ 1 -1
+ 2 1
+ 3 3
+ 4 1
+
+BLOCK QNUMBERS 10014 # SP
+ 1 -4
+ 2 1
+ 3 3
+ 4 1
+
+BLOCK QNUMBERS 10015 # S0
+ 1 -1
+ 2 1
+ 3 3
+ 4 1
+
+BLOCK QNUMBERS 10016 # SM
+ 1 2
+ 2 1
+ 3 3
+ 4 1
+
+BLOCK QNUMBERS 10017 # ST
+ 1 -4
+ 2 1
+ 3 3
+ 4 1
+
+BLOCK QNUMBERS 10018 # S1
+ 1 -1
+ 2 1
+ 3 3
+ 4 1
+
+BLOCK MASS
+ 25    2.000000E+02 # 
+ 10001    6.000000E+02 # 
+ 10002    6.000000E+02 # 
+ 10003    6.000000E+02 # 
+ 10004    6.000000E+02 # 
+ 10005    6.000000E+02 # 
+ 10006    6.000000E+02 # 
+ 10007    6.000000E+02 # 
+ 10008    6.000000E+02 # 
+ 10009    6.000000E+02 # 
+ 10010    6.000000E+02 # 
+ 10011    6.000000E+02 # 
+ 10012    6.000000E+02 # 
+ 10013    6.000000E+02 # 
+ 10014    6.000000E+02 # 
+ 10015    6.000000E+02 # 
+ 10016    6.000000E+02 # 
+ 10017    6.000000E+02 # 
+ 10018    6.000000E+02 # 
+
+DECAY 25  1.266014E+01 # H 
+ 3.001443E-02  2  23  23  # Z,Z 
+ 5.240116E-02  2  24  -24  # W+,W- 
+ 5.361858E-05  2  4  -4  # c,C 
+ 1.269078E-06  2  3  -3  # s,S 
+ 9.169093E-01  2  6  -6  # t,T 
+ 5.866317E-04  2  5  -5  # b,B 
+ 1.181564E-07  2  13  -13  # e2,E2 
+ 3.339506E-05  2  15  -15  # e3,E3 
+DECAY 10001  1.551464E+00 # up 
+ 1.000000E+00  2  2  -11  # u,E1 
+DECAY 10002  1.551464E+00 # u0 
+ 5.000000E-01  2  2  -12  # u,N1 
+ 5.000000E-01  2  1  -11  # d,E1 
+DECAY 10003  1.551464E+00 # um 
+ 1.000000E+00  2  1  -12  # d,N1 
+DECAY 10004  2.327195E+00 # u1 
+ 3.333333E-01  2  2  -12  # u,N1 
+ 6.666669E-01  2  1  -11  # d,E1 
+DECAY 10005  7.757318E-01 # ut 
+ 1.000000E+00  2  2  -11  # u,E1 
+DECAY 10006  7.757318E-01 # WP 
+ 1.000000E+00  2  2  11  # u,e1 
+DECAY 10007  7.757318E-01 # WM 
+ 1.000000E+00  2  2  12  # u,n1 
+DECAY 10008  1.551464E+00 # VP 
+ 1.000000E+00  2  1  11  # d,e1 
+DECAY 10009  1.551464E+00 # VM 
+ 5.000000E-01  2  1  12  # d,n1 
+ 5.000000E-01  2  2  11  # u,e1 
+DECAY 10010  2.327195E+00 # RP 
+ 9.999999E-01  2  2  -11  # u,E1 
+DECAY 10011  2.327195E+00 # RM 
+ 5.000002E-01  2  2  -12  # u,N1 
+ 5.000002E-01  2  1  -11  # d,E1 
+DECAY 10012  1.163598E+00 # TP 
+ 1.000000E+00  2  1  -11  # d,E1 
+DECAY 10013  1.163598E+00 # TM 
+ 1.000000E+00  2  1  -12  # d,N1 
+DECAY 10014  2.327195E+00 # SP 
+ 9.999999E-01  2  1  11  # d,e1 
+DECAY 10015  2.327195E+00 # S0 
+ 5.000002E-01  2  1  12  # d,n1 
+ 5.000002E-01  2  2  11  # u,e1 
+DECAY 10016  2.327195E+00 # SM 
+ 9.999999E-01  2  2  12  # u,n1 
+DECAY 10017  1.163598E+00 # ST 
+ 1.000000E+00  2  1  11  # d,e1 
+DECAY 10018  3.819719E+00 # S1 
+ 4.999999E-01  2  1  12  # d,n1 
+ 4.999999E-01  2  2  11  # u,e1 
+</slha>
+
+<calchep-batch>
+<![CDATA[
+#########################################
+#            Model Info                 #
+#########################################
+Model:     LQ_PB_1st_gen
+#
+Gauge:     Feynman
+
+
+#########################################
+#            Processes                  #
+#########################################
+Process   :    p,p->alep,lep,qrk
+Process   :    p,p->lep,alep,aqrk
+Remove    :0: S1<1
+Alias :    p=u,U,d,D,s,S,c,C,G
+Alias :    lep=e1,n1
+Alias :    alep=E1,N1
+Alias :    qrk=u,d
+Alias :    aqrk=U,D
+
+#########################################
+#            PDF's                      #
+#########################################
+pdf1 :       LHA:NNPDF30_lo_as_0130_nf_4:0:1
+pdf2 :       LHA:NNPDF30_lo_as_0130_nf_4:0:1
+
+
+#########################################
+#            Momenta                    #
+#########################################
+p1 :         6500
+p2 :         6500
+
+
+#########################################
+#            Parameters                 #
+#########################################
+Parameter:   GG=1.13
+Parameter:   EE=0.31222
+Parameter:   KG=1
+Parameter:   LG=0
+Parameter:   g1l=0.4
+Parameter:   g1r=0
+Parameter:   g2l=0.31222
+Parameter:   g2r=0.31222
+Parameter:   gt1r=0.31222
+Parameter:   g3l=0.31222
+Parameter:   gt2l=0.31222
+Parameter:   h2l=0.31222
+Parameter:   h2r=0.31222
+Parameter:   ht2l=0.31222
+Parameter:   h1l=0.31222
+Parameter:   h1r=0.31222
+Parameter:   ht1r=0.31222
+Parameter:   h3l=0.31222
+Parameter:   me=0.00051
+Parameter:   Maux=1000
+Parameter:   SW=0.474
+Parameter:   MZ=91.187
+Parameter:   wZ=2.502
+Parameter:   wW=2.094
+Parameter:   ka=0
+Parameter:   la=0
+Parameter:   s12=0.221
+Parameter:   s23=0.04
+Parameter:   s13=0.0035
+Parameter:   Mm=0.1057
+Parameter:   Mt=1.777
+Parameter:   Mc=1.3
+Parameter:   Ms=0.2
+Parameter:   Mtop=170
+Parameter:   wtop=1.442
+Parameter:   Mb=4.3
+Parameter:   MH=200
+Parameter:   wH=1.461
+Parameter:   MLQ=600
+
+#########################################
+#            QCD running info           #
+#########################################
+parton dist. alpha : 1
+alpha(MZ)          : 0.1172
+alpha nf           : 5
+alpha order        : 2
+mb(mb)             : 4.2
+Mtop(pole)         : 175
+alpha Fact Q :0: MLQ
+alpha Ren Q :0: MLQ
+
+#########################################
+#            Breit-Wigner               #
+#########################################
+Breit Wigner range : 2.7
+T-channel widths   : OFF
+GI in T-channel    : OFF
+GI in S-channel    : OFF
+
+#########################################
+#            Cuts                       #
+#########################################
+Cut parameter :1: T(qrk)
+Cut invert    :1: 
+Cut min       :1: 20
+Cut max       :1: 
+Cut parameter :2: T(aqrk)
+Cut invert    :2: 
+Cut min       :2: 20
+Cut max       :2: 
+
+#########################################
+#            Kinematics                 #
+#########################################
+Kinematics :0: 12->3,45
+Kinematics :0: 45->4,5
+
+#########################################
+#            Regularization             #
+#########################################
+Regularization momentum :0: 45
+Regularization mass     :0: MLQ
+Regularization width    :0: GS1
+Regularization power    :0: 2
+
+#########################################
+#            Distributions              #
+#########################################
+
+#########################################
+#            Events Generation          #
+#########################################
+Number of events (per run step): 75000
+Max lumi [1/fb]                : 1000000000
+Filename                       : SLQ_Lhanded-MLQ600g1l0.4
+Cleanup                        : true
+
+#########################################
+#            Parallelization info       #
+#########################################
+Parallelization method : local
+Que                    : 
+Walltime               : 0
+Memory                 : 0
+email                  : 
+Max number of cpus     : 16
+sleep time             : 3
+nice level             : 19
+
+#########################################
+#            Vegas                      #
+#########################################
+nSess_1  : 5
+nCalls_1 : 100000
+nSess_2  : 5
+nCalls_2 : 100000
+
+#########################################
+#           Event Generator             #
+#########################################
+sub-cubes      : 10000
+MAX*N          : 2.000000
+find new MAX   : 50
+
+]]>
+</calchep-batch>
+</header>

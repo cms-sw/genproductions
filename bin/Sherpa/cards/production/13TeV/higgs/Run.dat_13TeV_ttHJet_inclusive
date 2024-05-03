@@ -1,0 +1,48 @@
+# sample generation ttH+0/1j MC@NLO: 13TeV, NNPDF30, scale 1*235, QCut 30
+#
+
+(run){
+  EVENTS 100k;
+  EVENT_GENERATION_MODE Weighted;
+  EVENT_OUTPUT=HepMC_GenEvent[Events];
+  ERROR 0.99;
+
+  SCF:=1;
+  SCALES VAR{sqr(SCF*235)}
+  CORE_SCALE QCD;
+  METS_BBAR_MODE 5;
+  QCUT:=30.;
+
+  LOOPGEN:=OpenLoops;
+  ME_SIGNAL_GENERATOR Comix Amegic LOOPGEN;
+  OL_PREFIX=/cvmfs/cms.cern.ch/slc6_amd64_gcc491/external/openloops/1.0.1
+
+  EBEAM:=13;
+  BEAM_1 2212 EBEAM*1000/2;
+  BEAM_2 2212 EBEAM*1000/2;
+
+  HARD_DECAYS On;
+  STABLE[24] 0;
+  STABLE[6] 0;
+  WIDTH[6] 0;
+  WIDTH[25] 0;
+
+  NLO_SMEAR_THRESHOLD 1;
+  NLO_SMEAR_POWER 2;
+
+  PDF_LIBRARY LHAPDFSherpa;
+  PDF_SET NNPDF30_nlo_as_0118;
+  USE_PDF_ALPHAS=1;
+}(run)
+
+(processes){
+  Process 93 93 -> 6 -6 25 93{1};
+  NLO_QCD_Mode MC@NLO;
+  Order_EW 1;
+  CKKW sqr(QCUT/E_CMS);
+  
+  ME_Generator Amegic;
+  RS_ME_Generator Comix;
+  Loop_Generator LOOPGEN;
+  End process
+}(processes)

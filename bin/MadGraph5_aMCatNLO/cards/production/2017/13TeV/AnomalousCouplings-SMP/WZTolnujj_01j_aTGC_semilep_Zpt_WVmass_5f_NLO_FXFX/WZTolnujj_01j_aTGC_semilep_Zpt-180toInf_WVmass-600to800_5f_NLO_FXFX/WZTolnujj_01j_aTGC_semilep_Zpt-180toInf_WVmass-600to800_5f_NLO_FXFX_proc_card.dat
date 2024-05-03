@@ -1,0 +1,17 @@
+import model EWdim6NLO-no_cbmass_cwwwcbcw
+
+define p = p b b~
+define j = j b b~	
+
+define ell+ = e+ mu+ ta+
+define ell- = e- mu- ta-
+define V = w+ w-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+
+generate p p > ell+ vl z QED=3 [QCD] @0
+add process p p > ell+ vl z j QED=3 [QCD] @1
+add process p p > ell- vl~ z QED=3 [QCD] @2
+add process p p > ell- vl~ z j QED=3 [QCD] @3
+
+output WZTolnujj_01j_aTGC_semilep_Zpt-180toInf_WVmass-600to800_5f_NLO_FXFX -nojpeg

@@ -1,0 +1,7 @@
+import model loop_sm-ckm_no_b_mass
+
+generate g g > h vl vl~ [noborn=QCD] @0
+add process g g > h vl vl~ g [noborn=QCD] @1
+
+output ggzh01j_5f_LO_MLM_M<MASS>_ZToNuNu -nojpeg
+

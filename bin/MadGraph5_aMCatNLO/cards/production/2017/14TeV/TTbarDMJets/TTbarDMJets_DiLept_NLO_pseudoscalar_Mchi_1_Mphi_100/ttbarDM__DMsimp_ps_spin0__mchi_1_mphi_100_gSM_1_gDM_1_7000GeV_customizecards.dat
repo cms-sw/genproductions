@@ -1,0 +1,7 @@
+set param_card mass   6 172.5 
+set param_card yukawa 6 172.5 
+set param_card decay  6 auto 
+set param_card mass  52 1 
+set param_card mass  54 100 
+set param_card decay 54 auto 
+

@@ -1,0 +1,9 @@
+import model loop_sm-ckm_no_b_mass
+
+define V = z
+
+generate p p > V h [QCD] @0
+add process p p > V h j [QCD] @1
+add process p p > V h j j [QCD] @2
+
+output ZH<MASS>_012j_NLO_HtoMuMuGamma -nojpeg

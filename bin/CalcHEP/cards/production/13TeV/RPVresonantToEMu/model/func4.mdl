@@ -1,0 +1,22 @@
+RPV_res_tau_sneutrino
+ Constraints 
+ Name   |> Expression                                                                                                                                                                                           <|
+pi      |4*atan(1)
+CW      |sqrt(1-SW^2) % cos of the Weinberg angle
+S2W     |2*SW*CW
+C2W     |CW^2-SW^2
+c12     |sqrt(1-s12^2) % parameter  of C-K-M matrix
+c23     |sqrt(1-s23^2) % parameter  of C-K-M matrix
+c13     |sqrt(1-s13^2) % parameter  of C-K-M matrix
+Vud     |c12 % C-K-M matrix element
+Vus     |s12 % C-K-M matrix element
+Vcs     |Vud % C-K-M matrix element
+Vcd     |-Vus % C-K-M matrix element
+vevv    |2*MW^2*SW^2/EE^2
+B00002  |Lq313*Vud+Lq323*Vcd
+B00005  |Lq313*Vus+Lq323*Vcs
+B00033  |Lq311*Vud+Lq321*Vcd
+B00034  |Lq312*Vud+Lq322*Vcd
+B00038  |Lq311*Vus+Lq321*Vcs
+B00225  |Lq312*Vus+Lq322*Vcs
+==================================================================================================================================================================================================================

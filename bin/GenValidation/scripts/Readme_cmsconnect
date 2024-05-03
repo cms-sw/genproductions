@@ -1,0 +1,8 @@
+step 0: This script is using the cmsconnect, so you need a cmsconnect account firstly.
+Now, the script runs on two gridpacks for test, the gridpacks could be accessed at http://stash.osgconnect.net/+melu/, the process is DY01jets using MLM, and the fragment under directory 'Fragments' is specially for it. 
+
+step 1: To run this script, you can download the gridapcks and put them at ~/stash/public in your cmsconnect. And change the USER to your account
+
+step 2: Then git clone this repository to your /local-scratch/$USER/, (for me, it's /local-scratch/melu/), then execute 'sh submit_validation_samples.sh', you can get the samples corresponding to MG265 and MG267.
+
+N.B. in this script, for each gridpack, two jobs are run, with 500 events in each run.

@@ -1,0 +1,4 @@
+set param_card mass 6 172.5
+set param_card DECAY 6 auto
+set param_card DECAY 15 auto
+set param_card frblock 26 1.000e-06

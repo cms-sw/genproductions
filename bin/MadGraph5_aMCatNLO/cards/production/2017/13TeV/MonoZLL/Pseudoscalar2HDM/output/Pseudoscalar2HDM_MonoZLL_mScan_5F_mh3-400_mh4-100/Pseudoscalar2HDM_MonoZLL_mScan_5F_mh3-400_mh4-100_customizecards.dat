@@ -1,0 +1,18 @@
+set param_card Mxd 10
+set param_card gPXd 1
+set param_card laP1 3
+set param_card laP2 3
+set param_card lam3 3
+set param_card mh1 125
+set param_card mh2 400
+set param_card mh3 400
+set param_card mh4 100
+set param_card mhc 400
+set param_card sinbma 1
+set param_card sinp 0.35
+set param_card tanbeta 1
+set Wh1 AUTO
+set Wh2 AUTO
+set Wh3 AUTO
+set Whc AUTO
+set Wh4 AUTO

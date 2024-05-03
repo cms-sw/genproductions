@@ -1,0 +1,17 @@
+set param_card ckmblock 1 2.277360e-01 # cabi 
+set param_card frblock 1 1.000000e+00 # gH2AZ 
+set param_card frblock 2 1.000000e+00 # ghAZ 
+set param_card frblock 3 1.000000e+00 # gH2cHW 
+set param_card frblock 4 1.000000e+00 # ghcHW 
+set param_card frblock 5 1.000000e+00 # gH2ZZ 
+set param_card frblock 6 1.000000e+03 # LambdaGFh2 
+set param_card mass 25 1.250000e+02 # MH 
+set param_card mass 35 4.000000e+02 # mH2 
+set param_card mass 36 2.500000e+02 # mAs 
+set param_card mass 37 2.500000e+02 # mcH 
+set param_card sminputs 1 1.279000e+02 # aEWM1 
+set param_card sminputs 2 1.166370e-05 # Gf 
+set param_card sminputs 3 1.184000e-01 # aS 
+set param_card DECAY  35 9.900000e+00 # wH2 
+set param_card DECAY  36 8.000000e-02 # wAs 
+set param_card DECAY  37 1.000000e+01 # wcH 

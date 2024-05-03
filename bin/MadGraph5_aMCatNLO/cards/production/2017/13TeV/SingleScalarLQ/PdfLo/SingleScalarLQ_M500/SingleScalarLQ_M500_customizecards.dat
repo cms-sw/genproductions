@@ -1,0 +1,20 @@
+set param_card mass MS3 MASS 
+set param_card decay 9000005 AUTO
+set param_card decay 9000006 AUTO
+set param_card decay 9000007 AUTO
+set param_card FRBLOCK6 1 1 0
+set param_card FRBLOCK6 1 2 0
+set param_card FRBLOCK6 1 3 0
+set param_card FRBLOCK6 2 1 0
+set param_card FRBLOCK6 2 2 0
+set param_card FRBLOCK6 2 3 0
+set param_card FRBLOCK6 3 1 0
+set param_card FRBLOCK6 3 2 0
+set param_card FRBLOCK6 3 3 LAMBDA 
+set run_card fixed_ren_scale T
+set run_card fixed_fac_scale T
+set run_card scale MASS
+set run_card dsqrt_q2fact1 MASS
+set run_card dsqrt_q2fact2 MASS
+
+

@@ -1,0 +1,18 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set loop_optimized_output True
+set complex_mass_scheme False
+import model X53_XSP_diagonalCKM_5FS_UFO 
+define had = g a u c t d s b u~ c~ t~ d~ s~ b~
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
+define vl  = ve vm vt
+define vl~ = ve~ vm~ vt~
+generate p p > x x~, (x > t S+, (t > w+ b , w+ > had had ), (S+ > l+ vl) ), (x~ > t~ S-, (t~ > w- b~ , w- > had had ) , (S- > had had))
+add process p p > x x~, (x > t S+, (t > w+ b , w+ > l+ vl ), (S+ > had had) ), (x~ > t~ S-, (t~ > w- b~ , w- > had had ) , (S- > had had))
+add process p p > x x~, (x > t S+, (t > w+ b , w+ > had had ), (S+ > had had) ), (x~ > t~ S-, (t~ > w- b~ , w- > l- vl~ ) , (S- > had had))
+add process p p > x x~, (x > t S+, (t > w+ b , w+ > had had ), (S+ > had had) ), (x~ > t~ S-, (t~ > w- b~ , w- > had had) , (S- > l- vl~ ))
+add process p p > x x~, (x > t S+, (t > w+ b , w+ > l+  vl ), (S+ > l+ vl) ), (x~ > t~ S-, (t~ > w- b~ , w- > had had) , (S- > had had ))
+add process p p > x x~, (x > t S+, (t > w+ b , w+ > had had ), (S+ > had had) ), (x~ > t~ S-, (t~ > w- b~ , w- > l- vl~) , (S- > l- vl~ ))
+output tH_tH_x53x53_narrow_MX1100_MH400 -nojpeg
+

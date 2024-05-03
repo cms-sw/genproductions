@@ -1,0 +1,45 @@
+ (run){
+ EVENTS 100000;
+ EVENT_GENERATION_MODE P;
+ ME_SIGNAL_GENERATOR Amegic Higgs;
+ RANDOM_SEED XX; XX:=0; WH:=0.00407;
+ QSF:=1.0; SCALES METS{MU_F2}{MU_R2}{QSF*MU_Q2}; CORE_SCALE VAR{Abs2(p[2]+p[3])};
+ HEPMC_USE_NAMED_WEIGHTS=1;
+ SCALE_VARIATIONS 4.0,4.0 1.0,1.0 0.25,0.25 4.0,1.0 1.0,4.0 0.25,1.0 1.0,0.25;
+ BEAM_1 2212; BEAM_ENERGY_1 6500;
+ BEAM_2 2212; BEAM_ENERGY_2 6500;
+ YUKAWA[4] 1.42; YUKAWA[5] 4.8;
+ YUKAWA[15] 1.777; YUKAWA[6] 164;
+ EW_SCHEME 3; RUN_MASS_BELOW_POLE 1;
+ WIDTH[25] WH;
+ # HIM: 1 -> include signal
+ #      2 -> include loop background
+ #      4 -> include tree background (for qg-channel)
+ #  1|2=3 -> included signal and loop background
+ #    etc...
+ # HIO = 1 : include only interferences
+ # HIO = 0 : include interferences and signal^2, loop background^2, and tree^2
+ # HIO = 2 : include interferences and sinal^2
+ HIGGS_INTERFERENCE_MODE 3; HIGGS_INTERFERENCE_ONLY 1;
+ AMEGIC_ALLOW_MAPPING 0; PSI_ITMIN 100000; ABS_ERROR 1.0;
+ FRAGMENTATION Off; MI_HANDLER None; BEAM_REMNANTS 0; ME_QED Off;
+ SHOWER_GENERATOR CSS; REWEIGHT_MAXEM 0;
+ PDF_LIBRARY LHAPDFSherpa;
+ PDF_SET NNPDF30_nnlo_as_0118;
+ PDF_VARIATIONS NNPDF30_nnlo_as_0118[all];
+ USE_PDF_ALPHAS 1;
+ PP_HPSMODE 4;
+}(run);
+ (processes){
+ Process 93 93 -> 22 22;
+ Order (*,2);
+ NLO_QCD_Mode MC@NLO;
+ Enable_MHV 12;
+ Integrator PS2;
+ RS_Integrator PS3;
+ Loop_Generator Higgs;
+ End process;
+}(processes);
+ (selector){
+ Mass 22 22 20 E_CMS;
+}(selector);

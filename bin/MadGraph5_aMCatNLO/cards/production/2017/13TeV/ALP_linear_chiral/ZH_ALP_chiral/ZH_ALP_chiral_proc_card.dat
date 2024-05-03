@@ -1,0 +1,5 @@
+import model ALP_chiral_UFO
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
+generate g g > z h, z > l+ l-
+output ZH_ALP_chiral -nojpeg

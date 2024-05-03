@@ -1,0 +1,4 @@
+set param_card mass 25 125.0
+set param_card mass 23 91.2
+set param_card width 23 1.0
+set param_card mass 36 <MASS>

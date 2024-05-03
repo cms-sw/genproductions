@@ -1,0 +1,8 @@
+import model SM_HeavyN_NLO
+define l = l+ l-
+define w = w- w+
+define e = e+ e-
+define mu = mu+ mu-
+generate p a > n1 e j [QCD]
+add process a p > n1 e j [QCD]
+output VBFTypeI_NLO_EMu_M500 --nojpeg

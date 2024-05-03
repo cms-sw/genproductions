@@ -1,0 +1,6 @@
+set param_card mass 45 TEMPLATEMH03
+set param_card mass 35 TEMPLATEMH02
+set param_card mass 25 125
+set param_card DECAY 45 1.00000e-03
+set param_card DECAY 35 1.00000e-03
+set param_card DECAY 25 4.00000e-03

@@ -1,0 +1,4 @@
+import DMsimp_s_spin0_4f
+generate p p > y0 j [QCD]
+add process p p > y0 j j [QCD]
+output Spin0ToBB_2j_scalar_g1_HT250_M@MASS@

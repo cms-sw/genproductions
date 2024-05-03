@@ -1,0 +1,4 @@
+set param_card mass  9936661 $SUUMASS$
+set param_card decay 9936661 $SUUWIDTH$
+set param_card mass 9936662 $DQMASS$
+set param_card decay 9936662 $DQWIDTH$

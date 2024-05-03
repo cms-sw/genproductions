@@ -1,0 +1,10 @@
+#set param_card mass 9900012 1000
+#set param_card mass 9900014 1000
+#set param_card mass 34 4000
+###SETMASS9900012
+###SETMASS9900014
+###SETMASS9900016
+###SETMASS34
+compute_widths 9900012
+compute_widths 9900014
+compute_widths 34

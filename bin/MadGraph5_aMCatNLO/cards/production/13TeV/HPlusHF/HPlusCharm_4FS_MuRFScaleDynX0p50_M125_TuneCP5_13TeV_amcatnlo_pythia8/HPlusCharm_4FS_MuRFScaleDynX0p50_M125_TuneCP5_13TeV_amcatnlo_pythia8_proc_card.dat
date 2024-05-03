@@ -1,0 +1,8 @@
+import model loop_sm_MSbar_yb_yc-yc4FS
+
+define p = g u u~ d d~ s s~ c c~
+define j = g u u~ d d~ s s~ c c~
+
+generate p p > h [QCD]
+
+output HPlusCharm_4FS_MuRFScaleDynX0p50_M125_TuneCP5_13TeV_amcatnlo_pythia8 -nojpeg

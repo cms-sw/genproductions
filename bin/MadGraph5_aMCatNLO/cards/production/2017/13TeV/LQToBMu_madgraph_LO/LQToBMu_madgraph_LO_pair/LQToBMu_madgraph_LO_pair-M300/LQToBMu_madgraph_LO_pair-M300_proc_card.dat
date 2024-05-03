@@ -1,0 +1,5 @@
+import model NLO_LQ_S3
+define p = p b b~
+define j = g u c d s u~ c~ d~ s~ b b~
+generate p p > S3m43 S3m43* , ( S3m43 > mu- b ) , (S3m43* > mu+ b~)
+output LQToBMu_madgraph_LO_pair-M300 -nojpeg

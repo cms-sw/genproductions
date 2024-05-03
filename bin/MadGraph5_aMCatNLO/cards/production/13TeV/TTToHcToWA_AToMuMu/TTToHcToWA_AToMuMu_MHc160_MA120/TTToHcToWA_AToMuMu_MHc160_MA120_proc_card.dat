@@ -1,0 +1,16 @@
+import model 2HDM_UFO-type1_5FS
+
+define p = g u d c s b u~ d~ c~ s~ b~
+define j = p
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
+define vl = ve vm vt
+definve vl~ = ve~ vm~ vt~
+
+generate p p > t t~, (t > b h+, (h+ > h3 l+ vl, (h3 > mu+ mu-))), (t~ > b~ w-, (w- > j j )) @0
+add process p p > t t~, (t > b h+, (h+ > h3 j j, (h3 > mu+ mu-))), (t~ > b~ w-, (w- > l- vl~)) @1
+add process p p > t t~, (t > b h+, (h+ > h3 l+ vl, (h3 > mu+ mu-))), (t~ > b~ w-, (w- > l- vl~)) @2
+add process p p > t t~, (t > b w+, (w+ > j j )), (t~ > b~ h-, (h- > h3 l- vl~, (h3 > mu+ mu-))) @3
+add process p p > t t~, (t > b w+, (w+ > l+ vl)), (t~ > b~ h-, (h- > h3 j j, (h3  > mu+ mu-))) @4
+add process p p > t t~, (t > b w+, (w+ > l+ vl)), (t~ > b~ h-, (h- > h3 l- vl~, (h3 > mu+ mu-))) @5
+output TTToHcToWA_AToMuMu_MHc160_MA120 -nojpeg

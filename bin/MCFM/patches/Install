@@ -1,0 +1,76 @@
+#!/bin/bash
+
+# first configure the makefile
+
+# Insert the location of Cernlib on your system (if desired)
+set CERNLIB     = 
+# Insert the location of LHAPDF on your system (if desired)
+LHAPDFLIB=/cvmfs/cms.cern.ch/slc6_amd64_gcc481/external/lhapdf/6.1.5/lib/
+
+if [$CERNLIB == '']; then
+  echo 'Warning: no directory specified for CERNLIB'
+else
+  echo 'CERNLIB directory: '$CERNLIB
+fi
+if [$LHAPDFLIB == '']; then
+  echo 'Warning: no directory specified for LHAPDF'
+else
+  echo 'LHAPDFLIB directory: '$LHAPDFLIB
+  ln -s $LHAPDFLIB/PDFsets Bin/PDFsets
+fi
+
+echo '# Makefile routine.' > makefile.new
+echo '' >> makefile.new
+echo '# Replace this with the location of Cernlib on your system (if desired)' >> makefile.new
+echo 'CERNLIB     = '$CERNLIB >> makefile.new
+echo '# Replace this with the location of LHAPDF on your system (if desired)' >> makefile.new
+echo 'LHAPDFLIB   = '$LHAPDFLIB >> makefile.new
+echo '' >> makefile.new
+#echo 'MCFMHOME        = '`pwd` >> makefile.new
+#echo 'SOURCEDIR       = '`pwd`'/src' >> makefile.new
+tail -n +8 makefile >> makefile.new
+mv makefile makefile.orig
+mv makefile.new makefile
+
+# Produce LaTeX manual
+mkdir -p obj/
+cd Doc
+latex mcfm > latex.out
+latex mcfm > latex.out
+cd ..
+
+# Link FF data files into Bin directory
+if [ ! -h Bin/ffwarn.dat ]; then
+  ln -s ../QCDLoop/ff/fferr.dat Bin
+  ln -s ../QCDLoop/ff/ffperm5.dat Bin
+  ln -s ../QCDLoop/ff/ffwarn.dat Bin
+fi
+
+# Compile QCDLoop libraries if necessary
+mkdir -p QCDLoop/ff/obj
+mkdir -p QCDLoop/ql/obj
+if [ ! -e QCDLoop/ql/libqcdloop.a ]; then
+  ls
+  echo 'Compiling QCDLoop library'
+  cd QCDLoop
+  make
+  cd ..
+fi
+
+# Compile TensorReduction libraries if necessary
+mkdir -p TensorReduction/ov/obj
+mkdir -p TensorReduction/pv/obj
+mkdir -p TensorReduction/recur/smallF/obj
+mkdir -p TensorReduction/recur/smallG/obj
+mkdir -p TensorReduction/recur/smallP/obj
+mkdir -p TensorReduction/recur/smallY/obj
+if [ ! -e TensorReduction/pv/libpv.a ]; then
+  ls
+  echo 'Compiling TensorReduction library'
+  cd TensorReduction 
+  make
+  cd ..
+fi
+
+echo ''
+echo 'Installation complete. You may now compile MCFM by running make.'

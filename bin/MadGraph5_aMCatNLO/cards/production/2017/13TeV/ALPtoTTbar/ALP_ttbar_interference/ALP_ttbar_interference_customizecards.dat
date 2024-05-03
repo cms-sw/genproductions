@@ -1,0 +1,7 @@
+set param_card mass 9000005 0.001
+set param_card width 9000005 0.0001
+set param_card ALPPARS 1 1000
+set param_card CGtil 1
+set param_card ALPPARS 3 0.0
+set param_card ALPPARS 4 0.0
+set param_card CaPhi 1

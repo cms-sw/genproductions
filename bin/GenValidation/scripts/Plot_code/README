@@ -1,0 +1,20 @@
+two steps for obtaining the final plots (currently these scripts are suitable for WJets and DY)
+
+step1: generating all the histograms (on lxplus)
+
+modify the "inDIR" in histo.sh to the directory storing your rootfiles after crab, and then run "sh histo.sh -q SUBMIT". After the job finish, you will get rootfile contining the histograms under the path where you do the submission
+
+N.B.:
+* you should do this outside of eos directory
+* for the low mass DY, you may need to change the mass range of histogram "h_Zmass_GEN" in histo.py
+
+step2: yield the plots
+
+this step has two modes, one-to-one comparison between two versions, and inclusive v.s summed-up exclusive of one version.
+
+1) the first case: modify the xs/histo_name/name correspondingly, and run "sh plot.sh -m TWOVERSION"
+
+2) the second case: modify the xs/histo_name/name correspondingly, and run "sh plot.sh -m INCVSSTIT"
+
+for the XS, you can use genproductions/Utilities/calculateXSectionAndFilterEfficiency/nanoXS.sh
+you may check the plots for reference through this link https://indico.cern.ch/event/1069262/contributions/4497311/attachments/2303721/3918968/DY_mll10to50_FXFX_validation.pdf

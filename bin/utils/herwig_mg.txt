@@ -1,0 +1,2 @@
+'hw_PSWeights_settings'
+'hw_mg_merging_settings'

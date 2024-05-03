@@ -1,0 +1,4 @@
+The "histograms.py" is directly from official MG. The djr plot obtained using djr.py the same with djr plot under the YOUR_PROCESS_DIR/HTML, but just make it has the style we usually have in CMS.
+
+how to use:
+python djr.py PATH/TO/THE/***djrs.dat

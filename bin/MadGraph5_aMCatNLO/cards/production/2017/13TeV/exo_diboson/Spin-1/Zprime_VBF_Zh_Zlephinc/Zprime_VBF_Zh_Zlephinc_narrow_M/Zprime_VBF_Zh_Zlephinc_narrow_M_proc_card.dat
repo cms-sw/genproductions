@@ -1,0 +1,11 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set gauge unitary
+set complex_mass_scheme False
+import model Vector_Triplet_free_Width_UFO_VBF
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
+define j = u c d s b u~ c~ d~ s~ b~
+generate p p > vz j j $$ z w+ w- / g a h QCD=0, (vz > h z, z > l+ l-)
+output Zprime_VBF_Zh_Zlephinc_narrow_M<MASS> -nojpeg
+

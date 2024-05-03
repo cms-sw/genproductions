@@ -1,0 +1,9 @@
+import model sm-ckm_no_b_mass
+
+define ell+ = mu+
+define ell- = mu- 
+
+generate p p > ell+ ell- a @0
+
+output MuMuGamma_mll_0to60_LO
+

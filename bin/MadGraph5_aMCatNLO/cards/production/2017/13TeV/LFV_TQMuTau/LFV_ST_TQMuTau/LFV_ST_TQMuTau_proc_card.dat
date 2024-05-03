@@ -1,0 +1,6 @@
+import model SMEFT_2l2q_UFO_unitary
+generate p p > t mu+ ta-, (t > b w+, w+ > j j)
+add process p p > t mu- ta+, (t > b w+, w+ > j j)
+add process p p > t~ mu+ ta-, (t~ > b~ w-, w- > j j)
+add process p p > t~ mu- ta+, (t~ > b~ w-, w- > j j)
+output LFV_ST_TQMuTau

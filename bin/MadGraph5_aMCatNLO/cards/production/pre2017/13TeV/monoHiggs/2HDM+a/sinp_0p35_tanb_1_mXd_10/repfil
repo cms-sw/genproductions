@@ -1,0 +1,38 @@
+#!/bin/csh
+
+# replace sstring in each file of the current directory with rstring
+#  mode - security makes a copy of the file
+#       - spacing moves the file
+
+set n=`basename $0`
+if ( $#argv != 2 && $#argv != 3 ) then
+  echo "$n> give  searchstring  replacestring  for replace action"
+  exit 1
+endif
+
+set sstring="$1"
+set rstring="$2"
+if ( $#argv == 3 ) then
+  set mode="$3"
+else
+  set mode=security
+endif
+
+echo "START SEARCH REPLACE OPERATION (MODE: $mode)"
+echo "search>$sstring<  replace>$rstring<"
+echo ""
+
+foreach file ( *$sstring* )
+  echo "$n> $file"
+  if      ( $mode == "security" ) then
+    cp $file `echo $file | sed -n s/$sstring/$rstring/p`
+  else if ( $mode == "spacing" ) then
+    mv $file `echo $file | sed -n s/$sstring/$rstring/p`
+  else
+    echo "$n> Wrong mode: $mode"
+    exit 2
+  endif
+end
+echo ""
+ 
+exit 0;

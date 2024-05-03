@@ -1,0 +1,630 @@
+<header>
+<hepml>
+<samples xmlns="http://mcdb.cern.ch/hepml/0.2/"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://mcdb.cern.ch/hepml/0.2/ http://mcdb.cern.ch/hepml/0.2/hepml.xsd">
+    <files>
+        <file>
+            <eventsNumber> 15000         </eventsNumber>
+            <crossSection unit="pb">3.3123E-09</crossSection>
+            <fileSize> 10174590         </fileSize>
+            <comments> </comments>
+            <location>
+            </location>
+        </file>
+    </files>
+    <description>
+        <title>  </title>
+        <abstract> </abstract>
+        <authorComments> </authorComments>
+	<experimentGroup>
+	    <experiment> </experiment>
+	    <group> </group>
+	    <responsiblePerson> </responsiblePerson>
+	    <description>  </description>
+	</experimentGroup>
+        <generator>
+            <name>CalcHEP</name>
+            <version> 3.6.23 </version>
+            <homepage>http://theory.sinp.msu.ru/~pukhov/calchep.html</homepage>
+            <description>
+ CalcHEP - a package for calculation of Feynman diagrams
+ integration over multi-particle phase space,
+ generation of events and application of decay processes
+            </description>
+        </generator>
+        <model>
+             <name> </name>
+             <description>RPV_res_tau_sneutrino</description>
+            <parameters>
+                <parameter>
+                    <name>EE</name>
+                    <value>0.312230</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>SW</name>
+                    <value>0.481000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>s12</name>
+                    <value>0.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>s23</name>
+                    <value>0.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>s13</name>
+                    <value>0.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>MZ</name>
+                    <value>91.188400</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>MW</name>
+                    <value>80.385000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Mt</name>
+                    <value>174.300000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Mb</name>
+                    <value>4.250000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Me</name>
+                    <value>0.000511</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Mm</name>
+                    <value>0.105700</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Mu</name>
+                    <value>0.046000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Md</name>
+                    <value>0.046000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Mc</name>
+                    <value>1.420000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Ms</name>
+                    <value>0.200000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Ml</name>
+                    <value>1.777000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>wt</name>
+                    <value>1.752400</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>wZ</name>
+                    <value>2.494400</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>wW</name>
+                    <value>2.088950</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>MSnl</name>
+                    <value>6000.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Ll121</name>
+                    <value>0.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Ll122</name>
+                    <value>0.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Ll123</name>
+                    <value>0.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Ll131</name>
+                    <value>0.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Ll132</name>
+                    <value>0.010000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Ll133</name>
+                    <value>0.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Ll231</name>
+                    <value>0.010000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Ll232</name>
+                    <value>0.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Ll233</name>
+                    <value>0.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Lq111</name>
+                    <value>0.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Lq112</name>
+                    <value>0.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Lq113</name>
+                    <value>0.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Lq121</name>
+                    <value>0.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Lq122</name>
+                    <value>0.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Lq123</name>
+                    <value>0.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Lq131</name>
+                    <value>0.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Lq132</name>
+                    <value>0.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Lq133</name>
+                    <value>0.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Lq211</name>
+                    <value>0.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Lq212</name>
+                    <value>0.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Lq213</name>
+                    <value>0.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Lq221</name>
+                    <value>0.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Lq222</name>
+                    <value>0.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Lq223</name>
+                    <value>0.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Lq231</name>
+                    <value>0.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Lq232</name>
+                    <value>0.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Lq233</name>
+                    <value>0.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Lq311</name>
+                    <value>0.010000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Lq312</name>
+                    <value>0.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Lq313</name>
+                    <value>0.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Lq321</name>
+                    <value>0.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Lq322</name>
+                    <value>0.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Lq323</name>
+                    <value>0.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Lq331</name>
+                    <value>0.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Lq332</name>
+                    <value>0.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+                <parameter>
+                    <name>Lq333</name>
+                    <value>0.000000</value>
+			      <notation>
+				      <plain> </plain>
+				      <Latex> </Latex>
+			      </notation>
+			      <description> </description>
+                </parameter>
+            </parameters>
+        </model>
+        <process>
+            <beam1>
+                <particle KFcode="2212">p</particle>
+                <energy unit="GeV">6.500E+03</energy>
+                <pdf name= "cteq6l(proton)"> </pdf>
+            </beam1>
+            <beam2>
+                <particle KFcode="2212">p</particle>
+                <energy unit="GeV">6.500E+03</energy>
+                <pdf name= "cteq6l(proton)"> </pdf>
+            </beam2>
+	    <finalState>
+		<state>
+                </state>
+		<notation>
+		    <plain>
+                   </plain>
+		    <Latex> </Latex>
+		</notation>
+	    </finalState>
+            <crossSection unit="pb">3.312E-09</crossSection>
+            <subprocesses>
+              <subprocess cutset_id="1" >
+                <notation> d(1),D(-1) -> e(11),M(-13) </notation>
+                <crossSection unit="pb"> 8.247273E-10 </crossSection>
+              </subprocess>
+              <subprocess cutset_id="2" >
+                <notation> D(-1),d(1) -> E(-11),m(13) </notation>
+                <crossSection unit="pb"> 8.262177E-10 </crossSection>
+              </subprocess>
+              <subprocess cutset_id="3" >
+                <notation> D(-1),d(1) -> e(11),M(-13) </notation>
+                <crossSection unit="pb"> 8.323099E-10 </crossSection>
+              </subprocess>
+              <subprocess cutset_id="4" >
+                <notation> d(1),D(-1) -> E(-11),m(13) </notation>
+                <crossSection unit="pb"> 8.290607E-10 </crossSection>
+              </subprocess>
+            </subprocesses>
+        </process>
+        <cuts>
+            <cutSet cutset_id="1">
+                <cut>
+                    <object>
+                        <name> </name>
+                        <notation>
+                            <plain> </plain>
+                            <Latex> </Latex>
+                        </notation>
+                    </object>
+                    <minValue> </minValue>
+                    <maxValue> </maxValue>
+                    <logic> </logic>
+                </cut>
+            </cutSet>
+        </cuts>
+        <authors>
+       	   <author>
+       	      <firstName>CalcHEP</firstName>
+              <lastName> </lastName>
+              <email>calchep[at]goolegroups.com</email>  
+              <experiment> </experiment>
+              <group> </group>
+       	      <organization> </organization>
+   	   </author>
+         </authors>
+    </description>
+</samples>
+</hepml>
+<slha>
+BLOCK QNUMBERS 1000016 # ~nl
+ 1 0
+ 2 1
+ 3 1
+ 4 1
+
+BLOCK MASS
+ 1000016    6.000000E+03 # 
+
+DECAY 1000016  5.968310E-02 # ~nl 
+ 2.000000E-01  2  -11  13  # E,m 
+ 2.000000E-01  2  11  -13  # e,M 
+ 6.000000E-01  2  1  -1  # d,D 
+</slha>
+</header>

@@ -1,0 +1,10 @@
+import model MSSM_UFO
+
+define x1 = x1+ x1-
+
+generate p p > x1+ x1-
+add process p p > x1 n1
+add process p p > x1 n1 j
+add process p p > x1+ x1- j
+
+output FILENAME -nojpeg

@@ -1,0 +1,7 @@
+set param_card mass 1023 500 # mZD
+set param_card mass 500521 MASS # mfD1
+set param_card mass 500523 2.000000e+00 # mfD2
+set param_card hidden 1 1.000000e-02 # eta
+set param_card decay 1023 Auto # WZD
+set param_card decay 500521 Auto # WfD1
+set param_card decay 500523 0.000000+e+00 # WfD2

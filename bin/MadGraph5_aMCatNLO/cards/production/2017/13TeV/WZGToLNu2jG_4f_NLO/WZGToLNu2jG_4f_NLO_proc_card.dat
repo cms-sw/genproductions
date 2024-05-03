@@ -1,0 +1,15 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set loop_color_flows False
+set gauge unitary
+set complex_mass_scheme False
+set max_npoint_for_channel 0
+
+import model loop_sm
+
+define lep = e+ mu+ ta+ e- mu- ta-
+define nu = ve vm vt ve~ vm~ vt~
+
+generate p p > lep nu z a [QCD] @0
+
+output WZGToLNu2jG_4f_NLO -nojpeg

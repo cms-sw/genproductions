@@ -1,0 +1,11 @@
+set low_mem_multicore_nlo_generation True
+
+import model loop_sm-ckm_no_b_mass
+
+define ell+ = e+ mu+ ta+
+define ell- = e- mu- ta-
+
+generate p p > ell+ ell- j j [QCD] @0
+
+output dyellell2j_ZpT-120to280_5f_NLO_FXFX -nojpeg
+

@@ -1,0 +1,10 @@
+import model QCKM_5_Aug21v2
+define p = g u c d s u~ c~ d~ s~
+define j = g u c d s u~ c~ d~ s~
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+generate p p > w+ l+ l- j j QED=5 QCD=0 S0=1 S1=1 S2=1 M0=1 M1=1 M2=1 M3=1 M4=1 M5=1 M6=1 M7=1 T0=1 T1=1 T2=1 T5=1 T6=1 T7=1, w+ > l+ vl @ 1
+add process p p > w- l+ l- j j QED=5 QCD=0 S0=1 S1=1 S2=1 M0=1 M1=1 M2=1 M3=1 M4=1 M5=1 M6=1 M7=1 T0=1 T1=1 T2=1 T5=1 T6=1 T7=1, w- > l- vl~ @ 2
+output WLLjj_dim8_ewk -nojpeg

@@ -1,0 +1,19 @@
+# Consistent parameters with signal generation
+set param_card yukawa 6 173.2
+set param_card mass 6 173.2
+set param_card decay 6 2.0
+set param_card mass 23 91.1876
+set param_card decay 23 2.4952
+set param_card mass 24 80.399
+set param_card decay 24 2.085
+
+# Kinematic cuts
+set run_card ptj 15.0
+set run_card etaj 6.5
+set run_card drjj 0.3
+set run_card ptl -1.0
+set run_card etal 3.0
+set run_card drll 0.2
+set run_card drjl -1
+set run_card mmjj 20
+set run_card mmll 4

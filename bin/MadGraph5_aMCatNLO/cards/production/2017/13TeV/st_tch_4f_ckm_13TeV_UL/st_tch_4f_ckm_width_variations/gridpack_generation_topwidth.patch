@@ -1,0 +1,24 @@
+diff --git a/bin/MadGraph5_aMCatNLO/gridpack_generation.sh b/bin/MadGraph5_aMCatNLO/gridpack_generation.sh
+index c8ebed5..134d629 100755
+--- a/bin/MadGraph5_aMCatNLO/gridpack_generation.sh
++++ b/bin/MadGraph5_aMCatNLO/gridpack_generation.sh
+@@ -471,6 +471,9 @@ make_gridpack () {
+       echo "copying custom params file"
+       cp $CARDSDIR/${name}_param_card.dat ./Cards/param_card.dat
+     fi
++
++    sed -i "s/decay \+6 \+.*/DECAY  6  ${TOPWIDTH}\n#  BR             NDA  ID1    ID2   ...\n1.000000e+00   2    24  5/gi" ./Cards/param_card.dat
++    sed -i "s/decay \+24 \+.*/#      PDG        Width\nDECAY  24   2.049946e+00\n#  BR             NDA  ID1    ID2   ...\n3.163393e-01   2    4  -3 # 0.648478474205\n3.163393e-01   2    2  -1 # 0.648478474205\n1.110098e-01   2    14  -13 # 0.227564079932\n1.110098e-01   2    12  -11 # 0.227564079932\n1.109285e-01   2    16  -15 # 0.227397411854\n1.690460e-02   2    2  -3 # 0.0346535195344\n1.690460e-02   2    4  -1 # 0.0346535195344\n5.602090e-04   2    4  -5 # 0.00114839807192\n3.802070e-06   2    2  -5 # 7.79403741826e-06/gi" ./Cards/param_card.dat
+      
+     if [ "$isnlo" -gt "0" ]; then
+     #NLO mode  
+@@ -505,6 +508,9 @@ make_gridpack () {
+     
+       if [ -e $CARDSDIR/${name}_externaltarball.dat ]; then
+           gunzip ./Events/pilotrun_decayed_1/events.lhe.gz
++
++          sed -i "s/decay \+6 \+.*/DECAY   6   ${TOPWIDTH}/gi" ./Events/pilotrun_decayed_1/events.lhe
++
+           sed -n '/<MG5ProcCard>/,/<\/slha>/p' ./Events/pilotrun_decayed_1/events.lhe > header_for_madspin.txt
+           mv header_for_madspin.txt $WORKDIR
+           gzip ./Events/pilotrun_decayed_1/events.lhe

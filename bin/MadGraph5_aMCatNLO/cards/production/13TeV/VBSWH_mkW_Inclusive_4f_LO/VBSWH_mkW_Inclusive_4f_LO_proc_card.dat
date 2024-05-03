@@ -1,0 +1,7 @@
+import model sm_mkw
+
+define w = w+ w-
+
+generate p p > w h j j QCD=0
+
+output VBSWH_mkW_Inclusive_4f_LO -nojpeg

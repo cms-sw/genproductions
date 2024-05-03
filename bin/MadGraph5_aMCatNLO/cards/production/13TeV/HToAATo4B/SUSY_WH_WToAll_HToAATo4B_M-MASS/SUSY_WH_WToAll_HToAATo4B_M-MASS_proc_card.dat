@@ -1,0 +1,6 @@
+import model NMSSM --modelname
+
+generate p p  > w+ h01 , (h01 > a01 a01, a01 > b b~, a01 > b b~)
+add process p p  > w- h01 , (h01 > a01 a01, a01 > b b~, a01 > b b~)
+
+output SUSY_WH_WToAll_HToAATo4B_M-MASS -nojpeg

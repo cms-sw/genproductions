@@ -1,0 +1,5 @@
+'herwig7CH3PDF'
+'herwig7CH3AlphaS'
+'herwig7CH3MPISettings'
+'hw_7p1SettingsFor7p2'
+'herwig7StableParticlesForDetector'

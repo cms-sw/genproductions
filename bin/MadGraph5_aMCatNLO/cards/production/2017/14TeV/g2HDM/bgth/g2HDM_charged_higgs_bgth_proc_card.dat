@@ -1,0 +1,18 @@
+import model g2hdm_charged_higgs_UFO
+define p = p  b b~
+define j = p
+define all = j e+ mu+ e- mu- vl vl~
+generate p p > t~ Hp QCD=99, (t~ > w- b~ , W- > l- vl~), ( Hp > c b~)
+add process p p > t Hm QCD=99, (t > w+ b , W+ > l+ vl), ( Hm > c~ b)
+add process p p > t~ Hp j QCD=99, (t~ > w- b~ , W- > l- vl~), ( Hp > c b~)
+add process p p > t Hm j QCD=99, (t > w+ b , W+ > l+ vl), ( Hm > c~ b)
+add process p p > t~ Hp QCD=99, (t~ > w- b~ , W- > j j), ( Hp > t b~, (t > w+ b, w+ > l+ vl))
+add process p p > t~ Hp QCD=99, (t~ > w- b~ , W- > l- vl~), ( Hp > t b~, (t > w+ b, w+ > all all))
+add process p p > t~ Hp j QCD=99, (t~ > w- b~ , W- > l- vl~), ( Hp > t b~, (t > w+ b, w+ > all all))
+add process p p > t~ Hp j QCD=99, (t~ > w- b~ , W- > j j), ( Hp > t b~, (t > w+ b, w+ > l+ vl))
+add process p p > t Hm QCD=99, (t > w+ b , W+ > j j), ( Hm > t~ b, (t~ > w- b~, w- > l- vl~))
+add process p p > t Hm QCD=99, (t > w+ b , W+ > l+ vl), ( Hm > t~ b, (t~ > w- b~, w- > all all))
+add process p p > t Hm j QCD=99, (t > w+ b , W+ > l+ vl), ( Hm > t~ b, (t~ > w- b~, w- > all all))
+add process p p > t Hm j QCD=99, (t > w+ b , W+ > j j), ( Hm > t~ b, (t~ > w- b~, w- > l- vl~))
+
+output g2HDM_charged_higgs_bgth -nojpeg

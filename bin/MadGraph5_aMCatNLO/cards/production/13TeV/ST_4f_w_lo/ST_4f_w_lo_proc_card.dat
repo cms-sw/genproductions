@@ -1,0 +1,14 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set loop_optimized_output True
+set complex_mass_scheme False
+import model sm-ckm
+define p = g u c d s u~ c~ d~ s~
+define j = u c d s u~ c~ d~ s~
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+generate p p > w+ b b~ j $$ w+ w- a z h u u~ d d~ s s~ c c~ QCD<=1 QED<=4, w+ > l+ vl
+add process p p > w- b~ b j $$ w+ w- a z h u u~ d d~ s s~ c c~ QCD<=1 QED<=4, w- > l- vl~
+output ST_4f_w_lo -nojpeg

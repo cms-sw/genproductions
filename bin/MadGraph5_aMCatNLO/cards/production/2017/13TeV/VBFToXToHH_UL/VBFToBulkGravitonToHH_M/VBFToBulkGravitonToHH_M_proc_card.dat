@@ -1,0 +1,12 @@
+
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set loop_optimized_output True
+set complex_mass_scheme False
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+import model RS_bulk_ktilda
+define q = u c d s u~ c~ d~ s~ 
+define p = u c d s u~ c~ d~ s~  
+generate p p > y q q , ( y > h h )
+output VBFToBulkGravitonToHH_M<MASS> -nojpeg

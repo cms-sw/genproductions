@@ -1,0 +1,6 @@
+import model NMSSMHET --modelname
+
+generate p p  > h01 , (h01 > a01 a01, a01 > b b~, a01 > b b~)
+add process p p  > h01 j , (h01 > a01 a01, a01 > b b~, a01 > b b~)
+
+output SUSY_GluGluH_01J_HToAATo4B_M-MASS -nojpeg

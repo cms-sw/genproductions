@@ -1,0 +1,10 @@
+import model 2HDM_NLO
+
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+
+generate p p > t t~ [QCD]
+
+output HplusToCS_M80 -nojpeg

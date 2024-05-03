@@ -1,0 +1,8 @@
+import model sm-ckm_no_b_mass
+
+generate p p > e+ ve
+add process p p  > e- ve~
+add process p p  > e+ ve j
+add process p p  > e- ve~ j
+
+output WToENu_M-200-500_LO_NNPDF31nnlo  -nojpeg

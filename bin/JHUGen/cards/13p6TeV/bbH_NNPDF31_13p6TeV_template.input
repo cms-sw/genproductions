@@ -1,0 +1,1 @@
+ColliderEnergy=13.6 VegasNc0=5000000 Process=90 MReso={mass} GaReso={width} pTjetcut=0 deltaRcut=0 LHAPDF=NNPDF31_nnlo_as_0118_mc_hessian_pdfas/NNPDF31_nnlo_as_0118_mc_hessian_pdfas.info ReadCSmax WriteFailedEvents=2 

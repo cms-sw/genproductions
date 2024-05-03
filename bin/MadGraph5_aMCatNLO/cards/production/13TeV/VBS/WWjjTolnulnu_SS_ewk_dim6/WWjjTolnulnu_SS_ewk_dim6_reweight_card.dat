@@ -1,0 +1,8311 @@
+change helicity False
+change rwgt_dir rwgt
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~ SM ~~~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# SM rwgt_0
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~ cW ~~~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# cW=-1 rwgt_1.1
+launch
+   set SMEFT 2 -1
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cW=1 rwgt_1.2
+launch
+   set SMEFT 2 1
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cW=-0.9 rwgt_1.3
+launch
+   set SMEFT 2 -0.9
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cW=0.9 rwgt_1.4
+launch
+   set SMEFT 2 0.9
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cW=-0.8 rwgt_1.5
+launch
+   set SMEFT 2 -0.8
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cW=0.8 rwgt_1.6
+launch
+   set SMEFT 2 0.8
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+
+# cW=-0.7 rwgt_1.7
+launch
+   set SMEFT 2 -0.7
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cW=0.7 rwgt_1.8
+launch
+   set SMEFT 2 0.7
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+
+# cW=-0.6 rwgt_1.9
+launch
+   set SMEFT 2 -0.6
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cW=0.6 rwgt_1.10
+launch
+   set SMEFT 2 0.6
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+
+# cW=-0.5 rwgt_1.11
+launch
+   set SMEFT 2 -0.5
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cW=0.5 rwgt_1.12
+launch
+   set SMEFT 2 0.5
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+
+# cW=-0.4 rwgt_1.13
+launch
+   set SMEFT 2 -0.4
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cW=0.4 rwgt_1.14
+launch
+   set SMEFT 2 0.4
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+
+# cW=-0.3 rwgt_1.15
+launch
+   set SMEFT 2 -0.3
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cW=0.3 rwgt_1.16
+launch
+   set SMEFT 2 0.3
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+
+# cW=-0.2 rwgt_1.17
+launch
+   set SMEFT 2 -0.2
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cW=0.2 rwgt_1.18
+launch
+   set SMEFT 2 0.2
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+
+# cW=-0.1 rwgt_1.19
+launch
+   set SMEFT 2 -0.1
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cW=0.1 rwgt_1.20
+launch
+   set SMEFT 2 0.1
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~ cHW ~~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+# cHW=-1 rwgt_2.1
+launch
+   set SMEFT 2 0
+   set SMEFT 7 -1
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHW=1 rwgt_2.2
+launch
+   set SMEFT 2 0
+   set SMEFT 7 1
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHW=-0.9 rwgt_2.3
+launch
+   set SMEFT 2 0
+   set SMEFT 7 -0.9
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHW=0.9 rwgt_2.4
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0.9
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHW=-0.8 rwgt_2.5
+launch
+   set SMEFT 2 0
+   set SMEFT 7 -0.8
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHW=0.8 rwgt_2.6
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0.8
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHW=-0.7 rwgt_2.7
+launch
+   set SMEFT 2 0
+   set SMEFT 7 -0.7
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHW=0.7 rwgt_2.8
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0.7
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHW=-0.6 rwgt_2.9
+launch
+   set SMEFT 2 0
+   set SMEFT 7 -0.6
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHW=0.6 rwgt_2.10
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0.6
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHW=-0.5 rwgt_2.11
+launch
+   set SMEFT 2 0
+   set SMEFT 7 -0.5
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHW=0.5 rwgt_2.12
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0.5
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHW=-0.4 rwgt_2.13
+launch
+   set SMEFT 2 0
+   set SMEFT 7 -0.4
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHW=0.4 rwgt_2.14
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0.4
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHW=-0.3 rwgt_2.15
+launch
+   set SMEFT 2 0
+   set SMEFT 7 -0.3
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHW=0.3 rwgt_2.16
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0.3
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHW=-0.2 rwgt_2.17
+launch
+   set SMEFT 2 0
+   set SMEFT 7 -0.2
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHW=0.2 rwgt_2.18
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0.2
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHW=-0.1 rwgt_2.19
+launch
+   set SMEFT 2 0
+   set SMEFT 7 -0.1
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHW=0.1 rwgt_2.20
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0.1
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~ cHWB ~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+# cHWB=-1 rwgt_3.1
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 -1
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHWB=1 rwgt_3.2
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 1
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHWB=-0.9 rwgt_3.3
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 -0.9
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHWB=0.9 rwgt_3.4
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0.9
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHWB=-0.8 rwgt_3.5
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 -0.8
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHWB=0.8 rwgt_3.6
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0.8
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHWB=-0.7 rwgt_3.7
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 -0.7
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHWB=0.7 rwgt_3.8
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0.7
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHWB=-0.6 rwgt_3.9
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 -0.6
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHWB=0.6 rwgt_3.10
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0.6
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHWB=-0.5 rwgt_3.11
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 -0.5
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHWB=0.5 rwgt_3.12
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0.5
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHWB=-0.4 rwgt_3.13
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 -0.4
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHWB=0.4 rwgt_3.14
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0.4
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHWB=-0.3 rwgt_3.15
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 -0.3
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHWB=0.3 rwgt_3.16
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0.3
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHWB=-0.2 rwgt_3.17
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 -0.2
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHWB=0.2 rwgt_3.18
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0.2
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHWB=-0.1 rwgt_3.19
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 -0.1
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHWB=0.1 rwgt_3.20
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0.1
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~ cHDD ~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+# cHDD=-1 rwgt_4.1
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 -1
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHDD=1 rwgt_4.2
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 1
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHDD=-0.9 rwgt_4.3
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 -0.9
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHDD=0.9 rwgt_4.4
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0.9
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHDD=-0.8 rwgt_4.5
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 -0.8
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHDD=0.8 rwgt_4.6
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0.8
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHDD=-0.7 rwgt_4.7
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 -0.7
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHDD=0.7 rwgt_4.8
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0.7
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHDD=-0.6 rwgt_4.9
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 -0.6
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHDD=0.6 rwgt_4.10
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0.6
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHDD=-0.5 rwgt_4.11
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 -0.5
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHDD=0.5 rwgt_4.12
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0.5
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHDD=-0.4 rwgt_4.13
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 -0.4
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHDD=0.4 rwgt_4.14
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0.4
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHDD=-0.3 rwgt_4.15
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 -0.3
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHDD=0.3 rwgt_4.16
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0.3
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHDD=-0.2 rwgt_4.17
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 -0.2
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHDD=0.2 rwgt_4.18
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0.2
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHDD=-0.1 rwgt_4.19
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 -0.1
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHDD=0.1 rwgt_4.20
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0.1
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~ cHbox ~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+# cHbox=-1 rwgt_5.1
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 -1
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHbox=1 rwgt_5.2
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 1
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHbox=-0.9 rwgt_5.3
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 -0.9
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHbox=0.9 rwgt_5.4
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0.9
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHbox=-0.8 rwgt_5.5
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 -0.8
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHbox=0.8 rwgt_5.6
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0.8
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHbox=-0.7 rwgt_5.7
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 -0.7
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHbox=0.7 rwgt_5.8
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0.7
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHbox=-0.6 rwgt_5.9
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 -0.6
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHbox=0.6 rwgt_5.10
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0.6
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHbox=-0.5 rwgt_5.11
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 -0.5
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHbox=0.5 rwgt_5.12
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0.5
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHbox=-0.4 rwgt_5.13
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 -0.4
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHbox=0.4 rwgt_5.14
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0.4
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHbox=-0.3 rwgt_5.15
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 -0.3
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHbox=0.3 rwgt_5.16
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0.3
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHbox=-0.2 rwgt_5.17
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 -0.2
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHbox=0.2 rwgt_5.18
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0.2
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHbox=-0.1 rwgt_5.19
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 -0.1
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHbox=0.1 rwgt_5.20
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0.1
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~ cHl1 ~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+# cHl1=-1 rwgt_6.1
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 -1
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHl1=1 rwgt_6.2
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 1
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHl1=-0.9 rwgt_6.3
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 -0.9
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHl1=0.9 rwgt_6.4
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0.9
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHl1=-0.8 rwgt_6.5
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 -0.8
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHl1=0.8 rwgt_6.6
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0.8
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHl1=-0.7 rwgt_6.7
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 -0.7
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHl1=0.7 rwgt_6.8
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0.7
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHl1=-0.6 rwgt_6.9
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 -0.6
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHl1=0.6 rwgt_6.10
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0.6
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHl1=-0.5 rwgt_6.11
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 -0.5
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHl1=0.5 rwgt_6.12
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0.5
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHl1=-0.4 rwgt_6.13
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 -0.4
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHl1=0.4 rwgt_6.14
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0.4
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHl1=-0.3 rwgt_6.15
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 -0.3
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHl1=0.3 rwgt_6.16
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0.3
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHl1=-0.2 rwgt_6.17
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 -0.2
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHl1=0.2 rwgt_6.18
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0.2
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHl1=-0.1 rwgt_6.19
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 -0.1
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHl1=0.1 rwgt_6.20
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0.1
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~ cHl3 ~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+# cHl3=-1 rwgt_7.1
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 -1
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHl3=1 rwgt_7.2
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 1
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHl3=-0.9 rwgt_7.3
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 -0.9
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHl3=0.9 rwgt_7.4
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0.9
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHl3=-0.8 rwgt_7.5
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 -0.8
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHl3=0.8 rwgt_7.6
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0.8
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHl3=-0.7 rwgt_7.7
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 -0.7
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHl3=0.7 rwgt_7.8
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0.7
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHl3=-0.6 rwgt_7.9
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 -0.6
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHl3=0.6 rwgt_7.10
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0.6
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHl3=-0.5 rwgt_7.11
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 -0.5
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHl3=0.5 rwgt_7.12
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0.5
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHl3=-0.4 rwgt_7.13
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 -0.4
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHl3=0.4 rwgt_7.14
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0.4
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHl3=-0.3 rwgt_7.15
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 -0.3
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHl3=0.3 rwgt_7.16
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0.3
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHl3=-0.2 rwgt_7.17
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 -0.2
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHl3=0.2 rwgt_7.18
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0.2
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHl3=-0.1 rwgt_7.19
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 -0.1
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHl3=0.1 rwgt_7.20
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0.1
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~ cHq1 ~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+# cHq1=-1 rwgt_8.1
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 -1
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHq1=1 rwgt_8.2
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 1
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHq1=-0.9 rwgt_8.3
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 -0.9
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHq1=0.9 rwgt_8.4
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0.9
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHq1=-0.8 rwgt_8.5
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 -0.8
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHq1=0.8 rwgt_8.6
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0.8
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHq1=-0.7 rwgt_8.7
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 -0.7
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHq1=0.7 rwgt_8.8
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0.7
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHq1=-0.6 rwgt_8.9
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 -0.6
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHq1=0.6 rwgt_8.10
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0.6
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHq1=-0.5 rwgt_8.11
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 -0.5
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHq1=0.5 rwgt_8.12
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0.5
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHq1=-0.4 rwgt_8.13
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 -0.4
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHq1=0.4 rwgt_8.14
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0.4
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHq1=-0.3 rwgt_8.15
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 -0.3
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHq1=0.3 rwgt_8.16
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0.3
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHq1=-0.2 rwgt_8.17
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 -0.2
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHq1=0.2 rwgt_8.18
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0.2
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHq1=-0.1 rwgt_8.19
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 -0.1
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHq1=0.1 rwgt_8.20
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0.1
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~ cHq3 ~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+# cHq3=-1 rwgt_9.1
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 -1
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHq3=1 rwgt_9.2
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 1
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHq3=-0.9 rwgt_9.3
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 -0.9
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHq3=0.9 rwgt_9.4
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0.9
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHq3=-0.8 rwgt_9.5
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 -0.8
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHq3=0.8 rwgt_9.6
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0.8
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHq3=-0.7 rwgt_9.7
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 -0.7
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHq3=0.7 rwgt_9.8
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0.7
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHq3=-0.6 rwgt_9.9
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 -0.6
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHq3=0.6 rwgt_9.10
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0.6
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHq3=-0.5 rwgt_9.11
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 -0.5
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHq3=0.5 rwgt_9.12
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0.5
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHq3=-0.4 rwgt_9.13
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 -0.4
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHq3=0.4 rwgt_9.14
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0.4
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHq3=-0.3 rwgt_9.15
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 -0.3
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHq3=0.3 rwgt_9.16
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0.3
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHq3=-0.2 rwgt_9.17
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 -0.2
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHq3=0.2 rwgt_9.18
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0.2
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cHq3=-0.1 rwgt_9.19
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 -0.1
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cHq3=0.1 rwgt_9.20
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0.1
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~ cll ~~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+# cll=-1 rwgt_10.1
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 -1
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cll=1 rwgt_10.2
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 1
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~   
+
+
+# cll=-0.9 rwgt_10.3
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 -0.9
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cll=0.9 rwgt_10.4
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0.9
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~ 
+
+
+# cll=-0.8 rwgt_10.5
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 -0.8
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cll=0.8 rwgt_10.6
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0.8
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~ 
+
+
+# cll=-0.7 rwgt_10.7
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 -0.7
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cll=0.7 rwgt_10.8
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0.7
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~ 
+
+
+# cll=-0.6 rwgt_10.9
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 -0.6
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cll=0.6 rwgt_10.10
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0.6
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~ 
+
+
+# cll=-0.5 rwgt_10.11
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 -0.5
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cll=0.5 rwgt_10.12
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0.5
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~ 
+
+
+# cll=-0.4 rwgt_10.13
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 -0.4
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cll=0.4 rwgt_10.14
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0.4
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~ 
+
+
+# cll=-0.3 rwgt_10.15
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 -0.3
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cll=0.3 rwgt_10.16
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0.3
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~ 
+
+
+# cll=-0.2 rwgt_10.17
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 -0.2
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cll=0.2 rwgt_10.18
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0.2
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~ 
+
+
+# cll=-0.1 rwgt_10.19
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 -0.1
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cll=0.1 rwgt_10.20
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0.1
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~ cll1 ~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+# cll1=-1 rwgt_11.1
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 -1
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cll1=1 rwgt_11.2
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 1
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cll1=-0.9 rwgt_11.3
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 -0.9
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cll1=0.9 rwgt_11.4
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0.9
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cll1=-0.8 rwgt_11.5
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 -0.8
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cll1=0.8 rwgt_11.6
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0.8
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cll1=-0.7 rwgt_11.7
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 -0.7
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cll1=0.7 rwgt_11.8
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0.7
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cll1=-0.6 rwgt_11.9
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 -0.6
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cll1=0.6 rwgt_11.10
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0.6
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cll1=-0.5 rwgt_11.11
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 -0.5
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cll1=0.5 rwgt_11.12
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0.5
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cll1=-0.4 rwgt_11.13
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 -0.4
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cll1=0.4 rwgt_11.14
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0.4
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cll1=-0.3 rwgt_11.15
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 -0.3
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cll1=0.3 rwgt_11.16
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0.3
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cll1=-0.2 rwgt_11.17
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 -0.2
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cll1=0.2 rwgt_11.18
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0.2
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cll1=-0.1 rwgt_11.19
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 -0.1
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cll1=0.1 rwgt_11.20
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0.1
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~ cqq1 ~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+# cqq1=-1 rwgt_12.1
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 -1
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cqq1=1 rwgt_12.2
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 1
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cqq1=-0.9 rwgt_12.3
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 -0.9
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cqq1=0.9 rwgt_12.4
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0.9
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cqq1=-0.8 rwgt_12.5
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 -0.8
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cqq1=0.8 rwgt_12.6
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0.8
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cqq1=-0.7 rwgt_12.7
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 -0.7
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cqq1=0.7 rwgt_12.8
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0.7
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cqq1=-0.6 rwgt_12.9
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 -0.6
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cqq1=0.6 rwgt_12.10
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0.6
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cqq1=-0.5 rwgt_12.11
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 -0.5
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cqq1=0.5 rwgt_12.12
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0.5
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cqq1=-0.4 rwgt_12.13
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 -0.4
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cqq1=0.4 rwgt_12.14
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0.4
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cqq1=-0.3 rwgt_12.15
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 -0.3
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cqq1=0.3 rwgt_12.16
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0.3
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cqq1=-0.2 rwgt_12.17
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 -0.2
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cqq1=0.2 rwgt_12.18
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0.2
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cqq1=-0.1 rwgt_12.19
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 -0.1
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cqq1=0.1 rwgt_12.20
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0.1
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~ cqq11 ~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# cqq11=-1 rwgt_13.1
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 -1
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cqq11=1 rwgt_13.2
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 1
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cqq11=-0.9 rwgt_13.3
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 -0.9
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cqq11=0.9 rwgt_13.4
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0.9
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cqq11=-0.8 rwgt_13.5
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 -0.8
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cqq11=0.8 rwgt_13.6
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0.8
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cqq11=-0.7 rwgt_13.7
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 -0.7
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cqq11=0.7 rwgt_13.8
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0.7
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cqq11=-0.6 rwgt_13.9
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 -0.6
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cqq11=0.6 rwgt_13.10
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0.6
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cqq11=-0.5 rwgt_13.11
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 -0.5
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cqq11=0.5 rwgt_13.12
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0.5
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cqq11=-0.4 rwgt_13.13
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 -0.4
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cqq11=0.4 rwgt_13.14
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0.4
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cqq11=-0.3 rwgt_13.15
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 -0.3
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cqq11=0.3 rwgt_13.16
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0.3
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cqq11=-0.2 rwgt_13.17
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 -0.2
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cqq11=0.2 rwgt_13.18
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0.2
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cqq11=-0.1 rwgt_13.19
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 -0.1
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+# cqq11=0.1 rwgt_13.20
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0.1
+   set SMEFT 33 0
+   set SMEFT 34 0
+
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~ cqq3 ~~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+# cqq3=-1 rwgt_14.1
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 -1
+   set SMEFT 34 0
+
+
+# cqq3=1 rwgt_14.2
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 1
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cqq3=-0.9 rwgt_14.3
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 -0.9
+   set SMEFT 34 0
+
+
+# cqq3=0.9 rwgt_14.4
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0.9
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cqq3=-0.8 rwgt_14.5
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 -0.8
+   set SMEFT 34 0
+
+
+# cqq3=0.8 rwgt_14.6
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0.8
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cqq3=-0.7 rwgt_14.7
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 -0.7
+   set SMEFT 34 0
+
+
+# cqq3=0.7 rwgt_14.8
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0.7
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cqq3=-0.6 rwgt_14.9
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 -0.6
+   set SMEFT 34 0
+
+
+# cqq3=0.6 rwgt_14.10
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0.6
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cqq3=-0.5 rwgt_14.11
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 -0.5
+   set SMEFT 34 0
+
+
+# cqq3=0.5 rwgt_14.12
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0.5
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cqq3=-0.4 rwgt_14.13
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 -0.4
+   set SMEFT 34 0
+
+
+# cqq3=0.4 rwgt_14.14
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0.4
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cqq3=-0.3 rwgt_14.15
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 -0.3
+   set SMEFT 34 0
+
+
+# cqq3=0.3 rwgt_14.16
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0.3
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cqq3=-0.2 rwgt_14.17
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 -0.2
+   set SMEFT 34 0
+
+
+# cqq3=0.2 rwgt_14.18
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0.2
+   set SMEFT 34 0
+
+
+#~~~~~~~
+
+
+# cqq3=-0.1 rwgt_14.19
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 -0.1
+   set SMEFT 34 0
+
+
+# cqq3=0.1 rwgt_14.20
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0.1
+   set SMEFT 34 0
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~ cqq31 ~~~~~~~~~~~~~~~~~~
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+# cqq31=-1 rwgt_15.1
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 -1
+
+
+# cqq31=1 rwgt_15.2
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 1
+
+
+#~~~~~~~
+
+
+# cqq31=-0.9 rwgt_15.3
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 -0.9
+
+
+# cqq31=0.9 rwgt_15.4
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0.9
+
+
+#~~~~~~~
+
+
+# cqq31=-0.8 rwgt_15.5
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 -0.8
+
+
+# cqq31=0.8 rwgt_15.6
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0.8
+
+
+#~~~~~~~
+
+
+# cqq31=-0.7 rwgt_15.7
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 -0.7
+
+
+# cqq31=0.7 rwgt_15.8
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0.7
+
+
+#~~~~~~~
+
+
+# cqq31=-0.6 rwgt_15.9
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 -0.6
+
+
+# cqq31=0.6 rwgt_15.10
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0.6
+
+
+#~~~~~~~
+
+
+# cqq31=-0.5 rwgt_15.11
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 -0.5
+
+
+# cqq31=0.5 rwgt_15.12
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0.5
+
+
+#~~~~~~~
+
+
+# cqq31=-0.4 rwgt_15.13
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 -0.4
+
+
+# cqq31=0.4 rwgt_15.14
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0.4
+
+
+#~~~~~~~
+
+
+# cqq31=-0.3 rwgt_15.15
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 -0.3
+
+
+# cqq31=0.3 rwgt_15.16
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0.3
+
+
+#~~~~~~~
+
+
+# cqq31=-0.2 rwgt_15.17
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 -0.2
+
+
+# cqq31=0.2 rwgt_15.18
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0.2
+
+
+#~~~~~~~
+
+
+# cqq31=-0.1 rwgt_15.19
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 -0.1
+
+
+# cqq31=0.1 rwgt_15.20
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 5 0
+   set SMEFT 4 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+   set SMEFT 34 0.1
+
+#~~~~~~~
+   
+# cW=1, cHW=1 rwgt_32
+launch
+   set SMEFT 2 1
+   set SMEFT 7 1
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+
+#~~~~~~~
+
+# cW=1, cHWB=1 rwgt_33
+launch
+   set SMEFT 2 1
+   set SMEFT 7 0
+   set SMEFT 9 1
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cW=1, cHbox=1 rwgt_34
+launch
+   set SMEFT 2 1
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 1
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cW=1, cHDD=1 rwgt_35
+launch
+   set SMEFT 2 1
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 1
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cW=1, cHl1=1 rwgt_36
+launch
+   set SMEFT 2 1
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 1
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cW=1, cHl3=1 rwgt_37
+launch
+   set SMEFT 2 1
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 1
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cW=1, cHq1=1 rwgt_38
+launch
+   set SMEFT 2 1
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 1
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cW=1, cHq3=1 rwgt_39
+launch
+   set SMEFT 2 1
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 1
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cW=1, cll=1 rwgt_40
+launch
+   set SMEFT 2 1
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 1
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cW=1, cll1=1 rwgt_41
+launch
+   set SMEFT 2 1
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 1
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cW=1, cqq1=1 rwgt_42
+launch
+   set SMEFT 2 1
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 1
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cW=1, cqq31=1 rwgt_43
+launch
+   set SMEFT 2 1
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 1
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cW=1, cqq11=1 rwgt_44
+launch
+   set SMEFT 2 1
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 1
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cW=1, cqq3=1 rwgt_45
+launch
+   set SMEFT 2 1
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 1
+
+#~~~~~~~
+
+# cHW=1, cHWB=1 rwgt_46
+launch
+   set SMEFT 2 0
+   set SMEFT 7 1
+   set SMEFT 9 1
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHW=1, cHbox=1 rwgt_47
+launch
+   set SMEFT 2 0
+   set SMEFT 7 1
+   set SMEFT 9 0
+   set SMEFT 4 1
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHW=1, cHDD=1 rwgt_48
+launch
+   set SMEFT 2 0
+   set SMEFT 7 1
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 1
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHW=1, cHl1=1 rwgt_49
+launch
+   set SMEFT 2 0
+   set SMEFT 7 1
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 1
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHW=1, cHl3=1 rwgt_50
+launch
+   set SMEFT 2 0
+   set SMEFT 7 1
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 1
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHW=1, cHq1=1 rwgt_51
+launch
+   set SMEFT 2 0
+   set SMEFT 7 1
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 1
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHW=1, cHq3=1 rwgt_52
+launch
+   set SMEFT 2 0
+   set SMEFT 7 1
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 1
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHW=1, cll=1 rwgt_53
+launch
+   set SMEFT 2 0
+   set SMEFT 7 1
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 1
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHW=1, cll1=1 rwgt_54
+launch
+   set SMEFT 2 0
+   set SMEFT 7 1
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 1
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHW=1, cqq1=1 rwgt_55
+launch
+   set SMEFT 2 0
+   set SMEFT 7 1
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 1
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHW=1, cqq31=1 rwgt_56
+launch
+   set SMEFT 2 0
+   set SMEFT 7 1
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 1
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHW=1, cqq11=1 rwgt_57
+launch
+   set SMEFT 2 0
+   set SMEFT 7 1
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 1
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHW=1, cqq3=1 rwgt_58
+launch
+   set SMEFT 2 0
+   set SMEFT 7 1
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 1
+
+#~~~~~~~
+
+# cHWB=1, cHbox=1 rwgt_59
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 1
+   set SMEFT 4 1
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHWB=1, cHDD=1 rwgt_60
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 1
+   set SMEFT 4 0
+   set SMEFT 5 1
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHWB=1, cHl1=1 rwgt_61
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 1
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 1
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHWB=1, cHl3=1 rwgt_62
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 1
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 1
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHWB=1, cHq1=1 rwgt_63
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 1
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 1
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHWB=1, cHq3=1 rwgt_64
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 1
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 1
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHWB=1, cll=1 rwgt_65
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 1
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 1
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHWB=1, cll1=1 rwgt_66
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 1
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 1
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHWB=1, cqq1=1 rwgt_67
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 1
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 1
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHWB=1, cqq31=1 rwgt_68
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 1
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 1
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHWB=1, cqq11=1 rwgt_69
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 1
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 1
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHWB=1, cqq3=1 rwgt_70
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 1
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 1
+
+#~~~~~~~
+
+# cHbox=1, cHDD=1 rwgt_71
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 1
+   set SMEFT 5 1
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHbox=1, cHl1=1 rwgt_72
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 1
+   set SMEFT 5 0
+   set SMEFT 21 1
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHbox=1, cHl3=1 rwgt_73
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 1
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 1
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHbox=1, cHq1=1 rwgt_74
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 1
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 1
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHbox=1, cHq3=1 rwgt_75
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 1
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 1
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHbox=1, cll=1 rwgt_76
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 1
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 1
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHbox=1, cll1=1 rwgt_77
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 1
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 1
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHbox=1, cqq1=1 rwgt_78
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 1
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 1
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHbox=1, cqq31=1 rwgt_79
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 1
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 1
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHbox=1, cqq11=1 rwgt_80
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 1
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 1
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHbox=1, cqq3=1 rwgt_81
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 1
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 1
+
+#~~~~~~~
+
+# cHDD=1, cHl1=1 rwgt_82
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 1
+   set SMEFT 21 1
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHDD=1, cHl3=1 rwgt_83
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 1
+   set SMEFT 21 0
+   set SMEFT 22 1
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHDD=1, cHq1=1 rwgt_84
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 1
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 1
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHDD=1, cHq3=1 rwgt_85
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 1
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 1
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHDD=1, cll=1 rwgt_86
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 1
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 1
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHDD=1, cll1=1 rwgt_87
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 1
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 1
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHDD=1, cqq1=1 rwgt_88
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 1
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 1
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHDD=1, cqq31=1 rwgt_89
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 1
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 1
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHDD=1, cqq11=1 rwgt_90
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 1
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 1
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHDD=1, cqq3=1 rwgt_91
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 1
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 1
+
+#~~~~~~~
+
+# cHl1=1, cHl3=1 rwgt_92
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 1
+   set SMEFT 22 1
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHl1=1, cHq1=1 rwgt_93
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 1
+   set SMEFT 22 0
+   set SMEFT 24 1
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHl1=1, cHq3=1 rwgt_94
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 1
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 1
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHl1=1, cll=1 rwgt_95
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 1
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 1
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHl1=1, cll1=1 rwgt_96
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 1
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 1
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHl1=1, cqq1=1 rwgt_97
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 1
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 1
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHl1=1, cqq31=1 rwgt_98
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 1
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 1
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHl1=1, cqq11=1 rwgt_99
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 1
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 1
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHl1=1, cqq3=1 rwgt_100
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 1
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 1
+
+#~~~~~~~
+
+# cHl3=1, cHq1=1 rwgt_101
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 1
+   set SMEFT 24 1
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHl3=1, cHq3=1 rwgt_102
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 1
+   set SMEFT 24 0
+   set SMEFT 25 1
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHl3=1, cll=1 rwgt_103
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 1
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 1
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHl3=1, cll1=1 rwgt_104
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 1
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 1
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHl3=1, cqq1=1 rwgt_105
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 1
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 1
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHl3=1, cqq31=1 rwgt_106
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 1
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 1
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHl3=1, cqq11=1 rwgt_107
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 1
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 1
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHl3=1, cqq3=1 rwgt_108
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 1
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 1
+
+#~~~~~~~
+
+# cHq1=1, cHq3=1 rwgt_109
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 1
+   set SMEFT 25 1
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHq1=1, cll=1 rwgt_110
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 1
+   set SMEFT 25 0
+   set SMEFT 29 1
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHq1=1, cll1=1 rwgt_111
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 1
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 1
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHq1=1, cqq1=1 rwgt_112
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 1
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 1
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHq1=1, cqq31=1 rwgt_113
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 1
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 1
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHq1=1, cqq11=1 rwgt_114
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 1
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 1
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHq1=1, cqq3=1 rwgt_115
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 1
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 1
+
+#~~~~~~~
+
+# cHq3=1, cll=1 rwgt_116
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 1
+   set SMEFT 29 1
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHq3=1, cll1=1 rwgt_117
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 1
+   set SMEFT 29 0
+   set SMEFT 30 1
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHq3=1, cqq1=1 rwgt_118
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 1
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 1
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHq3=1, cqq31=1 rwgt_119
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 1
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 1
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHq3=1, cqq11=1 rwgt_120
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 1
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 1
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cHq3=1, cqq3=1 rwgt_121
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 1
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 1
+
+#~~~~~~~
+
+# cll=1, cll1=1 rwgt_122
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 1
+   set SMEFT 30 1
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cll=1, cqq1=1 rwgt_123
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 1
+   set SMEFT 30 0
+   set SMEFT 31 1
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cll=1, cqq31=1 rwgt_124
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 1
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 1
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cll=1, cqq11=1 rwgt_125
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 1
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 1
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cll=1, cqq3=1 rwgt_126
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 1
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 1
+
+#~~~~~~~
+
+# cll1=1, cqq1=1 rwgt_127
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 1
+   set SMEFT 31 1
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cll1=1, cqq31=1 rwgt_128
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 1
+   set SMEFT 31 0
+   set SMEFT 34 1
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cll1=1, cqq11=1 rwgt_129
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 1
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 1
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cll1=1, cqq3=1 rwgt_130
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 1
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 1
+
+#~~~~~~~
+
+# cqq1=1, cqq31=1 rwgt_131
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 1
+   set SMEFT 34 1
+   set SMEFT 32 0
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cqq1=1, cqq11=1 rwgt_132
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 1
+   set SMEFT 34 0
+   set SMEFT 32 1
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cqq1=1, cqq3=1 rwgt_133
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 1
+   set SMEFT 34 0
+   set SMEFT 32 0
+   set SMEFT 33 1
+
+#~~~~~~~
+
+# cqq31=1, cqq11=1 rwgt_134
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 1
+   set SMEFT 32 1
+   set SMEFT 33 0
+
+#~~~~~~~
+
+# cqq31=1, cqq3=1 rwgt_135
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 1
+   set SMEFT 32 0
+   set SMEFT 33 1
+
+#~~~~~~~
+
+# cqq11=1, cqq3=1 rwgt_136
+launch
+   set SMEFT 2 0
+   set SMEFT 7 0
+   set SMEFT 9 0
+   set SMEFT 4 0
+   set SMEFT 5 0
+   set SMEFT 21 0
+   set SMEFT 22 0
+   set SMEFT 24 0
+   set SMEFT 25 0
+   set SMEFT 29 0
+   set SMEFT 30 0
+   set SMEFT 31 0
+   set SMEFT 34 0
+   set SMEFT 32 1
+   set SMEFT 33 1

@@ -1,0 +1,7 @@
+import model WEff_UFO
+define p = p b b~
+define j = j b b~
+generate p p > t b~ NP<=99
+add process p p > t~ b NP<=99
+
+output Wprimetotb_M4000W40_LH -nojpeg

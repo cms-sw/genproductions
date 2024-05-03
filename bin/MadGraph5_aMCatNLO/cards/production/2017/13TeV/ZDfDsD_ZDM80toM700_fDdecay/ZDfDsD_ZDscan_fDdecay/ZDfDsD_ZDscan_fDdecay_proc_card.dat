@@ -1,0 +1,4 @@
+import model DM_KinMix_Med_Spin1_Fermionic_Scalar_Prds
+define p = g u c d s u~ c~ d~ s~
+generate p p > ZD, (ZD > FD11 FD11, (FD11 > FD21 mu+ mu-))
+output MASS -nojpeg #name of the directory 

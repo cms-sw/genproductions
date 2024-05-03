@@ -1,0 +1,9 @@
+set group_subprocesses Auto 
+set ignore_six_quark_processes False 
+set loop_optimized_output True 
+set complex_mass_scheme False 
+import model loop_sm_c3d4
+generate p p > h h h [QCD]
+
+output GF_HHH_c3_0_d4_0 -nojpeg 
+

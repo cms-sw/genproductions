@@ -1,0 +1,8 @@
+# Model
+import model TopFCNC_UFO-kappa_zut_ProdConventions_no_c_mass --modelname
+
+generate    p p > t  z, z > l+ l-, (t  > w+ b,  w+ > l+ vl ) NP=1 @10
+add process p p > t~ z, z > l+ l-, (t~ > w- b~, w- > l- vl~) NP=1 @20
+
+# Output folder
+output TLL_Tleptonic_kappa_zut_LO -f -nojpeg

@@ -1,0 +1,21 @@
+diff --git a/madgraph/interface/reweight_interface.py b/madgraph/interface/reweight_interface_patched_0015.py
+index 7b99e6c7b..dbe5dbf03 100755
+--- a/madgraph/interface/reweight_interface.py
++++ b/madgraph/interface/reweight_interface.py
+@@ -2022,13 +2022,13 @@ class ReweightInterface(extended_cmd.Cmd):
+         if False:#self.has_nlo and 'NLO' in self.rwgt_mode:
+             #use python version
+             path = pjoin(obj['rwgt_dir'], 'rw_mevirt','Source')
+-            sys.path.insert(0, path)
+             try:
+-                mymod = __import__('rwgt2py', globals(), locals())
++                mymod = __import__('rw_mevirt.Source.rwgt2py')
+             except ImportError:
+                 misc.compile(['rwgt2py.so'], cwd=path)
+-                mymod = __import__('rwgt2py', globals(), locals())
++                mymod = __import__('rw_mevirt.Source.rwgt2py')
+             with misc.stdchannel_redirected(sys.stdout, os.devnull):
++                mymod = mymod.Source.rwgt2py
+                 mymod.initialise([self.banner.run_card['lpp1'], 
+                               self.banner.run_card['lpp2']],
+                              self.banner.run_card.get_lhapdf_id())

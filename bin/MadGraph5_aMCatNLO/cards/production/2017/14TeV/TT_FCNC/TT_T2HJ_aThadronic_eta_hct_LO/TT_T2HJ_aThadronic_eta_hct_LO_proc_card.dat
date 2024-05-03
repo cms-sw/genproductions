@@ -1,0 +1,10 @@
+# Model
+import model TopFCNC_UFO-all_ProdConventions_no_b_mass --modelname
+
+# Processes
+generate    p p > t t~       NP=0 @10
+add process p p > t t~ j     NP=0 @11
+add process p p > t t~ j j   NP=0 @12
+
+# Output folder
+output TT_T2HJ_aThadronic_eta_hct_LO -f -nojpeg

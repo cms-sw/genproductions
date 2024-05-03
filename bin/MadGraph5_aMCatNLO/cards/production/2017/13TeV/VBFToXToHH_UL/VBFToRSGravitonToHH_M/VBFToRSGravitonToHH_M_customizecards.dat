@@ -1,0 +1,4 @@
+set param_card mass 39 <MASS>
+set param_card decay 39 1.000000e-03
+set param_card sminputs 100 1.000000e-03
+set param_card sminputs 101 1.000000e-03

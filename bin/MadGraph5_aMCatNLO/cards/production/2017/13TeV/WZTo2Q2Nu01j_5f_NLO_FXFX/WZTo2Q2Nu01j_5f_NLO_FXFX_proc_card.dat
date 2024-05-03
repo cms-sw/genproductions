@@ -1,0 +1,9 @@
+import model loop_sm-ckm_no_b_mass
+
+define V = w+ w-
+
+generate p p > V vl vl~ [QCD] @0
+add process p p > V vl vl~ j [QCD] @1
+
+output WZTo2Q2Nu01j_5f_NLO_FXFX -nojpeg
+

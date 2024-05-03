@@ -1,0 +1,10 @@
+# These inputs are based on fixing the PDG vlaues of mZ, mW, and G_fermi
+# The MC programs use a constant width scheme, whereas PDG values are sqrt(s)
+# dependent. We correct for this following Sect. 3.1 in https://arxiv.org/pdf/1606.02330.pdf
+set param_card mass 23 91.153509740726733
+set param_card DECAY 23 2.4932018986110700
+# The value of mW is significantly differnt from the PDG in this input scheme
+set param_card mass 24 80.351812293789408
+set param_card DECAY 24 2.0904310808144846
+set param_card SMINPUTS 1 132.30648214177197
+set param_card SMINPUTS 2 1.1663787e-05

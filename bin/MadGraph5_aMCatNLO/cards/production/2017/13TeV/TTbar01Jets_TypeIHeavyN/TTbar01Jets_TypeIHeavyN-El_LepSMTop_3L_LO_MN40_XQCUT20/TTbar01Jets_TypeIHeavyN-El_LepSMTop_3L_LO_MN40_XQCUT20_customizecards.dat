@@ -1,0 +1,18 @@
+set param_card mn1 40
+set param_card vmun1 0.0
+set param_card ven1 0.01
+set param_card wn1 AUTO
+set param_card mn2 999999
+set param_card mn3 999999
+set param_card ven2 0.0
+set param_card ven3 0.0
+set param_card vmun2 0.0
+set param_card vmun3 0.0
+set param_card vtan1 0.0
+set param_card vtan2 0.0
+set param_card vtan3 0.0
+set param_card wn2 100
+set param_card wn3 100
+set param_card mass 6 172.5
+set param_card yukawa 6 172.5
+set param_card wt AUTO

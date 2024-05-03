@@ -1,0 +1,6 @@
+import model SM_HeavyN_Gen3Mass_NLO
+define em = e+ e- mu+ mu-
+define ll = e+ e- mu+ mu- ta+ ta-
+define vv = ve ve~ vm vm~ vt vt~
+###PROCESSHERE
+###OUTPUTHERE

@@ -1,0 +1,6 @@
+set param_card mass 25 h1MASS.0
+set param_card mass 35 h2MASS.0
+set param_card mass 36 125.09
+set param_card decay 25 Auto                                                                                                                                             
+set param_card decay 35 Auto
+set param_card decay 36 Auto

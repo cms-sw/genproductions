@@ -1,0 +1,21 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set loop_optimized_output True
+set loop_color_flows False
+set gauge unitary
+set complex_mass_scheme False
+set max_npoint_for_channel 0
+import model sm
+define p = g u c d s u~ c~ d~ s~
+define j = g u c d s u~ c~ d~ s~
+define l+ = e+ mu+
+define l- = e- mu-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+import model zprime_UFO
+define p = p b b~
+define j = j b b~
+generate p p > zp, zp > mu+ mu- @0
+add process p p > zp j, zp > mu+ mu- @1
+add process p p > zp j j, zp > mu+ mu- @2
+output ZprimeToMuMu -nojpeg

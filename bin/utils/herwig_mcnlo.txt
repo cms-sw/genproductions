@@ -1,0 +1,5 @@
+'hw_PSWeights_settings'
+'hw_lhe_common_settings'
+from Configuration.Generator.Herwig7Settings.Herwig7LHEMG5aMCatNLOSettings_cfi import *
+herwig7LHEMG5aMCatNLOSettingsBlock
+'hw_lhe_MG5aMCatNLO_settings'

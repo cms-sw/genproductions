@@ -1,0 +1,7 @@
+import model loop_sm
+define w = w+ w-
+define lep+ = e+ mu+ ta+
+define lep- = e- mu- ta-
+generate p p > w lep+ lep- lep+ lep- $$ t t~ h [QCD]
+output WZZTo4L_new_4f_NLO -nojpeg
+

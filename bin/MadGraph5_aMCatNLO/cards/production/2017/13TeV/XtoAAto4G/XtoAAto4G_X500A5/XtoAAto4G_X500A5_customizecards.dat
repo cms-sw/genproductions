@@ -1,0 +1,18 @@
+set param_card mass 54 5.000000e+02
+set param_card decay 54 7.956155e-03
+set param_card mass 90000054 5.000000e+00
+set param_card decay 90000054 4.325050e-01
+set param_card mass 6 1.000000e+04
+set param_card decay 6 3.281569e+05
+set param_card dminputs 1.000000e+00 
+set param_card dminputs 2 0.000000e+00
+set param_card dminputs 3 1.000000e+00
+set param_card dminputs 4 0.000000e+00
+set param_card dminputs 5 1.000000e+00
+set param_card dminputs 6 1.000000e+00
+set param_card dminputs 7 0.000000e+00
+set param_card dminputs 8 0.000000e+00
+set param_card dminputs 9 1.000000e+01
+set param_card dminputs 10 1.000000e+04
+set param_card dminputs 11 1.000000e+00
+set param_card dminputs 12 0.000000e+00

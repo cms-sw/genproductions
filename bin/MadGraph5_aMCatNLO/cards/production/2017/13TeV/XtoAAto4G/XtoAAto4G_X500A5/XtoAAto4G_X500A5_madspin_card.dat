@@ -1,0 +1,9 @@
+set ms_dir ./madspingrid
+set max_weight_ps_point 400
+
+# specify the decay for the final state particles
+set spinmode none
+set max_running_process 1
+decay y0 > x0 x0, x0 > a a
+launch
+

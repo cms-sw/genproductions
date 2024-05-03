@@ -1,0 +1,11 @@
+import model Massive_Higgs_UFO
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+generate p p > SUBCP > t t~ , (t > w+ b, w+ > l+ vl), (t~ > w- b~, w- > j j) NP^2==2
+add process p p > SUBCP > t t~ , (t > w+ b, w+ > j j), (t~ > w- b~, w- > l- vl~) NP^2==2  
+add process p p > SUBCP > t t~ , (t > w+ b, w+ > j j), (t~ > w- b~, w- > j j) NP^2==2  
+add process p p > SUBCP > t t~ , (t > w+ b, w+ > l+ vl), (t~ > w- b~, w- > l- vl~) NP^2==2  
+
+output SUBSETUP -nojpeg

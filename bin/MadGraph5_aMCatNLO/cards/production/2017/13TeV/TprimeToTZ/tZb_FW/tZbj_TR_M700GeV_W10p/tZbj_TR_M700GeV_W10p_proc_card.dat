@@ -1,0 +1,9 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set loop_optimized_output True
+set complex_mass_scheme False
+import model VLQ_NLO_v3_4FNS_UFO-wz3
+define bb = b b~
+generate p p > t Z bb j / x y bp QED=1 QCD=1 VLQ=2 
+add process p p > t~ Z bb j / x y bp QED=1 QCD=1 VLQ=2
+output  tZbj_TR_M700GeV_W10p -nojpeg

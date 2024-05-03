@@ -1,0 +1,9 @@
+import model sm-no_b_mass
+
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
+
+generate p p > w+ w+ w- j j QCD=0,  w+ > l+ vl @ 0
+add process p p > w- w- w+ j j QCD=0, w- > l- vl~ @ 1
+
+output WWWjj_WpWpTo2L2Nu_5f_LO -nojpeg

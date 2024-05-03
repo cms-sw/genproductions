@@ -1,0 +1,19 @@
+new                           ! Horace mode
+alpha                         ! order of radiative corrections
+2212                          ! initial state hadrons
+2212
+306000                        ! PDF set in LHAPDF
+13000.                         ! CoM energy (GeV)
+Z                             ! boson Drell-Yan production (Z/W+/W-/W+andW-)
+0                             ! EW input scheme
+2                             ! PDF scale choice
+muon                          ! final state lepton(s) (electron/muon/tau)
+run/
+100                   ! number of events
+unweighted                      ! if the events are weighted or unweighted
+200.d0                          ! upper limit for unweightening
+yes                            ! if events have to be stored
+calculate                          ! read or calculate subtraction terms
+sub.dat                     ! file of subtraction terms
+no                            ! if photon-induced processes are included
+43141592                      ! seed for r.n.g.

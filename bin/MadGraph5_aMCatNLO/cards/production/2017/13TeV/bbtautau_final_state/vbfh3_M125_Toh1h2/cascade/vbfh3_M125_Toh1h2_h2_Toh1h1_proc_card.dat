@@ -1,0 +1,12 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set loop_optimized_output True
+set gauge unitary
+set complex_mass_scheme False
+
+import model TRSM --modelname
+
+generate p p  > h3 j j $$ z W- W+ h3 / a HIG=0 , (h3 > h1 h2, h2 > h1 h1)
+
+output vbfh3_M125_Toh1h2_h1MASS_h2MASS_h2_Toh1h1 -nojpeg
+

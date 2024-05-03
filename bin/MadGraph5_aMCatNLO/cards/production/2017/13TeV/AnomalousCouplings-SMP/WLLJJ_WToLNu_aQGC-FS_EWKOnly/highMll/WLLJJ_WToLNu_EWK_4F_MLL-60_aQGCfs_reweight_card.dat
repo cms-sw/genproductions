@@ -1,0 +1,149 @@
+#******************************************************************
+#                       Reweight Module                           *
+#******************************************************************
+change helicity False
+change rwgt_dir rwgt
+launch --rwgt_name=standard_model
+set anoinputs 1 0.000000e-12 #fs0
+set anoinputs 2 0.000000e-12 #fs1
+launch --rwgt_name=fs0_m32__fs1_0
+set anoinputs 1 -32.000000e-12
+set anoinputs 2 0.000000e-12
+launch --rwgt_name=fs0_m16__fs1_0
+set anoinputs 1 -16.000000e-12
+set anoinputs 2 0.000000e-12
+launch --rwgt_name=fs0_m8__fs1_0
+set anoinputs 1 -8.000000e-12
+set anoinputs 2 0.000000e-12
+launch --rwgt_name=fs0_8__fs1_0
+set anoinputs 1 8.000000e-12
+set anoinputs 2 0.000000e-12
+launch --rwgt_name=fs0_32__fs1_0
+set anoinputs 1 32.000000e-12
+set anoinputs 2 0.000000e-12
+launch --rwgt_name=fs0_0__fs1_m32
+set anoinputs 1 0.000000e-12
+set anoinputs 2 -32.000000e-12
+launch --rwgt_name=fs0_0__fs1_m16
+set anoinputs 1 0.000000e-12
+set anoinputs 2 -16.000000e-12
+launch --rwgt_name=fs0_0__fs1_m8
+set anoinputs 1 0.000000e-12
+set anoinputs 2 -8.000000e-12
+launch --rwgt_name=fs0_0__fs1_8
+set anoinputs 1 0.000000e-12
+set anoinputs 2 8.000000e-12
+launch --rwgt_name=fs0_0__fs1_16
+set anoinputs 1 0.000000e-12
+set anoinputs 2 16.000000e-12
+launch --rwgt_name=fs0_0__fs1_32
+set anoinputs 1 0.000000e-12
+set anoinputs 2 32.000000e-12
+launch --rwgt_name=fs0_m32__fs1_m32
+set anoinputs 1 -32.000000e-12
+set anoinputs 2 -32.000000e-12
+launch --rwgt_name=fs0_m32__fs1_m16
+set anoinputs 1 -32.000000e-12
+set anoinputs 2 -16.000000e-12
+launch --rwgt_name=fs0_m32__fs1_m8
+set anoinputs 1 -32.000000e-12
+set anoinputs 2 -8.000000e-12
+launch --rwgt_name=fs0_m32__fs1_8
+set anoinputs 1 -32.000000e-12
+set anoinputs 2 8.000000e-12
+launch --rwgt_name=fs0_m32__fs1_16
+set anoinputs 1 -32.000000e-12
+set anoinputs 2 16.000000e-12
+launch --rwgt_name=fs0_m32__fs1_32
+set anoinputs 1 -32.000000e-12
+set anoinputs 2 32.000000e-12
+launch --rwgt_name=fs0_m16__fs1_m32
+set anoinputs 1 -16.000000e-12
+set anoinputs 2 -32.000000e-12
+launch --rwgt_name=fs0_m16__fs1_m16
+set anoinputs 1 -16.000000e-12
+set anoinputs 2 -16.000000e-12
+launch --rwgt_name=fs0_m16__fs1_m8
+set anoinputs 1 -16.000000e-12
+set anoinputs 2 -8.000000e-12
+launch --rwgt_name=fs0_m16__fs1_8
+set anoinputs 1 -16.000000e-12
+set anoinputs 2 8.000000e-12
+launch --rwgt_name=fs0_m16__fs1_16
+set anoinputs 1 -16.000000e-12
+set anoinputs 2 16.000000e-12
+launch --rwgt_name=fs0_m16__fs1_32
+set anoinputs 1 -16.000000e-12
+set anoinputs 2 32.000000e-12
+launch --rwgt_name=fs0_m8__fs1_m32
+set anoinputs 1 -8.000000e-12
+set anoinputs 2 -32.000000e-12
+launch --rwgt_name=fs0_m8__fs1_m16
+set anoinputs 1 -8.000000e-12
+set anoinputs 2 -16.000000e-12
+launch --rwgt_name=fs0_m8__fs1_m8
+set anoinputs 1 -8.000000e-12
+set anoinputs 2 -8.000000e-12
+launch --rwgt_name=fs0_m8__fs1_8
+set anoinputs 1 -8.000000e-12
+set anoinputs 2 8.000000e-12
+launch --rwgt_name=fs0_m8__fs1_16
+set anoinputs 1 -8.000000e-12
+set anoinputs 2 16.000000e-12
+launch --rwgt_name=fs0_m8__fs1_32
+set anoinputs 1 -8.000000e-12
+set anoinputs 2 32.000000e-12
+launch --rwgt_name=fs0_8__fs1_m32
+set anoinputs 1 8.000000e-12
+set anoinputs 2 -32.000000e-12
+launch --rwgt_name=fs0_8__fs1_m16
+set anoinputs 1 8.000000e-12
+set anoinputs 2 -16.000000e-12
+launch --rwgt_name=fs0_8__fs1_m8
+set anoinputs 1 8.000000e-12
+set anoinputs 2 -8.000000e-12
+launch --rwgt_name=fs0_8__fs1_8
+set anoinputs 1 8.000000e-12
+set anoinputs 2 8.000000e-12
+launch --rwgt_name=fs0_8__fs1_16
+set anoinputs 1 8.000000e-12
+set anoinputs 2 16.000000e-12
+launch --rwgt_name=fs0_8__fs1_32
+set anoinputs 1 8.000000e-12
+set anoinputs 2 32.000000e-12
+launch --rwgt_name=fs0_16__fs1_m32
+set anoinputs 1 16.000000e-12
+set anoinputs 2 -32.000000e-12
+launch --rwgt_name=fs0_16__fs1_m16
+set anoinputs 1 16.000000e-12
+set anoinputs 2 -16.000000e-12
+launch --rwgt_name=fs0_16__fs1_m8
+set anoinputs 1 16.000000e-12
+set anoinputs 2 -8.000000e-12
+launch --rwgt_name=fs0_16__fs1_8
+set anoinputs 1 16.000000e-12
+set anoinputs 2 8.000000e-12
+launch --rwgt_name=fs0_16__fs1_16
+set anoinputs 1 16.000000e-12
+set anoinputs 2 16.000000e-12
+launch --rwgt_name=fs0_16__fs1_32
+set anoinputs 1 16.000000e-12
+set anoinputs 2 32.000000e-12
+launch --rwgt_name=fs0_32__fs1_m32
+set anoinputs 1 32.000000e-12
+set anoinputs 2 -32.000000e-12
+launch --rwgt_name=fs0_32__fs1_m16
+set anoinputs 1 32.000000e-12
+set anoinputs 2 -16.000000e-12
+launch --rwgt_name=fs0_32__fs1_m8
+set anoinputs 1 32.000000e-12
+set anoinputs 2 -8.000000e-12
+launch --rwgt_name=fs0_32__fs1_8
+set anoinputs 1 32.000000e-12
+set anoinputs 2 8.000000e-12
+launch --rwgt_name=fs0_32__fs1_16
+set anoinputs 1 32.000000e-12
+set anoinputs 2 16.000000e-12
+launch --rwgt_name=fs0_32__fs1_32
+set anoinputs 1 32.000000e-12
+set anoinputs 2 32.000000e-12

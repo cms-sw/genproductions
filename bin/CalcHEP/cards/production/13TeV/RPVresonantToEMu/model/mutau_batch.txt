@@ -1,0 +1,39 @@
+Model: RPV_res_tau_sneutrino
+Model changed:True
+Gauge:Feynman
+Process:   quD,aquD->muon,tau
+Process:   aquD,quD->muon,tau
+
+Composite: tau=l,L
+Composite: muon=m,M
+Composite: quD=d,s,b
+Composite: aquD=D,S,B
+
+Parameter: s12=0
+Parameter: s23=0
+Parameter: s13=0
+
+Parameter: Ll133=0.0
+Parameter: Ll233=0.5
+Parameter: Lq311=0.5
+Parameter: Lq322=0.0
+
+#Parameter: MSnl=1000
+
+Run parameter: MSnl
+Run begin: 4000
+Run step size: 500
+Run n steps: 6
+
+pdf1:cteq6l (proton)
+pdf2:cteq6l (proton)
+p1:6500
+p2:6500
+Number of events (per run step):15000
+Max Lumi: 1e+15
+Filename: mutau_resonance_LLE05_LQD05
+Max number of cpus:12
+nSess_1:5
+nCalls_1:10000
+nSess_2:5
+nCalls_2:10000 

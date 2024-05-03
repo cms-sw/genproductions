@@ -1,0 +1,1 @@
+DecayMode1=3 DecayMode2=8 WidthSchemeIn=3 ReweightDecay ReadPmHstar PmHstarFile=PMZZdistribution.out LHAPDF=NNPDF30_nlo_nf_5_pdfas/NNPDF30_nlo_nf_5_pdfas

@@ -1,0 +1,22 @@
+import model Massive_Higgs_UFO
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set loop_color_flows False
+set gauge unitary
+set complex_mass_scheme False
+set max_npoint_for_channel 0
+define p = g u c d s u~ c~ d~ s~
+define j = g u c d s u~ c~ d~ s~
+define l+ = e+ mu+
+define l- = e- mu-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+#signal term for scalar
+#generate p p > h0 > t t~ , (t > w+ b, w+ > l+ vl), (t~ > w- b~, w- > j j) NP^2==2
+#add process p p > h0 > t t~ , (t > w+ b, w+ > j j), (t~ > w- b~, w- > l- vl~) NP^2==2  
+#interference term for scalar
+generate p p > t t~ / a0 HIG<=2 , (t > b w+ , w+ > l+ vl ) , (t~ > b~ w- , w- > l- vl~ )
+add process p p > t t~ / a0 HIG<=2 , (t > w+ b, w+ > j j), (t~ > w- b~, w- > l- vl~)  
+add process p p > t t~ / a0 HIG<=2 , (t > w+ b, w+ > l+ vl), (t~ > w- b~, w- > j j)  
+add process p p > t t~ / a0 HIG<=2 , (t > w+ b, w+ > j j), (t~ > w- b~, w- > j j)  
+output Spin0ToTT_LO_scalar_interference_M<MASS>_W<WIDTH> -nojpeg

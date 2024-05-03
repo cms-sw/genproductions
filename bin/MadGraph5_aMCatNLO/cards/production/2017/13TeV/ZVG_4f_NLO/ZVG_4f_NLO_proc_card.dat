@@ -1,0 +1,6 @@
+import model loop_sm
+define lep+ = e+ mu+ ta+
+define lep- = e- mu- ta-
+define v = z w+ w-
+generate p p > v lep+ lep- a $$ h [QCD]
+output ZVG_4f_NLO -nojpeg

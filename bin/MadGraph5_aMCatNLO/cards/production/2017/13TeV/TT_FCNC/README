@@ -1,0 +1,4 @@
+To obtain directories final directories with final datacards for all samples in 2017, run:
+./script-make-final-ttfcnc-cards-2017.sh
+(can produce cards for both 13 and 14 TeV)
+Explore this script and modify if needed.

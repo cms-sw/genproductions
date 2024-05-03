@@ -1,0 +1,8 @@
+set param_card MASS 6 172.5
+set param_card DECAY 6 auto
+set param_card YUKAWA 6 172.5
+set param_card MASS  9936661 1000
+set param_card DECAY 9936661 auto
+set param_card yuu 0.2
+set param_card yut 0.3 
+set param_card ytt 0.1 

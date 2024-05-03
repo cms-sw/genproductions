@@ -1,0 +1,13 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set loop_optimized_output True
+set complex_mass_scheme False
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+import model HC_NLO_X0_UFO-no_b_mass
+define wdec = u c d s u~ c~ d~ s~ l+ l- vl vl~
+generate p p > x0 t w-, (t > w+ b, w+ > wdec wdec), w- > wdec wdec @1
+add process p p > x0 t~ w+, (t~ > w- b~, w- > wdec wdec), w+ > wdec wdec @2
+output thw_5f_ckm_LO_ctcvcp -nojpeg

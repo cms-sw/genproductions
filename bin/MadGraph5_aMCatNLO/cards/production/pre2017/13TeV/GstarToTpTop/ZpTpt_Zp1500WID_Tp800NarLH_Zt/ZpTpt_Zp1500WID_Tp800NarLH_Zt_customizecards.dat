@@ -1,0 +1,11 @@
+set param_card frblock 4 800.0
+set param_card mass 9000010 1500.0
+set param_card mass 9000001 800.0
+set param_card mass 9000002 800.0
+set param_card mass 9000003 800.0
+set param_card mass 9000004 800.0
+set param_card DECAY 9000001 8.0
+set param_card DECAY 9000002 8.0
+set param_card DECAY 9000003 8.0
+set param_card DECAY 9000004 8.0
+set param_card DECAY 9000010 450.0

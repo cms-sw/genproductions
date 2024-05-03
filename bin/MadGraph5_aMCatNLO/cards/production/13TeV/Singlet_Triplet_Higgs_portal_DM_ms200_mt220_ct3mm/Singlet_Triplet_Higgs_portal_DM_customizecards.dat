@@ -1,0 +1,29 @@
+set param_card frblock 1 200
+set param_card frblock 2 220
+set param_card frblock 3 7.0e-09
+set param_card mass 9000005 200
+set param_card mass 9000006 220
+set param_card mass 9000007 220.16
+set param_card decay 9000005 0.0
+set param_card decay 9000006 7.19464e-20
+set param_card decay 9000007 6.6e-14
+
+################# Other model parameters ####################
+#############################################################
+#
+# decay lifetime 9000007
+# 0.5mm 3.96e-13
+# 1mm 1.97e-13
+# 3mm 6.6e-14
+# 1cm 1.97e-14
+# 2cm 1.05e-14
+# 10cm 1.97e-15
+# 30cm 6.6e-16
+# 1m 1.97e-16
+# 3m 6.6e-17
+# 
+# Masses:
+# m(9000007) = (frblock 3)+0.16
+# dd = (frblock 2)-(frblock 1)
+# m(9000006) = ((frblock 2)+(frblock 1)+dd)/2.0
+# m(9000005) = ((frblock 2)+(frblock 1)-dd)/2.0

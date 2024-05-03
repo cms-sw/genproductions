@@ -1,0 +1,15 @@
+set param_card mass MS3 300
+set param_card decay 9000005 5.968
+set param_card decay 9000006 5.968
+set param_card decay 9000007 5.968
+set run_card fixed_ren_scale True
+set run_card fixed_fac_scale True
+set run_card scale 300
+set run_card dsqrt_q2fact1 300
+set run_card dsqrt_q2fact2 300
+set run_card pdlabel 'lhapdf'
+set run_card lhaid 315200
+
+
+
+

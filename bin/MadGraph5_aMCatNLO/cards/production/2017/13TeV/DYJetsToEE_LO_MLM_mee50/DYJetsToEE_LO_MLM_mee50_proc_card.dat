@@ -1,0 +1,12 @@
+import model sm-ckm_no_b_mass
+# Define multiparticle labels
+define l+ = e+ 
+define l- = e- 
+# Specify process(es) to run
+generate p p > l+ l- / h @0
+add process p p > l+ l- j / h @1
+add process p p > l+ l- j j / h @2
+add process p p > l+ l- j j j / h @3
+add process p p > l+ l- j j j j / h @4
+# Output processes to MadEvent directory
+output DYJetsToEE_LO_MLM_mee50 -nojpeg

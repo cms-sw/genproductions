@@ -1,0 +1,22 @@
+set param_card dminputs gSXr 0.0
+set param_card dminputs gSXc 0.0
+set param_card dminputs gSXd 0.0
+set param_card dminputs gPXd 1.0
+set param_card dminputs gSd11 0.0
+set param_card dminputs gSu11 0.0
+set param_card dminputs gSd22 0.0
+set param_card dminputs gSu22 0.0
+set param_card dminputs gSd33 0.0
+set param_card dminputs gSu33 0.0
+set param_card dminputs gPd11 1.0
+set param_card dminputs gPu11 1.0
+set param_card dminputs gPd22 1.0
+set param_card dminputs gPu22 1.0
+set param_card dminputs gPd33 1.0
+set param_card dminputs gPu33 1.0
+
+set param_card mass  55 100
+set param_card mass  18 3000
+set param_card decay 55 auto
+
+

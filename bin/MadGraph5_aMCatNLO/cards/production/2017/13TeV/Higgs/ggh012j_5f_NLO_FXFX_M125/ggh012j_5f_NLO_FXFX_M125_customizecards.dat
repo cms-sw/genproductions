@@ -1,0 +1,20 @@
+#put card customizations here (change top and higgs mass for example)
+set param_card frblock 1 1000.0
+set param_card frblock 2 1.0
+set param_card frblock 3 1.0
+set param_card frblock 8 0.0
+set param_card frblock 9 0.0
+set param_card frblock 10 0.0
+set param_card frblock 11 0.0
+set param_card frblock 12 0.0
+set param_card frblock 13 0.0 
+set param_card frblock 14 1.0
+set param_card frblock 15 0.0
+set param_card frblock 16 0.0
+set param_card frblock 17 0.0
+set param_card frblock 18 0.0
+set param_card frblock 19 0.0
+set param_card frblock 20 0.0
+set param_card frblock 21 0.0
+set param_card frblock 22 0.0
+set param_card frblock 23 0.0

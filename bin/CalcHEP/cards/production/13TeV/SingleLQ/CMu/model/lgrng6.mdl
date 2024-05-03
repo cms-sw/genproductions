@@ -1,0 +1,598 @@
+LQ_P&B_2nd_gen
+ Lagrangian 
+P1   |P2   |P3   |P4   |>   Factor                                       <|> dLagrangian/ dA(p1) dA(p2) dA(p3)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          <|
+G    |RM   |~rm  |     |i*GG*Maux                                         |m1.m3
+G    |rm   |~RM  |     |i*GG*Maux                                         |m1.m3
+G    |RP   |~rp  |     |i*GG*Maux                                         |m1.m3
+G    |rp   |~RP  |     |i*GG*Maux                                         |m1.m3
+G    |S0   |~s0  |     |i*GG*Maux                                         |m1.m3
+G    |s0   |~S0  |     |i*GG*Maux                                         |m1.m3
+G    |S1   |~s1  |     |i*GG*Maux                                         |m1.m3
+G    |s1   |~S1  |     |i*GG*Maux                                         |m1.m3
+G    |SM   |~sm  |     |i*GG*Maux                                         |m1.m3
+G    |sm   |~SM  |     |i*GG*Maux                                         |m1.m3
+G    |SP   |~sp  |     |i*GG*Maux                                         |m1.m3
+G    |sp   |~SP  |     |i*GG*Maux                                         |m1.m3
+G    |ST   |~st  |     |i*GG*Maux                                         |m1.m3
+G    |st   |~ST  |     |i*GG*Maux                                         |m1.m3
+G    |TM   |~tm  |     |i*GG*Maux                                         |m1.m3
+G    |tm   |~TM  |     |i*GG*Maux                                         |m1.m3
+G    |TP   |~tp  |     |i*GG*Maux                                         |m1.m3
+G    |tp   |~TP  |     |i*GG*Maux                                         |m1.m3
+G    |G    |G    |     |GG                                                |m2.p3*m1.m3-m1.p3*m2.m3+m3.p1*m1.m2-m2.p1*m1.m3-m3.p2*m1.m2+m1.p2*m2.m3
+G.C  |G.c  |G    |     |-GG                                               |m3.p1
+G    |G    |G.t  |     |-GG/Sqrt2                                         |m1.m3*m2.M3-m1.M3*m2.m3
+U1   |u1   |G    |     |GG/MU1^2                                          |MU1^2*(OMKG*(m2.p3*m1.m3-m1.p3*m2.m3)+(p2.m1*m2.m3-p1.m2*m1.m3+(p1-p2).m3*m1.m2))+LG*(p3.m1*(p1.m2*p2.m3-p1.p2*m2.m3)-p3.m2*(p1.m3*p2.m1-p1.p2*m1.m3)+p2.p3*(p1.m3*m1.m2-p1.m2*m1.m3)-p1.p3*(p2.m3*m1.m2-p2.m1*m2.m3))
+U1   |u1.t |G    |     |  GG/MU1^2/Sqrt2                                  |MU1^2*(m1.m2*m3.M2-m1.M2*m3.m2)+2*LG*(p3.m2*(p1.m3*m1.M2-p1.M2*m1.m3)+m3.m2*(p1.M2*p3.m1-p1.p3*m1.M2))
+u1   |U1.t |G    |     | -GG/MU1^2/Sqrt2                                  |MU1^2*(m1.m2*m3.M2-m1.M2*m3.m2)+2*LG*(p3.m2*(p1.m3*m1.M2-p1.M2*m1.m3)+m3.m2*(p1.M2*p3.m1-p1.p3*m1.M2))
+U1   |u1.T |G    |     | i*GG/MU1^2*Sqrt2                                 |LG*(p3.m2*(p1.m3*m1.M2-p1.M2*m1.m3)+m3.m2*(p1.M2*p3.m1-p1.p3*m1.M2))
+u1   |U1.T |G    |     |-i*GG/MU1^2*Sqrt2                                 |LG*(p3.m2*(p1.m3*m1.M2-p1.M2*m1.m3)+m3.m2*(p1.M2*p3.m1-p1.p3*m1.M2))
+U1   |u1   |G.t  |     |  -GG*Sqrt2/MU1^2                                 |MU1^2*OMKG*m1.m3*m2.M3 -LG*(p1.M3*m1.m2*p2.m3-p1.m2*p2.m3*m1.M3-p1.M3*m2.m3*p2.m1+p1.p2*m1.M3*m2.m3)
+U1   |u1   |G.T  |     |-i*GG*Sqrt2/MU1^2                                 |MU1^2*OMKG*m1.m3*m2.M3 -LG*(p1.M3*m1.m2*p2.m3-p1.m2*p2.m3*m1.M3-p1.M3*m2.m3*p2.m1+p1.p2*m1.M3*m2.m3)
+U1   |u1.t |G.t  |     |   2*GG*LG/MU1^2                                  |m2.m3*(p1.M3*m1.M2-p1.M2*m1.M3)
+U1   |u1.t |G.T  |     | 2*i*GG*LG/MU1^2                                  |m2.m3*(p1.M3*m1.M2-p1.M2*m1.M3)
+U1   |u1.T |G.t  |     | 2*i*GG*LG/MU1^2                                  |m2.m3*(p1.M3*m1.M2-p1.M2*m1.M3)
+U1   |u1.T |G.T  |     |  -2*GG*LG/MU1^2                                  |m2.m3*(p1.M3*m1.M2-p1.M2*m1.M3)
+u1   |U1.t |G.t  |     |   2*GG*LG/MU1^2                                  |m2.M3*(p1.m3*m1.M2-p1.M2*m1.m3)
+u1   |U1.t |G.T  |     | 2*i*GG*LG/MU1^2                                  |m2.M3*(p1.m3*m1.M2-p1.M2*m1.m3)
+u1   |U1.T |G.t  |     | 2*i*GG*LG/MU1^2                                  |m2.M3*(p1.m3*m1.M2-p1.M2*m1.m3)
+u1   |U1.T |G.T  |     |  -2*GG*LG/MU1^2                                  |m2.M3*(p1.m3*m1.M2-p1.M2*m1.m3)
+U1.T |u1.T |G.T  |     |-i*GG*LG/MU1^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+ U1.t|u1.T |G.T  |     |  -GG*LG/MU1^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+U1.T | u1.t|G.T  |     |  -GG*LG/MU1^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+ U1.t| u1.t|G.T  |     | i*GG*LG/MU1^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+U1.T |u1.T |G.t  |     |  -GG*LG/MU1^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+ U1.t|u1.T |G.t  |     | i*GG*LG/MU1^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+U1.T | u1.t|G.t  |     | i*GG*LG/MU1^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+ U1.t| u1.t|G.t  |     |   GG*LG/MU1^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+ U1.t| u1.t|G    |     | 2*GG*LG/MU1^2                                    | M1.M2*(p3.m2*m1.m3-p3.m1*m2.m3)
+U1.T | u1.t|G    |     |2*i*GG*LG/MU1^2                                   | M1.M2*(p3.m2*m1.m3-p3.m1*m2.m3)
+ U1.t|u1.T |G    |     |2*i*GG*LG/MU1^2                                   | M1.M2*(p3.m2*m1.m3-p3.m1*m2.m3)
+U1.T |u1.T |G    |     | -2*GG*LG/MU1^2                                   | M1.M2*(p3.m2*m1.m3-p3.m1*m2.m3)
+UP   |up   |G    |     |GG/MUP^2                                          |MUP^2*(OMKG*(m2.p3*m1.m3-m1.p3*m2.m3)+(p2.m1*m2.m3-p1.m2*m1.m3+(p1-p2).m3*m1.m2))+LG*(p3.m1*(p1.m2*p2.m3-p1.p2*m2.m3)-p3.m2*(p1.m3*p2.m1-p1.p2*m1.m3)+p2.p3*(p1.m3*m1.m2-p1.m2*m1.m3)-p1.p3*(p2.m3*m1.m2-p2.m1*m2.m3))
+UP   |up.t |G    |     |  GG/MUP^2/Sqrt2                                  |MUP^2*(m1.m2*m3.M2-m1.M2*m3.m2)+2*LG*(p3.m2*(p1.m3*m1.M2-p1.M2*m1.m3)+m3.m2*(p1.M2*p3.m1-p1.p3*m1.M2))
+up   |UP.t |G    |     | -GG/MUP^2/Sqrt2                                  |MUP^2*(m1.m2*m3.M2-m1.M2*m3.m2)+2*LG*(p3.m2*(p1.m3*m1.M2-p1.M2*m1.m3)+m3.m2*(p1.M2*p3.m1-p1.p3*m1.M2))
+UP   |up.T |G    |     | i*GG/MUP^2*Sqrt2                                 |LG*(p3.m2*(p1.m3*m1.M2-p1.M2*m1.m3)+m3.m2*(p1.M2*p3.m1-p1.p3*m1.M2))
+up   |UP.T |G    |     |-i*GG/MUP^2*Sqrt2                                 |LG*(p3.m2*(p1.m3*m1.M2-p1.M2*m1.m3)+m3.m2*(p1.M2*p3.m1-p1.p3*m1.M2))
+UP   |up   |G.t  |     |  -GG*Sqrt2/MUP^2                                 |MUP^2*OMKG*m1.m3*m2.M3 -LG*(p1.M3*m1.m2*p2.m3-p1.m2*p2.m3*m1.M3-p1.M3*m2.m3*p2.m1+p1.p2*m1.M3*m2.m3)
+UP   |up   |G.T  |     |-i*GG*Sqrt2/MUP^2                                 |MUP^2*OMKG*m1.m3*m2.M3 -LG*(p1.M3*m1.m2*p2.m3-p1.m2*p2.m3*m1.M3-p1.M3*m2.m3*p2.m1+p1.p2*m1.M3*m2.m3)
+UP   |up.t |G.t  |     |   2*GG*LG/MUP^2                                  |m2.m3*(p1.M3*m1.M2-p1.M2*m1.M3)
+UP   |up.t |G.T  |     | 2*i*GG*LG/MUP^2                                  |m2.m3*(p1.M3*m1.M2-p1.M2*m1.M3)
+UP   |up.T |G.t  |     | 2*i*GG*LG/MUP^2                                  |m2.m3*(p1.M3*m1.M2-p1.M2*m1.M3)
+UP   |up.T |G.T  |     |  -2*GG*LG/MUP^2                                  |m2.m3*(p1.M3*m1.M2-p1.M2*m1.M3)
+up   |UP.t |G.t  |     |   2*GG*LG/MUP^2                                  |m2.M3*(p1.m3*m1.M2-p1.M2*m1.m3)
+up   |UP.t |G.T  |     | 2*i*GG*LG/MUP^2                                  |m2.M3*(p1.m3*m1.M2-p1.M2*m1.m3)
+up   |UP.T |G.t  |     | 2*i*GG*LG/MUP^2                                  |m2.M3*(p1.m3*m1.M2-p1.M2*m1.m3)
+up   |UP.T |G.T  |     |  -2*GG*LG/MUP^2                                  |m2.M3*(p1.m3*m1.M2-p1.M2*m1.m3)
+UP.T |up.T |G.T  |     |-i*GG*LG/MUP^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+ UP.t|up.T |G.T  |     |  -GG*LG/MUP^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+UP.T | up.t|G.T  |     |  -GG*LG/MUP^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+ UP.t| up.t|G.T  |     | i*GG*LG/MUP^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+UP.T |up.T |G.t  |     |  -GG*LG/MUP^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+ UP.t|up.T |G.t  |     | i*GG*LG/MUP^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+UP.T | up.t|G.t  |     | i*GG*LG/MUP^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+ UP.t| up.t|G.t  |     |   GG*LG/MUP^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+ UP.t| up.t|G    |     | 2*GG*LG/MUP^2                                    | M1.M2*(p3.m2*m1.m3-p3.m1*m2.m3)
+UP.T | up.t|G    |     |2*i*GG*LG/MUP^2                                   | M1.M2*(p3.m2*m1.m3-p3.m1*m2.m3)
+ UP.t|up.T |G    |     |2*i*GG*LG/MUP^2                                   | M1.M2*(p3.m2*m1.m3-p3.m1*m2.m3)
+UP.T |up.T |G    |     | -2*GG*LG/MUP^2                                   | M1.M2*(p3.m2*m1.m3-p3.m1*m2.m3)
+UM   |um   |G    |     |GG/MUM^2                                          |MUM^2*(OMKG*(m2.p3*m1.m3-m1.p3*m2.m3)+(p2.m1*m2.m3-p1.m2*m1.m3+(p1-p2).m3*m1.m2))+LG*(p3.m1*(p1.m2*p2.m3-p1.p2*m2.m3)-p3.m2*(p1.m3*p2.m1-p1.p2*m1.m3)+p2.p3*(p1.m3*m1.m2-p1.m2*m1.m3)-p1.p3*(p2.m3*m1.m2-p2.m1*m2.m3))
+UM   |um.t |G    |     |  GG/MUM^2/Sqrt2                                  |MUM^2*(m1.m2*m3.M2-m1.M2*m3.m2)+2*LG*(p3.m2*(p1.m3*m1.M2-p1.M2*m1.m3)+m3.m2*(p1.M2*p3.m1-p1.p3*m1.M2))
+um   |UM.t |G    |     | -GG/MUM^2/Sqrt2                                  |MUM^2*(m1.m2*m3.M2-m1.M2*m3.m2)+2*LG*(p3.m2*(p1.m3*m1.M2-p1.M2*m1.m3)+m3.m2*(p1.M2*p3.m1-p1.p3*m1.M2))
+UM   |um.T |G    |     | i*GG/MUM^2*Sqrt2                                 |LG*(p3.m2*(p1.m3*m1.M2-p1.M2*m1.m3)+m3.m2*(p1.M2*p3.m1-p1.p3*m1.M2))
+um   |UM.T |G    |     |-i*GG/MUM^2*Sqrt2                                 |LG*(p3.m2*(p1.m3*m1.M2-p1.M2*m1.m3)+m3.m2*(p1.M2*p3.m1-p1.p3*m1.M2))
+UM   |um   |G.t  |     |  -GG*Sqrt2/MUM^2                                 |MUM^2*OMKG*m1.m3*m2.M3 -LG*(p1.M3*m1.m2*p2.m3-p1.m2*p2.m3*m1.M3-p1.M3*m2.m3*p2.m1+p1.p2*m1.M3*m2.m3)
+UM   |um   |G.T  |     |-i*GG*Sqrt2/MUM^2                                 |MUM^2*OMKG*m1.m3*m2.M3 -LG*(p1.M3*m1.m2*p2.m3-p1.m2*p2.m3*m1.M3-p1.M3*m2.m3*p2.m1+p1.p2*m1.M3*m2.m3)
+UM   |um.t |G.t  |     |   2*GG*LG/MUM^2                                  |m2.m3*(p1.M3*m1.M2-p1.M2*m1.M3)
+UM   |um.t |G.T  |     | 2*i*GG*LG/MUM^2                                  |m2.m3*(p1.M3*m1.M2-p1.M2*m1.M3)
+UM   |um.T |G.t  |     | 2*i*GG*LG/MUM^2                                  |m2.m3*(p1.M3*m1.M2-p1.M2*m1.M3)
+UM   |um.T |G.T  |     |  -2*GG*LG/MUM^2                                  |m2.m3*(p1.M3*m1.M2-p1.M2*m1.M3)
+um   |UM.t |G.t  |     |   2*GG*LG/MUM^2                                  |m2.M3*(p1.m3*m1.M2-p1.M2*m1.m3)
+um   |UM.t |G.T  |     | 2*i*GG*LG/MUM^2                                  |m2.M3*(p1.m3*m1.M2-p1.M2*m1.m3)
+um   |UM.T |G.t  |     | 2*i*GG*LG/MUM^2                                  |m2.M3*(p1.m3*m1.M2-p1.M2*m1.m3)
+um   |UM.T |G.T  |     |  -2*GG*LG/MUM^2                                  |m2.M3*(p1.m3*m1.M2-p1.M2*m1.m3)
+UM.T |um.T |G.T  |     |-i*GG*LG/MUM^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+ UM.t|um.T |G.T  |     |  -GG*LG/MUM^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+UM.T | um.t|G.T  |     |  -GG*LG/MUM^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+ UM.t| um.t|G.T  |     | i*GG*LG/MUM^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+UM.T |um.T |G.t  |     |  -GG*LG/MUM^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+ UM.t|um.T |G.t  |     | i*GG*LG/MUM^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+UM.T | um.t|G.t  |     | i*GG*LG/MUM^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+ UM.t| um.t|G.t  |     |   GG*LG/MUM^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+ UM.t| um.t|G    |     | 2*GG*LG/MUM^2                                    | M1.M2*(p3.m2*m1.m3-p3.m1*m2.m3)
+UM.T | um.t|G    |     |2*i*GG*LG/MUM^2                                   | M1.M2*(p3.m2*m1.m3-p3.m1*m2.m3)
+ UM.t|um.T |G    |     |2*i*GG*LG/MUM^2                                   | M1.M2*(p3.m2*m1.m3-p3.m1*m2.m3)
+UM.T |um.T |G    |     | -2*GG*LG/MUM^2                                   | M1.M2*(p3.m2*m1.m3-p3.m1*m2.m3)
+U0   |u0   |G    |     |GG/MU0^2                                          |MU0^2*(OMKG*(m2.p3*m1.m3-m1.p3*m2.m3)+(p2.m1*m2.m3-p1.m2*m1.m3+(p1-p2).m3*m1.m2))+LG*(p3.m1*(p1.m2*p2.m3-p1.p2*m2.m3)-p3.m2*(p1.m3*p2.m1-p1.p2*m1.m3)+p2.p3*(p1.m3*m1.m2-p1.m2*m1.m3)-p1.p3*(p2.m3*m1.m2-p2.m1*m2.m3))
+U0   |u0.t |G    |     |  GG/MU0^2/Sqrt2                                  |MU0^2*(m1.m2*m3.M2-m1.M2*m3.m2)+2*LG*(p3.m2*(p1.m3*m1.M2-p1.M2*m1.m3)+m3.m2*(p1.M2*p3.m1-p1.p3*m1.M2))
+u0   |U0.t |G    |     | -GG/MU0^2/Sqrt2                                  |MU0^2*(m1.m2*m3.M2-m1.M2*m3.m2)+2*LG*(p3.m2*(p1.m3*m1.M2-p1.M2*m1.m3)+m3.m2*(p1.M2*p3.m1-p1.p3*m1.M2))
+U0   |u0.T |G    |     | i*GG/MU0^2*Sqrt2                                 |LG*(p3.m2*(p1.m3*m1.M2-p1.M2*m1.m3)+m3.m2*(p1.M2*p3.m1-p1.p3*m1.M2))
+u0   |U0.T |G    |     |-i*GG/MU0^2*Sqrt2                                 |LG*(p3.m2*(p1.m3*m1.M2-p1.M2*m1.m3)+m3.m2*(p1.M2*p3.m1-p1.p3*m1.M2))
+U0   |u0   |G.t  |     |  -GG*Sqrt2/MU0^2                                 |MU0^2*OMKG*m1.m3*m2.M3 -LG*(p1.M3*m1.m2*p2.m3-p1.m2*p2.m3*m1.M3-p1.M3*m2.m3*p2.m1+p1.p2*m1.M3*m2.m3)
+U0   |u0   |G.T  |     |-i*GG*Sqrt2/MU0^2                                 |MU0^2*OMKG*m1.m3*m2.M3 -LG*(p1.M3*m1.m2*p2.m3-p1.m2*p2.m3*m1.M3-p1.M3*m2.m3*p2.m1+p1.p2*m1.M3*m2.m3)
+U0   |u0.t |G.t  |     |   2*GG*LG/MU0^2                                  |m2.m3*(p1.M3*m1.M2-p1.M2*m1.M3)
+U0   |u0.t |G.T  |     | 2*i*GG*LG/MU0^2                                  |m2.m3*(p1.M3*m1.M2-p1.M2*m1.M3)
+U0   |u0.T |G.t  |     | 2*i*GG*LG/MU0^2                                  |m2.m3*(p1.M3*m1.M2-p1.M2*m1.M3)
+U0   |u0.T |G.T  |     |  -2*GG*LG/MU0^2                                  |m2.m3*(p1.M3*m1.M2-p1.M2*m1.M3)
+u0   |U0.t |G.t  |     |   2*GG*LG/MU0^2                                  |m2.M3*(p1.m3*m1.M2-p1.M2*m1.m3)
+u0   |U0.t |G.T  |     | 2*i*GG*LG/MU0^2                                  |m2.M3*(p1.m3*m1.M2-p1.M2*m1.m3)
+u0   |U0.T |G.t  |     | 2*i*GG*LG/MU0^2                                  |m2.M3*(p1.m3*m1.M2-p1.M2*m1.m3)
+u0   |U0.T |G.T  |     |  -2*GG*LG/MU0^2                                  |m2.M3*(p1.m3*m1.M2-p1.M2*m1.m3)
+U0.T |u0.T |G.T  |     |-i*GG*LG/MU0^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+ U0.t|u0.T |G.T  |     |  -GG*LG/MU0^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+U0.T | u0.t|G.T  |     |  -GG*LG/MU0^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+ U0.t| u0.t|G.T  |     | i*GG*LG/MU0^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+U0.T |u0.T |G.t  |     |  -GG*LG/MU0^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+ U0.t|u0.T |G.t  |     | i*GG*LG/MU0^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+U0.T | u0.t|G.t  |     | i*GG*LG/MU0^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+ U0.t| u0.t|G.t  |     |   GG*LG/MU0^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+ U0.t| u0.t|G    |     | 2*GG*LG/MU0^2                                    | M1.M2*(p3.m2*m1.m3-p3.m1*m2.m3)
+U0.T | u0.t|G    |     |2*i*GG*LG/MU0^2                                   | M1.M2*(p3.m2*m1.m3-p3.m1*m2.m3)
+ U0.t|u0.T |G    |     |2*i*GG*LG/MU0^2                                   | M1.M2*(p3.m2*m1.m3-p3.m1*m2.m3)
+U0.T |u0.T |G    |     | -2*GG*LG/MU0^2                                   | M1.M2*(p3.m2*m1.m3-p3.m1*m2.m3)
+UT   |ut   |G    |     |GG/MUT^2                                          |MUT^2*(OMKG*(m2.p3*m1.m3-m1.p3*m2.m3)+(p2.m1*m2.m3-p1.m2*m1.m3+(p1-p2).m3*m1.m2))+LG*(p3.m1*(p1.m2*p2.m3-p1.p2*m2.m3)-p3.m2*(p1.m3*p2.m1-p1.p2*m1.m3)+p2.p3*(p1.m3*m1.m2-p1.m2*m1.m3)-p1.p3*(p2.m3*m1.m2-p2.m1*m2.m3))
+UT   |ut.t |G    |     |  GG/MUT^2/Sqrt2                                  |MUT^2*(m1.m2*m3.M2-m1.M2*m3.m2)+2*LG*(p3.m2*(p1.m3*m1.M2-p1.M2*m1.m3)+m3.m2*(p1.M2*p3.m1-p1.p3*m1.M2))
+ut   |UT.t |G    |     | -GG/MUT^2/Sqrt2                                  |MUT^2*(m1.m2*m3.M2-m1.M2*m3.m2)+2*LG*(p3.m2*(p1.m3*m1.M2-p1.M2*m1.m3)+m3.m2*(p1.M2*p3.m1-p1.p3*m1.M2))
+UT   |ut.T |G    |     | i*GG/MUT^2*Sqrt2                                 |LG*(p3.m2*(p1.m3*m1.M2-p1.M2*m1.m3)+m3.m2*(p1.M2*p3.m1-p1.p3*m1.M2))
+ut   |UT.T |G    |     |-i*GG/MUT^2*Sqrt2                                 |LG*(p3.m2*(p1.m3*m1.M2-p1.M2*m1.m3)+m3.m2*(p1.M2*p3.m1-p1.p3*m1.M2))
+UT   |ut   |G.t  |     |  -GG*Sqrt2/MUT^2                                 |MUT^2*OMKG*m1.m3*m2.M3 -LG*(p1.M3*m1.m2*p2.m3-p1.m2*p2.m3*m1.M3-p1.M3*m2.m3*p2.m1+p1.p2*m1.M3*m2.m3)
+UT   |ut   |G.T  |     |-i*GG*Sqrt2/MUT^2                                 |MUT^2*OMKG*m1.m3*m2.M3 -LG*(p1.M3*m1.m2*p2.m3-p1.m2*p2.m3*m1.M3-p1.M3*m2.m3*p2.m1+p1.p2*m1.M3*m2.m3)
+UT   |ut.t |G.t  |     |   2*GG*LG/MUT^2                                  |m2.m3*(p1.M3*m1.M2-p1.M2*m1.M3)
+UT   |ut.t |G.T  |     | 2*i*GG*LG/MUT^2                                  |m2.m3*(p1.M3*m1.M2-p1.M2*m1.M3)
+UT   |ut.T |G.t  |     | 2*i*GG*LG/MUT^2                                  |m2.m3*(p1.M3*m1.M2-p1.M2*m1.M3)
+UT   |ut.T |G.T  |     |  -2*GG*LG/MUT^2                                  |m2.m3*(p1.M3*m1.M2-p1.M2*m1.M3)
+ut   |UT.t |G.t  |     |   2*GG*LG/MUT^2                                  |m2.M3*(p1.m3*m1.M2-p1.M2*m1.m3)
+ut   |UT.t |G.T  |     | 2*i*GG*LG/MUT^2                                  |m2.M3*(p1.m3*m1.M2-p1.M2*m1.m3)
+ut   |UT.T |G.t  |     | 2*i*GG*LG/MUT^2                                  |m2.M3*(p1.m3*m1.M2-p1.M2*m1.m3)
+ut   |UT.T |G.T  |     |  -2*GG*LG/MUT^2                                  |m2.M3*(p1.m3*m1.M2-p1.M2*m1.m3)
+UT.T |ut.T |G.T  |     |-i*GG*LG/MUT^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+ UT.t|ut.T |G.T  |     |  -GG*LG/MUT^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+UT.T | ut.t|G.T  |     |  -GG*LG/MUT^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+ UT.t| ut.t|G.T  |     | i*GG*LG/MUT^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+UT.T |ut.T |G.t  |     |  -GG*LG/MUT^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+ UT.t|ut.T |G.t  |     | i*GG*LG/MUT^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+UT.T | ut.t|G.t  |     | i*GG*LG/MUT^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+ UT.t| ut.t|G.t  |     |   GG*LG/MUT^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+ UT.t| ut.t|G    |     | 2*GG*LG/MUT^2                                    | M1.M2*(p3.m2*m1.m3-p3.m1*m2.m3)
+UT.T | ut.t|G    |     |2*i*GG*LG/MUT^2                                   | M1.M2*(p3.m2*m1.m3-p3.m1*m2.m3)
+ UT.t|ut.T |G    |     |2*i*GG*LG/MUT^2                                   | M1.M2*(p3.m2*m1.m3-p3.m1*m2.m3)
+UT.T |ut.T |G    |     | -2*GG*LG/MUT^2                                   | M1.M2*(p3.m2*m1.m3-p3.m1*m2.m3)
+wp   |WP   |G    |     |GG/MWP^2                                          |MWP^2*(OMKG*(m2.p3*m1.m3-m1.p3*m2.m3)+(p2.m1*m2.m3-p1.m2*m1.m3+(p1-p2).m3*m1.m2))+LG*(p3.m1*(p1.m2*p2.m3-p1.p2*m2.m3)-p3.m2*(p1.m3*p2.m1-p1.p2*m1.m3)+p2.p3*(p1.m3*m1.m2-p1.m2*m1.m3)-p1.p3*(p2.m3*m1.m2-p2.m1*m2.m3))
+wp   |WP.t |G    |     |  GG/MWP^2/Sqrt2                                  |MWP^2*(m1.m2*m3.M2-m1.M2*m3.m2)+2*LG*(p3.m2*(p1.m3*m1.M2-p1.M2*m1.m3)+m3.m2*(p1.M2*p3.m1-p1.p3*m1.M2))
+WP   |wp.t |G    |     | -GG/MWP^2/Sqrt2                                  |MWP^2*(m1.m2*m3.M2-m1.M2*m3.m2)+2*LG*(p3.m2*(p1.m3*m1.M2-p1.M2*m1.m3)+m3.m2*(p1.M2*p3.m1-p1.p3*m1.M2))
+wp   |WP.T |G    |     | i*GG/MWP^2*Sqrt2                                 |LG*(p3.m2*(p1.m3*m1.M2-p1.M2*m1.m3)+m3.m2*(p1.M2*p3.m1-p1.p3*m1.M2))
+WP   |wp.T |G    |     |-i*GG/MWP^2*Sqrt2                                 |LG*(p3.m2*(p1.m3*m1.M2-p1.M2*m1.m3)+m3.m2*(p1.M2*p3.m1-p1.p3*m1.M2))
+wp   |WP   |G.t  |     |  -GG*Sqrt2/MWP^2                                 |MWP^2*OMKG*m1.m3*m2.M3 -LG*(p1.M3*m1.m2*p2.m3-p1.m2*p2.m3*m1.M3-p1.M3*m2.m3*p2.m1+p1.p2*m1.M3*m2.m3)
+wp   |WP   |G.T  |     |-i*GG*Sqrt2/MWP^2                                 |MWP^2*OMKG*m1.m3*m2.M3 -LG*(p1.M3*m1.m2*p2.m3-p1.m2*p2.m3*m1.M3-p1.M3*m2.m3*p2.m1+p1.p2*m1.M3*m2.m3)
+wp   |WP.t |G.t  |     |   2*GG*LG/MWP^2                                  |m2.m3*(p1.M3*m1.M2-p1.M2*m1.M3)
+wp   |WP.t |G.T  |     | 2*i*GG*LG/MWP^2                                  |m2.m3*(p1.M3*m1.M2-p1.M2*m1.M3)
+wp   |WP.T |G.t  |     | 2*i*GG*LG/MWP^2                                  |m2.m3*(p1.M3*m1.M2-p1.M2*m1.M3)
+wp   |WP.T |G.T  |     |  -2*GG*LG/MWP^2                                  |m2.m3*(p1.M3*m1.M2-p1.M2*m1.M3)
+WP   |wp.t |G.t  |     |   2*GG*LG/MWP^2                                  |m2.M3*(p1.m3*m1.M2-p1.M2*m1.m3)
+WP   |wp.t |G.T  |     | 2*i*GG*LG/MWP^2                                  |m2.M3*(p1.m3*m1.M2-p1.M2*m1.m3)
+WP   |wp.T |G.t  |     | 2*i*GG*LG/MWP^2                                  |m2.M3*(p1.m3*m1.M2-p1.M2*m1.m3)
+WP   |wp.T |G.T  |     |  -2*GG*LG/MWP^2                                  |m2.M3*(p1.m3*m1.M2-p1.M2*m1.m3)
+wp.T |WP.T |G.T  |     |-i*GG*LG/MWP^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+ wp.t|WP.T |G.T  |     |  -GG*LG/MWP^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+wp.T | WP.t|G.T  |     |  -GG*LG/MWP^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+ wp.t| WP.t|G.T  |     | i*GG*LG/MWP^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+wp.T |WP.T |G.t  |     |  -GG*LG/MWP^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+ wp.t|WP.T |G.t  |     | i*GG*LG/MWP^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+wp.T | WP.t|G.t  |     | i*GG*LG/MWP^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+ wp.t| WP.t|G.t  |     |   GG*LG/MWP^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+ wp.t| WP.t|G    |     | 2*GG*LG/MWP^2                                    | M1.M2*(p3.m2*m1.m3-p3.m1*m2.m3)
+wp.T | WP.t|G    |     |2*i*GG*LG/MWP^2                                   | M1.M2*(p3.m2*m1.m3-p3.m1*m2.m3)
+ wp.t|WP.T |G    |     |2*i*GG*LG/MWP^2                                   | M1.M2*(p3.m2*m1.m3-p3.m1*m2.m3)
+wp.T |WP.T |G    |     | -2*GG*LG/MWP^2                                   | M1.M2*(p3.m2*m1.m3-p3.m1*m2.m3)
+wm   |WM   |G    |     |GG/MWM^2                                          |MWM^2*(OMKG*(m2.p3*m1.m3-m1.p3*m2.m3)+(p2.m1*m2.m3-p1.m2*m1.m3+(p1-p2).m3*m1.m2))+LG*(p3.m1*(p1.m2*p2.m3-p1.p2*m2.m3)-p3.m2*(p1.m3*p2.m1-p1.p2*m1.m3)+p2.p3*(p1.m3*m1.m2-p1.m2*m1.m3)-p1.p3*(p2.m3*m1.m2-p2.m1*m2.m3))
+wm   |WM.t |G    |     |  GG/MWM^2/Sqrt2                                  |MWM^2*(m1.m2*m3.M2-m1.M2*m3.m2)+2*LG*(p3.m2*(p1.m3*m1.M2-p1.M2*m1.m3)+m3.m2*(p1.M2*p3.m1-p1.p3*m1.M2))
+WM   |wm.t |G    |     | -GG/MWM^2/Sqrt2                                  |MWM^2*(m1.m2*m3.M2-m1.M2*m3.m2)+2*LG*(p3.m2*(p1.m3*m1.M2-p1.M2*m1.m3)+m3.m2*(p1.M2*p3.m1-p1.p3*m1.M2))
+wm   |WM.T |G    |     | i*GG/MWM^2*Sqrt2                                 |LG*(p3.m2*(p1.m3*m1.M2-p1.M2*m1.m3)+m3.m2*(p1.M2*p3.m1-p1.p3*m1.M2))
+WM   |wm.T |G    |     |-i*GG/MWM^2*Sqrt2                                 |LG*(p3.m2*(p1.m3*m1.M2-p1.M2*m1.m3)+m3.m2*(p1.M2*p3.m1-p1.p3*m1.M2))
+wm   |WM   |G.t  |     |  -GG*Sqrt2/MWM^2                                 |MWM^2*OMKG*m1.m3*m2.M3 -LG*(p1.M3*m1.m2*p2.m3-p1.m2*p2.m3*m1.M3-p1.M3*m2.m3*p2.m1+p1.p2*m1.M3*m2.m3)
+wm   |WM   |G.T  |     |-i*GG*Sqrt2/MWM^2                                 |MWM^2*OMKG*m1.m3*m2.M3 -LG*(p1.M3*m1.m2*p2.m3-p1.m2*p2.m3*m1.M3-p1.M3*m2.m3*p2.m1+p1.p2*m1.M3*m2.m3)
+wm   |WM.t |G.t  |     |   2*GG*LG/MWM^2                                  |m2.m3*(p1.M3*m1.M2-p1.M2*m1.M3)
+wm   |WM.t |G.T  |     | 2*i*GG*LG/MWM^2                                  |m2.m3*(p1.M3*m1.M2-p1.M2*m1.M3)
+wm   |WM.T |G.t  |     | 2*i*GG*LG/MWM^2                                  |m2.m3*(p1.M3*m1.M2-p1.M2*m1.M3)
+wm   |WM.T |G.T  |     |  -2*GG*LG/MWM^2                                  |m2.m3*(p1.M3*m1.M2-p1.M2*m1.M3)
+WM   |wm.t |G.t  |     |   2*GG*LG/MWM^2                                  |m2.M3*(p1.m3*m1.M2-p1.M2*m1.m3)
+WM   |wm.t |G.T  |     | 2*i*GG*LG/MWM^2                                  |m2.M3*(p1.m3*m1.M2-p1.M2*m1.m3)
+WM   |wm.T |G.t  |     | 2*i*GG*LG/MWM^2                                  |m2.M3*(p1.m3*m1.M2-p1.M2*m1.m3)
+WM   |wm.T |G.T  |     |  -2*GG*LG/MWM^2                                  |m2.M3*(p1.m3*m1.M2-p1.M2*m1.m3)
+wm.T |WM.T |G.T  |     |-i*GG*LG/MWM^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+ wm.t|WM.T |G.T  |     |  -GG*LG/MWM^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+wm.T | WM.t|G.T  |     |  -GG*LG/MWM^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+ wm.t| WM.t|G.T  |     | i*GG*LG/MWM^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+wm.T |WM.T |G.t  |     |  -GG*LG/MWM^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+ wm.t|WM.T |G.t  |     | i*GG*LG/MWM^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+wm.T | WM.t|G.t  |     | i*GG*LG/MWM^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+ wm.t| WM.t|G.t  |     |   GG*LG/MWM^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+ wm.t| WM.t|G    |     | 2*GG*LG/MWM^2                                    | M1.M2*(p3.m2*m1.m3-p3.m1*m2.m3)
+wm.T | WM.t|G    |     |2*i*GG*LG/MWM^2                                   | M1.M2*(p3.m2*m1.m3-p3.m1*m2.m3)
+ wm.t|WM.T |G    |     |2*i*GG*LG/MWM^2                                   | M1.M2*(p3.m2*m1.m3-p3.m1*m2.m3)
+wm.T |WM.T |G    |     | -2*GG*LG/MWM^2                                   | M1.M2*(p3.m2*m1.m3-p3.m1*m2.m3)
+vp   |VP   |G    |     |GG/MVP^2                                          |MVP^2*(OMKG*(m2.p3*m1.m3-m1.p3*m2.m3)+(p2.m1*m2.m3-p1.m2*m1.m3+(p1-p2).m3*m1.m2))+LG*(p3.m1*(p1.m2*p2.m3-p1.p2*m2.m3)-p3.m2*(p1.m3*p2.m1-p1.p2*m1.m3)+p2.p3*(p1.m3*m1.m2-p1.m2*m1.m3)-p1.p3*(p2.m3*m1.m2-p2.m1*m2.m3))
+vp   |VP.t |G    |     |  GG/MVP^2/Sqrt2                                  |MVP^2*(m1.m2*m3.M2-m1.M2*m3.m2)+2*LG*(p3.m2*(p1.m3*m1.M2-p1.M2*m1.m3)+m3.m2*(p1.M2*p3.m1-p1.p3*m1.M2))
+VP   |vp.t |G    |     | -GG/MVP^2/Sqrt2                                  |MVP^2*(m1.m2*m3.M2-m1.M2*m3.m2)+2*LG*(p3.m2*(p1.m3*m1.M2-p1.M2*m1.m3)+m3.m2*(p1.M2*p3.m1-p1.p3*m1.M2))
+vp   |VP.T |G    |     | i*GG/MVP^2*Sqrt2                                 |LG*(p3.m2*(p1.m3*m1.M2-p1.M2*m1.m3)+m3.m2*(p1.M2*p3.m1-p1.p3*m1.M2))
+VP   |vp.T |G    |     |-i*GG/MVP^2*Sqrt2                                 |LG*(p3.m2*(p1.m3*m1.M2-p1.M2*m1.m3)+m3.m2*(p1.M2*p3.m1-p1.p3*m1.M2))
+vp   |VP   |G.t  |     |  -GG*Sqrt2/MVP^2                                 |MVP^2*OMKG*m1.m3*m2.M3 -LG*(p1.M3*m1.m2*p2.m3-p1.m2*p2.m3*m1.M3-p1.M3*m2.m3*p2.m1+p1.p2*m1.M3*m2.m3)
+vp   |VP   |G.T  |     |-i*GG*Sqrt2/MVP^2                                 |MVP^2*OMKG*m1.m3*m2.M3 -LG*(p1.M3*m1.m2*p2.m3-p1.m2*p2.m3*m1.M3-p1.M3*m2.m3*p2.m1+p1.p2*m1.M3*m2.m3)
+vp   |VP.t |G.t  |     |   2*GG*LG/MVP^2                                  |m2.m3*(p1.M3*m1.M2-p1.M2*m1.M3)
+vp   |VP.t |G.T  |     | 2*i*GG*LG/MVP^2                                  |m2.m3*(p1.M3*m1.M2-p1.M2*m1.M3)
+vp   |VP.T |G.t  |     | 2*i*GG*LG/MVP^2                                  |m2.m3*(p1.M3*m1.M2-p1.M2*m1.M3)
+vp   |VP.T |G.T  |     |  -2*GG*LG/MVP^2                                  |m2.m3*(p1.M3*m1.M2-p1.M2*m1.M3)
+VP   |vp.t |G.t  |     |   2*GG*LG/MVP^2                                  |m2.M3*(p1.m3*m1.M2-p1.M2*m1.m3)
+VP   |vp.t |G.T  |     | 2*i*GG*LG/MVP^2                                  |m2.M3*(p1.m3*m1.M2-p1.M2*m1.m3)
+VP   |vp.T |G.t  |     | 2*i*GG*LG/MVP^2                                  |m2.M3*(p1.m3*m1.M2-p1.M2*m1.m3)
+VP   |vp.T |G.T  |     |  -2*GG*LG/MVP^2                                  |m2.M3*(p1.m3*m1.M2-p1.M2*m1.m3)
+vp.T |VP.T |G.T  |     |-i*GG*LG/MVP^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+ vp.t|VP.T |G.T  |     |  -GG*LG/MVP^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+vp.T | VP.t|G.T  |     |  -GG*LG/MVP^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+ vp.t| VP.t|G.T  |     | i*GG*LG/MVP^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+vp.T |VP.T |G.t  |     |  -GG*LG/MVP^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+ vp.t|VP.T |G.t  |     | i*GG*LG/MVP^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+vp.T | VP.t|G.t  |     | i*GG*LG/MVP^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+ vp.t| VP.t|G.t  |     |   GG*LG/MVP^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+ vp.t| VP.t|G    |     | 2*GG*LG/MVP^2                                    | M1.M2*(p3.m2*m1.m3-p3.m1*m2.m3)
+vp.T | VP.t|G    |     |2*i*GG*LG/MVP^2                                   | M1.M2*(p3.m2*m1.m3-p3.m1*m2.m3)
+ vp.t|VP.T |G    |     |2*i*GG*LG/MVP^2                                   | M1.M2*(p3.m2*m1.m3-p3.m1*m2.m3)
+vp.T |VP.T |G    |     | -2*GG*LG/MVP^2                                   | M1.M2*(p3.m2*m1.m3-p3.m1*m2.m3)
+vm   |VM   |G    |     |GG/MVM^2                                          |MVM^2*(OMKG*(m2.p3*m1.m3-m1.p3*m2.m3)+(p2.m1*m2.m3-p1.m2*m1.m3+(p1-p2).m3*m1.m2))+LG*(p3.m1*(p1.m2*p2.m3-p1.p2*m2.m3)-p3.m2*(p1.m3*p2.m1-p1.p2*m1.m3)+p2.p3*(p1.m3*m1.m2-p1.m2*m1.m3)-p1.p3*(p2.m3*m1.m2-p2.m1*m2.m3))
+vm   |VM.t |G    |     |  GG/MVM^2/Sqrt2                                  |MVM^2*(m1.m2*m3.M2-m1.M2*m3.m2)+2*LG*(p3.m2*(p1.m3*m1.M2-p1.M2*m1.m3)+m3.m2*(p1.M2*p3.m1-p1.p3*m1.M2))
+VM   |vm.t |G    |     | -GG/MVM^2/Sqrt2                                  |MVM^2*(m1.m2*m3.M2-m1.M2*m3.m2)+2*LG*(p3.m2*(p1.m3*m1.M2-p1.M2*m1.m3)+m3.m2*(p1.M2*p3.m1-p1.p3*m1.M2))
+vm   |VM.T |G    |     | i*GG/MVM^2*Sqrt2                                 |LG*(p3.m2*(p1.m3*m1.M2-p1.M2*m1.m3)+m3.m2*(p1.M2*p3.m1-p1.p3*m1.M2))
+VM   |vm.T |G    |     |-i*GG/MVM^2*Sqrt2                                 |LG*(p3.m2*(p1.m3*m1.M2-p1.M2*m1.m3)+m3.m2*(p1.M2*p3.m1-p1.p3*m1.M2))
+vm   |VM   |G.t  |     |  -GG*Sqrt2/MVM^2                                 |MVM^2*OMKG*m1.m3*m2.M3 -LG*(p1.M3*m1.m2*p2.m3-p1.m2*p2.m3*m1.M3-p1.M3*m2.m3*p2.m1+p1.p2*m1.M3*m2.m3)
+vm   |VM   |G.T  |     |-i*GG*Sqrt2/MVM^2                                 |MVM^2*OMKG*m1.m3*m2.M3 -LG*(p1.M3*m1.m2*p2.m3-p1.m2*p2.m3*m1.M3-p1.M3*m2.m3*p2.m1+p1.p2*m1.M3*m2.m3)
+vm   |VM.t |G.t  |     |   2*GG*LG/MVM^2                                  |m2.m3*(p1.M3*m1.M2-p1.M2*m1.M3)
+vm   |VM.t |G.T  |     | 2*i*GG*LG/MVM^2                                  |m2.m3*(p1.M3*m1.M2-p1.M2*m1.M3)
+vm   |VM.T |G.t  |     | 2*i*GG*LG/MVM^2                                  |m2.m3*(p1.M3*m1.M2-p1.M2*m1.M3)
+vm   |VM.T |G.T  |     |  -2*GG*LG/MVM^2                                  |m2.m3*(p1.M3*m1.M2-p1.M2*m1.M3)
+VM   |vm.t |G.t  |     |   2*GG*LG/MVM^2                                  |m2.M3*(p1.m3*m1.M2-p1.M2*m1.m3)
+VM   |vm.t |G.T  |     | 2*i*GG*LG/MVM^2                                  |m2.M3*(p1.m3*m1.M2-p1.M2*m1.m3)
+VM   |vm.T |G.t  |     | 2*i*GG*LG/MVM^2                                  |m2.M3*(p1.m3*m1.M2-p1.M2*m1.m3)
+VM   |vm.T |G.T  |     |  -2*GG*LG/MVM^2                                  |m2.M3*(p1.m3*m1.M2-p1.M2*m1.m3)
+vm.T |VM.T |G.T  |     |-i*GG*LG/MVM^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+ vm.t|VM.T |G.T  |     |  -GG*LG/MVM^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+vm.T | VM.t|G.T  |     |  -GG*LG/MVM^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+ vm.t| VM.t|G.T  |     | i*GG*LG/MVM^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+vm.T |VM.T |G.t  |     |  -GG*LG/MVM^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+ vm.t|VM.T |G.t  |     | i*GG*LG/MVM^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+vm.T | VM.t|G.t  |     | i*GG*LG/MVM^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+ vm.t| VM.t|G.t  |     |   GG*LG/MVM^2*2*Sqrt2                            | m1.M3*M1.M2*m2.m3
+ vm.t| VM.t|G    |     | 2*GG*LG/MVM^2                                    | M1.M2*(p3.m2*m1.m3-p3.m1*m2.m3)
+vm.T | VM.t|G    |     |2*i*GG*LG/MVM^2                                   | M1.M2*(p3.m2*m1.m3-p3.m1*m2.m3)
+ vm.t|VM.T |G    |     |2*i*GG*LG/MVM^2                                   | M1.M2*(p3.m2*m1.m3-p3.m1*m2.m3)
+vm.T |VM.T |G    |     |-2*GG*LG/MVM^2                                    | M1.M2*(p3.m2*m1.m3-p3.m1*m2.m3)
+A    |RM   |rm   |     |-2*EE/3                                           |m1.p2-m1.p3
+A    |RP   |rp   |     |-5*EE/3                                           |m1.p2-m1.p3
+A    |S0   |s0   |     |EE/3                                              |m1.p2-m1.p3
+A    |S1   |s1   |     |EE/3                                              |m1.p2-m1.p3
+A    |SM   |sm   |     |-2*EE/3                                           |m1.p2-m1.p3
+A    |SP   |sp   |     |4*EE/3                                            |m1.p2-m1.p3
+A    |ST   |st   |     |4*EE/3                                            |m1.p2-m1.p3
+A    |TM   |tm   |     | EE/3                                             |m1.p2-m1.p3
+A    |TP   |tp   |     |-2*EE/3                                           |m1.p2-m1.p3
+A    |U0   |u0   |     |-EE/(3*MU3^2)                                     |2*MU3^2*m1.p2*m2.m3-2*MU3^2*m3.p2*m1.m2-2*MU3^2*m1.p3*m2.m3+2*MU3^2*m2.p3*m1.m3+3*MU3^2*m2.p1*m1.m3-3*MU3^2*m3.p1*m1.m2-3*ka*MU3^2*(m2.p1*m1.m3-m3.p1*m1.m2)-3*la*(m2.p1*m3.p2*m1.p3-m2.p1*p2.p3*m1.m3-m3.p1*m1.p2*m2.p3+m3.p1*p2.p3*m1.m2-p1.p2*m1.p3*m2.m3+p1.p2*m2.p3*m1.m3+p1.p3*m1.p2*m2.m3-p1.p3*m3.p2*m1.m2)
+A    |U1   |u1   |     |-EE/(3*MU1^2)                                     |MU1^2*(2*m1.p2*m2.m3-2*m1.p3*m2.m3+3*m2.p1*m1.m3+2*m2.p3*m1.m3-3*m3.p1*m1.m2-2*m3.p2*m1.m2-3*ka*m2.p1*m1.m3+3*ka*m3.p1*m1.m2)+6*la*(m2.p1*m3.p2*m1.p3-m2.p1*p2.p3*m1.m3-m3.p1*m1.p2*m2.p3+m3.p1*p2.p3*m1.m2-p1.p2*m1.p3*m2.m3+p1.p2*m2.p3*m1.m3+p1.p3*m1.p2*m2.m3-p1.p3*m3.p2*m1.m2)
+A    |UM   |um   |     |-EE/(3*MU3^2)                                     |MU3^2*m3.p2*m1.m2-MU3^2*m1.p2*m2.m3-MU3^2*m2.p3*m1.m3+MU3^2*m1.p3*m2.m3+3*MU3^2*m2.p1*m1.m3-3*MU3^2*m3.p1*m1.m2-3*ka*MU3^2*(m2.p1*m1.m3-m3.p1*m1.m2)-3*la*(m2.p1*m3.p2*m1.p3-m2.p1*p2.p3*m1.m3-m3.p1*m1.p2*m2.p3+m3.p1*p2.p3*m1.m2-p1.p2*m1.p3*m2.m3+p1.p2*m2.p3*m1.m3+p1.p3*m1.p2*m2.m3-p1.p3*m3.p2*m1.m2)
+A    |UP   |up   |     |-EE/(3*MU3^2)                                     |5*MU3^2*m1.p2*m2.m3-5*MU3^2*m3.p2*m1.m2-5*MU3^2*m1.p3*m2.m3+5*MU3^2*m2.p3*m1.m3+3*MU3^2*m2.p1*m1.m3-3*MU3^2*m3.p1*m1.m2-3*ka*MU3^2*(m2.p1*m1.m3-m3.p1*m1.m2)-3*la*(m2.p1*m3.p2*m1.p3-m2.p1*p2.p3*m1.m3-m3.p1*m1.p2*m2.p3+m3.p1*p2.p3*m1.m2-p1.p2*m1.p3*m2.m3+p1.p2*m2.p3*m1.m3+p1.p3*m1.p2*m2.m3-p1.p3*m3.p2*m1.m2)
+A    |UT   |ut   |     |-EE/(3*MU1^2)                                     |MU1^2*(5*m1.p2*m2.m3-5*m1.p3*m2.m3+3*m2.p1*m1.m3+5*m2.p3*m1.m3-3*m3.p1*m1.m2-5*m3.p2*m1.m2-3*ka*m2.p1*m1.m3+3*ka*m3.p1*m1.m2)+6*la*(m2.p1*m3.p2*m1.p3-m2.p1*p2.p3*m1.m3-m3.p1*m1.p2*m2.p3+m3.p1*p2.p3*m1.m2-p1.p2*m1.p3*m2.m3+p1.p2*m2.p3*m1.m3+p1.p3*m1.p2*m2.m3-p1.p3*m3.p2*m1.m2)
+A    |VM   |vm   |     |EE/(3*MV2^2)                                      |MV2^2*m1.p3*m2.m3-MV2^2*m2.p3*m1.m3-MV2^2*m1.p2*m2.m3+MV2^2*m3.p2*m1.m2+3*la*(m2.p1*m3.p2*m1.p3-m2.p1*p2.p3*m1.m3-m3.p1*m1.p2*m2.p3+m3.p1*p2.p3*m1.m2-p1.p2*m1.p3*m2.m3+p1.p2*m2.p3*m1.m3+p1.p3*m1.p2*m2.m3-p1.p3*m3.p2*m1.m2)
+A    |VP   |vp   |     |EE/(3*MV2^2)                                      |4*MV2^2*m1.p3*m2.m3-4*MV2^2*m2.p3*m1.m3-4*MV2^2*m1.p2*m2.m3+4*MV2^2*m3.p2*m1.m2+3*la*(m2.p1*m3.p2*m1.p3-m2.p1*p2.p3*m1.m3-m3.p1*m1.p2*m2.p3+m3.p1*p2.p3*m1.m2-p1.p2*m1.p3*m2.m3+p1.p2*m2.p3*m1.m3+p1.p3*m1.p2*m2.m3-p1.p3*m3.p2*m1.m2)
+A    |W+   |W-   |     |-EE                                               |m3.p2*m1.m2-m1.p2*m2.m3-m2.p3*m1.m3+m1.p3*m2.m3+m2.p1*m1.m3-m3.p1*m1.m2
+A    |WM   |wm   |     |-EE/(3*MW2^2)                                     |2*MW2^2*m1.p3*m2.m3-2*MW2^2*m2.p3*m1.m3-2*MW2^2*m1.p2*m2.m3+2*MW2^2*m3.p2*m1.m2+3*MW2^2*m2.p1*m1.m3-3*MW2^2*m3.p1*m1.m2-3*ka*MW2^2*(m2.p1*m1.m3-m3.p1*m1.m2)-3*la*(m2.p1*m3.p2*m1.p3-m2.p1*p2.p3*m1.m3-m3.p1*m1.p2*m2.p3+m3.p1*p2.p3*m1.m2-p1.p2*m1.p3*m2.m3+p1.p2*m2.p3*m1.m3+p1.p3*m1.p2*m2.m3-p1.p3*m3.p2*m1.m2)
+A    |WP   |wp   |     |EE/(3*MW2^2)                                      |MW2^2*m1.p3*m2.m3-MW2^2*m2.p3*m1.m3-MW2^2*m1.p2*m2.m3+MW2^2*m3.p2*m1.m2-3*MW2^2*m2.p1*m1.m3+3*MW2^2*m3.p1*m1.m2+3*ka*MW2^2*(m2.p1*m1.m3-m3.p1*m1.m2)+3*la*(m2.p1*m3.p2*m1.p3-m2.p1*p2.p3*m1.m3-m3.p1*m1.p2*m2.p3+m3.p1*p2.p3*m1.m2-p1.p2*m1.p3*m2.m3+p1.p2*m2.p3*m1.m3+p1.p3*m1.p2*m2.m3-p1.p3*m3.p2*m1.m2)
+B    |b    |A    |     |EE/3                                              |G(m3)
+B    |b    |G    |     |GG                                                |G(m3)
+B    |b    |H    |     |-EE*Mb/(2*MW*SW)                                  |1
+B    |b    |Z    |     |-EE/(12*CW*SW)                                    |4*SW^2*G(m3)-3*G(m3)*(1-G5)
+B    |c    |W-   |     |-EE*Sqrt2*Vcb/(4*SW)                              |G(m3)*(1-G5)
+B    |t    |W-   |     |-EE*Sqrt2*Vtb/(4*SW)                              |G(m3)*(1-G5)
+B    |u    |W-   |     |-EE*Sqrt2*Vub/(4*SW)                              |G(m3)*(1-G5)
+C    |E2   |S0   |     |-g3l/2                                            |(1+G5)
+C    |E2   |S1   |     |1/2                                               |(g1l*(1+G5)+g1r*(1-G5))
+C    |E2   |VM   |     |-g2r/2                                            |G(m3)*(1-G5)
+C    |E2   |WP   |     |gt2l/2                                            |G(m3)*(1+G5)
+C    |N2   |SM   |     |Sqrt2*g3l/2                                       |(1+G5)
+C    |N2   |WM   |     |-gt2l/2                                           |G(m3)*(1+G5)
+C    |b    |W+   |     |-EE*Sqrt2*Vcb/(4*SW)                              |G(m3)*(1-G5)
+C    |c    |A    |     |-2*EE/3                                           |G(m3)
+C    |c    |G    |     |GG                                                |G(m3)
+C    |c    |H    |     |-EE*Mc/(2*MW*SW)                                  |1
+C    |c    |Z    |     |-EE/(12*CW*SW)                                    |3*G(m3)*(1-G5)-8*SW^2*G(m3)
+C    |d    |W+   |     |-EE*Sqrt2*Vcd/(4*SW)                              |G(m3)*(1-G5)
+C    |e2   |RP   |     |1/2                                               |(h2l*(1-G5)+h2r*(1+G5))
+C    |e2   |up   |     |Sqrt2*h3l/2                                       |G(m3)*(1-G5)
+C    |e2   |ut   |     |ht1r/2                                            |G(m3)*(1+G5)
+C    |n2   |RM   |     |h2l/2                                             |(1-G5)
+C    |n2   |u0   |     |h3l/2                                             |G(m3)*(1-G5)
+C    |n2   |u1   |     |h1l/2                                             |G(m3)*(1-G5)
+C    |s    |W+   |     |-EE*Sqrt2*Vcs/(4*SW)                              |G(m3)*(1-G5)
+D    |c    |W-   |     |-EE*Sqrt2*Vcd/(4*SW)                              |G(m3)*(1-G5)
+D    |d    |A    |     |EE/3                                              |G(m3)
+D    |d    |G    |     |GG                                                |G(m3)
+D    |d    |Z    |     |-EE/(12*CW*SW)                                    |4*SW^2*G(m3)-3*G(m3)*(1-G5)
+D    |t    |W-   |     |-EE*Sqrt2*Vtd/(4*SW)                              |G(m3)*(1-G5)
+D    |u    |W-   |     |-EE*Sqrt2*Vud/(4*SW)                              |G(m3)*(1-G5)
+E1   |e1   |A    |     |EE                                                |G(m3)
+E1   |e1   |Z    |     |EE/(4*CW*SW)                                      |G(m3)*(1-G5)-4*SW^2*G(m3)
+E1   |n1   |W-   |     |-EE*Sqrt2/(4*SW)                                  |G(m3)*(1-G5)
+E2   |S    |SP   |     |-Sqrt2*g3l/2                                      |(1+G5)
+E2   |S    |ST   |     |gt1r/2                                            |(1-G5)
+E2   |S    |VP   |     |-1/2                                              |(g2l*(1-G5)+g2r*(1+G5))*G(m3)
+E2   |c    |rp   |     |1/2                                               |(h2l*(1+G5)+h2r*(1-G5))
+E2   |c    |UP   |     |Sqrt2*h3l/2                                       |G(m3)*(1-G5)
+E2   |c    |UT   |     |ht1r/2                                            |G(m3)*(1+G5)
+E2   |e2   |A    |     |EE                                                |G(m3)
+E2   |e2   |H    |     |-EE*Mm/(2*MW*SW)                                  |1
+E2   |e2   |Z    |     |EE/(4*CW*SW)                                      |G(m3)*(1-G5)-4*SW^2*G(m3)
+E2   |n2   |W-   |     |-EE*Sqrt2/(4*SW)                                  |G(m3)*(1-G5)
+E2   |s    |rm   |     |-h2r/2                                            |(1-G5)
+E2   |s    |tp   |     |ht2l/2                                            |(1+G5)
+E2   |s    |U0   |     |-h3l/2                                            |G(m3)*(1-G5)
+E2   |s    |U1   |     |1/2                                               |(h1l*(1-G5)+h1r*(1+G5))*G(m3)
+E3   |e3   |A    |     |EE                                                |G(m3)
+E3   |e3   |H    |     |-EE*Mt/(2*MW*SW)                                  |1
+E3   |e3   |Z    |     |EE/(4*CW*SW)                                      |G(m3)*(1-G5)-4*SW^2*G(m3)
+E3   |n3   |W-   |     |-EE*Sqrt2/(4*SW)                                  |G(m3)*(1-G5)
+G    |RM   |rm   |     |GG                                                |m1.p2-m1.p3
+G    |RP   |rp   |     |GG                                                |m1.p2-m1.p3
+G    |S0   |s0   |     |GG                                                |m1.p2-m1.p3
+G    |S1   |s1   |     |GG                                                |m1.p2-m1.p3
+G    |SM   |sm   |     |GG                                                |m1.p2-m1.p3
+G    |SP   |sp   |     |GG                                                |m1.p2-m1.p3
+G    |ST   |st   |     |GG                                                |m1.p2-m1.p3
+G    |TM   |tm   |     |GG                                                |m1.p2-m1.p3
+G    |TP   |tp   |     |GG                                                |m1.p2-m1.p3
+H    |H    |H    |     |-3*EE*MH^2/(2*MW*SW)                              |1
+H    |W+   |W-   |     |EE*MW/SW                                          |m2.m3
+H    |Z    |Z    |     |EE*MW/(CW^2*SW)                                   |m2.m3
+N1   |e1   |W+   |     |-EE*Sqrt2/(4*SW)                                  |G(m3)*(1-G5)
+N1   |n1   |Z    |     |-EE/(4*CW*SW)                                     |G(m3)*(1-G5)
+N2   |S    |S0   |     |-g3l/2                                            |(1+G5)
+N2   |S    |S1   |     |-g1l/2                                            |(1+G5)
+N2   |S    |VM   |     |g2l/2                                             |G(m3)*(1-G5)
+N2   |c    |rm   |     |h2l/2                                             |(1+G5)
+N2   |c    |U0   |     |h3l/2                                             |G(m3)*(1-G5)
+N2   |c    |U1   |     |h1l/2                                             |G(m3)*(1-G5)
+N2   |e2   |W+   |     |-EE*Sqrt2/(4*SW)                                  |G(m3)*(1-G5)
+N2   |n2   |Z    |     |-EE/(4*CW*SW)                                     |G(m3)*(1-G5)
+N2   |s    |tm   |     |ht2l/2                                            |(1+G5)
+N2   |s    |UM   |     |Sqrt2*h3l/2                                       |G(m3)*(1-G5)
+N3   |e3   |W+   |     |-EE*Sqrt2/(4*SW)                                  |G(m3)*(1-G5)
+N3   |n3   |Z    |     |-EE/(4*CW*SW)                                     |G(m3)*(1-G5)
+rm   |W-   |RP   |     |-EE*Sqrt2/(2*SW)                                  |m2.p1-m2.p3
+rm   |Z    |RM   |     | EE/(6*CW*SW)                                     |3*m2.p1+4*SW^2*m2.p1-3*m2.p3-4*SW^2*m2.p3
+rp   |W+   |RM   |     |-EE*Sqrt2/(2*SW)                                  |m2.p1-m2.p3
+rp   |Z    |RP   |     |-EE/(6*CW*SW)                                     |3*m2.p1-10*SW^2*m2.p1-3*m2.p3+10*SW^2*m2.p3
+S    |c    |W-   |     |-EE*Sqrt2*Vcs/(4*SW)                              |G(m3)*(1-G5)
+S    |e2   |RM   |     |-h2r/2                                            |(1+G5)
+S    |e2   |TP   |     |ht2l/2                                            |(1-G5)
+S    |e2   |u0   |     |-h3l/2                                            |G(m3)*(1-G5)
+S    |e2   |u1   |     |1/2                                               |(h1l*(1-G5)+h1r*(1+G5))*G(m3)
+S    |n2   |TM   |     |ht2l/2                                            |(1-G5)
+S    |n2   |um   |     |Sqrt2*h3l/2                                       |G(m3)*(1-G5)
+S    |s    |A    |     |EE/3                                              |G(m3)
+S    |s    |G    |     |GG                                                |G(m3)
+S    |s    |H    |     |-EE*Ms/(2*MW*SW)                                  |1
+S    |s    |Z    |     |-EE/(12*CW*SW)                                    |4*SW^2*G(m3)-3*G(m3)*(1-G5)
+S    |t    |W-   |     |-EE*Sqrt2*Vts/(4*SW)                              |G(m3)*(1-G5)
+S    |u    |W-   |     |-EE*Sqrt2*Vus/(4*SW)                              |G(m3)*(1-G5)
+S0   |W+   |sm   |     |EE/SW                                             |m2.p1-m2.p3
+S0   |W-   |sp   |     |-EE/SW                                            |m2.p1-m2.p3
+S0   |Z    |s0   |     |-EE*SW/(3*CW)                                     |m2.p1-m2.p3
+S1   |Z    |s1   |     |-EE*SW/(3*CW)                                     |m2.p1-m2.p3
+SM   |W-   |s0   |     |EE/SW                                             |m2.p1-m2.p3
+SM   |Z    |sm   |     |-EE/(3*CW*SW)                                     |3*m2.p1-2*SW^2*m2.p1-3*m2.p3+2*SW^2*m2.p3
+SP   |W+   |s0   |     |-EE/SW                                            |m2.p1-m2.p3
+SP   |Z    |sp   |     |EE/(3*CW*SW)                                      |3*m2.p1-4*SW^2*m2.p1-3*m2.p3+4*SW^2*m2.p3
+ST   |Z    |st   |     |-4*EE*SW/(3*CW)                                   |m2.p1-m2.p3
+T    |b    |W+   |     |-EE*Sqrt2*Vtb/(4*SW)                              |G(m3)*(1-G5)
+T    |d    |W+   |     |-EE*Sqrt2*Vtd/(4*SW)                              |G(m3)*(1-G5)
+T    |s    |W+   |     |-EE*Sqrt2*Vts/(4*SW)                              |G(m3)*(1-G5)
+T    |t    |A    |     |-2*EE/3                                           |G(m3)
+T    |t    |G    |     |GG                                                |G(m3)
+T    |t    |H    |     |-EE*Mtop/(2*MW*SW)                                |1
+T    |t    |Z    |     |-EE/(12*CW*SW)                                    |3*G(m3)*(1-G5)-8*SW^2*G(m3)
+tm   |W-   |TP   |     |-EE*Sqrt2/(2*SW)                                  |m2.p1-m2.p3
+tm   |Z    |TM   |     | EE/(6*CW*SW)                                     |3*m2.p1-2*SW^2*m2.p1-3*m2.p3+2*SW^2*m2.p3
+tp   |W+   |TM   |     |-EE*Sqrt2/(2*SW)                                  |m2.p1-m2.p3
+tp   |Z    |TP   |     |-EE/(6*CW*SW)                                     |3*m2.p1-4*SW^2*m2.p1-3*m2.p3+4*SW^2*m2.p3
+U    |b    |W+   |     |-EE*Sqrt2*Vub/(4*SW)                              |G(m3)*(1-G5)
+U    |d    |W+   |     |-EE*Sqrt2*Vud/(4*SW)                              |G(m3)*(1-G5)
+U    |s    |W+   |     |-EE*Sqrt2*Vus/(4*SW)                              |G(m3)*(1-G5)
+U    |u    |A    |     |-2*EE/3                                           |G(m3)
+U    |u    |G    |     |GG                                                |G(m3)
+U    |u    |Z    |     |-EE/(12*CW*SW)                                    |3*G(m3)*(1-G5)-8*SW^2*G(m3)
+U0   |W+   |um   |     |-EE/SW                                            |m2.p1*m1.m3-m3.p1*m1.m2-m2.p3*m1.m3+m1.p3*m2.m3
+U0   |W-   |up   |     |EE/SW                                             |m2.p1*m1.m3-m3.p1*m1.m2-m2.p3*m1.m3+m1.p3*m2.m3
+U0   |Z    |u0   |     |2*EE*SW/(3*CW)                                    |m2.p1*m1.m3-m3.p1*m1.m2-m2.p3*m1.m3+m1.p3*m2.m3
+U1   |Z    |u1   |     |2*EE*SW/(3*CW)                                    |m2.p1*m1.m3-m3.p1*m1.m2-m2.p3*m1.m3+m1.p3*m2.m3
+UM   |W-   |u0   |     |-EE/SW                                            |m2.p1*m1.m3-m3.p1*m1.m2-m2.p3*m1.m3+m1.p3*m2.m3
+UM   |Z    |um   |     |EE/(3*CW*SW)                                      |3*m2.p1*m1.m3-SW^2*m2.p1*m1.m3-3*m3.p1*m1.m2+SW^2*m3.p1*m1.m2-3*m2.p3*m1.m3+SW^2*m2.p3*m1.m3+3*m1.p3*m2.m3-SW^2*m1.p3*m2.m3
+UP   |W+   |u0   |     |EE/SW                                             |m2.p1*m1.m3-m3.p1*m1.m2-m2.p3*m1.m3+m1.p3*m2.m3
+UP   |Z    |up   |     |-EE/(3*CW*SW)                                     |3*m2.p1*m1.m3-5*SW^2*m2.p1*m1.m3-3*m3.p1*m1.m2+5*SW^2*m3.p1*m1.m2-3*m2.p3*m1.m3+5*SW^2*m2.p3*m1.m3+3*m1.p3*m2.m3-5*SW^2*m1.p3*m2.m3
+UT   |Z    |ut   |     |5*EE*SW/(3*CW)                                    |m2.p1*m1.m3-m3.p1*m1.m2-m2.p3*m1.m3+m1.p3*m2.m3
+VM   |W-   |vp   |     |EE*Sqrt2/(2*SW)                                   |m2.p3*m1.m3-m1.p3*m2.m3-m2.p1*m1.m3+m3.p1*m1.m2
+VM   |Z    |vm   |     |-EE/(6*CW*SW)                                     |3*m2.p3*m1.m3+2*SW^2*m2.p3*m1.m3-3*m1.p3*m2.m3-2*SW^2*m1.p3*m2.m3-3*m2.p1*m1.m3-2*SW^2*m2.p1*m1.m3+3*m3.p1*m1.m2+2*SW^2*m3.p1*m1.m2
+VP   |W+   |vm   |     |EE*Sqrt2/(2*SW)                                   |m2.p3*m1.m3-m1.p3*m2.m3-m2.p1*m1.m3+m3.p1*m1.m2
+VP   |Z    |vp   |     |EE/(6*CW*SW)                                      |3*m2.p3*m1.m3-8*SW^2*m2.p3*m1.m3-3*m1.p3*m2.m3+8*SW^2*m1.p3*m2.m3-3*m2.p1*m1.m3+8*SW^2*m2.p1*m1.m3+3*m3.p1*m1.m2-8*SW^2*m3.p1*m1.m2
+W+   |W-   |Z    |     |-CW*EE/SW                                         |m2.p1*m1.m3-m3.p1*m1.m2-m1.p2*m2.m3+m3.p2*m1.m2+m1.p3*m2.m3-m2.p3*m1.m3
+W+   |WP   |wm   |     |EE*Sqrt2/(2*SW)                                   |m1.p3*m2.m3-m2.p3*m1.m3-m1.p2*m2.m3+m3.p2*m1.m2
+W-   |WM   |wp   |     |EE*Sqrt2/(2*SW)                                   |m1.p3*m2.m3-m2.p3*m1.m3-m1.p2*m2.m3+m3.p2*m1.m2
+WM   |Z    |wm   |     |-EE/(6*CW*SW)                                     |3*m2.p3*m1.m3-4*SW^2*m2.p3*m1.m3-3*m1.p3*m2.m3+4*SW^2*m1.p3*m2.m3-3*m2.p1*m1.m3+4*SW^2*m2.p1*m1.m3+3*m3.p1*m1.m2-4*SW^2*m3.p1*m1.m2
+WP   |Z    |wp   |     |EE/(6*CW*SW)                                      |3*m2.p3*m1.m3-2*SW^2*m2.p3*m1.m3-3*m1.p3*m2.m3+2*SW^2*m1.p3*m2.m3-3*m2.p1*m1.m3+2*SW^2*m2.p1*m1.m3+3*m3.p1*m1.m2-2*SW^2*m3.p1*m1.m2
+c    |e2   |s0   |     |-g3l/2                                            |(1-G5)
+c    |e2   |s1   |     |1/2                                               |(g1l*(1-G5)+g1r*(1+G5))
+c    |e2   |vm   |     |g2r/2                                             |G(m3)*(1+G5)
+c    |e2   |wp   |     |-gt2l/2                                           |G(m3)*(1-G5)
+c    |n2   |sm   |     |Sqrt2*g3l/2                                       |(1-G5)
+c    |n2   |wm   |     |gt2l/2                                            |G(m3)*(1-G5)
+e2   |s    |sp   |     |-Sqrt2*g3l/2                                      |(1-G5)
+e2   |s    |st   |     |gt1r/2                                            |(1+G5)
+e2   |s    |vp   |     |1/2                                               |(g2l*(1+G5)+g2r*(1-G5))*G(m3)
+n2   |s    |s0   |     |-g3l/2                                            |(1-G5)
+n2   |s    |s1   |     |-g1l/2                                            |(1-G5)
+n2   |s    |vm   |     |-g2l/2                                            |G(m3)*(1+G5)
+A    |A    |rm   |RM   |8*EE^2/9                                          |m1.m2
+A    |A    |rp   |RP   |50*EE^2/9                                         |m1.m2
+A    |A    |S0   |s0   |2*EE^2/9                                          |m1.m2
+A    |A    |S1   |s1   |2*EE^2/9                                          |m1.m2
+A    |A    |SM   |sm   |8*EE^2/9                                          |m1.m2
+A    |A    |SP   |sp   |32*EE^2/9                                         |m1.m2
+A    |A    |ST   |st   |32*EE^2/9                                         |m1.m2
+A    |A    |tm   |TM   |2*EE^2/9                                          |m1.m2
+A    |A    |tp   |TP   |8*EE^2/9                                          |m1.m2
+A    |A    |U0   |u0   |-2*EE^2/(9*MU3^2)                                 |4*MU3^2*m1.m2*m3.m4-2*MU3^2*m1.m3*m2.m4-2*MU3^2*m1.m4*m2.m3+3*la*(m1.p2*m2.p3*m3.m4+m1.p2*m2.p4*m3.m4-m1.p2*m3.p4*m2.m4-m1.p2*m4.p3*m2.m3+m2.p1*m1.p3*m3.m4+m2.p1*m1.p4*m3.m4-m2.p1*m3.p4*m1.m4-m2.p1*m4.p3*m1.m3-m3.p1*m1.p4*m2.m4-m3.p1*m2.p3*m1.m4+m3.p1*m2.p4*m1.m4+m3.p1*m4.p3*m1.m2-m3.p2*m1.p3*m2.m4+m3.p2*m1.p4*m2.m4-m3.p2*m2.p4*m1.m4+m3.p2*m4.p3*m1.m2-m4.p1*m1.p3*m2.m3+m4.p1*m2.p3*m1.m3-m4.p1*m2.p4*m1.m3+m4.p1*m3.p4*m1.m2+m4.p2*m1.p3*m2.m3-m4.p2*m1.p4*m2.m3-m4.p2*m2.p3*m1.m3+m4.p2*m3.p4*m1.m2-p1.p3*m1.m2*m3.m4+p1.p3*m1.m4*m2.m3-p1.p4*m1.m2*m3.m4+p1.p4*m1.m3*m2.m4-p2.p3*m1.m2*m3.m4+p2.p3*m1.m3*m2.m4-p2.p4*m1.m2*m3.m4+p2.p4*m1.m4*m2.m3)
+A    |A    |U1   |u1   |-2*EE^2/(9*MU1^2)                                 |MU1^2*(2*m1.m2*m3.m4-m1.m3*m2.m4-m1.m4*m2.m3)-3*la*(m1.p2*m2.p3*m3.m4+m1.p2*m2.p4*m3.m4-m1.p2*m3.p4*m2.m4-m1.p2*m4.p3*m2.m3+m2.p1*m1.p3*m3.m4+m2.p1*m1.p4*m3.m4-m2.p1*m3.p4*m1.m4-m2.p1*m4.p3*m1.m3-m3.p1*m1.p4*m2.m4-m3.p1*m2.p3*m1.m4+m3.p1*m2.p4*m1.m4+m3.p1*m4.p3*m1.m2-m3.p2*m1.p3*m2.m4+m3.p2*m1.p4*m2.m4-m3.p2*m2.p4*m1.m4+m3.p2*m4.p3*m1.m2-m4.p1*m1.p3*m2.m3+m4.p1*m2.p3*m1.m3-m4.p1*m2.p4*m1.m3+m4.p1*m3.p4*m1.m2+m4.p2*m1.p3*m2.m3-m4.p2*m1.p4*m2.m3-m4.p2*m2.p3*m1.m3+m4.p2*m3.p4*m1.m2-p1.p3*m1.m2*m3.m4+p1.p3*m1.m4*m2.m3-p1.p4*m1.m2*m3.m4+p1.p4*m1.m3*m2.m4-p2.p3*m1.m2*m3.m4+p2.p3*m1.m3*m2.m4-p2.p4*m1.m2*m3.m4+p2.p4*m1.m4*m2.m3)
+A    |A    |UM   |um   |-EE^2/(9*MU3^2)                                   |2*MU3^2*m1.m2*m3.m4-MU3^2*m1.m3*m2.m4-MU3^2*m1.m4*m2.m3-3*la*(m1.p2*m2.p3*m3.m4+m1.p2*m2.p4*m3.m4-m1.p2*m3.p4*m2.m4-m1.p2*m4.p3*m2.m3+m2.p1*m1.p3*m3.m4+m2.p1*m1.p4*m3.m4-m2.p1*m3.p4*m1.m4-m2.p1*m4.p3*m1.m3-m3.p1*m1.p4*m2.m4-m3.p1*m2.p3*m1.m4+m3.p1*m2.p4*m1.m4+m3.p1*m4.p3*m1.m2-m3.p2*m1.p3*m2.m4+m3.p2*m1.p4*m2.m4-m3.p2*m2.p4*m1.m4+m3.p2*m4.p3*m1.m2-m4.p1*m1.p3*m2.m3+m4.p1*m2.p3*m1.m3-m4.p1*m2.p4*m1.m3+m4.p1*m3.p4*m1.m2+m4.p2*m1.p3*m2.m3-m4.p2*m1.p4*m2.m3-m4.p2*m2.p3*m1.m3+m4.p2*m3.p4*m1.m2-p1.p3*m1.m2*m3.m4+p1.p3*m1.m4*m2.m3-p1.p4*m1.m2*m3.m4+p1.p4*m1.m3*m2.m4-p2.p3*m1.m2*m3.m4+p2.p3*m1.m3*m2.m4-p2.p4*m1.m2*m3.m4+p2.p4*m1.m4*m2.m3)
+A    |A    |UP   |up   |-5*EE^2/(9*MU3^2)                                 |10*MU3^2*m1.m2*m3.m4-5*MU3^2*m1.m3*m2.m4-5*MU3^2*m1.m4*m2.m3+3*la*(m1.p2*m2.p3*m3.m4+m1.p2*m2.p4*m3.m4-m1.p2*m3.p4*m2.m4-m1.p2*m4.p3*m2.m3+m2.p1*m1.p3*m3.m4+m2.p1*m1.p4*m3.m4-m2.p1*m3.p4*m1.m4-m2.p1*m4.p3*m1.m3-m3.p1*m1.p4*m2.m4-m3.p1*m2.p3*m1.m4+m3.p1*m2.p4*m1.m4+m3.p1*m4.p3*m1.m2-m3.p2*m1.p3*m2.m4+m3.p2*m1.p4*m2.m4-m3.p2*m2.p4*m1.m4+m3.p2*m4.p3*m1.m2-m4.p1*m1.p3*m2.m3+m4.p1*m2.p3*m1.m3-m4.p1*m2.p4*m1.m3+m4.p1*m3.p4*m1.m2+m4.p2*m1.p3*m2.m3-m4.p2*m1.p4*m2.m3-m4.p2*m2.p3*m1.m3+m4.p2*m3.p4*m1.m2-p1.p3*m1.m2*m3.m4+p1.p3*m1.m4*m2.m3-p1.p4*m1.m2*m3.m4+p1.p4*m1.m3*m2.m4-p2.p3*m1.m2*m3.m4+p2.p3*m1.m3*m2.m4-p2.p4*m1.m2*m3.m4+p2.p4*m1.m4*m2.m3)
+A    |A    |UT   |ut   |-5*EE^2/(18*MU1^2)                                |5*MU1^2*(2*m1.m2*m3.m4-m1.m3*m2.m4-m1.m4*m2.m3)-6*la*(m1.p2*m2.p3*m3.m4+m1.p2*m2.p4*m3.m4-m1.p2*m3.p4*m2.m4-m1.p2*m4.p3*m2.m3+m2.p1*m1.p3*m3.m4+m2.p1*m1.p4*m3.m4-m2.p1*m3.p4*m1.m4-m2.p1*m4.p3*m1.m3-m3.p1*m1.p4*m2.m4-m3.p1*m2.p3*m1.m4+m3.p1*m2.p4*m1.m4+m3.p1*m4.p3*m1.m2-m3.p2*m1.p3*m2.m4+m3.p2*m1.p4*m2.m4-m3.p2*m2.p4*m1.m4+m3.p2*m4.p3*m1.m2-m4.p1*m1.p3*m2.m3+m4.p1*m2.p3*m1.m3-m4.p1*m2.p4*m1.m3+m4.p1*m3.p4*m1.m2+m4.p2*m1.p3*m2.m3-m4.p2*m1.p4*m2.m3-m4.p2*m2.p3*m1.m3+m4.p2*m3.p4*m1.m2-p1.p3*m1.m2*m3.m4+p1.p3*m1.m4*m2.m3-p1.p4*m1.m2*m3.m4+p1.p4*m1.m3*m2.m4-p2.p3*m1.m2*m3.m4+p2.p3*m1.m3*m2.m4-p2.p4*m1.m2*m3.m4+p2.p4*m1.m4*m2.m3)
+A    |A    |VM   |vm   |-EE^2/(9*MV2^2)                                   |2*MV2^2*m1.m2*m3.m4-MV2^2*m1.m4*m2.m3-MV2^2*m1.m3*m2.m4+3*la*(m1.p2*m2.p3*m3.m4+m1.p2*m2.p4*m3.m4-m1.p2*m3.p4*m2.m4-m1.p2*m4.p3*m2.m3+m2.p1*m1.p3*m3.m4+m2.p1*m1.p4*m3.m4-m2.p1*m3.p4*m1.m4-m2.p1*m4.p3*m1.m3-m3.p1*m1.p4*m2.m4-m3.p1*m2.p3*m1.m4+m3.p1*m2.p4*m1.m4+m3.p1*m4.p3*m1.m2-m3.p2*m1.p3*m2.m4+m3.p2*m1.p4*m2.m4-m3.p2*m2.p4*m1.m4+m3.p2*m4.p3*m1.m2-m4.p1*m1.p3*m2.m3+m4.p1*m2.p3*m1.m3-m4.p1*m2.p4*m1.m3+m4.p1*m3.p4*m1.m2+m4.p2*m1.p3*m2.m3-m4.p2*m1.p4*m2.m3-m4.p2*m2.p3*m1.m3+m4.p2*m3.p4*m1.m2-p1.p3*m1.m2*m3.m4+p1.p3*m1.m4*m2.m3-p1.p4*m1.m2*m3.m4+p1.p4*m1.m3*m2.m4-p2.p3*m1.m2*m3.m4+p2.p3*m1.m3*m2.m4-p2.p4*m1.m2*m3.m4+p2.p4*m1.m4*m2.m3)
+A    |A    |VP   |vp   |-4*EE^2/(9*MV2^2)                                 |8*MV2^2*m1.m2*m3.m4-4*MV2^2*m1.m4*m2.m3-4*MV2^2*m1.m3*m2.m4+3*la*(m1.p2*m2.p3*m3.m4+m1.p2*m2.p4*m3.m4-m1.p2*m3.p4*m2.m4-m1.p2*m4.p3*m2.m3+m2.p1*m1.p3*m3.m4+m2.p1*m1.p4*m3.m4-m2.p1*m3.p4*m1.m4-m2.p1*m4.p3*m1.m3-m3.p1*m1.p4*m2.m4-m3.p1*m2.p3*m1.m4+m3.p1*m2.p4*m1.m4+m3.p1*m4.p3*m1.m2-m3.p2*m1.p3*m2.m4+m3.p2*m1.p4*m2.m4-m3.p2*m2.p4*m1.m4+m3.p2*m4.p3*m1.m2-m4.p1*m1.p3*m2.m3+m4.p1*m2.p3*m1.m3-m4.p1*m2.p4*m1.m3+m4.p1*m3.p4*m1.m2+m4.p2*m1.p3*m2.m3-m4.p2*m1.p4*m2.m3-m4.p2*m2.p3*m1.m3+m4.p2*m3.p4*m1.m2-p1.p3*m1.m2*m3.m4+p1.p3*m1.m4*m2.m3-p1.p4*m1.m2*m3.m4+p1.p4*m1.m3*m2.m4-p2.p3*m1.m2*m3.m4+p2.p3*m1.m3*m2.m4-p2.p4*m1.m2*m3.m4+p2.p4*m1.m4*m2.m3)
+A    |A    |W+   |W-   |-EE^2                                             |2*m1.m2*m3.m4-m1.m3*m2.m4-m1.m4*m2.m3
+A    |A    |WM   |wm   |-EE^2/(9*MW2^2)                                   |8*MW2^2*m1.m2*m3.m4-4*MW2^2*m1.m4*m2.m3-4*MW2^2*m1.m3*m2.m4-3*la*(m1.p2*m2.p3*m3.m4+m1.p2*m2.p4*m3.m4-m1.p2*m3.p4*m2.m4-m1.p2*m4.p3*m2.m3+m2.p1*m1.p3*m3.m4+m2.p1*m1.p4*m3.m4-m2.p1*m3.p4*m1.m4-m2.p1*m4.p3*m1.m3-m3.p1*m1.p4*m2.m4-m3.p1*m2.p3*m1.m4+m3.p1*m2.p4*m1.m4+m3.p1*m4.p3*m1.m2-m3.p2*m1.p3*m2.m4+m3.p2*m1.p4*m2.m4-m3.p2*m2.p4*m1.m4+m3.p2*m4.p3*m1.m2-m4.p1*m1.p3*m2.m3+m4.p1*m2.p3*m1.m3-m4.p1*m2.p4*m1.m3+m4.p1*m3.p4*m1.m2+m4.p2*m1.p3*m2.m3-m4.p2*m1.p4*m2.m3-m4.p2*m2.p3*m1.m3+m4.p2*m3.p4*m1.m2-p1.p3*m1.m2*m3.m4+p1.p3*m1.m4*m2.m3-p1.p4*m1.m2*m3.m4+p1.p4*m1.m3*m2.m4-p2.p3*m1.m2*m3.m4+p2.p3*m1.m3*m2.m4-p2.p4*m1.m2*m3.m4+p2.p4*m1.m4*m2.m3)
+A    |A    |WP   |wp   |-EE^2/(9*MW2^2)                                   |2*MW2^2*m1.m2*m3.m4-MW2^2*m1.m4*m2.m3-MW2^2*m1.m3*m2.m4+6*la*(m1.p2*m2.p3*m3.m4+m1.p2*m2.p4*m3.m4-m1.p2*m3.p4*m2.m4-m1.p2*m4.p3*m2.m3+m2.p1*m1.p3*m3.m4+m2.p1*m1.p4*m3.m4-m2.p1*m3.p4*m1.m4-m2.p1*m4.p3*m1.m3-m3.p1*m1.p4*m2.m4-m3.p1*m2.p3*m1.m4+m3.p1*m2.p4*m1.m4+m3.p1*m4.p3*m1.m2-m3.p2*m1.p3*m2.m4+m3.p2*m1.p4*m2.m4-m3.p2*m2.p4*m1.m4+m3.p2*m4.p3*m1.m2-m4.p1*m1.p3*m2.m3+m4.p1*m2.p3*m1.m3-m4.p1*m2.p4*m1.m3+m4.p1*m3.p4*m1.m2+m4.p2*m1.p3*m2.m3-m4.p2*m1.p4*m2.m3-m4.p2*m2.p3*m1.m3+m4.p2*m3.p4*m1.m2-p1.p3*m1.m2*m3.m4+p1.p3*m1.m4*m2.m3-p1.p4*m1.m2*m3.m4+p1.p4*m1.m3*m2.m4-p2.p3*m1.m2*m3.m4+p2.p3*m1.m3*m2.m4-p2.p4*m1.m2*m3.m4+p2.p4*m1.m4*m2.m3)
+A    |G    |rm   |RM   |4*EE*GG/3                                         |m1.m2
+A    |G    |rp   |RP   |10*EE*GG/3                                        |m1.m2
+A    |G    |S0   |s0   |2*EE*GG/3                                         |m1.m2
+A    |G    |S1   |s1   |2*EE*GG/3                                         |m1.m2
+A    |G    |SM   |sm   |-4*EE*GG/3                                        |m1.m2
+A    |G    |SP   |sp   |8*EE*GG/3                                         |m1.m2
+A    |G    |ST   |st   |8*EE*GG/3                                         |m1.m2
+A    |G    |tm   |TM   |-2*EE*GG/3                                        |m1.m2
+A    |G    |tp   |TP   |4*EE*GG/3                                         |m1.m2
+A    |G    |U0   |u0   |-2*EE*GG/3                                        |2*m1.m2*m3.m4-m1.m4*m2.m3-m1.m3*m2.m4
+A    |G    |UM   |um   |-EE*GG/3                                          |m1.m4*m2.m3-2*m1.m2*m3.m4+m1.m3*m2.m4
+A    |G    |UP   |up   |-5*EE*GG/3                                        |2*m1.m2*m3.m4-m1.m4*m2.m3-m1.m3*m2.m4
+A    |G    |VM   |vm   |EE*GG/3                                           |2*m1.m2*m3.m4-m1.m3*m2.m4-m1.m4*m2.m3
+A    |G    |VP   |vp   |4*EE*GG/3                                         |2*m1.m2*m3.m4-m1.m3*m2.m4-m1.m4*m2.m3
+A    |G    |WM   |wm   |-2*EE*GG/3                                        |2*m1.m2*m3.m4-m1.m3*m2.m4-m1.m4*m2.m3
+A    |G    |WP   |wp   |EE*GG/3                                           |2*m1.m2*m3.m4-m1.m3*m2.m4-m1.m4*m2.m3
+A    |rm   |W-   |RP   |7*EE^2*Sqrt2/(6*SW)                               |m1.m3
+A    |rm   |Z    |RM   |-2*EE^2/(9*CW*SW)                                 |3*m1.m3+4*SW^2*m1.m3
+A    |rp   |W+   |RM   |7*EE^2*Sqrt2/(6*SW)                               |m1.m3
+A    |rp   |Z    |RP   |5*EE^2/(9*CW*SW)                                  |3*m1.m3-10*SW^2*m1.m3
+A    |S0   |W+   |sm   |-EE^2/(3*SW)                                      |m1.m3
+A    |S0   |W-   |sp   |-5*EE^2/(3*SW)                                    |m1.m3
+A    |S0   |Z    |s0   |-2*EE^2*SW/(9*CW)                                 |m1.m3
+A    |S1   |Z    |s1   |-2*EE^2*SW/(9*CW)                                 |m1.m3
+A    |SM   |W-   |s0   |-EE^2/(3*SW)                                      |m1.m3
+A    |SM   |Z    |sm   |4*EE^2/(9*CW*SW)                                  |3*m1.m3-2*SW^2*m1.m3
+A    |SP   |W+   |s0   |-5*EE^2/(3*SW)                                    |m1.m3
+A    |SP   |Z    |sp   |8*EE^2/(9*CW*SW)                                  |3*m1.m3-4*SW^2*m1.m3
+A    |ST   |Z    |st   |-32*EE^2*SW/(9*CW)                                |m1.m3
+A    |tm   |W-   |TP   |EE^2*Sqrt2/(6*SW)                                 |m1.m3
+A    |tm   |Z    |TM   |EE^2/(9*CW*SW)                                    |3*m1.m3-2*SW^2*m1.m3
+A    |tp   |W+   |TM   |EE^2*Sqrt2/(6*SW)                                 |m1.m3
+A    |tp   |Z    |TP   |2*EE^2/(9*CW*SW)                                  |3*m1.m3-4*SW^2*m1.m3
+A    |U0   |W+   |um   |-EE^2/(3*MU3^2*SW)                                |MU3^2*m1.m3*m2.m4-2*MU3^2*m1.m4*m2.m3+MU3^2*m1.m2*m3.m4-3*la*(m2.p1*m1.p4*m3.m4+m2.p1*m3.p2*m1.m4-m2.p1*m3.p4*m1.m4-m2.p1*m4.p2*m1.m3-m3.p1*m1.p2*m2.m4-m3.p1*m1.p4*m2.m4+m3.p1*m2.p4*m1.m4+m3.p1*m4.p2*m1.m2+m4.p1*m1.p2*m2.m3-m4.p1*m2.p4*m1.m3-m4.p1*m3.p2*m1.m2+m4.p1*m3.p4*m1.m2+p1.p2*m1.m3*m2.m4-p1.p2*m1.m4*m2.m3-p1.p4*m1.m2*m3.m4+p1.p4*m1.m3*m2.m4)
+A    |U0   |W-   |up   |EE^2/(3*MU3^2*SW)                                 |7*MU3^2*m1.m3*m2.m4-2*MU3^2*m1.m4*m2.m3-5*MU3^2*m1.m2*m3.m4-3*la*(m2.p1*m1.p4*m3.m4+m2.p1*m3.p2*m1.m4-m2.p1*m3.p4*m1.m4-m2.p1*m4.p2*m1.m3-m3.p1*m1.p2*m2.m4-m3.p1*m1.p4*m2.m4+m3.p1*m2.p4*m1.m4+m3.p1*m4.p2*m1.m2+m4.p1*m1.p2*m2.m3-m4.p1*m2.p4*m1.m3-m4.p1*m3.p2*m1.m2+m4.p1*m3.p4*m1.m2+p1.p2*m1.m3*m2.m4-p1.p2*m1.m4*m2.m3-p1.p4*m1.m2*m3.m4+p1.p4*m1.m3*m2.m4)
+A    |U0   |Z    |u0   |2*EE^2*SW/(9*CW*MU3^2)                            |4*MU3^2*m1.m3*m2.m4-2*MU3^2*m1.m2*m3.m4-2*MU3^2*m1.m4*m2.m3-3*la*(m2.p1*m1.p4*m3.m4+m2.p1*m3.p2*m1.m4-m2.p1*m3.p4*m1.m4-m2.p1*m4.p2*m1.m3-m3.p1*m1.p2*m2.m4-m3.p1*m1.p4*m2.m4+m3.p1*m2.p4*m1.m4+m3.p1*m4.p2*m1.m2+m4.p1*m1.p2*m2.m3-m4.p1*m2.p4*m1.m3-m4.p1*m3.p2*m1.m2+m4.p1*m3.p4*m1.m2+p1.p2*m1.m3*m2.m4-p1.p2*m1.m4*m2.m3-p1.p4*m1.m2*m3.m4+p1.p4*m1.m3*m2.m4)
+A    |U1   |Z    |u1   |2*EE^2*SW/(9*CW*MU1^2)                            |-MU1^2*(m1.m2*m3.m4-2*m1.m3*m2.m4+m1.m4*m2.m3)+3*la*(m2.p1*m1.p4*m3.m4+m2.p1*m3.p2*m1.m4-m2.p1*m3.p4*m1.m4-m2.p1*m4.p2*m1.m3-m3.p1*m1.p2*m2.m4-m3.p1*m1.p4*m2.m4+m3.p1*m2.p4*m1.m4+m3.p1*m4.p2*m1.m2+m4.p1*m1.p2*m2.m3-m4.p1*m2.p4*m1.m3-m4.p1*m3.p2*m1.m2+m4.p1*m3.p4*m1.m2+p1.p2*m1.m3*m2.m4-p1.p2*m1.m4*m2.m3-p1.p4*m1.m2*m3.m4+p1.p4*m1.m3*m2.m4)
+A    |UM   |W-   |u0   |-EE^2/(3*MU3^2*SW)                                |MU3^2*m1.m3*m2.m4-2*MU3^2*m1.m2*m3.m4+MU3^2*m1.m4*m2.m3-3*la*(m2.p1*m1.p4*m3.m4+m2.p1*m3.p2*m1.m4-m2.p1*m3.p4*m1.m4-m2.p1*m4.p2*m1.m3-m3.p1*m1.p2*m2.m4-m3.p1*m1.p4*m2.m4+m3.p1*m2.p4*m1.m4+m3.p1*m4.p2*m1.m2+m4.p1*m1.p2*m2.m3-m4.p1*m2.p4*m1.m3-m4.p1*m3.p2*m1.m2+m4.p1*m3.p4*m1.m2+p1.p2*m1.m3*m2.m4-p1.p2*m1.m4*m2.m3-p1.p4*m1.m2*m3.m4+p1.p4*m1.m3*m2.m4)
+A    |UM   |Z    |um   |EE^2/(9*CW*MU3^2*SW)                              |3*MU3^2*m1.m2*m3.m4-SW^2*MU3^2*m1.m2*m3.m4+3*MU3^2*m1.m4*m2.m3-SW^2*MU3^2*m1.m4*m2.m3-6*MU3^2*m1.m3*m2.m4+2*SW^2*MU3^2*m1.m3*m2.m4-3*la*(3*m2.p1*m1.p4*m3.m4+3*m2.p1*m3.p2*m1.m4-3*m2.p1*m3.p4*m1.m4-3*m2.p1*m4.p2*m1.m3-3*m3.p1*m1.p2*m2.m4-3*m3.p1*m1.p4*m2.m4+3*m3.p1*m2.p4*m1.m4+3*m3.p1*m4.p2*m1.m2+3*m4.p1*m1.p2*m2.m3-3*m4.p1*m2.p4*m1.m3-3*m4.p1*m3.p2*m1.m2+3*m4.p1*m3.p4*m1.m2+3*p1.p2*m1.m3*m2.m4-3*p1.p2*m1.m4*m2.m3-3*p1.p4*m1.m2*m3.m4+3*p1.p4*m1.m3*m2.m4-SW^2*m2.p1*m1.p4*m3.m4-SW^2*m2.p1*m3.p2*m1.m4+SW^2*m2.p1*m3.p4*m1.m4+SW^2*m2.p1*m4.p2*m1.m3+SW^2*m3.p1*m1.p2*m2.m4+SW^2*m3.p1*m1.p4*m2.m4-SW^2*m3.p1*m2.p4*m1.m4-SW^2*m3.p1*m4.p2*m1.m2-SW^2*m4.p1*m1.p2*m2.m3+SW^2*m4.p1*m2.p4*m1.m3+SW^2*m4.p1*m3.p2*m1.m2-SW^2*m4.p1*m3.p4*m1.m2-SW^2*p1.p2*m1.m3*m2.m4+SW^2*p1.p2*m1.m4*m2.m3+SW^2*p1.p4*m1.m2*m3.m4-SW^2*p1.p4*m1.m3*m2.m4)
+A    |UP   |W+   |u0   |EE^2/(3*MU3^2*SW)                                 |7*MU3^2*m1.m3*m2.m4-5*MU3^2*m1.m4*m2.m3-2*MU3^2*m1.m2*m3.m4-3*la*(m2.p1*m1.p4*m3.m4+m2.p1*m3.p2*m1.m4-m2.p1*m3.p4*m1.m4-m2.p1*m4.p2*m1.m3-m3.p1*m1.p2*m2.m4-m3.p1*m1.p4*m2.m4+m3.p1*m2.p4*m1.m4+m3.p1*m4.p2*m1.m2+m4.p1*m1.p2*m2.m3-m4.p1*m2.p4*m1.m3-m4.p1*m3.p2*m1.m2+m4.p1*m3.p4*m1.m2+p1.p2*m1.m3*m2.m4-p1.p2*m1.m4*m2.m3-p1.p4*m1.m2*m3.m4+p1.p4*m1.m3*m2.m4)
+A    |UP   |Z    |up   |-EE^2/(9*CW*MU3^2*SW)                             |30*MU3^2*m1.m3*m2.m4-50*SW^2*MU3^2*m1.m3*m2.m4-15*MU3^2*m1.m2*m3.m4+25*SW^2*MU3^2*m1.m2*m3.m4-15*MU3^2*m1.m4*m2.m3+25*SW^2*MU3^2*m1.m4*m2.m3-3*la*(3*m2.p1*m1.p4*m3.m4+3*m2.p1*m3.p2*m1.m4-3*m2.p1*m3.p4*m1.m4-3*m2.p1*m4.p2*m1.m3-3*m3.p1*m1.p2*m2.m4-3*m3.p1*m1.p4*m2.m4+3*m3.p1*m2.p4*m1.m4+3*m3.p1*m4.p2*m1.m2+3*m4.p1*m1.p2*m2.m3-3*m4.p1*m2.p4*m1.m3-3*m4.p1*m3.p2*m1.m2+3*m4.p1*m3.p4*m1.m2+3*p1.p2*m1.m3*m2.m4-3*p1.p2*m1.m4*m2.m3-3*p1.p4*m1.m2*m3.m4+3*p1.p4*m1.m3*m2.m4-5*SW^2*m2.p1*m1.p4*m3.m4-5*SW^2*m2.p1*m3.p2*m1.m4+5*SW^2*m2.p1*m3.p4*m1.m4+5*SW^2*m2.p1*m4.p2*m1.m3+5*SW^2*m3.p1*m1.p2*m2.m4+5*SW^2*m3.p1*m1.p4*m2.m4-5*SW^2*m3.p1*m2.p4*m1.m4-5*SW^2*m3.p1*m4.p2*m1.m2-5*SW^2*m4.p1*m1.p2*m2.m3+5*SW^2*m4.p1*m2.p4*m1.m3+5*SW^2*m4.p1*m3.p2*m1.m2-5*SW^2*m4.p1*m3.p4*m1.m2-5*SW^2*p1.p2*m1.m3*m2.m4+5*SW^2*p1.p2*m1.m4*m2.m3+5*SW^2*p1.p4*m1.m2*m3.m4-5*SW^2*p1.p4*m1.m3*m2.m4)
+A    |UT   |Z    |ut   |5*EE^2*SW/(18*CW*MU1^2)                           |-5*MU1^2*(m1.m2*m3.m4-2*m1.m3*m2.m4+m1.m4*m2.m3)+6*la*(m2.p1*m1.p4*m3.m4+m2.p1*m3.p2*m1.m4-m2.p1*m3.p4*m1.m4-m2.p1*m4.p2*m1.m3-m3.p1*m1.p2*m2.m4-m3.p1*m1.p4*m2.m4+m3.p1*m2.p4*m1.m4+m3.p1*m4.p2*m1.m2+m4.p1*m1.p2*m2.m3-m4.p1*m2.p4*m1.m3-m4.p1*m3.p2*m1.m2+m4.p1*m3.p4*m1.m2+p1.p2*m1.m3*m2.m4-p1.p2*m1.m4*m2.m3-p1.p4*m1.m2*m3.m4+p1.p4*m1.m3*m2.m4)
+A    |VM   |W-   |vp   |-EE^2*Sqrt2/(6*MV2^2*SW)                          |5*MV2^2*m1.m3*m2.m4-4*MV2^2*m1.m2*m3.m4-MV2^2*m1.m4*m2.m3-3*la*(m2.p1*m1.p4*m3.m4+m2.p1*m3.p2*m1.m4-m2.p1*m3.p4*m1.m4-m2.p1*m4.p2*m1.m3-m3.p1*m1.p2*m2.m4-m3.p1*m1.p4*m2.m4+m3.p1*m2.p4*m1.m4+m3.p1*m4.p2*m1.m2+m4.p1*m1.p2*m2.m3-m4.p1*m2.p4*m1.m3-m4.p1*m3.p2*m1.m2+m4.p1*m3.p4*m1.m2+p1.p2*m1.m3*m2.m4-p1.p2*m1.m4*m2.m3-p1.p4*m1.m2*m3.m4+p1.p4*m1.m3*m2.m4)
+A    |VM   |Z    |vm   |EE^2/(18*CW*MV2^2*SW)                             |6*MV2^2*m1.m3*m2.m4+4*SW^2*MV2^2*m1.m3*m2.m4-3*MV2^2*m1.m4*m2.m3-2*SW^2*MV2^2*m1.m4*m2.m3-3*MV2^2*m1.m2*m3.m4-2*SW^2*MV2^2*m1.m2*m3.m4-3*la*(3*m2.p1*m1.p4*m3.m4+3*m2.p1*m3.p2*m1.m4-3*m2.p1*m3.p4*m1.m4-3*m2.p1*m4.p2*m1.m3-3*m3.p1*m1.p2*m2.m4-3*m3.p1*m1.p4*m2.m4+3*m3.p1*m2.p4*m1.m4+3*m3.p1*m4.p2*m1.m2+3*m4.p1*m1.p2*m2.m3-3*m4.p1*m2.p4*m1.m3-3*m4.p1*m3.p2*m1.m2+3*m4.p1*m3.p4*m1.m2+3*p1.p2*m1.m3*m2.m4-3*p1.p2*m1.m4*m2.m3-3*p1.p4*m1.m2*m3.m4+3*p1.p4*m1.m3*m2.m4+2*SW^2*m2.p1*m1.p4*m3.m4+2*SW^2*m2.p1*m3.p2*m1.m4-2*SW^2*m2.p1*m3.p4*m1.m4-2*SW^2*m2.p1*m4.p2*m1.m3-2*SW^2*m3.p1*m1.p2*m2.m4-2*SW^2*m3.p1*m1.p4*m2.m4+2*SW^2*m3.p1*m2.p4*m1.m4+2*SW^2*m3.p1*m4.p2*m1.m2+2*SW^2*m4.p1*m1.p2*m2.m3-2*SW^2*m4.p1*m2.p4*m1.m3-2*SW^2*m4.p1*m3.p2*m1.m2+2*SW^2*m4.p1*m3.p4*m1.m2+2*SW^2*p1.p2*m1.m3*m2.m4-2*SW^2*p1.p2*m1.m4*m2.m3-2*SW^2*p1.p4*m1.m2*m3.m4+2*SW^2*p1.p4*m1.m3*m2.m4)
+A    |VP   |W+   |vm   |-EE^2*Sqrt2/(6*MV2^2*SW)                          |5*MV2^2*m1.m3*m2.m4-MV2^2*m1.m2*m3.m4-4*MV2^2*m1.m4*m2.m3-3*la*(m2.p1*m1.p4*m3.m4+m2.p1*m3.p2*m1.m4-m2.p1*m3.p4*m1.m4-m2.p1*m4.p2*m1.m3-m3.p1*m1.p2*m2.m4-m3.p1*m1.p4*m2.m4+m3.p1*m2.p4*m1.m4+m3.p1*m4.p2*m1.m2+m4.p1*m1.p2*m2.m3-m4.p1*m2.p4*m1.m3-m4.p1*m3.p2*m1.m2+m4.p1*m3.p4*m1.m2+p1.p2*m1.m3*m2.m4-p1.p2*m1.m4*m2.m3-p1.p4*m1.m2*m3.m4+p1.p4*m1.m3*m2.m4)
+A    |VP   |Z    |vp   |-EE^2/(18*CW*MV2^2*SW)                            |24*MV2^2*m1.m3*m2.m4-64*SW^2*MV2^2*m1.m3*m2.m4-12*MV2^2*m1.m4*m2.m3+32*SW^2*MV2^2*m1.m4*m2.m3-12*MV2^2*m1.m2*m3.m4+32*SW^2*MV2^2*m1.m2*m3.m4-3*la*(3*m2.p1*m1.p4*m3.m4+3*m2.p1*m3.p2*m1.m4-3*m2.p1*m3.p4*m1.m4-3*m2.p1*m4.p2*m1.m3-3*m3.p1*m1.p2*m2.m4-3*m3.p1*m1.p4*m2.m4+3*m3.p1*m2.p4*m1.m4+3*m3.p1*m4.p2*m1.m2+3*m4.p1*m1.p2*m2.m3-3*m4.p1*m2.p4*m1.m3-3*m4.p1*m3.p2*m1.m2+3*m4.p1*m3.p4*m1.m2+3*p1.p2*m1.m3*m2.m4-3*p1.p2*m1.m4*m2.m3-3*p1.p4*m1.m2*m3.m4+3*p1.p4*m1.m3*m2.m4-8*SW^2*m2.p1*m1.p4*m3.m4-8*SW^2*m2.p1*m3.p2*m1.m4+8*SW^2*m2.p1*m3.p4*m1.m4+8*SW^2*m2.p1*m4.p2*m1.m3+8*SW^2*m3.p1*m1.p2*m2.m4+8*SW^2*m3.p1*m1.p4*m2.m4-8*SW^2*m3.p1*m2.p4*m1.m4-8*SW^2*m3.p1*m4.p2*m1.m2-8*SW^2*m4.p1*m1.p2*m2.m3+8*SW^2*m4.p1*m2.p4*m1.m3+8*SW^2*m4.p1*m3.p2*m1.m2-8*SW^2*m4.p1*m3.p4*m1.m2-8*SW^2*p1.p2*m1.m3*m2.m4+8*SW^2*p1.p2*m1.m4*m2.m3+8*SW^2*p1.p4*m1.m2*m3.m4-8*SW^2*p1.p4*m1.m3*m2.m4)
+A    |W+   |W-   |Z    |-CW*EE^2/SW                                       |2*m1.m4*m2.m3-m1.m2*m3.m4-m1.m3*m2.m4
+A    |W+   |WP   |wm   |-EE^2*Sqrt2/(6*MW2^2*SW)                          |2*MW2^2*m1.m3*m2.m4-MW2^2*m1.m4*m2.m3-MW2^2*m1.m2*m3.m4+3*la*(m2.p1*m1.p3*m3.m4+m2.p1*m1.p4*m3.m4-m2.p1*m3.p4*m1.m4-m2.p1*m4.p3*m1.m3-m3.p1*m1.p4*m2.m4-m3.p1*m2.p3*m1.m4+m3.p1*m2.p4*m1.m4+m3.p1*m4.p3*m1.m2-m4.p1*m1.p3*m2.m3+m4.p1*m2.p3*m1.m3-m4.p1*m2.p4*m1.m3+m4.p1*m3.p4*m1.m2-p1.p3*m1.m2*m3.m4+p1.p3*m1.m4*m2.m3-p1.p4*m1.m2*m3.m4+p1.p4*m1.m3*m2.m4)
+A    |W-   |WM   |wp   |EE^2*Sqrt2/(6*MW2^2*SW)                           |MW2^2*m1.m2*m3.m4+MW2^2*m1.m3*m2.m4-2*MW2^2*m1.m4*m2.m3-3*la*(m2.p1*m1.p3*m3.m4+m2.p1*m1.p4*m3.m4-m2.p1*m3.p4*m1.m4-m2.p1*m4.p3*m1.m3-m3.p1*m1.p4*m2.m4-m3.p1*m2.p3*m1.m4+m3.p1*m2.p4*m1.m4+m3.p1*m4.p3*m1.m2-m4.p1*m1.p3*m2.m3+m4.p1*m2.p3*m1.m3-m4.p1*m2.p4*m1.m3+m4.p1*m3.p4*m1.m2-p1.p3*m1.m2*m3.m4+p1.p3*m1.m4*m2.m3-p1.p4*m1.m2*m3.m4+p1.p4*m1.m3*m2.m4)
+A    |WM   |Z    |wm   |-EE^2/(18*CW*MW2^2*SW)                            |12*MW2^2*m1.m3*m2.m4-16*SW^2*MW2^2*m1.m3*m2.m4-6*MW2^2*m1.m4*m2.m3+8*SW^2*MW2^2*m1.m4*m2.m3-6*MW2^2*m1.m2*m3.m4+8*SW^2*MW2^2*m1.m2*m3.m4+3*la*(3*m2.p1*m1.p4*m3.m4+3*m2.p1*m3.p2*m1.m4-3*m2.p1*m3.p4*m1.m4-3*m2.p1*m4.p2*m1.m3-3*m3.p1*m1.p2*m2.m4-3*m3.p1*m1.p4*m2.m4+3*m3.p1*m2.p4*m1.m4+3*m3.p1*m4.p2*m1.m2+3*m4.p1*m1.p2*m2.m3-3*m4.p1*m2.p4*m1.m3-3*m4.p1*m3.p2*m1.m2+3*m4.p1*m3.p4*m1.m2+3*p1.p2*m1.m3*m2.m4-3*p1.p2*m1.m4*m2.m3-3*p1.p4*m1.m2*m3.m4+3*p1.p4*m1.m3*m2.m4-2*SW^2*m2.p1*m1.p4*m3.m4-2*SW^2*m2.p1*m3.p2*m1.m4+2*SW^2*m2.p1*m3.p4*m1.m4+2*SW^2*m2.p1*m4.p2*m1.m3+2*SW^2*m3.p1*m1.p2*m2.m4+2*SW^2*m3.p1*m1.p4*m2.m4-2*SW^2*m3.p1*m2.p4*m1.m4-2*SW^2*m3.p1*m4.p2*m1.m2-2*SW^2*m4.p1*m1.p2*m2.m3+2*SW^2*m4.p1*m2.p4*m1.m3+2*SW^2*m4.p1*m3.p2*m1.m2-2*SW^2*m4.p1*m3.p4*m1.m2-2*SW^2*p1.p2*m1.m3*m2.m4+2*SW^2*p1.p2*m1.m4*m2.m3+2*SW^2*p1.p4*m1.m2*m3.m4-2*SW^2*p1.p4*m1.m3*m2.m4)
+A    |WP   |Z    |wp   |-EE^2/(18*CW*MW2^2*SW)                            |6*MW2^2*m1.m3*m2.m4-4*SW^2*MW2^2*m1.m3*m2.m4-3*MW2^2*m1.m4*m2.m3+2*SW^2*MW2^2*m1.m4*m2.m3-3*MW2^2*m1.m2*m3.m4+2*SW^2*MW2^2*m1.m2*m3.m4-3*la*(3*m2.p1*m1.p4*m3.m4+3*m2.p1*m3.p2*m1.m4-3*m2.p1*m3.p4*m1.m4-3*m2.p1*m4.p2*m1.m3-3*m3.p1*m1.p2*m2.m4-3*m3.p1*m1.p4*m2.m4+3*m3.p1*m2.p4*m1.m4+3*m3.p1*m4.p2*m1.m2+3*m4.p1*m1.p2*m2.m3-3*m4.p1*m2.p4*m1.m3-3*m4.p1*m3.p2*m1.m2+3*m4.p1*m3.p4*m1.m2+3*p1.p2*m1.m3*m2.m4-3*p1.p2*m1.m4*m2.m3-3*p1.p4*m1.m2*m3.m4+3*p1.p4*m1.m3*m2.m4-4*SW^2*m2.p1*m1.p4*m3.m4-4*SW^2*m2.p1*m3.p2*m1.m4+4*SW^2*m2.p1*m3.p4*m1.m4+4*SW^2*m2.p1*m4.p2*m1.m3+4*SW^2*m3.p1*m1.p2*m2.m4+4*SW^2*m3.p1*m1.p4*m2.m4-4*SW^2*m3.p1*m2.p4*m1.m4-4*SW^2*m3.p1*m4.p2*m1.m2-4*SW^2*m4.p1*m1.p2*m2.m3+4*SW^2*m4.p1*m2.p4*m1.m3+4*SW^2*m4.p1*m3.p2*m1.m2-4*SW^2*m4.p1*m3.p4*m1.m2-4*SW^2*p1.p2*m1.m3*m2.m4+4*SW^2*p1.p2*m1.m4*m2.m3+4*SW^2*p1.p4*m1.m2*m3.m4-4*SW^2*p1.p4*m1.m3*m2.m4)
+G    |rm   |W-   |RP   |EE*GG*Sqrt2/SW                                    |m1.m3
+G    |rm   |Z    |RM   |-EE*GG/(3*CW*SW)                                  |3*m1.m3+4*SW^2*m1.m3
+G    |rp   |W+   |RM   |EE*GG*Sqrt2/SW                                    |m1.m3
+G    |rp   |Z    |RP   |EE*GG/(3*CW*SW)                                   |3*m1.m3-10*SW^2*m1.m3
+G    |S0   |W+   |sm   |2*EE*GG/SW                                        |m1.m3
+G    |S0   |W-   |sp   |-2*EE*GG/SW                                       |m1.m3
+G    |S0   |Z    |s0   |-2*EE*GG*SW/(3*CW)                                |m1.m3
+G    |S1   |Z    |s1   |-2*EE*GG*SW/(3*CW)                                |m1.m3
+G    |SM   |W-   |s0   |2*EE*GG/SW                                        |m1.m3
+G    |SM   |Z    |sm   |-2*EE*GG/(3*CW*SW)                                |3*m1.m3-2*SW^2*m1.m3
+G    |SP   |W+   |s0   |-2*EE*GG/SW                                       |m1.m3
+G    |SP   |Z    |sp   |2*EE*GG/(3*CW*SW)                                 |3*m1.m3-4*SW^2*m1.m3
+G    |ST   |Z    |st   |-8*EE*GG*SW/(3*CW)                                |m1.m3
+G    |tm   |W-   |TP   |EE*GG*Sqrt2/SW                                    |m1.m3
+G    |tm   |Z    |TM   |-EE*GG/(3*CW*SW)                                  |3*m1.m3-2*SW^2*m1.m3
+G    |tp   |W+   |TM   |EE*GG*Sqrt2/SW                                    |m1.m3
+G    |tp   |Z    |TP   |EE*GG/(3*CW*SW)                                   |3*m1.m3-4*SW^2*m1.m3
+G    |U0   |W+   |um   |-EE*GG/SW                                         |2*m1.m3*m2.m4-m1.m2*m3.m4-m1.m4*m2.m3
+G    |U0   |W-   |up   |EE*GG/SW                                          |2*m1.m3*m2.m4-m1.m2*m3.m4-m1.m4*m2.m3
+G    |U0   |Z    |u0   |2*EE*GG*SW/(3*CW)                                 |2*m1.m3*m2.m4-m1.m2*m3.m4-m1.m4*m2.m3
+G    |UM   |W-   |u0   |-EE*GG/SW                                         |2*m1.m3*m2.m4-m1.m2*m3.m4-m1.m4*m2.m3
+G    |UM   |Z    |um   |EE*GG/(3*CW*SW)                                   |6*m1.m3*m2.m4-2*SW^2*m1.m3*m2.m4-3*m1.m2*m3.m4+SW^2*m1.m2*m3.m4-3*m1.m4*m2.m3+SW^2*m1.m4*m2.m3
+G    |UP   |W+   |u0   |EE*GG/SW                                          |2*m1.m3*m2.m4-m1.m2*m3.m4-m1.m4*m2.m3
+G    |UP   |Z    |up   |-EE*GG/(3*CW*SW)                                  |6*m1.m3*m2.m4-10*SW^2*m1.m3*m2.m4-3*m1.m2*m3.m4+5*SW^2*m1.m2*m3.m4-3*m1.m4*m2.m3+5*SW^2*m1.m4*m2.m3
+G    |VM   |W-   |vp   |EE*GG*Sqrt2/(2*SW)                                |2*m1.m3*m2.m4-m1.m4*m2.m3-m1.m2*m3.m4
+G    |VM   |Z    |vm   |-EE*GG/(6*CW*SW)                                  |6*m1.m3*m2.m4+4*SW^2*m1.m3*m2.m4-3*m1.m4*m2.m3-2*SW^2*m1.m4*m2.m3-3*m1.m2*m3.m4-2*SW^2*m1.m2*m3.m4
+G    |VP   |W+   |vm   |EE*GG*Sqrt2/(2*SW)                                |2*m1.m3*m2.m4-m1.m4*m2.m3-m1.m2*m3.m4
+G    |VP   |Z    |vp   |EE*GG/(6*CW*SW)                                   |6*m1.m3*m2.m4-16*SW^2*m1.m3*m2.m4-3*m1.m4*m2.m3+8*SW^2*m1.m4*m2.m3-3*m1.m2*m3.m4+8*SW^2*m1.m2*m3.m4
+G    |W+   |WP   |wm   |EE*GG*Sqrt2/(2*SW)                                |2*m1.m2*m3.m4-m1.m4*m2.m3-m1.m3*m2.m4
+G    |W-   |WM   |wp   |EE*GG*Sqrt2/(2*SW)                                |2*m1.m2*m3.m4-m1.m4*m2.m3-m1.m3*m2.m4
+G    |WM   |Z    |wm   |-EE*GG/(6*CW*SW)                                  |6*m1.m3*m2.m4-8*SW^2*m1.m3*m2.m4-3*m1.m4*m2.m3+4*SW^2*m1.m4*m2.m3-3*m1.m2*m3.m4+4*SW^2*m1.m2*m3.m4
+G    |WP   |Z    |wp   |EE*GG/(6*CW*SW)                                   |6*m1.m3*m2.m4-4*SW^2*m1.m3*m2.m4-3*m1.m4*m2.m3+2*SW^2*m1.m4*m2.m3-3*m1.m2*m3.m4+2*SW^2*m1.m2*m3.m4
+H    |H    |H    |H    |-3*EE^2*MH^2/(4*MW^2*SW^2)                        |1
+H    |H    |W+   |W-   |EE^2/(2*SW^2)                                     |m3.m4
+H    |H    |Z    |Z    |EE^2/(2*CW^2*SW^2)                                |m3.m4
+rm   |W+   |W-   |RM   |EE^2/(2*SW^2)                                     |m2.m3
+rm   |W-   |Z    |RP   |-7*EE^2*Sqrt2/(6*CW)                              |m2.m3
+rm   |Z    |Z    |RM   |EE^2/(18*CW^2*SW^2)                               |9*m2.m3+24*SW^2*m2.m3+16*SW^4*m2.m3
+rp   |W+   |W-   |RP   |EE^2/(2*SW^2)                                     |m2.m3
+rp   |W+   |Z    |RM   |-7*EE^2*Sqrt2/(6*CW)                              |m2.m3
+rp   |Z    |Z    |RP   |EE^2/(18*CW^2*SW^2)                               |9*m2.m3-60*SW^2*m2.m3+100*SW^4*m2.m3
+S0   |W+   |W-   |s0   |2*EE^2/SW^2                                       |m2.m3
+S0   |W+   |Z    |sm   |-EE^2/(3*CW*SW^2)                                 |3*m2.m3-SW^2*m2.m3
+S0   |W-   |Z    |sp   |-EE^2/(3*CW*SW^2)                                 |3*m2.m3-5*SW^2*m2.m3
+S0   |Z    |Z    |s0   |2*EE^2*SW^2/(9*CW^2)                              |m2.m3
+S1   |Z    |Z    |s1   |2*EE^2*SW^2/(9*CW^2)                              |m2.m3
+SM   |W+   |W-   |sm   |EE^2/SW^2                                         |m2.m3
+SM   |W-   |W-   |sp   |-2*EE^2/SW^2                                      |m2.m3
+SM   |W-   |Z    |s0   |-EE^2/(3*CW*SW^2)                                 |3*m2.m3-SW^2*m2.m3
+SM   |Z    |Z    |sm   |2*EE^2/(9*CW^2*SW^2)                              |9*m2.m3-12*SW^2*m2.m3+4*SW^4*m2.m3
+SP   |W+   |W+   |sm   |-2*EE^2/SW^2                                      |m2.m3
+SP   |W+   |W-   |sp   |EE^2/SW^2                                         |m2.m3
+SP   |W+   |Z    |s0   |-EE^2/(3*CW*SW^2)                                 |3*m2.m3-5*SW^2*m2.m3
+SP   |Z    |Z    |sp   |2*EE^2/(9*CW^2*SW^2)                              |9*m2.m3-24*SW^2*m2.m3+16*SW^4*m2.m3
+ST   |Z    |Z    |st   |32*EE^2*SW^2/(9*CW^2)                             |m2.m3
+tm   |W+   |W-   |TM   |EE^2/(2*SW^2)                                     |m2.m3
+tm   |W-   |Z    |TP   |-EE^2*Sqrt2/(6*CW)                                |m2.m3
+tm   |Z    |Z    |TM   |EE^2/(18*CW^2*SW^2)                               |9*m2.m3-12*SW^2*m2.m3+4*SW^4*m2.m3
+tp   |W+   |W-   |TP   |EE^2/(2*SW^2)                                     |m2.m3
+tp   |W+   |Z    |TM   |-EE^2*Sqrt2/(6*CW)                                |m2.m3
+tp   |Z    |Z    |TP   |EE^2/(18*CW^2*SW^2)                               |9*m2.m3-24*SW^2*m2.m3+16*SW^4*m2.m3
+U0   |W+   |W-   |u0   |-EE^2/SW^2                                        |2*m1.m4*m2.m3-m1.m3*m2.m4-m1.m2*m3.m4
+U0   |W+   |Z    |um   |EE^2/(3*CW*SW^2)                                  |3*m1.m4*m2.m3+SW^2*m1.m4*m2.m3-2*SW^2*m1.m2*m3.m4-3*m1.m3*m2.m4+SW^2*m1.m3*m2.m4
+U0   |W-   |Z    |up   |EE^2/(3*CW*SW^2)                                  |3*m1.m4*m2.m3-7*SW^2*m1.m4*m2.m3+2*SW^2*m1.m2*m3.m4-3*m1.m3*m2.m4+5*SW^2*m1.m3*m2.m4
+U0   |Z    |Z    |u0   |-4*EE^2*SW^2/(9*CW^2)                             |2*m1.m4*m2.m3-m1.m2*m3.m4-m1.m3*m2.m4
+U1   |Z    |Z    |u1   |-2*EE^2*SW^2/(9*CW^2)                             |2*m1.m4*m2.m3-m1.m2*m3.m4-m1.m3*m2.m4
+UM   |W+   |W-   |um   |-EE^2/SW^2                                        |m1.m4*m2.m3-m1.m2*m3.m4
+UM   |W-   |W-   |up   |EE^2/SW^2                                         |2*m1.m4*m2.m3-m1.m2*m3.m4-m1.m3*m2.m4
+UM   |W-   |Z    |u0   |EE^2/(3*CW*SW^2)                                  |3*m1.m4*m2.m3+SW^2*m1.m4*m2.m3-3*m1.m2*m3.m4+SW^2*m1.m2*m3.m4-2*SW^2*m1.m3*m2.m4
+UM   |Z    |Z    |um   |-EE^2/(9*CW^2*SW^2)                               |18*m1.m4*m2.m3-12*SW^2*m1.m4*m2.m3+2*SW^4*m1.m4*m2.m3-9*m1.m2*m3.m4+6*SW^2*m1.m2*m3.m4-SW^4*m1.m2*m3.m4-9*m1.m3*m2.m4+6*SW^2*m1.m3*m2.m4-SW^4*m1.m3*m2.m4
+UP   |W+   |W+   |um   |EE^2/SW^2                                         |2*m1.m4*m2.m3-m1.m2*m3.m4-m1.m3*m2.m4
+UP   |W+   |W-   |up   |-EE^2/SW^2                                        |m1.m4*m2.m3-m1.m3*m2.m4
+UP   |W+   |Z    |u0   |EE^2/(3*CW*SW^2)                                  |3*m1.m4*m2.m3-7*SW^2*m1.m4*m2.m3-3*m1.m2*m3.m4+5*SW^2*m1.m2*m3.m4+2*SW^2*m1.m3*m2.m4
+UP   |Z    |Z    |up   |-EE^2/(9*CW^2*SW^2)                               |18*m1.m4*m2.m3-60*SW^2*m1.m4*m2.m3+50*SW^4*m1.m4*m2.m3-9*m1.m2*m3.m4+30*SW^2*m1.m2*m3.m4-25*SW^4*m1.m2*m3.m4-9*m1.m3*m2.m4+30*SW^2*m1.m3*m2.m4-25*SW^4*m1.m3*m2.m4
+UT   |Z    |Z    |ut   |-25*EE^2*SW^2/(18*CW^2)                           |2*m1.m4*m2.m3-m1.m2*m3.m4-m1.m3*m2.m4
+VM   |W+   |W-   |vm   |-EE^2/(2*SW^2)                                    |m1.m4*m2.m3-m1.m2*m3.m4
+VM   |W-   |Z    |vp   |EE^2*Sqrt2/(12*CW*SW^2)                           |10*SW^2*m1.m4*m2.m3+3*m1.m3*m2.m4-8*SW^2*m1.m3*m2.m4-3*m1.m2*m3.m4-2*SW^2*m1.m2*m3.m4
+VM   |Z    |Z    |vm   |-EE^2/(36*CW^2*SW^2)                              |18*m1.m4*m2.m3+24*SW^2*m1.m4*m2.m3+8*SW^4*m1.m4*m2.m3-9*m1.m3*m2.m4-12*SW^2*m1.m3*m2.m4-4*SW^4*m1.m3*m2.m4-9*m1.m2*m3.m4-12*SW^2*m1.m2*m3.m4-4*SW^4*m1.m2*m3.m4
+VP   |W+   |W-   |vp   |-EE^2/(2*SW^2)                                    |m1.m4*m2.m3-m1.m3*m2.m4
+VP   |W+   |Z    |vm   |EE^2*Sqrt2/(12*CW*SW^2)                           |10*SW^2*m1.m4*m2.m3-3*m1.m3*m2.m4-2*SW^2*m1.m3*m2.m4+3*m1.m2*m3.m4-8*SW^2*m1.m2*m3.m4
+VP   |Z    |Z    |vp   |-EE^2/(36*CW^2*SW^2)                              |18*m1.m4*m2.m3-96*SW^2*m1.m4*m2.m3+128*SW^4*m1.m4*m2.m3-9*m1.m3*m2.m4+48*SW^2*m1.m3*m2.m4-64*SW^4*m1.m3*m2.m4-9*m1.m2*m3.m4+48*SW^2*m1.m2*m3.m4-64*SW^4*m1.m2*m3.m4
+W+   |W+   |W-   |W-   |EE^2/SW^2                                         |2*m1.m2*m3.m4-m1.m4*m2.m3-m1.m3*m2.m4
+W+   |W-   |WM   |wm   |-EE^2/(2*SW^2)                                    |m1.m2*m3.m4-m1.m3*m2.m4
+W+   |W-   |WP   |wp   |-EE^2/(2*SW^2)                                    |m1.m2*m3.m4-m1.m4*m2.m3
+W+   |W-   |Z    |Z    |-CW^2*EE^2/SW^2                                   |2*m1.m2*m3.m4-m1.m3*m2.m4-m1.m4*m2.m3
+W+   |WP   |Z    |wm   |-EE^2*Sqrt2/(12*CW*SW^2)                          |2*SW^2*m1.m3*m2.m4+3*m1.m4*m2.m3-4*SW^2*m1.m4*m2.m3-3*m1.m2*m3.m4+2*SW^2*m1.m2*m3.m4
+W-   |WM   |Z    |wp   |-EE^2*Sqrt2/(12*CW*SW^2)                          |2*SW^2*m1.m3*m2.m4-3*m1.m4*m2.m3+2*SW^2*m1.m4*m2.m3+3*m1.m2*m3.m4-4*SW^2*m1.m2*m3.m4
+WM   |Z    |Z    |wm   |-EE^2/(36*CW^2*SW^2)                              |18*m1.m4*m2.m3-48*SW^2*m1.m4*m2.m3+32*SW^4*m1.m4*m2.m3-9*m1.m3*m2.m4+24*SW^2*m1.m3*m2.m4-16*SW^4*m1.m3*m2.m4-9*m1.m2*m3.m4+24*SW^2*m1.m2*m3.m4-16*SW^4*m1.m2*m3.m4
+WP   |Z    |Z    |wp   |-EE^2/(36*CW^2*SW^2)                              |18*m1.m4*m2.m3-24*SW^2*m1.m4*m2.m3+8*SW^4*m1.m4*m2.m3-9*m1.m3*m2.m4+12*SW^2*m1.m3*m2.m4-4*SW^4*m1.m3*m2.m4-9*m1.m2*m3.m4+12*SW^2*m1.m2*m3.m4-4*SW^4*m1.m2*m3.m4
+==========================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================================

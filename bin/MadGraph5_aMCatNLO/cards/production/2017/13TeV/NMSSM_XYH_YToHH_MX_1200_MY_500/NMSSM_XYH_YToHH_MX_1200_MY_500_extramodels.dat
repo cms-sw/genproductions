@@ -1,0 +1,4 @@
+# X > YH model
+# This is an extended version of the NMSSM model available on CMS generators: https://cms-project-generators.web.cern.ch/cms-project-generators/NMSSMHET_UFO.zip
+# This version includes couplings to fermions for all the scalars. Privately produced by Yiming Zhong and acknowledged by the NMSSM LHC HXSWG group contacts.
+NMSSMHET_UFO_fermioncouplings.zip

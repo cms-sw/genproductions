@@ -1,0 +1,5 @@
+import model loop_sm-no_b_mass
+define p = p b b~
+generate p p > t W- Z [QCD]
+add process p p > t~ W+ Z [QCD]
+output tLepWLepZLepDR -nojpeg

@@ -1,0 +1,4 @@
+import model 2HDMtII_NLO
+# bb -associated production : 4flavor scheme
+generate p p > h2 > h3 Z b b~ [QCD] @0 
+output HToZATo2L2B_500p00_300p00_20p00_bbH4F_TuneCP5_13TeV-amcatnlo_pythia8 -nojpeg

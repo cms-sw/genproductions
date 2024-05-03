@@ -1,0 +1,29 @@
+--- a/madgraph/various/systematics.py
++++ b/madgraph/various/systematics.py
+@@ -339,7 +339,7 @@ class Systematics(object):
+         else:
+             lowest_id = self.get_id()        
+ 
+-        ids = [self.get_wgt_name(*self.args[i][:5], cid=lowest_id+i) for i in range(len(self.args)-1)]
++        ids = [self.get_wgt_name(*self.args[i][:5], cid=lowest_id+i) for i in range(len(self.args))]
+         #ids = [lowest_id+i for i in range(len(self.args)-1)]
+         all_cross = [0 for i in range(len(self.args))]
+         
+@@ -374,7 +374,7 @@ class Systematics(object):
+                 print(event)
+                 raise Exception
+             
+-            wgt = [event.wgt*wgts[i]/wgts[0] for i in range(1,len(wgts))]
++            wgt = [event.wgt*wgts[i]/wgts[0] for i in range(0,len(wgts))]
+             all_cross = [(all_cross[j] + event.wgt*wgts[j]/wgts[0]) for j in range(len(wgts))]
+             
+             rwgt_data = event.parse_reweight()
+@@ -548,7 +548,7 @@ class Systematics(object):
+         text = ''
+         
+         default = self.args[0]
+-        for arg in self.args[1:]:
++        for arg in self.args[0:]:
+             mur, muf, alps, dyn, pdf = arg[:5]
+             if pdf == self.orig_pdf and alps ==1 and (mur!=1 or muf!=1 or dyn!=-1):
+                 if not in_scale:

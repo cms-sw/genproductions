@@ -1,0 +1,11 @@
+import model sm-no_b_mass
+
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
+
+generate p p > w+ l+ l- j j j, w+ > l+ vl @0
+add process p p > w- l+ l- j j j, w- > l- vl~ @1
+
+output WZTo3LNu3j_5f_LO_MLM -nojpeg

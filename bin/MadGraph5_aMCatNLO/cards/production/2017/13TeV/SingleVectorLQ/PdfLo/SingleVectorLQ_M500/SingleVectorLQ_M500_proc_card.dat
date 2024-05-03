@@ -1,0 +1,11 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set loop_optimized_output True
+set complex_mass_scheme False
+import model VectorLQ_UFO
+define p = p b b~
+generate p p > vlq ta- , vlq > t vt~
+add process p p > vlq~ ta+ , vlq~ > t~ vt
+add process p p > vlq ta- , vlq > b ta+
+add process p p > vlq~ ta+ , vlq~ > b~ ta-
+output SingleVectorLQ_M500

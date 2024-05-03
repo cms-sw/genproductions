@@ -1,0 +1,26 @@
+### preparing validation setup including gridpack generation using the example of MG5_aMC@NLO 
+# create your working path
+mkdir -p SOMENAME; cd SOMENAME; WORKDIR=`pwd`
+cd ${WORKDIR}
+git clone https://github.com/cms-sw/genproductions.git genproductions
+
+### make gridpacks e.g. at lxplus, more info can be found at https://twiki.cern.ch/twiki/bin/viewauth/CMS/QuickGuideMadGraph5aMCatNLO  
+cd ${WORKDIR}/genproductions/bin/MadGraph5_aMCatNLO
+cp -rp ${WORKDIR}/genproductions/bin/GenValidation/validation_cards . 
+./gridpack_generation.sh PROCESS validation_cards/MG5_aMC@NLO/PROCESS
+
+### run validation tools 
+cd ${WORKDIR}
+cp ${WORKDIR}/genproductions/bin/GenValidation/submit_validation.sh .
+# copy final gridpacks for the two versions you want to compare to some path
+# include the path and gridpack name in submit_validation.sh
+# adjust settings according to your needs, e.g. specify batch system,... 
+# run submission once per gridpack 
+source submit_validation.sh 
+# wait for jobs to finish 
+
+### do final comparison 
+cp ${WORKDIR}/genproductions/bin/GenValidation/merge_mkhtml.sh .
+# adjust name of the tags you want to compare and run 
+source merge_mkhtml.sh 
+

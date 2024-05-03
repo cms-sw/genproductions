@@ -1,0 +1,2 @@
+create_cards.sh allows generating cards for different mass, widht, parity and final states: ll; ljets; incl (hadronic not yet)
+please check the modifications in gridpack_generation.sh to modify the matrix1.f for interference effects. you can udpate the current gridpack_generation.sh by the few lines. the rest can always be taken from the latest code. 
