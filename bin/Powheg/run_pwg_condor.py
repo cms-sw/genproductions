@@ -313,7 +313,7 @@ def runGetSource(parstage, xgrid, folderName, powInputName, process, noPdfCheck,
     template_dict["isFiveFlavor"] = int(process not in fourFlavorProcesses)
     template_dict["defaultPDF"] = 325300 if template_dict["isFiveFlavor"] else 325500
 
-    powhegResProcesses = ["b_bbar_4l", "HWJ_ew", "HW_ew", "HZJ_ew", "HZ_ew", "vbs-ssww-nloew", "WWJ", "ZZJ", "HJJ_ew", "LQ-s-chan", "gg4l", "Zgam", "ZgamJ", "VV_dec_ew"]
+    powhegResProcesses = ["DIS", "b_bbar_4l", "HWJ_ew", "HW_ew", "HZJ_ew", "HZ_ew", "vbs-ssww-nloew", "WWJ", "ZZJ", "HJJ_ew", "LQ-s-chan", "gg4l", "Zgam", "ZgamJ", "VV_dec_ew", "WZJ", "Wc"]
     if process in powhegResProcesses:
         template_dict["powhegSrc"] = POWHEGRES_SOURCE
         template_dict["svnRepo"] = "svn://powhegbox.mib.infn.it/trunk/POWHEG-BOX-RES"

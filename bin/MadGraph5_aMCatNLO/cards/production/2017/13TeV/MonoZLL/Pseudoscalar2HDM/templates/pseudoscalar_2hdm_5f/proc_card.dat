@@ -1,7 +1,0 @@
-import @MODEL@RESTRICT
-# Define multiparticle labels
-@PROCESS
-output @DATASET 
-
-
-

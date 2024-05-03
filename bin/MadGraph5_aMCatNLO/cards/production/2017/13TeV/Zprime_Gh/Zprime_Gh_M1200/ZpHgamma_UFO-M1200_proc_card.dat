@@ -1,3 +1,0 @@
-import model ZpHgamma_UFO
-generate p p > Zp > h a
-output ZpHgamma_UFO-M1200 -nojpeg

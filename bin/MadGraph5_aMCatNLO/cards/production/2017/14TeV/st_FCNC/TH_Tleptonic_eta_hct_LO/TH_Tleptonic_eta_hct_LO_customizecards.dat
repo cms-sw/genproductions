@@ -1,4 +1,0 @@
-#put card customizations here
-set param_card mass   6  172.5
-set param_card yukawa 6  172.5
-set param_card mass   25 125.0

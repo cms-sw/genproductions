@@ -1,3 +1,0 @@
-c      Input values....
-      double precision a_cp ,b_cp ,c_cp 
-      common /USR_PARAM/  a_cp ,b_cp ,c_cp 

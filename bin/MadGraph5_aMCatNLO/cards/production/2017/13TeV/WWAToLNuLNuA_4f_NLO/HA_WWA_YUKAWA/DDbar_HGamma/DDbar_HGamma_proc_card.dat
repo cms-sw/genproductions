@@ -1,5 +1,0 @@
-import model HEL_UFO 
-
-generate d d~ >  h a NP==0 QED==2 
-
-output hgd_LO -nojpeg

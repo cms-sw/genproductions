@@ -79,8 +79,8 @@ echo 'D/L POWHEG source...'
 
 if [ $svnRev -eq 0 ]; then
  if [ ! -f $${POWHEGSRC} ]; then
-   wget --no-verbose --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/slc6_amd64_gcc481/powheg/V2.0/src/$${POWHEGSRC} || fail_exit "Failed to get powheg tar ball "
-#  cp /afs/cern.ch/user/s/shin/private/$powhegSrc .
+#   wget --no-verbose --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/slc6_amd64_gcc481/powheg/V2.0/src/$${POWHEGSRC} || fail_exit "Failed to get powheg tar ball "
+  cp /eos/home-s/shin/$powhegSrc .
  fi
  tar -zxf $powhegSrc
 else
@@ -175,7 +175,7 @@ fi
 if [ `grep particle_identif pwhg_analysis-dummy.f` = ""]; then
    cp ../pwhg_analysis-dummy.f .
 fi
-if [[ $$process != "WWJ" && $$process != "ZgamJ" && $$process != "ZZJ" && $$process != "Zgam" ]]; then
+if [[ $$process != "WWJ" && $$process != "ZgamJ" && $$process != "ZZJ" && $$process != "Zgam" && $$process != "VV_dec_ew" ]]; then
   sed -i -e "s#PWHGANAL[ \t]*=[ \t]*#\#PWHGANAL=#g" Makefile
   sed -i -e "s#ANALYSIS[ \t]*=[ \t]*#\#ANALYSIS=#g" Makefile
   sed -i -e "s#_\#ANALYSIS*#_ANALYSIS=#g" Makefile
@@ -252,13 +252,6 @@ if [[ $$process == "ggHH" || $$process == "ggHH_SMEFT" ]]; then
 fi
 
 
-make pwhg_main
-
-if [ -e scons ]; then
-  echo "Compiling OpenLoops using scons"
-  sed -i "s/python2/python3/g" scons-local/scons.py
-  ./scons
-fi
 make pwhg_main || fail_exit "Failed to compile pwhg_main"
 
 mkdir -p $${WORKDIR}/$${name}

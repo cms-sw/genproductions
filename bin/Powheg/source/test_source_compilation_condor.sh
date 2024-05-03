@@ -27,7 +27,7 @@ cat << EOF > source_compilation_${source_name}_$2_$3.sh
 genproduction_dir=$PWD/../../..
 topdir=$PWD
 source_file=$1
-source_dir=/afs/cern.ch/user/s/shin/private/$1
+source_dir=/eos/home-s/shin/$1
 scram_arch_version=$2
 cmssw_version=$3
 workdir=test

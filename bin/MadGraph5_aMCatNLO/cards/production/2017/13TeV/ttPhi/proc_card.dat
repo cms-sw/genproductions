@@ -1,5 +1,0 @@
-import model Phi_simp
-define p = p b b~
-define j = j b b~
-generate p p > t t~ y0, y0 > lepton+ lepton-
-output outputDir
