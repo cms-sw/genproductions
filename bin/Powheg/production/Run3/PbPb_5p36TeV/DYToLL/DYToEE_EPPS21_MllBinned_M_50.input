@@ -30,7 +30,6 @@ xupbound 2d0      ! increase upper bound for radiation generation
 
 renscfact  1d0   ! (default 1d0) ren scale factor: muren  = muref * renscfact 
 facscfact  1d0   ! (default 1d0) fac scale factor: mufact = muref * facscfact 
-testplots  1     ! (default 0, do not) do NLO and PWHG distributions
 iseed    SEED    ! initialize random number sequence 
 mass_low 50      ! M Z > mass_low in GeV
 
