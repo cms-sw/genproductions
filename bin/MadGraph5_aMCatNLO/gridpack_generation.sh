@@ -213,6 +213,25 @@ make_gridpack () {
     
       LHAPDFINCLUDES=`$LHAPDFCONFIG --incdir`
       LHAPDFLIBS=`$LHAPDFCONFIG --libdir`
+
+      # workaround for el8
+      LHAPDFPYTHONVER=`find $LHAPDFLIBS -name "python*" -type d -exec basename {} \;`
+      LHAPDFPYTHONLIB=`find $LHAPDFLIBS/$LHAPDFPYTHONVER/site-packages -name "*.egg" -type d -exec basename {} \;`
+      export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$LHAPDFLIBS
+
+      if [ ! -z "${LHAPDFPYTHONLIB}" ] ; then
+        if [ ! -z "${PYTHONPATH+x}" ] ; then
+          export PYTHONPATH=$PYTHONPATH:$LHAPDFLIBS/$LHAPDFPYTHONVER/site-packages/$LHAPDFPYTHONLIB
+        else
+          export PYTHONPATH=$LHAPDFLIBS/$LHAPDFPYTHONVER/site-packages/$LHAPDFPYTHONLIB
+        fi
+      else
+        if [ ! -z "${PYTHONPATH+x}" ] ; then
+          export PYTHONPATH=$PYTHONPATH:$LHAPDFLIBS/$LHAPDFPYTHONVER/site-packages
+        else
+          export PYTHONPATH=$LHAPDFLIBS/$LHAPDFPYTHONVER/site-packages
+        fi
+      fi
     
       echo "set auto_update 0" > mgconfigscript
       echo "set automatic_html_opening False" >> mgconfigscript
