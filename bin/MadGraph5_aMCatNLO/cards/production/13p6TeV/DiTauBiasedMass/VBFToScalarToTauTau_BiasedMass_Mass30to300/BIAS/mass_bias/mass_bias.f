@@ -60,7 +60,10 @@ c
 c For this to be used, the 'event_norm' option in the run_card should be
 c set to
 c      'bias' = event_norm      
-c
+c Note as the purpose of this MC sample is for training a mass regression,
+c we do not set this option since it would results in a distribiution
+c peaked at 125 GeV, whereas a flat distribution is required to avoid
+c a bias towards a specific mass in the training
       
       mass_wgt=1d0
       acceptance_wgt=1d0
