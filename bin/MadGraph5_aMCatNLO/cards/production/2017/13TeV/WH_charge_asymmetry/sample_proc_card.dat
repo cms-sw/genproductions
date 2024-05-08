@@ -30,10 +30,6 @@ set max_npoint_for_channel 0
 import model sm
 define p = g u c d s u~ c~ d~ s~
 define j = g u c d s u~ c~ d~ s~
-define l+ = e+ mu+
-define l- = e- mu-
-define vl = ve vm vt
-define vl~ = ve~ vm~ vt~
 import model SM_dusc_NLO_py3
 set gauge Feynman
 generate    p p > Wtag h   [QCD] @0
