@@ -1381,6 +1381,12 @@ for num in range(0,len(prepid)):
             if os.path.isfile(fname_p2) is True : filename_pc = fname_p2
             if os.path.isfile(fname_p3) is True : filename_pc = fname_p3
             if os.path.isfile(filename_pc) is True :
+                print("---------Full process card--------------------------")
+                proccardfile = open(filename_pc)
+                for linepc in proccardfile.readlines():
+                    if (linepc.startswith("#")) is False:
+                        print(linepc.strip("\n"))
+                print("------End of full process card----------------------\n")
                 mg_nlo = int(os.popen('grep -c "\[QCD\]" '+filename_pc).read())
                 loop_flag = int(os.popen('more '+filename_pc+' | grep -c "noborn=QCD"').read())
                 gen_line = os.popen('grep generate '+filename_pc).read()
