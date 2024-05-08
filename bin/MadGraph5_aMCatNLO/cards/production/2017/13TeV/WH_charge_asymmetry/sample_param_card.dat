@@ -67,7 +67,7 @@ Block yukawa
     1 273.0000e-05 # ymdo 
     2 131.0000e-05 # ymup 
     3 5400.0000e-05 # yms 
-    4 ctag.0000e-05 # ymc 
+    4 63400.0000e-05 # ymc 
     5 4.700000e+00 # ymb 
     6 1.720000e+02 # ymt 
    15 1.777000e+00 # ymtau 
@@ -78,7 +78,7 @@ Block yukawa
 DECAY   6 1.508336e+00 # WT 
 DECAY  23 2.495200e+00 # WZ 
 DECAY  24 2.085000e+00 # WW 
-DECAY  25 decay_higgs_tag # WH 
+DECAY  25 4.070000e-03 # WH 
 ## Dependent parameters, given by model restrictions.
 ## Those values should be edited following the 
 ## analytical expression. MG5 ignores those values 

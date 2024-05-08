@@ -1,4 +1,4 @@
-#param_card.dat: modify the charm quark yukawa coupling
+#customizecards.dat: modify the charm quark yukawa coupling
 cDefault=63400
 CHARGES="minus plus"
 KAPPA="1 40 80 120"
@@ -9,15 +9,15 @@ do
     do
         cYukawa=$(expr $cMultiple*$cDefault | bc)
         #WH(WW)
-        sed -e 's/ctag/'"$cYukawa"'/g' sample_param_card.dat >trash_ww_param.dat
-        sed -e 's/decay_higgs_tag/'"4.070000e-03"'/g' trash_ww_param.dat >W${CHARGE}H_HToWW_TuneCP5_KappaC${cMultiple}_13TeV_amcatnloFxFx-pythia8_param_card.dat
+        sed -e 's/ctag/'"$cYukawa"'/g' sample_customizecards.dat >trash_ww_custom.dat
+        sed -e 's/decay_higgs_tag/'"4.070000e-03"'/g' trash_ww_custom.dat >W${CHARGE}H_HToWW_TuneCP5_KappaC${cMultiple}_13TeV_amcatnloFxFx-pythia8_customizecards.dat
         #WH(TT)
-        sed -e 's/ctag/'"$cYukawa"'/g' sample_param_card.dat >trash_tt_param.dat
-        sed -e 's/decay_higgs_tag/'"4.070000e-03"'/g' trash_tt_param.dat >W${CHARGE}H_HTo2Tau_TuneCP5_KappaC${cMultiple}_13TeV_amcatnloFxFx-pythia8_param_card.dat
+        sed -e 's/ctag/'"$cYukawa"'/g' sample_customizecards.dat >trash_tt_custom.dat
+        sed -e 's/decay_higgs_tag/'"4.070000e-03"'/g' trash_tt_custom.dat >W${CHARGE}H_HTo2Tau_TuneCP5_KappaC${cMultiple}_13TeV_amcatnloFxFx-pythia8_customizecards.dat
         #WH(GG)
-        sed -e 's/ctag/'"$cYukawa"'/g' sample_param_card.dat >trash_gg_param.dat
-        sed -e 's/decay_higgs_tag/'"AUTO"'/g' trash_gg_param.dat >W${CHARGE}H_HToGG_TuneCP5_KappaC${cMultiple}_13TeV_amcatnloFxFx-pythia8_param_card.dat
-        rm trash_ww_param.dat trash_tt_param.dat trash_gg_param.dat
+        sed -e 's/ctag/'"$cYukawa"'/g' sample_customizecards.dat >trash_gg_custom.dat
+        sed -e 's/decay_higgs_tag/'"AUTO"'/g' trash_gg_custom.dat >W${CHARGE}H_HToGG_TuneCP5_KappaC${cMultiple}_13TeV_amcatnloFxFx-pythia8_customizecards.dat
+        rm trash_ww_custom.dat trash_tt_custom.dat trash_gg_custom.dat
     done
 done
 #param_cat.dat for the WH(GG) channel needs additional lines
@@ -25,6 +25,9 @@ for CHARGE in $CHARGES
 do
 for cMultiple in $KAPPA
 do
+cp sample_param_card.dat W${CHARGE}H_HToGG_TuneCP5_KappaC${cMultiple}_13TeV_amcatnloFxFx-pythia8_param_card.dat
+cp sample_param_card.dat W${CHARGE}H_HTo2Tau_TuneCP5_KappaC${cMultiple}_13TeV_amcatnloFxFx-pythia8_param_card.dat
+cp sample_param_card.dat W${CHARGE}H_HToWW_TuneCP5_KappaC${cMultiple}_13TeV_amcatnloFxFx-pythia8_param_card.dat
 cat >> W${CHARGE}H_HToGG_TuneCP5_KappaC${cMultiple}_13TeV_amcatnloFxFx-pythia8_param_card.dat << EOL
 
 ###################################
