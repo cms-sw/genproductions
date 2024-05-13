@@ -1,0 +1,9 @@
+
+define l+ = l+ ta+
+define l- = l- ta-
+import model NewResFlags
+generate p p > uq4 > t a, ( t > b w+ , w+ > l+ vl) @0
+add process  p p > uq4~ > t~ a, ( t~ > b~ w- , w- > l- vl~) @1
+add process  p p > uq4 > t a, ( t > b w+ , w+ > j j) @2
+add process  p p > uq4~ > t~ a, ( t~ > b~ w- , w- > j j) @3
+output VLT_ta_M1600 -nojpeg
