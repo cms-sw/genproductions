@@ -39,7 +39,7 @@ source_name="${source_name%.*}"
 ##################################################################################
 ##################################################################################
 
-source_dir=/afs/cern.ch/cms/generators/www/slc6_amd64_gcc481/powheg/V2.0/src/$1
+source_dir=/eos/project/c/cmsweb/www/generators/directories/cms-project-generators/slc6_amd64_gcc481/powheg/V2.0/src/$1
 
 # check whether the script needs to run on all the processes 
 # or on a (sub)set defined in the variable "processes"
@@ -67,7 +67,7 @@ process=${process}
 genproduction_dir=$PWD/../../..
 topdir=$PWD
 source_file=$1
-source_dir=/afs/cern.ch/cms/generators/www/slc6_amd64_gcc481/powheg/V2.0/src/$1
+source_dir=/eos/project/c/cmsweb/www/generators/directories/cms-project-generators/slc6_amd64_gcc481/powheg/V2.0/src/$1
 scram_arch_version=$2
 cmssw_version=$3
 workdir=test
