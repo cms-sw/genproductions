@@ -1453,6 +1453,10 @@ for num in range(0,len(prepid)):
                 mgversion = mgversion[2].split(".")
                 mgversion_tmp = mgversion_tmp.split("\n")
                 print("The gridpack is made with mg5_aMC version:"+str(mgversion_tmp[0]))   
+                if str(mgversion_tmp[0]).strip("version =") not in gridpack_cvmfs_path:
+                    warnings.append("Gridpack may not be in a correct madgraph version-folder in cvmfs:"+gridpack_cvmfs_path+" while madgraph "+str(mgversion_tmp[0]))
+                else:
+                    print("Gridpack in correct madgraph version-folder in cvmfs:"+gridpack_cvmfs_path)    
                 mg5_aMC_version = float(mgversion[0])*100/float(pow(10,len(str(int(mgversion[0])))-1)) + float(mgversion[1])*10/float(pow(10,len(str(int(mgversion[1])))-1)) + float(mgversion[2])/float(pow(10,len(str(int(mgversion[2])))-1))
                 if "UL" in pi and mg5_aMC_version < 261:
                     if "PPD" in pi:
