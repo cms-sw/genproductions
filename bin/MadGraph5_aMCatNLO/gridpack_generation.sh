@@ -226,7 +226,7 @@ make_gridpack () {
       mglib_path=${mglib_path#*=}/HEPTools/lib
       if [ -n "$mglib_path" ]; then
         echo "set ninja $mglib_path" >> mgconfigscript
-        echo "install collier" >> mgconfigscript
+        echo "set collier $mglib_path" >> mgconfigscript
       fi
 
       if [ "$queue" == "local" ]; then
