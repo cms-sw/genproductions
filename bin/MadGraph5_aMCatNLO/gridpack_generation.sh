@@ -8,7 +8,6 @@
 #Important: Param card is not mandatory for this script                                  #
 ##########################################################################################
 
-
 ##########################################################################################
 #For runnning, the following command should be used                                      #
 #./create_gridpack_template.sh NAME_OF_PRODCUTION RELATIVE_PATH_TO_CARDS QUEUE_SELECTION #
