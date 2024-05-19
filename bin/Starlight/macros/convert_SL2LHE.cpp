@@ -36,6 +36,12 @@ void convert_SL2LHE(const std::string& inFileName, const double& beamE1, const d
   if (not inFile.is_open())
     throw std::logic_error("[convert_SL2LHE] Failed to open input file: "+inFileName);
 
+  // Extract cross section
+  double fidxsec(1), totxsec(3);
+  std::ifstream xsecFile(inFileName.substr(0, inFileName.rfind("/")+1)+"xsec.out");
+  if (xsecFile.is_open())
+    xsecFile >> fidxsec >> totxsec;
+
   // Create output file
   const auto outFileName = inFileName.substr(0, inFileName.rfind(".")).substr(inFileName.rfind("/")+1) + ".lhe";
   std::ofstream outFile(outFileName);
@@ -51,16 +57,18 @@ void convert_SL2LHE(const std::string& inFileName, const double& beamE1, const d
 
   // Put generic initialization-level info since STARLIGHT doesn't save this
   outFile << "<init>" << std::endl;
-  //beam particle 1, 2, beam energy 1, 2, author group, beam 1, 2, PDFSET beam 1, 2,
-  outFile << "22 " << "22 " << beamE1 << " " << beamE2 << " 0 " << "0 " << "0 " << "0 " << "3 " << "1" << std::endl;
-  outFile << "1.0 " << "0.0 " << "3.0 " << "81" << std::endl;
+  outFile << std::fixed << std::setprecision(8) << std::scientific;
+  //LHE format: https://arxiv.org/pdf/hep-ph/0109068.pdf
+  //beam pdg id (1, 2), beam energy [GeV] (1, 2), PDF author group (1, 2), PDF set id (1, 2), weight strategy, # subprocesses
+  outFile << "2212 2212 " << beamE1 << " " << beamE2 << " 0 0 0 0 3 1" << std::endl;
+  //cross section [pb], cross section stat. unc. [pb], maximum event weight, subprocess id
+  outFile << fidxsec << " " << 0.0 << " " << totxsec << " 81" << std::endl;
   outFile << "</init>" << std::endl;
 
   int nEvt(0);
   std::string line, label;
   const auto momPdgId = getMomPdgID(chnId);
   std::unique_ptr<TDatabasePDG> dataPDG(TDatabasePDG::Instance());
-  outFile.precision(10);
 
   // Read input file
   while (getline(inFile, line)) {
@@ -71,15 +79,19 @@ void convert_SL2LHE(const std::string& inFileName, const double& beamE1, const d
         label != "EVENT:")
       throw std::logic_error("[convert_SL2LHE] Failed to parse event line: "+line);
 
-    std::vector<std::string> oLines;
-    oLines.reserve(nTrk + nVtx);
+    // Particle tuple: pdg id, status, mother index, 4-momentum
+    std::vector<std::tuple<int, int, int, ROOT::Math::PxPyPzMVector>> parV;
+    parV.reserve(nVtx + nTrk);
+    double scale(-1);
 
     while (iVtx < nVtx && getline(inFile, line)) {
       // Read vertex line
       std::istringstream stream(line);
       if (not (stream >> label))
         throw std::logic_error("[convert_SL2LHE] Failed to parse line: "+line);
-      else if (label != "VERTEX:")
+      if (label == "GAMMAENERGIES:")
+        stream >> scale;
+      if (label != "VERTEX:")
         continue;
 
       double a;
@@ -88,10 +100,10 @@ void convert_SL2LHE(const std::string& inFileName, const double& beamE1, const d
       if (not (stream >> a >> a >> a >> a >> vtxN >> b >> iMom >> nDau) || vtxN != iVtx+1)
         throw std::logic_error("[convert_SL2LHE] Failed to parse vertex line: "+line);
 
-      ROOT::Math::PxPyPzMVector momP(0,0,0,0);
       const bool addMom = (momPdgId > 0 && iMom == 0);
       const auto& momI = addMom ? jMom : iMom;
-      std::vector<std::string> pLines(nDau + addMom);
+      if (addMom)
+        parV.emplace_back(momPdgId, 2, 0, ROOT::Math::PxPyPzMVector(0,0,0,0));
 
       // Read track lines
       for (int iDau=0; iDau<nDau; iDau++, iTrk++) {
@@ -109,33 +121,28 @@ void convert_SL2LHE(const std::string& inFileName, const double& beamE1, const d
         const auto& par = dataPDG->GetParticle(pdgId);
         if (not par)
           throw std::logic_error("[convert_SL2LHE] Invalid PDG ID for track line: "+line);
-        ROOT::Math::PxPyPzMVector dauP(px, py, pz, par->Mass());
+        parV.emplace_back(pdgId, 1, momI, ROOT::Math::PxPyPzMVector(px, py, pz, par->Mass()));
         if (addMom)
-          momP += dauP;
-
-        std::ostringstream oLine;
-        oLine << pdgId << " 1 " << momI << " " << momI << " 0 0 " << px << " " << py << " " << pz << " " << dauP.E() << " " << dauP.M() << " 0.0 9.0" << std::endl;
-        pLines[iDau + addMom] = oLine.str();
+          std::get<3>(parV[momI-1]) += std::get<3>(parV.back());
       }
 
-      if (addMom) {
-        std::ostringstream oLine;
-        oLine << momPdgId << " 2 0 0 0 0 " << momP.Px() << " " << momP.Py() << " " << momP.Pz() << " " << momP.E() << " " << momP.M() << " 0.0 9.0" << std::endl;
-        pLines[0] = oLine.str();
+      if (addMom)
         jMom += nDau+1;
-      }
-
-      oLines.insert(oLines.end(), pLines.begin(), pLines.end());
       iVtx++;
     }
-
     if (iTrk != nTrk)
       throw std::logic_error("[convert_SL2LHE] Failed to find all tracks in event");
 
     outFile << "<event>" << std::endl;
-    outFile << oLines.size() << " 81" << " 1.0 -1.0 -1.0 -1.0" << std::endl;
-    for (const auto& oLine : oLines)
-        outFile << oLine;
+    outFile << std::fixed << std::setprecision(8) << std::scientific;
+    //# particles, subprocess id, event weight, event scale, alpha_em, alpha_s
+    outFile << parV.size() << " 81 " << 1.0 << " " << scale << " " << -1.0 << " " << -1.0 << std::endl;
+    outFile << std::fixed << std::setprecision(10) << std::scientific;
+    for (const auto& pV : parV) {
+      const auto& [pdgId, status, momI, p] = pV;
+      //particle: pdg id, status, mother index (1, 2), color flow tag (1, 2), (px, py, pz, energy, mass [GeV]), proper lifetime [mm], spin
+      outFile << pdgId << " " << status << " " << momI << " 0 0 0 " << p.Px() << " " << p.Py() << " " << p.Pz() << " " << p.E() << " " << p.M() << " 0.0000e+00 9.0000e+00" << std::endl;
+    }
     outFile << "</event>" << std::endl;
     nEvt++;
   }

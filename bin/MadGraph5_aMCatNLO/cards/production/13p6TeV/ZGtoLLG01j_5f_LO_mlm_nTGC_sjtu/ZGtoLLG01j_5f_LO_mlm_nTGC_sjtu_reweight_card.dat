@@ -1,0 +1,410 @@
+change rwgt_dir ./rwgt
+
+launch --rwgt_name=ZG_cg_1_n0_20000000
+set cg -0.2000000000
+set cgm 0
+set CBtWL4 0
+set CBWL4 0
+set CWWL4 0
+set CBBL4 0
+
+launch --rwgt_name=ZG_cg_2_n0_04000000
+set cg -0.0400000000
+set cgm 0
+set CBtWL4 0
+set CBWL4 0
+set CWWL4 0
+set CBBL4 0
+
+launch --rwgt_name=ZG_cg_3_n0_02000000
+set cg -0.0200000000
+set cgm 0
+set CBtWL4 0
+set CBWL4 0
+set CWWL4 0
+set CBBL4 0
+
+launch --rwgt_name=ZG_cg_4_n0_01000000
+set cg -0.0100000000
+set cgm 0
+set CBtWL4 0
+set CBWL4 0
+set CWWL4 0
+set CBBL4 0
+
+launch --rwgt_name=ZG_cg_5_n0_00500000
+set cg -0.0050000000
+set cgm 0
+set CBtWL4 0
+set CBWL4 0
+set CWWL4 0
+set CBBL4 0
+
+launch --rwgt_name=ZG_cg_6_n0_00250000
+set cg -0.0025000000
+set cgm 0
+set CBtWL4 0
+set CBWL4 0
+set CWWL4 0
+set CBBL4 0
+
+launch --rwgt_name=ZG_cg_7_n0_00125000
+set cg -0.0012500000
+set cgm 0
+set CBtWL4 0
+set CBWL4 0
+set CWWL4 0
+set CBBL4 0
+
+launch --rwgt_name=ZG_cg_8_n0_00025000
+set cg -0.0002500000
+set cgm 0
+set CBtWL4 0
+set CBWL4 0
+set CWWL4 0
+set CBBL4 0
+
+launch --rwgt_name=ZG_cg_9_0_00000000
+set cg 0.0000000000
+set cgm 0
+set CBtWL4 0
+set CBWL4 0
+set CWWL4 0
+set CBBL4 0
+
+launch --rwgt_name=ZG_cg_10_0_00025000
+set cg 0.0002500000
+set cgm 0
+set CBtWL4 0
+set CBWL4 0
+set CWWL4 0
+set CBBL4 0
+
+launch --rwgt_name=ZG_cg_11_0_00125000
+set cg 0.0012500000
+set cgm 0
+set CBtWL4 0
+set CBWL4 0
+set CWWL4 0
+set CBBL4 0
+
+launch --rwgt_name=ZG_cg_12_0_00250000
+set cg 0.0025000000
+set cgm 0
+set CBtWL4 0
+set CBWL4 0
+set CWWL4 0
+set CBBL4 0
+
+launch --rwgt_name=ZG_cg_13_0_00500000
+set cg 0.0050000000
+set cgm 0
+set CBtWL4 0
+set CBWL4 0
+set CWWL4 0
+set CBBL4 0
+
+launch --rwgt_name=ZG_cg_14_0_01000000
+set cg 0.0100000000
+set cgm 0
+set CBtWL4 0
+set CBWL4 0
+set CWWL4 0
+set CBBL4 0
+
+launch --rwgt_name=ZG_cg_15_0_02000000
+set cg 0.0200000000
+set cgm 0
+set CBtWL4 0
+set CBWL4 0
+set CWWL4 0
+set CBBL4 0
+
+launch --rwgt_name=ZG_cg_16_0_04000000
+set cg 0.0400000000
+set cgm 0
+set CBtWL4 0
+set CBWL4 0
+set CWWL4 0
+set CBBL4 0
+
+launch --rwgt_name=ZG_cg_17_0_20000000
+set cg 0.2000000000
+set cgm 0
+set CBtWL4 0
+set CBWL4 0
+set CWWL4 0
+set CBBL4 0
+
+launch --rwgt_name=ZG_cbtwl4_1_n7_5000
+set cg 0
+set cgm 0
+set CBtWL4 -7.5000000000
+set CBWL4 0
+set CWWL4 0
+set CBBL4 0
+
+launch --rwgt_name=ZG_cbtwl4_2_n5_0000
+set cg 0
+set cgm 0
+set CBtWL4 -5.0000000000
+set CBWL4 0
+set CWWL4 0
+set CBBL4 0
+
+launch --rwgt_name=ZG_cbtwl4_3_n2_5000
+set cg 0
+set cgm 0
+set CBtWL4 -2.5000000000
+set CBWL4 0
+set CWWL4 0
+set CBBL4 0
+
+launch --rwgt_name=ZG_cbtwl4_4_n1_2500
+set cg 0
+set cgm 0
+set CBtWL4 -1.2500000000
+set CBWL4 0
+set CWWL4 0
+set CBBL4 0
+
+launch --rwgt_name=ZG_cbtwl4_5_n0_6250
+set cg 0
+set cgm 0
+set CBtWL4 -0.6250000000
+set CBWL4 0
+set CWWL4 0
+set CBBL4 0
+
+launch --rwgt_name=ZG_cbtwl4_6_n0_3125
+set cg 0
+set cgm 0
+set CBtWL4 -0.3125000000
+set CBWL4 0
+set CWWL4 0
+set CBBL4 0
+
+launch --rwgt_name=ZG_cbtwl4_7_n0_1042
+set cg 0
+set cgm 0
+set CBtWL4 -0.1041700000
+set CBWL4 0
+set CWWL4 0
+set CBBL4 0
+
+launch --rwgt_name=ZG_cbtwl4_8_n0_0208
+set cg 0
+set cgm 0
+set CBtWL4 -0.0208330000
+set CBWL4 0
+set CWWL4 0
+set CBBL4 0
+
+launch --rwgt_name=ZG_cbtwl4_9_0_0000
+set cg 0
+set cgm 0
+set CBtWL4 0.0000000000
+set CBWL4 0
+set CWWL4 0
+set CBBL4 0
+
+launch --rwgt_name=ZG_cbtwl4_10_0_0208
+set cg 0
+set cgm 0
+set CBtWL4 0.0208330000
+set CBWL4 0
+set CWWL4 0
+set CBBL4 0
+
+launch --rwgt_name=ZG_cbtwl4_11_0_1042
+set cg 0
+set cgm 0
+set CBtWL4 0.1041700000
+set CBWL4 0
+set CWWL4 0
+set CBBL4 0
+
+launch --rwgt_name=ZG_cbtwl4_12_0_3125
+set cg 0
+set cgm 0
+set CBtWL4 0.3125000000
+set CBWL4 0
+set CWWL4 0
+set CBBL4 0
+
+launch --rwgt_name=ZG_cbtwl4_13_0_6250
+set cg 0
+set cgm 0
+set CBtWL4 0.6250000000
+set CBWL4 0
+set CWWL4 0
+set CBBL4 0
+
+launch --rwgt_name=ZG_cbtwl4_14_1_2500
+set cg 0
+set cgm 0
+set CBtWL4 1.2500000000
+set CBWL4 0
+set CWWL4 0
+set CBBL4 0
+
+launch --rwgt_name=ZG_cbtwl4_15_2_5000
+set cg 0
+set cgm 0
+set CBtWL4 2.5000000000
+set CBWL4 0
+set CWWL4 0
+set CBBL4 0
+
+launch --rwgt_name=ZG_cbtwl4_16_5_0000
+set cg 0
+set cgm 0
+set CBtWL4 5.0000000000
+set CBWL4 0
+set CWWL4 0
+set CBBL4 0
+
+launch --rwgt_name=ZG_cbtwl4_17_7_5000
+set cg 0
+set cgm 0
+set CBtWL4 7.5000000000
+set CBWL4 0
+set CWWL4 0
+set CBBL4 0
+
+launch --rwgt_name=ZG_cgm_1_n10_0000
+set cg 0
+set cgm -10.0000000000
+set CBtWL4 0
+set CBWL4 0
+set CWWL4 0
+set CBBL4 0
+
+launch --rwgt_name=ZG_cgm_2_n6_6667
+set cg 0
+set cgm -6.6667000000
+set CBtWL4 0
+set CBWL4 0
+set CWWL4 0
+set CBBL4 0
+
+launch --rwgt_name=ZG_cgm_3_n10_0000
+set cg 0
+set cgm -10.0000000000
+set CBtWL4 0
+set CBWL4 0
+set CWWL4 0
+set CBBL4 0
+
+launch --rwgt_name=ZG_cgm_4_n2_2222
+set cg 0
+set cgm -2.2222000000
+set CBtWL4 0
+set CBWL4 0
+set CWWL4 0
+set CBBL4 0
+
+launch --rwgt_name=ZG_cgm_5_n1_1111
+set cg 0
+set cgm -1.1111000000
+set CBtWL4 0
+set CBWL4 0
+set CWWL4 0
+set CBBL4 0
+
+launch --rwgt_name=ZG_cgm_6_n0_5556
+set cg 0
+set cgm -0.5555600000
+set CBtWL4 0
+set CBWL4 0
+set CWWL4 0
+set CBBL4 0
+
+launch --rwgt_name=ZG_cgm_7_n0_1852
+set cg 0
+set cgm -0.1851900000
+set CBtWL4 0
+set CBWL4 0
+set CWWL4 0
+set CBBL4 0
+
+launch --rwgt_name=ZG_cgm_8_n0_0370
+set cg 0
+set cgm -0.0370370000
+set CBtWL4 0
+set CBWL4 0
+set CWWL4 0
+set CBBL4 0
+
+launch --rwgt_name=ZG_cgm_9_0_0000
+set cg 0
+set cgm 0.0000000000
+set CBtWL4 0
+set CBWL4 0
+set CWWL4 0
+set CBBL4 0
+
+launch --rwgt_name=ZG_cgm_10_0_0370
+set cg 0
+set cgm 0.0370370000
+set CBtWL4 0
+set CBWL4 0
+set CWWL4 0
+set CBBL4 0
+
+launch --rwgt_name=ZG_cgm_11_0_1852
+set cg 0
+set cgm 0.1851900000
+set CBtWL4 0
+set CBWL4 0
+set CWWL4 0
+set CBBL4 0
+
+launch --rwgt_name=ZG_cgm_12_0_5556
+set cg 0
+set cgm 0.5555600000
+set CBtWL4 0
+set CBWL4 0
+set CWWL4 0
+set CBBL4 0
+
+launch --rwgt_name=ZG_cgm_13_1_1111
+set cg 0
+set cgm 1.1111000000
+set CBtWL4 0
+set CBWL4 0
+set CWWL4 0
+set CBBL4 0
+
+launch --rwgt_name=ZG_cgm_14_2_2222
+set cg 0
+set cgm 2.2222000000
+set CBtWL4 0
+set CBWL4 0
+set CWWL4 0
+set CBBL4 0
+
+launch --rwgt_name=ZG_cgm_15_4_4444
+set cg 0
+set cgm 4.4444000000
+set CBtWL4 0
+set CBWL4 0
+set CWWL4 0
+set CBBL4 0
+
+launch --rwgt_name=ZG_cgm_16_6_6667
+set cg 0
+set cgm 6.6667000000
+set CBtWL4 0
+set CBWL4 0
+set CWWL4 0
+set CBBL4 0
+
+launch --rwgt_name=ZG_cgm_17_10_0000
+set cg 0
+set cgm 10.0000000000
+set CBtWL4 0
+set CBWL4 0
+set CWWL4 0
+set CBBL4 0
+

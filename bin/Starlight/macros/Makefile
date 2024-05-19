@@ -1,6 +1,6 @@
 # compiler flags:
 CFLAGS  = $(shell root-config --cflags)
-LIBS    = $(shell root-config --evelibs) -lGenVector
+LIBS    = -L$(shell root-config --libdir) -lEG -lCore
  
 # The build target
 TARGET = convert_SL2LHE

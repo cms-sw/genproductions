@@ -1,0 +1,6 @@
+set param_card mass 6 172.5
+set param_card yukawa 6 172.5
+set param_card mass 25 125
+set param_card kAtt 1
+set param_card kHtt 0
+set param_card cosa 0

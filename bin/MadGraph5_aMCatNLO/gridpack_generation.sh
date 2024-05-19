@@ -135,7 +135,7 @@ make_gridpack () {
     MGBASEDIR=mgbasedir
     
     MG_EXT=".tar.gz"
-    MG=MG5_aMC_v2.9.13$MG_EXT
+    MG=MG5_aMC_v2.9.18$MG_EXT
     MGSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$MG
     
     MGBASEDIRORIG=$(echo ${MG%$MG_EXT} | tr "." "_")
@@ -205,7 +205,7 @@ make_gridpack () {
         echo "copying bias module folder. Current dir:"
         pwd
         ls -lrth
-        cp -r $CARDSDIR/BIAS/* $MGBASEDIRORIG/Template/LO/Source/BIAS
+        cp -r $CARDSDIR/BIAS/* Template/LO/Source/BIAS
       fi
     
       LHAPDFCONFIG=`echo "$LHAPDF_DATA_PATH/../../bin/lhapdf-config"`
@@ -272,7 +272,7 @@ make_gridpack () {
           fi      
       fi
     
-      echo "save options" >> mgconfigscript
+      echo "save options --all" >> mgconfigscript
     
       ./bin/mg5_aMC mgconfigscript
     
@@ -658,6 +658,9 @@ make_gridpack () {
     if [ $is5FlavorScheme -eq 1 ]; then
       pdfExtraArgs+="--is5FlavorScheme "
     fi 
+    if grep -q -e "\$DEFAULT_nPDF_SETS" $CARDSDIR/${name}_run_card.dat; then
+      pdfExtraArgs+="--ion Pb "
+    fi
     
     pdfSysArgs=$(python3 ${script_dir}/getMG5_aMC_PDFInputs.py -f systematics -c run3 $pdfExtraArgs)
     sed -i s/PDF_SETS_REPLACE/${pdfSysArgs}/g runcmsgrid.sh
@@ -707,15 +710,18 @@ jobstep=${4}
 
 # sync default cmssw with the current OS 
 export SYSTEM_RELEASE=`cat /etc/redhat-release`
+echo $SYSTEM_RELEASE
 
 # set scram_arch 
 if [ -n "$5" ]; then
     scram_arch=${5}
 else
     if [[ $SYSTEM_RELEASE == *"release 7"* ]]; then 
-        scram_arch=slc7_amd64_gcc10
+        scram_arch=slc7_amd64_gcc10 
     elif [[ $SYSTEM_RELEASE == *"release 8"* ]]; then
         scram_arch=el8_amd64_gcc10
+    elif [[ $SYSTEM_RELEASE == *"release 9"* ]]; then
+        scram_arch=el9_amd64_gcc11
     else 
         echo "No default scram_arch for current OS!"
         if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi        
@@ -730,6 +736,8 @@ else
         cmssw_version=CMSSW_12_4_8
     elif [[ $SYSTEM_RELEASE == *"release 8"* ]]; then
         cmssw_version=CMSSW_12_4_8
+    elif [[ $SYSTEM_RELEASE == *"release 9"* ]]; then
+	cmssw_version=CMSSW_13_2_9
     else 
         echo "No default CMSSW for current OS!"
         if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi        

@@ -34,6 +34,7 @@ fi
 
 is5FlavorScheme=$isFiveFlavor
 defaultPDF=$defaultPDF
+period=$period
 
 if [[ $$is5FlavorScheme -eq 1 ]]; then
   echo "INFO: The process $$process uses the 5F PDF scheme"
@@ -45,10 +46,13 @@ forMiNNLO=0
 grep -q "^minnlo\\s*1" powheg.input; test $$? -eq 1 || forMiNNLO=1
 forX0jj=0
 grep -q "MGcosa" powheg.input; test $$? -eq 1 || forX0jj=1
-
+forWWJ=0
+if [[ $$process == "WWJ" ]]; then
+  forWWJ=1
+fi
 cd $$WORKDIR
 cd $${name}
-python ../make_rwl.py $${is5FlavorScheme} $${defaultPDF} $${forMiNNLO} $${forX0jj}
+python3 ../make_rwl.py $${is5FlavorScheme} $${defaultPDF} $${forMiNNLO} $${forX0jj} $${period} $${forWWJ}
 
 if [ -s ../JHUGen.input ]; then
   cp -p ../JHUGen.input JHUGen.input

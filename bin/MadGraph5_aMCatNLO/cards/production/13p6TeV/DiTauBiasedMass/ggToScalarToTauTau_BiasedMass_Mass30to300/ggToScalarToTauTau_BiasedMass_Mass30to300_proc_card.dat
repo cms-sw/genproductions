@@ -1,0 +1,5 @@
+import model loop_sm
+
+generate p p > h > ta+ ta- [QCD]
+
+output ggToScalarToTauTau_BiasedMass_Mass30to300
