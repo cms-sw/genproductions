@@ -8,4 +8,4 @@ define j = j b b~
 # add process p p > t t~ h j, h > t t~ @1
 generate p p > t t~ h @0
 add process p p > t t~ h j @1
-output ttH_mH-600 -nojpeg
+output ttH_mH-%MPROD% -nojpeg
