@@ -1,0 +1,11 @@
+import model sm-no_b_mass
+#import model sm
+
+define p = p b b~
+define j = j b b~
+
+# generate p p > t t~ h, h > t t~ @0
+# add process p p > t t~ h j, h > t t~ @1
+generate p p > t t~ h @0
+add process p p > t t~ h j @1
+output ttH_mH-%MPROD% -nojpeg
