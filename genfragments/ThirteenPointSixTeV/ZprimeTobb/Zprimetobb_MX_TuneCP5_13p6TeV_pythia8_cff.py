@@ -17,7 +17,7 @@ generator = cms.EDFilter("Pythia8ConcurrentGeneratorFilter",
             processParameters = cms.vstring(
                         'NewGaugeBoson:ffbar2gmZZprime = on',
                         'Zprime:gmZmode = 3', # only pure Z' contribution
-                        '32:m0 = 9000', 
+                        '32:m0 = X', 
                         '32:onMode = off', # switch off all of the Z' decay
                         '32:onIfAny = 5', # switch on the Z'->BBbar
                 ),
