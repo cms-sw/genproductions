@@ -1,1 +1,1 @@
-DecayMode1=8 DecayMode2=9 FilterNLept=4 WriteFailedEvents=2
+DecayMode1=8 DecayMode2=9 NLepMin=4 LHAPDF=NNPDF31_lo_as_0130/NNPDF31_lo_as_0130.info WriteFailedEvents=2

@@ -167,7 +167,7 @@ def concurrency_check(fragment,pi,cmssw_version,mg_gp):
             error_conc.append("Concurrent parameters used with generateConcurrently=cms.untracked.bool(False) in fragment.")
         if "generateConcurrently=cms.untracked.bool(True)" in fragment and mg_gp is True:
             error_conc.append("For MG5_aMC requests, currently the concurrent mode for LHE production is not supported due to heavy I/O. So, please set generateConcurrently = cms.untracked.bool(False) in ExternalLHEProducer.")
-        if "Pythia8ConcurrentHadronizerFilter" not in fragment and  mg_gp is True and "RandomizedParameters" not in fragment:
+        if "Pythia8ConcurrentHadronizerFilter" not in fragment and  mg_gp is True and "RandomizedParameters" not in fragment and "tauola" not in fragment.lower():
             error_conc.append("For MG5_aMC requests, the concurrent mode for GEN production should be turned on. Please convert Pythia8HadronizerFilter to Pythia8ConcurrentHadronizerFilter in the fragment")   
         if "ExternalLHEProducer" in fragment and "generateConcurrently=cms.untracked.bool(True)" in fragment: 
             # first check if the code has correctly implemented concurrent features. Mark conc_check_lhe (LHE step) or conc_check (GEN step) as True if features are found
@@ -1381,6 +1381,12 @@ for num in range(0,len(prepid)):
             if os.path.isfile(fname_p2) is True : filename_pc = fname_p2
             if os.path.isfile(fname_p3) is True : filename_pc = fname_p3
             if os.path.isfile(filename_pc) is True :
+                print("---------Full process card--------------------------")
+                proccardfile = open(filename_pc)
+                for linepc in proccardfile.readlines():
+                    if (linepc.startswith("#")) is False:
+                        print(linepc.strip("\n"))
+                print("------End of full process card----------------------\n")
                 mg_nlo = int(os.popen('grep -c "\[QCD\]" '+filename_pc).read())
                 loop_flag = int(os.popen('more '+filename_pc+' | grep -c "noborn=QCD"').read())
                 gen_line = os.popen('grep generate '+filename_pc).read()
@@ -1447,6 +1453,10 @@ for num in range(0,len(prepid)):
                 mgversion = mgversion[2].split(".")
                 mgversion_tmp = mgversion_tmp.split("\n")
                 print("The gridpack is made with mg5_aMC version:"+str(mgversion_tmp[0]))   
+                if str(mgversion_tmp[0]).strip("version =") not in gridpack_cvmfs_path:
+                    warnings.append("Gridpack may not be in a correct madgraph version-folder in cvmfs:"+gridpack_cvmfs_path+" while madgraph "+str(mgversion_tmp[0]))
+                else:
+                    print("Gridpack in correct madgraph version-folder in cvmfs:"+gridpack_cvmfs_path)    
                 mg5_aMC_version = float(mgversion[0])*100/float(pow(10,len(str(int(mgversion[0])))-1)) + float(mgversion[1])*10/float(pow(10,len(str(int(mgversion[1])))-1)) + float(mgversion[2])/float(pow(10,len(str(int(mgversion[2])))-1))
                 if "UL" in pi and mg5_aMC_version < 261:
                     if "PPD" in pi:

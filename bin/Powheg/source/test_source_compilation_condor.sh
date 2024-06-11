@@ -27,7 +27,8 @@ cat << EOF > source_compilation_${source_name}_$2_$3.sh
 genproduction_dir=$PWD/../../..
 topdir=$PWD
 source_file=$1
-source_dir=/afs/cern.ch/cms/generators/www/slc6_amd64_gcc481/powheg/V2.0/src/$1
+source_dir=/eos/project/c/cmsweb/www/generators/directories/cms-project-generators/slc6_amd64_gcc481/powheg/V2.0/src/$1
+
 scram_arch_version=$2
 cmssw_version=$3
 workdir=test

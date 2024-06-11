@@ -9,11 +9,16 @@ postfix=(_run_card.dat _customizecards.dat _proc_card.dat _extramodels.dat)
 mYprime_l=30
 mYprime_r_1=250
 mYprime_r_2=500
+mYprime_r_3=1000
+mYprime_r_4=2000
 mYprime_step1=30
 mYprime_step2=50
 mYprime_step3=100
+mYprime_step4=200
+mYprime_step5=500
 
 mY_l=30
+mY_r=500
 mY_step1=30
 mY_step2=50
 mY_step3=100
@@ -34,12 +39,23 @@ do
     mYprime_tmp=$mYprime_l
     mYprime_step_tmp=$mYprime_step1
 
+    if [ ${mX_tmp} -eq 1500 ]
+    then
+        mYprime_r_tmp=$mYprime_r_2
+    elif [ ${mX_tmp} -eq 2000 ]
+    then
+        mYprime_r_tmp=$mYprime_r_3
+    elif [ ${mX_tmp} -eq 4000 ]
+    then
+        mYprime_r_tmp=$mYprime_r_4
+    fi
+
     while [ ${mYprime_tmp} -le ${mYprime_r_tmp} ]
     do
         mY_tmp=$mY_l
         mY_step_tmp=$mY_step1
         echo "   "MYprime = ${mYprime_tmp} GeV
-        while [ ${mY_tmp} -le ${mYprime_tmp} ]
+        while [ ${mY_tmp} -le ${mY_r} -a ${mY_tmp} -le ${mYprime_tmp}  ]
         do
             echo "      "MY = ${mY_tmp} GeV
             mkdir ${sample}${mX_tmp}_MY${mY_tmp}_MYprime${mYprime_tmp}_narrow
@@ -67,6 +83,12 @@ do
         elif [ ${mYprime_tmp} -eq 300 ]
         then
             mYprime_step_tmp=$mYprime_step3
+        elif [ ${mYprime_tmp} -eq 600 ]
+        then
+            mYprime_step_tmp=$mYprime_step4
+        elif [ ${mYprime_tmp} -eq 1000 ]
+        then
+            mYprime_step_tmp=$mYprime_step5
         fi       
 
         let "mYprime_tmp+=mYprime_step_tmp"
@@ -75,7 +97,6 @@ do
     if [ ${mX_tmp} -eq 2000 ]
     then
         mX_step_tmp=$mX_step2
-        mYprime_r_tmp=$mYprime_r_2
     fi
 
     let "mX_tmp+=mX_step_tmp"
