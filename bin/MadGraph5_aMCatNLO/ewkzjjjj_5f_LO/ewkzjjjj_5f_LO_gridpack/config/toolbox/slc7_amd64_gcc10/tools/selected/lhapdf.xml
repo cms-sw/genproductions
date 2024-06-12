@@ -1,0 +1,13 @@
+<tool name="lhapdf" version="6.4.0-68defff11ffd434c73727d03802bfb85">
+  <lib name="LHAPDF"/>
+  <client>
+    <environment name="LHAPDF_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/lhapdf/6.4.0-68defff11ffd434c73727d03802bfb85"/>
+    <environment name="LIBDIR" default="$LHAPDF_BASE/lib"/>
+    <environment name="INCLUDE" default="$LHAPDF_BASE/include"/>
+  </client>
+  <use name="pythia6"/>
+  <runtime name="LHAPDF_DATA_PATH" value="$LHAPDF_BASE/share/LHAPDF"/>
+  <runtime name="PATH" value="$LHAPDF_BASE/bin" type="path"/>
+  <runtime name="ROOT_INCLUDE_PATH" value="$INCLUDE" type="path"/>
+  <use name="root_cxxdefaults"/>
+</tool>

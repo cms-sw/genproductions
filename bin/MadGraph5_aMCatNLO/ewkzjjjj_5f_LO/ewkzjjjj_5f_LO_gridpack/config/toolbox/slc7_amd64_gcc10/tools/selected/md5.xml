@@ -1,0 +1,9 @@
+<tool name="md5" version="1.0.0-0440f43b57c5656322f7cd7a65f85771">
+  <info url="https://tls.mbed.org/md5-source-code"/>
+   <lib name="cms-md5"/>
+  <client>
+    <environment name="MD5_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/md5/1.0.0-0440f43b57c5656322f7cd7a65f85771"/>
+    <environment name="LIBDIR" default="$MD5_BASE/lib"/>
+    <environment name="INCLUDE" default="$MD5_BASE/include"/>
+    </client>  
+</tool>

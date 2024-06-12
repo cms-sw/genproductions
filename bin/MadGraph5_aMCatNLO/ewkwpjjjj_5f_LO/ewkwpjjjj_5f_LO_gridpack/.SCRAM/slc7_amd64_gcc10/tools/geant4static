@@ -1,0 +1,18 @@
+{
+  "GEANT4STATIC_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/geant4/10.7.2-b40a7ba2414e18fce0efe89a200cba68",
+  "LIB": [
+    "geant4-static"
+  ],
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/geant4/10.7.2-b40a7ba2414e18fce0efe89a200cba68/lib64/archive"
+  ],
+  "TOOLNAME": "geant4static",
+  "TOOLVERSION": "10.7.2-b40a7ba2414e18fce0efe89a200cba68",
+  "USE": [
+    "geant4_interface"
+  ],
+  "VARIABLES": [
+    "GEANT4STATIC_BASE",
+    "LIBDIR"
+  ]
+}

@@ -1,0 +1,12 @@
+  <tool name="lz4" version="1.9.2-373b1f6c80ba13e93f436c77aa63c026">
+    <info url="https://github.com/lz4/lz4"/>
+    <lib name="lz4"/>
+    <client>
+      <environment name="LZ4_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/lz4/1.9.2-373b1f6c80ba13e93f436c77aa63c026"/>
+      <environment name="LIBDIR" default="$LZ4_BASE/lib"/>
+      <environment name="INCLUDE" default="$LZ4_BASE/include"/>
+    </client>
+    <runtime name="PATH" value="$LZ4_BASE/bin" type="path"/>
+    <runtime name="ROOT_INCLUDE_PATH" value="$INCLUDE" type="path"/>
+    <use name="root_cxxdefaults"/>
+  </tool>

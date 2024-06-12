@@ -1,0 +1,28 @@
+{
+  "BINDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/cpu_features/0.7.0-2598396d5d9d09240a26d0d26b5d3f54/bin"
+  ],
+  "CPU_FEATURES_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/cpu_features/0.7.0-2598396d5d9d09240a26d0d26b5d3f54",
+  "INCLUDE": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/cpu_features/0.7.0-2598396d5d9d09240a26d0d26b5d3f54/include"
+  ],
+  "LIB": [
+    "cpu_features"
+  ],
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/cpu_features/0.7.0-2598396d5d9d09240a26d0d26b5d3f54/lib64"
+  ],
+  "RUNTIME": {
+    "PATH:PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/cpu_features/0.7.0-2598396d5d9d09240a26d0d26b5d3f54/bin"
+    ]
+  },
+  "TOOLNAME": "cpu_features",
+  "TOOLVERSION": "0.7.0-2598396d5d9d09240a26d0d26b5d3f54",
+  "VARIABLES": [
+    "CPU_FEATURES_BASE",
+    "LIBDIR",
+    "INCLUDE",
+    "BINDIR"
+  ]
+}

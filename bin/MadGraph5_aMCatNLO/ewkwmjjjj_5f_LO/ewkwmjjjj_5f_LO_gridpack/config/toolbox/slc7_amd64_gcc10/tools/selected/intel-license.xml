@@ -1,0 +1,3 @@
+  <tool name="intel-license" version="2020-140361d19d6a2a288854baa96da3cda5">
+    <runtime name="INTEL_LICENSE_FILE" value="28518@lxlicen01.cern.ch,28518@lxlicen02.cern.ch,28518@lxlicen03.cern.ch" handler="warn"/>
+  </tool>

@@ -1,0 +1,20 @@
+{
+  "HEPMC_HEADERS_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/hepmc/2.06.10-46867a6dcc6e5712b7953fe57085fcbd",
+  "INCLUDE": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/hepmc/2.06.10-46867a6dcc6e5712b7953fe57085fcbd/include"
+  ],
+  "RUNTIME": {
+    "PATH:ROOT_INCLUDE_PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/hepmc/2.06.10-46867a6dcc6e5712b7953fe57085fcbd/include"
+    ]
+  },
+  "TOOLNAME": "hepmc_headers",
+  "TOOLVERSION": "2.06.10-46867a6dcc6e5712b7953fe57085fcbd",
+  "USE": [
+    "root_cxxdefaults"
+  ],
+  "VARIABLES": [
+    "HEPMC_HEADERS_BASE",
+    "INCLUDE"
+  ]
+}

@@ -1,0 +1,15 @@
+<tool name="geant4data" version="10.0-a014b1dee3db3067384ef688b1bf7bf7">
+  <client>
+    <environment name="GEANT4DATA_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external"/>
+  </client>
+  <runtime name="G4ABLADATA" value="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/geant4-G4ABLA/3.1-9db33ef273420e1950b3fddf6274df58/data/G4ABLA3.1" type="path"/>
+  <runtime name="G4LEDATA" value="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/geant4-G4EMLOW/7.13-96811f91de41b1a7946c2655c9eb7fe1/data/G4EMLOW7.13" type="path"/>
+  <runtime name="G4ENSDFSTATEDATA" value="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/geant4-G4ENSDFSTATE/2.3-ab69597494385a5787c13a1eaa41845d/data/G4ENSDFSTATE2.3" type="path"/>
+  <runtime name="G4INCLDATA" value="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/geant4-G4INCL/1.0-c058902db09545bee674b935f319d750/data/G4INCL1.0" type="path"/>
+  <runtime name="G4NEUTRONHPDATA" value="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/geant4-G4NDL/4.6-7b6fb9b2e29401d71e613747cce7135f/data/G4NDL4.6" type="path"/>
+  <runtime name="G4PARTICLEXSDATA" value="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/geant4-G4PARTICLEXS/3.1.1-8275996b0f43d3f5921aeee7f436ebb5/data/G4PARTICLEXS3.1.1" type="path"/>
+  <runtime name="G4LEVELGAMMADATA" value="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/geant4-G4PhotonEvaporation/5.7-c43ec0e118754b5b1fd64233fd042f7f/data/PhotonEvaporation5.7" type="path"/>
+  <runtime name="G4RADIOACTIVEDATA" value="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/geant4-G4RadioactiveDecay/5.6-d42e13e021a350d26536fa1a09666268/data/RadioactiveDecay5.6" type="path"/>
+  <runtime name="G4REALSURFACEDATA" value="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/geant4-G4RealSurface/2.2-e1c660888cdf84f71ec98e616ac8547c/data/RealSurface2.2" type="path"/>
+  <runtime name="G4SAIDXSDATA" value="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/geant4-G4SAIDDATA/2.0-740ded83ad733e143258677560a5945e/data/G4SAIDDATA2.0" type="path"/>
+</tool>

@@ -1,0 +1,12 @@
+<tool name="ktjet" version="1.06-b79a7631e4a781a4add6cdd817b558b5">
+  <info url="http://hepforge.cedar.ac.uk/ktjet"/>
+  <lib name="KtEvent"/>
+  <client>
+    <environment name="KTJET_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/ktjet/1.06-b79a7631e4a781a4add6cdd817b558b5"/>
+    <environment name="LIBDIR" default="$KTJET_BASE/lib"/>
+    <environment name="INCLUDE" default="$KTJET_BASE/include"/>
+  </client>
+  <flags cppdefines="KTDOUBLEPRECISION"/>
+  <runtime name="ROOT_INCLUDE_PATH" value="$INCLUDE" type="path"/>
+  <use name="root_cxxdefaults"/>
+</tool>

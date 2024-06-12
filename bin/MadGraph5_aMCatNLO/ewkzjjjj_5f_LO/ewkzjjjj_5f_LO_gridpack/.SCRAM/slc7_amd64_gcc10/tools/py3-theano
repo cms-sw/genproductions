@@ -1,0 +1,13 @@
+{
+  "PY3_THEANO_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-Theano/1.0.5-486054efa2225013e6e35a26a48c0af9",
+  "RUNTIME": {
+    "PATH:PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-Theano/1.0.5-486054efa2225013e6e35a26a48c0af9/bin"
+    ]
+  },
+  "TOOLNAME": "py3-theano",
+  "TOOLVERSION": "1.0.5-486054efa2225013e6e35a26a48c0af9",
+  "VARIABLES": [
+    "PY3_THEANO_BASE"
+  ]
+}
