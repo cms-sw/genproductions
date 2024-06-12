@@ -8,7 +8,6 @@
 #Important: Param card is not mandatory for this script                                  #
 ##########################################################################################
 
-
 ##########################################################################################
 #For runnning, the following command should be used                                      #
 #./create_gridpack_template.sh NAME_OF_PRODCUTION RELATIVE_PATH_TO_CARDS QUEUE_SELECTION #
@@ -218,7 +217,13 @@ make_gridpack () {
     #  echo "set output_dependencies internal" >> mgconfigscript
       echo "set lhapdf_py3 $LHAPDFCONFIG" >> mgconfigscript
     #   echo "set ninja $PWD/HEPTools/lib" >> mgconfigscript
-    
+      mglib_path=`scram tool info madgraph5amcatnlo | grep MADGRAPH5AMCATNLO_BASE`
+      mglib_path=${mglib_path#*=}/HEPTools/lib
+      if [ -n "$mglib_path" ]; then
+        echo "set ninja $mglib_path" >> mgconfigscript
+        echo "set collier $mglib_path" >> mgconfigscript
+      fi
+
       if [ "$queue" == "local" ]; then
           echo "set run_mode 2" >> mgconfigscript
       elif [ "$queue" == "pdmv" ]; then
