@@ -52,6 +52,12 @@ pjoin = os.path.join
 multiple_try = misc.multiple_try
 pjoin = os.path.join
 
+import socket
+hostname = socket.gethostname()
+
+def singularityWraper():
+    if "lxplus" in hostname:
+        return f'\nMY.WantOS = \"{hostname.split(".")[0].replace("lxplus","el")}\"\n' # Following https://batchdocs.web.cern.ch/local/submit.html#os-selection-via-containers and simply using hostname 
 
 def cleansubproc(subproc):
     subproc.terminate()
@@ -230,7 +236,7 @@ class CMSCondorCluster(CondorCluster):
                   
                   queue 1
                """
-        
+        text += singularityWraper() 
         if self.cluster_queue not in ['None', None]:
             requirement = 'Requirements = %s=?=True' % self.cluster_queue
         else:
