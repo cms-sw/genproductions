@@ -2,8 +2,6 @@
 JOBS="jobs"
 TEMP="templatecards"
 PROC="ttbarDM__inclusive__DMsimp_LO_ps_spin0"
-PARTN2="_mN2-"
-PARTN1="_mN1-"
 
 ### Create cards for all mass points
 
