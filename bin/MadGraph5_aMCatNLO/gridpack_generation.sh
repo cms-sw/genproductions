@@ -222,11 +222,15 @@ make_gridpack () {
     #  echo "set output_dependencies internal" >> mgconfigscript
       echo "set lhapdf_py3 $LHAPDFCONFIG" >> mgconfigscript
     #   echo "set ninja $PWD/HEPTools/lib" >> mgconfigscript
-      mglib_path=`scram tool info madgraph5amcatnlo | grep MADGRAPH5AMCATNLO_BASE`
-      mglib_path=${mglib_path#*=}/HEPTools/lib
-      if [ -n "$mglib_path" ]; then
-        echo "set ninja $mglib_path" >> mgconfigscript
-        echo "set collier $mglib_path" >> mgconfigscript
+      ninja_path=`scram tool info gosamcontrib | grep GOSAMCONTRIB_BASE`
+      ninjalib_path=${ninja_path#*=}/lib
+      if [ -n "$ninjalib_path" ]; then
+        echo "set ninja $ninjalib_path" >> mgconfigscript
+      fi
+      collier_path=`scram tool info collier | grep COLLIER_BASE`
+      collierlib_path=${collier_path#*=}/lib
+      if [ -n "$collierlib_path" ]; then
+        echo "set collier $collierlib_path" >> mgconfigscript
       fi
 
       if [ "$queue" == "local" ]; then
@@ -721,7 +725,7 @@ else
     elif [[ $SYSTEM_RELEASE == *"release 8"* ]]; then
         scram_arch=el8_amd64_gcc10
     elif [[ $SYSTEM_RELEASE == *"release 9"* ]]; then
-        scram_arch=el9_amd64_gcc11
+        scram_arch=el9_amd64_gcc12
     else 
         echo "No default scram_arch for current OS!"
         if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi        
@@ -733,11 +737,11 @@ if [ -n "$6" ]; then
     cmssw_version=${6}
 else
     if [[ $SYSTEM_RELEASE == *"release 7"* ]]; then 
-        cmssw_version=CMSSW_12_4_8
+        cmssw_version=CMSSW_12_4_21
     elif [[ $SYSTEM_RELEASE == *"release 8"* ]]; then
-        cmssw_version=CMSSW_12_4_8
+        cmssw_version=CMSSW_12_4_21
     elif [[ $SYSTEM_RELEASE == *"release 9"* ]]; then
-	cmssw_version=CMSSW_13_2_9
+	cmssw_version=CMSSW_14_1_X_2024-06-13-2300
     else 
         echo "No default CMSSW for current OS!"
         if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi        
