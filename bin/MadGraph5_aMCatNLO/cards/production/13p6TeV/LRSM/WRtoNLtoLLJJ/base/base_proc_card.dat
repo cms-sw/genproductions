@@ -1,0 +1,6 @@
+import model EffLRSM_NLO
+define ll = mu+ mu-
+define nn = n2
+define jj = u d c s b t u~ d~ c~ s~ b~ t~
+generate p p > nn ll, nn > ll jj jj
+output @@base@@
