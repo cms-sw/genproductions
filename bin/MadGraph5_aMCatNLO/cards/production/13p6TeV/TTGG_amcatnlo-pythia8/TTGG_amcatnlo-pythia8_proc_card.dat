@@ -1,0 +1,5 @@
+import model loop_sm-ckm_no_b_mass
+
+generate p p > t t~ a a [QCD] @0
+
+output TTGG_amcatnlo-pythia8 -nojpeg
