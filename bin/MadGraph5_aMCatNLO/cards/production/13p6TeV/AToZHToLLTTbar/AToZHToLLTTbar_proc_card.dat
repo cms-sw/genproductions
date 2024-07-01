@@ -8,5 +8,5 @@ import model 2HDMtII_NLO
 define l+ = e+ mu+ ta+ 
 define l- = e- mu- ta-
 generate p p > h3 > h2 z [QCD]
-output AZHToLLTTbar -nojpeg
+output AToZHToLLTTbar -nojpeg
 
