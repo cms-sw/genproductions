@@ -1,0 +1,14 @@
+import model DMsimp_s_spin0
+define p = g u c d s b u~ c~ d~ s~ b~
+define j = p 
+define l+ = e+ mu+ ta+ 
+define l- = e- mu- ta-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+define lept = l+ l- vl vl~
+
+generate p p > xd xd~ t t~ / a z w+ w- @0 
+add process p p > xd xd~ t t~ j / a z w+ w- @1 
+
+output ttbarDM__inclusive__DMsimp_LO_ps_spin0__mchi_1_mphi_50_gSM_1_gDM_1_6800GeV -nojpeg
+
