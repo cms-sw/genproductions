@@ -22,33 +22,29 @@ create_setup(){
 }
 
 install_starlight(){
-    DPMJET=dpmjet3.0-5
-    STARLIGHT=STARlight-REV_326
+    DPMJET=DPMJET-19.3.7
+    STARLIGHT=STARlight-Rev_330
     cd ${WORKDIR}
 
     echo "Downloading "${DPMJET}
     export DPMJETDIR=${WORKDIR}/dpmjet_v${DPMJET//[!0-9]/}
-    wget --no-verbose --no-check-certificate https://cms-project-generators.web.cern.ch/cms-project-generators/starlight/${DPMJET}.tar
-    tar -xf ${DPMJET}.tar && mv ${DPMJET} ${DPMJETDIR}
-    rm -f ${DPMJET}.tar
+    wget --no-verbose --no-check-certificate https://anstahll.web.cern.ch/anstahll/starlight/${DPMJET}.tar.gz
+    tar -xzf ${DPMJET}.tar.gz && mv ${DPMJET} ${DPMJETDIR}
+    rm -f ${DPMJET}.tar.gz
 
     echo "Downloading "${STARLIGHT}
     STARLIGHT_VER=${STARLIGHT//[!0-9]/}
     STARLIGHTDIR=${WORKDIR}/starlight_v${STARLIGHT_VER}
-    wget --no-verbose --no-check-certificate https://cms-project-generators.web.cern.ch/cms-project-generators/starlight/${STARLIGHT}.tar.gz
+    wget --no-verbose --no-check-certificate https://anstahll.web.cern.ch/anstahll/starlight/${STARLIGHT}.tar.gz
     tar -xzf ${STARLIGHT}.tar.gz && mv ${STARLIGHT} ${STARLIGHTDIR}
     rm -f ${STARLIGHT}.tar.gz
 
-    echo "Patching "${DPMJET}" and "${STARLIGHT}
-    patch -ufZs -p1 -i ${PRODDIR}/patches/dpmjet.patch -d ${DPMJETDIR}
-    patch -ufZs -p1 -i ${PRODDIR}/patches/starlight_pythia.patch -d ${STARLIGHTDIR}
-    patch -ufZs -p1 -i ${PRODDIR}/patches/starlight_varnotused.patch -d ${STARLIGHTDIR}
+    echo "Patching "${STARLIGHT}
     patch -ufZs -p1 -i ${PRODDIR}/patches/starlight_xsec.patch -d ${STARLIGHTDIR}
-    patch -ufZs -p1 -i ${PRODDIR}/patches/starlight_nuclearpar.patch -d ${STARLIGHTDIR}
 
     echo "Compiling ${DPMJET}"
     cd ${DPMJETDIR}
-    rm -f fpe.o
+    export FC=gfortran
     make -j $(nproc)
 
     echo "Compiling ${STARLIGHT}"
