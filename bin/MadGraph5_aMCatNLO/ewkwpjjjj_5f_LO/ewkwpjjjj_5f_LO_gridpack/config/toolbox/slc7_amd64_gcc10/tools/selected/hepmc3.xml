@@ -1,0 +1,10 @@
+<tool name="hepmc3" version="3.2.5-c3cd50aeecf06b194814f1a75bf7872e">
+  <lib name="HepMC3"/>
+  <lib name="HepMC3search"/>
+  <client>
+    <environment name="HEPMC3_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/hepmc3/3.2.5-c3cd50aeecf06b194814f1a75bf7872e"/>
+    <environment name="LIBDIR" default="$HEPMC3_BASE/lib64"/>
+    <environment name="INCLUDE" default="$HEPMC3_BASE/include"/>
+  </client>
+  <runtime name="CMSSW_FWLITE_INCLUDE_PATH" value="$HEPMC3_BASE/include" type="path"/>
+</tool>

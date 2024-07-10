@@ -1,0 +1,14 @@
+<tool name="pcre2" version="10.36-4c006b557b4075554eb6f6436b3189fb">
+  <info url="http://www.pcre.org"/>
+  <lib name="pcre2"/>
+  <client>
+    <environment name="PCRE2_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/pcre2/10.36-4c006b557b4075554eb6f6436b3189fb"/>
+    <environment name="LIBDIR" default="$PCRE2_BASE/lib"/>
+    <environment name="INCLUDE" default="$PCRE2_BASE/include"/>
+  </client>
+  <runtime name="ROOT_INCLUDE_PATH" value="$INCLUDE" type="path"/>
+  <use name="root_cxxdefaults"/>
+  <use name="zlib"/>
+  <use name="bz2lib"/>
+</tool>
+

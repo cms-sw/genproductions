@@ -1,0 +1,16 @@
+<tool name="pythia8" version="306-84a4765a9948f9c1a5e66f80618e2c6d">
+  <lib name="pythia8"/>
+  <client>
+    <environment name="PYTHIA8_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/pythia8/306-84a4765a9948f9c1a5e66f80618e2c6d"/>
+    <environment name="LIBDIR" default="$PYTHIA8_BASE/lib"/>
+    <environment name="INCLUDE" default="$PYTHIA8_BASE/include"/>
+  </client>
+  <runtime name="PYTHIA8DATA" value="$PYTHIA8_BASE/share/Pythia8/xmldoc"/>
+  <runtime name="ROOT_INCLUDE_PATH" value="$INCLUDE" type="path"/>
+  <use name="root_cxxdefaults"/>
+  <use name="cxxcompiler"/>
+  <use name="hepmc3"/>
+  <use name="hepmc"/>
+  <use name="lhapdf"/>
+  <flags SYSTEM_INCLUDE="1"/>
+</tool>

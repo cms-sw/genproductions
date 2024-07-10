@@ -1,0 +1,12 @@
+{
+  "FLAGS": {
+    "CXXFLAGS": [
+      "-Ofast"
+    ],
+    "NO_RECURSIVE_EXPORT": [
+      "1"
+    ]
+  },
+  "TOOLNAME": "ofast-flag",
+  "TOOLVERSION": "1.0"
+}

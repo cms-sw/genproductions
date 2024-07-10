@@ -1,0 +1,130 @@
+.PHONY: code-format-all code-format code-format-dump-config code-checks-run code-checks code-checks-apply code-checks-internal code-checks-dump-config code-checks-all
+CODE_CHECKS_ITERATIONS:=6
+CODE_CHECKS_CONFIG_FILE:=$(wildcard $(LOCALTOP)/$(SCRAM_SOURCEDIR)/.clang-tidy)
+CODE_FORMAT_CONFIG_FILE:=$(wildcard $(LOCALTOP)/$(SCRAM_SOURCEDIR)/.clang-format)
+ifeq ($(strip $(CODE_CHECKS_CONFIG_FILE)),)
+DEFAULT_CODE_CHECKS:=-checks='-*,boost-use-to-string,misc-string-compare,misc-uniqueptr-reset-release,modernize-deprecated-headers,modernize-make-shared,modernize-use-bool-literals,modernize-use-equals-delete,modernize-use-nullptr,modernize-use-override,performance-unnecessary-copy-initialization,readability-container-size-empty,readability-redundant-string-cstr,readability-static-definition-in-anonymous-namespace,readability-uniqueptr-delete-release'
+else
+DEFAULT_CODE_CHECKS:=
+endif
+ifeq ($(strip $(CODE_FORMAT_CONFIG_FILE)),)
+DEFAULT_CODE_FORMAT:=-style='Google'
+else
+DEFAULT_CODE_FORMAT:=
+endif
+CODE_CHECKS_ARG:=$(if $(strip $(USER_CODE_CHECKS)),-checks='-*$(comma)$(USER_CODE_CHECKS)',$(DEFAULT_CODE_CHECKS))
+CODE_FORMAT_ARG:=$(if $(strip $(USER_CODE_FORMAT)),-style='$(USER_CODE_FORMAT)',$(DEFAULT_CODE_FORMAT))
+ALL_CodeCheckRules:=
+ALL_CodeFormatRules:=
+define CodeCheckRule
+ALL_CodeCheckRules+=$(WORKINGDIR)/code-checks/$1.yaml
+$(WORKINGDIR)/code-checks/$1.yaml: $(SCRAM_SOURCEDIR)/$1
+	@[ -d $$(@D) ] || $(CMD_mkdir) -p $$(@D) &&\
+	if [ $$$$($(CMD_grep) '/$$<"' $(LLVM_CCDB_EXT) | $(CMD_grep) '"file":' |  wc -l) -gt 0 ] ; then \
+	  $(CMD_echo) clang-tidy $(USER_CODE_CHECKS_ARGS) -export-fixes $$@ $(CODE_CHECKS_ARG) -header-filter "'$(LOCALTOP)/$(SCRAM_SOURCEDIR)/.*'" $$< &&\
+	  clang-tidy             $(USER_CODE_CHECKS_ARGS) -export-fixes $$@ $(CODE_CHECKS_ARG) -header-filter '$(LOCALTOP)/$(SCRAM_SOURCEDIR)/.*'   $$< ; \
+	fi &&\
+	$(CMD_touch) $$@
+endef
+define CodeFormatRule
+ALL_CodeFormatRules+=$(WORKINGDIR)/code-format/$1
+$(WORKINGDIR)/code-format/$1: $(SCRAM_SOURCEDIR)/$1
+	@if [ -e $$< ] ; then \
+          [ -d $$(@D) ] || $(CMD_mkdir) -p $$(@D) &&\
+          $(CMD_echo) clang-format $(USER_CODE_FORMAT_ARGS) $(CODE_FORMAT_ARG) -i $$< &&\
+          cnt=0 &&\
+          while [ $$$$cnt -lt $(CODE_CHECKS_ITERATIONS) ] ; do \
+            $(CMD_cp) $$< $$@.backup &&\
+            clang-format $(USER_CODE_FORMAT_ARGS) $(CODE_FORMAT_ARG) -i $$<  &&\
+            if [ $$$$(diff $$< $$@.backup | wc -l) -eq 0 ] ; then break ; fi &&\
+            let cnt=$$$$cnt+1 ;\
+          done &&\
+          if [ $$$$cnt -gt $(CODE_CHECKS_ITERATIONS) ] ; then \
+            echo "ERROR: Please fix $1 by hand to avoid recursive code-formatting" &&\
+            $(CMD_diff) -u $$@.backup $$< | $(CMD_sed) 's|$(WORKINGDIR)/code-format/||' &&\
+            false ;\
+          else \
+            $(CMD_rm) -f $$@.backup ;\
+          fi &&\
+          $(CMD_touch) $$@ ;\
+        fi
+endef
+NO_CODE_CHECKS_APPLY_MSG:=
+ifeq ($(strip $(filter code-checks-all,$(MAKECMDGOALS))),code-checks-all)
+NO_CODE_CHECKS_APPLY_MSG:=:
+endif
+code-checks-dump-config:
+	clang-tidy $(USER_CODE_CHECKS_ARGS) $(CODE_CHECKS_ARG) -dump-config $(CODE_CHECKS_CONFIG_FILE)
+code-format-dump-config:
+	clang-format $(USER_CODE_FORMAT_ARGS) $(CODE_FORMAT_ARG) -dump-config $(CODE_FORMAT_CONFIG_FILE)
+code-checks-run: llvm-ccdb
+	@$(MAKE) -f $(SCRAM_MAKEFILE) code-checks-internal
+	@$(NO_CODE_CHECKS_APPLY_MSG) $(CMD_echo) "You can run 'scram build code-checks-apply' to apply the changes"
+code-checks-all: code-checks-run
+	@if [ "$(USER_CODE_CHECKS_FILES)$(USER_CODE_CHECKS_FILE)" = "" ] ; then $(LOCALTOP)/$(SCRAM_CONFIGDIR)/SCRAM/code-checks-header-yaml ;fi
+	@$(MAKE) -f $(SCRAM_MAKEFILE) code-checks-apply
+code-checks-apply:
+	@if [ -d $(WORKINGDIR)/code-checks ] ; then \
+	  $(LOCALTOP)/$(SCRAM_CONFIGDIR)/SCRAM/fix-code-checks-yaml.py $(WORKINGDIR)/code-checks &&\
+	  $(CMD_echo) clang-apply-replacements $(USER_CODE_CHECKS_APPLY_ARGS) $(WORKINGDIR)/code-checks &&\
+	  clang-apply-replacements $(USER_CODE_CHECKS_APPLY_ARGS) $(WORKINGDIR)/code-checks &&\
+	  $(CMD_rm) -rf $(WORKINGDIR)/code-checks ;\
+	fi
+ifneq ($(strip $(filter code-format-all,$(MAKECMDGOALS))),)
+  CODE_FORMAT_FILES_EXTS:=$(shell $(LOCALTOP)/$(SCRAM_CONFIGDIR)/SCRAM/find-extensions.sh -t $(LOCALTOP)/$(WORKINGDIR) | $(CMD_grep) '^SELECTED_FILES_EXT=' | $(CMD_sed) 's|^SELECTED_FILES_EXT=||')
+  ifeq ($(strip $(USER_CODE_FORMAT_FILES)$(USER_CODE_FORMAT_FILE)),)
+    CODE_CHECK_FILES:=$(shell $(CMD_cat) $(WORKINGDIR)/selected-source-files.txt)
+  else ifneq ($(strip $(USER_CODE_FORMAT_FILE)),)
+    CODE_CHECK_FILES:=$(patsubst $(SCRAM_SOURCEDIR)/%,%,$(shell $(CMD_grep) -E -i '\.($(subst $(empty) $(empty),|,$(CODE_FORMAT_FILES_EXTS)))$$' $(USER_CODE_FORMAT_FILE)))
+  else
+    CODE_CHECK_FILES:=$(patsubst $(SCRAM_SOURCEDIR)/%,%,$(shell $(CMD_echo) $(USER_CODE_FORMAT_FILES) | $(CMD_tr) ' ' '\n' | $(CMD_grep) -E -i '\.($(subst $(empty) $(empty),|,$(CODE_FORMAT_FILES_EXTS)))$$'))
+  endif
+  ifneq ($(strip $(USER_CODE_FORMAT_IGNORE_FILTER)),)
+    CODE_CHECK_FILES:=$(strip $(filter-out $(USER_CODE_FORMAT_IGNORE_FILTER),$(CODE_CHECK_FILES)))
+  endif
+  $(foreach f,$(CODE_CHECK_FILES),$(eval $(call CodeFormatRule,$f)))
+code-format-all: $(ALL_CodeFormatRules)
+	@:
+endif
+ifneq ($(strip $(filter code-checks-internal,$(MAKECMDGOALS))),)
+  CODE_CHECK_FILES:=
+  ifeq ($(strip $(USER_CODE_CHECKS_FILES)$(USER_CODE_CHECKS_FILE)),)
+    CODE_CHECK_FILES:=$(patsubst $(LOCALTOP)/$(SCRAM_SOURCEDIR)/%,%,$(shell python -c 'import json;print "\n".join([x["file"] for x in json.load(open("compile_commands.json")) if "/test/" not in x["file"] ])'))
+  else ifneq ($(strip $(USER_CODE_CHECKS_FILE)),)
+    CODE_CHECK_FILES:=$(patsubst $(SCRAM_SOURCEDIR)/%,%,$(shell $(CMD_cat) $(USER_CODE_CHECKS_FILE)))
+  else
+    CODE_CHECK_FILES:=$(patsubst $(SCRAM_SOURCEDIR)/%,%,$(USER_CODE_CHECKS_FILES))
+  endif
+  $(foreach f,$(CODE_CHECK_FILES),$(eval $(call CodeCheckRule,$f)))
+code-checks-internal: $(ALL_CodeCheckRules)
+	@:
+endif
+$(WORKINGDIR)/code-checks-logs/changed-files-all.log: FORCE_TARGET
+	@$(CMD_rm) -rf $(@D) &&\
+	$(CMD_mkdir) -p $(@D) &&\
+	$(CMD_cd) $(LOCALTOP)/$(SCRAM_SOURCEDIR) &&\
+	$(CMD_git) diff --name-only $(CMSSW_VERSION) > $(LOCALTOP)/$@
+$(WORKINGDIR)/code-checks-logs/changed-files-selected.log: $(WORKINGDIR)/code-checks-logs/changed-files-all.log
+	@$(CMD_grep) -v '/test/' $< > $@ || true
+ifeq ($(strip $(USER_CODE_FORMAT_FILE)$(USER_CODE_FORMAT_FILES)),)
+code-format: $(WORKINGDIR)/code-checks-logs/changed-files-all.log
+	@if [ -s $< ] ; then \
+	  $(MAKE) -f $(SCRAM_MAKEFILE) code-format-all USER_CODE_FORMAT_FILE=$< ;\
+	else \
+	  $(CMD_echo) ">> No changed files found: No running code-format" ;\
+	fi
+else
+code-format:
+	$(MAKE) -f $(SCRAM_MAKEFILE) code-format-all
+endif
+ifeq ($(strip $(USER_CODE_CHECKS_FILES)$(USER_CODE_CHECKS_FILE)),)
+code-checks: $(WORKINGDIR)/code-checks-logs/changed-files-selected.log
+	@if [ -s $< ] ; then \
+	  $(MAKE) -f $(SCRAM_MAKEFILE) code-checks-all USER_CODE_CHECKS_FILE=$< ;\
+	else \
+	  $(CMD_echo) ">> No changed files found: No running code-checks" ;\
+	fi
+else
+code-checks:
+	$(MAKE) -f $(SCRAM_MAKEFILE) code-checks-all
+endif

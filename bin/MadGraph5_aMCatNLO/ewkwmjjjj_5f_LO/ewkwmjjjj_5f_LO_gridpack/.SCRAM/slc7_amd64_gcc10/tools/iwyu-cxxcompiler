@@ -1,0 +1,14 @@
+{
+  "CXX": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/llvm/12.0.1-dd4c586a5bebc335346bb0e879f6f0aa/bin/include-what-you-use",
+  "LLVM_CXXCOMPILER_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/llvm/12.0.1-dd4c586a5bebc335346bb0e879f6f0aa",
+  "SCRAM_COMPILER": 1,
+  "TOOLNAME": "iwyu-cxxcompiler",
+  "TOOLVERSION": "12.0.1-dd4c586a5bebc335346bb0e879f6f0aa",
+  "USE": [
+    "llvm-cxxcompiler"
+  ],
+  "VARIABLES": [
+    "LLVM_CXXCOMPILER_BASE",
+    "CXX"
+  ]
+}

@@ -1,0 +1,9 @@
+<tool name="ittnotify" version="16.06.18-9dacc777a1a80aa1b3e442956e72825f">
+ <lib name="ittnotify"/>
+ <client>
+    <environment name="ITTNOTIFY_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/ittnotify/16.06.18-9dacc777a1a80aa1b3e442956e72825f"/>
+    <environment name="INCLUDE" default="$ITTNOTIFY_BASE/include"/>
+    <environment name="LIBDIR" default="$ITTNOTIFY_BASE/lib"/>
+ </client>
+  <runtime name="ROOT_INCLUDE_PATH" value="$INCLUDE" type="path"/>
+  </tool>

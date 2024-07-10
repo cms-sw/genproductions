@@ -1,0 +1,10 @@
+<tool name="numactl" version="2.0.14-e8527c5132cef1ed03b7b2068c952729">
+  <lib name="numa"/>
+  <client>
+    <environment name="NUMACTL_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/numactl/2.0.14-e8527c5132cef1ed03b7b2068c952729"/>
+    <environment name="INCLUDE"      default="$NUMACTL_BASE/include"/>
+    <environment name="LIBDIR"       default="$NUMACTL_BASE/lib"/>
+  </client>
+  <runtime name="PATH" value="$NUMACTL_BASE/bin" type="path"/>
+  <runtime name="MANPATH" value="$NUMACTL_BASE/share/man" type="path"/>
+</tool>

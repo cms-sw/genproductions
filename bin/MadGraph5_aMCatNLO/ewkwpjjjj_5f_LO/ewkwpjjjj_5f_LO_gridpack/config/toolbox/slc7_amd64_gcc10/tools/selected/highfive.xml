@@ -1,0 +1,10 @@
+<tool name="highfive" version="2.3.1-3587d91feefd54342d018da419c5d677">
+  <info url="https://github.com/BlueBrain/HighFive"/>
+  <client>
+    <environment name="HIGHFIVE_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/highfive/2.3.1-3587d91feefd54342d018da419c5d677"/>
+    <environment name="INCLUDE" default="$HIGHFIVE_BASE/include"/>
+  </client>
+  <runtime name="ROOT_INCLUDE_PATH" value="$INCLUDE" type="path"/>
+  <use name="boost"/>
+  <use name="hdf5"/> 
+</tool>

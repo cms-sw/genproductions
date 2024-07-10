@@ -1,0 +1,14 @@
+<tool name="xrootd" version="5.4.2-87db138d223976139f1f5b791b25d8e4">
+  <lib name="XrdUtils"/>
+  <lib name="XrdCl"/>
+  <client>
+    <environment name="XROOTD_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/xrootd/5.4.2-87db138d223976139f1f5b791b25d8e4"/>
+    <environment name="INCLUDE" default="$XROOTD_BASE/include/xrootd"/>
+    <environment name="INCLUDE" default="$XROOTD_BASE/include/xrootd/private"/>
+    <environment name="LIBDIR" default="$XROOTD_BASE/lib64"/>
+  </client>
+  <runtime name="PATH" value="$XROOTD_BASE/bin" type="path"/>
+  <runtime name="ROOT_INCLUDE_PATH" value="$INCLUDE" type="path"/>
+  <use name="root_cxxdefaults"/>
+  <use name="scitokens-cpp"/>
+</tool>

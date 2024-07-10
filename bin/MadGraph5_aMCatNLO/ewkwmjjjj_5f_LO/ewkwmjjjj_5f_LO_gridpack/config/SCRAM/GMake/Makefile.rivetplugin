@@ -1,0 +1,22 @@
+define rivet_register_plugin
+  @$(startlog_$(2)) if [ -f $< ] ; then \
+    [ -d $(@D) ] || $(CMD_mkdir) -p $(@D) &&\
+    $(call install_name_tool,@rpath/$(@D)/$(@F),$<) &&\
+    $(call install_name_tool_rpath,$(LOCALTOP)/$(@D),$<) &&\
+    plugin=$(patsubst lib%,plugin%,$(<F)) &&\
+    $(CMD_cp) -f $< $@ &&\
+    $(CMD_echo) "01:$(CMD_rm) -f $@"               > $(call AutoCleanFile,$<,rivet) &&\
+    $(CMD_echo) "--- Registered Rivet Plugin: $(1)"; \
+  else \
+    $(CMD_rm) -f $@ ;\
+  fi $(endlog_$(2))
+endef
+
+define rivet_plugin_clean
+  $(call clean_prod,$($(1)_pluginprod))
+endef
+
+define rivetPlugin
+$(eval $(call addPlugin,$1,$2,rivet,yes,$3,,,Rivet$(1).$(SHAREDSUFFIX),$1,$4))
+endef
+

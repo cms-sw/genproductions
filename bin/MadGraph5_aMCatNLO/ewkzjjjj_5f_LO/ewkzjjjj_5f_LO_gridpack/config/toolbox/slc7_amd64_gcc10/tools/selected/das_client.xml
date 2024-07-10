@@ -1,0 +1,6 @@
+<tool name="das_client" version="v03.01.00-3ba902c175744c5c3c97d915e286c147">
+  <client>
+    <environment name="DAS_CLIENT_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/cms/das_client/v03.01.00-3ba902c175744c5c3c97d915e286c147"/>
+  </client>
+  <runtime name="PATH"       value="$DAS_CLIENT_BASE/bin" type="path"/>
+</tool>

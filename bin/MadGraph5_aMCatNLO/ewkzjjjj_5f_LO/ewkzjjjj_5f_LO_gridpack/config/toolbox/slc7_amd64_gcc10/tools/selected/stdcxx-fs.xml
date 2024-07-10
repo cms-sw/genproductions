@@ -1,0 +1,3 @@
+  <tool name="stdcxx-fs" version="10.3.0">
+    <lib name="stdc++fs"/>
+  </tool>

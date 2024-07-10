@@ -1,0 +1,21 @@
+{
+  "LIB": [
+    "pythia6",
+    "pythia6_dummy",
+    "pythia6_pdfdummy"
+  ],
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/pythia6/426-604d92e9b51dd03325fbd342698d85b2/lib"
+  ],
+  "PYTHIA6_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/pythia6/426-604d92e9b51dd03325fbd342698d85b2",
+  "TOOLNAME": "pythia6",
+  "TOOLVERSION": "426-604d92e9b51dd03325fbd342698d85b2",
+  "USE": [
+    "pythia6_headers",
+    "f77compiler"
+  ],
+  "VARIABLES": [
+    "PYTHIA6_BASE",
+    "LIBDIR"
+  ]
+}

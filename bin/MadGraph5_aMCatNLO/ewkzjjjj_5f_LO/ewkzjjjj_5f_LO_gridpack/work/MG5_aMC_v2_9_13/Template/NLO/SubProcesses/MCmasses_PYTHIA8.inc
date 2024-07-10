@@ -1,0 +1,12 @@
+      mcmass(1)=0.0d0
+      mcmass(2)=0.0d0
+      mcmass(3)=0.0d0
+      mcmass(4)=0.0d0
+      mcmass(5)=0.0d0
+      mcmass(11)=0.0d0
+      mcmass(12)=0.0d0
+      mcmass(13)=0.0d0
+      mcmass(14)=0.0d0
+      mcmass(15)=0.0d0
+      mcmass(16)=0.0d0
+      mcmass(21)=0.0d0

@@ -1,0 +1,13 @@
+<tool name="clhepheader" version="2.4.5.1-5bba156cb451d19d7be7ff651e7c5f9f">
+  <info url="http://wwwinfo.cern.ch/asd/lhc++/clhep"/>
+  <client>
+    <environment name="CLHEPHEADER_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/clhep/2.4.5.1-5bba156cb451d19d7be7ff651e7c5f9f"/>
+    <environment name="INCLUDE"    default="$CLHEPHEADER_BASE/include"/>
+  </client>
+  <flags ROOTCLING_ARGS="-moduleMapFile=$(CLHEP_BASE)/include/module.modulemap"/>
+  <runtime name="CLHEP_PARAM_PATH" value="$CLHEPHEADER_BASE"/>
+  <runtime name="CMSSW_FWLITE_INCLUDE_PATH" value="$INCLUDE" type="path"/>
+  <runtime name="ROOT_INCLUDE_PATH"  value="$INCLUDE" type="path"/>
+  <use name="root_cxxdefaults"/>
+  <flags SYSTEM_INCLUDE="1"/>
+</tool>

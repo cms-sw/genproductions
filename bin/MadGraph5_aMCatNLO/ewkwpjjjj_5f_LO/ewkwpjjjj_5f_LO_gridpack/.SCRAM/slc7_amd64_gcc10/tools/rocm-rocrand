@@ -1,0 +1,20 @@
+{
+  "INCLUDE": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/rocm/5.0.2-95c215630c939706b0552e3eee38861c/include/hiprand",
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/rocm/5.0.2-95c215630c939706b0552e3eee38861c/include/rocrand"
+  ],
+  "LIB": [
+    "hiprand",
+    "rocrand"
+  ],
+  "ROCM_ROCRAND_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/rocm/5.0.2-95c215630c939706b0552e3eee38861c",
+  "TOOLNAME": "rocm-rocrand",
+  "TOOLVERSION": "5.0.2-95c215630c939706b0552e3eee38861c",
+  "USE": [
+    "rocm"
+  ],
+  "VARIABLES": [
+    "ROCM_ROCRAND_BASE",
+    "INCLUDE"
+  ]
+}

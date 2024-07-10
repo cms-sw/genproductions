@@ -1,0 +1,58 @@
+{
+  "BINDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/rocm/5.0.2-95c215630c939706b0552e3eee38861c/bin"
+  ],
+  "FLAGS": {
+    "ROCM_FLAGS": [],
+    "ROCM_HOST_CXXFLAGS": [
+      "-D__HIP_PLATFORM_HCC__",
+      "-D__HIP_PLATFORM_AMD__"
+    ],
+    "ROCM_HOST_REM_CXXFLAGS": [
+      "-Wno-non-template-friend",
+      "-Werror=format-contains-nul",
+      "-Werror=maybe-uninitialized",
+      "-Werror=unused-but-set-variable",
+      "-Werror=return-local-addr",
+      "-fipa-pta",
+      "-frounding-math",
+      "-mrecip",
+      "-fno-crossjumping",
+      "-fno-aggressive-loop-optimizations",
+      "-funroll-all-loops"
+    ]
+  },
+  "HIPCC": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/rocm/5.0.2-95c215630c939706b0552e3eee38861c/bin/hipcc",
+  "INCLUDE": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/rocm/5.0.2-95c215630c939706b0552e3eee38861c/include",
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/rocm/5.0.2-95c215630c939706b0552e3eee38861c/hip/include",
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/rocm/5.0.2-95c215630c939706b0552e3eee38861c/hsa/include"
+  ],
+  "LIB": [
+    "amdhip64"
+  ],
+  "LIBDIR": [
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/rocm/5.0.2-95c215630c939706b0552e3eee38861c/lib",
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/rocm/5.0.2-95c215630c939706b0552e3eee38861c/lib64",
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/rocm/5.0.2-95c215630c939706b0552e3eee38861c/hip/lib",
+    "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/rocm/5.0.2-95c215630c939706b0552e3eee38861c/hsa/lib"
+  ],
+  "ROCM_BASE": "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/rocm/5.0.2-95c215630c939706b0552e3eee38861c",
+  "RUNTIME": {
+    "PATH:PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/rocm/5.0.2-95c215630c939706b0552e3eee38861c/bin"
+    ],
+    "PATH:ROOT_INCLUDE_PATH": [
+      "/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/rocm/5.0.2-95c215630c939706b0552e3eee38861c/include:/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/rocm/5.0.2-95c215630c939706b0552e3eee38861c/hip/include:/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/rocm/5.0.2-95c215630c939706b0552e3eee38861c/hsa/include"
+    ]
+  },
+  "TOOLNAME": "rocm",
+  "TOOLVERSION": "5.0.2-95c215630c939706b0552e3eee38861c",
+  "VARIABLES": [
+    "ROCM_BASE",
+    "HIPCC",
+    "BINDIR",
+    "LIBDIR",
+    "INCLUDE"
+  ]
+}

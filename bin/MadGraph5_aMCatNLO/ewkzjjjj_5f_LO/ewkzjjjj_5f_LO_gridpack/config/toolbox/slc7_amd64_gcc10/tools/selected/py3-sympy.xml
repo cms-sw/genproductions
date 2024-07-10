@@ -1,0 +1,6 @@
+<tool name="py3-sympy" version="1.8-171a4194ea4e9da489c10e7d0f23e6b1">
+  <client>
+    <environment name="PY3_SYMPY_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-sympy/1.8-171a4194ea4e9da489c10e7d0f23e6b1"/>
+  </client>
+  <runtime name="PATH" value="$PY3_SYMPY_BASE/bin" type="path"/>
+</tool>
