@@ -64,7 +64,7 @@ set_dpmjet_config(){
 run_starlight(){
     echo "*** STARTING STARLIGHT PRODUCTION ***"
     cd ${LHEWORKDIR}/${STARLIGHTDIR}/build
-    if [ "$ProdM" -ge 4 ]; then
+    if [ "$ProdM" -ge 5 ]; then
         ./starlight < my.input 2>&1 | tee slight.log; test ${PIPESTATUS[0]} -eq 0 || fail_exit "starlight error: exit code not 0"
         ${LHEWORKDIR}/macros/convert_SL2LHE slight.out ${Beam1E} ${Beam2E} 0 2>&1 | tee slight.log; test ${PIPESTATUS[0]} -eq 0 || fail_exit "convert_SL2LHE error: exit code not 0"
         sed -i '/STARLIGHT/a '${DPMJETDIR} slight.lhe

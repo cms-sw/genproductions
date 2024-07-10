@@ -11,7 +11,9 @@ int getMomPdgID(const int& chnId)
     return 113; // rho0
   else if (chnId == 223 || chnId == 223211111)
     return 223; // omega
-  else if (chnId == 443011 || chnId == 443013)
+  else if (chnId == 333 || chnId == 333011 || chnId == 933)
+    return 333; // phi
+  else if (chnId == 443011 || chnId == 443013 || chnId == 4432212)
     return 443; // J/psi
   else if (chnId == 444011 || chnId == 444013)
     return 100443; // psi(2S)
@@ -23,8 +25,8 @@ int getMomPdgID(const int& chnId)
     return 200553; // Y(3S)
   else if (chnId == 9010221 || chnId == 225 || chnId == 335 || chnId == 115)
     return chnId; // f0(975) , f2(1270) , f2(1525) , a2(1320)
-  else if (chnId == 221 || chnId == 331 || chnId == 441 || chnId == 333)
-    return chnId; // eta , eta' , etac , phi
+  else if (chnId == 221 || chnId == 331 || chnId == 441)
+    return chnId; // eta , eta' , etac
   return 0;
 };
 
@@ -77,7 +79,7 @@ void convert_SL2LHE(const std::string& inFileName, const double& beamE1, const d
     // EVENT: n ntracks nvertices
 	if (not (std::istringstream(line) >> label >> iEvt >> nTrk >> nVtx) ||
         label != "EVENT:")
-      throw std::logic_error("[convert_SL2LHE] Failed to parse event line: "+line);
+      continue;
 
     // Particle tuple: pdg id, status, mother index, 4-momentum
     std::vector<std::tuple<int, int, int, ROOT::Math::PxPyPzMVector>> parV;
@@ -137,7 +139,7 @@ void convert_SL2LHE(const std::string& inFileName, const double& beamE1, const d
     outFile << std::fixed << std::setprecision(8) << std::scientific;
     //# particles, subprocess id, event weight, event scale, alpha_em, alpha_s
     outFile << parV.size() << " 81 " << 1.0 << " " << scale << " " << -1.0 << " " << -1.0 << std::endl;
-    outFile << std::fixed << std::setprecision(10) << std::scientific;
+    outFile << std::fixed << std::setprecision(15);
     for (const auto& pV : parV) {
       const auto& [pdgId, status, momI, p] = pV;
       //particle: pdg id, status, mother index (1, 2), color flow tag (1, 2), (px, py, pz, energy, mass [GeV]), proper lifetime [mm], spin
