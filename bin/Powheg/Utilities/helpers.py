@@ -255,7 +255,7 @@ cat Makefile.orig | sed -e \"s#OLPATH=.\+#OLPATH=$(scram tool info OpenLoops | g
 sed -i -e \"s#Pythia8Plugins#Pythia8Plugins \$(shell \$(LHAPDF_CONFIG) --cxxflags )#g\" Makefile",
     "gg_H_2HDM" : "echo \"Adding CHAPLIN 1.2 library\"\n \
 if [ ! -f chaplin-1.2.tar ]; then\n \
-  wget --no-verbose http://chaplin.hepforge.org/code/chaplin-1.2.tar || fail_exit \"Failed to get CHAPLIN tar ball \"\n \
+  wget --no-verbose http://chaplin.hepforge.org/code/chaplin-1.2.tar || wget https://cms-project-generators.web.cern.ch/cms-project-generators/chaplin-1.2.tar || fail_exit \"Failed to get CHAPLIN tar ball \"\n \
 fi\n \
 tar xvf chaplin-1.2.tar\n \
 cd chaplin-1.2\n \
@@ -267,7 +267,7 @@ export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:${LD_LIBRARY_PATH}",
 
     "gg_H_MSSM" : "echo \"Adding CHAPLIN 1.2 library\"\n \
 if [ ! -f chaplin-1.2.tar ]; then\n \
-  wget --no-verbose http://chaplin.hepforge.org/code/chaplin-1.2.tar || fail_exit \"Failed to get CHAPLIN tar ball \"\n \
+  wget --no-verbose http://chaplin.hepforge.org/code/chaplin-1.2.tar || wget https://cms-project-generators.web.cern.ch/cms-project-generators/chaplin-1.2.tar || fail_exit \"Failed to get CHAPLIN tar ball \"\n \
 fi\n \
 tar xvf chaplin-1.2.tar\n \
 cd chaplin-1.2\n \
@@ -278,7 +278,7 @@ echo \"LIBS+=-L`pwd`/lib/ -L`pwd`/lib64/\" >> Makefile   # be safe \n \
 export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:${LD_LIBRARY_PATH}\n\n \
 echo \"Adding FeynHiggs 2.19 library\"\n \
 if [ ! -f FeynHiggs-2.19.0.tar.gz ]; then\n \
-  wget --no-verbose --no-check-certificate https://wwwth.mpp.mpg.de/members/heinemey/feynhiggs/newversion/FeynHiggs-2.19.0.tar.gz || fail_exit \"Failed to get FeynHiggs tar ball \"\n \
+  wget --no-verbose --no-check-certificate https://wwwth.mpp.mpg.de/members/heinemey/feynhiggs/newversion/FeynHiggs-2.19.0.tar.gz || wget https://cms-project-generators.web.cern.ch/cms-project-generators/FeynHiggs-2.19.0.tar.gz || fail_exit \"Failed to get FeynHiggs tar ball \"\n \
 fi\n \
 tar xvf FeynHiggs-2.19.0.tar.gz\n \
 cd FeynHiggs-2.19.0\n \
@@ -290,7 +290,7 @@ sed -i '5a\#define RealType real(8)' include/FHRecord.h",
 
     "directphoton" : "echo \"Adding LoopTools 2.16 library\"\n \
 if [ ! -f LoopTools-2.16.tar.gz ]; then\n \
-  wget --no-verbose https://feynarts.de/looptools/LoopTools-2.16.tar.gz || fail_exit \"Failed to get LoopTools tar ball \"\n \
+  wget --no-verbose https://feynarts.de/looptools/LoopTools-2.16.tar.gz || wget https://cms-project-generators.web.cern.ch/cms-project-generators/LoopTools-2.16.tar.gz || fail_exit \"Failed to get LoopTools tar ball \"\n \
 fi\n \
 tar xvf LoopTools-2.16.tar.gz\n \
 cd LoopTools-2.16\n \
@@ -304,7 +304,7 @@ mkdir obj-gfortran",
 
     "vbs-ssww-nloew" : "echo \"Adding Recola2.2.4 library\"\n \
 if [ ! -f recola2-collier-2.2.4.tar.gz ]; then\n \
-  wget --no-verbose -O recola2-collier-2.2.4.tar.gz https://recola.hepforge.org/downloads/?f=recola2-collier-2.2.4.tar.gz || fail_exit \"Failed to get Recola tar ball \"\n \
+  wget --no-verbose -O recola2-collier-2.2.4.tar.gz https://recola.hepforge.org/downloads/?f=recola2-collier-2.2.4.tar.gz || wget https://cms-project-generators.web.cern.ch/cms-project-generators/recola2-collier-2.2.4.tar.gz || fail_exit \"Failed to get Recola tar ball \"\n \
 fi\n \
 tar -zxvf recola2-collier-2.2.4.tar.gz\n \
 cd recola2-collier-2.2.4/build\n \
@@ -322,7 +322,7 @@ export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:${LD_LIBRARY_PATH}",
 
     "HJJ_ew" : "echo \"Adding Recola2.2.4 library\"\n \
 if [ ! -f recola2-collier-2.2.4.tar.gz ]; then\n \
-  wget --no-verbose -O recola2-collier-2.2.4.tar.gz https://recola.hepforge.org/downloads/?f=recola2-collier-2.2.4.tar.gz || fail_exit \"Failed to get Recola tar ball \"\n \
+  wget --no-verbose -O recola2-collier-2.2.4.tar.gz https://recola.hepforge.org/downloads/?f=recola2-collier-2.2.4.tar.gz || wget https://cms-project-generators.web.cern.ch/cms-project-generators/recola2-collier-2.2.4.tar.gz || fail_exit \"Failed to get Recola tar ball \"\n \
 fi\n \
 tar -zxvf recola2-collier-2.2.4.tar.gz\n \
 cd recola2-collier-2.2.4/build\n \
@@ -340,7 +340,7 @@ export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:${LD_LIBRARY_PATH}",
 
     "VV_dec_ew" : "echo \"Adding Recola2.2.4 library\"\n \
 if [ ! -f recola2-collier-2.2.4.tar.gz ]; then\n \
-  wget --no-verbose -O recola2-collier-2.2.4.tar.gz https://recola.hepforge.org/downloads/?f=recola2-collier-2.2.4.tar.gz || fail_exit \"Failed to get Recola tar ball \"\n \
+  wget --no-verbose -O recola2-collier-2.2.4.tar.gz https://recola.hepforge.org/downloads/?f=recola2-collier-2.2.4.tar.gz || wget https://cms-project-generators.web.cern.ch/cms-project-generators/recola2-collier-2.2.4.tar.gz || fail_exit \"Failed to get Recola tar ball \"\n \
 fi\n \
 tar -zxvf recola2-collier-2.2.4.tar.gz\n \
 cd recola2-collier-2.2.4/build\n \
@@ -358,10 +358,10 @@ export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:${LD_LIBRARY_PATH}",
 
     "ttZ" : "echo \"Adding NLOX libraries to: $(pwd)\"\n \
 if [ ! -f NLOX_util_1.2.1.tar.gz ]; then\n \
-  wget --no-verbose --user NLOX --password LoopsAreCool http://www.hep.fsu.edu/~nlox/downloads/v1.2.1/NLOX_util_1.2.1.tar.gz || fail_exit \"Failed to get NLOX_util_1.2.1 tar ball\"\n \
+  wget --no-verbose --user NLOX --password LoopsAreCool http://www.hep.fsu.edu/~nlox/downloads/v1.2.1/NLOX_util_1.2.1.tar.gz || wget https://cms-project-generators.web.cern.ch/cms-project-generators/NLOX_util_1.2.1.tar.gz || fail_exit \"Failed to get NLOX_util_1.2.1 tar ball\"\n \
 fi\n \
 if [ ! -f NLOX_1.2.1.tar.gz ]; then\n \
-  wget --user NLOX --password LoopsAreCool http://www.hep.fsu.edu/~nlox/downloads/v1.2.1/NLOX_1.2.1.tar.gz || fail_exit \"Failed to get NLOX_1.2.1 tar ball\"\n \
+  wget --user NLOX --password LoopsAreCool http://www.hep.fsu.edu/~nlox/downloads/v1.2.1/NLOX_1.2.1.tar.gz || wget https://cms-project-generators.web.cern.ch/cms-project-generators/NLOX_1.2.1.tar.gz || fail_exit \"Failed to get NLOX_1.2.1 tar ball\"\n \
 fi\n \
 if [ ! -d NLOX_util_1.2.1 ]; then\n \
     tar -xzvf NLOX_util_1.2.1.tar.gz\n \
@@ -393,7 +393,7 @@ echo \"Setting abs_NLOX_path=\" ${abs_NLOX_path}\n \
 ./install_nlox.sh --with-nloxutil=${abs_NLOX_util_path}\n \
 cd ..\n \
 if [ ! -f pp_Zttbar_as3ae1.tar.gz ]; then\n \
-  wget --user NLOX --password LoopsAreCool http://www.hep.fsu.edu/~nlox/downloads/processes/v1.2.0/pp_Zttbar_as3ae1.tar.gz || fail_exit \"Failed to get pp_Zttbar tar ball\"\n \
+  wget --user NLOX --password LoopsAreCool http://www.hep.fsu.edu/~nlox/downloads/processes/v1.2.0/pp_Zttbar_as3ae1.tar.gz || wget https://cms-project-generators.web.cern.ch/cms-project-generators/pp_Zttbar_as3ae1.tar.gz || fail_exit \"Failed to get pp_Zttbar tar ball\"\n \
 fi\n \
 tar -xzvf pp_Zttbar_as3ae1.tar.gz\n \
 cd pp_Zttbar_as3ae1\n \
@@ -406,10 +406,10 @@ cd ${WORKDIR}/${name}/POWHEG-BOX/${process}\n \
 
     "ttll" : "echo \"Adding NLOX libraries to: $(pwd)\"\n \
 if [ ! -f NLOX_util_1.2.1.tar.gz ]; then\n \
-  wget --no-verbose --user NLOX --password LoopsAreCool http://www.hep.fsu.edu/~nlox/downloads/v1.2.1/NLOX_util_1.2.1.tar.gz || fail_exit \"Failed to get NLOX_util_1.2.1 tar ball\"\n \
+  wget --no-verbose --user NLOX --password LoopsAreCool http://www.hep.fsu.edu/~nlox/downloads/v1.2.1/NLOX_util_1.2.1.tar.gz || wget https://cms-project-generators.web.cern.ch/cms-project-generators/NLOX_util_1.2.1.tar.gz || fail_exit \"Failed to get NLOX_util_1.2.1 tar ball\"\n \
 fi\n \
 if [ ! -f NLOX_1.2.1.tar.gz ]; then\n \
-  wget --user NLOX --password LoopsAreCool http://www.hep.fsu.edu/~nlox/downloads/v1.2.1/NLOX_1.2.1.tar.gz || fail_exit \"Failed to get NLOX_1.2.1 tar ball\"\n \
+  wget --user NLOX --password LoopsAreCool http://www.hep.fsu.edu/~nlox/downloads/v1.2.1/NLOX_1.2.1.tar.gz || wget https://cms-project-generators.web.cern.ch/cms-project-generators/NLOX_1.2.1.tar.gz || fail_exit \"Failed to get NLOX_1.2.1 tar ball\"\n \
 fi\n \
 if [ ! -d NLOX_util_1.2.1 ]; then\n \
     tar -xzvf NLOX_util_1.2.1.tar.gz\n \
@@ -441,7 +441,7 @@ echo \"Setting abs_NLOX_path=\" ${abs_NLOX_path}\n \
 ./install_nlox.sh --with-nloxutil=${abs_NLOX_util_path}\n \
 cd ..\n \
 if [ ! -f pp_ttbarepem_as3ae2.tar.gz ]; then\n \
-  wget --user NLOX --password LoopsAreCool http://www.hep.fsu.edu/~nlox/downloads/processes/v1.2.0/pp_ttbarepem_as3ae2.tar.gz || fail_exit \"Failed to get pp_ttbarepem_as3ae2 tar ball\"\n \
+  wget --user NLOX --password LoopsAreCool http://www.hep.fsu.edu/~nlox/downloads/processes/v1.2.0/pp_ttbarepem_as3ae2.tar.gz || wget https://cms-project-generators.web.cern.ch/cms-project-generators/pp_ttbarepem_as3ae2.tar.gz || fail_exit \"Failed to get pp_ttbarepem_as3ae2 tar ball\"\n \
 fi\n \
 tar -xzvf pp_ttbarepem_as3ae2.tar.gz\n \
 cd pp_ttbarepem_as3ae2\n \
@@ -455,10 +455,10 @@ cd ${WORKDIR}/${name}/POWHEG-BOX/${process}\n \
     "Wtt_dec" : " cd ../../\n \
 echo \"Adding NLOX libraries to: $(pwd)\"\n \
 if [ ! -f NLOX_util_1.2.1.tar.gz ]; then\n \
-  wget --no-verbose --user NLOX --password LoopsAreCool http://www.hep.fsu.edu/~nlox/downloads/v1.2.1/NLOX_util_1.2.1.tar.gz || fail_exit \"Failed to get NLOX_util_1.2.1 tar ball\"\n \
+  wget --no-verbose --user NLOX --password LoopsAreCool http://www.hep.fsu.edu/~nlox/downloads/v1.2.1/NLOX_util_1.2.1.tar.gz || wget https://cms-project-generators.web.cern.ch/cms-project-generators/NLOX_util_1.2.1.tar.gz || fail_exit \"Failed to get NLOX_util_1.2.1 tar ball\"\n \
 fi\n \
 if [ ! -f NLOX_1.2.1.tar.gz ]; then\n \
-  wget --user NLOX --password LoopsAreCool http://www.hep.fsu.edu/~nlox/downloads/v1.2.1/NLOX_1.2.1.tar.gz || fail_exit \"Failed to get NLOX_1.2.1 tar ball\"\n \
+  wget --user NLOX --password LoopsAreCool http://www.hep.fsu.edu/~nlox/downloads/v1.2.1/NLOX_1.2.1.tar.gz || wget https://cms-project-generators.web.cern.ch/cms-project-generators/NLOX_1.2.1.tar.gz || fail_exit \"Failed to get NLOX_1.2.1 tar ball\"\n \
 fi\n \
 if [ ! -d NLOX_util_1.2.1 ]; then\n \
     tar -xzvf NLOX_util_1.2.1.tar.gz\n \
@@ -481,10 +481,10 @@ export abs_NLOX_path=`pwd`\n \
 echo \"Setting abs_NLOX_path=\" ${abs_NLOX_path}\n \
 ./install_nlox.sh --with-nloxutil=${abs_NLOX_util_path}\n \
 if [ ! -f pp_Wpttbar.tar.gz ]; then\n \
-  wget --user NLOX --password LoopsAreCool http://www.hep.fsu.edu/~nlox/downloads/processes/v1.2.1/pp_Wpttbar.tar.gz || fail_exit \"Failed to get pp_Wpttbar tar ball\"\n \
+  wget --user NLOX --password LoopsAreCool http://www.hep.fsu.edu/~nlox/downloads/processes/v1.2.1/pp_Wpttbar.tar.gz || wget https://cms-project-generators.web.cern.ch/cms-project-generators/pp_Wpttbar.tar.gz || fail_exit \"Failed to get pp_Wpttbar tar ball\"\n \
 fi\n \
 if [ ! -f pp_Wmttbar.tar.gz ]; then\n \
-  wget --user NLOX --password LoopsAreCool http://www.hep.fsu.edu/~nlox/downloads/processes/v1.2.1/pp_Wmttbar.tar.gz || fail_exit \"Failed to get pp_Wmttbar tar ball\"\n \
+  wget --user NLOX --password LoopsAreCool http://www.hep.fsu.edu/~nlox/downloads/processes/v1.2.1/pp_Wmttbar.tar.gz || wget https://cms-project-generators.web.cern.ch/cms-project-generators/pp_Wmttbar.tar.gz || fail_exit \"Failed to get pp_Wmttbar tar ball\"\n \
 fi\n \
 tar -xzvf pp_Wpttbar.tar.gz\n \
 tar -xzvf pp_Wmttbar.tar.gz\n \
@@ -569,7 +569,7 @@ echo 'Making main-PHOTOS-lhef'\n \
 make main-PHOTOS-lhef",
     "ttJ_MiNNLO" :"echo \"Adding CHAPLIN 1.2 library\"\n \
 if [ ! -f chaplin-1.2.tar ]; then\n \
-  wget --no-verbose http://chaplin.hepforge.org/code/chaplin-1.2.tar || fail_exit \"Failed to get CHAPLIN tar ball \"\n \
+  wget --no-verbose http://chaplin.hepforge.org/code/chaplin-1.2.tar || wget https://cms-project-generators.web.cern.ch/cms-project-generators/chaplin-1.2.tar || fail_exit \"Failed to get CHAPLIN tar ball \"\n \
 fi\n \
 tar xvf chaplin-1.2.tar\n \
 cd chaplin-1.2\n \
@@ -599,7 +599,7 @@ sed -i \"s/getq2min(1,tmp)/getq2min(0,tmp)/g\" setlocalscales.f",
 
     "ST_wtch_DR" : "echo \"D/L QCDLoop-1.9 library\"\n \
 if [ ! -f FeynHiggs-2.10.2.tar.gz ]; then\n \
-  wget --no-verbose http://qcdloop.fnal.gov/QCDLoop-1.98.tar.gz || fail_exit \"Failed to get QCDLoop tar ball\"\n \
+  wget --no-verbose http://qcdloop.fnal.gov/QCDLoop-1.98.tar.gz || wget https://cms-project-generators.web.cern.ch/cms-project-generators/QCDLoop-1.98.tar.gz || fail_exit \"Failed to get QCDLoop tar ball\"\n \
 fi\n \
 tar xvf QCDLoop-1.98.tar.gz\n \
 mv QCDLoop-1.98 QCDLoop-1.9\n \
@@ -614,7 +614,7 @@ sed -i -e 's#QCDLoop-1.98#QCDLoop-1.9#g' Makefile",
 
     "ST_wtch_DS" : "echo \"D/L QCDLoop-1.9 library\"\n \
 if [ ! -f FeynHiggs-2.10.2.tar.gz ]; then\n \
-  wget --no-verbose http://qcdloop.fnal.gov/QCDLoop-1.98.tar.gz || fail_exit \"Failed to get QCDLoop tar ball\"\n \
+  wget --no-verbose http://qcdloop.fnal.gov/QCDLoop-1.98.tar.gz || wget https://cms-project-generators.web.cern.ch/cms-project-generators/QCDLoop-1.98.tar.gz || fail_exit \"Failed to get QCDLoop tar ball\"\n \
 fi\n \
 tar xvf QCDLoop-1.98.tar.gz\n \
 mv QCDLoop-1.98 QCDLoop-1.9\n \
