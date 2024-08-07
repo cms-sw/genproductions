@@ -1,0 +1,26 @@
+import model MSSM_SLHA2
+generate p p > el- el+ @1
+add process p p > el- el+ j @2
+add process p p > el- el+ j j @3
+add process p p > mul- mul+ @4
+add process p p > mul- mul+ j @5
+add process p p > mul- mul+ j j @6
+add process p p > sve sve~ @7
+add process p p > sve sve~ j @8
+add process p p > sve sve~ j j @9
+add process p p > svm svm~ @10
+add process p p > svm svm~ j @11
+add process p p > svm svm~ j j @12
+add process p p > el- sve~ @13
+add process p p > el- sve~ j @14
+add process p p > el- sve~ j j @15
+add process p p > el+ sve @16
+add process p p > el+ sve j @17
+add process p p > el+ sve j j @18
+add process p p > mul- svm~ @19
+add process p p > mul- svm~ j @20
+add process p p > mul- svm~ j j @21
+add process p p > mul+ svm @22
+add process p p > mul+ svm j @23
+add process p p > mul+ svm j j @24
+output SlepSnuCascade_MNeu220_TuneCP5_13p6TeV-madgraphMLM
