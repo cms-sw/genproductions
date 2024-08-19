@@ -30,5 +30,5 @@ process.generator = cms.EDProducer("CloseByParticleGunProducer",
     ),
     Verbosity = cms.untracked.int32(0),
     firstRun = cms.untracked.uint32(1),
-    psethack = cms.string('random particles in phi and r windows')
+    psethack = cms.string('Photons at fixed angle, energy range 1 to 1000 GeV')
 )
