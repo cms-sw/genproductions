@@ -1319,7 +1319,7 @@ for num in range(0,len(prepid)):
                         if str(pw_pdf+1) in line: pdf_var_check1 += 1
                     if not (scale_var_check0 == 1 and scale_var_check1 == 9):
                         warnings.append("There may be a problem with scale variations. Please check pwg-rwl.dat")
-                    if not (pdf_var_check0 > 0 and pdf_var_check1 >= 1 and 'bb4l' not in dn.lower()):
+                    if not (pdf_var_check0 > 0 and pdf_var_check1 >= 1) and 'bbllnunu' not in dn.lower():
                         errors.append("There may be a problem with PDF variations. Please check pwg-rwl.dat")
             if bornonly == 1:
                 bornonly_frag_check = 0
