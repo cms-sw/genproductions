@@ -1,0 +1,4 @@
+set param_card mass 4110000 3000
+set param_card mass 25 125
+set param_card decay 4110000 0.000000e+0
+set param_card gch 1 1.0
