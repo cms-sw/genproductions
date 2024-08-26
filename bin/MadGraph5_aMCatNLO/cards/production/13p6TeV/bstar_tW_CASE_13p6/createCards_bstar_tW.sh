@@ -1,7 +1,7 @@
 # script to create production cards for 2016 bstar from example card (bstar_tW_Left_M700)
 
 #masspoints=( 1200 1400 1600 1800 2000 2200 2400 2600 2800 3000 3200 3400 3600 3800 4000 )
-masspoints=( 1200 )
+masspoints=( 4200 )
 couplings=( "Left" "Right" )
 base_dir="."
 template_dir="${base_dir}/bstar_tW_Left_M1200/"

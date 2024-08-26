@@ -1,17 +1,3 @@
-#*********************************************************************
-#                       MadGraph5_aMC@NLO                            *
-#                                                                    *
-#                     run_card.dat MadEvent                          *
-#                                                                    *
-#  This file is used to set the parameters of the run.               *
-#                                                                    *
-#  Some notation/conventions:                                        *
-#                                                                    *
-#   Lines starting with a '# ' are info or comments                  *
-#                                                                    *
-#   mind the format:   value    = variable     ! comment             *
-#*********************************************************************
-#
 #*******************                                                 
 # Running parameters
 #*******************                                                 
@@ -60,7 +46,7 @@
   91.188	=  dsqrt_q2fact1     ! fixed fact scale for pdf1
   91.188	=  dsqrt_q2fact2     ! fixed fact scale for pdf2
   -1	=  dynamical_scale_choice  ! Select one of the preselect dynamical choice
-  1 =  scalefact         ! scale factor for event-by-event scales
+  0.33 =  scalefact         ! scale factor for event-by-event scales
 #*********************************************************************
 # Matching - Warning! ickkw > 1 is still beta
 #*********************************************************************
@@ -91,7 +77,7 @@
 # Apply pt/E/eta/dr/mij cuts on decay products or not
 # (note that etmiss/ptll/ptheavy/ht/sorted cuts always apply)
 #**********************************************************
-  True	=  cut_decays     ! Cut decay products 
+  False	=  cut_decays     ! Cut decay products 
 #*************************************************************
 # Number of helicities to sum per event (0 = all helicities)
 # 0 gives more stable result, but longer run time (needed for
@@ -266,3 +252,5 @@
 #          reweighting into account!                                 *
 #*********************************************************************
   True	=  use_syst       ! Enable systematics studies
+
+

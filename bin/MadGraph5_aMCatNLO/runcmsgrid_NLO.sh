@@ -146,7 +146,10 @@ if [ ! -e $LHEWORKDIR/header_for_madspin.txt ]; then
     pdfsets="PDF_SETS_REPLACE"
     scalevars="--mur=1,2,0.5 --muf=1,2,0.5 --together=muf,mur --dyn=-1"
 
-    echo "systematics $runlabel --start_id=1001 --pdf=$pdfsets $scalevars" | ./bin/aMCatNLO
+    if { echo "systematics $runlabel --start_id=1001 --pdf=$pdfsets $scalevars" | ./bin/aMCatNLO 2>&1 >&3 3>&- | grep '^' >&2; } 3>&1; then
+        echo "Encounter Error in Running Systematics Module"
+        exit 10086
+fi
 
     cp $LHEWORKDIR/process/Events/${runlabel}/events.lhe $LHEWORKDIR/${runname}_final.lhe
 
