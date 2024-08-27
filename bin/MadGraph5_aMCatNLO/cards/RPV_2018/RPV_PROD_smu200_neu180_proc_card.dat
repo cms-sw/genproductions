@@ -1,0 +1,74 @@
+#************************************************************
+#*                     MadGraph5_aMC@NLO                    *
+#*                                                          *
+#*                *                       *                 *
+#*                  *        * *        *                   *
+#*                    * * * * 5 * * * *                     *
+#*                  *        * *        *                   *
+#*                *                       *                 *
+#*                                                          *
+#*                                                          *
+#*         VERSION 2.9.15                2023-05-12         *
+#*                                                          *
+#*    The MadGraph5_aMC@NLO Development Team - Find us at   *
+#*    https://server06.fynu.ucl.ac.be/projects/madgraph     *
+#*                                                          *
+#************************************************************
+#*                                                          *
+#*               Command File for MadGraph5_aMC@NLO         *
+#*                                                          *
+#*     run as ./bin/mg5_aMC  filename                       *
+#*                                                          *
+#************************************************************
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set max_t_for_channel 99
+set loop_optimized_output True
+set low_mem_multicore_nlo_generation False
+set default_unset_couplings 99
+set zerowidth_tchannel True
+set loop_color_flows False
+set gauge unitary
+set complex_mass_scheme False
+set max_npoint_for_channel 0
+import model sm
+define p = g u c d s u~ c~ d~ s~
+define j = g u c d s u~ c~ d~ s~
+define l+ = e+ mu+
+define l- = e- mu-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+import model DisplacedTopUDD --modelname
+generate    p p  > sl2+ sl2-   / h01 h02 a0 n1 n2 n3 n4, (sl2+ > n2 mu\
++, n2 > t d s    / sd1 sd1~ sd2 sd2~ sd3 sd3~ sd4 sd4~ sd5 sd5~ sd6 sd\
+6~), (sl2- > n2 mu-, n2 > t d s    / sd1 sd1~ sd2 sd2~ sd3 sd3~ sd4 sd\
+4~ sd5 sd5~ sd6 sd6~) @1
+add process p p  > sl2+ sl2-   / h01 h02 a0 n1 n2 n3 n4, (sl2+ > n2 mu\
++, n2 > t d s    / sd1 sd1~ sd2 sd2~ sd3 sd3~ sd4 sd4~ sd5 sd5~ sd6 sd\
+6~), (sl2- > n2 mu-, n2 > t~ d~ s~ / sd1 sd1~ sd2 sd2~ sd3 sd3~ sd4 sd\
+4~ sd5 sd5~ sd6 sd6~) @2
+add process p p  > sl2+ sl2-   / h01 h02 a0 n1 n2 n3 n4, (sl2+ > n2 mu\
++, n2 > t~ d~ s~ / sd1 sd1~ sd2 sd2~ sd3 sd3~ sd4 sd4~ sd5 sd5~ sd6 sd\
+6~), (sl2- > n2 mu-, n2 > t d s    / sd1 sd1~ sd2 sd2~ sd3 sd3~ sd4 sd\
+4~ sd5 sd5~ sd6 sd6~) @3
+add process p p  > sl2+ sl2-   / h01 h02 a0 n1 n2 n3 n4, (sl2+ > n2 mu\
++, n2 > t~ d~ s~ / sd1 sd1~ sd2 sd2~ sd3 sd3~ sd4 sd4~ sd5 sd5~ sd6 sd\
+6~), (sl2- > n2 mu-, n2 > t~ d~ s~ / sd1 sd1~ sd2 sd2~ sd3 sd3~ sd4 sd\
+4~ sd5 sd5~ sd6 sd6~) @4
+add process p p  > sl2+ sl2- j / h01 h02 a0 n1 n2 n3 n4, (sl2+ > n2 mu\
++, n2 > t d s    / sd1 sd1~ sd2 sd2~ sd3 sd3~ sd4 sd4~ sd5 sd5~ sd6 sd\
+6~), (sl2- > n2 mu-, n2 > t d s    / sd1 sd1~ sd2 sd2~ sd3 sd3~ sd4 sd\
+4~ sd5 sd5~ sd6 sd6~) @5
+add process p p  > sl2+ sl2- j / h01 h02 a0 n1 n2 n3 n4, (sl2+ > n2 mu\
++, n2 > t d s    / sd1 sd1~ sd2 sd2~ sd3 sd3~ sd4 sd4~ sd5 sd5~ sd6 sd\
+6~), (sl2- > n2 mu-, n2 > t~ d~ s~ / sd1 sd1~ sd2 sd2~ sd3 sd3~ sd4 sd\
+4~ sd5 sd5~ sd6 sd6~) @6
+add process p p  > sl2+ sl2- j / h01 h02 a0 n1 n2 n3 n4, (sl2+ > n2 mu\
++, n2 > t~ d~ s~ / sd1 sd1~ sd2 sd2~ sd3 sd3~ sd4 sd4~ sd5 sd5~ sd6 sd\
+6~), (sl2- > n2 mu-, n2 > t d s    / sd1 sd1~ sd2 sd2~ sd3 sd3~ sd4 sd\
+4~ sd5 sd5~ sd6 sd6~) @7
+add process p p  > sl2+ sl2- j / h01 h02 a0 n1 n2 n3 n4, (sl2+ > n2 mu\
++, n2 > t~ d~ s~ / sd1 sd1~ sd2 sd2~ sd3 sd3~ sd4 sd4~ sd5 sd5~ sd6 sd\
+6~), (sl2- > n2 mu-, n2 > t~ d~ s~ / sd1 sd1~ sd2 sd2~ sd3 sd3~ sd4 sd\
+4~ sd5 sd5~ sd6 sd6~) @8
+output RPV_PROD_smu200_neu180 -f
