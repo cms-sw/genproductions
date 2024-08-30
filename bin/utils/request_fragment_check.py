@@ -1,5 +1,6 @@
 #!/bin/env python3
 import os
+import warnings
 import sys
 import re
 import argparse
@@ -56,20 +57,34 @@ if args.local is False:
     try:
         from rest import McM
     except ModuleNotFoundError as e:
-        import_msg = (
-            "Unable to import the McM module. "
-            "Install this module in your execution environment "
-            "by following the instructions available at: "
-            "https://github.com/cms-PdmV/mcm_scripts"
-        )
-        raise ModuleNotFoundError(import_msg) from e
+        old_version_afs = '/afs/cern.ch/cms/PPD/PdmV/tools/McM'
+        try:
+            # INFO: Temporarily load the old version to avoid crashes with non-updated user code.
+            sys.path.append(old_version_afs)
+            from rest import McM
+
+            version_msg = (
+                "An old version of the McM module has been loaded from: %s. " 
+                "This is a temporal patch to avoid unforeseen import errors with user's code. "
+                "Install a recent version following the instructions available at "
+                "https://github.com/cms-PdmV/mcm_scripts for future executions."
+            ) % (old_version_afs)
+            warnings.warn(version_msg, DeprecationWarning)
+
+        except ModuleNotFoundError as e:
+            import_msg = (
+                "Install this module in your execution environment "
+                "by following the instructions available at: "
+                "https://github.com/cms-PdmV/mcm_scripts"
+            )
+            raise ModuleNotFoundError(import_msg) from e
 
     mcm = McM(id=None, dev=args.dev, debug=args.debug)
     mcm_link = mcm.server
 
 def get_request(prepid):
     if args.local is False:
-        result = mcm._get('public/restapi/requests/get/%s' % (prepid))
+        result = mcm._McM__get('public/restapi/requests/get/%s' % (prepid))
         if args.download_json is True:
             with open("request_"+prepid+".json",'w') as f:
                 json.dump(result,f)
@@ -85,7 +100,7 @@ def get_request(prepid):
     return result
 
 def get_range_of_requests(query):
-    result = mcm._put('public/restapi/requests/listwithfile', data={'contents': query})
+    result = mcm._McM__put('public/restapi/requests/listwithfile', data={'contents': query})
     if not result:
         return {}
 
@@ -94,7 +109,7 @@ def get_range_of_requests(query):
 
 
 def get_ticket(prepid):
-    result = mcm._get('public/restapi/mccms/get/%s' % (prepid))
+    result = mcm._McM__get('public/restapi/mccms/get/%s' % (prepid))
     if not result:
         return {}
 
@@ -102,7 +117,7 @@ def get_ticket(prepid):
     return result
 
 def get_requests_from_datasetname(dn):
-    raw_result = mcm._get(
+    raw_result = mcm._McM__get(
         "public/restapi/requests/from_dataset_name/%s" % (dn)
     )
     if not raw_result:
