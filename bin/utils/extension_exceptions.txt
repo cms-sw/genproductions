@@ -1,0 +1,8 @@
+# These exceptions are for requests that are extensions of MG5_aMC requests with concurrent 
+# generation which is not currently supported for LHE production due to heavy I/O. 
+# These extensions have generateConcurrently flag = False. 
+# For such requests, the check for consistency of the fragments between the base request and the extension request is not done. 
+HIG-RunIISummer20UL16wmLHEGENAPV-13892
+HIG-RunIISummer20UL16wmLHEGEN-14781
+HIG-RunIISummer20UL17wmLHEGEN-13453
+HIG-RunIISummer20UL18wmLHEGEN-13441

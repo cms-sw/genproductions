@@ -136,7 +136,7 @@ make_gridpack () {
     MGBASEDIR=mgbasedir
     
     MG_EXT=".tar.gz"
-    MG=MG5_aMC_v2.9.13$MG_EXT
+    MG=MG5_aMC_v2.9.18$MG_EXT
     MGSOURCE=https://cms-project-generators.web.cern.ch/cms-project-generators/$MG
     
     MGBASEDIRORIG=$(echo ${MG%$MG_EXT} | tr "." "_")
@@ -190,11 +190,6 @@ make_gridpack () {
       cd $MGBASEDIRORIG
       cat $PRODHOME/patches/*.patch | patch -p1
       cp -r $PRODHOME/PLUGIN/CMS_CLUSTER/ PLUGIN/ 
-      # Intended for expert use only!
-      if ls $CARDSDIR/${name}*.patch; then
-        echo "    WARNING: Applying custom user patch. I hope you know what you're doing!"
-        cat $CARDSDIR/${name}*.patch | patch -p1
-      fi
 
       # Copy bias module (cp3.irmp.ucl.ac.be/projects/madgraph/wiki/LOEventGenerationBias)
       # Expected structure: 
@@ -206,7 +201,7 @@ make_gridpack () {
         echo "copying bias module folder. Current dir:"
         pwd
         ls -lrth
-        cp -r $CARDSDIR/BIAS/* $MGBASEDIRORIG/Template/LO/Source/BIAS
+        cp -r $CARDSDIR/BIAS/* Template/LO/Source/BIAS
       fi
     
       LHAPDFCONFIG=`echo "$LHAPDF_DATA_PATH/../../bin/lhapdf-config"`
@@ -267,7 +262,7 @@ make_gridpack () {
           fi      
       fi
     
-      echo "save options" >> mgconfigscript
+      echo "save options --all" >> mgconfigscript
     
       ./bin/mg5_aMC mgconfigscript
     
@@ -303,6 +298,14 @@ make_gridpack () {
         set +u
         if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 0; else exit 0; fi
       fi
+
+      cd $MGBASEDIRORIG
+      # Intended for expert use only!
+      if ls $CARDSDIR/${name}*.patch; then
+        echo "    WARNING: Applying custom user patch. I hope you know what you're doing!"
+        cat $CARDSDIR/${name}*.patch | patch -p 1
+      fi
+      cd $WORKDIR
     
       echo `pwd`
 
@@ -339,7 +342,7 @@ make_gridpack () {
       fi
 	
       is5FlavorScheme=0
-      if tail -n 20 $LOGFILE | grep -q -e "^p *=.*b\~.*b" -e "^p *=.*b.*b\~"; then 
+      if tail -n 999 $LOGFILE | grep -q -e "^p *=.*b\~.*b" -e "^p *=.*b.*b\~"; then 
         is5FlavorScheme=1
       fi
     
@@ -653,6 +656,9 @@ make_gridpack () {
     if [ $is5FlavorScheme -eq 1 ]; then
       pdfExtraArgs+="--is5FlavorScheme "
     fi 
+    if grep -q -e "\$DEFAULT_nPDF_SETS" $CARDSDIR/${name}_run_card.dat; then
+      pdfExtraArgs+="--ion Pb "
+    fi
     
     pdfSysArgs=$(python3 ${script_dir}/getMG5_aMC_PDFInputs.py -f systematics -c run3 $pdfExtraArgs)
     sed -i s/PDF_SETS_REPLACE/${pdfSysArgs}/g runcmsgrid.sh
@@ -702,6 +708,7 @@ jobstep=${4}
 
 # sync default cmssw with the current OS 
 export SYSTEM_RELEASE=`cat /etc/redhat-release`
+echo $SYSTEM_RELEASE
 
 # set scram_arch 
 if [ -n "$5" ]; then
@@ -711,6 +718,8 @@ else
         scram_arch=slc7_amd64_gcc10 
     elif [[ $SYSTEM_RELEASE == *"release 8"* ]]; then
         scram_arch=el8_amd64_gcc10
+    elif [[ $SYSTEM_RELEASE == *"release 9"* ]]; then
+        scram_arch=el9_amd64_gcc11
     else 
         echo "No default scram_arch for current OS!"
         if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi        
@@ -725,6 +734,8 @@ else
         cmssw_version=CMSSW_12_4_8
     elif [[ $SYSTEM_RELEASE == *"release 8"* ]]; then
         cmssw_version=CMSSW_12_4_8
+    elif [[ $SYSTEM_RELEASE == *"release 9"* ]]; then
+	cmssw_version=CMSSW_13_2_9
     else 
         echo "No default CMSSW for current OS!"
         if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi        

@@ -1,0 +1,7 @@
+import model SMEFTatNLO-NLO
+
+define p = g u c d s b u~ c~ d~ s~ b~
+
+generate  g g > z h  NP<=2 QCD<=2 QED<=2 [ noborn = QCD ]
+
+output ggZH_0j_SMEFT_NLO -nojpeg

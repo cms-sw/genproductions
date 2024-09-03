@@ -1,0 +1,13 @@
+import model loop_sm
+
+define ell+ = e+ mu+ ta+
+define ell- = e- mu- ta-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+
+generate p p > w+ ell+ ell- [QCD] @0
+add process p p > w+ ell+ ell- j [QCD] @1
+add process p p > w- ell+ ell- [QCD] @2
+add process p p > w- ell+ ell- j [QCD] @3
+
+output WZTo2Q2L_4f_amcatnloFxFx -nojpeg

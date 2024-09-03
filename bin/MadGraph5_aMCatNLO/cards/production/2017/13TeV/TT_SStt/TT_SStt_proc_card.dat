@@ -1,0 +1,11 @@
+import model eVLQS012_v8_4FNS_UFO
+define sx = a z w+ w-
+define tpx = tp tp~
+define tx = t t~
+define bx = b b~
+define lx = e- mu- e+ mu+ ve vm ve~ vm~
+define qx = u c d s u~ c~ d~ s~ 
+define phix = s0 z h w+ w-
+define tbx = t t~ b b~
+define wx = w+ w-
+generate p p > tp tp~, ( tp > s0 t, ( s0 > a a ) , ( t > qx qx bx ) ), ( tp~ > s0 t~, ( t~ > qx qx bx ) )

@@ -1,0 +1,7 @@
+import model loop_sm-ckm
+
+generate p p > t b~ j a $$ w+ w- [QCD] @0
+add process p p > t~ b j a $$ w+ w- [QCD] @1
+
+output TGJets_4f_ckm_NLO -nojpeg
+

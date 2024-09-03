@@ -58,7 +58,7 @@ create_setup () {
 compile_process(){
     cd ${WORKDIR}
     # compile the powheg process 
-    python2 ./run_pwg_condor.py -d 1 -p 0 -i ${POWHEGGENPRODDIR}/${CARDDIR}/powheg.input -m ${PROCESS} -f ${DATASETNAME} 
+    python3 ./run_pwg_condor.py -d 1 -p 0 -i ${POWHEGGENPRODDIR}/${CARDDIR}/powheg.input -m ${PROCESS} -f ${DATASETNAME} 
 }
 
 produce_grids(){
@@ -66,13 +66,13 @@ produce_grids(){
     # run sampling in one step 
     #python2 ./run_pwg_condor.py -d 1 -p 123 -i ${POWHEGGENPRODDIR}/${CARDDIR}/powheg.input -m ${PROCESS} -f ${DATASETNAME} 
     #python2 ./run_pwg_condor.py -d 1 -p ${STEP} -i ${POWHEGGENPRODDIR}/${CARDDIR}/powheg.input -m ${PROCESS} -f ${DATASETNAME}
-    python2 ./run_pwg_condor.py -d 1 -p 01239 -i ${POWHEGGENPRODDIR}/${CARDDIR}/powheg.input -m ${PROCESS} -f ${DATASETNAME} -k 1 
+    python3 ./run_pwg_condor.py -d 1 -p 01239 -i ${POWHEGGENPRODDIR}/${CARDDIR}/powheg.input -m ${PROCESS} -f ${DATASETNAME} -k 1 
 
 }
 
 make_tarball(){
     cd ${WORKDIR}
-    python2 ./run_pwg_condor.py -d 1 -p 9 -i ${POWHEGGENPRODDIR}/${CARDDIR}/powheg.input -m ${PROCESS} -f ${DATASETNAME} -k 1
+    python3 ./run_pwg_condor.py -d 1 -p 9 -i ${POWHEGGENPRODDIR}/${CARDDIR}/powheg.input -m ${PROCESS} -f ${DATASETNAME} -k 1
 }
 
 # set up internal pathes and variables 
@@ -129,7 +129,7 @@ else
     elif [[ $SYSTEM_RELEASE == *"release 7"* ]]; then 
         SCRAM_ARCH=slc7_amd64_gcc10 
     elif [[ $SYSTEM_RELEASE == *"release 8"* ]]; then
-        scram_arch=el8_amd64_gcc10
+        SCRAM_ARCH=el8_amd64_gcc10
     else 
         echo "No default scram_arch for current OS"
         exit 1        

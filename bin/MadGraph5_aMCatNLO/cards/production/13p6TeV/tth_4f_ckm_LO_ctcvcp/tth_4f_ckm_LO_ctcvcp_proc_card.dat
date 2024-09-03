@@ -1,0 +1,8 @@
+import model HC_NLO_X0_UFO
+define l+ = e+ mu+ ta+
+define l+ = e- mu- ta-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+define wdec = u c d s u~ c~ d~ s~ l+ l- vl vl~
+generate p p > x0 t t~, (t > b w+, w+ > wdec wdec), (t~ > b~ w-, w- > wdec wdec)
+output tth_4f_ckm_LO_ctcvcp -nojpeg

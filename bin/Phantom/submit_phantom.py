@@ -40,6 +40,7 @@
 
 import sys
 import os
+import glob
 import commands
 from commands import getstatusoutput
 import datetime
@@ -112,7 +113,7 @@ def modifySubmitfileIntelCompiler (submitfilename, pdfgridfolder, phantompdflib)
     submitfile.write ('source /afs/cern.ch/sw/IntelSoftware/linux/setup.sh intel64\n')
     submitfile.write ('source /afs/cern.ch/sw/IntelSoftware/linux/x86_64/xe2016/compilers_and_libraries/linux/bin/compilervars.csh intel64\n')
     submitfile.write ('export LHAPDF=' + pdfgridfolder + '\n')
-    submitfile.write ('export PDFLIBDIR=/afs/cern.ch/work/b/ballest/public/phantom/LHAPDF-6.1.5_work/lib\n')
+    submitfile.write ('export PDFLIBDIR=/cvmfs/cms.cern.ch/slc7_amd64_gcc700/external/lhapdf/6.2.1-pafccj3/lib\n')
 #    submitfile.write ('export PDFLIBDIR=' + phantompdflib + '\n')
 #    submitfile.write ('export PDFLIBDIR=' + pdfgridfolder + '/../../lib\n')
     submitfile.write ('export LD_LIBRARY_PATH=$PDFLIBDIR:$LD_LIBRARY_PATH\n')
@@ -133,6 +134,8 @@ def modifySubmitfileCMSSWCompiler (submitfilename, pdfgridfolder, phantompdflib,
     submitfile.write ('scram -a ' + scram_arch + ' project CMSSW ' + cmssw + '\n')
     submitfile.write ('cd ' + cmssw_path + cmssw + '/src\n')
     submitfile.write ('eval `scram runtime -' + shell + '`\n')
+    submitfile.write ('export PDFLIBDIR=/cvmfs/cms.cern.ch/slc7_amd64_gcc700/external/lhapdf/6.2.1-pafccj3/lib\n')
+    submitfile.write ('export LD_LIBRARY_PATH=$PDFLIBDIR:$LD_LIBRARY_PATH\n')
     submitfile.write ('cd -\n')
     for i in range (1, len (lines)) :
         submitfile.write (lines[i])
@@ -348,17 +351,19 @@ def findIntResults (line):
     of each interation. 
     Returns a lsit of tuples.'''
 def extractIntegrationResults (filename):
-
+  print filename
   keywords = ['NORMALIZATION','ALFA(i) DETERMINATION','THERMALIZATION','INTEGRATION'] 
   result = splitWithList (filename, keywords)
 
   calc_output = []
+  cite_lhapdf_string = """Thanks for using LHAPDF 6.2.1. Please make sure to cite the paper:
+  Eur.Phys.J. C75 (2015) 3, 132  (http://arxiv.org/abs/1412.7420)\n""" 
   # loop over stages of the calculation
   for key,chunk in result.items ():
     blockresult = chunk.split ('iphs_ind=')
-    
     # loop over diagrams in a single stage
     for elem in blockresult:
+      elem = elem.replace(cite_lhapdf_string, "")
       if len(elem.split ()) == 0 : continue # skip empty sections
       if 'integral' not in elem : continue # skip non informative sections
       diagram = int (elem.split ()[0])
@@ -437,7 +442,6 @@ def verifyGridpack (processoutputs, workingfolder, logfile):
 
     # loop over processes
     for fil in processoutputs:
-
         if not wordInFile ('SIGMA', fil):
             print 'the following job had issues:\n  ' + fil
             logfile.write ('the following job had issues: ' + fil)
@@ -699,8 +703,8 @@ def gridpackGeneration (full,debugging):
     scram_arch = config.get ('general', 'ARCH')
     os.environ['SCRAM_ARCH'] = scram_arch
     shell = 'sh'
-    if os.environ['SHELL'].find ('c') != -1 :
-        shell = 'csh'
+    #if os.environ['SHELL'].find ('c') != -1 :
+    #    shell = 'csh'
     returnCode = execute ('scram -a ' + scram_arch + ' project CMSSW ' + cmssw, debugging)
     if returnCode[0] != 0 :
         print 'cmssw release: ', cmssw, 'not found, exiting'
@@ -740,12 +744,33 @@ def gridpackGeneration (full,debugging):
         print 'r.in template not found, using the default one in the phantom release'
     replaceParameterInFile (templatefile, workingfolder + '/r.in', substitute)
 
-    # get the setupdir2 script from the phantom folder
-    execute ('cp ' + workingfolder + '/' + phantomfolder + '/tools/setupdir2.pl ' + workingfolder, debugging)
+    # get the setupdirall_6 script from the phantom folder
+    #execute ('cp ' + workingfolder + '/' + phantomfolder + '/tools/setupdirall_6.pl ' + workingfolder, debugging)
+    # no need to setup $pdflibrarypath in setupdirall_6, the environment already set in CONDORFIRE
+    file_path = workingfolder + '/' + phantomfolder + '/tools/setupdir2_6.pl'
+    filtered_file_path = workingfolder + '/setupdir2_6.pl'
+    pattern_to_remove_pdf = 'setenv LD_LIBRARY_PATH'
+    pattern_to_remove_requirement = "Requirements = "
+    pattern_to_replace_pdf = "$basedir/../lhapdf-5.2.2/PDFsets/cteq5l.LHgrid,"
+    pattern_to_replace_err = "err    =$name"
+    with open(file_path, 'r') as read_file, open(filtered_file_path, 'w') as write_file:
+        for line in read_file:
+            if pattern_to_remove_pdf in line:
+                continue
+            if pattern_to_remove_requirement in line:
+                continue
+            if pattern_to_replace_pdf in line:
+                line = line.replace(pattern_to_replace_pdf, "")
+            if pattern_to_replace_err in line:
+                line = '\tprint WRITEFILE "error  =$name/err\\n";\n'
+                line += '\tprint WRITEFILE "getenv = true\\n";\n'
+            write_file.write(line)
+    os.chmod(filtered_file_path, 0o755)
 
     channel = config.get ('generation','channel')
-    command = './setupdir2.pl'
+    command = './setupdir2_6.pl'
     command += ' -b ' + workingfolder + '/' + phantomfolder
+    command += ' -library /cvmfs/cms.cern.ch/slc7_amd64_gcc700/external/lhapdf/6.2.1-pafccj3/lib'
     if int (config.get ('generation', 'topnumber')) > 0 :
         command += ' -T ' + config.get ('generation', 'topnumber')
     command += ' -d ' + workingfolder
@@ -757,7 +782,7 @@ def gridpackGeneration (full,debugging):
     elif substitute['i_signal'] == '2' :
         command += ' -S '
     submitfilename = workingfolder + '/' + config.get ('submission','scheduler') + 'file'
-
+    print command
     # create the executable script to submit the gridpack production
     execute (command, debugging)
 
@@ -774,7 +799,7 @@ def gridpackGeneration (full,debugging):
         # modify the channel variable adding the gluon legs
         channel = channel + ' g g'
 
-        command = './setupdir2.pl'
+        command = './setupdir2_6.pl'
         command += ' -b ' + workingfolder + '/' + phantomfolder
         if int (config.get ('generation', 'topnumber')) > 0 :
             command += ' -T ' + config.get ('generation', 'topnumber')
@@ -824,13 +849,17 @@ def gridpackGeneration (full,debugging):
         finished = True
         unfinished = int (0)
         for fil in processoutputs:
-            if not os.path.exists (fil):
+            #print fil
+            file_pattern = fil.replace("run.out", "phavegas*.dat")
+            dat = glob.glob(file_pattern)
+			# *.dat file will be transferred after condor job finished
+            if (not os.path.exists(fil)) or (len(dat) == 0):
                 finished = False
                 unfinished += 1
         sys.stdout.write ('waiting for: ' + str (unfinished) + ' jobs\r' )
         sys.stdout.flush ()
-        time.sleep (60) # seconds
-
+        time.sleep (1) # seconds
+    
     # log file of the generation parameters
     logfilename = workingfolder + '/log_GRID.txt'
     logfile = open (logfilename, 'write')

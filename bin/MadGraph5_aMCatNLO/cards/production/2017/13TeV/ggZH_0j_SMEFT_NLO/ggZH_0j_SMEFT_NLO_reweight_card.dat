@@ -1,0 +1,1020 @@
+# reweight card file created with https://github.com/schoef/gridpacks on 2024-06-10 16:12:37
+# Command line arguments: reweight_card.py --couplings 2 cpBB 1 cpDC 1 cpW 1 cpWB 1 cdp 1 cpq3i 1 cpqMi 1 cpQ3 1 cpQM 1 cpu 1 cpd 1 --referencepoint cpBB 0.0 --filename reweight_card.dat --overwrite
+# Polynomial order: 2
+# Reference Point: cpBB 0.0
+change rwgt_dir rwgt
+
+launch --rwgt_name=cpBB_0p_cpDC_0p_cpW_0p_cpWB_0p_cdp_0p_cpq3i_0p_cpqMi_0p_cpQ3_0p_cpQM_0p_cpu_0p_cpd_0p
+set cpBB 0.000000
+set cpDC 0.000000
+set cpW 0.000000
+set cpWB 0.000000
+set cdp 0.000000
+set cpq3i 0.000000
+set cpqMi 0.000000
+set cpQ3 0.000000
+set cpQM 0.000000
+set cpu 0.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_1p_cpDC_0p_cpW_0p_cpWB_0p_cdp_0p_cpq3i_0p_cpqMi_0p_cpQ3_0p_cpQM_0p_cpu_0p_cpd_0p
+set cpBB 1.000000
+set cpDC 0.000000
+set cpW 0.000000
+set cpWB 0.000000
+set cdp 0.000000
+set cpq3i 0.000000
+set cpqMi 0.000000
+set cpQ3 0.000000
+set cpQM 0.000000
+set cpu 0.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_1p_cpW_0p_cpWB_0p_cdp_0p_cpq3i_0p_cpqMi_0p_cpQ3_0p_cpQM_0p_cpu_0p_cpd_0p
+set cpBB 0.000000
+set cpDC 1.000000
+set cpW 0.000000
+set cpWB 0.000000
+set cdp 0.000000
+set cpq3i 0.000000
+set cpqMi 0.000000
+set cpQ3 0.000000
+set cpQM 0.000000
+set cpu 0.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_0p_cpW_1p_cpWB_0p_cdp_0p_cpq3i_0p_cpqMi_0p_cpQ3_0p_cpQM_0p_cpu_0p_cpd_0p
+set cpBB 0.000000
+set cpDC 0.000000
+set cpW 1.000000
+set cpWB 0.000000
+set cdp 0.000000
+set cpq3i 0.000000
+set cpqMi 0.000000
+set cpQ3 0.000000
+set cpQM 0.000000
+set cpu 0.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_0p_cpW_0p_cpWB_1p_cdp_0p_cpq3i_0p_cpqMi_0p_cpQ3_0p_cpQM_0p_cpu_0p_cpd_0p
+set cpBB 0.000000
+set cpDC 0.000000
+set cpW 0.000000
+set cpWB 1.000000
+set cdp 0.000000
+set cpq3i 0.000000
+set cpqMi 0.000000
+set cpQ3 0.000000
+set cpQM 0.000000
+set cpu 0.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_0p_cpW_0p_cpWB_0p_cdp_1p_cpq3i_0p_cpqMi_0p_cpQ3_0p_cpQM_0p_cpu_0p_cpd_0p
+set cpBB 0.000000
+set cpDC 0.000000
+set cpW 0.000000
+set cpWB 0.000000
+set cdp 1.000000
+set cpq3i 0.000000
+set cpqMi 0.000000
+set cpQ3 0.000000
+set cpQM 0.000000
+set cpu 0.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_0p_cpW_0p_cpWB_0p_cdp_0p_cpq3i_1p_cpqMi_0p_cpQ3_0p_cpQM_0p_cpu_0p_cpd_0p
+set cpBB 0.000000
+set cpDC 0.000000
+set cpW 0.000000
+set cpWB 0.000000
+set cdp 0.000000
+set cpq3i 1.000000
+set cpqMi 0.000000
+set cpQ3 0.000000
+set cpQM 0.000000
+set cpu 0.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_0p_cpW_0p_cpWB_0p_cdp_0p_cpq3i_0p_cpqMi_1p_cpQ3_0p_cpQM_0p_cpu_0p_cpd_0p
+set cpBB 0.000000
+set cpDC 0.000000
+set cpW 0.000000
+set cpWB 0.000000
+set cdp 0.000000
+set cpq3i 0.000000
+set cpqMi 1.000000
+set cpQ3 0.000000
+set cpQM 0.000000
+set cpu 0.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_0p_cpW_0p_cpWB_0p_cdp_0p_cpq3i_0p_cpqMi_0p_cpQ3_1p_cpQM_0p_cpu_0p_cpd_0p
+set cpBB 0.000000
+set cpDC 0.000000
+set cpW 0.000000
+set cpWB 0.000000
+set cdp 0.000000
+set cpq3i 0.000000
+set cpqMi 0.000000
+set cpQ3 1.000000
+set cpQM 0.000000
+set cpu 0.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_0p_cpW_0p_cpWB_0p_cdp_0p_cpq3i_0p_cpqMi_0p_cpQ3_0p_cpQM_1p_cpu_0p_cpd_0p
+set cpBB 0.000000
+set cpDC 0.000000
+set cpW 0.000000
+set cpWB 0.000000
+set cdp 0.000000
+set cpq3i 0.000000
+set cpqMi 0.000000
+set cpQ3 0.000000
+set cpQM 1.000000
+set cpu 0.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_0p_cpW_0p_cpWB_0p_cdp_0p_cpq3i_0p_cpqMi_0p_cpQ3_0p_cpQM_0p_cpu_1p_cpd_0p
+set cpBB 0.000000
+set cpDC 0.000000
+set cpW 0.000000
+set cpWB 0.000000
+set cdp 0.000000
+set cpq3i 0.000000
+set cpqMi 0.000000
+set cpQ3 0.000000
+set cpQM 0.000000
+set cpu 1.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_0p_cpW_0p_cpWB_0p_cdp_0p_cpq3i_0p_cpqMi_0p_cpQ3_0p_cpQM_0p_cpu_0p_cpd_1p
+set cpBB 0.000000
+set cpDC 0.000000
+set cpW 0.000000
+set cpWB 0.000000
+set cdp 0.000000
+set cpq3i 0.000000
+set cpqMi 0.000000
+set cpQ3 0.000000
+set cpQM 0.000000
+set cpu 0.000000
+set cpd 1.000000
+
+launch --rwgt_name=cpBB_2p_cpDC_0p_cpW_0p_cpWB_0p_cdp_0p_cpq3i_0p_cpqMi_0p_cpQ3_0p_cpQM_0p_cpu_0p_cpd_0p
+set cpBB 2.000000
+set cpDC 0.000000
+set cpW 0.000000
+set cpWB 0.000000
+set cdp 0.000000
+set cpq3i 0.000000
+set cpqMi 0.000000
+set cpQ3 0.000000
+set cpQM 0.000000
+set cpu 0.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_1p_cpDC_1p_cpW_0p_cpWB_0p_cdp_0p_cpq3i_0p_cpqMi_0p_cpQ3_0p_cpQM_0p_cpu_0p_cpd_0p
+set cpBB 1.000000
+set cpDC 1.000000
+set cpW 0.000000
+set cpWB 0.000000
+set cdp 0.000000
+set cpq3i 0.000000
+set cpqMi 0.000000
+set cpQ3 0.000000
+set cpQM 0.000000
+set cpu 0.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_1p_cpDC_0p_cpW_1p_cpWB_0p_cdp_0p_cpq3i_0p_cpqMi_0p_cpQ3_0p_cpQM_0p_cpu_0p_cpd_0p
+set cpBB 1.000000
+set cpDC 0.000000
+set cpW 1.000000
+set cpWB 0.000000
+set cdp 0.000000
+set cpq3i 0.000000
+set cpqMi 0.000000
+set cpQ3 0.000000
+set cpQM 0.000000
+set cpu 0.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_1p_cpDC_0p_cpW_0p_cpWB_1p_cdp_0p_cpq3i_0p_cpqMi_0p_cpQ3_0p_cpQM_0p_cpu_0p_cpd_0p
+set cpBB 1.000000
+set cpDC 0.000000
+set cpW 0.000000
+set cpWB 1.000000
+set cdp 0.000000
+set cpq3i 0.000000
+set cpqMi 0.000000
+set cpQ3 0.000000
+set cpQM 0.000000
+set cpu 0.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_1p_cpDC_0p_cpW_0p_cpWB_0p_cdp_1p_cpq3i_0p_cpqMi_0p_cpQ3_0p_cpQM_0p_cpu_0p_cpd_0p
+set cpBB 1.000000
+set cpDC 0.000000
+set cpW 0.000000
+set cpWB 0.000000
+set cdp 1.000000
+set cpq3i 0.000000
+set cpqMi 0.000000
+set cpQ3 0.000000
+set cpQM 0.000000
+set cpu 0.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_1p_cpDC_0p_cpW_0p_cpWB_0p_cdp_0p_cpq3i_1p_cpqMi_0p_cpQ3_0p_cpQM_0p_cpu_0p_cpd_0p
+set cpBB 1.000000
+set cpDC 0.000000
+set cpW 0.000000
+set cpWB 0.000000
+set cdp 0.000000
+set cpq3i 1.000000
+set cpqMi 0.000000
+set cpQ3 0.000000
+set cpQM 0.000000
+set cpu 0.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_1p_cpDC_0p_cpW_0p_cpWB_0p_cdp_0p_cpq3i_0p_cpqMi_1p_cpQ3_0p_cpQM_0p_cpu_0p_cpd_0p
+set cpBB 1.000000
+set cpDC 0.000000
+set cpW 0.000000
+set cpWB 0.000000
+set cdp 0.000000
+set cpq3i 0.000000
+set cpqMi 1.000000
+set cpQ3 0.000000
+set cpQM 0.000000
+set cpu 0.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_1p_cpDC_0p_cpW_0p_cpWB_0p_cdp_0p_cpq3i_0p_cpqMi_0p_cpQ3_1p_cpQM_0p_cpu_0p_cpd_0p
+set cpBB 1.000000
+set cpDC 0.000000
+set cpW 0.000000
+set cpWB 0.000000
+set cdp 0.000000
+set cpq3i 0.000000
+set cpqMi 0.000000
+set cpQ3 1.000000
+set cpQM 0.000000
+set cpu 0.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_1p_cpDC_0p_cpW_0p_cpWB_0p_cdp_0p_cpq3i_0p_cpqMi_0p_cpQ3_0p_cpQM_1p_cpu_0p_cpd_0p
+set cpBB 1.000000
+set cpDC 0.000000
+set cpW 0.000000
+set cpWB 0.000000
+set cdp 0.000000
+set cpq3i 0.000000
+set cpqMi 0.000000
+set cpQ3 0.000000
+set cpQM 1.000000
+set cpu 0.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_1p_cpDC_0p_cpW_0p_cpWB_0p_cdp_0p_cpq3i_0p_cpqMi_0p_cpQ3_0p_cpQM_0p_cpu_1p_cpd_0p
+set cpBB 1.000000
+set cpDC 0.000000
+set cpW 0.000000
+set cpWB 0.000000
+set cdp 0.000000
+set cpq3i 0.000000
+set cpqMi 0.000000
+set cpQ3 0.000000
+set cpQM 0.000000
+set cpu 1.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_1p_cpDC_0p_cpW_0p_cpWB_0p_cdp_0p_cpq3i_0p_cpqMi_0p_cpQ3_0p_cpQM_0p_cpu_0p_cpd_1p
+set cpBB 1.000000
+set cpDC 0.000000
+set cpW 0.000000
+set cpWB 0.000000
+set cdp 0.000000
+set cpq3i 0.000000
+set cpqMi 0.000000
+set cpQ3 0.000000
+set cpQM 0.000000
+set cpu 0.000000
+set cpd 1.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_2p_cpW_0p_cpWB_0p_cdp_0p_cpq3i_0p_cpqMi_0p_cpQ3_0p_cpQM_0p_cpu_0p_cpd_0p
+set cpBB 0.000000
+set cpDC 2.000000
+set cpW 0.000000
+set cpWB 0.000000
+set cdp 0.000000
+set cpq3i 0.000000
+set cpqMi 0.000000
+set cpQ3 0.000000
+set cpQM 0.000000
+set cpu 0.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_1p_cpW_1p_cpWB_0p_cdp_0p_cpq3i_0p_cpqMi_0p_cpQ3_0p_cpQM_0p_cpu_0p_cpd_0p
+set cpBB 0.000000
+set cpDC 1.000000
+set cpW 1.000000
+set cpWB 0.000000
+set cdp 0.000000
+set cpq3i 0.000000
+set cpqMi 0.000000
+set cpQ3 0.000000
+set cpQM 0.000000
+set cpu 0.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_1p_cpW_0p_cpWB_1p_cdp_0p_cpq3i_0p_cpqMi_0p_cpQ3_0p_cpQM_0p_cpu_0p_cpd_0p
+set cpBB 0.000000
+set cpDC 1.000000
+set cpW 0.000000
+set cpWB 1.000000
+set cdp 0.000000
+set cpq3i 0.000000
+set cpqMi 0.000000
+set cpQ3 0.000000
+set cpQM 0.000000
+set cpu 0.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_1p_cpW_0p_cpWB_0p_cdp_1p_cpq3i_0p_cpqMi_0p_cpQ3_0p_cpQM_0p_cpu_0p_cpd_0p
+set cpBB 0.000000
+set cpDC 1.000000
+set cpW 0.000000
+set cpWB 0.000000
+set cdp 1.000000
+set cpq3i 0.000000
+set cpqMi 0.000000
+set cpQ3 0.000000
+set cpQM 0.000000
+set cpu 0.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_1p_cpW_0p_cpWB_0p_cdp_0p_cpq3i_1p_cpqMi_0p_cpQ3_0p_cpQM_0p_cpu_0p_cpd_0p
+set cpBB 0.000000
+set cpDC 1.000000
+set cpW 0.000000
+set cpWB 0.000000
+set cdp 0.000000
+set cpq3i 1.000000
+set cpqMi 0.000000
+set cpQ3 0.000000
+set cpQM 0.000000
+set cpu 0.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_1p_cpW_0p_cpWB_0p_cdp_0p_cpq3i_0p_cpqMi_1p_cpQ3_0p_cpQM_0p_cpu_0p_cpd_0p
+set cpBB 0.000000
+set cpDC 1.000000
+set cpW 0.000000
+set cpWB 0.000000
+set cdp 0.000000
+set cpq3i 0.000000
+set cpqMi 1.000000
+set cpQ3 0.000000
+set cpQM 0.000000
+set cpu 0.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_1p_cpW_0p_cpWB_0p_cdp_0p_cpq3i_0p_cpqMi_0p_cpQ3_1p_cpQM_0p_cpu_0p_cpd_0p
+set cpBB 0.000000
+set cpDC 1.000000
+set cpW 0.000000
+set cpWB 0.000000
+set cdp 0.000000
+set cpq3i 0.000000
+set cpqMi 0.000000
+set cpQ3 1.000000
+set cpQM 0.000000
+set cpu 0.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_1p_cpW_0p_cpWB_0p_cdp_0p_cpq3i_0p_cpqMi_0p_cpQ3_0p_cpQM_1p_cpu_0p_cpd_0p
+set cpBB 0.000000
+set cpDC 1.000000
+set cpW 0.000000
+set cpWB 0.000000
+set cdp 0.000000
+set cpq3i 0.000000
+set cpqMi 0.000000
+set cpQ3 0.000000
+set cpQM 1.000000
+set cpu 0.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_1p_cpW_0p_cpWB_0p_cdp_0p_cpq3i_0p_cpqMi_0p_cpQ3_0p_cpQM_0p_cpu_1p_cpd_0p
+set cpBB 0.000000
+set cpDC 1.000000
+set cpW 0.000000
+set cpWB 0.000000
+set cdp 0.000000
+set cpq3i 0.000000
+set cpqMi 0.000000
+set cpQ3 0.000000
+set cpQM 0.000000
+set cpu 1.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_1p_cpW_0p_cpWB_0p_cdp_0p_cpq3i_0p_cpqMi_0p_cpQ3_0p_cpQM_0p_cpu_0p_cpd_1p
+set cpBB 0.000000
+set cpDC 1.000000
+set cpW 0.000000
+set cpWB 0.000000
+set cdp 0.000000
+set cpq3i 0.000000
+set cpqMi 0.000000
+set cpQ3 0.000000
+set cpQM 0.000000
+set cpu 0.000000
+set cpd 1.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_0p_cpW_2p_cpWB_0p_cdp_0p_cpq3i_0p_cpqMi_0p_cpQ3_0p_cpQM_0p_cpu_0p_cpd_0p
+set cpBB 0.000000
+set cpDC 0.000000
+set cpW 2.000000
+set cpWB 0.000000
+set cdp 0.000000
+set cpq3i 0.000000
+set cpqMi 0.000000
+set cpQ3 0.000000
+set cpQM 0.000000
+set cpu 0.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_0p_cpW_1p_cpWB_1p_cdp_0p_cpq3i_0p_cpqMi_0p_cpQ3_0p_cpQM_0p_cpu_0p_cpd_0p
+set cpBB 0.000000
+set cpDC 0.000000
+set cpW 1.000000
+set cpWB 1.000000
+set cdp 0.000000
+set cpq3i 0.000000
+set cpqMi 0.000000
+set cpQ3 0.000000
+set cpQM 0.000000
+set cpu 0.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_0p_cpW_1p_cpWB_0p_cdp_1p_cpq3i_0p_cpqMi_0p_cpQ3_0p_cpQM_0p_cpu_0p_cpd_0p
+set cpBB 0.000000
+set cpDC 0.000000
+set cpW 1.000000
+set cpWB 0.000000
+set cdp 1.000000
+set cpq3i 0.000000
+set cpqMi 0.000000
+set cpQ3 0.000000
+set cpQM 0.000000
+set cpu 0.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_0p_cpW_1p_cpWB_0p_cdp_0p_cpq3i_1p_cpqMi_0p_cpQ3_0p_cpQM_0p_cpu_0p_cpd_0p
+set cpBB 0.000000
+set cpDC 0.000000
+set cpW 1.000000
+set cpWB 0.000000
+set cdp 0.000000
+set cpq3i 1.000000
+set cpqMi 0.000000
+set cpQ3 0.000000
+set cpQM 0.000000
+set cpu 0.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_0p_cpW_1p_cpWB_0p_cdp_0p_cpq3i_0p_cpqMi_1p_cpQ3_0p_cpQM_0p_cpu_0p_cpd_0p
+set cpBB 0.000000
+set cpDC 0.000000
+set cpW 1.000000
+set cpWB 0.000000
+set cdp 0.000000
+set cpq3i 0.000000
+set cpqMi 1.000000
+set cpQ3 0.000000
+set cpQM 0.000000
+set cpu 0.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_0p_cpW_1p_cpWB_0p_cdp_0p_cpq3i_0p_cpqMi_0p_cpQ3_1p_cpQM_0p_cpu_0p_cpd_0p
+set cpBB 0.000000
+set cpDC 0.000000
+set cpW 1.000000
+set cpWB 0.000000
+set cdp 0.000000
+set cpq3i 0.000000
+set cpqMi 0.000000
+set cpQ3 1.000000
+set cpQM 0.000000
+set cpu 0.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_0p_cpW_1p_cpWB_0p_cdp_0p_cpq3i_0p_cpqMi_0p_cpQ3_0p_cpQM_1p_cpu_0p_cpd_0p
+set cpBB 0.000000
+set cpDC 0.000000
+set cpW 1.000000
+set cpWB 0.000000
+set cdp 0.000000
+set cpq3i 0.000000
+set cpqMi 0.000000
+set cpQ3 0.000000
+set cpQM 1.000000
+set cpu 0.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_0p_cpW_1p_cpWB_0p_cdp_0p_cpq3i_0p_cpqMi_0p_cpQ3_0p_cpQM_0p_cpu_1p_cpd_0p
+set cpBB 0.000000
+set cpDC 0.000000
+set cpW 1.000000
+set cpWB 0.000000
+set cdp 0.000000
+set cpq3i 0.000000
+set cpqMi 0.000000
+set cpQ3 0.000000
+set cpQM 0.000000
+set cpu 1.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_0p_cpW_1p_cpWB_0p_cdp_0p_cpq3i_0p_cpqMi_0p_cpQ3_0p_cpQM_0p_cpu_0p_cpd_1p
+set cpBB 0.000000
+set cpDC 0.000000
+set cpW 1.000000
+set cpWB 0.000000
+set cdp 0.000000
+set cpq3i 0.000000
+set cpqMi 0.000000
+set cpQ3 0.000000
+set cpQM 0.000000
+set cpu 0.000000
+set cpd 1.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_0p_cpW_0p_cpWB_2p_cdp_0p_cpq3i_0p_cpqMi_0p_cpQ3_0p_cpQM_0p_cpu_0p_cpd_0p
+set cpBB 0.000000
+set cpDC 0.000000
+set cpW 0.000000
+set cpWB 2.000000
+set cdp 0.000000
+set cpq3i 0.000000
+set cpqMi 0.000000
+set cpQ3 0.000000
+set cpQM 0.000000
+set cpu 0.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_0p_cpW_0p_cpWB_1p_cdp_1p_cpq3i_0p_cpqMi_0p_cpQ3_0p_cpQM_0p_cpu_0p_cpd_0p
+set cpBB 0.000000
+set cpDC 0.000000
+set cpW 0.000000
+set cpWB 1.000000
+set cdp 1.000000
+set cpq3i 0.000000
+set cpqMi 0.000000
+set cpQ3 0.000000
+set cpQM 0.000000
+set cpu 0.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_0p_cpW_0p_cpWB_1p_cdp_0p_cpq3i_1p_cpqMi_0p_cpQ3_0p_cpQM_0p_cpu_0p_cpd_0p
+set cpBB 0.000000
+set cpDC 0.000000
+set cpW 0.000000
+set cpWB 1.000000
+set cdp 0.000000
+set cpq3i 1.000000
+set cpqMi 0.000000
+set cpQ3 0.000000
+set cpQM 0.000000
+set cpu 0.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_0p_cpW_0p_cpWB_1p_cdp_0p_cpq3i_0p_cpqMi_1p_cpQ3_0p_cpQM_0p_cpu_0p_cpd_0p
+set cpBB 0.000000
+set cpDC 0.000000
+set cpW 0.000000
+set cpWB 1.000000
+set cdp 0.000000
+set cpq3i 0.000000
+set cpqMi 1.000000
+set cpQ3 0.000000
+set cpQM 0.000000
+set cpu 0.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_0p_cpW_0p_cpWB_1p_cdp_0p_cpq3i_0p_cpqMi_0p_cpQ3_1p_cpQM_0p_cpu_0p_cpd_0p
+set cpBB 0.000000
+set cpDC 0.000000
+set cpW 0.000000
+set cpWB 1.000000
+set cdp 0.000000
+set cpq3i 0.000000
+set cpqMi 0.000000
+set cpQ3 1.000000
+set cpQM 0.000000
+set cpu 0.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_0p_cpW_0p_cpWB_1p_cdp_0p_cpq3i_0p_cpqMi_0p_cpQ3_0p_cpQM_1p_cpu_0p_cpd_0p
+set cpBB 0.000000
+set cpDC 0.000000
+set cpW 0.000000
+set cpWB 1.000000
+set cdp 0.000000
+set cpq3i 0.000000
+set cpqMi 0.000000
+set cpQ3 0.000000
+set cpQM 1.000000
+set cpu 0.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_0p_cpW_0p_cpWB_1p_cdp_0p_cpq3i_0p_cpqMi_0p_cpQ3_0p_cpQM_0p_cpu_1p_cpd_0p
+set cpBB 0.000000
+set cpDC 0.000000
+set cpW 0.000000
+set cpWB 1.000000
+set cdp 0.000000
+set cpq3i 0.000000
+set cpqMi 0.000000
+set cpQ3 0.000000
+set cpQM 0.000000
+set cpu 1.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_0p_cpW_0p_cpWB_1p_cdp_0p_cpq3i_0p_cpqMi_0p_cpQ3_0p_cpQM_0p_cpu_0p_cpd_1p
+set cpBB 0.000000
+set cpDC 0.000000
+set cpW 0.000000
+set cpWB 1.000000
+set cdp 0.000000
+set cpq3i 0.000000
+set cpqMi 0.000000
+set cpQ3 0.000000
+set cpQM 0.000000
+set cpu 0.000000
+set cpd 1.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_0p_cpW_0p_cpWB_0p_cdp_2p_cpq3i_0p_cpqMi_0p_cpQ3_0p_cpQM_0p_cpu_0p_cpd_0p
+set cpBB 0.000000
+set cpDC 0.000000
+set cpW 0.000000
+set cpWB 0.000000
+set cdp 2.000000
+set cpq3i 0.000000
+set cpqMi 0.000000
+set cpQ3 0.000000
+set cpQM 0.000000
+set cpu 0.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_0p_cpW_0p_cpWB_0p_cdp_1p_cpq3i_1p_cpqMi_0p_cpQ3_0p_cpQM_0p_cpu_0p_cpd_0p
+set cpBB 0.000000
+set cpDC 0.000000
+set cpW 0.000000
+set cpWB 0.000000
+set cdp 1.000000
+set cpq3i 1.000000
+set cpqMi 0.000000
+set cpQ3 0.000000
+set cpQM 0.000000
+set cpu 0.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_0p_cpW_0p_cpWB_0p_cdp_1p_cpq3i_0p_cpqMi_1p_cpQ3_0p_cpQM_0p_cpu_0p_cpd_0p
+set cpBB 0.000000
+set cpDC 0.000000
+set cpW 0.000000
+set cpWB 0.000000
+set cdp 1.000000
+set cpq3i 0.000000
+set cpqMi 1.000000
+set cpQ3 0.000000
+set cpQM 0.000000
+set cpu 0.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_0p_cpW_0p_cpWB_0p_cdp_1p_cpq3i_0p_cpqMi_0p_cpQ3_1p_cpQM_0p_cpu_0p_cpd_0p
+set cpBB 0.000000
+set cpDC 0.000000
+set cpW 0.000000
+set cpWB 0.000000
+set cdp 1.000000
+set cpq3i 0.000000
+set cpqMi 0.000000
+set cpQ3 1.000000
+set cpQM 0.000000
+set cpu 0.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_0p_cpW_0p_cpWB_0p_cdp_1p_cpq3i_0p_cpqMi_0p_cpQ3_0p_cpQM_1p_cpu_0p_cpd_0p
+set cpBB 0.000000
+set cpDC 0.000000
+set cpW 0.000000
+set cpWB 0.000000
+set cdp 1.000000
+set cpq3i 0.000000
+set cpqMi 0.000000
+set cpQ3 0.000000
+set cpQM 1.000000
+set cpu 0.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_0p_cpW_0p_cpWB_0p_cdp_1p_cpq3i_0p_cpqMi_0p_cpQ3_0p_cpQM_0p_cpu_1p_cpd_0p
+set cpBB 0.000000
+set cpDC 0.000000
+set cpW 0.000000
+set cpWB 0.000000
+set cdp 1.000000
+set cpq3i 0.000000
+set cpqMi 0.000000
+set cpQ3 0.000000
+set cpQM 0.000000
+set cpu 1.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_0p_cpW_0p_cpWB_0p_cdp_1p_cpq3i_0p_cpqMi_0p_cpQ3_0p_cpQM_0p_cpu_0p_cpd_1p
+set cpBB 0.000000
+set cpDC 0.000000
+set cpW 0.000000
+set cpWB 0.000000
+set cdp 1.000000
+set cpq3i 0.000000
+set cpqMi 0.000000
+set cpQ3 0.000000
+set cpQM 0.000000
+set cpu 0.000000
+set cpd 1.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_0p_cpW_0p_cpWB_0p_cdp_0p_cpq3i_2p_cpqMi_0p_cpQ3_0p_cpQM_0p_cpu_0p_cpd_0p
+set cpBB 0.000000
+set cpDC 0.000000
+set cpW 0.000000
+set cpWB 0.000000
+set cdp 0.000000
+set cpq3i 2.000000
+set cpqMi 0.000000
+set cpQ3 0.000000
+set cpQM 0.000000
+set cpu 0.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_0p_cpW_0p_cpWB_0p_cdp_0p_cpq3i_1p_cpqMi_1p_cpQ3_0p_cpQM_0p_cpu_0p_cpd_0p
+set cpBB 0.000000
+set cpDC 0.000000
+set cpW 0.000000
+set cpWB 0.000000
+set cdp 0.000000
+set cpq3i 1.000000
+set cpqMi 1.000000
+set cpQ3 0.000000
+set cpQM 0.000000
+set cpu 0.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_0p_cpW_0p_cpWB_0p_cdp_0p_cpq3i_1p_cpqMi_0p_cpQ3_1p_cpQM_0p_cpu_0p_cpd_0p
+set cpBB 0.000000
+set cpDC 0.000000
+set cpW 0.000000
+set cpWB 0.000000
+set cdp 0.000000
+set cpq3i 1.000000
+set cpqMi 0.000000
+set cpQ3 1.000000
+set cpQM 0.000000
+set cpu 0.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_0p_cpW_0p_cpWB_0p_cdp_0p_cpq3i_1p_cpqMi_0p_cpQ3_0p_cpQM_1p_cpu_0p_cpd_0p
+set cpBB 0.000000
+set cpDC 0.000000
+set cpW 0.000000
+set cpWB 0.000000
+set cdp 0.000000
+set cpq3i 1.000000
+set cpqMi 0.000000
+set cpQ3 0.000000
+set cpQM 1.000000
+set cpu 0.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_0p_cpW_0p_cpWB_0p_cdp_0p_cpq3i_1p_cpqMi_0p_cpQ3_0p_cpQM_0p_cpu_1p_cpd_0p
+set cpBB 0.000000
+set cpDC 0.000000
+set cpW 0.000000
+set cpWB 0.000000
+set cdp 0.000000
+set cpq3i 1.000000
+set cpqMi 0.000000
+set cpQ3 0.000000
+set cpQM 0.000000
+set cpu 1.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_0p_cpW_0p_cpWB_0p_cdp_0p_cpq3i_1p_cpqMi_0p_cpQ3_0p_cpQM_0p_cpu_0p_cpd_1p
+set cpBB 0.000000
+set cpDC 0.000000
+set cpW 0.000000
+set cpWB 0.000000
+set cdp 0.000000
+set cpq3i 1.000000
+set cpqMi 0.000000
+set cpQ3 0.000000
+set cpQM 0.000000
+set cpu 0.000000
+set cpd 1.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_0p_cpW_0p_cpWB_0p_cdp_0p_cpq3i_0p_cpqMi_2p_cpQ3_0p_cpQM_0p_cpu_0p_cpd_0p
+set cpBB 0.000000
+set cpDC 0.000000
+set cpW 0.000000
+set cpWB 0.000000
+set cdp 0.000000
+set cpq3i 0.000000
+set cpqMi 2.000000
+set cpQ3 0.000000
+set cpQM 0.000000
+set cpu 0.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_0p_cpW_0p_cpWB_0p_cdp_0p_cpq3i_0p_cpqMi_1p_cpQ3_1p_cpQM_0p_cpu_0p_cpd_0p
+set cpBB 0.000000
+set cpDC 0.000000
+set cpW 0.000000
+set cpWB 0.000000
+set cdp 0.000000
+set cpq3i 0.000000
+set cpqMi 1.000000
+set cpQ3 1.000000
+set cpQM 0.000000
+set cpu 0.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_0p_cpW_0p_cpWB_0p_cdp_0p_cpq3i_0p_cpqMi_1p_cpQ3_0p_cpQM_1p_cpu_0p_cpd_0p
+set cpBB 0.000000
+set cpDC 0.000000
+set cpW 0.000000
+set cpWB 0.000000
+set cdp 0.000000
+set cpq3i 0.000000
+set cpqMi 1.000000
+set cpQ3 0.000000
+set cpQM 1.000000
+set cpu 0.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_0p_cpW_0p_cpWB_0p_cdp_0p_cpq3i_0p_cpqMi_1p_cpQ3_0p_cpQM_0p_cpu_1p_cpd_0p
+set cpBB 0.000000
+set cpDC 0.000000
+set cpW 0.000000
+set cpWB 0.000000
+set cdp 0.000000
+set cpq3i 0.000000
+set cpqMi 1.000000
+set cpQ3 0.000000
+set cpQM 0.000000
+set cpu 1.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_0p_cpW_0p_cpWB_0p_cdp_0p_cpq3i_0p_cpqMi_1p_cpQ3_0p_cpQM_0p_cpu_0p_cpd_1p
+set cpBB 0.000000
+set cpDC 0.000000
+set cpW 0.000000
+set cpWB 0.000000
+set cdp 0.000000
+set cpq3i 0.000000
+set cpqMi 1.000000
+set cpQ3 0.000000
+set cpQM 0.000000
+set cpu 0.000000
+set cpd 1.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_0p_cpW_0p_cpWB_0p_cdp_0p_cpq3i_0p_cpqMi_0p_cpQ3_2p_cpQM_0p_cpu_0p_cpd_0p
+set cpBB 0.000000
+set cpDC 0.000000
+set cpW 0.000000
+set cpWB 0.000000
+set cdp 0.000000
+set cpq3i 0.000000
+set cpqMi 0.000000
+set cpQ3 2.000000
+set cpQM 0.000000
+set cpu 0.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_0p_cpW_0p_cpWB_0p_cdp_0p_cpq3i_0p_cpqMi_0p_cpQ3_1p_cpQM_1p_cpu_0p_cpd_0p
+set cpBB 0.000000
+set cpDC 0.000000
+set cpW 0.000000
+set cpWB 0.000000
+set cdp 0.000000
+set cpq3i 0.000000
+set cpqMi 0.000000
+set cpQ3 1.000000
+set cpQM 1.000000
+set cpu 0.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_0p_cpW_0p_cpWB_0p_cdp_0p_cpq3i_0p_cpqMi_0p_cpQ3_1p_cpQM_0p_cpu_1p_cpd_0p
+set cpBB 0.000000
+set cpDC 0.000000
+set cpW 0.000000
+set cpWB 0.000000
+set cdp 0.000000
+set cpq3i 0.000000
+set cpqMi 0.000000
+set cpQ3 1.000000
+set cpQM 0.000000
+set cpu 1.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_0p_cpW_0p_cpWB_0p_cdp_0p_cpq3i_0p_cpqMi_0p_cpQ3_1p_cpQM_0p_cpu_0p_cpd_1p
+set cpBB 0.000000
+set cpDC 0.000000
+set cpW 0.000000
+set cpWB 0.000000
+set cdp 0.000000
+set cpq3i 0.000000
+set cpqMi 0.000000
+set cpQ3 1.000000
+set cpQM 0.000000
+set cpu 0.000000
+set cpd 1.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_0p_cpW_0p_cpWB_0p_cdp_0p_cpq3i_0p_cpqMi_0p_cpQ3_0p_cpQM_2p_cpu_0p_cpd_0p
+set cpBB 0.000000
+set cpDC 0.000000
+set cpW 0.000000
+set cpWB 0.000000
+set cdp 0.000000
+set cpq3i 0.000000
+set cpqMi 0.000000
+set cpQ3 0.000000
+set cpQM 2.000000
+set cpu 0.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_0p_cpW_0p_cpWB_0p_cdp_0p_cpq3i_0p_cpqMi_0p_cpQ3_0p_cpQM_1p_cpu_1p_cpd_0p
+set cpBB 0.000000
+set cpDC 0.000000
+set cpW 0.000000
+set cpWB 0.000000
+set cdp 0.000000
+set cpq3i 0.000000
+set cpqMi 0.000000
+set cpQ3 0.000000
+set cpQM 1.000000
+set cpu 1.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_0p_cpW_0p_cpWB_0p_cdp_0p_cpq3i_0p_cpqMi_0p_cpQ3_0p_cpQM_1p_cpu_0p_cpd_1p
+set cpBB 0.000000
+set cpDC 0.000000
+set cpW 0.000000
+set cpWB 0.000000
+set cdp 0.000000
+set cpq3i 0.000000
+set cpqMi 0.000000
+set cpQ3 0.000000
+set cpQM 1.000000
+set cpu 0.000000
+set cpd 1.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_0p_cpW_0p_cpWB_0p_cdp_0p_cpq3i_0p_cpqMi_0p_cpQ3_0p_cpQM_0p_cpu_2p_cpd_0p
+set cpBB 0.000000
+set cpDC 0.000000
+set cpW 0.000000
+set cpWB 0.000000
+set cdp 0.000000
+set cpq3i 0.000000
+set cpqMi 0.000000
+set cpQ3 0.000000
+set cpQM 0.000000
+set cpu 2.000000
+set cpd 0.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_0p_cpW_0p_cpWB_0p_cdp_0p_cpq3i_0p_cpqMi_0p_cpQ3_0p_cpQM_0p_cpu_1p_cpd_1p
+set cpBB 0.000000
+set cpDC 0.000000
+set cpW 0.000000
+set cpWB 0.000000
+set cdp 0.000000
+set cpq3i 0.000000
+set cpqMi 0.000000
+set cpQ3 0.000000
+set cpQM 0.000000
+set cpu 1.000000
+set cpd 1.000000
+
+launch --rwgt_name=cpBB_0p_cpDC_0p_cpW_0p_cpWB_0p_cdp_0p_cpq3i_0p_cpqMi_0p_cpQ3_0p_cpQM_0p_cpu_0p_cpd_2p
+set cpBB 0.000000
+set cpDC 0.000000
+set cpW 0.000000
+set cpWB 0.000000
+set cdp 0.000000
+set cpq3i 0.000000
+set cpqMi 0.000000
+set cpQ3 0.000000
+set cpQM 0.000000
+set cpu 0.000000
+set cpd 2.000000
+

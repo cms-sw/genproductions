@@ -27,7 +27,8 @@ cat << EOF > source_compilation_${source_name}_$2_$3.sh
 genproduction_dir=$PWD/../../..
 topdir=$PWD
 source_file=$1
-source_dir=/afs/cern.ch/cms/generators/www/slc6_amd64_gcc481/powheg/V2.0/src/$1
+source_dir=/eos/project/c/cmsweb/www/generators/directories/cms-project-generators/slc6_amd64_gcc481/powheg/V2.0/src/$1
+
 scram_arch_version=$2
 cmssw_version=$3
 workdir=test
@@ -110,8 +111,8 @@ do
     process="${file%.*}"
     echo "compiling $process"
     echo ${PWD}
-    echo "python ./run_pwg_condor.py -p 0 -i powheg.input -m ${process} -f my_${process} -d 1"
-    python ./run_pwg_condor.py -p 0 -i powheg.input -m ${process} -f my_${process} -d 1
+    echo "python3 ./run_pwg_condor.py -p 0 -i powheg.input -m ${process} -f my_${process} -d 1"
+    python3 ./run_pwg_condor.py -p 0 -i powheg.input -m ${process} -f my_${process} -d 1
     echo "=========== LAST 10 COMPILATION LINES FOR PROCESS ${process} ===========" >> ${topdir}/compile_report_-_${source_name}_-_${scram_arch_version}_-_${cmssw_version}.log
     echo "" >> ${topdir}/compile_report_-_${source_name}_-_${scram_arch_version}_-_${cmssw_version}.log
     tail run_src_my_${process}.log >> ${topdir}/compile_report_-_${source_name}_-_${scram_arch_version}_-_${cmssw_version}.log

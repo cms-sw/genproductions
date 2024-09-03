@@ -1,0 +1,8 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set loop_optimized_output True
+set gauge unitary
+set complex_mass_scheme False
+import model NMSSMHET_UFO --modelname
+generate g g > h03, (h03 > h01 h02, (h02 > h01 h01) )
+output NMSSM_XToYH_YToHH_MX_xxx_MY_yyy -nojpeg

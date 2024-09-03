@@ -8,12 +8,13 @@ import fnmatch
 import os.path
 import string
 import glob
+import json
+import ast
 from datetime import datetime
-###########Needed to check for ultra-legacy sample consistency check############################################
-os.system('env -i KRB5CCNAME="$KRB5CCNAME" cern-get-sso-cookie -u https://cms-pdmv.cern.ch/mcm/ -o cookiefile.txt --krb --reprocess')
-################################################################################################################
-sys.path.append('/afs/cern.ch/cms/PPD/PdmV/tools/McM/')
-from rest3 import McM
+#
+#sys.path.append('/afs/cern.ch/cms/PPD/PdmV/tools/McM-QA/')
+#from rest import McM
+from json import dumps
 
 parser = argparse.ArgumentParser(
     formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -30,6 +31,9 @@ parser.add_argument('--apply_many_threads_patch', help="apply the many threads M
 parser.add_argument('--dev', help="Run on DEV instance of McM", action='store_true')
 parser.add_argument('--debug', help="Print debugging information", action='store_true')
 parser.add_argument('--develop', help="Option to make modifications of the script", action='store_true')
+parser.add_argument('--local', help="Option to read fragment locally", action='store_true')
+parser.add_argument('--download_json', help="Download request json to read fragment locally in a next step", action='store_true')
+
 args = parser.parse_args()
 
 if args.prepid is not None:
@@ -51,21 +55,36 @@ if args.develop is False:
        sys.exit()
 	
 # Use no-id as identification mode in order not to use a SSO cookie
-mcm = McM(id='no-id', dev=args.dev, debug=args.debug)
-mcm2 = McM(cookie='cookiefile.txt', dev=args.dev, debug=args.debug)
-
-if args.dev is True:
-    mcm_link = "https://cms-pdmv-dev.cern.ch/mcm/"
-else:
-    mcm_link = "https://cms-pdmv.cern.ch/mcm/"
+if args.local is False:
+    sys.path.append('/afs/cern.ch/cms/PPD/PdmV/tools/McM-QA/')
+    from rest import McM
+    mcm = McM(id=None, dev=args.dev, debug=args.debug)
+    mcm_link = mcm.server
 
 def get_request(prepid):
-    result = mcm._McM__get('public/restapi/requests/get/%s' % (prepid))
+    if args.local is False:
+        result = mcm._McM__get('public/restapi/requests/get/%s' % (prepid))
+        if args.download_json is True:
+            with open("request_"+prepid+".json",'w') as f:
+                json.dump(result,f)
+                sys.exit()
+    else:
+        with open("bin/utils/request_"+prepid+".json") as f:
+            print(f)
+            result = json.load(f)
     if not result:
         return {}
 
     result = result.get('results', {})
     return result
+
+#def get_request(prepid):
+#    result = mcm._McM__get('public/restapi/requests/get/%s' % (prepid))
+#    if not result:
+#        return {}
+#
+#    result = result.get('results', {})
+#    return result
 
 
 def get_range_of_requests(query):
@@ -86,11 +105,12 @@ def get_ticket(prepid):
     return result
 
 def get_requests_from_datasetname(dn):
-    result = mcm2.get('requests', query='dataset_name=%s' % (dn))
-    if not result:
-        return {}
-
-    return result
+    raw_result = mcm._McM__get(
+        "public/restapi/requests/from_dataset_name/%s" % (dn)
+    )
+    if not raw_result:
+        return []
+    return raw_result.get("results", [])
 
 def find_file(dir_path,patt):
     for root, dirs, files in os.walk(dir_path):
@@ -106,6 +126,7 @@ def check_replace(runcmsgridfile):
     return error_check_replace 
 
 def slha_gp(gridpack_cvmfs_path,slha_flag):
+    slha_all_path = os.path.dirname(gridpack_eos_path)
     if slha_flag == 1:
         if "%i" in gridpack_cvmfs_path:
             gridpack_cvmfs_path = gridpack_cvmfs_path.replace("%i","*")
@@ -116,35 +137,38 @@ def slha_gp(gridpack_cvmfs_path,slha_flag):
         else:
             slha_flag = 0
         if slha_flag == 1:
-            slha_all_path = os.path.dirname(gridpack_eos_path)
             print("Directory: "+slha_all_path)
             list_gridpack_cvmfs_path = os.listdir(slha_all_path)[0]
             print(list_gridpack_cvmfs_path)
             gridpack_cvmfs_path = slha_all_path+'/'+list_gridpack_cvmfs_path
             print("SLHA request - checking single gridpack:")
             print(gridpack_cvmfs_path)
-        return gridpack_cvmfs_path, slha_all_path, slha_flag
+    return gridpack_cvmfs_path, slha_all_path, slha_flag
 
 
 def tunes_settings_check(dn,fragment,pi,sherpa_flag):
     error_tunes_check = []
-    if "Summer22" in pi and "FlatRandomEGunProducer" not in fragment and "FlatRandomPtGunProducer" not in fragment and "Pythia8EGun" not in fragment and "Pythia8PtGun" not in fragment and "FlatRandomPtAndDxyGunProducer" not in fragment and sherpa_flag == 0:
-        if "Configuration.Generator.MCTunesRun3ECM13p6TeV" not in fragment or "from Configuration.Generator.MCTunes2017" in fragment:
-            error_tunes_check.append(" For Summer22 samples, please use from Configuration.Generator.MCTunesRun3ECM13p6TeV.PythiaCP5Settings_cfi import * in your fragment instead of from Configuration.Generator.MCTunes2017.PythiaCP5Settings_cfi import *")
+    if "Run3" in pi and "FlatRandomEGunProducer" not in fragment and "FlatRandomPtGunProducer" not in fragment and "Pythia8EGun" not in fragment and "Pythia8PtGun" not in fragment and "FlatRandomPtAndDxyGunProducer" not in fragment and sherpa_flag == 0:
+        if ("Configuration.Generator.MCTunesRun3ECM13p6TeV" not in fragment) and ("Configuration.Generator.Herwig7Settings.Herwig7CH3TuneSettings_cfi" not in fragment) or ("from Configuration.Generator.MCTunes2017" in fragment):
+            error_tunes_check.append(" For Run3 samples, please use either:\n from Configuration.Generator.MCTunesRun3ECM13p6TeV.PythiaCP5Settings_cfi import * \n from Configuration.Generator.Herwig7Settings.Herwig7CH3TuneSettings_cfi import * \n in your fragment instead of: from Configuration.Generator.MCTunes2017.PythiaCP5Settings_cfi import *")
     if "Run3" in pi and (dn.startswith("DYto") or dn.startswith("Wto")):
         if "ktdard" in fragment and "0.248" not in fragment:
             error_tunes_check.append(" 'kthard = 0.248' not in fragment for DY or Wjets MG5_aMC request for Run3. Please fix.")
-    return error_tunes_check                
+    return error_tunes_check
  
-def concurrency_check(fragment,pi,cmssw_version):
+def concurrency_check(fragment,pi,cmssw_version,mg_gp):
     conc_check = 0
     conc_check_lhe = 0
     error_conc = []
     fragment = re.sub(r'(?m)^ *#.*\n?', '',fragment) # remove lines starting with #
     fragment = fragment.replace(" ","").replace("\"","'")
     if cmssw_version >= int('10_60_28'.replace('_','')) and int(str(cmssw_version)[:2]) != 11:
-        if "generateConcurrently=cms.untracked.bool(False)" in fragment and "Pythia8Concurrent" in fragment:
+        if "generateConcurrently=cms.untracked.bool(False)" in fragment and "Pythia8Concurrent" in fragment and mg_gp is False:
             error_conc.append("Concurrent parameters used with generateConcurrently=cms.untracked.bool(False) in fragment.")
+        if "generateConcurrently=cms.untracked.bool(True)" in fragment and mg_gp is True:
+            error_conc.append("For MG5_aMC requests, currently the concurrent mode for LHE production is not supported due to heavy I/O. So, please set generateConcurrently = cms.untracked.bool(False) in ExternalLHEProducer.")
+        if "Pythia8ConcurrentHadronizerFilter" not in fragment and  mg_gp is True and "RandomizedParameters" not in fragment and "tauola" not in fragment.lower():
+            error_conc.append("For MG5_aMC requests, the concurrent mode for GEN production should be turned on. Please convert Pythia8HadronizerFilter to Pythia8ConcurrentHadronizerFilter in the fragment")   
         if "ExternalLHEProducer" in fragment and "generateConcurrently=cms.untracked.bool(True)" in fragment: 
             # first check if the code has correctly implemented concurrent features. Mark conc_check_lhe (LHE step) or conc_check (GEN step) as True if features are found
             if "Herwig7GeneratorFilter" not in fragment: 
@@ -182,9 +206,12 @@ def concurrency_check(fragment,pi,cmssw_version):
                 print("Herwig7GeneratorFilter in the wmLHEGEN or pLHEGEN campaign cannot run concurrently.")
             elif "Pythia8GeneratorFilter" in fragment and "randomizedparameters" in fragment.lower():
                 print("Pythia8GeneratorFilter with RandomizedParameter scan cannot run concurrently")
-            # for other cases, it is either concurrent generation parameters are missing or wrong
+            elif mg_gp is True:
+                print("For MG5_aMC requests, currently the concurrent mode for LHE production is not supported due to heavy I/O.")
+            # for other cases, it is either concurrent generation parameters are missing or wrong        
             else:
                 error_conc.append("Concurrent generation parameters missing or wrong. Please see https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookGenMultithread")
+                    
     else:
         if "concurrent" in fragment.lower():
             error_conc.append("Concurrent generation is not supported for versions < CMSSW_10_6_28 and CMSSW_11_X_X series")
@@ -221,7 +248,8 @@ def ul_consistency(dn,pi,jhu_gp):
         if "NULL" not in pi_prime: #
             if "APV" in pi or "Summer20UL18" in pi or "Summer20UL17" in pi: print("This is a Summer20UL16APV, UL17 or UL18 request so GEN settings will be compared to the corresponding Summer20UL16 request: "+pi_prime)
             if "APV" not in pi and "Summer20UL16" in pi: print("This is a Summer20UL16 requests so GEN setting will be compared to the corresponding Summer19UL17 request: "+pi_prime)
-            os.popen('wget -q '+mcm_link+'public/restapi/requests/get_fragment/'+pi_prime+' -O '+pi_prime).read()
+            if args.local is False: 
+                os.popen('wget -q '+mcm_link+'public/restapi/requests/get_fragment/'+pi_prime+' -O '+pi_prime).read()
             f1_prime = open(pi_prime,"r")
             f2_prime = open(pi_prime+"_tmp","w")
             data_f1_prime = f1_prime.read()
@@ -343,6 +371,12 @@ def evtgen_check(fragment):
 def run3_checks(fragment,dn,pi):
     err = []
     fragment = fragment.replace(" ","")
+    run3_checks_exception_list = [
+        "TSG-Run3Summer23BPixGS-00007", 
+        "TSG-Run3Summer23BPixGS-00043", 
+        "TSG-Run3Summer23BPixGS-00044", 
+        "TSG-Run3Summer23BPixGS-00045"
+    ]
     print("======> Run3 Fragment and dataset name checks:")
     if "comEnergy" in fragment:
         comline = re.findall('comEnergy=\S+',fragment)
@@ -350,7 +384,7 @@ def run3_checks(fragment,dn,pi):
             err.append("The c.o.m. energy is not specified as 13600 GeV in the fragment."+comline[0])
         if "run3winter21" in pi.lower() and "14000" not in comline[0]: 
             err.append("The c.o.m. energy is not specified as 14000 GeV in the fragment"+comline[0])
-    if ("run3winter22" in pi.lower() or "summer2" in pi.lower()) and ("FlatRandomEGunProducer" not in fragment and "FlatRandomPtGunProducer" not in fragment and "Pythia8EGun" not in fragment and "13p6TeV" not in dn):
+    if ("run3winter22" in pi.lower() or "summer2" in pi.lower()) and ("FlatRandomEGunProducer" not in fragment and "FlatRandomPtGunProducer" not in fragment and "Pythia8EGun" not in fragment and "13p6TeV" not in dn and pi not in run3_checks_exception_list):
         err.append("The data set name does not contain 13p6TeV for this Run3 request")
     if "run3winter21" in pi.lower() and ("FlatRandomEGunProducer" not in fragment and "FlatRandomPtGunProducer" not in fragment and "Pythia8EGun" not in fragment and "14TeV" not in dn):
         err.append("The data set name does not contain 14TeV for this Run3 request")
@@ -443,15 +477,18 @@ def root_requests_from_ticket(ticket_prepid, include_docs=False):
     return requests
 
 
-if args.ticket is not None:
-    ticket = args.ticket
-    ticket = ticket[0]
-    print("------------------------------------")
-    print("--> Ticket = "+ticket)
-    print("------------------------------------")
-    prepid = []
-    for rr in root_requests_from_ticket(ticket):
-        if 'GS' in rr or 'wmLHE' in rr or 'pLHE' in rr or 'FS' in rr: prepid.append(rr)
+if args.local is False:
+    if args.ticket is not None:
+        ticket = args.ticket
+        ticket = ticket[0]
+        print("------------------------------------")
+        print("--> Ticket = "+ticket)
+        print("------------------------------------")
+        prepid = []
+        for rr in root_requests_from_ticket(ticket):
+            if 'GS' in rr or 'wmLHE' in rr or 'pLHE' in rr or 'FS' in rr: prepid.append(rr)
+
+
 
 prepid = list(set(prepid)) #to avoid requests appearing x times if x chains have the same request
 print("Current date and time: %s" % (datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
@@ -474,6 +511,10 @@ for num in range(0,len(prepid)):
     res = [res]
     for r in res:
         pi = r['prepid']
+        if args.local is True:
+            pi_file = "bin/utils/"+pi
+        else:
+            pi_file = pi        
         dn = r['dataset_name']
         te = r['time_event']
         totalevents = r['total_events']
@@ -485,10 +526,9 @@ for num in range(0,len(prepid)):
         filter_eff = r['generator_parameters'][-1]['filter_efficiency']
         match_eff = r['generator_parameters'][-1]['match_efficiency']
         total_eff = filter_eff*match_eff 
-        cross_section = r['generator_parameters'][-1]['cross_section']
         ext = r['extension']
-        print("Extension or not: "+str(ext))
-        print(pi+"    Status= "+r['status'])
+        print("Extension or not: "+str(ext))    
+        print(pi+"    Status= "+r['status'])    
         print(dn)
         if args.bypass_status and r['status'] != "defined":
             print("--> Skipping since the request is not in defined state")
@@ -571,16 +611,17 @@ for num in range(0,len(prepid)):
             warnings.append("Are you sure you want to use "+cmssw+" release which is not standard which may not have all the necessary GEN code.")
         if totalevents >= 100000000 :
             warnings.append("Is "+str(totalevents)+" events what you really wanted - please check!")
-        os.popen('wget -q '+mcm_link+'public/restapi/requests/get_fragment/'+pi+' -O '+pi).read()
+        if args.local is False:    
+            os.popen('wget -q '+mcm_link+'public/restapi/requests/get_fragment/'+pi+' -O '+pi).read()
 
-        fsize = os.path.getsize(pi)
-        f1 = open(pi,"r")
-        f2 = open(pi+"_tmp","w")
+        fsize = os.path.getsize(pi_file)
+        f1 = open(pi_file,"r")
+        f2 = open(pi_file+"_tmp","w")
         data_f1 = f1.read()
 
-        if int(os.popen('grep -c FlatRandomEGunProducer '+pi).read()) == 1 or int(os.popen('grep -c FlatRandomPtGunProducer '+pi).read()) == 1 or int(os.popen('grep -c Pythia8EGun '+pi).read()) == 1 or int(os.popen('grep -c Pythia8PtGun '+pi).read()) ==1 or int(os.popen('grep -c FlatRandomPtAndDxyGunProducer '+pi).read()): 
+        if int(os.popen('grep -c FlatRandomEGunProducer '+pi_file).read()) == 1 or int(os.popen('grep -c FlatRandomPtGunProducer '+pi_file).read()) == 1 or int(os.popen('grep -c Pythia8EGun '+pi_file).read()) == 1 or int(os.popen('grep -c Pythia8PtGun '+pi_file).read()) ==1 or int(os.popen('grep -c FlatRandomPtAndDxyGunProducer '+pi_file).read()): 
             particle_gun = 1
-        if int(os.popen('grep -c -i randomizedparameters '+pi).read()) > 0:
+        if int(os.popen('grep -c -i randomizedparameters '+pi_file).read()) > 0:
             randomizedparameters = 1
 #        cmssw_version    = int(re.search("_[0-9]?[0-9]_[0-9]?[0-9]_[0-9]?[0-9]",cmssw).group().replace('_',''))
         cmssw_version    = re.search("_[0-9]?[0-9]_[0-9]?[0-9]_[0-9]?[0-9]",cmssw).group().split("_")
@@ -603,15 +644,12 @@ for num in range(0,len(prepid)):
                                             "HIG-RunIISummer20UL18GEN-00009", 
                                             "HIG-RunIISummer20UL18GEN-00010" 
                                            ]
-        if "SnowmassWinter21GEN" not in pi and "SnowmassWinter21wmLHEGEN" not in pi and particle_gun == 0 and pi not in concurrency_check_exception_list and "matchbox" not in data_f1.lower():
-            conc_check_result, tmp_err = concurrency_check(data_f1,pi,cmssw_version)
-#            error += tmp_err
-            errors.extend(tmp_err)
-        else:
-            warnings.append("Skipping the concurrency check since these are (wmLHE)GEN-only campaigns or a particle gun or a Sherpa Diphoton sample or an herwig7 request with Matchbox.")
-#        data_f2 = re.sub(r'(?m)^ *#.*\n?', '',data_f1)
+#        if "SnowmassWinter21GEN" not in pi and "SnowmassWinter21wmLHEGEN" not in pi and particle_gun == 0 and pi not in concurrency_check_exception_list and "matchbox" not in data_f1.lower():
+#            conc_check_result, tmp_err = concurrency_check(data_f1,pi,cmssw_version)
+#            errors.extend(tmp_err)
+#        else:
+#            warnings.append("Skipping the concurrency check since these are (wmLHE)GEN-only campaigns or a particle gun or a Sherpa Diphoton sample or an herwig7 request with Matchbox.")
 
-#        errors.extend(tunes_settings_check(dn,data_f1,pi))
       
         cross_section_fragment = re.findall('crossSection.*?\S+\S+',data_f2)
         if (cross_section_fragment):
@@ -623,16 +661,11 @@ for num in range(0,len(prepid)):
             filter_eff_fragment = re.findall('\((.*?)\)',filter_eff_fragment)[0]
         print("Filter efficiency in the fragment ="+ str(filter_eff_fragment))
         print("Cross section in the fragment =" + str(cross_section_fragment) +" pb")
-        print("Cross section from generator parameters field = "+str(cross_section)+" pb")
-        if not str(cross_section_fragment).isdigit():
-            warnings.append("Skipping the cross section consistency check in generator parameters field and the fragment. This is most probably because the cross section is defined through a variable")
-        if str(cross_section_fragment).isdigit() is True and cross_section_fragment and cross_section and int(ext) == 0 and float(cross_section_fragment) != float(cross_section):
-            errors.append("Cross section in the generator parameters field and the one in the fragment do not match!")
         print("")
         print("Filter efficiency in fragment =" + str(filter_eff_fragment))
         print("Filter efficiency from generator parameters field = "+str(filter_eff))
         # see https://github.com/cms-sw/genproductions/issues/3269
-        if len(filter_eff_fragment) > 0 and float(filter_eff_fragment) < 1.0:
+        if len(filter_eff_fragment) > 0 and float(filter_eff_fragment) < 1.0 and float(filter_eff_fragment) > 0:
             if filter_eff_fragment and filter_eff and int(ext) == 0 and float(filter_eff_fragment) != float(filter_eff):
                 errors.append("In general, filter efficiency in the fragment is not taken into accout. Please make sure that the filter efficiency in the generator parameters field is correct!")
 	
@@ -642,7 +675,8 @@ for num in range(0,len(prepid)):
            if clone_entries:
                pi_clone_entries = clone_entries[0]['step']
                print(("Request cloned from = ",pi_clone_entries))
-               os.popen('wget -q '+mcm_link+'public/restapi/requests/get_fragment/'+pi_clone_entries+' -O '+pi_clone_entries).read()
+               if args.local is False: 
+                   os.popen('wget -q '+mcm_link+'public/restapi/requests/get_fragment/'+pi_clone_entries+' -O '+pi_clone_entries).read()
                f1_clone = open(pi_clone_entries,"r")
                f2_clone = open(pi_clone_entries+"_tmp","w")
                data_f1_clone = f1_clone.read()
@@ -651,20 +685,29 @@ for num in range(0,len(prepid)):
                data_f2_strip=exception_for_ul_check(data_f2_strip,cross_section_fragment)
                data_f2_clone_strip=re.sub(r'\s+', ' ', data_f2_clone).strip()
                data_f2_clone_strip=exception_for_ul_check(data_f2_clone_strip,cross_section_fragment)
+               ext_excep = 0
+               os.system('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/extension_exceptions.txt -O extension_exceptions.txt')
+               with open('extension_exceptions.txt') as file_ext_ex:
+                   for line in file_ext_ex:
+                       if pi in line: ext_excep = 1 
                if (data_f2_strip == data_f2_clone_strip) == True:
                    print("[OK] The base request and the cloned request used for the extension have the same fragment.")
-               else:
+               elif ext_excep == 0:
                    errors.append("The base request "+pi+" and the cloned request "+pi_clone_entries+" used for the extension don't have the same fragment! Here is the diff of the base and and the cloned request: \n"+(os.popen('diff '+pi+' '+pi_clone_entries).read()))
         f1.close()
         f2.write(data_f2)
         f2.close()
         os.system('mkdir -p '+my_path+'/'+pi)
         os.system('mkdir -p '+my_path+'/eos/'+pi)
-        os.system('mv '+pi+'_tmp '+pi)
-        os.system('cp '+pi+' '+my_path+'/'+pi+'/.')
-        os.system('wget -q '+mcm_link+'public/restapi/requests/get_test/'+pi+' -O '+pi+'_get_test')
+        os.system('mv '+pi_file+'_tmp '+pi)
+        os.system('cp '+pi_file+' '+my_path+'/'+pi+'/.')
+        if args.local is False:
+            os.system('wget -q '+mcm_link+'public/restapi/requests/get_test/'+pi+' -O '+pi+'_get_test')
         gettest = os.popen('grep cff '+pi+'_get_test'+' | grep curl').read()
-        scram_arch = os.popen('grep SCRAM_ARCH '+pi+'_get_test').read()
+        if os.path.getsize(pi_file+'_get_test') == 0:
+            print("public/restapi/requests/get_test/ is not acessible for this request. Exiting! Please send an email to 'cms-ppd-pdmv-dev@cern.ch'")
+            sys.exit()
+        scram_arch = os.popen('grep SCRAM_ARCH '+pi_file+'_get_test').read()
         scram_arch = scram_arch.split('=')[1].rstrip()
         print("CMSSW release for the request: "+str(cmssw))
         print("scram_arch = "+str(scram_arch))
@@ -699,10 +742,11 @@ for num in range(0,len(prepid)):
                 photos_version = os.popen(photos_version).read().rstrip().split('=')[2].replace(">","")
                 print("PHOTOS version = "+str(photos_version))
         gridpack_cvmfs_path_tmp = os.popen('grep \/cvmfs '+my_path+'/'+pi+'/'+pi).read()
-        if int(os.popen('grep -c grid_points '+pi).read()) != 0: grid_points_flag = 1
+        if int(os.popen('grep -c grid_points '+pi_file).read()) != 0: grid_points_flag = 1
         gp_size = len(gridpack_cvmfs_path_tmp)
 
         pw_gp = False
+        pw_external_gp = False
         madloop_in_gp = False
         minlo = False
         minnlo = False
@@ -726,10 +770,12 @@ for num in range(0,len(prepid)):
             if len(scram_sherpa):
                 scram_sherpa = scram_sherpa[0]
                 print ("scram_arch for Sherpa = ",scram_sherpa) 
-                if scram_sherpa == scram_arch:
-                    print ("[OK] scram_arch for Sherpa and CMSSW are the same")
-                else:
-                    errors.append("scram_arch for Sherpa and CMSSW are NOT the same. But note that this check is done based on folder names except the one for CMSSW")  
+                print(len(scram_sherpa[0]))
+                if len(scram_sherpa[0]) != 0:
+                    if scram_sherpa == scram_arch:
+                        print ("[OK] scram_arch for Sherpa and CMSSW are the same")
+                    else:
+                        errors.append("scram_arch for Sherpa and CMSSW are NOT the same. But note that this check is done based on folder names except the one for CMSSW")  
             else:
                 warnings.append("scram_arch for Sherpa unidentifiable")
             sv_tmp = re.findall("sherpa/.*/",gridpack_cvmfs_path_tmp)[0].split("/")[1].split(".")
@@ -740,9 +786,10 @@ for num in range(0,len(prepid)):
                 warnings.append("Sherpa older than version 2.2.11")
         if "openloops" in gridpack_cvmfs_path_tmp.lower():
             openloops_flag = True
-            OL_list = os.popen('grep openloops '+pi).read().split("/")
+            OL_list = os.popen('grep openloops '+pi_file).read().split("/")
             scram_OL = [s for s in OL_list if "gcc" in s]
-            if len(scram_OL):
+            print(scram_OL)
+            if len(scram_OL) and len(scram_sherpa):
                 scram_OL = scram_OL[0]
                 print ("scram_arch for OpenLoops = ",scram_OL)
                 if scram_OL == scram_sherpa:
@@ -760,16 +807,16 @@ for num in range(0,len(prepid)):
         if gp_size and gp_full_path and sherpa_flag == 0:
             gridpack_cvmfs_path = gridpack_cvmfs_path_tmp[0]
             gridpack_eos_path = gridpack_cvmfs_path.replace("/cvmfs/cms.cern.ch/phys_generator","/eos/cms/store/group/phys_generator/cvmfs")
+            if int(os.popen('grep -c slha '+pi_file).read()) != 0 or int(os.popen('grep -c \%i '+pi_file).read()) != 0 or int(os.popen('grep -c \%s '+pi_file).read()) != 0: slha_flag = 1
+            if slha_flag == 1: gridpack_cvmfs_path, slha_all_path, slha_flag = slha_gp(gridpack_cvmfs_path,slha_flag)
             print("-----------------------------------")
             print("Gridpack location in cvmfs and eos:")
             print(gridpack_cvmfs_path)
             print(gridpack_eos_path)
-            print ("Gridpack size in MBs: "+str(round(os.path.getsize(gridpack_eos_path)/(1024*1024),3))+ " M")
-            if int(os.popen('grep -c slha '+pi).read()) != 0 or int(os.popen('grep -c \%i '+pi).read()) != 0 or int(os.popen('grep -c \%s '+pi).read()) != 0: slha_flag = 1
-            if slha_flag == 1: gridpack_cvmfs_path, slha_all_path, slha_flag = slha_gp(gridpack_cvmfs_path,slha_flag)
+            print("Gridpack size in MBs: "+str(round(os.path.getsize(gridpack_cvmfs_path)/(1024*1024),3))+ " M")
             if os.path.isfile(gridpack_cvmfs_path) is True:
                 os.system('tar xf '+gridpack_cvmfs_path+' -C '+my_path+'/'+pi)
-                size_after_untar = os.popen("du -h "+my_path+'/'+pi).read().split("\t")[0]
+                size_after_untar = os.popen("du -h -d 0 "+my_path+'/'+pi).read().split("\t")[0]
                 print ("Gridpack folder size after untarring: "+size_after_untar)
                 folder = glob.glob(my_path+'/'+pi+'/*')
                 folder_and_subfolder = sum([len(files) for r, d, files in os.walk(my_path+'/'+pi)])
@@ -777,20 +824,23 @@ for num in range(0,len(prepid)):
                 print("Number of files and folders in the gridpack including the files in subfolders = "+str(folder_and_subfolder))
                 print("-----------------------------------")
             else:
-                errors.append("Gridpack ",gridpack_cvmfs_path," does not exist! ..... exiting ....")
+                errors.append("Gridpack "+gridpack_cvmfs_path+" does not exist! ..... exiting ....")
                 sys.exit()
             jhu_gp = os.path.isfile(my_path+'/'+pi+'/'+'JHUGen.input')
             pw_gp = os.path.isfile(my_path+'/'+pi+'/'+'powheg.input')
+            if pw_gp is False:
+                pw_external_gp = os.path.isfile(my_path+'/'+pi+'/'+"external_tarball/powheg.input")
             madloop_in_gp = os.path.isfile(my_path+'/'+pi+'/'+'MadLoopParams.dat')
             mg_f1 = my_path+'/'+pi+'/'+'process/madevent/Cards/run_card.dat'
             mg_f2 = my_path+'/'+pi+'/'+'process/Cards/run_card.dat'
             amcnlo_gp = os.path.isfile(my_path+'/'+pi+'/'+'process/Cards/run_card.dat')
             mg_gp = os.path.isfile(mg_f1) or os.path.isfile(mg_f2)
             print("path powheg "+str(pw_gp))
+            print("path external powheg "+str(pw_external_gp))
             print("path madloop "+str(madloop_in_gp))
             print("path mg "+str(mg_gp))
             print("path amcnlo "+str(amcnlo_gp))
-            print("path jhugen "+str(jhu_gp))
+            print("path jhugen "+str(jhu_gp))           
             if pw_gp is True:
                 direc_list = os.listdir(my_path+'/'+pi+'/')
                 pw_mg = len([x for x in direc_list if "mg5" in x.lower()])
@@ -819,7 +869,7 @@ for num in range(0,len(prepid)):
                     warnings.append("maxjetflavor not defined in run_card.dat")
                 print("maxjetflavor = "+str(maxjetflavor))
                 if alt_ickkw_c == 3:
-                    qCutME = os.popen('grep "qCutME" '+pi).read()
+                    qCutME = os.popen('grep "qCutME" '+pi_file).read()
                     if len(qCutME) == 0:
                         errors.append("For FxFx setups qCutME should be specified in the fragment.")
                     else:
@@ -832,8 +882,8 @@ for num in range(0,len(prepid)):
                         print("ptj_runcard =", ptj_runcard)
                         if float(qCutME) != float(ptj_runcard):
                             errors.append("qCutME in PS settings and ptj in run_card in gridpack do not match.")
-                    if int(os.popen('grep -c nQmatch '+pi).read()) == 1:
-                        nQmatch = os.popen('grep "nQmatch" '+pi).read()
+                    if int(os.popen('grep -c nQmatch '+pi_file).read()) == 1:
+                        nQmatch = os.popen('grep "nQmatch" '+pi_file).read()
                         nQmatch = nQmatch.replace(" ","")
                         nQmatch = re.findall('nQmatch=\d+',nQmatch)[0].split("=")[1]
                         print("nQmatch = ",nQmatch)
@@ -870,6 +920,7 @@ for num in range(0,len(prepid)):
                            errors.append("Missing set FxFxHandler:njetsmax MAX_N_ADDITIONAL_JETS in the user settings block")
                else:
                    for line in file_me_wo_merg:
+                        if line not in data_f1:
                            errors.append("Missing herwig mg5_amc specific setting in fragment: "+line)
                if alt_ickkw_c == 3:#fxfx
                    if "'set FxFxHandler:MergeMode FxFx'" not in data_f1:
@@ -881,10 +932,12 @@ for num in range(0,len(prepid)):
                os.system('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/herwig_mcnlo.txt -O herwig_mcnlo.txt')
                file_me = set(line.strip().replace(",","") for line in open('herwig_mcnlo.txt'))
                if "Matchbox" in data_f1:
-                   if "hw_lhe_MG5aMCatNLO_settings" in data_f1 or "hw_lhe_common_settings" in data_f1 or "'herwig7LHEMG5aMCatNLOSettingsBlock" in data_f1:
-                       errors.append("Extra blocks: 'hw_lhe_MG5aMCatNLO_settings' or 'hw_lhe_common_settings' or 'herwig7LHEMG5aMCatNLOSettingsBlock')")
+                   n_matchbox = data_f1.lower().count("matchbox") 
+                   if "InterfaceMatchboxTest" in data_f1 and n_matchbox != 1:
+                       if "hw_lhe_MG5aMCatNLO_settings" in data_f1 or "hw_lhe_common_settings" in data_f1 or "'herwig7LHEMG5aMCatNLOSettingsBlock" in data_f1:
+                           errors.append("Extra blocks: 'hw_lhe_MG5aMCatNLO_settings' or 'hw_lhe_common_settings' or 'herwig7LHEMG5aMCatNLOSettingsBlock')")
                for line in file_me:
-                   if line not in data_f1 and "Matchbox" not in data_f1:
+                   if line not in data_f1 and "Matchbox" not in data_f1 and amcnlo_gp:
                        errors.append("Missing herwig MG with 0 jets or mc@nlo specific setting in fragment: "+line)
             if "9_3" not in str(cmssw) and "7_1" not in str(cmssw) and pw_gp != 0 and mg_gp !=0 and amcnlo_qg !=0:
                 os.system('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/herwig_frag_lines.txt -O herwig_frag_lines.txt')
@@ -910,19 +963,25 @@ for num in range(0,len(prepid)):
                         errors.append(str(len(herwig_check)) + " missing fragment line(s) for herwig: lines for internal matrix element are missing in the fragment."+herwig_check)
         if fsize == 0:
             warnings.append("No fragment associated to this request. Is this the hadronizer you intended to use?: "+gettest)
-        ttxt = os.popen('grep nThreads '+pi+'_get_test').read()
+        ttxt = os.popen('grep nThreads '+pi_file+'_get_test').read()
         ntread_new = 1
         if not ttxt:
-            ttxt = os.popen('grep "# Threads for each sequence" '+pi+'_get_test').read()	
+            ttxt = os.popen('grep "# Threads for each sequence" '+pi_file+'_get_test').read()	
             print(ttxt)
             nthreads = int(re.search(r'\d+',ttxt).group())
             if not nthreads: ntread_new = 0
         if ntread_new == 0:
-            if int(os.popen('grep -c nThreads '+pi+'_get_test').read()) == 0 :
+            if int(os.popen('grep -c nThreads '+pi_file+'_get_test').read()) == 0 :
                 nthreads = 1
             else :
                 nthreads = int(re.search('nThreads(.*?) --',ttxt).group(1))
 
+        if "SnowmassWinter21GEN" not in pi and "SnowmassWinter21wmLHEGEN" not in pi and particle_gun == 0 and pi not in concurrency_check_exception_list and "matchbox" not in data_f1.lower() and "CepGenGeneratorFilter" not in data_f1:
+            conc_check_result, tmp_err = concurrency_check(data_f1,pi,cmssw_version,mg_gp)
+            errors.extend(tmp_err)
+        else:
+            warnings.append("Skipping the concurrency check since these are (wmLHE)GEN-only campaigns or a particle gun or a Sherpa Diphoton sample or an herwig7 request with Matchbox or a CepGen sample.")
+                
         nevts = 100.
         if timeperevent > 0:   
             nevts = (8*3600/timeperevent)*total_eff
@@ -932,23 +991,25 @@ for num in range(0,len(prepid)):
         if "sherpa" in dn.lower():
             warnings.append("Not checking sherpacks in too much detail for now. Please do independent tests.")
         if fsize != 0:
-            if int(os.popen('grep -c nPartonsInBorn '+pi).read()) == 1:
+            if int(os.popen('grep -c nPartonsInBorn '+pi_file).read()) == 1:
                 nPartonsInBorn_flag = 1
-                print((os.popen('grep nPartonsInBorn '+pi).read()))
-            if int(os.popen('grep -c nJetMax '+pi).read()) == 1:
-                nJetMax = os.popen('grep nJetMax '+pi).read()
+                print((os.popen('grep nPartonsInBorn '+pi_file).read()))
+            if int(os.popen('grep -c nJetMax '+pi_file).read()) == 1:
+                nJetMax = os.popen('grep nJetMax '+pi_file).read()
                 if grid_points_flag == 1:
                     nJetMax = re.findall('nJetMax = \d+',nJetMax)
                     nJetMax = nJetMax[0]
                 nJetMax = re.findall('\d+',nJetMax)
                 nJetMax = int(nJetMax[0])
             if herwig_flag != 0:
-                if int(os.popen('grep -c njetsmax '+pi).read()) == 1:
-                    nJetMax = os.popen('grep njetsmax '+pi).read()
+                if int(os.popen('grep -c njetsmax '+pi_file).read()) == 1:
+                    nJetMax = os.popen('grep njetsmax '+pi_file).read()
                     nJetMax = re.findall('\d+',nJetMax)
                     nJetMax = int(nJetMax[0])
-            if int(os.popen('grep -c nFinal '+pi).read()) == 1:
-                nFinal = os.popen('grep nFinal '+pi).read()
+                if int(os.popen('grep -c hw_PSWeights_settings '+pi_file).read()) == 1:
+                    warnings.append("hw_PSWeights_settings in fragment. These are currently affected by an issue of a very large variance in weights (https://indico.cern.ch/event/1282424/contributions/5392893/attachments/2642930/4574147/presentation.pdf), so we do not recommend including them unless you want to do some particular studies.")
+            if int(os.popen('grep -c nFinal '+pi_file).read()) == 1:
+                nFinal = os.popen('grep nFinal '+pi_file).read()
                 if grid_points_flag == 1:
                     nFinal = re.findall('nFinal = \d+',nFinal)
                     nFinal = nFinal[0]
@@ -957,15 +1018,15 @@ for num in range(0,len(prepid)):
                 print("nFinal="+str(nFinal))
             if int(test_cs_version[2]) == 6 and ('CMSSW_10_6_0' not in cmssw or 'CMSSW_10_6_0_patch1' not in cmssw): tunparmark = 1
             if int(test_cs_version[1]) == 10 and int(test_cs_version[2]) >= 5 and int(test_cs_version[2]) <= 6 and int(test_cs_version[3]) >= 0 and '10_5_0_pre1' not in cmssw and particle_gun == 0 and tunparmark == 0 and herwig_flag == 0:
-                mb_mode = os.popen('grep SigmaTotal:mode '+pi).read()
+                mb_mode = os.popen('grep SigmaTotal:mode '+pi_file).read()
                 mb_mode = re.findall('\d*\.\d+|\d+',mb_mode)
-                mb_SigmaEl = os.popen('grep SigmaTotal:sigmaEl '+pi).read()
+                mb_SigmaEl = os.popen('grep SigmaTotal:sigmaEl '+pi_file).read()
                 mb_SigmaEl = re.findall('\d*\.\d+|\d+',mb_SigmaEl)
-                mb_SigmaTot = os.popen('grep SigmaTotal:sigmaTot '+pi).read()
+                mb_SigmaTot = os.popen('grep SigmaTotal:sigmaTot '+pi_file).read()
                 mb_SigmaTot = re.findall('\d*\.\d+|\d+',mb_SigmaTot)
-                PDF_pSet_test = os.popen('grep PDF:pSet '+pi).read()
+                PDF_pSet_test = os.popen('grep PDF:pSet '+pi_file).read()
                 PDF_pSet_test = re.findall('\d*\.\d+|\d+',PDF_pSet_test)
-                PDF_pSet = os.popen('grep PDF:pSet '+pi+' | grep -c LHAPDF6:NNPDF31_nnlo_as_0118').read()
+                PDF_pSet = os.popen('grep PDF:pSet '+pi_file+' | grep -c LHAPDF6:NNPDF31_nnlo_as_0118').read()
                 tmp_flag = 0
                 if len(mb_mode) == 0:
                     errors.append("SigmaTotal:mode is missing. For requests made with >= CMSSW_10_5_0_pre2 and <= CMSSW_10_6_0_patch1. SigmaTotal:mode shoud be added by hand and set to 0")
@@ -1017,11 +1078,25 @@ for num in range(0,len(prepid)):
                         warnings.append(pf[0]+"Gridpack PATCH problem! Please use the master branch of genproductions!")
                     if len(pf[1]) !=0 or len(pf[2]) != 0:
                         warnings.append(pf[1]+"          "+pf[2]+"          You may try to request more events per phase-space region in the gridpack.")
+                if os.path.isfile(gp_log_loc) is True and ('madgraph' in dn.lower() or 'amcatnlo' in dn.lower()):
+                    print("------------------------------------------------------------------------------------")
+                    print("Summary for madgraph for experts fron gridpack log (cross section BEFORE matching (if there is matching/merging)):")
+                    print(os.popen('grep Summary '+gp_log_loc+' -A 5 -B 1').read())
+                    print("------------------------------------------------------------------------------------")
                 if mg_gp is True:
                     dir_path = os.path.join(my_path,pi,"InputCards")
                     if os.path.isdir(dir_path):
                         input_cards_customize_card = find_file(dir_path,"customizecards.dat")
+                        input_cards_madspin_card = find_file(dir_path,"madspin_card.dat")
+                        input_cards_reweight_card = find_file(dir_path,"reweight_card.dat")
                         input_patch = find_file(dir_path,"patch")
+                        if input_cards_madspin_card:
+                            print("---------------------------------------------")
+                            print("MadSpin card:")
+                            with open(input_cards_madspin_card, 'r') as f_madspin_card:
+                                for line in f_madspin_card.readlines():
+                                    print(line)
+                            print("End of MadSpin card--------------------------\n")
                         if input_patch:
                             print("Checking running Yukawa coupling:")
                             print("input patch file: "+input_patch)
@@ -1055,7 +1130,8 @@ for num in range(0,len(prepid)):
                                         if int(x) < int(y): customize_widths_flag = 1
                             if customize_widths_flag > 0:
                                 errors.append("COMPUTE_WIDTHS followed by SET command(s) should not be used in customizecards. Instead use \"set width X auto\" to compute the widths for X and change the parameter card settings.")  
-                        input_cards_reweight_card = find_file(dir_path,"reweight_card.dat")
+                        if input_cards_reweight_card and input_cards_madspin_card:
+                            errors.append("MadSpin and Reweight used together. The issue is that madspin calculates probabilities based on the input ME. As this is changing through reweighting, it doesn't work properly. Until a fix is done by MG5_aMC these madspin and reweighting should not be used together. See e.g. https://cms-talk.web.cern.ch/t/atgc-with-ewdim6nlo-ufo-for-wv-semileptonic-channel/29869/8")
                         if input_cards_reweight_card:
                             reweights = os.popen('more '+input_cards_reweight_card+' | tr -s \' \' | grep "rwgt_name"').read()
                             reweights = re.sub("launch --rwgt_name",'',reweights)
@@ -1066,7 +1142,7 @@ for num in range(0,len(prepid)):
                             chars_to_check = set('@#$%^&*()+-[]{}\ ')
                             chars_to_check_warning = set('.')
                             if any((chars in chars_to_check) for chars in reweights):
-                                errors.append("Please remove problematic characters (at least one of @#$%^&*()+-[]{}.\) from rwgt_names. See https://github.com/cms-sw/genproductions/blob/master/bin/MadGraph5_aMCatNLO/gridpack_generation.sh#L102. This causes the header in mg5 to be corrupted and nano-aod will not work.") 
+                                errors.append("Please remove problematic characters (at least one of @#$%^&*()+-[]{} or 'space') from rwgt_names. See https://github.com/cms-sw/genproductions/blob/d90d07744601da677eff41a17c4398bb2309f0f5/bin/MadGraph5_aMCatNLO/gridpack_generation.sh#L116. This causes the header in mg5 to be corrupted and nano-aod will not work.") 
                             if any((chars in chars_to_check_warning) for chars in reweights):
                                 warnings.append('The existence of a "." in reweight_card will result in the name of the weight not to be shown in the header. Please make sure if this is a problem for your analysis, if not, please remove the dot')
                 if mg_gp is True:
@@ -1078,7 +1154,7 @@ for num in range(0,len(prepid)):
                         ps_hw = os.popen('grep parton_shower '+filename_mggpc).read()
                         if ("HERWIGPP" not in ps_hw.upper()) or ("HERWIG7" not in ps_hw.upper() and herwig7_bypass_error == 1):
                             errors.append("HERWIGPP or HERWIG7 = parton_shower not in run_card.dat")
-                        if int(os.popen('grep -c "set FxFxHandler:MergeMode FxFx" '+pi).read()) == 0:
+                        if int(os.popen('grep -c "set FxFxHandler:MergeMode FxFx" '+pi_file).read()) == 0:
                             errors.append("Please add \'set FxFxHandler:MergeMode FxFx\' and set FxFxHandler:njetsmax to the number of additional partons in the proc_card")
                     if alt_ickkw_c == 2 and herwig_flag != 0:
                         if int(os.popen('grep -c herwig7CommonMergingSettingsBlock').read()) == 0:
@@ -1129,9 +1205,9 @@ for num in range(0,len(prepid)):
                 word = "PowhegEmissionVeto"
             else:
                 word = "aMCatNLO"
-            check.append(int(os.popen('grep -c pythia8'+word+'Settings '+pi).read()))
-            check.append(int(os.popen('grep -c "from Configuration.Generator.Pythia8'+word+'Settings_cfi import *" '+pi).read()))
-            check.append(int(os.popen('grep -c "pythia8'+word+'SettingsBlock," '+pi).read()))
+            check.append(int(os.popen('grep -c pythia8'+word+'Settings '+pi_file).read()))
+            check.append(int(os.popen('grep -c "from Configuration.Generator.Pythia8'+word+'Settings_cfi import *" '+pi_file).read()))
+            check.append(int(os.popen('grep -c "pythia8'+word+'SettingsBlock," '+pi_file).read()))
             if check[2] == 1: mcatnlo_flag = 1
         if pw_gp is True:
             split_dp_gpf = 'del'
@@ -1165,9 +1241,11 @@ for num in range(0,len(prepid)):
                     content = f.read()
                     errors.extend(check_replace(runcmsgrid_file))
                     match = re.search(r"""process=(["']?)([^"']*)\1""", content)
+                    print(match.group(0))
                     warning1,error1 = xml_check_and_patch(f,content,gridpack_eos_path,my_path,pi)
                     warnings.extend(warning1)
                     errors.extend(error1)
+                    
                     f.close()
             else:
                 errors.append(my_path+'/'+pi+'/'+'runcmsgrid.sh does not exists')
@@ -1212,6 +1290,18 @@ for num in range(0,len(prepid)):
                             if "minnlo" in line and "modlog_p" not in line:
                                 minnlo = int(re.split(r'\s+', line)[1])
                                 print("MINNLO = "+str(minnlo))
+            if os.path.isfile(my_path+'/'+pi+'/'+'external_tarball/pwg-stst.dat') is True:
+                pwg_stat_file = os.path.join(my_path, pi, "external_tarball/pwg-stat.dat")
+            else:
+                pwg_stat_file = os.path.join(my_path, pi, "pwg-stat.dat")
+            if os.path.isfile(pwg_stat_file):
+                with open(pwg_stat_file) as f_pwg_stat: 
+                    s_pwg_stat = f_pwg_stat.read()
+                    print("-----------------------------------------------------------------")
+                    print("Summary from pwg-stat.dat from Powheg firdpack (for experts only):")
+                    print("-----------------------------------------------------------------")
+                    print(s_pwg_stat)
+                    print("-----------------------------------------------------------------")
             if os.path.isfile(my_path+'/'+pi+'/'+'external_tarball/pwg-rwl.dat') is True:
                 pwg_rwl_file = os.path.join(my_path, pi, "external_tarball/pwg-rwl.dat")
             else:
@@ -1229,7 +1319,7 @@ for num in range(0,len(prepid)):
                         if str(pw_pdf+1) in line: pdf_var_check1 += 1
                     if not (scale_var_check0 == 1 and scale_var_check1 == 9):
                         warnings.append("There may be a problem with scale variations. Please check pwg-rwl.dat")
-                    if not (pdf_var_check0 > 0 and pdf_var_check1 >= 1):
+                    if not (pdf_var_check0 > 0 and pdf_var_check1 >= 1) and 'bbllnunu' not in dn.lower():
                         errors.append("There may be a problem with PDF variations. Please check pwg-rwl.dat")
             if bornonly == 1:
                 bornonly_frag_check = 0
@@ -1239,7 +1329,7 @@ for num in range(0,len(prepid)):
                 if bornonly_frag_check != 0:
                     errors.append("bornonly = 1 and (Pythia8PowhegEmissionVetoSettings or SpaceShower:pTmaxMatch or  TimeShower:pTmaxMatch)")
                 else:
-                    warnings.append("bornonly = ",bornonly)
+                    warnings.append("bornonly = "+str(bornonly))
             if match:
                 process = match.group(2)
                 if process == "gg_H_quark-mass-effects":
@@ -1284,15 +1374,23 @@ for num in range(0,len(prepid)):
 
         if mg_gp is True or amcnlo_gp is True:
             if gp_size == 0: break
+            bbmark = 0
             filename_pc = my_path+'/'+pi+'/'+'process/madevent/Cards/proc_card_mg5.dat'
             fname_p2 = my_path+'/'+pi+'/'+'process/Cards/proc_card.dat'
             fname_p3 = my_path+'/'+pi+'/'+'process/Cards/proc_card_mg5.dat'
             if os.path.isfile(fname_p2) is True : filename_pc = fname_p2
             if os.path.isfile(fname_p3) is True : filename_pc = fname_p3
             if os.path.isfile(filename_pc) is True :
+                print("---------Full process card--------------------------")
+                proccardfile = open(filename_pc)
+                for linepc in proccardfile.readlines():
+                    if (linepc.startswith("#")) is False:
+                        print(linepc.strip("\n"))
+                print("------End of full process card----------------------\n")
                 mg_nlo = int(os.popen('grep -c "\[QCD\]" '+filename_pc).read())
                 loop_flag = int(os.popen('more '+filename_pc+' | grep -c "noborn=QCD"').read())
                 gen_line = os.popen('grep generate '+filename_pc).read()
+                bbmark = int(os.popen('grep -c "define bb = b b~" '+filename_pc).read())
                 print("Process lines from the proc card:")
                 print(gen_line)
                 proc_line = os.popen('grep process '+filename_pc+' | grep -v set').read()
@@ -1302,7 +1400,9 @@ for num in range(0,len(prepid)):
                 if (gen_line.count('@') > 0 and gen_line.count('@') <= proc_line.count('@')) or (proc_line.count('add') > 0):
                     proc_line = proc_line.split('add process')
                     print(proc_line)
+                    bmark = 0
                     for y in range(0,len(proc_line)):
+                        if "define bb = b b~" in proc_line[y]: bmark = 1  
                         if proc_line[y].startswith("set"): continue
                         zz = proc_line[y] 
                         if "," in proc_line[y]: zz = proc_line[y].split(',')[0]
@@ -1310,6 +1410,7 @@ for num in range(0,len(prepid)):
                         nbtomatch = zz.count('b') if maxjetflavor > 4 else 0
                         nc = zz.count('c') if "chi" not in zz else 0
                         if "excl" in zz and nc != 0: nc = nc -1
+                        if bbmark == 1 and nbtomatch > 1: nbtomatch = nbtomatch - 1
                         jet_count_tmp.append(zz.count('j') + nbtomatch + nc)
                     jet_count = max(jet_count_tmp)
                 else:
@@ -1351,8 +1452,12 @@ for num in range(0,len(prepid)):
                 mgversion = mgversion_tmp.split()
                 mgversion = mgversion[2].split(".")
                 mgversion_tmp = mgversion_tmp.split("\n")
-                mg5_aMC_version = int(mgversion[0])*100 + int(mgversion[1])*10 + int(mgversion[2])
-                print("The gridpack is made with mg5_aMC version:"+str(mg5_aMC_version))
+                print("The gridpack is made with mg5_aMC version:"+str(mgversion_tmp[0]))   
+                if str(mgversion_tmp[0]).strip("version =") not in gridpack_cvmfs_path:
+                    warnings.append("Gridpack may not be in a correct madgraph version-folder in cvmfs:"+gridpack_cvmfs_path+" while madgraph "+str(mgversion_tmp[0]))
+                else:
+                    print("Gridpack in correct madgraph version-folder in cvmfs:"+gridpack_cvmfs_path)    
+                mg5_aMC_version = float(mgversion[0])*100/float(pow(10,len(str(int(mgversion[0])))-1)) + float(mgversion[1])*10/float(pow(10,len(str(int(mgversion[1])))-1)) + float(mgversion[2])/float(pow(10,len(str(int(mgversion[2])))-1))
                 if "UL" in pi and mg5_aMC_version < 261:
                     if "PPD" in pi:
                         warnings.append("You're using MG5_aMC "+str(mg5_aMC_version)+" in an Ultra Legacy Campaign. You should use MG5_aMCv2.6.1+")
@@ -1434,7 +1539,7 @@ for num in range(0,len(prepid)):
                 if match_eff == 1:
                     warnings.append("Matched sample but matching efficiency is 1!")
 
-            if (pw_gp or mg_gp) and mg_nlo != 1:
+            if (pw_gp or mg_gp) and mg_nlo != 1 and mcatnlo_flag != 1:
                 MGpatch.append(int(os.popen('more '+my_path+'/'+pi+'/'+'runcmsgrid.sh | grep -c "FORCE IT TO"').read()))
                 MGpatch.append(int(os.popen('grep -c _CONDOR_SCRATCH_DIR '+my_path+'/'+pi+'/'+'mgbasedir/Template/LO/SubProcesses/refine.sh').read()))
                 MGpatch.append(int(os.popen('grep -c _CONDOR_SCRATCH_DIR '+my_path+'/'+pi+'/'+'process/madevent/SubProcesses/refine.sh').read()))
@@ -1480,7 +1585,7 @@ for num in range(0,len(prepid)):
                     if MGpatch2[1] == 1: print("[OK] MG5_aMC@NLO LO nthreads patch OK in EOS")
                     if MGpatch2[0] == 1: print("[OK] MG5_aMC@NLO LO nthreads patch OK in CVMFS")
                     if MGpatch2[0] == 0 and MGpatch2[1] == 1: print("[OK] MG5_aMC@NLO LO nthreads patch not made in CVMFS but done in EOS waiting for CVMFS-EOS synch")
-                    if MGpatch2[1] == 0:
+                    if MGpatch2[1] == 0 and args.local is False:
                         errors.append("MG5_aMC@NLO LO nthreads patch not made in EOS")
                         if args.apply_many_threads_patch:
                             print("Patching for nthreads problem... please be patient.")
@@ -1502,12 +1607,13 @@ for num in range(0,len(prepid)):
                 errors.append("You run MG5_aMC@NLO at LO but you have  Pythia8aMCatNLOSettings_cfi in fragment")
 
         if mg_gp is True or amcnlo_gp is True:
-            powhegcheck.append(int(os.popen('grep -c -i PowhegEmission '+pi).read()))
-            if powhegcheck[0] > 0 and pw_mg == 0:
+            input_cards_madspin_card = 0
+            powhegcheck.append(int(os.popen('grep -c -i PowhegEmission '+pi_file).read()))
+            if powhegcheck[0] > 0 and pw_mg == 0 and pw_external_gp is False:
                 errors.append("Please remove POWHEG settings for MG requests.")
         if pw_mg is False and mg_gp is False and amcnlo_gp is False and jhu_gp is False and sherpa_gp is False:
-             purepythiacheck.append(int(os.popen('grep -c -i Pythia8aMCatNLOSettings '+pi).read()))
-             purepythiacheck.append(int(os.popen('grep -c -i PowhegEmission '+pi).read()))
+             purepythiacheck.append(int(os.popen('grep -c -i Pythia8aMCatNLOSettings '+pi_file).read()))
+             purepythiacheck.append(int(os.popen('grep -c -i PowhegEmission '+pi_file).read()))
              if purepythiacheck[0] > 0 or purepythiacheck[1] >0 :
                  warnings.append("Please remove aMCatNLO or POWHEG settings if this is a pure Pythia request. If it's not a pure request, in the future, please include madgraph/powheg or amcatnlo in the name of the dataset")
         if loop_flag == 1:
@@ -1516,14 +1622,14 @@ for num in range(0,len(prepid)):
             if nPartonsInBorn_flag == 1:
                 errors.append("You are using a loop induced process, [noborn=QCD]. Please remove all TimeShower:nPartonsInBorn from the fragment")
         for kk in range (0, 8):
-            tunecheck.append(int(os.popen('grep -v "#" '+pi+' | grep -v "annotation" | grep -v "name" | grep -c -i '+tune[kk]).read()))
+            tunecheck.append(int(os.popen('grep -v "#" '+pi_file+' | grep -v "annotation" | grep -v "name" | grep -c -i '+tune[kk]).read()))
         if tunecheck[6] == 3 or tunecheck[7] == 3:
             if tunecheck[0] != 3:
                 warnings.append("Check if there is some extra tune setting")
         if 'sherpa' in dn.lower():
             warnings.append("No automated check of Sherpa ps/tune parameters yet")
         if 3 not in tunecheck and herwig_flag == 0 and sherpa_flag == 0:
-            with open(pi) as f:
+            with open(pi_file) as f:
                 tot = f.read()
                 n_ext_par += tot.count('MultipartonInteractions')
                 n_ext_par += tot.count('ColourReconnection')
@@ -1537,23 +1643,23 @@ for num in range(0,len(prepid)):
             else:
                 warnings.append("None standard tune - please check the fragment carefully.")
         if fsize != 0 and herwig_flag == 0 and sherpa_flag == 0:
-            if int(os.popen('grep -c "from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *" '+pi).read()) != 1:
+            if int(os.popen('grep -c "from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *" '+pi_file).read()) != 1:
                 warnings.append("No parton shower weights configuration in the fragment. Since the Fall18 campaign, we recommend to include Parton Shower weights")
             else:
                 if (int(str(cmssw_version)[:1]) == 9 and cmssw_version < 93019) or (int(str(cmssw_version)[:1]) > 9 and cmssw_version < 102030) or (int(str(cmssw_version)[:1]) == 7 and cmssw_version < 71047):
                     errors.append("PS weights in config but CMSSW version is < 10_2_3 for CMSSW version >= 10_X_X or is < 9_3_10 for CMSSW version <= 9_X_X - please check!")
-                psweightscheck.append(int(os.popen('grep -c "from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *" '+pi).read()))
-                psweightscheck.append(int(os.popen('grep -c "pythia8PSweightsSettingsBlock," '+pi).read()))
-                psweightscheck.append(int(os.popen('grep -c "pythia8PSweightsSettings" '+pi).read()))
+                psweightscheck.append(int(os.popen('grep -c "from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *" '+pi_file).read()))
+                psweightscheck.append(int(os.popen('grep -c "pythia8PSweightsSettingsBlock," '+pi_file).read()))
+                psweightscheck.append(int(os.popen('grep -c "pythia8PSweightsSettings" '+pi_file).read()))
                 if not (psweightscheck[0] == 1 and psweightscheck[1] == 1 and psweightscheck[2] == 2):
                     errors.append("Parton shower weight configuration not OK in the fragment")
         if evtgen_flag == 1 and fsize != 0:
             w_tmp, err_tmp = evtgen_check(data_f1)
             warnings.extend(w_tmp)
             errors.extend(err_tmp)               
-        if evtgen_flag == 0 and fsize != 0 and int(os.popen('grep -c -i EvtGen '+pi).read()) != 0:
+        if evtgen_flag == 0 and fsize != 0 and int(os.popen('grep -c -i EvtGen '+pi_file).read()) != 0:
             errors.append("EvtGen settings within fragment but no evtgen flag at dataset name")
-        if int(os.popen('grep -c -i filter '+pi).read()) > 3 and filter_eff == 1:
+        if int(os.popen('grep -c -i filter '+pi_file).read()) > 3 and filter_eff == 1:
             warnings.append("Filters in the fragment but filter efficiency = 1")
         if "Run3" in pi and "PbPb" not in pi and "Run3Summer21" not in pi:
             err_tmp = run3_checks(data_f1,dn,pi)
@@ -1561,6 +1667,9 @@ for num in range(0,len(prepid)):
         if args.develop is False:
             os.popen("rm -rf "+my_path+pi).read()
             os.popen("rm -rf "+my_path+'eos/'+pi).read()
+        if (args.develop is True) and (args.local is True):
+            os.popen("rm -rf "+my_path+pi).read()
+            os.popen("rm -rf "+my_path+'eos/'+pi).read()    
         print("***********************************************************************************")
         print("Number of warnings = "+ str(len(warnings)))
         if len(warnings) > 0:

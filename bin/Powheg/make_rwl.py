@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 '''
 Script for POWHEG weighting calculation
@@ -11,22 +11,21 @@ import os
 if len(sys.argv) < 3:
     print("""
 ERROR: Please specify if the Flavor scheme for which you want to define the weights is 5F (1) or 4F (0), and the central PDF
-Example of usage for 5F:  python make_rwl.py 1 325300
-Example of usage for 4F:  python make_rwl.py 0 325500
+Example of usage for 5F:  python3 make_rwl.py 1 325300
+Example of usage for 4F:  python3 make_rwl.py 0 325500
 """)
     sys.exit(1)
 
 is5FlavorScheme = str(sys.argv[1])
 CentralPDF = str(sys.argv[2])
 # ToDo: clean forMiNNLO,forX0jj up and define specific set of PDF which is called per process or via external argument (e.g. Run2UL)
-# switch for time being to "Run2UL if you need UL style PDF set 
-Period="Run3" # "Run2UL"
 forMiNNLO = bool(int(sys.argv[3])) if len(sys.argv) > 3 else False
 forX0jj = bool(int(sys.argv[4])) if len(sys.argv) > 4 else False
-process = str(sys.argv[5]) if len(sys.argv) > 5 else ''
+Period = str(sys.argv[5]) if len(sys.argv) > 5 else "Run3"
+forWWJ = bool(int(sys.argv[6])) if len(sys.argv) > 6 else False
 
 
-if forMiNNLO:
+if forMiNNLO and not forWWJ:
   CentralPDF=306000
 
 # is5FlavorScheme = True
@@ -58,7 +57,7 @@ for m_rensc in m_factor :
 		  
 fout.write("</weightgroup>\n")
 
-if forMiNNLO:
+if forMiNNLO and not forWWJ:
   # additional MiNNLO scale variations (NNPDF 3.0)
   fout.write("<weightgroup name='scale_variation_nnpdf30' combine='envelope' >\n")
 
@@ -117,8 +116,39 @@ if forMiNNLO:
               [13050, 61230, 'HERAPDF20_NNLO_VAR', 14],
               [13100, 61746, 'HERAPDF20_NNLO_ALPHAS_116', 1],
               [13200, 61750, 'HERAPDF20_NNLO_ALPHAS_120', 1],
+              [29100, 29100, 'MSHT20an3lo_as118', 105],
+              [29400, 29400, 'MSHT20an3lo_as_smallrange', 7],
             ],
           }
+
+elif forWWJ:
+  print("WWJ: Going to use only Run 3 4FS central PDFs for generation speed")
+  # 4F PDF    
+  pdf_sets = {
+      # weight id, LHAPDF id, name, replicas to be written
+      "PDF_variation1 , hessian" :
+      [
+          [2000, 325500, 'NNPDF31_nnlo_as_0118_nf_4_mc_hessian', 101],
+          [2200, 320500, 'NNPDF31_nlo_as_0118_nf_4', 1],
+          [2500, 292000, 'NNPDF30_nlo_nf_4_pdfas', 1],
+          [2600, 335700, 'NNPDF40_nlo_nf_4_pdfas', 1],
+          [4000, 13091, 'CT14nnlo_NF4', 1],
+          [4001, 13191, 'CT14nlo_NF4', 1],
+          [5000, 27810, 'MSHT20nnlo_nf4', 1],
+          [5100, 27870, 'MSHT20nnlo_as_smallrange_nf4', 1],
+          [5200, 27610, 'MSHT20nlo_nf4', 1],
+          [6000, 93700, 'PDF4LHC21_40_pdfas_nf4', 1],
+          [7000, 42530, 'ABMP16_4_nnlo', 1],
+          [7100, 42930, 'ABMP16_4_nlo', 1],
+      ],
+      "PDF_variation2 , replica" :
+      [
+          [3000, 320900, 'NNPDF31_nnlo_as_0118_nf_4', 1],
+          [3200, 292400, 'NNPDF30_nnlo_nf_4_pdfas', 1],                
+          [3400, 335500, 'NNPDF40_nnlo_nf_4_pdfas', 1],                
+      ],
+  }
+
 elif forX0jj:
   # 5F PDF
   print("X0jj: PDF variations will be reduced for generation speed")
@@ -303,6 +333,82 @@ elif Period == "Run2UL":
                 [3200, 292400, 'NNPDF30_nnlo_nf_4_pdfas' ,1],
             ],
     }
+### sets for Run3 Heavy Ions
+elif Period == "Run3_Pb":
+    if int(is5FlavorScheme) == 1:
+        print("Going to use Run 3 5FS Pb nuclear PDFs")
+        # 5F (n)PDF
+        pdf_sets = {
+            # weight id, LHAPDF id, name, replicas to be written
+            "PDF_variation1 , hessian" :
+            [
+                # Proton PDFs
+                [2000, 325300, 'NNPDF31_nnlo_as_0118_mc_hessian_pdfas', 1],
+                [2200, 306000, 'NNPDF31_nnlo_hessian_pdfas', 1],
+                [2201, 322500, 'NNPDF31_nnlo_as_0108', 1],
+                [2202, 322700, 'NNPDF31_nnlo_as_0110', 1],
+                [2203, 322900, 'NNPDF31_nnlo_as_0112', 1],
+                [2204, 323100, 'NNPDF31_nnlo_as_0114', 1],
+                [2205, 323300, 'NNPDF31_nnlo_as_0117', 1],
+                [2206, 323500, 'NNPDF31_nnlo_as_0119', 1],
+                [2207, 323700, 'NNPDF31_nnlo_as_0122', 1],
+                [2208, 323900, 'NNPDF31_nnlo_as_0124', 1],
+                [2300, 305800, 'NNPDF31_nlo_hessian_pdfas', 1],
+                [2500, 303200, 'NNPDF30_nnlo_as_0118_hessian', 1],
+                [2501, 292200, 'NNPDF30_nlo_nf_5_pdfas', 1],
+                [2600, 331600, 'NNPDF40_nnlo_hessian_pdfas', 1],
+                [2700, 332700, 'NNPDF40_nnlo_as_01160', 1],
+                [2701, 332900, 'NNPDF40_nnlo_as_01170', 1],
+                [2702, 333100, 'NNPDF40_nnlo_as_01175', 1],
+                [2703, 333300, 'NNPDF40_nnlo_as_01185', 1],
+                [2704, 333500, 'NNPDF40_nnlo_as_01190', 1],
+                [2705, 333700, 'NNPDF40_nnlo_as_01200', 1],
+                [2800, 332300, 'NNPDF40_nlo_pch_as_01180', 1],
+                [4000, 14000, 'CT18NNLO', 1],
+                [4100, 14066, 'CT18NNLO_as_0116', 1],
+                [4101, 14067, 'CT18NNLO_as_0117', 1],
+                [4102, 14069, 'CT18NNLO_as_0119', 1],
+                [4103, 14070, 'CT18NNLO_as_0120', 1],
+                [4200, 14100, 'CT18ZNNLO', 1],
+                [4300, 14200, 'CT18ANNLO', 1],
+                [4301, 14300, 'CT18XNNLO', 1],
+                [5000, 27400, 'MSHT20nnlo_as118', 1],
+                [5100, 27500, 'MSHT20nnlo_as_smallrange', 1],
+                [5101, 27550, 'MSHT20nnlo_as_largerange', 1],
+                [6000, 93300, 'PDF4LHC21_40_pdfas', 1],
+                [7000, 61200, 'HERAPDF20_NNLO_EIG', 1],
+                [8000, 42780, 'ABMP16als118_5_nnlo', 1],
+                # Reference proton PDF of EPPS21nlo nuclear PDF
+                [4400, 14600, 'CT18ANLO', 59],
+                [4500, 14666, 'CT18ANLO_as_0116', 1],
+                [4501, 14667, 'CT18ANLO_as_0117', 1],
+                [4502, 14669, 'CT18ANLO_as_0119', 1],
+                [4503, 14670, 'CT18ANLO_as_0120', 1],
+                # Pb208 nuclear PDFs
+                [9000, 904400, 'EPPS21nlo_CT18Anlo_Pb208', 107],
+                [9150, 901300, 'EPPS16nlo_CT14nlo_Pb208', 1],
+                [9200, 3211600, 'TUJU21_nlo_208_82', 59],
+                [9300, 3216600, 'TUJU21_nnlo_208_82', 59],
+            ],
+            "PDF_variation2 , replica" :
+            [
+                # Proton PDFs
+                [3000, 316200, 'NNPDF31_nnlo_as_0118_mc', 1],
+                [3200, 331300, 'NNPDF40_nnlo_pdfas', 1],
+                [3400, 332100, 'NNPDF40_nnlo_pch_as_01180', 1],
+                # Pb208 nuclear PDFs
+                [9400, 30025400, 'nNNPDF30_nlo_as_0118_A208_Z82', 201],
+            ],
+            # Require latest LHAPDF nCTEQ15 PDF sets
+            #"PDF_variation3 , symmhessian" :
+            #[
+                # Pb208 nuclear PDFs
+                #[9700, 117150, 'nCTEQ15WZSIH_208_82', 39],
+                #[9800, 119150, 'nCTEQ15WZSIH_FullNuc_208_82', 39],
+            #],
+        }
+    else:
+        raise Exception("ERROR[make_rwl.py]: There are no 4FS nuclear PDFs!")
 # no idea what to do 
 else:
     print("Unclear which PDF to use. Please check make_rwl.py")
