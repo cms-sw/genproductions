@@ -2,4 +2,4 @@ import model SM_VLQs_LO
 
 generate p p > tp tp~, tp > ta+ ta- t, tp~ > ta+ ta- t~
 
-output PairVLQ_t23t23_toptautau_LO_narrow_M400
+output PairVLQ_t23t23_toptautau_LO_narrow_MXi2000_MT400
