@@ -1,0 +1,1 @@
+../SubProcesses/P1_qq_wpqq_wp_qq/maxamps.inc

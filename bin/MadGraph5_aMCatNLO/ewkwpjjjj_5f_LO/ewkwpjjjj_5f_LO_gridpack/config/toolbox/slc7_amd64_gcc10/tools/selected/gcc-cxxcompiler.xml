@@ -1,0 +1,43 @@
+  <tool name="gcc-cxxcompiler" version="10.3.0" type="compiler">
+    <client>
+      <environment name="GCC_CXXCOMPILER_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10"/>
+      <environment name="CXX" value="$GCC_CXXCOMPILER_BASE/bin/c++"/>
+    </client>
+    <flags CPPDEFINES="GNU_GCC _GNU_SOURCE    "/>
+    <flags CXXSHAREDOBJECTFLAGS="-fPIC    "/>
+    <flags CXXFLAGS="-O2 -pthread -pipe -Werror=main -Werror=pointer-arith"/>
+    <flags CXXFLAGS="-Werror=overlength-strings -Wno-vla -Werror=overflow   -std=c++1z -ftree-vectorize -Wstrict-overflow -Werror=array-bounds -Werror=format-contains-nul -Werror=type-limits -fvisibility-inlines-hidden -fno-math-errno --param vect-max-version-for-alias-checks=50 -Xassembler --compress-debug-sections -msse3"/>
+    <flags CXXFLAGS="-felide-constructors -fmessage-length=0"/>
+    <flags CXXFLAGS="-Wall -Wno-non-template-friend -Wno-long-long -Wreturn-type"/>
+    <flags CXXFLAGS="-Wextra -Wpessimizing-move -Wclass-memaccess"/>
+    <flags CXXFLAGS="-Wno-cast-function-type -Wno-unused-but-set-parameter -Wno-ignored-qualifiers -Wno-deprecated-copy -Wno-unused-parameter"/>
+    <flags CXXFLAGS="-Wunused -Wparentheses -Wno-deprecated -Werror=return-type"/>
+    <flags CXXFLAGS="-Werror=missing-braces -Werror=unused-value"/>
+    <flags CXXFLAGS="-Werror=unused-label"/>
+    <flags CXXFLAGS="-Werror=address -Werror=format -Werror=sign-compare"/>
+    <flags CXXFLAGS="-Werror=write-strings -Werror=delete-non-virtual-dtor"/>
+    <flags CXXFLAGS="-Werror=strict-aliasing"/>
+    <flags CXXFLAGS="-Werror=narrowing"/>
+    <flags CXXFLAGS="-Werror=unused-but-set-variable -Werror=reorder"/>
+    <flags CXXFLAGS="-Werror=unused-variable -Werror=conversion-null"/>
+    <flags CXXFLAGS="-Werror=return-local-addr -Wnon-virtual-dtor"/>
+    <flags CXXFLAGS="-Werror=switch -fdiagnostics-show-option"/>
+    <flags CXXFLAGS="-Wno-unused-local-typedefs -Wno-attributes -Wno-psabi"/>
+    <flags LDFLAGS="-Wl,-E -Wl,--hash-style=gnu   "/>
+    <flags CXXSHAREDFLAGS="-shared -Wl,-E   "/>
+    <flags LD_UNIT="-r -z muldefs   "/>
+    <runtime name="LD_LIBRARY_PATH" value="$GCC_CXXCOMPILER_BASE/lib64" type="path"/>
+    <runtime name="LD_LIBRARY_PATH" value="$GCC_CXXCOMPILER_BASE/lib" type="path"/>
+    <runtime name="SCRAM_CXX11_ABI" value="1"/>
+    <runtime name="PATH" value="$GCC_CXXCOMPILER_BASE/bin" type="path"/>
+    <ifrelease name="_ASAN">
+      <runtime name="GCC_RUNTIME_ASAN" value="$GCC_CXXCOMPILER_BASE/lib64/libasan.so" type="path"/>
+    <elif name="_LSAN"/>
+      <runtime name="GCC_RUNTIME_LSAN" value="$GCC_CXXCOMPILER_BASE/lib64/libasan.so" type="path"/>
+    <elif name="_UBSAN"/>
+      <runtime name="GCC_RUNTIME_UBSAN" value="$GCC_CXXCOMPILER_BASE/lib64/libubsan.so" type="path"/>
+    <elif name="_TSAN"/>
+      <runtime name="GCC_RUNTIME_TSAN" value="$GCC_CXXCOMPILER_BASE/lib64/libtsan.so" type="path"/>
+    </ifrelease>
+    <runtime name="COMPILER_PATH"    value="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10"/>
+  </tool>

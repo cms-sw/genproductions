@@ -1,0 +1,6 @@
+<tool name="py3-notebook" version="6.4.10-19d3e21a63249e8bf55bcc6637cf6e63">
+  <client>
+    <environment name="PY3_NOTEBOOK_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-notebook/6.4.10-19d3e21a63249e8bf55bcc6637cf6e63"/>
+  </client>
+  <runtime name="PATH" value="$PY3_NOTEBOOK_BASE/bin" type="path"/>
+</tool>

@@ -1,0 +1,13 @@
+  <tool name="llvm" version="12.0.1-dd4c586a5bebc335346bb0e879f6f0aa">
+    <lib name="clang"/>
+    <client>
+      <environment name="LLVM_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/llvm/12.0.1-dd4c586a5bebc335346bb0e879f6f0aa"/>
+      <environment name="LIBDIR" default="$LLVM_BASE/lib64"/>
+      <environment name="INCLUDE" default="$LLVM_BASE/include"/>
+    </client>
+    <flags LDFLAGS="-Wl,-undefined -Wl,suppress"/>
+    <flags CXXFLAGS="-D_DEBUG -D_GNU_SOURCE -D__STDC_CONSTANT_MACROS"/>
+    <flags CXXFLAGS="-D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -O3 "/>
+    <flags CXXFLAGS="-fomit-frame-pointer -fPIC -Wno-enum-compare "/>
+    <flags CXXFLAGS="-Wno-strict-aliasing -fno-rtti"/>
+  </tool>

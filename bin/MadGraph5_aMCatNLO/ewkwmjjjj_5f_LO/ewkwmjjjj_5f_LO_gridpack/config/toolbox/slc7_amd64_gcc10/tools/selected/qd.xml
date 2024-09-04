@@ -1,0 +1,9 @@
+<tool name="qd" version="2.3.13-8f6f1bb4da96a4cf4b4bf7f79cfac225">
+  <lib name="qdmod"/>
+  <lib name="qd"/>
+  <client>
+    <environment name="QD_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/qd/2.3.13-8f6f1bb4da96a4cf4b4bf7f79cfac225"/>
+    <environment name="LIBDIR" default="$QD_BASE/lib"/>
+    <environment name="INCLUDE" default="$QD_BASE/include"/>
+  </client>
+</tool>

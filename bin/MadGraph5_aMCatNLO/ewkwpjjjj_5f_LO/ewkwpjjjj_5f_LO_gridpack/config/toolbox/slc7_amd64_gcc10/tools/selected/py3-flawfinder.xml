@@ -1,0 +1,6 @@
+<tool name="py3-flawfinder" version="2.0.19-2eeafa6d73a41862892c89cf63fae246">
+  <client>
+    <environment name="PY3_FLAWFINDER_BASE" default="/cvmfs/cms.cern.ch/slc7_amd64_gcc10/external/py3-flawfinder/2.0.19-2eeafa6d73a41862892c89cf63fae246"/>
+  </client>
+  <runtime name="PATH" value="$PY3_FLAWFINDER_BASE/bin" type="path"/>
+</tool>

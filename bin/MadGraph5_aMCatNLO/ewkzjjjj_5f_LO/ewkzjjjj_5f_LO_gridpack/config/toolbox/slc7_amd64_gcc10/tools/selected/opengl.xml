@@ -1,0 +1,5 @@
+  <tool name="opengl" version="system">
+    <lib name="GL"/>
+    <lib name="GLU"/>
+    <use name="x11"/>
+  </tool>
