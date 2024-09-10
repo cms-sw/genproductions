@@ -1,0 +1,26 @@
+set param_card mass 6 172.5
+set param_card mass 25 125.0
+set param_card yukawa 6 172.5
+set param_card mass 15 1.777
+set param_card FS0 0.000000e+00
+set param_card FS1 0.000000e+00
+set param_card FS2 0.000000e+00
+set param_card FM0 0.000000e+00
+set param_card FM1 0.000000e+00
+set param_card FM2 0.000000e+00
+set param_card FM3 0.000000e+00
+set param_card FM4 0.000000e+00
+set param_card FM5 0.000000e+00
+set param_card FM6 0.000000e+00
+set param_card FM7 0.000000e+00
+set param_card FT0 0.000000e+00
+set param_card FT1 0.000000e+00
+set param_card FT2 0.000000e+00
+set param_card FT3 0.000000e+00
+set param_card FT4 0.000000e+00
+set param_card FT5 0.000000e+00
+set param_card FT6 1.000000e-12
+set param_card FT7 0.000000e+00
+set param_card FT8 0.000000e+00
+set param_card FT9 0.000000e+00
+
