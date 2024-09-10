@@ -210,7 +210,8 @@ def concurrency_check(fragment,pi,cmssw_version,mg_gp):
                 print("For MG5_aMC requests, currently the concurrent mode for LHE production is not supported due to heavy I/O.")
             # for other cases, it is either concurrent generation parameters are missing or wrong        
             else:
-                error_conc.append("Concurrent generation parameters missing or wrong. Please see https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookGenMultithread")
+                if "CloseByParticleGun" not in dn:		    
+                    error_conc.append("Concurrent generation parameters missing or wrong. Please see https://twiki.cern.ch/twiki/bin/view/CMSPublic/WorkBookGenMultithread")
                     
     else:
         if "concurrent" in fragment.lower():
