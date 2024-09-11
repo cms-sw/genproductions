@@ -25,7 +25,7 @@
 # Warning: Do not generate more than 1M events in a single run       *
 # If you want to run Pythia, avoid more than 50k events in a run.    *
 #*********************************************************************
-  100 = nevents ! Number of unweighted events requested
+  5000 = nevents ! Number of unweighted events requested
   0   = iseed   ! rnd seed (0=assigned automatically=default))
 #*********************************************************************
 # Collider type and energy                                           *
@@ -44,8 +44,11 @@
 #*********************************************************************
 # PDF CHOICE: this automatically fixes also alpha_s and its evol.    *
 #*********************************************************************
-     lhapdf    = pdlabel     ! PDF set
-     325300    = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number
+    # lhapdf    = pdlabel   ! PDF set
+    # 305800    = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number
+    lhapdf = pdlabel              ! PDF set
+    $DEFAULT_PDF_SETS = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number
+    $DEFAULT_PDF_MEMBERS  = reweight_PDF
 #*********************************************************************
 # Renormalization and factorization scales                           *
 #*********************************************************************

@@ -32,7 +32,7 @@ set_run_card_pdf () {
             '\$DEFAULT_PDF_MEMBERS = reweight_PDF'
         
 EOF
-	echo "copying run_card.dat file"
+        echo "copying run_card.dat file"
         cp $CARDSDIR/${name}_run_card.dat ./Cards/run_card.dat
    fi
 }

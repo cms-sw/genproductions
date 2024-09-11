@@ -12,10 +12,10 @@ ggProcess=False
 # def production():
 #     print ("entered")
 if bbProcess:
-    cardsPath = 'cards/bbProduction/'
+    cardsPath = 'bbProduction/'
     prefix    = '2HDMa_bb_sinp_theta_tanb_beta_mXd_10_MH3_YY_MH4_XX_MH2_YY_MHC_YY'
 elif ggProcess:
-    cardsPath = 'cards/ggProduction/'
+    cardsPath = 'ggProduction/'
     prefix    = '2HDMa_gg_sinp_theta_tanb_beta_mXd_10_MH3_YY_MH4_XX_MH2_YY_MHC_YY'
 else:
     print ("Please provide corect production")
