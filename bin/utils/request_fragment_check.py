@@ -1,5 +1,6 @@
 #!/bin/env python3
 import os
+import warnings
 import sys
 import re
 import argparse
@@ -11,9 +12,6 @@ import glob
 import json
 import ast
 from datetime import datetime
-#
-#sys.path.append('/afs/cern.ch/cms/PPD/PdmV/tools/McM-QA/')
-#from rest import McM
 from json import dumps
 
 parser = argparse.ArgumentParser(
@@ -56,8 +54,31 @@ if args.develop is False:
 	
 # Use no-id as identification mode in order not to use a SSO cookie
 if args.local is False:
-    sys.path.append('/afs/cern.ch/cms/PPD/PdmV/tools/McM-QA/')
-    from rest import McM
+    try:
+        from rest import McM
+    except ModuleNotFoundError as e:
+        old_version_afs = '/afs/cern.ch/cms/PPD/PdmV/tools/McM'
+        try:
+            # INFO: Temporarily load the old version to avoid crashes with non-updated user code.
+            sys.path.append(old_version_afs)
+            from rest import McM
+
+            version_msg = (
+                "An old version of the McM module has been loaded from: %s. " 
+                "This is a temporal patch to avoid unforeseen import errors with user's code. "
+                "Install a recent version following the instructions available at "
+                "https://github.com/cms-PdmV/mcm_scripts for future executions."
+            ) % (old_version_afs)
+            warnings.warn(version_msg, DeprecationWarning)
+
+        except ModuleNotFoundError as e:
+            import_msg = (
+                "Install this module in your execution environment "
+                "by following the instructions available at: "
+                "https://github.com/cms-PdmV/mcm_scripts"
+            )
+            raise ModuleNotFoundError(import_msg) from e
+
     mcm = McM(id=None, dev=args.dev, debug=args.debug)
     mcm_link = mcm.server
 
@@ -77,15 +98,6 @@ def get_request(prepid):
 
     result = result.get('results', {})
     return result
-
-#def get_request(prepid):
-#    result = mcm._McM__get('public/restapi/requests/get/%s' % (prepid))
-#    if not result:
-#        return {}
-#
-#    result = result.get('results', {})
-#    return result
-
 
 def get_range_of_requests(query):
     result = mcm._McM__put('public/restapi/requests/listwithfile', data={'contents': query})
