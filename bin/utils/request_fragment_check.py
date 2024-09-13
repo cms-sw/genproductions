@@ -792,11 +792,13 @@ for num in range(0,len(prepid)):
             else:
                 warnings.append("scram_arch for Sherpa unidentifiable")
             sv_tmp = re.findall("sherpa/.*/",gridpack_cvmfs_path_tmp)[0].split("/")[1].split(".")
-            if "v" in sv_tmp[0].lower(): sv_tmp[0] = sv_tmp[0].replace("v","").replace("V","")
-            sherpa_version = int(sv_tmp[0])*1000 + int(sv_tmp[1])*100 + int(sv_tmp[2])
-            print ("Sherpa Version = ", sherpa_version)
+            sherpa_version = 0000
+            if "v" in sv_tmp[0].lower(): 
+                sv_tmp[0] = sv_tmp[0].replace("v","").replace("V","")
+                sherpa_version = int(sv_tmp[0])*1000 + int(sv_tmp[1])*100 + int(sv_tmp[2])
+                print ("Sherpa Version = ", sherpa_version)
             if sherpa_version < 2211:
-                warnings.append("Sherpa older than version 2.2.11")
+                warnings.append("Sherpa older than version 2.2.11 or not specified in gp name")
         if "openloops" in gridpack_cvmfs_path_tmp.lower():
             openloops_flag = True
             OL_list = os.popen('grep openloops '+pi_file).read().split("/")
