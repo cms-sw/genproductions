@@ -16,19 +16,21 @@ for smuon in "${list1[@]}"; do
             ($dm -eq 170 && $neu -ne 180) || \
             ($dm -eq 220 && $neu -ne 180) || \
             ($dm -eq 270 && $neu -ne 180)) ]]; then
-            filename_custom="RPV_PROD_smu${smuon}_neu${neu}_param_card.dat"
 
             # Copy the reference param_card to create the one of the new sample
-            cp ./RPV_PROD_smuXXX_neuYYY_param_card.dat ./RPV_PROD_smu${smuon}_neu${neu}_param_card.dat
+            # cp ./RPV_PROD_smuXXX_neuYYY_param_card.dat ./RPV_PROD_smu${smuon}_neu${neu}_param_card.dat
             cp ./RPV_PROD_smuXXX_neuYYY_run_card.dat ./RPV_PROD_smu${smuon}_neu${neu}_run_card.dat
             cp ./RPV_PROD_smuXXX_neuYYY_proc_card.dat ./RPV_PROD_smu${smuon}_neu${neu}_proc_card.dat
-            # cp ./RPV_PROD_smuXXX_neuYYY_customizecards.dat ./$filename_custom
+            cp ./RPV_PROD_smuXXX_neuYYY_customizecards.dat ./RPV_PROD_smu${smuon}_neu${neu}_customizecards.dat
             cp ./RPV_PROD_smuXXX_neuYYY_extramodels.dat ./RPV_PROD_smu${smuon}_neu${neu}_extramodels.dat
 
             # Edit the param_card.dat based on smuon and neutralino masses
 
-            sed -i "s/XXX/${smuon}/g" ./$filename_custom
-            sed -i "s/YYY/${neu}/g" ./$filename_custom
+            sed -i "s/XXX/${smuon}/g" ./RPV_PROD_smu${smuon}_neu${neu}_customizecards.dat
+            sed -i "s/YYY/${neu}/g" ./RPV_PROD_smu${smuon}_neu${neu}_customizecards.dat
+            
+            # sed -i "s/XXX/${smuon}/g" ./RPV_PROD_smu${smuon}_neu${neu}_param_card.dat
+            # sed -i "s/YYY/${neu}/g" ./RPV_PROD_smu${smuon}_neu${neu}_param_card.dat
 
             echo "Created and modified files for smuon mass $smuon and neutralino mass $neu"
         fi
