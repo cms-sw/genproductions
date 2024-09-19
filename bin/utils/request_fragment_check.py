@@ -381,6 +381,16 @@ def evtgen_check(fragment):
         warn.append("Are you sure you do not want the 2014 decay dec table?")
     return warn, err
 
+def two_col_read(file,spacing):
+    f = open(file,"r")
+    lines=f.readlines()
+    list1 = []
+    list2 = []
+    for x in lines:
+        list1.append(x.split(spacing)[0])
+        list2.append(x.split(spacing)[1])
+    return list1,list2
+
 def run3_checks(fragment,dn,pi):
     err = []
     fragment = fragment.replace(" ","")
@@ -414,6 +424,15 @@ def run3_run_card_check(filename_mggpc,pi):
     if "run3winter21" in pi.lower() and ("7000" not in beamenergy1 or "7000" not in beamenergy2):
         err.append("The beam energy is not specified as 7000 GeV in the run_card")
     return err 
+
+def run3_pdf_check(pi):
+    os.popen('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/MetaData/pdflist_4f_run3.dat -O pdflist_4f_run3.dat').read()
+    os.popen('wget -q https://raw.githubusercontent.com/cms-sw/genproductions//master/MetaData/pdflist_5f_run3.dat -O pdflist_5f_run3.dat').read()
+    os.popen('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/MetaData/npdflist_Pb_5f_run3.dat -O npdflist_Pb_5f_run3.dat').read()
+    pdflist_4f_run3_N,pdflist_4f_run3=two_col_read("pdflist_4f_run3.dat",' ')
+    pdflist_5f_run3_N,pdflist_5f_run3=two_col_read("pdflist_5f_run3.dat",' ')
+    pdflist_Pb_5f_run3_N,pdflist_Pb_5f_run3=two_col_read("npdflist_Pb_5f_run3.dat",' ')
+    return pdflist_4f_run3_N,pdflist_4f_run3,pdflist_5f_run3_N,pdflist_5f_run3,pdflist_Pb_5f_run3_N,pdflist_Pb_5f_run3
 
 def exception_for_ul_check(datatobereplaced,cross_section_fragment):
     new_data = datatobereplaced.replace(" ","")
@@ -1204,6 +1223,10 @@ for num in range(0,len(prepid)):
                     print("The PDF set used by JHUGEN is:"+ str(jhu_pdf))
                     if "UL" in pi and jhu_pdf not in UL_PDFs:
                         warnings.append("The gridpack uses PDF = "+str(jhu_pdf)+" but not the recommended sets for UL requests:     "+str(UL_PDFs_N[0])+" "+str(UL_PDFs[0])+"                               or "+str(UL_PDFs_N[1])+" "+str(UL_PDFs[1]))
+                    if "Run3" in pi:
+                        pdflist_4f_run3_N,pdflist_4f_run3,pdflist_5f_run3_N,pdflist_5f_run3,pdflist_Pb_5f_run3_N,pdflist_Pb_5f_run3=run3_pdf_check(pi)    
+                        if (jhu_pdf not in pdflist_4f_run3) and (jhu_pdf not in pdflist_5f_run3):
+                            warnings.append("The gridpack uses PDF = "+str(jhu_pdf)+" but not the recommended sets for Run3 requests:     "+str(pdflist_4f_run3)+str(pdflist_5f_run3))
             if os.path.isfile(jhufilename) is True and pw_gp is True:
                 with open(jhufilename) as f:
                     jhu_in = f.read()
@@ -1299,6 +1322,10 @@ for num in range(0,len(prepid)):
                                 print("Powheg PDF used is: "+str(pw_pdf))
                                 if "UL" in pi and pw_pdf not in UL_PDFs_N:
                                     warnings.append("The gridpack uses PDF="+str(pw_pdf)+" but not the recommended sets for UL requests:  "+str(UL_PDFs_N[0])+" "+str(UL_PDFs[0])+"   or "+str(UL_PDFs_N[1])+" "+str(UL_PDFs[1]))
+                                if "Run3" in pi:
+                                    pdflist_4f_run3_N,pdflist_4f_run3,pdflist_5f_run3_N,pdflist_5f_run3,pdflist_Pb_5f_run3_N,pdflist_Pb_5f_run3=run3_pdf_check(pi)    
+                                    if (pw_pdf not in pdflist_4f_run3_N) and (pw_pdf not in pdflist_5f_run3_N):
+                                        warnings.append("The gridpack uses PDF = "+str(pw_pdf)+" but not the recommended sets for Run3 requests:     "+str(pdflist_4f_run3_N)+str(pdflist_5f_run3_N))
                             if "minlo" in line and "modlog_p" not in line:
                                 minlo = int(re.split(r'\s+', line)[1])
                                 print("MINLO = "+str(minlo))
@@ -1461,6 +1488,10 @@ for num in range(0,len(prepid)):
                 print("The MG5_aMC PDF set is:"+str(mg_pdf))
                 if "UL" in pi and int(mg_pdf) != UL_PDFs_N[0] and int(mg_pdf) != UL_PDFs_N[1]:
                     warnings.append("The gridpack uses PDF="+str(mg_pdf)+" but not the recommended sets for UL requests:       "+str(UL_PDFs_N[0])+" "+str(UL_PDFs[0])+"     or "+str(UL_PDFs_N[1])+" "+str(UL_PDFs[1]))
+                if "Run3" in pi:
+                    pdflist_4f_run3_N,pdflist_4f_run3,pdflist_5f_run3_N,pdflist_5f_run3,pdflist_Pb_5f_run3_N,pdflist_Pb_5f_run3=run3_pdf_check(pi)    
+                    if (str(mg_pdf) not in pdflist_4f_run3_N) and (str(mg_pdf) not in pdflist_5f_run3_N):
+                        warnings.append("The gridpack uses PDF = "+str(mg_pdf)+" but not the recommended sets for Run3 requests:     "+str(pdflist_4f_run3)+str(pdflist_5f_run3))
             version_file = my_path+'/'+pi+'/'+'mgbasedir/VERSION'
             if os.path.isfile(version_file) is True:
                 mgversion_tmp = os.popen('grep version '+version_file).read()
