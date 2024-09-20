@@ -179,7 +179,7 @@ def concurrency_check(fragment,pi,cmssw_version,mg_gp):
             error_conc.append("Concurrent parameters used with generateConcurrently=cms.untracked.bool(False) in fragment.")
         if "generateConcurrently=cms.untracked.bool(True)" in fragment and mg_gp is True:
             error_conc.append("For MG5_aMC requests, currently the concurrent mode for LHE production is not supported due to heavy I/O. So, please set generateConcurrently = cms.untracked.bool(False) in ExternalLHEProducer.")
-        if "Pythia8ConcurrentHadronizerFilter" not in fragment and  mg_gp is True and "RandomizedParameters" not in fragment and "tauola" not in fragment.lower():
+        if "Pythia8ConcurrentHadronizerFilter" not in fragment and  mg_gp is False and "RandomizedParameters" not in fragment and "tauola" not in fragment.lower():
             error_conc.append("For MG5_aMC requests, the concurrent mode for GEN production should be turned on. Please convert Pythia8HadronizerFilter to Pythia8ConcurrentHadronizerFilter in the fragment")   
         if "ExternalLHEProducer" in fragment and "generateConcurrently=cms.untracked.bool(True)" in fragment: 
             # first check if the code has correctly implemented concurrent features. Mark conc_check_lhe (LHE step) or conc_check (GEN step) as True if features are found
@@ -724,6 +724,8 @@ for num in range(0,len(prepid)):
                        if pi in line: ext_excep = 1 
                if (data_f2_strip == data_f2_clone_strip) == True:
                    print("[OK] The base request and the cloned request used for the extension have the same fragment.")
+               elif "generateConcurrently = cms.untracked.bool(True)" in (os.popen('diff '+pi+' '+pi_clone_entries).read()):
+                   warnings.append("The base request "+pi+" and the cloned request "+pi_clone_entries+" used for the extension don't have the same fragment but the new one has concurrent running different with respect to the previous, so may be OK. But please check the diff of the base and and the cloned request to see if there is a difference apart from concurrency: \n"+(os.popen('diff '+pi+' '+pi_clone_entries).read()))    
                elif ext_excep == 0:
                    errors.append("The base request "+pi+" and the cloned request "+pi_clone_entries+" used for the extension don't have the same fragment! Here is the diff of the base and and the cloned request: \n"+(os.popen('diff '+pi+' '+pi_clone_entries).read()))
         f1.close()
@@ -1668,7 +1670,7 @@ for num in range(0,len(prepid)):
                 n_ext_par += tot.count('SpaceShower')
                 n_ext_par += tot.count('TimeShower')
                 n_ext_par += tot.count('reweightGenEmp')
-                warnings.append("Number of extra or replaced tune parameters is at least "+str(n_ext_par)+"Please check tune configuration carefully (e.g. are the non-replaced parameters the ones you want)")
+                warnings.append("Number of extra or replaced tune parameters is at least "+str(n_ext_par)+". Please check tune configuration carefully (e.g. are the non-replaced parameters the ones you want)")
         if 3 not in tunecheck and fsize != 0 and n_ext_par == 0 and herwig_flag == 0 and sherpa_flag == 0:
             if  any(tunecheck[0]<3 and it!=0 for it in tunecheck):
                 errors.append("Tune configuration may be wrong in the fragment or pythia8CUEP8M1Settings are overwritten by some other parameters as in CUETP8M2T4. "+str(tunecheck))
