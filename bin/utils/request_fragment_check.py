@@ -179,8 +179,8 @@ def concurrency_check(fragment,pi,cmssw_version,mg_gp):
             error_conc.append("Concurrent parameters used with generateConcurrently=cms.untracked.bool(False) in fragment.")
         if "generateConcurrently=cms.untracked.bool(True)" in fragment and mg_gp is True:
             error_conc.append("For MG5_aMC requests, currently the concurrent mode for LHE production is not supported due to heavy I/O. So, please set generateConcurrently = cms.untracked.bool(False) in ExternalLHEProducer.")
-        if "Pythia8ConcurrentHadronizerFilter" not in fragment and  mg_gp is False and "RandomizedParameters" not in fragment and "tauola" not in fragment.lower():
-            error_conc.append("For MG5_aMC requests, the concurrent mode for GEN production should be turned on. Please convert Pythia8HadronizerFilter to Pythia8ConcurrentHadronizerFilter in the fragment")   
+#        if "Pythia8ConcurrentHadronizerFilter" not in fragment and  mg_gp is False and "RandomizedParameters" not in fragment and "tauola" not in fragment.lower():
+#            error_conc.append("For MG5_aMC requests, the concurrent mode for GEN production should be turned on. Please convert Pythia8HadronizerFilter to Pythia8ConcurrentHadronizerFilter in the fragment")   
         if "ExternalLHEProducer" in fragment and "generateConcurrently=cms.untracked.bool(True)" in fragment: 
             # first check if the code has correctly implemented concurrent features. Mark conc_check_lhe (LHE step) or conc_check (GEN step) as True if features are found
             if "Herwig7GeneratorFilter" not in fragment: 
