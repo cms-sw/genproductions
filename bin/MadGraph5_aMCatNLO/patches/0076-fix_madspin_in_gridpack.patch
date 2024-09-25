@@ -1,6 +1,6 @@
 --- a/MadSpin/decay.py
 +++ b/MadSpin/decay.py
-@@ -2181,9 +2181,9 @@ class decay_all_events(object):
+@@ -2183,9 +2183,9 @@ class decay_all_events(object):
          #self.all_ME, bkp2 = None , self.all_ME    
          #self.width_estimator, bkp3 = self.width_estimator, self.width_estimator  
          modelpath = model.get('modelpath')
@@ -15,7 +15,7 @@
                  
 --- a/MadSpin/interface_madspin.py
 +++ b/MadSpin/interface_madspin.py
-@@ -713,9 +713,9 @@ class MadSpinInterface(extended_cmd.Cmd):
+@@ -724,10 +724,10 @@ class MadSpinInterface(extended_cmd.Cmd):
          
          #restore data passed to string to help pickle
          generate_all.all_decay = eval(generate_all.all_decay)

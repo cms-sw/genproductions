@@ -23,11 +23,11 @@
  if [[ -e MadLoop5_resources.tar.gz && ! -e MadLoop5_resources ]]; then
  tar -xzf MadLoop5_resources.tar.gz
  fi
-@@ -80,7 +96,11 @@ j=%(directory)s
+@@ -90,7 +106,11 @@ j=%(directory)s
       if [[ $status_code -ne 0 ]]; then 
- 	 rm results.dat
- 	 echo "ERROR DETECTED"
--	 echo "end-code not correct $status_code" > results.dat
+         rm results.dat
+         echo "ERROR DETECTED"
+-        echo "end-code not correct $status_code" > results.dat
 +   echo "end-code not correct $status_code" >> log.txt
 +   echo "+ Hostname:" >> log.txt
 +   hostname >> log.txt
@@ -36,7 +36,7 @@
       fi     
       if [[ -e ftn26 ]]; then
           cp ftn26 ftn25
-@@ -98,3 +118,6 @@ j=%(directory)s
+@@ -108,3 +128,6 @@ j=%(directory)s
  
       cd ../
  
@@ -71,9 +71,9 @@
  fi
 @@ -73,7 +90,15 @@ fi
  if [[ $status_code -ne 0 ]]; then 
- 	 rm results.dat
- 	 echo "ERROR DETECTED"
--	 echo "end code not correct $status_code" > results.dat
+         rm results.dat
+         echo "ERROR DETECTED"
+-        echo "end code not correct $status_code" > results.dat
 +   echo "end-code not correct $status_code" >> log.txt
 +   echo "+ Hostname:" >> log.txt
 +   hostname >> log.txt
@@ -116,10 +116,10 @@
  fi
 @@ -72,7 +88,13 @@ for i in $@ ; do
       if [[ $status_code -ne 0 ]]; then 
- 	 rm results.dat
- 	 echo "ERROR DETECTED"
--	 echo "end code not correct $status_code" > results.dat
-+	 echo "end code not correct $status_code" >> log.txt
+         rm results.dat
+         echo "ERROR DETECTED"
+-        echo "end code not correct $status_code" > results.dat
++   echo "end code not correct $status_code" >> log.txt
 +   echo "+ Hostname:" >> log.txt
 +   hostname >> log.txt
 +   echo "+ Printing job environment:" >> log.txt
@@ -152,7 +152,7 @@
 +export TMPDIR=${TMPDIR:-${_CONDOR_SCRATCH_DIR:-/tmp}}
 +
  tarCounter=0
- while [[ (-f MadLoop5_resources.tar.gz) && (! -f MadLoop5_resources/HelConfigs.dat) && ($tarCounter < 10) ]]; do
+ while [[ (-f MadLoop5_resources.tar.gz) && (! -f MadLoop5_resources/HelConfigs.dat) && ($tarCounter < 10
      if [[ $tarCounter > 0 ]]; then
 @@ -101,6 +117,13 @@ TAGTAGTAGTAGTAGTAGTAG for i in 1 ; do
          ../madevent_mintMC > log.txt <input_app.txt 2>&1
