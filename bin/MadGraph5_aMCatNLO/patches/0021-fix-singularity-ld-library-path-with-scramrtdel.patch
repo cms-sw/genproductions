@@ -152,7 +152,7 @@
 +export TMPDIR=${TMPDIR:-${_CONDOR_SCRATCH_DIR:-/tmp}}
 +
  tarCounter=0
- while [[ (-f MadLoop5_resources.tar.gz) && (! -f MadLoop5_resources/HelConfigs.dat) && ($tarCounter < 10
+ while [[ (-f MadLoop5_resources.tar.gz) && (! -f MadLoop5_resources/HelConfigs.dat) && ($tarCounter < 10) ]]; do
      if [[ $tarCounter > 0 ]]; then
 @@ -101,6 +117,13 @@ TAGTAGTAGTAGTAGTAGTAG for i in 1 ; do
          ../madevent_mintMC > log.txt <input_app.txt 2>&1
