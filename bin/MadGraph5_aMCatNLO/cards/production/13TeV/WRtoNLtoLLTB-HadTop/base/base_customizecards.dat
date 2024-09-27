@@ -1,0 +1,8 @@
+set param_card mass 9900012 @@n1mass@@
+set param_card mass 9900014 @@n2mass@@
+set param_card mass 9900016 999999
+set param_card mass 34 @@wrmass@@
+set decay 9900012 @@n1width@@
+set decay 9900014 @@n2width@@
+set decay 9900016 10
+set decay 34 AUTO
