@@ -1,20 +1,4 @@
-#*********************************************************************
-#                       MadGraph5_aMC@NLO                            *
-#                                                                    *
-#                     run_card.dat MadEvent                          *
-#                                                                    *
-#  This file is used to set the parameters of the run.               *
-#                                                                    *
-#  Some notation/conventions:                                        *
-#                                                                    *
-#   Lines starting with a '# ' are info or comments                  *
-#                                                                    *
-#   mind the format:   value    = variable     ! comment             *
-#                                                                    *
-#   To display more options, you can type the command:               *
-#      update full_run_card                                          *
-#*********************************************************************
-#
+
 #*******************                                                 
 # Running parameters
 #*******************                                                 
@@ -43,8 +27,13 @@
 #*********************************************************************
 # PDF CHOICE: this automatically fixes also alpha_s and its evol.    *
 #*********************************************************************
-     nn23lo1    = pdlabel     ! PDF set                                     
-     230000    = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number
+#     nn23lo1    = pdlabel     ! PDF set                                     
+#     230000    = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number
+'lhapdf' = pdlabel ! PDF set
+$DEFAULT_PDF_SETS = lhaid
+$DEFAULT_PDF_MEMBERS = reweight_PDF ! if pdlabel=lhapdf, this is the lhapdf number
+
+
 # To see heavy ion options: type "update ion_pdf"
 #*********************************************************************
 # Renormalization and factorization scales                           *
@@ -276,6 +265,4 @@
 #*********************************************************************
    True  = use_syst      ! Enable systematics studies
 #
-systematics = systematics_program ! none, systematics [python], SysCalc [depreceted, C++]
-['--mur=0.5,1,2', '--muf=0.5,1,2', '--pdf=errorset'] = systematics_arguments ! see: https://cp3.irmp.ucl.ac.be/projects/madgraph/wiki/Systematics#Systematicspythonmodule
-# Syscalc is deprecated but to see the associate options type'update syscalc'
+
