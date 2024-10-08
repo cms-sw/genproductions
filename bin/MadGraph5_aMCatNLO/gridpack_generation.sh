@@ -136,8 +136,8 @@ make_gridpack () {
     MGBASEDIR=mgbasedir
     
     MG_EXT=".tar.gz"
-    MG=MG5_aMC_v3.5.5$MG_EXT
-    MGSOURCE=https://launchpad.net/mg5amcnlo/3.0/3.5.x/+download/$MG
+    MG=MG5_aMC_v3.5.6$MG_EXT
+    MGSOURCE=https://launchpad.net/mg5amcnlo/3.0/3.6.x/+download/$MG
 
     MGBASEDIRORIG=$(echo ${MG%$MG_EXT} | tr "." "_")
     isscratchspace=0
