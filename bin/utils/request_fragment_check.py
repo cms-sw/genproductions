@@ -487,6 +487,46 @@ def vbf_dipole_recoil_check(vbf_lo,vbf_nlo,data_f2,pw_gp,dn):
             print("[OK] VBF POWHEG with local recoil --> SpaceShower:dipoleRecoil = 1.")  
     return warning_dipole, error_dipole  
 
+def powheg_gg_H_quark_mass_effects():
+    warning_gg_H_quark_mass_effects = []
+    error_gg_H_quark_mass_effects = []
+    #for more information on this check, see
+    #https://its.cern.ch/jira/browse/CMSCOMPPR-4874
+    #this configuration is ok at 125 GeV, but causes trouble starting at around 170:
+    #  ncall1=50000, itmx1=5, ncall2=50000, itmx2=5, foldcsi=1, foldy=1, foldphi=1
+    #from mH=300 GeV to 3 TeV, this configuration seems to be fine:
+    #  ncall1=550000, itmx1=7, ncall2=75000, itmx2=5, foldcsi=2, foldy=5, foldphi=2
+    #I'm printing warnings here for anything less than the second configuration.
+    #Smaller numbers are probably fine at low mass
+    desiredvalues = {
+        "ncall1": 550000,
+        "itmx1": 7,
+        "ncall2": 75000,
+        "itmx2": 5,
+        "foldcsi": 2,
+        "foldy": 5,
+        "foldphi": 2,
+    }
+    if et_flag == 0 and et_flag_external == 0:
+        with open(os.path.join(my_path, pi, "powheg.input")) as f:
+            content = f.read()
+            matches = dict((name, re.search(r"^"+name+" *([0-9]+)", content, flags=re.MULTILINE)) for name in desiredvalues)
+    if et_flag == 1 and et_flag_external == 0:
+        with open(os.path.join(my_path, pi, "external_tarball/powheg.input")) as f:
+            content = f.read()
+            matches = dict((name, re.search(r"^"+name+" *([0-9]+)", content, flags=re.MULTILINE)) for name in desiredvalues)
+    bad = False
+    for name, match in matches.items():
+        if match:
+            actualvalue = int(match.group(1))
+            if actualvalue < desiredvalues[name]:
+                bad = True
+                warning_gg_H_quark_mass_effects.append("{0} = {1}, should be at least {2} (may be ok if hmass < 150 GeV, please check!)".format(name, actualvalue, desiredvalues[name]))
+        else:
+            bad = True
+            error_gg_H_quark_mass_effects.append("didn't find "+name+" in powheg.input")
+    if not bad: print("[OK] integration grid setup looks ok for gg_H_quark_mass_effects")
+    return warning_gg_H_quark_mass_effects, error_gg_H_quark_mass_effects
 
 if args.dev:
     print("Running on McM DEV!\n")
@@ -1322,7 +1362,7 @@ for num in range(0,len(prepid)):
                 with open(pwg_stat_file) as f_pwg_stat: 
                     s_pwg_stat = f_pwg_stat.read()
                     print("-----------------------------------------------------------------")
-                    print("Summary from pwg-stat.dat from Powheg firdpack (for experts only):")
+                    print("Summary from pwg-stat.dat from Powheg gridpack (for experts only):")
                     print("-----------------------------------------------------------------")
                     print(s_pwg_stat)
                     print("-----------------------------------------------------------------")
@@ -1357,42 +1397,9 @@ for num in range(0,len(prepid)):
             if match:
                 process = match.group(2)
                 if process == "gg_H_quark-mass-effects":
-                    #for more information on this check, see
-                    #https://its.cern.ch/jira/browse/CMSCOMPPR-4874
-                    #this configuration is ok at 125 GeV, but causes trouble starting at around 170:
-                    #  ncall1=50000, itmx1=5, ncall2=50000, itmx2=5, foldcsi=1, foldy=1, foldphi=1
-                    #from mH=300 GeV to 3 TeV, this configuration seems to be fine:
-                    #  ncall1=550000, itmx1=7, ncall2=75000, itmx2=5, foldcsi=2, foldy=5, foldphi=2
-                    #I'm printing warnings here for anything less than the second configuration.
-                    #Smaller numbers are probably fine at low mass
-                    desiredvalues = {
-                        "ncall1": 550000,
-                        "itmx1": 7,
-                        "ncall2": 75000,
-                        "itmx2": 5,
-                        "foldcsi": 2,
-                        "foldy": 5,
-                        "foldphi": 2,
-                    }
-                    if et_flag == 0 and et_flag_external == 0:
-                        with open(os.path.join(my_path, pi, "powheg.input")) as f:
-                            content = f.read()
-                            matches = dict((name, re.search(r"^"+name+" *([0-9]+)", content, flags=re.MULTILINE)) for name in desiredvalues)
-                    if et_flag == 1 and et_flag_external == 0:
-                        with open(os.path.join(my_path, pi, "external_tarball/powheg.input")) as f:
-                            content = f.read()
-                            matches = dict((name, re.search(r"^"+name+" *([0-9]+)", content, flags=re.MULTILINE)) for name in desiredvalues)
-                    bad = False
-                    for name, match in matches.items():
-                        if match:
-                            actualvalue = int(match.group(1))
-                            if actualvalue < desiredvalues[name]:
-                                bad = True
-                                warnings.append("{0} = {1}, should be at least {2} (may be ok if hmass < 150 GeV, please check!)".format(name, actualvalue, desiredvalues[name]))
-                        else:
-                            bad = True
-                            errors.append("didn't find "+name+" in powheg.input")
-                    if not bad: print("[OK] integration grid setup looks ok for gg_H_quark-mass-effects")
+                    warn_tmp , err_tmp = powheg_gg_H_quark_mass_effects()
+                    warnings.extend(warn_tmp)
+                    errors.extend(err_tmp)
             else:
                 warnings.append("Didn't find powheg process in runcmsgrid.sh")
 
