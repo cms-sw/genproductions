@@ -164,7 +164,7 @@ particle_gun_list = ["FlatRandomEGunProducer","FlatRandomPtGunProducer","Pythia8
 
 def tunes_settings_check(dn,fragment,pi,sherpa_flag):
     error_tunes_check = []
-    if "Run3" in pi and not any(particle_gun in fragment for particle_gun in particle_gun_list) and sherpa_flag == 0:    
+    if "Run3" in pi and not any(word in fragment for word in particle_gun_list) and sherpa_flag == 0:    
         if ("Configuration.Generator.MCTunesRun3ECM13p6TeV" not in fragment) and ("Configuration.Generator.Herwig7Settings.Herwig7CH3TuneSettings_cfi" not in fragment) or ("from Configuration.Generator.MCTunes2017" in fragment):
             error_tunes_check.append(" For Run3 samples, please use either:\n from Configuration.Generator.MCTunesRun3ECM13p6TeV.PythiaCP5Settings_cfi import * \n from Configuration.Generator.Herwig7Settings.Herwig7CH3TuneSettings_cfi import * \n in your fragment instead of: from Configuration.Generator.MCTunes2017.PythiaCP5Settings_cfi import *")
     if "Run3" in pi and (dn.startswith("DYto") or dn.startswith("Wto")):
@@ -411,9 +411,9 @@ def run3_checks(fragment,dn,pi):
             err.append("The c.o.m. energy is not specified as 13600 GeV in the fragment."+comline[0])
         if "run3winter21" in pi.lower() and "14000" not in comline[0]: 
             err.append("The c.o.m. energy is not specified as 14000 GeV in the fragment"+comline[0])
-    if any(word in pi for word in run3_campaigns) and not any(particle_gun in fragment for particle_gun in particle_gun_list) and "13p6TeV" not in dn and pi not in run3_checks_exception_list:
+    if any(word in pi for word in run3_campaigns) and not any(word in fragment for word in particle_gun_list) and "13p6TeV" not in dn and pi not in run3_checks_exception_list:
         err.append("The data set name does not contain 13p6TeV for this Run3 request")
-    if "run3winter21" in pi.lower() and not any(particle_gun in fragment for particle_gun in particle_gun_list) and "14TeV" not in dn:
+    if "run3winter21" in pi.lower() and not any(word in fragment for word in particle_gun_list) and "14TeV" not in dn:
         err.append("The data set name does not contain 14TeV for this Run3 request")
     return err
 
@@ -648,7 +648,7 @@ for num in range(0,len(prepid)):
         f2 = open(pi_file+"_tmp","w")
         data_f1 = f1.read()
 
-        if any(particle_gun in os.popen('grep -c ' + particle_gun + ' ' + pi_file).read() for particle_gun in particle_gun_list):
+        if any(int(os.popen('grep -c ' + word + ' ' + pi_file).read()) > 0 for word in particle_gun_list):
             particle_gun = 1
         if int(os.popen('grep -c -i randomizedparameters '+pi_file).read()) > 0:
             randomizedparameters = 1
