@@ -157,8 +157,10 @@ def slha_gp(gridpack_cvmfs_path,slha_flag):
             print(gridpack_cvmfs_path)
     return gridpack_cvmfs_path, slha_all_path, slha_flag
 
-particle_gun_list = ["FlatRandomEGunProducer","FlatRandomPtGunProducer","Pythia8EGun","Pythia8PtGun","FlatRandomPtAndDxyGunProducer"]
 
+old_campaigns = ["summer15", "winter15","fall17","fall18"]
+run3_campaigns = ["Run3Summer22","Run3winter22","Run3Summer23BPixwmLHEGS","Run3Summer23wmLHEGS","Run3Summer22wmLHEGS", "Run3Summer22EEwmLHEGS"]
+particle_gun_list = ["FlatRandomEGunProducer","FlatRandomPtGunProducer","Pythia8EGun","Pythia8PtGun","FlatRandomPtAndDxyGunProducer"]
 
 def tunes_settings_check(dn,fragment,pi,sherpa_flag):
     error_tunes_check = []
@@ -521,9 +523,6 @@ if args.local is False:
         prepid = []
         for rr in root_requests_from_ticket(ticket):
             if 'GS' in rr or 'wmLHE' in rr or 'pLHE' in rr or 'FS' in rr: prepid.append(rr)
-
-old_campaigns = ["summer15", "winter15","fall17","fall18"]
-run3_campaigns = ["Run3Summer22","Run3winter22","Run3Summer23BPixwmLHEGS","Run3Summer23wmLHEGS","Run3Summer22wmLHEGS", "Run3Summer22EEwmLHEGS"]
 
 prepid = list(set(prepid)) #to avoid requests appearing x times if x chains have the same request
 print("Current date and time: %s" % (datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
