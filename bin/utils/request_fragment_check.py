@@ -589,14 +589,12 @@ for num in range(0,len(prepid)):
         loop_flag = 0
         vbf_lo = 0
         vbf_nlo = 0
-        knd =  -1
         slha_flag = 0
         slha_all_path = 'none'
         grid_points_flag = 0
         nPartonsInBorn_flag = 0
         filename_mggpc = 'del'
         ickkw = 'del' # ickkw = matching parameter in madgraph
-        ickkw_c = 100
         alt_ickkw_c = 0
         maxjetflavor = 0
         nJetMax = 100
@@ -609,7 +607,6 @@ for num in range(0,len(prepid)):
         bw = -1
         error = 0
         errors = []
-        warning = 0
         warnings = []
         et_flag = 0
         et_flag_external = 0
