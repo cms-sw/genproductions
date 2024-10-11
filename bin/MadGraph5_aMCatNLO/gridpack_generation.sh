@@ -226,12 +226,15 @@ make_gridpack () {
       ninjalib_path=${ninja_path#*=}/lib
       if [ -n "$ninjalib_path" ]; then
         echo "set ninja $ninjalib_path" >> mgconfigscript
+        export LD_LIBRARY_PATH=$ninjalib_path:"$LD_LIBRARY_PATH"
       fi
       collier_path=`scram tool info collier | grep COLLIER_BASE`
       collierlib_path=${collier_path#*=}/lib
       if [ -n "$collierlib_path" ]; then
         echo "set collier $collierlib_path" >> mgconfigscript
       fi
+
+      echo "set golem None" >> mgconfigscript
 
       if [ "$queue" == "local" ]; then
           echo "set run_mode 2" >> mgconfigscript
@@ -737,11 +740,11 @@ if [ -n "$6" ]; then
     cmssw_version=${6}
 else
     if [[ $SYSTEM_RELEASE == *"release 7"* ]]; then 
-        cmssw_version=CMSSW_12_4_21
+        cmssw_version=CMSSW_12_4_22
     elif [[ $SYSTEM_RELEASE == *"release 8"* ]]; then
-        cmssw_version=CMSSW_12_4_21
+        cmssw_version=CMSSW_12_4_22
     elif [[ $SYSTEM_RELEASE == *"release 9"* ]]; then
-	    cmssw_version=CMSSW_14_1_0_pre5
+	    cmssw_version=CMSSW_14_2_0_pre2
     else 
         echo "No default CMSSW for current OS!"
         if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi        
