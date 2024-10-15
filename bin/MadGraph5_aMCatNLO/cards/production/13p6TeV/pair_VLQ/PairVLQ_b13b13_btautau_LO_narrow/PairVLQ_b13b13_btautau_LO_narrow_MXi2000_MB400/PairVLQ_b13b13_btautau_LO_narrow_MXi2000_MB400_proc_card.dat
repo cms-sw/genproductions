@@ -1,0 +1,5 @@
+import model SM_VLQs_LO
+
+generate p p > bp bp~, bp > ta+ ta- b, bp~ > ta+ ta- b~
+
+output PairVLQ_b13b13_btautau_LO_narrow_MXi2000_MB400
