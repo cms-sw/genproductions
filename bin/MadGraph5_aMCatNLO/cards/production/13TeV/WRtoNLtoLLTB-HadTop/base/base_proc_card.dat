@@ -1,0 +1,8 @@
+import model EffLRSM_NLO
+define p = u d c s b u~ d~ c~ s~ b~ g
+define j = p
+@@definell@@
+@@definenn@@
+generate p p > nn ll, (nn > ll t b~, (t > w+ b, w+ > j j))
+add process p p > nn ll, (nn > ll t~ b, (t~ > w- b~, w- > j j))
+output @@output@@
