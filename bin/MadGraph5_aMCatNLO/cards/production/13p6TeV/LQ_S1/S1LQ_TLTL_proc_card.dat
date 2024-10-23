@@ -1,0 +1,36 @@
+import model LO_LQ_S1_runningPtclWidth-LQYUK_YUKVALUE
+
+define top1 = t t~
+define top2 = t t~
+define bottom = b b~
+
+define ele = e+ e-
+define mu = mu+ mu-
+define tau = ta+ ta-
+define eletau = e+ e- ta+ ta-
+define mutau = mu+ mu- ta+ ta-
+define lep = LEPF
+
+define p = p b b~
+
+define nuele = ve ve~
+define numu = vm vm~
+define nutau = vt vt~
+define nueletau = ve ve~ vt vt~
+define numutau = vm vm~ vt vt~
+define nu = NUF
+
+define Wboson1 = w+ w-
+define Wboson2 = w+ w-
+
+define q5 = u u~ d d~ s s~ c c~ b b~
+
+define l3 = ele mu tau
+define nu3 = nuele numu nutau
+
+generate    p p > top1 lep top2 lep, (top1 > bottom Wboson1, (Wboson1 > l3 nu3)), (top2 > bottom Wboson2, (Wboson2 > l3 nu3)) QCD=2 QED=2 NP>0 @0 
+add process p p > top1 lep top2 lep, (top1 > bottom Wboson1, (Wboson1 > q5 q5)),  (top2 > bottom Wboson2, (Wboson2 > l3 nu3)) QCD=2 QED=2 NP>0 @1 
+add process p p > top1 lep top2 lep, (top1 > bottom Wboson1, (Wboson1 > l3 nu3)), (top2 > bottom Wboson2, (Wboson2 > q5 q5))  QCD=2 QED=2 NP>0 @2 
+add process p p > top1 lep top2 lep, (top1 > bottom Wboson1, (Wboson1 > q5 q5)),  (top2 > bottom Wboson2, (Wboson2 > q5 q5))  QCD=2 QED=2 NP>0 @3 
+
+output LQOUTPUT
