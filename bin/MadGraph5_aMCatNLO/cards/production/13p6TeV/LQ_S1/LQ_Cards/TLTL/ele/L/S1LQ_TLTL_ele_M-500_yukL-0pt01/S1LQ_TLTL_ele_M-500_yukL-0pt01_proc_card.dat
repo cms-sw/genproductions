@@ -1,28 +1,5 @@
-#************************************************************
-#*                     MadGraph5_aMC@NLO                    *
-#*                                                          *
-#*                *                       *                 *
-#*                  *        * *        *                   *
-#*                    * * * * 5 * * * *                     *
-#*                  *        * *        *                   *
-#*                *                       *                 *
-#*                                                          *
-#*                                                          *
-#*         VERSION 2.6.5                 2018-02-03         *
-#*                                                          *
-#*    The MadGraph5_aMC@NLO Development Team - Find us at   *
-#*    https://server06.fynu.ucl.ac.be/projects/madgraph     *
-#*                                                          *
-#************************************************************
-#*                                                          *
-#*               Command File for MadGraph5_aMC@NLO         *
-#*                                                          *
-#*     run as ./bin/mg5_aMC  filename                       *
-#*                                                          *
-#************************************************************
 import model LO_LQ_S1_runningPtclWidth-yLL3x1_0pt01
 
-define top = t t~
 define top1 = t t~
 define top2 = t t~
 define bottom = b b~
@@ -35,8 +12,6 @@ define mutau = mu+ mu- ta+ ta-
 define lep = ele
 
 define p = p b b~
-define j = j b b~
-define lq = s1m13 s1m13*
 
 define nuele = ve ve~
 define numu = vm vm~
@@ -45,12 +20,9 @@ define nueletau = ve ve~ vt vt~
 define numutau = vm vm~ vt vt~
 define nu = nuele
 
-define Wboson = w+ w-
 define Wboson1 = w+ w-
 define Wboson2 = w+ w-
-define V = z w+ w-
 
-define q4 = u u~ d d~ s s~ c c~
 define q5 = u u~ d d~ s s~ c c~ b b~
 
 define l3 = ele mu tau
