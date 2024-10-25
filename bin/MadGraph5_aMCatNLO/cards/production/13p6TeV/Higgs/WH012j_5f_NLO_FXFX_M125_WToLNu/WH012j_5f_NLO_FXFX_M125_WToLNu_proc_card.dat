@@ -1,0 +1,9 @@
+import model loop_sm-ckm_no_b_mass
+
+define W = w+ w-
+
+generate p p > W h [QCD] @0
+add process p p > W h j [QCD] @1
+add process p p > W h j j [QCD] @2
+
+output WH012j_5f_NLO_FXFX_M125_WToLNu -nojpeg

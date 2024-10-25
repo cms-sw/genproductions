@@ -20,17 +20,17 @@ read_config(){
 
 get_beam_energy(){
     if [ -n "${Beam1G}" ]; then
-        Beam1E=$(echo 0.938272*$Beam1G | bc)
+        Beam1E=$(echo 0.938272*$Beam1G | bc -l)
     fi
     if [ -n "${Beam2G}" ]; then
-        Beam2E=$(echo 0.938272*$Beam2G | bc)
+        Beam2E=$(echo 0.938272*$Beam2G | bc -l)
     fi
     if [ -n "${CollE}" ]; then
-        F=$(echo "sqrt(${Beam1A}*${Beam2Z}/${Beam1Z}/${Beam2A})" | bc)
-        Beam1E=$(echo $CollE*$F/2 | bc)
-        Beam2E=$(echo $CollE/$F/2 | bc)
-        Beam1G=$(echo $Beam1E/0.938272 | bc)
-        Beam2G=$(echo $Beam2E/0.938272 | bc)
+        F=$(echo "sqrt(${Beam1A}*${Beam2Z}/${Beam1Z}/${Beam2A})" | bc -l)
+        Beam1E=$(echo $CollE/$F/2 | bc -l)
+        Beam2E=$(echo $CollE*$F/2 | bc -l)
+        Beam1G=$(echo $(printf %.3f $(echo $Beam1E/0.938272 | bc -l)))
+        Beam2G=$(echo $(printf %.3f $(echo $Beam2E/0.938272 | bc -l)))
     fi
 }
 
