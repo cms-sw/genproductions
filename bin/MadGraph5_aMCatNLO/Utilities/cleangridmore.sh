@@ -8,7 +8,7 @@ find ./ -name "*.lhe.rwgt" | xargs -r rm
 find ./ -name "check_poles" | xargs -r rm
 find ./ -name "test_MC" | xargs -r rm
 find ./ -name "test_ME" | xargs -r rm
-find ./ -name "*.f" | xargs -r rm
+#find ./ -name "*.f" | xargs -r rm #FIXME
 find ./ -name "*.F" | xargs -r rm
 find ./ -name "*.cc" | xargs -r rm
 find ./ -name "*.html" | xargs -r rm
