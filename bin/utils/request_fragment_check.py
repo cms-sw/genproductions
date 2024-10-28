@@ -11,6 +11,7 @@ import string
 import glob
 import json
 import ast
+import subprocess
 from datetime import datetime
 from json import dumps
 
@@ -313,34 +314,67 @@ def ul_consistency(dn,pi,jhu_gp):
     if not error_ul: print("UL consistency check is OK.")
     return warning_ul,error_ul
 
+def gridpack_copy(gridpack_eos_path,pi):
+    error_gp_copy = 0
+    targz_flag = 0
+    if "Run3" in pi:
+        copy_name = "_original_Run3_wo_runcmsgrid_sys_patch"
+    else:
+        copy_name = "_original"
+    if ".tar.gz" in gridpack_eos_path:
+        targz_flag = 1
+        gridpack_eos_path_backup = gridpack_eos_path.replace('.tar.gz',copy_name+'.tar.gz')
+    if ".tgz" in gridpack_eos_path: gridpack_eos_path_backup = gridpack_eos_path.replace('.tgz',copy_name+'.tgz')
+    if ".tar.xz" in gridpack_eos_path:
+        gridpack_eos_path_backup = gridpack_eos_path.replace('.tar.xz',copy_name+'.tar.xz')
+        targz_flag = 2
+    if not os.path.exists(gridpack_eos_path_backup):
+        print("Backup gridpack does not exist.")
+        print("Copying "+gridpack_eos_path+" to "+gridpack_eos_path_backup+" before patching runcms.grid")
+        os.system('cp -n -p '+gridpack_eos_path+' '+gridpack_eos_path_backup)
+        md5_1 = os.popen('md5sum'+' '+gridpack_eos_path).read().split(' ')[0]
+        md5_2 = os.popen('md5sum'+' '+gridpack_eos_path_backup).read().split(' ')[0]
+        if md5_1 == md5_2:
+            print("Backup and original file checksums are equal.")
+        else:
+            error_gp_copy.append("backup gridpack has a problem.")
+    print(gridpack_eos_path_backup)
+    return error_gp_copy
+
+def gridpack_repack_and_copy(gridpack_eos_path,pi):
+    error_gridpack_repack = []
+    gp_extension = ".tar.xz"
+    if ".tar.gz" in gridpack_eos_path: 
+        gp_extension = ".tar.gz"
+    if ".tgz" in gridpack_eos_path: 
+        gp_extension = ".tgz"
+    gp_name = "gridpack"+gp_extension
+    print("re-tarring to "+gp_name)
+    cur_dir = os.getcwd()
+    os.chdir(my_path+'/'+pi)
+    os.environ['XZ_OPT'] = "--lzma2=preset=9,dict=512MiB"
+    os.system('XZ_OPT="$XZ_OPT" tar -cJpf '+gp_name+' --exclude='+gp_name+' --exclude='+pi+' ./*')
+    os.system('cp '+gp_name+' '+gridpack_eos_path)
+    md5_1 = os.popen('md5sum '+gp_name).read().split(' ')[0]
+    md5_2 = os.popen('md5sum'+' '+gridpack_eos_path).read().split(' ')[0]
+    if md5_1 == md5_2:
+        print("Updated gridpack copied succesfully.")
+    else:
+        error.append("There was a problem copying in the updated gridpack to eos.")
+    os.chdir(cur_dir)
+    return error_gridpack_repack
+
 def xml_check_and_patch(f,cont,gridpack_eos_path,my_path,pi):
     xml = str(re.findall('xmllint.*',cont))
     cur_dir = os.getcwd()
     warning_xml = []
     error_xml = []
     if "stream" not in xml or len(xml) < 3:
-        targz_flag = 0
         if "stream" not in xml and len(xml) > 3:
           warning_xml.append(" --stream option is missing in XMLLINT, will update runcmsgrid.")
         if len(xml) < 3:
           warning_xml.append("[WARNING] XMLLINT does not exist in runcmsgrid, will update it.")
-        if ".tar.gz" in gridpack_eos_path:
-          targz_flag = 1
-          gridpack_eos_path_backup = gridpack_eos_path.replace('.tar.gz','_original.tar.gz')
-        if ".tgz" in gridpack_eos_path: gridpack_eos_path_backup = gridpack_eos_path.replace('.tgz','_original.tgz')
-        if ".tar.xz" in gridpack_eos_path:
-          gridpack_eos_path_backup = gridpack_eos_path.replace('.tar.xz','_original.tar.xz')
-          targz_flag = 2
-        if not os.path.exists(gridpack_eos_path_backup):
-          print("Backup gridpack does not exist.")
-          print("Copying "+gridpack_eos_path+" to "+gridpack_eos_path_backup+" before patching runcms.grid")
-          os.system('cp -n -p '+gridpack_eos_path+' '+gridpack_eos_path_backup)
-          md5_1 = os.popen('md5sum'+' '+gridpack_eos_path).read().split(' ')[0]
-          md5_2 = os.popen('md5sum'+' '+gridpack_eos_path_backup).read().split(' ')[0]
-          if md5_1 == md5_2:
-            print("Backup and original file checksums are equal.")
-          else:
-            error_xml.append("backup gridpack has a problem.")
+        error_xml.append(gridpack_copy(gridpack_eos_path))
         print("Updating XMLLINT line in runcmsgrid.")
         os.chdir(my_path+'/'+pi)
         if "stream" not in xml and len(xml) > 3: cont = re.sub("xmllint","xmllint --stream",cont)
@@ -351,19 +385,7 @@ def xml_check_and_patch(f,cont,gridpack_eos_path,my_path,pi):
         f.seek(0)
         f.write(cont)
         f.truncate()
-        if targz_flag == 0: gridpackname = "gridpack.tgz"
-        if targz_flag == 1: gridpackname = "gridpack.tar.gz"
-        if targz_flag == 2: gridpackname = "gridpack.tar.xz"
-        os.chdir(my_path+'/'+pi)
-        os.system('tar cfJ '+gridpackname+' ./* --exclude='+gridpackname+' --exclude='+pi)
-        os.system('cp '+gridpackname+' '+gridpack_eos_path)
-        md5_1 = os.popen('md5sum '+gridpackname).read().split(' ')[0]
-        md5_2 = os.popen('md5sum'+' '+gridpack_eos_path).read().split(' ')[0]
-        if md5_1 == md5_2:
-          print("Updated gridpack copied succesfully.")
-        else:
-          error_xml.append("There was a problem copying in the updated gridpack to eos.")
-        os.chdir(cur_dir)
+        error_xml = gridpack_repack_and_copy(gridpack_eos_path,pi)
     return warning_xml,error_xml
 
 def evtgen_check(fragment):
@@ -1511,6 +1533,21 @@ for num in range(0,len(prepid)):
                     errors.extend(check_replace(runcmsgrid_file))
                     fmg_f = re.sub(r'(?m)^ *#.*\n?', '',fmg_f)
                     mg_me_pdf_list = re.findall('pdfsets=\S+',fmg_f)
+#########################################################################################################################################
+                    if "Run3" in pi:
+                        if int(os.popen('grep -c "systematics $runlabel" '+str(runcmsgrid_file)).read()):
+                            if int(os.popen('grep -c "Encounter Error in Running Systematics Module" '+str(runcmsgrid_file)).read()) < 1:
+                                print("runcmsgrid script patch for Run3 missing!")
+                                print("I will patch the runcmsgrid script.")
+                                print("Backing up the gridpack to :")
+                                gridpack_copy(gridpack_eos_path,pi)
+                                if mg_nlo:
+                                    os.system("patch "+runcmsgrid_file+" < /eos/cms/store/group/phys_generator/cvmfs/gridpacks/mg_amg_patch/runcmsgrid_systematics_NLO.patch")
+                                if mg_lo: 
+                                    os.system("patch "+runcmsgrid_file+" < /eos/cms/store/group/phys_generator/cvmfs/gridpacks/mg_amg_patch/runcmsgrid_systematics_LO.patch")
+                                err_gpr = gridpack_repack_and_copy(gridpack_eos_path,pi)       
+                                errors.append(err_gpr)                             
+#########################################################################################################################################
                     if mg5_aMC_version >= 260:
                         mg_lo = int(os.popen('grep "systematics" '+str(runcmsgrid_file)+' | grep -c madevent').read())
                         mg_nlo = int(os.popen('grep "systematics" '+str(runcmsgrid_file)+' | grep -c aMCatNLO').read())
