@@ -360,7 +360,7 @@ def gridpack_repack_and_copy(gridpack_eos_path,pi):
     if md5_1 == md5_2:
         print("Updated gridpack copied succesfully.")
     else:
-        error.append("There was a problem copying in the updated gridpack to eos.")
+        error_gridpack_repack.append("There was a problem copying in the updated gridpack to eos.")
     os.chdir(cur_dir)
     return error_gridpack_repack
 
