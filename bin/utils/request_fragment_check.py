@@ -352,6 +352,7 @@ def gridpack_repack_and_copy(gridpack_eos_path,my_path,pi):
     print("re-tarring to "+gp_name)
     cur_dir = os.getcwd()
     os.chdir(my_path+'/'+pi)
+    print(os.getcwd())
     os.environ['XZ_OPT'] = "--lzma2=preset=9,dict=512MiB"
     os.system('XZ_OPT="$XZ_OPT" tar -cJpf '+gp_name+' --exclude='+gp_name+' --exclude='+pi+' ./*')
     print('cp -p '+gp_name+' '+gridpack_eos_path)
@@ -360,12 +361,14 @@ def gridpack_repack_and_copy(gridpack_eos_path,my_path,pi):
     md5_2 = os.popen('md5sum'+' '+gridpack_eos_path).read().split(' ')[0]
     print(gp_name)
     print(gridpack_eos_path)
-    print("Checksums = ",md5_1,md5_2)
+    print("Checksums = [local=",md5_1,"copied=",md5_2,"]")
+    print(type(md5_1),type(md5_2))
     if md5_1 == md5_2:
         print("Updated gridpack copied succesfully.")
     else:
         error_gridpack_repack.append("There was a problem copying in the updated gridpack to eos.")
     os.chdir(cur_dir)
+    print(os.getcwd())
     return error_gridpack_repack
 
 def xml_check_and_patch(f,cont,gridpack_eos_path,my_path,pi):
@@ -1542,7 +1545,7 @@ for num in range(0,len(prepid)):
                         mg_nlo = int(os.popen('grep "systematics" '+str(runcmsgrid_file)+' | grep -c aMCatNLO').read())
                         if mg_lo: print("LO gridpack")
                         if mg_nlo: print("NLO gridpack")
-                    if "Run3" in pi:
+                    if "Run3" or "RunII" in pi:
                         if int(os.popen('grep -c "systematics $runlabel" '+str(runcmsgrid_file)).read()):
                             if int(os.popen('grep -c "Encounter Error in Running Systematics Module" '+str(runcmsgrid_file)).read()) < 1:
                                 print("-----------------------------------------")
