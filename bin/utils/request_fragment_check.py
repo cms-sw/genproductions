@@ -315,7 +315,7 @@ def ul_consistency(dn,pi,jhu_gp):
     return warning_ul,error_ul
 
 def gridpack_copy(gridpack_eos_path,pi):
-    error_gp_copy = 0
+    error_gp_copy = []
     targz_flag = 0
     if "Run3" in pi:
         copy_name = "_original_Run3_wo_runcmsgrid_sys_patch"
@@ -374,7 +374,7 @@ def xml_check_and_patch(f,cont,gridpack_eos_path,my_path,pi):
           warning_xml.append(" --stream option is missing in XMLLINT, will update runcmsgrid.")
         if len(xml) < 3:
           warning_xml.append("[WARNING] XMLLINT does not exist in runcmsgrid, will update it.")
-        error_xml.append(gridpack_copy(gridpack_eos_path))
+        error_xml.append(gridpack_copy(gridpack_eos_path,pi))
         print("Updating XMLLINT line in runcmsgrid.")
         os.chdir(my_path+'/'+pi)
         if "stream" not in xml and len(xml) > 3: cont = re.sub("xmllint","xmllint --stream",cont)
@@ -1539,13 +1539,14 @@ for num in range(0,len(prepid)):
                                 print("runcmsgrid script patch for Run3 missing!")
                                 print("I will patch the runcmsgrid script.")
                                 print("Backing up the gridpack to :")
-                                gridpack_copy(gridpack_eos_path,pi)
+                                err_gpr = gridpack_copy(gridpack_eos_path,pi)
+                                errors.extend(err_gpr)
                                 if mg_nlo:
                                     os.system("patch "+runcmsgrid_file+" < /eos/cms/store/group/phys_generator/cvmfs/gridpacks/mg_amg_patch/runcmsgrid_systematics_NLO.patch")
                                 if mg_lo: 
                                     os.system("patch "+runcmsgrid_file+" < /eos/cms/store/group/phys_generator/cvmfs/gridpacks/mg_amg_patch/runcmsgrid_systematics_LO.patch")
-                                err_gpr = gridpack_repack_and_copy(gridpack_eos_path,pi)       
-                                errors.append(err_gpr)                             
+                                err_gpr = gridpack_repack_and_copy(gridpack_eos_path,pi)     
+                                errors.extend(err_gpr)                             
                     if mg5_aMC_version >= 260:
                         mg_lo = int(os.popen('grep "systematics" '+str(runcmsgrid_file)+' | grep -c madevent').read())
                         mg_nlo = int(os.popen('grep "systematics" '+str(runcmsgrid_file)+' | grep -c aMCatNLO').read())
