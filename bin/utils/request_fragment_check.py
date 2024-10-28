@@ -338,10 +338,10 @@ def gridpack_copy(gridpack_eos_path,pi):
             print("Backup and original file checksums are equal.")
         else:
             error_gp_copy.append("backup gridpack has a problem.")
-    print(gridpack_eos_path_backup)
+    print("Backup gridpack: "+gridpack_eos_path_backup)
     return error_gp_copy
 
-def gridpack_repack_and_copy(gridpack_eos_path,pi):
+def gridpack_repack_and_copy(gridpack_eos_path,my_path,pi):
     error_gridpack_repack = []
     gp_extension = ".tar.xz"
     if ".tar.gz" in gridpack_eos_path: 
@@ -357,6 +357,7 @@ def gridpack_repack_and_copy(gridpack_eos_path,pi):
     os.system('cp '+gp_name+' '+gridpack_eos_path)
     md5_1 = os.popen('md5sum '+gp_name).read().split(' ')[0]
     md5_2 = os.popen('md5sum'+' '+gridpack_eos_path).read().split(' ')[0]
+    print("Checksums = ",md5_1,md5_2)
     if md5_1 == md5_2:
         print("Updated gridpack copied succesfully.")
     else:
@@ -385,7 +386,7 @@ def xml_check_and_patch(f,cont,gridpack_eos_path,my_path,pi):
         f.seek(0)
         f.write(cont)
         f.truncate()
-        error_xml = gridpack_repack_and_copy(gridpack_eos_path,pi)
+        error_xml = gridpack_repack_and_copy(gridpack_eos_path,my_path,pi)
     return warning_xml,error_xml
 
 def evtgen_check(fragment):
@@ -1172,7 +1173,7 @@ for num in range(0,len(prepid)):
                         warnings.append(pf[1]+"          "+pf[2]+"          You may try to request more events per phase-space region in the gridpack.")
                 if os.path.isfile(gp_log_loc) and ('madgraph' in dn.lower() or 'amcatnlo' in dn.lower()):
                     print("------------------------------------------------------------------------------------")
-                    print("Summary for madgraph for experts fron gridpack log (cross section BEFORE matching (if there is matching/merging)):")
+                    print("Summary for madgraph for experts from gridpack log (cross section BEFORE matching (if there is matching/merging)):")
                     print(os.popen('grep Summary '+gp_log_loc+' -A 5 -B 1').read())
                     print("------------------------------------------------------------------------------------")
                 if mg_gp:
@@ -1533,23 +1534,26 @@ for num in range(0,len(prepid)):
                     errors.extend(check_replace(runcmsgrid_file))
                     fmg_f = re.sub(r'(?m)^ *#.*\n?', '',fmg_f)
                     mg_me_pdf_list = re.findall('pdfsets=\S+',fmg_f)
+                    if mg5_aMC_version >= 260:
+                        mg_lo = int(os.popen('grep "systematics" '+str(runcmsgrid_file)+' | grep -c madevent').read())
+                        mg_nlo = int(os.popen('grep "systematics" '+str(runcmsgrid_file)+' | grep -c aMCatNLO').read())
+                        if mg_lo: print("LO gridpack")
+                        if mg_nlo: print("NLO gridpack")
                     if "Run3" in pi:
                         if int(os.popen('grep -c "systematics $runlabel" '+str(runcmsgrid_file)).read()):
                             if int(os.popen('grep -c "Encounter Error in Running Systematics Module" '+str(runcmsgrid_file)).read()) < 1:
+                                print("-----------------------------------------")
                                 print("runcmsgrid script patch for Run3 missing!")
+                                print("-----------------------------------------")
                                 print("I will patch the runcmsgrid script.")
-                                print("Backing up the gridpack to :")
                                 err_gpr = gridpack_copy(gridpack_eos_path,pi)
                                 errors.extend(err_gpr)
                                 if mg_nlo:
                                     os.system("patch "+runcmsgrid_file+" < /eos/cms/store/group/phys_generator/cvmfs/gridpacks/mg_amg_patch/runcmsgrid_systematics_NLO.patch")
                                 if mg_lo: 
                                     os.system("patch "+runcmsgrid_file+" < /eos/cms/store/group/phys_generator/cvmfs/gridpacks/mg_amg_patch/runcmsgrid_systematics_LO.patch")
-                                err_gpr = gridpack_repack_and_copy(gridpack_eos_path,pi)     
+                                err_gpr = gridpack_repack_and_copy(gridpack_eos_path,my_path,pi)     
                                 errors.extend(err_gpr)                             
-                    if mg5_aMC_version >= 260:
-                        mg_lo = int(os.popen('grep "systematics" '+str(runcmsgrid_file)+' | grep -c madevent').read())
-                        mg_nlo = int(os.popen('grep "systematics" '+str(runcmsgrid_file)+' | grep -c aMCatNLO').read())
                     if mg5_aMC_version < 260:
                         mg_lo = int(os.popen('grep -c syscalc '+str(runcmsgrid_file)).read())
                         if mg_nlo > 0:
