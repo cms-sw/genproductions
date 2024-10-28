@@ -354,10 +354,12 @@ def gridpack_repack_and_copy(gridpack_eos_path,my_path,pi):
     os.chdir(my_path+'/'+pi)
     os.environ['XZ_OPT'] = "--lzma2=preset=9,dict=512MiB"
     os.system('XZ_OPT="$XZ_OPT" tar -cJpf '+gp_name+' --exclude='+gp_name+' --exclude='+pi+' ./*')
-    print('cp '+gp_name+' '+gridpack_eos_path)
-    os.system('cp '+gp_name+' '+gridpack_eos_path)
+    print('cp -p '+gp_name+' '+gridpack_eos_path)
+    os.system('cp -p '+gp_name+' '+gridpack_eos_path)
     md5_1 = os.popen('md5sum '+gp_name).read().split(' ')[0]
     md5_2 = os.popen('md5sum'+' '+gridpack_eos_path).read().split(' ')[0]
+    print(gp_name)
+    print(gridpack_eos_path)
     print("Checksums = ",md5_1,md5_2)
     if md5_1 == md5_2:
         print("Updated gridpack copied succesfully.")
