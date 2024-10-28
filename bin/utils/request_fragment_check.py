@@ -349,20 +349,18 @@ def gridpack_repack_and_copy(gridpack_eos_path,my_path,pi):
     if ".tgz" in gridpack_eos_path: 
         gp_extension = ".tgz"
     gp_name = "gridpack"+gp_extension
+    if os.path.isfile(gp_name): os.system('rm '+gp_name)
     print("re-tarring to "+gp_name)
     cur_dir = os.getcwd()
     os.chdir(my_path+'/'+pi)
     print(os.getcwd())
     os.environ['XZ_OPT'] = "--lzma2=preset=9,dict=512MiB"
     os.system('XZ_OPT="$XZ_OPT" tar -cJpf '+gp_name+' --exclude='+gp_name+' --exclude='+pi+' ./*')
-    print('cp -p '+gp_name+' '+gridpack_eos_path)
-    os.system('cp -p '+gp_name+' '+gridpack_eos_path)
+    print('cp  '+gp_name+' '+gridpack_eos_path)
+    os.system('cp  '+gp_name+' '+gridpack_eos_path)
     md5_1 = os.popen('md5sum '+gp_name).read().split(' ')[0]
     md5_2 = os.popen('md5sum'+' '+gridpack_eos_path).read().split(' ')[0]
-    print(gp_name)
-    print(gridpack_eos_path)
     print("Checksums = [local=",md5_1,"copied=",md5_2,"]")
-    print(type(md5_1),type(md5_2))
     if md5_1 == md5_2:
         print("Updated gridpack copied succesfully.")
     else:
