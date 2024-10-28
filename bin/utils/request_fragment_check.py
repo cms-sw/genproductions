@@ -1533,7 +1533,6 @@ for num in range(0,len(prepid)):
                     errors.extend(check_replace(runcmsgrid_file))
                     fmg_f = re.sub(r'(?m)^ *#.*\n?', '',fmg_f)
                     mg_me_pdf_list = re.findall('pdfsets=\S+',fmg_f)
-#########################################################################################################################################
                     if "Run3" in pi:
                         if int(os.popen('grep -c "systematics $runlabel" '+str(runcmsgrid_file)).read()):
                             if int(os.popen('grep -c "Encounter Error in Running Systematics Module" '+str(runcmsgrid_file)).read()) < 1:
@@ -1547,7 +1546,6 @@ for num in range(0,len(prepid)):
                                     os.system("patch "+runcmsgrid_file+" < /eos/cms/store/group/phys_generator/cvmfs/gridpacks/mg_amg_patch/runcmsgrid_systematics_LO.patch")
                                 err_gpr = gridpack_repack_and_copy(gridpack_eos_path,pi)       
                                 errors.append(err_gpr)                             
-#########################################################################################################################################
                     if mg5_aMC_version >= 260:
                         mg_lo = int(os.popen('grep "systematics" '+str(runcmsgrid_file)+' | grep -c madevent').read())
                         mg_nlo = int(os.popen('grep "systematics" '+str(runcmsgrid_file)+' | grep -c aMCatNLO').read())
