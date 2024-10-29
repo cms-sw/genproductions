@@ -1556,6 +1556,9 @@ for num in range(0,len(prepid)):
                                     os.system("patch "+runcmsgrid_file+" < /eos/cms/store/group/phys_generator/cvmfs/gridpacks/mg_amg_patch/runcmsgrid_systematics_NLO.patch")
                                 if mg_lo: 
                                     os.system("patch "+runcmsgrid_file+" < /eos/cms/store/group/phys_generator/cvmfs/gridpacks/mg_amg_patch/runcmsgrid_systematics_LO.patch")
+                                runcmsgrid_orig_file = os.path.join(my_path, pi, "runcmsgrid.sh.orig")
+                                if os.path.isfile(runcmsgrid_orig_file):
+                                    os.system("rm "+runcmsgrid_orig_file)   
                                 err_gpr = gridpack_repack_and_copy(gridpack_eos_path,my_path,pi)     
                                 errors.extend(err_gpr)                             
                     if mg5_aMC_version < 260:
