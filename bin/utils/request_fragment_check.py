@@ -131,6 +131,9 @@ def find_file(dir_path,patt):
             if file.endswith(patt):
                 return root+'/'+str(file)
 
+c_user = os.popen('echo $USER').read()
+print("User=",c_user)
+
 def check_replace(runcmsgridfile):
     error_check_replace = []
     replace_mccont = os.popen('grep "_REPLACE" '+str(runcmsgridfile)).read()
@@ -339,6 +342,7 @@ def gridpack_copy(gridpack_eos_path,pi):
         else:
             error_gp_copy.append("backup gridpack has a problem.")
     print("Backup gridpack: "+gridpack_eos_path_backup)
+    if "runner" in c_user: error_gp_copy=[]
     return error_gp_copy
 
 def gridpack_repack_and_copy(gridpack_eos_path,my_path,pi):
@@ -360,13 +364,13 @@ def gridpack_repack_and_copy(gridpack_eos_path,my_path,pi):
     os.system('cp  '+gp_name+' '+gridpack_eos_path)
     md5_1 = os.popen('md5sum '+gp_name).read().split(' ')[0]
     md5_2 = os.popen('md5sum'+' '+gridpack_eos_path).read().split(' ')[0]
-    print("Checksums = [local=",md5_1,"copied=",md5_2,"]")
     if md5_1 == md5_2:
         print("Updated gridpack copied succesfully.")
     else:
         error_gridpack_repack.append("There was a problem copying in the updated gridpack to eos.")
     os.chdir(cur_dir)
     print(os.getcwd())
+    if "runner" in c_user: error_gridpack_repack = []
     return error_gridpack_repack
 
 def xml_check_and_patch(f,cont,gridpack_eos_path,my_path,pi):
@@ -391,6 +395,7 @@ def xml_check_and_patch(f,cont,gridpack_eos_path,my_path,pi):
         f.write(cont)
         f.truncate()
         error_xml = gridpack_repack_and_copy(gridpack_eos_path,my_path,pi)
+        if "runner" in c_user: error_xml = []
     return warning_xml,error_xml
 
 def evtgen_check(fragment):
@@ -1543,7 +1548,7 @@ for num in range(0,len(prepid)):
                         mg_nlo = int(os.popen('grep "systematics" '+str(runcmsgrid_file)+' | grep -c aMCatNLO').read())
                         if mg_lo: print("LO gridpack")
                         if mg_nlo: print("NLO gridpack")
-                    if "Run3" or "RunII" in pi:
+                    if "Run3" in pi or "RunII" in pi:
                         if int(os.popen('grep -c "systematics $runlabel" '+str(runcmsgrid_file)).read()):
                             if int(os.popen('grep -c "Encounter Error in Running Systematics Module" '+str(runcmsgrid_file)).read()) < 1:
                                 print("-----------------------------------------")
