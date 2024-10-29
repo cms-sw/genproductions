@@ -32,6 +32,8 @@ parser.add_argument('--debug', help="Print debugging information", action='store
 parser.add_argument('--develop', help="Option to make modifications of the script", action='store_true')
 parser.add_argument('--local', help="Option to read fragment locally", action='store_true')
 parser.add_argument('--download_json', help="Download request json to read fragment locally in a next step", action='store_true')
+parser.add_argument('--bypass_runcmsgrid_patch', help="apply the runcmsgrid patch if necessary", action='store_true')
+
 
 args = parser.parse_args()
 
@@ -130,9 +132,6 @@ def find_file(dir_path,patt):
         for file in files:
             if file.endswith(patt):
                 return root+'/'+str(file)
-
-c_user = os.popen('echo $USER').read()
-print("User=",c_user)
 
 def check_replace(runcmsgridfile):
     error_check_replace = []
@@ -342,7 +341,6 @@ def gridpack_copy(gridpack_eos_path,pi):
         else:
             error_gp_copy.append("backup gridpack has a problem.")
     print("Backup gridpack: "+gridpack_eos_path_backup)
-    if "runner" in c_user: error_gp_copy=[]
     return error_gp_copy
 
 def gridpack_repack_and_copy(gridpack_eos_path,my_path,pi):
@@ -369,8 +367,6 @@ def gridpack_repack_and_copy(gridpack_eos_path,my_path,pi):
     else:
         error_gridpack_repack.append("There was a problem copying in the updated gridpack to eos.")
     os.chdir(cur_dir)
-    print(os.getcwd())
-    if "runner" in c_user: error_gridpack_repack = []
     return error_gridpack_repack
 
 def xml_check_and_patch(f,cont,gridpack_eos_path,my_path,pi):
@@ -395,7 +391,6 @@ def xml_check_and_patch(f,cont,gridpack_eos_path,my_path,pi):
         f.write(cont)
         f.truncate()
         error_xml = gridpack_repack_and_copy(gridpack_eos_path,my_path,pi)
-        if "runner" in c_user: error_xml = []
     return warning_xml,error_xml
 
 def evtgen_check(fragment):
@@ -1334,10 +1329,10 @@ for num in range(0,len(prepid)):
                     errors.extend(check_replace(runcmsgrid_file))
                     match = re.search(r"""process=(["']?)([^"']*)\1""", content)
                     print(match.group(0))
-                    warning1,error1 = xml_check_and_patch(f,content,gridpack_eos_path,my_path,pi)
-                    warnings.extend(warning1)
-                    errors.extend(error1)
-                    
+                    if args.bypass_runcmsgrid_patch is False:
+                        warning1,error1 = xml_check_and_patch(f,content,gridpack_eos_path,my_path,pi)
+                        warnings.extend(warning1)
+                        errors.extend(error1)    
                     f.close()
             else:
                 errors.append(my_path+'/'+pi+'/'+'runcmsgrid.sh does not exists')
@@ -1548,7 +1543,7 @@ for num in range(0,len(prepid)):
                         mg_nlo = int(os.popen('grep "systematics" '+str(runcmsgrid_file)+' | grep -c aMCatNLO').read())
                         if mg_lo: print("LO gridpack")
                         if mg_nlo: print("NLO gridpack")
-                    if "Run3" in pi or "RunII" in pi:
+                    if ("Run3" in pi or "RunII" in pi) and args.bypass_runcmsgrid_patch is False:
                         if int(os.popen('grep -c "systematics $runlabel" '+str(runcmsgrid_file)).read()):
                             if int(os.popen('grep -c "Encounter Error in Running Systematics Module" '+str(runcmsgrid_file)).read()) < 1:
                                 print("-----------------------------------------")
@@ -1671,7 +1666,7 @@ for num in range(0,len(prepid)):
                     if MGpatch2[0] == 0 and MGpatch2[1] == 1: print("[OK] MG5_aMC@NLO LO nthreads patch not made in CVMFS but done in EOS waiting for CVMFS-EOS synch")
                     if MGpatch2[1] == 0 and args.local is False:
                         errors.append("MG5_aMC@NLO LO nthreads patch not made in EOS")
-                        if args.apply_many_threads_patch:
+                        if args.apply_many_threads_patch and args.bypass_runcmsgrid_patch is False:
                             print("Patching for nthreads problem... please be patient.")
                             if slha_flag == 0:
                                 os.system('python2 ../../Utilities/scripts/update_gridpacks_mg242_thread.py --prepid '+pi)
