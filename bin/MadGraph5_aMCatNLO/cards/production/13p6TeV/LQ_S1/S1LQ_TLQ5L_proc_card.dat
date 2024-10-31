@@ -1,0 +1,32 @@
+import model LO_LQ_S1_runningPtclWidth-LQYUK_YUKVALUE
+
+define top = t t~
+define bottom = b b~
+
+define ele = e+ e-
+define mu = mu+ mu-
+define tau = ta+ ta-
+define eletau = e+ e- ta+ ta-
+define mutau = mu+ mu- ta+ ta-
+define lep = LEPF
+
+define p = p b b~
+
+define nuele = ve ve~
+define numu = vm vm~
+define nutau = vt vt~
+define nueletau = ve ve~ vt vt~
+define numutau = vm vm~ vt vt~
+define nu = NUF
+
+define Wboson = w+ w-
+
+define q5 = u u~ d d~ s s~ c c~ b b~
+
+define l3 = ele mu tau
+define nu3 = nuele numu nutau
+
+generate    p p > top lep q5 lep, (top > bottom Wboson, (Wboson > l3 nu3)) QCD=2 QED=2 NP>0 @0
+add process p p > top lep q5 lep, (top > bottom Wboson, (Wboson > q5 q5))  QCD=2 QED=2 NP>0 @1
+
+output LQOUTPUT
