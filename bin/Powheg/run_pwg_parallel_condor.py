@@ -128,7 +128,7 @@ if __name__ == "__main__":
         command = 'python3 ./run_pwg_condor.py %s %s'%(extraOpt,commonOpts)
         print (command)
         if args.dryrun: continue
-        if extraOpt != '-p 0': continue # Ignore steps that will be done by DAG
+        if extraOpt == '-p 9 -k 1': continue # Ignore tar step during preparation
         command_out = getstatusoutput(command)[1]
         print (command_out)
     
