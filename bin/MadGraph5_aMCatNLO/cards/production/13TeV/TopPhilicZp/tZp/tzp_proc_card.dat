@@ -1,0 +1,24 @@
+set default_unset_couplings 99
+set group_subprocesses Auto 
+set ignore_six_quark_processes False 
+set loop_optimized_output True 
+set loop_color_flows False
+set gauge unitary
+set complex_mass_scheme True 
+set max_npoint_for_channel 0
+import model sm
+define p = g u c d s u~ c~ d~ s~
+define j = g u c d s u~ c~ d~ s~
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+import model Top-Philic_UFO_V1 
+define p = p b b~ 
+define quark = u u~ d d~ s s~ c c~
+define top = t t~
+define wboson = w+ w-
+define wall = u u~ d d~ s s~ c c~ b b~ e+ e- mu+ mu- ta+ ta- ve ve~ vm vm~ vt vt~
+generate p p > quark top v1, v1 > t t~
+add process p p > wboson top v1, v1 > t t~
+output tzp_thetaZZZ_ctYYY_massXXX
