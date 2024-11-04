@@ -1,3 +1,9 @@
+# this two lines must be in Utilities/source_condor.sh 
+# export _condor_SCHEDD_HOST=bigbird17.cern.ch
+# export _condor_CREDD_HOST=bigbird17.cern.ch 
+
+# condor_q -name bigbird17.cern.ch
+#
 host="$(hostname)"  
 date="$(date)" 
 (
