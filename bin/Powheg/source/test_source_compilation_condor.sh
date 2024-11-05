@@ -128,6 +128,7 @@ executable              = source_compilation_${source_name}_$2_$3.sh
 output                  = \$(ClusterId).\$(ProcId).out
 error                   = \$(ClusterId).\$(ProcId).err
 log                     = \$(ClusterId).log
+MY.WantOS               = "el8"
 +JobFlavour             = "tomorrow"
 
 should_transfer_files = YES
