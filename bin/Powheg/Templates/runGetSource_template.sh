@@ -187,9 +187,10 @@ sed -i -e "s#LHAPDF_CONFIG[ \t]*=[ \t]*#\#LHAPDF_CONFIG=#g" Makefile
 sed -i -e "s#DEBUG[ \t]*=[ \t]*#\#DEBUG=#g" Makefile
 sed -i -e "s#FPE[ \t]*=[ \t]*#\#FPE=#g" Makefile
 
-if [[ `grep GoSam Makefile` != "" || `grep Gosam Makefile` != "" || `grep GOSAM Makefile` != "" ]]; then
-  sed -i -e "s#-fno-automatic#-fallow-invalid-boz#g" Makefile
-fi
+# DON'T DO, CHANGES PHYSICS OF THE PROCESS!!
+#if [[ `grep GoSam Makefile` != "" || `grep Gosam Makefile` != "" || `grep GOSAM Makefile` != "" ]]; then
+#  sed -i -e "s#-fno-automatic#-fallow-invalid-boz#g" Makefile
+#fi
 
 $patch_4 
 
