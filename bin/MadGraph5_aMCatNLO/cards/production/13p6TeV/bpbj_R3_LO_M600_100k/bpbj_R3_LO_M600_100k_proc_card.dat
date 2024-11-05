@@ -1,0 +1,6 @@
+import model VLQ_v4_4FNS_UFO-3rdL_noCKM
+set complex_mass_scheme
+define myb = b b~
+define mybp = bp bp~
+generate p p > myb h myb j / tp x y QED=1 QCD=1
+output bpbj_R3_LO_M600_100k
