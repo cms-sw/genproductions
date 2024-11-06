@@ -1373,7 +1373,7 @@ for num in range(0,len(prepid)):
                                     warnings.append("The gridpack uses PDF="+str(pw_pdf)+" but not the recommended sets for UL requests:  "+str(UL_PDFs_N)+" "+str(UL_PDFs))
                                 if "Run3" in pi:
                                     pdflist_4f_run3_N,pdflist_4f_run3,pdflist_5f_run3_N,pdflist_5f_run3,pdflist_Pb_5f_run3_N,pdflist_Pb_5f_run3=run3_pdf_check(pi)    
-                                    if (pw_pdf not in pdflist_4f_run3_N) and (pw_pdf not in pdflist_5f_run3_N):
+                                    if (str(pw_pdf) not in pdflist_4f_run3_N) and (str(pw_pdf) not in pdflist_5f_run3_N):
                                         warnings.append("The gridpack uses PDF = "+str(pw_pdf)+" but not the recommended sets for Run3 requests:     "+str(pdflist_4f_run3_N)+str(pdflist_5f_run3_N))
                             if "minlo" in line and "modlog_p" not in line:
                                 minlo = int(re.split(r'\s+', line)[1])
