@@ -66,12 +66,13 @@ source_name="${source_name%.*}"
 #hostname > lxplus_node.log
 
 # Download the CMSSW release
+source /cvmfs/cms.cern.ch/cmsset_default.sh
 mkdir -p $workdir
 cd $workdir
 export SCRAM_ARCH=${scram_arch_version}
-scramv1 project CMSSW ${cmssw_version}
+scram project CMSSW ${cmssw_version}
 cd ${cmssw_version}/src
-eval `scramv1 runtime -sh`
+eval `scram runtime -sh`
 echo "PDF REPOSITORY/VERSION: "${LHAPDF_DATA_PATH}
 
 # Copy the POWHEG scripts
@@ -115,7 +116,7 @@ do
     python3 ./run_pwg_condor.py -p 0 -i powheg.input -m ${process} -f my_${process} -d 1
     echo "=========== LAST 10 COMPILATION LINES FOR PROCESS ${process} ===========" >> ${topdir}/compile_report_-_${source_name}_-_${scram_arch_version}_-_${cmssw_version}.log
     echo "" >> ${topdir}/compile_report_-_${source_name}_-_${scram_arch_version}_-_${cmssw_version}.log
-    tail run_src_my_${process}.log >> ${topdir}/compile_report_-_${source_name}_-_${scram_arch_version}_-_${cmssw_version}.log
+    tail -n 200 run_src_my_${process}.log >> ${topdir}/compile_report_-_${source_name}_-_${scram_arch_version}_-_${cmssw_version}.log
     echo "" >> ${topdir}/compile_report_-_${source_name}_-_${scram_arch_version}_-_${cmssw_version}.log
     rm -rf my_${process}
 done
