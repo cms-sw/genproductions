@@ -315,7 +315,7 @@ def runGetSource(parstage, xgrid, folderName, powInputName, process, noPdfCheck,
         template_dict["defaultPDF"] = 904400
         template_dict["period"] = "Run3_Pb"
 
-    powhegResProcesses = ["b_bbar_4l", "HWJ_ew", "HW_ew", "HZJ_ew", "HZ_ew", "vbs-ssww-nloew", "WWJ", "ZZJ", "HJJ_ew", "LQ-s-chan", "gg4l", "Zgam", "ZgamJ", "VV_dec_ew"]
+    powhegResProcesses = ["DIS","b_bbar_4l", "HWJ_ew", "HW_ew", "HZJ_ew", "HZ_ew", "vbs-ssww-nloew", "WWJ", "WZJ", "ZZJ", "HJJ_ew", "Wc", "LQ-s-chan", "gg4l", "Zgam", "ZgamJ", "VV_dec_ew"]
     if process in powhegResProcesses:
         template_dict["powhegSrc"] = POWHEGRES_SOURCE
         template_dict["svnRepo"] = "svn://powhegbox.mib.infn.it/trunk/POWHEG-BOX-RES"
