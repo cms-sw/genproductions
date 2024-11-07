@@ -6,21 +6,10 @@
 import argparse
 import os
 import sys
-from subprocess import check_output, CalledProcessError, STDOUT
+from subprocess import check_output, CalledProcessError, STDOUT, getstatusoutput
 import re
 import datetime
 from time import sleep
-
-def getstatusoutput(cmd):
-    try:
-        data = check_output(cmd, shell=True, universal_newlines=True, stderr=STDOUT)
-        status = 0
-    except CalledProcessError as ex:
-        data = ex.output
-        status = ex.returncode
-    if data[-1:] == '\n':
-        data = data[:-1]
-    return status, data
 
 class Logger(object):
     def __init__(self):

@@ -6,23 +6,12 @@ By Roberto Covarelli 10/30/2018
 Based on Yuan Chao's script
 '''
 
-from subprocess import check_output, CalledProcessError, STDOUT
+from subprocess import check_output, CalledProcessError, STDOUT, getstatusoutput
 import fileinput
 import argparse
 import sys
 import os
 from Utilities import helpers
-
-def getstatusoutput(cmd):
-    try:
-        data = check_output(cmd, shell=True, universal_newlines=True, stderr=STDOUT)
-        status = 0
-    except CalledProcessError as ex:
-        data = ex.output
-        status = ex.returncode
-    if data[-1:] == '\n':
-        data = data[:-1]
-    return status, data
 
 TESTING = 0
 QUEUE = ''
