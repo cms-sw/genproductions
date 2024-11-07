@@ -334,8 +334,13 @@ mkdir -p obj-gfortran/proclib\n \
 cd obj-gfortran/proclib\n \
 cp ../../recola2-collier-2.2.4/recola2-2.2.4/librecola.so .\n \
 cd ../..\n \
+mv ../pwhg_analysis-dummy.f .\n \
+head -n 9 ../mintwrapper.f > temp.f\n \
+cat temp.f mintwrapper_custom.f > temp2.f\n \
+mv temp2.f mintwrapper_custom.f\n \
+rm -f temp.f\n \
 cp Makefile Makefile.orig\n \
-cat Makefile.orig | sed -e \"s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d \"=\" -f2)/bin/fastjet-config#g\" | sed -e \"s#RECOLALOCATION=.\+#RECOLALOCATION=$\(PWD\)/recola2-collier-2.2.4/recola2-2.2.4#g\" > Makefile\n \
+cat Makefile.orig | sed -e \"s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d \"=\" -f2)/bin/fastjet-config#g\" | sed -e \"s#RCLPATH =.\+#RCLPATH=$\(PWD\)/recola2-collier-2.2.4/recola2-2.2.4#g\" | sed -e \"s#lhapdfif.o#lhapdf6if.o lhapdf6ifcc.o#g\" > Makefile\n \
 export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:${LD_LIBRARY_PATH}",
 
     "VV_dec_ew" : "echo \"Adding Recola2.2.4 library\"\n \
