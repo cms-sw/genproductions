@@ -23,7 +23,7 @@ diff --git a/madgraph/iolibs/export_v4.py b/madgraph/iolibs/export_v4.py
           LHAPath='./PDFsets'            
           """ % {"path" : self.opt["cluster_local_path"]}
              changer = {"cluster_specific_path": to_add}
-diff --git a/madgraph/iolibs/template_files/pdf_opendata.f b/madgraph/iolibs/template_files/pdf_opendata.
+diff --git a/madgraph/iolibs/template_files/pdf_opendata.f b/madgraph/iolibs/template_files/pdf_opendata.f
 --- a/madgraph/iolibs/template_files/pdf_opendata.f
 +++ b/madgraph/iolibs/template_files/pdf_opendata.f
 @@ -24,7 +24,7 @@ c generic subroutine to open the table files in the right directories
@@ -35,7 +35,7 @@ diff --git a/madgraph/iolibs/template_files/pdf_opendata.f b/madgraph/iolibs/tem
        data up,lib,dir/'../','lib/','Pdfdata/'/
        Integer IU,NextUnopen,i
        External NextUnopen
-diff --git a/madgraph/iolibs/template_files/pdf_wrap_lhapdf.f b/madgraph/iolibs/template_files/pdf_wrap_l
+diff --git a/madgraph/iolibs/template_files/pdf_wrap_lhapdf.f b/madgraph/iolibs/template_files/pdf_wrap_lhapdf.f
 --- a/madgraph/iolibs/template_files/pdf_wrap_lhapdf.f
 +++ b/madgraph/iolibs/template_files/pdf_wrap_lhapdf.f
 @@ -8,7 +8,7 @@ C
