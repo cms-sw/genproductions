@@ -144,38 +144,34 @@ def runGetSource_patch_4(process) :
     "bbH" : "# Use option O0 for bbH (O2 too long)\n \
 sed -i -e \"s#O2#O0#g\" Makefile",
     "HW_ew" : "# fix fortran options/linking to OpenLoops/missing libraries in VH_ew\n \
-sed -i -e \"s#OL_process_src#OL_process_src f90_flags=-ffree-line-length-none#g\" Makefile\n \
 sed -i -e \"s#\$(PWD)/\$(OBJ)#\$(OBJ)#g\" Makefile\n \
 sed -i -e \"s#\$(OLPATH)/lib_src#lib_src#g\" Makefile\n \
-sed -i -e \"s#cd \$(OLPATH)#cp -r \$(OLPATH)/* .;sed -i -e \"s/python2/python3/g\" scons-local/scons.py;./scons#g\" Makefile\n \
+sed -i -e \"s#cd \$(OLPATH)#cp -r \$(OLPATH)/* .#g\" Makefile\n \
 sed -i -e \"s#abspath(os.path.join(config#relpath(os.path.join(config#g\" ../OpenLoopsStuff/OpenLoops/SConstruct\n \
 sed -i -e \"s#rpath=\$(PWD)/\$(OBJDIR) -L\$(PWD)/\$(OBJDIR)#rpath=\$(OBJDIR) -L\$(OBJDIR)#g\" Makefile\n \
 sed -i -e \"s#PDFPACK=lhapdfif.o#PDFPACK=lhapdf6if.o lhapdf6ifcc.o#g\" Makefile\n \
 cat ${patches_dir}/missing_lhapdf6.txt >> Makefile",   
     "HZ_ew" : "# fix fortran options/linking to OpenLoops/missing libraries in VH_ew\n \
-sed -i -e \"s#OL_process_src#OL_process_src f90_flags=-ffree-line-length-none#g\" Makefile\n \
 sed -i -e \"s#\$(PWD)/\$(OBJ)#\$(OBJ)#g\" Makefile\n \
 sed -i -e \"s#\$(OLPATH)/lib_src#lib_src#g\" Makefile\n \
-sed -i -e \"s#cd \$(OLPATH)#cp -r \$(OLPATH)/* .;sed -i -e \"s/python2/python3/g\" scons-local/scons.py;./scons#g\" Makefile\n \
+sed -i -e \"s#cd \$(OLPATH)#cp -r \$(OLPATH)/* .#g\" Makefile\n \
 sed -i -e \"s#abspath(os.path.join(config#relpath(os.path.join(config#g\" ../OpenLoopsStuff/OpenLoops/SConstruct\n \
 sed -i -e \"s#rpath=\$(PWD)/\$(OBJDIR) -L\$(PWD)/\$(OBJDIR)#rpath=\$(OBJDIR) -L\$(OBJDIR)#g\" Makefile\n \
 sed -i -e \"s#opencount.o#opencount.o sigequiv_hook.o#g\" Makefile\n \
 sed -i -e \"s#PDFPACK=lhapdfif.o#PDFPACK=lhapdf6if.o lhapdf6ifcc.o#g\" Makefile\n \
 cat ${patches_dir}/missing_lhapdf6.txt >> Makefile",
     "HZJ_ew" : "# fix fortran options/linking to OpenLoops/missing libraries in VH_ew\n \
-sed -i -e \"s#OL_process_src#OL_process_src f90_flags=-ffree-line-length-none#g\" Makefile\n \
 sed -i -e \"s#\$(PWD)/\$(OBJ)#\$(OBJ)#g\" Makefile\n \
 sed -i -e \"s#\$(OLPATH)/lib_src#lib_src#g\" Makefile\n \
-sed -i -e \"s#cd \$(OLPATH)#cp -r \$(OLPATH)/* .;sed -i -e \"s/python2/python3/g\" scons-local/scons.py;./scons#g\" Makefile\n \
+sed -i -e \"s#cd \$(OLPATH)#cp -r \$(OLPATH)/* .#g\" Makefile\n \
 sed -i -e \"s#abspath(os.path.join(config#relpath(os.path.join(config#g\" ../OpenLoopsStuff/OpenLoops/SConstruct\n \
 sed -i -e \"s#rpath=\$(PWD)/\$(OBJDIR) -L\$(PWD)/\$(OBJDIR)#rpath=\$(OBJDIR) -L\$(OBJDIR)#g\" Makefile\n \
 sed -i -e \"s#OL_process_src#OL_process_src f90_flags=-ffree-line-length-none#g\" Makefile\n \
 sed -i -e \"s#boostrot.o#boostrot.o boostrot4.o#g\" Makefile",
     "HWJ_ew" : "# fix fortran options/linking to OpenLoops/missing libraries in VH_ew\n \
-sed -i -e \"s#OL_process_src#OL_process_src f90_flags=-ffree-line-length-none#g\" Makefile\n \
 sed -i -e \"s#\$(PWD)/\$(OBJ)#\$(OBJ)#g\" Makefile\n \
 sed -i -e \"s#\$(OLPATH)/lib_src#lib_src#g\" Makefile\n \
-sed -i -e \"s#cd \$(OLPATH)#cp -r \$(OLPATH)/* .;sed -i -e \"s/python2/python3/g\" scons-local/scons.py;./scons#g\" Makefile\n \
+sed -i -e \"s#cd \$(OLPATH)#cp -r \$(OLPATH)/* .#g\" Makefile\n \
 sed -i -e \"s#abspath(os.path.join(config#relpath(os.path.join(config#g\" ../OpenLoopsStuff/OpenLoops/SConstruct\n \
 sed -i -e \"s#rpath=\$(PWD)/\$(OBJDIR) -L\$(PWD)/\$(OBJDIR)#rpath=\$(OBJDIR) -L\$(OBJDIR)#g\" Makefile\n \
 sed -i -e \"s#opencount.o#opencount.o sigequiv_hook.o#g\" Makefile\n \
