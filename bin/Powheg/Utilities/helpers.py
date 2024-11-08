@@ -236,6 +236,13 @@ sed -i -e 's#python#python2#g' matrix\n \
 ./matrix --minnlo_interface\n \
 cd -\n \
 source /cvmfs/cms.cern.ch/${SCRAM_ARCH}/external/cmake/3.10.0/etc/profile.d/init.sh",
+    "WZJ" : "cp Makefile Makefile.orig\n \
+cat Makefile.orig | sed -e \"s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d \"=\" -f2)/bin/fastjet-config#g\" | sed -e \"s#\#\ FASTJET_CONFIG#FASTJET_CONFIG#g\" > Makefile\n \
+cd ${WORKDIR}/${name}/POWHEG-BOX/MATRIXStuff\n \
+sed -i -e 's#python#python2#g' matrix\n \
+./matrix --minnlo_interface\n \
+cd -\n \
+source /cvmfs/cms.cern.ch/${SCRAM_ARCH}/external/cmake/3.10.0/etc/profile.d/init.sh",
     "ZgamJ" : "cp Makefile Makefile.orig\n \
 cat Makefile.orig | sed -e \"s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d \"=\" -f2)/bin/fastjet-config#g\" | sed -e \"s#\#\ FASTJET_CONFIG#FASTJET_CONFIG#g\" > Makefile\n \
 cd ${WORKDIR}/${name}/POWHEG-BOX/MATRIXStuff\n \
