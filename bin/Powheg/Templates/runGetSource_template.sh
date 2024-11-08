@@ -187,10 +187,30 @@ sed -i -e "s#LHAPDF_CONFIG[ \t]*=[ \t]*#\#LHAPDF_CONFIG=#g" Makefile
 sed -i -e "s#DEBUG[ \t]*=[ \t]*#\#DEBUG=#g" Makefile
 sed -i -e "s#FPE[ \t]*=[ \t]*#\#FPE=#g" Makefile
 
-# DON'T DO, CHANGES PHYSICS OF THE PROCESS!!
+# DON'T DO FOR GoSam, CHANGES PHYSICS OF THE PROCESS!!
 #if [[ `grep GoSam Makefile` != "" || `grep Gosam Makefile` != "" || `grep GOSAM Makefile` != "" ]]; then
 #  sed -i -e "s#-fno-automatic#-fallow-invalid-boz#g" Makefile
 #fi
+
+## FOR OpenLoops, CHANGE FORTRAN OPTIONS AND REMOVE SILLY BINARY NUMBERS
+if [[ `grep OpenLoops Makefile` != "" ]]; then
+    sed -i -e "s#proclib ;#proclib f77_flags=-fallow-invalid-boz,-std=legacy,-ffixed-line-length-none,-fno-range-check f90_flags=-fallow-invalid-boz,-std=legacy,-ffixed-line-length-none,-fno-range-check ;#g" Makefile
+    cd ../OpenLoopsStuff/OpenLoops/lib_src/openloops/
+    sed -i -e "/case/ s=B\"00\"=0=g" */*.*90
+    sed -i -e "/case/ s=B\"01\"=1=g" */*.*90
+    sed -i -e "/case/ s=B\"10\"=2=g" */*.*90
+    sed -i -e "/case/ s=B\"11\"=3=g" */*.*90
+    sed -i -e "/case/ s=B\"1111\"=15=g" */*.*90
+    sed -i -e "/case/ s=B\"0110\"=6=g" */*.*90
+    sed -i -e "/case/ s=B\"0111\"=7=g" */*.*90
+    sed -i -e "/case/ s=B\"1001\"=9=g" */*.*90
+    sed -i -e "/case/ s=B\"1101\"=13=g" */*.*90
+    sed -i -e "/case/ s=B\"1110\"=14=g" */*.*90
+    sed -i -e "/case/ s=B\"1011\"=11=g" */*.*90
+    sed -i -e "/case/ s=B\"1010\"=10=g" */*.*90
+    sed -i -e "/case/ s=B\"0101\"=5=g" */*.*90
+    cd -
+fi
 
 $patch_4 
 
