@@ -25,7 +25,7 @@ define wboson = w+ w-
 define wall = u u~ d d~ s s~ c c~ b b~ e+ e- mu+ mu- ta+ ta- ve ve~ vm vm~ vt vt~
 generate p p > quark top v1, v1 > t t~
 add process p p > wboson top v1, v1 > t t~
-output TopPhilic_tzp_nodecay_m{:.0f}_relwidth{:.0f} -nojpeg""".format(M, W)
+output TopPhilic_tzp_13p6TeV_nodecay_m{:.0f}_relwidth{:.0f} -nojpeg""".format(M, W)
 
 	return card
 
@@ -64,8 +64,8 @@ def make_run_card():
 #*********************************************************************
      1        = lpp1    ! beam 1 type 
      1        = lpp2    ! beam 2 type
-     6500.0     = ebeam1  ! beam 1 total energy in GeV 
-     6500.0     = ebeam2  ! beam 2 total energy in GeV 
+     6800.0     = ebeam1  ! beam 1 total energy in GeV 
+     6800.0     = ebeam2  ! beam 2 total energy in GeV 
 # To see polarised beam options: type "update beam_pol"
 
 #*********************************************************************
@@ -178,7 +178,7 @@ if __name__ == "__main__":
 	for M in [500,750,1000,1250,1500,1750,2000,2500,3000,4000]:
 		for W in [4,10,20,50]:
 			print("creating crads for Z' mass {}, relative width {}%...".format(M, W))
-			base = "TopPhilic_tzp_nodecay_m{:.0f}_relwidth{:.0f}".format(M, W)
+			base = "TopPhilic_tzp_13p6TeV_nodecay_m{:.0f}_relwidth{:.0f}".format(M, W)
 
 			# create directory
 			os.mkdir(base)
