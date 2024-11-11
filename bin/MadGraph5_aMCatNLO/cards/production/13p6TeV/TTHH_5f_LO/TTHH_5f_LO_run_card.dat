@@ -90,7 +90,7 @@ $DEFAULT_PDF_MEMBERS = reweight_PDF      ! if pdlabel=lhapdf, this is the lhapdf
 #**********************************
 # BW cutoff (M+/-bwcutoff*Gamma)
 #**********************************
-  15000.0	=  bwcutoff       ! (M+/-bwcutoff*Gamma)
+  15.0	=  bwcutoff       ! (M+/-bwcutoff*Gamma)
 #**********************************************************
 # Apply pt/E/eta/dr/mij/kt_durham cuts on decay products or not
 # (note that etmiss/ptll/ptheavy/ht/sorted cuts always apply)
