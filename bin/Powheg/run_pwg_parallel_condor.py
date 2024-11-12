@@ -6,7 +6,7 @@
 import argparse
 import os
 import sys
-import commands
+from subprocess import check_output, CalledProcessError, STDOUT, getstatusoutput
 import re
 import datetime
 from time import sleep
@@ -51,21 +51,21 @@ if __name__ == "__main__":
     QUEUE = args.doQueue
     EOSfolder = args.folderName
 
-    print
-    print 'RUNNING PARAMS: '
-    print '                parstage              = ' + args.parstage
-    print '                folderName            = ' + args.folderName 
-    print '                eosFolder             = ' + args.eosFolder 
-    print '                Number of jobs        = ' + args.numJobs 
-    print '                Number of xgrid iter  = ' + args.numX 
-    print '                Condor Job flavor     = ' + args.doQueue 
-    print '                powheg input cfg file = ' + args.inputTemplate 
-    print '                powheg process name   = ' + args.prcName
-    print '                do step 3 pilot run   = ' + str(args.step3pilot)
-    print '                dry run               = ' + str(args.dryrun)
-    print '                SLC                   = ' + str(args.slc)
-    print '                SVN                   = ' + str(args.svnRev)
-    print
+    print('')
+    print('RUNNING PARAMS: ')
+    print('                parstage              = ' + args.parstage)
+    print('                folderName            = ' + args.folderName )
+    print('                eosFolder             = ' + args.eosFolder )
+    print('                Number of jobs        = ' + args.numJobs )
+    print('                Number of xgrid iter  = ' + args.numX )
+    print('                Condor Job flavor     = ' + args.doQueue )
+    print('                powheg input cfg file = ' + args.inputTemplate )
+    print('                powheg process name   = ' + args.prcName)
+    print('                do step 3 pilot run   = ' + str(args.step3pilot))
+    print('                dry run               = ' + str(args.dryrun))
+    print('                SLC                   = ' + str(args.slc))
+    print('                SVN                   = ' + str(args.svnRev))
+    print('')
 
 
     # parse differe
@@ -96,7 +96,7 @@ if __name__ == "__main__":
             (9, 'grid production 9',         '-p 9 -k 1','null'))
 
     for istep,step,extraOpt,condorFile in steps:
-        print '*'*50,step,'*'*5,extraOpt,'*'*50
+        print ('*'*50,step,'*'*5,extraOpt,'*'*50)
         njobs = args.numJobs
         if 'pilot' in step:
             njobs = '1'
@@ -105,6 +105,8 @@ if __name__ == "__main__":
         commonOpts+=' --svn %i' % args.svnRev
         if args.slc == '6':
             commonOpts+=' --slc6 1 '
+        if args.slc == '7':
+            commonOpts+=' --slc7 1 '
         if args.eosFolder != 'NONE':
             commonOpts+=' -e '+args.eosFolder
         if extraOpt!='-p 0' and extraOpt!='-p 9 -k 1':
@@ -112,11 +114,12 @@ if __name__ == "__main__":
                 commonOpts = commonOpts+' -q '+queues[istep]
             else:
                 commonOpts = commonOpts+' -q '+args.doQueue
-        command = 'python ./run_pwg_condor.py %s %s'%(extraOpt,commonOpts)
-        print command
-        # if args.dryrun: continue
-        command_out = commands.getstatusoutput(command)[1]
-        print command_out
+        command = 'python3 ./run_pwg_condor.py %s %s'%(extraOpt,commonOpts)
+        print (command)
+        if args.dryrun: continue
+        if extraOpt == '-p 9 -k 1': continue # Ignore tar step during preparation
+        command_out = getstatusoutput(command)[1]
+        print (command_out)
     
     dagfilename = 'run_' + args.folderName + '.dag'
     dagfile = open(dagfilename, 'w')
@@ -138,7 +141,7 @@ if __name__ == "__main__":
     dagfile.close()
     
     command = 'condor_submit_dag %s'%(dagfilename)
-    print command
+    print (command)
     if not args.dryrun:
-        command_out = commands.getstatusoutput(command)[1]
-        print command_out
+        command_out = getstatusoutput(command)[1]
+        print (command_out)
