@@ -27,6 +27,7 @@ topdir=$PWD
 source_file=powhegboxRES_rev4060_date20240610.tar.gz
 source_dir=/eos/project/c/cmsweb/www/generators/directories/cms-project-generators/slc6_amd64_gcc481/powheg/V2.0/src/$1
 
+process=$1
 scram_arch_version=$2
 cmssw_version=$3
 workdir=test
