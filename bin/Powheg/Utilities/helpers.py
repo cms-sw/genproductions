@@ -144,38 +144,34 @@ def runGetSource_patch_4(process) :
     "bbH" : "# Use option O0 for bbH (O2 too long)\n \
 sed -i -e \"s#O2#O0#g\" Makefile",
     "HW_ew" : "# fix fortran options/linking to OpenLoops/missing libraries in VH_ew\n \
-sed -i -e \"s#OL_process_src#OL_process_src f90_flags=-ffree-line-length-none#g\" Makefile\n \
 sed -i -e \"s#\$(PWD)/\$(OBJ)#\$(OBJ)#g\" Makefile\n \
 sed -i -e \"s#\$(OLPATH)/lib_src#lib_src#g\" Makefile\n \
-sed -i -e \"s#cd \$(OLPATH)#cp -r \$(OLPATH)/* .;sed -i -e \"s/python2/python3/g\" scons-local/scons.py;./scons#g\" Makefile\n \
+sed -i -e \"s#cd \$(OLPATH)#cp -r \$(OLPATH)/* .#g\" Makefile\n \
 sed -i -e \"s#abspath(os.path.join(config#relpath(os.path.join(config#g\" ../OpenLoopsStuff/OpenLoops/SConstruct\n \
 sed -i -e \"s#rpath=\$(PWD)/\$(OBJDIR) -L\$(PWD)/\$(OBJDIR)#rpath=\$(OBJDIR) -L\$(OBJDIR)#g\" Makefile\n \
 sed -i -e \"s#PDFPACK=lhapdfif.o#PDFPACK=lhapdf6if.o lhapdf6ifcc.o#g\" Makefile\n \
 cat ${patches_dir}/missing_lhapdf6.txt >> Makefile",   
     "HZ_ew" : "# fix fortran options/linking to OpenLoops/missing libraries in VH_ew\n \
-sed -i -e \"s#OL_process_src#OL_process_src f90_flags=-ffree-line-length-none#g\" Makefile\n \
 sed -i -e \"s#\$(PWD)/\$(OBJ)#\$(OBJ)#g\" Makefile\n \
 sed -i -e \"s#\$(OLPATH)/lib_src#lib_src#g\" Makefile\n \
-sed -i -e \"s#cd \$(OLPATH)#cp -r \$(OLPATH)/* .;sed -i -e \"s/python2/python3/g\" scons-local/scons.py;./scons#g\" Makefile\n \
+sed -i -e \"s#cd \$(OLPATH)#cp -r \$(OLPATH)/* .#g\" Makefile\n \
 sed -i -e \"s#abspath(os.path.join(config#relpath(os.path.join(config#g\" ../OpenLoopsStuff/OpenLoops/SConstruct\n \
 sed -i -e \"s#rpath=\$(PWD)/\$(OBJDIR) -L\$(PWD)/\$(OBJDIR)#rpath=\$(OBJDIR) -L\$(OBJDIR)#g\" Makefile\n \
 sed -i -e \"s#opencount.o#opencount.o sigequiv_hook.o#g\" Makefile\n \
 sed -i -e \"s#PDFPACK=lhapdfif.o#PDFPACK=lhapdf6if.o lhapdf6ifcc.o#g\" Makefile\n \
 cat ${patches_dir}/missing_lhapdf6.txt >> Makefile",
     "HZJ_ew" : "# fix fortran options/linking to OpenLoops/missing libraries in VH_ew\n \
-sed -i -e \"s#OL_process_src#OL_process_src f90_flags=-ffree-line-length-none#g\" Makefile\n \
 sed -i -e \"s#\$(PWD)/\$(OBJ)#\$(OBJ)#g\" Makefile\n \
 sed -i -e \"s#\$(OLPATH)/lib_src#lib_src#g\" Makefile\n \
-sed -i -e \"s#cd \$(OLPATH)#cp -r \$(OLPATH)/* .;sed -i -e \"s/python2/python3/g\" scons-local/scons.py;./scons#g\" Makefile\n \
+sed -i -e \"s#cd \$(OLPATH)#cp -r \$(OLPATH)/* .#g\" Makefile\n \
 sed -i -e \"s#abspath(os.path.join(config#relpath(os.path.join(config#g\" ../OpenLoopsStuff/OpenLoops/SConstruct\n \
 sed -i -e \"s#rpath=\$(PWD)/\$(OBJDIR) -L\$(PWD)/\$(OBJDIR)#rpath=\$(OBJDIR) -L\$(OBJDIR)#g\" Makefile\n \
 sed -i -e \"s#OL_process_src#OL_process_src f90_flags=-ffree-line-length-none#g\" Makefile\n \
 sed -i -e \"s#boostrot.o#boostrot.o boostrot4.o#g\" Makefile",
     "HWJ_ew" : "# fix fortran options/linking to OpenLoops/missing libraries in VH_ew\n \
-sed -i -e \"s#OL_process_src#OL_process_src f90_flags=-ffree-line-length-none#g\" Makefile\n \
 sed -i -e \"s#\$(PWD)/\$(OBJ)#\$(OBJ)#g\" Makefile\n \
 sed -i -e \"s#\$(OLPATH)/lib_src#lib_src#g\" Makefile\n \
-sed -i -e \"s#cd \$(OLPATH)#cp -r \$(OLPATH)/* .;sed -i -e \"s/python2/python3/g\" scons-local/scons.py;./scons#g\" Makefile\n \
+sed -i -e \"s#cd \$(OLPATH)#cp -r \$(OLPATH)/* .#g\" Makefile\n \
 sed -i -e \"s#abspath(os.path.join(config#relpath(os.path.join(config#g\" ../OpenLoopsStuff/OpenLoops/SConstruct\n \
 sed -i -e \"s#rpath=\$(PWD)/\$(OBJDIR) -L\$(PWD)/\$(OBJDIR)#rpath=\$(OBJDIR) -L\$(OBJDIR)#g\" Makefile\n \
 sed -i -e \"s#opencount.o#opencount.o sigequiv_hook.o#g\" Makefile\n \
@@ -223,6 +219,7 @@ def runGetSource_patch_6(process) :
     "WWJ" : "cp Makefile Makefile.orig\n \
 cat Makefile.orig | sed -e \"s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d \"=\" -f2)/bin/fastjet-config#g\" | sed -e \"s#\#\ FASTJET_CONFIG#FASTJET_CONFIG#g\" | sed -e \"s#\#\ LIBSFASTJET#LIBSFASTJET#g\" | sed -e \"s#\#\ FJCXXFLAGS#FJCXXFLAGS#g\" > Makefile\n \
 cd ${WORKDIR}/${name}/POWHEG-BOX/MATRIXStuff\n \
+sed -i -e 's#python#python2#g' matrix\n \
 ./matrix --minnlo_interface\n \
 cd -\n \
 cd ${WORKDIR}/${name}\n \
@@ -235,18 +232,28 @@ source /cvmfs/cms.cern.ch/${SCRAM_ARCH}/external/cmake/3.17.2/etc/profile.d/init
     "ZZJ" : "cp Makefile Makefile.orig\n \
 cat Makefile.orig | sed -e \"s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d \"=\" -f2)/bin/fastjet-config#g\" | sed -e \"s#\#\ FASTJET_CONFIG#FASTJET_CONFIG#g\" > Makefile\n \
 cd ${WORKDIR}/${name}/POWHEG-BOX/MATRIXStuff\n \
+sed -i -e 's#python#python2#g' matrix\n \
+./matrix --minnlo_interface\n \
+cd -\n \
+source /cvmfs/cms.cern.ch/${SCRAM_ARCH}/external/cmake/3.10.0/etc/profile.d/init.sh",
+    "WZJ" : "cp Makefile Makefile.orig\n \
+cat Makefile.orig | sed -e \"s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d \"=\" -f2)/bin/fastjet-config#g\" | sed -e \"s#\#\ FASTJET_CONFIG#FASTJET_CONFIG#g\" > Makefile\n \
+cd ${WORKDIR}/${name}/POWHEG-BOX/MATRIXStuff\n \
+sed -i -e 's#python#python2#g' matrix\n \
 ./matrix --minnlo_interface\n \
 cd -\n \
 source /cvmfs/cms.cern.ch/${SCRAM_ARCH}/external/cmake/3.10.0/etc/profile.d/init.sh",
     "ZgamJ" : "cp Makefile Makefile.orig\n \
 cat Makefile.orig | sed -e \"s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d \"=\" -f2)/bin/fastjet-config#g\" | sed -e \"s#\#\ FASTJET_CONFIG#FASTJET_CONFIG#g\" > Makefile\n \
 cd ${WORKDIR}/${name}/POWHEG-BOX/MATRIXStuff\n \
+sed -i -e 's#python#python2#g' matrix\n \
 ./matrix --minnlo_interface\n \
 cd -\n \
 source /cvmfs/cms.cern.ch/${SCRAM_ARCH}/external/cmake/3.10.0/etc/profile.d/init.sh",
     "gg4l" : "cp Makefile Makefile.orig\n \
 cat Makefile.orig | sed -e \"s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d \"=\" -f2)/bin/fastjet-config#g\" | sed -e \"s#\#\ FASTJET_CONFIG#FASTJET_CONFIG#g\" > Makefile\n \
 cd ${WORKDIR}/${name}/POWHEG-BOX/MATRIXStuff\n \
+sed -i -e 's#python#python2#g' matrix\n \
 ./matrix --minnlo_interface\n \
 cd -\n \
 source /cvmfs/cms.cern.ch/${SCRAM_ARCH}/external/cmake/3.10.0/etc/profile.d/init.sh",
@@ -334,8 +341,13 @@ mkdir -p obj-gfortran/proclib\n \
 cd obj-gfortran/proclib\n \
 cp ../../recola2-collier-2.2.4/recola2-2.2.4/librecola.so .\n \
 cd ../..\n \
+mv ../pwhg_analysis-dummy.f .\n \
+head -n 9 ../mintwrapper.f > temp.f\n \
+cat temp.f mintwrapper_custom.f > temp2.f\n \
+mv temp2.f mintwrapper_custom.f\n \
+rm -f temp.f\n \
 cp Makefile Makefile.orig\n \
-cat Makefile.orig | sed -e \"s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d \"=\" -f2)/bin/fastjet-config#g\" | sed -e \"s#RECOLALOCATION=.\+#RECOLALOCATION=$\(PWD\)/recola2-collier-2.2.4/recola2-2.2.4#g\" > Makefile\n \
+cat Makefile.orig | sed -e \"s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d \"=\" -f2)/bin/fastjet-config#g\" | sed -e \"s#RCLPATH =.\+#RCLPATH=$\(PWD\)/recola2-collier-2.2.4/recola2-2.2.4#g\" | sed -e \"s#lhapdfif.o#lhapdf6if.o lhapdf6ifcc.o#g\" > Makefile\n \
 export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:${LD_LIBRARY_PATH}",
 
     "VV_dec_ew" : "echo \"Adding Recola2.2.4 library\"\n \
