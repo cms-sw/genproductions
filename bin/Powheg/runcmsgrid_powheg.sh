@@ -104,7 +104,7 @@ if [[ -e ${myDir} ]]; then
 fi
 
 export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:`pwd`/obj-gfortran/proclib/:${LD_LIBRARY_PATH}
-if [[ "${process}" == "WWJ" ]]; then
+if [[ "${process}" == "WWJ" || "${process}" == "WZJ" || "${process}" == "ZZJ" || "${process}" == "ZgamJ" ]]; then
   export LD_LIBRARY_PATH=`pwd`/MATRIXStuff/external/ginac-install/lib/:`pwd`/MATRIXStuff/external/cln-install/lib/:`pwd`/MATRIXStuff/lib/ppllll24/:${LD_LIBRARY_PATH}
 fi
 mkdir ${myDir}; cd ${myDir} ;  

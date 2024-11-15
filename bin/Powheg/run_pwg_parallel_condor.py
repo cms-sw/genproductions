@@ -33,7 +33,7 @@ if __name__ == "__main__":
     eoscmd = '/afs/cern.ch/project/eos/installation/cms/bin/eos.select' ;
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('-p', '--parstage'      , dest="parstage",      default= '01239',        help='stage of the production process [01239]')
+    parser.add_argument('-p', '--parstage'      , dest="parstage",      default= '123',          help='stage of the production process [01239]')
     parser.add_argument('-f', '--folderName'    , dest="folderName",    default='testProd',      help='local folder and last eos folder name[testProd]')
     parser.add_argument('-e', '--eosFolder'     , dest="eosFolder",     default='NONE' ,         help='folder before the last one, on EOS')
     parser.add_argument('-j', '--numJobs'       , dest="numJobs",       default= '10',           help='number of jobs to be used for multicore grid step 1,2,3')
@@ -75,7 +75,9 @@ if __name__ == "__main__":
     
     steps = []
     if '0' in args.parstage:
-        steps.append((0, 'compile',                   '-p 0','null'))
+        #steps.append((0, 'compile',                   '-p 0','null'))
+        print ("Compilation on condor is not supported anymore, please run step 0 interactively")
+        sys.exit()
     if '1' in args.parstage:
         for ix in range(1, int(args.numX)+1):
             steps.append(

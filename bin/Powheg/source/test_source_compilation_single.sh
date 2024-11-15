@@ -16,9 +16,25 @@ echo "   ______________________________________________________    "
 echo "         Running Powheg script "$(basename "$0")"                          "
 echo "   ______________________________________________________    "
 
-source_name=$1
-source_name="${source_name%.*}"
-source_name="${source_name%.*}"
+process=$1
+
+cat << EOF > source_compilation_${process}_$2_$3.sh
+#!/bin/bash
+
+# Define a few variables
+genproduction_dir=$PWD/../../..
+topdir=$PWD
+source_file=powhegboxRES_rev4060_date20240610.tar.gz
+source_dir=/eos/project/c/cmsweb/www/generators/directories/cms-project-generators/slc6_amd64_gcc481/powheg/V2.0/src/$1
+
+process=$1
+scram_arch_version=$2
+cmssw_version=$3
+workdir=test
+
+EOF
+
+cat << 'EOF' >> source_compilation_${process}_$2_$3.sh
 
 ##################################################################################
 ##################################################################################
@@ -39,59 +55,19 @@ source_name="${source_name%.*}"
 ##################################################################################
 ##################################################################################
 
-source_dir=/eos/project/c/cmsweb/www/generators/directories/cms-project-generators/slc6_amd64_gcc481/powheg/V2.0/src/$1
-
-# check whether the script needs to run on all the processes 
-# or on a (sub)set defined in the variable "processes"
-if [ -z "$processes" ]; then 
-    process_list=`tar -tvf $source_dir 'POWHEG-BOX/*.tgz' | awk '{print $6}'`
-    process_list=$(echo $process_list | sed 's/POWHEG\-BOX\///g')
-    process_list=$(echo $process_list | sed 's/\.tgz//g')
-else 
-    process_list=$(printf " %s" "${processes[@]}")
-    process_list=${process_list:1}
-fi
-
-process_list=`echo "$process_list"` # DYNNLOPS is not meant to be compiled
-
-echo "PROCESS LIST: "${process_list}
-
-for file in ${process_list}
-do
-    process="${file%.*}"
-    cat << EOF > source_compilation_${process}_$2_$3.sh
-#!/bin/bash
-
-# Define a few variables
-process=${process}
-genproduction_dir=$PWD/../../..
-topdir=$PWD
-source_file=$1
-source_dir=/eos/project/c/cmsweb/www/generators/directories/cms-project-generators/slc6_amd64_gcc481/powheg/V2.0/src/$1
-scram_arch_version=$2
-cmssw_version=$3
-workdir=test
-
-EOF
-
-    cat << 'EOF' >> source_compilation_${process}_$2_$3.sh
-
 echo "source file: "$source_dir
-
-source_name=$(basename "$source_file")
-source_name="${source_name%.*}"
-source_name="${source_name%.*}"
 
 # store the lxplus node to retrieve the output in case of disconnection
 #hostname > lxplus_node.log
 
 # Download the CMSSW release
+source /cvmfs/cms.cern.ch/cmsset_default.sh
 mkdir -p $workdir
 cd $workdir
 export SCRAM_ARCH=${scram_arch_version}
-scramv1 project CMSSW ${cmssw_version}
+scram project CMSSW ${cmssw_version}
 cd ${cmssw_version}/src
-eval `scramv1 runtime -sh`
+eval `scram runtime -sh`
 echo "PDF REPOSITORY/VERSION: "${LHAPDF_DATA_PATH}
 
 # Copy the POWHEG scripts
@@ -111,25 +87,28 @@ cp ${genproduction_dir}/bin/Powheg/examples/V2/gg_H_quark-mass-effects_NNPDF30_1
 rm ${topdir}/compile_report_-_${process}_-_${scram_arch_version}_-_${cmssw_version}.log
 
 # Loop on the processes, compile and fetch the last lines of the compilation log
-echo "compiling ${process}"
+echo "compiling $process"
 echo ${PWD}
 echo "python3 ./run_pwg_condor.py -p 0 -i powheg.input -m ${process} -f my_${process} -d 1"
 python3 ./run_pwg_condor.py -p 0 -i powheg.input -m ${process} -f my_${process} -d 1
-echo "=========== LAST 30 COMPILATION LINES FOR PROCESS ${process} ===========" >> ${topdir}/compile_report_-_${process}_-_${scram_arch_version}_-_${cmssw_version}.log
+echo "=========== COMPILATION LINES FOR PROCESS ${process} ===========" >> ${topdir}/compile_report_-_${process}_-_${scram_arch_version}_-_${cmssw_version}.log
 echo "" >> ${topdir}/compile_report_-_${process}_-_${scram_arch_version}_-_${cmssw_version}.log
-tail -n 30 run_src_my_${process}.log >> ${topdir}/compile_report_-_${process}_-_${scram_arch_version}_-_${cmssw_version}.log
+cat run_src_my_${process}.log >> ${topdir}/compile_report_-_${process}_-_${scram_arch_version}_-_${cmssw_version}.log
 echo "" >> ${topdir}/compile_report_-_${process}_-_${scram_arch_version}_-_${cmssw_version}.log
 rm -rf my_${process}
 
 EOF
 
-    cat << EOF > condor_${process}_$2_$3.sub
+cat << EOF > condor_${process}_$2_$3.sub
 
 executable              = source_compilation_${process}_$2_$3.sh
 output                  = \$(ClusterId).\$(ProcId).out
 error                   = \$(ClusterId).\$(ProcId).err
 log                     = \$(ClusterId).log
-+JobFlavour             = "testmatch"
+MY.WantOS               = "el8"
++JobFlavour             = "nextweek"
+request_memory =        8000M
+request_disk   =        800M
 
 should_transfer_files = YES
 when_to_transfer_output = ON_EXIT
@@ -138,8 +117,4 @@ Queue 1
 
 EOF
 
-    condor_submit condor_${process}_$2_$3.sub
-done
-
-#echo "If you want, select some specific processes in source_compilation_${source_name}_$2_$3.sh"
-#echo "When ready run: \"condor_submit condor_${source_name}_$2_$3.sub\" "
+echo "When ready run: \"condor_submit condor_${process}_$2_$3.sub\" "

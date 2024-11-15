@@ -44,11 +44,11 @@ cd User-Processes-RES
 for file in $(ls $workdir/User-Processes-RES)
 do
     echo $file
-    tar cspzf $powhegdir/${file}.tgz $file  
+    tar cpzf $powhegdir/${file}.tgz $file  
 done
 
 cd $workdir
-tar cspzf ${output}.tar.gz POWHEG-BOX
+tar cpzf ${output}.tar.gz POWHEG-BOX
 
 sourcedir=/eos/project/c/cmsweb/www/generators/directories/cms-project-generators/slc6_amd64_gcc481/powheg/V2.0/src
 mv ${output}.tar.gz $sourcedir/${output}.tar.gz 

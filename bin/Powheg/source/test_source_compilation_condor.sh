@@ -66,12 +66,13 @@ source_name="${source_name%.*}"
 #hostname > lxplus_node.log
 
 # Download the CMSSW release
+source /cvmfs/cms.cern.ch/cmsset_default.sh
 mkdir -p $workdir
 cd $workdir
 export SCRAM_ARCH=${scram_arch_version}
-scramv1 project CMSSW ${cmssw_version}
+scram project CMSSW ${cmssw_version}
 cd ${cmssw_version}/src
-eval `scramv1 runtime -sh`
+eval `scram runtime -sh`
 echo "PDF REPOSITORY/VERSION: "${LHAPDF_DATA_PATH}
 
 # Copy the POWHEG scripts
@@ -128,6 +129,7 @@ executable              = source_compilation_${source_name}_$2_$3.sh
 output                  = \$(ClusterId).\$(ProcId).out
 error                   = \$(ClusterId).\$(ProcId).err
 log                     = \$(ClusterId).log
+MY.WantOS               = "el8"
 +JobFlavour             = "tomorrow"
 
 should_transfer_files = YES
