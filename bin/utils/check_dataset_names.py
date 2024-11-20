@@ -27,7 +27,7 @@ def validate_dataset_name(dataset_name):
     binning_pattern = r"Bin-[\w-]+"  # BINNING is optional
     filter_pattern = r"Fil-[\w-]+"  # FILTER is optional
     param_pattern = r"Par-[\w-]+"  # PARAMETERS is optional
-    tune_pattern = r"TuneCP[1-5]"  # TUNE is mandatory (TuneCP1 to TuneCP5)
+    tune_pattern = r"Tune+"  # TUNE is mandatory 
     beame_pattern = r"13p6TeV|\d+TeV|\d+GeV"  # BEAME is mandatory
     me_ps_pattern = (
     r"(pythia6|pythia8|pythia8-evtgen|herwig6|herwigpp|herwig7|sherpa|"
