@@ -845,7 +845,7 @@ for num in range(0,len(prepid)):
         gp_size = len(gridpack_cvmfs_path_tmp)
 
         # additional data set name check for 2024 campaigns
-        if "Run3" in pi and "24" in pi:
+        if ("Run3" in pi or "RunIII" in pi) and "24" in pi:
             valid, message, feedback = validate_dataset_name(dn)
             if not valid:
                 print("-----------------------------") 
