@@ -115,5 +115,9 @@ def validate_dataset_name(dataset_name):
     if valid:
         return True, "Valid dataset name", feedback
     else:
-        return False, "Invalid dataset name", feedback
+        return False, ("Invalid dataset name.\nThe strucuture of the name should be:\n"+
+	               "PROCESS_[BINNING]_[FILTER]_[PARAMETERS]_TUNE_BEAME_ME-PS\n"+
+		       "For more details please check:\n"+
+		       "https://cms-pdmv.gitbook.io/project/mccontact/rules-for-run3-2024-dataset-names\n\n"+
+		       "Below output for experts only"), feedback
 
