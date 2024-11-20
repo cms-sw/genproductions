@@ -14,6 +14,8 @@ import ast
 import subprocess
 from datetime import datetime
 from json import dumps
+
+os.popen('wget -q https://raw.githubusercontent.com/cms-sw/genproductions/master/bin/utils/check_dataset_names.py -O check_dataset_names.py').read()
 from check_dataset_names import *
 
 
