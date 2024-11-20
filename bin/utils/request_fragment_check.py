@@ -14,6 +14,8 @@ import ast
 import subprocess
 from datetime import datetime
 from json import dumps
+from check_dataset_names import *
+
 
 parser = argparse.ArgumentParser(
     formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -840,6 +842,18 @@ for num in range(0,len(prepid)):
         if int(os.popen('grep -c grid_points '+pi_file).read()) != 0: grid_points_flag = 1
         gp_size = len(gridpack_cvmfs_path_tmp)
 
+        # additional data set name check for 2024 campaigns
+        if "Run3" in pi and "24" in pi:
+            valid, message, feedback = validate_dataset_name(dn)
+            if not valid:
+                print("-----------------------------") 
+                print(message)
+                print(feedback)
+                data_set_warns = "Invalid data set name:"
+                for item in feedback:
+                    if "Invalid" in item or "missing" in item:
+                        data_set_warns = data_set_warns+"\n  --"+item+"\n"
+                warnings.append(data_set_warns)
         pw_gp = False
         pw_external_gp = False
         madloop_in_gp = False
