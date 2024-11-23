@@ -1,0 +1,89 @@
+! ST-wtchannel production parameters
+
+! GENERAL POWHEG PARAMETERS
+
+numevts NEVENTS    ! number of events to be generated
+ih1   1           ! hadron 1 (1 for protons, -1 for antiprotons)
+ih2   1           ! hadron 2 (1 for protons, -1 for antiprotons)
+ebeam1 2680d0     ! energy of beam 1
+ebeam2 2680d0     ! energy of beam 2
+
+iseed    SEED    ! initialize random number sequence 
+
+! To be set only if using LHA pdfs
+lhans1   325300    ! NNPDF31_nnlo_as_0118_mc_hessian_pdfas
+lhans2   325300    ! NNPDF31_nnlo_as_0118_mc_hessian_pdfas
+
+! Parameters to allow or not the use of stored data
+use-old-grid    1 ! if 1 use old grid if file pwggrids.dat is present (<> 1 regenerate)
+use-old-ubound  1 ! if 1 use norm of upper bounding function stored in pwgubound.dat, if present; <> 1 regenerate
+
+ncall1 50000   ! number of calls for initializing the integration grid
+itmx1    5     ! number of iterations for initializing the integration grid
+ncall2 50000   ! number of calls for computing the integral and finding upper bound
+itmx2    5     ! number of iterations for computing the integral and finding upper bound
+foldcsi   5    ! number of folds on csi integration
+foldy     5    ! number of folds on  y  integration
+foldphi   1    ! number of folds on phi integration
+nubound 50000  ! number of bbarra calls to setup norm of upper bounding function
+icsimax  1     ! <= 100, number of csi subdivision when computing the upper bounds
+iymax    1     ! <= 100, number of y subdivision when computing the upper bounds
+xupbound 2d0   ! increase upper bound for radiation generation
+
+
+withdamp       1
+hdamp 237.8775
+
+
+! mandatory production parameters
+ttype       -1          ! 1 for t, -1 for tbar
+
+
+! mandatory parameters used in decay generation
+topdecaymode 11111   ! decay mode: the 5 digits correspond to the following
+                     ! top-decay channels (l,mu,tau,u,c) 
+                     ! 0 means close, 1 open
+wdecaymode 11111     ! decay mode: the 5 digits correspond to the following
+                     ! primary-w-decay channels (l,mu,tau,u,c) 
+                     ! 0 means close, 1 open
+tdec/elbranching 0.1086 ! https://pdg.lbl.gov/2023/tables/rpp2023-sum-gauge-higgs-bosons.pdf
+
+! optional production parameters 
+! (defaults defined in init_couplings.f)
+topmass      172.5   ! https://pdg.lbl.gov/2023/tables/rpp2023-sum-quarks.pdf (pole mass)
+wmass        80.377  ! https://pdg.lbl.gov/2023/reviews/rpp2023-rev-phys-constants.pdf
+sthw2        0.23121 ! https://pdg.lbl.gov/2023/reviews/rpp2023-rev-phys-constants.pdf
+alphaem_inv  137.035999084 ! https://pdg.lbl.gov/2023/reviews/rpp2023-rev-phys-constants.pdf
+topwidth     1.330 ! Eq. (72.1) http://pdg.lbl.gov/2017/reviews/rpp2017-rev-top-quark.pdf
+wwidth       2.085 ! https://pdg.lbl.gov/2023/tables/rpp2023-sum-gauge-higgs-bosons.pdf
+lhfm/cmass   1.67  ! https://pdg.lbl.gov/2023/tables/rpp2023-sum-quarks.pdf (pole mass)
+lhfm/bmass   4.78  ! https://pdg.lbl.gov/2023/tables/rpp2023-sum-quarks.pdf (pole mass)
+lhfm/emass   0.000510998950 ! https://pdg.lbl.gov/2023/reviews/rpp2023-rev-phys-constants.pdf
+lhfm/mumass  0.1056583755   ! https://pdg.lbl.gov/2023/tables/rpp2023-sum-leptons.pdf
+lhfm/taumass 1.77686        ! https://pdg.lbl.gov/2023/tables/rpp2023-sum-leptons.pdf
+tdec/emass   0.000510998950 ! https://pdg.lbl.gov/2023/reviews/rpp2023-rev-phys-constants.pdf
+tdec/mumass  0.1056583755   ! https://pdg.lbl.gov/2023/tables/rpp2023-sum-leptons.pdf
+tdec/taumass 1.77686        ! https://pdg.lbl.gov/2023/tables/rpp2023-sum-leptons.pdf
+charmthr     1.67 ! https://pdg.lbl.gov/2023/tables/rpp2023-sum-quarks.pdf (pole mass)
+charmthrpdf  1.67 ! https://pdg.lbl.gov/2023/tables/rpp2023-sum-quarks.pdf (pole mass)
+bottomthr    4.78 ! https://pdg.lbl.gov/2023/tables/rpp2023-sum-quarks.pdf (pole mass)
+bottomthrpdf 4.78 ! https://pdg.lbl.gov/2023/tables/rpp2023-sum-quarks.pdf (pole mass)
+
+
+
+CKM_Vud   0.97435  ! Table (12.27) https://pdg.lbl.gov/2023/reviews/rpp2023-rev-ckm-matrix.pdf
+CKM_Vus   0.22500  ! Table (12.27) https://pdg.lbl.gov/2023/reviews/rpp2023-rev-ckm-matrix.pdf
+CKM_Vub   0.00369  ! Table (12.27) https://pdg.lbl.gov/2023/reviews/rpp2023-rev-ckm-matrix.pdf
+CKM_Vcd   0.22486  ! Table (12.27) https://pdg.lbl.gov/2023/reviews/rpp2023-rev-ckm-matrix.pdf
+CKM_Vcs   0.97349  ! Table (12.27) https://pdg.lbl.gov/2023/reviews/rpp2023-rev-ckm-matrix.pdf
+CKM_Vcb   0.04182  ! Table (12.27) https://pdg.lbl.gov/2023/reviews/rpp2023-rev-ckm-matrix.pdf
+CKM_Vtd   0.00857  ! Table (12.27) https://pdg.lbl.gov/2023/reviews/rpp2023-rev-ckm-matrix.pdf
+CKM_Vts   0.04110  ! Table (12.27) https://pdg.lbl.gov/2023/reviews/rpp2023-rev-ckm-matrix.pdf
+CKM_Vtb   0.999118 ! Table (12.27) https://pdg.lbl.gov/2023/reviews/rpp2023-rev-ckm-matrix.pdf
+
+
+
+pdfreweight 0       ! PDF reweighting
+dampreweight 0      ! h_damp reweighting (mt/2, mt, mt*2)
+storeinfo_rwgt 0    ! store weight information
+withnegweights 1 ! default 
