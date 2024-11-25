@@ -152,10 +152,18 @@
 ******  W+W- decays
 ****************************************************************************************
 'mu'    ! [wlp] : W+ leptonic channel (mu or el)
-'el'    ! [wlm] : W- leptoinc channel (mu or el)
+'el'    ! [wlm] : W- leptonic channel (mu or el)
 ****************************************************************************************
 ******  V+X simplified model
 ****************************************************************************************
 0.04d0   ! [tau] : mass distribution decay constant (GeV^-1)
 100d0    ! [mxs] : mass of MX
 ****************************************************************************************
+******  tau anomalous moments
+****************************************************************************************
+0d0     ! [atau] : magnetic dipole moment
+0d0     ! [dtau] : electric dipole moment [e cm]
+******  flags for calculating individual coeffs - SEE MANUAL for explanation
+.false. ! [calc_tau_coeff] : if true calculate  O(a_tau^n) or O(d_tau^n) coefficients
+'atau'  ! [tau_mom] : 'atau','dtau' - coeffecients for magnetic/electric dipole moments
+1       ! [tau_coeff] : order 'n' in coefficient (0-4)
