@@ -1,6 +1,6 @@
 #!/bin/bash
 
-parameters=( "c2_m1" "c2_6" "c2_3" "kl_2" "kl_3" "kt_2" "kl_0p5_c2_1" )
+parameters=( "c2_m1" "c2_6" "c2_3" "kl_2" "kl_3" "kt_2" "kl_0p5_c2_1" "kl_1" )
 # parameters=( "kl_0p5_c2_1" )
 
 for p in "${parameters[@]}"; do
