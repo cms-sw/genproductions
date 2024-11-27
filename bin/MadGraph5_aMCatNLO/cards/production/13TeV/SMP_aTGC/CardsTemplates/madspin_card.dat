@@ -1,0 +1,15 @@
+set ms_dir ./madspingrid
+
+set Nevents_for_max_weigth 250 # number of events for the estimate of the max. weight
+set max_weight_ps_point 400  # number of PS to estimate the maximum for each event
+set BW_cut 15
+
+set max_running_process 1
+
+define q = g u c d s b u~ c~ d~ s~ b~
+# if W decay then redefine q to exclude b quark
+#define q = g u c d s u~ c~ d~ s~
+
+decay DECAYPROCESS
+
+launch
