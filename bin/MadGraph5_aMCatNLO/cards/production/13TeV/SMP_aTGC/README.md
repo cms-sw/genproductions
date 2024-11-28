@@ -1,5 +1,16 @@
 These cards are for the SMP aTGC analysis with full run-2 dataset. The process that we considered is WV semileptonic decay.
 
+We need MC samples for the following processes:
+
+1. WpWmToLpNujj
+2. WmWpToLmNujj
+3. WpZToLpNujj
+4. WmZToLmNujj
+5. ZWpToLpLmjj
+6. ZWmToLpLmjj
+
+We binned each process based on mWV mass. There are three mWV mass bins: 150-600, 600-800, and 800 to Inf. So, in total, we will have 18 independent samples.
+
 To get the cards first setup the environment and run the command
 
 ```bash
@@ -8,6 +19,7 @@ python generate_cards.py
 ```
 
 Few important points to note:
+
 1. The template cards are in the `CardsTemplates` directory.
 2. The cards: `run_card.dat`,  `customizecards.dat`, `extramodels.dat`, `FKS_params.dat`, `reweight_card.dat` and `run_card.dat` remains same for all the processes.
 3. The `proc_card.dat` is different for each process. The processs names are defined in the dict that we are using to generate the cards.
