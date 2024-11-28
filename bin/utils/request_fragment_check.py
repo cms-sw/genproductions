@@ -171,10 +171,10 @@ particle_gun_list = ["FlatRandomEGunProducer","FlatRandomPtGunProducer","Pythia8
 
 def tunes_settings_check(dn,fragment,pi,sherpa_flag):
     error_tunes_check = []
-    if "Run3" in pi and not any(word in fragment for word in particle_gun_list) and sherpa_flag == 0:    
+    if ("Run3" in pi or "RunIII" in pi) and not any(word in fragment for word in particle_gun_list) and sherpa_flag == 0:    
         if ("Configuration.Generator.MCTunesRun3ECM13p6TeV" not in fragment) and ("Configuration.Generator.Herwig7Settings.Herwig7CH3TuneSettings_cfi" not in fragment) or ("from Configuration.Generator.MCTunes2017" in fragment):
             error_tunes_check.append(" For Run3 samples, please use either:\n from Configuration.Generator.MCTunesRun3ECM13p6TeV.PythiaCP5Settings_cfi import * \n from Configuration.Generator.Herwig7Settings.Herwig7CH3TuneSettings_cfi import * \n in your fragment instead of: from Configuration.Generator.MCTunes2017.PythiaCP5Settings_cfi import *")
-    if "Run3" in pi and (dn.startswith("DYto") or dn.startswith("Wto")):
+    if ("Run3" in pi or "RunIII" in pi) and (dn.startswith("DYto") or dn.startswith("Wto")):
         if "ktdard" in fragment and "0.248" not in fragment:
             error_tunes_check.append(" 'kthard = 0.248' not in fragment for DY or Wjets MG5_aMC request for Run3. Please fix.")
     return error_tunes_check
@@ -323,7 +323,7 @@ def ul_consistency(dn,pi,jhu_gp):
 def gridpack_copy(gridpack_eos_path,pi):
     error_gp_copy = []
     targz_flag = 0
-    if "Run3" in pi:
+    if "Run3" in pi or "RunIII" in pi:
         copy_name = "_original_Run3_wo_runcmsgrid_sys_patch"
     else:
         copy_name = "_original"
@@ -967,7 +967,7 @@ for num in range(0,len(prepid)):
                 if os.path.isfile(fname_p2):
                     filename_mggpc = fname_p2
                 #file_run_card = open(filename_mggpc,"r")
-                if "Run3" in pi and "PbPb" not in pi:
+                if ("Run3" in pi or "RunIII" in pi) and "PbPb" not in pi:
                     err_tmp = run3_run_card_check(filename_mggpc,pi)
                     errors.extend(err_tmp)
                 grep_txt_tmp = 'more '+filename_mggpc+' | tr -s \' \' | grep -c "= ickkw"'
@@ -1302,7 +1302,7 @@ for num in range(0,len(prepid)):
                     print("The PDF set used by JHUGEN is:"+ str(jhu_pdf))
                     if "UL" in pi and jhu_pdf not in UL_PDFs:
                         warnings.append("The gridpack uses PDF = "+str(jhu_pdf)+" but not the recommended sets for UL requests:     "+str(UL_PDFs_N)+" "+str(UL_PDFs))
-                    if "Run3" in pi:
+                    if "Run3" in pi or "RunIII" in pi:
                         pdflist_4f_run3_N,pdflist_4f_run3,pdflist_5f_run3_N,pdflist_5f_run3,pdflist_Pb_5f_run3_N,pdflist_Pb_5f_run3=run3_pdf_check(pi)    
                         if (jhu_pdf not in pdflist_4f_run3) and (jhu_pdf not in pdflist_5f_run3):
                             warnings.append("The gridpack uses PDF = "+str(jhu_pdf)+" but not the recommended sets for Run3 requests:     "+str(pdflist_4f_run3)+str(pdflist_5f_run3))
@@ -1387,7 +1387,7 @@ for num in range(0,len(prepid)):
                                 print("Powheg PDF used is: "+str(pw_pdf))
                                 if "UL" in pi and pw_pdf not in UL_PDFs_N:
                                     warnings.append("The gridpack uses PDF="+str(pw_pdf)+" but not the recommended sets for UL requests:  "+str(UL_PDFs_N)+" "+str(UL_PDFs))
-                                if "Run3" in pi:
+                                if "Run3" in pi or "RunIII" in pi:
                                     pdflist_4f_run3_N,pdflist_4f_run3,pdflist_5f_run3_N,pdflist_5f_run3,pdflist_Pb_5f_run3_N,pdflist_Pb_5f_run3=run3_pdf_check(pi)    
                                     if (str(pw_pdf) not in pdflist_4f_run3_N) and (str(pw_pdf) not in pdflist_5f_run3_N):
                                         warnings.append("The gridpack uses PDF = "+str(pw_pdf)+" but not the recommended sets for Run3 requests:     "+str(pdflist_4f_run3_N)+str(pdflist_5f_run3_N))
@@ -1520,7 +1520,7 @@ for num in range(0,len(prepid)):
                 print("The MG5_aMC PDF set is:"+str(mg_pdf))
                 if "UL" in pi and int(mg_pdf) != UL_PDFs_N[0] and int(mg_pdf) != UL_PDFs_N[1]:
                     warnings.append("The gridpack uses PDF="+str(mg_pdf)+" but not the recommended sets for UL requests:       "+str(UL_PDFs_N)+" "+str(UL_PDFs))
-                if "Run3" in pi:
+                if "Run3" in pi or "RunIII" in pi:
                     pdflist_4f_run3_N,pdflist_4f_run3,pdflist_5f_run3_N,pdflist_5f_run3,pdflist_Pb_5f_run3_N,pdflist_Pb_5f_run3=run3_pdf_check(pi)    
                     if (str(mg_pdf) not in pdflist_4f_run3_N) and (str(mg_pdf) not in pdflist_5f_run3_N):
                         warnings.append("The gridpack uses PDF = "+str(mg_pdf)+" but not the recommended sets for Run3 requests:     "+str(pdflist_4f_run3)+str(pdflist_5f_run3))
@@ -1559,7 +1559,7 @@ for num in range(0,len(prepid)):
                         mg_nlo = int(os.popen('grep "systematics" '+str(runcmsgrid_file)+' | grep -c aMCatNLO').read())
                         if mg_lo: print("LO gridpack")
                         if mg_nlo: print("NLO gridpack")
-                    if ("Run3" in pi or "RunII" in pi) and args.bypass_runcmsgrid_patch is False:
+                    if ("Run3" in pi or "RunIII" in pi or "RunII" in pi) and args.bypass_runcmsgrid_patch is False:
                         if int(os.popen('grep -c "systematics $runlabel" '+str(runcmsgrid_file)).read()):
                             if int(os.popen('grep -c "Encounter Error in Running Systematics Module" '+str(runcmsgrid_file)).read()) < 1:
                                 print("-----------------------------------------")
@@ -1759,7 +1759,7 @@ for num in range(0,len(prepid)):
             errors.append("EvtGen settings within fragment but no evtgen flag at dataset name")
         if int(os.popen('grep -c -i filter '+pi_file).read()) > 3 and filter_eff == 1:
             warnings.append("Filters in the fragment but filter efficiency = 1")
-        if "Run3" in pi and "PbPb" not in pi and "Run3Summer21" not in pi:
+        if ("Run3" in pi or "RunIII" in pi) and "PbPb" not in pi and "Run3Summer21" not in pi:
             err_tmp = run3_checks(data_f1,dn,pi)
             errors.extend(err_tmp)
         if args.develop is False:
