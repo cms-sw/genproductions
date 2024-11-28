@@ -120,7 +120,9 @@ for sample in sample_names:
                 else:
                     # Replace both cuts
                     replace_placeholders(template_file, output_file, cuts_logic)
-
+            elif file_name == "restrict_no_cmass_cwwwcbcw.dat":
+               # don't add the directory name to the output file
+               copyfile(template_file, output_file.replace(f"{directory_name}_",""))
             else:
                 # Copy other files as-is
                 copyfile(template_file, output_file)
