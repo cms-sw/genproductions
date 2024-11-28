@@ -6,9 +6,7 @@ set BW_cut 15
 
 set max_running_process 1
 
-define q = g u c d s b u~ c~ d~ s~ b~
-# if W decay then redefine q to exclude b quark
-#define q = g u c d s u~ c~ d~ s~
+DEFINEQUARKS
 
 decay DECAYPROCESS
 

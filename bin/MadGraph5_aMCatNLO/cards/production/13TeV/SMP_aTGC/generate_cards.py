@@ -1,3 +1,5 @@
+# Before run set the LCG environment:
+# . /cvmfs/sft.cern.ch/lcg/views/LCG_106/x86_64-el9-gcc13-opt/setup.sh
 import os
 from shutil import copyfile
 
@@ -16,6 +18,15 @@ processes = {
     "WmZToLmNujj": ["p p > ell- vl~ z $$ t t~ H QED=3 [QCD] @0", "p p > ell- vl~ z j $$ t t~ H QED=3 [QCD] @1"],
     "ZWpToLpLmjj": ["p p > ell+ ell- w+ $$ t t~ H QED=3 [QCD] @0", "p p > ell+ ell- w+ j $$ t t~ H QED=3 [QCD] @1"],
     "ZWmToLpLmjj": ["p p > ell+ ell- w- $$ t t~ H QED=3 [QCD] @0", "p p > ell+ ell- w- j $$ t t~ H QED=3 [QCD] @1"],
+}
+
+DecayProcessQuarkDefinition = {
+    "WpWmToLpNujj": "define q = g u c d s u~ c~ d~ s~ ",
+    "WmWpToLmNujj": "define q = g u c d s u~ c~ d~ s~ ",
+    "WpZToLpNujj": "define q = g u c d s b u~ c~ d~ s~ b~",
+    "WmZToLmNujj": "define q = g u c d s b u~ c~ d~ s~ b~",
+    "ZWpToLpLmjj": "define q = g u c d s u~ c~ d~ s~ ",
+    "ZWmToLpLmjj": "define q = g u c d s u~ c~ d~ s~ ",
 }
 
 DecayProcess = {
@@ -75,6 +86,7 @@ for sample in sample_names:
                 # Process madspin_card.dat
                 replacements = {
                     "DECAYPROCESS": DecayProcess[sample],
+                    "DEFINEQUARKS": DecayProcessQuarkDefinition[sample],
                 }
                 replace_placeholders(template_file, output_file, replacements)
             elif file_name == "cuts.f":
