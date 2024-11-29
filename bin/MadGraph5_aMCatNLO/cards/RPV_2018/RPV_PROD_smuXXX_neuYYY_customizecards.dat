@@ -1,0 +1,18 @@
+set param_card mass 1000006  1.000000e+03
+set param_card mass 2000006  1.000000e+03
+set param_card mass 1000013 XXX
+set param_card mass 2000013 XXX
+set param_card mass 1000023 YYY
+set param_card SELMIX 1 1 7.071070e-01 # rrl1x1
+set param_card SELMIX 1 4 7.071070e-01 # rrl1x4
+set param_card SELMIX 2 2 7.071070e-01 # rrl2x2
+set param_card SELMIX 2 5 7.071070e-01 # rrl2x5
+set param_card SELMIX 3 3 7.071070e-01 # rrl3x3
+set param_card SELMIX 3 6 7.071070e-01 # rrl3x6
+set param_card SELMIX 4 1 7.071070e-01 # rrl4x1
+set param_card SELMIX 4 4 7.071070e-01 # rrl4x4
+set param_card SELMIX 5 2 7.071070e-01 # rrl5x2
+set param_card SELMIX 5 5 7.071070e-01 # rrl5x5
+set param_card SELMIX 6 3 7.071070e-01 # rrl6x3
+set param_card SELMIX 6 6 7.071070e-01 # rrl6x6
+
