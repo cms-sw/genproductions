@@ -1,0 +1,7 @@
+import model QCKM_5_Aug21v2
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+generate a a > w+ w-, w+ > l+ vl, w- > l- vl~ S0=0 S1=0 S2=0
+output GGToWW_dilep_Elastic_Mll_50GeV_madgraphLO_BSM_FT6_reweight
