@@ -175,7 +175,7 @@ fi
 if [ `grep particle_identif pwhg_analysis-dummy.f` = ""]; then
    cp ../pwhg_analysis-dummy.f .
 fi
-if [[ $$process != "WWJ" && $$process != "ZgamJ" && $$process != "ZZJ" && $$process != "Zgam" ]]; then
+if [[ $$process != "WWJ" && $$process != "ZgamJ" && $$process != "ZZJ" && $$process != "Zgam" && $$process != "VV_dec_ew" ]]; then
   sed -i -e "s#PWHGANAL[ \t]*=[ \t]*#\#PWHGANAL=#g" Makefile
   sed -i -e "s#ANALYSIS[ \t]*=[ \t]*#\#ANALYSIS=#g" Makefile
   sed -i -e "s#_\#ANALYSIS*#_ANALYSIS=#g" Makefile
@@ -187,8 +187,29 @@ sed -i -e "s#LHAPDF_CONFIG[ \t]*=[ \t]*#\#LHAPDF_CONFIG=#g" Makefile
 sed -i -e "s#DEBUG[ \t]*=[ \t]*#\#DEBUG=#g" Makefile
 sed -i -e "s#FPE[ \t]*=[ \t]*#\#FPE=#g" Makefile
 
-if [[ `grep GoSam Makefile` != "" || `grep Gosam Makefile` != "" || `grep GOSAM Makefile` != "" ]]; then
-  sed -i -e "s#-fno-automatic#-fallow-invalid-boz#g" Makefile
+# DON'T DO FOR GoSam, CHANGES PHYSICS OF THE PROCESS!!
+#if [[ `grep GoSam Makefile` != "" || `grep Gosam Makefile` != "" || `grep GOSAM Makefile` != "" ]]; then
+#  sed -i -e "s#-fno-automatic#-fallow-invalid-boz#g" Makefile
+#fi
+
+## FOR OpenLoops, CHANGE FORTRAN OPTIONS AND REMOVE SILLY BINARY NUMBERS
+if [[ `grep OpenLoops Makefile` != "" ]]; then
+    sed -i -e "s#proclib ;#proclib f77_flags=-fallow-invalid-boz,-std=legacy,-ffixed-line-length-none,-fno-range-check f90_flags=-fallow-invalid-boz,-std=legacy,-ffixed-line-length-none,-fno-range-check ;#g" Makefile
+    cd ../OpenLoopsStuff/
+    sed -i -e "/case/ s=B\"00\"=0=g" OpenLoop*/lib_src/openloops/*/*.*90
+    sed -i -e "/case/ s=B\"01\"=1=g" OpenLoop*/lib_src/openloops/*/*.*90
+    sed -i -e "/case/ s=B\"10\"=2=g" OpenLoop*/lib_src/openloops/*/*.*90
+    sed -i -e "/case/ s=B\"11\"=3=g" OpenLoop*/lib_src/openloops/*/*.*90
+    sed -i -e "/case/ s=B\"1111\"=15=g" OpenLoop*/lib_src/openloops/*/*.*90
+    sed -i -e "/case/ s=B\"0110\"=6=g" OpenLoop*/lib_src/openloops/*/*.*90
+    sed -i -e "/case/ s=B\"0111\"=7=g" OpenLoop*/lib_src/openloops/*/*.*90
+    sed -i -e "/case/ s=B\"1001\"=9=g" OpenLoop*/lib_src/openloops/*/*.*90
+    sed -i -e "/case/ s=B\"1101\"=13=g" OpenLoop*/lib_src/openloops/*/*.*90
+    sed -i -e "/case/ s=B\"1110\"=14=g" OpenLoop*/lib_src/openloops/*/*.*90
+    sed -i -e "/case/ s=B\"1011\"=11=g" OpenLoop*/lib_src/openloops/*/*.*90
+    sed -i -e "/case/ s=B\"1010\"=10=g" OpenLoop*/lib_src/openloops/*/*.*90
+    sed -i -e "/case/ s=B\"0101\"=5=g" OpenLoop*/lib_src/openloops/*/*.*90
+    cd -
 fi
 
 $patch_4 

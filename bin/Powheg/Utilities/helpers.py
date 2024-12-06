@@ -144,7 +144,6 @@ def runGetSource_patch_4(process) :
     "bbH" : "# Use option O0 for bbH (O2 too long)\n \
 sed -i -e \"s#O2#O0#g\" Makefile",
     "HW_ew" : "# fix fortran options/linking to OpenLoops/missing libraries in VH_ew\n \
-sed -i -e \"s#OL_process_src#OL_process_src f90_flags=-ffree-line-length-none#g\" Makefile\n \
 sed -i -e \"s#\$(PWD)/\$(OBJ)#\$(OBJ)#g\" Makefile\n \
 sed -i -e \"s#\$(OLPATH)/lib_src#lib_src#g\" Makefile\n \
 sed -i -e \"s#cd \$(OLPATH)#cp -r \$(OLPATH)/* .#g\" Makefile\n \
@@ -153,7 +152,6 @@ sed -i -e \"s#rpath=\$(PWD)/\$(OBJDIR) -L\$(PWD)/\$(OBJDIR)#rpath=\$(OBJDIR) -L\
 sed -i -e \"s#PDFPACK=lhapdfif.o#PDFPACK=lhapdf6if.o lhapdf6ifcc.o#g\" Makefile\n \
 cat ${patches_dir}/missing_lhapdf6.txt >> Makefile",   
     "HZ_ew" : "# fix fortran options/linking to OpenLoops/missing libraries in VH_ew\n \
-sed -i -e \"s#OL_process_src#OL_process_src f90_flags=-ffree-line-length-none#g\" Makefile\n \
 sed -i -e \"s#\$(PWD)/\$(OBJ)#\$(OBJ)#g\" Makefile\n \
 sed -i -e \"s#\$(OLPATH)/lib_src#lib_src#g\" Makefile\n \
 sed -i -e \"s#cd \$(OLPATH)#cp -r \$(OLPATH)/* .#g\" Makefile\n \
@@ -163,15 +161,14 @@ sed -i -e \"s#opencount.o#opencount.o sigequiv_hook.o#g\" Makefile\n \
 sed -i -e \"s#PDFPACK=lhapdfif.o#PDFPACK=lhapdf6if.o lhapdf6ifcc.o#g\" Makefile\n \
 cat ${patches_dir}/missing_lhapdf6.txt >> Makefile",
     "HZJ_ew" : "# fix fortran options/linking to OpenLoops/missing libraries in VH_ew\n \
-sed -i -e \"s#OL_process_src#OL_process_src f90_flags=-ffree-line-length-none#g\" Makefile\n \
 sed -i -e \"s#\$(PWD)/\$(OBJ)#\$(OBJ)#g\" Makefile\n \
 sed -i -e \"s#\$(OLPATH)/lib_src#lib_src#g\" Makefile\n \
 sed -i -e \"s#cd \$(OLPATH)#cp -r \$(OLPATH)/* .#g\" Makefile\n \
 sed -i -e \"s#abspath(os.path.join(config#relpath(os.path.join(config#g\" ../OpenLoopsStuff/OpenLoops/SConstruct\n \
 sed -i -e \"s#rpath=\$(PWD)/\$(OBJDIR) -L\$(PWD)/\$(OBJDIR)#rpath=\$(OBJDIR) -L\$(OBJDIR)#g\" Makefile\n \
+sed -i -e \"s#OL_process_src#OL_process_src f90_flags=-ffree-line-length-none#g\" Makefile\n \
 sed -i -e \"s#boostrot.o#boostrot.o boostrot4.o#g\" Makefile",
     "HWJ_ew" : "# fix fortran options/linking to OpenLoops/missing libraries in VH_ew\n \
-sed -i -e \"s#OL_process_src#OL_process_src f90_flags=-ffree-line-length-none#g\" Makefile\n \
 sed -i -e \"s#\$(PWD)/\$(OBJ)#\$(OBJ)#g\" Makefile\n \
 sed -i -e \"s#\$(OLPATH)/lib_src#lib_src#g\" Makefile\n \
 sed -i -e \"s#cd \$(OLPATH)#cp -r \$(OLPATH)/* .#g\" Makefile\n \
@@ -200,9 +197,29 @@ def runGetSource_patch_5(process) :
 
 def runGetSource_patch_6(process) :
   return {
+    "weakino-squark" : "cd Tools/\n \
+    cd LoopTools-2.16\n \
+    ./configure\n \
+    make\n \
+    make install\n \
+    cd ..\n \
+    cd COLLIER-1.2.8\n \
+    cd build\n \
+    cmake ..\n \
+    make .\n \
+    cd ..\n \
+    cd ..\n \
+    cd HepMC3-3.2.7\n \
+    cmake -DCMAKE_INSTALL_PREFIX=$(pwd)/../HepMC3-3.2.7_inst -DHEPMC3_ENABLE_ROOTIO=OFF -DHEPMC3_ENABLE_PYTHON=OFF CMakeLists.txt \n \
+    cmake --build .\n \
+    cmake --install .\n \
+    cd ..\n \
+    cd ..\n \
+    ",
     "WWJ" : "cp Makefile Makefile.orig\n \
 cat Makefile.orig | sed -e \"s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d \"=\" -f2)/bin/fastjet-config#g\" | sed -e \"s#\#\ FASTJET_CONFIG#FASTJET_CONFIG#g\" | sed -e \"s#\#\ LIBSFASTJET#LIBSFASTJET#g\" | sed -e \"s#\#\ FJCXXFLAGS#FJCXXFLAGS#g\" > Makefile\n \
 cd ${WORKDIR}/${name}/POWHEG-BOX/MATRIXStuff\n \
+sed -i -e 's#python#python2#g' matrix\n \
 ./matrix --minnlo_interface\n \
 cd -\n \
 cd ${WORKDIR}/${name}\n \
@@ -215,13 +232,28 @@ source /cvmfs/cms.cern.ch/${SCRAM_ARCH}/external/cmake/3.17.2/etc/profile.d/init
     "ZZJ" : "cp Makefile Makefile.orig\n \
 cat Makefile.orig | sed -e \"s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d \"=\" -f2)/bin/fastjet-config#g\" | sed -e \"s#\#\ FASTJET_CONFIG#FASTJET_CONFIG#g\" > Makefile\n \
 cd ${WORKDIR}/${name}/POWHEG-BOX/MATRIXStuff\n \
+sed -i -e 's#python#python2#g' matrix\n \
+./matrix --minnlo_interface\n \
+cd -\n \
+source /cvmfs/cms.cern.ch/${SCRAM_ARCH}/external/cmake/3.10.0/etc/profile.d/init.sh",
+    "WZJ" : "cp Makefile Makefile.orig\n \
+cat Makefile.orig | sed -e \"s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d \"=\" -f2)/bin/fastjet-config#g\" | sed -e \"s#\#\ FASTJET_CONFIG#FASTJET_CONFIG#g\" > Makefile\n \
+cd ${WORKDIR}/${name}/POWHEG-BOX/MATRIXStuff\n \
+sed -i -e 's#python#python2#g' matrix\n \
 ./matrix --minnlo_interface\n \
 cd -\n \
 source /cvmfs/cms.cern.ch/${SCRAM_ARCH}/external/cmake/3.10.0/etc/profile.d/init.sh",
     "ZgamJ" : "cp Makefile Makefile.orig\n \
 cat Makefile.orig | sed -e \"s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d \"=\" -f2)/bin/fastjet-config#g\" | sed -e \"s#\#\ FASTJET_CONFIG#FASTJET_CONFIG#g\" > Makefile\n \
-tail -n 13 ../MiNNLOStuff/setlocalscales.f >> setlocalscales.f\n \
 cd ${WORKDIR}/${name}/POWHEG-BOX/MATRIXStuff\n \
+sed -i -e 's#python#python2#g' matrix\n \
+./matrix --minnlo_interface\n \
+cd -\n \
+source /cvmfs/cms.cern.ch/${SCRAM_ARCH}/external/cmake/3.10.0/etc/profile.d/init.sh",
+    "gg4l" : "cp Makefile Makefile.orig\n \
+cat Makefile.orig | sed -e \"s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d \"=\" -f2)/bin/fastjet-config#g\" | sed -e \"s#\#\ FASTJET_CONFIG#FASTJET_CONFIG#g\" > Makefile\n \
+cd ${WORKDIR}/${name}/POWHEG-BOX/MATRIXStuff\n \
+sed -i -e 's#python#python2#g' matrix\n \
 ./matrix --minnlo_interface\n \
 cd -\n \
 source /cvmfs/cms.cern.ch/${SCRAM_ARCH}/external/cmake/3.10.0/etc/profile.d/init.sh",
@@ -230,7 +262,7 @@ cat Makefile.orig | sed -e \"s#OLPATH=.\+#OLPATH=$(scram tool info OpenLoops | g
 sed -i -e \"s#Pythia8Plugins#Pythia8Plugins \$(shell \$(LHAPDF_CONFIG) --cxxflags )#g\" Makefile",
     "gg_H_2HDM" : "echo \"Adding CHAPLIN 1.2 library\"\n \
 if [ ! -f chaplin-1.2.tar ]; then\n \
-  wget --no-verbose http://chaplin.hepforge.org/code/chaplin-1.2.tar || fail_exit \"Failed to get CHAPLIN tar ball \"\n \
+  wget --no-verbose http://chaplin.hepforge.org/code/chaplin-1.2.tar || wget https://cms-project-generators.web.cern.ch/cms-project-generators/chaplin-1.2.tar || fail_exit \"Failed to get CHAPLIN tar ball \"\n \
 fi\n \
 tar xvf chaplin-1.2.tar\n \
 cd chaplin-1.2\n \
@@ -242,7 +274,7 @@ export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:${LD_LIBRARY_PATH}",
 
     "gg_H_MSSM" : "echo \"Adding CHAPLIN 1.2 library\"\n \
 if [ ! -f chaplin-1.2.tar ]; then\n \
-  wget --no-verbose http://chaplin.hepforge.org/code/chaplin-1.2.tar || fail_exit \"Failed to get CHAPLIN tar ball \"\n \
+  wget --no-verbose http://chaplin.hepforge.org/code/chaplin-1.2.tar || wget https://cms-project-generators.web.cern.ch/cms-project-generators/chaplin-1.2.tar || fail_exit \"Failed to get CHAPLIN tar ball \"\n \
 fi\n \
 tar xvf chaplin-1.2.tar\n \
 cd chaplin-1.2\n \
@@ -251,99 +283,161 @@ make install\n \
 cd ..\n \
 echo \"LIBS+=-L`pwd`/lib/ -L`pwd`/lib64/\" >> Makefile   # be safe \n \
 export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:${LD_LIBRARY_PATH}\n\n \
-echo \"Adding FeynHiggs 2.10 library\"\n \
-if [ ! -f FeynHiggs-2.10.2.tar.gz ]; then\n \
-  wget --no-verbose http://wwwth.mpp.mpg.de/members/heinemey/feynhiggs/newversion/FeynHiggs-2.10.2.tar.gz || fail_exit \"Failed to get FeynHiggs tar ball \"\n \
+echo \"Adding FeynHiggs 2.19 library\"\n \
+if [ ! -f FeynHiggs-2.19.0.tar.gz ]; then\n \
+  wget --no-verbose --no-check-certificate https://wwwth.mpp.mpg.de/members/heinemey/feynhiggs/newversion/FeynHiggs-2.19.0.tar.gz || wget https://cms-project-generators.web.cern.ch/cms-project-generators/FeynHiggs-2.19.0.tar.gz || fail_exit \"Failed to get FeynHiggs tar ball \"\n \
 fi\n \
-tar xvf FeynHiggs-2.10.2.tar.gz\n \
-cd FeynHiggs-2.10.2\n \
+tar xvf FeynHiggs-2.19.0.tar.gz\n \
+cd FeynHiggs-2.19.0\n \
 ./configure --prefix=`pwd`/..\n \
 make\n \
 make install\n \
-cd ..",
+cd ..\n \
+sed -i '5a\#define RealType real(8)' include/FHRecord.h",
 
-    "directphoton" : "echo \"Adding LoopTools 2.14 library\"\n \
-if [ ! -f LoopTools-2.14.tar.gz ]; then\n \
-  wget --no-verbose http://www.feynarts.de/looptools/LoopTools-2.14.tar.gz || fail_exit \"Failed to get LoopTools tar ball \"\n \
+    "directphoton" : "echo \"Adding LoopTools 2.16 library\"\n \
+if [ ! -f LoopTools-2.16.tar.gz ]; then\n \
+  wget --no-verbose https://feynarts.de/looptools/LoopTools-2.16.tar.gz || wget https://cms-project-generators.web.cern.ch/cms-project-generators/LoopTools-2.16.tar.gz || fail_exit \"Failed to get LoopTools tar ball \"\n \
 fi\n \
-tar xvf LoopTools-2.14.tar.gz\n \
-cd LoopTools-2.14\n \
+tar xvf LoopTools-2.16.tar.gz\n \
+cd LoopTools-2.16\n \
 ./configure --prefix=`pwd`/..\n \
+make\n \
 make install\n \
 cd ..\n \
 sed -i -e \"s#LT=PathToLoopTools#LT=.#\" Makefile\n \
 export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:${LD_LIBRARY_PATH}\n \
 mkdir obj-gfortran",
 
-    "vbs-ssww-nloew" : "echo \"Adding Recola2.2.0 library\"\n \
-if [ ! -f recola2-collier-2.2.0.tar.gz ]; then\n \
-  wget --no-verbose -O recola2-collier-2.2.0.tar.gz https://recola.hepforge.org/downloads/?f=recola2-collier-2.2.0.tar.gz || fail_exit \"Failed to get Recola tar ball \"\n \
+    "vbs-ssww-nloew" : "echo \"Adding Recola2.2.4 library\"\n \
+if [ ! -f recola2-collier-2.2.4.tar.gz ]; then\n \
+  wget --no-verbose -O recola2-collier-2.2.4.tar.gz https://recola.hepforge.org/downloads/?f=recola2-collier-2.2.4.tar.gz || wget https://cms-project-generators.web.cern.ch/cms-project-generators/recola2-collier-2.2.4.tar.gz || fail_exit \"Failed to get Recola tar ball \"\n \
 fi\n \
-tar -zxvf recola2-collier-2.2.0.tar.gz\n \
-cd recola2-collier-2.2.0/build\n \
+tar -zxvf recola2-collier-2.2.4.tar.gz\n \
+cd recola2-collier-2.2.4/build\n \
 cmake .. -DCMAKE_Fortran_COMPILER=gfortran -Dmodel=SM\n \
 make -j 1\n \
 make install\n \
 cd ../..\n \
 mkdir obj-gfortran/proclib\n \
 cd obj-gfortran/proclib\n \
-cp ../../recola2-collier-2.2.0/recola2-2.2.0/librecola.so .\n \
+cp ../../recola2-collier-2.2.4/recola2-2.2.4/librecola.so .\n \
 cd ../..\n \
 cp Makefile Makefile.orig\n \
-cat Makefile.orig | sed -e \"s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d \"=\" -f2)/bin/fastjet-config#g\" | sed -e \"s#RECOLALOCATION=.\+#RECOLALOCATION=$\(PWD\)/recola2-collier-2.2.0/recola2-2.2.0#g\" | sed -e \"s# real16.o##g\" | sed -e \"s#test#none#g\" | sed -e \"s#none_Suda#test_Suda#g\" > Makefile\n \
+cat Makefile.orig | sed -e \"s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d \"=\" -f2)/bin/fastjet-config#g\" | sed -e \"s#RECOLALOCATION=.\+#RECOLALOCATION=$\(PWD\)/recola2-collier-2.2.4/recola2-2.2.4#g\" | sed -e \"s# real16.o##g\" | sed -e \"s#test#none#g\" | sed -e \"s#none_Suda#test_Suda#g\" > Makefile\n \
 export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:${LD_LIBRARY_PATH}",
 
-    "HJJ_ew" : "echo \"Adding Recola2.2.0 library\"\n \
-if [ ! -f recola2-collier-2.2.0.tar.gz ]; then\n \
-  wget --no-verbose -O recola2-collier-2.2.0.tar.gz https://recola.hepforge.org/downloads/?f=recola2-collier-2.2.0.tar.gz || fail_exit \"Failed to get Recola tar ball \"\n \
+    "HJJ_ew" : "echo \"Adding Recola2.2.4 library\"\n \
+if [ ! -f recola2-collier-2.2.4.tar.gz ]; then\n \
+  wget --no-verbose -O recola2-collier-2.2.4.tar.gz https://recola.hepforge.org/downloads/?f=recola2-collier-2.2.4.tar.gz || wget https://cms-project-generators.web.cern.ch/cms-project-generators/recola2-collier-2.2.4.tar.gz || fail_exit \"Failed to get Recola tar ball \"\n \
 fi\n \
-tar -zxvf recola2-collier-2.2.0.tar.gz\n \
-cd recola2-collier-2.2.0/build\n \
+tar -zxvf recola2-collier-2.2.4.tar.gz\n \
+cd recola2-collier-2.2.4/build\n \
+cmake .. -DCMAKE_Fortran_COMPILER=gfortran -Dmodel=SM\n \
+make -j 1\n \
+make install\n \
+cd ../..\n \
+mkdir -p obj-gfortran/proclib\n \
+cd obj-gfortran/proclib\n \
+cp ../../recola2-collier-2.2.4/recola2-2.2.4/librecola.so .\n \
+cd ../..\n \
+mv ../pwhg_analysis-dummy.f .\n \
+head -n 9 ../mintwrapper.f > temp.f\n \
+cat temp.f mintwrapper_custom.f > temp2.f\n \
+mv temp2.f mintwrapper_custom.f\n \
+rm -f temp.f\n \
+cp Makefile Makefile.orig\n \
+cat Makefile.orig | sed -e \"s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d \"=\" -f2)/bin/fastjet-config#g\" | sed -e \"s#RCLPATH =.\+#RCLPATH=$\(PWD\)/recola2-collier-2.2.4/recola2-2.2.4#g\" | sed -e \"s#lhapdfif.o#lhapdf6if.o lhapdf6ifcc.o#g\" > Makefile\n \
+export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:${LD_LIBRARY_PATH}",
+
+    "VV_dec_ew" : "echo \"Adding Recola2.2.4 library\"\n \
+if [ ! -f recola2-collier-2.2.4.tar.gz ]; then\n \
+  wget --no-verbose -O recola2-collier-2.2.4.tar.gz https://recola.hepforge.org/downloads/?f=recola2-collier-2.2.4.tar.gz || wget https://cms-project-generators.web.cern.ch/cms-project-generators/recola2-collier-2.2.4.tar.gz || fail_exit \"Failed to get Recola tar ball \"\n \
+fi\n \
+tar -zxvf recola2-collier-2.2.4.tar.gz\n \
+cd recola2-collier-2.2.4/build\n \
 cmake .. -DCMAKE_Fortran_COMPILER=gfortran -Dmodel=SM\n \
 make -j 1\n \
 make install\n \
 cd ../..\n \
 mkdir obj-gfortran/proclib\n \
 cd obj-gfortran/proclib\n \
-cp ../../recola2-collier-2.2.0/recola2-2.2.0/librecola.so .\n \
+cp ../../recola2-collier-2.2.4/recola2-2.2.4/librecola.so .\n \
 cd ../..\n \
 cp Makefile Makefile.orig\n \
-cat Makefile.orig | sed -e \"s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d \"=\" -f2)/bin/fastjet-config#g\" | sed -e \"s#RECOLALOCATION=.\+#RECOLALOCATION=$\(PWD\)/recola2-collier-2.2.0/recola2-2.2.0#g\" > Makefile\n \
+cat Makefile.orig | sed -e \"s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d \"=\" -f2)/bin/fastjet-config#g\" | sed -e \"s#RECOLALOCATION=.\+#RECOLALOCATION=$\(PWD\)/recola2-collier-2.2.4/recola2-2.2.4#g\" > Makefile\n \
 export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:${LD_LIBRARY_PATH}",
 
-    "VV_dec_ew" : "echo \"Adding Recola2.2.0 library\"\n \
-if [ ! -f recola2-collier-2.2.0.tar.gz ]; then\n \
-  wget --no-verbose -O recola2-collier-2.2.0.tar.gz https://recola.hepforge.org/downloads/?f=recola2-collier-2.2.0.tar.gz || fail_exit \"Failed to get Recola tar ball \"\n \
+    "ttZ" : "echo \"Adding NLOX libraries to: $(pwd)\"\n \
+if [ ! -f NLOX_util_1.2.1.tar.gz ]; then\n \
+  wget --no-verbose --user NLOX --password LoopsAreCool http://www.hep.fsu.edu/~nlox/downloads/v1.2.1/NLOX_util_1.2.1.tar.gz || wget https://cms-project-generators.web.cern.ch/cms-project-generators/NLOX_util_1.2.1.tar.gz || fail_exit \"Failed to get NLOX_util_1.2.1 tar ball\"\n \
 fi\n \
-tar -zxvf recola2-collier-2.2.0.tar.gz\n \
-cd recola2-collier-2.2.0/build\n \
-cmake .. -DCMAKE_Fortran_COMPILER=gfortran -Dmodel=SM\n \
-make -j 1\n \
-make install\n \
-cd ../..\n \
-mkdir obj-gfortran/proclib\n \
-cd obj-gfortran/proclib\n \
-cp ../../recola2-collier-2.2.0/recola2-2.2.0/librecola.so .\n \
-cd ../..\n \
-cp Makefile Makefile.orig\n \
-cat Makefile.orig | sed -e \"s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d \"=\" -f2)/bin/fastjet-config#g\" | sed -e \"s#RECOLALOCATION=.\+#RECOLALOCATION=$\(PWD\)/recola2-collier-2.2.0/recola2-2.2.0#g\" > Makefile\n \
-export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:${LD_LIBRARY_PATH}",
+if [ ! -f NLOX_1.2.1.tar.gz ]; then\n \
+  wget --user NLOX --password LoopsAreCool http://www.hep.fsu.edu/~nlox/downloads/v1.2.1/NLOX_1.2.1.tar.gz || wget https://cms-project-generators.web.cern.ch/cms-project-generators/NLOX_1.2.1.tar.gz || fail_exit \"Failed to get NLOX_1.2.1 tar ball\"\n \
+fi\n \
+if [ ! -d NLOX_util_1.2.1 ]; then\n \
+    tar -xzvf NLOX_util_1.2.1.tar.gz\n \
+fi\n \
+if [ ! -d NLOX_1.2.1 ]; then\n \
+    tar -xzvf NLOX_1.2.1.tar.gz\n \
+fi\n \
+sed -i -e \"s|PROCPATH=|PROCPATH=pp_Zttbar_as3ae1|\" Makefile\n \
+sed -i -e \"s|NLOX_UTIL_DIR=|NLOX_UTIL_DIR=$(pwd)/NLOX_util_1.2.1/built|\" Makefile\n \
+sed -i -e \"s|NLOX_DIR=|NLOX_DIR=$(pwd)/NLOX_1.2.1|\" Makefile\n \
+cd NLOX_util_1.2.1\n \
+export abs_NLOX_util_path=$(pwd)\n \
+echo \"Setting abs_NLOX_util_path=\"${abs_NLOX_util_path}\n \
+sed -i -e \"s/python/python3/g\" ./install_nlox_util.sh\n \
+tar zxvf OneLOop-3.6.tar.gz\n \
+sed -i -e \"s/python/python3/g\" OneLOop-3.6/create.py\n \
+tar zcvf OneLOop-3.6.tar.gz OneLOop-3.6\n \
+rm -r OneLOop-3.6\n \
+./install_nlox_util.sh --prefix=${abs_NLOX_util_path}\n \
+cd OneLOop-3.6\n \
+export abs_OneLOop_path=$(pwd)\n \
+echo \"Exporting OneLOop-3.6 path: \" ${abs_OneLOop_path} \n \
+cd ../QCDLoop-1.95\n \
+export abs_QCDLoop_path=`pwd`\n \
+echo \"Exporting QCDLoop-1.95 path:\" ${abs_QCDLoop_path}\n \
+cd ../../NLOX_1.2.1\n \
+export abs_NLOX_path=`pwd`\n \
+echo \"Setting abs_NLOX_path=\" ${abs_NLOX_path}\n \
+./install_nlox.sh --with-nloxutil=${abs_NLOX_util_path}\n \
+cd ..\n \
+if [ ! -f pp_Zttbar_as3ae1.tar.gz ]; then\n \
+  wget --user NLOX --password LoopsAreCool http://www.hep.fsu.edu/~nlox/downloads/processes/v1.2.0/pp_Zttbar_as3ae1.tar.gz || wget https://cms-project-generators.web.cern.ch/cms-project-generators/pp_Zttbar_as3ae1.tar.gz || fail_exit \"Failed to get pp_Zttbar tar ball\"\n \
+fi\n \
+tar -xzvf pp_Zttbar_as3ae1.tar.gz\n \
+cd pp_Zttbar_as3ae1\n \
+echo \"Editing and compiling Makefiles in \" $(pwd)\n \
+sed -i -e \"s|# NLOX_DIR=<nlox_builddir>|NLOX_DIR=${abs_NLOX_path}|\" Makefile_process\n \
+sed -i -e \"s|# NLOX_UTIL_DIR=<nlox_util_builddir>|NLOX_UTIL_DIR=${abs_NLOX_util_path}/built|\" Makefile_process\n \
+make -j 10 flibrary -f Makefile_process\n \
+cd ${WORKDIR}/${name}/POWHEG-BOX/${process}\n \
+",
 
-    "Wtt_dec" : " cd ../../\n \
-echo \"Adding NLOX libraries to: $(pwd)\"\n \
-if [ ! -f NLOX_util_1.2.0.tar.gz ]; then\n \
-  wget --no-verbose --user NLOX --password LoopsAreCool http://www.hep.fsu.edu/~nlox/downloads/v1.2.0/NLOX_util_1.2.0.tar.gz || fail_exit \"Failed to get NLOX_util_1.2.0 tar ball\"\n \
+    "ttll" : "echo \"Adding NLOX libraries to: $(pwd)\"\n \
+if [ ! -f NLOX_util_1.2.1.tar.gz ]; then\n \
+  wget --no-verbose --user NLOX --password LoopsAreCool http://www.hep.fsu.edu/~nlox/downloads/v1.2.1/NLOX_util_1.2.1.tar.gz || wget https://cms-project-generators.web.cern.ch/cms-project-generators/NLOX_util_1.2.1.tar.gz || fail_exit \"Failed to get NLOX_util_1.2.1 tar ball\"\n \
 fi\n \
-if [ ! -f NLOX_1.2.0.tar.gz ]; then\n \
-  wget --user NLOX --password LoopsAreCool http://www.hep.fsu.edu/~nlox/downloads/v1.2.0/NLOX_1.2.0.tar.gz || fail_exit \"Failed to get NLOX_1.2.0 tar ball\"\n \
+if [ ! -f NLOX_1.2.1.tar.gz ]; then\n \
+  wget --user NLOX --password LoopsAreCool http://www.hep.fsu.edu/~nlox/downloads/v1.2.1/NLOX_1.2.1.tar.gz || wget https://cms-project-generators.web.cern.ch/cms-project-generators/NLOX_1.2.1.tar.gz || fail_exit \"Failed to get NLOX_1.2.1 tar ball\"\n \
 fi\n \
-if [ ! -d NLOX_util_1.2.0 ]; then\n \
-    tar -xzvf NLOX_util_1.2.0.tar.gz\n \
+if [ ! -d NLOX_util_1.2.1 ]; then\n \
+    tar -xzvf NLOX_util_1.2.1.tar.gz\n \
 fi\n \
-if [ ! -d NLOX_1.2.0 ]; then\n \
-    tar -xzvf NLOX_1.2.0.tar.gz\n \
+if [ ! -d NLOX_1.2.1 ]; then\n \
+    tar -xzvf NLOX_1.2.1.tar.gz\n \
 fi\n \
-cd NLOX_util_1.2.0\n \
+sed -i -e \"s|PROCPATH=|PROCPATH=pp_ttbarepem_as3ae2|\" Makefile\n \
+sed -i -e \"s|NLOX_UTIL_DIR=|NLOX_UTIL_DIR=$(pwd)/NLOX_util_1.2.1/built|\" Makefile\n \
+sed -i -e \"s|NLOX_DIR=|NLOX_DIR=$(pwd)/NLOX_1.2.1|\" Makefile\n \
+cd NLOX_util_1.2.1\n \
+sed -i -e \"s/python/python3/g\" ./install_nlox_util.sh\n \
+tar zxvf OneLOop-3.6.tar.gz\n \
+sed -i -e \"s/python/python3/g\" OneLOop-3.6/create.py\n \
+tar zcvf OneLOop-3.6.tar.gz OneLOop-3.6\n \
+rm -r OneLOop-3.6\n \
 export abs_NLOX_util_path=$(pwd)\n \
 echo \"Setting abs_NLOX_util_path=\"${abs_NLOX_util_path}\n \
 ./install_nlox_util.sh --prefix=${abs_NLOX_util_path}\n \
@@ -353,15 +447,56 @@ echo \"Exporting OneLOop-3.6 path: \" ${abs_OneLOop_path} \n \
 cd ../QCDLoop-1.95\n \
 export abs_QCDLoop_path=`pwd`\n \
 echo \"Exporting QCDLoop-1.95 path:\" ${abs_QCDLoop_path}\n \
-cd ../../NLOX_1.2.0\n \
+cd ../../NLOX_1.2.1\n \
+export abs_NLOX_path=`pwd`\n \
+echo \"Setting abs_NLOX_path=\" ${abs_NLOX_path}\n \
+./install_nlox.sh --with-nloxutil=${abs_NLOX_util_path}\n \
+cd ..\n \
+if [ ! -f pp_ttbarepem_as3ae2.tar.gz ]; then\n \
+  wget --user NLOX --password LoopsAreCool http://www.hep.fsu.edu/~nlox/downloads/processes/v1.2.0/pp_ttbarepem_as3ae2.tar.gz || wget https://cms-project-generators.web.cern.ch/cms-project-generators/pp_ttbarepem_as3ae2.tar.gz || fail_exit \"Failed to get pp_ttbarepem_as3ae2 tar ball\"\n \
+fi\n \
+tar -xzvf pp_ttbarepem_as3ae2.tar.gz\n \
+cd pp_ttbarepem_as3ae2\n \
+echo \"Editing and compiling Makefiles in \" $(pwd)\n \
+sed -i -e \"s|# NLOX_DIR=<nlox_builddir>|NLOX_DIR=${abs_NLOX_path}|\" Makefile_process\n \
+sed -i -e \"s|# NLOX_UTIL_DIR=<nlox_util_builddir>|NLOX_UTIL_DIR=${abs_NLOX_util_path}/built|\" Makefile_process\n \
+make -j 10 flibrary -f Makefile_process\n \
+cd ${WORKDIR}/${name}/POWHEG-BOX/${process}\n \
+",
+
+    "Wtt_dec" : " cd ../../\n \
+echo \"Adding NLOX libraries to: $(pwd)\"\n \
+if [ ! -f NLOX_util_1.2.1.tar.gz ]; then\n \
+  wget --no-verbose --user NLOX --password LoopsAreCool http://www.hep.fsu.edu/~nlox/downloads/v1.2.1/NLOX_util_1.2.1.tar.gz || wget https://cms-project-generators.web.cern.ch/cms-project-generators/NLOX_util_1.2.1.tar.gz || fail_exit \"Failed to get NLOX_util_1.2.1 tar ball\"\n \
+fi\n \
+if [ ! -f NLOX_1.2.1.tar.gz ]; then\n \
+  wget --user NLOX --password LoopsAreCool http://www.hep.fsu.edu/~nlox/downloads/v1.2.1/NLOX_1.2.1.tar.gz || wget https://cms-project-generators.web.cern.ch/cms-project-generators/NLOX_1.2.1.tar.gz || fail_exit \"Failed to get NLOX_1.2.1 tar ball\"\n \
+fi\n \
+if [ ! -d NLOX_util_1.2.1 ]; then\n \
+    tar -xzvf NLOX_util_1.2.1.tar.gz\n \
+fi\n \
+if [ ! -d NLOX_1.2.1 ]; then\n \
+    tar -xzvf NLOX_1.2.1.tar.gz\n \
+fi\n \
+cd NLOX_util_1.2.1\n \
+export abs_NLOX_util_path=$(pwd)\n \
+echo \"Setting abs_NLOX_util_path=\"${abs_NLOX_util_path}\n \
+./install_nlox_util.sh --prefix=${abs_NLOX_util_path}\n \
+cd OneLOop-3.6\n \
+export abs_OneLOop_path=$(pwd)\n \
+echo \"Exporting OneLOop-3.6 path: \" ${abs_OneLOop_path} \n \
+cd ../QCDLoop-1.95\n \
+export abs_QCDLoop_path=`pwd`\n \
+echo \"Exporting QCDLoop-1.95 path:\" ${abs_QCDLoop_path}\n \
+cd ../../NLOX_1.2.1\n \
 export abs_NLOX_path=`pwd`\n \
 echo \"Setting abs_NLOX_path=\" ${abs_NLOX_path}\n \
 ./install_nlox.sh --with-nloxutil=${abs_NLOX_util_path}\n \
 if [ ! -f pp_Wpttbar.tar.gz ]; then\n \
-  wget --user NLOX --password LoopsAreCool http://www.hep.fsu.edu/~nlox/downloads/processes/v1.2.0/pp_Wpttbar.tar.gz || fail_exit \"Failed to get pp_Wpttbar tar ball\"\n \
+  wget --user NLOX --password LoopsAreCool http://www.hep.fsu.edu/~nlox/downloads/processes/v1.2.1/pp_Wpttbar.tar.gz || wget https://cms-project-generators.web.cern.ch/cms-project-generators/pp_Wpttbar.tar.gz || fail_exit \"Failed to get pp_Wpttbar tar ball\"\n \
 fi\n \
 if [ ! -f pp_Wmttbar.tar.gz ]; then\n \
-  wget --user NLOX --password LoopsAreCool http://www.hep.fsu.edu/~nlox/downloads/processes/v1.2.0/pp_Wmttbar.tar.gz || fail_exit \"Failed to get pp_Wmttbar tar ball\"\n \
+  wget --user NLOX --password LoopsAreCool http://www.hep.fsu.edu/~nlox/downloads/processes/v1.2.1/pp_Wmttbar.tar.gz || wget https://cms-project-generators.web.cern.ch/cms-project-generators/pp_Wmttbar.tar.gz || fail_exit \"Failed to get pp_Wmttbar tar ball\"\n \
 fi\n \
 tar -xzvf pp_Wpttbar.tar.gz\n \
 tar -xzvf pp_Wmttbar.tar.gz\n \
@@ -446,7 +581,7 @@ echo 'Making main-PHOTOS-lhef'\n \
 make main-PHOTOS-lhef",
     "ttJ_MiNNLO" :"echo \"Adding CHAPLIN 1.2 library\"\n \
 if [ ! -f chaplin-1.2.tar ]; then\n \
-  wget --no-verbose http://chaplin.hepforge.org/code/chaplin-1.2.tar || fail_exit \"Failed to get CHAPLIN tar ball \"\n \
+  wget --no-verbose http://chaplin.hepforge.org/code/chaplin-1.2.tar || wget https://cms-project-generators.web.cern.ch/cms-project-generators/chaplin-1.2.tar || fail_exit \"Failed to get CHAPLIN tar ball \"\n \
 fi\n \
 tar xvf chaplin-1.2.tar\n \
 cd chaplin-1.2\n \
@@ -476,7 +611,7 @@ sed -i \"s/getq2min(1,tmp)/getq2min(0,tmp)/g\" setlocalscales.f",
 
     "ST_wtch_DR" : "echo \"D/L QCDLoop-1.9 library\"\n \
 if [ ! -f FeynHiggs-2.10.2.tar.gz ]; then\n \
-  wget --no-verbose http://qcdloop.fnal.gov/QCDLoop-1.98.tar.gz || fail_exit \"Failed to get QCDLoop tar ball\"\n \
+  wget --no-verbose http://qcdloop.fnal.gov/QCDLoop-1.98.tar.gz || wget https://cms-project-generators.web.cern.ch/cms-project-generators/QCDLoop-1.98.tar.gz || fail_exit \"Failed to get QCDLoop tar ball\"\n \
 fi\n \
 tar xvf QCDLoop-1.98.tar.gz\n \
 mv QCDLoop-1.98 QCDLoop-1.9\n \
@@ -491,7 +626,7 @@ sed -i -e 's#QCDLoop-1.98#QCDLoop-1.9#g' Makefile",
 
     "ST_wtch_DS" : "echo \"D/L QCDLoop-1.9 library\"\n \
 if [ ! -f FeynHiggs-2.10.2.tar.gz ]; then\n \
-  wget --no-verbose http://qcdloop.fnal.gov/QCDLoop-1.98.tar.gz || fail_exit \"Failed to get QCDLoop tar ball\"\n \
+  wget --no-verbose http://qcdloop.fnal.gov/QCDLoop-1.98.tar.gz || wget https://cms-project-generators.web.cern.ch/cms-project-generators/QCDLoop-1.98.tar.gz || fail_exit \"Failed to get QCDLoop tar ball\"\n \
 fi\n \
 tar xvf QCDLoop-1.98.tar.gz\n \
 mv QCDLoop-1.98 QCDLoop-1.9\n \

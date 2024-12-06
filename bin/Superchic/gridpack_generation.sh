@@ -24,7 +24,7 @@ create_setup(){
 }
 
 install_superchic(){
-    SUPERCHIC=SuperChic-5.3
+    SUPERCHIC=SuperChic-5.4
     cd ${WORKDIR}
 
     echo "Downloading "${SUPERCHIC}
@@ -36,7 +36,7 @@ install_superchic(){
     echo "Compiling ${SUPERCHIC}"
     cd ${SUPERCHICDIR}
     CMAKE=$([[ $(cmake --version | grep -cE *"n ([3-9]\.)")>0 ]] && echo "cmake" || echo "cmake3")
-    ${CMAKE} -S . -B BUILD -DCMAKE_INSTALL_PREFIX=${SUPERCHICDIR}/build -DLHAPDF_DIR=$(scram tool tag lhapdf LHAPDF_BASE) -DSUPERCHIC_ENABLE_TESTS=OFF -DSUPERCHIC_ENABLE_FPES=OFF -DSUPERCHIC_ENABLE_DOCS=OFF -DCMAKE_Fortran_COMPILER=gfortran -DCMAKE_Fortran_FLAGS="-O2 -g -ffree-line-length-512 -Wno-unused-label -Wno-integer-division -Wno-conversion -Wno-function-elimination"
+    ${CMAKE} -S . -B BUILD -DCMAKE_INSTALL_PREFIX=${SUPERCHICDIR}/build -DLHAPDF_DIR=$(scram tool tag lhapdf LHAPDF_BASE) -DSUPERCHIC_ENABLE_TESTS=OFF -DSUPERCHIC_ENABLE_FPES=OFF -DSUPERCHIC_ENABLE_DOCS=OFF -DCMAKE_Fortran_COMPILER=gfortran -DCMAKE_Fortran_FLAGS="-O2 -g -ffree-line-length-512 -Wno-unused-label -Wno-integer-division -Wno-conversion -Wno-function-elimination -Wno-unused-variable -Wno-unused-parameter"
     ${CMAKE} --build BUILD --target install --parallel $(nproc)
     rm -rf BUILD share
 
