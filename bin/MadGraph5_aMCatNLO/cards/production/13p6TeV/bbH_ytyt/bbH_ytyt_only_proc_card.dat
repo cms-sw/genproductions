@@ -1,0 +1,6 @@
+import model HC_NLO_X0_UFO-heft_bmass_noyb
+
+generate p p > x0 b b~ / t [QCD]
+
+
+output bbH_ytyt_only -nojpeg
