@@ -1,4 +1,4 @@
-numevts NEVENTS
+numevts NEVENTS    ! number of events to be generated
 ih1   1           ! hadron 1 (1 for protons, -1 for antiprotons)
 ih2   1           ! hadron 2 (1 for protons, -1 for antiprotons)
 ebeam1 6800     ! energy of beam 1
@@ -32,7 +32,7 @@ hfact    60.0d0    ! (default no dumping factor) dump factor for high-pt radiati
 runningscale 1    ! 0 = scales equal to the Higgs pole mass; 1  = scales equal to the Higgs virtuality;
                   ! 2 = scales equal to the Higgs pole mass for Born-like configuration and to the transverse mass for real emission contribution
 
-iseed SEED
+iseed    SEED    ! initialize random number sequence
 
 ! GGF_H production:
 ! **** Mandatory parameters for ALL models ****
@@ -52,9 +52,9 @@ bottommass 4.75d0    ! bottom quark mass - if defined it enables the bottom quar
 
 ! Optional
 hdecaywidth 0        ! If equals to 1 read total decay width from HDECAY sm.br2 file
-#withnegweights 1
-#pdfreweight 0
-#storeinfo_rwgt 0
+withnegweights 1
+pdfreweight 0       ! PDF reweighting
+storeinfo_rwgt 0    ! store weight information
 bwshape 3 ! complex-pole scheme according to Passarino et al.
 
 
