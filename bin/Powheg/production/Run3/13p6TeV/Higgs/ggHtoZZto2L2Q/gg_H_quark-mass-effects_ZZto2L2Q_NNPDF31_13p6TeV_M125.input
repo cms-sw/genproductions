@@ -56,14 +56,3 @@ withnegweights 1
 pdfreweight 0       ! PDF reweighting
 storeinfo_rwgt 0    ! store weight information
 bwshape 3 ! complex-pole scheme according to Passarino et al.
-
-
-#manyseeds 1
-
-#parallelstage 4
-
-#xgriditeration 1 1
-rwl_group_events 2000
-lhapdf6maxsets 50
-rwl_file 'pwg-rwl.dat'
-rwl_format_rwgt 1
