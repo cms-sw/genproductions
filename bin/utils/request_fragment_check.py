@@ -739,7 +739,7 @@ for num in range(0,len(prepid)):
             os.popen('wget -q '+mcm_link+'public/restapi/requests/get_fragment/'+pi+' -O '+pi).read()
 
 
-        if mcdbid > 0:
+        if mcdbid > 0 and 'pLHE' in pi:
             warn_tmp , err_tmp = lhe_evts_check(mcdbid)
             warnings.extend(warn_tmp)
             errors.extend(err_tmp)
