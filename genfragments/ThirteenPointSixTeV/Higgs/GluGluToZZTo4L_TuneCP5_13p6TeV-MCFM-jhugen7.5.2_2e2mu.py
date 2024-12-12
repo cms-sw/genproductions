@@ -30,12 +30,9 @@ generator = cms.EDFilter("Pythia8ConcurrentHadronizerFilter",
         pythia8CP5SettingsBlock,
         pythia8PSweightsSettingsBlock,
         processParameters = cms.vstring(
-            'BeamRemnants:primordialKT = off',
             'SpaceShower:pTdampMatch = 1',
             'SpaceShower:pTdampFudge = 0.85',
             'SpaceShower:MEcorrections = off',
-            'SpaceShower:alphaSvalue = 0.118',
-            'SpaceShower:alphaSorder = 2'
         ),
         parameterSets = cms.vstring('pythia8CommonSettings',
                                     'pythia8CP5Settings',
