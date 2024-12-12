@@ -30,10 +30,12 @@ generator = cms.EDFilter("Pythia8ConcurrentHadronizerFilter",
         pythia8CP5SettingsBlock,
         pythia8PSweightsSettingsBlock,
         processParameters = cms.vstring(
-            'SpaceShower:pTmaxMatch = 1',
-            'TimeShower:pTmaxMatch = 1',
-            'SpaceShower:pTmaxFudge = 1',
-            'TimeShower:pTmaxFudge = 1',
+            'BeamRemnants:primordialKT = off',
+            'SpaceShower:pTdampMatch = 1',
+            'SpaceShower:pTdampFudge = 0.85',
+            'SpaceShower:MEcorrections = off',
+            'SpaceShower:alphaSvalue = 0.118',
+            'SpaceShower:alphaSorder = 2'
         ),
         parameterSets = cms.vstring('pythia8CommonSettings',
                                     'pythia8CP5Settings',
@@ -43,17 +45,14 @@ generator = cms.EDFilter("Pythia8ConcurrentHadronizerFilter",
     )
 )
 
-FourLeptonFilter = cms.EDFilter("MCMultiParticleFilter", # require 4-l in the final state with eta and pt cuts applied
-                 ParticleID = cms.vint32(-11,11,-13,13),
-                 NumRequired = cms.int32(4),
-                 AcceptMore = cms.bool(True),
+FourLeptonFilter = cms.EDFilter("MCMultiParticleMassFilter", # require 4-l in the final state with eta and pt cuts applied
+                 ParticleID = cms.vint32(-11,11,-11,11),
+                 minTotalMass = cms.double(70.0),
+                 maxTotalMass = cms.double(1e15),
                  PtMin = cms.vdouble(3.0),
                  EtaMax = cms.vdouble(2.7),
                  Status = cms.vint32(1),
 )
 
 ProductionFilterSequence = cms.Sequence(generator*FourLeptonFilter)
-
-# Link to generator fragment:
-# https://raw.githubusercontent.com/cms-sw/genproductions/20f59357146e08e48132cfd73d0fd72ca08b6b30/python/ThirteenTeV/Hadronizer/Hadronizer_TuneCP5_13TeV_pTmaxMatch_1_LHE_pythia8_cff.py
 
