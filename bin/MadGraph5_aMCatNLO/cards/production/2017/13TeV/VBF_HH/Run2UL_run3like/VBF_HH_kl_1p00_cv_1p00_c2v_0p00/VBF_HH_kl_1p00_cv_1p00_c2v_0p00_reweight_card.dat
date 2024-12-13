@@ -1,0 +1,81 @@
+change rwgt_dir rwgt
+launch --rwgt_name=rw_CV_1p0_C2V_1p0_C3_1p0
+set new 1 1.0
+set new 2 1.0
+set new 3 1.0
+launch --rwgt_name=rw_CV_0p4_C2V_1p0_C3_2p9
+set new 1 0.4
+set new 2 1.0
+set new 3 2.9
+launch --rwgt_name=rw_CV_1p1_C2V_1p0_C3_0p2
+set new 1 1.1
+set new 2 1.0
+set new 3 0.2
+launch --rwgt_name=rw_CV_1p0_C2V_0p2_C3_1p3
+set new 1 1.0
+set new 2 0.2
+set new 3 1.3
+launch --rwgt_name=rw_CV_1p0_C2V_1p3_C3_0p2
+set new 1 1.0
+set new 2 1.3
+set new 3 0.2
+launch --rwgt_name=rw_CV_1p1_C2V_0p2_C3_0p9
+set new 1 1.1
+set new 2 0.2
+set new 3 0.9
+launch --rwgt_name=rw_CV_0p4_C2V_1p3_C3_2p2
+set new 1 0.4
+set new 2 1.3
+set new 3 2.2
+launch --rwgt_name=rw_CV_1p74_C2V_1p37_C3_14p4
+set new 1 1.74
+set new 2 1.37
+set new 3 14.4
+launch --rwgt_name=rw_CV_m0p962_C2V_0p959_C3_m1p43
+set new 1 -0.962
+set new 2 0.959
+set new 3 -1.43
+launch --rwgt_name=rw_CV_m0p758_C2V_1p44_C3_m19p3
+set new 1 -0.758
+set new 2 1.44
+set new 3 -19.3
+launch --rwgt_name=rw_CV_m1p60_C2V_2p72_C3_m1p36
+set new 1 -1.60
+set new 2 2.72
+set new 3 -1.36
+launch --rwgt_name=rw_CV_m0p012_C2V_0p03_C3_10p2
+set new 1 -0.012
+set new 2 0.03
+set new 3 10.2
+launch --rwgt_name=rw_CV_m1p21_C2V_1p94_C3_m0p94
+set new 1 -1.21
+set new 2 1.94
+set new 3 -0.94
+launch --rwgt_name=rw_CV_2p12_C2V_3p87_C3_m5p96
+set new 1 2.12
+set new 2 3.87
+set new 3 -5.96
+launch --rwgt_name=rw_CV_m1p83_C2V_3p57_C3_m3p39
+set new 1 -1.83
+set new 2 3.57
+set new 3 -3.39
+launch --rwgt_name=rw_CV_m0p65_C2V_m0p382_C3_19p9
+set new 1 -0.65
+set new 2 -0.382
+set new 3 19.9
+launch --rwgt_name=rw_CV_0p008_C2V_m0p047_C3_19p9
+set new 1 0.008
+set new 2 -0.047
+set new 3 19.9
+launch --rwgt_name=rw_CV_0p906_C2V_0p878_C3_1p55
+set new 1 0.906
+set new 2 0.878
+set new 3 1.55
+launch --rwgt_name=rw_CV_1p27_C2V_1p89_C3_1p17
+set new 1 1.27
+set new 2 1.89
+set new 3 1.17
+launch --rwgt_name=rw_CV_1p0_C2V_0p0_C3_1p0
+set new 1 1.0
+set new 2 0.0
+set new 3 1.0
