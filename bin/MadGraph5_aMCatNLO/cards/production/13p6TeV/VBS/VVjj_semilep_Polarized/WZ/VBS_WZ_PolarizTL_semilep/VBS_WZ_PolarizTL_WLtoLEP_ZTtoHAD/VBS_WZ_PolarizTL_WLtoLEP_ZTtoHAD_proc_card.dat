@@ -1,8 +1,8 @@
 import model sm-ckm_no_b_mass
 define vl~ = ve~ vm~ vt~
+define vl = ve vm vt 
 define l- = e- mu- ta-
 define l+ = e+ mu+ ta+
-define vl = ve vm vt
 
 generate p p > w+{0} z{T} j j  QED=4 QCD=0, w+ > l+ vl, z > j j @ 1
 add process p p > w-{0} z{T} j j QED=4 QCD=0, w- > l- vl~ , z > j j @ 2
