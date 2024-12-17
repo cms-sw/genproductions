@@ -1,0 +1,8 @@
+import model sm-ckm_no_b_mass
+define vl~ = ve~ vm~ vt~ 
+define l- = e- mu- ta-
+define l+ = e+ mu+ ta+
+define vl = ve vm vt
+
+generate p p > z{T} z{0} j j  QED=4 QCD=0, z > j j, z > l+ l- 
+output VBS_ZZ_PolarizTL_ZTtoHAD_ZLtoLEP --nojpeg
