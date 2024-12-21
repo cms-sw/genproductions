@@ -86,6 +86,14 @@ void convert_UGROOT2LHE(const std::string& inFileName, const double& beamE1, con
 
     // Finalise previous event
     if (iEntry==nEntries-1 || (iEntry>0 && iEvt!=*eventNumber)) {
+      // Add fake photons
+      ROOT::Math::PxPyPzMVector p4(0,0,0,0);
+      for (const auto& pV : parV)
+        if (std::get<1>(pV) == 1)
+          p4 += std::get<3>(pV);
+      parV.emplace(parV.begin(), 22, -1, 0, ROOT::Math::PxPyPzMVector(0, 0, (p4.Z() + p4.E())/2., 0));
+      parV.emplace(parV.begin(), 22, -1, 0, ROOT::Math::PxPyPzMVector(0, 0, (p4.Z() - p4.E())/2., 0));
+
       // Write event
       outFile << "<event>" << std::endl;
       //# particles, subprocess id, event weight, event scale, alpha_em, alpha_s
@@ -94,7 +102,8 @@ void convert_UGROOT2LHE(const std::string& inFileName, const double& beamE1, con
       for (const auto& pV : parV) {
         const auto& [pdgId, status, momI, p] = pV;
         //particle: pdg id, status, mother index (1, 2), color flow tag (1, 2), (px, py, pz, energy, mass [GeV]), proper lifetime [mm], spin
-        outFile << pdgId << " " << status << " " << momI << " 0 0 0 " << p.Px() << " " << p.Py() << " " << p.Pz() << " " << p.E() << " " << p.M() << " 0.0000e+00 9.0000e+00" << std::endl;
+        const auto momS = status > 0 ? (momI == 0 ? "1 2" : std::to_string(momI+2)+" 0") : "0 0";
+        outFile << pdgId << " " << status << " " << momS << " 0 0 " << p.Px() << " " << p.Py() << " " << p.Pz() << " " << p.E() << " " << p.M() << " 0.0000e+00 9.0000e+00" << std::endl;
       }
       outFile << "</event>" << std::endl;
       nEvt++;
