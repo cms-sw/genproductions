@@ -35,7 +35,7 @@ def validate_dataset_name(dataset_name):
     r"amcatnloFXFX-madspin|amcatnlo|amcatnlo-madspin|alpgen|mcatnlo|powheg|"
     r"powheg-madspin|powheg-JHUGenV\d*|powheg-minlo|powheg-minnlo|powheg-minlo-JHUGenV\d*|"
     r"powheg-minnlo-JHUGen\d*|JHUGen|hardcol|bcvegpy2)"
-    r"-(pythia6|pythia8|herwig6|herwigpp|herwig7))"
+    r"-(pythia6|pythia8|pythia8-evtgen|herwig6|herwigpp|herwig7))"
     )
     blocks = dataset_name.split('_')
 
