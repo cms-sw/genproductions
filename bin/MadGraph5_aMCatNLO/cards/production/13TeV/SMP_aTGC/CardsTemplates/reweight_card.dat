@@ -1,0 +1,754 @@
+change helicity False
+change mode LO
+change rwgt_dir rwgt
+
+launch --rwgt_name=cwwwm3p6_cwm4p50_cbm20
+	set DIM6 1   -3.6
+	set DIM6 2   -4.50
+	set DIM6 3   -20
+
+launch --rwgt_name=cwwwm3p6_cwm4p50_cbm10
+	set DIM6 1   -3.6
+	set DIM6 2   -4.50
+	set DIM6 3   -10
+
+launch --rwgt_name=cwwwm3p6_cwm4p50_cb0
+	set DIM6 1   -3.6
+	set DIM6 2   -4.50
+	set DIM6 3   0
+
+launch --rwgt_name=cwwwm3p6_cwm4p50_cb10
+	set DIM6 1   -3.6
+	set DIM6 2   -4.50
+	set DIM6 3   10
+
+launch --rwgt_name=cwwwm3p6_cwm4p50_cb20
+	set DIM6 1   -3.6
+	set DIM6 2   -4.50
+	set DIM6 3   20
+
+launch --rwgt_name=cwwwm3p6_cwm2p25_cbm20
+	set DIM6 1   -3.6
+	set DIM6 2   -2.25
+	set DIM6 3   -20
+
+launch --rwgt_name=cwwwm3p6_cwm2p25_cbm10
+	set DIM6 1   -3.6
+	set DIM6 2   -2.25
+	set DIM6 3   -10
+
+launch --rwgt_name=cwwwm3p6_cwm2p25_cb0
+	set DIM6 1   -3.6
+	set DIM6 2   -2.25
+	set DIM6 3   0
+
+launch --rwgt_name=cwwwm3p6_cwm2p25_cb10
+	set DIM6 1   -3.6
+	set DIM6 2   -2.25
+	set DIM6 3   10
+
+launch --rwgt_name=cwwwm3p6_cwm2p25_cb20
+	set DIM6 1   -3.6
+	set DIM6 2   -2.25
+	set DIM6 3   20
+
+launch --rwgt_name=cwwwm3p6_cw0p00_cbm20
+	set DIM6 1   -3.6
+	set DIM6 2   0.00
+	set DIM6 3   -20
+
+launch --rwgt_name=cwwwm3p6_cw0p00_cbm10
+	set DIM6 1   -3.6
+	set DIM6 2   0.00
+	set DIM6 3   -10
+
+launch --rwgt_name=cwwwm3p6_cw0p00_cb0
+	set DIM6 1   -3.6
+	set DIM6 2   0.00
+	set DIM6 3   0
+
+launch --rwgt_name=cwwwm3p6_cw0p00_cb10
+	set DIM6 1   -3.6
+	set DIM6 2   0.00
+	set DIM6 3   10
+
+launch --rwgt_name=cwwwm3p6_cw0p00_cb20
+	set DIM6 1   -3.6
+	set DIM6 2   0.00
+	set DIM6 3   20
+
+launch --rwgt_name=cwwwm3p6_cw2p25_cbm20
+	set DIM6 1   -3.6
+	set DIM6 2   2.25
+	set DIM6 3   -20
+
+launch --rwgt_name=cwwwm3p6_cw2p25_cbm10
+	set DIM6 1   -3.6
+	set DIM6 2   2.25
+	set DIM6 3   -10
+
+launch --rwgt_name=cwwwm3p6_cw2p25_cb0
+	set DIM6 1   -3.6
+	set DIM6 2   2.25
+	set DIM6 3   0
+
+launch --rwgt_name=cwwwm3p6_cw2p25_cb10
+	set DIM6 1   -3.6
+	set DIM6 2   2.25
+	set DIM6 3   10
+
+launch --rwgt_name=cwwwm3p6_cw2p25_cb20
+	set DIM6 1   -3.6
+	set DIM6 2   2.25
+	set DIM6 3   20
+
+launch --rwgt_name=cwwwm3p6_cw4p50_cbm20
+	set DIM6 1   -3.6
+	set DIM6 2   4.50
+	set DIM6 3   -20
+
+launch --rwgt_name=cwwwm3p6_cw4p50_cbm10
+	set DIM6 1   -3.6
+	set DIM6 2   4.50
+	set DIM6 3   -10
+
+launch --rwgt_name=cwwwm3p6_cw4p50_cb0
+	set DIM6 1   -3.6
+	set DIM6 2   4.50
+	set DIM6 3   0
+
+launch --rwgt_name=cwwwm3p6_cw4p50_cb10
+	set DIM6 1   -3.6
+	set DIM6 2   4.50
+	set DIM6 3   10
+
+launch --rwgt_name=cwwwm3p6_cw4p50_cb20
+	set DIM6 1   -3.6
+	set DIM6 2   4.50
+	set DIM6 3   20
+
+launch --rwgt_name=cwwwm1p8_cwm4p50_cbm20
+	set DIM6 1   -1.8
+	set DIM6 2   -4.50
+	set DIM6 3   -20
+
+launch --rwgt_name=cwwwm1p8_cwm4p50_cbm10
+	set DIM6 1   -1.8
+	set DIM6 2   -4.50
+	set DIM6 3   -10
+
+launch --rwgt_name=cwwwm1p8_cwm4p50_cb0
+	set DIM6 1   -1.8
+	set DIM6 2   -4.50
+	set DIM6 3   0
+
+launch --rwgt_name=cwwwm1p8_cwm4p50_cb10
+	set DIM6 1   -1.8
+	set DIM6 2   -4.50
+	set DIM6 3   10
+
+launch --rwgt_name=cwwwm1p8_cwm4p50_cb20
+	set DIM6 1   -1.8
+	set DIM6 2   -4.50
+	set DIM6 3   20
+
+launch --rwgt_name=cwwwm1p8_cwm2p25_cbm20
+	set DIM6 1   -1.8
+	set DIM6 2   -2.25
+	set DIM6 3   -20
+
+launch --rwgt_name=cwwwm1p8_cwm2p25_cbm10
+	set DIM6 1   -1.8
+	set DIM6 2   -2.25
+	set DIM6 3   -10
+
+launch --rwgt_name=cwwwm1p8_cwm2p25_cb0
+	set DIM6 1   -1.8
+	set DIM6 2   -2.25
+	set DIM6 3   0
+
+launch --rwgt_name=cwwwm1p8_cwm2p25_cb10
+	set DIM6 1   -1.8
+	set DIM6 2   -2.25
+	set DIM6 3   10
+
+launch --rwgt_name=cwwwm1p8_cwm2p25_cb20
+	set DIM6 1   -1.8
+	set DIM6 2   -2.25
+	set DIM6 3   20
+
+launch --rwgt_name=cwwwm1p8_cw0p00_cbm20
+	set DIM6 1   -1.8
+	set DIM6 2   0.00
+	set DIM6 3   -20
+
+launch --rwgt_name=cwwwm1p8_cw0p00_cbm10
+	set DIM6 1   -1.8
+	set DIM6 2   0.00
+	set DIM6 3   -10
+
+launch --rwgt_name=cwwwm1p8_cw0p00_cb0
+	set DIM6 1   -1.8
+	set DIM6 2   0.00
+	set DIM6 3   0
+
+launch --rwgt_name=cwwwm1p8_cw0p00_cb10
+	set DIM6 1   -1.8
+	set DIM6 2   0.00
+	set DIM6 3   10
+
+launch --rwgt_name=cwwwm1p8_cw0p00_cb20
+	set DIM6 1   -1.8
+	set DIM6 2   0.00
+	set DIM6 3   20
+
+launch --rwgt_name=cwwwm1p8_cw2p25_cbm20
+	set DIM6 1   -1.8
+	set DIM6 2   2.25
+	set DIM6 3   -20
+
+launch --rwgt_name=cwwwm1p8_cw2p25_cbm10
+	set DIM6 1   -1.8
+	set DIM6 2   2.25
+	set DIM6 3   -10
+
+launch --rwgt_name=cwwwm1p8_cw2p25_cb0
+	set DIM6 1   -1.8
+	set DIM6 2   2.25
+	set DIM6 3   0
+
+launch --rwgt_name=cwwwm1p8_cw2p25_cb10
+	set DIM6 1   -1.8
+	set DIM6 2   2.25
+	set DIM6 3   10
+
+launch --rwgt_name=cwwwm1p8_cw2p25_cb20
+	set DIM6 1   -1.8
+	set DIM6 2   2.25
+	set DIM6 3   20
+
+launch --rwgt_name=cwwwm1p8_cw4p50_cbm20
+	set DIM6 1   -1.8
+	set DIM6 2   4.50
+	set DIM6 3   -20
+
+launch --rwgt_name=cwwwm1p8_cw4p50_cbm10
+	set DIM6 1   -1.8
+	set DIM6 2   4.50
+	set DIM6 3   -10
+
+launch --rwgt_name=cwwwm1p8_cw4p50_cb0
+	set DIM6 1   -1.8
+	set DIM6 2   4.50
+	set DIM6 3   0
+
+launch --rwgt_name=cwwwm1p8_cw4p50_cb10
+	set DIM6 1   -1.8
+	set DIM6 2   4.50
+	set DIM6 3   10
+
+launch --rwgt_name=cwwwm1p8_cw4p50_cb20
+	set DIM6 1   -1.8
+	set DIM6 2   4.50
+	set DIM6 3   20
+
+launch --rwgt_name=cwww0p0_cwm4p50_cbm20
+	set DIM6 1   0.0
+	set DIM6 2   -4.50
+	set DIM6 3   -20
+
+launch --rwgt_name=cwww0p0_cwm4p50_cbm10
+	set DIM6 1   0.0
+	set DIM6 2   -4.50
+	set DIM6 3   -10
+
+launch --rwgt_name=cwww0p0_cwm4p50_cb0
+	set DIM6 1   0.0
+	set DIM6 2   -4.50
+	set DIM6 3   0
+
+launch --rwgt_name=cwww0p0_cwm4p50_cb10
+	set DIM6 1   0.0
+	set DIM6 2   -4.50
+	set DIM6 3   10
+
+launch --rwgt_name=cwww0p0_cwm4p50_cb20
+	set DIM6 1   0.0
+	set DIM6 2   -4.50
+	set DIM6 3   20
+
+launch --rwgt_name=cwww0p0_cwm2p25_cbm20
+	set DIM6 1   0.0
+	set DIM6 2   -2.25
+	set DIM6 3   -20
+
+launch --rwgt_name=cwww0p0_cwm2p25_cbm10
+	set DIM6 1   0.0
+	set DIM6 2   -2.25
+	set DIM6 3   -10
+
+launch --rwgt_name=cwww0p0_cwm2p25_cb0
+	set DIM6 1   0.0
+	set DIM6 2   -2.25
+	set DIM6 3   0
+
+launch --rwgt_name=cwww0p0_cwm2p25_cb10
+	set DIM6 1   0.0
+	set DIM6 2   -2.25
+	set DIM6 3   10
+
+launch --rwgt_name=cwww0p0_cwm2p25_cb20
+	set DIM6 1   0.0
+	set DIM6 2   -2.25
+	set DIM6 3   20
+
+launch --rwgt_name=cwww0p0_cw0p00_cbm20
+	set DIM6 1   0.0
+	set DIM6 2   0.00
+	set DIM6 3   -20
+
+launch --rwgt_name=cwww0p0_cw0p00_cbm10
+	set DIM6 1   0.0
+	set DIM6 2   0.00
+	set DIM6 3   -10
+
+launch --rwgt_name=cwww0p0_cw0p00_cb0
+	set DIM6 1   0.0
+	set DIM6 2   0.00
+	set DIM6 3   0
+
+launch --rwgt_name=cwww0p0_cw0p00_cb10
+	set DIM6 1   0.0
+	set DIM6 2   0.00
+	set DIM6 3   10
+
+launch --rwgt_name=cwww0p0_cw0p00_cb20
+	set DIM6 1   0.0
+	set DIM6 2   0.00
+	set DIM6 3   20
+
+launch --rwgt_name=cwww0p0_cw2p25_cbm20
+	set DIM6 1   0.0
+	set DIM6 2   2.25
+	set DIM6 3   -20
+
+launch --rwgt_name=cwww0p0_cw2p25_cbm10
+	set DIM6 1   0.0
+	set DIM6 2   2.25
+	set DIM6 3   -10
+
+launch --rwgt_name=cwww0p0_cw2p25_cb0
+	set DIM6 1   0.0
+	set DIM6 2   2.25
+	set DIM6 3   0
+
+launch --rwgt_name=cwww0p0_cw2p25_cb10
+	set DIM6 1   0.0
+	set DIM6 2   2.25
+	set DIM6 3   10
+
+launch --rwgt_name=cwww0p0_cw2p25_cb20
+	set DIM6 1   0.0
+	set DIM6 2   2.25
+	set DIM6 3   20
+
+launch --rwgt_name=cwww0p0_cw4p50_cbm20
+	set DIM6 1   0.0
+	set DIM6 2   4.50
+	set DIM6 3   -20
+
+launch --rwgt_name=cwww0p0_cw4p50_cbm10
+	set DIM6 1   0.0
+	set DIM6 2   4.50
+	set DIM6 3   -10
+
+launch --rwgt_name=cwww0p0_cw4p50_cb0
+	set DIM6 1   0.0
+	set DIM6 2   4.50
+	set DIM6 3   0
+
+launch --rwgt_name=cwww0p0_cw4p50_cb10
+	set DIM6 1   0.0
+	set DIM6 2   4.50
+	set DIM6 3   10
+
+launch --rwgt_name=cwww0p0_cw4p50_cb20
+	set DIM6 1   0.0
+	set DIM6 2   4.50
+	set DIM6 3   20
+
+launch --rwgt_name=cwww1p8_cwm4p50_cbm20
+	set DIM6 1   1.8
+	set DIM6 2   -4.50
+	set DIM6 3   -20
+
+launch --rwgt_name=cwww1p8_cwm4p50_cbm10
+	set DIM6 1   1.8
+	set DIM6 2   -4.50
+	set DIM6 3   -10
+
+launch --rwgt_name=cwww1p8_cwm4p50_cb0
+	set DIM6 1   1.8
+	set DIM6 2   -4.50
+	set DIM6 3   0
+
+launch --rwgt_name=cwww1p8_cwm4p50_cb10
+	set DIM6 1   1.8
+	set DIM6 2   -4.50
+	set DIM6 3   10
+
+launch --rwgt_name=cwww1p8_cwm4p50_cb20
+	set DIM6 1   1.8
+	set DIM6 2   -4.50
+	set DIM6 3   20
+
+launch --rwgt_name=cwww1p8_cwm2p25_cbm20
+	set DIM6 1   1.8
+	set DIM6 2   -2.25
+	set DIM6 3   -20
+
+launch --rwgt_name=cwww1p8_cwm2p25_cbm10
+	set DIM6 1   1.8
+	set DIM6 2   -2.25
+	set DIM6 3   -10
+
+launch --rwgt_name=cwww1p8_cwm2p25_cb0
+	set DIM6 1   1.8
+	set DIM6 2   -2.25
+	set DIM6 3   0
+
+launch --rwgt_name=cwww1p8_cwm2p25_cb10
+	set DIM6 1   1.8
+	set DIM6 2   -2.25
+	set DIM6 3   10
+
+launch --rwgt_name=cwww1p8_cwm2p25_cb20
+	set DIM6 1   1.8
+	set DIM6 2   -2.25
+	set DIM6 3   20
+
+launch --rwgt_name=cwww1p8_cw0p00_cbm20
+	set DIM6 1   1.8
+	set DIM6 2   0.00
+	set DIM6 3   -20
+
+launch --rwgt_name=cwww1p8_cw0p00_cbm10
+	set DIM6 1   1.8
+	set DIM6 2   0.00
+	set DIM6 3   -10
+
+launch --rwgt_name=cwww1p8_cw0p00_cb0
+	set DIM6 1   1.8
+	set DIM6 2   0.00
+	set DIM6 3   0
+
+launch --rwgt_name=cwww1p8_cw0p00_cb10
+	set DIM6 1   1.8
+	set DIM6 2   0.00
+	set DIM6 3   10
+
+launch --rwgt_name=cwww1p8_cw0p00_cb20
+	set DIM6 1   1.8
+	set DIM6 2   0.00
+	set DIM6 3   20
+
+launch --rwgt_name=cwww1p8_cw2p25_cbm20
+	set DIM6 1   1.8
+	set DIM6 2   2.25
+	set DIM6 3   -20
+
+launch --rwgt_name=cwww1p8_cw2p25_cbm10
+	set DIM6 1   1.8
+	set DIM6 2   2.25
+	set DIM6 3   -10
+
+launch --rwgt_name=cwww1p8_cw2p25_cb0
+	set DIM6 1   1.8
+	set DIM6 2   2.25
+	set DIM6 3   0
+
+launch --rwgt_name=cwww1p8_cw2p25_cb10
+	set DIM6 1   1.8
+	set DIM6 2   2.25
+	set DIM6 3   10
+
+launch --rwgt_name=cwww1p8_cw2p25_cb20
+	set DIM6 1   1.8
+	set DIM6 2   2.25
+	set DIM6 3   20
+
+launch --rwgt_name=cwww1p8_cw4p50_cbm20
+	set DIM6 1   1.8
+	set DIM6 2   4.50
+	set DIM6 3   -20
+
+launch --rwgt_name=cwww1p8_cw4p50_cbm10
+	set DIM6 1   1.8
+	set DIM6 2   4.50
+	set DIM6 3   -10
+
+launch --rwgt_name=cwww1p8_cw4p50_cb0
+	set DIM6 1   1.8
+	set DIM6 2   4.50
+	set DIM6 3   0
+
+launch --rwgt_name=cwww1p8_cw4p50_cb10
+	set DIM6 1   1.8
+	set DIM6 2   4.50
+	set DIM6 3   10
+
+launch --rwgt_name=cwww1p8_cw4p50_cb20
+	set DIM6 1   1.8
+	set DIM6 2   4.50
+	set DIM6 3   20
+
+launch --rwgt_name=cwww3p6_cwm4p50_cbm20
+	set DIM6 1   3.6
+	set DIM6 2   -4.50
+	set DIM6 3   -20
+
+launch --rwgt_name=cwww3p6_cwm4p50_cbm10
+	set DIM6 1   3.6
+	set DIM6 2   -4.50
+	set DIM6 3   -10
+
+launch --rwgt_name=cwww3p6_cwm4p50_cb0
+	set DIM6 1   3.6
+	set DIM6 2   -4.50
+	set DIM6 3   0
+
+launch --rwgt_name=cwww3p6_cwm4p50_cb10
+	set DIM6 1   3.6
+	set DIM6 2   -4.50
+	set DIM6 3   10
+
+launch --rwgt_name=cwww3p6_cwm4p50_cb20
+	set DIM6 1   3.6
+	set DIM6 2   -4.50
+	set DIM6 3   20
+
+launch --rwgt_name=cwww3p6_cwm2p25_cbm20
+	set DIM6 1   3.6
+	set DIM6 2   -2.25
+	set DIM6 3   -20
+
+launch --rwgt_name=cwww3p6_cwm2p25_cbm10
+	set DIM6 1   3.6
+	set DIM6 2   -2.25
+	set DIM6 3   -10
+
+launch --rwgt_name=cwww3p6_cwm2p25_cb0
+	set DIM6 1   3.6
+	set DIM6 2   -2.25
+	set DIM6 3   0
+
+launch --rwgt_name=cwww3p6_cwm2p25_cb10
+	set DIM6 1   3.6
+	set DIM6 2   -2.25
+	set DIM6 3   10
+
+launch --rwgt_name=cwww3p6_cwm2p25_cb20
+	set DIM6 1   3.6
+	set DIM6 2   -2.25
+	set DIM6 3   20
+
+launch --rwgt_name=cwww3p6_cw0p00_cbm20
+	set DIM6 1   3.6
+	set DIM6 2   0.00
+	set DIM6 3   -20
+
+launch --rwgt_name=cwww3p6_cw0p00_cbm10
+	set DIM6 1   3.6
+	set DIM6 2   0.00
+	set DIM6 3   -10
+
+launch --rwgt_name=cwww3p6_cw0p00_cb0
+	set DIM6 1   3.6
+	set DIM6 2   0.00
+	set DIM6 3   0
+
+launch --rwgt_name=cwww3p6_cw0p00_cb10
+	set DIM6 1   3.6
+	set DIM6 2   0.00
+	set DIM6 3   10
+
+launch --rwgt_name=cwww3p6_cw0p00_cb20
+	set DIM6 1   3.6
+	set DIM6 2   0.00
+	set DIM6 3   20
+
+launch --rwgt_name=cwww3p6_cw2p25_cbm20
+	set DIM6 1   3.6
+	set DIM6 2   2.25
+	set DIM6 3   -20
+
+launch --rwgt_name=cwww3p6_cw2p25_cbm10
+	set DIM6 1   3.6
+	set DIM6 2   2.25
+	set DIM6 3   -10
+
+launch --rwgt_name=cwww3p6_cw2p25_cb0
+	set DIM6 1   3.6
+	set DIM6 2   2.25
+	set DIM6 3   0
+
+launch --rwgt_name=cwww3p6_cw2p25_cb10
+	set DIM6 1   3.6
+	set DIM6 2   2.25
+	set DIM6 3   10
+
+launch --rwgt_name=cwww3p6_cw2p25_cb20
+	set DIM6 1   3.6
+	set DIM6 2   2.25
+	set DIM6 3   20
+
+launch --rwgt_name=cwww3p6_cw4p50_cbm20
+	set DIM6 1   3.6
+	set DIM6 2   4.50
+	set DIM6 3   -20
+
+launch --rwgt_name=cwww3p6_cw4p50_cbm10
+	set DIM6 1   3.6
+	set DIM6 2   4.50
+	set DIM6 3   -10
+
+launch --rwgt_name=cwww3p6_cw4p50_cb0
+	set DIM6 1   3.6
+	set DIM6 2   4.50
+	set DIM6 3   0
+
+launch --rwgt_name=cwww3p6_cw4p50_cb10
+	set DIM6 1   3.6
+	set DIM6 2   4.50
+	set DIM6 3   10
+
+launch --rwgt_name=cwww3p6_cw4p50_cb20
+	set DIM6 1   3.6
+	set DIM6 2   4.50
+	set DIM6 3   20
+
+launch --rwgt_name=cwww5p4_cwm4p50_cbm20
+	set DIM6 1   5.4
+	set DIM6 2   -4.50
+	set DIM6 3   -20
+
+launch --rwgt_name=cwww5p4_cwm4p50_cbm10
+	set DIM6 1   5.4
+	set DIM6 2   -4.50
+	set DIM6 3   -10
+
+launch --rwgt_name=cwww5p4_cwm4p50_cb0
+	set DIM6 1   5.4
+	set DIM6 2   -4.50
+	set DIM6 3   0
+
+launch --rwgt_name=cwww5p4_cwm4p50_cb10
+	set DIM6 1   5.4
+	set DIM6 2   -4.50
+	set DIM6 3   10
+
+launch --rwgt_name=cwww5p4_cwm4p50_cb20
+	set DIM6 1   5.4
+	set DIM6 2   -4.50
+	set DIM6 3   20
+
+launch --rwgt_name=cwww5p4_cwm2p25_cbm20
+	set DIM6 1   5.4
+	set DIM6 2   -2.25
+	set DIM6 3   -20
+
+launch --rwgt_name=cwww5p4_cwm2p25_cbm10
+	set DIM6 1   5.4
+	set DIM6 2   -2.25
+	set DIM6 3   -10
+
+launch --rwgt_name=cwww5p4_cwm2p25_cb0
+	set DIM6 1   5.4
+	set DIM6 2   -2.25
+	set DIM6 3   0
+
+launch --rwgt_name=cwww5p4_cwm2p25_cb10
+	set DIM6 1   5.4
+	set DIM6 2   -2.25
+	set DIM6 3   10
+
+launch --rwgt_name=cwww5p4_cwm2p25_cb20
+	set DIM6 1   5.4
+	set DIM6 2   -2.25
+	set DIM6 3   20
+
+launch --rwgt_name=cwww5p4_cw0p00_cbm20
+	set DIM6 1   5.4
+	set DIM6 2   0.00
+	set DIM6 3   -20
+
+launch --rwgt_name=cwww5p4_cw0p00_cbm10
+	set DIM6 1   5.4
+	set DIM6 2   0.00
+	set DIM6 3   -10
+
+launch --rwgt_name=cwww5p4_cw0p00_cb0
+	set DIM6 1   5.4
+	set DIM6 2   0.00
+	set DIM6 3   0
+
+launch --rwgt_name=cwww5p4_cw0p00_cb10
+	set DIM6 1   5.4
+	set DIM6 2   0.00
+	set DIM6 3   10
+
+launch --rwgt_name=cwww5p4_cw0p00_cb20
+	set DIM6 1   5.4
+	set DIM6 2   0.00
+	set DIM6 3   20
+
+launch --rwgt_name=cwww5p4_cw2p25_cbm20
+	set DIM6 1   5.4
+	set DIM6 2   2.25
+	set DIM6 3   -20
+
+launch --rwgt_name=cwww5p4_cw2p25_cbm10
+	set DIM6 1   5.4
+	set DIM6 2   2.25
+	set DIM6 3   -10
+
+launch --rwgt_name=cwww5p4_cw2p25_cb0
+	set DIM6 1   5.4
+	set DIM6 2   2.25
+	set DIM6 3   0
+
+launch --rwgt_name=cwww5p4_cw2p25_cb10
+	set DIM6 1   5.4
+	set DIM6 2   2.25
+	set DIM6 3   10
+
+launch --rwgt_name=cwww5p4_cw2p25_cb20
+	set DIM6 1   5.4
+	set DIM6 2   2.25
+	set DIM6 3   20
+
+launch --rwgt_name=cwww5p4_cw4p50_cbm20
+	set DIM6 1   5.4
+	set DIM6 2   4.50
+	set DIM6 3   -20
+
+launch --rwgt_name=cwww5p4_cw4p50_cbm10
+	set DIM6 1   5.4
+	set DIM6 2   4.50
+	set DIM6 3   -10
+
+launch --rwgt_name=cwww5p4_cw4p50_cb0
+	set DIM6 1   5.4
+	set DIM6 2   4.50
+	set DIM6 3   0
+
+launch --rwgt_name=cwww5p4_cw4p50_cb10
+	set DIM6 1   5.4
+	set DIM6 2   4.50
+	set DIM6 3   10
+
+launch --rwgt_name=cwww5p4_cw4p50_cb20
+	set DIM6 1   5.4
+	set DIM6 2   4.50
+	set DIM6 3   20
+##################################################
