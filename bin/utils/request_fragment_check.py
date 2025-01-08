@@ -578,7 +578,7 @@ def lhe_evts_check(mcdbid):
     n_lhe = 0
     print("------------------------------------------------")
     print("lhe files are in /eos/cms/store/lhe/"+str(mcdbid))
-    n_lhe = os.popen('xzgrep "</event>" /eos/cms/store/lhe/'+str(mcdbid)+'/*.lhe | wc -l').read()
+    n_lhe = os.popen('xzgrep "</event>" /eos/cms/store/lhe/'+str(mcdbid)+'/*.lhe* | wc -l').read()
     print("total number of events in the LHE files "+n_lhe)
     print("total requested in mcm "+str(totalevents))
     if int(n_lhe) < int(totalevents):
