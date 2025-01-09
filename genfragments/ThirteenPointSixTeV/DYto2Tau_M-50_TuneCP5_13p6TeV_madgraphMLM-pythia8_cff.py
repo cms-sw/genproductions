@@ -47,7 +47,7 @@ generator = cms.EDFilter("Pythia8ConcurrentHadronizerFilter",
         pythia8CommonSettingsBlock,
         pythia8CP5SettingsBlock,
         pythia8PSweightsSettingsBlock,
-        processParameters = cms.vstring(                           
+        processParameters = cms.vstring(
             'JetMatching:setMad = off',
             'JetMatching:scheme = 1',
             'JetMatching:merge = on',
