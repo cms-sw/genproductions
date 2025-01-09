@@ -559,6 +559,35 @@ def powheg_gg_H_quark_mass_effects():
     if not bad: print("[OK] integration grid setup looks ok for gg_H_quark_mass_effects")
     return warning_gg_H_quark_mass_effects, error_gg_H_quark_mass_effects
 
+def powheg_bornonly():
+    warning_bo = []
+    error_bo = []
+    bornonly_frag_check = 0
+    if int(os.popen('grep -c "Pythia8PowhegEmissionVetoSettings" '+pi).read()) == 1: bornonly_frag_check = 1
+    if int(os.popen('grep -c "SpaceShower:pTmaxMatch" '+pi).read()) == 1: bornonly_frag_check = 1
+    if int(os.popen('grep -c "TimeShower:pTmaxMatch" '+pi).read()) == 1: bornonly_frag_check = 1
+    if bornonly_frag_check != 0:
+        error_bo.append("bornonly = 1 and (Pythia8PowhegEmissionVetoSettings or SpaceShower:pTmaxMatch or  TimeShower:pTmaxMatch)")
+    else:
+        warning_bo.append("bornonly = "+str(bornonly))
+    return warning_bo,error_bo
+
+def lhe_evts_check(mcdbid):
+    warning_lhe = []
+    error_lhe = []
+    n_lhe = 0
+    print("------------------------------------------------")
+    print("lhe files are in /eos/cms/store/lhe/"+str(mcdbid))
+    n_lhe = os.popen('xzgrep "</event>" /eos/cms/store/lhe/'+str(mcdbid)+'/*.lhe* | wc -l').read()
+    print("total number of events in the LHE files "+n_lhe)
+    print("total requested in mcm "+str(totalevents))
+    if int(n_lhe) < int(totalevents):
+        error_lhe.append("More events requested "+str(totalevents)+" than the total available in the LHE files "+n_lhe)
+    else:
+        warning_lhe.append("Number of LHE events available "+n_lhe+" is less than requested "+str(totalevents))
+    print("------------------------------------------------")
+    return warning_lhe, error_lhe
+
 if args.dev:
     print("Running on McM DEV!\n")
 
@@ -628,6 +657,7 @@ for num in range(0,len(prepid)):
         mgversion = 0
         mg5_aMC_version = 0
         mem = r['memory']
+        mcdbid = r['mcdb_id']
         filter_eff = r['generator_parameters'][-1]['filter_efficiency']
         match_eff = r['generator_parameters'][-1]['match_efficiency']
         total_eff = filter_eff*match_eff 
@@ -701,16 +731,19 @@ for num in range(0,len(prepid)):
             print("time per event (sec/event) = "+str(timeperevent))
         if timeperevent > 150.0 :
             warnings.append("Large time/event (> 150 sec)="+str(timeperevent)+" - please check")
-        version_not_ok = 0
-        if '8_0' in cmssw and "Summer16FSPremix" not in pi: version_not_ok = 1
-        if '9_4' in cmssw and "Fall17FSPremix" not in pi: version_not_ok = 1
-        if '10_6' not in cmssw and '10_2' not in cmssw and '9_3' not in cmssw and '7_1' not in cmssw and version_not_ok == 1:
+        if '10_6' not in cmssw and '10_2' not in cmssw and '12_4' not in cmssw:
             warnings.append("Are you sure you want to use "+cmssw+" release which is not standard which may not have all the necessary GEN code.")
         if totalevents >= 100000000 :
             warnings.append("Is "+str(totalevents)+" events what you really wanted - please check!")
         if args.local is False:    
             os.popen('wget -q '+mcm_link+'public/restapi/requests/get_fragment/'+pi+' -O '+pi).read()
 
+
+        if mcdbid > 0 and 'pLHE' in pi:
+            warn_tmp , err_tmp = lhe_evts_check(mcdbid)
+            warnings.extend(warn_tmp)
+            errors.extend(err_tmp)
+            
         fsize = os.path.getsize(pi_file)
         f1 = open(pi_file,"r")
         f2 = open(pi_file+"_tmp","w")
@@ -720,7 +753,6 @@ for num in range(0,len(prepid)):
             particle_gun = 1
         if int(os.popen('grep -c -i randomizedparameters '+pi_file).read()) > 0:
             randomizedparameters = 1
-#        cmssw_version    = int(re.search("_[0-9]?[0-9]_[0-9]?[0-9]_[0-9]?[0-9]",cmssw).group().replace('_',''))
         cmssw_version    = re.search("_[0-9]?[0-9]_[0-9]?[0-9]_[0-9]?[0-9]",cmssw).group().split("_")
         if len(cmssw_version[1]) != 2 and int(cmssw_version[1]) > 9:
            cmssw_version[1] += "0"
@@ -1429,14 +1461,9 @@ for num in range(0,len(prepid)):
                     if not (pdf_var_check0 > 0 and pdf_var_check1 >= 1) and 'bbllnunu' not in dn.lower():
                         errors.append("There may be a problem with PDF variations. Please check pwg-rwl.dat")
             if bornonly == 1:
-                bornonly_frag_check = 0
-                if int(os.popen('grep -c "Pythia8PowhegEmissionVetoSettings" '+pi).read()) == 1: bornonly_frag_check = 1
-                if int(os.popen('grep -c "SpaceShower:pTmaxMatch" '+pi).read()) == 1: bornonly_frag_check = 1
-                if int(os.popen('grep -c "TimeShower:pTmaxMatch" '+pi).read()) == 1: bornonly_frag_check = 1
-                if bornonly_frag_check != 0:
-                    errors.append("bornonly = 1 and (Pythia8PowhegEmissionVetoSettings or SpaceShower:pTmaxMatch or  TimeShower:pTmaxMatch)")
-                else:
-                    warnings.append("bornonly = "+str(bornonly))
+                warn_tmp , err_tmp = powheg_bornonly()
+                warnings.extend(warn_tmp)
+                errors.extend(err_tmp)
             if match:
                 process = match.group(2)
                 if process == "gg_H_quark-mass-effects":
@@ -1703,8 +1730,6 @@ for num in range(0,len(prepid)):
                 warnings.append("This a MadGraph NLO sample without matching. Please check 'TimeShower:nPartonsInBorn' is set correctly as number of coloured particles (before resonance decays) in born matrix element.")
             if alt_ickkw_c <= 1 and word == "madgraph" and mg_nlo != 1 and amcnlo_gp is False and (check[0] != 0 or check[1] != 0 or check[2] != 0):
                 errors.append("You run MG5_aMC@NLO at LO but you have  Pythia8aMCatNLOSettings_cfi in fragment")
-
-        if mg_gp or amcnlo_gp:
             input_cards_madspin_card = 0
             powhegcheck.append(int(os.popen('grep -c -i PowhegEmission '+pi_file).read()))
             if powhegcheck[0] > 0 and pw_mg == 0 and pw_external_gp is False:
@@ -1762,12 +1787,9 @@ for num in range(0,len(prepid)):
         if ("Run3" in pi or "RunIII" in pi) and "PbPb" not in pi and "Run3Summer21" not in pi:
             err_tmp = run3_checks(data_f1,dn,pi)
             errors.extend(err_tmp)
-        if args.develop is False:
+        if (args.develop is False) or (args.develop and args.local):
             os.popen("rm -rf "+my_path+pi).read()
             os.popen("rm -rf "+my_path+'eos/'+pi).read()
-        if args.develop and args.local:
-            os.popen("rm -rf "+my_path+pi).read()
-            os.popen("rm -rf "+my_path+'eos/'+pi).read()    
         print("***********************************************************************************")
         print("Number of warnings = "+ str(len(warnings)))
         if len(warnings) > 0:
