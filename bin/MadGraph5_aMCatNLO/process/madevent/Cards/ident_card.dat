@@ -1,0 +1,139 @@
+ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+c      written by the UFO converter
+ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+
+ckmblock 1 mdl_cabi
+
+cll 1 1 mdl_CLl1x1
+
+cll 1 2 mdl_CLl1x2
+
+cll 1 3 mdl_CLl1x3
+
+cll 2 1 mdl_CLl2x1
+
+cll 2 2 mdl_CLl2x2
+
+cll 2 3 mdl_CLl2x3
+
+cll 3 1 mdl_CLl3x1
+
+cll 3 2 mdl_CLl3x2
+
+cll 3 3 mdl_CLl3x3
+
+clq 1 1 mdl_CLq1x1
+
+clq 1 2 mdl_CLq1x2
+
+clq 1 3 mdl_CLq1x3
+
+clq 2 1 mdl_CLq2x1
+
+clq 2 2 mdl_CLq2x2
+
+clq 2 3 mdl_CLq2x3
+
+clq 3 1 mdl_CLq3x1
+
+clq 3 2 mdl_CLq3x2
+
+clq 3 3 mdl_CLq3x3
+
+crl 1 1 mdl_CRl1x1
+
+crl 1 2 mdl_CRl1x2
+
+crl 1 3 mdl_CRl1x3
+
+crl 2 1 mdl_CRl2x1
+
+crl 2 2 mdl_CRl2x2
+
+crl 2 3 mdl_CRl2x3
+
+crl 3 1 mdl_CRl3x1
+
+crl 3 2 mdl_CRl3x2
+
+crl 3 3 mdl_CRl3x3
+
+crq 1 1 mdl_CRq1x1
+
+crq 1 2 mdl_CRq1x2
+
+crq 1 3 mdl_CRq1x3
+
+crq 2 1 mdl_CRq2x1
+
+crq 2 2 mdl_CRq2x2
+
+crq 2 3 mdl_CRq2x3
+
+crq 3 1 mdl_CRq3x1
+
+crq 3 2 mdl_CRq3x2
+
+crq 3 3 mdl_CRq3x3
+
+sminputs 1 aEWM1
+
+sminputs 2 mdl_Gf
+
+sminputs 3 aS
+
+wpcoup 1 mdl_kL
+
+wpcoup 2 mdl_kR
+
+yukawa 1 mdl_ymdo
+
+yukawa 2 mdl_ymup
+
+yukawa 3 mdl_yms
+
+yukawa 4 mdl_ymc
+
+yukawa 5 mdl_ymb
+
+yukawa 6 mdl_ymt
+
+yukawa 11 mdl_yme
+
+yukawa 13 mdl_ymm
+
+yukawa 15 mdl_ymtau
+
+mass 23 mdl_MZ
+
+mass 11 mdl_Me
+
+mass 13 mdl_MMU
+
+mass 15 mdl_MTA
+
+mass 2 mdl_MU
+
+mass 4 mdl_MC
+
+mass 6 mdl_MT
+
+mass 1 mdl_MD
+
+mass 3 mdl_MS
+
+mass 5 mdl_MB
+
+mass 25 mdl_MH
+
+mass 34 mdl_MWp
+
+decay 23 mdl_WZ
+
+decay 24 mdl_WW
+
+decay 6 mdl_WT
+
+decay 25 mdl_WH
+
+decay 34 mdl_WWp
