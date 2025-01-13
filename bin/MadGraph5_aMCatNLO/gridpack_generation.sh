@@ -113,17 +113,17 @@ make_gridpack () {
         done 
     fi
 
-    # CMS Connect runs git status inside its own script.
-    if [ $iscmsconnect -eq 0 ]; then
-      cd $PRODHOME
-      if [ -x "$(command -v git)" ]; then
-        git status
-        echo "Current git revision is:"
-        git rev-parse HEAD
-        git diff | cat
-      fi
-      cd -
-    fi
+#   # CMS Connect runs git status inside its own script.
+#   if [ $iscmsconnect -eq 0 ]; then
+#     cd $PRODHOME
+#     if [ -x "$(command -v git)" ]; then
+#       git status
+#       echo "Current git revision is:"
+#       git rev-parse HEAD
+#       git diff | cat
+#     fi
+#     cd -
+#   fi
     
     # where to find the madgraph tarred distribution
     MGBASEDIR=mgbasedir
@@ -680,6 +680,10 @@ else
         scram_arch=slc6_amd64_gcc700 
     elif [[ $SYSTEM_RELEASE == *"release 7"* ]]; then 
         scram_arch=slc7_amd64_gcc700 
+    elif [[ $SYSTEM_RELEASE == *"release 8"* ]]; then
+        scram_arch=el8_amd64_gcc10
+    elif [[ $SYSTEM_RELEASE == *"release 9"* ]]; then
+        scram_arch=el9_amd64_gcc11
     else 
         echo "No default scram_arch for current OS!"
         if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi        
@@ -694,6 +698,10 @@ else
         cmssw_version=CMSSW_10_2_24_patch1 
     elif [[ $SYSTEM_RELEASE == *"release 7"* ]]; then 
         cmssw_version=CMSSW_10_6_19 
+    elif [[ $SYSTEM_RELEASE == *"release 8"* ]]; then
+        cmssw_version=CMSSW_12_4_8
+    elif [[ $SYSTEM_RELEASE == *"release 9"* ]]; then
+	cmssw_version=CMSSW_13_2_9
     else 
         echo "No default CMSSW for current OS!"
         if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi        
