@@ -1,8 +1,0 @@
-P1_udx_epvl
-P1_usx_epvl
-P1_cdx_epvl
-P1_csx_epvl
-P2_dux_emvl
-P2_dcx_emvl
-P2_sux_emvl
-P2_scx_emvl

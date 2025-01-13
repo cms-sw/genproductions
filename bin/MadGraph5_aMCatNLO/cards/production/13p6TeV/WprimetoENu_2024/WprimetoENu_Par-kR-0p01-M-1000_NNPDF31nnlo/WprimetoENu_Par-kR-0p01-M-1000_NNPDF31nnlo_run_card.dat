@@ -89,7 +89,7 @@
 #*******************************                                                 
 # Parton level cuts definition *
 #*******************************
-  0.0  = dsqrt_shat ! minimal shat for full process
+#  0.0  = dsqrt_shat ! minimal shat for full process
 #                                                                    
 #
 #*********************************************************************
