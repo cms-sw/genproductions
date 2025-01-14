@@ -6,13 +6,13 @@
 'in13'         !  [intag] for input files 
 ****************************************************************************************
 ****************************************************************************************
-'MSHT20qed_nnlo'   ! [PDFname] : PDF set
+'SF_MSHT20qed_nnlo'   ! [PDFname] : PDF set
 0                    ! [PDFmember] : PDF member
 ****************************************************************************************
 58      !  [proc] : Process number (see manual for labelling)
 'ion'  ! [beam] : Beam type ('prot', 'ion', 'ionp' or 'el')
 'test'          ! [outtg]
-.false.  !  [sfaci] : Include soft survival effects
+.true.  !  [sfaci] : Include soft survival effects
 ****************************************************************************************
 ************************* Dissociation parameters for PI  ******************************
 ****************************************************************************************

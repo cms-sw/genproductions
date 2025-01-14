@@ -6,7 +6,7 @@
 'in13'         !  [intag] for input files 
 ****************************************************************************************
 ****************************************************************************************
-'MSHT20qed_nnlo'   ! [PDFname] : PDF set
+'SF_MSHT20qed_nnlo'   ! [PDFname] : PDF set
 0                    ! [PDFmember] : PDF member
 ****************************************************************************************
 59      !  [proc] : Process number (see manual for labelling)
@@ -41,7 +41,7 @@
 ****************************************************************************************
 ******************************* Unweighted events **************************************
 ****************************************************************************************
-.false.       ! [genunw] : Generate unweighted events
+.true.       ! [genunw] : Generate unweighted events
 10           ! [nev] : Number of events ( < 1000000 recommended)
 'lhe'	     ! [erec] : Event record format ('hepmc','lhe','hepevt')
 .false.	     ! [readwt] : Set to true to read in pre-calculated maxium weight below
