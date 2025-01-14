@@ -50,7 +50,8 @@ install_starlight(){
     echo "Compiling ${STARLIGHT}"
     cd ${STARLIGHTDIR}
     mkdir -p build && cd build
-    cp $DPMJETDIR/dpmdata/dpmjet.dat ./
+    mv $DPMJETDIR/dpmdata ./
+    mv dpmdata/dpmjet.dat ./
     cp ${STARLIGHTDIR}/config/my.input ./
     export PYTHIADIR=$(scram tool tag pythia8 PYTHIA8_BASE)
     cmake ${STARLIGHTDIR} -DENABLE_DPMJET=ON -DENABLE_PYTHIA=ON
