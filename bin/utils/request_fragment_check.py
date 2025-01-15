@@ -166,7 +166,7 @@ def slha_gp(gridpack_cvmfs_path,slha_flag):
 
 
 old_campaigns = ["summer15", "winter15","fall17","fall18"]
-run3_campaigns = ["Run3Summer22","Run3winter22","Run3Summer23BPixwmLHEGS","Run3Summer23wmLHEGS","Run3Summer22wmLHEGS", "Run3Summer22EEwmLHEGS"]
+run3_campaigns = ["Run3Winter25","Run3Summer24","Run3Summer22","Run3winter22","Run3Summer23BPixwmLHEGS","Run3Summer23wmLHEGS","Run3Summer22wmLHEGS", "Run3Summer22EEwmLHEGS"]
 particle_gun_list = ["FlatRandomEGunProducer","FlatRandomPtGunProducer","Pythia8EGun","Pythia8PtGun","FlatRandomPtAndDxyGunProducer"]
 
 def tunes_settings_check(dn,fragment,pi,sherpa_flag):
@@ -731,7 +731,8 @@ for num in range(0,len(prepid)):
             print("time per event (sec/event) = "+str(timeperevent))
         if timeperevent > 150.0 :
             warnings.append("Large time/event (> 150 sec)="+str(timeperevent)+" - please check")
-        if '10_6' not in cmssw and '10_2' not in cmssw and '12_4' not in cmssw:
+        standard_cmssw_rel = ["10_2","12_4","14_0","14_2"]    
+        if not any(word in cmssw for word in standard_cmssw_rel):
             warnings.append("Are you sure you want to use "+cmssw+" release which is not standard which may not have all the necessary GEN code.")
         if totalevents >= 100000000 :
             warnings.append("Is "+str(totalevents)+" events what you really wanted - please check!")
@@ -877,7 +878,7 @@ for num in range(0,len(prepid)):
         gp_size = len(gridpack_cvmfs_path_tmp)
 
         # additional data set name check for 2024 campaigns
-        if ("Run3" in pi or "RunIII" in pi) and "24" in pi:
+        if ("Run3" in pi or "RunIII" in pi) and ("Summer24" or "Winter25") in pi:
             valid, message, feedback = validate_dataset_name(dn)
             if not valid:
                 print("-----------------------------") 
