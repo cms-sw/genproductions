@@ -6,7 +6,7 @@ externalLHEProducer = cms.EDProducer("ExternalLHEProducer",
     numberOfParameters = cms.uint32(1),
     outputFile = cms.string('cmsgrid_final.lhe'),
     scriptName = cms.FileInPath('GeneratorInterface/LHEInterface/data/run_generic_tarball_cvmfs.sh'),
-    generateConcurrently = cms.untracked.bool(True)
+    generateConcurrently = cms.untracked.bool(False)
 )
 
 #Link to datacards:
@@ -47,7 +47,7 @@ generator = cms.EDFilter("Pythia8ConcurrentHadronizerFilter",
         pythia8CommonSettingsBlock,
         pythia8CP5SettingsBlock,
         pythia8PSweightsSettingsBlock,
-        processParameters = cms.vstring(                           
+        processParameters = cms.vstring(
             'JetMatching:setMad = off',
             'JetMatching:scheme = 1',
             'JetMatching:merge = on',
