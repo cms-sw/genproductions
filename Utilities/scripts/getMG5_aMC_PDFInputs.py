@@ -10,12 +10,14 @@ parser.add_argument('--is5FlavorScheme', action='store_true',
         help='Use PDF set for 5 flavor scheme (vs. 4F if false)')
 parser.add_argument('--isNLO', action='store_true',
         help='NLO vs. LO MG5_aMC@NLO')
+parser.add_argument('--ion', choices=['Pb'],
+        help='Type of ion: Pb')
 
 args = parser.parse_args()
 
 helper = PDFSetHelper_MG5_aMC()
 if args.pdf_choice == 'run3':
-    helper.readDefaultPDFsFile(args.is5FlavorScheme)
+    helper.readDefaultPDFsFile(args.is5FlavorScheme, args.ion)
 else:
     #TODO Implement option for custom PDF list
     print("Custom sets not yet supported!")

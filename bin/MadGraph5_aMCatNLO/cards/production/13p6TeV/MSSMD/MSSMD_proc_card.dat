@@ -1,0 +1,4 @@
+import model heft
+generate g g > h
+
+output MSSMD -nojpeg 

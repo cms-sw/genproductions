@@ -1,0 +1,167 @@
+diff -ruN ./include/beam.h ../STARlight-REV_326_patch/include/beam.h
+--- ./include/beam.h	2023-01-16 09:10:30.000000001 +0100
++++ ../STARlight-REV_326_patch/include/beam.h	2023-12-17 00:28:11.000000001 +0100
+@@ -46,6 +46,8 @@
+ 
+ 	beam(const int              Z,
+ 	     const int              A,
++         const double           a,
++         const double           R,
+ 	     const int		    productionMode,
+ 	     const double	    beamLorentzGamma);
+ 	
+diff -ruN ./include/inputParameters.h ../STARlight-REV_326_patch/include/inputParameters.h
+--- ./include/inputParameters.h	2023-01-16 09:10:30.000000001 +0100
++++ ../STARlight-REV_326_patch/include/inputParameters.h	2023-12-17 01:29:11.000000001 +0100
+@@ -309,6 +309,11 @@
+         double Upsilon3SWidth        () const {return _Upsilon3SWidth        .value();}
+         double Upsilon3SBree         () const {return _Upsilon3SBree         .value();}
+         double Upsilon3SBrmumu       () const {return _Upsilon3SBrmumu       .value();}
++        double beam1SkinDepth        () const {return _beam1SkinDepth        .value();}
++        double beam2SkinDepth        () const {return _beam2SkinDepth        .value();}
++        double beam1Radius           () const {return _beam1Radius           .value();}
++        double beam2Radius           () const {return _beam2Radius           .value();}
++        double SigmaNNInel           () const {return _SigmaNNInel           .value();}
+ 	
+         void setBaseFileName          (std::string v )  {  _baseFileName = v;     }
+ 	void setBeam1Z                (unsigned int v)  {  _beam1Z = v;           }  ///< sets atomic number of beam particle 1
+@@ -516,6 +521,11 @@
+         parameter<double, VALIDITY_CHECK> _Upsilon3SWidth        ;           ///< width of the Upsilon(3S) [GeV/c^2]
+         parameter<double, VALIDITY_CHECK> _Upsilon3SBree         ;           ///< branching ratio Upsilon(3S) -> e^+ e^-
+         parameter<double, VALIDITY_CHECK> _Upsilon3SBrmumu       ;           ///< branching ratio Upsilon(3S) -> mu^+ mu^-
++        parameter<double, VALIDITY_CHECK> _beam1SkinDepth        ;           ///< Woods-Saxon skin depth of beam particle 1
++        parameter<double, VALIDITY_CHECK> _beam2SkinDepth        ;           ///< Woods-Saxon skin depth of beam particle 2
++        parameter<double, VALIDITY_CHECK> _beam1Radius           ;           ///< Woods-Saxon nuclear radius of beam particle 1
++        parameter<double, VALIDITY_CHECK> _beam2Radius           ;           ///< Woods-Saxon nuclear radius of beam particle 2
++        parameter<double, VALIDITY_CHECK> _SigmaNNInel           ;           ///< inelastic nucleon-nucleon cross section
+ 	
+ 	starlightConstants::particleTypeEnum       _particleType;
+ 	starlightConstants::decayTypeEnum          _decayType;
+diff -ruN ./include/nucleus.h ../STARlight-REV_326_patch/include/nucleus.h
+--- ./include/nucleus.h	2023-01-16 09:10:30.000000001 +0100
++++ ../STARlight-REV_326_patch/include/nucleus.h	2023-12-17 00:27:16.000000001 +0100
+@@ -46,6 +46,8 @@
+ 	nucleus();
+ 	nucleus(const int    Z,
+ 	        const int    A,
++            const double a,
++            const double R,
+ 		const int     productionMode);
+ 	~nucleus();
+ 	
+diff -ruN ./src/beam.cpp ../STARlight-REV_326_patch/src/beam.cpp
+--- ./src/beam.cpp	2023-01-16 09:10:30.000000001 +0100
++++ ../STARlight-REV_326_patch/src/beam.cpp	2023-12-17 00:31:44.000000001 +0100
+@@ -46,10 +46,14 @@
+ //______________________________________________________________________________
+ beam::beam(const int              Z,
+            const int              A,
++           const double           a,
++           const double           R,
+ 	   const int		  productionMode,
+ 	   const double		  beamLorentzGamma)
+ 	: nucleus(Z,
+ 	          A,
++              a,
++              R,
+ 		  productionMode)
+ 	,_beamLorentzGamma(beamLorentzGamma)
+ {
+diff -ruN ./src/beambeamsystem.cpp ../STARlight-REV_326_patch/src/beambeamsystem.cpp
+--- ./src/beambeamsystem.cpp	2023-01-16 09:10:30.000000001 +0100
++++ ../STARlight-REV_326_patch/src/beambeamsystem.cpp	2023-12-17 02:49:12.000000001 +0100
+@@ -69,16 +69,21 @@
+ 
+ //______________________________________________________________________________
+ beamBeamSystem::beamBeamSystem(const inputParameters& inputParametersInstance)
+-	: _beamLorentzGamma(inputParametersInstance.beamLorentzGamma()),
++	: _ip(&inputParametersInstance),
++      _beamLorentzGamma(inputParametersInstance.beamLorentzGamma()),
+           _beamLorentzGamma1(inputParametersInstance.beam1LorentzGamma()),
+           _beamLorentzGamma2(inputParametersInstance.beam2LorentzGamma()),
+ 	  _beamBreakupMode (inputParametersInstance.beamBreakupMode()),
+ 	  _beam1           (inputParametersInstance.beam1Z(),
+ 	                    inputParametersInstance.beam1A(),
++                        inputParametersInstance.beam1SkinDepth(),
++                        inputParametersInstance.beam1Radius(),
+ 			    inputParametersInstance.productionMode(),
+                             inputParametersInstance.beam1LorentzGamma()),
+ 	  _beam2           (inputParametersInstance.beam2Z(),
+ 	                    inputParametersInstance.beam2A(),
++                        inputParametersInstance.beam2SkinDepth(),
++                        inputParametersInstance.beam2Radius(),
+ 			    inputParametersInstance.productionMode(),
+                             inputParametersInstance.beam2LorentzGamma()),
+ 	  _breakupProbabilities(0),
+@@ -278,6 +283,7 @@
+ 	mconst=2.076;
+ 	energyx=energy*energy/pow((2*0.938+mconst),2);
+ 	  sigmainmb = 0.2838*pow(log(energyx),2)+33.73+13.67*pow(energyx,-0.412)-7.77*pow(energyx,-0.5626);
++      if (_ip->SigmaNNInel() > 0) sigmainmb = _ip->SigmaNNInel();
+ 	  // end cross-section fix SRK July 2020.  Previously the above equation just used 'energy' from the earlier line
+ 	  SIGNN=sigmainmb/10.;
+ 
+diff -ruN ./src/inputParameters.cpp ../STARlight-REV_326_patch/src/inputParameters.cpp
+--- ./src/inputParameters.cpp	2023-01-16 09:10:30.000000001 +0100
++++ ../STARlight-REV_326_patch/src/inputParameters.cpp	2023-12-17 01:27:51.000000001 +0100
+@@ -173,7 +173,12 @@
+           _Upsilon3SMass         ("Upsilon3SMass"         , 10.3552       , NOT_REQUIRED),
+           _Upsilon3SWidth        ("Upsilon3SWidth"        , 0.00002032    , NOT_REQUIRED),
+           _Upsilon3SBree         ("Upsilon3SBree"         , 0.0218        , NOT_REQUIRED),
+-          _Upsilon3SBrmumu       ("Upsilon3SBrmumu"       , 0.0218        , NOT_REQUIRED)
++          _Upsilon3SBrmumu       ("Upsilon3SBrmumu"       , 0.0218        , NOT_REQUIRED),
++          _beam1SkinDepth        ("BEAM_1_WS_A"           , -1            , NOT_REQUIRED),
++          _beam2SkinDepth        ("BEAM_2_WS_A"           , -1            , NOT_REQUIRED),
++          _beam1Radius           ("BEAM_1_WS_R"           , -1            , NOT_REQUIRED),
++          _beam2Radius           ("BEAM_2_WS_R"           , -1            , NOT_REQUIRED),
++          _SigmaNNInel           ("SigmaNNInel"           , -1            , NOT_REQUIRED)
+ {
+   // All parameters must be initialised in initialisation list! 
+   // If not: error: 'parameter<T, validate>::parameter() [with T = unsigned int, bool validate = true]' is private
+@@ -310,6 +315,11 @@
+         _ip.addParameter(_Upsilon3SWidth        );
+         _ip.addParameter(_Upsilon3SBree         );
+         _ip.addParameter(_Upsilon3SBrmumu       );
++        _ip.addParameter(_beam1SkinDepth        );
++        _ip.addParameter(_beam2SkinDepth        );
++        _ip.addParameter(_beam1Radius           );
++        _ip.addParameter(_beam2Radius           );
++        _ip.addParameter(_SigmaNNInel           );
+ }
+ 
+ 
+@@ -839,6 +849,14 @@
+       out <<"    Minimum impact parameter.................."<<_bmin.value()<<" fm"<<endl;
+       out <<"    Maximum impact parameter.................."<<_bmax.value()<<" fm"<<endl;
+     }
++    if (_beam1SkinDepth.value()>0 || _beam1Radius.value()>0) {
++      out <<"    beam 1 Woods-Saxon skin depth .......... " << _beam1SkinDepth.value() << " fm" << endl;
++      out <<"    beam 1 Woods-Saxon nuclear radius ...... " << _beam1Radius.value() << " fm" << endl;}
++    if (_beam2SkinDepth.value()>0 || _beam2Radius.value()>0) {
++      out <<"    beam 2 Woods-Saxon skin depth .......... " << _beam2SkinDepth.value() << " fm" << endl;
++      out <<"    beam 2 Woods-Saxon nuclear radius ...... " << _beam2Radius.value() << " fm" << endl;}
++    if (_SigmaNNInel.value()>0)
++      out <<"    inelastic n-n cross section ............ " << _SigmaNNInel.value() << " mb" << endl;
+ 
+     // Add some checks here  SRK September, 2017
+     if (_beamBreakupMode.value()==8 && _bmin.value() > _bmax.value()) {
+diff -ruN ./src/nucleus.cpp ../STARlight-REV_326_patch/src/nucleus.cpp
+--- ./src/nucleus.cpp	2023-01-16 09:10:30.000000001 +0100
++++ ../STARlight-REV_326_patch/src/nucleus.cpp	2023-12-17 02:49:30.000000001 +0100
+@@ -46,12 +46,16 @@
+ //______________________________________________________________________________
+ nucleus::nucleus(const int    Z,
+                  const int    A,
++                 const double a,
++                 const double R,
+ 		 const int    productionMode)
+ 	: _Z(Z),
+ 	  _A(A),
+ 	  _productionMode(productionMode)
+ {
+   init();	
++  if (a > 0) _woodSaxonSkinDepth = a;
++  if (R > 0) _Radius = R;
+ }
+ 
+ void nucleus::init()

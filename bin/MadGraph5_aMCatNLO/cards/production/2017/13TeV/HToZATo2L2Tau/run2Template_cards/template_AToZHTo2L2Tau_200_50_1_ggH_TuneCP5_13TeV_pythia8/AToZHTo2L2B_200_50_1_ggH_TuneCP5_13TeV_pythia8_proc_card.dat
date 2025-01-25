@@ -1,0 +1,4 @@
+import model 2HDMtII_NLO
+#gg fusion -loop induced
+generate p p > h3 > h2 l+ l- $$ a [QCD] @0
+output AToZHTo2L2B_200_50_1_ggH -nojpeg

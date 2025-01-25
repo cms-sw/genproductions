@@ -20,15 +20,12 @@ locmap --enable cvmfs
 locmap --configure all
 ```
 
-## Docker
+## Singularity/Apptainer
+
+Run `cmssw-xxx` commands from `/cvmfs/cms.cern.ch/common`.
 
 ```
-yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-dnf install docker-ce docker-ce-cli containerd.io docker-compose-plugin
-
-usermod -aG docker runner
-
-systemctl enable --now docker.service
+dnf install apptainer
 ```
 
 ## Gitlab runner

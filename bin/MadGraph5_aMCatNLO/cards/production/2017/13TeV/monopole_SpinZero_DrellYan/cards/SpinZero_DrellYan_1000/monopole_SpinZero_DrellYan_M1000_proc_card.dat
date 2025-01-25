@@ -1,0 +1,3 @@
+import model mono_spinzero
+generate p p > a > mm+ mm-
+output monopole_SpinZero_DrellYan_M1000 -nojpeg

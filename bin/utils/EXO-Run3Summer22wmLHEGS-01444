@@ -1,0 +1,105 @@
+import FWCore.ParameterSet.Config as cms
+
+externalLHEProducer = cms.EDProducer("ExternalLHEProducer",
+    args = cms.vstring('/cvmfs/cms.cern.ch/phys_generator/gridpacks/RunIII/13p6TeV/slc7_amd64_gcc10/MadGraph5_aMCatNLO/20231108_fernance_DimuonScouting/LL_HAHM_MS_400_kappa_0p01_MZd_5p0_ctau_1_slc7_amd64_gcc10_CMSSW_12_4_8_tarball.tar.xz'),
+    nEvents = cms.untracked.uint32(5000),
+    numberOfParameters = cms.uint32(1),
+    outputFile = cms.string('cmsgrid_final.lhe'),
+    generateConcurrently = cms.untracked.bool(False),
+    scriptName = cms.FileInPath('GeneratorInterface/LHEInterface/data/run_generic_tarball_cvmfs.sh')
+)
+import FWCore.ParameterSet.Config as cms
+
+CROSS_SECTION = 1 # pb
+MASS_Zd = 5.0 # in GeV
+LIFETIME_Zd_inMM = 1 # in mm
+WIDTH_Zd = (1000./LIFETIME_Zd_inMM)*0.19733e-15 # in GeV
+EPSILON_Zd =  1.544e-06
+
+BR_MUMU = 1.5750e-01
+BR_EE = 1.5750e-01
+BR_TAUTAU = 1.4506e-01
+
+BR_UUBAR = 2.1973e-01
+BR_DDBAR = 5.5097e-02
+BR_SSBAR = 5.5097e-02
+
+BR_CCBAR = 2.1002e-01
+BR_BBBAR = 0.0000e+00
+
+BR_MUNUMUNUBAR = 3.1749e-07
+BR_ENUENUBAR = 3.1749e-07
+BR_TAUNUTAUNUBAR = 3.1749e-07
+
+import re
+EPSILON_Zdmod = str(EPSILON_Zd)
+EPSILON_Zdmod = re.sub("\.","p",EPSILON_Zdmod)
+
+import FWCore.ParameterSet.Config as cms
+from Configuration.Generator.Pythia8CommonSettings_cfi import *
+
+from Configuration.Generator.MCTunesRun3ECM13p6TeV.PythiaCP5Settings_cfi import *
+from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *
+
+generator = cms.EDFilter("Pythia8ConcurrentHadronizerFilter",
+    pythiaPylistVerbosity = cms.untracked.int32(1),
+    filterEfficiency = cms.untracked.double(1),
+    pythiaHepMCVerbosity = cms.untracked.bool(False),
+    comEnergy = cms.double(13600.),
+    crossSection = cms.untracked.double(CROSS_SECTION),
+    maxEventsToPrint = cms.untracked.int32(10),
+    PythiaParameters = cms.PSet(
+        pythia8CommonSettingsBlock,
+        pythia8CP5SettingsBlock,
+        pythia8PSweightsSettingsBlock,
+        processParameters = cms.vstring(
+            'SLHA:useDecayTable = off', # use pythia8 decay mode instead of decays defined in LH accord
+            'LesHouches:setLifetime = 2',
+            "1023:new = Zd Zdbar 3 0 0",
+            "1023:m0 = %s" % MASS_Zd,
+            "1023:mWidth = %s" % WIDTH_Zd,
+            "1023:tau0 = %s" % LIFETIME_Zd_inMM,
+            "1023:isResonance = on",
+            "1023:mayDecay = on",
+            "1023:oneChannel = 1  %s 100 -2 2" %BR_UUBAR,
+            "1023:addChannel = 1  %s 100 -4 4" %BR_CCBAR,
+            "1023:addChannel = 1  %s 100 -13 13" %BR_MUMU,
+            "1023:addChannel = 1  %s 100 -11 11" %BR_EE,
+            "1023:addChannel = 1  %s 100 -15 15" %BR_TAUTAU,
+            "1023:addChannel = 1  %s 100 -3 3" %BR_SSBAR,
+            "1023:addChannel = 1  %s 100 1 -1" %BR_DDBAR,
+            "1023:addChannel = 1  %s 100 -5 5" %BR_BBBAR,
+            "1023:addChannel = 1  %s 100 16 -16" %BR_TAUNUTAUNUBAR,
+            "1023:addChannel = 1  %s 100 14 -14" %BR_MUNUMUNUBAR,
+            "1023:addChannel = 1  %s 100 12 -12" %BR_ENUENUBAR
+        ),
+        parameterSets = cms.vstring(
+            'pythia8CommonSettings',
+            'pythia8CP5Settings',
+            'pythia8PSweightsSettings',
+            'processParameters'
+        )
+    )
+)
+
+MuMuFilter = cms.EDFilter("MCParticlePairFilter",
+                          Status = cms.untracked.vint32(1, 1),
+                          MinPt = cms.untracked.vdouble(2.5, 2.5),
+                          MaxEta = cms.untracked.vdouble(2.5, 2.5),
+                          MinEta = cms.untracked.vdouble(-2.5, -2.5),
+                          ParticleID1 = cms.untracked.vint32(13,-13),
+                          )
+
+MuFilter = cms.EDFilter("PythiaFilter",
+    Status = cms.untracked.int32(0),
+    MotherID = cms.untracked.int32(1023),
+    MinPt = cms.untracked.double(2.5),
+    ParticleID = cms.untracked.int32(13),
+    MaxEta = cms.untracked.double(2.5),
+    MinEta = cms.untracked.double(-2.5)
+)
+ProductionFilterSequence = cms.Sequence(generator*MuMuFilter*MuFilter)
+
+
+
+

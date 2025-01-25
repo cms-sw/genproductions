@@ -1,6 +1,8 @@
+diff --git a/madgraph/various/cluster.py b/madgraph/various/cluster.py
+index 9641ebd75..66ddf7ae2 100755
 --- a/madgraph/various/cluster.py
 +++ b/madgraph/various/cluster.py
-@@ -398,8 +398,8 @@ Press ctrl-C to force the update.''' % self.options['cluster_status_update'][0])
+@@ -405,8 +405,8 @@ Press ctrl-C to force the update.''' % self.options['cluster_status_update'][0])
          for path in args['required_output']:
              if args['cwd']:
                  path = pjoin(args['cwd'], path)

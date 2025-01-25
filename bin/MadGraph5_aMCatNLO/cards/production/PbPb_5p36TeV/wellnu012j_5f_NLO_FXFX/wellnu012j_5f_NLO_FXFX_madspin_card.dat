@@ -1,0 +1,6 @@
+set ms_dir ./madspingrid
+
+set max_running_process 1
+set onlyhelicity True
+
+launch

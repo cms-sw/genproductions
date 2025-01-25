@@ -1,0 +1,11 @@
+set param_card Mv1 XXX 
+
+set param_card theta1 0.785398  
+
+set param_card ct1 1 
+
+set param_card mb 0 
+
+set param_card mt 172.5
+
+set param_card Wv1 YYY

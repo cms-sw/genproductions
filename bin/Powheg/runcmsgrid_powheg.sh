@@ -104,6 +104,9 @@ if [[ -e ${myDir} ]]; then
 fi
 
 export LD_LIBRARY_PATH=`pwd`/lib/:`pwd`/lib64/:`pwd`/obj-gfortran/proclib/:${LD_LIBRARY_PATH}
+if [[ "${process}" == "WWJ" || "${process}" == "WZJ" || "${process}" == "ZZJ" || "${process}" == "ZgamJ" ]]; then
+  export LD_LIBRARY_PATH=`pwd`/MATRIXStuff/external/ginac-install/lib/:`pwd`/MATRIXStuff/external/cln-install/lib/:`pwd`/MATRIXStuff/lib/ppllll24/:${LD_LIBRARY_PATH}
+fi
 mkdir ${myDir}; cd ${myDir} ;  
 export PYTHONPATH=.:${PYTHONPATH}
 
@@ -190,7 +193,7 @@ if [ "$manyseeds" == "true" ]; then
   ../pwhg_main iwhichseed=1 2>&1 | tee log_${process}_${seed}.txt; test $? -eq 0 || fail_exit "pwhg_main error: exit code not 0"
 
   # Rename the produced LHE file to be what the rest of the script expects
-  mv pwgevents-0001.lhe pwgevents.lhe
+  mv pwgevents-00001.lhe pwgevents.lhe
 
 else
   cat powheg.input
@@ -490,7 +493,7 @@ if [ -s pwgstat.dat ]; then
 fi
 
 if [ -s pwg-stat.dat ]; then
-  if [ "$process" = "b_bbar_4l" ] || [ "$process" = "HWJ_ew" ] || [ "$process" = "HW_ew" ] || [ "$process" = "HZJ_ew" ] || [ "$process" = "HZ_ew" ]; then
+  if [ "$process" = "b_bbar_4l" ] || [ "$process" = "HWJ_ew" ] || [ "$process" = "HW_ew" ] || [ "$process" = "HZJ_ew" ] || [ "$process" = "HZ_ew" ] || [ "$process" = "WWJ" ]; then
     XSECTION=`tac pwg-stat.dat | grep total\ total | awk '{ print $(NF-2) }'`
     XSECUNC=` tac pwg-stat.dat | grep total\ total | awk '{ print $(NF) }'`
   else

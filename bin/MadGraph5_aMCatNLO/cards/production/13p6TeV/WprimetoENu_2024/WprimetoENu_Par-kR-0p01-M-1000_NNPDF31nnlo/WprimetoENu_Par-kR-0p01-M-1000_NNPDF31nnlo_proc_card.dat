@@ -1,0 +1,4 @@
+import model WEff_UFO
+generate p p > wp+ > e+ ve
+add process p p > wp- > e- ve~
+output WprimetoENu_Par-kR-0p01-M-1000_NNPDF31nnlo  -nojpeg

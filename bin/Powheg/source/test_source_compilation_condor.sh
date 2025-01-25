@@ -27,7 +27,8 @@ cat << EOF > source_compilation_${source_name}_$2_$3.sh
 genproduction_dir=$PWD/../../..
 topdir=$PWD
 source_file=$1
-source_dir=/afs/cern.ch/cms/generators/www/slc6_amd64_gcc481/powheg/V2.0/src/$1
+source_dir=/eos/project/c/cmsweb/www/generators/directories/cms-project-generators/slc6_amd64_gcc481/powheg/V2.0/src/$1
+
 scram_arch_version=$2
 cmssw_version=$3
 workdir=test
@@ -65,12 +66,13 @@ source_name="${source_name%.*}"
 #hostname > lxplus_node.log
 
 # Download the CMSSW release
+source /cvmfs/cms.cern.ch/cmsset_default.sh
 mkdir -p $workdir
 cd $workdir
 export SCRAM_ARCH=${scram_arch_version}
-scramv1 project CMSSW ${cmssw_version}
+scram project CMSSW ${cmssw_version}
 cd ${cmssw_version}/src
-eval `scramv1 runtime -sh`
+eval `scram runtime -sh`
 echo "PDF REPOSITORY/VERSION: "${LHAPDF_DATA_PATH}
 
 # Copy the POWHEG scripts
@@ -110,8 +112,8 @@ do
     process="${file%.*}"
     echo "compiling $process"
     echo ${PWD}
-    echo "python ./run_pwg_condor.py -p 0 -i powheg.input -m ${process} -f my_${process} -d 1"
-    python ./run_pwg_condor.py -p 0 -i powheg.input -m ${process} -f my_${process} -d 1
+    echo "python3 ./run_pwg_condor.py -p 0 -i powheg.input -m ${process} -f my_${process} -d 1"
+    python3 ./run_pwg_condor.py -p 0 -i powheg.input -m ${process} -f my_${process} -d 1
     echo "=========== LAST 10 COMPILATION LINES FOR PROCESS ${process} ===========" >> ${topdir}/compile_report_-_${source_name}_-_${scram_arch_version}_-_${cmssw_version}.log
     echo "" >> ${topdir}/compile_report_-_${source_name}_-_${scram_arch_version}_-_${cmssw_version}.log
     tail run_src_my_${process}.log >> ${topdir}/compile_report_-_${source_name}_-_${scram_arch_version}_-_${cmssw_version}.log
@@ -127,6 +129,7 @@ executable              = source_compilation_${source_name}_$2_$3.sh
 output                  = \$(ClusterId).\$(ProcId).out
 error                   = \$(ClusterId).\$(ProcId).err
 log                     = \$(ClusterId).log
+MY.WantOS               = "el8"
 +JobFlavour             = "tomorrow"
 
 should_transfer_files = YES

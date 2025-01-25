@@ -1,1 +1,1 @@
-DecayMode1=8 DecayMode2=8
+DecayMode1=8 DecayMode2=8 LHAPDF=NNPDF31_lo_as_0130/NNPDF31_lo_as_0130.info WriteFailedEvents=2 
