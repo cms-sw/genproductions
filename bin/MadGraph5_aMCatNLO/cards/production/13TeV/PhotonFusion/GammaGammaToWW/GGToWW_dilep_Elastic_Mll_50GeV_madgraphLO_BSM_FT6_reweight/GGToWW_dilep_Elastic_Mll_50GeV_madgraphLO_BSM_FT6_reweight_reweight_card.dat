@@ -23431,7 +23431,7 @@ set param_card aqgc 33 0.00000e+00
 set param_card aqgc 34 0.00000e+00
 
 
-launch --rwgt_name=fm2odd_m20p0
+launch --rwgt_name=fm2odd_m10p0
 set param_card aqgc 4 0.00000e+00
 set param_card aqgc 5 0.00000e+00
 set param_card aqgc 6 0.00000e+00
@@ -23449,331 +23449,7 @@ set param_card aqgc 18 0.00000e+00
 set param_card aqgc 19 0.00000e+00
 set param_card aqgc 20 0.00000e+00
 set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 -2.00000e+01
-set param_card aqgc 26 0.00000e+00
-set param_card aqgc 27 0.00000e+00
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm2odd_m19p2
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 -1.92000e+01
-set param_card aqgc 26 0.00000e+00
-set param_card aqgc 27 0.00000e+00
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm2odd_m18p4
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 -1.84000e+01
-set param_card aqgc 26 0.00000e+00
-set param_card aqgc 27 0.00000e+00
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm2odd_m17p6
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 -1.76000e+01
-set param_card aqgc 26 0.00000e+00
-set param_card aqgc 27 0.00000e+00
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm2odd_m16p8
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 -1.68000e+01
-set param_card aqgc 26 0.00000e+00
-set param_card aqgc 27 0.00000e+00
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm2odd_m16p0
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 -1.60000e+01
-set param_card aqgc 26 0.00000e+00
-set param_card aqgc 27 0.00000e+00
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm2odd_m15p2
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 -1.52000e+01
-set param_card aqgc 26 0.00000e+00
-set param_card aqgc 27 0.00000e+00
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm2odd_m14p4
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 -1.44000e+01
-set param_card aqgc 26 0.00000e+00
-set param_card aqgc 27 0.00000e+00
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm2odd_m13p6
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 -1.36000e+01
-set param_card aqgc 26 0.00000e+00
-set param_card aqgc 27 0.00000e+00
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm2odd_m12p8
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 -1.28000e+01
-set param_card aqgc 26 0.00000e+00
-set param_card aqgc 27 0.00000e+00
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm2odd_m12p0
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 -1.20000e+01
-set param_card aqgc 26 0.00000e+00
-set param_card aqgc 27 0.00000e+00
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm2odd_m11p2
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 -1.12000e+01
-set param_card aqgc 26 0.00000e+00
-set param_card aqgc 27 0.00000e+00
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm2odd_m10p4
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 -1.04000e+01
+set param_card aqgc 24 -1.00000e+01
 set param_card aqgc 26 0.00000e+00
 set param_card aqgc 27 0.00000e+00
 set param_card aqgc 30 0.00000e+00
@@ -23809,6 +23485,33 @@ set param_card aqgc 32 0.00000e+00
 set param_card aqgc 33 0.00000e+00
 set param_card aqgc 34 0.00000e+00
 
+launch --rwgt_name=fm2odd_m9p2
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 -9.20000e+00
+set param_card aqgc 26 0.00000e+00
+set param_card aqgc 27 0.00000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
 launch --rwgt_name=fm2odd_m8p8
 set param_card aqgc 4 0.00000e+00
 set param_card aqgc 5 0.00000e+00
@@ -23828,6 +23531,33 @@ set param_card aqgc 19 0.00000e+00
 set param_card aqgc 20 0.00000e+00
 set param_card aqgc 23 0.00000e+00
 set param_card aqgc 24 -8.80000e+00
+set param_card aqgc 26 0.00000e+00
+set param_card aqgc 27 0.00000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
+launch --rwgt_name=fm2odd_m8p4
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 -8.40000e+00
 set param_card aqgc 26 0.00000e+00
 set param_card aqgc 27 0.00000e+00
 set param_card aqgc 30 0.00000e+00
@@ -23863,6 +23593,33 @@ set param_card aqgc 32 0.00000e+00
 set param_card aqgc 33 0.00000e+00
 set param_card aqgc 34 0.00000e+00
 
+launch --rwgt_name=fm2odd_m7p6
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 -7.60000e+00
+set param_card aqgc 26 0.00000e+00
+set param_card aqgc 27 0.00000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
 launch --rwgt_name=fm2odd_m7p2
 set param_card aqgc 4 0.00000e+00
 set param_card aqgc 5 0.00000e+00
@@ -23882,6 +23639,33 @@ set param_card aqgc 19 0.00000e+00
 set param_card aqgc 20 0.00000e+00
 set param_card aqgc 23 0.00000e+00
 set param_card aqgc 24 -7.20000e+00
+set param_card aqgc 26 0.00000e+00
+set param_card aqgc 27 0.00000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
+launch --rwgt_name=fm2odd_m6p8
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 -6.80000e+00
 set param_card aqgc 26 0.00000e+00
 set param_card aqgc 27 0.00000e+00
 set param_card aqgc 30 0.00000e+00
@@ -23917,6 +23701,33 @@ set param_card aqgc 32 0.00000e+00
 set param_card aqgc 33 0.00000e+00
 set param_card aqgc 34 0.00000e+00
 
+launch --rwgt_name=fm2odd_m6p0
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 -6.00000e+00
+set param_card aqgc 26 0.00000e+00
+set param_card aqgc 27 0.00000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
 launch --rwgt_name=fm2odd_m5p6
 set param_card aqgc 4 0.00000e+00
 set param_card aqgc 5 0.00000e+00
@@ -23936,6 +23747,33 @@ set param_card aqgc 19 0.00000e+00
 set param_card aqgc 20 0.00000e+00
 set param_card aqgc 23 0.00000e+00
 set param_card aqgc 24 -5.60000e+00
+set param_card aqgc 26 0.00000e+00
+set param_card aqgc 27 0.00000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
+launch --rwgt_name=fm2odd_m5p2
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 -5.20000e+00
 set param_card aqgc 26 0.00000e+00
 set param_card aqgc 27 0.00000e+00
 set param_card aqgc 30 0.00000e+00
@@ -23971,6 +23809,33 @@ set param_card aqgc 32 0.00000e+00
 set param_card aqgc 33 0.00000e+00
 set param_card aqgc 34 0.00000e+00
 
+launch --rwgt_name=fm2odd_m4p4
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 -4.40000e+00
+set param_card aqgc 26 0.00000e+00
+set param_card aqgc 27 0.00000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
 launch --rwgt_name=fm2odd_m4p0
 set param_card aqgc 4 0.00000e+00
 set param_card aqgc 5 0.00000e+00
@@ -23990,6 +23855,33 @@ set param_card aqgc 19 0.00000e+00
 set param_card aqgc 20 0.00000e+00
 set param_card aqgc 23 0.00000e+00
 set param_card aqgc 24 -4.00000e+00
+set param_card aqgc 26 0.00000e+00
+set param_card aqgc 27 0.00000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
+launch --rwgt_name=fm2odd_m3p6
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 -3.60000e+00
 set param_card aqgc 26 0.00000e+00
 set param_card aqgc 27 0.00000e+00
 set param_card aqgc 30 0.00000e+00
@@ -24025,6 +23917,33 @@ set param_card aqgc 32 0.00000e+00
 set param_card aqgc 33 0.00000e+00
 set param_card aqgc 34 0.00000e+00
 
+launch --rwgt_name=fm2odd_m2p8
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 -2.80000e+00
+set param_card aqgc 26 0.00000e+00
+set param_card aqgc 27 0.00000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
 launch --rwgt_name=fm2odd_m2p4
 set param_card aqgc 4 0.00000e+00
 set param_card aqgc 5 0.00000e+00
@@ -24044,6 +23963,33 @@ set param_card aqgc 19 0.00000e+00
 set param_card aqgc 20 0.00000e+00
 set param_card aqgc 23 0.00000e+00
 set param_card aqgc 24 -2.40000e+00
+set param_card aqgc 26 0.00000e+00
+set param_card aqgc 27 0.00000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
+launch --rwgt_name=fm2odd_m2p0
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 -2.00000e+00
 set param_card aqgc 26 0.00000e+00
 set param_card aqgc 27 0.00000e+00
 set param_card aqgc 30 0.00000e+00
@@ -24079,6 +24025,33 @@ set param_card aqgc 32 0.00000e+00
 set param_card aqgc 33 0.00000e+00
 set param_card aqgc 34 0.00000e+00
 
+launch --rwgt_name=fm2odd_m1p2
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 -1.20000e+00
+set param_card aqgc 26 0.00000e+00
+set param_card aqgc 27 0.00000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
 launch --rwgt_name=fm2odd_m0p8
 set param_card aqgc 4 0.00000e+00
 set param_card aqgc 5 0.00000e+00
@@ -24098,6 +24071,33 @@ set param_card aqgc 19 0.00000e+00
 set param_card aqgc 20 0.00000e+00
 set param_card aqgc 23 0.00000e+00
 set param_card aqgc 24 -8.00000e-01
+set param_card aqgc 26 0.00000e+00
+set param_card aqgc 27 0.00000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
+launch --rwgt_name=fm2odd_m0p4
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 -4.00000e-01
 set param_card aqgc 26 0.00000e+00
 set param_card aqgc 27 0.00000e+00
 set param_card aqgc 30 0.00000e+00
@@ -24133,6 +24133,33 @@ set param_card aqgc 32 0.00000e+00
 set param_card aqgc 33 0.00000e+00
 set param_card aqgc 34 0.00000e+00
 
+launch --rwgt_name=fm2odd_0p4
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 4.00000e-01
+set param_card aqgc 26 0.00000e+00
+set param_card aqgc 27 0.00000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
 launch --rwgt_name=fm2odd_0p8
 set param_card aqgc 4 0.00000e+00
 set param_card aqgc 5 0.00000e+00
@@ -24152,6 +24179,33 @@ set param_card aqgc 19 0.00000e+00
 set param_card aqgc 20 0.00000e+00
 set param_card aqgc 23 0.00000e+00
 set param_card aqgc 24 8.00000e-01
+set param_card aqgc 26 0.00000e+00
+set param_card aqgc 27 0.00000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
+launch --rwgt_name=fm2odd_1p2
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 1.20000e+00
 set param_card aqgc 26 0.00000e+00
 set param_card aqgc 27 0.00000e+00
 set param_card aqgc 30 0.00000e+00
@@ -24187,6 +24241,33 @@ set param_card aqgc 32 0.00000e+00
 set param_card aqgc 33 0.00000e+00
 set param_card aqgc 34 0.00000e+00
 
+launch --rwgt_name=fm2odd_2p0
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 2.00000e+00
+set param_card aqgc 26 0.00000e+00
+set param_card aqgc 27 0.00000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
 launch --rwgt_name=fm2odd_2p4
 set param_card aqgc 4 0.00000e+00
 set param_card aqgc 5 0.00000e+00
@@ -24206,6 +24287,33 @@ set param_card aqgc 19 0.00000e+00
 set param_card aqgc 20 0.00000e+00
 set param_card aqgc 23 0.00000e+00
 set param_card aqgc 24 2.40000e+00
+set param_card aqgc 26 0.00000e+00
+set param_card aqgc 27 0.00000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
+launch --rwgt_name=fm2odd_2p8
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 2.80000e+00
 set param_card aqgc 26 0.00000e+00
 set param_card aqgc 27 0.00000e+00
 set param_card aqgc 30 0.00000e+00
@@ -24241,6 +24349,33 @@ set param_card aqgc 32 0.00000e+00
 set param_card aqgc 33 0.00000e+00
 set param_card aqgc 34 0.00000e+00
 
+launch --rwgt_name=fm2odd_3p6
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 3.60000e+00
+set param_card aqgc 26 0.00000e+00
+set param_card aqgc 27 0.00000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
 launch --rwgt_name=fm2odd_4p0
 set param_card aqgc 4 0.00000e+00
 set param_card aqgc 5 0.00000e+00
@@ -24260,6 +24395,33 @@ set param_card aqgc 19 0.00000e+00
 set param_card aqgc 20 0.00000e+00
 set param_card aqgc 23 0.00000e+00
 set param_card aqgc 24 4.00000e+00
+set param_card aqgc 26 0.00000e+00
+set param_card aqgc 27 0.00000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
+launch --rwgt_name=fm2odd_4p4
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 4.40000e+00
 set param_card aqgc 26 0.00000e+00
 set param_card aqgc 27 0.00000e+00
 set param_card aqgc 30 0.00000e+00
@@ -24295,6 +24457,33 @@ set param_card aqgc 32 0.00000e+00
 set param_card aqgc 33 0.00000e+00
 set param_card aqgc 34 0.00000e+00
 
+launch --rwgt_name=fm2odd_5p2
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 5.20000e+00
+set param_card aqgc 26 0.00000e+00
+set param_card aqgc 27 0.00000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
 launch --rwgt_name=fm2odd_5p6
 set param_card aqgc 4 0.00000e+00
 set param_card aqgc 5 0.00000e+00
@@ -24314,6 +24503,33 @@ set param_card aqgc 19 0.00000e+00
 set param_card aqgc 20 0.00000e+00
 set param_card aqgc 23 0.00000e+00
 set param_card aqgc 24 5.60000e+00
+set param_card aqgc 26 0.00000e+00
+set param_card aqgc 27 0.00000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
+launch --rwgt_name=fm2odd_6p0
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 6.00000e+00
 set param_card aqgc 26 0.00000e+00
 set param_card aqgc 27 0.00000e+00
 set param_card aqgc 30 0.00000e+00
@@ -24349,6 +24565,33 @@ set param_card aqgc 32 0.00000e+00
 set param_card aqgc 33 0.00000e+00
 set param_card aqgc 34 0.00000e+00
 
+launch --rwgt_name=fm2odd_6p8
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 6.80000e+00
+set param_card aqgc 26 0.00000e+00
+set param_card aqgc 27 0.00000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
 launch --rwgt_name=fm2odd_7p2
 set param_card aqgc 4 0.00000e+00
 set param_card aqgc 5 0.00000e+00
@@ -24368,6 +24611,33 @@ set param_card aqgc 19 0.00000e+00
 set param_card aqgc 20 0.00000e+00
 set param_card aqgc 23 0.00000e+00
 set param_card aqgc 24 7.20000e+00
+set param_card aqgc 26 0.00000e+00
+set param_card aqgc 27 0.00000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
+launch --rwgt_name=fm2odd_7p6
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 7.60000e+00
 set param_card aqgc 26 0.00000e+00
 set param_card aqgc 27 0.00000e+00
 set param_card aqgc 30 0.00000e+00
@@ -24403,6 +24673,33 @@ set param_card aqgc 32 0.00000e+00
 set param_card aqgc 33 0.00000e+00
 set param_card aqgc 34 0.00000e+00
 
+launch --rwgt_name=fm2odd_8p4
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 8.40000e+00
+set param_card aqgc 26 0.00000e+00
+set param_card aqgc 27 0.00000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
 launch --rwgt_name=fm2odd_8p8
 set param_card aqgc 4 0.00000e+00
 set param_card aqgc 5 0.00000e+00
@@ -24422,6 +24719,33 @@ set param_card aqgc 19 0.00000e+00
 set param_card aqgc 20 0.00000e+00
 set param_card aqgc 23 0.00000e+00
 set param_card aqgc 24 8.80000e+00
+set param_card aqgc 26 0.00000e+00
+set param_card aqgc 27 0.00000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
+launch --rwgt_name=fm2odd_9p2
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 9.20000e+00
 set param_card aqgc 26 0.00000e+00
 set param_card aqgc 27 0.00000e+00
 set param_card aqgc 30 0.00000e+00
@@ -24457,7 +24781,7 @@ set param_card aqgc 32 0.00000e+00
 set param_card aqgc 33 0.00000e+00
 set param_card aqgc 34 0.00000e+00
 
-launch --rwgt_name=fm2odd_10p4
+launch --rwgt_name=fm2odd_10p0
 set param_card aqgc 4 0.00000e+00
 set param_card aqgc 5 0.00000e+00
 set param_card aqgc 6 0.00000e+00
@@ -24475,331 +24799,7 @@ set param_card aqgc 18 0.00000e+00
 set param_card aqgc 19 0.00000e+00
 set param_card aqgc 20 0.00000e+00
 set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 1.04000e+01
-set param_card aqgc 26 0.00000e+00
-set param_card aqgc 27 0.00000e+00
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm2odd_11p2
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 1.12000e+01
-set param_card aqgc 26 0.00000e+00
-set param_card aqgc 27 0.00000e+00
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm2odd_12p0
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 1.20000e+01
-set param_card aqgc 26 0.00000e+00
-set param_card aqgc 27 0.00000e+00
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm2odd_12p8
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 1.28000e+01
-set param_card aqgc 26 0.00000e+00
-set param_card aqgc 27 0.00000e+00
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm2odd_13p6
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 1.36000e+01
-set param_card aqgc 26 0.00000e+00
-set param_card aqgc 27 0.00000e+00
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm2odd_14p4
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 1.44000e+01
-set param_card aqgc 26 0.00000e+00
-set param_card aqgc 27 0.00000e+00
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm2odd_15p2
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 1.52000e+01
-set param_card aqgc 26 0.00000e+00
-set param_card aqgc 27 0.00000e+00
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm2odd_16p0
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 1.60000e+01
-set param_card aqgc 26 0.00000e+00
-set param_card aqgc 27 0.00000e+00
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm2odd_16p8
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 1.68000e+01
-set param_card aqgc 26 0.00000e+00
-set param_card aqgc 27 0.00000e+00
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm2odd_17p6
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 1.76000e+01
-set param_card aqgc 26 0.00000e+00
-set param_card aqgc 27 0.00000e+00
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm2odd_18p4
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 1.84000e+01
-set param_card aqgc 26 0.00000e+00
-set param_card aqgc 27 0.00000e+00
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm2odd_19p2
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 1.92000e+01
-set param_card aqgc 26 0.00000e+00
-set param_card aqgc 27 0.00000e+00
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm2odd_20p0
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 2.00000e+01
+set param_card aqgc 24 1.00000e+01
 set param_card aqgc 26 0.00000e+00
 set param_card aqgc 27 0.00000e+00
 set param_card aqgc 30 0.00000e+00
@@ -24809,7 +24809,7 @@ set param_card aqgc 33 0.00000e+00
 set param_card aqgc 34 0.00000e+00
 
 
-launch --rwgt_name=fm4odd_m40p0
+launch --rwgt_name=fm4odd_m20p0
 set param_card aqgc 4 0.00000e+00
 set param_card aqgc 5 0.00000e+00
 set param_card aqgc 6 0.00000e+00
@@ -24828,331 +24828,7 @@ set param_card aqgc 19 0.00000e+00
 set param_card aqgc 20 0.00000e+00
 set param_card aqgc 23 0.00000e+00
 set param_card aqgc 24 0.00000e+00
-set param_card aqgc 26 -4.00000e+01
-set param_card aqgc 27 0.00000e+00
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm4odd_m38p4
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 0.00000e+00
-set param_card aqgc 26 -3.84000e+01
-set param_card aqgc 27 0.00000e+00
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm4odd_m36p8
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 0.00000e+00
-set param_card aqgc 26 -3.68000e+01
-set param_card aqgc 27 0.00000e+00
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm4odd_m35p2
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 0.00000e+00
-set param_card aqgc 26 -3.52000e+01
-set param_card aqgc 27 0.00000e+00
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm4odd_m33p6
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 0.00000e+00
-set param_card aqgc 26 -3.36000e+01
-set param_card aqgc 27 0.00000e+00
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm4odd_m32p0
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 0.00000e+00
-set param_card aqgc 26 -3.20000e+01
-set param_card aqgc 27 0.00000e+00
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm4odd_m30p4
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 0.00000e+00
-set param_card aqgc 26 -3.04000e+01
-set param_card aqgc 27 0.00000e+00
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm4odd_m28p8
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 0.00000e+00
-set param_card aqgc 26 -2.88000e+01
-set param_card aqgc 27 0.00000e+00
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm4odd_m27p2
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 0.00000e+00
-set param_card aqgc 26 -2.72000e+01
-set param_card aqgc 27 0.00000e+00
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm4odd_m25p6
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 0.00000e+00
-set param_card aqgc 26 -2.56000e+01
-set param_card aqgc 27 0.00000e+00
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm4odd_m24p0
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 0.00000e+00
-set param_card aqgc 26 -2.40000e+01
-set param_card aqgc 27 0.00000e+00
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm4odd_m22p4
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 0.00000e+00
-set param_card aqgc 26 -2.24000e+01
-set param_card aqgc 27 0.00000e+00
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm4odd_m20p8
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 0.00000e+00
-set param_card aqgc 26 -2.08000e+01
+set param_card aqgc 26 -2.00000e+01
 set param_card aqgc 27 0.00000e+00
 set param_card aqgc 30 0.00000e+00
 set param_card aqgc 31 0.00000e+00
@@ -25187,6 +24863,33 @@ set param_card aqgc 32 0.00000e+00
 set param_card aqgc 33 0.00000e+00
 set param_card aqgc 34 0.00000e+00
 
+launch --rwgt_name=fm4odd_m18p4
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 0.00000e+00
+set param_card aqgc 26 -1.84000e+01
+set param_card aqgc 27 0.00000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
 launch --rwgt_name=fm4odd_m17p6
 set param_card aqgc 4 0.00000e+00
 set param_card aqgc 5 0.00000e+00
@@ -25207,6 +24910,33 @@ set param_card aqgc 20 0.00000e+00
 set param_card aqgc 23 0.00000e+00
 set param_card aqgc 24 0.00000e+00
 set param_card aqgc 26 -1.76000e+01
+set param_card aqgc 27 0.00000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
+launch --rwgt_name=fm4odd_m16p8
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 0.00000e+00
+set param_card aqgc 26 -1.68000e+01
 set param_card aqgc 27 0.00000e+00
 set param_card aqgc 30 0.00000e+00
 set param_card aqgc 31 0.00000e+00
@@ -25241,6 +24971,33 @@ set param_card aqgc 32 0.00000e+00
 set param_card aqgc 33 0.00000e+00
 set param_card aqgc 34 0.00000e+00
 
+launch --rwgt_name=fm4odd_m15p2
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 0.00000e+00
+set param_card aqgc 26 -1.52000e+01
+set param_card aqgc 27 0.00000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
 launch --rwgt_name=fm4odd_m14p4
 set param_card aqgc 4 0.00000e+00
 set param_card aqgc 5 0.00000e+00
@@ -25261,6 +25018,33 @@ set param_card aqgc 20 0.00000e+00
 set param_card aqgc 23 0.00000e+00
 set param_card aqgc 24 0.00000e+00
 set param_card aqgc 26 -1.44000e+01
+set param_card aqgc 27 0.00000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
+launch --rwgt_name=fm4odd_m13p6
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 0.00000e+00
+set param_card aqgc 26 -1.36000e+01
 set param_card aqgc 27 0.00000e+00
 set param_card aqgc 30 0.00000e+00
 set param_card aqgc 31 0.00000e+00
@@ -25295,6 +25079,33 @@ set param_card aqgc 32 0.00000e+00
 set param_card aqgc 33 0.00000e+00
 set param_card aqgc 34 0.00000e+00
 
+launch --rwgt_name=fm4odd_m12p0
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 0.00000e+00
+set param_card aqgc 26 -1.20000e+01
+set param_card aqgc 27 0.00000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
 launch --rwgt_name=fm4odd_m11p2
 set param_card aqgc 4 0.00000e+00
 set param_card aqgc 5 0.00000e+00
@@ -25315,6 +25126,33 @@ set param_card aqgc 20 0.00000e+00
 set param_card aqgc 23 0.00000e+00
 set param_card aqgc 24 0.00000e+00
 set param_card aqgc 26 -1.12000e+01
+set param_card aqgc 27 0.00000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
+launch --rwgt_name=fm4odd_m10p4
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 0.00000e+00
+set param_card aqgc 26 -1.04000e+01
 set param_card aqgc 27 0.00000e+00
 set param_card aqgc 30 0.00000e+00
 set param_card aqgc 31 0.00000e+00
@@ -25349,6 +25187,33 @@ set param_card aqgc 32 0.00000e+00
 set param_card aqgc 33 0.00000e+00
 set param_card aqgc 34 0.00000e+00
 
+launch --rwgt_name=fm4odd_m8p8
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 0.00000e+00
+set param_card aqgc 26 -8.80000e+00
+set param_card aqgc 27 0.00000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
 launch --rwgt_name=fm4odd_m8p0
 set param_card aqgc 4 0.00000e+00
 set param_card aqgc 5 0.00000e+00
@@ -25369,6 +25234,33 @@ set param_card aqgc 20 0.00000e+00
 set param_card aqgc 23 0.00000e+00
 set param_card aqgc 24 0.00000e+00
 set param_card aqgc 26 -8.00000e+00
+set param_card aqgc 27 0.00000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
+launch --rwgt_name=fm4odd_m7p2
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 0.00000e+00
+set param_card aqgc 26 -7.20000e+00
 set param_card aqgc 27 0.00000e+00
 set param_card aqgc 30 0.00000e+00
 set param_card aqgc 31 0.00000e+00
@@ -25403,6 +25295,33 @@ set param_card aqgc 32 0.00000e+00
 set param_card aqgc 33 0.00000e+00
 set param_card aqgc 34 0.00000e+00
 
+launch --rwgt_name=fm4odd_m5p6
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 0.00000e+00
+set param_card aqgc 26 -5.60000e+00
+set param_card aqgc 27 0.00000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
 launch --rwgt_name=fm4odd_m4p8
 set param_card aqgc 4 0.00000e+00
 set param_card aqgc 5 0.00000e+00
@@ -25423,6 +25342,33 @@ set param_card aqgc 20 0.00000e+00
 set param_card aqgc 23 0.00000e+00
 set param_card aqgc 24 0.00000e+00
 set param_card aqgc 26 -4.80000e+00
+set param_card aqgc 27 0.00000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
+launch --rwgt_name=fm4odd_m4p0
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 0.00000e+00
+set param_card aqgc 26 -4.00000e+00
 set param_card aqgc 27 0.00000e+00
 set param_card aqgc 30 0.00000e+00
 set param_card aqgc 31 0.00000e+00
@@ -25457,6 +25403,33 @@ set param_card aqgc 32 0.00000e+00
 set param_card aqgc 33 0.00000e+00
 set param_card aqgc 34 0.00000e+00
 
+launch --rwgt_name=fm4odd_m2p4
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 0.00000e+00
+set param_card aqgc 26 -2.40000e+00
+set param_card aqgc 27 0.00000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
 launch --rwgt_name=fm4odd_m1p6
 set param_card aqgc 4 0.00000e+00
 set param_card aqgc 5 0.00000e+00
@@ -25477,6 +25450,33 @@ set param_card aqgc 20 0.00000e+00
 set param_card aqgc 23 0.00000e+00
 set param_card aqgc 24 0.00000e+00
 set param_card aqgc 26 -1.60000e+00
+set param_card aqgc 27 0.00000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
+launch --rwgt_name=fm4odd_m0p8
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 0.00000e+00
+set param_card aqgc 26 -8.00000e-01
 set param_card aqgc 27 0.00000e+00
 set param_card aqgc 30 0.00000e+00
 set param_card aqgc 31 0.00000e+00
@@ -25511,6 +25511,33 @@ set param_card aqgc 32 0.00000e+00
 set param_card aqgc 33 0.00000e+00
 set param_card aqgc 34 0.00000e+00
 
+launch --rwgt_name=fm4odd_0p8
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 0.00000e+00
+set param_card aqgc 26 8.00000e-01
+set param_card aqgc 27 0.00000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
 launch --rwgt_name=fm4odd_1p6
 set param_card aqgc 4 0.00000e+00
 set param_card aqgc 5 0.00000e+00
@@ -25531,6 +25558,33 @@ set param_card aqgc 20 0.00000e+00
 set param_card aqgc 23 0.00000e+00
 set param_card aqgc 24 0.00000e+00
 set param_card aqgc 26 1.60000e+00
+set param_card aqgc 27 0.00000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
+launch --rwgt_name=fm4odd_2p4
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 0.00000e+00
+set param_card aqgc 26 2.40000e+00
 set param_card aqgc 27 0.00000e+00
 set param_card aqgc 30 0.00000e+00
 set param_card aqgc 31 0.00000e+00
@@ -25565,6 +25619,33 @@ set param_card aqgc 32 0.00000e+00
 set param_card aqgc 33 0.00000e+00
 set param_card aqgc 34 0.00000e+00
 
+launch --rwgt_name=fm4odd_4p0
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 0.00000e+00
+set param_card aqgc 26 4.00000e+00
+set param_card aqgc 27 0.00000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
 launch --rwgt_name=fm4odd_4p8
 set param_card aqgc 4 0.00000e+00
 set param_card aqgc 5 0.00000e+00
@@ -25585,6 +25666,33 @@ set param_card aqgc 20 0.00000e+00
 set param_card aqgc 23 0.00000e+00
 set param_card aqgc 24 0.00000e+00
 set param_card aqgc 26 4.80000e+00
+set param_card aqgc 27 0.00000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
+launch --rwgt_name=fm4odd_5p6
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 0.00000e+00
+set param_card aqgc 26 5.60000e+00
 set param_card aqgc 27 0.00000e+00
 set param_card aqgc 30 0.00000e+00
 set param_card aqgc 31 0.00000e+00
@@ -25619,6 +25727,33 @@ set param_card aqgc 32 0.00000e+00
 set param_card aqgc 33 0.00000e+00
 set param_card aqgc 34 0.00000e+00
 
+launch --rwgt_name=fm4odd_7p2
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 0.00000e+00
+set param_card aqgc 26 7.20000e+00
+set param_card aqgc 27 0.00000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
 launch --rwgt_name=fm4odd_8p0
 set param_card aqgc 4 0.00000e+00
 set param_card aqgc 5 0.00000e+00
@@ -25639,6 +25774,33 @@ set param_card aqgc 20 0.00000e+00
 set param_card aqgc 23 0.00000e+00
 set param_card aqgc 24 0.00000e+00
 set param_card aqgc 26 8.00000e+00
+set param_card aqgc 27 0.00000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
+launch --rwgt_name=fm4odd_8p8
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 0.00000e+00
+set param_card aqgc 26 8.80000e+00
 set param_card aqgc 27 0.00000e+00
 set param_card aqgc 30 0.00000e+00
 set param_card aqgc 31 0.00000e+00
@@ -25673,6 +25835,33 @@ set param_card aqgc 32 0.00000e+00
 set param_card aqgc 33 0.00000e+00
 set param_card aqgc 34 0.00000e+00
 
+launch --rwgt_name=fm4odd_10p4
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 0.00000e+00
+set param_card aqgc 26 1.04000e+01
+set param_card aqgc 27 0.00000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
 launch --rwgt_name=fm4odd_11p2
 set param_card aqgc 4 0.00000e+00
 set param_card aqgc 5 0.00000e+00
@@ -25693,6 +25882,33 @@ set param_card aqgc 20 0.00000e+00
 set param_card aqgc 23 0.00000e+00
 set param_card aqgc 24 0.00000e+00
 set param_card aqgc 26 1.12000e+01
+set param_card aqgc 27 0.00000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
+launch --rwgt_name=fm4odd_12p0
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 0.00000e+00
+set param_card aqgc 26 1.20000e+01
 set param_card aqgc 27 0.00000e+00
 set param_card aqgc 30 0.00000e+00
 set param_card aqgc 31 0.00000e+00
@@ -25727,6 +25943,33 @@ set param_card aqgc 32 0.00000e+00
 set param_card aqgc 33 0.00000e+00
 set param_card aqgc 34 0.00000e+00
 
+launch --rwgt_name=fm4odd_13p6
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 0.00000e+00
+set param_card aqgc 26 1.36000e+01
+set param_card aqgc 27 0.00000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
 launch --rwgt_name=fm4odd_14p4
 set param_card aqgc 4 0.00000e+00
 set param_card aqgc 5 0.00000e+00
@@ -25747,6 +25990,33 @@ set param_card aqgc 20 0.00000e+00
 set param_card aqgc 23 0.00000e+00
 set param_card aqgc 24 0.00000e+00
 set param_card aqgc 26 1.44000e+01
+set param_card aqgc 27 0.00000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
+launch --rwgt_name=fm4odd_15p2
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 0.00000e+00
+set param_card aqgc 26 1.52000e+01
 set param_card aqgc 27 0.00000e+00
 set param_card aqgc 30 0.00000e+00
 set param_card aqgc 31 0.00000e+00
@@ -25781,6 +26051,33 @@ set param_card aqgc 32 0.00000e+00
 set param_card aqgc 33 0.00000e+00
 set param_card aqgc 34 0.00000e+00
 
+launch --rwgt_name=fm4odd_16p8
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 0.00000e+00
+set param_card aqgc 26 1.68000e+01
+set param_card aqgc 27 0.00000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
 launch --rwgt_name=fm4odd_17p6
 set param_card aqgc 4 0.00000e+00
 set param_card aqgc 5 0.00000e+00
@@ -25801,6 +26098,33 @@ set param_card aqgc 20 0.00000e+00
 set param_card aqgc 23 0.00000e+00
 set param_card aqgc 24 0.00000e+00
 set param_card aqgc 26 1.76000e+01
+set param_card aqgc 27 0.00000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
+launch --rwgt_name=fm4odd_18p4
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 0.00000e+00
+set param_card aqgc 26 1.84000e+01
 set param_card aqgc 27 0.00000e+00
 set param_card aqgc 30 0.00000e+00
 set param_card aqgc 31 0.00000e+00
@@ -25835,7 +26159,7 @@ set param_card aqgc 32 0.00000e+00
 set param_card aqgc 33 0.00000e+00
 set param_card aqgc 34 0.00000e+00
 
-launch --rwgt_name=fm4odd_20p8
+launch --rwgt_name=fm4odd_20p0
 set param_card aqgc 4 0.00000e+00
 set param_card aqgc 5 0.00000e+00
 set param_card aqgc 6 0.00000e+00
@@ -25854,331 +26178,7 @@ set param_card aqgc 19 0.00000e+00
 set param_card aqgc 20 0.00000e+00
 set param_card aqgc 23 0.00000e+00
 set param_card aqgc 24 0.00000e+00
-set param_card aqgc 26 2.08000e+01
-set param_card aqgc 27 0.00000e+00
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm4odd_22p4
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 0.00000e+00
-set param_card aqgc 26 2.24000e+01
-set param_card aqgc 27 0.00000e+00
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm4odd_24p0
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 0.00000e+00
-set param_card aqgc 26 2.40000e+01
-set param_card aqgc 27 0.00000e+00
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm4odd_25p6
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 0.00000e+00
-set param_card aqgc 26 2.56000e+01
-set param_card aqgc 27 0.00000e+00
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm4odd_27p2
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 0.00000e+00
-set param_card aqgc 26 2.72000e+01
-set param_card aqgc 27 0.00000e+00
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm4odd_28p8
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 0.00000e+00
-set param_card aqgc 26 2.88000e+01
-set param_card aqgc 27 0.00000e+00
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm4odd_30p4
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 0.00000e+00
-set param_card aqgc 26 3.04000e+01
-set param_card aqgc 27 0.00000e+00
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm4odd_32p0
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 0.00000e+00
-set param_card aqgc 26 3.20000e+01
-set param_card aqgc 27 0.00000e+00
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm4odd_33p6
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 0.00000e+00
-set param_card aqgc 26 3.36000e+01
-set param_card aqgc 27 0.00000e+00
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm4odd_35p2
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 0.00000e+00
-set param_card aqgc 26 3.52000e+01
-set param_card aqgc 27 0.00000e+00
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm4odd_36p8
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 0.00000e+00
-set param_card aqgc 26 3.68000e+01
-set param_card aqgc 27 0.00000e+00
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm4odd_38p4
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 0.00000e+00
-set param_card aqgc 26 3.84000e+01
-set param_card aqgc 27 0.00000e+00
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm4odd_40p0
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 0.00000e+00
-set param_card aqgc 26 4.00000e+01
+set param_card aqgc 26 2.00000e+01
 set param_card aqgc 27 0.00000e+00
 set param_card aqgc 30 0.00000e+00
 set param_card aqgc 31 0.00000e+00
@@ -26187,7 +26187,7 @@ set param_card aqgc 33 0.00000e+00
 set param_card aqgc 34 0.00000e+00
 
 
-launch --rwgt_name=fm5odd_m20p0
+launch --rwgt_name=fm5odd_m10p0
 set param_card aqgc 4 0.00000e+00
 set param_card aqgc 5 0.00000e+00
 set param_card aqgc 6 0.00000e+00
@@ -26207,331 +26207,7 @@ set param_card aqgc 20 0.00000e+00
 set param_card aqgc 23 0.00000e+00
 set param_card aqgc 24 0.00000e+00
 set param_card aqgc 26 0.00000e+00
-set param_card aqgc 27 -2.00000e+01
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm5odd_m19p2
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 0.00000e+00
-set param_card aqgc 26 0.00000e+00
-set param_card aqgc 27 -1.92000e+01
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm5odd_m18p4
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 0.00000e+00
-set param_card aqgc 26 0.00000e+00
-set param_card aqgc 27 -1.84000e+01
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm5odd_m17p6
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 0.00000e+00
-set param_card aqgc 26 0.00000e+00
-set param_card aqgc 27 -1.76000e+01
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm5odd_m16p8
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 0.00000e+00
-set param_card aqgc 26 0.00000e+00
-set param_card aqgc 27 -1.68000e+01
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm5odd_m16p0
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 0.00000e+00
-set param_card aqgc 26 0.00000e+00
-set param_card aqgc 27 -1.60000e+01
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm5odd_m15p2
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 0.00000e+00
-set param_card aqgc 26 0.00000e+00
-set param_card aqgc 27 -1.52000e+01
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm5odd_m14p4
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 0.00000e+00
-set param_card aqgc 26 0.00000e+00
-set param_card aqgc 27 -1.44000e+01
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm5odd_m13p6
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 0.00000e+00
-set param_card aqgc 26 0.00000e+00
-set param_card aqgc 27 -1.36000e+01
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm5odd_m12p8
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 0.00000e+00
-set param_card aqgc 26 0.00000e+00
-set param_card aqgc 27 -1.28000e+01
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm5odd_m12p0
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 0.00000e+00
-set param_card aqgc 26 0.00000e+00
-set param_card aqgc 27 -1.20000e+01
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm5odd_m11p2
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 0.00000e+00
-set param_card aqgc 26 0.00000e+00
-set param_card aqgc 27 -1.12000e+01
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm5odd_m10p4
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 0.00000e+00
-set param_card aqgc 26 0.00000e+00
-set param_card aqgc 27 -1.04000e+01
+set param_card aqgc 27 -1.00000e+01
 set param_card aqgc 30 0.00000e+00
 set param_card aqgc 31 0.00000e+00
 set param_card aqgc 32 0.00000e+00
@@ -26565,6 +26241,33 @@ set param_card aqgc 32 0.00000e+00
 set param_card aqgc 33 0.00000e+00
 set param_card aqgc 34 0.00000e+00
 
+launch --rwgt_name=fm5odd_m9p2
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 0.00000e+00
+set param_card aqgc 26 0.00000e+00
+set param_card aqgc 27 -9.20000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
 launch --rwgt_name=fm5odd_m8p8
 set param_card aqgc 4 0.00000e+00
 set param_card aqgc 5 0.00000e+00
@@ -26586,6 +26289,33 @@ set param_card aqgc 23 0.00000e+00
 set param_card aqgc 24 0.00000e+00
 set param_card aqgc 26 0.00000e+00
 set param_card aqgc 27 -8.80000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
+launch --rwgt_name=fm5odd_m8p4
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 0.00000e+00
+set param_card aqgc 26 0.00000e+00
+set param_card aqgc 27 -8.40000e+00
 set param_card aqgc 30 0.00000e+00
 set param_card aqgc 31 0.00000e+00
 set param_card aqgc 32 0.00000e+00
@@ -26619,6 +26349,33 @@ set param_card aqgc 32 0.00000e+00
 set param_card aqgc 33 0.00000e+00
 set param_card aqgc 34 0.00000e+00
 
+launch --rwgt_name=fm5odd_m7p6
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 0.00000e+00
+set param_card aqgc 26 0.00000e+00
+set param_card aqgc 27 -7.60000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
 launch --rwgt_name=fm5odd_m7p2
 set param_card aqgc 4 0.00000e+00
 set param_card aqgc 5 0.00000e+00
@@ -26640,6 +26397,33 @@ set param_card aqgc 23 0.00000e+00
 set param_card aqgc 24 0.00000e+00
 set param_card aqgc 26 0.00000e+00
 set param_card aqgc 27 -7.20000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
+launch --rwgt_name=fm5odd_m6p8
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 0.00000e+00
+set param_card aqgc 26 0.00000e+00
+set param_card aqgc 27 -6.80000e+00
 set param_card aqgc 30 0.00000e+00
 set param_card aqgc 31 0.00000e+00
 set param_card aqgc 32 0.00000e+00
@@ -26673,6 +26457,33 @@ set param_card aqgc 32 0.00000e+00
 set param_card aqgc 33 0.00000e+00
 set param_card aqgc 34 0.00000e+00
 
+launch --rwgt_name=fm5odd_m6p0
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 0.00000e+00
+set param_card aqgc 26 0.00000e+00
+set param_card aqgc 27 -6.00000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
 launch --rwgt_name=fm5odd_m5p6
 set param_card aqgc 4 0.00000e+00
 set param_card aqgc 5 0.00000e+00
@@ -26694,6 +26505,33 @@ set param_card aqgc 23 0.00000e+00
 set param_card aqgc 24 0.00000e+00
 set param_card aqgc 26 0.00000e+00
 set param_card aqgc 27 -5.60000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
+launch --rwgt_name=fm5odd_m5p2
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 0.00000e+00
+set param_card aqgc 26 0.00000e+00
+set param_card aqgc 27 -5.20000e+00
 set param_card aqgc 30 0.00000e+00
 set param_card aqgc 31 0.00000e+00
 set param_card aqgc 32 0.00000e+00
@@ -26727,6 +26565,33 @@ set param_card aqgc 32 0.00000e+00
 set param_card aqgc 33 0.00000e+00
 set param_card aqgc 34 0.00000e+00
 
+launch --rwgt_name=fm5odd_m4p4
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 0.00000e+00
+set param_card aqgc 26 0.00000e+00
+set param_card aqgc 27 -4.40000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
 launch --rwgt_name=fm5odd_m4p0
 set param_card aqgc 4 0.00000e+00
 set param_card aqgc 5 0.00000e+00
@@ -26748,6 +26613,33 @@ set param_card aqgc 23 0.00000e+00
 set param_card aqgc 24 0.00000e+00
 set param_card aqgc 26 0.00000e+00
 set param_card aqgc 27 -4.00000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
+launch --rwgt_name=fm5odd_m3p6
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 0.00000e+00
+set param_card aqgc 26 0.00000e+00
+set param_card aqgc 27 -3.60000e+00
 set param_card aqgc 30 0.00000e+00
 set param_card aqgc 31 0.00000e+00
 set param_card aqgc 32 0.00000e+00
@@ -26781,6 +26673,33 @@ set param_card aqgc 32 0.00000e+00
 set param_card aqgc 33 0.00000e+00
 set param_card aqgc 34 0.00000e+00
 
+launch --rwgt_name=fm5odd_m2p8
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 0.00000e+00
+set param_card aqgc 26 0.00000e+00
+set param_card aqgc 27 -2.80000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
 launch --rwgt_name=fm5odd_m2p4
 set param_card aqgc 4 0.00000e+00
 set param_card aqgc 5 0.00000e+00
@@ -26802,6 +26721,33 @@ set param_card aqgc 23 0.00000e+00
 set param_card aqgc 24 0.00000e+00
 set param_card aqgc 26 0.00000e+00
 set param_card aqgc 27 -2.40000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
+launch --rwgt_name=fm5odd_m2p0
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 0.00000e+00
+set param_card aqgc 26 0.00000e+00
+set param_card aqgc 27 -2.00000e+00
 set param_card aqgc 30 0.00000e+00
 set param_card aqgc 31 0.00000e+00
 set param_card aqgc 32 0.00000e+00
@@ -26835,6 +26781,33 @@ set param_card aqgc 32 0.00000e+00
 set param_card aqgc 33 0.00000e+00
 set param_card aqgc 34 0.00000e+00
 
+launch --rwgt_name=fm5odd_m1p2
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 0.00000e+00
+set param_card aqgc 26 0.00000e+00
+set param_card aqgc 27 -1.20000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
 launch --rwgt_name=fm5odd_m0p8
 set param_card aqgc 4 0.00000e+00
 set param_card aqgc 5 0.00000e+00
@@ -26856,6 +26829,33 @@ set param_card aqgc 23 0.00000e+00
 set param_card aqgc 24 0.00000e+00
 set param_card aqgc 26 0.00000e+00
 set param_card aqgc 27 -8.00000e-01
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
+launch --rwgt_name=fm5odd_m0p4
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 0.00000e+00
+set param_card aqgc 26 0.00000e+00
+set param_card aqgc 27 -4.00000e-01
 set param_card aqgc 30 0.00000e+00
 set param_card aqgc 31 0.00000e+00
 set param_card aqgc 32 0.00000e+00
@@ -26889,6 +26889,33 @@ set param_card aqgc 32 0.00000e+00
 set param_card aqgc 33 0.00000e+00
 set param_card aqgc 34 0.00000e+00
 
+launch --rwgt_name=fm5odd_0p4
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 0.00000e+00
+set param_card aqgc 26 0.00000e+00
+set param_card aqgc 27 4.00000e-01
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
 launch --rwgt_name=fm5odd_0p8
 set param_card aqgc 4 0.00000e+00
 set param_card aqgc 5 0.00000e+00
@@ -26910,6 +26937,33 @@ set param_card aqgc 23 0.00000e+00
 set param_card aqgc 24 0.00000e+00
 set param_card aqgc 26 0.00000e+00
 set param_card aqgc 27 8.00000e-01
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
+launch --rwgt_name=fm5odd_1p2
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 0.00000e+00
+set param_card aqgc 26 0.00000e+00
+set param_card aqgc 27 1.20000e+00
 set param_card aqgc 30 0.00000e+00
 set param_card aqgc 31 0.00000e+00
 set param_card aqgc 32 0.00000e+00
@@ -26943,6 +26997,33 @@ set param_card aqgc 32 0.00000e+00
 set param_card aqgc 33 0.00000e+00
 set param_card aqgc 34 0.00000e+00
 
+launch --rwgt_name=fm5odd_2p0
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 0.00000e+00
+set param_card aqgc 26 0.00000e+00
+set param_card aqgc 27 2.00000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
 launch --rwgt_name=fm5odd_2p4
 set param_card aqgc 4 0.00000e+00
 set param_card aqgc 5 0.00000e+00
@@ -26964,6 +27045,33 @@ set param_card aqgc 23 0.00000e+00
 set param_card aqgc 24 0.00000e+00
 set param_card aqgc 26 0.00000e+00
 set param_card aqgc 27 2.40000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
+launch --rwgt_name=fm5odd_2p8
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 0.00000e+00
+set param_card aqgc 26 0.00000e+00
+set param_card aqgc 27 2.80000e+00
 set param_card aqgc 30 0.00000e+00
 set param_card aqgc 31 0.00000e+00
 set param_card aqgc 32 0.00000e+00
@@ -26997,6 +27105,33 @@ set param_card aqgc 32 0.00000e+00
 set param_card aqgc 33 0.00000e+00
 set param_card aqgc 34 0.00000e+00
 
+launch --rwgt_name=fm5odd_3p6
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 0.00000e+00
+set param_card aqgc 26 0.00000e+00
+set param_card aqgc 27 3.60000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
 launch --rwgt_name=fm5odd_4p0
 set param_card aqgc 4 0.00000e+00
 set param_card aqgc 5 0.00000e+00
@@ -27018,6 +27153,33 @@ set param_card aqgc 23 0.00000e+00
 set param_card aqgc 24 0.00000e+00
 set param_card aqgc 26 0.00000e+00
 set param_card aqgc 27 4.00000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
+launch --rwgt_name=fm5odd_4p4
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 0.00000e+00
+set param_card aqgc 26 0.00000e+00
+set param_card aqgc 27 4.40000e+00
 set param_card aqgc 30 0.00000e+00
 set param_card aqgc 31 0.00000e+00
 set param_card aqgc 32 0.00000e+00
@@ -27051,6 +27213,33 @@ set param_card aqgc 32 0.00000e+00
 set param_card aqgc 33 0.00000e+00
 set param_card aqgc 34 0.00000e+00
 
+launch --rwgt_name=fm5odd_5p2
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 0.00000e+00
+set param_card aqgc 26 0.00000e+00
+set param_card aqgc 27 5.20000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
 launch --rwgt_name=fm5odd_5p6
 set param_card aqgc 4 0.00000e+00
 set param_card aqgc 5 0.00000e+00
@@ -27072,6 +27261,33 @@ set param_card aqgc 23 0.00000e+00
 set param_card aqgc 24 0.00000e+00
 set param_card aqgc 26 0.00000e+00
 set param_card aqgc 27 5.60000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
+launch --rwgt_name=fm5odd_6p0
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 0.00000e+00
+set param_card aqgc 26 0.00000e+00
+set param_card aqgc 27 6.00000e+00
 set param_card aqgc 30 0.00000e+00
 set param_card aqgc 31 0.00000e+00
 set param_card aqgc 32 0.00000e+00
@@ -27105,6 +27321,33 @@ set param_card aqgc 32 0.00000e+00
 set param_card aqgc 33 0.00000e+00
 set param_card aqgc 34 0.00000e+00
 
+launch --rwgt_name=fm5odd_6p8
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 0.00000e+00
+set param_card aqgc 26 0.00000e+00
+set param_card aqgc 27 6.80000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
 launch --rwgt_name=fm5odd_7p2
 set param_card aqgc 4 0.00000e+00
 set param_card aqgc 5 0.00000e+00
@@ -27126,6 +27369,33 @@ set param_card aqgc 23 0.00000e+00
 set param_card aqgc 24 0.00000e+00
 set param_card aqgc 26 0.00000e+00
 set param_card aqgc 27 7.20000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
+launch --rwgt_name=fm5odd_7p6
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 0.00000e+00
+set param_card aqgc 26 0.00000e+00
+set param_card aqgc 27 7.60000e+00
 set param_card aqgc 30 0.00000e+00
 set param_card aqgc 31 0.00000e+00
 set param_card aqgc 32 0.00000e+00
@@ -27159,6 +27429,33 @@ set param_card aqgc 32 0.00000e+00
 set param_card aqgc 33 0.00000e+00
 set param_card aqgc 34 0.00000e+00
 
+launch --rwgt_name=fm5odd_8p4
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 0.00000e+00
+set param_card aqgc 26 0.00000e+00
+set param_card aqgc 27 8.40000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
 launch --rwgt_name=fm5odd_8p8
 set param_card aqgc 4 0.00000e+00
 set param_card aqgc 5 0.00000e+00
@@ -27180,6 +27477,33 @@ set param_card aqgc 23 0.00000e+00
 set param_card aqgc 24 0.00000e+00
 set param_card aqgc 26 0.00000e+00
 set param_card aqgc 27 8.80000e+00
+set param_card aqgc 30 0.00000e+00
+set param_card aqgc 31 0.00000e+00
+set param_card aqgc 32 0.00000e+00
+set param_card aqgc 33 0.00000e+00
+set param_card aqgc 34 0.00000e+00
+
+launch --rwgt_name=fm5odd_9p2
+set param_card aqgc 4 0.00000e+00
+set param_card aqgc 5 0.00000e+00
+set param_card aqgc 6 0.00000e+00
+set param_card aqgc 7 0.00000e+00
+set param_card aqgc 8 0.00000e+00
+set param_card aqgc 9 0.00000e+00
+set param_card aqgc 10 0.00000e+00
+set param_card aqgc 11 0.00000e+00
+set param_card aqgc 13 0.00000e+00
+set param_card aqgc 14 0.00000e+00
+set param_card aqgc 15 0.00000e+00
+set param_card aqgc 16 0.00000e+00
+set param_card aqgc 17 0.00000e+00
+set param_card aqgc 18 0.00000e+00
+set param_card aqgc 19 0.00000e+00
+set param_card aqgc 20 0.00000e+00
+set param_card aqgc 23 0.00000e+00
+set param_card aqgc 24 0.00000e+00
+set param_card aqgc 26 0.00000e+00
+set param_card aqgc 27 9.20000e+00
 set param_card aqgc 30 0.00000e+00
 set param_card aqgc 31 0.00000e+00
 set param_card aqgc 32 0.00000e+00
@@ -27213,7 +27537,7 @@ set param_card aqgc 32 0.00000e+00
 set param_card aqgc 33 0.00000e+00
 set param_card aqgc 34 0.00000e+00
 
-launch --rwgt_name=fm5odd_10p4
+launch --rwgt_name=fm5odd_10p0
 set param_card aqgc 4 0.00000e+00
 set param_card aqgc 5 0.00000e+00
 set param_card aqgc 6 0.00000e+00
@@ -27233,331 +27557,7 @@ set param_card aqgc 20 0.00000e+00
 set param_card aqgc 23 0.00000e+00
 set param_card aqgc 24 0.00000e+00
 set param_card aqgc 26 0.00000e+00
-set param_card aqgc 27 1.04000e+01
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm5odd_11p2
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 0.00000e+00
-set param_card aqgc 26 0.00000e+00
-set param_card aqgc 27 1.12000e+01
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm5odd_12p0
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 0.00000e+00
-set param_card aqgc 26 0.00000e+00
-set param_card aqgc 27 1.20000e+01
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm5odd_12p8
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 0.00000e+00
-set param_card aqgc 26 0.00000e+00
-set param_card aqgc 27 1.28000e+01
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm5odd_13p6
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 0.00000e+00
-set param_card aqgc 26 0.00000e+00
-set param_card aqgc 27 1.36000e+01
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm5odd_14p4
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 0.00000e+00
-set param_card aqgc 26 0.00000e+00
-set param_card aqgc 27 1.44000e+01
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm5odd_15p2
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 0.00000e+00
-set param_card aqgc 26 0.00000e+00
-set param_card aqgc 27 1.52000e+01
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm5odd_16p0
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 0.00000e+00
-set param_card aqgc 26 0.00000e+00
-set param_card aqgc 27 1.60000e+01
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm5odd_16p8
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 0.00000e+00
-set param_card aqgc 26 0.00000e+00
-set param_card aqgc 27 1.68000e+01
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm5odd_17p6
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 0.00000e+00
-set param_card aqgc 26 0.00000e+00
-set param_card aqgc 27 1.76000e+01
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm5odd_18p4
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 0.00000e+00
-set param_card aqgc 26 0.00000e+00
-set param_card aqgc 27 1.84000e+01
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm5odd_19p2
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 0.00000e+00
-set param_card aqgc 26 0.00000e+00
-set param_card aqgc 27 1.92000e+01
-set param_card aqgc 30 0.00000e+00
-set param_card aqgc 31 0.00000e+00
-set param_card aqgc 32 0.00000e+00
-set param_card aqgc 33 0.00000e+00
-set param_card aqgc 34 0.00000e+00
-
-launch --rwgt_name=fm5odd_20p0
-set param_card aqgc 4 0.00000e+00
-set param_card aqgc 5 0.00000e+00
-set param_card aqgc 6 0.00000e+00
-set param_card aqgc 7 0.00000e+00
-set param_card aqgc 8 0.00000e+00
-set param_card aqgc 9 0.00000e+00
-set param_card aqgc 10 0.00000e+00
-set param_card aqgc 11 0.00000e+00
-set param_card aqgc 13 0.00000e+00
-set param_card aqgc 14 0.00000e+00
-set param_card aqgc 15 0.00000e+00
-set param_card aqgc 16 0.00000e+00
-set param_card aqgc 17 0.00000e+00
-set param_card aqgc 18 0.00000e+00
-set param_card aqgc 19 0.00000e+00
-set param_card aqgc 20 0.00000e+00
-set param_card aqgc 23 0.00000e+00
-set param_card aqgc 24 0.00000e+00
-set param_card aqgc 26 0.00000e+00
-set param_card aqgc 27 2.00000e+01
+set param_card aqgc 27 1.00000e+01
 set param_card aqgc 30 0.00000e+00
 set param_card aqgc 31 0.00000e+00
 set param_card aqgc 32 0.00000e+00
