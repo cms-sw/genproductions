@@ -2,25 +2,35 @@ set param_card mass 6 172.5
 set param_card mass 25 125.0
 set param_card yukawa 6 172.5
 set param_card mass 15 1.777
-set param_card FS0 0.000000e+00
-set param_card FS1 0.000000e+00
-set param_card FS2 0.000000e+00
-set param_card FM0 0.000000e+00
-set param_card FM1 0.000000e+00
-set param_card FM2 0.000000e+00
-set param_card FM3 0.000000e+00
-set param_card FM4 0.000000e+00
-set param_card FM5 0.000000e+00
-set param_card FM6 0.000000e+00
-set param_card FM7 0.000000e+00
-set param_card FT0 0.000000e+00
-set param_card FT1 0.000000e+00
-set param_card FT2 0.000000e+00
-set param_card FT3 0.000000e+00
-set param_card FT4 0.000000e+00
-set param_card FT5 0.000000e+00
-set param_card FT6 1.000000e-12
-set param_card FT7 0.000000e+00
-set param_card FT8 0.000000e+00
-set param_card FT9 0.000000e+00
+set param_card aqgc 4 0.000000e+00 # fm0
+set param_card aqgc 5 0.000000e+00 # fm1
+set param_card aqgc 6 0.000000e+00 # fm2
+set param_card aqgc 7 0.000000e+00 # fm3
+set param_card aqgc 8 0.000000e+00 # fm4
+set param_card aqgc 9 0.000000e+00 # fm5
+set param_card aqgc 10 0.000000e+00 # fm7
+set param_card aqgc 11 0.000000e+00 # fm8
+set param_card aqgc 12 0.000000e+00 # fm9
+set param_card aqgc 13 0.000000e+00 # ft0
+set param_card aqgc 14 0.000000e+00 # ft1
+set param_card aqgc 15 0.000000e+00 # ft2
+set param_card aqgc 16 0.000000e+00 # ft3
+set param_card aqgc 17 0.000000e+00 # ft4
+set param_card aqgc 18 0.000000e+00 # ft5
+set param_card aqgc 19 1.500000e-11 # ft6
+set param_card aqgc 20 0.000000e+00 # ft7
+set param_card aqgc 21 0.000000e+00 # ft8
+set param_card aqgc 22 0.000000e+00 # ft9
+set param_card aqgc 23 0.000000e+00 # fm1odd
+set param_card aqgc 24 0.000000e+00 # fm2odd
+set param_card aqgc 25 0.000000e+00 # fm3odd
+set param_card aqgc 26 0.000000e+00 # fm4odd
+set param_card aqgc 27 0.000000e+00 # fm5odd
+set param_card aqgc 28 0.000000e+00 # fm6odd
+set param_card aqgc 29 0.000000e+00 # ft1odd
+set param_card aqgc 30 0.000000e+00 # ft2odd
+set param_card aqgc 31 0.000000e+00 # ft3odd
+set param_card aqgc 32 0.000000e+00 # ft4odd
+set param_card aqgc 33 0.000000e+00 # ft5odd
+set param_card aqgc 34 0.000000e+00 # ft6odd
 
