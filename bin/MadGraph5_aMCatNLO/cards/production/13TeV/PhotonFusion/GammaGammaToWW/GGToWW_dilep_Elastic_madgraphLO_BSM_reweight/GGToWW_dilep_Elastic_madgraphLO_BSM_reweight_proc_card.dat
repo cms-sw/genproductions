@@ -1,0 +1,8 @@
+set auto_update 0
+import model aqgc_ufo
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+generate a a > w+ w- QED<=4 FS0=0 FS1=0 FS2=0 FT8=0 FT9=0 FM9=0 FM3odd=0 FT1odd=0 cS1=0 cS2=0 cS3=0 cM1=0 cM2=0 cM3=0 cM4=0 cM5=0 cM6=0 cM7=0 cM8=0 cM9=0 cT1=0 cT2=0 cT3=0 cT4=0 cT5=0 cT6=0 cT7=0 cT8=0 cT9=0 cT10=0, w+ > l+ vl, w- > l- vl~
+output GGToWW_dilep_Elastic_madgraphLO_BSM_reweight

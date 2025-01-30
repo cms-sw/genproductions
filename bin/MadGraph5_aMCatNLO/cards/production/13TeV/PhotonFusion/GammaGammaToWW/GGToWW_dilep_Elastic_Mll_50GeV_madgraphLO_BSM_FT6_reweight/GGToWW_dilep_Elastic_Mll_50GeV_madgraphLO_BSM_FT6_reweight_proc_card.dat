@@ -1,7 +1,0 @@
-import model aqgc_ufo
-define l+ = e+ mu+ ta+
-define l- = e- mu- ta-
-define vl = ve vm vt
-define vl~ = ve~ vm~ vt~
-generate a a > w+ w- QED<=4 FS0=0 FS1=0 FS2=0 FT8=0 FT9=0 FM9=0 FM3odd=0 FT1odd=0 NPBIS=0, w+ > l+ vl, w- > l- vl~
-output GGToWW_dilep_Elastic_Mll_50GeV_madgraphLO_BSM_FT6_reweight
