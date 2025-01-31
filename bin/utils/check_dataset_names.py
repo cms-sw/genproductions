@@ -30,12 +30,12 @@ def validate_dataset_name(dataset_name):
     tune_pattern = r"Tune+"  # TUNE is mandatory 
     beame_pattern = r"13p6TeV|\d+TeV|\d+GeV"  # BEAME is mandatory
     me_ps_pattern = (
-    r"(pythia6|pythia8|pythia8-evtgen|herwig6|herwigpp|herwig7|sherpa|"
+    r"(pythia6|pythia8|pythia8-evtgen|herwig6|herwigpp|herwig7|sherpa|sherpaMEPS|"
     r"(madgraph|madgraphMLM|amcatnloFXFX|madgraph-madspin|madgraphMLM-madspin|"
     r"amcatnloFXFX-madspin|amcatnlo|amcatnlo-madspin|alpgen|mcatnlo|powheg|"
-    r"powheg-madspin|powheg-JHUGenV\d*|powheg-minlo|powheg-minnlo|powheg-minlo-JHUGenV\d*|"
-    r"powheg-minnlo-JHUGen\d*|JHUGen|hardcol|bcvegpy2)"
-    r"-(pythia6|pythia8|herwig6|herwigpp|herwig7))"
+    r"powheg-madspin|powheg-JHUGenV\d*|powhegMINLO|powhegMINNLO|powhegMINLO-JHUGenV\d*|"
+    r"powhegMINNLO-JHUGen\d*|JHUGen|hardcol|bcvegpy2)"
+    r"-(pythia6|pythia8|pythia8-evtgen|herwig6|herwigpp|herwig7))"
     )
     blocks = dataset_name.split('_')
 
