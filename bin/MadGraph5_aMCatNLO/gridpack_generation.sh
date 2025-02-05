@@ -42,7 +42,7 @@ make_tarball () {
     if [ -e merge.pl ]; then
         EXTRA_TAR_ARGS+="merge.pl "
     fi
-    XZ_OPT="$XZ_OPT" tar -cJpsf ${PRODHOME}/${name}_${scram_arch}_${cmssw_version}_tarball.tar.xz mgbasedir process runcmsgrid.sh gridpack_generation*.log InputCards $EXTRA_TAR_ARGS
+    XZ_OPT="$XZ_OPT" tar -cJpf ${PRODHOME}/${name}_${scram_arch}_${cmssw_version}_tarball.tar.xz mgbasedir process runcmsgrid.sh gridpack_generation*.log InputCards $EXTRA_TAR_ARGS
 
     echo "Gridpack created successfully at ${PRODHOME}/${name}_${scram_arch}_${cmssw_version}_tarball.tar.xz"
     echo "End of job"
@@ -176,6 +176,9 @@ make_gridpack () {
       wget --no-check-certificate ${MGSOURCE}
       tar xzf ${MG}
       rm "$MG"
+
+      # agrohsje 
+      cp -rp ${PRODHOME}/addons/models/* ${MGBASEDIRORIG}/models/.
     
       #############################################
       #Apply any necessary patches on top of official release
@@ -184,6 +187,7 @@ make_gridpack () {
       cd $MGBASEDIRORIG
       cat $PRODHOME/patches/*.patch | patch -p1
       cp -r $PRODHOME/PLUGIN/CMS_CLUSTER/ PLUGIN/ 
+      cp $PRODHOME/PLUGIN/*.sh/ PLUGIN/ 
       # Intended for expert use only!
       if ls $CARDSDIR/${name}*.patch; then
         echo "    WARNING: Applying custom user patch. I hope you know what you're doing!"
@@ -238,7 +242,6 @@ make_gridpack () {
           echo "set cluster_status_update $long_wait $short_wait" >> mgconfigscript
           echo "set cluster_nb_retry $n_retries" >> mgconfigscript
           echo "set cluster_retry_wait 300" >> mgconfigscript
-          #echo "set cluster_local_path `${LHAPDFCONFIG} --datadir`" >> mgconfigscript 
           if [[ ! "$RUNHOME" =~ ^/afs/.* ]]; then
               echo "local path is not an afs path, batch jobs will use worker node scratch space instead of afs"
               #*FIXME* broken in mg_amc 2.4.0
@@ -317,6 +320,7 @@ make_gridpack () {
 	  cp -r $PRODHOME/PLUGIN/MadSTR $MGBASEDIRORIG/PLUGIN/ # copy plugin 
           ./$MGBASEDIRORIG/bin/mg5_aMC --mode=MadSTR ${name}_proc_card.dat # run invoking MadSTR plugin
       fi
+      cat ${name}_proc_card.dat
 	
       is5FlavorScheme=0
       if tail -n 20 $LOGFILE | grep -q -e "^p *=.*b\~.*b" -e "^p *=.*b.*b\~"; then 
@@ -581,6 +585,10 @@ make_gridpack () {
       echo "cleaning temporary gridpack"
       rm $WORKDIR/pilotrun_gridpack.tar.gz
 
+      # awightma start: Force the re-weight step to only use 1 core
+      echo "nb_core = 1" >> $WORKDIR/process/madevent/Cards/me5_configuration.txt
+      # awightma end
+
       # precompile reweighting if necessary
       if [ -e $CARDSDIR/${name}_reweight_card.dat ]; then
           echo "preparing reweighting step"
@@ -595,6 +603,7 @@ make_gridpack () {
         $WORKDIR/$MGBASEDIRORIG/MadSpin/madspin madspinrun.dat 
         rm madspinrun.dat
         rm -rf tmp*
+        cp $CARDSDIR/${name}_madspin_card.dat $WORKDIR/process/madspin_card.dat
       fi
     
       echo "preparing final gridpack"
@@ -694,6 +703,8 @@ else
         cmssw_version=CMSSW_10_2_24_patch1 
     elif [[ $SYSTEM_RELEASE == *"release 7"* ]]; then 
         cmssw_version=CMSSW_10_6_19 
+    elif [[ $SYSTEM_RELEASE == *"release 9"* ]]; then
+	cmssw_version=CMSSW_13_2_9
     else 
         echo "No default CMSSW for current OS!"
         if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi        
@@ -728,6 +739,7 @@ fi
 
 #catch unset variables
 set -u
+unset PERL5LIB
 
 if [ -z ${carddir} ]; then
     echo "Card directory not provided"
@@ -772,7 +784,7 @@ if [[ `uname -a` == *"lxplus"* ]]; then
 fi
 
 LOGFILE=${RUNHOME}/${name}.log
-LOGFILE_NAME=${LOGFILE/.log/}
+LOGFILE_NAME=${RUNHOME}/${name}
 
 # where to search for datacards, that have to follow a naming code: 
 #   ${name}_proc_card_mg5.dat
