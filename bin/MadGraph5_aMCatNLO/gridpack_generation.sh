@@ -177,9 +177,6 @@ make_gridpack () {
       tar xzf ${MG}
       rm "$MG"
 
-      # agrohsje 
-      cp -rp ${PRODHOME}/addons/models/* ${MGBASEDIRORIG}/models/.
-    
       #############################################
       #Apply any necessary patches on top of official release
       #############################################
@@ -585,10 +582,6 @@ make_gridpack () {
       echo "cleaning temporary gridpack"
       rm $WORKDIR/pilotrun_gridpack.tar.gz
 
-      # awightma start: Force the re-weight step to only use 1 core
-      echo "nb_core = 1" >> $WORKDIR/process/madevent/Cards/me5_configuration.txt
-      # awightma end
-
       # precompile reweighting if necessary
       if [ -e $CARDSDIR/${name}_reweight_card.dat ]; then
           echo "preparing reweighting step"
@@ -603,7 +596,6 @@ make_gridpack () {
         $WORKDIR/$MGBASEDIRORIG/MadSpin/madspin madspinrun.dat 
         rm madspinrun.dat
         rm -rf tmp*
-        cp $CARDSDIR/${name}_madspin_card.dat $WORKDIR/process/madspin_card.dat
       fi
     
       echo "preparing final gridpack"
