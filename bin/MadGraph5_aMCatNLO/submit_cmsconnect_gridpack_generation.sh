@@ -1,4 +1,5 @@
 #!/bin/bash
+unset PERL5LIB
 
 source Utilities/cmsconnect_utils.sh
 source Utilities/source_condor.sh
@@ -21,6 +22,9 @@ cat<<-EOF
         +GridpackCard = "${card_name}"
 	
 	+REQUIRED_OS = "${rhel_ver}"
+	#Requirements = HAS_SINGULARITY == True
+	#+SingularityImage = "/cvmfs/singularity.opensciencegrid.org/opensciencegrid/osgvo-el7:latest"
+	#use_x509userproxy = true
 	request_cpus = $cores
 	request_memory = $memory
 	Queue 1
@@ -51,6 +55,7 @@ cat<<-EOF
 
 	# Purdue wokaround
 	unset CXX CC FC
+	unset PERL5LIB
 	# Run
 	iscmsconnect=1 bash -x gridpack_generation.sh "${card_name}" "${card_dir}" "${workqueue}" CODEGEN "${scram_arch}" "${cmssw_version}"
 	exitcode=\$?
@@ -222,8 +227,9 @@ input_files="input_${card_name}.tar.gz"
 patches_directory="./patches"
 utilities_dir="./Utilities"
 plugin_directory="./PLUGIN"
+addons_dir="./addons"   # awightma
 if [ -e "$input_files" ]; then rm "$input_files"; fi
-tar -zchf "$input_files" "$card_dir" "$patches_directory" "$utilities_dir" "${plugin_directory}"
+tar -zchf "$input_files" "$card_dir" "$patches_directory" "$utilities_dir" "${plugin_directory}" "${addons_dir}"
 
 ## Create a submit file for a single job
 # create_codegen_exe arguments are:
