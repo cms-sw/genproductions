@@ -1,0 +1,18 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set loop_optimized_output True
+set gauge unitary
+set complex_mass_scheme False
+
+import model sm
+define p = g u c d s u~ c~ d~ s~
+define j = g u c d s u~ c~ d~ s~
+define l = e+ mu+ ta+ e- mu- ta-
+define neut = ve vm vt ve~ vm~ vt~ 
+define V = w+ w-
+import model --modelname HAHM_MG5model_v3/HAHM_variableMW_v3_UFO
+define hs1 = hs
+define hs2 = hs
+generate p p  > V h , V > l neut, (h > hs1 hs2, hs1 > b b~, hs2 > a a)
+
+output Wh_M125_ToAA__AMASS__Tobbgg -nojpeg

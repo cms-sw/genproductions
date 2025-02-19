@@ -1,0 +1,11 @@
+import model SMEFTsim_U35_MwScheme_UFO-cHDD_cHWB_cHq1_cHl3_cW_cHl1_cll1_cHq3_massless
+define p = g u c d s u~ c~ d~ s~
+define j = g u c d s u~ c~ d~ s~
+
+generate p p > e+ ve mu- vm~ NP=1 SMHLOOP=0 
+add process p p > e- ve~ mu+ vm NP=1 SMHLOOP=0 
+add process p p > e- ve~ e+ ve NP=1 SMHLOOP=0 
+add process p p > mu- vm~ mu+ vm NP=1 SMHLOOP=0 
+
+output WWTolnulnu_LO_WWmass_750to1000 -nojpeg
+

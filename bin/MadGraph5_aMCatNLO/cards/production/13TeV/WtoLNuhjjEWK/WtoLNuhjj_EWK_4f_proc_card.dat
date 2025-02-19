@@ -1,0 +1,8 @@
+import model sm-ckm 
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+generate p p > w+ h j j QCD=0, w+ > l+ vl @1
+add process p p > w- h j j QCD=0, w- > l- vl~ @2
+output WtoLNuhjj_EWK_4f -nojpeg 

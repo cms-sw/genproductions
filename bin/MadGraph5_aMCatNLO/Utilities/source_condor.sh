@@ -1,23 +1,13 @@
-#! /bin/bash
+#!/bin/bash
 
 # HTCondor python bindings are lost after cmsenv/scram
-# unless PYTHONPATH is set including its location
-# Workaround: Include original location in the path
-# if not there already.
-PYTHON_BINDINGS="$(python -c 'import htcondor; import os; print os.path.dirname(htcondor.__path__[0])' 2>/dev/null)"
-if [ -z "$PYTHON_BINDINGS" ]; then
-    echo "Error: Could not find htcondor python binding (htcondor.so), please include the directory in PYTHONPATH."
-    exit 1
+#PYTHON_BINDINGS="$(python3 -c 'import htcondor; import os; print(os.path.dirname(htcondor.__path__[0]))' 2>/dev/null)"
+#if [ -z "$PYTHON_BINDINGS" ]; then
+if [ -d $CMSSW_BASE/venv ];
+then 
+  echo "venv exists"
 else
-  if [ -n "$PYTHONPATH" ]; then
-      case ":$PYTHONPATH:" in
-        *:$PYTHON_BINDINGS:*) :
-        ;;
-        *) export PYTHONPATH="$PYTHON_BINDINGS:$PYTHONPATH"
-        ;;
-      esac
-  else
-      export PYTHONPATH="$PYTHON_BINDINGS"
-  fi
-  export PYTHON_BINDINGS="$PYTHON_BINDINGS"
+  scram-venv
+  cmsenv
+  pip3 install htcondor --upgrade #FIXME need better way to interface HTCondor Python API for Python3.9
 fi

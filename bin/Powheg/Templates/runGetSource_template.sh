@@ -1,12 +1,21 @@
 export name=$folderName
 export cardInput=$powInputName
-export process=$process
+export processtemp=$processtemp
 export noPdfCheck=$noPdfCheck
 export WORKDIR=$rootfolder
 export patches_dir=$patches_dir 
 # Release to be used to define the environment and the compiler needed
 export RELEASE=$${CMSSW_VERSION}
-export jhugenversion="v7.2.7" 
+export jhugenversion="v7.5.2" 
+
+### Check if subdirectory
+process=$$(echo $${processtemp} | cut -f1 -d "/")
+subprocess=$$(echo $${processtemp} | cut -f2 -d "/")
+echo "Process is: $${process}";
+if [[ $${process} = $${subprocess} ]]; then
+  subprocess=''
+fi
+echo "Sub-process (if available) is: $${subprocess}";
 
 cd $$WORKDIR
 pwd
@@ -25,6 +34,7 @@ fi
 
 is5FlavorScheme=$isFiveFlavor
 defaultPDF=$defaultPDF
+period=$period
 
 if [[ $$is5FlavorScheme -eq 1 ]]; then
   echo "INFO: The process $$process uses the 5F PDF scheme"
@@ -32,11 +42,17 @@ else
   echo "INFO: The process $$process uses the 4F PDF scheme"
 fi
 
-forDYNNLOPS=$forDYNNLOPS
-
+forMiNNLO=0
+grep -q "^minnlo\\s*1" powheg.input; test $$? -eq 1 || forMiNNLO=1
+forX0jj=0
+grep -q "MGcosa" powheg.input; test $$? -eq 1 || forX0jj=1
+forWWJ=0
+if [[ $$process == "WWJ" ]]; then
+  forWWJ=1
+fi
 cd $$WORKDIR
 cd $${name}
-python ../make_rwl.py $${is5FlavorScheme} $${defaultPDF} $${forDYNNLOPS}
+python3 ../make_rwl.py $${is5FlavorScheme} $${defaultPDF} $${forMiNNLO} $${forX0jj} $${period} $${forWWJ}
 
 if [ -s ../JHUGen.input ]; then
   cp -p ../JHUGen.input JHUGen.input
@@ -63,35 +79,42 @@ fi
 
 ### retrieve the powheg source tar ball
 export POWHEGSRC=$powhegSrc 
-
 echo 'D/L POWHEG source...'
 
-if [ ! -f $${POWHEGSRC} ]; then
-  wget --no-verbose --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/slc6_amd64_gcc481/powheg/V2.0/src/$${POWHEGSRC} || fail_exit "Failed to get powheg tar ball "
+if [ $svnRev -eq 0 ]; then
+ if [ ! -f $${POWHEGSRC} ]; then
+   wget --no-verbose --no-check-certificate http://cms-project-generators.web.cern.ch/cms-project-generators/slc6_amd64_gcc481/powheg/V2.0/src/$${POWHEGSRC} || fail_exit "Failed to get powheg tar ball "
+ fi
+ tar zxf $${POWHEGSRC}
+else
+  # retrieve powheg source from svn
+ svn checkout --revision $svnRev --username anonymous --password anonymous $svnRepo POWHEG-BOX
 fi
 #cp -p ../$${POWHEGSRC} .
 
-tar zxf $${POWHEGSRC}
-
-# increase maxseeds to 10000
+#increase maxseeds to 10000
 sed -i -e "s#par_maxseeds=200,#par_maxseeds=10000,#g" POWHEG-BOX/include/pwhg_par.h
 
 if [ -e POWHEG-BOX/$${process}.tgz ]; then
   cd POWHEG-BOX/
   tar zxf $${process}.tgz
   cd -
+else
+  cd POWHEG-BOX/
+  svn co --revision $svnRev --username anonymous --password anonymous $svnProc/$${process}
+  cd -
 fi
 
-patch -l -p0 -i ${patches_dir}/pdfweights.patch
-patch -l -p0 -i ${patches_dir}/pwhg_lhepdf.patch
+patch -l -p0 -i ${patches_dir}/pdfweights_new.patch
 
 $patch_1 
 
-sed -i -e "s#500#1350#g"  POWHEG-BOX/include/pwhg_rwl.h
+
+sed -i -e "s#500#2000#g"  POWHEG-BOX/include/pwhg_rwl.h
 
 echo $${POWHEGSRC} > VERSION
 
-cd POWHEG-BOX/$${process}
+cd POWHEG-BOX/$${process}/$${subprocess}
 
 # This is just to please gcc 4.8.1
 mkdir -p include
@@ -118,7 +141,7 @@ pwhg_main:#g' Makefile
 echo "pwhg_main.o: svn.version" >> Makefile
 echo "lhefwrite.o: svn.version" >> Makefile
 
-# Fix gcc8 error
+# Fix gcc>8 error
 sed -i -e "s#F77=gfortran#F77=gfortran -std=legacy#g" Makefile
 sed -i -e "s#F77= gfortran#F77= gfortran -std=legacy#g" Makefile
 sed -i -e "s#FFLAGS= #FFLAGS= -std=legacy #g" virtual/Source/make_opts
@@ -142,36 +165,72 @@ fi
 
 $patch_3 
 
-if [ -e ./Virtual/Virt_full_cHHH_-1.0.grid ]; then
+if [ -d ./Virtual/ ]; then
   cp ./Virtual/events.cdf $${WORKDIR}/$${name}/
   cp ./Virtual/creategrid.py* $${WORKDIR}/$${name}/
-  cp ./Virtual/Virt_full_cHHH*.grid $${WORKDIR}/$${name}/
+  cp ./Virtual/Virt*.grid $${WORKDIR}/$${name}/
 fi
 
 # Remove ANY kind of analysis with parton shower
 if [ `grep particle_identif pwhg_analysis-dummy.f` = ""]; then
    cp ../pwhg_analysis-dummy.f .
 fi
-sed -i -e "s#PWHGANAL[ \t]*=[ \t]*#\#PWHGANAL=#g" Makefile
-sed -i -e "s#ANALYSIS[ \t]*=[ \t]*#\#ANALYSIS=#g" Makefile
-sed -i -e "s#_\#ANALYSIS*#_ANALYSIS=#g" Makefile
+if [[ $$process != "WWJ" && $$process != "ZgamJ" && $$process != "ZZJ" && $$process != "Zgam" && $$process != "VV_dec_ew" ]]; then
+  sed -i -e "s#PWHGANAL[ \t]*=[ \t]*#\#PWHGANAL=#g" Makefile
+  sed -i -e "s#ANALYSIS[ \t]*=[ \t]*#\#ANALYSIS=#g" Makefile
+  sed -i -e "s#_\#ANALYSIS*#_ANALYSIS=#g" Makefile
+  sed -i -e "s#pwhg_bookhist.o# #g" Makefile
+  sed -i -e "s#pwhg_bookhist-new.o# #g" Makefile
+  sed -i -e "s#pwhg_bookhist-multi.o# #g" Makefile
+fi
 sed -i -e "s#LHAPDF_CONFIG[ \t]*=[ \t]*#\#LHAPDF_CONFIG=#g" Makefile
-sed -i -e "s#pwhg_bookhist.o# #g" Makefile
-sed -i -e "s#pwhg_bookhist-new.o# #g" Makefile
-sed -i -e "s#pwhg_bookhist-multi.o# #g" Makefile
+sed -i -e "s#DEBUG[ \t]*=[ \t]*#\#DEBUG=#g" Makefile
+sed -i -e "s#FPE[ \t]*=[ \t]*#\#FPE=#g" Makefile
+
+# DON'T DO FOR GoSam, CHANGES PHYSICS OF THE PROCESS!!
+#if [[ `grep GoSam Makefile` != "" || `grep Gosam Makefile` != "" || `grep GOSAM Makefile` != "" ]]; then
+#  sed -i -e "s#-fno-automatic#-fallow-invalid-boz#g" Makefile
+#fi
+
+## FOR OpenLoops, CHANGE FORTRAN OPTIONS AND REMOVE SILLY BINARY NUMBERS
+if [[ `grep OpenLoops Makefile` != "" ]]; then
+    sed -i -e "s#proclib ;#proclib f77_flags=-fallow-invalid-boz,-std=legacy,-ffixed-line-length-none,-fno-range-check f90_flags=-fallow-invalid-boz,-std=legacy,-ffixed-line-length-none,-fno-range-check ;#g" Makefile
+    cd ../OpenLoopsStuff/
+    sed -i -e "/case/ s=B\"00\"=0=g" OpenLoop*/lib_src/openloops/*/*.*90
+    sed -i -e "/case/ s=B\"01\"=1=g" OpenLoop*/lib_src/openloops/*/*.*90
+    sed -i -e "/case/ s=B\"10\"=2=g" OpenLoop*/lib_src/openloops/*/*.*90
+    sed -i -e "/case/ s=B\"11\"=3=g" OpenLoop*/lib_src/openloops/*/*.*90
+    sed -i -e "/case/ s=B\"1111\"=15=g" OpenLoop*/lib_src/openloops/*/*.*90
+    sed -i -e "/case/ s=B\"0110\"=6=g" OpenLoop*/lib_src/openloops/*/*.*90
+    sed -i -e "/case/ s=B\"0111\"=7=g" OpenLoop*/lib_src/openloops/*/*.*90
+    sed -i -e "/case/ s=B\"1001\"=9=g" OpenLoop*/lib_src/openloops/*/*.*90
+    sed -i -e "/case/ s=B\"1101\"=13=g" OpenLoop*/lib_src/openloops/*/*.*90
+    sed -i -e "/case/ s=B\"1110\"=14=g" OpenLoop*/lib_src/openloops/*/*.*90
+    sed -i -e "/case/ s=B\"1011\"=11=g" OpenLoop*/lib_src/openloops/*/*.*90
+    sed -i -e "/case/ s=B\"1010\"=10=g" OpenLoop*/lib_src/openloops/*/*.*90
+    sed -i -e "/case/ s=B\"0101\"=5=g" OpenLoop*/lib_src/openloops/*/*.*90
+    cd -
+fi
 
 $patch_4 
-
-echo "ANALYSIS=none " >> tmpfile
 
 # Add libraries now
 NEWRPATH1=`ls /cvmfs/cms.cern.ch/$${SCRAM_ARCH}/external/gcc/*/* | grep "/lib64" | head -n 1`
 NEWRPATH1=$${NEWRPATH1%?}
 NEWRPATH2=`ls /cvmfs/cms.cern.ch/$${SCRAM_ARCH}/external/zlib-x86_64/*/* | grep "/lib" | head -n 1`
 NEWRPATH2=$${NEWRPATH2%?}
-echo "RPATHLIBS= -Wl,-rpath,$${NEWRPATH1} -L$${NEWRPATH1} -lgfortran -lstdc++ -Wl,-rpath,$${NEWRPATH2} -L$${NEWRPATH2} -lz" >> tmpfile
+
+# Add python3 for ggHH 
+if [[ $$process == "ggHH" || $$process == "ggHH_SMEFT" ]]; then
+  export MYLIBDIR=`scram tool info python3 | grep LIBDIR | sed -e s%LIBDIR=%%` 
+  export MYLIB=`scram tool info python3 | grep 'LIB=' | sed -e s%LIB=%%`
+  echo "RPATHLIBS= -Wl,-rpath,$${NEWRPATH1} -L$${NEWRPATH1} -lgfortran -lstdc++ -Wl,-rpath,$${NEWRPATH2} -L$${NEWRPATH2} -lz -L$${MYLIBDIR} -l$${MYLIB}" >> tmpfile
+else
+  echo "RPATHLIBS= -Wl,-rpath,$${NEWRPATH1} -L$${NEWRPATH1} -lgfortran -lstdc++ -Wl,-rpath,$${NEWRPATH2} -L$${NEWRPATH2} -lz" >> tmpfile
+fi
 
 $patch_5 
+
 echo "LHAPDF_CONFIG=$${LHAPDF_BASE}/bin/lhapdf-config" >> tmpfile
 mv Makefile Makefile.interm
 cat tmpfile Makefile.interm > Makefile
@@ -184,7 +243,7 @@ if [ $$jhugen = 1 ]; then
   fi
 
   tar zxf JHUGenerator.$${jhugenversion}.tar.gz
-  cd JHUGenerator
+  cd JHUGenerator.$${jhugenversion}/JHUGenerator
   sed -i -e "s#Comp = ifort#Comp = gfort#g" makefile
   sed -i -e "s#linkMELA = Yes#linkMELA = No#g" makefile
   make
@@ -194,11 +253,10 @@ if [ $$jhugen = 1 ]; then
   cp -pr pdfs $${WORKDIR}/$${name}/.
 
 
-  cd ..
+  cd ../..
 fi
 
 $patch_6 
-
 
 echo 'Compiling pwhg_main...'
 pwd
@@ -209,6 +267,11 @@ $patch_7
 $patch_0 
 
 export PYTHONPATH=./Virtual/:$$PYTHONPATH
+export MYINCLUDE=`scram tool info python3 | grep INCLUDE | sed -e s%INCLUDE=%%` 
+if [[ $$process == "ggHH" || $$process == "ggHH_SMEFT" ]]; then
+    export C_INCLUDE_PATH=$$C_INCLUDE_PATH:$${MYINCLUDE}
+fi
+
 make pwhg_main || fail_exit "Failed to compile pwhg_main"
 
 mkdir -p $${WORKDIR}/$${name}
@@ -228,6 +291,10 @@ fi
 if [ -d ./QCDLoop-1.9 ]; then                                 
   cp -a ./QCDLoop-1.9 $${WORKDIR}/$${name}/.                    
   cp -a ./QCDLoop-1.9/ff/ff*.dat $${WORKDIR}/$${name}/.      
+fi
+if [ -f main-PHOTOS-lhef ]; then
+    echo "copying main-PHOTOS-lhef in the same place as pwhg_main."
+    cp -p main-PHOTOS-lhef $${WORKDIR}/$${name}/.
 fi
 
 cd $${WORKDIR}/$${name}

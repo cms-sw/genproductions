@@ -1,0 +1,8 @@
+import model EffLRSM_NLO
+define p = u d c s b u~ d~ c~ s~ b~ g
+define j = p
+define ll = mu+ mu-
+define nn = n2
+generate p p > nn ll, (nn > ll t b~, (t > w+ b, w+ > j j))
+add process p p > nn ll, (nn > ll t~ b, (t~ > w- b~, w- > j j))
+output WRtoNMutoMuMuTB-HadTop_MWR-1000_MN-700_13TeV

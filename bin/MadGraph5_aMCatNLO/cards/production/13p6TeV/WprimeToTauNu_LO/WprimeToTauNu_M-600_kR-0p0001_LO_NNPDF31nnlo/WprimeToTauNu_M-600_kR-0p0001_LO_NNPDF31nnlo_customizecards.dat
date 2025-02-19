@@ -1,0 +1,6 @@
+set param_card mass 34 600
+
+set param_card DECAY 34 1.97215280203e-07
+
+set param_card kR 0.0001
+

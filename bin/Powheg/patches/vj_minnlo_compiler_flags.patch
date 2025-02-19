@@ -1,0 +1,13 @@
+Index: Makefile
+===================================================================
+--- Makefile	(revision 3900)
++++ Makefile 	(working copy)
+@@ -24,7 +24,7 @@
+ stdclib=$(STDCLIB)
+ 
+ ifeq ("$(COMPILER)","gfortran")	
+-F77=gfortran -ffixed-line-length-none -ffree-line-length-none -fbounds-check -fno-align-commons
++F77=gfortran -ffixed-line-length-none -ffree-line-length-none -fbounds-check -fno-align-commons -fdec-static -fno-automatic -fallow-argument-mismatch
+ # -finit-real=nan -ffpe-trap=invalid,zero,overflow
+ ## -fbounds-check sometimes causes a weird error due to non-lazy evaluation
+ ## of boolean in gfortran.

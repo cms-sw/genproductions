@@ -1,0 +1,53 @@
+Index: rwl_setup_param_weights.f
+===================================================================
+--- rwl_setup_param_weights.f	(revision 3756)
++++ rwl_setup_param_weights.f	(working copy)
+@@ -1,7 +1,7 @@
+       subroutine rwl_setup_params_weights(count)
+       implicit none
+       integer count
+-      integer, save :: old_pdf1,old_pdf2
++      integer, save :: old_pdf1,old_pdf2,pre_pdf1,pre_pdf2
+       real * 8, save :: old_facfact,old_renfact
+       include 'pwhg_rwl.h'
+       include 'pwhg_pdf.h'
+@@ -15,6 +15,8 @@
+       if(count==0) then
+          old_pdf1=pdf_ndns1
+          old_pdf2=pdf_ndns2
++         pre_pdf1=pdf_ndns1
++         pre_pdf2=pdf_ndns2
+          old_facfact = st_facfact
+          old_renfact = st_renfact
+       elseif(count == -1) then
+@@ -22,8 +24,6 @@
+          pdf_ndns2 = old_pdf2
+          st_facfact = old_facfact
+          st_renfact = old_renfact
+-         call genericpdfpar(pdf_ndns1,pdf_ih1,st_lambda5MSB,
+-     1        scheme,iorder,iret)
+       else
+          if(count > rwl_num_weights) then
+             write(*,*) 'rwl_setup_params_weights: '
+@@ -34,8 +34,6 @@
+ c for safety, we convert the real val to the nearest integer
+             pdf_ndns1 = nint(val)
+             pdf_ndns2 = pdf_ndns1
+-            call genericpdfpar(pdf_ndns1,pdf_ih1,st_lambda5MSB,
+-     1           scheme,iorder,iret)
+          endif
+          if(rwl_keypresent(count,'facscfact',val)) then
+             st_facfact = val
+@@ -43,5 +41,11 @@
+          if(rwl_keypresent(count,'renscfact',val)) then
+             st_renfact = val
+          endif
++         if(pdf_ndns1.ne.pre_pdf1) then
++            call genericpdfpar(pdf_ndns1,pdf_ih1,st_lambda5MSB,
++     1           scheme,iorder,iret)
++            pre_pdf1=pdf_ndns1
++            pre_pdf2=pdf_ndns2
++         endif
+          include 'extraweightshook.h'
+       endif
+       end

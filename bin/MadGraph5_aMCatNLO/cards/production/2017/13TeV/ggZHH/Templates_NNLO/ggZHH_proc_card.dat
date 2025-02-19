@@ -1,0 +1,5 @@
+import model loop_sm_VHH-kv_TEMPCV_kvv_TEMPC2V_kl_TEMPKL_kf_TEMPKF
+define p = u c d s u~ c~ d~ s~
+define j = p
+generate g g > h h z  [noborn=QCD]
+output ggZHH_CV_TEMPCV_C2V_TEMPC2V_C3_TEMPKL_KF_TEMPKF_13TeV-madgraph-NLO -nojpeg

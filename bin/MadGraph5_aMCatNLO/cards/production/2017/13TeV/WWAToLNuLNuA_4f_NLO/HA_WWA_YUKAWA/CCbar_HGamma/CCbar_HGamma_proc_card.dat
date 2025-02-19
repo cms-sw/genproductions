@@ -1,0 +1,5 @@
+import model loop_sm_MSbar_yb_yc-yc4FS 
+
+generate c c~ >  h a [QCD]  @0
+
+output hgc_NLO -nojpeg

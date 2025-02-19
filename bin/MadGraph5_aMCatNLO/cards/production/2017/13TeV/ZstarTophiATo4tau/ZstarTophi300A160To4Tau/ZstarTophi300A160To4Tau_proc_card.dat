@@ -1,0 +1,5 @@
+import model 2HDM_NLO-typeX_normal
+define p = g u c d s b u~ c~ d~ s~ b~
+define j = p
+generate p p  > h2 h3 [QCD]
+output ZstarTophi300A160To4Tau -nojpeg 

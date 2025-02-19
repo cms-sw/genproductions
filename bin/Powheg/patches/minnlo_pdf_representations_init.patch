@@ -1,0 +1,17 @@
+Index: pdf_representation.f
+===================================================================
+--- MiNNLOStuff/hoppet/pdf_representation.f90 	(revision 3900)
++++ MiNNLOStuff/hoppet/pdf_representation.f90	(working copy)
+@@ -86,9 +86,9 @@
+     real(dp),      intent(in)  :: qh(ncompmin:)
+     real(dp),      intent(out) :: qe(ncompmin:)
+     !----------------------------------------------
+-    real(dp) :: tmp
+-    real(dp) :: qplus_base, qminus_base
+-    integer  :: i, j
++    real(dp),automatic :: tmp
++    real(dp),automatic :: qplus_base, qminus_base
++    integer,automatic  :: i, j
+ 
+     qe(iflv_g) = qh(iflv_g)
+     qe(iflv_sigma) = sum(qh(1:prep%nf))

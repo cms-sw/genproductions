@@ -1,0 +1,12 @@
+change mode LO+NLO
+change rwgt_dir rwgt
+
+launch --rwgt_name=sm_weight
+  set frblock 14 1.414000
+  set frblock 15 0.000000
+launch --rwgt_name=ps_weight
+  set frblock 14 0.000000
+  set frblock 15 0.943000
+launch --rwgt_name=mm_weight
+  set frblock 14 1.414000
+  set frblock 15 0.943000

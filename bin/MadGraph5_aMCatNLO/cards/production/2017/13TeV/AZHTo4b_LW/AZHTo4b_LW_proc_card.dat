@@ -1,0 +1,12 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+#set loop_color_flows False
+set gauge unitary
+set complex_mass_scheme False
+
+import model 2HDMtII_NLO 
+define l+ = e+ mu+ ta+ 
+define l- = e- mu- ta-
+generate p p > h3 > h2 z [QCD]
+output AZHTo4b_LW -nojpeg
+

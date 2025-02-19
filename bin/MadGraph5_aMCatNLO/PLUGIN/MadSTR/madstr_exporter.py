@@ -517,9 +517,20 @@ C for the OS subtraction
             replace_dict['wavefunctionsize'] = 8
     
         # Extract JAMP lines
-        jamp_lines = self.get_JAMP_lines(matrix_element)
+        # MZ this is version dependent as the function
+        # has changed in v 2.9
+        
+        version = misc.get_pkg_info()['version'].split('.')
+        if int(version[0]) == 2 and int(version[1]) < 9:
+            jamp_lines = self.get_JAMP_lines(matrix_element)
+            nb_tmp_jamp = 1
+        elif int(version[0]) == 2 and int(version[1]) >= 9: 
+            jamp_lines, nb_tmp_jamp = self.get_JAMP_lines(matrix_element)
+        else:
+            raise MadSTRExporterError("Wrong version: %s" % '.'.join(version))
     
         replace_dict['jamp_lines'] = '\n'.join(jamp_lines)
+        replace_dict['nb_temp_jamp'] = nb_tmp_jamp
     
         realfile = open(os.path.join(self.template_path, 'realmatrix_madstr.inc')).read()
 
@@ -528,7 +539,7 @@ C for the OS subtraction
         # Write the file
         writer.writelines(realfile)
     
-        return len(filter(lambda call: call.find('#') != 0, helas_calls)), ncolor
+        return len([call for call in helas_calls if call.find('#') != 0]), ncolor
 
 
     def get_os_diagrams_lines(self, matrix_element, os_diagrams, os_ids):

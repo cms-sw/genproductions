@@ -49,7 +49,19 @@ cd $LHEWORKDIR/process
 #make sure lhapdf points to local cmssw installation area
 LHAPDFCONFIG=`echo "$LHAPDF_DATA_PATH/../../bin/lhapdf-config"`
 
-echo "lhapdf = $LHAPDFCONFIG" >> ./madevent/Cards/me5_configuration.txt
+# workaround for el8
+LHAPDFLIBS=`$LHAPDFCONFIG --libdir`
+LHAPDFPYTHONVER=`find $LHAPDFLIBS -name "python*" -type d -exec basename {} \;`
+LHAPDFPYTHONLIB=`find $LHAPDFLIBS/$LHAPDFPYTHONVER/site-packages -name "*.egg" -type d -exec basename {} \;`
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$LHAPDFLIBS
+
+if [ ! -z "${LHAPDFPYTHONLIB}" ] ; then
+  export PYTHONPATH=$PYTHONPATH:$LHAPDFLIBS/$LHAPDFPYTHONVER/site-packages/$LHAPDFPYTHONLIB
+else
+  export PYTHONPATH=$PYTHONPATH:$LHAPDFLIBS/$LHAPDFPYTHONVER/site-packages
+fi
+
+echo "lhapdf_py3 = $LHAPDFCONFIG" >> ./madevent/Cards/me5_configuration.txt
 # echo "cluster_local_path = `${LHAPDFCONFIG} --datadir`" >> ./madevent/Cards/me5_configuration.txt
 #To overcome problem of taking toomanythreads
 #if [ "$ncpu" -gt "1" ]; then
@@ -192,7 +204,10 @@ mv process/$event_file process/madevent/Events/${runlabel}/events.lhe
 pushd process/madevent
 pdfsets="PDF_SETS_REPLACE"
 scalevars="--mur=1,2,0.5 --muf=1,2,0.5 --together=muf,mur,dyn --dyn=-1,1,2,3,4 --alps=0.5,1,2"
-echo "systematics $runlabel --start_id=1001 --pdf=$pdfsets $scalevars" | ./bin/madevent
+if { echo "systematics $runlabel --start_id=1001 --pdf=$pdfsets $scalevars" | ./bin/madevent 2>&1 >&3 3>&- | grep '^' >&2; } 3>&1; then
+    echo "Encounter Error in Running Systematics Module"
+    exit 10086
+fi
 popd
 
 # check lhe output  

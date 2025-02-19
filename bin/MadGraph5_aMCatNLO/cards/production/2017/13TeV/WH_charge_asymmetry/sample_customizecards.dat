@@ -1,0 +1,3 @@
+#change charm quark yukawa coupling
+set param_card yukawa 4 ctag.0000e-05 # ymc 
+set param_card DECAY 25 decay_higgs_tag # WH

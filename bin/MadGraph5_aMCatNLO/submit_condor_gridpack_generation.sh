@@ -1,5 +1,4 @@
 #!/bin/bash
-source Utilities/source_condor.sh
 
 name=$1
 carddir=$2

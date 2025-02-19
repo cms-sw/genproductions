@@ -1,0 +1,29 @@
+import FWCore.ParameterSet.Config as cms
+
+from Configuration.Generator.Pythia8CommonSettings_cfi import *
+
+generator = cms.EDFilter("Pythia8PtGun",
+    maxEventsToPrint = cms.untracked.int32(5),
+    pythiaPylistVerbosity = cms.untracked.int32(1),
+    pythiaHepMCVerbosity = cms.untracked.bool(True),
+    PGunParameters = cms.PSet(
+        MaxPt = cms.double(100.),
+        MinPt = cms.double(0.01),
+        ParticleID = cms.vint32(443),
+        AddAntiParticle = cms.bool(False), 
+        MaxEta = cms.double(2.4),
+        MaxPhi = cms.double(3.14159265359),
+        MinEta = cms.double(-2.4),
+        MinPhi = cms.double(-3.14159265359) ## in radians
+   ),
+   PythiaParameters = cms.PSet(
+  		pythiaJpsiDecays = cms.vstring(
+          '443:onMode = off                    ! J/psi -> random turned OFF',
+          '443:onIfAny = 13 -13                ! J/psi -> mumu turned ON'),
+      parameterSets = cms.vstring('pythiaJpsiDecays')
+
+  ),
+
+)
+
+ProductionFilterSequence = cms.Sequence(generator)

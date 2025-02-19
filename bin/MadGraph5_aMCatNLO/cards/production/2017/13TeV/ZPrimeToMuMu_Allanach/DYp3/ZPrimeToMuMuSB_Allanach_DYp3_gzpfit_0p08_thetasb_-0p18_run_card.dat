@@ -1,0 +1,197 @@
+#*********************************************************************
+#                       MadGraph5_aMC@NLO                            *
+#                                                                    *
+#                     run_card.dat MadEvent                          *
+#                                                                    *
+#  This file is used to set the parameters of the run.               *
+#                                                                    *
+#  Some notation/conventions:                                        *
+#                                                                    *
+#   Lines starting with a '# ' are info or comments                  *
+#                                                                    *
+#   mind the format:   value    = variable     ! comment             *
+#*********************************************************************
+#
+#*******************                                                 
+# Running parameters
+#*******************                                                 
+#                                                                    
+#*********************************************************************
+# Tag name for the run (one word)                                    *
+#*********************************************************************
+  tag_1     = run_tag ! name of the run 
+#*********************************************************************
+# Type and output format
+#*********************************************************************
+  False     = gridpack  !True = setting up the grid pack
+  -1.0 = time_of_flight ! threshold (in mm) below which the invariant livetime is not written (-1 means not written)
+  average =  event_norm       ! average/sum. Normalization of the weight in the LHEF
+# To see MLM/CKKW  merging options: type "update MLM" or "update CKKW"
+
+#*********************************************************************
+#
+#*********************************************************************
+# Phase-Space Optimization strategy (basic options)
+#*********************************************************************
+   0  = nhel          ! using helicities importance sampling or not.
+                             ! 0: sum over helicity, 1: importance sampling
+# To see advanced option for Phase-Space optimization: type "update psoptim"			     
+#*********************************************************************
+# Generation bias, check the wiki page below for more information:   *
+#  'cp3.irmp.ucl.ac.be/projects/madgraph/wiki/LOEventGenerationBias' *
+#*********************************************************************
+ None = bias_module  ! Bias type of bias, [None, ptj_bias, -custom_folder-]
+ {} = bias_parameters ! Specifies the parameters of the module.
+#
+#*********************************************************************
+# Number of events and rnd seed                                      *
+# Warning: Do not generate more than 1M events in a single run       *
+# If you want to run Pythia, avoid more than 50k events in a run.    *
+#*********************************************************************
+  1000 = nevents ! Number of unweighted events requested 
+      0       = iseed   ! rnd seed (0=assigned automatically=default))
+#*********************************************************************
+# Collider type and energy                                           *
+# lpp: 0=No PDF, 1=proton, -1=antiproton, 2=photon from proton,      *
+#                                         3=photon from electron     *
+#*********************************************************************
+        1     = lpp1    ! beam 1 type 
+        1     = lpp2    ! beam 2 type
+     6500     = ebeam1  ! beam 1 total energy in GeV
+     6500     = ebeam2  ! beam 2 total energy in GeV
+#*********************************************************************
+# PDF CHOICE: this automatically fixes also alpha_s and its evol.    *
+#*********************************************************************
+     lhapdf    = pdlabel     ! PDF set                                     
+     $DEFAULT_PDF_SETS = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number
+     $DEFAULT_PDF_MEMBERS  = reweight_PDF     ! reweight to get PDF uncertainty
+#*********************************************************************
+# Renormalization and factorization scales                           *
+#*********************************************************************
+ False = fixed_ren_scale  ! if .true. use fixed ren scale
+ False        = fixed_fac_scale  ! if .true. use fixed fac scale
+ 91.188  = scale            ! fixed ren scale
+ 91.188  = dsqrt_q2fact1    ! fixed fact scale for pdf1
+ 91.188  = dsqrt_q2fact2    ! fixed fact scale for pdf2
+ -1 = dynamical_scale_choice ! Choose one of the preselected dynamical choices
+ 1.0  = scalefact        ! scale factor for event-by-event scales
+#*********************************************************************
+# Matching - Warning! ickkw > 1 is still beta
+#*********************************************************************
+ 0        = ickkw            ! 0 no matching, 1 MLM, 2 CKKW matching
+ 1        = highestmult      ! for ickkw=2, highest mult group
+ 1        = ktscheme         ! for ickkw=1, 1 Durham kT, 2 Pythia pTE
+ 1        = alpsfact         ! scale factor for QCD emission vx
+ F        = chcluster        ! cluster only according to channel diag
+ F        = pdfwgt           ! for ickkw=1, perform pdf reweighting
+ 5        = asrwgtflavor     ! highest quark flavor for a_s reweight
+ T        = clusinfo         ! include clustering tag in output
+ 3.0      = lhe_version       ! Change the way clustering information pass to shower.        
+#*********************************************************************
+#**********************************************************
+#
+#**********************************************************
+# Automatic ptj and mjj cuts if xqcut > 0
+# (turn off for VBF and single top processes)
+#**********************************************************
+   T  = auto_ptj_mjj  ! Automatic setting of ptj and mjj
+#**********************************************************
+#                                                                    
+#**********************************
+# BW cutoff (M+/-bwcutoff*Gamma)
+#**********************************
+  15000  = bwcutoff      ! (M+/-bwcutoff*Gamma)
+#**********************************************************
+# Apply pt/E/eta/dr/mij cuts on decay products or not
+# (note that etmiss/ptll/ptheavy/ht/sorted cuts always apply)
+#**********************************************************
+  False  = cut_decays    ! Cut decay products 
+#*********************************************************************
+# Standard Cuts                                                      *
+#*********************************************************************
+# Minimum and maximum pt's (for max, -1 means no cut)                *
+#*********************************************************************
+ 10.0  = ptj       ! minimum pt for the jets 
+ 10.0  = ptb       ! minimum pt for the b 
+ 10.0  = ptl       ! minimum pt for the charged leptons 
+ -1.0  = ptjmax    ! maximum pt for the jets
+ -1.0  = ptbmax    ! maximum pt for the b
+ -1.0  = ptlmax    ! maximum pt for the charged leptons
+ {} = pt_min_pdg ! pt cut for other particles (use pdg code). Applied on particle and anti-particle
+ {}	= pt_max_pdg ! pt cut for other particles (syntax e.g. {6: 100, 25: 50}) 
+#*********************************************************************
+# Maximum and minimum absolute rapidity (for max, -1 means no cut)   *
+#*********************************************************************
+ 3.0 = etaj    ! max rap for the jets 
+ 3.0  = etab    ! max rap for the b
+ 3.0  = etal    ! max rap for the charged leptons 
+ 0.0  = etabmin ! min rap for the b
+ 0.0  = etalmin ! main rap for the charged leptons
+ {} = eta_min_pdg ! rap cut for other particles (use pdg code). Applied on particle and anti-particle
+ {} = eta_max_pdg ! rap cut for other particles (syntax e.g. {6: 2.5, 23: 5})
+#*********************************************************************
+# Minimum and maximum DeltaR distance                                *
+#*********************************************************************
+ 0.05 = drll    ! min distance between leptons 
+ 0.1   = drbj    ! min distance between b and jet 
+ 0.2 = drjl    ! min distance between jet and lepton 
+ 0.2   = drbl    ! min distance between b and lepton 
+ -1.0  = drllmax ! max distance between leptons
+ -1.0  = drbjmax ! max distance between b and jet
+ -1.0  = drjlmax ! max distance between jet and lepton
+ -1.0  = drblmax ! max distance between b and lepton
+#*********************************************************************
+# Minimum and maximum invariant mass for pairs                       *
+#*********************************************************************
+ 0.0   = mmll    ! min invariant mass of l+l- (same flavour) lepton pair
+ -1.0  = mmllmax ! max invariant mass of l+l- (same flavour) lepton pair
+ {} = mxx_min_pdg ! min invariant mass of a pair of particles X/X~ (e.g. {6:250})
+ {'default': False} = mxx_only_part_antipart ! if True the invariant mass is applied only 
+                       ! to pairs of particle/antiparticle and not to pairs of the same pdg codes.  
+ #*********************************************************************
+ # Minimum and maximum invariant mass for all letpons                 *
+ #*********************************************************************
+ 0.0   = mmnl    ! min invariant mass for all letpons (l+- and vl) 
+ -1.0  = mmnlmax ! max invariant mass for all letpons (l+- and vl) 
+ #*********************************************************************
+ # Minimum and maximum pt for 4-momenta sum of leptons / neutrino     *
+ #  for pair of lepton includes only same flavor, opposite charge
+ #*********************************************************************
+ 0.0   = ptllmin  ! Minimum pt for 4-momenta sum of leptons(l and vl)
+ -1.0  = ptllmax  ! Maximum pt for 4-momenta sum of leptons(l and vl)
+#*********************************************************************
+# Inclusive cuts                                                     *
+#*********************************************************************
+ 0.0  = xptl ! minimum pt for at least one charged lepton 
+ #*********************************************************************
+ # Control the pt's of leptons sorted by pt                           *
+ #*********************************************************************
+ 0.0   = ptl1min ! minimum pt for the leading lepton in pt
+ 0.0   = ptl2min ! minimum pt for the second lepton in pt
+ -1.0  = ptl1max ! maximum pt for the leading lepton in pt 
+ -1.0  = ptl2max ! maximum pt for the second lepton in pt
+#*********************************************************************
+# maximal pdg code for quark to be considered as a light jet         *
+# (otherwise b cuts are applied)                                     *
+#*********************************************************************
+ 5 = maxjetflavor    ! Maximum jet pdg code
+#*********************************************************************
+# KT DURHAM CUT                                                      *
+#*********************************************************************
+ -1    =  ktdurham        
+ 0.4  =  dparameter 
+#*********************************************************************
+# Jet measure cuts                                                   *
+#*********************************************************************
+ 0   = xqcut   ! minimum kt jet measure between partons
+#*********************************************************************
+#
+#*********************************************************************
+# Store info for systematics studies                                 *
+# WARNING: If use_syst is T, matched Pythia output is                *
+#          meaningful ONLY if plotted taking matchscale              *
+#          reweighting into account!                                 *
+#*********************************************************************
+   True  = use_syst      ! Enable systematics studies
+#
+#**************************************

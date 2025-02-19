@@ -1,0 +1,5 @@
+import model loop_sm-ckm
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
+generate p p > t b~ j z $$ w+ w- [QCD]
+output TZQBBar-Zto2Q_OnshellZ-amcatnlo-pythia8 -nojpeg

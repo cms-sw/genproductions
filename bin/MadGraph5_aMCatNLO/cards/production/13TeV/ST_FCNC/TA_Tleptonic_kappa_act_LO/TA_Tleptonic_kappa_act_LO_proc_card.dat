@@ -1,0 +1,12 @@
+# Model
+import model TopFCNC_UFO-kappa_act_ProdConventions_no_c_mass --modelname
+ 
+# Multiparticles
+define l+  = e+ mu+ ta+
+define l-  = e- mu- ta-
+
+generate    p p > t  a NP=1, (t  > w+ b,  w+ > l+ vl )
+add process p p > t~ a NP=1, (t~ > w- b~, w- > l- vl~)
+
+# Output folder
+output TA_Tleptonic_kappa_act_LO -f -nojpeg

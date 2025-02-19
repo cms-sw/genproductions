@@ -1,0 +1,14 @@
+import model SMEFTatNLO-NLO_no4q
+define p = g u c d s b u~ c~ d~ s~ b~
+define had = u c d s u~ c~ d~ s~
+define l+ = e+ mu+ ta+ 
+define l- = e- mu- ta-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+
+generate    p p > t~ w+ z QCD=1 QED=2 NP=0 [QCD] @0
+add process p p > t  w- z QCD=1 QED=2 NP=0 [QCD] @1
+
+output tlepWhadZlepDR-vec -nojpeg
+
+

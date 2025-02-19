@@ -1,1 +1,2 @@
-DecayMode1=8 DecayMode2=8 ghz1=0,0 ghz4=1,0
+DecayMode1=8 DecayMode2=8 ghz1=0,0 ghz4=1,0 LHAPDF=NNPDF31_lo_as_0130/NNPDF31_lo_as_0130.info WriteFailedEvents=2
+ 

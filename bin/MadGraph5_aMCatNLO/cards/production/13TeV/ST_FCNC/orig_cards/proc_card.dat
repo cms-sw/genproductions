@@ -1,0 +1,11 @@
+# Model
+import model MODELNAME --modelname
+# Multiparticles
+define l+  = e+ mu+ ta+
+define l-  = e- mu- ta-
+
+generate    p p > t  z, z > l+ l-, (t  > w+ b,  w+ > l+ vl ) NP=1 @10
+add process p p > t~ z, z > l+ l-, (t~ > w- b~, w- > l- vl~) NP=1 @20
+
+# Output folder
+output PROCNAME -f -nojpeg

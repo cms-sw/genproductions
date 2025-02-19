@@ -1,0 +1,4 @@
+import model DMsimp_s_spin1
+generate       p p  > xd xd~ t~   [QCD]
+add process    p p  > xd xd~ t   [QCD]
+output _NAME_ -nojpeg

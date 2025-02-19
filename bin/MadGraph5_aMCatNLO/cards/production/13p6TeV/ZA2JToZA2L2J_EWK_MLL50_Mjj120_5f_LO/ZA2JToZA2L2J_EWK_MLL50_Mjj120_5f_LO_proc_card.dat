@@ -1,0 +1,11 @@
+import model sm-ckm_no_b_mass
+
+define p = p b b~
+define j = j b b~
+
+define lep+ = e+ mu+ ta+
+define lep- = e- mu- ta-
+
+generate p p > lep+ lep- a j j QCD=0
+
+output ZA2JToZA2L2J_EWK_MLL50_Mjj120_5f_LO -nojpeg

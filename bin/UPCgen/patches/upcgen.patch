@@ -1,0 +1,21 @@
+diff -ruN ./CMakeLists.txt ../upcgen_patch/CMakeLists.txt
+--- ./CMakeLists.txt	2023-12-14 03:05:06.000000001 +0100
++++ ../upcgen_patch/CMakeLists.txt	2023-12-14 03:46:03.000000001 +0100
+@@ -52,7 +52,7 @@
+     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${OpenMP_EXE_LINKER_FLAGS}")
+ endif ()
+ 
+-find_package(ROOT REQUIRED)
++find_package(ROOT REQUIRED PATHS $ENV{ROOTSYS} NO_DEFAULT_PATH)
+ include(${ROOT_USE_FILE})
+ include_directories(${ROOT_INCLUDE_DIRS})
+ include_directories(${PROJECT_SOURCE_DIR}/include)
+@@ -60,7 +60,7 @@
+ file(GLOB headers ${PROJECT_SOURCE_DIR}/include/*.h)
+ file(GLOB sources ${PROJECT_SOURCE_DIR}/src/*.cpp)
+ 
+-add_definitions(-DCROSS_SEC_DIR=\"${CMAKE_SOURCE_DIR}/cross_sections\")
++add_definitions(-DCROSS_SEC_DIR=\"../cross_sections\")
+ 
+ # note: root with pythia6 support is required for this option
+ if (BUILD_WITH_PYTHIA6)

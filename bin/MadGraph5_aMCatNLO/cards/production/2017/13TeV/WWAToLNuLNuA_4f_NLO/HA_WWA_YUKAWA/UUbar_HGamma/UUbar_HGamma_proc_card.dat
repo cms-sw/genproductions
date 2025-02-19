@@ -1,0 +1,5 @@
+import model HEL_UFO 
+
+generate u u~ >  h a NP==0 QED==2 
+
+output hgu_LO -nojpeg

@@ -1,0 +1,4 @@
+import model --modelname HAHM_MG5model_v3/HAHM_variableMW_v3_UFO
+generate p p > h > hs hs, hs > a a
+add process p p > h > hs hs j, hs > a a
+output hToaaTo4gamma_ma_AMASS_GeV_MLM_4f_max1j

@@ -45,8 +45,8 @@ set -euo pipefail
 
 cd $LHEWORKDIR
 
-if [ -d JHUGenMELA ]; then
-  eval $(JHUGenMELA/MELA/setup.sh env)
+if [ -d CMSSW_VERSION_REPLACE/src/JHUGenMELA ]; then
+  eval $(CMSSW_VERSION_REPLACE/src/JHUGenMELA/MELA/setup.sh env)
 fi
 
 cd JHUGenerator/

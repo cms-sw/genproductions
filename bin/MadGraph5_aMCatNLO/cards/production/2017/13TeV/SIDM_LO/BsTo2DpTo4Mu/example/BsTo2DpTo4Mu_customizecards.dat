@@ -1,4 +1,0 @@
-set time_of_flight 0.0001
-set param_card mass 35 1000
-set param_card mass 32 1.2
-set param_card newg 1 2.635231e-06

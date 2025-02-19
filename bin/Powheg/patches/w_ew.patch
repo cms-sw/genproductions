@@ -1,0 +1,37 @@
+Index: pwhg_rwl.h                                                                    
+===================================================================                  
+--- pwhg_rwl.h  (revision 3756)                                                      
++++ pwhg_rwl.h  (working copy)    
+@@ -28,7 +28,7 @@                                                                    
+
+       real * 4, pointer :: rwl_weights(:)
+
+-      integer, parameter :: rwl_maxweights=500,rwl_maxgroups=50
++      integer, parameter :: rwl_maxweights=1200,rwl_maxgroups=50                    
+       integer :: rwl_num_weights, rwl_num_groups
+       type(rwl_weight_info) rwl_weights_array(rwl_maxweights)
+       type(rwl_group_info) rwl_groups_array(rwl_maxgroups)
+
+Index: gen_radiation.f
+===================================================================
+--- gen_radiation.f     (revision 3756)
++++ gen_radiation.f     (working copy)
+@@ -15,6 +15,9 @@
+       integer mcalls,icalls
+       data mcalls,icalls/0,0/
+       save mcalls,icalls
++      integer mcallsrmn,icallsrmn
++      data mcallsrmn,icallsrmn/0,0/
++      save mcallsrmn,icallsrmn
+       real * 8 pwhg_pt2,pt2max_regular
+       external pwhg_pt2,pt2max_regular
+       real * 8 weight
+@@ -104,7 +107,7 @@
+       else
+ c generate remnant n+1 body cross section
+          call reset_timer
+-         call gen_sigremnant
++         call gen_sigremnant(mcallsrmn,icallsrmn)
+          if(notfinite_kin('Real')) goto 1
+          call get_timer(seconds)
+          call addtocnt("remnant time (sec)",seconds)
