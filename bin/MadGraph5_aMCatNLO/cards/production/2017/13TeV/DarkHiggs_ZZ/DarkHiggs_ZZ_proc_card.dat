@@ -1,0 +1,5 @@
+import model ZpHiggs_UFO
+
+generate p p > zp > dm dm hs, (hs > z z)
+
+output DarkHiggs_ZZ -nojpeg 
