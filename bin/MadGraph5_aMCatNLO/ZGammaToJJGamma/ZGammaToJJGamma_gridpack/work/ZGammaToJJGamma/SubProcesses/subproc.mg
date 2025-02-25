@@ -1,0 +1,16 @@
+P0_uux_za
+P0_ddx_za
+P0_uxu_za
+P0_dxd_za
+P1_gu_zau
+P1_gd_zad
+P1_gux_zaux
+P1_gdx_zadx
+P1_ug_zau
+P1_uux_zag
+P1_dg_zad
+P1_ddx_zag
+P1_uxg_zaux
+P1_uxu_zag
+P1_dxg_zadx
+P1_dxd_zag

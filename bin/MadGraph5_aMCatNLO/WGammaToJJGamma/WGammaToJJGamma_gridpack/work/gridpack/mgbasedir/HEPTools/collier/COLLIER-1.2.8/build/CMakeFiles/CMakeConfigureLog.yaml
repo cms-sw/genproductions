@@ -1,0 +1,853 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineSystem.cmake:204 (message)"
+      - "CMakeLists.txt:73 (project)"
+    message: |
+      The system is: Linux - 4.18.0-553.30.1.el8_10.x86_64 - x86_64
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/usr/share/cmake/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:73 (project)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+      Compiler: /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/cc 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
+      
+      The C compiler identification is GNU, found in:
+        /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/WGammaToJJGamma/WGammaToJJGamma_gridpack/work/MG5_aMC_v2_9_18/HEPTools/collier/COLLIER-1.2.8/build/CMakeFiles/3.26.5/CompilerIdC/a.out
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/usr/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:73 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler: /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/g++ 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.out"
+      
+      The CXX compiler identification is GNU, found in:
+        /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/WGammaToJJGamma/WGammaToJJGamma_gridpack/work/MG5_aMC_v2_9_18/HEPTools/collier/COLLIER-1.2.8/build/CMakeFiles/3.26.5/CompilerIdCXX/a.out
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:57 (try_compile)"
+      - "/usr/share/cmake/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:73 (project)"
+    checks:
+      - "Detecting C compiler ABI info"
+    directories:
+      source: "/uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/WGammaToJJGamma/WGammaToJJGamma_gridpack/work/MG5_aMC_v2_9_18/HEPTools/collier/COLLIER-1.2.8/build/CMakeFiles/CMakeScratch/TryCompile-1wd4QH"
+      binary: "/uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/WGammaToJJGamma/WGammaToJJGamma_gridpack/work/MG5_aMC_v2_9_18/HEPTools/collier/COLLIER-1.2.8/build/CMakeFiles/CMakeScratch/TryCompile-1wd4QH"
+    cmakeVariables:
+      CMAKE_C_FLAGS: ""
+    buildResult:
+      variable: "CMAKE_C_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/WGammaToJJGamma/WGammaToJJGamma_gridpack/work/MG5_aMC_v2_9_18/HEPTools/collier/COLLIER-1.2.8/build/CMakeFiles/CMakeScratch/TryCompile-1wd4QH
+        
+        Run Build Command(s):/usr/bin/cmake -E env VERBOSE=1 /cvmfs/cms.cern.ch/el8_amd64_gcc10/cms/cmssw/CMSSW_12_4_8/external/el8_amd64_gcc10/bin/gmake -f Makefile cmTC_728a6/fast && /cvmfs/cms.cern.ch/el8_amd64_gcc10/cms/cmssw/CMSSW_12_4_8/external/el8_amd64_gcc10/bin/gmake  -f CMakeFiles/cmTC_728a6.dir/build.make CMakeFiles/cmTC_728a6.dir/build
+        gmake[1]: Entering directory '/uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/WGammaToJJGamma/WGammaToJJGamma_gridpack/work/MG5_aMC_v2_9_18/HEPTools/collier/COLLIER-1.2.8/build/CMakeFiles/CMakeScratch/TryCompile-1wd4QH'
+        Building C object CMakeFiles/cmTC_728a6.dir/CMakeCCompilerABI.c.o
+        /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/cc   -v -o CMakeFiles/cmTC_728a6.dir/CMakeCCompilerABI.c.o -c /usr/share/cmake/Modules/CMakeCCompilerABI.c
+        Using built-in specs.
+        COLLECT_GCC=/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/cc
+        Target: x86_64-redhat-linux-gnu
+        Configured with: ../configure --prefix=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --disable-multilib --disable-nls --disable-dssi --enable-languages=c,c++,fortran --enable-gnu-indirect-function --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-plugin --with-linker-hash-style=gnu --enable-linker-build-id --enable-ld=default --enable-lto --enable-gold=yes --with-gmp=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --with-mpfr=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --enable-bootstrap --with-mpc=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --with-isl=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --enable-checking=release --build=x86_64-redhat-linux-gnu --host=x86_64-redhat-linux-gnu --enable-libstdcxx-time=rt --enable-shared --disable-libgcj CC='gcc -fPIC' CXX='c++ -fPIC' CPP=cpp CXXCPP='c++ -E' CFLAGS=-I/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/tmp/sw/include CXXFLAGS=-I/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/tmp/sw/include LDFLAGS=-L/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/tmp/sw/lib
+        Thread model: posix
+        Supported LTO compression algorithms: zlib
+        gcc version 10.3.0 (GCC) 
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_728a6.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64'
+         /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/cc1 -quiet -v -iprefix /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/ -isystem /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/include /usr/share/cmake/Modules/CMakeCCompilerABI.c -quiet -dumpbase CMakeCCompilerABI.c -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_728a6.dir/CMakeCCompilerABI.c.o -version -o /tmp/cc1u7Gka.s
+        GNU C17 (GCC) version 10.3.0 (x86_64-redhat-linux-gnu)
+        	compiled by GNU C version 10.3.0, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version isl-0.24-GMP
+        
+        GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+        ignoring nonexistent directory "/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/include"
+        ignoring duplicate directory "/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/../../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/include"
+        ignoring duplicate directory "/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/../../include"
+        ignoring duplicate directory "/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/../../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/include-fixed"
+        ignoring nonexistent directory "/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/../../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/include"
+        #include "..." search starts here:
+        #include <...> search starts here:
+         /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/include
+         /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/include
+         /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/include-fixed
+         /usr/local/include
+         /usr/include
+        End of search list.
+        GNU C17 (GCC) version 10.3.0 (x86_64-redhat-linux-gnu)
+        	compiled by GNU C version 10.3.0, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version isl-0.24-GMP
+        
+        GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+        Compiler executable checksum: c81b4f5f57856dba6d872f10ac5e7d6e
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_728a6.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64'
+         /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/bin/as -v --64 -o CMakeFiles/cmTC_728a6.dir/CMakeCCompilerABI.c.o /tmp/cc1u7Gka.s
+        GNU assembler version 2.36.1 (x86_64-redhat-linux-gnu) using BFD version (GNU Binutils) 2.36.1
+        COMPILER_PATH=/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/bin/
+        LIBRARY_PATH=/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/lib/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../:/lib/:/usr/lib/
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_728a6.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64'
+        Linking C executable cmTC_728a6
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_728a6.dir/link.txt --verbose=1
+        /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/cc  -v -rdynamic CMakeFiles/cmTC_728a6.dir/CMakeCCompilerABI.c.o -o cmTC_728a6 
+        Using built-in specs.
+        COLLECT_GCC=/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/cc
+        COLLECT_LTO_WRAPPER=/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/lto-wrapper
+        Target: x86_64-redhat-linux-gnu
+        Configured with: ../configure --prefix=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --disable-multilib --disable-nls --disable-dssi --enable-languages=c,c++,fortran --enable-gnu-indirect-function --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-plugin --with-linker-hash-style=gnu --enable-linker-build-id --enable-ld=default --enable-lto --enable-gold=yes --with-gmp=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --with-mpfr=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --enable-bootstrap --with-mpc=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --with-isl=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --enable-checking=release --build=x86_64-redhat-linux-gnu --host=x86_64-redhat-linux-gnu --enable-libstdcxx-time=rt --enable-shared --disable-libgcj CC='gcc -fPIC' CXX='c++ -fPIC' CPP=cpp CXXCPP='c++ -E' CFLAGS=-I/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/tmp/sw/include CXXFLAGS=-I/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/tmp/sw/include LDFLAGS=-L/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/tmp/sw/lib
+        Thread model: posix
+        Supported LTO compression algorithms: zlib
+        gcc version 10.3.0 (GCC) 
+        COMPILER_PATH=/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/bin/
+        LIBRARY_PATH=/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/lib/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../:/lib/:/usr/lib/
+        COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_728a6' '-mtune=generic' '-march=x86-64'
+         /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/collect2 -plugin /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/liblto_plugin.so -plugin-opt=/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccptUhrg.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -z common-page-size=4096 -z max-page-size=4096 -o cmTC_728a6 /lib/../lib64/crt1.o /lib/../lib64/crti.o /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/crtbegin.o -L/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0 -L/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc -L/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/lib -L/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../.. CMakeFiles/cmTC_728a6.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/crtend.o /lib/../lib64/crtn.o
+        COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_728a6' '-mtune=generic' '-march=x86-64'
+        gmake[1]: Leaving directory '/uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/WGammaToJJGamma/WGammaToJJGamma_gridpack/work/MG5_aMC_v2_9_18/HEPTools/collier/COLLIER-1.2.8/build/CMakeFiles/CMakeScratch/TryCompile-1wd4QH'
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:127 (message)"
+      - "/usr/share/cmake/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:73 (project)"
+    message: |
+      Parsed C implicit include dir info: rv=done
+        found start of include info
+        found start of implicit include info
+          add: [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/include]
+          add: [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/include]
+          add: [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/include-fixed]
+          add: [/usr/local/include]
+          add: [/usr/include]
+        end of search list found
+        collapse include dir [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/include] ==> [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/include]
+        collapse include dir [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/include] ==> [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/lib/gcc/x86_64-redhat-linux-gnu/10.3.0/include]
+        collapse include dir [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/include-fixed] ==> [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/lib/gcc/x86_64-redhat-linux-gnu/10.3.0/include-fixed]
+        collapse include dir [/usr/local/include] ==> [/usr/local/include]
+        collapse include dir [/usr/include] ==> [/usr/include]
+        implicit include dirs: [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/include;/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/lib/gcc/x86_64-redhat-linux-gnu/10.3.0/include;/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/lib/gcc/x86_64-redhat-linux-gnu/10.3.0/include-fixed;/usr/local/include;/usr/include]
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:152 (message)"
+      - "/usr/share/cmake/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:73 (project)"
+    message: |
+      Parsed C implicit link information:
+        link line regex: [^( *|.*[/\\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        ignore line: [Change Dir: /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/WGammaToJJGamma/WGammaToJJGamma_gridpack/work/MG5_aMC_v2_9_18/HEPTools/collier/COLLIER-1.2.8/build/CMakeFiles/CMakeScratch/TryCompile-1wd4QH]
+        ignore line: []
+        ignore line: [Run Build Command(s):/usr/bin/cmake -E env VERBOSE=1 /cvmfs/cms.cern.ch/el8_amd64_gcc10/cms/cmssw/CMSSW_12_4_8/external/el8_amd64_gcc10/bin/gmake -f Makefile cmTC_728a6/fast && /cvmfs/cms.cern.ch/el8_amd64_gcc10/cms/cmssw/CMSSW_12_4_8/external/el8_amd64_gcc10/bin/gmake  -f CMakeFiles/cmTC_728a6.dir/build.make CMakeFiles/cmTC_728a6.dir/build]
+        ignore line: [gmake[1]: Entering directory '/uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/WGammaToJJGamma/WGammaToJJGamma_gridpack/work/MG5_aMC_v2_9_18/HEPTools/collier/COLLIER-1.2.8/build/CMakeFiles/CMakeScratch/TryCompile-1wd4QH']
+        ignore line: [Building C object CMakeFiles/cmTC_728a6.dir/CMakeCCompilerABI.c.o]
+        ignore line: [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/cc   -v -o CMakeFiles/cmTC_728a6.dir/CMakeCCompilerABI.c.o -c /usr/share/cmake/Modules/CMakeCCompilerABI.c]
+        ignore line: [Using built-in specs.]
+        ignore line: [COLLECT_GCC=/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/cc]
+        ignore line: [Target: x86_64-redhat-linux-gnu]
+        ignore line: [Configured with: ../configure --prefix=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --disable-multilib --disable-nls --disable-dssi --enable-languages=c,c++,fortran --enable-gnu-indirect-function --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-plugin --with-linker-hash-style=gnu --enable-linker-build-id --enable-ld=default --enable-lto --enable-gold=yes --with-gmp=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --with-mpfr=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --enable-bootstrap --with-mpc=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --with-isl=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --enable-checking=release --build=x86_64-redhat-linux-gnu --host=x86_64-redhat-linux-gnu --enable-libstdcxx-time=rt --enable-shared --disable-libgcj CC='gcc -fPIC' CXX='c++ -fPIC' CPP=cpp CXXCPP='c++ -E' CFLAGS=-I/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/tmp/sw/include CXXFLAGS=-I/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/tmp/sw/include LDFLAGS=-L/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/tmp/sw/lib]
+        ignore line: [Thread model: posix]
+        ignore line: [Supported LTO compression algorithms: zlib]
+        ignore line: [gcc version 10.3.0 (GCC) ]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_728a6.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64']
+        ignore line: [ /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/cc1 -quiet -v -iprefix /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/ -isystem /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/include /usr/share/cmake/Modules/CMakeCCompilerABI.c -quiet -dumpbase CMakeCCompilerABI.c -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_728a6.dir/CMakeCCompilerABI.c.o -version -o /tmp/cc1u7Gka.s]
+        ignore line: [GNU C17 (GCC) version 10.3.0 (x86_64-redhat-linux-gnu)]
+        ignore line: [	compiled by GNU C version 10.3.0  GMP version 6.2.1  MPFR version 4.1.0  MPC version 1.2.1  isl version isl-0.24-GMP]
+        ignore line: []
+        ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+        ignore line: [ignoring nonexistent directory "/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/include"]
+        ignore line: [ignoring duplicate directory "/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/../../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/include"]
+        ignore line: [ignoring duplicate directory "/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/../../include"]
+        ignore line: [ignoring duplicate directory "/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/../../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/include-fixed"]
+        ignore line: [ignoring nonexistent directory "/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/../../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/include"]
+        ignore line: [#include "..." search starts here:]
+        ignore line: [#include <...> search starts here:]
+        ignore line: [ /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/include]
+        ignore line: [ /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/include]
+        ignore line: [ /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/include-fixed]
+        ignore line: [ /usr/local/include]
+        ignore line: [ /usr/include]
+        ignore line: [End of search list.]
+        ignore line: [GNU C17 (GCC) version 10.3.0 (x86_64-redhat-linux-gnu)]
+        ignore line: [	compiled by GNU C version 10.3.0  GMP version 6.2.1  MPFR version 4.1.0  MPC version 1.2.1  isl version isl-0.24-GMP]
+        ignore line: []
+        ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+        ignore line: [Compiler executable checksum: c81b4f5f57856dba6d872f10ac5e7d6e]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_728a6.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64']
+        ignore line: [ /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/bin/as -v --64 -o CMakeFiles/cmTC_728a6.dir/CMakeCCompilerABI.c.o /tmp/cc1u7Gka.s]
+        ignore line: [GNU assembler version 2.36.1 (x86_64-redhat-linux-gnu) using BFD version (GNU Binutils) 2.36.1]
+        ignore line: [COMPILER_PATH=/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/bin/]
+        ignore line: [LIBRARY_PATH=/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/lib/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../:/lib/:/usr/lib/]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_728a6.dir/CMakeCCompilerABI.c.o' '-c' '-mtune=generic' '-march=x86-64']
+        ignore line: [Linking C executable cmTC_728a6]
+        ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_728a6.dir/link.txt --verbose=1]
+        ignore line: [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/cc  -v -rdynamic CMakeFiles/cmTC_728a6.dir/CMakeCCompilerABI.c.o -o cmTC_728a6 ]
+        ignore line: [Using built-in specs.]
+        ignore line: [COLLECT_GCC=/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/cc]
+        ignore line: [COLLECT_LTO_WRAPPER=/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/lto-wrapper]
+        ignore line: [Target: x86_64-redhat-linux-gnu]
+        ignore line: [Configured with: ../configure --prefix=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --disable-multilib --disable-nls --disable-dssi --enable-languages=c,c++,fortran --enable-gnu-indirect-function --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-plugin --with-linker-hash-style=gnu --enable-linker-build-id --enable-ld=default --enable-lto --enable-gold=yes --with-gmp=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --with-mpfr=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --enable-bootstrap --with-mpc=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --with-isl=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --enable-checking=release --build=x86_64-redhat-linux-gnu --host=x86_64-redhat-linux-gnu --enable-libstdcxx-time=rt --enable-shared --disable-libgcj CC='gcc -fPIC' CXX='c++ -fPIC' CPP=cpp CXXCPP='c++ -E' CFLAGS=-I/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/tmp/sw/include CXXFLAGS=-I/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/tmp/sw/include LDFLAGS=-L/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/tmp/sw/lib]
+        ignore line: [Thread model: posix]
+        ignore line: [Supported LTO compression algorithms: zlib]
+        ignore line: [gcc version 10.3.0 (GCC) ]
+        ignore line: [COMPILER_PATH=/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/bin/]
+        ignore line: [LIBRARY_PATH=/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/lib/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../:/lib/:/usr/lib/]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_728a6' '-mtune=generic' '-march=x86-64']
+        link line: [ /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/collect2 -plugin /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/liblto_plugin.so -plugin-opt=/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccptUhrg.res -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lgcc_s --build-id --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -z common-page-size=4096 -z max-page-size=4096 -o cmTC_728a6 /lib/../lib64/crt1.o /lib/../lib64/crti.o /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/crtbegin.o -L/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0 -L/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc -L/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/lib -L/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../.. CMakeFiles/cmTC_728a6.dir/CMakeCCompilerABI.c.o -lgcc --push-state --as-needed -lgcc_s --pop-state -lc -lgcc --push-state --as-needed -lgcc_s --pop-state /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/crtend.o /lib/../lib64/crtn.o]
+          arg [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/collect2] ==> ignore
+          arg [-plugin] ==> ignore
+          arg [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/liblto_plugin.so] ==> ignore
+          arg [-plugin-opt=/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/lto-wrapper] ==> ignore
+          arg [-plugin-opt=-fresolution=/tmp/ccptUhrg.res] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+          arg [-plugin-opt=-pass-through=-lc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+          arg [--build-id] ==> ignore
+          arg [--eh-frame-hdr] ==> ignore
+          arg [--hash-style=gnu] ==> ignore
+          arg [-m] ==> ignore
+          arg [elf_x86_64] ==> ignore
+          arg [-export-dynamic] ==> ignore
+          arg [-dynamic-linker] ==> ignore
+          arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
+          arg [-zcommon-page-size=4096] ==> ignore
+          arg [-zmax-page-size=4096] ==> ignore
+          arg [-o] ==> ignore
+          arg [cmTC_728a6] ==> ignore
+          arg [/lib/../lib64/crt1.o] ==> obj [/lib/../lib64/crt1.o]
+          arg [/lib/../lib64/crti.o] ==> obj [/lib/../lib64/crti.o]
+          arg [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/crtbegin.o] ==> obj [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/crtbegin.o]
+          arg [-L/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0] ==> dir [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0]
+          arg [-L/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc] ==> dir [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc]
+          arg [-L/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../lib64] ==> dir [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../lib64]
+          arg [-L/lib/../lib64] ==> dir [/lib/../lib64]
+          arg [-L/usr/lib/../lib64] ==> dir [/usr/lib/../lib64]
+          arg [-L/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/lib] ==> dir [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/lib]
+          arg [-L/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../..] ==> dir [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../..]
+          arg [CMakeFiles/cmTC_728a6.dir/CMakeCCompilerABI.c.o] ==> ignore
+          arg [-lgcc] ==> lib [gcc]
+          arg [--push-state] ==> ignore
+          arg [--as-needed] ==> ignore
+          arg [-lgcc_s] ==> lib [gcc_s]
+          arg [--pop-state] ==> ignore
+          arg [-lc] ==> lib [c]
+          arg [-lgcc] ==> lib [gcc]
+          arg [--push-state] ==> ignore
+          arg [--as-needed] ==> ignore
+          arg [-lgcc_s] ==> lib [gcc_s]
+          arg [--pop-state] ==> ignore
+          arg [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/crtend.o] ==> obj [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/crtend.o]
+          arg [/lib/../lib64/crtn.o] ==> obj [/lib/../lib64/crtn.o]
+        collapse obj [/lib/../lib64/crt1.o] ==> [/lib64/crt1.o]
+        collapse obj [/lib/../lib64/crti.o] ==> [/lib64/crti.o]
+        collapse obj [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/crtbegin.o] ==> [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/lib/gcc/x86_64-redhat-linux-gnu/10.3.0/crtbegin.o]
+        collapse obj [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/crtend.o] ==> [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/lib/gcc/x86_64-redhat-linux-gnu/10.3.0/crtend.o]
+        collapse obj [/lib/../lib64/crtn.o] ==> [/lib64/crtn.o]
+        collapse library dir [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0] ==> [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/lib/gcc/x86_64-redhat-linux-gnu/10.3.0]
+        collapse library dir [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc] ==> [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/lib/gcc]
+        collapse library dir [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../lib64] ==> [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/lib64]
+        collapse library dir [/lib/../lib64] ==> [/lib64]
+        collapse library dir [/usr/lib/../lib64] ==> [/usr/lib64]
+        collapse library dir [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/lib] ==> [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/x86_64-redhat-linux-gnu/lib]
+        collapse library dir [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../..] ==> [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/lib]
+        implicit libs: [gcc;gcc_s;c;gcc;gcc_s]
+        implicit objs: [/lib64/crt1.o;/lib64/crti.o;/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/lib/gcc/x86_64-redhat-linux-gnu/10.3.0/crtbegin.o;/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/lib/gcc/x86_64-redhat-linux-gnu/10.3.0/crtend.o;/lib64/crtn.o]
+        implicit dirs: [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/lib/gcc/x86_64-redhat-linux-gnu/10.3.0;/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/lib/gcc;/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/lib64;/lib64;/usr/lib64;/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/x86_64-redhat-linux-gnu/lib;/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/lib]
+        implicit fwks: []
+      
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:57 (try_compile)"
+      - "/usr/share/cmake/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:73 (project)"
+    checks:
+      - "Detecting CXX compiler ABI info"
+    directories:
+      source: "/uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/WGammaToJJGamma/WGammaToJJGamma_gridpack/work/MG5_aMC_v2_9_18/HEPTools/collier/COLLIER-1.2.8/build/CMakeFiles/CMakeScratch/TryCompile-IQNsQ8"
+      binary: "/uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/WGammaToJJGamma/WGammaToJJGamma_gridpack/work/MG5_aMC_v2_9_18/HEPTools/collier/COLLIER-1.2.8/build/CMakeFiles/CMakeScratch/TryCompile-IQNsQ8"
+    cmakeVariables:
+      CMAKE_CXX_FLAGS: ""
+    buildResult:
+      variable: "CMAKE_CXX_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/WGammaToJJGamma/WGammaToJJGamma_gridpack/work/MG5_aMC_v2_9_18/HEPTools/collier/COLLIER-1.2.8/build/CMakeFiles/CMakeScratch/TryCompile-IQNsQ8
+        
+        Run Build Command(s):/usr/bin/cmake -E env VERBOSE=1 /cvmfs/cms.cern.ch/el8_amd64_gcc10/cms/cmssw/CMSSW_12_4_8/external/el8_amd64_gcc10/bin/gmake -f Makefile cmTC_e1fe2/fast && /cvmfs/cms.cern.ch/el8_amd64_gcc10/cms/cmssw/CMSSW_12_4_8/external/el8_amd64_gcc10/bin/gmake  -f CMakeFiles/cmTC_e1fe2.dir/build.make CMakeFiles/cmTC_e1fe2.dir/build
+        gmake[1]: Entering directory '/uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/WGammaToJJGamma/WGammaToJJGamma_gridpack/work/MG5_aMC_v2_9_18/HEPTools/collier/COLLIER-1.2.8/build/CMakeFiles/CMakeScratch/TryCompile-IQNsQ8'
+        Building CXX object CMakeFiles/cmTC_e1fe2.dir/CMakeCXXCompilerABI.cpp.o
+        /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/g++   -v -o CMakeFiles/cmTC_e1fe2.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp
+        Using built-in specs.
+        COLLECT_GCC=/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/g++
+        Target: x86_64-redhat-linux-gnu
+        Configured with: ../configure --prefix=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --disable-multilib --disable-nls --disable-dssi --enable-languages=c,c++,fortran --enable-gnu-indirect-function --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-plugin --with-linker-hash-style=gnu --enable-linker-build-id --enable-ld=default --enable-lto --enable-gold=yes --with-gmp=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --with-mpfr=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --enable-bootstrap --with-mpc=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --with-isl=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --enable-checking=release --build=x86_64-redhat-linux-gnu --host=x86_64-redhat-linux-gnu --enable-libstdcxx-time=rt --enable-shared --disable-libgcj CC='gcc -fPIC' CXX='c++ -fPIC' CPP=cpp CXXCPP='c++ -E' CFLAGS=-I/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/tmp/sw/include CXXFLAGS=-I/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/tmp/sw/include LDFLAGS=-L/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/tmp/sw/lib
+        Thread model: posix
+        Supported LTO compression algorithms: zlib
+        gcc version 10.3.0 (GCC) 
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_e1fe2.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+         /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/cc1plus -quiet -v -iprefix /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/ -isystem /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/include -D_GNU_SOURCE /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpbase CMakeCXXCompilerABI.cpp -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_e1fe2.dir/CMakeCXXCompilerABI.cpp.o -version -fabi-version=0 -o /tmp/ccxorMkM.s
+        GNU C++14 (GCC) version 10.3.0 (x86_64-redhat-linux-gnu)
+        	compiled by GNU C version 10.3.0, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version isl-0.24-GMP
+        
+        GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+        ignoring nonexistent directory "/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/include"
+        ignoring duplicate directory "/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/../../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../include/c++/10.3.0"
+        ignoring duplicate directory "/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/../../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../include/c++/10.3.0/x86_64-redhat-linux-gnu"
+        ignoring duplicate directory "/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/../../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../include/c++/10.3.0/backward"
+        ignoring duplicate directory "/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/../../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/include"
+        ignoring duplicate directory "/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/../../include"
+        ignoring duplicate directory "/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/../../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/include-fixed"
+        ignoring nonexistent directory "/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/../../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/include"
+        #include "..." search starts here:
+        #include <...> search starts here:
+         /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/include
+         /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../include/c++/10.3.0
+         /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../include/c++/10.3.0/x86_64-redhat-linux-gnu
+         /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../include/c++/10.3.0/backward
+         /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/include
+         /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/include-fixed
+         /usr/local/include
+         /usr/include
+        End of search list.
+        GNU C++14 (GCC) version 10.3.0 (x86_64-redhat-linux-gnu)
+        	compiled by GNU C version 10.3.0, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version isl-0.24-GMP
+        
+        GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+        Compiler executable checksum: 00def7ac898d2cdeba8a0a92c65d4777
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_e1fe2.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+         /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/bin/as -v --64 -o CMakeFiles/cmTC_e1fe2.dir/CMakeCXXCompilerABI.cpp.o /tmp/ccxorMkM.s
+        GNU assembler version 2.36.1 (x86_64-redhat-linux-gnu) using BFD version (GNU Binutils) 2.36.1
+        COMPILER_PATH=/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/bin/
+        LIBRARY_PATH=/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/lib/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../:/lib/:/usr/lib/
+        COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_e1fe2.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+        Linking CXX executable cmTC_e1fe2
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e1fe2.dir/link.txt --verbose=1
+        /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/g++  -v -rdynamic CMakeFiles/cmTC_e1fe2.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_e1fe2 
+        Using built-in specs.
+        COLLECT_GCC=/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/g++
+        COLLECT_LTO_WRAPPER=/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/lto-wrapper
+        Target: x86_64-redhat-linux-gnu
+        Configured with: ../configure --prefix=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --disable-multilib --disable-nls --disable-dssi --enable-languages=c,c++,fortran --enable-gnu-indirect-function --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-plugin --with-linker-hash-style=gnu --enable-linker-build-id --enable-ld=default --enable-lto --enable-gold=yes --with-gmp=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --with-mpfr=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --enable-bootstrap --with-mpc=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --with-isl=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --enable-checking=release --build=x86_64-redhat-linux-gnu --host=x86_64-redhat-linux-gnu --enable-libstdcxx-time=rt --enable-shared --disable-libgcj CC='gcc -fPIC' CXX='c++ -fPIC' CPP=cpp CXXCPP='c++ -E' CFLAGS=-I/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/tmp/sw/include CXXFLAGS=-I/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/tmp/sw/include LDFLAGS=-L/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/tmp/sw/lib
+        Thread model: posix
+        Supported LTO compression algorithms: zlib
+        gcc version 10.3.0 (GCC) 
+        COMPILER_PATH=/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/bin/
+        LIBRARY_PATH=/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/lib/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../:/lib/:/usr/lib/
+        COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_e1fe2' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+         /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/collect2 -plugin /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/liblto_plugin.so -plugin-opt=/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccgOjq6m.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -z common-page-size=4096 -z max-page-size=4096 -o cmTC_e1fe2 /lib/../lib64/crt1.o /lib/../lib64/crti.o /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/crtbegin.o -L/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0 -L/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc -L/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/lib -L/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../.. CMakeFiles/cmTC_e1fe2.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/crtend.o /lib/../lib64/crtn.o
+        COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_e1fe2' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+        gmake[1]: Leaving directory '/uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/WGammaToJJGamma/WGammaToJJGamma_gridpack/work/MG5_aMC_v2_9_18/HEPTools/collier/COLLIER-1.2.8/build/CMakeFiles/CMakeScratch/TryCompile-IQNsQ8'
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:127 (message)"
+      - "/usr/share/cmake/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:73 (project)"
+    message: |
+      Parsed CXX implicit include dir info: rv=done
+        found start of include info
+        found start of implicit include info
+          add: [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/include]
+          add: [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../include/c++/10.3.0]
+          add: [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../include/c++/10.3.0/x86_64-redhat-linux-gnu]
+          add: [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../include/c++/10.3.0/backward]
+          add: [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/include]
+          add: [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/include-fixed]
+          add: [/usr/local/include]
+          add: [/usr/include]
+        end of search list found
+        collapse include dir [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/include] ==> [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/include]
+        collapse include dir [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../include/c++/10.3.0] ==> [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/include/c++/10.3.0]
+        collapse include dir [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../include/c++/10.3.0/x86_64-redhat-linux-gnu] ==> [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/include/c++/10.3.0/x86_64-redhat-linux-gnu]
+        collapse include dir [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../include/c++/10.3.0/backward] ==> [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/include/c++/10.3.0/backward]
+        collapse include dir [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/include] ==> [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/lib/gcc/x86_64-redhat-linux-gnu/10.3.0/include]
+        collapse include dir [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/include-fixed] ==> [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/lib/gcc/x86_64-redhat-linux-gnu/10.3.0/include-fixed]
+        collapse include dir [/usr/local/include] ==> [/usr/local/include]
+        collapse include dir [/usr/include] ==> [/usr/include]
+        implicit include dirs: [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/include;/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/include/c++/10.3.0;/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/include/c++/10.3.0/x86_64-redhat-linux-gnu;/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/include/c++/10.3.0/backward;/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/lib/gcc/x86_64-redhat-linux-gnu/10.3.0/include;/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/lib/gcc/x86_64-redhat-linux-gnu/10.3.0/include-fixed;/usr/local/include;/usr/include]
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:152 (message)"
+      - "/usr/share/cmake/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:73 (project)"
+    message: |
+      Parsed CXX implicit link information:
+        link line regex: [^( *|.*[/\\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        ignore line: [Change Dir: /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/WGammaToJJGamma/WGammaToJJGamma_gridpack/work/MG5_aMC_v2_9_18/HEPTools/collier/COLLIER-1.2.8/build/CMakeFiles/CMakeScratch/TryCompile-IQNsQ8]
+        ignore line: []
+        ignore line: [Run Build Command(s):/usr/bin/cmake -E env VERBOSE=1 /cvmfs/cms.cern.ch/el8_amd64_gcc10/cms/cmssw/CMSSW_12_4_8/external/el8_amd64_gcc10/bin/gmake -f Makefile cmTC_e1fe2/fast && /cvmfs/cms.cern.ch/el8_amd64_gcc10/cms/cmssw/CMSSW_12_4_8/external/el8_amd64_gcc10/bin/gmake  -f CMakeFiles/cmTC_e1fe2.dir/build.make CMakeFiles/cmTC_e1fe2.dir/build]
+        ignore line: [gmake[1]: Entering directory '/uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/WGammaToJJGamma/WGammaToJJGamma_gridpack/work/MG5_aMC_v2_9_18/HEPTools/collier/COLLIER-1.2.8/build/CMakeFiles/CMakeScratch/TryCompile-IQNsQ8']
+        ignore line: [Building CXX object CMakeFiles/cmTC_e1fe2.dir/CMakeCXXCompilerABI.cpp.o]
+        ignore line: [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/g++   -v -o CMakeFiles/cmTC_e1fe2.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp]
+        ignore line: [Using built-in specs.]
+        ignore line: [COLLECT_GCC=/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/g++]
+        ignore line: [Target: x86_64-redhat-linux-gnu]
+        ignore line: [Configured with: ../configure --prefix=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --disable-multilib --disable-nls --disable-dssi --enable-languages=c,c++,fortran --enable-gnu-indirect-function --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-plugin --with-linker-hash-style=gnu --enable-linker-build-id --enable-ld=default --enable-lto --enable-gold=yes --with-gmp=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --with-mpfr=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --enable-bootstrap --with-mpc=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --with-isl=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --enable-checking=release --build=x86_64-redhat-linux-gnu --host=x86_64-redhat-linux-gnu --enable-libstdcxx-time=rt --enable-shared --disable-libgcj CC='gcc -fPIC' CXX='c++ -fPIC' CPP=cpp CXXCPP='c++ -E' CFLAGS=-I/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/tmp/sw/include CXXFLAGS=-I/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/tmp/sw/include LDFLAGS=-L/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/tmp/sw/lib]
+        ignore line: [Thread model: posix]
+        ignore line: [Supported LTO compression algorithms: zlib]
+        ignore line: [gcc version 10.3.0 (GCC) ]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_e1fe2.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
+        ignore line: [ /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/cc1plus -quiet -v -iprefix /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/ -isystem /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/include -D_GNU_SOURCE /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp -quiet -dumpbase CMakeCXXCompilerABI.cpp -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_e1fe2.dir/CMakeCXXCompilerABI.cpp.o -version -fabi-version=0 -o /tmp/ccxorMkM.s]
+        ignore line: [GNU C++14 (GCC) version 10.3.0 (x86_64-redhat-linux-gnu)]
+        ignore line: [	compiled by GNU C version 10.3.0  GMP version 6.2.1  MPFR version 4.1.0  MPC version 1.2.1  isl version isl-0.24-GMP]
+        ignore line: []
+        ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+        ignore line: [ignoring nonexistent directory "/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/include"]
+        ignore line: [ignoring duplicate directory "/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/../../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../include/c++/10.3.0"]
+        ignore line: [ignoring duplicate directory "/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/../../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../include/c++/10.3.0/x86_64-redhat-linux-gnu"]
+        ignore line: [ignoring duplicate directory "/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/../../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../include/c++/10.3.0/backward"]
+        ignore line: [ignoring duplicate directory "/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/../../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/include"]
+        ignore line: [ignoring duplicate directory "/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/../../include"]
+        ignore line: [ignoring duplicate directory "/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/../../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/include-fixed"]
+        ignore line: [ignoring nonexistent directory "/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/../../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/include"]
+        ignore line: [#include "..." search starts here:]
+        ignore line: [#include <...> search starts here:]
+        ignore line: [ /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/include]
+        ignore line: [ /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../include/c++/10.3.0]
+        ignore line: [ /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../include/c++/10.3.0/x86_64-redhat-linux-gnu]
+        ignore line: [ /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../include/c++/10.3.0/backward]
+        ignore line: [ /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/include]
+        ignore line: [ /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/include-fixed]
+        ignore line: [ /usr/local/include]
+        ignore line: [ /usr/include]
+        ignore line: [End of search list.]
+        ignore line: [GNU C++14 (GCC) version 10.3.0 (x86_64-redhat-linux-gnu)]
+        ignore line: [	compiled by GNU C version 10.3.0  GMP version 6.2.1  MPFR version 4.1.0  MPC version 1.2.1  isl version isl-0.24-GMP]
+        ignore line: []
+        ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+        ignore line: [Compiler executable checksum: 00def7ac898d2cdeba8a0a92c65d4777]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_e1fe2.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
+        ignore line: [ /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/bin/as -v --64 -o CMakeFiles/cmTC_e1fe2.dir/CMakeCXXCompilerABI.cpp.o /tmp/ccxorMkM.s]
+        ignore line: [GNU assembler version 2.36.1 (x86_64-redhat-linux-gnu) using BFD version (GNU Binutils) 2.36.1]
+        ignore line: [COMPILER_PATH=/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/bin/]
+        ignore line: [LIBRARY_PATH=/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/lib/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../:/lib/:/usr/lib/]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-o' 'CMakeFiles/cmTC_e1fe2.dir/CMakeCXXCompilerABI.cpp.o' '-c' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
+        ignore line: [Linking CXX executable cmTC_e1fe2]
+        ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e1fe2.dir/link.txt --verbose=1]
+        ignore line: [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/g++  -v -rdynamic CMakeFiles/cmTC_e1fe2.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_e1fe2 ]
+        ignore line: [Using built-in specs.]
+        ignore line: [COLLECT_GCC=/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/g++]
+        ignore line: [COLLECT_LTO_WRAPPER=/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/lto-wrapper]
+        ignore line: [Target: x86_64-redhat-linux-gnu]
+        ignore line: [Configured with: ../configure --prefix=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --disable-multilib --disable-nls --disable-dssi --enable-languages=c,c++,fortran --enable-gnu-indirect-function --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-plugin --with-linker-hash-style=gnu --enable-linker-build-id --enable-ld=default --enable-lto --enable-gold=yes --with-gmp=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --with-mpfr=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --enable-bootstrap --with-mpc=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --with-isl=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --enable-checking=release --build=x86_64-redhat-linux-gnu --host=x86_64-redhat-linux-gnu --enable-libstdcxx-time=rt --enable-shared --disable-libgcj CC='gcc -fPIC' CXX='c++ -fPIC' CPP=cpp CXXCPP='c++ -E' CFLAGS=-I/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/tmp/sw/include CXXFLAGS=-I/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/tmp/sw/include LDFLAGS=-L/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/tmp/sw/lib]
+        ignore line: [Thread model: posix]
+        ignore line: [Supported LTO compression algorithms: zlib]
+        ignore line: [gcc version 10.3.0 (GCC) ]
+        ignore line: [COMPILER_PATH=/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/bin/]
+        ignore line: [LIBRARY_PATH=/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/lib/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../:/lib/:/usr/lib/]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-rdynamic' '-o' 'cmTC_e1fe2' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
+        link line: [ /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/collect2 -plugin /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/liblto_plugin.so -plugin-opt=/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccgOjq6m.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -export-dynamic -dynamic-linker /lib64/ld-linux-x86-64.so.2 -z common-page-size=4096 -z max-page-size=4096 -o cmTC_e1fe2 /lib/../lib64/crt1.o /lib/../lib64/crti.o /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/crtbegin.o -L/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0 -L/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc -L/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/lib -L/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../.. CMakeFiles/cmTC_e1fe2.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/crtend.o /lib/../lib64/crtn.o]
+          arg [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/collect2] ==> ignore
+          arg [-plugin] ==> ignore
+          arg [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/liblto_plugin.so] ==> ignore
+          arg [-plugin-opt=/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/lto-wrapper] ==> ignore
+          arg [-plugin-opt=-fresolution=/tmp/ccgOjq6m.res] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+          arg [--build-id] ==> ignore
+          arg [--eh-frame-hdr] ==> ignore
+          arg [--hash-style=gnu] ==> ignore
+          arg [-m] ==> ignore
+          arg [elf_x86_64] ==> ignore
+          arg [-export-dynamic] ==> ignore
+          arg [-dynamic-linker] ==> ignore
+          arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
+          arg [-zcommon-page-size=4096] ==> ignore
+          arg [-zmax-page-size=4096] ==> ignore
+          arg [-o] ==> ignore
+          arg [cmTC_e1fe2] ==> ignore
+          arg [/lib/../lib64/crt1.o] ==> obj [/lib/../lib64/crt1.o]
+          arg [/lib/../lib64/crti.o] ==> obj [/lib/../lib64/crti.o]
+          arg [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/crtbegin.o] ==> obj [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/crtbegin.o]
+          arg [-L/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0] ==> dir [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0]
+          arg [-L/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc] ==> dir [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc]
+          arg [-L/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../lib64] ==> dir [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../lib64]
+          arg [-L/lib/../lib64] ==> dir [/lib/../lib64]
+          arg [-L/usr/lib/../lib64] ==> dir [/usr/lib/../lib64]
+          arg [-L/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/lib] ==> dir [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/lib]
+          arg [-L/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../..] ==> dir [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../..]
+          arg [CMakeFiles/cmTC_e1fe2.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+          arg [-lstdc++] ==> lib [stdc++]
+          arg [-lm] ==> lib [m]
+          arg [-lgcc_s] ==> lib [gcc_s]
+          arg [-lgcc] ==> lib [gcc]
+          arg [-lc] ==> lib [c]
+          arg [-lgcc_s] ==> lib [gcc_s]
+          arg [-lgcc] ==> lib [gcc]
+          arg [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/crtend.o] ==> obj [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/crtend.o]
+          arg [/lib/../lib64/crtn.o] ==> obj [/lib/../lib64/crtn.o]
+        collapse obj [/lib/../lib64/crt1.o] ==> [/lib64/crt1.o]
+        collapse obj [/lib/../lib64/crti.o] ==> [/lib64/crti.o]
+        collapse obj [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/crtbegin.o] ==> [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/lib/gcc/x86_64-redhat-linux-gnu/10.3.0/crtbegin.o]
+        collapse obj [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/crtend.o] ==> [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/lib/gcc/x86_64-redhat-linux-gnu/10.3.0/crtend.o]
+        collapse obj [/lib/../lib64/crtn.o] ==> [/lib64/crtn.o]
+        collapse library dir [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0] ==> [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/lib/gcc/x86_64-redhat-linux-gnu/10.3.0]
+        collapse library dir [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc] ==> [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/lib/gcc]
+        collapse library dir [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../lib64] ==> [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/lib64]
+        collapse library dir [/lib/../lib64] ==> [/lib64]
+        collapse library dir [/usr/lib/../lib64] ==> [/usr/lib64]
+        collapse library dir [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/lib] ==> [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/x86_64-redhat-linux-gnu/lib]
+        collapse library dir [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../..] ==> [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/lib]
+        implicit libs: [stdc++;m;gcc_s;gcc;c;gcc_s;gcc]
+        implicit objs: [/lib64/crt1.o;/lib64/crti.o;/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/lib/gcc/x86_64-redhat-linux-gnu/10.3.0/crtbegin.o;/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/lib/gcc/x86_64-redhat-linux-gnu/10.3.0/crtend.o;/lib64/crtn.o]
+        implicit dirs: [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/lib/gcc/x86_64-redhat-linux-gnu/10.3.0;/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/lib/gcc;/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/lib64;/lib64;/usr/lib64;/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/x86_64-redhat-linux-gnu/lib;/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/lib]
+        implicit fwks: []
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/usr/share/cmake/Modules/CMakeDetermineFortranCompiler.cmake:179 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:75 (enable_language)"
+    message: |
+      Compiling the Fortran compiler identification source file "CMakeFortranCompilerId.F" succeeded.
+      Compiler: /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/gfortran 
+      Build flags: -fPIC
+      Id flags: -v 
+      
+      The output was:
+      0
+      Driving: /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/gfortran -fPIC -v CMakeFortranCompilerId.F -l gfortran -l m -shared-libgcc
+      Using built-in specs.
+      COLLECT_GCC=/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/gfortran
+      COLLECT_LTO_WRAPPER=/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/lto-wrapper
+      Target: x86_64-redhat-linux-gnu
+      Configured with: ../configure --prefix=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --disable-multilib --disable-nls --disable-dssi --enable-languages=c,c++,fortran --enable-gnu-indirect-function --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-plugin --with-linker-hash-style=gnu --enable-linker-build-id --enable-ld=default --enable-lto --enable-gold=yes --with-gmp=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --with-mpfr=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --enable-bootstrap --with-mpc=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --with-isl=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --enable-checking=release --build=x86_64-redhat-linux-gnu --host=x86_64-redhat-linux-gnu --enable-libstdcxx-time=rt --enable-shared --disable-libgcj CC='gcc -fPIC' CXX='c++ -fPIC' CPP=cpp CXXCPP='c++ -E' CFLAGS=-I/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/tmp/sw/include CXXFLAGS=-I/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/tmp/sw/include LDFLAGS=-L/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/tmp/sw/lib
+      Thread model: posix
+      Supported LTO compression algorithms: zlib
+      gcc version 10.3.0 (GCC) 
+      COLLECT_GCC_OPTIONS='-fPIC' '-v' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+       /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/f951 CMakeFortranCompilerId.F -ffixed-form -cpp=/tmp/ccJkwlXE.f90 -quiet -v -iprefix /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/ -isystem /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/include CMakeFortranCompilerId.F -quiet -dumpbase CMakeFortranCompilerId.F -mtune=generic -march=x86-64 -auxbase CMakeFortranCompilerId -version -fPIC -fintrinsic-modules-path /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/finclude -fpre-include=/usr/include/finclude/math-vector-fortran.h -o /tmp/cckCeOrB.s
+      GNU Fortran (GCC) version 10.3.0 (x86_64-redhat-linux-gnu)
+      	compiled by GNU C version 10.3.0, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version isl-0.24-GMP
+      
+      GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+      ignoring nonexistent directory "/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/include"
+      ignoring duplicate directory "/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/../../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/include"
+      ignoring duplicate directory "/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/../../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/include-fixed"
+      ignoring nonexistent directory "/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/../../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/include"
+      ignoring duplicate directory "/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/include"
+        as it is a non-system directory that duplicates a system directory
+      #include "..." search starts here:
+      #include <...> search starts here:
+       /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/finclude
+       /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/include
+       /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/include-fixed
+       /usr/local/include
+       /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/../../include
+       /usr/include
+      End of search list.
+      GNU Fortran2008 (GCC) version 10.3.0 (x86_64-redhat-linux-gnu)
+      	compiled by GNU C version 10.3.0, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version isl-0.24-GMP
+      
+      GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+      COLLECT_GCC_OPTIONS='-fPIC' '-v' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+       /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/bin/as -v --64 -o /tmp/ccJ8A8xV.o /tmp/cckCeOrB.s
+      GNU assembler version 2.36.1 (x86_64-redhat-linux-gnu) using BFD version (GNU Binutils) 2.36.1
+      Reading specs from /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../lib64/libgfortran.spec
+      rename spec lib to liborig
+      COLLECT_GCC_OPTIONS='-fPIC' '-v' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+      COMPILER_PATH=/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/bin/
+      LIBRARY_PATH=/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/lib/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../:/lib/:/usr/lib/
+      COLLECT_GCC_OPTIONS='-fPIC' '-v' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+       /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/collect2 -plugin /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/liblto_plugin.so -plugin-opt=/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccVsSCBH.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lquadmath -plugin-opt=-pass-through=-lm -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -z common-page-size=4096 -z max-page-size=4096 /lib/../lib64/crt1.o /lib/../lib64/crti.o /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/crtbegin.o -L/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0 -L/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc -L/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/lib -L/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../.. /tmp/ccJ8A8xV.o -lgfortran -lm -lgcc_s -lgcc -lquadmath -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/crtend.o /lib/../lib64/crtn.o
+      COLLECT_GCC_OPTIONS='-fPIC' '-v' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+      
+      
+      Compilation of the Fortran compiler identification source "CMakeFortranCompilerId.F" produced "a.out"
+      
+      The Fortran compiler identification is GNU, found in:
+        /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/WGammaToJJGamma/WGammaToJJGamma_gridpack/work/MG5_aMC_v2_9_18/HEPTools/collier/COLLIER-1.2.8/build/CMakeFiles/3.26.5/CompilerIdFortran/a.out
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:57 (try_compile)"
+      - "/usr/share/cmake/Modules/CMakeTestFortranCompiler.cmake:20 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:75 (enable_language)"
+    checks:
+      - "Detecting Fortran compiler ABI info"
+    directories:
+      source: "/uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/WGammaToJJGamma/WGammaToJJGamma_gridpack/work/MG5_aMC_v2_9_18/HEPTools/collier/COLLIER-1.2.8/build/CMakeFiles/CMakeScratch/TryCompile-JAor8d"
+      binary: "/uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/WGammaToJJGamma/WGammaToJJGamma_gridpack/work/MG5_aMC_v2_9_18/HEPTools/collier/COLLIER-1.2.8/build/CMakeFiles/CMakeScratch/TryCompile-JAor8d"
+    cmakeVariables:
+      CMAKE_Fortran_FLAGS: "-fPIC"
+    buildResult:
+      variable: "CMAKE_Fortran_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/WGammaToJJGamma/WGammaToJJGamma_gridpack/work/MG5_aMC_v2_9_18/HEPTools/collier/COLLIER-1.2.8/build/CMakeFiles/CMakeScratch/TryCompile-JAor8d
+        
+        Run Build Command(s):/usr/bin/cmake -E env VERBOSE=1 /cvmfs/cms.cern.ch/el8_amd64_gcc10/cms/cmssw/CMSSW_12_4_8/external/el8_amd64_gcc10/bin/gmake -f Makefile cmTC_ce357/fast && /cvmfs/cms.cern.ch/el8_amd64_gcc10/cms/cmssw/CMSSW_12_4_8/external/el8_amd64_gcc10/bin/gmake  -f CMakeFiles/cmTC_ce357.dir/build.make CMakeFiles/cmTC_ce357.dir/build
+        gmake[1]: Entering directory '/uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/WGammaToJJGamma/WGammaToJJGamma_gridpack/work/MG5_aMC_v2_9_18/HEPTools/collier/COLLIER-1.2.8/build/CMakeFiles/CMakeScratch/TryCompile-JAor8d'
+        Building Fortran object CMakeFiles/cmTC_ce357.dir/CMakeFortranCompilerABI.F90.o
+        /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/gfortran   -fPIC    -v -c /usr/share/cmake/Modules/CMakeFortranCompilerABI.F90 -o CMakeFiles/cmTC_ce357.dir/CMakeFortranCompilerABI.F90.o
+        Using built-in specs.
+        COLLECT_GCC=/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/gfortran
+        Target: x86_64-redhat-linux-gnu
+        Configured with: ../configure --prefix=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --disable-multilib --disable-nls --disable-dssi --enable-languages=c,c++,fortran --enable-gnu-indirect-function --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-plugin --with-linker-hash-style=gnu --enable-linker-build-id --enable-ld=default --enable-lto --enable-gold=yes --with-gmp=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --with-mpfr=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --enable-bootstrap --with-mpc=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --with-isl=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --enable-checking=release --build=x86_64-redhat-linux-gnu --host=x86_64-redhat-linux-gnu --enable-libstdcxx-time=rt --enable-shared --disable-libgcj CC='gcc -fPIC' CXX='c++ -fPIC' CPP=cpp CXXCPP='c++ -E' CFLAGS=-I/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/tmp/sw/include CXXFLAGS=-I/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/tmp/sw/include LDFLAGS=-L/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/tmp/sw/lib
+        Thread model: posix
+        Supported LTO compression algorithms: zlib
+        gcc version 10.3.0 (GCC) 
+        COLLECT_GCC_OPTIONS='-fPIC' '-v' '-c' '-o' 'CMakeFiles/cmTC_ce357.dir/CMakeFortranCompilerABI.F90.o' '-mtune=generic' '-march=x86-64'
+         /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/f951 /usr/share/cmake/Modules/CMakeFortranCompilerABI.F90 -cpp=/tmp/ccOEm2eS.f90 -quiet -v -iprefix /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/ -isystem /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/include /usr/share/cmake/Modules/CMakeFortranCompilerABI.F90 -quiet -dumpbase CMakeFortranCompilerABI.F90 -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_ce357.dir/CMakeFortranCompilerABI.F90.o -version -fPIC -fintrinsic-modules-path /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/finclude -fpre-include=/usr/include/finclude/math-vector-fortran.h -o /tmp/ccxOYreQ.s
+        GNU Fortran (GCC) version 10.3.0 (x86_64-redhat-linux-gnu)
+        	compiled by GNU C version 10.3.0, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version isl-0.24-GMP
+        
+        GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+        ignoring nonexistent directory "/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/include"
+        ignoring duplicate directory "/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/../../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/include"
+        ignoring duplicate directory "/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/../../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/include-fixed"
+        ignoring nonexistent directory "/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/../../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/include"
+        ignoring duplicate directory "/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/include"
+          as it is a non-system directory that duplicates a system directory
+        #include "..." search starts here:
+        #include <...> search starts here:
+         /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/finclude
+         /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/include
+         /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/include-fixed
+         /usr/local/include
+         /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/../../include
+         /usr/include
+        End of search list.
+        GNU Fortran2008 (GCC) version 10.3.0 (x86_64-redhat-linux-gnu)
+        	compiled by GNU C version 10.3.0, GMP version 6.2.1, MPFR version 4.1.0, MPC version 1.2.1, isl version isl-0.24-GMP
+        
+        GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+        COLLECT_GCC_OPTIONS='-fPIC' '-v' '-c' '-o' 'CMakeFiles/cmTC_ce357.dir/CMakeFortranCompilerABI.F90.o' '-mtune=generic' '-march=x86-64'
+         /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/bin/as -v --64 -o CMakeFiles/cmTC_ce357.dir/CMakeFortranCompilerABI.F90.o /tmp/ccxOYreQ.s
+        GNU assembler version 2.36.1 (x86_64-redhat-linux-gnu) using BFD version (GNU Binutils) 2.36.1
+        COMPILER_PATH=/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/bin/
+        LIBRARY_PATH=/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/lib/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../:/lib/:/usr/lib/
+        COLLECT_GCC_OPTIONS='-fPIC' '-v' '-c' '-o' 'CMakeFiles/cmTC_ce357.dir/CMakeFortranCompilerABI.F90.o' '-mtune=generic' '-march=x86-64'
+        Linking Fortran executable cmTC_ce357
+        /usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ce357.dir/link.txt --verbose=1
+        /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/gfortran  -v -fPIC  CMakeFiles/cmTC_ce357.dir/CMakeFortranCompilerABI.F90.o -o cmTC_ce357 
+        Driving: /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/gfortran -v -fPIC CMakeFiles/cmTC_ce357.dir/CMakeFortranCompilerABI.F90.o -o cmTC_ce357 -l gfortran -l m -shared-libgcc
+        Using built-in specs.
+        COLLECT_GCC=/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/gfortran
+        COLLECT_LTO_WRAPPER=/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/lto-wrapper
+        Target: x86_64-redhat-linux-gnu
+        Configured with: ../configure --prefix=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --disable-multilib --disable-nls --disable-dssi --enable-languages=c,c++,fortran --enable-gnu-indirect-function --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-plugin --with-linker-hash-style=gnu --enable-linker-build-id --enable-ld=default --enable-lto --enable-gold=yes --with-gmp=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --with-mpfr=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --enable-bootstrap --with-mpc=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --with-isl=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --enable-checking=release --build=x86_64-redhat-linux-gnu --host=x86_64-redhat-linux-gnu --enable-libstdcxx-time=rt --enable-shared --disable-libgcj CC='gcc -fPIC' CXX='c++ -fPIC' CPP=cpp CXXCPP='c++ -E' CFLAGS=-I/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/tmp/sw/include CXXFLAGS=-I/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/tmp/sw/include LDFLAGS=-L/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/tmp/sw/lib
+        Thread model: posix
+        Supported LTO compression algorithms: zlib
+        gcc version 10.3.0 (GCC) 
+        Reading specs from /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../lib64/libgfortran.spec
+        rename spec lib to liborig
+        COLLECT_GCC_OPTIONS='-v' '-fPIC' '-o' 'cmTC_ce357' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+        COMPILER_PATH=/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/bin/
+        LIBRARY_PATH=/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/lib/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../:/lib/:/usr/lib/
+        COLLECT_GCC_OPTIONS='-v' '-fPIC' '-o' 'cmTC_ce357' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+         /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/collect2 -plugin /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/liblto_plugin.so -plugin-opt=/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccipw9lc.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lquadmath -plugin-opt=-pass-through=-lm -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -z common-page-size=4096 -z max-page-size=4096 -o cmTC_ce357 /lib/../lib64/crt1.o /lib/../lib64/crti.o /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/crtbegin.o -L/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0 -L/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc -L/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/lib -L/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../.. CMakeFiles/cmTC_ce357.dir/CMakeFortranCompilerABI.F90.o -lgfortran -lm -lgcc_s -lgcc -lquadmath -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/crtend.o /lib/../lib64/crtn.o
+        COLLECT_GCC_OPTIONS='-v' '-fPIC' '-o' 'cmTC_ce357' '-shared-libgcc' '-mtune=generic' '-march=x86-64'
+        gmake[1]: Leaving directory '/uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/WGammaToJJGamma/WGammaToJJGamma_gridpack/work/MG5_aMC_v2_9_18/HEPTools/collier/COLLIER-1.2.8/build/CMakeFiles/CMakeScratch/TryCompile-JAor8d'
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:127 (message)"
+      - "/usr/share/cmake/Modules/CMakeTestFortranCompiler.cmake:20 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:75 (enable_language)"
+    message: |
+      Parsed Fortran implicit include dir info: rv=done
+        found start of include info
+        found start of implicit include info
+          add: [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/finclude]
+          add: [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/include]
+          add: [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/include-fixed]
+          add: [/usr/local/include]
+          add: [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/../../include]
+          add: [/usr/include]
+        end of search list found
+        collapse include dir [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/finclude] ==> [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/lib/gcc/x86_64-redhat-linux-gnu/10.3.0/finclude]
+        collapse include dir [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/include] ==> [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/lib/gcc/x86_64-redhat-linux-gnu/10.3.0/include]
+        collapse include dir [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/include-fixed] ==> [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/lib/gcc/x86_64-redhat-linux-gnu/10.3.0/include-fixed]
+        collapse include dir [/usr/local/include] ==> [/usr/local/include]
+        collapse include dir [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/../../include] ==> [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/include]
+        collapse include dir [/usr/include] ==> [/usr/include]
+        implicit include dirs: [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/lib/gcc/x86_64-redhat-linux-gnu/10.3.0/finclude;/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/lib/gcc/x86_64-redhat-linux-gnu/10.3.0/include;/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/lib/gcc/x86_64-redhat-linux-gnu/10.3.0/include-fixed;/usr/local/include;/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/include;/usr/include]
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:152 (message)"
+      - "/usr/share/cmake/Modules/CMakeTestFortranCompiler.cmake:20 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:75 (enable_language)"
+    message: |
+      Parsed Fortran implicit link information:
+        link line regex: [^( *|.*[/\\])(ld|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        ignore line: [Change Dir: /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/WGammaToJJGamma/WGammaToJJGamma_gridpack/work/MG5_aMC_v2_9_18/HEPTools/collier/COLLIER-1.2.8/build/CMakeFiles/CMakeScratch/TryCompile-JAor8d]
+        ignore line: []
+        ignore line: [Run Build Command(s):/usr/bin/cmake -E env VERBOSE=1 /cvmfs/cms.cern.ch/el8_amd64_gcc10/cms/cmssw/CMSSW_12_4_8/external/el8_amd64_gcc10/bin/gmake -f Makefile cmTC_ce357/fast && /cvmfs/cms.cern.ch/el8_amd64_gcc10/cms/cmssw/CMSSW_12_4_8/external/el8_amd64_gcc10/bin/gmake  -f CMakeFiles/cmTC_ce357.dir/build.make CMakeFiles/cmTC_ce357.dir/build]
+        ignore line: [gmake[1]: Entering directory '/uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/WGammaToJJGamma/WGammaToJJGamma_gridpack/work/MG5_aMC_v2_9_18/HEPTools/collier/COLLIER-1.2.8/build/CMakeFiles/CMakeScratch/TryCompile-JAor8d']
+        ignore line: [Building Fortran object CMakeFiles/cmTC_ce357.dir/CMakeFortranCompilerABI.F90.o]
+        ignore line: [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/gfortran   -fPIC    -v -c /usr/share/cmake/Modules/CMakeFortranCompilerABI.F90 -o CMakeFiles/cmTC_ce357.dir/CMakeFortranCompilerABI.F90.o]
+        ignore line: [Using built-in specs.]
+        ignore line: [COLLECT_GCC=/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/gfortran]
+        ignore line: [Target: x86_64-redhat-linux-gnu]
+        ignore line: [Configured with: ../configure --prefix=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --disable-multilib --disable-nls --disable-dssi --enable-languages=c,c++,fortran --enable-gnu-indirect-function --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-plugin --with-linker-hash-style=gnu --enable-linker-build-id --enable-ld=default --enable-lto --enable-gold=yes --with-gmp=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --with-mpfr=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --enable-bootstrap --with-mpc=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --with-isl=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --enable-checking=release --build=x86_64-redhat-linux-gnu --host=x86_64-redhat-linux-gnu --enable-libstdcxx-time=rt --enable-shared --disable-libgcj CC='gcc -fPIC' CXX='c++ -fPIC' CPP=cpp CXXCPP='c++ -E' CFLAGS=-I/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/tmp/sw/include CXXFLAGS=-I/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/tmp/sw/include LDFLAGS=-L/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/tmp/sw/lib]
+        ignore line: [Thread model: posix]
+        ignore line: [Supported LTO compression algorithms: zlib]
+        ignore line: [gcc version 10.3.0 (GCC) ]
+        ignore line: [COLLECT_GCC_OPTIONS='-fPIC' '-v' '-c' '-o' 'CMakeFiles/cmTC_ce357.dir/CMakeFortranCompilerABI.F90.o' '-mtune=generic' '-march=x86-64']
+        ignore line: [ /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/f951 /usr/share/cmake/Modules/CMakeFortranCompilerABI.F90 -cpp=/tmp/ccOEm2eS.f90 -quiet -v -iprefix /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/ -isystem /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/include /usr/share/cmake/Modules/CMakeFortranCompilerABI.F90 -quiet -dumpbase CMakeFortranCompilerABI.F90 -mtune=generic -march=x86-64 -auxbase-strip CMakeFiles/cmTC_ce357.dir/CMakeFortranCompilerABI.F90.o -version -fPIC -fintrinsic-modules-path /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/finclude -fpre-include=/usr/include/finclude/math-vector-fortran.h -o /tmp/ccxOYreQ.s]
+        ignore line: [GNU Fortran (GCC) version 10.3.0 (x86_64-redhat-linux-gnu)]
+        ignore line: [	compiled by GNU C version 10.3.0  GMP version 6.2.1  MPFR version 4.1.0  MPC version 1.2.1  isl version isl-0.24-GMP]
+        ignore line: []
+        ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+        ignore line: [ignoring nonexistent directory "/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/include"]
+        ignore line: [ignoring duplicate directory "/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/../../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/include"]
+        ignore line: [ignoring duplicate directory "/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/../../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/include-fixed"]
+        ignore line: [ignoring nonexistent directory "/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/../../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/include"]
+        ignore line: [ignoring duplicate directory "/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/include"]
+        ignore line: [  as it is a non-system directory that duplicates a system directory]
+        ignore line: [#include "..." search starts here:]
+        ignore line: [#include <...> search starts here:]
+        ignore line: [ /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/finclude]
+        ignore line: [ /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/include]
+        ignore line: [ /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/include-fixed]
+        ignore line: [ /usr/local/include]
+        ignore line: [ /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/../../include]
+        ignore line: [ /usr/include]
+        ignore line: [End of search list.]
+        ignore line: [GNU Fortran2008 (GCC) version 10.3.0 (x86_64-redhat-linux-gnu)]
+        ignore line: [	compiled by GNU C version 10.3.0  GMP version 6.2.1  MPFR version 4.1.0  MPC version 1.2.1  isl version isl-0.24-GMP]
+        ignore line: []
+        ignore line: [GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072]
+        ignore line: [COLLECT_GCC_OPTIONS='-fPIC' '-v' '-c' '-o' 'CMakeFiles/cmTC_ce357.dir/CMakeFortranCompilerABI.F90.o' '-mtune=generic' '-march=x86-64']
+        ignore line: [ /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/bin/as -v --64 -o CMakeFiles/cmTC_ce357.dir/CMakeFortranCompilerABI.F90.o /tmp/ccxOYreQ.s]
+        ignore line: [GNU assembler version 2.36.1 (x86_64-redhat-linux-gnu) using BFD version (GNU Binutils) 2.36.1]
+        ignore line: [COMPILER_PATH=/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/bin/]
+        ignore line: [LIBRARY_PATH=/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/lib/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../:/lib/:/usr/lib/]
+        ignore line: [COLLECT_GCC_OPTIONS='-fPIC' '-v' '-c' '-o' 'CMakeFiles/cmTC_ce357.dir/CMakeFortranCompilerABI.F90.o' '-mtune=generic' '-march=x86-64']
+        ignore line: [Linking Fortran executable cmTC_ce357]
+        ignore line: [/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_ce357.dir/link.txt --verbose=1]
+        ignore line: [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/gfortran  -v -fPIC  CMakeFiles/cmTC_ce357.dir/CMakeFortranCompilerABI.F90.o -o cmTC_ce357 ]
+        ignore line: [Driving: /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/gfortran -v -fPIC CMakeFiles/cmTC_ce357.dir/CMakeFortranCompilerABI.F90.o -o cmTC_ce357 -l gfortran -l m -shared-libgcc]
+        ignore line: [Using built-in specs.]
+        ignore line: [COLLECT_GCC=/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/gfortran]
+        ignore line: [COLLECT_LTO_WRAPPER=/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/lto-wrapper]
+        ignore line: [Target: x86_64-redhat-linux-gnu]
+        ignore line: [Configured with: ../configure --prefix=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --disable-multilib --disable-nls --disable-dssi --enable-languages=c,c++,fortran --enable-gnu-indirect-function --enable-__cxa_atexit --disable-libunwind-exceptions --enable-gnu-unique-object --enable-plugin --with-linker-hash-style=gnu --enable-linker-build-id --enable-ld=default --enable-lto --enable-gold=yes --with-gmp=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --with-mpfr=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --enable-bootstrap --with-mpc=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --with-isl=/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10 --enable-checking=release --build=x86_64-redhat-linux-gnu --host=x86_64-redhat-linux-gnu --enable-libstdcxx-time=rt --enable-shared --disable-libgcj CC='gcc -fPIC' CXX='c++ -fPIC' CPP=cpp CXXCPP='c++ -E' CFLAGS=-I/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/tmp/sw/include CXXFLAGS=-I/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/tmp/sw/include LDFLAGS=-L/data/cmsbld/jenkins/workspace/jenkins-test-bootstrap/bootstrap/tmp/BUILDROOT/84898dea653199466402e67d73657f10/opt/cmssw/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/tmp/sw/lib]
+        ignore line: [Thread model: posix]
+        ignore line: [Supported LTO compression algorithms: zlib]
+        ignore line: [gcc version 10.3.0 (GCC) ]
+        ignore line: [Reading specs from /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../lib64/libgfortran.spec]
+        ignore line: [rename spec lib to liborig]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-fPIC' '-o' 'cmTC_ce357' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
+        ignore line: [COMPILER_PATH=/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/bin/]
+        ignore line: [LIBRARY_PATH=/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../lib64/:/lib/../lib64/:/usr/lib/../lib64/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/lib/:/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../:/lib/:/usr/lib/]
+        ignore line: [COLLECT_GCC_OPTIONS='-v' '-fPIC' '-o' 'cmTC_ce357' '-shared-libgcc' '-mtune=generic' '-march=x86-64']
+        link line: [ /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/collect2 -plugin /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/liblto_plugin.so -plugin-opt=/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/lto-wrapper -plugin-opt=-fresolution=/tmp/ccipw9lc.res -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lquadmath -plugin-opt=-pass-through=-lm -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc -plugin-opt=-pass-through=-lc -plugin-opt=-pass-through=-lgcc_s -plugin-opt=-pass-through=-lgcc --build-id --eh-frame-hdr --hash-style=gnu -m elf_x86_64 -dynamic-linker /lib64/ld-linux-x86-64.so.2 -z common-page-size=4096 -z max-page-size=4096 -o cmTC_ce357 /lib/../lib64/crt1.o /lib/../lib64/crti.o /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/crtbegin.o -L/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0 -L/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc -L/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/lib -L/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../.. CMakeFiles/cmTC_ce357.dir/CMakeFortranCompilerABI.F90.o -lgfortran -lm -lgcc_s -lgcc -lquadmath -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/crtend.o /lib/../lib64/crtn.o]
+          arg [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/collect2] ==> ignore
+          arg [-plugin] ==> ignore
+          arg [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/liblto_plugin.so] ==> ignore
+          arg [-plugin-opt=/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../libexec/gcc/x86_64-redhat-linux-gnu/10.3.0/lto-wrapper] ==> ignore
+          arg [-plugin-opt=-fresolution=/tmp/ccipw9lc.res] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lquadmath] ==> ignore
+          arg [-plugin-opt=-pass-through=-lm] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lc] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc_s] ==> ignore
+          arg [-plugin-opt=-pass-through=-lgcc] ==> ignore
+          arg [--build-id] ==> ignore
+          arg [--eh-frame-hdr] ==> ignore
+          arg [--hash-style=gnu] ==> ignore
+          arg [-m] ==> ignore
+          arg [elf_x86_64] ==> ignore
+          arg [-dynamic-linker] ==> ignore
+          arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
+          arg [-zcommon-page-size=4096] ==> ignore
+          arg [-zmax-page-size=4096] ==> ignore
+          arg [-o] ==> ignore
+          arg [cmTC_ce357] ==> ignore
+          arg [/lib/../lib64/crt1.o] ==> obj [/lib/../lib64/crt1.o]
+          arg [/lib/../lib64/crti.o] ==> obj [/lib/../lib64/crti.o]
+          arg [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/crtbegin.o] ==> obj [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/crtbegin.o]
+          arg [-L/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0] ==> dir [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0]
+          arg [-L/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc] ==> dir [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc]
+          arg [-L/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../lib64] ==> dir [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../lib64]
+          arg [-L/lib/../lib64] ==> dir [/lib/../lib64]
+          arg [-L/usr/lib/../lib64] ==> dir [/usr/lib/../lib64]
+          arg [-L/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/lib] ==> dir [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/lib]
+          arg [-L/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../..] ==> dir [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../..]
+          arg [CMakeFiles/cmTC_ce357.dir/CMakeFortranCompilerABI.F90.o] ==> ignore
+          arg [-lgfortran] ==> lib [gfortran]
+          arg [-lm] ==> lib [m]
+          arg [-lgcc_s] ==> lib [gcc_s]
+          arg [-lgcc] ==> lib [gcc]
+          arg [-lquadmath] ==> lib [quadmath]
+          arg [-lm] ==> lib [m]
+          arg [-lgcc_s] ==> lib [gcc_s]
+          arg [-lgcc] ==> lib [gcc]
+          arg [-lc] ==> lib [c]
+          arg [-lgcc_s] ==> lib [gcc_s]
+          arg [-lgcc] ==> lib [gcc]
+          arg [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/crtend.o] ==> obj [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/crtend.o]
+          arg [/lib/../lib64/crtn.o] ==> obj [/lib/../lib64/crtn.o]
+        collapse obj [/lib/../lib64/crt1.o] ==> [/lib64/crt1.o]
+        collapse obj [/lib/../lib64/crti.o] ==> [/lib64/crti.o]
+        collapse obj [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/crtbegin.o] ==> [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/lib/gcc/x86_64-redhat-linux-gnu/10.3.0/crtbegin.o]
+        collapse obj [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/crtend.o] ==> [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/lib/gcc/x86_64-redhat-linux-gnu/10.3.0/crtend.o]
+        collapse obj [/lib/../lib64/crtn.o] ==> [/lib64/crtn.o]
+        collapse library dir [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0] ==> [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/lib/gcc/x86_64-redhat-linux-gnu/10.3.0]
+        collapse library dir [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc] ==> [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/lib/gcc]
+        collapse library dir [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../lib64] ==> [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/lib64]
+        collapse library dir [/lib/../lib64] ==> [/lib64]
+        collapse library dir [/usr/lib/../lib64] ==> [/usr/lib64]
+        collapse library dir [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../../../x86_64-redhat-linux-gnu/lib] ==> [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/x86_64-redhat-linux-gnu/lib]
+        collapse library dir [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/bin/../lib/gcc/x86_64-redhat-linux-gnu/10.3.0/../../..] ==> [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/lib]
+        implicit libs: [gfortran;m;gcc_s;gcc;quadmath;m;gcc_s;gcc;c;gcc_s;gcc]
+        implicit objs: [/lib64/crt1.o;/lib64/crti.o;/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/lib/gcc/x86_64-redhat-linux-gnu/10.3.0/crtbegin.o;/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/lib/gcc/x86_64-redhat-linux-gnu/10.3.0/crtend.o;/lib64/crtn.o]
+        implicit dirs: [/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/lib/gcc/x86_64-redhat-linux-gnu/10.3.0;/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/lib/gcc;/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/lib64;/lib64;/usr/lib64;/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/x86_64-redhat-linux-gnu/lib;/cvmfs/cms.cern.ch/el8_amd64_gcc10/external/gcc/10.3.0-84898dea653199466402e67d73657f10/lib]
+        implicit fwks: []
+      
+      
+...

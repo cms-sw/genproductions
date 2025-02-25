@@ -1,0 +1,10 @@
+{
+  "LIB": [
+    "Html"
+  ],
+  "TOOLNAME": "roothtml",
+  "TOOLVERSION": "6.24.07-bf41b0420bc269850b74e23486e2953a",
+  "USE": [
+    "rootgpad"
+  ]
+}

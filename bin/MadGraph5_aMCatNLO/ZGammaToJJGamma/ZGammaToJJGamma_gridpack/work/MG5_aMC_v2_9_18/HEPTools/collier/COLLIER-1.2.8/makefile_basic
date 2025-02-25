@@ -1,0 +1,177 @@
+# choose compiler
+FC = gfortran
+#FC = ifort
+#FC = pgf95
+
+# choose RELEASE or DEBUG flags
+MODE = RELEASE
+#MODE = DEBUG
+
+# static or dynamic library
+LINK = DYNAMIC
+#LINK = STATIC
+
+# DD for use in Collier
+PREPRFLAGS = -Dcollierdd 
+
+# Switch on singular pieces in COLI
+PREPRFLAGS += -DSING
+
+# Switch on extra statistics
+#PREPRFLAGS += -DCritPointsCOLI -DCritPoints2
+
+# location of Collier library
+export LD_RUN_PATH:=$(PWD)
+
+# Object and Module directories
+ODIR=OBJS
+MODDIR=modules
+
+# Makro-Definitions:
+
+AR = ar rcs
+
+ifeq ($(FC),gfortran)
+  FFLAGS = -ffixed-line-length-132  -fno-default-integer-8
+  FFLAGS += -J$(MODDIR) -I$(MODDIR)
+  ifeq ($(MODE),RELEASE)
+    FFLAGS += -O2 -funroll-loops -Wtabs
+  else
+    FFLAGS += -O0 -frange-check -g -fcheck=bounds,do,mem,pointer,recursion
+    FFLAGS += -Wall -Wtabs -Wextra -Wno-unused
+    FFLAGS += -Wno-unused-dummy-argument  -Wno-unused-parameter -Wno-compare-reals
+    FFLAGS += -ffpe-trap=invalid,overflow -fdump-core -fbacktrace
+  endif
+endif
+
+ifeq ($(FC),ifort)
+  FFLAGS = -132
+  FFLAGS += -module $(MODDIR)
+  ifeq ($(MODE),RELEASE)
+    FFLAGS += -O2 
+  else
+    FFLAGS += -O0 -check -check noarg_temp_created -g 
+    FFLAGS += -warn all -warn nodeclarations -warn nounused
+  endif
+  ifeq ($(LINK),STATIC) 
+    FFLAGS += -Bstatic
+  endif
+endif
+
+ifeq ($(FC),pgf95)
+  FFLAGS = -Mextend -Msecond_underscore
+  FFLAGS += -module $(MODDIR)
+  ifeq ($(MODE),RELEASE)
+    FFLAGS += -O2 -fast
+  else
+    FFLAGS += -O0  -Mbounds 
+    FFLAGS += 
+  endif
+endif
+
+OBJS = \
+	collier_global.o       \
+	Combinatorics.o        \
+	master.o               \
+	coli_aux2.o            \
+	coli_stat.o            \
+	collier_aux.o          \
+	cache.o                \
+	InitTensors.o          \
+	collier_init.o         \
+	reductionAB.o          \
+	reductionC.o           \
+	reductionD.o           \
+	reductionEFG.o         \
+	reductionTN.o          \
+	collier_coefs.o        \
+	BuildTensors.o         \
+	TensorReduction.o      \
+	collier_tensors.o      \
+	DD_global.o            \
+	COLLIER.o              \
+	coli_b0.o              \
+	coli_c0.o              \
+	coli_d0.o              \
+	coli_d0reg.o           \
+	coli_aux.o             \
+	DD_aux.o               \
+	DD_2pt.o               \
+	DD_3pt.o               \
+	DD_4pt.o               \
+	DD_5pt.o               \
+	DD_6pt.o               \
+	DD_to_COLLIER.o  
+
+# dependencies
+
+all: mdir libcollier
+
+
+# Commands:
+
+
+.PHONY: mdir
+
+mdir:
+	mkdir -p $(ODIR)
+	mkdir -p $(MODDIR)
+
+$(ODIR)/%.o $(ODIR)/%.mod: src/%.F90
+	$(FC) -c $(FFLAGS) $(PREPRFLAGS) -o $@ $<
+
+$(ODIR)/%.o $(ODIR)/%.mod: src/Aux/%.F90
+	$(FC) -c $(FFLAGS) -o $@ $<
+
+$(ODIR)/%.o $(ODIR)/%.mod: src/COLI/%.F90 src/COLI/global_coli.h src/COLI/common_coli.h
+	$(FC) -c $(FFLAGS) $(PREPRFLAGS) -o $@ $<
+
+$(ODIR)/%.o: src/COLI/%.F src/COLI/checkparams_coli.h src/COLI/common_coli.h src/COLI/global_coli.h src/COLI/params_coli.h
+	$(FC) -c $(FFLAGS) $(PREPRFLAGS) -o $@ $<
+
+$(ODIR)/%.o $(ODIR)/%.mod: src/tensors/%.F90
+	$(FC) -c $(FFLAGS) -o $@ $<
+
+$(ODIR)/%.o $(ODIR)/%.mod: src/DDlib/%.F90 
+	$(FC) -c $(FFLAGS) $(PREPRFLAGS) -o $@ $<
+
+$(ODIR)/%.o: src/DDlib/%.F 
+	$(FC) -c $(FFLAGS) $(PREPRFLAGS) -o $@ $<
+
+$(ODIR)/%.o: src/DDlib/%.f
+	$(FC) -c $(FFLAGS) -o $@ $<
+
+$(ODIR)/%.o: demos/%.f90
+	$(FC) -c $(FFLAGS) -o $@ $< 
+
+# make shared libraries
+ifeq ($(LINK),DYNAMIC)
+FFLAGS += -fPIC
+libcollier: $(patsubst %,$(ODIR)/%,$(OBJS))
+	$(FC) -shared -o $@.so $^
+endif
+
+# make static libraries
+ifeq ($(LINK),STATIC)
+libcollier: $(patsubst %,$(ODIR)/%,$(OBJS))
+	$(AR) $@.a $^
+endif
+
+#demo: $(patsubst %,$(ODIR)/%,$(OBJS)) $(ODIR)/demo.o
+#	$(FC) $(FFLAGS) -L. -lcollier -o demos/$@ $^
+
+#democache: $(patsubst %,$(ODIR)/%,$(OBJS)) $(ODIR)/democache.o
+#	$(FC) $(FFLAGS) -L. -lcollier -o demos/$@ $^
+
+demo: mdir libcollier $(ODIR)/demo.o
+	$(FC) $(ODIR)/demo.o $(FFLAGS) -L. -lcollier -o demos/$@
+
+democache: mdir libcollier $(ODIR)/democache.o
+	$(FC) $(ODIR)/democache.o $(FFLAGS) -L. -lcollier -o demos/$@
+
+clean:
+	rm -f $(ODIR)/*.o $(ODIR)/*.os $(MODDIR)/*.mod 
+
+cleanall:
+	rm -f $(ODIR)/*.o $(ODIR)/*.os $(MODDIR)/*.mod libcollier.a libcollier.so
+

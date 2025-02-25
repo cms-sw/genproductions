@@ -1,0 +1,31 @@
+# MOC generation
+define generate_moc
+  @$(startlog_$(2))[ -d $(@D) ] ||  $(CMD_mkdir) -p $(@D) &&\
+  $(CMD_echo) ">> Running moc ( $(3) ) for $<" &&\
+  $(3) -o $@ $< $(endlog_$(2))
+endef
+
+define AddMOC
+$(1)_LOC_FLAGS_CPPFLAGS     += -I$($(1)_objdir)/moc
+$(1)_FILE_MOC	  := $(foreach suffix,h cc cpp cxx,$(patsubst %.$(suffix),%_$(suffix)_moc.cc,$(filter %.$(suffix),$(2))))
+$(1)_FILE_MOC_SRC := $$(filter %_cc_moc.cc %_cpp_moc.cc %_cxx_moc.cc, $$($(1)_FILE_MOC))
+$(1)_FILE_MOC_INC := $(filter-out $$($(1)_FILE_MOC_SRC),$$($(1)_FILE_MOC))
+$(1)_files        += $$($(1)_FILE_MOC_INC)
+$(1)_objs         += $$(addprefix $($(1)_objdir)/moc/, $$(addsuffix .$(OBJEXT), $$(notdir $$($(1)_FILE_MOC_INC))))
+$(1)_extra_files   += $($(1)_objdir)/moc/run_moc
+$($(1)_objdir)/moc/run_moc: $$(addprefix $($(1)_objdir)/moc/, $$($(1)_FILE_MOC))
+	@[ -f $$@ ] || $(CMD_touch) $$@
+$($(1)_objdir)/moc/%.cc.$(OBJEXT):  $($(1)_objdir)/moc/%.cc
+	$$(call compile_cxx,$(1),$(1))
+$($(1)_objdir)/moc/%_h_moc.cc:   $(3)/%.h   $($(1)_config)
+	$$(call generate_moc,$(1),$(1),$($(5))/bin/moc)
+$($(1)_objdir)/moc/%_h_moc.cc:   $(4)/%.h   $($(1)_config)
+	$$(call generate_moc,$(1),$(1),$($(5))/bin/moc)
+$($(1)_objdir)/moc/%_cc_moc.cc:  $(4)/%.cc  $($(1)_config)
+	$$(call generate_moc,$(1),$(1),$($(5))/bin/moc)
+$($(1)_objdir)/moc/%_cpp_moc.cc: $(4)/%.cpp $($(1)_config)
+	$$(call generate_moc,$(1),$(1),$($(5))/bin/moc)
+$($(1)_objdir)/moc/%_cxx_moc.cc: $(4)/%.cxx $($(1)_config)
+	$$(call generate_moc,$(1),$(1),$($(5))/bin/moc)
+endef
+

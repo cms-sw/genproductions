@@ -1,0 +1,12 @@
+#!/bin/bash
+cd $CMSSW_BASE
+if [ -d tmp/${SCRAM_ARCH}/code-checks ] ; then
+  for f in $(find tmp/${SCRAM_ARCH}/code-checks -name '*.yaml' -type f | xargs grep ' FilePath:' | sed 's|.*FilePath: *||' | sort | uniq | sed -e "s|${CMSSW_BASE}/src/||;s|'||g" | sed -e 's|"||g') ; do
+    [ -f $CMSSW_BASE/src/$f ] || continue
+    [ "$(echo $f | cut -d/ -f3)" != "test" ] || continue
+    f="tmp/${SCRAM_ARCH}/code-checks/${f}.yaml"
+    [ -f $f ] && continue
+    mkdir -p $(dirname $f) 
+    touch $f
+  done
+fi

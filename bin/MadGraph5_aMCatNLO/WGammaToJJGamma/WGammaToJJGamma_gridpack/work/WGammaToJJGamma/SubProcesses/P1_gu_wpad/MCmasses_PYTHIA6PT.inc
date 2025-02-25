@@ -1,0 +1,1 @@
+../MCmasses_PYTHIA6PT.inc

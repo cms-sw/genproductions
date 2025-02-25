@@ -1,0 +1,30 @@
+# The fortran modules provided by this target.
+provides
+ buildtensors.mod
+ cache.mod
+ coli_aux2.mod
+ coli_stat.mod
+ collier.mod
+ collier_aux.mod
+ collier_coefs.mod
+ collier_global.mod
+ collier_init.mod
+ collier_tensors.mod
+ combinatorics.mod
+ dd_2pt.mod
+ dd_3pt.mod
+ dd_4pt.mod
+ dd_5pt.mod
+ dd_6pt.mod
+ dd_global.mod
+ dd_statistics.mod
+ globalc.mod
+ globald.mod
+ inittensors.mod
+ master.mod
+ reductionab.mod
+ reductionc.mod
+ reductiond.mod
+ reductionefg.mod
+ reductiontn.mod
+ tensorreduction.mod

@@ -1,0 +1,16 @@
+# File: @LIB_NAME@Config.cmake.in
+# Author: Jean-Nicolas Lang
+# Description: Config file for creating the @LIB_NAME@ library package
+# Last Modified: March 02, 2018
+
+# It defines the following variables
+#  @LIB_NAME_UPPER@_LIBRARY_DIR - include directories for project library
+#  @LIB_NAME_UPPER@_INCLUDE_DIR - include directories for project headers
+#  @LIB_NAME_UPPER@_LIBRARY_PATH - path to the @LIB_NAME@ library file
+
+set(@LIB_NAME_UPPER@_LIBRARY_DIR "@LIB_DIR@")
+set(@LIB_NAME_UPPER@_INCLUDE_DIR "@INCLUDE_DIR@")
+add_library(@LIB_NAME@ SHARED IMPORTED)
+find_library(@LIB_NAME_UPPER@_LIBRARY_PATH @LIB_NAME@ HINTS "${@LIB_NAME_UPPER@_LIBRARY_DIR}" NO_DEFAULT_PATH)
+set_target_properties(@LIB_NAME@ PROPERTIES IMPORTED_LOCATION "${@LIB_NAME_UPPER@_LIBRARY_PATH}")
+include_directories(${@LIB_NAME_UPPER@_INCLUDE_DIR})
