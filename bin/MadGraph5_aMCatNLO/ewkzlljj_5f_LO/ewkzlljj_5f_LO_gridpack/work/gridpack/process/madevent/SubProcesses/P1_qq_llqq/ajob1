@@ -1,0 +1,3625 @@
+#!/bin/bash
+
+# For support of LHAPATH in cluster mode
+if [ $CLUSTER_LHAPATH ]; then
+  export LHAPATH=$CLUSTER_LHAPATH;
+fi
+
+# Add CVMFS libraries to LD_LIBRARY_PATH, if not present already
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRT" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRT}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRT:$LD_LIBRARY_PATH"
+  fi
+fi
+
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRTDEL" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRTDEL}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRTDEL:$LD_LIBRARY_PATH"
+  fi
+fi
+
+# If TMPDIR is unset, set it to the condor scratch area if present and fallback to /tmp
+export TMPDIR=${TMPDIR:-${_CONDOR_SCRATCH_DIR:-/tmp}}
+
+if [[ -e MadLoop5_resources.tar.gz && ! -e MadLoop5_resources ]]; then
+tar -xzf MadLoop5_resources.tar.gz
+fi
+keeplog=false
+if [ "$keeplog" = true ] ; then
+    k=GridRun_234567_app.log
+else
+    k=/dev/null
+fi
+script=ajob1                         
+
+grid_directory=
+j=G52
+     if [[ ! -e $j ]]; then
+          mkdir $j
+          if [[ -e $grid_directory/ftn26 ]];then
+             cp $grid_directory/ftn26 $j/ftn25
+          fi 
+          if [[ ! -e ../../SubProcesses ]];then
+          	 if [[ -e ftn26 ]]; then
+          	 	cp ./ftn26 $j/ftn25
+          	 fi
+          fi	
+     fi
+     cd $j
+     if [ "$keeplog" = true ] ; then
+	 rm -f $k
+     fi
+     rm -f moffset.dat >& /dev/null
+      echo   1  > moffset.dat
+     if  [[ -e ftn26 ]]; then
+          cp ftn26 ftn25
+     fi
+     # create the input file
+         echo "    500       13       1" >& input_sg.txt
+         echo "    -149.63339817447255" >> input_sg.txt
+     if [[ ! -e ftn25 ]]; then
+         echo "2" >> input_sg.txt   # grid refinement
+         echo "1" >> input_sg.txt   # suppress amplitude
+
+     else
+         echo "0" >> input_sg.txt
+         echo "1" >> input_sg.txt
+     fi
+     echo "0" >> input_sg.txt
+     echo "52" >> input_sg.txt
+
+     # run the executable. The loop is design to avoid
+     # filesystem problem (executable not found)
+     for((try=1;try<=16;try+=1)); 
+     do
+	 if [ "$keeplog" = true ] ; then
+             /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> $k <input_sg.txt | tee -a $k;
+	     status_code=${PIPESTATUS[0]};
+             if [ -s $k ]
+             then
+		 break
+             else
+		 echo $try > fail.log
+		 sleep 5
+             fi
+	 else
+	     /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> log.txt <input_sg.txt | tee -a log.txt;
+	     status_code=${PIPESTATUS[0]};
+	     if [ -s log.txt ]
+             then
+		 rm log.txt
+                 break
+             else
+                 echo $try > fail.log
+		 sleep 5
+             fi
+	 fi
+     done
+     if [[ $status_code -ne 0 ]]; then 
+	 rm results.dat
+	 echo "ERROR DETECTED"
+   echo "end-code not correct $status_code" >> log.txt
+   echo "+ Hostname:" >> log.txt
+   hostname >> log.txt
+   echo "+ Printing job environment:" >> log.txt
+   env >> log.txt
+     fi     
+     if [[ -e ftn26 ]]; then
+         cp ftn26 ftn25
+     fi
+
+     if [ "$keeplog" = true ] ; then
+	 echo "" >> $k; echo "ls status:" >> $k; ls >> $k	 
+     else
+	 rm ftn26 &> /dev/null
+     fi
+
+
+
+
+
+     cd ../
+
+if [[ $status_code -ne 0 ]]; then
+  exit $status_code
+fi
+#!/bin/bash
+
+# For support of LHAPATH in cluster mode
+if [ $CLUSTER_LHAPATH ]; then
+  export LHAPATH=$CLUSTER_LHAPATH;
+fi
+
+# Add CVMFS libraries to LD_LIBRARY_PATH, if not present already
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRT" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRT}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRT:$LD_LIBRARY_PATH"
+  fi
+fi
+
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRTDEL" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRTDEL}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRTDEL:$LD_LIBRARY_PATH"
+  fi
+fi
+
+# If TMPDIR is unset, set it to the condor scratch area if present and fallback to /tmp
+export TMPDIR=${TMPDIR:-${_CONDOR_SCRATCH_DIR:-/tmp}}
+
+if [[ -e MadLoop5_resources.tar.gz && ! -e MadLoop5_resources ]]; then
+tar -xzf MadLoop5_resources.tar.gz
+fi
+keeplog=false
+if [ "$keeplog" = true ] ; then
+    k=GridRun_234567_app.log
+else
+    k=/dev/null
+fi
+script=ajob1                         
+
+grid_directory=
+j=G50
+     if [[ ! -e $j ]]; then
+          mkdir $j
+          if [[ -e $grid_directory/ftn26 ]];then
+             cp $grid_directory/ftn26 $j/ftn25
+          fi 
+          if [[ ! -e ../../SubProcesses ]];then
+          	 if [[ -e ftn26 ]]; then
+          	 	cp ./ftn26 $j/ftn25
+          	 fi
+          fi	
+     fi
+     cd $j
+     if [ "$keeplog" = true ] ; then
+	 rm -f $k
+     fi
+     rm -f moffset.dat >& /dev/null
+      echo   1  > moffset.dat
+     if  [[ -e ftn26 ]]; then
+          cp ftn26 ftn25
+     fi
+     # create the input file
+         echo "    500       13       1" >& input_sg.txt
+         echo "    -147.5035032082012" >> input_sg.txt
+     if [[ ! -e ftn25 ]]; then
+         echo "2" >> input_sg.txt   # grid refinement
+         echo "1" >> input_sg.txt   # suppress amplitude
+
+     else
+         echo "0" >> input_sg.txt
+         echo "1" >> input_sg.txt
+     fi
+     echo "0" >> input_sg.txt
+     echo "50" >> input_sg.txt
+
+     # run the executable. The loop is design to avoid
+     # filesystem problem (executable not found)
+     for((try=1;try<=16;try+=1)); 
+     do
+	 if [ "$keeplog" = true ] ; then
+             /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> $k <input_sg.txt | tee -a $k;
+	     status_code=${PIPESTATUS[0]};
+             if [ -s $k ]
+             then
+		 break
+             else
+		 echo $try > fail.log
+		 sleep 5
+             fi
+	 else
+	     /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> log.txt <input_sg.txt | tee -a log.txt;
+	     status_code=${PIPESTATUS[0]};
+	     if [ -s log.txt ]
+             then
+		 rm log.txt
+                 break
+             else
+                 echo $try > fail.log
+		 sleep 5
+             fi
+	 fi
+     done
+     if [[ $status_code -ne 0 ]]; then 
+	 rm results.dat
+	 echo "ERROR DETECTED"
+   echo "end-code not correct $status_code" >> log.txt
+   echo "+ Hostname:" >> log.txt
+   hostname >> log.txt
+   echo "+ Printing job environment:" >> log.txt
+   env >> log.txt
+     fi     
+     if [[ -e ftn26 ]]; then
+         cp ftn26 ftn25
+     fi
+
+     if [ "$keeplog" = true ] ; then
+	 echo "" >> $k; echo "ls status:" >> $k; ls >> $k	 
+     else
+	 rm ftn26 &> /dev/null
+     fi
+
+
+
+
+
+     cd ../
+
+if [[ $status_code -ne 0 ]]; then
+  exit $status_code
+fi
+#!/bin/bash
+
+# For support of LHAPATH in cluster mode
+if [ $CLUSTER_LHAPATH ]; then
+  export LHAPATH=$CLUSTER_LHAPATH;
+fi
+
+# Add CVMFS libraries to LD_LIBRARY_PATH, if not present already
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRT" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRT}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRT:$LD_LIBRARY_PATH"
+  fi
+fi
+
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRTDEL" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRTDEL}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRTDEL:$LD_LIBRARY_PATH"
+  fi
+fi
+
+# If TMPDIR is unset, set it to the condor scratch area if present and fallback to /tmp
+export TMPDIR=${TMPDIR:-${_CONDOR_SCRATCH_DIR:-/tmp}}
+
+if [[ -e MadLoop5_resources.tar.gz && ! -e MadLoop5_resources ]]; then
+tar -xzf MadLoop5_resources.tar.gz
+fi
+keeplog=false
+if [ "$keeplog" = true ] ; then
+    k=GridRun_234567_app.log
+else
+    k=/dev/null
+fi
+script=ajob1                         
+
+grid_directory=
+j=G48
+     if [[ ! -e $j ]]; then
+          mkdir $j
+          if [[ -e $grid_directory/ftn26 ]];then
+             cp $grid_directory/ftn26 $j/ftn25
+          fi 
+          if [[ ! -e ../../SubProcesses ]];then
+          	 if [[ -e ftn26 ]]; then
+          	 	cp ./ftn26 $j/ftn25
+          	 fi
+          fi	
+     fi
+     cd $j
+     if [ "$keeplog" = true ] ; then
+	 rm -f $k
+     fi
+     rm -f moffset.dat >& /dev/null
+      echo   1  > moffset.dat
+     if  [[ -e ftn26 ]]; then
+          cp ftn26 ftn25
+     fi
+     # create the input file
+         echo "    500       13       1" >& input_sg.txt
+         echo "    -148.62153526045924" >> input_sg.txt
+     if [[ ! -e ftn25 ]]; then
+         echo "2" >> input_sg.txt   # grid refinement
+         echo "1" >> input_sg.txt   # suppress amplitude
+
+     else
+         echo "0" >> input_sg.txt
+         echo "1" >> input_sg.txt
+     fi
+     echo "0" >> input_sg.txt
+     echo "48" >> input_sg.txt
+
+     # run the executable. The loop is design to avoid
+     # filesystem problem (executable not found)
+     for((try=1;try<=16;try+=1)); 
+     do
+	 if [ "$keeplog" = true ] ; then
+             /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> $k <input_sg.txt | tee -a $k;
+	     status_code=${PIPESTATUS[0]};
+             if [ -s $k ]
+             then
+		 break
+             else
+		 echo $try > fail.log
+		 sleep 5
+             fi
+	 else
+	     /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> log.txt <input_sg.txt | tee -a log.txt;
+	     status_code=${PIPESTATUS[0]};
+	     if [ -s log.txt ]
+             then
+		 rm log.txt
+                 break
+             else
+                 echo $try > fail.log
+		 sleep 5
+             fi
+	 fi
+     done
+     if [[ $status_code -ne 0 ]]; then 
+	 rm results.dat
+	 echo "ERROR DETECTED"
+   echo "end-code not correct $status_code" >> log.txt
+   echo "+ Hostname:" >> log.txt
+   hostname >> log.txt
+   echo "+ Printing job environment:" >> log.txt
+   env >> log.txt
+     fi     
+     if [[ -e ftn26 ]]; then
+         cp ftn26 ftn25
+     fi
+
+     if [ "$keeplog" = true ] ; then
+	 echo "" >> $k; echo "ls status:" >> $k; ls >> $k	 
+     else
+	 rm ftn26 &> /dev/null
+     fi
+
+
+
+
+
+     cd ../
+
+if [[ $status_code -ne 0 ]]; then
+  exit $status_code
+fi
+#!/bin/bash
+
+# For support of LHAPATH in cluster mode
+if [ $CLUSTER_LHAPATH ]; then
+  export LHAPATH=$CLUSTER_LHAPATH;
+fi
+
+# Add CVMFS libraries to LD_LIBRARY_PATH, if not present already
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRT" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRT}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRT:$LD_LIBRARY_PATH"
+  fi
+fi
+
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRTDEL" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRTDEL}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRTDEL:$LD_LIBRARY_PATH"
+  fi
+fi
+
+# If TMPDIR is unset, set it to the condor scratch area if present and fallback to /tmp
+export TMPDIR=${TMPDIR:-${_CONDOR_SCRATCH_DIR:-/tmp}}
+
+if [[ -e MadLoop5_resources.tar.gz && ! -e MadLoop5_resources ]]; then
+tar -xzf MadLoop5_resources.tar.gz
+fi
+keeplog=false
+if [ "$keeplog" = true ] ; then
+    k=GridRun_234567_app.log
+else
+    k=/dev/null
+fi
+script=ajob1                         
+
+grid_directory=
+j=G38
+     if [[ ! -e $j ]]; then
+          mkdir $j
+          if [[ -e $grid_directory/ftn26 ]];then
+             cp $grid_directory/ftn26 $j/ftn25
+          fi 
+          if [[ ! -e ../../SubProcesses ]];then
+          	 if [[ -e ftn26 ]]; then
+          	 	cp ./ftn26 $j/ftn25
+          	 fi
+          fi	
+     fi
+     cd $j
+     if [ "$keeplog" = true ] ; then
+	 rm -f $k
+     fi
+     rm -f moffset.dat >& /dev/null
+      echo   1  > moffset.dat
+     if  [[ -e ftn26 ]]; then
+          cp ftn26 ftn25
+     fi
+     # create the input file
+         echo "    500       13       1" >& input_sg.txt
+         echo "    -142.9473358190287" >> input_sg.txt
+     if [[ ! -e ftn25 ]]; then
+         echo "2" >> input_sg.txt   # grid refinement
+         echo "1" >> input_sg.txt   # suppress amplitude
+
+     else
+         echo "0" >> input_sg.txt
+         echo "1" >> input_sg.txt
+     fi
+     echo "0" >> input_sg.txt
+     echo "38" >> input_sg.txt
+
+     # run the executable. The loop is design to avoid
+     # filesystem problem (executable not found)
+     for((try=1;try<=16;try+=1)); 
+     do
+	 if [ "$keeplog" = true ] ; then
+             /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> $k <input_sg.txt | tee -a $k;
+	     status_code=${PIPESTATUS[0]};
+             if [ -s $k ]
+             then
+		 break
+             else
+		 echo $try > fail.log
+		 sleep 5
+             fi
+	 else
+	     /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> log.txt <input_sg.txt | tee -a log.txt;
+	     status_code=${PIPESTATUS[0]};
+	     if [ -s log.txt ]
+             then
+		 rm log.txt
+                 break
+             else
+                 echo $try > fail.log
+		 sleep 5
+             fi
+	 fi
+     done
+     if [[ $status_code -ne 0 ]]; then 
+	 rm results.dat
+	 echo "ERROR DETECTED"
+   echo "end-code not correct $status_code" >> log.txt
+   echo "+ Hostname:" >> log.txt
+   hostname >> log.txt
+   echo "+ Printing job environment:" >> log.txt
+   env >> log.txt
+     fi     
+     if [[ -e ftn26 ]]; then
+         cp ftn26 ftn25
+     fi
+
+     if [ "$keeplog" = true ] ; then
+	 echo "" >> $k; echo "ls status:" >> $k; ls >> $k	 
+     else
+	 rm ftn26 &> /dev/null
+     fi
+
+
+
+
+
+     cd ../
+
+if [[ $status_code -ne 0 ]]; then
+  exit $status_code
+fi
+#!/bin/bash
+
+# For support of LHAPATH in cluster mode
+if [ $CLUSTER_LHAPATH ]; then
+  export LHAPATH=$CLUSTER_LHAPATH;
+fi
+
+# Add CVMFS libraries to LD_LIBRARY_PATH, if not present already
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRT" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRT}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRT:$LD_LIBRARY_PATH"
+  fi
+fi
+
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRTDEL" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRTDEL}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRTDEL:$LD_LIBRARY_PATH"
+  fi
+fi
+
+# If TMPDIR is unset, set it to the condor scratch area if present and fallback to /tmp
+export TMPDIR=${TMPDIR:-${_CONDOR_SCRATCH_DIR:-/tmp}}
+
+if [[ -e MadLoop5_resources.tar.gz && ! -e MadLoop5_resources ]]; then
+tar -xzf MadLoop5_resources.tar.gz
+fi
+keeplog=false
+if [ "$keeplog" = true ] ; then
+    k=GridRun_234567_app.log
+else
+    k=/dev/null
+fi
+script=ajob1                         
+
+grid_directory=
+j=G39
+     if [[ ! -e $j ]]; then
+          mkdir $j
+          if [[ -e $grid_directory/ftn26 ]];then
+             cp $grid_directory/ftn26 $j/ftn25
+          fi 
+          if [[ ! -e ../../SubProcesses ]];then
+          	 if [[ -e ftn26 ]]; then
+          	 	cp ./ftn26 $j/ftn25
+          	 fi
+          fi	
+     fi
+     cd $j
+     if [ "$keeplog" = true ] ; then
+	 rm -f $k
+     fi
+     rm -f moffset.dat >& /dev/null
+      echo   1  > moffset.dat
+     if  [[ -e ftn26 ]]; then
+          cp ftn26 ftn25
+     fi
+     # create the input file
+         echo "    500       13       1" >& input_sg.txt
+         echo "    -140.28360669152804" >> input_sg.txt
+     if [[ ! -e ftn25 ]]; then
+         echo "2" >> input_sg.txt   # grid refinement
+         echo "1" >> input_sg.txt   # suppress amplitude
+
+     else
+         echo "0" >> input_sg.txt
+         echo "1" >> input_sg.txt
+     fi
+     echo "0" >> input_sg.txt
+     echo "39" >> input_sg.txt
+
+     # run the executable. The loop is design to avoid
+     # filesystem problem (executable not found)
+     for((try=1;try<=16;try+=1)); 
+     do
+	 if [ "$keeplog" = true ] ; then
+             /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> $k <input_sg.txt | tee -a $k;
+	     status_code=${PIPESTATUS[0]};
+             if [ -s $k ]
+             then
+		 break
+             else
+		 echo $try > fail.log
+		 sleep 5
+             fi
+	 else
+	     /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> log.txt <input_sg.txt | tee -a log.txt;
+	     status_code=${PIPESTATUS[0]};
+	     if [ -s log.txt ]
+             then
+		 rm log.txt
+                 break
+             else
+                 echo $try > fail.log
+		 sleep 5
+             fi
+	 fi
+     done
+     if [[ $status_code -ne 0 ]]; then 
+	 rm results.dat
+	 echo "ERROR DETECTED"
+   echo "end-code not correct $status_code" >> log.txt
+   echo "+ Hostname:" >> log.txt
+   hostname >> log.txt
+   echo "+ Printing job environment:" >> log.txt
+   env >> log.txt
+     fi     
+     if [[ -e ftn26 ]]; then
+         cp ftn26 ftn25
+     fi
+
+     if [ "$keeplog" = true ] ; then
+	 echo "" >> $k; echo "ls status:" >> $k; ls >> $k	 
+     else
+	 rm ftn26 &> /dev/null
+     fi
+
+
+
+
+
+     cd ../
+
+if [[ $status_code -ne 0 ]]; then
+  exit $status_code
+fi
+#!/bin/bash
+
+# For support of LHAPATH in cluster mode
+if [ $CLUSTER_LHAPATH ]; then
+  export LHAPATH=$CLUSTER_LHAPATH;
+fi
+
+# Add CVMFS libraries to LD_LIBRARY_PATH, if not present already
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRT" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRT}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRT:$LD_LIBRARY_PATH"
+  fi
+fi
+
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRTDEL" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRTDEL}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRTDEL:$LD_LIBRARY_PATH"
+  fi
+fi
+
+# If TMPDIR is unset, set it to the condor scratch area if present and fallback to /tmp
+export TMPDIR=${TMPDIR:-${_CONDOR_SCRATCH_DIR:-/tmp}}
+
+if [[ -e MadLoop5_resources.tar.gz && ! -e MadLoop5_resources ]]; then
+tar -xzf MadLoop5_resources.tar.gz
+fi
+keeplog=false
+if [ "$keeplog" = true ] ; then
+    k=GridRun_234567_app.log
+else
+    k=/dev/null
+fi
+script=ajob1                         
+
+grid_directory=
+j=G42
+     if [[ ! -e $j ]]; then
+          mkdir $j
+          if [[ -e $grid_directory/ftn26 ]];then
+             cp $grid_directory/ftn26 $j/ftn25
+          fi 
+          if [[ ! -e ../../SubProcesses ]];then
+          	 if [[ -e ftn26 ]]; then
+          	 	cp ./ftn26 $j/ftn25
+          	 fi
+          fi	
+     fi
+     cd $j
+     if [ "$keeplog" = true ] ; then
+	 rm -f $k
+     fi
+     rm -f moffset.dat >& /dev/null
+      echo   1  > moffset.dat
+     if  [[ -e ftn26 ]]; then
+          cp ftn26 ftn25
+     fi
+     # create the input file
+         echo "    1918       13       1" >& input_sg.txt
+         echo "    -144.5974767740303" >> input_sg.txt
+     if [[ ! -e ftn25 ]]; then
+         echo "2" >> input_sg.txt   # grid refinement
+         echo "1" >> input_sg.txt   # suppress amplitude
+
+     else
+         echo "0" >> input_sg.txt
+         echo "1" >> input_sg.txt
+     fi
+     echo "0" >> input_sg.txt
+     echo "42" >> input_sg.txt
+
+     # run the executable. The loop is design to avoid
+     # filesystem problem (executable not found)
+     for((try=1;try<=16;try+=1)); 
+     do
+	 if [ "$keeplog" = true ] ; then
+             /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> $k <input_sg.txt | tee -a $k;
+	     status_code=${PIPESTATUS[0]};
+             if [ -s $k ]
+             then
+		 break
+             else
+		 echo $try > fail.log
+		 sleep 5
+             fi
+	 else
+	     /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> log.txt <input_sg.txt | tee -a log.txt;
+	     status_code=${PIPESTATUS[0]};
+	     if [ -s log.txt ]
+             then
+		 rm log.txt
+                 break
+             else
+                 echo $try > fail.log
+		 sleep 5
+             fi
+	 fi
+     done
+     if [[ $status_code -ne 0 ]]; then 
+	 rm results.dat
+	 echo "ERROR DETECTED"
+   echo "end-code not correct $status_code" >> log.txt
+   echo "+ Hostname:" >> log.txt
+   hostname >> log.txt
+   echo "+ Printing job environment:" >> log.txt
+   env >> log.txt
+     fi     
+     if [[ -e ftn26 ]]; then
+         cp ftn26 ftn25
+     fi
+
+     if [ "$keeplog" = true ] ; then
+	 echo "" >> $k; echo "ls status:" >> $k; ls >> $k	 
+     else
+	 rm ftn26 &> /dev/null
+     fi
+
+
+
+
+
+     cd ../
+
+if [[ $status_code -ne 0 ]]; then
+  exit $status_code
+fi
+#!/bin/bash
+
+# For support of LHAPATH in cluster mode
+if [ $CLUSTER_LHAPATH ]; then
+  export LHAPATH=$CLUSTER_LHAPATH;
+fi
+
+# Add CVMFS libraries to LD_LIBRARY_PATH, if not present already
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRT" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRT}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRT:$LD_LIBRARY_PATH"
+  fi
+fi
+
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRTDEL" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRTDEL}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRTDEL:$LD_LIBRARY_PATH"
+  fi
+fi
+
+# If TMPDIR is unset, set it to the condor scratch area if present and fallback to /tmp
+export TMPDIR=${TMPDIR:-${_CONDOR_SCRATCH_DIR:-/tmp}}
+
+if [[ -e MadLoop5_resources.tar.gz && ! -e MadLoop5_resources ]]; then
+tar -xzf MadLoop5_resources.tar.gz
+fi
+keeplog=false
+if [ "$keeplog" = true ] ; then
+    k=GridRun_234567_app.log
+else
+    k=/dev/null
+fi
+script=ajob1                         
+
+grid_directory=
+j=G37
+     if [[ ! -e $j ]]; then
+          mkdir $j
+          if [[ -e $grid_directory/ftn26 ]];then
+             cp $grid_directory/ftn26 $j/ftn25
+          fi 
+          if [[ ! -e ../../SubProcesses ]];then
+          	 if [[ -e ftn26 ]]; then
+          	 	cp ./ftn26 $j/ftn25
+          	 fi
+          fi	
+     fi
+     cd $j
+     if [ "$keeplog" = true ] ; then
+	 rm -f $k
+     fi
+     rm -f moffset.dat >& /dev/null
+      echo   1  > moffset.dat
+     if  [[ -e ftn26 ]]; then
+          cp ftn26 ftn25
+     fi
+     # create the input file
+         echo "    974       13       1" >& input_sg.txt
+         echo "    -140.98406880022557" >> input_sg.txt
+     if [[ ! -e ftn25 ]]; then
+         echo "2" >> input_sg.txt   # grid refinement
+         echo "1" >> input_sg.txt   # suppress amplitude
+
+     else
+         echo "0" >> input_sg.txt
+         echo "1" >> input_sg.txt
+     fi
+     echo "0" >> input_sg.txt
+     echo "37" >> input_sg.txt
+
+     # run the executable. The loop is design to avoid
+     # filesystem problem (executable not found)
+     for((try=1;try<=16;try+=1)); 
+     do
+	 if [ "$keeplog" = true ] ; then
+             /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> $k <input_sg.txt | tee -a $k;
+	     status_code=${PIPESTATUS[0]};
+             if [ -s $k ]
+             then
+		 break
+             else
+		 echo $try > fail.log
+		 sleep 5
+             fi
+	 else
+	     /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> log.txt <input_sg.txt | tee -a log.txt;
+	     status_code=${PIPESTATUS[0]};
+	     if [ -s log.txt ]
+             then
+		 rm log.txt
+                 break
+             else
+                 echo $try > fail.log
+		 sleep 5
+             fi
+	 fi
+     done
+     if [[ $status_code -ne 0 ]]; then 
+	 rm results.dat
+	 echo "ERROR DETECTED"
+   echo "end-code not correct $status_code" >> log.txt
+   echo "+ Hostname:" >> log.txt
+   hostname >> log.txt
+   echo "+ Printing job environment:" >> log.txt
+   env >> log.txt
+     fi     
+     if [[ -e ftn26 ]]; then
+         cp ftn26 ftn25
+     fi
+
+     if [ "$keeplog" = true ] ; then
+	 echo "" >> $k; echo "ls status:" >> $k; ls >> $k	 
+     else
+	 rm ftn26 &> /dev/null
+     fi
+
+
+
+
+
+     cd ../
+
+if [[ $status_code -ne 0 ]]; then
+  exit $status_code
+fi
+#!/bin/bash
+
+# For support of LHAPATH in cluster mode
+if [ $CLUSTER_LHAPATH ]; then
+  export LHAPATH=$CLUSTER_LHAPATH;
+fi
+
+# Add CVMFS libraries to LD_LIBRARY_PATH, if not present already
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRT" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRT}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRT:$LD_LIBRARY_PATH"
+  fi
+fi
+
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRTDEL" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRTDEL}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRTDEL:$LD_LIBRARY_PATH"
+  fi
+fi
+
+# If TMPDIR is unset, set it to the condor scratch area if present and fallback to /tmp
+export TMPDIR=${TMPDIR:-${_CONDOR_SCRATCH_DIR:-/tmp}}
+
+if [[ -e MadLoop5_resources.tar.gz && ! -e MadLoop5_resources ]]; then
+tar -xzf MadLoop5_resources.tar.gz
+fi
+keeplog=false
+if [ "$keeplog" = true ] ; then
+    k=GridRun_234567_app.log
+else
+    k=/dev/null
+fi
+script=ajob1                         
+
+grid_directory=
+j=G5
+     if [[ ! -e $j ]]; then
+          mkdir $j
+          if [[ -e $grid_directory/ftn26 ]];then
+             cp $grid_directory/ftn26 $j/ftn25
+          fi 
+          if [[ ! -e ../../SubProcesses ]];then
+          	 if [[ -e ftn26 ]]; then
+          	 	cp ./ftn26 $j/ftn25
+          	 fi
+          fi	
+     fi
+     cd $j
+     if [ "$keeplog" = true ] ; then
+	 rm -f $k
+     fi
+     rm -f moffset.dat >& /dev/null
+      echo   1  > moffset.dat
+     if  [[ -e ftn26 ]]; then
+          cp ftn26 ftn25
+     fi
+     # create the input file
+         echo "    4000       13       1" >& input_sg.txt
+         echo "    -214.99828001375988" >> input_sg.txt
+     if [[ ! -e ftn25 ]]; then
+         echo "2" >> input_sg.txt   # grid refinement
+         echo "1" >> input_sg.txt   # suppress amplitude
+
+     else
+         echo "0" >> input_sg.txt
+         echo "1" >> input_sg.txt
+     fi
+     echo "0" >> input_sg.txt
+     echo "5" >> input_sg.txt
+
+     # run the executable. The loop is design to avoid
+     # filesystem problem (executable not found)
+     for((try=1;try<=16;try+=1)); 
+     do
+	 if [ "$keeplog" = true ] ; then
+             /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> $k <input_sg.txt | tee -a $k;
+	     status_code=${PIPESTATUS[0]};
+             if [ -s $k ]
+             then
+		 break
+             else
+		 echo $try > fail.log
+		 sleep 5
+             fi
+	 else
+	     /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> log.txt <input_sg.txt | tee -a log.txt;
+	     status_code=${PIPESTATUS[0]};
+	     if [ -s log.txt ]
+             then
+		 rm log.txt
+                 break
+             else
+                 echo $try > fail.log
+		 sleep 5
+             fi
+	 fi
+     done
+     if [[ $status_code -ne 0 ]]; then 
+	 rm results.dat
+	 echo "ERROR DETECTED"
+   echo "end-code not correct $status_code" >> log.txt
+   echo "+ Hostname:" >> log.txt
+   hostname >> log.txt
+   echo "+ Printing job environment:" >> log.txt
+   env >> log.txt
+     fi     
+     if [[ -e ftn26 ]]; then
+         cp ftn26 ftn25
+     fi
+
+     if [ "$keeplog" = true ] ; then
+	 echo "" >> $k; echo "ls status:" >> $k; ls >> $k	 
+     else
+	 rm ftn26 &> /dev/null
+     fi
+
+
+
+
+
+     cd ../
+
+if [[ $status_code -ne 0 ]]; then
+  exit $status_code
+fi
+#!/bin/bash
+
+# For support of LHAPATH in cluster mode
+if [ $CLUSTER_LHAPATH ]; then
+  export LHAPATH=$CLUSTER_LHAPATH;
+fi
+
+# Add CVMFS libraries to LD_LIBRARY_PATH, if not present already
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRT" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRT}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRT:$LD_LIBRARY_PATH"
+  fi
+fi
+
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRTDEL" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRTDEL}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRTDEL:$LD_LIBRARY_PATH"
+  fi
+fi
+
+# If TMPDIR is unset, set it to the condor scratch area if present and fallback to /tmp
+export TMPDIR=${TMPDIR:-${_CONDOR_SCRATCH_DIR:-/tmp}}
+
+if [[ -e MadLoop5_resources.tar.gz && ! -e MadLoop5_resources ]]; then
+tar -xzf MadLoop5_resources.tar.gz
+fi
+keeplog=false
+if [ "$keeplog" = true ] ; then
+    k=GridRun_234567_app.log
+else
+    k=/dev/null
+fi
+script=ajob1                         
+
+grid_directory=
+j=G46
+     if [[ ! -e $j ]]; then
+          mkdir $j
+          if [[ -e $grid_directory/ftn26 ]];then
+             cp $grid_directory/ftn26 $j/ftn25
+          fi 
+          if [[ ! -e ../../SubProcesses ]];then
+          	 if [[ -e ftn26 ]]; then
+          	 	cp ./ftn26 $j/ftn25
+          	 fi
+          fi	
+     fi
+     cd $j
+     if [ "$keeplog" = true ] ; then
+	 rm -f $k
+     fi
+     rm -f moffset.dat >& /dev/null
+      echo   1  > moffset.dat
+     if  [[ -e ftn26 ]]; then
+          cp ftn26 ftn25
+     fi
+     # create the input file
+         echo "    4000       13       1" >& input_sg.txt
+         echo "    -148.57957922263165" >> input_sg.txt
+     if [[ ! -e ftn25 ]]; then
+         echo "2" >> input_sg.txt   # grid refinement
+         echo "1" >> input_sg.txt   # suppress amplitude
+
+     else
+         echo "0" >> input_sg.txt
+         echo "1" >> input_sg.txt
+     fi
+     echo "0" >> input_sg.txt
+     echo "46" >> input_sg.txt
+
+     # run the executable. The loop is design to avoid
+     # filesystem problem (executable not found)
+     for((try=1;try<=16;try+=1)); 
+     do
+	 if [ "$keeplog" = true ] ; then
+             /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> $k <input_sg.txt | tee -a $k;
+	     status_code=${PIPESTATUS[0]};
+             if [ -s $k ]
+             then
+		 break
+             else
+		 echo $try > fail.log
+		 sleep 5
+             fi
+	 else
+	     /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> log.txt <input_sg.txt | tee -a log.txt;
+	     status_code=${PIPESTATUS[0]};
+	     if [ -s log.txt ]
+             then
+		 rm log.txt
+                 break
+             else
+                 echo $try > fail.log
+		 sleep 5
+             fi
+	 fi
+     done
+     if [[ $status_code -ne 0 ]]; then 
+	 rm results.dat
+	 echo "ERROR DETECTED"
+   echo "end-code not correct $status_code" >> log.txt
+   echo "+ Hostname:" >> log.txt
+   hostname >> log.txt
+   echo "+ Printing job environment:" >> log.txt
+   env >> log.txt
+     fi     
+     if [[ -e ftn26 ]]; then
+         cp ftn26 ftn25
+     fi
+
+     if [ "$keeplog" = true ] ; then
+	 echo "" >> $k; echo "ls status:" >> $k; ls >> $k	 
+     else
+	 rm ftn26 &> /dev/null
+     fi
+
+
+
+
+
+     cd ../
+
+if [[ $status_code -ne 0 ]]; then
+  exit $status_code
+fi
+#!/bin/bash
+
+# For support of LHAPATH in cluster mode
+if [ $CLUSTER_LHAPATH ]; then
+  export LHAPATH=$CLUSTER_LHAPATH;
+fi
+
+# Add CVMFS libraries to LD_LIBRARY_PATH, if not present already
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRT" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRT}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRT:$LD_LIBRARY_PATH"
+  fi
+fi
+
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRTDEL" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRTDEL}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRTDEL:$LD_LIBRARY_PATH"
+  fi
+fi
+
+# If TMPDIR is unset, set it to the condor scratch area if present and fallback to /tmp
+export TMPDIR=${TMPDIR:-${_CONDOR_SCRATCH_DIR:-/tmp}}
+
+if [[ -e MadLoop5_resources.tar.gz && ! -e MadLoop5_resources ]]; then
+tar -xzf MadLoop5_resources.tar.gz
+fi
+keeplog=false
+if [ "$keeplog" = true ] ; then
+    k=GridRun_234567_app.log
+else
+    k=/dev/null
+fi
+script=ajob1                         
+
+grid_directory=
+j=G55
+     if [[ ! -e $j ]]; then
+          mkdir $j
+          if [[ -e $grid_directory/ftn26 ]];then
+             cp $grid_directory/ftn26 $j/ftn25
+          fi 
+          if [[ ! -e ../../SubProcesses ]];then
+          	 if [[ -e ftn26 ]]; then
+          	 	cp ./ftn26 $j/ftn25
+          	 fi
+          fi	
+     fi
+     cd $j
+     if [ "$keeplog" = true ] ; then
+	 rm -f $k
+     fi
+     rm -f moffset.dat >& /dev/null
+      echo   1  > moffset.dat
+     if  [[ -e ftn26 ]]; then
+          cp ftn26 ftn25
+     fi
+     # create the input file
+         echo "    4000       13       1" >& input_sg.txt
+         echo "    -143.26647564469914" >> input_sg.txt
+     if [[ ! -e ftn25 ]]; then
+         echo "2" >> input_sg.txt   # grid refinement
+         echo "1" >> input_sg.txt   # suppress amplitude
+
+     else
+         echo "0" >> input_sg.txt
+         echo "1" >> input_sg.txt
+     fi
+     echo "0" >> input_sg.txt
+     echo "55" >> input_sg.txt
+
+     # run the executable. The loop is design to avoid
+     # filesystem problem (executable not found)
+     for((try=1;try<=16;try+=1)); 
+     do
+	 if [ "$keeplog" = true ] ; then
+             /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> $k <input_sg.txt | tee -a $k;
+	     status_code=${PIPESTATUS[0]};
+             if [ -s $k ]
+             then
+		 break
+             else
+		 echo $try > fail.log
+		 sleep 5
+             fi
+	 else
+	     /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> log.txt <input_sg.txt | tee -a log.txt;
+	     status_code=${PIPESTATUS[0]};
+	     if [ -s log.txt ]
+             then
+		 rm log.txt
+                 break
+             else
+                 echo $try > fail.log
+		 sleep 5
+             fi
+	 fi
+     done
+     if [[ $status_code -ne 0 ]]; then 
+	 rm results.dat
+	 echo "ERROR DETECTED"
+   echo "end-code not correct $status_code" >> log.txt
+   echo "+ Hostname:" >> log.txt
+   hostname >> log.txt
+   echo "+ Printing job environment:" >> log.txt
+   env >> log.txt
+     fi     
+     if [[ -e ftn26 ]]; then
+         cp ftn26 ftn25
+     fi
+
+     if [ "$keeplog" = true ] ; then
+	 echo "" >> $k; echo "ls status:" >> $k; ls >> $k	 
+     else
+	 rm ftn26 &> /dev/null
+     fi
+
+
+
+
+
+     cd ../
+
+if [[ $status_code -ne 0 ]]; then
+  exit $status_code
+fi
+#!/bin/bash
+
+# For support of LHAPATH in cluster mode
+if [ $CLUSTER_LHAPATH ]; then
+  export LHAPATH=$CLUSTER_LHAPATH;
+fi
+
+# Add CVMFS libraries to LD_LIBRARY_PATH, if not present already
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRT" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRT}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRT:$LD_LIBRARY_PATH"
+  fi
+fi
+
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRTDEL" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRTDEL}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRTDEL:$LD_LIBRARY_PATH"
+  fi
+fi
+
+# If TMPDIR is unset, set it to the condor scratch area if present and fallback to /tmp
+export TMPDIR=${TMPDIR:-${_CONDOR_SCRATCH_DIR:-/tmp}}
+
+if [[ -e MadLoop5_resources.tar.gz && ! -e MadLoop5_resources ]]; then
+tar -xzf MadLoop5_resources.tar.gz
+fi
+keeplog=false
+if [ "$keeplog" = true ] ; then
+    k=GridRun_234567_app.log
+else
+    k=/dev/null
+fi
+script=ajob1                         
+
+grid_directory=
+j=G41
+     if [[ ! -e $j ]]; then
+          mkdir $j
+          if [[ -e $grid_directory/ftn26 ]];then
+             cp $grid_directory/ftn26 $j/ftn25
+          fi 
+          if [[ ! -e ../../SubProcesses ]];then
+          	 if [[ -e ftn26 ]]; then
+          	 	cp ./ftn26 $j/ftn25
+          	 fi
+          fi	
+     fi
+     cd $j
+     if [ "$keeplog" = true ] ; then
+	 rm -f $k
+     fi
+     rm -f moffset.dat >& /dev/null
+      echo   1  > moffset.dat
+     if  [[ -e ftn26 ]]; then
+          cp ftn26 ftn25
+     fi
+     # create the input file
+         echo "    744       13       1" >& input_sg.txt
+         echo "    -140.58930349715894" >> input_sg.txt
+     if [[ ! -e ftn25 ]]; then
+         echo "2" >> input_sg.txt   # grid refinement
+         echo "1" >> input_sg.txt   # suppress amplitude
+
+     else
+         echo "0" >> input_sg.txt
+         echo "1" >> input_sg.txt
+     fi
+     echo "0" >> input_sg.txt
+     echo "41" >> input_sg.txt
+
+     # run the executable. The loop is design to avoid
+     # filesystem problem (executable not found)
+     for((try=1;try<=16;try+=1)); 
+     do
+	 if [ "$keeplog" = true ] ; then
+             /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> $k <input_sg.txt | tee -a $k;
+	     status_code=${PIPESTATUS[0]};
+             if [ -s $k ]
+             then
+		 break
+             else
+		 echo $try > fail.log
+		 sleep 5
+             fi
+	 else
+	     /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> log.txt <input_sg.txt | tee -a log.txt;
+	     status_code=${PIPESTATUS[0]};
+	     if [ -s log.txt ]
+             then
+		 rm log.txt
+                 break
+             else
+                 echo $try > fail.log
+		 sleep 5
+             fi
+	 fi
+     done
+     if [[ $status_code -ne 0 ]]; then 
+	 rm results.dat
+	 echo "ERROR DETECTED"
+   echo "end-code not correct $status_code" >> log.txt
+   echo "+ Hostname:" >> log.txt
+   hostname >> log.txt
+   echo "+ Printing job environment:" >> log.txt
+   env >> log.txt
+     fi     
+     if [[ -e ftn26 ]]; then
+         cp ftn26 ftn25
+     fi
+
+     if [ "$keeplog" = true ] ; then
+	 echo "" >> $k; echo "ls status:" >> $k; ls >> $k	 
+     else
+	 rm ftn26 &> /dev/null
+     fi
+
+
+
+
+
+     cd ../
+
+if [[ $status_code -ne 0 ]]; then
+  exit $status_code
+fi
+#!/bin/bash
+
+# For support of LHAPATH in cluster mode
+if [ $CLUSTER_LHAPATH ]; then
+  export LHAPATH=$CLUSTER_LHAPATH;
+fi
+
+# Add CVMFS libraries to LD_LIBRARY_PATH, if not present already
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRT" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRT}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRT:$LD_LIBRARY_PATH"
+  fi
+fi
+
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRTDEL" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRTDEL}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRTDEL:$LD_LIBRARY_PATH"
+  fi
+fi
+
+# If TMPDIR is unset, set it to the condor scratch area if present and fallback to /tmp
+export TMPDIR=${TMPDIR:-${_CONDOR_SCRATCH_DIR:-/tmp}}
+
+if [[ -e MadLoop5_resources.tar.gz && ! -e MadLoop5_resources ]]; then
+tar -xzf MadLoop5_resources.tar.gz
+fi
+keeplog=false
+if [ "$keeplog" = true ] ; then
+    k=GridRun_234567_app.log
+else
+    k=/dev/null
+fi
+script=ajob1                         
+
+grid_directory=
+j=G6
+     if [[ ! -e $j ]]; then
+          mkdir $j
+          if [[ -e $grid_directory/ftn26 ]];then
+             cp $grid_directory/ftn26 $j/ftn25
+          fi 
+          if [[ ! -e ../../SubProcesses ]];then
+          	 if [[ -e ftn26 ]]; then
+          	 	cp ./ftn26 $j/ftn25
+          	 fi
+          fi	
+     fi
+     cd $j
+     if [ "$keeplog" = true ] ; then
+	 rm -f $k
+     fi
+     rm -f moffset.dat >& /dev/null
+      echo   1  > moffset.dat
+     if  [[ -e ftn26 ]]; then
+          cp ftn26 ftn25
+     fi
+     # create the input file
+         echo "    4000       13       1" >& input_sg.txt
+         echo "    -144.05070584845868" >> input_sg.txt
+     if [[ ! -e ftn25 ]]; then
+         echo "2" >> input_sg.txt   # grid refinement
+         echo "1" >> input_sg.txt   # suppress amplitude
+
+     else
+         echo "0" >> input_sg.txt
+         echo "1" >> input_sg.txt
+     fi
+     echo "0" >> input_sg.txt
+     echo "6" >> input_sg.txt
+
+     # run the executable. The loop is design to avoid
+     # filesystem problem (executable not found)
+     for((try=1;try<=16;try+=1)); 
+     do
+	 if [ "$keeplog" = true ] ; then
+             /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> $k <input_sg.txt | tee -a $k;
+	     status_code=${PIPESTATUS[0]};
+             if [ -s $k ]
+             then
+		 break
+             else
+		 echo $try > fail.log
+		 sleep 5
+             fi
+	 else
+	     /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> log.txt <input_sg.txt | tee -a log.txt;
+	     status_code=${PIPESTATUS[0]};
+	     if [ -s log.txt ]
+             then
+		 rm log.txt
+                 break
+             else
+                 echo $try > fail.log
+		 sleep 5
+             fi
+	 fi
+     done
+     if [[ $status_code -ne 0 ]]; then 
+	 rm results.dat
+	 echo "ERROR DETECTED"
+   echo "end-code not correct $status_code" >> log.txt
+   echo "+ Hostname:" >> log.txt
+   hostname >> log.txt
+   echo "+ Printing job environment:" >> log.txt
+   env >> log.txt
+     fi     
+     if [[ -e ftn26 ]]; then
+         cp ftn26 ftn25
+     fi
+
+     if [ "$keeplog" = true ] ; then
+	 echo "" >> $k; echo "ls status:" >> $k; ls >> $k	 
+     else
+	 rm ftn26 &> /dev/null
+     fi
+
+
+
+
+
+     cd ../
+
+if [[ $status_code -ne 0 ]]; then
+  exit $status_code
+fi
+#!/bin/bash
+
+# For support of LHAPATH in cluster mode
+if [ $CLUSTER_LHAPATH ]; then
+  export LHAPATH=$CLUSTER_LHAPATH;
+fi
+
+# Add CVMFS libraries to LD_LIBRARY_PATH, if not present already
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRT" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRT}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRT:$LD_LIBRARY_PATH"
+  fi
+fi
+
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRTDEL" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRTDEL}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRTDEL:$LD_LIBRARY_PATH"
+  fi
+fi
+
+# If TMPDIR is unset, set it to the condor scratch area if present and fallback to /tmp
+export TMPDIR=${TMPDIR:-${_CONDOR_SCRATCH_DIR:-/tmp}}
+
+if [[ -e MadLoop5_resources.tar.gz && ! -e MadLoop5_resources ]]; then
+tar -xzf MadLoop5_resources.tar.gz
+fi
+keeplog=false
+if [ "$keeplog" = true ] ; then
+    k=GridRun_234567_app.log
+else
+    k=/dev/null
+fi
+script=ajob1                         
+
+grid_directory=
+j=G4
+     if [[ ! -e $j ]]; then
+          mkdir $j
+          if [[ -e $grid_directory/ftn26 ]];then
+             cp $grid_directory/ftn26 $j/ftn25
+          fi 
+          if [[ ! -e ../../SubProcesses ]];then
+          	 if [[ -e ftn26 ]]; then
+          	 	cp ./ftn26 $j/ftn25
+          	 fi
+          fi	
+     fi
+     cd $j
+     if [ "$keeplog" = true ] ; then
+	 rm -f $k
+     fi
+     rm -f moffset.dat >& /dev/null
+      echo   1  > moffset.dat
+     if  [[ -e ftn26 ]]; then
+          cp ftn26 ftn25
+     fi
+     # create the input file
+         echo "    4000       13       1" >& input_sg.txt
+         echo "    -144.75969889982628" >> input_sg.txt
+     if [[ ! -e ftn25 ]]; then
+         echo "2" >> input_sg.txt   # grid refinement
+         echo "1" >> input_sg.txt   # suppress amplitude
+
+     else
+         echo "0" >> input_sg.txt
+         echo "1" >> input_sg.txt
+     fi
+     echo "0" >> input_sg.txt
+     echo "4" >> input_sg.txt
+
+     # run the executable. The loop is design to avoid
+     # filesystem problem (executable not found)
+     for((try=1;try<=16;try+=1)); 
+     do
+	 if [ "$keeplog" = true ] ; then
+             /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> $k <input_sg.txt | tee -a $k;
+	     status_code=${PIPESTATUS[0]};
+             if [ -s $k ]
+             then
+		 break
+             else
+		 echo $try > fail.log
+		 sleep 5
+             fi
+	 else
+	     /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> log.txt <input_sg.txt | tee -a log.txt;
+	     status_code=${PIPESTATUS[0]};
+	     if [ -s log.txt ]
+             then
+		 rm log.txt
+                 break
+             else
+                 echo $try > fail.log
+		 sleep 5
+             fi
+	 fi
+     done
+     if [[ $status_code -ne 0 ]]; then 
+	 rm results.dat
+	 echo "ERROR DETECTED"
+   echo "end-code not correct $status_code" >> log.txt
+   echo "+ Hostname:" >> log.txt
+   hostname >> log.txt
+   echo "+ Printing job environment:" >> log.txt
+   env >> log.txt
+     fi     
+     if [[ -e ftn26 ]]; then
+         cp ftn26 ftn25
+     fi
+
+     if [ "$keeplog" = true ] ; then
+	 echo "" >> $k; echo "ls status:" >> $k; ls >> $k	 
+     else
+	 rm ftn26 &> /dev/null
+     fi
+
+
+
+
+
+     cd ../
+
+if [[ $status_code -ne 0 ]]; then
+  exit $status_code
+fi
+#!/bin/bash
+
+# For support of LHAPATH in cluster mode
+if [ $CLUSTER_LHAPATH ]; then
+  export LHAPATH=$CLUSTER_LHAPATH;
+fi
+
+# Add CVMFS libraries to LD_LIBRARY_PATH, if not present already
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRT" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRT}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRT:$LD_LIBRARY_PATH"
+  fi
+fi
+
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRTDEL" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRTDEL}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRTDEL:$LD_LIBRARY_PATH"
+  fi
+fi
+
+# If TMPDIR is unset, set it to the condor scratch area if present and fallback to /tmp
+export TMPDIR=${TMPDIR:-${_CONDOR_SCRATCH_DIR:-/tmp}}
+
+if [[ -e MadLoop5_resources.tar.gz && ! -e MadLoop5_resources ]]; then
+tar -xzf MadLoop5_resources.tar.gz
+fi
+keeplog=false
+if [ "$keeplog" = true ] ; then
+    k=GridRun_234567_app.log
+else
+    k=/dev/null
+fi
+script=ajob1                         
+
+grid_directory=
+j=G16
+     if [[ ! -e $j ]]; then
+          mkdir $j
+          if [[ -e $grid_directory/ftn26 ]];then
+             cp $grid_directory/ftn26 $j/ftn25
+          fi 
+          if [[ ! -e ../../SubProcesses ]];then
+          	 if [[ -e ftn26 ]]; then
+          	 	cp ./ftn26 $j/ftn25
+          	 fi
+          fi	
+     fi
+     cd $j
+     if [ "$keeplog" = true ] ; then
+	 rm -f $k
+     fi
+     rm -f moffset.dat >& /dev/null
+      echo   1  > moffset.dat
+     if  [[ -e ftn26 ]]; then
+          cp ftn26 ftn25
+     fi
+     # create the input file
+         echo "    4000       13       1" >& input_sg.txt
+         echo "    -146.593627034951" >> input_sg.txt
+     if [[ ! -e ftn25 ]]; then
+         echo "2" >> input_sg.txt   # grid refinement
+         echo "1" >> input_sg.txt   # suppress amplitude
+
+     else
+         echo "0" >> input_sg.txt
+         echo "1" >> input_sg.txt
+     fi
+     echo "0" >> input_sg.txt
+     echo "16" >> input_sg.txt
+
+     # run the executable. The loop is design to avoid
+     # filesystem problem (executable not found)
+     for((try=1;try<=16;try+=1)); 
+     do
+	 if [ "$keeplog" = true ] ; then
+             /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> $k <input_sg.txt | tee -a $k;
+	     status_code=${PIPESTATUS[0]};
+             if [ -s $k ]
+             then
+		 break
+             else
+		 echo $try > fail.log
+		 sleep 5
+             fi
+	 else
+	     /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> log.txt <input_sg.txt | tee -a log.txt;
+	     status_code=${PIPESTATUS[0]};
+	     if [ -s log.txt ]
+             then
+		 rm log.txt
+                 break
+             else
+                 echo $try > fail.log
+		 sleep 5
+             fi
+	 fi
+     done
+     if [[ $status_code -ne 0 ]]; then 
+	 rm results.dat
+	 echo "ERROR DETECTED"
+   echo "end-code not correct $status_code" >> log.txt
+   echo "+ Hostname:" >> log.txt
+   hostname >> log.txt
+   echo "+ Printing job environment:" >> log.txt
+   env >> log.txt
+     fi     
+     if [[ -e ftn26 ]]; then
+         cp ftn26 ftn25
+     fi
+
+     if [ "$keeplog" = true ] ; then
+	 echo "" >> $k; echo "ls status:" >> $k; ls >> $k	 
+     else
+	 rm ftn26 &> /dev/null
+     fi
+
+
+
+
+
+     cd ../
+
+if [[ $status_code -ne 0 ]]; then
+  exit $status_code
+fi
+#!/bin/bash
+
+# For support of LHAPATH in cluster mode
+if [ $CLUSTER_LHAPATH ]; then
+  export LHAPATH=$CLUSTER_LHAPATH;
+fi
+
+# Add CVMFS libraries to LD_LIBRARY_PATH, if not present already
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRT" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRT}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRT:$LD_LIBRARY_PATH"
+  fi
+fi
+
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRTDEL" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRTDEL}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRTDEL:$LD_LIBRARY_PATH"
+  fi
+fi
+
+# If TMPDIR is unset, set it to the condor scratch area if present and fallback to /tmp
+export TMPDIR=${TMPDIR:-${_CONDOR_SCRATCH_DIR:-/tmp}}
+
+if [[ -e MadLoop5_resources.tar.gz && ! -e MadLoop5_resources ]]; then
+tar -xzf MadLoop5_resources.tar.gz
+fi
+keeplog=false
+if [ "$keeplog" = true ] ; then
+    k=GridRun_234567_app.log
+else
+    k=/dev/null
+fi
+script=ajob1                         
+
+grid_directory=
+j=G54
+     if [[ ! -e $j ]]; then
+          mkdir $j
+          if [[ -e $grid_directory/ftn26 ]];then
+             cp $grid_directory/ftn26 $j/ftn25
+          fi 
+          if [[ ! -e ../../SubProcesses ]];then
+          	 if [[ -e ftn26 ]]; then
+          	 	cp ./ftn26 $j/ftn25
+          	 fi
+          fi	
+     fi
+     cd $j
+     if [ "$keeplog" = true ] ; then
+	 rm -f $k
+     fi
+     rm -f moffset.dat >& /dev/null
+      echo   1  > moffset.dat
+     if  [[ -e ftn26 ]]; then
+          cp ftn26 ftn25
+     fi
+     # create the input file
+         echo "    4000       13       1" >& input_sg.txt
+         echo "    -145.10629035768702" >> input_sg.txt
+     if [[ ! -e ftn25 ]]; then
+         echo "2" >> input_sg.txt   # grid refinement
+         echo "1" >> input_sg.txt   # suppress amplitude
+
+     else
+         echo "0" >> input_sg.txt
+         echo "1" >> input_sg.txt
+     fi
+     echo "0" >> input_sg.txt
+     echo "54" >> input_sg.txt
+
+     # run the executable. The loop is design to avoid
+     # filesystem problem (executable not found)
+     for((try=1;try<=16;try+=1)); 
+     do
+	 if [ "$keeplog" = true ] ; then
+             /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> $k <input_sg.txt | tee -a $k;
+	     status_code=${PIPESTATUS[0]};
+             if [ -s $k ]
+             then
+		 break
+             else
+		 echo $try > fail.log
+		 sleep 5
+             fi
+	 else
+	     /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> log.txt <input_sg.txt | tee -a log.txt;
+	     status_code=${PIPESTATUS[0]};
+	     if [ -s log.txt ]
+             then
+		 rm log.txt
+                 break
+             else
+                 echo $try > fail.log
+		 sleep 5
+             fi
+	 fi
+     done
+     if [[ $status_code -ne 0 ]]; then 
+	 rm results.dat
+	 echo "ERROR DETECTED"
+   echo "end-code not correct $status_code" >> log.txt
+   echo "+ Hostname:" >> log.txt
+   hostname >> log.txt
+   echo "+ Printing job environment:" >> log.txt
+   env >> log.txt
+     fi     
+     if [[ -e ftn26 ]]; then
+         cp ftn26 ftn25
+     fi
+
+     if [ "$keeplog" = true ] ; then
+	 echo "" >> $k; echo "ls status:" >> $k; ls >> $k	 
+     else
+	 rm ftn26 &> /dev/null
+     fi
+
+
+
+
+
+     cd ../
+
+if [[ $status_code -ne 0 ]]; then
+  exit $status_code
+fi
+#!/bin/bash
+
+# For support of LHAPATH in cluster mode
+if [ $CLUSTER_LHAPATH ]; then
+  export LHAPATH=$CLUSTER_LHAPATH;
+fi
+
+# Add CVMFS libraries to LD_LIBRARY_PATH, if not present already
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRT" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRT}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRT:$LD_LIBRARY_PATH"
+  fi
+fi
+
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRTDEL" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRTDEL}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRTDEL:$LD_LIBRARY_PATH"
+  fi
+fi
+
+# If TMPDIR is unset, set it to the condor scratch area if present and fallback to /tmp
+export TMPDIR=${TMPDIR:-${_CONDOR_SCRATCH_DIR:-/tmp}}
+
+if [[ -e MadLoop5_resources.tar.gz && ! -e MadLoop5_resources ]]; then
+tar -xzf MadLoop5_resources.tar.gz
+fi
+keeplog=false
+if [ "$keeplog" = true ] ; then
+    k=GridRun_234567_app.log
+else
+    k=/dev/null
+fi
+script=ajob1                         
+
+grid_directory=
+j=G77
+     if [[ ! -e $j ]]; then
+          mkdir $j
+          if [[ -e $grid_directory/ftn26 ]];then
+             cp $grid_directory/ftn26 $j/ftn25
+          fi 
+          if [[ ! -e ../../SubProcesses ]];then
+          	 if [[ -e ftn26 ]]; then
+          	 	cp ./ftn26 $j/ftn25
+          	 fi
+          fi	
+     fi
+     cd $j
+     if [ "$keeplog" = true ] ; then
+	 rm -f $k
+     fi
+     rm -f moffset.dat >& /dev/null
+      echo   1  > moffset.dat
+     if  [[ -e ftn26 ]]; then
+          cp ftn26 ftn25
+     fi
+     # create the input file
+         echo "    615       13       1" >& input_sg.txt
+         echo "    -147.75413711583923" >> input_sg.txt
+     if [[ ! -e ftn25 ]]; then
+         echo "2" >> input_sg.txt   # grid refinement
+         echo "1" >> input_sg.txt   # suppress amplitude
+
+     else
+         echo "0" >> input_sg.txt
+         echo "1" >> input_sg.txt
+     fi
+     echo "0" >> input_sg.txt
+     echo "77" >> input_sg.txt
+
+     # run the executable. The loop is design to avoid
+     # filesystem problem (executable not found)
+     for((try=1;try<=16;try+=1)); 
+     do
+	 if [ "$keeplog" = true ] ; then
+             /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> $k <input_sg.txt | tee -a $k;
+	     status_code=${PIPESTATUS[0]};
+             if [ -s $k ]
+             then
+		 break
+             else
+		 echo $try > fail.log
+		 sleep 5
+             fi
+	 else
+	     /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> log.txt <input_sg.txt | tee -a log.txt;
+	     status_code=${PIPESTATUS[0]};
+	     if [ -s log.txt ]
+             then
+		 rm log.txt
+                 break
+             else
+                 echo $try > fail.log
+		 sleep 5
+             fi
+	 fi
+     done
+     if [[ $status_code -ne 0 ]]; then 
+	 rm results.dat
+	 echo "ERROR DETECTED"
+   echo "end-code not correct $status_code" >> log.txt
+   echo "+ Hostname:" >> log.txt
+   hostname >> log.txt
+   echo "+ Printing job environment:" >> log.txt
+   env >> log.txt
+     fi     
+     if [[ -e ftn26 ]]; then
+         cp ftn26 ftn25
+     fi
+
+     if [ "$keeplog" = true ] ; then
+	 echo "" >> $k; echo "ls status:" >> $k; ls >> $k	 
+     else
+	 rm ftn26 &> /dev/null
+     fi
+
+
+
+
+
+     cd ../
+
+if [[ $status_code -ne 0 ]]; then
+  exit $status_code
+fi
+#!/bin/bash
+
+# For support of LHAPATH in cluster mode
+if [ $CLUSTER_LHAPATH ]; then
+  export LHAPATH=$CLUSTER_LHAPATH;
+fi
+
+# Add CVMFS libraries to LD_LIBRARY_PATH, if not present already
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRT" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRT}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRT:$LD_LIBRARY_PATH"
+  fi
+fi
+
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRTDEL" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRTDEL}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRTDEL:$LD_LIBRARY_PATH"
+  fi
+fi
+
+# If TMPDIR is unset, set it to the condor scratch area if present and fallback to /tmp
+export TMPDIR=${TMPDIR:-${_CONDOR_SCRATCH_DIR:-/tmp}}
+
+if [[ -e MadLoop5_resources.tar.gz && ! -e MadLoop5_resources ]]; then
+tar -xzf MadLoop5_resources.tar.gz
+fi
+keeplog=false
+if [ "$keeplog" = true ] ; then
+    k=GridRun_234567_app.log
+else
+    k=/dev/null
+fi
+script=ajob1                         
+
+grid_directory=
+j=G40
+     if [[ ! -e $j ]]; then
+          mkdir $j
+          if [[ -e $grid_directory/ftn26 ]];then
+             cp $grid_directory/ftn26 $j/ftn25
+          fi 
+          if [[ ! -e ../../SubProcesses ]];then
+          	 if [[ -e ftn26 ]]; then
+          	 	cp ./ftn26 $j/ftn25
+          	 fi
+          fi	
+     fi
+     cd $j
+     if [ "$keeplog" = true ] ; then
+	 rm -f $k
+     fi
+     rm -f moffset.dat >& /dev/null
+      echo   1  > moffset.dat
+     if  [[ -e ftn26 ]]; then
+          cp ftn26 ftn25
+     fi
+     # create the input file
+         echo "    2850       13       1" >& input_sg.txt
+         echo "    -140.35580195796342" >> input_sg.txt
+     if [[ ! -e ftn25 ]]; then
+         echo "2" >> input_sg.txt   # grid refinement
+         echo "1" >> input_sg.txt   # suppress amplitude
+
+     else
+         echo "0" >> input_sg.txt
+         echo "1" >> input_sg.txt
+     fi
+     echo "0" >> input_sg.txt
+     echo "40" >> input_sg.txt
+
+     # run the executable. The loop is design to avoid
+     # filesystem problem (executable not found)
+     for((try=1;try<=16;try+=1)); 
+     do
+	 if [ "$keeplog" = true ] ; then
+             /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> $k <input_sg.txt | tee -a $k;
+	     status_code=${PIPESTATUS[0]};
+             if [ -s $k ]
+             then
+		 break
+             else
+		 echo $try > fail.log
+		 sleep 5
+             fi
+	 else
+	     /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> log.txt <input_sg.txt | tee -a log.txt;
+	     status_code=${PIPESTATUS[0]};
+	     if [ -s log.txt ]
+             then
+		 rm log.txt
+                 break
+             else
+                 echo $try > fail.log
+		 sleep 5
+             fi
+	 fi
+     done
+     if [[ $status_code -ne 0 ]]; then 
+	 rm results.dat
+	 echo "ERROR DETECTED"
+   echo "end-code not correct $status_code" >> log.txt
+   echo "+ Hostname:" >> log.txt
+   hostname >> log.txt
+   echo "+ Printing job environment:" >> log.txt
+   env >> log.txt
+     fi     
+     if [[ -e ftn26 ]]; then
+         cp ftn26 ftn25
+     fi
+
+     if [ "$keeplog" = true ] ; then
+	 echo "" >> $k; echo "ls status:" >> $k; ls >> $k	 
+     else
+	 rm ftn26 &> /dev/null
+     fi
+
+
+
+
+
+     cd ../
+
+if [[ $status_code -ne 0 ]]; then
+  exit $status_code
+fi
+#!/bin/bash
+
+# For support of LHAPATH in cluster mode
+if [ $CLUSTER_LHAPATH ]; then
+  export LHAPATH=$CLUSTER_LHAPATH;
+fi
+
+# Add CVMFS libraries to LD_LIBRARY_PATH, if not present already
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRT" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRT}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRT:$LD_LIBRARY_PATH"
+  fi
+fi
+
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRTDEL" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRTDEL}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRTDEL:$LD_LIBRARY_PATH"
+  fi
+fi
+
+# If TMPDIR is unset, set it to the condor scratch area if present and fallback to /tmp
+export TMPDIR=${TMPDIR:-${_CONDOR_SCRATCH_DIR:-/tmp}}
+
+if [[ -e MadLoop5_resources.tar.gz && ! -e MadLoop5_resources ]]; then
+tar -xzf MadLoop5_resources.tar.gz
+fi
+keeplog=false
+if [ "$keeplog" = true ] ; then
+    k=GridRun_234567_app.log
+else
+    k=/dev/null
+fi
+script=ajob1                         
+
+grid_directory=
+j=G49
+     if [[ ! -e $j ]]; then
+          mkdir $j
+          if [[ -e $grid_directory/ftn26 ]];then
+             cp $grid_directory/ftn26 $j/ftn25
+          fi 
+          if [[ ! -e ../../SubProcesses ]];then
+          	 if [[ -e ftn26 ]]; then
+          	 	cp ./ftn26 $j/ftn25
+          	 fi
+          fi	
+     fi
+     cd $j
+     if [ "$keeplog" = true ] ; then
+	 rm -f $k
+     fi
+     rm -f moffset.dat >& /dev/null
+      echo   1  > moffset.dat
+     if  [[ -e ftn26 ]]; then
+          cp ftn26 ftn25
+     fi
+     # create the input file
+         echo "    4000       13       1" >& input_sg.txt
+         echo "    -145.82573824279987" >> input_sg.txt
+     if [[ ! -e ftn25 ]]; then
+         echo "2" >> input_sg.txt   # grid refinement
+         echo "1" >> input_sg.txt   # suppress amplitude
+
+     else
+         echo "0" >> input_sg.txt
+         echo "1" >> input_sg.txt
+     fi
+     echo "0" >> input_sg.txt
+     echo "49" >> input_sg.txt
+
+     # run the executable. The loop is design to avoid
+     # filesystem problem (executable not found)
+     for((try=1;try<=16;try+=1)); 
+     do
+	 if [ "$keeplog" = true ] ; then
+             /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> $k <input_sg.txt | tee -a $k;
+	     status_code=${PIPESTATUS[0]};
+             if [ -s $k ]
+             then
+		 break
+             else
+		 echo $try > fail.log
+		 sleep 5
+             fi
+	 else
+	     /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> log.txt <input_sg.txt | tee -a log.txt;
+	     status_code=${PIPESTATUS[0]};
+	     if [ -s log.txt ]
+             then
+		 rm log.txt
+                 break
+             else
+                 echo $try > fail.log
+		 sleep 5
+             fi
+	 fi
+     done
+     if [[ $status_code -ne 0 ]]; then 
+	 rm results.dat
+	 echo "ERROR DETECTED"
+   echo "end-code not correct $status_code" >> log.txt
+   echo "+ Hostname:" >> log.txt
+   hostname >> log.txt
+   echo "+ Printing job environment:" >> log.txt
+   env >> log.txt
+     fi     
+     if [[ -e ftn26 ]]; then
+         cp ftn26 ftn25
+     fi
+
+     if [ "$keeplog" = true ] ; then
+	 echo "" >> $k; echo "ls status:" >> $k; ls >> $k	 
+     else
+	 rm ftn26 &> /dev/null
+     fi
+
+
+
+
+
+     cd ../
+
+if [[ $status_code -ne 0 ]]; then
+  exit $status_code
+fi
+#!/bin/bash
+
+# For support of LHAPATH in cluster mode
+if [ $CLUSTER_LHAPATH ]; then
+  export LHAPATH=$CLUSTER_LHAPATH;
+fi
+
+# Add CVMFS libraries to LD_LIBRARY_PATH, if not present already
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRT" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRT}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRT:$LD_LIBRARY_PATH"
+  fi
+fi
+
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRTDEL" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRTDEL}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRTDEL:$LD_LIBRARY_PATH"
+  fi
+fi
+
+# If TMPDIR is unset, set it to the condor scratch area if present and fallback to /tmp
+export TMPDIR=${TMPDIR:-${_CONDOR_SCRATCH_DIR:-/tmp}}
+
+if [[ -e MadLoop5_resources.tar.gz && ! -e MadLoop5_resources ]]; then
+tar -xzf MadLoop5_resources.tar.gz
+fi
+keeplog=false
+if [ "$keeplog" = true ] ; then
+    k=GridRun_234567_app.log
+else
+    k=/dev/null
+fi
+script=ajob1                         
+
+grid_directory=
+j=G53
+     if [[ ! -e $j ]]; then
+          mkdir $j
+          if [[ -e $grid_directory/ftn26 ]];then
+             cp $grid_directory/ftn26 $j/ftn25
+          fi 
+          if [[ ! -e ../../SubProcesses ]];then
+          	 if [[ -e ftn26 ]]; then
+          	 	cp ./ftn26 $j/ftn25
+          	 fi
+          fi	
+     fi
+     cd $j
+     if [ "$keeplog" = true ] ; then
+	 rm -f $k
+     fi
+     rm -f moffset.dat >& /dev/null
+      echo   1  > moffset.dat
+     if  [[ -e ftn26 ]]; then
+          cp ftn26 ftn25
+     fi
+     # create the input file
+         echo "    4000       13       1" >& input_sg.txt
+         echo "    -145.02094747019015" >> input_sg.txt
+     if [[ ! -e ftn25 ]]; then
+         echo "2" >> input_sg.txt   # grid refinement
+         echo "1" >> input_sg.txt   # suppress amplitude
+
+     else
+         echo "0" >> input_sg.txt
+         echo "1" >> input_sg.txt
+     fi
+     echo "0" >> input_sg.txt
+     echo "53" >> input_sg.txt
+
+     # run the executable. The loop is design to avoid
+     # filesystem problem (executable not found)
+     for((try=1;try<=16;try+=1)); 
+     do
+	 if [ "$keeplog" = true ] ; then
+             /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> $k <input_sg.txt | tee -a $k;
+	     status_code=${PIPESTATUS[0]};
+             if [ -s $k ]
+             then
+		 break
+             else
+		 echo $try > fail.log
+		 sleep 5
+             fi
+	 else
+	     /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> log.txt <input_sg.txt | tee -a log.txt;
+	     status_code=${PIPESTATUS[0]};
+	     if [ -s log.txt ]
+             then
+		 rm log.txt
+                 break
+             else
+                 echo $try > fail.log
+		 sleep 5
+             fi
+	 fi
+     done
+     if [[ $status_code -ne 0 ]]; then 
+	 rm results.dat
+	 echo "ERROR DETECTED"
+   echo "end-code not correct $status_code" >> log.txt
+   echo "+ Hostname:" >> log.txt
+   hostname >> log.txt
+   echo "+ Printing job environment:" >> log.txt
+   env >> log.txt
+     fi     
+     if [[ -e ftn26 ]]; then
+         cp ftn26 ftn25
+     fi
+
+     if [ "$keeplog" = true ] ; then
+	 echo "" >> $k; echo "ls status:" >> $k; ls >> $k	 
+     else
+	 rm ftn26 &> /dev/null
+     fi
+
+
+
+
+
+     cd ../
+
+if [[ $status_code -ne 0 ]]; then
+  exit $status_code
+fi
+#!/bin/bash
+
+# For support of LHAPATH in cluster mode
+if [ $CLUSTER_LHAPATH ]; then
+  export LHAPATH=$CLUSTER_LHAPATH;
+fi
+
+# Add CVMFS libraries to LD_LIBRARY_PATH, if not present already
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRT" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRT}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRT:$LD_LIBRARY_PATH"
+  fi
+fi
+
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRTDEL" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRTDEL}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRTDEL:$LD_LIBRARY_PATH"
+  fi
+fi
+
+# If TMPDIR is unset, set it to the condor scratch area if present and fallback to /tmp
+export TMPDIR=${TMPDIR:-${_CONDOR_SCRATCH_DIR:-/tmp}}
+
+if [[ -e MadLoop5_resources.tar.gz && ! -e MadLoop5_resources ]]; then
+tar -xzf MadLoop5_resources.tar.gz
+fi
+keeplog=false
+if [ "$keeplog" = true ] ; then
+    k=GridRun_234567_app.log
+else
+    k=/dev/null
+fi
+script=ajob1                         
+
+grid_directory=
+j=G75
+     if [[ ! -e $j ]]; then
+          mkdir $j
+          if [[ -e $grid_directory/ftn26 ]];then
+             cp $grid_directory/ftn26 $j/ftn25
+          fi 
+          if [[ ! -e ../../SubProcesses ]];then
+          	 if [[ -e ftn26 ]]; then
+          	 	cp ./ftn26 $j/ftn25
+          	 fi
+          fi	
+     fi
+     cd $j
+     if [ "$keeplog" = true ] ; then
+	 rm -f $k
+     fi
+     rm -f moffset.dat >& /dev/null
+      echo   1  > moffset.dat
+     if  [[ -e ftn26 ]]; then
+          cp ftn26 ftn25
+     fi
+     # create the input file
+         echo "    1558       13       1" >& input_sg.txt
+         echo "    -150.44057597249088" >> input_sg.txt
+     if [[ ! -e ftn25 ]]; then
+         echo "2" >> input_sg.txt   # grid refinement
+         echo "1" >> input_sg.txt   # suppress amplitude
+
+     else
+         echo "0" >> input_sg.txt
+         echo "1" >> input_sg.txt
+     fi
+     echo "0" >> input_sg.txt
+     echo "75" >> input_sg.txt
+
+     # run the executable. The loop is design to avoid
+     # filesystem problem (executable not found)
+     for((try=1;try<=16;try+=1)); 
+     do
+	 if [ "$keeplog" = true ] ; then
+             /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> $k <input_sg.txt | tee -a $k;
+	     status_code=${PIPESTATUS[0]};
+             if [ -s $k ]
+             then
+		 break
+             else
+		 echo $try > fail.log
+		 sleep 5
+             fi
+	 else
+	     /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> log.txt <input_sg.txt | tee -a log.txt;
+	     status_code=${PIPESTATUS[0]};
+	     if [ -s log.txt ]
+             then
+		 rm log.txt
+                 break
+             else
+                 echo $try > fail.log
+		 sleep 5
+             fi
+	 fi
+     done
+     if [[ $status_code -ne 0 ]]; then 
+	 rm results.dat
+	 echo "ERROR DETECTED"
+   echo "end-code not correct $status_code" >> log.txt
+   echo "+ Hostname:" >> log.txt
+   hostname >> log.txt
+   echo "+ Printing job environment:" >> log.txt
+   env >> log.txt
+     fi     
+     if [[ -e ftn26 ]]; then
+         cp ftn26 ftn25
+     fi
+
+     if [ "$keeplog" = true ] ; then
+	 echo "" >> $k; echo "ls status:" >> $k; ls >> $k	 
+     else
+	 rm ftn26 &> /dev/null
+     fi
+
+
+
+
+
+     cd ../
+
+if [[ $status_code -ne 0 ]]; then
+  exit $status_code
+fi
+#!/bin/bash
+
+# For support of LHAPATH in cluster mode
+if [ $CLUSTER_LHAPATH ]; then
+  export LHAPATH=$CLUSTER_LHAPATH;
+fi
+
+# Add CVMFS libraries to LD_LIBRARY_PATH, if not present already
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRT" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRT}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRT:$LD_LIBRARY_PATH"
+  fi
+fi
+
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRTDEL" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRTDEL}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRTDEL:$LD_LIBRARY_PATH"
+  fi
+fi
+
+# If TMPDIR is unset, set it to the condor scratch area if present and fallback to /tmp
+export TMPDIR=${TMPDIR:-${_CONDOR_SCRATCH_DIR:-/tmp}}
+
+if [[ -e MadLoop5_resources.tar.gz && ! -e MadLoop5_resources ]]; then
+tar -xzf MadLoop5_resources.tar.gz
+fi
+keeplog=false
+if [ "$keeplog" = true ] ; then
+    k=GridRun_234567_app.log
+else
+    k=/dev/null
+fi
+script=ajob1                         
+
+grid_directory=
+j=G74
+     if [[ ! -e $j ]]; then
+          mkdir $j
+          if [[ -e $grid_directory/ftn26 ]];then
+             cp $grid_directory/ftn26 $j/ftn25
+          fi 
+          if [[ ! -e ../../SubProcesses ]];then
+          	 if [[ -e ftn26 ]]; then
+          	 	cp ./ftn26 $j/ftn25
+          	 fi
+          fi	
+     fi
+     cd $j
+     if [ "$keeplog" = true ] ; then
+	 rm -f $k
+     fi
+     rm -f moffset.dat >& /dev/null
+      echo   1  > moffset.dat
+     if  [[ -e ftn26 ]]; then
+          cp ftn26 ftn25
+     fi
+     # create the input file
+         echo "    914       13       1" >& input_sg.txt
+         echo "    -148.25110030113507" >> input_sg.txt
+     if [[ ! -e ftn25 ]]; then
+         echo "2" >> input_sg.txt   # grid refinement
+         echo "1" >> input_sg.txt   # suppress amplitude
+
+     else
+         echo "0" >> input_sg.txt
+         echo "1" >> input_sg.txt
+     fi
+     echo "0" >> input_sg.txt
+     echo "74" >> input_sg.txt
+
+     # run the executable. The loop is design to avoid
+     # filesystem problem (executable not found)
+     for((try=1;try<=16;try+=1)); 
+     do
+	 if [ "$keeplog" = true ] ; then
+             /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> $k <input_sg.txt | tee -a $k;
+	     status_code=${PIPESTATUS[0]};
+             if [ -s $k ]
+             then
+		 break
+             else
+		 echo $try > fail.log
+		 sleep 5
+             fi
+	 else
+	     /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> log.txt <input_sg.txt | tee -a log.txt;
+	     status_code=${PIPESTATUS[0]};
+	     if [ -s log.txt ]
+             then
+		 rm log.txt
+                 break
+             else
+                 echo $try > fail.log
+		 sleep 5
+             fi
+	 fi
+     done
+     if [[ $status_code -ne 0 ]]; then 
+	 rm results.dat
+	 echo "ERROR DETECTED"
+   echo "end-code not correct $status_code" >> log.txt
+   echo "+ Hostname:" >> log.txt
+   hostname >> log.txt
+   echo "+ Printing job environment:" >> log.txt
+   env >> log.txt
+     fi     
+     if [[ -e ftn26 ]]; then
+         cp ftn26 ftn25
+     fi
+
+     if [ "$keeplog" = true ] ; then
+	 echo "" >> $k; echo "ls status:" >> $k; ls >> $k	 
+     else
+	 rm ftn26 &> /dev/null
+     fi
+
+
+
+
+
+     cd ../
+
+if [[ $status_code -ne 0 ]]; then
+  exit $status_code
+fi
+#!/bin/bash
+
+# For support of LHAPATH in cluster mode
+if [ $CLUSTER_LHAPATH ]; then
+  export LHAPATH=$CLUSTER_LHAPATH;
+fi
+
+# Add CVMFS libraries to LD_LIBRARY_PATH, if not present already
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRT" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRT}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRT:$LD_LIBRARY_PATH"
+  fi
+fi
+
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRTDEL" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRTDEL}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRTDEL:$LD_LIBRARY_PATH"
+  fi
+fi
+
+# If TMPDIR is unset, set it to the condor scratch area if present and fallback to /tmp
+export TMPDIR=${TMPDIR:-${_CONDOR_SCRATCH_DIR:-/tmp}}
+
+if [[ -e MadLoop5_resources.tar.gz && ! -e MadLoop5_resources ]]; then
+tar -xzf MadLoop5_resources.tar.gz
+fi
+keeplog=false
+if [ "$keeplog" = true ] ; then
+    k=GridRun_234567_app.log
+else
+    k=/dev/null
+fi
+script=ajob1                         
+
+grid_directory=
+j=G51
+     if [[ ! -e $j ]]; then
+          mkdir $j
+          if [[ -e $grid_directory/ftn26 ]];then
+             cp $grid_directory/ftn26 $j/ftn25
+          fi 
+          if [[ ! -e ../../SubProcesses ]];then
+          	 if [[ -e ftn26 ]]; then
+          	 	cp ./ftn26 $j/ftn25
+          	 fi
+          fi	
+     fi
+     cd $j
+     if [ "$keeplog" = true ] ; then
+	 rm -f $k
+     fi
+     rm -f moffset.dat >& /dev/null
+      echo   1  > moffset.dat
+     if  [[ -e ftn26 ]]; then
+          cp ftn26 ftn25
+     fi
+     # create the input file
+         echo "    4000       13       1" >& input_sg.txt
+         echo "    -148.74312063067083" >> input_sg.txt
+     if [[ ! -e ftn25 ]]; then
+         echo "2" >> input_sg.txt   # grid refinement
+         echo "1" >> input_sg.txt   # suppress amplitude
+
+     else
+         echo "0" >> input_sg.txt
+         echo "1" >> input_sg.txt
+     fi
+     echo "0" >> input_sg.txt
+     echo "51" >> input_sg.txt
+
+     # run the executable. The loop is design to avoid
+     # filesystem problem (executable not found)
+     for((try=1;try<=16;try+=1)); 
+     do
+	 if [ "$keeplog" = true ] ; then
+             /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> $k <input_sg.txt | tee -a $k;
+	     status_code=${PIPESTATUS[0]};
+             if [ -s $k ]
+             then
+		 break
+             else
+		 echo $try > fail.log
+		 sleep 5
+             fi
+	 else
+	     /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> log.txt <input_sg.txt | tee -a log.txt;
+	     status_code=${PIPESTATUS[0]};
+	     if [ -s log.txt ]
+             then
+		 rm log.txt
+                 break
+             else
+                 echo $try > fail.log
+		 sleep 5
+             fi
+	 fi
+     done
+     if [[ $status_code -ne 0 ]]; then 
+	 rm results.dat
+	 echo "ERROR DETECTED"
+   echo "end-code not correct $status_code" >> log.txt
+   echo "+ Hostname:" >> log.txt
+   hostname >> log.txt
+   echo "+ Printing job environment:" >> log.txt
+   env >> log.txt
+     fi     
+     if [[ -e ftn26 ]]; then
+         cp ftn26 ftn25
+     fi
+
+     if [ "$keeplog" = true ] ; then
+	 echo "" >> $k; echo "ls status:" >> $k; ls >> $k	 
+     else
+	 rm ftn26 &> /dev/null
+     fi
+
+
+
+
+
+     cd ../
+
+if [[ $status_code -ne 0 ]]; then
+  exit $status_code
+fi
+#!/bin/bash
+
+# For support of LHAPATH in cluster mode
+if [ $CLUSTER_LHAPATH ]; then
+  export LHAPATH=$CLUSTER_LHAPATH;
+fi
+
+# Add CVMFS libraries to LD_LIBRARY_PATH, if not present already
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRT" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRT}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRT:$LD_LIBRARY_PATH"
+  fi
+fi
+
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRTDEL" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRTDEL}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRTDEL:$LD_LIBRARY_PATH"
+  fi
+fi
+
+# If TMPDIR is unset, set it to the condor scratch area if present and fallback to /tmp
+export TMPDIR=${TMPDIR:-${_CONDOR_SCRATCH_DIR:-/tmp}}
+
+if [[ -e MadLoop5_resources.tar.gz && ! -e MadLoop5_resources ]]; then
+tar -xzf MadLoop5_resources.tar.gz
+fi
+keeplog=false
+if [ "$keeplog" = true ] ; then
+    k=GridRun_234567_app.log
+else
+    k=/dev/null
+fi
+script=ajob1                         
+
+grid_directory=
+j=G76
+     if [[ ! -e $j ]]; then
+          mkdir $j
+          if [[ -e $grid_directory/ftn26 ]];then
+             cp $grid_directory/ftn26 $j/ftn25
+          fi 
+          if [[ ! -e ../../SubProcesses ]];then
+          	 if [[ -e ftn26 ]]; then
+          	 	cp ./ftn26 $j/ftn25
+          	 fi
+          fi	
+     fi
+     cd $j
+     if [ "$keeplog" = true ] ; then
+	 rm -f $k
+     fi
+     rm -f moffset.dat >& /dev/null
+      echo   1  > moffset.dat
+     if  [[ -e ftn26 ]]; then
+          cp ftn26 ftn25
+     fi
+     # create the input file
+         echo "    682       13       1" >& input_sg.txt
+         echo "    -148.0561658229057" >> input_sg.txt
+     if [[ ! -e ftn25 ]]; then
+         echo "2" >> input_sg.txt   # grid refinement
+         echo "1" >> input_sg.txt   # suppress amplitude
+
+     else
+         echo "0" >> input_sg.txt
+         echo "1" >> input_sg.txt
+     fi
+     echo "0" >> input_sg.txt
+     echo "76" >> input_sg.txt
+
+     # run the executable. The loop is design to avoid
+     # filesystem problem (executable not found)
+     for((try=1;try<=16;try+=1)); 
+     do
+	 if [ "$keeplog" = true ] ; then
+             /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> $k <input_sg.txt | tee -a $k;
+	     status_code=${PIPESTATUS[0]};
+             if [ -s $k ]
+             then
+		 break
+             else
+		 echo $try > fail.log
+		 sleep 5
+             fi
+	 else
+	     /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> log.txt <input_sg.txt | tee -a log.txt;
+	     status_code=${PIPESTATUS[0]};
+	     if [ -s log.txt ]
+             then
+		 rm log.txt
+                 break
+             else
+                 echo $try > fail.log
+		 sleep 5
+             fi
+	 fi
+     done
+     if [[ $status_code -ne 0 ]]; then 
+	 rm results.dat
+	 echo "ERROR DETECTED"
+   echo "end-code not correct $status_code" >> log.txt
+   echo "+ Hostname:" >> log.txt
+   hostname >> log.txt
+   echo "+ Printing job environment:" >> log.txt
+   env >> log.txt
+     fi     
+     if [[ -e ftn26 ]]; then
+         cp ftn26 ftn25
+     fi
+
+     if [ "$keeplog" = true ] ; then
+	 echo "" >> $k; echo "ls status:" >> $k; ls >> $k	 
+     else
+	 rm ftn26 &> /dev/null
+     fi
+
+
+
+
+
+     cd ../
+
+if [[ $status_code -ne 0 ]]; then
+  exit $status_code
+fi
+#!/bin/bash
+
+# For support of LHAPATH in cluster mode
+if [ $CLUSTER_LHAPATH ]; then
+  export LHAPATH=$CLUSTER_LHAPATH;
+fi
+
+# Add CVMFS libraries to LD_LIBRARY_PATH, if not present already
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRT" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRT}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRT:$LD_LIBRARY_PATH"
+  fi
+fi
+
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRTDEL" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRTDEL}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRTDEL:$LD_LIBRARY_PATH"
+  fi
+fi
+
+# If TMPDIR is unset, set it to the condor scratch area if present and fallback to /tmp
+export TMPDIR=${TMPDIR:-${_CONDOR_SCRATCH_DIR:-/tmp}}
+
+if [[ -e MadLoop5_resources.tar.gz && ! -e MadLoop5_resources ]]; then
+tar -xzf MadLoop5_resources.tar.gz
+fi
+keeplog=false
+if [ "$keeplog" = true ] ; then
+    k=GridRun_234567_app.log
+else
+    k=/dev/null
+fi
+script=ajob1                         
+
+grid_directory=
+j=G44
+     if [[ ! -e $j ]]; then
+          mkdir $j
+          if [[ -e $grid_directory/ftn26 ]];then
+             cp $grid_directory/ftn26 $j/ftn25
+          fi 
+          if [[ ! -e ../../SubProcesses ]];then
+          	 if [[ -e ftn26 ]]; then
+          	 	cp ./ftn26 $j/ftn25
+          	 fi
+          fi	
+     fi
+     cd $j
+     if [ "$keeplog" = true ] ; then
+	 rm -f $k
+     fi
+     rm -f moffset.dat >& /dev/null
+      echo   1  > moffset.dat
+     if  [[ -e ftn26 ]]; then
+          cp ftn26 ftn25
+     fi
+     # create the input file
+         echo "    1698       13       1" >& input_sg.txt
+         echo "    -143.1673387577847" >> input_sg.txt
+     if [[ ! -e ftn25 ]]; then
+         echo "2" >> input_sg.txt   # grid refinement
+         echo "1" >> input_sg.txt   # suppress amplitude
+
+     else
+         echo "0" >> input_sg.txt
+         echo "1" >> input_sg.txt
+     fi
+     echo "0" >> input_sg.txt
+     echo "44" >> input_sg.txt
+
+     # run the executable. The loop is design to avoid
+     # filesystem problem (executable not found)
+     for((try=1;try<=16;try+=1)); 
+     do
+	 if [ "$keeplog" = true ] ; then
+             /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> $k <input_sg.txt | tee -a $k;
+	     status_code=${PIPESTATUS[0]};
+             if [ -s $k ]
+             then
+		 break
+             else
+		 echo $try > fail.log
+		 sleep 5
+             fi
+	 else
+	     /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> log.txt <input_sg.txt | tee -a log.txt;
+	     status_code=${PIPESTATUS[0]};
+	     if [ -s log.txt ]
+             then
+		 rm log.txt
+                 break
+             else
+                 echo $try > fail.log
+		 sleep 5
+             fi
+	 fi
+     done
+     if [[ $status_code -ne 0 ]]; then 
+	 rm results.dat
+	 echo "ERROR DETECTED"
+   echo "end-code not correct $status_code" >> log.txt
+   echo "+ Hostname:" >> log.txt
+   hostname >> log.txt
+   echo "+ Printing job environment:" >> log.txt
+   env >> log.txt
+     fi     
+     if [[ -e ftn26 ]]; then
+         cp ftn26 ftn25
+     fi
+
+     if [ "$keeplog" = true ] ; then
+	 echo "" >> $k; echo "ls status:" >> $k; ls >> $k	 
+     else
+	 rm ftn26 &> /dev/null
+     fi
+
+
+
+
+
+     cd ../
+
+if [[ $status_code -ne 0 ]]; then
+  exit $status_code
+fi
+#!/bin/bash
+
+# For support of LHAPATH in cluster mode
+if [ $CLUSTER_LHAPATH ]; then
+  export LHAPATH=$CLUSTER_LHAPATH;
+fi
+
+# Add CVMFS libraries to LD_LIBRARY_PATH, if not present already
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRT" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRT}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRT:$LD_LIBRARY_PATH"
+  fi
+fi
+
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRTDEL" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRTDEL}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRTDEL:$LD_LIBRARY_PATH"
+  fi
+fi
+
+# If TMPDIR is unset, set it to the condor scratch area if present and fallback to /tmp
+export TMPDIR=${TMPDIR:-${_CONDOR_SCRATCH_DIR:-/tmp}}
+
+if [[ -e MadLoop5_resources.tar.gz && ! -e MadLoop5_resources ]]; then
+tar -xzf MadLoop5_resources.tar.gz
+fi
+keeplog=false
+if [ "$keeplog" = true ] ; then
+    k=GridRun_234567_app.log
+else
+    k=/dev/null
+fi
+script=ajob1                         
+
+grid_directory=
+j=G14
+     if [[ ! -e $j ]]; then
+          mkdir $j
+          if [[ -e $grid_directory/ftn26 ]];then
+             cp $grid_directory/ftn26 $j/ftn25
+          fi 
+          if [[ ! -e ../../SubProcesses ]];then
+          	 if [[ -e ftn26 ]]; then
+          	 	cp ./ftn26 $j/ftn25
+          	 fi
+          fi	
+     fi
+     cd $j
+     if [ "$keeplog" = true ] ; then
+	 rm -f $k
+     fi
+     rm -f moffset.dat >& /dev/null
+      echo   1  > moffset.dat
+     if  [[ -e ftn26 ]]; then
+          cp ftn26 ftn25
+     fi
+     # create the input file
+         echo "    4000       13       1" >& input_sg.txt
+         echo "    -147.97507788161997" >> input_sg.txt
+     if [[ ! -e ftn25 ]]; then
+         echo "2" >> input_sg.txt   # grid refinement
+         echo "1" >> input_sg.txt   # suppress amplitude
+
+     else
+         echo "0" >> input_sg.txt
+         echo "1" >> input_sg.txt
+     fi
+     echo "0" >> input_sg.txt
+     echo "14" >> input_sg.txt
+
+     # run the executable. The loop is design to avoid
+     # filesystem problem (executable not found)
+     for((try=1;try<=16;try+=1)); 
+     do
+	 if [ "$keeplog" = true ] ; then
+             /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> $k <input_sg.txt | tee -a $k;
+	     status_code=${PIPESTATUS[0]};
+             if [ -s $k ]
+             then
+		 break
+             else
+		 echo $try > fail.log
+		 sleep 5
+             fi
+	 else
+	     /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> log.txt <input_sg.txt | tee -a log.txt;
+	     status_code=${PIPESTATUS[0]};
+	     if [ -s log.txt ]
+             then
+		 rm log.txt
+                 break
+             else
+                 echo $try > fail.log
+		 sleep 5
+             fi
+	 fi
+     done
+     if [[ $status_code -ne 0 ]]; then 
+	 rm results.dat
+	 echo "ERROR DETECTED"
+   echo "end-code not correct $status_code" >> log.txt
+   echo "+ Hostname:" >> log.txt
+   hostname >> log.txt
+   echo "+ Printing job environment:" >> log.txt
+   env >> log.txt
+     fi     
+     if [[ -e ftn26 ]]; then
+         cp ftn26 ftn25
+     fi
+
+     if [ "$keeplog" = true ] ; then
+	 echo "" >> $k; echo "ls status:" >> $k; ls >> $k	 
+     else
+	 rm ftn26 &> /dev/null
+     fi
+
+
+
+
+
+     cd ../
+
+if [[ $status_code -ne 0 ]]; then
+  exit $status_code
+fi
+#!/bin/bash
+
+# For support of LHAPATH in cluster mode
+if [ $CLUSTER_LHAPATH ]; then
+  export LHAPATH=$CLUSTER_LHAPATH;
+fi
+
+# Add CVMFS libraries to LD_LIBRARY_PATH, if not present already
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRT" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRT}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRT:$LD_LIBRARY_PATH"
+  fi
+fi
+
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRTDEL" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRTDEL}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRTDEL:$LD_LIBRARY_PATH"
+  fi
+fi
+
+# If TMPDIR is unset, set it to the condor scratch area if present and fallback to /tmp
+export TMPDIR=${TMPDIR:-${_CONDOR_SCRATCH_DIR:-/tmp}}
+
+if [[ -e MadLoop5_resources.tar.gz && ! -e MadLoop5_resources ]]; then
+tar -xzf MadLoop5_resources.tar.gz
+fi
+keeplog=false
+if [ "$keeplog" = true ] ; then
+    k=GridRun_234567_app.log
+else
+    k=/dev/null
+fi
+script=ajob1                         
+
+grid_directory=
+j=G47
+     if [[ ! -e $j ]]; then
+          mkdir $j
+          if [[ -e $grid_directory/ftn26 ]];then
+             cp $grid_directory/ftn26 $j/ftn25
+          fi 
+          if [[ ! -e ../../SubProcesses ]];then
+          	 if [[ -e ftn26 ]]; then
+          	 	cp ./ftn26 $j/ftn25
+          	 fi
+          fi	
+     fi
+     cd $j
+     if [ "$keeplog" = true ] ; then
+	 rm -f $k
+     fi
+     rm -f moffset.dat >& /dev/null
+      echo   1  > moffset.dat
+     if  [[ -e ftn26 ]]; then
+          cp ftn26 ftn25
+     fi
+     # create the input file
+         echo "    4000       13       1" >& input_sg.txt
+         echo "    -150.2403846153846" >> input_sg.txt
+     if [[ ! -e ftn25 ]]; then
+         echo "2" >> input_sg.txt   # grid refinement
+         echo "1" >> input_sg.txt   # suppress amplitude
+
+     else
+         echo "0" >> input_sg.txt
+         echo "1" >> input_sg.txt
+     fi
+     echo "0" >> input_sg.txt
+     echo "47" >> input_sg.txt
+
+     # run the executable. The loop is design to avoid
+     # filesystem problem (executable not found)
+     for((try=1;try<=16;try+=1)); 
+     do
+	 if [ "$keeplog" = true ] ; then
+             /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> $k <input_sg.txt | tee -a $k;
+	     status_code=${PIPESTATUS[0]};
+             if [ -s $k ]
+             then
+		 break
+             else
+		 echo $try > fail.log
+		 sleep 5
+             fi
+	 else
+	     /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> log.txt <input_sg.txt | tee -a log.txt;
+	     status_code=${PIPESTATUS[0]};
+	     if [ -s log.txt ]
+             then
+		 rm log.txt
+                 break
+             else
+                 echo $try > fail.log
+		 sleep 5
+             fi
+	 fi
+     done
+     if [[ $status_code -ne 0 ]]; then 
+	 rm results.dat
+	 echo "ERROR DETECTED"
+   echo "end-code not correct $status_code" >> log.txt
+   echo "+ Hostname:" >> log.txt
+   hostname >> log.txt
+   echo "+ Printing job environment:" >> log.txt
+   env >> log.txt
+     fi     
+     if [[ -e ftn26 ]]; then
+         cp ftn26 ftn25
+     fi
+
+     if [ "$keeplog" = true ] ; then
+	 echo "" >> $k; echo "ls status:" >> $k; ls >> $k	 
+     else
+	 rm ftn26 &> /dev/null
+     fi
+
+
+
+
+
+     cd ../
+
+if [[ $status_code -ne 0 ]]; then
+  exit $status_code
+fi
+#!/bin/bash
+
+# For support of LHAPATH in cluster mode
+if [ $CLUSTER_LHAPATH ]; then
+  export LHAPATH=$CLUSTER_LHAPATH;
+fi
+
+# Add CVMFS libraries to LD_LIBRARY_PATH, if not present already
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRT" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRT}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRT:$LD_LIBRARY_PATH"
+  fi
+fi
+
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRTDEL" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRTDEL}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRTDEL:$LD_LIBRARY_PATH"
+  fi
+fi
+
+# If TMPDIR is unset, set it to the condor scratch area if present and fallback to /tmp
+export TMPDIR=${TMPDIR:-${_CONDOR_SCRATCH_DIR:-/tmp}}
+
+if [[ -e MadLoop5_resources.tar.gz && ! -e MadLoop5_resources ]]; then
+tar -xzf MadLoop5_resources.tar.gz
+fi
+keeplog=false
+if [ "$keeplog" = true ] ; then
+    k=GridRun_234567_app.log
+else
+    k=/dev/null
+fi
+script=ajob1                         
+
+grid_directory=
+j=G45
+     if [[ ! -e $j ]]; then
+          mkdir $j
+          if [[ -e $grid_directory/ftn26 ]];then
+             cp $grid_directory/ftn26 $j/ftn25
+          fi 
+          if [[ ! -e ../../SubProcesses ]];then
+          	 if [[ -e ftn26 ]]; then
+          	 	cp ./ftn26 $j/ftn25
+          	 fi
+          fi	
+     fi
+     cd $j
+     if [ "$keeplog" = true ] ; then
+	 rm -f $k
+     fi
+     rm -f moffset.dat >& /dev/null
+      echo   1  > moffset.dat
+     if  [[ -e ftn26 ]]; then
+          cp ftn26 ftn25
+     fi
+     # create the input file
+         echo "    4000       13       1" >& input_sg.txt
+         echo "    -147.11782800588472" >> input_sg.txt
+     if [[ ! -e ftn25 ]]; then
+         echo "2" >> input_sg.txt   # grid refinement
+         echo "1" >> input_sg.txt   # suppress amplitude
+
+     else
+         echo "0" >> input_sg.txt
+         echo "1" >> input_sg.txt
+     fi
+     echo "0" >> input_sg.txt
+     echo "45" >> input_sg.txt
+
+     # run the executable. The loop is design to avoid
+     # filesystem problem (executable not found)
+     for((try=1;try<=16;try+=1)); 
+     do
+	 if [ "$keeplog" = true ] ; then
+             /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> $k <input_sg.txt | tee -a $k;
+	     status_code=${PIPESTATUS[0]};
+             if [ -s $k ]
+             then
+		 break
+             else
+		 echo $try > fail.log
+		 sleep 5
+             fi
+	 else
+	     /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> log.txt <input_sg.txt | tee -a log.txt;
+	     status_code=${PIPESTATUS[0]};
+	     if [ -s log.txt ]
+             then
+		 rm log.txt
+                 break
+             else
+                 echo $try > fail.log
+		 sleep 5
+             fi
+	 fi
+     done
+     if [[ $status_code -ne 0 ]]; then 
+	 rm results.dat
+	 echo "ERROR DETECTED"
+   echo "end-code not correct $status_code" >> log.txt
+   echo "+ Hostname:" >> log.txt
+   hostname >> log.txt
+   echo "+ Printing job environment:" >> log.txt
+   env >> log.txt
+     fi     
+     if [[ -e ftn26 ]]; then
+         cp ftn26 ftn25
+     fi
+
+     if [ "$keeplog" = true ] ; then
+	 echo "" >> $k; echo "ls status:" >> $k; ls >> $k	 
+     else
+	 rm ftn26 &> /dev/null
+     fi
+
+
+
+
+
+     cd ../
+
+if [[ $status_code -ne 0 ]]; then
+  exit $status_code
+fi
+#!/bin/bash
+
+# For support of LHAPATH in cluster mode
+if [ $CLUSTER_LHAPATH ]; then
+  export LHAPATH=$CLUSTER_LHAPATH;
+fi
+
+# Add CVMFS libraries to LD_LIBRARY_PATH, if not present already
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRT" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRT}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRT:$LD_LIBRARY_PATH"
+  fi
+fi
+
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRTDEL" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRTDEL}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRTDEL:$LD_LIBRARY_PATH"
+  fi
+fi
+
+# If TMPDIR is unset, set it to the condor scratch area if present and fallback to /tmp
+export TMPDIR=${TMPDIR:-${_CONDOR_SCRATCH_DIR:-/tmp}}
+
+if [[ -e MadLoop5_resources.tar.gz && ! -e MadLoop5_resources ]]; then
+tar -xzf MadLoop5_resources.tar.gz
+fi
+keeplog=false
+if [ "$keeplog" = true ] ; then
+    k=GridRun_234567_app.log
+else
+    k=/dev/null
+fi
+script=ajob1                         
+
+grid_directory=
+j=G43
+     if [[ ! -e $j ]]; then
+          mkdir $j
+          if [[ -e $grid_directory/ftn26 ]];then
+             cp $grid_directory/ftn26 $j/ftn25
+          fi 
+          if [[ ! -e ../../SubProcesses ]];then
+          	 if [[ -e ftn26 ]]; then
+          	 	cp ./ftn26 $j/ftn25
+          	 fi
+          fi	
+     fi
+     cd $j
+     if [ "$keeplog" = true ] ; then
+	 rm -f $k
+     fi
+     rm -f moffset.dat >& /dev/null
+      echo   1  > moffset.dat
+     if  [[ -e ftn26 ]]; then
+          cp ftn26 ftn25
+     fi
+     # create the input file
+         echo "    4000       13       1" >& input_sg.txt
+         echo "    -139.9612773799249" >> input_sg.txt
+     if [[ ! -e ftn25 ]]; then
+         echo "2" >> input_sg.txt   # grid refinement
+         echo "1" >> input_sg.txt   # suppress amplitude
+
+     else
+         echo "0" >> input_sg.txt
+         echo "1" >> input_sg.txt
+     fi
+     echo "0" >> input_sg.txt
+     echo "43" >> input_sg.txt
+
+     # run the executable. The loop is design to avoid
+     # filesystem problem (executable not found)
+     for((try=1;try<=16;try+=1)); 
+     do
+	 if [ "$keeplog" = true ] ; then
+             /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> $k <input_sg.txt | tee -a $k;
+	     status_code=${PIPESTATUS[0]};
+             if [ -s $k ]
+             then
+		 break
+             else
+		 echo $try > fail.log
+		 sleep 5
+             fi
+	 else
+	     /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> log.txt <input_sg.txt | tee -a log.txt;
+	     status_code=${PIPESTATUS[0]};
+	     if [ -s log.txt ]
+             then
+		 rm log.txt
+                 break
+             else
+                 echo $try > fail.log
+		 sleep 5
+             fi
+	 fi
+     done
+     if [[ $status_code -ne 0 ]]; then 
+	 rm results.dat
+	 echo "ERROR DETECTED"
+   echo "end-code not correct $status_code" >> log.txt
+   echo "+ Hostname:" >> log.txt
+   hostname >> log.txt
+   echo "+ Printing job environment:" >> log.txt
+   env >> log.txt
+     fi     
+     if [[ -e ftn26 ]]; then
+         cp ftn26 ftn25
+     fi
+
+     if [ "$keeplog" = true ] ; then
+	 echo "" >> $k; echo "ls status:" >> $k; ls >> $k	 
+     else
+	 rm ftn26 &> /dev/null
+     fi
+
+
+
+
+
+     cd ../
+
+if [[ $status_code -ne 0 ]]; then
+  exit $status_code
+fi
+#!/bin/bash
+
+# For support of LHAPATH in cluster mode
+if [ $CLUSTER_LHAPATH ]; then
+  export LHAPATH=$CLUSTER_LHAPATH;
+fi
+
+# Add CVMFS libraries to LD_LIBRARY_PATH, if not present already
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRT" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRT}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRT:$LD_LIBRARY_PATH"
+  fi
+fi
+
+if [ -n "$SRT_LD_LIBRARY_PATH_SCRAMRTDEL" ]; then
+  if [ -n "${LD_LIBRARY_PATH##*${SRT_LD_LIBRARY_PATH_SCRAMRTDEL}*}" ]; then
+    export LD_LIBRARY_PATH="$SRT_LD_LIBRARY_PATH_SCRAMRTDEL:$LD_LIBRARY_PATH"
+  fi
+fi
+
+# If TMPDIR is unset, set it to the condor scratch area if present and fallback to /tmp
+export TMPDIR=${TMPDIR:-${_CONDOR_SCRATCH_DIR:-/tmp}}
+
+if [[ -e MadLoop5_resources.tar.gz && ! -e MadLoop5_resources ]]; then
+tar -xzf MadLoop5_resources.tar.gz
+fi
+keeplog=false
+if [ "$keeplog" = true ] ; then
+    k=GridRun_234567_app.log
+else
+    k=/dev/null
+fi
+script=ajob1                         
+
+grid_directory=
+j=G1
+     if [[ ! -e $j ]]; then
+          mkdir $j
+          if [[ -e $grid_directory/ftn26 ]];then
+             cp $grid_directory/ftn26 $j/ftn25
+          fi 
+          if [[ ! -e ../../SubProcesses ]];then
+          	 if [[ -e ftn26 ]]; then
+          	 	cp ./ftn26 $j/ftn25
+          	 fi
+          fi	
+     fi
+     cd $j
+     if [ "$keeplog" = true ] ; then
+	 rm -f $k
+     fi
+     rm -f moffset.dat >& /dev/null
+      echo   1  > moffset.dat
+     if  [[ -e ftn26 ]]; then
+          cp ftn26 ftn25
+     fi
+     # create the input file
+         echo "    4000       13       1" >& input_sg.txt
+         echo "    -150.52750071991414" >> input_sg.txt
+     if [[ ! -e ftn25 ]]; then
+         echo "2" >> input_sg.txt   # grid refinement
+         echo "1" >> input_sg.txt   # suppress amplitude
+
+     else
+         echo "0" >> input_sg.txt
+         echo "1" >> input_sg.txt
+     fi
+     echo "0" >> input_sg.txt
+     echo "1" >> input_sg.txt
+
+     # run the executable. The loop is design to avoid
+     # filesystem problem (executable not found)
+     for((try=1;try<=16;try+=1)); 
+     do
+	 if [ "$keeplog" = true ] ; then
+             /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> $k <input_sg.txt | tee -a $k;
+	     status_code=${PIPESTATUS[0]};
+             if [ -s $k ]
+             then
+		 break
+             else
+		 echo $try > fail.log
+		 sleep 5
+             fi
+	 else
+	     /uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/ewkzlljj_5f_LO/ewkzlljj_5f_LO_gridpack/work/process/madevent/SubProcesses/P1_qq_llqq/madevent 2>&1 >> log.txt <input_sg.txt | tee -a log.txt;
+	     status_code=${PIPESTATUS[0]};
+	     if [ -s log.txt ]
+             then
+		 rm log.txt
+                 break
+             else
+                 echo $try > fail.log
+		 sleep 5
+             fi
+	 fi
+     done
+     if [[ $status_code -ne 0 ]]; then 
+	 rm results.dat
+	 echo "ERROR DETECTED"
+   echo "end-code not correct $status_code" >> log.txt
+   echo "+ Hostname:" >> log.txt
+   hostname >> log.txt
+   echo "+ Printing job environment:" >> log.txt
+   env >> log.txt
+     fi     
+     if [[ -e ftn26 ]]; then
+         cp ftn26 ftn25
+     fi
+
+     if [ "$keeplog" = true ] ; then
+	 echo "" >> $k; echo "ls status:" >> $k; ls >> $k	 
+     else
+	 rm ftn26 &> /dev/null
+     fi
+
+
+
+
+
+     cd ../
+
+if [[ $status_code -ne 0 ]]; then
+  exit $status_code
+fi

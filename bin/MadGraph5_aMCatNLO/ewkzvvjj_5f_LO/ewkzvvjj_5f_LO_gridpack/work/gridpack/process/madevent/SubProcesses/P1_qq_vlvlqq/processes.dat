@@ -1,0 +1,654 @@
+1       u u > ve ve~ u u,u u > vm vm~ u u,u u > vt vt~ u u,c c > ve ve~ c c,c c > vm vm~ c c,c c > vt vt~ c c
+mirror  none
+2       u u~ > ve ve~ u u~,u u~ > vm vm~ u u~,u u~ > vt vt~ u u~,c c~ > ve ve~ c c~,c c~ > vm vm~ c c~,c c~ > vt vt~ c c~
+mirror  u~ u > ve ve~ u u~,u~ u > vm vm~ u u~,u~ u > vt vt~ u u~,c~ c > ve ve~ c c~,c~ c > vm vm~ c c~,c~ c > vt vt~ c c~
+3       d d > ve ve~ d d,d d > vm vm~ d d,d d > vt vt~ d d,s s > ve ve~ s s,s s > vm vm~ s s,s s > vt vt~ s s,b b > ve ve~ b b,b b > vm vm~ b b,b b > vt vt~ b b
+mirror  none
+4       d d~ > ve ve~ d d~,d d~ > vm vm~ d d~,d d~ > vt vt~ d d~,s s~ > ve ve~ s s~,s s~ > vm vm~ s s~,s s~ > vt vt~ s s~,b b~ > ve ve~ b b~,b b~ > vm vm~ b b~,b b~ > vt vt~ b b~
+mirror  d~ d > ve ve~ d d~,d~ d > vm vm~ d d~,d~ d > vt vt~ d d~,s~ s > ve ve~ s s~,s~ s > vm vm~ s s~,s~ s > vt vt~ s s~,b~ b > ve ve~ b b~,b~ b > vm vm~ b b~,b~ b > vt vt~ b b~
+5       u~ u~ > ve ve~ u~ u~,u~ u~ > vm vm~ u~ u~,u~ u~ > vt vt~ u~ u~,c~ c~ > ve ve~ c~ c~,c~ c~ > vm vm~ c~ c~,c~ c~ > vt vt~ c~ c~
+mirror  none
+6       d~ d~ > ve ve~ d~ d~,d~ d~ > vm vm~ d~ d~,d~ d~ > vt vt~ d~ d~,s~ s~ > ve ve~ s~ s~,s~ s~ > vm vm~ s~ s~,s~ s~ > vt vt~ s~ s~,b~ b~ > ve ve~ b~ b~,b~ b~ > vm vm~ b~ b~,b~ b~ > vt vt~ b~ b~
+mirror  none
+7       u d > ve ve~ u d,u d > vm vm~ u d,c s > ve ve~ c s,c s > vm vm~ c s
+mirror  d u > ve ve~ u d,d u > vm vm~ u d,s c > ve ve~ c s,s c > vm vm~ c s
+8       u d > vt vt~ u d,c s > vt vt~ c s
+mirror  d u > vt vt~ u d,s c > vt vt~ c s
+9       u s > ve ve~ u s,u s > vm vm~ u s
+mirror  s u > ve ve~ u s,s u > vm vm~ u s
+10      u s > vt vt~ u s
+mirror  s u > vt vt~ u s
+11      u u~ > ve ve~ d d~,u u~ > vm vm~ d d~,c c~ > ve ve~ s s~,c c~ > vm vm~ s s~
+mirror  u~ u > ve ve~ d d~,u~ u > vm vm~ d d~,c~ c > ve ve~ s s~,c~ c > vm vm~ s s~
+12      u u~ > ve ve~ s s~,u u~ > vm vm~ s s~
+mirror  u~ u > ve ve~ s s~,u~ u > vm vm~ s s~
+13      u u~ > ve ve~ b b~,u u~ > vm vm~ b b~
+mirror  u~ u > ve ve~ b b~,u~ u > vm vm~ b b~
+14      u u~ > vt vt~ d d~,c c~ > vt vt~ s s~
+mirror  u~ u > vt vt~ d d~,c~ c > vt vt~ s s~
+15      u u~ > vt vt~ s s~
+mirror  u~ u > vt vt~ s s~
+16      u u~ > vt vt~ b b~
+mirror  u~ u > vt vt~ b b~
+17      u d~ > ve ve~ u d~,u d~ > vm vm~ u d~,c s~ > ve ve~ c s~,c s~ > vm vm~ c s~
+mirror  d~ u > ve ve~ u d~,d~ u > vm vm~ u d~,s~ c > ve ve~ c s~,s~ c > vm vm~ c s~
+18      u d~ > vt vt~ u d~,c s~ > vt vt~ c s~
+mirror  d~ u > vt vt~ u d~,s~ c > vt vt~ c s~
+19      u s~ > ve ve~ u s~,u s~ > vm vm~ u s~
+mirror  s~ u > ve ve~ u s~,s~ u > vm vm~ u s~
+20      u s~ > vt vt~ u s~
+mirror  s~ u > vt vt~ u s~
+21      u b > ve ve~ u b,u b > vm vm~ u b
+mirror  b u > ve ve~ u b,b u > vm vm~ u b
+22      u b > vt vt~ u b
+mirror  b u > vt vt~ u b
+23      u b~ > ve ve~ u b~,u b~ > vm vm~ u b~
+mirror  b~ u > ve ve~ u b~,b~ u > vm vm~ u b~
+24      u b~ > vt vt~ u b~
+mirror  b~ u > vt vt~ u b~
+25      c d > ve ve~ c d,c d > vm vm~ c d
+mirror  d c > ve ve~ c d,d c > vm vm~ c d
+26      c d > vt vt~ c d
+mirror  d c > vt vt~ c d
+27      c c~ > ve ve~ d d~,c c~ > vm vm~ d d~
+mirror  c~ c > ve ve~ d d~,c~ c > vm vm~ d d~
+28      c c~ > ve ve~ b b~,c c~ > vm vm~ b b~
+mirror  c~ c > ve ve~ b b~,c~ c > vm vm~ b b~
+29      c c~ > vt vt~ d d~
+mirror  c~ c > vt vt~ d d~
+30      c c~ > vt vt~ b b~
+mirror  c~ c > vt vt~ b b~
+31      c d~ > ve ve~ c d~,c d~ > vm vm~ c d~
+mirror  d~ c > ve ve~ c d~,d~ c > vm vm~ c d~
+32      c d~ > vt vt~ c d~
+mirror  d~ c > vt vt~ c d~
+33      c b > ve ve~ c b,c b > vm vm~ c b
+mirror  b c > ve ve~ c b,b c > vm vm~ c b
+34      c b > vt vt~ c b
+mirror  b c > vt vt~ c b
+35      c b~ > ve ve~ c b~,c b~ > vm vm~ c b~
+mirror  b~ c > ve ve~ c b~,b~ c > vm vm~ c b~
+36      c b~ > vt vt~ c b~
+mirror  b~ c > vt vt~ c b~
+37      d u~ > ve ve~ d u~,d u~ > vm vm~ d u~,s c~ > ve ve~ s c~,s c~ > vm vm~ s c~
+mirror  u~ d > ve ve~ d u~,u~ d > vm vm~ d u~,c~ s > ve ve~ s c~,c~ s > vm vm~ s c~
+38      d u~ > vt vt~ d u~,s c~ > vt vt~ s c~
+mirror  u~ d > vt vt~ d u~,c~ s > vt vt~ s c~
+39      d c~ > ve ve~ d c~,d c~ > vm vm~ d c~
+mirror  c~ d > ve ve~ d c~,c~ d > vm vm~ d c~
+40      d c~ > vt vt~ d c~
+mirror  c~ d > vt vt~ d c~
+41      d d~ > ve ve~ u u~,d d~ > vm vm~ u u~,s s~ > ve ve~ c c~,s s~ > vm vm~ c c~
+mirror  d~ d > ve ve~ u u~,d~ d > vm vm~ u u~,s~ s > ve ve~ c c~,s~ s > vm vm~ c c~
+42      d d~ > ve ve~ c c~,d d~ > vm vm~ c c~
+mirror  d~ d > ve ve~ c c~,d~ d > vm vm~ c c~
+43      d d~ > vt vt~ u u~,s s~ > vt vt~ c c~
+mirror  d~ d > vt vt~ u u~,s~ s > vt vt~ c c~
+44      d d~ > vt vt~ c c~
+mirror  d~ d > vt vt~ c c~
+45      s u~ > ve ve~ s u~,s u~ > vm vm~ s u~
+mirror  u~ s > ve ve~ s u~,u~ s > vm vm~ s u~
+46      s u~ > vt vt~ s u~
+mirror  u~ s > vt vt~ s u~
+47      s s~ > ve ve~ u u~,s s~ > vm vm~ u u~
+mirror  s~ s > ve ve~ u u~,s~ s > vm vm~ u u~
+48      s s~ > vt vt~ u u~
+mirror  s~ s > vt vt~ u u~
+49      u~ d~ > ve ve~ u~ d~,u~ d~ > vm vm~ u~ d~,c~ s~ > ve ve~ c~ s~,c~ s~ > vm vm~ c~ s~
+mirror  d~ u~ > ve ve~ u~ d~,d~ u~ > vm vm~ u~ d~,s~ c~ > ve ve~ c~ s~,s~ c~ > vm vm~ c~ s~
+50      u~ d~ > vt vt~ u~ d~,c~ s~ > vt vt~ c~ s~
+mirror  d~ u~ > vt vt~ u~ d~,s~ c~ > vt vt~ c~ s~
+51      u~ s~ > ve ve~ u~ s~,u~ s~ > vm vm~ u~ s~
+mirror  s~ u~ > ve ve~ u~ s~,s~ u~ > vm vm~ u~ s~
+52      u~ s~ > vt vt~ u~ s~
+mirror  s~ u~ > vt vt~ u~ s~
+53      u~ b > ve ve~ b u~,u~ b > vm vm~ b u~
+mirror  b u~ > ve ve~ b u~,b u~ > vm vm~ b u~
+54      u~ b > vt vt~ b u~
+mirror  b u~ > vt vt~ b u~
+55      u~ b~ > ve ve~ u~ b~,u~ b~ > vm vm~ u~ b~
+mirror  b~ u~ > ve ve~ u~ b~,b~ u~ > vm vm~ u~ b~
+56      u~ b~ > vt vt~ u~ b~
+mirror  b~ u~ > vt vt~ u~ b~
+57      c~ d~ > ve ve~ c~ d~,c~ d~ > vm vm~ c~ d~
+mirror  d~ c~ > ve ve~ c~ d~,d~ c~ > vm vm~ c~ d~
+58      c~ d~ > vt vt~ c~ d~
+mirror  d~ c~ > vt vt~ c~ d~
+59      c~ b > ve ve~ b c~,c~ b > vm vm~ b c~
+mirror  b c~ > ve ve~ b c~,b c~ > vm vm~ b c~
+60      c~ b > vt vt~ b c~
+mirror  b c~ > vt vt~ b c~
+61      c~ b~ > ve ve~ c~ b~,c~ b~ > vm vm~ c~ b~
+mirror  b~ c~ > ve ve~ c~ b~,b~ c~ > vm vm~ c~ b~
+62      c~ b~ > vt vt~ c~ b~
+mirror  b~ c~ > vt vt~ c~ b~
+63      b b~ > ve ve~ u u~,b b~ > vm vm~ u u~
+mirror  b~ b > ve ve~ u u~,b~ b > vm vm~ u u~
+64      b b~ > ve ve~ c c~,b b~ > vm vm~ c c~
+mirror  b~ b > ve ve~ c c~,b~ b > vm vm~ c c~
+65      b b~ > vt vt~ u u~
+mirror  b~ b > vt vt~ u u~
+66      b b~ > vt vt~ c c~
+mirror  b~ b > vt vt~ c c~
+67      u c > ve ve~ u c,u c > vm vm~ u c,u c > vt vt~ u c
+mirror  c u > ve ve~ u c,c u > vm vm~ u c,c u > vt vt~ u c
+68      u u~ > ve ve~ c c~,u u~ > vm vm~ c c~,u u~ > vt vt~ c c~,c c~ > ve ve~ u u~,c c~ > vm vm~ u u~,c c~ > vt vt~ u u~
+mirror  u~ u > ve ve~ c c~,u~ u > vm vm~ c c~,u~ u > vt vt~ c c~,c~ c > ve ve~ u u~,c~ c > vm vm~ u u~,c~ c > vt vt~ u u~
+69      u c~ > ve ve~ u c~,u c~ > vm vm~ u c~,u c~ > vt vt~ u c~,c u~ > ve ve~ c u~,c u~ > vm vm~ c u~,c u~ > vt vt~ c u~
+mirror  c~ u > ve ve~ u c~,c~ u > vm vm~ u c~,c~ u > vt vt~ u c~,u~ c > ve ve~ c u~,u~ c > vm vm~ c u~,u~ c > vt vt~ c u~
+70      d s > ve ve~ d s,d s > vm vm~ d s,d s > vt vt~ d s,d b > ve ve~ d b,d b > vm vm~ d b,d b > vt vt~ d b,s b > ve ve~ s b,s b > vm vm~ s b,s b > vt vt~ s b
+mirror  s d > ve ve~ d s,s d > vm vm~ d s,s d > vt vt~ d s,b d > ve ve~ d b,b d > vm vm~ d b,b d > vt vt~ d b,b s > ve ve~ s b,b s > vm vm~ s b,b s > vt vt~ s b
+71      d d~ > ve ve~ s s~,d d~ > ve ve~ b b~,d d~ > vm vm~ s s~,d d~ > vm vm~ b b~,d d~ > vt vt~ s s~,d d~ > vt vt~ b b~,s s~ > ve ve~ d d~,s s~ > ve ve~ b b~,s s~ > vm vm~ d d~,s s~ > vm vm~ b b~,s s~ > vt vt~ d d~,s s~ > vt vt~ b b~,b b~ > ve ve~ d d~,b b~ > ve ve~ s s~,b b~ > vm vm~ d d~,b b~ > vm vm~ s s~,b b~ > vt vt~ d d~,b b~ > vt vt~ s s~
+mirror  d~ d > ve ve~ s s~,d~ d > ve ve~ b b~,d~ d > vm vm~ s s~,d~ d > vm vm~ b b~,d~ d > vt vt~ s s~,d~ d > vt vt~ b b~,s~ s > ve ve~ d d~,s~ s > ve ve~ b b~,s~ s > vm vm~ d d~,s~ s > vm vm~ b b~,s~ s > vt vt~ d d~,s~ s > vt vt~ b b~,b~ b > ve ve~ d d~,b~ b > ve ve~ s s~,b~ b > vm vm~ d d~,b~ b > vm vm~ s s~,b~ b > vt vt~ d d~,b~ b > vt vt~ s s~
+72      d s~ > ve ve~ d s~,d s~ > vm vm~ d s~,d s~ > vt vt~ d s~,d b~ > ve ve~ d b~,d b~ > vm vm~ d b~,d b~ > vt vt~ d b~,s d~ > ve ve~ s d~,s d~ > vm vm~ s d~,s d~ > vt vt~ s d~,s b~ > ve ve~ s b~,s b~ > vm vm~ s b~,s b~ > vt vt~ s b~
+mirror  s~ d > ve ve~ d s~,s~ d > vm vm~ d s~,s~ d > vt vt~ d s~,b~ d > ve ve~ d b~,b~ d > vm vm~ d b~,b~ d > vt vt~ d b~,d~ s > ve ve~ s d~,d~ s > vm vm~ s d~,d~ s > vt vt~ s d~,b~ s > ve ve~ s b~,b~ s > vm vm~ s b~,b~ s > vt vt~ s b~
+73      u~ c~ > ve ve~ u~ c~,u~ c~ > vm vm~ u~ c~,u~ c~ > vt vt~ u~ c~
+mirror  c~ u~ > ve ve~ u~ c~,c~ u~ > vm vm~ u~ c~,c~ u~ > vt vt~ u~ c~
+74      d~ s~ > ve ve~ d~ s~,d~ s~ > vm vm~ d~ s~,d~ s~ > vt vt~ d~ s~,d~ b~ > ve ve~ d~ b~,d~ b~ > vm vm~ d~ b~,d~ b~ > vt vt~ d~ b~,s~ b~ > ve ve~ s~ b~,s~ b~ > vm vm~ s~ b~,s~ b~ > vt vt~ s~ b~
+mirror  s~ d~ > ve ve~ d~ s~,s~ d~ > vm vm~ d~ s~,s~ d~ > vt vt~ d~ s~,b~ d~ > ve ve~ d~ b~,b~ d~ > vm vm~ d~ b~,b~ d~ > vt vt~ d~ b~,b~ s~ > ve ve~ s~ b~,b~ s~ > vm vm~ s~ b~,b~ s~ > vt vt~ s~ b~
+75      d~ b > ve ve~ b d~,d~ b > vm vm~ b d~,d~ b > vt vt~ b d~,s~ b > ve ve~ b s~,s~ b > vm vm~ b s~,s~ b > vt vt~ b s~
+mirror  b d~ > ve ve~ b d~,b d~ > vm vm~ b d~,b d~ > vt vt~ b d~,b s~ > ve ve~ b s~,b s~ > vm vm~ b s~,b s~ > vt vt~ b s~
+76      u d > ve ve~ u s,u d > vm vm~ u s,u s > ve ve~ c s,u s > vm vm~ c s
+mirror  d u > ve ve~ u s,d u > vm vm~ u s,s u > ve ve~ c s,s u > vm vm~ c s
+77      u d > ve ve~ u b,u d > vm vm~ u b,u s > ve ve~ c b,u s > vm vm~ c b
+mirror  d u > ve ve~ u b,d u > vm vm~ u b,s u > ve ve~ c b,s u > vm vm~ c b
+78      u d > ve ve~ c d,u d > vm vm~ c d,c d > ve ve~ c s,c d > vm vm~ c s
+mirror  d u > ve ve~ c d,d u > vm vm~ c d,d c > ve ve~ c s,d c > vm vm~ c s
+79      u d > ve ve~ c s,u d > vm vm~ c s
+mirror  d u > ve ve~ c s,d u > vm vm~ c s
+80      u d > ve ve~ c b,u d > vm vm~ c b
+mirror  d u > ve ve~ c b,d u > vm vm~ c b
+81      u d > vt vt~ u s,u s > vt vt~ c s
+mirror  d u > vt vt~ u s,s u > vt vt~ c s
+82      u d > vt vt~ u b,u s > vt vt~ c b
+mirror  d u > vt vt~ u b,s u > vt vt~ c b
+83      u d > vt vt~ c d,c d > vt vt~ c s
+mirror  d u > vt vt~ c d,d c > vt vt~ c s
+84      u d > vt vt~ c s
+mirror  d u > vt vt~ c s
+85      u d > vt vt~ c b
+mirror  d u > vt vt~ c b
+86      u s > ve ve~ u d,u s > vm vm~ u d,c s > ve ve~ u s,c s > vm vm~ u s
+mirror  s u > ve ve~ u d,s u > vm vm~ u d,s c > ve ve~ u s,s c > vm vm~ u s
+87      u s > ve ve~ u b,u s > vm vm~ u b
+mirror  s u > ve ve~ u b,s u > vm vm~ u b
+88      u s > ve ve~ c d,u s > vm vm~ c d,c d > ve ve~ u s,c d > vm vm~ u s
+mirror  s u > ve ve~ c d,s u > vm vm~ c d,d c > ve ve~ u s,d c > vm vm~ u s
+89      u s > vt vt~ u d,c s > vt vt~ u s
+mirror  s u > vt vt~ u d,s c > vt vt~ u s
+90      u s > vt vt~ u b
+mirror  s u > vt vt~ u b
+91      u s > vt vt~ c d,c d > vt vt~ u s
+mirror  s u > vt vt~ c d,d c > vt vt~ u s
+92      u u~ > ve ve~ d s~,u u~ > vm vm~ d s~,c u~ > ve ve~ s s~,c u~ > vm vm~ s s~
+mirror  u~ u > ve ve~ d s~,u~ u > vm vm~ d s~,u~ c > ve ve~ s s~,u~ c > vm vm~ s s~
+93      u u~ > ve ve~ d b~,u u~ > vm vm~ d b~,c u~ > ve ve~ s b~,c u~ > vm vm~ s b~
+mirror  u~ u > ve ve~ d b~,u~ u > vm vm~ d b~,u~ c > ve ve~ s b~,u~ c > vm vm~ s b~
+94      u u~ > ve ve~ s d~,u u~ > vm vm~ s d~,u c~ > ve ve~ s s~,u c~ > vm vm~ s s~
+mirror  u~ u > ve ve~ s d~,u~ u > vm vm~ s d~,c~ u > ve ve~ s s~,c~ u > vm vm~ s s~
+95      u u~ > ve ve~ s b~,u u~ > vm vm~ s b~
+mirror  u~ u > ve ve~ s b~,u~ u > vm vm~ s b~
+96      u u~ > ve ve~ b d~,u u~ > vm vm~ b d~,u c~ > ve ve~ b s~,u c~ > vm vm~ b s~
+mirror  u~ u > ve ve~ b d~,u~ u > vm vm~ b d~,c~ u > ve ve~ b s~,c~ u > vm vm~ b s~
+97      u u~ > ve ve~ b s~,u u~ > vm vm~ b s~
+mirror  u~ u > ve ve~ b s~,u~ u > vm vm~ b s~
+98      u u~ > vt vt~ d s~,c u~ > vt vt~ s s~
+mirror  u~ u > vt vt~ d s~,u~ c > vt vt~ s s~
+99      u u~ > vt vt~ d b~,c u~ > vt vt~ s b~
+mirror  u~ u > vt vt~ d b~,u~ c > vt vt~ s b~
+100     u u~ > vt vt~ s d~,u c~ > vt vt~ s s~
+mirror  u~ u > vt vt~ s d~,c~ u > vt vt~ s s~
+101     u u~ > vt vt~ s b~
+mirror  u~ u > vt vt~ s b~
+102     u u~ > vt vt~ b d~,u c~ > vt vt~ b s~
+mirror  u~ u > vt vt~ b d~,c~ u > vt vt~ b s~
+103     u u~ > vt vt~ b s~
+mirror  u~ u > vt vt~ b s~
+104     u c~ > ve ve~ d d~,u c~ > vm vm~ d d~,c c~ > ve ve~ s d~,c c~ > vm vm~ s d~
+mirror  c~ u > ve ve~ d d~,c~ u > vm vm~ d d~,c~ c > ve ve~ s d~,c~ c > vm vm~ s d~
+105     u c~ > ve ve~ d s~,u c~ > vm vm~ d s~,c u~ > ve ve~ s d~,c u~ > vm vm~ s d~
+mirror  c~ u > ve ve~ d s~,c~ u > vm vm~ d s~,u~ c > ve ve~ s d~,u~ c > vm vm~ s d~
+106     u c~ > ve ve~ d b~,u c~ > vm vm~ d b~,c c~ > ve ve~ s b~,c c~ > vm vm~ s b~
+mirror  c~ u > ve ve~ d b~,c~ u > vm vm~ d b~,c~ c > ve ve~ s b~,c~ c > vm vm~ s b~
+107     u c~ > ve ve~ s d~,u c~ > vm vm~ s d~
+mirror  c~ u > ve ve~ s d~,c~ u > vm vm~ s d~
+108     u c~ > ve ve~ s b~,u c~ > vm vm~ s b~
+mirror  c~ u > ve ve~ s b~,c~ u > vm vm~ s b~
+109     u c~ > ve ve~ b d~,u c~ > vm vm~ b d~
+mirror  c~ u > ve ve~ b d~,c~ u > vm vm~ b d~
+110     u c~ > ve ve~ b b~,u c~ > vm vm~ b b~
+mirror  c~ u > ve ve~ b b~,c~ u > vm vm~ b b~
+111     u c~ > vt vt~ d d~,c c~ > vt vt~ s d~
+mirror  c~ u > vt vt~ d d~,c~ c > vt vt~ s d~
+112     u c~ > vt vt~ d s~,c u~ > vt vt~ s d~
+mirror  c~ u > vt vt~ d s~,u~ c > vt vt~ s d~
+113     u c~ > vt vt~ d b~,c c~ > vt vt~ s b~
+mirror  c~ u > vt vt~ d b~,c~ c > vt vt~ s b~
+114     u c~ > vt vt~ s d~
+mirror  c~ u > vt vt~ s d~
+115     u c~ > vt vt~ s b~
+mirror  c~ u > vt vt~ s b~
+116     u c~ > vt vt~ b d~
+mirror  c~ u > vt vt~ b d~
+117     u c~ > vt vt~ b b~
+mirror  c~ u > vt vt~ b b~
+118     u d~ > ve ve~ u s~,u d~ > vm vm~ u s~,c s~ > ve ve~ u s~,c s~ > vm vm~ u s~
+mirror  d~ u > ve ve~ u s~,d~ u > vm vm~ u s~,s~ c > ve ve~ u s~,s~ c > vm vm~ u s~
+119     u d~ > ve ve~ u b~,u d~ > vm vm~ u b~,c s~ > ve ve~ u b~,c s~ > vm vm~ u b~
+mirror  d~ u > ve ve~ u b~,d~ u > vm vm~ u b~,s~ c > ve ve~ u b~,s~ c > vm vm~ u b~
+120     u d~ > ve ve~ c d~,u d~ > vm vm~ c d~,c s~ > ve ve~ c d~,c s~ > vm vm~ c d~
+mirror  d~ u > ve ve~ c d~,d~ u > vm vm~ c d~,s~ c > ve ve~ c d~,s~ c > vm vm~ c d~
+121     u d~ > ve ve~ c s~,u d~ > vm vm~ c s~,c s~ > ve ve~ u d~,c s~ > vm vm~ u d~
+mirror  d~ u > ve ve~ c s~,d~ u > vm vm~ c s~,s~ c > ve ve~ u d~,s~ c > vm vm~ u d~
+122     u d~ > ve ve~ c b~,u d~ > vm vm~ c b~,c s~ > ve ve~ c b~,c s~ > vm vm~ c b~
+mirror  d~ u > ve ve~ c b~,d~ u > vm vm~ c b~,s~ c > ve ve~ c b~,s~ c > vm vm~ c b~
+123     u d~ > vt vt~ u s~,c s~ > vt vt~ u s~
+mirror  d~ u > vt vt~ u s~,s~ c > vt vt~ u s~
+124     u d~ > vt vt~ u b~,c s~ > vt vt~ u b~
+mirror  d~ u > vt vt~ u b~,s~ c > vt vt~ u b~
+125     u d~ > vt vt~ c d~,c s~ > vt vt~ c d~
+mirror  d~ u > vt vt~ c d~,s~ c > vt vt~ c d~
+126     u d~ > vt vt~ c s~,c s~ > vt vt~ u d~
+mirror  d~ u > vt vt~ c s~,s~ c > vt vt~ u d~
+127     u d~ > vt vt~ c b~,c s~ > vt vt~ c b~
+mirror  d~ u > vt vt~ c b~,s~ c > vt vt~ c b~
+128     u s~ > ve ve~ u d~,u s~ > ve ve~ c s~,u s~ > vm vm~ u d~,u s~ > vm vm~ c s~
+mirror  s~ u > ve ve~ u d~,s~ u > ve ve~ c s~,s~ u > vm vm~ u d~,s~ u > vm vm~ c s~
+129     u s~ > ve ve~ u b~,u s~ > vm vm~ u b~
+mirror  s~ u > ve ve~ u b~,s~ u > vm vm~ u b~
+130     u s~ > ve ve~ c d~,u s~ > vm vm~ c d~
+mirror  s~ u > ve ve~ c d~,s~ u > vm vm~ c d~
+131     u s~ > ve ve~ c b~,u s~ > vm vm~ c b~
+mirror  s~ u > ve ve~ c b~,s~ u > vm vm~ c b~
+132     u s~ > vt vt~ u d~,u s~ > vt vt~ c s~
+mirror  s~ u > vt vt~ u d~,s~ u > vt vt~ c s~
+133     u s~ > vt vt~ u b~
+mirror  s~ u > vt vt~ u b~
+134     u s~ > vt vt~ c d~
+mirror  s~ u > vt vt~ c d~
+135     u s~ > vt vt~ c b~
+mirror  s~ u > vt vt~ c b~
+136     u b > ve ve~ u d,u b > vm vm~ u d,c b > ve ve~ u s,c b > vm vm~ u s
+mirror  b u > ve ve~ u d,b u > vm vm~ u d,b c > ve ve~ u s,b c > vm vm~ u s
+137     u b > ve ve~ u s,u b > vm vm~ u s
+mirror  b u > ve ve~ u s,b u > vm vm~ u s
+138     u b > ve ve~ c d,u b > vm vm~ c d,c b > ve ve~ c s,c b > vm vm~ c s
+mirror  b u > ve ve~ c d,b u > vm vm~ c d,b c > ve ve~ c s,b c > vm vm~ c s
+139     u b > ve ve~ c s,u b > vm vm~ c s
+mirror  b u > ve ve~ c s,b u > vm vm~ c s
+140     u b > ve ve~ c b,u b > vm vm~ c b
+mirror  b u > ve ve~ c b,b u > vm vm~ c b
+141     u b > vt vt~ u d,c b > vt vt~ u s
+mirror  b u > vt vt~ u d,b c > vt vt~ u s
+142     u b > vt vt~ u s
+mirror  b u > vt vt~ u s
+143     u b > vt vt~ c d,c b > vt vt~ c s
+mirror  b u > vt vt~ c d,b c > vt vt~ c s
+144     u b > vt vt~ c s
+mirror  b u > vt vt~ c s
+145     u b > vt vt~ c b
+mirror  b u > vt vt~ c b
+146     u b~ > ve ve~ u d~,u b~ > ve ve~ c s~,u b~ > vm vm~ u d~,u b~ > vm vm~ c s~
+mirror  b~ u > ve ve~ u d~,b~ u > ve ve~ c s~,b~ u > vm vm~ u d~,b~ u > vm vm~ c s~
+147     u b~ > ve ve~ u s~,u b~ > vm vm~ u s~
+mirror  b~ u > ve ve~ u s~,b~ u > vm vm~ u s~
+148     u b~ > ve ve~ c d~,u b~ > vm vm~ c d~
+mirror  b~ u > ve ve~ c d~,b~ u > vm vm~ c d~
+149     u b~ > ve ve~ c b~,u b~ > vm vm~ c b~
+mirror  b~ u > ve ve~ c b~,b~ u > vm vm~ c b~
+150     u b~ > vt vt~ u d~,u b~ > vt vt~ c s~
+mirror  b~ u > vt vt~ u d~,b~ u > vt vt~ c s~
+151     u b~ > vt vt~ u s~
+mirror  b~ u > vt vt~ u s~
+152     u b~ > vt vt~ c d~
+mirror  b~ u > vt vt~ c d~
+153     u b~ > vt vt~ c b~
+mirror  b~ u > vt vt~ c b~
+154     c d > ve ve~ u d,c d > vm vm~ u d,c s > ve ve~ c d,c s > vm vm~ c d
+mirror  d c > ve ve~ u d,d c > vm vm~ u d,s c > ve ve~ c d,s c > vm vm~ c d
+155     c d > ve ve~ u b,c d > vm vm~ u b,c s > ve ve~ c b,c s > vm vm~ c b
+mirror  d c > ve ve~ u b,d c > vm vm~ u b,s c > ve ve~ c b,s c > vm vm~ c b
+156     c d > ve ve~ c b,c d > vm vm~ c b
+mirror  d c > ve ve~ c b,d c > vm vm~ c b
+157     c d > vt vt~ u d,c s > vt vt~ c d
+mirror  d c > vt vt~ u d,s c > vt vt~ c d
+158     c d > vt vt~ u b,c s > vt vt~ c b
+mirror  d c > vt vt~ u b,s c > vt vt~ c b
+159     c d > vt vt~ c b
+mirror  d c > vt vt~ c b
+160     c s > ve ve~ u d,c s > vm vm~ u d
+mirror  s c > ve ve~ u d,s c > vm vm~ u d
+161     c s > ve ve~ u b,c s > vm vm~ u b
+mirror  s c > ve ve~ u b,s c > vm vm~ u b
+162     c s > vt vt~ u d
+mirror  s c > vt vt~ u d
+163     c s > vt vt~ u b
+mirror  s c > vt vt~ u b
+164     c u~ > ve ve~ d d~,c u~ > vm vm~ d d~,c c~ > ve ve~ d s~,c c~ > vm vm~ d s~
+mirror  u~ c > ve ve~ d d~,u~ c > vm vm~ d d~,c~ c > ve ve~ d s~,c~ c > vm vm~ d s~
+165     c u~ > ve ve~ d s~,c u~ > vm vm~ d s~
+mirror  u~ c > ve ve~ d s~,u~ c > vm vm~ d s~
+166     c u~ > ve ve~ d b~,c u~ > vm vm~ d b~
+mirror  u~ c > ve ve~ d b~,u~ c > vm vm~ d b~
+167     c u~ > ve ve~ b d~,c u~ > vm vm~ b d~,c c~ > ve ve~ b s~,c c~ > vm vm~ b s~
+mirror  u~ c > ve ve~ b d~,u~ c > vm vm~ b d~,c~ c > ve ve~ b s~,c~ c > vm vm~ b s~
+168     c u~ > ve ve~ b s~,c u~ > vm vm~ b s~
+mirror  u~ c > ve ve~ b s~,u~ c > vm vm~ b s~
+169     c u~ > ve ve~ b b~,c u~ > vm vm~ b b~
+mirror  u~ c > ve ve~ b b~,u~ c > vm vm~ b b~
+170     c u~ > vt vt~ d d~,c c~ > vt vt~ d s~
+mirror  u~ c > vt vt~ d d~,c~ c > vt vt~ d s~
+171     c u~ > vt vt~ d s~
+mirror  u~ c > vt vt~ d s~
+172     c u~ > vt vt~ d b~
+mirror  u~ c > vt vt~ d b~
+173     c u~ > vt vt~ b d~,c c~ > vt vt~ b s~
+mirror  u~ c > vt vt~ b d~,c~ c > vt vt~ b s~
+174     c u~ > vt vt~ b s~
+mirror  u~ c > vt vt~ b s~
+175     c u~ > vt vt~ b b~
+mirror  u~ c > vt vt~ b b~
+176     c c~ > ve ve~ d b~,c c~ > vm vm~ d b~
+mirror  c~ c > ve ve~ d b~,c~ c > vm vm~ d b~
+177     c c~ > ve ve~ b d~,c c~ > vm vm~ b d~
+mirror  c~ c > ve ve~ b d~,c~ c > vm vm~ b d~
+178     c c~ > vt vt~ d b~
+mirror  c~ c > vt vt~ d b~
+179     c c~ > vt vt~ b d~
+mirror  c~ c > vt vt~ b d~
+180     c d~ > ve ve~ u d~,c d~ > ve ve~ c s~,c d~ > vm vm~ u d~,c d~ > vm vm~ c s~
+mirror  d~ c > ve ve~ u d~,d~ c > ve ve~ c s~,d~ c > vm vm~ u d~,d~ c > vm vm~ c s~
+181     c d~ > ve ve~ u s~,c d~ > vm vm~ u s~
+mirror  d~ c > ve ve~ u s~,d~ c > vm vm~ u s~
+182     c d~ > ve ve~ u b~,c d~ > vm vm~ u b~
+mirror  d~ c > ve ve~ u b~,d~ c > vm vm~ u b~
+183     c d~ > ve ve~ c b~,c d~ > vm vm~ c b~
+mirror  d~ c > ve ve~ c b~,d~ c > vm vm~ c b~
+184     c d~ > vt vt~ u d~,c d~ > vt vt~ c s~
+mirror  d~ c > vt vt~ u d~,d~ c > vt vt~ c s~
+185     c d~ > vt vt~ u s~
+mirror  d~ c > vt vt~ u s~
+186     c d~ > vt vt~ u b~
+mirror  d~ c > vt vt~ u b~
+187     c d~ > vt vt~ c b~
+mirror  d~ c > vt vt~ c b~
+188     c b > ve ve~ u d,c b > vm vm~ u d
+mirror  b c > ve ve~ u d,b c > vm vm~ u d
+189     c b > ve ve~ u b,c b > vm vm~ u b
+mirror  b c > ve ve~ u b,b c > vm vm~ u b
+190     c b > ve ve~ c d,c b > vm vm~ c d
+mirror  b c > ve ve~ c d,b c > vm vm~ c d
+191     c b > vt vt~ u d
+mirror  b c > vt vt~ u d
+192     c b > vt vt~ u b
+mirror  b c > vt vt~ u b
+193     c b > vt vt~ c d
+mirror  b c > vt vt~ c d
+194     c b~ > ve ve~ u d~,c b~ > ve ve~ c s~,c b~ > vm vm~ u d~,c b~ > vm vm~ c s~
+mirror  b~ c > ve ve~ u d~,b~ c > ve ve~ c s~,b~ c > vm vm~ u d~,b~ c > vm vm~ c s~
+195     c b~ > ve ve~ u s~,c b~ > vm vm~ u s~
+mirror  b~ c > ve ve~ u s~,b~ c > vm vm~ u s~
+196     c b~ > ve ve~ u b~,c b~ > vm vm~ u b~
+mirror  b~ c > ve ve~ u b~,b~ c > vm vm~ u b~
+197     c b~ > ve ve~ c d~,c b~ > vm vm~ c d~
+mirror  b~ c > ve ve~ c d~,b~ c > vm vm~ c d~
+198     c b~ > vt vt~ u d~,c b~ > vt vt~ c s~
+mirror  b~ c > vt vt~ u d~,b~ c > vt vt~ c s~
+199     c b~ > vt vt~ u s~
+mirror  b~ c > vt vt~ u s~
+200     c b~ > vt vt~ u b~
+mirror  b~ c > vt vt~ u b~
+201     c b~ > vt vt~ c d~
+mirror  b~ c > vt vt~ c d~
+202     d u~ > ve ve~ d c~,d u~ > vm vm~ d c~,s c~ > ve ve~ d c~,s c~ > vm vm~ d c~
+mirror  u~ d > ve ve~ d c~,u~ d > vm vm~ d c~,c~ s > ve ve~ d c~,c~ s > vm vm~ d c~
+203     d u~ > ve ve~ s u~,d u~ > vm vm~ s u~,s c~ > ve ve~ s u~,s c~ > vm vm~ s u~
+mirror  u~ d > ve ve~ s u~,u~ d > vm vm~ s u~,c~ s > ve ve~ s u~,c~ s > vm vm~ s u~
+204     d u~ > ve ve~ s c~,d u~ > vm vm~ s c~,s c~ > ve ve~ d u~,s c~ > vm vm~ d u~
+mirror  u~ d > ve ve~ s c~,u~ d > vm vm~ s c~,c~ s > ve ve~ d u~,c~ s > vm vm~ d u~
+205     d u~ > ve ve~ b u~,d u~ > vm vm~ b u~,s c~ > ve ve~ b u~,s c~ > vm vm~ b u~
+mirror  u~ d > ve ve~ b u~,u~ d > vm vm~ b u~,c~ s > ve ve~ b u~,c~ s > vm vm~ b u~
+206     d u~ > ve ve~ b c~,d u~ > vm vm~ b c~,s c~ > ve ve~ b c~,s c~ > vm vm~ b c~
+mirror  u~ d > ve ve~ b c~,u~ d > vm vm~ b c~,c~ s > ve ve~ b c~,c~ s > vm vm~ b c~
+207     d u~ > vt vt~ d c~,s c~ > vt vt~ d c~
+mirror  u~ d > vt vt~ d c~,c~ s > vt vt~ d c~
+208     d u~ > vt vt~ s u~,s c~ > vt vt~ s u~
+mirror  u~ d > vt vt~ s u~,c~ s > vt vt~ s u~
+209     d u~ > vt vt~ s c~,s c~ > vt vt~ d u~
+mirror  u~ d > vt vt~ s c~,c~ s > vt vt~ d u~
+210     d u~ > vt vt~ b u~,s c~ > vt vt~ b u~
+mirror  u~ d > vt vt~ b u~,c~ s > vt vt~ b u~
+211     d u~ > vt vt~ b c~,s c~ > vt vt~ b c~
+mirror  u~ d > vt vt~ b c~,c~ s > vt vt~ b c~
+212     d c~ > ve ve~ d u~,d c~ > ve ve~ s c~,d c~ > vm vm~ d u~,d c~ > vm vm~ s c~
+mirror  c~ d > ve ve~ d u~,c~ d > ve ve~ s c~,c~ d > vm vm~ d u~,c~ d > vm vm~ s c~
+213     d c~ > ve ve~ s u~,d c~ > vm vm~ s u~
+mirror  c~ d > ve ve~ s u~,c~ d > vm vm~ s u~
+214     d c~ > ve ve~ b u~,d c~ > vm vm~ b u~
+mirror  c~ d > ve ve~ b u~,c~ d > vm vm~ b u~
+215     d c~ > ve ve~ b c~,d c~ > vm vm~ b c~
+mirror  c~ d > ve ve~ b c~,c~ d > vm vm~ b c~
+216     d c~ > vt vt~ d u~,d c~ > vt vt~ s c~
+mirror  c~ d > vt vt~ d u~,c~ d > vt vt~ s c~
+217     d c~ > vt vt~ s u~
+mirror  c~ d > vt vt~ s u~
+218     d c~ > vt vt~ b u~
+mirror  c~ d > vt vt~ b u~
+219     d c~ > vt vt~ b c~
+mirror  c~ d > vt vt~ b c~
+220     d d~ > ve ve~ u c~,d d~ > vm vm~ u c~,s d~ > ve ve~ c c~,s d~ > vm vm~ c c~
+mirror  d~ d > ve ve~ u c~,d~ d > vm vm~ u c~,d~ s > ve ve~ c c~,d~ s > vm vm~ c c~
+221     d d~ > ve ve~ c u~,d d~ > vm vm~ c u~,d s~ > ve ve~ c c~,d s~ > vm vm~ c c~
+mirror  d~ d > ve ve~ c u~,d~ d > vm vm~ c u~,s~ d > ve ve~ c c~,s~ d > vm vm~ c c~
+222     d d~ > vt vt~ u c~,s d~ > vt vt~ c c~
+mirror  d~ d > vt vt~ u c~,d~ s > vt vt~ c c~
+223     d d~ > vt vt~ c u~,d s~ > vt vt~ c c~
+mirror  d~ d > vt vt~ c u~,s~ d > vt vt~ c c~
+224     d s~ > ve ve~ u u~,d s~ > vm vm~ u u~,s s~ > ve ve~ c u~,s s~ > vm vm~ c u~
+mirror  s~ d > ve ve~ u u~,s~ d > vm vm~ u u~,s~ s > ve ve~ c u~,s~ s > vm vm~ c u~
+225     d s~ > ve ve~ u c~,d s~ > vm vm~ u c~,s d~ > ve ve~ c u~,s d~ > vm vm~ c u~
+mirror  s~ d > ve ve~ u c~,s~ d > vm vm~ u c~,d~ s > ve ve~ c u~,d~ s > vm vm~ c u~
+226     d s~ > ve ve~ c u~,d s~ > vm vm~ c u~
+mirror  s~ d > ve ve~ c u~,s~ d > vm vm~ c u~
+227     d s~ > vt vt~ u u~,s s~ > vt vt~ c u~
+mirror  s~ d > vt vt~ u u~,s~ s > vt vt~ c u~
+228     d s~ > vt vt~ u c~,s d~ > vt vt~ c u~
+mirror  s~ d > vt vt~ u c~,d~ s > vt vt~ c u~
+229     d s~ > vt vt~ c u~
+mirror  s~ d > vt vt~ c u~
+230     d b~ > ve ve~ u u~,d b~ > vm vm~ u u~,s b~ > ve ve~ c u~,s b~ > vm vm~ c u~
+mirror  b~ d > ve ve~ u u~,b~ d > vm vm~ u u~,b~ s > ve ve~ c u~,b~ s > vm vm~ c u~
+231     d b~ > ve ve~ u c~,d b~ > vm vm~ u c~,s b~ > ve ve~ c c~,s b~ > vm vm~ c c~
+mirror  b~ d > ve ve~ u c~,b~ d > vm vm~ u c~,b~ s > ve ve~ c c~,b~ s > vm vm~ c c~
+232     d b~ > ve ve~ c u~,d b~ > vm vm~ c u~
+mirror  b~ d > ve ve~ c u~,b~ d > vm vm~ c u~
+233     d b~ > ve ve~ c c~,d b~ > vm vm~ c c~
+mirror  b~ d > ve ve~ c c~,b~ d > vm vm~ c c~
+234     d b~ > vt vt~ u u~,s b~ > vt vt~ c u~
+mirror  b~ d > vt vt~ u u~,b~ s > vt vt~ c u~
+235     d b~ > vt vt~ u c~,s b~ > vt vt~ c c~
+mirror  b~ d > vt vt~ u c~,b~ s > vt vt~ c c~
+236     d b~ > vt vt~ c u~
+mirror  b~ d > vt vt~ c u~
+237     d b~ > vt vt~ c c~
+mirror  b~ d > vt vt~ c c~
+238     s u~ > ve ve~ d u~,s u~ > ve ve~ s c~,s u~ > vm vm~ d u~,s u~ > vm vm~ s c~
+mirror  u~ s > ve ve~ d u~,u~ s > ve ve~ s c~,u~ s > vm vm~ d u~,u~ s > vm vm~ s c~
+239     s u~ > ve ve~ d c~,s u~ > vm vm~ d c~
+mirror  u~ s > ve ve~ d c~,u~ s > vm vm~ d c~
+240     s u~ > ve ve~ b u~,s u~ > vm vm~ b u~
+mirror  u~ s > ve ve~ b u~,u~ s > vm vm~ b u~
+241     s u~ > ve ve~ b c~,s u~ > vm vm~ b c~
+mirror  u~ s > ve ve~ b c~,u~ s > vm vm~ b c~
+242     s u~ > vt vt~ d u~,s u~ > vt vt~ s c~
+mirror  u~ s > vt vt~ d u~,u~ s > vt vt~ s c~
+243     s u~ > vt vt~ d c~
+mirror  u~ s > vt vt~ d c~
+244     s u~ > vt vt~ b u~
+mirror  u~ s > vt vt~ b u~
+245     s u~ > vt vt~ b c~
+mirror  u~ s > vt vt~ b c~
+246     s d~ > ve ve~ u u~,s d~ > vm vm~ u u~,s s~ > ve ve~ u c~,s s~ > vm vm~ u c~
+mirror  d~ s > ve ve~ u u~,d~ s > vm vm~ u u~,s~ s > ve ve~ u c~,s~ s > vm vm~ u c~
+247     s d~ > ve ve~ u c~,s d~ > vm vm~ u c~
+mirror  d~ s > ve ve~ u c~,d~ s > vm vm~ u c~
+248     s d~ > vt vt~ u u~,s s~ > vt vt~ u c~
+mirror  d~ s > vt vt~ u u~,s~ s > vt vt~ u c~
+249     s d~ > vt vt~ u c~
+mirror  d~ s > vt vt~ u c~
+250     s b~ > ve ve~ u u~,s b~ > vm vm~ u u~
+mirror  b~ s > ve ve~ u u~,b~ s > vm vm~ u u~
+251     s b~ > ve ve~ u c~,s b~ > vm vm~ u c~
+mirror  b~ s > ve ve~ u c~,b~ s > vm vm~ u c~
+252     s b~ > vt vt~ u u~
+mirror  b~ s > vt vt~ u u~
+253     s b~ > vt vt~ u c~
+mirror  b~ s > vt vt~ u c~
+254     u~ d~ > ve ve~ u~ s~,u~ d~ > vm vm~ u~ s~,u~ s~ > ve ve~ c~ s~,u~ s~ > vm vm~ c~ s~
+mirror  d~ u~ > ve ve~ u~ s~,d~ u~ > vm vm~ u~ s~,s~ u~ > ve ve~ c~ s~,s~ u~ > vm vm~ c~ s~
+255     u~ d~ > ve ve~ u~ b~,u~ d~ > vm vm~ u~ b~,u~ s~ > ve ve~ c~ b~,u~ s~ > vm vm~ c~ b~
+mirror  d~ u~ > ve ve~ u~ b~,d~ u~ > vm vm~ u~ b~,s~ u~ > ve ve~ c~ b~,s~ u~ > vm vm~ c~ b~
+256     u~ d~ > ve ve~ c~ d~,u~ d~ > vm vm~ c~ d~,c~ d~ > ve ve~ c~ s~,c~ d~ > vm vm~ c~ s~
+mirror  d~ u~ > ve ve~ c~ d~,d~ u~ > vm vm~ c~ d~,d~ c~ > ve ve~ c~ s~,d~ c~ > vm vm~ c~ s~
+257     u~ d~ > ve ve~ c~ s~,u~ d~ > vm vm~ c~ s~
+mirror  d~ u~ > ve ve~ c~ s~,d~ u~ > vm vm~ c~ s~
+258     u~ d~ > ve ve~ c~ b~,u~ d~ > vm vm~ c~ b~
+mirror  d~ u~ > ve ve~ c~ b~,d~ u~ > vm vm~ c~ b~
+259     u~ d~ > vt vt~ u~ s~,u~ s~ > vt vt~ c~ s~
+mirror  d~ u~ > vt vt~ u~ s~,s~ u~ > vt vt~ c~ s~
+260     u~ d~ > vt vt~ u~ b~,u~ s~ > vt vt~ c~ b~
+mirror  d~ u~ > vt vt~ u~ b~,s~ u~ > vt vt~ c~ b~
+261     u~ d~ > vt vt~ c~ d~,c~ d~ > vt vt~ c~ s~
+mirror  d~ u~ > vt vt~ c~ d~,d~ c~ > vt vt~ c~ s~
+262     u~ d~ > vt vt~ c~ s~
+mirror  d~ u~ > vt vt~ c~ s~
+263     u~ d~ > vt vt~ c~ b~
+mirror  d~ u~ > vt vt~ c~ b~
+264     u~ s~ > ve ve~ u~ d~,u~ s~ > vm vm~ u~ d~,c~ s~ > ve ve~ u~ s~,c~ s~ > vm vm~ u~ s~
+mirror  s~ u~ > ve ve~ u~ d~,s~ u~ > vm vm~ u~ d~,s~ c~ > ve ve~ u~ s~,s~ c~ > vm vm~ u~ s~
+265     u~ s~ > ve ve~ u~ b~,u~ s~ > vm vm~ u~ b~
+mirror  s~ u~ > ve ve~ u~ b~,s~ u~ > vm vm~ u~ b~
+266     u~ s~ > ve ve~ c~ d~,u~ s~ > vm vm~ c~ d~,c~ d~ > ve ve~ u~ s~,c~ d~ > vm vm~ u~ s~
+mirror  s~ u~ > ve ve~ c~ d~,s~ u~ > vm vm~ c~ d~,d~ c~ > ve ve~ u~ s~,d~ c~ > vm vm~ u~ s~
+267     u~ s~ > vt vt~ u~ d~,c~ s~ > vt vt~ u~ s~
+mirror  s~ u~ > vt vt~ u~ d~,s~ c~ > vt vt~ u~ s~
+268     u~ s~ > vt vt~ u~ b~
+mirror  s~ u~ > vt vt~ u~ b~
+269     u~ s~ > vt vt~ c~ d~,c~ d~ > vt vt~ u~ s~
+mirror  s~ u~ > vt vt~ c~ d~,d~ c~ > vt vt~ u~ s~
+270     u~ b > ve ve~ d u~,u~ b > ve ve~ s c~,u~ b > vm vm~ d u~,u~ b > vm vm~ s c~
+mirror  b u~ > ve ve~ d u~,b u~ > ve ve~ s c~,b u~ > vm vm~ d u~,b u~ > vm vm~ s c~
+271     u~ b > ve ve~ d c~,u~ b > vm vm~ d c~
+mirror  b u~ > ve ve~ d c~,b u~ > vm vm~ d c~
+272     u~ b > ve ve~ s u~,u~ b > vm vm~ s u~
+mirror  b u~ > ve ve~ s u~,b u~ > vm vm~ s u~
+273     u~ b > ve ve~ b c~,u~ b > vm vm~ b c~
+mirror  b u~ > ve ve~ b c~,b u~ > vm vm~ b c~
+274     u~ b > vt vt~ d u~,u~ b > vt vt~ s c~
+mirror  b u~ > vt vt~ d u~,b u~ > vt vt~ s c~
+275     u~ b > vt vt~ d c~
+mirror  b u~ > vt vt~ d c~
+276     u~ b > vt vt~ s u~
+mirror  b u~ > vt vt~ s u~
+277     u~ b > vt vt~ b c~
+mirror  b u~ > vt vt~ b c~
+278     u~ b~ > ve ve~ u~ d~,u~ b~ > vm vm~ u~ d~,c~ b~ > ve ve~ u~ s~,c~ b~ > vm vm~ u~ s~
+mirror  b~ u~ > ve ve~ u~ d~,b~ u~ > vm vm~ u~ d~,b~ c~ > ve ve~ u~ s~,b~ c~ > vm vm~ u~ s~
+279     u~ b~ > ve ve~ u~ s~,u~ b~ > vm vm~ u~ s~
+mirror  b~ u~ > ve ve~ u~ s~,b~ u~ > vm vm~ u~ s~
+280     u~ b~ > ve ve~ c~ d~,u~ b~ > vm vm~ c~ d~,c~ b~ > ve ve~ c~ s~,c~ b~ > vm vm~ c~ s~
+mirror  b~ u~ > ve ve~ c~ d~,b~ u~ > vm vm~ c~ d~,b~ c~ > ve ve~ c~ s~,b~ c~ > vm vm~ c~ s~
+281     u~ b~ > ve ve~ c~ s~,u~ b~ > vm vm~ c~ s~
+mirror  b~ u~ > ve ve~ c~ s~,b~ u~ > vm vm~ c~ s~
+282     u~ b~ > ve ve~ c~ b~,u~ b~ > vm vm~ c~ b~
+mirror  b~ u~ > ve ve~ c~ b~,b~ u~ > vm vm~ c~ b~
+283     u~ b~ > vt vt~ u~ d~,c~ b~ > vt vt~ u~ s~
+mirror  b~ u~ > vt vt~ u~ d~,b~ c~ > vt vt~ u~ s~
+284     u~ b~ > vt vt~ u~ s~
+mirror  b~ u~ > vt vt~ u~ s~
+285     u~ b~ > vt vt~ c~ d~,c~ b~ > vt vt~ c~ s~
+mirror  b~ u~ > vt vt~ c~ d~,b~ c~ > vt vt~ c~ s~
+286     u~ b~ > vt vt~ c~ s~
+mirror  b~ u~ > vt vt~ c~ s~
+287     u~ b~ > vt vt~ c~ b~
+mirror  b~ u~ > vt vt~ c~ b~
+288     c~ d~ > ve ve~ u~ d~,c~ d~ > vm vm~ u~ d~,c~ s~ > ve ve~ c~ d~,c~ s~ > vm vm~ c~ d~
+mirror  d~ c~ > ve ve~ u~ d~,d~ c~ > vm vm~ u~ d~,s~ c~ > ve ve~ c~ d~,s~ c~ > vm vm~ c~ d~
+289     c~ d~ > ve ve~ u~ b~,c~ d~ > vm vm~ u~ b~,c~ s~ > ve ve~ c~ b~,c~ s~ > vm vm~ c~ b~
+mirror  d~ c~ > ve ve~ u~ b~,d~ c~ > vm vm~ u~ b~,s~ c~ > ve ve~ c~ b~,s~ c~ > vm vm~ c~ b~
+290     c~ d~ > ve ve~ c~ b~,c~ d~ > vm vm~ c~ b~
+mirror  d~ c~ > ve ve~ c~ b~,d~ c~ > vm vm~ c~ b~
+291     c~ d~ > vt vt~ u~ d~,c~ s~ > vt vt~ c~ d~
+mirror  d~ c~ > vt vt~ u~ d~,s~ c~ > vt vt~ c~ d~
+292     c~ d~ > vt vt~ u~ b~,c~ s~ > vt vt~ c~ b~
+mirror  d~ c~ > vt vt~ u~ b~,s~ c~ > vt vt~ c~ b~
+293     c~ d~ > vt vt~ c~ b~
+mirror  d~ c~ > vt vt~ c~ b~
+294     c~ s~ > ve ve~ u~ d~,c~ s~ > vm vm~ u~ d~
+mirror  s~ c~ > ve ve~ u~ d~,s~ c~ > vm vm~ u~ d~
+295     c~ s~ > ve ve~ u~ b~,c~ s~ > vm vm~ u~ b~
+mirror  s~ c~ > ve ve~ u~ b~,s~ c~ > vm vm~ u~ b~
+296     c~ s~ > vt vt~ u~ d~
+mirror  s~ c~ > vt vt~ u~ d~
+297     c~ s~ > vt vt~ u~ b~
+mirror  s~ c~ > vt vt~ u~ b~
+298     c~ b > ve ve~ d u~,c~ b > ve ve~ s c~,c~ b > vm vm~ d u~,c~ b > vm vm~ s c~
+mirror  b c~ > ve ve~ d u~,b c~ > ve ve~ s c~,b c~ > vm vm~ d u~,b c~ > vm vm~ s c~
+299     c~ b > ve ve~ d c~,c~ b > vm vm~ d c~
+mirror  b c~ > ve ve~ d c~,b c~ > vm vm~ d c~
+300     c~ b > ve ve~ s u~,c~ b > vm vm~ s u~
+mirror  b c~ > ve ve~ s u~,b c~ > vm vm~ s u~
+301     c~ b > ve ve~ b u~,c~ b > vm vm~ b u~
+mirror  b c~ > ve ve~ b u~,b c~ > vm vm~ b u~
+302     c~ b > vt vt~ d u~,c~ b > vt vt~ s c~
+mirror  b c~ > vt vt~ d u~,b c~ > vt vt~ s c~
+303     c~ b > vt vt~ d c~
+mirror  b c~ > vt vt~ d c~
+304     c~ b > vt vt~ s u~
+mirror  b c~ > vt vt~ s u~
+305     c~ b > vt vt~ b u~
+mirror  b c~ > vt vt~ b u~
+306     c~ b~ > ve ve~ u~ d~,c~ b~ > vm vm~ u~ d~
+mirror  b~ c~ > ve ve~ u~ d~,b~ c~ > vm vm~ u~ d~
+307     c~ b~ > ve ve~ u~ b~,c~ b~ > vm vm~ u~ b~
+mirror  b~ c~ > ve ve~ u~ b~,b~ c~ > vm vm~ u~ b~
+308     c~ b~ > ve ve~ c~ d~,c~ b~ > vm vm~ c~ d~
+mirror  b~ c~ > ve ve~ c~ d~,b~ c~ > vm vm~ c~ d~
+309     c~ b~ > vt vt~ u~ d~
+mirror  b~ c~ > vt vt~ u~ d~
+310     c~ b~ > vt vt~ u~ b~
+mirror  b~ c~ > vt vt~ u~ b~
+311     c~ b~ > vt vt~ c~ d~
+mirror  b~ c~ > vt vt~ c~ d~
+312     d~ b > ve ve~ u u~,d~ b > vm vm~ u u~,s~ b > ve ve~ u c~,s~ b > vm vm~ u c~
+mirror  b d~ > ve ve~ u u~,b d~ > vm vm~ u u~,b s~ > ve ve~ u c~,b s~ > vm vm~ u c~
+313     d~ b > ve ve~ u c~,d~ b > vm vm~ u c~
+mirror  b d~ > ve ve~ u c~,b d~ > vm vm~ u c~
+314     d~ b > ve ve~ c u~,d~ b > vm vm~ c u~,s~ b > ve ve~ c c~,s~ b > vm vm~ c c~
+mirror  b d~ > ve ve~ c u~,b d~ > vm vm~ c u~,b s~ > ve ve~ c c~,b s~ > vm vm~ c c~
+315     d~ b > ve ve~ c c~,d~ b > vm vm~ c c~
+mirror  b d~ > ve ve~ c c~,b d~ > vm vm~ c c~
+316     d~ b > vt vt~ u u~,s~ b > vt vt~ u c~
+mirror  b d~ > vt vt~ u u~,b s~ > vt vt~ u c~
+317     d~ b > vt vt~ u c~
+mirror  b d~ > vt vt~ u c~
+318     d~ b > vt vt~ c u~,s~ b > vt vt~ c c~
+mirror  b d~ > vt vt~ c u~,b s~ > vt vt~ c c~
+319     d~ b > vt vt~ c c~
+mirror  b d~ > vt vt~ c c~
+320     s~ b > ve ve~ u u~,s~ b > vm vm~ u u~
+mirror  b s~ > ve ve~ u u~,b s~ > vm vm~ u u~
+321     s~ b > ve ve~ c u~,s~ b > vm vm~ c u~
+mirror  b s~ > ve ve~ c u~,b s~ > vm vm~ c u~
+322     s~ b > vt vt~ u u~
+mirror  b s~ > vt vt~ u u~
+323     s~ b > vt vt~ c u~
+mirror  b s~ > vt vt~ c u~
+324     b b~ > ve ve~ u c~,b b~ > vm vm~ u c~
+mirror  b~ b > ve ve~ u c~,b~ b > vm vm~ u c~
+325     b b~ > ve ve~ c u~,b b~ > vm vm~ c u~
+mirror  b~ b > ve ve~ c u~,b~ b > vm vm~ c u~
+326     b b~ > vt vt~ u c~
+mirror  b~ b > vt vt~ u c~
+327     b b~ > vt vt~ c u~
+mirror  b~ b > vt vt~ c u~

@@ -1,0 +1,8 @@
+<tool name="tensorflow-framework" version="2.6.0-37ef006bc27ad92d3b15b8546f8489e2">
+  <lib name="tensorflow_framework"/>
+  <use name="tensorflow"/>
+  <use name="giflib"/>
+  <use name="zlib"/>
+  <use name="libjpeg-turbo"/>
+  <use name="protobuf"/>
+</tool>

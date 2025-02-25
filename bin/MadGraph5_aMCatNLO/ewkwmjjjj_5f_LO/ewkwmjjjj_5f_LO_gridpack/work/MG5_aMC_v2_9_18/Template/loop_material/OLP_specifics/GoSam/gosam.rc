@@ -1,0 +1,36 @@
+# Copy this file to setup.in in order to set
+# some common options for all examples.
+
+###################
+# physics options #
+###################
+
+model=smdiag_mad
+#model.options=Nf:5
+#model.options=Nf:4,Nfgen:1
+#model.options=GF: 0.0000116639, mZ: 91.188, mW: 80.419, mB: 4.75, mT: 172.5, mH: 120.0, wZ: 2.4414, wW: 2.0476
+ 
+zero=me,mmu,mU,mD,mC,mS,wT,wB,mB
+
+symmetries=family,generation
+
+#nonspecific
+qgraf.options=onshell,notadpole,nosnail
+qgraf.bin=qgraf
+filter.nlo=lambda d: (not (d.isScaleless())) 
+
+diagsum=True
+
+PSP_check=True
+PSP_verbosity=True
+
+###################
+# program options #
+###################
+
+form.bin=tform
+form.threads=6
+form.tempdir=/tmp
+fc.bin=gfortran -O2
+
+
