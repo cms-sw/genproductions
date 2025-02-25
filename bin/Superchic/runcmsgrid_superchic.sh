@@ -17,7 +17,7 @@ run_superchic(){
     export SUPERCHIC_DATA_PATH=${LHEWORKDIR}/${SUPERCHICDIR}/build/share/SuperChic
     cd ${LHEWORKDIR}/${SUPERCHICDIR}/build/bin
     ./superchic < input.DAT 2>&1 | tee input.log; test ${PIPESTATUS[0]} -eq 0 || fail_exit "superchic error: exit code not 0"
-    ${LHEWORKDIR}/macros/convert_SCLHE2LHE evrecs/evrecout.dat 2>&1 | tee upcgen.log; test ${PIPESTATUS[0]} -eq 0 || fail_exit "convert_SCLHE2LHE error: exit code not 0"
+    ${LHEWORKDIR}/macros/convert_SCLHE2LHE evrecs/evrecout.dat 2>&1 | tee superchic.log; test ${PIPESTATUS[0]} -eq 0 || fail_exit "convert_SCLHE2LHE error: exit code not 0"
     sed -i '/SUPERCHIC/a '${SUPERCHICDIR} evrecout_proc.lhe
     sed -i 's/--/- -/' ${CONFIG}
     sed -i '/SUPERCHIC/r'${CONFIG} evrecout_proc.lhe

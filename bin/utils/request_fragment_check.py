@@ -166,15 +166,15 @@ def slha_gp(gridpack_cvmfs_path,slha_flag):
 
 
 old_campaigns = ["summer15", "winter15","fall17","fall18"]
-run3_campaigns = ["Run3Summer22","Run3winter22","Run3Summer23BPixwmLHEGS","Run3Summer23wmLHEGS","Run3Summer22wmLHEGS", "Run3Summer22EEwmLHEGS"]
+run3_campaigns = ["Run3Winter25","Run3Summer24","Run3Summer22","Run3winter22","Run3Summer23BPixwmLHEGS","Run3Summer23wmLHEGS","Run3Summer22wmLHEGS", "Run3Summer22EEwmLHEGS"]
 particle_gun_list = ["FlatRandomEGunProducer","FlatRandomPtGunProducer","Pythia8EGun","Pythia8PtGun","FlatRandomPtAndDxyGunProducer"]
 
 def tunes_settings_check(dn,fragment,pi,sherpa_flag):
     error_tunes_check = []
-    if "Run3" in pi and not any(word in fragment for word in particle_gun_list) and sherpa_flag == 0:    
+    if ("Run3" in pi or "RunIII" in pi) and not any(word in fragment for word in particle_gun_list) and sherpa_flag == 0:    
         if ("Configuration.Generator.MCTunesRun3ECM13p6TeV" not in fragment) and ("Configuration.Generator.Herwig7Settings.Herwig7CH3TuneSettings_cfi" not in fragment) or ("from Configuration.Generator.MCTunes2017" in fragment):
             error_tunes_check.append(" For Run3 samples, please use either:\n from Configuration.Generator.MCTunesRun3ECM13p6TeV.PythiaCP5Settings_cfi import * \n from Configuration.Generator.Herwig7Settings.Herwig7CH3TuneSettings_cfi import * \n in your fragment instead of: from Configuration.Generator.MCTunes2017.PythiaCP5Settings_cfi import *")
-    if "Run3" in pi and (dn.startswith("DYto") or dn.startswith("Wto")):
+    if ("Run3" in pi or "RunIII" in pi) and (dn.startswith("DYto") or dn.startswith("Wto")):
         if "ktdard" in fragment and "0.248" not in fragment:
             error_tunes_check.append(" 'kthard = 0.248' not in fragment for DY or Wjets MG5_aMC request for Run3. Please fix.")
     return error_tunes_check
@@ -323,7 +323,7 @@ def ul_consistency(dn,pi,jhu_gp):
 def gridpack_copy(gridpack_eos_path,pi):
     error_gp_copy = []
     targz_flag = 0
-    if "Run3" in pi:
+    if "Run3" in pi or "RunIII" in pi:
         copy_name = "_original_Run3_wo_runcmsgrid_sys_patch"
     else:
         copy_name = "_original"
@@ -559,6 +559,35 @@ def powheg_gg_H_quark_mass_effects():
     if not bad: print("[OK] integration grid setup looks ok for gg_H_quark_mass_effects")
     return warning_gg_H_quark_mass_effects, error_gg_H_quark_mass_effects
 
+def powheg_bornonly():
+    warning_bo = []
+    error_bo = []
+    bornonly_frag_check = 0
+    if int(os.popen('grep -c "Pythia8PowhegEmissionVetoSettings" '+pi).read()) == 1: bornonly_frag_check = 1
+    if int(os.popen('grep -c "SpaceShower:pTmaxMatch" '+pi).read()) == 1: bornonly_frag_check = 1
+    if int(os.popen('grep -c "TimeShower:pTmaxMatch" '+pi).read()) == 1: bornonly_frag_check = 1
+    if bornonly_frag_check != 0:
+        error_bo.append("bornonly = 1 and (Pythia8PowhegEmissionVetoSettings or SpaceShower:pTmaxMatch or  TimeShower:pTmaxMatch)")
+    else:
+        warning_bo.append("bornonly = "+str(bornonly))
+    return warning_bo,error_bo
+
+def lhe_evts_check(mcdbid):
+    warning_lhe = []
+    error_lhe = []
+    n_lhe = 0
+    print("------------------------------------------------")
+    print("lhe files are in /eos/cms/store/lhe/"+str(mcdbid))
+    n_lhe = os.popen('xzgrep "</event>" /eos/cms/store/lhe/'+str(mcdbid)+'/*.lhe* | wc -l').read()
+    print("total number of events in the LHE files "+n_lhe)
+    print("total requested in mcm "+str(totalevents))
+    if int(n_lhe) < int(totalevents):
+        error_lhe.append("More events requested "+str(totalevents)+" than the total available in the LHE files "+n_lhe)
+    else:
+        warning_lhe.append("Number of LHE events available "+n_lhe+" is less than requested "+str(totalevents))
+    print("------------------------------------------------")
+    return warning_lhe, error_lhe
+
 if args.dev:
     print("Running on McM DEV!\n")
 
@@ -628,6 +657,7 @@ for num in range(0,len(prepid)):
         mgversion = 0
         mg5_aMC_version = 0
         mem = r['memory']
+        mcdbid = r['mcdb_id']
         filter_eff = r['generator_parameters'][-1]['filter_efficiency']
         match_eff = r['generator_parameters'][-1]['match_efficiency']
         total_eff = filter_eff*match_eff 
@@ -701,16 +731,20 @@ for num in range(0,len(prepid)):
             print("time per event (sec/event) = "+str(timeperevent))
         if timeperevent > 150.0 :
             warnings.append("Large time/event (> 150 sec)="+str(timeperevent)+" - please check")
-        version_not_ok = 0
-        if '8_0' in cmssw and "Summer16FSPremix" not in pi: version_not_ok = 1
-        if '9_4' in cmssw and "Fall17FSPremix" not in pi: version_not_ok = 1
-        if '10_6' not in cmssw and '10_2' not in cmssw and '9_3' not in cmssw and '7_1' not in cmssw and version_not_ok == 1:
+        standard_cmssw_rel = ["10_2","12_4","14_0","14_2"]    
+        if not any(word in cmssw for word in standard_cmssw_rel):
             warnings.append("Are you sure you want to use "+cmssw+" release which is not standard which may not have all the necessary GEN code.")
         if totalevents >= 100000000 :
             warnings.append("Is "+str(totalevents)+" events what you really wanted - please check!")
         if args.local is False:    
             os.popen('wget -q '+mcm_link+'public/restapi/requests/get_fragment/'+pi+' -O '+pi).read()
 
+
+        if mcdbid > 0 and 'pLHE' in pi:
+            warn_tmp , err_tmp = lhe_evts_check(mcdbid)
+            warnings.extend(warn_tmp)
+            errors.extend(err_tmp)
+            
         fsize = os.path.getsize(pi_file)
         f1 = open(pi_file,"r")
         f2 = open(pi_file+"_tmp","w")
@@ -720,7 +754,6 @@ for num in range(0,len(prepid)):
             particle_gun = 1
         if int(os.popen('grep -c -i randomizedparameters '+pi_file).read()) > 0:
             randomizedparameters = 1
-#        cmssw_version    = int(re.search("_[0-9]?[0-9]_[0-9]?[0-9]_[0-9]?[0-9]",cmssw).group().replace('_',''))
         cmssw_version    = re.search("_[0-9]?[0-9]_[0-9]?[0-9]_[0-9]?[0-9]",cmssw).group().split("_")
         if len(cmssw_version[1]) != 2 and int(cmssw_version[1]) > 9:
            cmssw_version[1] += "0"
@@ -845,8 +878,9 @@ for num in range(0,len(prepid)):
         gp_size = len(gridpack_cvmfs_path_tmp)
 
         # additional data set name check for 2024 campaigns
-        if ("Run3" in pi or "RunIII" in pi) and "24" in pi:
+        if ("Run3" in pi or "RunIII" in pi) and ("Summer24" in pi or "Winter25" in pi):
             valid, message, feedback = validate_dataset_name(dn)
+            print(valid, message, feedback)
             if not valid:
                 print("-----------------------------") 
                 print(message)
@@ -967,7 +1001,7 @@ for num in range(0,len(prepid)):
                 if os.path.isfile(fname_p2):
                     filename_mggpc = fname_p2
                 #file_run_card = open(filename_mggpc,"r")
-                if "Run3" in pi and "PbPb" not in pi:
+                if ("Run3" in pi or "RunIII" in pi) and "PbPb" not in pi:
                     err_tmp = run3_run_card_check(filename_mggpc,pi)
                     errors.extend(err_tmp)
                 grep_txt_tmp = 'more '+filename_mggpc+' | tr -s \' \' | grep -c "= ickkw"'
@@ -1302,7 +1336,7 @@ for num in range(0,len(prepid)):
                     print("The PDF set used by JHUGEN is:"+ str(jhu_pdf))
                     if "UL" in pi and jhu_pdf not in UL_PDFs:
                         warnings.append("The gridpack uses PDF = "+str(jhu_pdf)+" but not the recommended sets for UL requests:     "+str(UL_PDFs_N)+" "+str(UL_PDFs))
-                    if "Run3" in pi:
+                    if "Run3" in pi or "RunIII" in pi:
                         pdflist_4f_run3_N,pdflist_4f_run3,pdflist_5f_run3_N,pdflist_5f_run3,pdflist_Pb_5f_run3_N,pdflist_Pb_5f_run3=run3_pdf_check(pi)    
                         if (jhu_pdf not in pdflist_4f_run3) and (jhu_pdf not in pdflist_5f_run3):
                             warnings.append("The gridpack uses PDF = "+str(jhu_pdf)+" but not the recommended sets for Run3 requests:     "+str(pdflist_4f_run3)+str(pdflist_5f_run3))
@@ -1387,7 +1421,7 @@ for num in range(0,len(prepid)):
                                 print("Powheg PDF used is: "+str(pw_pdf))
                                 if "UL" in pi and pw_pdf not in UL_PDFs_N:
                                     warnings.append("The gridpack uses PDF="+str(pw_pdf)+" but not the recommended sets for UL requests:  "+str(UL_PDFs_N)+" "+str(UL_PDFs))
-                                if "Run3" in pi:
+                                if "Run3" in pi or "RunIII" in pi:
                                     pdflist_4f_run3_N,pdflist_4f_run3,pdflist_5f_run3_N,pdflist_5f_run3,pdflist_Pb_5f_run3_N,pdflist_Pb_5f_run3=run3_pdf_check(pi)    
                                     if (str(pw_pdf) not in pdflist_4f_run3_N) and (str(pw_pdf) not in pdflist_5f_run3_N):
                                         warnings.append("The gridpack uses PDF = "+str(pw_pdf)+" but not the recommended sets for Run3 requests:     "+str(pdflist_4f_run3_N)+str(pdflist_5f_run3_N))
@@ -1429,14 +1463,9 @@ for num in range(0,len(prepid)):
                     if not (pdf_var_check0 > 0 and pdf_var_check1 >= 1) and 'bbllnunu' not in dn.lower():
                         errors.append("There may be a problem with PDF variations. Please check pwg-rwl.dat")
             if bornonly == 1:
-                bornonly_frag_check = 0
-                if int(os.popen('grep -c "Pythia8PowhegEmissionVetoSettings" '+pi).read()) == 1: bornonly_frag_check = 1
-                if int(os.popen('grep -c "SpaceShower:pTmaxMatch" '+pi).read()) == 1: bornonly_frag_check = 1
-                if int(os.popen('grep -c "TimeShower:pTmaxMatch" '+pi).read()) == 1: bornonly_frag_check = 1
-                if bornonly_frag_check != 0:
-                    errors.append("bornonly = 1 and (Pythia8PowhegEmissionVetoSettings or SpaceShower:pTmaxMatch or  TimeShower:pTmaxMatch)")
-                else:
-                    warnings.append("bornonly = "+str(bornonly))
+                warn_tmp , err_tmp = powheg_bornonly()
+                warnings.extend(warn_tmp)
+                errors.extend(err_tmp)
             if match:
                 process = match.group(2)
                 if process == "gg_H_quark-mass-effects":
@@ -1520,7 +1549,7 @@ for num in range(0,len(prepid)):
                 print("The MG5_aMC PDF set is:"+str(mg_pdf))
                 if "UL" in pi and int(mg_pdf) != UL_PDFs_N[0] and int(mg_pdf) != UL_PDFs_N[1]:
                     warnings.append("The gridpack uses PDF="+str(mg_pdf)+" but not the recommended sets for UL requests:       "+str(UL_PDFs_N)+" "+str(UL_PDFs))
-                if "Run3" in pi:
+                if "Run3" in pi or "RunIII" in pi:
                     pdflist_4f_run3_N,pdflist_4f_run3,pdflist_5f_run3_N,pdflist_5f_run3,pdflist_Pb_5f_run3_N,pdflist_Pb_5f_run3=run3_pdf_check(pi)    
                     if (str(mg_pdf) not in pdflist_4f_run3_N) and (str(mg_pdf) not in pdflist_5f_run3_N):
                         warnings.append("The gridpack uses PDF = "+str(mg_pdf)+" but not the recommended sets for Run3 requests:     "+str(pdflist_4f_run3)+str(pdflist_5f_run3))
@@ -1559,7 +1588,7 @@ for num in range(0,len(prepid)):
                         mg_nlo = int(os.popen('grep "systematics" '+str(runcmsgrid_file)+' | grep -c aMCatNLO').read())
                         if mg_lo: print("LO gridpack")
                         if mg_nlo: print("NLO gridpack")
-                    if ("Run3" in pi or "RunII" in pi) and args.bypass_runcmsgrid_patch is False:
+                    if ("Run3" in pi or "RunIII" in pi or "RunII" in pi) and args.bypass_runcmsgrid_patch is False:
                         if int(os.popen('grep -c "systematics $runlabel" '+str(runcmsgrid_file)).read()):
                             if int(os.popen('grep -c "Encounter Error in Running Systematics Module" '+str(runcmsgrid_file)).read()) < 1:
                                 print("-----------------------------------------")
@@ -1703,8 +1732,6 @@ for num in range(0,len(prepid)):
                 warnings.append("This a MadGraph NLO sample without matching. Please check 'TimeShower:nPartonsInBorn' is set correctly as number of coloured particles (before resonance decays) in born matrix element.")
             if alt_ickkw_c <= 1 and word == "madgraph" and mg_nlo != 1 and amcnlo_gp is False and (check[0] != 0 or check[1] != 0 or check[2] != 0):
                 errors.append("You run MG5_aMC@NLO at LO but you have  Pythia8aMCatNLOSettings_cfi in fragment")
-
-        if mg_gp or amcnlo_gp:
             input_cards_madspin_card = 0
             powhegcheck.append(int(os.popen('grep -c -i PowhegEmission '+pi_file).read()))
             if powhegcheck[0] > 0 and pw_mg == 0 and pw_external_gp is False:
@@ -1759,15 +1786,12 @@ for num in range(0,len(prepid)):
             errors.append("EvtGen settings within fragment but no evtgen flag at dataset name")
         if int(os.popen('grep -c -i filter '+pi_file).read()) > 3 and filter_eff == 1:
             warnings.append("Filters in the fragment but filter efficiency = 1")
-        if "Run3" in pi and "PbPb" not in pi and "Run3Summer21" not in pi:
+        if ("Run3" in pi or "RunIII" in pi) and "PbPb" not in pi and "Run3Summer21" not in pi:
             err_tmp = run3_checks(data_f1,dn,pi)
             errors.extend(err_tmp)
-        if args.develop is False:
+        if (args.develop is False) or (args.develop and args.local):
             os.popen("rm -rf "+my_path+pi).read()
             os.popen("rm -rf "+my_path+'eos/'+pi).read()
-        if args.develop and args.local:
-            os.popen("rm -rf "+my_path+pi).read()
-            os.popen("rm -rf "+my_path+'eos/'+pi).read()    
         print("***********************************************************************************")
         print("Number of warnings = "+ str(len(warnings)))
         if len(warnings) > 0:

@@ -6,13 +6,13 @@
 'in13'         !  [intag] for input files 
 ****************************************************************************************
 ****************************************************************************************
-'MSHT20qed_nnlo'   ! [PDFname] : PDF set
+'SF_MSHT20qed_nnlo'   ! [PDFname] : PDF set
 0                    ! [PDFmember] : PDF member
 ****************************************************************************************
 56      !  [proc] : Process number (see manual for labelling)
 'ion'  ! [beam] : Beam type ('prot', 'ion', 'ionp' or 'el')
 'test'          ! [outtg]
-.false.  !  [sfaci] : Include soft survival effects
+.true.  !  [sfaci] : Include soft survival effects
 ****************************************************************************************
 ************************* Dissociation parameters for PI  ******************************
 ****************************************************************************************
@@ -152,10 +152,18 @@
 ******  W+W- decays
 ****************************************************************************************
 'mu'    ! [wlp] : W+ leptonic channel (mu or el)
-'el'    ! [wlm] : W- leptoinc channel (mu or el)
+'el'    ! [wlm] : W- leptonic channel (mu or el)
 ****************************************************************************************
 ******  V+X simplified model
 ****************************************************************************************
 0.04d0   ! [tau] : mass distribution decay constant (GeV^-1)
 100d0    ! [mxs] : mass of MX
 ****************************************************************************************
+******  tau anomalous moments
+****************************************************************************************
+0d0     ! [atau] : magnetic dipole moment
+0d0     ! [dtau] : electric dipole moment [e cm]
+******  flags for calculating individual coeffs - SEE MANUAL for explanation
+.false. ! [calc_tau_coeff] : if true calculate  O(a_tau^n) or O(d_tau^n) coefficients
+'atau'  ! [tau_mom] : 'atau','dtau' - coeffecients for magnetic/electric dipole moments
+1       ! [tau_coeff] : order 'n' in coefficient (0-4)
