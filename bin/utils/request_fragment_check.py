@@ -882,7 +882,6 @@ for num in range(0,len(prepid)):
         if ("Run3" in pi or "RunIII" in pi) and ("Summer24" in pi or "Winter25" in pi):
             valid, message, feedback = validate_dataset_name(dn)
             print(valid, message, feedback)
-            sys.exit()
             if not valid:
                 print("-----------------------------") 
                 print(message)
