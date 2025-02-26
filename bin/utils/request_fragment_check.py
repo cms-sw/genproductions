@@ -876,11 +876,13 @@ for num in range(0,len(prepid)):
         gridpack_cvmfs_path_tmp = os.popen('grep \/cvmfs '+my_path+'/'+pi+'/'+pi).read()
         if int(os.popen('grep -c grid_points '+pi_file).read()) != 0: grid_points_flag = 1
         gp_size = len(gridpack_cvmfs_path_tmp)
+        SLHATreeForPythia8 = os.popen('grep SLHATreeForPythia8 '+my_path+'/'+pi+'/'+pi).read()
 
         # additional data set name check for 2024 campaigns
         if ("Run3" in pi or "RunIII" in pi) and ("Summer24" in pi or "Winter25" in pi):
             valid, message, feedback = validate_dataset_name(dn)
             print(valid, message, feedback)
+            sys.exit()
             if not valid:
                 print("-----------------------------") 
                 print(message)
@@ -946,12 +948,12 @@ for num in range(0,len(prepid)):
 
         errors.extend(tunes_settings_check(dn,data_f1,pi,sherpa_flag))
 
-        if gp_size and sherpa_flag == 0:
+        if gp_size and sherpa_flag == 0 and len(SLHATreeForPythia8) == 0:
             gridpack_cvmfs_path_tmp = re.findall("/cvmfs/cms\.cern\.ch/phys_generator/gridpacks/.*?tar.xz|/cvmfs/cms\.cern\.ch/phys_generator/gridpacks/.*?tgz|/cvmfs/cms\.cern\.ch/phys_generator/gridpacks/.*?tar.gz",gridpack_cvmfs_path_tmp)
             if not gridpack_cvmfs_path_tmp:
                 errors.append("Gridpack should be in cvmfs in the dedicated folder location with the full path to the file given. ")
                 gp_full_path = False
-        if gp_size and gp_full_path and sherpa_flag == 0:
+        if gp_size and gp_full_path and sherpa_flag == 0 and len(SLHATreeForPythia8) == 0:
             gridpack_cvmfs_path = gridpack_cvmfs_path_tmp[0]
             gridpack_eos_path = gridpack_cvmfs_path.replace("/cvmfs/cms.cern.ch/phys_generator","/eos/cms/store/group/phys_generator/cvmfs")
             if int(os.popen('grep -c slha '+pi_file).read()) != 0 or int(os.popen('grep -c \%i '+pi_file).read()) != 0 or int(os.popen('grep -c \%s '+pi_file).read()) != 0: slha_flag = 1
