@@ -1369,7 +1369,7 @@ for num in range(0,len(prepid)):
             for i in split_dp:
                 if ("slc" and "CMSSW") in i: split_dp_gpf = i
             if ((split_dp_gpf.startswith("Z") or split_dp_gpf.startswith("gg_H")) and nFinal != 1) or ((split_dp_gpf.startswith("HJJ") or split_dp_gpf.startswith("ttH") or split_dp_gpf.startswith("HZJ") or split_dp_gpf.startswith("HWJ")) and nFinal!= 3) or (split_dp_gpf.startswith("ggHZ") and nFinal!=2):
-                warnings.append("nFinal="+str(nFinal) + " may not be equal to the number of final state particles before decays)")
+                warnings.append("nFinal="+str(nFinal) + " may not be equal to the number of final state particles before decays)")     
             pw_processes = 'dy','ggh','glugluh','tth','hzj','hwj','ggzh'
             if not any(i in dn.lower() for i in pw_processes):
                 warnings.append("Please check manually if nFinal="+str(nFinal) + " for this process is OK, i.e. equal to the number of final state particles before decays) ")
@@ -1432,6 +1432,8 @@ for num in range(0,len(prepid)):
                             if "minnlo" in line and "modlog_p" not in line:
                                 minnlo = int(re.split(r'\s+', line)[1])
                                 print("MINNLO = "+str(minnlo))
+            if minnlo and nFinal!=-1:
+                warnings.append("nFinal="+str(nFinal) + " but the recommended value for nFinal for MiNNLO samples is -1")
             if os.path.isfile(my_path+'/'+pi+'/'+'external_tarball/pwg-stst.dat'):
                 pwg_stat_file = os.path.join(my_path, pi, "external_tarball/pwg-stat.dat")
             else:
