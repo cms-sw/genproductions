@@ -1,1 +1,0 @@
-../collier/include/globald.mod

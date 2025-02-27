@@ -1,1 +1,0 @@
-../symmetry_fks_v3.f

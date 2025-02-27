@@ -1,2 +1,0 @@
-P1_qq_taptamqq
-P1_qq_llqq

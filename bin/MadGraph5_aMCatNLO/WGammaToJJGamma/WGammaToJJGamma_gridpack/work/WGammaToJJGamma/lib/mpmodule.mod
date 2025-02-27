@@ -1,1 +1,0 @@
-/uscms_data/d3/bweiss/mcgen/genproductions/bin/MadGraph5_aMCatNLO/WGammaToJJGamma/WGammaToJJGamma_gridpack/work/MG5_aMC_v2_9_18/vendor/CutTools/includects/mpmodule.mod

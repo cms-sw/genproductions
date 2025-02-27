@@ -1,5 +1,0 @@
-  <tool name="sockets" version="system">
-    <lib name="crypt"/>
-    <lib name="dl"/>
-    <lib name="rt"/>
-  </tool>

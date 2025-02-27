@@ -1,8 +1,0 @@
-{
-  "LIB": [
-    "ssl",
-    "crypto"
-  ],
-  "TOOLNAME": "openssl",
-  "TOOLVERSION": "system"
-}

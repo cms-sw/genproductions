@@ -1,1 +1,0 @@
-../MCmasses_PYTHIA6Q.inc

@@ -1,9 +1,0 @@
-  <tool name="ofast-flag" version="1.0">
-    <flags CXXFLAGS="-Ofast"/>
-    <ifarchitecture name="slc6_">
-      <ifcompiler name="llvm">
-        <flags CXXFLAGS="-fno-builtin"/>
-      </ifcompiler>
-    </ifarchitecture>
-    <flags NO_RECURSIVE_EXPORT="1"/>
-  </tool>

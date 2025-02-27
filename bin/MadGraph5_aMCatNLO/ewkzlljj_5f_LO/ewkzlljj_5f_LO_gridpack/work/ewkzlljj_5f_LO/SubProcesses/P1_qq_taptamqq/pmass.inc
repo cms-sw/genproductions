@@ -1,6 +1,0 @@
-      PMASS(1)=ZERO
-      PMASS(2)=ZERO
-      PMASS(3)=ABS(MDL_MTA)
-      PMASS(4)=ABS(MDL_MTA)
-      PMASS(5)=ZERO
-      PMASS(6)=ZERO

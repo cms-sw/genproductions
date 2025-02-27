@@ -1,1 +1,0 @@
-../fks_powers.inc

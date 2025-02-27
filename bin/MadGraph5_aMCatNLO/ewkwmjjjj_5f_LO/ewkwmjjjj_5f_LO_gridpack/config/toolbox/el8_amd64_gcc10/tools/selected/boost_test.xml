@@ -1,5 +1,0 @@
-<tool name="boost_test" version="1.78.0-22078d9ad44a9ee315c3d0995a7d3746">
-  <info url="http://www.boost.org"/>
-  <lib name="boost_unit_test_framework"/>
-  <use name="boost"/>
-</tool>

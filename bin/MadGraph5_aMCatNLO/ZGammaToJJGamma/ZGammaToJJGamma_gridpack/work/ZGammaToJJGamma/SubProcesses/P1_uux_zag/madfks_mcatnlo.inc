@@ -1,1 +1,0 @@
-../madfks_mcatnlo.inc

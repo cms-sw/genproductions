@@ -1,4 +1,0 @@
-      INCLUDE 'maxparticles.inc'
-      INCLUDE 'maxconfigs.inc'
-      INTEGER MAXPROC,NGRAPHS,NCOLOR,MAXFLOW
-      PARAMETER (MAXPROC=6,NGRAPHS=6,NCOLOR=1,MAXFLOW=2)

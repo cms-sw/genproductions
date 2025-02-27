@@ -1,1 +1,0 @@
-../appl_common.inc

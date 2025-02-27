@@ -1,1 +1,0 @@
-../collier/include/dd_global.mod
