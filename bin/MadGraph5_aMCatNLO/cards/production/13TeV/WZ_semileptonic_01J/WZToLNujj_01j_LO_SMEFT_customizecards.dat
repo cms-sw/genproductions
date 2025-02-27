@@ -1,0 +1,15 @@
+set param_card SMEFT 5 9.999999e-01
+set param_card SMEFT 9 9.999999e-01
+set param_card SMEFTcpv 6 9.999999e-01
+set param_card SMEFTcpv 4 9.999999e-01
+set param_card SMEFT 32 9.999999e-01
+set param_card SMEFT 105 9.999999e-01
+set param_card SMEFT 26 9.999999e-01
+set param_card SMEFT 28 9.999999e-01
+set param_card SMEFT 103 9.999999e-01
+set param_card SMEFT 104 9.999999e-01
+set param_card SMEFT 30 9.999999e-01
+set param_card SMEFT 2 9.999999e-01
+set param_card SMEFTcpv 2 9.999999e-01
+set param_card SMEFT 109 9.999999e-01
+set param_card SMEFT 107 9.999999e-01
