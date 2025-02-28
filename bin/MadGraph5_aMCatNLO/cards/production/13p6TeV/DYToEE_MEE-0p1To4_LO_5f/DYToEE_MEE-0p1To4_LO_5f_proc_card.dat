@@ -1,0 +1,5 @@
+import model sm-ckm_no_b_mass
+
+generate p p > e+ e-  @0
+
+output DYToEE_MEE-0p1To4_LO_5f -nojpeg

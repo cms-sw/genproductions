@@ -876,6 +876,7 @@ for num in range(0,len(prepid)):
         gridpack_cvmfs_path_tmp = os.popen('grep \/cvmfs '+my_path+'/'+pi+'/'+pi).read()
         if int(os.popen('grep -c grid_points '+pi_file).read()) != 0: grid_points_flag = 1
         gp_size = len(gridpack_cvmfs_path_tmp)
+        SLHATreeForPythia8 = os.popen('grep SLHATreeForPythia8 '+my_path+'/'+pi+'/'+pi).read()
 
         # additional data set name check for 2024 campaigns
         if ("Run3" in pi or "RunIII" in pi) and ("Summer24" in pi or "Winter25" in pi):
@@ -946,12 +947,12 @@ for num in range(0,len(prepid)):
 
         errors.extend(tunes_settings_check(dn,data_f1,pi,sherpa_flag))
 
-        if gp_size and sherpa_flag == 0:
+        if gp_size and sherpa_flag == 0 and len(SLHATreeForPythia8) == 0:
             gridpack_cvmfs_path_tmp = re.findall("/cvmfs/cms\.cern\.ch/phys_generator/gridpacks/.*?tar.xz|/cvmfs/cms\.cern\.ch/phys_generator/gridpacks/.*?tgz|/cvmfs/cms\.cern\.ch/phys_generator/gridpacks/.*?tar.gz",gridpack_cvmfs_path_tmp)
             if not gridpack_cvmfs_path_tmp:
                 errors.append("Gridpack should be in cvmfs in the dedicated folder location with the full path to the file given. ")
                 gp_full_path = False
-        if gp_size and gp_full_path and sherpa_flag == 0:
+        if gp_size and gp_full_path and sherpa_flag == 0 and len(SLHATreeForPythia8) == 0:
             gridpack_cvmfs_path = gridpack_cvmfs_path_tmp[0]
             gridpack_eos_path = gridpack_cvmfs_path.replace("/cvmfs/cms.cern.ch/phys_generator","/eos/cms/store/group/phys_generator/cvmfs")
             if int(os.popen('grep -c slha '+pi_file).read()) != 0 or int(os.popen('grep -c \%i '+pi_file).read()) != 0 or int(os.popen('grep -c \%s '+pi_file).read()) != 0: slha_flag = 1
@@ -1368,7 +1369,7 @@ for num in range(0,len(prepid)):
             for i in split_dp:
                 if ("slc" and "CMSSW") in i: split_dp_gpf = i
             if ((split_dp_gpf.startswith("Z") or split_dp_gpf.startswith("gg_H")) and nFinal != 1) or ((split_dp_gpf.startswith("HJJ") or split_dp_gpf.startswith("ttH") or split_dp_gpf.startswith("HZJ") or split_dp_gpf.startswith("HWJ")) and nFinal!= 3) or (split_dp_gpf.startswith("ggHZ") and nFinal!=2):
-                warnings.append("nFinal="+str(nFinal) + " may not be equal to the number of final state particles before decays)")
+                warnings.append("nFinal="+str(nFinal) + " may not be equal to the number of final state particles before decays)")     
             pw_processes = 'dy','ggh','glugluh','tth','hzj','hwj','ggzh'
             if not any(i in dn.lower() for i in pw_processes):
                 warnings.append("Please check manually if nFinal="+str(nFinal) + " for this process is OK, i.e. equal to the number of final state particles before decays) ")
@@ -1431,6 +1432,8 @@ for num in range(0,len(prepid)):
                             if "minnlo" in line and "modlog_p" not in line:
                                 minnlo = int(re.split(r'\s+', line)[1])
                                 print("MINNLO = "+str(minnlo))
+            if minnlo and nFinal!=-1:
+                warnings.append("nFinal="+str(nFinal) + " but the recommended value for nFinal for MiNNLO samples is -1")
             if os.path.isfile(my_path+'/'+pi+'/'+'external_tarball/pwg-stst.dat'):
                 pwg_stat_file = os.path.join(my_path, pi, "external_tarball/pwg-stat.dat")
             else:
@@ -1477,7 +1480,6 @@ for num in range(0,len(prepid)):
 
         if mg_gp or amcnlo_gp:
             if gp_size == 0: break
-            bbmark = 0
             filename_pc = my_path+'/'+pi+'/'+'process/madevent/Cards/proc_card_mg5.dat'
             fname_p2 = my_path+'/'+pi+'/'+'process/Cards/proc_card.dat'
             fname_p3 = my_path+'/'+pi+'/'+'process/Cards/proc_card_mg5.dat'
@@ -1497,28 +1499,28 @@ for num in range(0,len(prepid)):
                 print("Process lines from the proc card:")
                 print(gen_line)
                 proc_line = os.popen('grep process '+filename_pc+' | grep -v set').read()
-                print(proc_line)
+                print(proc_line)    
                 proc_line = gen_line.replace('generate','') + "\n" + proc_line 
                 print("Simplified process lines:")
                 if (gen_line.count('@') > 0 and gen_line.count('@') <= proc_line.count('@')) or (proc_line.count('add') > 0):
                     proc_line = proc_line.split('add process')
                     print(proc_line)
-                    bmark = 0
                     for y in range(0,len(proc_line)):
-                        if "define bb = b b~" in proc_line[y]: bmark = 1  
                         if proc_line[y].startswith("set"): continue
                         zz = proc_line[y] 
                         if "," in proc_line[y]: zz = proc_line[y].split(',')[0]
                         zz = zz.translate(str.maketrans('','',string.punctuation))
-                        nbtomatch = zz.count('b') if maxjetflavor > 4 else 0
+                        nbtomatch = zz.count(' b') if maxjetflavor > 4 else 0
                         nc = zz.count('c') if "chi" not in zz else 0
                         if "excl" in zz and nc != 0: nc = nc -1
-                        if bbmark == 1 and nbtomatch > 1: nbtomatch = nbtomatch - 1
+                        if bbmark and nbtomatch > 1: nbtomatch = nbtomatch - 1
                         jet_count_tmp.append(zz.count('j') + nbtomatch + nc)
-                    jet_count = max(jet_count_tmp)
+                    print("Jet count:",jet_count_tmp)    
+                    jet_count = max(jet_count_tmp)               
                 else:
                     jet_line = gen_line.replace('generate','')
-                    jet_count = jet_line.count('j') + jet_line.count('b') + jet_line.count('c')
+                    jet_count = jet_line.count('j') + jet_line.count(' b') + jet_line.count(' c')
+                    print("Jet count:",jet_count)
                 if nJetMax == jet_count: print("[OK] nJetMax(="+str(nJetMax) + ") is equal to the number of jets in the process(="+str(jet_count)+")")
                 if nJetMax != jet_count and gen_line.count('@') != 0 and alt_ickkw_c !=0:
                     warnings.append("nJetMax(="+str(nJetMax)+") is NOT equal to the number of jets specified in the proc card(="+str(jet_count)+")")
