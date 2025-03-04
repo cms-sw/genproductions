@@ -208,26 +208,4 @@ case $WHAT in
         done
     ;;
     
-    COPY )
-        for PROC in ${PROCS[@]}
-        do
-            echo HJ_${ARCH}_${CMSSW}_${PROC}-${SUFFIX}.tgz
-            echo HJ_${ARCH}_${CMSSW}_${PROC}-${SUFFIX}-reducedrwl.tgz
-            echo HJ_${ARCH}_${CMSSW}_${PROC}-${SUFFIX}-norwl.tgz
-            cp -p -v HJ_${ARCH}_${CMSSW}_${PROC}-${SUFFIX}.tgz /afs/cern.ch/work/m/mseidel/public/MiNNLO-gridpacks/
-            cp -p -v PACK_REDUCED/HJ_${ARCH}_${CMSSW}_${PROC}-${SUFFIX}-reducedrwl.tgz /afs/cern.ch/work/m/mseidel/public/MiNNLO-gridpacks/
-            cp -p -v PACK_REDUCED/HJ_${ARCH}_${CMSSW}_${PROC}-${SUFFIX}-norwl.tgz /afs/cern.ch/work/m/mseidel/public/MiNNLO-gridpacks/
-        done
-    ;;
-    
-    COPY_GRIDS )
-        OLDPATH=/afs/cern.ch/work/m/mseidel/generator/CMSSW_10_2_23/src/
-        OLDSUFFIX=powheg-MiNNLO31-svn3900-ew-rwl6-j${NJOBS}-st2fix-ana-hoppetweights-ymax20
-        for PROC in ${PROCS[@]}
-        do
-            cp ${OLDPATH}/${PROC}-${OLDSUFFIX}/*.dat ${PROC}-${SUFFIX}/
-            cp ${OLDPATH}/${PROC}-${OLDSUFFIX}/*.top ${PROC}-${SUFFIX}/
-        done
-    ;;
-
 esac
