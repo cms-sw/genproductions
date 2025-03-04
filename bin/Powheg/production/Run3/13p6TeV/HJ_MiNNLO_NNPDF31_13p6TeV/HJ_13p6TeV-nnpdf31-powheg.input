@@ -68,14 +68,14 @@ use-old-ubound  1 ! if 1 use norm of upper bounding function stored in pwgubound
                   ! factorization and renormalization scale;
                   ! if 1 use the Ht/2
 
-ncall1   5000     ! number of calls for initializing the integration grid
+ncall1   100000     ! number of calls for initializing the integration grid
 itmx1    1        ! number of iterations for initializing the integration grid
-ncall2   5000    ! number of calls for computing the integral and finding upper bound
+ncall2   100000    ! number of calls for computing the integral and finding upper bound
 itmx2    1        ! number of iterations for computing the integral and finding upper bound
-foldcsi   1       ! number of folds on csi integration
-foldy     1       ! number of folds on  y  integration
-foldphi   1       ! number of folds on phi integration
-nubound 30000     ! number of bbarra calls to setup norm of upper bounding function
+foldcsi   5       ! number of folds on csi integration
+foldy     2       ! number of folds on  y  integration
+foldphi   2       ! number of folds on phi integration
+nubound 100000     ! number of bbarra calls to setup norm of upper bounding function
 
 ! OPTIONAL PARAMETERS
 testplots  1       ! (default 0, do not) do NLO and PWHG distributions
