@@ -1,0 +1,15 @@
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set loop_color_flows False
+set gauge unitary
+set complex_mass_scheme False
+set max_npoint_for_channel 0
+import model sm-no_b_mass
+
+define l+ = e+ mu+
+define l- = e- mu-
+define vl = ve vm
+define vl~ = ve~ vm~
+
+generate p p > t t~ h h, (t > w+ b, w+ > l+ vl), (t~ > w- b~, w- > l- vl~)
+output TTHH_DL_LO -nojpeg
