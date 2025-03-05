@@ -11,7 +11,8 @@ externalLHEProducer = cms.EDProducer("ExternalLHEProducer",
 )
 
 from Configuration.Generator.Pythia8CommonSettings_cfi import *
-from Configuration.Generator.MCTunes2017.PythiaCP5Settings_cfi import *
+from Configuration.Generator.MCTunesRun3ECM13p6TeV.PythiaCP5Settings_cfi import *
+from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *
 from Configuration.Generator.Pythia8PowhegEmissionVetoSettings_cfi import *
 from GeneratorInterface.EvtGenInterface.EvtGenSetting_cff import *
 
@@ -48,6 +49,7 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
         PythiaParameters = cms.PSet(
          pythia8CommonSettingsBlock,
          pythia8CP5SettingsBlock,
+         pythia8PSweightsSettingsBlock,   
          pythia8PowhegEmissionVetoSettingsBlock,     
          processParameters = cms.vstring(
             "POWHEG:nFinal = 3",
@@ -56,6 +58,7 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
                             'pythia8PowhegEmissionVetoSettings',
                             'pythia8CommonSettings',
                             'pythia8CP5Settings',
+                            'pythia8PSweightsSettings',
                             'processParameters',
  
         )
