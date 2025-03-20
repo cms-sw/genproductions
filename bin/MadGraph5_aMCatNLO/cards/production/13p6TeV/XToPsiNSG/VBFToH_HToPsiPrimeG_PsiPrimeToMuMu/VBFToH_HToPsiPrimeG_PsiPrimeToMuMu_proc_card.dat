@@ -1,0 +1,14 @@
+set default_unset_couplings 99
+set group_subprocesses Auto
+set ignore_six_quark_processes False
+set loop_optimized_output True
+set loop_color_flows False
+set gauge unitary
+set complex_mass_scheme False
+set max_npoint_for_channel 0
+import model jpsi_sm
+define p = u c d s u~ c~ d~ s~
+generate p p > h p p $$ z / a p g h w+ w-, (h > jpsi a, jpsi > mu+ mu-)
+add process p p > h p p $$ w+ w- / a p g h z, (h > jpsi a, jpsi > mu+ mu\
+-)
+output VBFToH_HToPsiPrimeG_PsiPrimeToMuMu -nojpeg
