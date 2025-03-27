@@ -10,10 +10,10 @@ define V = w+ w-
 define vl = ve vm vt
 define vl~ = ve~ vm~ vt~
 
-generate p p > ell+ vl z $$ t t~ h QCD=1 SMHLOOP=0 NP=1
-add process p p > ell+ vl z j $$ t t~ h QCD=1 SMHLOOP=0 NP=1
-add process p p > ell- vl~ z $$ t t~ h QCD=1 SMHLOOP=0 NP=1
-add process p p > ell- vl~ z j $$ t t~ h QCD=1 SMHLOOP=0 NP=1
+generate p p > ell+ vl z QCD=1 SMHLOOP=0 NP=1, z > j j $$ t t~ h
+add process p p > ell+ vl z j QCD=1 SMHLOOP=0 NP=1, z > j j $$ t t~ h
+add process p p > ell- vl~ z QCD=1 SMHLOOP=0 NP=1, z > j j $$ t t~ h
+add process p p > ell- vl~ z j QCD=1 SMHLOOP=0 NP=1, z > j j $$ t t~ h
 
-output WZToLNujj_01j_LO_SMEFT -nojpeg
+output WZToLNujj_01j_LO_SMEFTsim -nojpeg
 
