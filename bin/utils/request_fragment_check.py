@@ -1111,18 +1111,20 @@ for num in range(0,len(prepid)):
                         errors.append(str(len(herwig_check)) + " missing fragment line(s) for herwig: lines for internal matrix element are missing in the fragment."+herwig_check)
         if fsize == 0:
             warnings.append("No fragment associated to this request. Is this the hadronizer you intended to use?: "+gettest)
-        ttxt = os.popen('grep nThreads '+pi_file+'_get_test').read()
-        ntread_new = 1
-        if not ttxt:
-            ttxt = os.popen('grep "# Threads for each sequence" '+pi_file+'_get_test').read()	
-            print(ttxt)
-            nthreads = int(re.search(r'\d+',ttxt).group())
-            if not nthreads: ntread_new = 0
-        if ntread_new == 0:
-            if int(os.popen('grep -c nThreads '+pi_file+'_get_test').read()) == 0 :
-                nthreads = 1
-            else :
-                nthreads = int(re.search('nThreads(.*?) --',ttxt).group(1))
+
+	# the check on nthreads is not actually used, hence not necessary to parse and fail for that number
+	#ttxt = os.popen('grep nThreads '+pi_file+'_get_test').read()
+        #ntread_new = 1
+        #if not ttxt:
+        #    ttxt = os.popen('grep "# Threads for each sequence" '+pi_file+'_get_test').read()	
+        #    print(ttxt)
+        #    nthreads = int(re.search(r'\d+',ttxt).group())
+        #    if not nthreads: ntread_new = 0
+        #if ntread_new == 0:
+        #    if int(os.popen('grep -c nThreads '+pi_file+'_get_test').read()) == 0 :
+        #       nthreads = 1
+        #    else :
+        #        nthreads = int(re.search('nThreads(.*?) --',ttxt).group(1))
 
         if "SnowmassWinter21" not in pi and particle_gun == 0 and pi not in concurrency_check_exception_list and "matchbox" not in data_f1.lower() and "CepGenGeneratorFilter" not in data_f1:
             conc_check_result, tmp_err = concurrency_check(data_f1,pi,cmssw_version,mg_gp)
