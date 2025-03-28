@@ -1,0 +1,192 @@
+change helicity False
+change rwgt_dir rwgt
+
+# SM rwgt_1
+launch --rwgt_name=sm
+   set dim6 1 0
+   set dim6 2 0
+   set dim6 3 0
+   set dim6 4 0
+   set dim6 5 0
+
+
+# CWWWL2=-1 rwgt_2
+launch --rwgt_name=cwwwl2_m1
+   set dim6 1 -1
+   set dim6 2 0
+   set dim6 3 0
+   set dim6 4 0
+   set dim6 5 0
+
+
+# CWWWL2=1 rwgt_3
+launch --rwgt_name=cwwwl2
+   set dim6 1 1
+   set dim6 2 0
+   set dim6 3 0
+   set dim6 4 0
+   set dim6 5 0
+
+
+# CWL2=-1 rwgt_4
+launch --rwgt_name=cwl2_m1
+   set dim6 1 0
+   set dim6 2 -1
+   set dim6 3 0
+   set dim6 4 0
+   set dim6 5 0
+
+
+# CWL2=1 rwgt_5
+launch --rwgt_name=cwl2
+   set dim6 1 0
+   set dim6 2 1
+   set dim6 3 0
+   set dim6 4 0
+   set dim6 5 0
+
+
+# CBL2=-1 rwgt_6
+launch --rwgt_name=cbl2_m1
+   set dim6 1 0
+   set dim6 2 0
+   set dim6 3 -1
+   set dim6 4 0
+   set dim6 5 0
+
+
+# CBL2=1 rwgt_7
+launch --rwgt_name=cbl2
+   set dim6 1 0
+   set dim6 2 0
+   set dim6 3 1
+   set dim6 4 0
+   set dim6 5 0
+
+
+# CPWWWL2=-1 rwgt_8
+launch --rwgt_name=cpwwwl2_m1
+   set dim6 1 0
+   set dim6 2 0
+   set dim6 3 0
+   set dim6 4 -1
+   set dim6 5 0
+
+
+# CPWWWL2=1 rwgt_9
+launch --rwgt_name=cpwwwl2
+   set dim6 1 0
+   set dim6 2 0
+   set dim6 3 0
+   set dim6 4 1
+   set dim6 5 0
+
+
+# CPWL2=-1 rwgt_10
+launch --rwgt_name=cpwl2_m1
+   set dim6 1 0
+   set dim6 2 0
+   set dim6 3 0
+   set dim6 4 0
+   set dim6 5 -1
+
+
+# CPWL2=1 rwgt_11
+launch --rwgt_name=cpwl2
+   set dim6 1 0
+   set dim6 2 0
+   set dim6 3 0
+   set dim6 4 0
+   set dim6 5 1
+
+
+# CWWWL2=1, CWL2=1 rwgt_12
+launch --rwgt_name=cwwwl2_cwl2
+   set dim6 1 1
+   set dim6 2 1
+   set dim6 3 0
+   set dim6 4 0
+   set dim6 5 0
+
+
+# CWWWL2=1, CBL2=1 rwgt_13
+launch --rwgt_name=cwwwl2_cbl2
+   set dim6 1 1
+   set dim6 2 0
+   set dim6 3 1
+   set dim6 4 0
+   set dim6 5 0
+
+
+# CWWWL2=1, CPWWWL2=1 rwgt_14
+launch --rwgt_name=cwwwl2_cpwwwl2
+   set dim6 1 1
+   set dim6 2 0
+   set dim6 3 0
+   set dim6 4 1
+   set dim6 5 0
+
+
+# CWWWL2=1, CPWL2=1 rwgt_15
+launch --rwgt_name=cwwwl2_cpwl2
+   set dim6 1 1
+   set dim6 2 0
+   set dim6 3 0
+   set dim6 4 0
+   set dim6 5 1
+
+
+# CWL2=1, CBL2=1 rwgt_16
+launch --rwgt_name=cwl2_cbl2
+   set dim6 1 0
+   set dim6 2 1
+   set dim6 3 1
+   set dim6 4 0
+   set dim6 5 0
+
+
+# CWL2=1, CPWWWL2=1 rwgt_17
+launch --rwgt_name=cwl2_cpwwwl2
+   set dim6 1 0
+   set dim6 2 1
+   set dim6 3 0
+   set dim6 4 1
+   set dim6 5 0
+
+
+# CWL2=1, CPWL2=1 rwgt_18
+launch --rwgt_name=cwl2_cpwl2
+   set dim6 1 0
+   set dim6 2 1
+   set dim6 3 0
+   set dim6 4 0
+   set dim6 5 1
+
+
+# CBL2=1, CPWWWL2=1 rwgt_19
+launch --rwgt_name=cbl2_cpwwwl2
+   set dim6 1 0
+   set dim6 2 0
+   set dim6 3 1
+   set dim6 4 1
+   set dim6 5 0
+
+
+# CBL2=1, CPWL2=1 rwgt_20
+launch --rwgt_name=cbl2_cpwl2
+   set dim6 1 0
+   set dim6 2 0
+   set dim6 3 1
+   set dim6 4 0
+   set dim6 5 1
+
+
+# CPWWWL2=1, CPWL2=1 rwgt_21
+launch --rwgt_name=cpwwwl2_cpwl2
+   set dim6 1 0
+   set dim6 2 0
+   set dim6 3 0
+   set dim6 4 1
+   set dim6 5 1
+
+
