@@ -19,18 +19,18 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
         pythia8CommonSettingsBlock,
         pythia8CP5SettingsBlock,
         pythia8PSweightsSettingsBlock,
-        semiexclusive_process = cms.vstring( # recomendation from https://superchic.hepforge.org/superchic4.pdf
-          'LesHouches:matchInOut = off',
+        exclusive_process = cms.vstring( # recomendation from https://superchic.hepforge.org/superchic4.pdf
           'BeamRemnants:primordialKT = off',
           'PartonLevel:MPI = off',
-          'PartonLevel:FSR = on',
           'SpaceShower:dipoleRecoil = on',
           'SpaceShower:pTmaxMatch = 2',
           'SpaceShower:QEDshowerByQ = off',
           'SpaceShower:pTdampMatch = 1',
           'BeamRemnants:unresolvedHadron = 1',
+          'LesHouches:matchInOut = off',
+          'Check:event = off',
         ),
-        parameterSets = cms.vstring('pythia8CommonSettings','pythia8CP5Settings','pythia8PSweightsSettings','semiexclusive_process')      
+        parameterSets = cms.vstring('pythia8CommonSettings','pythia8CP5Settings','pythia8PSweightsSettings','exclusive_process')      
     ),
     comEnergy = cms.double(13000.0),
     filterEfficiency = cms.untracked.double(1.0),

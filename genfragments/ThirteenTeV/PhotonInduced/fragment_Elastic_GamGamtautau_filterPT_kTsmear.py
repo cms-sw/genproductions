@@ -5,8 +5,8 @@ externalLHEProducer = cms.EDProducer("ExternalLHEProducer",
     nEvents = cms.untracked.uint32(5000),
     numberOfParameters = cms.uint32(1),
     outputFile = cms.string('cmsgrid_final.lhe'),
-    scriptName = cms.FileInPath('GeneratorInterface/LHEInterface/data/run_generic_tarball_cvmfs.sh')
-)
+    scriptName = cms.FileInPath('GeneratorInterface/LHEInterface/data/run_generic_tarball_cvmfs.sh'),
+    postGenerationCommand = cms.untracked.vstring('gamma-UPC_lhe_ktsmearing_UPC.py',  '--file=cmsgrid_final.lhe', '--out=cmsgrid_final.lhe', '--beams=p p')
 
 import FWCore.ParameterSet.Config as cms
 
@@ -39,7 +39,7 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
         pythia8CommonSettingsBlock,
         pythia8CP5SettingsBlock,
         pythia8PSweightsSettingsBlock,
-        semiexclusive_process = cms.vstring( # recomendation from https://superchic.hepforge.org/superchic4.pdf
+        exclusive_process = cms.vstring( # recomendation from https://superchic.hepforge.org/superchic4.pdf
           'LesHouches:matchInOut = off',
           'BeamRemnants:primordialKT = off',
           'PartonLevel:MPI = off',
@@ -48,9 +48,10 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
           'SpaceShower:pTmaxMatch = 2',
           'SpaceShower:QEDshowerByQ = off',
           'SpaceShower:pTdampMatch = 1',
-          'BeamRemnants:unresolvedHadron = 2',
+          'BeamRemnants:unresolvedHadron = 3',
+          'PartonLevel:Remnants = off', # keep beam remnants off, otherwise Pythia removes the kT smearing 
         ),
-        parameterSets = cms.vstring('pythia8CommonSettings','pythia8CP5Settings','pythia8PSweightsSettings','semiexclusive_process')      
+        parameterSets = cms.vstring('pythia8CommonSettings','pythia8CP5Settings','pythia8PSweightsSettings','exclusive_process')      
     ),
     comEnergy = cms.double(13000.0),
     filterEfficiency = cms.untracked.double(1.0),
