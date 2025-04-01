@@ -1,12 +1,12 @@
 import numpy as np
 '''
-setup parameters and run `python write_reweight_card.py`
+setup parameters and run `python3 write_reweight_card.py`
 '''
 def GetName(x):
 # function that converts float X.YZZ.. to string of form: XpY for positive mXpY for negative values
   _str=('m' if (x<0) else '')
   x=np.abs(x)
-  return _str+'%dp%d'%( int(x), int(round((x % 1)*10)))
+  return _str+'%dp%.2d'%( int(x), int(round((x % 1)*100))) # keep the precision up to 2 decimal points by multiplying with 100 
 
 # coupling scale (aQGC need to be scaled from TeV-4 to GeV-4)
 scale = 1
