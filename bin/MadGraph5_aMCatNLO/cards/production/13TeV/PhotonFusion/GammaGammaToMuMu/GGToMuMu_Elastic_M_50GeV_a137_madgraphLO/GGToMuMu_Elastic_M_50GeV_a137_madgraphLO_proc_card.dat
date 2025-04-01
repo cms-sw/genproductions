@@ -3,5 +3,6 @@ define l+ = e+ mu+ ta+
 define l- = e- mu- ta-
 define vl = ve vm vt
 define vl~ = ve~ vm~ vt~
-generate a a > e+ e-
-output GGToElEl_Elastic_M_50GeV_madgraphLO
+generate a a > mu+ mu-
+output GGToMuMu_Elastic_M_50GeV_a137_madgraphLO -nojpeg
+
