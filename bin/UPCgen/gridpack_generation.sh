@@ -24,7 +24,7 @@ create_setup(){
 }
 
 install_upcgen(){
-    UPCGEN=upcgen-tag-24-06-22
+    UPCGEN=upcgen-upcgen-o2-25-12-24-1
     cd ${WORKDIR}
 
     echo "Downloading UPCGen "${UPCGEN}
@@ -36,6 +36,7 @@ install_upcgen(){
     echo "Patching UPCGen "${UPCGEN}
     patch -ufZs -p1 -i ${PRODDIR}/patches/upcgen.patch -d ${UPCGENDIR}
     patch -ufZs -p1 -i ${PRODDIR}/patches/upcgen_xsec.patch -d ${UPCGENDIR}
+    patch -ufZs -p1 -i ${PRODDIR}/patches/upcgen_fix.patch -d ${UPCGENDIR}
 
     echo "Compiling UPCGen "${UPCGEN}
     cd ${UPCGENDIR}

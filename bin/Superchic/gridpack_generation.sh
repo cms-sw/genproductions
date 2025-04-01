@@ -24,7 +24,7 @@ create_setup(){
 }
 
 install_superchic(){
-    SUPERCHIC=SuperChic-5.4
+    SUPERCHIC=SuperChic-5.4.1
     cd ${WORKDIR}
 
     echo "Downloading "${SUPERCHIC}

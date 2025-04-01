@@ -1,0 +1,33 @@
+diff -ruN ./src/UpcGenerator.cpp ../upcgen_v22512241_patch/src/UpcGenerator.cpp
+--- ./src/UpcGenerator.cpp	2025-03-08 11:49:12.000000001 +0100
++++ ../upcgen_v22512241_patch/src/UpcGenerator.cpp	2025-03-08 11:51:50.000000001 +0100
+@@ -466,8 +466,9 @@
+ {
+   const int status = 33; // code from pythia 8: outgoing particles from subsequent subprocesses
+   vector<TLorentzVector> decays(2);
++  const auto& particle = particles[id-1];
+   double mDecay = decayMass;
+-  double ePhot1 = particles[id].Mag() / 2.;
++  double ePhot1 = particle.Mag() / 2.;
+   double pPhot1 = sqrt(ePhot1 * ePhot1 - mDecay * mDecay);
+   double phi1 = gRandom->Uniform(0., 2. * M_PI);
+   double cost1 = gRandom->Uniform(-1., 1.);
+@@ -476,8 +477,8 @@
+   vPhot1.SetMagThetaPhi(pPhot1, theta1, phi1);
+   decays[0].SetVectM(-vPhot1, mDecay);
+   decays[1].SetVectM(vPhot1, mDecay);
+-  TVector3 boost1 = particles[id].BoostVector();
+-  TVector3 zAxis1 = particles[id].Vect().Unit();
++  TVector3 boost1 = particle.BoostVector();
++  TVector3 zAxis1 = particle.Vect().Unit();
+   decays[0].RotateUz(zAxis1);
+   decays[1].RotateUz(zAxis1);
+   decays[0].Boost(boost1);
+@@ -818,7 +819,6 @@
+     mOutFile->Write();
+     mOutFile->Close();
+ 
+-    delete mOutTree;
+     delete mOutFile;
+   }
+ 

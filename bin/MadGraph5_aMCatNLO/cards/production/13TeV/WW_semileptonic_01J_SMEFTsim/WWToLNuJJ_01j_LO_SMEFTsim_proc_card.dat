@@ -1,0 +1,19 @@
+import model SMEFTsim_topU3l_MwScheme_UFO_b_massless-cHDD_cW_cHWB_cHWBtil_cHWtil_cHd_cHe_cHj1_cHj3_cHl1_cHl3_cHu_cWtil_ced_ceu_cje_cld_clj1_clj3_cll1_clu_massless
+
+# 4f:
+define j = g u c d s u~ c~ d~ s~
+define p = g u c d s u~ c~ d~ s~
+
+define ell+ = e+ mu+ ta+
+define ell- = e- mu- ta-
+define V = w+ w-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+
+generate p p > ell+ vl w- $$ t t~ h QCD=1 SMHLOOP=0 NP=1, w- > j j NP<=1 @0
+add process p p > ell+ vl w- j $$ t t~ h QCD=1 SMHLOOP=0 NP=1, w- > j j NP<=1 @1
+add process p p > ell- vl~ w+ $$ t t~ h QCD=1 SMHLOOP=0 NP=1, w+ > j j NP<=1 @2
+add process p p > ell- vl~ w+ j $$ t t~ h QCD=1 SMHLOOP=0 NP=1, w+ > j j  NP<=1 @3
+
+output WWToLNuJJ_01j_LO_SMEFTsim -nojpeg
+

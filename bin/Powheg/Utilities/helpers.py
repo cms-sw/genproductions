@@ -46,9 +46,6 @@ def runGetSource_patch_1(process) :
     "WZ" : "patch -l -p0 -i ${patches_dir}/lhapdf_zanderighi.patch",
     "ZZ" : "patch -l -p0 -i ${patches_dir}/lhapdf_zanderighi.patch\n \
 patch -l -p0 -i ${patches_dir}/zz_m4lcut.patch",
-    "b_bbar_4l" : "cd POWHEG-BOX\n \
-patch -l -p0 -i ${patches_dir}/res_openloops_long_install_dir.patch\n \
-cd ..",
     "ttb_NLO_dec" : "patch -l -p0 -i ${patches_dir}/pwhg_ttb_NLO_dec_gen_radiation_hook.patch",
     "Zj" : "if [ ${forMiNNLO} -eq 1 ]; then\n \
 cd POWHEG-BOX\n \
@@ -143,41 +140,6 @@ def runGetSource_patch_4(process) :
   return {
     "bbH" : "# Use option O0 for bbH (O2 too long)\n \
 sed -i -e \"s#O2#O0#g\" Makefile",
-    "HW_ew" : "# fix fortran options/linking to OpenLoops/missing libraries in VH_ew\n \
-sed -i -e \"s#\$(PWD)/\$(OBJ)#\$(OBJ)#g\" Makefile\n \
-sed -i -e \"s#\$(OLPATH)/lib_src#lib_src#g\" Makefile\n \
-sed -i -e \"s#cd \$(OLPATH)#cp -r \$(OLPATH)/* .#g\" Makefile\n \
-sed -i -e \"s#abspath(os.path.join(config#relpath(os.path.join(config#g\" ../OpenLoopsStuff/OpenLoops/SConstruct\n \
-sed -i -e \"s#rpath=\$(PWD)/\$(OBJDIR) -L\$(PWD)/\$(OBJDIR)#rpath=\$(OBJDIR) -L\$(OBJDIR)#g\" Makefile\n \
-sed -i -e \"s#PDFPACK=lhapdfif.o#PDFPACK=lhapdf6if.o lhapdf6ifcc.o#g\" Makefile\n \
-cat ${patches_dir}/missing_lhapdf6.txt >> Makefile",   
-    "HZ_ew" : "# fix fortran options/linking to OpenLoops/missing libraries in VH_ew\n \
-sed -i -e \"s#\$(PWD)/\$(OBJ)#\$(OBJ)#g\" Makefile\n \
-sed -i -e \"s#\$(OLPATH)/lib_src#lib_src#g\" Makefile\n \
-sed -i -e \"s#cd \$(OLPATH)#cp -r \$(OLPATH)/* .#g\" Makefile\n \
-sed -i -e \"s#abspath(os.path.join(config#relpath(os.path.join(config#g\" ../OpenLoopsStuff/OpenLoops/SConstruct\n \
-sed -i -e \"s#rpath=\$(PWD)/\$(OBJDIR) -L\$(PWD)/\$(OBJDIR)#rpath=\$(OBJDIR) -L\$(OBJDIR)#g\" Makefile\n \
-sed -i -e \"s#opencount.o#opencount.o sigequiv_hook.o#g\" Makefile\n \
-sed -i -e \"s#PDFPACK=lhapdfif.o#PDFPACK=lhapdf6if.o lhapdf6ifcc.o#g\" Makefile\n \
-cat ${patches_dir}/missing_lhapdf6.txt >> Makefile",
-    "HZJ_ew" : "# fix fortran options/linking to OpenLoops/missing libraries in VH_ew\n \
-sed -i -e \"s#\$(PWD)/\$(OBJ)#\$(OBJ)#g\" Makefile\n \
-sed -i -e \"s#\$(OLPATH)/lib_src#lib_src#g\" Makefile\n \
-sed -i -e \"s#cd \$(OLPATH)#cp -r \$(OLPATH)/* .#g\" Makefile\n \
-sed -i -e \"s#abspath(os.path.join(config#relpath(os.path.join(config#g\" ../OpenLoopsStuff/OpenLoops/SConstruct\n \
-sed -i -e \"s#rpath=\$(PWD)/\$(OBJDIR) -L\$(PWD)/\$(OBJDIR)#rpath=\$(OBJDIR) -L\$(OBJDIR)#g\" Makefile\n \
-sed -i -e \"s#OL_process_src#OL_process_src f90_flags=-ffree-line-length-none#g\" Makefile\n \
-sed -i -e \"s#boostrot.o#boostrot.o boostrot4.o#g\" Makefile",
-    "HWJ_ew" : "# fix fortran options/linking to OpenLoops/missing libraries in VH_ew\n \
-sed -i -e \"s#\$(PWD)/\$(OBJ)#\$(OBJ)#g\" Makefile\n \
-sed -i -e \"s#\$(OLPATH)/lib_src#lib_src#g\" Makefile\n \
-sed -i -e \"s#cd \$(OLPATH)#cp -r \$(OLPATH)/* .#g\" Makefile\n \
-sed -i -e \"s#abspath(os.path.join(config#relpath(os.path.join(config#g\" ../OpenLoopsStuff/OpenLoops/SConstruct\n \
-sed -i -e \"s#rpath=\$(PWD)/\$(OBJDIR) -L\$(PWD)/\$(OBJDIR)#rpath=\$(OBJDIR) -L\$(OBJDIR)#g\" Makefile\n \
-sed -i -e \"s#opencount.o#opencount.o sigequiv_hook.o#g\" Makefile\n \
-sed -i -e \"s#PDFPACK=lhapdfif.o#PDFPACK=lhapdf6if.o lhapdf6ifcc.o#g\" Makefile\n \
-sed -i -e \"s#boostrot.o#boostrot.o boostrot4.o#g\" Makefile\n \
-cat ${patches_dir}/missing_lhapdf6.txt >> Makefile",
     "ttJ" : "sed -i -e \"s#_PATH) -L#_PATH) #g\" Makefile\n \
 sed -i -e \"s# -lvirtual#/libvirtual.so.1.0.0#g\" Makefile",
     "ttH" : "# Use option O0 for ttH (O2 too long)\n \
@@ -186,6 +148,10 @@ sed -i 's/4.5d0/4.75d0/g' init_couplings.f",
     "gg_H_MSSM" : "sed -i 's/leq/le/g' nloreal.F\n \
 cp -p ../gg_H_quark-mass-effects/SLHA.h .\n \
 cp -p ../gg_H_quark-mass-effects/SLHADefs.h .",
+    "HZJ_ew" : "sed -i -e \"s#boostrot.o#boostrot.o boostrot4.o#g\" Makefile",
+    "HWJ_ew" : "sed -i -e \"s#opencount.o#opencount.o sigequiv_hook.o#g\" Makefile\n \
+sed -i -e \"s#PDFPACK=lhapdfif.o#PDFPACK=lhapdf6if.o lhapdf6ifcc.o#g\" Makefile\n \
+sed -i -e \"s#boostrot.o#boostrot.o boostrot4.o#g\" Makefile",
     "HJ/HJMiNNLO" : "sed -i -e \"s#PDF=hoppet#PDF=lhapdf#\" Makefile \n \
      sed -i -e \"s#internal_parameters.o coefficient_functions_nnlops.o#internal_parameters.o coefficient_functions_nnlops.o sudakov_radiators.o#\" Makefile",    
   }.get(process,"")
@@ -219,7 +185,12 @@ def runGetSource_patch_6(process) :
     "WWJ" : "cp Makefile Makefile.orig\n \
 cat Makefile.orig | sed -e \"s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d \"=\" -f2)/bin/fastjet-config#g\" | sed -e \"s#\#\ FASTJET_CONFIG#FASTJET_CONFIG#g\" | sed -e \"s#\#\ LIBSFASTJET#LIBSFASTJET#g\" | sed -e \"s#\#\ FJCXXFLAGS#FJCXXFLAGS#g\" > Makefile\n \
 cd ${WORKDIR}/${name}/POWHEG-BOX/MATRIXStuff\n \
-sed -i -e 's#python#python2#g' matrix\n \
+sed -i -e 's#python#python3#g' matrix\n \
+sed -i -e 's/print /print ("") # print /g' matrix\n \
+sed -i -e 's#python#python3#g' bin/*\n \
+sed -i -e 's/print /print("") # print /g' bin/*\n \
+sed -i -e 's#python#python3#g' bin/modules/*\n \
+sed -i -e 's/print /print("") # print /g' bin/modules/*\n \
 ./matrix --minnlo_interface\n \
 cd -\n \
 cd ${WORKDIR}/${name}\n \
@@ -232,28 +203,48 @@ source /cvmfs/cms.cern.ch/${SCRAM_ARCH}/external/cmake/3.17.2/etc/profile.d/init
     "ZZJ" : "cp Makefile Makefile.orig\n \
 cat Makefile.orig | sed -e \"s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d \"=\" -f2)/bin/fastjet-config#g\" | sed -e \"s#\#\ FASTJET_CONFIG#FASTJET_CONFIG#g\" > Makefile\n \
 cd ${WORKDIR}/${name}/POWHEG-BOX/MATRIXStuff\n \
-sed -i -e 's#python#python2#g' matrix\n \
+sed -i -e 's#python#python3#g' matrix\n \
+sed -i -e 's/print /print ("") # print /g' matrix\n \
+sed -i -e 's#python#python3#g' bin/*\n \
+sed -i -e 's/print /print("") # print /g' bin/*\n \
+sed -i -e 's#python#python3#g' bin/modules/*\n \
+sed -i -e 's/print /print("") # print /g' bin/modules/*\n \
 ./matrix --minnlo_interface\n \
 cd -\n \
 source /cvmfs/cms.cern.ch/${SCRAM_ARCH}/external/cmake/3.10.0/etc/profile.d/init.sh",
     "WZJ" : "cp Makefile Makefile.orig\n \
 cat Makefile.orig | sed -e \"s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d \"=\" -f2)/bin/fastjet-config#g\" | sed -e \"s#\#\ FASTJET_CONFIG#FASTJET_CONFIG#g\" > Makefile\n \
 cd ${WORKDIR}/${name}/POWHEG-BOX/MATRIXStuff\n \
-sed -i -e 's#python#python2#g' matrix\n \
+sed -i -e 's#python#python3#g' matrix\n \
+sed -i -e 's/print /print ("") # print /g' matrix\n \
+sed -i -e 's#python#python3#g' bin/*\n \
+sed -i -e 's/print /print("") # print /g' bin/*\n \
+sed -i -e 's#python#python3#g' bin/modules/*\n \
+sed -i -e 's/print /print("") # print /g' bin/modules/*\n \
 ./matrix --minnlo_interface\n \
 cd -\n \
 source /cvmfs/cms.cern.ch/${SCRAM_ARCH}/external/cmake/3.10.0/etc/profile.d/init.sh",
     "ZgamJ" : "cp Makefile Makefile.orig\n \
 cat Makefile.orig | sed -e \"s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d \"=\" -f2)/bin/fastjet-config#g\" | sed -e \"s#\#\ FASTJET_CONFIG#FASTJET_CONFIG#g\" > Makefile\n \
 cd ${WORKDIR}/${name}/POWHEG-BOX/MATRIXStuff\n \
-sed -i -e 's#python#python2#g' matrix\n \
+sed -i -e 's#python#python3#g' matrix\n \
+sed -i -e 's/print /print ("") # print /g' matrix\n \
+sed -i -e 's#python#python3#g' bin/*\n \
+sed -i -e 's/print /print("") # print /g' bin/*\n \
+sed -i -e 's#python#python3#g' bin/modules/*\n \
+sed -i -e 's/print /print("") # print /g' bin/modules/*\n \
 ./matrix --minnlo_interface\n \
 cd -\n \
 source /cvmfs/cms.cern.ch/${SCRAM_ARCH}/external/cmake/3.10.0/etc/profile.d/init.sh",
     "gg4l" : "cp Makefile Makefile.orig\n \
 cat Makefile.orig | sed -e \"s#FASTJET_CONFIG=.\+#FASTJET_CONFIG=$(scram tool info fastjet | grep BASE | cut -d \"=\" -f2)/bin/fastjet-config#g\" | sed -e \"s#\#\ FASTJET_CONFIG#FASTJET_CONFIG#g\" > Makefile\n \
 cd ${WORKDIR}/${name}/POWHEG-BOX/MATRIXStuff\n \
-sed -i -e 's#python#python2#g' matrix\n \
+sed -i -e 's#python#python3#g' matrix\n \
+sed -i -e 's/print /print ("") # print /g' matrix\n \
+sed -i -e 's#python#python3#g' bin/*\n \
+sed -i -e 's/print /print("") # print /g' bin/*\n \
+sed -i -e 's#python#python3#g' bin/modules/*\n \
+sed -i -e 's/print /print("") # print /g' bin/modules/*\n \
 ./matrix --minnlo_interface\n \
 cd -\n \
 source /cvmfs/cms.cern.ch/${SCRAM_ARCH}/external/cmake/3.10.0/etc/profile.d/init.sh",
