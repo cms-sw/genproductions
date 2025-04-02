@@ -31,6 +31,7 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
           'SpaceShower:pTdampMatch = 1',
           'BeamRemnants:unresolvedHadron = 3',
           'PartonLevel:Remnants = off',
+          'Check:event = off',
         ),
         parameterSets = cms.vstring('pythia8CommonSettings','pythia8CP5Settings','pythia8PSweightsSettings','exclusive_process')      
     ),
