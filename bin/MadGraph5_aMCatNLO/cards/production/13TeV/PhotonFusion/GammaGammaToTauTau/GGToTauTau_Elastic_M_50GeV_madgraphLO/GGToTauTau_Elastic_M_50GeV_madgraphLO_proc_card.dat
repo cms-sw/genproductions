@@ -1,0 +1,7 @@
+import model aqgc_ufo
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
+define vl = ve vm vt
+define vl~ = ve~ vm~ vt~
+generate a a > ta+ ta-
+output GGToTauTau_Elastic_M_50GeV_madgraphLO
