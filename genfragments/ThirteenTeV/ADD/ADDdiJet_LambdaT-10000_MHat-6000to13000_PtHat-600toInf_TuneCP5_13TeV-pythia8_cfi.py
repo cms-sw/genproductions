@@ -1,7 +1,7 @@
 from Configuration.Generator.Pythia8CommonSettings_cfi import *
 from Configuration.Generator.MCTunes2017.PythiaCP5Settings_cfi import *
 
-process.generator = cms.EDFilter("Pythia8GeneratorFilter",
+process.generator = cms.EDFilter("Pythia8ConcurrentGeneratorFilter",
 	comEnergy = cms.double(13000),
 	crossSection = cms.untracked.double(1),
 	filterEfficiency = cms.untracked.double(1),
