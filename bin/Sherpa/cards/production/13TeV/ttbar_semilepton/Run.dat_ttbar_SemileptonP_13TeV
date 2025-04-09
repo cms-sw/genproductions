@@ -1,0 +1,63 @@
+(run){
+  % general setting
+  EVENTS 1000; ERROR 0.99;
+  EVENT_MODE HepMC;
+
+  % scales, tags for scale variations
+  FSF:=1.; RSF:=1.; QSF:=1.;
+  SCALES STRICT_METS{FSF*MU_F2}{RSF*MU_R2}{QSF*MU_Q2};
+  SCALE_VARIATIONS 0.25,0.25 0.25,1. 1.,0.25 1.,1. 1.,4. 4.,1. 4.,4.;
+  CORE_SCALE QCD;
+  EXCLUSIVE_CLUSTER_MODE 1;
+  METS_BBAR_MODE 5;
+  NLO_CSS_PSMODE=1;
+  NLO_SUBTRACTION_SCHEME=2;
+
+  % tags for process setup
+  NJET:=4; LJET:=2,3; QCUT:=30.;
+
+  % me generator settings
+  ME_SIGNAL_GENERATOR Comix Amegic LOOPGEN;
+  EVENT_GENERATION_MODE Unweighted;
+  OVERWEIGHT_THRESHOLD = 10;
+  HEPMC_USE_NAMED_WEIGHTS=1;
+  LOOPGEN:=OpenLoops;
+  OL_PARAMETERS preset 2 ew_renorm_scheme 1;
+  ASSOCIATED_CONTRIBUTIONS_VARIATIONS=EW EW|LO1 EW|LO1|LO2 EW|LO1|LO2|LO3;
+  INTEGRATION_ERROR=0.05;
+
+  % collider setup
+  BEAM_1 2212; BEAM_ENERGY_1 6500.;
+  BEAM_2 2212; BEAM_ENERGY_2 6500.;
+  PDF_LIBRARY     LHAPDFSherpa;
+  PDF_SET         NNPDF30_nnlo_as_0118;
+  PDF_SET_VERSION 0;
+  PDF_GRID_PATH   PDFsets;
+  PDF_VARIATIONS=NNPDF30_nnlo_as_0118[all]
+
+  % decays
+  HARD_DECAYS On;
+  HARD_SPIN_CORRELATIONS 1;
+  HDH_STATUS[24,12,-11]=2 
+  HDH_STATUS[24,14,-13]=2
+  HDH_STATUS[24,16,-15]=2
+  HDH_STATUS[-24,-12,11]=0
+  HDH_STATUS[-24,-14,13]=0
+  HDH_STATUS[-24,-16,15]=0
+  STABLE[24] 0; STABLE[6] 0; WIDTH[6] 0;
+
+  NLO_SMEAR_THRESHOLD 1;
+  NLO_SMEAR_POWER 2;
+}(run)
+
+(processes){
+  Process : 93 93 ->  6 -6 93{NJET};
+  Order (*,0); CKKW sqr(QCUT/E_CMS);
+  NLO_QCD_Mode MC@NLO {LJET};
+  ME_Generator Amegic {LJET};
+  RS_ME_Generator Comix {LJET};
+  Loop_Generator LOOPGEN {LJET};
+  Associated_Contributions EW|LO1|LO2|LO3 {LJET};
+  Enhance_Function VAR{pow(max(sqrt(H_T2)-PPerp(p[2])-PPerp(p[3]),(PPerp(p[2])+PPerp(p[3]))/2)/30.0,2)} {3,4,5,6}
+  End process
+}(processes)
