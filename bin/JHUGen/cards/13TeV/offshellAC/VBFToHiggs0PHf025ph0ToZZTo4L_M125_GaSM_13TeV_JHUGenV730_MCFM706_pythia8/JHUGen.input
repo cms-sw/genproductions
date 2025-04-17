@@ -1,0 +1,1 @@
+Process=66 DecayMode1=8 DecayMode2=8 MReso=125 GaReso=0.00407 ghz1=1,0 ghz2=0.157323,0 VegasNc0=10000000 LHAPDF=NNPDF30_nlo_as_0118/NNPDF30_nlo_as_0118.info ReweightInterf=1 mJJcut=30 MPhotonCutoff=4 deltaRcut=0 pTjetcut=1 etalepcut=2.7 pTlepcut=3 m4l_min=70 m4l_max=13000 detajetcut=0 JetsOppositeEta=0 etajetcut=6.5 FacScheme=1 MuFacMultiplier=1 RenScheme=1 MuRenMultiplier=1
