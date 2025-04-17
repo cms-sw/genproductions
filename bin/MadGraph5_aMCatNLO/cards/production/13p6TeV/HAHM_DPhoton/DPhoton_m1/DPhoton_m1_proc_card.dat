@@ -1,0 +1,10 @@
+import model --modelname HAHM_variableMW_v3_UFO
+
+define p = g u c d s b u~ c~ d~ s~ b~
+define j = g u c d s b u~ c~ d~ s~ b~
+define f = u c d s u~ c~ d~ s~ b b~ e+ e- m+ m- tt+ tt- ve vm vt ve~ vm~ vt~
+
+generate p p > zp > m+ m- @0
+add process p p > zp > m+ m- j @1
+
+output DPhoton_m1
