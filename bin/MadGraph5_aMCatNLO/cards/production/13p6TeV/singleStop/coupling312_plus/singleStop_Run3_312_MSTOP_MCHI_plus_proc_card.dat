@@ -29,7 +29,7 @@ set loop_color_flows False
 set gauge unitary
 set complex_mass_scheme False
 set max_npoint_for_channel 0
-import model ../../../RPVMSSM_UFO --modelname
+import model RPVMSSM_UFO --modelname
 define p = g u c d s u~ c~ d~ s~
 define j = g u c d s u~ c~ d~ s~
 define l+ = e+ mu+
