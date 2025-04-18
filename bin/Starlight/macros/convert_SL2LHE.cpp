@@ -2,6 +2,7 @@
 #include <fstream>
 #include "Math/Vector4D.h"
 #include "TDatabasePDG.h"
+#include "TSystem.h"
 
 
 int getMomPdgID(const int& chnId)
@@ -33,6 +34,7 @@ int getMomPdgID(const int& chnId)
 
 void convert_SL2LHE(const std::string& inFileName, const double& beamE1, const double& beamE2, const int& chnId)
 {
+  gSystem->Unsetenv("CLING_PREBUILT_MODULE_PATH");
   // Open input file
   std::ifstream inFile(inFileName);
   if (not inFile.is_open())

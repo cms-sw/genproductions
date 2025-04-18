@@ -5,10 +5,12 @@
 #include "TFile.h"
 #include "TTreeReader.h"
 #include "TTreeReaderValue.h"
+#include "TSystem.h"
 
 
 void convert_UGROOT2LHE(const std::string& inFileName, const double& beamE1, const double& beamE2)
 {
+  gSystem->Unsetenv("CLING_PREBUILT_MODULE_PATH");
   // Open input file
   TFile inFile(inFileName.c_str(), "READ");
   if (not inFile.IsOpen())
