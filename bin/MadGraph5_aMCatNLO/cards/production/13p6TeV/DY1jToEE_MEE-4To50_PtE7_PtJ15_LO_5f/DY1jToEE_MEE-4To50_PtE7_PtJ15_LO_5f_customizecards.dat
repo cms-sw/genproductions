@@ -1,0 +1,22 @@
+# These inputs are based on fixing the PDG vlaues of mZ, mW, and G_fermi
+# The MC programs use a constant width scheme, whereas PDG values are sqrt(s) dependent.
+# We correct for this following Sect. 3.1 in https://arxiv.org/pdf/1606.02330.pdf
+
+set param_card SMINPUTS 1 128.82531590804655
+set param_card SMINPUTS 2 1.1663787e-05
+
+# Z boson
+set param_card mass 23 91.153509740726733
+set param_card DECAY 23 2.4932018986110700
+
+# W boson
+set param_card mass 24 79.906853549493746
+set param_card DECAY 24 2.085
+
+# https://twiki.cern.ch/twiki/bin/view/LHCPhysics/LHCTopWGSummaryPlots#Top_Quark_Mass
+# CMS combined result (Sep 2015)
+
+# top quark
+set param_card mass 6 172.5
+set param_card DECAY 6 1.311
+set param_card yukawa 6 172.5
