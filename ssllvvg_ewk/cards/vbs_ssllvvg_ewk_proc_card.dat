@@ -1,0 +1,7 @@
+
+define l+ = e+ mu+ ta+
+define l- = e- mu- ta-
+
+generate p p > l+ l+ vl vl a j j QCD=0 @ 1
+add process p p > l- l- vl~ vl~ a j j QCD=0 @ 2
+output vbs_ssllvvg_ewk -nojpeg

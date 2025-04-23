@@ -1,0 +1,3 @@
+generate p p > l+ l+ vl vl a j j  @ 1
+add process p p > l- l- vl~ vl~ a j j  @ 2
+output vbs_ssllvvg -nojpeg
