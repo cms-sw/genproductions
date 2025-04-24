@@ -59,7 +59,7 @@ install_crmc(){
 
 make_tarball(){
     #Set tarball name
-    TARBALL=crmc_${generator}_pO_${SCRAM_ARCH}_${CMSSW_VERSION}_tarball.tgz
+    TARBALL=crmc_${generator}_${SCRAM_ARCH}_${CMSSW_VERSION}_tarball.tgz
 
     echo "Creating tarball"
     cd ${WORKDIR}

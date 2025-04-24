@@ -18,16 +18,51 @@ run_crmc(){
     sed -i "s/MinDecayLength  1./MinDecayLength  100./" crmc.param
     
     generator=GENERATOR_REPLACE
-    if [ "$generator" = 'eposlhcr' ]; then
+    
+    if [ "$generator" = 'eposlhcr_pO' ]; then
       ./crmc -m 0 -i 1 -p 6800 -I 80160 -P -3400 -o lhe -n $nevt -s $rnum -f cmsgrid_final.lhe
-    elif [ "$generator" = 'sibyll' ]; then
+    elif [ "$generator" = 'eposlhcr_Op' ]; then
+      ./crmc -m 0 -i 80160 -p 3400 -I 1 -P -6800 -o lhe -n $nevt -s $rnum -f cmsgrid_final.lhe
+    elif [ "$generator" = 'eposlhcr_OO' ]; then
+      ./crmc -m 0 -i 80160 -p 5360 -I 80160 -P -5360 -o lhe -n $nevt -s $rnum -f cmsgrid_final.lhe
+    elif [ "$generator" = 'eposlhcr_NeNe' ]; then
+      ./crmc -m 0 -i 100200 -p 5360 -I 100200 -P -5360 -o lhe -n $nevt -s $rnum -f cmsgrid_final.lhe
+    
+    elif [ "$generator" = 'sibyll_pO' ]; then
       ./crmc -m 6 -i 1 -p 6800 -I 80160 -P -3400 -o lhe -n $nevt -s $rnum -f cmsgrid_final.lhe
-    elif [ "$generator" = 'dpmjetIII.19' ]; then
+    elif [ "$generator" = 'sibyll_Op' ]; then
+      ./crmc -m 6 -i 80160 -p 3400 -I 1 -P -6800 -o lhe -n $nevt -s $rnum -f cmsgrid_final.lhe
+    elif [ "$generator" = 'sibyll_OO' ]; then
+      ./crmc -m 6 -i 80160 -p 5360 -I 80160 -P -5360 -o lhe -n $nevt -s $rnum -f cmsgrid_final.lhe
+    elif [ "$generator" = 'sibyll_NeNe' ]; then
+      ./crmc -m 6 -i 100200 -p 5360 -I 100200 -P -5360 -o lhe -n $nevt -s $rnum -f cmsgrid_final.lhe
+
+    elif [ "$generator" = 'dpmjetIII.19_pO' ]; then
       ./crmc -m 12 -i 1 -p 6800 -I 80160 -P -3400 -o lhe -n $nevt -s $rnum -f cmsgrid_final.lhe
-    elif [ "$generator" = 'qgsjetIII' ]; then
+    elif [ "$generator" = 'dpmjetIII.19_Op' ]; then
+      ./crmc -m 12 -i 80160 -p 3400 -I 1 -P -6800 -o lhe -n $nevt -s $rnum -f cmsgrid_final.lhe
+    elif [ "$generator" = 'dpmjetIII.19_OO' ]; then
+      ./crmc -m 12 -i 80160 -p 5360 -I 80160 -P -5360 -o lhe -n $nevt -s $rnum -f cmsgrid_final.lhe
+    elif [ "$generator" = 'dpmjetIII.19_NeNe' ]; then
+      ./crmc -m 12 -i 100200 -p 5360 -I 100200 -P -5360 -o lhe -n $nevt -s $rnum -f cmsgrid_final.lhe
+
+    elif [ "$generator" = 'qgsjetIII_pO' ]; then
       echo unpack qgsdat-III.lzma
       xz --format=lzma --decompress ${LHEWORKDIR}/${CRMCDIR}/build/share/crmc/qgsdat-III.lzma
       ./crmc -m 13 -i 1 -p 6800 -I 80160 -P -3400 -o lhe -n $nevt -s $rnum -f cmsgrid_final.lhe
+    elif [ "$generator" = 'qgsjetIII_Op' ]; then
+      echo unpack qgsdat-III.lzma
+      xz --format=lzma --decompress ${LHEWORKDIR}/${CRMCDIR}/build/share/crmc/qgsdat-III.lzma
+      ./crmc -m 13 -i 80160 -p 3400 -I 1 -P -6800 -o lhe -n $nevt -s $rnum -f cmsgrid_final.lhe
+    elif [ "$generator" = 'qgsjetIII_OO' ]; then
+      echo unpack qgsdat-III.lzma
+      xz --format=lzma --decompress ${LHEWORKDIR}/${CRMCDIR}/build/share/crmc/qgsdat-III.lzma
+      ./crmc -m 13 -i 80160 -p 5360 -I 80160 -P -5360 -o lhe -n $nevt -s $rnum -f cmsgrid_final.lhe
+    elif [ "$generator" = 'qgsjetIII_NeNe' ]; then
+      echo unpack qgsdat-III.lzma
+      xz --format=lzma --decompress ${LHEWORKDIR}/${CRMCDIR}/build/share/crmc/qgsdat-III.lzma
+      ./crmc -m 13 -i 100200 -p 5360 -I 100200 -P -5360 -o lhe -n $nevt -s $rnum -f cmsgrid_final.lhe
+      
     fi
     mv cmsgrid_final.lhe ${LHEWORKDIR}/cmsgrid_final.lhe
     echo "***MC GENERATION COMPLETED***"
