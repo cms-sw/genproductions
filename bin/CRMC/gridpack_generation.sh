@@ -42,7 +42,9 @@ install_crmc(){
     sed -i '1685s/.*/        jmohep(2,nhep)=0/' src/epos/epos-bas.f
     sed -i '1712s/.*/        jmohep(1,nhep)=0/' src/epos/epos-bas.f
     sed -i '1713s/.*/        jmohep(2,nhep)=0/' src/epos/epos-bas.f
-    sed -i 's/AB-->/AB->/g' /src/epos/epos-bas.f #FIXME    
+    # FIXME - hack to modify comments to fit xml format
+    sed -i 's/AB-->/AB->/g' src/epos/epos-bas.f
+       
     CMAKE=$([[ $(cmake --version | grep -cE *"n ([3-9]\.)")>0 ]] && echo "cmake" || echo "cmake3")
     ${CMAKE} -S . -B BUILD -DCMAKE_INSTALL_PREFIX=${CRMCDIR}/install -DCRMC_QGSJETIII=ON -DCRMC_SIBYLL=ON -DCRMC_DPMJET19=ON
     ${CMAKE} --build BUILD --target install --parallel $(nproc)
