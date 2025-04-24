@@ -1,0 +1,25 @@
+import FWCore.ParameterSet.Config as cms
+
+externalLHEProducer = cms.EDProducer("ExternalLHEProducer",
+    args = cms.vstring(PATH_TO_TARBALL),
+    nEvents = cms.untracked.uint32(1),
+    numberOfParameters = cms.uint32(1),
+    outputFile = cms.string('cmsgrid_final.lhe'),
+    scriptName = cms.FileInPath('GeneratorInterface/LHEInterface/data/run_generic_tarball_cvmfs.sh')
+)
+
+generator = cms.EDFilter("Pythia8HadronizerFilter",
+    PythiaParameters = cms.PSet(
+        process_off = cms.vstring(
+            'ProcessLevel:all = off',
+        ),
+        parameterSets = cms.vstring('process_off')
+    ),
+    comEnergy = cms.double(BEAM_ENERGY),
+    filterEfficiency = cms.untracked.double(1.0),
+    maxEventsToPrint = cms.untracked.int32(1),
+    pythiaHepMCVerbosity = cms.untracked.bool(False),
+    pythiaPylistVerbosity = cms.untracked.int32(1)
+)
+
+ProductionFilterSequence = cms.Sequence(generator)
