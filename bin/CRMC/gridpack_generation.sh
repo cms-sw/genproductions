@@ -37,6 +37,12 @@ install_crmc(){
     echo "Compiling ${CRMC}"
     cd ${CRMCDIR}
     source /cvmfs/sft.cern.ch/lcg/views/LCG_104/x86_64-el9-gcc13-opt/setup.sh # using LCG for now, FIXME
+    # FIXME - hack to change beam mother index from -1 to 0
+    sed -i '1684s/.*/        jmohep(1,nhep)=0/' src/epos/epos-bas.f
+    sed -i '1685s/.*/        jmohep(2,nhep)=0/' src/epos/epos-bas.f
+    sed -i '1712s/.*/        jmohep(1,nhep)=0/' src/epos/epos-bas.f
+    sed -i '1713s/.*/        jmohep(2,nhep)=0/' src/epos/epos-bas.f
+    sed -i 's/AB-->/AB->/g' /src/epos/epos-bas.f #FIXME    
     CMAKE=$([[ $(cmake --version | grep -cE *"n ([3-9]\.)")>0 ]] && echo "cmake" || echo "cmake3")
     ${CMAKE} -S . -B BUILD -DCMAKE_INSTALL_PREFIX=${CRMCDIR}/install -DCRMC_QGSJETIII=ON -DCRMC_SIBYLL=ON -DCRMC_DPMJET19=ON
     ${CMAKE} --build BUILD --target install --parallel $(nproc)

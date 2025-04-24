@@ -7,7 +7,6 @@ reinstall_crmc(){
     CMAKE=$([[ $(cmake --version | grep -cE *"n ([3-9]\.)")>0 ]] && echo "cmake" || echo "cmake3")
     cd ${LHEWORKDIR}/${CRMCDIR}
     source /cvmfs/sft.cern.ch/lcg/views/LCG_104/x86_64-el9-gcc13-opt/setup.sh # using LCG for now, FIXME
-    sed -i 's/AB-->/AB->/g'  ${LHEWORKDIR}/${CRMCDIR}/src/epos/epos-bas.f #FIXME
     ${CMAKE} -S . -B BUILD -DCMAKE_INSTALL_PREFIX=${LHEWORKDIR}/${CRMCDIR}/build -DCRMC_QGSJETIII=ON -DCRMC_SIBYLL=ON -DCRMC_DPMJET19=ON
     ${CMAKE} --build BUILD --target install --parallel $(nproc)
 }
