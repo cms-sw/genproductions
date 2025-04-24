@@ -1,0 +1,5 @@
+import model sm-ckm_no_b_mass
+
+generate p p > e+ e- j
+
+output DY1jToEE_MEE-4To50_PtE7_PtJ15_LO_5f -nojpeg
