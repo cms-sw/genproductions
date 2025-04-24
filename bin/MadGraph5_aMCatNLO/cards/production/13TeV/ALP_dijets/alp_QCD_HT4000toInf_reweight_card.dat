@@ -1,0 +1,83 @@
+change helicity False
+change rwgt_dir rwgt
+
+
+#******************** fa1000 ********************
+launch --rwgt_name=fa1000
+        set param_card alppars 1 1.000000e+03
+        set param_card alppars 2 1.000000e+00
+        set param_card alppars 3 0.000000e+00
+        set param_card alppars 4 0.000000e+00
+        set param_card alppars 5 0.000000e+00
+
+#******************** fa1500 ********************
+launch --rwgt_name=fa1500
+        set param_card alppars 1 1.500000e+03
+        set param_card alppars 2 1.000000e+00
+        set param_card alppars 3 0.000000e+00
+        set param_card alppars 4 0.000000e+00
+        set param_card alppars 5 0.000000e+00
+
+#******************** fa2000 ********************
+launch --rwgt_name=fa2000
+        set param_card alppars 1 2.000000e+03
+        set param_card alppars 2 1.000000e+00
+        set param_card alppars 3 0.000000e+00
+        set param_card alppars 4 0.000000e+00
+        set param_card alppars 5 0.000000e+00
+
+#******************** fa2500 ********************
+launch --rwgt_name=fa2500
+        set param_card alppars 1 2.500000e+03
+        set param_card alppars 2 1.000000e+00
+        set param_card alppars 3 0.000000e+00
+        set param_card alppars 4 0.000000e+00
+        set param_card alppars 5 0.000000e+00
+
+#******************** fa3000 ********************
+launch --rwgt_name=fa3000
+        set param_card alppars 1 3.000000e+03
+        set param_card alppars 2 1.000000e+00
+        set param_card alppars 3 0.000000e+00
+        set param_card alppars 4 0.000000e+00
+        set param_card alppars 5 0.000000e+00
+
+#******************** fa3500 ********************
+launch --rwgt_name=fa3500
+        set param_card alppars 1 3.500000e+03
+        set param_card alppars 2 1.000000e+00
+        set param_card alppars 3 0.000000e+00
+        set param_card alppars 4 0.000000e+00
+        set param_card alppars 5 0.000000e+00
+
+#******************** fa4000 ********************
+launch --rwgt_name=fa4000
+        set param_card alppars 1 4.000000e+03
+        set param_card alppars 2 1.000000e+00
+        set param_card alppars 3 0.000000e+00
+        set param_card alppars 4 0.000000e+00
+        set param_card alppars 5 0.000000e+00
+
+#******************** fa4500 ********************
+launch --rwgt_name=fa4500
+        set param_card alppars 1 4.500000e+03
+        set param_card alppars 2 1.000000e+00
+        set param_card alppars 3 0.000000e+00
+        set param_card alppars 4 0.000000e+00
+        set param_card alppars 5 0.000000e+00
+
+#******************** fa5000 ********************
+launch --rwgt_name=fa5000
+        set param_card alppars 1 5.000000e+03
+        set param_card alppars 2 1.000000e+00
+        set param_card alppars 3 0.000000e+00
+        set param_card alppars 4 0.000000e+00
+        set param_card alppars 5 0.000000e+00
+
+#******************** fa50000 ********************
+launch --rwgt_name=fa50000
+        set param_card alppars 1 5.000000e+04
+        set param_card alppars 2 1.000000e+00
+        set param_card alppars 3 0.000000e+00
+        set param_card alppars 4 0.000000e+00
+        set param_card alppars 5 0.000000e+00
