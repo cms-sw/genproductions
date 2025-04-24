@@ -10,10 +10,11 @@ externalLHEProducer = cms.EDProducer("ExternalLHEProducer",
 
 generator = cms.EDFilter("Pythia8HadronizerFilter",
     PythiaParameters = cms.PSet(
-        process_off = cms.vstring(
+        skip_hadronization = cms.vstring(
             'ProcessLevel:all = off',
+            'Check:event = off'
         ),
-        parameterSets = cms.vstring('process_off')
+        parameterSets = cms.vstring('skip_hadronization')
     ),
     comEnergy = cms.double(BEAM_ENERGY),
     filterEfficiency = cms.untracked.double(1.0),
