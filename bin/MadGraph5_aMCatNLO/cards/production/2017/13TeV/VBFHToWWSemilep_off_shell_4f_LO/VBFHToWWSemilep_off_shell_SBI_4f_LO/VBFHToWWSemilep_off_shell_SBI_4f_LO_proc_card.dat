@@ -1,0 +1,6 @@
+import model loop_sm
+define l- = e- mu- ta-
+define l+ = e+ mu+ ta+
+generate p p > j j w+ w- $h QCD=0, w+ > l+ vl, w- > j j
+add process p p > j j w+ w- $h QCD=0, w+ > j j, w- > l- vl~
+output VBFHToWWSemilep_off_shell_SBI_4f_LO -nojpeg
