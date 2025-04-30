@@ -5,7 +5,7 @@ fail_exit() { echo "$@"; exit 1; }
 reinstall_crmc(){
     echo "Compiling CRMC"
     cd ${LHEWORKDIR}/${CRMCDIR}
-    source /cvmfs/sft.cern.ch/lcg/views/LCG_104/x86_64-el9-gcc13-opt/setup.sh # using LCG for now, FIXME   
+    source /cvmfs/sft.cern.ch/lcg/views/LCG_107/x86_64-el8-gcc11-opt/setup.sh # using LCG for now, FIXME   
     
     CMAKE=$([[ $(cmake --version | grep -cE *"n ([3-9]\.)")>0 ]] && echo "cmake" || echo "cmake3")
     ${CMAKE} -S . -B BUILD CMAKE_ARGS_REPLACE
