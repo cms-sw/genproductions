@@ -24,38 +24,36 @@ create_setup(){
 }
 
 install_crmc(){
-    CRMC_VER=v2.2.0
-    CRMC=crmc-${CRMC_VER}
+    CRMC_VER=v2.2.1
+    CRMCDIR="crmc-${CRMC_VER}"
     cd ${WORKDIR}
 
-    echo "Downloading "${CRMC}
-    CRMCDIR=${WORKDIR}/crmc_v${CRMC//[!0-9]/}
-    wget --no-verbose --no-check-certificate https://gitlab.iap.kit.edu/AirShowerPhysics/crmc/-/archive/${CRMC_VER}/${CRMC}.tar.gz
-    tar -xzf ${CRMC}.tar.gz && mv ${CRMC} ${CRMCDIR}
-    rm -f ${CRMC}.tar.gz
+    echo "Downloading CRMC"
+    wget --no-verbose --no-check-certificate https://cms-project-generators.web.cern.ch/cms-project-generators/crmc-${CRMC_VER}.tar.gz
+    tar -xzf crmc-${CRMC_VER}.tar.gz
+    rm -f crmc-${CRMC_VER}.tar.gz
 
-    echo "Compiling ${CRMC}"
-    cd ${CRMCDIR}
-    source /cvmfs/sft.cern.ch/lcg/views/LCG_104/x86_64-el9-gcc13-opt/setup.sh # using LCG for now, FIXME
-    # FIXME - hack to change beam mother index from -1 to 0
-    sed -i '1684s/.*/        jmohep(1,nhep)=0/' src/epos/epos-bas.f
-    sed -i '1685s/.*/        jmohep(2,nhep)=0/' src/epos/epos-bas.f
-    sed -i '1712s/.*/        jmohep(1,nhep)=0/' src/epos/epos-bas.f
-    sed -i '1713s/.*/        jmohep(2,nhep)=0/' src/epos/epos-bas.f
-    # FIXME - hack to modify comments to fit xml format
-    sed -i 's/AB-->/AB->/g' src/epos/epos-bas.f
-       
-    CMAKE=$([[ $(cmake --version | grep -cE *"n ([3-9]\.)")>0 ]] && echo "cmake" || echo "cmake3")
-    ${CMAKE} -S . -B BUILD -DCMAKE_INSTALL_PREFIX=${CRMCDIR}/install -DCRMC_QGSJETIII=ON -DCRMC_SIBYLL=ON -DCRMC_DPMJET19=ON
-    ${CMAKE} --build BUILD --target install --parallel $(nproc)
-    rm -rf BUILD install
+    # CMAKE agruments (depend on the generator type)
+    echo "Setting CMAKE for CRMC"
+    CMAKEINSTARGS='-DCMAKE_INSTALL_PREFIX=${PWD}\/install'
+    [[ $generator =~ "sibyll" ]] && CMAKEINSTARGS="$CMAKEINSTARGS -DCRMC_SIBYLL=ON"
+    [[ $generator =~ "dpmjetIII.19" ]] && CMAKEINSTARGS="$CMAKEINSTARGS -DCRMC_DPMJET19=ON"
+    [[ $generator =~ "qgsjetIII" ]] && CMAKEINSTARGS="$CMAKEINSTARGS -DCRMC_QGSJETIII=ON"
+    
+    # Compile
+    #echo "${CMAKE} -S . -B BUILD ${CMAKE_ARGS}"
+    #${CMAKE} -S . -B BUILD $(CMAKE_ARGS)
+    #${CMAKE} --build BUILD --target install --parallel $(nproc)
+    #rm -rf BUILD install
 
 
     #Set installation parameters
-    sed -i 's/SCRAM_ARCH_VERSION_REPLACE/'${SCRAM_ARCH}'/g' ${WORKDIR}/runcmsgrid.sh
-    sed -i 's/CMSSW_VERSION_REPLACE/'${CMSSW_VERSION}'/g' ${WORKDIR}/runcmsgrid.sh
-    sed -i 's/GENERATOR_REPLACE/'${generator}'/g' ${WORKDIR}/runcmsgrid.sh
-    sed -i 's/CRMCDIR_REPLACE/'${CRMCDIR##*/}'/g' ${WORKDIR}/runcmsgrid.sh
+    sed -i "s/SCRAM_ARCH_VERSION_REPLACE/${SCRAM_ARCH}/g" ${WORKDIR}/runcmsgrid.sh
+    sed -i "s/CMSSW_VERSION_REPLACE/${CMSSW_VERSION}/g" ${WORKDIR}/runcmsgrid.sh
+    sed -i "s/GENERATOR_REPLACE/${generator}/g" ${WORKDIR}/runcmsgrid.sh
+    sed -i "s/CRMCDIR_REPLACE/${CRMCDIR}/g" ${WORKDIR}/runcmsgrid.sh
+    sed -i "s/CMAKE_ARGS_REPLACE/${CMAKEINSTARGS}/g" ${WORKDIR}/runcmsgrid.sh
+
 }
 
 
@@ -65,7 +63,7 @@ make_tarball(){
 
     echo "Creating tarball"
     cd ${WORKDIR}
-    tar -czf ${TARBALL} ${CRMCDIR##*/} runcmsgrid.sh
+    tar -czf ${TARBALL} ${CRMCDIR} runcmsgrid.sh
     mv ${WORKDIR}/${TARBALL} ${PRODDIR}/
     echo "Tarball created successfully at ${PRODDIR}/${TARBALL}"
 }

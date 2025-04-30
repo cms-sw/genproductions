@@ -4,17 +4,18 @@ fail_exit() { echo "$@"; exit 1; }
 
 reinstall_crmc(){
     echo "Compiling CRMC"
-    CMAKE=$([[ $(cmake --version | grep -cE *"n ([3-9]\.)")>0 ]] && echo "cmake" || echo "cmake3")
     cd ${LHEWORKDIR}/${CRMCDIR}
-    source /cvmfs/sft.cern.ch/lcg/views/LCG_104/x86_64-el9-gcc13-opt/setup.sh # using LCG for now, FIXME
-    ${CMAKE} -S . -B BUILD -DCMAKE_INSTALL_PREFIX=${LHEWORKDIR}/${CRMCDIR}/build -DCRMC_QGSJETIII=ON -DCRMC_SIBYLL=ON -DCRMC_DPMJET19=ON
+    source /cvmfs/sft.cern.ch/lcg/views/LCG_104/x86_64-el9-gcc13-opt/setup.sh # using LCG for now, FIXME   
+    
+    CMAKE=$([[ $(cmake --version | grep -cE *"n ([3-9]\.)")>0 ]] && echo "cmake" || echo "cmake3")
+    ${CMAKE} -S . -B BUILD CMAKE_ARGS_REPLACE
     ${CMAKE} --build BUILD --target install --parallel $(nproc)
 }
 
 run_crmc(){
     echo "*** STARTING PRODUCTION ***"
-    cd ${LHEWORKDIR}/${CRMCDIR}/build/bin
-    cp ${LHEWORKDIR}/${CRMCDIR}/build/etc/crmc.param .
+    cd ${LHEWORKDIR}/${CRMCDIR}/install/bin
+    cp ${LHEWORKDIR}/${CRMCDIR}/install/etc/crmc.param .
     sed -i "s/MinDecayLength  1./MinDecayLength  100./" crmc.param
     
     generator=GENERATOR_REPLACE
@@ -28,6 +29,15 @@ run_crmc(){
     elif [ "$generator" = 'eposlhcr_NeNe' ]; then
       ./crmc -m 0 -i 100200 -p 5360 -I 100200 -P -5360 -o lhe -n $nevt -s $rnum -f cmsgrid_final.lhe
     
+    elif [ "$generator" = 'eposnhs_pO' ]; then
+      ./crmc -m 1 -i 1 -p 6800 -I 80160 -P -3400 -o lhe -n $nevt -s $rnum -f cmsgrid_final.lhe
+    elif [ "$generator" = 'eposnhs_Op' ]; then
+      ./crmc -m 1 -i 80160 -p 3400 -I 1 -P -6800 -o lhe -n $nevt -s $rnum -f cmsgrid_final.lhe
+    elif [ "$generator" = 'eposnhs_OO' ]; then
+      ./crmc -m 1 -i 80160 -p 5360 -I 80160 -P -5360 -o lhe -n $nevt -s $rnum -f cmsgrid_final.lhe
+    elif [ "$generator" = 'eposnhs_NeNe' ]; then
+      ./crmc -m 1 -i 100200 -p 5360 -I 100200 -P -5360 -o lhe -n $nevt -s $rnum -f cmsgrid_final.lhe
+
     elif [ "$generator" = 'sibyll_pO' ]; then
       ./crmc -m 6 -i 1 -p 6800 -I 80160 -P -3400 -o lhe -n $nevt -s $rnum -f cmsgrid_final.lhe
     elif [ "$generator" = 'sibyll_Op' ]; then
@@ -48,19 +58,19 @@ run_crmc(){
 
     elif [ "$generator" = 'qgsjetIII_pO' ]; then
       echo unpack qgsdat-III.lzma
-      xz --format=lzma --decompress ${LHEWORKDIR}/${CRMCDIR}/build/share/crmc/qgsdat-III.lzma
+      xz --format=lzma --decompress ${LHEWORKDIR}/${CRMCDIR}/install/share/crmc/qgsdat-III.lzma
       ./crmc -m 13 -i 1 -p 6800 -I 80160 -P -3400 -o lhe -n $nevt -s $rnum -f cmsgrid_final.lhe
     elif [ "$generator" = 'qgsjetIII_Op' ]; then
       echo unpack qgsdat-III.lzma
-      xz --format=lzma --decompress ${LHEWORKDIR}/${CRMCDIR}/build/share/crmc/qgsdat-III.lzma
+      xz --format=lzma --decompress ${LHEWORKDIR}/${CRMCDIR}/install/share/crmc/qgsdat-III.lzma
       ./crmc -m 13 -i 80160 -p 3400 -I 1 -P -6800 -o lhe -n $nevt -s $rnum -f cmsgrid_final.lhe
     elif [ "$generator" = 'qgsjetIII_OO' ]; then
       echo unpack qgsdat-III.lzma
-      xz --format=lzma --decompress ${LHEWORKDIR}/${CRMCDIR}/build/share/crmc/qgsdat-III.lzma
+      xz --format=lzma --decompress ${LHEWORKDIR}/${CRMCDIR}/install/share/crmc/qgsdat-III.lzma
       ./crmc -m 13 -i 80160 -p 5360 -I 80160 -P -5360 -o lhe -n $nevt -s $rnum -f cmsgrid_final.lhe
     elif [ "$generator" = 'qgsjetIII_NeNe' ]; then
       echo unpack qgsdat-III.lzma
-      xz --format=lzma --decompress ${LHEWORKDIR}/${CRMCDIR}/build/share/crmc/qgsdat-III.lzma
+      xz --format=lzma --decompress ${LHEWORKDIR}/${CRMCDIR}/install/share/crmc/qgsdat-III.lzma
       ./crmc -m 13 -i 100200 -p 5360 -I 100200 -P -5360 -o lhe -n $nevt -s $rnum -f cmsgrid_final.lhe
       
     fi
