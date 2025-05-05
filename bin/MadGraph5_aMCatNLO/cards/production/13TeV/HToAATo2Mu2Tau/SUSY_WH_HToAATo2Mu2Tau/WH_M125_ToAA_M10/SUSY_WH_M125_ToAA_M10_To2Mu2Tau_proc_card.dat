@@ -1,0 +1,6 @@
+import model NMSSMHET --modelname
+
+generate p p  > h01 W+ , (h01 > a01 a01, a01 > tau+ tau-, a01 > mu+ mu-)
+add process p p  > h01 W- , (h01 > a01 a01, a01 > tau+ tau-, a01 > mu+ mu-)
+
+output SUSY_WH_M125_ToAA_M10_To2Mu2Tau -nojpeg

@@ -79,7 +79,14 @@ make_gridpack () {
       echo $CARDSDIR/${name}_run_card.dat " does not exist!"
       if [ "${BASH_SOURCE[0]}" != "${0}" ]; then return 1; else exit 1; fi
     fi
-    
+
+    if [ -e $CARDSDIR/${name}_madspin_card.dat ]; then
+      if grep -F "Nevents_for_max_weight" $CARDSDIR/${name}_madspin_card.dat; then
+        sed -i 's|Nevents_for_max_weight|Nevents_for_max_weigth|g' $CARDSDIR/${name}_madspin_card.dat
+        echo "Unfixing the typo fix : Nevents_for_max_weight -> Nevents_for_max_weigth"
+      fi
+    fi
+
     # avoid compute_widths in customizecards 
     if [ -e $CARDSDIR/${name}_customizecards.dat ]; then
         if grep -F "compute_widths" $CARDSDIR/${name}_customizecards.dat ; then

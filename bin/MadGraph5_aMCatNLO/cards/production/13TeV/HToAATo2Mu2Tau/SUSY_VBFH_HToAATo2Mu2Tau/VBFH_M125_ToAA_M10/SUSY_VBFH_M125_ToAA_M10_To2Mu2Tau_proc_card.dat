@@ -1,0 +1,5 @@
+import model NMSSMHET --modelname
+
+generate p p > h01 j j $$ Z W- W+ / a  HIG=0 QCD=0 , (h01 > a01 a01, a01 > tau+ tau- , a01 > mu+ mu-)
+
+output SUSY_VBFH_M125_ToAA_M10_To2Mu2Tau -nojpeg

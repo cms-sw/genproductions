@@ -1,0 +1,9 @@
+import model loop_sm
+
+define ell+ = e+ mu+ ta+
+define ell- = e- mu- ta-
+
+generate  g g  > h >   ell+ vl j j [noborn = QCD] $h
+add process g g  > h  >  ell- vl~ j j   [noborn = QCD] $h
+
+output GluGluHToWWSemilep_off_shell_S_4f_LO   -nojpeg
