@@ -275,7 +275,7 @@ make_gridpack () {
           #get needed BSM model
           if [[ $model = *[!\ ]* ]]; then
             echo "Loading extra model $model"
-            wget --no-check-certificate https://cms-project-generators.web.cern.ch/cms-project-generators/$model	
+            wget --no-check-certificate https://cms-project-generators.web.cern.ch/cms-project-generators/$model
             cd models
             if [[ $model == *".zip"* ]]; then
               unzip ../$model
@@ -522,6 +522,11 @@ make_gridpack () {
       if [ -e $CARDSDIR/${name}_madspin_card.dat ]; then
         cp $CARDSDIR/${name}_madspin_card.dat ./Cards/madspin_card.dat
       fi
+
+      if [ -e $CARDSDIR/${name}_MadLoopParams.dat ]; then
+        cp $CARDSDIR/${name}_MadLoopParams.dat ./Cards/MadLoopParams.dat
+      fi
+
       
       echo "shower=OFF" > makegrid.dat
       echo "reweight=OFF" >> makegrid.dat
@@ -577,7 +582,11 @@ make_gridpack () {
       #######################
     
       echo "starting LO mode"
-    
+      if [ -e $CARDSDIR/${name}_MadLoopParams.dat ]; then
+        cp $CARDSDIR/${name}_MadLoopParams.dat ./Cards/MadLoopParams.dat
+      fi
+
+      
       echo "done" > makegrid.dat
       echo "set gridpack True" >> makegrid.dat
       if [ -e $CARDSDIR/${name}_customizecards.dat ]; then
@@ -585,7 +594,7 @@ make_gridpack () {
               echo "" >> makegrid.dat
       fi
       echo "done" >> makegrid.dat
-    
+
     #   set +e
       cat makegrid.dat | ./bin/generate_events pilotrun
       echo "finished pilot run"
