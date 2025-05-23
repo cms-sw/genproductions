@@ -9,6 +9,6 @@ set max_npoint_for_channel 0
 import model jpsi_sm
 add model sm
 define p   = g u c d s u~ c~ d~ s~
-define all = g u c d s t b u~ c~ d~ s~ t~ b~ ve vm vt e- mu- ta- ve~ vm~ vt~ e+ mu+ ta+
-generate p p > z > z h, (h > jpsi a, jpsi > mu+ mu-), (z > all all)
+define all = g u c d s b u~ c~ d~ s~ b~ ve vm vt e- mu- ta- ve~ vm~ vt~ e+ mu+ ta+
+generate p p > z h, (h > jpsi a, jpsi > mu+ mu-), (z > all all)
 output ZH_HToPsiPrimeG_PsiPrimeToMuMu -nojpeg
