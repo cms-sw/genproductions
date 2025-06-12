@@ -13,7 +13,7 @@ _generator = cms.EDFilter("Pythia8GeneratorFilter",
     ExternalDecays = cms.PSet(
         EvtGen130 = cms.untracked.PSet(
             decay_table = cms.string('GeneratorInterface/EvtGenInterface/data/DECAY_2014_NOLONGLIFE.DEC'),
-            particle_property_file = cms.FileInPath('GeneratorInterface/EvtGenInterface/data/evt_2014_bsmass_2gev.pdl'),
+            particle_property_file = cms.FileInPath('GeneratorInterface/EvtGenInterface/data/evt_2014_bsmass_4p5gev.pdl'),
             list_forced_decays = cms.vstring('MyB_s0', 'Myanti-B_s0'),        # will force one at the time, notice just the parent
             operates_on_particles = cms.vint32(531,-531),               # we care just about our signal particles
             convertPythiaCodes = cms.untracked.bool(False),
@@ -38,6 +38,8 @@ _generator = cms.EDFilter("Pythia8GeneratorFilter",
             'Top:all = off',
             'Top:gg2ttbar = on',
             'Top:qqbar2ttbar = on',
+            '531:m0 = 4.5',  # override Bs mass in Pythia
+            '533:m0 = 4.5407759229', # override Bs* mass in Pythia
         ),
         parameterSets = cms.vstring('pythia8CommonSettings',
                                     'pythia8CP5Settings',

@@ -38,6 +38,9 @@ _generator = cms.EDFilter("Pythia8GeneratorFilter",
             'Top:all = off',
             'Top:gg2ttbar = on',
             'Top:qqbar2ttbar = on',
+            '531:m0 = 4',  # override Bs mass in Pythia
+            '533:m0 = 4.0362', # override Bs* mass in Pythia
+
         ),
         parameterSets = cms.vstring('pythia8CommonSettings',
                                     'pythia8CP5Settings',
