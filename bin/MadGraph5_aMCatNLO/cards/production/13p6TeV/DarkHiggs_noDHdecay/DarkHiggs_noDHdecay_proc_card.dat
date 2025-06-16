@@ -1,0 +1,5 @@
+import model ZpHiggs_UFO
+
+generate p p > zp > dm dm hs
+
+output DarkHiggs_noDHdecay -nojpeg 
