@@ -1,0 +1,11 @@
+set ms_dir ./madspingrid
+set spinmode madspin
+set max_weight_ps_point 400
+
+decay w- > l- vl~
+decay w- > j j
+
+decay w+ > l+ vl
+decay w+ > j j
+
+launch
