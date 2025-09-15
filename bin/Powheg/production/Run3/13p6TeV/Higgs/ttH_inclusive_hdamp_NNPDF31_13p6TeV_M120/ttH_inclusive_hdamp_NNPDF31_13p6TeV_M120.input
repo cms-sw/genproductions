@@ -1,7 +1,7 @@
 numevts NEVENTS    ! number of events to be generated
 
 hmass 120.d0      ! mass of the Higgs boson [GeV]
-hwidth 0.00407d0  ! width of the Higgs boson [GeV]
+hwidth 0.00351d0  ! width of the Higgs boson [GeV]
 hdamp 237.8775
 
 hdecaymode -1   ! -1 no decay
