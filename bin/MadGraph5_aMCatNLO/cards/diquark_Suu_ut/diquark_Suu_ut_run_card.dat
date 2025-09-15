@@ -38,8 +38,8 @@
 #*********************************************************************
         1     = lpp1    ! beam 1 type 
         1     = lpp2    ! beam 2 type
-     6500     = ebeam1  ! beam 1 total energy in GeV
-     6500     = ebeam2  ! beam 2 total energy in GeV
+     6800     = ebeam1  ! beam 1 total energy in GeV
+     6800     = ebeam2  ! beam 2 total energy in GeV
 #*********************************************************************
 # Beam polarization from -100 (left-handed) to 100 (right-handed)    *
 #*********************************************************************
@@ -50,6 +50,7 @@
 #*********************************************************************
  'lhapdf'    = pdlabel     ! PDF set                                  
  $DEFAULT_PDF_SETS = lhaid     ! if pdlabel=lhapdf, this is the lhapdf number 
+ $DEFAULT_PDF_MEMBERS  = reweight_PDF
 #*********************************************************************
 # Renormalization and factorization scales                           *
 #*********************************************************************
