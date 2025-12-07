@@ -1,0 +1,9 @@
+import model sm
+
+define p = g u c d s u~ c~ d~ s~
+define j = g u c d s u~ c~ d~ s~ b b~
+define vl = ve vm vt ve~ vm~ vt~
+
+generate p p > z w+ j j QED=4 QCD=0
+
+output VBS_WpZ_JETS_MET_5f_LO_EWK -nojpeg

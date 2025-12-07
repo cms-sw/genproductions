@@ -1,0 +1,8 @@
+import model sm-ckm_no_b_mass
+
+define p = g u c d s u~ c~ d~ s~
+define j = g u c d s u~ c~ d~ s~
+
+generate p p > w+{0} w-{0} j j QED=4 QCD=0
+
+output VBS_OSWpWm_EWK_5f_LO_PolarizationLL -nojpeg
