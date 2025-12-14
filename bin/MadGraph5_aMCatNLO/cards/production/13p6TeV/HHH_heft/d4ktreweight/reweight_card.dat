@@ -1,0 +1,487 @@
+#*************************************************************************
+# Reweight Card for HHH 2D parameter scan
+# d4: -1000 to 1000, 11 points
+# ymt: 86.5 to 259.5 (0.5x to 1.5x SM), 11 points
+#*************************************************************************
+
+change rwgt_dir rwgt
+
+launch --rwgt_name=c3_0.0_d4_-1000.0_ymt_86.5
+    set quartcoup 6 -1000.0   # d4
+    set yukawa 6 86.5     # ymt
+
+launch --rwgt_name=c3_0.0_d4_-1000.0_ymt_103.8
+    set quartcoup 6 -1000.0   # d4
+    set yukawa 6 103.8     # ymt
+
+launch --rwgt_name=c3_0.0_d4_-1000.0_ymt_121.1
+    set quartcoup 6 -1000.0   # d4
+    set yukawa 6 121.1     # ymt
+
+launch --rwgt_name=c3_0.0_d4_-1000.0_ymt_138.4
+    set quartcoup 6 -1000.0   # d4
+    set yukawa 6 138.4     # ymt
+
+launch --rwgt_name=c3_0.0_d4_-1000.0_ymt_155.7
+    set quartcoup 6 -1000.0   # d4
+    set yukawa 6 155.7     # ymt
+
+launch --rwgt_name=c3_0.0_d4_-1000.0_ymt_173.0
+    set quartcoup 6 -1000.0   # d4
+    set yukawa 6 173.0     # ymt
+
+launch --rwgt_name=c3_0.0_d4_-1000.0_ymt_190.3
+    set quartcoup 6 -1000.0   # d4
+    set yukawa 6 190.3     # ymt
+
+launch --rwgt_name=c3_0.0_d4_-1000.0_ymt_207.6
+    set quartcoup 6 -1000.0   # d4
+    set yukawa 6 207.6     # ymt
+
+launch --rwgt_name=c3_0.0_d4_-1000.0_ymt_224.9
+    set quartcoup 6 -1000.0   # d4
+    set yukawa 6 224.9     # ymt
+
+launch --rwgt_name=c3_0.0_d4_-1000.0_ymt_242.2
+    set quartcoup 6 -1000.0   # d4
+    set yukawa 6 242.2     # ymt
+
+launch --rwgt_name=c3_0.0_d4_-1000.0_ymt_259.5
+    set quartcoup 6 -1000.0   # d4
+    set yukawa 6 259.5     # ymt
+
+launch --rwgt_name=c3_0.0_d4_-800.0_ymt_86.5
+    set quartcoup 6 -800.0   # d4
+    set yukawa 6 86.5     # ymt
+
+launch --rwgt_name=c3_0.0_d4_-800.0_ymt_103.8
+    set quartcoup 6 -800.0   # d4
+    set yukawa 6 103.8     # ymt
+
+launch --rwgt_name=c3_0.0_d4_-800.0_ymt_121.1
+    set quartcoup 6 -800.0   # d4
+    set yukawa 6 121.1     # ymt
+
+launch --rwgt_name=c3_0.0_d4_-800.0_ymt_138.4
+    set quartcoup 6 -800.0   # d4
+    set yukawa 6 138.4     # ymt
+
+launch --rwgt_name=c3_0.0_d4_-800.0_ymt_155.7
+    set quartcoup 6 -800.0   # d4
+    set yukawa 6 155.7     # ymt
+
+launch --rwgt_name=c3_0.0_d4_-800.0_ymt_173.0
+    set quartcoup 6 -800.0   # d4
+    set yukawa 6 173.0     # ymt
+
+launch --rwgt_name=c3_0.0_d4_-800.0_ymt_190.3
+    set quartcoup 6 -800.0   # d4
+    set yukawa 6 190.3     # ymt
+
+launch --rwgt_name=c3_0.0_d4_-800.0_ymt_207.6
+    set quartcoup 6 -800.0   # d4
+    set yukawa 6 207.6     # ymt
+
+launch --rwgt_name=c3_0.0_d4_-800.0_ymt_224.9
+    set quartcoup 6 -800.0   # d4
+    set yukawa 6 224.9     # ymt
+
+launch --rwgt_name=c3_0.0_d4_-800.0_ymt_242.2
+    set quartcoup 6 -800.0   # d4
+    set yukawa 6 242.2     # ymt
+
+launch --rwgt_name=c3_0.0_d4_-800.0_ymt_259.5
+    set quartcoup 6 -800.0   # d4
+    set yukawa 6 259.5     # ymt
+
+launch --rwgt_name=c3_0.0_d4_-600.0_ymt_86.5
+    set quartcoup 6 -600.0   # d4
+    set yukawa 6 86.5     # ymt
+
+launch --rwgt_name=c3_0.0_d4_-600.0_ymt_103.8
+    set quartcoup 6 -600.0   # d4
+    set yukawa 6 103.8     # ymt
+
+launch --rwgt_name=c3_0.0_d4_-600.0_ymt_121.1
+    set quartcoup 6 -600.0   # d4
+    set yukawa 6 121.1     # ymt
+
+launch --rwgt_name=c3_0.0_d4_-600.0_ymt_138.4
+    set quartcoup 6 -600.0   # d4
+    set yukawa 6 138.4     # ymt
+
+launch --rwgt_name=c3_0.0_d4_-600.0_ymt_155.7
+    set quartcoup 6 -600.0   # d4
+    set yukawa 6 155.7     # ymt
+
+launch --rwgt_name=c3_0.0_d4_-600.0_ymt_173.0
+    set quartcoup 6 -600.0   # d4
+    set yukawa 6 173.0     # ymt
+
+launch --rwgt_name=c3_0.0_d4_-600.0_ymt_190.3
+    set quartcoup 6 -600.0   # d4
+    set yukawa 6 190.3     # ymt
+
+launch --rwgt_name=c3_0.0_d4_-600.0_ymt_207.6
+    set quartcoup 6 -600.0   # d4
+    set yukawa 6 207.6     # ymt
+
+launch --rwgt_name=c3_0.0_d4_-600.0_ymt_224.9
+    set quartcoup 6 -600.0   # d4
+    set yukawa 6 224.9     # ymt
+
+launch --rwgt_name=c3_0.0_d4_-600.0_ymt_242.2
+    set quartcoup 6 -600.0   # d4
+    set yukawa 6 242.2     # ymt
+
+launch --rwgt_name=c3_0.0_d4_-600.0_ymt_259.5
+    set quartcoup 6 -600.0   # d4
+    set yukawa 6 259.5     # ymt
+
+launch --rwgt_name=c3_0.0_d4_-400.0_ymt_86.5
+    set quartcoup 6 -400.0   # d4
+    set yukawa 6 86.5     # ymt
+
+launch --rwgt_name=c3_0.0_d4_-400.0_ymt_103.8
+    set quartcoup 6 -400.0   # d4
+    set yukawa 6 103.8     # ymt
+
+launch --rwgt_name=c3_0.0_d4_-400.0_ymt_121.1
+    set quartcoup 6 -400.0   # d4
+    set yukawa 6 121.1     # ymt
+
+launch --rwgt_name=c3_0.0_d4_-400.0_ymt_138.4
+    set quartcoup 6 -400.0   # d4
+    set yukawa 6 138.4     # ymt
+
+launch --rwgt_name=c3_0.0_d4_-400.0_ymt_155.7
+    set quartcoup 6 -400.0   # d4
+    set yukawa 6 155.7     # ymt
+
+launch --rwgt_name=c3_0.0_d4_-400.0_ymt_173.0
+    set quartcoup 6 -400.0   # d4
+    set yukawa 6 173.0     # ymt
+
+launch --rwgt_name=c3_0.0_d4_-400.0_ymt_190.3
+    set quartcoup 6 -400.0   # d4
+    set yukawa 6 190.3     # ymt
+
+launch --rwgt_name=c3_0.0_d4_-400.0_ymt_207.6
+    set quartcoup 6 -400.0   # d4
+    set yukawa 6 207.6     # ymt
+
+launch --rwgt_name=c3_0.0_d4_-400.0_ymt_224.9
+    set quartcoup 6 -400.0   # d4
+    set yukawa 6 224.9     # ymt
+
+launch --rwgt_name=c3_0.0_d4_-400.0_ymt_242.2
+    set quartcoup 6 -400.0   # d4
+    set yukawa 6 242.2     # ymt
+
+launch --rwgt_name=c3_0.0_d4_-400.0_ymt_259.5
+    set quartcoup 6 -400.0   # d4
+    set yukawa 6 259.5     # ymt
+
+launch --rwgt_name=c3_0.0_d4_-200.0_ymt_86.5
+    set quartcoup 6 -200.0   # d4
+    set yukawa 6 86.5     # ymt
+
+launch --rwgt_name=c3_0.0_d4_-200.0_ymt_103.8
+    set quartcoup 6 -200.0   # d4
+    set yukawa 6 103.8     # ymt
+
+launch --rwgt_name=c3_0.0_d4_-200.0_ymt_121.1
+    set quartcoup 6 -200.0   # d4
+    set yukawa 6 121.1     # ymt
+
+launch --rwgt_name=c3_0.0_d4_-200.0_ymt_138.4
+    set quartcoup 6 -200.0   # d4
+    set yukawa 6 138.4     # ymt
+
+launch --rwgt_name=c3_0.0_d4_-200.0_ymt_155.7
+    set quartcoup 6 -200.0   # d4
+    set yukawa 6 155.7     # ymt
+
+launch --rwgt_name=c3_0.0_d4_-200.0_ymt_173.0
+    set quartcoup 6 -200.0   # d4
+    set yukawa 6 173.0     # ymt
+
+launch --rwgt_name=c3_0.0_d4_-200.0_ymt_190.3
+    set quartcoup 6 -200.0   # d4
+    set yukawa 6 190.3     # ymt
+
+launch --rwgt_name=c3_0.0_d4_-200.0_ymt_207.6
+    set quartcoup 6 -200.0   # d4
+    set yukawa 6 207.6     # ymt
+
+launch --rwgt_name=c3_0.0_d4_-200.0_ymt_224.9
+    set quartcoup 6 -200.0   # d4
+    set yukawa 6 224.9     # ymt
+
+launch --rwgt_name=c3_0.0_d4_-200.0_ymt_242.2
+    set quartcoup 6 -200.0   # d4
+    set yukawa 6 242.2     # ymt
+
+launch --rwgt_name=c3_0.0_d4_-200.0_ymt_259.5
+    set quartcoup 6 -200.0   # d4
+    set yukawa 6 259.5     # ymt
+
+launch --rwgt_name=c3_0.0_d4_0.0_ymt_86.5
+    set quartcoup 6 0.0   # d4
+    set yukawa 6 86.5     # ymt
+
+launch --rwgt_name=c3_0.0_d4_0.0_ymt_103.8
+    set quartcoup 6 0.0   # d4
+    set yukawa 6 103.8     # ymt
+
+launch --rwgt_name=c3_0.0_d4_0.0_ymt_121.1
+    set quartcoup 6 0.0   # d4
+    set yukawa 6 121.1     # ymt
+
+launch --rwgt_name=c3_0.0_d4_0.0_ymt_138.4
+    set quartcoup 6 0.0   # d4
+    set yukawa 6 138.4     # ymt
+
+launch --rwgt_name=c3_0.0_d4_0.0_ymt_155.7
+    set quartcoup 6 0.0   # d4
+    set yukawa 6 155.7     # ymt
+
+launch --rwgt_name=c3_0.0_d4_0.0_ymt_190.3
+    set quartcoup 6 0.0   # d4
+    set yukawa 6 190.3     # ymt
+
+launch --rwgt_name=c3_0.0_d4_0.0_ymt_207.6
+    set quartcoup 6 0.0   # d4
+    set yukawa 6 207.6     # ymt
+
+launch --rwgt_name=c3_0.0_d4_0.0_ymt_224.9
+    set quartcoup 6 0.0   # d4
+    set yukawa 6 224.9     # ymt
+
+launch --rwgt_name=c3_0.0_d4_0.0_ymt_242.2
+    set quartcoup 6 0.0   # d4
+    set yukawa 6 242.2     # ymt
+
+launch --rwgt_name=c3_0.0_d4_0.0_ymt_259.5
+    set quartcoup 6 0.0   # d4
+    set yukawa 6 259.5     # ymt
+
+launch --rwgt_name=c3_0.0_d4_200.0_ymt_86.5
+    set quartcoup 6 200.0   # d4
+    set yukawa 6 86.5     # ymt
+
+launch --rwgt_name=c3_0.0_d4_200.0_ymt_103.8
+    set quartcoup 6 200.0   # d4
+    set yukawa 6 103.8     # ymt
+
+launch --rwgt_name=c3_0.0_d4_200.0_ymt_121.1
+    set quartcoup 6 200.0   # d4
+    set yukawa 6 121.1     # ymt
+
+launch --rwgt_name=c3_0.0_d4_200.0_ymt_138.4
+    set quartcoup 6 200.0   # d4
+    set yukawa 6 138.4     # ymt
+
+launch --rwgt_name=c3_0.0_d4_200.0_ymt_155.7
+    set quartcoup 6 200.0   # d4
+    set yukawa 6 155.7     # ymt
+
+launch --rwgt_name=c3_0.0_d4_200.0_ymt_173.0
+    set quartcoup 6 200.0   # d4
+    set yukawa 6 173.0     # ymt
+
+launch --rwgt_name=c3_0.0_d4_200.0_ymt_190.3
+    set quartcoup 6 200.0   # d4
+    set yukawa 6 190.3     # ymt
+
+launch --rwgt_name=c3_0.0_d4_200.0_ymt_207.6
+    set quartcoup 6 200.0   # d4
+    set yukawa 6 207.6     # ymt
+
+launch --rwgt_name=c3_0.0_d4_200.0_ymt_224.9
+    set quartcoup 6 200.0   # d4
+    set yukawa 6 224.9     # ymt
+
+launch --rwgt_name=c3_0.0_d4_200.0_ymt_242.2
+    set quartcoup 6 200.0   # d4
+    set yukawa 6 242.2     # ymt
+
+launch --rwgt_name=c3_0.0_d4_200.0_ymt_259.5
+    set quartcoup 6 200.0   # d4
+    set yukawa 6 259.5     # ymt
+
+launch --rwgt_name=c3_0.0_d4_400.0_ymt_86.5
+    set quartcoup 6 400.0   # d4
+    set yukawa 6 86.5     # ymt
+
+launch --rwgt_name=c3_0.0_d4_400.0_ymt_103.8
+    set quartcoup 6 400.0   # d4
+    set yukawa 6 103.8     # ymt
+
+launch --rwgt_name=c3_0.0_d4_400.0_ymt_121.1
+    set quartcoup 6 400.0   # d4
+    set yukawa 6 121.1     # ymt
+
+launch --rwgt_name=c3_0.0_d4_400.0_ymt_138.4
+    set quartcoup 6 400.0   # d4
+    set yukawa 6 138.4     # ymt
+
+launch --rwgt_name=c3_0.0_d4_400.0_ymt_155.7
+    set quartcoup 6 400.0   # d4
+    set yukawa 6 155.7     # ymt
+
+launch --rwgt_name=c3_0.0_d4_400.0_ymt_173.0
+    set quartcoup 6 400.0   # d4
+    set yukawa 6 173.0     # ymt
+
+launch --rwgt_name=c3_0.0_d4_400.0_ymt_190.3
+    set quartcoup 6 400.0   # d4
+    set yukawa 6 190.3     # ymt
+
+launch --rwgt_name=c3_0.0_d4_400.0_ymt_207.6
+    set quartcoup 6 400.0   # d4
+    set yukawa 6 207.6     # ymt
+
+launch --rwgt_name=c3_0.0_d4_400.0_ymt_224.9
+    set quartcoup 6 400.0   # d4
+    set yukawa 6 224.9     # ymt
+
+launch --rwgt_name=c3_0.0_d4_400.0_ymt_242.2
+    set quartcoup 6 400.0   # d4
+    set yukawa 6 242.2     # ymt
+
+launch --rwgt_name=c3_0.0_d4_400.0_ymt_259.5
+    set quartcoup 6 400.0   # d4
+    set yukawa 6 259.5     # ymt
+
+launch --rwgt_name=c3_0.0_d4_600.0_ymt_86.5
+    set quartcoup 6 600.0   # d4
+    set yukawa 6 86.5     # ymt
+
+launch --rwgt_name=c3_0.0_d4_600.0_ymt_103.8
+    set quartcoup 6 600.0   # d4
+    set yukawa 6 103.8     # ymt
+
+launch --rwgt_name=c3_0.0_d4_600.0_ymt_121.1
+    set quartcoup 6 600.0   # d4
+    set yukawa 6 121.1     # ymt
+
+launch --rwgt_name=c3_0.0_d4_600.0_ymt_138.4
+    set quartcoup 6 600.0   # d4
+    set yukawa 6 138.4     # ymt
+
+launch --rwgt_name=c3_0.0_d4_600.0_ymt_155.7
+    set quartcoup 6 600.0   # d4
+    set yukawa 6 155.7     # ymt
+
+launch --rwgt_name=c3_0.0_d4_600.0_ymt_173.0
+    set quartcoup 6 600.0   # d4
+    set yukawa 6 173.0     # ymt
+
+launch --rwgt_name=c3_0.0_d4_600.0_ymt_190.3
+    set quartcoup 6 600.0   # d4
+    set yukawa 6 190.3     # ymt
+
+launch --rwgt_name=c3_0.0_d4_600.0_ymt_207.6
+    set quartcoup 6 600.0   # d4
+    set yukawa 6 207.6     # ymt
+
+launch --rwgt_name=c3_0.0_d4_600.0_ymt_224.9
+    set quartcoup 6 600.0   # d4
+    set yukawa 6 224.9     # ymt
+
+launch --rwgt_name=c3_0.0_d4_600.0_ymt_242.2
+    set quartcoup 6 600.0   # d4
+    set yukawa 6 242.2     # ymt
+
+launch --rwgt_name=c3_0.0_d4_600.0_ymt_259.5
+    set quartcoup 6 600.0   # d4
+    set yukawa 6 259.5     # ymt
+
+launch --rwgt_name=c3_0.0_d4_800.0_ymt_86.5
+    set quartcoup 6 800.0   # d4
+    set yukawa 6 86.5     # ymt
+
+launch --rwgt_name=c3_0.0_d4_800.0_ymt_103.8
+    set quartcoup 6 800.0   # d4
+    set yukawa 6 103.8     # ymt
+
+launch --rwgt_name=c3_0.0_d4_800.0_ymt_121.1
+    set quartcoup 6 800.0   # d4
+    set yukawa 6 121.1     # ymt
+
+launch --rwgt_name=c3_0.0_d4_800.0_ymt_138.4
+    set quartcoup 6 800.0   # d4
+    set yukawa 6 138.4     # ymt
+
+launch --rwgt_name=c3_0.0_d4_800.0_ymt_155.7
+    set quartcoup 6 800.0   # d4
+    set yukawa 6 155.7     # ymt
+
+launch --rwgt_name=c3_0.0_d4_800.0_ymt_173.0
+    set quartcoup 6 800.0   # d4
+    set yukawa 6 173.0     # ymt
+
+launch --rwgt_name=c3_0.0_d4_800.0_ymt_190.3
+    set quartcoup 6 800.0   # d4
+    set yukawa 6 190.3     # ymt
+
+launch --rwgt_name=c3_0.0_d4_800.0_ymt_207.6
+    set quartcoup 6 800.0   # d4
+    set yukawa 6 207.6     # ymt
+
+launch --rwgt_name=c3_0.0_d4_800.0_ymt_224.9
+    set quartcoup 6 800.0   # d4
+    set yukawa 6 224.9     # ymt
+
+launch --rwgt_name=c3_0.0_d4_800.0_ymt_242.2
+    set quartcoup 6 800.0   # d4
+    set yukawa 6 242.2     # ymt
+
+launch --rwgt_name=c3_0.0_d4_800.0_ymt_259.5
+    set quartcoup 6 800.0   # d4
+    set yukawa 6 259.5     # ymt
+
+launch --rwgt_name=c3_0.0_d4_1000.0_ymt_86.5
+    set quartcoup 6 1000.0   # d4
+    set yukawa 6 86.5     # ymt
+
+launch --rwgt_name=c3_0.0_d4_1000.0_ymt_103.8
+    set quartcoup 6 1000.0   # d4
+    set yukawa 6 103.8     # ymt
+
+launch --rwgt_name=c3_0.0_d4_1000.0_ymt_121.1
+    set quartcoup 6 1000.0   # d4
+    set yukawa 6 121.1     # ymt
+
+launch --rwgt_name=c3_0.0_d4_1000.0_ymt_138.4
+    set quartcoup 6 1000.0   # d4
+    set yukawa 6 138.4     # ymt
+
+launch --rwgt_name=c3_0.0_d4_1000.0_ymt_155.7
+    set quartcoup 6 1000.0   # d4
+    set yukawa 6 155.7     # ymt
+
+launch --rwgt_name=c3_0.0_d4_1000.0_ymt_173.0
+    set quartcoup 6 1000.0   # d4
+    set yukawa 6 173.0     # ymt
+
+launch --rwgt_name=c3_0.0_d4_1000.0_ymt_190.3
+    set quartcoup 6 1000.0   # d4
+    set yukawa 6 190.3     # ymt
+
+launch --rwgt_name=c3_0.0_d4_1000.0_ymt_207.6
+    set quartcoup 6 1000.0   # d4
+    set yukawa 6 207.6     # ymt
+
+launch --rwgt_name=c3_0.0_d4_1000.0_ymt_224.9
+    set quartcoup 6 1000.0   # d4
+    set yukawa 6 224.9     # ymt
+
+launch --rwgt_name=c3_0.0_d4_1000.0_ymt_242.2
+    set quartcoup 6 1000.0   # d4
+    set yukawa 6 242.2     # ymt
+
+launch --rwgt_name=c3_0.0_d4_1000.0_ymt_259.5
+    set quartcoup 6 1000.0   # d4
+    set yukawa 6 259.5     # ymt
