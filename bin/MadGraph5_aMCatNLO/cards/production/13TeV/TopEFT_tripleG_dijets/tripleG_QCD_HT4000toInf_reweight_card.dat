@@ -1,0 +1,51 @@
+change helicity False
+change rwgt_dir rwgt
+
+
+#******************** CG0p1 ********************
+launch --rwgt_name=CG0p1
+	set param_card dim6 8 0.100000e+00
+
+#******************** CG0p05 ********************
+launch --rwgt_name=CG0p05
+	set param_card dim6 8 0.050000e+00
+
+#******************** CG0p04 ********************
+launch --rwgt_name=CG0p04
+	set param_card dim6 8 0.040000e+00
+
+#******************** CG0p03 ********************
+launch --rwgt_name=CG0p03
+	set param_card dim6 8 0.030000e+00
+
+#******************** CG0p025 ********************
+launch --rwgt_name=CG0p025
+	set param_card dim6 8 0.025000e+00
+
+#******************** CG0p02 ********************
+launch --rwgt_name=CG0p02
+	set param_card dim6 8 0.020000e+00
+
+#******************** CG0p015 ********************
+launch --rwgt_name=CG0p015
+	set param_card dim6 8 0.015000e+00
+
+#******************** CG0p01 ********************
+launch --rwgt_name=CG0p01
+	set param_card dim6 8 0.010000e+00
+
+#******************** CG0p0075 ********************
+launch --rwgt_name=CG0p0075
+	set param_card dim6 8 0.007500e+00
+
+#******************** CG0p005 ********************
+launch --rwgt_name=CG0p005
+	set param_card dim6 8 0.005000e+00
+
+#******************** CG0p0025 ********************
+launch --rwgt_name=CG0p0025
+	set param_card dim6 8 0.002500e+00
+
+#******************** CG0p0 ********************
+launch --rwgt_name=CG0p0
+	set param_card dim6 8 0.000000e+00
