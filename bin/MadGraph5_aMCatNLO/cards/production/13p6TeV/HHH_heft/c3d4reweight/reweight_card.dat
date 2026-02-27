@@ -1,0 +1,927 @@
+#*************************************************************************
+# Reweight Card for HHH 2D parameter scan
+# c3: -30 to 30, 21 points
+# d4: -1000 to 1000, 11 points
+#*************************************************************************
+
+change rwgt_dir rwgt
+
+launch --rwgt_name=c3_-30.0_d4_-1000.0_ymt_173.0
+    set tripcoup 4 -30.0    # c3
+    set quartcoup 6 -1000.0   # d4
+
+launch --rwgt_name=c3_-30.0_d4_-800.0_ymt_173.0
+    set tripcoup 4 -30.0    # c3
+    set quartcoup 6 -800.0   # d4
+
+launch --rwgt_name=c3_-30.0_d4_-600.0_ymt_173.0
+    set tripcoup 4 -30.0    # c3
+    set quartcoup 6 -600.0   # d4
+
+launch --rwgt_name=c3_-30.0_d4_-400.0_ymt_173.0
+    set tripcoup 4 -30.0    # c3
+    set quartcoup 6 -400.0   # d4
+
+launch --rwgt_name=c3_-30.0_d4_-200.0_ymt_173.0
+    set tripcoup 4 -30.0    # c3
+    set quartcoup 6 -200.0   # d4
+
+launch --rwgt_name=c3_-30.0_d4_0.0_ymt_173.0
+    set tripcoup 4 -30.0    # c3
+    set quartcoup 6 0.0   # d4
+
+launch --rwgt_name=c3_-30.0_d4_200.0_ymt_173.0
+    set tripcoup 4 -30.0    # c3
+    set quartcoup 6 200.0   # d4
+
+launch --rwgt_name=c3_-30.0_d4_400.0_ymt_173.0
+    set tripcoup 4 -30.0    # c3
+    set quartcoup 6 400.0   # d4
+
+launch --rwgt_name=c3_-30.0_d4_600.0_ymt_173.0
+    set tripcoup 4 -30.0    # c3
+    set quartcoup 6 600.0   # d4
+
+launch --rwgt_name=c3_-30.0_d4_800.0_ymt_173.0
+    set tripcoup 4 -30.0    # c3
+    set quartcoup 6 800.0   # d4
+
+launch --rwgt_name=c3_-30.0_d4_1000.0_ymt_173.0
+    set tripcoup 4 -30.0    # c3
+    set quartcoup 6 1000.0   # d4
+
+launch --rwgt_name=c3_-27.0_d4_-1000.0_ymt_173.0
+    set tripcoup 4 -27.0    # c3
+    set quartcoup 6 -1000.0   # d4
+
+launch --rwgt_name=c3_-27.0_d4_-800.0_ymt_173.0
+    set tripcoup 4 -27.0    # c3
+    set quartcoup 6 -800.0   # d4
+
+launch --rwgt_name=c3_-27.0_d4_-600.0_ymt_173.0
+    set tripcoup 4 -27.0    # c3
+    set quartcoup 6 -600.0   # d4
+
+launch --rwgt_name=c3_-27.0_d4_-400.0_ymt_173.0
+    set tripcoup 4 -27.0    # c3
+    set quartcoup 6 -400.0   # d4
+
+launch --rwgt_name=c3_-27.0_d4_-200.0_ymt_173.0
+    set tripcoup 4 -27.0    # c3
+    set quartcoup 6 -200.0   # d4
+
+launch --rwgt_name=c3_-27.0_d4_0.0_ymt_173.0
+    set tripcoup 4 -27.0    # c3
+    set quartcoup 6 0.0   # d4
+
+launch --rwgt_name=c3_-27.0_d4_200.0_ymt_173.0
+    set tripcoup 4 -27.0    # c3
+    set quartcoup 6 200.0   # d4
+
+launch --rwgt_name=c3_-27.0_d4_400.0_ymt_173.0
+    set tripcoup 4 -27.0    # c3
+    set quartcoup 6 400.0   # d4
+
+launch --rwgt_name=c3_-27.0_d4_600.0_ymt_173.0
+    set tripcoup 4 -27.0    # c3
+    set quartcoup 6 600.0   # d4
+
+launch --rwgt_name=c3_-27.0_d4_800.0_ymt_173.0
+    set tripcoup 4 -27.0    # c3
+    set quartcoup 6 800.0   # d4
+
+launch --rwgt_name=c3_-27.0_d4_1000.0_ymt_173.0
+    set tripcoup 4 -27.0    # c3
+    set quartcoup 6 1000.0   # d4
+
+launch --rwgt_name=c3_-24.0_d4_-1000.0_ymt_173.0
+    set tripcoup 4 -24.0    # c3
+    set quartcoup 6 -1000.0   # d4
+
+launch --rwgt_name=c3_-24.0_d4_-800.0_ymt_173.0
+    set tripcoup 4 -24.0    # c3
+    set quartcoup 6 -800.0   # d4
+
+launch --rwgt_name=c3_-24.0_d4_-600.0_ymt_173.0
+    set tripcoup 4 -24.0    # c3
+    set quartcoup 6 -600.0   # d4
+
+launch --rwgt_name=c3_-24.0_d4_-400.0_ymt_173.0
+    set tripcoup 4 -24.0    # c3
+    set quartcoup 6 -400.0   # d4
+
+launch --rwgt_name=c3_-24.0_d4_-200.0_ymt_173.0
+    set tripcoup 4 -24.0    # c3
+    set quartcoup 6 -200.0   # d4
+
+launch --rwgt_name=c3_-24.0_d4_0.0_ymt_173.0
+    set tripcoup 4 -24.0    # c3
+    set quartcoup 6 0.0   # d4
+
+launch --rwgt_name=c3_-24.0_d4_200.0_ymt_173.0
+    set tripcoup 4 -24.0    # c3
+    set quartcoup 6 200.0   # d4
+
+launch --rwgt_name=c3_-24.0_d4_400.0_ymt_173.0
+    set tripcoup 4 -24.0    # c3
+    set quartcoup 6 400.0   # d4
+
+launch --rwgt_name=c3_-24.0_d4_600.0_ymt_173.0
+    set tripcoup 4 -24.0    # c3
+    set quartcoup 6 600.0   # d4
+
+launch --rwgt_name=c3_-24.0_d4_800.0_ymt_173.0
+    set tripcoup 4 -24.0    # c3
+    set quartcoup 6 800.0   # d4
+
+launch --rwgt_name=c3_-24.0_d4_1000.0_ymt_173.0
+    set tripcoup 4 -24.0    # c3
+    set quartcoup 6 1000.0   # d4
+
+launch --rwgt_name=c3_-21.0_d4_-1000.0_ymt_173.0
+    set tripcoup 4 -21.0    # c3
+    set quartcoup 6 -1000.0   # d4
+
+launch --rwgt_name=c3_-21.0_d4_-800.0_ymt_173.0
+    set tripcoup 4 -21.0    # c3
+    set quartcoup 6 -800.0   # d4
+
+launch --rwgt_name=c3_-21.0_d4_-600.0_ymt_173.0
+    set tripcoup 4 -21.0    # c3
+    set quartcoup 6 -600.0   # d4
+
+launch --rwgt_name=c3_-21.0_d4_-400.0_ymt_173.0
+    set tripcoup 4 -21.0    # c3
+    set quartcoup 6 -400.0   # d4
+
+launch --rwgt_name=c3_-21.0_d4_-200.0_ymt_173.0
+    set tripcoup 4 -21.0    # c3
+    set quartcoup 6 -200.0   # d4
+
+launch --rwgt_name=c3_-21.0_d4_0.0_ymt_173.0
+    set tripcoup 4 -21.0    # c3
+    set quartcoup 6 0.0   # d4
+
+launch --rwgt_name=c3_-21.0_d4_200.0_ymt_173.0
+    set tripcoup 4 -21.0    # c3
+    set quartcoup 6 200.0   # d4
+
+launch --rwgt_name=c3_-21.0_d4_400.0_ymt_173.0
+    set tripcoup 4 -21.0    # c3
+    set quartcoup 6 400.0   # d4
+
+launch --rwgt_name=c3_-21.0_d4_600.0_ymt_173.0
+    set tripcoup 4 -21.0    # c3
+    set quartcoup 6 600.0   # d4
+
+launch --rwgt_name=c3_-21.0_d4_800.0_ymt_173.0
+    set tripcoup 4 -21.0    # c3
+    set quartcoup 6 800.0   # d4
+
+launch --rwgt_name=c3_-21.0_d4_1000.0_ymt_173.0
+    set tripcoup 4 -21.0    # c3
+    set quartcoup 6 1000.0   # d4
+
+launch --rwgt_name=c3_-18.0_d4_-1000.0_ymt_173.0
+    set tripcoup 4 -18.0    # c3
+    set quartcoup 6 -1000.0   # d4
+
+launch --rwgt_name=c3_-18.0_d4_-800.0_ymt_173.0
+    set tripcoup 4 -18.0    # c3
+    set quartcoup 6 -800.0   # d4
+
+launch --rwgt_name=c3_-18.0_d4_-600.0_ymt_173.0
+    set tripcoup 4 -18.0    # c3
+    set quartcoup 6 -600.0   # d4
+
+launch --rwgt_name=c3_-18.0_d4_-400.0_ymt_173.0
+    set tripcoup 4 -18.0    # c3
+    set quartcoup 6 -400.0   # d4
+
+launch --rwgt_name=c3_-18.0_d4_-200.0_ymt_173.0
+    set tripcoup 4 -18.0    # c3
+    set quartcoup 6 -200.0   # d4
+
+launch --rwgt_name=c3_-18.0_d4_0.0_ymt_173.0
+    set tripcoup 4 -18.0    # c3
+    set quartcoup 6 0.0   # d4
+
+launch --rwgt_name=c3_-18.0_d4_200.0_ymt_173.0
+    set tripcoup 4 -18.0    # c3
+    set quartcoup 6 200.0   # d4
+
+launch --rwgt_name=c3_-18.0_d4_400.0_ymt_173.0
+    set tripcoup 4 -18.0    # c3
+    set quartcoup 6 400.0   # d4
+
+launch --rwgt_name=c3_-18.0_d4_600.0_ymt_173.0
+    set tripcoup 4 -18.0    # c3
+    set quartcoup 6 600.0   # d4
+
+launch --rwgt_name=c3_-18.0_d4_800.0_ymt_173.0
+    set tripcoup 4 -18.0    # c3
+    set quartcoup 6 800.0   # d4
+
+launch --rwgt_name=c3_-18.0_d4_1000.0_ymt_173.0
+    set tripcoup 4 -18.0    # c3
+    set quartcoup 6 1000.0   # d4
+
+launch --rwgt_name=c3_-15.0_d4_-1000.0_ymt_173.0
+    set tripcoup 4 -15.0    # c3
+    set quartcoup 6 -1000.0   # d4
+
+launch --rwgt_name=c3_-15.0_d4_-800.0_ymt_173.0
+    set tripcoup 4 -15.0    # c3
+    set quartcoup 6 -800.0   # d4
+
+launch --rwgt_name=c3_-15.0_d4_-600.0_ymt_173.0
+    set tripcoup 4 -15.0    # c3
+    set quartcoup 6 -600.0   # d4
+
+launch --rwgt_name=c3_-15.0_d4_-400.0_ymt_173.0
+    set tripcoup 4 -15.0    # c3
+    set quartcoup 6 -400.0   # d4
+
+launch --rwgt_name=c3_-15.0_d4_-200.0_ymt_173.0
+    set tripcoup 4 -15.0    # c3
+    set quartcoup 6 -200.0   # d4
+
+launch --rwgt_name=c3_-15.0_d4_0.0_ymt_173.0
+    set tripcoup 4 -15.0    # c3
+    set quartcoup 6 0.0   # d4
+
+launch --rwgt_name=c3_-15.0_d4_200.0_ymt_173.0
+    set tripcoup 4 -15.0    # c3
+    set quartcoup 6 200.0   # d4
+
+launch --rwgt_name=c3_-15.0_d4_400.0_ymt_173.0
+    set tripcoup 4 -15.0    # c3
+    set quartcoup 6 400.0   # d4
+
+launch --rwgt_name=c3_-15.0_d4_600.0_ymt_173.0
+    set tripcoup 4 -15.0    # c3
+    set quartcoup 6 600.0   # d4
+
+launch --rwgt_name=c3_-15.0_d4_800.0_ymt_173.0
+    set tripcoup 4 -15.0    # c3
+    set quartcoup 6 800.0   # d4
+
+launch --rwgt_name=c3_-15.0_d4_1000.0_ymt_173.0
+    set tripcoup 4 -15.0    # c3
+    set quartcoup 6 1000.0   # d4
+
+launch --rwgt_name=c3_-12.0_d4_-1000.0_ymt_173.0
+    set tripcoup 4 -12.0    # c3
+    set quartcoup 6 -1000.0   # d4
+
+launch --rwgt_name=c3_-12.0_d4_-800.0_ymt_173.0
+    set tripcoup 4 -12.0    # c3
+    set quartcoup 6 -800.0   # d4
+
+launch --rwgt_name=c3_-12.0_d4_-600.0_ymt_173.0
+    set tripcoup 4 -12.0    # c3
+    set quartcoup 6 -600.0   # d4
+
+launch --rwgt_name=c3_-12.0_d4_-400.0_ymt_173.0
+    set tripcoup 4 -12.0    # c3
+    set quartcoup 6 -400.0   # d4
+
+launch --rwgt_name=c3_-12.0_d4_-200.0_ymt_173.0
+    set tripcoup 4 -12.0    # c3
+    set quartcoup 6 -200.0   # d4
+
+launch --rwgt_name=c3_-12.0_d4_0.0_ymt_173.0
+    set tripcoup 4 -12.0    # c3
+    set quartcoup 6 0.0   # d4
+
+launch --rwgt_name=c3_-12.0_d4_200.0_ymt_173.0
+    set tripcoup 4 -12.0    # c3
+    set quartcoup 6 200.0   # d4
+
+launch --rwgt_name=c3_-12.0_d4_400.0_ymt_173.0
+    set tripcoup 4 -12.0    # c3
+    set quartcoup 6 400.0   # d4
+
+launch --rwgt_name=c3_-12.0_d4_600.0_ymt_173.0
+    set tripcoup 4 -12.0    # c3
+    set quartcoup 6 600.0   # d4
+
+launch --rwgt_name=c3_-12.0_d4_800.0_ymt_173.0
+    set tripcoup 4 -12.0    # c3
+    set quartcoup 6 800.0   # d4
+
+launch --rwgt_name=c3_-12.0_d4_1000.0_ymt_173.0
+    set tripcoup 4 -12.0    # c3
+    set quartcoup 6 1000.0   # d4
+
+launch --rwgt_name=c3_-9.0_d4_-1000.0_ymt_173.0
+    set tripcoup 4 -9.0    # c3
+    set quartcoup 6 -1000.0   # d4
+
+launch --rwgt_name=c3_-9.0_d4_-800.0_ymt_173.0
+    set tripcoup 4 -9.0    # c3
+    set quartcoup 6 -800.0   # d4
+
+launch --rwgt_name=c3_-9.0_d4_-600.0_ymt_173.0
+    set tripcoup 4 -9.0    # c3
+    set quartcoup 6 -600.0   # d4
+
+launch --rwgt_name=c3_-9.0_d4_-400.0_ymt_173.0
+    set tripcoup 4 -9.0    # c3
+    set quartcoup 6 -400.0   # d4
+
+launch --rwgt_name=c3_-9.0_d4_-200.0_ymt_173.0
+    set tripcoup 4 -9.0    # c3
+    set quartcoup 6 -200.0   # d4
+
+launch --rwgt_name=c3_-9.0_d4_0.0_ymt_173.0
+    set tripcoup 4 -9.0    # c3
+    set quartcoup 6 0.0   # d4
+
+launch --rwgt_name=c3_-9.0_d4_200.0_ymt_173.0
+    set tripcoup 4 -9.0    # c3
+    set quartcoup 6 200.0   # d4
+
+launch --rwgt_name=c3_-9.0_d4_400.0_ymt_173.0
+    set tripcoup 4 -9.0    # c3
+    set quartcoup 6 400.0   # d4
+
+launch --rwgt_name=c3_-9.0_d4_600.0_ymt_173.0
+    set tripcoup 4 -9.0    # c3
+    set quartcoup 6 600.0   # d4
+
+launch --rwgt_name=c3_-9.0_d4_800.0_ymt_173.0
+    set tripcoup 4 -9.0    # c3
+    set quartcoup 6 800.0   # d4
+
+launch --rwgt_name=c3_-9.0_d4_1000.0_ymt_173.0
+    set tripcoup 4 -9.0    # c3
+    set quartcoup 6 1000.0   # d4
+
+launch --rwgt_name=c3_-6.0_d4_-1000.0_ymt_173.0
+    set tripcoup 4 -6.0    # c3
+    set quartcoup 6 -1000.0   # d4
+
+launch --rwgt_name=c3_-6.0_d4_-800.0_ymt_173.0
+    set tripcoup 4 -6.0    # c3
+    set quartcoup 6 -800.0   # d4
+
+launch --rwgt_name=c3_-6.0_d4_-600.0_ymt_173.0
+    set tripcoup 4 -6.0    # c3
+    set quartcoup 6 -600.0   # d4
+
+launch --rwgt_name=c3_-6.0_d4_-400.0_ymt_173.0
+    set tripcoup 4 -6.0    # c3
+    set quartcoup 6 -400.0   # d4
+
+launch --rwgt_name=c3_-6.0_d4_-200.0_ymt_173.0
+    set tripcoup 4 -6.0    # c3
+    set quartcoup 6 -200.0   # d4
+
+launch --rwgt_name=c3_-6.0_d4_0.0_ymt_173.0
+    set tripcoup 4 -6.0    # c3
+    set quartcoup 6 0.0   # d4
+
+launch --rwgt_name=c3_-6.0_d4_200.0_ymt_173.0
+    set tripcoup 4 -6.0    # c3
+    set quartcoup 6 200.0   # d4
+
+launch --rwgt_name=c3_-6.0_d4_400.0_ymt_173.0
+    set tripcoup 4 -6.0    # c3
+    set quartcoup 6 400.0   # d4
+
+launch --rwgt_name=c3_-6.0_d4_600.0_ymt_173.0
+    set tripcoup 4 -6.0    # c3
+    set quartcoup 6 600.0   # d4
+
+launch --rwgt_name=c3_-6.0_d4_800.0_ymt_173.0
+    set tripcoup 4 -6.0    # c3
+    set quartcoup 6 800.0   # d4
+
+launch --rwgt_name=c3_-6.0_d4_1000.0_ymt_173.0
+    set tripcoup 4 -6.0    # c3
+    set quartcoup 6 1000.0   # d4
+
+launch --rwgt_name=c3_-3.0_d4_-1000.0_ymt_173.0
+    set tripcoup 4 -3.0    # c3
+    set quartcoup 6 -1000.0   # d4
+
+launch --rwgt_name=c3_-3.0_d4_-800.0_ymt_173.0
+    set tripcoup 4 -3.0    # c3
+    set quartcoup 6 -800.0   # d4
+
+launch --rwgt_name=c3_-3.0_d4_-600.0_ymt_173.0
+    set tripcoup 4 -3.0    # c3
+    set quartcoup 6 -600.0   # d4
+
+launch --rwgt_name=c3_-3.0_d4_-400.0_ymt_173.0
+    set tripcoup 4 -3.0    # c3
+    set quartcoup 6 -400.0   # d4
+
+launch --rwgt_name=c3_-3.0_d4_-200.0_ymt_173.0
+    set tripcoup 4 -3.0    # c3
+    set quartcoup 6 -200.0   # d4
+
+launch --rwgt_name=c3_-3.0_d4_0.0_ymt_173.0
+    set tripcoup 4 -3.0    # c3
+    set quartcoup 6 0.0   # d4
+
+launch --rwgt_name=c3_-3.0_d4_200.0_ymt_173.0
+    set tripcoup 4 -3.0    # c3
+    set quartcoup 6 200.0   # d4
+
+launch --rwgt_name=c3_-3.0_d4_400.0_ymt_173.0
+    set tripcoup 4 -3.0    # c3
+    set quartcoup 6 400.0   # d4
+
+launch --rwgt_name=c3_-3.0_d4_600.0_ymt_173.0
+    set tripcoup 4 -3.0    # c3
+    set quartcoup 6 600.0   # d4
+
+launch --rwgt_name=c3_-3.0_d4_800.0_ymt_173.0
+    set tripcoup 4 -3.0    # c3
+    set quartcoup 6 800.0   # d4
+
+launch --rwgt_name=c3_-3.0_d4_1000.0_ymt_173.0
+    set tripcoup 4 -3.0    # c3
+    set quartcoup 6 1000.0   # d4
+
+launch --rwgt_name=c3_0.0_d4_-1000.0_ymt_173.0
+    set tripcoup 4 0.0    # c3
+    set quartcoup 6 -1000.0   # d4
+
+launch --rwgt_name=c3_0.0_d4_-800.0_ymt_173.0
+    set tripcoup 4 0.0    # c3
+    set quartcoup 6 -800.0   # d4
+
+launch --rwgt_name=c3_0.0_d4_-600.0_ymt_173.0
+    set tripcoup 4 0.0    # c3
+    set quartcoup 6 -600.0   # d4
+
+launch --rwgt_name=c3_0.0_d4_-400.0_ymt_173.0
+    set tripcoup 4 0.0    # c3
+    set quartcoup 6 -400.0   # d4
+
+launch --rwgt_name=c3_0.0_d4_-200.0_ymt_173.0
+    set tripcoup 4 0.0    # c3
+    set quartcoup 6 -200.0   # d4
+
+launch --rwgt_name=c3_0.0_d4_200.0_ymt_173.0
+    set tripcoup 4 0.0    # c3
+    set quartcoup 6 200.0   # d4
+
+launch --rwgt_name=c3_0.0_d4_400.0_ymt_173.0
+    set tripcoup 4 0.0    # c3
+    set quartcoup 6 400.0   # d4
+
+launch --rwgt_name=c3_0.0_d4_600.0_ymt_173.0
+    set tripcoup 4 0.0    # c3
+    set quartcoup 6 600.0   # d4
+
+launch --rwgt_name=c3_0.0_d4_800.0_ymt_173.0
+    set tripcoup 4 0.0    # c3
+    set quartcoup 6 800.0   # d4
+
+launch --rwgt_name=c3_0.0_d4_1000.0_ymt_173.0
+    set tripcoup 4 0.0    # c3
+    set quartcoup 6 1000.0   # d4
+
+launch --rwgt_name=c3_3.0_d4_-1000.0_ymt_173.0
+    set tripcoup 4 3.0    # c3
+    set quartcoup 6 -1000.0   # d4
+
+launch --rwgt_name=c3_3.0_d4_-800.0_ymt_173.0
+    set tripcoup 4 3.0    # c3
+    set quartcoup 6 -800.0   # d4
+
+launch --rwgt_name=c3_3.0_d4_-600.0_ymt_173.0
+    set tripcoup 4 3.0    # c3
+    set quartcoup 6 -600.0   # d4
+
+launch --rwgt_name=c3_3.0_d4_-400.0_ymt_173.0
+    set tripcoup 4 3.0    # c3
+    set quartcoup 6 -400.0   # d4
+
+launch --rwgt_name=c3_3.0_d4_-200.0_ymt_173.0
+    set tripcoup 4 3.0    # c3
+    set quartcoup 6 -200.0   # d4
+
+launch --rwgt_name=c3_3.0_d4_0.0_ymt_173.0
+    set tripcoup 4 3.0    # c3
+    set quartcoup 6 0.0   # d4
+
+launch --rwgt_name=c3_3.0_d4_200.0_ymt_173.0
+    set tripcoup 4 3.0    # c3
+    set quartcoup 6 200.0   # d4
+
+launch --rwgt_name=c3_3.0_d4_400.0_ymt_173.0
+    set tripcoup 4 3.0    # c3
+    set quartcoup 6 400.0   # d4
+
+launch --rwgt_name=c3_3.0_d4_600.0_ymt_173.0
+    set tripcoup 4 3.0    # c3
+    set quartcoup 6 600.0   # d4
+
+launch --rwgt_name=c3_3.0_d4_800.0_ymt_173.0
+    set tripcoup 4 3.0    # c3
+    set quartcoup 6 800.0   # d4
+
+launch --rwgt_name=c3_3.0_d4_1000.0_ymt_173.0
+    set tripcoup 4 3.0    # c3
+    set quartcoup 6 1000.0   # d4
+
+launch --rwgt_name=c3_6.0_d4_-1000.0_ymt_173.0
+    set tripcoup 4 6.0    # c3
+    set quartcoup 6 -1000.0   # d4
+
+launch --rwgt_name=c3_6.0_d4_-800.0_ymt_173.0
+    set tripcoup 4 6.0    # c3
+    set quartcoup 6 -800.0   # d4
+
+launch --rwgt_name=c3_6.0_d4_-600.0_ymt_173.0
+    set tripcoup 4 6.0    # c3
+    set quartcoup 6 -600.0   # d4
+
+launch --rwgt_name=c3_6.0_d4_-400.0_ymt_173.0
+    set tripcoup 4 6.0    # c3
+    set quartcoup 6 -400.0   # d4
+
+launch --rwgt_name=c3_6.0_d4_-200.0_ymt_173.0
+    set tripcoup 4 6.0    # c3
+    set quartcoup 6 -200.0   # d4
+
+launch --rwgt_name=c3_6.0_d4_0.0_ymt_173.0
+    set tripcoup 4 6.0    # c3
+    set quartcoup 6 0.0   # d4
+
+launch --rwgt_name=c3_6.0_d4_200.0_ymt_173.0
+    set tripcoup 4 6.0    # c3
+    set quartcoup 6 200.0   # d4
+
+launch --rwgt_name=c3_6.0_d4_400.0_ymt_173.0
+    set tripcoup 4 6.0    # c3
+    set quartcoup 6 400.0   # d4
+
+launch --rwgt_name=c3_6.0_d4_600.0_ymt_173.0
+    set tripcoup 4 6.0    # c3
+    set quartcoup 6 600.0   # d4
+
+launch --rwgt_name=c3_6.0_d4_800.0_ymt_173.0
+    set tripcoup 4 6.0    # c3
+    set quartcoup 6 800.0   # d4
+
+launch --rwgt_name=c3_6.0_d4_1000.0_ymt_173.0
+    set tripcoup 4 6.0    # c3
+    set quartcoup 6 1000.0   # d4
+
+launch --rwgt_name=c3_9.0_d4_-1000.0_ymt_173.0
+    set tripcoup 4 9.0    # c3
+    set quartcoup 6 -1000.0   # d4
+
+launch --rwgt_name=c3_9.0_d4_-800.0_ymt_173.0
+    set tripcoup 4 9.0    # c3
+    set quartcoup 6 -800.0   # d4
+
+launch --rwgt_name=c3_9.0_d4_-600.0_ymt_173.0
+    set tripcoup 4 9.0    # c3
+    set quartcoup 6 -600.0   # d4
+
+launch --rwgt_name=c3_9.0_d4_-400.0_ymt_173.0
+    set tripcoup 4 9.0    # c3
+    set quartcoup 6 -400.0   # d4
+
+launch --rwgt_name=c3_9.0_d4_-200.0_ymt_173.0
+    set tripcoup 4 9.0    # c3
+    set quartcoup 6 -200.0   # d4
+
+launch --rwgt_name=c3_9.0_d4_0.0_ymt_173.0
+    set tripcoup 4 9.0    # c3
+    set quartcoup 6 0.0   # d4
+
+launch --rwgt_name=c3_9.0_d4_200.0_ymt_173.0
+    set tripcoup 4 9.0    # c3
+    set quartcoup 6 200.0   # d4
+
+launch --rwgt_name=c3_9.0_d4_400.0_ymt_173.0
+    set tripcoup 4 9.0    # c3
+    set quartcoup 6 400.0   # d4
+
+launch --rwgt_name=c3_9.0_d4_600.0_ymt_173.0
+    set tripcoup 4 9.0    # c3
+    set quartcoup 6 600.0   # d4
+
+launch --rwgt_name=c3_9.0_d4_800.0_ymt_173.0
+    set tripcoup 4 9.0    # c3
+    set quartcoup 6 800.0   # d4
+
+launch --rwgt_name=c3_9.0_d4_1000.0_ymt_173.0
+    set tripcoup 4 9.0    # c3
+    set quartcoup 6 1000.0   # d4
+
+launch --rwgt_name=c3_12.0_d4_-1000.0_ymt_173.0
+    set tripcoup 4 12.0    # c3
+    set quartcoup 6 -1000.0   # d4
+
+launch --rwgt_name=c3_12.0_d4_-800.0_ymt_173.0
+    set tripcoup 4 12.0    # c3
+    set quartcoup 6 -800.0   # d4
+
+launch --rwgt_name=c3_12.0_d4_-600.0_ymt_173.0
+    set tripcoup 4 12.0    # c3
+    set quartcoup 6 -600.0   # d4
+
+launch --rwgt_name=c3_12.0_d4_-400.0_ymt_173.0
+    set tripcoup 4 12.0    # c3
+    set quartcoup 6 -400.0   # d4
+
+launch --rwgt_name=c3_12.0_d4_-200.0_ymt_173.0
+    set tripcoup 4 12.0    # c3
+    set quartcoup 6 -200.0   # d4
+
+launch --rwgt_name=c3_12.0_d4_0.0_ymt_173.0
+    set tripcoup 4 12.0    # c3
+    set quartcoup 6 0.0   # d4
+
+launch --rwgt_name=c3_12.0_d4_200.0_ymt_173.0
+    set tripcoup 4 12.0    # c3
+    set quartcoup 6 200.0   # d4
+
+launch --rwgt_name=c3_12.0_d4_400.0_ymt_173.0
+    set tripcoup 4 12.0    # c3
+    set quartcoup 6 400.0   # d4
+
+launch --rwgt_name=c3_12.0_d4_600.0_ymt_173.0
+    set tripcoup 4 12.0    # c3
+    set quartcoup 6 600.0   # d4
+
+launch --rwgt_name=c3_12.0_d4_800.0_ymt_173.0
+    set tripcoup 4 12.0    # c3
+    set quartcoup 6 800.0   # d4
+
+launch --rwgt_name=c3_12.0_d4_1000.0_ymt_173.0
+    set tripcoup 4 12.0    # c3
+    set quartcoup 6 1000.0   # d4
+
+launch --rwgt_name=c3_15.0_d4_-1000.0_ymt_173.0
+    set tripcoup 4 15.0    # c3
+    set quartcoup 6 -1000.0   # d4
+
+launch --rwgt_name=c3_15.0_d4_-800.0_ymt_173.0
+    set tripcoup 4 15.0    # c3
+    set quartcoup 6 -800.0   # d4
+
+launch --rwgt_name=c3_15.0_d4_-600.0_ymt_173.0
+    set tripcoup 4 15.0    # c3
+    set quartcoup 6 -600.0   # d4
+
+launch --rwgt_name=c3_15.0_d4_-400.0_ymt_173.0
+    set tripcoup 4 15.0    # c3
+    set quartcoup 6 -400.0   # d4
+
+launch --rwgt_name=c3_15.0_d4_-200.0_ymt_173.0
+    set tripcoup 4 15.0    # c3
+    set quartcoup 6 -200.0   # d4
+
+launch --rwgt_name=c3_15.0_d4_0.0_ymt_173.0
+    set tripcoup 4 15.0    # c3
+    set quartcoup 6 0.0   # d4
+
+launch --rwgt_name=c3_15.0_d4_200.0_ymt_173.0
+    set tripcoup 4 15.0    # c3
+    set quartcoup 6 200.0   # d4
+
+launch --rwgt_name=c3_15.0_d4_400.0_ymt_173.0
+    set tripcoup 4 15.0    # c3
+    set quartcoup 6 400.0   # d4
+
+launch --rwgt_name=c3_15.0_d4_600.0_ymt_173.0
+    set tripcoup 4 15.0    # c3
+    set quartcoup 6 600.0   # d4
+
+launch --rwgt_name=c3_15.0_d4_800.0_ymt_173.0
+    set tripcoup 4 15.0    # c3
+    set quartcoup 6 800.0   # d4
+
+launch --rwgt_name=c3_15.0_d4_1000.0_ymt_173.0
+    set tripcoup 4 15.0    # c3
+    set quartcoup 6 1000.0   # d4
+
+launch --rwgt_name=c3_18.0_d4_-1000.0_ymt_173.0
+    set tripcoup 4 18.0    # c3
+    set quartcoup 6 -1000.0   # d4
+
+launch --rwgt_name=c3_18.0_d4_-800.0_ymt_173.0
+    set tripcoup 4 18.0    # c3
+    set quartcoup 6 -800.0   # d4
+
+launch --rwgt_name=c3_18.0_d4_-600.0_ymt_173.0
+    set tripcoup 4 18.0    # c3
+    set quartcoup 6 -600.0   # d4
+
+launch --rwgt_name=c3_18.0_d4_-400.0_ymt_173.0
+    set tripcoup 4 18.0    # c3
+    set quartcoup 6 -400.0   # d4
+
+launch --rwgt_name=c3_18.0_d4_-200.0_ymt_173.0
+    set tripcoup 4 18.0    # c3
+    set quartcoup 6 -200.0   # d4
+
+launch --rwgt_name=c3_18.0_d4_0.0_ymt_173.0
+    set tripcoup 4 18.0    # c3
+    set quartcoup 6 0.0   # d4
+
+launch --rwgt_name=c3_18.0_d4_200.0_ymt_173.0
+    set tripcoup 4 18.0    # c3
+    set quartcoup 6 200.0   # d4
+
+launch --rwgt_name=c3_18.0_d4_400.0_ymt_173.0
+    set tripcoup 4 18.0    # c3
+    set quartcoup 6 400.0   # d4
+
+launch --rwgt_name=c3_18.0_d4_600.0_ymt_173.0
+    set tripcoup 4 18.0    # c3
+    set quartcoup 6 600.0   # d4
+
+launch --rwgt_name=c3_18.0_d4_800.0_ymt_173.0
+    set tripcoup 4 18.0    # c3
+    set quartcoup 6 800.0   # d4
+
+launch --rwgt_name=c3_18.0_d4_1000.0_ymt_173.0
+    set tripcoup 4 18.0    # c3
+    set quartcoup 6 1000.0   # d4
+
+launch --rwgt_name=c3_21.0_d4_-1000.0_ymt_173.0
+    set tripcoup 4 21.0    # c3
+    set quartcoup 6 -1000.0   # d4
+
+launch --rwgt_name=c3_21.0_d4_-800.0_ymt_173.0
+    set tripcoup 4 21.0    # c3
+    set quartcoup 6 -800.0   # d4
+
+launch --rwgt_name=c3_21.0_d4_-600.0_ymt_173.0
+    set tripcoup 4 21.0    # c3
+    set quartcoup 6 -600.0   # d4
+
+launch --rwgt_name=c3_21.0_d4_-400.0_ymt_173.0
+    set tripcoup 4 21.0    # c3
+    set quartcoup 6 -400.0   # d4
+
+launch --rwgt_name=c3_21.0_d4_-200.0_ymt_173.0
+    set tripcoup 4 21.0    # c3
+    set quartcoup 6 -200.0   # d4
+
+launch --rwgt_name=c3_21.0_d4_0.0_ymt_173.0
+    set tripcoup 4 21.0    # c3
+    set quartcoup 6 0.0   # d4
+
+launch --rwgt_name=c3_21.0_d4_200.0_ymt_173.0
+    set tripcoup 4 21.0    # c3
+    set quartcoup 6 200.0   # d4
+
+launch --rwgt_name=c3_21.0_d4_400.0_ymt_173.0
+    set tripcoup 4 21.0    # c3
+    set quartcoup 6 400.0   # d4
+
+launch --rwgt_name=c3_21.0_d4_600.0_ymt_173.0
+    set tripcoup 4 21.0    # c3
+    set quartcoup 6 600.0   # d4
+
+launch --rwgt_name=c3_21.0_d4_800.0_ymt_173.0
+    set tripcoup 4 21.0    # c3
+    set quartcoup 6 800.0   # d4
+
+launch --rwgt_name=c3_21.0_d4_1000.0_ymt_173.0
+    set tripcoup 4 21.0    # c3
+    set quartcoup 6 1000.0   # d4
+
+launch --rwgt_name=c3_24.0_d4_-1000.0_ymt_173.0
+    set tripcoup 4 24.0    # c3
+    set quartcoup 6 -1000.0   # d4
+
+launch --rwgt_name=c3_24.0_d4_-800.0_ymt_173.0
+    set tripcoup 4 24.0    # c3
+    set quartcoup 6 -800.0   # d4
+
+launch --rwgt_name=c3_24.0_d4_-600.0_ymt_173.0
+    set tripcoup 4 24.0    # c3
+    set quartcoup 6 -600.0   # d4
+
+launch --rwgt_name=c3_24.0_d4_-400.0_ymt_173.0
+    set tripcoup 4 24.0    # c3
+    set quartcoup 6 -400.0   # d4
+
+launch --rwgt_name=c3_24.0_d4_-200.0_ymt_173.0
+    set tripcoup 4 24.0    # c3
+    set quartcoup 6 -200.0   # d4
+
+launch --rwgt_name=c3_24.0_d4_0.0_ymt_173.0
+    set tripcoup 4 24.0    # c3
+    set quartcoup 6 0.0   # d4
+
+launch --rwgt_name=c3_24.0_d4_200.0_ymt_173.0
+    set tripcoup 4 24.0    # c3
+    set quartcoup 6 200.0   # d4
+
+launch --rwgt_name=c3_24.0_d4_400.0_ymt_173.0
+    set tripcoup 4 24.0    # c3
+    set quartcoup 6 400.0   # d4
+
+launch --rwgt_name=c3_24.0_d4_600.0_ymt_173.0
+    set tripcoup 4 24.0    # c3
+    set quartcoup 6 600.0   # d4
+
+launch --rwgt_name=c3_24.0_d4_800.0_ymt_173.0
+    set tripcoup 4 24.0    # c3
+    set quartcoup 6 800.0   # d4
+
+launch --rwgt_name=c3_24.0_d4_1000.0_ymt_173.0
+    set tripcoup 4 24.0    # c3
+    set quartcoup 6 1000.0   # d4
+
+launch --rwgt_name=c3_27.0_d4_-1000.0_ymt_173.0
+    set tripcoup 4 27.0    # c3
+    set quartcoup 6 -1000.0   # d4
+
+launch --rwgt_name=c3_27.0_d4_-800.0_ymt_173.0
+    set tripcoup 4 27.0    # c3
+    set quartcoup 6 -800.0   # d4
+
+launch --rwgt_name=c3_27.0_d4_-600.0_ymt_173.0
+    set tripcoup 4 27.0    # c3
+    set quartcoup 6 -600.0   # d4
+
+launch --rwgt_name=c3_27.0_d4_-400.0_ymt_173.0
+    set tripcoup 4 27.0    # c3
+    set quartcoup 6 -400.0   # d4
+
+launch --rwgt_name=c3_27.0_d4_-200.0_ymt_173.0
+    set tripcoup 4 27.0    # c3
+    set quartcoup 6 -200.0   # d4
+
+launch --rwgt_name=c3_27.0_d4_0.0_ymt_173.0
+    set tripcoup 4 27.0    # c3
+    set quartcoup 6 0.0   # d4
+
+launch --rwgt_name=c3_27.0_d4_200.0_ymt_173.0
+    set tripcoup 4 27.0    # c3
+    set quartcoup 6 200.0   # d4
+
+launch --rwgt_name=c3_27.0_d4_400.0_ymt_173.0
+    set tripcoup 4 27.0    # c3
+    set quartcoup 6 400.0   # d4
+
+launch --rwgt_name=c3_27.0_d4_600.0_ymt_173.0
+    set tripcoup 4 27.0    # c3
+    set quartcoup 6 600.0   # d4
+
+launch --rwgt_name=c3_27.0_d4_800.0_ymt_173.0
+    set tripcoup 4 27.0    # c3
+    set quartcoup 6 800.0   # d4
+
+launch --rwgt_name=c3_27.0_d4_1000.0_ymt_173.0
+    set tripcoup 4 27.0    # c3
+    set quartcoup 6 1000.0   # d4
+
+launch --rwgt_name=c3_30.0_d4_-1000.0_ymt_173.0
+    set tripcoup 4 30.0    # c3
+    set quartcoup 6 -1000.0   # d4
+
+launch --rwgt_name=c3_30.0_d4_-800.0_ymt_173.0
+    set tripcoup 4 30.0    # c3
+    set quartcoup 6 -800.0   # d4
+
+launch --rwgt_name=c3_30.0_d4_-600.0_ymt_173.0
+    set tripcoup 4 30.0    # c3
+    set quartcoup 6 -600.0   # d4
+
+launch --rwgt_name=c3_30.0_d4_-400.0_ymt_173.0
+    set tripcoup 4 30.0    # c3
+    set quartcoup 6 -400.0   # d4
+
+launch --rwgt_name=c3_30.0_d4_-200.0_ymt_173.0
+    set tripcoup 4 30.0    # c3
+    set quartcoup 6 -200.0   # d4
+
+launch --rwgt_name=c3_30.0_d4_0.0_ymt_173.0
+    set tripcoup 4 30.0    # c3
+    set quartcoup 6 0.0   # d4
+
+launch --rwgt_name=c3_30.0_d4_200.0_ymt_173.0
+    set tripcoup 4 30.0    # c3
+    set quartcoup 6 200.0   # d4
+
+launch --rwgt_name=c3_30.0_d4_400.0_ymt_173.0
+    set tripcoup 4 30.0    # c3
+    set quartcoup 6 400.0   # d4
+
+launch --rwgt_name=c3_30.0_d4_600.0_ymt_173.0
+    set tripcoup 4 30.0    # c3
+    set quartcoup 6 600.0   # d4
+
+launch --rwgt_name=c3_30.0_d4_800.0_ymt_173.0
+    set tripcoup 4 30.0    # c3
+    set quartcoup 6 800.0   # d4
+
+launch --rwgt_name=c3_30.0_d4_1000.0_ymt_173.0
+    set tripcoup 4 30.0    # c3
+    set quartcoup 6 1000.0   # d4
