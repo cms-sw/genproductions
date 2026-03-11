@@ -70,4 +70,3 @@ pdfreweight 1       ! PDF reweighting
 dampreweight 1      ! h_damp reweighting (mt/2, mt, mt*2)
 storeinfo_rwgt 1    ! store weight information
 withnegweights 1    ! default 0,
-
